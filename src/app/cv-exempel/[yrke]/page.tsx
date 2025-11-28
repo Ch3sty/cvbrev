@@ -6145,6 +6145,280 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
     ]
   },
 
+  'projektledare': {
+    yrke: 'Projektledare',
+    sokvolym: 2100,
+    metaTitle: 'CV Exempel Projektledare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett professionellt CV exempel för projektledare med kvantifierbara resultat, agila metoder och IT-fokus. Inklusive PRINCE2, Scrum och budget management.',
+
+    seoIntro: `Ett starkt CV för projektledare ska omedelbart visa din förmåga att leverera projekt i tid, inom budget och med mätbara resultat. Detta CV-exempel demonstrerar hur du strukturerar din erfarenhet för att övertyga både rekryterare och ATS-system om din kompetens inom projektledning.
+
+Projektledarrollen är en av de mest eftertraktade inom IT och förändringsarbete, med över 2 000 sökningar per månad på "cv projektledare". Arbetsgivare söker kandidater som kan kombinera teknisk förståelse med ledarskap, kommunikation och affärsmässigt tänkande. Certifieringar som PRINCE2, Scrum Master och PMP värderas högt, men utan kvantifierade resultat riskerar ditt CV att drunkna bland hundratals ansökningar.
+
+Detta exempel visar hur en senior projektledare med 10+ års erfarenhet strukturerar sitt CV för att framhäva progression från teknisk roll till strategisk projektledning. Observera hur varje arbetserfarenhet innehåller konkreta siffror (budget i MSEK, teamstorlek, leveransprecision) och hur kompetensavsnittet balanserar metodiker (Agile, PRINCE2) med verktyg (Jira, MS Project) och mjuka färdigheter.`,
+
+    intro: 'Professionellt CV-exempel för projektledare inom IT och digitalisering. Visar hur du presenterar kvantifierbara projektresultat, certifieringar (PMP, PRINCE2, Scrum Master) och progression från teknisk roll till strategisk projektledning. ATS-optimerat med rätt nyckelord för svenska arbetsgivare.',
+
+    exempelCV: {
+      namn: 'Sara Lindström',
+      titel: 'Senior Projektledare med 10+ års erfarenhet inom IT och digitalisering',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'sara.lindstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/saralindstrom'
+      },
+      profil: 'Erfaren projektledare med över 10 års erfarenhet av att driva komplexa IT-projekt från koncept till leverans. Specialist på agila metoder och digitala transformationsprojekt med gedigen track record av att leverera projekt i tid, inom budget och med högt affärsvärde. Certifierad inom PRINCE2 och Scrum Master med bevisad förmåga att leda tvärfunktionella team om upp till 25 personer. Driven av att skapa struktur i komplexitet och bygga starka relationer med både interna och externa stakeholders.',
+      erfarenhet: [
+        {
+          titel: 'Senior Projektledare',
+          arbetsgivare: 'TechNova AB',
+          period: '2020 – Nuvarande',
+          beskrivning: [
+            'Leder strategiska digitaliseringsprojekt med budgetar på 15-40 MSEK och team om 15-25 personer från IT, verksamhet och externa leverantörer',
+            'Implementerade ny projektmetodik baserad på SAFe som minskade time-to-market med 35% och förbättrade projektleveransprecision från 67% till 92%',
+            'Levererade företagets största CRM-implementation (28 MSEK) 3 veckor före deadline och 8% under budget genom proaktiv riskhantering',
+            'Ansvarig för stakeholder management gentemot C-level och externa partners, resulterade i 95% stakeholder satisfaction score',
+            'Mentor för 4 junior projektledare som alla befordrats till projektledarroller inom 18 månader'
+          ]
+        },
+        {
+          titel: 'Projektledare',
+          arbetsgivare: 'Digital Solutions Sweden',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Drev 8-12 parallella IT-projekt med budgetar på 2-12 MSEK inom e-handel, webb och mobilapplikationer',
+            'Införde Scrum och Agile across 5 utvecklingsteam vilket förbättrade velocity med 40% och minskade buggar i produktion med 55%',
+            'Projektledare för företagets första cloud migration (AWS) som minskade infrastrukturkostnader med 2,3 MSEK/år',
+            'Utvecklade projektmallar och best practices som blev standard för hela organisationen (45 projektledare)',
+            'Uppnådde 89% on-time delivery rate över 3 år, jämfört med branschsnitt på 64%'
+          ]
+        },
+        {
+          titel: 'IT-Konsult / Junior Projektledare',
+          arbetsgivare: 'Consult Partner Group',
+          period: '2014 – 2017',
+          beskrivning: [
+            'Arbetade som systemutvecklare och övergick gradvis till projektledande roller inom kundprojekt',
+            'Assisterade senior projektledare i projekt med budgetar på 5-20 MSEK inom finans och telekom',
+            'Ansvarade för sprint planning, daily standups och retrospectives för team om 6-10 utvecklare',
+            'Koordinerade releasehantering och deployment för 15+ applikationer med 99,7% uptime'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Civilingenjör, Datateknik',
+          skola: 'Kungliga Tekniska Högskolan (KTH)',
+          period: '2009 – 2014',
+          beskrivning: 'Specialisering inom mjukvaruutveckling och systemarkitektur. Examensarbete om agila metoder i storskaliga projekt.'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Agile & Scrum (Expert, 8+ år)',
+          'PRINCE2 & SAFe (Avancerad, 6+ år)',
+          'Jira & Confluence (Expert, 9+ år)',
+          'MS Project & Excel',
+          'Stakeholder Management',
+          'Budget- och resursplanering',
+          'Riskhantering',
+          'Change Management'
+        ],
+        personliga: [
+          'Strategiskt tänkande (levererat 95% av projekt enligt business case ROI)',
+          'Kommunikation (hanterat stakeholders från utvecklare till VD-nivå)',
+          'Problemlösning (räddat 3 kritiska projekt från eskalering)',
+          'Ledarskap (byggt och lett högpresterande team om upp till 25 personer)',
+          'Anpassningsbarhet (navigerat framgångsrikt genom 2 organisationsförändringar)'
+        ]
+      },
+      certifieringar: [
+        'PRINCE2 Practitioner (2023)',
+        'Certified Scrum Master, Scrum Alliance (2021)',
+        'SAFe 5 Agilist (2022)',
+        'PRINCE2 Foundation (2016)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera ALLA resultat - Budget i MSEK, teamstorlek, leveransprecision i procent, tidsbesparingar och kostnadsreduktioner är avgörande för projektledar-CV',
+      'Visa metodikkompetens - Arbetsgivare söker specifika certifieringar (PRINCE2, Scrum Master, SAFe, PMP) och bevisad erfarenhet av agila vs vattenfallsmetoder',
+      'Bevisa stakeholder management - Projektledare är nav mellan teknik och business; visa att du hanterat C-level, externa partners och tvärfunktionella team'
+    ],
+
+    statistik: [
+      {
+        siffra: '89%',
+        text: 'av rekryterare kräver kvantifierade projektresultat – budget, teamstorlek och leveransprecision'
+      },
+      {
+        siffra: '65%',
+        text: 'högre chans till intervju med certifieringar som PRINCE2, Scrum Master eller PMP'
+      },
+      {
+        siffra: '2 100',
+        text: 'söker efter "cv projektledare" varje månad – hög konkurrens kräver optimerat CV'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad med projektledartermer',
+        text: `CV:t innehåller nyckelord som rekryteringssystem söker efter: Agile, Scrum, PRINCE2, Stakeholder Management, Jira, MS Project och Risk Management. Certifieringar som PMP och Scrum Master nämns tydligt.
+
+Varför detta fungerar: ATS-system rankar projektledare efter metodiktermer och verktyg. Genom att inkludera både traditionella (PRINCE2, Waterfall) och agila metoder (Scrum, Kanban) täcker CV:t bred kompetens. Rekryterare ser direkt vilken typ av projekt du kan leda utan att behöva gissa.`
+      },
+      {
+        rubrik: 'Kvantifierade projektresultat som bevisar förmåga',
+        text: `Varje projekt beskrivs med konkreta mätetal: projektbudget (15-40 MSEK), teamstorlek (15-25 personer), leverans i tid och budget (92% on-time delivery), samt ROI eller kostnadsbesparingar.
+
+Varför detta fungerar: Projektledare bedöms på leveransförmåga, inte bara erfarenhet. När du skriver "Levererade CRM-implementation på 28 MSEK, 3 veckor före deadline, 8% under budget" ger du rekryteraren exakt det bevis de behöver. Siffror visar att du kan hantera ansvar och leverera resultat.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk och ledarskapsroll',
+        text: `CV:t visar både teknisk förståelse (systemintegration, cloud migration, API) och mjuka färdigheter med konkreta exempel: "Mentor för 4 junior projektledare" och "Hanterat stakeholders från utvecklare till VD-nivå".
+
+Varför detta fungerar: Företag söker projektledare som kan prata både med utvecklare och VD. Genom att visa teknisk kompetens OCH stakeholder management bevisar du att du kan bygga broar mellan IT och business. Rekryterare ser att du förstår helheten.`
+      },
+      {
+        rubrik: 'Certifieringar presenterade strategiskt',
+        text: `Certifieringar (PRINCE2 Practitioner, Scrum Master, SAFe 5 Agilist) listas med årtal och visas redan i profiltext. Löpande kompetensutveckling betonas genom nyligen genomförda certifieringar.
+
+Varför detta fungerar: Certifieringar är ofta hårda krav i projektledarroller. Genom att lyfta dem tidigt och inkludera årtal visar du att kunskapen är aktuell. En PRINCE2 Practitioner från 2023 säger mer än en från 2015. Rekryterare söker ofta specifikt efter certifieringar i CV:n.`
+      },
+      {
+        rubrik: 'Profiltext som säljer erfarenhet direkt',
+        text: `Profiltexten sammanfattar 10+ års erfarenhet, specialisering (IT/digitalisering), certifieringar och konkret styrka: "Track record av att leverera projekt i tid, inom budget och med högt affärsvärde".
+
+Varför detta fungerar: Rekryterare läser profiltext först och bestämmer på 10 sekunder om de läser vidare. Genom att nämna bransch, metodiker och leveransförmåga direkt fångar du intresse. En tydlig profiltext fungerar som din elevator pitch på papper.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression mot ledarskap',
+        text: `CV:t visar utveckling från IT-Konsult (2014) → Projektledare (2017) → Senior Projektledare (2020). Varje steg visar ökad budgetansvar (från 5-20 MSEK till 15-40 MSEK), teamstorlek och komplexitet.
+
+Varför detta fungerar: Arbetsgivare vill se att du utvecklats organiskt, inte bara bytt titlar. Progression från teknisk roll till strategisk projektledning bevisar att du förstår arbetet "på golvet" och kan leda med trovärdighet. Rekryterare ser att du är redo för nästa steg.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera varje projektresultat',
+        text: `Projektledare bedöms på leveransförmåga. Vaga beskrivningar som "ansvarig för stora projekt" säger inget om din faktiska prestation.
+
+**Exempel på före/efter**:
+
+❌ "Ledde digitalisering av kundportal"
+
+✅ "Ledde digitalisering av kundportal (budget 28 MSEK, team på 15 personer). Levererade 2 månader före deadline, 12% under budget. Resulterade i 40% minskat antal supportärenden."
+
+Inkludera alltid: projektbudget, teamstorlek, tidsram och mätbart resultat (ROI, kostnadsbesparingar, effektivitetsvinster).`
+      },
+      {
+        rubrik: 'Specificera projektmetodik och verktyg',
+        text: `Rekryterare och ATS-system söker efter specifika metoder och verktyg. "Projektledning" är för vagt – visa VILKEN typ av projekt du kan leda.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren projektledare med god kunskap i moderna metoder"
+
+✅ "Certifierad Scrum Master med erfarenhet av att leda agila utvecklingsprojekt i Jira. Parallell erfarenhet av PRINCE2-styrda infrastrukturprojekt i MS Project."
+
+Nämn alltid metodik (Agile/Scrum/Kanban/PRINCE2/Waterfall) och verktyg (Jira, MS Project, Confluence, Azure DevOps).`
+      },
+      {
+        rubrik: 'Visa stakeholder management konkret',
+        text: `Mjuka färdigheter som "kommunikation" betyder inget utan bevis. Projektledare måste hantera många intressenter – visa HUR du gjort det.
+
+**Exempel på före/efter**:
+
+❌ "Stark kommunikationsförmåga och god samarbetspartner"
+
+✅ "Hanterade styrgrupprapportering till C-level (CFO, CIO) med månatliga statusrapporter. Ledde förändringsledning för 250 slutanvändare genom workshops och utbildningar."
+
+Specificera VEM du kommunicerat med (styrelse, C-level, användare, leverantörer) och HUR.`
+      },
+      {
+        rubrik: 'Placera certifieringar strategiskt',
+        text: `Certifieringar är ofta hårda krav för projektledarroller. Gömmer du dem längst ner kan ditt CV sorteras bort innan rekryteraren ser dem.
+
+**Exempel på före/efter**:
+
+❌ "Utbildning: Diverse kurser inom projektledning (2018-2023)"
+
+✅ "Certifieringar: PMP (Project Management Professional), PMI – 2023 | Certified Scrum Master (CSM), Scrum Alliance – 2022 | PRINCE2 Practitioner – 2020"
+
+Lyft certifieringar i egen sektion direkt efter profiltext eller erfarenhet. Inkludera årtal för att visa att kunskapen är aktuell.`
+      },
+      {
+        rubrik: 'Beskriv projektets komplexitet och omfattning',
+        text: `Två projektledare kan ha "5 års erfarenhet", men ena har lett 10-personersprojekt medan andra hanterat 50-personersprogram. Visa omfattning och komplexitet.
+
+**Exempel på före/efter**:
+
+❌ "Projektledare för systemuppgradering på företaget"
+
+✅ "Lead Project Manager för SAP S/4HANA-migration omfattande 8 europeiska länder, 1 200 användare, 15 integrerade system. Koordinerade 4 parallella delprojekt med total budget på 85 MSEK."
+
+Inkludera: geografisk spridning, antal system/integrationer, parallella delprojekt, antal stakeholders.`
+      },
+      {
+        rubrik: 'Balansera teknisk och ledarskapsroll',
+        text: `Projektledare som kommer från teknisk bakgrund måste visa båda sidor. För mycket teknik = "inte redo för ledning". För lite = "förstår inte arbetet".
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för API-integration, microservices-arkitektur och CI/CD-pipelines"
+
+✅ "Ledde tekniskt team på 12 utvecklare genom API-integration och microservices-migration. Översatte tekniska utmaningar till affärsrisker för styrgrupp."
+
+Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risker, beslut och kommunikation.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som projektledare vara?',
+        svar: 'För projektledare med 8-10 års erfarenhet är 2 sidor standard. Första sidan: profiltext, kärnkompetenser, certifieringar och 2-3 senaste/mest relevanta projekt. Andra sidan: övrig erfarenhet och utbildning. Prioritera kvalitet över kvantitet – välj projekt som visar progression, olika branscher eller ökad komplexitet. Äldre projekt (10+ år) kan sammanfattas kortare eller exkluderas om de inte tillför unikt värde.'
+      },
+      {
+        fraga: 'Måste jag ha PMP eller PRINCE2 för att få jobb som projektledare?',
+        svar: 'Inte alltid, men certifieringar ökar dina chanser markant. Många företag listar PMP, PRINCE2 eller Scrum Master som "meriterande" eller "krav". Saknar du certifiering, kompensera genom att visa tydliga projektresultat, metodikkännedom och löpande kompetensutveckling. Nämn om du är "PMP-eligible" eller planerar certifiering. I vissa branscher (bygg, finans, offentlig sektor) är PRINCE2/PMP nästan obligatoriskt.'
+      },
+      {
+        fraga: 'Hur visar jag projektresultat när jag inte känner till exakta siffror?',
+        svar: 'Uppskatta rimligt eller fokusera på relativa förbättringar. Istället för "budget på X MSEK" kan du skriva "budget i mellansegmentet (15-30 MSEK)" eller "team på 10-15 personer". Fokusera på procentuella förbättringar: "30% snabbare go-live", "halverade supportärenden", "95% användarnöjdhet". Du kan även kvantifiera omfattning: "8 integrerade system", "200 slutanvändare", "3 parallella delprojekt".'
+      },
+      {
+        fraga: 'Ska jag fokusera på projektmetodik eller branschkunskap?',
+        svar: 'Båda, men vikta efter vilka roller du söker. Söker du inom samma bransch (t.ex. fintech), lyft branschspecifik erfarenhet (regulatoriska krav, betalningssystem). Söker du nytt område, betona överförbara metoder (Agile, PRINCE2, risk management). Projektledare med bred branscherfarenhet kan positionera sig som "generalister med bevisad förmåga att lära sig nya domäner snabbt". Nämn alltid metodik OCH bransch för varje projekt.'
+      },
+      {
+        fraga: 'Hur hanterar jag erfarenhet från många olika branscher?',
+        svar: 'Positionera det som styrka, inte splittring. Skriv i profiltexten: "Cross-industry projektledare med track record inom fintech, retail och life science". Gruppera projekt tematiskt istället för kronologiskt om det ger bättre flöde. Lyft fram överförbar kompetens: "Bevisad förmåga att snabbt sätta sig in i nya domäner och leda komplexa digitaliseringsprojekt oavsett bransch".'
+      },
+      {
+        fraga: 'Hur visar jag stakeholder management utan att låta fluffig?',
+        svar: 'Var konkret om VEM du hanterat och HUR. Istället för "god kommunikationsförmåga", skriv: "Rapporterade till styrelse och VD med månatliga executive summaries. Ledde förändringsledning för 300 användare genom 12 workshops. Koordinerade med 5 externa leverantörer och hanterade eskaleringar till C-level." Kvantifiera: antal stakeholders, frekvens av kommunikation, typ av forum.'
+      },
+      {
+        fraga: 'Ska jag nämna projekt som inte gick bra?',
+        svar: 'Nej, inte i CV:t. CV:t ska visa dina styrkor och framgångar. Misslyckade projekt eller utmaningar hanteras i intervju om de kommer upp. Fokusera istället på vad du lärt dig och tillämpat i senare projekt. Du kan skriva: "Ledde rescue-projekt för försenad CRM-implementation – levererade inom 3 månader med omplanerad scope och budget". Detta visar problemlösning utan att lyfta misslyckande.'
+      }
+    ],
+
+    kategori: 'teknik',
+    relaterade: [
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Scrum Master', slug: 'scrum-master' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
