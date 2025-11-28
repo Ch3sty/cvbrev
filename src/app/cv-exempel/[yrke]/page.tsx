@@ -633,28 +633,40 @@ Använd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det ef
 
     varforDetFungerar: [
       {
-        rubrik: 'Kvantifierar brukaransvar',
-        text: 'Genom att ange "12-15 brukare dagligen" och "kontaktman för 8 brukare" visar Anna exakt vilken omfattning hennes arbete har. Rekryterare kan direkt förstå hennes kapacitet och erfarenhetsnivå.'
+        rubrik: 'Tydlig specialisering inom hemtjänst och kontaktmannaskap',
+        text: `CV:t visar progression från vikarie till fast anställd till kontaktmannaskap för 8 brukare. Arbetsuppgifterna beskriver självständigt ansvar för 12-15 brukare dagligen med konkret erfarenhet av genomförandeplaner, biståndsbedömningar och tvärprofessionellt samarbete.
+
+Varför detta fungerar: Kontaktmannaskap är en förtroenderoll som kräver både omvårdnadskompetens och samordningsförmåga. Genom att kvantifiera antal brukare (8 kontaktmannaskap, 12-15 brukare dagligen) och beskriva konkreta arbetsuppgifter visar du att du inte bara utför ADL-stöd – du har ansvar för samordning med sjuksköterskor och biståndshandläggare. Detta signalerar att tidigare arbetsgivare litat på dig med ledarskap och administration.`
       },
       {
-        rubrik: 'Visar systemkompetens med nivåer',
-        text: 'Att specificera "Treserva – Expert, 6+ år" och "Phoniro Care – Avancerad, 4+ år" signalerar att Anna kan dokumentera korrekt från dag ett. Detta sparar upplärning och minskar risk för dokumentationsfel.'
+        rubrik: 'Kvantifierade resultat som bevisar omvårdnadskvalitet',
+        text: `Istället för vaga påståenden innehåller CV:t konkreta resultat: 25% förbättrad brukarnöjdhet genom trygghetsskapande rutiner, 18% reducerade akuta sjukhusinläggningar tack vare uppmärksamhet på hälsoförändringar, och 30% minskade hemolyckor genom fallpreventionsåtgärder.
+
+Varför detta fungerar: Kommuner och privata vårdgivare följer noga kvalitetsindikatorer som brukarnöjdhet, sjukhusinläggningar och hemolyckor. När du visar att du aktivt bidragit till förbättrade resultat inom dessa områden signalerar du att du förstår hemtjänstens kvalitetsarbete. Det skiljer dig från kandidater som endast listar arbetsuppgifter utan att visa faktisk påverkan på brukarnas livskvalitet och trygghet.`
       },
       {
-        rubrik: 'Mätbara resultat inom omsorg',
-        text: 'Siffror som "förbättrade brukarnöjdhet med 25%" och "reducerade akuta sjukhusinläggningar med 18%" visar att Anna inte bara utför uppgifter – hon förbättrar vårdkvaliteten. Detta är unikt värdefullt för arbetsgivare.'
+        rubrik: 'ATS-optimering med branschspecifika system och nyckelord',
+        text: `CV:t nämner specifika dokumentationssystem vid namn: Treserva för daglig dokumentation (6+ år expert), Phoniro Care för nyckellösa lås och schemaläggning (4+ år avancerad). Dessutom används vedertagna termer som ADL-stöd, serviceinsatser, omvårdnadsinsatser, genomförandeplan och biståndsbedömning.
+
+Varför detta fungerar: ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. Kommuner och privata vårdgivare använder ofta samma system nationellt, så när rekryterare söker efter "Treserva" eller "Phoniro Care" i kandidatbanken dyker detta CV upp direkt. Generiska beskrivningar som "dokumentationssystem" eller "digitala verktyg" ger inga träffar i dessa sökningar. Att ange kompetensnivå (Expert, Avancerad) visar också att du kan börja arbeta utan omfattande systemutbildning.`
       },
       {
-        rubrik: 'Tydlig progression i karriären',
-        text: 'CV:t visar en logisk utveckling från vikarie → fast anställd → kontaktmannaskap. Detta signalerar pålitlighet, lojalitet och att arbetsgivare har valt att investera i henne.'
+        rubrik: 'B-körkort presenterat som nödvändig kompetens',
+        text: `B-körkort listas under tekniska kompetenser med specifik erfarenhetstid (6+ år), inte som en sidoanteckning. Detta visar medvetenhet om att hemtjänst kräver geografisk rörlighet mellan brukare.
+
+Varför detta fungerar: Hemtjänst innebär resor mellan brukare, ofta i glesbygd eller stora stadsområden. B-körkort är ett absolut krav för de flesta hemtjänstpositioner. Genom att placera körkortet under tekniska kompetenser (inte bara nämna det i förbifarten) och ange erfarenhetstid visar du att du förstår rollen och kan hantera ruttplanering och tidsoptimering. Många sökande glömmer detta eller nämner det endast i förbigående, vilket gör att ATS-system missar dem vid sökning på "B-körkort".`
       },
       {
-        rubrik: 'B-körkort inkluderat strategiskt',
-        text: 'Att B-körkort listas under tekniska kompetenser visar att Anna förstår att hemtjänst kräver geografisk rörlighet. Detta är ett måste-krav för de flesta hemtjänstpositioner.'
+        rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        text: `Alla certifieringar är daterade: HLR (förnyad 2024), Förflyttningsteknik (2023), Demensutbildning (2022) och Basala hygienrutiner (2023). Detta visar att kompetensen är aktuell och regelbundet uppdaterad.
+
+Varför detta fungerar: Hemtjänsten har krav på gällande HLR-certifiering och ergonomisk förflyttningsteknik enligt Arbetsmiljöverket. När du anger årtal visar du att du förstår dessa krav och att din kompetens är giltig. Rekryterare kan se direkt att de inte behöver skicka dig på akuta utbildningar före anställningsstart, vilket gör dig till en mer attraktiv kandidat. Dessutom signalerar regelbundna förnyelser att du tar din professionella utveckling på allvar.`
       },
       {
-        rubrik: 'Certifieringar med årtal',
-        text: 'HLR (2024), Förflyttningsteknik (2023), Demensutbildning (2022) visar att Anna håller sina kunskaper aktuella. Arbetsgivare vet att hon uppfyller lagkrav och säkerhetsstandards.'
+        rubrik: 'Balans mellan teknisk kompetens och empatiska resultat',
+        text: `CV:t kombinerar tekniska färdigheter som Treserva-dokumentation, ADL-stöd och medicinpåminnelse med mjuka färdigheter som visat ger resultat: trygghetsskapande rutiner som förbättrat brukarnöjdhet med 25%, och lyhörd kommunikation som uppmärksammat tidiga sjukdomstecken och reducerat sjukhusinläggningar med 18%.
+
+Varför detta fungerar: Hemtjänst kräver både teknisk precision och mellanmänsklig kompetens. Genom att visa att dina empatiska förmågor faktiskt lett till mätbara resultat undviker du problemet med vaga påståenden. Istället för att bara skriva "empatisk och omhändertagande" bevisar du att din förmåga att bygga tillitsfulla relationer och uppmärksamma förändringar faktiskt förbättrat brukarnas hälsa och trygghet konkret. Detta gör dina mjuka färdigheter verifierbara och trovärdiga.`
       }
     ],
 
