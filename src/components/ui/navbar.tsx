@@ -31,7 +31,8 @@ import {
   Loader2,
   ChevronDown,
   Newspaper,
-  LogIn // För CTA-knapp
+  LogIn, // För CTA-knapp
+  BookOpen // För Exempel
 } from 'lucide-react'
 
 // --- Data Definition för Navigationslänkar ---
@@ -49,6 +50,7 @@ interface NavLinkItem {
 const primaryNavLinks: NavLinkItem[] = [
   { href: '/', label: 'Hem', icon: Home, isPrimaryDesktop: true },
   { href: '/funktioner', label: 'Funktioner', icon: LayoutGrid, isPrimaryDesktop: true },
+  { href: '/exempel', label: 'Exempel', icon: BookOpen, isPrimaryDesktop: true },
   { href: '/priser', label: 'Priser', icon: Tag, isPrimaryDesktop: true },
   { href: '/artiklar', label: 'Artiklar', icon: Newspaper, isPrimaryDesktop: true },
 ];
@@ -244,7 +246,7 @@ export default function Navbar() {
                   {({ open }) => (
                     <>
                       {/* ... Menu.Button oförändrad ... */}
-                      <Menu.Button className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 group ${open ? 'text-pink-400' : 'text-gray-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950'}`}> <Wrench size={16} className="mr-1.5 text-pink-400 group-hover:text-pink-300 transition-colors" aria-hidden="true" /> Verktyg <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${open ? 'transform rotate-180 text-pink-300' : 'text-gray-400'}`} aria-hidden="true" /> </Menu.Button>
+                      <Menu.Button className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 group ${open ? 'text-pink-400' : 'text-gray-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950'}`}> <Wrench size={16} className="mr-1.5 text-pink-400 group-hover:text-pink-300 transition-colors" aria-hidden="true" /> Vad vi erbjuder <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${open ? 'transform rotate-180 text-pink-300' : 'text-gray-400'}`} aria-hidden="true" /> </Menu.Button>
                       <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
@@ -381,7 +383,7 @@ export default function Navbar() {
 
                 {/* Mobil Verktyg */}
                 <div className="pt-2">
-                    <h3 className="px-3 text-xs font-semibold uppercase text-gray-500 tracking-wider mb-1">Verktyg</h3>
+                    <h3 className="px-3 text-xs font-semibold uppercase text-gray-500 tracking-wider mb-1">Vad vi erbjuder</h3>
                     {toolLinks.find(link => link.href === '/create-letter') && renderSingleNavLink(toolLinks.find(link => link.href === '/create-letter')!, true, closeMobileMenu)}
                     {/* Skicka med savedLettersCount till Mina Brev */}
                     {renderSingleNavLink(myLettersLink, true, closeMobileMenu, savedLettersCount)}
