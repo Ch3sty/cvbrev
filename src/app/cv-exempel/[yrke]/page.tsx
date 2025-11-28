@@ -6701,6 +6701,234 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
     ]
   },
 
+  'kundtjanst': {
+    yrke: 'Kundtjänst',
+    sokvolym: 1800,
+    kategori: 'service',
+
+    metaTitle: 'CV Exempel Kundtjänst 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för kundtjänst med ATS-optimering. Visar Zendesk, Salesforce, kvantifierbara resultat och teknisk support-kompetens. Inkl. tips för svensk kundservice.',
+
+    seoIntro: `Söker du jobb inom kundtjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska kundservicemiljöer – från teknisk support till e-handel och telekom.
+
+Du får se exakt hur du balanserar teknisk kompetens (Zendesk, Salesforce, CRM-system) med kvantifierbara resultat som NPS-score, ärendehantering och kundnöjdhet. CV:t demonstrerar progression från första linjens support till teamledare med mentorskap och kvalitetsansvar.
+
+Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter den tjänst du söker – oavsett om det gäller telefonsupport, chatt, teknisk support eller merförsäljning. Läs också våra tips om hur du kvantifierar dina resultat för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för kundtjänst som visar din servicekompetens, tekniska färdigheter och förmåga att leverera mätbara resultat. Detta exempel är optimerat för svenska företag och ATS-system inom support, e-handel och teknisk kundservice.',
+
+    exempelCV: {
+      namn: 'Lisa Eriksson',
+      titel: 'Senior Kundtjänstmedarbetare med specialisering i teknisk support',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'lisa.eriksson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/lisaeriksson'
+      },
+
+      profil: 'Senior kundtjänstmedarbetare med 6+ års erfarenhet från teknisk support och ärendehantering inom e-handel och telekom. Expert på Zendesk och Salesforce Service Cloud med gedigen kompetens i eskalerade ärenden, SLA-uppföljning och kundretention. Uppnår konsekvent NPS 85+ och FCR 78% genom empatiskt bemötande, strukturerad problemlösning och proaktiv kommunikation. Erfaren mentor för nya medarbetare med passion för att leverera utmärkt kundupplevelse.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Kundtjänstmedarbetare / Teamledare',
+          arbetsgivare: 'Klarna Bank AB, Stockholm',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Hanterar 80-100 eskalerade ärenden per dag via Zendesk (telefon, chatt, e-post) inom betalningslösningar och teknisk support',
+            'Uppnår NPS 87 och kundnöjdhet (CSAT) 92% genom strukturerad problemlösning och empatiskt bemötande – rankad top 5% i teamet',
+            'Ansvarar för kvalitetssäkring av 200+ ärenden/månad med fokus på First Contact Resolution (FCR 78%) och SLA-efterlevnad (95% inom 24h)',
+            'Mentorskap för 8 nya medarbetare under introduktionsperiod (6 veckor) – reducerade onboarding-tid med 25%',
+            'Medverkar i processförbättringsprojekt som minskade genomsnittlig ärendetid från 8 till 6 minuter (25% effektivisering)'
+          ]
+        },
+        {
+          titel: 'Kundtjänstmedarbetare, Teknisk Support',
+          arbetsgivare: 'Telia Sverige AB, Stockholm',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Ansvarade för teknisk support nivå 1 med 60-70 ärenden per dag via Telia ACE-telefoni och Salesforce CRM',
+            'Uppnådde bäst kundnöjdhet i teamet Q3 2020 (NPS 82) genom proaktiv felsökning av router, bredband och TV-tjänster',
+            'Hanterade reklamationer och eskalerade ärenden med 85% lösningsgrad vid första kontakt (FCR)',
+            'Identifierade återkommande tekniska problem och dokumenterade i kunskapsdatabas vilket minskade ärendeflöde med 15%',
+            'Merförsäljning av tjänster och uppgraderingar motsvarande 120 000 kr/år i tilläggsintäkter'
+          ]
+        },
+        {
+          titel: 'Kundtjänstmedarbetare',
+          arbetsgivare: 'H&M Customer Service, Borås',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Första linjens support för e-handelskunder med 50-60 ärenden per dag via telefon, chatt (LiveChat) och e-post',
+            'Hanterade order, returer, betalningsfrågor och reklamationer med fokus på snabb lösning och kundnöjdhet',
+            'Svarstid under 2 minuter i 90% av fallen vilket bidrog till teamets CSAT-mål (88%)',
+            'Lärde mig Freshdesk-system, grundläggande ärendehantering och professionell kundkommunikation'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Kundserviceutbildning med IT-fokus',
+          skola: 'Jensen Yrkeshögskola, Stockholm',
+          period: '2017 – 2018',
+          beskrivning: '400 YH-poäng inkl. LIA-praktik hos Telia där jag fick erfarenhet av teknisk support, CRM-system och professionell kundkommunikation.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Zendesk (Expert, 3+ år)',
+          'Salesforce Service Cloud (Avancerad, 4+ år)',
+          'Telia ACE / Telefoni-system (3+ år)',
+          'Freshdesk, HubSpot, Intercom',
+          'LiveChat, Microsoft Teams, Slack',
+          'CRM-system och ärendehantering',
+          'Excel (pivottabeller, rapportering)'
+        ],
+        personliga: [
+          'Empatiskt bemötande (NPS 87, top 5% i teamet)',
+          'Stresstålig (hanterar 80-100 ärenden/dag under toppbelastning)',
+          'Problemlösning (FCR 78%, 15% över teammål)',
+          'Flerspråkig kommunikation (svenska, engelska)'
+        ]
+      },
+
+      certifieringar: [
+        'Zendesk Support Administrator Certification (2022)',
+        'Salesforce Service Cloud Basics (2021)',
+        'COPC Customer Service Standard – Foundation (2020)',
+        'Konflikthantering och svåra samtal (2023)',
+        'Merförsäljning och kundretention (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Specifika system istället för vaga termer',
+        text: `CV:t listar konkreta verktyg som Zendesk (Expert), Salesforce, Telia ACE och Freshdesk. Inga generiska formuleringar som "CRM-system" eller "kundtjänstverktyg".
+
+Varför detta fungerar: ATS-system söker efter exakta systembeteckningar som matchar jobbannonsen. En rekryterare som söker "Zendesk" hittar detta CV direkt, medan "CRM-erfarenhet" sorteras bort. Att specificera kompetensnivå (Expert) visar självinsikt och gör det lättare för rekryteraren att bedöma matchning mot rollens krav.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat inom kundnöjdhet',
+        text: `Varje arbetsgivare har mätbara resultat: NPS 87 på Klarna, CSAT 92% på Telia, FCR 78% kombinerat med 80-100 ärenden per dag. Inga vaga påståenden som "hög kundnöjdhet" eller "effektiv problemlösning".
+
+Varför detta fungerar: Kundtjänst är en datadrivet funktion där rekryterare förväntar sig siffror. NPS och CSAT är branschstandard-mått som direkt visar prestation. Att kombinera kvalitetsmetrik (FCR 78%) med volym (80-100 ärenden/dag) bevisar att Lisa hanterar både hög arbetsbelastning och bibehåller kvalitet – en kritisk balans i kundtjänst.`
+      },
+      {
+        rubrik: 'Teknisk kompetens backat med konkreta bevis',
+        text: `Under teknisk support nämns inte bara "felsökning" utan specifika uppgifter: diagnostik av hårdvaru/mjukvarufrågor, remote desktop-support, eskalering till Nivå 2. System som Telia ACE och Freshdesk namnges explicit.
+
+Varför detta fungerar: Många söker kundtjänstroller utan teknisk bakgrund. Genom att specificera verktyg och processer (eskalering, diagnostik, remote support) positionerar sig Lisa för tekniska roller som betalar bättre. Rekryterare ser omedelbart att hon kan hantera komplexa ärenden, inte bara besvara enkla frågor.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal och nivå',
+        text: `Certifieringarna är inte bara listade utan inkluderar årtal: Zendesk Administrator (2022), Salesforce Service Cloud (2021), COPC Customer Service Standard (2020). Detta visar progression och kontinuerlig utveckling.
+
+Varför detta fungerar: Årtal bevisar att kompetensen är aktuell – kritiskt för system som uppdateras ofta. Zendesk Administrator är inte en grundkurs utan avancerad nivå, vilket signalerar expertis. Att ha tre olika certifieringar från olika år visar engagemang för professionell utveckling, inte bara obligatorisk onboarding.`
+      },
+      {
+        rubrik: 'Profiltext som sammanfattar specialisering',
+        text: `Profiltexten nämner direkt "teknisk kundtjänst" och "B2B/B2C", kombinerat med nyckelord som Zendesk, teamledning och kundnöjdhet. Första meningen sätter tonen: "Erfaren kundtjänstspecialist med expertis i teknisk support".
+
+Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om kandidaten matchar. Genom att frontera "teknisk support" och "B2B/B2C" filtrerar Lisa själv – företag som söker enkel telefonsupport går vidare, medan tech-företag fastnar. Keywords som Zendesk och teamledning gör att ATS-systemet rankar CV:t högre.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från junior till ledare',
+        text: `Rollerna visar en logisk progression: Kundtjänstmedarbetare (H&M) → Teknisk Support (Telia) → Teamledare Kundtjänst (Klarna). Ansvarsområdena växer från grundläggande support till teknisk specialisering och slutligen teamledning med sex medarbetare.
+
+Varför detta fungerar: Rekryterare letar efter röd tråd och utveckling. Progressionen från retail till telekom till fintech visar adaptionsförmåga över branscher. Att gå från junior till teamledare på sex år bevittnar både kompetens och ambition – attraktivt för företag som söker framtida ledare eller senior-roller.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din ärendehantering med konkreta siffror',
+        text: `Kundtjänst är en datadrivet yrke där rekryterare förväntar sig mätbara resultat. Utan siffror är det omöjligt att bedöma din prestation mot andra kandidater.
+
+❌ "Ansvarig för kundärenden via telefon och mejl"
+✅ "Hanterade 80-100 kundärenden dagligen via telefon, mejl och chatt med bibehållen CSAT på 92% och First Contact Resolution på 78%"`
+      },
+      {
+        rubrik: 'Nämn exakta systemnamn, inte generiska termer',
+        text: `ATS-system söker efter specifika verktygsnamn som matchar jobbannonsen. Om du skriver "CRM-system" istället för "Salesforce" missar du träffar i sökningen.
+
+❌ "Erfarenhet av CRM-system och ärendehanteringsverktyg"
+✅ "Expertanvändare av Zendesk, Salesforce Service Cloud och Freshdesk för ärendehantering och kunddata"`
+      },
+      {
+        rubrik: 'Visa teknisk support-kompetens med specifika uppgifter',
+        text: `Många kundtjänstroller är tekniska. Om du kan felsöka, diagnostisera eller hantera eskalering ska detta framgå tydligt med konkreta exempel på vad du faktiskt gjorde.
+
+❌ "Teknisk support och problemlösning"
+✅ "Diagnostiserade hårdvaru- och mjukvarufrågor, utförde remote desktop-support och eskalerade komplexa ärenden till Nivå 2 enligt SLA"`
+      },
+      {
+        rubrik: 'Inkludera certifieringar med årtal och nivå',
+        text: `Certifieringar utan årtal väcker misstankar om kompetensen är aktuell. Nämn alltid vilket år du certifierade dig och vilken nivå kursen hade.
+
+❌ "Certifierad i Zendesk och Salesforce"
+✅ "Zendesk Administrator Certification (2022), Salesforce Service Cloud Consultant (2021), COPC Customer Service Standard (2020)"`
+      },
+      {
+        rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
+        text: `Alla skriver "empatisk" och "kommunikativ" i sitt CV. Skillnaden är att backa upp påståendet med konkreta resultat som NPS, CSAT eller kundrecensioner. Visa, förklara inte.
+
+Istället för att lista "empati" och "kommunikation" under Personliga egenskaper, skriv: "Uppnådde NPS 87 genom empatiskt bemötande i eskalerade ärenden" under relevant arbetsgivare.`
+      },
+      {
+        rubrik: 'Visa progression och ledarerfarenhet tidigt',
+        text: `Om du har teamledar- eller mentorserfarenhet ska detta synas redan i profiltexten och jobbrutbriken, inte bara i arbetsuppgifterna. Rekryterare stannar på titlar.
+
+❌ Jobbrutbrik: "Kundtjänst" (med teamledning nedgrävd i beskrivningen)
+✅ Jobbrutbrik: "Teamledare Kundtjänst" + nämn "Ledde team om 6 medarbetare" i första meningen`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV för kundtjänst vara?',
+        svar: 'En A4-sida om du har 0-3 års erfarenhet, två sidor om du har 4+ år eller teamledarerfarenhet. Kundtjänst handlar om att kommunicera tydligt – ett kortfattat CV bevisar den förmågan. Prioritera kvantifierbara resultat (NPS, CSAT, ärendemängd) och specifika system (Zendesk, Salesforce) över långa beskrivningar av arbetsuppgifter.'
+      },
+      {
+        fraga: 'Vilka system ska jag inkludera i ett CV för kundtjänst?',
+        svar: 'Nämn alla ärendehanteringssystem (Zendesk, Freshdesk, ServiceNow), CRM-verktyg (Salesforce, HubSpot) och kommunikationsplattformar (Aircall, Intercom) du använt. Skriv exakta namn, inte "CRM-system". Om du är expertanvändare, nämn det. Inkludera även tekniska verktyg som remote desktop-lösningar eller diagnostikverktyg om du gjort teknisk support.'
+      },
+      {
+        fraga: 'Hur visar jag kundnöjdhet och resultat i mitt CV?',
+        svar: 'Använd branschens standardmått: NPS (Net Promoter Score), CSAT (Customer Satisfaction), FCR (First Contact Resolution) och genomsnittlig hanteringstid. Skriv konkreta siffror: "CSAT 92%" eller "NPS 87". Om du saknar exakta mått, räkna ut ungefärlig ärendemängd per dag/vecka och nämn om du fick positiv feedback, vann pris eller klarade KPI-mål.'
+      },
+      {
+        fraga: 'Ska jag inkludera NPS och andra KPI:er i mitt CV?',
+        svar: 'Ja, absolut. NPS, CSAT och FCR är branschstandard och rekryterare förväntar sig dessa siffror. Om du inte har exakta mått, uppskatta eller fokusera på relativa förbättringar: "Förbättrade CSAT från 78% till 89% på 6 månader". Inkludera även volymmått som antal ärenden per dag – det visar att du klarar arbetsbelastning samtidigt som du håller hög kvalitet.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för teknisk support vs generell kundtjänst?',
+        svar: 'För teknisk support: Frontera tekniska verktyg (remote desktop, diagnostik), nämn eskaleringsprocesser och tekniska certifieringar. För generell kundtjänst: Fokusera på NPS/CSAT, multikanalhantering (telefon/mejl/chatt) och konfliktlösning. Anpassa profiltexten – skriv "teknisk kundtjänstspecialist" vs "kundtjänstmedarbetare" beroende på rollen du söker.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktiga för kundtjänst?',
+        svar: 'Zendesk Administrator, Salesforce Service Cloud och COPC Customer Service Standard är branschstandard. HDI Support Center Analyst och ITIL Foundation är värdefulla för teknisk support. Inkludera alltid årtal så rekryteraren ser att kompetensen är aktuell. Undvik generiska "kundbemötande"-kurser från online-plattformar – fokusera på systemcertifieringar som faktiskt används i branschen.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är stresstålig utan att bara säga det?',
+        svar: 'Visa det genom siffror: "Hanterade 80-100 ärenden dagligen samtidigt som CSAT bibehölls på 92%" bevisar att du klarar hög belastning utan att kvaliteten sjunker. Nämn specifika situationer: "Eskalerade ärenden under produktlansering" eller "Support under Black Friday med 3x normalt ärendevolym". Konkreta exempel slår abstrakt egenskapslista varje gång.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Administratör', slug: 'administrator' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
