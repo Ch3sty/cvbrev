@@ -6850,44 +6850,75 @@ Varför detta fungerar: Rekryterare letar efter röd tråd och utveckling. Progr
     tips: [
       {
         rubrik: 'Kvantifiera din ärendehantering med konkreta siffror',
-        text: `Kundtjänst är en datadrivet yrke där rekryterare förväntar sig mätbara resultat. Utan siffror är det omöjligt att bedöma din prestation mot andra kandidater.
+        text: `Rekryterare inom kundtjänst letar efter bevis på att du hanterar hög volym med god kvalitet. Visa både effektivitet och kundnöjdhet med mätbara resultat.
 
-❌ "Ansvarig för kundärenden via telefon och mejl"
-✅ "Hanterade 80-100 kundärenden dagligen via telefon, mejl och chatt med bibehållen CSAT på 92% och First Contact Resolution på 78%"`
+**Exempel på före/efter**:
+
+❌ "Ansvarig för att hantera kundärenden via telefon och e-post"
+
+✅ "Hanterade 80+ kundärenden dagligen via telefon och e-post med 95% FCR (First Contact Resolution) och bibehöll NPS på 72"
+
+Det konkreta exemplet visar både volym, kvalitet och kundnöjdhet – tre nyckeltal som kundtjänstchefer värderar högt.`
       },
       {
-        rubrik: 'Nämn exakta systemnamn, inte generiska termer',
-        text: `ATS-system söker efter specifika verktygsnamn som matchar jobbannonsen. Om du skriver "CRM-system" istället för "Salesforce" missar du träffar i sökningen.
+        rubrik: 'Nämn specifika system istället för generiska termer',
+        text: `Att skriva "CRM-system" eller "supportsystem" säger inget om din faktiska kompetens. Rekryterare söker ofta efter specifika verktyg som de redan använder.
 
-❌ "Erfarenhet av CRM-system och ärendehanteringsverktyg"
-✅ "Expertanvändare av Zendesk, Salesforce Service Cloud och Freshdesk för ärendehantering och kunddata"`
+**Exempel på före/efter**:
+
+❌ "Erfaren i olika CRM-system och supportsystem"
+
+✅ "Arbetar dagligen i Zendesk, Salesforce Service Cloud och Intercom – hanterar ärenden, bygger automatiserade workflows och genererar rapporter"
+
+När du namnger exakta verktyg blir din erfarenhet konkret och verifierbar. Det visar också att du kan börja jobba direkt utan lång introduktion.`
       },
       {
-        rubrik: 'Visa teknisk support-kompetens med specifika uppgifter',
-        text: `Många kundtjänstroller är tekniska. Om du kan felsöka, diagnostisera eller hantera eskalering ska detta framgå tydligt med konkreta exempel på vad du faktiskt gjorde.
+        rubrik: 'Visa teknisk support-kompetens med konkreta exempel',
+        text: `Teknisk kundtjänst kräver både IT-kunskap och kommunikationsförmåga. Visa att du kan felsöka och förklara lösningar på ett begripligt sätt.
 
-❌ "Teknisk support och problemlösning"
-✅ "Diagnostiserade hårdvaru- och mjukvarufrågor, utförde remote desktop-support och eskalerade komplexa ärenden till Nivå 2 enligt SLA"`
+**Exempel på före/efter**:
+
+❌ "Hjälpte kunder med tekniska problem"
+
+✅ "Felsökte tekniska problem inom SaaS-plattformen (API-integrationer, SSO, datamigrering) och minskade eskaleringar till Level 2 med 40% genom tydliga guider"
+
+Exemplet visar både teknisk djupkunskap och förmågan att lösa problem självständigt – två avgörande kompetenser inom teknisk support.`
       },
       {
-        rubrik: 'Inkludera certifieringar med årtal och nivå',
-        text: `Certifieringar utan årtal väcker misstankar om kompetensen är aktuell. Nämn alltid vilket år du certifierade dig och vilken nivå kursen hade.
+        rubrik: 'Inkludera relevanta certifieringar med årtal',
+        text: `Certifieringar visar att du investerar i din kompetensutveckling och håller dig uppdaterad. Inkludera alltid när du tog certifieringen för att visa aktualitet.
 
-❌ "Certifierad i Zendesk och Salesforce"
-✅ "Zendesk Administrator Certification (2022), Salesforce Service Cloud Consultant (2021), COPC Customer Service Standard (2020)"`
+**Exempel på före/efter**:
+
+❌ "Certifierad inom kundservice"
+
+✅ "Zendesk Support Administrator Certification (2024), COPC Customer Experience Standard Certification (2023)"
+
+Specifika certifieringar med årtal visar att din kunskap är aktuell och relevant. Det skiljer dig från kandidater som bara skriver "god kunskap i kundservice".`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
-        text: `Alla skriver "empatisk" och "kommunikativ" i sitt CV. Skillnaden är att backa upp påståendet med konkreta resultat som NPS, CSAT eller kundrecensioner. Visa, förklara inte.
+        text: `Kundtjänst kräver både systemkunskap och empatisk kommunikation. Visa att du behärskar båda genom att koppla färdigheter till resultat.
 
-Istället för att lista "empati" och "kommunikation" under Personliga egenskaper, skriv: "Uppnådde NPS 87 genom empatiskt bemötande i eskalerade ärenden" under relevant arbetsgivare.`
+**Exempel på före/efter**:
+
+❌ "Bra på att kommunicera och tekniskt kunnig"
+
+✅ "Kombinerar teknisk troubleshooting med empatisk kommunikation – uppnådde 4.8/5 i kundnöjdhet samtidigt som genomsnittlig lösningstid minskade från 12 till 7 minuter"
+
+När du visar hur dina färdigheter leder till konkreta resultat blir påståenden om "bra kommunikation" trovärdiga och relevanta.`
       },
       {
-        rubrik: 'Visa progression och ledarerfarenhet tidigt',
-        text: `Om du har teamledar- eller mentorserfarenhet ska detta synas redan i profiltexten och jobbrutbriken, inte bara i arbetsuppgifterna. Rekryterare stannar på titlar.
+        rubrik: 'Visa progression från agent till ledare',
+        text: `Om du har rört dig uppåt inom kundtjänst, visa den resan. Progression signalerar ambition, pålitlighet och ledarskapsförmåga.
 
-❌ Jobbrutbrik: "Kundtjänst" (med teamledning nedgrävd i beskrivningen)
-✅ Jobbrutbrik: "Teamledare Kundtjänst" + nämn "Ledde team om 6 medarbetare" i första meningen`
+**Exempel på före/efter**:
+
+❌ "Började som kundtjänstmedarbetare och blev senare teamledare"
+
+✅ "Befordrad från Customer Support Agent till Team Lead efter 14 månader – leder nu team på 8 agenter, minskat personalomsättningen med 35% och ökat team-NPS från 68 till 79"
+
+Konkret progression med tidsram och mätbara resultat som ledare visar att företaget litade på dig – och att du levererade.`
       }
     ],
 
