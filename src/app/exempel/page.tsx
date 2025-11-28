@@ -63,7 +63,7 @@ export default function ExempelPage() {
         "name": "Är exemplen gratis att använda?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 30 olika yrken utan att skapa konto. För att skapa egna dokument med våra AI-verktyg kan du registrera dig gratis."
+          "text": "Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 30 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis."
         }
       },
       {
@@ -132,7 +132,7 @@ export default function ExempelPage() {
     },
     {
       question: 'Är exemplen gratis att använda?',
-      answer: 'Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 30 olika yrken utan att skapa konto. För att skapa egna dokument med våra AI-verktyg kan du registrera dig gratis.'
+      answer: 'Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 30 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis.'
     },
     {
       question: 'Hur väljer jag rätt exempel för mitt yrke?',
@@ -181,7 +181,7 @@ export default function ExempelPage() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 text-orange-700 text-sm font-semibold rounded-full">
                 <Sparkles className="w-4 h-4" />
-                Sveriges mest kompletta exempelsamling
+                30 yrken • Gratis
               </span>
             </motion.div>
 
@@ -191,7 +191,7 @@ export default function ExempelPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
             >
-              Exempel som hjälper dig få jobbet
+              Se hur riktiga CV:n och personliga brev ser ut
             </motion.h1>
 
             <motion.p
@@ -200,8 +200,8 @@ export default function ExempelPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Se hur professionella CV:n och personliga brev ser ut för just ditt yrke.
-              Våra ATS-optimerade exempel är skrivna av rekryteringsexperter för den svenska arbetsmarknaden.
+              Se hur andra skriver sina CV:n och personliga brev för samma yrke som du söker.
+              Rätt struktur, rätt längd – inga gissningar.
             </motion.p>
 
             <motion.div
@@ -295,8 +295,8 @@ export default function ExempelPage() {
                     </div>
 
                     <p className="text-slate-600 mb-6 leading-relaxed">
-                      Se kompletta CV-exempel för ditt yrke med rätt struktur, formatering och innehåll.
-                      Varje exempel visar exakt vad rekryterare letar efter.
+                      Se kompletta CV:n för 29 olika yrken. Varje exempel visar hur andra i din bransch
+                      beskriver sin erfarenhet och strukturerar sitt CV.
                     </p>
 
                     <ul className="space-y-2 mb-8">
@@ -340,8 +340,8 @@ export default function ExempelPage() {
                     </div>
 
                     <p className="text-slate-600 mb-6 leading-relaxed">
-                      Se hur du skriver ett övertygande personligt brev för din bransch.
-                      Varje exempel visar rätt tonalitet, längd och innehåll.
+                      Se hur andra skriver sina personliga brev för samma yrke.
+                      Exemplen visar rätt längd, tonalitet och struktur.
                     </p>
 
                     <ul className="space-y-2 mb-8">
@@ -581,10 +581,10 @@ export default function ExempelPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                Redo att skapa dina dokument?
+                Skapa ditt eget CV nu
               </h2>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Använd våra AI-verktyg för att skapa professionella CV och personliga brev på några minuter.
+                Använd våra verktyg för att skapa professionella CV och personliga brev.
                 Baserat på exemplen du sett, anpassat till dig.
               </p>
 

@@ -1,21 +1,21 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Personligt Brev & CV Exempel 2025 - Gratis Mallar | Jobbcoach.ai',
-  description: 'Se professionella exempel på personliga brev och CV för alla branscher. ATS-optimerade mallar, yrkespecifika guider och kostnadsfria tips för svenska jobbsökare.',
+  title: 'CV-exempel och personliga brev | 30+ yrken | jobbcoach.ai',
+  description: 'Hitta professionella exempel på CV och personliga brev för ditt yrke. 30+ yrkesspecifika mallar – gratis att använda som inspiration.',
   keywords: [
     'personligt brev exempel',
     'cv exempel',
     'cv mall',
     'personligt brev mall',
     'jobbansökan exempel',
-    'ATS-optimerad',
+    'yrkesspecifika cv',
     'professionellt cv',
     'svenska cv-mallar'
   ],
   openGraph: {
-    title: 'Personligt Brev & CV Exempel 2025 - Gratis Mallar',
-    description: 'Se professionella exempel på personliga brev och CV för alla branscher. ATS-optimerade mallar och yrkespecifika guider.',
+    title: 'CV-exempel och personliga brev | 30+ yrken',
+    description: 'Hitta professionella exempel på CV och personliga brev för ditt yrke. 30+ yrkesspecifika mallar – gratis att använda som inspiration.',
     url: 'https://jobbcoach.ai/exempel',
     type: 'website',
   },
