@@ -5855,6 +5855,296 @@ Visa både teknisk expertis OCH förmåga att utveckla personal – det är vad 
     ]
   },
 
+  'chef': {
+    yrke: 'Chef',
+    sokvolym: 1200,
+    metaTitle: 'CV Exempel Chef 2025 - Ledarskap & Personalansvar | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för chef med ledarerfarenhet. Framhäv personalansvar, resultat och teamutveckling. Gratis mall och tips för ledare 2025.',
+
+    seoIntro: `Att skapa ett vinnande CV som chef kräver att du tydligt demonstrerar din förmåga att leda, utveckla och leverera resultat genom andra. Rekryterare och företagsledare söker inte bara efter administrativa färdigheter – de vill se konkreta bevis på hur du har påverkat verksamheten, utvecklat medarbetare och skapat högpresterande team.
+
+Ett professionellt chef-CV måste framhäva kvantifierbara resultat som antal medarbetare du lett, budgetansvar i miljoner kronor, och mätbara förbättringar i nyckeltal som medarbetarengagemang, retention, produktivitet eller lönsamhet. För ledarroller är det avgörande att visa progression från specialistroller till ledarskap samt tydliggöra både dina tekniska kompetenser inom verksamhetsstyrning och dina personliga ledaregenskaper.
+
+Detta CV-exempel för chef visar hur du strukturerar erfarenhet från olika ledarnivåer, lyfter fram coachande ledarskap och förändringsledning, samt presenterar relevanta certifieringar som UGL, projektledning eller Lean. Följ denna mall för att skapa ett CV som öppnar dörrar till nästa steg i din ledarkarriär – oavsett om du söker roll som avdelningschef, enhetschef, teamledare eller verksamhetschef.`,
+
+    intro: 'Professionellt CV-exempel för chef som illustrerar hur du framgångsrikt presenterar din ledarerfarenhet, personalansvar och förmåga att driva resultat genom teamutveckling. Visar tydlig karriärprogression från specialist till avdelningschef med växande ansvar för medarbetare, budget och verksamhetsutveckling.',
+
+    exempelCV: {
+      namn: 'Anna Bergström',
+      titel: 'Avdelningschef med 12+ års erfarenhet inom verksamhetsutveckling och ledarskap',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.bergstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/annabergstrom'
+      },
+      profil: 'Erfaren avdelningschef med dokumenterad förmåga att leda, utveckla och engagera team om upp till 35 medarbetare. Specialiserad på verksamhetsutveckling och processorientat förbättringsarbete med stark koppling till affärsmål och ekonomiska resultat. Kombinerar coachande ledarskap med tydlig målstyrning och har framgångsrikt genomfört flera organisationsförändringar med bibehållen eller förbättrad medarbetarengagemang. Driven av att skapa förutsättningar för medarbetare att växa och att bygga högpresterande team som levererar mätbara resultat.',
+      erfarenhet: [
+        {
+          titel: 'Avdelningschef, Kundservice & Support',
+          arbetsgivare: 'Nordic Tech Solutions AB',
+          period: '2020 – Nuvarande',
+          beskrivning: [
+            'Leder avdelning med 35 medarbetare fördelade på tre team med fullt personal-, budget- och resultatansvar (22 MSEK årsomsättning)',
+            'Implementerade ny teamstruktur och coachande ledarskap vilket förbättrade medarbetarengagemanget från 68% till 84% (HMI-mätning)',
+            'Drev processutvecklingsprojekt som minskade ärendehanteringstid med 32% och ökade kundnöjdheten (NPS) från 42 till 67',
+            'Ansvarar för rekrytering, onboarding, utvecklingssamtal och lönesättning samt säkerställer kompetensförsörjning i linje med strategiska mål',
+            'Genomförde omorganisation med bibehållen produktivitet under övergången och noll personalavgångar under förändringsfasen'
+          ]
+        },
+        {
+          titel: 'Teamledare, Customer Success',
+          arbetsgivare: 'Digital Growth Partners',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Ledde team om 12 Customer Success Managers med fokus på kundretention och merförsäljning (18 MSEK årlig ARR)',
+            'Utvecklade och implementerade onboarding-program för nya teammedlemmar vilket minskade time-to-productivity från 4 till 2,5 månader',
+            'Ökade teamets retention rate från 88% till 94% genom strukturerade kundengagemangsprocesser och proaktiv uppföljning',
+            'Genomförde månatliga utvecklingssamtal och kvartalsvis prestationsutvärdering kopplat till individuella utvecklingsplaner',
+            'Samarbetade med sales och produktteam för att förbättra kundresan vilket resulterade i 23% ökning i upsell-intäkter'
+          ]
+        },
+        {
+          titel: 'Projektledare & Senior Consultant',
+          arbetsgivare: 'Business Innovation Consulting',
+          period: '2013 – 2017',
+          beskrivning: [
+            'Ledde tvärfunktionella projekt med team om 5-15 personer inom processutveckling och organisationsförändring',
+            'Drev förändringsprojekt hos kunder inom detaljhandel, finans och telekom med totalt projektvärde om 45 MSEK',
+            'Implementerade Lean-metodik hos tre större kunder vilket genererade kostnadsbesparingar om totalt 8,5 MSEK årligen',
+            'Ansvarade för stakeholder management och rapporterade direkt till kundens ledningsgrupp'
+          ]
+        },
+        {
+          titel: 'Business Analyst',
+          arbetsgivare: 'Sverigekoncernen AB',
+          period: '2010 – 2013',
+          beskrivning: [
+            'Analyserade och optimerade affärsprocesser inom försäljning och kundservice för koncernens nordiska verksamhet',
+            'Samarbetade med IT och verksamhet för att implementera CRM-system (Salesforce) vilket förbättrade datadriven försäljningsstyrning',
+            'Skapade dashboards och KPI-uppföljning i Power BI för ledningsgruppen vilket förbättrade beslutsunderlaget'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Civilingenjör, Industriell Ekonomi',
+          skola: 'Kungliga Tekniska Högskolan (KTH)',
+          period: '2005 – 2010',
+          beskrivning: 'Inriktning: Organisation och Ledning'
+        },
+        {
+          titel: 'Ledarutvecklingsprogram',
+          skola: 'Stockholm School of Economics Executive Education',
+          period: '2019',
+          beskrivning: 'Fokus på strategiskt ledarskap, förändringsledning och affärsutveckling'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Personalledning & Teamutveckling (Expert, 8+ år)',
+          'Budgetansvar & Ekonomisk Styrning (Expert, 5+ år)',
+          'Processutveckling & Lean',
+          'Change Management & Förändringsledning',
+          'KPI-uppföljning & Business Intelligence (Power BI, Tableau)',
+          'HR-system (HR+, Personio)',
+          'Projektledning (Agilt, PRINCE2)'
+        ],
+        personliga: [
+          'Coachande ledarskap (förbättrade medarbetarengagemang med 16 procentenheter)',
+          'Kommunikation & Stakeholder Management (rapporterat direkt till C-level)',
+          'Resultatfokus (konsekvent överträffat budget- och verksamhetsmål)',
+          'Förändringsledning (genomfört 5+ större organisationsförändringar)',
+          'Analytisk förmåga (datadriven beslutsfattning baserat på KPI:er)'
+        ]
+      },
+      certifieringar: [
+        'UGL-certifierad ledare (Utveckling av Grupp och Ledare, 2018)',
+        'PRINCE2 Foundation & Practitioner (2016)',
+        'Certified Lean Six Sigma Green Belt (2015)',
+        'Coachande ledarskap, IHM Business School (2021)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Tyska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera ditt ledarskap: Ange alltid antal medarbetare du lett, budgetansvar i MSEK, och konkreta resultat som förbättrat medarbetarengagemang, minskad personalomsättning eller ökad produktivitet i procent',
+      'Visa progression och utveckling: Beskriv din resa från specialist till ledare och hur ditt ansvarsområde vuxit. Tydliggör skillnaden mellan teamledare och avdelningschef om du haft båda rollerna',
+      'Kombinera hårda och mjuka färdigheter: Balansera tekniska kompetenser (budgetstyrning, KPI-uppföljning, HR-system) med personliga ledaregenskaper (coachande stil, kommunikation, förändringsledning) och ge konkreta bevis för båda'
+    ],
+
+    statistik: [
+      {
+        siffra: '3 200+',
+        text: 'lediga chefstjänster i Sverige just nu – konkurrensen är hård, ditt CV måste sticka ut'
+      },
+      {
+        siffra: '58 000 kr',
+        text: 'är genomsnittlig månadslön för avdelningschefer och enhetschefer i Sverige'
+      },
+      {
+        siffra: '87%',
+        text: 'av rekryterare kräver dokumenterade ledarresultat vid urval av chefer'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Ledarspecifika nyckelord för ATS',
+        text: `Anna använder termer som rekryterare faktiskt söker efter: "personalansvar", "budgetansvar", "verksamhetsutveckling", "ledningsgrupp". Inte vaga fluffbegrepp som "teamplayer" eller "strategisk tänkare".
+
+Varför detta fungerar: ATS-system i chefsrekrytering söker efter specifika ledartermer. När Anna skriver "35 medarbetare" och "22 MSEK budgetansvar" istället för "ansvarig för team och ekonomi" triggar hon rätt sökord. Rekryterare filtrerar ofta på exakt dessa termer när de söker ledare med viss omfattning.`
+      },
+      {
+        rubrik: 'Mätbara ledarresultat, inte ansvar',
+        text: `CV:t visar konkreta förbättringar: medarbetarengagemang från 68% till 84%, NPS från 42 till 67. Varje chefsroll beskrivs med resultat, inte bara arbetsuppgifter.
+
+Varför detta fungerar: Rekryterare läser hundratals CV där kandidater skriver "ansvarig för medarbetarutveckling". Det säger inget. Anna visar att hennes ledarskap faktiskt gav resultat – engagemanget ökade med 16 procentenheter. Detta bevisar att hon kan leda, inte bara haft titeln. Siffror skiljer bra ledare från dem som bara haft rollen.`
+      },
+      {
+        rubrik: 'Progression från doer till ledare',
+        text: `Karriärstegen syns tydligt: Business Analyst → Projektledare → Teamledare → Avdelningschef. Varje steg bygger på föregående med ökande ansvar.
+
+Varför detta fungerar: Rekryterare vill se att du vuxit in i ledarskap, inte hoppat dit. Progressionen visar att Anna först bemästrade själva arbetet (analyst), sedan ledde initiativ (projektledare), därefter fick personalansvar (teamledare) innan hon blev avdelningschef. Detta minskar risken – du har bevisat att du klarar varje nivå innan du klättrat vidare.`
+      },
+      {
+        rubrik: 'Ledarutbildningar med årtal och relevans',
+        text: `UGL (2018), PRINCE2 (2016), Lean Six Sigma (2015) – med årtal som visar kontinuerlig utveckling. Inte bara "genomfört ledarskapskurser".
+
+Varför detta fungerar: Specifika certifieringar signalerar att du investerat i ledarskapet professionellt. UGL är branschstandard för ledare i Sverige, PRINCE2 visar strukturerad projektledning, Lean Six Sigma bevisar processkompetens. Årtal visar att du håller dig uppdaterad. Vaga formuleringar som "utbildning i ledarskap" kan betyda en endagskurs – konkreta certifieringar är verifierbara.`
+      },
+      {
+        rubrik: 'Profiltext som säljer ledarerfarenhet',
+        text: `Första stycket sammanfattar omedelbart: 12+ år, 35 medarbetare, 22 MSEK, konkreta resultat. Rekryteraren vet direkt vilken nivå Anna är på.
+
+Varför detta fungerar: Rekryterare scrollar igenom 50 CV på 10 minuter. De läser inte hela CV:t – de scannar profiltexten för att sålla. När Anna skriver "Avdelningschef med 12+ års erfarenhet, ansvar för 35 medarbetare och 22 MSEK budget" vet rekryteraren på 3 sekunder om hon matchar nivån de söker. Utan profiltext måste de gissa genom att läsa hela CV:t.`
+      },
+      {
+        rubrik: 'Balans mellan hårda och mjuka resultat',
+        text: `CV:t visar både affärsresultat (NPS +25 enheter, budgetstyrning) och medarbetarresultat (engagemang +16%). Inte bara siffror eller bara "bra ledarskap".
+
+Varför detta fungerar: Rekryterare undviker två typer av chefer: de som bara kör siffror (hög personalomsättning) och de som bara pratar mjukvara utan resultat (verksamheten står still). Anna bevisar båda: hon förbättrade kundnöjdheten OCH medarbetarengagemanget. Detta visar hållbart ledarskap – resultat utan att bränna ut teamet.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera ditt ledarskap konkret',
+        text: `Rekryterare kan inte bedöma "ansvarig för team" – det kan betyda 3 personer eller 300. Specificera antal medarbetare, budgetansvar och organisationsnivå.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för avdelningens personal och ekonomi samt verksamhetsutveckling"
+
+✅ "Leder 35 medarbetare fördelade på 4 team, ansvarar för 22 MSEK budget och rapporterar direkt till VD i ledningsgruppen"
+
+Lägg till både direkta och indirekta rapporter om du har matrisorganisation. Specificera även budgettyp – drift, investering eller total P&L-ansvar.`
+      },
+      {
+        rubrik: 'Visa din väg från specialist till chef',
+        text: `De bästa CV:na för chefer visar progression. Rekryterare vill se att du kan jobbet du ska leda, inte bara läst om det i bok.
+
+**Exempel på före/efter**:
+
+❌ "2015-2024: Olika chefsroller inom organisation och verksamhetsutveckling"
+
+✅ "Business Analyst (2012-2015) → Projektledare (2015-2017) → Teamledare 8 pers (2017-2020) → Avdelningschef 35 pers (2020-2024)"
+
+Betona hur varje steg förberedde dig för nästa. Om du hoppade från specialist till stor chefsroll direkt, förklara varför – t.ex. internt förtroendeuppdrag eller specifik kompetens som krävdes.`
+      },
+      {
+        rubrik: 'Beskriv din ledarstil med bevis, inte ord',
+        text: `Ord som "coachande", "inkluderande" eller "resultatorienterad" är värdelösa utan bevis. Visa VAD du gjorde som ledare och vilka resultat det gav.
+
+**Exempel på före/efter**:
+
+❌ "Coachande ledarstil med fokus på medarbetarnas utveckling och engagemang"
+
+✅ "Införde månatliga utvecklingssamtal och individuella kompetensutvecklingsplaner – medarbetarengagemang ökade från 68% till 84% på 2 år"
+
+Koppla alltid ledaraktiviteter till mätbara utfall. "Implementerade veckovisa one-on-ones" betyder inget om det inte ledde till lägre personalomsättning, högre leveranskvalitet eller bättre NPS.`
+      },
+      {
+        rubrik: 'Lyft förändringsledning med konkreta exempel',
+        text: `Alla chefer påstår att de "drivit förändring". Bevisa det genom att beskriva VAD du förändrade, HUR du gjorde det och vilket resultat det gav.
+
+**Exempel på före/efter**:
+
+❌ "Ledde omorganisation och förändringsprojekt för att effektivisera verksamheten"
+
+✅ "Ledde sammanslagning av 3 avdelningar till 1 (18 månader) – minskade ledtid med 40%, behöll 94% av nyckelpersoner trots osäkerhet"
+
+Inkludera motståndshantering om relevant: "Genomförde 25+ dialogmöten med berörda medarbetare för att säkerställa förankring innan beslut".`
+      },
+      {
+        rubrik: 'Balansera hårda och mjuka kompetenser',
+        text: `Chefer behöver både affärskompetens (budget, KPI:er, processer) och människokompetens (coaching, konflikthantering, kommunikation). Visa båda med exempel.
+
+**Exempel på före/efter**:
+
+❌ "Kompetenser: Budgetering, Personalansvar, Verksamhetsutveckling, Kommunikation, Ledarskap"
+
+✅ "Ekonomistyrning: Minskat driftskostnader 12% utan personalminskning | Medarbetarutveckling: 8 av 35 medarbetare befordrade internt på 3 år"
+
+Undvik att bara lista mjuka egenskaper ("empatisk", "lyhörd") – bevisa dem genom resultat som "personalomsättning 6% vs branschsnitt 18%".`
+      },
+      {
+        rubrik: 'Anpassa CV för chefsroll vs specialistroll',
+        text: `Om du söker både chefsroller och specialistroller behöver du två CV-versioner. Ledarrekryterare och specialistrekryterare letar efter olika saker.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för projektportfölj och 12 projektledare samt deltagit i systemimplementeringar"
+
+✅ Chef-CV: "Leder projektkontor med 12 projektledare, total portfölj 45 MSEK, ansvarar för prioritering och resursallokering"
+
+I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t djupdyker du i teknisk komplexitet och leverans.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV vara som chef?',
+        svar: '2 sidor är standard för chefer med 10+ års erfarenhet, 3 sidor acceptabelt för verkställande direktörer eller seniora ledare med 20+ år. Första sidan är avgörande – lägg profiltext, nyckelkompetenser och senaste chefsrollen där. Rekryterare läser sällan vidare om första sidan inte övertygar. Prioritera relevans över fullständighet: detaljera senaste 10 åren (där ledarerfarenheten finns), summera tidigare roller i 1-2 rader per position.'
+      },
+      {
+        fraga: 'Hur visar jag personalansvar på ett konkret sätt?',
+        svar: 'Specificera antal medarbetare (direkta och indirekta), organisationsstruktur och ledningsnivå. Skriv "Leder 35 medarbetare fördelade på 4 team (direkta rapporter: 4 teamledare)" istället för "personalansvar". Inkludera vad du faktiskt gör: rekrytering, utveckling, performance management. Lägg till resultat som personalomsättning, sjukfrånvaro och medarbetarengagemang före/efter du tog över.'
+      },
+      {
+        fraga: 'Ska jag inkludera ledarutbildningar som UGL?',
+        svar: 'Ja, absolut. UGL (Utveckling Grupp Ledare) är branschstandard i Sverige och signalerar att du investerat i ledarutveckling. Inkludera även PRINCE2, Lean Six Sigma, certifierad coach eller liknande – med årtal. Placera under "Utbildning & Certifieringar" eller egen sektion "Ledarutveckling". Undvik att lista endagskurser eller interna workshops – fokusera på erkända certifieringar som tar minst 3-5 dagar.'
+      },
+      {
+        fraga: 'Hur beskriver jag budget- och resultatansvar tydligt?',
+        svar: 'Specificera belopp, typ av ansvar och resultat. Skriv "Ansvarar för 22 MSEK driftsbudget + 8 MSEK investeringsbudget, full P&L-ansvar" istället för bara "budgetansvar". Visa vad du åstadkommit: "Minskade driftskostnader 12% (2,6 MSEK) genom processoptimering utan personalminskning". Inkludera även forecast-träffsäkerhet om relevant: "Budget vs utfall +/- 2% senaste 4 åren".'
+      },
+      {
+        fraga: 'Hur hanterar jag karriärbyte till chefsroll från specialistroll?',
+        svar: 'Betona alla ledarsituationer du haft som specialist: "Projektledare för 8-12 konsulter", "Mentor för 3 juniora analytiker", "Drev förbättringsgrupp med 6 kollegor". Lyft fram resultat som visar ledarförmåga: "Koordinerade team om 15 personer genom systemlansering". Om du haft tillfälligt ledaransvar (vikariat, projektuppdrag) – framhäv det tydligt. Inkludera ledarutbildningar du tagit för att förbereda steget.'
+      },
+      {
+        fraga: 'Ska jag nämna mjuka ledaregenskaper i CV:t?',
+        svar: 'Aldrig utan bevis. Ord som "empatisk", "lyhörd", "inspirerande" är värdelösa om du bara listar dem. Istället: bevisa dem genom resultat. "Empatisk" blir "Personalomsättning 6% vs branschsnitt 18%". "Utvecklande" blir "8 av 35 medarbetare befordrade internt på 3 år". Låt rekryteraren DRA slutsatsen att du är empatisk när de ser dina medarbetarresultat.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan leda förändring och transformation?',
+        svar: 'Beskriv konkreta förändringsprojekt med kontext, åtgärd och resultat. Exempel: "Ledde sammanslagning av 3 avdelningar (55 personer) till en gemensam organisation – från beslut till full implementation på 18 månader. Minskade ledtid 40%, behöll 94% av nyckelpersoner." Inkludera hur du hanterade motstånd: "25+ dialogmöten för förankring". Visa både hårda resultat (effektivitet, kostnad) och mjuka (medarbetarengagemang, retention).'
+      }
+    ],
+
+    kategori: 'ledarskap',
+    relaterade: [
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'HR-specialist', slug: 'hr-specialist' },
+      { yrke: 'Ekonom', slug: 'ekonom' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
