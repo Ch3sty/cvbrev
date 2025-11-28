@@ -270,6 +270,262 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     ]
   },
 
+  'vardbitrade': {
+    yrke: 'Vårdbiträde',
+    sokvolym: 1400,
+    kategori: 'vard',
+
+    metaTitle: 'CV Exempel Vårdbiträde 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för vårdbiträde med fokus på ADL-stöd, demensomvårdnad och personlig omvårdnad. Inkluderar kvantifierbara resultat, certifieringar och branschspecifika system som Procapita.',
+
+    seoIntro: `Att skapa ett CV som vårdbiträde kräver att du tydligt visar din erfarenhet av personlig omvårdnad, ADL-stöd och socialt stöd till brukare. Arbetsgivare inom äldreomsorgen söker vårdbiträden som kan dokumentera omvårdnadsinsatser i system som Procapita eller Lifecare, tillämpa säker förflyttningsteknik och skapa trygghet för personer med demensdiagnos.
+
+I dagens äldreomsorg är digital dokumentation, kunskap om basala hygienrutiner och förmåga att arbeta personcentrerat avgörande. Arbetsgivare värderar vårdbiträden som kan arbeta självständigt, handleda praktikanter och fungera som kontaktperson för brukare och anhöriga. Ditt CV bör därför tydligt visa vilka dokumentationssystem du behärskar, vilka certifieringar du har (HLR, förflyttningsteknik, demensutbildning) och hur du arbetat för att förbättra brukarnas vardag.
+
+Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom demensomvårdnad presenterar sina kvalifikationer. Exemplet innehåller kvantifierbara resultat från arbete på demensboende och äldreboende, relevant kompetens inom ADL-stöd och personlig omvårdnad, samt certifieringar som är centrala för yrkesrollen.`,
+
+    intro: 'Som vårdbiträde är ditt CV din möjlighet att visa hur du skapar trygghet och livskvalitet för personer i behov av omvårdnad. Detta exempel visar hur du strukturerar ditt CV för att highlighta din kompetens och dina konkreta resultat inom äldreomsorgen.',
+
+    exempelCV: {
+      namn: 'Maria Johansson',
+      titel: 'Erfaren Vårdbiträde med specialisering i Demensomvårdnad',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'maria.johansson@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/mariajohansson'
+      },
+
+      profil: 'Erfaren vårdbiträde med 5+ års specialisering inom demensomvårdnad och ADL-stöd för multisjuka äldre. Dokumenterad förmåga att hantera 12 brukare med demensdiagnos per skift med fokus på personcentrerad omvårdnad, social aktivering och trygghetsskapande miljö. Expertis i dokumentationssystem (Procapita, Lifecare), förflyttningsteknik och palliativ omvårdnad. Arbetar evidensbaserat med BPSD-hantering och nutritionsstöd för att öka brukarnas livskvalitet och minska fallfrekvens.',
+
+      erfarenhet: [
+        {
+          titel: 'Vårdbiträde - Demensboende',
+          arbetsgivare: 'Solbackens Äldreboende, Stockholm',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig vårdbiträde för 12 boende med demensdiagnos (Alzheimer, vaskulär demens) med fokus på personcentrerad omvårdnad och BPSD-hantering',
+            'Kontaktperson för 4 boende – koordinerar individuella vårdplaner, anhörigkontakter och dokumentation i Procapita, vilket ökat anhörigtillfredsställelse med 35% enligt brukarenkäter',
+            'Implementerade strukturerad social aktivering (musikstunder, promenader, måltidsaktiviteter) som minskade oro och vandrande hos 8 av 12 boende',
+            'Handleder 2-3 vårdbiträdespraktikanter per termin i demensomvårdnad, förflyttningsteknik och dokumentationsrutiner',
+            'Tillämpar säker förflyttningsteknik och lyfthjälpmedel vilket resulterat i noll arbetsrelaterade skador på enheten under 24 månader'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde',
+          arbetsgivare: 'Lindgårdens Äldreboende, Sollentuna',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Vårdbiträde för 15 multisjuka äldre per skift med ansvar för ADL-stöd (personlig hygien, påklädning, toalettbesök), nutritionsstöd och sociala aktiviteter',
+            'Dokumenterade dagliga omvårdnadsinsatser i Lifecare och rapporterade avvikelser enligt rutiner – 98% korrekt dokumentation enligt internrevision',
+            'Deltog i palliativ omvårdnad för 6 boende i livets slutskede – skapade värdighet och lindring i samarbete med sjuksköterskor och anhöriga',
+            'Genomförde fallpreventionsåtgärder (nattlig tillsyn, gånghjälpmedel, tydlig miljö) som bidrog till 40% minskning av fallincidenter på enheten'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde / Sommarvikarie',
+          arbetsgivare: 'Hemtjänsten Norr, Stockholm',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Vårdbiträde inom hemtjänsten med ansvar för ADL-stöd, medicinpåminnelser och social samvaro för 8-10 äldre per dag',
+            'Utförde personlig omvårdnad (dusch, hygien, påklädning) och praktiskt stöd (inköp, städning, matlagning) enligt individuella vårdplaner',
+            'Lärde mig dokumentationssystem Treserva och basala hygienrutiner samt säker hantering av hjälpmedel (rollatorer, rullstolar)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Vårdbiträdesutbildning',
+          skola: 'Komvux Stockholm',
+          period: '2017 – 2018',
+          beskrivning: 'Grundläggande vårdutbildning med fokus på omvårdnad, ADL-stöd och dokumentation.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'ADL-stöd (Expert, 5+ år) – personlig hygien, påklädning, måltidsstöd',
+          'Demensomvårdnad (Expert, 4+ år) – BPSD-hantering, personcentrerad vård',
+          'Dokumentationssystem (Avancerad) – Procapita, Lifecare, Treserva',
+          'Förflyttningsteknik (Expert, 5+ år) – lyfthjälpmedel, glidlakan, mobila liftar',
+          'Palliativ omvårdnad – symtomlindring, anhörigstöd',
+          'Basala hygienrutiner – infektionsprevention',
+          'Nutritionskunskap – BMI-uppföljning, måltidsstöd'
+        ],
+        personliga: [
+          'Empatisk och lugn – skapar trygghet för personer med demens, 35% ökad anhörigtillfredsställelse',
+          'Flexibel och pålitlig – arbetar dag-, kväll- och helgpass, 100% närvarofrekvens senaste 18 månaderna',
+          'Pedagogisk – handleder praktikanter och nyanställda i demensomvårdnad och dokumentationsrutiner'
+        ]
+      },
+
+      certifieringar: [
+        'HLR (Hjärt-Lungräddning) – 2024',
+        'Förflyttningsteknik / Akta Ryggen – 2023',
+        'Demensutbildning (40 timmar) – 2022',
+        'Palliativ omvårdnad (20 timmar) – 2021',
+        'Basala hygienrutiner – 2020'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Tydlig specialisering inom demensomvårdnad',
+        text: `CV:t visar progression från allmän äldreomsorg till specifik demensomvårdnad på särskilt boende, med konkret erfarenhet av 12 boende med demensdiagnos. Profiltext och arbetsuppgifter använder branschtermer som BPSD-hantering och trygghetsskapande rutiner.
+
+Varför detta fungerar: Demensomvårdnad är en eftertraktad specialkompetens som kräver särskild utbildning och erfarenhet. Rekryterare söker aktivt efter vårdbiträden med dokumenterad demenserfarenhet eftersom dessa roller är svåra att rekrytera till. Genom att kvantifiera antalet boende och nämna specifika metoder visar du att du inte bara har arbetat med demens, utan att du har djup, relevant erfarenhet.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat som bevisar omvårdnadskvalitet',
+        text: `Istället för vaga påståenden innehåller CV:t konkreta resultat: 40% minskning av fallolyckor genom trygghetsskapande rutiner, 35% ökad anhörigtillfredsställelse i brukarenkäter, och 0 arbetsrelaterade skador under 24 månader tack vare korrekt förflyttningsteknik.
+
+Varför detta fungerar: Vårdorganisationer följer noga kvalitetsindikatorer som fallfrekvens, brukar- och anhörigtillfredsställelse. När du visar att du aktivt bidragit till förbättrade resultat inom dessa områden signalerar du att du förstår vårdens kvalitetsarbete. Det skiljer dig från kandidater som endast listar arbetsuppgifter utan att visa faktisk påverkan på omvårdnaden.`
+      },
+      {
+        rubrik: 'ATS-optimering med branschspecifika system',
+        text: `CV:t nämner specifika dokumentationssystem vid namn: Procapita för äldreomsorg, Lifecare för medicinteknik och Treserva för schemaläggning. Dessutom används vedertagna termer som ADL-stöd, basal hygien och nutritionsuppföljning.
+
+Varför detta fungerar: ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. Kommuner och privata vårdföretag använder ofta samma system nationellt, så när rekryterare söker efter "Procapita" eller "ADL-stöd" i kandidatbanken dyker detta CV upp direkt. Generiska beskrivningar som "journalsystem" eller "omvårdnad" ger inga träffar i dessa sökningar.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        text: `Alla certifieringar är daterade: HLR (2024), Förflyttningsteknik (2023) och Demensutbildning (2022). Detta visar att kompetensen är aktuell och regelbundet uppdaterad.
+
+Varför detta fungerar: Vårdorganisationer har krav på gällande HLR-certifiering och ergonomisk förflyttningsteknik enligt Arbetsmiljöverket. När du anger årtal visar du att du förstår dessa krav och att din kompetens är giltig. Rekryterare kan se direkt att de inte behöver skicka dig på akuta utbildningar före anställningsstart, vilket gör dig till en mer attraktiv kandidat.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och empatiska resultat',
+        text: `CV:t kombinerar tekniska färdigheter som dokumentation i Procapita, basal hygien och nutritionsuppföljning med mjuka färdigheter som visat ger resultat: trygghetsskapande rutiner som minskat fall med 40%, och relationsskapande förmåga som ökat anhörigtillfredsställelse med 35%.
+
+Varför detta fungerar: Vårdyrken kräver både teknisk precision och mellanmänsklig kompetens. Genom att visa att dina empatiska förmågor faktiskt lett till mätbara resultat undviker du problemet med vaga påståenden. Istället för att bara skriva "empatisk och omhändertagande" bevisar du att din förmåga att skapa trygga relationer faktiskt förbättrat omvårdnaden konkret.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression med ökande ansvar',
+        text: `CV:t visar en logisk utveckling: från sommarvikariat i hemtjänst (2018) till fast anställning på äldreboende (2019) till specialisering inom demensomvårdnad (2021) och slutligen handledaransvar för praktikanter. Varje steg innebär mer komplex omvårdnad och större ansvar.
+
+Varför detta fungerar: Progression signalerar engagemang och ambition. Rekryterare ser att du inte hoppat mellan kortvariga vikariat utan byggt kompetens systematiskt. Handledningsansvaret visar att arbetsgivare litat på dig tillräckligt för att utbilda andra, vilket är en stark rekommendation. Det indikerar också att du kan växa in i teamledare- eller samordnarroller längre fram.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera antal brukare och omvårdnadsansvar',
+        text: `Vårdorganisationer behöver veta hur stor arbetsbelastning du hanterat tidigare. Ange alltid antal brukare du ansvarade för och typ av vård.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för omvårdnad och ADL-stöd till äldre"
+
+✅ "Ansvarade för omvårdnad av 12 boende med demensdiagnos, inklusive ADL-stöd, nutritionsuppföljning och trygghetsskapande rutiner"
+
+Den specifika informationen visar exakt vilken arbetsbörda och komplexitet du har erfarenhet av.`
+      },
+      {
+        rubrik: 'Nämn dokumentationssystem vid namn',
+        text: `ATS-system söker efter exakta systemnamn när rekryterare filtrerar kandidater. Skriv alltid vilket specifikt system du använt istället för generiska termer.
+
+**Exempel på före/efter**:
+
+❌ "Dokumentation i journalsystem och schemaläggning i olika program"
+
+✅ "Dokumentation av omvårdnad i Procapita, medicinteknik via Lifecare, schemaläggning i Treserva"
+
+Konkreta systemnamn ger träffar i ATS-sökningar och visar att du kan börja arbeta direkt utan omfattande systemutbildning.`
+      },
+      {
+        rubrik: 'Visa demensomvårdnad med konkreta metoder',
+        text: `Demenskompetens är högt värderat men många skriver bara "erfarenhet av demens". Visa istället vilka specifika metoder du behärskar och vilka resultat de gett.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av att arbeta med demenssjuka"
+
+✅ "BPSD-hantering och trygghetsskapande rutiner för 12 boende med demens, vilket minskade fallolyckor med 40%"
+
+Metoder som BPSD-hantering och kvantifierade resultat bevisar djup kompetens istället för bara exponering.`
+      },
+      {
+        rubrik: 'Inkludera certifieringar med giltighetstid',
+        text: `Vårdorganisationer har lagkrav på gällande HLR och arbetsmiljökrav på ergonomisk förflyttningsteknik. Ange alltid när du genomförde utbildningen.
+
+**Exempel på före/efter**:
+
+❌ "HLR-certifierad, utbildning i förflyttningsteknik"
+
+✅ "HLR (Svenska Rådet för hjärt-lungräddning, 2024), Förflyttningsteknik enligt Akta Ryggen (2023), Demensutbildning (2022)"
+
+Årtal visar att du kan börja arbeta direkt utan akuta utbildningsinsatser, vilket gör dig mer attraktiv.`
+      },
+      {
+        rubrik: 'Bevisa mjuka färdigheter med mätbara resultat',
+        text: `Alla vårdbiträden skriver "empatisk" och "omhändertagande". Visa istället hur dina relationsbyggande förmågor faktiskt förbättrat omvårdnaden.
+
+**Exempel på före/efter**:
+
+❌ "Empatisk och omhändertagande, skapar goda relationer med brukare"
+
+✅ "Trygghetsskapande rutiner och relationsskapande förmåga ökade anhörigtillfredsställelse med 35% i brukarenkäter"
+
+Mätbara resultat förvandlar vaga personlighetsegenskaper till dokumenterad yrkeskompetens.`
+      },
+      {
+        rubrik: 'Visa progression och handledaransvar',
+        text: `Karriärutveckling inom vård signalerar engagemang och potential för mer ansvar. Visa hur du gått från enklare uppgifter till mer komplex omvårdnad.
+
+**Exempel på före/efter**:
+
+❌ "Arbetat inom äldreomsorg sedan 2018"
+
+✅ "Progression från hemtjänstvikarie (2018) till fast anställning äldreboende (2019) till demensspecialisering (2021), nu med handledaransvar för praktikanter"
+
+Tydlig utvecklingskurva visar att du kan växa in i teamledare- eller samordnarroller.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som vårdbiträde vara?',
+        svar: 'Ett CV för vårdbiträde ska helst vara en sida, max två sidor om du har över 10 års erfarenhet. Fokusera på de senaste 5-7 åren och ta med alla relevanta certifieringar. Rekryterare inom vård har begränsad tid och vill snabbt se din specialisering, systemkunskap och aktuella certifieringar.'
+      },
+      {
+        fraga: 'Vilka system ska jag inkludera i ett CV för vårdbiträde?',
+        svar: 'Ta alltid med dokumentationssystem som Procapita, VAS, PMO eller Magna Cura vid namn. Nämn även medicinteknikssystem som Lifecare och schemaverktyg som Treserva eller Medvind om du använt dem. ATS-system söker efter dessa exakta namn när rekryterare filtrerar kandidater. Undvik generiska termer som "journalsystem" då dessa inte ger träffar i sökningar.'
+      },
+      {
+        fraga: 'Hur visar jag min erfarenhet av demensomvårdnad?',
+        svar: 'Ange antal boende med demensdiagnos du ansvarade för och vilka specifika metoder du använder, som BPSD-hantering eller trygghetsskapande rutiner. Ta med eventuell demensutbildning med årtal. Kvantifiera resultat om möjligt, till exempel minskade fallolyckor eller ökad brukartrygghet. Använd vedertagna termer som personcentrerad omvårdnad för att visa djup kompetens.'
+      },
+      {
+        fraga: 'Ska jag inkludera HLR och andra certifieringar?',
+        svar: 'Ja, absolut. HLR-certifiering är ofta ett lagkrav och ska alltid finnas med, inklusive årtal för senaste utbildning. Ta även med förflyttningsteknik, basal hygien, första hjälpen och eventuell demensutbildning. Dessa certifieringar visar att du kan börja arbeta direkt utan extra utbildningskostnader. Skapa en egen sektion "Certifieringar" där du listar dessa med år.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för äldreboende vs hemtjänst?',
+        svar: 'För äldreboende, betona omvårdnad i boende, demenskompetens, teamarbete och dokumentation i Procapita. För hemtjänst, fokusera på självständigt arbete, tidsplanering och flexibilitet. Ändra nyckelord i profiltext och arbetsuppgifter så de matchar jobbannonsen. Om tjänsten söker "BPSD-hantering" är det ett demensboende, om de skriver "ADL-stöd i hemmet" är det hemtjänst.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är empatisk utan att bara säga det?',
+        svar: 'Bevisa empatiska förmågor genom resultat istället för att skriva personlighetsegenskaper. Använd formuleringar som "trygghetsskapande rutiner som minskade fallolyckor med 40%" eller "relationsskapande förmåga som ökade anhörigtillfredsställelse med 35%". Detta visar att din empati faktiskt är en yrkeskompetens som förbättrar vårdkvaliteten.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan vårdbiträde och undersköterska i CV:t?',
+        svar: 'Vårdbiträden fokuserar på ADL-stöd, basal hygien och social omsorg medan undersköterskor även utför delegerade medicinska uppgifter som läkemedelshantering. I ditt CV som vårdbiträde ska du inte skriva att du administrerat medicin om du saknar undersköterskeutbildning. Fokusera istället på omvårdnad, dokumentation, BPSD-hantering och relationsskapande.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Personlig Assistent', slug: 'personlig-assistent' },
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' }
+    ]
+  },
+
   'forskollarare': {
     yrke: 'Förskollärare',
     sokvolym: 880,
