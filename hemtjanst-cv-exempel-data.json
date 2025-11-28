@@ -1,0 +1,107 @@
+{
+  "yrke": "Hemtjänst",
+  "sokvolym": 1100,
+  "kategori": "vard",
+  "metaTitle": "CV Exempel Hemtjänst 2025 - Professionell Mall | Jobbcoach.ai",
+  "metaDescription": "Se ett komplett CV-exempel för hemtjänstpersonal. ATS-optimerat, visar ADL-stöd, Treserva-dokumentation och kvantifierbara resultat. Inkluderar certifieringar och branschspecifika nyckelord.",
+
+  "seoIntro": "Söker du jobb inom hemtjänsten och behöver ett CV som sticker ut? Det här CV-exemplet för hemtjänstpersonal visar hur du strukturerar ett ATS-optimerat CV som passar svenska kommuner och privata vårdgivare.\n\nExemplet balanserar omvårdnadskompetens (ADL-stöd, serviceinsatser, demensbrukare) med tekniska system som Treserva och Phoniro Care. Du ser konkreta kvantifieringar: \"12-15 brukare per dag\", \"förbättrade brukarnöjdhet med 25%\", och \"koordinerar genomförandeplaner för 8 kontaktmannaskap\". CV:t är ATS-optimerat med branschspecifika nyckelord som biståndsbedömning, hemrehabilitering och delegerade arbetsuppgifter.\n\nAnvänd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev hemtjänst för att öka dina chanser till intervju.",
+
+  "intro": "Ett professionellt CV-exempel för hemtjänstpersonal som visar din omvårdnadskompetens, självständighet och empatiska förmåga. Detta exempel är optimerat för svenska kommuner och ATS-system.",
+
+  "exempelCV": {
+    "namn": "Anna Lindgren",
+    "titel": "Hemtjänstpersonal med kontaktmannaskap och ADL-kompetens",
+    "kontakt": {
+      "telefon": "070-234 56 78",
+      "epost": "anna.lindgren@email.se",
+      "plats": "Göteborg",
+      "linkedin": "linkedin.com/in/annalindgren"
+    },
+
+    "profil": "Erfaren hemtjänstpersonal med 6+ års erfarenhet av personcentrerad omsorg och ADL-stöd i hemmet. Gedigen kompetens i serviceinsatser, omvårdnad och trygghetsskapande för brukare med demensdiagnoser. Självständig och flexibel yrkesperson med B-körkort som skapar tillitsfulla relationer genom empati och professionell kommunikation. Certifierad i HLR, förflyttningsteknik och demensomvårdnad. Expert på dokumentation i Treserva och Phoniro Care.",
+
+    "erfarenhet": [
+      {
+        "titel": "Hemtjänstpersonal med kontaktmannaskap",
+        "arbetsgivare": "Göteborgs Stad, Hemtjänsten Centrum",
+        "period": "2021 – Pågående",
+        "beskrivning": [
+          "Självständigt ansvar för 12-15 brukare dagligen med ADL-stöd, personlig hygien, matlagning och medicinpåminnelse",
+          "Kontaktman för 8 brukare: koordinerar genomförandeplaner, biståndsbedömningar och tvärprofessionellt samarbete med sjuksköterskor och biståndshandläggare",
+          "Förbättrade brukarnöjdhet med 25% genom trygghetsskapande rutiner och kontinuerlig kommunikation med anhöriga",
+          "Dokumenterar vårdåtgärder i Treserva dagligen och uppmärksammar förändringar i brukarnas hälsotillstånd vilket reducerade akuta sjukhusinläggningar med 18%",
+          "Handleder 3 nyanställda under introduktionsperiod med fokus på Phoniro Care-system och ruttplanering"
+        ]
+      },
+      {
+        "titel": "Hemtjänstpersonal",
+        "arbetsgivare": "Göteborgs Stad, Hemtjänsten Väster",
+        "period": "2019 – 2021",
+        "beskrivning": [
+          "Ansvarig för 10-12 brukare dagligen inom geografiskt område på 8 km² med fokus på serviceinsatser och omvårdnadsinsatser",
+          "Utförde ADL-stöd (personlig hygien, på- och avklädning), matlagning, inköp, städning och social samvaro",
+          "Flexibel schemaläggning inkl. jourer, helger och kvällar för att säkerställa kontinuitet i omsorgen",
+          "Implementerade fallpreventionsåtgärder som minskade antalet hemolyckor med 30% i mitt distrikt"
+        ]
+      },
+      {
+        "titel": "Hemtjänstpersonal / Vikarie",
+        "arbetsgivare": "Göteborgs Stad, Hemtjänsten Pool",
+        "period": "2018 – 2019",
+        "beskrivning": [
+          "Vikarierande hemtjänstpersonal i 6 olika distrikt vilket gav bred erfarenhet av olika brukarbehov och dokumentationssystem",
+          "Grundläggande serviceinsatser och ADL-stöd för 8-12 brukare per dag",
+          "Lärde mig snabbt nya rutiner, system (Treserva, Phoniro Care) och byggde tillitsfulla relationer med brukare trots korta insatser"
+        ]
+      }
+    ],
+
+    "utbildning": [
+      {
+        "titel": "Vård- och omsorgsprogrammet, Omvårdnadsinriktning",
+        "skola": "Hvitfeldtska gymnasiet",
+        "period": "2015 – 2018",
+        "beskrivning": "APL på Göteborgs Stads hemtjänst och äldreboende med fokus på personcentrerad omsorg"
+      }
+    ],
+
+    "kompetenser": {
+      "tekniska": [
+        "Treserva – dokumentationssystem (Expert, 6+ år daglig användning)",
+        "Phoniro Care – nyckellösa lås och schemaläggning (Avancerad, 4+ år)",
+        "ADL-stöd och personlig hygien (Expert, 6+ år)",
+        "Demensomvårdnad och BPSD-hantering",
+        "Serviceinsatser – matlagning, städ, inköp, tvätt",
+        "Medicinpåminnelse och grundläggande hälsoövervakning",
+        "B-körkort (6+ år)"
+      ],
+      "personliga": [
+        "Empatisk och relationsskapande (bygger tillit hos brukare med demens och deras anhöriga)",
+        "Självständig och flexibel (hanterar 12-15 brukare dagligen med olika behov och tidsplanering)",
+        "Lyhörd kommunikation (uppmärksammar tidiga sjukdomstecken och rapporterar till sjuksköterskor)",
+        "Problemlösare (anpassar insatser efter brukarnas föränderliga tillstånd och preferenser)",
+        "Stresstålig (hanterar akuta situationer, jourer och schemaförändringar med professionalism)"
+      ]
+    },
+
+    "certifieringar": [
+      "HLR – Hjärt-Lungräddning (förnyad 2024)",
+      "Förflyttningsteknik och ergonomiska lyft (2023)",
+      "Demensutbildning – BPSD-hantering och personcentrerad omsorg (2022)",
+      "Basala hygienrutiner och smittskydd (2023)",
+      "Första hjälpen (2024)"
+    ],
+
+    "sprak": [
+      { "sprak": "Svenska", "niva": "Modersmål" },
+      { "sprak": "Engelska", "niva": "Grundläggande" }
+    ]
+  },
+
+  "relaterade": [
+    { "yrke": "Vårdbiträde", "slug": "vardbitrade" },
+    { "yrke": "Personlig assistent", "slug": "personlig-assistent" },
+    { "yrke": "Undersköterska", "slug": "underskoterska" }
+  ]
+}

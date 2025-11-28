@@ -526,6 +526,251 @@ Tydlig utvecklingskurva visar att du kan växa in i teamledare- eller samordnarr
     ]
   },
 
+  'hemtjanst': {
+    yrke: 'Hemtjänst',
+    sokvolym: 1100,
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Hemtjänst 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för hemtjänstpersonal. ATS-optimerat, visar ADL-stöd, Treserva-dokumentation och kvantifierbara resultat. Inkluderar certifieringar och branschspecifika nyckelord.',
+
+    seoIntro: `Söker du jobb inom hemtjänsten och behöver ett CV som sticker ut? Det här CV-exemplet för hemtjänstpersonal visar hur du strukturerar ett ATS-optimerat CV som passar svenska kommuner och privata vårdgivare.
+
+Exemplet balanserar omvårdnadskompetens (ADL-stöd, serviceinsatser, demensbrukare) med tekniska system som Treserva och Phoniro Care. Du ser konkreta kvantifieringar: "12-15 brukare per dag", "förbättrade brukarnöjdhet med 25%", och "koordinerar genomförandeplaner för 8 kontaktmannaskap". CV:t är ATS-optimerat med branschspecifika nyckelord som biståndsbedömning, hemrehabilitering och delegerade arbetsuppgifter.
+
+Använd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev hemtjänst för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för hemtjänstpersonal som visar din omvårdnadskompetens, självständighet och empatiska förmåga. Detta exempel är optimerat för svenska kommuner och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anna Lindgren',
+      titel: 'Hemtjänstpersonal med kontaktmannaskap och ADL-kompetens',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'anna.lindgren@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/annalindgren'
+      },
+
+      profil: 'Erfaren hemtjänstpersonal med 6+ års erfarenhet av personcentrerad omsorg och ADL-stöd i hemmet. Gedigen kompetens i serviceinsatser, omvårdnad och trygghetsskapande för brukare med demensdiagnoser. Självständig och flexibel yrkesperson med B-körkort som skapar tillitsfulla relationer genom empati och professionell kommunikation. Certifierad i HLR, förflyttningsteknik och demensomvårdnad. Expert på dokumentation i Treserva och Phoniro Care.',
+
+      erfarenhet: [
+        {
+          titel: 'Hemtjänstpersonal med kontaktmannaskap',
+          arbetsgivare: 'Göteborgs Stad, Hemtjänsten Centrum',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Självständigt ansvar för 12-15 brukare dagligen med ADL-stöd, personlig hygien, matlagning och medicinpåminnelse',
+            'Kontaktman för 8 brukare: koordinerar genomförandeplaner, biståndsbedömningar och tvärprofessionellt samarbete med sjuksköterskor och biståndshandläggare',
+            'Förbättrade brukarnöjdhet med 25% genom trygghetsskapande rutiner och kontinuerlig kommunikation med anhöriga',
+            'Dokumenterar vårdåtgärder i Treserva dagligen och uppmärksammar förändringar i brukarnas hälsotillstånd vilket reducerade akuta sjukhusinläggningar med 18%',
+            'Handleder 3 nyanställda under introduktionsperiod med fokus på Phoniro Care-system och ruttplanering'
+          ]
+        },
+        {
+          titel: 'Hemtjänstpersonal',
+          arbetsgivare: 'Göteborgs Stad, Hemtjänsten Väster',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Ansvarig för 10-12 brukare dagligen inom geografiskt område på 8 km² med fokus på serviceinsatser och omvårdnadsinsatser',
+            'Utförde ADL-stöd (personlig hygien, på- och avklädning), matlagning, inköp, städning och social samvaro',
+            'Flexibel schemaläggning inkl. jourer, helger och kvällar för att säkerställa kontinuitet i omsorgen',
+            'Implementerade fallpreventionsåtgärder som minskade antalet hemolyckor med 30% i mitt distrikt'
+          ]
+        },
+        {
+          titel: 'Hemtjänstpersonal / Vikarie',
+          arbetsgivare: 'Göteborgs Stad, Hemtjänsten Pool',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Vikarierande hemtjänstpersonal i 6 olika distrikt vilket gav bred erfarenhet av olika brukarbehov och dokumentationssystem',
+            'Grundläggande serviceinsatser och ADL-stöd för 8-12 brukare per dag',
+            'Lärde mig snabbt nya rutiner, system (Treserva, Phoniro Care) och byggde tillitsfulla relationer med brukare trots korta insatser'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Vård- och omsorgsprogrammet, Omvårdnadsinriktning',
+          skola: 'Hvitfeldtska gymnasiet',
+          period: '2015 – 2018',
+          beskrivning: 'APL på Göteborgs Stads hemtjänst och äldreboende med fokus på personcentrerad omsorg'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Treserva – dokumentationssystem (Expert, 6+ år daglig användning)',
+          'Phoniro Care – nyckellösa lås och schemaläggning (Avancerad, 4+ år)',
+          'ADL-stöd och personlig hygien (Expert, 6+ år)',
+          'Demensomvårdnad och BPSD-hantering',
+          'Serviceinsatser – matlagning, städ, inköp, tvätt',
+          'Medicinpåminnelse och grundläggande hälsoövervakning',
+          'B-körkort (6+ år)'
+        ],
+        personliga: [
+          'Empatisk och relationsskapande (bygger tillit hos brukare med demens och deras anhöriga)',
+          'Självständig och flexibel (hanterar 12-15 brukare dagligen med olika behov och tidsplanering)',
+          'Lyhörd kommunikation (uppmärksammar tidiga sjukdomstecken och rapporterar till sjuksköterskor)',
+          'Problemlösare (anpassar insatser efter brukarnas föränderliga tillstånd och preferenser)',
+          'Stresstålig (hanterar akuta situationer, jourer och schemaförändringar med professionalism)'
+        ]
+      },
+
+      certifieringar: [
+        'HLR – Hjärt-Lungräddning (förnyad 2024)',
+        'Förflyttningsteknik och ergonomiska lyft (2023)',
+        'Demensutbildning – BPSD-hantering och personcentrerad omsorg (2022)',
+        'Basala hygienrutiner och smittskydd (2023)',
+        'Första hjälpen (2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kvantifierar brukaransvar',
+        text: 'Genom att ange "12-15 brukare dagligen" och "kontaktman för 8 brukare" visar Anna exakt vilken omfattning hennes arbete har. Rekryterare kan direkt förstå hennes kapacitet och erfarenhetsnivå.'
+      },
+      {
+        rubrik: 'Visar systemkompetens med nivåer',
+        text: 'Att specificera "Treserva – Expert, 6+ år" och "Phoniro Care – Avancerad, 4+ år" signalerar att Anna kan dokumentera korrekt från dag ett. Detta sparar upplärning och minskar risk för dokumentationsfel.'
+      },
+      {
+        rubrik: 'Mätbara resultat inom omsorg',
+        text: 'Siffror som "förbättrade brukarnöjdhet med 25%" och "reducerade akuta sjukhusinläggningar med 18%" visar att Anna inte bara utför uppgifter – hon förbättrar vårdkvaliteten. Detta är unikt värdefullt för arbetsgivare.'
+      },
+      {
+        rubrik: 'Tydlig progression i karriären',
+        text: 'CV:t visar en logisk utveckling från vikarie → fast anställd → kontaktmannaskap. Detta signalerar pålitlighet, lojalitet och att arbetsgivare har valt att investera i henne.'
+      },
+      {
+        rubrik: 'B-körkort inkluderat strategiskt',
+        text: 'Att B-körkort listas under tekniska kompetenser visar att Anna förstår att hemtjänst kräver geografisk rörlighet. Detta är ett måste-krav för de flesta hemtjänstpositioner.'
+      },
+      {
+        rubrik: 'Certifieringar med årtal',
+        text: 'HLR (2024), Förflyttningsteknik (2023), Demensutbildning (2022) visar att Anna håller sina kunskaper aktuella. Arbetsgivare vet att hon uppfyller lagkrav och säkerhetsstandards.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Ange alltid antal brukare du hanterat',
+        text: `Rekryterare inom hemtjänst vill veta din kapacitet. Att skriva "ansvarig för brukare" säger ingenting – alla i hemtjänsten har brukare. Specificera antal, typ av insatser och geografiskt område för att visa din faktiska erfarenhet.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade som hemtjänstpersonal med dagliga brukarkontakter"
+
+✅ "Självständigt ansvar för 12-15 brukare dagligen med ADL-stöd, personlig hygien och medicinpåminnelse inom 8 km² område"
+
+Konkreta siffror gör att rekryteraren direkt kan bedöma om din erfarenhetsnivå matchar tjänsten.`
+      },
+      {
+        rubrik: 'Lista dokumentationssystem med erfarenhetsnivå',
+        text: `Treserva, Phoniro Care, Lifecare – dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver upplärning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra direkt.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av olika dokumentationssystem"
+
+✅ "Treserva – Expert, 6+ år daglig dokumentation | Phoniro Care – Avancerad, 4+ år schemaläggning och nyckellösa lås"
+
+Specifika system visar att du förstår branschens digitala infrastruktur.`
+      },
+      {
+        rubrik: 'Inkludera B-körkort tydligt',
+        text: `Hemtjänst innebär resor mellan brukare, ofta i glesbygd eller stora stadsområden. B-körkort är ett absolut krav för de flesta tjänster. Glöm inte att nämna det – annars kanske din ansökan sorteras bort redan vid första gallringen.
+
+**Exempel på före/efter**:
+
+❌ (Inget nämnt om körkort)
+
+✅ "B-körkort (6+ år) – erfarenhet av ruttplanering i stadsområde med 8 km² täckning"
+
+Visa att du inte bara har körkort utan även praktisk erfarenhet av att planera effektiva rutter.`
+      },
+      {
+        rubrik: 'Kvantifiera förbättringar du bidragit till',
+        text: `Hemtjänst handlar om mer än att utföra uppgifter – det handlar om att förbättra livskvalitet. Om du minskat fallolyckor, ökat brukarnöjdhet eller förbättrat dokumentationskvalitet, skriv det med siffror. Detta skiljer dig från kandidater som bara beskriver arbetsuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "God kontakt med brukare och anhöriga"
+
+✅ "Förbättrade brukarnöjdhet med 25% genom trygghetsskapande rutiner och kontinuerlig kommunikation med anhöriga"
+
+Siffror bevisar din påverkan och gör ditt CV minnesvärt.`
+      },
+      {
+        rubrik: 'Beskriv kontaktmannaskapet konkret',
+        text: `Kontaktmannaskap är en förtroendeposition inom hemtjänsten. Om du haft detta ansvar, beskriv vad det innebar: antal brukare, typ av samordning, vilka yrkesgrupper du samarbetade med. Detta visar ledarskap och kommunikationsförmåga.
+
+**Exempel på före/efter**:
+
+❌ "Kontaktman för flera brukare"
+
+✅ "Kontaktman för 8 brukare: koordinerar genomförandeplaner, biståndsbedömningar och tvärprofessionellt samarbete med sjuksköterskor och biståndshandläggare"
+
+Detaljerad beskrivning visar att du förstår ansvaret och kan hantera det.`
+      },
+      {
+        rubrik: 'Håll certifieringar aktuella med årtal',
+        text: `HLR, förflyttningsteknik och hygienrutiner är krav i hemtjänsten. Om du inte visar att dina certifieringar är giltiga kan arbetsgivaren anta att de löpt ut. Inkludera alltid årtal – det visar att du tar säkerhet på allvar och håller dig uppdaterad.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad i HLR och förflyttning"
+
+✅ "HLR – förnyad 2024 | Förflyttningsteknik och ergonomiska lyft (2023) | Basala hygienrutiner (2023)"
+
+Aktuella årtal bevisar att du är redo att börja arbeta utan extra utbildningskostnader.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur skriver jag ett CV för hemtjänst utan erfarenhet?',
+        svar: 'Fokusera på din utbildning (Vård- och omsorgsprogrammet), eventuell APL-praktik, och personliga egenskaper som empati, tålamod och fysisk uthållighet. Nämn om du har B-körkort, relevant volontärarbete eller erfarenhet av att hjälpa äldre anhöriga. Lyft fram certifieringar som HLR eller Första hjälpen om du har dem.'
+      },
+      {
+        fraga: 'Vilka nyckelord ska finnas i ett hemtjänst-CV?',
+        svar: 'Inkludera ADL-stöd, serviceinsatser, omvårdnadsinsatser, Treserva, Phoniro Care, kontaktmannaskap, genomförandeplan, biståndsbedömning, demensomvårdnad, BPSD, personcentrerad omsorg, B-körkort och delegerade arbetsuppgifter. Dessa termer används av ATS-system och rekryterare för att filtrera ansökningar.'
+      },
+      {
+        fraga: 'Ska jag inkludera B-körkort i mitt hemtjänst-CV?',
+        svar: 'Ja, absolut. B-körkort är ofta ett krav för hemtjänstjobb eftersom du behöver ta dig mellan brukare. Placera det under kompetenser och ange hur länge du haft det. Om du har erfarenhet av att köra i tjänsten, nämn det också.'
+      },
+      {
+        fraga: 'Hur beskriver jag kontaktmannaskap i CV:t?',
+        svar: 'Beskriv hur många brukare du var kontaktman för, vilka uppgifter det innebar (genomförandeplaner, dokumentation, anhörigkontakt) och hur du samarbetade med andra yrkesgrupper som sjuksköterskor och biståndshandläggare. Detta visar ledarskap och samordningsförmåga.'
+      },
+      {
+        fraga: 'Vilka system ska jag nämna i ett hemtjänst-CV?',
+        svar: 'De vanligaste är Treserva (dokumentation), Phoniro Care (nyckellösa lås och schemaläggning), Lifecare och Time Care (schemaläggning). Ange systemnamn och hur länge du använt dem, t.ex. "Treserva – 4+ år daglig dokumentation". Detta visar att du kan börja arbeta direkt.'
+      },
+      {
+        fraga: 'Hur lång ska profilsammanfattningen vara?',
+        svar: 'Håll profilsammanfattningen till 3-4 meningar (ca 50-70 ord). Inkludera antal års erfarenhet, huvudsakliga kompetensområden (t.ex. ADL-stöd, demensomvårdnad), nyckelresultat och viktigaste certifieringar. Det ska ge en snabb överblick som lockar rekryteraren att läsa vidare.'
+      },
+      {
+        fraga: 'Ska jag nämna kvälls- och helgarbete i CV:t?',
+        svar: 'Ja, om du har erfarenhet av jourer, kvällar och helger är det värdefullt att nämna. Hemtjänsten har obekväma arbetstider och arbetsgivare söker personal som är flexibla. Skriv t.ex. "Flexibel schemaläggning inkl. jourer, helger och kvällar" under relevant arbetsplats.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' }
+    ]
+  },
+
   'forskollarare': {
     yrke: 'Förskollärare',
     sokvolym: 880,
