@@ -5583,11 +5583,11 @@ Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och spec
     ]
   },
 
-  'chef': {
-    yrke: 'Chef/Kock',
+  'kock': {
+    yrke: 'Kock',
     sokvolym: 2050,
-    metaTitle: 'CV Exempel Kock/Chef 2025 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Se ett komplett CV-exempel för kock/chef/souschef. ATS-optimerat, strukturerat för restaurangkök med HACCP, à la carte och kvantifierbara resultat.',
+    metaTitle: 'CV Exempel Kock 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för kock och souschef. ATS-optimerat, strukturerat för restaurangkök med HACCP, à la carte och kvantifierbara resultat.',
 
     seoIntro: `Söker du jobb som kock, souschef eller kökschef och behöver ett CV som sticker ut? Det här CV-exemplet visar hur du strukturerar din erfarenhet från restaurangkök för att övertyga både ATS-system och rekryterare inom restaurangbranschen.
 
