@@ -50,7 +50,7 @@ interface NavLinkItem {
 const primaryNavLinks: NavLinkItem[] = [
   { href: '/', label: 'Hem', icon: Home, isPrimaryDesktop: true },
   { href: '/funktioner', label: 'Funktioner', icon: LayoutGrid, isPrimaryDesktop: true },
-  { href: '/exempel', label: 'Exempel', icon: BookOpen, isPrimaryDesktop: true },
+  { href: '/exempel', label: 'Inspiration', icon: BookOpen, isPrimaryDesktop: true },
   { href: '/priser', label: 'Priser', icon: Tag, isPrimaryDesktop: true },
   { href: '/artiklar', label: 'Artiklar', icon: Newspaper, isPrimaryDesktop: true },
 ];
