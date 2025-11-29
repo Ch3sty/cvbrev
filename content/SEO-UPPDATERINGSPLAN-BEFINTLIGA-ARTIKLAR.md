@@ -195,6 +195,55 @@ Dessa 30 yrkessidor finns på /personligt-brev-exempel/[yrke]:
 
 ---
 
+## Copywriting-riktlinjer för artiklar
+
+### Undvik generiska mallar med platshållare
+
+**Fel (undvik):**
+```markdown
+*   **(Direkt & kopplad till behov):** "Med min bakgrund inom [område X] och er uttalade satsning på [företagets mål Y]..."
+*   **(Resultatfokuserad):** "Att ha lyckats [imponerande resultat, t.ex. öka konverteringen med X %]..."
+```
+
+**Problem:**
+- Parenteser i listor är svårlästa
+- [Platshållare] bryter läsflödet
+- Användaren måste dekoda mallen istället för att inspireras
+
+**Rätt (använd):**
+```markdown
+### Starka inledningar
+
+**Koppla direkt till företagets behov**
+> "Med min erfarenhet av att digitalisera kundtjänst och era planer på att bygga om supportflödet ser jag en perfekt matchning i rollen som Customer Success Manager."
+
+**Varför det fungerar:** Du visar att du läst om företaget OCH att du kan lösa deras faktiska problem.
+```
+
+### Principer för exempel-sektioner
+
+1. **Konkreta exempel istället för mallar** – Visa riktiga meningar från verkliga branscher
+2. **Blockquotes (>) för citat** – Visuellt tydligt vad som är exempel vs förklaring
+3. **"Varför det fungerar" efter varje exempel** – Pedagogiskt värde utan att vara nedlåtande
+4. **Horisontella linjer (---) mellan exempel** – Tydlig visuell separation
+5. **Rubriker istället för parenteser** – "Koppla direkt till företagets behov" istället för "(Direkt & kopplad till behov)"
+6. **Appliceringsexempel** – Visa hur läsaren kan använda principen med sin egen erfarenhet
+
+### Implementerat i
+
+- [x] personligt-brev-exempel-generella.mdx (sektion "Inspiration: Så här kan olika delar av brevet se ut")
+
+### Artiklar som behöver samma behandling
+
+Granska och uppdatera liknande sektioner i:
+- [ ] hur-skriver-man-ett-personligt-brev.mdx
+- [ ] tips-pa-personligt-brev.mdx
+- [ ] inleda-personligt-brev.mdx
+- [ ] hur-avslutar-man-ett-personligt-brev.mdx
+- [ ] bra-personligt-brev.mdx
+
+---
+
 ## Mätpunkter
 
 Efter implementering, mät:
