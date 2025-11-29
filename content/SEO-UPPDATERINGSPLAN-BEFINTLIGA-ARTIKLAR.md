@@ -1,7 +1,26 @@
 # SEO Uppdateringsplan: Befintliga artiklar om personliga brev
 
 > Skapad: 2025-11-29
+> Uppdaterad: 2025-11-29
 > Syfte: Uppdatera befintliga artiklar med länkar till /personligt-brev-exempel och byta ut generella CTAs mot yrkesspecifika exempel
+
+---
+
+## ✅ Genomfört
+
+### Komponenten `PersonligtBrevPreview`
+- [x] Skapad och implementerad i `/src/components/mdx/PersonligtBrevPreview.tsx`
+- [x] Registrerad i artikelsidans MDX-components (`/src/app/artiklar/[slug]/page.tsx`)
+- [x] Stöd för 6 yrken: student, undersköterska, säljare, ekonomiassistent, lagerarbetare, butikssäljare
+- [x] Integrerar `InteractiveLetterPreview` med mall- och typsnittsväljare
+- [x] `not-prose` klass för korrekt styling i artikelkontext
+
+### Våg 1 artiklar - delvis klara
+- [x] **personligt-brev-exempel-generella.mdx** - Komponent tillagd (student) + snippets-sektion omskriven
+- [x] **hur-skriver-man-ett-personligt-brev.mdx** - Komponent tillagd (säljare)
+- [x] **personligt-brev-mall-gratis.mdx** - Komponent tillagd (undersköterska)
+- [ ] tips-pa-personligt-brev.mdx
+- [ ] skriva-personligt-brev-guide.mdx
 
 ---
 
@@ -9,39 +28,42 @@
 
 Vi har **24 befintliga artiklar** om personliga brev som behöver uppdateras för att:
 1. Länka till nya /personligt-brev-exempel-sidor
-2. Ersätta generella modaler med `<PersonligtBrevExempel>`-komponenten
+2. ✅ Ersätta generella modaler med `<PersonligtBrevPreview>`-komponenten
 3. Förbättra intern länkning för SEO
 4. Säkerställa att schema markup är korrekt
 
 ---
 
-## Ny komponent: PersonligtBrevExempel
+## Komponent: PersonligtBrevPreview ✅ IMPLEMENTERAD
 
 ### Syfte
-Ersätt generella CTAs med en interaktiv komponent som visar riktiga personliga brev-exempel med design/typsnitt-väljare.
+Interaktiv komponent som visar riktiga personliga brev-exempel med design/typsnitt-väljare. Ersätter generella CTAs och statiska exempeltexter.
 
 ### Props
 ```typescript
-interface PersonligtBrevExempelProps {
-  yrke: string;              // t.ex. "student", "lärare", "sjuksköterska"
-  showDesignPicker?: boolean; // visa design/typsnitt-väljare
-  variant?: 'compact' | 'full'; // kompakt för inline, full för section
-  cta?: {
-    text: string;
-    href: string;
-  };
+interface PersonligtBrevPreviewProps {
+  yrke?: 'student' | 'underskoterska' | 'saljare' | 'ekonomiassistent' | 'lagerarbetare' | 'butikssaljare'
 }
 ```
 
 ### Användning i MDX
 ```mdx
-<PersonligtBrevExempel
-  yrke="student"
-  variant="full"
-  showDesignPicker={true}
-  cta={{ text: "Skapa ditt personliga brev", href: "/verktyg/personligt-brev" }}
-/>
+<PersonligtBrevPreview yrke="student" />
 ```
+
+### Funktioner
+- Interaktiv mallväljare (4 mallar: Klassisk, Modern, Minimalistisk, Kreativ)
+- Typsnittsväljare (4 typsnitt: Georgia, Arial, Helvetica, Times)
+- CTA-footer med länk till /dashboard/skapa-brev
+- Info-box om förhandsvisningen
+- Responsiv design
+- Isolerad från prose-styling med `not-prose`
+
+### Placering i artiklar
+Komponenten ska placeras:
+1. Efter en introduktionstext som förklarar vad läsaren kommer se
+2. Före listor/punkter som refererar till exemplet ("Genom att analysera exemplet ovan kan du...")
+3. Naturligt integrerat med omgivande text - inte bara "dumpad" mitt i
 
 ---
 
@@ -171,25 +193,25 @@ Dessa 30 yrkessidor finns på /personligt-brev-exempel/[yrke]:
 
 ## Implementeringsordning
 
-### Steg 1: Skapa komponenten
-1. Skapa `PersonligtBrevExempel.tsx` i /src/components/
-2. Implementera design/typsnitt-väljare
-3. Hämta data från befintliga yrkessidor
+### ✅ Steg 1: Skapa komponenten (KLART)
+1. ✅ Skapat `PersonligtBrevPreview.tsx` i /src/components/mdx/
+2. ✅ Implementerat design/typsnitt-väljare (via InteractiveLetterPreview)
+3. ✅ Brevdata för 6 populära yrken inbäddad i komponenten
 
-### Steg 2: Uppdatera Våg 1-artiklar
-1. personligt-brev-exempel-generella.mdx
-2. hur-skriver-man-ett-personligt-brev.mdx
-3. personligt-brev-mall-gratis.mdx
-4. tips-pa-personligt-brev.mdx
-5. skriva-personligt-brev-guide.mdx
+### 🔄 Steg 2: Uppdatera Våg 1-artiklar (3/5 KLARA)
+1. ✅ personligt-brev-exempel-generella.mdx - Komponent + omskriven snippets-sektion
+2. ✅ hur-skriver-man-ett-personligt-brev.mdx - Komponent tillagd
+3. ✅ personligt-brev-mall-gratis.mdx - Komponent tillagd
+4. ⏳ tips-pa-personligt-brev.mdx
+5. ⏳ skriva-personligt-brev-guide.mdx
 
-### Steg 3: Uppdatera Våg 2-artiklar
+### ⏳ Steg 3: Uppdatera Våg 2-artiklar
 6-11 enligt listan ovan
 
-### Steg 4: Uppdatera Våg 3-artiklar
+### ⏳ Steg 4: Uppdatera Våg 3-artiklar
 12-24 med grundläggande intern länkning
 
-### Steg 5: Schema markup
+### ⏳ Steg 5: Schema markup
 - Lägg till HowTo schema på guide-artiklar
 - Lägg till Speakable på tips-artiklar
 
