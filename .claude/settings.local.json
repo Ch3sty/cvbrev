@@ -23,7 +23,8 @@
       "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|chef)\")",
       "Bash(Select-String -Pattern \"(kundtjanst|pages|routes|cv-exempel)\")",
       "Bash(Select-Object -First 20)",
-      "Bash(Select-String -Pattern \"(error|Error|✓|✗|hemtjanst)\")"
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|hemtjanst)\")",
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|successfully|PersonligtBrevPreview)\")"
     ],
     "deny": [],
     "ask": []
