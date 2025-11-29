@@ -15,12 +15,12 @@
 - [x] Integrerar `InteractiveLetterPreview` med mall- och typsnittsväljare
 - [x] `not-prose` klass för korrekt styling i artikelkontext
 
-### Våg 1 artiklar - delvis klara
+### Våg 1 artiklar - KLARA
 - [x] **personligt-brev-exempel-generella.mdx** - Komponent tillagd (student) + snippets-sektion omskriven
 - [x] **hur-skriver-man-ett-personligt-brev.mdx** - Komponent tillagd (säljare)
 - [x] **personligt-brev-mall-gratis.mdx** - Komponent tillagd (undersköterska)
-- [ ] tips-pa-personligt-brev.mdx
-- [ ] skriva-personligt-brev-guide.mdx
+- [x] **tips-pa-personligt-brev.mdx** - Länkfix + Tips X:-rubriker omvandlade till H3
+- [x] **skriva-personligt-brev-guide.mdx** - 3 länkfixar + AI-mönster borttaget
 
 ---
 
@@ -198,12 +198,12 @@ Dessa 30 yrkessidor finns på /personligt-brev-exempel/[yrke]:
 2. ✅ Implementerat design/typsnitt-väljare (via InteractiveLetterPreview)
 3. ✅ Brevdata för 6 populära yrken inbäddad i komponenten
 
-### 🔄 Steg 2: Uppdatera Våg 1-artiklar (3/5 KLARA)
+### ✅ Steg 2: Uppdatera Våg 1-artiklar (5/5 KLARA)
 1. ✅ personligt-brev-exempel-generella.mdx - Komponent + omskriven snippets-sektion
 2. ✅ hur-skriver-man-ett-personligt-brev.mdx - Komponent tillagd
 3. ✅ personligt-brev-mall-gratis.mdx - Komponent tillagd
-4. ⏳ tips-pa-personligt-brev.mdx
-5. ⏳ skriva-personligt-brev-guide.mdx
+4. ✅ tips-pa-personligt-brev.mdx - Länkfix + Tips X:-rubriker omvandlade till H3
+5. ✅ skriva-personligt-brev-guide.mdx - 3 länkfixar + AI-mönster borttaget
 
 ### ⏳ Steg 3: Uppdatera Våg 2-artiklar
 6-11 enligt listan ovan
