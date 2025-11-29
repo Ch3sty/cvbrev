@@ -179,7 +179,7 @@ export default function PersonligtBrevPreview({ yrke = 'student' }: PersonligtBr
   const exempelBrev = brevData[yrke] || brevData.student
 
   return (
-    <div className="my-8">
+    <div className="my-8 not-prose">
       <InteractiveLetterPreview exempelBrev={exempelBrev} />
     </div>
   )
