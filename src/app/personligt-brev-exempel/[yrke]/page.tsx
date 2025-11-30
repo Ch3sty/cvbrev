@@ -4274,8 +4274,9 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     "datePublished": new Date().toISOString(),
     "dateModified": new Date().toISOString(),
     "about": {
-      "@type": "JobPosting",
-      "title": data.yrke
+      "@type": "Occupation",
+      "name": data.yrke,
+      "description": `Karriärguide och personligt brev-exempel för ${data.yrke}`
     },
     "keywords": `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering`
   }
