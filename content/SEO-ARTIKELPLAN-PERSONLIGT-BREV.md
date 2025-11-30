@@ -443,7 +443,7 @@
 
 ---
 
-### 10. Personligt brev första jobb
+### 10. ✅ Personligt brev första jobb (KLAR 2025-12-01)
 
 | Fält | Värde |
 |------|-------|
@@ -459,7 +459,7 @@
 
 ---
 
-### 11. Personligt brev chefsroll
+### 11. ✅ Personligt brev chefsroll (KLAR 2025-12-01)
 
 | Fält | Värde |
 |------|-------|
@@ -475,7 +475,7 @@
 
 ---
 
-### 12. Personligt brev projektledare
+### 12. ✅ Personligt brev projektledare (KLAR 2025-12-01)
 
 | Fält | Värde |
 |------|-------|
