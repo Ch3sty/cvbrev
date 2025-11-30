@@ -344,7 +344,7 @@
 
 ---
 
-### 4. Personligt brev längd regler
+### 4. ✅ Personligt brev längd regler (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -360,7 +360,7 @@
 
 ---
 
-### 5. Personligt brev mall Word
+### 5. ✅ Personligt brev mall Word (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -376,7 +376,7 @@
 
 ---
 
-### 6. Personligt brev format guide
+### 6. ✅ Personligt brev format guide (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -392,7 +392,7 @@
 
 ---
 
-### 7. Personligt brev avslutning exempel
+### 7. ✅ Personligt brev avslutning exempel (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -408,7 +408,7 @@
 
 ---
 
-### 8. Personligt brev jobbansökan
+### 8. ✅ Personligt brev jobbansökan (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -427,7 +427,7 @@
 ## FAS 2: CORE CONTENT (Medium KD 15-25, Hög Relevans)
 *12 artiklar - lansera vecka 5-12*
 
-### 9. Personligt brev sommarjobb
+### 9. ✅ Personligt brev sommarjobb (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
