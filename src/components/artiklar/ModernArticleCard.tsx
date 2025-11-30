@@ -47,7 +47,7 @@ const ModernArticleCard: React.FC<ModernArticleCardProps> = ({
         className="block overflow-hidden"
         aria-label={`Läs mer om ${post.title}`}
       >
-        <div className={`relative ${featured ? 'h-64 md:h-96' : 'h-48'}`}>
+        <div className={`relative ${featured ? 'aspect-[3/2] md:aspect-[2/1]' : 'aspect-[3/2]'}`}>
           {hasValidImage ? (
             <>
               <ArticleImage
