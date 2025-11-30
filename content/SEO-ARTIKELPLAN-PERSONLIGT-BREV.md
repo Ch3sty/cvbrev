@@ -17,7 +17,7 @@
 ## FAS 1: QUICK WINS (Låg KD ≤15, Hög Volym)
 *8 artiklar - lansera vecka 1-4*
 
-### 1. Hur långt ska ett personligt brev vara
+### 1. ✅ Hur långt ska ett personligt brev vara (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -27,13 +27,61 @@
 | **Primärt sökord** | hur långt ska ett personligt brev vara (720 vol, KD 13) |
 | **Sekundära sökord** | personligt brev längd, personligt brev antal ord, hur många ord personligt brev, personligt brev hur långt, personligt brev sidor |
 | **Längd** | 1800-2200 ord |
-| **Bildnamn** | `personligt-brev-langd-optimal.jpg` |
-| **Bildbeskrivning** | Infografik som visar optimal längd för personligt brev: A4-sida med markerade sektioner, "200-400 ord" framhävt, jämförelse kort vs långt brev med tumme upp/ner-ikoner. |
 | **Prioritet** | 1 |
+
+#### BILDER FÖR DENNA ARTIKEL
+
+**Bild 1: Hero/Featured Image**
+- **Filnamn:** `personligt-brev-langd-optimal.jpg`
+- **Bildtyp:** Infografik/datavisualisering
+- **Storlek/format:** 1200x630px (landscape 16:9) för optimal social sharing
+- **Vad bilden ska föreställa:** En stiliserad A4-sida i vitt/ljusgrått med tre vertikala sektioner. Varje sektion representerar en brevlängd:
+  - Vänster: "För kort" (100-150 ord) – markerad med röd X-ikon och text "För vag och opersonlig"
+  - Mitten: "Perfekt" (200-400 ord) – markerad med grön bock-ikon och stor framhävd text "OPTIMAL LÄNGD: 200-400 ORD" + "½-1 A4-sida"
+  - Höger: "För långt" (600+ ord) – markerad med orange varningstriangel och text "Risk att förlora läsarens fokus"
+- **Färgschema:**
+  - Bakgrund: Vit eller ljust ljusblå (#F8FAFC)
+  - Accenter: jobbcoach.ai:s primära blå (#0066CC) för rubriker
+  - Statusfärger: Röd (#DC2626) för "för kort", Grön (#16A34A) för "perfekt", Orange (#EA580C) för "för långt"
+  - Text: Mörkgrå (#1E293B) för läsbarhet
+- **Alt-text (planerad):** "Infografik som visar optimal längd för personligt brev: 200-400 ord eller en halv A4-sida är perfekt, jämfört med för korta och för långa brev"
+- **Användning:** Featured image + första H2-sektion ("Snabbsvar: Så här långt ska ditt personliga brev vara")
+
+**Bild 2: Jämförelse-illustration**
+- **Filnamn:** `personligt-brev-langd-jamforelse-exempel.jpg`
+- **Bildtyp:** Före/efter jämförelse med exempel
+- **Storlek/format:** 1000x600px (landscape)
+- **Vad bilden ska föreställa:** Två A4-dokument sida vid sida:
+  - Vänster dokument: "För kortfattat brev" – synlig text med bara 3-4 korta stycken, mycket tomt utrymme, visuellt "tunt"
+  - Höger dokument: "Väl balanserat brev" – 4-5 välstrukturerade stycken som fyller 60-70% av sidan, professionell täthet
+  - Båda dokumenten ska ha realistisk textlayout (Lorem ipsum eller suddig svensk text)
+  - Grön pil pekar på höger dokument med text "Fyller ca ½-1 A4"
+- **Färgschema:**
+  - Dokument: Vit bakgrund med mörkgrå text (simulerar verkligt dokument)
+  - Ramar: Ljusgrå (#E2E8F0) för vänster, grön (#16A34A) för höger
+  - Accenter: jobbcoach.ai blå för annotationer
+- **Alt-text (planerad):** "Jämförelse mellan för kort personligt brev (3 stycken) och optimalt personligt brev (4-5 stycken som fyller halva A4-sidan)"
+- **Användning:** H2-sektion "Detaljerad förklaring: Varför 200-400 ord är det magiska intervallet"
+
+**Bild 3: Ordräknar-guide**
+- **Filnamn:** `personligt-brev-ordraknare-guide.jpg`
+- **Bildtyp:** Screenshot/tutorial-illustration
+- **Storlek/format:** 800x500px (landscape)
+- **Vad bilden ska föreställa:** En stiliserad skärmdump från Word/Google Docs som visar:
+  - Ett personligt brev synligt på skärmen
+  - Ordräknarfunktionen framhävd (antingen Word-statusfält eller verktyg-menyn)
+  - Annoterad pil som pekar på "327 ord" med kommentar "Perfekt längd!"
+  - Eventuellt en liten inforuta som visar "Målsättning: 200-400 ord"
+- **Färgschema:**
+  - Mjuk bakgrund (#F1F5F9)
+  - Framhävningar i jobbcoach.ai blå
+  - Dokument i realistiska färger (Word-gråvitt eller Google Docs-vitt)
+- **Alt-text (planerad):** "Skärmdump som visar hur man kontrollerar ordantal i Word – personligt brev med 327 ord markerat som optimal längd"
+- **Användning:** H2-sektion "Så här kontrollerar du längden på ditt personliga brev"
 
 ---
 
-### 2. Vad är ett personligt brev
+### 2. ✅ Vad är ett personligt brev (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -43,13 +91,97 @@
 | **Primärt sökord** | vad är ett personligt brev (320 vol, KD 11) |
 | **Sekundära sökord** | personligt brev definition, varför personligt brev, syftet med personligt brev, när behövs personligt brev, personligt brev förklaring |
 | **Längd** | 1600-1900 ord |
-| **Bildnamn** | `vad-ar-personligt-brev-definition.jpg` |
-| **Bildbeskrivning** | Split-screen illustration: vänster sida visar CV med bullet points och fakta, höger sida visar personligt brev med text och personlig ton, pilar som pekar på skillnaderna. |
 | **Prioritet** | 1 |
+
+#### BILDER FÖR DENNA ARTIKEL
+
+**Bild 1: Hero/Featured Image – CV vs Personligt Brev**
+- **Filnamn:** `vad-ar-personligt-brev-definition.jpg`
+- **Bildtyp:** Split-screen jämförelse-illustration
+- **Storlek/format:** 1200x630px (landscape 16:9) för social sharing
+- **Vad bilden ska föreställa:** Horisontell delning med tydlig vertikal linje i mitten:
+  - **Vänster sida (CV):**
+    - Titel: "CV" i toppen
+    - Stiliserat CV-dokument med bullet points, ikoner för kompetenser, tidslinjer för anställningar
+    - Text-labels: "Fakta", "Kronologisk", "Objektiv"
+    - Ikon: Checklista eller databas-symbol
+  - **Höger sida (Personligt brev):**
+    - Titel: "Personligt brev" i toppen
+    - Dokument med löpande text i stycken, mer narrativ struktur
+    - Text-labels: "Berättelse", "Personlig", "Motivering"
+    - Ikon: Penna eller kommentarsbubbla
+  - **Centralt:** Pil eller "VS" symbol mellan sidorna
+- **Färgschema:**
+  - Bakgrund vänster: Ljusblå (#EEF2FF) – kall, faktisk
+  - Bakgrund höger: Ljusgul/beige (#FEF3C7) – varm, personlig
+  - Text: Mörkgrå (#1E293B)
+  - Accenter: jobbcoach.ai blå (#0066CC) för rubriker
+  - Kontrasterande element i lila (#7C3AED) för att skilja de två sidorna
+- **Alt-text (planerad):** "Jämförelse mellan CV och personligt brev: CV visar fakta och kompetenser i bullet-points, personligt brev berättar din historia med personlig ton"
+- **Användning:** Featured image + intro-sektion
+
+**Bild 2: Syfte och funktion-diagram**
+- **Filnamn:** `personligt-brev-syfte-funktion.jpg`
+- **Bildtyp:** Infografik/funktionsdiagram
+- **Storlek/format:** 1000x700px (vertical orientation)
+- **Vad bilden ska föreställa:** Cirkulärt eller flödesdiagram som visar de 4 huvudfunktionerna för ett personligt brev:
+  - **Cirkel 1:** "Visa personlighet" (ikon: person-profil)
+  - **Cirkel 2:** "Förklara motivation" (ikon: hjärta/stjärna)
+  - **Cirkel 3:** "Matcha jobb" (ikon: pusselbitar)
+  - **Cirkel 4:** "Sticka ut" (ikon: flagga/megafon)
+  - **Centrum:** "Personligt brev" text med dokument-ikon
+  - Pilar som kopplar cirklar till centrum
+- **Färgschema:**
+  - Bakgrund: Vit eller mycket ljusgrå (#F8FAFC)
+  - Cirklar: Olika nyanser av jobbcoach.ai blå (från ljus #60A5FA till mörk #1E40AF)
+  - Ikoner: Vit eller mörkblå (#1E3A8A)
+  - Text: Mörkgrå (#1E293B)
+  - Accent-färg: Grön (#10B981) för positiva pilar/kopplingar
+- **Alt-text (planerad):** "Diagram som visar personligt brevs fyra huvudfunktioner: visa personlighet, förklara motivation, matcha jobbet och sticka ut från mängden"
+- **Användning:** H2-sektion "Varför behöver du ett personligt brev?"
+
+**Bild 3: När ska du använda personligt brev – decision tree**
+- **Filnamn:** `personligt-brev-nar-anvanda.jpg`
+- **Bildtyp:** Beslutsträd/flödesschema
+- **Storlek/format:** 900x600px (landscape)
+- **Vad bilden ska föreställa:** Ett enkelt beslutsträd med ja/nej-grenar:
+  - **Start:** "Söker du jobb?"
+  - **Gren 1:** "Står det 'personligt brev' i annonsen?" → JA (grön pil) = "OBLIGATORISKT – skicka alltid"
+  - **Gren 2:** "Står det 'personligt brev'" → NEJ → "Söker du tjänst där kommunikation är viktigt?" → JA (grön pil) = "REKOMMENDERAT – ökar chanserna"
+  - **Gren 3:** → NEJ (gul pil) = "FRIVILLIGT – men kan hjälpa dig sticka ut"
+  - Varje slutnod har färgkodad ruta: Grön (obligatoriskt), Gul (rekommenderat), Ljusblå (frivilligt)
+- **Färgschema:**
+  - Bakgrund: Ljusgrå (#F1F5F9)
+  - Rutor: Vit med färgade ramar (grön, gul, blå)
+  - Pilar: Grön för JA, röd för NEJ
+  - Text: Mörkgrå (#1E293B)
+  - Accent: jobbcoach.ai blå för rubriker
+- **Alt-text (planerad):** "Beslutsträd som visar när du ska använda personligt brev: obligatoriskt om det står i annonsen, rekommenderat för kommunikationsjobb, annars frivilligt men fördelaktigt"
+- **Användning:** H2-sektion "När behöver du ett personligt brev?"
+
+**Bild 4: Exempel på personligt brev-struktur**
+- **Filnamn:** `personligt-brev-struktur-exempel.jpg`
+- **Bildtyp:** Annoterad dokumentmall
+- **Storlek/format:** 700x900px (vertical – A4-liknande)
+- **Vad bilden ska föreställa:** Ett stiliserat personligt brev med annoterade sektioner:
+  - **Sektion 1 (topp):** Kontaktuppgifter – annoterad med "Dina kontaktuppgifter här"
+  - **Sektion 2:** Rubrik/Ämnesrad – annoterad med "Tjänsten du söker + ref.nr"
+  - **Sektion 3:** Inledning (1 stycke) – annoterad med "Varför du söker + koppling till företaget"
+  - **Sektion 4:** Mittdel (2-3 stycken) – annoterad med "Relevanta erfarenheter + vad du kan bidra med"
+  - **Sektion 5:** Avslutning (1 stycke) – annoterad med "Sammanfattning + call to action"
+  - **Sektion 6:** Hälsning – annoterad med "Med vänlig hälsning + signatur"
+  - Varje sektion har färgkodad highlight: ljusblå, ljusgrön, ljusgul etc.
+- **Färgschema:**
+  - Dokument: Vit bakgrund
+  - Annotations: Pastellfärger (ljusblå, ljusgrön, ljusgul, ljuslila) för olika sektioner
+  - Pilar och text: jobbcoach.ai blå (#0066CC)
+  - Text i dokumentet: Mörkgrå (suddig/lorem ipsum)
+- **Alt-text (planerad):** "Exempel på personligt brevs struktur: kontaktuppgifter, rubrik, inledning, mittdel med erfarenheter, avslutning och hälsning"
+- **Användning:** H2-sektion "Hur ser ett personligt brev ut? (Struktur och uppbyggnad)"
 
 ---
 
-### 3. Personligt brev innehåll checklista
+### 3. ✅ Personligt brev innehåll checklista (KLAR 2025-11-30)
 
 | Fält | Värde |
 |------|-------|
@@ -59,9 +191,156 @@
 | **Primärt sökord** | personligt brev innehåll (260 vol, KD 8) |
 | **Sekundära sökord** | vad ska finnas med personligt brev, personligt brev vad ska stå, personligt brev innehållsförteckning, checklista personligt brev, personligt brev punkter |
 | **Längd** | 2000-2400 ord |
-| **Bildnamn** | `personligt-brev-innehall-checklista.jpg` |
-| **Bildbeskrivning** | Visuell checklista med 5-7 sektioner (kontaktinfo, inledning, kompetenser, etc.), varje sektion med bock-markering och kort beskrivning, professionell layout. |
 | **Prioritet** | 1 |
+
+#### BILDER FÖR DENNA ARTIKEL
+
+**Bild 1: Hero/Featured Image – Komplett checklista**
+- **Filnamn:** `personligt-brev-innehall-checklista.jpg`
+- **Bildtyp:** Visuell checklista-infografik
+- **Storlek/format:** 1200x630px (landscape 16:9) för social sharing
+- **Vad bilden ska föreställa:** En vertikal checklista med 6-7 huvudelement, varje rad har:
+  - **Rad 1:** ☑ Kontaktuppgifter (namn, telefon, e-post, stad)
+  - **Rad 2:** ☑ Rubrik och referensnummer
+  - **Rad 3:** ☑ Inledning med koppling till företaget
+  - **Rad 4:** ☑ Relevanta erfarenheter och resultat
+  - **Rad 5:** ☑ Varför du passar rollen
+  - **Rad 6:** ☑ Vad du kan bidra med
+  - **Rad 7:** ☑ Avslutning med nästa steg
+  - Varje rad har grön bock-ikon (✓) till vänster och kort beskrivningstext till höger
+  - En stor titel i toppen: "7 saker som MÅSTE finnas i ditt personliga brev"
+- **Färgschema:**
+  - Bakgrund: Gradient från ljusblå (#E0F2FE) till vit
+  - Checkboxar: Grön (#10B981) med vit bock
+  - Text: Mörkgrå (#1E293B) för rubriker, mediumgrå (#475569) för beskrivningar
+  - Accent-element: jobbcoach.ai blå (#0066CC) för titel och ram
+  - Sektionsavdelare: Ljusgrå linjer (#E2E8F0)
+- **Alt-text (planerad):** "Checklista för personligt brev innehåll: 7 obligatoriska element inklusive kontaktuppgifter, inledning, erfarenheter, motivering och avslutning"
+- **Användning:** Featured image + H2-sektion "Snabbguide: Allt som ska finnas med (TL;DR)"
+
+**Bild 2: Detaljerad innehållsstruktur**
+- **Filnamn:** `personligt-brev-innehall-struktur-detalj.jpg`
+- **Bildtyp:** Annoterad mall med expanderade sektioner
+- **Storlek/format:** 1000x1200px (vertical/portrait)
+- **Vad bilden ska föreställa:** Ett personligt brev uppdelat i numrerade sektioner med detaljerade annotationer:
+  - **Sektion 1 (Header):** Kontaktuppgifter
+    - Annotation: "Namn, telefon, e-post, stad (INTE fullständig adress)"
+    - Exempel synligt: "Anna Andersson | 070-123 45 67 | anna@email.com | Stockholm"
+  - **Sektion 2:** Arbetsgivarens info
+    - Annotation: "Företagsnamn + mottagare (om känt)"
+  - **Sektion 3:** Rubrik/ämne
+    - Annotation: "Ansökan: [Tjänst] – Ref.nr [nummer]"
+  - **Sektion 4:** Inledning (highlight i ljusblå)
+    - Annotation: "Varför du söker + vad du vet om företaget"
+  - **Sektion 5:** Mittdel del 1 (highlight i ljusgrön)
+    - Annotation: "Relevant erfarenhet + konkreta resultat"
+  - **Sektion 6:** Mittdel del 2 (highlight i ljusgul)
+    - Annotation: "Kompetenser som matchar kravprofilen"
+  - **Sektion 7:** Avslutning (highlight i ljuslila)
+    - Annotation: "Sammanfatta + föreslå nästa steg (intervju)"
+  - **Sektion 8:** Hälsning
+    - Annotation: "Med vänlig hälsning, [ditt namn]"
+- **Färgschema:**
+  - Bakgrund: Vit
+  - Sektionshighlights: Pastellfärger (blå, grön, gul, lila) med 30% opacity
+  - Annotationsrutor: Vit bakgrund med jobbcoach.ai blå ram (#0066CC)
+  - Pilar: Mörkgrå (#475569)
+  - Text: Mörkgrå (#1E293B)
+- **Alt-text (planerad):** "Detaljerad struktur för personligt brev med annoterade sektioner: kontaktuppgifter, rubrik, inledning, erfarenheter, kompetenser, avslutning och hälsning"
+- **Användning:** H2-sektion "Detaljerad genomgång: Vad ska stå i varje del"
+
+**Bild 3: Innehåll att inkludera vs. undvika**
+- **Filnamn:** `personligt-brev-innehall-inkludera-undvika.jpg`
+- **Bildtyp:** Två-kolumns jämförelse (gör/gör inte)
+- **Storlek/format:** 1000x600px (landscape)
+- **Vad bilden ska föreställa:** Två kolumner med tydlig separering:
+  - **Vänster kolumn (Grön):** "Inkludera alltid ✓"
+    - Konkreta resultat från tidigare jobb
+    - Nyckelord från jobbannonsen
+    - Varför du vill jobba just där
+    - Vad du kan bidra med
+    - Datum och kontaktuppgifter
+  - **Höger kolumn (Röd):** "Undvik dessa ✗"
+    - Personliga detaljer (ålder, civilstånd)
+    - Lönekrav (såvida inte efterfrågat)
+    - Negativ ton om tidigare arbetsgivare
+    - Generiska fraser ("hårt arbetande", "lagspelare")
+    - Irrelevanta hobbies
+  - Varje punkt har ikon (grön bock eller röd X)
+- **Färgschema:**
+  - Bakgrund vänster: Ljusgrön (#D1FAE5)
+  - Bakgrund höger: Ljusröd (#FEE2E2)
+  - Border mellan kolumner: Mörkgrå (#475569)
+  - Ikoner: Grön (#10B981) och röd (#DC2626)
+  - Text: Mörkgrå (#1E293B)
+  - Rubriker: Vit text på grön/röd bakgrund
+- **Alt-text (planerad):** "Jämförelse av vad du ska inkludera och undvika i personligt brev: inkludera konkreta resultat och nyckelord, undvik personliga detaljer och generiska fraser"
+- **Användning:** H2-sektion "Vanliga misstag: Vad du INTE ska ha med"
+
+**Bild 4: Exempel på starkt vs. svagt innehåll**
+- **Filnamn:** `personligt-brev-innehall-exempel-jamforelse.jpg`
+- **Bildtyp:** Före/efter textjämförelse
+- **Storlek/format:** 900x500px (landscape)
+- **Vad bilden ska föreställa:** Två text-exempel sida vid sida med markup:
+  - **Vänster (Svagt):** ❌
+    - Rubrik: "Svagt exempel"
+    - Text: "Jag är en hårt arbetande person som älskar utmaningar. Jag tror att jag skulle passa bra för er."
+    - Röda kryss-markeringar vid vaga fraser
+    - Annotation: "För generiskt, inga konkreta exempel"
+  - **Höger (Starkt):** ✅
+    - Rubrik: "Starkt exempel"
+    - Text: "Under mitt senaste projekt ökade jag kundnöjdheten med 35% genom att implementera ett nytt supportsystem. Denna erfarenhet matchar er kravprofil för kundansvarig."
+    - Gröna bock-markeringar vid konkreta resultat
+    - Annotation: "Konkret resultat + koppling till rollen"
+  - Pilar pekar på nyckeldelar (siffror, konkreta verb, koppling)
+- **Färgschema:**
+  - Bakgrund: Ljusgrå (#F1F5F9)
+  - Vänster ruta: Ljusröd bakgrund (#FEE2E2) med röd ram
+  - Höger ruta: Ljusgrön bakgrund (#D1FAE5) med grön ram
+  - Text: Mörkgrå (#1E293B)
+  - Highlights: Röd (#DC2626) för svagheter, grön (#10B981) för styrkor
+  - Annotationer: Vit bakgrund med färgad text
+- **Alt-text (planerad):** "Jämförelse mellan svagt och starkt innehåll i personligt brev: svagt exempel använder vaga fraser, starkt exempel visar konkreta resultat med siffror och koppling till rollen"
+- **Användning:** H2-sektion "Konkreta exempel: Starkt innehåll som fungerar"
+
+**Bild 5: Interaktiv checklista (printbar version)**
+- **Filnamn:** `personligt-brev-innehall-printbar-checklista.jpg`
+- **Bildtyp:** Downloadbar/printbar checklista
+- **Storlek/format:** 800x1000px (A4-format, portrait)
+- **Vad bilden ska föreställa:** En printbar checklista med tomma checkboxar som användare kan bocka av:
+  - Titel: "Din kompletta checklista för personligt brev"
+  - **Del 1: Grundläggande information**
+    - ☐ Ditt namn
+    - ☐ Telefonnummer
+    - ☐ E-postadress
+    - ☐ Stad/ort
+    - ☐ Datum
+  - **Del 2: Rubrik och mottagare**
+    - ☐ Tydlig rubrik med tjänstens namn
+    - ☐ Referensnummer (om angivet)
+    - ☐ Mottagarens namn (om känt)
+  - **Del 3: Inledning**
+    - ☐ Varför du söker tjänsten
+    - ☐ Koppling till företaget/organisationen
+  - **Del 4: Huvuddel**
+    - ☐ Relevant erfarenhet beskrivs konkret
+    - ☐ Minst 2-3 konkreta resultat/prestationer
+    - ☐ Nyckelord från jobbannonsen inkluderat
+    - ☐ Förklaring varför du passar rollen
+  - **Del 5: Avslutning**
+    - ☐ Sammanfattning av dina styrkor
+    - ☐ Förslag på nästa steg
+    - ☐ Professionell hälsningsfras
+  - Footer: "jobbcoach.ai – Din guide till jobbet"
+- **Färgschema:**
+  - Bakgrund: Vit
+  - Rubriker: jobbcoach.ai blå (#0066CC)
+  - Checkboxar: Tomma ramar i mörkgrå (#475569)
+  - Text: Svart (#0F172A) för skrivarutskrift-vänlighet
+  - Accenter: Ljusblå (#DBEAFE) för sektionsbakgrunder
+  - Footer: Ljusgrå bakgrund med mörkgrå text
+- **Alt-text (planerad):** "Printbar checklista för personligt brev innehåll med checkboxar för grundläggande information, rubrik, inledning, huvuddel och avslutning"
+- **Användning:** H2-sektion "Ladda ner checklistan" eller sidofält med CTA "Skriv ut denna checklista"
 
 ---
 
