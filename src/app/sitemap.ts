@@ -4,14 +4,14 @@ import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för at
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
-  const baseUrl = 'https://www.jobbcoach.ai'; // *** UPPDATERA VID BEHOV ***
+  const baseUrl = 'https://www.jobbcoach.ai';
 
   // 1. Lägg till dina statiska sidor manuellt
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly', // Startsidan uppdateras ofta
+      changeFrequency: 'weekly',
       priority: 1,
     },
     {
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9, // Högt prio - central navigationshub för exempel
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/priser`,
@@ -54,13 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/cv-exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9, // Kategoriöversikt - högt SEO-värde
+      priority: 1, // Kategoriöversikt - högsta SEO-värde
     },
     {
       url: `${baseUrl}/personligt-brev-exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9, // Kategoriöversikt - högt SEO-värde
+      priority: 1, // Kategoriöversikt - högsta SEO-värde
     },
     {
       url: `${baseUrl}/skapa-brev`,
@@ -100,12 +100,62 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 2. Hämta alla artikel-slugs och datum dynamiskt
-  const posts = getAllPostsMeta(); // Hämtar { slug: string, date: string, ... }[]
+  // 2. Verktyg-undersidor (konverteringstunga sidor)
+  const verktygPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/verktyg/cv-analys`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/verktyg/cv-mallar`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/verktyg/personligt-brev`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/verktyg/linkedin-optimering`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/verktyg/jobbmatchning`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/verktyg/rekryteringstester`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/verktyg/jobbcoachen`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+  ];
+
+  // 3. Hämta alla artikel-slugs och datum dynamiskt
+  const posts = getAllPostsMeta();
+
+  // Dynamisk definition av nya artiklar (senaste 90 dagarna)
+  const ninetyDaysAgo = new Date();
+  ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
   const articlePages: MetadataRoute.Sitemap = posts.map((post) => {
     const postDate = new Date(post.date);
-    const isNewArticle = postDate >= new Date('2025-10-30'); // Nya artiklar från 30 okt 2025
+    const isNewArticle = postDate >= ninetyDaysAgo;
 
     return {
       url: `${baseUrl}/artiklar/${post.slug}`,
@@ -115,7 +165,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // 3. Lägg till CV-exempel sidor
+  // 4. Lägg till CV-exempel sidor
   const CV_EXEMPEL = [
     'underskoterska',
     'vardbitrade',
@@ -160,7 +210,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85, // Högt prio för SEO-viktiga sidor
   }));
 
-  // 4. Lägg till personligt brev exempel-sidor
+  // 5. Lägg till personligt brev exempel-sidor
   const PERSONLIGT_BREV_EXEMPEL = [
     'underskoterska',
     'student',
@@ -202,6 +252,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85, // Högt prio för SEO-viktiga sidor
   }));
 
-  // 5. Kombinera statiska, artikel-, CV-exempel- och brev-exempel-sidor
-  return [...staticPages, ...articlePages, ...cvExempelPages, ...brevExempelPages];
+  // 6. Kombinera alla sidor
+  return [...staticPages, ...verktygPages, ...articlePages, ...cvExempelPages, ...brevExempelPages];
 }
