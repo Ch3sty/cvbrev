@@ -7983,6 +7983,283 @@ Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din pr
     ]
   },
 
+  'specialpedagog': {
+    yrke: 'Specialpedagog',
+    sokvolym: 320,
+    kategori: 'utbildning',
+
+    metaTitle: 'CV Exempel Specialpedagog 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för specialpedagog med fokus på utredningar, NPF, åtgärdsprogram och handledning. Inkluderar dokumentationssystem, branschspecifika metoder och kvantifierbara resultat från elevhälsoteam.',
+
+    seoIntro: `När du söker jobb som specialpedagog avgörs första sållningen ofta av om ditt CV innehåller rätt nyckelord för ATS-system. Detta exempel visar hur du lyfter fram utredningskompetens, NPF-kunskap och elevhälsoteamarbete med konkreta resultat istället för vaga påståenden som "ansvarstagande" eller "engagerad".
+
+CV:t visar 45+ pedagogiska utredningar per läsår, 120+ åtgärdsprogram i Unikum och handledning av 12 pedagoger i evidensbaserade metoder. Du ser hur screening-instrument som DLS och LäSt används för tidig identifiering av läsrisker, hur NPF-anpassningar implementerats i 8 klassrum och hur resultat mäts (25% minskning av elever som inte når målen i svenska, 90% av elever med läsrisker uppnådde kravnivå). Dessa siffror är inte slumpmässiga – de visar att arbetet faktiskt gör skillnad och att du kan hantera arbetsbelastningen på en typisk F-9-skola.
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantifiera dina utredningar, nämn dokumentationssystem (Unikum, IST), visa progression från lärare till specialpedagog och koppla insatser till Skollagen och Lgr22. Ett välstrukturerat CV för specialpedagog ökar dina chanser att nå intervju – särskilt när du backar upp kompetenser med konkreta resultat istället för buzzwords.`,
+
+    intro: 'Ett professionellt CV-exempel för specialpedagog som visar din kompetens inom pedagogiska utredningar, NPF-kunskap och handledning av pedagoger. Detta exempel är optimerat för svenska skolor och ATS-system.',
+
+    exempelCV: {
+      namn: 'Lisa Bergman',
+      titel: 'Legitimerad Specialpedagog med specialisering i NPF och läs-/skrivutveckling',
+      kontakt: {
+        telefon: '070-345 67 89',
+        epost: 'lisa.bergman@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/lisabergman'
+      },
+
+      profil: 'Legitimerad specialpedagog med 9+ års erfarenhet av pedagogiska utredningar, handledning och elevhälsoteamarbete i grundskola F-9. Specialist på NPF (neuropsykiatriska funktionsnedsättningar), läs- och skrivsvårigheter samt implementering av extra anpassningar och särskilt stöd enligt Skollagen. Genomför 45+ pedagogiska utredningar årligen med fokus på kartläggning, åtgärdsprogram och uppföljning. Handleder 12 pedagoger i evidensbaserade metoder för tillgänglig lärmiljö och inkluderande undervisning.',
+
+      erfarenhet: [
+        {
+          titel: 'Specialpedagog, Elevhälsoteam',
+          arbetsgivare: 'Södermalms Grundskola F-9, Stockholm Stad',
+          period: '2019 – Pågående',
+          beskrivning: [
+            'Ansvarig specialpedagog i elevhälsoteamet för F-6 med 450 elever. Genomför 45+ pedagogiska utredningar per läsår med fokus på NPF, läs-/skrivsvårigheter och matematiksvårigheter',
+            'Minskade andelen elever som inte når målen i svenska med 25% genom strukturerade screeningrutiner (DLS, LäSt) och tidiga insatser i åk 1-3',
+            'Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum',
+            'Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog – utvecklar och följer upp 120+ åtgärdsprogram årligen i Unikum',
+            'Genomför föreläsningar för pedagoger om SPSM:s metoder, tillgänglig lärmiljö och inkluderande undervisning (4 tillfällen per termin)'
+          ]
+        },
+        {
+          titel: 'Specialpedagog',
+          arbetsgivare: 'Vasaskolan F-6, Stockholm Stad',
+          period: '2016 – 2019',
+          beskrivning: [
+            'Specialpedagog för 280 elever i årskurs F-6 med ansvar för kartläggning, screening och pedagogiska utredningar (30+ utredningar per läsår)',
+            'Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker – 90% av eleverna uppnådde kravnivå i åk 3',
+            'Undervisade elever i liten grupp (3-6 elever) med läs- och skrivsvårigheter – strukturerad träning i fonologisk medvetenhet och läsförståelsestrategier',
+            'Genomförde utvecklingssamtal med vårdnadshavare och pedagoger för att säkerställa enhetlig kommunikation om elevers behov och stödinsatser'
+          ]
+        },
+        {
+          titel: 'Lärare i svenska och matematik, F-3',
+          arbetsgivare: 'Södermalms Skola, Stockholm Stad',
+          period: '2012 – 2016',
+          beskrivning: [
+            'Klasslärare för årskurs 1-3 med 22-25 elever per klass. Ansvarig för undervisning i svenska, matematik och NO enligt Lgr11',
+            'Identifierade tidigt elever med läs- och skrivsvårigheter genom formativ bedömning och samarbete med elevhälsoteam',
+            'Deltog i skolans elevhälsoteam som pedagogrepresentant vilket väckte intresse för specialpedagogik och ledde till vidareutbildning'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Specialpedagogprogrammet, 90 hp',
+          skola: 'Stockholms universitet',
+          period: '2017 – 2019',
+          beskrivning: 'Påbyggnadsutbildning till lärarexamen med fokus på pedagogiska utredningar, NPF, läs- och skrivsvårigheter samt elevhälsoteamarbete. VFU på specialskola och grundskola F-9.'
+        },
+        {
+          titel: 'Grundlärarexamen, 210 hp (F-3)',
+          skola: 'Stockholms universitet',
+          period: '2008 – 2012',
+          beskrivning: 'Inriktning svenska och matematik för årskurs F-3. VFU-perioder på 4 olika grundskolor med varierande elevunderlag och socioekonomisk bakgrund.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Pedagogiska utredningar och kartläggning (Expert, 9+ år)',
+          'NPF-kunskap – ADHD, autism, Tourettes (Avancerad, 6+ år)',
+          'Screening – DLS, LäSt, Matematik Lgr22 (Expert, 7+ år)',
+          'Åtgärdsprogram och dokumentation (Unikum, IST)',
+          'Handledning av pedagoger (Avancerad, 5+ år)',
+          'Tillgänglig lärmiljö och inkluderande undervisning',
+          'SPSM-metoder och specialpedagogiska verktyg',
+          'Skollagen – extra anpassningar och särskilt stöd'
+        ],
+        personliga: [
+          'Analytisk förmåga',
+          'Pedagogiskt ledarskap',
+          'Relationsskapande',
+          'Systemiskt tänkande',
+          'Kommunikativ förmåga'
+        ]
+      },
+
+      certifieringar: [
+        'Specialpedagogexamen – Stockholms universitet (2019)',
+        'Lärarlegitimation F-3, svenska och matematik (2012)',
+        'NPF-utbildning – Intensivkurs neuropsykiatriska funktionsnedsättningar (40 timmar, 2021)',
+        'SPSM-certifiering – Pedagogiska utredningar och kartläggning (2020)',
+        'Handledning i yrkesrollen – Kollegialt lärande (20 timmar, 2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika nyckelord för ATS-optimering',
+        text: `CV:t innehåller exakta termer som ATS-system filtrerar på: "pedagogiska utredningar", "NPF", "åtgärdsprogram", "elevhälsoteam", "extra anpassningar", "särskilt stöd", "DLS", "LäSt", "Unikum", "tillgänglig lärmiljö" och "SPSM". Du ser även Skollagen kap 3, screening-instrument och dokumentationssystem.
+
+Varför detta fungerar: När skolor rekryterar specialpedagoger söker ATS-system efter både juridiska termer (Skollagen, särskilt stöd) och praktiska metoder (DLS-screening, Unikum-dokumentation). Genom att matcha båda kategorierna passerar du första sållningen. Rekryterare ser omedelbart att du behärskar det juridiska ramverket OCH de konkreta verktyg som används i svenska skolor – du kan börja arbeta direkt utan omfattande introduktion.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat bevisar kapacitet och effekt',
+        text: `Istället för "ansvarig för utredningar" visar CV:t konkreta volymer: "45+ pedagogiska utredningar per läsår", "handleder 12 pedagoger", "120+ åtgärdsprogram årligen", "tillgänglig lärmiljö i 8 klassrum". Resultat mäts med procent: "25% minskning av elever som inte når målen i svenska" och "90% av elever med läsrisker uppnådde kravnivå".
+
+Varför detta fungerar: Siffror bevisar både arbetskapacitet och mätbar effekt. När en skola söker specialpedagog för 500 elever ser de att du hanterat liknande omfattning (450 elever, 45 utredningar/år). Procentuella förbättringar är avgörande – de visar att ditt arbete inte bara följer rutiner utan faktiskt förebygger skolmisslyckanden. Många specialpedagoger skriver "arbetar med åtgärdsprogram" utan att visa resultat. Du visar vad som blev bättre.`
+      },
+      {
+        rubrik: 'Analytisk kompetens parad med relationsskapande',
+        text: `CV:t balanserar tekniska färdigheter (pedagogiska utredningar, NPF-kunskap, DLS/LäSt-screening) med relationella kompetenser backade av konkreta exempel: "handleder 12 pedagoger", "utvecklingssamtal med vårdnadshavare", "samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog".
+
+Varför detta fungerar: Specialpedagogik kräver både noggrann analys (utredningar, kartläggning) och förmåga att samarbeta över professionsgränser. Många skriver "kommunikativ" eller "empatisk" utan bevis – tomma buzzwords. Du visar relationsskapande genom handling: handledning av 12 pedagoger, samordning av tvärprofessionella team, föreläsningar för kollegor. Rekryterare ser att du kan både utreda enskilda elever OCH driva förändringar på systemnivå.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal och aktiv utveckling',
+        text: `CV:t listar Specialpedagogexamen (2019), Lärarlegitimation F-3 (2012), NPF-intensivutbildning 40 timmar (2021), SPSM-certifiering i pedagogiska utredningar (2020) och Handledning i yrkesrollen 20 timmar (2022). Varje certifiering har årtal och tydlig koppling till faktiska arbetsuppgifter i erfarenhetsdelen.
+
+Varför detta fungerar: Specialpedagogexamen är lagkrav för tjänsten – utan den sorteras du bort direkt. Genom att också visa lärarlegitimation bevisar du pedagogisk grundkompetens, inte bara teoretisk specialpedagogik. NPF-fortbildning och SPSM-certifiering visar att du aktivt uppdaterar dig med forskning och beprövad erfarenhet. Rekryterare ser progression: du uppfyller formella krav OCH investerar i kontinuerlig kompetensutveckling.`
+      },
+      {
+        rubrik: 'Profiltext sammanfattar kärnkompetens effektivt',
+        text: `Profiltexten öppnar med "Legitimerad specialpedagog med 9+ års erfarenhet av pedagogiska utredningar, handledning och elevhälsoteamarbete i grundskola F-9. Specialist på NPF, läs- och skrivsvårigheter samt extra anpassningar och särskilt stöd enligt Skollagen. Genomför 45+ pedagogiska utredningar årligen, handleder 12 pedagoger."
+
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Legitimerad specialpedagog" är vagt – tusentals kandidater skriver samma sak. "9+ års erfarenhet av utredningar, handledning och elevhälsoteam, specialist på NPF och läs-/skrivsvårigheter, 45+ utredningar årligen" visar omedelbart djup, specialisering och omfattning. Genom att nämna Skollagen signalerar du juridisk medvetenhet. ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre.`
+      },
+      {
+        rubrik: 'Karriärprogression från lärare till systemansvar',
+        text: `Erfarenhetsdelen visar tydlig utveckling: Lärare F-3 (2012-2016) med 22-25 elever → Specialpedagog F-6 för 280 elever med 30+ utredningar/år (2016-2019) → Specialpedagog i elevhälsoteam F-6 för 450 elever med 45+ utredningar/år OCH handledning av 12 pedagoger (2019-nu). Varje steg har ökad komplexitet och systemansvar.
+
+Varför detta fungerar: Progression visar att du växt från klassrumslärare till specialist på organisationsnivå. Att du gått från 30 till 45 utredningar/år samtidigt som du handleder 12 pedagoger bevisar ökad kapacitet och pedagogiskt ledarskap. Rekryterare ser att du inte stannat kvar på samma nivå – du driver utveckling och kan arbeta både med enskilda elever (kompensatoriskt stöd) OCH på systemnivå (tillgänglig lärmiljö, handledning).`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din utredningserfarenhet med antal och årskurs',
+        text: `Ange alltid antal utredningar per läsår, antal elever du ansvarar för och vilka årskurser. Detta ger rekryterare konkret bild av din arbetsbelastning och om du kan hantera skolans omfattning.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för pedagogiska utredningar och åtgärdsprogram"
+
+✅ "Genomför 45+ pedagogiska utredningar per läsår för grundskola F-6 (450 elever) med fokus på NPF, läs-/skrivsvårigheter och matematiksvårigheter. Utvecklar och följer upp 120+ åtgärdsprogram årligen i Unikum i samarbete med elevhälsoteam, pedagoger och vårdnadshavare."
+
+Det senare visar att du hanterar hög arbetsbelastning, har erfarenhet av relevanta åldersgrupper och arbetar tvärprofessionellt.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från dina specialpedagogiska insatser',
+        text: `Kvantifierbara resultat skiljer dig från kandidater som bara listar arbetsuppgifter. Använd procent, antal elever som nådde mål eller förbättrade områden för att visa mätbar effekt.
+
+**Exempel på före/efter:**
+
+❌ "Arbetade med elever med läs- och skrivsvårigheter"
+
+✅ "Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker – 90% av eleverna uppnådde kravnivå i svenska åk 3. Minskade andelen elever som inte når målen i svenska med 25% genom strukturerade screeningrutiner och individuella anpassningar."
+
+Siffror ger trovärdighet och bevisar att ditt arbete faktiskt gör skillnad.`
+      },
+      {
+        rubrik: 'Lyft fram handledningskompetens med omfattning och metod',
+        text: `Handledning av pedagoger är central i specialpedagogrollen. Visa hur många pedagoger du handleder, vad du handleder i och vilka resultat handledningen lett till i klassrummen.
+
+**Exempel på före/efter:**
+
+❌ "Handleder pedagoger i specialpedagogiska frågor"
+
+✅ "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman, tydlig struktur och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar för hela kollegiet om SPSM:s metoder för tillgänglig lärmiljö (4 tillfällen per termin)."
+
+Detta visar att din handledning inte är teoretiska samtal utan leder till faktiska förändringar i klassrummen.`
+      },
+      {
+        rubrik: 'Nämn screening-instrument och dokumentationssystem du behärskar',
+        text: `Visa vilka bedömningsinstrument och system du använder. Detta bevisar teknisk kompetens och att du är bekant med verktygen som används i svenska skolor.
+
+**Exempel på före/efter:**
+
+❌ "Erfarenhet av screening och kartläggning"
+
+✅ "Genomför screening med DLS (Diagnostiskt material för Läs- och Skrivsvårigheter) i åk 1-3, LäSt för läsförståelse i åk 4-6 och Matematikscreening enligt Lgr22 för kartläggning av matematiksvårigheter. Dokumenterar utredningar, åtgärdsprogram och uppföljning i Unikum och IST."
+
+Konkreta verktyg visar att du kan börja arbeta direkt utan omfattande introduktion i skolans system.`
+      },
+      {
+        rubrik: 'Koppla ditt arbete till Skollagen och Lgr22 för juridisk trovärdighet',
+        text: `Specialpedagogik regleras av Skollagen (kap 3 om extra anpassningar och särskilt stöd) och Lgr22. Koppla dina arbetsuppgifter till dessa ramverk för att visa juridisk medvetenhet och professionalism.
+
+**Exempel på före/efter:**
+
+❌ "Arbetar med stödinsatser för elever med särskilda behov"
+
+✅ "Specialist på extra anpassningar och särskilt stöd enligt Skollagen kap 3. Genomför pedagogiska utredningar enligt SPSM:s riktlinjer och utvecklar åtgärdsprogram i enlighet med Skolverkets generella råd. Säkerställer att alla insatser är kopplade till Lgr22:s kunskapskrav."
+
+Detta visar att du förstår det juridiska och pedagogiska ramverket som styr ditt arbete.`
+      },
+      {
+        rubrik: 'Balansera kompensatoriskt stöd med inkludering på systemnivå',
+        text: `Moderna skolor söker specialpedagoger som arbetar både kompensatoriskt (enskilt/liten grupp) OCH preventivt på organisationsnivå genom tillgänglig lärmiljö. Visa båda perspektiven.
+
+**Exempel på före/efter:**
+
+❌ "Undervisar elever i liten grupp och ger extra stöd"
+
+✅ "Undervisar elever i liten grupp (3-6 elever) med strukturerad träning i fonologisk medvetenhet och läsförståelsestrategier. SAMTIDIGT handleder klassrumspedagoger i tillgänglig lärmiljö och tydliggörande pedagogik för att möjliggöra inkluderande undervisning där fler elever når målen i ordinarie klassrum."
+
+Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som specialpedagog vara?',
+        svar: 'För specialpedagoger med 0-5 års erfarenhet räcker vanligtvis 1-2 sidor. Med 5-10+ års erfarenhet kan du använda 2 sidor för att rymma utredningar, handledning, certifieringar och resultat. Fokusera på de senaste 10 åren och lyft fram progression från lärare till specialpedagog. Prioritera djup över bredd – bättre att detaljerat beskriva 2-3 roller med kvantifierbara resultat än att ytligt lista alla uppdrag.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild frivilligt. Vissa skolor uppskattar det eftersom det skapar personlig koppling, andra filtrerar bort CV:n med bild för att undvika omedvetna fördomar. Om du väljer att ha med bild, använd professionellt foto med neutral bakgrund där du ser vänlig och tillgänglig ut – viktigt för en roll som kräver relationsskapande. Undvik semesterbilder eller för formella passfoton.'
+      },
+      {
+        fraga: 'Hur förklarar jag luckor i mitt CV?',
+        svar: 'Var ärlig men koncis. Om luckan beror på föräldraledighet, studier (t.ex. specialpedagogprogrammet på 90 hp), vård av anhörig eller karriäromställning – nämn det kort utan att gå in på detaljer. Exempel: "2017-2019: Vidareutbildning till specialpedagog, Stockholms universitet (90 hp)". Om du arbetat som vikarie under perioden, lista det som "Vikarierande lärare/specialpedagog, olika skolor".'
+      },
+      {
+        fraga: 'Ska jag ha med min lärarlegitimation också?',
+        svar: 'JA, absolut! Lärarlegitimation visar att du har pedagogisk grundkompetens – inte bara teoretisk specialpedagogik. Många skolor kräver både specialpedagogexamen OCH lärarlegitimation eftersom specialpedagogik bygger på erfarenhet av ordinarie undervisning. Lista lärarlegitimationen under Certifieringar med årtal och inriktning: "Lärarlegitimation F-3, svenska och matematik (2012)". Detta visar att du förstår klassrumsperspektivet.'
+      },
+      {
+        fraga: 'Hur visar jag utredningskompetens konkret?',
+        svar: 'Kvantifiera antal utredningar per läsår och nämn specifika bedömningsinstrument. Exempel: "Genomför 45+ pedagogiska utredningar per läsår med fokus på NPF, läs-/skrivsvårigheter och matematiksvårigheter. Använder DLS, LäSt och Matematikscreening enligt Lgr22 för kartläggning." Nämn också dokumentation: "Skriver utredningar och åtgärdsprogram enligt SPSM:s riktlinjer, dokumenterar i Unikum".'
+      },
+      {
+        fraga: 'Hur beskriver jag handledningsarbete?',
+        svar: 'Var konkret med antal pedagoger, vad du handleder i och vilka resultat det lett till. Exempel: "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar om SPSM:s metoder 4 gånger per termin." Detta visar omfattning, metoder och att din handledning faktiskt implementeras.'
+      },
+      {
+        fraga: 'Ska jag anpassa CV:t för grundskola vs gymnasium?',
+        svar: 'JA, definitivt! För grundskola, lyft fram screening (DLS, LäSt), tidiga insatser i F-3, samarbete med vårdnadshavare och inkluderande undervisning. För gymnasium, betona studieteknik, kompensatoriska hjälpmedel (talsyntes, digitala verktyg), övergångsplanering till högre studier eller arbetsliv. Anpassa även åldersspecifika erfarenheter: "F-6" vs "Gymnasium åk 1-3".'
+      },
+      {
+        fraga: 'Hur visar jag samarbete med elevhälsoteam?',
+        svar: 'Beskriv din roll i teamet och vad du bidrar med. Exempel: "Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog – utvecklar och följer upp 120+ åtgärdsprogram årligen. Bidrar med pedagogiska utredningar och kartläggning som grund för tvärprofessionella insatser." Nämn också konkreta samarbeten: "Samarbetar med skolpsykolog vid utredning av NPF".'
+      },
+      {
+        fraga: 'Vilka screening-instrument ska jag nämna?',
+        svar: 'Nämn alla evidensbaserade instrument du använt: DLS (Diagnostiskt material för Läs- och Skrivsvårigheter), LäSt (läsförståelse), Matematikscreening enligt Lgr22, SPSM:s kartläggningsmaterial. Förklara användningsområde: "Genomför DLS-screening i åk 1-3 för tidig identifiering av läsrisker, LäSt i åk 4-6 för läsförståelse". Detta visar att du behärskar verktygen som används i svenska skolor.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram NPF-kunskap på ett trovärdigt sätt?',
+        svar: 'Nämn NPF i profiltexten ("Specialist på NPF och läs-/skrivsvårigheter") och backa upp med konkreta erfarenheter: "Utredde 25+ elever med misstänkt NPF (ADHD, autism, Tourettes) under senaste året. Handleder pedagoger i klassrumsanpassningar för elever med NPF – implementerade visuella scheman, tydlig struktur och anpassade instruktioner i 8 klassrum." Lista NPF-utbildning under Certifieringar: "NPF-intensivutbildning (40 timmar, 2021)".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Grundskollärare', slug: 'grundskollarare' },
+      { yrke: 'Barnskötare', slug: 'barnskotare' }
+    ]
+  },
+
   'fysioterapeut': {
     yrke: 'Fysioterapeut',
     sokvolym: 480,
