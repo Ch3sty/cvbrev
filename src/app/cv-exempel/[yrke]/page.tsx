@@ -7727,7 +7727,7 @@ Detta exempel visar hur du kombinerar teknisk expertis (TakeCare, Melior, OMT-ce
 
 Använd strukturen som mall och anpassa innehållet efter din specialisering – oavsett om du söker inom primärvård, privat klinik eller idrottsmedicin. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant.`,
 
-    intro: 'Som fysioterapeut är ditt CV din professionella visittkort mot vårdgivare, rehabkliniker och privata arbetsgivare. Ett välstrukturerat CV visar tydligt din specialisering, behandlingsmetoder och patientresultat.',
+    intro: 'Som fysioterapeut är ditt CV ditt professionella visitkort mot vårdgivare, rehabkliniker och privata arbetsgivare. Ett välstrukturerat CV visar tydligt din specialisering, behandlingsmetoder och patientresultat.',
 
     exempelCV: {
       namn: 'Emma Lindström',
@@ -7834,9 +7834,9 @@ Varför detta fungerar: Rekryterare inom vården värdesätter evidens över på
       },
       {
         rubrik: 'Konkreta exempel backar upp personliga egenskaper',
-        text: `Istället för att lista "kommunikativ, flexibel, driven" som generiska egenskaper, visar CV:t konkreta exempel: "Samarbetar med ortopeder, läkare och naprapat för helhetsvård" och "Utbildar patienter i ergonomi och förebyggande träning vilket minskat återfallsfrekvens med 35%".
+        text: `Istället för att lista "kommunikativ, flexibel, driven" som generella egenskaper, visar CV:t konkreta exempel: "Samarbetar med ortopeder, läkare och naprapat för helhetsvård" och "Utbildar patienter i ergonomi och förebyggande träning vilket minskat återfallsfrekvens med 35%".
 
-Varför detta fungerar: Rekryterare ser hundratals CV där kandidater påstår sig vara "kommunikativa" och "patientcentrerade" utan att bevisa det. Genom att istället beskriva hur du samarbetat i tvärprofessionella team eller utvecklat patientutbildning visar du dessa egenskaper i praktiken. Detta gör ditt CV trovärdigt och minnesvärt – inte bara ännu ett exempel på generiska buzzwords.`
+Varför detta fungerar: Rekryterare ser hundratals CV där kandidater påstår sig vara "kommunikativa" och "patientcentrerade" utan att bevisa det. Genom att istället beskriva hur du samarbetat i tvärprofessionella team eller utvecklat patientutbildning visar du dessa egenskaper i praktiken. Detta gör ditt CV trovärdigt och minnesvärt – inte bara ännu ett exempel på generella buzzwords.`
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
@@ -7881,7 +7881,7 @@ Inkludera behandlingsvolym (antal patienter per vecka), patientnöjdhet, funktio
       },
       {
         rubrik: 'Visa konkreta behandlingsresultat, inte bara arbetsuppgifter',
-        text: `Din CV ska inte bara lista vad du gjorde, utan vad det ledde till för patienten. Fokusera på förbättrad ADL-funktion, minskad smärta, ökad rörlighet och patientens återgång till önskade aktiviteter.
+        text: `Ditt CV ska inte bara lista vad du gjorde, utan vad det ledde till för patienten. Fokusera på förbättrad ADL-funktion, minskad smärta, ökad rörlighet och patientens återgång till önskade aktiviteter.
 
 Använd etablerade mätinstrument när det är relevant: "Förbättrade genomsnittlig cervikal rotation från 45° till 75° hos patienter med whiplash" eller "Minskade genomsnittlig VAS-smärta från 7 till 3 hos patienter med kronisk ländryggssmärta".
 
