@@ -7713,6 +7713,276 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
     ]
   },
 
+  'grundskollarare': {
+    yrke: 'Grundskollärare',
+    sokvolym: 590,
+    kategori: 'utbildning',
+
+    metaTitle: 'CV Exempel Grundskollärare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för grundskollärare med beprövade mallar för lärarlegitimation, pedagogisk kompetens och elevresultat. Optimerad för svenska skolor 2025.',
+
+    seoIntro: `Ett starkt CV för grundskollärare lyfter fram både din pedagogiska kompetens och dina elevresultat. Rekryterare söker efter konkreta bevis på din förmåga att höja kunskapsnivån, skapa inkluderande lärmiljöer och samarbeta med vårdnadshavare och kollegor.
+
+Detta CV-exempel visar hur du kombinerar formell behörighet (lärarlegitimation F-6, ämneskompetenser) med mätbara resultat – som 78% till 94% måluppfyllelse i svenska och 31% förbättrad läsförståelse. CV:t är optimerat för ATS-system genom att inkludera nyckelord som formativ bedömning, IUP, elevhälsa och differentierad undervisning.
+
+Använd strukturen som mall och anpassa innehållet efter din egen erfarenhet och de ämnen du är behörig i. Ett välskrivet CV ökar dina chanser att bli kallad till intervju markant – särskilt i en arbetsmarknad där behöriga lärare är eftertraktade.`,
+
+    intro: 'Som grundskollärare är ditt CV ditt professionella visitkort mot skolledare och rektorer. Ett välstrukturerat CV visar tydligt din lärarlegitimation, pedagogiska metoder och elevresultat.',
+
+    exempelCV: {
+      namn: 'Anna Lindström',
+      titel: 'Legitimerad Grundskollärare F-6',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.lindstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/annalindstrom'
+      },
+
+      profil: 'Legitimerad grundskollärare med 8 års erfarenhet av undervisning i årskurs F-6. Specialiserad på svenska och SO med dokumenterade resultat i att höja elevers måluppfyllelse. Stark i formativ bedömning, differentierad undervisning och digitala verktyg. Engagerad i elevhälsoarbete och samverkan med vårdnadshavare för att skapa trygga lärmiljöer där alla elever når sin fulla potential.',
+
+      erfarenhet: [
+        {
+          titel: 'Grundskollärare årskurs 4-6',
+          arbetsgivare: 'Stockholms Internationella Skola',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Undervisar i svenska, SO och engelska för 25-28 elever per klass med fokus på formativ bedömning och elevaktiva arbetssätt',
+            'Höjde klassens måluppfyllelse i svenska från 78% till 94% genom strukturerad läsundervisning och individuella läsloggar',
+            'Implementerade digitala verktyg (Google Classroom, Kahoot, Skolstil) vilket ökade elevengagemanget med 40%',
+            'Mentor för 26 elever med ansvar för utvecklingssamtal, IUP och regelbunden vårdnadshavarkontakt'
+          ]
+        },
+        {
+          titel: 'Grundskollärare årskurs 1-3',
+          arbetsgivare: 'Södermalms Grundskola',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Ansvarade för den tidiga läs- och skrivinlärningen med Bornholmsmodellen och STL (Skriva sig till Läsning)',
+            'Utvecklade tematiska planeringar i svenska och NO som kopplade teori till praktiska experiment',
+            'Förbättrade elevernas läsförståelse med 31% enligt standardiserade lästest (DLS)',
+            'Deltog aktivt i elevhälsoteam och samverkade med specialpedagog kring elever med särskilda behov'
+          ]
+        },
+        {
+          titel: 'Lärarvikarie',
+          arbetsgivare: 'Stockholms stad, Vikariepoolen',
+          period: '2016 – 2017',
+          beskrivning: [
+            'Vikarierade i grundskolor runt om i Stockholm inom samtliga årskurser F-6',
+            'Utvecklade flexibilitet och förmåga att snabbt anpassa undervisning efter olika elevgrupper',
+            'Fick erbjudande om fast tjänst på Södermalms Grundskola efter återkommande uppdrag'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Grundlärarprogrammet F-6',
+          skola: 'Stockholms universitet',
+          period: '2012 – 2016',
+          beskrivning: '4-årig lärarutbildning med inriktning mot svenska, SO och engelska. Examensarbete om formativ bedömning i lågstadiet.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Lärarlegitimation F-6 (Svenska, SO, Engelska)',
+          'Formativ bedömning',
+          'Differentierad undervisning',
+          'Google Classroom & digitala verktyg',
+          'Skolplattformen Stockholm',
+          'Bornholmsmodellen & STL',
+          'IUP & utvecklingssamtal',
+          'Standardiserade lästest (DLS, LäSt)'
+        ],
+        personliga: [
+          'Pedagogiskt ledarskap',
+          'Elevcentrerat förhållningssätt',
+          'Samarbetsförmåga',
+          'Flexibilitet',
+          'Konflikthantering'
+        ]
+      },
+
+      certifieringar: [
+        'Lärarlegitimation, Skolverket (2016)',
+        'Behörighet svenska åk 1-6',
+        'Behörighet SO åk 1-6',
+        'Behörighet engelska åk 1-6',
+        'Första hjälpen och HLR (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Lärarlegitimation och behörigheter tydligt framhävda',
+        text: `CV:t visar direkt i titeln "Legitimerad Grundskollärare F-6" och listar alla behörigheter under certifieringar. Rekryterare behöver snabbt verifiera att kandidaten uppfyller lagkraven.
+
+Varför detta fungerar: Sedan 2011 krävs lärarlegitimation för att undervisa och sätta betyg. Rektorer som inte snabbt kan identifiera behörighet i ett CV går ofta vidare till nästa kandidat. Genom att placera legitimationen både i titeln och i en tydlig certifieringslista eliminerar du osäkerhet och visar att du förstår arbetsgivarens grundläggande krav.`
+      },
+      {
+        rubrik: 'Elevresultat kvantifierade med konkreta siffror',
+        text: `CV:t innehåller mätbara resultat: "Höjde klassens måluppfyllelse i svenska från 78% till 94%" och "Förbättrade elevernas läsförståelse med 31% enligt standardiserade lästest (DLS)". Varje tjänsteperiod visar konkret påverkan på elevernas lärande.
+
+Varför detta fungerar: Skolledare letar efter lärare som kan bevisa sin pedagogiska effekt, inte bara beskriva sina arbetsuppgifter. Procentuella förbättringar och referenser till etablerade mätverktyg (DLS, LäSt) ger trovärdighet och visar att du arbetar evidensbaserat – precis som styrdokumenten kräver.`
+      },
+      {
+        rubrik: 'Pedagogiska metoder som matchar skolans behov',
+        text: `CV:t nämner specifika metoder: Bornholmsmodellen, STL (Skriva sig till Läsning), formativ bedömning och differentierad undervisning. Dessa är etablerade arbetssätt som rektorer aktivt söker efter.
+
+Varför detta fungerar: Att skriva "undervisade i svenska" säger ingenting om hur du arbetar. Genom att nämna konkreta metoder visar du att du har en pedagogisk verktygslåda och kan anpassa undervisningen efter elevernas behov. Detta är särskilt viktigt när skolan har specifika satsningar, exempelvis på tidig läsinlärning.`
+      },
+      {
+        rubrik: 'Digitala verktyg visar modern kompetens',
+        text: `CV:t listar Google Classroom, Kahoot, Skolplattformen och digitala läromedel. Dessutom kvantifieras effekten: "ökade elevengagemanget med 40%".
+
+Varför detta fungerar: Skolans digitalisering accelererar och rektorer behöver lärare som behärskar digitala verktyg utan omfattande fortbildning. Genom att visa både vilka verktyg du kan och vilken effekt de haft på undervisningen positionerar du dig som en modern pedagog redo för framtidens klassrum.`
+      },
+      {
+        rubrik: 'Elevhälsa och samverkan lyfts fram',
+        text: `CV:t nämner deltagande i elevhälsoteam, samverkan med specialpedagog och regelbunden vårdnadshavarkontakt. Mentorskapet beskrivs med antal elever och konkreta ansvarsområden.
+
+Varför detta fungerar: Lärarrollen handlar inte bara om ämnesundervisning. Rektorer söker lärare som kan hantera hela uppdraget – inklusive föräldrakontakt, elevhälsoarbete och samverkan kring elever med särskilda behov. Genom att visa erfarenhet inom dessa områden framstår du som en komplett pedagog.`
+      },
+      {
+        rubrik: 'Karriärutveckling från vikarie till fast tjänst',
+        text: `CV:t visar en tydlig progression: från vikariepoolen till fast tjänst på Södermalms Grundskola, vidare till en internationell skola. Notisen "Fick erbjudande om fast tjänst efter återkommande uppdrag" visar att tidigare arbetsgivare värdesatte kompetensen.
+
+Varför detta fungerar: Karriärprogression signalerar att du utvecklas och att arbetsgivare vill behålla dig. För en rektor som investerar i rekrytering är det värdefullt att se att kandidaten stannar och växer på en arbetsplats – inte hoppar runt utan anledning.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Placera lärarlegitimation och behörigheter först',
+        text: `Rektorer måste snabbt kunna verifiera att du uppfyller behörighetskraven. Gör det enkelt genom att placera legitimationen i din titel och lista alla ämnesbehörigheter tydligt.
+
+Inkludera årskursbehörighet (F-3, 4-6, 7-9) och vilka ämnen du är behörig att undervisa och betygsätta i. Om du har utökad behörighet genom kollegial bedömning eller kompletterande utbildning, ange detta.
+
+**Exempel på före/efter:**
+
+❌ "Lärare med erfarenhet av grundskolan"
+
+✅ "Legitimerad grundskollärare F-6 med behörighet i svenska, SO och engelska"`
+      },
+      {
+        rubrik: 'Kvantifiera dina elevresultat med mätbara data',
+        text: `Undvik vaga beskrivningar som "undervisade elever" eller "ansvarade för en klass". Rekryterare vill se konkret påverkan på elevernas lärande och utveckling.
+
+Använd procentuell förbättring, resultat från standardiserade tester (DLS, LäSt, nationella prov) eller jämförelser före/efter din insats. Om du saknar exakta siffror, beskriv förändringen kvalitativt men specifikt.
+
+**Exempel på före/efter:**
+
+❌ "Undervisade i svenska med goda resultat"
+
+✅ "Höjde klassens måluppfyllelse i svenska från 78% till 94% genom strukturerad läsundervisning och individuella läsloggar"`
+      },
+      {
+        rubrik: 'Nämn specifika pedagogiska metoder och arbetssätt',
+        text: `Att skriva "pedagogisk kompetens" är meningslöst utan konkreta exempel. Visa vilka metoder du använder och hur de påverkar elevernas lärande.
+
+Inkludera etablerade metoder som Bornholmsmodellen, STL, formativ bedömning, kooperativt lärande eller BFL (Bedömning för lärande). Beskriv också hur du arbetar med differentiering för att möta alla elevers behov.
+
+**Exempel på före/efter:**
+
+❌ "God pedagogisk förmåga och varierade undervisningsmetoder"
+
+✅ "Implementerade STL-metodik (Skriva sig till Läsning) och formativ bedömning, vilket förbättrade elevernas läsförståelse med 31%"`
+      },
+      {
+        rubrik: 'Visa erfarenhet av elevhälsa och samverkan',
+        text: `Läraruppdraget omfattar mer än ämnesundervisning. Rektorer söker lärare som kan hantera hela elevhälsokedjan och samverka med vårdnadshavare och kollegor.
+
+Beskriv din erfarenhet av mentorskap, utvecklingssamtal, IUP-arbete, elevhälsomöten och samarbete med specialpedagog eller skolkurator. Nämn antal elever du haft mentorsansvar för.
+
+**Exempel på före/efter:**
+
+❌ "Hade kontakt med föräldrar vid behov"
+
+✅ "Mentor för 26 elever med ansvar för utvecklingssamtal, IUP och regelbunden vårdnadshavarkontakt varje termin"`
+      },
+      {
+        rubrik: 'Lyft fram digitala verktyg och moderna lärmiljöer',
+        text: `Skolans digitalisering gör digital kompetens till ett grundkrav. Visa att du behärskar relevanta verktyg och kan integrera dem pedagogiskt.
+
+Nämn lärplattformar (Google Classroom, Teams, Skolplattformen), digitala läromedel (NE, Liber Onlinebok), bedömningsverktyg (Kahoot, Mentimeter) och eventuella programmeringsverktyg du använt.
+
+**Exempel på före/efter:**
+
+❌ "Van vid att använda datorer i undervisningen"
+
+✅ "Implementerade Google Classroom och Kahoot för formativ bedömning, vilket ökade elevengagemanget med 40%"`
+      },
+      {
+        rubrik: 'Anpassa CV:t efter skolans profil och behov',
+        text: `Olika skolor har olika fokusområden. En Montessoriskola, en kommunal F-6-skola och en internationell skola letar efter delvis olika kompetenser.
+
+Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din profiltext och ordningen på dina kompetenser för att matcha det skolan prioriterar – oavsett om det är språkutveckling, digitalisering, inkludering eller internationella utbyten.
+
+**Exempel på före/efter:**
+
+❌ Samma generella CV till alla skolor
+
+✅ Profiltext anpassad: "Specialiserad på tidig läsinlärning med STL-metodik" (till skola som satsar på språkutveckling)`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som grundskollärare vara?',
+        svar: 'Ett CV för grundskollärare ska vara 1-2 sidor. Är du nyexaminerad räcker oftast 1 sida, medan erfarna lärare med fler tjänster och certifieringar kan behöva 2 sidor. Fokusera på relevans – ta med det som stärker din ansökan till just den tjänst du söker och skippa gammal eller irrelevant information.'
+      },
+      {
+        fraga: 'Ska jag ha med lärarlegitimation på CV:t?',
+        svar: 'Absolut. Lärarlegitimation är ett lagkrav för att undervisa och sätta betyg i svensk grundskola. Placera den tydligt i din titel (\"Legitimerad grundskollärare F-6\") och lista dina specifika ämnesbehörigheter under certifieringar. Rektorer behöver snabbt kunna verifiera din behörighet.'
+      },
+      {
+        fraga: 'Hur visar jag pedagogisk kompetens konkret?',
+        svar: 'Nämn specifika metoder du använder (Bornholmsmodellen, STL, formativ bedömning, kooperativt lärande) och koppla dem till elevresultat. Istället för \"god pedagogisk förmåga\", skriv \"Implementerade STL-metodik vilket förbättrade klassens läsförståelse med 31%\". Konkreta metoder + mätbara resultat = trovärdig pedagogisk kompetens.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mina resultat som lärare?',
+        svar: 'Använd måluppfyllelse (procent som nått målen), resultat från standardiserade tester (DLS, LäSt), förbättringar på nationella prov, eller före/efter-jämförelser. Du kan också kvantifiera andra aspekter: antal elever, förbättring i närvaro, minskning av konflikter. Om exakta siffror saknas, beskriv förändringen kvalitativt men specifikt.'
+      },
+      {
+        fraga: 'Ska jag nämna erfarenhet av elever med särskilda behov?',
+        svar: 'Ja, det är värdefullt. Beskriv din erfarenhet av att anpassa undervisningen, samarbeta med specialpedagog, delta i elevhälsoteam eller implementera extra anpassningar. Konkretisera: \"Utformade individuella läsplaner för 5 elever med dyslexi i samverkan med specialpedagog, samtliga nådde godkänt i svenska\".'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV?',
+        svar: 'Var ärlig och kort. Föräldraledighet, studier eller sjukskrivning behöver inte förklaras i detalj – ange bara tidsperiod och kort beskrivning (\"Föräldraledighet\"). Om du gjort något relevant under uppehållet (vikarier, kurser, volontärarbete), ta gärna med det. Luckor är vanliga och sällan ett problem om resten av CV:t är starkt.'
+      },
+      {
+        fraga: 'Ska jag ta med VFU/praktik från lärarutbildningen?',
+        svar: 'Som nyexaminerad: ja, VFU-erfarenheter kan visa vilka årskurser och ämnen du provat på. Efter några års arbetslivserfarenhet: nej, VFU blir mindre relevant och tar plats från viktigare information. Fokusera då på dina faktiska anställningar och resultat.'
+      },
+      {
+        fraga: 'Hur visar jag att jag behärskar digitala verktyg?',
+        svar: 'Lista specifika verktyg under kompetenser: Google Classroom, Teams, Skolplattformen, digitala läromedel (NE, Liber), bedömningsverktyg (Kahoot, Mentimeter). Ännu bättre är att visa effekten: \"Implementerade flippat klassrum med instruktionsvideos, vilket frigjorde lektionstid för individuell handledning\".'
+      },
+      {
+        fraga: 'Ska jag skriva personligt brev också?',
+        svar: 'Ja, för lärartjänster är personligt brev standard. CV:t visar vad du gjort, brevet förklarar varför du söker just den tjänsten och vad du kan bidra med. Brevet ska vara anpassat till skolan och visa att du förstår deras verksamhet och behov. Använd gärna jobbcoach.ai för att skapa ett skräddarsytt brev.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika typer av skolor?',
+        svar: 'Läs jobbannonsen och skolans hemsida för att identifiera deras profil och prioriteringar. En Waldorfskola värdesätter andra saker än en kommunal skola med teknikprofil. Anpassa din profiltext och lyft fram de erfarenheter och kompetenser som matchar skolans fokus – oavsett om det är hållbarhet, internationalisering, inkludering eller digitalisering.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Elevassistent', slug: 'elevassistent' }
+    ]
+  },
+
   'fysioterapeut': {
     yrke: 'Fysioterapeut',
     sokvolym: 480,

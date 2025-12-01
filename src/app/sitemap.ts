@@ -147,6 +147,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'kundtjanst',
     'kock',
     'fysioterapeut',
+    'grundskollarare',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
