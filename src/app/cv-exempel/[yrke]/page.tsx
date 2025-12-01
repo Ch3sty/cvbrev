@@ -7711,6 +7711,260 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
       { yrke: 'Psykolog', slug: 'psykolog' },
       { yrke: 'Undersköterska', slug: 'underskoterska' }
     ]
+  },
+
+  'fysioterapeut': {
+    yrke: 'Fysioterapeut',
+    sokvolym: 480,
+    kategori: 'vard',
+
+    metaTitle: 'CV Exempel Fysioterapeut 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionell CV-mall för fysioterapeut med konkreta exempel på kompetenser, behandlingsmetoder och resultat. Optimerad för svenska vårdarbetsgivare 2025.',
+
+    seoIntro: `Ett starkt CV för fysioterapeut lyfter fram både dina behandlingsmetoder och dina patientresultat. Rekryterare söker efter kvantifierbara bevis på din kompetens inom manuell terapi, ortopedisk rehabilitering och evidensbaserad vård.
+
+Detta exempel visar hur du kombinerar teknisk expertis (TakeCare, Melior, OMT-certifiering) med konkreta behandlingsresultat – som 88% patientnöjdhet och 35% minskad återfallsfrekvens hos patienter med kronisk ryggsmärta. CV:t är optimerat för ATS-system genom att inkludera branschspecifika nyckelord som manuell terapi, träningsterapi och neurologisk rehabilitering.
+
+Använd strukturen som mall och anpassa innehållet efter din specialisering – oavsett om du söker inom primärvård, privat klinik eller idrottsmedicin. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant.`,
+
+    intro: 'Som fysioterapeut är ditt CV din professionella visittkort mot vårdgivare, rehabkliniker och privata arbetsgivare. Ett välstrukturerat CV visar tydligt din specialisering, behandlingsmetoder och patientresultat.',
+
+    exempelCV: {
+      namn: 'Emma Lindström',
+      titel: 'Legitimerad Fysioterapeut',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'emma.lindstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/emmalindstrom'
+      },
+
+      profil: 'Legitimerad fysioterapeut med 7 års erfarenhet av ortopedisk och idrottsmedicinsk rehabilitering. Specialiserad på manuell terapi och träningsterapi för rygg- och nackbesvär samt idrottsskador. Gedigen erfarenhet från både privat klinik och primärvård med dokumenterat goda patientresultat. Driven av att kombinera evidensbaserad behandling med personcentrerad vård för långsiktig hälsa.',
+
+      erfarenhet: [
+        {
+          titel: 'Legitimerad Fysioterapeut',
+          arbetsgivare: 'Stockholm Rehab & Idrottsklinik',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarar för ortopedisk rehabilitering med fokus på rygg-, nacke- och axelskador samt idrottsmedicinska skador för 15-20 patienter/vecka',
+            'Genomför manuell terapi, träningsterapi och tapeningstekniker med 88% patientnöjdhet enligt uppföljning',
+            'Utbildar patienter i ergonomi och förebyggande träning vilket minskat återfallsfrekvens med 35%',
+            'Dokumenterar i TakeCare och samarbetar med ortopeder, läkare och naprapat för helhetsvård'
+          ]
+        },
+        {
+          titel: 'Fysioterapeut',
+          arbetsgivare: 'Solna Vårdcentral, Region Stockholm',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Bedrev primärvårdsrehabilitering för patienter med smärttillstånd, stroke-rehabilitering och geriatriska besvär (12-15 patienter/dag)',
+            'Implementerade gruppträning för kronisk smärta som nådde 60+ patienter/år med förbättrad livskvalitet',
+            'Utförde hembesök för rehabilitering av multisjuka äldre, vilket förbättrade ADL-funktion hos 70% av patienterna',
+            'Arbetade i Cosmic journalsystem och samverkade med distriktssköterskor och läkare i vårdteam'
+          ]
+        },
+        {
+          titel: 'Fysioterapeut (Nyexaminerad)',
+          arbetsgivare: 'Danderyds Sjukhus, Ortopedavdelningen',
+          period: '2017 – 2018',
+          beskrivning: [
+            'Ansvarade för postoperativ rehabilitering efter höft- och knäledsoperationer samt frakturer (8-10 patienter/dag)',
+            'Bedömde funktionsnedsättning och upprättade individuella träningsprogram för tidig mobilisering',
+            'Dokumenterade patientprogression i Melior och deltog i tvärprofessionella teamkonferenser'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Fysioterapeutprogrammet',
+          skola: 'Karolinska Institutet',
+          period: '2014 – 2017',
+          beskrivning: '3-årig grundutbildning i fysioterapi med specialisering inom ortopedi och idrottsmedicin'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Manuell terapi (Expert, 7+ år)',
+          'Ortopedisk rehabilitering (Avancerad, 7+ år)',
+          'Träningsterapi & rörelseanalys (Expert, 7+ år)',
+          'TakeCare journalsystem',
+          'Melior & Cosmic',
+          'TENS & elektroterapi',
+          'Tapeningstekniker (Kinesiotape)',
+          'McKenzie Method (MDT)'
+        ],
+        personliga: [
+          'Patientcentrerad kommunikation',
+          'Pedagogisk förmåga',
+          'Problemlösning',
+          'Teamsamarbete i vårdteam',
+          'Stresshantering'
+        ]
+      },
+
+      certifieringar: [
+        'Legitimation som fysioterapeut, Socialstyrelsen (2017)',
+        'OMT-certifiering, Ortopedisk Manuell Terapi (2020)',
+        'MDT-certifiering, McKenzie Institute (2019)',
+        'Akupunktur för fysioterapeuter (2021)',
+        'HLR-instruktör (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika nyckelord för ATS-system',
+        text: `CV:t innehåller exakt de termer som rekryterare söker efter: "manuell terapi", "ortopedisk rehabilitering", "TakeCare", "Melior" och "evidensbaserad vård". Dessa nyckelord finns både i profiltexten och i erfarenhetsbeskrivningarna.
+
+Varför detta fungerar: ATS-system rankar CV:n efter hur väl de matchar jobbannonsen. När en arbetsgivare söker fysioterapeut med erfarenhet av ortopedisk rehabilitering och TakeCare, sorteras CV:n som saknar dessa exakta termer bort före manuell granskning. Genom att inkludera både behandlingsmetoder och journalsystem ökar du sannolikheten att ditt CV når en rekryterare.`
+      },
+      {
+        rubrik: 'Kvantifierade patientresultat som bevisar kompetens',
+        text: `CV:t visar konkreta resultat: "15-20 patienter per vecka", "88% patientnöjdhet enligt uppföljning" och "35% minskad återfallsfrekvens hos patienter med kronisk ryggsmärta". Varje position innehåller mätbara resultat som visar behandlingseffekt.
+
+Varför detta fungerar: Rekryterare inom vården värdesätter evidens över påståenden. Ett CV som endast säger "Ansvarade för rehabilitering av ortopediska patienter" berättar inget om din faktiska behandlingskompetens. Genom att kvantifiera patientresultat, behandlingsvolym och nöjdhetsgrad visar du att du förstår vikten av uppföljning och resultatmätning – vilket är centralt i modern, patientcentrerad vård.`
+      },
+      {
+        rubrik: 'Konkreta exempel backar upp personliga egenskaper',
+        text: `Istället för att lista "kommunikativ, flexibel, driven" som generiska egenskaper, visar CV:t konkreta exempel: "Samarbetar med ortopeder, läkare och naprapat för helhetsvård" och "Utbildar patienter i ergonomi och förebyggande träning vilket minskat återfallsfrekvens med 35%".
+
+Varför detta fungerar: Rekryterare ser hundratals CV där kandidater påstår sig vara "kommunikativa" och "patientcentrerade" utan att bevisa det. Genom att istället beskriva hur du samarbetat i tvärprofessionella team eller utvecklat patientutbildning visar du dessa egenskaper i praktiken. Detta gör ditt CV trovärdigt och minnesvärt – inte bara ännu ett exempel på generiska buzzwords.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar aktualitet',
+        text: `CV:t listar alla relevanta certifieringar med årtal: "Legitimation som fysioterapeut (2017)", "OMT-certifiering (2020)", "MDT-certifiering (2019)" och "Akupunktur för fysioterapeuter (2021)". Detta visar både specialisering och kontinuerlig kompetensutveckling.
+
+Varför detta fungerar: Legitimation är ett grundkrav, men specialistcertifieringar som OMT (ortopedisk manuell terapi) och MDT (mekanisk diagnos och terapi) visar fördjupad expertis inom efterfrågade områden. Genom att inkludera årtal kan rekryterare se att dina certifieringar är aktuella och att du aktivt utvecklar din kompetens. Detta är särskilt viktigt inom vården där evidensbaserad praktik ständigt uppdateras.`
+      },
+      {
+        rubrik: 'Profiltext som matchar rätt arbetsgivare',
+        text: `Profiltexten sammanfattar tydligt specialisering och behandlingsfokus: "Legitimerad fysioterapeut med 7 års erfarenhet av ortopedisk och idrottsmedicinsk rehabilitering. Specialiserad på manuell terapi och träningsterapi för rygg- och nackbesvär samt idrottsskador."
+
+Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10-15 sekunder om kandidaten är relevant. Genom att direkt nämna specialisering (ortopedisk/idrottsmedicinsk), behandlingsmetoder (manuell terapi, träningsterapi) och värdegrund (evidensbaserad) gör du det enkelt för rätt arbetsgivare att identifiera dig som en match. En generisk profiltext som "engagerad fysioterapeut med bred erfarenhet" säger ingenting om vad du faktiskt kan.`
+      },
+      {
+        rubrik: 'Karriärprogression från junior till senior synlig',
+        text: `CV:t visar tydlig utveckling: från "Fysioterapeut (Nyexaminerad)" på sjukhus (2017-2018) till primärvård med bredare ansvar (2018-2021) och sedan specialiserad position på privat klinik med ortopediskt fokus (2021-pågående). Varje position visar ökat ansvar och fördjupad specialisering.
+
+Varför detta fungerar: Rekryterare behöver förstå din nivå – är du nyexaminerad, erfaren kliniker eller senior specialist? Genom att visa progression från grundläggande patientarbete till tvärprofessionellt samarbete och specialisering demonstrerar du att du vuxit i din yrkesroll. Detta är särskilt viktigt när du söker seniorroller där arbetsgivaren förväntar sig självständighet och kliniskt ledarskap.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera branschspecifika nyckelord för fysioterapi',
+        text: `Rekryterare och ATS-system söker efter specifika behandlingsmetoder och specialiseringar. Generella termer som "rehabilitering" eller "behandling" ger ingen information om din faktiska kompetens.
+
+Lyft fram de behandlingsmetoder du behärskar: manuell terapi, träningsterapi, ortopedisk rehabilitering, neurologisk rehabilitering, geriatrisk fysioterapi eller idrottsmedicin. Inkludera dessa både i din profiltext och i beskrivningen av dina arbetsuppgifter.
+
+Anpassa nyckelorden efter jobbannonsen – om arbetsgivaren söker efter "neurologisk rehabilitering" och "ADL-träning", använd exakt dessa termer om de stämmer med din erfarenhet.`
+      },
+      {
+        rubrik: 'Kvantifiera dina patientresultat med konkreta siffror',
+        text: `Vaga beskrivningar som "behandlade patienter" eller "gav god vård" säger ingenting om din behandlingseffekt. Rekryterare vill se mätbara resultat som bevisar din kompetens.
+
+Inkludera behandlingsvolym (antal patienter per vecka), patientnöjdhet, funktionsförbättring och långtidsresultat (återfallsfrekvens, återgång i arbete). Om du arbetat med kvalitetsförbättring, nämn konkreta effekter.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för rehabilitering av ortopediska patienter"
+
+✅ "Behandlade 15-20 ortopediska patienter per vecka med 88% patientnöjdhet och 35% minskad återfallsfrekvens vid 6-månaders uppföljning"`
+      },
+      {
+        rubrik: 'Visa konkreta behandlingsresultat, inte bara arbetsuppgifter',
+        text: `Din CV ska inte bara lista vad du gjorde, utan vad det ledde till för patienten. Fokusera på förbättrad ADL-funktion, minskad smärta, ökad rörlighet och patientens återgång till önskade aktiviteter.
+
+Använd etablerade mätinstrument när det är relevant: "Förbättrade genomsnittlig cervikal rotation från 45° till 75° hos patienter med whiplash" eller "Minskade genomsnittlig VAS-smärta från 7 till 3 hos patienter med kronisk ländryggssmärta".
+
+Nämn också patientutbildning och egenvårdsstrategier – detta visar att du arbetar patientcentrerat: "Utvecklade individuella hemträningsprogram som 85% av patienterna följde efter avslutad behandling".`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter typ av arbetsgivare',
+        text: `En privat idrottsklinik söker andra kompetenser än en vårdcentral. Din profiltext ska spegla vad den specifika arbetsgivaren värdesätter.
+
+För primärvård: lyft fram bred patientgrupp, samverkan i vårdteam, hälsofrämjande arbete och evidensbaserad praktik. För privat klinik: betona specialisering, behandlingsresultat och patientnöjdhet. För idrottsmedicin: fokusera på idrottsskador, funktionell träning och return-to-sport.
+
+Läs jobbannonsen noga och identifiera vilka behandlingsområden och värderingar arbetsgivaren betonar, sedan anpassar du din profiltext för att matcha detta.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar med årtal och nivå',
+        text: `Legitimation är grundkravet, men specialistcertifieringar skiljer dig från andra kandidater. Nämn alltid årtal för att visa att dina kunskaper är aktuella.
+
+Inkludera relevanta certifieringar som OMT (ortopedisk manuell terapi), MDT (mekanisk diagnos och terapi), medicinsk akupunktur, idrottsspecifika kurser eller specialisering inom neurologi/pediatrik. Ange nivå om certifieringen har flera steg.
+
+**Exempel på före/efter**:
+
+❌ "Certifierad i manuell terapi"
+
+✅ "OMT-certifiering Nivå 1, ortopedisk manuell terapi (2020)"`
+      },
+      {
+        rubrik: 'Nämn journalsystem och digitala verktyg du behärskar',
+        text: `Många arbetsgivare använder specifika journalsystem och vill veta att du kan börja arbeta utan lång introduktion. Detta är särskilt viktigt inom offentlig vård där TakeCare och Melior dominerar.
+
+Inkludera de journalsystem du arbetat med: TakeCare, Melior, Cosmic, PMO eller andra. Nämn även digitala undersökningsverktyg, videorehabiliteringssystem eller appar för hemträning om du använt dessa.
+
+Om du arbetat med utveckling av kliniska riktlinjer eller kvalitetsregister, nämn detta också – det visar att du kan bidra till verksamhetsutveckling och inte bara utför behandling.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som fysioterapeut vara?',
+        svar: 'Ett CV för fysioterapeut ska vara 1-2 sidor. Om du är nyexaminerad eller har mindre än 3 års erfarenhet räcker vanligtvis 1 sida. Har du längre erfarenhet, specialisering eller omfattande certifieringar kan 2 sidor vara motiverat. Fokusera på relevans – ta med det som matchar det jobb du söker och skippa praktikplatser eller mycket gamla erfarenheter om de inte tillför värde.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'Profilbild är vanligt men inget krav i Sverige. Inom vården är det dock relativt vanligt att inkludera en professionell bild. Om du väljer att ha med bild, använd en professionell porträttbild med neutral bakgrund där du ser tillgänglig och trygg ut. Undvik semesterbilder, selfies eller bilder med för hårt ljus. Om du känner dig osäker kan du utelämna bild – det påverkar sällan bedömningen av din faktiska kompetens.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV?',
+        svar: 'Var ärlig med luckor och nämn konstruktiva aktiviteter du gjort under perioden. Om du varit föräldraledig, säg det kort utan att förklara dig i detalj. Har du studerat, tagit vidareutbildningar eller arbetat med något annat, nämn detta. Om du haft sjukskrivning eller arbetslöshet kan du skriva "Karriärpaus" eller "Kompetensutveckling" och beskriva relevanta aktiviteter som kurser, volontärarbete eller egna projekt.'
+      },
+      {
+        fraga: 'Vilka kompetenser ska jag ta med som fysioterapeut?',
+        svar: 'Inkludera både behandlingsmetoder och tekniska system. Börja med dina huvudsakliga behandlingskompetenser: manuell terapi, träningsterapi, ortopedisk rehabilitering, neurologisk rehabilitering, idrottsmedicin eller geriatrisk fysioterapi. Lägg till specifika metoder du behärskar som OMT, MDT, akupunktur eller Bobath. Ta även med journalsystem du kan (TakeCare, Melior, Cosmic) och eventuella undersökningsmetoder. Anpassa listan efter jobbannonsen.'
+      },
+      {
+        fraga: 'Hur visar jag min specialisering som fysioterapeut?',
+        svar: 'Specialisering framgår tydligast genom kombination av profiltext, certifieringar och konkreta behandlingsresultat. Skriv explicit i din profiltext vilken inriktning du har: ortopedisk rehabilitering, neurologisk rehabilitering, idrottsmedicin, geriatrisk fysioterapi eller pediatrisk fysioterapi. Backa sedan upp detta med relevanta certifieringar (OMT för ortopedi, Bobath för neurologi) och kvantifierade resultat från din praktik.'
+      },
+      {
+        fraga: 'Ska jag lista alla mina certifieringar?',
+        svar: 'Ta med legitimation och alla certifieringar som är relevanta för tjänsten du söker. Legitimation som fysioterapeut ska alltid finnas med. Lägg till specialistcertifieringar som OMT, MDT, akupunktur eller neurologiska metoder om de matchar jobbets kravprofil. Inkludera alltid årtal – detta visar att dina kunskaper är aktuella. HLR-certifiering ska med om den är giltig. Om du har många kortare kurser, välj ut de mest relevanta.'
+      },
+      {
+        fraga: 'Vilka journalsystem ska jag nämna?',
+        svar: 'Ta med de journalsystem du faktiskt arbetat med i din tjänsteutövning. De vanligaste inom svensk hälso- och sjukvård är TakeCare (används i många regioner och privat vård), Melior (framför allt primärvård) och Cosmic (äldre system som fortfarande används). Skriv en kort rad under Kompetenser eller inkludera det i din erfarenhetsbeskrivning: "Dokumenterade patientjournaler i TakeCare och Melior".'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mina patientresultat?',
+        svar: 'Använd konkreta mätetal som visar behandlingseffekt. Inkludera behandlingsvolym (antal patienter per vecka), patientnöjdhet, funktionsförbättring (rörelseomfång, smärtskala VAS, ADL-förmåga) och långtidsresultat (återfallsfrekvens, återgång i arbete). Exempel: "Behandlade 15-20 patienter per vecka med 88% patientnöjdhet" eller "Minskade återfallsfrekvens vid kronisk ryggsmärta med 35% genom strukturerad träningsterapi".'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för primärvård vs privat klinik?',
+        svar: 'Primärvård och privat klinik har olika fokus. För primärvård: betona bred patientgrupp, tvärprofessionellt samarbete, hälsofrämjande arbete, rehabilitering i hemmet och förmåga att hantera högt patientflöde. För privat klinik: lyft fram specialisering, behandlingsresultat, patientnöjdhet och erfarenhet av specifika diagnoser. Läs jobbannonsen noga för att förstå vilken patientgrupp och arbetssätt som gäller.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är patientcentrerad utan att bara säga det?',
+        svar: 'Visa konkreta exempel på hur du arbetar patientcentrerat istället för att lista "patientcentrerad" som en egenskap. Beskriv hur du utvecklat individuella behandlingsplaner, involverat patienter i målsättning, anpassat kommunikation efter patientens förutsättningar eller följt upp långsiktiga resultat. Exempel: "Utvecklade individuella hemträningsprogram baserat på patientens vardag och mål, vilket resulterade i 85% följsamhet".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Läkare', slug: 'lakare' }
+    ]
   }
 }
 
