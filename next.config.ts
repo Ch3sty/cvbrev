@@ -243,6 +243,22 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/student',
         permanent: true,
       },
+      // Yrkesspecifika artiklar som tas bort och redirectas till exempelsidor
+      {
+        source: '/artiklar/personligt-brev-chefsroll',
+        destination: '/personligt-brev-exempel/chef',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-forsta-jobb',
+        destination: '/personligt-brev-exempel/student',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-vard-omsorg',
+        destination: '/personligt-brev-exempel/sjukskoterska',
+        permanent: true,
+      },
       // OBS: Lägg INTE till redirects för nya yrken automatiskt!
       // Endast yrken som hade gamla artiklar under /artiklar/personligt-brev-* behöver redirects
     ]

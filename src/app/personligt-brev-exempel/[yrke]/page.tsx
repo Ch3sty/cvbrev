@@ -4186,6 +4186,7 @@ export async function generateMetadata({
     }
   }
 
+  // Exempelsidan är alltid den kanoniska URL:en
   const canonicalUrl = `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
 
   return {

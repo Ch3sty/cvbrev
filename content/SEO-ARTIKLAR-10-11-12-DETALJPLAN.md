@@ -154,7 +154,7 @@ faq:
 
 1. [Personligt brev utan erfarenhet](/artiklar/personligt-brev-utan-erfarenhet) – länka från första stycket eller H2 #4
 2. [Personligt brev nyexaminerad](/artiklar/personligt-brev-nyexaminerad-guide) – länka från H2 #6 (Anpassa beroende på...)
-3. [Personligt brev sommarjobb](/artiklar/personligt-brev-sommarjobb) – relevant för praktikplatser
+3. [Personligt brev sommarjobb](/personligt-brev-exempel/sommarjobb) – relevant för praktikplatser
 4. [Personligt brev struktur](/artiklar/personligt-brev-struktur-innehall) – länka från H2 #2
 5. [Personligt brev exempel](/artiklar/personligt-brev-exempel-generella) – länka från H2 #3
 6. [Verktyget för personligt brev](/verktyg/personligt-brev) – CTA i avslutningen
@@ -310,7 +310,7 @@ faq:
 
 **Obligatoriska länkar:**
 
-1. [Personligt brev projektledare](/artiklar/personligt-brev-projektledare) – relaterad ledarroll
+1. [Personligt brev projektledare](/personligt-brev-exempel/projektledare) – relaterad ledarroll
 2. [Personligt brev innehåll](/artiklar/personligt-brev-innehall-checklista) – länka från H2 #3 (struktur)
 3. [Personligt brev exempel](/artiklar/personligt-brev-exempel-generella) – generella exempel
 4. [Personligt brev kompetenser](/artiklar/personligt-brev-kompetenser-egenskaper) – hur man visar kompetens
@@ -466,7 +466,7 @@ faq:
 
 **Obligatoriska länkar:**
 
-1. [Personligt brev chefsroll](/artiklar/personligt-brev-chefsroll) – relaterad ledarroll
+1. [Personligt brev chef](/personligt-brev-exempel/chef) – relaterad ledarroll
 2. [Personligt brev innehåll](/artiklar/personligt-brev-innehall-checklista) – länka från H2 #3 (struktur)
 3. [Personligt brev exempel](/artiklar/personligt-brev-exempel-generella) – generella exempel
 4. [Personligt brev utan erfarenhet](/artiklar/personligt-brev-utan-erfarenhet) – för juniora projektledare
