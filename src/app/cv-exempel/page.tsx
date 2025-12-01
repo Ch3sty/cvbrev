@@ -440,6 +440,62 @@ const cvExamples: CVExample[] = [
       intro: 'CV som demonstrerar kulinarisk kompetens, matsäkerhet och effektivitet under press.',
       highlight: ['Matlagning och menyplanering', 'Hygien och HACCP-kunskap', 'Kreativitet och tempo']
     }
+  },
+  {
+    id: 'fysioterapeut',
+    yrke: 'Fysioterapeut',
+    slug: 'fysioterapeut',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 480,
+    icon: Stethoscope,
+    gradient: 'from-emerald-500 via-teal-600 to-emerald-700',
+    preview: {
+      intro: 'CV som lyfter behandlingsmetoder, patientresultat och evidensbaserad rehabilitering inom fysioterapi.',
+      highlight: ['Manuell terapi och träningsterapi', 'Kvantifierade patientresultat', 'Certifieringar (OMT, MDT)']
+    }
+  },
+  {
+    id: 'grundskollarare',
+    yrke: 'Grundskollärare',
+    slug: 'grundskollarare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 520,
+    icon: BookOpen,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'CV för grundskollärare med fokus på lärarlegitimation, elevresultat och pedagogisk utveckling.',
+      highlight: ['Lärarlegitimation och behörighet', 'Mätbara elevresultat och måluppfyllelse', 'Digitala verktyg och Lgr22']
+    }
+  },
+  {
+    id: 'specialpedagog',
+    yrke: 'Specialpedagog',
+    slug: 'specialpedagog',
+    kategori: 'utbildning',
+    niva: 'specialist',
+    sokvolym: 390,
+    icon: GraduationCap,
+    gradient: 'from-purple-500 via-indigo-600 to-purple-700',
+    preview: {
+      intro: 'CV som visar utredningskompetens, handledning och specialpedagogiska insatser för elever med särskilda behov.',
+      highlight: ['Pedagogiska utredningar och NPF', 'Handledning av pedagoger', 'Åtgärdsprogram och SPSM-metoder']
+    }
+  },
+  {
+    id: 'kontorsassistent',
+    yrke: 'Kontorsassistent',
+    slug: 'kontorsassistent',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 590,
+    icon: Briefcase,
+    gradient: 'from-sky-500 via-blue-600 to-sky-700',
+    preview: {
+      intro: 'CV för kontorsassistent med fokus på administration, kundservice och systemkunskap i högt tempo.',
+      highlight: ['Fortnox och Microsoft 365 Expert', 'Kvantifierade arbetsvolymer', 'Möteskoordinering och fakturering']
+    }
   }
 ]
 
@@ -604,7 +660,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  29 yrken
+                  33 yrken
                 </motion.span>
               </h1>
 
@@ -624,7 +680,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">29</div>
+                    <div className="text-2xl font-bold text-slate-900">33</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>
