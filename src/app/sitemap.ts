@@ -203,6 +203,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'automationsingenior',
     'konstruktor',
     'truckforare',
+    'logistiker',
     // Lägg till fler CV-exempel här när de skapas
   ];
 

@@ -538,6 +538,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för truckförare med fokus på truckkort, WMS-system och kvantifierade säkerhetsresultat inom logistik.',
       highlight: ['Truckkort A1-A4, B1-B2 med årtal', 'WMS-system (SAP WM, Astro WMS)', 'Säkerhetsrekord och produktivitet']
     }
+  },
+  {
+    id: 'logistiker',
+    yrke: 'Logistiker',
+    slug: 'logistiker',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: TrendingUp,
+    gradient: 'from-teal-600 via-cyan-700 to-blue-800',
+    preview: {
+      intro: 'CV för logistiker med fokus på ERP-system, supply chain-optimering och kvantifierade kostnadsbesparingar.',
+      highlight: ['SAP MM/WM och Blue Yonder WMS', 'APICS CPIM och Lean Six Sigma', 'Kostnadsreduktioner och leveransprecision']
+    }
   }
 ]
 
@@ -702,7 +716,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  36 yrken
+                  37 yrken
                 </motion.span>
               </h1>
 
@@ -722,7 +736,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">36</div>
+                    <div className="text-2xl font-bold text-slate-900">37</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

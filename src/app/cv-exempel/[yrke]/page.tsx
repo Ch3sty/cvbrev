@@ -9523,6 +9523,240 @@ Tekniska färdigheter är verifierbara, men mjuka egenskaper behöver bevis.`
       { yrke: 'Administratör', slug: 'administrator' },
       { yrke: 'Butiksbiträde', slug: 'butiksbitrade' }
     ]
+  },
+
+  'logistiker': {
+    yrke: 'Logistiker',
+    sokvolym: 480,
+    metaTitle: 'CV Exempel Logistiker 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för logistiker med SAP MM/WM och WMS-erfarenhet. ATS-optimerat med kvantifierbara resultat inom kostnadsreduktion och leveransprecision. Inkluderar tips och certifieringar.',
+
+    seoIntro: `Rekryterare inom logistik får hundratals ansökningar – och de flesta CV:n hamnar i "nej"-högen på 30 sekunder. Varför? För att de saknar konkreta siffror på lagerkostnadsreduktioner, systemkunskaper i ERP-plattformar som SAP eller WMS-system, och bevis på processutveckling genom Lean logistik.
+
+Ett professionellt CV logistiker visar inte bara att du kan packa och plocka – det bevisar att du optimerar materialstyrning, höjer leveransprecision och driver faktiska kostnadsbesparingar. Skillnaden mellan "ansvarig för lager" och "sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering och WMS-optimering" avgör om du får intervjun.
+
+På denna sida hittar du ett komplett logistiker CV exempel från Anders Bergström med 7 års erfarenhet inom supply chain. Du ser exakt hur han strukturerat sin kompetens inom SAP MM/WM, Blue Yonder WMS och transportplanering – och hur han kvantifierat sina resultat med KPI:er som 98,7% leveransprecision och 34% färre plockfel.
+
+Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six Sigma), hur du listar lageroptimering och TMS-kunskap på ett ATS-vänligt sätt, och vilka misstag som sorterar bort annars kvalificerade kandidater.`,
+
+    intro: 'Ett professionellt CV-exempel för logistiker som visar din systemkompetens, analysförmåga och mätbara resultat inom supply chain. Detta exempel är optimerat för svenska logistikföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anders Bergström',
+      titel: 'Logistikplanerare',
+      kontakt: {
+        telefon: '070-485 32 16',
+        epost: 'anders.bergstrom@email.com',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/anders-bergstrom'
+      },
+
+      profil: 'Erfaren logistiker med 7 års gedigen erfarenhet från supply chain-hantering inom detaljhandel och e-handel. Specialiserad på lageroptimering, materialstyrning och ERP-implementering (SAP MM/WM). Har minskat lagerhållningskostnader med 18% och förbättrat leveransprecisionen till 98,7% genom implementering av Lean-metoder och avancerad prognosmodellering i Excel och SAP APO.',
+
+      erfarenhet: [
+        {
+          titel: 'Logistikplanerare',
+          arbetsgivare: 'ICA Lager & Logistik AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Optimerade materialflöden för centrallagret med 45 000 pallplatser vilket reducerade lagerhållningskostnader med 18% (1,2M kr/år) genom implementering av ABC-analys och säkerhetslagerjusteringar i SAP MM',
+            'Ökade leveransprecisionen från 94,2% till 98,7% genom utveckling av prognosmodell i Excel (VLOOKUP, pivottabeller, regressionsanalys) som förbättrade produktionstidsplaneringen',
+            'Ledde implementering av nytt WMS-system (Blue Yonder) för 120 lageranställda vilket minskade plockfel med 34% och ökade plockeffektiviteten med 22%',
+            'Koordinerade transporter med 15 externa åkerier och reducerade fraktkostnader med 12% (340 tkr/år) genom ruttoptimering i TMS och konsolidering av transporter'
+          ]
+        },
+        {
+          titel: 'Supply Chain Coordinator',
+          arbetsgivare: 'Schenker Logistics AB',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Administrerade lagerverksamhet för 8 nyckelkunder inom e-handel med 250 000 orderplockar/månad och upprätthöll 99,1% orderprecision genom daglig KPI-uppföljning i WMS',
+            'Implementerade Lean Six Sigma-metodik (DMAIC) som reducerade ledtider med 26% (från 3,8 till 2,8 dagar) och minskade spill med 15%',
+            'Genomförde lagercykelinventeringar enligt ISO 9001 med 99,4% noggrannhet och reducerade kassationer med 85 tkr/år genom förbättrad FEFO-hantering',
+            'Utvecklade Excel-baserat dashboard för transportuppföljning (PowerQuery, makron) som sparade 8 timmar administrativ tid/vecka för teamet'
+          ]
+        },
+        {
+          titel: 'Lagerkoordinator',
+          arbetsgivare: 'DHL Supply Chain Sweden',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Koordinerade inleveranser och utleveranser för 35 000 orderrader/månad med 97,8% on-time delivery genom effektiv schemaläggning i M3/Movex',
+            'Utbildade och handledde 12 lageranställda i WMS-systemet (Manhattan) vilket minskade felaktiga registreringar med 41%',
+            'Optimerade lagerlayout för 18 000 artiklar vilket reducerade plocktid per order med genomsnittligt 18% genom ABC-klassificering och slotting-analys'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'YH-utbildning Supply Chain Management',
+          skola: 'Hermods Yrkeshögskola',
+          period: '2016 – 2018',
+          beskrivning: 'Specialisering inom logistik, inköp och materialstyrning med LIA-praktik hos Postnord och Schenker.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'SAP MM/WM (Material Management & Warehouse Management)',
+          'WMS-system: Blue Yonder, Manhattan, Astro WMS',
+          'TMS (Transport Management Systems)',
+          'M3/Movex ERP-system',
+          'Excel avancerad (pivottabeller, VLOOKUP, makron, PowerQuery)',
+          'Lean Six Sigma (DMAIC, 5S, Kanban)',
+          'Prognosverktyg (SAP APO, Excel-baserad forecast)',
+          'KPI-analys och rapportering (Power BI)',
+          'ABC-analys och lagerstyrning',
+          'ISO 9001 kvalitetssystem'
+        ],
+        personliga: [
+          'Analytisk med stark sifferförståelse',
+          'Strukturerad och systematisk',
+          'Problemlösare med processfokus',
+          'Kommunikativ och samarbetsinriktad',
+          'Förändringsbenägen och drivande'
+        ]
+      },
+
+      certifieringar: [
+        'APICS CPIM (Certified in Production and Inventory Management) – 2022',
+        'Lean Six Sigma Green Belt – 2020',
+        'Truckkort A1-A4, B1-B4 – 2018'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kvantifierade logistikresultat',
+        text: `Visar mätbara effekter: -18% lagerkostnader (1,2M kr/år), 98,7% leveransprecision, -34% plockfel. Rekryterare inom supply chain vill se ROI, inte vaga påståenden.`
+      },
+      {
+        rubrik: 'Systemkompetens tydligt listad',
+        text: `Specificerar SAP MM/WM, Blue Yonder WMS, M3/Movex, TMS – inte bara "datavana". ERP-system är dealbreakers för logistikroller, särskilt inom större koncerner.`
+      },
+      {
+        rubrik: 'Lean och processförbättring',
+        text: `Konkreta exempel på DMAIC-projekt, 5S-implementering och ledtidsreduktion. Visar att kandidaten driver utveckling, inte bara upprätthåller befintliga flöden.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal',
+        text: `APICS CPIM 2022, Lean Six Sigma Green Belt 2020 – visar aktivt kompetensutveckling. Årtal bevisar att kunskapen är aktuell, inte från 2010.`
+      },
+      {
+        rubrik: 'Supply chain-terminologi',
+        text: `Använder branschtermer som ABC-klassificering, safety stock, FEFO, lead time reduction. Passar både ATS-system och visar faktisk branschkunskap.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression',
+        text: `Från lagerkoordinator till supply chain coordinator till logistikplanerare. Visar utvecklingskurva från operativt arbete till strategisk planering och optimering.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera lageroptimering med siffror',
+        text: `Rekryterare inom logistik vill se mätbar påverkan, inte ansvarsområden.
+
+❌ Fel: "Ansvarig för lageroptimering och materialstyrning"
+
+✅ Rätt: "Sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering och reducerad safety stock från 4 till 2,5 veckors täckning"`
+      },
+      {
+        rubrik: 'Lista ERP- och WMS-system explicit',
+        text: `ATS-system söker efter exakta systemnamn, inte generiska termer.
+
+❌ Fel: "Erfarenhet av lagersystem och affärssystem"
+
+✅ Rätt: "SAP MM/WM, Blue Yonder WMS (f.d. JDA), Microsoft Dynamics 365 SCM, Manhattan Associates WMS"`
+      },
+      {
+        rubrik: 'Bevisa Lean-kompetens med projektresultat',
+        text: `Alla skriver "Lean-kunskap" – visa vad du faktiskt åstadkommit.
+
+❌ Fel: "Arbetat med Lean-metodik"
+
+✅ Rätt: "Ledde 5S-implementering i mottagning som sänkte hanteringstid med 22% och eliminerade 12 av 18 icke-värdeskapande steg"`
+      },
+      {
+        rubrik: 'Inkludera relevanta certifieringar med årtal',
+        text: `Certifieringar skiljer logistiker från lagerarbetare – men årtal bevisar aktualitet.
+
+❌ Fel: "APICS-certifierad"
+
+✅ Rätt: "APICS CPIM (Certified in Production and Inventory Management) 2022, Lean Six Sigma Green Belt 2020, ADR klass 1-9 2023"`
+      },
+      {
+        rubrik: 'Visa prognosarbete med träffsäkerhetsdata',
+        text: `Efterfrågeprognoser är kritiskt inom supply chain – kvantifiera din precision.
+
+❌ Fel: "Ansvarig för efterfrågeprognoser"
+
+✅ Rätt: "Förbättrade prognosträffsäkhet från 76% till 91% genom implementering av statistisk prognos i Blue Yonder, minskade obsolescence med 340 tkr/år"`
+      },
+      {
+        rubrik: 'Differentiera från lagerarbetare med strategiska uppgifter',
+        text: `Fokusera på planering och optimering, inte bara plockning.
+
+❌ Fel: "Plockade och packade order enligt WMS"
+
+✅ Rätt: "Analyserade plockrutter i Manhattan WMS och omdesignade zonindelning, vilket sänkte genomsnittlig plocktid från 4,2 till 2,8 min/order"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vilka kompetenser ska finnas på ett CV för logistiker?',
+        svar: 'Ett starkt logistiker-CV ska innehålla tre kärnområden: (1) Systemkompetens – specifika ERP-system som SAP MM/WM, M3, eller WMS-plattformar som Blue Yonder och Manhattan Associates, (2) Kvantifierbara resultat – mätningar av lageroptimering, leveransprecision, kostnadsreduktioner och processutveckling, (3) Lean/Six Sigma-kunskap – konkreta projekt inom 5S, Kaizen, värdeflödesanalys. Komplettera med relevanta certifieringar som APICS CPIM, truckkort för rätt kategorier, och eventuellt ADR för farligt gods.'
+      },
+      {
+        fraga: 'Hur kvantifierar man logistikresultat i ett CV?',
+        svar: 'Fokusera på fyra mätområden som rekryterare inom supply chain värderar: (1) Kostnadsreduktion – "Sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering", (2) Leveransprecision – "Höjde OTIF från 94,2% till 98,7%", (3) Processeffektivitet – "Minskade ledtid från 12 till 7 dagar genom TMS-optimering", (4) Kvalitetsförbättring – "Reducerade plockfel från 2,8% till 0,4%". Använd alltid konkreta siffror med tidsperiod och metod.'
+      },
+      {
+        fraga: 'Vilka ERP- och WMS-system är viktigast att kunna som logistiker?',
+        svar: 'De mest efterfrågade systemen inom logistik är SAP (särskilt modulerna MM – Material Management och WM – Warehouse Management), följt av Microsoft Dynamics 365 SCM och IFS Applications. Inom WMS-plattformar dominerar Blue Yonder (tidigare JDA), Manhattan Associates, SAP EWM och Astro WMS. För svenska företag är även Lawson M3/Movex, Monitor ERP och Jeeves vanligt. Lista alltid både systemnamn och specifika moduler du behärskar.'
+      },
+      {
+        fraga: 'Behöver man certifieringar för att jobba som logistiker?',
+        svar: 'Certifieringar är inte juridiskt krav men ger dig konkurrensfördel, särskilt för logistikplanerare och supply chain-roller. APICS CPIM (Certified in Production and Inventory Management) är branschstandard och visar förståelse för materialstyrning, prognoser och lageroptimering. Lean Six Sigma Green Belt bevisar processförbättringskunskap. Truckkort A1-A4 och B1-B4 krävs ofta för operativa roller. ADR-certifiering (farligt gods) är nödvändigt inom vissa branscher.'
+      },
+      {
+        fraga: 'Hur visar man Lean-kompetens i ett logistiker-CV?',
+        svar: 'Undvik generiska påståenden som "Lean-kunskap" – visa istället konkreta projekt och resultat. Beskriv 5S-implementeringar med faktisk påverkan: "Ledde 5S-projekt i mottagning som sänkte hanteringstid med 22%". För Kaizen-arbete, specificera frekvens och utfall: "Faciliterade 8 Kaizen-workshops under 2023 som genererade 17 implementerade förbättringsförslag". Vid värdeflödesanalys, kvantifiera ledtidsreduktionen.'
+      },
+      {
+        fraga: 'Vad ska stå i profiltexten på ett logistiker-CV?',
+        svar: 'Profiltexten ska på 3-4 rader sammanfatta din nisch inom logistik, systemkunskap och mätbar påverkan. Exempel: "Logistikplanerare med 7 års erfarenhet inom supply chain och detaljhandel. Specialist på lageroptimering genom ERP-system (SAP MM/WM, Blue Yonder WMS) och Lean-metodik. Dokumenterad förmåga att sänka lagerkostnader (-18%, 1,2M kr/år) och höja leveransprecision (98,7% OTIF). APICS CPIM-certifierad 2022."'
+      },
+      {
+        fraga: 'Hur lång erfarenhet behöver man för ett logistikplanerare-CV?',
+        svar: 'För en logistikplanerare-roll söker de flesta företag 3-5 års erfarenhet, varav minst 2 år bör vara från analytiska eller planeringsinriktade uppgifter – inte endast operativt lagerarbete. Typisk karriärväg: 1-2 år som lagermedarbetare/truckförare, 2-3 år som logistikkoordinator (där du jobbat med system, prognoser, KPI:er), därefter steget till planerare. Relevanta certifieringar kan kompensera för kortare erfarenhet.'
+      },
+      {
+        fraga: 'Ska man ta med truckkort på ett logistiker-CV?',
+        svar: 'Ja, om du söker operativa logistikroller eller kombinerade planerare/koordinator-tjänster där du förväntas hoppa in vid hög belastning. Specificera exakt vilka kategorier du har: "Truckkort A1-A4 (motviktstrucker), B1-B4 (skjutstativtrucker), utfärdat 2018". För renodlade logistikplanerare-roller där du inte kör truck är det mindre kritiskt, men det kan ändå visa att du förstår den operativa verksamheten.'
+      },
+      {
+        fraga: 'Hur hanterar man byte av ERP-system i sitt CV?',
+        svar: 'Systembyte är en styrka – det visar anpassningsförmåga och bred systemkunskap. Lista alla system du behärskar under Teknisk kompetens: "ERP-system: SAP MM/WM (5 år), Microsoft Dynamics 365 SCM (2 år), IFS Applications (1 år)". I arbetsbeskrivningarna, nämn implementeringsprojekt: "Deltog i migration från Lawson M3 till SAP S/4HANA – ansvarig för testning av materialstyrningsflöden och användarskolning av 15 lagermedarbetare".'
+      },
+      {
+        fraga: 'Vad skiljer ett logistiker-CV från ett lagerarbetare-CV?',
+        svar: 'Skillnaden ligger i fokus på analys, planering och optimering versus operativ exekvering. Lagerarbetare-CV betonar: plockning, packning, godshantering, truckkörning, ordermottagning. Logistiker-CV betonar: lageroptimering med KPI:er, systemanvändning för planering (inte bara orderhantering), prognosarbete och efterfrågeanalys, Lean/Six Sigma-projekt, leverantörssamordning och transportplanering. Språket är också annorlunda – logistiker visar strategiskt arbete MED systemen för att förbättra flöden.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
   }
 }
 
