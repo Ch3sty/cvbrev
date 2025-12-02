@@ -552,6 +552,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för logistiker med fokus på ERP-system, supply chain-optimering och kvantifierade kostnadsbesparingar.',
       highlight: ['SAP MM/WM och Blue Yonder WMS', 'APICS CPIM och Lean Six Sigma', 'Kostnadsreduktioner och leveransprecision']
     }
+  },
+  {
+    id: 'lagerchef',
+    yrke: 'Lagerchef',
+    slug: 'lagerchef',
+    kategori: 'service',
+    niva: 'chef',
+    sokvolym: 350,
+    icon: Users,
+    gradient: 'from-indigo-600 via-purple-700 to-indigo-800',
+    preview: {
+      intro: 'CV för lagerchef med fokus på personalledning, budgetansvar och operativa KPI:er inom lager och logistik.',
+      highlight: ['Personalansvar och budgetansvar i MSEK', 'WMS-system och lean-metodik', 'Leveransprecision och plockfelsreduktion']
+    }
   }
 ]
 
@@ -716,7 +730,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  37 yrken
+                  38 yrken
                 </motion.span>
               </h1>
 
@@ -736,7 +750,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">37</div>
+                    <div className="text-2xl font-bold text-slate-900">38</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

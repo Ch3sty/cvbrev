@@ -9757,6 +9757,239 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       { yrke: 'Truckförare', slug: 'truckforare' },
       { yrke: 'Projektledare', slug: 'projektledare' }
     ]
+  },
+
+  'lagerchef': {
+    yrke: 'Lagerchef',
+    sokvolym: 350,
+    metaTitle: 'CV Exempel Lagerchef 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för lagerchef med personalansvar, budgetansvar och WMS-erfarenhet. ATS-optimerat med kvantifierade KPI:er inom leveransprecision och lagereffektivitet.',
+
+    seoIntro: `Som lagerchef ansvarar du för miljoner kronor i lagervärde, koordinerar dagligen 20-50 medarbetare och förväntas leverera 99%+ leveransprecision – samtidigt som du ska hålla budgeten, utveckla teamet och implementera nya system. Det är en roll där ledarskap möter operativ excellens, och där ditt CV behöver visa båda.
+
+Detta CV lagerchef exempel visar hur Anna Bergström kommunicerar sitt värde genom kvantifierade resultat inom både personalledning och logistik-KPI:er. Istället för vaga påståenden som "ansvarig för lager" ser du konkreta siffror: 45 medarbetare, 28 MSEK budget, 99,2% leveransprecision och 47% reducerade plockfel.
+
+En stark CV mall lagerchef balanserar tre kritiska områden: ledarskapsresultat (personalomsättning, medarbetarnöjdhet, utbildningsinsatser), operativa nyckeltal (lageromsättning, budgettrohet, säkerhet) och teknisk kompetens (WMS-system, lean-metodik, certifieringar). Rekryterare inom logistik söker efter kandidater som både kan leda team och optimera processer.
+
+Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar erfarenhet från olika branscher (e-handel, detaljhandel, 3PL), presenterar relevant systemkompetens (Ongoing WMS, SAP WM, Astro) och lyfter certifieringar som Lean Six Sigma och BAM.`,
+
+    intro: 'Ett professionellt CV-exempel för lagerchef som visar din ledarskapsförmåga, operativa excellens och systemkompetens inom lager och logistik. Detta exempel är optimerat för svenska logistikföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anna Bergström',
+      titel: 'Lagerchef',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.bergstrom@email.com',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/anna-bergstrom'
+      },
+
+      profil: 'Resultatorienterad lagerchef med 10 års erfarenhet från logistikintensiva miljöer inom e-handel och detaljhandel. Specialist på att optimera lagerflöden och bygga högpresterande team – ledde implementation av nytt WMS som reducerade plockfel med 47% och ökade leveransprecisionen till 99,2%. Drivs av att kombinera lean-metodik med modern teknik för att skapa kostnadseffektiva och säkra lageroperationer. Har utvecklat 15+ teamledare och skiftledare som idag driver egna enheter.',
+
+      erfarenhet: [
+        {
+          titel: 'Lagerchef',
+          arbetsgivare: 'Schenker Logistics AB',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Leder lageroperationer med 45 medarbetare och ansvar för budget på 28 MSEK – uppnådde 98,5% budgettrohet genom kostnadsoptimering och reducerade övertidskostnader med 32%',
+            'Implementerade Ongoing WMS och automatiserade plockprocesser vilket ökade produktiviteten med 28% och minskade plockfel från 2,1% till 0,9%',
+            'Förbättrade leveransprecisionen från 94,3% till 99,2% genom omdesign av packningsprocesser och införande av kvalitetskontrollstationer',
+            'Utvecklade säkerhetsprogram som resulterade i 0 arbetsskador under 18 månader och höjde medarbetarnöjdheten från 3,2 till 4,1 (av 5) i årlig medarbetarundersökning'
+          ]
+        },
+        {
+          titel: 'Biträdande lagerchef',
+          arbetsgivare: 'PostNord Logistics',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Ansvarade för inbound och lagringsverksamhet med 25 medarbetare och daglig hantering av 5 000+ kolli – reducerade ledtid från mottagning till lagring med 41%',
+            'Ledde införandet av lean-metodik (5S och kaizen) som minskade lagerytan med 18% utan påverkan på kapacitet och sparade 2,4 MSEK årligen i lagerhållningskostnader',
+            'Drev rekrytering och onboarding av 30+ nya medarbetare med genomsnittlig time-to-productivity på 3,5 veckor (branschsnitt: 6 veckor)',
+            'Ökade lageromsättningshastigheten från 8,2 till 11,7 gånger per år genom ABC-analys och optimerad lagerplacering'
+          ]
+        },
+        {
+          titel: 'Teamledare Lager',
+          arbetsgivare: 'IKEA Distribution',
+          period: '2014 – 2017',
+          beskrivning: [
+            'Ledde team på 12-15 medarbetare inom orderplockning och utlastning – uppnådde 96,8% KPI-mål under 2016 och 2017',
+            'Minskade personalomsättningen från 38% till 19% genom utvecklingssamtal, kompetensutveckling och förbättrad schemaläggning',
+            'Koordinerade inventering och cykelvisa räkningar vilket förbättrade lagerriktigheten från 94,1% till 98,7%'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Logistik och Supply Chain Management',
+          skola: 'Luleå Tekniska Universitet',
+          period: '2010 – 2014',
+          beskrivning: 'Kandidatexamen med inriktning mot lagerlogistik och produktionsstyrning.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'WMS-system: Ongoing, Astro, SAP WM (Avancerad, 8+ år)',
+          'Personalledning & Teamutveckling (Avancerad)',
+          'Lean & Kontinuerlig förbättring (5S, Kaizen, DMAIC)',
+          'Budget & Kostnadsoptimering',
+          'KPI-uppföljning & Rapportering (Power BI)',
+          'Arbetsmiljö & Säkerhetsarbete (BAM)',
+          'Lagerstyrning & ABC-analys',
+          'TMS (Transport Management Systems)'
+        ],
+        personliga: [
+          'Resultatdriven och målmedveten',
+          'Coachande ledarstil',
+          'Kommunikativ och tydlig',
+          'Förändringsbenägen och initiativrik',
+          'Stresstålig i högt tempo'
+        ]
+      },
+
+      certifieringar: [
+        'Lean Six Sigma Green Belt – 2021',
+        'BAM Arbetsmiljöansvarig – 2019',
+        'Brandskyddsansvarig (BSA) – 2020',
+        'Truckkort A1-A4, B1-B4 – 2014'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kvantifierade ledarskapsresultat',
+        text: `Visar konkret personalansvar (45 medarbetare) och budgetansvar (28 MSEK) istället för vaga formuleringar. Inkluderar medarbetarnöjdhet (4,1/5) och personalomsättning som bevisar ledarskapsförmåga.`
+      },
+      {
+        rubrik: 'Operativa KPI:er som imponerar',
+        text: `Leveransprecision 99,2%, 47% reducerade plockfel och 28% produktivitetsökning är exakt de nyckeltal som logistikchefer och HR söker efter. Visar resultatfokus, inte bara arbetsuppgifter.`
+      },
+      {
+        rubrik: 'Branschspecifika WMS-system',
+        text: `Listar konkreta lagersystem (Ongoing WMS, SAP WM, Astro) som ATS-system känner igen. Visar att kandidaten kan starta snabbt utan lång introduktion till systemmiljön.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal',
+        text: `Lean Six Sigma Green Belt 2021 och BAM Arbetsmiljöansvarig 2019 med årtal visar kontinuerlig kompetensutveckling och arbetsmiljöansvar – kritiskt för chefsroller.`
+      },
+      {
+        rubrik: 'Balans hårda och mjuka färdigheter',
+        text: `Kombinerar teknisk kompetens (WMS, lean) med ledarskapsförmågor (coachande ledarstil, medarbetarutveckling). Visar att kandidaten kan både optimera processer och leda människor.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression',
+        text: `Från teamledare på IKEA (12-15 medarbetare) via biträdande lagerchef på PostNord (25 medarbetare) till lagerchef på Schenker (45 medarbetare). Visar tillväxt och ökande ansvar.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera personalansvar och budget',
+        text: `Rekryterare behöver förstå omfattningen av ditt ledarskap.
+
+❌ Fel: "Ansvarig för lagerpersonal och budget"
+
+✅ Rätt: "Personalansvar för 45 medarbetare (3-skift) med budgetansvar på 28 MSEK (löner, utrustning, drift)"`
+      },
+      {
+        rubrik: 'Specificera WMS-system och verktyg',
+        text: `Systemkompetens är en dealbreaker i många roller.
+
+❌ Fel: "God systemvana"
+
+✅ Rätt: "Ongoing WMS (5 år, superanvändare), SAP WM (3 år, modulimplementering), Astro (2 år, rapportering och analys)"`
+      },
+      {
+        rubrik: 'Visa ledarskapsresultat med data',
+        text: `Bevisa att du utvecklar team, inte bara styr dem.
+
+❌ Fel: "Ansvarig för personalutveckling"
+
+✅ Rätt: "Höjde medarbetarnöjdhet från 3,2 till 4,1/5 genom strukturerade utvecklingssamtal och reducerade personalomsättning till 19% (från 38%)"`
+      },
+      {
+        rubrik: 'Lista certifieringar som legitimerar chefsrollen',
+        text: `Certifieringar inom arbetsmiljö och lean är förväntade på chefsnivå.
+
+❌ Fel: "Kunskap inom lean och arbetsmiljö"
+
+✅ Rätt: "Lean Six Sigma Green Belt (2021), BAM Arbetsmiljöansvarig (2019), Truckkort A1-A4/B1-B4 (2014)"`
+      },
+      {
+        rubrik: 'Använd logistik-KPI:er som bevisar excellens',
+        text: `Operativa nyckeltal visar din förmåga att leverera resultat.
+
+❌ Fel: "Förbättrade leveransprecisionen"
+
+✅ Rätt: "Ökade leveransprecision från 94,3% till 99,2%, reducerade plockfel med 47% genom WMS-optimering och standardiserade plockrutiner"`
+      },
+      {
+        rubrik: 'Differentiera från lagerarbetare och teamledare',
+        text: `Visa strategiskt ansvar, inte bara operativt.
+
+❌ Fel: "Ansvarade för daglig drift"
+
+✅ Rätt: "Utvecklade lagerstrategi som ökade lageromsättningshastighet från 8,2 till 11,7 gånger/år och reducerade kapitalbindning med 2,4 MSEK genom ABC-klassificering"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vilka kompetenser ska finnas på ett lagerchef-CV?',
+        svar: 'Ett starkt lagerchef-CV ska visa tre kärnområden: (1) Ledarskap – personalansvar, budgetansvar, medarbetarutveckling med kvantifierade resultat, (2) Operativ excellens – leveransprecision, lageromsättning, plockfel, säkerhetsresultat, och (3) Teknisk kompetens – WMS-system (Ongoing, SAP WM, Astro), lean-metodik, ABC-klassificering. Inkludera certifieringar som BAM (arbetsmiljö) och Lean Six Sigma om du har dem.'
+      },
+      {
+        fraga: 'Hur kvantifierar man ledarskapsresultat som lagerchef?',
+        svar: 'Kvantifiera ledarskapsresultat genom konkreta nyckeltal: antal medarbetare i ansvar (t.ex. "45 medarbetare i 3-skift"), budgetansvar i MSEK, medarbetarnöjdhet (t.ex. "4,1/5 i årlig medarbetarenkät"), personalomsättning (t.ex. "19% jämfört med branschsnitt 35%"), och sjukfrånvaro. Inkludera även antal rekryteringar, genomförda utvecklingssamtal och utbildningsinsatser.'
+      },
+      {
+        fraga: 'Vilka WMS-system är viktigast att kunna som lagerchef?',
+        svar: 'De vanligaste WMS-systemen i Sverige är Ongoing WMS (särskilt inom 3PL och e-handel), SAP WM/EWM (stora företag och industri), Astro WMS (detaljhandel och logistik), och Pyramid WMS. Specificera din erfarenhetsnivå: "Ongoing WMS (5 år, superanvändare, ansvarig för implementation)" väger tyngre än bara "Ongoing WMS". Om du kan flera system, framhäv det – det visar anpassningsförmåga.'
+      },
+      {
+        fraga: 'Behöver man certifieringar som lagerchef?',
+        svar: 'Certifieringar är inte alltid krav, men de stärker ditt CV avsevärt. BAM (Arbetsmiljöansvarig) visar att du förstår arbetsmiljöansvar på chefsnivå. Lean Six Sigma Green Belt bevisar processtänk och förbättringsarbete. Truckkort (A1-A4, B1-B4) är meriterande även som chef – det visar att du förstår den operativa vardagen. Ange alltid årtal för certifieringar.'
+      },
+      {
+        fraga: 'Hur visar man budgetansvar i ett lagerchef-CV?',
+        svar: 'Specificera budgetansvar i MSEK och vad budgeten omfattar: "Budgetansvar 28 MSEK (personalkostnader 18 MSEK, drift 7 MSEK, utrustning 3 MSEK)". Visa budgettrohet med nyckeltal: "Höll budget med 98,5% trohet trots 18% volymökning" eller "Reducerade övertidskostnader med 32% genom bättre schemaläggning". Detta visar ekonomiskt ansvar på ledningsnivå.'
+      },
+      {
+        fraga: 'Vad ska en lagerchefs profiltext innehålla?',
+        svar: 'Profilen ska sammanfatta ditt värde på 3-4 meningar: (1) År i branschen och huvudsaklig erfarenhet, (2) Kvantifierat ledarskapsansvar (antal medarbetare, budget), (3) Specialisering eller unik kompetens (t.ex. "e-handelslogistik", "lean-implementering"), och (4) Nyckelresultat. Exempel: "Lagerchef med 10 års erfarenhet inom e-handel och detaljhandel. Ansvarar för 45 medarbetare och 28 MSEK budget. Har ökat leveransprecision till 99,2% och reducerat plockfel med 47%."'
+      },
+      {
+        fraga: 'Hur lång erfarenhet behövs för en lagerchef-roll?',
+        svar: 'De flesta lagerchef-roller kräver 5-10 års erfarenhet inom logistik, varav minst 2-3 år med personalansvar (som teamledare, skiftledare eller liknande). Progression är viktig: visa hur du gått från operativa roller till ledande positioner. För senior lagerchef-roller förväntas ofta 10+ års erfarenhet och tidigare ansvar för 30+ medarbetare. Viktigare än antal år är bevisad förmåga att leda team och leverera resultat.'
+      },
+      {
+        fraga: 'Ska man inkludera truckkort som lagerchef?',
+        svar: 'Ja, inkludera truckkort även som lagerchef – det visar att du förstår den operativa vardagen och kan stiga in vid behov. Specificera typ: "Truckkort A1-A4 (motviktstruck), B1-B4 (skjutstativtruck)" och årtal. Placera truckkort under Certifieringar. Det är särskilt värdefullt i mindre organisationer där chefer förväntas vara operativt flexibla.'
+      },
+      {
+        fraga: 'Hur skiljer sig ett lagerchef-CV från ett logistikchef-CV?',
+        svar: 'Lagerchef-CV fokuserar på operativ lagerefterlevnad: plockfel, leveransprecision, lageromsättning, personalschemaläggning, säkerhetsarbete. Logistikchef-CV har bredare fokus: hela supply chain, transportoptimering, leverantörsstyrning, strategisk planering. Som lagerchef lyfter du intern effektivitet och teamledning. Som logistikchef lyfter du tvärsektoriellt samarbete och strategiska initiativ.'
+      },
+      {
+        fraga: 'Vilka mjuka färdigheter är viktigast för lagerchef?',
+        svar: 'De viktigaste mjuka färdigheterna för lagerchef är: (1) Ledarskap – förmåga att motivera och utveckla team, särskilt i skiftmiljö, (2) Kommunikation – kunna förklara komplexa processer för både lagerpersonal och ledning, (3) Konflikthantering – hantera personalkonflikter och stressituationer, (4) Problemlösning – snabbt lösa akuta störningar (systemavbrott, volymtoppar), och (5) Förändringsarbete – driva lean-initiativ och WMS-implementeringar.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Logistiker', slug: 'logistiker' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Chef', slug: 'chef' }
+    ]
   }
 }
 
