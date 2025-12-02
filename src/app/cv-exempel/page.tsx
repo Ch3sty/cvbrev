@@ -510,6 +510,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för automationsingenjör med fokus på PLC-programmering, SCADA och robotautomation med kvantifierade resultat.',
       highlight: ['PLC (Siemens, ABB) och SCADA-system', 'Robotprogrammering och produktionsoptimering', 'Driftsättning och uppgraderingsprojekt']
     }
+  },
+  {
+    id: 'konstruktor',
+    yrke: 'Konstruktör',
+    slug: 'konstruktor',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 800,
+    icon: Cog,
+    gradient: 'from-slate-600 via-zinc-700 to-slate-800',
+    preview: {
+      intro: 'CV för konstruktör med fokus på CAD-kompetens, FEM-analyser och DFM-arbete med kvantifierade affärsresultat.',
+      highlight: ['SolidWorks, CATIA och FEM-analys', 'DFM/DFA och kostnadsoptimering', 'GD&T och produktutveckling']
+    }
   }
 ]
 
@@ -674,7 +688,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  34 yrken
+                  35 yrken
                 </motion.span>
               </h1>
 
@@ -694,7 +708,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">34</div>
+                    <div className="text-2xl font-bold text-slate-900">35</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

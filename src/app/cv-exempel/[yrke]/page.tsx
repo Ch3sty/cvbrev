@@ -9030,6 +9030,252 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       { yrke: 'IT-konsult', slug: 'it-konsult' },
       { yrke: 'Projektledare', slug: 'projektledare' }
     ]
+  },
+
+  'konstruktor': {
+    yrke: 'Konstruktör',
+    sokvolym: 800,
+    metaTitle: 'CV Exempel Konstruktör 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för konstruktör. ATS-optimerat med CAD-kompetens, produktutveckling och kvantifierade resultat. Inkluderar branschspecifika tips och nyckelord.',
+
+    seoIntro: `Funderar du på hur ditt CV som konstruktör ska sticka ut bland hundratals andra ansökningar? Erik Bergströms CV visar hur du kombinerar teknisk djupkompetens med mätbara affärsresultat på ett sätt som både rekryterare och ATS-system förstår.
+
+Som mekanisk konstruktör räcker det inte att lista CAD-program – du måste visa hur dina konstruktionslösningar sparar tid, sänker kostnader eller förbättrar produktkvalitet. Detta exempel visar hur en erfaren konstruktör presenterar SolidWorks-kompetens, FEM-analyser och DFM-arbete med konkreta siffror som bevisar affärsvärde.
+
+Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din tekniska trovärdighet, och hur man balanserar djup teknisk kunskap med samarbetsförmåga och projektstyrning. Oavsett om du söker jobb inom fordonsindustri, verkstadsindustri eller produktutveckling kan du anpassa denna struktur till din egen profil. Läs igenom tipsen under CV:t för att förstå exakt vad som gör att detta CV fungerar – och hur du optimerar ditt eget för svenska arbetsgivare.`,
+
+    intro: 'Ett professionellt CV-exempel för konstruktör som visar din tekniska expertis, CAD-kompetens och förmåga att leverera optimerade konstruktionslösningar. Detta exempel är optimerat för svenska tillverkningsföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Erik Bergström',
+      titel: 'Mekanisk konstruktör med specialisering i produktutveckling',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'erik.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/erikbergstrom-konstruktor'
+      },
+
+      profil: 'Erfaren mekanisk konstruktör med 7+ års erfarenhet av produktutveckling och 3D-modellering inom verkstadsindustrin. Gedigen kompetens i SolidWorks, CATIA och FEM-analys med bevisad förmåga att optimera produkter för tillverkning (DFM/DFA). Levererat kostnadsbesparingar på 2,5 MSEK genom materialoptimering och reducerat produktledtider med 30% via effektiv samverkan mellan konstruktion och produktion. Certifierad SolidWorks Professional (CSWP) och erfaren i GD&T enligt ISO-standard.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Konstruktör',
+          arbetsgivare: 'Volvo Group Trucks Technology',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarig för mekanisk konstruktion av chassikomponenter för tunga lastbilar (axelfästen, fjädringssystem) med fullständig dokumentation enligt ISO-standard och PPAP-krav',
+            'Genomfört FEM-analyser (statisk, dynamisk, utmattning) som identifierade 15% materialbesparingsmöjlighet utan att kompromissa säkerhet eller hållfasthet',
+            'Implementerade DFM-principer som reducerade produktionskostnad med 18% genom förenklad geometri och färre svetsfogar',
+            'Leder tvärfunktionella projekt mellan konstruktion, produktion och inköp med budget på 12 MSEK – levererat 3 projekt i tid och inom budget senaste 2 åren',
+            'Mentorskap för 2 juniorkonstruktörer i SolidWorks, PDM-system och GD&T-toleranssättning'
+          ]
+        },
+        {
+          titel: 'Konstruktör',
+          arbetsgivare: 'SKF Sverige AB',
+          period: '2017 – 2020',
+          beskrivning: [
+            '3D-modellering och detaljritningar av lagerkomponenter och tillhörande fästelement i SolidWorks med GD&T-toleranser enligt ISO 1101',
+            'Samarbete med produktionstekniker för att optimera tillverkningsprocesser – reducerade ledtid från prototyp till serie med 30% genom tidig DFM-involvering',
+            'Utförde produktionsunderlag och teknisk dokumentation (ritningar, monteringsanvisningar, materialspecifikationer) för 25+ nya produktvarianter',
+            'Deltog i DFMEA och designgranskningar för att säkerställa produktkvalitet och tillförlitlighet innan produktionsstart'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilingenjör Maskinteknik',
+          skola: 'Chalmers Tekniska Högskola',
+          period: '2012 – 2017',
+          beskrivning: 'Examensarbete: Topologioptimering av bärarmar för industrirobotar med fokus på viktreducering och hållfasthet'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'SolidWorks (Expert, 7+ år) – 3D-modellering, ritningar, PDM',
+          'CATIA V5 (Avancerad, 4 år) – Surface design, Assembly',
+          'FEM-analys (ANSYS, SolidWorks Simulation) – Statisk/dynamisk analys',
+          'AutoCAD 2D (Avancerad)',
+          'GD&T enligt ISO 1101 och ASME Y14.5',
+          'DFM/DFA-principer och produktionsoptimering',
+          'PLM-system (Windchill, Teamcenter)',
+          'Materialkunskap (metaller, polymerer, kompositer)'
+        ],
+        personliga: [
+          'Problemlösning och innovationstänkande',
+          'Tvärfunktionellt samarbete (konstruktion-produktion-inköp)',
+          'Projektledning och tidsstyrning',
+          'Kommunikation med tekniska och icke-tekniska stakeholders',
+          'Kvalitetsmedvetenhet och noggrannhet'
+        ]
+      },
+
+      certifieringar: [
+        'Certified SolidWorks Professional (CSWP) – 2023',
+        'SolidWorks Advanced Sheet Metal – 2022',
+        'FEM-analys med ANSYS Workbench (40 timmar, Chalmers) – 2021',
+        'GD&T enligt ISO 1101 (24 timmar, TÜV Nord) – 2020',
+        'Lean Six Sigma Yellow Belt – 2019'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift (teknisk engelska)' },
+        { sprak: 'Tyska', niva: 'Grundläggande (läsförståelse teknisk dokumentation)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerat med branschspecifika CAD-keywords',
+        text: `CV:t innehåller exakt de termer som ATS-system söker efter: "SolidWorks", "CATIA", "FEM-analys", "GD&T", "DFM" och "produktutveckling".
+
+Varför detta fungerar: Rekryterare söker efter specifika CAD-program och metoder när de filtrerar kandidater. Genom att lista både programnamn (SolidWorks, ANSYS) och tekniska metoder (toleransanalys, FEM) ökar chansen att CV:t matchar jobbannonsen. Programversioner och certifieringsnivå (CSWP 2023) visar att kompetensen är aktuell, inte utdaterad. ATS-systemet rankar CV:t högre när nyckelorden matchar både i kompetensavsnittet och i arbetsbeskrivningarna.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat som visar affärsvärde, inte bara teknisk förmåga',
+        text: `Varje arbetsuppgift kopplas till mätbara resultat: "15% materialbesparingar", "18% kostnadsminskning", "30% reducerad ledtid".
+
+Varför detta fungerar: Rekryterare vill se att du förstår konstruktionens påverkan på företagets ekonomi. Genom att visa hur FEM-optimering ledde till materialbesparingar bevisar du att du inte bara kan programvaran – du använder den för att lösa verkliga affärsproblem. Siffrorna gör CV:t trovärdigt och konkret. Istället för "ansvarig för produktutveckling" ser rekryteraren exakt vilka resultat du levererade och hur de bidrog till lönsamhet.`
+      },
+      {
+        rubrik: 'Balans mellan djup teknisk kompetens och samarbetsförmåga',
+        text: `CV:t visar både teknisk expertis (FEM, GD&T, toleransanalys) och tvärfunktionellt samarbete ("samarbete med tillverkning och kvalitet", "ledde utvecklingsprojekt").
+
+Varför detta fungerar: Svenska arbetsgivare söker konstruktörer som kan arbeta i team med produktion, inköp och kvalitetssäkring. Genom att nämna samarbete med andra avdelningar visar du att du förstår hela produktutvecklingsprocessen, inte bara CAD-ritningen. Detta skiljer dig från juniora konstruktörer som bara fokuserar på tekniska verktyg. Rekryterare ser att du kan kommunicera tekniska lösningar till icke-teknisk personal.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar kompetensen med utfärdare och årtal',
+        text: `CV:t listar certifieringar med fullständig information: "CSWP (Certified SolidWorks Professional) 2023", "GD&T enligt ISO 1101 (TÜV Nord 2020)".
+
+Varför detta fungerar: Certifieringar fungerar som oberoende bevis på teknisk kompetens när rekryterare inte själva kan bedöma konstruktionskunskap. Genom att inkludera utfärdande organisation (TÜV Nord) och årtal visar du att certifieringen är giltig och aktuell. ATS-system söker ofta efter "CSWP" eller "GD&T" som specifika kvalifikationskrav. Att lista dessa med fullständiga namn ökar chansen att CV:t matchar även när rekryterare söker på olika varianter av samma certifiering.`
+      },
+      {
+        rubrik: 'Profiltext som direkt matchar konstruktörsroller i verkstadsindustri',
+        text: `Profiltexten positionerar kandidaten som "erfaren mekanisk konstruktör med fokus på produktutveckling och kostnadseffektivisering inom fordonsindustri".
+
+Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om kandidaten passar. Genom att nämna "kostnadseffektivisering" och "fordonsindustri" visar du att du förstår branschens utmaningar. Texten sammanfattar både teknisk kompetens (CAD, FEM) och affärsfokus (kostnadsbesparingar, DFM), vilket matchar vad svenska tillverkningsföretag söker. Den undviker vaga termer som "passionerad" och fokuserar på konkret värde.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från konstruktör till senior med ökande ansvar',
+        text: `CV:t visar progression från Konstruktör (SKF 2017-2020) till Senior Konstruktör (Volvo 2020-pågående) med tydligt ökande ansvar: från "utvecklade komponenter" till "ledde utvecklingsprojekt" och "mentor för juniora konstruktörer".
+
+Varför detta fungerar: Rekryterare ser att du inte stått still utan utvecklats från att utföra konstruktionsuppdrag till att leda projekt och coacha kollegor. Detta signalerar att du kan ta nästa karriärsteg och hantera större ansvar. Progressionen styrks av att projektstorleken ökar (12 MSEK-projekt) och att du fått förtroende att leda tvärfunktionella team.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Lista CAD-program med version, nivå och användningsområde',
+        text: `Skriv inte bara "SolidWorks" utan specificera version och kompetensnivå: "SolidWorks 2023 (CSWP-certifierad), avancerad ytmodellering och sammanställningar". Inkludera användningsområde för att visa expertis.
+
+❌ Fel: "Kan SolidWorks, CATIA, AutoCAD"
+
+✅ Rätt: "SolidWorks 2023 (CSWP) – sammanställningar, ytmodellering, ritningsframställning | CATIA V5 – surfacemodellering för karossdetaljer"
+
+Rekryterare ser direkt vilken nivå du ligger på och om du kan hantera specifika konstruktionsuppgifter.`
+      },
+      {
+        rubrik: 'Kvantifiera varje konstruktionsprojekt med affärsrelevanta siffror',
+        text: `Koppla tekniska lösningar till mätbara resultat: materialbesparing, ledtidsreduktion, kostnadsminskning eller kvalitetsförbättring. Visa hur din konstruktion påverkade företagets resultat.
+
+❌ Fel: "Utvecklade nya komponenter för motorprojekt"
+
+✅ Rätt: "Konstruerade nya kylkomponenter som reducerade vikt med 15% och ledde till 200 tkr/år i materialbesparing"
+
+Siffror gör CV:t trovärdigt och visar att du förstår konstruktionens påverkan på lönsamhet.`
+      },
+      {
+        rubrik: 'Visa problemlösningsförmåga med före-efter-exempel från verkliga projekt',
+        text: `Beskriv tekniska utmaningar du löst och hur du gjorde det. Använd strukturen: Problem → Lösning → Resultat. Detta visar att du kan hantera komplexa konstruktionsuppdrag.
+
+❌ Fel: "Ansvarig för FEM-analyser"
+
+✅ Rätt: "Löste sprickproblem i fäste genom FEM-optimering och materialbyte från stål till aluminiumlegering, vilket gav 20% viktminskning utan hållfasthetstapp"
+
+Rekryterare ser exakt hur du tänker och löser problem, inte bara vilka verktyg du använder.`
+      },
+      {
+        rubrik: 'Anpassa profiltexten efter målbransch och företagsstorlek',
+        text: `För fordonsindustri: betona DFM, höga volymer och kostnadseffektivitet. För medicinteknik: fokusera på kvalitet, regulatoriska krav och dokumentation. För startup: lyft snabbhet och prototypframtagning.
+
+Exempel fordon: "Erfaren konstruktör med fokus på höga volymer, DFM och kostnadsoptimering inom tunga fordon"
+
+Exempel medtech: "Mekanisk konstruktör specialiserad på precisionskonstruktion enligt ISO 13485 och dokumentation för regulatoriska krav"`
+      },
+      {
+        rubrik: 'Lyft certifieringar med fullständigt namn, utfärdare och giltighetstid',
+        text: `Skriv ut certifieringens kompletta namn första gången, följt av förkortning. Inkludera utfärdande organisation och årtal för trovärdighet.
+
+❌ Fel: "CSWP-certifierad"
+
+✅ Rätt: "CSWP (Certified SolidWorks Professional) 2023, SolidWorks Corporation | GD&T enligt ISO 1101 (TÜV Nord 2020)"
+
+Fullständig information gör att CV:t matchar olika sätt rekryterare söker: både "CSWP" och "SolidWorks Professional".`
+      },
+      {
+        rubrik: 'Balansera tekniska färdigheter med samarbete och projektstyrning',
+        text: `Visa att du kan arbeta tvärfunktionellt med produktion, kvalitet, inköp och leverantörer. Nämn konkreta exempel på samarbete, särskilt om du lett projekt eller coachat kollegor.
+
+❌ Fel: "Expert på FEM och CAD"
+
+✅ Rätt: "Led tvärfunktionella team med tillverkning och kvalitet för DFM-optimering, vilket minskade tillverkningskostnader med 18%"
+
+Svenska arbetsgivare värdesätter konstruktörer som kan kommunicera och samarbeta, inte bara rita.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som konstruktör vara?',
+        svar: 'För konstruktörer med 5+ års erfarenhet rekommenderas 2 sidor, där första sidan innehåller profil, kompetenser och senaste rollen. Juniora konstruktörer (0-3 år) håller sig till 1 sida med fokus på utbildning, examensarbete och praktik. Inkludera bara projekt som visar relevant kompetens för jobbet du söker. Om du har lång erfarenhet kan äldre roller sammanfattas kortare.'
+      },
+      {
+        fraga: 'Ska jag inkludera mitt examensarbete i CV:t?',
+        svar: 'Ja, om ditt examensarbete är relevant för konstruktörsrollen eller visar kompetens inom CAD, FEM, produktutveckling eller hållfasthetslära. Beskriv kort projektet och resultatet. Efter 5+ års arbetslivserfarenhet kan du ta bort examensarbetet om det inte längre är relevant. För juniora konstruktörer är examensarbetet ofta det starkaste beviset på praktisk teknisk förmåga.'
+      },
+      {
+        fraga: 'Vilka CAD-program och tekniska verktyg ska jag lista?',
+        svar: 'Lista alla CAD-program du använt professionellt, med version och kompetensnivå: SolidWorks, CATIA, Inventor, Creo, NX. Inkludera även FEM-verktyg (ANSYS, Abaqus), PDM/PLM-system (Windchill, Teamcenter) och tekniska metoder (GD&T, toleransanalys, DFM/DFA). Prioritera de verktyg som nämns i jobbannonsen. Om du är certifierad (CSWP, CATIA Specialist), markera det tydligt.'
+      },
+      {
+        fraga: 'Hur visar jag GD&T-kunskap på CV:t?',
+        svar: 'Nämn GD&T både som kompetens och i arbetsbeskrivningar: "GD&T enligt ISO 1101 – toleransanalys och ritningsspecifikation". Om du har certifiering från TÜV Nord, ASME eller liknande, lyft det under Certifieringar. Visa praktisk tillämpning genom exempel: "Applicerade GD&T-principer för kritiska passytor vilket reducerade kassationer med 12%".'
+      },
+      {
+        fraga: 'Ska jag inkludera en portfolio eller CAD-filer med mitt CV?',
+        svar: 'Ja, men skicka inte CAD-filer direkt i ansökan – länka istället till en online-portfolio (PDF eller webbsida) med renderade bilder av dina konstruktioner. Visa 3-5 projekt med kort beskrivning av utmaning, lösning och resultat. Anonymisera känslig information och kontrollera att du inte bryter mot sekretessavtal. Inkludera länk i CV:ts sidfot.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika branscher (fordon, medicinteknik, konsult)?',
+        svar: 'Anpassa profiltexten och betona olika aspekter: För fordonsindustri – fokusera på DFM, höga volymer, kostnadsoptimering och samarbete med leverantörer. För medicinteknik – lyft kvalitet, regulatoriska krav (ISO 13485), dokumentation och precisionskonstruktion. För konsultbolag – visa bredd i CAD-program, snabb inlärning, projektmångfald och samarbete med olika kunder.'
+      },
+      {
+        fraga: 'Vad gör jag om jag har luckor i mitt CV?',
+        svar: 'Var ärlig men strategisk. Om luckan beror på föräldraledighet, studier eller eget företag – skriv det kort: "Föräldraledighet 2021-2022" eller "Vidareutbildning: CATIA V6-certifiering och FEM-kurs (2020)". För längre luckor, visa vad du gjort för att hålla kompetensen aktuell: egenutbildning, frilansprojekt eller volontärarbete.'
+      },
+      {
+        fraga: 'Hur visar jag problemlösningsförmåga och teknisk kreativitet?',
+        svar: 'Använd PAR-metoden (Problem-Action-Result) i arbetsbeskrivningar: "Identifierade vibrationsrelaterade sprickor i fäste (Problem) → Genomförde FEM-analys och förstärkte med ribbor (Action) → Eliminerade problemet och minskade garantikostnader med 150 tkr/år (Result)". Visa hur du gått utanför standardlösningar.'
+      },
+      {
+        fraga: 'Ska jag inkludera programmeringsspråk som Python eller MATLAB?',
+        svar: 'Ja, om du använt dem för konstruktionsrelaterade uppgifter: automatisering av CAD-modeller, beräkningsskript, dataanalys av tester eller optimering. Skriv konkret hur du använt dem: "Python – automatisering av parametriska SolidWorks-modeller via API" eller "MATLAB – analys av hållfasthetsdata och optimering av komponentgeometri".'
+      },
+      {
+        fraga: 'Hur visar jag DFM/DFA-kompetens på CV:t?',
+        svar: 'Beskriv konkret hur du optimerat produkter för tillverkning: "Tillämpade DFM-principer genom att reducera antal komponenter från 14 till 8, vilket minskade monteringstid med 25% och sänkte tillverkningskostnad med 18%". Visa samarbete med produktion och leverantörer. DFM-kompetens är högt värderad i svensk tillverkningsindustri.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ingenjör', slug: 'ingenjor' },
+      { yrke: 'Automationsingenjör', slug: 'automationsingenior' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
   }
 }
 
