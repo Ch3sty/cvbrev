@@ -496,6 +496,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för kontorsassistent med fokus på administration, kundservice och systemkunskap i högt tempo.',
       highlight: ['Fortnox och Microsoft 365 Expert', 'Kvantifierade arbetsvolymer', 'Möteskoordinering och fakturering']
     }
+  },
+  {
+    id: 'automationsingenior',
+    yrke: 'Automationsingenjör',
+    slug: 'automationsingenior',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 880,
+    icon: Cog,
+    gradient: 'from-cyan-600 via-blue-700 to-cyan-800',
+    preview: {
+      intro: 'CV för automationsingenjör med fokus på PLC-programmering, SCADA och robotautomation med kvantifierade resultat.',
+      highlight: ['PLC (Siemens, ABB) och SCADA-system', 'Robotprogrammering och produktionsoptimering', 'Driftsättning och uppgraderingsprojekt']
+    }
   }
 ]
 
@@ -660,7 +674,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  33 yrken
+                  34 yrken
                 </motion.span>
               </h1>
 
@@ -680,7 +694,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">33</div>
+                    <div className="text-2xl font-bold text-slate-900">34</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

@@ -8778,6 +8778,258 @@ Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan h
       { yrke: 'Administratör', slug: 'administrator' },
       { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' }
     ]
+  },
+
+  'automationsingenior': {
+    yrke: 'Automationsingenjör',
+    sokvolym: 820,
+    kategori: 'teknik',
+
+    metaTitle: 'CV Exempel Automationsingenjör 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för automationsingenjör med PLC-programmering, SCADA och Siemens TIA Portal. ATS-optimerat med kvantifierbara resultat. Inkluderar tips och nyckelord.',
+
+    seoIntro: `Ett starkt CV för automationsingenjör måste visa både teknisk djup och affärsresultat. Rekryterare letar efter erfarenhet av specifika plattformar som Siemens TIA Portal, ABB:s robotsystem, SCADA-lösningar och fältbussar som Profinet och EtherCAT. Men teknisk kompetens räcker inte – du måste visa hur din automatiseringslösning påverkade produktionen. Ökade du OEE från 78% till 89%? Reducerade du stilleståndstid med prediktivt underhåll? Optimerade du batchprocesser med PID-reglering? Kvantifierade resultat skiljer dig från hundra andra kandidater som bara listar att de "har erfarenhet av PLC-programmering".
+
+Det här CV-exemplet är baserat på Erik Bergström, en automationsingenjör med 6+ års erfarenhet från både processindustri och tillverkande industri. Hans CV visar tydligt hur han implementerade 8 robotceller hos Volvo Cars och ökade produktionskapaciteten med 22%, programmerade och konfigurerade 25+ Siemens S7-1500 PLC:er hos Perstorp AB med SCADA-uppgradering, och levererade 12 konsultprojekt med Beckhoff TwinCAT och 99.7% driftstid. CV:t visar hela automationspyramiden – från sensornivå till MES-integration – och inkluderar certifieringar inom funktionell säkerhet enligt EN ISO 13849 och IEC 61508.
+
+Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpassa tekniska system till din bakgrund, och byt ut kvantifieringarna mot dina egna resultat. Lägg extra kraft på att översätta tekniska lösningar till affärsnytta – det är vad som får dig kallad till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för automationsingenjör som visar PLC-programmering, SCADA-design, robotintegration och processoptimering. Optimerat för svenska tillverkande företag, processindustri och ATS-system.',
+
+    exempelCV: {
+      namn: 'Erik Bergström',
+      titel: 'Automationsingenjör',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'erik.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/erikbergstrom'
+      },
+
+      profil: 'Automationsingenjör med 6+ års erfarenhet av PLC-programmering (Siemens TIA Portal, Beckhoff TwinCAT), SCADA-design (WinCC, Ignition) och MES-integration inom processindustri och tillverkande industri. Bevisad track record av att reducera stilleståndstid med 30% och öka OEE från 72% till 89% genom systematisk processoptimering och prediktivt underhåll. Expert på industriell kommunikation (Profinet, OPC UA, EtherCAT) och funktionell säkerhet enligt EN ISO 13849. Drivs av att automatisera repetitiva processer och leverera robusta, skalbara lösningar som ökar produktivitet och kvalitet.',
+
+      erfarenhet: [
+        {
+          titel: 'Automationsingenjör',
+          arbetsgivare: 'Volvo Cars, Torslanda Plant',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för PLC-programmering och driftsättning av 8 nya robotceller (ABB IRB 6700) för karossmontage, vilket ökade produktionskapaciteten med 22% och minskade manuella arbetsmoment med 40%',
+            'Implementerade prediktivt underhåll via Siemens TIA Portal och WinCC SCADA med OPC UA-integration mot MES-system, vilket reducerade oplanerade stillestånd från 12% till 4% årligen',
+            'Designade och programmerade HMI-gränssnitt för 15 produktionslinjer med WinCC Unified, vilket förbättrade operatörernas felavhjälpningstid med 35%',
+            'Ledde funktionell säkerhetsanalys (SIL 2) för 3 kritiska processer enligt IEC 61508, säkerställde compliance och eliminerade 12 identifierade risker'
+          ]
+        },
+        {
+          titel: 'Automationsingenjör',
+          arbetsgivare: 'Perstorp AB (Processindustri)',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Programmerade och underhöll 25+ Siemens S7-1500 PLC:er för kontinuerlig kemisk produktion med fokus på processäkerhet och regulatorisk compliance',
+            'Uppgraderade legacy SCADA-system från Wonderware till Ignition med SQL-databas-integration, vilket förbättrade dataloggning och produktionsspårbarhet med 95% högre tillförlitlighet',
+            'Implementerade avancerad PID-reglering och kaskadreglering för 6 reaktorer, vilket stabiliserade processtemperatur inom ±0.5°C och reducerade råvarusvinn med 8%',
+            'Felsökte och optimerade Profibus DP och Profinet-nätverk, vilket minskade kommunikationsfel från 18 incidenter/månad till under 2 incidenter/månad'
+          ]
+        },
+        {
+          titel: 'Automationsingenjör (Junior)',
+          arbetsgivare: 'Epsilon Automation AB',
+          period: '2017 – 2019',
+          beskrivning: [
+            'Deltog i 12 automationsprojekt som konsult för livsmedelsindustri och läkemedelstillverkning med fokus på PLC-programmering och HMI-design',
+            'Programmerade Beckhoff TwinCAT 3 för förpackningslinjer med EtherCAT-baserad I/O, uppnådde cykeltid under 50ms och 99.7% driftstid',
+            'Skapade standardiserade funktionsblock och datatyper för återanvändbar kod, vilket minskade programmeringstid per projekt med 25%'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilingenjör Elektroteknik, inriktning Automation och Mekatronik',
+          skola: 'Chalmers Tekniska Högskola',
+          period: '2012 – 2017',
+          beskrivning: 'Examensarbete: Modellbaserad prediktiv reglering (MPC) för energioptimering i HVAC-system'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'PLC-programmering: Siemens TIA Portal (Expert, 6+ år), Beckhoff TwinCAT 3 (Avancerad, 4+ år), Allen-Bradley',
+          'SCADA-system: WinCC (Expert, 5+ år), Ignition (Avancerad, 3+ år), Wonderware',
+          'Industriell kommunikation: Profinet, Profibus DP, EtherCAT, OPC UA, Modbus TCP',
+          'Robotprogrammering: ABB RobotStudio, KUKA WorkVisual',
+          'Funktionell säkerhet: EN ISO 13849, IEC 61508 (SIL 1-2)',
+          'HMI-design och MES-integration'
+        ],
+        personliga: [
+          'Analytisk problemlösare med systematisk felsökningsmetodik',
+          'Projektledning och stakeholder management',
+          'Tvärfunktionellt samarbete med produktion och underhåll',
+          'Pedagogisk – handleder juniora ingenjörer'
+        ]
+      },
+
+      certifieringar: [
+        'Siemens Certified TIA Portal Professional (2023)',
+        'Functional Safety Engineer – EN ISO 13849 (TÜV Nord, 2022)',
+        'ABB Robotics Programming and Commissioning (2021)',
+        'Ignition Core Certification (Inductive Automation, 2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimering med branschspecifika system',
+        text: `Erik listar specifika plattformar redan i sammanfattningen: Siemens TIA Portal, ABB RobotStudio, WinCC SCADA, Profinet/EtherCAT. Under kompetenser finns varje system kategoriserat med erfarenhetsnivå.
+
+Varför detta fungerar: ATS-system hos AFRY, ABB och Siemens söker efter exakta systembeteckningar. Om jobbannonsen kräver "Siemens S7-1500" och du bara skrev "PLC-programmering" sorteras ditt CV bort direkt. Rekryterare behöver se att du faktiskt jobbat med deras specifika plattformar, inte generiska termer. Kategoriseringen hjälper både ATS-system och rekryterare att snabbt kartlägga din kompetens mot deras teknikstack.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat med produktionsdata',
+        text: `Varje arbetslivserfarenhet innehåller konkreta siffror: "Ökade produktionskapacitet +22%", "Reducerade stilleståndstid från 12% till 4%", "Upprätthöll 99.7% driftstid", "PID-reglering med precision ±0.5°C".
+
+Varför detta fungerar: Automationsavdelningen mäts på OEE, stilleståndstid och produktionskapacitet. När Erik visar att han reducerade stilleståndstid från 12% till 4% förstår produktionschefen omedelbart affärsvärdet – det kan motsvara miljontals kronor per år. Kvantifieringar visar att du inte bara implementerar system, utan förstår hela affärskontexten och kan driva strategiska automatiseringsprojekt.`
+      },
+      {
+        rubrik: 'Teknisk djup genom hela automationspyramiden',
+        text: `Erik visar integration på alla nivåer: "Programmerade 25+ Siemens S7-1500 PLC:er och konfigurerade Profinet-nätverk", "Uppgraderade SCADA-system", "Implementerade MES-integration". Under projekten nämns både sensornivå, styrningsnivå och ledningsnivå.
+
+Varför detta fungerar: De flesta automationsingenjörer är starka på antingen PLC-programmering eller SCADA-design. Erik visar att han behärskar hela pyramiden – från fältbussnivå till affärssystem. Det gör honom attraktiv för systemintegratörsjobb och teknikledningsroller där du måste förstå hela kedjan, inte bara programmera en PLC.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal och utfärdare',
+        text: `Under certifieringar står: "Siemens Certified TIA Portal Professional (2023)", "Functional Safety Engineer EN ISO 13849 (TÜV Nord, 2022)", "ABB Robotics Programming (2021)". Varje certifiering har årtal och utfärdande organisation.
+
+Varför detta fungerar: Funktionell säkerhet är lagkrav för många maskiner enligt Maskinförordningen. När Erik visar TÜV-certifiering i EN ISO 13849 vet rekryteraren att han kan riskbedöma och designa säkerhetsfunktioner. Årtalet visar att certifieringen är aktuell. Siemens- och ABB-certifieringarna ger trovärdighet hos kunder som kräver att konsulter är fabrikscertifierade.`
+      },
+      {
+        rubrik: 'Profiltext som täcker båda industrisegment',
+        text: `Profiltexten nämner explicit erfarenhet från "processindustri och tillverkande industri". I arbetslivserfarenheten finns ett processindustri-uppdrag (Perstorp AB – kemikalier) och ett tillverkningsuppdrag (Volvo Cars – bilproduktion).
+
+Varför detta fungerar: Processindustri och tillverkande industri har olika automationsbehov. Processindustri fokuserar på batchhantering och PID-reglering. Tillverkande industri handlar om taktade produktionslinor och robotceller. Genom att visa erfarenhet från båda segmenten kan Erik söka dubbelt så många jobb och översätta sin kompetens mellan olika produktionsmiljöer.`
+      },
+      {
+        rubrik: 'Tydlig progression med mentorskap',
+        text: `Rollerna visar utveckling: från konsultuppdrag som junior (2017-2019), via processindustri med SCADA-uppgradering (2019-2021), till senior roll med robotintegration och mentorskap för juniora ingenjörer (2021-nutid). Varje roll har ökad teknisk komplexitet.
+
+Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för roller som kräver teknisk ledning. Genom att inkludera mentorskap visar Erik att han inte bara är en tekniskt skicklig programmerare, utan kan leda team och dela kunskap. Det gör honom relevant för senior- och ledande ingenjörsroller där teknisk ledning är en del av jobbet.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Specificera PLC- och SCADA-plattformar med erfarenhetsnivå',
+        text: `Lista inte bara "PLC-programmering" – rekryterare behöver veta exakt vilka plattformar du behärskar och på vilken nivå. Skapa kategorier under kompetenser: PLC-system, SCADA-lösningar, Robotsystem, Fältbussar.
+
+**Exempel på före/efter:**
+
+❌ "Erfarenhet av PLC-programmering och SCADA-system"
+
+✅ "PLC: Siemens S7-1200/1500 (5 år, avancerad), Beckhoff TwinCAT 3 (3 år), Mitsubishi FX5 (2 år). SCADA: Wonderware System Platform (4 år), Ignition (2 år). Fältbussar: Profinet, EtherCAT, Modbus TCP"`
+      },
+      {
+        rubrik: 'Kvantifiera med OEE, stilleståndstid och produktionskapacitet',
+        text: `Automationsprojekt handlar om att öka produktivitet och reducera kostnader. Översätt varje teknisk lösning till mätbara affärsresultat med nyckeltal som produktionschefer följer.
+
+**Exempel på före/efter:**
+
+❌ "Implementerade prediktivt underhåll för produktionslinje"
+
+✅ "Reducerade stilleståndstid från 12% till 4% genom prediktivt underhåll baserat på vibrationsanalys och temperaturövervakning. Besparade uppskattningsvis 2.8 miljoner kronor årligen i ökad produktionstid"`
+      },
+      {
+        rubrik: 'Visa integration genom hela automationspyramiden',
+        text: `Rekryterare letar efter ingenjörer som förstår hela systemet – från sensornivå till affärssystem. Beskriv projekt där du jobbat på flera nivåer: fältnivå, styrningsnivå, övervakningsnivå och ledningsnivå.
+
+**Exempel på före/efter:**
+
+❌ "Programmerade PLC-system för ny produktionslinje"
+
+✅ "Implementerade komplett automationslösning: IO-Link-sensorer för kvalitetskontroll, Siemens S7-1500 PLC med Profinet, Wonderware SCADA för operatörsövervakning, OPC UA-integration till SAP MES för spårbarhet enligt ISO 9001"`
+      },
+      {
+        rubrik: 'Lyft fram funktionell säkerhet och standarder',
+        text: `Funktionell säkerhet är lagkrav enligt Maskinförordningen. Om du har erfarenhet av säkerhetsprogrammering, riskbedömning eller certifieringar inom funktionell säkerhet – gör det synligt.
+
+**Exempel på före/efter:**
+
+❌ "Programmerade säkerhetsfunktioner i produktionslinje"
+
+✅ "Designade säkerhetsfunktioner enligt EN ISO 13849 Cat. 3, PLd: nödstopp, skyddsgrindövervakning, tvåhandssäkerhet. Dokumenterade enligt EN 62061 för CE-märkning. Siemens FailSafe S7-1500F-programmering"`
+      },
+      {
+        rubrik: 'Anpassa mellan processindustri och tillverkande industri',
+        text: `Processindustri (kemisk, läkemedel, livsmedel) och tillverkande industri (fordon, maskiner) kräver olika automation. Om du har erfarenhet från båda, anpassa ditt CV efter vilken typ av roll du söker.
+
+**För processindustri:** Betona batchhantering med ISA-88, PID-reglering av temperatur/tryck/flöde, compliance (FDA 21 CFR Part 11, GMP).
+
+**För tillverkande industri:** Betona taktad produktion med robotceller, MES-integration för spårbarhet, OEE-uppföljning och robotprogrammering.`
+      },
+      {
+        rubrik: 'Visa systematisk felsökningsmetodik',
+        text: `Automation handlar inte bara om att bygga nya system – majoriteten av tiden går till felsökning och support. Visa att du kan systematiskt diagnostisera och lösa problem.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för support och felsökning"
+
+✅ "Första linjens support för 40+ PLC-system. Reducerade medelreparationstid (MTTR) från 3.2h till 1.4h genom systematisk felsökningsmetodik: logganalys, online-diagnostik, fjärråtkomst via VPN. Dokumenterat 150+ felsökningsfall i kunskapsdatabas"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som automationsingenjör vara?',
+        svar: 'En A4-sida om du har 0-3 års erfarenhet, två sidor om du har 4+ år eller har jobbat med många olika plattformar. Automationsingenjörer har ofta bred teknisk kompetens som kräver mer plats än andra roller. Prioritera de senaste 6-8 åren och tekniska system som är relevanta för jobbet du söker. Fokusera utrymmet på kvantifierade resultat och specifika plattformar snarare än detaljerade arbetsbeskrivningar.'
+      },
+      {
+        fraga: 'Ska jag lista alla PLC-system jag använt eller bara de viktigaste?',
+        svar: 'Lista endast system du faktiskt kan jobba med om du får ett projekt imorgon. Dela upp i kategorier med erfarenhetsnivå: "Avancerad" (5+ år), "Grundläggande" (1-3 år), "Bekant med" (utbildning). Undvik att lista system du bara sett i förbifarten. Betona system som är vanligast i din bransch: Siemens dominerar processindustri, Beckhoff är starkt inom maskinbyggnad.'
+      },
+      {
+        fraga: 'Hur visar jag PLC-kompetens utan att CV:t blir för tekniskt?',
+        svar: 'Kombinera teknisk specificitet med affärsresultat. Skriv: "Programmerade Siemens S7-1500 med Structured Text för batchhantering enligt ISA-88, vilket reducerade omställningstid mellan produktvarianter från 45 min till 12 min". Nu ser även produktionschefen värdet. Använd kompetensavsnittet för tekniska termer och arbetslivserfarenheten för att visa tillämpning och resultat.'
+      },
+      {
+        fraga: 'Ska jag inkludera robotprogrammering i mitt CV?',
+        svar: 'Ja, om du har praktisk erfarenhet. Robotautomation är en stor del av tillverkande industri. Specificera tillverkare och modeller: "ABB IRB 6700, RAPID-programmering", "KUKA KR Quantec, KRL-programmering". Inkludera applikationer: palettering, svetsning, limning, montering. Om du inte har roboterfarenhet men söker jobb där det krävs – överväg att ta en grundkurs.'
+      },
+      {
+        fraga: 'Hur hanterar jag erfarenhet från både processindustri och tillverkande industri?',
+        svar: 'Använd det som styrka – du är mer mångsidig än specialister. I profilsammanfattningen, skriv explicit: "Erfarenhet från både processindustri och tillverkande industri". Anpassa betoning beroende på vad du söker: för processindustri, lägg processrelaterade projekt högre och betona PID-reglering. För tillverkning, betona robotceller och MES-integration.'
+      },
+      {
+        fraga: 'Hur visar jag funktionell säkerhetskompetens?',
+        svar: 'Skapa en tydlig sektion under kompetenser. Lista standarder: "EN ISO 13849 (Performance Level)", "IEC 61508 (SIL)", "EN 62061". Inkludera praktisk erfarenhet: "Safety PLC-programmering: Siemens S7-1500F FailSafe, ABB SafeMove". Om du har certifiering, lyft fram det: "TÜV Functional Safety Engineer EN ISO 13849 (2022)". Beskriv konkreta säkerhetsprojekt i arbetslivserfarenheten.'
+      },
+      {
+        fraga: 'Ska jag nämna att jag jobbat med legacy-system?',
+        svar: 'Ja, rama in det som styrka. Många företag har produktionslinor från 80- och 90-talet. Skriv: "Legacy-system: Siemens S7-300 (migration till S7-1500), Allen-Bradley PLC-5 (uppgradering till ControlLogix)". Betona modernisering och migration snarare än bara underhåll. Legacy-erfarenhet är extra värdefullt för konsultroller där uppdrag ofta handlar om att modernisera utan att stoppa produktionen.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av Industri 4.0 och digitalisering?',
+        svar: 'Fokusera på konkreta teknologier, inte buzzwords. Istället för "Erfarenhet av Industri 4.0", skriv: "OPC UA-integration för datautbyte mellan PLC och molnbaserad analytics (Azure IoT)", "Edge Computing med Siemens Industrial Edge", "MES-integration enligt ISA-95: produktionsorder, materialspårbarhet, OEE-rapportering". Digitalisering handlar om att göra produktionsdata tillgänglig och användbar.'
+      },
+      {
+        fraga: 'Hur balanserar jag mellan projektarbete och support/underhåll?',
+        svar: 'Visa att du behärskar båda. Dela upp varje roll: under projekterfarenhet, lista implementationer med resultat. Under support, visa systematik: "Första linjens support för 40+ PLC-system, reducerade MTTR från 3.2h till 1.4h". Om du söker projektingenjörsroller, betona projekt (70%). För driftingenjörsroller, betona support och förebyggande underhåll.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV som automationsingenjör?',
+        svar: 'I Sverige är det vanligt men inte krav. Om du inkluderar bild, använd professionellt foto med neutral bakgrund. Undvik bilder från produktionsgolvet med hjälm – spara det till LinkedIn. För tekniska roller är profilbild mindre kritiskt än för kundnära roller. Viktigare är att ditt LinkedIn är uppdaterat med samma information som CV:t.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ingenjör', slug: 'ingenjor' },
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
   }
 }
 

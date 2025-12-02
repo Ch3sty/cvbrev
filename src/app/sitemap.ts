@@ -200,6 +200,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'grundskollarare',
     'specialpedagog',
     'kontorsassistent',
+    'automationsingenior',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
