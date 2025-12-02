@@ -9276,6 +9276,253 @@ Svenska arbetsgivare värdesätter konstruktörer som kan kommunicera och samarb
       { yrke: 'Automationsingenjör', slug: 'automationsingenior' },
       { yrke: 'Projektledare', slug: 'projektledare' }
     ]
+  },
+
+  'truckforare': {
+    yrke: 'Truckförare',
+    sokvolym: 500,
+    metaTitle: 'CV Exempel Truckförare 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för truckförare med truckkort A+B. ATS-optimerat med kvantifierbara resultat, WMS-erfarenhet och fokus på säkerhet. Inkluderar tips och certifieringar.',
+
+    seoIntro: `Letar du efter ett CV-exempel som truckförare? Det här exemplet visar hur du strukturerar ett professionellt CV som passar både ATS-system och svenska arbetsgivare inom logistik och lagerverksamhet.
+
+Du får se exakt hur du balanserar teknisk kompetens (truckkort A1-A4, B1-B2, WMS-system som SAP WM och Astro WMS) med säkerhetsmedvetenhet och kvantifierbara resultat från högvolymlogistik. CV:t visar konkret erfarenhet från e-handelslager och tredjepartslogistik med mätbara exempel som dagliga pallvolymer, säkerhetsrekord och plockningsnoggrannhet.
+
+Använd detta som inspiration för ditt eget CV truckförare och anpassa det efter den typ av lageromgivning du söker dig till. Oavsett om du söker till kylterminal, e-handelslager eller produktionslager visar vi hur du lyfter fram rätt kompetens.`,
+
+    intro: 'Ett professionellt CV-exempel för truckförare som visar din tekniska skicklighet, säkerhetsmedvetenhet och effektivitet inom lagerhantering. Detta exempel är optimerat för svenska logistikföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Marcus Johansson',
+      titel: 'Erfaren Truckförare med specialisering i högvolymlogistik',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'marcus.johansson@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/marcusjohansson-truck'
+      },
+
+      profil: 'Erfaren truckförare med 6+ års dokumenterad erfarenhet från högvolymlogistik och e-handelslager. Innehar giltiga truckkort A1-A4 samt B1-B2 (förnyat 2024) och specialistkompetens i motviktstruck, skjutstativtruck och plocktruckar. Gedigen erfarenhet av WMS-system (SAP WM, Astro WMS) och mobila scannersystem för effektiv orderplockning. Säkerhetsmedveten med noll arbetsplatsolyckor under 2 000+ trucktimmar. Arbetar strukturerat i högt tempo med fokus på kvalitet, noggrannhet och teamsamarbete.',
+
+      erfarenhet: [
+        {
+          titel: 'Truckförare / Lageroperatör',
+          arbetsgivare: 'Postnord Logistics AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Hanterar 400-500 pallplatser dagligen med motviktstruck (5 ton) och skjutstativtruck i högvolymterminal med 15 000+ artiklar',
+            'Säkerhetsansvarig för truckinspektioner – genomför dagliga kontroller enligt Arbetsmiljöverkets checklista vilket resulterat i noll incidenter under 24 månader',
+            'Arbetar i SAP WM och Astro WMS för ordermottagning, plockning och lageranteckningar med 99,8% plockningsnoggrannhet (KPI-mått)',
+            'Kör både dagtid och skift (6-14, 14-22) med flexibilitet för helger och högsäsong under e-handelsrush',
+            'Mentor för 3 nya truckförare – ansvarar för introduktion i säkerhetsrutiner, WMS-system och lagergeografi'
+          ]
+        },
+        {
+          titel: 'Truckförare / Lagermedarbetare',
+          arbetsgivare: 'Schenker Logistics AB',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Godsmottagning och lagring av 200-300 pallar dagligen i kylterminal (-20°C till +4°C) med fokus på temperaturkänsliga varor',
+            'Implementerade effektiviserad pallhantering som minskade hanteringstiden med 15% genom bättre rutt-optimering i lagret',
+            'Crossdocking för expressleveranser – lastad och lossat 10-15 trailers dagligen med motviktstruck och plocktruckar',
+            'Använt handhållen scanner för lageranteckningar i realtid vilket reducerade lagerdifferenser från 2,5% till 0,8%'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Truckutbildning A1-A4, B1-B2',
+          skola: 'TÜV Nord Sverige AB',
+          period: '2017',
+          beskrivning: 'Omfattande körkortsutbildning i motviktstruck, skjutstativtruck, plocktruckar och ledstaplingstruckar. Certifierad enligt Arbetsmiljöverkets föreskrifter.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Truckkort A1-A4, B1-B2 (giltiga till 2027)',
+          'WMS-system: SAP WM och Astro WMS (Avancerad, 5+ år)',
+          'Motviktstruck upp till 5 ton (Expert, 2 000+ timmar)',
+          'Skjutstativtruck och plocktruckar (Avancerad)',
+          'Handhållna scannersystem och RFID-teknik',
+          'Godsmottagning och lagerstyrning',
+          'Crossdocking och expresshantering',
+          'Dagliga truckinspektioner enligt AFS 2006:4'
+        ],
+        personliga: [
+          'Säkerhetsmedveten och noggrann',
+          'Effektiv under högt tempo',
+          'Flexibel för skiftarbete',
+          'Lagspelare med god samarbetsförmåga',
+          'Problemlösare med teknisk förståelse'
+        ]
+      },
+
+      certifieringar: [
+        'Truckkort A1-A4 (motviktstruck, förnyat 2024, giltigt till 2027)',
+        'Truckkort B1-B2 (skjutstativtruck, förnyat 2024, giltigt till 2027)',
+        'ADR-certifiering Klass 1, 3, 8 – Farligt gods (2023)',
+        'Arbetsmiljöutbildning – Säkerhet i lager (2023)',
+        'Första hjälpen-certifiering (förnyad 2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimering med exakta truckkort och WMS-system',
+        text: `CV:t nämner specifika truckkort (A1-A4 för motviktstruck, B1-B2 för ledstaplare och skjutstativtruck) tillsammans med WMS-system som SAP WM och Astro WMS. Varje certifiering inkluderar utfärdare (TÜV Nord) och förnyelsedatum (2024).
+
+Varför detta fungerar: Logistikföretag söker specifika truckkort i sina annonser – om de behöver B2-behörighet för höglager och du bara skriver "truckkort" sorteras ditt CV bort av ATS-systemet. Genom att lista exakt vilka behörigheter du har (A1-A4, B1-B2) och visa att de är förnyade matchar du ATS-sökningen och visar att du kan börja direkt utan väntan på kurs.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat visar din produktivitet och säkerhet',
+        text: `CV:t specificerar 400-500 pallplatser dagligen i högvolymlogistik, 2 000+ trucktimmar utan olyckor eller incidenter, och 99,8% plockningsnoggrannhet i orderplockning. Varje siffra är kopplad till konkret verksamhet.
+
+Varför detta fungerar: "Kör truck" säger ingenting om produktivitet. "400-500 pallplatser dagligen" visar att du kan hantera högt tempo och tung arbetsbelastning. "2 000+ trucktimmar utan olyckor" bevisar säkerhetsmedvetenhet – något logistikföretag värderar högt eftersom olyckor kostar enorma summor i produktionsbortfall och försäkringar.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och säkerhetsansvar',
+        text: `CV:t kombinerar tekniska färdigheter (motviktstruck, skjutstativtruck, WMS-system, ADR-certifiering) med säkerhetsrutiner som dagliga truckbesiktningar enligt Arbetsmiljöverkets checklista och mentorskap i säkra arbetsmetoder för 3 nya truckförare.
+
+Varför detta fungerar: Logistikbranschen har höga säkerhetskrav enligt Arbetsmiljöverket. Genom att visa att du inte bara kör truck utan också utför dagliga inspektioner, följer säkerhetsrutiner och utbildar andra signalerar du mognad och ansvarstagande. Detta skiljer dig från kandidater som bara listar truckkort utan att visa säkerhetsmedvetenhet.`
+      },
+      {
+        rubrik: 'Certifieringar med förnyelsedatum visar uppdaterad behörighet',
+        text: `CV:t listar truckkort A1-A4 och B1-B2 med ursprungligt datum (TÜV Nord, 2017) och senaste förnyelse (2024). ADR-certifiering för Klass 1, 3 och 8 anges med årtal.
+
+Varför detta fungerar: Truckkort kräver förnyelse vart femte år. Om du skriver "truckkort A1-A4" utan datum antar rekryterare att det kan vara utgånget. Genom att ange "förnyat 2024, giltigt till 2027" visar du att din behörighet är giltig och att du kan börja jobba direkt utan väntan på kurs. ADR-certifiering för farligt gods öppnar för fler arbetsgivare och bättre betalt.`
+      },
+      {
+        rubrik: 'Profiltext som matchar högvolymlogistik och e-handel',
+        text: `Profiltexten öppnar med "Erfaren truckförare med 6+ års erfarenhet från högvolymlogistik och e-handelslager". Detta följs direkt av nyckelkompetenser som WMS-system, säkerhetsrekord och ADR-certifiering.
+
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Erfaren truckförare" är vagt. "6+ års erfarenhet från högvolymlogistik och e-handelslager" visar omedelbart att du jobbat i den typ av miljö de söker – högt tempo, stora volymer, digitaliserade system. ATS-system rankar CV:n som har nyckelord tidigt högre.`
+      },
+      {
+        rubrik: 'Karriärprogression från kylterminal till mentorskap',
+        text: `Erfarenheten visar utveckling: från kylterminal med 200-300 pallar dagligen och crossdocking (2018-2021), till högvolymterminal med 400-500 pallplatser, säkerhetsansvar och mentorskap för 3 nya truckförare (2021-pågående). Varje roll har ökad komplexitet.
+
+Varför detta fungerar: Progression visar att du inte stått still utan utvecklats. Från kylterminal till specialiserad högvolymsoperatör med mentorskap bevisar tillväxt. Mentorskap för 3 nya truckförare signalerar att arbetsgivare litar på dig tillräckligt för att utbilda andra – detta indikerar att du kan växa in i team leader-roller.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera exakta truckkort med förnyelsedatum',
+        text: `ATS-system och rekryterare söker efter specifika truckkategorier. Lista alltid exakt vilka truckkort du har och när de senast förnyades.
+
+❌ Fel: "Har truckkort och lång erfarenhet av truckkörning"
+
+✅ Rätt: "Truckkort A1-A4 (motviktstruck 1-5 ton), B1-B2 (ledstaplare och skjutstativtruck), utfärdat av TÜV Nord 2017, förnyat 2024. Totalt 2 000+ trucktimmar utan olyckor eller incidenter."
+
+Om dina truckkort snart går ut, förnya dem INNAN du söker jobb.`
+      },
+      {
+        rubrik: 'Kvantifiera din dagliga arbetsvolym och produktivitet',
+        text: `Konkreta volymsiffror visar din kapacitet och erfarenhetsnivå. Transformera vaga påståenden till mätbara fakta.
+
+❌ Fel: "Ansvarade för lagerplock och truckkörning"
+
+✅ Rätt: "Hanterade 400-500 pallplatser dagligen i e-handelslager med högt tempo. Plockningsnoggrannhet 99,8% enligt WMS-rapporter. Utförde godsmottagning av 200-300 pallar per dag."
+
+Om du arbetat deltid, anpassa siffrorna till din faktiska erfarenhet – men var alltid konkret.`
+      },
+      {
+        rubrik: 'Visa konkreta säkerhetsresultat och incidentfrihet',
+        text: `Säkerhet är avgörande i logistikbranschen. Visa inte bara att du följer rutiner – bevisa att din säkerhetsmedvetenhet ger resultat.
+
+❌ Fel: "Följer säkerhetsrutiner och kör truck enligt regler"
+
+✅ Rätt: "2 000+ trucktimmar utan olyckor eller incidenter (2021-2024). Utför dagliga truckbesiktningar enligt Arbetsmiljöverkets checklista och rapporterar avvikelser direkt. Mentorerade 3 nya truckförare i säkra arbetsmetoder."
+
+Konkreta exempel väger tyngre än påståenden.`
+      },
+      {
+        rubrik: 'Anpassa CV efter typ av lageromgivning',
+        text: `Olika lageromgivningar kräver olika kompetens. Anpassa din profiltext och prioritera relevant erfarenhet.
+
+**För e-handelslager**: Betona högt tempo, WMS-system (SAP WM, Astro WMS), plockningsnoggrannhet, flexibilitet.
+**För kylterminal**: Lyft fram erfarenhet av kyla (-20°C), temperaturkänsliga varor, ADR för kylgaser.
+**För produktionslager**: Fokusera på JIT-leveranser, produktionsflöden, samarbete med produktion.
+
+Behåll samma CV-struktur men justera vilken erfarenhet du expanderar mest på.`
+      },
+      {
+        rubrik: 'Lyft fram WMS-system och digital kompetens',
+        text: `Moderna lager är digitaliserade. Visa vilka WMS-system (Warehouse Management Systems) du behärskar och hur du använt dem.
+
+❌ Fel: "Erfarenhet av lagersystem och datorer"
+
+✅ Rätt: "Expertanvändare av SAP WM och Astro WMS (4+ år daglig användning). Använder handdator för orderplock, lagerplacering och inventering. Genomför 400-500 transaktioner dagligen med 99,8% noggrannhet."
+
+Om du använt system bara kort tid, skriv "grundläggande kunskap" istället för att överdriva.`
+      },
+      {
+        rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
+        text: `Lista både tekniska färdigheter (truckkategorier, WMS-system, ADR) och personliga egenskaper. Men backa alltid upp de personliga egenskaperna med konkreta exempel.
+
+❌ Fel: "Noggrann och ansvarsfull truckförare med god samarbetsförmåga"
+
+✅ Rätt: "Upprätthöll 99,8% plockningsnoggrannhet genom systematisk dubbelkontroll. Mentorerade 3 nya truckförare i säkra arbetsmetoder och WMS-system. Samarbetar dagligen med lagerkoordinatorer för att optimera plockflöden."
+
+Tekniska färdigheter är verifierbara, men mjuka egenskaper behöver bevis.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som truckförare vara?',
+        svar: 'För truckförare med 0-5 års erfarenhet: 1 sida. Med 5-10 års erfarenhet: 1-2 sidor. Med 10+ år och specialisering (tex. ADR-förare eller lagerkoordinator): Max 2 sidor. Fokusera på relevant erfarenhet från de senaste 7-10 åren. Äldre erfarenhet kan sammanfattas kortfattat.'
+      },
+      {
+        fraga: 'Måste jag ha med körkort B på CV:t?',
+        svar: 'Ja, om jobbet kräver det. För vissa logistikroller (tex. terminal med egen bil för skiftbyte) är körkort B krav. Skriv det under "Certifieringar": "Körkort B (sedan 2015)". För rena lagerroller där du bara kör truck på området är det inte alltid nödvändigt, men det skadar inte att ta med det.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av olika trucktyper?',
+        svar: 'Lista truckkorten i en "Certifieringar"-sektion med specifika kategorier: "Truckkort A1-A4 (motviktstruck 1-5 ton), B1-B2 (ledstaplare och skjutstativtruck), utfärdat TÜV Nord 2017, förnyat 2024". I erfarenhetssektionen nämn sedan vilka trucktyper du faktiskt kört med konkreta timmar eller årtal.'
+      },
+      {
+        fraga: 'Ska jag inkludera WMS-system jag bara använt kort tid?',
+        svar: 'Ja, men var tydlig med erfarenhetsnivån. Om du använt SAP WM dagligen i 4 år, skriv "Avancerad". Om du bara haft en kort introduktion i Astro WMS, skriv "Grundläggande kunskap". Rekryterare förstår att du lär dig snabbt om du har djup erfarenhet av ett annat WMS-system.'
+      },
+      {
+        fraga: 'Hur beskriver jag skiftarbete och flexibilitet?',
+        svar: 'Var konkret och faktabaserad. Exempel: "Arbetar roterande skift (dag/kväll/natt) samt helger enligt schema. Flexibel för övertid vid toppar (Black Friday, jul)". Om du har preferenser, spara det till intervjun – i CV:t visar du tillgänglighet.'
+      },
+      {
+        fraga: 'Hur visar jag säkerhetsmedvetenhet utan att vara generisk?',
+        svar: 'Använd konkreta exempel och resultat. Istället för "Säkerhetsmedveten och följer rutiner", skriv: "2 000+ trucktimmar utan olyckor eller incidenter. Utför dagliga truckbesiktningar enligt Arbetsmiljöverkets checklista och rapporterar avvikelser direkt." Handling väger tyngre än ord.'
+      },
+      {
+        fraga: 'Vad gör jag om mina truckkort snart går ut?',
+        svar: 'Förnya dem INNAN du söker jobb. Truckkort gäller 5 år och arbetsgivare vill att du kan börja direkt. Om du redan sökt och fått intervju, var öppen: "Truckkorten går ut i mars 2025, jag är bokad på förnyelsekurs 15 februari". Proaktivitet visar ansvar.'
+      },
+      {
+        fraga: 'Ska jag lista alla arbetsgivare eller bara de viktigaste?',
+        svar: 'Fokusera på relevant och nyare erfarenhet från de senaste 7-10 åren. Om du haft många olika logistikjobb, lista de 2-3 senaste och mest relevanta i detalj. Äldre erfarenhet kan sammanfattas: "Tidigare lagerarbete inom livsmedelslogistik (2012-2018)". Prioritera djup över bredd.'
+      },
+      {
+        fraga: 'Hur mycket personlig information ska jag inkludera?',
+        svar: 'Minimalt. Du behöver inte ange ålder, personnummer, civilstånd eller barn. Inkludera: namn, telefon, e-post, stad (inte fullständig adress), och eventuellt LinkedIn. Om du har körkort B och det är relevant, nämn det under "Certifieringar". Fokusera på yrkesrelaterad kompetens.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram teamarbete och samarbete?',
+        svar: 'Beskriv konkret hur du samarbetar. Exempel: "Samarbetar dagligen med lagerkoordinatorer för att optimera plockflöden", "Mentorerade 3 nya truckförare under introduktionsperiod – lärde ut säkra arbetsmetoder och WMS-system", "Deltar aktivt i veckovisa lagermöten med förbättringsförslag".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Administratör', slug: 'administrator' },
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' }
+    ]
   }
 }
 
