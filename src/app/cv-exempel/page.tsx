@@ -566,6 +566,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för lagerchef med fokus på personalledning, budgetansvar och operativa KPI:er inom lager och logistik.',
       highlight: ['Personalansvar och budgetansvar i MSEK', 'WMS-system och lean-metodik', 'Leveransprecision och plockfelsreduktion']
     }
+  },
+  {
+    id: 'fastighetsskotare',
+    yrke: 'Fastighetsskötare',
+    slug: 'fastighetsskotare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 450,
+    icon: Wrench,
+    gradient: 'from-amber-600 via-orange-700 to-amber-800',
+    preview: {
+      intro: 'CV för fastighetsskötare med fokus på teknisk bredd, certifieringar och kvantifierade resultat inom fastighetsförvaltning.',
+      highlight: ['Heta arbeten, elsäkerhet och F-gas', 'Vitec och Momentum fastighetssystem', 'Minskade felanmälningar och energibesparing']
+    }
   }
 ]
 
@@ -730,7 +744,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  38 yrken
+                  39 yrken
                 </motion.span>
               </h1>
 
@@ -750,7 +764,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">38</div>
+                    <div className="text-2xl font-bold text-slate-900">39</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

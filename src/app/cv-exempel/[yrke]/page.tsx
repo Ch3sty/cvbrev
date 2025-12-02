@@ -9990,6 +9990,242 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
       { yrke: 'Chef', slug: 'chef' }
     ]
+  },
+
+  'fastighetsskotare': {
+    yrke: 'Fastighetsskötare',
+    sokvolym: 450,
+    metaTitle: 'CV Exempel Fastighetsskötare 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för fastighetsskötare med VVS, el och Vitec-system. ATS-optimerat med kvantifierbara resultat inom energioptimering och hyresgästnöjdhet.',
+
+    seoIntro: `Fastighetsskötare är yrkets mångsidiga problemlösare. Du ska kunna både VVS och el, hantera felanmälningar klockan åtta på kvällen, och samtidigt hålla energikostnaderna nere. När du söker jobb möter du konkurrens från både erfarna vaktmästare och fastighetstekniker. Då behöver ditt CV visa exakt vad du kan leverera.
+
+Ett starkt CV fastighetsskötare visar inte bara att du kan byta lampor och fixa läckage. Det visar hur många lägenheter du ansvarar för, vilka fastighetssystem du behärskar, och vilka ekonomiska resultat du uppnått. Rekryterare inom fastighetsförvaltning letar efter kvantifierbara bevis på att du kan sköta fastigheten självständigt.
+
+På denna sida hittar du ett konkret fastighetsskötare CV exempel från Anders Bergström, som ansvarar för 450 lägenheter hos Riksbyggen. Hans CV visar hur du framhäver teknisk bredd inom VVS, el och ventilation, tillsammans med certifieringar som heta arbeten och F-gas. Du ser också hur han kvantifierat energioptimering (180 000 kr årlig besparing) och förbättrad hyresgästnöjdhet.
+
+Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvika, och svarar på vanliga frågor om hur du beskriver erfarenhet av Vitec Fastighetssystem, jourtjänst och felanmälningar.`,
+
+    intro: 'Ett professionellt CV-exempel för fastighetsskötare som visar din tekniska bredd, kvantifierade fastighetsansvar och serviceorientering. Detta exempel är optimerat för svenska fastighetsbolag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anders Bergström',
+      titel: 'Fastighetsskötare med VVS- och elkompetens',
+      kontakt: {
+        telefon: '070-456 78 90',
+        epost: 'anders.bergstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/andersbergstrom'
+      },
+
+      profil: 'Erfaren fastighetsskötare med 8+ års erfarenhet av drift och underhåll inom bostadsfastigheter och kommersiella lokaler. Specialist på VVS, el, ventilation och energioptimering med dokumenterad förmåga att reducera felanmälningar med 40% och sänka energikostnader med 180 000 kr/år. Tekniskt kunnig problemlösare med jourtjänstansvar för 450+ lägenheter och gedigen kompetens i Vitec Fastighetssystem och Momentum.',
+
+      erfarenhet: [
+        {
+          titel: 'Fastighetsskötare',
+          arbetsgivare: 'Riksbyggen, Stockholm Väst',
+          period: '2018 – Pågående',
+          beskrivning: [
+            'Ansvarig för 6 bostadsfastigheter med totalt 450 lägenheter (35 000 kvm BOA) inklusive jourtjänst kvällar och helger',
+            'Reducerade felanmälningar från 85 till 50 per månad (-40%) genom proaktivt underhåll och byte av slitdelar i tvättstugor och värmeväxlare',
+            'Genomförde energioptimering (injustering av värmesystem, tidstyrd ventilation) vilket sänkte energikostnaden med 180 000 kr/år',
+            'Hanterar VVS-arbeten (stopp, läckage, tappvarmvatten), elarbeten (belysning, säkringar, uttag) och låsbyten självständigt med 95% åtgärdstid inom 24h',
+            'Använder Vitec Fastighetssystem dagligen för felanmälan, arbetsorder, nyckelhållning och hyresgästkommunikation'
+          ]
+        },
+        {
+          titel: 'Fastighetsskötare',
+          arbetsgivare: 'Wallenstam AB, Göteborg',
+          period: '2015 – 2018',
+          beskrivning: [
+            'Drift och underhåll av 4 bostadsfastigheter (280 lägenheter, 22 000 kvm) med ansvar för gemensamma utrymmen, tvättstugor och utemiljö',
+            'Genomförde 30+ lägenhetstillsyn per månad vid inflyttning/utflyttning med dokumentation i Momentum-system',
+            'Samordnade och kvalitetsgranskade externa entreprenörer (hisservice, brandlarm, ventilationskontroll) med totalt inköpsvärde 800 000 kr/år',
+            'Förbättrade hyresgästnöjdheten från 72% till 88% genom snabb återkoppling på felanmälningar (genomsnittlig svarstid 3 timmar)'
+          ]
+        },
+        {
+          titel: 'Drifttekniker',
+          arbetsgivare: 'Vasakronan AB, Stockholm City',
+          period: '2013 – 2015',
+          beskrivning: [
+            'Driftansvar för 2 kommersiella fastigheter (kontorslokaler, 18 000 kvm) med fokus på FTX-ventilation och klimatanläggningar',
+            'Övervakade och justerade värmesystem, ventilation och kyla via datoriserat styrsystem (Regin) för optimal inomhusmiljö',
+            'Genomförde 4 lagstadgade kontroller per år (OVK ventilation, hissar, brandlarm, sprinkler) med 100% godkända inspektioner'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Fastighetstekniker, 120 YH-poäng',
+          skola: 'Hermods Yrkeshögskola, Stockholm',
+          period: '2011 – 2013',
+          beskrivning: 'Inriktning VVS, el och fastighetsdrift. LIA-praktik på Stockholmshem och Svenska Bostäder.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'VVS-arbeten – Stopp, läckage, värmesystem (Expert, 8+ år)',
+          'Elinstallation och felsökning (Avancerad, 8+ år)',
+          'Vitec Fastighetssystem (Expert, 6+ år daglig användning)',
+          'Ventilationsteknik (FTX, F-system, injustering)',
+          'Energioptimering och värmekurvor',
+          'Momentum och Regin styrsystem',
+          'Låssystem och nyckelhantering',
+          'Utemiljö och snöröjning'
+        ],
+        personliga: [
+          'Teknisk problemlösare',
+          'Serviceinriktad med hyresgästfokus',
+          'Självständig med jourtjänstansvar',
+          'Ekonomiskt medveten',
+          'Fysiskt uthållig'
+        ]
+      },
+
+      certifieringar: [
+        'Heta arbeten – Hetluft, gasolbrännare, svetsdragning (2022)',
+        'Elsäkerhet – Behörig för elarbeten upp till 500V (2021)',
+        'Köldmedia – F-gas certifiering kategori 1 (2020)',
+        'Truckkort A – Motviktstruck (2019)',
+        'Ställningsbyggnad – Arbetsmiljöverket (2023)',
+        'Första hjälpen och HLR (förnyad 2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kvantifierat fastighetsansvar',
+        text: `Anger exakt antal lägenheter (450) och kvadratmeter (35 000 kvm) istället för vagt "ansvarig för fastigheter". Visar omfattning och självständighet.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal',
+        text: `Listar Heta arbeten 2022, F-gas 2020, Elsäkerhet 2021 med specifika årtal. Bevisar aktuell kompetens inom säkerhetskritiska områden som arbetsgivare kräver.`
+      },
+      {
+        rubrik: 'Ekonomiska besparingar synliga',
+        text: `Konkretiserar energioptimering med 180 000 kr årlig besparing. Visar ekonomisk medvetenhet och påverkan på driftkostnader, inte bara teknisk utförare.`
+      },
+      {
+        rubrik: 'Fastighetssystem specificerade',
+        text: `Nämner Vitec, Momentum och Regin istället för "datorvana". Rekryterare söker dessa exakta system i ATS-filter för fastighetsförvaltning.`
+      },
+      {
+        rubrik: 'Teknisk bredd tydlig',
+        text: `Specificerar VVS, el och ventilation med konkreta åtgärder. Visar mångsidighet som fastighetsskötare måste ha för att jobba självständigt.`
+      },
+      {
+        rubrik: 'Hyresgästnöjdhet mätbar',
+        text: `Från 72% till 88% hyresgästnöjdhet med 40% färre felanmälningar. Visar serviceorientering och problemlösning med kvantifierade förbättringar.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera ditt fastighetsansvar',
+        text: `Skriv inte bara att du sköter fastigheter. Ange exakt omfattning så rekryterare förstår ansvarsområdet.
+
+❌ Fel: "Ansvarig för fastighetsskötsel och underhåll"
+
+✅ Rätt: "Ansvarar för 450 lägenheter (35 000 kvm) i 8 bostadsfastigheter med jour kvällar och helger"`
+      },
+      {
+        rubrik: 'Specificera teknisk kompetens',
+        text: `Vaga beskrivningar om "teknisk service" säger inget. Lista konkreta områden och system du behärskar.
+
+❌ Fel: "Bred teknisk kompetens inom fastighet"
+
+✅ Rätt: "VVS-arbeten (läckage, radiatorbyten), Elarbeten (belysning, uttag, felsökning), Ventilation (filterbyte, Regin-system)"`
+      },
+      {
+        rubrik: 'Visa minskade felanmälningar',
+        text: `Förebyggande underhåll är guld värt. Visa hur ditt arbete minskat akuta ärenden och sparar kostnader.
+
+❌ Fel: "Sköter felanmälningar snabbt och effektivt"
+
+✅ Rätt: "Minskade felanmälningar med 40% genom förebyggande underhållsplan, åtgärdstid under 4 timmar för akuta ärenden"`
+      },
+      {
+        rubrik: 'Inkludera fastighetssystem',
+        text: `Arbetsgivare filtrerar på specifika system. Nämn exakt vilka du använt, inte bara "digitala verktyg".
+
+❌ Fel: "Vana vid digitala felanmälningssystem"
+
+✅ Rätt: "Vitec Fastighetssystem (felanmälningar, avtal, nycklar), Momentum, Regin styrcentral för ventilation"`
+      },
+      {
+        rubrik: 'Kvantifiera energibesparingar',
+        text: `Energioptimering är en stor del av rollen. Visa konkret ekonomisk påverkan, inte bara att du "jobbar miljövänligt".
+
+❌ Fel: "Arbetar aktivt med energieffektivisering"
+
+✅ Rätt: "Reducerade värmekostnad 12% genom injustering och ventilationsoptimering, 180 000 kr årlig besparing"`
+      },
+      {
+        rubrik: 'Certifieringar måste vara aktuella',
+        text: `Utgångna certifikat räknas inte. Visa årtal och att du uppdaterar kompetensen regelbundet.
+
+❌ Fel: "Certifierad för heta arbeten och truckkort"
+
+✅ Rätt: "Heta arbeten (2022), Elsäkerhet SP 0704 (2021), F-gas kategori 1 (2020), Truckkort A+B (2019)"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vilka kompetenser ska finnas på ett CV för fastighetsskötare?',
+        svar: 'Ett starkt fastighetsskötare-CV ska innehålla teknisk kompetens inom VVS, el och ventilation, certifieringar som heta arbeten och F-gas, samt erfarenhet av fastighetssystem som Vitec eller Momentum. Inkludera kvantifierat fastighetsansvar (antal lägenheter eller kvm), jourtjänsterfarenhet, och konkreta resultat som minskade felanmälningar eller energibesparingar. Visa också serviceorientering genom hyresgästnöjdhet eller responstider.'
+      },
+      {
+        fraga: 'Hur ska man kvantifiera fastighetsansvar i sitt CV?',
+        svar: 'Ange exakt antal lägenheter du ansvarar för, total kvadratmeter, och antal fastigheter. Exempel: "450 lägenheter fördelade på 8 bostadsfastigheter (35 000 kvm)". Inkludera även typ av fastighet (bostäder, kommersiella lokaler) och om du har jourtjänstansvar. Detta ger rekryterare konkret bild av omfattningen på ditt ansvar.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktigast för fastighetsskötare?',
+        svar: 'Prioritera säkerhetscertifieringar: Heta arbeten (svetsning, lödning, skärning), Elsäkerhet SP 0704 eller motsvarande, F-gas för köldmedia om du jobbar med kyla/värmepumpar, och Truckkort A om fastigheten har gods att flytta. Ange alltid årtal för varje certifiering så arbetsgivaren ser att de är aktuella. Utgångna certifikat kan diskvalificera dig.'
+      },
+      {
+        fraga: 'Ska man inkludera jourtjänst på ett fastighetsskötare-CV?',
+        svar: 'Ja, definitivt. Jourtjänsterfarenhet är högt värderat eftersom det visar att du kan hantera akuta situationer självständigt. Specificera omfattning: "Jourberedskap kvällar och helger (vecka 2 av 4)" eller "24/7 jour för akuta ärenden (vattenläckage, elfel, larm)". Ange gärna genomsnittlig responstid. Detta visar pålitlighet och problemlösningsförmåga.'
+      },
+      {
+        fraga: 'Vilka fastighetssystem bör nämnas på CV:t?',
+        svar: 'Nämn de specifika system du använt: Vitec Fastighetssystem, Momentum, Incit Xpand för felanmälningar och arbetsorder. Inkludera även styrsystem som Regin, Schneider Electric eller Siemens för ventilation och värme. Många arbetsgivare söker dessa system i ATS-filter, så exakta namn ökar chansen att ditt CV rankas högt. Undvik vaga termer som "digitala verktyg".'
+      },
+      {
+        fraga: 'Vad ska profiltexten innehålla på ett fastighetsskötare-CV?',
+        svar: 'Profiltexten ska sammanfatta erfarenhet, teknisk bredd och viktigaste resultat på 3-4 meningar. Inkludera: antal års erfarenhet, fastighetstyp (bostäder/kommersiellt), teknisk kompetens (VVS, el, ventilation), nyckelresultat (energibesparing, hyresgästnöjdhet), samt system du behärskar (Vitec, Momentum). Nämn gärna jourtjänstansvar om relevant.'
+      },
+      {
+        fraga: 'Hur visar man energibesparingar på CV:t?',
+        svar: 'Kvantifiera energiåtgärder med kronor och procent. Exempel: "Reducerade uppvärmningskostnad 12% genom injustering av radiatorsystem, årlig besparing 180 000 kr". Inkludera konkreta åtgärder som byte till LED, ventilationsoptimering, läcksökning i värmesystem. Arbetsgivare värderar ekonomisk medvetenhet högt eftersom energi är en stor driftkostnad.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan fastighetsskötare och vaktmästare?',
+        svar: 'Fastighetsskötare har bredare tekniskt ansvar (VVS, el, ventilation) och arbetar oftast med större fastighetsbestånd, medan vaktmästare traditionellt fokuserat mer på tillsyn och enklare underhåll. I moderna CV bör du använda den titel som matchar jobbannonsens formulering. Många arbetsgivare använder termerna synonymt, så inkludera båda i ditt CV för bättre ATS-träff.'
+      },
+      {
+        fraga: 'Hur lång erfarenhet behöver man som fastighetsskötare?',
+        svar: 'För junior-roller räcker 1-2 års erfarenhet om du har relevanta certifieringar. För självständiga roller med jourtjänst söker arbetsgivare vanligtvis 3-5+ års erfarenhet. Viktigare än antal år är att visa bredd: har du jobbat både med bostäder och kommersiella lokaler? Hanterat både akuta felanmälningar och förebyggande underhåll? Kompensera kortare erfarenhet med certifieringar och kvantifierade resultat.'
+      },
+      {
+        fraga: 'Ska man inkludera truckkort och lift-certifikat?',
+        svar: 'Ja, om du har dem. Truckkort A och B samt lift-certifikat visar att du kan hantera tunga lyft och arbeta på höjd säkert. Placera dem under "Certifieringar" med årtal. Exempel: "Truckkort A+B (2019), Personlyftcertifikat (2021), Ställningskort (2020)". Även om de inte alltid krävs ökar de din attraktivitet eftersom du kan utföra bredare arbetsuppgifter utan externa resurser.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Administratör', slug: 'administrator' }
+    ]
   }
 }
 
