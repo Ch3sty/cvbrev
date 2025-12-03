@@ -10760,6 +10760,246 @@ Ange hur många konferensuppsättningar du genomför per månad, vilka typer av 
       { yrke: 'Fastighetsskötare', slug: 'fastighetsskotare' },
       { yrke: 'Receptionist', slug: 'receptionist' }
     ]
+  },
+
+  'socialsekreterare': {
+    yrke: 'Socialsekreterare',
+    sokvolym: 650,
+    kategori: 'offentlig-sektor',
+    metaTitle: 'CV Exempel Socialsekreterare 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för socialsekreterare med BBIC, utredning och myndighetsutövning. ATS-optimerat för kommunal socialtjänst. Inkluderar tips, nyckelord och FAQ.',
+
+    seoIntro: `Funderar du på hur du ska skriva ditt CV som socialsekreterare? Det här exemplet visar hur du bygger ett CV som faktiskt leder till intervjuer – genom att tydligt visa din erfarenhet av utredning, myndighetsutövning och relationsskapande inom socialtjänsten.
+
+Du ser hur Anna Lindström kvantifierar sin utredningskompetens (85+ vårdutredningar, 78% hållbara lösningar), visar progression från ekonomiskt bistånd till barn och unga, och väver in branschspecifika nyckelord som ATS-system letar efter. CV:t balanserar juridisk expertis (SoL, LVU, riskbedömning) med relationsskapande metoder (BBIC, MI, krisstöd) och inkluderar konkreta system (Treserva, ProCapita Webb) som många kommuner använder. Varje arbetsuppgift beskrivs med mätbara resultat – inte bara "ansvarig för utredningar" utan "minskade handläggningstid från 6 till 4,5 månader".
+
+Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna med ett personligt brev som kopplar din erfarenhet till den specifika tjänsten du söker – det ökar dina chanser att få intervju rejält.`,
+
+    intro: 'Socialsekreterare med fokus på utredning, myndighetsutövning och BBIC-metodik. CV:t visar kvantifierbara resultat, systemkunskaper och progression inom socialtjänsten.',
+
+    exempelCV: {
+      namn: 'Anna Lindström',
+      titel: 'Socialsekreterare med specialisering inom barn och unga',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.lindstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/annalindstrom'
+      },
+      profil: 'Legitimerad socionom med 7 års erfarenhet av myndighetsutövning och utredningsarbete inom barn- och ungdomsenheten. Gedigen kompetens i BBIC-metodik och riskbedömningar enligt LVU, med över 300 genomförda vårdutredningar. Specialist på samverkan med skola, BUP och polis i komplexa ärenden kring barn i utsatta miljöer. Driven av att säkerställa barnets bästa genom evidensbaserade beslut och relationsskapande arbete med familjer i kris.',
+      erfarenhet: [
+        {
+          titel: 'Socialsekreterare Barn och Unga',
+          arbetsgivare: 'Stockholms stad, Hägersten-Liljeholmens stadsdelsförvaltning',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Handlägger 45-55 komplexa barn- och ungdomsärenden parallellt med fokus på vårdutredningar enligt LVU och familjehemsvård',
+            'Genomförde 85+ vårdutredningar (2021-2024) varav 78% ledde till hållbara vårdlösningar med bibehållen skolplacering',
+            'Minskade genomsnittlig handläggningstid för § 50-utredningar från 6 till 4,5 månader genom strukturerad BBIC-metodik',
+            'Samordnar månadsvis med 12-15 samverkanspartners (BUP, skola, polis) för att säkerställa helhetsbedömning',
+            'Handleder 2 nyanställda socialsekreterare i utredningsmetodik och dokumentation i Treserva'
+          ]
+        },
+        {
+          titel: 'Socialsekreterare Mottagningsenheten',
+          arbetsgivare: 'Uppsala kommun, Socialtjänsten',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Ansvarade för akuta bedömningar och förhandsbedömningar med ca 200 inkommande ärenden årligen',
+            'Utvecklade triagemodell för prioritering av akuta barn- och vuxenärenden vilket reducerade väntetid med 35%',
+            'Hanterade krissituationer inkluderande akuta omhändertaganden (LVU) och skyddsbedömningar vid våld i nära relationer',
+            'Dokumenterade enligt OSL i ProCapita Webb med genomsnittlig rapportering inom 48 timmar'
+          ]
+        },
+        {
+          titel: 'Socialsekreterare Ekonomiskt Bistånd',
+          arbetsgivare: 'Uppsala kommun, Socialtjänsten',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Handlade 60-70 ärenden om försörjningsstöd med fokus på aktivering och egenförsörjning',
+            'Ökade andelen klienter som övergick till egen försörjning från 42% till 61% genom strukturerad uppföljning',
+            'Arbetade med motiverande samtal (MI) för att stärka klienters förändringsberedskap',
+            'Genomförde biståndsbedömningar enligt SoL med korrekta beslut i 97% av fallen vid internrevision'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet, 210 hp',
+          skola: 'Stockholms universitet',
+          period: '2014 – 2018',
+          beskrivning: 'Specialisering: Socialt arbete med barn och unga. Examensarbete: "LVU-placeringar och skolresultat – en femårsuppföljning"'
+        },
+        {
+          titel: 'Fristående kurser i psykologi',
+          skola: 'Uppsala universitet',
+          period: '2013',
+          beskrivning: 'Utvecklingspsykologi 15 hp, Socialpsykologi 15 hp'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'BBIC-metodik',
+          'Utredning enligt LVU/SoL',
+          'Riskbedömning',
+          'Motiverande samtal (MI)',
+          'Treserva',
+          'ProCapita Webb',
+          'Myndighetsutövning',
+          'Dokumentation OSL'
+        ],
+        personliga: [
+          'Samverkanskompetens',
+          'Krisstöd',
+          'Empati i svåra samtal',
+          'Analytisk förmåga',
+          'Stresshantering'
+        ]
+      },
+      certifieringar: [
+        'Legitimerad socionom (2018)',
+        'BBIC-certifierad handläggare (2020)',
+        'ASI-intervjuutbildning (2019)',
+        'Motiverande samtal (MI) grundutbildning (2019)',
+        'FREDA – bedömning våld i nära relationer (2021)',
+        'Krisstöd och krishantering (Röda Korset, 2020)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Arabiska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerat med branschspecifika nyckelord',
+        text: `CV:t innehåller nyckelord som rekryterare faktiskt söker efter: BBIC, Treserva, ProCapita Webb, SoL, LVU, ASI, motiverande samtal. Du hittar dem i både kompetenser, arbetsuppgifter och certifieringar – precis där ATS-system letar.
+
+Varför detta fungerar: ATS-system filtrerar ofta bort CV:n som saknar dessa specifika termer. När rekryteraren söker på "BBIC" eller "Treserva" i sitt system dyker detta CV upp direkt. Generiska formuleringar som "erfarenhet av IT-system" eller "utredningsarbete" missar mållinjen – rekryterare vill se exakt vilka system och metoder du behärskar.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat från utredningsarbete',
+        text: `Varje arbetsuppgift innehåller siffror: 45-55 ärenden parallellt, 85+ vårdutredningar 2021-2024, 78% hållbara lösningar enligt 12-månaders uppföljning, minskade handläggningstid från 6 till 4,5 månader. Du ser ärendevolym, kvalitet och effektivitet – inte bara "ansvarade för utredningar".
+
+Varför detta fungerar: Siffror ger rekryteraren kontext som ord aldrig kan ge. 45-55 ärenden parallellt visar kapacitet. 78% hållbara lösningar visar kvalitet i arbetet. 6 till 4,5 månaders handläggningstid visar förbättringsförmåga. Utan siffror måste rekryteraren gissa om du hanterat 10 eller 60 ärenden – och då riskerar du att sorteras bort mot kandidater som visar konkreta resultat.`
+      },
+      {
+        rubrik: 'Balans mellan myndighetsutövning och relationsskapande',
+        text: `CV:t visar juridisk kompetens (LVU-ansökningar, riskbedömningar enligt FREDA, beslutsfattande enligt SoL) parallellt med relationsskapande metoder (motiverande samtal, krisstöd, nätverksarbete med BUP och skola). Du ser konkreta exempel på båda – inte bara "god kommunikationsförmåga".
+
+Varför detta fungerar: Socialsekreterare behöver både hårdare juridiska kunskaper och mjukare relationskompetens. Problem är att många skriver "kommunikativ, empatisk, flexibel" utan att visa hur. Detta CV visar istället: "Genomförde LVU-utredningar och vann föräldrarnas förtroende genom MI" – konkret bevis på båda kompetenserna. Rekryterare ser att du kan både utöva myndighet och bygga relation.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar aktualitet',
+        text: `Alla certifieringar har årtal: Legitimerad socionom (2018), BBIC-certifierad (2020), ASI-intervjuare (2019), MI-utbildad (2019), FREDA-utbildad (2021). Du ser direkt att kompetensen är aktuell och att personen kontinuerligt vidareutbildar sig.
+
+Varför detta fungerar: Årtal gör skillnad. BBIC-certifiering från 2015 kan vara utdaterad mot nya versioner. Årtal 2020 visar att du jobbat med den metodik som används idag. Legitimerad socionom överst signalerar att grundkravet är uppfyllt. Rekryterare behöver inte gissa om dina certifieringar är aktuella – de ser det direkt.`
+      },
+      {
+        rubrik: 'Profiltext följer 4-komponentmodellen',
+        text: `Profiltexten innehåller: (1) Erfarenhet – "7 års erfarenhet inom socialtjänsten", (2) Specialisering – "främst barn och unga i utsatta situationer", (3) Keywords – "BBIC, LVU, motiverande samtal", (4) Drivkrafter – "Driven av att skapa långsiktigt hållbara lösningar". Fyra meningar, 60 ord.
+
+Varför detta fungerar: Rekryterare spenderar 10 sekunder på ditt CV vid första screening. Profiltexten är din pitch. Utan struktur blir den vag ("erfaren socialsekreterare som brinner för att hjälpa människor"). Med 4-komponentmodellen får rekryteraren direkt: hur länge jobbat, inom vad, med vilka metoder, och vad som driver dig. Det avgör om de läser vidare.`
+      },
+      {
+        rubrik: 'Tydlig progression visar karriärutveckling',
+        text: `CV:t visar rörelse från ekonomiskt bistånd (2018-2019) via mottagning (2019-2021) till barn och unga (2021-nu). Varje steg ökar komplexitet och specialisering. Du ser att personen gått från kortare utredningar till LVU-ärenden och vårdplaceringar.
+
+Varför detta fungerar: Progression signalerar ambition och bredd. Många socialsekreterare blir kvar inom samma område – att visa att du utvecklats från ekonomiskt bistånd till barn och unga berättar att du kan hantera olika målgrupper och söker utmaningar. Rekryterare ser att du inte fastnat utan aktivt byggt din kompetens inom socialtjänsten.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt nyckelord för socialtjänsten',
+        text: `Matcha ditt CV mot jobbannonsen och inkludera branschspecifika termer som rekryterare och ATS-system söker efter: BBIC, Treserva, Procapita, SoL, LVU, LVM, LSS, ASI, motiverande samtal (MI), utredning, biståndsbedömning, myndighetsutövning. Skriv exakt som de står i annonsen – om de skriver "BBIC-metodik" ska du också skriva det, inte "barnperspektiv i utredningar". Placera nyckelorden under Kompetenser och i arbetsuppgifterna, inte bara i löptext.`
+      },
+      {
+        rubrik: 'Kvantifiera din utredningskompetens',
+        text: `Visa konkret omfattning och kvalitet på ditt utredningsarbete med mätbara resultat.
+
+❌ "Ansvarade för utredningar inom barn och unga"
+✅ "Genomförde 85+ vårdutredningar 2021-2024 där 78% ledde till hållbara lösningar enligt 12-månaders uppföljning"
+
+Inkludera: antal parallella ärenden, antal genomförda utredningar, handläggningstider, andel beslut som står sig vid överprövning. Siffror ger rekryteraren kontext som ord aldrig kan ge.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från myndighetsutövning',
+        text: `Gå bortom "ansvarig för beslutsfattande" och visa vad dina beslut ledde till.
+
+❌ "Ansvarade för beslut om ekonomiskt bistånd"
+✅ "Fattade biståndsbeslut där 68% av klienterna blev självförsörjande inom 12 månader genom aktiveringsplan"
+
+Inkludera: andel beslut som står sig vid överprövning, aktiveringsresultat, minskad handläggningstid. Myndighetsutövning handlar om kvalitet – visa att dina beslut är juridiskt korrekta OCH leder till resultat.`
+      },
+      {
+        rubrik: 'Anpassa profiltexten efter tjänsten',
+        text: `Använd 4-komponentmodellen: (1) Erfarenhet – "5 års erfarenhet inom socialtjänsten", (2) Specialisering – "främst ekonomiskt bistånd och aktivering", (3) Keywords – "SoL, Treserva, motiverande samtal", (4) Drivkrafter – "Driven av att stärka klienters egen förmåga". Anpassa specialiseringen efter tjänsten du söker: nämn barn och unga om det är en BU-tjänst, ekonomiskt bistånd om det är försörjningsstöd, missbruk om det är beroendevård. Håll dig till 60-70 ord.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar med årtal',
+        text: `Börja med grundkravet överst: "Legitimerad socionom (2018)". Därefter branschspecifika certifieringar: BBIC-certifierad (2020), ASI-intervjuare (2019), MI-utbildad (2019), FREDA-utbildad (2021). Årtal visar att din kompetens är aktuell – BBIC från 2015 kan vara utdaterad mot nya versioner. Om du saknar legitimation men läser termin 6, skriv "Socionomprogrammet, termin 6/6, examen juni 2025". Placera certifieringar direkt efter Kompetenser eller Utbildning.`
+      },
+      {
+        rubrik: 'Balansera juridisk kompetens med relationsskapande',
+        text: `Visa att du behärskar både myndighetsutövning och relationsskapande genom konkreta exempel – inte genom att skriva "kommunikativ, empatisk".
+
+❌ "Kommunikativ och empatisk socialsekreterare"
+✅ "Genomförde LVU-utredningar med juridisk precision samtidigt som jag byggde förtroende med familjer genom motiverande samtal – 82% av föräldrarna deltog aktivt i insatsplaneringen"
+
+Kombinera juridiska begrepp (LVU, riskbedömning, SoL) med relationsmetoder (MI, krisstöd, nätverksarbete). Visa empati genom handling, inte adjektiv.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som socialsekreterare vara?',
+        svar: 'Ett CV för socialsekreterare bör vara 1-2 sidor. Med 0-3 års erfarenhet räcker en sida. Med 4+ års erfarenhet och flera specialiseringar (ekonomiskt bistånd, barn och unga, missbruk) kan du behöva två sidor för att visa progression och bredd. Prioritera relevans: om du söker en BU-tjänst kan du korta ner beskrivningen av ekonomiskt bistånd till en rad och istället ge mer plats åt BBIC-erfarenhet och vårdutredningar. Rekryterare i kommuner hinner ofta bara skanna CV:t i 10-15 sekunder vid första genomläsning.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'Profilbild är frivilligt i Sverige och påverkar sällan om du får intervju som socialsekreterare. Fokusera istället på att visa konkret kompetens: BBIC-certifiering, antal genomförda utredningar, system du behärskar (Treserva, Procapita). Vissa rekryterare i kommunal verksamhet föredrar CV utan bild för att minska risk för omedveten bias. Om du väljer att ha med en bild ska den vara professionell: neutral bakgrund, affärsmässig klädsel, ögonkontakt. Men lägg inte tid på bilden – innehållet avgör.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV?',
+        svar: 'Var ärlig och koncis. Om luckan är under 6 månader behöver du inte förklara den. Vid längre luckor räcker en rad: "2020-2021: Föräldraledighet" eller "2019: Vidareutbildning inom motiverande samtal och BBIC". Om du arbetat med något relevant under luckan (fristående utredningsuppdrag, volontärarbete inom socialt arbete, studier i juridik eller psykologi) inkludera det som en kort rad. Fokusera på vad du kan nu – rekryterare bryr sig mer om din BBIC-certifiering och utredningskompetens än om du hade 8 månaders uppehåll 2018.'
+      },
+      {
+        fraga: 'Vilka kompetenser ska finnas med på ett CV för socialsekreterare?',
+        svar: 'Inkludera både metoder, lagstiftning och IT-system. Metoder: BBIC, ASI, motiverande samtal (MI), nätverksarbete, krisstöd, FREDA. Lagstiftning: SoL, LVU, LVM, LSS, OSL (beroende på specialisering). IT-system: Treserva, Procapita, ProCapita Webb. Lägg även till administrativa kompetenser: utredning, beslutsfattande, biståndsbedömning, dokumentation, myndighetsutövning. Matcha alltid mot jobbannonsen – om de söker någon till ekonomiskt bistånd behöver du inte lista LVU-erfarenhet överst.'
+      },
+      {
+        fraga: 'Hur beskriver jag myndighetsutövning på mitt CV?',
+        svar: 'Visa konkreta exempel på beslut du fattat och resultat de ledde till. Skriv inte bara "ansvarade för myndighetsutövning enligt SoL" utan "Fattade biståndsbeslut enligt SoL där 92% stod sig vid överprövning" eller "Genomförde 23 LVU-utredningar 2022-2024 med riskbedömningar enligt FREDA". Inkludera: antal beslut, andel som står sig vid överprövning, typer av ärenden (biståndsbedömning, LVU, placeringar), dokumentation i Treserva/Procapita. Myndighetsutövning handlar om juridisk precision – visa att dina beslut är korrekta och står sig.'
+      },
+      {
+        fraga: 'Ska jag skriva vilka IT-system jag kan (Treserva, Procapita)?',
+        svar: 'Ja, absolut. Många kommuner söker specifikt efter erfarenhet av Treserva, Procapita eller ProCapita Webb eftersom introduktion tar tid. Skriv dem under Kompetenser eller IT-system: "Treserva (4 år), ProCapita Webb (2 år), Office 365". Om du kan flera system inom socialtjänsten (IFO-system, LSS-system) lista dem också – det visar att du snabbt lär dig nya verktyg. ATS-system söker ofta efter dessa systemnamn, så inkludera dem exakt som de skrivs i jobbannonsen.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram BBIC-kompetens på CV:t?',
+        svar: 'Visa BBIC både som certifiering och genom konkreta exempel i arbetsuppgifterna. Certifiering: "BBIC-certifierad (2020)" under Certifieringar. I arbetsuppgifter: "Genomförde 60+ BBIC-utredningar inom barn och unga där 78% ledde till hållbara vårdlösningar" eller "Använde BBIC-metodik för att analysera barns behov i komplexa familjesituationer med samverkan mellan socialtjänst, BUP och skola". Visa hur du använt metoden i praktiken – inte bara att du gått kursen. Om du undervisat kollegor i BBIC, nämn det också.'
+      },
+      {
+        fraga: 'Vad ska stå i min profil/sammanfattning som socialsekreterare?',
+        svar: 'Följ 4-komponentmodellen: (1) Erfarenhet – antal år och inom vilken del av socialtjänsten, (2) Specialisering – barn och unga, ekonomiskt bistånd, missbruk, äldre, (3) Keywords – BBIC, LVU, MI, Treserva (beroende på tjänst), (4) Drivkrafter – vad som motiverar dig. Exempel: "Legitimerad socionom med 5 års erfarenhet inom barn och unga i utsatta situationer. Specialist på BBIC-utredningar, LVU-ärenden och samverkan med BUP och skola. BBIC-certifierad, MI-utbildad, van vid Treserva. Driven av att skapa långsiktigt hållbara lösningar för barn och familjer." Håll dig till 60-70 ord.'
+      },
+      {
+        fraga: 'Hur skriver jag om erfarenhet från ekonomiskt bistånd?',
+        svar: 'Kvantifiera aktiveringsresultat och beslutskvalitet. Skriv inte "handlade ärenden om ekonomiskt bistånd" utan "Hanterade 50-60 parallella ärenden inom ekonomiskt bistånd där 68% av klienterna blev självförsörjande inom 12 månader genom aktiveringsplan och samverkan med Arbetsförmedlingen". Inkludera: antal ärenden, andel som aktiverades till arbete/studier, samverkansparter (AF, FK, vårdcentraler), beslut som stod sig vid överprövning. Visa att du inte bara beviljar/avslår utan aktivt arbetar för klienters självförsörjning.'
+      },
+      {
+        fraga: 'Hur visar jag samverkanskompetens med BUP, skola och polis?',
+        svar: 'Beskriv konkreta samverkanssituationer och vad de ledde till. Skriv inte "god samverkansförmåga" utan "Samordnade insatser mellan socialtjänst, BUP och skola i 35 komplexa ärenden där 80% av barnen fick sammanhållen vårdplan" eller "Genomförde gemensamma utredningar med polis vid misstanke om brott mot barn enligt 14 kap 1§ SoL". Inkludera: vilka aktörer (BUP, skola, polis, habilitering, familjecentral), typ av samverkan (gemensamma utredningar, vårdmöten, SIP), resultat (sammanhållen plan, snabbare insatser). Samverkan är inte ett adjektiv – det är konkret handling.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Administratör', slug: 'administrator' }
+    ]
   }
 }
 

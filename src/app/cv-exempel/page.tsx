@@ -608,6 +608,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för servicemedarbetare med fokus på fastighetsdrift, receptionsarbete och kvantifierade serviceresultat.',
       highlight: ['Aptean Workplace och ISS FastFM', 'Heta arbeten, truckkort och hygienutbildning', 'Kundnöjdhet 78%→92% och 8 000 kvm lokalansvar']
     }
+  },
+  {
+    id: 'socialsekreterare',
+    yrke: 'Socialsekreterare',
+    slug: 'socialsekreterare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 650,
+    icon: FileText,
+    gradient: 'from-indigo-500 via-purple-600 to-indigo-700',
+    preview: {
+      intro: 'CV för socialsekreterare med fokus på utredning, myndighetsutövning och BBIC-metodik inom socialtjänsten.',
+      highlight: ['Treserva, ProCapita Webb och BBIC-certifiering', 'Kvantifierade utredningsresultat och handläggningstider', 'Samverkan med BUP, skola och polis']
+    }
   }
 ]
 
@@ -772,7 +786,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  41 yrken
+                  42 yrken
                 </motion.span>
               </h1>
 
