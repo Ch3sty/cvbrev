@@ -11144,42 +11144,78 @@ Varför detta fungerar: Progression signalerar ambition och förmåga att ta mer
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för HR-roller',
-        text: `Matcha ditt CV mot jobbannonsen genom att inkludera de system, processer och lagstiftningsområden som efterfrågas. Om annonsen nämner "Workday" eller "SAP SuccessFactors", skriv exakt dessa systemnamn – inte bara "HR-system". Inkludera relevanta processer som rekrytering, onboarding, offboarding, löneadministration, kompetenskartläggning och performance management. Nämn lagstiftning du behärskar: LAS, MBL, diskrimineringslagen, GDPR.`
+        text: `ATS-system söker efter specifika termer beroende på HR-område. Matcha ditt CV mot jobbannonsen genom att inkludera de system, processer och lagstiftningsområden som efterfrågas.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av HR-system och rekrytering"
+
+✅ "5 års erfarenhet av Workday och SAP SuccessFactors. Genomfört 200+ rekryteringar med TeamTailor. Behärskar LAS, MBL och diskrimineringslagen inom arbetsrätt."
+
+Om annonsen nämner "Workday", skriv exakt det systemnamnet – inte bara "HR-system". ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
       },
       {
         rubrik: 'Kvantifiera dina HR-resultat',
-        text: `Visa omfattning och effekt av ditt HR-arbete genom konkreta siffror. Inkludera antal rekryteringar per år, genomsnittlig time-to-hire, förändring i personalomsättning, antal anställda du arbetat med, eller budget du hanterat.
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera rekryteringsvolym, effektiviseringar och organisationsstorlek.
+
+**Exempel på före/efter**:
 
 ❌ "Ansvarig för rekrytering och onboarding"
-✅ "Genomförde 65+ rekryteringar årligen med genomsnittlig time-to-hire på 28 dagar (15% snabbare än branschsnitt)"
 
-Siffror gör det möjligt för rekryterare att bedöma din erfarenhetsnivå och effektivitet.`
+✅ "Genomförde 65+ rekryteringar årligen med genomsnittlig time-to-hire på 28 dagar (15% snabbare än branschsnitt). Designade onboarding-program som ökade nyanställdas produktivitet med 25% under första kvartalet."
+
+Siffror gör det möjligt för rekryterare att bedöma din erfarenhetsnivå och effektivitet. Inkludera även budget du hanterat och antal anställda du stöttat.`
       },
       {
         rubrik: 'Visa konkreta resultat från HR-insatser',
-        text: `Beskriv inte bara vad du gjorde utan vilken effekt det hade på organisationen. Fokusera på projekt, implementeringar och förbättringar med mätbara resultat.
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på projekt, implementeringar och förbättringar med mätbara resultat.
+
+**Exempel på före/efter**:
 
 ❌ "Implementerade nytt HR-system"
-✅ "Implementerade Workday för 3 500 anställda vilket effektiviserade HR-processer med 35%"
 
-Inkludera resultat från medarbetarundersökningar, personalomsättning eller utbildningsinsatser.`
+✅ "Implementerade Workday för 3 500 anställda vilket effektiviserade HR-processer med 35% och reducerade manuell administration med 20 timmar per vecka."
+
+Andra resultat att lyfta fram: minskad personalomsättning, förbättrade medarbetarundersökningar, lyckade omorganisationer, eller utbildningsinsatser som ökat intern mobilitet.`
       },
       {
         rubrik: 'Anpassa profiltexten efter HR-rollen',
-        text: `Strukturera profiltexten enligt 4-komponentmodellen: Erfarenhet + Specialisering + Nyckelord + Drivkrafter. Börja med antal års erfarenhet och huvudområde ("6 års erfarenhet inom HR med fokus på rekrytering och arbetsrätt"). Följ med din specialisering och vilka system du behärskar ("Arbetade med Workday, SAP SuccessFactors och TeamTailor"). Avsluta med vad som driver dig. Anpassa specialiseringen efter rollen du söker.`
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Strukturera enligt 4-komponentmodellen: Erfarenhet + Specialisering + Nyckelord + Drivkrafter.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren HR-person som gillar att arbeta med människor"
+
+✅ "HR-specialist med 6 års erfarenhet inom rekrytering och arbetsrätt. Specialiserad på talent acquisition och organisationsutveckling med Workday och TeamTailor. Driven av att skapa inkluderande arbetsplatser där medarbetare trivs och utvecklas."
+
+Anpassa specialiseringen efter rollen: "rekrytering och employer branding" för Talent Acquisition, "arbetsrätt och förhandling" för HR Business Partner.`
       },
       {
         rubrik: 'Lyft fram certifieringar med årtal',
-        text: `Inkludera relevanta certifieringar och ange alltid årtal för att visa aktualitet. HR-området förändras snabbt – särskilt inom arbetsrätt, GDPR och rekryteringsmetoder. Viktiga certifieringar för HR-specialist: Arbetsrättsjurist, Rekrytering & Urval, Extended DISC, GDPR för HR, samt eventuella systemcertifieringar (Workday, SAP SuccessFactors). Skriv "Arbetsrättsjurist (2023)" istället för bara "Arbetsrättsjurist".`
+        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling – särskilt viktigt inom HR där lagstiftning förändras snabbt.
+
+**Exempel på före/efter**:
+
+❌ "Arbetsrättscertifierad och utbildad i GDPR"
+
+✅ "Arbetsrättsjurist – Arbetsgivarverket (2023)
+Extended DISC-certifiering (2022)
+GDPR för HR – Stockholms universitet (2021)
+Rekrytering & Urval – IHM Business School (2020)"
+
+Inkludera förnyelsedatum för tidsbegränsade certifieringar. Systemcertifieringar (Workday, SAP SuccessFactors) är särskilt värdefulla om du söker roller med systemansvar.`
       },
       {
         rubrik: 'Balansera systemkunskap med relationskompetens',
-        text: `HR kräver både teknisk kompetens och förmåga att bygga relationer. Visa systemkunskap konkret (Workday, SAP SuccessFactors, Visma) och demonstrera relationskompetens genom handling.
+        text: `HR kräver både teknisk kompetens och förmåga att bygga relationer. Lista system konkret och demonstrera mjuka färdigheter genom handling – inte adjektiv.
 
-❌ "Kommunikativ och relationsskapande"
-✅ "Coachade 40 chefer i konflikthantering och svåra samtal"
+**Exempel på före/efter**:
 
-Kombinationen av tekniska system och mjuka färdigheter visar att du förstår att HR handlar både om processer och människor.`
+❌ "Kommunikativ och relationsskapande HR-specialist"
+
+✅ "Coachade 40 chefer i konflikthantering och svåra samtal. Faciliterade omorganisation för 200 medarbetare med fokus på transparens och delaktighet. Byggde förtroende med fackliga parter genom tydlig kommunikation i MBL-förhandlingar."
+
+Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egenskaper behöver bevis för att bli trovärdiga i rekryterares ögon.`
       }
     ],
 
@@ -11380,56 +11416,78 @@ Varför detta fungerar: Progression signalerar ambition och att kandidaten har f
     tips: [
       {
         rubrik: 'Inkludera rätt ekonomiterminologi för ATS-system',
-        text: `Controllers söks ofta baserat på specifika systemkunskaper och metoder. Inkludera relevanta termer som SAP FI/CO, Oracle Financials, Microsoft Dynamics 365, Power BI, Tableau, rolling forecasts, variance analysis, IFRS och K3.
+        text: `ATS-system söker efter specifika termer beroende på controller-roll. Identifiera vilka system och metoder som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
 
-Varför: ATS-system rankar kandidater baserat på hur många nyckelord som matchar jobbannonsen. Läs annonsen noggrant och inkludera exakt de system och metoder som efterfrågas.
+**Exempel på före/efter**:
 
 ❌ "Erfarenhet av ekonomisystem och budgetarbete"
-✅ "7 års erfarenhet av SAP FI/CO, budgetarbete (250 MSEK) och rolling 12-month forecasts"`
+
+✅ "7 års erfarenhet av SAP FI/CO, budgetarbete (250 MSEK) och rolling 12-month forecasts. Behärskar variance analysis, IFRS och K3-redovisning."
+
+Om arbetsgivaren söker "SAP-erfarenhet", skriv exakt vilka moduler du arbetat med (FI, CO, MM). ATS-system matchar ofta ordagrant, vilket innebär att "ekonomisystem" inte fångas upp när de söker efter "SAP".`
       },
       {
         rubrik: 'Kvantifiera ditt budgetansvar med siffror',
-        text: `Som controller arbetar du dagligen med siffror – låt det synas i ditt CV. Inkludera budgetstorlek (MSEK), antal enheter, omsättningsansvar och förbättringar i procent.
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som controller arbetar du dagligen med siffror – låt det synas genom att specificera budgetstorlek, antal enheter och omsättningsansvar.
 
-Varför: Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Budgetansvar" kan betyda 10 MSEK eller 1 miljard – siffran gör skillnad.
+**Exempel på före/efter**:
 
 ❌ "Ansvarig för företagets budget och forecasting"
-✅ "Budgetansvar för 180 MSEK fördelat på 12 kostnadsställen med månatlig forecasting"`
+
+✅ "Budgetansvar för 180 MSEK fördelat på 12 kostnadsställen med månatlig forecasting. Implementerade rolling forecast som förbättrade träffsäkerheten från 85% till 94%."
+
+Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Budgetansvar" kan betyda 10 MSEK eller 1 miljard – siffran gör skillnad för vilken roll du matchar.`
       },
       {
         rubrik: 'Visa konkreta affärsresultat',
-        text: `Controllers värderas inte bara för vad de gör, utan för vilken affärspåverkan de har. Beskriv resultat som kostnadsbesparingar, effektiviseringar och förbättrad träffsäkerhet.
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på kostnadsbesparingar, effektiviseringar och förbättrad träffsäkerhet – resultat som påverkar affären.
 
-Varför: En controller som kan visa "identifierade besparingsmöjligheter på 4,2 MSEK" är mer intressant än en som bara "genomförde kostnadsanalyser".
+**Exempel på före/efter**:
 
 ❌ "Utförde analyser och rapporter till ledningen"
-✅ "Identifierade lageroptimering som reducerade kapitalbindning med 2,8 MSEK genom ABC-analys"`
+
+✅ "Identifierade lageroptimering som reducerade kapitalbindning med 2,8 MSEK genom ABC-analys. Utvecklade Power BI-dashboards som minskade rapporteringstiden med 60%."
+
+Controllers värderas för affärspåverkan. En CFO vill veta hur du bidragit till resultatförbättring, inte vilka rapporter du producerat.`
       },
       {
         rubrik: 'Anpassa profiltext efter tjänstens fokus',
-        text: `Controller-rollen varierar kraftigt: Business Controller fokuserar på affärsstöd, Financial Controller på redovisning, och Group Controller på koncernkonsolidering.
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Controller-rollen varierar kraftigt beroende på inriktning.
 
-Varför: En profiltext som nämner "koncernredovisning och IFRS" matchar bättre en Group Controller-tjänst, medan "business partnering och lönsamhetsanalyser" passar Business Controller.
+**Exempel på före/efter**:
 
-Struktur: [X års erfarenhet] + [Branscher] + [Specialisering] + [System/certifieringar] + [Konkret resultat]`
+❌ "Erfaren controller med bred ekonomibakgrund"
+
+✅ "Business Controller med 7 års erfarenhet inom tillverkning och detaljhandel. Specialiserad på budgetarbete, rolling forecasts och lönsamhetsanalyser med SAP och Power BI. Driver proaktivt affärsstöd till ledningsgrupper genom variance analysis och kostnadsoptimering."
+
+Anpassa efter roll: "koncernredovisning och IFRS" för Group Controller, "business partnering och lönsamhetsanalyser" för Business Controller, "månadsavslut och bokslut" för Financial Controller.`
       },
       {
         rubrik: 'Lyft fram certifieringar inom redovisning och system',
-        text: `Ekonomicertifieringar signalerar professionalism och aktuell kunskap. Prioritera IFRS (FAR), auktoriserad redovisningskonsult, systemcertifieringar (SAP, Oracle) och analysverktyg (Power BI).
+        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling – särskilt viktigt då redovisningsregler uppdateras kontinuerligt.
 
-Varför: Certifieringar särskiljer dig från kandidater med liknande erfarenhet. Inkludera alltid årtal – IFRS-regler uppdateras kontinuerligt.
+**Exempel på före/efter**:
 
 ❌ "Certifierad inom IFRS"
-✅ "IFRS-certifiering – FAR (2022), förnyad 2024"`
+
+✅ "IFRS-certifiering – FAR (2022)
+SAP FI/CO Certification (2020)
+Power BI Data Analyst – Microsoft (2023)
+Controllerns verktygslåda – IHM Business School (2019)"
+
+Inkludera årtal för att visa aktualitet. IFRS-certifiering från FAR är särskilt värdefull för controllers som arbetar med koncernredovisning eller internationella företag.`
       },
       {
         rubrik: 'Balansera teknisk expertis med affärsförståelse',
-        text: `En modern controller måste visa både systemkompetens och förmåga att kommunicera med affärssidan. Beskriv hur du använder data för att påverka beslut.
+        text: `En modern controller måste visa både systemkompetens och förmåga att kommunicera med affärssidan. Lista system konkret och demonstrera affärsförståelse genom handling.
 
-Varför: Arbetsgivare söker controllers som kan vara "business partners" – inte bara siffergranskare. Visa att du presenterar för ledningsgrupp och ger proaktiva rekommendationer.
+**Exempel på före/efter**:
 
-❌ "God kommunikationsförmåga"
-✅ "Business partner till 4 produktchefer med månatliga lönsamhetsgenomgångar och investeringsrekommendationer"`
+❌ "God kommunikationsförmåga och analytisk"
+
+✅ "Business partner till 4 produktchefer med månatliga lönsamhetsgenomgångar och investeringsrekommendationer. Presenterar variance analysis för ledningsgruppen och driver proaktiva kostnadsinitiativ."
+
+Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståelse behöver bevis. Visa att du inte bara levererar siffror utan påverkar beslut.`
       }
     ],
 
