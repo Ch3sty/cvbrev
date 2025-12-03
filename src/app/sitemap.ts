@@ -209,6 +209,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'hemtjanstpersonal',
     'servicemedarbetare',
     'socialsekreterare',
+    'hr-specialist',
     // Lägg till fler CV-exempel här när de skapas
   ];
 

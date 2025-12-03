@@ -622,6 +622,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för socialsekreterare med fokus på utredning, myndighetsutövning och BBIC-metodik inom socialtjänsten.',
       highlight: ['Treserva, ProCapita Webb och BBIC-certifiering', 'Kvantifierade utredningsresultat och handläggningstider', 'Samverkan med BUP, skola och polis']
     }
+  },
+  {
+    id: 'hr-specialist',
+    yrke: 'HR-specialist',
+    slug: 'hr-specialist',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 1000,
+    icon: Users,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'CV för HR-specialist med fokus på rekrytering, arbetsrätt och organisationsutveckling inom tillverkningsindustri och tjänstesektor.',
+      highlight: ['Workday, SAP SuccessFactors och TeamTailor', 'Kvantifierade rekryteringsresultat och personalomsättning', 'Arbetsrätt (LAS, MBL) och GDPR-certifieringar']
+    }
   }
 ]
 
@@ -786,7 +800,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  42 yrken
+                  43 yrken
                 </motion.span>
               </h1>
 
