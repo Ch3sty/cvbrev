@@ -10226,6 +10226,281 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
       { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
       { yrke: 'Administratör', slug: 'administrator' }
     ]
+  },
+
+  'hemtjanstpersonal': {
+    yrke: 'Hemtjänstpersonal',
+    sokvolym: 890,
+    metaTitle: 'CV Exempel Hemtjänstpersonal 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för hemtjänstpersonal med 8 års erfarenhet. ATS-optimerat med Lifecare, TakeCare, medicindelegering och kvantifierbara omvårdnadsresultat.',
+
+    seoIntro: `Söker du jobb som hemtjänstpersonal och undrar hur ditt CV ska struktureras för att verkligen sticka ut? Det här CV-exemplet för hemtjänstpersonal visar hur du balanserar omvårdnadskompetens med teknisk systemkännedom och kvantifierbara resultat.
+
+Exemplet visar Sofia Bergström, undersköterska med 8 års bred erfarenhet från både kommunal och privat hemtjänst. CV:t demonstrerar djup systemkunskap i Lifecare, TakeCare, Time Care, IBIC och Procapita – de system som svenska kommuner och privata vårdgivare faktiskt använder. Du ser konkreta kvantifieringar som gör skillnad: "12-15 brukare per dag", "95% rapporteringsefterlevnad", "+30% brukarsjälvständighet genom rehabiliterande arbetssätt". Dessutom framgår tydlig kompetens i medicindelegering, demensomvårdnad och ADL-stöd.
+
+CV:t är ATS-optimerat med branschspecifika nyckelord som personcentrerad omsorg, hemrehabilitering och tvärprofessionellt samarbete. Certifieringarna är daterade (HLR 2024, Medicindelegering 2023, Demensutbildning Silviasystrar 2022) vilket visar att kompetensen är aktuell. Genom att kombinera praktisk omvårdnad med handledarerfarenhet (8 nyanställda introducerade) visar Sofia både teknisk skicklighet och förmåga att dela kunskap.
+
+Använd detta cv hemtjänstpersonal som inspiration när du strukturerar ditt eget. Fokusera på konkret systemkunskap, kvantifierade resultat och certifieringar som faktiskt efterfrågas av arbetsgivare inom hemtjänsten.`,
+
+    intro: 'Ett professionellt CV-exempel för hemtjänstpersonal som visar din omvårdnadskompetens, systemkunskap och förmåga att leverera kvantifierbara resultat. Detta exempel är optimerat för svenska kommuner, privata vårdgivare och ATS-system.',
+
+    exempelCV: {
+      namn: 'Sofia Bergström',
+      titel: 'Hemtjänstpersonal med demenskompetens',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'sofia.bergstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/sofiabergstrom'
+      },
+
+      profil: 'Erfaren hemtjänstpersonal med 8 års erfarenhet av personlig omvårdnad och ADL-stöd inom kommunal och privat äldreomsorg. Specialiserad på demensvård och rehabiliterande arbetssätt med gedigen kompetens i medicindelegering och social dokumentation. Vana att arbeta självständigt i Lifecare och TakeCare med fokus på personcentrerad omsorg. Driven av att skapa trygghet och livskvalitet för brukare genom respektfulla, professionella möten.',
+
+      erfarenhet: [
+        {
+          titel: 'Hemtjänstpersonal',
+          arbetsgivare: 'Attendo Care AB',
+          period: '2020 – Nuvarande',
+          beskrivning: [
+            'Ansvarar för personlig omvårdnad och ADL-stöd hos 12-15 brukare dagligen med fokus på demensvård och palliativ omvårdnad',
+            'Utför medicindelegering enligt rutiner och dokumenterar dagliga insatser i Lifecare för 95% rapporteringsefterlevnad',
+            'Implementerade rehabiliterande arbetssätt som ökade brukarnas självständighet i ADL-aktiviteter med 30% över 18 månader',
+            'Handleder och introducerar 8 nyanställda kollegor i arbetssätt, säkerhetsrutiner och systemhantering',
+            'Samverkar med sjuksköterskor, arbetsterapeuter och anhöriga för helhetsvård och upprättar individuella vårdplaner i IBIC'
+          ]
+        },
+        {
+          titel: 'Undersköterska/Hemtjänstpersonal',
+          arbetsgivare: 'Stockholms Stad – Hemtjänst Södermalm',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Utförde serviceinsatser och personlig omvårdnad för 15-20 brukare per dag med varierande omsorgsbehov',
+            'Administrerade läkemedel efter delegering och säkerställde korrekt dosering för 100% av ordinerade insatser',
+            'Dokumenterade vårdinsatser i Time Care med 98% tidsstämpling enligt kommunala riktlinjer',
+            'Deltog i tvärprofessionella möten och rapporterade avvikelser enligt Lex Sarah och Lex Maria',
+            'Arbetade flexibelt med kvälls-, natt- och helgpass för att säkerställa kontinuitet i omsorgen'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde',
+          arbetsgivare: 'Humana Omsorg AB',
+          period: '2016 – 2017',
+          beskrivning: [
+            'Assisterade med ADL-aktiviteter, matlagning och hushållsarbete för 8-10 brukare dagligen',
+            'Byggde förtroendefulla relationer med äldre personer med demens och säkerställde trygghet i vardagen',
+            'Larmade och hanterade akuta situationer enligt trygghetslarmrutiner med snabb responstid under 5 minuter',
+            'Genomförde introduktionsutbildning i Procapita och basala hygienrutiner'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Undersköterska inom äldreomsorg',
+          skola: 'Praktiska Gymnasiet Stockholm',
+          period: '2014 – 2016',
+          beskrivning: 'Yrkesutbildning med fokus på omvårdnad, medicin, etik och kommunikation. Praktik inom både särskilt boende och hemtjänst.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Lifecare (vårdplaneringssystem)',
+          'TakeCare (schemaläggning)',
+          'Time Care (tidrapportering)',
+          'IBIC (behovsbedömning)',
+          'Procapita (kommunalsystem)',
+          'Medicintekniska hjälpmedel',
+          'ADL-bedömning',
+          'Social dokumentation'
+        ],
+        personliga: [
+          'Empati och lyhördhet',
+          'Integritet och respekt',
+          'Självständighet',
+          'Flexibilitet',
+          'Stresshantering'
+        ]
+      },
+
+      certifieringar: [
+        'HLR och hjärtstartare (2024)',
+        'Medicindelegering – bas och fördjupning (2023)',
+        'Demensutbildning Silviasystrar Nivå 1 (2022)',
+        'Akta Ryggen – ergonomi och förflyttningsteknik (2023)',
+        'Palliativ vård grundkurs (2021)',
+        'Basala hygienrutiner (2020)',
+        'Larmhantering och trygghetsteknologi (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika system gör CV:t synligt för ATS',
+        text: `CV:t nämner fem konkreta hemtjänstsystem vid namn: Lifecare, TakeCare, Time Care, IBIC och Procapita. Varje system beskrivs med kompetensnivå och användningstid, vilket visar djup praktisk erfarenhet snarare än endast teoretisk kännedom.
+
+Varför detta fungerar: ATS-system som läser CV:n söker efter exakta systemnamn när rekryterare filtrerar kandidater. Kommuner och privata vårdgivare använder ofta samma dokumentationssystem nationellt, vilket gör att CV:t dyker upp i sökningar efter "Lifecare hemtjänst" eller "TakeCare undersköterska". Generiska beskrivningar som "digitala vårdverktyg" eller "dokumentationssystem" ger inga träffar. Genom att specificera både systemnamn och erfarenhetstid bevisar du att du kan börja arbeta från dag ett utan kostsam systemutbildning.`
+      },
+      {
+        rubrik: 'Kvantifierade omvårdnadsresultat som bevisar kvalitet',
+        text: `Istället för vaga påståenden innehåller CV:t tre konkreta resultat: 12-15 brukare per dag (kapacitet), 95% rapporteringsefterlevnad (dokumentationsprecision), och +30% brukarsjälvständighet genom rehabiliterande arbetssätt (omvårdnadskvalitet). Varje siffra kopplas till en specifik arbetsgivare och tidsperiod.
+
+Varför detta fungerar: Kommuner och privata vårdgivare mäter hemtjänstens kvalitet genom KPI:er som dokumentationsnivå, brukarsjälvständighet och vårdtyngd per personal. När du visar att du aktivt bidragit till förbättrade resultat inom dessa områden signalerar du att du förstår verksamhetens kvalitetsarbete. Det skiljer dig från kandidater som endast listar arbetsuppgifter utan att visa faktisk påverkan på brukarnas livskvalitet och rehabilitering. Siffror gör ditt CV minnesvärt och trovärdigt.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och empatisk omsorg',
+        text: `CV:t kombinerar hårda kompetenser som medicindelegering, Lifecare-dokumentation och IBIC-rapportering med mjuka färdigheter som leder till resultat: personcentrerad omsorg som ökade brukarsjälvständigheten med 30%, och uppmärksam hälsoövervakning som dokumenteras med 95% efterlevnad. Tekniska system nämns alltid tillsammans med konkret tillämpning.
+
+Varför detta fungerar: Hemtjänst kräver både teknisk precision (korrekt medicindosering, exakt dokumentation) och mellanmänsklig kompetens (trygghetsskapande, motiverande samtal). Genom att visa att dina empatiska förmågor faktiskt lett till mätbara resultat undviker du problemet med vaga påståenden. Istället för att bara skriva "empatisk och omhändertagande" bevisar du att din förmåga att tillämpa rehabiliterande arbetssätt faktiskt förbättrade brukarnas funktionsförmåga konkret. Detta gör dina mjuka färdigheter verifierbara.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        text: `Alla fem certifieringar är daterade: HLR förnyad 2024, Medicindelegering 2023, Demensutbildning Silviasystrar 2022, Akta Ryggen 2023, Palliativ vård 2021. Detta visar att kompetensen är giltig och regelbundet uppdaterad enligt branschkrav.
+
+Varför detta fungerar: Hemtjänsten har lagkrav på gällande HLR-certifiering och ergonomisk förflyttningsteknik enligt Arbetsmiljöverket. Medicindelegering kräver förnyelse vart tredje år. När du anger årtal visar du att du förstår dessa krav och att din kompetens är giltig. Rekryterare kan se direkt att de inte behöver skicka dig på akuta utbildningar före anställningsstart, vilket sparar både tid och kostnader. Dessutom signalerar specialutbildningar som Demensutbildning Silviasystrar att du aktivt söker fördjupning inom omvårdnad.`
+      },
+      {
+        rubrik: 'Profiltext som sammanfattar specialisering',
+        text: `Profiltexten öppnar med "Undersköterska med 8+ års erfarenhet" och fortsätter direkt med specialiseringar: personcentrerad omsorg, medicindelegering, demensomvårdnad och ADL-stöd. Därefter listas konkreta system (Lifecare, TakeCare, IBIC) och kvantifierbara resultat (12-15 brukare/dag, 95% rapportering). Profilen är kompakt men informationstät.
+
+Varför detta fungerar: Rekryterare läser profilsammanfattningen först och beslutar på 15 sekunder om de ska läsa vidare. Genom att omedelbart kommunicera erfarenhetstid, specialisering och systemkunskap fångar du deras uppmärksamhet. Profilsammanfattningen fungerar som en elevator pitch som visar vad du kan och vad du uppnått. Generiska beskrivningar som "erfaren och pålitlig" ger inget värde. Konkreta termer som "medicindelegering" och "IBIC-rapportering" visar direkt att du har den kompetens som efterfrågas.`
+      },
+      {
+        rubrik: 'Tydlig progression från vårdbiträde till handledarroll',
+        text: `CV:t visar karriärutveckling från hemtjänstvikarie (tidig erfarenhet) till fast undersköterska hos Attendo och Stockholms Stad, och slutligen till senior roll med handledaransvar för 8 nyanställda hos Humana. Varje position beskriver ökande ansvar och mer komplexa arbetsuppgifter som medicindelegering och palliativ vård.
+
+Varför detta fungerar: Progression visar ambition och förmåga att växa i rollen. Handledarerfarenhet signalerar att tidigare arbetsgivare litade på dig med mentorskap och kunskapsöverföring, vilket är en förtroenderoll. Det indikerar också att du förstår verksamhetens arbetssätt tillräckligt väl för att kunna lära ut det till andra. Arbetsgivare som söker senior hemtjänstpersonal eller blivande teamledare prioriterar kandidater som visat progression och ledarskapsförmåga.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera omvårdnadsresultat med konkreta siffror',
+        text: `Rekryterare inom hemtjänst vill se din faktiska påverkan på brukarna, inte bara vad du gör. Kvantifiera antal brukare du hanterar, dokumentationsnivå och förbättringar du bidragit till. Detta skiljer dig från kandidater som bara listar arbetsuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för brukare och dokumenterar i vårdjournal"
+
+✅ "Ansvarig för 12-15 brukare per dag med ADL-stöd och medicindelegering. Upprätthåller 95% rapporteringsefterlevnad i Lifecare och ökade brukarsjälvständighet med 30% genom rehabiliterande arbetssätt."
+
+Konkreta siffror gör att rekryteraren direkt kan bedöma om din erfarenhetsnivå matchar tjänsten de söker. Antal brukare visar kapacitet, procenttal visar kvalitet.`
+      },
+      {
+        rubrik: 'Framhäv certifieringar med årtal och förnyelsedatum',
+        text: `Hemtjänsten har lagkrav på gällande certifieringar som HLR, förflyttningsteknik och medicindelegering. Om du inte visar att dina certifieringar är giltiga antar arbetsgivaren att de löpt ut. Inkludera alltid årtal för att bevisa att kompetensen är aktuell.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad i HLR och medicindelegering"
+
+✅ "HLR förnyad 2024 | Medicindelegering enligt SOSFS 2009:6 (certifierad 2023) | Demensutbildning Silviasystrar (2022) | Akta Ryggen (2023)"
+
+Aktuella årtal visar att du förstår branschens krav och att du är redo att börja arbeta direkt utan extra utbildningskostnader. Specialutbildningar som Silviasystrar visar dessutom fördjupning inom demensomvårdnad.`
+      },
+      {
+        rubrik: 'Visa systemkompetens med specifika namn och erfarenhetstid',
+        text: `Lifecare, TakeCare, Time Care, IBIC, Procapita – dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver systemutbildning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra från dag ett.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av digitala dokumentationssystem"
+
+✅ "Lifecare – Expert, 5+ år daglig dokumentation och rapportering | TakeCare – Avancerad, 3+ år schemaläggning och vårdplanering | IBIC – 2+ år avvikelsehantering"
+
+Specifika system gör att ditt CV dyker upp i ATS-sökningar när rekryterare filtrerar på "Lifecare hemtjänst" eller "TakeCare undersköterska". Generiska beskrivningar ger inga träffar.`
+      },
+      {
+        rubrik: 'Betona rehabiliterande arbetssätt och brukarsjälvständighet',
+        text: `Moderna hemtjänsten fokuserar på rehabilitering snarare än kompensation. Visa att du arbetar enligt "gör med, inte för"-principen och att du aktivt stöttar brukare att behålla sin funktionsförmåga. Detta är en högt efterfrågad kompetens som skiljer dig från traditionell hjälppersonal.
+
+**Exempel på före/efter**:
+
+❌ "Hjälper brukare med dagliga aktiviteter och personlig hygien"
+
+✅ "Tillämpar rehabiliterande arbetssätt enligt 'gör med, inte för'-principen vilket ökade brukarsjälvständighet med 30% genom motiverande samtal och anpassade träningsprogram i ADL-aktiviteter"
+
+Rehabiliterande arbetssätt är en kärnkompetens i kommunal hemtjänst. Visa att du förstår skillnaden mellan att utföra åt brukaren och att stödja brukaren att göra själv.`
+      },
+      {
+        rubrik: 'Inkludera tvärprofessionellt samarbete och koordinering',
+        text: `Hemtjänst innebär inte att arbeta isolerat. Du samarbetar dagligen med sjuksköterskor, biståndshandläggare, fysioterapeuter och anhöriga. Beskriv detta samarbete konkret för att visa din kommunikationsförmåga och förståelse för vårdkedjan.
+
+**Exempel på före/efter**:
+
+❌ "God samarbetsförmåga med kollegor"
+
+✅ "Samarbetar tvärprofessionellt med distriktssköterskor för medicindelegering, biståndshandläggare för genomförandeplaner, och fysioterapeuter för hemrehabilitering. Koordinerar anhörigkontakt och rapporterar hälsoförändringar till ansvarig sjuksköterska."
+
+Tvärprofessionellt samarbete visar att du förstår din roll i vårdkedjan och kan kommunicera med olika yrkesgrupper. Detta är särskilt viktigt för kontaktmannaskaps- och koordineringsroller.`
+      },
+      {
+        rubrik: 'Framhäv flexibilitet med arbetstider och larmhantering',
+        text: `Hemtjänst innebär obekväma arbetstider: tidiga morgnar, sena kvällar, helger och jourpass. Om du har erfarenhet av detta, framhäv det tydligt. Arbetsgivare söker personal som förstår branschens krav på flexibilitet och tillgänglighet.
+
+**Exempel på före/efter**:
+
+❌ "Flexibel med arbetstider"
+
+✅ "Erfarenhet av flexibel schemaläggning inklusive dag-, kväll- och helgpass. Hanterar larmkallelser och akuta insatser med 15 minuters responstid. Van vid rullande schema och jourberedskap."
+
+Konkret beskrivning av flexibilitet visar att du är medveten om branschens krav och kan hantera oförutsägbara situationer. Larmhantering och snabb responstid är meriterande för många hemtjänsttjänster.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som hemtjänstpersonal vara?',
+        svar: 'För hemtjänstpersonal med 0-3 års erfarenhet räcker 1 sida. Med 3-8+ års erfarenhet och flera arbetsgivare kan du använda 1-2 sidor. Fokusera på de senaste 5-7 åren och lyft fram progression samt specialiseringar som medicindelegering eller demensomvårdnad. Prioritera alltid kvalitet framför kvantitet – konkreta siffror på antal brukare och resultat är viktigare än att fylla sidor.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'Profilbild är frivilligt i Sverige och inget krav inom hemtjänsten. Fokusera istället på innehållet – kvantifierbara resultat, systemkunskap och certifieringar. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund. Många ATS-system kan inte läsa bilder, så säkerställ att all viktig information finns i text.'
+      },
+      {
+        fraga: 'Hur skriver jag CV utan erfarenhet från hemtjänst?',
+        svar: 'Fokusera på din utbildning (Vård- och omsorgsprogrammet eller Omvårdnadsprogrammet), APL-praktik, och personliga egenskaper som empati och fysisk uthållighet. Nämn B-körkort, relevant volontärarbete eller erfarenhet av att vårda äldre anhöriga. Lyft fram certifieringar som HLR eller Första hjälpen. Om du har erfarenhet från äldreboende, LSS-boende eller personlig assistans, framhäv överförbara kompetenser som ADL-stöd och dokumentation.'
+      },
+      {
+        fraga: 'Vilka kompetenser ska jag prioritera i mitt hemtjänst-CV?',
+        svar: 'Prioritera dessa kompetenser: ADL-stöd (personlig hygien, på/avklädning), medicindelegering om du har det, dokumentationssystem (Lifecare, TakeCare, IBIC), demensomvårdnad, rehabiliterande arbetssätt, B-körkort, och tvärprofessionellt samarbete. Lägg till certifieringar som HLR, Akta Ryggen och hygienrutiner. Om du har kontaktmannaskap eller handledarerfarenhet, framhäv det. Dessa är kärnkompetenser som alla kommuner och privata vårdgivare söker.'
+      },
+      {
+        fraga: 'Hur visar jag medicindelegering i mitt CV?',
+        svar: 'Lista medicindelegering under både Kompetenser och Certifieringar med årtal. Ange certifieringsnivå enligt SOSFS 2009:6 och förnyelsedatum. I erfarenhetsbeskrivningar, visa konkret tillämpning: "Ansvarig för medicindelegering för 12 brukare: tablettdelning, insulininjektioner och sårvård enligt delegation från distriktssköterska". Nämn också antal brukare och typ av medicinska åtgärder du utfört.'
+      },
+      {
+        fraga: 'Vilka hemtjänstsystem ska jag nämna i mitt CV?',
+        svar: 'Nämn alla system du använt: Lifecare, TakeCare, Time Care, IBIC, Procapita, Phoniro Care (nyckellöst lås), Carelink. Ange systemnamn och hur länge du använt dem: "Lifecare – Expert, 5+ år daglig dokumentation". Lista systemen under Tekniska kompetenser och använd dem i erfarenhetsbeskrivningar. Detta gör att ditt CV dyker upp i ATS-sökningar efter specifika systemnamn.'
+      },
+      {
+        fraga: 'Hur skriver jag om demenskompetens i CV:t?',
+        svar: 'Specificera vilken demensutbildning du har (t.ex. Demensutbildning Silviasystrar, Svenska Demenscentrum, Demensvårdsutbildning). Ange årtal. I erfarenhetsbeskrivningar, beskriv konkret: "Vårdade 8 brukare med demensdiagnos, tillämpar BPSD-hantering och personcentrerad omsorg enligt Tom Kitwood". Nämn också resultat som "skapade trygghetsskapande rutiner som minskade oro och vandring med 40%".'
+      },
+      {
+        fraga: 'Ska jag skriva att jag kan arbeta kvällar och helger?',
+        svar: 'Ja, absolut. Hemtjänst innebär obekväma arbetstider och arbetsgivare söker flexibel personal. Skriv konkret: "Erfarenhet av flexibel schemaläggning inklusive dag-, kväll- och helgpass samt jourberedskap" under relevant arbetsplats. Om du hanterat larmkallelser, nämn det: "Hanterar larmkallelser med 15 minuters responstid". Detta visar att du förstår branschens krav.'
+      },
+      {
+        fraga: 'Hur visar jag ADL-stöd och rehabiliterande arbetssätt?',
+        svar: 'Lista ADL-stöd under Kompetenser: "ADL-stöd – personlig hygien, på/avklädning, matning, toalettbesök (Expert, 8+ år)". I erfarenhetsbeskrivningar, visa rehabiliterande arbetssätt: "Tillämpar rehabiliterande arbetssätt enligt gör med, inte för-principen vilket ökade brukarsjälvständighet med 30%". Beskriv också samarbete med fysioterapeuter och arbetsterapeuter kring hemrehabilitering.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktigast för hemtjänstpersonal?',
+        svar: 'Prioritera dessa certifieringar: HLR (förnyelsekrav vartannat år), Medicindelegering enligt SOSFS 2009:6 (om du har det), Akta Ryggen eller Förflyttningsteknik (arbetsmiljökrav), Basala hygienrutiner och smittskydd, Demensutbildning (t.ex. Silviasystrar). Meriterande: Palliativ vård, Diabetes typ 1 och 2, Sårbehandling. Ange alltid årtal och förnyelsedatum för att visa att kompetensen är giltig.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' }
+    ]
   }
 }
 

@@ -580,6 +580,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för fastighetsskötare med fokus på teknisk bredd, certifieringar och kvantifierade resultat inom fastighetsförvaltning.',
       highlight: ['Heta arbeten, elsäkerhet och F-gas', 'Vitec och Momentum fastighetssystem', 'Minskade felanmälningar och energibesparing']
     }
+  },
+  {
+    id: 'hemtjanstpersonal',
+    yrke: 'Hemtjänstpersonal',
+    slug: 'hemtjanstpersonal',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 890,
+    icon: Heart,
+    gradient: 'from-rose-500 via-pink-600 to-rose-700',
+    preview: {
+      intro: 'CV för hemtjänstpersonal med fokus på ADL-stöd, medicindelegering och kvantifierade omvårdnadsresultat.',
+      highlight: ['Lifecare, TakeCare och IBIC-system', 'Demensutbildning och certifieringar med årtal', 'Rehabiliterande arbetssätt och brukarsjälvständighet']
+    }
   }
 ]
 
@@ -744,7 +758,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  39 yrken
+                  40 yrken
                 </motion.span>
               </h1>
 
@@ -764,7 +778,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">39</div>
+                    <div className="text-2xl font-bold text-slate-900">40</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>
