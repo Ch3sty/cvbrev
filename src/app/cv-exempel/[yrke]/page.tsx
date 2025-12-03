@@ -11231,6 +11231,256 @@ Kombinationen av tekniska system och mjuka färdigheter visar att du förstår a
       { yrke: 'Chef', slug: 'chef' },
       { yrke: 'Administratör', slug: 'administrator' }
     ]
+  },
+
+  'controller': {
+    yrke: 'Controller',
+    sokvolym: 880,
+    kategori: 'ekonomi',
+
+    metaTitle: 'CV Exempel Controller 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för controller med budgetarbete, forecasting och affärsanalys. ATS-optimerat med SAP, Power BI och kvantifierade resultat. Tips och mall.',
+
+    seoIntro: `Hur skriver du ett CV som controller som får rekryterare att ta kontakt? En controllers CV måste visa mer än bara sifferkunskap – det handlar om att bevisa din förmåga att driva affärsbeslut med data.
+
+Det här exemplet visar hur du strukturerar ett professionellt controller-CV som passerar ATS-filter och imponerar på CFO:er. Här ser du hur Maria kombinerar tekniska verktyg som SAP och Power BI med strategiskt affärstänk. CV:t innehåller kvantifierbara resultat från budgetarbete, forecasting och kostnadsanalyser – precis det arbetsgivare söker.
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financial controlling, variance analysis eller business partnering. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker tjänst inom industri, detaljhandel eller tjänstesektorn.`,
+
+    intro: 'Controller med fokus på budgetarbete, forecasting och affärsanalys. CV-exemplet visar hur du kombinerar tekniska verktyg med strategiskt affärstänk.',
+
+    exempelCV: {
+      namn: 'Maria Eriksson',
+      titel: 'Business Controller med inriktning mot budgetering & forecasting',
+
+      kontakt: {
+        telefon: '073-555 12 34',
+        epost: 'maria.eriksson@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/mariaeriksson'
+      },
+
+      profil: 'Business Controller med 7 års erfarenhet inom tillverknings- och detaljhandelsindustrin. Specialiserad på budgetarbete, rolling forecasts och lönsamhetsanalyser med SAP och Power BI. Driver proaktivt affärsstöd till ledningsgrupper genom variance analysis och kostnadsoptimering. Certifierad inom IFRS och har lett implementering av nya rapporteringsprocesser som effektiviserat månadsavslut med 40%.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Business Controller',
+          arbetsgivare: 'Volvo Group',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarar för budgetarbete och forecasting för affärsområde med omsättning på 2,5 miljarder SEK årligen',
+            'Implementerade rolling 12-month forecast som förbättrade träffsäkerheten från 85% till 94%',
+            'Leder månatlig variance analysis mot budget och presenterar avvikelser för ledningsgruppen',
+            'Utvecklade Power BI-dashboards som reducerade rapporteringstiden med 60% och ökade självservice',
+            'Business partner till 4 produktchefer med proaktiva kostnadsanalyser och investeringsunderlag'
+          ]
+        },
+        {
+          titel: 'Controller',
+          arbetsgivare: 'H&M Group',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Drev månadsavslut för 12 butiker med total budget om 180 MSEK',
+            'Identifierade besparingsmöjligheter som reducerade lagerkostnader med 15% (4,2 MSEK)',
+            'Införde standardiserade rapportmallar som effektiviserade controllerprocessen med 35%',
+            'Samarbetade med regionchef kring butikslönsamhet och resursoptimering'
+          ]
+        },
+        {
+          titel: 'Ekonomiassistent',
+          arbetsgivare: 'Grant Thornton',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Genomförde månads- och årsbokslut för 25+ klientföretag inom olika branscher',
+            'Stöttade revisorer med avstämningar och analys av resultaträkningar',
+            'Deltog i implementering av nytt ekonomisystem (Fortnox) för 8 klienter'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilekonom, inriktning redovisning & finansiering',
+          skola: 'Handelshögskolan Göteborg',
+          period: '2012 – 2016',
+          beskrivning: 'Fördjupning inom management accounting och corporate finance. Examensarbete om rolling forecasts i tillverkningsindustrin.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'SAP FI/CO (Expert, 7+ år)',
+          'Power BI & Tableau',
+          'Microsoft Excel (Power Query, Power Pivot, VBA)',
+          'Budgetering & forecasting',
+          'Variance analysis',
+          'IFRS & K3-redovisning'
+        ],
+        personliga: [
+          'Business partnering',
+          'Analytisk problemlösning',
+          'Presentation till ledning',
+          'Strukturerad arbetsmetodik',
+          'Proaktiv kommunikation'
+        ]
+      },
+
+      certifieringar: [
+        'IFRS-certifiering – FAR (2022)',
+        'SAP FI/CO Certification (2020)',
+        'Power BI Data Analyst – Microsoft (2023)',
+        'Controllerns verktygslåda – IHM Business School (2019)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika system som ATS identifierar',
+        text: `CV:t nämner SAP FI/CO, Power BI och Tableau med specifika kompetenser – system som controllers dagligen arbetar med och som rekryterare aktivt söker efter.
+
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på nyckelord från jobbannonsen. Genom att explicit nämna SAP, Power BI och IFRS ökar Maria sina chanser att passera den automatiska gallringen. Många ekonomsystem har specifika moduler (som SAP FI/CO) och att visa denna detaljnivå signalerar genuint systemkunnande.`
+      },
+      {
+        rubrik: 'Siffror som visar affärspåverkan',
+        text: `Varje erfarenhetspost innehåller konkreta resultat: 2,5 miljarder i omsättningsansvar, forecast-träffsäkerhet från 85% till 94%, lagerbesparingar på 4,2 MSEK och 60% snabbare rapportering.
+
+Varför detta fungerar: Rekryterare jämför kandidaters kapacitet genom siffror. "Ansvarig för budget" säger lite, men "budgetansvar för 2,5 miljarder SEK" ger omedelbar kontext. CFO:er och ekonomichefer är vana vid att läsa finansiella resultat och uppskattar kandidater som kommunicerar på samma sätt.`
+      },
+      {
+        rubrik: 'Teknisk expertis möter affärsstrategi',
+        text: `Maria visar både djup systemkunskap (SAP, Power BI, Power Query) och strategisk förmåga (business partnering, presentations till ledningsgrupp, investeringsunderlag).
+
+Varför detta fungerar: En modern controller är mer än en sifferexpert – rollen kräver förmåga att översätta data till affärsbeslut. Genom att visa "business partner till 4 produktchefer" och "presenterar avvikelser för ledningsgruppen" bevisar Maria att hon kan kommunicera med stakeholders på alla nivåer.`
+      },
+      {
+        rubrik: 'Certifieringar som visar aktualitet',
+        text: `IFRS-certifiering (2022), SAP-certifiering (2020) och Power BI-certifiering (2023) – alla med årtal som visar kontinuerlig kompetensutveckling.
+
+Varför detta fungerar: Redovisningsregler och system uppdateras ständigt. Årtal på certifieringar bevisar att kunskapen är aktuell. IFRS-certifiering från FAR är särskilt värdefull för controllers som arbetar med koncernredovisning eller internationella företag.`
+      },
+      {
+        rubrik: 'Profiltext som fångar på 10 sekunder',
+        text: `Profilen sammanfattar: 7 års erfarenhet + branscher (tillverkning, detaljhandel) + specialisering (budgetering, forecasting) + verktyg (SAP, Power BI) + konkret resultat (40% effektivare månadsavslut).
+
+Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Marias profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och ett mätbart resultat – allt inom fyra meningar.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression',
+        text: `CV:t visar utveckling från Ekonomiassistent (Grant Thornton) via Controller (H&M) till Senior Business Controller (Volvo Group) – med tydligt ökande ansvar och komplexitet.
+
+Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat befordran genom resultat. För en controller-tjänst är det värdefull information att kandidaten har erfarenhet från både revisionsbyrå och industri, och att hon gått från operativt till strategiskt arbete.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt ekonomiterminologi för ATS-system',
+        text: `Controllers söks ofta baserat på specifika systemkunskaper och metoder. Inkludera relevanta termer som SAP FI/CO, Oracle Financials, Microsoft Dynamics 365, Power BI, Tableau, rolling forecasts, variance analysis, IFRS och K3.
+
+Varför: ATS-system rankar kandidater baserat på hur många nyckelord som matchar jobbannonsen. Läs annonsen noggrant och inkludera exakt de system och metoder som efterfrågas.
+
+❌ "Erfarenhet av ekonomisystem och budgetarbete"
+✅ "7 års erfarenhet av SAP FI/CO, budgetarbete (250 MSEK) och rolling 12-month forecasts"`
+      },
+      {
+        rubrik: 'Kvantifiera ditt budgetansvar med siffror',
+        text: `Som controller arbetar du dagligen med siffror – låt det synas i ditt CV. Inkludera budgetstorlek (MSEK), antal enheter, omsättningsansvar och förbättringar i procent.
+
+Varför: Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Budgetansvar" kan betyda 10 MSEK eller 1 miljard – siffran gör skillnad.
+
+❌ "Ansvarig för företagets budget och forecasting"
+✅ "Budgetansvar för 180 MSEK fördelat på 12 kostnadsställen med månatlig forecasting"`
+      },
+      {
+        rubrik: 'Visa konkreta affärsresultat',
+        text: `Controllers värderas inte bara för vad de gör, utan för vilken affärspåverkan de har. Beskriv resultat som kostnadsbesparingar, effektiviseringar och förbättrad träffsäkerhet.
+
+Varför: En controller som kan visa "identifierade besparingsmöjligheter på 4,2 MSEK" är mer intressant än en som bara "genomförde kostnadsanalyser".
+
+❌ "Utförde analyser och rapporter till ledningen"
+✅ "Identifierade lageroptimering som reducerade kapitalbindning med 2,8 MSEK genom ABC-analys"`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter tjänstens fokus',
+        text: `Controller-rollen varierar kraftigt: Business Controller fokuserar på affärsstöd, Financial Controller på redovisning, och Group Controller på koncernkonsolidering.
+
+Varför: En profiltext som nämner "koncernredovisning och IFRS" matchar bättre en Group Controller-tjänst, medan "business partnering och lönsamhetsanalyser" passar Business Controller.
+
+Struktur: [X års erfarenhet] + [Branscher] + [Specialisering] + [System/certifieringar] + [Konkret resultat]`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar inom redovisning och system',
+        text: `Ekonomicertifieringar signalerar professionalism och aktuell kunskap. Prioritera IFRS (FAR), auktoriserad redovisningskonsult, systemcertifieringar (SAP, Oracle) och analysverktyg (Power BI).
+
+Varför: Certifieringar särskiljer dig från kandidater med liknande erfarenhet. Inkludera alltid årtal – IFRS-regler uppdateras kontinuerligt.
+
+❌ "Certifierad inom IFRS"
+✅ "IFRS-certifiering – FAR (2022), förnyad 2024"`
+      },
+      {
+        rubrik: 'Balansera teknisk expertis med affärsförståelse',
+        text: `En modern controller måste visa både systemkompetens och förmåga att kommunicera med affärssidan. Beskriv hur du använder data för att påverka beslut.
+
+Varför: Arbetsgivare söker controllers som kan vara "business partners" – inte bara siffergranskare. Visa att du presenterar för ledningsgrupp och ger proaktiva rekommendationer.
+
+❌ "God kommunikationsförmåga"
+✅ "Business partner till 4 produktchefer med månatliga lönsamhetsgenomgångar och investeringsrekommendationer"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som controller vara?',
+        svar: 'För controllers rekommenderas 1-2 sidor. Junior controller (0-5 år) klarar sig på 1 sida, medan senior controller eller business controller med strategiskt ansvar ofta behöver 2 sidor för att visa progression och affärsresultat. Fokusera på de senaste 10-15 åren.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild vanligt men inte obligatoriskt för controllers. Om du inkluderar en, välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Många internationella företag föredrar CV utan bild av likabehandlingsskäl.'
+      },
+      {
+        fraga: 'Hur visar jag SAP-erfarenhet på mitt CV?',
+        svar: 'Specificera vilka SAP-moduler du arbetat med (FI, CO, MM, SD). Skriv "SAP FI/CO – 7 års erfarenhet" istället för bara "SAP". Om du har SAP-certifiering, inkludera den med årtal. Beskriv även hur du använt systemet: "Implementerade nya kostnadsställestrukturer i SAP CO för 15 avdelningar".'
+      },
+      {
+        fraga: 'Vilka ekonomisystem ska jag nämna i mitt CV?',
+        svar: 'Nämn specifika systemnamn: SAP, Oracle Financials, Microsoft Dynamics 365, Visma, Fortnox. För analys: Power BI, Tableau, Qlik. För Excel: specificera avancerade funktioner som Power Query, Power Pivot och VBA. Matcha systemen mot jobbannonsen och ange erfarenhetsnivå.'
+      },
+      {
+        fraga: 'Hur beskriver jag budgetarbete i mitt CV?',
+        svar: 'Kvantifiera alltid budgetarbete med siffror. Inkludera: budgetstorlek (MSEK), antal kostnadsställen, typ av budget (top-down, bottom-up, ZBB). Exempel: "Drev årlig budgetprocess för 12 kostnadsställen med total ram om 250 MSEK, inklusive förhandling med 8 avdelningschefer".'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för Business Controller vs Financial Controller?',
+        svar: 'Business Controller: Betona affärsstöd, lönsamhetsanalyser, business partnering och strategiska rekommendationer. Financial Controller: Fokusera på redovisning, månadsavslut, IFRS/K3 och koncernrapportering. Group Controller: Lyft koncernkonsolidering, eliminering och IFRS 10/16. Anpassa profiltext och kompetenser efter rollens fokus.'
+      },
+      {
+        fraga: 'Ska jag inkludera IFRS och K3-kunskap?',
+        svar: 'Ja, om du har erfarenhet av båda standarderna. IFRS är relevant för noterade bolag och internationella koncerner, K3 för svenska onoterade företag. Skriv "IFRS-certifiering (FAR, 2022)" och "Erfarenhet av K3-rapportering för 15 dotterbolag". Om du arbetat med övergång mellan standarder, beskriv det.'
+      },
+      {
+        fraga: 'Hur visar jag Power BI-kompetens effektivt?',
+        svar: 'Gå bortom "Power BI-erfarenhet" – visa affärspåverkan. Skriv "Utvecklade Power BI-dashboards som reducerade manuell rapporteringstid med 60% och möjliggjorde självservice för 20 chefer". Nämn DAX-kunskap, Power Query och om du kopplat mot SAP, Oracle eller databaser.'
+      },
+      {
+        fraga: 'Hur beskriver jag forecasting-erfarenhet?',
+        svar: 'Specificera typ av forecast: rolling forecast (12 månader, kvartalsvis), scenario-modellering, eller budget-forecast. Inkludera träffsäkerhet om möjligt: "Implementerade rolling 12-month forecast med 94% träffsäkerhet mot utfall". Nämn verktyg: SAP BPC, Anaplan, Excel-modeller.'
+      },
+      {
+        fraga: 'Vilka certifieringar är mest värdefulla för controllers?',
+        svar: 'Högst värderade: IFRS-certifiering (FAR), Auktoriserad redovisningskonsult (FAR), CMA (Certified Management Accountant). Systemcertifieringar: SAP FI/CO, Oracle Financials, Power BI Data Analyst (Microsoft). Kompletterande: Controllerns verktygslåda (IHM), Excel-certifieringar. Inkludera alltid årtal för aktualitet.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Handläggare', slug: 'handlaggare' }
+    ]
   }
 }
 

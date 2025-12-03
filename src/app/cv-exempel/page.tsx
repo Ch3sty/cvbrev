@@ -636,6 +636,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för HR-specialist med fokus på rekrytering, arbetsrätt och organisationsutveckling inom tillverkningsindustri och tjänstesektor.',
       highlight: ['Workday, SAP SuccessFactors och TeamTailor', 'Kvantifierade rekryteringsresultat och personalomsättning', 'Arbetsrätt (LAS, MBL) och GDPR-certifieringar']
     }
+  },
+  {
+    id: 'controller',
+    yrke: 'Controller',
+    slug: 'controller',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 880,
+    icon: Calculator,
+    gradient: 'from-emerald-500 via-teal-600 to-emerald-700',
+    preview: {
+      intro: 'CV för controller med fokus på budgetarbete, forecasting och affärsanalys inom tillverkning och detaljhandel.',
+      highlight: ['SAP FI/CO, Power BI och IFRS-certifiering', 'Kvantifierade resultat (miljarder i omsättningsansvar)', 'Business partnering och variance analysis']
+    }
   }
 ]
 
@@ -800,7 +814,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  43 yrken
+                  44 yrken
                 </motion.span>
               </h1>
 
