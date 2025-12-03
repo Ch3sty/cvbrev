@@ -594,6 +594,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för hemtjänstpersonal med fokus på ADL-stöd, medicindelegering och kvantifierade omvårdnadsresultat.',
       highlight: ['Lifecare, TakeCare och IBIC-system', 'Demensutbildning och certifieringar med årtal', 'Rehabiliterande arbetssätt och brukarsjälvständighet']
     }
+  },
+  {
+    id: 'servicemedarbetare',
+    yrke: 'Servicemedarbetare',
+    slug: 'servicemedarbetare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 420,
+    icon: Briefcase,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'CV för servicemedarbetare med fokus på fastighetsdrift, receptionsarbete och kvantifierade serviceresultat.',
+      highlight: ['Aptean Workplace och ISS FastFM', 'Heta arbeten, truckkort och hygienutbildning', 'Kundnöjdhet 78%→92% och 8 000 kvm lokalansvar']
+    }
   }
 ]
 
@@ -758,7 +772,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  40 yrken
+                  41 yrken
                 </motion.span>
               </h1>
 

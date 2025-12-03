@@ -207,6 +207,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'lagerchef',
     'fastighetsskotare',
     'hemtjanstpersonal',
+    'servicemedarbetare',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
