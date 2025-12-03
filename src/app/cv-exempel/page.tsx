@@ -650,6 +650,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för controller med fokus på budgetarbete, forecasting och affärsanalys inom tillverkning och detaljhandel.',
       highlight: ['SAP FI/CO, Power BI och IFRS-certifiering', 'Kvantifierade resultat (miljarder i omsättningsansvar)', 'Business partnering och variance analysis']
     }
+  },
+  {
+    id: 'kassorska',
+    yrke: 'Kassörska',
+    slug: 'kassorska',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: ShoppingCart,
+    gradient: 'from-orange-500 via-amber-600 to-orange-700',
+    preview: {
+      intro: 'CV för kassörska med fokus på kassasystem, kontanthantering och kundservice inom dagligvaruhandel.',
+      highlight: ['Extenda och Hoist kassasystem', 'Kvantifierade resultat (150-200 kunder/dag, 0,1% kassadifferens)', 'Merförsäljning och bonuskortregistreringar']
+    }
   }
 ]
 
@@ -814,7 +828,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  44 yrken
+                  45 yrken
                 </motion.span>
               </h1>
 

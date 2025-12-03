@@ -11539,6 +11539,277 @@ Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståel
       { yrke: 'Chef', slug: 'chef' },
       { yrke: 'Handläggare', slug: 'handlaggare' }
     ]
+  },
+
+  'kassorska': {
+    yrke: 'Kassörska',
+    sokvolym: 480,
+    kategori: 'service',
+
+    metaTitle: 'CV Exempel Kassörska 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för kassörska med kassasystem, kontanthantering och kundservice. ATS-optimerat med kvantifierade resultat. Tips och mall för kassapersonal.',
+
+    seoIntro: `Hur skriver du ett CV som kassörska som verkligen sticker ut? I en bransch med hög konkurrens räcker det inte att bara lista arbetsuppgifter – du måste visa konkreta resultat och rätt systemkunskaper.
+
+Det här exemplet visar hur du strukturerar ett professionellt kassörs-CV som fångar rekryterares uppmärksamhet. Här ser du hur Sara kombinerar kassasystemerfarenhet med merförsäljningsresultat och kundnöjdhetssiffror. CV:t innehåller kvantifierbara resultat från dagskassehantering, bonuskortregistreringar och kassadifferenser – precis det arbetsgivare söker.
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljhandel, livsmedelsbutik eller stormarknad. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker heltid, deltid eller sommarjobb.`,
+
+    intro: 'Kassörska med fokus på kassasystem, kontanthantering och kundservice. CV-exemplet visar hur du kombinerar tekniska färdigheter med servicekompetens.',
+
+    exempelCV: {
+      namn: 'Sara Lindqvist',
+      titel: 'Kassörska med erfarenhet av dagligvaruhandel & kundservice',
+
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'sara.lindqvist@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/saralindqvist'
+      },
+
+      profil: 'Serviceinriktad kassörska med 4 års erfarenhet från ICA och Coop. Specialiserad på snabb och korrekt kassahantering med Extenda och Hoist kassasystem. Dokumenterad förmåga att öka merförsäljning med 15% genom aktivt erbjudande av kampanjvaror och bonuskortregistreringar. Trivs i högt tempo med fokus på kundnöjdhet och effektiv kassalinje.',
+
+      erfarenhet: [
+        {
+          titel: 'Kassörska',
+          arbetsgivare: 'ICA Maxi Uppsala',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Hanterar 150-200 kunder dagligen med genomsnittlig kassatid på 45 sekunder per kund',
+            'Ökade bonuskortregistreringar med 25% genom proaktivt erbjudande till kunder utan kort',
+            'Ansvarig för dagskasseavstämning (50 000-80 000 kr) med mindre än 0,1% kassadifferens',
+            'Utbildade 8 nyanställda kassörer i kassasystem och kontanthantering',
+            'Bidrog till butikens merförsäljningsökning med 15% genom aktivt kampanjerbjudande'
+          ]
+        },
+        {
+          titel: 'Kassabiträde',
+          arbetsgivare: 'Coop Forum',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Betjänade 100-150 kunder per skift med fokus på snabb och korrekt scanning',
+            'Hanterade returer, reklamationer och kundfrågor med 95% positivt kundomdöme',
+            'Stöttade med varupåfyllning och prismarkering vid låg kassabelastning',
+            'Deltog i butikens kundserviceteam och bidrog till NKI-ökning från 78% till 85%'
+          ]
+        },
+        {
+          titel: 'Sommarjobb kassörska',
+          arbetsgivare: 'Willys',
+          period: 'Somrarna 2018-2019',
+          beskrivning: [
+            'Första kassaerfarenhet med snabb inlärning av Hoist kassasystem',
+            'Hanterade självscanning-kassor och assisterade kunder vid problem',
+            'Fick erbjudande om fortsatt deltidsanställning efter sommaren'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Gymnasieexamen, Handelsprogrammet',
+          skola: 'Fyrisskolan Uppsala',
+          period: '2016 – 2019',
+          beskrivning: 'Inriktning service och bemötande. Praktik på ICA Supermarket med fokus på kundservice.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Extenda kassasystem (Expert, 3+ år)',
+          'Hoist kassasystem',
+          'Självscanning & självbetjäningskassor',
+          'Kortterminaler & kontanthantering',
+          'Dagsavstämning & kassarapporter',
+          'Ålderskontroll & alkoholförsäljning'
+        ],
+        personliga: [
+          'Kundservice & bemötande',
+          'Stresshantering i högt tempo',
+          'Merförsäljning & kampanjarbete',
+          'Noggrannhet & precision',
+          'Samarbetsförmåga'
+        ]
+      },
+
+      certifieringar: [
+        'Ansvarsfull alkoholförsäljning – Folkhälsomyndigheten (2021)',
+        'Kundservice i detaljhandeln – Handelsrådet (2020)',
+        'Kontanthantering & säkerhet – ICA Akademin (2021)',
+        'HLR-utbildning (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kassasystem som ATS-filter söker efter',
+        text: `CV:t nämner specifika kassasystem – Extenda och Hoist – som är de vanligaste i svensk dagligvaruhandel. Dessa är exakt de nyckelord rekryterare söker efter.
+
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemnamn från jobbannonsen. Genom att explicit nämna Extenda (ICA) och Hoist (Coop/Willys) ökar Sara sina chanser att passera den automatiska gallringen. "Kassaerfarenhet" är för vagt – specifika systemnamn visar att du kan börja arbeta direkt.`
+      },
+      {
+        rubrik: 'Siffror som visar kapacitet och kvalitet',
+        text: `Varje erfarenhetspost innehåller konkreta mätetal: 150-200 kunder dagligen, 45 sekunder per kund, 25% ökning av bonuskort, 0,1% kassadifferens, och 15% merförsäljningsökning.
+
+Varför detta fungerar: Rekryterare i detaljhandeln jämför kandidater baserat på kapacitet och noggrannhet. "Kassörska på ICA" säger lite, men "150-200 kunder dagligen med 0,1% kassadifferens" visar både tempo och precision. Siffror gör att du sticker ut från kandidater som bara listar arbetsuppgifter.`
+      },
+      {
+        rubrik: 'Balans mellan teknik och service',
+        text: `Sara visar både tekniska färdigheter (kassasystem, kontanthantering, dagsavstämning) och servicekompetens (kundnöjdhet, reklamationshantering, NKI-bidrag) med konkreta bevis.
+
+Varför detta fungerar: Kassörsarbete kräver både snabbhet vid kassan och förmåga att ge god service. Genom att visa "95% positivt kundomdöme" och "NKI-ökning från 78% till 85%" bevisar Sara att hon inte bara är snabb utan också omtyckt av kunder. Adjektiv som "serviceinriktad" utan bevis är värdelösa – siffror är trovärdiga.`
+      },
+      {
+        rubrik: 'Certifieringar som visar professionalism',
+        text: `Ansvarsfull alkoholförsäljning (2021), kontanthanteringscertifikat och kundserviceutbildning – alla med årtal som visar aktualitet och investering i rollen.
+
+Varför detta fungerar: I en bransch där många ser kassörsarbete som "bara ett jobb" signalerar certifieringar att Sara tar rollen på allvar. Alkoholcertifikatet är lagkrav, men att lyfta det visar att du förstår ansvaret. Årtal bevisar att utbildningarna är aktuella.`
+      },
+      {
+        rubrik: 'Profiltext som säljer på 10 sekunder',
+        text: `Profilen sammanfattar: 4 års erfarenhet + arbetsgivare (ICA, Coop) + specialisering (kassahantering) + system (Extenda, Hoist) + konkret resultat (15% merförsäljningsökning).
+
+Varför detta fungerar: Rekryterare i detaljhandeln hanterar hundratals ansökningar. Saras profiltext levererar de fyra kritiska komponenterna – erfarenhet, system, resultat och drivkraft – inom tre meningar. På 10 sekunder vet rekryteraren att Sara har relevant erfarenhet och levererar resultat.`
+      },
+      {
+        rubrik: 'Progression från sommarjobb till ansvar',
+        text: `CV:t visar utveckling från sommarjobb på Willys via kassabiträde på Coop till kassörska med utbildningsansvar på ICA Maxi – med tydligt ökande ansvar.
+
+Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit nöjda nog att ge mer ansvar. "Utbildade 8 nyanställda" visar ledaregenskaper. För butiker som söker någon som kan växa till teamledare eller butikschef är denna progression värdefull information.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt kassasystem för ATS-filter',
+        text: `ATS-system söker efter specifika kassasystem beroende på kedja. Identifiera vilket system arbetsgivaren använder och nämn det explicit i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av kassaarbete och kontanthantering"
+
+✅ "3 års erfarenhet av Extenda kassasystem (ICA). Behärskar även Hoist (Coop/Willys), självscanning och kortterminaler."
+
+ICA använder Extenda, Coop och Willys använder Hoist, och Lidl har egna system. Matcha ditt CV mot den kedja du söker till – "kassasystem" fångas inte upp när de söker efter "Extenda".`
+      },
+      {
+        rubrik: 'Kvantifiera din kassakapacitet',
+        text: `Konkreta siffror visar din kapacitet och tempo. Som kassörska arbetar du med mätbara resultat varje dag – låt det synas i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för kassan och kundservice"
+
+✅ "Betjänade 150-200 kunder dagligen med genomsnittlig kassatid på 45 sekunder per kund. Dagskasseansvar för 50 000-80 000 kr med 0,1% kassadifferens."
+
+Rekryterare behöver förstå om du kan hantera högt tempo. "Kassörska" kan betyda 30 eller 200 kunder per dag – siffran gör skillnad för vilken butik du passar i.`
+      },
+      {
+        rubrik: 'Visa konkreta serviceresultat',
+        text: `Butiker mäter kundnöjdhet (NKI), reklamationshantering och merförsäljning. Visa hur du bidragit till dessa mätetal istället för att bara lista uppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Gav god kundservice och hjälpte till med frågor"
+
+✅ "Bidrog till NKI-ökning från 78% till 85% genom proaktiv kundservice. Ökade bonuskortregistreringar med 25% genom att aktivt erbjuda kort till kunder."
+
+Merförsäljning och bonuskort är konkreta värden som butikschefer förstår och uppskattar. Visa att du inte bara sköter kassan utan aktivt bidrar till butikens resultat.`
+      },
+      {
+        rubrik: 'Anpassa profiltexten efter butikstyp',
+        text: `Din profiltext bör matcha butikens profil. Stormarknad (Maxi, Forum) betonar tempo och volym, medan mindre butiker prioriterar allround-kompetens.
+
+**Exempel på före/efter**:
+
+❌ "Glad kassörska som gillar att träffa människor"
+
+✅ "Serviceinriktad kassörska med 4 års erfarenhet från ICA Maxi. Specialiserad på högt tempo (150+ kunder/dag) och merförsäljning. Dokumenterad låg kassadifferens (0,1%) och bidrag till NKI-ökning."
+
+Struktur: [Erfarenhet i år] + [Kedja/butikstyp] + [Specialisering] + [System] + [Konkret resultat]`
+      },
+      {
+        rubrik: 'Lyft fram relevanta certifieringar',
+        text: `Skapa en dedikerad sektion för certifieringar. Alkoholcertifikat är lagkrav men visar att du förstår ansvaret – och att du kan sälja folköl direkt.
+
+**Exempel på före/efter**:
+
+❌ "Får sälja alkohol och tobak"
+
+✅ "Ansvarsfull alkoholförsäljning – Folkhälsomyndigheten (2021)
+Kontanthantering & säkerhet – ICA Akademin (2021)
+Kundservice i detaljhandeln – Handelsrådet (2020)"
+
+Inkludera alltid årtal. Certifikat från kedjans egen akademi (ICA Akademin, Coop Akademin) visar investering i yrkesrollen.`
+      },
+      {
+        rubrik: 'Balansera kassateknik med servicekompetens',
+        text: `Kassörsarbete kräver både snabbhet och kundkänsla. Lista tekniska färdigheter konkret och visa servicekompetens genom resultat – inte bara adjektiv.
+
+**Exempel på före/efter**:
+
+❌ "Serviceinriktad, stresstålig och noggrann"
+
+✅ "Hanterade reklamationer och kundfrågor med 95% positivt kundomdöme. Behöll låg kassadifferens (0,1%) även under högsäsong med 200+ kunder dagligen."
+
+Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stresstålig" behöver bevis – visa att du levererade kvalitet även under press.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som kassörska vara?',
+        svar: 'Ett kassörs-CV bör vara 1 sida. Detaljhandeln har högt tempo även i rekryteringen, och chefer har sällan tid för långa CV:n. Fokusera på de senaste 3-5 åren och de mest relevanta erfarenheterna. Om du har mycket erfarenhet, prioritera roller med mest ansvar och bäst resultat.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV som kassörska?',
+        svar: 'I Sverige är profilbild vanligt men inte obligatoriskt. Inom detaljhandel kan en bild ge ett personligt intryck eftersom kundkontakt är centralt. Om du väljer att ha bild, använd en professionell porträttbild där du ser tillgänglig och vänlig ut. Undvik semesterbilder eller selfies.'
+      },
+      {
+        fraga: 'Hur skriver jag CV utan kassaerfarenhet?',
+        svar: 'Fokusera på överförbara färdigheter: kontanthantering (vaktmästare, biljettförsäljning), kundservice (restaurang, reception), stresshantering (evenemang, vårdarbete). Lyft fram snabb inlärningsförmåga och nämn om du har erfarenhet av att hantera pengar i föreningsliv eller liknande. Sommarjobb och praktik räknas också.'
+      },
+      {
+        fraga: 'Vilka kassasystem ska jag nämna i mitt CV?',
+        svar: 'Nämn specifika systemnamn: Extenda (ICA), Hoist (Coop, Willys), StrongPoint (självscanning), NCR (internationellt). Om du arbetat med självbetjäningskassor, skriv det explicit. Matcha systemen mot jobbannonsen – ICA söker Extenda-erfarenhet, inte "kassasystem". Om du lärt dig ett system snabbt, nämn det: "Lärde mig Hoist på 2 dagar".'
+      },
+      {
+        fraga: 'Hur beskriver jag merförsäljning och kampanjarbete?',
+        svar: 'Kvantifiera alltid merförsäljning med siffror eller procent. Skriv "Ökade merförsäljning med 15% genom aktivt kampanjerbjudande" istället för "Hjälpte till med kampanjer". Inkludera bonuskortregistreringar, tilläggsförsäljning (godis, tidningar) och kundklubbserbjudanden. Butikschefer förstår dessa mätetal och uppskattar kandidater som bidrar till försäljningen.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar högt tempo i kassan?',
+        svar: 'Använd konkreta siffror: "Betjänade 150-200 kunder dagligen" eller "Genomsnittlig kassatid 45 sekunder per kund". Nämn om du arbetat under högsäsong (jul, påsk, sommar) med ännu högre tempo. Om du behållit låg kassadifferens trots högt tempo, lyft det: "0,1% kassadifferens även under högsäsong med 200+ kunder".'
+      },
+      {
+        fraga: 'Ska jag nämna alkohol- och tobaksförsäljning?',
+        svar: 'Ja, absolut. "Ansvarsfull alkoholförsäljning" från Folkhälsomyndigheten är ett lagkrav för att sälja folköl, och visar att du kan börja sälja direkt. Nämn även ålderskontroll: "Genomförde korrekt ålderskontroll för 18+ varor utan incidenter". Detta är särskilt viktigt för kvällsjobb och helger då alkoholförsäljningen är högre.'
+      },
+      {
+        fraga: 'Hur beskriver jag kontanthantering och kassadifferens?',
+        svar: 'Specificera belopp och precision: "Dagskasseansvar för 50 000-80 000 kr med genomsnittlig kassadifferens på 0,1%". Om du haft ansvar för nattkassa eller säker kontanthantering, inkludera det. Låg kassadifferens (under 0,5%) visar noggrannhet och pålitlighet – egenskaper som är avgörande för arbetsgivare.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika butikskedjor?',
+        svar: 'Varje kedja har sin profil: ICA betonar "handlaranda" och lokalt engagemang, Coop fokuserar på hållbarhet, Lidl prioriterar effektivitet. Anpassa profiltexten efter kedjans värderingar. Nämn rätt kassasystem (Extenda för ICA, Hoist för Coop). Om du söker till stormarknad (Maxi, Forum), betona tempo. För mindre butiker, lyft allround-kompetens.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är pålitlig för kvälls- och helgarbete?',
+        svar: 'Nämn explicit om du har erfarenhet av kvälls-, helg- eller julöppet. Skriv "Flexibel för kvälls- och helgpass" i kompetenser eller profiltext. Om du haft stängningsansvar (nattkassa, larm, låsning), lyft det: "Stängningsansvar med nattkassehantering 3 kvällar/vecka". Detta visar att du är pålitlig nog för självständigt arbete.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Säljare', slug: 'saljare' }
+    ]
   }
 }
 
