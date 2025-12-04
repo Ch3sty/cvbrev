@@ -215,6 +215,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'butikschef',
     'account-manager',
     'systemutvecklare',
+    'devops-engineer',
     // Lägg till fler CV-exempel här när de skapas
   ];
 

@@ -12650,6 +12650,287 @@ Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
       { yrke: 'Ingenjör', slug: 'ingenjor' },
       { yrke: 'Projektledare', slug: 'projektledare' }
     ]
+  },
+
+  'devops-engineer': {
+    yrke: 'DevOps Engineer',
+    sokvolym: 1100,
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel DevOps Engineer 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för DevOps Engineer med CI/CD, Kubernetes och Infrastructure as Code. ATS-optimerat för svenska tech-bolag med AWS, Azure och Terraform.',
+
+    seoIntro: `Söker du jobb som DevOps Engineer och behöver ett CV som visar din förmåga att automatisera, orkestrera och leverera pålitlig infrastruktur? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och tekniska rekryterare inom svenska tech-bolag och produktföretag.
+
+CV:t balanserar infrastrukturkompetens med konkreta driftsresultat som deployment-frekvens, uptime och kostnadsbesparingar. Du hittar branschspecifika termer som Kubernetes, Terraform, CI/CD-pipelines och observability – precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar DevOps-arbete: "Ökade deployment-frekvens från 2/vecka till 15/dag" och "Reducerade cloud-kostnader med 35%".
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV som DevOps Engineer. Kombinera din infrastrukturstack med mätbara resultat för att maximera dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för DevOps Engineer som visar CI/CD-kompetens, container-orkestrering och förmåga att bygga skalbar infrastruktur. Optimerat för svenska tech-bolag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Erik Svensson',
+      titel: 'DevOps Engineer med fokus på CI/CD, Kubernetes & Infrastructure as Code',
+      kontakt: {
+        telefon: '070-567 89 01',
+        epost: 'erik.svensson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/eriksvensson-devops'
+      },
+
+      profil: 'Resultatdriven DevOps Engineer med 5+ års erfarenhet av att bygga och automatisera infrastruktur inom fintech och e-handel. Specialist på Kubernetes-orkestrering, Terraform Infrastructure as Code och CI/CD-pipelines i GitHub Actions och GitLab CI. Dokumenterad förmåga att öka deployment-frekvens, reducera driftstörningar och optimera cloud-kostnader. Drivs av att skapa reproducerbar, säker infrastruktur som möjliggör snabba releaser och 99.9% uptime.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior DevOps Engineer',
+          arbetsgivare: 'FinTech Platform AB',
+          period: '2022 – Pågående',
+          beskrivning: [
+            'Arkitekterade Kubernetes-kluster (EKS) för 40+ microservices – hanterar 2M+ requests/dag med 99.95% uptime',
+            'Byggde CI/CD-pipelines i GitHub Actions som ökade deployment-frekvens från 2/vecka till 15/dag',
+            'Implementerade Infrastructure as Code med Terraform – 100% av AWS-resurser versionshanterade och reproducerbara',
+            'Reducerade cloud-kostnader med 35% genom spot instances, rightsizing och autoscaling-optimering',
+            'Tech lead för DevOps-team om 3 ingenjörer – ansvarig för on-call rotation, incident response och postmortems'
+          ]
+        },
+        {
+          titel: 'DevOps Engineer',
+          arbetsgivare: 'E-Commerce Tech AB',
+          period: '2020 – 2022',
+          beskrivning: [
+            'Migrerade monolitisk applikation till containeriserad arkitektur (Docker, Kubernetes) – 60% förbättrad skalbarhet',
+            'Byggde observability-stack med Prometheus, Grafana och ELK Stack – MTTR reducerad från 45min till 12min',
+            'Automatiserade security scanning (Trivy, SonarQube) i CI/CD-pipeline – blockerade 200+ sårbarheter före produktion',
+            'Implementerade GitOps-workflow med ArgoCD för kontinuerlig deployment till 3 miljöer (dev, staging, prod)'
+          ]
+        },
+        {
+          titel: 'Linux System Administrator',
+          arbetsgivare: 'IT Operations Nordic AB',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Administrerade 150+ Linux-servrar (Ubuntu, CentOS) med Ansible för konfigurationshantering',
+            'Byggde första CI/CD-pipeline med Jenkins som reducerade manuella deployments med 80%',
+            'On-call ansvar för kritisk produktionsinfrastruktur – hanterade 50+ incidenter med 98% first-call resolution'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Högskoleingenjör, Datateknik',
+          skola: 'KTH – Kungliga Tekniska Högskolan',
+          period: '2014 – 2018',
+          beskrivning: 'Specialisering i distribuerade system och nätverksteknik. Examensarbete om container-orkestrering för microservices.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Container: Kubernetes, Docker, Helm (Expert, 4+ år)',
+          'CI/CD: GitHub Actions, GitLab CI, Jenkins, ArgoCD',
+          'IaC: Terraform, Ansible, Pulumi (Expert, 4+ år)',
+          'Cloud: AWS (EKS, EC2, S3, RDS), Azure, GCP',
+          'Monitoring: Prometheus, Grafana, ELK Stack, Datadog',
+          'Scripting: Bash, Python, Go'
+        ],
+        personliga: [
+          'Incident management och on-call rotation',
+          'Cross-functional samarbete med utvecklingsteam',
+          'Dokumentation och kunskapsdelning',
+          'Proaktiv problemlösning och automation'
+        ]
+      },
+
+      certifieringar: [
+        'Certified Kubernetes Administrator (CKA) (2024)',
+        'AWS Certified DevOps Engineer – Professional (2023)',
+        'HashiCorp Certified: Terraform Associate (2023)',
+        'Linux Foundation Certified System Administrator (LFCS) (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera infrastrukturresultat – deployment-frekvens, uptime, MTTR, kostnadsbesparingar',
+      'Lista specifika verktyg med kompetensnivå: Kubernetes (Expert, 4+ år), Terraform (Expert)',
+      'Visa progression från traditionell ops till modern DevOps och cloud-native',
+      'Inkludera certifieringar (CKA, AWS DevOps) med årtal – de är ofta formella krav',
+      'Nämn konkreta systemskala: antal microservices, requests/dag, antal servrar',
+      'Betona både teknisk automation och cross-functional samarbete med utvecklare'
+    ],
+
+    statistik: [
+      { label: 'Genomsnittlig lön för DevOps Engineer', varde: '55-80K/mån', beskrivning: 'Stockholm 2024' },
+      { label: 'Andel tech-bolag som kräver Kubernetes', varde: '72%', beskrivning: 'DevOps-roller i Sverige' },
+      { label: 'DORA elite deployment frequency', varde: 'Multiple/dag', beskrivning: 'Branschstandard för högpresterande team' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen DevOps tech stack',
+        text: `CV:t nämner konkreta verktyg som **Kubernetes**, **Terraform**, **GitHub Actions** och **AWS** tillsammans med branschspecifika termer som **Infrastructure as Code**, **CI/CD-pipelines** och **observability**.
+
+Varför detta fungerar: Rekryteringssystem filtrerar efter exakta tekniska termer. "Kubernetes (Expert, 4+ år)" matchar bättre än "container-erfarenhet". Kombinationen container + IaC + cloud + monitoring visar fullstack DevOps-bredd som svenska tech-bolag söker. ATS rankar CV:n med specifika verktygsnamn högre eftersom de matchar jobbannonsens kravlista direkt.`
+      },
+      {
+        rubrik: 'Kvantifierade driftsresultat som imponerar',
+        text: `CV:t levererar konkreta siffror: **deployment-frekvens ökad från 2/vecka till 15/dag**, **cloud-kostnader reducerade med 35%**, och **MTTR sänkt från 45min till 12min**. Varje erfarenhetspost innehåller mätbara resultat.
+
+Varför detta fungerar: "Erfaren DevOps Engineer" säger ingenting. "Deployment-frekvens 15/dag" bevisar att du byggt pipelines som faktiskt levererar värde. Rekryterare kan direkt bedöma din påverkan på organisationens release-kapacitet. Kostnadsbesparingar (35%) översätter teknik till affärsvärde som även CFO:er förstår.`
+      },
+      {
+        rubrik: 'Balans mellan automation och teamsamarbete',
+        text: `CV:t kombinerar tekniska prestationer som **Terraform Infrastructure as Code** och **Kubernetes-arkitektur** med teamfokuserade resultat som **tech lead för 3 DevOps-ingenjörer**, **on-call rotation** och **postmortems**.
+
+Varför detta fungerar: DevOps handlar om kultur lika mycket som verktyg. Du visar att du inte bara automatiserar isolerat – du bygger processer som hela team kan använda. Tech lead-erfarenhet och incident management signalerar att du kan ta ansvar när det verkligen gäller, inte bara under normala förhållanden.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar expertis',
+        text: `CV:t listar **CKA (2024)**, **AWS DevOps Engineer Professional (2023)** och **Terraform Associate (2023)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
+
+Varför detta fungerar: CKA är branschstandard för Kubernetes-roller och ofta ett formellt krav. AWS DevOps Professional visar avancerad cloud-kompetens. Terraform Associate validerar IaC-kunskap. Årtal visar att certifieringarna är aktuella, inte fem år gamla. Kombinationen täcker de tre pelarna i modern DevOps: orkestrering, cloud och infrastructure as code.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten öppnar med "Resultatdriven DevOps Engineer med 5+ års erfarenhet" och inkluderar nyckelord som **Kubernetes**, **Terraform**, **CI/CD** och **99.9% uptime**. Max 4 meningar, under 80 ord.
+
+Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre. När första meningen innehåller "5+ år", "Kubernetes" och "Infrastructure as Code" får rekryteraren omedelbart ett värdelöfte. Konkreta utfall som "99.9% uptime" i profiltexten gör att du sticker ut bland kandidater som bara skriver "erfaren DevOps med bred infrastrukturkompetens".`
+      },
+      {
+        rubrik: 'Tydlig progression från sysadmin till tech lead',
+        text: `Erfarenheten visar utveckling: från **Linux System Administrator** med Ansible och Jenkins, till **DevOps Engineer** med Kubernetes-migrering och observability, till **Senior DevOps Engineer** med tech lead-ansvar och Terraform-arkitektur.
+
+Varför detta fungerar: Progressionen visar att du har djup förståelse för hela stacken – från traditionell serveradministration till modern cloud-native. Migreringen från "monolith till containers" bevisar att du kan driva transformation, inte bara underhålla befintlig infrastruktur. Tech lead-rollen visar att du är redo för senior-positioner.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Gruppera din DevOps-stack strategiskt',
+        text: `En lång lista med 30 verktyg blir oöverskådlig. Gruppera istället efter kategori och ge kompetensnivå på dina TOP 3 områden.
+
+**Exempel på före/efter**:
+
+❌ "Docker, Kubernetes, Helm, Jenkins, GitLab CI, GitHub Actions, CircleCI, Terraform, Ansible, Puppet, Chef, AWS, Azure, GCP, Prometheus, Grafana, Datadog, ELK..."
+
+✅ "Container: Kubernetes, Docker, Helm (Expert, 4+ år) | IaC: Terraform, Ansible (Expert) | Cloud: AWS (EKS, EC2, S3), Azure | Monitoring: Prometheus, Grafana, ELK Stack"
+
+Håll det till 10-15 verktyg totalt. Visa djup i dina starkaste områden istället för bredd överallt.`
+      },
+      {
+        rubrik: 'Kvantifiera deployment-frekvens och uptime',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt. Mät din påverkan genom DORA-metriker: deployment frequency, lead time, MTTR och change failure rate.
+
+**Exempel på före/efter**:
+
+❌ "Förbättrade CI/CD-pipeline och ökade deployment-hastighet"
+
+✅ "Byggde CI/CD-pipelines som ökade deployment-frekvens från **2/vecka till 15/dag**. Reducerade MTTR från **45min till 12min** genom förbättrad observability."
+
+DORA-metriker är branschstandard som rekryterare förstår och kan jämföra.`
+      },
+      {
+        rubrik: 'Visa infrastrukturens skala och komplexitet',
+        text: `Ge kontext genom att beskriva systemets omfattning – antal microservices, requests/dag, servrar. Skala visar erfarenhet av produktionsmiljöer.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för Kubernetes-kluster på AWS"
+
+✅ "Arkitekterade Kubernetes-kluster (EKS) för **40+ microservices** som hanterar **2M+ requests/dag** med **99.95% uptime**"
+
+Stora systemskala signalerar att du kan hantera komplexitet i verkliga produktionsmiljöer.`
+      },
+      {
+        rubrik: 'Inkludera kostnadsbesparingar som affärsvärde',
+        text: `DevOps handlar inte bara om teknik – det handlar om att leverera affärsvärde. Kostnadsoptimering är något som även icke-tekniska beslutsfattare förstår.
+
+**Exempel på före/efter**:
+
+❌ "Optimerade AWS-infrastruktur för bättre prestanda"
+
+✅ "Reducerade cloud-kostnader med **35% (1.2 MSEK/år)** genom spot instances, rightsizing och autoscaling-optimering utan att kompromissa uptime"
+
+Kostnadsbesparingar i kronor gör din tekniska insats konkret och förståelig för ledningen.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar med årtal',
+        text: `DevOps-certifieringar validerar din kompetens och är ofta formella krav för roller på tech-bolag. Inkludera alltid årtal för att visa aktualitet.
+
+**Exempel på före/efter**:
+
+❌ "Kubernetes-certifierad, AWS DevOps, Terraform Associate"
+
+✅ "**Certified Kubernetes Administrator (CKA) (2024)**, AWS DevOps Engineer Professional (2023), HashiCorp Terraform Associate (2023)"
+
+CKA är branschstandard för Kubernetes-roller. AWS DevOps Professional visar avancerad cloud-kompetens. Årtal visar att certifieringarna är aktuella.`
+      },
+      {
+        rubrik: 'Beskriv incident management och on-call',
+        text: `On-call ansvar och incident response är centrala DevOps-kompetenser som särskiljer dig från utvecklare som bara bygger features.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av driftsupport och felsökning"
+
+✅ "Tech lead för on-call rotation (24/7) – hanterade **50+ incidenter** med **98% first-call resolution**. Ledde postmortems som resulterade i 15 systemförbättringar och **40% reducerade incidenter** över 12 månader."
+
+Konkreta incident-siffror visar att du kan hantera press och leverera även när det brinner.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som DevOps Engineer vara?',
+        svar: 'För DevOps Engineers rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior DevOps med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression från sysadmin till cloud-native, men var koncis – fokusera på de mest relevanta projekten och resultaten.'
+      },
+      {
+        fraga: 'Vilka certifieringar är mest värdefulla för DevOps?',
+        svar: 'CKA (Certified Kubernetes Administrator) är branschstandard för container-roller. AWS Certified DevOps Engineer Professional visar avancerad cloud-kompetens. HashiCorp Terraform Associate validerar IaC-kunskap. Inkludera alltid årtal – en certifiering från 2020 är mindre imponerande än en från 2024. Prioritera certifieringar som matchar jobbannonsen.'
+      },
+      {
+        fraga: 'Hur listar jag teknisk kompetens utan att det blir en lång lista?',
+        svar: 'Gruppera efter kategori: Container (Kubernetes, Docker, Helm), IaC (Terraform, Ansible), Cloud (AWS, Azure), Monitoring (Prometheus, Grafana). Ge kompetensnivå på dina TOP 3: "Kubernetes (Expert, 4+ år)". Begränsa till 10-15 verktyg totalt – bredd utan djup imponerar inte. Fokusera på verktyg relevanta för jobbet.'
+      },
+      {
+        fraga: 'Hur visar jag DevOps-resultat utan att bryta sekretess?',
+        svar: 'Använd relativa siffror och procent: "Reducerade deployment-tid med 80%" istället för absoluta värden. Skriv "2M+ requests/dag" istället för exakta företagsspecifika siffror. Fokusera på förbättringar (före/efter) snarare än absoluta tal. Undvik att nämna specifika kundnamn eller interna projektnamn om de är konfidentiella.'
+      },
+      {
+        fraga: 'Hur beskriver jag on-call ansvar i mitt CV?',
+        svar: 'Kvantifiera: "On-call rotation (24/7) med ansvar för kritisk produktionsinfrastruktur – hanterade 50+ incidenter med 98% first-call resolution". Nämn postmortems och systemförbättringar som resultat av incidents. On-call visar att du kan hantera press och ta ansvar när det verkligen gäller.'
+      },
+      {
+        fraga: 'Ska jag inkludera sysadmin-erfarenhet i ett DevOps-CV?',
+        svar: 'Ja, särskilt om den visar progression. Traditionell Linux-administration med Ansible och Jenkins visar djup förståelse för grunden. Framställ det som evolution: "Migrerade från manuell serveradministration till Infrastructure as Code med Terraform". Det visar att du förstår varför modern DevOps är bättre, inte bara hur.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för startup vs stort företag?',
+        svar: 'Startups värderar bredd och snabbhet – lyft fram fullstack-DevOps, snabb problemlösning och förmåga att bygga från scratch. Stora företag värderar specialisering och process – betona erfarenhet av stora distribuerade system, compliance (SOC2, GDPR) och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur och skala.'
+      },
+      {
+        fraga: 'Hur visar jag samarbete med utvecklingsteam?',
+        svar: 'DevOps handlar om att bryta silos. Beskriv konkreta samarbeten: "Införde GitOps-workflow tillsammans med 4 utvecklingsteam – reducerade deployment-konflikter med 60%". Nämn developer experience-förbättringar: "Byggde self-service deployment-portal som eliminerade DevOps-flaskhalsar för 25 utvecklare".'
+      },
+      {
+        fraga: 'Hur beskriver jag security-aspekter av DevOps?',
+        svar: 'DevSecOps är alltmer efterfrågat. Nämn konkreta verktyg och resultat: "Implementerade security scanning (Trivy, SonarQube) i CI/CD-pipeline – blockerade 200+ sårbarheter före produktion". Compliance-erfarenhet (SOC2, PCI-DSS, GDPR) är värdefullt för fintech och enterprise-roller. Visa att säkerhet är integrerat, inte ett efterhandstillägg.'
+      },
+      {
+        fraga: 'Hur visar jag progression inom DevOps-karriären?',
+        svar: 'Visa utveckling i ansvar och teknisk djup: "Sysadmin (150 servrar, Ansible) → DevOps Engineer (Kubernetes-migrering, observability) → Senior DevOps (tech lead, 40+ microservices, arkitekturbeslut)". Inkludera befordringar och utökat ansvar. Mentorskap och tech lead signalerar att du är redo för ledande roller.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
+      { yrke: 'Ingenjör', slug: 'ingenjor' }
+    ]
   }
 }
 

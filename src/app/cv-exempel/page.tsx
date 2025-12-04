@@ -8,7 +8,7 @@ import {
   Sparkles, FileText, TrendingUp, Award, Users,
   Star, Briefcase, GraduationCap, Stethoscope, Building2,
   ShoppingCart, Code, Calculator, Phone, Package, Cog,
-  Heart, Target, Coffee, Wrench, BookOpen
+  Heart, Target, Coffee, Wrench, BookOpen, Server
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
@@ -706,6 +706,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för systemutvecklare med fokus på fullstack-utveckling, kodkvalitet och skalbara lösningar inom fintech och e-handel.',
       highlight: ['API-prestanda 800ms→120ms och 92% test coverage', 'React, TypeScript, .NET och microservices', 'Tech lead för 4 utvecklare med code reviews']
     }
+  },
+  {
+    id: 'devops-engineer',
+    yrke: 'DevOps Engineer',
+    slug: 'devops-engineer',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 1100,
+    icon: Server,
+    gradient: 'from-orange-500 via-red-600 to-orange-700',
+    preview: {
+      intro: 'CV för DevOps Engineer med fokus på CI/CD, Kubernetes och Infrastructure as Code inom fintech och e-handel.',
+      highlight: ['Deployment 2/vecka→15/dag och 99.95% uptime', 'Kubernetes, Terraform, AWS och GitHub Actions', 'Tech lead med on-call och kostnadsbesparingar 35%']
+    }
   }
 ]
 
@@ -870,7 +884,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  48 yrken
+                  49 yrken
                 </motion.span>
               </h1>
 
