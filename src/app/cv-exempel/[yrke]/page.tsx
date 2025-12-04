@@ -1298,7 +1298,7 @@ Bevis gör din kompetens trovärdig och konkret. Rekryterare ser tomma listor i 
     kategori: 'service',
     relaterade: [
       { yrke: 'Administratör', slug: 'administrator' },
-      { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanstmedarbetare' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' },
       { yrke: 'Kontorsassistent', slug: 'kontorsassistent' }
     ]
   },
