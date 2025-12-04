@@ -5602,7 +5602,7 @@ De tre sakerna som skiljer ett framgångsrikt personlig assistent-CV från ett m
 
     exempelCV: {
       namn: 'Emma Svensson',
-      titel: 'Personlig Assistent',
+      titel: 'Personlig Assistent med LSS-kompetens & NPF-specialisering',
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'emma.svensson@email.se',
@@ -5816,13 +5816,33 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
       {
         fraga: 'Hur hanterar jag luckor i CV:t från perioder utan arbete?',
         svar: 'Inom assistans är luckor vanliga – uppdrag tar slut när brukares situation förändras. Var ärlig: "Assistansuppdrag avslutades då brukaren flyttade till gruppboende" eller "Sökte nytt uppdrag som matchade min specialisering inom NPF". Om du vidareutbildade dig under luckan (HLR-förnyelse, kurser), lyft det. Rekryterare inom assistans förstår branschens natur med tidsbegränsade uppdrag.'
+      },
+      {
+        fraga: 'Hur skriver jag CV utan vårdutbildning?',
+        svar: 'Fokusera på din praktiska erfarenhet och personliga egenskaper. Många duktiga assistenter kommer från andra bakgrunder – kanske har du jobbat inom service, skola eller med barn. Lyft fram vad du faktiskt kan: att lyssna, ta ansvar, lösa problem och anpassa dig efter olika behov. Om du har genomgått introduktionsutbildning hos tidigare arbetsgivare, skriv det. Många brukare värderar rätt personlighet och inställning högre än formella papper.'
+      },
+      {
+        fraga: 'Ska jag ha med referenser från brukare eller anhöriga?',
+        svar: 'Nej, nämn aldrig brukare med namn på grund av tystnadsplikt och GDPR. Skriv istället "Referenser från tidigare arbetsgivare finns på begäran" eller "Referens från samordnare vid [företagsnamn] kan tillhandahållas". Om du jobbat privat för en familj kan du skriva "Referens från tidigare uppdragsgivare" utan att namnge brukaren. Det visar att du respekterar integritet, vilket arbetsgivare uppskattar.'
+      },
+      {
+        fraga: 'Hur visar jag flexibilitet i CV:t utan att verka desperat?',
+        svar: 'Var konkret istället för generell. Istället för "Jag är mycket flexibel och tar alla tider", skriv "Erfarenhet av kvälls-, natt- och helgpass" eller "Van vid förändrade scheman och kortvariga inhopp". Du kan också nämna att du trivs med variation: "Uppskattar den omväxling som kommer med oregelbundna arbetstider". Det visar att flexibilitet är en kompetens för dig, inte något du gör för att du måste.'
+      },
+      {
+        fraga: 'Vad ska jag skriva om jag bara jobbat som vikarie eller timvikarie?',
+        svar: 'Vikarierfarenhet är värdefullt – det visar att du klarar att hoppa in snabbt och anpassa dig till olika brukare och situationer. Skriv "Timvikarie/Resurspersonal" som titel och lyft fram vad det krävt: "Jobbade med ca 8 olika brukare under perioden, vilket krävde snabb inlärning och god anpassningsförmåga". Om du haft flera korta uppdrag, slå gärna ihop dem under en rubrik istället för att lista varje: "Vikariat inom flera assistansbolag, 2022-2024".'
+      },
+      {
+        fraga: 'Hur beskriver jag nattpass och oregelbundna arbetstider?',
+        svar: 'Nämn det kort under din arbetslivserfarenhet eller i en kompetenssektion. Exempel: "Erfarenhet av nattarbete och sovande nattjour" eller "Van vid rullande schema med kvällar, nätter och helger". Du behöver inte göra en stor sak av det, men det är viktigt att visa att du kan tiderna – många brukare behöver just natthjälp. Om du trivs med det, skriv det: "Föredrar nattpass och lugna arbetsmiljöer". Det gör dig attraktiv för rätt uppdrag.'
       }
     ],
 
     kategori: 'vard-omsorg',
     relaterade: [
       { yrke: 'Undersköterska', slug: 'underskoterska' },
-      { yrke: 'Vårdbiträde', slug: 'vardbatrade' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
       { yrke: 'Barnskötare', slug: 'barnskotare' }
     ]
   },
