@@ -5035,6 +5035,122 @@ Med gedigen erfarenhet av ekonomistyrning och ett genuint intresse för att skap
       { yrke: 'Chef', slug: 'chef' },
       { yrke: 'Handläggare', slug: 'handlaggare' }
     ]
+  },
+
+  'scrum-master': {
+    yrke: 'Scrum Master',
+    sokvolym: 350,
+    metaTitle: 'Personligt brev Scrum Master – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som Scrum Master. Se exempel med facilitering, sprintplanering och coachning av agila utvecklingsteam.',
+    intro: 'Ett övertygande personligt brev som Scrum Master visar din förmåga att facilitera agila processer och coacha team mot högre leveranskapacitet. Arbetsgivare söker kandidater som förstår Scrum-ramverket på djupet och kan hantera både tekniska och mellanmänskliga utmaningar. I detta exempel ser du hur du presenterar konkreta förbättringar i teamets prestationer, beskriver din faciliteringsmetodik och visar hur du skapar värde genom att undanröja hinder. Brevet balanserar teknisk förståelse med servant leadership.',
+    seoIntro: `Att skriva ett personligt brev som Scrum Master handlar om att visa din förmåga att facilitera agila processer och coacha team mot bättre resultat. Detta exempel demonstrerar hur du presenterar mätbara förbättringar i leveranstakt, beskriver din erfarenhet av att hantera flera team och framhäver din certifiering och metodkunskap. Brevet visar servant leadership i praktiken.\n\nI exemplet ser du hur en erfaren Scrum Master lyfter fram konkreta resultat som 40% ökad leveranstakt och beskriver facilitering av dagliga ceremonier för 16 utvecklare. Kompetenser inom Jira, Confluence och olika agila ramverk presenteras tillsammans med erfarenhet av att hantera impediments på organisationsnivå. Introduktionen av OKR-uppföljning visar strategiskt tänkande.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa teamstorlek och resultat till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver faciliteringsförmåga, hanterar frågor om teknisk bakgrund och positionerar dig som coach snarare än projektledare.`,
+    exempelBrev: {
+      namn: 'Erik Lindberg',
+      adress: 'Vasagatan 28, 411 37 Göteborg',
+      telefon: '070-234 56 78',
+      epost: 'erik.lindberg@email.com',
+      arbetsgivare: 'Företag AB',
+      roll: 'Scrum Master',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Tjänsten som Scrum Master på [Företag AB] väckte mitt intresse direkt. Med fem års erfarenhet av att coacha agila team och facilitera Scrum-processer ser jag en utmärkt matchning mellan era behov och min kompetens att skapa högpresterande utvecklingsteam.
+
+I min nuvarande roll som Scrum Master för två parallella team har jag ökat leveranstakten med 40% genom att införa tydligare sprintmål och förbättrad backlog refinement. Jag faciliterar dagliga standups, sprintplaneringar och retrospektiv för sammanlagt 16 utvecklare. Ett konkret exempel är när jag identifierade att teknisk skuld blockerade ny funktionalitet. Genom att arbeta med Product Owner om prioritering och facilitera en fokuserad refaktoreringsprint minskade vi buggar i produktion med 60%.
+
+Min verktygslåda omfattar Jira för backlog-hantering, Confluence för dokumentation och Miro för workshopfacilitering. Jag är PSM I-certifierad och har praktisk erfarenhet av både Scrum och Kanban. Utöver de formella ramverken har jag utvecklat tekniker för att hantera impediments som sträcker sig utanför teamets kontroll, genom att bygga relationer med andra avdelningar och eskalera konstruktivt till ledningen.
+
+Er ambition att skala upp produktutvecklingen med bibehållen kvalitet passar min erfarenhet. Jag introducerade OKR-uppföljning i mitt nuvarande team vilket förbättrade alignment mellan teamets arbete och företagets strategiska mål. Den typen av koppling mellan dagligt arbete och övergripande vision tror jag kan vara värdefull även för er organisation.
+
+Med certifierad kompetens inom Scrum och dokumenterad förmåga att förbättra teamets leveranskapacitet bidrar jag gärna till er agila resa. Jag ser fram emot att diskutera hur jag kan stötta era team.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera teamets förbättring under din ledning',
+        text: 'Arbetsgivare vill se konkret effekt av din facilitering. Beskriv förbättringar i velocity, cycle time eller leveranstakt. Om du saknar exakta siffror, beskriv kvalitativa förändringar som minskad stress, bättre samarbete eller färre eskaleringar.\n\nExempel: "ökade teamets velocity från 35 till 52 story points per sprint över sex månader" är mer övertygande än "förbättrade teamets prestationer".'
+      },
+      {
+        rubrik: 'Beskriv hur du hanterar impediments på olika nivåer',
+        text: 'Scrum Masters värde ligger i att undanröja hinder. Ge exempel på både tekniska och organisatoriska impediments du löst. Visa att du kan eskalera konstruktivt när hinder ligger utanför din kontroll. Det demonstrerar mognad och förståelse för servant leadership-rollen.'
+      },
+      {
+        rubrik: 'Nämn certifieringar och ramverkskunskap',
+        text: 'PSM, CSM eller SAFe-certifieringar är relevanta att nämna. Beskriv även praktisk erfarenhet av olika ramverk om du har det. Undvik dock att göra brevet till en certifieringslista. Fokusera på hur du tillämpar kunskapen praktiskt för att hjälpa team leverera värde.'
+      },
+      {
+        rubrik: 'Visa förståelse för servant leadership',
+        text: 'Moderna Scrum Master-roller betonar coachning framför styrning. Beskriv hur du stöttar teammedlemmar individuellt, faciliterar svåra samtal eller hjälper teamet bli självorganiserande. Undvik formuleringar som "jag ledde teamet" och använd istället "jag faciliterade" eller "jag coachade".'
+      },
+      {
+        rubrik: 'Adressera teknisk bakgrund om relevant',
+        text: 'Vissa roller föredrar Scrum Masters med utvecklarbakgrund. Om du har teknisk erfarenhet, nämn det kort. Om du saknar det, betona din förmåga att förstå tekniska diskussioner och din erfarenhet av att bygga förtroende med utvecklare genom att respektera deras expertis.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Anger konkret förbättring i leveranstakt',
+        beskrivning: '40% ökad leveranstakt är ett mätbart resultat som rekryterare kan relatera till. Det visar att kandidaten har haft faktisk påverkan på teamets prestationer, inte bara närvarat vid ceremonier.'
+      },
+      {
+        titel: 'Visar erfarenhet av flera parallella team',
+        beskrivning: 'Att hantera två team med 16 utvecklare signalerar kapacitet och erfarenhet. Det ger rekryteraren en tydlig bild av kandidatens ansvarsnivå och komplexitetshantering.'
+      },
+      {
+        titel: 'Beskriver konkret problemlösning med resultat',
+        beskrivning: 'Exemplet med teknisk skuld och 60% färre buggar visar hur kandidaten identifierar problem, faciliterar lösningar och mäter effekt. Det är mer övertygande än generella påståenden om faciliteringsförmåga.'
+      },
+      {
+        titel: 'Namnger relevanta verktyg och certifiering',
+        beskrivning: 'Jira, Confluence, Miro och PSM I är branschstandard och visar praktisk erfarenhet. Det underlättar matchning mot jobbkrav och signalerar att kandidaten kan komma igång snabbt.'
+      },
+      {
+        titel: 'Kopplar egen erfarenhet till företagets ambitioner',
+        beskrivning: 'Referensen till skalning och OKR-introduktion visar att kandidaten förstår strategiska utmaningar. Det positionerar Scrum Master-rollen som värdeskapande bortom daglig facilitering.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Behöver jag teknisk bakgrund för att bli Scrum Master?',
+        a: 'Nej, det är inget krav men kan vara en fördel. Många framgångsrika Scrum Masters kommer från projektledning, HR eller andra områden. Det viktiga är att förstå agila principer och kunna bygga förtroende med utvecklare genom att respektera deras expertis.'
+      },
+      {
+        q: 'Vilka certifieringar bör jag nämna i mitt personliga brev?',
+        a: 'PSM (Professional Scrum Master) och CSM (Certified ScrumMaster) är de vanligaste. SAFe-certifieringar är relevanta för storskalig agilitet. Nämn de som matchar jobbkraven, men överdriv inte. Ett eller två relevanta certifikat räcker i brevet.'
+      },
+      {
+        q: 'Hur beskriver jag facilitering utan att låta som en mötesadministratör?',
+        a: 'Fokusera på resultat och förändring, inte på att du "höll möten". Beskriv hur dina retrospektiv ledde till processförbättringar eller hur din sprintplanering ökade förutsägbarheten. Visa att du skapar värde genom facilitering, inte bara administrerar ceremonier.'
+      },
+      {
+        q: 'Ska jag betona Scrum eller Kanban i brevet?',
+        a: 'Anpassa till tjänsten. Läs annonsen noga och matcha deras ramverk. Om de nämner Scrum, fokusera på det. Att visa erfarenhet av båda är positivt men överdriv inte. Visa flexibilitet genom att nämna att du anpassar metoden efter teamets behov.'
+      },
+      {
+        q: 'Hur skiljer jag mig från projektledare i brevet?',
+        a: 'Betona coachning och servant leadership istället för styrning. Använd formuleringar som "jag faciliterade", "jag coachade teamet" och "jag undanröjde hinder". Undvik "jag ledde projektet" eller "jag delegerade uppgifter". Visa att du stöttar teamets självorganisering.'
+      },
+      {
+        q: 'Vilka resultat kan jag nämna om jag är ny som Scrum Master?',
+        a: 'Beskriv förbättringar du bidragit till även i andra roller. Kanske du introducerade retrospektiv i ett icke-agilt team eller faciliterade workshops. Nämn relevanta kurser, certifieringar och din motivation. Visa förståelse för rollen genom konkreta exempel på servant leadership.'
+      },
+      {
+        q: 'Hur hanterar jag frågan om velocity i brevet?',
+        a: 'Velocity är känsligt att dela exakt, men trender är relevanta. Skriv "ökade velocity med 30% över ett halvår" snarare än att nämna specifika siffror. Förklara gärna vad som drev förbättringen. Det visar analytisk förmåga och förståelse för vad som påverkar teamets kapacitet.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av skalad agilitet som SAFe?',
+        a: 'Ja, om tjänsten involverar flera team eller om företaget arbetar med SAFe, LeSS eller Nexus. Beskriv din roll i PI Planning, Scrum of Scrums eller liknande. Om du saknar den erfarenheten, fokusera på teamnivån och visa intresse för att lära dig storskalig agilitet.'
+      }
+    ],
+
+    kategori: 'ledarskap',
+    relaterade: [
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
+      { yrke: 'Chef', slug: 'chef' }
+    ]
   }
 }
 
