@@ -14313,6 +14313,279 @@ Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåg
       { yrke: 'Servitris', slug: 'servitris-restaurangbitrade' },
       { yrke: 'Bartender', slug: 'bartender' }
     ]
+  },
+
+  'ekonom': {
+    yrke: 'Ekonom',
+    sokvolym: 1100,
+    kategori: 'ekonomi',
+
+    metaTitle: 'CV Exempel Ekonom 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för ekonom med affärsanalys, investeringsbeslut och strategisk finansiell rådgivning. ATS-optimerat med kvantifierade resultat. Tips och mall.',
+
+    seoIntro: `Hur skriver du ett CV som ekonom som öppnar dörrarna till kvalificerade finansroller? En ekonoms CV måste visa mer än akademisk bakgrund – det handlar om att bevisa din förmåga att skapa värde genom ekonomisk analys och strategisk rådgivning.
+
+Det här exemplet visar hur du strukturerar ett professionellt ekonom-CV som passerar ATS-filter och imponerar på CFO:er och VD:ar. Här ser du hur Erik kombinerar analytisk kompetens med affärsförståelse – från makroekonomisk analys till konkreta investeringsrekommendationer. CV:t innehåller kvantifierbara resultat från lönsamhetsanalyser, scenariomodellering och strategisk planering.
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom affärsutveckling, finansiell analys eller ekonomisk strategi. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker roll som affärsekonom, analysekonom eller ekonomichef.`,
+
+    intro: 'Ekonom med fokus på affärsanalys, strategisk planering och investeringsbeslut. CV-exemplet visar hur du kombinerar analytisk kompetens med affärsstrategi.',
+
+    exempelCV: {
+      namn: 'Erik Lindqvist',
+      titel: 'Ekonom med inriktning mot affärsanalys & strategisk planering',
+
+      kontakt: {
+        telefon: '073-555 98 76',
+        epost: 'erik.lindqvist@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/eriklindqvist'
+      },
+
+      profil: 'Ekonom med 8 års erfarenhet av strategisk affärsanalys inom konsult- och industrisektorn. Specialiserad på lönsamhetsanalys, scenariomodellering och investeringsbeslut med fokus på datadrivna rekommendationer till ledningsgrupper. Driver affärskritiska beslut genom finansiell modellering och marknadsanalys. Civilekonom med fördjupning i företagsekonomi och finansiering från Handelshögskolan.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Ekonom / Business Analyst',
+          arbetsgivare: 'Scania CV AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Leder strategisk ekonomisk analys för affärsområde med omsättning på 8,5 miljarder SEK',
+            'Utvecklade scenariomodell för elbussmarknad som låg till grund för investeringsbeslut om 450 MSEK',
+            'Genomför kvartalsvisa lönsamhetsanalyser per produktsegment och rekommenderar prisstrategier till ledning',
+            'Reducerade kapitalbindning med 180 MSEK genom optimerad lagerstyrningsmodell och ABC-analys',
+            'Business partner till marknadschefer i tre länder med månatliga affärsgenomgångar och KPI-uppföljning'
+          ]
+        },
+        {
+          titel: 'Ekonom / Analytiker',
+          arbetsgivare: 'McKinsey & Company',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Genomförde strategiska analyser och finansiell modellering för klienter inom industri och finans',
+            'Ledde due diligence-projekt vid företagsförvärv med transaktionsvärden upp till 2,5 miljarder SEK',
+            'Utvecklade marknadsanalyser och konkurrentbenchmarking för 15+ strategiprojekt',
+            'Identifierade kostnadsbesparingar om 85 MSEK årligen för nordisk detaljhandelskedja',
+            'Mentorerade 3 junior-analytiker och ledde internt utbildningsprogram i finansiell modellering'
+          ]
+        },
+        {
+          titel: 'Ekonomiassistent / Trainee',
+          arbetsgivare: 'Swedbank',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Stöttade Private Banking-teamet med portföljanalys och kundrapportering för 120+ kunder',
+            'Utvecklade Excel-modeller för investeringsanalys som förbättrade kundpresentationer',
+            'Deltog i kvartalsvis makroekonomisk analys och marknadsuppdateringar till kunder'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilekonom, inriktning finansiering & företagsekonomi',
+          skola: 'Handelshögskolan i Stockholm',
+          period: '2012 – 2016',
+          beskrivning: 'Fördjupning inom corporate finance och strategic management. Examensarbete om värderingsmodeller vid företagsförvärv inom industrisektorn.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Finansiell modellering (Expert, 8+ år)',
+          'Excel (VBA, Power Query, Power Pivot)',
+          'Power BI & Tableau',
+          'SAP FI/CO & Oracle Financials',
+          'Lönsamhetsanalys & ABC-kalkylering',
+          'Scenariomodellering & forecasting'
+        ],
+        personliga: [
+          'Strategisk analys',
+          'Business partnering',
+          'Presentation till ledning',
+          'Datadriven beslutsfattning',
+          'Mentorskap & coachning'
+        ]
+      },
+
+      certifieringar: [
+        'CFA Level II Candidate (2024)',
+        'Financial Modeling & Valuation – Wall Street Prep (2022)',
+        'Power BI Data Analyst – Microsoft (2023)',
+        'Strategic Finance – McKinsey Academy (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Tyska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Strategiska keywords som ATS prioriterar',
+        text: `CV:t innehåller termer som rekryterare söker efter: "strategisk analys", "finansiell modellering", "investeringsbeslut", "lönsamhetsanalys" och "business partner". Inte generiska fraser som "analytisk förmåga".
+
+Varför detta fungerar: ATS-system för kvalificerade ekonomroller filtrerar på specifika termer. När Erik skriver "scenariomodell för elbussmarknad som låg till grund för investeringsbeslut om 450 MSEK" triggar han rätt sökord. Konkreta belopp och strategisk kontext skiljer seniora ekonomer från juniora.`
+      },
+      {
+        rubrik: 'Kvantifierade affärsresultat, inte bara analyser',
+        text: `Varje tjänst visar konkret affärspåverkan: 450 MSEK investeringsbeslut, 180 MSEK reducerad kapitalbindning, 85 MSEK i identifierade kostnadsbesparingar. Siffror genom hela karriären.
+
+Varför detta fungerar: Rekryterare ser dagligen CV:n där ekonomer skriver "genomförde analyser". Det säger inget om värdet. Erik visar att hans analyser ledde till beslut och resultat – skillnaden mellan att producera rapporter och att påverka verksamheten. En CFO anställer inte någon som analyserar, utan någon som skapar värde.`
+      },
+      {
+        rubrik: 'Balans mellan analytisk djup och affärsbredd',
+        text: `Erik visar både tekniska verktyg (Excel VBA, Power BI, SAP) och strategisk förmåga (business partnering, presentation till ledning, investeringsrekommendationer).
+
+Varför detta fungerar: En ekonom som bara kan modeller men inte kan kommunicera resultaten är begränsad. Erik bevisar att han kan både bygga komplexa modeller OCH presentera dem för ledning och marknadschefer – den kombinationen är ovanlig och eftertraktad. "Business partner till marknadschefer i tre länder" visar konkret affärssamverkan.`
+      },
+      {
+        rubrik: 'Certifieringar som visar ambition och aktualitet',
+        text: `CFA-kandidat (2024), Wall Street Prep (2022), Power BI (2023) och McKinsey Academy (2020) – alla med årtal som visar kontinuerlig utveckling mot mer kvalificerade roller.
+
+Varför detta fungerar: CFA-programmet är branschstandard för seriösa finansroller. Att vara "Level II Candidate" signalerar ambition och disciplin. Wall Street Prep visar praktisk finansiell modellering. Årtal bekräftar att kunskapen är aktuell – certifiering från 2020 utan förnyelse kan vara föråldrad.`
+      },
+      {
+        rubrik: 'Profiltext som positionerar rätt',
+        text: `Profilen sammanfattar: 8 års erfarenhet + branscher (konsult, industri) + specialisering (lönsamhetsanalys, scenariomodellering, investeringsbeslut) + konkret påverkan (ledningsgrupper) + utbildning (Handelshögskolan).
+
+Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, branscherfarenhet, specialistkompetens och rätt utbildningsbakgrund. Erik positionerar sig som strategisk ekonom, inte operativ controller – detta attraherar rätt typ av tjänster och undviker att fastna i fel kategori.`
+      },
+      {
+        rubrik: 'Prestigefylld karriärväg med tydlig progression',
+        text: `CV:t visar utveckling: Swedbank (trainee) → McKinsey (analytiker till senior) → Scania (senior ekonom med strategiskt ansvar). Prestigefyllda arbetsgivare i logisk progression.
+
+Varför detta fungerar: McKinsey-erfarenhet signalerar omedelbart analytisk skärpa och höga krav. Att sedan gå till industri (Scania) visar att Erik valt att implementera strategier, inte bara analysera. För ekonomroller på senior nivå är karriärvägen ofta lika viktig som kompetenserna – den berättar en historia om ambition och kapacitet.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Använd strategisk terminologi för kvalificerade roller',
+        text: `ATS-system för ekonomroller söker efter specifika termer. Matcha din terminologi mot jobbannonsen och undvik generiska fraser.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av ekonomiska analyser och rapportering"
+
+✅ "8 års erfarenhet av strategisk affärsanalys, finansiell modellering och investeringsbeslut. Specialist på scenariomodellering, lönsamhetsanalys och business case-utveckling för ledningsgrupper."
+
+Om arbetsgivaren söker "strategic finance" eller "business analysis", använd dessa termer explicit. Generiska fraser som "analyser och rapporter" triggar inte rätt filter.`
+      },
+      {
+        rubrik: 'Kvantifiera affärspåverkan, inte bara arbetsuppgifter',
+        text: `Som ekonom arbetar du med siffror – visa att dina analyser ledde till konkreta beslut och resultat. Undvik vaga beskrivningar av ansvar.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för lönsamhetsanalyser och rapportering till ledning"
+
+✅ "Ledde strategisk lönsamhetsanalys per produktsegment (8,5 mdr SEK omsättning) som resulterade i prisstrategiförändring och 12% marginalförbättring. Utvecklade scenariomodell för investeringsbeslut om 450 MSEK."
+
+CFO:er och VD:ar fattar beslut baserat på ekonomers analyser. Visa att dina rekommendationer faktiskt implementerades och genererade värde.`
+      },
+      {
+        rubrik: 'Lyft fram strategisk rådgivning till ledning',
+        text: `Skilj dig från operativa roller genom att visa att du arbetat direkt med beslutsfattare. Business partnering och presentation till C-level är kritiskt för seniora ekonomroller.
+
+**Exempel på före/efter**:
+
+❌ "God kommunikationsförmåga och analytisk"
+
+✅ "Business partner till marknadschefer i tre länder med månatliga affärsgenomgångar. Presenterar kvartalsvis lönsamhetsanalys och strategiska rekommendationer för koncernledningen."
+
+Ekonomer som stannar i bakgrunden och levererar rapporter utan att påverka beslut begränsas i karriären. Visa att du kan kommunicera med stakeholders på hög nivå.`
+      },
+      {
+        rubrik: 'Specificera finansiella modelleringsverktyg',
+        text: `"Excel-erfarenhet" säger inget. Specificera vilken nivå och vilka verktyg du behärskar för att sticka ut i urvalet.
+
+**Exempel på före/efter**:
+
+❌ "Goda kunskaper i Excel och analysprogram"
+
+✅ "Expert i finansiell modellering med Excel (VBA, Power Query, Power Pivot), Power BI och SAP FI/CO. Utvecklade DCF-modeller för företagsvärdering vid M&A-projekt upp till 2,5 mdr SEK."
+
+Ekonomer förväntas behärska Excel – men nivån varierar enormt. VBA-kompetens och koppling till affärssystem (SAP, Oracle) skiljer seniora från juniora.`
+      },
+      {
+        rubrik: 'Inkludera branscherkända certifieringar',
+        text: `CFA, CMA och finansiella modelleringscertifikat signalerar seriositet. Inkludera alltid årtal för att visa aktualitet.
+
+**Exempel på före/efter**:
+
+❌ "Diverse certifieringar inom ekonomi"
+
+✅ "CFA Level II Candidate (2024)
+Financial Modeling & Valuation – Wall Street Prep (2022)
+Power BI Data Analyst – Microsoft (2023)"
+
+CFA är branschstandard för kvalificerade finansroller. Att vara kandidat visar ambition även om du inte är charterholder ännu. Wall Street Prep-certifikat validerar praktiska modelleringskunskaper.`
+      },
+      {
+        rubrik: 'Visa progression från operativt till strategiskt',
+        text: `Ekonomkarriärer utvecklas från datahantering till strategisk rådgivning. Visa tydligt hur ditt ansvar och påverkan vuxit.
+
+**Exempel på före/efter**:
+
+❌ "Ekonom med bred erfarenhet från olika roller"
+
+✅ "Utveckling från finansanalytiker (Swedbank) via management consulting (McKinsey) till strategisk ekonom med ansvar för investeringsbeslut och ledningsstöd (Scania). Progression från analys till strategiskt affärsstöd."
+
+CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression signalerar potential för framtida utveckling.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som ekonom vara?',
+        svar: 'För ekonomer rekommenderas 1-2 sidor. Junior ekonom (0-5 år) klarar sig på 1 sida, medan senior ekonom eller analyschef med strategiskt ansvar ofta behöver 2 sidor för att visa progression och affärsresultat. Fokusera på de senaste 10-15 åren och prioritera strategiska projekt.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan ekonom och controller i CV:t?',
+        svar: 'Controller fokuserar på budgetarbete, forecasting och intern rapportering – operativt arbete. Ekonom (affärsekonom/analysekonom) betonar strategisk analys, investeringsbeslut och extern rådgivning. Om du söker ekonomroll, lyft fram: lönsamhetsanalyser, scenariomodellering, investeringsrekommendationer och business case-utveckling.'
+      },
+      {
+        fraga: 'Ska jag ta med CFA-kandidatur om jag inte är charterholder?',
+        svar: 'Ja, absolut. Skriv "CFA Level II Candidate (2024)" eller "CFA Level I Passed (2023)". CFA-programmet är så prestigefyllt att kandidatur i sig signalerar ambition och analytisk kapacitet. Många arbetsgivare söker aktivt kandidater som är i programmet. Var ärlig om din nivå – fejk upptäcks lätt.'
+      },
+      {
+        fraga: 'Hur beskriver jag McKinsey/BCG-erfarenhet utan att låta skrytsam?',
+        svar: 'Låt resultaten tala. Istället för "arbetade på prestigefylld byrå", skriv: "Ledde due diligence vid företagsförvärv med transaktionsvärden upp till 2,5 mdr SEK" och "Identifierade kostnadsbesparingar om 85 MSEK för nordisk detaljhandelskedja". Konkreta projekt och resultat är mer övertygande än firmanamnet ensamt.'
+      },
+      {
+        fraga: 'Vilka ekonomisystem ska jag nämna i mitt CV?',
+        svar: 'Nämn relevanta system baserat på roll: SAP FI/CO och Oracle Financials för industri, Bloomberg Terminal och Refinitiv för finans, Power BI och Tableau för analys. För modellering: Excel (specificera VBA, Power Query), eventuellt Python/R för avancerad analys. Matcha mot jobbannonsen och ange erfarenhetsnivå.'
+      },
+      {
+        fraga: 'Hur visar jag finansiell modellering på mitt CV?',
+        svar: 'Koppla modeller till affärsresultat. Skriv "Utvecklade DCF-modell för M&A-transaktion (2,5 mdr SEK) som ledde till justerad budpremie" eller "Scenariomodell för elbussmarknad som låg till grund för investeringsbeslut om 450 MSEK". Visa att modeller ledde till beslut, inte bara rapporter.'
+      },
+      {
+        fraga: 'Ska jag inkludera akademiska meriter som examensarbete?',
+        svar: 'Ja, om det är relevant och du är relativt junior (0-10 år). Skriv "Examensarbete om värderingsmodeller vid företagsförvärv inom industrisektorn" om du söker M&A-relaterade roller. För seniora ekonomer (10+ år) prioriteras yrkeserfarenhet – akademisk detalj kan kortas ned.'
+      },
+      {
+        fraga: 'Hur beskriver jag lönsamhetsanalys i mitt CV?',
+        svar: 'Specificera metod, omfattning och resultat. Skriv "Kvartalsvis lönsamhetsanalys per produktsegment (8,5 mdr SEK omsättning) med ABC-kalkylering. Identifierade låglönsamma produkter som fasades ut, vilket förbättrade bruttomarginalen med 2,3 procentenheter." Visa att analysen ledde till åtgärd.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika ekonomroller?',
+        svar: 'Affärsekonom: Betona strategisk analys, business case och ledningsstöd. Analysekonom: Fokusera på data, modellering och kvantitativa metoder. Ekonomichef: Lyft ledarskap, budgetansvar och teamutveckling. Finansanalytiker: Visa investeringsanalys, värdering och kapitalmarknad. Anpassa profiltext och kompetenser för varje ansökan.'
+      },
+      {
+        fraga: 'Vilka mjuka färdigheter är viktigast för ekonomer?',
+        svar: 'Business partnering (samarbete med icke-ekonomer), presentation till ledning (kommunicera komplexa analyser enkelt), och strategiskt tänkande (se helheten, inte bara siffror). Undvik klyschor som "analytisk" – det förväntas. Visa istället konkret: "Business partner till marknadschefer i tre länder med månatliga affärsgenomgångar".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Controller', slug: 'controller' },
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Redovisningsekonom', slug: 'redovisningsekonom' }
+    ]
   }
 }
 

@@ -790,6 +790,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för konditor med fokus på tårtdekorering, chokladarbete och wienerbrödsteknik inom hotellkonditori och bageri.',
       highlight: ['40+ bröllopstårtor/år och 35% ökad dessertförsäljning', 'HACCP-certifiering och livsmedelshygien', 'Chokladtemperering och socker­arbete']
     }
+  },
+  {
+    id: 'ekonom',
+    yrke: 'Ekonom',
+    slug: 'ekonom',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 1100,
+    icon: Calculator,
+    gradient: 'from-blue-600 via-indigo-700 to-blue-800',
+    preview: {
+      intro: 'CV för ekonom med fokus på strategisk affärsanalys, investeringsbeslut och finansiell modellering inom konsult och industri.',
+      highlight: ['450 MSEK investeringsbeslut och 180 MSEK reducerad kapitalbindning', 'Excel VBA, Power BI, SAP och CFA-kandidat', 'McKinsey-erfarenhet och business partnering till ledning']
+    }
   }
 ]
 
@@ -954,7 +968,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  54 yrken
+                  55 yrken
                 </motion.span>
               </h1>
 

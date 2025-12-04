@@ -221,6 +221,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'redovisningsekonom',
     'bartender',
     'konditor',
+    'ekonom',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
