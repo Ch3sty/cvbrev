@@ -776,6 +776,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för bartender med fokus på cocktailkunskap, kassahantering och högtrycksservice inom hotellbar och nattklubb.',
       highlight: ['200+ gäster/kväll och 28% ökad barförsäljning', 'Trivec, iZettle och WSET Level 2', 'Serveringstillstånd och signature drinks']
     }
+  },
+  {
+    id: 'konditor',
+    yrke: 'Konditor',
+    slug: 'konditor',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 320,
+    icon: Coffee,
+    gradient: 'from-pink-500 via-rose-600 to-pink-700',
+    preview: {
+      intro: 'CV för konditor med fokus på tårtdekorering, chokladarbete och wienerbrödsteknik inom hotellkonditori och bageri.',
+      highlight: ['40+ bröllopstårtor/år och 35% ökad dessertförsäljning', 'HACCP-certifiering och livsmedelshygien', 'Chokladtemperering och socker­arbete']
+    }
   }
 ]
 
@@ -940,7 +954,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  53 yrken
+                  54 yrken
                 </motion.span>
               </h1>
 

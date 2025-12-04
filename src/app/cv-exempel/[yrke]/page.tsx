@@ -14042,6 +14042,277 @@ Kreativitet och specialkunskap är meriterande för barer som vill sticka ut. Vi
       { yrke: 'Kock', slug: 'kock' },
       { yrke: 'Butiksbiträde', slug: 'butiksbitrade' }
     ]
+  },
+
+  'konditor': {
+    yrke: 'Konditor',
+    sokvolym: 320,
+    kategori: 'service',
+
+    metaTitle: 'CV Exempel Konditor 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för konditor med bakning, tårtdekorering och chokladarbete. ATS-optimerat med hygienutbildning, HACCP och kvantifierade resultat.',
+
+    seoIntro: `Söker du jobb som konditor och behöver ett CV som visar din hantverksskicklighet inom bakning, tårtdekorering och chokladarbete? Det här exemplet demonstrerar hur du skapar ett professionellt konditor-CV som imponerar på bagerier, hotell och konditorier.
+
+CV:t balanserar tekniska färdigheter som wienerbrödsteknik och chokladtemperering med mjuka egenskaper som kreativitet och tidseffektivitet under högtryck. Du hittar branschspecifika termer som HACCP, surdeg, petit fours och temadekorering – precis de nyckelord som arbetsgivare i livsmedelsbranschen söker efter. Exemplet visar hur du kvantifierar konditorarbete: "Producerade 300+ bakverksprodukter dagligen" och "Ökade bruttomarginal med 18% genom optimerad receptutveckling".
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från konditori, bageri eller hotell. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst i traditionellt konditori eller modern dessertbar.`,
+
+    intro: 'Konditor med fokus på bakning, tårtdekorering och chokladarbete. CV-exemplet visar hur du kombinerar hantverksskicklighet med kreativitet och hygienkompetens.',
+
+    exempelCV: {
+      namn: 'Sofia Bergström',
+      titel: 'Konditor med specialisering i tårtor & chokladarbete',
+
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'sofia.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/sofiabergstrom'
+      },
+
+      profil: 'Kreativ konditor med 6 års erfarenhet från hotellkonditori, cafékonditori och traditionellt bageri. Specialiserad på bröllopstårtor, chokladpraliner och wienerbrödsprodukter med fokus på kvalitet och presentation. Producerar 300+ bakverksprodukter dagligen med hög leveranssäkerhet. HACCP-certifierad med dokumenterad förmåga att utveckla nya recept som ökar kundnöjdhet och marginal.',
+
+      erfarenhet: [
+        {
+          titel: 'Konditor',
+          arbetsgivare: 'Hotel Post Göteborg',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarar för konditorproduktion till restaurang, bar och events med 50-200 gäster per dag',
+            'Utvecklade ny dessertmeny med 8 signaturrätter som ökade dessertförsäljningen med 35%',
+            'Producerar bröllopstårtor och specialbeställningar (80+ årligen) med 100% kundnöjdhet',
+            'Optimerade receptur som förbättrade bruttomarginalen med 18% utan kvalitetsförlust',
+            'Utbildar 2 konditorläringar i chokladteknik och tårtdekorering'
+          ]
+        },
+        {
+          titel: 'Konditor',
+          arbetsgivare: 'Bröd & Salt',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Producerade 300+ bakverksprodukter dagligen i cafékonditori med hög kundgenomströmning',
+            'Ansvarade för wienerbrödssortiment med croissanter, kanelbullar och frallor',
+            'Introducerade glutenfri produktlinje som genererade 120 000 kr extra månadsomsättning',
+            'HACCP-ansvarig med ansvar för egenkontroll och livsmedelssäkerhet'
+          ]
+        },
+        {
+          titel: 'Konditorbiträde',
+          arbetsgivare: 'Steinbrenner & Nyberg',
+          period: '2017 – 2019',
+          beskrivning: [
+            'Assisterade i produktion av praliner, marsipanfigurer och petit fours',
+            'Lärde sig klassisk chokladtemperering och garnering under erfarna mästare',
+            'Deltog i produktionen av 500+ praliner till julförsäljning med 98% kvalitetsgodkännande'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Konditorutbildning',
+          skola: 'Göteborgs Tekniska Institut',
+          period: '2015 – 2017',
+          beskrivning: 'Yrkesutbildning med fokus på konditorhantverk, bageri och chokladarbete. Praktik på Café Husaren och Steinbrenner & Nyberg.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Tårtdekorering (Expert)',
+          'Chokladtemperering & praliner',
+          'Wienerbrödsteknik & surdeg',
+          'HACCP & livsmedelshygien',
+          'Receptutveckling & kalkyl',
+          'Konditorimaskiner (degblandare, ugnar, sheeter)'
+        ],
+        personliga: [
+          'Kreativitet & estetik',
+          'Tidseffektivitet',
+          'Kvalitetsmedvetenhet',
+          'Samarbetsförmåga',
+          'Stresstålighet'
+        ]
+      },
+
+      certifieringar: [
+        'HACCP-certifiering – Livsmedelsverket (2019, förnyad 2024)',
+        'Livsmedelshygien grund – SLV (2017)',
+        'Chokladkurs avancerad – Barry Callebaut Academy (2022)',
+        'Allergenhantering – Visita (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika termer som fångar arbetsgivare',
+        text: `CV:t nämner HACCP, wienerbrödsteknik, chokladtemperering och petit fours – termer som konditorichefer och bagerisägare känner igen direkt.
+
+Varför detta fungerar: Livsmedelsbranschen har strikt terminologi. HACCP-certifiering är lagkrav för ledande positioner och visar att Sofia förstår livsmedelssäkerhet. Genom att explicit nämna specifika tekniker (temperering, surdeg) visar hon praktisk hantverksskicklighet – inte bara generell "bakningserfarenhet".`
+      },
+      {
+        rubrik: 'Siffror som visar produktionskapacitet',
+        text: `Varje erfarenhetspost innehåller konkreta resultat: 300+ produkter dagligen, 80+ bröllopstårtor årligen, 35% ökad dessertförsäljning, 18% bättre bruttomarginal och 120 000 kr extra månadsomsättning.
+
+Varför detta fungerar: Konditorier och bagerier handlar om volym och lönsamhet. "Erfaren konditor" säger lite, men "producerade 300+ bakverksprodukter dagligen med 100% kundnöjdhet" visar kapacitet i siffror. En konditorichef kan omedelbart se att Sofia klarar produktionstrycket.`
+      },
+      {
+        rubrik: 'Teknisk hantverksskicklighet möter affärsresultat',
+        text: `Sofia visar både hård kunskap (chokladtemperering, tårtdekorering, HACCP) och affärsbidrag som receptoptimering, produktutveckling och marginalförbättring.
+
+Varför detta fungerar: En konditor måste kunna baka kvalitetsprodukter OCH bidra till affären. Genom att visa "optimerade receptur som förbättrade bruttomarginalen med 18%" bevisar Sofia att hon tänker ekonomiskt – inte bara kreativt. Arbetsgivare uppskattar konditorier som förstår kostnader och marginaler.`
+      },
+      {
+        rubrik: 'Certifieringar som visar professionalism',
+        text: `HACCP-certifiering (2019, förnyad 2024), Livsmedelshygien SLV (2017) och avancerad chokladkurs från Barry Callebaut Academy – alla med årtal som visar aktualitet.
+
+Varför detta fungerar: HACCP är lagkrav för livsmedelssäkerhet och måste förnyas. Barry Callebaut är världens största chokladleverantör – deras akademi är branscherkänd. Genom att visa certifieringar med årtal bevisar Sofia att hon håller sin kompetens uppdaterad och tar yrket på allvar.`
+      },
+      {
+        rubrik: 'Profiltext som säljer på 10 sekunder',
+        text: `Profilen sammanfattar: 6 års erfarenhet + kontext (hotell, café, bageri) + specialisering (tårtor, choklad, wienerbrödsprodukter) + kapacitet (300+ produkter) + certifiering (HACCP).
+
+Varför detta fungerar: Konditorichefer scannar CV:n snabbt. Sofias profiltext levererar de kritiska komponenterna: erfarenhet, specialområden, volymkapacitet och livsmedelssäkerhet – allt inom fyra meningar. HACCP-certifieringen i profilen är en omedelbar kvalitetssignal för arbetsgivare.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression i branschen',
+        text: `CV:t visar utveckling från Konditorbiträde (Steinbrenner & Nyberg) via Konditor (Bröd & Salt) till Konditor på hotell (Hotel Post) – med tydligt ökande ansvar och prestige.
+
+Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat sin position. Steinbrenner & Nyberg är ett erkänt varumärke som validerar grundutbildning. Att visa utveckling från pralinproduktion via cafékonditori till hotellkonditori demonstrerar bredd och specialisering.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera HACCP och livsmedelscertifieringar',
+        text: `HACCP-certifiering är ofta ett krav för konditorjobb, särskilt i ledande roller. Nämn det explicit med förnyelsedatum. Komplettera med livsmedelshygienutbildning och allergenhantering.
+
+**Exempel på före/efter**:
+
+❌ "Kunskap om livsmedelshygien"
+
+✅ "HACCP-certifiering – Livsmedelsverket (2019, förnyad 2024), Livsmedelshygien grund – SLV (2017), Allergenhantering – Visita (2023)"
+
+Arbetsgivare i livsmedelsbranschen filtrerar ofta efter HACCP först. Utan certifiering är du inte anställningsbar för ansvariga positioner.`
+      },
+      {
+        rubrik: 'Kvantifiera produktionsvolym och kapacitet',
+        text: `Konditorier handlar om produktion. Specificera hur många produkter du producerar dagligen och vilka volymer du hanterat.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för bakning i högt tempo"
+
+✅ "Producerade 300+ bakverksprodukter dagligen i cafékonditori med hög kundgenomströmning. Ansvarade för bröllopstårtor (80+ årligen) med 100% kundnöjdhet."
+
+Siffror gör skillnaden mellan "kan baka" och "klarar produktionstrycket vi behöver". En bagerichef vill veta att du hanterar deras volym.`
+      },
+      {
+        rubrik: 'Visa konkreta affärsresultat',
+        text: `Lyft fram hur du bidragit till verksamhetens resultat – produktutveckling, marginalförbättring eller försäljningsökning.
+
+**Exempel på före/efter**:
+
+❌ "Utvecklade nya recept och produkter"
+
+✅ "Utvecklade ny dessertmeny med 8 signaturrätter som ökade dessertförsäljningen med 35%. Introducerade glutenfri produktlinje som genererade 120 000 kr extra månadsomsättning."
+
+En arbetsgivare vill se att du bidrar till affären, inte bara producerar. Produktutveckling med mätbart resultat är guld värt.`
+      },
+      {
+        rubrik: 'Lista specifika tekniker och specialiseringar',
+        text: `Nämn vilka hantverkstekniker du behärskar – det visar djup och sparar upplärning.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av bakning och konditori"
+
+✅ "Specialiserad på wienerbrödsteknik (croissanter, kanelbullar), chokladtemperering, tårtdekorering och surdegsbakning. Barry Callebaut Academy-utbildad i avancerat chokladarbete."
+
+Olika konditorier söker olika profiler. Om du matchar deras specialitet är du mer attraktiv.`
+      },
+      {
+        rubrik: 'Anpassa CV:t för olika konditorimiljöer',
+        text: `Konditoryrket varierar mellan hotell, café, bageri och industri. Anpassa fokus efter tjänsten du söker.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren konditor med bred erfarenhet"
+
+✅ För hotell: "Konditor med 6 års erfarenhet från Hotel Post Göteborg. Ansvarar för dessertmeny, bröllopstårtor och events med 50-200 gäster."
+
+✅ För café: "Konditor med fokus på cafékonditori och wienerbrödsprodukter. Producerar 300+ produkter dagligen med hög kundgenomströmning."
+
+Arbetsgivare söker rätt profil för sitt koncept – visa att du förstår deras miljö.`
+      },
+      {
+        rubrik: 'Lyft fram kreativitet och estetik',
+        text: `Konditori är ett hantverk där presentation är avgörande. Visa din kreativa förmåga med konkreta exempel.
+
+**Exempel på före/efter**:
+
+❌ "Kreativ och estetisk känsla"
+
+✅ "Utvecklade 8 signaturdessertter med unik presentation som ökade Instagramdelningar med 45%. Specialiserad på temadekorering och bröllopstårtor efter kundens vision."
+
+Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåga – gärna kopplat till kundnöjdhet eller försäljning.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som konditor vara?',
+        svar: 'För konditorer rekommenderas 1 sida. Branschen värderar praktisk erfarenhet och hantverksskicklighet framför långa texter. Fokusera på dina senaste 2-3 arbetsplatser med kvantifierade resultat (produktionsvolym, kundnöjdhet). Om du har HACCP-certifiering och specifika utbildningar, ge dem synlighet.'
+      },
+      {
+        fraga: 'Måste jag ha HACCP-certifiering för konditorjobb?',
+        svar: 'HACCP-certifiering är lagkrav för att leda egenkontroll enligt livsmedelslagen. För grundläggande konditorjobb räcker ofta livsmedelshygienutbildning, men HACCP öppnar dörrar för ledande roller. Certifieringen tar 1-2 dagar och kostar ca 3 000-5 000 kr. Nämn alltid certifieringar med årtal i CV:t.'
+      },
+      {
+        fraga: 'Hur beskriver jag erfarenhet från café vs hotell?',
+        svar: 'Café: Betona volym (300+ produkter/dag), tempo, wienerbrödssortiment och kundinteraktion. Hotell: Fokusera på finare konditori, dessertmenyer, specialbeställningar och events. Båda är värdefulla – anpassa vinkeln efter tjänsten du söker. Hotellkonditori ger ofta mer kreativ frihet.'
+      },
+      {
+        fraga: 'Ska jag inkludera konditorutbildning eller är det oväsentligt?',
+        svar: 'Ja, konditorutbildningar som gymnasieprogram eller yrkesutbildningar är meriterande. De visar grundläggande teori och praktik. Komplettera med specifika kurser (chokladkurs, tårtdekorering) för att visa specialisering. Erfarna konditorer kan prioritera arbetslivserfarenhet över utbildning.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt konditorarbete om jag inte har exakta siffror?',
+        svar: 'Uppskatta baserat på kunskap: "Ca 200-300 produkter dagligen", "Ca 50 bröllopstårtor årligen". Använd intervall om du är osäker. Du kan också kvantifiera sortiment: "Ansvarade för 25 olika wienerbrödsprodukter" eller teamstorlek: "Del av 4-personers konditoriteam". Ungefärliga siffror är bättre än inga.'
+      },
+      {
+        fraga: 'Hur visar jag kreativitet i CV:t utan portfolio?',
+        svar: 'Beskriv konkreta resultat: "Utvecklade 8 signaturdessertter som ökade försäljningen med 35%". Nämn tävlingar eller utmärkelser om du deltagit. Inkludera Instagram eller portfolio-länk om du har. Beskriv temadekorering eller specialbeställningar: "Designade bröllopstårtor efter kundens vision – 100% kundnöjdhet".'
+      },
+      {
+        fraga: 'Vilka maskiner och utrustning ska jag nämna?',
+        svar: 'Nämn specifik utrustning du behärskar: "Degblandare (Hobart, Diosna), sheetmaskiner, temperingsmaskin, sous vide". Matcha mot jobbannonsen om möjligt. Olika konditorier har olika utrustning – visa att du snabbt kan komma igång med deras maskinpark.'
+      },
+      {
+        fraga: 'Hur beskriver jag marginal- och receptutveckling?',
+        svar: 'Kvantifiera resultat: "Optimerade receptur som förbättrade bruttomarginalen med 18%". Beskriv metod: "Kalkylerade råvarukostnader och justerade portionsstorlekar utan kvalitetsförlust". Arbetsgivare uppskattar konditorer som tänker ekonomiskt – inte bara kreativt.'
+      },
+      {
+        fraga: 'Ska jag ta med säsongsjobb och kortare anställningar?',
+        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Julförstärkning – Steinbrenner & Nyberg (nov-dec 2022), 500+ praliner dagligen". Säsongsarbete i julproduktion eller bröllopsäsong visar att du klarar högtryck. Undvik att lista för många korta jobb utan substans.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för industrikonditori vs hantverk?',
+        svar: 'Industri: Betona volym, processoptimering, maskinkännedom och HACCP. Hantverk: Fokusera på kreativitet, specialbeställningar, kundkontakt och presentation. Båda kräver kvalitet – men industri prioriterar effektivitet medan hantverk prioriterar estetik. Anpassa språket efter tjänsten.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Servitris', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' }
+    ]
   }
 }
 

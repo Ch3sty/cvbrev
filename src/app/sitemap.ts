@@ -220,6 +220,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'fritidspedagog',
     'redovisningsekonom',
     'bartender',
+    'konditor',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
