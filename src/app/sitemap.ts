@@ -276,6 +276,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'controller',
     'scrum-master',
     'truckforare',
+    'lagerchef',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

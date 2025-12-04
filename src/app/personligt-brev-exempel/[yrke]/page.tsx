@@ -5267,6 +5267,122 @@ Med dokumenterad truckkompetens och vana vid högt tempo bidrar jag gärna till 
       { yrke: 'Kundtjänst', slug: 'kundtjanst' },
       { yrke: 'Städare', slug: 'stadare' }
     ]
+  },
+
+  'lagerchef': {
+    yrke: 'Lagerchef',
+    sokvolym: 300,
+    metaTitle: 'Personligt brev Lagerchef – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som lagerchef. Se exempel med personalansvar, WMS-system, lean-principer och mätbara effektiviseringar.',
+    intro: 'Ett övertygande personligt brev som lagerchef visar din förmåga att leda lagerverksamhet effektivt och utveckla både processer och medarbetare. Arbetsgivare söker kandidater som kombinerar operativ kompetens med ledarskap och förmåga att driva förbättringsarbete. I detta exempel ser du hur du presenterar ditt personalansvar med konkreta siffror, beskriver mätbara effektiviseringar och visar att du prioriterar säkerhet och arbetsmiljö. Brevet balanserar strategiskt tänkande med praktisk erfarenhet av daglig lagerstyrning.',
+    seoIntro: `Att skriva ett personligt brev som lagerchef handlar om att visa din förmåga att kombinera operativ styrning med ledarskap och förbättringsarbete. Detta exempel demonstrerar hur du presenterar ditt personalansvar tydligt, beskriver mätbara effektiviseringar och visar förståelse för säkerhet och arbetsmiljö. Brevet balanserar strategiskt tänkande med daglig operativ kompetens.\n\nI exemplet ser du hur en erfaren lagerchef lyfter fram ansvar för 24 medarbetare och 85 000 pallar årligen, vilket ger rekryteraren en tydlig bild av verksamhetens omfattning. Konkreta förbättringar som 22% ökad produktivitet och minskad felplockning från 1,8% till 0,4% visar resultatfokus. Erfarenhet av WMS-system, lean-principer och nyckeltal som lageromsättningshastighet signalerar branschkunskap.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa volymer och resultat till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver personalansvar, presenterar förbättringsprojekt och positionerar dig som en lagerchef som levererar resultat samtidigt som du värnar om medarbetarna.`,
+    exempelBrev: {
+      namn: 'Johan Andersson',
+      adress: 'Terminalvägen 8, 424 57 Angered',
+      telefon: '073-567 89 01',
+      epost: 'johan.andersson@email.com',
+      arbetsgivare: 'Bring Logistics',
+      roll: 'Lagerchef',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Tjänsten som lagerchef på Bring Logistics väckte mitt intresse omedelbart. Med sju års erfarenhet av lagerverksamhet och tre år i ledande position har jag den operativa och strategiska kompetens ni söker för att driva effektiv godshantering.
+
+I min nuvarande roll som lagerchef ansvarar jag för en verksamhet med 24 medarbetare fördelat på två skift och en årlig godsvolym på 85 000 pallar. Genom att implementera lean-principer i plockprocessen ökade vi produktiviteten med 22% under 2024 samtidigt som felplockarna minskade från 1,8% till 0,4%. Jag har även lett en omstrukturering av lagerytorna som frigjorde 400 kvadratmeter för ny produktkategori utan nyinvestering.
+
+Min kompetens omfattar personalplanering, budgetansvar och daglig styrning av lageroperationer. Jag arbetar i WMS-system för lagerhantering och har erfarenhet av att analysera nyckeltal som lageromsättningshastighet, plockeffektivitet och leveransprecision. Jag leder morgonmöten med skiftledare och ansvarar för rekrytering, introduktion och utvecklingssamtal. Säkerhet prioriteras alltid och vi har haft noll arbetsplatsolyckor under mitt ledarskap.
+
+Er satsning på hållbar logistik och kontinuerlig förbättring stämmer väl med mina värderingar. Jag uppskattar att ni kombinerar högt tempo med fokus på medarbetarnas arbetsmiljö. Min erfarenhet av att bygga engagerade team och driva förbättringsarbete passar väl in i er kultur.
+
+Med gedigen erfarenhet av lagerstyrning och dokumenterad förmåga att leverera mätbara förbättringar bidrar jag gärna till ert team. Jag ser fram emot att diskutera hur jag kan stötta er verksamhet.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Beskriv ditt personalansvar med antal och struktur',
+        text: 'Arbetsgivare vill förstå din ledarskapserfarenhet. Ange antal medarbetare, antal skift och eventuella skiftledare som rapporterar till dig. Om du haft budgetansvar, nämn det också.\n\nExempel: "ansvarar för 30 medarbetare fördelat på tre skift med fyra skiftledare" säger mer än bara "personalansvar".'
+      },
+      {
+        rubrik: 'Kvantifiera förbättringar du drivit med konkreta resultat',
+        text: 'Lagerchefer förväntas effektivisera verksamheten. Beskriv projekt du lett och vilka resultat de gav. Inkludera procent, tidsbesparingar eller kostnadsminskningar. Konkreta siffror visar att du skapar värde utöver att bara hålla verksamheten igång.'
+      },
+      {
+        rubrik: 'Nämn WMS-system och nyckeltal du arbetar med',
+        text: 'Systemkompetens är viktigt för lagerchefsroller. Ange vilka WMS-system du använt och vilka nyckeltal du följer upp. Lageromsättningshastighet, plockeffektivitet och leveransprecision är relevanta att nämna. Det visar att du arbetar datadrivet.'
+      },
+      {
+        rubrik: 'Visa att du prioriterar säkerhet och arbetsmiljö',
+        text: 'Lagermiljöer har olycksrisker som arbetsgivare tar på allvar. Nämn hur du arbetar med säkerhet, om du haft perioder utan olyckor eller genomfört förbättringar. Det visar att du tar ansvar för hela verksamheten, inte bara siffrorna.'
+      },
+      {
+        rubrik: 'Beskriv din ledarstil med konkreta exempel',
+        text: 'Undvik vaga påståenden som "jag är en bra ledare". Beskriv istället hur du leder: morgonmöten, utvecklingssamtal, hur du hanterar konflikter eller motiverar teamet. Konkreta exempel är mer övertygande än adjektiv.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Anger personalansvar med konkreta siffror',
+        beskrivning: 'Genom att nämna 24 medarbetare på två skift förstår rekryteraren direkt vilken ledarskapsnivå kandidaten har. Det är mer informativt än "personalansvar" utan storlek och visar kapacitet att hantera skiftarbete.'
+      },
+      {
+        titel: 'Kvantifierar förbättringar med mätbara resultat',
+        beskrivning: '22% ökad produktivitet och minskad felplockning från 1,8% till 0,4% är konkreta resultat som visar förbättringsförmåga. Rekryterare uppskattar kandidater som kan bevisa sin påverkan med siffror.'
+      },
+      {
+        titel: 'Visar säkerhetsfokus med noll olyckor',
+        beskrivning: 'Formuleringen om noll arbetsplatsolyckor under kandidatens ledarskap visar att säkerhet prioriteras. För lagermiljöer är detta avgörande och signalerar ansvarsfull ledning.'
+      },
+      {
+        titel: 'Namnger relevanta system och nyckeltal',
+        beskrivning: 'WMS-system, lageromsättningshastighet, plockeffektivitet och leveransprecision är branschspecifika termer som visar praktisk erfarenhet. Det underlättar matchning mot jobbkrav och signalerar teknisk kompetens.'
+      },
+      {
+        titel: 'Kopplar erfarenhet till företagets värderingar',
+        beskrivning: 'Referensen till hållbar logistik och balansen mellan tempo och arbetsmiljö visar att kandidaten gjort research. Det signalerar att lagerchef-rollen handlar om mer än bara volymer.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur beskriver jag personalansvar i mitt personliga brev som lagerchef?',
+        a: 'Ange antal medarbetare, skiftstruktur och eventuella underställda ledare. Beskriv dina ansvarsområden som rekrytering, utvecklingssamtal och schemaläggning. Undvik vaga formuleringar som "stort personalansvar" och var specifik med siffror.'
+      },
+      {
+        q: 'Vilka nyckeltal bör jag nämna som lagerchef?',
+        a: 'Relevanta nyckeltal inkluderar lageromsättningshastighet, plockeffektivitet, leveransprecision, fyllnadsgrad och reklamationsfrekvens. Välj de som du aktivt arbetat med och kan visa förbättringar inom. Det visar att du arbetar datadrivet.'
+      },
+      {
+        q: 'Ska jag nämna WMS-erfarenhet i brevet?',
+        a: 'Ja, systemkompetens är ofta avgörande. Nämn vilka system du arbetat med om du minns namnen. Beskriv även hur du använder systemet för uppföljning och styrning. Det visar att du behärskar modern lagerstyrning.'
+      },
+      {
+        q: 'Hur visar jag ledaregenskaper konkret i brevet?',
+        a: 'Ge exempel på hur du leder istället för att skriva "jag är en god ledare". Beskriv morgonmöten du håller, hur du genomför utvecklingssamtal eller hur du hanterat en utmanande situation. Konkreta exempel är mer övertygande.'
+      },
+      {
+        q: 'Är lean-erfarenhet relevant att nämna för lagerchef?',
+        a: 'Ja, lean-principer och kontinuerlig förbättring är högt värderat inom logistik. Om du implementerat lean-metoder som 5S, kaizen eller värdeflödesanalys, nämn det med konkreta resultat. Det visar att du driver effektivisering systematiskt.'
+      },
+      {
+        q: 'Hur beskriver jag säkerhetsarbete i personligt brev?',
+        a: 'Nämn konkreta insatser som säkerhetsgenomgångar, rutiner du infört eller resultat som perioder utan olyckor. Undvik generella fraser som "säkerhet är viktigt för mig". Konkreta exempel visar att du tar ansvar i praktiken.'
+      },
+      {
+        q: 'Ska jag nämna budgetansvar som lagerchef?',
+        a: 'Ja, om du har budgetansvar är det relevant att nämna. Ange storleksordning om möjligt och eventuella besparingar du uppnått. Det visar att du förstår ekonomin bakom lagerverksamheten och kan ta affärsmässiga beslut.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev som lagerchef vara?',
+        a: 'Håll brevet till en A4-sida, cirka 300-400 ord. Lagerchefstjänster kräver både operativ och strategisk kompetens, så inkludera både exempel på daglig styrning och förbättringsarbete. Viktigast är att personalansvar och resultat framgår tydligt.'
+      }
+    ],
+
+    kategori: 'ledarskap',
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'Truckförare', slug: 'truckforare' }
+    ]
   }
 }
 
