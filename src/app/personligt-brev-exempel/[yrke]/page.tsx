@@ -4817,10 +4817,10 @@ Jag är övertygad om att min erfarenhet av skalbara system och min passion för
       adress: 'Vasagatan 15, 411 24 Göteborg',
       telefon: '070-234 56 78',
       epost: 'marcus.lindqvist@email.com',
-      arbetsgivare: 'Företag AB',
+      arbetsgivare: 'Bisnode Sverige',
       roll: 'Account Manager',
       datum: new Date().toLocaleDateString('sv-SE'),
-      brevText: `Tjänsten som Account Manager på [Företag AB] fångade omedelbart mitt intresse. Med sex års erfarenhet av B2B-försäljning och kundrelationer inom tech-branschen ser jag en utmärkt matchning mellan era behov och min kompetens att bygga långsiktiga affärsrelationer.
+      brevText: `Tjänsten som Account Manager på Bisnode Sverige fångade omedelbart mitt intresse. Med sex års erfarenhet av B2B-försäljning och kundrelationer inom tech-branschen ser jag en utmärkt matchning mellan era behov och min kompetens att bygga långsiktiga affärsrelationer.
 
 I min nuvarande roll som Account Manager på ett SaaS-bolag ansvarar jag för en kundportfölj värd 28 miljoner kronor årligen. Genom proaktiv kundvård och strategisk merförsäljning ökade jag intäkterna från befintliga kunder med 34% under 2024. Ett konkret exempel är hur jag identifierade expansionsmöjligheter hos en nyckelkund, vilket resulterade i ett tilläggsavtal på 2,4 miljoner kronor efter tre månaders bearbetning.
 
@@ -4933,10 +4933,10 @@ Med dokumenterad förmåga att överträffa försäljningsmål och utveckla kund
       adress: 'Storgatan 45, 753 20 Uppsala',
       telefon: '073-456 78 90',
       epost: 'anna.bergstrom@email.com',
-      arbetsgivare: 'Företag AB',
+      arbetsgivare: 'Sandvik AB',
       roll: 'Controller',
       datum: new Date().toLocaleDateString('sv-SE'),
-      brevText: `Tjänsten som Controller på [Företag AB] är precis den utmaning jag söker. Med åtta års erfarenhet av ekonomistyrning och finansiell analys inom tillverkningsindustrin har jag utvecklat en stark grund i både strategisk planering och operativ uppföljning.
+      brevText: `Tjänsten som Controller på Sandvik AB är precis den utmaning jag söker. Med åtta års erfarenhet av ekonomistyrning och finansiell analys inom tillverkningsindustrin har jag utvecklat en stark grund i både strategisk planering och operativ uppföljning.
 
 I min nuvarande roll som Controller ansvarar jag för budgetprocessen för en affärsenhet med 180 miljoner kronor i omsättning. Genom att implementera rullande prognoser och förbättrade analysverktyg minskade jag avvikelsen mellan budget och utfall från 12% till under 4%. Jag har även lett ett projekt för att automatisera månadsrapporteringen, vilket frigjorde två arbetsdagar per månad för värdeskapande analys istället för manuell datahantering.
 
@@ -5049,10 +5049,10 @@ Med gedigen erfarenhet av ekonomistyrning och ett genuint intresse för att skap
       adress: 'Vasagatan 28, 411 37 Göteborg',
       telefon: '070-234 56 78',
       epost: 'erik.lindberg@email.com',
-      arbetsgivare: 'Företag AB',
+      arbetsgivare: 'Spotify',
       roll: 'Scrum Master',
       datum: new Date().toLocaleDateString('sv-SE'),
-      brevText: `Tjänsten som Scrum Master på [Företag AB] väckte mitt intresse direkt. Med fem års erfarenhet av att coacha agila team och facilitera Scrum-processer ser jag en utmärkt matchning mellan era behov och min kompetens att skapa högpresterande utvecklingsteam.
+      brevText: `Tjänsten som Scrum Master på Spotify väckte mitt intresse direkt. Med fem års erfarenhet av att coacha agila team och facilitera Scrum-processer ser jag en utmärkt matchning mellan era behov och min kompetens att skapa högpresterande utvecklingsteam.
 
 I min nuvarande roll som Scrum Master för två parallella team har jag ökat leveranstakten med 40% genom att införa tydligare sprintmål och förbättrad backlog refinement. Jag faciliterar dagliga standups, sprintplaneringar och retrospektiv för sammanlagt 16 utvecklare. Ett konkret exempel är när jag identifierade att teknisk skuld blockerade ny funktionalitet. Genom att arbeta med Product Owner om prioritering och facilitera en fokuserad refaktoreringsprint minskade vi buggar i produktion med 60%.
 
@@ -5165,10 +5165,10 @@ Med certifierad kompetens inom Scrum och dokumenterad förmåga att förbättra 
       adress: 'Industrigatan 15, 721 35 Västerås',
       telefon: '073-456 78 90',
       epost: 'marcus.eriksson@email.com',
-      arbetsgivare: 'Företag AB',
+      arbetsgivare: 'PostNord Logistics',
       roll: 'Truckförare',
       datum: new Date().toLocaleDateString('sv-SE'),
-      brevText: `Tjänsten som truckförare på [Företag AB] passar mina erfarenheter och mitt intresse väl. Med fyra års erfarenhet av truckkörning inom lager och logistik, samt A1-4 och B1-4 truckkort, har jag den kompetens ni efterfrågar för att effektivisera ert godsflöde.
+      brevText: `Tjänsten som truckförare på PostNord Logistics passar mina erfarenheter och mitt intresse väl. Med fyra års erfarenhet av truckkörning inom lager och logistik, samt A1-4 och B1-4 truckkort, har jag den kompetens ni efterfrågar för att effektivisera ert godsflöde.
 
 I min nuvarande roll som truckförare på ett distributionslager hanterar jag dagligen in- och utleveranser av palleterat gods med motviktstruck och skjutstativtruck. Under det senaste året har jag plockat och lastat i genomsnitt 180 orderrader per skift med en plocknoggrannhet på 99,2%. När vi införde nytt lagersystem deltog jag aktivt i implementeringen och utbildade tre kollegor i den nya arbetsprocessen.
 
