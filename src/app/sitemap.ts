@@ -267,6 +267,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'vardbitrade',
     'hemtjanst',
     'kock',
+    'specialpedagog',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

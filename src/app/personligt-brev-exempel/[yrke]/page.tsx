@@ -4169,6 +4169,146 @@ Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att han
       { yrke: 'Butikssäljare', slug: 'butikssaljare' },
       { yrke: 'Hemtjänst', slug: 'hemtjanst' }
     ]
+  },
+
+  'specialpedagog': {
+    yrke: 'Specialpedagog',
+    sokvolym: 600,
+    metaTitle: 'Personligt Brev Specialpedagog 2025 - Exempel & Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett exempel på personligt brev för specialpedagog. Visa pedagogisk utredning, NPF-kompetens och elevhälsoarbete. Konkreta tips för skola och förskola.',
+    seoTitle: 'Personligt Brev Specialpedagog 2025 - Exempel & Mall | Jobbcoach.ai',
+    seoDescription: 'Komplett exempel på personligt brev för specialpedagog. Visa pedagogisk utredning, NPF-kompetens och elevhälsoarbete. Konkreta tips för skola och förskola.',
+
+    intro: 'Anna Bergqvists personliga brev visar hur hon kvantifierar sitt specialpedagogiska arbete. Hon beskriver 120 pedagogiska utredningar med validerade instrument, systematiskt åtgärdsprogramsarbete och handledning av kollegor. Brevet kombinerar NPF-kompetens med relationellt perspektiv och konkreta verktyg som Unikum och IST. Rekryterare ser tydligt hur hon arbetar både med enskilda elever och på systemnivå genom hela elevhälsoteamet.',
+
+    seoIntro: `Det här personliga brevet visar hur du som specialpedagog konkretiserar ditt pedagogiska arbete med siffror och verktyg som rekryterare känner igen. Anna Bergqvist beskriver inte bara att hon arbetat med elevhälsa. Hon visar att hon genomfört 120 pedagogiska utredningar med validerade instrument som IST och Nya Lusboken. Hon kvantifierar sina åtgärdsprogram och nämner konkreta ramverk som UDL och systematisk kvalitet.
+
+Brevet lyfter systemarbete genom handledning av kollegor, inte bara direktkontakt med elever. Anna visar att hon bygger skolans pedagogiska kompetens långsiktigt och arbetar relationellt med hela lärmiljön. Hon nämner samverkan i elevhälsoteamet (EHT) och hur hon använder NPF-kompetens i praktiken. Rekryterare ser direkt att hon behärskar både utredning och implementering av stöd.
+
+Brevet fungerar eftersom det balanserar pedagogisk teori med praktiska resultat. Följ exemplet när du söker tjänster inom grundskola eller förskola där elevhälsoarbete är centralt. Se våra tips nedan för hur du anpassar innehållet till din erfarenhet och specifika roll.`,
+
+    exempelBrev: {
+      namn: 'Anna Bergqvist',
+      adress: 'Linnégatan 12, 352 34 Växjö',
+      telefon: '073-245 67 89',
+      epost: 'anna.bergqvist@email.se',
+      arbetsgivare: 'Ängskolan',
+      roll: 'Specialpedagog',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som specialpedagog på er skola med stort engagemang. Med åtta års erfarenhet av att stödja elever med olika behov och en magisterexamen i specialpedagogik ser jag fram emot att bidra till er elevhälsa. Er satsning på inkluderande lärmiljöer och tidiga insatser matchar perfekt min pedagogiska grundsyn.
+
+Under mina senaste fyra år på Ängskolan i Växjö har jag arbetat nära elevhälsoteamet och byggt upp strukturer för tidiga insatser som förbättrade måluppfyllelsen för elever i behov av stöd med 34 procent. Jag har genomfört över 120 pedagogiska utredningar och upprättat åtgärdsprogram för elever med neuropsykiatriska funktionsnedsättningar, lässvårigheter och socio-emotionella utmaningar. Mitt arbete inkluderar kartläggning med validerade instrument, samtal med elever och vårdnadshavare samt fortlöpande uppföljning. Genom systematisk handledning av pedagoger har jag också bidragit till kompetensutveckling kring extra anpassningar i klassrummet.
+
+Min specialpedagogiska kompetens omfattar arbete med elever med ADHD, autism och dyslexi. Jag behärskar verktyg som Nya Lusboken, God Läsutveckling och Järpum för läs- och skrivutveckling samt arbetar strukturerat i Unikum och IST för dokumentation. Jag är väl förtrogen med skollagen, läroplanen och specialpedagogiska perspektiv där jag alltid utgår från ett relationellt synsätt. Mina starkaste sidor är förmågan att se varje elevs potential, skapa trygga relationer och samarbeta med kollegor för att utveckla inkluderande lärmiljöer.
+
+Er skolas värdegrund om att varje elev ska få det stöd de behöver för att nå sin fulla potential tilltalar mig starkt. Jag uppskattar er satsning på strukturerad samverkan mellan specialpedagoger, lärare och elevhälsa. Min erfarenhet av systematiskt kvalitetsarbete och utveckling av rutiner för tidiga insatser skulle passa väl in i er organisation.
+
+Jag är övertygad om att min specialpedagogiska erfarenhet och mitt engagemang för inkludering skulle tillföra värde till er elevhälsa. Jag ser fram emot att diskutera hur jag kan bidra till er skolas fortsatta utveckling.
+
+Med vänliga hälsningar,
+Anna Bergqvist`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera dina pedagogiska utredningar',
+        text: `Skriv hur många utredningar du genomfört och vilka instrument du använt. Istället för "genomför pedagogiska utredningar" skriv "genomfört 40+ pedagogiska utredningar med IST, Nya Lusboken och God Läsutveckling". Rekryterare vill se omfattning och att du behärskar validerade metoder.
+
+Nämn gärna både kvantitet (antal utredningar) och variation (olika åldersgrupper eller problematik) för att visa bredd i erfarenheten.`
+      },
+      {
+        rubrik: 'Beskriv ditt arbete med åtgärdsprogram konkret',
+        text: `Skriv hur du formulerar mål och följer upp åtgärder. Använd begrepp som SMART-mål, uppföljningsrutiner och samverkan med vårdnadshavare. Exempel: "Upprättar och följer upp åtgärdsprogram med konkreta, mätbara mål som utvärderas var sjätte vecka tillsammans med lärare och vårdnadshavare".
+
+Visa att du inte bara skriver dokument utan arbetar systematiskt med implementering och uppföljning. Detta är ofta den svagaste länken i elevhälsoarbete.`
+      },
+      {
+        rubrik: 'Visa systemarbete genom handledning av kollegor',
+        text: `Lyft hur du stärker pedagogers kompetens genom handledning och kollegialt lärande. Skriv inte bara om direkt elevkontakt. Exempel: "Handleder lärare i anpassningar för elever med NPF genom regelbundna reflektionssamtal och klassrumsobservationer".
+
+Rekryterare söker specialpedagoger som bygger skolans långsiktiga kapacitet. Beskriv gärna hur du dokumenterar och sprider fungerande metoder inom arbetslaget.`
+      },
+      {
+        rubrik: 'Använd relationellt perspektiv i dina beskrivningar',
+        text: `Formulera dig så att du visar att du ser lärmiljön och inte eleven som problemet. Istället för "arbete med elever i svårigheter" skriv "skapar inkluderande lärmiljöer där alla elever kan utvecklas". Detta visar att du arbetar enligt modern specialpedagogisk forskning.
+
+Nämn gärna UDL (Universal Design for Learning) eller liknande ramverk som konkretiserar hur du tänker kring tillgänglighet och anpassning.`
+      },
+      {
+        rubrik: 'Nämna konkreta verktyg och system du använder',
+        text: `Skriv vilka digitala system och bedömningsinstrument du behärskar: Unikum, IST, WISC, Järpum, God Läsutveckling eller andra relevanta verktyg. Detta visar att du kan starta direkt utan omfattande introduktion.
+
+Om du arbetat med specifika dokumentationssystem eller metoder för uppföljning, nämn dem. Rekryterare söker ofta efter erfarenhet av skolans befintliga system.`
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierade utredningar med validerade instrument',
+        beskrivning: 'Anna skriver inte bara att hon gör utredningar. Hon anger 120 genomförda och nämner IST, Nya Lusboken och WISC. Rekryterare ser att hon behärskar strukturerad kartläggning och kan motivera pedagogiska beslut med dokumenterade metoder.'
+      },
+      {
+        titel: 'Systemarbete genom handledning av pedagoger',
+        beskrivning: 'Genom att beskriva hur hon handleder kollegor visar Anna att hon bygger skolans kompetens långsiktigt. Rekryterare värderar detta eftersom en specialpedagog ska stärka hela organisationen, inte bara arbeta reaktivt med enskilda elever.'
+      },
+      {
+        titel: 'NPF-kompetens kopplad till konkreta åtgärder',
+        beskrivning: 'Anna nämner ADHD, autism och språkstörning i relation till inkluderande lärmiljöer och anpassningar. Hon visar inte bara teoretisk kunskap utan hur NPF-förståelse leder till praktiska åtgärder i klassrummet.'
+      },
+      {
+        titel: 'Relationellt perspektiv istället för kategoriskt',
+        beskrivning: 'Genom att lyfta lärmiljö och relationellt synsätt visar Anna modern specialpedagogik där problemet inte placeras hos eleven utan i samspelet med omgivningen. Detta signalerar forskningsbaserad praxis.'
+      },
+      {
+        titel: 'Konkreta verktyg och ramverk som rekryterare känner igen',
+        beskrivning: 'Anna nämner Unikum, UDL och systematisk kvalitet. Rekryterare ser att hon kan starta direkt utan omfattande introduktion. Att namnge verktyg visar att hon förstår hur elevhälsoarbete dokumenteras och följs upp.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vilken utbildning krävs för att arbeta som specialpedagog?',
+        a: 'Du behöver grundläggande lärarexamen plus påbyggnadsutbildning till specialpedagog (90 hp). I brevet skriver du "specialpedagogexamen, Uppsala universitet" eller motsvarande. Om du läser utbildningen nu, skriv "pågående specialpedagogutbildning, 60 hp avklarade". Nämn gärna om du har fördjupning inom NPF, matematiksvårigheter eller språkutveckling.'
+      },
+      {
+        q: 'Vad är skillnaden mellan specialpedagog och speciallärare?',
+        a: 'Specialpedagog arbetar på organisationsnivå med systemarbete, handledning och elevhälsoteam. Speciallärare undervisar direkt i små grupper eller enskilt. I ditt brev betonar du systemarbete, kartläggning och pedagogisk utveckling om du söker specialpedagogtjänst. Om du har båda kompetenserna kan du nämna det som styrka.'
+      },
+      {
+        q: 'Hur skriver jag om pedagogiska utredningar i brevet?',
+        a: 'Kvantifiera och namnge instrument. Skriv "genomfört 50+ pedagogiska utredningar med IST, Nya Lusboken och WISC för elever i förskoleklass till årskurs 9". Nämn variation i problematik (läs- och skrivsvårigheter, matematik, NPF, språkstörning) för att visa bredd. Lyft hur du kopplar utredning till konkreta åtgärder.'
+      },
+      {
+        q: 'Vilka verktyg och system bör jag nämna?',
+        a: 'Nämn bedömningsinstrument du använder (IST, WISC, Järpum, God Läsutveckling, Nya Lusboken) och digitala system (Unikum, andra elevhälsosystem). Även ramverk som UDL eller systematisk kvalitet visar att du arbetar strukturerat. Anpassa till de verktyg som nämns i annonsen om möjligt.'
+      },
+      {
+        q: 'Ska jag skriva om NPF-kompetens?',
+        a: 'Ja, NPF är centralt för de flesta specialpedagogtjänster. Skriv konkret: "omfattande erfarenhet av att anpassa lärmiljöer för elever med ADHD, autism och språkstörning". Koppla gärna till hur du implementerar stöd i klassrummet eller handleder lärare i NPF-anpassningar. Undvik att bara lista diagnoser utan att visa vad du gör med kunskapen.'
+      },
+      {
+        q: 'Hur framhäver jag samverkanskompetens i elevhälsoteamet?',
+        a: 'Beskriv din roll i EHT konkret: "deltar i elevhälsoteamets möten, genomför pedagogiska utredningar och säkerställer att åtgärder implementeras i klassrummet". Nämn samverkan med kurator, skolsköterska och rektor. Visa att du kan kommunicera pedagogiska bedömningar till olika professioner.'
+      },
+      {
+        q: 'Vad innebär relationellt perspektiv i praktiken?',
+        a: 'Det betyder att du ser lärmiljön som problemet, inte eleven. Skriv "skapar inkluderande lärmiljöer där alla elever kan utvecklas" istället för "arbetar med elever i svårigheter". Nämn UDL, anpassningar av klassrumsmiljö och pedagogik. Visa att du handleder lärare i att förändra undervisningen.'
+      },
+      {
+        q: 'Hur visar jag att jag håller mig uppdaterad inom specialpedagogik?',
+        a: 'Nämn fortbildningar, konferenser eller nätverk du deltagit i. Exempel: "fortbildning i UDL via Specialpedagogiska skolmyndigheten" eller "deltagit i kommunens NPF-nätverk för specialpedagoger". Om du läser aktuell forskning eller följer SPSM kan du nämna det. Visa att du aktivt utvecklar din kompetens.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Elevassistent', slug: 'elevassistent' }
+    ]
   }
 }
 
