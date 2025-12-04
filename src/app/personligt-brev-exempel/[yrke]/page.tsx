@@ -4567,6 +4567,124 @@ Jag ser fram emot att diskutera hur jag kan stärka ert redovisningsteam. Jag fi
       { yrke: 'Handläggare', slug: 'handlaggare' },
       { yrke: 'Chef', slug: 'chef' }
     ]
+  },
+
+  'hr-specialist': {
+    yrke: 'HR-specialist',
+    sokvolym: 480,
+    metaTitle: 'Personligt Brev HR-specialist – Exempel & Mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som HR-specialist. Se exempel med rekrytering, arbetsrätt och HR-system som imponerar på arbetsgivare.',
+
+    intro: 'Som HR-specialist förväntas du hantera allt från rekrytering till arbetsrättsliga frågor. Ditt personliga brev måste visa att du har både operativ erfarenhet och förståelse för HR:s strategiska roll. Arbetsgivare vill se konkreta exempel på rekryteringar du genomfört, system du arbetat i och hur du samarbetat med chefer och fackliga parter. Detta exempel visar hur du balanserar bredd med djup och presenterar din kompetens på ett sätt som övertygar.',
+
+    seoIntro: `Ett personligt brev för HR-specialist måste visa både operativ kompetens och strategiskt tänkande. Arbetsgivare söker kandidater som kan hantera allt från rekrytering och arbetsrätt till medarbetarutveckling och employer branding. Detta exempel visar hur en HR-specialist med fyra års erfarenhet presenterar sin bredd utan att bli ytlig.\n\nBrevet lyfter konkreta resultat som antal genomförda rekryteringar, förbättrad onboardingprocess och ökat antal spontanansökningar. Det visar också kompetens inom specifika HR-system och arbetsrättsliga regelverk som MBL och LAS. Kombinationen av siffror och systemkunskap gör brevet trovärdigt för rekryterare.\n\nAnvänd exemplet som grund och anpassa till din egen erfarenhet. Fokusera på de områden där du har starkast meriter och koppla dem till vad arbetsgivaren söker. Tipsen nedan hjälper dig att förstärka de viktigaste delarna av ditt brev.`,
+
+    exempelBrev: {
+      namn: 'Maria Lindqvist',
+      adress: 'Industrigatan 45, 722 12 Västerås',
+      telefon: '070-234 56 78',
+      epost: 'maria.lindqvist@email.se',
+      arbetsgivare: 'Sandvik AB',
+      roll: 'HR-specialist',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Jag söker tjänsten som HR-specialist hos Sandvik AB. Med fyra års erfarenhet av operativt HR-arbete och en stark drivkraft att skapa engagerande arbetsplatser ser jag er satsning på medarbetarutveckling som en perfekt match för min kompetens. Att få arbeta i ett internationellt teknikbolag med fokus på både innovation och medarbetarnas välmående tilltalar mig starkt.
+
+På Scania har jag arbetat som HR-generalist med ansvar för en verksamhet med 280 medarbetare. Jag har genomfört över 150 rekryteringar, från kravprofil till anställningsavtal, och infört en strukturerad onboardingprocess som ökade nyanställdas upplevda introduktionskvalitet från 3,2 till 4,6 på en femgradig skala. Jag har även lett lönerevision för min enhet i samarbete med chefer och fackliga representanter.
+
+Min vardag inkluderar rådgivning till chefer i arbetsrättsliga frågor, hantering av rehabiliteringsärenden och genomförande av medarbetarsamtal. Jag arbetar i Workday för personaladministration och använder LinkedIn Recruiter för sourcingarbete. Jag har god kunskap om MBL, LAS och kollektivavtal inom Teknikföretagen. Utöver det operativa arbetet har jag drivit projekt inom employer branding där vi ökade antalet spontanansökningar med 40 procent genom förbättrad närvaro på sociala medier.
+
+Sandviks globala närvaro och ert fokus på hållbarhet och inkludering stämmer väl med mina värderingar. Jag har följt er satsning på mångfald och ser hur ni aktivt arbetar med att bygga en arbetsplats där alla kan utvecklas. Att bidra till det arbetet i en organisation med stark ingenjörskultur känns meningsfullt. Er storlek ger också möjlighet att arbeta med komplexa HR-frågor på ett sätt som utvecklar mig professionellt.
+
+Jag är övertygad om att min kombination av operativ HR-erfarenhet och projektledning inom employer branding kan stärka ert HR-team. Jag ser fram emot att diskutera hur jag kan bidra till Sandviks fortsatta utveckling som arbetsgivare.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din rekryteringserfarenhet med siffror',
+        text: 'Arbetsgivare vill veta omfattningen av din erfarenhet. Skriv antal rekryteringar per år, vilka roller du rekryterat till och vilka metoder du använt. "Jag har genomfört 50 rekryteringar årligen, främst inom teknik och ekonomi, med sourcing via LinkedIn och headhunting" säger mer än "jag har bred rekryteringserfarenhet".'
+      },
+      {
+        rubrik: 'Nämn HR-systemen du arbetat i explicit',
+        text: 'HR-avdelningar använder specifika system och vill undvika lång upplärning. Lista de du behärskar: Workday, SAP SuccessFactors, Visma HR, Personec eller Flex HRM. Om annonsen nämner ett system du kan, lyft det tidigt.\n\nSystemkunskap kan vara avgörande för att bli kallad till intervju, särskilt i större organisationer med komplexa IT-miljöer.'
+      },
+      {
+        rubrik: 'Visa arbetsrättslig kompetens med konkreta exempel',
+        text: 'Arbetsrätt är centralt för HR-rollen. Nämn vilka lagar och avtal du arbetat med: MBL, LAS, kollektivavtal inom din bransch. Ge exempel: "Jag har lett förhandlingar enligt MBL vid omorganisationer och hanterat uppsägningar enligt LAS". Det visar att du kan stötta chefer i svåra situationer.'
+      },
+      {
+        rubrik: 'Beskriv samarbete med chefer och fackliga parter',
+        text: 'HR-specialister arbetar i gränssnittet mellan organisation och medarbetare. Beskriv hur du stöttar chefer: "Jag ger daglig rådgivning till 15 chefer i frågor om arbetsrätt, rehabilitering och medarbetarsamtal". Nämn även fackligt samarbete om du har det, det visar att du kan hantera förhandlingar.'
+      },
+      {
+        rubrik: 'Lyft employer branding om du har den erfarenheten',
+        text: 'Employer branding blir allt viktigare. Om du arbetat med det, beskriv konkret: "Jag har utvecklat vår karriärsida och ökat följare på LinkedIn med 60 procent". Även mindre initiativ räknas. Har du inte erfarenheten, fokusera på andra styrkor istället för att fabricera.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierade rekryteringsresultat ger trovärdighet',
+        beskrivning: 'Maria anger att hon genomfört över 150 rekryteringar. Siffran ger rekryteraren en direkt bild av erfarenhetsnivån. Vaga formuleringar som "omfattande rekryteringserfarenhet" hade inte gett samma effekt eftersom de inte säger något om volym eller komplexitet.'
+      },
+      {
+        titel: 'Mätbar förbättring visar affärsnytta',
+        beskrivning: 'Onboardingförbättringen från 3,2 till 4,6 visar att Maria inte bara utför uppgifter utan förbättrar processer. Rekryterare söker kandidater som kan visa att deras arbete gör skillnad, inte bara att de utfört sina arbetsuppgifter.'
+      },
+      {
+        titel: 'Specifika system och regelverk för ATS-matchning',
+        beskrivning: 'Brevet nämner Workday, LinkedIn Recruiter, MBL, LAS och Teknikföretagens kollektivavtal. Dessa termer fångas av automatiska filter och visar rekryteraren snabbt att Maria har rätt teknisk och juridisk profil.'
+      },
+      {
+        titel: 'Balans mellan operativt och strategiskt HR-arbete',
+        beskrivning: 'Maria visar både dagligt arbete med chefsrådgivning och rehabilitering samt strategiska projekt som employer branding. Det signalerar att hon kan växa i rollen och ta större ansvar över tid.'
+      },
+      {
+        titel: 'Genuin företagsanpassning med konkreta referenser',
+        beskrivning: 'Brevet nämner Sandviks globala närvaro, hållbarhetsfokus och mångfaldsarbete. Det visar att Maria gjort research och förstår företagets kultur, vilket skiljer henne från kandidater som skickar generiska ansökningar.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur beskriver jag rekryteringserfarenhet på bästa sätt?',
+        a: 'Använd siffror och specificera roller. Skriv hur många rekryteringar du genomfört, vilka nivåer (specialist, chef, ledning) och vilka metoder du använt (annonsering, sourcing, headhunting). Exempel: "Jag har rekryterat 40 tjänster årligen, varav 10 chefsroller, med sourcing som primär metod".'
+      },
+      {
+        q: 'Vilka HR-system bör jag nämna i brevet?',
+        a: 'Nämn de system du faktiskt arbetat i och som är relevanta för tjänsten. Vanliga system är Workday, SAP SuccessFactors, Visma HR, Personec och Flex HRM. Läs annonsen noga, nämns ett system du kan, prioritera det. Systemkunskap är ofta ett krav, inte bara meriterande.'
+      },
+      {
+        q: 'Ska jag lyfta arbetsrättslig kompetens även om det inte nämns i annonsen?',
+        a: 'Ja, arbetsrätt är grundläggande för HR-rollen. Nämn kortfattat vilka lagar och avtal du har erfarenhet av: MBL, LAS, kollektivavtal. Om du hanterat uppsägningar, omorganisationer eller förhandlingar, nämn det. Det visar att du kan hantera svåra situationer som alla HR-avdelningar möter.'
+      },
+      {
+        q: 'Hur visar jag erfarenhet av employer branding?',
+        a: 'Beskriv konkreta initiativ och resultat. Exempel: "Jag har utvecklat innehåll för karriärsidan som ökade ansökningar med 25 procent" eller "Jag har lett arbetet med att förbättra vår Glassdoor-rating från 3,2 till 4,1". Även mindre bidrag som att delta i arbetsmarknadsdagar räknas.'
+      },
+      {
+        q: 'Vad ska jag skriva om lönerevision och förhandlingar?',
+        a: 'Beskriv din roll konkret. "Jag har ansvarat för lönerevisionen för 200 medarbetare i samarbete med chefer och fackliga parter" visar erfarenhet. Nämn om du arbetat med lönekriterier, individuell lönesättning eller kollektiva förhandlingar. Undvik att nämna specifika lönenivåer.'
+      },
+      {
+        q: 'Hur lyfter jag erfarenhet av medarbetarsamtal och utveckling?',
+        a: 'Beskriv din roll i processen. Om du utbildat chefer i samtalsmetodik, nämn det. Om du utvecklat mallar eller processer, beskriv resultatet. "Jag har infört en ny struktur för utvecklingssamtal som ökade chefernas upplevda stöd från HR" visar att du bidrar till förbättring.'
+      },
+      {
+        q: 'Ska jag nämna certifieringar inom HR?',
+        a: 'Ja, om du har relevanta certifieringar. HR-certifikat från Stockholms universitet, CIPD eller liknande är meriterande. Skriv kort: "Jag har en HR-certifiering från Handelshögskolan (2023)". Detaljerna finns i CV:t, så håll det kort i brevet men nämn det.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för HR-specialist vara?',
+        a: 'En A4-sida, cirka 300 till 400 ord. HR-rekryterare läser många ansökningar och uppskattar koncisa brev. Fokusera på relevant erfarenhet, system du kan och ett par konkreta exempel. Skippa allmänna fraser om att du är "kommunikativ och driven", visa det istället genom exempel.'
+      }
+    ],
+
+    kategori: 'kontor',
+    relaterade: [
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Administratör', slug: 'administrator' }
+    ]
   }
 }
 
