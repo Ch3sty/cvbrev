@@ -14858,6 +14858,309 @@ Progression från Level I till Level II visar kontinuerlig utveckling och djupar
       { yrke: 'Projektledare IT', slug: 'projektledare-it' },
       { yrke: 'DevOps Engineer', slug: 'devops-engineer' }
     ]
+  },
+
+  'fritidsledare': {
+    yrke: 'Fritidsledare',
+    sokvolym: 590,
+    kategori: 'utbildning',
+    metaTitle: 'CV Exempel Fritidsledare 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för fritidsledare med ungdomsverksamhet, aktivitetsplanering och föreningsarbete. ATS-optimerat med kvantifierade resultat och SISU-utbildningar.',
+
+    seoIntro: `Söker du jobb som fritidsledare på fritidsgård, ungdomscenter eller inom föreningslivet? Det här CV-exemplet visar hur du strukturerar dina erfarenheter av ungdomsarbete för att övertyga både ATS-system och rekryterare inom kommunal och ideell sektor.
+
+CV:t kombinerar kvantifierbara resultat (250+ ungdomar årligen, 45% ökat deltagande, 92% nöjdhetsbetyg) med branschspecifika kompetenser som aktivitetsplanering, uppsökande arbete och samverkan med skola, socialtjänst och polis. Det visar progression från volontär till senior fritidsledare med budgetansvar och projektledning.
+
+Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar och ungdomscentra utanför skoltid, oftast med ungdomar 13-20 år, med fokus på trygg mötesplats och meningsfull fritid. Använd detta exempel som inspiration när du skriver ditt eget CV som fritidsledare – anpassa det efter din erfarenhet och den typ av verksamhet du söker till.`,
+
+    intro: 'Professionellt CV-exempel för fritidsledare med fokus på ungdomsverksamhet, aktivitetsplanering och trygg mötesplats. Visar kvantifierbara resultat från fritidsgårdar och ungdomscentra. ATS-optimerat för kommunal verksamhet och föreningsliv.',
+
+    exempelCV: {
+      namn: 'Marcus Lindgren',
+      titel: 'Fritidsledare med 7+ års erfarenhet av ungdomsverksamhet & aktivitetsplanering',
+      kontakt: {
+        telefon: '070-456 78 90',
+        epost: 'marcus.lindgren@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/marcuslindgren'
+      },
+
+      profil: 'Engagerad fritidsledare med 7+ års erfarenhet av ungdomsverksamhet på kommunala fritidsgårdar och ungdomscentra. Specialist på aktivitetsplanering, uppsökande arbete och trygg mötesplats för ungdomar 13-20 år. Dokumenterad förmåga att öka deltagande, bygga relationer med riskungdomar och samverka med skola, socialtjänst och polis. SISU-utbildad med certifiering i Motiverande samtal (MI) och konflikthantering. Brinner för att skapa meningsfull fritid som stärker ungdomars självkänsla och samhällsengagemang.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Fritidsledare / Projektledare',
+          arbetsgivare: 'Göteborgs Stad – Ungdomsenheten',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för fritidsgård med 250+ besökande ungdomar årligen (13-20 år) – ökade deltagandet med 45% genom nya aktivitetskoncept',
+            'Leder team om 3 fritidsledare och 8 volontärer med ansvar för schemaläggning, utvecklingssamtal och kompetensutveckling',
+            'Projektledare för uppsökande arbete i 3 stadsdelar – nådde 120 riskungdomar med SSPF-samverkan (Skola, Socialtjänst, Polis, Fritid)',
+            'Budgetansvar: 480 000 kr årligen för aktiviteter, lovverksamhet och evenemang – 100% budgetföljsamhet',
+            'Implementerade mentorprogram som resulterade i 85% fullföljt gymnasium bland deltagarna (jmf 72% kommunsnitt)',
+            'Arrangerade 12 större evenemang årligen (LAN, konserter, turnéringar) med 150-300 deltagare per event'
+          ]
+        },
+        {
+          titel: 'Fritidsledare',
+          arbetsgivare: 'Ung i Mölndal – Fritidsgården Mötet',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Ansvarig för daglig verksamhet med 80-120 ungdomar per vecka – skapade trygg mötesplats med fokus på delaktighet',
+            'Utvecklade tjejgrupp och HBTQ+-verksamhet som ökade flickors deltagande från 25% till 42%',
+            'Genomförde motiverande samtal (MI) med 25+ ungdomar årligen kring skolgång, droger och framtidsplaner',
+            'Samordnade lovaktiviteter för 200+ ungdomar under sommar- och sportlov med 92% nöjdhetsbetyg i utvärdering',
+            'Utbildade 5 praktikanter från gymnasiets barn- och fritidsprogram i ungdomsarbete och konflikthantering'
+          ]
+        },
+        {
+          titel: 'Fritidsledare / Volontär',
+          arbetsgivare: 'Fryshuset Göteborg',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Ledde verksamhet inom musik, dans och streetkultur för ungdomar 15-25 år',
+            'Arrangerade battles, workshops och uppvisningar med 50-200 deltagare per event',
+            'Coachade 15 ungdomar i Fryshusets ledarskapsprogram – 10 av 15 gick vidare till ledarroller',
+            'Startade som volontär 2016, anställd som fritidsledare efter 6 månader baserat på engagemang och resultat'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Fritidsledarutbildning (120 hp)',
+          skola: 'Göteborgs Universitet',
+          period: '2015 – 2018',
+          beskrivning: 'Inriktning ungdomsarbete och samhällspedagogik. Examensarbete om uppsökande arbete och socialt utsatta områden.'
+        },
+        {
+          titel: 'Barn- och fritidsprogrammet',
+          skola: 'Angeredsgymnasiet',
+          period: '2012 – 2015',
+          beskrivning: 'Inriktning fritid och hälsa. APL på Hammarkullen fritidsgård och Bergsjöns ungdomscenter.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Aktivitetsplanering: Lovverksamhet, evenemang, workshops (Expert, 7+ år)',
+          'Uppsökande arbete: Fältarbete, SSPF-samverkan, riskbedömning',
+          'Motiverande samtal (MI): Individuella samtal med riskungdomar',
+          'Dokumentation: InfoMentor, Unikum, kommunala system',
+          'Konflikthantering: Deeskalering, medling, krissituationer',
+          'Sociala medier: Instagram, TikTok, Discord för ungdomsengagemang',
+          'Budget- och projektledning: Lovverksamhet, evenemang, ansökningar'
+        ],
+        personliga: [
+          'Relationsskapande (bygger förtroende med riskungdomar)',
+          'Kulturkompetens (arbetat i 5+ mångkulturella stadsdelar)',
+          'Teamledning (leder 3 fritidsledare + 8 volontärer)',
+          'Samverkan (skola, socialtjänst, polis, föräldrar)',
+          'Flexibilitet (kvälls- och helgarbete, akuta situationer)'
+        ]
+      },
+
+      certifieringar: [
+        'Motiverande samtal (MI) Grundkurs – SISU Idrottsutbildarna (2023)',
+        'Konflikthantering och deeskalering – Fryshuset (2022)',
+        'SSPF-utbildning – Länsstyrelsen Västra Götaland (2021)',
+        'Första hjälpen och HLR – Svenska Röda Korset (2024)',
+        'HBTQ-certifiering – RFSL (2023)',
+        'Ledarskap i ideell sektor – SISU Idrottsutbildarna (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Arabiska', niva: 'Grundläggande (konversationsnivå)' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera besökssiffror och deltagande – det visar verksamhetens omfattning (t.ex. "250+ ungdomar årligen", "80-120 per vecka")',
+      'Visa samverkan med skola, socialtjänst, polis (SSPF) – det är centralt i modernt ungdomsarbete',
+      'Lyft fram relationsbyggande med riskungdomar – det visar att du kan nå dem som behöver det mest',
+      'Inkludera budgetansvar och projektledning – det signalerar att du kan ta helhetsansvar',
+      'Lista SISU-utbildningar och certifieringar med årtal – de validerar din professionella kompetens'
+    ],
+
+    statistik: [
+      {
+        siffra: '2 400+',
+        text: 'fritidsledare arbetar på fritidsgårdar och ungdomscentra i Sverige – en roll med växande efterfrågan'
+      },
+      {
+        siffra: '28-34k',
+        text: 'SEK är medellön för fritidsledare i kommunal verksamhet – senior/projektledare kan nå 38-42k'
+      },
+      {
+        siffra: '75%',
+        text: 'av kommuner prioriterar uppsökande arbete 2025 – erfarenhet av SSPF-samverkan är meriterande'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika termer som ATS-system söker efter',
+        text: `CV:t använder exakta termer som "fritidsgård", "uppsökande arbete", "SSPF-samverkan", "riskungdomar", "motiverande samtal" och "trygg mötesplats" – samma termer som återfinns i jobbannonser för fritidsledare.
+
+Varför detta fungerar: ATS-system och rekryterare filtrerar på specifika nyckelord. När du skriver "SSPF-samverkan" istället för bara "samarbete med myndigheter" matchar du kravlistan direkt. "Uppsökande arbete" visar modern ungdomsarbetarkompetens. Generiska termer som "arbetat med ungdomar" sorteras bort – branschterminologi får dig genom första urvalet.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat som visar faktisk påverkan',
+        text: `CV:t innehåller konkreta siffror: 250+ ungdomar årligen, deltagande ökat med 45%, 120 riskungdomar nådda, 85% fullföljt gymnasium bland mentorprogrammets deltagare.
+
+Varför detta fungerar: "Arbetat med ungdomar på fritidsgård" säger ingenting om din faktiska påverkan. "45% ökat deltagande" visar att du kan locka ungdomar till verksamheten. "85% fullföljt gymnasium" bevisar att ditt arbete ger långsiktiga resultat. Rekryterare kan direkt jämföra din kapacitet med vad tjänsten kräver.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från volontär till projektledare',
+        text: `Erfarenheten visar utveckling: från volontär på Fryshuset (streetkultur, events) till fritidsledare i Mölndal (daglig verksamhet, MI-samtal) till senior fritidsledare/projektledare i Göteborg (budgetansvar, teamledning, SSPF).
+
+Varför detta fungerar: Progressionen visar att du har vuxit systematiskt i yrket. Att du startade som volontär och befordrades efter 6 månader bevisar att arbetsgivare såg potential tidigt. Steget till projektledare med budgetansvar signalerar att du är redo för ansvarsfulla roller som enhetschef eller verksamhetsutvecklare.`
+      },
+      {
+        rubrik: 'SSPF-kompetens och samverkan med nyckelaktörer',
+        text: `CV:t lyfter fram konkret samverkan: "SSPF-samverkan (Skola, Socialtjänst, Polis, Fritid)", "nådde 120 riskungdomar", och SSPF-utbildning från Länsstyrelsen.
+
+Varför detta fungerar: Modernt ungdomsarbete kräver samverkan mellan aktörer. SSPF är en etablerad modell som de flesta kommuner använder. Genom att visa både utbildning OCH praktisk erfarenhet av SSPF bevisar du att du kan navigera i ett komplext samverkanssystem. Detta är ofta ett direkt krav i tjänstebeskrivningar.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar professionell kompetens',
+        text: `CV:t listar specifika utbildningar med årtal: "MI Grundkurs – SISU (2023)", "SSPF-utbildning – Länsstyrelsen (2021)", "HBTQ-certifiering – RFSL (2023)".
+
+Varför detta fungerar: Fritidsledare är ingen skyddad titel, vilket gör certifieringar extra viktiga för att visa professionalitet. SISU-utbildningar är branschstandard. MI-utbildning visar samtalsmetodik som fungerar med ungdomar. HBTQ-certifiering signalerar inkluderande arbetssätt. Årtal visar att du kontinuerligt utvecklas – en MI-kurs från 2023 är mer relevant än en från 2018.`
+      },
+      {
+        rubrik: 'Profiltext som fångar kärnkompetensen direkt',
+        text: `Profiltexten öppnar med "7+ års erfarenhet av ungdomsverksamhet på kommunala fritidsgårdar och ungdomscentra. Specialist på aktivitetsplanering, uppsökande arbete och trygg mötesplats för ungdomar 13-20 år."
+
+Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer ofta där om de läser vidare. Tydlig specialisering visar att du inte är generalist utan har djup kompetens inom ett eftersökt område. Åldersspannet "13-20 år" signalerar att du arbetar med den åldersgrupp som fritidsgårdar fokuserar på, inte yngre barn som på fritidshem.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera besökssiffror och deltagande',
+        text: `Konkreta siffror visar verksamhetens omfattning och din förmåga att engagera ungdomar. Använd både totalsiffror och förändringstal.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för en stor fritidsgård med många besökare"
+
+✅ "Ansvarig för fritidsgård med **250+ besökande ungdomar årligen** (13-20 år) – ökade deltagandet med **45%** genom nya aktivitetskoncept som LAN-helger och musikstudio"
+
+Specificera även åldersgrupp, då det visar vilken målgrupp du har erfarenhet av.`
+      },
+      {
+        rubrik: 'Visa SSPF-samverkan med konkreta exempel',
+        text: `Modernt ungdomsarbete kräver samverkan med skola, socialtjänst och polis. Beskriv din roll i detta samarbete specifikt.
+
+**Exempel på före/efter**:
+
+❌ "Samarbetade med skola och socialtjänst"
+
+✅ "Projektledare för uppsökande arbete i **3 stadsdelar** – nådde **120 riskungdomar** genom SSPF-samverkan. Deltog i veckovisa SSPF-möten och genomförde 35 orosanmälningar enligt rutin."
+
+Nämn specifikt vilka aktörer du samverkat med och vilka resultat samarbetet gav.`
+      },
+      {
+        rubrik: 'Lyft fram relationsbyggande med riskungdomar',
+        text: `Förmågan att bygga förtroende med ungdomar i utsatta situationer är central. Visa konkreta metoder och resultat.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade med ungdomar som hade det svårt"
+
+✅ "Genomförde **motiverande samtal (MI)** med 25+ ungdomar årligen kring skolgång, droger och framtidsplaner. Mentorprogram resulterade i att **85% fullföljde gymnasiet** (jämfört med 72% kommunsnitt)."
+
+Visa både metod (MI, mentorskap) och mätbart resultat (gymnasiefullföljande, minskad droganvändning).`
+      },
+      {
+        rubrik: 'Inkludera budgetansvar och projektledning',
+        text: `Budgetansvar och projektledning visar att du kan ta helhetsansvar, inte bara genomföra aktiviteter.
+
+**Exempel på före/efter**:
+
+❌ "Planerade och genomförde aktiviteter"
+
+✅ "**Budgetansvar: 480 000 kr årligen** för aktiviteter, lovverksamhet och evenemang – 100% budgetföljsamhet. Projektledare för 12 större evenemang med 150-300 deltagare per event."
+
+Specificera belopp, antal projekt och eventuellt extern finansiering du sökt och beviljats.`
+      },
+      {
+        rubrik: 'Lista SISU-utbildningar och relevanta certifieringar',
+        text: `SISU-utbildningar är branschstandard för fritidsledare. Lista dem med arrangör och årtal för trovärdighet.
+
+**Exempel på före/efter**:
+
+❌ "Har gått kurser i ledarskap och samtalsmetodik"
+
+✅ "Certifieringar:\n• **Motiverande samtal (MI)** – SISU Idrottsutbildarna (2023)\n• **SSPF-utbildning** – Länsstyrelsen (2021)\n• **HBTQ-certifiering** – RFSL (2023)"
+
+Gruppera certifieringar tematiskt och inkludera alltid arrangör och årtal. Aktuella certifieringar (senaste 2-3 åren) väger tyngre.`
+      },
+      {
+        rubrik: 'Balansera aktiviteter med påverkan på ungdomars utveckling',
+        text: `Fritidsledaryrket handlar inte bara om att arrangera aktiviteter – det handlar om ungdomars utveckling. Visa båda aspekterna.
+
+**Exempel på före/efter**:
+
+❌ "Arrangerade LAN-partyn, konserter och sportturneringar"
+
+✅ "Arrangerade **12 större evenemang årligen** (LAN, konserter, turnéringar) med 150-300 deltagare. Integrerade **demokratiträning** genom ungdomsråd som beslutade om 40% av aktiviteterna – ökade ungdomarnas känsla av delaktighet från 65% till 89%."
+
+Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat för ungdomarna.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad är skillnaden mellan fritidsledare och fritidspedagog?',
+        svar: 'Fritidsledare arbetar på fritidsgårdar, ungdomscentra och i föreningslivet med ungdomar 13-20 år, utanför skoltid. Fritidspedagog arbetar på fritidshem (eftermiddagsverksamhet på skolan) med barn 6-12 år och kräver ofta legitimation. Fritidsledare fokuserar på trygg mötesplats och meningsfull fritid, medan fritidspedagog har starkare koppling till skolans läroplan. I ditt CV, var tydlig med vilken verksamhet du har erfarenhet av.'
+      },
+      {
+        fraga: 'Behöver jag utbildning för att bli fritidsledare?',
+        svar: 'Fritidsledare är ingen skyddad titel, så formell utbildning krävs inte alltid. Dock föredrar de flesta arbetsgivare kandidater med fritidsledarutbildning (folkhögskola eller universitet), barn- och fritidsprogrammet eller liknande. SISU-utbildningar i ledarskap, MI-samtal och konflikthantering är starkt meriterande. Om du saknar formell utbildning, lyft fram relevant erfarenhet från föreningsliv, scoutverksamhet eller volontärarbete.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt ungdomsarbete om jag inte har exakta siffror?',
+        svar: 'Använd uppskattningar och intervall: "80-120 ungdomar per vecka", "ca 200 deltagare i lovverksamhet", "ungefär 25 individuella samtal per termin". Fråga tidigare chef om besöksstatistik om möjligt. Nöjdhetssiffror från utvärderingar och enkäter är värdefulla. Kvalitativa resultat fungerar också: "3 av 5 ungdomar i mentorprogrammet påbörjade gymnasiet som de tidigare avbrutit".'
+      },
+      {
+        fraga: 'Ska jag inkludera volontärarbete i CV:t?',
+        svar: 'Ja, särskilt om du är i början av karriären. Volontärarbete på fritidsgårdar, i föreningar eller scoutrörelsen är relevant erfarenhet. Skriv det som en vanlig anställning: "Volontär, Fryshuset (2016-2017) – Ledde musikworkshops för 30 ungdomar, arrangerade 5 battles med 100+ deltagare". Om du gick från volontär till anställd, lyft fram det som bevis på att din kompetens uppskattades.'
+      },
+      {
+        fraga: 'Hur beskriver jag arbete med riskungdomar utan att bryta sekretess?',
+        svar: 'Använd aggregerade uppgifter och undvik identifierande detaljer: "Arbetade med 25+ ungdomar i riskzon för kriminalitet och droger" istället för att beskriva enskilda fall. Fokusera på metod och resultat: "Genomförde MI-samtal som bidrog till att 8 av 12 ungdomar fullföljde gymnasiet". Nämn aldrig namn, specifika brott eller diagnoser. SSPF-sammanhang ger automatiskt sekretessbeskyddande ramar.'
+      },
+      {
+        fraga: 'Vad är SSPF och hur visar jag erfarenhet av det?',
+        svar: 'SSPF står för Skola, Socialtjänst, Polis och Fritid – en samverkansmodell för att förebygga ungdomskriminalitet och missbruk. De flesta kommuner använder SSPF eller liknande. Visa erfarenhet genom att beskriva din roll: "Deltar i veckovisa SSPF-möten, ansvarar för fritidssektorns information om ungdomars aktivitetsmönster". Lista SSPF-utbildning om du gått sådan. Arbetsgivare ser SSPF-erfarenhet som ett krav för uppsökande arbete.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera konflikter och krissituationer?',
+        svar: 'Beskriv konkreta situationer (utan identifierande detaljer) och ditt agerande: "Deeskalerade 15+ konfliktsituationer per termin genom lågaffektivt bemötande – inga eskalerade till fysiskt våld". Lista relevanta utbildningar: "Konflikthantering och deeskalering – Fryshuset (2022)". Nämn även krisberedskap: "Ansvarig för fritidsgårdens krisplan, genomförde 3 krishanteringsövningar med personalen årligen".'
+      },
+      {
+        fraga: 'Hur viktigt är det med kvälls- och helgarbete i CV:t?',
+        svar: 'Mycket viktigt att visa att du accepterar dessa tider, eftersom fritidsgårdar ofta har öppet kvällar och helger. Skriv det explicit: "Flexibilitet för kvälls- och helgarbete – har arbetat fredags-/lördagskvällar kontinuerligt sedan 2018". Om du arrangerat lovverksamhet, nämn det som bevis på flexibilitet. Arbetsgivare vill veta att du inte kommer söka dagtid efter några månader.'
+      },
+      {
+        fraga: 'Ska jag ta med språkkunskaper i CV:t?',
+        svar: 'Ja, särskilt om du söker till mångkulturella stadsdelar. Förmåga att kommunicera på ungdomarnas modersmål är en stor tillgång: "Arabiska: Konversationsnivå – använder aktivt i samtal med ungdomar och föräldrar i Bergsjön". Även grundläggande kunskaper är värdefulla: "Somaliska: Grundläggande fraser för att skapa förtroende". Lista även engelska då många ungdomskulturer (gaming, musik) är engelskspråkiga.'
+      },
+      {
+        fraga: 'Hur lång ska mitt CV som fritidsledare vara?',
+        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet, projektledarroller eller omfattande certifieringar. Fokusera på de senaste 7-10 årens erfarenhet. Ta bort irrelevanta jobb (butiksbiträde) om du har tillräckligt med ungdomsarbete. Prioritera konkreta siffror och resultat framför långa beskrivningar – rekryterare läser CV:t på under en minut.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Elevassistent', slug: 'elevassistent' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' },
+      { yrke: 'Barnskötare', slug: 'barnskotare' }
+    ]
   }
 }
 

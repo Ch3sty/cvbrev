@@ -750,6 +750,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'fritidsledare',
+    yrke: 'Fritidsledare',
+    slug: 'fritidsledare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 590,
+    icon: Users,
+    gradient: 'from-cyan-500 via-teal-600 to-cyan-700',
+    preview: {
+      intro: 'CV för fritidsledare med fokus på ungdomsverksamhet, aktivitetsplanering och SSPF-samverkan på fritidsgårdar och ungdomscentra.',
+      highlight: ['250+ ungdomar årligen och 45% ökat deltagande', 'MI-samtal, SSPF och konflikthantering', 'SISU-utbildad med budgetansvar 480 000 kr']
+    }
+  },
+  {
     id: 'redovisningsekonom',
     yrke: 'Redovisningsekonom',
     slug: 'redovisningsekonom',
@@ -982,7 +996,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  56 yrken
+                  57 yrken
                 </motion.span>
               </h1>
 

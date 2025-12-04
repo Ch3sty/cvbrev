@@ -223,6 +223,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'konditor',
     'ekonom',
     'scrum-master',
+    'fritidsledare',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
