@@ -748,6 +748,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för fritidspedagog med fokus på pedagogisk planering, rastverksamhet och elevdelaktighet inom grund- och fritidsskola.',
       highlight: ['45 elever och 92% delaktighet i verksamhetsplanering', 'InfoMentor, Unikum och läroplansanknytning', 'Legitimerad med SET och Grön Flagg-certifiering']
     }
+  },
+  {
+    id: 'redovisningsekonom',
+    yrke: 'Redovisningsekonom',
+    slug: 'redovisningsekonom',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 590,
+    icon: Calculator,
+    gradient: 'from-emerald-500 via-teal-600 to-emerald-700',
+    preview: {
+      intro: 'CV för redovisningsekonom med fokus på bokslut, skattedeklarationer och K3-redovisning inom byrå och industri.',
+      highlight: ['85 klienter och 100% leveranssäkerhet till Skatteverket', 'Fortnox, Visma och SAP Business One', 'Auktoriserad SRF och K3-certifierad']
+    }
   }
 ]
 
@@ -912,7 +926,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  51 yrken
+                  52 yrken
                 </motion.span>
               </h1>
 

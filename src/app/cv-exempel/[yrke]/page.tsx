@@ -13495,6 +13495,275 @@ Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
       { yrke: 'Barnskötare', slug: 'barnskotare' },
       { yrke: 'Elevassistent', slug: 'elevassistent' }
     ]
+  },
+
+  'redovisningsekonom': {
+    yrke: 'Redovisningsekonom',
+    sokvolym: 590,
+    kategori: 'ekonomi',
+
+    metaTitle: 'CV Exempel Redovisningsekonom 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för redovisningsekonom med bokslut, skattedeklarationer och K3-redovisning. ATS-optimerat med Fortnox, Visma och kvantifierade resultat.',
+
+    seoIntro: `Söker du jobb som redovisningsekonom och behöver ett CV som visar din kompetens inom bokslut, skattedeklarationer och årsredovisningar? Det här exemplet demonstrerar hur du skapar ett professionellt CV som passerar ATS-filter och imponerar på ekonomichefer och redovisningsbyråer.
+
+CV:t balanserar teknisk systemkunskap med konkreta resultat från månadsavslut, periodiseringar och skattehantering. Du hittar branschspecifika termer som K3/K2-redovisning, momsdeklaration, löneadministration och årsredovisning – precis de nyckelord som arbetsgivare söker efter. Exemplet visar hur du kvantifierar redovisningsarbete: "Ansvarar för bokslut och årsredovisning för 85 klienter" och "Effektiviserade månadsavsluten med 35% genom processoptimering".
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpande bokföring, periodiseringar eller koncernredovisning. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst på redovisningsbyrå, i industri eller offentlig sektor.`,
+
+    intro: 'Redovisningsekonom med fokus på bokslut, skattedeklarationer och K3-redovisning. CV-exemplet visar hur du kombinerar systemkunskap med konkreta ekonomiska resultat.',
+
+    exempelCV: {
+      namn: 'Anna Lindberg',
+      titel: 'Redovisningsekonom med specialisering i bokslut & K3-redovisning',
+
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.lindberg@email.se',
+        plats: 'Malmö',
+        linkedin: 'linkedin.com/in/annalindberg'
+      },
+
+      profil: 'Redovisningsekonom med 6 års erfarenhet inom redovisningsbyrå och industri. Specialiserad på månadsavslut, årsbokslut och K3-redovisning med Fortnox, Visma och SAP. Hanterar självständigt bokslut för 85+ klienter med hög kvalitet och leveranssäkerhet. Auktoriserad Redovisningskonsult (SRF) med dokumenterad förmåga att effektivisera redovisningsprocesser och säkerställa skatteoptimering.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Redovisningsekonom',
+          arbetsgivare: 'Grant Thornton',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarar för månadsavslut, bokslut och årsredovisning enligt K3 för 85 klienter med omsättning från 10-250 MSEK',
+            'Effektiviserade månadsavslutsprocessen med 35% genom standardiserade arbetsmallar och automatiserad avstämning',
+            'Hanterar skattedeklarationer och momsrapporter för samtliga klienter med 100% leveranssäkerhet till Skatteverket',
+            'Mentor för 3 juniora redovisningsekonomer med veckovisa utbildningsmoment',
+            'Identifierade skatteoptimering för klienter som resulterade i totala besparingar på 2,4 MSEK årligen'
+          ]
+        },
+        {
+          titel: 'Redovisningsekonom',
+          arbetsgivare: 'KPMG',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Löpande bokföring och månadsavslut för 45 klienter inom tjänste- och handelssektor',
+            'Upprättade årsbokslut och årsredovisningar enligt K2 och K3',
+            'Hanterade löneadministration för 12 klienter med sammanlagt 280 anställda',
+            'Implementerade Fortnox för 8 nystartade klientföretag med full setup och utbildning'
+          ]
+        },
+        {
+          titel: 'Ekonomiassistent',
+          arbetsgivare: 'Malmö Stad',
+          period: '2017 – 2019',
+          beskrivning: [
+            'Leverantörsreskontra och kundfakturering för förvaltning med budget om 120 MSEK',
+            'Genomförde månadsavstämningar och deltog i kommunens årsbokslut',
+            'Stöttade controllerteamet med budgetuppföljning och prognoser'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Kandidatexamen i Företagsekonomi, inriktning redovisning',
+          skola: 'Lunds Universitet',
+          period: '2014 – 2017',
+          beskrivning: 'Fördjupning inom finansiell redovisning och beskattning. Examensarbete om implementering av K3 i medelstora företag.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Fortnox (Expert, 6+ år)',
+          'Visma eEkonomi & Administration',
+          'SAP Business One',
+          'K3/K2-redovisning & BFNAR',
+          'Skattedeklarationer & moms',
+          'Excel (Power Query, pivottabeller)'
+        ],
+        personliga: [
+          'Noggrann och strukturerad',
+          'Självständig arbetsförmåga',
+          'Pedagogisk kommunikation',
+          'Deadline-orienterad',
+          'Kundrelationer'
+        ]
+      },
+
+      certifieringar: [
+        'Auktoriserad Redovisningskonsult – SRF (2022)',
+        'K3-certifiering – FAR Akademi (2023)',
+        'Fortnox Certifierad Partner (2021)',
+        'Momsutbildning för redovisare – BG Institute (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika system som ATS identifierar',
+        text: `CV:t nämner Fortnox, Visma och SAP Business One med erfarenhetsnivåer – de ekonomisystem som rekryterare aktivt söker efter inom redovisningsbranschen.
+
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på nyckelord från jobbannonsen. Genom att explicit nämna specifika ekonomisystem (inte bara "erfarenhet av ekonomisystem") ökar Anna sina chanser att passera den automatiska gallringen. Redovisningsbyråer söker ofta efter "Fortnox-erfarenhet" ordagrant.`
+      },
+      {
+        rubrik: 'Siffror som visar kapacitet och kvalitet',
+        text: `Varje erfarenhetspost innehåller konkreta resultat: 85 klienter, 35% effektivisering, 100% leveranssäkerhet, 2,4 MSEK skattebesparingar och 280 löntagare.
+
+Varför detta fungerar: Rekryterare jämför kandidaters kapacitet genom siffror. "Hanterar bokslut" säger lite, men "bokslut för 85 klienter med omsättning 10-250 MSEK" ger omedelbar kontext. Ekonomichefer och byråägare uppskattar kandidater som kvantifierar sitt arbete precis som de själva gör med klienters resultaträkningar.`
+      },
+      {
+        rubrik: 'Teknisk kompetens möter klientrelationer',
+        text: `Anna visar både djup systemkunskap (Fortnox Expert, K3-certifiering) och mjuka färdigheter som mentor, utbildning och kundrelationer.
+
+Varför detta fungerar: En redovisningsekonom behöver mer än bokföringskunskap – rollen kräver förmåga att förklara ekonomi för icke-ekonomer och bygga långsiktiga klientrelationer. Genom att visa "Mentor för 3 juniora redovisningsekonomer" och "implementerade Fortnox med full utbildning" bevisar Anna att hon kan kommunicera pedagogiskt.`
+      },
+      {
+        rubrik: 'Auktorisation och certifieringar med årtal',
+        text: `Auktoriserad Redovisningskonsult SRF (2022), K3-certifiering FAR Akademi (2023) och Fortnox-certifiering – alla med årtal som visar kontinuerlig kompetensutveckling.
+
+Varför detta fungerar: Redovisningsregler och system uppdateras kontinuerligt. SRF-auktorisation är en kvalitetsstämpel som många arbetsgivare kräver. Årtal på certifieringar bevisar att kunskapen är aktuell – särskilt viktigt då K3-reglerna och Skatteverkets krav förändras regelbundet.`
+      },
+      {
+        rubrik: 'Profiltext som fångar på 10 sekunder',
+        text: `Profilen sammanfattar: 6 års erfarenhet + kontext (byrå och industri) + specialisering (månadsavslut, K3) + verktyg (Fortnox, Visma, SAP) + auktorisation + konkret resultat (85 klienter).
+
+Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Annas profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och trovärdighetsmarkörer – allt inom fyra meningar. SRF-auktorisationen i profilen är en omedelbar kvalitetssignal.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression',
+        text: `CV:t visar utveckling från Ekonomiassistent (kommunal sektor) via Redovisningsekonom (KPMG) till Senior Redovisningsekonom (Grant Thornton) – med tydligt ökande ansvar och klientantal.
+
+Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat befordran genom resultat. För en redovisningsekonom-tjänst är det värdefull information att Anna har erfarenhet från både offentlig sektor och storbyråer, och att hon gått från assistentuppgifter till självständigt klientansvar med mentorroll.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt ekonomisystem för ATS-filter',
+        text: `ATS-system söker efter specifika ekonomisystem beroende på arbetsgivare. Identifiera vilka system som nämns i jobbannonsen och använd dem ordagrant i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av ekonomisystem och bokföring"
+
+✅ "6 års erfarenhet av Fortnox (Expert), Visma eEkonomi och SAP Business One. Hanterar löpande bokföring, månadsavslut och årsredovisning enligt K3."
+
+Om arbetsgivaren söker "Fortnox-erfarenhet", skriv exakt systemnamn med erfarenhetsnivå. "Ekonomisystem" fångas inte upp när rekryteraren söker efter "Fortnox" i ATS:en.`
+      },
+      {
+        rubrik: 'Kvantifiera ditt klientansvar med siffror',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som redovisningsekonom arbetar du dagligen med siffror – låt det synas genom att specificera antal klienter, omsättningsintervall och deadlines.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för bokslut och årsredovisningar"
+
+✅ "Ansvarar för bokslut och årsredovisning enligt K3 för 85 klienter med omsättning 10-250 MSEK. 100% leveranssäkerhet till Skatteverket."
+
+Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Bokslut" kan betyda 5 eller 100 klienter – siffran avgör vilken tjänst du matchar.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från redovisningsarbetet',
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vilka uppgifter du haft. Fokusera på effektiviseringar, besparingar och kvalitetsförbättringar.
+
+**Exempel på före/efter**:
+
+❌ "Utförde månadsavslut och avstämningar"
+
+✅ "Effektiviserade månadsavslutsprocessen med 35% genom standardiserade arbetsmallar. Identifierade skatteoptimering för klienter som resulterade i besparingar på 2,4 MSEK årligen."
+
+Ekonomichefer värderar redovisningsekonomer som bidrar till effektivitet och kundvärde – inte bara administrerar räkenskaper.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter tjänstens inriktning',
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Redovisningsekonom-rollen varierar kraftigt mellan byrå, industri och offentlig sektor.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren redovisningsekonom med bred ekonomibakgrund"
+
+✅ "Redovisningsekonom med 6 års erfarenhet inom redovisningsbyrå. Specialiserad på månadsavslut, årsbokslut och K3-redovisning med Fortnox och Visma. Auktoriserad Redovisningskonsult (SRF) med dokumenterad förmåga att effektivisera redovisningsprocesser."
+
+Anpassa efter tjänst: "K3 och koncernredovisning" för storbolag, "löpande bokföring och kundkontakt" för mindre byrå, "offentlig redovisning och kommunal budget" för offentlig sektor.`
+      },
+      {
+        rubrik: 'Lyft fram auktorisation och branschcertifieringar',
+        text: `Skapa en dedikerad sektion för certifieringar. SRF-auktorisation är ofta ett krav eller starkt meriterande – ge det synlighet.
+
+**Exempel på före/efter**:
+
+❌ "Auktoriserad redovisningskonsult"
+
+✅ "Auktoriserad Redovisningskonsult – SRF (2022), K3-certifiering – FAR Akademi (2023), Fortnox Certifierad Partner (2021)"
+
+Årtal visar att certifieringarna är aktuella. SRF-auktorisation är en kvalitetsgaranti som många arbetsgivare kräver – placera den tidigt i CV:t för maximal synlighet.`
+      },
+      {
+        rubrik: 'Balansera systemkunskap med kundrelationer',
+        text: `Arbetsgivare söker redovisningsekonomer som både behärskar systemen och kan bygga kundrelationer. Visa båda dimensionerna med konkreta exempel.
+
+**Exempel på före/efter**:
+
+❌ "God systemkunskap och kommunikativ"
+
+✅ "Fortnox (Expert, 6+ år) och K3-certifierad. Implementerade Fortnox för 8 nystartade klientföretag med full setup och utbildning. Mentor för 3 juniora redovisningsekonomer."
+
+Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa förmåga – inte bara påståendet att du är "pedagogisk".`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som redovisningsekonom vara?',
+        svar: 'För redovisningsekonomer rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna redovisningsekonomer med klientansvar, specialistroller eller auktorisation kan behöva 2 sidor – men var koncis och fokusera på relevanta klientsiffror och systemkompetens.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är det vanligt men inte obligatoriskt inom ekonomibranschen. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Större revisionsbyråer och internationella företag föredrar ofta CV utan bild för att undvika diskrimineringsproblematik.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV?',
+        svar: 'Var ärlig och kort om luckor. Kortare uppehåll (under 6 månader) behöver ingen förklaring. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning, SRF-kurser eller certifieringar. Redovisningsbranschen uppskattar kontinuerlig kompetensutveckling.'
+      },
+      {
+        fraga: 'Vilka ekonomisystem ska jag nämna i mitt CV?',
+        svar: 'Lista de system du faktiskt behärskar med erfarenhetsnivå: "Fortnox (Expert, 6+ år)", "Visma (3 år)". Matcha mot jobbannonsen – om de söker specifikt Visma-erfarenhet, lyft fram det. Vanliga system: Fortnox, Visma eEkonomi, SAP Business One, Microsoft Dynamics 365, PE Accounting. Nämn även Excel-kompetens (pivottabeller, Power Query).'
+      },
+      {
+        fraga: 'Hur visar jag K3-kompetens utan K3-certifiering?',
+        svar: 'Beskriv praktisk erfarenhet: "Upprättade årsbokslut enligt K3 för 45 klienter med omsättning 50-250 MSEK". Nämn specifika K3-områden du hanterat: avskrivningar på komponenter, uppskjuten skatt, intäktsredovisning. Överväg att ta FAR:s K3-certifiering – det stärker CV:t betydligt.'
+      },
+      {
+        fraga: 'Ska jag inkludera SRF-auktorisation om jag inte har den ännu?',
+        svar: 'Nämn om du är på väg mot auktorisation: "Under SRF-auktorisering (beräknas Q2 2025)". Om du har kurser avklarade, skriv "SRF Redovisningskurs avklarad (2024)". Auktorisation är ofta ett krav på byråer – visa att du arbetar mot målet. Inkludera relevanta FAR-kurser du genomfört.'
+      },
+      {
+        fraga: 'Hur beskriver jag erfarenhet från mindre byrå vs storbolag?',
+        svar: 'Mindre byrå: Betona bredd och självständighet – "Full klientkontakt från löpande bokföring till årsredovisning för 40 företag inom olika branscher". Storbolag: Fokusera på specialisering och volym – "Månadsavslut för 3 affärsområden med omsättning 800 MSEK, koncernrapportering i SAP". Båda är värdefulla – anpassa vinkeln efter tjänsten du söker.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt redovisningsarbete?',
+        svar: 'Räkna klienter, omsättningsintervall och deadlines: "85 klienter, 10-250 MSEK". Mät effektiviseringar: "35% snabbare månadsavslut". Visa kvalitet: "100% leveranssäkerhet till Skatteverket". Inkludera löneadministration: "280 anställda hos 12 klienter". Skattebesparingar du identifierat är extra meriterande.'
+      },
+      {
+        fraga: 'Ska jag nämna löneadministration i ett redovisnings-CV?',
+        svar: 'Ja, om det är relevant för tjänsten. Många redovisningsbyråer kombinerar bokföring med lön. Specificera: "Löneadministration för 12 klienter med sammanlagt 280 anställda, kollektivavtal, semesterberäkning och arbetsgivardeklarationer". På industritjänster kan det vara mindre relevant – anpassa efter jobbannonsen.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för redovisningsbyrå vs industri?',
+        svar: 'Redovisningsbyrå: Betona antal klienter, klientkontakt, systembredd och deadline-hantering. Industri: Fokusera på specifika processer (månadsavslut, budgetuppföljning, internredovisning), systemdjup (SAP, Oracle) och samarbete med controlling. För offentlig sektor: Lyft fram kommunal redovisning, upphandlingsregler och offentlighetsprincipen.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Controller', slug: 'controller' },
+      { yrke: 'Handläggare', slug: 'handlaggare' }
+    ]
   }
 }
 

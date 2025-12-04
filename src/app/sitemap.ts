@@ -218,6 +218,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'devops-engineer',
     'projektledare-it',
     'fritidspedagog',
+    'redovisningsekonom',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
