@@ -5151,6 +5151,122 @@ Med certifierad kompetens inom Scrum och dokumenterad förmåga att förbättra 
       { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
       { yrke: 'Chef', slug: 'chef' }
     ]
+  },
+
+  'truckforare': {
+    yrke: 'Truckförare',
+    sokvolym: 320,
+    metaTitle: 'Personligt brev Truckförare – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som truckförare. Se exempel med truckkort A1-4/B1-4, WMS-system och kvantifierade resultat.',
+    intro: 'Ett övertygande personligt brev som truckförare visar din dokumenterade truckkompetens och förmåga att hantera gods effektivt och säkert. Arbetsgivare söker kandidater som har rätt truckkort, kan kvantifiera sin prestation och förstår vikten av säkerhetsrutiner. I detta exempel ser du hur du presenterar dina certifikat tydligt, beskriver din dagliga arbetskapacitet med konkreta siffror och visar att du kan anpassa dig till olika lagermiljöer. Brevet balanserar teknisk kompetens med praktisk arbetserfarenhet.',
+    seoIntro: `Att skriva ett personligt brev som truckförare handlar om att visa din dokumenterade truckkompetens och förmåga att arbeta effektivt i lagermiljö. Detta exempel demonstrerar hur du presenterar dina truckkort tydligt, beskriver din dagliga prestation med konkreta siffror och visar att du prioriterar säkerhet. Brevet balanserar teknisk kompetens med praktisk erfarenhet.\n\nI exemplet ser du hur en erfaren truckförare lyfter fram specifika truckkort (A1-4 och B1-4) och beskriver vilka trucktyper han behärskar. Kvantifierbara resultat som 180 orderrader per skift och 99,2% plocknoggrannhet ger rekryteraren en tydlig bild av kandidatens kapacitet. Erfarenhet av WMS-system och aktiv medverkan vid systemimplementering visar teknisk anpassningsförmåga.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa truckkort och erfarenhet till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver dina certifikat, hanterar frågor om skiftarbete och positionerar dig som en säkerhetsmedveten truckförare.`,
+    exempelBrev: {
+      namn: 'Marcus Eriksson',
+      adress: 'Industrigatan 15, 721 35 Västerås',
+      telefon: '073-456 78 90',
+      epost: 'marcus.eriksson@email.com',
+      arbetsgivare: 'Företag AB',
+      roll: 'Truckförare',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Tjänsten som truckförare på [Företag AB] passar mina erfarenheter och mitt intresse väl. Med fyra års erfarenhet av truckkörning inom lager och logistik, samt A1-4 och B1-4 truckkort, har jag den kompetens ni efterfrågar för att effektivisera ert godsflöde.
+
+I min nuvarande roll som truckförare på ett distributionslager hanterar jag dagligen in- och utleveranser av palleterat gods med motviktstruck och skjutstativtruck. Under det senaste året har jag plockat och lastat i genomsnitt 180 orderrader per skift med en plocknoggrannhet på 99,2%. När vi införde nytt lagersystem deltog jag aktivt i implementeringen och utbildade tre kollegor i den nya arbetsprocessen.
+
+Jag är van vid högt tempo och skiftarbete. Min truckkompetens omfattar motviktstruck, skjutstativtruck och ledstaplare, och jag arbetar säkert i trånga lagermiljöer med smala gångar. Jag har erfarenhet av WMS-system för orderhantering och scanning, samt rutiner för daglig tillsyn av truckar enligt säkerhetsföreskrifter. Fysiskt krävande arbete passar mig och jag prioriterar alltid ergonomi och säkerhet.
+
+Er satsning på effektiv lagerhantering och moderna logistiklösningar tilltalar mig. Jag uppskattar arbetsplatser där ordning och struktur värderas högt, och jag ser att ni arbetar med tydliga rutiner för godsmottagning och utleverans. Min erfarenhet av att jobba i team med terminalarbetare och lagerarbetare gör att jag snabbt kan anpassa mig till era processer.
+
+Med dokumenterad truckkompetens och vana vid högt tempo bidrar jag gärna till ert team. Jag ser fram emot att diskutera hur jag kan stötta er dagliga verksamhet.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Lista dina truckkort med korrekta kategoribeteckningar',
+        text: 'Arbetsgivare behöver veta exakt vilka truckar du får köra. Skriv ut kategorierna tydligt, till exempel "truckkort A1-4 och B1-4" istället för bara "truckkort". Om du har behörighet för specifika trucktyper som skjutstativtruck eller ledstaplare, nämn det.\n\nDetta gör att rekryteraren direkt kan matcha din kompetens mot deras fordonspark.'
+      },
+      {
+        rubrik: 'Kvantifiera din arbetskapacitet med siffror',
+        text: 'Ange hur mycket du hanterar per skift om du vet det. Orderrader, pallar eller ton ger konkret bild av din kapacitet. Om du har hög plocknoggrannhet eller låg skadefrekvens, inkludera det. Siffror skiljer dig från kandidater som skriver "effektiv" utan belägg.'
+      },
+      {
+        rubrik: 'Visa att du prioriterar säkerhet i dagligt arbete',
+        text: 'Nämn rutiner du följer, som daglig tillsyn av truck eller användning av skyddsutrustning. Arbetsgivare i lagermiljöer värderar säkerhetsmedvetna medarbetare högt. Det minskar risken för olyckor och stillestånd, vilket är kostsamt för verksamheten.'
+      },
+      {
+        rubrik: 'Nämn WMS-system och digital kompetens',
+        text: 'Moderna lager använder lagersystem för orderhantering och scanning. Om du har erfarenhet av system som SAP, Microsoft Dynamics eller andra WMS-lösningar, nämn det. Det visar att du kan hantera mer än bara trucken och att upplärning blir kortare.'
+      },
+      {
+        rubrik: 'Beskriv din vana vid skiftarbete och högt tempo',
+        text: 'Lagerarbete innebär ofta tvåskift eller treskift. Om du har erfarenhet av detta, lyft det i brevet. Det visar att du förstår arbetets karaktär och att arbetsgivaren inte behöver oroa sig för att schemat blir ett problem.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Anger specifika truckkort med kategori',
+        beskrivning: 'Genom att nämna A1-4 och B1-4 visar kandidaten exakt vilka trucktyper han får köra. Rekryterare kan direkt se om certifikaten matchar företagets behov utan att behöva fråga.'
+      },
+      {
+        titel: 'Kvantifierar daglig prestation konkret',
+        beskrivning: '180 orderrader per skift och 99,2% plocknoggrannhet ger rekryteraren mätbara värden att relatera till. Det visar kapacitet och precision på ett sätt som "effektiv" aldrig kan.'
+      },
+      {
+        titel: 'Namnger trucktyper som behärskas',
+        beskrivning: 'Motviktstruck, skjutstativtruck och ledstaplare är specifika och sökbara termer. Det visar bred kompetens och hjälper ATS-system att matcha ansökan mot jobbkrav.'
+      },
+      {
+        titel: 'Visar säkerhetsmedvetenhet konkret',
+        beskrivning: 'Referensen till daglig tillsyn och säkerhetsföreskrifter visar att kandidaten tar ansvar. För lagermiljöer där olycksrisken finns är detta en avgörande egenskap.'
+      },
+      {
+        titel: 'Kopplar erfarenhet till företagets arbetssätt',
+        beskrivning: 'Genom att nämna ordning, struktur och tydliga rutiner visar kandidaten förståelse för vad som krävs i professionell lagerverksamhet. Det signalerar kulturell passform.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vilka truckkort ska jag nämna i mitt personliga brev?',
+        a: 'Nämn alla truckkort du har med korrekta kategorier. A1-4 täcker de vanligaste lagertrucker medan B1-4 inkluderar större truckar. Om du har speciella behörigheter för kranar eller teleskoplastare, inkludera även dessa om de är relevanta för tjänsten.'
+      },
+      {
+        q: 'Hur beskriver jag min arbetskapacitet som truckförare?',
+        a: 'Använd mätbara värden som orderrader per skift, pallar per timme eller ton per dag. Om du har statistik på plocknoggrannhet, inkludera det. Undvik vaga formuleringar som "hanterar stora volymer" och var specifik istället.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av WMS-system i brevet?',
+        a: 'Ja, digital kompetens är meriterande. Nämn vilka system du arbetat med om du minns namnen. Även om du inte kommer ihåg exakta namn, beskriv att du använt handdatorer, scanning och digitala plocklistor. Det visar att du klarar moderna lagermiljöer.'
+      },
+      {
+        q: 'Hur visar jag att jag är säkerhetsmedveten?',
+        a: 'Nämn konkreta rutiner du följer, som daglig tillsyn av truck, rapportering av avvikelser eller användning av säkerhetsutrustning. Undvik generella fraser som "jag är noggrann med säkerhet" och ge istället exempel på vad du faktiskt gör.'
+      },
+      {
+        q: 'Behöver jag nämna att jag kan arbeta skift?',
+        a: 'Ja, om tjänsten innebär skiftarbete bör du bekräfta att du har erfarenhet av det eller är flexibel. Arbetsgivare vill veta att schemat inte blir ett problem. Ange gärna om du har erfarenhet av tvåskift, treskift eller nattarbete.'
+      },
+      {
+        q: 'Hur beskriver jag fysiskt krävande arbete i brevet?',
+        a: 'Nämn att du är van vid fysiskt arbete och förstår ergonomins betydelse. Undvik att överdriva med "jag är stark och uthållig". Fokusera istället på att du klarar arbetets fysiska krav och prioriterar rätt arbetsteknik för att undvika skador.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av specifika branscher?',
+        a: 'Ja, om du har erfarenhet från liknande bransch som tjänsten gäller. Lager för dagligvaror, bygg, industri eller e-handel har olika förutsättningar. Branscherfarenhet kan vara en fördel eftersom du redan förstår godstyper och arbetsflöden.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev som truckförare vara?',
+        a: 'Håll brevet till en A4-sida, cirka 300-400 ord. Truckförartjänster fokuserar på praktisk kompetens, så brevet behöver inte vara långt. Viktigast är att truckkort, erfarenhet och kapacitet framgår tydligt. Rekryterare scannar brev snabbt.'
+      }
+    ],
+
+    kategori: 'logistik',
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' },
+      { yrke: 'Städare', slug: 'stadare' }
+    ]
   }
 }
 
