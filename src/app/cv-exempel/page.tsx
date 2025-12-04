@@ -330,6 +330,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'psykolog',
+    yrke: 'Psykolog',
+    slug: 'psykolog',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 1450,
+    icon: Heart,
+    gradient: 'from-indigo-500 via-purple-600 to-indigo-700',
+    preview: {
+      intro: 'CV för legitimerad psykolog med fokus på KBT, neuropsykiatrisk utredning och psykologisk testning inom hälso- och sjukvård.',
+      highlight: ['85% symtomreduktion och 40+ utredningar årligen', 'WAIS-IV, WISC-V, Beck-skalor och TakeCare', 'Steg 1 KBT och handledarkompetens']
+    }
+  },
+  {
     id: 'servitris-restaurangbitrade',
     yrke: 'Servitris/Restaurangbiträde',
     slug: 'servitris-restaurangbitrade',
@@ -996,7 +1010,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  57 yrken
+                  58 yrken
                 </motion.span>
               </h1>
 

@@ -15161,6 +15161,306 @@ Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat fö
       { yrke: 'Fritidspedagog', slug: 'fritidspedagog' },
       { yrke: 'Barnskötare', slug: 'barnskotare' }
     ]
+  },
+
+  'psykolog': {
+    yrke: 'Psykolog',
+    sokvolym: 1450,
+    kategori: 'vard-omsorg',
+    metaTitle: 'CV Exempel Psykolog 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för legitimerad psykolog med KBT, neuropsykiatrisk utredning och psykologisk testning. ATS-optimerat med WAIS, Beck och journalsystem.',
+
+    seoIntro: `Söker du jobb som psykolog och behöver ett CV som visar din kliniska kompetens och terapeutiska bredd? Det här CV-exemplet visar hur du strukturerar dina erfarenheter för att övertyga både ATS-system och verksamhetschefer inom hälso- och sjukvård, psykiatri och företagshälsovård.
+
+CV:t kombinerar kvantifierbara behandlingsresultat (85% symtomreduktion, 40+ utredningar årligen) med branschspecifika kompetenser som KBT, ACT, neuropsykiatrisk utredning och standardiserade testinstrument (WAIS-IV, Beck-skalor, WISC-V). Det visar progression från PTP-tjänst till specialistpsykolog med handledningsansvar.
+
+Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att utföra psykologisk testning och utredning, samt djupare terapeutisk specialisering. Använd detta exempel som inspiration när du skriver ditt eget CV som psykolog – anpassa det efter din inriktning och den typ av verksamhet du söker till.`,
+
+    intro: 'Professionellt CV-exempel för legitimerad psykolog med fokus på psykoterapi, neuropsykiatrisk utredning och psykologisk testning. Visar kvantifierbara behandlingsresultat och standardiserade testinstrument. ATS-optimerat för hälso- och sjukvård, psykiatri och företagshälsovård.',
+
+    exempelCV: {
+      namn: 'Erik Johansson',
+      titel: 'Legitimerad Psykolog med KBT-inriktning & neuropsykiatrisk kompetens',
+      kontakt: {
+        telefon: '070-567 89 01',
+        epost: 'erik.johansson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikjohansson-psykolog'
+      },
+
+      profil: 'Legitimerad psykolog med 8+ års klinisk erfarenhet från psykiatrisk öppenvård och primärvård. Specialist på KBT och ACT med dokumenterade behandlingsresultat – 85% av patienter uppnår kliniskt signifikant förbättring. Gedigen kompetens i neuropsykiatrisk utredning (ADHD/autism) med 40+ utredningar årligen och testinstrument som WAIS-IV, WISC-V och D-KEFS. Handleder PTP-psykologer och psykologkandidater. Dokumenterar i TakeCare och BUP-journalsystem enligt patientdatalagen.',
+
+      erfarenhet: [
+        {
+          titel: 'Psykolog / Handledare',
+          arbetsgivare: 'Psykiatri Nordväst, Region Stockholm',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Bedriver KBT och ACT i individuellt format för 25-30 patienter med ångest, depression och stressrelaterad ohälsa – 85% uppnår kliniskt signifikant symtomreduktion enligt Beck-skalor',
+            'Genomför 40+ neuropsykiatriska utredningar årligen (ADHD, autism, intellektuell funktionsnedsättning) med WAIS-IV, WISC-V, D-KEFS och BRIEF',
+            'Deltar i diagnostiska konferenser och samverkar med psykiatriker, arbetsterapeut och kurator i tvärprofessionella team',
+            'Handleder 2 PTP-psykologer och 3 psykologkandidater i kliniskt arbete och utredningsmetodik',
+            'Budgetansvar: 1,2 MSEK för testmaterial och vidareutbildning inom enheten',
+            'Dokumenterar i TakeCare med strukturerad journalföring enligt SBAR och patientdatalagen'
+          ]
+        },
+        {
+          titel: 'Psykolog',
+          arbetsgivare: 'Capio Vårdcentral Liljeholmen',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Psykologisk bedömning och korttids-KBT för 35-40 patienter månatligen med mild-måttlig psykisk ohälsa',
+            'Utvecklade gruppbehandlingsprogram för stress och utmattning med 12 deltagare per omgång – 78% fullföljde och rapporterade förbättring',
+            'Konsultation till läkare och sjuksköterskor kring psykologiska perspektiv på somatiska tillstånd',
+            'Implementerade screeningrutiner med PHQ-9 och GAD-7 som identifierade 35% fler patienter i behov av psykologkontakt'
+          ]
+        },
+        {
+          titel: 'PTP-psykolog',
+          arbetsgivare: 'BUP Stockholm, Psykiatri Sydväst',
+          period: '2015 – 2017',
+          beskrivning: [
+            'Utredning och behandling av barn och ungdomar 6-18 år med ADHD, autism, ångest och depression',
+            'Genomförde 25 neuropsykiatriska utredningar under handledning med WISC-V, Conners och ADOS-2',
+            'Föräldrastöd och psykoedukation i grupp (8-10 föräldrar) med fokus på beteendestrategier',
+            'Erhöll psykologlegitimation efter godkänd PTP-tjänst (2017)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Psykologprogrammet (300 hp)',
+          skola: 'Stockholms Universitet',
+          period: '2010 – 2015',
+          beskrivning: 'Psykologexamen med fördjupning i klinisk psykologi. Examensarbete om KBT-behandling vid social fobi.'
+        },
+        {
+          titel: 'Grundläggande Psykoterapiutbildning (KBT)',
+          skola: 'Svenska Institutet för Kognitiv Psykoterapi',
+          period: '2018 – 2019',
+          beskrivning: '60 hp. Steg 1-utbildning med fokus på ångest- och depressionsbehandling.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'KBT och ACT (Expert, 8+ år klinisk tillämpning)',
+          'Neuropsykiatrisk utredning: WAIS-IV, WISC-V, D-KEFS, BRIEF',
+          'Screening och bedömning: Beck-skalor, PHQ-9, GAD-7, MADRS-S',
+          'Journalsystem: TakeCare, Cosmic, BUP-journal (daglig användning)',
+          'Utredningsdiagnostik: ADHD, autism, intellektuell funktionsnedsättning',
+          'Gruppbehandling och psykoedukation'
+        ],
+        personliga: [
+          'Klinisk handledning (handleder 5 psykologer/kandidater)',
+          'Tvärprofessionellt samarbete (psykiatriker, arbetsterapeut, kurator)',
+          'Evidensbaserad praktik (följer upp behandlingsresultat systematiskt)',
+          'Empatisk och strukturerad (bygger terapeutisk allians)'
+        ]
+      },
+
+      certifieringar: [
+        'Psykologlegitimation – Socialstyrelsen (2017)',
+        'Grundläggande Psykoterapiutbildning KBT, Steg 1 (2019)',
+        'WAIS-IV och WISC-V Certifiering – Pearson (2020)',
+        'ACT-utbildning Grundnivå – Association for Contextual Behavioral Science (2021)',
+        'Handledarkompetens för PTP – Sveriges Psykologförbund (2022)',
+        'Suicidriskbedömning – Columbia-protokollet (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Ange psykologlegitimation med årtal – det är ett lagkrav för yrkesutövning',
+      'Lista specifika testinstrument (WAIS-IV, Beck, WISC-V) – inte bara "psykologisk testning"',
+      'Kvantifiera behandlingsresultat på gruppnivå (% symtomreduktion, antal utredningar)',
+      'Visa terapeutisk specialisering (KBT, ACT, PDT) och eventuell Steg 1-utbildning',
+      'Inkludera handledningserfarenhet om du har det – det signalerar senioritet'
+    ],
+
+    statistik: [
+      {
+        siffra: '12 500+',
+        text: 'legitimerade psykologer arbetar i Sverige – efterfrågan ökar inom primärvård och psykiatri'
+      },
+      {
+        siffra: '45-55k',
+        text: 'SEK är medellön för psykolog i hälso- och sjukvård – specialistpsykolog kan nå 60-70k'
+      },
+      {
+        siffra: '6 sek',
+        text: 'spenderar rekryterare på första genomläsning – placera legitimation och specialisering först'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Testinstrument och metoder som ATS-system söker efter',
+        text: `CV:t använder exakta termer som "WAIS-IV", "WISC-V", "D-KEFS", "Beck-skalor", "PHQ-9" och "KBT" – samma instrument och metoder som återfinns i jobbannonser för psykologtjänster.
+
+Varför detta fungerar: ATS-system i sjukvården filtrerar på specifika testinstrument och terapimetoder. När du skriver "WAIS-IV" istället för bara "begåvningstestning" matchar du kravlistan direkt. Rekryterare ser omedelbart att du behärskar de standardiserade instrument som krävs för neuropsykiatrisk utredning, vilket är en bristvara på arbetsmarknaden.`
+      },
+      {
+        rubrik: 'Kvantifierade behandlingsresultat visar klinisk effektivitet',
+        text: `CV:t innehåller konkreta siffror: "85% uppnår kliniskt signifikant symtomreduktion", "40+ utredningar årligen", "35-40 patienter månatligen", "78% fullföljde gruppbehandling".
+
+Varför detta fungerar: Psykologer som följer upp sina behandlingsresultat är eftertraktade. Många kandidater undviker siffror av sekretesskäl, men aggregerade data på gruppnivå är helt OK. "85% symtomreduktion enligt Beck-skalor" bevisar att du arbetar evidensbaserat och mäter din effektivitet – något som verksamhetschefer värdesätter högt.`
+      },
+      {
+        rubrik: 'Tydlig progression från PTP till handledande psykolog',
+        text: `Erfarenheten visar utveckling: från PTP-psykolog på BUP (utredning under handledning) till psykolog i primärvård (självständig behandling) till specialistpsykolog med handledningsansvar och budgetansvar.
+
+Varför detta fungerar: Progressionen visar att du har vuxit systematiskt i yrket. Att du nu handleder PTP-psykologer och kandidater signalerar senioritet och förmåga att utveckla andra. Budgetansvar (1,2 MSEK) visar att du tar verksamhetsansvar utöver det kliniska – attraktivt för arbetsgivare som söker erfarna psykologer.`
+      },
+      {
+        rubrik: 'Legitimation och certifieringar med årtal validerar kompetens',
+        text: `CV:t listar "Psykologlegitimation (2017)", "Steg 1 KBT (2019)", "WAIS-IV Certifiering (2020)", "Handledarkompetens (2022)". Varje certifiering har årtal och utfärdare.
+
+Varför detta fungerar: Psykologlegitimation är ett lagkrav – utan den kan du inte kallas psykolog. Genom att lista legitimationsår först etablerar du direkt din behörighet. Steg 1-utbildning visar fördjupad terapeutisk kompetens. Årtal bevisar att du kontinuerligt vidareutbildar dig, vilket är viktigt i ett yrke där evidensbasen ständigt utvecklas.`
+      },
+      {
+        rubrik: 'Profiltext som kombinerar behandling och utredning',
+        text: `Profiltexten öppnar med "8+ års klinisk erfarenhet från psykiatrisk öppenvård och primärvård. Specialist på KBT och ACT" och inkluderar "40+ utredningar årligen med WAIS-IV, WISC-V".
+
+Varför detta fungerar: Många psykologtjänster kräver både behandling OCH utredning. Genom att visa båda kompetenserna i profiltexten signalerar du bred användbarhet. Specifika instrument (WAIS-IV, WISC-V) fungerar som nyckelord som ATS-system rankar högt. Siffror ("8+ år", "40+ utredningar") ger omedelbar kontext om din erfarenhetsnivå.`
+      },
+      {
+        rubrik: 'Tvärprofessionellt samarbete konkretiseras med roller',
+        text: `CV:t beskriver samarbete specifikt: "Deltar i diagnostiska konferenser och samverkar med psykiatriker, arbetsterapeut och kurator" och "Konsultation till läkare och sjuksköterskor".
+
+Varför detta fungerar: Psykologer arbetar sällan isolerat – tvärprofessionellt samarbete är centralt. Genom att namnge specifika yrkesroller (psykiatriker, arbetsterapeut) visar du att du förstår din plats i vårdkedjan. Diagnostiska konferenser signalerar att du bidrar till kvalificerade bedömningar i team, inte bara individuell behandling.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Lista testinstrument med fullständiga namn',
+        text: `Arbetsgivare söker psykologer med kompetens i specifika testinstrument. Skriv ut fullständiga namn, inte bara förkortningar.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av psykologisk testning och utredning"
+
+✅ "Neuropsykiatrisk utredning med **WAIS-IV, WISC-V, D-KEFS, BRIEF och Conners-3** – 40+ utredningar årligen"
+
+Specificera även vilka patientgrupper du utrett (ADHD, autism, intellektuell funktionsnedsättning) för att visa din bredd.`
+      },
+      {
+        rubrik: 'Kvantifiera behandlingsresultat på gruppnivå',
+        text: `Du kan visa behandlingseffektivitet utan att bryta sekretess genom att presentera aggregerade resultat med standardiserade mätinstrument.
+
+**Exempel på före/efter**:
+
+❌ "Bedriver psykoterapi för patienter med ångest och depression"
+
+✅ "KBT för 25-30 patienter med ångest och depression – **85% uppnår kliniskt signifikant symtomreduktion** enligt Beck-skalor inom 12 sessioner"
+
+Referera till etablerade mätinstrument (Beck, PHQ-9, GAD-7) för trovärdighet.`
+      },
+      {
+        rubrik: 'Placera legitimation och Steg 1 tidigt i CV:t',
+        text: `Psykologlegitimation är ett absolut krav. Steg 1-utbildning i psykoterapi visar fördjupad behandlingskompetens.
+
+**Exempel på före/efter**:
+
+❌ Nämn legitimation i slutet av CV:t under "Övrigt"
+
+✅ Placera **"Legitimerad Psykolog"** i titeln och lista "Psykologlegitimation – Socialstyrelsen (2017)" först under Certifieringar
+
+Rekryterare scannar CV:t uppifrån – legitimation bör vara synlig inom 3 sekunder.`
+      },
+      {
+        rubrik: 'Visa handledningserfarenhet för seniora roller',
+        text: `Handledning av PTP-psykologer och kandidater signalerar erfarenhet och ledarskap. Det är ofta ett krav för specialistpsykologtjänster.
+
+**Exempel på före/efter**:
+
+❌ "Har erfarenhet av att handleda yngre kollegor"
+
+✅ "Handleder **2 PTP-psykologer och 3 psykologkandidater** i kliniskt arbete, utredningsmetodik och journalföring. Handledarkompetens certifierad via Sveriges Psykologförbund (2022)."
+
+Specificera antal personer, innehåll och eventuell certifiering.`
+      },
+      {
+        rubrik: 'Anpassa CV:t efter vårdnivå: primärvård vs psykiatri',
+        text: `Primärvård och psykiatri har olika fokus. Anpassa innehållet efter tjänsten du söker.
+
+**Exempel på före/efter**:
+
+❌ Generiskt CV som passar "alla" psykologtjänster
+
+✅ **Primärvård**: Betona korttidsbehandling, screening (PHQ-9, GAD-7), konsultation till läkare
+✅ **Psykiatri**: Betona diagnostisk utredning, testinstrument, svårare patientgrupper, tvärprofessionellt samarbete
+
+Läs jobbannonsen noggrant och lyft fram de kompetenser som efterfrågas.`
+      },
+      {
+        rubrik: 'Inkludera journalsystem du behärskar',
+        text: `Sjukvården använder specifika journalsystem. Att visa systemkompetens minskar introduktionstiden.
+
+**Exempel på före/efter**:
+
+❌ "Dokumenterar enligt gällande rutiner och lagstiftning"
+
+✅ "Dokumenterar i **TakeCare och Cosmic** med strukturerad journalföring enligt SBAR och patientdatalagen. Erfarenhet av BUP-journal för barn- och ungdomspsykiatri."
+
+Namnge specifika system och eventuella dokumentationsmallar du använder.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad är skillnaden mellan psykolog och kurator i CV:t?',
+        svar: 'Psykolog har legitimation efter 5 års universitetsutbildning + 1 års PTP-tjänst, rätt att utföra psykologisk testning och fördjupad terapeutisk kompetens. Kurator har socionomexamen och fokuserar på psykosocialt stöd och samordning. I ditt CV som psykolog, betona: legitimation, testinstrument (WAIS, Beck), terapeutisk inriktning (KBT, ACT) och eventuell Steg 1-utbildning. Detta särskiljer dig tydligt från kuratorsrollen.'
+      },
+      {
+        fraga: 'Hur visar jag neuropsykiatrisk kompetens konkret?',
+        svar: 'Lista specifika testinstrument: "WAIS-IV, WISC-V, D-KEFS, BRIEF, Conners-3, ADOS-2". Kvantifiera din erfarenhet: "40+ utredningar årligen (ADHD, autism, intellektuell funktionsnedsättning)". Nämn om du deltar i diagnostiska konferenser med psykiatriker. Om du utrett både barn och vuxna, specificera detta: "WISC-V för barn 6-16 år, WAIS-IV för vuxna".'
+      },
+      {
+        fraga: 'Ska jag inkludera PTP-tjänsten i CV:t?',
+        svar: 'Ja, absolut – PTP är obligatoriskt för legitimation och visar var du fick din kliniska grundträning. Skriv det som en vanlig tjänst: "PTP-psykolog, BUP Stockholm (2015-2017)". Beskriv patientgrupper, metoder du använde under handledning, och avsluta med: "Erhöll psykologlegitimation efter godkänd PTP-tjänst (2017)". Detta visar din kliniska progression.'
+      },
+      {
+        fraga: 'Hur presenterar jag terapeutisk specialisering?',
+        svar: 'Var specifik om din inriktning: "Specialist på KBT med fokus på ångest och depression" eller "ACT-inriktad med erfarenhet av kronisk smärta". Om du har Steg 1-utbildning, lyft fram den tydligt med inriktning och årtal. Undvik vaga påståenden som "bred terapeutisk kompetens" – specificera vilka metoder du faktiskt använder och vilka patientgrupper du behandlat.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag behandlingsresultat utan att bryta sekretess?',
+        svar: 'Använd aggregerade data på gruppnivå: "85% av patienter uppnår kliniskt signifikant förbättring enligt Beck Depression Inventory". Referera till standardiserade mätinstrument (PHQ-9, GAD-7, Beck-skalor) för trovärdighet. Ange antal patienter per period: "Behandlar 25-30 patienter parallellt". Du behöver aldrig nämna enskilda patienter eller identifierande detaljer.'
+      },
+      {
+        fraga: 'Vad är viktigt för psykologtjänster inom företagshälsovård?',
+        svar: 'Företagshälsovård fokuserar på arbetsrelaterad psykisk ohälsa. Betona: stresshantering, utmattningssyndrom, korttidsbehandling, arbetsplatskonsultation, rehabiliteringsutredningar. Nämn erfarenhet av att samarbeta med HR, chefer och Försäkringskassan. Testinstrument som Maslach Burnout Inventory och arbetsmiljöbedömningar är relevanta. Organisationskännedom och förmåga att kommunicera med icke-kliniker är meriterande.'
+      },
+      {
+        fraga: 'Hur visar jag handledningskompetens?',
+        svar: 'Specificera VEM du handleder och i VAD: "Handleder 2 PTP-psykologer i kliniskt arbete och utredningsmetodik". Nämn om du har formell handledarkompetens: "Handledarkompetens för PTP – Sveriges Psykologförbund (2022)". Om du handleder psykologkandidater under VFU, inkludera även detta. Handledning signalerar senioritet och förmåga att utveckla andra.'
+      },
+      {
+        fraga: 'Ska jag ta med forskningserfarenhet i CV:t?',
+        svar: 'Ja, om det är relevant för tjänsten. Forskningserfarenhet är meriterande för akademiska tjänster, specialistutbildning och verksamheter med utvecklingsuppdrag. Skriv: "Examensarbete om KBT vid social fobi" eller "Deltagit i forskningsprojekt om ADHD-utredning vid Karolinska". Om du publicerat, lägg till en kort sektion med publikationer. För renodlade kliniska tjänster kan forskningserfarenhet vara sekundär.'
+      },
+      {
+        fraga: 'Hur lång ska mitt CV som psykolog vara?',
+        svar: 'Nylegitimerade psykologer (0-3 år efter PTP): 1-1,5 sidor. Erfarna psykologer (5+ år): 2 sidor max. Fokusera på de senaste 10 årens erfarenhet. Prioritera: legitimation, terapeutisk inriktning, testinstrument, kvantifierade resultat. Undvik att lista alla kurser – välj de mest relevanta. Rekryterare läser CV:t på under en minut, så placera det viktigaste först.'
+      },
+      {
+        fraga: 'Hur hanterar jag byte mellan barn- och vuxenpsykiatri?',
+        svar: 'Framhåll det som en styrka – du har bredd över åldersgrupper. I profiltexten: "Klinisk erfarenhet från både BUP och vuxenpsykiatri". Lista relevanta testinstrument för båda: "WISC-V (barn), WAIS-IV (vuxna)". Beskriv hur du anpassar kommunikation och metoder efter ålder. Om du söker en specifik tjänst (t.ex. vuxen), lyft fram den erfarenheten först men nämn bredden som tillgång.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Läkare', slug: 'lakare' },
+      { yrke: 'Socialsekreterare', slug: 'socialsekreterare' }
+    ]
   }
 }
 
