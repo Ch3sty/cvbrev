@@ -4803,6 +4803,122 @@ Jag är övertygad om att min erfarenhet av skalbara system och min passion för
       { yrke: 'Ingenjör', slug: 'ingenjor' },
       { yrke: 'Projektledare', slug: 'projektledare' }
     ]
+  },
+
+  'account-manager': {
+    yrke: 'Account Manager',
+    sokvolym: 400,
+    metaTitle: 'Personligt brev Account Manager – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som Account Manager. Se exempel med konkreta försäljningsresultat, kundportföljhantering och CRM-kompetens.',
+    intro: 'Ett övertygande personligt brev som Account Manager visar din förmåga att bygga lönsamma kundrelationer och leverera mot försäljningsmål. Arbetsgivare söker kandidater som kombinerar affärssinne med genuint relationsskapande. I detta exempel ser du hur du presenterar din kundportfölj, beskriver konkreta merförsäljningsresultat och visar förståelse för företagets tillväxtambitioner. Brevet balanserar kvantifierbara resultat med mjuka kompetenser som förtroendeskapande och samarbetsförmåga.',
+    seoIntro: `Att skriva ett personligt brev som Account Manager handlar om att visa din förmåga att skapa värde genom kundrelationer. Detta exempel demonstrerar hur du presenterar konkreta försäljningsresultat, beskriver din arbetsmetodik och visar förståelse för företagets affärsmål. Brevet balanserar kvantifierbara prestationer med personliga egenskaper som bygger förtroende.\n\nI exemplet ser du hur en erfaren Account Manager lyfter fram sin kundportfölj med specifika värden och beskriver hur proaktivt arbete ledde till mätbar tillväxt. Kompetenser som CRM-hantering, dataanalys för churn-prevention och avtalsförhandling presenteras i ett sammanhang som visar praktisk tillämpning. Genom att nämna verktyg som Salesforce och HubSpot signaleras teknisk kompetens som många arbetsgivare efterfrågar.\n\nAnvänd detta exempel som utgångspunkt för ditt eget brev genom att anpassa siffror och erfarenheter till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du presenterar kundvärde, hanterar avsaknad av exakta siffror och formulerar dig kring långsiktiga affärsrelationer.`,
+    exempelBrev: {
+      namn: 'Marcus Lindqvist',
+      adress: 'Vasagatan 15, 411 24 Göteborg',
+      telefon: '070-234 56 78',
+      epost: 'marcus.lindqvist@email.com',
+      arbetsgivare: 'Företag AB',
+      roll: 'Account Manager',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Tjänsten som Account Manager på [Företag AB] fångade omedelbart mitt intresse. Med sex års erfarenhet av B2B-försäljning och kundrelationer inom tech-branschen ser jag en utmärkt matchning mellan era behov och min kompetens att bygga långsiktiga affärsrelationer.
+
+I min nuvarande roll som Account Manager på ett SaaS-bolag ansvarar jag för en kundportfölj värd 28 miljoner kronor årligen. Genom proaktiv kundvård och strategisk merförsäljning ökade jag intäkterna från befintliga kunder med 34% under 2024. Ett konkret exempel är hur jag identifierade expansionsmöjligheter hos en nyckelkund, vilket resulterade i ett tilläggsavtal på 2,4 miljoner kronor efter tre månaders bearbetning.
+
+Min styrka ligger i att kombinera affärssinne med genuint relationsskapande. Jag arbetar strukturerat med CRM-verktyg som Salesforce och HubSpot för att säkerställa rätt uppföljning i rätt tid. Genom att analysera kunddata identifierar jag churn-risker tidigt och skapar handlingsplaner som ökat vår retention rate från 82% till 91%. Jag behärskar hela säljcykeln från första möte till avtalsförhandling och trivs särskilt med komplexa affärer som kräver flera beslutsfattare.
+
+Era ambitioner att växa internationellt och fokusera på enterprise-segmentet stämmer väl med min erfarenhet. Jag har tidigare arbetat med nordiska kunder och förhandlat avtal på engelska. Er kultur som betonar både resultat och teamkänsla tilltalar mig. Jag tror på att dela kunskap och framgångsrecept med kollegor för att hela teamet ska lyckas.
+
+Med dokumenterad förmåga att överträffa försäljningsmål och utveckla kundrelationer bidrar jag gärna till er fortsatta tillväxt. Jag ser fram emot att berätta mer om hur jag kan stärka ert säljteam vid en personlig träff.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Beskriv din kundportfölj med mätbara värden',
+        text: 'Arbetsgivare vill förstå vilken nivå du arbetat på. Ange portföljens totala värde, antal kunder eller genomsnittlig affärsstorlek. Om du inte kan dela exakta siffror, använd intervall eller procent av företagets totala omsättning.\n\nExempel på formuleringar: "ansvarade för 15 strategiska kunder med ett sammanlagt kontraktsvärde på 20 MSEK" eller "hanterade den största kundportföljen i teamet, motsvarande 25% av regionens intäkter".'
+      },
+      {
+        rubrik: 'Visa hur du skapar merförsäljning systematiskt',
+        text: 'Account Managers förväntas växa befintliga kunder. Beskriv din metodik för att identifiera merförsäljningsmöjligheter. Nämn om du använder kunddata, regelbundna affärsgenomgångar eller proaktiv behovsanalys. Konkreta exempel med resultat är mer övertygande än generella påståenden om att du är "bra på merförsäljning".'
+      },
+      {
+        rubrik: 'Lyft fram dina CRM-kompetenser konkret',
+        text: 'De flesta Account Manager-roller kräver CRM-erfarenhet. Nämn vilka system du behärskar och hur du använder dem i praktiken. Beskriv gärna hur du utnyttjar CRM-data för att prioritera insatser, förutse churn-risker eller planera kundaktiviteter. Detta visar att du arbetar strukturerat och datadrivet.'
+      },
+      {
+        rubrik: 'Balansera resultatfokus med relationskompetens',
+        text: 'Som Account Manager behöver du både leverera mot säljmål och bygga långsiktiga relationer. Visa i brevet att du förstår denna balans. Beskriv hur du skapar förtroende hos kunder samtidigt som du identifierar affärsmöjligheter. Undvik att framstå som enbart transaktionell eller enbart relationsbyggande.'
+      },
+      {
+        rubrik: 'Anpassa till företagets kundsegment och bransch',
+        text: 'Gör research om vilka kunder företaget har och anpassa ditt brev därefter. Om de fokuserar på enterprise-kunder, lyft erfarenhet av komplexa beslutsprocesser. Jobbar de med SMB-segmentet, betona volymhantering och effektivitet. Visa att du förstår skillnaden mellan olika kundsegment.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierar kundportföljen med konkret värde',
+        beskrivning: 'Genom att ange portföljens värde på 28 miljoner kronor ger kandidaten rekryteraren en tydlig bild av ansvarsnivån. Detta är mer övertygande än vaga beskrivningar som "stor kundportfölj" och visar att kandidaten är van att hantera betydande affärsvolymer.'
+      },
+      {
+        titel: 'Visar process och resultat i samma exempel',
+        beskrivning: 'Exemplet med tilläggsavtalet på 2,4 miljoner beskriver både hur kandidaten arbetade (identifierade expansionsmöjligheter, tre månaders bearbetning) och vad det ledde till. Rekryterare uppskattar denna transparens kring arbetsmetodik.'
+      },
+      {
+        titel: 'Kombinerar hårda och mjuka kompetenser naturligt',
+        beskrivning: 'Brevet nämner CRM-verktyg och dataanalys samtidigt som det lyfter relationsskapande och teamkänsla. Denna balans visar en komplett Account Manager som både levererar resultat och fungerar väl i organisationen.'
+      },
+      {
+        titel: 'Anpassar till företagets specifika tillväxtmål',
+        beskrivning: 'Genom att referera till internationell expansion och enterprise-fokus visar kandidaten att hen gjort research och förstår vart företaget är på väg. Detta signalerar genuint intresse och strategiskt tänkande.'
+      },
+      {
+        titel: 'Avslutar med tydligt värdelöfte och nästa steg',
+        beskrivning: 'Avslutningen sammanfattar kandidatens bidrag och öppnar för dialog. Formuleringen är självsäker utan att vara övermodig, vilket passar rollen som Account Manager där förtroendeskapande är centralt.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vad är skillnaden mellan Account Manager och Key Account Manager i personliga brev?',
+        a: 'Key Account Manager fokuserar på färre, strategiskt viktiga kunder med större affärsvolym och komplexare relationer. I ditt brev bör du anpassa ordval och exempel efter rollen. KAM-brev betonar ofta strategiskt partnerskap och C-level-kontakter, medan AM-brev kan inkludera bredare kundhantering.'
+      },
+      {
+        q: 'Hur presenterar jag försäljningsresultat utan att avslöja känslig information?',
+        a: 'Använd procentuella ökningar istället för absoluta tal, eller ange intervall. Du kan också relatera till mål: "överträffade budget med 15%" eller "rankades topp tre i teamet". Be tidigare arbetsgivare om vilka siffror du får dela om du är osäker.'
+      },
+      {
+        q: 'Ska jag nämna specifika CRM-system i mitt personliga brev?',
+        a: 'Ja, om det efterfrågas i annonsen eller är standard i branschen. Salesforce, HubSpot och Microsoft Dynamics är vanliga system som visar teknisk kompetens. Nämn gärna hur du använder systemet, inte bara att du kan det.'
+      },
+      {
+        q: 'Hur beskriver jag kundrelationer konkret utan att låta flosklig?',
+        a: 'Ge specifika exempel på vad relationen ledde till. Istället för "byggde starka kundrelationer" skriv "utvecklade partnerskapet med [Kund] från årliga inköp på 500 000 kr till ramavtal på 2 miljoner". Resultat gör relationer mätbara.'
+      },
+      {
+        q: 'Är branschspecifik erfarenhet avgörande för Account Manager-roller?',
+        a: 'Det beror på rollen. Vissa branscher som pharma eller fintech har regulatoriska krav som kräver specifik kunskap. För andra räcker överförbara färdigheter som B2B-försäljning och relationsbyggande. Betona i brevet hur din erfarenhet är relevant även om branschen är ny.'
+      },
+      {
+        q: 'Hur lång bör erfarenhetsdelen i brevet vara?',
+        a: 'Ett eller två stycken på totalt 80-120 ord. Välj ditt bästa exempel med kvantifierbara resultat snarare än att lista flera vaga erfarenheter. Rekryterare scannar brev snabbt och kommer ihåg ett starkt exempel bättre än fem mediokra.'
+      },
+      {
+        q: 'Ska jag nämna att jag överträffat försäljningsmål?',
+        a: 'Ja, om det stämmer och du kan vara specifik. "Överträffade årsmålet med 22% under 2024" är övertygande. Undvik dock överanvändning av superlativ. Ett eller två konkreta exempel på måluppfyllelse räcker för att etablera din prestation.'
+      },
+      {
+        q: 'Hur visar jag intresse för just detta företag som Account Manager?',
+        a: 'Gör research om deras kunder, tillväxtplaner eller marknadsposition. Referera till något specifikt: ett nytt kundsegment de satsar på, internationell expansion eller en branschutmaning. Visa att du förstår deras affär och var du kan bidra.'
+      }
+    ],
+
+    kategori: 'forsaljning',
+    relaterade: [
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'IT-konsult', slug: 'it-konsult' }
+    ]
   }
 }
 
