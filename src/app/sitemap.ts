@@ -271,6 +271,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'fritidspedagog',
     'redovisningsekonom',
     'hr-specialist',
+    'systemutvecklare',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
