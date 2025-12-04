@@ -14586,6 +14586,278 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
       { yrke: 'Chef', slug: 'chef' },
       { yrke: 'Redovisningsekonom', slug: 'redovisningsekonom' }
     ]
+  },
+
+  'scrum-master': {
+    yrke: 'Scrum Master',
+    sokvolym: 880,
+    kategori: 'teknik',
+
+    metaTitle: 'CV Exempel Scrum Master 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för Scrum Master med agila ceremonier, teamutveckling och servant leadership. ATS-optimerat med CSM, PSM och kvantifierade resultat. Tips och mall.',
+
+    seoIntro: `Hur skriver du ett CV som Scrum Master som visar att du är mer än en mötesplanerare? En Scrum Masters CV måste bevisa din förmåga att coacha team, ta bort blockeringar och kontinuerligt förbättra leveranskapaciteten.
+
+Det här exemplet visar hur du strukturerar ett professionellt Scrum Master-CV som passerar ATS-filter och imponerar på engineering managers och agile coaches. Här ser du hur Johan kombinerar servant leadership med konkreta metrics – velocity-förbättringar, reducerade cycle times och ökad teamstabilitet.
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom agil transformation, coaching och continuous improvement. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker roll i startup, scale-up eller enterprise.`,
+
+    intro: 'Scrum Master med fokus på servant leadership, agila ceremonier och teamutveckling. CV-exemplet visar hur du kombinerar coaching-kompetens med mätbara förbättringar.',
+
+    exempelCV: {
+      namn: 'Johan Andersson',
+      titel: 'Scrum Master med fokus på teamutveckling & continuous improvement',
+
+      kontakt: {
+        telefon: '073-555 34 56',
+        epost: 'johan.andersson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/johananderssonagile'
+      },
+
+      profil: 'Scrum Master med 6 års erfarenhet av att coacha högpresterande utvecklingsteam inom fintech och e-handel. Specialiserad på servant leadership, blockeringshantering och velocity-optimering med dokumenterade förbättringar på 40%+ i teamleverans. Certifierad PSM II och SAFe Scrum Master med stark bakgrund inom mjukvaruutveckling. Driven av att skapa självorganiserande team som levererar värde kontinuerligt.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Scrum Master',
+          arbetsgivare: 'Klarna',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Coachar 3 korsfunktionella produktteam (totalt 28 utvecklare) inom Klarnas checkout-domän',
+            'Förbättrade teamens velocity med 45% genom optimerade sprintplaneringar och reducerade blockeringar',
+            'Reducerade cycle time från 12 till 5 dagar genom WIP-limits och flow-effektivisering',
+            'Faciliterar agila ceremonier för 3 team: sprint planning, daily standups, reviews och retrospectives',
+            'Coachade Product Owners i backlog refinement vilket förbättrade story readiness från 60% till 95%'
+          ]
+        },
+        {
+          titel: 'Scrum Master',
+          arbetsgivare: 'Hemnet',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Ansvarade för 2 utvecklingsteam (14 personer) inom sök- och listningsdomänen',
+            'Implementerade Scrum från grunden för nybildat team och nådde stabil velocity på 8 veckor',
+            'Minskade buggar i produktion med 60% genom förbättrad definition of done och testfokus',
+            'Drev agil transformation med övergång från Kanban till Scrum för bättre planerbara leveranser',
+            'Faciliterade retrospectives som genererade 45+ processförbättringar under 3 år'
+          ]
+        },
+        {
+          titel: 'Junior Scrum Master / Utvecklare',
+          arbetsgivare: 'Netlight Consulting',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Arbetade som fullstack-utvecklare och övergick till Scrum Master-rollen i kundprojekt',
+            'Faciliterade daily standups och sprint reviews för team om 6-8 utvecklare',
+            'Deltog i SAFe-implementation för storbank med 15 agila team'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilingenjör, Datateknik',
+          skola: 'Linköpings Universitet',
+          period: '2011 – 2016',
+          beskrivning: 'Fördjupning inom mjukvaruarkitektur och agil systemutveckling. Examensarbete om Scrum-adoption i distributed teams.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Scrum Framework (Expert, 6+ år)',
+          'Jira & Confluence (Expert)',
+          'Kanban & Lean',
+          'SAFe (Scaled Agile)',
+          'Agile metrics (Velocity, Cycle time, CFD)',
+          'Miro & Retrospective-verktyg'
+        ],
+        personliga: [
+          'Servant leadership',
+          'Facilitering & coaching',
+          'Konflikthantering',
+          'Continuous improvement',
+          'Stakeholder-kommunikation'
+        ]
+      },
+
+      certifieringar: [
+        'Professional Scrum Master II (PSM II) – Scrum.org (2023)',
+        'SAFe 5 Scrum Master – Scaled Agile (2022)',
+        'Professional Scrum Master I (PSM I) – Scrum.org (2019)',
+        'ICAgile Certified Professional (ICP) – ICAgile (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Agila nyckelord som ATS prioriterar',
+        text: `CV:t innehåller termer som rekryterare söker efter: "servant leadership", "velocity", "sprint planning", "retrospectives", "cycle time", "WIP-limits" och "story readiness". Inte generiska fraser som "teamorienterad".
+
+Varför detta fungerar: ATS-system för Scrum Master-roller filtrerar på specifika agila termer. När Johan skriver "reducerade cycle time från 12 till 5 dagar genom WIP-limits" triggar han exakt de sökord som engineering managers använder. Konkret Scrum-terminologi skiljer erfarna Scrum Masters från de som bara läst en bok.`
+      },
+      {
+        rubrik: 'Kvantifierade teamförbättringar, inte bara ceremonier',
+        text: `Varje tjänst visar konkret teamutveckling: 45% velocity-förbättring, cycle time från 12 till 5 dagar, buggar i produktion -60%, story readiness från 60% till 95%. Siffror genom hela karriären.
+
+Varför detta fungerar: Rekryterare ser dagligen CV:n där Scrum Masters skriver "faciliterade ceremonier". Det säger inget om värdet. Johan visar att hans coaching faktiskt förbättrade teamets leveranskapacitet – skillnaden mellan att hålla möten och att driva förändring. En engineering manager anställer inte en mötesplanerare, utan någon som ökar teamets output.`
+      },
+      {
+        rubrik: 'Balans mellan coaching och teknisk förståelse',
+        text: `Johan visar både agil expertis (PSM II, SAFe, Scrum-terminologi) och teknisk bakgrund (civilingenjör, fullstack-utvecklare, förståelse för definition of done och testfokus).
+
+Varför detta fungerar: En Scrum Master utan teknisk förståelse blir snabbt en "post-it-shuffler" som teamet inte respekterar. Johans bakgrund som utvecklare betyder att han förstår blockeringar på djupet och kan coacha kring tekniska utmaningar. "Minskade buggar med 60% genom förbättrad definition of done" visar konkret teknisk påverkan.`
+      },
+      {
+        rubrik: 'Certifieringar som visar progression',
+        text: `PSM I (2019) → ICP (2020) → SAFe SM (2022) → PSM II (2023) – tydlig utveckling från grundläggande till avancerad nivå med kontinuerlig certifiering.
+
+Varför detta fungerar: Scrum Master-certifieringar finns i olika nivåer. PSM II är betydligt svårare än PSM I och signalerar djupare förståelse. Att visa progression från Level I till Level II över flera år bevisar långsiktigt engagemang – inte bara en helgkurs.`
+      },
+      {
+        rubrik: 'Profiltext som positionerar rätt',
+        text: `Profilen sammanfattar: 6 års erfarenhet + branscher (fintech, e-handel) + specialisering (servant leadership, velocity-optimering) + konkret resultat (40%+ förbättring) + teknisk bakgrund (mjukvaruutveckling).
+
+Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, relevant bransch, specialistområde och dokumenterade resultat. Johan positionerar sig som en resultatdriven Scrum Master, inte bara någon med certifikat – detta attraherar seriösa arbetsgivare.`
+      },
+      {
+        rubrik: 'Prestigi karriärväg som tech-arbetsgivare',
+        text: `CV:t visar utveckling: Netlight (konsult med utvecklarbakgrund) → Hemnet (scale-up med agil transformation) → Klarna (unicorn med höga krav på Scrum-mogenhet).
+
+Varför detta fungerar: Klarna och Hemnet är välkända svenska tech-bolag. Att ha arbetat där signalerar att Johan klarat krävande intervjuprocesser och levererat i miljöer med höga förväntningar. För en Scrum Master-roll värderas erfarenhet från företag med mogen agil kultur högt.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Använd specifik agil terminologi',
+        text: `ATS-system för Scrum Master-roller söker efter exakta termer. Undvik generiska fraser och använd Scrum-terminologin korrekt.
+
+**Exempel på före/efter**:
+
+❌ "Höll möten och hjälpte teamet att leverera"
+
+✅ "Faciliterade sprint planning, daily standups, reviews och retrospectives för 3 cross-funktionella team. Coachade teamet i WIP-limits och flow-optimering vilket reducerade cycle time med 58%."
+
+Om arbetsgivaren söker "Scrum Master med SAFe-erfarenhet", nämn explicit SAFe PI Planning, ART sync och Scrum of Scrums.`
+      },
+      {
+        rubrik: 'Kvantifiera teamförbättringar, inte bara ansvar',
+        text: `Som Scrum Master mäts du på teamets utveckling – visa att din coaching faktiskt gav resultat. Undvik vaga beskrivningar av ceremonier.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för att coacha utvecklingsteamet och ta bort blockeringar"
+
+✅ "Coachade produktteam (8 utvecklare) från velocity 35 till 52 story points per sprint (+48%). Reducerade genomsnittlig blockeringstid från 3 dagar till 4 timmar genom proaktiv eskalering."
+
+Velocity, cycle time, lead time och escape defects är metrics som visar din påverkan.`
+      },
+      {
+        rubrik: 'Visa coaching av Product Owner',
+        text: `En erfaren Scrum Master coachar både team och PO. Visa att du hjälpt Product Owners med backlog management och stakeholder-prioritering.
+
+**Exempel på före/efter**:
+
+❌ "Samarbetade med Product Owner"
+
+✅ "Coachade Product Owner i backlog refinement och story splitting vilket förbättrade story readiness från 60% till 95%. Faciliterade stakeholder-workshops för prioritering av Q2-roadmap."
+
+PO-coaching är en mognadsindikator som skiljer juniora från seniora Scrum Masters.`
+      },
+      {
+        rubrik: 'Inkludera retrospective-resultat',
+        text: `Retrospectives driver continuous improvement – visa konkreta förbättringar som kommit ur dina retros.
+
+**Exempel på före/efter**:
+
+❌ "Höll regelbundna retrospectives med teamet"
+
+✅ "Faciliterade retrospectives som genererade 45+ implementerade processförbättringar på 3 år, inklusive automatiserad deployment pipeline som minskade release-tiden från 4h till 20min."
+
+Detta visar att dina retros leder till action, inte bara diskussion.`
+      },
+      {
+        rubrik: 'Visa teknisk förståelse',
+        text: `Scrum Masters som förstår teknik är mer effektiva på att ta bort blockeringar. Lyft fram din tekniska bakgrund om du har en.
+
+**Exempel på före/efter**:
+
+❌ "God förståelse för mjukvaruutveckling"
+
+✅ "Bakgrund som fullstack-utvecklare (3 år). Förbättrade definition of done med tekniska kriterier (code coverage >80%, inga kritiska säkerhetsvarningar) vilket minskade buggar i produktion med 60%."
+
+Teknisk trovärdighet gör att utvecklare lyssnar på din coaching.`
+      },
+      {
+        rubrik: 'Differentiera PSM I vs PSM II',
+        text: `PSM II är betydligt svårare och signalerar djupare förståelse. Om du har Level II, framhäv det tydligt.
+
+**Exempel på före/efter**:
+
+❌ "Certifierad Scrum Master"
+
+✅ "Professional Scrum Master II (PSM II) – Scrum.org (2023)
+SAFe 5 Scrum Master – Scaled Agile (2022)
+Professional Scrum Master I (PSM I) – Scrum.org (2019)"
+
+Progression från Level I till Level II visar kontinuerlig utveckling och djupare Scrum-förståelse.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som Scrum Master vara?',
+        svar: 'För Scrum Masters rekommenderas 1-2 sidor. Junior SM (0-3 år) klarar sig på 1 sida, medan senior SM med erfarenhet från multiple teams och agil transformation ofta behöver 2 sidor. Fokusera på de senaste 5-7 åren och prioritera mätbara teamförbättringar.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan Scrum Master och projektledare i CV:t?',
+        svar: 'Projektledare fokuserar på budget, deadlines och deliverables – de driver projektet. Scrum Master fokuserar på teamutveckling, ceremonier och continuous improvement – de coachar teamet. Om du söker SM-roll, betona servant leadership, facilitering och velocity-förbättringar, inte budgetansvar och Gantt-scheman.'
+      },
+      {
+        fraga: 'Ska jag nämna PSM I om jag har PSM II?',
+        svar: 'Ja, visa progressionen. Lista "PSM II (2023)" först, sedan "PSM I (2019)". Detta visar att du utvecklats från grundnivå till avancerad nivå. Inkludera även andra certifieringar som SAFe SM, ICP eller CSM för att visa bredd – men PSM II är generellt mest respekterad.'
+      },
+      {
+        fraga: 'Hur beskriver jag agil transformation i mitt CV?',
+        svar: 'Specificera före/efter-tillstånd och din roll. Skriv "Ledde agil transformation från vattenfall till Scrum för 3 team (18 utvecklare). Implementerade sprint-kadens, etablerade definition of done och coachade PO:er. Resulterade i 40% kortare time-to-market och 55% färre buggar i produktion."'
+      },
+      {
+        fraga: 'Vilka agila metrics ska jag inkludera?',
+        svar: 'Velocity (story points per sprint), cycle time (idé till produktion), lead time (feature request till leverans), escape defects (buggar som når produktion). Visa förbättring: "Velocity ökade från 35 till 52 (+48%)" eller "Cycle time minskade från 12 till 5 dagar (-58%)". Undvik vanity metrics utan kontext.'
+      },
+      {
+        fraga: 'Ska jag ta med teknisk bakgrund som utvecklare?',
+        svar: 'Absolut, det är en styrka. Teknisk bakgrund ger trovärdighet hos utvecklingsteamet och djupare förståelse för blockeringar. Skriv "3 års erfarenhet som fullstack-utvecklare innan övergång till Scrum Master-rollen". Om teknisk bakgrund saknas, lyft istället fram branschkunskap eller PO-erfarenhet.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för SAFe-miljö vs team-level Scrum?',
+        svar: 'SAFe-roller: Betona PI Planning, ART sync, Scrum of Scrums, release train coordination. Team-level: Fokusera på sprint ceremonies, coaching, retrospectives och teamets velocity. Om du sökt SAFe-roll, lyft explicit fram SAFe-certifiering och erfarenhet av skalerad agil med multiple teams.'
+      },
+      {
+        fraga: 'Hur visar jag servant leadership konkret?',
+        svar: 'Undvik att bara skriva "servant leadership" – visa med handling. Skriv "Tog bort 85% av teamets blockeringar inom 24h genom proaktiv eskalering till stakeholders" eller "Skyddade teamet från scope creep under 8 sprints vilket möjliggjorde 92% sprint completion rate". Konkreta exempel > buzzwords.'
+      },
+      {
+        fraga: 'Vad är viktigast: CSM, PSM eller SAFe SM?',
+        svar: 'PSM (Scrum.org) värderas ofta högst då det kräver examen utan kursgaranti. CSM (Scrum Alliance) är också respekterat men enklare att få. SAFe SM är viktigt för enterprise/skalade miljöer. Bäst är att ha PSM I/II plus SAFe SM för maximal anställningsbarhet i olika miljöer.'
+      },
+      {
+        fraga: 'Hur beskriver jag facilitering av retrospectives?',
+        svar: 'Visa resultat, inte bara aktivitet. Skriv "Faciliterade retrospectives med varierande format (4L, Start-Stop-Continue, Sailboat) som genererade 45+ implementerade förbättringar, inklusive automatiserad CI/CD som minskade deployment-tid med 80%". Konkret output > "höll regelbundna retros".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'Projektledare IT', slug: 'projektledare-it' },
+      { yrke: 'DevOps Engineer', slug: 'devops-engineer' }
+    ]
   }
 }
 

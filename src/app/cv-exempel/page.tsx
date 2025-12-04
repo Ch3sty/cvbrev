@@ -804,6 +804,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för ekonom med fokus på strategisk affärsanalys, investeringsbeslut och finansiell modellering inom konsult och industri.',
       highlight: ['450 MSEK investeringsbeslut och 180 MSEK reducerad kapitalbindning', 'Excel VBA, Power BI, SAP och CFA-kandidat', 'McKinsey-erfarenhet och business partnering till ledning']
     }
+  },
+  {
+    id: 'scrum-master',
+    yrke: 'Scrum Master',
+    slug: 'scrum-master',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 880,
+    icon: Cog,
+    gradient: 'from-purple-500 via-violet-600 to-purple-700',
+    preview: {
+      intro: 'CV för Scrum Master med fokus på servant leadership, agila ceremonier och teamutveckling inom fintech och e-handel.',
+      highlight: ['45% velocity-förbättring och cycle time från 12 till 5 dagar', 'PSM II, SAFe SM och Jira/Confluence', 'Klarna/Hemnet-erfarenhet och PO-coaching']
+    }
   }
 ]
 
@@ -968,7 +982,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  55 yrken
+                  56 yrken
                 </motion.span>
               </h1>
 
