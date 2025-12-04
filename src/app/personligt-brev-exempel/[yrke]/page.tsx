@@ -4309,6 +4309,146 @@ Om du arbetat med specifika dokumentationssystem eller metoder för uppföljning
       { yrke: 'Kurator', slug: 'kurator' },
       { yrke: 'Elevassistent', slug: 'elevassistent' }
     ]
+  },
+
+  'fritidspedagog': {
+    yrke: 'Fritidspedagog',
+    sokvolym: 550,
+    metaTitle: 'Personligt Brev Fritidspedagog 2025 - Exempel & Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett exempel på personligt brev för fritidspedagog. Visa pedagogisk kompetens enligt Lgr22, konflikthantering och samverkan. Konkreta tips för fritidshem.',
+    seoTitle: 'Personligt Brev Fritidspedagog 2025 - Exempel & Mall | Jobbcoach.ai',
+    seoDescription: 'Komplett exempel på personligt brev för fritidspedagog. Visa pedagogisk kompetens enligt Lgr22, konflikthantering och samverkan. Konkreta tips för fritidshem.',
+
+    intro: 'Det här personliga brevet visar hur en erfaren fritidspedagog kopplar sin kompetens till en konkret tjänst. Emma beskriver systematisk konflikthantering som gav mätbara resultat, elevernas delaktighet genom demokratiskt råd och samverkan med både lärare och föräldrar. Hon lyfter erfarenhet av inkludering och anpassning för barn med särskilda behov, samt dokumentation i Unikum. Brevet visar tydlig koppling till Lgr22 och ett pedagogiskt förhållningssätt som balanserar struktur med flexibilitet.',
+
+    seoIntro: `Det personliga brevet för en fritidspedagog behöver visa att du förstår kopplingen mellan lek och lärande. Rekryterare söker efter konkreta exempel på hur du arbetar utifrån Lgr22 och hur du skapar trygghet i barngruppen. Ett bra brev visar hur du hanterar både pedagogisk planering och akuta situationer, från konflikthantering till samverkan med lärare och föräldrar.
+
+Det här exemplet demonstrerar hur Emma kopplar sin erfarenhet direkt till verksamhetens behov. Hon lyfter specifika resultat som 60 procent minskning av konflikter genom systematisk arbetsmetod, och visar hur hon arbetar med elevernas delaktighet genom demokratiska strukturer. Hon nämner konkreta verktyg som Unikum och IST, vilket signalerar att hon kan börja arbeta direkt utan lång introduktion.
+
+Läs våra tips för att anpassa innehållet till din egen erfarenhet. Oavsett om du söker din första tjänst eller har jobbat i många år kan du använda samma struktur för att visa ditt pedagogiska förhållningssätt.`,
+
+    exempelBrev: {
+      namn: 'Emma Bergström',
+      adress: 'Kopparbergsvägen 18, 722 13 Västerås',
+      telefon: '073-845 22 16',
+      epost: 'emma.bergstrom@email.se',
+      arbetsgivare: 'Norrbacka skola',
+      roll: 'Fritidspedagog',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som fritidspedagog på Norrbacka skola med stort engagemang för att skapa en meningsfull fritid för alla elever. Under mina fem år i yrket har jag utvecklat en pedagogik där lek och lärande går hand i hand, och där varje barn får möjlighet att växa socialt och utvecklas utifrån sina egna förutsättningar. Jag tror starkt på att fritidshemmet ska vara en trygg miljö där eleverna känner delaktighet i sin egen fritid.
+
+Som fritidspedagog på Tallbackens fritidshem har jag arbetat med 45 elever i åldrarna 6-9 år och skapat en verksamhet där elevernas intressen styr innehållet. Jag introducerade en modell där eleverna själva planerar veckans aktiviteter genom ett demokratiskt råd, vilket ökade engagemanget märkbart. Under rastaktiviteter på skolgården har jag utvecklat strukturerade lekar som främjar social utveckling och inkludering, vilket minskat konflikter med 60 procent enligt lärarnas observationer. Jag har även lett en fritidsgrupp för barn med särskilda behov där jag anpassade aktiviteter för att alla skulle känna sig delaktiga.
+
+Min arbetssätt grundar sig i Läroplan för fritidshemmet (Lgr22) och jag arbetar systematiskt med att dokumentera och utvärdera verksamheten. Jag har gedigen erfarenhet av att planera gruppaktiviteter som stimulerar kreativitet, rörelse och samarbete. Genom nära samverkan med lärare och föräldrar skapar jag en helhet kring varje barns utveckling. Jag använder digitala verktyg som Unikum för dokumentation och kommunikation, och har utbildning i trauma-medveten omsorg.
+
+Norrbacka skola tilltalar mig särskilt genom er satsning på utomhuspedagogik och hållbarhet. Er vision om att kombinera naturupplevelser med social utveckling matchar min egen pedagogiska övertygelse perfekt. Jag ser fram emot att bidra till er fritidsverksamhet med min erfarenhet av att skapa trygga, stimulerande miljöer där alla barn trivs och utvecklas.
+
+Jag är övertygad om att min erfarenhet och mitt engagemang för barns rätt till en aktiv och meningsfull fritid skulle passa väl in i ert team. Jag ser fram emot att få berätta mer om hur jag kan bidra till Norrbacka skolas fritidshem.
+
+Med vänliga hälsningar,
+Emma Bergström`
+    },
+
+    tips: [
+      {
+        rubrik: 'Beskriv din pedagogiska grund konkret',
+        text: `Skriv inte bara att du arbetar enligt Lgr22. Förklara HUR du gör det i praktiken. Exempel: Istället för "jag arbetar utifrån fritidshemmets läroplan", skriv "jag planerar aktiviteter som utvecklar elevernas sociala kompetens och kreativitet, kopplat till läroplanens mål om lärande genom lek".
+
+Nämn gärna konkreta aktiviteter som skapande, rörelse eller utomhuspedagogik och förklara det pedagogiska syftet.`
+      },
+      {
+        rubrik: 'Kvantifiera resultat från konflikthantering',
+        text: `Om du har arbetat systematiskt med konflikter eller trygghet, använd siffror för att visa resultat. Exempel: "60 procent minskning av konflikter efter sex månader" eller "minskade incidenter från fem till två per vecka".
+
+Om du inte har exakta siffror kan du beskriva kvalitativa förändringar: "eleverna började själva lösa konflikter genom de metoder vi tränat på". Beskriv vilken metod du använde, till exempel Tydliggörande pedagogik eller Stopp min kropp.`
+      },
+      {
+        rubrik: 'Visa hur du arbetar med elevernas delaktighet',
+        text: `Delaktighet och inflytande är centralt i Lgr22. Ge konkreta exempel på strukturer du skapat. Exempel: "Jag startade ett demokratiskt råd där eleverna varje vecka får föreslå och rösta om aktiviteter" eller "vi har en idélåda där barn kan lämna förslag som vi sedan diskuterar tillsammans".
+
+Visa att du inte bara låter barn välja mellan färdiga alternativ utan ger dem reellt inflytande över innehåll och planering.`
+      },
+      {
+        rubrik: 'Lyft samverkan med lärare och föräldrar',
+        text: `Fritidshemmet är en del av skolans verksamhet. Beskriv hur du samverkar för att skapa helhet för eleven. Exempel: "Jag har regelbundna möten med klassföreståndare för att anpassa aktiviteter efter elevernas behov" eller "jag kommunicerar dagligen med föräldrar vid hämtning och via Unikum".
+
+Nämn hur du följer upp om ett barn haft en tuff dag i skolan och hur du anpassar fritidstiden därefter.`
+      },
+      {
+        rubrik: 'Beskriv erfarenhet av barn med särskilda behov',
+        text: `Skriv inte bara att du har erfarenhet. Beskriv HUR du anpassar verksamheten. Exempel: "Jag skapar visuella scheman för barn som behöver tydlig struktur, anpassar ljudnivå och ljus för känsliga elever, och erbjuder alternativa aktiviteter för barn som behöver röra sig mer".
+
+Nämn gärna om du har utbildning i trauma-medveten omsorg, AKK eller andra relevanta metoder. Visa att inkludering är en naturlig del av din vardag.`
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Tydlig koppling till Lgr22 och uppdrag',
+        beskrivning: 'Emma beskriver hur hon arbetar utifrån fritidshemmets läroplan, inte bara som tillsyn utan som pedagogisk verksamhet. Rekryterare söker fritidspedagoger som förstår att verksamheten ska komplettera skolan och stödja elevernas utveckling.'
+      },
+      {
+        titel: 'Kvantifierade resultat från konflikthantering',
+        beskrivning: 'Att skriva 60 procent minskning av konflikter är mycket starkare än att säga att du är bra på att hantera konflikter. Siffror gör dina resultat konkreta och trovärdiga. Rekryterare ser direkt att du arbetar systematiskt och utvärderar ditt arbete.'
+      },
+      {
+        titel: 'Elevernas delaktighet genom demokratiskt råd',
+        beskrivning: 'Fritidshemmet ska ge eleverna möjlighet till inflytande, vilket är en central del av Lgr22. Emma visar hur hon konkret arbetar med detta genom att beskriva det demokratiska rådet där eleverna planerar aktiviteter.'
+      },
+      {
+        titel: 'Samverkan mellan skola, fritidshem och föräldrar',
+        beskrivning: 'Emma beskriver hur hon arbetar i gränssnittet mellan skola och fritidshem, vilket är avgörande för elevernas helhet. Genom att nämna samverkan med lärare visar hon att hon förstår att fritidshemmet är en del av skolans verksamhet.'
+      },
+      {
+        titel: 'Konkret erfarenhet av inkludering och anpassning',
+        beskrivning: 'Istället för att skriva att hon är van vid barn med särskilda behov beskriver Emma hur hon faktiskt anpassar aktiviteter och miljö. Rekryterare behöver veta att du kan arbeta med alla barn i gruppen.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur beskriver jag erfarenhet av fritidsverksamhet på bästa sätt?',
+        a: 'Beskriv konkreta situationer istället för allmänna påståenden. Istället för "jag har erfarenhet av att arbeta med barn", skriv hur många barn du arbetat med, vilka åldrar och vilka aktiviteter du planerat. Exempel: "Jag har arbetat med barngrupper på 30 elever i åldern 6 till 9 år, där jag planerat både strukturerade aktiviteter och fri lek".'
+      },
+      {
+        q: 'Vilka nyckelord söker arbetsgivare efter för fritidspedagoger?',
+        a: 'Arbetsgivare söker efter Lgr22, konflikthantering, social utveckling, samverkan skola och fritidshem, elevernas delaktighet, inkludering, dokumentation och utvärdering. Nämn verktyg som används i verksamheten: Unikum, IST, pedagogisk planering. Om annonsen nämner specifika metoder, använd exakt de begreppen om du har erfarenhet.'
+      },
+      {
+        q: 'Ska jag nämna min utbildning i det personliga brevet?',
+        a: 'Ja, om du har lärarutbildning med inriktning mot fritidshem eller motsvarande. Skriv kort: "Jag är utbildad fritidspedagog med examen från Mälardalens högskola 2019". Om du läser in behörighet, nämn det: "Jag läser just nu kompletterande kurser för att bli behörig fritidspedagog". Håll det kort eftersom utbildningen redan finns i CV:t.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar av att hantera stora barngrupper?',
+        a: 'Beskriv hur många barn du arbetat med och vilka strategier du använder. Exempel: "Jag har arbetat med grupper på upp till 35 barn, där jag skapat struktur genom tydliga rutiner och indelning i mindre grupper för aktiviteter". Nämn hur du kombinerar fri lek med planerade aktiviteter och hur du skapar lugn och fokus.'
+      },
+      {
+        q: 'Vad ska jag skriva om konflikthantering mellan barn?',
+        a: 'Beskriv din metod konkret och visa resultat om möjligt. Exempel: "Jag arbetar förebyggande genom att träna konfliktlösning i gruppen och har tydliga strukturer när konflikter uppstår, vilket minskat antalet incidenter med hälften". Nämn om du använder specifika metoder som Stopp min kropp eller sociala berättelser.'
+      },
+      {
+        q: 'Hur beskriver jag samverkan med lärare och föräldrar?',
+        a: 'Ge konkreta exempel på hur du samverkar i praktiken. Exempel: "Jag har veckomöten med klassföreståndare för att diskutera enskilda elevers utveckling och anpassar fritidsaktiviteter efter behov. Jag kommunicerar dagligen med föräldrar vid hämtning och dokumenterar i Unikum". Visa att du ser fritidshemmet som en del av skolans uppdrag.'
+      },
+      {
+        q: 'Ska jag lyfta erfarenhet av utomhusaktiviteter och natur?',
+        a: 'Ja, om du har det och särskilt om annonsen nämner det. Utomhuspedagogik är uppskattat. Skriv konkret: "Jag planerar regelbundet utomhusaktiviteter som orientering, naturundersökningar och fri lek i skogen". Om du arbetat med skogsmulle eller äventyrspedagogik, nämn det. Förklara det pedagogiska syftet.'
+      },
+      {
+        q: 'Hur lyfter jag erfarenhet av barn med särskilda behov?',
+        a: 'Beskriv konkreta anpassningar du gjort. Exempel: "Jag har arbetat med barn med NPF genom att skapa visuella scheman, erbjuda återhämtningsplatser och anpassa aktiviteter efter barnets förmåga". Nämn om du har utbildning i AKK eller trauma-medveten omsorg. Visa att inkludering är en naturlig del av din pedagogik.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Elevassistent', slug: 'elevassistent' },
+      { yrke: 'Barnskötare', slug: 'barnskotare' }
+    ]
   }
 }
 
