@@ -678,6 +678,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för butikschef med fokus på personalansvar, budgetarbete och försäljningstillväxt inom detaljhandeln.',
       highlight: ['45 MSEK omsättning och 25% tillväxt', 'Personalansvar för 15 medarbetare', 'NKI-förbättring 72%→88% och svinnsänkning']
     }
+  },
+  {
+    id: 'account-manager',
+    yrke: 'Account Manager',
+    slug: 'account-manager',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 880,
+    icon: Target,
+    gradient: 'from-blue-500 via-indigo-600 to-blue-700',
+    preview: {
+      intro: 'CV för account manager med fokus på retention, upselling och strategiskt key account management inom B2B.',
+      highlight: ['94% retention rate och 45 MSEK kundportfölj', 'Salesforce, Gainsight och Customer Success', 'QBR med C-level och NPS-förbättring']
+    }
   }
 ]
 
@@ -842,7 +856,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  46 yrken
+                  47 yrken
                 </motion.span>
               </h1>
 
