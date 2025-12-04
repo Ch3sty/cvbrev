@@ -12371,6 +12371,285 @@ Detta visar konkret vad du gjort på båda nivåerna.`
       { yrke: 'Projektledare', slug: 'projektledare' },
       { yrke: 'Chef', slug: 'chef' }
     ]
+  },
+
+  'systemutvecklare': {
+    yrke: 'Systemutvecklare',
+    sokvolym: 1300,
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel Systemutvecklare 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för systemutvecklare med fullstack-kompetens, GitHub-portfölj och kvantifierbara utvecklingsresultat. ATS-optimerat för svenska tech-bolag.',
+
+    seoIntro: `Söker du jobb som systemutvecklare och behöver ett CV som visar din tekniska bredd och leveransförmåga? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och tekniska rekryterare inom svenska tech-bolag och produktföretag.
+
+CV:t balanserar fullstack-kompetens med konkreta utvecklingsresultat som API-prestanda, kodkvalitet och levererade features. Du hittar branschspecifika termer som microservices, CI/CD, code review och test coverage – precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar kodning: "Reducerade API-svarstid från 800ms till 120ms" och "Levererade 45+ features med 98% test coverage".
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV som systemutvecklare. Kombinera din tekniska stack med mätbara resultat för att maximera dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för systemutvecklare som visar fullstack-kompetens, kodkvalitet och förmåga att leverera skalbara lösningar. Optimerat för svenska tech-bolag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Johan Eriksson',
+      titel: 'Systemutvecklare med fokus på fullstack-utveckling & skalbar arkitektur',
+      kontakt: {
+        telefon: '070-456 78 90',
+        epost: 'johan.eriksson@email.se',
+        plats: 'Malmö',
+        linkedin: 'linkedin.com/in/johaneriks-dev'
+      },
+
+      profil: 'Resultatdriven systemutvecklare med 6+ års erfarenhet av fullstack-utveckling inom fintech och e-handel. Specialist på React/TypeScript frontend och .NET backend med dokumenterad förmåga att leverera skalbara microservices-lösningar. Gedigen erfarenhet av CI/CD, code review och agila metoder. Drivs av att skriva ren, testbar kod som löser verkliga affärsproblem – från arkitekturdesign till produktionsdriftsättning.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Systemutvecklare',
+          arbetsgivare: 'FinTech Solutions AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Utvecklar och underhåller betalningsplattform som hanterar 500K+ transaktioner dagligen – reducerade API-svarstid från 800ms till 120ms genom cachning och query-optimering',
+            'Arkitekterade microservices-lösning i .NET 8 och React som ersatte monolitisk legacy-applikation – 40% förbättrad deployment-frekvens',
+            'Tech lead för team om 4 utvecklare – ansvarig för code reviews, arkitekturbeslut och teknisk dokumentation',
+            'Implementerade automatiserade tester (xUnit, Jest) som ökade test coverage från 45% till 92%'
+          ]
+        },
+        {
+          titel: 'Systemutvecklare',
+          arbetsgivare: 'E-Commerce Nordic AB',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Fullstack-utveckling av e-handelsplattform (React, Node.js, PostgreSQL) med 200K månatliga användare',
+            'Levererade 45+ features med 98% test coverage enligt sprint-planer – kundnöjdhet 4.6/5 i utvecklingsteamet',
+            'Byggde RESTful API:er som integrerade med 8 externa partners (betalning, frakt, lager) med 99.5% uptime',
+            'Introducerade TypeScript till frontend-kodbasen vilket reducerade runtime-buggar med 35%'
+          ]
+        },
+        {
+          titel: 'Junior Systemutvecklare',
+          arbetsgivare: 'Startup Innovation AB',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Utvecklade MVP för B2B-plattform i React och Node.js – lansering inom 4 månader enligt tidsplan',
+            'Befordrad till Systemutvecklare efter 10 månader baserat på kodkvalitet och leveranstempo',
+            'Deltog i Scrum-team (6 utvecklare) med daily standups, sprint planning och retrospectives'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Högskoleingenjör, Datateknik',
+          skola: 'Malmö Universitet',
+          period: '2014 – 2018',
+          beskrivning: 'Specialisering i mjukvaruutveckling och databaser. Examensarbete om skalbar microservices-arkitektur för IoT-system.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Frontend: React, TypeScript (Expert, 5+ år)',
+          'Backend: .NET/C#, Node.js (Expert, 5+ år)',
+          'Databaser: PostgreSQL, SQL Server, Redis',
+          'DevOps: Docker, Azure DevOps, CI/CD',
+          'Testning: xUnit, Jest, Cypress',
+          'Metodik: Agile/Scrum, Code Review, Git'
+        ],
+        personliga: [
+          'Tech lead-erfarenhet (4 utvecklare)',
+          'Arkitektur och designbeslut',
+          'Kunskapsdelning och mentorskap',
+          'Problemlösning under tidspress'
+        ]
+      },
+
+      certifieringar: [
+        'Microsoft Certified: Azure Developer Associate (2023)',
+        'AWS Certified Developer – Associate (2022)',
+        'Professional Scrum Developer (PSD I) (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera alltid utvecklingsresultat – API-prestanda, test coverage, levererade features, buggreduktion',
+      'Lista specifika tekniker med kompetensnivå på dina TOP 3: React (Expert, 5+ år), inte bara "React-erfarenhet"',
+      'Visa progression från junior till senior genom ökat ansvar och tech lead-roller',
+      'Inkludera GitHub-länk om du har relevanta open source-projekt eller kodexempel',
+      'Nämn konkreta systemskala: antal användare, transaktioner, integrationer',
+      'Certifieringar inom Azure/AWS och Scrum stärker profilen för tech-bolag'
+    ],
+
+    statistik: [
+      { label: 'Genomsnittlig lön för senior systemutvecklare', varde: '55-75K/mån', beskrivning: 'Stockholm/Göteborg/Malmö 2024' },
+      { label: 'Andel tech-bolag som kräver TypeScript', varde: '65%', beskrivning: 'Frontend-roller i Sverige' },
+      { label: 'Genomsnittlig test coverage i välskötta kodbaser', varde: '80%+', beskrivning: 'Branschstandard för produktionsmiljöer' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen fullstack tech stack',
+        text: `CV:t nämner konkreta tekniker som **React**, **TypeScript**, **.NET/C#** och **PostgreSQL** tillsammans med branschspecifika termer som **microservices**, **CI/CD**, **code review** och **test coverage**.
+
+Varför detta fungerar: Rekryteringssystem filtrerar efter exakta tekniska termer. "React (Expert, 5+ år)" matchar bättre än "frontend-erfarenhet". Kombinationen frontend + backend + databas visar fullstack-bredd som svenska tech-bolag söker. ATS rankar CV:n med specifika termer högre eftersom de matchar jobbannonsens kravlista direkt.`
+      },
+      {
+        rubrik: 'Kvantifierade utvecklingsresultat som imponerar',
+        text: `CV:t levererar konkreta siffror: **API-svarstid reducerad från 800ms till 120ms**, **test coverage ökad från 45% till 92%**, och **45+ features levererade med 98% test coverage**. Varje erfarenhetspost innehåller mätbara resultat.
+
+Varför detta fungerar: "Duktig utvecklare" säger ingenting. "Reducerade svarstid med 85%" bevisar teknisk kompetens och förmåga att förbättra befintlig kod. Rekryterare kan direkt bedöma din påverkan på kodbasen och systemets prestanda. Siffror översätter teknik till värde som även icke-tekniska beslutsfattare förstår.`
+      },
+      {
+        rubrik: 'Balans mellan kodning och teamarbete',
+        text: `CV:t kombinerar tekniska prestationer som **microservices-arkitektur** och **query-optimering** med teamfokuserade resultat som **tech lead för 4 utvecklare**, **code reviews** och **teknisk dokumentation**.
+
+Varför detta fungerar: Många utvecklar-CV:n listar bara tekniker utan att visa samarbetsförmåga. Du visar att du inte bara kodar isolerat – du bidrar till teamets utveckling genom code reviews och kunskapsdelning. Tech lead-erfarenhet signalerar att du kan ta ansvar och leda tekniska beslut, inte bara implementera andras arkitektur.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar cloud-kompetens',
+        text: `CV:t listar **Azure Developer Associate (2023)**, **AWS Certified Developer (2022)** och **Professional Scrum Developer (2021)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
+
+Varför detta fungerar: Cloud-certifieringar är ofta krav för roller på tech-bolag som använder Azure eller AWS. Årtal visar att certifieringarna är aktuella, inte fem år gamla. Kombination av cloud (Azure + AWS) och metodik (Scrum) täcker både teknisk och processkunskap som arbetsgivare söker.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten öppnar med "Resultatdriven systemutvecklare med 6+ års erfarenhet av fullstack-utveckling" och inkluderar nyckelord som **React/TypeScript**, **.NET**, **microservices** och **CI/CD**. Max 4 meningar, under 80 ord.
+
+Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre. När första meningen innehåller "6+ år", "fullstack" och specifika tekniker får rekryteraren omedelbart ett värdelöfte. Specifika siffror i profiltexten gör att du sticker ut bland kandidater som bara skriver "erfaren utvecklare med bred kompetens".`
+      },
+      {
+        rubrik: 'Tydlig progression från junior till tech lead',
+        text: `Erfarenheten visar utveckling: från **Junior Systemutvecklare** med MVP-utveckling och Scrum-deltagande, till **Systemutvecklare** med 45+ features och TypeScript-introduktion, till **Senior Systemutvecklare** med tech lead-ansvar för 4 utvecklare och arkitekturbeslut.
+
+Varför detta fungerar: Progressionen visar att du inte bara kodat samma typ av uppgifter år efter år – du har växt från implementering till arkitektur och ledarskap. Befordran efter 10 månader signalerar att du presterar över förväntan. Tech lead-rollen visar att du är redo för senior-positioner med personalansvar.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Gruppera din tech stack strategiskt',
+        text: `En lång lista med 30 tekniker blir oöverskådlig. Gruppera istället efter kategori och ge kompetensnivå på dina TOP 3 tekniker.
+
+**Exempel på före/efter**:
+
+❌ "JavaScript, TypeScript, React, Vue, Angular, Node.js, Express, Python, Django, Java, Spring Boot, C#, .NET, PostgreSQL, MySQL, MongoDB..."
+
+✅ "Frontend: React, TypeScript (Expert, 5+ år) | Backend: .NET/C#, Node.js (Expert, 5+ år) | Databaser: PostgreSQL, SQL Server, Redis"
+
+Håll det till 8-12 tekniker totalt. Visa djup i dina starkaste områden istället för bredd överallt.`
+      },
+      {
+        rubrik: 'Kvantifiera kodkvalitet och prestanda',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt. Mät din påverkan genom API-prestanda, test coverage, buggreduktion och leveranstempo.
+
+**Exempel på före/efter**:
+
+❌ "Förbättrade applikationens prestanda och kodkvalitet"
+
+✅ "Reducerade API-svarstid från **800ms till 120ms** genom cachning och query-optimering. Ökade test coverage från **45% till 92%** med automatiserade enhetstester."
+
+Rekryterare kan direkt bedöma din tekniska förmåga genom konkreta förbättringar.`
+      },
+      {
+        rubrik: 'Visa systemets skala och komplexitet',
+        text: `Ge kontext genom att beskriva systemets omfattning – antal användare, transaktioner, integrationer. Skala visar erfarenhet av produktionsmiljöer.
+
+**Exempel på före/efter**:
+
+❌ "Utvecklade betalningsplattform för företaget"
+
+✅ "Utvecklade betalningsplattform som hanterar **500K+ transaktioner dagligen** med **99.9% uptime**. Integrerade med 8 externa partners (betalning, frakt, lager)."
+
+Stora systemskala signalerar att du kan hantera komplexitet och skalbarhet.`
+      },
+      {
+        rubrik: 'Inkludera GitHub-länk för öppen källkod',
+        text: `Om du har relevanta projekt på GitHub, lägg till länken i kontaktsektion. Rekryterare vill ofta se din faktiska kod.
+
+**Exempel på före/efter**:
+
+❌ Ingen GitHub-länk, bara "öppen för att visa kodprov vid förfrågan"
+
+✅ "GitHub: github.com/johaneriks – 15+ repositories, bidrag till React Testing Library (2K+ stars)"
+
+Om du saknar open source-bidrag, skapa ett personligt projekt som visar din bästa kod och arkitektur.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar med årtal',
+        text: `Certifieringar validerar din kompetens och visar att du investerar i din utveckling. Inkludera alltid årtal för att visa aktualitet.
+
+**Exempel på före/efter**:
+
+❌ "Azure-certifierad, AWS Developer, Scrum-certifierad"
+
+✅ "**Azure Developer Associate (2023)**, AWS Certified Developer (2022), Professional Scrum Developer (2021)"
+
+Cloud-certifieringar (Azure/AWS) är ofta formella krav för roller på tech-bolag. Årtal visar att certifieringarna är aktuella.`
+      },
+      {
+        rubrik: 'Beskriv tech lead-ansvar med konkreta exempel',
+        text: `Om du haft tech lead-erfarenhet, beskriv konkret vad det innebar. Code reviews, arkitekturbeslut och mentorskap särskiljer dig från individuella bidragsgivare.
+
+**Exempel på före/efter**:
+
+❌ "Tech lead med ansvar för utvecklingsteam"
+
+✅ "Tech lead för team om **4 utvecklare** – ansvarig för code reviews (200+ PRs/år), arkitekturbeslut (microservices vs monolith) och teknisk dokumentation. Introducerade pair programming som reducerade buggar med 25%."
+
+Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som systemutvecklare vara?',
+        svar: 'För systemutvecklare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior utvecklare med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression och teknisk bredd, men var koncis – ingen behöver se varje projekt du jobbat på.'
+      },
+      {
+        fraga: 'Ska jag inkludera GitHub-länk i mitt CV?',
+        svar: 'Ja, om du har relevanta projekt. Rekryterare på tech-bolag kollar ofta GitHub för att se kodkvalitet, commit-historik och open source-bidrag. Om du saknar publika projekt, skapa ett sidoprojekt som visar din bästa kod. Länka inte till en tom eller rörig GitHub-profil.'
+      },
+      {
+        fraga: 'Hur listar jag teknisk kompetens utan att det blir en lång lista?',
+        svar: 'Gruppera efter kategori: Frontend (React, TypeScript), Backend (.NET, Node.js), Databaser (PostgreSQL, Redis). Ge kompetensnivå på dina TOP 3: "React (Expert, 5+ år)". Begränsa till 8-12 tekniker totalt – bredd utan djup imponerar inte. Fokusera på de tekniker som är relevanta för jobbet du söker.'
+      },
+      {
+        fraga: 'Hur visar jag kodkvalitet i mitt CV?',
+        svar: 'Kvantifiera: "Ökade test coverage från 45% till 92%", "Code review av 200+ pull requests årligen", "Introducerade TypeScript som reducerade runtime-buggar med 35%". Om du haft ansvar för kodstandarder, arkitekturbeslut eller teknisk dokumentation – nämn det. Konkreta siffror bevisar kvalitet bättre än påståenden.'
+      },
+      {
+        fraga: 'Vilka certifieringar är värdefulla för systemutvecklare?',
+        svar: 'Azure Developer Associate och AWS Certified Developer är värdefulla för cloud-roller. Professional Scrum Developer (PSD) visar agil kompetens. Kubernetes-certifieringar (CKA/CKAD) är relevanta för container-fokuserade roller. Inkludera alltid årtal – en certifiering från 2018 är mindre imponerande än en från 2024.'
+      },
+      {
+        fraga: 'Hur beskriver jag tech lead-ansvar utan att överdriva?',
+        svar: 'Var specifik: "Tech lead för team om 4 utvecklare" är bättre än "ledande utvecklare". Beskriv konkreta ansvarsområden: code reviews, arkitekturbeslut, sprint planning, mentorskap. Kvantifiera om möjligt: "200+ code reviews per år", "mentorskap för 2 junior-utvecklare som blev befordrade inom 18 månader".'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för startup vs stort företag?',
+        svar: 'Startups värderar bredd och snabbhet – lyft fram MVP-leverans, fullstack-kompetens och förmåga att arbeta med begränsade resurser. Stora företag värderar specialisering och process – betona specifik teknisk djup, erfarenhet av stora kodbaser och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur.'
+      },
+      {
+        fraga: 'Ska jag nämna hobby-projekt och side projects?',
+        svar: 'Ja, om de är relevanta och visar kompetens du inte får visa i jobbet. Ett hobby-projekt med 500+ stjärnor på GitHub är imponerande. Personliga projekt som visar ny teknik (t.ex. Rust, Web3, ML) signalerar nyfikenhet. Undvik att lista alla side projects – välj 1-2 som är mest relevanta för rollen du söker.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan arbeta i agila team?',
+        svar: 'Nämn konkreta roller: "Scrum Master-stöd", "Sprint planning-facilitering", "Daily standups-deltagande". Certifieringar som PSD eller PSM visar formell kunskap. Ännu bättre: visa resultat av agilt arbete – "Levererade 45+ features enligt sprint-planer med 98% completion rate". Undvik vaga påståenden som "van vid agila metoder".'
+      },
+      {
+        fraga: 'Hur beskriver jag erfarenhet av legacy-system utan att det låter negativt?',
+        svar: 'Legacy-erfarenhet är värdefullt – de flesta företag har äldre system. Fokusera på modernisering: "Migrerade monolitisk Java 8-applikation till microservices-arkitektur i .NET 8". Visa resultat: "40% förbättrad deployment-frekvens", "Reducerade teknisk skuld med 60%". Legacy-refaktorering kräver djup förståelse – framställ det som styrka.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Ingenjör', slug: 'ingenjor' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
   }
 }
 

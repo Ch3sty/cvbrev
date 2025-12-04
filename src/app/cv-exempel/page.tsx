@@ -692,6 +692,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för account manager med fokus på retention, upselling och strategiskt key account management inom B2B.',
       highlight: ['94% retention rate och 45 MSEK kundportfölj', 'Salesforce, Gainsight och Customer Success', 'QBR med C-level och NPS-förbättring']
     }
+  },
+  {
+    id: 'systemutvecklare',
+    yrke: 'Systemutvecklare',
+    slug: 'systemutvecklare',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 1300,
+    icon: Code,
+    gradient: 'from-violet-500 via-purple-600 to-violet-700',
+    preview: {
+      intro: 'CV för systemutvecklare med fokus på fullstack-utveckling, kodkvalitet och skalbara lösningar inom fintech och e-handel.',
+      highlight: ['API-prestanda 800ms→120ms och 92% test coverage', 'React, TypeScript, .NET och microservices', 'Tech lead för 4 utvecklare med code reviews']
+    }
   }
 ]
 
@@ -856,7 +870,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  47 yrken
+                  48 yrken
                 </motion.span>
               </h1>
 
