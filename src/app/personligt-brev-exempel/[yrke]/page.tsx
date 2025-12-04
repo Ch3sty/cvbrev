@@ -4919,6 +4919,122 @@ Med dokumenterad förmåga att överträffa försäljningsmål och utveckla kund
       { yrke: 'Projektledare', slug: 'projektledare' },
       { yrke: 'IT-konsult', slug: 'it-konsult' }
     ]
+  },
+
+  'controller': {
+    yrke: 'Controller',
+    sokvolym: 380,
+    metaTitle: 'Personligt brev Controller – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som Controller. Se exempel med budgetansvar, finansiell analys och systemkompetens inom ERP och BI-verktyg.',
+    intro: 'Ett övertygande personligt brev som Controller visar din förmåga att leverera tillförlitlig finansiell styrning och agera som strategisk partner till verksamheten. Arbetsgivare söker kandidater som kombinerar analytisk skärpa med förmågan att kommunicera ekonomiska insikter på ett tillgängligt sätt. I detta exempel ser du hur du presenterar ditt budgetansvar med konkreta siffror, beskriver förbättringar i prognosarbetet och visar systemkompetens inom relevanta verktyg. Brevet balanserar teknisk expertis med affärsförståelse.',
+    seoIntro: `Att skriva ett personligt brev som Controller handlar om att visa din förmåga att kombinera analytisk skärpa med affärsförståelse. Detta exempel demonstrerar hur du presenterar konkreta resultat från budgetarbete, beskriver din systemkompetens och framhäver din roll som affärspartner till verksamheten. Brevet balanserar teknisk expertis med kommunikativ förmåga.\n\nI exemplet ser du hur en erfaren Controller lyfter fram ansvar för en specifik omsättningsvolym och beskriver mätbara förbättringar i prognosarbetet. Kompetenser inom ERP-system som Microsoft Dynamics, analysverktyg som Power BI och redovisningsstandarder som IFRS presenteras i ett sammanhang som visar praktisk tillämpning. Projektet med automatiserad månadsrapportering illustrerar förmågan att effektivisera processer.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa siffror och system till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver budgetansvar, hanterar konfidentiella siffror och positionerar dig som affärspartner snarare än endast rapportleverantör.`,
+    exempelBrev: {
+      namn: 'Anna Bergström',
+      adress: 'Storgatan 45, 753 20 Uppsala',
+      telefon: '073-456 78 90',
+      epost: 'anna.bergstrom@email.com',
+      arbetsgivare: 'Företag AB',
+      roll: 'Controller',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Tjänsten som Controller på [Företag AB] är precis den utmaning jag söker. Med åtta års erfarenhet av ekonomistyrning och finansiell analys inom tillverkningsindustrin har jag utvecklat en stark grund i både strategisk planering och operativ uppföljning.
+
+I min nuvarande roll som Controller ansvarar jag för budgetprocessen för en affärsenhet med 180 miljoner kronor i omsättning. Genom att implementera rullande prognoser och förbättrade analysverktyg minskade jag avvikelsen mellan budget och utfall från 12% till under 4%. Jag har även lett ett projekt för att automatisera månadsrapporteringen, vilket frigjorde två arbetsdagar per månad för värdeskapande analys istället för manuell datahantering.
+
+Min kompetens omfattar hela ekonomistyrningscykeln från budgetering till bokslut. Jag arbetar dagligen i Microsoft Dynamics 365 och Power BI för rapportering och analys. Jag behärskar IFRS-redovisning och har erfarenhet av koncernkonsolidering i Cognos Controller. Utöver de tekniska färdigheterna är jag van att presentera finansiella resultat för ledningsgrupper och förklara komplexa samband på ett tillgängligt sätt.
+
+Ert fokus på datadrivna beslut och kontinuerlig förbättring tilltalade mig särskilt när jag läste om er tillväxtresa. Jag uppskattar att ni söker någon som kan vara en affärspartner till verksamheten, inte bara en sifferleverantör. Min erfarenhet av att bygga relationer med linjechefer och stötta dem i ekonomiska beslut passar väl in i den rollen.
+
+Med gedigen erfarenhet av ekonomistyrning och ett genuint intresse för att skapa affärsnytta genom finansiell analys bidrar jag gärna till ert team. Jag ser fram emot att diskutera hur jag kan stötta er fortsatta utveckling.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera ditt budgetansvar med omsättning eller volym',
+        text: 'Arbetsgivare vill förstå storleken på ditt ansvarsområde. Ange omsättning, antal kostnadsställen eller budgetvolym du hanterat. Om exakta siffror är konfidentiella, använd intervall eller storleksordning.\n\nExempel: "ansvarade för budgetprocessen för tre affärsenheter med sammanlagd omsättning på 250 MSEK" säger mer än "budgetansvar för flera enheter".'
+      },
+      {
+        rubrik: 'Beskriv förbättringar du genomfört med mätbara resultat',
+        text: 'Controllers förväntas driva effektiviseringar. Beskriv projekt du lett eller förbättringar du implementerat. Inkludera resultat som minskad rapporttid, förbättrad prognossäkerhet eller automatiserade processer. Konkreta exempel visar att du skapar värde utöver daglig drift.'
+      },
+      {
+        rubrik: 'Namnge ERP-system och analysverktyg du behärskar',
+        text: 'Systemkompetens är ofta avgörande för controllerroller. Nämn specifika system som SAP, Oracle, Microsoft Dynamics, Visma eller Jeeves. Lägg till BI-verktyg som Power BI, Qlik eller Tableau. Beskriv gärna hur du använt verktygen, inte bara att du kan dem.'
+      },
+      {
+        rubrik: 'Framhäv din roll som affärspartner till verksamheten',
+        text: 'Moderna controllerroller kräver mer än rapportproduktion. Beskriv hur du stöttat beslutsfattare, utbildat kollegor i ekonomisk förståelse eller deltagit i strategiska diskussioner. Visa att du förstår verksamheten och kan översätta siffror till handlingsbara insikter.'
+      },
+      {
+        rubrik: 'Anpassa brevet till företagets bransch och utmaningar',
+        text: 'Gör research om företagets situation. Nämn branschspecifika utmaningar som tillväxt, internationalisering eller digitalisering. Förklara hur din erfarenhet är relevant för just deras behov. Det visar genuint intresse och strategiskt tänkande.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Anger omsättningsvolym som visar ansvarsnivå',
+        beskrivning: 'Genom att nämna 180 miljoner kronor i omsättning förstår rekryteraren direkt vilken komplexitet kandidaten hanterat. Det är mer informativt än "ansvar för affärsenhetens budget" utan siffror.'
+      },
+      {
+        titel: 'Visar mätbar förbättring i prognosarbetet',
+        beskrivning: 'Att minska avvikelsen från 12% till under 4% är ett konkret resultat som visar analytisk förmåga. Rekryterare uppskattar när kandidater kan kvantifiera sitt bidrag till organisationen.'
+      },
+      {
+        titel: 'Namnger relevanta system och verktyg',
+        beskrivning: 'Microsoft Dynamics 365, Power BI och Cognos Controller är branschspecifika verktyg som signalerar praktisk erfarenhet. Det underlättar matchning mot jobbkraven och visar teknisk kompetens.'
+      },
+      {
+        titel: 'Positionerar sig som affärspartner',
+        beskrivning: 'Formuleringen om att vara affärspartner snarare än sifferleverantör visar förståelse för den moderna controllerrollen. Det signalerar att kandidaten kan bidra till strategiska beslut, inte bara producera rapporter.'
+      },
+      {
+        titel: 'Kopplar företagets värderingar till egen erfarenhet',
+        beskrivning: 'Referensen till datadrivna beslut och kontinuerlig förbättring visar att kandidaten gjort research. Att nämna relationsbyggande med linjechefer knyter an till affärspartnerskapsrollen.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vad är skillnaden mellan Controller och Business Controller i personliga brev?',
+        a: 'Business Controller fokuserar ofta mer på affärsanalys och stöd till operativa chefer, medan Controller kan ha bredare ansvar inklusive redovisning och rapportering. Anpassa ditt brev efter den specifika rollen. Läs annonsen noga och matcha dina erfarenheter mot de efterfrågade kompetenserna.'
+      },
+      {
+        q: 'Hur beskriver jag budgetansvar utan att avslöja känslig information?',
+        a: 'Använd storleksordningar, intervall eller procentuella förhållanden. Du kan skriva "ansvar för budget på 100-150 MSEK" eller "hanterade 30% av koncernens totala budget". Konfirmera med tidigare arbetsgivare vilka siffror som är okej att dela.'
+      },
+      {
+        q: 'Ska jag nämna specifika redovisningsstandarder som IFRS i brevet?',
+        a: 'Ja, om det är relevant för tjänsten. IFRS-erfarenhet är ofta efterfrågat i börsnoterade bolag och koncerner. Nämn det i brevet om du har erfarenheten och om annonsen indikerar att det behövs. Det kan vara en konkurrensfördel.'
+      },
+      {
+        q: 'Hur visar jag att jag är mer än en sifferleverantör?',
+        a: 'Beskriv situationer där du påverkat beslut eller stöttat verksamheten. Exempel: "utbildade säljchefer i lönsamhetsanalys vilket ledde till bättre offertprissättning". Visa att du förstår affären och kan översätta ekonomiska insikter till praktisk nytta.'
+      },
+      {
+        q: 'Vilka analysverktyg bör jag nämna som Controller?',
+        a: 'Power BI är idag branschstandard och bör nämnas om du kan det. Excel på avancerad nivå förutsätts ofta. Nämn även erfarenhet av Qlik, Tableau eller specifika ERP-moduler för rapportering. Beskriv vad du byggt eller analyserat med verktygen.'
+      },
+      {
+        q: 'Hur lång erfarenhet behövs för en controllerroll?',
+        a: 'Det varierar, men typiskt söks 3-5 års erfarenhet för en controllerposition. Juniora roller kan kräva mindre. Kompensera kortare erfarenhet med relevanta projekt, certifieringar eller analytiska förmågor som du kan visa konkret i brevet.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av koncernkonsolidering?',
+        a: 'Ja, det är en värdefull kompetens för koncerncontrollerroller. Nämn vilka system du använt för konsolidering och storleken på koncernen. Erfarenhet av eliminering, valutaomräkning och intercompany-avstämning är meriterande för många roller.'
+      },
+      {
+        q: 'Hur beskriver jag prognosarbete i personligt brev?',
+        a: 'Beskriv din metodik och resultat. Exempel: "införde rullande 12-månadersprognos som uppdateras månadsvis, vilket förbättrade prognossäkerheten med 30%". Nämn frekvens, omfattning och eventuella förbättringar du genomfört i prognosprocessen.'
+      }
+    ],
+
+    kategori: 'ekonomi',
+    relaterade: [
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Redovisningsekonom', slug: 'redovisningsekonom' },
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Handläggare', slug: 'handlaggare' }
+    ]
   }
 }
 
