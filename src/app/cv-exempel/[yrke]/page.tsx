@@ -12931,6 +12931,288 @@ Konkreta incident-siffror visar att du kan hantera press och leverera även när
       { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
       { yrke: 'Ingenjör', slug: 'ingenjor' }
     ]
+  },
+
+  'projektledare-it': {
+    yrke: 'Projektledare IT',
+    sokvolym: 950,
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel Projektledare IT 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för IT-projektledare med Agile, budgetansvar och stakeholder management. ATS-optimerat med Jira, Azure DevOps och PMP/PRINCE2-certifieringar.',
+
+    seoIntro: `Söker du jobb som IT-projektledare och behöver ett CV som visar din förmåga att leverera komplexa teknikprojekt inom budget och tid? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och IT-chefer inom svenska tech-bolag och enterprise-organisationer.
+
+CV:t balanserar projektledningskompetens med konkreta leveransresultat som budget, tid och scope. Du hittar branschspecifika termer som Agile, Scrum, PRINCE2, stakeholder management och steering committee – precis de nyckelord som svenska rekryterare söker efter. Exemplet visar hur du kvantifierar projektledning: "Levererade 25 MSEK digitaliseringsprojekt 2 veckor före deadline" och "98% stakeholder satisfaction enligt projektslut-enkät".
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-projektledare. Kombinera din projektledningsmetodik med mätbara resultat för att maximera dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för IT-projektledare som visar projektleverans, stakeholder management och förmåga att driva komplexa teknikprojekt. Optimerat för svenska företag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Sara Lindqvist',
+      titel: 'IT-projektledare med fokus på Agile leverans & digital transformation',
+      kontakt: {
+        telefon: '070-678 90 12',
+        epost: 'sara.lindqvist@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/saralindqvist-pm'
+      },
+
+      profil: 'Resultatdriven IT-projektledare med 7+ års erfarenhet av att leverera komplexa digitaliseringsprojekt inom bank, försäkring och retail. Specialist på Agile/Scrum-metodik, stakeholder management och cross-functional teamledning. Dokumenterad förmåga att leverera projekt inom budget och tid med 98% stakeholder satisfaction. PMP- och PRINCE2-certifierad med expertis i Jira, Azure DevOps och MS Project.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior IT-projektledare',
+          arbetsgivare: 'Nordea Bank AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Leder digitaliseringsprojekt med budget 15-35 MSEK – levererade kärnbankssystem 2 veckor före deadline och 8% under budget',
+            'Projektportfölj: 5 parallella projekt med totalt 45 teammedlemmar (utvecklare, UX, QA, arkitekter)',
+            'Faciliterar steering committee-möten med C-level stakeholders – 98% stakeholder satisfaction enligt projektslut-enkät',
+            'Implementerade SAFe-ramverk för skalad Agile som ökade deployment-frekvens med 40% och reducerade time-to-market',
+            'Mentorerar 3 junior projektledare i Agile-metodik och stakeholder management'
+          ]
+        },
+        {
+          titel: 'IT-projektledare',
+          arbetsgivare: 'Försäkringsbolaget Trygg AB',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Ledde 8 IT-projekt med budgetar 2-12 MSEK – samtliga levererade inom scope med genomsnittlig kostnadsbesparing 6%',
+            'Drev legacy-migrering från mainframe till cloud (Azure) för 200K+ försäkringskunder – 99.8% datamigrering utan avbrott',
+            'Ansvarig för vendor management med 4 externa leverantörer – förhandlade kontrakt värda 8 MSEK',
+            'Införde hybrid Agile/Waterfall-approach som reducerade projektrisker med 35% enligt risklog'
+          ]
+        },
+        {
+          titel: 'Junior Projektledare / Projektkoordinator',
+          arbetsgivare: 'IT-konsultbolaget Sigma AB',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Koordinerade 3-5 samtidiga IT-uppdrag hos kunder inom retail och logistik – 95% kundnöjdhet',
+            'Befordrad till Projektledare efter 14 månader baserat på leveransresultat och feedbackpoäng',
+            'Ansvarig för resursallokering, tidsrapportering och statusrapporter till steering committee'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilingenjör, Industriell ekonomi',
+          skola: 'Linköpings Universitet',
+          period: '2011 – 2016',
+          beskrivning: 'Specialisering i projektledning och IT-management. Examensarbete om Agile transformation i svenska storföretag.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'PM-verktyg: Jira, Azure DevOps, MS Project (Expert, 6+ år)',
+          'Metodik: Agile/Scrum, SAFe, PRINCE2, Waterfall (Expert)',
+          'Budget & Resurs: Prognoser, EVM, kapacitetsplanering',
+          'Dokumentation: Confluence, SharePoint, PowerBI-dashboards',
+          'Teknisk förståelse: Cloud (Azure/AWS), API:er, databaser',
+          'Vendor management: Kontraktsförhandling, SLA-uppföljning'
+        ],
+        personliga: [
+          'Stakeholder management på C-level',
+          'Cross-functional teamledning (45+ personer)',
+          'Konflikthantering och förhandling',
+          'Facilitation av workshops och steering committees'
+        ]
+      },
+
+      certifieringar: [
+        'Project Management Professional (PMP) (2022)',
+        'PRINCE2 Practitioner (2020)',
+        'SAFe 5.0 Scrum Master (2023)',
+        'Professional Scrum Master (PSM I) (2019)',
+        'ITIL 4 Foundation (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera alltid projektresultat – budget (MSEK), tid (före/efter deadline), team-storlek, stakeholder satisfaction',
+      'Lista specifika PM-verktyg och metodik: Jira (Expert), Agile/Scrum, PRINCE2 – inte bara "projektledningserfarenhet"',
+      'Visa progression från koordinator/junior PM till senior projektledare med budgetansvar',
+      'Inkludera PMP/PRINCE2/SAFe-certifieringar med årtal – de är ofta formella krav',
+      'Nämn stakeholder-nivå: steering committee, C-level, cross-functional teams',
+      'Betona både teknisk förståelse och affärsfokus (ROI, kostnadsbesparing)'
+    ],
+
+    statistik: [
+      { label: 'Genomsnittlig lön för IT-projektledare', varde: '55-75K/mån', beskrivning: 'Stockholm 2024' },
+      { label: 'Andel roller som kräver PMP eller PRINCE2', varde: '58%', beskrivning: 'IT-projektledare i Sverige' },
+      { label: 'Genomsnittligt projektbudget för senior PM', varde: '10-50 MSEK', beskrivning: 'Enterprise-projekt' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen PM-kompetenser direkt',
+        text: `CV:t nämner konkreta verktyg som **Jira**, **Azure DevOps** och **MS Project** tillsammans med branschspecifika termer som **Agile/Scrum**, **PRINCE2**, **SAFe** och **steering committee**.
+
+Varför detta fungerar: Rekryteringssystem filtrerar efter exakta PM-termer. "Jira (Expert, 6+ år)" matchar bättre än "projektledningsverktyg". Kombinationen verktyg + metodik + certifieringar visar fullständig PM-kompetens som svenska IT-chefer söker. ATS rankar CV:n med specifika termer högre eftersom de matchar jobbannonsens kravlista direkt.`
+      },
+      {
+        rubrik: 'Kvantifierade projektresultat som imponerar',
+        text: `CV:t levererar konkreta siffror: **25 MSEK budget**, **2 veckor före deadline**, **8% under budget**, och **98% stakeholder satisfaction**. Varje erfarenhetspost innehåller mätbara projektresultat.
+
+Varför detta fungerar: "Erfaren projektledare" säger ingenting. "Levererade 25 MSEK projekt 2 veckor före deadline" bevisar att du faktiskt kan driva projekt till framgångsrik leverans. Rekryterare kan direkt bedöma din kapacitet genom budget-storlek och leveransresultat. Stakeholder satisfaction-siffror visar att du inte bara levererar – du gör det på ett sätt som alla är nöjda med.`
+      },
+      {
+        rubrik: 'Balans mellan metodik och ledarskap',
+        text: `CV:t kombinerar tekniska PM-kompetenser som **SAFe-ramverk** och **EVM-prognoser** med ledarskapsfokuserade resultat som **45 teammedlemmar**, **steering committee-facilitation** och **mentorskap för 3 junior PM**.
+
+Varför detta fungerar: Projektledning handlar om både process och människor. Du visar att du inte bara kan metodiken – du kan leda team och kommunicera med C-level. Mentorskap signalerar att arbetsgivare litar på dig att utveckla andra, och steering committee-erfarenhet visar att du är van vid strategiska samtal på ledningsnivå.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar PM-expertis',
+        text: `CV:t listar **PMP (2022)**, **PRINCE2 Practitioner (2020)** och **SAFe 5.0 Scrum Master (2023)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
+
+Varför detta fungerar: PMP och PRINCE2 är ofta formella krav för senior PM-roller, särskilt inom bank och försäkring. SAFe visar Agile-skalning som enterprise-organisationer behöver. Årtal visar att certifieringarna är aktuella – en PMP från 2015 är mindre imponerande än en från 2022. Kombinationen täcker både traditionell och agil projektledning.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten öppnar med "Resultatdriven IT-projektledare med 7+ års erfarenhet" och inkluderar nyckelord som **Agile/Scrum**, **stakeholder management**, **PMP** och **98% satisfaction**. Max 4 meningar, under 80 ord.
+
+Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre. När första meningen innehåller "7+ år", "digitaliseringsprojekt" och specifika branscher (bank, försäkring) får rekryteraren omedelbart ett värdelöfte. Konkreta utfall som "98% stakeholder satisfaction" i profiltexten gör att du sticker ut bland kandidater som bara skriver "erfaren projektledare med bred kompetens".`
+      },
+      {
+        rubrik: 'Tydlig progression från koordinator till senior PM',
+        text: `Erfarenheten visar utveckling: från **Projektkoordinator** med 3-5 uppdrag och kundkontakt, till **IT-projektledare** med 8 projekt och vendor management, till **Senior IT-projektledare** med 35 MSEK budget och mentorskap.
+
+Varför detta fungerar: Progressionen visar att du har vuxit från stödfunktion till strategiskt ansvar. Befordran efter 14 månader signalerar att du presterar över förväntan. Budget-progression (2 MSEK → 35 MSEK) bevisar att arbetsgivare successivt gett dig större ansvar. Mentorskap visar att du är redo för programledar- eller avdelningschefsroller.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera projektbudget och leveransresultat',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt. Mät din påverkan genom budget, tid, team-storlek och stakeholder-nöjdhet.
+
+**Exempel på före/efter**:
+
+❌ "Ledde flera IT-projekt med framgångsrika leveranser"
+
+✅ "Ledde digitaliseringsprojekt med budget **25 MSEK** – levererade **2 veckor före deadline** och **8% under budget** med **98% stakeholder satisfaction**"
+
+Rekryterare vill se konkreta bevis på att du kan hantera stora budgetar och leverera resultat.`
+      },
+      {
+        rubrik: 'Lista PM-verktyg med erfarenhetsnivå',
+        text: `ATS-system söker efter specifika verktygsnamn. Skriv alltid vilket PM-verktyg du behärskar och hur länge.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av projektledningsverktyg och Agile-metodik"
+
+✅ "Jira (Expert, 6+ år), Azure DevOps, MS Project | Agile/Scrum, SAFe, PRINCE2 (Practitioner)"
+
+Konkreta verktygsnamn ger träffar i ATS-sökningar och visar att du kan börja leverera direkt.`
+      },
+      {
+        rubrik: 'Visa stakeholder-nivå och team-storlek',
+        text: `Arbetsgivare vill veta vilken komplexitet du hanterat. Specificera stakeholder-nivå och antal teammedlemmar.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för stakeholder management och teamledning"
+
+✅ "Faciliterade **steering committee-möten med C-level** stakeholders. Ledde cross-functional team om **45 personer** (utvecklare, UX, QA, arkitekter)"
+
+C-level och stora team signalerar erfarenhet av enterprise-komplexitet.`
+      },
+      {
+        rubrik: 'Inkludera certifieringar med årtal',
+        text: `PM-certifieringar är ofta formella krav för roller inom bank, försäkring och offentlig sektor. Inkludera alltid årtal för att visa aktualitet.
+
+**Exempel på före/efter**:
+
+❌ "PMP-certifierad, PRINCE2-utbildad, Scrum Master"
+
+✅ "**PMP (2022)**, PRINCE2 Practitioner (2020), **SAFe 5.0 Scrum Master (2023)**, PSM I (2019)"
+
+PMP och PRINCE2 är branschstandard. Årtal visar att du aktivt underhåller din kompetens.`
+      },
+      {
+        rubrik: 'Beskriv metodikval och dess påverkan',
+        text: `Visa att du inte bara följer process – du väljer rätt metodik för rätt situation och kan mäta resultatet.
+
+**Exempel på före/efter**:
+
+❌ "Implementerade Agile-metodik i projekten"
+
+✅ "Implementerade **SAFe-ramverk** för skalad Agile som ökade deployment-frekvens med **40%** och reducerade time-to-market med **3 månader**"
+
+Metodikval med mätbar påverkan visar strategiskt tänkande, inte bara processkörning.`
+      },
+      {
+        rubrik: 'Lyft fram vendor management och kontraktsvärde',
+        text: `Enterprise-projekt involverar ofta externa leverantörer. Visa att du kan hantera leverantörsrelationer och förhandla kontrakt.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av leverantörshantering och externa konsulter"
+
+✅ "Ansvarig för **vendor management med 4 externa leverantörer** – förhandlade kontrakt värda **8 MSEK** och säkerställde SLA-efterlevnad med **99.5% service level**"
+
+Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektledning.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som IT-projektledare vara?',
+        svar: 'För IT-projektledare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior projektledare med 7+ år, stora budgetar och certifieringar kan behöva 2 sidor för att visa progression och projektportfölj, men var koncis – fokusera på de mest relevanta leveranserna.'
+      },
+      {
+        fraga: 'Vilka certifieringar är mest värdefulla för IT-projektledare?',
+        svar: 'PMP (Project Management Professional) är internationell standard och ofta krav för enterprise-roller. PRINCE2 är stark i UK-baserade företag och offentlig sektor. SAFe och PSM är viktiga för Agile-miljöer. Inkludera alltid årtal – en PMP från 2018 utan förnyelse är mindre imponerande än en aktiv certifiering.'
+      },
+      {
+        fraga: 'Hur beskriver jag projektbudget utan att bryta sekretess?',
+        svar: 'Använd intervall eller storleksordning: "10-25 MSEK-projekt" istället för exakt belopp. Fokusera på relativa resultat: "8% under budget", "levererade före deadline". Du kan skriva "enterprise-skala" eller "storprojekt" om specifika siffror är konfidentiella. Bransch är ofta okej att nämna även om företagsnamn inte är.'
+      },
+      {
+        fraga: 'Hur visar jag skillnaden mellan koordinator och projektledare?',
+        svar: 'Koordinator fokuserar på operativa uppgifter: statusrapporter, mötesplanering, resurslogistik. Projektledare har budget- och leveransansvar, tar beslut och rapporterar till steering committee. Beskriv progression: "Från koordinator (stöd till 3 PM) till projektledare (eget budgetansvar 5 MSEK) till senior PM (portfölj 35 MSEK)".'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för Agile vs Waterfall-roller?',
+        svar: 'Agile-roller: Betona Scrum/SAFe, sprint-leveranser, velocity, retrospectives, continuous delivery. Waterfall-roller: Fokusera på fasindelning, grindar, PRINCE2, detaljerad planering, change management. Hybrid-miljöer (vanligt i enterprise) uppskattar erfarenhet av båda – visa flexibilitet att välja rätt metodik.'
+      },
+      {
+        fraga: 'Ska jag inkludera teknisk bakgrund i ett PM-CV?',
+        svar: 'Ja, teknisk förståelse är värdefullt för IT-projektledare. Nämn teknisk utbildning (civilingenjör, datateknik) och grundläggande förståelse för tekniken du leder projekt inom: "Teknisk förståelse för cloud (Azure/AWS), API:er och databaser". Du behöver inte vara expert, men visa att du kan kommunicera med utvecklare.'
+      },
+      {
+        fraga: 'Hur beskriver jag steering committee-erfarenhet?',
+        svar: 'Var specifik om din roll: "Faciliterade månadvisa steering committee-möten med CIO, CFO och affärsområdeschefer" eller "Presenterade projektstatusrapporter och eskaleringsbeslut för styrgrupp (8 personer)". Visa att du är van vid att kommunicera med ledningsnivå och hantera strategiska beslut.'
+      },
+      {
+        fraga: 'Hur visar jag vendor management-kompetens?',
+        svar: 'Kvantifiera: "Ansvarig för 4 externa leverantörer med total kontraktsvärde 8 MSEK". Nämn konkreta aktiviteter: kontraktsförhandling, SLA-uppföljning, leverantörsutvärdering, eskalering. Om du hanterat offshore-team eller nearshore-leverantörer, nämn det explicit – det visar kulturell kompetens.'
+      },
+      {
+        fraga: 'Hur hanterar jag många korta projekt vs få stora?',
+        svar: 'Många korta projekt: Sammanfatta med statistik: "Levererade 15+ IT-projekt (1-5 MSEK) med 95% on-time delivery". Få stora projekt: Detaljera varje projekt med specifika resultat. Båda är värdefulla – korta projekt visar tempo, stora projekt visar komplexitetshantering. Anpassa efter vad jobbannonsen efterfrågar.'
+      },
+      {
+        fraga: 'Hur visar jag progression inom projektledning?',
+        svar: 'Visa utveckling i ansvar, budget och team-storlek: "Koordinator (5 projekt-stöd) → Projektledare (8 projekt, 2-12 MSEK) → Senior PM (projektportfölj 35 MSEK, mentorskap för 3 PM)". Inkludera befordringar och utökat ansvar. Program Manager eller Portfolio Manager är naturliga nästa steg att signalera intresse för.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' }
+    ]
   }
 }
 

@@ -720,6 +720,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för DevOps Engineer med fokus på CI/CD, Kubernetes och Infrastructure as Code inom fintech och e-handel.',
       highlight: ['Deployment 2/vecka→15/dag och 99.95% uptime', 'Kubernetes, Terraform, AWS och GitHub Actions', 'Tech lead med on-call och kostnadsbesparingar 35%']
     }
+  },
+  {
+    id: 'projektledare-it',
+    yrke: 'Projektledare IT',
+    slug: 'projektledare-it',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 950,
+    icon: Cog,
+    gradient: 'from-blue-600 via-indigo-700 to-blue-800',
+    preview: {
+      intro: 'CV för IT-projektledare med fokus på Agile leverans, budgetansvar och stakeholder management inom bank och försäkring.',
+      highlight: ['25 MSEK budget och 98% stakeholder satisfaction', 'Jira, Azure DevOps, MS Project och SAFe', 'PMP, PRINCE2 och certifieringar med årtal']
+    }
   }
 ]
 
@@ -884,7 +898,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  49 yrken
+                  50 yrken
                 </motion.span>
               </h1>
 
