@@ -4449,6 +4449,124 @@ Nämn gärna om du har utbildning i trauma-medveten omsorg, AKK eller andra rele
       { yrke: 'Elevassistent', slug: 'elevassistent' },
       { yrke: 'Barnskötare', slug: 'barnskotare' }
     ]
+  },
+
+  'redovisningsekonom': {
+    yrke: 'Redovisningsekonom',
+    sokvolym: 500,
+    metaTitle: 'Personligt Brev Redovisningsekonom – Exempel & Mall 2025',
+    metaDescription: 'Skriv ett starkt personligt brev som redovisningsekonom. Se exempel med K2/K3, bokslut och Visma-erfarenhet som imponerar på arbetsgivare.',
+
+    intro: 'Som redovisningsekonom behöver ditt personliga brev visa både teknisk kompetens och förståelse för regelverken. Arbetsgivare söker kandidater som kan hantera hela redovisningsflödet självständigt. Detta exempel visar hur du framhäver erfarenhet av K2/K3-bokslut, ekonomisystem och kundkontakt på ett sätt som övertygar.',
+
+    seoIntro: `Ett personligt brev för redovisningsekonom måste balansera teknisk expertis med mjuka värden. Arbetsgivare vill se att du behärskar bokslut enligt K2 eller K3, att du har erfarenhet av relevanta ekonomisystem och att du kan kommunicera med kunder och revisorer. Detta exempel visar hur en redovisningsekonom med fem års erfarenhet presenterar sin kompetens.\n\nBrevet lyfter konkreta resultat som effektivisering av bokslut, hantering av kundportföljer och erfarenhet av specifika system som Visma Spcs och Fortnox. Det visar också hur du kan anpassa brevet till företaget du söker till genom att referera till deras specialområden och värderingar.\n\nAnvänd exemplet som grund för ditt eget brev. Anpassa siffror och erfarenheter efter din bakgrund, och se till att du svarar på det som efterfrågas i jobbannonsen. Tipsen längre ned hjälper dig att förstärka brevet ytterligare.`,
+
+    exempelBrev: {
+      namn: 'Anna Bergström',
+      adress: 'Vintervägen 12, 753 32 Uppsala',
+      telefon: '073-456 78 90',
+      epost: 'anna.bergstrom@email.se',
+      arbetsgivare: 'Grant Thornton Sverige AB',
+      roll: 'Redovisningsekonom',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Jag söker tjänsten som redovisningsekonom hos Grant Thornton. Med fem års erfarenhet av kvalificerad redovisning och bokslut enligt både K2 och K3 har jag den kompetens som behövs för att bidra direkt i ert team. Er kombination av revision, skatt och redovisning under samma tak skapar möjligheter jag vill vara en del av.
+
+På Mazars har jag arbetat med en kundportfölj på 45 bolag, från mindre handelsbolag till medelstora aktiebolag med omsättning upp till 80 miljoner kronor. Jag ansvarar för löpande bokföring, momsdeklarationer, arbetsgivardeklarationer och årsbokslut. Under 2024 effektiviserade jag bokslutsprocessen för mina kunder, vilket minskade genomsnittstiden per bokslut med 20 procent genom bättre förberedelser och standardiserade checklistor.
+
+Jag arbetar dagligen i Visma Spcs och Fortnox, och har god erfarenhet av BAS-kontoplan och skatteberäkningar. Jag hanterar även periodiseringar, avskrivningar och avstämningar mot bank och reskontror. Under revisionsperioder samarbetar jag tätt med revisorer och besvarar granskningsfrågor. Kommunikation med kunder sker regelbundet, både för att inhämta underlag och för att förklara ekonomiska resultat.
+
+Grant Thorntons fokus på entreprenörer och ägarledda företag stämmer väl med min erfarenhet. Jag trivs med den nära kundkontakten som präglar redovisning åt mindre bolag, där jag ofta blir en förlängning av kundens ekonomiavdelning. Er satsning på digitalisering och automatisering av redovisningsprocesser är också något jag vill bidra till.
+
+Jag ser fram emot att diskutera hur jag kan stärka ert redovisningsteam. Jag finns tillgänglig för intervju med kort varsel.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Specificera vilka regelverk du behärskar',
+        text: 'Arbetsgivare vill veta om du kan K2, K3 eller båda. Skriv inte bara "bokslut" utan precisera: "Jag har upprättat årsbokslut enligt K2 för 30 bolag och K3 för 15 större kunder". Om du har erfarenhet av koncernredovisning eller konsolidering, nämn det explicit. Regelverkskompetens är en av de första sakerna arbetsgivare tittar efter.'
+      },
+      {
+        rubrik: 'Nämn ekonomisystemen du arbetat i',
+        text: 'Redovisningsbyråer och ekonomiavdelningar använder specifika system. Lista de du behärskar: Visma Spcs, Fortnox, Björn Lundén, PE Accounting eller Hogia. Om du även arbetat med affärssystem som Business Central eller SAP, inkludera det.\n\nArbetsgivare vill undvika lång upplärning, så tydliga systemkunskaper kan vara avgörande för att bli kallad till intervju.'
+      },
+      {
+        rubrik: 'Visa att du hanterar hela kedjan självständigt',
+        text: 'En redovisningsekonom förväntas ofta arbeta utan handledning. Beskriv att du hanterar allt från löpande bokföring till färdigt bokslut. Exempel: "Jag ansvarar självständigt för mina kunders redovisning, från verifikationshantering till momsdeklaration och inkomstdeklaration". Det visar att arbetsgivaren kan lita på dig direkt.'
+      },
+      {
+        rubrik: 'Kvantifiera din erfarenhet med siffror',
+        text: 'Siffror gör ditt brev konkret och trovärdigt. Nämn antal kunder du hanterat, omsättning på bolagen, antal bokslut per år eller hur mycket tid du sparat genom förbättringar. "Jag hanterar 35 kunders redovisning och upprättar 50 bokslut årligen" säger mer än "jag har omfattande erfarenhet av bokslut".'
+      },
+      {
+        rubrik: 'Anpassa brevet till byråns eller företagets profil',
+        text: 'Undersök vad arbetsgivaren specialiserar sig på. Fokuserar de på fastighetsbranschen, tech-bolag eller ägarledda företag? Referera till detta: "Er specialisering på fastighetsbolag passar min erfarenhet av fastighetsbokföring och momshantering för bostadsrättsföreningar". Det visar att du gjort research och är genuint intresserad.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret erfarenhet med tydliga siffror',
+        beskrivning: 'Anna anger exakt hur många kunder hon arbetat med och vilken omsättning de har. Siffror som "45 bolag" och "80 miljoner kronor" ger rekryteraren en direkt bild av erfarenhetsnivån. Vaga beskrivningar som "stor kundportfölj" hade inte gett samma effekt.'
+      },
+      {
+        titel: 'Tekniska nyckelord för ATS och rekryterare',
+        beskrivning: 'Brevet innehåller K2, K3, Visma Spcs, Fortnox, momsdeklarationer, arbetsgivardeklarationer och BAS-kontoplan. Dessa termer fångas av automatiska filter och visar rekryteraren snabbt att Anna har rätt teknisk profil för rollen.'
+      },
+      {
+        titel: 'Mätbart resultat från nuvarande arbete',
+        beskrivning: 'Anna lyfter att hon effektiviserat bokslutsprocessen med 20 procent. Det visar att hon inte bara utför uppgifter utan aktivt förbättrar arbetsflöden. Arbetsgivare söker kandidater som bidrar till utveckling, inte bara status quo.'
+      },
+      {
+        titel: 'Tydlig koppling till det sökta företaget',
+        beskrivning: 'Anna nämner Grant Thorntons fokus på entreprenörer och ägarledda företag, samt deras digitaliseringssatsning. Det visar att hon läst på om företaget och förstår vad de gör. Generiska brev utan företagsanpassning hamnar längre ned i högen.'
+      },
+      {
+        titel: 'Balans mellan teknisk och kommunikativ kompetens',
+        beskrivning: 'Förutom siffror och system beskriver Anna att hon kommunicerar med kunder och samarbetar med revisorer. Redovisningsekonomer måste kunna förklara ekonomi för icke-ekonomer, och brevet visar att Anna har den förmågan.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Måste jag ha K3-erfarenhet för att söka redovisningstjänster?',
+        a: 'Nej, men det är en fördel. De flesta mindre byråer arbetar främst med K2-bolag. Om du bara har K2-erfarenhet, skriv det tydligt och visa att du är intresserad av att lära dig K3. Många arbetsgivare utbildar internt om du har god grund i redovisning.'
+      },
+      {
+        q: 'Hur viktigt är det att nämna specifika ekonomisystem?',
+        a: 'Mycket viktigt. Byråer investerar tid i att lära upp personal på sina system. Om du redan kan Fortnox eller Visma och de använder det, slipper de upplärning. Läs annonsen noga. Nämns ett system du kan, lyft det tidigt i brevet. Kan du flera system, lista dem.'
+      },
+      {
+        q: 'Ska jag skriva om min utbildning i brevet?',
+        a: 'Kort, ja. Om du har ekonomexamen, civilekonomexamen eller YH-utbildning i redovisning, nämn det i en mening. "Min ekonomexamen från Uppsala universitet gav mig en stark teoretisk grund". Detaljerna finns i CV:t, så håll det kort i brevet.'
+      },
+      {
+        q: 'Hur lyfter jag erfarenhet från bara ett företag?',
+        a: 'Fokusera på variation och utveckling. Beskriv olika typer av kunder, projekt eller ansvarsområden. Exempel: "Under mina fem år på byrån har jag gått från assistent till att självständigt hantera 40 kunder och handleda nyanställda". Visa progression och bredd inom samma arbetsgivare.'
+      },
+      {
+        q: 'Är det viktigt att nämna skatt och deklarationer?',
+        a: 'Ja, om du har den erfarenheten. Många redovisningsekonomer hanterar även inkomstdeklarationer och skatteberäkningar. Skriv konkret: "Jag upprättar inkomstdeklarationer för både handelsbolag och aktiebolag och hanterar skatteberäkningar i samband med bokslut".'
+      },
+      {
+        q: 'Hur beskriver jag kundkontakt i brevet?',
+        a: 'Ge exempel på vad kundkontakten innebär. "Jag har regelbundna avstämningar med kunder för att gå igenom månadsrapporter och diskutera budget" är bättre än "jag har god kundkontakt". Visa att du kan kommunicera ekonomi på ett begripligt sätt.'
+      },
+      {
+        q: 'Ska jag nämna att jag arbetar med bokslut varje månad eller årligen?',
+        a: 'Nämn båda om du har erfarenhet av det. Månadsvis bokslut visar att du hanterar rapportering till ledning, medan årsbokslut visar att du behärskar hela cykeln. "Jag upprättar månadsbokslut för rapportering samt årsbokslut med tillhörande årsredovisning".'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för redovisningsekonom vara?',
+        a: 'En A4-sida, cirka 300 till 400 ord. Rekryterare läser snabbt. Fokusera på det viktigaste: relevant erfarenhet, system du kan, regelverk du behärskar och varför just detta företag. Långa brev med irrelevant information sorteras bort.'
+      }
+    ],
+
+    kategori: 'kontor',
+    relaterade: [
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Chef', slug: 'chef' }
+    ]
   }
 }
 
