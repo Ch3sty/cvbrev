@@ -762,6 +762,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för redovisningsekonom med fokus på bokslut, skattedeklarationer och K3-redovisning inom byrå och industri.',
       highlight: ['85 klienter och 100% leveranssäkerhet till Skatteverket', 'Fortnox, Visma och SAP Business One', 'Auktoriserad SRF och K3-certifierad']
     }
+  },
+  {
+    id: 'bartender',
+    yrke: 'Bartender',
+    slug: 'bartender',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: Coffee,
+    gradient: 'from-amber-500 via-orange-600 to-red-700',
+    preview: {
+      intro: 'CV för bartender med fokus på cocktailkunskap, kassahantering och högtrycksservice inom hotellbar och nattklubb.',
+      highlight: ['200+ gäster/kväll och 28% ökad barförsäljning', 'Trivec, iZettle och WSET Level 2', 'Serveringstillstånd och signature drinks']
+    }
   }
 ]
 
@@ -926,7 +940,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  52 yrken
+                  53 yrken
                 </motion.span>
               </h1>
 

@@ -13764,6 +13764,284 @@ Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa fö
       { yrke: 'Controller', slug: 'controller' },
       { yrke: 'Handläggare', slug: 'handlaggare' }
     ]
+  },
+
+  'bartender': {
+    yrke: 'Bartender',
+    sokvolym: 480,
+    kategori: 'service',
+
+    metaTitle: 'CV Exempel Bartender 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för bartender med cocktailkunskap, kassahantering och högtrycksservice. ATS-optimerat med serveringstillstånd och kvantifierade resultat.',
+
+    seoIntro: `Söker du jobb som bartender och behöver ett CV som visar din cocktailkunskap, stresstålighet och förmåga att leverera i högt tempo? Det här exemplet demonstrerar hur du skapar ett professionellt bartender-CV som imponerar på restaurangchefer och krogsägare.
+
+CV:t balanserar tekniska färdigheter som mixologi och kassahantering med mjuka egenskaper som gästbemötande och teamarbete under press. Du hittar branschspecifika termer som serveringstillstånd, POS-system, cocktailmeny och merförsäljning – precis de nyckelord som arbetsgivare i restaurangbranschen letar efter. Exemplet visar hur du kvantifierar bartender-arbete: "Serverade 200+ gäster per kväll" och "Ökade snittnotan med 22% genom merförsäljning".
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från hotellbar, nattklubb eller finare restaurang. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker fast tjänst eller säsongsarbete.`,
+
+    intro: 'Bartender med fokus på cocktailkunskap, kassahantering och högtrycksservice. CV-exemplet visar hur du kombinerar tekniska färdigheter med gästbemötande.',
+
+    exempelCV: {
+      namn: 'Marcus Svensson',
+      titel: 'Bartender med specialisering i cocktails & högtrycksservice',
+
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'marcus.svensson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/marcussvensson'
+      },
+
+      profil: 'Erfaren bartender med 5 års erfarenhet från hotellbar, restaurang och nattklubb i Stockholm. Specialiserad på klassiska cocktails, signature drinks och vinservice med serveringstillstånd från Folkhälsomyndigheten. Hanterar 200+ gäster per kväll med fokus på snabb service och merförsäljning. Teamorienterad med dokumenterad förmåga att höja gästnöjdhet och öka snittnotan.',
+
+      erfarenhet: [
+        {
+          titel: 'Head Bartender',
+          arbetsgivare: 'Grand Hôtel Stockholm',
+          period: '2022 – Pågående',
+          beskrivning: [
+            'Ansvarar för cocktailbar med 80 sittplatser och 200+ gäster per kväll under högsäsong',
+            'Utvecklade ny cocktailmeny med 12 signature drinks som ökade barförsäljningen med 28%',
+            'Ökade snittnotan per gäst med 22% genom systematisk merförsäljning av premium-sprit',
+            'Mentor för 3 juniora bartenders med veckovisa utbildningar i cocktailtekniker',
+            'Hanterar inventering och beställning av sprit och tillbehör med budget 150 000 kr/månad'
+          ]
+        },
+        {
+          titel: 'Bartender',
+          arbetsgivare: 'Sturecompagniet',
+          period: '2020 – 2022',
+          beskrivning: [
+            'Serverade 300+ gäster per natt i högtrycksmiljö med 4-5 bartenders i team',
+            'Ansvarade för kassahantering med daglig omsättning 180 000–250 000 kr',
+            'Reducerade spillkostnader med 15% genom förbättrad lagerhantering',
+            'Deltog i utveckling av effektivare arbetsflöde som minskade väntetiden med 20%'
+          ]
+        },
+        {
+          titel: 'Servitör/Bartender',
+          arbetsgivare: 'Restaurang Sturehof',
+          period: '2019 – 2020',
+          beskrivning: [
+            'Kombinerad roll som servitör och bartender i restaurang med 120 sittplatser',
+            'Hanterade vinservice och cocktails till à la carte-gäster',
+            'Erhöll serveringstillstånd och genomgick WSET Level 2-utbildning'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'WSET Level 2 Award in Wines',
+          skola: 'Wine & Spirit Education Trust',
+          period: '2020',
+          beskrivning: 'Internationellt erkänd utbildning inom vinkunskap, druvor och vinregioner.'
+        },
+        {
+          titel: 'Bartenderutbildning',
+          skola: 'European Bartender School',
+          period: '2019',
+          beskrivning: '4 veckors intensivutbildning i cocktailtekniker, klassiska recept och flair bartending.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Cocktails & mixologi (Expert)',
+          'Kassasystem (Trivec, iZettle, Square)',
+          'Vinkunskap (WSET Level 2)',
+          'Serveringstillstånd',
+          'Inventering & beställning',
+          'Flair bartending'
+        ],
+        personliga: [
+          'Högtrycksservice',
+          'Gästbemötande',
+          'Teamarbete',
+          'Stresstålighet',
+          'Merförsäljning'
+        ]
+      },
+
+      certifieringar: [
+        'Serveringstillstånd – Folkhälsomyndigheten (2019, förnyat 2024)',
+        'WSET Level 2 Award in Wines (2020)',
+        'European Bartender School – Diploma (2019)',
+        'Ansvarsfull alkoholservering – Visita (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Spanska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika termer som fångar arbetsgivare',
+        text: `CV:t nämner serveringstillstånd, WSET-certifiering, Trivec och iZettle – branschtermer som krogsägare och restaurangchefer känner igen direkt.
+
+Varför detta fungerar: Restaurangbranschen har specifik terminologi. Arbetsgivare filtrerar ofta efter "serveringstillstånd" – ett lagkrav för att servera alkohol. Genom att explicit nämna certifieringar och kassasystem visar Marcus att han förstår branschens krav och kan börja arbeta direkt utan upplärning.`
+      },
+      {
+        rubrik: 'Siffror som visar kapacitet och resultat',
+        text: `Varje erfarenhetspost innehåller konkreta resultat: 200+ gäster per kväll, 28% ökad barförsäljning, 22% högre snittnota och 180 000-250 000 kr i daglig omsättning.
+
+Varför detta fungerar: Restaurangbranschen handlar om tempo och omsättning. "Erfaren bartender" säger lite, men "serverade 300+ gäster per natt med daglig omsättning 250 000 kr" visar kapacitet i siffror. En krogsägare kan omedelbart se att Marcus klarar volymen och bidrar till resultat.`
+      },
+      {
+        rubrik: 'Teknisk kompetens möter gästservice',
+        text: `Marcus visar både hård kunskap (cocktailtekniker, WSET, kassasystem) och mjuka färdigheter som gästbemötande, teamarbete och merförsäljning.
+
+Varför detta fungerar: En bartender måste kunna mixa drinks OCH hantera gäster under press. Genom att visa "mentor för 3 juniora bartenders" och "systematisk merförsäljning" bevisar Marcus att han bidrar till teamet och affären – inte bara utför recept. Konkreta exempel väger tyngre än "serviceinriktad".`
+      },
+      {
+        rubrik: 'Certifieringar som visar professionalism',
+        text: `Serveringstillstånd (2019, förnyat 2024), WSET Level 2 (2020) och European Bartender School – alla med årtal som visar aktualitet och kontinuerlig utveckling.
+
+Varför detta fungerar: Serveringstillstånd är lagkrav och måste förnyas. Genom att visa förnyelsedatum bevisar Marcus att dokumentationen är aktuell. WSET är internationellt erkänt och signalerar vinkunskap utöver grundnivå – meriterande för finare restauranger och hotellbarer.`
+      },
+      {
+        rubrik: 'Profiltext som säljer på 10 sekunder',
+        text: `Profilen sammanfattar: 5 års erfarenhet + kontext (hotellbar, nattklubb) + specialisering (cocktails, vinservice) + certifiering (serveringstillstånd) + resultat (200+ gäster, merförsäljning).
+
+Varför detta fungerar: Restaurangchefer har ofta bråttom och scannar CV:n snabbt. Marcus profiltext levererar de kritiska komponenterna: erfarenhet, miljöer, kompetenser och kvantifierade resultat – allt inom fyra meningar. Serveringstillståndet nämns tidigt för att visa att grundkraven är uppfyllda.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression i branschen',
+        text: `CV:t visar utveckling från Servitör/Bartender (Sturehof) via Bartender (Sturecompagniet) till Head Bartender (Grand Hôtel) – med tydligt ökande ansvar och prestige.
+
+Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat sin position. Grand Hôtel är ett prestigefyllt varumärke som validerar Marcus kompetens. Att visa utveckling från restaurang via nattklubb till hotellbar demonstrerar bredd och anpassningsförmåga.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera serveringstillstånd och branschcertifieringar',
+        text: `Serveringstillstånd är ett lagkrav för att servera alkohol – nämn det explicit med förnyelsedatum. Komplettera med relevanta certifieringar som WSET, bartenderskolor eller ansvarsfull alkoholservering.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av att servera alkohol"
+
+✅ "Serveringstillstånd – Folkhälsomyndigheten (2019, förnyat 2024), WSET Level 2 (2020), European Bartender School Diploma (2019)"
+
+Arbetsgivare filtrerar ofta efter serveringstillstånd först. Utan det är du inte anställningsbar för alkoholservering – ge det tydlig synlighet.`
+      },
+      {
+        rubrik: 'Kvantifiera gästvolym och omsättning',
+        text: `Restaurangbranschen handlar om kapacitet. Specificera hur många gäster du serverat per kväll och vilka omsättningsnivåer du hanterat.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för barservering i högt tempo"
+
+✅ "Serverade 300+ gäster per natt med daglig kassaomsättning 180 000–250 000 kr. Hanterade 4-5 personers barteam under helgkvällar."
+
+Siffror gör skillnaden mellan "har jobbat i bar" och "klarar volymen vi behöver". En krogsägare vill veta att du kan hantera deras gästtryck.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat och affärspåverkan',
+        text: `Lyft fram hur du bidragit till verksamhetens resultat – merförsäljning, kostnadsbesparingar eller effektiviseringar.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade med försäljning och kundservice"
+
+✅ "Ökade snittnotan per gäst med 22% genom systematisk merförsäljning av premium-sprit. Reducerade spillkostnader med 15% genom förbättrad lagerhantering."
+
+En arbetsgivare vill se att du bidrar till affären, inte bara utför arbetsuppgifter. Merförsäljning och kostnadskontroll är direkt mätbart.`
+      },
+      {
+        rubrik: 'Lista kassasystem och tekniska verktyg',
+        text: `Nämn vilka kassasystem du behärskar – det sparar upplärning och visar att du kan börja producera direkt.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av kassahantering"
+
+✅ "Kassasystem: Trivec (Expert, 3+ år), iZettle, Square. Daglig kassaavstämning med omsättning upp till 250 000 kr."
+
+Olika krogar använder olika system. Om du matchar deras system är du mer attraktiv än någon som behöver läras upp.`
+      },
+      {
+        rubrik: 'Anpassa CV:t för miljö och koncept',
+        text: `Bartenderrollen varierar kraftigt mellan hotellbar, nattklubb och restaurang. Anpassa fokus efter tjänsten du söker.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren bartender med bred erfarenhet"
+
+✅ För hotellbar: "Head Bartender med 5 års erfarenhet från Grand Hôtel. Specialiserad på klassiska cocktails, vinservice och internationella gäster."
+
+✅ För nattklubb: "Bartender med erfarenhet från Sturecompagniet. Hanterar 300+ gäster per natt i högtrycksmiljö med fokus på snabb service."
+
+Arbetsgivare söker rätt profil för sitt koncept – visa att du förstår deras miljö.`
+      },
+      {
+        rubrik: 'Lyft fram cocktailkunskap och specialiseringar',
+        text: `Om du har djupare kunskap inom cocktails, vin eller specifika dryckeskategorier – gör det synligt. Det skiljer dig från grundnivå.
+
+**Exempel på före/efter**:
+
+❌ "Kan blanda drinks"
+
+✅ "Specialiserad på klassiska cocktails och signature drinks. Utvecklade cocktailmeny med 12 nya drinkar som ökade barförsäljningen med 28%. WSET Level 2-certifierad inom vinkunskap."
+
+Kreativitet och specialkunskap är meriterande för barer som vill sticka ut. Visa att du kan bidra till menyn, inte bara följa recept.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som bartender vara?',
+        svar: 'För bartenders rekommenderas 1 sida. Branschen värderar praktisk erfarenhet framför långa texter. Fokusera på dina senaste 2-3 arbetsplatser med kvantifierade resultat (gästvolym, omsättning, merförsäljning). Om du har relevant certifiering (WSET, bartenderskola), ge den synlighet.'
+      },
+      {
+        fraga: 'Måste jag ha serveringstillstånd för att söka bartenderjobb?',
+        svar: 'Ja, serveringstillstånd är lagkrav för att servera alkohol i Sverige. Kursen tar en dag och kostar ca 1 500-3 000 kr. Nämn alltid ditt serveringstillstånd med utfärdandeår i CV:t – det är ofta första filtret i rekryteringen. Utan det kommer du inte förbi grundkraven.'
+      },
+      {
+        fraga: 'Hur beskriver jag erfarenhet från nattklubb vs restaurang?',
+        svar: 'Nattklubb: Betona volym (300+ gäster/natt), tempo, teamarbete under press och kassaomsättning. Restaurang: Fokusera på gästbemötande, vinkunskap, cocktailkreativitet och merförsäljning. Båda är värdefulla – anpassa vinkeln efter tjänsten du söker.'
+      },
+      {
+        fraga: 'Ska jag inkludera bartenderskola eller är det oväsentligt?',
+        svar: 'Ja, bartenderskolor som European Bartender School eller Barskolan är meriterande – särskilt för juniora bartenders. Det visar att du investerat i yrket och har grundläggande cocktailtekniker. För erfarna bartenders är praktisk erfarenhet viktigare, men certifiering skadar aldrig.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt bartenderarbete om jag inte har exakta siffror?',
+        svar: 'Uppskatta baserat på kunskap: "Ca 150-200 gäster per kväll", "Omsättning ca 100 000 kr/kväll". Använd intervall om du är osäker. Du kan också kvantifiera sittplatser: "Bar med 60 sittplatser" eller teamstorlek: "Del av 4-personers barteam". Ungefärliga siffror är bättre än inga siffror.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar högt tempo utan att bara säga det?',
+        svar: 'Bevisa med kontext och siffror: "Serverade 300+ gäster per natt under helgkvällar på Sturecompagniet med 4-5 bartenders i team". Nämn miljöer kända för högt tryck (nattklubbar, stora event). "Stresstålig" utan bevis är meningslöst – visa volymen du hanterat.'
+      },
+      {
+        fraga: 'Ska jag nämna vinkunskap eller bara cocktails?',
+        svar: 'Ja, vinkunskap är meriterande – särskilt för restauranger och hotellbarer. WSET-certifiering (Wine & Spirit Education Trust) är internationellt erkänt. Nämn nivå: "WSET Level 2" visar mer än grundkunskap. Om du saknar certifiering, beskriv praktisk erfarenhet: "Vinservice i restaurang med 80 viner på listan".'
+      },
+      {
+        fraga: 'Hur beskriver jag merförsäljning i mitt CV?',
+        svar: 'Kvantifiera resultat: "Ökade snittnotan per gäst med 22% genom systematisk merförsäljning av premium-sprit". Beskriv metod: "Rekommenderade cocktails och premiumalternativ baserat på gästens preferenser". Merförsäljning visar affärsförståelse – en egenskap arbetsgivare värderar högt.'
+      },
+      {
+        fraga: 'Ska jag ta med säsongsjobb och kortare anställningar?',
+        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Säsongsbartender – Sommarrestaurang X (juni-augusti 2023), 150+ gäster/dag". Flera kortare anställningar kan visa flexibilitet och erfarenhet från olika miljöer. Undvik dock att lista för många korta jobb utan substans.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för internationella jobb?',
+        svar: 'Skriv på engelska. Lyft fram språkkunskaper, internationella certifieringar (WSET är globalt erkänt) och erfarenhet av internationella gäster: "Served international guests at Grand Hôtel Stockholm". Nämn flexibilitet kring arbetstider och visum/arbetstillstånd om relevant. Internationell erfarenhet är meriterande.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Servitris', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' }
+    ]
   }
 }
 

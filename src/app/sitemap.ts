@@ -219,6 +219,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projektledare-it',
     'fritidspedagog',
     'redovisningsekonom',
+    'bartender',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
