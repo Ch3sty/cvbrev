@@ -664,6 +664,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för kassörska med fokus på kassasystem, kontanthantering och kundservice inom dagligvaruhandel.',
       highlight: ['Extenda och Hoist kassasystem', 'Kvantifierade resultat (150-200 kunder/dag, 0,1% kassadifferens)', 'Merförsäljning och bonuskortregistreringar']
     }
+  },
+  {
+    id: 'butikschef',
+    yrke: 'Butikschef',
+    slug: 'butikschef',
+    kategori: 'service',
+    niva: 'chef',
+    sokvolym: 720,
+    icon: ShoppingCart,
+    gradient: 'from-emerald-500 via-green-600 to-emerald-700',
+    preview: {
+      intro: 'CV för butikschef med fokus på personalansvar, budgetarbete och försäljningstillväxt inom detaljhandeln.',
+      highlight: ['45 MSEK omsättning och 25% tillväxt', 'Personalansvar för 15 medarbetare', 'NKI-förbättring 72%→88% och svinnsänkning']
+    }
   }
 ]
 
@@ -828,7 +842,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  45 yrken
+                  46 yrken
                 </motion.span>
               </h1>
 

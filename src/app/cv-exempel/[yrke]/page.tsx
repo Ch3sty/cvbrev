@@ -11810,6 +11810,283 @@ Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stre
       { yrke: 'Butikssäljare', slug: 'butikssaljare' },
       { yrke: 'Säljare', slug: 'saljare' }
     ]
+  },
+
+  'butikschef': {
+    yrke: 'Butikschef',
+    sokvolym: 720,
+    kategori: 'service',
+
+    metaTitle: 'CV Exempel Butikschef 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för butikschef med personalansvar, budgetansvar och försäljningsresultat. ATS-optimerat med KPI:er och ledarskapsexempel. Tips och mall.',
+
+    seoIntro: `Hur skriver du ett CV som butikschef som visar att du kan driva resultat? Som butikschef räcker det inte att lista ansvarsområden – du måste bevisa din förmåga att öka försäljning, leda personal och nå affärsmål.
+
+Det här exemplet visar hur du strukturerar ett professionellt butikschefs-CV som imponerar på regionchefer och rekryterare. Här ser du hur Marcus kombinerar ledarskap med konkreta försäljningsresultat och KPI:er. CV:t innehåller kvantifierbara resultat från omsättningsökning, personalutveckling och NKI-förbättringar – precis det arbetsgivare söker hos en butikschef.
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljhandel, sport, mode eller dagligvaruhandel. Ett välstrukturerat CV ökar dina chanser att nå intervju för den butikschefstjänst du drömmer om.`,
+
+    intro: 'Butikschef med fokus på försäljningsresultat, personalledning och butiksoptimering. CV-exemplet visar hur du kombinerar ledarskap med affärsresultat.',
+
+    exempelCV: {
+      namn: 'Marcus Bergström',
+      titel: 'Butikschef med fokus på försäljningstillväxt & teamutveckling',
+
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'marcus.bergstrom@email.se',
+        plats: 'Malmö',
+        linkedin: 'linkedin.com/in/marcusbergstrom'
+      },
+
+      profil: 'Resultatdriven butikschef med 8 års erfarenhet inom sport- och modedetaljhandel. Dokumenterad förmåga att öka omsättning med 25% och förbättra NKI från 72% till 88%. Leder team på 15-25 medarbetare med fokus på säljcoaching, schemaoptimering och medarbetarutveckling. Erfarenhet av Sitoo, Pyramid och RetailForce affärssystem.',
+
+      erfarenhet: [
+        {
+          titel: 'Butikschef',
+          arbetsgivare: 'Stadium Malmö Triangeln',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarar för butik med 22 medarbetare och årsomsättning på 45 MSEK',
+            'Ökade omsättningen med 25% genom fokuserad säljcoaching och kampanjoptimering',
+            'Förbättrade NKI från 72% till 88% genom systematiskt kundservicearbete',
+            'Reducerade personalomsättningen från 35% till 18% genom strukturerad onboarding och medarbetarsamtal',
+            'Minskade svinn från 1,8% till 0,9% genom förbättrade rutiner och inventering'
+          ]
+        },
+        {
+          titel: 'Biträdande butikschef',
+          arbetsgivare: 'H&M Emporia',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Stöttade butikschef med personal- och budgetansvar för butik med 35 MSEK i omsättning',
+            'Ledde säljteam på 12 personer och genomförde säljutbildningar med 15% försäljningsökning som resultat',
+            'Ansvarade för schemaläggning och optimering av personalkostnader (sparade 8% på lönekostnader)',
+            'Drev kampanjgenomförande och visual merchandising med mätbara resultat'
+          ]
+        },
+        {
+          titel: 'Säljare / Teamledare',
+          arbetsgivare: 'Intersport Hyllie',
+          period: '2015 – 2017',
+          beskrivning: [
+            'Befordrad från säljare till teamledare inom 12 månader baserat på försäljningsresultat',
+            'Ansvarade för sportskoavdelningen med 20% av butikens totala försäljning',
+            'Mentorskapade 4 nyanställda med fokus på produktkunskap och merförsäljning'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Butiksledarutbildning',
+          skola: 'Svensk Handel',
+          period: '2019',
+          beskrivning: 'Fokus på ledarskap, affärsanalys och retail management.'
+        },
+        {
+          titel: 'Gymnasieexamen, Handelsprogrammet',
+          skola: 'Malmö Borgarskola',
+          period: '2012 – 2015',
+          beskrivning: 'Inriktning marknadsföring och försäljning.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Sitoo POS & lagerhantering (Expert, 4+ år)',
+          'Pyramid affärssystem',
+          'RetailForce personalschema',
+          'Excel (pivottabeller, VLOOKUP)',
+          'Visual merchandising',
+          'Lager- & svinnhantering'
+        ],
+        personliga: [
+          'Säljcoaching & teamutveckling',
+          'Resultatfokus & KPI-styrning',
+          'Konflikthantering',
+          'Rekrytering & onboarding',
+          'Budget- & kostnadsansvar'
+        ]
+      },
+
+      certifieringar: [
+        'Butiksledarutbildning – Svensk Handel (2019)',
+        'Säljcoaching & Ledarskap – Stadium Academy (2021)',
+        'Arbetsrätt för chefer – Almega (2022)',
+        'Brandskyddsansvarig (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'KPI:er som regionchefer söker efter',
+        text: `CV:t nämner specifika affärsmått – omsättning (45 MSEK), NKI (72%→88%), personalomsättning (35%→18%) och svinn (1,8%→0,9%). Dessa är exakt de KPI:er som butikschefer mäts på.
+
+Varför detta fungerar: Regionchefer och rekryterare inom retail jämför kandidater baserat på affärsresultat. "Butikschef på Stadium" säger lite, men "45 MSEK omsättning, 25% tillväxt, NKI 88%" ger omedelbar kontext. KPI:er visar att du förstår hur retail-verksamhet mäts och styrs.`
+      },
+      {
+        rubrik: 'Siffror som visar ledarskapseffekt',
+        text: `Varje erfarenhetspost innehåller konkreta resultat: 25% omsättningsökning, NKI från 72% till 88%, personalomsättning från 35% till 18%, och svinn halverat. Dessa visar inte bara vad Marcus gjort, utan vilken effekt det hade.
+
+Varför detta fungerar: Rekryterare inom detaljhandeln vill se att du kan påverka resultat – inte bara administrera en butik. "Ökade omsättningen med 25%" är starkare än "Ansvarig för försäljning". Siffror gör att du sticker ut från kandidater som bara listar arbetsuppgifter utan mätbara resultat.`
+      },
+      {
+        rubrik: 'Balans mellan affärsresultat och ledarskap',
+        text: `Marcus visar både hårda resultat (omsättning, svinn, kostnadsbesparingar) och mjuka ledarskapskompetenser (säljcoaching, onboarding, medarbetarutveckling) – med konkreta bevis för båda.
+
+Varför detta fungerar: En butikschef måste leverera affärsresultat OCH bygga ett starkt team. Genom att visa "15% försäljningsökning efter säljutbildningar" och "personalomsättning från 35% till 18%" bevisar Marcus att hans ledarskap ger mätbar effekt. Adjektiv som "bra ledare" utan bevis saknar trovärdighet.`
+      },
+      {
+        rubrik: 'Branschsystem som visar operativ kompetens',
+        text: `CV:t nämner Sitoo, Pyramid och RetailForce – affärssystem som är vanliga inom svensk detaljhandel. Specifika systemnamn visar att Marcus kan börja arbeta direkt.
+
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemkunskap. "Erfarenhet av kassasystem" är för vagt – "Sitoo POS & lagerhantering (Expert, 4+ år)" visar exakt vilken kompetens du har. Många kedjor har specifika system och söker kandidater som redan behärskar dem.`
+      },
+      {
+        rubrik: 'Profiltext som säljer på 10 sekunder',
+        text: `Profilen sammanfattar: 8 års erfarenhet + branscher (sport, mode) + specialisering (försäljningstillväxt, teamutveckling) + konkreta resultat (25% omsättningsökning, NKI 72%→88%) + system (Sitoo, Pyramid).
+
+Varför detta fungerar: Regionchefer hanterar många ansökningar och fattar snabba beslut. Marcus profiltext levererar de kritiska komponenterna – erfarenhet, resultat, ledarskap och systemkompetens – inom fyra meningar. På 10 sekunder vet rekryteraren att Marcus är en resultatdriven butikschef.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression',
+        text: `CV:t visar utveckling från Säljare/Teamledare (Intersport) via Biträdande butikschef (H&M) till Butikschef (Stadium) – med tydligt ökande ansvar, omsättning och personalstorlek.
+
+Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit nöjda nog att ge mer ansvar. "Befordrad från säljare till teamledare inom 12 månader" visar drivkraft. För kedjor som söker framtida regionchefer är denna progression ett starkt argument.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt KPI:er för retail',
+        text: `ATS-system och rekryterare söker efter specifika affärsmått. Inkludera de KPI:er som butikschefer mäts på: omsättning, bruttomarginal, NKI, svinn och personalomsättning.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för butikens resultat och personal"
+
+✅ "Butikschef med resultatansvar för 45 MSEK omsättning, NKI 88%, svinn 0,9% och personalomsättning 18%. Ökade försäljningen med 25% genom fokuserad säljcoaching."
+
+Regionchefer fattar beslut baserat på siffror. Om du inte inkluderar KPI:er ser det ut som att du inte vet hur retail mäts – eller att du inte levererat resultat.`
+      },
+      {
+        rubrik: 'Kvantifiera ditt personalansvar',
+        text: `Visa omfattningen av ditt ledarskap med konkreta siffror. Antal medarbetare, befordrade, utbildade och minskad personalomsättning berättar mer än "personalansvar".
+
+**Exempel på före/efter**:
+
+❌ "Personalansvar och schemaläggning"
+
+✅ "Ledde team på 22 medarbetare. Reducerade personalomsättningen från 35% till 18% genom strukturerad onboarding och månatliga utvecklingssamtal. Befordrade 3 medarbetare till teamledare."
+
+Personalomsättning är dyrt – en butikschef som kan behålla personal sparar pengar. Visa att du investerar i teamet och att folk vill stanna.`
+      },
+      {
+        rubrik: 'Visa konkreta försäljningsresultat',
+        text: `Rekryterare vill se att du kan driva försäljning – inte bara administrera. Fokusera på tillväxt, kampanjresultat och merförsäljning med procent och kronor.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för försäljning och kampanjer"
+
+✅ "Ökade omsättningen med 25% (från 36 till 45 MSEK) genom säljcoaching och kampanjoptimering. Förbättrade snittköp med 15% genom merförsäljningsträning."
+
+Butikschefer som visar försäljningstillväxt är attraktiva. Om du inte har exakta siffror, skriv "i storlek 40 MSEK" eller "ökning på cirka 20%".`
+      },
+      {
+        rubrik: 'Anpassa profiltexten efter butikstyp',
+        text: `Din profiltext bör matcha kedjans profil. Mode (H&M, Lindex) betonar visual merchandising, sport (Stadium, Intersport) fokuserar produktkunskap, dagligvaru (ICA, Coop) prioriterar svinn och logistik.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren butikschef som gillar att leda människor"
+
+✅ "Resultatdriven butikschef med 8 års erfarenhet inom sportdetaljhandel. Dokumenterad förmåga att öka omsättning (+25%), förbättra NKI (72%→88%) och utveckla team. Specialiserad på säljcoaching och kampanjoptimering."
+
+Struktur: [Erfarenhet i år] + [Bransch] + [Specialisering] + [Toppresultat] + [Systemkompetens]`
+      },
+      {
+        rubrik: 'Lyft fram ledarskapsutbildningar',
+        text: `Butikschefsrollen kräver dokumenterad ledarskapskompetens. Inkludera utbildningar från kedjans academy, Svensk Handel, Almega eller liknande.
+
+**Exempel på före/efter**:
+
+❌ "Genomgått ledarskapsutbildning"
+
+✅ "Butiksledarutbildning – Svensk Handel (2019)
+Säljcoaching & Ledarskap – Stadium Academy (2021)
+Arbetsrätt för chefer – Almega (2022)"
+
+Kedjornas egna akademier (H&M Academy, Stadium Academy) visar investering från tidigare arbetsgivare. Arbetsrätt är särskilt värdefullt då butikschefer hanterar personalärenden.`
+      },
+      {
+        rubrik: 'Balansera affärsresultat med medarbetarfokus',
+        text: `Butikschefer måste leverera siffror OCH bygga team. Visa både hårda resultat och hur du utvecklar medarbetare – med konkreta bevis för båda.
+
+**Exempel på före/efter**:
+
+❌ "Bra på att motivera och leda personal"
+
+✅ "Ledde säljteam på 22 medarbetare med fokus på individuell coaching. Resulterade i 25% omsättningsökning och NKI från 72% till 88%. Befordrade 3 teamledare internt."
+
+Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid ledarskap till mätbara resultat – det visar att din ledarskapsstil faktiskt fungerar.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som butikschef vara?',
+        svar: 'Ett butikschefs-CV bör vara 1-2 sidor. Med 0-5 års erfarenhet som chef räcker oftast 1 sida. Med längre erfarenhet och flera butikschefsroller kan 2 sidor vara motiverat för att visa progression och resultat. Fokusera på de senaste 10 åren och de roller där du haft resultatansvar.'
+      },
+      {
+        fraga: 'Vilka KPI:er ska jag inkludera i mitt CV?',
+        svar: 'Inkludera de KPI:er du mäts på: omsättning (MSEK), omsättningstillväxt (%), bruttomarginal, NKI (Nöjd Kund Index), svinn (%), personalomsättning och eventuellt konverteringsgrad. Visa både absoluta tal och förändring: "NKI från 72% till 88%" är starkare än bara "NKI 88%". Om du saknar exakta siffror, använd ungefärliga värden.'
+      },
+      {
+        fraga: 'Hur beskriver jag personalansvar i mitt CV?',
+        svar: 'Kvantifiera alltid personalansvar med antal medarbetare, minskad personalomsättning, antal rekryterade/utbildade och eventuellt befordrade. Skriv "Ledde team på 22 medarbetare, reducerade personalomsättningen från 35% till 18%" istället för bara "Personalansvar". Nämn även om du haft budgetansvar för personalkostnader.'
+      },
+      {
+        fraga: 'Ska jag nämna omsättning och budget?',
+        svar: 'Ja, absolut. Omsättning och budgetansvar ger kontext för din erfarenhet. "Butikschef för butik med 45 MSEK i omsättning" säger mer än "Butikschef på Stadium". Om du inte vet exakt, skriv "i storlek 40-50 MSEK" eller "budgetansvar för personal och drift". Regionchefer jämför kandidater baserat på vilken butiksstorlek de hanterat.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är redo för större butik eller regionchef?',
+        svar: 'Visa progression i ansvar och resultat: ökande omsättning, fler medarbetare, förbättrade KPI:er. Inkludera projekt utanför din egen butik: "Stöttade nyöppning av systerbutik", "Deltog i kedjans pilotprojekt". Nämn om du mentorskapade andra butikschefer eller deltog i regionmöten. Framtidsorientering signalerar ambition.'
+      },
+      {
+        fraga: 'Vilka affärssystem ska jag nämna?',
+        svar: 'Nämn specifika system: Sitoo, Pyramid, Extenda Retail, RetailForce (schema), Microsoft Dynamics. Ange erfarenhetsnivå för huvudsystem: "Sitoo POS & lagerhantering (Expert, 4+ år)". Om du implementerat eller utbildat andra i system, lyft det. Matcha systemen mot jobbannonsen – kedjor söker ofta specifik systemkompetens.'
+      },
+      {
+        fraga: 'Hur beskriver jag kampanj- och säljarbete?',
+        svar: 'Kvantifiera alltid kampanjresultat: "Ökade försäljningen med 30% under Black Friday genom förbättrad varuexponering och extraschemalagd personal". Nämn merförsäljning, snittköp och konvertering om du har siffrorna. Visual merchandising-kompetens är värdefullt – beskriv resultat, inte bara att du "ansvarade för exponering".'
+      },
+      {
+        fraga: 'Ska jag inkludera erfarenhet som säljare innan jag blev chef?',
+        svar: 'Ja, men kortfattat. Visa progression: "Befordrad från säljare till teamledare inom 12 månader baserat på försäljningsresultat" visar drivkraft. Fokusera på resultat och befordringar snarare än dagliga uppgifter. Om du har 10+ års erfarenhet, kan tidigare säljarroller sammanfattas på 2-3 rader.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika butikskedjor?',
+        svar: 'Varje kedja har sin profil: H&M/Lindex betonar mode och visual merchandising, Stadium/Intersport fokuserar produktkunskap och sportengagemang, ICA/Coop prioriterar svinn och logistik. Anpassa profiltexten och lyft de KPI:er som är viktigast för kedjan. Nämn rätt affärssystem och inkludera relevanta kedjeutbildningar.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera svåra situationer?',
+        svar: 'Beskriv konkreta exempel med resultat: "Vände underpresterande butik från -10% till +15% på 12 månader", "Hanterade omorganisation med bibehållen NKI", "Ledde butik genom pandemi med minimal personalomsättning". Undvik vaga påståenden som "bra på att hantera press" – visa med exempel vad du faktiskt åstadkom under utmanande förhållanden.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Chef', slug: 'chef' }
+    ]
   }
 }
 
