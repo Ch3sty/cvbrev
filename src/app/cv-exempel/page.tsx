@@ -734,6 +734,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för IT-projektledare med fokus på Agile leverans, budgetansvar och stakeholder management inom bank och försäkring.',
       highlight: ['25 MSEK budget och 98% stakeholder satisfaction', 'Jira, Azure DevOps, MS Project och SAFe', 'PMP, PRINCE2 och certifieringar med årtal']
     }
+  },
+  {
+    id: 'fritidspedagog',
+    yrke: 'Fritidspedagog',
+    slug: 'fritidspedagog',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 720,
+    icon: GraduationCap,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'CV för fritidspedagog med fokus på pedagogisk planering, rastverksamhet och elevdelaktighet inom grund- och fritidsskola.',
+      highlight: ['45 elever och 92% delaktighet i verksamhetsplanering', 'InfoMentor, Unikum och läroplansanknytning', 'Legitimerad med SET och Grön Flagg-certifiering']
+    }
   }
 ]
 
@@ -898,7 +912,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  50 yrken
+                  51 yrken
                 </motion.span>
               </h1>
 

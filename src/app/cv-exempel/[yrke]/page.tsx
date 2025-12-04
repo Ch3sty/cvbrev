@@ -13213,6 +13213,288 @@ Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektle
       { yrke: 'Projektledare', slug: 'projektledare' },
       { yrke: 'Systemutvecklare', slug: 'systemutvecklare' }
     ]
+  },
+
+  'fritidspedagog': {
+    yrke: 'Fritidspedagog',
+    sokvolym: 720,
+    kategori: 'utbildning',
+    metaTitle: 'CV Exempel Fritidspedagog 2025 – Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV-exempel för fritidspedagog med pedagogisk planering, rastverksamhet och dokumentation. ATS-optimerat med InfoMentor, Unikum och fritidspedagogexamen.',
+
+    seoIntro: `Söker du jobb som fritidspedagog och behöver ett CV som visar din pedagogiska kompetens och förmåga att skapa meningsfull fritidsverksamhet? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och rektorer inom svenska grund- och fritidsskolor.
+
+CV:t balanserar pedagogisk kompetens med konkreta verksamhetsresultat som elevtrivsel, delaktighet och dokumentation. Du hittar branschspecifika termer som fritidshem, rastverksamhet, pedagogisk planering och samverkan – precis de nyckelord som skolledare söker efter. Exemplet visar hur du kvantifierar fritidspedagogik: "Ansvarig för 45 inskrivna elever i åk F-3" och "Ökade delaktighet i verksamhetsplanering från 60% till 92%".
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV som fritidspedagog. Kombinera din pedagogiska utbildning med mätbara resultat för att maximera dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för fritidspedagog som visar pedagogisk planering, rastverksamhet och förmåga att skapa trygg och stimulerande fritidsverksamhet. Optimerat för svenska skolor och ATS-system.',
+
+    exempelCV: {
+      namn: 'Emma Karlsson',
+      titel: 'Fritidspedagog med fokus på pedagogisk verksamhet & elevdelaktighet',
+      kontakt: {
+        telefon: '070-789 01 23',
+        epost: 'emma.karlsson@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/emmakarlsson-pedagog'
+      },
+
+      profil: 'Engagerad fritidspedagog med 6+ års erfarenhet av fritidshemsverksamhet i åk F-3 inom kommunal och fristående grundskola. Specialist på pedagogisk planering, rastverksamhet och samverkan mellan fritidshem och skola. Dokumenterad förmåga att öka elevernas delaktighet och trivsel genom strukturerad verksamhet och tematiskt arbete. Legitimerad fritidspedagog med utbildning i Första hjälpen vid barn och Trygg-och-snäll-pedagogik.',
+
+      erfarenhet: [
+        {
+          titel: 'Fritidspedagog / Arbetslagsledare',
+          arbetsgivare: 'Uppsala Kommun – Bergsundsskolan F-6',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för fritidshemsverksamhet med 45 inskrivna elever i åk F-3 – planerar och genomför dagliga aktiviteter enligt läroplansmål',
+            'Arbetslagsledare för team om 4 pedagoger – ansvarig för veckoplanering, APT-underlag och pedagogisk dokumentation',
+            'Ökade elevernas delaktighet i verksamhetsplanering från 60% till 92% genom systematiskt barnråd (Brofäldt-modellen)',
+            'Implementerade rastverksamhet med strukturerade aktiviteter som reducerade konflikter med 45% enligt trivselenkät',
+            'Samverkan med klasslärare i tematiskt arbete – integrerade fritidshemmets innehåll med skolans undervisning i 8 terminsplaneringar'
+          ]
+        },
+        {
+          titel: 'Fritidspedagog',
+          arbetsgivare: 'Internationella Engelska Skolan – Uppsala',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Ansvarig för afterschool-program för 35 elever i åk 1-3 med fokus på språkutveckling och kreativt skapande',
+            'Utvecklade dokumentationsrutiner i InfoMentor som ökade vårdnadshavarinsynen – 95% nöjdhet i föräldraenkät',
+            'Planerade och genomförde lovverksamhet (sommar, höst, sportlov) för 60+ elever med budget 80 000 kr',
+            'Mentorskap för 2 lärarassistenter i pedagogisk dokumentation och läroplansanknytning'
+          ]
+        },
+        {
+          titel: 'Fritidspedagog / Barnskötare',
+          arbetsgivare: 'Fristående Fritidshemmet Solstrålen',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Ansvarig för utemiljön och friluftspedagogik – planerade utomhusaktiviteter för 25 elever året runt',
+            'Befordrad från Barnskötare till Fritidspedagog efter examen 2017',
+            'Bidrog till Grön Flagg-certifiering genom miljöprojekt med eleverna'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Fritidspedagogexamen (180 hp)',
+          skola: 'Uppsala Universitet',
+          period: '2014 – 2017',
+          beskrivning: 'Inriktning mot fritidspedagogik och fritidshemsverksamhet. Examensarbete om elevdelaktighet och barnråd på fritidshem.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Pedagogisk planering: Årshjul, temaarbete, läroplansanknytning',
+          'Dokumentation: InfoMentor, Unikum, SchoolSoft (Expert, 5+ år)',
+          'Rastverksamhet: Konflikthantering, strukturerade aktiviteter',
+          'Utvecklingssamtal: IUP-stöd, vårdnadshavarkontakt',
+          'Specialpedagogik: Anpassningar för NPF-elever',
+          'Utomhuspedagogik: Friluftsliv, Grön Flagg-arbete'
+        ],
+        personliga: [
+          'Arbetslagsledning (4 pedagoger)',
+          'Elevsamtal och relationsskapande',
+          'Samverkan med klasslärare och specialpedagog',
+          'Föräldrakommunikation och dokumentation'
+        ]
+      },
+
+      certifieringar: [
+        'Legitimerad Fritidspedagog – Skolverket (2017)',
+        'Första hjälpen vid barn – Röda Korset (2024)',
+        'Trygg-och-snäll-pedagogik (SET) (2023)',
+        'Grön Flagg-handledare (2022)',
+        'Barnkonventionen i praktiken – SKR (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Nämn alltid antalet inskrivna elever och åldersgrupp – det visar verksamhetens omfattning',
+      'Lista specifika dokumentationsverktyg: InfoMentor, Unikum, SchoolSoft – inte bara "digital dokumentation"',
+      'Visa progression från barnskötare/lärarassistent till fritidspedagog/arbetslagsledare',
+      'Inkludera legitimation och relevanta certifieringar med årtal – de visar professionell status',
+      'Kvantifiera resultat: elevdelaktighet, trivselenkäter, konfliktreduktion',
+      'Betona samverkan mellan fritidshem och skola – det är centralt i läroplanen'
+    ],
+
+    statistik: [
+      { label: 'Genomsnittlig lön för fritidspedagog', varde: '30-35K/mån', beskrivning: 'Sverige 2024' },
+      { label: 'Andel skolor som använder InfoMentor/Unikum', varde: '78%', beskrivning: 'Kommunala grundskolor' },
+      { label: 'Genomsnittligt antal elever per avdelning', varde: '35-45', beskrivning: 'Fritidshem åk F-3' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen pedagogiska kompetenser',
+        text: `CV:t nämner konkreta verktyg som **InfoMentor**, **Unikum** och **SchoolSoft** tillsammans med branschspecifika termer som **fritidshemsverksamhet**, **rastverksamhet**, **pedagogisk planering** och **barnråd**.
+
+Varför detta fungerar: Rekryteringssystem filtrerar efter exakta pedagogiska termer. "InfoMentor (Expert, 5+ år)" matchar bättre än "digital dokumentation". Kombinationen dokumentationsverktyg + läroplansanknytning + certifieringar visar fullständig fritidspedagogisk kompetens som rektorer söker. ATS rankar CV:n med specifika termer högre.`
+      },
+      {
+        rubrik: 'Kvantifierade pedagogiska resultat som imponerar',
+        text: `CV:t levererar konkreta siffror: **45 inskrivna elever**, **delaktighet ökad från 60% till 92%**, och **konflikter reducerade med 45%**. Varje erfarenhetspost innehåller mätbara verksamhetsresultat.
+
+Varför detta fungerar: "Erfaren fritidspedagog" säger ingenting. "Ansvarig för 45 elever med 92% delaktighet" bevisar att du kan driva verksamhet som faktiskt fungerar. Rektorer kan direkt bedöma din kapacitet genom elevantal och trivselresultat. Konfliktsiffror visar att du skapar trygg miljö – en kärnkompetens för fritidshem.`
+      },
+      {
+        rubrik: 'Balans mellan pedagogik och ledarskap',
+        text: `CV:t kombinerar pedagogiska kompetenser som **tematiskt arbete** och **läroplansanknytning** med ledarskapsfokuserade resultat som **arbetslagsledare för 4 pedagoger**, **APT-underlag** och **mentorskap för lärarassistenter**.
+
+Varför detta fungerar: Fritidspedagogik handlar om både elevarbete och teamsamarbete. Du visar att du inte bara planerar aktiviteter – du kan leda ett arbetslag och samverka med klasslärare. Arbetslagsledarroll signalerar att arbetsgivare litar på dig att ta ansvar för verksamheten, inte bara genomföra andras planer.`
+      },
+      {
+        rubrik: 'Certifieringar som validerar pedagogisk expertis',
+        text: `CV:t listar **Legitimerad Fritidspedagog (2017)**, **Första hjälpen vid barn (2024)** och **SET-pedagogik (2023)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
+
+Varför detta fungerar: Legitimation är ofta formellt krav för fritidspedagogtjänster. Första hjälpen visar säkerhetstänk. SET och Grön Flagg visar att du aktivt utvecklar din pedagogiska verktygslåda. Årtal visar att certifieringarna är aktuella – en Första hjälpen-kurs från 2018 är mindre trygg än en från 2024.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten öppnar med "Engagerad fritidspedagog med 6+ års erfarenhet" och inkluderar nyckelord som **fritidshemsverksamhet**, **rastverksamhet**, **elevdelaktighet** och **legitimerad**. Max 4 meningar, under 80 ord.
+
+Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre. När första meningen innehåller "6+ år", "åk F-3" och "kommunal och fristående" får rektorn omedelbart ett värdelöfte. Konkreta utfall som "öka elevernas delaktighet" i profiltexten gör att du sticker ut bland kandidater som bara skriver "engagerad pedagog som gillar barn".`
+      },
+      {
+        rubrik: 'Tydlig progression från barnskötare till arbetslagsledare',
+        text: `Erfarenheten visar utveckling: från **Barnskötare** med utemiljöansvar och friluftspedagogik, till **Fritidspedagog** med dokumentationsansvar och lovverksamhet, till **Arbetslagsledare** med personalansvar för 4 pedagoger och systematiskt barnråd.
+
+Varför detta fungerar: Progressionen visar att du har vuxit från praktiskt elevarbete till pedagogiskt ledarskap. Befordran efter examen signalerar att arbetsgivare såg potential. Arbetslagsledarroll visar att du är redo för förstelärartjänst eller biträdande rektor inom fritidshem – naturliga nästa karriärsteg.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Ange alltid elevantal och åldersgrupp',
+        text: `Konkreta siffror visar verksamhetens omfattning. Rektorer vill veta hur många elever du hanterat och i vilka åldrar.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för fritidshemsverksamhet på lågstadiet"
+
+✅ "Ansvarig för fritidshemsverksamhet med **45 inskrivna elever i åk F-3** – planerar och genomför dagliga aktiviteter enligt Lgr22"
+
+Elevantal och åldersgrupp ger rektorn direkt förståelse för din erfarenhetsnivå.`
+      },
+      {
+        rubrik: 'Lista dokumentationsverktyg med erfarenhetsnivå',
+        text: `De flesta skolor använder digitala dokumentationssystem. Nämn specifika verktyg och hur länge du använt dem.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av digital dokumentation och pedagogisk planering"
+
+✅ "Dokumentation: **InfoMentor, Unikum, SchoolSoft (Expert, 5+ år)** – ansvarig för IUP-underlag och läroplansanknuten dokumentation"
+
+Specifika systemnamn matchar jobbannonsernas krav och visar att du kan börja direkt.`
+      },
+      {
+        rubrik: 'Kvantifiera elevdelaktighet och trivsel',
+        text: `Fritidshemmets kvalitet mäts ofta genom elevernas delaktighet och trivsel. Använd enkätresultat och systematisk uppföljning.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade med elevdelaktighet och barnråd"
+
+✅ "Ökade elevernas delaktighet i verksamhetsplanering från **60% till 92%** genom systematiskt barnråd (Brofäldt-modellen)"
+
+Konkreta förbättringar visar att ditt arbete ger mätbara resultat – inte bara goda intentioner.`
+      },
+      {
+        rubrik: 'Inkludera legitimation och certifieringar med årtal',
+        text: `Legitimation är ofta ett krav för tjänsten. Relevanta certifieringar visar professionell utveckling.
+
+**Exempel på före/efter**:
+
+❌ "Legitimerad fritidspedagog, Första hjälpen-utbildad"
+
+✅ "**Legitimerad Fritidspedagog – Skolverket (2017)**, Första hjälpen vid barn – Röda Korset (2024), SET-pedagogik (2023)"
+
+Årtal visar att certifieringarna är aktuella och att du aktivt underhåller din kompetens.`
+      },
+      {
+        rubrik: 'Beskriv samverkan med skola och klasslärare',
+        text: `Enligt läroplanen ska fritidshemmet komplettera skolan. Visa konkret hur du samverkat med klasslärare.
+
+**Exempel på före/efter**:
+
+❌ "God samverkan med övrig skolpersonal"
+
+✅ "Samverkan med klasslärare i tematiskt arbete – integrerade fritidshemmets innehåll med skolans undervisning i **8 terminsplaneringar** (NO-teman, läsprojekt, matematiklekar)"
+
+Konkreta samverkansprojekt visar att du förstår fritidshemmets roll i helheten.`
+      },
+      {
+        rubrik: 'Lyft fram rastverksamhet och konflikthantering',
+        text: `Rastverksamhet är en central del av fritidspedagogens arbete. Visa hur du strukturerat rasterna för att minska konflikter.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av rastverksamhet och konflikthantering"
+
+✅ "Implementerade rastverksamhet med strukturerade aktiviteter som reducerade konflikter med **45%** enligt trivselenkät. Rastvärdsschema för 200+ elever med aktivitetszoner."
+
+Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som fritidspedagog vara?',
+        svar: 'För fritidspedagoger rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna fritidspedagoger med arbetslagsledarroll eller specialuppdrag kan behöva 2 sidor, men var koncis – fokusera på de mest relevanta verksamhetsresultaten.'
+      },
+      {
+        fraga: 'Är legitimation ett krav för fritidspedagogtjänster?',
+        svar: 'Legitimation krävs för tillsvidareanställning som fritidspedagog enligt Skollagen. Utan legitimation kan du få tidsbegränsad anställning (max 1 år) om huvudmannen bedömer att du har rätt kompetens. Nämn alltid din legitimation tydligt – det är ofta första filtret i rekryteringen.'
+      },
+      {
+        fraga: 'Hur beskriver jag erfarenhet utan kvantifierbara resultat?',
+        svar: 'Fritidshemsverksamhet kan kvantifieras: antal elever, delaktighet i barnråd (%), konflikter enligt trivselenkät, vårdnadshavarnöjdhet, genomförda teman/projekt. Om du saknar siffror, beskriv omfattning: "Planerade lovverksamhet för 60+ elever med budget 80 000 kr" eller "Ansvarig för utemiljön med 25 elever dagligen".'
+      },
+      {
+        fraga: 'Ska jag inkludera min barnskötarerfarenhet?',
+        svar: 'Ja, särskilt om den visar progression. Beskriv utvecklingen: "Barnskötare → Fritidspedagog (efter examen) → Arbetslagsledare". Tidigare erfarenhet inom förskola eller fritidshem visar kontinuitet i pedagogiskt arbete. Framställ det som en medveten karriärväg, inte en slumpmässig bakgrund.'
+      },
+      {
+        fraga: 'Vilka dokumentationsverktyg ska jag nämna?',
+        svar: 'InfoMentor, Unikum och SchoolSoft är de vanligaste i svenska skolor. Nämn de system du använt med erfarenhetsnivå: "InfoMentor (Expert, 5+ år)". Matcha mot jobbannonsen om möjligt – om skolan använder Unikum, lyft fram det explicit. Digital dokumentation är ofta ett krav i moderna fritidshem.'
+      },
+      {
+        fraga: 'Hur visar jag samverkan med skola och klasslärare?',
+        svar: 'Beskriv konkreta samverkansprojekt: "Integrerade fritidshemmets temaarbete med NO-undervisningen – 8 gemensamma terminsplaneringar". Nämn deltagande i elevhälsoteam, IUP-arbete eller utvecklingssamtal. Samverkan mellan fritidshem och skola är central i Lgr22 – visa att du förstår fritidshemmets roll i helheten.'
+      },
+      {
+        fraga: 'Hur beskriver jag rastverksamhet i mitt CV?',
+        svar: 'Rastverksamhet är en central kompetens. Kvantifiera resultat: "Strukturerad rastverksamhet som reducerade konflikter med 45%". Beskriv organisation: "Rastvärdsschema för 200+ elever med aktivitetszoner (boll, kreativt, lugna lekar)". Nämn systematik: "Rastvärdsträffar varje vecka för uppföljning".'
+      },
+      {
+        fraga: 'Ska jag ta med volontärarbete eller vikariat?',
+        svar: 'Ja, om det är relevant och visar pedagogisk erfarenhet. Sommarjobb på fritidsläger, vikariat i fritidshem och volontärarbete med barn stärker din profil, särskilt om du är nyexaminerad. Beskriv omfattning: "Sommarläger för 40 barn (4 veckor)" och dina ansvarsområden.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för kommunal vs fristående skola?',
+        svar: 'Kommunala skolor: Betona Lgr22, systematiskt kvalitetsarbete, GDPR-kunskap och samverkan med elevhälsa. Fristående skolor: Lyft fram flexibilitet, profil-specifik kompetens (Montessori, Waldorf, IB), och föräldrakommunikation. Båda värderar elevfokus och pedagogisk planering.'
+      },
+      {
+        fraga: 'Hur visar jag progression inom fritidspedagogik?',
+        svar: 'Visa utveckling i ansvar: "Barnskötare (25 elever) → Fritidspedagog (35 elever, dokumentationsansvar) → Arbetslagsledare (45 elever, personalansvar för 4 pedagoger)". Inkludera specialuppdrag: barnrådansvarig, rastverksamhetskoordinator, Grön Flagg-handledare. Förstelärare eller biträdande rektor inom fritidshem är naturliga nästa steg.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Barnskötare', slug: 'barnskotare' },
+      { yrke: 'Elevassistent', slug: 'elevassistent' }
+    ]
   }
 }
 
