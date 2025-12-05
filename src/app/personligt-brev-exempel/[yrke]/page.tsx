@@ -6279,10 +6279,8 @@ Erik Sundberg`
       telefon: '073-456 78 90',
       foretag: 'Stockholms stad',
       roll: 'Boendestödjare',
-      datum: '12 december 2024'
-    },
-
-    brevText: `Jag söker tjänsten som boendestödjare inom socialpsykiatrin i Hägersten. Att arbeta med människor som behöver stöd i vardagen är för mig både meningsfullt och utvecklande. Er verksamhets fokus på självständighet och delaktighet stämmer väl med min egen syn på brukarinriktat arbete.
+      datum: '12 december 2024',
+      brevText: `Jag söker tjänsten som boendestödjare inom socialpsykiatrin i Hägersten. Att arbeta med människor som behöver stöd i vardagen är för mig både meningsfullt och utvecklande. Er verksamhets fokus på självständighet och delaktighet stämmer väl med min egen syn på brukarinriktat arbete.
 
 Under tre år som boendestödjare i Stockholms stad har jag arbetat med vuxna med psykisk funktionsnedsättning. Jag har stöttat brukare i allt från matlagning och ekonomi till sociala kontakter och myndighetskontakt. Ett av mina mest givande uppdrag var att hjälpa en brukare som tidigare inte lämnade sin lägenhet att delta i daglig verksamhet två dagar i veckan. Efter tre månaders strukturerat arbete klarade han fem av sju vardagsmoment självständigt.
 
@@ -6290,7 +6288,8 @@ Jag arbetar utifrån lågaffektivt bemötande och tydliggörande pedagogik. Dess
 
 Ert boendestöd i Hägersten tilltalar mig för att ni kombinerar strukturerat arbetssätt med stort utrymme för individuell anpassning. Jag uppskattar att ni arbetar i team och har regelbunden handledning. Det skapar trygghet både för brukarna och för personalen.
 
-Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min förmåga att bygga förtroendefulla relationer. Jag ser fram emot att berätta mer om hur jag kan stärka ert team. Välkommen att kontakta mig för en intervju.`,
+Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min förmåga att bygga förtroendefulla relationer. Jag ser fram emot att berätta mer om hur jag kan stärka ert team. Välkommen att kontakta mig för en intervju.`
+    },
 
     varforDetFungerar: [
       {
