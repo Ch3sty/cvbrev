@@ -51,7 +51,7 @@
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.483.0",
     "mammoth": "^1.9.0",
-    "next": "^15.2.4",
+    "next": "^16.0.7",
     "next-mdx-remote": "^5.0.0",
     "openai": "^4.87.3",
     "pdf-parse": "^1.1.1",
