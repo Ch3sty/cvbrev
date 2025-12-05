@@ -281,6 +281,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'specialistsjukskoterska',
     'loneadministrator',
     'teamledare',
+    'enhetschef',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
