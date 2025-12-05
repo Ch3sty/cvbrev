@@ -5500,6 +5500,123 @@ Jag är övertygad om att min erfarenhet från både BB-vård och mödrahälsov�
       { yrke: 'Läkare', slug: 'lakare' },
       { yrke: 'Kurator', slug: 'kurator' }
     ]
+  },
+
+  'specialistsjukskoterska': {
+    yrke: 'Specialistsjuksköterska',
+    sokvolym: 250,
+    metaTitle: 'Personligt brev Specialistsjuksköterska – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som specialistsjuksköterska. Se exempel med IVA-erfarenhet, respiratorvård, kliniska resultat och certifieringar.',
+    intro: 'Se hur en erfaren specialistsjuksköterska skriver ett övertygande personligt brev för intensivvårdstjänst. Exemplet visar hur du balanserar teknisk expertis med patientcentrerad omvårdnad och lyfter konkreta resultat från din IVA-erfarenhet.',
+    seoIntro: `Ett personligt brev för specialistsjuksköterska inom intensivvård kräver en balans mellan teknisk expertis och empatisk omvårdnad. Rekryterare söker kandidater som behärskar avancerad medicinteknisk utrustning, kan fatta snabba kliniska bedömningar och samtidigt leda och handleda kollegor. Det här exemplet visar hur du lyfter din specialistkompetens utan att drunkna i jargong.\n\nExemplet demonstrerar konkreta patientresultat (28% kortare vårdtider genom protokollimplementering), specifik teknisk kompetens (respiratorvård, CRRT, PiCCO) och ledarskap genom handledning. Nyckelord som "specialistsjuksköterska", "IVA", "intensivvård" och certifieringar (ACLS) hjälper brevet passera ATS-system samtidigt som det visar mänsklig omvårdnad.\n\nAnvänd de konkreta tipsen nedan för att anpassa ditt brev till den specifika IVA-enheten du söker till. Fokusera på kvantifierade resultat, teamarbete och din förmåga att hantera kritiska situationer med lugn och precision.`,
+
+    exempelBrev: {
+      namn: 'Emma Lindström',
+      adress: 'Karlbergsvägen 89, 113 35 Stockholm',
+      epost: 'emma.lindstrom@email.se',
+      telefon: '073-456 78 90',
+      stad: 'Stockholm',
+      arbetsgivare: 'Karolinska Universitetssjukhuset',
+      roll: 'Specialistsjuksköterska Intensivvård',
+      brevText: `Jag söker tjänsten som specialistsjuksköterska inom intensivvård på Karolinska Universitetssjukhuset i Solna. Med fem års erfarenhet från IVA och en specialistutbildning inriktad på avancerad intensivvård ser jag fram emot att bidra till er avdelnings excellenta patientvård. Er satsning på personcentrerad vård i kombination med modern medicinteknik stämmer väl överens med min syn på intensivvårdsarbete.
+
+Under min tid som specialistsjuksköterska på Akademiska sjukhuset i Uppsala har jag arbetat med patienter i kritiska tillstånd som kräver respiratorvård, CRRT och avancerad hemodynamisk monitorering. Jag ledde implementeringen av ett nytt protokoll för tidig mobilisering av IVA-patienter, vilket resulterade i 28% kortare vårdtider och minskad förekomst av IVA-förvärvad svaghet. I rollen som klinisk handledare har jag utbildat åtta nya specialistsjuksköterskor i avancerad omvårdnad och klinisk bedömning. Min förmåga att fatta snabba beslut i akuta situationer har varit avgörande vid flera komplexa patientfall där jag samordnat vård mellan intensivvård, operation och andra specialiteter.
+
+Jag behärskar respiratorvård med SERVO-U och Hamilton-ventilatorer, hantering av CRRT vid njursvikt, samt avancerad monitorering med PiCCO-system. Jag arbetar dagligen i journalsystemet TakeCare och dokumenterar enligt nationella riktlinjer för intensivvård. Min specialistutbildning inkluderade fördjupning inom patientsäkerhet och vårdplanering, vilket gör att jag systematiskt identifierar risker och implementerar förebyggande åtgärder. Jag har certifiering i ACLS och uppdaterar kontinuerligt mina kunskaper genom Svensk Intensivvårds webinarier.
+
+Karolinska Universitetssjukhuset är ledande inom forskning och utveckling av intensivvård i Norden. Er delaktighet i internationella studier kring sepsis och ARDS, samt ert arbete med simuleringsträning för vårdteam, gör att jag ser möjligheter till både klinisk utveckling och evidensbaserad praktik. Jag uppskattar er kultur där teamarbete och kontinuerligt lärande är centralt.
+
+Jag är övertygad om att min erfarenhet från avancerad intensivvård och mitt engagemang för patientsäkerhet skulle stärka ert team. Jag ser fram emot att diskutera hur jag kan bidra till Karolinska Universitetssjukhusets IVA-vård.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera dina patientresultat',
+        text: 'Rekryterare vill se konkreta bevis på din kompetens. Istället för "ansvarig för respiratorvård" skriv "vårdat 50+ respiratorpatienter med SERVO-U, inga vårdrelaterade komplikationer". Eller istället för "arbetat med tidig mobilisering" visa resultat: "implementerade mobiliseringsprotokoll som sänkte vårdtider med X%". Tänk genom dina senaste projekten, vilka resultat uppnådde du?'
+      },
+      {
+        rubrik: 'Nämn specifika system och utrustning',
+        text: 'IVA-enheter använder olika system. Kolla jobbannonsen och enhetens profil. Om de har SERVO-U och du jobbat med det, skriv exakt "SERVO-U". Om de inte specificerar, lista de mest relevanta systemen du behärskar (t.ex. Hamilton, PiCCO, CRRT, TakeCare). Det visar att du kan starta snabbt utan lång introduktion. Men ljug aldrig om kompetens du saknar.'
+      },
+      {
+        rubrik: 'Visa både teknisk och empatisk kompetens',
+        text: 'IVA-sjuksköterskor behöver både. Undvik att bara lista medicintekniska färdigheter utan sammanhang. Koppla tekniken till patientnytta: "Genom noggrann PiCCO-monitorering identifierade jag tidig cirkulatorisk instabilitet, vilket möjliggjorde snabb intervention". Eller nämn hur du stöttar anhöriga i svåra situationer.'
+      },
+      {
+        rubrik: 'Framhäv certifieringar och vidareutbildningar',
+        text: 'ACLS, PALS, ATLS eller andra relevanta certifieringar ska alltid nämnas. Om du har specialistkompetens inom specifika områden (traumavård, neurologisk IVA, postoperativ vård) framhäv det. Nämn också forskningsprojekt eller kvalitetsarbete du deltagit i. IVA-enheter värdesätter kollegor som bidrar till verksamhetsutveckling.'
+      },
+      {
+        rubrik: 'Beskriv kritiska situationer med konkreta exempel',
+        text: 'Istället för "van att arbeta under press" ge ett kort exempel: "Under vårdens mest krävande situationer, som multipla traumapatienter samtidigt, behåller jag lugnet och prioriterar rätt". Eller nämn hur du hanterat komplexa patienter med multiorgansvikt. Konkreta scenarion visar verklig erfarenhet.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Tydlig specialisering och relevant erfarenhet',
+        beskrivning: 'Exemplet öppnar med specifik IVA-erfarenhet och specialistutbildning, vilket direkt visar att kandidaten är kvalificerad. Att nämna "5 år från IVA" och "specialistutbildning inom intensivvård" ger omedelbar trovärdighet och hjälper brevet passera ATS-system.'
+      },
+      {
+        titel: 'Kvantifierade patientresultat skapar trovärdighet',
+        beskrivning: 'Istället för vaga påståenden visar exemplet konkreta resultat: "28% kortare vårdtider" genom protokollimplementering. Rekryterare ser att kandidaten inte bara utför rutinarbete utan aktivt förbättrar vården. Siffror gör påståenden trovärdiga och mätbara.'
+      },
+      {
+        titel: 'Branschspecifika system och certifieringar',
+        beskrivning: 'Genom att nämna SERVO-U, Hamilton, CRRT, PiCCO och TakeCare visar kandidaten konkret systemkompetens som IVA-enheter kräver. ACLS-certifiering styrker ytterligare. Dessa nyckelord är ofta avgörande för ATS-matchning.'
+      },
+      {
+        titel: 'Ledarskap genom handledning och teamarbete',
+        beskrivning: 'Att ha "utbildat 8 nya specialistsjuksköterskor" visar både pedagogisk förmåga och senioritet. IVA-enheter söker ofta kollegor som kan dela kunskap och stötta teamet. Det visar att kandidaten trivs med ansvar.'
+      },
+      {
+        titel: 'Balans mellan teknisk kompetens och empatisk vård',
+        beskrivning: 'Exemplet undviker att bara lista tekniska färdigheter. Det kopplar all teknik till patientnytta och teamsamarbete. Rekryterare ser att kandidaten förstår att IVA-vård handlar om både avancerad teknologi och omsorg.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur visar jag teknisk IVA-kompetens utan att drunkna i jargong?',
+        a: 'Nämn specifika system och tekniker (SERVO-U, CRRT, PiCCO) men koppla alltid till patientnytta eller resultat. Istället för en lång lista skriv: "Behärskar avancerad respiratorvård (SERVO-U, Hamilton) vilket möjliggjorde säker vård av komplexa lungsviktspatienter". Balansen visar expertis utan att skrämma bort icke-kliniska rekryterare.'
+      },
+      {
+        q: 'Ska jag nämna alla certifieringar jag har?',
+        a: 'Nämn de mest relevanta: ACLS alltid, PALS om enheten har pediatriska patienter, ATLS om det är trauma-IVA. Om du har nischcertifieringar (ECMO, neurologisk IVA) och de passar enheten, nämn dem. Undvik att lista certifieringar som inte är relevanta för intensivvård.'
+      },
+      {
+        q: 'Hur balanserar jag mellan teknisk kompetens och empatisk omvårdnad?',
+        a: 'Visa båda genom konkreta exempel. Tekniskt: "Monitorerar PiCCO och justerar behandling proaktivt". Empatiskt: "Stöttar anhöriga genom svåra beslut och förklarar komplex vård begripligt". IVA kräver både högteknologisk expertis och förmåga att vårda sårbara patienter med värme.'
+      },
+      {
+        q: 'Vad ska jag skriva om jag inte har 5 års IVA-erfarenhet?',
+        a: 'Fokusera på kvalitet över kvantitet. Om du har 2 års erfarenhet men jobbat brett (respirator, dialys, postoperativ) framhäv det. Nämn vidareutbildningar, certifieringar och hur du snabbt lär dig nytt. Visa också handledarerfarenhet eller kvalitetsarbete även om du är relativt ny.'
+      },
+      {
+        q: 'Hur visar jag ledarskap som specialistsjuksköterska?',
+        a: 'Ledarskap inom IVA handlar ofta om handledning och teamsamarbete. Skriv om kollegor du utbildat, protokoll du utvecklat, eller hur du stöttar teamet under kritiska situationer. Om du varit representant i kvalitetsgrupper eller deltagit i förbättringsarbete, nämn det.'
+      },
+      {
+        q: 'Vilka nyckelord letar ATS-system efter för IVA-tjänster?',
+        a: 'Vanliga: "specialistsjuksköterska", "intensivvård", "IVA", "ACLS", "respiratorvård", "CRRT", "PiCCO", specifika journalsystem som "TakeCare". Kolla jobbannonsen och använd exakt samma terminologi i ditt brev för bästa matchning.'
+      },
+      {
+        q: 'Ska jag nämna forskningserfarenhet eller kvalitetsarbete?',
+        a: 'Ja, om du har det. Universitetssjukhus och större IVA-enheter värdesätter evidensbaserad vård och forskningskompetens. Nämn studier du deltagit i, kvalitetsregister du arbetat med, eller förbättringsprojekt du lett. Det visar att du tänker bortom rutinarbetet.'
+      },
+      {
+        q: 'Hur anpassar jag brevet för olika typer av IVA?',
+        a: 'Läs om enhetens profil. Allmän IVA: bred kompetens och flexibilitet. Kirurgisk IVA: postoperativ övervakning, drän, thorax. Neurologisk IVA: ICP-monitorering, stroke, trauma. Anpassa dina exempel efter enhetens fokus och lyft relevant erfarenhet.'
+      }
+    ],
+
+    kategori: 'vard',
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Läkare', slug: 'lakare' },
+      { yrke: 'Barnmorska', slug: 'barnmorska' }
+    ]
   }
 }
 
