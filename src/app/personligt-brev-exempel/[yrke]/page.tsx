@@ -6260,6 +6260,150 @@ Erik Sundberg`
       { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
       { yrke: 'IT-konsult', slug: 'it-konsult' }
     ]
+  },
+
+  'boendestod': {
+    yrke: 'Boendestödjare',
+    sokvolym: 170,
+    metaTitle: 'Personligt Brev Boendestödjare – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se exempel på personligt brev för boendestödjare. Lyft din erfarenhet av LSS, SoL och lågaffektivt bemötande. Anpassade mallar för socialpsykiatri.',
+
+    intro: 'Ett bra personligt brev som boendestödjare visar din förmåga att skapa trygghet, främja självständighet och arbeta relationsbaserat. Arbetsgivare inom socialpsykiatri och LSS-boenden söker personer som förstår brukarnas behov, kan hantera utmanande situationer med lugn och har erfarenhet av dokumentation enligt gällande lagstiftning.',
+
+    seoIntro: 'Personligt brev för boendestödjare kräver balans mellan mjuka värden och konkret kompetens. Du måste visa att du bryr dig om människor och samtidigt behärskar de strukturer och regelverk som styr verksamheten. Det här exemplet visar hur Emma beskriver sin erfarenhet från socialpsykiatrin på ett sätt som tilltalar rekryterare.\n\nBrevet lyfter fram konkreta resultat som ökad självständighet hos brukarna, specifika metoder som lågaffektivt bemötande och tydliggörande pedagogik, samt kunskap om journalsystem. Istället för att bara skriva att hon är empatisk visar Emma det genom exempel på hur hon anpassar sitt stöd efter individuella förmågor och dagsform.\n\nStrategin att nämna både teamsamarbete och självständigt arbete fungerar särskilt bra för boendestödjarrollen, där du ofta växlar mellan att jobba ensam med brukare och koordinera med kollegor, sjukvård och myndigheter. Använd tipsen nedan för att anpassa brevet till den tjänst du söker.',
+
+    exempelBrev: {
+      namn: 'Emma Lindberg',
+      stad: 'Hägersten',
+      epost: 'emma.lindberg@email.se',
+      telefon: '073-456 78 90',
+      foretag: 'Stockholms stad',
+      roll: 'Boendestödjare',
+      datum: '12 december 2024'
+    },
+
+    brevText: `Jag söker tjänsten som boendestödjare inom socialpsykiatrin i Hägersten. Att arbeta med människor som behöver stöd i vardagen är för mig både meningsfullt och utvecklande. Er verksamhets fokus på självständighet och delaktighet stämmer väl med min egen syn på brukarinriktat arbete.
+
+Under tre år som boendestödjare i Stockholms stad har jag arbetat med vuxna med psykisk funktionsnedsättning. Jag har stöttat brukare i allt från matlagning och ekonomi till sociala kontakter och myndighetskontakt. Ett av mina mest givande uppdrag var att hjälpa en brukare som tidigare inte lämnade sin lägenhet att delta i daglig verksamhet två dagar i veckan. Efter tre månaders strukturerat arbete klarade han fem av sju vardagsmoment självständigt.
+
+Jag arbetar utifrån lågaffektivt bemötande och tydliggörande pedagogik. Dessa metoder har hjälpt mig att hantera situationer där brukare blir oroliga eller agerar utåt. Jag anpassar mitt stöd efter varje individs förmågor och dagsform. Dokumentation i Procapita och genomförandeplaner enligt SoL och LSS ingår i mina dagliga rutiner. Jag har också erfarenhet av att samverka med psykiatrin, habilitering och socialtjänst kring enskilda brukare.
+
+Ert boendestöd i Hägersten tilltalar mig för att ni kombinerar strukturerat arbetssätt med stort utrymme för individuell anpassning. Jag uppskattar att ni arbetar i team och har regelbunden handledning. Det skapar trygghet både för brukarna och för personalen.
+
+Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min förmåga att bygga förtroendefulla relationer. Jag ser fram emot att berätta mer om hur jag kan stärka ert team. Välkommen att kontakta mig för en intervju.`,
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta resultat med brukare',
+        beskrivning: 'Exemplet "fem av sju vardagsmoment självständigt efter tre månader" visar mätbar påverkan. Det gör Emmas arbete greppbart för rekryterare som vill se att kandidater faktiskt åstadkommer förändring, inte bara utför uppgifter.'
+      },
+      {
+        titel: 'Specifika metoder namnges',
+        beskrivning: 'Lågaffektivt bemötande och tydliggörande pedagogik är vedertagna arbetssätt inom socialpsykiatrin. Att Emma nämner dem visar att hon har teoretisk grund, inte bara praktisk erfarenhet. Det ger trovärdighet hos erfarna chefer.'
+      },
+      {
+        titel: 'Dokumentationskompetens lyfts',
+        beskrivning: 'Procapita, genomförandeplaner och LSS/SoL-referenser visar att Emma behärskar de administrativa kraven. Många boendestödjare underskattar vikten av dokumentation, så detta särskiljer henne från andra sökande.'
+      },
+      {
+        titel: 'Balans mellan team och självständighet',
+        beskrivning: 'Brevet nämner både samverkan med externa aktörer och självständigt brukararbete. Det matchar verkligheten för boendestödjare som ofta växlar mellan ensamma hembesök och koordinering med vårdkedjan.'
+      },
+      {
+        titel: 'Verksamhetsanpassning som visar research',
+        beskrivning: 'Emma refererar till att Hägersten kombinerar struktur med individuell anpassning och har regelbunden handledning. Det visar att hon läst på om arbetsplatsen och inte skickat ett generiskt brev.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Beskriv dina metoder konkret',
+        text: 'Skriv inte bara att du arbetar lågaffektivt. Förklara kort hur du använder metoden i praktiken, exempelvis att du sänker rösten och ger tid istället för att ställa krav i stressade lägen. Rekryterare vill se att du förstår metoden, inte bara känner till namnet.'
+      },
+      {
+        rubrik: 'Lyft fram dokumentationserfarenhet',
+        text: 'Boendestöd innebär mycket administration. Nämn vilka journalsystem du använt och att du skriver genomförandeplaner. Om du har erfarenhet av uppföljningsmöten med socialtjänsten, ta med det. Chefer vet att dokumentation ofta blir eftersatt och värdesätter kandidater som tar den på allvar.'
+      },
+      {
+        rubrik: 'Visa resultat i brukarnas vardag',
+        text: 'Istället för att skriva att du stöttar brukare, beskriv vad som förändrades. Kanske började någon handla själv efter att ni övat tillsammans, eller minskade antalet avbokade tider hos psykiatrin. Konkreta förbättringar visar din faktiska påverkan.\n\nAnvänd gärna tidsramar: "efter två månader", "inom första kvartalet". Det gör resultaten mer trovärdiga.'
+      },
+      {
+        rubrik: 'Förklara hur du hanterar svåra situationer',
+        text: 'Boendestödjarrollen innebär ibland hotfulla eller oberäkneliga lägen. Ge ett kort exempel på hur du agerat när en brukare varit upprörd, utan att bryta sekretessen. Det kan vara så enkelt som att beskriva att du stannade kvar, lyssnade och väntade ut situationen.'
+      },
+      {
+        rubrik: 'Anpassa efter LSS eller SoL-inriktning',
+        text: 'LSS-boenden och socialpsykiatri inom SoL har delvis olika fokus. LSS handlar ofta om livslång funktionsnedsättning medan SoL-insatser kan vara mer rehabiliterande. Anpassa ditt brev efter vilken lagstiftning verksamheten arbetar under och lyft relevant erfarenhet.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Behöver jag utbildning för att söka som boendestödjare?',
+        a: 'Oftast krävs gymnasieutbildning, gärna inom vård eller omsorg. Undersköterska, socialpedagog eller behandlingsassistent är vanliga bakgrunder. Vissa arbetsgivare anställer personer med annan erfarenhet om de har rätt personliga egenskaper och är villiga att utbilda sig på jobbet.'
+      },
+      {
+        q: 'Ska jag nämna att jag har erfarenhet av psykisk ohälsa själv?',
+        a: 'Det är frivilligt och kräver eftertanke. Egen erfarenhet kan ge värdefull förståelse, men fokusera på din professionella kompetens i brevet. Om du väljer att nämna det, gör det kort och koppla till hur det stärkt din förmåga att möta brukare med empati.'
+      },
+      {
+        q: 'Hur beskriver jag erfarenhet från LSS i ett SoL-jobb?',
+        a: 'Lyft de överförbara kompetenserna: relationsbyggande, anpassat stöd, dokumentation och samverkan. Förklara kort skillnaden du ser mellan verksamheterna och varför du är intresserad av att byta inriktning. Nyfikenhet och vilja att lära värderas högt.'
+      },
+      {
+        q: 'Vad ska jag skriva om jag saknar journalsystemserfarenhet?',
+        a: 'Var ärlig men lösningsfokuserad. Skriv att du har god datorvana och lär dig nya system snabbt. Om du använt andra dokumentationssystem i tidigare jobb, nämn dem. De flesta arbetsgivare ger introduktion i sitt specifika journalsystem.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för boendestödjare vara?',
+        a: 'Håll dig till en A4-sida, cirka 300-400 ord. Rekryterare inom vård och omsorg läser många ansökningar och uppskattar koncisa brev som snabbt visar relevant erfarenhet. Prioritera kvalitet framför kvantitet och ta bort generiska fraser.'
+      },
+      {
+        q: 'Ska jag beskriva min människosyn i brevet?',
+        a: 'Ja, men visa den genom exempel istället för att deklarera den. Istället för att skriva att du tror på alla människors potential, berätta om en gång du hjälpte någon att nå ett mål de själva inte trodde var möjligt. Det är mer övertygande.'
+      },
+      {
+        q: 'Hur hanterar jag glapp i CV:t när jag söker boendestödjarjobb?',
+        a: 'Fokusera på relevanta erfarenheter i brevet och ta inte upp glappen där. Om du har gjort något under tiden som styrker dig som kandidat, exempelvis volontärarbete eller studier, väv in det naturligt. Arbetsgivare inom omsorg är ofta förstående för varierade livsvägar.'
+      },
+      {
+        q: 'Kan jag söka boendestödjarjobb utan körkort?',
+        a: 'Det beror på tjänsten. Mångaverksamheter kräver B-körkort för hembesök, men boenden med brukare på plats behöver det inte alltid. Läs annonsen noga. Om körkort nämns som meriterande snarare än krav kan du söka och förklara hur du löser transport.'
+      }
+    ],
+
+    cta: {
+      text: 'Vill du skapa ett professionellt personligt brev för boendestödjare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      buttonText: 'Skapa ditt brev nu',
+      buttonLink: '/verktyg/personligt-brev'
+    },
+
+    verktyg: [
+      {
+        namn: 'CV-Mallar för vård och omsorg',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar anpassade för boendestödjare och omsorgsyrken'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din karriär inom boendestöd från vår AI-coach'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för boendestödjare på 5 minuter'
+      }
+    ],
+
+    kategori: 'vard-omsorg',
+    relaterade: [
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Kurator', slug: 'kurator' }
+    ]
   }
 }
 
