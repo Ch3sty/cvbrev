@@ -6689,6 +6689,149 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
       { yrke: 'Städare', slug: 'stadare' },
       { yrke: 'Student', slug: 'student' }
     ]
+  },
+
+  'logistikassistent': {
+    yrke: 'Logistikassistent',
+    sokvolym: 140,
+    metaTitle: 'Personligt Brev Logistikassistent – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se exempel på personligt brev för logistikassistent. Lyft din erfarenhet av orderhantering, WMS och affärssystem. Anpassade mallar för logistik och lagerverksamhet.',
+
+    intro: 'Ett professionellt personligt brev för logistikassistent visar att du förstår rollens kärna: att hålla ordning på godsflöden och säkerställa leveranser i tid. Arbetsgivare söker kandidater som behärskar orderhantering, affärssystem och kommunikation med flera parter samtidigt. Det här exemplet är skrivet för en stor logistikorganisation men fungerar lika bra för e-handelsföretag, grossister eller tillverkningsindustri. Du får se hur du lyfter fram dina administrativa styrkor och visar att du kan bidra till effektiva leveranskedjor.',
+
+    seoIntro: 'Personligt brev för logistikassistent handlar om att visa dina administrativa färdigheter inom godsflöde och orderhantering. Det här exemplet visar hur Emma kombinerar systemkunskap i M3 med konkreta resultat som minskade leveransförseningar. Du får se hur du beskriver allt från fraktsedlar till kundkommunikation på ett sätt som imponerar på logistikchefer.\n\nBrevet lyfter fram mätbara resultat som 120 dagliga order och 15 procents minskning av försenade leveranser. Emma nämner specifika verktyg som WMS och affärssystem, vilket signalerar att hon kan börja bidra direkt. Att hon utbildat kollegor i nytt system visar dessutom ledaregenskaper och samarbetsförmåga som värdesätts i logistikroller.\n\nStrategin att lyfta företagets hållbarhetssatsningar fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna arbetsstil till organisationens behov av struktur visar Emma att hon förstår rollen. Använd tipsen nedan för att anpassa ditt brev efter den typ av logistikföretag du söker till.',
+
+    exempelBrev: {
+      namn: 'Emma Lindqvist',
+      stad: 'Västra Frölunda, Göteborg',
+      epost: 'emma.lindqvist@email.se',
+      telefon: '073-456 78 90',
+      foretag: 'PostNord Logistics',
+      roll: 'Logistikassistent',
+      datum: '6 januari 2025',
+      brevText: `Jag söker tjänsten som logistikassistent hos PostNord Logistics. Med två års erfarenhet av lageradministration och orderhantering vill jag bidra till ert arbete med att leverera gods i rätt tid. Ert fokus på hållbara transporter och digitalisering av logistikkedjor stämmer väl med min egen ambition att utvecklas inom branschen.
+
+Hos Svensk Cater administrerade jag dagligen 120 inkommande och utgående order i affärssystemet M3. Jag ansvarade för leveransbevakning och kontaktade transportörer vid avvikelser, vilket minskade försenade leveranser med 15 procent under mitt första halvår. När lagret införde ett nytt WMS deltog jag i testfasen och utbildade tre kollegor i det nya systemet.
+
+Jag arbetar strukturerat med fraktsedlar, följesedlar och tulldeklarationer för import. Excel och affärssystem är mina dagliga verktyg och jag behärskar VLOOKUP, pivottabeller och automatiserade rapporter. Att hålla artikelregistret uppdaterat och stämma av lager mot order är rutinuppgifter jag utför noggrant. Kommunikation med kunder, speditörer och säljare faller mig naturligt.
+
+PostNord tilltalar mig för att ni kombinerar tradition med modern logistik. Jag följer era satsningar på fossilfria transporter och ser hur logistikassistenter bidrar till hela kedjan. Att arbeta i en stor organisation med tydliga processer passar min noggranna arbetsstil. Dessutom uppskattar jag möjligheten att växa inom koncernen.
+
+Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfarenheter matchar era behov.`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta ordervolymer visar kapacitet',
+        beskrivning: '120 order dagligen ger logistikchefen en tydlig bild av Emmas erfarenhet. Siffror är svåra att överdriva och visar att hon hanterar administrativa uppgifter i hög takt. Det skiljer henne från sökande som bara skriver att de arbetat med orderhantering.'
+      },
+      {
+        titel: 'Mätbar förbättring av leveransprecision',
+        beskrivning: 'Att minska försenade leveranser med 15 procent visar att Emma inte bara utför uppgifter utan förbättrar processer. Logistikföretag mäter leveransprecision noga och uppskattar kandidater som bidrar till nyckeltal. Det signalerar affärsförståelse.'
+      },
+      {
+        titel: 'Systemkunskap signalerar snabb inskolning',
+        beskrivning: 'Att nämna M3, WMS och Excel med specifika funktioner visar att Emma behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
+      },
+      {
+        titel: 'Utbildat kollegor visar ledaregenskaper',
+        beskrivning: 'Att Emma utbildade tre kollegor i nytt system visar att hon förstår processer tillräckligt bra för att lära ut. Logistikföretag uppskattar medarbetare som kan stötta teamet vid systembyten eller nyanställningar.'
+      },
+      {
+        titel: 'Hållbarhetsfokus matchar företagets profil',
+        beskrivning: 'Emma nämner PostNords satsning på fossilfria transporter. Det visar att hon gjort research och att hennes värderingar stämmer med företagets. Arbetsgivare uppskattar kandidater som visar genuint intresse för verksamheten.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Nämn specifika affärssystem du behärskar',
+        text: 'Logistikföretag använder ofta system som SAP, M3, Oracle eller branschspecifika WMS-lösningar. Skriv vilka du arbetat i och vad du gjort i dem. Om du bara använt ett system, beskriv att du snabbt lär dig nya. Systemkunskap är ofta avgörande vid rekrytering.'
+      },
+      {
+        rubrik: 'Visa din Excel-kompetens konkret',
+        text: 'Excel är centralverktyget för logistikassistenter. Nämn funktioner du behärskar som VLOOKUP, pivottabeller eller makron. Beskriv hur du använt Excel för att skapa rapporter, analysera leveransdata eller automatisera uppgifter. Undvik vaga formuleringar som "goda Excel-kunskaper".\n\nOm du har erfarenhet av Power BI eller liknande analysverktyg, lyft det också.'
+      },
+      {
+        rubrik: 'Beskriv hur du hanterar avvikelser',
+        text: 'Logistik handlar ofta om att lösa problem. Ge ett exempel på hur du hanterat en försenad leverans, felaktigt gods eller lagerbrist. Fokusera på hur du löste situationen och vad du lärde dig. Arbetsgivare söker proaktiva problemlösare, inte de som bara följer rutin.'
+      },
+      {
+        rubrik: 'Lyft fram din kommunikationsförmåga',
+        text: 'Logistikassistenter kommunicerar med säljare, kunder, transportörer och lagerarbetare dagligen. Beskriv hur du koordinerar mellan olika parter och hanterar motstridiga prioriteringar. Nämn om du har erfarenhet av kundservice eller leveransbevakning. Det visar att du kan vara navet i verksamheten.'
+      },
+      {
+        rubrik: 'Anpassa brevet efter bransch och företagsstorlek',
+        text: 'Logistik ser olika ut på ett litet e-handelsföretag jämfört med en global speditör. Läs jobbkraven noga och anpassa dina exempel. Om företaget betonar tempo, lyft din effektivitet. Om de betonar noggrannhet, fokusera på kvalitet och felfrihet i dina leveranser.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vad gör en logistikassistent?',
+        a: 'Du arbetar administrativt med orderhantering, leveransbevakning och dokumentation. Typiska uppgifter är att registrera inkommande gods, skapa fraktsedlar, kontakta transportörer och uppdatera lagersaldo. Du är länken mellan lager, sälj och kund och säkerställer att varor levereras i tid.'
+      },
+      {
+        q: 'Vilka system bör jag kunna som logistikassistent?',
+        a: 'De vanligaste är SAP, M3 (Movex), Microsoft Dynamics och olika WMS-system. Excel är grundläggande. Olika företag använder olika system, så fokusera på att du snabbt lär dig nya. Om du har erfarenhet av specifika system, nämn dem i brevet.'
+      },
+      {
+        q: 'Behöver jag truckkort som logistikassistent?',
+        a: 'Det beror på rollen. Renodlade kontorsroller kräver sällan truckkort, men om du ibland ska arbeta i lagret kan det vara en fördel. Kolla jobbkraven noga. Att nämna truckkort i brevet skadar aldrig, även om det inte krävs.'
+      },
+      {
+        q: 'Hur visar jag att jag är strukturerad i brevet?',
+        a: 'Ge konkreta exempel. Beskriv hur du håller ordning på order, följer upp avvikelser eller säkerställer att dokumentation är komplett. Nämn om du skapat egna rutiner, checklistor eller rapporter. Undvik att bara skriva att du är "noggrann".'
+      },
+      {
+        q: 'Vad är skillnaden mellan logistikassistent och lagerarbetare?',
+        a: 'Logistikassistenter arbetar främst administrativt med order, dokumentation och systemhantering. Lagerarbetare fokuserar på fysisk hantering av gods som plockning, packning och truck. I praktiken överlappar rollerna ofta på mindre företag.'
+      },
+      {
+        q: 'Ska jag nämna utbildning inom logistik?',
+        a: 'Ja, om du har relevant utbildning som YH-logistik eller gymnasiets logistikprogram. Nämn också relevanta kurser eller certifieringar. Om du saknar formell utbildning, fokusera på praktisk erfarenhet och visa att du förstår logistikprocesser.'
+      },
+      {
+        q: 'Hur beskriver jag erfarenhet från kundservice?',
+        a: 'Kundserviceerfarenhet är värdefull för logistikassistenter. Du är van att hantera kunder, lösa problem och kommunicera tydligt. Beskriv hur du hanterat leveransfrågor, reklamationer eller spårning av paket. Det visar att du kan vara kundens kontakt.'
+      },
+      {
+        q: 'Hur långt ska personligt brev för logistikassistent vara?',
+        a: 'Håll det till en A4-sida, cirka 300-400 ord. Logistikchefer uppskattar koncisa brev som snabbt visar att du förstår rollen och har relevant erfarenhet. Fokusera på systemkunskap, orderhantering och problemlösning.'
+      }
+    ],
+
+    cta: {
+      text: 'Vill du skapa ett professionellt personligt brev för logistikassistent på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      buttonText: 'Skapa ditt brev nu',
+      buttonLink: '/verktyg/personligt-brev'
+    },
+
+    verktyg: [
+      {
+        namn: 'CV-Mallar för logistik',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar anpassade för logistikassistent och lagerroller'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din karriär inom logistik från vår AI-coach'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för logistikassistent på 5 minuter'
+      }
+    ],
+
+    kategori: 'logistik',
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Lagerchef', slug: 'lagerchef' },
+      { yrke: 'Administratör', slug: 'administrator' }
+    ]
   }
 }
 
