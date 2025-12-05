@@ -280,6 +280,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'barnmorska',
     'specialistsjukskoterska',
     'loneadministrator',
+    'teamledare',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
