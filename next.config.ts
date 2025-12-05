@@ -13,12 +13,7 @@ const nextConfig: NextConfig = {
   
   // Output file tracing root för att undvika lockfile varningar
   outputFileTracingRoot: process.cwd(),
-  
-  // Aktivera ESLint för att diagnostisera build-problem
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  
+
   // Tillåt TypeScript errors i builds (om det behövs)
   typescript: {
     ignoreBuildErrors: false,
