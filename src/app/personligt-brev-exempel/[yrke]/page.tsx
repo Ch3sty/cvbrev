@@ -5383,6 +5383,123 @@ Med gedigen erfarenhet av lagerstyrning och dokumenterad förmåga att leverera 
       { yrke: 'Projektledare', slug: 'projektledare' },
       { yrke: 'Truckförare', slug: 'truckforare' }
     ]
+  },
+
+  'barnmorska': {
+    yrke: 'Barnmorska',
+    sokvolym: 280,
+    metaTitle: 'Personligt brev Barnmorska – Exempel & mall 2025',
+    metaDescription: 'Skriv ett övertygande personligt brev som barnmorska. Se exempel med förlossningsvård, CTG-tolkning, amningsstöd och mätbara resultat från BB-vård.',
+    intro: 'Det här personliga brevet visar hur Emma Lindström söker en barnmorsketjänst på Danderyds sjukhus. Hon har 5 års erfarenhet från förlossningsvård och presenterar konkreta resultat från sitt arbete: antal förlossningar hon assisterat vid, förbättringsarbete inom amningsstöd och specifika medicinska färdigheter. Brevet fungerar eftersom det kombinerar kvantifierade resultat med beskrivningar av hur hon arbetar med både akuta situationer och relationsskapande vård.',
+    seoIntro: `När du söker jobb som barnmorska räcker det inte med att lista utbildning och arbetsplatser. Rekryterare på förlossningsavdelningar och mödravårdscentraler vill se konkreta resultat från ditt arbete: Hur många förlossningar har du assisterat vid? Vilka medicinska interventioner behärskar du? Hur arbetar du med patientsäkerhet? Det här exemplet visar hur Emma Lindström presenterar 5 års erfarenhet från förlossningsvård med specifika siffror som visar både hennes kliniska kompetens och förmåga att förbättra vårdkvalitet.\n\nEmma kvantifierar sin erfarenhet (350 normala förlossningar, 80 komplicerade fall) och visar konkreta resultat från sitt förbättringsarbete (ökade fullammningsfrekvensen från 67% till 82%). Hon lyfter tekniska färdigheter som CTG-tolkning och perinealsuturering, samtidigt som hon beskriver hur hon arbetar med kulturkompetent vård och stödjer födande i olika situationer. Brevet kombinerar medicinsk expertis med empati och respekt för varje patients unika behov.\n\nAnvänd det här exemplet som mall när du söker barnmorsketjänster inom förlossningsvård, mödrahälsovård eller BB-vård. Anpassa siffrorna till din egen erfarenhet och lägg till specifika kompetenser som matchar tjänsten du söker. Läs vidare för konkreta tips om hur du skriver ett personligt brev som får dig kallad till intervju.`,
+
+    exempelBrev: {
+      namn: 'Emma Lindström',
+      adress: 'Mörbyvägen 45, 182 32 Danderyd',
+      epost: 'emma.lindstrom@email.se',
+      telefon: '073-245 89 67',
+      stad: 'Danderyd',
+      arbetsgivare: 'Danderyds sjukhus',
+      roll: 'Barnmorska',
+      brevText: `Jag söker tjänsten som barnmorska på BB-avdelningen med stort engagemang för kvinnors hälsa under graviditet, förlossning och eftervård. Med fem års erfarenhet från förlossningsvård och ett genuint intresse för evidensbaserad vård ser jag fram emot att bidra till er avdelnings höga vårdkvalitet och patientcentrerade arbetssätt.
+
+Under mina år på Danderyds sjukhus har jag handlett över 350 normala förlossningar och assisterat vid 80 komplicerade förlossningar, vilket gett mig bred erfarenhet av både fysiologiska och högrisksituationer. Jag utvecklade ett strukturerat amningsstöd som ökade fullammningsfrekvensen vid utskrivning från 67% till 82% under en sexmånadersperiod. Genom att implementera tidig hud-mot-hud-kontakt och individuellt anpassad rådgivning kunde jag stärka föräldrars självförtroende redan på BB-avdelningen. Mitt arbete inom mödrahälsovården har omfattat både normala graviditeter och riskgraviditeter, där noggrann CTG-tolkning och proaktiv kommunikation med obstetriker varit centralt för patientsäkerheten.
+
+Jag behärskar Obstetrix journalsystem och har dokumenterat över 1200 vårdtillfällen med hög kvalitet och patientsäkerhetsfokus. Min kompetens inkluderar avancerad CTG-tolkning, perinealsuturering, akut omhändertagande vid förlossningskomplikationer samt psykosocialt stöd vid traumatiska förlossningsupplevelser. Jag arbetar evidensbaserat och följer Socialstyrelsens riktlinjer samt WHO:s rekommendationer för normal förlossning. Kollegialt samarbete med obstetriker, neonatalavdelningen och kuratorsteamet är en naturlig del av min vardag.
+
+Era satsningar på familjecentrerad vård och kontinuitet genom hela vårdkedjan tilltalar mig starkt. Jag uppskattar er implementering av Centering Pregnancy-modellen inom mödrahälsovården och era låga interventionsfrekvenser som speglar respekt för fysiologiska processer. Min värdegrund om kvinnans autonomi och rätt till informerat samtycke stämmer väl överens med er vårdfilosofi.
+
+Jag är övertygad om att min erfarenhet från både BB-vård och mödrahälsovård, kombinerat med mitt engagemang för kontinuerlig kompetensutveckling, skulle tillföra värde till ert team. Jag ser fram emot en personlig intervju där jag kan berätta mer om hur jag kan bidra till er verksamhet.`
+    },
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din förlossningserfarenhet konkret',
+        text: 'Skriv hur många förlossningar du assisterat vid, både normala och komplicerade. Specificera gärna typer av interventioner: sugklocka, akuta kejsarsnitt, handledning av bristningar. Om du arbetat på mödravårdscentral, ange antal gravida du följt genom hela graviditeten. Siffror ger rekryteraren omedelbar bild av din erfarenhetsnivå. "Omfattande erfarenhet" säger ingenting. "250 förlossningar varav 60 med medicinsk intervention" ger konkret information som går att bedöma.'
+      },
+      {
+        rubrik: 'Visa resultat från ditt förbättringsarbete',
+        text: 'Har du arbetat med amningsstöd? Skriv vilken effekt det hade på fullammningsfrekvens eller mammors upplevelse av stödet. Deltagit i implementering av nya rutiner? Beskriv vad som förändrades. Barnmorskor förväntas bidra till verksamhetsutveckling, inte bara utföra kliniskt arbete. Konkreta förbättringssiffror visar att du tänker systematiskt och arbetar evidensbaserat.'
+      },
+      {
+        rubrik: 'Beskriv både tekniska färdigheter och relationell förmåga',
+        text: 'Lista medicinska kompetenser som CTG-tolkning, perinealsuturering, blodtappning, bäckenundersökning. Men glöm inte relationella färdigheter: hur skapar du trygghet för den födande? Hur kommunicerar du i akuta lägen? Rekryterare söker barnmorskor som behärskar både den medicinska och den mänskliga delen av yrket. Visa att du förstår att båda är lika viktiga.'
+      },
+      {
+        rubrik: 'Nämn journalsystem och dokumentationsrutiner',
+        text: 'Skriv vilka journalsystem du arbetat i (Obstetrix, Cosmic, Melior) och vilken typ av dokumentation du är van vid (partogram, CTG-bedömningar, riskbedömningar). God journalföring är avgörande för kontinuitet och säkerhet i vården. Att du behärskar detta redan från start sparar tid vid introduktion och visar professionalism.'
+      },
+      {
+        rubrik: 'Anpassa till specifik verksamhet och avdelning',
+        text: 'Söker du till förlossning? Betona akut omhändertagande och arbete under press. Till mödravårdscentral? Fokusera på graviditetskontroller, hälsofrämjande samtal och riskbedömning. BB-vård? Lyft amningsstöd, postpartumuppföljning och omvårdnad av nyfödda. Olika barnmorskeroller kräver olika kompetenser. Läs jobbannonsen noga och matcha dina erfarenheter mot vad de faktiskt söker.'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierar klinisk erfarenhet med konkreta siffror',
+        beskrivning: 'Emma skriver "350 normala förlossningar och 80 komplicerade fall" istället för "omfattande erfarenhet av förlossningsvård". Det ger rekryteraren omedelbar förståelse för hennes erfarenhetsnivå. Siffror är särskilt viktiga inom vården där klinisk volym direkt påverkar kompetens och patientsäkerhet.'
+      },
+      {
+        titel: 'Visar mätbara resultat från förbättringsarbete',
+        beskrivning: 'Att skriva "ökade fullammningsfrekvensen från 67% till 82%" bevisar att Emma inte bara utför sitt arbete utan aktivt förbättrar vårdkvalitet. Rekryterare söker barnmorskor som arbetar evidensbaserat och kan bidra till avdelningens utveckling.'
+      },
+      {
+        titel: 'Kombinerar teknisk kompetens med empati',
+        beskrivning: 'Emma beskriver både medicinska färdigheter (CTG-tolkning, perinealsuturering, akut omhändertagande) och relationell förmåga (kulturkompetent vård, stöd i olika födelsesituationer). Det speglar barnmorskans dubbla roll: medicinsk expert och empatisk stödjare.'
+      },
+      {
+        titel: 'Nämner specifika journalsystem och arbetsmetoder',
+        beskrivning: 'Att skriva "Obstetrix-journalföring" och "arbetar enligt nationella riktlinjer" visar att Emma är van vid strukturerad dokumentation och evidensbaserad vård. Specifika verktyg och metoder signalerar professionalism och erfarenhet från moderna vårdmiljöer.'
+      },
+      {
+        titel: 'Beskriver arbete i teamet och med olika yrkesgrupper',
+        beskrivning: 'Emma nämner samarbete med läkare, undersköterskor och andra barnmorskor. Förlossningsvård kräver sömlöst teamarbete, särskilt i akuta situationer. Att visa förståelse för olika roller och förmåga att kommunicera tydligt under press är avgörande.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur beskriver jag erfarenhet från både förlossning och mödravård?',
+        a: 'Dela upp din erfarenhet i tydliga sektioner. För förlossningsvård: antal förlossningar, typer av interventioner, arbete med akuta situationer. För mödravård: antal gravida du följt, specifika kontroller du utfört. Skriv procent eller andel av din tjänst om du kombinerat rollerna.'
+      },
+      {
+        q: 'Vilka siffror och resultat ska jag inkludera som barnmorska?',
+        a: 'Inkludera antal förlossningar (totalt och fördelning normal/komplicerad), specifika interventioner du utfört, resultat från förbättringsarbete (amningsfrekvens, patientnöjdhet). Om du arbetat på mödravårdscentral: antal gravida du följt per år. Undvik opålitliga siffror du inte kan backa upp.'
+      },
+      {
+        q: 'Hur visar jag att jag arbetar patientsäkert utan att låta generisk?',
+        a: 'Beskriv konkreta rutiner du följer: strukturerad CTG-tolkning enligt STAN, tydlig dokumentation av riskfaktorer, användning av checklistor vid akuta kejsarsnitt. "Jag arbetar alltid patientsäkert" säger ingenting. "Jag använder strukturerad CTG-bedömning och dokumenterar avvikelser omedelbart" visar hur du faktiskt arbetar.'
+      },
+      {
+        q: 'Ska jag nämna specifika medicinska interventioner jag behärskar?',
+        a: 'Ja, definitivt. Lista konkreta färdigheter: perinealsuturering (grad 1-2 eller även högre grader?), anlägga venös infart, bäckenundersökning, fosterövervakning. Specificera gärna nivå eller volym om relevant. Tekniska färdigheter är avgörande för rekryterare att bedöma din kliniska kompetens.'
+      },
+      {
+        q: 'Hur beskriver jag arbete med komplicerade förlossningar?',
+        a: 'Var specifik om vilka komplikationer du hanterat: postpartumblödning, skulderdystoci, förlossningsstopp, preeklampsi. Beskriv hur du identifierar risker tidigt, kommunicerar med team och agerar enligt nationella riktlinjer. Nämn gärna samarbete med obstetriker vid komplicerade fall.'
+      },
+      {
+        q: 'Hur visar jag empati och relationell kompetens i brevet?',
+        a: 'Beskriv konkreta situationer där relationell kompetens varit avgörande: stöd till personer med tidigare förlossningstrauma, kulturkompetent vård, kommunikation vid svåra besked. Undvik fluffiga ord som "empatisk". Skriv istället hur du faktiskt arbetar med att skapa trygghet.'
+      },
+      {
+        q: 'Vilka vidareutbildningar är viktiga att nämna för barnmorskor?',
+        a: 'Nämn specialistkompetenser som är relevanta för tjänsten: akut omhändertagande (NLS, ALSO, MOET), ultraljudsutbildning, handledarkompetens, laktationskonsult (IBCLC). Skriv årtal och nivå om relevant. Fokusera på vidareutbildningar som stärker din kompetens för den specifika tjänsten.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev som barnmorska vara?',
+        a: 'Håll brevet till en A4-sida, cirka 300-400 ord. Inkludera både klinisk erfarenhet och förbättringsarbete. Se till att patientsäkerhetsfokus och evidensbaserat arbetssätt framgår tydligt. Kvalitet går före kvantitet, men ha med tillräckligt för att visa din kompetensbredd.'
+      }
+    ],
+
+    kategori: 'vard',
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Läkare', slug: 'lakare' },
+      { yrke: 'Kurator', slug: 'kurator' }
+    ]
   }
 }
 
