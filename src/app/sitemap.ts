@@ -284,6 +284,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'enhetschef',
     'produktchef',
     'boendestod',
+    'barista',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
