@@ -1470,7 +1470,7 @@ Emma Andersson`
     ],
 
     relaterade: [
-      { yrke: 'Förskollärare', slug: 'forskollare' },
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
       { yrke: 'Elevassistent', slug: 'elevassistent' },
       { yrke: 'Fritidspedagog', slug: 'fritidspedagog' }
     ]
