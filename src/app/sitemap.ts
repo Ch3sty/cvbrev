@@ -293,6 +293,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'vardadministrator',
     'kundtjanstmedarbetare',
     'terminalarbetare',
+    'administrativ-assistent',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
