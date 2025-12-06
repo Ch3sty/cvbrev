@@ -7126,6 +7126,153 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
       { yrke: 'Säljare', slug: 'saljare' },
       { yrke: 'Kundtjänst', slug: 'kundtjanst' }
     ]
+  },
+
+  'hotellvard': {
+    yrke: 'Hotellvärd',
+    sokvolym: 100,
+    metaTitle: 'Personligt Brev Hotellvärd – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se exempel på personligt brev för hotellvärd. Lyft din erfarenhet av gästservice, incheckning och problemlösning. Mallar för hotell, konferensanläggningar och besöksnäring.',
+
+    intro: 'Ett personligt brev för hotellvärd visar att du förstår gästupplevelsens betydelse och kan hantera många uppgifter samtidigt. Arbetsgivare söker kandidater som kombinerar servicekänsla med stresstålighet och noggrannhet. Det här exemplet är skrivet för ett större stadshotell men fungerar lika bra för boutiquehotell, konferensanläggningar eller resorts. Du får se hur du lyfter fram din förmåga att skapa minnesvärd service i varje gästmöte.',
+
+    seoIntro: 'Personligt brev för hotellvärd handlar om att visa servicekänsla och förmåga att hantera gäster i alla situationer. Det här exemplet visar hur Sara kombinerar erfarenhet av incheckning och gästservice med konkreta resultat i form av höga omdömen och effektiv problemlösning. Du får se hur du beskriver hotellsystem, språkkunskaper och merförsäljning på ett sätt som imponerar på hotellchefer.\n\nBrevet lyfter fram Saras erfarenhet av 120 incheckningar per dag under högsäsong och gästbetyg på 4,8 av 5 på Booking.com. Hon nämner specifika system som Opera PMS och Mews, vilket signalerar att hon kan börja arbeta direkt. Att hon behärskar engelska och tyska visar dessutom att hon klarar internationella gäster utan problem.\n\nStrategin att lyfta hotellets satsning på hållbarhet och personlig service fungerar utmärkt för att visa genuint intresse. Genom att koppla sin problemlösande stil till organisationens gästlöfte visar Sara att hon förstår rollens kärna. Använd tipsen nedan för att anpassa ditt brev efter den typ av hotell du söker till.',
+
+    exempelBrev: {
+      namn: 'Sara Lindgren',
+      stad: 'Södermalm, Stockholm',
+      epost: 'sara.lindgren@email.se',
+      telefon: '072-345 67 89',
+      foretag: 'Scandic Grand Central',
+      roll: 'Hotellvärd/Receptionist',
+      datum: '6 januari 2025',
+      brevText: `Jag söker tjänsten som hotellvärd på Scandic Grand Central. Med tre års erfarenhet av gästservice på fullservicehotell och ett genuint intresse för att skapa minnesvärda upplevelser ser jag möjligheten att bidra till ert team. Er satsning på hållbar turism och personlig service stämmer väl med mina värderingar.
+
+På Hotel Kung Carl har jag ansvarat för reception och gästservice i ett team om sex personer. Under högsäsong hanterar jag upp till 120 incheckningar per dag och våra gästbetyg på Booking.com ligger stabilt på 4,8 av 5. Jag har löst reklamationer som resulterat i att missnöjda gäster blivit återkommande stamgäster. Förra året vann jag intern utmärkelse för bästa merförsäljning av rumsuppgraderingar och tilläggspaket.
+
+Jag arbetar flytande i Opera PMS och har god erfarenhet av Mews. Bokningshantering, kassaavstämning och fakturaunderlag sköter jag noggrant. Jag talar svenska, engelska och tyska, vilket underlättar kommunikationen med internationella gäster. När problem uppstår, som överbokningar eller sena ankomster, behåller jag lugnet och hittar lösningar som gör gästen nöjd.
+
+Det som lockar mig med Scandic är ert tydliga fokus på gästupplevelsen i kombination med hållbarhetsarbete. Jag uppskattar att ni satsar på medarbetarutveckling och att värdar får ansvar att lösa situationer självständigt. Läget vid Centralstationen innebär ett högt tempo som passar min arbetsstil.
+
+Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidra till er verksamhet.`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta volymsiffror visar kapacitet',
+        beskrivning: '120 incheckningar per dag under högsäsong ger hotellchefen en tydlig bild av Saras erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på att hantera många gäster samtidigt. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av reception".'
+      },
+      {
+        titel: 'Höga gästbetyg bevisar servicekvalitet',
+        beskrivning: '4,8 av 5 på Booking.com är ett starkt bevis på Saras förmåga att skapa nöjda gäster. Hotell mäter framgång i gästomdömen och söker aktivt kandidater som bidrar till höga betyg. Mätbara resultat är svåra att överdriva.'
+      },
+      {
+        titel: 'Systemkunskap i Opera och Mews',
+        beskrivning: 'Att nämna specifika hotellsystem visar att Sara behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Opera PMS och Mews är branschstandard.'
+      },
+      {
+        titel: 'Språkkunskaper ökar anställningsbarhet',
+        beskrivning: 'Svenska, engelska och tyska täcker en stor del av hotellgästerna. Språkkunskaper är ofta avgörande vid rekrytering till internationella hotell och visar att Sara kan ge service utan kommunikationsbarriärer.'
+      },
+      {
+        titel: 'Företagsspecifik anpassning visar research',
+        beskrivning: 'Sara nämner Scandics hållbarhetssatsning och läget vid Centralstationen. Det visar att hon gjort research och förstår vad som skiljer hotellet från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Nämn dina språkkunskaper tydligt',
+        text: 'Hotellbranschen är internationell och språkkunskaper är ofta avgörande. Lista vilka språk du talar och på vilken nivå. Engelska är ett minimikrav, men tyska, franska, spanska eller nordiska språk ökar din anställningsbarhet avsevärt.\n\nOm du har erfarenhet av att hantera gäster från specifika marknader, nämn det. Det visar att du förstår kulturella skillnader i gästbemötande.'
+      },
+      {
+        rubrik: 'Beskriv din erfarenhet av hotellsystem',
+        text: 'Olika hotell använder olika system som Opera PMS, Mews, Protel eller Fidelio. Nämn vilka du arbetat i och vad du gjort i dem. Om du bara använt ett system, betona att du snabbt lär dig nya. Systemkunskap visar att du kan börja arbeta direkt utan lång upplärning.'
+      },
+      {
+        rubrik: 'Lyft din förmåga att hantera svåra situationer',
+        text: 'Hotellarbete innebär klagomål, överbokningar och krävande gäster. Ge ett kort exempel på hur du löst en svår situation och vände en missnöjd gäst till en nöjd. Rekryterare söker kandidater som behåller lugnet under press och hittar lösningar självständigt.\n\nUndvik att bara skriva att du är "stresstålig". Visa det istället genom konkreta exempel.'
+      },
+      {
+        rubrik: 'Visa din kommersiella sida',
+        text: 'Hotellvärdar förväntas ofta merförsälja rumsuppgraderingar, spa-behandlingar eller restaurangbokningar. Om du har erfarenhet av försäljning, nämn konkreta resultat. Det visar att du förstår att hotell är en affärsverksamhet och inte bara service.'
+      },
+      {
+        rubrik: 'Anpassa brevet efter hotelltyp',
+        text: 'Lyxhotell, boutiquehotell och budgetkedjor har olika kulturer. Läs på om hotellets profil och gästsegment. Nämn i brevet att du förstår vad som gör just detta hotell speciellt.\n\nOm hotellet betonar personlig service, lyft relationsbyggande. Om de betonar effektivitet, fokusera på tempo och noggrannhet.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vad gör en hotellvärd?',
+        a: 'Du tar emot gäster vid incheckning, hanterar bokningar, svarar på frågor och löser problem under vistelsen. Arbetet inkluderar även kassahantering, utcheckning och samarbete med städ och restaurang. Du är hotellets ansikte utåt och ansvarar för gästupplevelsen.'
+      },
+      {
+        q: 'Vilken utbildning krävs för att bli hotellvärd?',
+        a: 'Formell utbildning är inte alltid ett krav, men hotell- och restaurangprogrammet eller YH-utbildning inom turism är meriterande. Viktigast är servicekänsla, språkkunskaper och erfarenhet av kundkontakt. Många hotell utbildar internt.'
+      },
+      {
+        q: 'Vilka system bör jag kunna som hotellvärd?',
+        a: 'De vanligaste är Opera PMS, Mews, Protel och Fidelio. Olika hotellkedjor använder olika system. Nämn vilka du arbetat i. Om du saknar erfarenhet av specifika system, betona att du snabbt lär dig nya.'
+      },
+      {
+        q: 'Hur viktiga är språkkunskaper för hotellvärdar?',
+        a: 'Mycket viktiga. Engelska är ett absolut krav på de flesta hotell. Ytterligare språk som tyska, franska eller spanska ökar dina chanser avsevärt, särskilt på hotell med många internationella gäster.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av nattskift?',
+        a: 'Ja, om du har det. Nattreceptionist är en specialiserad roll och erfarenhet av nattarbete visar flexibilitet. Nämn om du är villig att arbeta nätter, helger och storhelger. Schemaflexibilitet är ofta avgörande vid rekrytering.'
+      },
+      {
+        q: 'Hur beskriver jag servicekänsla konkret?',
+        a: 'Ge exempel istället för att bara skriva att du har "god servicekänsla". Beskriv hur du överraskade en gäst positivt, löste ett klagomål eller fick positiv feedback. Konkreta berättelser är mer övertygande än vaga påståenden.'
+      },
+      {
+        q: 'Vad är skillnaden mellan hotellvärd och receptionist?',
+        a: 'Termerna används ofta synonymt. Hotellvärd kan ibland innebära ett bredare ansvar för gästupplevelsen utanför receptionen, medan receptionist fokuserar på skrankan. Läs jobbkraven noga för att förstå vad arbetsgivaren söker.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av merförsäljning?',
+        a: 'Ja, definitivt. Hotell förväntar sig att värdar säljer uppgraderingar, tilläggspaket och tjänster. Om du har konkreta säljresultat, nämn dem. Det visar att du förstår hotellets affärsmodell och kan bidra till intäkterna.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för hotellvärd vara?',
+        a: 'Håll det till en A4-sida, cirka 300-400 ord. Hotellchefer får många ansökningar och uppskattar koncisa brev som snabbt visar relevant erfarenhet, språkkunskaper och servicekänsla.'
+      }
+    ],
+
+    cta: {
+      text: 'Vill du skapa ett professionellt personligt brev för hotellvärd på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom hotell och gästservice.',
+      buttonText: 'Skapa ditt brev nu',
+      buttonLink: '/verktyg/personligt-brev'
+    },
+
+    verktyg: [
+      {
+        namn: 'CV-Mallar för hotell',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar anpassade för hotell och besöksnäring'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din karriär inom hotellbranschen från vår AI-coach'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för hotellvärd på 5 minuter'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Servitris/Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' },
+      { yrke: 'Barista', slug: 'barista' }
+    ]
   }
 }
 

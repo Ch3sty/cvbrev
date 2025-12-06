@@ -289,6 +289,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'logistikassistent',
     'lss-handlaggare',
     'kundradgivare',
+    'hotellvard',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
