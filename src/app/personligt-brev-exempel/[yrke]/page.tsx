@@ -7148,13 +7148,13 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
       datum: '6 januari 2025',
       brevText: `Jag söker tjänsten som hotellvärd på Scandic Grand Central. Med tre års erfarenhet av gästservice på fullservicehotell och ett genuint intresse för att skapa minnesvärda upplevelser ser jag möjligheten att bidra till ert team. Er satsning på hållbar turism och personlig service stämmer väl med mina värderingar.
 
-På Hotel Kung Carl har jag ansvarat för reception och gästservice i ett team om sex personer. Under högsäsong hanterar jag upp till 120 incheckningar per dag och våra gästbetyg på Booking.com ligger stabilt på 4,8 av 5. Jag har löst reklamationer som resulterat i att missnöjda gäster blivit återkommande stamgäster. Förra året vann jag intern utmärkelse för bästa merförsäljning av rumsuppgraderingar och tilläggspaket.
+På Hotel Kung Carl har jag ansvarat för reception och gästservice i ett team om sex personer. Under högsäsong hanterar jag upp till 120 incheckningar per dag och våra gästbetyg på Booking.com ligger stabilt på 4,8 av 5. Under Black Week och julperioden hanterar vi 200+ gäster per dag utan att kvaliteten sjunker. Jag har löst reklamationer som resulterat i att missnöjda gäster blivit återkommande stamgäster. Förra året vann jag en intern utmärkelse för bästa merförsäljning av rumsuppgraderingar och tilläggspaket.
 
-Jag arbetar flytande i Opera PMS och har god erfarenhet av Mews. Bokningshantering, kassaavstämning och fakturaunderlag sköter jag noggrant. Jag talar svenska, engelska och tyska, vilket underlättar kommunikationen med internationella gäster. När problem uppstår, som överbokningar eller sena ankomster, behåller jag lugnet och hittar lösningar som gör gästen nöjd.
+Jag arbetar flytande i Opera PMS och har god erfarenhet av Mews. Bokningshantering, kassaavstämning och fakturaunderlag sköter jag noggrant. Vad händer när problem uppstår? När en gäst kommer sent eller vi har en överbokning behåller jag lugnet och hittar lösningar som gör gästen nöjd. Jag talar svenska, engelska och tyska, vilket underlättar kommunikationen med internationella gäster.
 
 Det som lockar mig med Scandic är ert tydliga fokus på gästupplevelsen i kombination med hållbarhetsarbete. Jag uppskattar att ni satsar på medarbetarutveckling och att värdar får ansvar att lösa situationer självständigt. Läget vid Centralstationen innebär ett högt tempo som passar min arbetsstil.
 
-Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidra till er verksamhet.`
+Med tre års erfarenhet av gästservice i högt tempo, systemvana i Opera och Mews samt tre språk blir jag produktiv från dag ett. Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidra till Scandics gästupplevelse och era höga gästbetyg.`
     },
 
     varforDetFungerar: [
