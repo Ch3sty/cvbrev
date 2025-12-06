@@ -7567,6 +7567,128 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidr
       { yrke: 'Säljare', slug: 'saljare' },
       { yrke: 'Butikssäljare', slug: 'butikssaljare' }
     ]
+  },
+
+  'terminalarbetare': {
+    yrke: 'Terminalarbetare',
+    sokvolym: 70,
+    metaTitle: 'Personligt Brev Terminalarbetare – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Skriv ett övertygande personligt brev som terminalarbetare. Se exempel med truckkort, ADR-certifiering, WMS-system och kvantifierade resultat från godsterminaler.',
+
+    intro: 'Ett personligt brev för terminalarbetare visar att du behärskar godshantering, truckkörning och säkerhetsrutiner i högt tempo. Arbetsgivare söker kandidater som kombinerar fysisk kapacitet med noggrannhet och digital systemvana. Det här exemplet är skrivet för en godsterminal men fungerar lika bra för paketcentraler, hamnar eller flygfrakt. Du får se hur du lyfter fram truckkort, ADR-certifiering och konkreta prestationer som imponerar på terminalchefer.',
+
+    seoIntro: 'Söker du jobb som terminalarbetare och behöver skriva ett personligt brev som visar din kompetens direkt? Det här exemplet från 2025 visar hur du skriver ett ATS-optimerat brev som passar svenska godsterminaler och logistikföretag. Du får se exakt hur Johan lyfter truckkort A1-4, ADR-certifiering för farligt gods och konkret arbetskapacitet redan i första stycket.\n\nBrevet visar hur du kvantifierar din prestation med konkreta siffror: 220 kolli per skift, 0,3% skadefrekvens, och 25% snabbare lastning genom processförbättring. Johan nämner branschspecifika system som WMS för godsregistrering och handhållna terminaler för scanning. Han visar säkerhetsmedvetenhet genom att beskriva ADR-rutiner och ergonomiskt arbetssätt, och balanserar teknisk kompetens med mjuka färdigheter som teamarbete och kommunikation i tvärskiftlag med chaufförer och disponenter.\n\nAnvänd exemplet som inspiration för din egen jobbansökan som terminalarbetare och anpassa det efter den tjänst du söker. Oavsett om du söker till DHL, PostNord, Schenker eller en lokal godsterminal kan du använda samma struktur. Läs våra tips nedan för att optimera ditt brev för godshantering och terminalarbete.',
+
+    exempelBrev: {
+      namn: 'Johan Andersson',
+      stad: 'Göteborg',
+      epost: 'johan.andersson@email.se',
+      telefon: '072-891 45 23',
+      foretag: 'DHL Freight',
+      roll: 'Terminalarbetare',
+      datum: '6 januari 2025',
+      brevText: `Tjänsten som terminalarbetare på DHL Freight passar mina erfarenheter och mitt intresse väl. Med tre års erfarenhet av godshantering inom logistik, truckkort A1-4 samt ADR-certifiering för farligt gods har jag den kompetens ni efterfrågar för att säkerställa ett effektivt och säkert godsflöde genom er terminal.
+
+I min nuvarande roll som terminalarbetare på Schenkers godsterminal i Malmö hanterar jag dagligen lastning och lossning av gods från lastbilar och trailers. Under det senaste året har jag hanterat i genomsnitt 220 kolli per skift med en skadefrekvens under 0,3 procent. Jag arbetar med både manuell hantering och motviktstruck för palleterat gods. Ett konkret exempel är när vi under högsäsongen i november ökade godsmängden med 40 procent och jag omorganiserade lastningen så att vi kunde sortera och lasta 25 procent snabbare genom bättre optimering av truckflödet i lastzonen.
+
+Jag är van vid högt tempo och skiftarbete. Min kompetens omfattar sortering enligt fraktsedlar och scanning med handhållna terminaler, samt arbete i WMS-system för godsregistrering och statusuppdatering. Jag har ADR-certifiering och följer strikta säkerhetsrutiner vid hantering av farligt gods. Fysiskt krävande arbete passar mig och jag prioriterar alltid ergonomi vid lyft och användning av hjälpmedel som rullvagnar och pallyft. Jag trivs med att jobba i team där alla bidrar till att hålla tempon och där kommunikation är tydlig.
+
+Er satsning på digital godshantering och moderna terminallösningar tilltalar mig. Jag uppskattar arbetsplatser där ordning och struktur värderas högt och där säkerhet är en naturlig del av arbetet. Min erfarenhet av att arbeta i tvärskiftlag med lastbilschaufförer, lagerarbetare och disponenter gör att jag snabbt kan anpassa mig till era processer och bidra till en smidig drift.
+
+Med dokumenterad erfarenhet av godshantering och vana vid terminalarbetets tempo bidrar jag gärna till ert team. Jag ser fram emot att diskutera hur jag kan stötta er dagliga verksamhet.`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Certifikat och truckkort nämns omedelbart',
+        beskrivning: 'Johan anger truckkort A1-4 och ADR-certifiering redan i första stycket. Detta är avgörande kvalifikationer som rekryterare söker efter och som ATS-system ofta filtrerar på. Att nämna dem tidigt visar professionalitet och säkerställer att brevet rankas högt i automatiska system.'
+      },
+      {
+        titel: 'Kvantifierad arbetskapacitet med låg felfrekvens',
+        beskrivning: 'Att hantera 220 kolli per skift med 0,3% skadefrekvens ger rekryteraren konkret bevis på både effektivitet och noggrannhet. Terminalföretag mäter skadefrekvens noga och uppskattar kandidater som kombinerar högt tempo med kvalitet.'
+      },
+      {
+        titel: 'Initiativförmåga genom processförbättring',
+        beskrivning: 'Att Johan omorganiserade lastflödet och ökade effektiviteten med 25% visar att han inte bara utför uppgifter utan förbättrar processer. Det signalerar initiativförmåga och affärsförståelse som skiljer erfarna terminalarbetare från nybörjare.'
+      },
+      {
+        titel: 'Branschspecifika system namngivna',
+        beskrivning: 'Att nämna WMS-system, handhållna terminaler, scanning och fraktsedlar visar att Johan behärskar branschens digitala verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt.'
+      },
+      {
+        titel: 'Säkerhet och teamarbete tydligt betonat',
+        beskrivning: 'Johan lyfter ADR-rutiner, ergonomi och samarbete i tvärskiftlag. Terminalföretag prioriterar säkerhetsmedvetna medarbetare som kan kommunicera tydligt med chaufförer, disponenter och kollegor.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Nämn dina truckkort och certifieringar i första stycket',
+        text: 'Truckkort (A1-4, B1-4) och ADR-certifiering är ofta grundkrav för terminalarbetare. Skriv dem tydligt redan i inledningen: "Med truckkort A1-4 och ADR-certifiering för farligt gods har jag den kompetens ni efterfrågar". Om du har ytterligare certifieringar som arbetsmiljöutbildning, traversutbildning eller specifika säkerhetsutbildningar, nämn dem också.\n\nDetta säkerställer att ditt brev passerar ATS-system och visar rekryteraren omedelbart att du uppfyller grundkraven.'
+      },
+      {
+        rubrik: 'Kvantifiera din arbetskapacitet med konkreta siffror',
+        text: 'Terminalchefer vill veta att du klarar tempot. Skriv konkret: "Jag hanterar dagligen 220 kolli per skift" eller "Jag lastar i genomsnitt 15 trailers per dag". Nämn också kvalitet: "med en skadefrekvens under 0,3%" eller "noll olyckor senaste två åren".\n\nKombinationen av högt tempo och låg felfrekvens visar att du både är effektiv och noggrann. Undvik vaga formuleringar som "jag arbetar snabbt".'
+      },
+      {
+        rubrik: 'Beskriv din erfarenhet av WMS-system och digitala verktyg',
+        text: 'Moderna terminaler använder WMS-system, handhållna terminaler och scanning för godsregistrering. Nämn specifika system du använt: "Jag arbetar dagligen i WMS-system för godsregistrering och statusuppdatering" eller "Jag scannar fraktsedlar och hanterar avvikelserapportering digitalt". Om du snabbt lär dig nya system, beskriv det. Systemvana minskar introduktionstiden och är starkt meriterande.'
+      },
+      {
+        rubrik: 'Visa att du är säkerhetsmedveten och följer rutiner',
+        text: 'Terminaler har strikta säkerhetsrutiner och arbetsgivare söker medarbetare som tar säkerhet på allvar. Beskriv hur du arbetar: "Jag följer strikta säkerhetsrutiner vid hantering av farligt gods enligt ADR-certifiering" eller "Jag prioriterar ergonomi vid lyft och använder alltid hjälpmedel som pallyft och rullvagnar".\n\nNämn också om du har nollskadestatistik eller erfarenhet av säkerhetsronder.'
+      },
+      {
+        rubrik: 'Lyft din flexibilitet för skiftarbete och teamsamarbete',
+        text: 'Terminalarbete innebär ofta skift, helger och arbete i tvärskiftlag med chaufförer och disponenter. Skriv tydligt: "Jag är van vid skiftarbete och trivs med flexibla arbetstider" eller "Jag arbetar dagligen i team med chaufförer, lagerarbetare och disponenter där tydlig kommunikation är avgörande". Flexibilitet är ofta avgörande vid rekrytering till terminalroller.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vilka certifieringar ska jag nämna som terminalarbetare?',
+        a: 'Nämn alltid truckkort (A1-4 eller B1-4) och ADR-certifiering om du har dem. Dessa är ofta grundkrav eller starkt meriterande. Skriv: "Jag har truckkort A1-4 och ADR-certifiering för farligt gods klass 1-9". Om du har arbetsmiljöutbildning, traversutbildning eller säkerhetsutbildningar, ta med dem också.'
+      },
+      {
+        q: 'Hur beskriver jag min arbetskapacitet som terminalarbetare?',
+        a: 'Använd konkreta siffror som visar både tempo och kvalitet. Skriv: "Jag hanterar dagligen 220 kolli per skift med en skadefrekvens under 0,3%" eller "Jag lastar i genomsnitt 15 trailers per dag". Siffror är trovärdiga och ger rekryteraren en tydlig bild av din erfarenhetsnivå.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av WMS-system i brevet?',
+        a: 'Ja, definitivt om du har det. WMS-system är standard på moderna terminaler. Skriv: "Jag arbetar dagligen i WMS-system för godsregistrering, statusuppdatering och avvikelserapportering". Om du kan namnge specifika system, gör det. Om du snabbt lär dig nya system, betona det.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar av fysiskt krävande arbete?',
+        a: 'Undvik vaga formuleringar som "jag är fysiskt stark". Beskriv istället hur du arbetar: "Fysiskt krävande arbete passar mig och jag prioriterar alltid ergonomi vid lyft och användning av hjälpmedel som rullvagnar och pallyft". Nämn konkret erfarenhet och eventuellt noll arbetsskador.'
+      },
+      {
+        q: 'Behöver jag nämna att jag är flexibel för skiftarbete?',
+        a: 'Ja, absolut. Terminalarbete innebär ofta skift, helger och obekväma arbetstider. Skriv tydligt: "Jag är van vid skiftarbete och kan arbeta morgon-, kvälls- och nattskift samt helger efter verksamhetens behov". Flexibilitet kring arbetstider är ofta avgörande vid rekrytering.'
+      },
+      {
+        q: 'Hur beskriver jag min ADR-kompetens i brevet?',
+        a: 'Var specifik om din ADR-certifiering. Skriv: "Jag har ADR-certifiering för farligt gods och följer strikta säkerhetsrutiner vid hantering, dokumentation och märkning". Om du har särskild erfarenhet, beskriv den. Detta visar att du inte bara har certifikatet utan också praktisk erfarenhet.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av specifika terminaltyper?',
+        a: 'Ja, om du har det. Olika terminaltyper har olika arbetssätt. Skriv: "Jag har arbetat på godsterminal för styckegods med cross-docking och sortering" eller "Min erfarenhet är från containerterminal med hantering av sjöfrakt". Om du söker till en annan typ, betona din anpassningsförmåga.'
+      },
+      {
+        q: 'Hur visar jag säkerhetsmedvetenhet i personligt brev?',
+        a: 'Ge konkreta exempel på hur du arbetar med säkerhet. Skriv: "Jag följer alltid säkerhetsrutiner och använder rätt skyddsutrustning vid godshantering" eller "Jag rapporterar avvikelser direkt och deltar aktivt i säkerhetsronder". Nämn statistik om möjligt: "Noll olyckor på tre års terminalarbete".'
+      },
+      {
+        q: 'Hur hanterar jag ansökan om jag saknar truckkort?',
+        a: 'Om truckkort krävs enligt annonsen är det svårt att kompensera. Men om det står "meriterande", fokusera på annan relevant erfarenhet: "Jag har gedigen erfarenhet av manuell godshantering, scanning och WMS-system. Jag är motiverad att ta truckkort om ni erbjuder utbildning". Om du håller på att ta truckkort, nämn det.'
+      }
+    ],
+
+    kategori: 'logistik',
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Logistikassistent', slug: 'logistikassistent' }
+    ]
   }
 }
 
