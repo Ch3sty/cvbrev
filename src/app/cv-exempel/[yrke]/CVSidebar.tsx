@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { Lightbulb, CheckCircle, Zap, Sparkles } from 'lucide-react'
+import CrossLinkCTA from '@/components/CrossLinkCTA'
 
 interface CVSidebarProps {
   yrke: string
+  slug: string
   viktigtAttTankaPa: string[]
 }
 
-export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
+export default function CVSidebar({ yrke, slug, viktigtAttTankaPa }: CVSidebarProps) {
   return (
     <div className="space-y-6">
       {/* Box 1: Viktigt att tänka på */}
@@ -27,7 +29,14 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
         </ul>
       </div>
 
-      {/* Box 2: Statistik */}
+      {/* Box 2: Länk till Personligt brev */}
+      <CrossLinkCTA
+        currentType="cv"
+        yrke={yrke}
+        slug={slug}
+      />
+
+      {/* Box 3: Statistik */}
       <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
         <h3 className="font-bold text-slate-900 mb-4">Statistik</h3>
         <div className="space-y-4">
@@ -70,7 +79,7 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
         </div>
       </div>
 
-      {/* Box 3: CTA */}
+      {/* Box 4: CTA */}
       <div className="bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-2xl p-6 text-white">
         <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
           <Zap className="w-6 h-6" />

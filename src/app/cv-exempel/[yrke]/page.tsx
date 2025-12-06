@@ -15536,5 +15536,5 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     // Fallback: låt client-side hantera rendering
   }
 
-  return <CVExempelPage data={data} initialHTML={initialHTML} />
+  return <CVExempelPage data={data} slug={yrke} initialHTML={initialHTML} />
 }

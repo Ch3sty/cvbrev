@@ -8005,7 +8005,7 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <PersonligtBrevExempelPage data={data} />
+      <PersonligtBrevExempelPage data={data} slug={yrke} />
     </>
   )
 }

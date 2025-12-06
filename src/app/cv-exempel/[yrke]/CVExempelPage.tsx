@@ -7,6 +7,7 @@ import { ArrowLeft, FileText, Sparkles, Target, Lightbulb, CheckCircle } from 'l
 import { motion, AnimatePresence } from 'framer-motion'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
+import CompleteApplicationPackage from '@/components/CompleteApplicationPackage'
 import HeroWithSEOIntro from './HeroWithSEOIntro'
 import CVSidebar from './CVSidebar'
 import TipsSectionFlat from './TipsSectionFlat'
@@ -89,10 +90,11 @@ interface CVExampleData {
 
 interface CVExempelPageProps {
   data: CVExampleData
+  slug: string
   initialHTML: string
 }
 
-export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps) {
+export default function CVExempelPage({ data, slug, initialHTML }: CVExempelPageProps) {
   const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
 
   // Icon mapping för "Varför det fungerar" cards
@@ -135,6 +137,7 @@ export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps)
                 <div className="lg:sticky lg:top-6">
                   <CVSidebar
                     yrke={data.yrke}
+                    slug={slug}
                     viktigtAttTankaPa={[
                       'Använd ATS-optimerade nyckelord från jobbannonsen',
                       'Kvantifiera resultat med konkreta siffror',
@@ -240,6 +243,13 @@ export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps)
       <FAQSection
         faq={data.faq}
         yrke={data.yrke}
+      />
+
+      {/* Komplett ansökningspaket - Länk till Personligt brev */}
+      <CompleteApplicationPackage
+        currentType="cv"
+        yrke={data.yrke}
+        slug={slug}
       />
 
       {/* Relaterade Resurser */}

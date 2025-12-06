@@ -11,6 +11,8 @@ import {
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
+import CrossLinkCTA from '@/components/CrossLinkCTA'
+import CompleteApplicationPackage from '@/components/CompleteApplicationPackage'
 
 // SEO: Lazy-load InteractiveLetterPreview för bättre Page Speed
 // SSR disabled eftersom komponenten är client-only, men vi har statiskt innehåll som fallback
@@ -72,7 +74,12 @@ interface ExampleData {
   }>
 }
 
-export default function PersonligtBrevExempelPage({ data }: { data: ExampleData }) {
+interface PersonligtBrevExempelPageProps {
+  data: ExampleData
+  slug: string
+}
+
+export default function PersonligtBrevExempelPage({ data, slug }: PersonligtBrevExempelPageProps) {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [showCopyNotification, setShowCopyNotification] = useState(false)
   const [activeTab, setActiveTab] = useState<'exempel' | 'analys' | 'tips'>('exempel')
@@ -225,6 +232,19 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                       <span className="text-slate-700">Ge konkreta exempel istället för vaga påståenden</span>
                     </li>
                   </ul>
+                </motion.div>
+
+                {/* CrossLink till CV-exempel */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
+                  <CrossLinkCTA
+                    currentType="personligt-brev"
+                    yrke={data.yrke}
+                    slug={slug}
+                  />
                 </motion.div>
 
                 {/* Stats */}
@@ -482,6 +502,13 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
           </div>
         </div>
       </section>
+
+      {/* Komplett ansökningspaket - Länk till CV-exempel */}
+      <CompleteApplicationPackage
+        currentType="personligt-brev"
+        yrke={data.yrke}
+        slug={slug}
+      />
 
       {/* Relaterade Artiklar Section */}
       {data.relateradeArtiklar && data.relateradeArtiklar.length > 0 && (
