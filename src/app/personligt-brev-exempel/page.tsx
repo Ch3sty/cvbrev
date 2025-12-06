@@ -456,6 +456,385 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Demonstrerar kulinarisk kompetens, matsäkerhet och effektivitet under press.',
       highlight: ['Matlagning & menuplanering', 'Hygien & HACCP-kunskap', 'Kreativitet & tempo']
     }
+  },
+  // === NYA YRKEN (28 st) ===
+  {
+    id: 'specialpedagog',
+    yrke: 'Specialpedagog',
+    slug: 'specialpedagog',
+    kategori: 'utbildning',
+    niva: 'specialist',
+    sokvolym: 600,
+    icon: GraduationCap,
+    gradient: 'from-purple-500 via-indigo-600 to-purple-700',
+    preview: {
+      intro: 'Visa din pedagogiska expertis inom specialbehov och anpassad undervisning.',
+      highlight: ['Kartläggning & utredning', 'Anpassad pedagogik', 'Samverkan med vårdnadshavare']
+    }
+  },
+  {
+    id: 'fritidspedagog',
+    yrke: 'Fritidspedagog',
+    slug: 'fritidspedagog',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 550,
+    icon: Heart,
+    gradient: 'from-green-400 via-teal-500 to-green-600',
+    preview: {
+      intro: 'Framhäv din kompetens inom fritidsaktiviteter och barns sociala utveckling.',
+      highlight: ['Kreativa aktiviteter', 'Social träning', 'Trygg fritidsmiljö']
+    }
+  },
+  {
+    id: 'redovisningsekonom',
+    yrke: 'Redovisningsekonom',
+    slug: 'redovisningsekonom',
+    kategori: 'ekonomi',
+    niva: 'specialist',
+    sokvolym: 500,
+    icon: Calculator,
+    gradient: 'from-slate-600 via-gray-700 to-slate-800',
+    preview: {
+      intro: 'Demonstrera din expertis i redovisning, bokslut och ekonomirapportering.',
+      highlight: ['Bokslut & årsredovisning', 'K2/K3-regelverk', 'Ekonomisystem']
+    }
+  },
+  {
+    id: 'hr-specialist',
+    yrke: 'HR-specialist',
+    slug: 'hr-specialist',
+    kategori: 'offentlig-sektor',
+    niva: 'specialist',
+    sokvolym: 480,
+    icon: Users,
+    gradient: 'from-rose-500 via-pink-600 to-rose-700',
+    preview: {
+      intro: 'Betonar HR-processer, rekrytering och organisationsutveckling.',
+      highlight: ['Rekrytering & onboarding', 'Medarbetarutveckling', 'HR-system & arbetsrätt']
+    }
+  },
+  {
+    id: 'systemutvecklare',
+    yrke: 'Systemutvecklare',
+    slug: 'systemutvecklare',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 450,
+    icon: Code,
+    gradient: 'from-green-500 via-emerald-600 to-green-700',
+    preview: {
+      intro: 'Lyfter fullstack-utveckling, kodkvalitet och systemarkitektur.',
+      highlight: ['Fullstack-utveckling', 'CI/CD & DevOps', 'Agil utveckling']
+    }
+  },
+  {
+    id: 'account-manager',
+    yrke: 'Account Manager',
+    slug: 'account-manager',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 400,
+    icon: Briefcase,
+    gradient: 'from-purple-600 via-indigo-700 to-purple-800',
+    preview: {
+      intro: 'Framhäver kundrelationer, affärsutveckling och strategisk försäljning.',
+      highlight: ['Kundrelationshantering', 'Affärsutveckling', 'CRM & säljstrategi']
+    }
+  },
+  {
+    id: 'controller',
+    yrke: 'Controller',
+    slug: 'controller',
+    kategori: 'ekonomi',
+    niva: 'specialist',
+    sokvolym: 380,
+    icon: Calculator,
+    gradient: 'from-indigo-600 via-blue-700 to-indigo-800',
+    preview: {
+      intro: 'Lyfter affärsstyrning, budgetering och strategisk ekonomianalys.',
+      highlight: ['Budgetering & prognoser', 'Affärsanalys & KPI:er', 'Business partnering']
+    }
+  },
+  {
+    id: 'scrum-master',
+    yrke: 'Scrum Master',
+    slug: 'scrum-master',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 350,
+    icon: Target,
+    gradient: 'from-orange-500 via-red-600 to-orange-700',
+    preview: {
+      intro: 'Betonar agil coachning, Scrum-ceremonier och teamfacilitering.',
+      highlight: ['Scrum-facilitering', 'Agil transformation', 'Team coaching']
+    }
+  },
+  {
+    id: 'truckforare',
+    yrke: 'Truckförare',
+    slug: 'truckforare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 320,
+    icon: Package,
+    gradient: 'from-orange-600 via-red-700 to-orange-800',
+    preview: {
+      intro: 'Framhäver truckvana, lagersäkerhet och materialhantering.',
+      highlight: ['A/B-truckkort', 'Lagerhantering', 'Arbetsmiljö & säkerhet']
+    }
+  },
+  {
+    id: 'lagerchef',
+    yrke: 'Lagerchef',
+    slug: 'lagerchef',
+    kategori: 'service',
+    niva: 'chef',
+    sokvolym: 300,
+    icon: Package,
+    gradient: 'from-red-600 via-orange-700 to-red-800',
+    preview: {
+      intro: 'Demonstrera logistikledning, lageroptimering och personalansvar.',
+      highlight: ['Lageroptimering & WMS', 'Personalledning', 'KPI-styrning']
+    }
+  },
+  {
+    id: 'barnmorska',
+    yrke: 'Barnmorska',
+    slug: 'barnmorska',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 280,
+    icon: Heart,
+    gradient: 'from-pink-500 via-rose-600 to-pink-700',
+    preview: {
+      intro: 'Visa din kliniska kompetens inom mödravård, förlossning och BB-vård.',
+      highlight: ['Mödrahälsovård & förlossning', 'Neonatal vård', 'Patientstöd']
+    }
+  },
+  {
+    id: 'specialistsjukskoterska',
+    yrke: 'Specialistsjuksköterska',
+    slug: 'specialistsjukskoterska',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 250,
+    icon: Stethoscope,
+    gradient: 'from-blue-700 via-indigo-800 to-blue-900',
+    preview: {
+      intro: 'Demonstrera avancerad omvårdnad och specialistkompetens.',
+      highlight: ['Specialistområde', 'Avancerad bedömning', 'Forskning & utveckling']
+    }
+  },
+  {
+    id: 'loneadministrator',
+    yrke: 'Löneadministratör',
+    slug: 'loneadministrator',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 240,
+    icon: Calculator,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'Visa din precision i lönehantering och kollektivavtalskunskap.',
+      highlight: ['Löneberäkning', 'Kollektivavtal', 'Personaladministration']
+    }
+  },
+  {
+    id: 'teamledare',
+    yrke: 'Teamledare',
+    slug: 'teamledare',
+    kategori: 'offentlig-sektor',
+    niva: 'chef',
+    sokvolym: 220,
+    icon: Users,
+    gradient: 'from-blue-600 via-indigo-700 to-blue-800',
+    preview: {
+      intro: 'Visa din förmåga att leda team, coacha medarbetare och driva resultat.',
+      highlight: ['Teamutveckling', 'Målstyrning', 'Konflikthantering']
+    }
+  },
+  {
+    id: 'enhetschef',
+    yrke: 'Enhetschef',
+    slug: 'enhetschef',
+    kategori: 'offentlig-sektor',
+    niva: 'chef',
+    sokvolym: 200,
+    icon: Building2,
+    gradient: 'from-slate-700 via-gray-800 to-slate-900',
+    preview: {
+      intro: 'Demonstrera verksamhetsansvar, budget och strategiskt ledarskap.',
+      highlight: ['Verksamhetsledning', 'Budget & personalansvar', 'Kvalitetsutveckling']
+    }
+  },
+  {
+    id: 'produktchef',
+    yrke: 'Produktchef',
+    slug: 'produktchef',
+    kategori: 'service',
+    niva: 'chef',
+    sokvolym: 180,
+    icon: Target,
+    gradient: 'from-cyan-600 via-blue-700 to-cyan-800',
+    preview: {
+      intro: 'Visa din produktstrategi, roadmap-planering och marknadskännedom.',
+      highlight: ['Produktstrategi', 'Marknadsanalys', 'Produktlansering']
+    }
+  },
+  {
+    id: 'boendestod',
+    yrke: 'Boendestödjare',
+    slug: 'boendestod',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 170,
+    icon: Users,
+    gradient: 'from-teal-500 via-green-600 to-teal-700',
+    preview: {
+      intro: 'Framhäv ditt stöd för självständigt boende, empati och socialt arbete.',
+      highlight: ['Stöd i vardagen', 'Psykosocial kompetens', 'Dokumentation']
+    }
+  },
+  {
+    id: 'barista',
+    yrke: 'Barista',
+    slug: 'barista',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 160,
+    icon: Coffee,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'Lyfter kaffekompetens, kundservice och cafémiljö.',
+      highlight: ['Kaffeberedning', 'Snabb service', 'Hygien & produktkunskap']
+    }
+  },
+  {
+    id: 'koksbitrade',
+    yrke: 'Köksbiträde',
+    slug: 'koksbitrade',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 150,
+    icon: Wrench,
+    gradient: 'from-red-400 via-orange-500 to-red-600',
+    preview: {
+      intro: 'Framhäver diskrutin, städ och praktiskt köksarbete.',
+      highlight: ['Disk & städrutiner', 'Matsäkerhet', 'Tempo & lagarbete']
+    }
+  },
+  {
+    id: 'logistikassistent',
+    yrke: 'Logistikassistent',
+    slug: 'logistikassistent',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 140,
+    icon: Package,
+    gradient: 'from-cyan-500 via-blue-600 to-cyan-700',
+    preview: {
+      intro: 'Lyfter logistikadministration, orderhantering och systemvana.',
+      highlight: ['Orderhantering', 'Transportplanering', 'Leveransuppföljning']
+    }
+  },
+  {
+    id: 'lss-handlaggare',
+    yrke: 'LSS-handläggare',
+    slug: 'lss-handlaggare',
+    kategori: 'offentlig-sektor',
+    niva: 'specialist',
+    sokvolym: 120,
+    icon: FileText,
+    gradient: 'from-indigo-600 via-purple-700 to-indigo-800',
+    preview: {
+      intro: 'Betonar LSS-lagstiftning, utredning och personcentrerad handläggning.',
+      highlight: ['LSS-utredning', 'Juridisk kompetens', 'Personcentrerat förhållningssätt']
+    }
+  },
+  {
+    id: 'kundradgivare',
+    yrke: 'Kundrådgivare',
+    slug: 'kundradgivare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 110,
+    icon: Users,
+    gradient: 'from-blue-500 via-indigo-600 to-blue-700',
+    preview: {
+      intro: 'Betonar rådgivning, kundrelationer och produktkunskap.',
+      highlight: ['Kundrådgivning', 'Produktkännedom', 'Relation & uppföljning']
+    }
+  },
+  {
+    id: 'hotellvard',
+    yrke: 'Hotellvärd',
+    slug: 'hotellvard',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 100,
+    icon: Building2,
+    gradient: 'from-sky-500 via-blue-600 to-sky-700',
+    preview: {
+      intro: 'Betonar gästbemötande, hotellsystem och servicekänsla.',
+      highlight: ['Check-in/out', 'Gästservice', 'Hotellrutiner']
+    }
+  },
+  {
+    id: 'vardadministrator',
+    yrke: 'Vårdadministratör',
+    slug: 'vardadministrator',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 90,
+    icon: Briefcase,
+    gradient: 'from-cyan-600 via-blue-700 to-cyan-800',
+    preview: {
+      intro: 'Lyfter administrativt stöd inom vården, journalsystem och patientkontakt.',
+      highlight: ['Journalsystem', 'Patientadministration', 'Sekretess & GDPR']
+    }
+  },
+  {
+    id: 'kundtjanstmedarbetare',
+    yrke: 'Kundtjänstmedarbetare',
+    slug: 'kundtjanstmedarbetare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 80,
+    icon: Phone,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'Lyfter kundkommunikation, problemlösning och CRM-systemvana.',
+      highlight: ['Telefon- & e-postsupport', 'Ärendehantering', 'Service recovery']
+    }
+  },
+  {
+    id: 'terminalarbetare',
+    yrke: 'Terminalarbetare',
+    slug: 'terminalarbetare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 70,
+    icon: Package,
+    gradient: 'from-slate-600 via-gray-700 to-slate-800',
+    preview: {
+      intro: 'Betonar godshantering, truckkort och terminalarbete i högt tempo.',
+      highlight: ['Godshantering', 'Truckkort & ADR', 'WMS-system']
+    }
+  },
+  {
+    id: 'administrativ-assistent',
+    yrke: 'Administrativ assistent',
+    slug: 'administrativ-assistent',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 60,
+    icon: Briefcase,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'Visa koordinationsförmåga, dokumenthantering och administrativ precision.',
+      highlight: ['Kalenderhantering', 'Microsoft 365', 'Fakturering & CRM']
+    }
   }
 ]
 
