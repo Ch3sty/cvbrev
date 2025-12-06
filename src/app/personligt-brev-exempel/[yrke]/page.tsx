@@ -6832,6 +6832,153 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfaren
       { yrke: 'Lagerchef', slug: 'lagerchef' },
       { yrke: 'Administratör', slug: 'administrator' }
     ]
+  },
+
+  'lss-handlaggare': {
+    yrke: 'LSS-handläggare',
+    sokvolym: 120,
+    metaTitle: 'Personligt Brev LSS-handläggare – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se exempel på personligt brev för LSS-handläggare. Lyft din erfarenhet av behovsbedömningar, myndighetsbeslut och samverkan med omsorgsverksamheter. Mallar för kommunal funktionshinderförvaltning.',
+
+    intro: 'Ett personligt brev för LSS-handläggare visar att du förstår regelverket kring funktionsnedsättning och kan fatta rättssäkra beslut under press. Arbetsgivare söker kandidater som balanserar juridisk noggrannhet med genuint bemötande av brukare och anhöriga. Det här exemplet är skrivet för en kommunal funktionshinderförvaltning men fungerar lika bra för regionala myndigheter eller privata utförare. Du får se hur du lyfter fram din förmåga att utreda, dokumentera och samverka med vårdgivare.',
+
+    seoIntro: 'Personligt brev för LSS-handläggare kräver att du visar både juridisk kompetens och empatisk förmåga. Det här exemplet visar hur Maria kombinerar erfarenhet av behovsbedömningar enligt LSS med konkreta resultat i form av kortade handläggningstider. Du får se hur du beskriver utredningsarbete, beslutsmotivering och samverkan med verkställare på ett sätt som imponerar på enhetschefer inom socialtjänst.\n\nBrevet lyfter fram Marias erfarenhet av 80 ärenden samtidigt och 23 procent kortare handläggningstid. Hon nämner specifika verktyg som Procapita och IBIC, vilket signalerar att hon kan börja producera direkt utan lång upplärning. Att hon genomfört hembesök och deltagit i samverkansmöten med Region Stockholm visar dessutom praktisk erfarenhet av hela kedjan från ansökan till verkställighet.\n\nStrategin att lyfta kommunens satsning på brukarmedverkan fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna utredningsstil till organisationens behov av rättssäkerhet visar Maria att hon förstår rollens komplexitet. Använd tipsen nedan för att anpassa ditt brev efter den kommun eller myndighet du söker till.',
+
+    exempelBrev: {
+      namn: 'Maria Eriksson',
+      stad: 'Kungsholmen, Stockholm',
+      epost: 'maria.eriksson@email.se',
+      telefon: '070-234 56 78',
+      foretag: 'Stockholms stad, Funktionshinderförvaltningen',
+      roll: 'LSS-handläggare',
+      datum: '6 januari 2025',
+      brevText: `Jag söker tjänsten som LSS-handläggare vid Stockholms stads funktionshinderförvaltning. Med tre års erfarenhet av myndighetsutövning inom funktionshinderområdet och ett genuint intresse för rättssäkra beslut ser jag möjligheten att bidra till ert arbete med kvalitativ handläggning. Er satsning på brukarmedverkan och stärkt samverkan med verkställare stämmer väl med hur jag vill arbeta.
+
+På Nacka kommun har jag hanterat cirka 80 LSS-ärenden parallellt och fattat beslut om insatser som personlig assistans, daglig verksamhet och korttidsvistelse. Jag genomför hembesök, inhämtar intyg från habiliteringen och skriver utredningar enligt IBIC-modellen. Under mitt första år införde jag ett eget system för ärendebevakning i Procapita som minskade vår genomsnittliga handläggningstid med 23 procent. Jag har god vana vid att motivera beslut som tål rättslig prövning och har hanterat omprövningar och överklaganden utan att få beslut upphävda.
+
+Brukarbemötande är centralt i mitt arbete. Jag tar mig tid att förklara processen för anhöriga och ser till att brukaren själv kommer till tals i utredningen. Svåra samtal, som när jag behöver avslå en ansökan, hanterar jag med tydlighet och respekt. Jag samarbetar regelbundet med verkställare, LSS-handledare och Region Stockholms habiliteringsteam för att säkerställa att beviljade insatser fungerar i praktiken.
+
+Det som lockar mig med Stockholms stad är bredden i verksamheten och möjligheten att arbeta med kollegor som brinner för rättssäkerhet. Jag ser fram emot att bidra med min erfarenhet av effektiv handläggning och mitt engagemang för brukarnas rättigheter.
+
+Jag kan börja inom fyra veckor och ser fram emot att diskutera hur jag kan stärka ert team.`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret ärendevolym visar kapacitet',
+        beskrivning: '80 ärenden parallellt ger enhetschefen en tydlig bild av Marias erfarenhetsnivå. Det visar att hon klarar hög arbetsbelastning och har rutin på att prioritera. Siffror är svåra att överdriva och skiljer henne från sökande som skriver att de har "bred erfarenhet".'
+      },
+      {
+        titel: 'Mätbar förbättring av handläggningstid',
+        beskrivning: 'Att minska handläggningstiden med 23 procent visar att Maria inte bara utreder utan förbättrar processer. Kommuner mäter handläggningstid noga och uppskattar kandidater som bidrar till verksamhetsmål. Det signalerar initiativförmåga och affärsförståelse.'
+      },
+      {
+        titel: 'Systemkunskap i Procapita och IBIC',
+        beskrivning: 'Att nämna specifika verksamhetssystem och utredningsmetodik visar att Maria behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
+      },
+      {
+        titel: 'Rättssäkerhet lyfts fram konkret',
+        beskrivning: 'Maria nämner att inga beslut upphävts vid överklagan. Det är ett starkt bevis på kvalitet i utredningsarbetet. Kommuner vill undvika förvaltningsrättsprocesser och värderar handläggare som fattar hållbara beslut från början.'
+      },
+      {
+        titel: 'Samverkan med verkställare och region',
+        beskrivning: 'Att lyfta samarbete med LSS-handledare och Region Stockholms habiliteringsteam visar att Maria förstår hela kedjan. Det signalerar att hon inte bara fattar beslut utan följer upp att insatser fungerar i praktiken.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Beskriv din erfarenhet av olika LSS-insatser',
+        text: 'LSS innehåller tio insatser med olika komplexitet. Nämn vilka du har erfarenhet av: personlig assistans, ledsagarservice, kontaktperson, avlösarservice, korttidsvistelse, korttidstillsyn, boende med särskild service, daglig verksamhet, råd och stöd. Var specifik om du har djup erfarenhet av en insats eller bredd över flera.\n\nOm du arbetat med både barn och vuxna, lyft det. Rekryterare uppskattar flexibilitet och förståelse för hur insatser anpassas efter ålder och behov.'
+      },
+      {
+        rubrik: 'Visa din juridiska kompetens utan att vara torr',
+        text: 'LSS-handläggare fattar myndighetsbeslut som kan överklagas. Nämn att du motiverar beslut enligt förvaltningslagen och att du har erfarenhet av att skriva utredningar som håller vid rättslig prövning. Beskriv hur du balanserar lagtolkning med brukarens perspektiv.\n\nUndvik att låta som en lagtext. Visa istället att du förstår regelverket tillräckligt för att tillämpa det pragmatiskt.'
+      },
+      {
+        rubrik: 'Lyft din förmåga att hantera svåra samtal',
+        text: 'Handläggare möter ofta frustrerade anhöriga och brukare som inte får det de ansökt om. Beskriv hur du hanterar avslagsbeslut med respekt och tydlighet. Ge gärna ett kort exempel på hur du vände ett svårt samtal.\n\nKommuner söker handläggare som kan stå för sina beslut utan att vara hårda. Det visar mognad och professionalism.'
+      },
+      {
+        rubrik: 'Beskriv din samverkan med andra aktörer',
+        text: 'LSS-handläggning kräver kontakt med habilitering, psykiatri, skola, verkställare och anhöriga. Nämn vilka aktörer du samarbetat med och hur du koordinerar information. Om du deltagit i SIP-möten eller nätverksmöten, lyft det.\n\nSamverkanskompetens är ofta avgörande för att insatser ska fungera i praktiken.'
+      },
+      {
+        rubrik: 'Nämn specifika system och metoder',
+        text: 'Kommuner använder olika verksamhetssystem som Procapita, Treserva eller Pulsen Combine. Skriv vilka du arbetat i. Nämn också om du använt IBIC, BBiC eller andra utredningsmetoder.\n\nSystemkunskap visar att du kan börja arbeta snabbt. Om du bara använt ett system, beskriv att du snabbt lär dig nya.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Vad gör en LSS-handläggare?',
+        a: 'Du utreder och fattar beslut om insatser enligt LSS, lagen om stöd och service till vissa funktionshindrade. Arbetet innebär hembesök, samtal med brukare och anhöriga, inhämtning av underlag från vården och motiverade myndighetsbeslut. Du samverkar sedan med verkställare som genomför insatserna.'
+      },
+      {
+        q: 'Vilken utbildning krävs för att bli LSS-handläggare?',
+        a: 'De flesta kommuner kräver socionomexamen eller annan relevant högskoleutbildning inom socialt arbete, beteendevetenskap eller juridik. Erfarenhet av myndighetsutövning väger ofta tungt, och vissa kommuner anställer personer med bakgrund inom funktionshinderområdet även utan socionom.'
+      },
+      {
+        q: 'Vad är skillnaden mellan LSS-handläggare och biståndshandläggare?',
+        a: 'LSS-handläggare arbetar med insatser för personer med funktionsnedsättning enligt LSS. Biståndshandläggare arbetar oftast med äldreomsorgen enligt socialtjänstlagen. Regelverken skiljer sig åt, men arbetsmetoderna är liknande: utreda behov, fatta beslut, följa upp insatser.'
+      },
+      {
+        q: 'Hur många ärenden hanterar en LSS-handläggare?',
+        a: 'Det varierar mellan kommuner, men 60-100 ärenden är vanligt. Vissa ärenden är aktiva med pågående utredning, andra är beviljade insatser som följs upp årligen. Arbetsbelastningen beror på komplexitet och hur många nya ansökningar som kommer in.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av andra socialtjänstområden?',
+        a: 'Ja, om du har erfarenhet av barn och ungdom, äldreomsorg eller ekonomiskt bistånd. Det visar bredd och förståelse för socialtjänstens helhet. Var tydlig med hur dina tidigare erfarenheter översätts till LSS-arbete.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar hög arbetsbelastning?',
+        a: 'Nämn antal ärenden du hanterat parallellt och hur du prioriterar. Beskriv gärna ett system du använder för att hålla ordning på tidsfrister och uppföljningar. Undvik att bara skriva att du är "stresstålig" utan att ge bevis.'
+      },
+      {
+        q: 'Vad är IBIC och ska jag nämna det i brevet?',
+        a: 'IBIC står för Individens behov i centrum och är en utredningsmodell som många kommuner använder. Om du har erfarenhet av IBIC, nämn det. Det visar att du förstår systematiskt utredningsarbete och kan dokumentera på ett strukturerat sätt.'
+      },
+      {
+        q: 'Hur lång erfarenhet behövs som LSS-handläggare?',
+        a: 'Kommuner anställer både nyutexaminerade och erfarna handläggare. Om du är ny, fokusera på VFU-erfarenheter, praktik eller sommarjobb inom socialtjänst. Visa att du förstår myndighetsutövning och har intresse för funktionshinderområdet.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för LSS-handläggare vara?',
+        a: 'Håll det till en A4-sida, cirka 300-400 ord. Enhetschefer inom socialtjänst får många ansökningar och uppskattar brev som snabbt visar relevant erfarenhet och förståelse för rollen.'
+      }
+    ],
+
+    cta: {
+      text: 'Vill du skapa ett professionellt personligt brev för LSS-handläggare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom myndighetsutövning.',
+      buttonText: 'Skapa ditt brev nu',
+      buttonLink: '/verktyg/personligt-brev'
+    },
+
+    verktyg: [
+      {
+        namn: 'CV-Mallar för socialt arbete',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar anpassade för handläggare och socionomer'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din karriär inom socialtjänst från vår AI-coach'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för LSS-handläggare på 5 minuter'
+      }
+    ],
+
+    kategori: 'offentlig-forvaltning',
+    relaterade: [
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Boendestödjare', slug: 'boendestod' }
+    ]
   }
 }
 
