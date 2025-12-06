@@ -1,15 +1,16 @@
-// middleware.ts (i projektets rotmapp)
+// proxy.ts (i projektets rotmapp) - Next.js 16 kräver proxy.ts istället för middleware.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 import { adminAuthMiddleware } from '@/middleware/admin-auth'
 
-export async function middleware(request: NextRequest) {
+// Next.js 16: Funktionsnamnet måste vara "proxy" istället för "middleware"
+export async function proxy(request: NextRequest) {
   // Kontrollera om detta är en admin-route
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // Använd admin auth middleware för admin-routes
     return adminAuthMiddleware(request);
   }
-  
+
   // För alla andra routes, använd den vanliga session middleware
   return await updateSession(request)
 }
