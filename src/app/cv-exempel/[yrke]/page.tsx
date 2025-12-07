@@ -5332,6 +5332,8 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     metaTitle: 'CV Exempel Enhetschef 2025 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Professionellt CV-exempel för enhetschef med budgetansvar och personalledning. ATS-optimerad mall med kvantifierbara resultat och verksamhetsutveckling.',
 
+    intro: 'Ett professionellt CV-exempel för enhetschef som visar din förmåga att kombinera budgetansvar, personalledning och verksamhetsutveckling med mätbara resultat. Detta exempel är optimerat för svenska kommuner, regioner och privata vårdgivare samt ATS-system.',
+
     seoIntro: `Ett vinnande CV som enhetschef kräver tydlig dokumentation av ditt budgetansvar, personalansvar och förmåga att driva verksamhetsutveckling med mätbara resultat. Rekryterare inom kommun, region och privat vård söker inte efter allmänna ledaregenskaper utan konkreta bevis på hur du lett enheter, förbättrat kvalitet och arbetat systematiskt med både ekonomi och arbetsmiljö.
 
 Som första linjens chef är enhetschefen navet mellan medarbetare och högre ledning. Ditt CV måste visa att du kan både budgetstyrning (drift och investering), personalledning (ofta 15-50 medarbetare) och verksamhetsplanering med KPI-uppföljning. Arbetsgivare filtrerar ofta på nyckelord som "systematiskt arbetsmiljöarbete", "kvalitetssäkring", "rekrytering" och specifika system som Primula, Adato eller Power BI.
