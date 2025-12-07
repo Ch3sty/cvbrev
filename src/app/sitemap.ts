@@ -195,6 +195,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projektledare',
     'elevassistent',
     'kundtjanst',
+    'kundtjanstmedarbetare',
     'kock',
     'fysioterapeut',
     'grundskollarare',

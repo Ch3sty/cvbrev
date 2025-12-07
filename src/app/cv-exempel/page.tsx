@@ -414,6 +414,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'kundtjanstmedarbetare',
+    yrke: 'Kundtjänstmedarbetare',
+    slug: 'kundtjanstmedarbetare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 1200,
+    icon: Phone,
+    gradient: 'from-cyan-500 via-blue-600 to-cyan-700',
+    preview: {
+      intro: 'CV-exempel som visar multi-channel support, CRM-system (Zendesk, Salesforce) och kvantifierade KPI-resultat (CSAT, NPS, FCR).',
+      highlight: ['CSAT 78%→91% och FCR 87%', 'Zendesk, Salesforce och Freshdesk', 'Multi-channel: telefon, chatt, e-post']
+    }
+  },
+  {
     id: 'vardbitrade',
     yrke: 'Vårdbiträde',
     slug: 'vardbitrade',
@@ -1010,7 +1024,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  58 yrken
+                  59 yrken
                 </motion.span>
               </h1>
 
