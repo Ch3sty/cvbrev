@@ -5071,6 +5071,12 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
     exempelCV: {
       namn: 'Emma Bergström',
       titel: 'Specialistsjuksköterska intensivvård',
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'emma.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/emmabergstrom'
+      },
       profil: 'Specialistsjuksköterska med 9+ års erfarenhet från högspecialiserad intensivvård och avancerad omvårdnad av kritiskt sjuka patienter. Expert inom medicinteknisk utrustning som respiratorer, CRRT, ECMO och invasiv hemodynamisk monitorering. Handleder 8-10 specialiststuderande per år och driver förbättringsarbete baserat på evidens från kvalitetsregister (SIR, SWEDEHEART). Drivs av att kombinera avancerad teknologi med personcentrerad omvårdnad för att optimera vårdutfall för de mest kritiskt sjuka patienterna.',
 
       erfarenhet: [
@@ -5629,6 +5635,12 @@ Detta CV-exempel för enhetschef visar hur du strukturerar erfarenhet från olik
     exempelCV: {
       namn: 'Maria Andersson',
       titel: 'Enhetschef med 10+ års erfarenhet inom vård och omsorg',
+      kontakt: {
+        telefon: '076-234 56 78',
+        epost: 'maria.andersson@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/mariaandersson-enhetschef'
+      },
       profil: 'Erfaren enhetschef med dokumenterad förmåga att leda verksamheter med upp till 45 medarbetare och budgetansvar på 18 MSEK. Specialist på verksamhetsutveckling, kvalitetssäkring och systematiskt arbetsmiljöarbete med stark förmåga att kombinera ekonomisk styrning med medarbetarfokus. Bevisad track record av att förbättra både verksamhetsresultat (kvalitets-KPI:er, budget-träffsäkerhet) och medarbetarnöjdhet samtidigt. Driven av att skapa förutsättningar för medarbetare att växa samtidigt som verksamheten levererar hög kvalitet inom ram.',
 
       erfarenhet: [
