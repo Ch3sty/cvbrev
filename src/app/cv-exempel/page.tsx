@@ -386,6 +386,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'enhetschef',
+    yrke: 'Enhetschef',
+    slug: 'enhetschef',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 880,
+    icon: Users,
+    gradient: 'from-indigo-500 via-purple-600 to-indigo-700',
+    preview: {
+      intro: 'CV-exempel för enhetschef med budgetansvar (18 MSEK), personalledning (45 medarbetare) och systematiskt arbetsmiljöarbete enligt SAM/AFS.',
+      highlight: ['Budgetansvar och ekonomistyrning', 'Personalledning och HMI-resultat', 'Verksamhetsutveckling och kvalitetssäkring']
+    }
+  },
+  {
     id: 'elevassistent',
     yrke: 'Elevassistent',
     slug: 'elevassistent',
@@ -1024,7 +1038,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  60 yrken
+                  61 yrken
                 </motion.span>
               </h1>
 

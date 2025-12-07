@@ -5324,6 +5324,283 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     ]
   },
 
+  'enhetschef': {
+    yrke: 'Enhetschef',
+    slug: 'enhetschef',
+    sokvolym: 880,
+    kategori: 'ledning',
+    metaTitle: 'CV Exempel Enhetschef 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för enhetschef med budgetansvar och personalledning. ATS-optimerad mall med kvantifierbara resultat och verksamhetsutveckling.',
+
+    seoIntro: `Ett vinnande CV som enhetschef kräver tydlig dokumentation av ditt budgetansvar, personalansvar och förmåga att driva verksamhetsutveckling med mätbara resultat. Rekryterare inom kommun, region och privat vård söker inte efter allmänna ledaregenskaper utan konkreta bevis på hur du lett enheter, förbättrat kvalitet och arbetat systematiskt med både ekonomi och arbetsmiljö.
+
+Som första linjens chef är enhetschefen navet mellan medarbetare och högre ledning. Ditt CV måste visa att du kan både budgetstyrning (drift och investering), personalledning (ofta 15-50 medarbetare) och verksamhetsplanering med KPI-uppföljning. Arbetsgivare filtrerar ofta på nyckelord som "systematiskt arbetsmiljöarbete", "kvalitetssäkring", "rekrytering" och specifika system som Primula, Adato eller Power BI.
+
+Detta CV-exempel för enhetschef visar hur du strukturerar erfarenhet från olika ledarnivåer inom vård, kommun eller privat sektor, kvantifierar resultat som sjukfrånvaro, budget-träffsäkerhet och medarbetarnöjdhet, samt presenterar relevanta certifieringar inom arbetsmiljö och ledarskap. Använd denna mall för att skapa ett CV som öppnar dörrar till nästa steg som verksamhetschef, avdelningschef eller motsvarande ledande roll.`,
+
+    viktigtAttTankaPa: [
+      'Kvantifiera budgetansvar och personalansvar: Ange alltid budget i MSEK (drift/investering), antal medarbetare (direkta/indirekta), och konkreta resultat som förbättrad sjukfrånvaro, budget-träffsäkerhet eller ökad medarbetarnöjdhet i procent',
+      'Visa systematiskt arbetsmiljöarbete: Beskriv konkreta åtgärder enligt SAM (Systematiskt arbetsmiljöarbete) och resultat som minskad sjukfrånvaro, färre arbetsskador eller förbättrade skyddsrondsresultat',
+      'Kombinera verksamhets- och medarbetarresultat: Balansera hårda siffror (budget, kvalitets-KPI:er, produktivitet) med mjuka resultat (HMI, personalomsättning, kompetensutveckling) för att visa hållbart ledarskap',
+      'Framhäv branschspecifika system: Nämn relevanta verktyg som Primula, Adato, Flex HRM, Power BI, SJV kvalitetssystem eller andra system som är standard i din bransch'
+    ],
+
+    exempelCV: {
+      namn: 'Maria Andersson',
+      titel: 'Enhetschef med 10+ års erfarenhet inom vård och omsorg',
+      profil: 'Erfaren enhetschef med dokumenterad förmåga att leda verksamheter med upp till 45 medarbetare och budgetansvar på 18 MSEK. Specialist på verksamhetsutveckling, kvalitetssäkring och systematiskt arbetsmiljöarbete med stark förmåga att kombinera ekonomisk styrning med medarbetarfokus. Bevisad track record av att förbättra både verksamhetsresultat (kvalitets-KPI:er, budget-träffsäkerhet) och medarbetarnöjdhet samtidigt. Driven av att skapa förutsättningar för medarbetare att växa samtidigt som verksamheten levererar hög kvalitet inom ram.',
+
+      erfarenhet: [
+        {
+          titel: 'Enhetschef, Hemtjänst Norra',
+          arbetsgivare: 'Stockholms Stad, Äldreförvaltningen',
+          period: '2019 - nuvarande',
+          beskrivning: [
+            'Leder enhet med 45 medarbetare (undersköterskor, vårdbiträden, sjuksköterskor) och ansvarar för 18 MSEK driftsbudget samt 2,5 MSEK investering',
+            'Minskade sjukfrånvaron från 11,2% till 6,8% på 3 år genom strukturerat rehabiliteringsarbete och tidiga insatser enligt SAM',
+            'Förbättrade HMI (Hållbart medarbetarengagemang) från 72 till 86 poäng genom återkommande dialogmöten och tydlig kommunikation kring mål och förväntningar',
+            'Implementerade nytt planeringssystem (Adato) vilket minskade administration med 25% och ökade direkttid hos brukare från 62% till 74%',
+            'Uppnådde budget +/- 1,5% samtliga år trots ökade personalkostnader genom proaktiv resursplanering och kontinuerlig uppföljning i Power BI',
+            'Ansvarar för rekrytering, introduktion, lönesättning, utvecklingssamtal och systematiskt arbetsmiljöarbete enligt AFS 2015:4'
+          ]
+        },
+        {
+          titel: 'Biträdande enhetschef / Teamledare',
+          arbetsgivare: 'Attendo Care AB',
+          period: '2016 - 2019',
+          beskrivning: [
+            'Ledde team om 22 medarbetare inom särskilt boende och stöttade enhetschef i budget- och verksamhetsuppföljning (12 MSEK)',
+            'Ansvarade för schemaläggning, bemanning och kvalitetssäkring enligt Socialstyrelsens föreskrifter (SOSFS 2011:9)',
+            'Drev förbättringsprojekt som höjde anhörigenkäten från 3,8 till 4,4 (av 5) genom bättre informationsrutiner och ökad delaktighet',
+            'Koordinerade kompetensutveckling och säkerställde att 100% av personalen genomförde obligatorisk utbildning inom basal hygien, demens och läkemedelshantering'
+          ]
+        },
+        {
+          titel: 'Gruppchef / Arbetslagsledare',
+          arbetsgivare: 'Solna Kommun, Socialförvaltningen',
+          period: '2014 - 2016',
+          beskrivning: [
+            'Ledde arbetslag med 12 socialsekreterare inom individ- och familjeomsorg med fokus på kvalitet och verksamhetsutveckling',
+            'Införde strukturerade handledningssamtal vilket minskade personalomsättningen från 28% till 14% på 18 månader',
+            'Säkerställde efterlevnad av lagkrav (SoL, LVU) genom systematisk granskning och regelbundna kvalitetsdialoger'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet',
+          skola: 'Stockholms Universitet',
+          period: '2008 - 2012',
+          beskrivning: 'Inriktning: Socialt arbete och välfärd'
+        },
+        {
+          titel: 'Ledarskap i offentlig sektor',
+          skola: 'Förvaltningshögskolan, Göteborgs Universitet',
+          period: '2018',
+          beskrivning: 'Fokus på verksamhetsstyrning, ekonomi och förändringsledning inom kommun och region'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Budgetansvar och ekonomistyrning (Expert, 6+ år)',
+          'Personalledning och arbetsmiljöansvar (Expert, 8+ år)',
+          'Verksamhetsplanering och KPI-uppföljning',
+          'Primula/Adato (Planerings- och dokumentationssystem)',
+          'Power BI och Qlik (Rapportering och analys)',
+          'Systematiskt arbetsmiljöarbete (SAM) enligt AFS',
+          'Kvalitetssäkring enligt ISO och SJV',
+          'Rekrytering och kompetensförsörjning'
+        ],
+        personliga: [
+          'Verksamhetsutveckling (förbättrade HMI med 14 enheter på 3 år)',
+          'Kommunikation och förankring (minskade konflikter och sjukfrånvaro)',
+          'Strategiskt tänkande (balanserar ekonomi, kvalitet och medarbetarnöjdhet)',
+          'Coaching och medarbetarutveckling (lägre personalomsättning än branschsnitt)',
+          'Resultatfokus (budget +/- 1,5% samtliga år trots volatilitet)',
+          'Förändringsledning (genomfört 3 systembyten och 2 omorganisationer)'
+        ]
+      },
+
+      certifieringar: [
+        'Ledarskap i välfärden, SKL Kompetensakademi (2020)',
+        'Arbetsmiljöansvar för chefer enligt AFS 2015:4 (2019)',
+        'Systematiskt arbetsmiljöarbete (SAM), Prevent (2018)',
+        'Change management, IHM Business School (2021)',
+        'Coachande samtal, Ledarna (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerat för chefsrekrytering inom vård och kommun',
+        text: `Maria använder exakt de termer som rekryterare söker efter: "budgetansvar", "personalansvar", "systematiskt arbetsmiljöarbete", "verksamhetsutveckling", "KPI-uppföljning". Inte vaga begrepp som "ansvarig för enhet" eller "god ledare".
+
+**Varför detta fungerar:** ATS-system inom kommun och vård filtrerar på specifika nyckelord som "SAM enligt AFS", "Primula", "HMI" och "budget MSEK". När Maria skriver "18 MSEK driftsbudget" och "45 medarbetare" istället för "ekonomiansvar och personal" triggar hon exakt de sökord rekryterare använder. Många kommuner söker också på verksamhetssystem som Adato och Primula - genom att nämna dessa ökar chansen att hamna i rätt sökresultat.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat inom både ekonomi och medarbetare',
+        text: `CV:t visar konkreta förbättringar: sjukfrånvaro från 11,2% till 6,8%, HMI från 72 till 86, budget +/- 1,5%. Varje roll beskrivs med mätbara resultat, inte bara ansvar.
+
+**Varför detta fungerar:** Rekryterare läser hundratals CV där kandidater skriver "ansvarig för budget och personal". Det säger inget om du faktiskt är bra på det. Maria visar att hennes ledarskap gav konkreta resultat - sjukfrånvaron sjönk med nästan hälften, medarbetarengagemanget steg kraftigt OCH budgeten höll. Detta bevisar att hon kan leda hållbart - inte bara driva ekonomi på bekostnad av människor eller tvärtom.`
+      },
+      {
+        rubrik: 'Tydlig progression från arbetslag till enhet',
+        text: `Karriärstegen syns tydligt: Arbetslagsledare 12 personer → Biträdande enhetschef 22 personer → Enhetschef 45 personer. Varje steg visar ökande ansvar och komplexitet.
+
+**Varför detta fungerar:** Rekryterare vill se att du vuxit in i större ledarskap gradvis, inte hoppat från ingenting till stor enhet. Progressionen visar att Maria först ledde ett mindre team, sedan fick budgetansvar som biträdande chef innan hon blev fullt ansvarig enhetschef. Detta minskar risken - du har bevisat att du klarar varje nivå innan du tagit nästa steg. Att gå från 12 till 45 medarbetare visar också skalbarhet.`
+      },
+      {
+        rubrik: 'Branschspecifika system och certifieringar',
+        text: `Primula, Adato, Power BI, SAM enligt AFS 2015:4 - med konkreta resultat kopplade till varje system. Inte bara "god systemvana".
+
+**Varför detta fungerar:** Inom vård och kommun är specifika system branschstandard. Att nämna Primula eller Adato signalerar omedelbart att du kan jobba från dag ett utan omfattande introduktion. Certifieringar som "Arbetsmiljöansvar enligt AFS 2015:4" och "SAM" är ofta krav eller meriterande - utan dessa hamnar ditt CV längre ner i rankingen. Specifika föreskrifter (SOSFS 2011:9, SoL, LVU) visar också juridisk kompetens.`
+      },
+      {
+        rubrik: 'Profiltext som visar både scope och resultat',
+        text: `Första stycket sammanfattar omedelbart: 10+ år, 45 medarbetare, 18 MSEK, både verksamhets- och medarbetarresultat. Rekryteraren vet direkt vilken nivå Maria är på.
+
+**Varför detta fungerar:** Rekryterare scrollar igenom 60 CV på 15 minuter för enhetschefstjänster. De läser inte hela CV:t - de scannar profiltexten först. När Maria skriver "upp till 45 medarbetare och budgetansvar på 18 MSEK" samt nämner "kvalitets-KPI:er och medarbetarnöjdhet" vet rekryteraren på 5 sekunder om hon matchar den nivå och inriktning de söker. Utan denna sammanfattning måste de gissa genom att läsa hela arbetserfarenheten.`
+      },
+      {
+        rubrik: 'Balans mellan verksamhet och medarbetare',
+        text: `CV:t visar både verksamhetsresultat (budget +/- 1,5%, direkttid 74%, kvalitets-KPI:er) och medarbetarresultat (HMI +14 enheter, sjukfrånvaro -40%, personalomsättning halverad).
+
+**Varför detta fungerar:** Rekryterare undviker två typer av enhetschefer: de som bara kör ekonomi (hög personalomsättning, utbrända medarbetare) och de som bara fokuserar på trivsel utan att leverera resultat (budgetunderskott, dålig kvalitet). Maria bevisar båda dimensionerna samtidigt - hon höll budgeten OCH förbättrade arbetsmiljön. Detta visar hållbart ledarskap som är avgörande inom vård och omsorg där både ekonomi och personal är kritiska framgångsfaktorer.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera budgetansvar och personalansvar konkret',
+        text: `Rekryterare kan inte bedöma "ansvarig för enhetens ekonomi och personal" - det kan betyda 5 MSEK eller 50 MSEK, 10 personer eller 100.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för enhetens budget, personal och verksamhetsutveckling"
+
+✅ "Ansvarar för 18 MSEK driftsbudget + 2,5 MSEK investering, leder 45 medarbetare (direkta rapporter: 5 arbetsledare + 40 vårdpersonal)"
+
+Specificera även budgettyp (drift vs investering, P&L-ansvar) och om du rapporterar till verksamhetschef eller förvaltningschef.`
+      },
+      {
+        rubrik: 'Visa systematiskt arbetsmiljöarbete med resultat',
+        text: `Alla enhetschefer har arbetsmiljöansvar enligt lag, men de flesta skriver bara "ansvarar för arbetsmiljö". Visa VAD du gjort och vilket resultat det gav.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarar för systematiskt arbetsmiljöarbete och genomför skyddsronder"
+
+✅ "Implementerade SAM enligt AFS 2015:4 med kvartalsvis riskbedömning och månatliga skyddsronder - minskade sjukfrånvaron från 11,2% till 6,8% och antalet arbetsskador från 8 till 2 per år"
+
+Koppla alltid arbetsmiljöarbete till konkreta utfall som sjukfrånvaro, arbetsskador, rehabiliteringsärenden eller HMI-resultat.`
+      },
+      {
+        rubrik: 'Beskriv verksamhetsutveckling med mätbara KPI:er',
+        text: `"Drev verksamhetsutveckling" är för vagt. Specificera VAD du utvecklade, HUR du gjorde det och vilket resultat det gav i form av kvalitet, effektivitet eller brukar/kundnöjdhet.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för enhetens kvalitetsarbete och verksamhetsutveckling"
+
+✅ "Implementerade nytt planeringssystem (Adato) som ökade direkttid hos brukare från 62% till 74% och förbättrade anhörigenkäten från 3,8 till 4,4 (av 5) genom bättre informationsrutiner"
+
+Använd KPI:er som är relevanta i din bransch: direkttid (hemtjänst), beläggningsgrad (boende), väntetider (socialtjänst), NKI/brukarenkäter.`
+      },
+      {
+        rubrik: 'Nämn branschspecifika system och verktyg',
+        text: `Inom vård och omsorg är vissa system branschstandard. Att nämna dessa ökar dina chanser att passera ATS-filter och visar att du kan börja jobba direkt.
+
+**Exempel på före/efter:**
+
+❌ "God vana vid planeringsverktyg och uppföljningssystem"
+
+✅ "Primula (schemaläggning och dokumentation), Adato (resursplanering), Power BI (ekonomi- och verksamhetsuppföljning), Lifecare (journalsystem)"
+
+Andra vanliga system: Flex HRM, Stratsys (ledningssystem), TES (tid- och schemaläggning), PMO (socialtjänst). Nämn endast de du faktiskt arbetat i.`
+      },
+      {
+        rubrik: 'Visa både ekonomisk styrning och medarbetarfokus',
+        text: `Enhetschefer behöver balansera budget och människor. Visa att du kan båda genom att koppla ekonomiska resultat till medarbetarresultat.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarar för budget och medarbetarutveckling"
+
+✅ "Uppnådde budget +/- 1,5% samtliga 5 år samtidigt som HMI steg från 72 till 86 och personalomsättningen minskade från 22% till 9% - sparade 1,2 MSEK i rekryteringskostnader"
+
+Visa att du inte håller budget genom att spara på personal (vilket leder till utbrändhet) utan genom smart resursplanering och engagerade medarbetare som stannar kvar.`
+      },
+      {
+        rubrik: 'Framhäv certifieringar och utbildningar inom arbetsmiljö',
+        text: `Arbetsmiljöansvar är lagkrav för enhetschefer. Relevanta certifieringar signalerar att du tar ansvaret på allvar och kan arbetsmiljölagstiftningen.
+
+**Exempel på före/efter:**
+
+❌ "Genomfört diverse kurser inom ledarskap och arbetsmiljö"
+
+✅ "Certifieringar: Arbetsmiljöansvar för chefer enligt AFS 2015:4 (Prevent 2019), Systematiskt arbetsmiljöarbete (SAM), Rehabiliteringsansvar och samordningsansvar"
+
+Lägg även till branschspecifika utbildningar som "Bemötande vid demens", "Basala hygienrutiner", "Läkemedelshantering" om relevant för din verksamhet.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV vara som enhetschef?',
+        svar: '2 sidor är standard för enhetschefer med 8-15 års erfarenhet. Första sidan är avgörande - placera profiltext, nyckelkompetenser och senaste chefsrollen där. Rekryterare inom kommun och vård läser sällan vidare om första sidan inte övertygar med rätt nyckelord (budgetansvar, personalansvar, SAM, relevanta system). Prioritera senaste 10 åren med detaljer, summera tidigare roller kortfattat.'
+      },
+      {
+        fraga: 'Hur visar jag budgetansvar tydligt i mitt CV som enhetschef?',
+        svar: 'Specificera belopp i MSEK, typ av ansvar och resultat. Skriv "Ansvarar för 18 MSEK driftsbudget + 2,5 MSEK investering, full kostnadsställeansvar" istället för bara "budgetansvar". Visa resultat: "Budget +/- 1,5% senaste 5 åren trots ökade personalkostnader genom proaktiv resursplanering". Inkludera även hur du följer upp ekonomin: "Månatlig avstämning i Power BI, kvartalsrapportering till förvaltningschef".'
+      },
+      {
+        fraga: 'Vilka system ska jag nämna som enhetschef inom vård och omsorg?',
+        svar: 'Nämn de system du faktiskt arbetat i: Primula (schemaläggning och dokumentation i kommun), Adato (resursplanering hemtjänst), Lifecare eller Cosmic (journalsystem), Power BI eller Qlik (uppföljning), Flex HRM (HR och lön). Även TES (tidrapportering), Stratsys (ledningssystem), PMO (socialtjänst) är relevanta. Dessa system är ofta sökord i ATS-filter - genom att nämna dem ökar du chansen att hamna i rätt kandidatpool.'
+      },
+      {
+        fraga: 'Hur beskriver jag personalansvar konkret som enhetschef?',
+        svar: 'Specificera antal medarbetare (direkta och indirekta), yrkesgrupper och vad du faktiskt ansvarar för. Skriv "Leder 45 medarbetare: 5 arbetsledare (direkta rapporter) + 28 undersköterskor + 12 vårdbiträden. Ansvarar för rekrytering, introduktion, lönesättning, utvecklingssamtal och arbetsmiljö enligt AFS" istället för bara "personalansvar". Lägg till resultat som personalomsättning, sjukfrånvaro och HMI före/efter du tog över.'
+      },
+      {
+        fraga: 'Ska jag inkludera arbetsmiljöcertifieringar som enhetschef?',
+        svar: 'Ja, absolut. Arbetsmiljöansvar är lagkrav för enhetschefer och certifieringar visar att du kan lagstiftningen. Inkludera "Arbetsmiljöansvar för chefer enligt AFS 2015:4", "Systematiskt arbetsmiljöarbete (SAM)", "Rehabiliteringsansvar" med årtal. Placera under "Certifieringar" eller "Kompetensutveckling". Dessa är ofta meriterande eller krav i kommunala och regionala rekryteringar. Undvik endagskurser - fokusera på erkända utbildningar från Prevent, SKL eller motsvarande.'
+      },
+      {
+        fraga: 'Hur visar jag systematiskt arbetsmiljöarbete i mitt CV?',
+        svar: 'Beskriv konkreta åtgärder och resultat enligt SAM-cykeln (undersök-riskbedöm-åtgärda-följ upp). Exempel: "Implementerade SAM enligt AFS 2015:4 med kvartalsvis riskbedömning, månatliga skyddsronder och systematisk incidentrapportering - minskade sjukfrånvaron från 11,2% till 6,8% och antalet arbetsskador från 8 till 2 per år". Koppla alltid till mätbara utfall som sjuktal, rehabiliteringsärenden eller OSA-resultat (organisatorisk och social arbetsmiljö).'
+      },
+      {
+        fraga: 'Hur blir man enhetschef inom kommun eller vård?',
+        svar: 'Typisk väg: Grundutbildning (socionom, sjuksköterska, specialpedagog eller motsvarande) → 3-5 år som handläggare/vårdpersonal → Arbetsledare/gruppchef 2-3 år → Biträdande enhetschef → Enhetschef. Komplettera med ledarskapsutbildning (t.ex. SKL:s ledarskapsprogram) och arbetsmiljöutbildning. I ditt CV: betona alla ledarsituationer som handläggare (mentorskap, projektledning, arbetsgrupper), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första chefstiteln.'
+      },
+      {
+        fraga: 'Vilka kvalifikationer söker arbetsgivare hos en enhetschef?',
+        svar: 'Kommun och region söker ofta: Relevant grundutbildning (socionom, sjuksköterska, pedagog), minst 2-3 års erfarenhet av personalledning, dokumenterad erfarenhet av budgetansvar, kunskap om arbetsmiljölagstiftning (AFS 2015:4, SAM), erfarenhet av verksamhetsutveckling och kvalitetsarbete, samt vana vid relevanta system (Primula, Adato, Power BI). Privata vårdföretag värderar också affärsmässighet, KPI-styrning och förändringsledning högt. Visa dessa genom konkreta exempel i ditt CV.'
+      },
+      {
+        fraga: 'Hur visar jag verksamhetsutveckling som enhetschef?',
+        svar: 'Beskriv konkreta projekt med kontext, åtgärd och resultat. Exempel: "Implementerade personcentrerad vård enligt Socialstyrelsens riktlinjer - förbättrade brukarenkäten från 3,6 till 4,3 (av 5) och minskade antalet avvikelser med 45% på 18 månader". Eller: "Införde Lean-baserad processoptimering som minskade ledtider med 30% och ökade andel direkttid från 58% till 71%". Koppla alltid till kvalitets-KPI:er som är relevanta i din verksamhet: NKI, beläggning, väntetider, direkttid.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera både ekonomi och medarbetare som enhetschef?',
+        svar: 'Visa att de hänger ihop, inte konkurrerar. Exempel: "Uppnådde budget +/- 2% samtliga 4 år samtidigt som medarbetarengagemanget (HMI) steg från 69 till 83 - minskade kostnader för vikarier med 0,8 MSEK genom lägre sjukfrånvaro och personalomsättning". Detta bevisar att du inte håller budget genom att spara på personal (vilket leder till utbrändhet och höga rekryteringskostnader) utan genom att skapa hållbara arbetsmiljöer där engagerade medarbetare stannar kvar och levererar kvalitet.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Chef', slug: 'chef' },
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'HR-specialist', slug: 'hr-specialist' }
+    ]
+  },
+
   'barnskotare': {
     yrke: 'Barnskötare',
     sokvolym: 980,
