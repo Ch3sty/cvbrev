@@ -888,6 +888,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för Scrum Master med fokus på servant leadership, agila ceremonier och teamutveckling inom fintech och e-handel.',
       highlight: ['45% velocity-förbättring och cycle time från 12 till 5 dagar', 'PSM II, SAFe SM och Jira/Confluence', 'Klarna/Hemnet-erfarenhet och PO-coaching']
     }
+  },
+  {
+    id: 'teamledare',
+    yrke: 'Teamledare',
+    slug: 'teamledare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 1100,
+    icon: Users,
+    gradient: 'from-teal-500 via-cyan-600 to-blue-600',
+    preview: {
+      intro: 'CV-exempel för teamledare med coaching, målstyrning och agila metoder (Scrum, OKR) inom tech och kundtjänst.',
+      highlight: ['NPS från 42 till 68, eNPS från 18 till 54', 'Jira, Lattice, Salesforce och CSM-certifierad', '10 direktrapporter, 4 interna befordringar']
+    }
   }
 ]
 
@@ -1052,7 +1066,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  62 yrken
+                  63 yrken
                 </motion.span>
               </h1>
 

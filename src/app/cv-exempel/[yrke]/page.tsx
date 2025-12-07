@@ -16012,6 +16012,293 @@ Progression från Level I till Level II visar kontinuerlig utveckling och djupar
     ]
   },
 
+  'teamledare': {
+    yrke: 'Teamledare',
+    slug: 'teamledare',
+    sokvolym: 1100,
+    kategori: 'service',
+    metaTitle: 'CV Exempel Teamledare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se professionellt CV-exempel för teamledare med ATS-optimerad struktur. Inkluderar coaching, målstyrning, agila metoder och performance management. Ladda ner gratis mall.',
+
+    intro: 'Ett professionellt CV-exempel för teamledare som visar din förmåga att kombinera coaching, målstyrning och agil projektledning med mätbara resultat. Detta exempel är optimerat för tech, kundtjänst, försäljning och agila organisationer samt ATS-system.',
+
+    seoIntro: `Ett vinnande CV som teamledare kräver bevis på att du kan leda team till resultat genom coaching och målstyrning, inte bara mikromanagement. Rekryterare inom tech, kundtjänst och försäljning söker inte efter allmänna ledaregenskaper utan konkreta exempel på hur du förbättrat teamets prestation, minskat personalomsättning och skapat engagemang genom 1-on-1 samtal, feedback och tydliga mål.
+
+Som teamledare är du navet mellan medarbetare och verksamhetsmål. Ditt CV måste visa att du behärskar både agil projektledning (Scrum, Kanban), performance management (KPI-uppföljning, sprintplanering) och människoledning (coaching, konfliktlösning, motivation). Arbetsgivare filtrerar ofta på nyckelord som "agile team lead", "1-on-1", "OKR", "sprint planning" och specifika verktyg som Jira, Monday eller Asana.
+
+Detta CV-exempel för teamledare visar hur du strukturerar erfarenhet från olika branscher, kvantifierar resultat som förbättrad NPS, minskad genomloppstid eller högre teamengagemang, samt presenterar relevanta certifieringar inom Scrum, coaching eller ledarskap. Använd denna mall för att skapa ett CV som öppnar dörrar till roller som senior teamledare, scrum master eller avdelningschef.`,
+
+    viktigtAttTankaPa: [
+      'Kvantifiera teamresultat och engagement: Ange alltid teamstorlek (antal direktrapporter), resultat som förbättrad NPS, produktivitet eller genomloppstid i procent, samt engagemang mätt i eNPS, personalomsättning eller sjukfrånvaro',
+      'Visa coaching och utveckling konkret: Beskriv hur många 1-on-1 du håller per månad, vilka resultat din coaching gav (interna befordringar, kompetensutveckling, feedback från teamet) och hur du arbetar med individuella utvecklingsplaner',
+      'Kombinera agila metoder med ledarskap: Balansera tekniska agila termer (sprint planning, retrospektiv, backlog refinement) med mjuka ledarskapskompetenser (feedback, motivation, konfliktlösning) för att visa att du kan både struktur och människor',
+      'Framhäv branschspecifika verktyg: Nämn relevanta projektverktyg (Jira, Trello, Asana, Monday), kommunikationsplattformar (Slack, Teams) och performance-system som är standard i din bransch'
+    ],
+
+    exempelCV: {
+      namn: 'Erik Johansson',
+      titel: 'Teamledare med 8+ års erfarenhet inom tech och agila team',
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'erik.johansson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikjohansson-teamledare'
+      },
+      profil: 'Erfaren teamledare med dokumenterad förmåga att leda team om upp till 12 personer till resultat genom coaching, målstyrning och agila arbetsmetoder. Specialist på att kombinera strukturerad sprintplanering med coachande ledarskap, vilket resulterat i förbättrad teamprestation, högre engagemang och lägre personalomsättning. Bevisad track record av att bygga högt presterande team inom tech och kundtjänst genom tydlig kommunikation, kontinuerlig feedback och fokus på individuell utveckling. Driven av att skapa förutsättningar för medarbetare att växa samtidigt som teamet levererar affärsnytta.',
+
+      erfarenhet: [
+        {
+          titel: 'Teamledare, Customer Success',
+          arbetsgivare: 'TechFlow AB (SaaS-företag, 200+ anställda)',
+          period: '2021 - nuvarande',
+          beskrivning: [
+            'Leder team om 10 Customer Success Managers med ansvar för 450+ B2B-kunder (årlig ARR: 35 MSEK)',
+            'Förbättrade kundnöjdheten (NPS) från 42 till 68 på 18 månader genom strukturerad coaching, veckovisa 1-on-1 samtal och tydliga OKR:er för varje teammedlem',
+            'Minskade personalomsättningen från 28% till 8% genom fokus på utveckling, feedback och karriärplanering - 4 av 10 teammedlemmar befordrades internt',
+            'Implementerade agil arbetsmetod med tvåveckors sprintar vilket minskade genomsnittlig svarstid från 18 till 6 timmar och ökade antal lösta ärenden med 35%',
+            'Driver månatliga retrospektiv och kvartalsvis performance reviews baserat på KPI:er (retention rate, expansion revenue, CSAT)',
+            'Använder Jira för sprintplanering, Salesforce för kunddata och Lattice för performance management och 1-on-1 dokumentation'
+          ]
+        },
+        {
+          titel: 'Team Leader, Technical Support',
+          arbetsgivare: 'Nordic Cloud Services AB',
+          period: '2018 - 2021',
+          beskrivning: [
+            'Ledde supportteam om 8 tekniker med ansvar för L1/L2 support (8000+ ärenden/månad)',
+            'Införde strukturerade 1-on-1 samtal varannan vecka med fokus på utveckling och feedback - förbättrade teamets eNPS från 18 till 54',
+            'Minskade genomsnittlig lösningstid från 4,2 till 2,1 dagar genom bättre kunskapsdelning, par-programmering och veckovisa learning sessions',
+            'Coachade 3 medarbetare till befordran (2 till senior support, 1 till DevOps-roll) genom individuella utvecklingsplaner och kompetensutveckling',
+            'Implementerade Kanban-board i Trello för bättre prioritering och transparens - ökade First Response Rate från 65% till 91%'
+          ]
+        },
+        {
+          titel: 'Scrum Master / Teamkoordinator',
+          arbetsgivare: 'Digital Innovations Group',
+          period: '2016 - 2018',
+          beskrivning: [
+            'Faciliterade agila ceremonier (daily standup, sprint planning, retrospektiv) för utvecklingsteam om 7 personer',
+            'Coachade teamet i Scrum-metodik vilket förkortade sprint cycle time från 3 veckor till 2 veckor och ökade velocity med 40%',
+            'Drev konfliktlösning och tog bort blockeringar för teamet - minskade antalet missade deadlines från 30% till 5%',
+            'Samarbetade med Product Owner för backlog refinement och prioritering enligt affärsnytta'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Kandidatexamen i Företagsekonomi',
+          skola: 'Stockholms Universitet',
+          period: '2012 - 2015',
+          beskrivning: 'Inriktning: Organisation och ledarskap'
+        },
+        {
+          titel: 'Ledarskap och coaching',
+          skola: 'IHM Business School',
+          period: '2020',
+          beskrivning: 'Fokus på coachande ledarskap, 1-on-1 samtal och performance management'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Agil projektledning: Scrum, Kanban (Certified, 6+ år)',
+          'Performance management och KPI-uppföljning',
+          'Jira, Trello, Asana, Monday (Projektverktyg)',
+          'Slack, Microsoft Teams (Teamkommunikation)',
+          'OKR-ramverk och målstyrning',
+          'Salesforce, HubSpot (CRM-system)',
+          'Lattice, 15Five (Performance management-system)',
+          'Sprintplanering och backlog refinement'
+        ],
+        personliga: [
+          'Coaching och utveckling (coachade 7 personer till befordran)',
+          'Feedback och 1-on-1 samtal (20+ samtal/månad)',
+          'Konfliktlösning (minskade teamkonflikter och förbättrade eNPS)',
+          'Motivation och engagemang (eNPS från 18 till 54 på 2 år)',
+          'Kommunikation och transparens (tydliga mål och förväntningar)',
+          'Resultatfokus (förbättrade NPS, velocity och retention samtidigt)'
+        ]
+      },
+
+      certifieringar: [
+        'Certified Scrum Master (CSM), Scrum Alliance (2019)',
+        'Professional Scrum Master I (PSM I), Scrum.org (2020)',
+        'Coaching för ledare, Ledarna (2021)',
+        'DISC Personprofil-certifiering (2022)',
+        'OKR Fundamentals, Objectives & Key Results Institute (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerat för agila team och tech-roller',
+        text: `Erik använder exakt de termer som rekryterare söker efter: "agile team lead", "1-on-1", "sprint planning", "coaching", "OKR", "performance management". Inte vaga begrepp som "ansvarig för team" eller "bra ledare".
+
+**Varför detta fungerar:** ATS-system inom tech och kundtjänst filtrerar på specifika nyckelord som "Scrum Master", "Jira", "eNPS" och "KPI-uppföljning". När Erik skriver "10 Customer Success Managers" och "NPS från 42 till 68" istället för "leder team och förbättrar resultat" triggar han exakt de sökord rekryterare använder. Många tech-företag söker också på verktyg som Jira, Asana eller Lattice - genom att nämna dessa ökar chansen att hamna i rätt sökresultat.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat inom både team och affär',
+        text: `CV:t visar konkreta förbättringar: NPS från 42 till 68, personalomsättning från 28% till 8%, eNPS från 18 till 54. Varje roll beskrivs med mätbara teamresultat och affärsnytta, inte bara ansvar.
+
+**Varför detta fungerar:** Rekryterare läser hundratals CV där kandidater skriver "ansvarig för teamutveckling". Det säger inget om du faktiskt är bra på det. Erik visar att hans ledarskap gav konkreta resultat - teamengagemanget fördubblades, personalomsättningen sjönk kraftigt OCH affärsresultaten förbättrades (NPS, retention, velocity). Detta bevisar att han kan leda hållbart - inte bara pusha resultat på bekostnad av människor eller tvärtom.`
+      },
+      {
+        rubrik: 'Balans mellan agila metoder och människoledning',
+        text: `CV:t kombinerar tekniska agila termer (sprint planning, retrospektiv, Kanban) med coaching-kompetenser (1-on-1, feedback, utvecklingsplaner). Varje teknisk metod kopplas till teamets välmående.
+
+**Varför detta fungerar:** Rekryterare undviker två typer av teamledare: de som bara kör process (burnout, hög omsättning) och de som bara fokuserar på trivsel utan att leverera (missade deadlines, låg produktivitet). Erik bevisar båda dimensionerna samtidigt - han införde agila metoder som förbättrade velocity OCH höjde teamengagemanget. Detta visar att han förstår att struktur och människor hänger ihop.`
+      },
+      {
+        rubrik: 'Konkret bevis på coaching och utveckling',
+        text: `Erik visar inte bara att han "coachar sitt team" utan bevisar det: 4 av 10 befordrades internt, 20+ 1-on-1 samtal per månad, individuella utvecklingsplaner, eNPS från 18 till 54.
+
+**Varför detta fungerar:** Många teamledare skriver "coachande ledarskap" utan att kunna bevisa det. Erik kvantifierar sin coaching: antal 1-on-1, antal befordringar, förbättrat engagemang. Detta visar att hans coaching faktiskt fungerar - medarbetarna utvecklas, stannar kvar och presterar bättre. Att nämna verktyg som Lattice för performance management visar också att han arbetar strukturerat med utveckling, inte ad hoc.`
+      },
+      {
+        rubrik: 'Profiltext som visar både scope och resultat',
+        text: `Första stycket sammanfattar omedelbart: 8+ år, upp till 12 personer, coaching + agila metoder + resultat (teamprestation, engagemang, låg omsättning). Rekryteraren vet direkt vilken nivå Erik är på.
+
+**Varför detta fungerar:** Rekryterare scrollar igenom 50 CV på 10 minuter för teamledarroller. De läser inte hela CV:t - de scannar profiltexten först. När Erik skriver "upp till 12 personer" och "högre engagemang och lägre personalomsättning" samt nämner "coaching och agila metoder" vet rekryteraren på 5 sekunder om han matchar den nivå och inriktning de söker. Utan denna sammanfattning måste de gissa genom att läsa hela arbetserfarenheten.`
+      },
+      {
+        rubrik: 'Tydlig progression från facilitator till coach',
+        text: `Karriärstegen syns tydligt: Scrum Master/Teamkoordinator 7 personer → Team Leader 8 personer → Teamledare 10 personer. Varje steg visar ökande ledarskapskomplexitet och coaching-ansvar.
+
+**Varför detta fungerar:** Rekryterare vill se att du vuxit in i teamledarskap gradvis, inte hoppat från ingenting till stort team. Progressionen visar att Erik först faciliterade agila ceremonier, sedan fick personalansvar och coaching-ansvar innan han blev fullt ansvarig teamledare med performance management. Detta minskar risken - du har bevisat att du klarar varje nivå innan du tagit nästa steg. Att gå från Scrum Master till strategisk teamledare med affärsansvar visar också bred kompetens.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera teamresultat och affärsnytta konkret',
+        text: `Rekryterare kan inte bedöma "ansvarig för teamutveckling och resultat" - det kan betyda 3 personer eller 30, 5% förbättring eller 50%.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för team inom kundtjänst, driver utveckling och förbättrar resultat"
+
+✅ "Leder team om 10 Customer Success Managers (450+ B2B-kunder, 35 MSEK ARR), förbättrade NPS från 42 till 68 på 18 månader genom coaching, 1-on-1 samtal och tydliga OKR:er"
+
+Specificera även vilken typ av team (tech, sales, support), bransch och om du rapporterar till avdelningschef eller direkt till VD.`
+      },
+      {
+        rubrik: 'Visa coaching och 1-on-1 med konkreta resultat',
+        text: `Alla teamledare säger att de "coachar sitt team", men de flesta kan inte bevisa det. Visa HUR du coachar och vilket resultat det ger.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarar för coaching och utveckling av teammedlemmar"
+
+✅ "Håller 20+ strukturerade 1-on-1 samtal per månad med fokus på feedback och utveckling - resulterade i 4 interna befordringar och förbättrad eNPS från 18 till 54 på 2 år"
+
+Koppla alltid coaching till konkreta utfall som befordringar, kompetensutveckling, förbättrat engagemang (eNPS) eller minskad personalomsättning.`
+      },
+      {
+        rubrik: 'Kombinera agila metoder med ledarskapsresultat',
+        text: `"Driver agilt arbetssätt" är för vagt. Specificera VILKA agila ceremonier du faciliterar, VILKA verktyg du använder och vilket resultat det gav i både process OCH teamengagemang.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för agilt arbetssätt och teamets processer"
+
+✅ "Faciliterar sprint planning, daily standup och retrospektiv varannan vecka - förkortade cycle time från 3 till 2 veckor och ökade velocity med 40% samtidigt som eNPS steg från 32 till 61"
+
+Visa att agila metoder inte bara handlar om effektivitet utan också om teamets välmående. Koppla process till både affärsresultat (velocity, lead time) och människor (eNPS, omsättning).`
+      },
+      {
+        rubrik: 'Nämn branschspecifika verktyg och performance-system',
+        text: `Inom tech, kundtjänst och agila organisationer är vissa verktyg branschstandard. Att nämna dessa ökar dina chanser att passera ATS-filter och visar att du kan jobba från dag ett.
+
+**Exempel på före/efter:**
+
+❌ "God vana vid projektverktyg och kommunikationsplattformar"
+
+✅ "Jira (sprintplanering och backlog refinement), Lattice (performance management och 1-on-1 dokumentation), Slack (teamkommunikation), Salesforce (kunddata och KPI-uppföljning)"
+
+Andra vanliga verktyg: Trello, Asana, Monday (projektledning), 15Five, Workday (performance), HubSpot (CRM), OKR-verktyg som Gtmhub eller Perdoo. Nämn endast de du faktiskt arbetat i.`
+      },
+      {
+        rubrik: 'Visa både teamengagemang och affärsresultat',
+        text: `Teamledare behöver balansera människor och resultat. Visa att du kan båda genom att koppla engagemang till affärsnytta.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarar för teamutveckling och uppnå mål"
+
+✅ "Förbättrade eNPS från 18 till 54 samtidigt som teamet ökade antal lösta ärenden med 35% och minskade genomloppstid från 18 till 6 timmar - sparade företaget 2,4 MSEK i kundförluster genom bättre retention"
+
+Visa att du inte driver resultat genom att pressa teamet (vilket leder till burnout) utan genom engagerade medarbetare som vill prestera eftersom de känner sig sedda och utvecklade.`
+      },
+      {
+        rubrik: 'Framhäv certifieringar inom Scrum, coaching och ledarskap',
+        text: `Certifieringar inom agila metoder och coaching signalerar att du har formell kompetens, inte bara praktisk erfarenhet. Relevanta certifieringar stärker din trovärdighet.
+
+**Exempel på före/efter:**
+
+❌ "Genomfört olika kurser inom ledarskap och agila metoder"
+
+✅ "Certifieringar: Certified Scrum Master (CSM, Scrum Alliance 2019), Coaching för ledare (Ledarna 2021), DISC Personprofil-certifiering (2022), OKR Fundamentals (2023)"
+
+Andra relevanta certifieringar: Professional Scrum Master (PSM), SAFe Agilist, Management 3.0, ICF-certifierad coach, Insights Discovery. Lägg även till branschspecifika ledarskapsutbildningar från IHM, Ledarna eller liknande.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV vara som teamledare?',
+        svar: '2 sidor är standard för teamledare med 5-10 års erfarenhet. Första sidan är avgörande - placera profiltext, nyckelkompetenser och senaste teamledarrollen där. Rekryterare inom tech och kundtjänst läser sällan vidare om första sidan inte övertygar med rätt nyckelord (coaching, agil projektledning, KPI-uppföljning, relevanta verktyg). Prioritera senaste 8-10 åren med detaljer, summera tidigare roller kortfattat.'
+      },
+      {
+        fraga: 'Hur visar jag coaching-kompetens tydligt i mitt CV som teamledare?',
+        svar: 'Kvantifiera din coaching med konkreta bevis. Skriv "Håller 20+ strukturerade 1-on-1 samtal per månad, coachade 4 teammedlemmar till interna befordringar och förbättrade eNPS från 18 till 54 på 2 år" istället för bara "coachar teamet". Inkludera även vilka verktyg du använder för performance management (Lattice, 15Five, Workday) och vilka resultat din coaching gav: färre uppsägningar, högre engagemang, kompetensutveckling eller förbättrade teamresultat.'
+      },
+      {
+        fraga: 'Vilka verktyg ska jag nämna som teamledare inom tech eller kundtjänst?',
+        svar: 'Nämn de verktyg du faktiskt arbetat i: Jira, Trello eller Asana (projektledning), Slack eller Microsoft Teams (kommunikation), Salesforce eller HubSpot (CRM), Lattice eller 15Five (performance management). Även Monday, ClickUp, Notion eller Miro är relevanta beroende på bransch. Dessa verktyg är ofta sökord i ATS-filter - genom att nämna dem ökar du chansen att hamna i rätt kandidatpool. Skriv gärna hur du använt verktygen: "Jira för sprintplanering och backlog refinement".'
+      },
+      {
+        fraga: 'Hur beskriver jag teamansvar konkret som teamledare?',
+        svar: 'Specificera antal direktrapporter, typ av team och vad du faktiskt ansvarar för. Skriv "Leder team om 10 Customer Success Managers (direkta rapporter) med ansvar för 450+ B2B-kunder. Ansvarar för rekrytering, onboarding, performance reviews, 1-on-1 samtal och utvecklingsplaner" istället för bara "teamansvar". Lägg till teamresultat som NPS, retention, produktivitet samt teamengagemang som eNPS, personalomsättning och sjukfrånvaro före/efter du tog över.'
+      },
+      {
+        fraga: 'Ska jag inkludera agila certifieringar som teamledare?',
+        svar: 'Ja, om du arbetar i agila organisationer eller tech. Certifieringar som Certified Scrum Master (CSM), Professional Scrum Master (PSM), SAFe Agilist eller Management 3.0 visar att du behärskar agila ramverk formellt. Inkludera certifieringsnamn, utfärdare och årtal. Placera under "Certifieringar" eller "Kompetensutveckling". Dessa är ofta meriterande eller krav i tech-rekryteringar. Undvik endagskurser - fokusera på erkända certifieringar från Scrum Alliance, Scrum.org eller Scaled Agile.'
+      },
+      {
+        fraga: 'Hur visar jag agilt ledarskap i mitt CV som teamledare?',
+        svar: 'Beskriv konkreta agila ceremonier du faciliterar och resultat de gav. Exempel: "Faciliterar sprint planning, daily standup och retrospektiv varannan vecka - förkortade cycle time från 3 till 2 veckor och ökade velocity med 40% samtidigt som eNPS steg från 32 till 61". Koppla alltid agila metoder till både processresultat (velocity, lead time, burndown) OCH teamengagemang (eNPS, personalomsättning). Visa att du förstår att agilt ledarskap handlar om att ta bort blockeringar och skapa förutsättningar, inte styra och kontrollera.'
+      },
+      {
+        fraga: 'Hur blir man teamledare inom tech eller kundtjänst?',
+        svar: 'Typisk väg: Grundroll (kundtjänst, support, developer) 2-4 år → Senior-roll eller subject matter expert → Teamkoordinator eller Scrum Master → Teamledare. Komplettera med ledarskapsutbildning (IHM, Ledarna) och agila certifieringar (CSM, PSM). I ditt CV: betona alla ledarsituationer som senior (mentorskap, onboarding, projektledning), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första ledartiteln. Många teamledare börjar som informal leader innan de får formell titel.'
+      },
+      {
+        fraga: 'Vilka kvalifikationer söker arbetsgivare hos en teamledare?',
+        svar: 'Tech och kundtjänst söker ofta: 3-5 års erfarenhet i relevant bransch (tech, support, sales), dokumenterad erfarenhet av coaching och 1-on-1, kunskap om agila metoder (Scrum, Kanban), erfarenhet av performance management och KPI-uppföljning, samt vana vid relevanta verktyg (Jira, Salesforce, Lattice). Arbetsgivare värderar också förmågan att balansera resultat och teamengagemang - visa detta genom kvantifierade exempel där du förbättrade både affärsresultat OCH eNPS/personalomsättning.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera både resultat och teamengagemang som teamledare?',
+        svar: 'Visa att de hänger ihop, inte konkurrerar. Exempel: "Förbättrade NPS från 42 till 68 samtidigt som eNPS steg från 18 till 54 - minskade personalomsättningen från 28% till 8% vilket sparade 1,5 MSEK i rekryteringskostnader". Detta bevisar att du inte driver resultat genom att pressa teamet (vilket leder till burnout och uppsägningar) utan genom engagerade medarbetare som presterar bättre eftersom de känner sig sedda, coachade och utvecklade. Koppla alltid affärsresultat till teamhälsa.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan teamledare och enhetschef i ett CV?',
+        svar: 'Teamledare fokuserar på daglig coaching, agil projektledning och teamets prestation - ofta inom tech, kundtjänst eller försäljning med 5-15 direktrapporter. Enhetschef har bredare ansvar med budgetansvar (ofta MSEK), flera team (15-50+ personer) och verksamhetsutveckling - vanligare inom kommun, vård eller större organisationer. I ditt CV: använd "teamledare" om du primärt coachar individer och driver agila processer, "enhetschef" om du har budgetansvar och leder flera team eller arbetsledare. Nyckelord skiljer sig: teamledare = coaching, 1-on-1, sprint planning; enhetschef = budgetansvar, SAM, verksamhetsplanering.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Enhetschef', slug: 'enhetschef' },
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'Chef', slug: 'chef' }
+    ]
+  },
+
   'fritidsledare': {
     yrke: 'Fritidsledare',
     sokvolym: 590,
