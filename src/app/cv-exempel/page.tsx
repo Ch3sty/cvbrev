@@ -260,6 +260,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'barnmorska',
+    yrke: 'Barnmorska',
+    slug: 'barnmorska',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 850,
+    icon: Heart,
+    gradient: 'from-rose-500 via-pink-600 to-rose-700',
+    preview: {
+      intro: 'CV-exempel för barnmorska med evidensbaserad förlossningsvård, mödrahälsovård och teamsamverkan inom kvinnosjukvård.',
+      highlight: ['Självständig förlossningshandläggning', 'Mödrahälsovård och ultraljudsdiagnostik', 'Akut obstetrisk handläggning']
+    }
+  },
+  {
     id: 'butikssaljare',
     yrke: 'Butikssäljare',
     slug: 'butikssaljare',
@@ -1094,7 +1108,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  65 yrken
+                  66 yrken
                 </motion.span>
               </h1>
 

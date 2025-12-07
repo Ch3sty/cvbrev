@@ -6173,6 +6173,244 @@ Lägg även till branschspecifika utbildningar som "Bemötande vid demens", "Bas
     ]
   },
 
+  'barnmorska': {
+    yrke: 'Barnmorska',
+    slug: 'barnmorska',
+    sokvolym: 850,
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Barnmorska 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för barnmorska med ATS-optimering, CTG-tolkning, förlossningsvård och ultraljud. Specialistutbildning och certifieringar som ALSO och NRP.',
+
+    seoIntro: `Om du ska söka jobb som barnmorska behöver ditt CV visa mer än grundläggande omvårdnad. Rekryterare letar efter barnmorskeexamen, erfarenhet från förlossningsvård och mödravård, kompetens inom CTG-tolkning, preventivmedelsrådgivning och ultraljud. ATS-system som regionerna och privata vårdgivare använder sorterar bort ansökningar som saknar nyckelord som "graviditet", "förlossning", "barnmorskemottagning" eller specifika system som Obstetrix och Cosmic.
+
+Vårt exempel-CV visar hur en barnmorska med 8 års erfarenhet presenterar sitt arbete inom både förlossningsvård och barnmorskemottagning. Du ser hur hen lyfter fram att ha handlett 300+ förlossningar med fokus på normal förlossning, implementerat strukturerad CTG-bedömning som minskade akuta kejsarsnitt med 15%, och hanterat 25-30 graviditets- och gynekologiska besök per vecka. Istället för vaga påståenden som "ansvarig för mödravård" visar CV:t exakt vilken kompetens och resultat hen åstadkommit.
+
+Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa innehållet till din inriktning (förlossning, mottagning, familjecentral eller kvinnohälsa) och se till att inkludera nyckelord från jobbannonsen du söker.`,
+
+    intro: 'Ett professionellt CV-exempel för barnmorska som visar din kompetens inom förlossningsvård, mödravård, preventivmedelsrådgivning och kvinnohälsa. Optimerat för svenska regioner och ATS-system.',
+
+    viktigtAttTankaPa: [
+      'Ange tydligt din inriktning (förlossning, barnmorskemottagning, familjecentral eller kvinnohälsa)',
+      'Inkludera certifieringar som ALSO, NRP, ultraljudsutbildning och förskrivningsrätt',
+      'Visa kompetens inom CTG-tolkning, partogramskrivning och avancerad förlossningsvård',
+      'Lyft fram preventivmedelsrådgivning, graviditetsuppföljning och reproduktiv hälsa'
+    ],
+
+    exempelCV: {
+      namn: 'Sofia Andersson',
+      titel: 'Barnmorska med specialisering inom förlossningsvård och mödravård',
+      kontakt: {
+        telefon: '073-892 45 61',
+        epost: 'sofia.andersson@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/sofiaandersson'
+      },
+      profil: 'Barnmorska med 8+ års erfarenhet från förlossningsvård, barnmorskemottagning och kvinnohälsa. Expert inom CTG-tolkning, normal förlossning, preventivmedelsrådgivning och ultraljudsdiagnostik. Handleder barnmorskestudenter och driver förbättringsarbete för personcentrerad förlossningsvård. Drivs av att stödja kvinnor genom graviditet, förlossning och reproduktiv hälsa med evidensbaserad omvårdnad och respektfullt bemötande.',
+
+      erfarenhet: [
+        {
+          titel: 'Barnmorska förlossning & Handledare',
+          arbetsgivare: 'Akademiska Sjukhuset, Uppsala',
+          period: '2020 - nuvarande',
+          beskrivning: [
+            'Handleder 300+ förlossningar med fokus på normal förlossning, personcentrerad vård och minimal medicinsk intervention',
+            'Implementerade strukturerad CTG-bedömning enligt STAN-metoden som minskade antalet akuta kejsarsnitt med 15% och förbättrade neonatal utfall',
+            'Ansvarar för avancerad förlossningsvård inklusive epiduralbedömning, induktion med prostaglandin, partogramskrivning och akut omhändertagande vid komplicerade förlossningar',
+            'Handleder 4-6 barnmorskestudenter per termin och utbildar kollegor i CTG-tolkning och normal förlossning'
+          ]
+        },
+        {
+          titel: 'Barnmorska barnmorskemottagning',
+          arbetsgivare: 'Vårdcentralen Gränby, Uppsala',
+          period: '2017 - 2020',
+          beskrivning: [
+            'Ansvarade för 25-30 graviditetsbesök per vecka med ultraljudsscreening, CTG-registrering och hälsokontroller enligt nationella riktlinjer',
+            'Genomförde preventivmedelsrådgivning för 400+ kvinnor årligen med fokus på individanpassad information och säker antikonception',
+            'Utförde gynekologiska undersökningar, cellprovtagning och handläggning av sexuellt överförbara infektioner',
+            'Startade ammningsstödsgrupp som ökade amningsfrekvensen vid 6 månader från 65% till 78%'
+          ]
+        },
+        {
+          titel: 'Barnmorska BB-avdelning',
+          arbetsgivare: 'Danderyds Sjukhus',
+          period: '2016 - 2017',
+          beskrivning: [
+            'Omhändertagande av 8-10 nyblivna familjer dagligen med fokus på amningsstöd, neonatal övervakning och postpartum återhämtning',
+            'Utförde neonatal screening (PKU, hörseltest, hjärtscreening) för 800+ nyfödda och identifierade 3 fall som krävde uppföljning',
+            'Stöttade kvinnor med komplicerad postpartum-period inklusive blödningar, infektioner och psykisk ohälsa',
+            'Dokumenterade i TakeCare och Obstetrix med fokus på patientsäkerhet och kontinuitet'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Barnmorskeprogrammet, 90 hp',
+          skola: 'Uppsala Universitet',
+          period: '2015 - 2016',
+          beskrivning: 'Specialisering inom reproduktiv och perinatal hälsa med VFU på Akademiska Sjukhuset och Uppsala barnmorskemottagningar.'
+        },
+        {
+          titel: 'Sjuksköterskeprogrammet, 180 hp',
+          skola: 'Ersta Sköndal Bräcke Högskola',
+          period: '2012 - 2015',
+          beskrivning: 'Grundutbildning med VFU på Danderyds Sjukhus inom förlossning, BB och medicin.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'CTG-tolkning (STAN-metoden, FIGO-klassificering)',
+          'Ultraljud (graviditetsultraljud, fosterdiagnostik)',
+          'Partogramskrivning och förlossningsövervakning',
+          'Preventivmedelsrådgivning (spiral, p-stav, p-piller, kondom)',
+          'Obstetrix (Expert, 6+ år)',
+          'TakeCare och Cosmic (Avancerad, 5+ år)',
+          'Gynekologisk undersökningsteknik',
+          'Neonatal bedömning (APGAR, K-vitamin, PKU)'
+        ],
+        personliga: [
+          'Empatisk (stödjer kvinnor genom graviditet och förlossning)',
+          'Stresstålig (hanterar multipla förlossningar och akuta situationer)',
+          'Pedagogisk (handleder 4-6 studenter per termin)',
+          'Kommunikativ (bygger förtroende med gravida och familjer)',
+          'Evidensbaserad (implementerar forskning i klinisk praktik)',
+          'Kulturellt medveten (möter kvinnor från olika bakgrunder)'
+        ]
+      },
+
+      certifieringar: [
+        'Barnmorskeexamen (2016)',
+        'ALSO - Advanced Life Support in Obstetrics (förnyad 2024)',
+        'NRP - Neonatal Resuscitation Program (förnyad 2023)',
+        'Ultraljudsutbildning i tidig graviditet (ISUOG-certifierad, 2021)',
+        'Förskrivningsrätt för preventivmedel och antibiotika (2019)',
+        'Akut omhändertagande vid postpartumblödning (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (medicinsk terminologi)' },
+        { sprak: 'Arabiska', niva: 'Grundläggande (patientkommunikation)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad med barnmorskespecifika nyckelord',
+        text: `CV:t innehåller kritiska sökord som ATS-system letar efter inom barnmorskevård: barnmorskeexamen, förlossningsvård, mödravård, CTG-tolkning, preventivmedelsrådgivning, ultraljud, Obstetrix, graviditet och reproduktiv hälsa. Rubriker som Barnmorska förlossning, Certifieringar och Tekniska kompetenser är standardiserade och läsbara för både ATS och rekryterare.
+
+**Varför detta fungerar:** Regionernas ATS-system filtrerar bort CV:n som saknar barnmorskerelaterade nyckelord. Genom att placera ALSO, NRP, CTG-tolkning och Obstetrix i både profiltext och certifieringssektionen ökar chansen att passera första gallringen. Rekryteraren ser direkt att du har både grundläggande barnmorskekompetens och avancerade certifieringar.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat från förlossning och mottagning',
+        text: `Istället för vaga beskrivningar som "ansvarig för mödravård" visar CV:t konkreta resultat: Handleder 300+ förlossningar, Implementerade CTG-bedömning som minskade kejsarsnitt med 15%, 25-30 graviditetsbesök per vecka, Preventivmedelsrådgivning för 400+ kvinnor årligen, Startade ammningsstödsgrupp som ökade amning från 65% till 78%.
+
+**Varför detta fungerar:** Enhetschefer på BB och barnmorskemottagningar granskar hundratals CV där kandidater bara skriver "barnmorska med erfarenhet av förlossning". Att specificera antal förlossningar, konkreta förbättringar (15% färre kejsarsnitt, 78% amningsfrekvens) och patientvolymer skiljer ditt CV från mängden. Siffror ger rekryteraren något konkret att diskutera under intervjun.`
+      },
+      {
+        rubrik: 'Balans mellan medicinsk kompetens och empatisk omvårdnad',
+        text: `CV:t kombinerar avancerad medicinsk kompetens som CTG-tolkning, ultraljudsdiagnostik, ALSO och NRP med fokus på personcentrerad vård, amningsstöd, preventivmedelsrådgivning och stöd till kvinnor genom graviditet och reproduktiv hälsa. Båda delarna backas upp med exempel från arbetserfarenheten.
+
+**Varför detta fungerar:** Medicinsk kompetens ensam räcker inte inom barnmorskevård. Rekryterare vill se att du behärskar både avancerad förlossningsvård (CTG, induktion, akut omhändertagande) och kan möta kvinnor med empati, kulturell medvetenhet och individanpassad information. Denna balans är avgörande för tjänster på både förlossning och mottagning där du både hanterar komplicerade förlossningar och bygger förtroende med gravida kvinnor.`
+      },
+      {
+        rubrik: 'Certifieringar som kompetensmarkör inom barnmorskevård',
+        text: `Dedikerad sektion för barnmorskeexamen och avancerade certifieringar visar kontinuerlig kompetensutveckling: Barnmorskeexamen 2016, ALSO förnyad 2024, NRP förnyad 2023, Ultraljudsutbildning ISUOG-certifierad 2021, Förskrivningsrätt 2019. Att inkludera förnyelsedatum för ALSO och NRP visar att du är uppdaterad enligt nationella krav.
+
+**Varför detta fungerar:** Rekryterare till förlossningsvård söker specifika certifieringar. ALSO och NRP är ofta obligatoriska för tjänster på förlossning och BB. Ultraljudsutbildning och förskrivningsrätt visar att du kan arbeta självständigt på barnmorskemottagning. Detta signalerar expertis och lärvilja, två egenskaper som vårdgivare högt värderar vid rekrytering till både förlossning och mödravård.`
+      },
+      {
+        rubrik: 'Profiltext som tydlig specialistkompetens',
+        text: `Den inledande profiltexten sammanfattar din specialisering, avancerade kompetens och unika styrkor på fyra meningar: Barnmorska med 8+ års erfarenhet från förlossningsvård, barnmorskemottagning och kvinnohälsa. Expert inom CTG-tolkning, normal förlossning, preventivmedelsrådgivning och ultraljudsdiagnostik. Handleder barnmorskestudenter och driver förbättringsarbete.
+
+**Varför detta fungerar:** Rekryterare spenderar 6-8 sekunder på första sidan av ditt CV. En väl formulerad profiltext avgör om de läser vidare eller går till nästa kandidat. Genom att direkt nämna förlossningsvård, CTG-tolkning, preventivmedelsrådgivning och ultraljud visar du omedelbart att du har både bred och djup kompetens. Detta är extra viktigt för barnmorskesökande som ofta får 50-100 ansökningar.`
+      },
+      {
+        rubrik: 'Tydlig progression från BB till förlossning till handledare',
+        text: `CV:t visar logisk karriärutveckling: BB-avdelning 2016-2017 (neonatal omvårdnad och postpartum), Barnmorskemottagning 2017-2020 (graviditetsuppföljning och preventivmedel), Förlossning och handledare 2020-nuvarande (avancerad förlossningsvård och CTG-tolkning). Varje roll bygger på föregående och visar bredden i barnmorskekompetensen.
+
+**Varför detta fungerar:** Rekryterare värderar barnmorskor som har erfarenhet från flera delar av verksamheten. Att ha jobbat på både BB, mottagning och förlossning visar att du förstår hela vårdkedjan från graviditet till postpartum. Detta gör dig attraktiv för tjänster som kräver flexibilitet eller rotation mellan olika enheter, något som är vanligt på mindre sjukhus och vårdcentraler.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera alla barnmorskerelevanta certifieringar',
+        text: `Barnmorskevård kräver specifika certifieringar som ALSO (Advanced Life Support in Obstetrics) och NRP (Neonatal Resuscitation Program). Om du har ultraljudsutbildning, förskrivningsrätt eller specialistutbildning inom gynekologi ska dessa framgå tydligt. Ange alltid förnyelsedatum för certifieringar som ALSO och NRP eftersom dessa måste förnyas regelbundet. Rekryterare till förlossning och BB-avdelningar letar aktivt efter dessa kompetenser eftersom de ofta är krav för anställning.`
+      },
+      {
+        rubrik: 'Specificera din inriktning inom barnmorskevård',
+        text: `Barnmorska är ett brett yrke som innefattar förlossning, mödravård, preventivmedelsrådgivning, gynekologi och kvinnohälsa. Var tydlig med var din huvudsakliga erfarenhet ligger genom att ange exempelvis "Barnmorska förlossning" eller "Barnmorska barnmorskemottagning" i din titel. Om du har erfarenhet från flera områden, nämn alla i profiltexten men lyft fram det du söker mot. Rekryterare söker ofta efter specifik erfarenhet från antingen förlossning eller mottagning.`
+      },
+      {
+        rubrik: 'Kvantifiera din erfarenhet med konkreta siffror',
+        text: `Istället för "ansvarig för förlossningar" skriv "Handleder 300+ förlossningar med fokus på normal förlossning". Istället för "arbetar med preventivmedelsrådgivning" skriv "Preventivmedelsrådgivning för 400+ kvinnor årligen". Konkreta siffror ger rekryteraren en tydlig bild av din erfarenhetsnivå och patientvolym. Om du implementerat förbättringar, kvantifiera resultaten: "Minskade akuta kejsarsnitt med 15%" eller "Ökade amningsfrekvensen från 65% till 78%".`
+      },
+      {
+        rubrik: 'Visa kompetens inom både förlossning och mödravård',
+        text: `Många barnmorskesökande kräver kompetens inom både förlossningsvård och mödravård. Visa att du behärskar CTG-tolkning, partogramskrivning, normal förlossning och akut omhändertagande från förlossningen, samt graviditetsuppföljning, ultraljud, preventivmedelsrådgivning och gynekologisk undersökningsteknik från mottagningen. Om du bara har erfarenhet från ett område, lyft fram din vilja att lära dig det andra. Bred kompetens gör dig mer attraktiv för arbetsgivare.`
+      },
+      {
+        rubrik: 'Lyft fram handledning och pedagogisk kompetens',
+        text: `Barnmorskor förväntas handleda barnmorskestudenter och utbilda kollegor. Om du handlett studenter, ange antal studenter per termin och vad du handlett dem i. Om du utbildat kollegor i CTG-tolkning, normal förlossning eller preventivmedelsrådgivning, beskriv detta konkret. Pedagogisk förmåga är högt värderad eftersom barnmorskevården är en lärandemiljö där kunskap kontinuerligt delas mellan kollegor. Handledningserfarenhet signalerar senioritet och expertis.`
+      },
+      {
+        rubrik: 'Anpassa CV:t efter om du söker förlossning eller mottagning',
+        text: `Om du söker tjänst på förlossning, lyft fram CTG-tolkning, partogramskrivning, normal förlossning, ALSO och NRP först i profiltexten och kompetensavsnittet. Om du söker barnmorskemottagning, betona graviditetsuppföljning, ultraljud, preventivmedelsrådgivning och gynekologisk undersökningsteknik först. Läs jobbannonsen noga och matcha dina nyckelord mot deras krav. Ett anpassat CV som speglar exakt vad de söker ökar dina chanser att komma till intervju markant.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vilka certifieringar behöver jag ha som barnmorska?',
+        svar: 'Grundläggande krav är barnmorskeexamen (90 hp efter sjuksköterskeexamen) och giltig legitimation. För tjänster på förlossning krävs ofta ALSO (Advanced Life Support in Obstetrics) och NRP (Neonatal Resuscitation Program), båda förnyas vart 2-3 år. Ultraljudsutbildning är meriterande för barnmorskemottagning och kan vara ISUOG-certifierad. Förskrivningsrätt för preventivmedel och antibiotika krävs för självständigt arbete på mottagning. Ytterligare certifieringar som kan vara relevanta är akut omhändertagande vid postpartumblödning och amningshandledning.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av normal förlossning i mitt CV?',
+        svar: 'Kvantifiera din erfarenhet konkret: "Handleder 300+ förlossningar med fokus på normal förlossning och minimal medicinsk intervention". Beskriv specifika metoder du använder för att stödja normal förlossning, till exempel alternativa förlossningsställningar, vattenförlossning, kontinuerligt stöd eller fördröjd navelsträngsavklippning. Om du implementerat förbättringar som minskade medicinska interventioner, beskriv resultaten kvantifierbart. Nämn även om du arbetat med personcentrerad vård, individuella förlossningsplaner eller delat beslutsfattande.'
+      },
+      {
+        fraga: 'Ska jag inkludera erfarenhet från BB-avdelning om jag söker förlossning?',
+        svar: 'Ja, absolut. Erfarenhet från BB-avdelning visar att du behärskar neonatal omvårdnad, amningsstöd, postpartum-övervakning och kontinuitet i vårdkedjan. Detta är värdefullt även för förlossningsarbete eftersom du förstår vad som händer efter förlossningen och kan informera förlossande kvinnor om postpartum-perioden. Beskriv konkret vad du gjorde på BB: neonatal screening (PKU, hörseltest), omhändertagande av komplicerad postpartum (blödningar, infektioner) och amningsstöd. Detta visar bredden i din barnmorskekompetens.'
+      },
+      {
+        fraga: 'Hur beskriver jag CTG-tolkning och partogramskrivning?',
+        svar: 'Var specifik med vilka metoder du använder: "CTG-tolkning enligt STAN-metoden och FIGO-klassificering" eller "Partogramskrivning med kontinuerlig övervakning och bedömning av förlossningsprogress". Om du implementerat strukturerad CTG-bedömning som förbättrat neonatal utfall eller minskat onödiga interventioner, kvantifiera resultaten: "Implementerade strukturerad CTG-bedömning som minskade akuta kejsarsnitt med 15%". Detta visar att du inte bara tolkar CTG utan använder det för evidensbaserade kliniska beslut.'
+      },
+      {
+        fraga: 'Vilka journalsystem ska jag inkludera i mitt CV som barnmorska?',
+        svar: 'De vanligaste journalsystemen inom barnmorskevård är Obstetrix (specifikt för obstetrik och gynekologi), TakeCare och Cosmic. Ange dina system med erfarenhetsnivå och antal år: "Obstetrix (Expert, 6+ år)", "TakeCare (Avancerad, 5+ år)". Om du dokumenterat förlossningar, graviditetsbesök, CTG-registreringar eller gynekologiska undersökningar i dessa system, nämn det. Obstetrix är särskilt viktig att lyfta fram eftersom den används på de flesta förlossningar och barnmorskemottagningar i Sverige.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av preventivmedelsrådgivning?',
+        svar: 'Kvantifiera din erfarenhet: "Preventivmedelsrådgivning för 400+ kvinnor årligen med fokus på individanpassad information och säker antikonception". Beskriv vilka metoder du rådgett om: spiral, p-stav, p-piller, kondom, hormonplåster eller akut-p-piller. Om du har förskrivningsrätt, nämn det tydligt eftersom det är ett krav för självständigt arbete. Om du arbetat med specifika målgrupper (unga kvinnor, kvinnor med migrän, post-partum antikonception), lyft fram det. Preventivmedelsrådgivning är en kärnkompetens för barnmorskemottagning.'
+      },
+      {
+        fraga: 'Ska jag nämna om jag kan flera språk som barnmorska?',
+        svar: 'Ja, språkkunskaper är särskilt värdefullt inom barnmorskevård där du möter kvinnor från olika kulturer och bakgrunder. Om du talar arabiska, somaliska, tigrinska, engelska eller andra språk som är vanliga bland nyanlända kvinnor, lyft fram det tydligt: "Arabiska (Grundläggande - patientkommunikation)". Detta gör dig extra attraktiv för vårdcentraler och barnmorskemottagningar i mångkulturella områden. Språkkunskaper kan vara avgörande för att bygga förtroende med gravida kvinnor som inte talar svenska flytande.'
+      },
+      {
+        fraga: 'Hur visar jag att jag arbetar evidensbaserat som barnmorska?',
+        svar: 'Beskriv konkreta exempel där du implementerat forskning i klinisk praktik: "Implementerade STAN-metoden för CTG-bedömning som minskade kejsarsnitt med 15%" eller "Startade ammningsstödsgrupp baserat på WHO:s amningsrekommendationer som ökade amningsfrekvensen från 65% till 78%". Nämn om du deltagit i förbättringsarbete, kvalitetsregister eller forskning. Om du läser vetenskapliga artiklar och tillämpar ny kunskap i ditt arbete, beskriv hur. Evidensbaserad praktik är centralt inom barnmorskevård och visar att du håller dig uppdaterad.'
+      },
+      {
+        fraga: 'Hur beskriver jag handledning av barnmorskestudenter?',
+        svar: 'Kvantifiera din handledarerfarenhet: "Handleder 4-6 barnmorskestudenter per termin" eller "Handlett 30+ barnmorskestudenter sedan 2020". Beskriv vad du handlett dem i: CTG-tolkning, normal förlossning, preventivmedelsrådgivning, graviditetsuppföljning eller gynekologisk undersökningsteknik. Om du gått handledarutbildning, nämn det. Handledning visar senioritet, pedagogisk förmåga och vilja att dela kunskap. Detta är högt värderat eftersom barnmorskevården är beroende av att erfarna barnmorskor handleder nästa generation.'
+      },
+      {
+        fraga: 'Vad ska jag inkludera om jag söker barnmorska på familjecentral?',
+        svar: 'För tjänster på familjecentral, lyft fram föräldrastöd, hembesök, amningsstöd, BVC-samarbete och tvärprofessionellt teamarbete. Beskriv erfarenhet av att arbeta med utsatta familjer, psykosocial problematik, postpartum depression eller våld i nära relationer. Om du arbetat med nyanlända familjer eller familjer med missbruksproblematik, nämn det. Familjecentraler söker barnmorskor med bred kompetens inom både mödravård och socialt föräldrastöd, så visa att du kan kombinera medicinsk kompetens med empatiskt och kulturellt medvetet bemötande.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Specialistsjuksköterska', slug: 'specialistsjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' }
+    ]
+  },
+
   'barnskotare': {
     yrke: 'Barnskötare',
     sokvolym: 980,
