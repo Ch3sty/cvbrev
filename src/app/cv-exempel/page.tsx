@@ -400,6 +400,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'hotellvard',
+    yrke: 'Hotellvärd',
+    slug: 'hotellvard',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 210,
+    icon: Users,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'CV-exempel för hotellvärd med gästservice, bokningssystem och merförsäljning på hotell.',
+      highlight: ['80+ incheckningar dagligen', 'Gästnöjdhet 4.8/5 från 500+ recensioner', '45 000 kr månatlig merförsäljning']
+    }
+  },
+  {
     id: 'servitris-restaurangbitrade',
     yrke: 'Servitris/Restaurangbiträde',
     slug: 'servitris-restaurangbitrade',

@@ -18314,6 +18314,233 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
       { yrke: 'Handläggare', slug: 'handlaggare' },
       { yrke: 'Kurator', slug: 'kurator' }
     ]
+  },
+
+  'hotellvard': {
+    yrke: 'Hotellvärd',
+    sokvolym: 210,
+    slug: 'hotellvard',
+    kategori: 'service',
+    metaTitle: 'CV Hotellvärd – Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se exempel på CV för hotellvärd. Professionella mallar och tips för att framhäva din servicekompetens och gästupplevelse. Skapa ett ATS-optimerat CV.',
+    heroHeading: 'CV-exempel för Hotellvärd',
+    heroSubtitle: 'Skapa ett professionellt CV som visar din servicekompetens och gästorientering',
+    heroCtaText: 'Skapa ditt hotellvärds-CV',
+    intro: 'Ett professionellt CV-exempel för hotellvärd som visar din gästservice, bokningssystemkompetens och merförsäljningsförmåga. Optimerat för svenska hotell och ATS-system.',
+    seoIntro: `Ett välskrivet CV för hotellvärd är avgörande för att säkra din nästa tjänst inom hotellbranschen. Som hotellvärd är du hotellets ansikte utåt och ditt CV måste återspegla din förmåga att leverera exceptionell gästservice, hantera bokningar effektivt och skapa en välkomnande atmosfär som får gäster att vilja återvända.
+
+Hotellbranschen i Sverige växer stadigt med ökad turism och affärsresande. Konkurrensen om attraktiva tjänster på välrenommerade hotell är hård, vilket gör det extra viktigt att ditt CV sticker ut. Rekryterare inom hotellbranschen söker kandidater som kan visa konkreta resultat – högre gästnöjdhet, effektivare incheckning och merförsäljning av rumstillägg.
+
+Detta CV-exempel för hotellvärd visar hur du presenterar din erfarenhet av gästservice på ett sätt som fångar rekryterarens uppmärksamhet. Du lär dig att kvantifiera din påverkan genom mätbara resultat som gästbetyg, antal hanterade incheckningar och uppnådda försäljningsmål. Vi guidar dig genom hur du lyfter fram kompetenser som konflikthantering, flerspråkighet och systemkunskap i bokningssystem som Opera eller Mews.
+
+Oavsett om du söker din första tjänst som hotellvärd eller vill avancera till en position på ett femstjärnigt hotell, ger denna mall dig verktygen att skapa ett CV som öppnar dörrar till din drömtjänst inom hotellbranschen.`,
+    exempelCV: {
+      namn: 'Emma Lindqvist',
+      titel: 'Hotellvärd',
+      kontakt: {
+        epost: 'emma.lindqvist@email.se',
+        telefon: '073-234 56 78',
+        plats: 'Stockholm'
+      },
+      profil: 'Serviceinriktad hotellvärd med 4 års erfarenhet från både boutiquehotell och större hotellkedjor. Dokumenterad förmåga att leverera exceptionell gästservice med gästnöjdhetsbetyg på 4.8/5. Specialist på effektiv incheckning, merförsäljning och problemlösning under hög arbetsbelastning.',
+      erfarenhet: [
+        {
+          titel: 'Hotellvärd',
+          arbetsgivare: 'Clarion Hotel Sign, Stockholm',
+          period: '2022 – nu',
+          beskrivning: [
+            'Hanterar 80+ incheckningar dagligen med genomsnittlig servicetid på 3 minuter per gäst',
+            'Uppnår gästnöjdhetsbetyg på 4.8/5 baserat på 500+ gästrecensioner',
+            'Genererar 45 000 kr i månatlig merförsäljning genom rumuppgraderingar och tilläggstjänster',
+            'Utbildar nya medarbetare i bokningssystemet Opera och hotellets servicestandarder'
+          ]
+        },
+        {
+          titel: 'Receptionist',
+          arbetsgivare: 'Hotel & Ställe, Göteborg',
+          period: '2020 – 2022',
+          beskrivning: [
+            'Ansvarade för reception och gästservice på boutiquehotell med 45 rum',
+            'Implementerade nytt incheckningssystem som minskade väntetiden med 40%',
+            'Hanterade VIP-gäster och specialarrangemang för företagsevent',
+            'Uppnådde hotellets högsta merförsäljningssiffror två kvartal i rad'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Hotell- och turismprogrammet',
+          skola: 'Stockholms Hotellskola',
+          period: '2018 – 2020',
+          beskrivning: 'Inriktning mot hotellverksamhet med praktik på internationella hotellkedjor'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Bokningssystem: Opera PMS och Mews (Expert, 4+ års daglig användning)',
+          'Incheckning & utcheckning (80+ gäster dagligen)',
+          'Merförsäljning & upselling (45 000 kr/månad)',
+          'OTA-plattformar: Booking.com, Expedia',
+          'Kassahantering och betalningssystem',
+          'Konferensbokning och eventhantering'
+        ],
+        personliga: [
+          'Gästservice & värdskap',
+          'Konflikthantering',
+          'Stresshantering under högt tryck',
+          'Flerspråkig service (SV/EN/DE)',
+          'Problemlösning och initiativförmåga',
+          'Teamarbete och utbildning av kollegor'
+        ]
+      },
+      certifieringar: [
+        'First Impressions Training – Hilton (2023)',
+        'WSET Wine Foundation – Level 2 (2022)',
+        'Första hjälpen och HLR (2024)',
+        'Brandskyddsutbildning – SBA (2023)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Tyska', niva: 'God muntlig och skriftlig förmåga' }
+      ]
+    },
+    varforDetFungerar: [
+      {
+        rubrik: 'Kvantifierade gästserviceresultat',
+        text: 'CV:t anger konkret att Emma hanterar 80+ incheckningar dagligen med 3 minuters genomsnittlig servicetid och uppnår gästnöjdhetsbetyg på 4.8/5 baserat på 500+ recensioner.\n\nVarför detta fungerar: Rekryterare ser omedelbart att Emma kan hantera hög volym utan att kompromissa med servicekvaliteten. Betyget ger konkret bevis på gästnöjdhet.'
+      },
+      {
+        rubrik: 'Dokumenterad merförsäljningsförmåga',
+        text: 'CV:t visar att Emma genererar 45 000 kr i månatlig merförsäljning genom rumuppgraderingar och tilläggstjänster.\n\nVarför detta fungerar: Hotellchefer söker medarbetare som aktivt bidrar till intäkterna. Konkreta försäljningssiffror visar affärssinne och initiativförmåga.'
+      },
+      {
+        rubrik: 'Systemkompetens tydligt angiven',
+        text: 'CV:t specificerar erfarenhet av bokningssystem som Opera och Mews, samt att Emma utbildar nya medarbetare i dessa system.\n\nVarför detta fungerar: Hotell investerar mycket i systemutbildning. Kandidater med befintlig systemkunskap minskar upplärningskostnaden och kan snabbt bli produktiva.'
+      },
+      {
+        rubrik: 'Progression från boutique till storhotell',
+        text: 'CV:t visar karriärutveckling från mindre boutiquehotell med 45 rum till Clarion Hotel Sign – ett av Stockholms största konferenshotell.\n\nVarför detta fungerar: Rekryterare ser en kandidat som har vuxit med ökande ansvar och kan hantera olika hotellmiljöer.'
+      },
+      {
+        rubrik: 'Processförbättring med mätbart resultat',
+        text: 'CV:t beskriver hur Emma implementerade ett nytt incheckningssystem som minskade väntetiden med 40%.\n\nVarför detta fungerar: Detta visar initiativförmåga och förmåga att identifiera och lösa problem, inte bara utföra standarduppgifter.'
+      },
+      {
+        rubrik: 'Flerspråkig kompetens',
+        text: 'CV:t anger flerspråkig service på svenska, engelska och tyska – tre av de viktigaste språken för den svenska hotellmarknaden.\n\nVarför detta fungerar: Internationella gäster är en betydande kundgrupp. Språkkunskaper ger direkt mervärde för hotellets gästservice.'
+      }
+    ],
+    tips: [
+      {
+        rubrik: 'Kvantifiera din gästservicekapacitet',
+        text: `Ange konkret hur många gäster eller incheckningar du hanterar och koppla detta till kvalitetsmått som gästnöjdhetsbetyg eller väntetider.
+
+**Exempel på före/efter:**
+
+❌ "Arbetade i receptionen och hjälpte gäster"
+
+✅ "Hanterade 80+ incheckningar dagligen med genomsnittlig servicetid på 3 minuter och gästnöjdhetsbetyg på 4.8/5"`
+      },
+      {
+        rubrik: 'Visa din försäljningsförmåga med siffror',
+        text: `Hotell förväntar sig att hotellvärdar driver merförsäljning. Kvantifiera dina resultat med faktiska belopp eller procentuella ökningar.
+
+**Exempel på före/efter:**
+
+❌ "Sålde rumuppgraderingar till gäster"
+
+✅ "Genererade 45 000 kr i månatlig merförsäljning genom proaktiv presentation av rumuppgraderingar och spa-paket"`
+      },
+      {
+        rubrik: 'Specificera dina systemkunskaper',
+        text: `Namnge de boknings- och PMS-system du behärskar. Opera, Mews, Protel och Hotellinx är vanliga i branschen.
+
+**Exempel på före/efter:**
+
+❌ "Erfarenhet av bokningssystem"
+
+✅ "Avancerad användare av Opera PMS med erfarenhet av Mews och integrering mot OTA-plattformar som Booking.com"`
+      },
+      {
+        rubrik: 'Lyft fram din språkkompetens',
+        text: `Hotellbranschen kräver ofta flerspråkighet. Ange dina språk och nivå, särskilt för internationella hotell.
+
+**Exempel på före/efter:**
+
+❌ "Talar flera språk"
+
+✅ "Flytande svenska och engelska, god tyska – hanterar dagligen gäster från DACH-regionen och USA"`
+      },
+      {
+        rubrik: 'Beskriv hur du hanterar pressade situationer',
+        text: `Hotellvärdskap innebär ofta stressiga situationer med overbokningar, klagomål eller VIP-gäster. Visa din förmåga att behålla lugnet.
+
+**Exempel på före/efter:**
+
+❌ "Bra på att hantera stressiga situationer"
+
+✅ "Löste framgångsrikt 15+ overbokningssituationer per månad genom proaktiv kommunikation och samarbete med partnerhotell"`
+      },
+      {
+        rubrik: 'Inkludera relevanta certifieringar',
+        text: `Certifieringar inom branschstandard-service, allergenhantering eller säkerhet stärker din profil.
+
+**Exempel på före/efter:**
+
+❌ "Har gått diverse kurser inom service"
+
+✅ "Certifierad i First Impressions Training (Hilton), WSET Wine Foundation och hotellets brandskyddskrav"`
+      }
+    ],
+    faq: [
+      {
+        question: 'Vilka egenskaper är viktigast att lyfta fram i ett CV för hotellvärd?',
+        answer: 'De viktigaste egenskaperna är gästserviceorientering, stresshantering, flerspråkighet och systemkunskap. Visa konkret hur du levererar hög servicekvalitet under press, med mätbara resultat som gästnöjdhetsbetyg och antal hanterade incheckningar.'
+      },
+      {
+        question: 'Hur beskriver jag hotellreception-erfarenhet utan att ha arbetat på hotell?',
+        answer: 'Lyft fram överförbar erfarenhet från kundservice, restaurang eller detaljhandel. Fokusera på gästbemötande, kassahantering, bokningssystem och konfliktlösning. Betona din serviceinställning och förmåga att skapa positiva kundupplevelser.'
+      },
+      {
+        question: 'Ska jag inkludera mitt gästnöjdhetsbetyg i CV:t?',
+        answer: 'Ja, definitivt! Gästnöjdhetsbetyg är ett kraftfullt bevis på din serviceförmåga. Ange betyget tillsammans med antal recensioner för trovärdighet, exempelvis "4.8/5 baserat på 500+ gästrecensioner".'
+      },
+      {
+        question: 'Hur viktigt är det att namnge bokningssystem i CV:t?',
+        answer: 'Mycket viktigt. Hotell investerar kraftigt i PMS-utbildning, så befintlig systemkunskap är värdefull. Namnge specifika system som Opera, Mews, Protel eller Hotellinx och ange din kompetensnivå.'
+      },
+      {
+        question: 'Ska jag ta med säsongsarbete på hotell i mitt CV?',
+        answer: 'Ja, säsongsarbete visar flexibilitet och förmåga att snabbt anpassa sig. Beskriv vilken typ av hotell (fjäll, kust, stad), antal gäster och vilka särskilda utmaningar säsongstoppen innebar.'
+      },
+      {
+        question: 'Hur lång arbetslivserfarenhet behöver jag som hotellvärd?',
+        answer: 'För entrénivå räcker 6–12 månader av relevant kundserviceerfarenhet. För positioner på finare hotell eller med arbetsledande ansvar förväntas oftast 2–4 års branscherfarenhet med dokumenterade resultat.'
+      },
+      {
+        question: 'Vilka certifieringar är värdefulla för hotellvärd?',
+        answer: 'Värdefulla certifieringar inkluderar hotelkedjornas egna serviceprogram (t.ex. Hilton First Impressions), alkoholtillstånd/WSET för barer, första hjälpen och brandskydd. Visa att du investerar i din professionella utveckling.'
+      },
+      {
+        question: 'Hur beskriver jag merförsäljning på ett professionellt sätt?',
+        answer: 'Använd konkreta siffror: månatliga eller årliga försäljningsbelopp, konverteringsgrad för uppgraderingar, eller ranking bland kollegor. Beskriv också din teknik, som proaktiv presentation av fördelar snarare än aggressiv försäljning.'
+      },
+      {
+        question: 'Ska jag inkludera referenser från hotellet?',
+        answer: 'Ange "Referenser lämnas på begäran" i CV:t. Förbered 2–3 referenser från chefer eller gäster som kan intyga din servicekvalitet. Informera dina referenser innan de kontaktas.'
+      },
+      {
+        question: 'Hur anpassar jag mitt CV för olika typer av hotell?',
+        answer: 'För boutiquehotell, betona personlig service och flexibilitet. För affärshotell, lyft fram effektivitet och konferenshantering. För lyxhotell, framhäv diskret service, VIP-hantering och eventuell erfarenhet av concierge-uppgifter.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Servitris/Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' }
+    ]
   }
 }
 
