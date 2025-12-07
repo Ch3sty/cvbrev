@@ -18180,77 +18180,89 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
     },
     varforDetFungerar: [
       {
-        titel: 'Kvantifierade ärenderesultat',
-        beskrivning: 'CV:t anger konkret att Anna hanterar 85 aktiva ärenden med 32 dagars genomsnittlig handläggningstid och uppnår 94% bifall vid överprövning. **Varför detta fungerar:** Rekryterare ser omedelbart att hon klarar hög arbetsbelastning med bibehållen kvalitet och rättssäkerhet.'
+        rubrik: 'Kvantifierade ärenderesultat',
+        text: 'CV:t anger konkret att Anna hanterar 85 aktiva ärenden med 32 dagars genomsnittlig handläggningstid och uppnår 94% bifall vid överprövning.\n\nVarför detta fungerar: Rekryterare ser omedelbart att hon klarar hög arbetsbelastning med bibehållen kvalitet och rättssäkerhet.'
       },
       {
-        titel: 'Tydlig juridisk kompetens',
-        beskrivning: 'Både i profil och kompetenser framgår djup kunskap om LSS, SoL, Förvaltningslagen och rättspraxis. **Varför detta fungerar:** LSS-handläggning är myndighetsutövning som kräver juridisk precision – detta visar att Anna behärskar lagstiftningen.'
+        rubrik: 'Tydlig juridisk kompetens',
+        text: 'Både i profil och kompetenser framgår djup kunskap om LSS, SoL, Förvaltningslagen och rättspraxis.\n\nVarför detta fungerar: LSS-handläggning är myndighetsutövning som kräver juridisk precision – detta visar att Anna behärskar lagstiftningen.'
       },
       {
-        titel: 'IBIC-metodkompetens',
-        beskrivning: 'Anna lyfter IBIC-tillämpning konkret och visar hur strukturerad metodik minskade överklaganden med 35%. **Varför detta fungerar:** IBIC är standarden för behovsbedömning – kompetensen är avgörande för kvalitativa beslut.'
+        rubrik: 'IBIC-metodkompetens',
+        text: 'Anna lyfter IBIC-tillämpning konkret och visar hur strukturerad metodik minskade överklaganden med 35%.\n\nVarför detta fungerar: IBIC är standarden för behovsbedömning – kompetensen är avgörande för kvalitativa beslut.'
       },
       {
-        titel: 'Praktisk förståelse från utförarled',
-        beskrivning: 'Erfarenheten som vårdbiträde i LSS-boende ger trovärdighet och visar förståelse för verkställighetsperspektivet. **Varför detta fungerar:** Handläggare som förstår brukarnas vardag fattar mer relevanta och verkställbara beslut.'
+        rubrik: 'Praktisk förståelse från utförarled',
+        text: 'Erfarenheten som vårdbiträde i LSS-boende ger trovärdighet och visar förståelse för verkställighetsperspektivet.\n\nVarför detta fungerar: Handläggare som förstår brukarnas vardag fattar mer relevanta och verkställbara beslut.'
       },
       {
-        titel: 'Dokumenterad utvecklingsförmåga',
-        beskrivning: 'Exempel på förbättringsarbete som digitala rutiner och standardiserade uppföljningsmetoder visar initiativförmåga. **Varför detta fungerar:** Kommuner söker handläggare som bidrar till verksamhetsutveckling, inte bara hanterar befintliga rutiner.'
+        rubrik: 'Dokumenterad utvecklingsförmåga',
+        text: 'Exempel på förbättringsarbete som digitala rutiner och standardiserade uppföljningsmetoder visar initiativförmåga.\n\nVarför detta fungerar: Kommuner söker handläggare som bidrar till verksamhetsutveckling, inte bara hanterar befintliga rutiner.'
       },
       {
-        titel: 'Aktuell fortbildning',
-        beskrivning: 'Certifieringar inom rättspraxis, IBIC och neuropsykiatri visar kontinuerlig kompetensutveckling. **Varför detta fungerar:** LSS-området utvecklas genom nya domar och kunskap – visar att Anna håller sig uppdaterad.'
+        rubrik: 'Aktuell fortbildning',
+        text: 'Certifieringar inom rättspraxis, IBIC och neuropsykiatri visar kontinuerlig kompetensutveckling.\n\nVarför detta fungerar: LSS-området utvecklas genom nya domar och kunskap – visar att Anna håller sig uppdaterad.'
       }
     ],
     tips: [
       {
-        titel: 'Kvantifiera ärendebelastning och beslut',
-        beskrivning: `Visa konkret hur många ärenden du hanterar, din handläggningstid och utfall av dina beslut. Detta ger rekryterare förståelse för din kapacitet och kvalitet.
+        rubrik: 'Kvantifiera ärendebelastning och beslut',
+        text: `Visa konkret hur många ärenden du hanterar, din handläggningstid och utfall av dina beslut. Detta ger rekryterare förståelse för din kapacitet och kvalitet.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "Arbetade som LSS-handläggare med olika ärenden"
+
 ✅ "Hanterade 85 LSS-ärenden med 32 dagars genomsnittlig handläggningstid och 94% bifall vid förvaltningsdomstolsprövning"`
       },
       {
-        titel: 'Specificera lagstiftningskompetens',
-        beskrivning: `Lyft inte bara att du kan LSS – visa HUR du tillämpar lagstiftningen i praktiken och vilken rättspraxis du följer.
+        rubrik: 'Specificera lagstiftningskompetens',
+        text: `Lyft inte bara att du kan LSS – visa HUR du tillämpar lagstiftningen i praktiken och vilken rättspraxis du följer.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "God kunskap om LSS och relevant lagstiftning"
+
 ✅ "Tillämpar LSS, SoL och Förvaltningslagen med stöd av aktuell rättspraxis från HFD och kammarrätterna. Specialist på personlig assistans enligt 9§2"`
       },
       {
-        titel: 'Visa IBIC-kompetens konkret',
-        beskrivning: `IBIC är standarden för behovsbedömning. Beskriv hur du använder metoden och vilka resultat det leder till.
+        rubrik: 'Visa IBIC-kompetens konkret',
+        text: `IBIC är standarden för behovsbedömning. Beskriv hur du använder metoden och vilka resultat det leder till.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "Utbildad i IBIC och använder metoden"
+
 ✅ "Genomför systematiska IBIC-utredningar som resulterade i 35% färre överklaganden genom tydligare behovsanalys och motivering"`
       },
       {
-        titel: 'Betona IT-systemkompetens',
-        beskrivning: `Nämn specifika ärendehanteringssystem och hur du använder dem effektivt i din handläggning.
+        rubrik: 'Betona IT-systemkompetens',
+        text: `Nämn specifika ärendehanteringssystem och hur du använder dem effektivt i din handläggning.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "Arbetar med digitala system"
+
 ✅ "Implementerade digital ärenderutin i Treserva som minskade administrativ tid med 20% och förbättrade uppföljning av verkställighet"`
       },
       {
-        titel: 'Lyft samverkanskompetens',
-        beskrivning: `LSS-handläggning kräver ofta samordning mellan flera aktörer. Visa hur du navigerar komplex samverkan.
+        rubrik: 'Lyft samverkanskompetens',
+        text: `LSS-handläggning kräver ofta samordning mellan flera aktörer. Visa hur du navigerar komplex samverkan.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "Samarbetar med andra myndigheter och utförare"
+
 ✅ "Samordnade 23 komplexa ärenden med parallella insatser från kommun, Försäkringskassan, region och privata utförare med fokus på brukarens helhetsbehov"`
       },
       {
-        titel: 'Inkludera fortbildning och specialistkompetens',
-        beskrivning: `LSS-området utvecklas genom ny rättspraxis och forskning. Visa att du håller dig uppdaterad.
+        rubrik: 'Inkludera fortbildning och specialistkompetens',
+        text: `LSS-området utvecklas genom ny rättspraxis och forskning. Visa att du håller dig uppdaterad.
 
-Exempel på före/efter:
+**Exempel på före/efter:**
+
 ❌ "Deltar i fortbildningar"
+
 ✅ "Genomgått fördjupad utbildning i neuropsykiatri och autism (40 hp) samt årlig fortbildning i aktuell LSS-rättspraxis från Jure Förvaltningsjuridik"`
       }
     ],

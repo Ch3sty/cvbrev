@@ -17,7 +17,8 @@
       "Bash(dir:*)",
       "Bash(npm ls:*)",
       "Bash(npm install:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(powershell -Command \"(Get-Content ''c:\\Users\\chris\\cvbrev\\src\\app\\cv-exempel\\[yrke]\\page.tsx'' | Select-Object -Last 200) | Out-String\")"
     ],
     "deny": [],
     "ask": []
