@@ -168,6 +168,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 4. Lägg till CV-exempel sidor
   const CV_EXEMPEL = [
     'underskoterska',
+    'vardadministrator',
     'vardbitrade',
     'hemtjanst',
     'forskollarare',

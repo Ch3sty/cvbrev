@@ -162,6 +162,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'vardadministrator',
+    yrke: 'Vårdadministratör',
+    slug: 'vardadministrator',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 650,
+    icon: Stethoscope,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'CV-exempel för vårdadministratör med journalsystem, patientadministration och medicinsk sekreterarkompetens.',
+      highlight: ['Cosmic, TakeCare, 1177 Vårdguiden', '120-150 patientkontakter dagligen', 'GDPR och sekretess-certifierad']
+    }
+  },
+  {
     id: 'butiksbitrade',
     yrke: 'Butiksbiträde',
     slug: 'butiksbitrade',
@@ -1066,7 +1080,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  63 yrken
+                  64 yrken
                 </motion.span>
               </h1>
 
