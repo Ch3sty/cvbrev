@@ -456,6 +456,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'kundradgivare',
+    yrke: 'Kundrådgivare',
+    slug: 'kundradgivare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 450,
+    icon: Calculator,
+    gradient: 'from-emerald-500 via-teal-600 to-cyan-700',
+    preview: {
+      intro: 'CV-exempel för kundrådgivare med SwedSec-licens, kreditbedömning och finansiell rådgivning inom bank och privat banking.',
+      highlight: ['SwedSec-licens och MiFID II', 'Salesforce CRM, UC och Creditsafe', '180+ företagskunder, 420 MSEK i portfölj']
+    }
+  },
+  {
     id: 'kundtjanstmedarbetare',
     yrke: 'Kundtjänstmedarbetare',
     slug: 'kundtjanstmedarbetare',
@@ -1080,7 +1094,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  64 yrken
+                  65 yrken
                 </motion.span>
               </h1>
 
