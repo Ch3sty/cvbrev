@@ -5045,6 +5045,285 @@ Konkreta exempel bevisar att du kan kommunicera under press, leda och hantera st
     ]
   },
 
+  'specialistsjukskoterska': {
+    yrke: 'Specialistsjuksköterska',
+    slug: 'specialistsjukskoterska',
+    sokvolym: 750,
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Specialistsjuksköterska 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se professionellt CV-exempel för specialistsjuksköterska med avancerad omvårdnad, medicinteknisk utrustning och evidensbaserad vård. ATS-optimerad mall 2025.',
+
+    intro: 'Ett professionellt CV-exempel för specialistsjuksköterska som visar din specialisering, avancerade kompetens och evidensbaserade vård. Optimerat för svenska sjukhus och ATS-system.',
+
+    seoIntro: `Om du ska söka jobb som specialistsjuksköterska behöver ditt CV visa mer än grundläggande omvårdnad. Rekryterare letar efter specialistsjuksköterskeexamen, specifik inriktning (intensivvård, anestesi, psykiatri, diabetes, onkologi eller geriatrik) och erfarenhet av avancerad omvårdnad med medicinteknisk utrustning. ATS-system som sjukhusen använder sorterar bort ansökningar som saknar nyckelord som "evidensbaserad vård", "respiratorer", "CRRT" eller specialistområdet du söker inom.
+
+Vårt exempel-CV visar hur en specialistsjuksköterska inom intensivvård presenterar 9 års erfarenhet med fokus på avancerad omvårdnad av kritiskt sjuka patienter. Du ser hur hen lyfter fram arbete med ECMO-behandling för 40+ patienter, implementering av ABCDEF-bundlen som reducerade ventilatorassocierad pneumoni med 30%, och handledning av grundutbildade sjuksköterskor och specialiststuderande. Istället för vaga påståenden som "ansvarig för avancerad vård" visar CV:t exakt vilken medicinteknisk kompetens och resultat hen åstadkommit.
+
+Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa innehållet till din specialisering och se till att inkludera nyckelord från jobbannonsen du söker.`,
+
+    viktigtAttTankaPa: [
+      'Ange tydligt din specialistinriktning i titeln (intensivvård, anestesi, psykiatri, diabetes, onkologi eller geriatrik)',
+      'Inkludera medicinteknisk utrustning du behärskar (respiratorer, CRRT, ECMO, invasiv övervakning)',
+      'Visa evidensbaserad vård genom kvalitetsregister (SIR, BIVA, SWEDEHEART) och förbättringsarbete',
+      'Lyft fram handledning och undervisning av kollegor och studenter som visar senioritet'
+    ],
+
+    exempelCV: {
+      namn: 'Emma Bergström',
+      titel: 'Specialistsjuksköterska intensivvård',
+      profil: 'Specialistsjuksköterska med 9+ års erfarenhet från högspecialiserad intensivvård och avancerad omvårdnad av kritiskt sjuka patienter. Expert inom medicinteknisk utrustning som respiratorer, CRRT, ECMO och invasiv hemodynamisk monitorering. Handleder 8-10 specialiststuderande per år och driver förbättringsarbete baserat på evidens från kvalitetsregister (SIR, SWEDEHEART). Drivs av att kombinera avancerad teknologi med personcentrerad omvårdnad för att optimera vårdutfall för de mest kritiskt sjuka patienterna.',
+
+      erfarenhet: [
+        {
+          titel: 'Specialistsjuksköterska IVA & ECMO-koordinator',
+          arbetsgivare: 'Sahlgrenska Universitetssjukhuset',
+          period: '2021 - nuvarande',
+          beskrivning: [
+            'Ansvarar för avancerad omvårdnad av 3-4 kritiskt sjuka IVA-patienter dagligen med komplex medicinteknisk utrustning (respiratorer, CRRT, invasiv övervakning)',
+            'ECMO-koordinator för 40+ patienter sedan 2022, leder implementering av ECMO-behandling och utbildar teamet i veno-venös och veno-arteriell ECMO',
+            'Implementerade ABCDEF-bundlen som reducerade ventilatorassocierad pneumoni med 30% och förkortade mekanisk ventilationstid med 2,5 dagar i genomsnitt',
+            'Handleder 8-10 specialistsjuksköterskestudenter per år och utbildar grundutbildade sjuksköterskor i avancerad omvårdnad och respiratorvård'
+          ]
+        },
+        {
+          titel: 'Specialistsjuksköterska intensivvård',
+          arbetsgivare: 'Östra Sjukhuset, Göteborg',
+          period: '2018 - 2021',
+          beskrivning: [
+            'Omvårdnad av postoperativa patienter efter hjärtkirurgi, thoraxkirurgi och större bukkirurgi med fokus på hemodynamisk stabilisering och optimal återhämtning',
+            'Hanterade kontinuerlig njurersättningsterapi (CRRT) för 100+ patienter med akut njursvikt och multiorgansvikt',
+            'Deltog i kvalitetsförbättringsarbete som registrerar data i SIR (Svenska Intensivvårdsregistret) för evidensbaserad vårdförbättring',
+            'Certifierad CIVA (Certifierad i Intensivvård) sedan 2020, förnyad 2024'
+          ]
+        },
+        {
+          titel: 'Sjuksköterska IVA',
+          arbetsgivare: 'Mölndals Sjukhus',
+          period: '2016 - 2018',
+          beskrivning: [
+            'Omvårdnad av kritiskt sjuka patienter inom medicinsk och kirurgisk intensivvård med mekanisk ventilation och invasiv övervakning',
+            'Administrerade avancerad läkemedelsbehandling inklusive vasopressorer, sedativa och analgetika via infusionspumpar',
+            'Utvecklade kompetens inom hemodynamisk monitorering (PiCCO, artärkateter, CVK) och tolkning av invasiva mätvärden',
+            'Deltog i tvärprofessionella ronder med läkare, fysioterapeuter och dietister för optimerad behandlingsplan'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Specialistsjuksköterskeprogrammet, inriktning intensivvård, 75 hp',
+          skola: 'Göteborgs Universitet',
+          period: '2017 - 2018',
+          beskrivning: 'Fördjupning inom avancerad omvårdnad, respiratorvård, hemodynamisk monitorering och evidensbaserad intensivvård. VFU på Sahlgrenska IVA.'
+        },
+        {
+          titel: 'Sjuksköterskeprogrammet, 180 hp',
+          skola: 'Högskolan Väst',
+          period: '2013 - 2016',
+          beskrivning: 'Grundutbildning med VFU på Sahlgrenska Universitetssjukhuset och Östra Sjukhuset inom medicin, kirurgi och akutsjukvård.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Respiratorer (mekanisk ventilation, CPAP, BiPAP, NIV)',
+          'CRRT - Kontinuerlig njurersättningsterapi (Prismaflex, Multifiltrate)',
+          'ECMO - Extrakorporeal membranoxygenering (VV-ECMO, VA-ECMO)',
+          'Invasiv hemodynamisk monitorering (PiCCO, artärkateter, CVK)',
+          'TakeCare, Melior, Cosmic (Expert, 7+ år)',
+          'Kvalitetsregister (SIR, SWEDEHEART)',
+          'Läkemedelsdatabaser (FASS, Janusinfo)',
+          'Medicinteknisk utrustning (infusionspumpar, dialysapparater, värmefiltar)'
+        ],
+        personliga: [
+          'Stresstålig (hanterar 3-4 kritiskt sjuka patienter med multiorgansvikt)',
+          'Pedagogisk (handleder 8-10 specialiststuderande årligen)',
+          'Analytisk (tolkar komplexa mätvärden och fattar kliniska beslut)',
+          'Teamorienterad (tvärprofessionellt samarbete med läkare och fysioterapeuter)',
+          'Empatisk (stödjer patienter och anhöriga i livskriser)',
+          'Evidensbaserad (implementerar forskning i klinisk praktik)'
+        ]
+      },
+
+      certifieringar: [
+        'Specialistsjuksköterskeexamen, inriktning intensivvård (2018)',
+        'CIVA - Certifierad i Intensivvård (förnyad 2024)',
+        'ECMO-specialist (ELSO-certifierad, 2022)',
+        'Avancerad hjärt-lungräddning (A-HLR, förnyad 2024)',
+        'Förskrivningsrätt för läkemedel inom specialistområde (2023)',
+        'Critical care nursing - Evidensbaserad intensivvård (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (medicinsk terminologi och forskningsartiklar)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med specialistspecifika nyckelord',
+        text: `CV:t innehåller kritiska sökord som ATS-system letar efter inom specialistsjukvård: specialistsjuksköterskeexamen, intensivvård, ECMO, CRRT, respiratorer, evidensbaserad vård, invasiv övervakning, TakeCare, Melior och SIR. Rubriker som Specialistsjuksköterska intensivvård, Certifieringar och Medicinteknisk kompetens är standardiserade och läsbara för både ATS och rekryterare.
+
+**Varför detta fungerar:** Sjukhusens ATS-system filtrerar bort CV:n som saknar specialistnyckelord. Genom att placera ECMO, CRRT, respiratorer och CIVA i både profiltext och certifieringssektionen ökar chansen att passera första gallringen. Rekryteraren ser direkt att du har avancerad specialistkompetens, inte bara grundläggande sjuksköterskekunskap.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat från evidensbaserad vård',
+        text: `Istället för vaga beskrivningar som "ansvarig för avancerad omvårdnad" visar CV:t konkreta resultat: Omvårdnad av 3-4 kritiskt sjuka IVA-patienter dagligen, ECMO-koordinator för 40+ patienter, Implementerade ABCDEF-bundlen som reducerade ventilatorassocierad pneumoni med 30%, Hanterade CRRT för 100+ patienter.
+
+**Varför detta fungerar:** Vårdchefer på IVA granskar hundratals CV där kandidater bara skriver "specialistsjuksköterska med IVA-erfarenhet". Att specificera ECMO-patienter, CRRT-behandlingar och konkreta förbättringar (30% minskad pneumoni) skiljer ditt CV från mängden. Siffror ger rekryteraren något konkret att diskutera under intervjun.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk expertis och personcentrerad omvårdnad',
+        text: `CV:t kombinerar avancerad teknisk kompetens som ECMO, CRRT, respiratorer och invasiv hemodynamisk monitorering med omvårdnadsfokus som personcentrerad vård, anhörigstöd och teamsamarbete. Båda delarna backas upp med exempel från arbetserfarenheten.
+
+**Varför detta fungerar:** Teknisk kompetens ensam räcker inte inom specialistsjukvård. Rekryterare vill se att du behärskar både avancerad medicinteknisk utrustning och kan möta patienter och anhöriga med empati och professionalism. Denna balans är avgörande för tjänster på IVA där du både hanterar ECMO-patienter och stödjer familjer genom livskriser.`
+      },
+      {
+        rubrik: 'Specialistutbildning och certifieringar som kompetensmarkör',
+        text: `Dedikerad sektion för specialistsjuksköterskeexamen och avancerade certifieringar visar kontinuerlig kompetensutveckling: Specialistsjuksköterskeexamen intensivvård 2018, CIVA förnyad 2024, ECMO-specialist 2022, Förskrivningsrätt 2023. Att inkludera förnyelsedatum för CIVA och A-HLR visar att du är uppdaterad.
+
+**Varför detta fungerar:** Rekryterare till specialistsjukvård söker specifika certifieringar. CIVA och ECMO-specialist visar att du behärskar de mest avancerade behandlingsformerna inom intensivvård. Detta signalerar expertis och lärvilja, två egenskaper som vårdgivare högt värderar vid rekrytering till högspecialiserade IVA-enheter.`
+      },
+      {
+        rubrik: 'Profiltext som tydlig specialistkompetens',
+        text: `Den inledande profiltexten sammanfattar din specialisering, avancerade kompetens och unika styrkor på tre meningar: Specialistsjuksköterska med 9+ års erfarenhet från högspecialiserad intensivvård och avancerad omvårdnad av kritiskt sjuka patienter. Expert inom medicinteknisk utrustning som respiratorer, CRRT, ECMO.
+
+**Varför detta fungerar:** ATS-system indexerar profiltexten tungt, så specialistnyckelord här är extra viktiga för att passera automatisk screening. Rekryteraren får en komplett bild av din specialistkompetens inom 10 sekunder, vilket avgör om CV:t hamnar i "intervju"-högen. Att nämna ECMO direkt visar att du behärskar den mest avancerade behandlingen inom intensivvård.`
+      },
+      {
+        rubrik: 'Tydlig progression från sjuksköterska till specialist och seniorroll',
+        text: `Från sjuksköterska IVA med grundläggande intensivvård till specialistsjuksköterska och vidare till ECMO-koordinator visar CV:t en naturlig specialisering mot mer avancerad vård. Att nämna ECMO-koordinator, Handleder 8-10 specialiststuderande årligen och Implementerade ABCDEF-bundlen visar senioritet.
+
+**Varför detta fungerar:** Progression visar ambition och vilja att utvecklas, inte bara göra jobbet. Rekryterare ser att du kan både utföra den mest avancerade omvårdnaden (ECMO) och leda andra genom undervisning och förbättringsarbete. Seniorroller som ECMO-koordinator öppnar dörrar till tjänster med mer ansvar och högre lön.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Ange tydlig specialisering redan i titeln',
+        text: `Din yrkestitel ska visa specialistinriktning direkt. Skriv inte bara "Specialistsjuksköterska" utan specificera området.
+
+**Exempel på före/efter**:
+
+❌ "Specialistsjuksköterska med bred erfarenhet inom vård"
+
+✅ "Specialistsjuksköterska intensivvård" eller "Specialistsjuksköterska anestesi" eller "Diabetessjuksköterska"
+
+ATS-system söker efter specifika inriktningar. Om jobbannonsen söker "specialistsjuksköterska IVA" men du skriver "specialistsjuksköterska vård" kan systemet missa matchningen.`
+      },
+      {
+        rubrik: 'Kvantifiera din erfarenhet av medicinteknisk utrustning',
+        text: `Visa omfattningen av din tekniska kompetens med konkreta siffror och resultat.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för respiratorvård och dialys"
+
+✅ "Hanterar mekanisk ventilation för 3-4 kritiskt sjuka patienter dagligen. Genomfört CRRT för 100+ patienter med akut njursvikt. ECMO-koordinator för 40+ patienter sedan 2022."
+
+Siffror visar att du har gedigen erfarenhet av avancerad utrustning och inte bara provat på det någon gång.`
+      },
+      {
+        rubrik: 'Visa evidensbaserad vård genom kvalitetsregister',
+        text: `Specialistsjuksköterskor förväntas arbeta evidensbaserat. Visa detta genom kvalitetsregister och konkreta förbättringar.
+
+**Exempel på före/efter**:
+
+❌ "Deltog i kvalitetsarbete på avdelningen"
+
+✅ "Registrerar data i SIR (Svenska Intensivvårdsregistret) för evidensbaserad vårdförbättring. Implementerade ABCDEF-bundlen som reducerade ventilatorassocierad pneumoni med 30%."
+
+Nämn specifika register (SIR för IVA, BIVA för barn-IVA, SWEDEHEART för hjärtsjukvård) och kvantifierbara resultat.`
+      },
+      {
+        rubrik: 'Lyft fram handledning och undervisning som senioritet',
+        text: `Specialistsjuksköterskor förväntas handleda kollegor och studenter. Visa detta tydligt.
+
+**Exempel på före/efter**:
+
+❌ "Handleder studenter och nya kollegor"
+
+✅ "Handleder 8-10 specialistsjuksköterskestudenter per år inom ECMO och respiratorvård. Utbildar grundutbildade sjuksköterskor i avancerad omvårdnad."
+
+Kvantifiera antal studerande och specificera vad du undervisar i. Detta visar att du är senior inom ditt specialistområde.`
+      },
+      {
+        rubrik: 'Inkludera specialistcertifieringar med årtal',
+        text: `Specialistcertifieringar är avgörande meriterande. Lista dem med fullständiga namn och förnyelsedatum.
+
+**Exempel på före/efter**:
+
+❌ "CIVA-certifierad, ECMO-utbildad"
+
+✅ "CIVA - Certifierad i Intensivvård (förnyad 2024), ECMO-specialist (ELSO-certifierad, 2022), Förskrivningsrätt för läkemedel inom specialistområde (2023)"
+
+Förnyelsedatum visar att du håller dig uppdaterad.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter din specialisering',
+        text: `Profiltexten ska spegla din specifika specialistinriktning, inte vara generisk.
+
+**Exempel för olika inriktningar**:
+
+✅ För intensivvård: "Specialistsjuksköterska med 9+ års erfarenhet från högspecialiserad IVA. Expert inom ECMO, CRRT och respiratorvård."
+
+✅ För anestesi: "Specialistsjuksköterska anestesi med 7+ års erfarenhet. Specialist inom regional anestesi och smärtlindring."
+
+✅ För diabetes: "Diabetessjuksköterska med 6+ års erfarenhet. Expert inom insulinpumpterapi, CGM och egenvårdsutbildning."`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som specialistsjuksköterska vara?',
+        svar: 'Ett specialistsjuksköterske-CV ska helst vara 1-2 sidor. Om du har under 5 års erfarenhet som specialist räcker vanligtvis en sida. Med 5+ år, flera specialiseringar och seniorroller kan du använda två sidor. Fokusera på de senaste 10 åren och mest relevanta erfarenheter. Behåll alltid: specialistsjuksköterskeexamen med inriktning, specialistcertifieringar (CIVA, ECMO etc.), medicinteknisk kompetens och kvantifierbara resultat från evidensbaserat förbättringsarbete.'
+      },
+      {
+        fraga: 'Ska jag ha profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild inte nödvändig och många rekryterare föredrar faktiskt CV utan bild för att undvika omedvetna fördomar. ATS-system kan ibland ha problem med att läsa CV med bilder. Om arbetsgivaren specifikt ber om bild kan du inkludera en, men annars rekommenderas att utelämna den. Fokusera istället på innehållet: din specialistkompetens, certifieringar och evidensbaserade resultat.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV som specialistsjuksköterska?',
+        svar: 'Luckor är vanliga och inget att skämmas för. Föräldraledighet, vidareutbildning, sjukskrivning eller omsorg om anhörig är legitima skäl. Om du vidareutbildade dig under perioden (specialistsjuksköterskeexamen, certifieringar som CIVA eller ECMO-specialist), lista det under Utbildning med årtal. Om du arbetade som vikarie eller deltid, inkludera även dessa. Rekryterare inom specialistsjukvård förstår att livet inte alltid går i rät linje.'
+      },
+      {
+        fraga: 'Vilken specialisering som specialistsjuksköterska ska jag ange?',
+        svar: 'Ange den specialisering du har examen inom: intensivvård, anestesi, psykiatri, diabetes, onkologi, geriatrik, operationssjukvård, distriktssköterska, barnsjuksköterska eller ambulanssjukvård. Om du har flera specialiseringar kan du nämna båda: "Specialistsjuksköterska intensivvård och anestesi". Var specifik redan i titeln så att ATS-system och rekryterare direkt ser din kompetens.'
+      },
+      {
+        fraga: 'Hur lång är specialistsjuksköterskeutbildningen?',
+        svar: 'Specialistsjuksköterskeutbildning är 60-75 hp (1-1,5 år på heltid) och kräver sjuksköterskeexamen och legitimation som sjuksköterska. Du läser teori och genomför VFU inom ditt specialistområde. Ange alltid fullständig titel i CV:t: "Specialistsjuksköterskeprogrammet, inriktning intensivvård, 75 hp" samt lärosäte och årtal. Om du går utbildningen nu, skriv "Pågående: examen juni 2025".'
+      },
+      {
+        fraga: 'Hur mycket tjänar en specialistsjuksköterska?',
+        svar: 'Lön för specialistsjuksköterska varierar beroende på region, arbetsgivare och erfarenhet, men ligger vanligtvis mellan 38 000-48 000 kr/månad. Specialistsjuksköterskor inom IVA, anestesi och ECMO kan tjäna mer, särskilt med senioritet och jourtjänstgöring. Nämn inte din nuvarande lön i CV:t, men du kan ange "Löneanspråk: Enligt kollektivavtal + erfarenhetstillägg" om arbetsgivaren ber om det.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av intensivvård som specialistsjuksköterska IVA?',
+        svar: 'Visa din IVA-erfarenhet genom konkreta exempel på avancerad omvårdnad och medicinteknisk kompetens. Nämn: antal patienter du ansvarar för dagligen (3-4 kritiskt sjuka), medicinteknisk utrustning (respiratorer, CRRT, ECMO, invasiv övervakning), kvalitetsregister (SIR), och evidensbaserade bundles (ABCDEF-bundlen). Kvantifiera resultat: "Implementerade ABCDEF-bundlen som reducerade VAP med 30%".'
+      },
+      {
+        fraga: 'Ska jag lista alla medicinska system och utrustning jag kan?',
+        svar: 'Lista de viktigaste och mest relevanta för din specialisering. För intensivvård: respiratorer, CRRT, ECMO, invasiv övervakning, infusionspumpar. För diabetes: insulinpumpar, CGM, blodglukosmonitorer. Nämn journalsystem (TakeCare, Melior, Cosmic) och kvalitetsregister (SIR, BIVA, SWEDEHEART). Fokusera på det som nämns i jobbannonsen.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram evidensbaserad vård och kvalitetsregister?',
+        svar: 'Nämn specifika kvalitetsregister du arbetar med: SIR (Svenska Intensivvårdsregistret), BIVA (för barn-IVA), SWEDEHEART (hjärtsjukvård), NDR (diabetes). Visa hur du använder dem: "Registrerar data i SIR för evidensbaserad vårdförbättring". Inkludera konkreta resultat från förbättringsarbete och nämn läkemedelsdatabaser som FASS och Janusinfo.'
+      },
+      {
+        fraga: 'Hur visar jag handledarroll och undervisning som specialistsjuksköterska?',
+        svar: 'Kvantifiera din handledarerfarenhet: "Handleder 8-10 specialistsjuksköterskestudenter per år", "Utbildar grundutbildade sjuksköterskor i respiratorvård och CRRT", "Mentorskap för nyutexaminerade specialistsjuksköterskor". Specificera vad du undervisar i: ECMO-behandling, invasiv hemodynamisk monitorering, avancerad omvårdnad. Om du är formell VFU-handledare, nämn det.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Kurator', slug: 'kurator' }
+    ]
+  },
+
   'ekonomiassistent': {
     yrke: 'Ekonomiassistent',
     sokvolym: 1200,

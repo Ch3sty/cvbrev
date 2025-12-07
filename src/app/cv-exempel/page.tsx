@@ -232,6 +232,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'specialistsjukskoterska',
+    yrke: 'Specialistsjuksköterska',
+    slug: 'specialistsjukskoterska',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 750,
+    icon: Stethoscope,
+    gradient: 'from-indigo-600 via-purple-600 to-pink-600',
+    preview: {
+      intro: 'CV-exempel för specialistsjuksköterska (IVA/anestesi/diabetes) med ECMO, CRRT, respiratorer och evidensbaserad vård.',
+      highlight: ['Medicinteknisk utrustning (ECMO, CRRT)', 'Evidensbaserad intensivvård', 'Handledning och kvalitetsregister']
+    }
+  },
+  {
     id: 'butikssaljare',
     yrke: 'Butikssäljare',
     slug: 'butikssaljare',
@@ -1038,7 +1052,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  61 yrken
+                  62 yrken
                 </motion.span>
               </h1>
 

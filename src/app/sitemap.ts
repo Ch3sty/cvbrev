@@ -183,6 +183,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'student',
     'larare',
     'sjukskoterska',
+    'specialistsjukskoterska',
     'butikssaljare',
     'saljare',
     'sommarjobb',
