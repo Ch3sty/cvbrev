@@ -18031,6 +18031,277 @@ Namnge specifika system och eventuella dokumentationsmallar du använder.`
       { yrke: 'Läkare', slug: 'lakare' },
       { yrke: 'Socialsekreterare', slug: 'socialsekreterare' }
     ]
+  },
+
+  'lss-handlaggare': {
+    yrke: 'LSS-handläggare',
+    slug: 'lss-handlaggare',
+    sokvolym: 170,
+    kategori: 'offentlig-sektor',
+    metaTitle: 'CV Exempel LSS-handläggare 2025 - Professionell Mall',
+    metaDescription: 'Professionellt CV-exempel för LSS-handläggare med beprövade formuleringar för biståndsbedömning och myndighetsutövning. Ladda ner gratis mall.',
+    seoIntro: `Ett starkt CV för LSS-handläggare visar tydligt din kompetens inom biståndsbedömning, LSS-lagstiftning och myndighetsutövning. Rekryterare inom kommuner och privata utförare letar efter handläggare som kan kombinera juridisk precision med empatiskt bemötande av brukare och anhöriga.
+
+Din erfarenhet av att hantera LSS-ärenden, genomföra IBIC-utredningar och fatta välgrundade biståndsbeslut är central för att lyckas i rollen. Många sökande skriver vagt om "handläggning av ärenden" istället för att konkretisera antal ärenden, handläggningstider och beslutskvalitet. Ett professionellt CV kvantifierar din arbetsbelastning och visar resultat.
+
+Kompetens inom relevanta IT-system som Treserva, Procapita eller liknande ärendehanteringssystem är ofta avgörande vid rekrytering. Visa också din kunskap om LSS, SoL, Förvaltningslagen och aktuell rättspraxis från Högsta förvaltningsdomstolen. Rekryterare värderar handläggare som håller sig uppdaterade om lagändringar och domar från förvaltningsdomstolar.
+
+För att sticka ut behöver ditt CV visa både din juridiska kompetens och din förmåga att bygga förtroendefulla relationer med brukare och anhöriga. Konkreta exempel på hur du navigerat komplexa ärenden eller förbättrat verksamheten gör skillnad. Detta CV-exempel ger dig en beprövad struktur som kommunicerar din kompetens tydligt och ökar dina chanser till intervju.`,
+    intro: 'Som LSS-handläggare är ditt CV avgörande för att visa din kompetens inom biståndsbedömning och myndighetsutövning. Detta exempel visar hur du strukturerar erfarenhet, kvantifierar resultat och lyfter relevant lagstiftningskompetens.',
+    viktigtAttTankaPa: [
+      {
+        icon: 'FileText',
+        title: 'Kvantifiera ärendemängd och beslut',
+        description: 'Ange antal LSS-ärenden, genomsnittlig handläggningstid och andel bifall/avslag. Visa din arbetsbelastning och beslutskapacitet konkret.'
+      },
+      {
+        icon: 'Scale',
+        title: 'Lyft juridisk kompetens tydligt',
+        description: 'Specificera din kunskap om LSS, SoL, Förvaltningslagen och rättspraxis. Nämn relevanta avgöranden från förvaltningsdomstolar du arbetat med.'
+      },
+      {
+        icon: 'Users',
+        title: 'Visa bemötandekompetens',
+        description: 'Beskriv hur du bygger förtroende med brukare och anhöriga. Lyft erfarenhet av komplexa samtal och konflikthantering i känsliga situationer.'
+      },
+      {
+        icon: 'BookOpen',
+        title: 'Betona IBIC och utredningsmetodik',
+        description: 'Visa din kompetens i systematiska behovsbedömningar enligt IBIC. Konkretisera hur du genomför utredningar och dokumenterar beslut.'
+      },
+      {
+        icon: 'Award',
+        title: 'Inkludera relevant fortbildning',
+        description: 'LSS-området utvecklas ständigt. Lista kurser i ny lagstiftning, rättspraxis eller specialistkompetens som habiliteringskunskap eller neuropsykiatri.'
+      },
+      {
+        icon: 'FileCheck',
+        title: 'Nämn samverkanskompetens',
+        description: 'Visa erfarenhet av samverkan med utförare, habiliteringen, psykiatrin och andra myndigheter. Lyft din roll i koordinering av insatser.'
+      }
+    ],
+    exempelCV: {
+      namn: 'Anna Bergström',
+      titel: 'LSS-handläggare',
+      kontakt: {
+        telefon: '073-245 67 89',
+        epost: 'anna.bergstrom@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/anna-bergstrom'
+      },
+      profil: 'Erfaren LSS-handläggare med 7 års erfarenhet av biståndsbedömning och myndighetsutövning inom funktionshindersområdet. Gedigen kompetens i LSS, SoL och Förvaltningslagen samt dokumenterad förmåga att hantera hög ärendebelastning med bibehållen kvalitet. Kombinerar juridisk precision med empatiskt bemötande och är driven av att säkerställa rättssäkerhet och goda levnadsvillkor för personer med funktionsnedsättning.',
+      erfarenhet: [
+        {
+          titel: 'LSS-handläggare',
+          arbetsgivare: 'Uppsala kommun, Funktionsstödsförvaltningen',
+          period: '2021 – Nuvarande',
+          beskrivning: [
+            'Ansvarar för biståndsbedömning och beslut enligt LSS för vuxna personer med intellektuell funktionsnedsättning, autism och förvärvade hjärnskador',
+            'Genomför IBIC-utredningar, fattar beslut om insatser och säkerställer verkställighet i samverkan med utförare',
+            'Hanterar 85 aktiva LSS-ärenden med genomsnittlig handläggningstid på 32 dagar (under kommunens målsättning på 45 dagar)',
+            'Uppnår 94% bifall i förvaltningsdomstol vid överklagade beslut genom välgrundad dokumentation och motivering',
+            'Implementerade digital ärenderutin i Treserva som minskade administrativ tid med 20% och förbättrade uppföljning',
+            'Handleder 2 nyanställda handläggare i LSS-lagstiftning och utredningsmetodik'
+          ]
+        },
+        {
+          titel: 'Handläggare LSS och SoL',
+          arbetsgivare: 'Enköpings kommun, Omsorgsförvaltningen',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Handlade LSS-ärenden för vuxna samt vissa SoL-ärenden inom funktionshinderområdet',
+            'Ansvarade för behovsbedömningar, beslut och samordning med utförare och anhöriga',
+            'Förbättrade kvaliteten i beslutsunderlag genom strukturerad IBIC-tillämpning, vilket resulterade i 35% färre överklaganden',
+            'Samordnade komplexa ärenden med parallella insatser från kommun, region och Försäkringskassan',
+            'Utvecklade rutiner för uppföljning av personlig assistans som standardiserades i hela förvaltningen'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde och vikarie LSS-boende',
+          arbetsgivare: 'Attendo Care AB',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Arbetade i gruppboende enligt LSS för personer med intellektuell funktionsnedsättning',
+            'Fick praktisk förståelse för verkställighet och brukarnas vardag',
+            'Ansvarade för dokumentation enligt IBIC och SoL-avvikelser',
+            'Bidrog till förbättrad måluppfyllelse genom strukturerad vardagsplanering'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet, 210 hp',
+          skola: 'Uppsala universitet',
+          period: '2012 – 2016',
+          beskrivning: 'Specialisering mot socialt arbete och funktionshinderområdet. Praktik inom LSS-handläggning.'
+        },
+        {
+          titel: 'Praktiktjänstgöring inom LSS-handläggning',
+          skola: 'Uppsala kommun',
+          period: '2015',
+          beskrivning: 'VFU inom funktionsstödsförvaltningen med fokus på biståndsbedömning enligt LSS.'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'LSS (Lagen om stöd och service)',
+          'SoL (Socialtjänstlagen)',
+          'Förvaltningslagen',
+          'IBIC (Individens behov i centrum)',
+          'Treserva (ärendesystem)',
+          'Procapita',
+          'Biståndsbedömning',
+          'Myndighetsutövning',
+          'Verkställighet och uppföljning',
+          'Rättspraxis och domstolsavgöranden',
+          'Delegationsordning och beslutskompetens'
+        ],
+        personliga: [
+          'Empatisk kommunikation',
+          'Strukturerad handläggning',
+          'Juridisk analysförmåga',
+          'Konflikthantering',
+          'Stresstålig',
+          'Samarbetsförmåga',
+          'Dokumentationskompetens',
+          'Integritet och sekretess'
+        ]
+      },
+      certifieringar: [
+        'IBIC-utbildning grundläggande och fördjupning – SKR, 2022',
+        'LSS och rättspraxis – Jure Förvaltningsjuridik, 2023',
+        'Förvaltningsrätt för handläggare – Uppsala universitet, 2021',
+        'Neuropsykiatri och intellektuell funktionsnedsättning – Habilitering & Hälsa, 2020'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierade ärenderesultat',
+        beskrivning: 'CV:t anger konkret att Anna hanterar 85 aktiva ärenden med 32 dagars genomsnittlig handläggningstid och uppnår 94% bifall vid överprövning. **Varför detta fungerar:** Rekryterare ser omedelbart att hon klarar hög arbetsbelastning med bibehållen kvalitet och rättssäkerhet.'
+      },
+      {
+        titel: 'Tydlig juridisk kompetens',
+        beskrivning: 'Både i profil och kompetenser framgår djup kunskap om LSS, SoL, Förvaltningslagen och rättspraxis. **Varför detta fungerar:** LSS-handläggning är myndighetsutövning som kräver juridisk precision – detta visar att Anna behärskar lagstiftningen.'
+      },
+      {
+        titel: 'IBIC-metodkompetens',
+        beskrivning: 'Anna lyfter IBIC-tillämpning konkret och visar hur strukturerad metodik minskade överklaganden med 35%. **Varför detta fungerar:** IBIC är standarden för behovsbedömning – kompetensen är avgörande för kvalitativa beslut.'
+      },
+      {
+        titel: 'Praktisk förståelse från utförarled',
+        beskrivning: 'Erfarenheten som vårdbiträde i LSS-boende ger trovärdighet och visar förståelse för verkställighetsperspektivet. **Varför detta fungerar:** Handläggare som förstår brukarnas vardag fattar mer relevanta och verkställbara beslut.'
+      },
+      {
+        titel: 'Dokumenterad utvecklingsförmåga',
+        beskrivning: 'Exempel på förbättringsarbete som digitala rutiner och standardiserade uppföljningsmetoder visar initiativförmåga. **Varför detta fungerar:** Kommuner söker handläggare som bidrar till verksamhetsutveckling, inte bara hanterar befintliga rutiner.'
+      },
+      {
+        titel: 'Aktuell fortbildning',
+        beskrivning: 'Certifieringar inom rättspraxis, IBIC och neuropsykiatri visar kontinuerlig kompetensutveckling. **Varför detta fungerar:** LSS-området utvecklas genom nya domar och kunskap – visar att Anna håller sig uppdaterad.'
+      }
+    ],
+    tips: [
+      {
+        titel: 'Kvantifiera ärendebelastning och beslut',
+        beskrivning: `Visa konkret hur många ärenden du hanterar, din handläggningstid och utfall av dina beslut. Detta ger rekryterare förståelse för din kapacitet och kvalitet.
+
+Exempel på före/efter:
+❌ "Arbetade som LSS-handläggare med olika ärenden"
+✅ "Hanterade 85 LSS-ärenden med 32 dagars genomsnittlig handläggningstid och 94% bifall vid förvaltningsdomstolsprövning"`
+      },
+      {
+        titel: 'Specificera lagstiftningskompetens',
+        beskrivning: `Lyft inte bara att du kan LSS – visa HUR du tillämpar lagstiftningen i praktiken och vilken rättspraxis du följer.
+
+Exempel på före/efter:
+❌ "God kunskap om LSS och relevant lagstiftning"
+✅ "Tillämpar LSS, SoL och Förvaltningslagen med stöd av aktuell rättspraxis från HFD och kammarrätterna. Specialist på personlig assistans enligt 9§2"`
+      },
+      {
+        titel: 'Visa IBIC-kompetens konkret',
+        beskrivning: `IBIC är standarden för behovsbedömning. Beskriv hur du använder metoden och vilka resultat det leder till.
+
+Exempel på före/efter:
+❌ "Utbildad i IBIC och använder metoden"
+✅ "Genomför systematiska IBIC-utredningar som resulterade i 35% färre överklaganden genom tydligare behovsanalys och motivering"`
+      },
+      {
+        titel: 'Betona IT-systemkompetens',
+        beskrivning: `Nämn specifika ärendehanteringssystem och hur du använder dem effektivt i din handläggning.
+
+Exempel på före/efter:
+❌ "Arbetar med digitala system"
+✅ "Implementerade digital ärenderutin i Treserva som minskade administrativ tid med 20% och förbättrade uppföljning av verkställighet"`
+      },
+      {
+        titel: 'Lyft samverkanskompetens',
+        beskrivning: `LSS-handläggning kräver ofta samordning mellan flera aktörer. Visa hur du navigerar komplex samverkan.
+
+Exempel på före/efter:
+❌ "Samarbetar med andra myndigheter och utförare"
+✅ "Samordnade 23 komplexa ärenden med parallella insatser från kommun, Försäkringskassan, region och privata utförare med fokus på brukarens helhetsbehov"`
+      },
+      {
+        titel: 'Inkludera fortbildning och specialistkompetens',
+        beskrivning: `LSS-området utvecklas genom ny rättspraxis och forskning. Visa att du håller dig uppdaterad.
+
+Exempel på före/efter:
+❌ "Deltar i fortbildningar"
+✅ "Genomgått fördjupad utbildning i neuropsykiatri och autism (40 hp) samt årlig fortbildning i aktuell LSS-rättspraxis från Jure Förvaltningsjuridik"`
+      }
+    ],
+    faq: [
+      {
+        question: 'Vad ska ett CV för LSS-handläggare innehålla?',
+        answer: 'Ett professionellt CV för LSS-handläggare ska innehålla tydlig kompetens inom biståndsbedömning, LSS-lagstiftning och myndighetsutövning. Kvantifiera din ärendebelastning (antal ärenden, handläggningstider), visa juridisk kompetens (LSS, SoL, Förvaltningslagen), IBIC-metodkompetens och erfarenhet av relevanta IT-system som Treserva eller Procapita. Inkludera fortbildning och specialistkompetens.'
+      },
+      {
+        question: 'Hur kvantifierar jag min erfarenhet som LSS-handläggare?',
+        answer: 'Ange antal aktiva ärenden, genomsnittlig handläggningstid, andel bifall/avslag, resultat vid överklaganden i förvaltningsdomstol samt omfattning av samverkan. Exempel: "Hanterade 85 LSS-ärenden med 94% bifall vid domstolsprövning" eller "Minskade handläggningstid från 52 till 35 dagar genom effektiviserad rutiner".'
+      },
+      {
+        question: 'Vilka kompetenser är viktigast att lyfta?',
+        answer: 'Prioritera LSS-lagstiftning, SoL, Förvaltningslagen, IBIC-metodik, biståndsbedömning, verkställighet och uppföljning samt relevant rättspraxis. Lyft också IT-system (Treserva, Procapita), dokumentationskompetens och samverkan med utförare och andra myndigheter. Personliga egenskaper som empatiskt bemötande och juridisk analysförmåga är centrala.'
+      },
+      {
+        question: 'Behöver jag vara socionom för att jobba som LSS-handläggare?',
+        answer: 'Socionomexamen är vanligast och ofta föredras, men det finns också LSS-handläggare med annan relevant högskoleutbildning kombinerat med erfarenhet från funktionshinderområdet. Viktigast är kompetens inom LSS-lagstiftning, myndighetsutövning och behovsbedömning. Om du saknar socionomexamen, lyft relevant utbildning och praktisk erfarenhet extra tydligt.'
+      },
+      {
+        question: 'Hur visar jag IBIC-kompetens i CV:t?',
+        answer: 'Nämn IBIC-utbildning under certifieringar och beskriv hur du tillämpar metoden praktiskt i din handläggning. Kvantifiera gärna resultat: "Implementerade strukturerad IBIC-tillämpning som minskade överklaganden med 35%" eller "Genomför systematiska IBIC-utredningar med dokumenterad förbättrad måluppfyllelse".'
+      },
+      {
+        question: 'Ska jag inkludera erfarenhet från utförarled?',
+        answer: 'Ja, definitivt! Erfarenhet som vårdbiträde, boendestödjare eller personlig assistent ger värdefull förståelse för verkställighet och brukarens vardag. Detta gör dig till en mer väl avvägd handläggare. Lyft hur denna erfarenhet påverkar dina beslut och din förståelse för genomförbarhet.'
+      },
+      {
+        question: 'Vilka IT-system ska jag nämna?',
+        answer: 'Nämn de ärendehanteringssystem du faktiskt arbetat med i din tjänsteutövning. De vanligaste inom svensk hälso- och sjukvård är Treserva, Procapita, Combine, Lifecare eller andra relevanta verksamhetssystem. Skriv en kort rad under Kompetenser eller inkludera det i din erfarenhetsbeskrivning.'
+      },
+      {
+        question: 'Hur lyfter jag juridisk kompetens utan att vara jurist?',
+        answer: 'Fokusera på din praktiska tillämpning av lagstiftningen: vilka paragrafer du arbetar mest med, hur du följer rättspraxis, vilka domstolsavgöranden du refererar till. Nämn fortbildning i förvaltningsrätt och LSS-rättspraxis. Exempel: "Specialist på personlig assistans enligt 9§2 LSS med fördjupad kunskap om HFD:s avgöranden".'
+      },
+      {
+        question: 'Hur visar jag bemötandekompetens professionellt?',
+        answer: 'Beskriv konkreta situationer där du byggt förtroende med brukare och anhöriga, hanterat komplexa samtal eller navigerat konflikter. Kvantifiera när möjligt: "Genomförde 150+ behovsbedömningar årligen med dokumenterat högt förtroende från brukare" eller "Hanterade 12 överklaganden med bibehållen god relation till berörda parter".'
+      },
+      {
+        question: 'Vilken fortbildning är mest meriterande?',
+        answer: 'Prioritera fortbildning i aktuell LSS-rättspraxis, fördjupad IBIC-utbildning, förvaltningsrätt, samt specialistkompetens inom exempelvis neuropsykiatri, autism, intellektuell funktionsnedsättning eller habiliteringskunskap. Också kurser i dokumentation, motiverade beslut och juridisk skrivning är värdefulla. Nämn alltid år och arrangör.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Socialsekreterare', slug: 'socialsekreterare' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Kurator', slug: 'kurator' }
+    ]
   }
 }
 

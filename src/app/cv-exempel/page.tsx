@@ -386,6 +386,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'lss-handlaggare',
+    yrke: 'LSS-handläggare',
+    slug: 'lss-handlaggare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 170,
+    icon: FileText,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'CV-exempel för LSS-handläggare med biståndsbedömning, IBIC-utredningar och myndighetsutövning inom funktionshindersområdet.',
+      highlight: ['85 LSS-ärenden med 32 dagars handläggningstid', 'LSS, SoL, Förvaltningslagen och IBIC', '94% bifall vid förvaltningsdomstolsprövning']
+    }
+  },
+  {
     id: 'servitris-restaurangbitrade',
     yrke: 'Servitris/Restaurangbiträde',
     slug: 'servitris-restaurangbitrade',
@@ -1122,7 +1136,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  67 yrken
+                  68 yrken
                 </motion.span>
               </h1>
 
