@@ -10057,6 +10057,290 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
     ]
   },
 
+  'loneadministrator': {
+    yrke: 'Löneadministratör',
+    slug: 'loneadministrator',
+    sokvolym: 720,
+    kategori: 'ekonomi',
+    metaTitle: 'CV Exempel Löneadministratör 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Skapa ett ATS-optimerat CV som löneadministratör. Inkludera lönesystem (Agda, Visma), periodiseringar och certifieringar. Exempel + expertråd för 2025.',
+
+    seoIntro: `Söker du jobb som löneadministratör och behöver ett CV som fångar rekryterares uppmärksamhet? Det här CV-exemplet för löneadministratör visar hur du strukturerar ett ATS-optimerat CV som passar svenska lönesystem och ekonomiavdelningar.
+
+Exemplet balanserar tekniska system (Agda, Visma Lön, Fortnox) med kvantifierbara resultat som visar omfattningen av din erfarenhet. Istället för vaga beskrivningar som "ansvarig för lön" ser du konkreta exempel: "Hanterade lönekörning för 450 medarbetare månatligen" och "Reducerade felaktiga löneutbetalningar med 92% genom kontrollrutiner". CV:t inkluderar branschspecifika termer som periodiseringar, arbetsgivardeklaration och semesterlöneskuld som ATS-system letar efter.
+
+Använd exemplet som inspiration för ditt eget CV löneadministratör och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev löneadministratör för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för löneadministratör som visar din kompetens inom lönesystem, skattelagstiftning och periodiseringar. Detta exempel är optimerat för svenska företag och ATS-system.',
+
+    viktigtAttTankaPa: [
+      'Nämn lönesystem vid namn (Agda, Visma, Hogia) med erfarenhetsnivå',
+      'Kvantifiera antal medarbetare du hanterat lön för och frekvens',
+      'Inkludera certifieringar med årtal (Fortnox, Visma, Skatterätt)',
+      'Visa resultat: minskade fel, effektiviserad process, förbättrad rapportering'
+    ],
+
+    exempelCV: {
+      namn: 'Sofia Bergström',
+      titel: 'Löneadministratör med specialisering i Agda och kollektivavtalshantering',
+      kontakt: {
+        telefon: '070-345 67 89',
+        epost: 'sofia.bergstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/sofiabergstrom'
+      },
+
+      profil: 'Erfaren löneadministratör med 7+ års erfarenhet av månatlig lönekörning, arbetsgivardeklarationer och skattehantering för 300-450 medarbetare. Specialist på Agda PS, Visma Lön och Fortnox med gedigen kunskap om kollektivavtal (Unionen, Handels, Byggnads), periodiseringar och semesterlöneskuld. Noggrann och strukturerad problemlösare som säkerställer korrekt och punktlig löneutbetalning varje månad.',
+
+      erfarenhet: [
+        {
+          titel: 'Löneadministratör',
+          arbetsgivare: 'Nordic Services AB',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarig för komplett lönekörning för 450 medarbetare månatligen, inklusive tidrapportering (Getupp), semesterberäkningar och skatteavdrag',
+            'Hanterar arbetsgivardeklarationer, kontrolluppgifter och inrapportering till Skatteverket med 100% punktlighet under 48 månader',
+            'Reducerade felaktiga löneutbetalningar med 92% genom implementering av kontrollrutiner och avstämningar mot bokföring',
+            'Administrerar 8 olika kollektivavtal (Unionen, Handels, Transport, ST) inklusive tolkning av avtalsklausuler och samverkan med fackliga representanter',
+            'Utför månadsavslut med periodiseringar av semesterlöneskuld, arbetsgivaravgifter och tjänstepension (Collectum, Alecta)'
+          ]
+        },
+        {
+          titel: 'Löneassistent',
+          arbetsgivare: 'Stockholm Bygg & Fastighet AB',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Assisterade löneansvarig med lönekörning för 280 medarbetare inom byggsektorn (Byggnads kollektivavtal)',
+            'Registrerade tidrapporter från byggarbetsplatser, hanterade ob-tillägg, restid och bilersättning enligt Byggnads avtal',
+            'Bokförde löner i Fortnox och säkerställde korrekt periodisering av semesterlöneskuld och sociala avgifter',
+            'Kommunicerade dagligen med medarbetare och chefer om löneunderlag, felaktigheter och ändringar i anställningsvillkor'
+          ]
+        },
+        {
+          titel: 'Ekonomiassistent med lönefokus',
+          arbetsgivare: 'Retail Solutions Sweden AB',
+          period: '2017 – 2018',
+          beskrivning: [
+            'Assisterade ekonomiavdelningen med lönekörning för 150 medarbetare i Visma Lön',
+            'Registrerade nya anställningar, uppsägningar, föräldraledighet och andra personalförändringar i lönesystemet',
+            'Lärde mig grundläggande skatteavdrag, arbetsgivaravgifter och kollektivavtal (Handels)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Löneadministration, Yrkeshögskola',
+          skola: 'Jensen Yrkeshögskola',
+          period: '2016 – 2017',
+          beskrivning: 'Läroplansområden: Agda PS, Visma Lön, arbetsrätt, kollektivavtal, skatterätt och socialavgiftslagen (SAL). LIA-praktik på revisionsbyrå med fokus på lönekörning.'
+        },
+        {
+          titel: 'Ekonomiprogrammet',
+          skola: 'Norra Real Gymnasium',
+          period: '2013 – 2016',
+          beskrivning: 'Fördjupning i redovisning och företagsekonomi'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Agda PS (Expert, 5+ år daglig användning av lönehantering och rapportgenerering)',
+          'Visma Lön (Avancerad, 4+ år)',
+          'Fortnox (Expert, 7+ år för bokföring och periodiseringar)',
+          'Tidrapporteringssystem: Getupp, Quinyx, TimeAct',
+          'Arbetsgivardeklaration och kontrolluppgifter (Expert, 7+ år)',
+          'Kollektivavtal: Unionen, Handels, Byggnads, Transport, ST',
+          'Periodiseringar och månadsavslut',
+          'Skatteavdrag och arbetsgivaravgifter enligt SAL'
+        ],
+        personliga: [
+          'Noggrann och detaljorienterad (100% punktlighet på arbetsgivardeklarationer i 48 månader)',
+          'Strukturerad och metodisk (hanterar 450 löneärenden månatligen utan eftersläpningar)',
+          'Kommunikativ och serviceinriktad (besvarar 30-40 lönefrågor från medarbetare per månad)',
+          'Problemlösare (tolkar komplexa kollektivavtalsklausuler och hittar korrekta lösningar)',
+          'Stresstålig (levererar korrekt lön under tidspress vid månadsskiften)'
+        ]
+      },
+
+      certifieringar: [
+        'Fortnox-certifierad (Lön och bokföring, 2023)',
+        'Visma Lön Specialist (2022)',
+        'Skatterätt för löneadministratörer (40 timmar, 2024)',
+        'Kollektivavtalskurs Unionen och Handels (2021)',
+        'Agda PS Lönehantering (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimering med lönesystem och branschtermer',
+        text: `CV:t nämner specifika lönesystem vid namn: Agda PS (5+ år expert), Visma Lön (4+ år avancerad) och Fortnox (7+ år expert). Dessutom används vedertagna branschtermer som arbetsgivardeklaration, periodiseringar, semesterlöneskuld och skatteavdrag.
+
+**Varför detta fungerar:** ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. När rekryterare filtrerar kandidater söker de efter "Agda PS" eller "Visma Lön" tillsammans med "arbetsgivardeklaration" och "kollektivavtal". Generiska beskrivningar som "lönesystem" eller "skattehantering" ger inga träffar i dessa sökningar. Genom att ange kompetensnivå (Expert, Avancerad) och antal år visar du att du kan börja arbeta direkt utan omfattande systemutbildning.`
+      },
+      {
+        rubrik: 'Kvantifiering av arbetsbelastning och resultat',
+        text: `CV:t kvantifierar arbetsinsatser: 450 medarbetare månatligen, 8 olika kollektivavtal, 100% punktlighet på deklarationer i 48 månader, och konkreta resultat som 92% reducerade felaktiga utbetalningar genom kontrollrutiner.
+
+**Varför detta fungerar:** "Ansvarig för lönekörning" säger ingenting om omfattning eller komplexitet. "450 medarbetare månatligen" visar att du hanterar stor volym och kan prioritera effektivt. Resultat som "92% reducerade fel" bevisar att dina kontrollrutiner faktiskt fungerar och sparar företaget pengar. Rekryterare ser omedelbart att du levererar mätbara resultat, inte bara utför rutinuppgifter.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och kommunikation',
+        text: `CV:t kombinerar tekniska färdigheter (Agda PS, periodiseringar, skatteavdrag) med kommunikativa förmågor som visat ger resultat: besvarar 30-40 lönefrågor per månad, tolkar komplexa kollektivavtalsklausuler och samverkar med fackliga representanter.
+
+**Varför detta fungerar:** Löneadministration är inte bara tekniskt arbete vid datorn. Du måste kunna förklara löneavdrag för medarbetare, tolka avtalsklausuler för chefer och kommunicera med Skatteverket. Genom att visa att dina kommunikativa förmågor faktiskt är en del av din dagliga arbetsbelastning (30-40 frågor/månad) bevisar du att du förstår rollen helhetligt. Detta skiljer dig från kandidater som bara fokuserar på systemkunskap.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        text: `Alla certifieringar är daterade: Fortnox-certifierad (2023), Visma Lön Specialist (2022), Skatterätt (2024) och Kollektivavtalskurs (2021). Detta visar att kompetensen är aktuell och regelbundet uppdaterad.
+
+**Varför detta fungerar:** Skattelagstiftning och kollektivavtal förändras årligen. När du anger årtal visar du att du håller dig uppdaterad och förstår aktuella regler. Rekryterare kan se direkt att din kunskap är giltig för 2025 och att de inte behöver skicka dig på akuta utbildningar före anställningsstart. Certifieringar från Fortnox och Visma är särskilt värdefulla eftersom många företag använder just dessa system.`
+      },
+      {
+        rubrik: 'Profiltext som matchar lönespecialisering direkt',
+        text: `Profiltexten öppnar med "Erfaren löneadministratör med 7+ års erfarenhet av månatlig lönekörning, arbetsgivardeklarationer och skattehantering för 300-450 medarbetare". Detta följs direkt av nyckelkompetenser som Agda PS, kollektivavtal och periodiseringar.
+
+**Varför detta fungerar:** Första meningen avgör om rekryterare läser vidare. "Erfaren löneadministratör" är vagt. "7+ års erfarenhet, 300-450 medarbetare, specialist på Agda PS" visar omedelbart att du har djup erfarenhet inom exakt det område de söker. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från assistent till specialist',
+        text: `Erfarenheten visar utveckling: från ekonomiassistent med lönefokus (150 medarbetare, grundläggande Visma Lön) till löneassistent (280 medarbetare, Byggnads avtal) till löneadministratör (450 medarbetare, 8 kollektivavtal, arbetsgivardeklarationer). Varje roll har ökad komplexitet och ansvar.
+
+**Varför detta fungerar:** Progression visar att du systematiskt byggt kompetens från grundläggande lönekörning till avancerad skattehantering och kollektivavtalstolkning. Utvecklingen från 150 till 450 medarbetare och från ett kollektivavtal till åtta visar att arbetsgivare litat på dig med ökande ansvar. Detta signalerar att du är redo för nästa steg i karriären, exempelvis lönespecialist eller lönechef.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera lönesystem med erfarenhetsnivå',
+        text: `ATS-system söker efter specifika lönesystem när rekryterare filtrerar kandidater. Skriv alltid vilket system du använt, hur länge och på vilken nivå.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av olika lönesystem och bokföringsprogram"
+
+✅ "Agda PS (Expert, 5+ år daglig lönekörning och rapportgenerering), Visma Lön (Avancerad, 4+ år), Fortnox (Expert, 7+ år för bokföring och periodiseringar)"
+
+Konkreta systemnamn ger träffar i ATS-sökningar och visar att du kan börja arbeta direkt utan omfattande systemutbildning.`
+      },
+      {
+        rubrik: 'Kvantifiera antal medarbetare och lönefrekvens',
+        text: `Arbetsgivare behöver veta hur stor arbetsbelastning du hanterat tidigare. Ange alltid antal medarbetare, frekvens (månatlig/veckovis) och eventuell specialisering (kollektivavtal, bransch).
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för lönekörning och arbetsgivardeklarationer"
+
+✅ "Hanterade komplett lönekörning för 450 medarbetare månatligen, inklusive arbetsgivardeklarationer, kontrolluppgifter och periodiseringar av semesterlöneskuld"
+
+Den specifika informationen visar exakt vilken arbetsbörda och komplexitet du har erfarenhet av.`
+      },
+      {
+        rubrik: 'Betona kollektivavtalskunskap konkret',
+        text: `Många företag omfattas av kollektivavtal, och kunskap om avtalen är högt värderad. Lista vilka avtal du hanterat och vad det innebar i praktiken.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av kollektivavtal"
+
+✅ "Administrerar 8 olika kollektivavtal (Unionen, Handels, Transport, ST) inklusive tolkning av avtalsklausuler om ob-tillägg, restid och bilersättning"
+
+Specifika avtalsnamn och praktiska exempel visar djup kompetens, inte bara teoretisk kunskap.`
+      },
+      {
+        rubrik: 'Visa resultat genom felreducering och effektivisering',
+        text: `Löneadministration handlar om noggrannhet och punktlighet. Om du minskat fel, effektiviserat processer eller förbättrat rapportering, kvantifiera det.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för korrekt och punktlig löneutbetalning"
+
+✅ "Reducerade felaktiga löneutbetalningar med 92% genom implementering av kontrollrutiner. Säkerställde 100% punktlighet på arbetsgivardeklarationer under 48 månader"
+
+Siffror bevisar din förmåga att leverera felfri lön och hjälper dig sticka ut från kandidater som bara beskriver uppgifter.`
+      },
+      {
+        rubrik: 'Inkludera periodiseringar och månadsavslut',
+        text: `Periodiseringar av semesterlöneskuld, arbetsgivaravgifter och tjänstepension är central kompetens för löneadministratörer. Nämn detta tydligt för att visa bokföringskoppling.
+
+**Exempel på före/efter**:
+
+❌ "Bokförde löner i ekonomisystemet"
+
+✅ "Utförde månadsavslut med periodiseringar av semesterlöneskuld, arbetsgivaravgifter och tjänstepension (Collectum, Alecta). Säkerställde korrekt avstämning mot huvudbokföring"
+
+Detta visar att du förstår hela löneprocessen från beräkning till bokföring, inte bara datainmatning.`
+      },
+      {
+        rubrik: 'Visa Skatteverket-kommunikation och compliance',
+        text: `Arbetsgivardeklarationer och kontrolluppgifter är lagstadgade krav. Visa att du behärskar kommunikation med Skatteverket och säkerställer compliance.
+
+**Exempel på före/efter**:
+
+❌ "Hanterade deklarationer till Skatteverket"
+
+✅ "Hanterar arbetsgivardeklarationer, kontrolluppgifter och inrapportering till Skatteverket via e-tjänster med 100% punktlighet. Svarar på Skatteverkets granskningar och korrigerar avvikelser enligt gällande skattelagstiftning"
+
+Detta visar att du inte bara skickar in rapporter, utan förstår reglerna och kan hantera granskningar professionellt.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som löneadministratör vara?',
+        svar: 'För löneadministratörer med 0-5 års erfarenhet: 1 sida. Med 5-10 års erfarenhet: 1-2 sidor. Med 10+ år och specialisering (exempelvis lönechef eller konsult): Max 2 sidor. Fokusera på relevant erfarenhet från de senaste 7-10 åren. Äldre erfarenheter kan summeras kortfattat eller utelämnas om de inte tillför värde.'
+      },
+      {
+        fraga: 'Vilka lönesystem ska jag inkludera i mitt CV?',
+        svar: 'Ta alltid med de lönesystem du faktiskt använt: Agda PS, Visma Lön, Hogia Lön, Unit4 eller andra. Ange hur länge du använt systemet och på vilken nivå (grundläggande, avancerad, expert). Om du använt ekonomisystem som Fortnox, Björn Lundén eller PE Accounting för bokföring av löner, inkludera dessa också. ATS-system söker efter dessa exakta namn.'
+      },
+      {
+        fraga: 'Hur visar jag min kollektivavtalskunskap?',
+        svar: 'Lista specifika avtal du arbetat med: Unionen, Handels, Byggnads, Transport, ST, Kommunal osv. Beskriv konkret vad du gjort: "Tolkar avtalsklausuler om ob-tillägg, restid och bilersättning enligt Byggnads kollektivavtal" eller "Hanterar semesterberäkningar enligt Unionens semesterlön och semesterersättning". Detta visar praktisk kunskap, inte bara teoristudie.'
+      },
+      {
+        fraga: 'Ska jag inkludera certifieringar i löneadministration?',
+        svar: 'Ja, absolut. Certifieringar från Fortnox, Visma, eller kurser i skatterätt och kollektivavtal är högt värderade. Inkludera alltid årtal så rekryterare ser att din kunskap är aktuell. Exempel: "Fortnox-certifierad (Lön och bokföring, 2023)" eller "Skatterätt för löneadministratörer (40 timmar, 2024)". Många arbetsgivare föredrar certifierade kandidater eftersom det minskar upplärningsbehovet.'
+      },
+      {
+        fraga: 'Hur blir man löneadministratör utan erfarenhet?',
+        svar: 'Genomgå en löneadministratörsutbildning via yrkeshögskola eller folkhögskola (vanligtvis 1-2 år) med LIA-praktik. Alternativt kan du börja som ekonomiassistent och gradvis ta över fler löneuppgifter. Viktig grundkunskap: Agda eller Visma Lön, grundläggande skatterätt, kollektivavtal och arbetsrätt. Certifieringar från Fortnox eller Visma Lön ökar dina chanser betydligt.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan löneadministratör och lönespecialist?',
+        svar: 'Löneadministratör utför operativt lönearbete: registrering, lönekörning, deklarationer. Lönespecialist har djupare kunskap om komplexa löneärenden, tolkar kollektivavtal, hanterar skatteverketgranskningar och kan handleda andra löneadministratörer. I ditt CV visar du progression genom ökande antal medarbetare, fler kollektivavtal och mer komplexa uppgifter som periodiseringar och compliance.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är noggrann utan att bara säga det?',
+        svar: 'Bevisa noggrannhet genom resultat: "100% punktlighet på arbetsgivardeklarationer under 48 månader" eller "Reducerade felaktiga löneutbetalningar med 92% genom kontrollrutiner". Detta visar att din noggrannhet faktiskt är en mätbar yrkeskompetens som förbättrat företagets löneprocess, inte bara en personlighetsegenskap.'
+      },
+      {
+        fraga: 'Ska jag nämna Agda eller Visma Lön om jag bara använt ena systemet?',
+        svar: 'Ja, nämn det system du faktiskt använt och var tydlig med erfarenhetsnivå. Skriv inte "Agda och Visma" om du bara använt Agda. Arbetsgivare föredrar ärliga kandidater. Om du lärt dig ett lönesystem är det oftast enkelt att lära sig ett annat eftersom grundprinciperna är desamma. Betona din förmåga att lära dig nya system snabbt om du har erfarenhet av systembyten.'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för olika branscher?',
+        svar: 'Anpassa profiltext och prioritera relevant erfarenhet. För bygg: betona Byggnads kollektivavtal, ob-tillägg, restid. För handel: fokusera på Handels avtal, provisionshantering, säsongsanställningar. För kommun: lyft fram Kommunals avtal, PA-KFS pension och obekväm arbetstid. Behåll samma CV-struktur men justera vilka kollektivavtal och erfarenheter du expanderar mest på.'
+      },
+      {
+        fraga: 'Hur mycket personlig information ska jag inkludera?',
+        svar: 'Minimalt. Inkludera: namn, telefon, e-post, stad (inte fullständig adress) och eventuellt LinkedIn. Du behöver inte ange ålder, personnummer, civilstånd eller barn. För löneadministratörer kan det vara relevant att nämna att du har tystnadsplikt och god förståelse för GDPR eftersom du hanterar känslig persondata.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Redovisningsekonom', slug: 'redovisningsekonom' },
+      { yrke: 'Controller', slug: 'controller' }
+    ]
+  },
+
   'lagerchef': {
     yrke: 'Lagerchef',
     sokvolym: 350,

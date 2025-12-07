@@ -205,6 +205,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'konstruktor',
     'truckforare',
     'logistiker',
+    'loneadministrator',
     'lagerchef',
     'fastighetsskotare',
     'hemtjanstpersonal',
