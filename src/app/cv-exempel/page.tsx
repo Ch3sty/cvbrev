@@ -414,6 +414,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'produktchef',
+    yrke: 'Produktchef',
+    slug: 'produktchef',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 1100,
+    icon: Target,
+    gradient: 'from-violet-500 via-purple-600 to-indigo-700',
+    preview: {
+      intro: 'CV-exempel för produktchef med produktstrategi, roadmap-utveckling, user research och data-driven produktutveckling.',
+      highlight: ['OKR, roadmap och backlog prioritering', 'Mixpanel, Amplitude och A/B-testing', 'Cross-functional leadership och stakeholder management']
+    }
+  },
+  {
     id: 'projektledare',
     yrke: 'Projektledare',
     slug: 'projektledare',
@@ -1108,7 +1122,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  66 yrken
+                  67 yrken
                 </motion.span>
               </h1>
 

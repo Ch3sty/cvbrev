@@ -195,6 +195,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'kurator',
     'servitris-restaurangbitrade',
     'chef',
+    'produktchef',
     'projektledare',
     'elevassistent',
     'enhetschef',
