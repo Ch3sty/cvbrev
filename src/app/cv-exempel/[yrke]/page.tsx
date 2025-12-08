@@ -19024,6 +19024,210 @@ Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, m
       { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
       { yrke: 'Kurator', slug: 'kurator' }
     ]
+  },
+
+  'koksbitrade': {
+    yrke: 'Köksbiträde',
+    sokvolym: 590,
+    slug: 'koksbitrade',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Köksbiträde 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Skapa ett ATS-optimerat CV för köksbiträde med vårt professionella exempel. Inkluderar livsmedelshygien, HACCP och storkökserfarenhet. Ladda ner gratis mall.',
+    heroHeading: 'CV-exempel för Köksbiträde',
+    heroSubtitle: 'Skapa ett professionellt CV som visar din erfarenhet från kök och storköksmiljöer',
+    heroCtaText: 'Skapa ditt köks-CV',
+    intro: 'Ett professionellt CV-exempel för köksbiträde som visar din erfarenhet från storkök, livsmedelshygien och städrutiner. Detta exempel är optimerat för restauranger, storkök och ATS-system.',
+    seoIntro: `Söker du jobb som köksbiträde och behöver ett CV som visar din erfarenhet från storkök och livsmedelshygien? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar restauranger, sjukhuskök och storköksmiljöer.
+
+Du får se exakt hur du balanserar praktisk kökskunskap (disk, städning, matlagningsassistans) med de krav rekryterare söker (HACCP-kunskap, livsmedelshygien A, allergenkännedom). CV:t visar konkret erfarenhet från både restaurangkök och äldreomsorg med kvantifierbara exempel på effektivitet och hygienrutiner.
+
+Använd det som inspiration för ditt eget CV köksbiträde och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev köksbiträde för att öka dina chanser till intervju.`,
+    exempelCV: {
+      namn: 'Ahmed Hassan',
+      titel: 'Köksbiträde med erfarenhet från storkök och restaurang',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'ahmed.hassan@email.se',
+        plats: 'Göteborg'
+      },
+      profil: 'Erfaren köksbiträde med 4+ års erfarenhet från restaurang och storkök. Gedigen kunskap i livsmedelshygien, HACCP-rutiner och allergenkännedom. Van att arbeta i högt tempo med 200+ portioner dagligen. Stresstålig lagspelare som håller köket rent, organiserat och säkert enligt livsmedelsverkets krav. Certifierad i Livsmedelshygien A och allergenkännedom.',
+      erfarenhet: [
+        {
+          titel: 'Köksbiträde',
+          arbetsgivare: 'Äldreboende Solhemmet, Göteborgs Stad',
+          period: '2021 - nu',
+          beskrivning: [
+            'Ansvarig för disk, städning och matlagningsassistans i storkök som serverar 180-200 portioner dagligen till äldreboende',
+            'Sköter industriella diskmaskiner, sorterar disk och kontrollerar renhållning enligt HACCP-rutiner',
+            'Assisterar kock med förberedelser: skalning, skärning, uppmätning av ingredienser och anrättning av tallrikar',
+            'Hanterar specialkost och allergener: glutenfritt, laktosfritt, vegetariskt och mjuk kost för dysfagi',
+            'Daglig städning av kök inklusive arbetsytor, golv, ventilation och kylrum enligt hygienplan',
+            'Dokumenterar dagliga temperaturkontroller i kyl och frys samt diskmaskinsrutiner i loggbok'
+          ]
+        },
+        {
+          titel: 'Diskare/Köksassistent',
+          arbetsgivare: 'Restaurang Pepe, Göteborg',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Diskade och renhöll disk från 100-150 middagsgäster per kväll i öppen restaurangkök',
+            'Assisterade kockar med grundförberedelser under rusningstid: grönsakssnitt, sås- och fonduppkok',
+            'Ansvarig för slutstädning av kök inklusive golvmopp, ugnsrengöring och kolsyrat kök efter stängning',
+            'Beställde och förvarade diskkemikalier, hushållspapper och rengöringsmedel',
+            'Hanterade källsortering av matavfall, emballage och farligt avfall enligt miljörutiner'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Hotell- och restaurangprogrammet',
+          skola: 'Hulebäcksgymnasiet',
+          period: '2017 - 2019',
+          beskrivning: 'Inkluderade Livsmedelshygien A, HACCP-grundkurs och praktik på storkök'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Industriella diskmaskiner (storkök) - Expert, 4+ år daglig användning',
+          'Livsmedelshygien A och HACCP-rutiner - Avancerad, 4+ år',
+          'Allergenkännedom och specialkost (glutenfritt, laktosfritt, dysfagi)',
+          'Städutrustning storkök: golvskrubb, högtryckstvätt, rengöringsmedel',
+          'Källsortering och avfallshantering enligt miljörutiner',
+          'Temperaturloggning kyl/frys och HACCP-dokumentation',
+          'Grundläggande matlagningsassistans: skalning, skärning, uppmätning'
+        ],
+        personliga: [
+          'Arbetar effektivt i högt tempo',
+          'Noggrann med hygien och säkerhet',
+          'Teamspelare i stressiga miljöer',
+          'Fysiskt uthållig',
+          'Flexibel med arbetstider'
+        ]
+      },
+      certifieringar: [
+        'Livsmedelshygien A (2023)',
+        'HACCP Grundkurs (2023)',
+        'Allergenkännedom och specialkost (2022)',
+        'Arbetsmiljöutbildning kök (2021)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Arabiska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
+      ]
+    },
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen branschspecifika termer direkt',
+        text: `CV:t använder exakta branschtermer som "industriella diskmaskiner", "HACCP-rutiner", "temperaturloggning kyl/frys" och "Livsmedelshygien A". Istället för vaga beskrivningar som "diskade och städade" specificeras både verktyg och metoder.
+
+Varför detta fungerar: Storkök och restauranger söker i sina ATS-system efter specifika termer från Livsmedelsverkets krav. När du skriver "HACCP-rutiner" och "Livsmedelshygien A" med konkreta exempel matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du förstår livsmedelssäkerhet och kan börja jobba utan omfattande hygienutbildning.`
+      },
+      {
+        rubrik: 'Konkreta volymer visar din arbetskapacitet',
+        text: `CV:t kvantifierar arbetsinsatser: 180-200 portioner dagligen i storkök, 100-150 middagsgäster per kväll i restaurang. Specialkost specificeras med exakta typer: glutenfritt, laktosfritt, vegetariskt och mjuk kost för dysfagi.
+
+Varför detta fungerar: "Diskade i storkök" säger ingenting om omfattning. "180-200 portioner dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera i högt tempo. Att nämna specifika specialkoster bevisar att du förstår allergenkännedom och kan hantera medicinska kostbehov. Rekryterare ser omedelbart att du klarar den faktiska arbetsbelastningen i deras kök.`
+      },
+      {
+        rubrik: 'Teknisk kompetens balanseras med hygienkunskap',
+        text: `CV:t kombinerar tekniska färdigheter (industriella diskmaskiner, städutrustning, temperaturloggning) med livsmedelssäkerhet och konkreta exempel: HACCP-dokumentation i loggbok, dagliga temperaturkontroller och källsortering enligt miljörutiner.
+
+Varför detta fungerar: Köksbiträde handlar inte bara om att diska. Arbetsgivare söker personal som förstår hela hygienkedjan. Genom att visa att du dokumenterar HACCP-rutiner, hanterar allergener korrekt och följer Livsmedelsverkets krav signalerar du att du är en ansvarsfull medarbetare som minskar risken för livsmedelsburen smitta. Det gör dig mer anställningsbar än kandidater som bara listar "disk och städning".`
+      },
+      {
+        rubrik: 'Progression från restaurang till storkök',
+        text: `CV:t visar utveckling från diskare i restaurang (2019-2021) till köksbiträde med matlagningsassistans i storkök (2021-pågående). Arbetsuppgifterna blir mer omfattande: från diskhantering till assistans med förberedelser, specialkost och HACCP-dokumentation.
+
+Varför detta fungerar: Rekryterare ser att du inte bara bytt jobb, du har utvecklats. Storkök kräver mer självständighet och bredare kunskap än restaurangdisk. Genom att visa progression från 100-150 portioner i restaurang till 180-200 portioner i storkök med specialkostkrav bevisar du att du kan hantera ökad komplexitet. Det signalerar ambition och tillväxt, inte bara "samma jobb på olika ställen".`
+      },
+      {
+        rubrik: 'Certifieringar som bevisar regelverkskunskap',
+        text: `CV:t listar exakta certifieringar med årtal: Livsmedelshygien A (2023), HACCP Grundkurs (2023), Allergenkännedom (2022). Många köksbiträden skriver bara "hygienutbildning" utan att specificera vilken utbildning eller när den genomfördes.
+
+Varför detta fungerar: Livsmedelshygien A är lagkrav för köksarbete i Sverige och gäller 5 år. Genom att visa förnyelsedatum (2023) bevisar du att certifieringen är giltig. HACCP-grundkurs är ofta ett krav för arbete i storkök och sjukhuskök. Att lista allergenkännedom visar att du kan hantera medicinska kostbehov och förstår vikten av korsföroreningar. Rekryterare ser att du uppfyller lagkraven och kan börja arbeta direkt.`
+      },
+      {
+        rubrik: 'Dokumentation och loggföringskunskap',
+        text: `CV:t beskriver konkret HACCP-dokumentation: temperaturkontroller i kyl och frys, diskmaskinsrutiner i loggbok och daglig hygienplan. Många köksbiträden nämner inte dokumentationsansvar alls, vilket gör dem mindre konkurrenskraftiga.
+
+Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritiska kontrollpunkter. Genom att visa att du förstår vikten av temperaturloggning och kan föra loggbok korrekt bevisar du att du tar ansvar för livsmedelssäkerhet. Detta gör dig attraktiv för storkök inom äldreomsorg, sjukhus och skolor där hygienrutiner är extra viktiga. Rekryterare vet att du inte bara utför arbetet, du följer upp det enligt regelverket.`
+      }
+    ],
+    tips: [
+      {
+        rubrik: 'Namnge specifika diskmaskiner och städutrustning',
+        text: 'Istället för "erfaren av diskmaskiner" skriv exakt vilken typ: "industriella diskmaskiner för storkök", "högtryckstvätt", "golvskrubb" eller "kemikaliedoserare". Om du arbetat med specifika märken (Miele Professional, Winterhalter, Electrolux Professional) nämn dem. Rekryterare söker ofta efter erfarenhet av samma utrustning de själva använder.'
+      },
+      {
+        rubrik: 'Kvantifiera din arbetsbelastning med portioner och tidsramar',
+        text: 'Skriv inte bara "diskade i storkök". Specificera: "180-200 portioner dagligen", "100-150 middagsgäster per kväll" eller "3-5 rätter á la carte under rusningstid 18.00-21.00". Siffror ger kontext och visar att du klarar hög arbetsbelastning. Nämn också arbetstider: "flexibel med kvällar, helger och högsäsong" eller "erfarenhet av frukost-, lunch- och middagspass".'
+      },
+      {
+        rubrik: 'Visa HACCP-kunskap med konkreta exempel',
+        text: 'Skriv inte bara "kunskap om HACCP". Beskriv exakt vad du gör: "dokumenterar dagliga temperaturkontroller i kyl och frys enligt HACCP-rutiner", "kontrollerar diskmaskinstemperatur 82°C och pH-värde i avkalkningssystem", "separerar råvaror från färdiga produkter för att undvika korsföroreningar". Detta bevisar att du förstår livsmedelssäkerhet i praktiken, inte bara i teorin.'
+      },
+      {
+        rubrik: 'Lista alla specialkoster och allergener du hanterat',
+        text: 'Specialkostkunskap är en meriterande kompetens. Nämn exakt vilka: "glutenfritt, laktosfritt, vegetariskt, veganskt, mjuk kost för dysfagi, lågsaltskost, diabeteskost". Om du arbetat i äldreomsorg eller sjukhus, nämn medicinska kostkrav. Skriv också hur du hanterar korsföroreningar: "separata skärbrädor och knivar för allergener", "tvättar händer mellan hantering av mjölkprodukter och laktosfritt".'
+      },
+      {
+        rubrik: 'Beskriv din städrutin systematiskt',
+        text: 'Städning är en stor del av jobbet. Visa att du har struktur: "daglig städning av arbetsytor, fogplattor, diskmaskin och golv", "veckovis rengöring av ugnar, ventilation och kylrum", "månadsvis storstädning av fläktar och lager". Nämn också vilka rengöringsmedel du använt: "klorbaserade desinfektionsmedel för arbetsytor", "avfettningsmedel för ugnar", "golvvårdsmedel för storköksgolv". Detta visar professionalism.'
+      },
+      {
+        rubrik: 'Betona din fysiska uthållighet och flexibilitet',
+        text: 'Köksarbete är fysiskt krävande. Nämn att du är van vid: "stående arbete under hela arbetspass 6-8 timmar", "lyft av tunga kartonger och säckar upp till 20 kg", "arbete i varmt och fuktigt klimat". Framhäv också flexibilitet: "tillgänglig för tidig morgon-, sen kväll- och helgpass", "kan börja arbeta redan kl. 06.00 för frukostservering" eller "van vid oregelbundna arbetstider i restaurangbranschen".'
+      }
+    ],
+    faq: [
+      {
+        question: 'Måste jag ha Livsmedelshygien A för att jobba som köksbiträde?',
+        answer: 'Ja, Livsmedelshygien A är lagkrav i Sverige för alla som hanterar livsmedel yrkesmässigt. Om du inte har certifieringen ännu kan du oftast ta den via arbetsgivaren eller genom Livsmedelsverkets godkända utbildningsföretag. Certifieringen gäller i 5 år och kostar cirka 500-800 kr. Nämn i ditt CV om du är villig att ta utbildningen direkt vid anställning.'
+      },
+      {
+        question: 'Vad är skillnaden mellan köksbiträde, diskare och köksassistent?',
+        answer: 'Diskare fokuserar primärt på disk och renhållning. Köksbiträde inkluderar även städning, matlagningsassistans och HACCP-dokumentation. Köksassistent har ofta mer ansvar för förberedelser och kan arbeta självständigt med enklare rätter. Titlarna används olika beroende på arbetsplats. I ditt CV kan du använda den titel som bäst beskriver dina faktiska arbetsuppgifter, eller skriv "köksbiträde/diskare" för att matcha fler jobbannonser.'
+      },
+      {
+        question: 'Hur skriver jag om erfarenhet från restaurang vs storkök?',
+        answer: 'Restaurangkök: betona högt tempo, á la carte, rusningstider och flexibilitet. Storkök: framhäv volym (antal portioner), HACCP-rutiner, specialkost och systematisk städning. Om du söker till äldreomsorg eller sjukhus, betona erfarenhet av medicinska kostkrav och hygienrutiner. Om du söker till restaurang, framhäv stresshantering och teamwork under kvällsrusning.'
+      },
+      {
+        question: 'Vilka tekniska färdigheter söker arbetsgivare hos köksbiträden?',
+        answer: 'Arbetsgivare söker: industriella diskmaskiner, HACCP-kunskap, allergenkännedom, temperaturloggning, källsortering, rengöringsrutiner och grundläggande matlagningskunskap. Nämn också om du kan hantera specialutrustning: högtryckstvätt, golvskrubb, kombiugnar eller blästerskåp. Om du söker till större kök, betona erfarenhet av storköksutrustning och stora volymer.'
+      },
+      {
+        question: 'Hur visar jag att jag klarar högt tempo i köket?',
+        answer: 'Kvantifiera din arbetsbelastning: "180-200 portioner dagligen", "100-150 gäster per kväll", "diska och återställ disk för 5-6 kokplatser under kontinuerlig servering". Beskriv rusningstider: "högsäsong sommarmånaderna med dubbel belastning", "lunchrusning 11.30-13.00 med 80 portioner på 90 minuter". Använd ord som "arbetar effektivt under tidspress", "prioriterar arbetsuppgifter i stressiga miljöer", "håller jämnt högt tempo hela passet".'
+      },
+      {
+        question: 'Ska jag nämna fysisk kapacitet i mitt CV?',
+        answer: 'Ja, köksarbete är fysiskt krävande och arbetsgivare vill veta att du klarar det. Skriv: "van vid stående arbete 6-8 timmar", "kan lyfta tunga kartonger och säckar upp till 20 kg", "arbetar i varmt och fuktigt klimat", "god fysisk kondition och uthållighet". Detta är relevant information som visar att du förstår arbetets natur och är förberedd.'
+      },
+      {
+        question: 'Hur beskriver jag HACCP-kunskap om jag inte har formell certifiering?',
+        answer: 'Beskriv konkret vad du gjort: "följer dagliga temperaturkontroller i kyl och frys", "separerar råvaror från färdiga produkter", "tvättar och desinfekterar skärbrädor mellan olika livsmedelsgrupper", "dokumenterar diskmaskinstemperatur och rengöring". Även om du inte har HACCP-certifikat kan du visa att du förstår principerna i praktiken. Många arbetsgivare ger intern HACCP-utbildning.'
+      },
+      {
+        question: 'Vilka personliga egenskaper är viktigast för köksbiträden?',
+        answer: 'Arbetsgivare söker: noggrannhet med hygien, förmåga att arbeta i högt tempo, laganda (köket är ett team), fysisk uthållighet, flexibilitet med arbetstider och stresstålig personlighet. Skriv inte bara "noggrann och flexibel". Backa upp med exempel: "arbetar systematiskt enligt hygienplan", "tillgänglig för kvälls- och helgpass", "bibehåller hög kvalitet även under rusningstid".'
+      },
+      {
+        question: 'Hur visar jag att jag kan hantera allergener korrekt?',
+        answer: 'Beskriv konkreta rutiner: "använder separata skärbrädor och knivar för glutenfritt", "tvättar händer mellan hantering av olika allergener", "kontrollerar ingredienslistor för dolda allergener", "märker specialkost tydligt", "informerar kockar om allergikrav innan anrättning". Om du arbetat med många allergiker, kvantifiera: "hanterade dagligen 15-20 portioner med allergenanpassning utan incidenter".'
+      },
+      {
+        question: 'Ska jag inkludera erfarenhet från snabbmatskedjor i mitt CV?',
+        answer: 'Ja, absolut. Snabbmatskedjor ger värdefull erfarenhet av högt tempo, standardiserade rutiner och hygien. Betona: "arbetat i högt tempo med 200+ kunder per pass", "följt strikta HACCP-rutiner enligt koncernstandard", "hanterat diskmaskiner och fritöser", "arbetat systematiskt med stängningsrutiner". Denna erfarenhet är relevant för både restauranger och storkök.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Servitris/Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' },
+      { yrke: 'Hotellvärd', slug: 'hotellvard' }
+    ]
   }
 }
 

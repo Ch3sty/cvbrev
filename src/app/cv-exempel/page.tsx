@@ -1014,6 +1014,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för boendestödjare med fokus på ADL-träning, MI-samtal och lågaffektivt bemötande inom socialpsykiatri och LSS.',
       highlight: ['78% brukare uppnådde självständighetsmål, 35% minskade krisinsatser', 'MI-certifierad, Studio 3 och Treserva/IBIC', 'SIP-samverkan med psykiatri, primärvård och socialtjänst']
     }
+  },
+  {
+    id: 'koksbitrade',
+    yrke: 'Köksbiträde',
+    slug: 'koksbitrade',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 590,
+    icon: Coffee,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'CV för köksbiträde med fokus på storkök, livsmedelshygien och HACCP-rutiner inom restaurang och äldreomsorg.',
+      highlight: ['180-200 portioner dagligen med HACCP-dokumentation', 'Livsmedelshygien A och allergenkännedom', 'Industriella diskmaskiner och specialkostkrav']
+    }
   }
 ]
 

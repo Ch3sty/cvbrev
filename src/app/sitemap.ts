@@ -238,6 +238,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'hotellvard',
     'administrativ-assistent',
     'boendestod',
+    'koksbitrade',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
