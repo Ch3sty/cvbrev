@@ -19244,6 +19244,256 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
       { yrke: 'Bartender', slug: 'bartender' },
       { yrke: 'Hotellvärd', slug: 'hotellvard' }
     ]
+  },
+
+  'barista': {
+    yrke: 'Barista',
+    slug: 'barista',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Barista 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV exempel för barista med espressoberedning, latte art och kaffekunskap. ATS-optimerad mall med SCA-certifiering och kvantifierbara resultat.',
+
+    seoIntro: `Söker du jobb som barista och behöver ett CV som visar din kaffekunskap, tekniska precision och kundservice? Det här exemplet demonstrerar hur du skapar ett professionellt barista-CV som imponerar på kaféägare och restaurangchefer som söker specialistkompetens inom kaffeberedning.
+
+CV:t balanserar tekniska färdigheter som espressoberedning, latte art och maskinunderhåll med mjuka egenskaper som kundservice och arbete i högt tempo. Du hittar branschspecifika termer som SCA-certifiering, La Marzocco, extrahering, tamping och mjölkskumning – precis de nyckelord som arbetsgivare inom specialistkaféer och hotellbarer letar efter. Exemplet visar hur du kvantifierar barista-arbete: "Tillagade 200+ kaffedrycker dagligen" och "Ökade merförsäljning med 30% genom kaffeutbildning av gäster".
+
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från specialistkaféer, hotellbarer eller kedjekaféer. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst som head barista eller vill ta nästa steg inom kaffevärlden.`,
+
+    viktigtAttTankaPa: [
+      'Inkludera specifika maskinmodeller du behärskar (La Marzocco, Sanremo, Victoria Arduino)',
+      'Kvantifiera din produktionskapacitet och kundservice (antal drycker per dag, kundnöjdhet)',
+      'Nämn SCA-certifieringar eller andra kafféutbildningar med årtal',
+      'Visa både teknisk kompetens (extrahering, malning) och kundservice'
+    ],
+
+    exempelCV: {
+      namn: 'Sofia Lindström',
+      titel: 'Barista | Specialiserad på espresso och latte art',
+
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'sofia.lindstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/sofialindstrom'
+      },
+
+      profil: 'Erfaren barista med 5+ års erfarenhet från specialistkaféer och hotellbarer i Stockholm. SCA-certifierad inom espressoberedning och latte art med djup kunskap om kaffebönor, extrahering och bryggmetoder. Tillagar 200+ kaffedrycker dagligen med fokus på konsekvent kvalitet, kundservice och effektivt arbetsflöde. Teamorienterad med dokumenterad förmåga att höja kundnöjdhet och driva merförsäljning genom kaffekunskap.',
+
+      erfarenhet: [
+        {
+          titel: 'Head Barista',
+          arbetsgivare: 'Drop Coffee, Södermalm',
+          period: '2022 - Pågående',
+          beskrivning: [
+            'Ansvarar för espressobar med 45 sittplatser och 200+ kaffedrycker dagligen under högtrafik',
+            'Utvecklade ny espressomeny med 8 rotationskaffen som ökade merförsäljning med 30%',
+            'Utbildar och mentorar 4 juniora baristas i extrahering, dosering och mjölkskumning',
+            'Genomför daglig maskinunderhåll på La Marzocco Linea PB och Mahlkönig EK43-kvarn',
+            'Hanterar inköp av kaffebönor och mjölk med månatlig budget på 85 000 kr'
+          ]
+        },
+        {
+          titel: 'Barista',
+          arbetsgivare: 'Johan & Nyström Flagship Store',
+          period: '2020 - 2022',
+          beskrivning: [
+            'Tillagade 250+ kaffedrycker dagligen i högtrycksmiljö med 3-4 baristas i skift',
+            'Ökade kundnöjdhet med 25% genom personlig service och kaffeutbildning av gäster',
+            'Ansvarade för kvalitetskontroll av espresso: temperatur, extraktionsgrad och smakprofil',
+            'Deltog i utveckling av effektivare arbetsflöde som minskade väntetid med 18%'
+          ]
+        },
+        {
+          titel: 'Barista',
+          arbetsgivare: 'Espresso House, Stureplan',
+          period: '2019 - 2020',
+          beskrivning: [
+            'Tillagade 300+ drycker dagligen i kedjekaféformat med fokus på snabbhet och standardisering',
+            'Hanterade kassasystem (iZettle) med daglig försäljning upp till 120 000 kr',
+            'Genomgick SCA Barista Skills Foundation och Intermediate-kurser'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'SCA Barista Skills Intermediate',
+          skola: 'Specialty Coffee Association',
+          period: '2021',
+          beskrivning: 'Certifiering inom avancerad espressoberedning, mjölkskumning och latte art.'
+        },
+        {
+          titel: 'SCA Barista Skills Foundation',
+          skola: 'Specialty Coffee Association',
+          period: '2020',
+          beskrivning: 'Grundläggande certifiering inom kaffeberedning, maskinkunskap och kundservice.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Espressoberedning (La Marzocco, Sanremo, Victoria Arduino)',
+          'Latte art (rosetta, tulip, swan)',
+          'Kaffekunskap (SCA-certifierad)',
+          'Kvarnar och malningsgrad (Mahlkönig, Mazzer)',
+          'Kassasystem (iZettle, Square, Swish)',
+          'Maskinunderhåll och rengöring',
+          'Bryggmetoder (V60, Chemex, AeroPress)'
+        ],
+        personliga: [
+          'Kundservice och gästbemötande',
+          'Arbete i högt tempo',
+          'Teamarbete och kommunikation',
+          'Kvalitetsmedvetenhet',
+          'Stresstålighet'
+        ]
+      },
+
+      certifieringar: [
+        'SCA Barista Skills Intermediate (2021)',
+        'SCA Barista Skills Foundation (2020)',
+        'Livsmedelshygien - Miljöförvaltningen Stockholm (2019, förnyad 2024)',
+        'Latte Art Grading System - Level 2 (2022)',
+        'Första hjälpen (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen maskinmodeller och certifieringar direkt',
+        text: `CV:t nämner specifika espressomaskiner som La Marzocco Linea PB, Sanremo och Victoria Arduino tillsammans med kvarnar som Mahlkönig EK43 och Mazzer. SCA-certifieringar (Barista Skills Foundation och Intermediate) listas med årtal och specifika kompetensområden.
+
+**Varför detta fungerar:** Specialistkaféer och hotellbarer använder dessa maskiner dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "La Marzocco" och "SCA-certifierad" istället för bara "espressomaskin" och "kaffeutbildning" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan börja jobba utan omfattande maskinutbildning.`
+      },
+      {
+        rubrik: 'Siffror visar din faktiska produktionskapacitet',
+        text: `CV:t kvantifierar arbetsinsatser: 200+ kaffedrycker dagligen, 250+ drycker i högtrycksmiljö, och konkreta resultat som 30% ökad merförsäljning genom kaffeutbildning av gäster och 25% förbättrad kundnöjdhet genom personlig service.
+
+**Varför detta fungerar:** "Ansvarig för espressobar" säger ingenting om omfattning. "200+ kaffedrycker dagligen" visar att du hanterar hög arbetsbelastning och kan leverera konsekvent kvalitet under press. Resultat som "30% ökad merförsäljning" bevisar att din kaffekunskap faktiskt driver affärsresultat. Rekryterare ser omedelbart att du levererar mätbara värden – både i form av kvalitet och ekonomiska resultat.`
+      },
+      {
+        rubrik: 'Teknisk precision balanseras med bevisad kundservice',
+        text: `CV:t kombinerar tekniska färdigheter (extrahering, dosering, temperaturkontroll, maskinunderhåll) med kundnära service och konkreta exempel: kaffeutbildning av gäster, personlig service som höjt kundnöjdhet med 25%, och förmåga att förklara smakprofiler och ursprung.
+
+**Varför detta fungerar:** Många skriver "passionerad om kaffe" utan att bevisa det. Du visar passion genom handling: kaffeutbildning av gäster, utveckling av espressomeny och dagligt maskinunderhåll. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten – både den tekniska precisionen och gästupplevelsen.`
+      },
+      {
+        rubrik: 'Uppdaterade certifieringar visar att du följer branschstandarden',
+        text: `CV:t listar SCA Barista Skills Intermediate (2021), SCA Foundation (2020), Latte Art Grading System Level 2 (2022) och förnyad livsmedelshygien (2024). Varje certifiering har årtal och tydlig koppling till faktiskt arbete med kaffeberedning.
+
+**Varför detta fungerar:** SCA-certifieringar är branschstandard inom specialistkaffe och visar att du har formell utbildning, inte bara praktisk erfarenhet. Genom att skriva "SCA Barista Skills Intermediate (2021)" visar du att du håller kompetensen aktuell och investerar i din utveckling. Förnyad livsmedelshygien (2024) är lagkrav, vilket innebär att rekryterare kan anställa dig utan att omedelbart skicka dig på obligatoriska kurser.`
+      },
+      {
+        rubrik: 'Profiltext som matchar specialistbarista direkt',
+        text: `Profiltexten öppnar med "Erfaren barista med 5+ års erfarenhet från specialistkaféer och hotellbarer, SCA-certifierad inom espressoberedning och latte art". Detta följs direkt av nyckelkompetenser som extrahering, bryggmetoder och kundservice.
+
+**Varför detta fungerar:** Första meningen avgör om rekryterare läser vidare. "Erfaren barista" är vagt. "5+ års erfarenhet från specialistkaféer, SCA-certifierad inom espressoberedning och latte art" visar omedelbart att du har djup kompetens inom det specifika område de söker. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från kedja till specialistkaféer',
+        text: `Erfarenheten visar utveckling: från Espresso House med standardiserad kedjeproduktion och 300+ drycker dagligen, till Johan & Nyström med kvalitetsfokus och kundutbildning, till head barista på Drop Coffee med mentorskap, maskinansvar och menytillväxt. Varje roll har ökad komplexitet och ansvar.
+
+**Varför detta fungerar:** Många baristas listar jobb utan att visa utveckling. Din progression från kedjekaféer (volym och snabbhet) till specialistkaféer (kvalitet och kunskap) och slutligen till head barista (ledarskap och affärspåverkan) visar att du inte bara stannat kvar – du har växt. Mentorskap för 4 baristas och utveckling av espressomeny bevisar att chefer litar på dig. Detta signalerar att du är redo för nästa steg som kaféchef eller eget kafé.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din kaffeproduktion och försäljningspåverkan',
+        text: `Kaféägare och restaurangchefer vill veta din produktionskapacitet och affärspåverkan. Ange alltid antal drycker du tillagar dagligen och hur din kaffekunskap driver försäljning.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för kaffeberedning och kundservice i travlig kaféemiljö"
+
+✅ "Tillagade 200+ espressodrycker dagligen med fokus på konsekvent extraktionstid (25-30 sekunder) och temperatur (92-96°C). Ökade merförsäljning av specialkaffe med 30% genom aktiv kaffeutbildning av gäster om bönursprung och smakprofiler."`
+      },
+      {
+        rubrik: 'Inkludera maskinmodeller du faktiskt behärskar',
+        text: `ATS-system söker efter specifika espressomaskinmodeller som kaféet redan har. Identifiera vilka maskiner som används i branschen och lista de du har daglig erfarenhet av.
+
+**Exempel på före/efter:**
+
+❌ "Erfarenhet av professionella espressomaskiner och kvarnar"
+
+✅ "Daglig användning av La Marzocco Linea PB (5+ år), Sanremo Opera (3 år) och Victoria Arduino Black Eagle. Hanterar maskinunderhåll inklusive rengöring av brygggrupp, kalibrering av tryck (9 bar) och temperaturjustering. Kvarnkompetens: Mahlkönig EK43, Mazzer Robur och Eureka Atom."`
+      },
+      {
+        rubrik: 'Visa SCA-certifieringar och kaffeutbildningar tydligt',
+        text: `SCA-certifieringar (Specialty Coffee Association) är branschstandard och visar formell kompetens. Lista dem under en egen sektion "Certifieringar" med årtal och specifik inriktning.
+
+**Exempel på före/efter:**
+
+❌ "Utbildad barista med kaffecertifikat"
+
+✅ "SCA Barista Skills Intermediate (2021) - Avancerad espressoberedning, mjölkskumning och latte art. SCA Barista Skills Foundation (2020) - Grundläggande kaffeberedning, maskinkunskap och sensorik. Latte Art Grading System - Level 2 (2022)"`
+      },
+      {
+        rubrik: 'Balansera teknisk kompetens med kundservice och affärsförståelse',
+        text: `Att kunna göra perfekt espresso räcker inte – du måste också visa att du förstår gästupplevelsen och bidrar till kaféets ekonomi. Kombinera tekniska färdigheter med kundservice och försäljningsresultat.
+
+**Exempel på före/efter:**
+
+❌ "Passionerad om kaffe med fokus på kvalitet och precision"
+
+✅ "Kombinerar teknisk precision (konsekvent extraktionstid 25-30 sekunder, latte art i 95% av cappuccinos) med gästutbildning som driver merförsäljning. Utbildar gäster om bönursprung, bearbetningsmetoder och bryggmetoder, vilket ökat försäljning av filterkaffe med 35%."`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur skriver jag CV som barista utan erfarenhet?',
+        svar: 'Fokusera på din passion för kaffe, eventuell hemlatte art-träning och kundserviceerfarenhet från andra roller. Nämn om du besöker specialistkaféer regelbundet, följer kaffeinfluencers eller läst böcker om kaffe. Ta med kurser du genomgått (SCA Foundation, barista grundkurs) och betona din vilja att lära. Många kaféer anställer oerfarna baristas som visar genuint intresse och stark servicekänsla.'
+      },
+      {
+        fraga: 'Vilka nyckelord ska finnas i ett barista-CV?',
+        svar: 'Inkludera espressoberedning, latte art, SCA-certifiering, maskinmodeller (La Marzocco, Sanremo, Victoria Arduino), kvarnar (Mahlkönig, Mazzer), extrahering, tamping, dosering, mjölkskumning, kaffekunskap, bryggmetoder (V60, Chemex, AeroPress), specialistkaffe, kundservice och kassasystem (iZettle, Square). Dessa termer används av ATS-system och rekryterare för att filtrera ansökningar.'
+      },
+      {
+        fraga: 'Ska jag inkludera latte art på mitt CV?',
+        svar: 'Ja, absolut – särskilt om du söker till specialistkaféer. Specificera vilka designs du behärskar (rosetta, tulip, swan) och om du har certifiering (Latte Art Grading System). Om du tävlat i latte art-tävlingar, nämn det. För kedjekaféer är latte art mindre kritiskt, men det visar ändå teknisk skicklighet och passion.'
+      },
+      {
+        fraga: 'Vilka certifieringar behöver jag som barista?',
+        svar: 'SCA-certifieringar (Specialty Coffee Association) är branschstandard. Börja med SCA Barista Skills Foundation, följt av Intermediate om du vill arbeta på specialistkaféer. Livsmedelshygien är ofta lagkrav. Andra meriterande certifieringar: Latte Art Grading System, SCA Brewing Foundation, Cup Tasting-kurser och första hjälpen. Nämn alltid årtal för att visa att kunskapen är aktuell.'
+      },
+      {
+        fraga: 'Hur visar jag maskinkunskap i mitt CV?',
+        svar: 'Lista specifika maskinmodeller du använt med erfarenhetsnivå. Exempel: "La Marzocco Linea PB (Expert, 5+ år daglig användning)" eller "Sanremo Opera (Avancerad, 3 år)". Beskriv också VAD du gör: "Dagligt maskinunderhåll inklusive rengöring av brygggrupp, kalibrering av bryggryck (9 bar) och temperaturjustering (92-96°C)". Detta visar både teknisk kunskap och ansvar.'
+      },
+      {
+        fraga: 'Ska jag inkludera kaffekunskap och bönkunskap?',
+        svar: 'Ja, särskilt för specialistkaféer. Visa kunskap om kaffeprocesser (washed, natural, honey), ursprung (Etiopien, Colombia, Brasilien), och smakprofiler. Om du kan cupping eller sensorisk analys, nämn det. Exempel: "Kunskap om kaffebearbetning (washed, natural, anaerobic) och förmåga att identifiera smakprofiler (fruktigt, nötigt, chokladigt) genom cupping". Detta skiljer specialistbaristas från kedjebaristas.'
+      },
+      {
+        fraga: 'Hur beskriver jag arbete i högt tempo på mitt CV?',
+        svar: 'Kvantifiera produktionen: "Tillagade 250+ kaffedrycker dagligen under morgonrusning (07:00-10:00) med 3-4 baristas i team" eller "Hanterade 60+ ordrar per timme i högtrycksmiljö med bibehållen kvalitet och extraktionsstandard". Visa också hur du effektiviserat: "Utvecklade arbetsflöde som minskade väntetid med 18% genom bättre kommunikation mellan bar och kassa".'
+      },
+      {
+        fraga: 'Hur anpassar jag CV:t för specialistkaféer vs kedjekaféer?',
+        svar: 'För specialistkaféer: betona SCA-certifieringar, maskinmodeller, kaffekunskap, latte art och passion för kvalitet. För kedjekaféer: fokusera på snabbhet, volym (antal drycker/dag), teamarbete och kundservice. Anpassa nyckelord efter jobbannonsen. Om de söker "espressospecialist" är det specialistkaféer, om de skriver "snabb service" är det kedja.'
+      },
+      {
+        fraga: 'Ska jag nämna kassasystem och merförsäljning?',
+        svar: 'Ja, särskilt för head barista-roller eller om du vill visa affärsförståelse. Nämn system du använt (iZettle, Square, Swish) och kvantifiera merförsäljning: "Ökade snittnotan med 25% genom aktiv merförsäljning av bakvaror och specialkaffe" eller "Hanterade kassaavstämning med daglig omsättning upp till 95 000 kr". Detta visar att du förstår kaféets ekonomi, inte bara kaffeberedning.'
+      },
+      {
+        fraga: 'Hur visar jag progression från barista till head barista?',
+        svar: 'Visa utveckling genom ökande ansvar i varje roll. Börja med grundläggande kaffeberedning och kundservice, gå vidare till kvalitetskontroll och effektivisering, slutligen till mentorskap och affärspåverkan. Exempel: "Barista (2019) → Senior Barista med kvalitetsansvar (2020) → Head Barista med team av 4 baristas och menyansvar (2022)". Kvantifiera ledarskap: "Mentorade 4 juniora baristas" och affärspåverkan: "Utvecklade espressomeny som ökade försäljning med 30%".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Servitris/Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' },
+      { yrke: 'Köksbiträde', slug: 'koksbitrade' }
+    ]
   }
 }
 

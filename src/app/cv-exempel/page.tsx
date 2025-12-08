@@ -1028,6 +1028,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för köksbiträde med fokus på storkök, livsmedelshygien och HACCP-rutiner inom restaurang och äldreomsorg.',
       highlight: ['180-200 portioner dagligen med HACCP-dokumentation', 'Livsmedelshygien A och allergenkännedom', 'Industriella diskmaskiner och specialkostkrav']
     }
+  },
+  {
+    id: 'barista',
+    yrke: 'Barista',
+    slug: 'barista',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: Coffee,
+    gradient: 'from-amber-600 via-brown-700 to-amber-800',
+    preview: {
+      intro: 'CV för barista med fokus på espressoberedning, latte art och SCA-certifiering inom specialistkaféer och hotellbarer.',
+      highlight: ['200+ kaffedrycker dagligen med 30% ökad merförsäljning', 'La Marzocco, Mahlkönig och SCA-certifierad', 'Head barista med mentorskap och menyutveckling']
+    }
   }
 ]
 
@@ -1192,7 +1206,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  68 yrken
+                  69 yrken
                 </motion.span>
               </h1>
 
