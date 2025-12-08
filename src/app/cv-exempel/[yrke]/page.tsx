@@ -18541,6 +18541,242 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
       { yrke: 'Bartender', slug: 'bartender' },
       { yrke: 'Kundtjänst', slug: 'kundtjanst' }
     ]
+  },
+
+  'administrativ-assistent': {
+    yrke: 'Administrativ assistent',
+    sokvolym: 480,
+    slug: 'administrativ-assistent',
+    kategori: 'ekonomi',
+    metaTitle: 'CV Exempel Administrativ Assistent 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för administrativ assistent med ATS-optimerade nyckelord, Office-expertis och dokumenthantering. Få inspiration för din jobbansökan 2025.',
+    heroHeading: 'CV-exempel för Administrativ assistent',
+    heroSubtitle: 'Skapa ett professionellt CV som visar din organisationsförmåga och Office-kompetens',
+    heroCtaText: 'Skapa ditt administrativa CV',
+    intro: 'Ett professionellt CV-exempel för administrativ assistent som visar din Office-kompetens, organisationsförmåga och erfarenhet av kalenderhantering, dokumentation och chefsassistans.',
+    seoIntro: `Söker du jobb som administrativ assistent och behöver ett CV som visar din verkliga kompetens? Det här exemplet är optimerat för ATS-system och visar hur du strukturerar ett CV som passar både moderna kontor och chefsstödsroller.
+
+Du får se exakt hur du balanserar tekniska färdigheter (Microsoft 365, SharePoint, kalendervård) med de organisatoriska färdigheter som rekryterare söker (prioriteringsförmåga, diskretion, proaktivitet). CV:t visar konkreta resultat från chefsassistans och administrativ samordning med kvantifierbara exempel från verkliga arbetsplatser.
+
+Använd det som inspiration för ditt eget cv administrativ assistent och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev för administrativ assistent för att öka dina chanser till intervju och visa att du förstår rollens krav.`,
+    exempelCV: {
+      namn: 'Sofia Bergström',
+      titel: 'Administrativ assistent med specialisering i chefsassistans',
+      kontakt: {
+        epost: 'sofia.bergstrom@email.se',
+        telefon: '073-456 78 90',
+        plats: 'Stockholm'
+      },
+      profil: 'Erfaren administrativ assistent med 6+ års erfarenhet av chefsassistans och ledningsstöd inom tech och consulting. Gedigen kompetens i Microsoft 365 (expert i Excel, Teams, SharePoint), kalenderhantering för ledningsgrupper och samordning av internationella möten och researrangemang. Strukturerad och proaktiv med förmåga att prioritera i högt tempo och hantera konfidentiell information med diskretion. Certifierad i GDPR och dataskydd.',
+      erfarenhet: [
+        {
+          titel: 'Administrativ assistent till VD och ledningsgrupp',
+          arbetsgivare: 'TechGrowth AB, Stockholm',
+          period: '2021 - nu',
+          beskrivning: [
+            'Hanterar daglig kalenderadministration för VD och 6 ledningsgruppsmedlemmar: 40-50 mötesbokningar per vecka med prioritering av akuta förfrågningar',
+            'Koordinerar internationella researrangemang (15-20 resor/år) inkl. flyg, hotell, visum och reseräkningar - sparade 25% i resekostnader genom förhandlade avtal',
+            'Ansvarig för styrelsemöten: kallelser, dagordning, protokoll och uppföljning av beslut enligt aktiebolagslagen',
+            'Administrerar SharePoint för ledningsgruppen: dokumentstruktur, behörigheter och GDPR-efterlevnad för konfidentiella styrdokument',
+            'Samordnar ledningsgruppens kvartalskonferenser (60-80 deltagare) inkl. lokal, catering, teknik och presentation i PowerPoint'
+          ]
+        },
+        {
+          titel: 'Kontorsassistent',
+          arbetsgivare: 'Nordic Consulting Group, Stockholm',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Receptionsansvar 50% av tiden: 80-100 besökare/vecka, växel, inkommande e-post och posthantering',
+            'Skapade mötesprotokoll och presentationer i PowerPoint för 25 konsulter - standardiserade mallar som sparade 30% tid',
+            'Fakturerade kundfakturor i Visma (150+ fakturor/månad) och hanterade leverantörsfakturor med attestering',
+            'Införde digitalt arkiveringssystem i SharePoint som minskade pappersdokumentation med 80% och förbättrade sökbarhet'
+          ]
+        },
+        {
+          titel: 'Administratör, Praktik',
+          arbetsgivare: 'Stockholms Handelskammare, Stockholm',
+          period: '2018 - 2019',
+          beskrivning: [
+            'Assisterade VD och ledningsgrupp med kalendervård, mötesbokningar och researrangemang',
+            'Uppdaterade medlemsregister i CRM-system (400+ medlemsföretag) och skickade nyhetsbrev via Mailchimp',
+            'Arrangerade medlemsfrukost och nätverksträffar (30-50 deltagare) med anmälningshantering och logistik'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Administratör med inriktning ekonomi',
+          skola: 'Stockholms Yrkeshögskola',
+          period: '2017 - 2019',
+          beskrivning: 'Yrkeshögskoleutbildning med praktik inom företagsadministration och ekonomihantering'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Microsoft 365 - Expert (8+ år): Excel (pivottabeller, VLOOKUP, makron), Word, PowerPoint, Outlook kalendervård, Teams, SharePoint',
+          'Visma ekonomisystem - Avancerad: Fakturahantering och attestering',
+          'Google Workspace - Avancerad: Gmail, Calendar, Drive, Docs',
+          'SharePoint dokumenthantering och behörigheter - Avancerad',
+          'CRM-system (Salesforce, Lime) - Grundläggande',
+          'Researrangemang och bokningssystem - Expert',
+          'Mailchimp och nyhetsbrevssystem - Grundläggande',
+          'Zoom och Teams mötesadministration - Avancerad'
+        ],
+        personliga: [
+          'Organisationsförmåga och prioritering i högt tempo',
+          'Diskretion och hantering av konfidentiell information',
+          'Proaktivitet och problemlösning',
+          'Serviceinriktad och professionell kommunikation',
+          'Flexibilitet och stresstålig',
+          'Noggrannhet i detaljer'
+        ]
+      },
+      certifieringar: [
+        'Microsoft Office Specialist - Excel (2023)',
+        'GDPR och dataskydd för administratörer (2024)',
+        'Protokollföring och mötesteknik (2022)',
+        'Researrangemang och reseteknik (2021)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Franska', niva: 'Grundläggande' }
+      ]
+    },
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerade nyckelord från administrativa roller',
+        text: 'CV:t innehåller specifika termer som Microsoft 365, SharePoint, kalendervård, researrangemang och GDPR-hantering - exakt de nyckelord som ATS-system letar efter vid rekrytering av administrativa assistenter.\n\nVarför detta fungerar: Rekryterare filtrerar ofta på exakta programnamn. Genom att skriva "Excel (pivottabeller, VLOOKUP, makron)" istället för bara "Office-paket" visar du konkret kompetensnivå och passerar automatisk filtrering.'
+      },
+      {
+        rubrik: 'Kvantifierade resultat som visar verklig arbetsbelastning',
+        text: 'CV:t innehåller konkreta volymer: 40-50 mötesbokningar per vecka, 15-20 internationella resor per år, 150+ fakturor per månad och 60-80 deltagare vid konferenssamordning. Förbättringar mäts med siffror: 25% minskade resekostnader och 30% tidsvinst.\n\nVarför detta fungerar: "Ansvarig för kalenderhantering" säger ingenting om omfattning. Konkreta siffror visar att du hanterar hög arbetsbelastning med många prioriteringar samtidigt.'
+      },
+      {
+        rubrik: 'Progression från kontorsassistent till chefsassistans',
+        text: 'CV:t visar tydlig karriärutveckling från praktik (assisterade VD) till kontorsassistent (receptionsansvar + allmän administration) till administrativ assistent för ledningsgrupp (kalenderhantering för 6 personer + styrelsemöten).\n\nVarför detta fungerar: Progression visar att tidigare arbetsgivare litat på dig med ökande ansvar. Från receptionist till ledningsstöd signalerar att du utvecklats och tagit dig an mer avancerade uppgifter.'
+      },
+      {
+        rubrik: 'Specifika Office-färdigheter med funktioner',
+        text: 'Istället för "god datorvana" listar CV:t exakt vilka program och funktioner du behärskar: Excel med pivottabeller, VLOOKUP och makron, SharePoint med dokumentstruktur och behörigheter, Teams mötesadministration, Outlook kalendervård.\n\nVarför detta fungerar: När du visar att du kan pivottabeller i Excel och behörighetshantering i SharePoint signalerar du att du inte bara öppnar program - du behärskar avancerade funktioner som sparar tid.'
+      },
+      {
+        rubrik: 'Diskretion och GDPR-efterlevnad framhävs konkret',
+        text: 'CV:t nämner hantering av konfidentiell information vid flera tillfällen: styrelsemöten enligt aktiebolagslagen, SharePoint med GDPR-efterlevnad för styrdokument och GDPR-certifiering från 2024.\n\nVarför detta fungerar: Administrativ assistent till VD eller ledningsgrupp hanterar ofta känslig information. Genom att visa att du förstår lagkrav och har certifiering inom dataskydd signalerar du att arbetsgivaren kan lita på dig.'
+      },
+      {
+        rubrik: 'Researrangemang med kostnadsmedvetenhet',
+        text: 'CV:t visar konkret erfarenhet av internationella researrangemang (15-20 resor per år) med detaljer om flyg, hotell, visum och reseräkningar. Kostnadsbesparingar framhävs: 25% minskade resekostnader genom förhandlade avtal.\n\nVarför detta fungerar: Genom att visa att du inte bara bokar resor utan också förhandlar avtal och sparar pengar signalerar du att du tänker affärsmässigt - inte bara utför uppgifter.'
+      }
+    ],
+    tips: [
+      {
+        rubrik: 'Specificera dina Office-kunskaper med funktioner och nivå',
+        text: `Nämn inte bara "Office-paket" eller "god datorvana" utan lista specifika program och avancerade funktioner. Excel, PowerPoint, Outlook kalendervård, Teams och SharePoint ska alla finnas med om du behärskar dem.
+
+**Exempel på före/efter:**
+
+❌ "God datorvana och Office-kunskaper"
+
+✅ "Microsoft 365 - Expert: Excel (pivottabeller, VLOOKUP, makron), PowerPoint, Outlook kalendervård, Teams mötesadministration, SharePoint dokumenthantering med behörigheter"`
+      },
+      {
+        rubrik: 'Kvantifiera din arbetsbelastning och visa omfattning',
+        text: `Skriv inte "ansvarade för kalenderhantering" eller "bokade möten" utan visa konkret omfattning: hur många möten per vecka, hur många personer du assisterade, hur många resor du arrangerade per år.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för VD:s kalender och mötesbokningar"
+
+✅ "Hanterade daglig kalenderadministration för VD och 6 ledningsgruppsmedlemmar: 40-50 mötesbokningar per vecka med prioritering av akuta förfrågningar"`
+      },
+      {
+        rubrik: 'Visa kostnadsmedvetenhet och affärsförståelse',
+        text: `Administrativ assistent handlar inte bara om att utföra uppgifter - det handlar också om att spara tid och pengar för organisationen. Om du förhandlat leverantörsavtal, minskat kostnader eller effektiviserat processer ska detta framgå tydligt med siffror.
+
+**Exempel på före/efter:**
+
+❌ "Bokade resor för ledningsgruppen"
+
+✅ "Koordinerade internationella researrangemang (15-20 resor/år) - sparade 25% i resekostnader genom förhandlade avtal med SAS och Scandic"`
+      },
+      {
+        rubrik: 'Framhäv diskretion och GDPR-kompetens konkret',
+        text: `Administrativ assistent till VD eller ledningsgrupp kräver förmåga att hantera konfidentiell information. Visa detta genom arbetsuppgifter (styrelsemöten, ledningsdokument) och certifieringar (GDPR-utbildning).
+
+**Exempel på före/efter:**
+
+❌ "Diskret och pålitlig"
+
+✅ "Administrerar SharePoint för ledningsgruppen: dokumentstruktur, behörigheter och GDPR-efterlevnad för konfidentiella styrdokument"`
+      },
+      {
+        rubrik: 'Beskriv researrangemang och mötessamordning detaljerat',
+        text: `Researrangemang är en nyckelkompetens för många administrativa assistenter. Visa inte bara att du "bokade resor" utan specificera vad det innebar: flyg, hotell, visum, reseräkningar, tidszonhantering.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för researrangemang"
+
+✅ "Koordinerar internationella researrangemang (15-20 resor/år) inkl. flyg, hotell, visum, reseförsäkringar och reseräkningar - hanterar bokning och akuta ändringar i realtid"`
+      },
+      {
+        rubrik: 'Visa progression och ökande ansvar genom karriären',
+        text: `Om du börjat som receptionist eller kontorsassistent och utvecklats till administrativ assistent med chefsassistans ska denna progression framgå tydligt.
+
+**Exempel på progression:**
+
+Praktik (assisterade VD med enklare uppgifter) → Kontorsassistent (80-100 besökare/vecka, fakturering) → Administrativ assistent till ledningsgrupp (kalenderhantering för 6 personer, styrelsemöten, konfidentiella dokument)`
+      }
+    ],
+    faq: [
+      {
+        question: 'Vilka program ska jag nämna i mitt CV som administrativ assistent?',
+        answer: 'Specificera alla relevanta Office-program med kompetensnivå: Microsoft 365 (Excel, Word, PowerPoint, Outlook, Teams, SharePoint), Visma eller andra ekonomisystem, CRM-system som Salesforce eller Lime, samt bokningssystem för resor. Om du behärskar avancerade Excel-funktioner som pivottabeller, VLOOKUP eller makron ska detta framgå tydligt.'
+      },
+      {
+        question: 'Hur visar jag min kalendervård och mötessamordning i CV:t?',
+        answer: 'Kvantifiera din arbetsbelastning konkret: hur många personer du assisterade, hur många möten per vecka du bokade, om du hanterade internationella tidszoner eller prioriterade mellan akuta och planerade möten. Exempel: "Hanterade daglig kalenderadministration för VD och 6 ledningsgruppsmedlemmar: 40-50 mötesbokningar per vecka".'
+      },
+      {
+        question: 'Ska jag inkludera researrangemang i mitt CV som administrativ assistent?',
+        answer: 'Ja, researrangemang är en viktig kompetens för många administrativa assistenter som stödjer ledning eller säljteam. Specificera vad det innebar: bokade du flyg, hotell, visum, reseförsäkringar? Hanterade du reseräkningar? Kvantifiera volymen: hur många resor per år, nationella eller internationella?'
+      },
+      {
+        question: 'Hur betonar jag diskretion och GDPR-kompetens i mitt CV?',
+        answer: 'Visa diskretion genom konkreta arbetsuppgifter istället för att bara lista det som mjuk färdighet. Exempel: "Administrerar SharePoint för ledningsgruppen med GDPR-efterlevnad för konfidentiella styrdokument". Ta också med GDPR-certifiering om du har det.'
+      },
+      {
+        question: 'Vilken skillnad är det mellan kontorsassistent och administrativ assistent?',
+        answer: 'Kontorsassistent är ofta en bredare roll med ansvar för reception, posthantering, enklare fakturering och allmän kontorssupport. Administrativ assistent är vanligtvis mer specialiserad mot chefsassistans: kalenderhantering för ledning, researrangemang, styrelsemöten och protokollföring. Visa progression i ditt CV om du börjat som kontorsassistent och utvecklats till administrativ assistent.'
+      },
+      {
+        question: 'Hur visar jag att jag behärskar SharePoint i mitt CV?',
+        answer: 'Specificera vad du gjorde i SharePoint: dokumenthantering, skapade mappstrukturer, hanterade behörigheter, arkiverade filer enligt GDPR-krav? Exempel: "Administrerar SharePoint för ledningsgruppen: dokumentstruktur, behörigheter och GDPR-efterlevnad för konfidentiella styrdokument". Visa konkret användning, inte bara att du "känner till" programmet.'
+      },
+      {
+        question: 'Ska jag nämna protokollföring och styrelsemöten i mitt CV?',
+        answer: 'Ja, om du har erfarenhet av protokollföring eller styrelsemöten är detta mycket meriterande för administrativa assistenter som söker chefsassistansroller. Specificera vad det innebar: skapade du kallelser, dagordning, förde protokoll enligt aktiebolagslagen, följde upp beslut?'
+      },
+      {
+        question: 'Hur visar jag kostnadsmedvetenhet i mitt administrativa arbete?',
+        answer: 'Visa konkreta exempel på hur du sparat tid eller pengar för organisationen. Exempel: "Sparade 25% i resekostnader genom förhandlade avtal" eller "Införde digitalt arkiveringssystem som sparade 5 timmar administrativ söktid per vecka". Detta visar att du inte bara utför uppgifter utan också tänker affärsmässigt.'
+      },
+      {
+        question: 'Vilka certifieringar är värdefulla för administrativ assistent?',
+        answer: 'Microsoft Office Specialist (särskilt Excel) är högt värderat eftersom det bevisar avancerad kompetens. GDPR och dataskydd är viktigt om du hanterar konfidentiell information. Protokollföring och mötesteknik visar att du behärskar formella administrativa processer. Lista alltid årtal för att visa att certifieringen är aktuell.'
+      },
+      {
+        question: 'Hur beskriver jag min erfarenhet av ekonomisystem som Visma eller Fortnox?',
+        answer: 'Specificera vad du gjorde i systemet: hanterade du fakturahantering (kundfakturor, leverantörsfakturor), attestering, bokföring eller reseräkningar? Kvantifiera volymen om möjligt: "Fakturerade 150+ kundfakturor per månad i Visma". Ange också kompetensnivå: grundläggande, avancerad eller expert.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Kontorsassistent', slug: 'kontorsassistent' },
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Vårdadministratör', slug: 'vardadministrator' }
+    ]
   }
 }
 

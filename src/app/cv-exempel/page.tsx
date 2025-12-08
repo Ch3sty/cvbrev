@@ -414,6 +414,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'administrativ-assistent',
+    yrke: 'Administrativ assistent',
+    slug: 'administrativ-assistent',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: FileText,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'CV-exempel för administrativ assistent med chefsassistans, kalenderhantering och Office-expertis.',
+      highlight: ['40-50 mötesbokningar per vecka', 'Microsoft 365, SharePoint, Teams', 'GDPR-certifierad och diskretion']
+    }
+  },
+  {
     id: 'servitris-restaurangbitrade',
     yrke: 'Servitris/Restaurangbiträde',
     slug: 'servitris-restaurangbitrade',
