@@ -18268,44 +18268,44 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
     ],
     faq: [
       {
-        question: 'Vad ska ett CV för LSS-handläggare innehålla?',
-        answer: 'Ett professionellt CV för LSS-handläggare ska innehålla tydlig kompetens inom biståndsbedömning, LSS-lagstiftning och myndighetsutövning. Kvantifiera din ärendebelastning (antal ärenden, handläggningstider), visa juridisk kompetens (LSS, SoL, Förvaltningslagen), IBIC-metodkompetens och erfarenhet av relevanta IT-system som Treserva eller Procapita. Inkludera fortbildning och specialistkompetens.'
+        fraga: 'Vad ska ett CV för LSS-handläggare innehålla?',
+        svar: 'Ett professionellt CV för LSS-handläggare ska innehålla tydlig kompetens inom biståndsbedömning, LSS-lagstiftning och myndighetsutövning. Kvantifiera din ärendebelastning (antal ärenden, handläggningstider), visa juridisk kompetens (LSS, SoL, Förvaltningslagen), IBIC-metodkompetens och erfarenhet av relevanta IT-system som Treserva eller Procapita. Inkludera fortbildning och specialistkompetens.'
       },
       {
-        question: 'Hur kvantifierar jag min erfarenhet som LSS-handläggare?',
-        answer: 'Ange antal aktiva ärenden, genomsnittlig handläggningstid, andel bifall/avslag, resultat vid överklaganden i förvaltningsdomstol samt omfattning av samverkan. Exempel: "Hanterade 85 LSS-ärenden med 94% bifall vid domstolsprövning" eller "Minskade handläggningstid från 52 till 35 dagar genom effektiviserad rutiner".'
+        fraga: 'Hur kvantifierar jag min erfarenhet som LSS-handläggare?',
+        svar: 'Ange antal aktiva ärenden, genomsnittlig handläggningstid, andel bifall/avslag, resultat vid överklaganden i förvaltningsdomstol samt omfattning av samverkan. Exempel: "Hanterade 85 LSS-ärenden med 94% bifall vid domstolsprövning" eller "Minskade handläggningstid från 52 till 35 dagar genom effektiviserad rutiner".'
       },
       {
-        question: 'Vilka kompetenser är viktigast att lyfta?',
-        answer: 'Prioritera LSS-lagstiftning, SoL, Förvaltningslagen, IBIC-metodik, biståndsbedömning, verkställighet och uppföljning samt relevant rättspraxis. Lyft också IT-system (Treserva, Procapita), dokumentationskompetens och samverkan med utförare och andra myndigheter. Personliga egenskaper som empatiskt bemötande och juridisk analysförmåga är centrala.'
+        fraga: 'Vilka kompetenser är viktigast att lyfta?',
+        svar: 'Prioritera LSS-lagstiftning, SoL, Förvaltningslagen, IBIC-metodik, biståndsbedömning, verkställighet och uppföljning samt relevant rättspraxis. Lyft också IT-system (Treserva, Procapita), dokumentationskompetens och samverkan med utförare och andra myndigheter. Personliga egenskaper som empatiskt bemötande och juridisk analysförmåga är centrala.'
       },
       {
-        question: 'Behöver jag vara socionom för att jobba som LSS-handläggare?',
-        answer: 'Socionomexamen är vanligast och ofta föredras, men det finns också LSS-handläggare med annan relevant högskoleutbildning kombinerat med erfarenhet från funktionshinderområdet. Viktigast är kompetens inom LSS-lagstiftning, myndighetsutövning och behovsbedömning. Om du saknar socionomexamen, lyft relevant utbildning och praktisk erfarenhet extra tydligt.'
+        fraga: 'Behöver jag vara socionom för att jobba som LSS-handläggare?',
+        svar: 'Socionomexamen är vanligast och ofta föredras, men det finns också LSS-handläggare med annan relevant högskoleutbildning kombinerat med erfarenhet från funktionshinderområdet. Viktigast är kompetens inom LSS-lagstiftning, myndighetsutövning och behovsbedömning. Om du saknar socionomexamen, lyft relevant utbildning och praktisk erfarenhet extra tydligt.'
       },
       {
-        question: 'Hur visar jag IBIC-kompetens i CV:t?',
-        answer: 'Nämn IBIC-utbildning under certifieringar och beskriv hur du tillämpar metoden praktiskt i din handläggning. Kvantifiera gärna resultat: "Implementerade strukturerad IBIC-tillämpning som minskade överklaganden med 35%" eller "Genomför systematiska IBIC-utredningar med dokumenterad förbättrad måluppfyllelse".'
+        fraga: 'Hur visar jag IBIC-kompetens i CV:t?',
+        svar: 'Nämn IBIC-utbildning under certifieringar och beskriv hur du tillämpar metoden praktiskt i din handläggning. Kvantifiera gärna resultat: "Implementerade strukturerad IBIC-tillämpning som minskade överklaganden med 35%" eller "Genomför systematiska IBIC-utredningar med dokumenterad förbättrad måluppfyllelse".'
       },
       {
-        question: 'Ska jag inkludera erfarenhet från utförarled?',
-        answer: 'Ja, definitivt! Erfarenhet som vårdbiträde, boendestödjare eller personlig assistent ger värdefull förståelse för verkställighet och brukarens vardag. Detta gör dig till en mer väl avvägd handläggare. Lyft hur denna erfarenhet påverkar dina beslut och din förståelse för genomförbarhet.'
+        fraga: 'Ska jag inkludera erfarenhet från utförarled?',
+        svar: 'Ja, definitivt! Erfarenhet som vårdbiträde, boendestödjare eller personlig assistent ger värdefull förståelse för verkställighet och brukarens vardag. Detta gör dig till en mer väl avvägd handläggare. Lyft hur denna erfarenhet påverkar dina beslut och din förståelse för genomförbarhet.'
       },
       {
-        question: 'Vilka IT-system ska jag nämna?',
-        answer: 'Nämn de ärendehanteringssystem du faktiskt arbetat med i din tjänsteutövning. De vanligaste inom svensk hälso- och sjukvård är Treserva, Procapita, Combine, Lifecare eller andra relevanta verksamhetssystem. Skriv en kort rad under Kompetenser eller inkludera det i din erfarenhetsbeskrivning.'
+        fraga: 'Vilka IT-system ska jag nämna?',
+        svar: 'Nämn de ärendehanteringssystem du faktiskt arbetat med i din tjänsteutövning. De vanligaste inom svensk hälso- och sjukvård är Treserva, Procapita, Combine, Lifecare eller andra relevanta verksamhetssystem. Skriv en kort rad under Kompetenser eller inkludera det i din erfarenhetsbeskrivning.'
       },
       {
-        question: 'Hur lyfter jag juridisk kompetens utan att vara jurist?',
-        answer: 'Fokusera på din praktiska tillämpning av lagstiftningen: vilka paragrafer du arbetar mest med, hur du följer rättspraxis, vilka domstolsavgöranden du refererar till. Nämn fortbildning i förvaltningsrätt och LSS-rättspraxis. Exempel: "Specialist på personlig assistans enligt 9§2 LSS med fördjupad kunskap om HFD:s avgöranden".'
+        fraga: 'Hur lyfter jag juridisk kompetens utan att vara jurist?',
+        svar: 'Fokusera på din praktiska tillämpning av lagstiftningen: vilka paragrafer du arbetar mest med, hur du följer rättspraxis, vilka domstolsavgöranden du refererar till. Nämn fortbildning i förvaltningsrätt och LSS-rättspraxis. Exempel: "Specialist på personlig assistans enligt 9§2 LSS med fördjupad kunskap om HFD:s avgöranden".'
       },
       {
-        question: 'Hur visar jag bemötandekompetens professionellt?',
-        answer: 'Beskriv konkreta situationer där du byggt förtroende med brukare och anhöriga, hanterat komplexa samtal eller navigerat konflikter. Kvantifiera när möjligt: "Genomförde 150+ behovsbedömningar årligen med dokumenterat högt förtroende från brukare" eller "Hanterade 12 överklaganden med bibehållen god relation till berörda parter".'
+        fraga: 'Hur visar jag bemötandekompetens professionellt?',
+        svar: 'Beskriv konkreta situationer där du byggt förtroende med brukare och anhöriga, hanterat komplexa samtal eller navigerat konflikter. Kvantifiera när möjligt: "Genomförde 150+ behovsbedömningar årligen med dokumenterat högt förtroende från brukare" eller "Hanterade 12 överklaganden med bibehållen god relation till berörda parter".'
       },
       {
-        question: 'Vilken fortbildning är mest meriterande?',
-        answer: 'Prioritera fortbildning i aktuell LSS-rättspraxis, fördjupad IBIC-utbildning, förvaltningsrätt, samt specialistkompetens inom exempelvis neuropsykiatri, autism, intellektuell funktionsnedsättning eller habiliteringskunskap. Också kurser i dokumentation, motiverade beslut och juridisk skrivning är värdefulla. Nämn alltid år och arrangör.'
+        fraga: 'Vilken fortbildning är mest meriterande?',
+        svar: 'Prioritera fortbildning i aktuell LSS-rättspraxis, fördjupad IBIC-utbildning, förvaltningsrätt, samt specialistkompetens inom exempelvis neuropsykiatri, autism, intellektuell funktionsnedsättning eller habiliteringskunskap. Också kurser i dokumentation, motiverade beslut och juridisk skrivning är värdefulla. Nämn alltid år och arrangör.'
       }
     ],
     relaterade: [
@@ -18495,44 +18495,44 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
     ],
     faq: [
       {
-        question: 'Vilka egenskaper är viktigast att lyfta fram i ett CV för hotellvärd?',
-        answer: 'De viktigaste egenskaperna är gästserviceorientering, stresshantering, flerspråkighet och systemkunskap. Visa konkret hur du levererar hög servicekvalitet under press, med mätbara resultat som gästnöjdhetsbetyg och antal hanterade incheckningar.'
+        fraga: 'Vilka egenskaper är viktigast att lyfta fram i ett CV för hotellvärd?',
+        svar: 'De viktigaste egenskaperna är gästserviceorientering, stresshantering, flerspråkighet och systemkunskap. Visa konkret hur du levererar hög servicekvalitet under press, med mätbara resultat som gästnöjdhetsbetyg och antal hanterade incheckningar.'
       },
       {
-        question: 'Hur beskriver jag hotellreception-erfarenhet utan att ha arbetat på hotell?',
-        answer: 'Lyft fram överförbar erfarenhet från kundservice, restaurang eller detaljhandel. Fokusera på gästbemötande, kassahantering, bokningssystem och konfliktlösning. Betona din serviceinställning och förmåga att skapa positiva kundupplevelser.'
+        fraga: 'Hur beskriver jag hotellreception-erfarenhet utan att ha arbetat på hotell?',
+        svar: 'Lyft fram överförbar erfarenhet från kundservice, restaurang eller detaljhandel. Fokusera på gästbemötande, kassahantering, bokningssystem och konfliktlösning. Betona din serviceinställning och förmåga att skapa positiva kundupplevelser.'
       },
       {
-        question: 'Ska jag inkludera mitt gästnöjdhetsbetyg i CV:t?',
-        answer: 'Ja, definitivt! Gästnöjdhetsbetyg är ett kraftfullt bevis på din serviceförmåga. Ange betyget tillsammans med antal recensioner för trovärdighet, exempelvis "4.8/5 baserat på 500+ gästrecensioner".'
+        fraga: 'Ska jag inkludera mitt gästnöjdhetsbetyg i CV:t?',
+        svar: 'Ja, definitivt! Gästnöjdhetsbetyg är ett kraftfullt bevis på din serviceförmåga. Ange betyget tillsammans med antal recensioner för trovärdighet, exempelvis "4.8/5 baserat på 500+ gästrecensioner".'
       },
       {
-        question: 'Hur viktigt är det att namnge bokningssystem i CV:t?',
-        answer: 'Mycket viktigt. Hotell investerar kraftigt i PMS-utbildning, så befintlig systemkunskap är värdefull. Namnge specifika system som Opera, Mews, Protel eller Hotellinx och ange din kompetensnivå.'
+        fraga: 'Hur viktigt är det att namnge bokningssystem i CV:t?',
+        svar: 'Mycket viktigt. Hotell investerar kraftigt i PMS-utbildning, så befintlig systemkunskap är värdefull. Namnge specifika system som Opera, Mews, Protel eller Hotellinx och ange din kompetensnivå.'
       },
       {
-        question: 'Ska jag ta med säsongsarbete på hotell i mitt CV?',
-        answer: 'Ja, säsongsarbete visar flexibilitet och förmåga att snabbt anpassa sig. Beskriv vilken typ av hotell (fjäll, kust, stad), antal gäster och vilka särskilda utmaningar säsongstoppen innebar.'
+        fraga: 'Ska jag ta med säsongsarbete på hotell i mitt CV?',
+        svar: 'Ja, säsongsarbete visar flexibilitet och förmåga att snabbt anpassa sig. Beskriv vilken typ av hotell (fjäll, kust, stad), antal gäster och vilka särskilda utmaningar säsongstoppen innebar.'
       },
       {
-        question: 'Hur lång arbetslivserfarenhet behöver jag som hotellvärd?',
-        answer: 'För entrénivå räcker 6–12 månader av relevant kundserviceerfarenhet. För positioner på finare hotell eller med arbetsledande ansvar förväntas oftast 2–4 års branscherfarenhet med dokumenterade resultat.'
+        fraga: 'Hur lång arbetslivserfarenhet behöver jag som hotellvärd?',
+        svar: 'För entrénivå räcker 6–12 månader av relevant kundserviceerfarenhet. För positioner på finare hotell eller med arbetsledande ansvar förväntas oftast 2–4 års branscherfarenhet med dokumenterade resultat.'
       },
       {
-        question: 'Vilka certifieringar är värdefulla för hotellvärd?',
-        answer: 'Värdefulla certifieringar inkluderar hotelkedjornas egna serviceprogram (t.ex. Hilton First Impressions), alkoholtillstånd/WSET för barer, första hjälpen och brandskydd. Visa att du investerar i din professionella utveckling.'
+        fraga: 'Vilka certifieringar är värdefulla för hotellvärd?',
+        svar: 'Värdefulla certifieringar inkluderar hotelkedjornas egna serviceprogram (t.ex. Hilton First Impressions), alkoholtillstånd/WSET för barer, första hjälpen och brandskydd. Visa att du investerar i din professionella utveckling.'
       },
       {
-        question: 'Hur beskriver jag merförsäljning på ett professionellt sätt?',
-        answer: 'Använd konkreta siffror: månatliga eller årliga försäljningsbelopp, konverteringsgrad för uppgraderingar, eller ranking bland kollegor. Beskriv också din teknik, som proaktiv presentation av fördelar snarare än aggressiv försäljning.'
+        fraga: 'Hur beskriver jag merförsäljning på ett professionellt sätt?',
+        svar: 'Använd konkreta siffror: månatliga eller årliga försäljningsbelopp, konverteringsgrad för uppgraderingar, eller ranking bland kollegor. Beskriv också din teknik, som proaktiv presentation av fördelar snarare än aggressiv försäljning.'
       },
       {
-        question: 'Ska jag inkludera referenser från hotellet?',
-        answer: 'Ange "Referenser lämnas på begäran" i CV:t. Förbered 2–3 referenser från chefer eller gäster som kan intyga din servicekvalitet. Informera dina referenser innan de kontaktas.'
+        fraga: 'Ska jag inkludera referenser från hotellet?',
+        svar: 'Ange "Referenser lämnas på begäran" i CV:t. Förbered 2–3 referenser från chefer eller gäster som kan intyga din servicekvalitet. Informera dina referenser innan de kontaktas.'
       },
       {
-        question: 'Hur anpassar jag mitt CV för olika typer av hotell?',
-        answer: 'För boutiquehotell, betona personlig service och flexibilitet. För affärshotell, lyft fram effektivitet och konferenshantering. För lyxhotell, framhäv diskret service, VIP-hantering och eventuell erfarenhet av concierge-uppgifter.'
+        fraga: 'Hur anpassar jag mitt CV för olika typer av hotell?',
+        svar: 'För boutiquehotell, betona personlig service och flexibilitet. För affärshotell, lyft fram effektivitet och konferenshantering. För lyxhotell, framhäv diskret service, VIP-hantering och eventuell erfarenhet av concierge-uppgifter.'
       }
     ],
     relaterade: [
@@ -18731,44 +18731,44 @@ Praktik (assisterade VD med enklare uppgifter) → Kontorsassistent (80-100 bes�
     ],
     faq: [
       {
-        question: 'Vilka program ska jag nämna i mitt CV som administrativ assistent?',
-        answer: 'Specificera alla relevanta Office-program med kompetensnivå: Microsoft 365 (Excel, Word, PowerPoint, Outlook, Teams, SharePoint), Visma eller andra ekonomisystem, CRM-system som Salesforce eller Lime, samt bokningssystem för resor. Om du behärskar avancerade Excel-funktioner som pivottabeller, VLOOKUP eller makron ska detta framgå tydligt.'
+        fraga: 'Vilka program ska jag nämna i mitt CV som administrativ assistent?',
+        svar: 'Specificera alla relevanta Office-program med kompetensnivå: Microsoft 365 (Excel, Word, PowerPoint, Outlook, Teams, SharePoint), Visma eller andra ekonomisystem, CRM-system som Salesforce eller Lime, samt bokningssystem för resor. Om du behärskar avancerade Excel-funktioner som pivottabeller, VLOOKUP eller makron ska detta framgå tydligt.'
       },
       {
-        question: 'Hur visar jag min kalendervård och mötessamordning i CV:t?',
-        answer: 'Kvantifiera din arbetsbelastning konkret: hur många personer du assisterade, hur många möten per vecka du bokade, om du hanterade internationella tidszoner eller prioriterade mellan akuta och planerade möten. Exempel: "Hanterade daglig kalenderadministration för VD och 6 ledningsgruppsmedlemmar: 40-50 mötesbokningar per vecka".'
+        fraga: 'Hur visar jag min kalendervård och mötessamordning i CV:t?',
+        svar: 'Kvantifiera din arbetsbelastning konkret: hur många personer du assisterade, hur många möten per vecka du bokade, om du hanterade internationella tidszoner eller prioriterade mellan akuta och planerade möten. Exempel: "Hanterade daglig kalenderadministration för VD och 6 ledningsgruppsmedlemmar: 40-50 mötesbokningar per vecka".'
       },
       {
-        question: 'Ska jag inkludera researrangemang i mitt CV som administrativ assistent?',
-        answer: 'Ja, researrangemang är en viktig kompetens för många administrativa assistenter som stödjer ledning eller säljteam. Specificera vad det innebar: bokade du flyg, hotell, visum, reseförsäkringar? Hanterade du reseräkningar? Kvantifiera volymen: hur många resor per år, nationella eller internationella?'
+        fraga: 'Ska jag inkludera researrangemang i mitt CV som administrativ assistent?',
+        svar: 'Ja, researrangemang är en viktig kompetens för många administrativa assistenter som stödjer ledning eller säljteam. Specificera vad det innebar: bokade du flyg, hotell, visum, reseförsäkringar? Hanterade du reseräkningar? Kvantifiera volymen: hur många resor per år, nationella eller internationella?'
       },
       {
-        question: 'Hur betonar jag diskretion och GDPR-kompetens i mitt CV?',
-        answer: 'Visa diskretion genom konkreta arbetsuppgifter istället för att bara lista det som mjuk färdighet. Exempel: "Administrerar SharePoint för ledningsgruppen med GDPR-efterlevnad för konfidentiella styrdokument". Ta också med GDPR-certifiering om du har det.'
+        fraga: 'Hur betonar jag diskretion och GDPR-kompetens i mitt CV?',
+        svar: 'Visa diskretion genom konkreta arbetsuppgifter istället för att bara lista det som mjuk färdighet. Exempel: "Administrerar SharePoint för ledningsgruppen med GDPR-efterlevnad för konfidentiella styrdokument". Ta också med GDPR-certifiering om du har det.'
       },
       {
-        question: 'Vilken skillnad är det mellan kontorsassistent och administrativ assistent?',
-        answer: 'Kontorsassistent är ofta en bredare roll med ansvar för reception, posthantering, enklare fakturering och allmän kontorssupport. Administrativ assistent är vanligtvis mer specialiserad mot chefsassistans: kalenderhantering för ledning, researrangemang, styrelsemöten och protokollföring. Visa progression i ditt CV om du börjat som kontorsassistent och utvecklats till administrativ assistent.'
+        fraga: 'Vilken skillnad är det mellan kontorsassistent och administrativ assistent?',
+        svar: 'Kontorsassistent är ofta en bredare roll med ansvar för reception, posthantering, enklare fakturering och allmän kontorssupport. Administrativ assistent är vanligtvis mer specialiserad mot chefsassistans: kalenderhantering för ledning, researrangemang, styrelsemöten och protokollföring. Visa progression i ditt CV om du börjat som kontorsassistent och utvecklats till administrativ assistent.'
       },
       {
-        question: 'Hur visar jag att jag behärskar SharePoint i mitt CV?',
-        answer: 'Specificera vad du gjorde i SharePoint: dokumenthantering, skapade mappstrukturer, hanterade behörigheter, arkiverade filer enligt GDPR-krav? Exempel: "Administrerar SharePoint för ledningsgruppen: dokumentstruktur, behörigheter och GDPR-efterlevnad för konfidentiella styrdokument". Visa konkret användning, inte bara att du "känner till" programmet.'
+        fraga: 'Hur visar jag att jag behärskar SharePoint i mitt CV?',
+        svar: 'Specificera vad du gjorde i SharePoint: dokumenthantering, skapade mappstrukturer, hanterade behörigheter, arkiverade filer enligt GDPR-krav? Exempel: "Administrerar SharePoint för ledningsgruppen: dokumentstruktur, behörigheter och GDPR-efterlevnad för konfidentiella styrdokument". Visa konkret användning, inte bara att du "känner till" programmet.'
       },
       {
-        question: 'Ska jag nämna protokollföring och styrelsemöten i mitt CV?',
-        answer: 'Ja, om du har erfarenhet av protokollföring eller styrelsemöten är detta mycket meriterande för administrativa assistenter som söker chefsassistansroller. Specificera vad det innebar: skapade du kallelser, dagordning, förde protokoll enligt aktiebolagslagen, följde upp beslut?'
+        fraga: 'Ska jag nämna protokollföring och styrelsemöten i mitt CV?',
+        svar: 'Ja, om du har erfarenhet av protokollföring eller styrelsemöten är detta mycket meriterande för administrativa assistenter som söker chefsassistansroller. Specificera vad det innebar: skapade du kallelser, dagordning, förde protokoll enligt aktiebolagslagen, följde upp beslut?'
       },
       {
-        question: 'Hur visar jag kostnadsmedvetenhet i mitt administrativa arbete?',
-        answer: 'Visa konkreta exempel på hur du sparat tid eller pengar för organisationen. Exempel: "Sparade 25% i resekostnader genom förhandlade avtal" eller "Införde digitalt arkiveringssystem som sparade 5 timmar administrativ söktid per vecka". Detta visar att du inte bara utför uppgifter utan också tänker affärsmässigt.'
+        fraga: 'Hur visar jag kostnadsmedvetenhet i mitt administrativa arbete?',
+        svar: 'Visa konkreta exempel på hur du sparat tid eller pengar för organisationen. Exempel: "Sparade 25% i resekostnader genom förhandlade avtal" eller "Införde digitalt arkiveringssystem som sparade 5 timmar administrativ söktid per vecka". Detta visar att du inte bara utför uppgifter utan också tänker affärsmässigt.'
       },
       {
-        question: 'Vilka certifieringar är värdefulla för administrativ assistent?',
-        answer: 'Microsoft Office Specialist (särskilt Excel) är högt värderat eftersom det bevisar avancerad kompetens. GDPR och dataskydd är viktigt om du hanterar konfidentiell information. Protokollföring och mötesteknik visar att du behärskar formella administrativa processer. Lista alltid årtal för att visa att certifieringen är aktuell.'
+        fraga: 'Vilka certifieringar är värdefulla för administrativ assistent?',
+        svar: 'Microsoft Office Specialist (särskilt Excel) är högt värderat eftersom det bevisar avancerad kompetens. GDPR och dataskydd är viktigt om du hanterar konfidentiell information. Protokollföring och mötesteknik visar att du behärskar formella administrativa processer. Lista alltid årtal för att visa att certifieringen är aktuell.'
       },
       {
-        question: 'Hur beskriver jag min erfarenhet av ekonomisystem som Visma eller Fortnox?',
-        answer: 'Specificera vad du gjorde i systemet: hanterade du fakturahantering (kundfakturor, leverantörsfakturor), attestering, bokföring eller reseräkningar? Kvantifiera volymen om möjligt: "Fakturerade 150+ kundfakturor per månad i Visma". Ange också kompetensnivå: grundläggande, avancerad eller expert.'
+        fraga: 'Hur beskriver jag min erfarenhet av ekonomisystem som Visma eller Fortnox?',
+        svar: 'Specificera vad du gjorde i systemet: hanterade du fakturahantering (kundfakturor, leverantörsfakturor), attestering, bokföring eller reseräkningar? Kvantifiera volymen om möjligt: "Fakturerade 150+ kundfakturor per månad i Visma". Ange också kompetensnivå: grundläggande, avancerad eller expert.'
       }
     ],
     relaterade: [
@@ -18978,44 +18978,44 @@ Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, m
     ],
     faq: [
       {
-        question: 'Vilka certifieringar är viktigast för boendestöd?',
-        answer: 'MI (Motiverande samtal) och lågaffektivt bemötande (Studio 3 eller liknande) är de mest efterfrågade. Därutöver värdesätts IBIC-utbildning, suicidriskbedömning, första hjälpen/HLR och eventuellt tydliggörande pedagogik för LSS. Lista alltid utbildningsår och vilken organisation som certifierade dig.'
+        fraga: 'Vilka certifieringar är viktigast för boendestöd?',
+        svar: 'MI (Motiverande samtal) och lågaffektivt bemötande (Studio 3 eller liknande) är de mest efterfrågade. Därutöver värdesätts IBIC-utbildning, suicidriskbedömning, första hjälpen/HLR och eventuellt tydliggörande pedagogik för LSS. Lista alltid utbildningsår och vilken organisation som certifierade dig.'
       },
       {
-        question: 'Hur visar jag min dokumentationskompetens i CV:t?',
-        answer: 'Namnge vilket system du använt (Treserva, Pulsen Combine, Viva) och vilken dokumentationsmodell (IBIC, ÄBIC). Beskriv konkret vad du dokumenterat: genomförandeplaner med ICF-kodning, uppföljningar, riskbedömningar, avvikelser enligt Lex Sarah. Visa att du förstår både det tekniska och det juridiska.'
+        fraga: 'Hur visar jag min dokumentationskompetens i CV:t?',
+        svar: 'Namnge vilket system du använt (Treserva, Pulsen Combine, Viva) och vilken dokumentationsmodell (IBIC, ÄBIC). Beskriv konkret vad du dokumenterat: genomförandeplaner med ICF-kodning, uppföljningar, riskbedömningar, avvikelser enligt Lex Sarah. Visa att du förstår både det tekniska och det juridiska.'
       },
       {
-        question: 'Ska jag nämna specifika diagnoser i mitt CV?',
-        answer: 'Ja, namnge de diagnosgrupper du har praktisk erfarenhet av: schizofrenispektrum, bipolär sjukdom, depression/ångest, PTSD, autism, ADHD, intellektuell funktionsnedsättning, missbruk/samsjuklighet. Rekryterare söker ofta specifik erfarenhet och detta hjälper även ATS-matchning.'
+        fraga: 'Ska jag nämna specifika diagnoser i mitt CV?',
+        svar: 'Ja, namnge de diagnosgrupper du har praktisk erfarenhet av: schizofrenispektrum, bipolär sjukdom, depression/ångest, PTSD, autism, ADHD, intellektuell funktionsnedsättning, missbruk/samsjuklighet. Rekryterare söker ofta specifik erfarenhet och detta hjälper även ATS-matchning.'
       },
       {
-        question: 'Hur beskriver jag SIP-möten och samverkan i mitt CV?',
-        answer: 'Visa att du deltar aktivt i SIP-möten (samordnad individuell plan) och samverkar med psykiatri, primärvård, Försäkringskassan, god man och anhöriga. Kvantifiera om möjligt: hur många SIP per år, vilka aktörer du samverkar med regelbundet. Detta visar att du förstår hela systemet runt brukaren.'
+        fraga: 'Hur beskriver jag SIP-möten och samverkan i mitt CV?',
+        svar: 'Visa att du deltar aktivt i SIP-möten (samordnad individuell plan) och samverkar med psykiatri, primärvård, Försäkringskassan, god man och anhöriga. Kvantifiera om möjligt: hur många SIP per år, vilka aktörer du samverkar med regelbundet. Detta visar att du förstår hela systemet runt brukaren.'
       },
       {
-        question: 'Hur visar jag att jag kan hantera krissituationer?',
-        answer: 'Beskriv konkreta metoder du använder (lågaffektivt bemötande, krisintervention, suicidriskbedömning) och visa resultat om möjligt: minskade krisinsatser, inga tvångsåtgärder, framgångsrik nedtrappning. Visa också att du har utbildning i krismetodik genom att namnge certifieringar.'
+        fraga: 'Hur visar jag att jag kan hantera krissituationer?',
+        svar: 'Beskriv konkreta metoder du använder (lågaffektivt bemötande, krisintervention, suicidriskbedömning) och visa resultat om möjligt: minskade krisinsatser, inga tvångsåtgärder, framgångsrik nedtrappning. Visa också att du har utbildning i krismetodik genom att namnge certifieringar.'
       },
       {
-        question: 'Vilken skillnad är det mellan boendestöd och personlig assistans?',
-        answer: 'Boendestöd fokuserar på att träna och stödja personer mot ökad självständighet - du "gör med" brukaren. Personlig assistans är att utföra uppgifter som brukaren inte kan göra själv - du "gör åt" brukaren. I boendestöd är pedagogik och motivationsarbete centralt. Tydliggör i CV:t vilken inriktning du har erfarenhet av.'
+        fraga: 'Vilken skillnad är det mellan boendestöd och personlig assistans?',
+        svar: 'Boendestöd fokuserar på att träna och stödja personer mot ökad självständighet - du "gör med" brukaren. Personlig assistans är att utföra uppgifter som brukaren inte kan göra själv - du "gör åt" brukaren. I boendestöd är pedagogik och motivationsarbete centralt. Tydliggör i CV:t vilken inriktning du har erfarenhet av.'
       },
       {
-        question: 'Hur viktig är körkort för boendestöd?',
-        answer: 'Körkort B är ofta krav för ambulerande boendestöd då du besöker brukare i deras hem över ett geografiskt område. Nämn körkort och tillgång till bil i CV:t om du har det. För boendestöd på gruppbostad är det mindre kritiskt men fortfarande meriterande.'
+        fraga: 'Hur viktig är körkort för boendestöd?',
+        svar: 'Körkort B är ofta krav för ambulerande boendestöd då du besöker brukare i deras hem över ett geografiskt område. Nämn körkort och tillgång till bil i CV:t om du har det. För boendestöd på gruppbostad är det mindre kritiskt men fortfarande meriterande.'
       },
       {
-        question: 'Ska jag inkludera erfarenhet från slutenvård i mitt CV?',
-        answer: 'Ja, erfarenhet från psykiatrisk slutenvård är relevant och visar att du hanterat akuta situationer, tvångsvård och samarbetat i vårdteam. Det ger trovärdighet för din förmåga att hantera kriser och din förståelse för psykiatrisk vård. Visa hur du utvecklats från slutenvård till öppenvård/boendestöd.'
+        fraga: 'Ska jag inkludera erfarenhet från slutenvård i mitt CV?',
+        svar: 'Ja, erfarenhet från psykiatrisk slutenvård är relevant och visar att du hanterat akuta situationer, tvångsvård och samarbetat i vårdteam. Det ger trovärdighet för din förmåga att hantera kriser och din förståelse för psykiatrisk vård. Visa hur du utvecklats från slutenvård till öppenvård/boendestöd.'
       },
       {
-        question: 'Hur beskriver jag ADL-träning på ett professionellt sätt?',
-        answer: 'Specificera vilka ADL-områden du arbetat med: matlagning/nutrition, ekonomi/budget, städ/hygien, social träning, samhällsorientering. Visa resultat: hur många brukare uppnådde mål, minskade stödinsatser, ökad självständighet. Undvik vaga formuleringar som "hjälpte till med vardagen".'
+        fraga: 'Hur beskriver jag ADL-träning på ett professionellt sätt?',
+        svar: 'Specificera vilka ADL-områden du arbetat med: matlagning/nutrition, ekonomi/budget, städ/hygien, social träning, samhällsorientering. Visa resultat: hur många brukare uppnådde mål, minskade stödinsatser, ökad självständighet. Undvik vaga formuleringar som "hjälpte till med vardagen".'
       },
       {
-        question: 'Vilka språkkunskaper är värdefulla för boendestöd?',
-        answer: 'Förutom svenska är arabiska, persiska/dari, somaliska och tigrinja särskilt efterfrågade inom socialtjänst och boendestöd då många brukare har utländsk bakgrund. Engelska är grundkrav. Lista alla språk med nivå och var inte blyg för att nämna även grundläggande kunskaper.'
+        fraga: 'Vilka språkkunskaper är värdefulla för boendestöd?',
+        svar: 'Förutom svenska är arabiska, persiska/dari, somaliska och tigrinja särskilt efterfrågade inom socialtjänst och boendestöd då många brukare har utländsk bakgrund. Engelska är grundkrav. Lista alla språk med nivå och var inte blyg för att nämna även grundläggande kunskaper.'
       }
     ],
     relaterade: [
@@ -19156,70 +19156,86 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
     ],
     tips: [
       {
-        rubrik: 'Namnge specifika diskmaskiner och städutrustning',
-        text: 'Istället för "erfaren av diskmaskiner" skriv exakt vilken typ: "industriella diskmaskiner för storkök", "högtryckstvätt", "golvskrubb" eller "kemikaliedoserare". Om du arbetat med specifika märken (Miele Professional, Winterhalter, Electrolux Professional) nämn dem. Rekryterare söker ofta efter erfarenhet av samma utrustning de själva använder.'
+        rubrik: 'Namnge specifik utrustning och system du kan',
+        text: `Restauranger och storhushåll använder professionell utrustning som kräver särskild kunskap. Genom att namnge exakta maskiner och system visar du att du kan komma in och jobba direkt utan lång introduktion. Rekryterare söker efter kandidater som känner till branschstandard utrustning som industriella diskmaskiner, värme- och kylsystem, samt HACCP-rutiner för livsmedelssäkerhet. Att lista specifika märken signalerar erfarenhet från professionella kök.
+
+**Exempel på före/efter:**
+
+❌ "Van att arbeta med diskmaskiner och hålla rent i köket"
+
+✅ "Hanterar professionella diskmaskiner (Winterhalter och Hobart), följer HACCP-rutiner dagligen, underhåller kyl- och frysutrustning samt ansvarar för avfallshantering enligt Livsmedelsverkets branschriktlinjer"`
       },
       {
-        rubrik: 'Kvantifiera din arbetsbelastning med portioner och tidsramar',
-        text: 'Skriv inte bara "diskade i storkök". Specificera: "180-200 portioner dagligen", "100-150 middagsgäster per kväll" eller "3-5 rätter á la carte under rusningstid 18.00-21.00". Siffror ger kontext och visar att du klarar hög arbetsbelastning. Nämn också arbetstider: "flexibel med kvällar, helger och högsäsong" eller "erfarenhet av frukost-, lunch- och middagspass".'
+        rubrik: 'Visa tempo och kapacitet med konkreta siffror',
+        text: `Köksbiträde handlar om att hålla högt tempo under rusningstid. Istället för att skriva att du är "snabb" eller "effektiv", visa med siffror vilken volym du hanterar. Rekryterare vill veta om du klarar deras kök – om de serverar 300 luncher per dag vill de se att du arbetat med liknande volymer. Konkreta siffror gör din erfarenhet mätbar och trovärdig. Inkludera antal portioner, kuvert per service, eller storlek på köket du jobbat i.
+
+**Exempel på före/efter:**
+
+❌ "Arbetar effektivt under högt tryck i stora kök"
+
+✅ "Hanterar disk och städ för 400+ luncher dagligen i personalmatsal, förbereder ingredienser till 150 kuvert per middagsservice, arbetar i köksteam på 8 personer med tajt tidsschema"`
       },
       {
-        rubrik: 'Visa HACCP-kunskap med konkreta exempel',
-        text: 'Skriv inte bara "kunskap om HACCP". Beskriv exakt vad du gör: "dokumenterar dagliga temperaturkontroller i kyl och frys enligt HACCP-rutiner", "kontrollerar diskmaskinstemperatur 82°C och pH-värde i avkalkningssystem", "separerar råvaror från färdiga produkter för att undvika korsföroreningar". Detta bevisar att du förstår livsmedelssäkerhet i praktiken, inte bara i teorin.'
+        rubrik: 'Lyft fram flexibilitet och stresstålighet med exempel',
+        text: `Köksbiträden jobbar ofta under högt tryck med ständigt skiftande arbetsuppgifter. Att bara skriva "stresstålig" eller "flexibel" säger ingenting – alla skriver så. Beskriv istället konkreta situationer där du löst problem, anpassat dig snabbt eller hållit koll när det varit kaos. Rekryterare vill se att du kan hoppa in på olika stationer, hantera akuta situationer och samarbeta smidigt med kockar och servitörer även när det är fullt rush.
+
+**Exempel på före/efter:**
+
+❌ "Flexibel och van att arbeta i team under stress"
+
+✅ "Täcker regelbundet in på mottagning, kallkök och disk vid sjukdom, hanterar 200 kuvert/timme under fredagsmiddagar utan kvalitetsförlust, kommunicerar effektivt med 5 kockar och 8 servitörer under högtrafik"`
       },
       {
-        rubrik: 'Lista alla specialkoster och allergener du hanterat',
-        text: 'Specialkostkunskap är en meriterande kompetens. Nämn exakt vilka: "glutenfritt, laktosfritt, vegetariskt, veganskt, mjuk kost för dysfagi, lågsaltskost, diabeteskost". Om du arbetat i äldreomsorg eller sjukhus, nämn medicinska kostkrav. Skriv också hur du hanterar korsföroreningar: "separata skärbrädor och knivar för allergener", "tvättar händer mellan hantering av mjölkprodukter och laktosfritt".'
-      },
-      {
-        rubrik: 'Beskriv din städrutin systematiskt',
-        text: 'Städning är en stor del av jobbet. Visa att du har struktur: "daglig städning av arbetsytor, fogplattor, diskmaskin och golv", "veckovis rengöring av ugnar, ventilation och kylrum", "månadsvis storstädning av fläktar och lager". Nämn också vilka rengöringsmedel du använt: "klorbaserade desinfektionsmedel för arbetsytor", "avfettningsmedel för ugnar", "golvvårdsmedel för storköksgolv". Detta visar professionalism.'
-      },
-      {
-        rubrik: 'Betona din fysiska uthållighet och flexibilitet',
-        text: 'Köksarbete är fysiskt krävande. Nämn att du är van vid: "stående arbete under hela arbetspass 6-8 timmar", "lyft av tunga kartonger och säckar upp till 20 kg", "arbete i varmt och fuktigt klimat". Framhäv också flexibilitet: "tillgänglig för tidig morgon-, sen kväll- och helgpass", "kan börja arbeta redan kl. 06.00 för frukostservering" eller "van vid oregelbundna arbetstider i restaurangbranschen".'
+        rubrik: 'Inkludera certifikat och hygienutbildning med datum',
+        text: `Livsmedelshygien är lagkrav inom restaurang och storhushåll. Genom att lista specifika utbildningar och certifikat visar du att du tar yrket på allvar och att arbetsgivaren slipper betala för obligatorisk grundutbildning. Namnge exakta kurser, utfärdare och årtal – det visar att certifikaten är aktuella. Många arbetsgivare kräver giltig livsmedelshygienutbildning redan vid anställning, så detta kan vara avgörande för att komma till intervju.
+
+**Exempel på före/efter:**
+
+❌ "Utbildad i livsmedelshygien och säkerhet"
+
+✅ "Livsmedelshygien grundkurs (Livsmedelsverket, 2024), Allergikoll – basutbildning i allergikunskap (Allergimatguiden, 2023), Första hjälpen och HLR (Röda Korset, 2023), Heta Arbeten certifikat giltigt t.o.m 2026"`
       }
     ],
     faq: [
       {
-        question: 'Måste jag ha Livsmedelshygien A för att jobba som köksbiträde?',
-        answer: 'Ja, Livsmedelshygien A är lagkrav i Sverige för alla som hanterar livsmedel yrkesmässigt. Om du inte har certifieringen ännu kan du oftast ta den via arbetsgivaren eller genom Livsmedelsverkets godkända utbildningsföretag. Certifieringen gäller i 5 år och kostar cirka 500-800 kr. Nämn i ditt CV om du är villig att ta utbildningen direkt vid anställning.'
+        fraga: 'Måste jag ha Livsmedelshygien A för att jobba som köksbiträde?',
+        svar: 'Ja, Livsmedelshygien A är lagkrav i Sverige för alla som hanterar livsmedel yrkesmässigt. Om du inte har certifieringen ännu kan du oftast ta den via arbetsgivaren eller genom Livsmedelsverkets godkända utbildningsföretag. Certifieringen gäller i 5 år och kostar cirka 500-800 kr. Nämn i ditt CV om du är villig att ta utbildningen direkt vid anställning.'
       },
       {
-        question: 'Vad är skillnaden mellan köksbiträde, diskare och köksassistent?',
-        answer: 'Diskare fokuserar primärt på disk och renhållning. Köksbiträde inkluderar även städning, matlagningsassistans och HACCP-dokumentation. Köksassistent har ofta mer ansvar för förberedelser och kan arbeta självständigt med enklare rätter. Titlarna används olika beroende på arbetsplats. I ditt CV kan du använda den titel som bäst beskriver dina faktiska arbetsuppgifter, eller skriv "köksbiträde/diskare" för att matcha fler jobbannonser.'
+        fraga: 'Vad är skillnaden mellan köksbiträde, diskare och köksassistent?',
+        svar: 'Diskare fokuserar primärt på disk och renhållning. Köksbiträde inkluderar även städning, matlagningsassistans och HACCP-dokumentation. Köksassistent har ofta mer ansvar för förberedelser och kan arbeta självständigt med enklare rätter. Titlarna används olika beroende på arbetsplats. I ditt CV kan du använda den titel som bäst beskriver dina faktiska arbetsuppgifter, eller skriv "köksbiträde/diskare" för att matcha fler jobbannonser.'
       },
       {
-        question: 'Hur skriver jag om erfarenhet från restaurang vs storkök?',
-        answer: 'Restaurangkök: betona högt tempo, á la carte, rusningstider och flexibilitet. Storkök: framhäv volym (antal portioner), HACCP-rutiner, specialkost och systematisk städning. Om du söker till äldreomsorg eller sjukhus, betona erfarenhet av medicinska kostkrav och hygienrutiner. Om du söker till restaurang, framhäv stresshantering och teamwork under kvällsrusning.'
+        fraga: 'Hur skriver jag om erfarenhet från restaurang vs storkök?',
+        svar: 'Restaurangkök: betona högt tempo, á la carte, rusningstider och flexibilitet. Storkök: framhäv volym (antal portioner), HACCP-rutiner, specialkost och systematisk städning. Om du söker till äldreomsorg eller sjukhus, betona erfarenhet av medicinska kostkrav och hygienrutiner. Om du söker till restaurang, framhäv stresshantering och teamwork under kvällsrusning.'
       },
       {
-        question: 'Vilka tekniska färdigheter söker arbetsgivare hos köksbiträden?',
-        answer: 'Arbetsgivare söker: industriella diskmaskiner, HACCP-kunskap, allergenkännedom, temperaturloggning, källsortering, rengöringsrutiner och grundläggande matlagningskunskap. Nämn också om du kan hantera specialutrustning: högtryckstvätt, golvskrubb, kombiugnar eller blästerskåp. Om du söker till större kök, betona erfarenhet av storköksutrustning och stora volymer.'
+        fraga: 'Vilka tekniska färdigheter söker arbetsgivare hos köksbiträden?',
+        svar: 'Arbetsgivare söker: industriella diskmaskiner, HACCP-kunskap, allergenkännedom, temperaturloggning, källsortering, rengöringsrutiner och grundläggande matlagningskunskap. Nämn också om du kan hantera specialutrustning: högtryckstvätt, golvskrubb, kombiugnar eller blästerskåp. Om du söker till större kök, betona erfarenhet av storköksutrustning och stora volymer.'
       },
       {
-        question: 'Hur visar jag att jag klarar högt tempo i köket?',
-        answer: 'Kvantifiera din arbetsbelastning: "180-200 portioner dagligen", "100-150 gäster per kväll", "diska och återställ disk för 5-6 kokplatser under kontinuerlig servering". Beskriv rusningstider: "högsäsong sommarmånaderna med dubbel belastning", "lunchrusning 11.30-13.00 med 80 portioner på 90 minuter". Använd ord som "arbetar effektivt under tidspress", "prioriterar arbetsuppgifter i stressiga miljöer", "håller jämnt högt tempo hela passet".'
+        fraga: 'Hur visar jag att jag klarar högt tempo i köket?',
+        svar: 'Kvantifiera din arbetsbelastning: "180-200 portioner dagligen", "100-150 gäster per kväll", "diska och återställ disk för 5-6 kokplatser under kontinuerlig servering". Beskriv rusningstider: "högsäsong sommarmånaderna med dubbel belastning", "lunchrusning 11.30-13.00 med 80 portioner på 90 minuter". Använd ord som "arbetar effektivt under tidspress", "prioriterar arbetsuppgifter i stressiga miljöer", "håller jämnt högt tempo hela passet".'
       },
       {
-        question: 'Ska jag nämna fysisk kapacitet i mitt CV?',
-        answer: 'Ja, köksarbete är fysiskt krävande och arbetsgivare vill veta att du klarar det. Skriv: "van vid stående arbete 6-8 timmar", "kan lyfta tunga kartonger och säckar upp till 20 kg", "arbetar i varmt och fuktigt klimat", "god fysisk kondition och uthållighet". Detta är relevant information som visar att du förstår arbetets natur och är förberedd.'
+        fraga: 'Ska jag nämna fysisk kapacitet i mitt CV?',
+        svar: 'Ja, köksarbete är fysiskt krävande och arbetsgivare vill veta att du klarar det. Skriv: "van vid stående arbete 6-8 timmar", "kan lyfta tunga kartonger och säckar upp till 20 kg", "arbetar i varmt och fuktigt klimat", "god fysisk kondition och uthållighet". Detta är relevant information som visar att du förstår arbetets natur och är förberedd.'
       },
       {
-        question: 'Hur beskriver jag HACCP-kunskap om jag inte har formell certifiering?',
-        answer: 'Beskriv konkret vad du gjort: "följer dagliga temperaturkontroller i kyl och frys", "separerar råvaror från färdiga produkter", "tvättar och desinfekterar skärbrädor mellan olika livsmedelsgrupper", "dokumenterar diskmaskinstemperatur och rengöring". Även om du inte har HACCP-certifikat kan du visa att du förstår principerna i praktiken. Många arbetsgivare ger intern HACCP-utbildning.'
+        fraga: 'Hur beskriver jag HACCP-kunskap om jag inte har formell certifiering?',
+        svar: 'Beskriv konkret vad du gjort: "följer dagliga temperaturkontroller i kyl och frys", "separerar råvaror från färdiga produkter", "tvättar och desinfekterar skärbrädor mellan olika livsmedelsgrupper", "dokumenterar diskmaskinstemperatur och rengöring". Även om du inte har HACCP-certifikat kan du visa att du förstår principerna i praktiken. Många arbetsgivare ger intern HACCP-utbildning.'
       },
       {
-        question: 'Vilka personliga egenskaper är viktigast för köksbiträden?',
-        answer: 'Arbetsgivare söker: noggrannhet med hygien, förmåga att arbeta i högt tempo, laganda (köket är ett team), fysisk uthållighet, flexibilitet med arbetstider och stresstålig personlighet. Skriv inte bara "noggrann och flexibel". Backa upp med exempel: "arbetar systematiskt enligt hygienplan", "tillgänglig för kvälls- och helgpass", "bibehåller hög kvalitet även under rusningstid".'
+        fraga: 'Vilka personliga egenskaper är viktigast för köksbiträden?',
+        svar: 'Arbetsgivare söker: noggrannhet med hygien, förmåga att arbeta i högt tempo, laganda (köket är ett team), fysisk uthållighet, flexibilitet med arbetstider och stresstålig personlighet. Skriv inte bara "noggrann och flexibel". Backa upp med exempel: "arbetar systematiskt enligt hygienplan", "tillgänglig för kvälls- och helgpass", "bibehåller hög kvalitet även under rusningstid".'
       },
       {
-        question: 'Hur visar jag att jag kan hantera allergener korrekt?',
-        answer: 'Beskriv konkreta rutiner: "använder separata skärbrädor och knivar för glutenfritt", "tvättar händer mellan hantering av olika allergener", "kontrollerar ingredienslistor för dolda allergener", "märker specialkost tydligt", "informerar kockar om allergikrav innan anrättning". Om du arbetat med många allergiker, kvantifiera: "hanterade dagligen 15-20 portioner med allergenanpassning utan incidenter".'
+        fraga: 'Hur visar jag att jag kan hantera allergener korrekt?',
+        svar: 'Beskriv konkreta rutiner: "använder separata skärbrädor och knivar för glutenfritt", "tvättar händer mellan hantering av olika allergener", "kontrollerar ingredienslistor för dolda allergener", "märker specialkost tydligt", "informerar kockar om allergikrav innan anrättning". Om du arbetat med många allergiker, kvantifiera: "hanterade dagligen 15-20 portioner med allergenanpassning utan incidenter".'
       },
       {
-        question: 'Ska jag inkludera erfarenhet från snabbmatskedjor i mitt CV?',
-        answer: 'Ja, absolut. Snabbmatskedjor ger värdefull erfarenhet av högt tempo, standardiserade rutiner och hygien. Betona: "arbetat i högt tempo med 200+ kunder per pass", "följt strikta HACCP-rutiner enligt koncernstandard", "hanterat diskmaskiner och fritöser", "arbetat systematiskt med stängningsrutiner". Denna erfarenhet är relevant för både restauranger och storkök.'
+        fraga: 'Ska jag inkludera erfarenhet från snabbmatskedjor i mitt CV?',
+        svar: 'Ja, absolut. Snabbmatskedjor ger värdefull erfarenhet av högt tempo, standardiserade rutiner och hygien. Betona: "arbetat i högt tempo med 200+ kunder per pass", "följt strikta HACCP-rutiner enligt koncernstandard", "hanterat diskmaskiner och fritöser", "arbetat systematiskt med stängningsrutiner". Denna erfarenhet är relevant för både restauranger och storkök.'
       }
     ],
     relaterade: [
