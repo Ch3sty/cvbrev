@@ -835,6 +835,20 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Visa koordinationsförmåga, dokumenthantering och administrativ precision.',
       highlight: ['Kalenderhantering', 'Microsoft 365', 'Fakturering & CRM']
     }
+  },
+  {
+    id: 'grundskollarare',
+    yrke: 'Grundskollärare',
+    slug: 'grundskollarare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 950,
+    icon: GraduationCap,
+    gradient: 'from-amber-500 via-orange-600 to-amber-700',
+    preview: {
+      intro: 'Visa klassrumsledning, LGR22-kompetens och formativ bedömning för mellanstadiet eller högstadiet.',
+      highlight: ['Klassrumsledning & studiero', 'Formativ bedömning & LGR22', 'Digital pedagogik & inkludering']
+    }
   }
 ]
 

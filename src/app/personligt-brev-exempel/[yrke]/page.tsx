@@ -7812,6 +7812,138 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
       { yrke: 'Receptionist', slug: 'receptionist' },
       { yrke: 'Handläggare', slug: 'handlaggare' }
     ]
+  },
+
+  'grundskollarare': {
+    yrke: 'Grundskollärare',
+    sokvolym: 950,
+    metaTitle: 'Personligt Brev Grundskollärare - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se hur ett professionellt personligt brev för grundskollärare ser ut. ATS-optimerat exempel med fokus på pedagogik, LGR22 och klassrumsledning. Skapa ditt på 60 sekunder.',
+
+    seoIntro: `Du har skrivit "jag brinner för undervisning" i ditt personliga brev. Men rektorer vill se bevis: Hur skapar du studiero med 28 elever? Vilka metoder använder du för formativ bedömning? Hur hanterade du senast en elev som hamnade efter?
+
+Exemplet nedan visar hur Erik Karlsson (7 år som grundskollärare) presenterar sin klassrumsledning med konkreta exempel från undervisningen. Han visar hur han differentierar mellan högpresterande och elever i behov av extra stöd, hur han arbetar med LGR22 i praktiken och ger exempel på samarbete med kollegor och vårdnadshavare. Strukturen fungerar oavsett om du söker tjänst på F-3, mellanstadiet eller högstadiet.
+
+Använd detta personligt brev grundskollärare som inspiration när du skriver din egen ansökan. Anpassa innehållet efter den skola du söker till och framhäv de erfarenheter som är mest relevanta för tjänsten.`,
+
+    intro: 'Exemplet nedan visar hur Erik Karlsson presenterar sin undervisning med konkreta klassrumsexempel och mätbara resultat. Han lyfter fram studiero, formativ bedömning och digitala verktyg. Brevet är skrivet för mellanstadiet, men du kan använda samma struktur för F-3 eller högstadiet.',
+
+    exempelBrev: {
+      namn: 'Erik Karlsson',
+      adress: 'Skolvägen 23, 172 67 Sundbyberg',
+      telefon: '070-345 67 89',
+      epost: 'erik.karlsson@gmail.com',
+      arbetsgivare: 'Rågsveds skola, Stockholms stad',
+      roll: 'Grundskollärare årskurs 4-6',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej Linda,
+
+Jag söker tjänsten som grundskollärare i årskurs 4-6 på Rågsveds skola. Under sju år har jag undervisat i matematik, NO och svenska för elever i mellanstadiet, där jag fokuserat på studiero, formativ bedömning och inkluderande undervisning enligt LGR22. Min erfarenhet kombinerar klassrumsledning med digital pedagogik, vilket passar era värderingar om elevernas lärande och trygghet.
+
+I min nuvarande klass på Enskede skola har jag 28 elever med stor spridning i kunskapsnivå. För att skapa studiero använder jag tydliga rutiner, visuella scheman och aktiv undervisning där alla elever får delta. När jag märkte att fyra elever tappade fokus efter 15 minuter bytte jag till kortare instruktionspass med rörelsepauser. Efter tre veckor hade jag minskat störningar med 60% och eleverna rapporterade att de kunde koncentrera sig bättre.
+
+Jag arbetar med formativ bedömning genom att ge återkoppling direkt i klassrummet. I matematik använder jag exitbiljetter där eleverna svarar på tre frågor före lektionens slut. Det visar mig vem som behöver extra stöd nästa dag. För en elev som fastnade på decimaltal skapade jag konkreta exempel med pengar, vilket gjorde att eleven förstod sambandet. Jag dokumenterar elevernas utveckling i Unikum och delar framsteg med vårdnadshavare varje månad.
+
+När elever behöver extra anpassningar samarbetar jag med specialpedagog och elevhälsoteamet. För en elev med läs- och skrivsvårigheter använde jag digitala verktyg som talsyntes i Google Classroom och förlängd tid på prov. Eleven kunde då visa sina kunskaper i NO trots svårigheter med skriftlig svenska. Jag arbetar också nära kollegor i arbetslaget där vi delar material och reflekterar över undervisning varje vecka.
+
+Jag vill arbeta på Rågsveds skola för att ni värdesätter inkludering och har en etablerad digital lärplattform. Era satsningar på utomhuspedagogik och projektet om demokrati och delaktighet stämmer väl med mitt sätt att arbeta. Jag uppskattar en arbetsplats där man utvecklas tillsammans och lär av varandra i arbetslaget.
+
+Jag kan börja den 1 mars och ser fram emot att berätta mer om mitt arbete med klassrumsledning och formativ bedömning.
+
+Med vänliga hälsningar,
+Erik Karlsson`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta klassrumsexempel med resultat',
+        beskrivning: 'Studieroexemplet visar både problem (elever tappade fokus efter 15 min) och lösning (kortare pass med pauser = 60% färre störningar). Rekryterare ser att du inte bara pratar om klassrumsledning, du visar hur du faktiskt skapar studiero.'
+      },
+      {
+        titel: 'Formativ bedömning i praktiken',
+        beskrivning: 'Exitbiljetter och decimalexemplet med pengar visar hur du använder bedömning för lärande, inte bara betygsättning. Det konkreta matematikexemplet bevisar att du kan anpassa undervisning efter elevernas behov.'
+      },
+      {
+        titel: 'LGR22 och inkludering utan fluff',
+        beskrivning: 'Istället för att skriva "jag följer läroplanen" visar du hur du använder digitala verktyg (talsyntes, Google Classroom) för att göra undervisningen tillgänglig. Det är konkret tillämpning av inkludering och individanpassning.'
+      },
+      {
+        titel: 'Varför just denna skola',
+        beskrivning: 'Du refererar till specifika delar av verksamheten (digital lärplattform, utomhuspedagogik, demokratiprojekt). Det visar att du faktiskt undersökt skolan och inte skickat samma brev till tio rektorer.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Visa LGR22 genom vardagliga lektioner',
+        text: `Skriv inte "Jag arbetar enligt LGR22 med fokus på kommunikation och problemlösning". Skriv istället hur du faktiskt använder läroplanen i klassrummet.
+
+Exempel: "I matematiken låter jag eleverna förklara sina lösningar för varandra i par. Det tränar både problemlösning och kommunikation enligt LGR22. En elev som inte förstod division kunde sedan förklara metoden för en klasskompis efter att själv ha diskuterat den." Detta visar att du tillämpar läroplanen utan att använda pedagogiska buzzwords.`
+      },
+      {
+        rubrik: 'Beskriv hur du skapar studiero',
+        text: `Rektorer vill veta hur du faktiskt hanterar 25-30 elever i klassrummet. Ge konkreta exempel på rutiner och strategier.
+
+Exempel: "Jag börjar varje lektion med tydlig agenda på tavlan och en kort check-in där eleverna visar tummen upp/ner för hur de mår. Under arbetspassen använder jag timer och rörelsepauser var 20:e minut för att hålla fokus. När störningar uppstår använder jag icke-verbal kommunikation (ögonkontakt, närhet) innan verbal tillsägelse."`
+      },
+      {
+        rubrik: 'Konkretisera formativ bedömning',
+        text: `Berätta vilka metoder du använder och vad som hände. Exempel: "Jag använder exitbiljetter där eleverna svarar på tre frågor innan de lämnar klassrummet. Det visar mig direkt vem som behöver extra stöd nästa lektion."
+
+Specificera vad du gjorde, vilket verktyg du använde och vilket resultat det gav. Nämn gärna digitala verktyg som Kahoot, Mentimeter eller Google Forms om du använder dem.`
+      },
+      {
+        rubrik: 'Visa hur du differentierar undervisningen',
+        text: `Skriv om en specifik situation där du anpassade undervisningen för olika elevers behov. Exempel: "I en klass med stor kunskapsspridning i läsning delade jag in eleverna i tre grupper. Högpresterande elever fick analysera textens budskap självständigt, mellangruppen arbetade med textens struktur i par, och elever som behövde stöd fick lyssna på inspelad text först."
+
+Det visar att du kan individualisera utan att behöva skriva "jag är flexibel och anpassningsbar".`
+      },
+      {
+        rubrik: 'Förklara varför du vill jobba på just denna skola',
+        text: `Referera till något konkret på skolans hemsida eller i annonsen. Skriv: "Era satsningar på utomhuspedagogik passar mitt sätt att arbeta. Jag har tidigare lett NO-projekt där eleverna fick undersöka ekosystem i närområdet, och jag skulle gärna fortsätta det arbetet hos er."
+
+Nämn specifika program, profiler eller värderingar som skolan har. Det visar att du faktiskt valt just denna skola.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur visar jag LGR22-kunskap utan att låta akademisk?',
+        a: 'Beskriv konkreta lektioner där du tillämpat läroplanen. Istället för "Jag arbetar med digitala verktyg enligt LGR22" skriv: "Jag använder Google Classroom där eleverna skapar presentationer och ger kamratrespons. Det tränar både digital kompetens och kommunikationsförmåga." Det visar praktisk tillämpning av läroplanens förmågor.'
+      },
+      {
+        q: 'Hur lång erfarenhet behöver jag nämna som grundskollärare?',
+        a: 'Fokusera på relevant erfarenhet. Om du undervisat i sju år behöver du inte rada upp alla skolor. Välj 2-3 konkreta exempel som visar variation (olika årskurser, ämnen, pedagogiska metoder) och beskriv vad du faktiskt gjorde. Om du är nyexaminerad, lyft fram VFU-perioder och specifika projekt eller metoder du provat.'
+      },
+      {
+        q: 'Ska jag nämna specifika digitala verktyg jag använder?',
+        a: 'Ja, om de är relevanta. Nämn Schoolsoft, Unikum, Google Classroom, Kahoot, Mentimeter eller andra verktyg du faktiskt behärskar. Det visar konkret digital kompetens istället för generella påståenden. Skriv också hur du använder dem: "Jag använder Kahoot för formativ bedömning där eleverna svarar anonymt, vilket ger mig direkt feedback på vad klassen förstått."'
+      },
+      {
+        q: 'Hur beskriver jag arbete med elever i behov av extra anpassningar?',
+        a: 'Ge ett konkret exempel utan att dela känslig information. Skriv: "För en elev med läs- och skrivsvårigheter använde jag talsyntes och förlängd provtid. Eleven kunde då visa sina NO-kunskaper trots svårigheter med skriftlig svenska." Det visar att du kan anpassa undervisningen. Nämn gärna samarbete med specialpedagog eller elevhälsoteam.'
+      },
+      {
+        q: 'Hur visar jag klassrumsledning utan att låta kontrollerande?',
+        a: 'Fokusera på strukturer och rutiner, inte kontroll. Skriv: "Jag skapar studiero genom tydliga rutiner, visuella scheman och aktiva lektioner där alla elever deltar. När störningar uppstår använder jag närhet och ögonkontakt innan verbal tillsägelse." Det visar ledarskap med respekt för eleverna.'
+      },
+      {
+        q: 'Ska jag nämna ämnesbehörighet och lärarlegitimation?',
+        a: 'Ja, nämn din legitimation och ämnesbehörighet tidigt. Skriv: "Jag har lärarlegitimation för årskurs 4-6 med ämnesbehörighet i matematik, NO och svenska." Om du undervisar utanför behörighet, var transparent: "Jag undervisar även i engelska och har gått fortbildning i språkdidaktik." Tydlighet bygger förtroende.'
+      },
+      {
+        q: 'Hur långt ska personligt brev för grundskollärare vara?',
+        a: 'Max en A4-sida, cirka 350-400 ord. Rektorer har begränsad tid och uppskattar koncis kommunikation. Fokusera på 2-3 konkreta klassrumsexempel som visar din pedagogiska kompetens snarare än att lista alla ämnen och årskurser du någonsin undervisat i. Kvalitet över kvantitet.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' },
+      { yrke: 'Lärare', slug: 'larare' }
+    ]
   }
 }
 
