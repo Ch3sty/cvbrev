@@ -849,6 +849,20 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Visa klassrumsledning, LGR22-kompetens och formativ bedömning för mellanstadiet eller högstadiet.',
       highlight: ['Klassrumsledning & studiero', 'Formativ bedömning & LGR22', 'Digital pedagogik & inkludering']
     }
+  },
+  {
+    id: 'socialsekreterare',
+    yrke: 'Socialsekreterare',
+    slug: 'socialsekreterare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 800,
+    icon: FileText,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'Visa juridisk kompetens i SoL/LVU, utredningsarbete enligt BBIC och förmåga att balansera rättssäkerhet med empati.',
+      highlight: ['SoL, LVU, LVM & BBIC', 'Treserva & biståndsbedömning', 'Tvärprofessionellt samarbete']
+    }
   }
 ]
 
