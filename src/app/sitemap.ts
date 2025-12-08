@@ -237,6 +237,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'lss-handlaggare',
     'hotellvard',
     'administrativ-assistent',
+    'boendestod',
     // Lägg till fler CV-exempel här när de skapas
   ];
 

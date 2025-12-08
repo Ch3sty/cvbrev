@@ -1000,6 +1000,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV-exempel för teamledare med coaching, målstyrning och agila metoder (Scrum, OKR) inom tech och kundtjänst.',
       highlight: ['NPS från 42 till 68, eNPS från 18 till 54', 'Jira, Lattice, Salesforce och CSM-certifierad', '10 direktrapporter, 4 interna befordringar']
     }
+  },
+  {
+    id: 'boendestod',
+    yrke: 'Boendestöd',
+    slug: 'boendestod',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 390,
+    icon: Heart,
+    gradient: 'from-rose-500 via-pink-600 to-rose-700',
+    preview: {
+      intro: 'CV för boendestödjare med fokus på ADL-träning, MI-samtal och lågaffektivt bemötande inom socialpsykiatri och LSS.',
+      highlight: ['78% brukare uppnådde självständighetsmål, 35% minskade krisinsatser', 'MI-certifierad, Studio 3 och Treserva/IBIC', 'SIP-samverkan med psykiatri, primärvård och socialtjänst']
+    }
   }
 ]
 

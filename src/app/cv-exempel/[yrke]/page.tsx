@@ -18777,6 +18777,253 @@ Praktik (assisterade VD med enklare uppgifter) → Kontorsassistent (80-100 bes�
       { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
       { yrke: 'Vårdadministratör', slug: 'vardadministrator' }
     ]
+  },
+
+  'boendestod': {
+    yrke: 'Boendestöd',
+    sokvolym: 390,
+    slug: 'boendestod',
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Boendestöd 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionell CV-mall för boendestödjare med exempel på ADL-träning, psykiatrisk omsorg, Treserva och MI. ATS-optimerat för socialpsykiatri och LSS-verksamhet.',
+    heroHeading: 'CV-exempel för Boendestöd',
+    heroSubtitle: 'Skapa ett professionellt CV som visar din kompetens inom socialpsykiatri och stödinsatser',
+    heroCtaText: 'Skapa ditt boendestöds-CV',
+    intro: 'Ett professionellt CV-exempel för boendestödjare som visar din kompetens inom ADL-träning, psykiatrisk omsorg, MI-samtal och dokumentation i socialpsykiatrisk verksamhet.',
+    seoIntro: `Söker du jobb som boendestödjare och behöver ett CV som visar din verkliga kompetens inom socialpsykiatri och LSS? Det här exemplet är optimerat för ATS-system och visar hur du strukturerar ett CV som passar både kommunal och privat omsorgsverksamhet.
+
+Du får se exakt hur du balanserar praktiska stödfärdigheter (ADL-träning, lågaffektivt bemötande, krisintervention) med de mjuka kompetenser som rekryterare inom socialtjänst och LSS-verksamhet söker (empati, gränssättning, samverkan). CV:t visar konkreta resultat från boendestödsuppdrag med kvantifierbara exempel på brukarmål och självständighet.
+
+Använd det som inspiration för ditt eget cv boendestöd och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev för boendestöd för att öka dina chanser till intervju och visa att du förstår rollens krav på att stödja människor i deras vardag.
+
+Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, missbruksproblematik eller LSS-verksamhet. Genom att strukturera ditt CV med tydliga nyckelord som MI, lågaffektivt bemötande, Treserva och samordnad individuell plan (SIP) visar du att du är insatt i branschens terminologi och arbetssätt.`,
+    exempelCV: {
+      namn: 'Marcus Lindgren',
+      titel: 'Boendestödjare med specialisering i socialpsykiatri',
+      kontakt: {
+        epost: 'marcus.lindgren@email.se',
+        telefon: '073-456 78 90',
+        plats: 'Göteborg'
+      },
+      profil: 'Engagerad boendestödjare med 5+ års erfarenhet av stödinsatser för personer med psykisk funktionsnedsättning och missbruksproblematik. Gedigen kompetens i MI-samtal, lågaffektivt bemötande och ADL-träning med fokus på brukarens självständighet och delaktighet. Erfaren i Treserva-dokumentation, SIP-möten och samverkan med sjukvård, socialtjänst och Försäkringskassan. Lugn och trygg i krissituationer med förmåga att bygga förtroendefulla relationer.',
+      erfarenhet: [
+        {
+          titel: 'Boendestödjare socialpsykiatri',
+          arbetsgivare: 'Göteborgs Stad, Socialförvaltningen',
+          period: '2021 - nu',
+          beskrivning: [
+            'Ansvarar för 12-15 brukare med psykisk funktionsnedsättning: schizofrenidiagnos, bipolär sjukdom, depression och ångestproblematik',
+            'Genomför ADL-träning (matlagning, ekonomi, städ, hygien) med 78% av brukarna som uppnått sina självständighetsmål inom 12 månader',
+            'Använder MI-samtal och lågaffektivt bemötande vid motivationsarbete - dokumenterad minskning av krisinsatser med 35%',
+            'Deltar i SIP-möten och samverkar med psykiatri, primärvård, Försäkringskassan och anhöriga kring vårdplanering',
+            'Dokumenterar dagligen i Treserva enligt IBIC-modellen: genomförandeplaner, uppföljningar och händelseavvikelser'
+          ]
+        },
+        {
+          titel: 'Stödpedagog LSS-boende',
+          arbetsgivare: 'Humana Assistans AB, Göteborg',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Arbetade på gruppbostad för 6 brukare med autism och intellektuell funktionsnedsättning enligt LSS',
+            'Implementerade tydliggörande pedagogik och bildstöd som ökade brukarnas delaktighet i vardagsrutiner',
+            'Ansvarade för kontaktmannaskap för 2 brukare: genomförandeplaner, uppföljningar och anhörigkontakt',
+            'Hanterade utmanande beteenden med lågaffektivt bemötande - noll allvarliga incidenter under anställningen'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde psykiatrisk slutenvård',
+          arbetsgivare: 'Sahlgrenska Universitetssjukhuset, Göteborg',
+          period: '2017 - 2019',
+          beskrivning: [
+            'Arbetade på akutpsykiatrisk avdelning med patienter i akut kris: suicidriskbedömning, tvångsvård (LPT) och akut medicinering',
+            'Utförde omvårdnad, observation och stöd vid måltider, hygien och aktivering',
+            'Deltog i tvärprofessionella team med läkare, sjuksköterskor, psykologer och kuratorer'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Socialpedagogik med inriktning psykiatri',
+          skola: 'Göteborgs Folkhögskola',
+          period: '2016 - 2018',
+          beskrivning: 'Påbyggnadsutbildning med praktik inom socialpsykiatri och missbruksvård'
+        },
+        {
+          titel: 'Vård- och omsorgsprogrammet',
+          skola: 'Hvitfeldtska Gymnasiet, Göteborg',
+          period: '2013 - 2016',
+          beskrivning: 'Gymnasieutbildning med APL inom äldreomsorg och psykiatri'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Treserva dokumentationssystem - Avancerad (5+ år)',
+          'IBIC-modellen för genomförandeplaner och uppföljningar',
+          'MI - Motiverande samtal - Certifierad utbildning',
+          'Lågaffektivt bemötande - Studio 3-certifierad',
+          'SIP - Samordnad individuell plan och vårdplanering',
+          'KASAM och salutogent arbetssätt',
+          'Suicidriskbedömning och krisintervention',
+          'ADL-träning och pedagogiskt stöd'
+        ],
+        personliga: [
+          'Empati och förmåga att bygga förtroendefulla relationer',
+          'Lugn och trygg i krissituationer',
+          'Tydlig kommunikation och gränssättning',
+          'Samarbetsförmåga i tvärprofessionella team',
+          'Flexibilitet och anpassningsförmåga',
+          'Reflektion och självkännedom'
+        ]
+      },
+      certifieringar: [
+        'MI - Motiverande samtal, grundkurs (2023)',
+        'Lågaffektivt bemötande, Studio 3 (2022)',
+        'Första hjälpen och HLR (2024)',
+        'Suicidriskbedömning i praktiken (2021)',
+        'IBIC och dokumentation i Treserva (2020)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' },
+        { sprak: 'Arabiska', niva: 'Grundläggande' }
+      ]
+    },
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerade nyckelord för socialpsykiatri',
+        text: 'CV:t innehåller specifika termer som MI-samtal, lågaffektivt bemötande, Treserva, IBIC-modellen, SIP och ADL-träning - exakt de nyckelord som ATS-system och rekryterare inom socialtjänst letar efter.\n\nVarför detta fungerar: Kommuner och omsorgsbolag filtrerar ofta på specifika utbildningar och metoder. Genom att namnge exakta certifieringar (Studio 3, MI grundkurs) och dokumentationssystem (Treserva med IBIC) passerar ditt CV automatisk filtrering.'
+      },
+      {
+        rubrik: 'Kvantifierade resultat som visar faktisk påverkan',
+        text: 'CV:t innehåller konkreta mätbara resultat: 78% av brukarna uppnådde självständighetsmål, 35% minskning av krisinsatser, 12-15 brukare i caseload och noll allvarliga incidenter under LSS-anställningen.\n\nVarför detta fungerar: Siffror ger trovärdighet. "Ansvarig för boendestöd" säger ingenting om kvalitet. Att visa att dina brukare faktiskt blir mer självständiga och att kriser minskar bevisar att ditt arbetssätt fungerar.'
+      },
+      {
+        rubrik: 'Tydlig progression från slutenvård till självständig roll',
+        text: 'CV:t visar karriärutveckling från vårdbiträde på psykiatrisk slutenvård (akut, teambaserat) till stödpedagog på LSS-boende (gruppbostad, strukturerat) till boendestödjare i socialpsykiatri (självständigt, ambulerande).\n\nVarför detta fungerar: Progression visar att du utvecklats och tagit dig an mer komplexa uppgifter. Från stödfunktion i team till självständigt ansvar för 12-15 brukare signalerar att arbetsgivare litat på dig med ökande ansvar.'
+      },
+      {
+        rubrik: 'Balans mellan praktiska och relationella kompetenser',
+        text: 'CV:t visar både tekniska färdigheter (Treserva, IBIC, MI, lågaffektivt bemötande) och mjuka kompetenser (empati, lugn i krissituationer, tydlig kommunikation). Båda är kritiska för boendestöd.\n\nVarför detta fungerar: Boendestöd kräver både systemkunskap och relationsbyggande. Genom att visa att du dokumenterar korrekt OCH bygger förtroende visar du att du klarar hela rollen - inte bara halva.'
+      },
+      {
+        rubrik: 'Specifika målgrupper och diagnoser namngivna',
+        text: 'CV:t specificerar exakta diagnosgrupper: schizofrenidiagnos, bipolär sjukdom, depression och ångestproblematik, autism och intellektuell funktionsnedsättning, missbruksproblematik.\n\nVarför detta fungerar: Rekryterare söker ofta specifik erfarenhet av vissa målgrupper. Genom att namnge diagnoser visar du att du har praktisk erfarenhet av de brukare arbetsgivaren faktiskt har.'
+      },
+      {
+        rubrik: 'Samverkanskompetens och SIP-erfarenhet',
+        text: 'CV:t betonar samverkan med psykiatri, primärvård, Försäkringskassan, anhöriga och socialtjänst. Deltagande i SIP-möten och tvärprofessionella team lyfts fram.\n\nVarför detta fungerar: Boendestöd är inte isolerat arbete - det kräver samordning med många aktörer. Genom att visa att du navigerar SIP-möten och samverkar professionellt visar du att du förstår systemet runt brukaren.'
+      }
+    ],
+    tips: [
+      {
+        rubrik: 'Namnge specifika metoder och utbildningar',
+        text: `Lista inte bara "lågaffektivt bemötande" utan ange vilken utbildning du har (Studio 3, Ross Greene, etc.). Specificera MI-utbildning (grundkurs, fördjupning, certifiering) och namnge dokumentationssystem (Treserva, Pulsen Combine, Viva).
+
+**Exempel på före/efter:**
+
+❌ "Erfarenhet av lågaffektivt bemötande och motiverande samtal"
+
+✅ "Lågaffektivt bemötande - Studio 3-certifierad (2022). MI - Motiverande samtal, grundkurs MINT-certifierad utbildare (2023)"`
+      },
+      {
+        rubrik: 'Kvantifiera brukarresultat och självständighetsmål',
+        text: `Visa konkreta resultat av ditt arbete med brukare. Hur många uppnådde sina mål i genomförandeplanen? Hur stor andel blev mer självständiga? Minskade krisinsatser eller tvångsåtgärder?
+
+**Exempel på före/efter:**
+
+❌ "Arbetade med ADL-träning för brukare med psykisk funktionsnedsättning"
+
+✅ "Genomförde ADL-träning med 78% av brukarna som uppnått sina självständighetsmål inom 12 månader - minskning av hemtjänstinsatser med 20%"`
+      },
+      {
+        rubrik: 'Specificera målgrupper och diagnoser',
+        text: `Namnge de specifika målgrupper du arbetat med: psykosdiagnoser, neuropsykiatriska funktionsnedsättningar, missbruk/samsjuklighet, intellektuell funktionsnedsättning. Rekryterare söker ofta erfarenhet av specifika diagnosgrupper.
+
+**Exempel på före/efter:**
+
+❌ "Arbetat med personer med psykiska problem"
+
+✅ "Ansvarar för 12-15 brukare med psykisk funktionsnedsättning: schizofrenidiagnos, bipolär sjukdom, depression med ångestproblematik och samsjuklighet missbruk/psykiatri"`
+      },
+      {
+        rubrik: 'Lyft fram dokumentationskompetens med IBIC',
+        text: `Dokumentation är en stor del av boendestödsarbetet. Visa att du behärskar IBIC-modellen, genomförandeplaner, uppföljningar och avvikelserapportering. Namnge vilket system du använt.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för dokumentation"
+
+✅ "Dokumenterar dagligen i Treserva enligt IBIC-modellen: genomförandeplaner med ICF-kodning, uppföljningar var 6:e månad och händelseavvikelser enligt Lex Sarah"`
+      },
+      {
+        rubrik: 'Visa samverkanskompetens konkret',
+        text: `Boendestöd kräver samarbete med många aktörer. Visa att du deltar i SIP-möten, samverkar med psykiatri/primärvård och kommunicerar professionellt med anhöriga.
+
+**Exempel på före/efter:**
+
+❌ "God samarbetsförmåga"
+
+✅ "Deltar i SIP-möten och samverkar aktivt med psykiatri, primärvård, Försäkringskassan och anhöriga kring individuell vårdplanering - ansvarig för 8-10 SIP per år"`
+      },
+      {
+        rubrik: 'Beskriv krishantering med konkreta resultat',
+        text: `Förmåga att hantera krissituationer är kritiskt för boendestöd. Visa hur du använder lågaffektivt bemötande och krisintervention - gärna med mätbara resultat.
+
+**Exempel på före/efter:**
+
+❌ "Erfaren av krishantering"
+
+✅ "Använder lågaffektivt bemötande vid eskalerande situationer - dokumenterad minskning av krisinsatser med 35% och noll tvångsåtgärder under senaste 24 månaderna"`
+      }
+    ],
+    faq: [
+      {
+        question: 'Vilka certifieringar är viktigast för boendestöd?',
+        answer: 'MI (Motiverande samtal) och lågaffektivt bemötande (Studio 3 eller liknande) är de mest efterfrågade. Därutöver värdesätts IBIC-utbildning, suicidriskbedömning, första hjälpen/HLR och eventuellt tydliggörande pedagogik för LSS. Lista alltid utbildningsår och vilken organisation som certifierade dig.'
+      },
+      {
+        question: 'Hur visar jag min dokumentationskompetens i CV:t?',
+        answer: 'Namnge vilket system du använt (Treserva, Pulsen Combine, Viva) och vilken dokumentationsmodell (IBIC, ÄBIC). Beskriv konkret vad du dokumenterat: genomförandeplaner med ICF-kodning, uppföljningar, riskbedömningar, avvikelser enligt Lex Sarah. Visa att du förstår både det tekniska och det juridiska.'
+      },
+      {
+        question: 'Ska jag nämna specifika diagnoser i mitt CV?',
+        answer: 'Ja, namnge de diagnosgrupper du har praktisk erfarenhet av: schizofrenispektrum, bipolär sjukdom, depression/ångest, PTSD, autism, ADHD, intellektuell funktionsnedsättning, missbruk/samsjuklighet. Rekryterare söker ofta specifik erfarenhet och detta hjälper även ATS-matchning.'
+      },
+      {
+        question: 'Hur beskriver jag SIP-möten och samverkan i mitt CV?',
+        answer: 'Visa att du deltar aktivt i SIP-möten (samordnad individuell plan) och samverkar med psykiatri, primärvård, Försäkringskassan, god man och anhöriga. Kvantifiera om möjligt: hur många SIP per år, vilka aktörer du samverkar med regelbundet. Detta visar att du förstår hela systemet runt brukaren.'
+      },
+      {
+        question: 'Hur visar jag att jag kan hantera krissituationer?',
+        answer: 'Beskriv konkreta metoder du använder (lågaffektivt bemötande, krisintervention, suicidriskbedömning) och visa resultat om möjligt: minskade krisinsatser, inga tvångsåtgärder, framgångsrik nedtrappning. Visa också att du har utbildning i krismetodik genom att namnge certifieringar.'
+      },
+      {
+        question: 'Vilken skillnad är det mellan boendestöd och personlig assistans?',
+        answer: 'Boendestöd fokuserar på att träna och stödja personer mot ökad självständighet - du "gör med" brukaren. Personlig assistans är att utföra uppgifter som brukaren inte kan göra själv - du "gör åt" brukaren. I boendestöd är pedagogik och motivationsarbete centralt. Tydliggör i CV:t vilken inriktning du har erfarenhet av.'
+      },
+      {
+        question: 'Hur viktig är körkort för boendestöd?',
+        answer: 'Körkort B är ofta krav för ambulerande boendestöd då du besöker brukare i deras hem över ett geografiskt område. Nämn körkort och tillgång till bil i CV:t om du har det. För boendestöd på gruppbostad är det mindre kritiskt men fortfarande meriterande.'
+      },
+      {
+        question: 'Ska jag inkludera erfarenhet från slutenvård i mitt CV?',
+        answer: 'Ja, erfarenhet från psykiatrisk slutenvård är relevant och visar att du hanterat akuta situationer, tvångsvård och samarbetat i vårdteam. Det ger trovärdighet för din förmåga att hantera kriser och din förståelse för psykiatrisk vård. Visa hur du utvecklats från slutenvård till öppenvård/boendestöd.'
+      },
+      {
+        question: 'Hur beskriver jag ADL-träning på ett professionellt sätt?',
+        answer: 'Specificera vilka ADL-områden du arbetat med: matlagning/nutrition, ekonomi/budget, städ/hygien, social träning, samhällsorientering. Visa resultat: hur många brukare uppnådde mål, minskade stödinsatser, ökad självständighet. Undvik vaga formuleringar som "hjälpte till med vardagen".'
+      },
+      {
+        question: 'Vilka språkkunskaper är värdefulla för boendestöd?',
+        answer: 'Förutom svenska är arabiska, persiska/dari, somaliska och tigrinja särskilt efterfrågade inom socialtjänst och boendestöd då många brukare har utländsk bakgrund. Engelska är grundkrav. Lista alla språk med nivå och var inte blyg för att nämna även grundläggande kunskaper.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Stödpedagog', slug: 'stodpedagog' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Kurator', slug: 'kurator' }
+    ]
   }
 }
 
