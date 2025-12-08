@@ -1056,6 +1056,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för logistikassistent med WMS-system, truckcertifikat och kvantifierbara resultat inom godshantering och lagerlogistik.',
       highlight: ['200-250 orderrader/dag med 99.7% plockprecision', 'Ongoing, Consafe Logistics, SAP och truckkort A1-A4', 'Senior logistikassistent med lageroptimering']
     }
+  },
+  {
+    id: 'terminalarbetare',
+    yrke: 'Terminalarbetare',
+    slug: 'terminalarbetare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: Package,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'CV för terminalarbetare med cross-docking, WMS/TMS-system och truckcertifikat för godshantering på terminal.',
+      highlight: ['180-220 pallar/skift med 98.5% lastoptimering', 'WMS (Ongoing, Consafe), TMS och truckkort A1-A4', 'ADR-certifierad med noll arbetsolyckor']
+    }
   }
 ]
 
@@ -1220,7 +1234,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  70 yrken
+                  71 yrken
                 </motion.span>
               </h1>
 

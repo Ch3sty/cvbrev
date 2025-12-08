@@ -19740,6 +19740,245 @@ Använd det som inspiration för ditt eget CV logistikassistent och anpassa det 
       { yrke: 'Truckförare', slug: 'truckforare' },
       { yrke: 'Lagerchef', slug: 'lagerchef' }
     ]
+  },
+
+  'terminalarbetare': {
+    yrke: 'Terminalarbetare',
+    slug: 'terminalarbetare',
+    kategori: 'logistik',
+    metaTitle: 'CV Exempel Terminalarbetare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för terminalarbetare med truckkörning, godshantering och WMS-system. ATS-optimerad mall som lyfter din logistikbakgrund och säkerhetskompetens.',
+
+    seoIntro: `Söker du jobb som terminalarbetare och behöver ett CV som fungerar med ATS-system? Det här exemplet visar exakt hur du strukturerar ditt CV för att matcha logistikföretags krav på godshantering, cross-docking och terminalhantering.
+
+Du får se hur du framhäver WMS-system (Ongoing, Consafe Logistics), TMS (Transport Management System), truckcertifikat och kvantifierbara resultat som godsvolymer, lastnings- och lossningseffektivitet samt säkerhetsresultat. CV:t visar konkret erfarenhet från inbound/outbound-processer, skiftarbete och samarbete med transport.
+
+Använd det som inspiration för ditt eget CV terminalarbetare och anpassa det efter den tjänst du söker. Med rätt nyckelord och dokumenterad erfarenhet från terminal och godsflöde ökar du dina chanser att passera första urvalet.`,
+
+    viktigtAttTankaPa: [
+      'Specificera WMS och TMS-system du använt med antal års erfarenhet och vilka processer du hanterat',
+      'Kvantifiera godsvolymer per skift (antal pallar, gods-enheter eller ton) och din lastnings- och lossningseffektivitet',
+      'Lista alla truckcertifikat (A1-A4, B1-B4) med årtal för att bevisa giltighet och typ av lastbärare du hanterat',
+      'Visa konkreta säkerhetsresultat som noll olyckor, reducerade skador eller förbättrade säkerhetsrutiner'
+    ],
+
+    exempelCV: {
+      namn: 'Marcus Bergström',
+      titel: 'Terminalarbetare | Cross-docking och godshantering',
+      kontakt: {
+        telefon: '070-456 78 90',
+        epost: 'marcus.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/marcusbergstrom'
+      },
+
+      profil: 'Erfaren terminalarbetare med 6+ års erfarenhet från cross-docking, inbound/outbound-processer och godshantering i högvolymmiljö. Specialist på WMS-system (Ongoing, Consafe Logistics) och TMS för optimal lastplanering. Truckkort A1-A4 och B-körkort med dokumenterad säkerhet (noll arbetsolyckor sedan 2019). Noggrann teamspelare som prioriterar effektivt godsflöde, terminalhantering och säkerhet på terminal.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Terminalarbetare',
+          arbetsgivare: 'DHL Freight Sweden AB, Göteborg',
+          period: '2021 - Pågående',
+          beskrivning: [
+            'Hanterar 180-220 pallar per skift i cross-docking-miljö med 98.5% lastoptimering och korrekt godsflöde enligt TMS',
+            'Ansvarar för inbound-mottagning av 40-60 lastbilar dagligen med kvalitetskontroll, scanning av streckkoder och WMS-uppdatering (Ongoing)',
+            'Optimerade lastnings- och lossningsrutiner vilket minskade godshanteringstid per trailer med 22% (från 45 till 34 minuter)',
+            'Utför daglig terminalhantering av EUR-pallar och GBOX med truckkort A1-A4, inklusive lastbärarhantering och säkerhetsinspektion',
+            'Noll arbetsolyckor under 4 år genom systematisk riskbedömning och efterlevnad av säkerhetsrutiner för terminal'
+          ]
+        },
+        {
+          titel: 'Terminalarbetare',
+          arbetsgivare: 'DB Schenker Logistics AB, Borås',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Ansvarade för outbound-lastning av 30-45 lastbilar per skift med korrekt lastoptimering enligt gods-typ och destination',
+            'Genomförde godshantering och scanning av 150-200 gods-enheter per skift i Consafe Logistics WMS-system',
+            'Minskade godsskador med 30% genom implementering av förbättrade hanteringsrutiner och tydligare märkning',
+            'Samarbetade med transport och logistikplanerare för optimal timing och effektivt godsflöde',
+            'Jobbade flexibelt i skiftarbete (dag/natt/helg) med bibehållen hög kvalitet och säkerhet'
+          ]
+        },
+        {
+          titel: 'Lagermedarbetare',
+          arbetsgivare: 'PostNord TPL AB, Göteborg',
+          period: '2018 - 2019',
+          beskrivning: [
+            'Utförde plockning, packning och godshantering av 120-160 kollin per skift',
+            'Deltog i införande av nytt WMS-system vilket förbättrade lagerprecision från 94% till 98.5%',
+            'Genomförde truckkörning (A1-A2) för intern transport av pallar och gods upp till 1500 kg'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Yrkesutbildning Lager och Terminal',
+          skola: 'TUC Yrkeshögskola, Göteborg',
+          period: '2017 - 2018',
+          beskrivning: 'Praktik på DHL Freight under termin 2 (12 veckor). Certifiering i WMS-system, TMS och truckkörning A1-A4.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'WMS-system: Ongoing (Expert, 4+ år), Consafe Logistics (Avancerad, 2+ år)',
+          'TMS - Transport Management System (Avancerad, 3+ år)',
+          'Truckkort A1-A4 - motvikstruck och ledstaplare (Expert, 6+ år)',
+          'Cross-docking och terminalhantering',
+          'Godshantering: EUR-pallar, GBOX, lastbärarhantering',
+          'Scanning och streckkodssystem (RF-scanner, handdator)',
+          'Lastning och lossning med lastoptimering',
+          'Inbound/outbound-processer och godsflöde'
+        ],
+        personliga: [
+          'Säkerhetsmedveten (noll arbetsolyckor sedan 2019, 4+ års felfri körning)',
+          'Noggrann och detaljorienterad (98.5% lastoptimering över 3 år)',
+          'Fysiskt uthållig (hanterar 180-220 pallar/skift, lyft upp till 25 kg)',
+          'Teamorienterad och kommunikativ',
+          'Flexibel (erfarenhet av skiftarbete: dag/natt/helg)',
+          'Stresstålig och effektiv under högt tempo'
+        ]
+      },
+
+      certifieringar: [
+        'Truckkort A1 - Motviktstruck (2018, förlängt 2024)',
+        'Truckkort A2 - Ledstaplare (2018, förlängt 2024)',
+        'Truckkort A4 - Skjutstativtruck (2019)',
+        'B-körkort (2015, 9+ års erfarenhet)',
+        'ADR Grundkurs - Farligt gods hantering (2022)',
+        'Säkerhetsutbildning Terminal - DHL Freight (2023)',
+        'HLR och Första hjälpen (förnyad 2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS känner igen WMS, TMS och truckcertifikat',
+        text: `CV:t nämner specifika WMS-system som Ongoing och Consafe Logistics tillsammans med TMS (Transport Management System), konkreta truckcertifikat (A1-A4) och branschtermer som cross-docking, inbound/outbound och godsflöde.
+
+**Varför detta fungerar:** Logistikföretag och terminaler använder dessa system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "Ongoing WMS-system med 4+ års erfarenhet" och "TMS för lastplanering" istället för bara "datorvana" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Truckkort A1-A4 med årtal bevisar omedelbart att du har giltiga certifikat, vilket sparar rekryteraren från att behöva verifiera detta i ett tidigt skede.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat visar faktisk arbetsbelastning',
+        text: `CV:t specificerar arbetsvolym: 180-220 pallar per skift, 40-60 lastbilar dagligen vid inbound-mottagning, och 98.5% lastoptimering. Konkreta förbättringsresultat inkluderar 22% minskad godshanteringstid och 30% färre godsskador.
+
+**Varför detta fungerar:** "Ansvarig för godshantering" säger ingenting om omfattning. "180-220 pallar per skift med 98.5% lastoptimering" visar att du hanterar högt tempo utan att kompromissa på kvalitet. Förbättringsmåtten (22% snabbare godshanteringstid) bevisar att du inte bara utför arbetet, du optimerar processer. Rekryterare ser omedelbart att du kan leverera mätbara resultat som påverkar terminalens effektivitet och lönsamhet.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och säkerhet',
+        text: `CV:t kombinerar tekniska färdigheter (WMS-system, TMS, truckkörning, cross-docking) med konkreta säkerhetsresultat: noll arbetsolyckor sedan 2019, systematisk riskbedömning och 30% minskade godsskador genom förbättrade hanteringsrutiner.
+
+**Varför detta fungerar:** Många kandidater listar "säkerhetsmedveten" utan att bevisa det. Marcus visar säkerhet genom handling: noll olyckor över 4 år, dokumenterad riskbedömning och konkret skadereducering. Detta skiljer honom från kandidater som bara nämner säkerhet som en fras. Rekryterare ser att du förstår att säkerhet direkt påverkar både kostnader och arbetsmiljö på terminal - och att du tar ansvar för det.`
+      },
+      {
+        rubrik: 'Aktuella certifieringar visar giltiga kompetenser',
+        text: `CV:t listar truckkort med exakta datum: "Truckkort A1 - Motvikstruck (2018, förlängt 2024)" och specialcertifieringar som ADR Grundkurs (2022), Säkerhetsutbildning Terminal (2023) och HLR (förnyad 2024). Varje certifiering har årtal och koppling till faktiskt arbete.
+
+**Varför detta fungerar:** Truckkort utan årtal kan betyda utgångna certifikat. Genom att visa förnyelsedatum slipper du frågan "är dina truckkort giltiga?". ADR-certifiering öppnar dörrar till terminaler med farligt gods, vilket ger konkurrensfördel. Säkerhetsutbildning Terminal visar att du är inskolad i arbetsgivarens säkerhetsrutiner. Rekryterare ser att de kan anställa dig direkt utan att omedelbart skicka dig på obligatoriska utbildningar - vilket sparar både tid och pengar.`
+      },
+      {
+        rubrik: 'Profiltext optimerad för terminalbranschen',
+        text: `Profiltexten öppnar med "Erfaren terminalarbetare med 6+ års erfarenhet från cross-docking, inbound/outbound-processer och godshantering i högvolymmiljö". Detta följs direkt av specialisering: WMS-system (Ongoing, Consafe Logistics), TMS, truckkort A1-A4 och dokumenterad säkerhet (noll arbetsolyckor sedan 2019).
+
+**Varför detta fungerar:** Rekryterare läser profiltexten först. Om den inte innehåller rätt nyckelord i första meningen, läser de inte vidare. Marcus nämner "cross-docking", "inbound/outbound" och "högvolymmiljö" direkt - vilket matchar exakt vad terminaler söker. WMS och TMS i kombination med truckkort bevisar omedelbart att han kan börja arbeta dag ett. Säkerhetsfokus (noll olyckor) minskar arbetsgivarens risk och visar att han prioriterar rätt saker.`
+      },
+      {
+        rubrik: 'Tydlig progression från lagerarbetare till senior roll',
+        text: `Erfarenheten visar utveckling: från 120-160 kollin/skift på PostNord, till 150-200 gods-enheter/skift på Schenker med outbound-ansvar, till 180-220 pallar/skift som Senior Terminalarbetare på DHL med cross-docking och inbound-mottagning av 40-60 lastbilar. Varje roll har ökad komplexitet och ansvar.
+
+**Varför detta fungerar:** Många terminalarbetare listar jobb utan att visa utveckling. Marcus progression från grundläggande lagerarbete till avancerad terminalhantering visar att han inte bara stannat kvar - han har växt. Volymen ökar (120 till 220 enheter/skift), ansvaret växer (från plock till cross-docking och inbound-mottagning), och kvaliteten förbättras (94% till 98.5% precision). Detta signalerar att du är redo för nästa steg och kan ta dig an mer avancerade uppgifter som skiftledare eller terminalsamordnare.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera specifika WMS och TMS-system du använt',
+        text: `ATS-system söker efter specifika termer som Ongoing, Consafe Logistics, SAP WMS och TMS. Identifiera vilka system som nämns i jobbannonsen och använd dem ordagrant med antal års erfarenhet.
+
+**Exempel på före/efter:**
+❌ "Erfarenhet av terminalsystem och godshantering"
+✅ "6 års daglig användning av Ongoing WMS för inbound/outbound-processer och TMS för lastplanering. Hanterar 180-220 pallar per skift med scanning, streckkodssystem och korrekt godsflöde enligt cross-docking-principer."`
+      },
+      {
+        rubrik: 'Kvantifiera din godshantering med konkreta volymer',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera antal pallar, gods-enheter, lastbilar eller ton per skift.
+
+**Exempel på före/efter:**
+❌ "Ansvarig för lastning och lossning på terminal"
+✅ "Hanterar inbound-mottagning av 40-60 lastbilar per skift med kvalitetskontroll och scanning av 180-220 EUR-pallar. Outbound-lastning med 98.5% lastoptimering enligt TMS och destinations-specifik godsflöde."`
+      },
+      {
+        rubrik: 'Betona säkerhetsresultat och certifieringar tydligt',
+        text: `Terminalarbete innebär tunga lyft, truckkörning och högt tempo. Rekryterare söker efter kandidater som prioriterar säkerhet och har dokumenterade resultat. Visa konkreta säkerhetsresultat och aktuella certifieringar.
+
+**Exempel på före/efter:**
+❌ "Säkerhetsmedveten med truckkort och utbildning"
+✅ "Noll arbetsolyckor sedan 2019 genom systematisk riskbedömning och efterlevnad av säkerhetsrutiner. Truckkort A1-A4 (förlängda 2024), ADR Grundkurs (2022), Säkerhetsutbildning Terminal (2023). Minskade godsskador med 30% genom förbättrade hanteringsrutiner."`
+      },
+      {
+        rubrik: 'Visa flexibilitet med skiftarbete och högsäsonger',
+        text: `Terminalarbete innebär ofta skiftarbete (dag/natt/helg) och högsäsonger med extremt högt tempo. Om du har erfarenhet av detta, lyft fram det tydligt. Detta är en stor konkurrensfördel.
+
+**Exempel på före/efter:**
+❌ "Erfarenhet av terminalarbete"
+✅ "6 års flexibelt skiftarbete (dag/natt/helg) med bibehållen hög kvalitet och 98.5% lastoptimering. Hanterat högsäsonger (Q4) med 40% ökad godsvolym utan kompromiss på säkerhet eller effektivitet."`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för terminalarbetare innehålla?',
+        svar: 'Ett CV för terminalarbetare ska innehålla specifika WMS-system (Ongoing, Consafe Logistics) och TMS, kvantifierad godsvolym (antal pallar/gods-enheter per skift), truckcertifikat (A1-A4 med årtal), B-körkort, certifieringar (ADR, säkerhetsutbildning, HLR), och konkreta exempel på cross-docking, inbound/outbound-processer och godshantering. Betona säkerhetsresultat, flexibilitet med skiftarbete och erfarenhet av högvolymmiljö.'
+      },
+      {
+        fraga: 'Hur skriver jag om erfarenhet av cross-docking i mitt CV?',
+        svar: 'Beskriv cross-docking konkret: "Hanterar 180-220 pallar per skift i cross-docking-miljö med direkt omlastning från inbound till outbound utan lagerlagring. TMS-baserad lastplanering för optimal godsflöde och 98.5% lastoptimering." Inkludera volymer, system du använt och resultat. Cross-docking kräver högt tempo och precision.'
+      },
+      {
+        fraga: 'Vilka truckcertifikat behöver terminalarbetare ha?',
+        svar: 'De flesta terminaler kräver minst Truckkort A1 (motvikstruck) och A2 (ledstaplare). Många söker även A4 (skjutstativtruck) för terminal med begränsat utrymme. Lista alla dina truckkort med årtal för utfärdande och förnyelse: "Truckkort A1-A4 (2018, förlängda 2024)". B-körkort är ofta ett krav för terminalarbetare som även kör lastbilar kortare sträckor inom terminalområdet.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag min arbetsbelastning som terminalarbetare?',
+        svar: 'Ange antal pallar/gods-enheter per skift, antal lastbilar du hanterar vid inbound/outbound, och lastoptimeringsprocent. Exempel: "Inbound-mottagning av 40-60 lastbilar per skift med 180-220 EUR-pallar. Outbound-lastning med 98.5% lastoptimering." Om du förbättrat godshanteringstid eller minskat skador, ange procent: "Minskade godshanteringstid med 22%".'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan WMS och TMS för terminalarbetare?',
+        svar: 'WMS (Warehouse Management System) används för lagerhantering, scanning och godsregistrering. TMS (Transport Management System) används för transportplanering, lastoptimering och ruttplanering. Som terminalarbetare använder du ofta båda: WMS för att registrera inbound-gods och TMS för att planera outbound-lastning. Nämn båda systemen om du har erfarenhet: "Ongoing WMS för godsregistrering och TMS för lastplanering".'
+      },
+      {
+        fraga: 'Hur visar jag säkerhetsmedvetenhet i mitt CV som terminalarbetare?',
+        svar: 'Visa säkerhet med konkreta resultat: "Noll arbetsolyckor sedan 2019", "Minskade godsskador med 30% genom förbättrade hanteringsrutiner", "Genomför daglig säkerhetsinspektion av truckar och terminal". Lista säkerhetscertifieringar: ADR Grundkurs, Säkerhetsutbildning Terminal, HLR. Betona systematisk riskbedömning och efterlevnad av säkerhetsrutiner.'
+      },
+      {
+        fraga: 'Behöver terminalarbetare kunna engelska?',
+        svar: 'Grundläggande engelska är värdefullt på internationella terminaler där du möter utländska chaufförer och hanterar gods från utlandet. Många WMS och TMS-system har engelska gränssnitt. Om du har engelska kunskaper, nämn det: "Engelska - Grundläggande (kan kommunicera med internationella chaufförer och läsa fraktsedlar)". För terminaler med inrikes gods är svenska oftast tillräckligt.'
+      },
+      {
+        fraga: 'Hur beskriver jag skiftarbete i mitt CV?',
+        svar: 'Betona flexibilitet och bibehållen kvalitet: "6 års erfarenhet av skiftarbete (dag/natt/helg) med bibehållen 98.5% lastoptimering och noll säkerhetsincidenter. Hanterat högsäsonger med 40% ökad godsvolym." Detta visar att du kan arbeta flexibelt utan att kompromissa på kvalitet eller säkerhet - något som är högt värderat på terminaler med 24/7-drift.'
+      },
+      {
+        fraga: 'Vad är inbound och outbound på en terminal?',
+        svar: 'Inbound är godsmottagning: lastbilar kommer in till terminalen, du lossar gods, scannar streckkoder och registrerar i WMS. Outbound är godsutlastning: du plockar gods enligt destination, optimerar lastning och skickar iväg lastbilar. På cross-docking-terminaler går gods direkt från inbound till outbound utan lagerlagring. Beskriv båda processerna: "Inbound-mottagning av 40-60 lastbilar" och "Outbound-lastning med lastoptimering".'
+      },
+      {
+        fraga: 'Hur skriver jag om erfarenhet av farligt gods (ADR)?',
+        svar: 'Om du har ADR-certifiering, lyft fram den tydligt: "ADR Grundkurs - Farligt gods hantering (2022)". Beskriv konkret erfarenhet: "Hanterar farligt gods enligt ADR-klassificering med korrekt märkning, separering och dokumentation. Säkerställer efterlevnad av lagrings- och transportföreskrifter för klass 3, 4 och 9." ADR-certifiering öppnar dörrar till specialiserade terminaler och ger högre lön.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Logistikassistent', slug: 'logistikassistent' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Truckförare', slug: 'truckforare' }
+    ]
   }
 }
 

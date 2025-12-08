@@ -241,6 +241,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'koksbitrade',
     'barista',
     'logistikassistent',
+    'terminalarbetare',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
