@@ -19494,6 +19494,252 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
       { yrke: 'Bartender', slug: 'bartender' },
       { yrke: 'Köksbiträde', slug: 'koksbitrade' }
     ]
+  },
+
+  'logistikassistent': {
+    yrke: 'Logistikassistent',
+    slug: 'logistikassistent',
+    kategori: 'logistik',
+    metaTitle: 'CV Exempel Logistikassistent 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Skapa ett vinnande CV för logistikassistent med exempel på ATS-optimerad text, WMS-system och truckcertifikat. Öka dina chanser till anställning med professionell layout.',
+
+    seoIntro: `Söker du jobb som logistikassistent och behöver ett CV som fungerar med ATS-system? Det här exemplet visar exakt hur du strukturerar ditt CV för att matcha svenska logistikföretags krav.
+
+Du får se hur du framhäver WMS-system (Ongoing, Consafe Logistics, SAP), truckcertifikat och kvantifierbara resultat som plockprecision och orderhantering per dag. CV:t visar konkret erfarenhet från godshantering, inleverans och utleverans med fokus på FIFO-principer och lagersäkerhet.
+
+Använd det som inspiration för ditt eget CV logistikassistent och anpassa det efter den tjänst du söker. Med rätt nyckelord och dokumenterad erfarenhet ökar du dina chanser att passera första urvalet.`,
+
+    viktigtAttTankaPa: [
+      'Specificera WMS-system du använt (Ongoing, Consafe, SAP) med antal års erfarenhet',
+      'Kvantifiera din plockprecision och antal orderrader du hanterar per dag',
+      'Lista truckcertifikat med årtal och typ (A1-A4) för att bevisa giltighet',
+      'Visa konkreta resultat från lageroptimering eller effektivisering du bidragit till'
+    ],
+
+    exempelCV: {
+      namn: 'Erik Johansson',
+      titel: 'Logistikassistent | WMS och godshantering',
+      kontakt: {
+        telefon: '070-345 67 89',
+        epost: 'erik.johansson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikjohansson'
+      },
+
+      profil: 'Erfaren logistikassistent med 5+ års erfarenhet från högvolymlager och e-handel. Specialist på WMS-system (Ongoing, Consafe Logistics) och godshantering med truckkort A1-A4. Gedigen kunskap i FIFO-principer, plockprecision på 99.7% och effektiv orderhantering. Noggrann teamspelare som prioriterar lagersäkerhet och systematisk lageroptimering.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Logistikassistent',
+          arbetsgivare: 'Schenker Logistics AB, Stockholm',
+          period: '2021 - Pågående',
+          beskrivning: [
+            'Hanterar 200-250 orderrader per dag med plockprecision på 99.7% i Ongoing WMS-system',
+            'Ansvarar för inleverans och kvalitetskontroll av 80-120 godsenheter dagligen, inklusive lageruppdatering och FIFO-hantering',
+            'Optimerade lagerlayout vilket minskade plocktid per order med 18% (från 4.2 till 3.4 minuter)',
+            'Utför daglig inventering av snabbgående artiklar och kvartalsinventering för hela lagersektionen (3 500+ artiklar)',
+            'Använder truckkort A1-A4 för intern transport och omlastning av pallar och containergods'
+          ]
+        },
+        {
+          titel: 'Logistikassistent',
+          arbetsgivare: 'Bring Citymail AB, Upplands Väsby',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Ansvarade för utleverans och plockning av 150-180 orderrader per dag i Consafe Logistics WMS-system',
+            'Genomförde godsmottagning och kvalitetskontroll med 98.5% noggrannhet i avvikelsehantering',
+            'Minskade lagerskador med 25% genom implementering av tydligare hanteringsrutiner och märkning',
+            'Samarbetade med transport för korrekt lastning enligt godshanteringsregler och säkerhetsföreskrifter'
+          ]
+        },
+        {
+          titel: 'Lagermedarbetare',
+          arbetsgivare: 'DHL Freight Sweden AB, Järfälla',
+          period: '2018 - 2019',
+          beskrivning: [
+            'Utförde plockning, packning och utleverans av 100-140 orderrader per dag i SAP-system',
+            'Deltog i lagernedstrukturering som förbättrade utnyttjandegrad från 78% till 91%',
+            'Genomförde truckkörning (A1-A2) för intern transport av pallar och gods upp till 1200 kg'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Yrkesutbildning Lager och Logistik',
+          skola: 'TUC Yrkeshögskola, Stockholm',
+          period: '2017 - 2018',
+          beskrivning: 'Praktik på PostNord TPL under termin 2 (10 veckor). Certifiering i WMS-system och truckkörning.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'WMS-system: Ongoing (Expert, 4+ år), Consafe Logistics (Avancerad, 2+ år)',
+          'SAP Warehouse Management (Grundläggande, 1+ år)',
+          'Truckkort A1-A4 - motviktstruck och ledstaplare (Expert, 5+ år)',
+          'Godshantering och FIFO-principer',
+          'Inventering och lagerkontroll',
+          'Handdator för plockning (RF-scanner, Honeywell)',
+          'Plockning och packning (högvolymlager)',
+          'Inleverans och utleverans med kvalitetskontroll'
+        ],
+        personliga: [
+          'Noggrann och detaljorienterad (99.7% plockprecision över 18 månader)',
+          'Säkerhetsmedveten (0 arbetsolyckor sedan 2019, genomfört 3 riskanalyser/år)',
+          'Fysiskt uthållig (hanterar 200-250 orderrader/dag, lyft upp till 25 kg)',
+          'Teamorienterad och kommunikativ',
+          'Strukturerad och effektiv under högt tempo',
+          'Flexibel (erfarenhet av skiftarbete och högsäsonger)'
+        ]
+      },
+
+      certifieringar: [
+        'Truckkort A1 - Motviktstruck (2018, förlängt 2023)',
+        'Truckkort A2 - Ledstaplare (2018, förlängt 2023)',
+        'Truckkort A4 - Skjutstativtruck (2019)',
+        'ADR Grundkurs - Farligt gods hantering (2022)',
+        'Arbetsmiljöutbildning - Säkerhet på lager (2021)',
+        'Första hjälpen och HLR (förnyad 2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS känner igen WMS-system och truckcertifikat direkt',
+        text: `CV:t nämner specifika WMS-system som Ongoing, Consafe Logistics och SAP tillsammans med konkreta truckcertifikat (A1-A4) och branschtermer som FIFO, plockprecision och godshantering.
+
+**Varför detta fungerar:** Logistikföretag använder dessa WMS-system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "Ongoing WMS-system med 4+ års erfarenhet" istället för bara "datorvana" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Truckkort A1-A4 med årtal bevisar omedelbart att du har giltiga certifikat, vilket sparar rekryteraren från att behöva verifiera detta i ett tidigt skede.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat visar faktisk arbetsbelastning',
+        text: `CV:t specificerar arbetsvolym: 200-250 orderrader per dag, 80-120 godsenheter vid inleverans, och plockprecision på 99.7%. Konkreta förbättringsresultat inkluderar 18% minskad plocktid och 25% färre lagerskador.
+
+**Varför detta fungerar:** "Ansvarig för plockning" säger ingenting om omfattning. "200-250 orderrader per dag med 99.7% precision" visar att du hanterar högt tempo utan att kompromissa på kvalitet. Förbättringsmåtten (18% snabbare plocktid) bevisar att du inte bara utför arbetet, du optimerar processer. Rekryterare ser omedelbart att du kan leverera mätbara resultat som påverkar företagets lönsamhet.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och lagersäkerhet',
+        text: `CV:t kombinerar tekniska färdigheter (WMS-system, truckkörning, FIFO-principer) med konkreta säkerhetsresultat: 0 arbetsolyckor sedan 2019, 3 riskanalyser per år, och 25% minskade lagerskador genom förbättrade hanteringsrutiner.
+
+**Varför detta fungerar:** Många kandidater listar "säkerhetsmedveten" utan att bevisa det. Erik visar säkerhet genom handling: noll olyckor, dokumenterade riskanalyser och konkret skadereducering. Detta skiljer honom från kandidater som bara nämner säkerhet som en fras. Rekryterare ser att du förstår att säkerhet direkt påverkar både kostnader och arbetsmiljö - och att du tar ansvar för det.`
+      },
+      {
+        rubrik: 'Aktuella certifieringar visar giltiga kompetenser',
+        text: `CV:t listar truckkort med exakta datum: "Truckkort A1 - Motvikstruck (2018, förlängt 2023)" och specialcertifieringar som ADR Grundkurs (2022) och HLR (förnyad 2024). Varje certifiering har årtal och koppling till faktiskt arbete.
+
+**Varför detta fungerar:** Truckkort utan årtal kan betyda utgångna certifikat. Genom att visa förnyelsedatum slipper du frågan "är dina truckkort giltiga?". ADR-certifiering öppnar dörrar till specialiserade lager med farligt gods, vilket ger konkurrensfördel. Rekryterare ser att de kan anställa dig direkt utan att omedelbart skicka dig på obligatoriska utbildningar - vilket sparar både tid och pengar.`
+      },
+      {
+        rubrik: 'Profiltext optimerad för logistikbranschen',
+        text: `Profiltexten öppnar med "Erfaren logistikassistent med 5+ års erfarenhet från högvolymlager och e-handel". Detta följs direkt av specialisering: WMS-system (Ongoing, Consafe Logistics), truckkort A1-A4, och kvantifierad plockprecision på 99.7%.
+
+**Varför detta fungerar:** Första meningen avgör om rekryterare läser vidare. "Erfaren logistikassistent" är vagt. "5+ års erfarenhet med Ongoing WMS och plockprecision 99.7%" visar omedelbart att du har djup erfarenhet inom specifika verktyg de troligen använder. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju. Profilen avslutas med personlighetsdrag relevanta för yrket: noggrannhet, lagersäkerhet och lageroptimering.`
+      },
+      {
+        rubrik: 'Tydlig progression från lagermedarbetare till senior roll',
+        text: `Erfarenheten visar utveckling: från 100-140 orderrader/dag på DHL, till 150-180 på Bring med ansvar för kvalitetskontroll, till 200-250 orderrader/dag som Senior Logistikassistent på Schenker med lageroptimering och inventering. Varje roll har ökad komplexitet och ansvar.
+
+**Varför detta fungerar:** Många logistikassistenter listar jobb utan att visa utveckling. Eriks progression från grundläggande plockning till lageroptimering och mentorskap visar att han inte bara stannat kvar - han har växt. Volymen ökar (100 till 250 orderrader/dag), ansvaret växer (från plock till inventering och optimering), och noggrannheten förbättras (98.5% till 99.7%). Detta signalerar att du är redo för nästa steg och kan ta dig an mer avancerade uppgifter.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din plockprecision och effektivitet',
+        text: `Rekryterare vill veta hur mycket du kan hantera och hur noggrann du är. Kvantifiera alltid med siffror: antal orderrader per dag, plockprecision i procent, och eventuella effektiviseringar du bidragit till.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarade för plockning och packning av order i lagret"
+
+✅ "Hanterar 200-250 orderrader per dag med plockprecision på 99.7% i Ongoing WMS-system"`
+      },
+      {
+        rubrik: 'Specificera WMS-system istället för "datorvana"',
+        text: `ATS-system söker efter specifika WMS-system och verktyg, inte generiska termer. "Datorvana" säger ingenting - "Ongoing WMS med 4+ års erfarenhet" visar konkret kompetens som matchar jobbannonsens krav.
+
+**Exempel på före/efter:**
+
+❌ "God datorvana och erfarenhet av affärssystem"
+
+✅ "WMS-system: Ongoing (Expert, 4+ år), Consafe Logistics (Avancerad, 2+ år), SAP Warehouse Management (Grundläggande, 1+ år)"`
+      },
+      {
+        rubrik: 'Visa truckkort med typ och förnyelsedatum',
+        text: `Truckcertifikat är ofta ett absolut krav för logistikassistent-tjänster. Men truckkort utan årtal kan betyda att certifikatet är ogiltigt - truckkort gäller normalt i 5 år och måste förnyas.
+
+**Exempel på före/efter:**
+
+❌ "Truckkort A och B"
+
+✅ "Truckkort A1 - Motviktstruck (2018, förlängt 2023), Truckkort A2 - Ledstaplare (2018, förlängt 2023), Truckkort A4 - Skjutstativtruck (2019)"`
+      },
+      {
+        rubrik: 'Framhäv FIFO och lageroptimering med konkreta resultat',
+        text: `FIFO-principer (First In First Out) och lageroptimering är grundläggande i logistik. Visa att du förstår dessa koncept genom konkreta exempel på hur du tillämpat dem.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarade för lagerkontroll och inventering"
+
+✅ "Utför daglig inventering av snabbgående artiklar enligt FIFO-principer och kvartalsinventering för 3 500+ artiklar. Optimerade lagerlayout vilket minskade plocktid per order med 18%"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vilka WMS-system ska jag inkludera i mitt CV som logistikassistent?',
+        svar: 'Nämn de WMS-system du faktiskt använt: Ongoing, Consafe Logistics, SAP WM, Manhattan, Astro eller liknande. Specificera antal års erfarenhet och kompetensnivå för varje system. Undvik generiska termer som "datorvana" - ATS-system söker efter specifika systemnamn. Om du använt handdatorer (RF-scanners från Honeywell eller Zebra), nämn även detta eftersom det är standardverktyg i moderna lager.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag min plockprecision om jag inte har exakta siffror?',
+        svar: 'Uppskatta konservativt baserat på ett typiskt skift. Räkna antal orderrader du plockade per dag och hur ofta du gjorde fel under en månad. Om du sällan gjorde fel (mindre än 1-2 gånger per 100 order), ligger din precision troligen över 98%. Kontakta tidigare arbetsgivare och fråga om de har statistik från WMS-systemet - många lager mäter detta automatiskt. Plockprecision över 99% anses vara professionell standard inom logistik.'
+      },
+      {
+        fraga: 'Vilka truckcertifikat behöver jag som logistikassistent?',
+        svar: 'De vanligaste är Truckkort A1 (motviktstruck) och A2 (ledstaplare). Många arbetsgivare kräver minst A1, och A2 öppnar fler möjligheter. A4 (skjutstativtruck) och A3 (höglyftande plocktruck) är meriterande. Visa alltid förnyelsedatum eftersom truckkort gäller i 5 år. ADR-certifiering (farligt gods) och Heta Arbeten ger konkurrensfördel för specialiserade logistiktjänster.'
+      },
+      {
+        fraga: 'Ska jag inkludera fysisk kapacitet i mitt CV för logistikassistent?',
+        svar: 'Ja, men visa det genom konkreta exempel istället för vaga påståenden. Istället för "fysiskt uthållig", skriv "hanterar 200-250 orderrader per dag, lyft upp till 25 kg". Detta visar att du förstår arbetsbelastningen och kan hantera den. Nämn också om du har erfarenhet av skiftarbete, högsäsonger eller högt tempo under längre perioder.'
+      },
+      {
+        fraga: 'Vad är FIFO och varför ska jag nämna det i mitt CV?',
+        svar: 'FIFO (First In First Out) innebär att äldsta produkterna plockas först för att minimera svinn och säkerställa fräschhet. Det är grundläggande inom lagerlogistik, särskilt för livsmedel, läkemedel och produkter med utgångsdatum. Nämn FIFO i ditt CV om du arbetat enligt denna princip, och kvantifiera gärna resultat som "minskade svinn med X%" eller "säkerställde 100% produktkvalitet genom strikt FIFO-hantering".'
+      },
+      {
+        fraga: 'Hur visar jag progression i mitt CV som logistikassistent?',
+        svar: 'Visa utveckling genom ökad arbetsvolym (från 100 till 250 orderrader/dag), förbättrad precision (98% till 99.7%), och utökat ansvar (från grundläggande plock till inventering och lageroptimering). Inkludera konkreta förbättringsinitiativ du lett eller deltagit i, som omlayout av lager eller implementering av nya rutiner. Progression signalerar att du är redo för nästa steg i karriären.'
+      },
+      {
+        fraga: 'Vilka säkerhetscertifieringar är viktiga för logistikassistent?',
+        svar: 'Arbetsmiljöutbildning för lager, Första hjälpen och HLR (förnyad), samt ADR Grundkurs om du hanterar farligt gods. Om du använder truck är Heta Arbeten relevant. Visa alltid årtal och förnyelsedatum. Komplettera med konkreta säkerhetsresultat som "0 arbetsolyckor sedan 2019" eller "genomfört 3 riskanalyser per år" för att bevisa att du tar säkerhet på allvar.'
+      },
+      {
+        fraga: 'Ska jag nämna både godshantering och orderhantering i mitt CV?',
+        svar: 'Ja, om du har erfarenhet av båda. Godshantering inkluderar inleverans, kvalitetskontroll och lageruppdatering. Orderhantering inkluderar plockning, packning och utleverans. Specificera vad du gjort: "Ansvarar för inleverans och kvalitetskontroll av 80-120 godsenheter dagligen" visar omfattning. Många logistikassistenter jobbar med båda, och det ger en mer komplett bild av din kompetens.'
+      },
+      {
+        fraga: 'Hur beskriver jag lageroptimering i mitt CV som logistikassistent?',
+        svar: 'Ge konkreta exempel med kvantifierade resultat. Istället för "deltog i lageroptimering", skriv "Optimerade lagerlayout vilket minskade plocktid per order med 18% (från 4.2 till 3.4 minuter)". Nämn vilka metoder du använt (5S, ABC-klassificering, förbättrade plockrutter) och vad resultatet blev i tid, kostnad eller kvalitet. Detta visar att du kan bidra till kontinuerlig förbättring.'
+      },
+      {
+        fraga: 'Vilka mjuka färdigheter söker arbetsgivare hos logistikassistenter?',
+        svar: 'Noggrannhet och detaljorientering (viktigt för plockprecision), säkerhetsmedvetenhet (förebygga olyckor), teamarbete (samarbete med transport och kollegor), flexibilitet (skiftarbete och högsäsonger), samt stresstålighet (hantera högt tempo). Undvik vaga påståenden - backa upp varje mjuk färdighet med konkret exempel: "Noggrann och detaljorienterad (99.7% plockprecision över 18 månader)" istället för bara "noggrann".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
+      { yrke: 'Logistiker', slug: 'logistiker' },
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Lagerchef', slug: 'lagerchef' }
+    ]
   }
 }
 

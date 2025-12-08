@@ -1042,6 +1042,20 @@ const cvExamples: CVExample[] = [
       intro: 'CV för barista med fokus på espressoberedning, latte art och SCA-certifiering inom specialistkaféer och hotellbarer.',
       highlight: ['200+ kaffedrycker dagligen med 30% ökad merförsäljning', 'La Marzocco, Mahlkönig och SCA-certifierad', 'Head barista med mentorskap och menyutveckling']
     }
+  },
+  {
+    id: 'logistikassistent',
+    yrke: 'Logistikassistent',
+    slug: 'logistikassistent',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 520,
+    icon: Package,
+    gradient: 'from-blue-500 via-cyan-600 to-blue-700',
+    preview: {
+      intro: 'CV för logistikassistent med WMS-system, truckcertifikat och kvantifierbara resultat inom godshantering och lagerlogistik.',
+      highlight: ['200-250 orderrader/dag med 99.7% plockprecision', 'Ongoing, Consafe Logistics, SAP och truckkort A1-A4', 'Senior logistikassistent med lageroptimering']
+    }
   }
 ]
 
@@ -1206,7 +1220,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  69 yrken
+                  70 yrken
                 </motion.span>
               </h1>
 

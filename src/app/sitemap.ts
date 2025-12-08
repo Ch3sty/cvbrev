@@ -240,6 +240,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'boendestod',
     'koksbitrade',
     'barista',
+    'logistikassistent',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
