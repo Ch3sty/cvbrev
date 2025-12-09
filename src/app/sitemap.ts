@@ -314,6 +314,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'grundskollarare',
     'socialsekreterare',
     'projektledare-it',
+    'butikschef',
+    'fysioterapeut',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

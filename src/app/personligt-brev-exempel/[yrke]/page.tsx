@@ -4579,6 +4579,138 @@ Om du arbetat med specifika dokumentationssystem eller metoder för uppföljning
     ]
   },
 
+  'fysioterapeut': {
+    yrke: 'Fysioterapeut',
+    sokvolym: 480,
+
+    metaTitle: 'Personligt Brev Fysioterapeut - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Komplett exempel på personligt brev för fysioterapeut med fokus på klinisk bedömning, rehabilitering och evidensbaserad behandling. Visas för ATS och rekryterare.',
+
+    seoIntro: `När du söker tjänst som fysioterapeut behöver ditt personliga brev visa mer än din utbildning - det ska bevisa att du behärskar klinisk bedömning, evidensbaserad behandling och patientcentrerad rehabilitering. Rekryterare inom vården letar efter konkreta exempel på hur du arbetar med funktionsbedömning, tvärprofessionellt samarbete och dokumentation enligt ICF-modellen. Ett starkt personligt brev för fysioterapeut kombinerar din kliniska kompetens med förmågan att kommunicera empati och professionalism.
+
+Detta exempel visar hur en erfaren fysioterapeut presenterar sin bakgrund inom ortopedisk rehabilitering, manuell terapi och smärthantering. Brevet lyfter kvantifierbara resultat från patientbehandling, specifika behandlingsmetoder och erfarenhet av tvärprofessionellt teamarbete. Du ser också hur kandidaten kopplar sin kompetens till arbetsgivarens fokus på evidensbaserad vård och rehabilitering. Tonaliteten är professionell men varm, vilket speglar den empatiska och problemlösande roll fysioterapeuter har i vården.
+
+Använd detta exempel som mall när du skriver din egen fysioterapeut-ansökan. Läs sedan våra fem konkreta tips för att förstärka ditt brev ytterligare - från hur du beskriver din kliniska bedömning till hur du visar din förmåga att arbeta patientcentrerat.`,
+
+    intro: 'Ett personligt brev från en fysioterapeut med erfarenhet av ortopedisk rehabilitering och manuell terapi som söker sig till en privat rehabklinik med fokus på evidensbaserad behandling.',
+
+    exempelBrev: {
+      namn: 'Sara Lindström',
+      arbetsgivare: 'Aleris Rehab Uppsala',
+      roll: 'Fysioterapeut',
+      brevText: `Hej,
+
+Med tre års erfarenhet som fysioterapeut inom ortopedisk rehabilitering och ett genuint intresse för evidensbaserad behandling söker jag tjänsten som fysioterapeut på er rehabklinik i Uppsala. Era satsningar på manuell terapi och funktionsinriktad rehabilitering matchar exakt den kliniska inriktning jag vill utvecklas vidare inom.
+
+Under mina år på Capio Rehab i Stockholm har jag behandlat över 800 patienter med muskuloskeletala besvär och postoperativ rehabilitering. Jag arbetar systematiskt med funktionsbedömning enligt ICF-modellen och använder evidensbaserade behandlingsmetoder som manuell terapi, träningsterapi och smärthantering. Genom att implementera strukturerade träningsprogram har jag ökat patienternas funktionella återhämtning med i genomsnitt 35 procent enligt Örebro Musculoskeletal Pain Screening Questionnaire. Jag dokumenterar noggrant i journalsystemet Cosmic och samarbetar dagligen med läkare, sjukgymnaster och arbetsterapeuter för att säkerställa helhetsorienterad vård.
+
+Aleris fokus på tvärprofessionellt samarbete och patientcentrerad vård tilltalar mig starkt. Jag har följt era publikationer om evidensbaserad smärtrehabilitering och uppskattar er satsning på vidareutbildning inom manuell terapi. Min erfarenhet av att arbeta med både akuta och kroniska tillstånd, kombinerat med min specialistkompetens inom ortopedisk rehabilitering, passar väl in i ert team som arbetar brett med olika patientgrupper.
+
+Jag ser fram emot att bidra med min kliniska erfarenhet och mitt systematiska arbetssätt till er klinik. Mitt fokus på evidensbaserad behandling och funktionsinriktad rehabilitering ligger i linje med Aleris mål att erbjuda högkvalitativ vård där patientens återgång till funktion och aktivitet är central.
+
+Jag ser fram emot möjligheten att diskutera hur jag kan bidra till ert team och era patienters rehabilitering.
+
+Med vänliga hälsningar,
+Sara Lindström`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret klinisk erfarenhet med kvantifierbara resultat',
+        beskrivning: 'Brevet visar tydligt att Sara har behandlat över 800 patienter och förbättrat funktionell återhämtning med 35 procent enligt validerade mätinstrument. Hon nämner specifika metoder som ICF-modellen, manuell terapi och träningsterapi, vilket visar djup klinisk kompetens. Genom att referera till Örebro Musculoskeletal Pain Screening Questionnaire demonstrerar hon också kunskap om evidensbaserade mätmetoder inom rehabilitering.'
+      },
+      {
+        titel: 'Evidensbaserat arbetssätt och dokumentation',
+        beskrivning: 'Sara betonar sitt systematiska arbetssätt med funktionsbedömning och evidensbaserade behandlingsmetoder. Hon nämner konkret att hon dokumenterar i Cosmic och följer strukturerade behandlingsprotokoll. Detta visar att hon förstår vikten av noggrann journalföring och kvalitetssäkring i vårdarbetet, något som är kritiskt för både patientsäkerhet och tvärprofessionellt samarbete.'
+      },
+      {
+        titel: 'Tvärprofessionellt samarbete och helhetsperspektiv',
+        beskrivning: 'Brevet lyfter tydligt hennes erfarenhet av att samarbeta med läkare, sjukgymnaster och arbetsterapeuter för helhetsorienterad vård. Detta visar förståelse för att rehabilitering kräver teamarbete och att fysioterapeuten är en del av ett större vårdteam. Hennes förmåga att kommunicera och samordna vård över professioner är en värdefull kompetens inom modern rehabilitering.'
+      },
+      {
+        titel: 'Researched koppling till arbetsgivaren',
+        beskrivning: 'Sara visar att hon har researcgat Aleris genom att referera till deras publikationer om smärtrehabilitering och deras satsning på vidareutbildning inom manuell terapi. Detta bevisar genuint intresse och visar att hon förstår klinikens inriktning och värderingar. Hon kopplar också sin egen specialistkompetens till deras patientgrupper på ett konkret sätt.'
+      },
+      {
+        titel: 'Patientcentrerad och empatisk ton',
+        beskrivning: 'Trots professionell ton genomsyras brevet av patientfokus - Sara talar om patienternas funktionella återhämtning och återgång till funktion och aktivitet. Detta visar att hon förstår att fysioterapi handlar om mer än behandlingsteknik - det handlar om att hjälpa människor återfå sin livskvalitet. Tonen är varm men professionell, vilket speglar den empati som krävs i vårdyrket.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Visa din kliniska bedömningsförmåga med konkreta exempel',
+        text: `Beskriv hur du genomför funktionsbedömningar och vilka verktyg du använder. Nämn specifika mätinstrument som ICF-modellen, VAS-skalan för smärta, ROM-mätningar eller funktionella tester.
+
+Ge konkreta exempel: "Jag använder systematisk funktionsbedömning enligt ICF för att identifiera aktivitetsbegränsningar och deltagandesvårigheter" eller "Genom strukturerade ROM-mätningar och muskelstyrketester skapar jag individanpassade rehabiliteringsplaner".`
+      },
+      {
+        rubrik: 'Kvantifiera dina behandlingsresultat med validerade mätmetoder',
+        text: `Använd siffror och validerade mätinstrument för att visa effekten av din behandling. Exempel: "Minskade patienternas smärta med genomsnittligt 3 poäng på VAS-skalan" eller "85 procent av mina patienter med ländryggsmärta återgick till arbete inom 12 veckor".
+
+Nämn specifika outcome measures som ÖMPQ, EQ-5D, eller DASH-formuläret. Rekryterare inom rehabilitering värderar fysioterapeuter som kan mäta och dokumentera behandlingseffekt.`
+      },
+      {
+        rubrik: 'Beskriv din erfarenhet av tvärprofessionellt samarbete',
+        text: `Rehabilitering kräver teamarbete mellan olika vårdprofessioner. Ge konkreta exempel på hur du samarbetar: "Jag deltar i veckovisa teammöten med läkare, arbetsterapeuter och kuratorer för att koordinera patienternas rehabiliteringsplaner".
+
+Beskriv också hur du dokumenterar för att andra professioner ska kunna följa patientens progress. Detta visar att du förstår helhetsperspektivet i vården.`
+      },
+      {
+        rubrik: 'Lyft din specialistkompetens och behandlingsmetoder',
+        text: `Nämn specifika behandlingsmetoder och kompetensområden: manuell terapi, McKenzie-metoden, triggerpunktsbehandling, taping, medicinsk träningsterapi eller neurologisk rehabilitering.
+
+Ge exempel: "Jag har specialiserat mig på manuell terapi för cervikala och lumbala dysfunktioner". Om du har vidareutbildningar, nämn dem: "Jag är certifierad inom Mulligan-koncept och använder det dagligen för ledmobilisering".`
+      },
+      {
+        rubrik: 'Visa ditt patientcentrerade arbetssätt och pedagogiska förmåga',
+        text: `Fysioterapi handlar lika mycket om pedagogik som behandling. Beskriv hur du involverar patienten: "Jag utgår från patientens egna mål och skapar gemensamma rehabiliteringsplaner där patienten är aktiv deltagare".
+
+Ge exempel på hur du förklarar komplexa medicinska tillstånd på ett begripligt sätt. Detta visar att du förstår att patientens egen motivation är avgörande för framgångsrik rehabilitering.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur lång ska ett personligt brev för fysioterapeut vara?',
+        a: 'Ett personligt brev för fysioterapeut bör vara 350-450 ord fördelat på fem stycken. Detta motsvarar ungefär en A4-sida och ger dig utrymme att beskriva din kliniska erfarenhet, behandlingsmetoder och tvärprofessionella samarbete utan att bli för långrandig. Första stycket introducerar dig och din bakgrund, andra stycket beskriver din kliniska erfarenhet med konkreta exempel, tredje stycket kopplar till arbetsgivaren, fjärde stycket beskriver ditt bidrag, och sista stycket avslutar professionellt.'
+      },
+      {
+        q: 'Vilka nyckelord ska jag inkludera i mitt personliga brev som fysioterapeut?',
+        a: 'Inkludera nyckelord som speglar din kliniska kompetens: funktionsbedömning, ICF-modellen, evidensbaserad behandling, manuell terapi, träningsterapi, rehabilitering, patientcentrerad vård, tvärprofessionellt samarbete, smärthantering och dokumentation. Nämn också specifika behandlingsmetoder du behärskar och relevanta mätinstrument som VAS och ÖMPQ. Om du söker till specifika områden, anpassa nyckelorden: ortopedisk rehabilitering, neurologisk rehabilitering, geriatrik eller pediatrik.'
+      },
+      {
+        q: 'Hur visar jag min kliniska erfarenhet som fysioterapeut i personligt brev?',
+        a: 'Visa din kliniska erfarenhet genom konkreta exempel med kvantifierbara resultat. Istället för "Jag har erfarenhet av rehabilitering", skriv "Jag har behandlat över 600 patienter med muskuloskeletala besvär och ökat deras funktionella återhämtning med 40 procent enligt ÖMPQ". Beskriv specifika behandlingsmetoder och nämn patientgrupper du har arbetat med. Inkludera också dokumentationssystem som Cosmic eller TakeCare.'
+      },
+      {
+        q: 'Ska jag nämna min fysioterapeutexamen och vidareutbildningar i brevet?',
+        a: 'Nämn din grundutbildning kortfattat om den är relevant för tjänsten, men fokusera mer på vidareutbildningar och specialistkompetenser som skiljer dig från andra kandidater. Exempel: "Utöver min fysioterapeutexamen har jag vidareutbildat mig inom manuell terapi och är certifierad i McKenzie-metoden". Om du har specialistutbildning inom ortopedi, neurologi eller pediatrik, lyft det tydligt. Vidareutbildningar visar att du är engagerad i din professionella utveckling.'
+      },
+      {
+        q: 'Hur beskriver jag tvärprofessionellt samarbete i fysioterapeut-ansökan?',
+        a: 'Beskriv konkreta exempel på hur du samarbetar med andra professioner i vården. Exempel: "Jag deltar i veckovisa rehabiliteringsmöten med läkare, arbetsterapeut och kurator för att skapa holistiska vårdplaner". Nämn hur du dokumenterar för teamet och om du har erfarenhet av att handleda studenter eller kolleger. Detta visar att du förstår att rehabilitering kräver samordning mellan professioner och att du kan kommunicera effektivt i team.'
+      },
+      {
+        q: 'Vilka misstag ska jag undvika i personligt brev för fysioterapeut?',
+        a: 'Undvik generiska öppningar som "Med stort intresse läser jag er annons". Starta istället med konkret erfarenhet. Undvik vaga påståenden - visa istället genom konkreta exempel på behandlingsresultat. Använd inte medicinsk jargong utan förklaring. Undvik passiv form: inte "Patienter behandlades", utan "Jag behandlade 800 patienter". Upprepa inte ditt CV - brevet ska komplettera med exempel och sammanhang.'
+      },
+      {
+        q: 'Hur anpassar jag personligt brev för olika fysioterapeutiska inriktningar?',
+        a: 'Anpassa ditt brev baserat på arbetsgivarens specialisering. För ortopedisk rehabilitering: betona manuell terapi, postoperativ rehabilitering och muskuloskeletala bedömningar. För neurologisk rehabilitering: fokusera på strokerehabilitering, balansträning och ADL-träning. För primärvård: lyft förebyggande arbete och hälsofrämjande insatser. Researcha arbetsgivaren och använd deras språk i brevet.'
+      }
+    ],
+
+    kategori: 'vard',
+
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Läkare', slug: 'lakare' }
+    ]
+  },
+
   'fritidspedagog': {
     yrke: 'Fritidspedagog',
     sokvolym: 550,

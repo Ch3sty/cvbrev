@@ -809,6 +809,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'fysioterapeut',
+    yrke: 'Fysioterapeut',
+    slug: 'fysioterapeut',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: Heart,
+    gradient: 'from-teal-500 via-emerald-600 to-teal-700',
+    preview: {
+      intro: 'Visar klinisk bedömning, evidensbaserad behandling och tvärprofessionellt samarbete inom rehabilitering.',
+      highlight: ['Manuell terapi & träningsterapi', 'ICF-modellen & funktionsbedömning', 'Patientcentrerad rehabilitering']
+    }
+  },
+  {
     id: 'kundtjanstmedarbetare',
     yrke: 'Kundtjänstmedarbetare',
     slug: 'kundtjanstmedarbetare',
