@@ -7836,19 +7836,17 @@ Använd detta personligt brev grundskollärare som inspiration när du skriver d
       arbetsgivare: 'Rågsveds skola, Stockholms stad',
       roll: 'Grundskollärare årskurs 4-6',
       datum: new Date().toLocaleDateString('sv-SE'),
-      brevText: `Hej Linda,
+      brevText: `Hej,
 
-Jag söker tjänsten som grundskollärare i årskurs 4-6 på Rågsveds skola. Under sju år har jag undervisat i matematik, NO och svenska för elever i mellanstadiet, där jag fokuserat på studiero, formativ bedömning och inkluderande undervisning enligt LGR22. Min erfarenhet kombinerar klassrumsledning med digital pedagogik, vilket passar era värderingar om elevernas lärande och trygghet.
+Jag söker tjänsten som grundskollärare i årskurs 4-6 på Rågsveds skola. Under sju år har jag undervisat i matematik, NO och svenska för elever i mellanstadiet, där jag fokuserat på studiero, formativ bedömning och inkluderande undervisning enligt LGR22. Min erfarenhet kombinerar klassrumsledning med digital pedagogik.
 
-I min nuvarande klass på Enskede skola har jag 28 elever med stor spridning i kunskapsnivå. För att skapa studiero använder jag tydliga rutiner, visuella scheman och aktiv undervisning där alla elever får delta. När jag märkte att fyra elever tappade fokus efter 15 minuter bytte jag till kortare instruktionspass med rörelsepauser. Efter tre veckor hade jag minskat störningar med 60% och eleverna rapporterade att de kunde koncentrera sig bättre.
+I min nuvarande klass på Enskede skola har jag 28 elever med stor spridning i kunskapsnivå. För att skapa studiero använder jag tydliga rutiner, visuella scheman och kortare instruktionspass med rörelsepauser. Efter att jag anpassade lektionsstrukturen minskade störningar med 60%. Jag arbetar med formativ bedömning genom exitbiljetter där eleverna svarar på tre frågor före lektionens slut, vilket visar vem som behöver extra stöd nästa dag. För en elev som fastnade på decimaltal skapade jag konkreta exempel med pengar, vilket gjorde att eleven förstod sambandet. När elever behöver extra anpassningar samarbetar jag med specialpedagog och använder digitala verktyg som talsyntes i Google Classroom. Jag dokumenterar elevernas utveckling i Unikum och delar framsteg med vårdnadshavare varje månad.
 
-Jag arbetar med formativ bedömning genom att ge återkoppling direkt i klassrummet. I matematik använder jag exitbiljetter där eleverna svarar på tre frågor före lektionens slut. Det visar mig vem som behöver extra stöd nästa dag. För en elev som fastnade på decimaltal skapade jag konkreta exempel med pengar, vilket gjorde att eleven förstod sambandet. Jag dokumenterar elevernas utveckling i Unikum och delar framsteg med vårdnadshavare varje månad.
+Jag vill arbeta på Rågsveds skola för att ni värdesätter inkludering, elevernas lärande och trygghet. Era satsningar på utomhuspedagogik, projektet om demokrati och delaktighet samt den etablerade digitala lärplattformen stämmer väl med mitt sätt att arbeta. Jag uppskattar att arbeta i arbetslag där man utvecklas tillsammans, delar material och reflekterar över undervisning varje vecka. Det kollegiala samarbetet är viktigt för mig.
 
-När elever behöver extra anpassningar samarbetar jag med specialpedagog och elevhälsoteamet. För en elev med läs- och skrivsvårigheter använde jag digitala verktyg som talsyntes i Google Classroom och förlängd tid på prov. Eleven kunde då visa sina kunskaper i NO trots svårigheter med skriftlig svenska. Jag arbetar också nära kollegor i arbetslaget där vi delar material och reflekterar över undervisning varje vecka.
+Jag kan bidra med konkreta metoder för att skapa trygg klassrumsmiljö och engagera elever med olika förutsättningar. Min erfarenhet av digital pedagogik passar era digitala verktyg, och mina formativa bedömningsmetoder ger eleverna tydlig återkoppling på deras utveckling. Jag ser fram emot att använda utomhusmiljön i undervisningen och delta i ert demokratiprojekt där eleverna får träna delaktighet.
 
-Jag vill arbeta på Rågsveds skola för att ni värdesätter inkludering och har en etablerad digital lärplattform. Era satsningar på utomhuspedagogik och projektet om demokrati och delaktighet stämmer väl med mitt sätt att arbeta. Jag uppskattar en arbetsplats där man utvecklas tillsammans och lär av varandra i arbetslaget.
-
-Jag kan börja den 1 mars och ser fram emot att berätta mer om mitt arbete med klassrumsledning och formativ bedömning.
+Mina kärnkompetenser är klassrumsledning, formativ bedömning och inkluderande undervisning. Jag är tillgänglig för intervju och kan börja arbeta inom kort. Jag ser fram emot att berätta mer om mitt arbete med studiero och elevers lärande.
 
 Med vänliga hälsningar,
 Erik Karlsson`
@@ -7973,15 +7971,15 @@ Använd exemplet som inspiration för din egen jobbansökan och anpassa det efte
 
 Jag söker tjänsten som socialsekreterare inom individ- och familjeomsorgen i Uppsala kommun. Med fyra års erfarenhet av utredning och biståndsbedömning enligt SoL har jag utvecklat förmågan att kombinera juridisk noggrannhet med ett relationsskapande förhållningssätt. Era värderingar om rättssäkerhet och klientens delaktighet ligger helt i linje med hur jag arbetar.
 
-Under mina år som socialsekreterare inom ekonomiskt bistånd i Enköpings kommun har jag hanterat 65-70 pågående ärenden parallellt och genomfört över 200 biståndsbedömningar årligen. Jag har bred erfarenhet av utredningsarbete enligt BBIC, skyddsbedömningar och samarbete med barn- och ungdomspsykiatrin, skola och polis. Ett konkret exempel är när jag under en ekonomisk utredning uppmärksammade tecken på våld i nära relation och initierade kontakt med kvinnojouren, vilket resulterade i att klienten fick både skyddat boende och ekonomiskt stöd för nystart. Jag arbetar strukturerat i Treserva där noggrann dokumentation och tydlig motivering av beslut enligt Förvaltningslagen är centralt för rättssäkerheten.
+Under 2024 hanterade jag 48 ärenden inom barn och unga, varav 14 ledde till placering enligt LVU. Jag genomför BBIC-strukturerade utredningar enligt SoL kap 11 och samverkar löpande med skola, BVC och barn- och ungdomspsykiatrin. I ett aktuellt ärende identifierade jag genom systematiska hembesök och nätverksmöten att en 14-åring med skolfrånvaro behövde stöd snarare än tvångsvård. Genom lösningsfokuserade samtal och samordning av insatser från skola och öppenvård kunde familjen få rätt hjälp utan placering. Jag dokumenterar alla ärenden i Treserva och har även hanterat LVM-ärenden där bedömning av samtycke och tvång krävt noggrann juridisk analys.
 
-Det jag uppskattar med yrket är att kunna möta människor i utsatta situationer med respekt och se möjligheter även i komplexa ärenden. Jag använder Motiverande samtal (MI) för att stärka klientens egen motivation till förändring och arbetar med ASI-intervjuer för strukturerade behovsbedömningar. När situationen kräver myndighetsutövning enligt LVU eller LVM kan jag fatta svåra beslut grundade i lag och vetenskap samtidigt som jag bevarar en professionell relation till klienten. Jag har även erfarenhet av akuta orosanmälningar där snabb handläggning och samverkan med polis varit avgörande.
+Vad som tilltalar mig med Uppsala kommun är er satsning på systematiskt kvalitetsarbete och kontinuerlig metodutveckling. Jag har under det senaste året genomgått vidareutbildning i traumamedveten praktik och deltagit i kommunens nätverk för MI-handledning. Jag värdesätter kollegialt lärande högt och ser handledning som en förutsättning för att hantera de känslomässigt krävande situationer som yrket innebär. Att arbeta i en organisation som prioriterar kompetensutveckling och reflektion ger mig energi och möjlighet att utvecklas professionellt.
 
-Vad som tilltalar mig med Uppsala kommun är er satsning på systematiskt kvalitetsarbete och kontinuerlig metodutveckling. Jag har under det senaste året genomgått vidareutbildning i traumamedveten praktik och deltagit i kommunens nätverk för MI-handledning. Jag ser fram emot att fortsätta utvecklas tillsammans med er kompetenta personalgrupp och bidra till verksamhetens mål om att stärka klienternas egenmakt och självständighet.
+Jag kan bidra till verksamhetens mål om att stärka klienternas egenmakt genom att konsekvent använda lösningsfokuserade samtal och involvera familjer i beslutsprocessen. Jag har erfarenhet av att leda nätverksmöten där klientens egen beskrivning av situationen blir utgångspunkten för insatser. Min övertygelse är att även i ärenden som slutar i placering kan vi arbeta så att familjen känner sig respekterad och delaktig i processen. Det skapar bättre förutsättningar för återförening och långsiktig förändring.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-345 67 89 eller maria.lindqvist@email.se.
+Jag har gedigen erfarenhet av SoL, LVU och LVM, arbetar strukturerat med BBIC och tillämpar traumamedveten praktik i alla klientmöten. Jag är tillgänglig för intervju och ser fram emot att diskutera hur jag kan bidra till er verksamhet.
 
-Med vänlig hälsning,
+Med vänliga hälsningar,
 Maria Lindqvist`
     },
 
