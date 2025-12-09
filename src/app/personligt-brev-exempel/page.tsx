@@ -795,6 +795,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'logistiker',
+    yrke: 'Logistiker',
+    slug: 'logistiker',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 450,
+    icon: Package,
+    gradient: 'from-indigo-500 via-blue-600 to-indigo-700',
+    preview: {
+      intro: 'Visa din expertis inom supply chain management, lageroptimering och transportplanering med kvantifierade resultat.',
+      highlight: ['Lageroptimering & WMS/ERP-system', 'Transportplanering & kostnadsbesparingar', 'Processförbättring & Lean-principer']
+    }
+  },
+  {
     id: 'lss-handlaggare',
     yrke: 'LSS-handläggare',
     slug: 'lss-handlaggare',
