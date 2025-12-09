@@ -585,6 +585,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'devops-engineer',
+    yrke: 'DevOps Engineer',
+    slug: 'devops-engineer',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 550,
+    icon: Code,
+    gradient: 'from-purple-600 via-indigo-700 to-blue-800',
+    preview: {
+      intro: 'Visar konkreta automation-resultat, CI/CD-erfarenhet och kvantifierbara infrastrukturförbättringar.',
+      highlight: ['Kubernetes & Docker', 'CI/CD (GitLab, Jenkins)', 'Terraform & AWS/Azure']
+    }
+  },
+  {
     id: 'scrum-master',
     yrke: 'Scrum Master',
     slug: 'scrum-master',
