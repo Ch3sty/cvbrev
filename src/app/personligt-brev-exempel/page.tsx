@@ -571,6 +571,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'ekonom',
+    yrke: 'Ekonom',
+    slug: 'ekonom',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 600,
+    icon: Calculator,
+    gradient: 'from-blue-600 via-indigo-700 to-blue-800',
+    preview: {
+      intro: 'Visar budgetarbete, finansiell analys och business partnering för ekonomroller.',
+      highlight: ['Budgetuppföljning & avvikelseanalys', 'SAP, Excel & Power BI', 'Affärsförståelse & rapportering']
+    }
+  },
+  {
     id: 'scrum-master',
     yrke: 'Scrum Master',
     slug: 'scrum-master',

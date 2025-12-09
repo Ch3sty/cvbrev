@@ -316,6 +316,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projektledare-it',
     'butikschef',
     'fysioterapeut',
+    'ekonom',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
