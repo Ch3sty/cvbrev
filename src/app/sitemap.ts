@@ -318,6 +318,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'fysioterapeut',
     'ekonom',
     'devops-engineer',
+    'psykolog',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

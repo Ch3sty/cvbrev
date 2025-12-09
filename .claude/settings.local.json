@@ -24,7 +24,10 @@
       "Bash(git diff:*)",
       "Bash(git checkout:*)",
       "Bash(ls:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

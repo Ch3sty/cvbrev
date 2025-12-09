@@ -599,6 +599,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'psykolog',
+    yrke: 'Psykolog',
+    slug: 'psykolog',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 500,
+    icon: Heart,
+    gradient: 'from-violet-500 via-purple-600 to-indigo-700',
+    preview: {
+      intro: 'Lyfter terapeutisk kompetens, behandlingsresultat och utredningserfarenhet med kvantifierbara mått.',
+      highlight: ['KBT & EMDR', 'NPF-utredningar', 'Behandlingsresultat']
+    }
+  },
+  {
     id: 'scrum-master',
     yrke: 'Scrum Master',
     slug: 'scrum-master',

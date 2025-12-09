@@ -8761,6 +8761,116 @@ Erik Lundström`,
       { yrke: 'Projektledare IT', slug: 'projektledare-it' },
       { yrke: 'Scrum Master', slug: 'scrum-master' }
     ]
+  },
+
+  'psykolog': {
+    yrke: 'Psykolog',
+    sokvolym: 500,
+    metaTitle: 'Personligt Brev Psykolog - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Professionellt personligt brev för psykolog med KBT, ACT och utredningserfarenhet. Se exempel på hur du presenterar terapeutisk kompetens, diagnostiska färdigheter och behandlingsresultat för att sticka ut i ansökan.',
+
+    seoIntro: `Att skriva ett personligt brev som psykolog kräver att du balanserar vetenskaplig kompetens med mänsklig värme. Arbetsgivare inom psykiatri, primärvård och privat mottagning söker psykologer som kan dokumentera behandlingseffektivitet och samtidigt skapa trygghet för patienter med komplex problematik. Ett välskrivet brev visar hur din kliniska erfarenhet direkt bidrar till organisationens behandlingsresultat.\n\nI ditt personliga brev bör du konkretisera din terapeutiska verktygslåda med specifika metoder och resultat. Istället för att skriva att du "arbetar med KBT" kan du beskriva hur du genomfört 180 avslutade behandlingar med 78% symtomreduktion mätt med validerade instrument. Nämn vilka patientgrupper du har erfarenhet av – ångest, depression, NPF-utredningar, trauma – och vilka bedömningsinstrument du behärskar som WISC-V, WAIS-IV eller neuropsykologiska testbatterier.\n\nExemplet nedan visar hur en erfaren psykolog presenterar sin kompetens för en tjänst inom psykiatrisk öppenvård. Lägg märke till hur brevet kombinerar kvantifierbara behandlingsresultat med beskrivningar av kliniskt arbete, och hur specifika journalsystem och samarbetsformer lyfts fram för att visa praktisk anpassningsförmåga till nya vårdmiljöer.`,
+
+    brevText: `Hej,
+
+Jag söker tjänsten som psykolog på Capio Psykiatri Stockholm. Med fem års klinisk erfarenhet inom psykiatrisk öppenvård och specialisering i KBT och traumabehandling ser jag en tydlig matchning mellan min kompetens och er verksamhets inriktning mot evidensbaserad behandling.
+
+Under min tid på Psykiatri Nordväst har jag genomfört 180 avslutade KBT-behandlingar mot ångest och depression, med en genomsnittlig symtomreduktion på 78% mätt med PHQ-9 och GAD-7. Jag har särskilt utvecklat min kompetens inom traumafokuserad terapi efter grundutbildning i EMDR, och har framgångsrikt behandlat patienter med komplex PTSD som tidigare inte svarat på standardbehandling. Parallellt har jag utfört 45 kompletta NPF-utredningar med WISC-V och WAIS-IV.
+
+Min arbetsmetod bygger på att skapa en trygg terapeutisk allians som grund för förändring. Jag arbetar strukturerat med sessionsplanering och hemuppgifter, men anpassar alltid tempot efter patientens förmåga och aktuella livssituation. I teamsamverkan bidrar jag aktivt på behandlingskonferenser och har handlett fyra PTP-psykologer genom deras kliniska år.
+
+Jag söker mig till Capio för att ni kombinerar hög tillgänglighet med kvalitetsfokus. Er satsning på mätning av behandlingsutfall och kontinuerlig metodutveckling matchar min övertygelse om att psykologisk behandling ska vara evidensbaserad och utvärderingsbar. Jag har erfarenhet av TakeCare och Cosmic som journalsystem.
+
+Jag ser fram emot att diskutera hur min kliniska erfarenhet kan bidra till er verksamhet.
+
+Med vänliga hälsningar,
+Anna Bergström`,
+
+    varforDetFungerar: [
+      {
+        titel: 'Kvantifierade behandlingsresultat',
+        text: 'Brevet anger 180 avslutade KBT-behandlingar med 78% symtomreduktion – konkreta siffror som visar behandlingseffektivitet och erfarenhetsvolym.'
+      },
+      {
+        titel: 'Specifika bedömningsinstrument',
+        text: 'Genom att nämna PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet praktisk kompetens inom standardiserad bedömning och utredning.'
+      },
+      {
+        titel: 'Terapeutisk specialisering framgår',
+        text: 'Brevet lyfter KBT, EMDR och traumafokuserad terapi – konkreta metoder som matchar tjänstens krav på evidensbaserad behandling.'
+      },
+      {
+        titel: 'Handledningserfarenhet dokumenteras',
+        text: 'Att ha handlett fyra PTP-psykologer visar senioritet och förmåga att bidra till verksamhetens kompetensutveckling.'
+      },
+      {
+        titel: 'Systemkunskap och anpassningsförmåga',
+        text: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.'
+      }
+    ],
+
+    tips: [
+      {
+        titel: 'Specificera dina terapeutiska metoder',
+        text: 'Skriv inte bara "KBT-utbildad" – berätta vilken typ av KBT du använder, hur många behandlingar du genomfört, och vilka patientgrupper du arbetat med. Arbetsgivare vill veta om du har erfarenhet som matchar deras patientpopulation.'
+      },
+      {
+        titel: 'Kvantifiera behandlingsresultat',
+        text: 'Använd validerade mått för att visa effektivitet. "78% symtomreduktion mätt med PHQ-9" är betydligt mer övertygande än "goda behandlingsresultat". Om du inte har exakta siffror, beskriv typiska patientförlopp.'
+      },
+      {
+        titel: 'Nämn utredningskompetens konkret',
+        text: 'Lista vilka testinstrument du behärskar (WISC, WAIS, neuropsykologiska batterier) och ungefär hur många utredningar du genomfört. Detta är särskilt viktigt för tjänster med utredningsansvar.'
+      },
+      {
+        titel: 'Lyft samverkanskompetens',
+        text: 'Psykologarbete är sällan isolerat. Beskriv hur du samarbetar med läkare, kuratorer och övrig personal. Erfarenhet från behandlingskonferenser och teamarbete är meriterande.'
+      },
+      {
+        titel: 'Anpassa till verksamhetens inriktning',
+        text: 'Undersök om arbetsgivaren har särskilda satsningar – barn och unga, äldre, specifika diagnosgrupper. Visa att du förstår deras fokus och har relevant erfarenhet eller intresse att utvecklas inom området.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur långt ska ett personligt brev för psykolog vara?',
+        a: 'Ett personligt brev för psykolog bör vara 350-450 ord. Du behöver utrymme för att beskriva terapeutisk inriktning, behandlingserfarenhet och eventuell utredningskompetens. Undvik dock att göra brevet till ett CV – fokusera på det mest relevanta för just denna tjänst.'
+      },
+      {
+        q: 'Ska jag nämna min teoretiska inriktning i personliga brevet?',
+        a: 'Ja, din teoretiska grund är viktig. Men var konkret – istället för att skriva "psykodynamisk inriktning" kan du beskriva hur du arbetar: "Jag använder affektfokuserad korttidsterapi med fokus på att bearbeta underliggande känslomässiga mönster". Visa hur teorin omsätts i praktik.'
+      },
+      {
+        q: 'Hur beskriver jag min handledningserfarenhet?',
+        a: 'Var specifik om vem du handlett (PTP-psykologer, psykologstudenter, annan personal) och i vilken omfattning. "Handlett fyra PTP-psykologer genom deras kliniska år" är tydligare än "erfarenhet av handledning". Nämn gärna om du har handledarutbildning.'
+      },
+      {
+        q: 'Ska jag nämna specifika patientgrupper jag arbetat med?',
+        a: 'Absolut. Arbetsgivare vill veta om du har erfarenhet av deras patientpopulation. Skriv vilka diagnosgrupper du arbetat med (ångest, depression, ätstörningar, NPF, personlighetssyndrom) och ungefär i vilken omfattning.'
+      },
+      {
+        q: 'Hur hanterar jag att jag söker min första tjänst efter legitimation?',
+        a: 'Fokusera på din PTP-erfarenhet som fullvärdig klinisk erfarenhet – det är det. Beskriv patientarbete, handledning du fått, och eventuella specialområden du utvecklat under PTP. Visa nyfikenhet och vilja att fortsätta utvecklas under erfaren handledning.'
+      },
+      {
+        q: 'Bör jag nämna vilka journalsystem jag kan?',
+        a: 'Ja, särskilt om du har erfarenhet av system arbetsgivaren använder. TakeCare, Cosmic, Take Care och Melior är vanliga inom svensk sjukvård. Praktisk systemkunskap signalerar kort inskolningstid och förståelse för dokumentationskrav.'
+      },
+      {
+        q: 'Hur visar jag intresse för forskning och metodutveckling?',
+        a: 'Om du deltagit i forskningsprojekt, kvalitetsarbete eller metodutveckling – nämn det. "Deltog i implementering av FACT-modellen på mottagningen" eller "Medverkade i studie om internetbaserad KBT" visar engagemang utöver det kliniska grunduppdraget.'
+      }
+    ],
+
+    kategori: 'vard',
+
+    relaterade: [
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Läkare', slug: 'lakare' },
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' }
+    ]
   }
 }
 
