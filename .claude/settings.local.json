@@ -19,7 +19,10 @@
       "Bash(npm install:*)",
       "Bash(grep:*)",
       "Bash(powershell -Command \"(Get-Content ''c:\\Users\\chris\\cvbrev\\src\\app\\cv-exempel\\[yrke]\\page.tsx'' | Select-Object -Last 200) | Out-String\")",
-      "Bash(powershell -Command \"(Get-Content ''c:\\Users\\chris\\cvbrev\\src\\app\\cv-exempel\\[yrke]\\page.tsx'' | Select-Object -First 19230 | Select-Object -Last 100) | Out-String\")"
+      "Bash(powershell -Command \"(Get-Content ''c:\\Users\\chris\\cvbrev\\src\\app\\cv-exempel\\[yrke]\\page.tsx'' | Select-Object -First 19230 | Select-Object -Last 100) | Out-String\")",
+      "Bash(del \"c:\\Users\\chris\\cvbrev\\logistikassistent-content.ts\")",
+      "Bash(git diff:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

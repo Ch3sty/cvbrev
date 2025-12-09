@@ -4,6 +4,17 @@ Du ska skapa nästa saknade sida enligt implementeringsplanen. Följ dessa steg 
 
 ---
 
+## VIKTIGA REFERENSFILER
+
+**För Personligt brev-exempel:**
+- Läs ALLTID `personligt-brev-8.pdf` i root-mappen som formatreferens innan du skapar brevinnehåll
+- PDF:en visar korrekt struktur, ton och längd för breven
+
+**För CV-exempel:**
+- Studera befintliga exempel i `src/app/cv-exempel/[yrke]/page.tsx`
+
+---
+
 ## STEG 1: Identifiera nästa sida att skapa
 
 Läs `SAKNADE_SIDOR_IMPLEMENTATION_PLAN.md` och identifiera vilka sidor som ska skapas.
@@ -133,11 +144,65 @@ Returnera ett komplett SEO-direktiv i följande format:
 - FAQ: 10 frågor (3 generiska + 7 yrkes-specifika med long-tail keywords)
 
 **För Personligt brev-exempel:**
-- brevText: 300-400 ord, 4-5 stycken
+- brevText: 350-450 ord, 4-5 stycken (se BREVFORMAT nedan)
 - seoIntro: 200-300 ord med \n\n mellan stycken
-- varforDetFungerar: 3-4 punkter
-- Tips: 4-5 st
-- FAQ: 5-7 yrkes-specifika frågor
+- varforDetFungerar: 4-5 punkter
+- Tips: 5 st
+- FAQ: 6-7 yrkes-specifika frågor
+
+### BREVFORMAT (baserat på personligt-brev-8.pdf)
+
+**REFERENS:** Läs alltid `personligt-brev-8.pdf` i root-mappen som formatreferens.
+
+**BREVSTRUKTUR:**
+1. **Hälsning:** Alltid "Hej," (med komma, aldrig "Hej!" eller "Hej [namn]")
+
+2. **Stycke 1 - Inledning (60-80 ord):**
+   - Varför du söker just denna tjänst
+   - Kort om relevant bakgrund som hook
+   - UNDVIK: "Jag skriver för att söka...", "Med stort intresse..."
+
+3. **Stycke 2 - Erfarenhet (100-130 ord):**
+   - Konkreta arbetslivserfarenheter
+   - Kvantifierbara resultat där möjligt
+   - Specifika verktyg, system eller metoder
+   - Visa överförbarhet till nya rollen
+
+4. **Stycke 3 - Team & Företag (80-100 ord):**
+   - Varför företagets kultur/team tilltalar
+   - Referera till något specifikt från jobbannonsen/företaget
+   - Hur dina kompetenser passar teamet
+
+5. **Stycke 4 - Bidrag & Framtid (60-80 ord):**
+   - Vad du kan bidra med konkret
+   - Koppling till företagets mål
+   - Visa motivation och drivkraft
+
+6. **Stycke 5 - Avslutning (40-50 ord):**
+   - Sammanfattning av intresse
+   - Öppning för vidare kontakt
+   - Kort och professionellt
+
+7. **Avslutningsfras:** "Med vänliga hälsningar," + radbrytning + Namn
+
+**SPRÅKREGLER:**
+- Variera meningslängd (10-25 ord, aldrig >30)
+- Aktiv form ("Jag ledde" inte "Det leddes av mig")
+- Konkreta exempel framför vaga påståenden
+- Naturligt flöde mellan stycken
+
+**FÖRBJUDNA ORD/FRASER:**
+- kraftfull, innovativ, dynamisk, revolutionerande, banbrytande, passionerad
+- "brinner för", "ta mig an nya utmaningar", "utvecklas som person"
+- "gör skillnad", "ge 110%", "tänka utanför boxen"
+- "undertecknad", "härmed ansöker"
+
+**TONALITET PER BRANSCH:**
+- Vård/omsorg: Empatiskt men professionellt, patientfokus
+- Tech/IT: Tekniskt kunnigt, visa problemlösning
+- Försäljning: Resultatfokuserat, visa kundförståelse
+- Offentlig sektor: Strukturerat, sakligt, förvaltningskompetens
+- Service: Serviceminded, positiv energi, kundupplevelse
 
 ### Relaterade yrken (för intern länkning)
 Välj 3 relaterade yrken som FINNS på sajten:
@@ -292,61 +357,122 @@ Returnera det kompletta data-objektet som ska läggas till i page.tsx:
 ```typescript
 '[slug]': {
   yrke: '[Yrke]',
-  slug: '[slug]',
-  kategori: '[kategori]',
+  sokvolym: [sökvolym enligt SEO-direktiv],
 
-  namn: '[Namn]',
-  epost: '[fornamn.efternamn@email.se]',
-  telefon: '[070-XXX XX XX]',
-  stad: '[Stad]',
-  datum: '2025-01-15',
-  foretag: '[Fiktivt företag passande branschen]',
-  jobbtitel: '[Jobbtitel]',
+  metaTitle: 'Personligt Brev [Yrke] - Exempel & Mall 2025 | Jobbcoach.ai',
+  metaDescription: '[150-160 tecken, benefit-fokuserad]',
 
-  brevText: `[Stycke 1 - Inledning 50-70 ord]
+  seoIntro: `[Stycke 1 - Hook med primary keyword, 80-100 ord]
 
-[Stycke 2 - Erfarenhet 80-100 ord med konkreta exempel]
+[Stycke 2 - Vad brevet visar, 70-90 ord]
 
-[Stycke 3 - Kompetenser 70-90 ord]
+[Stycke 3 - CTA och tips-intro, 50-70 ord]`,
 
-[Stycke 4 - Varför företaget 60-80 ord]
+  intro: '[1-2 meningar kortfattad beskrivning av exemplet]',
 
-[Stycke 5 - Avslutning 40-50 ord]`,
+  exempelBrev: {
+    namn: '[Svenskt för- och efternamn]',
+    adress: '[Gatuadress XX, XXX XX Stad]',
+    telefon: '070-XXX XX XX',
+    epost: '[fornamn.efternamn@email.se]',
+    arbetsgivare: '[Realistiskt företagsnamn för branschen]',
+    roll: '[Specifik tjänstetitel som söks]',
+    datum: new Date().toLocaleDateString('sv-SE'),
+    brevText: `Hej,
 
-  seoIntro: `[Stycke 1]
+[Stycke 1 - Inledning: 60-80 ord. Varför tjänsten lockar + relevant bakgrund som hook. UNDVIK "Jag skriver för att söka..."]
 
-[Stycke 2]
+[Stycke 2 - Erfarenhet: 100-130 ord. Konkreta arbetslivserfarenheter, kvantifierbara resultat, specifika verktyg/system, överförbarhet till nya rollen]
 
-[Stycke 3 - totalt 200-300 ord]`,
+[Stycke 3 - Team & Företag: 80-100 ord. Varför företagets kultur tilltalar, referera till något specifikt, hur kompetenser passar]
+
+[Stycke 4 - Bidrag & Framtid: 60-80 ord. Konkret bidrag, koppling till företagets mål, motivation]
+
+[Stycke 5 - Avslutning: 40-50 ord. Sammanfattning av intresse, öppning för kontakt]
+
+Med vänliga hälsningar,
+[Namn]`
+  },
 
   varforDetFungerar: [
-    { titel: '[Tema]', beskrivning: '[40-60 ord]' },
-    // 3-4 punkter
+    {
+      titel: '[Tema - t.ex. "Konkreta resultat"]',
+      beskrivning: '[50-70 ord förklaring av varför detta element fungerar bra i brevet]'
+    },
+    // 4-5 punkter som analyserar brevets styrkor
   ],
 
   tips: [
-    { titel: '[Imperativ]', text: '[60-100 ord, \n\n för längre]' },
-    // 4-5 tips
+    {
+      rubrik: '[Imperativ - t.ex. "Kvantifiera dina resultat"]',
+      text: `[80-120 ord praktiskt tips för branschen]
+
+[Om tipset är >100 ord, använd radbrytning för läsbarhet]`
+    },
+    // 5 tips totalt
   ],
 
   faq: [
-    { q: '[Fråga]', a: '[60-100 ord]' },
-    // 5-7 frågor
+    {
+      q: '[Fråga med long-tail keyword - t.ex. "Hur skriver man personligt brev för [yrke] utan erfarenhet?"]',
+      a: '[80-120 ord utförligt svar]'
+    },
+    // 6-7 frågor totalt
   ],
 
-  relateradeYrken: ['[slug1]', '[slug2]', '[slug3]']
+  kategori: '[kategori från: vard, teknik, service, utbildning, ekonomi, offentlig-sektor]',
+
+  relaterade: [
+    { yrke: '[Yrke 1]', slug: '[slug1]' },
+    { yrke: '[Yrke 2]', slug: '[slug2]' },
+    { yrke: '[Yrke 3]', slug: '[slug3]' },
+    { yrke: '[Yrke 4]', slug: '[slug4]' }
+  ]
 }
 ```
 
+**BREVEXEMPEL - BRA INLEDNINGAR:**
+
+Försäljning:
+"Som en driven säljare med fem års erfarenhet av B2B-försäljning inom telecom, ser jag en spännande möjlighet i tjänsten som butikssäljare för er telecombutik."
+
+Vård:
+"Med tre års erfarenhet som undersköterska på akutmottagning och ett genuint intresse för patientnära arbete, söker jag tjänsten som undersköterska på er medicinavdelning."
+
+IT:
+"Som systemutvecklare med fokus på React och Node.js har jag följt ert företags produkter under flera år, och ser nu möjligheten att bidra till ert utvecklingsteam."
+
+**UNDVIK dessa inledningar:**
+- "Jag skriver för att söka tjänsten som..."
+- "Med stort intresse har jag läst er annons..."
+- "Jag vill härmed ansöka om..."
+- "Undertecknad önskar söka..."
+
 ### KVALITETSKONTROLL innan du returnerar:
+
+**Generellt:**
 - [ ] Inga tankstreck (–) - endast bindestreck (-)
-- [ ] Inga förbjudna ord (kraftfull, innovativ, dynamisk, revolutionerande)
+- [ ] Inga förbjudna ord (kraftfull, innovativ, dynamisk, revolutionerande, passionerad, brinner för)
 - [ ] Alla keywords från SEO-direktivet finns med
-- [ ] Mänskligt språk - varierad meningslängd
+- [ ] Mänskligt språk - varierad meningslängd (10-25 ord, aldrig >30)
 - [ ] Konkreta exempel, inte vaga påståenden
-- [ ] `\n\n` mellan stycken där det behövs
-- [ ] `**Varför detta fungerar:**` med fetstil
-- [ ] Relaterade yrken har korrekta slugs
+- [ ] Relaterade yrken har korrekta slugs som existerar på sajten
+
+**För CV-exempel:**
+- [ ] `\n\n` mellan stycken i seoIntro och längre tips
+- [ ] `**Varför detta fungerar:**` med fetstil-markdown
+
+**För Personligt brev-exempel (VIKTIGT):**
+- [ ] Brevet börjar med "Hej," (komma, inte utropstecken)
+- [ ] Brevet avslutas med "Med vänliga hälsningar," + radbrytning + namn
+- [ ] 5 tydliga stycken med rätt ordantal (60-80, 100-130, 80-100, 60-80, 40-50)
+- [ ] Totalt 350-450 ord i brevText
+- [ ] Inledningen UNDVIKER "Jag skriver för att söka..."
+- [ ] Konkreta kvantifierbara exempel i erfarenhetsstycket
+- [ ] Referens till företaget/teamet i stycke 3
+- [ ] Aktiv form genomgående ("Jag ledde" inte "Det leddes")
+- [ ] Naturligt flöde mellan stycken
+- [ ] Branschanpassad ton enligt TONALITET PER BRANSCH
 ```
 
 **Vänta på Copy-agentens svar.**

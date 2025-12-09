@@ -332,6 +332,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'butikschef',
+    yrke: 'Butikschef',
+    slug: 'butikschef',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 200,
+    icon: ShoppingCart,
+    gradient: 'from-emerald-400 via-green-500 to-teal-600',
+    preview: {
+      intro: 'Visar ledarskap, försäljningsresultat och butiksdrift på strategisk nivå.',
+      highlight: ['Teamledning & personalutveckling', 'Försäljningsmål & KPI:er', 'Budget & visual merchandising']
+    }
+  },
+  {
     id: 'servitris-restaurangbitrade',
     yrke: 'Servitris/Restaurangbiträde',
     slug: 'servitris-restaurangbitrade',
