@@ -8810,46 +8810,46 @@ Anna Bergström`,
     varforDetFungerar: [
       {
         titel: 'Kvantifierade behandlingsresultat',
-        beskrivning: 'Brevet anger 180 avslutade KBT-behandlingar med 78% symtomreduktion – konkreta siffror som visar behandlingseffektivitet och erfarenhetsvolym.'
+        beskrivning: 'Att skriva "180 avslutade KBT-behandlingar med 78% symtomreduktion mätt med PHQ-9" visar att du arbetar evidensbaserat och följer upp dina insatser systematiskt. Rekryterare inom psykiatri och primärvård söker psykologer som kan dokumentera behandlingseffektivitet – inte bara beskriva vad de gör. Konkreta siffror signalerar också att du är van vid ROM-arbete (Routine Outcome Monitoring) och kvalitetssäkring. Jämför med den vaga formuleringen "hjälpte många patienter" som inte säger något om omfattning, metod eller resultat. Specifika mätetal visar professionalism och förståelse för verksamhetens behov av uppföljning och resultatrapportering.'
       },
       {
         titel: 'Specifika bedömningsinstrument',
-        beskrivning: 'Genom att nämna PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet praktisk kompetens inom standardiserad bedömning och utredning.'
+        beskrivning: 'Genom att namnge PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet exakt vilka verktyg du behärskar. Rekryteraren slipper gissa om du har rätt utredningskompetens för tjänsten. Inom psykiatrin är standardiserade instrument centrala för diagnostik och behandlingsplanering – en psykolog som kan genomföra kompletta NPF-utredningar med WISC och WAIS är betydligt mer anställningsbar än en som skriver "erfarenhet av psykologisk testning". Specificera även neuropsykologiska batterier som D-KEFS eller NEPSY-II om du behärskar dem. Ju mer konkret du är, desto tydligare ser arbetsgivaren var du passar in i teamet.'
       },
       {
         titel: 'Terapeutisk specialisering framgår',
-        beskrivning: 'Brevet lyfter KBT, EMDR och traumafokuserad terapi – konkreta metoder som matchar tjänstens krav på evidensbaserad behandling.'
+        beskrivning: 'Brevet specificerar KBT mot ångest och depression, EMDR för traumabehandling, samt erfarenhet av komplex PTSD. Denna detaljnivå visar att kandidaten har fördjupad kompetens inom specifika områden, inte bara grundläggande utbildning. För arbetsgivare inom psykiatrisk öppenvård är det avgörande att veta vilka patientgrupper du faktiskt kan ta emot från dag ett. Att dessutom nämna "patienter som tidigare inte svarat på standardbehandling" signalerar att du har erfarenhet av svårare fall och inte bara lättare ångestproblematik. Detta väcker förtroende hos verksamheter med komplex patientpopulation.'
       },
       {
         titel: 'Handledningserfarenhet dokumenteras',
-        beskrivning: 'Att ha handlett fyra PTP-psykologer visar senioritet och förmåga att bidra till verksamhetens kompetensutveckling.'
+        beskrivning: 'Att ha handlett fyra PTP-psykologer genom deras kliniska år visar senioritet och pedagogisk förmåga. Detta är meriterande av flera skäl: det signalerar att du har tillräcklig erfarenhet för att vägleda andra, att kollegor och chefer har förtroende för din kompetens, och att du kan bidra till verksamhetens kompetensutveckling. Många psykologtjänster inkluderar handledningsansvar som en del av rollen. Om du har handledarutbildning (steg 1 eller 2) bör du nämna det explicit. Även erfarenhet av att handleda psykologstudenter på praktik eller annan personal räknas.'
       },
       {
         titel: 'Systemkunskap och anpassningsförmåga',
-        beskrivning: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.'
+        beskrivning: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation. Journalsystem kan verka som en detalj, men för arbetsgivare innebär det stor skillnad i upplärningstid. En psykolog som redan behärskar regionens journalsystem kan börja ta emot patienter tidigare. Dessutom visar det att du förstår dokumentationskrav inom hälso- och sjukvård – sekretess, strukturerad journalföring, samtyckeshantering. Nämn gärna även erfarenhet av remisshantering, vårdplaneringsverktyg eller kvalitetsregister om du har det.'
       }
     ],
 
     tips: [
       {
         rubrik: 'Specificera dina terapeutiska metoder',
-        text: 'Skriv inte bara "KBT-utbildad" – berätta vilken typ av KBT du använder, hur många behandlingar du genomfört, och vilka patientgrupper du arbetat med. Arbetsgivare vill veta om du har erfarenhet som matchar deras patientpopulation.'
+        text: 'Skriv aldrig bara "KBT-utbildad" eller "arbetar med olika terapiformer". Namnge exakt vilka metoder du behärskar och för vilka problemområden.\n\nDÅLIGT: "Arbetar med KBT och psykodynamisk terapi"\nBRA: "KBT för ångest och depression (150+ avslutade behandlingar), ACT för kronisk smärta, samt EMDR för traumarelaterade tillstånd"\n\nJu mer specifik du är, desto tydligare ser rekryteraren var du passar in. Har du vidareutbildning i specifika protokoll som Unified Protocol, CBASP eller DBT? Nämn det. Arbetsgivare söker ofta psykologer med just den kompetens de saknar i teamet.'
       },
       {
         rubrik: 'Kvantifiera behandlingsresultat',
-        text: 'Använd validerade mått för att visa effektivitet. "78% symtomreduktion mätt med PHQ-9" är betydligt mer övertygande än "goda behandlingsresultat". Om du inte har exakta siffror, beskriv typiska patientförlopp.'
+        text: 'Inom vården är mätbara resultat avgörande. Använd validerade instrument för att visa din effektivitet som behandlare.\n\nDÅLIGT: "Goda behandlingsresultat och nöjda patienter"\nBRA: "Genomsnittlig symtomreduktion på 65% mätt med PHQ-9, med 82% av patienterna som når remission inom 12 sessioner"\n\nOm du inte har exakta siffror kan du beskriva typiska patientförlopp: "Majoriteten av mina patienter med måttlig depression når behandlingsmål inom 10-15 sessioner". ROM-data (Routine Outcome Monitoring) blir allt viktigare – visa att du arbetar datadrivet.'
       },
       {
         rubrik: 'Nämn utredningskompetens konkret',
-        text: 'Lista vilka testinstrument du behärskar (WISC, WAIS, neuropsykologiska batterier) och ungefär hur många utredningar du genomfört. Detta är särskilt viktigt för tjänster med utredningsansvar.'
+        text: 'Utredningskompetens är efterfrågad och bör specificeras noggrant. Lista vilka instrument du behärskar och ungefär hur många utredningar du genomfört.\n\nDÅLIGT: "Erfarenhet av psykologisk utredning"\nBRA: "45 kompletta NPF-utredningar med WISC-V/WAIS-IV, D-KEFS och Conners-3. Erfarenhet av differentialdiagnostik mot affektiva tillstånd och utvecklingsrelaterade funktionsnedsättningar"\n\nOm du har specialkompetens inom specifika utredningstyper (neuropsykologi, rättspsykiatri, adoptionsutredningar) är det starkt meriterande och bör framgå tydligt.'
       },
       {
         rubrik: 'Lyft samverkanskompetens',
-        text: 'Psykologarbete är sällan isolerat. Beskriv hur du samarbetar med läkare, kuratorer och övrig personal. Erfarenhet från behandlingskonferenser och teamarbete är meriterande.'
+        text: 'Psykologarbete är sällan isolerat. Rekryterare söker psykologer som fungerar väl i multiprofessionella team och kan kommunicera effektivt med andra yrkesgrupper.\n\nDÅLIGT: "Arbetar bra i team"\nBRA: "Aktiv i veckovisa behandlingskonferenser med läkare, kurator och arbetsterapeut. Regelbunden konsultation till primärvårdsläkare om psykisk ohälsa. Erfarenhet av SIP-möten och samverkan med socialtjänst"\n\nVisa att du förstår din roll i vårdkedjan och kan bidra med psykologisk kompetens i bredare sammanhang än enbart patientmöten.'
       },
       {
         rubrik: 'Anpassa till verksamhetens inriktning',
-        text: 'Undersök om arbetsgivaren har särskilda satsningar – barn och unga, äldre, specifika diagnosgrupper. Visa att du förstår deras fokus och har relevant erfarenhet eller intresse att utvecklas inom området.'
+        text: 'Undersök arbetsgivarens profil innan du skriver. Har de särskilda satsningar på barn och unga, ätstörningar, eller första linjens psykiatri? Visa att du förstår deras fokus.\n\nDÅLIGT: "Intresserad av att utvecklas inom ert område"\nBRA: "Er satsning på tidiga insatser för unga vuxna matchar min erfarenhet från ungdomsmottagning, där jag behandlade 60+ patienter 16-25 år med ångest och depression"\n\nAnvänd formuleringar från platsannonsen och visa konkret hur din bakgrund möter deras behov. Det visar att du gjort research och är genuint intresserad av just denna tjänst.'
       }
     ],
 
