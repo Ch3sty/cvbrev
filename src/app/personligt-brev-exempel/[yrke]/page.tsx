@@ -1646,7 +1646,11 @@ Sofia Lindgren`
     metaTitle: 'Personligt Brev Ingenjör - Färdigt exempel (2025)',
     metaDescription: 'Komplett exempel på personligt brev för ingenjör med konkreta prestationer, tekniska kompetenser och ATS-optimering. Kopiera och anpassa direkt.',
 
-    seoIntro: 'Som ingenjör konkurrerar du i en marknad där teknisk kompetens, dokumenterade resultat och förmåga att leverera projekt i tid avgör vem som får jobbet. Ett personligt brev som visar konkreta siffror från dina projekt fungerar betydligt bättre än generiska beskrivningar av vad du "ansvarat för".\n\nExemplet nedan visar hur du strukturerar ditt brev för att bevisa kompetens genom kvantifierbara resultat, tekniska färdigheter och konkreta exempel på problemlösning. Kopiera strukturen och anpassa till din egen bakgrund och den specifika tjänsten du söker.',
+    seoIntro: `Ett personligt brev ingenjör som tydligt visar din tekniska kompetens och problemlösningsförmåga ökar dina chanser till intervju avsevärt. Ingenjörstjänster lockar ofta kvalificerade sökande, och rekryterande chefer behöver snabbt se att du har rätt teknisk profil och kan bidra till deras projekt - inte bara generella ingenjörskunskaper.
+
+Arbetsgivare söker ingenjörer som kombinerar djup teknisk kunskap med förmåga att kommunicera och samarbeta i projekt. Specificera vilka CAD-program, simuleringsprogram eller programmeringsspråk du behärskar beroende på inriktning. För maskiningenjörer är erfarenhet av SolidWorks, CATIA eller AutoCAD relevant, medan civilingenjörer inom bygg bör nämna Revit, Tekla eller liknande. Lyft konkreta projekt där du löst tekniska utmaningar, gärna med kvantifierade resultat som kostnadsbesparingar, effektiviseringar eller förbättrad produktkvalitet.
+
+Använd vårt exempel som inspiration och anpassa det efter den specifika tjänsten och branschen. Brevet är ATS-optimerat för att passera automatiska system som teknikföretag och konsultbolag använder. Beskriv tekniska lösningar du utvecklat istället för att bara lista kompetenser.`,
 
     intro: 'Exempel för civilingenjör som visar hur du kvantifierar tekniska resultat (18% energiminskning, 220 000 kr besparingar), nämner specifika verktyg (CATIA, MATLAB, FEM-analys) och kopplar fordonsindustri-erfarenhet till vindkraft. Använd som mall för att visa konkreta prestationer istället för vaga ansvarsområden.',
 
@@ -1764,7 +1768,11 @@ Erik Sandström`
     metaTitle: 'Personligt Brev Förskollärare - Komplett exempel (2025)',
     metaDescription: 'Exempel på personligt brev för förskollärare med pedagogisk dokumentation, Lpfö 18 och konkreta barngruppserfarenheter. Kopiera och anpassa.',
 
-    seoIntro: 'Som förskollärare avgörs ditt nästa jobb av hur väl du kan visa konkreta exempel på pedagogiskt arbete med Lpfö 18, hur du dokumenterar barns lärande och vilka metoder du använder för språkutveckling och inkludering.\n\nExemplet nedan visar hur du strukturerar ditt brev med konkreta situationer från barngruppen, specifika pedagogiska metoder och tydliga resultat. Använd denna struktur för att visa vad du faktiskt gör i vardagen, inte bara vad du "ansvarar för".',
+    seoIntro: `Ett personligt brev förskollärare som visar din pedagogiska kompetens och förmåga att skapa trygg lärmiljö ökar dina chanser att bli kallad till intervju. Konkurrensen om förskollärartjänster varierar mellan kommuner, men rekryterande förskolechefer vill alltid se att du förstår läroplanen och kan omsätta den i praktiken - inte bara att du gillar barn.
+
+Arbetsgivare söker förskollärare som behärskar systematiskt kvalitetsarbete, pedagogisk dokumentation och kan leda det pedagogiska arbetet i barngruppen. Lyft gärna erfarenheter av att arbeta med lpfö 18, utvecklingssamtal med vårdnadshavare eller särskilt stöd för barn med olika behov. Om du har kompetens inom språkutvecklande arbetssätt, digitala verktyg i förskolan eller specifika pedagogiska inriktningar som Reggio Emilia eller Montessori, är det meriterande. Visa också att du kan samarbeta med kollegor och bidra till arbetslagets utveckling.
+
+Använd vårt exempel som utgångspunkt och anpassa det efter den specifika förskolan och kommunen. Texten är ATS-optimerad för att passera automatiska system som många kommuner använder vid rekrytering. Beskriv konkreta situationer där du utvecklat verksamheten snarare än allmänna påståenden om att du är pedagogisk.`,
 
     intro: 'Exempel för förskollärare som visar hur du konkretiserar Lpfö 18-arbete, pedagogisk dokumentation och språkutveckling med verkliga situationer från barngruppen. Använd som mall för att visa din pedagogiska praktik genom konkreta exempel.',
 
@@ -1883,7 +1891,11 @@ Sara Lindqvist`
     metaTitle: 'Personligt Brev Receptionist - Exempel med kundservice & systemkunskap (2025)',
     metaDescription: 'Exempel på personligt brev för receptionist. Se hur du beskriver kundservice med guest satisfaction scores och systemkunskap (Opera, Delphi).',
 
-    seoIntro: 'Du har skrivit "jag är serviceinriktad och bra på att bemöta människor" i ditt personliga brev. Men rekryterare vill se bevis: Hur många gäster hanterar du dagligen? Kan du Opera eller Delphi? Vad gjorde du senast en gäst var arg över dubbelbokad tid?\n\nExemplet nedan visar hur Lisa Bergström (4 år som receptionist) presenterar sin kundservice med siffror och exempel från jobbet. Hon visar sin gästnöjdhet med 9.2/10 från 500+ recensioner, nämner bokningssystem hon kan och ger exempel på konfliktlösning under Stockholm Fashion Week. Strukturen fungerar oavsett om du söker till hotell, kontorsreception eller vårdcentral.',
+    seoIntro: `Ett personligt brev receptionist som visar din serviceförmåga och administrativa kompetens gör att du sticker ut bland många sökande. Receptionisttjänster lockar ofta hundratals ansökningar, och rekryterare behöver snabbt se att du kan hantera både besökare och administrativa uppgifter professionellt - inte bara att du är trevlig och serviceinriktad.
+
+Som receptionist förväntas du hantera telefonväxel, besökshantering, bokningar och ofta även fakturahantering eller enklare ekonomiadministration. Nämn konkreta erfarenheter av växelsystem, bokningsprogram eller administrativa system du arbetat med. Om du har vana av CRM-system, Microsoft 365 eller branschspecifika system, lyft detta tydligt. För hotellreceptionist är erfarenhet av Opera eller Mews meriterande, medan kontorsreceptionist bör visa erfarenhet av mötesbokning och besöksregistrering.
+
+Använd vårt exempel som inspiration och anpassa det efter den specifika arbetsplatsen och branschen. Brevet är ATS-optimerat för att passera de automatiska urvalssystem som större företag och hotellkedjor använder. Beskriv situationer där du löst problem eller överträffat kunders förväntningar istället för att bara lista egenskaper.`,
 
     intro: 'Exemplet nedan visar hur Lisa Bergström presenterar sin kundservice med siffror och exempel. Hon lyfter fram guest satisfaction scores, bokningssystem hon kan och hur hon löser problem under stress. Brevet är skrivet för hotellreception, men du kan använda samma struktur för kontorsreception, vårdcentral eller gym. Se hur hon balanserar professionalism med servicekänsla. Hon är inte överdrivet vänlig, men alltid lösningsfokuserad.',
 
@@ -2002,7 +2014,11 @@ Lisa Bergström`
     metaTitle: 'Personligt Brev Lagerarbetare: Visa ditt truckkort och din effektivitet rätt (2025)',
     metaDescription: 'Se hur Marcus visar truckkort, plockningseffektivitet (150 rader/timme) och WMS-vana i sitt brev. Konkret exempel för lagerarbetare.',
 
-    seoIntro: 'Rekryterare inom logistik bryr sig inte om fluffiga beskrivningar av "noggrannhet". De vill se truckkort A och B, plockningseffektivitet på 150+ orderrader/timme, och ett fläckfritt säkerhetsrekord. De letar efter kandidater som kan börja jobba dag ett utan omfattande introduktion, som behärskar WMS-system som Ongoing eller Monitor, och som förstår säkerhetsrutiner i en miljö med tunga lyft och trucktrafik.\n\nMarcus leder med truckcertifieringar, skriver konkreta siffror från sitt jobb, och listar WMS-verktyg han använt. Han kombinerar praktisk kompetens med säkerhetsmedvetenhet. Det är vad logistikföretag behöver när de ska välja mellan 50 likadana CV. Använd denna struktur så ser rekryteraren direkt att du kan jobbet.',
+    seoIntro: `Ett personligt brev lagerarbetare som visar din praktiska erfarenhet och förmåga att arbeta effektivt gör skillnad i en bransch där många söker samma tjänster. Logistikföretag och lager får ofta många ansökningar, och ditt brev måste snabbt visa att du kan bidra från dag ett - med rätt certifikat, systemkunskap och arbetsmoral.
+
+Arbetsgivare inom lager och logistik söker medarbetare som kan hantera gods säkert och effektivt. Truckkort är ofta ett krav, så ange vilka klasser du har (A1-A4, B1-B4). Nämn erfarenhet av WMS-system som Ongoing, Astro eller M3, samt om du arbetat med RF-terminaler, voice picking eller automatiserade system. Kvantifiera gärna din kapacitet - antal orderrader per dag, plockprecision eller liknande mätvärden visar konkret vad du kan leverera.
+
+Använd vårt exempel som utgångspunkt och anpassa det efter den specifika arbetsplatsen. Texten är ATS-optimerad för att passera automatiska system som större logistikföretag använder. Fokusera på konkreta resultat och certifieringar snarare än allmänna beskrivningar av att du är noggrann och pålitlig.`,
 
     intro: 'Marcus har truckkort A och B, plockar 150 orderrader/timme med 99.8% noggrannhet, och har noll olyckor på tre år. Han nämner truckkorten i första meningen, skriver konkreta siffror, och påpekar säkerhetsrekordet. Han skriver vilket WMS-system han använt (Ongoing) och kopplar sin erfarenhet till PostNords automatiserade lager. Följ strukturen så ser du kompetent ut direkt.',
 
@@ -2482,7 +2498,11 @@ Anna Bergström`
     metaTitle: 'Personligt Brev Läkare 2025 - Exempel & Mall | Jobbcoach.ai',
     metaDescription: 'Komplett personligt brev-exempel för läkare med ATS-optimering. Betonar klinisk erfarenhet, evidensbaserad medicin och interprofessionellt samarbete. Gratis mall 2025.',
 
-    seoIntro: `Söker du jobb som läkare inom hälso- och sjukvård? Ditt personliga brev ska visa att du kan diagnostisera systematiskt, samarbeta med vårdteam och arbeta enligt evidensbaserade riktlinjer. Den här sidan ger dig ett konkret exempel på hur du skriver ett professionellt personligt brev som läkare, plus tips på vad som faktiskt får dig till intervju.`,
+    seoIntro: `Ett personligt brev läkare som visar både klinisk kompetens och empatisk förmåga ökar dina chanser till intervju markant. Konkurrensen om AT- och ST-tjänster är hård, och rekryterande chefsläkare får ofta hundratals ansökningar. Ditt brev måste därför tydligt visa varför just du passar för kliniken och vilken typ av läkare du är - inte bara lista din utbildning.
+
+Arbetsgivare inom vården söker läkare som behärskar klinisk bedömning och differentialdiagnostik, men också kan kommunicera tydligt med patienter och kollegor. Nämn gärna specifika erfarenheter från jourtjänstgöring, akut handläggning eller specialistområden som är relevanta för tjänsten. Om du arbetat med journalsystem som TakeCare, Cosmic eller Melior, eller har vana av evidensbaserad medicin och teamarbete i tvärprofessionella team, är det starkt meriterande. För ST-tjänster är det viktigt att visa forskningsintresse eller pedagogisk erfarenhet om det efterfrågas.
+
+Använd vårt exempel som utgångspunkt och anpassa det efter den specifika kliniken och specialiteten. Texten är ATS-optimerad för att passera automatiska system som många landsting och privata vårdgivare använder. Fokusera på konkreta situationer där du gjort skillnad för patienter snarare än vaga beskrivningar.`,
 
     intro: 'Se hur en erfaren ST-läkare visar sina diagnostiska färdigheter, evidensbaserade arbetssätt och teamsamarbete genom konkreta patientfall och kvantifierade resultat. Exemplet visar exakt hur du beskriver kliniska erfarenheter, vårdkvalitetsarbete och interprofessionella relationer så att både ATS-system och överläkare ser din kompetens.',
 
@@ -2627,7 +2647,11 @@ Dr. Erik Lindström`,
     metaTitle: 'Personligt Brev Kurator 2025 - Exempel & Mall | Jobbcoach.ai',
     metaDescription: 'Komplett personligt brev-exempel för kurator med ATS-optimering. Betonar evidensbaserade metoder, MI, KBT, kris-/traumastöd och tvärdisciplinärt samarbete. Gratis mall 2025.',
 
-    seoIntro: `Söker du jobb som kurator inom skola, sjukvård eller socialtjänst? Ditt personliga brev ska visa att du kan evidensbaserade samtalsmetoder, tvärdisciplinärt samarbete och kris-/traumahantering. Du får här ett konkret exempel på hur du skriver ett professionellt personligt brev som kurator – och konkreta tips som faktiskt får dig till intervju.`,
+    seoIntro: `Ett personligt brev kurator som tydligt visar din förmåga att möta människor i utsatta situationer gör stor skillnad i ansökningsprocessen. Arbetsgivare inom socialtjänst, skola och hälso- och sjukvård får många ansökningar från socionomer och beteendevetare, och ditt brev måste snabbt visa att du förstår målgruppen och har rätt samtalsmetodik.
+
+Som kurator förväntas du behärska motiverande samtal (MI), kognitiv beteendeterapi (KBT) eller andra evidensbaserade metoder beroende på verksamhetsområde. Nämn konkreta erfarenheter av krissamtal, stödsamtal eller utredningsarbete som är relevanta för tjänsten. Om du arbetat med journalsystem som PMO, Treserva eller Cosmic, eller har erfarenhet av samverkan med andra myndigheter och vårdgivare, bör du lyfta detta. För skolkuratorstjänster är det värdefullt att visa förståelse för elevhälsans uppdrag och samarbete med lärare och föräldrar.
+
+Använd vårt exempel som inspiration och anpassa innehållet efter den specifika tjänsten och organisationen. Brevet är ATS-optimerat för att passera de automatiska urvalssystem som många kommuner och regioner använder. Fokusera på situationer där du gjort verklig skillnad för klienter eller elever.`,
 
     intro: 'Se hur en erfaren skolkurator beskriver sina samtalsmetoder, kris-/traumakompetens och teamsamarbete. Exemplet visar exakt hur du beskriver klientarbete, dokumentation och psykosocial bedömning – så att både ATS-system och rekryterare ser din kompetens.',
 
@@ -2765,11 +2789,11 @@ Anna Bergström`,
     metaTitle: 'Personligt brev Butiksbiträde – Visa din servicekänsla | Jobbcoach.ai',
     metaDescription: 'Skriv ett personligt brev som butiksbiträde som får dig att sticka ut. Se konkreta exempel och lär dig visa din servicekänsla och försäljningsförmåga.',
 
-    seoIntro: `# Personligt brev Butiksbiträde – Så här visar du din servicekänsla
+    seoIntro: `Ett personligt brev butiksbiträde som visar din serviceförmåga och praktiska erfarenhet av butiksarbete hjälper dig att sticka ut bland många sökande. Detaljhandeln har hög personalomsättning och butikschefer får ofta många ansökningar - ditt brev måste snabbt visa att du förstår vad jobbet innebär och kan bidra direkt.
 
-När du söker jobb som butiksbiträde handlar ditt personliga brev om att visa att du trivs med kundkontakt och kan skapa en bra shoppingupplevelse. Arbetsgivare letar efter personer som är serviceinriktade, kan hantera stress under högtrafik och bidrar till en positiv stämning i butiken.
+Som butiksbiträde förväntas du hantera kassa, kundservice, varupåfyllning och ofta även städning och ordning i butiken. Nämn erfarenhet av kassasystem du använt, vare sig det är Extenda, Visma eller andra system. Om du arbetat med inventering, varumottagning eller merförsäljning, lyft dessa erfarenheter konkret. För livsmedelsbutiker är kunskap om kyl- och frysrutiner samt allergenmärkning meriterande, medan klädbutiker värderar intresse för mode och visual merchandising.
 
-Här hittar du ett komplett exempelbrev, konkreta tips för vad du ska ta med och hur du anpassar ditt brev till olika butiksmiljöer – från modebutiker till livsmedelshandel.`,
+Använd vårt exempel som utgångspunkt och anpassa det efter den specifika butiken och kedjan. Texten är ATS-optimerad för större butikskedjor som använder automatiska urvalssystem. Beskriv situationer där du hjälpt kunder eller bidragit till butikens resultat istället för att bara skriva att du är serviceinriktad.`,
 
     intro: 'Som butiksbiträde är ditt personliga brev din chans att visa att du trivs med kundmöten och skapar en positiv shoppingupplevelse. Arbetsgivare söker personer som är serviceinriktade, hanterar högtrafik med lugn och bidrar till butikens säljmål. Visa att du förstår vad bra service innebär och att du är redo att representera varumärket. Nedan ser du ett komplett exempelbrev som visar hur du formulerar din servicekänsla och erfarenhet.',
 
@@ -3019,13 +3043,11 @@ Det visar ambition och att du redan tänker på hur du ska lyckas i rollen. Öpp
     metaTitle: 'Personligt Brev Exempel Servitris - Färdig Mall (2025)',
     metaDescription: 'Komplett personligt brev-exempel för servitris/restaurangbiträde. ATS-optimerat med tips från restaurangbranschen. Perfekt för både nybörjare och erfarna.',
 
-    seoIntro: `# Personligt brev Servitris/Restaurangbiträde - Så här visar du din servicekänsla
+    seoIntro: `Ett personligt brev servitris eller restaurangbiträde som visar din gästserviceförmåga och stresstålighet hjälper dig att få intervju i en konkurrensutsatt bransch. Restauranger och caféer får många ansökningar, och krögare vill snabbt se att du kan hantera högt tempo, leverera bra service och bidra till en positiv gästupplevelse.
 
-Söker du jobb som servitris eller restaurangbiträde och behöver skriva ett personligt brev som visar din servicekänsla? Det här exemplet visar hur du skriver ett ATS-optimerat personligt brev som passar olika restaurangtyper - från fine dining till snabbmat. Vi visar konkreta exempel på hur du lyfter fram gästbemötande, tempo under rusningar, kassahantering och flexibilitet (kvällar och helger).
+Inom restaurangbranschen förväntas du kunna ta emot beställningar, servera mat och dryck, hantera kassa och ofta även förbereda enklare rätter eller drycker. Nämn erfarenhet av kassasystem som iZettle, Trivec eller Square, samt om du har kunskaper inom vin, öl eller cocktails som är relevanta för tjänsten. Serveringstillstånd (ansvarsfull alkoholservering) är ofta ett krav eller stark merit. För finare restauranger är erfarenhet av à la carte-servering och menykunskap viktigt, medan caféer värderar barista-kunskaper och snabb service.
 
-Brevet innehåller konkreta exempel på hur du hanterat stressiga situationer, arbetat i team och skapat positiva gästupplevelser. Du får se exakt hur du beskriver flexibilitet och servicekänsla - två nyckelord som restaurangchefer söker efter. Perfekt för både dig som söker ditt första jobb inom restaurang och dig som har flera års erfarenhet från olika restaurangkoncept.
-
-Använd exemplet som inspiration för din egen jobbansökan servitris och anpassa det efter restaurangtyp och din egen erfarenhetsnivå. Läs också våra tips om hur du visar flexibilitet och servicekänsla utan att låta generisk.`,
+Använd vårt exempel som inspiration och anpassa det efter restaurangens profil och koncept. Brevet är ATS-optimerat för restaurangkedjor som använder digitala rekryteringssystem. Beskriv konkreta situationer där du gett utmärkt service eller hanterat utmanande gäster professionellt.`,
 
     intro: 'Som servitris eller restaurangbiträde är ditt personliga brev din chans att visa gästbemötande, stresshantering och flexibilitet. Arbetsgivare söker personer som trivs i högt tempo, kan hantera rusningar med lugn och bidrar till positiva gästupplevelser. Visa att du förstår vad bra service innebär och att du är redo att representera restaurangen. Nedan ser du ett komplett exempelbrev som visar hur du formulerar din servicekänsla och restaurangerfarenhet.',
 
