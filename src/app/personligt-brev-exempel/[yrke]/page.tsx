@@ -8810,45 +8810,45 @@ Anna Bergström`,
     varforDetFungerar: [
       {
         titel: 'Kvantifierade behandlingsresultat',
-        text: 'Brevet anger 180 avslutade KBT-behandlingar med 78% symtomreduktion – konkreta siffror som visar behandlingseffektivitet och erfarenhetsvolym.'
+        beskrivning: 'Brevet anger 180 avslutade KBT-behandlingar med 78% symtomreduktion – konkreta siffror som visar behandlingseffektivitet och erfarenhetsvolym.'
       },
       {
         titel: 'Specifika bedömningsinstrument',
-        text: 'Genom att nämna PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet praktisk kompetens inom standardiserad bedömning och utredning.'
+        beskrivning: 'Genom att nämna PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet praktisk kompetens inom standardiserad bedömning och utredning.'
       },
       {
         titel: 'Terapeutisk specialisering framgår',
-        text: 'Brevet lyfter KBT, EMDR och traumafokuserad terapi – konkreta metoder som matchar tjänstens krav på evidensbaserad behandling.'
+        beskrivning: 'Brevet lyfter KBT, EMDR och traumafokuserad terapi – konkreta metoder som matchar tjänstens krav på evidensbaserad behandling.'
       },
       {
         titel: 'Handledningserfarenhet dokumenteras',
-        text: 'Att ha handlett fyra PTP-psykologer visar senioritet och förmåga att bidra till verksamhetens kompetensutveckling.'
+        beskrivning: 'Att ha handlett fyra PTP-psykologer visar senioritet och förmåga att bidra till verksamhetens kompetensutveckling.'
       },
       {
         titel: 'Systemkunskap och anpassningsförmåga',
-        text: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.'
+        beskrivning: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.'
       }
     ],
 
     tips: [
       {
-        titel: 'Specificera dina terapeutiska metoder',
+        rubrik: 'Specificera dina terapeutiska metoder',
         text: 'Skriv inte bara "KBT-utbildad" – berätta vilken typ av KBT du använder, hur många behandlingar du genomfört, och vilka patientgrupper du arbetat med. Arbetsgivare vill veta om du har erfarenhet som matchar deras patientpopulation.'
       },
       {
-        titel: 'Kvantifiera behandlingsresultat',
+        rubrik: 'Kvantifiera behandlingsresultat',
         text: 'Använd validerade mått för att visa effektivitet. "78% symtomreduktion mätt med PHQ-9" är betydligt mer övertygande än "goda behandlingsresultat". Om du inte har exakta siffror, beskriv typiska patientförlopp.'
       },
       {
-        titel: 'Nämn utredningskompetens konkret',
+        rubrik: 'Nämn utredningskompetens konkret',
         text: 'Lista vilka testinstrument du behärskar (WISC, WAIS, neuropsykologiska batterier) och ungefär hur många utredningar du genomfört. Detta är särskilt viktigt för tjänster med utredningsansvar.'
       },
       {
-        titel: 'Lyft samverkanskompetens',
+        rubrik: 'Lyft samverkanskompetens',
         text: 'Psykologarbete är sällan isolerat. Beskriv hur du samarbetar med läkare, kuratorer och övrig personal. Erfarenhet från behandlingskonferenser och teamarbete är meriterande.'
       },
       {
-        titel: 'Anpassa till verksamhetens inriktning',
+        rubrik: 'Anpassa till verksamhetens inriktning',
         text: 'Undersök om arbetsgivaren har särskilda satsningar – barn och unga, äldre, specifika diagnosgrupper. Visa att du förstår deras fokus och har relevant erfarenhet eller intresse att utvecklas inom området.'
       }
     ],
