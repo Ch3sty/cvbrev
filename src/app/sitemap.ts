@@ -313,6 +313,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'administrativ-assistent',
     'grundskollarare',
     'socialsekreterare',
+    'projektledare-it',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

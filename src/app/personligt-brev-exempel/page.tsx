@@ -863,6 +863,20 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Visa juridisk kompetens i SoL/LVU, utredningsarbete enligt BBIC och förmåga att balansera rättssäkerhet med empati.',
       highlight: ['SoL, LVU, LVM & BBIC', 'Treserva & biståndsbedömning', 'Tvärprofessionellt samarbete']
     }
+  },
+  {
+    id: 'projektledare-it',
+    yrke: 'Projektledare IT',
+    slug: 'projektledare-it',
+    kategori: 'teknik',
+    niva: 'erfaren',
+    sokvolym: 520,
+    icon: Code,
+    gradient: 'from-purple-500 via-indigo-600 to-blue-700',
+    preview: {
+      intro: 'Visa teknisk förståelse och projektledningskompetens med konkreta IT-projektresultat, agil metodik och stakeholder management.',
+      highlight: ['Scrum, Jira & Azure DevOps', 'Budget, tid & leverans', 'Tvärfunktionella team']
+    }
   }
 ]
 
