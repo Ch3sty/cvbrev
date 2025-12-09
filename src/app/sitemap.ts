@@ -320,6 +320,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'devops-engineer',
     'psykolog',
     'logistiker',
+    'fastighetsskotare',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

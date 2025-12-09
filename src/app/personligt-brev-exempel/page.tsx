@@ -276,6 +276,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'fastighetsskotare',
+    yrke: 'Fastighetsskötare',
+    slug: 'fastighetsskotare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 400,
+    icon: Wrench,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'Visa din tekniska kompetens inom VVS, el och underhåll samt ditt servicemindset mot hyresgäster.',
+      highlight: ['VVS, el & snickeri', 'Felanmälningssystem (Vitec/Datscha)', 'Förebyggande underhåll']
+    }
+  },
+  {
     id: 'lakare',
     yrke: 'Läkare',
     slug: 'lakare',
