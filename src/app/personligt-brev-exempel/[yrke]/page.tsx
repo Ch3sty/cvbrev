@@ -8766,12 +8766,23 @@ Erik Lundström`,
   'psykolog': {
     yrke: 'Psykolog',
     sokvolym: 500,
+
     metaTitle: 'Personligt Brev Psykolog - Exempel & Mall 2025 | Jobbcoach.ai',
     metaDescription: 'Professionellt personligt brev för psykolog med KBT, ACT och utredningserfarenhet. Se exempel på hur du presenterar terapeutisk kompetens, diagnostiska färdigheter och behandlingsresultat för att sticka ut i ansökan.',
 
     seoIntro: `Att skriva ett personligt brev som psykolog kräver att du balanserar vetenskaplig kompetens med mänsklig värme. Arbetsgivare inom psykiatri, primärvård och privat mottagning söker psykologer som kan dokumentera behandlingseffektivitet och samtidigt skapa trygghet för patienter med komplex problematik. Ett välskrivet brev visar hur din kliniska erfarenhet direkt bidrar till organisationens behandlingsresultat.\n\nI ditt personliga brev bör du konkretisera din terapeutiska verktygslåda med specifika metoder och resultat. Istället för att skriva att du "arbetar med KBT" kan du beskriva hur du genomfört 180 avslutade behandlingar med 78% symtomreduktion mätt med validerade instrument. Nämn vilka patientgrupper du har erfarenhet av – ångest, depression, NPF-utredningar, trauma – och vilka bedömningsinstrument du behärskar som WISC-V, WAIS-IV eller neuropsykologiska testbatterier.\n\nExemplet nedan visar hur en erfaren psykolog presenterar sin kompetens för en tjänst inom psykiatrisk öppenvård. Lägg märke till hur brevet kombinerar kvantifierbara behandlingsresultat med beskrivningar av kliniskt arbete, och hur specifika journalsystem och samarbetsformer lyfts fram för att visa praktisk anpassningsförmåga till nya vårdmiljöer.`,
 
-    brevText: `Hej,
+    intro: 'Ett exempel på personligt brev för psykolog som visar kvantifierbara behandlingsresultat, terapeutisk specialisering (KBT, EMDR) och utredningskompetens inom psykiatrisk öppenvård.',
+
+    exempelBrev: {
+      namn: 'Anna Bergström',
+      adress: 'Frejavägen 15, 113 47 Stockholm',
+      telefon: '070-345 67 89',
+      epost: 'anna.bergstrom@email.se',
+      arbetsgivare: 'Capio Psykiatri Stockholm',
+      roll: 'Psykolog',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
 
 Jag söker tjänsten som psykolog på Capio Psykiatri Stockholm. Med fem års klinisk erfarenhet inom psykiatrisk öppenvård och specialisering i KBT och traumabehandling ser jag en tydlig matchning mellan min kompetens och er verksamhets inriktning mot evidensbaserad behandling.
 
@@ -8785,6 +8796,16 @@ Jag ser fram emot att diskutera hur min kliniska erfarenhet kan bidra till er ve
 
 Med vänliga hälsningar,
 Anna Bergström`,
+      erfarenhet: '5 år som legitimerad psykolog',
+      nyckelkompetenser: [
+        'KBT och traumafokuserad terapi (EMDR)',
+        'NPF-utredningar (WISC-V, WAIS-IV)',
+        'Validerade bedömningsinstrument (PHQ-9, GAD-7)',
+        'Journalsystem (TakeCare, Cosmic)',
+        'Handledning av PTP-psykologer',
+        'Teamsamverkan och behandlingskonferenser'
+      ]
+    },
 
     varforDetFungerar: [
       {
