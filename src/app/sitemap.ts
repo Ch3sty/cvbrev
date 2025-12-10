@@ -285,6 +285,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'hemtjanst',
     'kock',
     'kontorsassistent',
+    'konstruktor',
     'specialpedagog',
     'fritidspedagog',
     'redovisningsekonom',
