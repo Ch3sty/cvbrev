@@ -7128,24 +7128,18 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
       stad: 'Stockholm',
       epost: 'lisa.andersson@email.se',
       telefon: '070-123 45 67',
-      foretag: '[Företagsnamn]',
+      foretag: 'Mannheimer Swartling',
       roll: 'Kontorsassistent',
       datum: '6 januari 2025',
-      brevText: `Hej,
+      brevText: `Jag söker tjänsten som kontorsassistent på Mannheimer Swartling. Med tre års erfarenhet av reception och kontorsadministration hos Folksam vill jag bidra till er verksamhet där organisation och service går hand i hand. Ert rykte som en av Sveriges främsta advokatbyråer tilltalar mig eftersom jag trivs i miljöer där professionalism och diskretion är avgörande.
 
-Jag söker tjänsten som kontorsassistent på [Företagsnamn] eftersom jag vill arbeta i en miljö där organisation och service går hand i hand. Efter att ha läst er annons ser jag att ni söker någon som kan hålla många bollar i luften samtidigt – vilket är precis vad jag gjort de senaste [X år] på [Tidigare arbetsplats].
-
-På min nuvarande tjänst hanterar jag reception och telefonväxel för ett kontor med 45 medarbetare. Jag tar emot cirka 80 samtal per dag, bokar mötesrum i Outlook och koordinerar externa leveranser. När vi bytte till Microsoft 365 var jag den som utbildade kollegor i Teams och hjälpte till med övergången från det gamla systemet. Jag har också tagit över schemaläggningen för våra konferensrum, vilket minskade dubbelbokningar från 12 till 1 per månad.
+På Folksam hanterar jag reception och telefonväxel för ett kontor med 45 medarbetare. Jag tar emot cirka 80 samtal per dag, bokar mötesrum i Outlook och koordinerar externa leveranser. När vi bytte till Microsoft 365 var jag den som utbildade kollegor i Teams och hjälpte till med övergången från det gamla systemet. Jag har också tagit över schemaläggningen för våra konferensrum, vilket minskade dubbelbokningar från 12 till 1 per månad.
 
 Utöver det praktiska trivs jag med att vara den som löser problem innan de blir stora. När någon inte hittar ett dokument, när ett paket försvinner eller när en extern besökare behöver vägledning – då kliver jag in. Jag gillar när det är högt tempo, men jag håller alltid tråden och ser till att inget faller mellan stolarna.
 
-Jag har arbetat med fakturahantering i [Ekonomisystem], skrivit och skickat ut både intern och extern korrespondens, och hållit ordning på arkiv och ärendehanteringssystem. Jag är van vid att hantera information diskret, särskilt när det gäller personalärenden och känsliga dokument.
+Jag har arbetat med fakturahantering i Visma, skrivit och skickat ut både intern och extern korrespondens, och hållit ordning på arkiv och ärendehanteringssystem. Jag är van vid att hantera information diskret, särskilt när det gäller personalärenden och känsliga dokument. Det är en kompetens jag ser som särskilt viktig i en juridisk verksamhet.
 
-Jag skulle gärna berätta mer om hur jag kan bidra till er organisation. Ni når mig enklast på [Telefonnummer] eller [E-post].
-
-Varmt välkommen att höra av dig!
-
-[Ditt namn]`
+Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är tillgänglig för intervju när det passar er.`
     },
 
     varforDetFungerar: [
