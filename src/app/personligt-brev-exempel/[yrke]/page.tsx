@@ -7113,6 +7113,143 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
     ]
   },
 
+  'kontorsassistent': {
+    yrke: 'Kontorsassistent',
+    sokvolym: 70,
+    metaTitle: 'Personligt Brev Kontorsassistent - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Professionellt personligt brev för kontorsassistent med exempel, mallar och tips. Framhäv din erfarenhet av Office-paket, reception och telefonväxel.',
+
+    intro: 'Som kontorsassistent är du navet som håller kontoret rullande. Du hanterar växeln när det är som mest hektiskt, fixar det som krånglar i Outlook och ser till att ingen mötesbokningens kolliderar. Ett starkt personligt brev visar att du klarar multitasking utan att tappa professionaliteten.',
+
+    seoIntro: 'Ett bra personligt brev för kontorsassistent visar att du behärskar både systemverktygen och det mänskliga mötet. Rekryterare letar efter någon som kan hantera växeln samtidigt som de håller koll på kalendrar, bokningar och intern kommunikation. Ditt brev behöver visa att du både har teknisk kompetens och serviceanda.',
+
+    exempelBrev: {
+      namn: 'Lisa Andersson',
+      stad: 'Stockholm',
+      epost: 'lisa.andersson@email.se',
+      telefon: '070-123 45 67',
+      foretag: '[Företagsnamn]',
+      roll: 'Kontorsassistent',
+      datum: '6 januari 2025',
+      brevText: `Hej,
+
+Jag söker tjänsten som kontorsassistent på [Företagsnamn] eftersom jag vill arbeta i en miljö där organisation och service går hand i hand. Efter att ha läst er annons ser jag att ni söker någon som kan hålla många bollar i luften samtidigt – vilket är precis vad jag gjort de senaste [X år] på [Tidigare arbetsplats].
+
+På min nuvarande tjänst hanterar jag reception och telefonväxel för ett kontor med 45 medarbetare. Jag tar emot cirka 80 samtal per dag, bokar mötesrum i Outlook och koordinerar externa leveranser. När vi bytte till Microsoft 365 var jag den som utbildade kollegor i Teams och hjälpte till med övergången från det gamla systemet. Jag har också tagit över schemaläggningen för våra konferensrum, vilket minskade dubbelbokningar från 12 till 1 per månad.
+
+Utöver det praktiska trivs jag med att vara den som löser problem innan de blir stora. När någon inte hittar ett dokument, när ett paket försvinner eller när en extern besökare behöver vägledning – då kliver jag in. Jag gillar när det är högt tempo, men jag håller alltid tråden och ser till att inget faller mellan stolarna.
+
+Jag har arbetat med fakturahantering i [Ekonomisystem], skrivit och skickat ut både intern och extern korrespondens, och hållit ordning på arkiv och ärendehanteringssystem. Jag är van vid att hantera information diskret, särskilt när det gäller personalärenden och känsliga dokument.
+
+Jag skulle gärna berätta mer om hur jag kan bidra till er organisation. Ni når mig enklast på [Telefonnummer] eller [E-post].
+
+Varmt välkommen att höra av dig!
+
+[Ditt namn]`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta volymer som visar kapacitet',
+        beskrivning: 'Att nämna "80 samtal per dag" och "45 medarbetare" ger rekryterare en tydlig bild av vilken arbetsbörda du hanterat. Det är skillnad på att vara ensam receptionist på ett litet kontor och att hantera växel för 45 personer – brevet visar att du klarar högt tempo.'
+      },
+      {
+        titel: 'Problemlösning med mätbart resultat',
+        beskrivning: 'Exemplet med dubbelbokningar (från 12 till 1 per månad) visar att du inte bara utför uppgifter, utan förbättrar system. Det signalerar initiativförmåga och strukturtänk – två centrala egenskaper för en kontorsassistent.'
+      },
+      {
+        titel: 'Systemkunskap som är relevant',
+        beskrivning: 'Att nämna Microsoft 365, Outlook, Teams och ekonomisystem visar att du behärskar de verktyg som används dagligen. Att du dessutom utbildade kollegor i Teams visar pedagogisk förmåga och trygghet i systemen.'
+      },
+      {
+        titel: 'Serviceanda utan fluffiga ord',
+        beskrivning: 'Istället för att skriva "Jag är serviceinriktad" ger brevet konkreta exempel: hjälpa besökare, lösa problem, hantera känslig information diskret. Det visar serviceanda genom handling, inte tomma påståenden.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Anpassa till verksamheten',
+        text: 'En kontorsassistent på en advokatbyrå hanterar andra saker än en på ett logistikföretag. Om annonsen nämner specifika system (som Visma, SuperOffice eller ett visst ärendehanteringssystem), nämn om du arbetat i dem tidigare. Om inte, framhäv hur snabbt du lär dig nya system.'
+      },
+      {
+        rubrik: 'Visa att du klarar multitasking',
+        text: 'Kontorsassistentens vardag handlar om att hoppa mellan uppgifter. Ge exempel på situationer där du hanterat reception samtidigt som du löste ett akut problem eller bokade om ett möte. Konkreta scenarion slår vaga påståenden om att du är "bra på att hantera många uppgifter samtidigt".'
+      },
+      {
+        rubrik: 'Nämn systemkunskap tidigt',
+        text: 'Om du behärskar Office 365, Outlook, Excel, Teams eller liknande – skriv det i andra stycket. Många rekryterare skummar snabbt och vill se teknisk kompetens direkt. Skriv inte bara "god datorvana", utan namnge systemen du använt.'
+      },
+      {
+        rubrik: 'Diskretion är en merit',
+        text: 'Kontorsassistenter hanterar ofta känslig information: löner, personalärenden, konfidentiella avtal. Om du arbetat med sådant, nämn det kort – det visar att du förstår vikten av tystnadsplikt och professionellt uppförande.'
+      },
+      {
+        rubrik: 'Kvantifiera där det är möjligt',
+        text: 'Istället för "Jag skötte telefonväxeln" skriv "Jag hanterade i snitt 60 samtal per dag". Istället för "Jag bokade möten" skriv "Jag koordinerade 15-20 mötesbokningar per vecka i Outlook". Siffror gör dina erfarenheter konkreta och trovärdiga.'
+      },
+      {
+        rubrik: 'Avsluta med tillgänglighet',
+        text: 'Kontorsassistenter uppskattas för att vara lättillgängliga och lösningsorienterade. Avsluta brevet med en öppen och vänlig ton som visar att du är redo att ta nästa steg. Skriv tydligt hur rekryteraren når dig, och gör det enkelt att ta kontakt.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur långt ska ett personligt brev för kontorsassistent vara?',
+        a: 'Sikta på 250-350 ord, vilket motsvarar en A4-sida. Rekryterare för administrativa roller får ofta många ansökningar och uppskattar koncis information. Fokusera på dina mest relevanta erfarenheter: systemkunskap, reception, telefonväxel och organisation. Hoppa över långa introduktioner och gå direkt på vad du kan bidra med.'
+      },
+      {
+        q: 'Vad ska jag inkludera om jag inte har erfarenhet av reception eller telefonväxel?',
+        a: 'Fokusera på andra administrativa uppgifter du hanterat: schemaläggning, dokumenthantering, e-postkommunikation eller kundservice. Om du arbetat i butik eller restaurang kan du lyfta hur du hanterat stressiga situationer, många kontakter samtidigt och service under tidspress. Dessa förmågor är högst relevanta för kontorsassistenter.'
+      },
+      {
+        q: 'Ska jag lista alla Office-program jag kan?',
+        a: 'Nämn de system och program som är relevanta för tjänsten. Istället för att rada upp "Word, Excel, PowerPoint, Outlook" kan du skriva "Jag arbetar dagligen i Microsoft 365, framför allt Outlook för kalendrar och e-post samt Excel för enklare uppföljningar". Det visar hur du använder verktygen i praktiken, inte bara att du kan öppna dem.'
+      },
+      {
+        q: 'Hur visar jag att jag är bra på multitasking utan att skriva just det?',
+        a: 'Ge konkreta exempel istället för påståenden. Skriv om en situation där du hanterade telefonväxeln samtidigt som du tog emot en leverans och bokade om ett möte. Eller beskriv hur du koordinerade flera olika projekt eller uppgifter parallellt. Rekryterare vill se bevis på förmågan, inte bara ordet "multitasking".'
+      },
+      {
+        q: 'Behöver jag nämna diskretion och tystnadsplikt?',
+        a: 'Ja, om du hanterat känslig information tidigare. Kontorsassistenter får ofta tillgång till personalärenden, ekonomiska uppgifter eller konfidentiella avtal. En kort mening som "Jag är van vid att hantera känslig information diskret" räcker för att visa att du förstår vikten av professionalism och tystnadsplikt i rollen.'
+      }
+    ],
+
+    cta: {
+      text: 'Vill du skapa ett professionellt personligt brev för kontorsassistent på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      buttonText: 'Skapa ditt brev nu',
+      buttonLink: '/verktyg/personligt-brev'
+    },
+
+    verktyg: [
+      {
+        namn: 'CV-Mallar för administrativa roller',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar anpassade för kontorsassistent och administratörer'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din karriär inom administration från vår AI-coach'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för kontorsassistent på 5 minuter'
+      }
+    ],
+
+    kategori: 'Admin',
+    relaterade: [
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Administratör', slug: 'administrator' },
+      { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanstmedarbetare' },
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' }
+    ]
+  },
+
   'logistikassistent': {
     yrke: 'Logistikassistent',
     sokvolym: 140,
