@@ -458,6 +458,20 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
+    id: 'hemtjanstpersonal',
+    yrke: 'Hemtjänstpersonal',
+    slug: 'hemtjanstpersonal',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 550,
+    icon: Users,
+    gradient: 'from-teal-500 via-cyan-600 to-teal-700',
+    preview: {
+      intro: 'Ett professionellt brev som visar din omsorgskompetens, självständighet och förmåga att skapa trygghet i vardagen.',
+      highlight: ['ADL-stöd & läkemedelshantering', 'Dokumentation (Treserva/Lifecare)', 'Självständigt arbete & flexibilitet']
+    }
+  },
+  {
     id: 'hemtjanst',
     yrke: 'Hemtjänst',
     slug: 'hemtjanst',
