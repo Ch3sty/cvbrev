@@ -328,6 +328,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'servicemedarbetare',
     'automationsingenior',
     'kassorska',
+    'fritidsledare',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
