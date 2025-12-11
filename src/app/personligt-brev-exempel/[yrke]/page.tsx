@@ -4766,6 +4766,142 @@ Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att han
     ]
   },
 
+  'konditor': {
+    yrke: 'Konditor',
+    sokvolym: 210,
+
+    metaTitle: 'Personligt Brev Konditor - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Professionellt personligt brev konditor med exempel. ATS-optimerad mall som betonar bakning, sockerdekoration och livsmedelshygien. Gratis guide 2025.',
+
+    seoIntro: `Söker du jobb som konditor och behöver ett personligt brev som visar din kompetens med sockerdekoration, bakverk och produktion? Det här exemplet är skrivet för en konditor med erfarenhet från både bageri och kafé och visar hur du balanserar hantverksskicklighet med effektivitet.
+
+Du får se exakt hur du lyfter fram konkreta prestationer, från antal tårtor per vecka till nya receptutvecklingar, utan att låta generisk. Brevet visar hur du väver in branschterminologi som temperering, sockerdekoration och livsmedelshygien på ett naturligt sätt som fungerar i ATS-system.
+
+Använd det som inspiration för din egen jobbansökan konditor och anpassa det efter den tjänst du söker. Brevet fungerar för både småskaliga konditorier och större bagerier med högre produktionsvolymer.`,
+
+    intro: 'Ett professionellt personligt brev för konditor som visar din tekniska skicklighet med bakverk, sockerdekoration och kreativ receptutveckling. Detta exempel är optimerat för svenska bagerier, konditorier och kaféer.',
+
+    exempelBrev: {
+      namn: 'Emma Lindgren',
+      adress: 'Östra Promenaden 14, 211 28 Malmö',
+      telefon: '070-345 67 89',
+      epost: 'emma.lindgren@email.se',
+      arbetsgivare: 'Café Esaias',
+      roll: 'Konditor',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som konditor på Café Esaias. Med fem års erfarenhet från både produktion i bageri och individuellt arbete med beställningstårtor ser jag fram emot att bidra med både precision och kreativitet till ert team. Era klassiska konditorvaror i kombination med moderna smaker lockar mig.
+
+På Lilla Bageriet i Lund har jag arbetat med allt från daglig produktion av bakverk till skräddarsydda bröllopstårtor. Jag har tillverkat 20 till 30 tårtor per vecka vid sidan av löpande produktion av petit fours, macarons och franska desserter. Under hösten 2024 utvecklade jag tre nya receptvarianter på säsongstårtor med pumpa, saffran och havtorn som blev så uppskattade att de stannade kvar på menyn året runt. Min styrka ligger i att kombinera klassiskt hantverk med moderna presentationer.
+
+Jag behärskar sockerdekoration, chokladarbete och temperering och arbetar säkert med både italiensk maräng och spritskaksteknik. Tidsplanering är avgörande i ett konditori och jag är van vid att jobba mot deadlines där flera beställningar måste lämnas samma dag. Jag har arbetat med vedeldade ugnar, konvektionsugnar och kylrum och känner mig hemma i alla delar av produktionen. Livsmedelshygien och noggrannhet med allergener är självklart för mig.
+
+Det jag uppskattar med Café Esaias är er satsning på lokala råvaror och era klassiska svenska bakverk som prinsesstårta och mazarin. Jag besökte er förra veckan och blev imponerad av hur ni kombinerar tradition med kvalitet i varje detalj. Den kombinationen av hantverksstolthet och kreativ frihet vill jag gärna vara en del av.
+
+Jag ser fram emot att bidra med min erfarenhet och fortsätta utvecklas inom konditoryrket tillsammans med er. Tveka inte att kontakta mig för en intervju.
+
+Med vänliga hälsningar,
+Emma Lindgren`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta siffror visar arbetskapacitet',
+        beskrivning: 'Att producera 20-30 tårtor per vecka ger rekryteraren en tydlig bild av Emmas erfarenhet och arbetsförmåga. Siffror gör brevet trovärdigt och visar att hon kan hantera både volym och kvalitet samtidigt.'
+      },
+      {
+        titel: 'Specifik branschterminologi för ATS-optimering',
+        beskrivning: 'Brevet innehåller viktiga sökord som ATS-system letar efter: sockerdekoration, chokladarbete, temperering, livsmedelshygien, macarons, bakverk och tidsplanering. Detta ökar chansen att passera automatiska screeningsystem.'
+      },
+      {
+        titel: 'Balans mellan kreativitet och precision',
+        beskrivning: 'Visar både kreativ utveckling (nya receptvarianter) och tekniskt hantverkskunnande (temperering, italiensk maräng). Detta är attraktivt för arbetsgivare som söker konditor med både konstnärliga och praktiska färdigheter.'
+      },
+      {
+        titel: 'Företagsspecifik anpassning',
+        beskrivning: 'Emma nämner att hon besökt kaféet och uppskattar deras fokus på lokala råvaror och klassiska svenska bakverk. Detta visar genuint intresse och att hon inte skickat samma brev till alla arbetsgivare.'
+      },
+      {
+        titel: 'Visar förståelse för hela produktionskedjan',
+        beskrivning: 'Nämner erfarenhet av olika utrustning (vedeldade ugnar, konvektionsugnar, kylrum) och vikten av livsmedelshygien. Detta signalerar att hon kan börja jobba direkt utan lång inlärningsperiod.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Lyft fram konkreta prestationer och produktionsvolymer',
+        text: `Rekryterare inom konditorbranschen vill se bevis på din erfarenhet genom konkreta siffror. Istället för "jag har bakningserfarenhet" skriv "jag har tillverkat 20-30 tårtor per vecka vid sidan av löpande produktion av bakverk". Nämn antal beställningar, hur många personer du bakat för vid event eller hur stor daglig produktion du hanterat.
+
+Om du utvecklat nya recept, var specifik: "skapade fem nya säsongsdessert-recept som ökade försäljningen av take away-desserter med 30 procent". Konkreta exempel gör ditt brev trovärdigt och visar att du kan hantera både volym och kvalitet.`
+      },
+      {
+        rubrik: 'Betona tekniska färdigheter och hantverkstekniker',
+        text: `Visa vilka tekniker du behärskar genom att namnge dem specifikt. Exempel: sockerdekoration, chokladarbete, temperering av choklad, italiensk maräng, spritskaksteknik, karamellisering och lamellering för croissanter. Om du arbetat med specifik utrustning som konvektionsugnar, vedeldade ugnar eller chokladtemperingsmaskiner, nämn det.
+
+Om du behärskar specialiserade områden som sockerskulpturer, macarons, entremets eller petit fours, lyft det tydligt. Detta skiljer dig från andra sökande och visar att du kan ta ansvar för avancerade beställningar.`
+      },
+      {
+        rubrik: 'Visa hur du hanterar tidspress och deadlines',
+        text: `Konditorbranschen innebär ofta arbete mot strikta deadlines, särskilt vid beställningar för bröllop, födelsedagar och högtider. Beskriv hur du planerar din produktion och håller flera projekt igång samtidigt. Exempel: "Under påsken 2024 hanterade jag 40 tårtbeställningar samtidigt som jag höll ordinarie produktion för butiken igång genom noggrann tidsplanering och förberedelse".
+
+Visa att du kan prioritera och strukturera ditt arbete även när tempot är högt. Om du har erfarenhet av helgarbete eller tidiga morgnar för produktionsstart, nämn det som en styrka.`
+      },
+      {
+        rubrik: 'Inkludera livsmedelshygien och allergikunskap',
+        text: `Livsmedelshygien är icke-förhandlingsbart inom konditoryrket. Nämn alltid om du har genomgått hygienutbildning eller arbetat enligt HACCP-rutiner. Skriv konkret: "Jag följer strikta hygienrutiner enligt livsmedelslagen och har gedigen erfarenhet av allergenhantering, vilket säkerställer att alla produkter är korrekt märkta".
+
+Om du arbetat med specialkost som glutenfritt, laktosfritt eller veganskt bakverk, lyft det som en bonus. Många konditorier söker personal som kan hantera olika dietkrav och allergier på ett säkert sätt.`
+      },
+      {
+        rubrik: 'Anpassa brevet efter arbetsplatsens profil',
+        text: `Ett litet hantverkskonditori och en stor bageriskedja söker olika kompetenser. För ett litet konditori: betona kreativitet, individuellt arbete med beställningstårtor och kundkontakt. För ett större bageri: fokusera på produktionsvolym, effektivitet, lagarbete och förmåga att följa standardrecept.
+
+Läs jobbannonsen noga och researcha om arbetsgivaren. Om de pratar om "klassiskt hantverk" lyft din erfarenhet av traditionella svenska konditorvaror. Om de nämner "moderna smaker" beskriv hur du experimenterat med nya ingredienser och presentationer.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur visar jag konditorerfarenhet om jag är nyutbildad?',
+        a: 'Fokusera på vad du lärt dig under utbildningen och APL-perioder (arbetsplatsförlagt lärande). Skriv: "Under min APL på Bageri X fick jag arbeta självständigt med tårtdekoration och produktion av 50 citronfromassar per dag". Betona din lärvilja och nämn om du bakat hemma eller experimenterat med nya recept på fritiden. Arbetsgivare vet att nyutbildade behöver tid att växa in i rollen, så var ärlig men positiv om din kompetensnivå.'
+      },
+      {
+        q: 'Ska jag nämna att jag kan dekorera tårtor med sockerpasta?',
+        a: 'Ja, definitivt om du behärskar sockerdekoration. Detta är en eftertraktad färdighet, särskilt för konditorier som tar beställningar på bröllopstårtor och event-tårtor. Var specifik med vad du kan: "Jag behärskar sockerdekoration inklusive figurmodellering, blomsterarbete och texturtekniker". Om du har foton av dina verk kan du nämna att du gärna visar portfolio.'
+      },
+      {
+        q: 'Hur beskriver jag kreativitet utan att låta pretentiös?',
+        a: 'Undvik vaga ord som "passionerad" och "kreativ själ". Visa istället konkret vad du gjort: "Jag utvecklade tre nya receptvarianter på säsongstårtor med pumpa, saffran och havtorn som blev så uppskattade att de stannade på menyn året runt". Beskriv faktiska recept, smakkombinationer eller presentationer du arbetat med. Det visar kreativitet genom handling istället för tomma ord.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar fysiskt krävande arbete?',
+        a: 'Konditorarbete innebär långt stående arbete, lyft av tunga degbaljor och arbete i varmt eller kallt klimat. Istället för att säga "jag är fysiskt stark" skriv: "Jag är van vid långt stående arbete och har erfarenhet av att hantera stora produktionsvolymer där jag dagligen lyfter säckar med mjöl, sockerlösningar och tårtformar". Detta visar att du förstår arbetets fysiska krav.'
+      },
+      {
+        q: 'Är det viktigt att nämna schemaflexibilitet?',
+        a: 'Ja, särskilt om du söker jobb i bageri eller konditori med tidig morgonproduktion. Om du kan arbeta tidiga pass (start 04:00-06:00), helger eller högtider, var tydlig: "Jag är fullt flexibel med arbetstider och van vid tidiga morgnar och helgarbete". Bagerier startar ofta mycket tidigt och behöver personal som är villiga att arbeta oregelbundna tider.'
+      },
+      {
+        q: 'Hur hanterar jag ansökan om jag saknar formell konditorutbildning?',
+        a: 'Om du har praktisk erfarenhet men saknar formell utbildning, lyft din bakningserfarenhet tydligt. Skriv: "Jag har fem års erfarenhet av bakning från eget företag där jag tillverkat beställningstårtor och desserter till privatpersoner och företag". Visa vad du kan genom konkreta exempel på vad du bakat och hur många beställningar du hanterat. Många arbetsgivare värderar praktisk erfarenhet lika högt som formell utbildning.'
+      },
+      {
+        q: 'Ska jag nämna att jag kan arbeta med veganska eller glutenfria alternativ?',
+        a: 'Absolut. Efterfrågan på specialkost ökar och det är en stor fördel att kunna hantera olika dietkrav. Skriv konkret: "Jag har gedigen erfarenhet av att baka glutenfria, laktosfria och veganska alternativ och kan anpassa recept utan att kompromissa med smak eller textur". Om du utvecklat egna recept för specialkost, nämn det som ett exempel på din kompetens.'
+      }
+    ],
+
+    kategori: 'service',
+
+    relaterade: [
+      { yrke: 'Barista', slug: 'barista' },
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Köksbiträde', slug: 'koksbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' }
+    ]
+  },
+
   'specialpedagog': {
     yrke: 'Specialpedagog',
     sokvolym: 600,
