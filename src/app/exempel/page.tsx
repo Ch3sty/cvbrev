@@ -63,7 +63,7 @@ export default function ExempelPage() {
         "name": "Är exemplen gratis att använda?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 58 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis."
+          "text": "Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 150 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis."
         }
       },
       {
@@ -132,7 +132,7 @@ export default function ExempelPage() {
     },
     {
       question: 'Är exemplen gratis att använda?',
-      answer: 'Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 58 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis.'
+      answer: 'Ja, alla våra exempel är helt kostnadsfria att läsa och använda som inspiration. Du kan se fullständiga CV- och brevexempel för över 150 olika yrken utan att skapa konto. För att skapa egna dokument med våra verktyg kan du registrera dig gratis.'
     },
     {
       question: 'Hur väljer jag rätt exempel för mitt yrke?',
@@ -181,7 +181,7 @@ export default function ExempelPage() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 text-orange-700 text-sm font-semibold rounded-full">
                 <Sparkles className="w-4 h-4" />
-                58+ yrken • Gratis
+                150+ exempel • Gratis
               </span>
             </motion.div>
 
@@ -212,11 +212,11 @@ export default function ExempelPage() {
             >
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span><strong>58</strong> CV-exempel</span>
+                <span><strong>74</strong> CV-exempel</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span><strong>58</strong> brevexempel</span>
+                <span><strong>76</strong> brevexempel</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle className="w-5 h-5 text-green-500" />
@@ -289,13 +289,13 @@ export default function ExempelPage() {
                     <h3 className="text-2xl font-bold text-slate-900 mb-3">CV-Exempel</h3>
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">58 yrken</span>
+                      <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">74 yrken</span>
                       <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">ATS-optimerade</span>
                       <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">Svensk standard</span>
                     </div>
 
                     <p className="text-slate-600 mb-6 leading-relaxed">
-                      Se kompletta CV:n för 58 olika yrken. Varje exempel visar hur andra i din bransch
+                      Se kompletta CV:n för 74 olika yrken. Varje exempel visar hur andra i din bransch
                       beskriver sin erfarenhet och strukturerar sitt CV.
                     </p>
 
@@ -334,7 +334,7 @@ export default function ExempelPage() {
                     <h3 className="text-2xl font-bold text-slate-900 mb-3">Personligt Brev-Exempel</h3>
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">58 yrken</span>
+                      <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">76 yrken</span>
                       <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">Skräddarsydda</span>
                       <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">Engagerande</span>
                     </div>

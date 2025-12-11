@@ -1234,7 +1234,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  71 yrken
+                  74 yrken
                 </motion.span>
               </h1>
 

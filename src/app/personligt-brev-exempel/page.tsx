@@ -430,20 +430,6 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
-    id: 'lokalvardare-alt',
-    yrke: 'Lokalvårdare',
-    slug: 'lokalvardare',
-    kategori: 'service',
-    niva: 'nybörjare',
-    sokvolym: 850,
-    icon: Sparkles,
-    gradient: 'from-teal-500 via-emerald-600 to-green-700',
-    preview: {
-      intro: 'Betonar noggrannhet, effektivitet och kvalitetsmedvetenhet i professionell lokalvård.',
-      highlight: ['Professionella städmetoder', 'Kemikaliekunskap & säkerhet', 'Självständighet & kvalitet']
-    }
-  },
-  {
     id: 'vardbitrade',
     yrke: 'Vårdbiträde',
     slug: 'vardbitrade',
@@ -989,6 +975,132 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Visa teknisk förståelse och projektledningskompetens med konkreta IT-projektresultat, agil metodik och stakeholder management.',
       highlight: ['Scrum, Jira & Azure DevOps', 'Budget, tid & leverans', 'Tvärfunktionella team']
     }
+  },
+  {
+    id: 'automationsingenior',
+    yrke: 'Automationsingenjör',
+    slug: 'automationsingenior',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 880,
+    icon: Cog,
+    gradient: 'from-cyan-600 via-blue-700 to-cyan-800',
+    preview: {
+      intro: 'Personligt brev för automationsingenjör med fokus på PLC-programmering, SCADA och robotautomation.',
+      highlight: ['PLC och SCADA-system', 'Robotprogrammering', 'Produktionsoptimering']
+    }
+  },
+  {
+    id: 'bartender',
+    yrke: 'Bartender',
+    slug: 'bartender',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: Coffee,
+    gradient: 'from-amber-500 via-orange-600 to-red-700',
+    preview: {
+      intro: 'Personligt brev för bartender med cocktailkunskap, kassahantering och högtrycksservice.',
+      highlight: ['Cocktailberedning och dryckeskunskap', 'Kassahantering och merförsäljning', 'Gästservice i högt tempo']
+    }
+  },
+  {
+    id: 'fritidsledare',
+    yrke: 'Fritidsledare',
+    slug: 'fritidsledare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 590,
+    icon: Users,
+    gradient: 'from-cyan-500 via-teal-600 to-cyan-700',
+    preview: {
+      intro: 'Personligt brev för fritidsledare med ungdomsverksamhet och aktivitetsplanering.',
+      highlight: ['Ungdomsarbete och SSPF', 'Aktivitetsplanering', 'Konflikthantering']
+    }
+  },
+  {
+    id: 'kassorska',
+    yrke: 'Kassörska',
+    slug: 'kassorska',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 480,
+    icon: ShoppingCart,
+    gradient: 'from-orange-500 via-amber-600 to-orange-700',
+    preview: {
+      intro: 'Personligt brev för kassörska med kassasystem, kontanthantering och kundservice.',
+      highlight: ['Kassasystem och kontanthantering', 'Kundservice', 'Merförsäljning']
+    }
+  },
+  {
+    id: 'konditor',
+    yrke: 'Konditor',
+    slug: 'konditor',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 210,
+    icon: Coffee,
+    gradient: 'from-pink-500 via-rose-600 to-pink-700',
+    preview: {
+      intro: 'Personligt brev för konditor med sockerdekoration, bakverk och hantverksskicklighet.',
+      highlight: ['Sockerdekoration och chokladarbete', 'Tårtor och desserter', 'Livsmedelshygien']
+    }
+  },
+  {
+    id: 'konstruktor',
+    yrke: 'Konstruktör',
+    slug: 'konstruktor',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 800,
+    icon: Cog,
+    gradient: 'from-slate-600 via-zinc-700 to-slate-800',
+    preview: {
+      intro: 'Personligt brev för konstruktör med CAD-kompetens, FEM-analyser och produktutveckling.',
+      highlight: ['SolidWorks och CATIA', 'FEM-analys', 'DFM och kostnadsoptimering']
+    }
+  },
+  {
+    id: 'kontorsassistent',
+    yrke: 'Kontorsassistent',
+    slug: 'kontorsassistent',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 590,
+    icon: Briefcase,
+    gradient: 'from-sky-500 via-blue-600 to-sky-700',
+    preview: {
+      intro: 'Personligt brev för kontorsassistent med administration och systemkunskap.',
+      highlight: ['Office och affärssystem', 'Administrativ koordination', 'Kundkontakt']
+    }
+  },
+  {
+    id: 'servicemedarbetare',
+    yrke: 'Servicemedarbetare',
+    slug: 'servicemedarbetare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 420,
+    icon: Briefcase,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'Personligt brev för servicemedarbetare med fastighetsdrift och receptionsarbete.',
+      highlight: ['Fastighetsdrift', 'Receptionsarbete', 'Kundnöjdhet']
+    }
+  },
+  {
+    id: 'stadare',
+    yrke: 'Städare',
+    slug: 'stadare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 400,
+    icon: Sparkles,
+    gradient: 'from-teal-400 via-cyan-500 to-teal-600',
+    preview: {
+      intro: 'Personligt brev för städare med fokus på noggrannhet, kvalitet och hygienrutiner.',
+      highlight: ['Professionella städmetoder', 'Kemikaliehantering', 'Tidsplanering']
+    }
   }
 ]
 
@@ -1154,7 +1266,7 @@ export default function PersonligtBrevGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  20+ yrken
+                  76 yrken
                 </motion.span>
               </h1>
 

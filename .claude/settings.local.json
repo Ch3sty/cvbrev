@@ -28,7 +28,8 @@
       "Bash(python:*)",
       "Bash(python3:*)",
       "Bash(npx tsc:*)",
-      "Bash(timeout 60 npm run build:*)"
+      "Bash(timeout 60 npm run build:*)",
+      "Bash(comm:*)"
     ],
     "deny": [],
     "ask": []
