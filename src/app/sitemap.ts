@@ -324,7 +324,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'psykolog',
     'logistiker',
     'fastighetsskotare',
+    'hemtjanstpersonal',
     'servicemedarbetare',
+    'automationsingenior',
+    'kassorska',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

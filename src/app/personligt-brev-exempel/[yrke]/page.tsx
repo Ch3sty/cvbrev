@@ -4489,6 +4489,156 @@ Konsultbolag söker självgående personer som snabbt kan sätta sig in i nya te
     ]
   },
 
+  'kassorska': {
+    yrke: 'Kassörska',
+    sokvolym: 300,
+
+    metaTitle: 'Personligt Brev Kassörska - Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Professionellt personligt brev för kassörska med konkreta exempel. Visa din servicekänsla, noggrannhet och kunskap om kassasystem. Mall som passar ICA, Coop, Willys.',
+
+    seoIntro: `Ett personligt brev kassörska som visar din servicekänsla och noggrannhet i kassaarbete gör skillnad när du söker jobb inom dagligvaruhandel. Butiker som ICA, Coop och Willys letar efter kassörskor som kombinerar snabb och korrekt kassahantering med genuint bra kundbemötande.
+
+Arbetsgivare inom dagligvaruhandeln söker specifika kompetenser. Nämn kassasystem du behärskar (Hoist, Extenda Retail), erfarenhet av kontanthantering, kortbetalningar, Swish, panthantering och varupåfyllnad. Kvantifiera din erfarenhet: antal kunder du betjänar per timme, hur du minskat kassadifferenser eller hur du hanterar ruschtider. Konkreta exempel visar att du förstår vad snabb och pålitlig service betyder i praktiken.
+
+Använd detta exempel som utgångspunkt och anpassa det efter den specifika butiken. Brevet är ATS-optimerat för att passera automatiska screeningsystem och innehåller branschtermer som visar att du behärskar både kundservice och kassateknik.`,
+
+    intro: 'Ett professionellt personligt brev för kassörska som visar din servicekänsla, noggrannhet och erfarenhet av kassasystem. Detta exempel är optimerat för dagligvaruhandeln och ATS-system.',
+
+    exempelBrev: {
+      namn: 'Sofia Bergström',
+      adress: 'Kungsgatan 34, 602 24 Norrköping',
+      telefon: '070-456 23 89',
+      epost: 'sofia.bergstrom@email.se',
+      arbetsgivare: 'ICA Maxi Norrköping',
+      roll: 'Kassörska',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som kassörska på ICA Maxi Norrköping eftersom jag trivs med att möta människor och ge snabb service i högt tempo. Med tre års erfarenhet av kassaarbete från både Coop och Willys vet jag vad som krävs för att hålla köerna korta samtidigt som varje kund känner sig välkommen.
+
+Just nu jobbar jag på Coop Forum där jag betjänar cirka 80 kunder per timme under ruschtid. Jag hanterar allt från snabbköp på lunch till stora veckohandlingar med kuponghantering, Coop-poäng och olika betalningslösningar. Jag arbetar dagligen i kassasystemet Hoist och har erfarenhet av kontanthantering, kortbetalningar, Swish, mobilbetalningar och presentkort. Under senaste halvåret har jag haft noll kassadifferenser genom att dubbelkolla kontanter vid varje byte och räkna kassan noggrant vid stängning. När vår pantautomat gick sönder under lördagsruschen tog jag emot pantflaskor manuellt och registrerade dem i systemet så att kunderna slapp vänta till måndag.
+
+Innan Coop jobbade jag två år på Willys där jag också ansvarade för varupåfyllnad, framlockning och prisjustering. Jag fick där erfarenhet av att hantera missnöjda kunder när priser skiljde sig mellan hylla och kassa, och jag lärde mig vikten av att lyssna lugnt och lösa situationen snabbt. Ett konkret exempel var när en kund hävdade att mjölken skulle kosta 12 kronor enligt hyllan. Jag bad en kollega kolla priset, bad kunden vänta en minut, och när det visade sig vara fel i systemet justerade jag priset direkt och bad om ursäkt. Kunden tackade för att jag tog det på allvar.
+
+ICA Maxis fokus på lokala producenter och bra service tilltalar mig starkt. Jag har sett att ni har bredare sortiment än många andra butiker och ett stort fokus på färskvaror, vilket lockar kunder som ställer frågor om produkterna. Jag tycker om den typen av kundkontakt där jag kan hjälpa till och göra handlingen lite trevligare, inte bara scanna varor.
+
+Jag är van vid högt tempo, flexibel med arbetstider och trivs med att jobba både vardag, kväll och helger. Jag ser fram emot att bidra till en smidig och trevlig kundupplevelse hos er.
+
+Med vänliga hälsningar,
+Sofia Bergström`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta siffror visar erfarenhetsnivå',
+        beskrivning: 'Sofia kvantifierar sin erfarenhet: betjänar 80 kunder per timme, tre års erfarenhet, noll kassadifferenser senaste halvåret. Detta ger arbetsgivaren en tydlig bild av hennes tempo och noggrannhet utan vaga påståenden om att vara "snabb och pålitlig".'
+      },
+      {
+        titel: 'Branschspecifika system och betalningslösningar',
+        beskrivning: 'Brevet nämner kassasystem (Hoist), betalningsmetoder (kontant, kort, Swish, mobilbetalning, presentkort), lojalitetsprogram (Coop-poäng) och panthantering. Detta visar att Sofia behärskar den tekniska sidan av kassaarbetet och kan börja jobba direkt utan lång introduktion.'
+      },
+      {
+        titel: 'Problemlösning med konkret exempel',
+        beskrivning: 'Istället för att bara säga "jag är bra på att hantera missnöjda kunder" beskriver Sofia en verklig situation: kund klagade på pris, hon bad kollega kolla, lyssnade lugnt, justerade priset och bad om ursäkt. Detta visar hur hon hanterar konflikter professionellt.'
+      },
+      {
+        titel: 'Flexibilitet och bredare kompetens',
+        beskrivning: 'Sofia visar att hon kan mer än bara kassaarbete: varupåfyllnad, framlockning, prisjustering och hantering av pantautomat. Detta gör henne mer värdefull för arbetsgivaren som ofta behöver kassörskor som kan hoppa in på andra uppgifter när kassakön är kort.'
+      },
+      {
+        titel: 'Personlig koppling till företaget',
+        beskrivning: 'Brevet refererar till ICA Maxis lokala producenter och breda sortiment av färskvaror. Detta visar att Sofia gjort research och ser skillnaden mellan olika butikskedjor, vilket signalerar genuint intresse snarare än ett generiskt massutskick.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera din kassaerfarenhet med konkreta siffror',
+        text: `Istället för "jag har erfarenhet av kassaarbete" skriv konkret: hur många kunder betjänar du per timme eller per arbetspass? Hur många år har du jobbat i kassan? Hur ser dina kassadifferenser ut?
+
+Exempel på konkreta siffror: "Jag betjänar 70-90 kunder per timme under ruschtid", "Under senaste året har jag haft endast två kassadifferenser på totalt 15 kronor", eller "Jag har tre års erfarenhet från både stormarknad och närbutik". Siffror hjälper arbetsgivaren att snabbt bedöma din erfarenhetsnivå.`
+      },
+      {
+        rubrik: 'Nämn kassasystem och betalningslösningar du behärskar',
+        text: `Dagligvaruhandeln använder olika kassasystem. Nämn de du kan: Hoist (vanligt på ICA och Coop), Extenda Retail, SAP Retail eller andra system. Om du inte kan exakt det system arbetsgivaren använder men jobbat i liknande, skriv "jag arbetar rutinerat i kassasystem och lär mig snabbt nya plattformar".
+
+Lista också betalningsmetoder du hanterar: kontanter, kort, Swish, mobilbetalningar (Apple Pay, Google Pay), presentkort, kampanjkuponger, medlemspoäng som Coop-poäng eller ICA-kort.`
+      },
+      {
+        rubrik: 'Visa noggrannhet genom kassadifferenser och kontanthantering',
+        text: `Arbetsgivare inom dagligvaruhandeln värdesätter noggrannhet högt. Visa det konkret: "Jag har haft noll kassadifferenser under senaste halvåret genom att dubbelkolla kontanter vid varje växling och räkna kassan noggrant vid stängning".
+
+Beskriv dina rutiner för kontanthantering: räknar kassan vid öppning, dubbelkollar växel, rapporterar avvikelser direkt. Detta visar att du tar ansvaret på allvar.`
+      },
+      {
+        rubrik: 'Beskriv hur du hanterar högt tempo och ruschtider',
+        text: `Kassaarbete innebär variationer mellan lugna stunder och kaos. Visa att du klarar båda: "Jag trivs i högt tempo under lunch och fredagseftermiddagar när köerna är långa. Jag scannar snabbt, håller en trevlig ton och ser till att kunderna känner sig sedda trots tidspress".
+
+Visa också flexibilitet: "Jag är van vid att hoppa mellan kassa, varupåfyllnad och framlockning beroende på var behovet är störst."  Arbetsgivare söker kassörskor som både är snabba och behåller servicekänslan under press.`
+      },
+      {
+        rubrik: 'Ge exempel på kundbemötande och konfliktlösning',
+        text: `Visa ditt kundbemötande genom konkreta situationer: "När en kund var osäker på vilken sort lingon vi hade på extrapris tog jag mig tid att förklara skillnaden mellan burk och fryst, vilket gjorde att hon hittade rätt produkt".
+
+Beskriv hur du hanterar missnöjda kunder: "När en kund klagade på att priset var högre än väntat bad jag lugnt en kollega kolla hyllpriset, lyssnade på kundens frustration och justerade priset när det visade sig vara fel i systemet." Konkreta handlingar gör ditt brev minnesvärt.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur skriver jag ett personligt brev för kassörska utan erfarenhet?',
+        a: `Fokusera på överförbar kompetens och personliga egenskaper. Har du jobbat i kundservice, café eller restaurang? Då har du bemötande och förmåga att jobba under press. Har du hanterat pengar i andra sammanhang? Nämn det.
+
+Betona din vilja att lära dig: "Jag är snabb på att lära mig nya system och har alltid trivts med siffror och noggrannhet". Lyft fram personliga egenskaper som passar kassan: pålitlighet, servicekänsla, stresstålighet. Arbetsgivare förstår att alla börjar någonstans och värdesätter rätt attityd.`
+      },
+      {
+        q: 'Vilka nyckelord ska jag inkludera för att klara ATS-system?',
+        a: `ATS-system inom dagligvaruhandeln söker efter: kassahantering, kontanthantering, kortbetalningar, Swish, kassasystem, kassadifferenser, kundbemötande, kassakvitto, panthantering, varupåfyllnad, prisjustering, kampanjhantering.
+
+Nämn specifika kassasystem om du kan: Hoist, Extenda Retail, SAP Retail. Om jobbannonsen nämner butikskedjan (ICA, Coop, Willys, Hemköp), referera till deras lojalitetsprogram: ICA-kort, Coop Medlemspris, Willys Plus. Läs jobbannonsen och spegelvänd de termer de använder.`
+      },
+      {
+        q: 'Ska jag nämna kassadifferenser i mitt personliga brev?',
+        a: `Ja, om du har låga eller noll kassadifferenser är det en stark merit. Skriv konkret: "Under senaste året har jag haft noll kassadifferenser genom noggrann kontanthantering och dubbelkoll vid varje växling".
+
+Om du haft differenser, behöver du inte nämna det om de är små och ovanliga. Men om du lärt dig något av det, kan du formulera det positivt: "Jag har lärt mig vikten av systematisk kassahantering och räknar alltid kassan noggrant vid öppning och stängning".`
+      },
+      {
+        q: 'Hur beskriver jag erfarenhet av olika butikskedjor?',
+        a: `Om du jobbat på flera kedjor är det en fördel. Skriv: "Jag har erfarenhet från både Coop (stormarknad med brett sortiment) och Willys (lågpriskedja med högt tempo). Detta har gett mig förståelse för olika kundgrupper och butikskoncept".
+
+Nämn skillnader du lärt dig hantera: olika kassasystem, olika tempo, olika kampanjstrukturer, olika lojalitetsprogram. Om du söker till en specifik kedja, koppla din erfarenhet till dem: "Min erfarenhet från Coop Forum har förberett mig väl för ICA Maxis breda utbud och fokus på kundkontakt".`
+      },
+      {
+        q: 'Ska jag nämna varupåfyllnad och andra arbetsuppgifter?',
+        a: `Ja, definitivt. Kassörskor förväntas ofta hjälpa till med annat när kassakön är kort: varupåfyllnad, framlockning, städning runt kassan, hantera returer, packa kassar, hjälpa kunder hitta varor.
+
+Skriv konkret: "Utöver kassaarbete har jag erfarenhet av varupåfyllnad, framlockning och prisjustering. När kassakön är kort hjälper jag gärna till där behovet är störst". Detta visar att du tänker helhet och förstår butikens totala behov.`
+      },
+      {
+        q: 'Hur visar jag servicekänsla utan att låta vag?',
+        a: `Skippa fraser som "Jag är väldigt serviceminded". Visa istället servicekänsla genom konkreta exempel: "När en äldre kund hade svårt att bära sina kassar ut till bilen frågade jag om jag kunde hjälpa till. Det tog två minuter men betydde mycket för henne."
+
+Eller: "Jag tar mig alltid tid att säga hej och le, även när kön är lång. Jag tror att de små sakerna påverkar kundens upplevelse av hela butiken." Konkreta handlingar visar vem du är mycket bättre än adjektiv.`
+      },
+      {
+        q: 'Behöver jag nämna arbetstider och flexibilitet?',
+        a: `Ja, kassaarbete kräver ofta flexibilitet. Om du kan jobba kvällar, helger och högtider, nämn det tydligt: "Jag är flexibel med arbetstider och kan arbeta kvällar, helger och röda dagar".
+
+Om du har specifika begränsningar, var ärlig men positiv: "Jag kan arbeta varannan helg och två kvällar i veckan". Flexibilitet är ofta avgörande inom dagligvaruhandeln där helger och kvällar är de mest intensiva tiderna.`
+      }
+    ],
+
+    kategori: 'service',
+
+    relaterade: [
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Servicemedarbetare', slug: 'servicemedarbetare' },
+      { yrke: 'Receptionist', slug: 'receptionist' }
+    ]
+  },
+
   'kock': {
     yrke: 'Kock',
     sokvolym: 190,
