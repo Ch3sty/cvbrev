@@ -263,6 +263,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'sommarjobb',
     'ekonomiassistent',
     'barnskotare',
+    'bartender',
     'personlig-assistent',
     'administrator',
     'forskollarare',
