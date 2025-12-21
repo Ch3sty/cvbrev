@@ -9,6 +9,7 @@ import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
 import { NotificationProvider } from '@/context/notificationcontext';
 import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -105,11 +106,12 @@ export default function ClientLayout({
       </noscript>
       {/* === GTM BODY SNIPPET (NOSCRIPT) SLUT === */}
 
-      <GlobalCountersProvider>
-        <NotificationProvider>
-          <main className="flex-grow">
-            {children}
-          </main>
+      <AuthProvider>
+        <GlobalCountersProvider>
+          <NotificationProvider>
+            <main className="flex-grow">
+              {children}
+            </main>
 
         {/* Footer - använd PremiumFooter överallt utom på dashboard */}
         {!isDashboard && <PremiumFooter />}
@@ -172,9 +174,10 @@ export default function ClientLayout({
             Läs mer
           </Link>
         </CookieConsent>
-        {/* === COOKIE BANNER SLUT === */}
-        </NotificationProvider>
-      </GlobalCountersProvider>
+          {/* === COOKIE BANNER SLUT === */}
+          </NotificationProvider>
+        </GlobalCountersProvider>
+      </AuthProvider>
     </>
   )
 }

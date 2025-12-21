@@ -1,14 +1,15 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import AchievementManager from '@/components/gamification/AchievementManager';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
 import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
+import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function DashboardLayout({
   children,
@@ -16,45 +17,28 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, isLoading, isAuthenticated } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
+  // Redirect till login om ej autentiserad (efter initial load)
   useEffect(() => {
-    async function checkAuth() {
-      try {
-        const supabase = getSupabaseClient();
-        
-        // Hämta aktuell användare
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user) {
-          console.log("Ingen användare hittad, omdirigerar till login");
-          router.push('/login');
-          return;
-        }
-        
-        console.log("Användare inloggad, visar dashboard");
-        setUser(user);
+    if (!isLoading && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isLoading, isAuthenticated, router]);
 
-        // Check if user needs to set password (trial users)
-        const passwordSet = user.user_metadata?.password_set
-        const dismissedThisSession = localStorage.getItem('password_prompt_dismissed') === 'true'
+  // Check if user needs to set password (trial users)
+  useEffect(() => {
+    if (user) {
+      const passwordSet = user.user_metadata?.password_set;
+      const dismissedThisSession = localStorage.getItem('password_prompt_dismissed') === 'true';
 
-        if (passwordSet === false && !dismissedThisSession) {
-          setShowPasswordPrompt(true)
-        }
-      } catch (error) {
-        console.error("Fel vid auth-kontroll:", error);
-        router.push('/login');
-      } finally {
-        setIsLoading(false);
+      if (passwordSet === false && !dismissedThisSession) {
+        setShowPasswordPrompt(true);
       }
     }
-    
-    checkAuth();
-  }, [router]);
+  }, [user]);
 
   // Visa en laddningsskärm medan vi kontrollerar autentisering
   if (isLoading) {
@@ -68,8 +52,7 @@ export default function DashboardLayout({
     );
   }
 
-  // Om användaren inte är inloggad, visa inget
-  // Router.push i useEffect kommer att hantera omdirigeringen
+  // Om användaren inte är inloggad, visa inget (redirect sker i useEffect)
   if (!user) {
     return null;
   }
@@ -77,6 +60,11 @@ export default function DashboardLayout({
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
     <OnboardingProvider>
+      {/* Navigation Progress Bar - visas vid sidbyten */}
+      <Suspense fallback={null}>
+        <NavigationProgress />
+      </Suspense>
+
       <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-slate-100/20">
         <div className="flex h-screen flex-col lg:flex-row">
           {/* Achievement Notifications */}

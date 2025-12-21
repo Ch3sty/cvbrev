@@ -400,6 +400,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <li key={item.path}>
                 <Link
                   href={item.path}
+                  prefetch={true}
                   className={`
                     flex items-center px-4 py-3 sm:py-2.5 rounded-lg relative transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path
@@ -431,6 +432,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <li key={item.path}>
                 <Link
                   href={item.path}
+                  prefetch={true}
                   className={`
                     flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === item.path
@@ -465,6 +467,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <li key={item.path}>
                 <Link
                   href={item.path}
+                  prefetch={true}
                   className={`
                     flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === item.path || pathname.startsWith(item.path + '/')
@@ -497,6 +500,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <li key={item.path}>
                 <Link
                   href={item.path}
+                  prefetch={true}
                   className={`
                     flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path
@@ -526,6 +530,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <li key={subItem.path}>
                 <Link
                   href={subItem.path}
+                  prefetch={true}
                   className={`
                     flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === subItem.path
@@ -557,6 +562,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       <div className="p-4 border-t border-slate-300 space-y-2 bg-gradient-to-r from-white to-slate-50/50">
         <Link
           href="/dashboard/bugg-feedback"
+          prefetch={true}
           className={`
             flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
             ${collapsed ? 'justify-center' : ''}
@@ -568,6 +574,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         <Link
           href="/dashboard/kontakt"
+          prefetch={true}
           className={`
             flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
             ${collapsed ? 'justify-center' : ''}
