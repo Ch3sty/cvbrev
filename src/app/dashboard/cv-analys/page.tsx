@@ -13,6 +13,7 @@ import { useProfile } from '@/hooks/use-profile';
 
 // Components
 import CVAnalysisWizard from './components/CVAnalysisWizard';
+import CVAnalysisIntro from './components/CVAnalysisIntro';
 
 // Utility Functions
 import { logUserActivity } from '@/lib/activity-logger';
@@ -31,6 +32,7 @@ export default function CVAnalysisPage() {
 
   const initialLoadRef = useRef(false);
   const authCheckedRef = useRef(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   // Authentication Check
   useEffect(() => {
@@ -155,7 +157,17 @@ export default function CVAnalysisPage() {
     );
   }
 
-  // Show wizard
+  // Show intro or wizard
+  if (showIntro) {
+    return (
+      <CVAnalysisIntro
+        onStartAnalysis={() => setShowIntro(false)}
+        remainingAnalyses={remainingWeeklyAnalyses}
+        isPremium={subscriptionTier === 'premium'}
+      />
+    );
+  }
+
   return (
     <CVAnalysisWizard
       cvs={cvs}
