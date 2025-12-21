@@ -477,17 +477,15 @@ export default function CVCreatorWizard() {
         a.remove();
       }
 
-      if (action === 'save' || action === 'both') {
-        // Redirect to CV library
-        router.push('/dashboard/cv-bibliotek');
-      }
+      // Bekräftelse visas nu i Step7Review istället för redirect
     } catch (error) {
       console.error('Error completing wizard:', error);
-      // Show error notification - TODO: Add proper error handling UI
+      // Kasta vidare felet så att Step7Review kan hantera det
+      throw error;
     } finally {
       setIsSaving(false);
     }
-  }, [buildCVMetadata, buildCVText, cvData.personalInfo.fullName, selectedTemplate, clearDraft, successWithMascotAndActivity, router]);
+  }, [buildCVMetadata, buildCVText, cvData.personalInfo.fullName, selectedTemplate, clearDraft, successWithMascotAndActivity]);
 
   // Render current step content
   const renderStepContent = () => {

@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Eye, Download, Save, Check, User, FileText,
   Briefcase, GraduationCap, Wrench, Languages, Pencil,
-  Loader2, Lock, Crown, ChevronLeft, ChevronRight
+  Loader2, Lock, Crown, ChevronLeft, ChevronRight,
+  Sparkles, FolderOpen, ArrowRight, Plus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,6 +38,137 @@ const SECTION_ICONS = {
   languages: Languages,
 };
 
+// Bekräftelsevy efter spara/nedladdning
+interface ConfirmationViewProps {
+  cvName: string;
+  templateName: string;
+  wasDownloaded: boolean;
+  wasSaved: boolean;
+  onGoToATS: () => void;
+  onGoToLibrary: () => void;
+  onCreateNew: () => void;
+}
+
+function ConfirmationView({
+  cvName,
+  templateName,
+  wasDownloaded,
+  wasSaved,
+  onGoToATS,
+  onGoToLibrary,
+  onCreateNew,
+}: ConfirmationViewProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="flex flex-col items-center text-center py-6 md:py-10"
+    >
+      {/* Animated checkmark */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
+        className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30 mb-6"
+      >
+        <Check className="w-10 h-10 md:w-12 md:h-12 text-white stroke-[3]" />
+      </motion.div>
+
+      {/* Heading */}
+      <motion.h1
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="text-2xl md:text-3xl font-bold text-gray-900 mb-2"
+      >
+        Ditt CV är klart
+      </motion.h1>
+
+      {/* Subheading based on action */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="text-base md:text-lg text-gray-600 mb-6 max-w-md"
+      >
+        {wasDownloaded && wasSaved
+          ? 'Du har laddat ner och sparat ditt CV. Nu kan du skicka det direkt eller se till att det faktiskt når fram förbi ATS-systemen.'
+          : wasDownloaded
+          ? 'Du har laddat ner ditt CV. Nu kan du skicka det direkt eller se till att det faktiskt når fram förbi ATS-systemen.'
+          : 'Ditt CV är sparat under Mina CV. Nu kan du ladda ner det eller se till att det faktiskt når fram förbi ATS-systemen.'}
+      </motion.p>
+
+      {/* Status indicators */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.55 }}
+        className="flex flex-wrap justify-center gap-3 mb-8"
+      >
+        {wasSaved && (
+          <div className="flex items-center gap-1.5 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-full">
+            <Check className="w-4 h-4" />
+            <span>CV:t sparades</span>
+          </div>
+        )}
+        {wasDownloaded && (
+          <div className="flex items-center gap-1.5 text-sm text-green-700 bg-green-50 px-3 py-1.5 rounded-full">
+            <Check className="w-4 h-4" />
+            <span>CV:t laddades ner</span>
+          </div>
+        )}
+      </motion.div>
+
+      {/* CTA Buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="w-full max-w-md space-y-3"
+      >
+        {/* Primary CTA: ATS-optimering */}
+        <Button
+          onClick={onGoToATS}
+          className="w-full min-h-[56px] md:min-h-[52px] bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-base font-semibold shadow-lg shadow-pink-500/25"
+        >
+          <Sparkles className="w-5 h-5 mr-2" />
+          Optimera för ATS-system
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+        <p className="text-sm text-gray-500 px-4">
+          De flesta företag använder ATS-system som sorterar bort CV innan en människa läser dem. Vi visar vad du ska fixa.
+        </p>
+
+        {/* Secondary CTA: Gå till Mina CV */}
+        <Button
+          variant="outline"
+          onClick={onGoToLibrary}
+          className="w-full min-h-[56px] md:min-h-[52px] border-2 border-gray-300 text-base font-medium hover:bg-gray-50 mt-4"
+        >
+          <FolderOpen className="w-5 h-5 mr-2" />
+          Gå till Mina CV
+        </Button>
+        <p className="text-sm text-gray-500 px-4">
+          Redigera, ladda ner eller skapa fler versioner av ditt CV
+        </p>
+      </motion.div>
+
+      {/* Tertiary: Create new */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        onClick={onCreateNew}
+        className="mt-8 text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1.5 transition-colors"
+      >
+        <Plus className="w-4 h-4" />
+        Skapa ett nytt CV
+      </motion.button>
+    </motion.div>
+  );
+}
+
 export default function Step7Review({
   cvData,
   updateCVData,
@@ -49,6 +181,13 @@ export default function Step7Review({
   const router = useRouter();
   const { subscriptionTier } = useProfile();
   const isPremium = subscriptionTier === 'premium';
+
+  // State för bekräftelsevy
+  const [viewMode, setViewMode] = useState<'review' | 'confirmation'>('review');
+  const [completionStatus, setCompletionStatus] = useState<{
+    wasDownloaded: boolean;
+    wasSaved: boolean;
+  }>({ wasDownloaded: false, wasSaved: false });
 
   const [cvName, setCvName] = useState(`CV - ${cvData.personalInfo.fullName || 'Nytt CV'}`);
   const [previewHTML, setPreviewHTML] = useState<string>('');
@@ -151,10 +290,56 @@ export default function Step7Review({
     }
   };
 
+  // Handle action completion with confirmation view
+  const handleAction = async (action: 'save' | 'download' | 'both') => {
+    try {
+      await onComplete(action);
+
+      // Visa bekräftelsevyn efter framgångsrik operation
+      setCompletionStatus({
+        wasDownloaded: action === 'download' || action === 'both',
+        wasSaved: action === 'save' || action === 'both',
+      });
+      setViewMode('confirmation');
+    } catch (error) {
+      console.error('Error completing action:', error);
+      // Fel hanteras av parent-komponenten
+    }
+  };
+
+  // Handle navigation from confirmation view
+  const handleGoToATS = () => {
+    router.push('/dashboard/cv-analys');
+  };
+
+  const handleGoToLibrary = () => {
+    router.push('/dashboard/profil/cv');
+  };
+
+  const handleCreateNew = () => {
+    // Ladda om sidan för att starta en ny CV-skapning
+    window.location.href = '/dashboard/skapa-cv';
+  };
+
   // Scroll templates
   const [templateScrollIndex, setTemplateScrollIndex] = useState(0);
   const templatesPerView = 4;
   const maxScrollIndex = Math.max(0, SIMPLE_TEMPLATES.length - templatesPerView);
+
+  // Om vi är i bekräftelseläge, visa ConfirmationView
+  if (viewMode === 'confirmation') {
+    return (
+      <ConfirmationView
+        cvName={cvName}
+        templateName={selectedTemplateData?.name || 'Modern Minimal'}
+        wasDownloaded={completionStatus.wasDownloaded}
+        wasSaved={completionStatus.wasSaved}
+        onGoToATS={handleGoToATS}
+        onGoToLibrary={handleGoToLibrary}
+        onCreateNew={handleCreateNew}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -410,7 +595,7 @@ export default function Step7Review({
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
         <Button
-          onClick={() => onComplete('both')}
+          onClick={() => handleAction('both')}
           disabled={!isValid || isSaving || isTemplateLocked}
           className="min-h-[48px] px-8 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
         >
@@ -429,7 +614,7 @@ export default function Step7Review({
 
         <Button
           variant="outline"
-          onClick={() => onComplete('download')}
+          onClick={() => handleAction('download')}
           disabled={!isValid || isSaving || isTemplateLocked}
           className="min-h-[48px]"
         >
@@ -439,7 +624,7 @@ export default function Step7Review({
 
         <Button
           variant="outline"
-          onClick={() => onComplete('save')}
+          onClick={() => handleAction('save')}
           disabled={!isValid || isSaving}
           className="min-h-[48px]"
         >
