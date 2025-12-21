@@ -88,6 +88,13 @@ export default function CreateLetterPage() {
 
   const isPremium = subscriptionTier === 'premium';
 
+  // Set default tonality to 'auto' for premium users
+  useEffect(() => {
+    if (isPremium && tonality === 'balanced') {
+      setTonality('auto');
+    }
+  }, [isPremium]);
+
   // Template change handler - regenerates letter when template changes in preview
   const handleTemplateChange = useCallback(async (newTemplateId: string) => {
     setTemplateId(newTemplateId);
