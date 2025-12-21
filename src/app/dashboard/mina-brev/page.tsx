@@ -6,49 +6,17 @@ import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
 import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
-import { formatDistanceToNow } from 'date-fns';
-import { sv } from 'date-fns/locale';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  FileText, Eye, Pencil, Trash2, Plus, Search,
+  FileText, Plus, Search,
   Calendar, TrendingUp, Target, X,
-  MessageSquare, Palette,
-  ZoomIn, ZoomOut, Maximize2, Minimize2, RefreshCw, Download
+  ZoomIn, ZoomOut, Maximize2, Minimize2
 } from 'lucide-react';
 
 // UI Components
 import Notification from '@/components/ui/notification';
 import DownloadButton from '@/components/letters/download-button';
-import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
-import { htmlToPlainText, createPreview } from '@/utils/helpers';
-
-// Extrahera ren förhandsgranskning utan kontaktuppgifter
-const getCleanPreview = (content: string, maxLength = 120): string => {
-  if (!content) return 'Ingen förhandsgranskning tillgänglig';
-
-  // Ta bort HTML-tags
-  let cleaned = htmlToPlainText(content);
-
-  // Ta bort email-adresser
-  cleaned = cleaned.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
-  // Ta bort telefonnummer
-  cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
-  cleaned = cleaned.replace(/\d{3}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
-  // Ta bort postnummer
-  cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g, '');
-  // Ta bort datum i början
-  cleaned = cleaned.replace(/^\d{1,2}[\s/.-]\w+[\s/.-]?\d{2,4}\s*/i, '');
-  cleaned = cleaned.replace(/^Stockholm,?\s*\d{1,2}[\s/.-]?\w+[\s/.-]?\d{2,4}\s*/i, '');
-
-  // Rensa upp extra mellanslag
-  cleaned = cleaned.replace(/\s+/g, ' ').trim();
-
-  // Hitta första meningsfulla mening (hoppa över hälsningar som "Hej!")
-  const sentences = cleaned.split(/(?<=[.!?])\s+/);
-  const meaningfulSentence = sentences.find(s => s.length > 30) || sentences[0] || cleaned;
-
-  return createPreview(meaningfulSentence, maxLength);
-};
+import PremiumLetterListItem from '@/components/letters/PremiumLetterListItem';
 
 // Statistik-widget
 const StatWidget = ({ title, value, subtitle, icon: Icon, color }: {
@@ -69,186 +37,6 @@ const StatWidget = ({ title, value, subtitle, icon: Icon, color }: {
     <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
   </div>
 );
-
-// Brev-listrad komponent - Mobil-first listvy
-const LetterListItem = ({ letter, onView, onEdit, onDelete, onDownload, isDeleting }: {
-  letter: any;
-  onView: (id: string) => void;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  onDownload: (id: string, format: 'pdf' | 'docx') => void;
-  isDeleting: boolean;
-}) => {
-  const [showDownloadMenu, setShowDownloadMenu] = useState(false);
-
-  // Formatera datum
-  const createdDate = letter.created_at ? new Date(letter.created_at) : new Date();
-  const dateStr = createdDate.toLocaleDateString('sv-SE', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  });
-
-  // Hämta mallnamn
-  const templateName = letter.template_id && DOCX_TEMPLATES[letter.template_id as keyof typeof DOCX_TEMPLATES]
-    ? DOCX_TEMPLATES[letter.template_id as keyof typeof DOCX_TEMPLATES].name
-    : null;
-
-  // Tonalitet med stor bokstav
-  const tonalityDisplay = letter.tonality
-    ? letter.tonality.charAt(0).toUpperCase() + letter.tonality.slice(1)
-    : null;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md transition-all overflow-hidden"
-    >
-      <div className="p-4 sm:p-5">
-        {/* Header - Ikon + Info */}
-        <div className="flex items-start gap-3 sm:gap-4 mb-3">
-          {/* Ikon */}
-          <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
-            <FileText className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-          </div>
-
-          {/* Huvudinfo */}
-          <div className="flex-1 min-w-0">
-            {/* Företag & Tjänst - Kombinerad rubrik */}
-            <h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-1 leading-tight">
-              {letter.company && letter.job_title ? (
-                <>
-                  <span className="text-gray-900">{letter.company}</span>
-                  <span className="text-gray-400 mx-1.5">·</span>
-                  <span className="text-gray-700">{letter.job_title}</span>
-                </>
-              ) : letter.company ? (
-                letter.company
-              ) : letter.job_title ? (
-                letter.job_title
-              ) : (
-                letter.title || 'Ansökningsbrev'
-              )}
-            </h3>
-
-            {/* Metadata-rad med ikoner */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" />
-                {dateStr}
-              </span>
-
-              {tonalityDisplay && (
-                <span className="flex items-center gap-1">
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  {tonalityDisplay}
-                </span>
-              )}
-
-              {templateName && (
-                <span className="flex items-center gap-1">
-                  <Palette className="w-3.5 h-3.5" />
-                  {templateName}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Förhandsgranskning - Max 2 rader, indenterad under ikon */}
-        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4 pl-[60px] sm:pl-[72px]">
-          {getCleanPreview(letter.content, 160)}
-        </p>
-
-        {/* Action buttons - Stack på mobil, rad på desktop */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pl-0 sm:pl-[72px]">
-          {/* Visa - Primär */}
-          <motion.button
-            onClick={() => onView(letter.id)}
-            className="flex-1 sm:flex-none px-4 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 touch-manipulation"
-            whileTap={{ scale: 0.98 }}
-          >
-            <Eye className="w-4 h-4" />
-            Visa brev
-          </motion.button>
-
-          {/* Redigera */}
-          <motion.button
-            onClick={() => onEdit(letter.id)}
-            className="flex-1 sm:flex-none px-4 py-2.5 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 touch-manipulation"
-            whileTap={{ scale: 0.98 }}
-          >
-            <Pencil className="w-4 h-4" />
-            Redigera
-          </motion.button>
-
-          {/* Ladda ned (dropdown) */}
-          <div className="relative flex-1 sm:flex-none">
-            <motion.button
-              onClick={() => setShowDownloadMenu(!showDownloadMenu)}
-              className="w-full sm:w-auto px-4 py-2.5 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 hover:border-pink-300 text-pink-700 rounded-lg transition-all flex items-center justify-center gap-2 touch-manipulation"
-              whileTap={{ scale: 0.98 }}
-            >
-              <Download className="w-4 h-4" />
-              <span className="sm:hidden">Ladda ned</span>
-              <span className="hidden sm:inline">Ladda ned</span>
-            </motion.button>
-
-            {/* Dropdown-meny */}
-            <AnimatePresence>
-              {showDownloadMenu && (
-                <>
-                  {/* Backdrop för att stänga */}
-                  <div
-                    className="fixed inset-0 z-10"
-                    onClick={() => setShowDownloadMenu(false)}
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    className="absolute left-0 sm:right-0 sm:left-auto top-full mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-20 min-w-[160px]"
-                  >
-                    <button
-                      onClick={() => { onDownload(letter.id, 'pdf'); setShowDownloadMenu(false); }}
-                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-2 text-gray-700 font-medium"
-                    >
-                      <FileText className="w-4 h-4 text-pink-600" />
-                      Ladda ned PDF
-                    </button>
-                    <button
-                      onClick={() => { onDownload(letter.id, 'docx'); setShowDownloadMenu(false); }}
-                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-2 text-gray-700 font-medium"
-                    >
-                      <FileText className="w-4 h-4 text-blue-600" />
-                      Ladda ned Word
-                    </button>
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Ta bort */}
-          <motion.button
-            onClick={() => onDelete(letter.id)}
-            disabled={isDeleting}
-            className="flex-1 sm:flex-none px-4 py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 touch-manipulation"
-            whileTap={{ scale: 0.98 }}
-          >
-            {isDeleting ? (
-              <RefreshCw className="w-4 h-4 animate-spin" />
-            ) : (
-              <Trash2 className="w-4 h-4" />
-            )}
-            <span className="sm:hidden">Ta bort</span>
-          </motion.button>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
 
 // Dokument-förhandsgranskning modal
 const DocumentPreview = ({ letter, onClose }: { letter: any; onClose: () => void }) => {
@@ -590,7 +378,7 @@ export default function MinaBrevPage() {
         ) : (
           <div className="flex flex-col gap-4">
             {filteredLetters.map((letter) => (
-              <LetterListItem
+              <PremiumLetterListItem
                 key={letter.id}
                 letter={letter}
                 onView={handleView}

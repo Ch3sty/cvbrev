@@ -66,7 +66,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   const { getLetter, currentLetter, isLoading, error, removeLetter, isDeleting } = useLetters();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [zoom, setZoom] = useState(0.7);
+  // FIX: Default zoom 100% istället för 70% - naturlig läsbar storlek
+  const [zoom, setZoom] = useState(1.0);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const resolvedParams = use(params);

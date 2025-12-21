@@ -47,7 +47,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
   const [isEditing, setIsEditing] = useState(false);
   const [editableText, setEditableText] = useState('');
   const [copied, setCopied] = useState(false);
-  const [zoom, setZoom] = useState(0.7);
+  // FIX: Default zoom 100% istället för 70% - naturlig läsbar storlek
+  const [zoom, setZoom] = useState(1.0);
   const previewRef = useRef<HTMLDivElement>(null);
   const initialLoadRef = useRef(false);
 
