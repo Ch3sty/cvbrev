@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye, Info } from 'lucide-react';
+import { FileText, MessageSquare, Layout, SlidersHorizontal, Brain, Eye, Info } from 'lucide-react';
 
 // Store & Hooks
 import { useCVStore } from '@/store/cv-store';
@@ -15,7 +15,8 @@ import { useNotification } from '@/context/notificationcontext';
 import WizardContainer, { WizardStep } from './components/WizardContainer';
 import CVSelectionStep from './components/steps/CVSelectionStep';
 import JobDescriptionStep from './components/steps/JobDescriptionStep';
-import SettingsStep from './components/steps/SettingsStep';
+import TemplateStep from './components/steps/TemplateStep';
+import TonalityLanguageStep from './components/steps/TonalityLanguageStep';
 import GenerationStep from './components/steps/GenerationStep';
 import PreviewStep from './components/steps/PreviewStep';
 import { type FontId } from './components/FontSelector';
@@ -42,10 +43,10 @@ export default function CreateLetterPage() {
     const initialCV = prefillData.cvId || null;
     const initialDescription = prefillData.jobDescription || '';
 
-    // Both CV and job description are prefilled - start at step 3 (Settings)
+    // Both CV and job description are prefilled - start at step 3 (Template selection)
     if (prefillData.cvId && prefillData.jobDescription) {
       return {
-        initialStep: 2, // Step 3 (0-indexed)
+        initialStep: 2, // Step 3 (0-indexed) - Template selection
         initialCompletedSteps: [0, 1], // Mark steps 1 & 2 as completed
         initialCV,
         initialDescription
@@ -91,9 +92,9 @@ export default function CreateLetterPage() {
   const handleTemplateChange = useCallback(async (newTemplateId: string) => {
     setTemplateId(newTemplateId);
 
-    // If we're in the preview step (step 4, 0-indexed) and have a generated letter,
+    // If we're in the preview step (step 5, 0-indexed) and have a generated letter,
     // regenerate it with the new template
-    if (currentWizardStep === 4 && generatedLetter && selectedCV && jobDescription) {
+    if (currentWizardStep === 5 && generatedLetter && selectedCV && jobDescription) {
       console.log('Template changed in preview - regenerating letter with new template:', newTemplateId);
       setIsRegeneratingTemplate(true);
 
@@ -223,8 +224,8 @@ export default function CreateLetterPage() {
 
   // Generate letter when reaching the generation step
   useEffect(() => {
-    // Step 3 is the generation step (0-indexed)
-    if (currentWizardStep === 3 && !generatedLetter && !isGenerating && !hasTriggeredGeneration) {
+    // Step 4 is the generation step (0-indexed)
+    if (currentWizardStep === 4 && !generatedLetter && !isGenerating && !hasTriggeredGeneration) {
       console.log('Triggering letter generation...');
       setHasTriggeredGeneration(true);
       handleGenerateLetter();
@@ -233,13 +234,13 @@ export default function CreateLetterPage() {
 
   // Auto-advance to preview as soon as letter is ready
   useEffect(() => {
-    if (currentWizardStep === 3 &&
+    if (currentWizardStep === 4 &&
         generatedLetter &&
         typeof generatedLetter === 'string' &&
         generatedLetter.trim().length > 0 &&
         !isGenerating) {
       console.log('✅ Auto-advancing to preview');
-      setCurrentWizardStep(4);
+      setCurrentWizardStep(5);
 
       // Show mascot notification
       successWithMascotAndActivity(
@@ -356,14 +357,14 @@ export default function CreateLetterPage() {
 
   const handleWizardComplete = () => {
     // Check if user has saved or downloaded the letter
-    if (!hasDownloadedOrSaved && currentWizardStep === 4 && generatedLetter) {
+    if (!hasDownloadedOrSaved && currentWizardStep === 5 && generatedLetter) {
       setShowExitWarning(true);
       return;
     }
     router.push('/dashboard/mina-brev');
   };
 
-  // Define wizard steps
+  // Define wizard steps (6 steps total)
   const wizardSteps: WizardStep[] = [
     {
       id: 1,
@@ -395,17 +396,13 @@ export default function CreateLetterPage() {
     },
     {
       id: 3,
-      title: 'Anpassa inställningar',
-      description: 'Välj tonalitet, språk och personliga preferenser',
-      icon: SlidersHorizontal,
+      title: 'Välj brevmall',
+      description: 'Alla mallar är ATS-optimerade',
+      icon: Layout,
       color: 'from-green-500 to-emerald-500',
       component: (
-        <SettingsStep
-          tonality={tonality}
-          language={language}
+        <TemplateStep
           templateId={templateId}
-          onTonalityChange={setTonality}
-          onLanguageChange={setLanguage}
           onTemplateChange={handleTemplateChange}
           isPremium={isPremium}
         />
@@ -414,10 +411,27 @@ export default function CreateLetterPage() {
     },
     {
       id: 4,
+      title: 'Ton & språk',
+      description: 'Välj hur brevet ska låta',
+      icon: SlidersHorizontal,
+      color: 'from-amber-500 to-orange-500',
+      component: (
+        <TonalityLanguageStep
+          tonality={tonality}
+          language={language}
+          onTonalityChange={setTonality}
+          onLanguageChange={setLanguage}
+          isPremium={isPremium}
+        />
+      ),
+      canNavigateNext: () => true
+    },
+    {
+      id: 5,
       title: 'Vi skapar ditt brev',
       description: 'Vänta medan vi analyserar och genererar',
       icon: Brain,
-      color: 'from-orange-500 to-red-500',
+      color: 'from-pink-500 to-rose-500',
       component: (
         <GenerationStep
           isGenerating={isGenerating}
@@ -428,7 +442,7 @@ export default function CreateLetterPage() {
       canNavigateNext: () => generatedLetter !== null
     },
     {
-      id: 5,
+      id: 6,
       title: 'Granska & ladda ner',
       description: 'Förhandsgranska, redigera och exportera',
       icon: Eye,
