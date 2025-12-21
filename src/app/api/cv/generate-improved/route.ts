@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Initialize Supabase with proper server client
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     // Authenticate user
@@ -243,7 +243,7 @@ export async function POST(request: NextRequest) {
 
     // Try to log failed activity
     try {
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       const supabase = createServerClient({ cookies: cookieStore });
       const { data: { user } } = await supabase.auth.getUser();
 

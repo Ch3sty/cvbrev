@@ -7,7 +7,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 export async function POST(request: NextRequest) {
   try {
     // Använd Supabase-klienten för att hämta användarens ID
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
     
     // Hämta användarens session

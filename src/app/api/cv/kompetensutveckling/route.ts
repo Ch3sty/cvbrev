@@ -373,7 +373,7 @@ async function findLearningResourcesForGapOld(gap: MissingSkill, language: strin
 //  API Route Handler (POST)
 // ============================================================================
 export async function POST(request: NextRequest) {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     let userId: string | undefined;

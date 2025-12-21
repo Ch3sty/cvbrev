@@ -11,7 +11,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
   try {

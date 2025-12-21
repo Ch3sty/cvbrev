@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     calls: []
   };
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     // Check authentication

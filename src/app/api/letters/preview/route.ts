@@ -8,7 +8,7 @@ import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 export async function POST(request: Request) {
   try {
     // Verifiera autentisering för PDF preview generering
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
     
     const { data: { user } } = await supabase.auth.getUser();

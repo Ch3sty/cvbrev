@@ -6,7 +6,7 @@ import { createServerClient } from '@/lib/supabase/server';
 export async function PATCH(request: Request) {
   try {
     // Hämta cookies korrekt med Next.js pattern
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     // Verifiera att användaren är autentiserad

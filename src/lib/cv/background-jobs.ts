@@ -21,7 +21,7 @@ export async function createBackgroundJob(
   cvId: string
 ): Promise<{ jobId: string; error?: string }> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     // Skapa job i databasen
@@ -102,7 +102,7 @@ export async function createBackgroundJob(
  */
 export async function getJobStatus(jobId: string): Promise<BackgroundJob | null> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
     const { data: job, error } = await supabase
