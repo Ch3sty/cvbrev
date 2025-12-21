@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, User, FileText, Briefcase, GraduationCap, Wrench, Languages, Eye } from 'lucide-react';
+import { ChevronLeft, ChevronRight, User, FileText, Briefcase, GraduationCap, Wrench, Languages, Eye, Bug } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
+import { createClient } from '@/lib/supabase/client';
 import type { CVMetadata, CVPersonalInfo, CVExperience, CVEducation, CVSkill, CVLanguage, CVCertification } from '@/lib/cv/cv-metadata';
 
 // Lazy load steps for performance
@@ -52,6 +53,99 @@ const initialCVDraft: CVDraft = {
   certifications: [],
 };
 
+// Test data for admin debugging
+const TEST_CV_DATA: CVDraft = {
+  personalInfo: {
+    fullName: 'Anna Svensson',
+    email: 'anna.svensson@example.com',
+    phone: '070-123 45 67',
+    address: 'Stockholm',
+    linkedIn: 'linkedin.com/in/annasvensson',
+  },
+  summary: 'Erfaren projektledare med över 8 års erfarenhet inom IT och digital transformation. Stark i att leda tvärfunktionella team och leverera komplexa projekt i tid och inom budget. Passionerad för agila metoder och kontinuerlig förbättring.',
+  experience: [
+    {
+      position: 'Senior Projektledare',
+      company: 'TechCorp AB',
+      location: 'Stockholm',
+      startDate: 'Jan 2021',
+      endDate: 'Nuvarande',
+      description: [
+        'Leder ett team på 12 personer i utvecklingen av företagets nya e-handelsplattform',
+        'Implementerade Scrum-metodologi vilket ökade teamets leveranshastighet med 40%',
+        'Ansvarar för budget på 15 MSEK och rapporterar direkt till CTO',
+        'Koordinerar samarbete mellan utveckling, design och marknadsföring',
+      ],
+    },
+    {
+      position: 'Projektledare',
+      company: 'Digital Solutions Sverige',
+      location: 'Stockholm',
+      startDate: 'Mar 2018',
+      endDate: 'Dec 2020',
+      description: [
+        'Ledde 5+ samtidiga webbutvecklingsprojekt för kunder inom bank och finans',
+        'Ökade kundnöjdheten från 72% till 94% genom förbättrad kommunikation',
+        'Introducerade automatiserade testrutiner som minskade buggar i produktion med 60%',
+      ],
+    },
+    {
+      position: 'IT-konsult',
+      company: 'Accenture',
+      location: 'Stockholm',
+      startDate: 'Aug 2015',
+      endDate: 'Feb 2018',
+      description: [
+        'Arbetade med systemimplementering för stora svenska företag',
+        'Specialiserad på SAP-integration och processoptimering',
+        'Certifierad i PRINCE2 och Scrum Master',
+      ],
+    },
+  ],
+  education: [
+    {
+      degree: 'Civilingenjör Industriell Ekonomi',
+      institution: 'Kungliga Tekniska Högskolan (KTH)',
+      location: 'Stockholm',
+      graduationYear: '2015',
+      description: 'Inriktning mot IT-management och projektledning',
+    },
+    {
+      degree: 'Utbytesstudier Business Administration',
+      institution: 'University of California, Berkeley',
+      location: 'USA',
+      graduationYear: '2014',
+      description: 'Ett års utbytesstudier med fokus på entreprenörskap',
+    },
+  ],
+  skills: [
+    {
+      category: 'Projektledning',
+      skills: ['Scrum', 'Kanban', 'PRINCE2', 'Agile', 'Waterfall', 'SAFe'],
+    },
+    {
+      category: 'Verktyg',
+      skills: ['Jira', 'Confluence', 'Microsoft Project', 'Trello', 'Slack', 'Teams'],
+    },
+    {
+      category: 'Tekniskt',
+      skills: ['SQL', 'Python', 'Git', 'AWS', 'Azure', 'API-integration'],
+    },
+  ],
+  languages: [
+    { language: 'Svenska', proficiency: 'Modersmål' },
+    { language: 'Engelska', proficiency: 'Flytande' },
+    { language: 'Tyska', proficiency: 'Konversation' },
+    { language: 'Spanska', proficiency: 'Nybörjare' },
+  ],
+  certifications: [
+    { name: 'Certified Scrum Master (CSM)', issuer: 'Scrum Alliance', issueDate: '2019' },
+    { name: 'PRINCE2 Practitioner', issuer: 'AXELOS', issueDate: '2018' },
+    { name: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', issueDate: '2022' },
+    { name: 'SAFe 5 Agilist', issuer: 'Scaled Agile', issueDate: '2021' },
+  ],
+};
+
 // Step configuration
 const STEPS = [
   { id: 0, title: 'Kontaktuppgifter', icon: User },
@@ -77,6 +171,7 @@ export default function CVCreatorWizard() {
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const { profile, loading: profileLoading } = useProfile();
+  const supabase = createClient();
 
   // Wizard state
   const [currentStep, setCurrentStep] = useState(0);
@@ -91,6 +186,9 @@ export default function CVCreatorWizard() {
   // Saving state
   const [isSaving, setIsSaving] = useState(false);
 
+  // Admin state for test data button
+  const [isAdmin, setIsAdmin] = useState(false);
+
   // Auto-save hook
   const { lastSaved, isSavingDraft, saveDraft, loadDraft, hasDraft, clearDraft } = useAutoSave(cvData);
 
@@ -101,6 +199,35 @@ export default function CVCreatorWizard() {
       // Show recovery option handled in Step1
     }
   }, [loadDraft]);
+
+  // Check admin status on mount
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data: adminData } = await supabase
+            .from('admin_users')
+            .select('role')
+            .eq('id', user.id)
+            .eq('role', 'super_admin')
+            .maybeSingle();
+
+          setIsAdmin(!!adminData);
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+      }
+    };
+
+    checkAdminStatus();
+  }, [supabase]);
+
+  // Fill with test data (admin only)
+  const fillTestData = useCallback(() => {
+    setCVData(TEST_CV_DATA);
+    setCompletedSteps([0, 1, 2, 3, 4, 5]); // Mark all steps as completed
+  }, []);
 
   // Update CV data helper
   const updateCVData = useCallback((updates: Partial<CVDraft>) => {
@@ -421,11 +548,26 @@ export default function CVCreatorWizard() {
               <span className="sm:hidden">Tillbaka</span>
             </button>
 
-            {lastSaved && (
-              <span className="text-xs text-gray-500">
-                {isSavingDraft ? 'Sparar...' : `Sparad ${lastSaved.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}`}
-              </span>
-            )}
+            <div className="flex items-center gap-3">
+              {/* Admin Test Data Button */}
+              {isAdmin && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={fillTestData}
+                  className="text-orange-600 border-orange-300 hover:bg-orange-50 hover:border-orange-400"
+                >
+                  <Bug className="w-4 h-4 mr-1" />
+                  Fyll testdata
+                </Button>
+              )}
+
+              {lastSaved && (
+                <span className="text-xs text-gray-500">
+                  {isSavingDraft ? 'Sparar...' : `Sparad ${lastSaved.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}`}
+                </span>
+              )}
+            </div>
           </div>
 
           <CVCreatorProgressBar
