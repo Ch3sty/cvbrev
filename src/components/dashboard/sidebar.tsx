@@ -30,7 +30,8 @@ import {
   Bug,
   Sparkles,
   Info,
-  MessageCircle
+  MessageCircle,
+  FilePlus
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
@@ -160,6 +161,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       label: 'Belöningar',
       icon: <Trophy className="w-5 h-5" />,
       section: 'main',
+      highlight: true
+    },
+    {
+      path: '/dashboard/skapa-cv',
+      label: 'Skapa ditt första CV',
+      icon: <FilePlus className="w-5 h-5" />,
+      section: 'tools',
       highlight: true
     },
     {
