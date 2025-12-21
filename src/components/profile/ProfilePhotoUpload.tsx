@@ -85,7 +85,7 @@ export function ProfilePhotoUpload({
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
     setIsDragging(false);
-    
+
     const files = event.dataTransfer.files;
     if (files && files.length > 0) {
       handleFileUpload(files[0]);
@@ -122,10 +122,10 @@ export function ProfilePhotoUpload({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Profilbild <span className="text-xs text-gray-400 font-normal">(Valfritt)</span>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Profilbild <span className="text-xs text-gray-500 font-normal">(Valfritt)</span>
           </label>
-          <p className="text-xs text-gray-400 mb-3">
+          <p className="text-xs text-gray-500 mb-3">
             Används endast för att personalisera dina CV-mallar. Ingen annan kan se denna bild.
           </p>
         </div>
@@ -137,9 +137,9 @@ export function ProfilePhotoUpload({
 
       <div className="flex items-center space-x-4">
         {/* Current Photo Preview */}
-        <div 
-          className={`w-16 h-16 rounded-full bg-navy-700 border-2 ${
-            isDragging ? 'border-pink-500 bg-pink-500/10' : 'border-gray-600'
+        <div
+          className={`w-16 h-16 rounded-full bg-gray-100 border-2 ${
+            isDragging ? 'border-pink-500 bg-pink-50' : 'border-gray-200'
           } flex items-center justify-center overflow-hidden transition-all duration-200 ${
             isDragging ? 'scale-105' : ''
           }`}
@@ -148,31 +148,31 @@ export function ProfilePhotoUpload({
           onDragLeave={handleDragLeave}
         >
           {currentPhotoUrl && !isUploading ? (
-            <img 
-              src={currentPhotoUrl} 
-              alt="Profilbild" 
+            <img
+              src={currentPhotoUrl}
+              alt="Profilbild"
               className="w-full h-full object-cover"
             />
           ) : (
-            <User className={`w-8 h-8 ${isDragging ? 'text-pink-400' : 'text-gray-400'}`} />
+            <User className={`w-8 h-8 ${isDragging ? 'text-pink-500' : 'text-gray-400'}`} />
           )}
         </div>
 
         {/* Upload Controls */}
         <div className="flex-1">
           <div className="flex items-center space-x-2">
-            <button 
-              className="flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 font-medium transition-colors disabled:bg-gray-800 disabled:text-gray-400 disabled:cursor-not-allowed"
+            <button
+              className="flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg hover:from-pink-700 hover:to-purple-700 font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
               disabled={isUploading}
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-4 h-4 mr-2" />
               {isUploading ? 'Laddar upp...' : 'Ladda upp bild'}
             </button>
-            
+
             {currentPhotoUrl && (
-              <button 
-                className="flex items-center justify-center px-4 py-2 bg-transparent text-gray-400 rounded-md hover:bg-gray-700 hover:text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              <button
+                className="flex items-center justify-center px-4 py-2.5 bg-white text-gray-600 rounded-lg border border-gray-200 hover:bg-gray-50 hover:text-gray-900 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                 onClick={handleRemovePhoto}
                 disabled={isUploading}
               >
@@ -181,8 +181,8 @@ export function ProfilePhotoUpload({
               </button>
             )}
           </div>
-          
-          <p className="text-xs text-gray-500 mt-1">
+
+          <p className="text-xs text-gray-500 mt-2">
             JPG, PNG eller WebP. Max 2MB. Rekommenderat: 400x400px.
             <br />
             <span className="text-gray-400">Du kan dra och släppa en bild ovan.</span>

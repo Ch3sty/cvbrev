@@ -38,6 +38,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
   const [showStreakCelebration, setShowStreakCelebration] = useState(false);
   const [showAchievementPopup, setShowAchievementPopup] = useState(false);
   const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free');
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -46,6 +47,30 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
 
     return () => clearInterval(timer);
   }, []);
+
+  // Fetch profile photo from database
+  useEffect(() => {
+    const fetchProfilePhoto = async () => {
+      if (!user?.id) return;
+
+      try {
+        const supabase = getSupabaseClient();
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('profile_photo_url')
+          .eq('id', user.id)
+          .single();
+
+        if (profile?.profile_photo_url) {
+          setProfilePhotoUrl(profile.profile_photo_url);
+        }
+      } catch (error) {
+        console.error('Error fetching profile photo:', error);
+      }
+    };
+
+    fetchProfilePhoto();
+  }, [user?.id]);
 
   // Fetch gamification stats
   useEffect(() => {
@@ -197,6 +222,11 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
     if (progress > 80) return 'bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 animate-pulse';
     if (progress > 50) return 'bg-gradient-to-r from-purple-500 to-pink-500';
     return 'bg-gradient-to-r from-blue-500 to-purple-500';
+  };
+
+  // Get avatar URL - prioritize profile_photo_url from database, then OAuth avatar
+  const getAvatarUrl = () => {
+    return profilePhotoUrl || user?.user_metadata?.avatar_url || null;
   };
 
   return (
@@ -362,9 +392,9 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           {/* Mobile: Compact User Avatar Only */}
           <Link href="/dashboard/profil" className="lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
             <div className="relative">
-              {user?.user_metadata?.avatar_url ? (
+              {getAvatarUrl() ? (
                 <img
-                  src={user.user_metadata.avatar_url}
+                  src={getAvatarUrl()!}
                   alt={getUserName()}
                   className="w-10 h-10 sm:w-9 sm:h-9 rounded-full object-cover shadow-lg border-2 border-pink-600"
                 />
@@ -382,9 +412,9 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           {/* Desktop: Enhanced User Info */}
           <Link href="/dashboard/profil" className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all duration-300 group shadow-sm hover:shadow-md">
             <div className="relative">
-              {user?.user_metadata?.avatar_url ? (
+              {getAvatarUrl() ? (
                 <img
-                  src={user.user_metadata.avatar_url}
+                  src={getAvatarUrl()!}
                   alt={getUserName()}
                   className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-pink-600"
                 />
