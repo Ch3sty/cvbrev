@@ -240,33 +240,43 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Huvudinnehåll */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-        {/* Verktygsfält */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
-          {/* Zoom-kontroller */}
-          <div className="flex items-center gap-1">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-4 sm:space-y-6">
+        {/* Verktygsfält - Mobil-first */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+          {/* Zoom - centrerad på mobil */}
+          <div className="flex items-center justify-center gap-2 pb-4 mb-4 border-b border-gray-100">
             <button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
             >
-              <ZoomOut className="w-4 h-4" />
+              <ZoomOut className="w-5 h-5" />
             </button>
-            <span className="text-sm text-gray-600 min-w-[50px] text-center">
+            <span className="text-sm font-medium text-gray-700 min-w-[60px] text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
             >
-              <ZoomIn className="w-4 h-4" />
+              <ZoomIn className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Åtgärdsknappar */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Åtgärdsknappar - Stack på mobil, rad på desktop */}
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch gap-2">
+            {/* Redigera - Primär knapp */}
+            <button
+              onClick={handleEdit}
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg transition-all text-sm font-medium shadow-md hover:shadow-lg touch-manipulation"
+            >
+              <Edit className="w-4 h-4" />
+              Redigera brev
+            </button>
+
+            {/* Kopiera */}
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-3 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-lg transition-all text-sm font-medium touch-manipulation"
             >
               {copied ? (
                 <>
@@ -276,49 +286,45 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               ) : (
                 <>
                   <Copy className="w-4 h-4" />
-                  Kopiera
+                  Kopiera text
                 </>
               )}
             </button>
 
-            <button
-              onClick={handleEdit}
-              className="flex items-center gap-2 px-3 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors text-sm font-medium"
-            >
-              <Edit className="w-4 h-4" />
-              Redigera
-            </button>
+            {/* Ladda ned - Rad med 2 knappar */}
+            <div className="flex gap-2">
+              <DownloadButton
+                format="pdf"
+                letterContent={currentLetter.content || ''}
+                metadata={{
+                  title: currentLetter.title || undefined,
+                  company: currentLetter.company || undefined,
+                  position: currentLetter.job_title || undefined
+                }}
+                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation"
+                showTemplateSelector={false}
+                showPreview={false}
+              />
 
-            <DownloadButton
-              format="pdf"
-              letterContent={currentLetter.content || ''}
-              metadata={{
-                title: currentLetter.title || undefined,
-                company: currentLetter.company || undefined,
-                position: currentLetter.job_title || undefined
-              }}
-              className="!px-3 !py-2 !text-sm"
-              showTemplateSelector={false}
-              showPreview={false}
-            />
+              <DownloadButton
+                format="docx"
+                letterContent={currentLetter.content || ''}
+                metadata={{
+                  title: currentLetter.title || undefined,
+                  company: currentLetter.company || undefined,
+                  position: currentLetter.job_title || undefined
+                }}
+                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation"
+                showTemplateSelector={false}
+                showPreview={false}
+              />
+            </div>
 
-            <DownloadButton
-              format="docx"
-              letterContent={currentLetter.content || ''}
-              metadata={{
-                title: currentLetter.title || undefined,
-                company: currentLetter.company || undefined,
-                position: currentLetter.job_title || undefined
-              }}
-              className="!px-3 !py-2 !text-sm"
-              showTemplateSelector={false}
-              showPreview={false}
-            />
-
+            {/* Ta bort */}
             <button
               onClick={handleDeleteRequest}
               disabled={isDeleting}
-              className="flex items-center gap-2 px-3 py-2 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors text-sm disabled:opacity-50"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-lg transition-all text-sm font-medium disabled:opacity-50 touch-manipulation"
             >
               {isDeleting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -330,7 +336,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           </div>
         </div>
 
-        {/* Dokumentförhandsvisning */}
+        {/* Dokumentförhandsvisning - MED PADDING */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div
             ref={previewRef}
@@ -342,11 +348,13 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             }}
           >
             {isTemplateHTML(currentLetter.content || '') ? (
-              // Mallbaserad HTML
-              <div dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }} />
+              // Mallbaserad HTML - lägg till padding runt
+              <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
+                <div dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }} />
+              </div>
             ) : (
               // Fallback för vanlig text
-              <div className="p-8 sm:p-12">
+              <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
                 <div className="max-w-2xl mx-auto">
                   <div
                     className="prose prose-gray"

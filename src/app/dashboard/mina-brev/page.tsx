@@ -10,9 +10,9 @@ import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  FileText, Eye, Pencil, Trash2, Plus, Search, Filter,
-  Calendar, TrendingUp, Target, MoreVertical, X,
-  Building2, Briefcase, MessageSquare, Palette, Grid3x3, LayoutGrid,
+  FileText, Eye, Pencil, Trash2, Plus, Search,
+  Calendar, TrendingUp, Target, X,
+  MessageSquare, Palette,
   ZoomIn, ZoomOut, Maximize2, Minimize2, RefreshCw, Download
 } from 'lucide-react';
 
@@ -70,141 +70,181 @@ const StatWidget = ({ title, value, subtitle, icon: Icon, color }: {
   </div>
 );
 
-// Brev-kort komponent
-const LetterCard = ({ letter, onView, onEdit, onDelete, isDeleting }: {
+// Brev-listrad komponent - Mobil-first listvy
+const LetterListItem = ({ letter, onView, onEdit, onDelete, onDownload, isDeleting }: {
   letter: any;
   onView: (id: string) => void;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  onDownload: (id: string, format: 'pdf' | 'docx') => void;
   isDeleting: boolean;
 }) => {
-  const [showActions, setShowActions] = useState(false);
+  const [showDownloadMenu, setShowDownloadMenu] = useState(false);
+
+  // Formatera datum
+  const createdDate = letter.created_at ? new Date(letter.created_at) : new Date();
+  const dateStr = createdDate.toLocaleDateString('sv-SE', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+
+  // Hämta mallnamn
+  const templateName = letter.template_id && DOCX_TEMPLATES[letter.template_id as keyof typeof DOCX_TEMPLATES]
+    ? DOCX_TEMPLATES[letter.template_id as keyof typeof DOCX_TEMPLATES].name
+    : null;
+
+  // Tonalitet med stor bokstav
+  const tonalityDisplay = letter.tonality
+    ? letter.tonality.charAt(0).toUpperCase() + letter.tonality.slice(1)
+    : null;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-pink-300 hover:shadow-lg transition-all group"
+      className="bg-white rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md transition-all overflow-hidden"
     >
-      {/* Header med gradient */}
-      <div className="p-4 sm:p-5 bg-gradient-to-br from-pink-50 to-purple-50 border-b border-gray-100">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-start gap-3 flex-1 min-w-0">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 shadow-md flex-shrink-0">
-              <FileText className="w-5 h-5 text-white" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="font-semibold text-gray-900 truncate text-sm sm:text-base">
-                {letter.title || 'Ansökningsbrev'}
-              </h3>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {formatDistanceToNow(new Date(letter.updated_at || letter.created_at || new Date()), {
-                  addSuffix: true,
-                  locale: sv
-                })}
-              </p>
-            </div>
+      <div className="p-4 sm:p-5">
+        {/* Header - Ikon + Info */}
+        <div className="flex items-start gap-3 sm:gap-4 mb-3">
+          {/* Ikon */}
+          <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+            <FileText className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           </div>
 
-          {/* Mer-meny */}
-          <div className="relative flex-shrink-0">
-            <button
-              onClick={() => setShowActions(!showActions)}
-              className="p-2 rounded-lg hover:bg-white/80 transition-colors touch-manipulation"
-            >
-              <MoreVertical className="w-4 h-4 text-gray-500" />
-            </button>
+          {/* Huvudinfo */}
+          <div className="flex-1 min-w-0">
+            {/* Företag & Tjänst - Kombinerad rubrik */}
+            <h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-1 leading-tight">
+              {letter.company && letter.job_title ? (
+                <>
+                  <span className="text-gray-900">{letter.company}</span>
+                  <span className="text-gray-400 mx-1.5">·</span>
+                  <span className="text-gray-700">{letter.job_title}</span>
+                </>
+              ) : letter.company ? (
+                letter.company
+              ) : letter.job_title ? (
+                letter.job_title
+              ) : (
+                letter.title || 'Ansökningsbrev'
+              )}
+            </h3>
 
+            {/* Metadata-rad med ikoner */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5" />
+                {dateStr}
+              </span>
+
+              {tonalityDisplay && (
+                <span className="flex items-center gap-1">
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  {tonalityDisplay}
+                </span>
+              )}
+
+              {templateName && (
+                <span className="flex items-center gap-1">
+                  <Palette className="w-3.5 h-3.5" />
+                  {templateName}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Förhandsgranskning - Max 2 rader, indenterad under ikon */}
+        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4 pl-[60px] sm:pl-[72px]">
+          {getCleanPreview(letter.content, 160)}
+        </p>
+
+        {/* Action buttons - Stack på mobil, rad på desktop */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pl-0 sm:pl-[72px]">
+          {/* Visa - Primär */}
+          <motion.button
+            onClick={() => onView(letter.id)}
+            className="flex-1 sm:flex-none px-4 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 touch-manipulation"
+            whileTap={{ scale: 0.98 }}
+          >
+            <Eye className="w-4 h-4" />
+            Visa brev
+          </motion.button>
+
+          {/* Redigera */}
+          <motion.button
+            onClick={() => onEdit(letter.id)}
+            className="flex-1 sm:flex-none px-4 py-2.5 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 touch-manipulation"
+            whileTap={{ scale: 0.98 }}
+          >
+            <Pencil className="w-4 h-4" />
+            Redigera
+          </motion.button>
+
+          {/* Ladda ned (dropdown) */}
+          <div className="relative flex-1 sm:flex-none">
+            <motion.button
+              onClick={() => setShowDownloadMenu(!showDownloadMenu)}
+              className="w-full sm:w-auto px-4 py-2.5 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 hover:border-pink-300 text-pink-700 rounded-lg transition-all flex items-center justify-center gap-2 touch-manipulation"
+              whileTap={{ scale: 0.98 }}
+            >
+              <Download className="w-4 h-4" />
+              <span className="sm:hidden">Ladda ned</span>
+              <span className="hidden sm:inline">Ladda ned</span>
+            </motion.button>
+
+            {/* Dropdown-meny */}
             <AnimatePresence>
-              {showActions && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-20 min-w-[140px]"
-                  onMouseLeave={() => setShowActions(false)}
-                >
-                  <button
-                    onClick={() => { onView(letter.id); setShowActions(false); }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+              {showDownloadMenu && (
+                <>
+                  {/* Backdrop för att stänga */}
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setShowDownloadMenu(false)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                    className="absolute left-0 sm:right-0 sm:left-auto top-full mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-20 min-w-[160px]"
                   >
-                    <Eye className="w-4 h-4" /> Visa
-                  </button>
-                  <button
-                    onClick={() => { onEdit(letter.id); setShowActions(false); }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
-                  >
-                    <Pencil className="w-4 h-4" /> Redigera
-                  </button>
-                  <hr className="my-1" />
-                  <button
-                    onClick={() => { onDelete(letter.id); setShowActions(false); }}
-                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
-                  >
-                    <Trash2 className="w-4 h-4" /> Ta bort
-                  </button>
-                </motion.div>
+                    <button
+                      onClick={() => { onDownload(letter.id, 'pdf'); setShowDownloadMenu(false); }}
+                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-2 text-gray-700 font-medium"
+                    >
+                      <FileText className="w-4 h-4 text-pink-600" />
+                      Ladda ned PDF
+                    </button>
+                    <button
+                      onClick={() => { onDownload(letter.id, 'docx'); setShowDownloadMenu(false); }}
+                      className="w-full px-4 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-2 text-gray-700 font-medium"
+                    >
+                      <FileText className="w-4 h-4 text-blue-600" />
+                      Ladda ned Word
+                    </button>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
           </div>
+
+          {/* Ta bort */}
+          <motion.button
+            onClick={() => onDelete(letter.id)}
+            disabled={isDeleting}
+            className="flex-1 sm:flex-none px-4 py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 touch-manipulation"
+            whileTap={{ scale: 0.98 }}
+          >
+            {isDeleting ? (
+              <RefreshCw className="w-4 h-4 animate-spin" />
+            ) : (
+              <Trash2 className="w-4 h-4" />
+            )}
+            <span className="sm:hidden">Ta bort</span>
+          </motion.button>
         </div>
-      </div>
-
-      {/* Tags - max 2 synliga */}
-      <div className="px-4 sm:px-5 pt-4">
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {letter.company && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
-              <Building2 className="w-3 h-3 mr-1" />
-              {letter.company.length > 15 ? letter.company.slice(0, 15) + '...' : letter.company}
-            </span>
-          )}
-          {letter.job_title && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-50 text-purple-700">
-              <Briefcase className="w-3 h-3 mr-1" />
-              {letter.job_title.length > 20 ? letter.job_title.slice(0, 20) + '...' : letter.job_title}
-            </span>
-          )}
-        </div>
-
-        {/* Ren förhandsvisning */}
-        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
-          {getCleanPreview(letter.content, 120)}
-        </p>
-      </div>
-
-      {/* Action buttons - alltid synliga */}
-      <div className="px-4 sm:px-5 pb-4 flex items-center gap-2">
-        <motion.button
-          onClick={() => onView(letter.id)}
-          className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-1.5 touch-manipulation"
-          whileTap={{ scale: 0.98 }}
-        >
-          <Eye className="w-4 h-4" />
-          Visa
-        </motion.button>
-
-        <motion.button
-          onClick={() => onEdit(letter.id)}
-          className="flex-1 px-3 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg text-sm font-medium shadow-sm hover:shadow transition-all flex items-center justify-center gap-1.5 touch-manipulation"
-          whileTap={{ scale: 0.98 }}
-        >
-          <Pencil className="w-4 h-4" />
-          Redigera
-        </motion.button>
-
-        <motion.button
-          onClick={() => onDelete(letter.id)}
-          disabled={isDeleting}
-          className="px-3 py-2 text-red-600 hover:bg-red-50 border border-transparent hover:border-red-200 rounded-lg transition-all disabled:opacity-50 touch-manipulation"
-          whileTap={{ scale: 0.98 }}
-        >
-          {isDeleting ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
-          ) : (
-            <Trash2 className="w-4 h-4" />
-          )}
-        </motion.button>
       </div>
     </motion.div>
   );
@@ -320,7 +360,6 @@ export default function MinaBrevPage() {
   const { maxSavedLetters, profile, hasReachedLetterLimit } = useProfile();
 
   // UI State
-  const [selectedView, setSelectedView] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState<any>(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -409,6 +448,15 @@ export default function MinaBrevPage() {
     }
   };
 
+  // Download handler - placeholder, actual download happens in DownloadButton component
+  const handleDownload = (letterId: string, format: 'pdf' | 'docx') => {
+    const letter = letters?.find(l => l.id === letterId);
+    if (letter) {
+      // Navigera till visningssidan där användaren kan ladda ned
+      router.push(`/dashboard/mina-brev/${letterId}`);
+    }
+  };
+
   if (!profile) {
     return null;
   }
@@ -474,63 +522,39 @@ export default function MinaBrevPage() {
             />
           </div>
 
-          {/* Sök och kontroller */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <div className="relative flex-1 sm:max-w-sm">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Sök i dina brev..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setSelectedView('grid')}
-                className={`p-2.5 rounded-xl transition-all touch-manipulation ${
-                  selectedView === 'grid'
-                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
-                    : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200'
-                }`}
-              >
-                <Grid3x3 className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setSelectedView('list')}
-                className={`p-2.5 rounded-xl transition-all touch-manipulation ${
-                  selectedView === 'list'
-                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
-                    : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200'
-                }`}
-              >
-                <LayoutGrid className="w-5 h-5" />
-              </button>
-            </div>
+          {/* Sök */}
+          <div className="relative sm:max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Sök på företag, tjänst..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
+            />
           </div>
         </div>
 
         {/* Brev-lista */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, i) => (
+          <div className="flex flex-col gap-4">
+            {[...Array(4)].map((_, i) => (
               <div key={i} className="bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-xl" />
+                <div className="flex items-start gap-4 mb-3">
+                  <div className="w-14 h-14 bg-gray-200 rounded-xl flex-shrink-0" />
                   <div className="flex-1">
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+                    <div className="h-5 bg-gray-200 rounded w-3/4 mb-2" />
                     <div className="h-3 bg-gray-200 rounded w-1/2" />
                   </div>
                 </div>
-                <div className="space-y-2 mb-4">
+                <div className="pl-[72px] space-y-2 mb-4">
                   <div className="h-3 bg-gray-200 rounded" />
                   <div className="h-3 bg-gray-200 rounded w-4/5" />
                 </div>
-                <div className="flex gap-2">
-                  <div className="flex-1 h-9 bg-gray-200 rounded-lg" />
-                  <div className="flex-1 h-9 bg-gray-200 rounded-lg" />
+                <div className="pl-[72px] flex gap-2">
+                  <div className="flex-1 h-10 bg-gray-200 rounded-lg" />
+                  <div className="flex-1 h-10 bg-gray-200 rounded-lg" />
+                  <div className="flex-1 h-10 bg-gray-200 rounded-lg" />
                 </div>
               </div>
             ))}
@@ -564,18 +588,15 @@ export default function MinaBrevPage() {
             )}
           </motion.div>
         ) : (
-          <div className={`grid gap-4 ${
-            selectedView === 'grid'
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-              : 'grid-cols-1'
-          }`}>
+          <div className="flex flex-col gap-4">
             {filteredLetters.map((letter) => (
-              <LetterCard
+              <LetterListItem
                 key={letter.id}
                 letter={letter}
                 onView={handleView}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onDownload={handleDownload}
                 isDeleting={deletingId === letter.id}
               />
             ))}
