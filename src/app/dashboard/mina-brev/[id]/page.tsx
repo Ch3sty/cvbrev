@@ -6,7 +6,6 @@ import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-// Import Lucide icons
 import {
   ArrowLeft,
   Edit,
@@ -14,15 +13,11 @@ import {
   Loader2,
   AlertTriangle,
   FileText,
-  Info,
-  Plus,
   Building2,
   Briefcase,
   MessageSquare,
   Clock,
-  Download,
   Calendar,
-  Eye,
   Copy,
   Check,
   ZoomIn,
@@ -30,11 +25,10 @@ import {
   Palette
 } from 'lucide-react';
 
-// Import DownloadButton for PDF functionality
 import DownloadButton from '@/components/letters/download-button';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 
-// Reuse LetterTag component with light theme
+// Enkel tag-komponent
 const LetterTag = ({
   label,
   value,
@@ -45,18 +39,24 @@ const LetterTag = ({
   type: 'company' | 'job' | 'tone' | 'template'
 }) => {
   if (!value) return null;
-  const iconAndColor = {
-    company: { icon: <Building2 className="w-3 h-3 mr-1" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
-    job: { icon: <Briefcase className="w-3 h-3 mr-1" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
-    tone: { icon: <MessageSquare className="w-3 h-3 mr-1" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" },
-    template: { icon: <Palette className="w-3 h-3 mr-1" />, bgClass: "bg-green-50 text-green-700 border-green-200" }
+
+  const config = {
+    company: { icon: Building2, colors: "bg-pink-50 text-pink-700 border-pink-200" },
+    job: { icon: Briefcase, colors: "bg-purple-50 text-purple-700 border-purple-200" },
+    tone: { icon: MessageSquare, colors: "bg-pink-50 text-pink-700 border-pink-200" },
+    template: { icon: Palette, colors: "bg-purple-50 text-purple-700 border-purple-200" }
   };
-  const { icon, bgClass } = iconAndColor[type];
+
+  const { icon: Icon, colors } = config[type];
   const displayValue = type === 'tone' ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${bgClass}`} title={`${label}: ${displayValue}`} style={{maxWidth: '180px'}}>
-      {icon}
-      <span className="truncate">{displayValue}</span>
+    <span
+      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium border ${colors}`}
+      title={`${label}: ${displayValue}`}
+    >
+      <Icon className="w-3 h-3 mr-1.5" />
+      <span className="truncate max-w-[140px]">{displayValue}</span>
     </span>
   );
 };
@@ -139,34 +139,41 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       .join('');
   };
 
-  // Handle initial loading
+  // Laddar
   if (isLoading && !currentLetter) {
     return (
-      <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-600"></div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 text-pink-600 animate-spin" />
+          <p className="text-sm text-gray-600">Laddar brev...</p>
+        </div>
       </div>
     );
   }
 
-  // Handle error or letter not found
+  // Fel eller ej hittat
   if (error || (!isLoading && !currentLetter)) {
     return (
-      <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen">
-        <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
-          <div className="flex items-start">
-            <AlertTriangle className="w-5 h-5 text-red-600 mr-3 flex-shrink-0" />
-            <div>
-              <h4 className="font-semibold text-red-800 mb-1">Ett fel uppstod</h4>
-              <p className="text-red-700 text-sm">
-                {error || 'Brevet kunde inte hittas eller laddas.'}
-              </p>
-              <Link
-                href="/dashboard/mina-brev"
-                className="inline-flex items-center mt-3 px-4 py-2 text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 rounded-md transition-colors border border-gray-600"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Tillbaka till mina brev
-              </Link>
+      <div className="min-h-screen bg-gray-50 px-4 py-8">
+        <div className="max-w-lg mx-auto">
+          <div className="bg-white rounded-xl border border-red-200 p-6">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-1">Brevet kunde inte hittas</h4>
+                <p className="text-gray-600 text-sm mb-4">
+                  {error || 'Brevet finns inte eller har tagits bort.'}
+                </p>
+                <Link
+                  href="/dashboard/mina-brev"
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 rounded-lg transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Tillbaka till mina brev
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -175,110 +182,113 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   }
 
   if (!currentLetter) {
-    console.error("ViewLetterPage: Rendering condition met, but currentLetter is still null.");
     return (
-      <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen">
-        <p className="text-center text-red-600">Ett oväntat fel inträffade vid rendering av brevet.</p>
-        <Link href="/dashboard/mina-brev" className="block text-center mt-4 text-pink-600 hover:text-pink-700 underline">
-          Tillbaka till mina brev
-        </Link>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="text-center">
+          <p className="text-gray-600 mb-4">Ett oväntat fel inträffade.</p>
+          <Link
+            href="/dashboard/mina-brev"
+            className="text-pink-600 hover:text-pink-700 font-medium"
+          >
+            Tillbaka till mina brev
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen">
-      {/* Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-6"
-      >
-        <Link href="/dashboard/mina-brev" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Tillbaka till mina brev
-        </Link>
-      </motion.div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header med gradient */}
+      <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+          {/* Tillbaka-länk */}
+          <Link
+            href="/dashboard/mina-brev"
+            className="inline-flex items-center text-white/80 hover:text-white transition-colors mb-4"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Tillbaka till mina brev
+          </Link>
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="mb-8"
-      >
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          {currentLetter.title || 'Ansökningsbrev'}
-        </h1>
-        <div className="flex flex-wrap gap-2 mb-4">
-          <LetterTag label="Företag" value={currentLetter.company} type="company" />
-          <LetterTag label="Tjänst" value={currentLetter.job_title} type="job" />
-          <LetterTag
-            label="Mall"
-            value={currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] ? DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name : null}
-            type="template"
-          />
-          <LetterTag label="Tonalitet" value={currentLetter.tonality} type="tone" />
+          {/* Titel och taggar */}
+          <h1 className="text-2xl sm:text-3xl font-bold mb-3">
+            {currentLetter.title || 'Ansökningsbrev'}
+          </h1>
+
+          <div className="flex flex-wrap gap-2">
+            {currentLetter.company && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
+                <Building2 className="w-3 h-3 mr-1.5" />
+                {currentLetter.company}
+              </span>
+            )}
+            {currentLetter.job_title && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
+                <Briefcase className="w-3 h-3 mr-1.5" />
+                {currentLetter.job_title}
+              </span>
+            )}
+            {currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
+                <Palette className="w-3 h-3 mr-1.5" />
+                {DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name}
+              </span>
+            )}
+          </div>
         </div>
-      </motion.div>
+      </div>
 
-      <div className="space-y-6">
-        {/* Action Bar - EXACT copy from PreviewStep */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200">
-          <div className="flex items-center gap-2">
-            <motion.button
+      {/* Huvudinnehåll */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        {/* Verktygsfält */}
+        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
+          {/* Zoom-kontroller */}
+          <div className="flex items-center gap-1">
+            <button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ZoomOut className="w-4 h-4" />
-            </motion.button>
-            <span className="text-sm text-gray-600 min-w-[60px] text-center font-medium">
+            </button>
+            <span className="text-sm text-gray-600 min-w-[50px] text-center">
               {Math.round(zoom * 100)}%
             </span>
-            <motion.button
+            <button
               onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ZoomIn className="w-4 h-4" />
-            </motion.button>
+            </button>
           </div>
 
-          <div className="flex items-center gap-2">
-            <motion.button
+          {/* Åtgärdsknappar */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-2 px-3 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm"
             >
               {copied ? (
                 <>
                   <Check className="w-4 h-4 text-green-600" />
-                  <span className="text-sm">Kopierat!</span>
+                  Kopierat!
                 </>
               ) : (
                 <>
                   <Copy className="w-4 h-4" />
-                  <span className="text-sm">Kopiera</span>
+                  Kopiera
                 </>
               )}
-            </motion.button>
+            </button>
 
-            <motion.button
+            <button
               onClick={handleEdit}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-2 px-3 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors text-sm font-medium"
             >
               <Edit className="w-4 h-4" />
-              <span className="text-sm">Redigera</span>
-            </motion.button>
+              Redigera
+            </button>
 
-            {/* PDF Download */}
             <DownloadButton
               format="pdf"
               letterContent={currentLetter.content || ''}
@@ -287,12 +297,11 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 company: currentLetter.company || undefined,
                 position: currentLetter.job_title || undefined
               }}
-              className="!px-4 !py-2"
+              className="!px-3 !py-2 !text-sm"
               showTemplateSelector={false}
               showPreview={false}
             />
 
-            {/* DOCX Download */}
             <DownloadButton
               format="docx"
               letterContent={currentLetter.content || ''}
@@ -301,177 +310,133 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 company: currentLetter.company || undefined,
                 position: currentLetter.job_title || undefined
               }}
-              className="!px-4 !py-2"
+              className="!px-3 !py-2 !text-sm"
               showTemplateSelector={false}
               showPreview={false}
             />
 
-            <motion.button
+            <button
               onClick={handleDeleteRequest}
               disabled={isDeleting}
-              className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-2 px-3 py-2 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors text-sm disabled:opacity-50"
             >
               {isDeleting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Trash2 className="w-4 h-4" />
               )}
-              <span className="text-sm font-medium">{isDeleting ? 'Tar bort...' : 'Ta bort'}</span>
-            </motion.button>
+              {isDeleting ? 'Tar bort...' : 'Ta bort'}
+            </button>
           </div>
         </div>
 
-        {/* Document Preview - EXACT copy from PreviewStep */}
-        <div className={`bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(currentLetter.content || '') ? '' : 'flex items-center justify-center'}`}>
-          <motion.div
+        {/* Dokumentförhandsvisning */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <div
             ref={previewRef}
-            className={
-              isTemplateHTML(currentLetter.content || '')
-                ? 'w-full mx-auto' // Template HTML: full width, let parent control constraints
-                : 'bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
-            }
-            style={
-              isTemplateHTML(currentLetter.content || '')
-                ? {
-                    transform: `scale(${zoom})`,
-                    transformOrigin: 'top center',
-                    transition: 'transform 0.3s ease'
-                  }
-                : {
-                    width: '210mm',
-                    minHeight: '297mm',
-                    transform: `scale(${zoom})`,
-                    transformOrigin: 'top center',
-                    transition: 'transform 0.3s ease'
-                  }
-            }
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={isTemplateHTML(currentLetter.content || '') ? {} : { boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
+            className="w-full"
+            style={{
+              transform: `scale(${zoom})`,
+              transformOrigin: 'top center',
+              transition: 'transform 0.2s ease'
+            }}
           >
-            {/* Page Header - Only for plain text (legacy) */}
-            {!isTemplateHTML(currentLetter.content || '') && (
-              <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-600">Personligt brev</span>
+            {isTemplateHTML(currentLetter.content || '') ? (
+              // Mallbaserad HTML
+              <div dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }} />
+            ) : (
+              // Fallback för vanlig text
+              <div className="p-8 sm:p-12">
+                <div className="max-w-2xl mx-auto">
+                  <div
+                    className="prose prose-gray"
+                    style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+                    dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+                  />
                 </div>
               </div>
             )}
-
-            {/* Page Content */}
-            <div
-              className={isTemplateHTML(currentLetter.content || '') ? '' : 'p-16 text-gray-800'}
-              style={isTemplateHTML(currentLetter.content || '') ? {} : { fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
-              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
-            />
-
-            {/* Page Footer - Only for plain text (legacy) */}
-            {!isTemplateHTML(currentLetter.content || '') && (
-              <div className="border-t border-gray-100 px-8 py-4 bg-gradient-to-r from-white to-gray-50">
-                <p className="text-xs text-gray-400 text-center">
-                  Genererat med Jobbcoach.ai
-                </p>
-              </div>
-            )}
-          </motion.div>
+          </div>
         </div>
 
-        {/* Help Text */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center text-sm text-gray-600"
-        >
-          💡 Tips: Du kan redigera texten eller ladda ner som PDF
-        </motion.div>
-
-        {/* Meta info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="p-5 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-200/80"
-        >
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-3">
-            <Info className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
-            Information
-          </h3>
-          <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-            <div>
-              <p className="text-gray-600 mb-0.5">Skapad</p>
-              <p className="text-gray-900 flex items-center">
-                <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
-                {currentLetter.created_at ? new Date(currentLetter.created_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'}) : 'Okänt datum'}
-              </p>
+        {/* Metainformation */}
+        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+          <div className="flex flex-wrap gap-6 text-sm">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Calendar className="w-4 h-4 text-gray-400" />
+              <span>Skapad: </span>
+              <span className="text-gray-900">
+                {currentLetter.created_at
+                  ? new Date(currentLetter.created_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })
+                  : 'Okänt'}
+              </span>
             </div>
             {currentLetter.updated_at && currentLetter.created_at &&
                new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
-              <div>
-                <p className="text-gray-600 mb-0.5">Senast uppdaterad</p>
-                <p className="text-gray-900 flex items-center">
-                  <Clock className="w-4 h-4 mr-1.5 text-gray-500" />
-                  {new Date(currentLetter.updated_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'})}
-                </p>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Clock className="w-4 h-4 text-gray-400" />
+                <span>Uppdaterad: </span>
+                <span className="text-gray-900">
+                  {new Date(currentLetter.updated_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </span>
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Delete confirmation modal */}
+      {/* Bekräftelsedialog för borttagning */}
       {showDeleteConfirm && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm"
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-xl max-w-md w-full shadow-2xl border border-gray-200 mx-4"
+            className="bg-white rounded-xl max-w-md w-full shadow-xl"
           >
-            <div className="p-5 border-b border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
-                Bekräfta borttagning
-              </h3>
-            </div>
-            <div className="p-5">
-              <p className="text-gray-700 mb-4">
-                Är du säker på att du vill ta bort brevet
-                <span className="font-medium text-gray-900 mx-1">"{currentLetter?.title || 'detta brev'}"</span>?
-              </p>
-              <div className="bg-yellow-50 p-3 border border-yellow-200 rounded-md flex items-start">
-                <AlertTriangle className="w-4 h-4 text-yellow-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p className="text-yellow-800 text-sm">
-                  Denna åtgärd kan inte ångras och brevet raderas permanent.
-                </p>
+            <div className="p-6">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                    Ta bort brevet?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Brevet "{currentLetter?.title || 'Namnlöst'}" kommer att raderas permanent och kan inte återställas.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="p-5 border-t border-gray-200 flex justify-end space-x-3 bg-gray-50">
-              <motion.button onClick={cancelDeleteAction} disabled={isDeleting} className="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 disabled:opacity-50 border border-gray-300 font-medium shadow-sm hover:shadow-md" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+
+            <div className="px-6 pb-6 flex gap-3 justify-end">
+              <button
+                onClick={cancelDeleteAction}
+                disabled={isDeleting}
+                className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors disabled:opacity-50"
+              >
                 Avbryt
-              </motion.button>
-              <motion.button onClick={confirmDeleteAction} disabled={isDeleting} className={`px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 flex items-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-lg hover:shadow-xl`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              </button>
+              <button
+                onClick={confirmDeleteAction}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
+              >
                 {isDeleting ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin" />
                     Tar bort...
                   </>
                 ) : (
                   <>
-                    <Trash2 className="w-4 h-4 mr-1.5" />
-                    Ta bort brevet
+                    <Trash2 className="w-4 h-4" />
+                    Ta bort
                   </>
                 )}
-              </motion.button>
+              </button>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       )}
     </div>
   );
