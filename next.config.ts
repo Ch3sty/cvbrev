@@ -14,8 +14,14 @@ const nextConfig: NextConfig = {
   // Output file tracing root för att undvika lockfile varningar
   outputFileTracingRoot: process.cwd(),
 
-  // KRITISKT: Tvinga Next.js att inkludera @sparticuz/chromium binärfiler i deployment
-  // Detta krävs för PDF-generering med Puppeteer på Vercel
+  // KRITISKT: Explicit inkludera @sparticuz/chromium binärfiler för Vercel deployment
+  // Turbopack (Next.js 16 standard) inkluderar inte binärfiler automatiskt
+  outputFileTracingIncludes: {
+    '/api/letters/download': ['./node_modules/@sparticuz/chromium/**/*'],
+    '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*'],
+  },
+
+  // Markera dessa paket som externa för serverside bundling
   serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
 
   // Tillåt TypeScript errors i builds (om det behövs)
