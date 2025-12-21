@@ -216,12 +216,78 @@ export default function CVCreatorWizard() {
     };
   }, [cvData]);
 
+  // Convert CVMetadata to plain text for storage
+  const buildCVText = useCallback((metadata: CVMetadata): string => {
+    const lines: string[] = [];
+
+    // Personal info
+    lines.push(metadata.personalInfo.fullName);
+    if (metadata.personalInfo.email) lines.push(metadata.personalInfo.email);
+    if (metadata.personalInfo.phone) lines.push(metadata.personalInfo.phone);
+    if (metadata.personalInfo.address) lines.push(metadata.personalInfo.address);
+    lines.push('');
+
+    // Summary
+    if (metadata.summary) {
+      lines.push('SAMMANFATTNING');
+      lines.push(metadata.summary);
+      lines.push('');
+    }
+
+    // Experience
+    if (metadata.experience.length > 0) {
+      lines.push('ARBETSLIVSERFARENHET');
+      metadata.experience.forEach(exp => {
+        lines.push(`${exp.position} - ${exp.company}`);
+        if (exp.startDate) lines.push(`${exp.startDate}${exp.endDate ? ` - ${exp.endDate}` : ' - Pågående'}`);
+        if (exp.description) {
+          exp.description.forEach(desc => lines.push(`• ${desc}`));
+        }
+        lines.push('');
+      });
+    }
+
+    // Education
+    if (metadata.education.length > 0) {
+      lines.push('UTBILDNING');
+      metadata.education.forEach(edu => {
+        lines.push(`${edu.degree} - ${edu.institution}`);
+        if (edu.graduationYear) lines.push(edu.graduationYear);
+        lines.push('');
+      });
+    }
+
+    // Skills
+    if (metadata.skills.length > 0) {
+      lines.push('KOMPETENSER');
+      metadata.skills.forEach(skillGroup => {
+        if (skillGroup.skills.length > 0) {
+          lines.push(skillGroup.skills.join(', '));
+        }
+      });
+      lines.push('');
+    }
+
+    // Languages
+    if (metadata.languages && metadata.languages.length > 0) {
+      lines.push('SPRÅK');
+      metadata.languages.forEach(lang => {
+        lines.push(`${lang.language}: ${lang.proficiency}`);
+      });
+      lines.push('');
+    }
+
+    return lines.join('\n');
+  }, []);
+
   // Handle complete wizard
   const handleComplete = useCallback(async (action: 'save' | 'download' | 'both') => {
     setIsSaving(true);
 
     try {
       const metadata = buildCVMetadata();
+      const cvText = buildCVText(metadata);
+      const fileName = `CV - ${cvData.personalInfo.fullName || 'Nytt CV'}`;
 
       if (action === 'save' || action === 'both') {
         // Save to database
@@ -229,14 +295,16 @@ export default function CVCreatorWizard() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            fileName: `CV - ${cvData.personalInfo.fullName || 'Nytt CV'}`,
+            fileName,
+            improvedText: cvText, // Required by API
             structuredData: metadata,
             originalCvId: null, // New CV, not improving existing
           }),
         });
 
         if (!response.ok) {
-          throw new Error('Kunde inte spara CV');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Kunde inte spara CV');
         }
 
         // Clear draft after successful save
@@ -266,7 +334,8 @@ export default function CVCreatorWizard() {
         });
 
         if (!response.ok) {
-          throw new Error('Kunde inte generera PDF');
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || 'Kunde inte generera PDF');
         }
 
         // Download the PDF
@@ -287,11 +356,11 @@ export default function CVCreatorWizard() {
       }
     } catch (error) {
       console.error('Error completing wizard:', error);
-      // Show error notification
+      // Show error notification - TODO: Add proper error handling UI
     } finally {
       setIsSaving(false);
     }
-  }, [buildCVMetadata, cvData.personalInfo.fullName, selectedTemplate, clearDraft, successWithMascotAndActivity, router]);
+  }, [buildCVMetadata, buildCVText, cvData.personalInfo.fullName, selectedTemplate, clearDraft, successWithMascotAndActivity, router]);
 
   // Render current step content
   const renderStepContent = () => {
