@@ -1,6 +1,6 @@
 'use client';
 import { Suspense, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
@@ -17,6 +17,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isLoading, isAuthenticated } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
@@ -135,7 +136,18 @@ export default function DashboardLayout({
           {/* Main Content Area - responsiv padding */}
           <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
             <div className="max-w-7xl mx-auto relative">
-              {children}
+              {/* Page Transition Animation */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={pathname}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15, ease: 'easeOut' }}
+                >
+                  {children}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </main>
         </div>
