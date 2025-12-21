@@ -90,6 +90,48 @@ export default function MinaCVPage() {
     return date.toLocaleDateString('sv-SE');
   };
 
+  // Extrahera en ren förhandsgranskning från CV-texten
+  const getCleanPreview = (cvText: string | null): string => {
+    if (!cvText) return 'Ingen förhandsgranskning tillgänglig';
+
+    // Ta bort email-adresser
+    let cleaned = cvText.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
+    // Ta bort telefonnummer (olika format)
+    cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
+    cleaned = cleaned.replace(/\d{3}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
+    // Ta bort postnummer och städer som står ensamma
+    cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g, '');
+
+    // Dela upp i rader och filtrera bort korta/oönskade rader
+    const lines = cleaned.split(/\n+/).map(line => line.trim()).filter(line => {
+      // Filtrera bort tomma rader
+      if (line.length < 3) return false;
+      // Filtrera bort rader som bara är namn (kort och utan mellanrum förutom namn)
+      if (line.length < 20 && !line.includes(' ') && /^[A-ZÅÄÖ]/.test(line)) return false;
+      // Filtrera bort rubriker som "SAMMANFATTNING", "ERFARENHET", etc.
+      if (/^[A-ZÅÄÖ\s]{4,20}$/.test(line) && line === line.toUpperCase()) return false;
+      return true;
+    });
+
+    // Hitta första meningsfulla stycket (minst 50 tecken)
+    const meaningfulText = lines.find(line => line.length > 50) || lines.join(' ');
+
+    // Rensa upp extra mellanslag
+    const finalText = meaningfulText.replace(/\s+/g, ' ').trim();
+
+    // Begränsa längden och lägg till ellips
+    if (finalText.length > 150) {
+      // Försök bryta vid en punkt eller komma för naturligare slut
+      const breakPoint = finalText.substring(0, 150).lastIndexOf('.');
+      if (breakPoint > 80) {
+        return finalText.substring(0, breakPoint + 1);
+      }
+      return finalText.substring(0, 147) + '...';
+    }
+
+    return finalText || 'Ingen förhandsgranskning tillgänglig';
+  };
+
   const openCVInNewWindow = (cv: any) => {
     const newWindow = window.open('', '_blank', 'width=900,height=700');
     if (newWindow) {
@@ -313,13 +355,10 @@ export default function MinaCVPage() {
 
                     {/* CV Preview */}
                     <div className="p-3 sm:p-4 md:p-6">
-                      <div className="bg-gray-50 rounded-xl p-4 mb-4 max-h-32 overflow-hidden relative border border-gray-100">
-                        <div className="text-xs text-gray-700 line-clamp-4">
-                          {cv.cv_text && cv.cv_text.length > 200
-                            ? cv.cv_text.slice(0, 200) + '...'
-                            : cv.cv_text || 'Ingen förhandsgranskning tillgänglig'}
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
+                      <div className="bg-gray-50 rounded-xl p-3 sm:p-4 mb-4 min-h-[80px] border border-gray-100">
+                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-3">
+                          {getCleanPreview(cv.cv_text)}
+                        </p>
                       </div>
 
                       {/* Action Buttons */}
