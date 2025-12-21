@@ -80,22 +80,18 @@ async function createProfessionalPDF(htmlContent: string, fontFamily?: string): 
     };
 
     if (isServerless) {
-      // Use Sparticuz Chromium for serverless environments
-      try {
-        const chromium = await import('@sparticuz/chromium');
-        launchOptions.executablePath = await chromium.default.executablePath();
-        launchOptions.args = [
-          ...launchOptions.args,
-          ...chromium.default.args,
-          '--single-process'
-        ];
-        console.log('Using Sparticuz Chromium for serverless');
-      } catch (error) {
-        console.warn('Sparticuz Chromium not available, falling back to system chrome');
-        launchOptions.executablePath = process.platform === 'win32'
-          ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
-          : '/usr/bin/google-chrome-stable';
-      }
+      // I serverless-miljö MÅSTE vi använda @sparticuz/chromium
+      // Ingen fallback till system chrome - det finns inte på Vercel
+      const chromium = await import('@sparticuz/chromium');
+      const chromiumModule = chromium.default || chromium;
+
+      // Använd korrekt API för @sparticuz/chromium
+      launchOptions.executablePath = await chromiumModule.executablePath();
+      launchOptions.args = chromiumModule.args;
+      launchOptions.headless = 'shell'; // Krävs för @sparticuz/chromium
+
+      console.log('Using Sparticuz Chromium for serverless');
+      console.log('Chromium executable path:', launchOptions.executablePath);
     }
 
     // Starta browser
