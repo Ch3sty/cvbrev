@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Building2, Sparkles, Lightbulb, Trophy, Scale, Bot,
-  Languages, Crown, Lock, Check, Zap
+  Languages, Crown, Lock, Check
 } from 'lucide-react';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
@@ -106,9 +106,19 @@ export default function TonalityLanguageStep({
                   Premium
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-3">
-                AI analyserar jobbannonsen och väljer automatiskt den perfekta tonen
+              <p className="text-sm text-gray-600 mb-2">
+                Matchar tonen mot företagets kultur och branschens förväntningar – inte bara jobbannonsen.
               </p>
+              <ul className="text-xs text-gray-500 space-y-1 mb-3">
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-purple-400" />
+                  Analyserar nyckelord och krav på djupet
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-purple-400" />
+                  Anpassar efter branschens kommunikationsstil
+                </li>
+              </ul>
               <a
                 href="/dashboard/installningar"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-600 hover:text-purple-700"
@@ -162,17 +172,26 @@ export default function TonalityLanguageStep({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <h5 className="font-bold text-lg text-white">Smart-anpassad</h5>
-                <span className="bg-yellow-400/90 text-yellow-900 text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Zap className="w-3 h-3" />
-                  AI
+                <span className="bg-yellow-400/90 text-yellow-900 text-xs font-semibold px-2 py-0.5 rounded-full">
+                  Bäst resultat
                 </span>
               </div>
-              <p className="text-sm text-white/90">
-                AI analyserar jobbannonsen och väljer automatiskt den perfekta tonen för maximal effekt
+              <p className="text-sm text-white/90 mb-2">
+                Matchar tonen mot företagets kultur och branschens förväntningar – inte bara jobbannonsen.
               </p>
-              <div className="mt-3 flex items-center gap-2">
-                <Crown className="w-4 h-4 text-yellow-300" />
-                <span className="text-xs text-white/80 font-medium">Rekommenderad för premium-användare</span>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/75">
+                <span className="flex items-center gap-1">
+                  <Check className="w-3 h-3 text-green-300" />
+                  Djupanalys av krav
+                </span>
+                <span className="flex items-center gap-1">
+                  <Check className="w-3 h-3 text-green-300" />
+                  Branschanpassad ton
+                </span>
+                <span className="flex items-center gap-1">
+                  <Check className="w-3 h-3 text-green-300" />
+                  Högre svarsfrekvens
+                </span>
               </div>
             </div>
 
