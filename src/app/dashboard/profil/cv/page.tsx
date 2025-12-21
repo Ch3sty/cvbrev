@@ -6,7 +6,7 @@ import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import { motion, AnimatePresence } from 'framer-motion';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
-import { FileText, Trash2, ExternalLink, AlertTriangle, Info, Crown, Edit, Clock, Eye } from 'lucide-react';
+import { FileText, Trash2, ExternalLink, AlertTriangle, Info, Crown, Edit, Clock, Eye, Download } from 'lucide-react';
 
 export default function MinaCVPage() {
   const router = useRouter();
@@ -91,50 +91,99 @@ export default function MinaCVPage() {
   };
 
   const openCVInNewWindow = (cv: any) => {
-    const newWindow = window.open('', '_blank', 'width=800,height=600');
+    const newWindow = window.open('', '_blank', 'width=900,height=700');
     if (newWindow) {
       newWindow.document.write(`
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${cv.file_name || 'CV'}</title>
+            <title>${cv.file_name || 'CV'} - Jobbcoach.ai</title>
             <style>
+              * {
+                box-sizing: border-box;
+              }
               body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                padding: 40px;
-                line-height: 1.6;
-                background: linear-gradient(to bottom right, #f9fafb, #f3f4f6);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+                padding: 0;
+                margin: 0;
+                line-height: 1.7;
+                background: linear-gradient(135deg, #fdf2f8 0%, #ede9fe 100%);
                 color: #1f2937;
+                min-height: 100vh;
+              }
+              .header {
+                background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+                color: white;
+                padding: 24px 40px;
+                box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+              }
+              .header h1 {
+                margin: 0 0 8px 0;
+                font-size: 24px;
+                font-weight: 700;
+              }
+              .header .meta {
+                opacity: 0.9;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              }
+              .content {
+                max-width: 850px;
+                margin: 32px auto;
+                padding: 0 24px;
               }
               .cv-container {
-                max-width: 800px;
-                margin: 0 auto;
-                white-space: pre-line;
                 background: white;
-                padding: 40px;
-                border-radius: 16px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+                padding: 48px;
+                border-radius: 20px;
+                box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+                white-space: pre-line;
+                font-size: 15px;
               }
-              h1 {
-                color: #111827;
-                margin-bottom: 12px;
+              .cv-container p {
+                margin: 0 0 16px 0;
               }
-              .meta {
+              .footer {
+                text-align: center;
+                padding: 24px;
                 color: #6b7280;
-                font-size: 14px;
-                margin-bottom: 32px;
-                padding-bottom: 16px;
-                border-bottom: 2px solid #f3f4f6;
+                font-size: 13px;
+              }
+              .footer a {
+                color: #9333ea;
+                text-decoration: none;
+                font-weight: 500;
+              }
+              .footer a:hover {
+                text-decoration: underline;
+              }
+              @media print {
+                .header { display: none; }
+                .footer { display: none; }
+                body { background: white; }
+                .cv-container {
+                  box-shadow: none;
+                  border-radius: 0;
+                  padding: 0;
+                }
               }
             </style>
           </head>
           <body>
-            <div class="cv-container">
+            <div class="header">
               <h1>${cv.file_name || 'CV'}</h1>
               <div class="meta">
-                📅 Uppladdad: ${cv.created_at ? new Date(cv.created_at).toLocaleDateString('sv-SE') : 'okänt datum'}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Uppladdad: ${cv.created_at ? new Date(cv.created_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }) : 'okänt datum'}
               </div>
-              <div>${cv.cv_text ? cv.cv_text.replace(/\n/g, '<br />') : 'Inget CV-innehåll tillgängligt'}</div>
+            </div>
+            <div class="content">
+              <div class="cv-container">${cv.cv_text ? cv.cv_text.replace(/\n/g, '<br />') : 'Inget CV-innehåll tillgängligt'}</div>
+            </div>
+            <div class="footer">
+              <a href="https://jobbcoach.ai" target="_blank">jobbcoach.ai</a> - Din AI-drivna karriärcoach
             </div>
           </body>
         </html>
@@ -152,11 +201,11 @@ export default function MinaCVPage() {
         className="mb-4 sm:mb-6 md:mb-8"
       >
         <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-          <div className="p-3 sm:p-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl sm:rounded-2xl shadow-lg">
+          <div className="p-3 sm:p-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg">
             <FileText className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent truncate">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent truncate">
               Mina CV:n
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 font-medium">Ladda upp och hantera dina CV:n</p>
@@ -189,7 +238,7 @@ export default function MinaCVPage() {
           <div className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between mb-4 sm:mb-6 md:mb-8 gap-2">
               <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex items-center min-w-0">
-                <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 mr-2 sm:mr-3 flex-shrink-0">
+                <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 mr-2 sm:mr-3 flex-shrink-0">
                   <FileText className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <span className="truncate">Dina CV:n</span>
@@ -274,10 +323,10 @@ export default function MinaCVPage() {
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         <motion.button
                           onClick={() => openCVInNewWindow(cv)}
-                          className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all shadow-md hover:shadow-lg touch-manipulation"
+                          className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg transition-all shadow-md hover:shadow-lg touch-manipulation"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -286,8 +335,18 @@ export default function MinaCVPage() {
                         </motion.button>
 
                         <motion.button
+                          onClick={() => router.push(`/dashboard/cv-mallar?cv=${cv.id}`)}
+                          className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg transition-all shadow-md hover:shadow-lg touch-manipulation"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Download className="w-3 h-3 mr-1 flex-shrink-0" />
+                          <span className="truncate">Ladda ner</span>
+                        </motion.button>
+
+                        <motion.button
                           onClick={() => router.push(`/dashboard/profil/cv/${cv.id}/edit`)}
-                          className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg transition-all shadow-md hover:shadow-lg touch-manipulation"
+                          className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg transition-all shadow-sm hover:shadow-md touch-manipulation"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -309,18 +368,20 @@ export default function MinaCVPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-4 sm:mb-6 border-2 border-dashed border-gray-300 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 bg-gray-50"
+          className="mb-4 sm:mb-6 border-2 border-dashed border-pink-300 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 bg-gradient-to-br from-pink-50 to-purple-50"
         >
           <div className="flex flex-col items-center justify-center text-gray-600">
             <motion.div
-              className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4"
+              className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 shadow-lg"
               animate={{ y: [-5, 5, -5] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <FileText className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600" />
+              <FileText className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
             </motion.div>
             <p className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">Inga CV:n uppladdade än</p>
-            <p className="text-xs sm:text-sm text-gray-500 text-center">Ladda upp ditt första CV för att komma igång</p>
+            <p className="text-xs sm:text-sm text-gray-500 text-center max-w-sm">
+              Ladda upp ditt första CV för att komma igång med personliga brev och CV-analys
+            </p>
           </div>
         </motion.div>
       )}
@@ -365,7 +426,7 @@ export default function MinaCVPage() {
           className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 shadow-xl"
         >
           <h2 className="mb-4 sm:mb-6 text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex items-center">
-            <div className="p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 mr-2 sm:mr-3 flex-shrink-0">
+            <div className="p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 mr-2 sm:mr-3 flex-shrink-0">
               <FileText className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
             </div>
             <span className="truncate">Ladda upp nytt CV</span>
