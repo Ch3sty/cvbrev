@@ -2,25 +2,25 @@
 
 import { useState, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, Settings, Linkedin, FileEdit, Loader2, BarChart3, Download } from 'lucide-react'
+import Link from 'next/link'
 import LinkedInProgressBar from './LinkedInProgressBar'
 import { createClient } from '@/lib/supabase/client'
 
-// Lazy load steps
-const WelcomeStep = lazy(() => import('./steps/WelcomeStep'))
+// Lazy load steps - ta bort WelcomeStep (går direkt till OptimizationMode)
 const OptimizationModeStep = lazy(() => import('./steps/OptimizationModeStep'))
 const SectionInputStep = lazy(() => import('./steps/SectionInputStep'))
 const AnalysisProgressStep = lazy(() => import('./steps/AnalysisProgressStep'))
 const ResultsStep = lazy(() => import('./steps/ResultsStep'))
 const ExportStep = lazy(() => import('./steps/ExportStep'))
 
+// Uppdaterade steg - utan Welcome, nu 5 steg istället för 6
 const STEPS = [
-  { id: 0, title: 'Välkommen', subtitle: 'Kom igång' },
-  { id: 1, title: 'Välj läge', subtitle: 'Optimering' },
-  { id: 2, title: 'LinkedIn', subtitle: 'Kopiera' },
-  { id: 3, title: 'Analys', subtitle: 'AI arbetar' },
-  { id: 4, title: 'Resultat', subtitle: 'Jämför' },
-  { id: 5, title: 'Exportera', subtitle: 'Spara' }
+  { id: 0, title: 'Välj läge', icon: Settings },
+  { id: 1, title: 'LinkedIn', icon: Linkedin },
+  { id: 2, title: 'Analys', icon: Loader2 },
+  { id: 3, title: 'Resultat', icon: BarChart3 },
+  { id: 4, title: 'Exportera', icon: Download }
 ]
 
 type OptimizationMode = 'stand_out' | 'target_role'
@@ -82,7 +82,7 @@ const StepSkeleton = () => (
 
 export default function LinkedInWizard() {
   const [currentStep, setCurrentStep] = useState(0)
-  const [completedSteps, setCompletedSteps] = useState<number[]>([0]) // Track which steps have been completed
+  const [completedSteps, setCompletedSteps] = useState<number[]>([])
   const [mode, setMode] = useState<OptimizationMode>('stand_out')
   const [targetRole, setTargetRole] = useState('')
   const [language, setLanguage] = useState<Language>('sv')
@@ -99,13 +99,11 @@ export default function LinkedInWizard() {
 
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
-      const nextStep = currentStep + 1
-      setCurrentStep(nextStep)
-      // Mark current and next step as completed
-      setCompletedSteps(prev => {
-        const updated = new Set([...prev, currentStep, nextStep])
-        return Array.from(updated)
-      })
+      // Mark current step as completed
+      if (!completedSteps.includes(currentStep)) {
+        setCompletedSteps(prev => [...prev, currentStep])
+      }
+      setCurrentStep(prev => prev + 1)
     }
   }
 
@@ -145,8 +143,11 @@ export default function LinkedInWizard() {
     }
 
     setIsAnalyzing(true)
-    setCurrentStep(3) // Move to Analysis step
-    setCompletedSteps(prev => [...new Set([...prev, 0, 1, 2, 3])])
+    // Mark step 1 as completed
+    if (!completedSteps.includes(1)) {
+      setCompletedSteps(prev => [...prev, 1])
+    }
+    setCurrentStep(2) // Move to Analysis step
 
     try {
       // Get Supabase client and user
@@ -178,18 +179,21 @@ export default function LinkedInWizard() {
 
       setResults(data)
       setIsAnalyzing(false)
-      setCurrentStep(4) // Move to Results step
-      setCompletedSteps(prev => [...new Set([...prev, 4])])
+      // Mark step 2 as completed
+      if (!completedSteps.includes(2)) {
+        setCompletedSteps(prev => [...prev, 2])
+      }
+      setCurrentStep(3) // Move to Results step
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Något gick fel. Försök igen.')
       setIsAnalyzing(false)
-      setCurrentStep(2) // Go back to input step
+      setCurrentStep(1) // Go back to input step
     }
   }
 
   const handleStartOver = () => {
     setCurrentStep(0)
-    setCompletedSteps([0])
+    setCompletedSteps([])
     setMode('stand_out')
     setTargetRole('')
     setLanguage('sv')
@@ -202,8 +206,6 @@ export default function LinkedInWizard() {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <WelcomeStep onNext={handleNext} />
-      case 1:
         return (
           <OptimizationModeStep
             mode={mode}
@@ -214,9 +216,10 @@ export default function LinkedInWizard() {
             onLanguageChange={setLanguage}
             onNext={handleNext}
             onBack={handleBack}
+            isFirstStep={true}
           />
         )
-      case 2:
+      case 1:
         return (
           <SectionInputStep
             sections={sections}
@@ -226,9 +229,9 @@ export default function LinkedInWizard() {
             error={error}
           />
         )
-      case 3:
+      case 2:
         return <AnalysisProgressStep isAnalyzing={isAnalyzing} />
-      case 4:
+      case 3:
         return results ? (
           <ResultsStep
             originalSections={sections}
@@ -239,7 +242,7 @@ export default function LinkedInWizard() {
             onBack={handleBack}
           />
         ) : null
-      case 5:
+      case 4:
         return results ? (
           <ExportStep
             optimizedSections={results.sections}
@@ -252,32 +255,53 @@ export default function LinkedInWizard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      {/* Progress Bar */}
-      <LinkedInProgressBar
-        currentStep={currentStep}
-        steps={STEPS}
-        onStepClick={handleStepClick}
-        completedSteps={completedSteps}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      {/* Header med "Tillbaka till Dashboard" */}
+      <div className="bg-white border-b border-slate-200 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4">
+            <Link
+              href="/dashboard"
+              className="flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              Tillbaka till Dashboard
+            </Link>
+
+            {/* LinkedIn badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full">
+              <Linkedin className="w-4 h-4 text-[#0A66C2]" />
+              <span className="text-sm font-medium text-[#0A66C2]">LinkedIn Optimering</span>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="pb-6">
+            <LinkedInProgressBar
+              currentStep={currentStep}
+              steps={STEPS}
+              onStepClick={handleStepClick}
+              completedSteps={completedSteps}
+            />
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Suspense fallback={<StepSkeleton />}>
-                {renderStep()}
-              </Suspense>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Suspense fallback={<StepSkeleton />}>
+              {renderStep()}
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   )

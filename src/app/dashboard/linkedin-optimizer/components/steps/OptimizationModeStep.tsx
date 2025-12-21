@@ -15,6 +15,7 @@ interface OptimizationModeStepProps {
   onLanguageChange: (language: Language) => void
   onNext: () => void
   onBack: () => void
+  isFirstStep?: boolean
 }
 
 export default function OptimizationModeStep({
@@ -25,7 +26,8 @@ export default function OptimizationModeStep({
   onTargetRoleChange,
   onLanguageChange,
   onNext,
-  onBack
+  onBack,
+  isFirstStep = false
 }: OptimizationModeStepProps) {
   const canProceed = mode === 'stand_out' || (mode === 'target_role' && targetRole.trim().length > 0)
 
@@ -307,13 +309,17 @@ export default function OptimizationModeStep({
 
       {/* Navigation Buttons */}
       <div className="flex justify-between items-center">
-        <button
-          onClick={onBack}
-          className="px-6 py-3 text-gray-600 font-medium rounded-xl hover:bg-gray-100 transition-all flex items-center gap-2"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          <span>Tillbaka</span>
-        </button>
+        {!isFirstStep ? (
+          <button
+            onClick={onBack}
+            className="px-6 py-3 text-gray-600 font-medium rounded-xl hover:bg-gray-100 transition-all flex items-center gap-2"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            <span>Tillbaka</span>
+          </button>
+        ) : (
+          <div /> /* Spacer för layout */
+        )}
 
         <button
           onClick={onNext}

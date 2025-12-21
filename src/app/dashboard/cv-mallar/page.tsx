@@ -259,10 +259,10 @@ function CVMallarContent() {
         >
           <div className="text-center mb-6">
             <h1 className="text-4xl font-bold text-gray-900 mb-3">
-              CV-mallar
+              Byt design på ditt CV
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Välj en professionell CV-mall och skapa ditt CV på mindre än en minut.
+              Välj ett av dina CV:n och applicera en professionell design. Samma innehåll, snyggare format.
             </p>
           </div>
           
@@ -297,7 +297,7 @@ function CVMallarContent() {
                   Ditt CV
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Välj det CV du vill använda som grund
+                  Innehållet kopieras över till den nya designen
                 </CardDescription>
               </CardHeader>
               

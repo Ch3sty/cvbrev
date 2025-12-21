@@ -210,7 +210,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     },
     {
       path: '/dashboard/cv-mallar',
-      label: 'CV-Mallar',
+      label: 'Byt CV-design',
       icon: <Palette className="w-5 h-5" />,
       section: 'tools'
     },
