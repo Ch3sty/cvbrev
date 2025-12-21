@@ -321,6 +321,13 @@ Du har också fått den aktuella jobbannonsen.
 
 Din uppgift är att skriva ENDAST BREVKROPPEN för ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
 ${premiumAutoInstructions}
+
+    **BREV SOM KOMPLEMENT (INTE CV-UPPREPNING):**
+    - Brevet ska INTE vara en löptextversion av CV:t - rekryteraren har redan CV:t för fakta
+    - Använd brevet för att förklara LÄRDOMAR och KONTEXT bakom erfarenheterna
+    - Förklara VARFÖR erfarenheterna gör dig rätt för just detta jobb
+    - Fokusera på BETYDELSEN av erfarenheterna, inte kronologin
+
     1. **Målgruppsanpassning:**
       - Läs igenom både CV:t och jobbannonsen noggrant. Identifiera de nyckelkrav och önskade kompetenser som anges i annonsen.
       - Koppla dessa krav direkt till användarens erfarenheter och meriter som framgår av CV:t. Ange konkreta exempel, siffror eller prestationer när det är möjligt.
@@ -332,13 +339,28 @@ ${premiumAutoInstructions}
       - Din uppgift är att skriva det bästa möjliga brevet, inte att värdera lämplighet.
 
     2. **Struktur och naturlighet:**
-      - **Inledning:** Ange vilken tjänst som söks. Var direkt och tydlig.
+      - **Inledning:** Ange vilken tjänst som söks och visa ENTUSIASM för rollen.
+        - Fokusera på vad du kan BIDRA MED, inte vad du vill få ut av jobbet
+        - Undvik självcentrerade motiveringar ("för att jag vill utvecklas")
+        - Skriv ur arbetsgivarens perspektiv: "Vad får DE om de anställer mig?"
       - **Huvuddel:**
         - Beskriv relevanta erfarenheter kopplat till jobbet. Använd konkreta exempel.
-        - Variera meningslängd naturligt. Blanda korta och längre meningar.
+        - Variera meningslängd AKTIVT: blanda korta (3-5 ord) med längre meningar (15-20 ord).
         - Lyft specifika prestationer där relevant (t.ex. resultat, projekt).
         - Visa hur din bakgrund passar tjänsten utan att överdriva.
-      - **Avslutning:** Kort sammanfattning och nästa steg. Var artig men naturlig.
+        - Tillåt en-menings-stycken för betoning.
+        - Börja meningar på olika sätt (inte alltid "Jag...").
+      - **Varför företaget (OBLIGATORISKT):**
+        - Inkludera ALLTID ett stycke som visar research om arbetsgivaren
+        - Nämn något SPECIFIKT om företaget (produkter, värderingar, marknadsposition)
+        - Koppla till kandidatens värderingar: "Ert fokus på X tilltalar mig eftersom..."
+        - Detta separerar bra brev från generiska massutskick
+      - **Avslutning:**
+        - Sammanfatta kort ditt värde för företaget
+        - Uppmana till intervju (självsäker men ödmjuk)
+        - Tacka läsaren för deras tid
+        - UNDVIK: Att sluta abrupt utan avslutande mening
+        - Varianter: "Hoppas vi ses snart" / "Jag är nyfiken på att höra mer om era utmaningar"
       - **Längdvariationer:** Tillåt att olika stycken har olika längd. Alla stycken behöver inte vara lika.
       - **Mänsklig ton:** Skriv som en riktig person skulle skriva, inte som en mall.
     3. **Längd:**
@@ -348,21 +370,39 @@ ${premiumAutoInstructions}
       - Använd ett aktivt och tydligt språk. Undvik klichéer och generiska fraser.
       - Variera meningsstrukturerna naturligt. Använd olika sätt att inleda meningar.
       - VIKTIGT: Låt varje brev vara unikt. Använd INTE samma fraser i varje brev.
-      - Undvik dessa AI-markörer:
+      - Undvik dessa AI-markörer (KRITISKT - dessa avslöjar AI-genererad text):
         - "Jag blev mycket intresserad av..."
         - "I mig får ni en medarbetare som..."
         - "Jag ser fram emot möjligheten att..."
         - "Med över X års erfarenhet..."
         - "Jag är övertygad om att..."
+        - "Jag söker det här jobbet för att det passar min erfarenhet"
+        - "Jag söker denna tjänst för att den verkar rolig/intressant"
+        - "I dagens snabba/digitala/moderna arbetsmarknad/värld..."
+        - "Som en driven och målinriktad individ..."
+        - "Med min starka bakgrund inom..."
+        - Att stapla adjektiv utan belägg: "Jag är social, ansvarstagande, ambitiös..."
+        - "Jag är en lagspelare" utan konkret exempel
+        - "för att jag vill utvecklas" som huvudmotivering
       - Skriv istället på ett naturligt sätt som varierar mellan olika brev.
 
+      **EXEMPEL ÖVER PÅSTÅENDEN (VIKTIGT):**
+      - Alla kan påstå "Jag är strukturerad" - utan exempel väger det tunt
+      - För VARJE egenskap du nämner, ge ett kort exempel eller situation
+      - DÅLIGT: "Jag är bra på att lösa problem"
+      - BRA: "När ett kritiskt system kraschade under högsäsong, koordinerade jag teamet och löste problemet inom 2 timmar"
+      - Hellre färre egenskaper med substans än en lista klyschor
+
       **Svenska kulturella justeringar:**
+      - Svenska personliga brev är MER PERSONLIGA än i andra länder - visa motivation och värderingar
       - Balansera självsäkerhet med ödmjukhet (svensk "lagom"-balans)
       - Använd "jag" för personliga prestationer men erkänn också teamwork där relevant
       - Exempel: "Tillsammans med teamet lyckades jag..." eller "Jag bidrog till..."
-      - Undvik överdrivet säljande språk eller skryt
+      - Undvik överdrivet säljande språk eller skryt (typiskt för amerikanska brev)
+      - Skriv som du skulle tala - avslappnat men professionellt
       - Var självsäker men inte arrogant
       - Kvantifiera resultat men gör det naturligt (inte i varje mening)
+      - Visa personlighet - inte bara meriter
 
     5. **Anpassning:**
       - Skräddarsy brevet mot tjänsten. Referera till specifika punkter i jobbannonsen där relevant.
@@ -415,6 +455,13 @@ You also have the current job posting.
 
 Your task is to write ONLY THE LETTER BODY for a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
 ${premiumAutoInstructions}
+
+    **LETTER AS COMPLEMENT (NOT CV REPETITION):**
+    - The letter should NOT be a prose version of the CV - the recruiter already has the CV for facts
+    - Use the letter to explain LEARNINGS and CONTEXT behind the experiences
+    - Explain WHY the experiences make you right for THIS specific job
+    - Focus on the MEANING of experiences, not chronology
+
     1. **Target audience adaptation:**
       - Read through both the CV and job posting carefully. Identify the key requirements and desired competencies mentioned in the ad.
       - Connect these requirements directly to the user's experiences and merits as shown in the CV. Provide concrete examples, figures, or achievements when possible.
@@ -426,13 +473,28 @@ ${premiumAutoInstructions}
       - Your task is to write the best possible letter, not to evaluate suitability.
 
     2. **Structure and naturalness:**
-      - **Introduction:** State the position being applied for. Be direct and clear.
+      - **Introduction:** State the position being applied for and show ENTHUSIASM for the role.
+        - Focus on what you can CONTRIBUTE, not what you want to get from the job
+        - Avoid self-centered motivations ("because I want to develop")
+        - Write from the employer's perspective: "What do THEY get if they hire me?"
       - **Main body:**
         - Describe relevant experiences related to the job. Use concrete examples.
-        - Vary sentence length naturally. Mix short and longer sentences.
+        - Vary sentence length ACTIVELY: mix short (3-5 words) with longer sentences (15-20 words).
         - Highlight specific achievements where relevant (e.g., results, projects).
         - Show how your background fits the position without exaggerating.
-      - **Conclusion:** Brief summary and next steps. Be polite but natural.
+        - Allow single-sentence paragraphs for emphasis.
+        - Start sentences in different ways (not always "I...").
+      - **Why this company (REQUIRED):**
+        - ALWAYS include a section showing research about the employer
+        - Mention something SPECIFIC about the company (products, values, market position)
+        - Connect to candidate's values: "Your focus on X appeals to me because..."
+        - This separates good letters from generic mass mailings
+      - **Conclusion:**
+        - Briefly summarize your value to the company
+        - Invite to interview (confident but humble)
+        - Thank the reader for their time
+        - AVOID: Ending abruptly without a closing statement
+        - Variants: "I hope to speak soon" / "I'm curious to hear more about your challenges"
       - **Length variations:** Allow different paragraphs to have different lengths. Not all paragraphs need to be equal.
       - **Human tone:** Write as a real person would write, not as a template.
     3. **Length:**
@@ -442,13 +504,28 @@ ${premiumAutoInstructions}
       - Use active and clear language. Avoid clichés and generic phrases.
       - Vary sentence structures naturally. Use different ways to begin sentences.
       - IMPORTANT: Let each letter be unique. Do NOT use the same phrases in every letter.
-      - Avoid these AI markers:
+      - Avoid these AI markers (CRITICAL - these reveal AI-generated text):
         - "I was very interested in..."
         - "In me, you will find an employee who..."
         - "I look forward to the opportunity to..."
         - "With over X years of experience..."
         - "I am confident that..."
+        - "I am applying for this job because it matches my experience"
+        - "I am applying for this position because it seems interesting/fun"
+        - "In today's fast-paced/digital/modern job market/world..."
+        - "As a driven and goal-oriented individual..."
+        - "With my strong background in..."
+        - Stacking adjectives without evidence: "I am social, responsible, ambitious..."
+        - "I am a team player" without a concrete example
+        - "because I want to develop" as main motivation
       - Instead, write in a natural way that varies between different letters.
+
+      **EXAMPLES OVER CLAIMS (IMPORTANT):**
+      - Anyone can claim "I am organized" - without examples it carries little weight
+      - For EVERY trait you mention, give a brief example or situation
+      - BAD: "I am good at problem-solving"
+      - GOOD: "When a critical system crashed during peak season, I coordinated the team and resolved the issue within 2 hours"
+      - Better to have fewer traits with substance than a list of clichés
 
     5. **Customization:**
       - Tailor the letter to the position. Refer to specific points in the job posting where relevant.
