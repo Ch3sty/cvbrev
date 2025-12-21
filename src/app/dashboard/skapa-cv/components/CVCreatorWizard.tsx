@@ -195,7 +195,10 @@ export default function CVCreatorWizard() {
           location: exp.location,
           startDate: exp.startDate || '',
           endDate: exp.endDate,
-          description: exp.description || [],
+          // Filter out empty lines from description
+          description: Array.isArray(exp.description)
+            ? exp.description.filter(line => line.trim())
+            : exp.description || [],
           achievements: exp.achievements,
         })),
       education: cvData.education

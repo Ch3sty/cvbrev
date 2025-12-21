@@ -67,9 +67,11 @@ export default function Step3Experience({
     updateCVData({ experience: newExperience });
   };
 
-  // Handle description change - convert newlines to array
+  // Handle description change - keep raw text for editing
+  // Empty lines are filtered only when building CV metadata (in CVCreatorWizard)
   const handleDescriptionChange = (index: number, value: string) => {
-    const lines = value.split('\n').filter(line => line.trim());
+    // Keep all lines including empty ones while editing
+    const lines = value.split('\n');
     updateExperience(index, 'description', lines);
   };
 
