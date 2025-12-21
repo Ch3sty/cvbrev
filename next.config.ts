@@ -3,16 +3,20 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
-  
+
   // Turbopack konfiguration för att undvika workspace root varningar
   turbopack: {
     resolveAlias: {
       '@': './src',
     },
   },
-  
+
   // Output file tracing root för att undvika lockfile varningar
   outputFileTracingRoot: process.cwd(),
+
+  // KRITISKT: Tvinga Next.js att inkludera @sparticuz/chromium binärfiler i deployment
+  // Detta krävs för PDF-generering med Puppeteer på Vercel
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
 
   // Tillåt TypeScript errors i builds (om det behövs)
   typescript: {
