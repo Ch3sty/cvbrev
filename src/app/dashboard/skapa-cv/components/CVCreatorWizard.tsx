@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, User, FileText, Briefcase, GraduationCap, Wr
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
+import { useProfile } from '@/hooks/use-profile';
 import type { CVMetadata, CVPersonalInfo, CVExperience, CVEducation, CVSkill, CVLanguage, CVCertification } from '@/lib/cv/cv-metadata';
 
 // Lazy load steps for performance
@@ -75,6 +76,7 @@ const StepSkeleton = () => (
 export default function CVCreatorWizard() {
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
+  const { profile, loading: profileLoading } = useProfile();
 
   // Wizard state
   const [currentStep, setCurrentStep] = useState(0);
@@ -113,12 +115,19 @@ export default function CVCreatorWizard() {
   // Validation for each step
   const canProceedFromStep = useCallback((step: number): boolean => {
     switch (step) {
-      case 0: // Basic Info
-        return !!(
+      case 0: // Basic Info - validate profile has required fields
+        // Check profile OR cvData (in case of draft restore)
+        const hasProfileData = !!(
+          profile?.full_name?.trim() &&
+          profile?.email?.trim() &&
+          profile?.phone?.trim()
+        );
+        const hasCvData = !!(
           cvData.personalInfo.fullName?.trim() &&
           cvData.personalInfo.email?.trim() &&
           cvData.personalInfo.phone?.trim()
         );
+        return hasProfileData || hasCvData;
       case 1: // Summary - optional but encouraged
         return true;
       case 2: // Experience - at least one OR skip
@@ -138,7 +147,7 @@ export default function CVCreatorWizard() {
       default:
         return true;
     }
-  }, [cvData]);
+  }, [cvData, profile]);
 
   // Navigation handlers
   const goToNextStep = useCallback(() => {
@@ -326,10 +335,10 @@ export default function CVCreatorWizard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
       {/* Header with Progress Bar */}
       <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={() => router.push('/dashboard')}
@@ -357,20 +366,22 @@ export default function CVCreatorWizard() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 py-6 md:py-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Suspense fallback={<StepSkeleton />}>
-              {renderStepContent()}
-            </Suspense>
-          </motion.div>
-        </AnimatePresence>
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Suspense fallback={<StepSkeleton />}>
+                {renderStepContent()}
+              </Suspense>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Navigation Footer */}
