@@ -255,20 +255,21 @@ export default function LinkedInWizard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header med "Tillbaka till Dashboard" */}
-      <div className="bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
+      {/* Header with Progress Bar - matchar Skapa CV */}
+      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
             <Link
               href="/dashboard"
-              className="flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-gray-600 hover:text-gray-900 flex items-center gap-1 text-sm"
             >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Tillbaka till Dashboard
+              <ChevronLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Tillbaka till Dashboard</span>
+              <span className="sm:hidden">Tillbaka</span>
             </Link>
 
-            {/* LinkedIn badge */}
+            {/* LinkedIn badge - behåller LinkedIn-blå här för kontext */}
             <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full">
               <Linkedin className="w-4 h-4 text-[#0A66C2]" />
               <span className="text-sm font-medium text-[#0A66C2]">LinkedIn Optimering</span>
@@ -276,32 +277,32 @@ export default function LinkedInWizard() {
           </div>
 
           {/* Progress Bar */}
-          <div className="pb-6">
-            <LinkedInProgressBar
-              currentStep={currentStep}
-              steps={STEPS}
-              onStepClick={handleStepClick}
-              completedSteps={completedSteps}
-            />
-          </div>
+          <LinkedInProgressBar
+            currentStep={currentStep}
+            steps={STEPS}
+            onStepClick={handleStepClick}
+            completedSteps={completedSteps}
+          />
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Suspense fallback={<StepSkeleton />}>
-              {renderStep()}
-            </Suspense>
-          </motion.div>
-        </AnimatePresence>
+      {/* Main Content - matchar Skapa CV */}
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Suspense fallback={<StepSkeleton />}>
+                {renderStep()}
+              </Suspense>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )

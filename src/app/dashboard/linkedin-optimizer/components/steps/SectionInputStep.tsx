@@ -141,9 +141,9 @@ export default function SectionInputStep({
               whileTap={{ scale: 0.9 }}
               className={`h-2 rounded-full transition-all ${
                 index === currentSection
-                  ? 'w-8 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 shadow-lg shadow-blue-500/30'
+                  ? 'w-8 bg-gradient-to-r from-pink-600 to-purple-600 shadow-lg shadow-pink-500/30'
                   : index < currentSection
-                  ? 'w-2 bg-[#83941f] shadow-sm'
+                  ? 'w-2 bg-purple-500 shadow-sm'
                   : 'w-2 bg-gray-300'
               }`}
             >
@@ -310,7 +310,7 @@ export default function SectionInputStep({
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 400, delay: 0.1 }}
-              className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 flex items-center justify-center"
+              className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center"
             >
               <section.icon className="w-6 h-6 text-white" />
             </motion.div>
@@ -356,7 +356,7 @@ export default function SectionInputStep({
               onChange={(e) => onSectionChange(section.key, e.target.value)}
               rows={section.rows}
               placeholder={section.placeholder}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0A66C2] focus:border-transparent resize-none transition-all text-gray-900 placeholder-gray-400 bg-white/80 backdrop-blur-sm hover:border-gray-400 focus:bg-white"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none transition-all text-gray-900 placeholder-gray-400 bg-white/80 backdrop-blur-sm hover:border-gray-400 focus:bg-white"
             />
 
             {/* Character Count with circular progress */}
@@ -443,7 +443,7 @@ export default function SectionInputStep({
         {!showInstructions && (
           <button
             onClick={() => setShowInstructions(true)}
-            className="text-[#0A66C2] hover:underline"
+            className="text-pink-600 hover:underline"
           >
             Visa instruktioner
           </button>
@@ -475,7 +475,7 @@ export default function SectionInputStep({
             disabled={!canGoNext}
             className={`px-8 py-3 rounded-xl font-semibold transition-all flex items-center gap-2 ${
               canGoNext
-                ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white hover:shadow-lg hover:scale-105'
+                ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:shadow-lg hover:scale-105'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >

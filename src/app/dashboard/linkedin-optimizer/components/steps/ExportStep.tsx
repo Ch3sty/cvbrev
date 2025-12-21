@@ -138,15 +138,15 @@ ${optimizedSections.skills.optimized}` : ''}`
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 rounded-2xl p-8 text-white shadow-xl"
+          className="bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl"
         >
           <div className="flex items-start gap-4 mb-6">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Linkedin className="w-7 h-7" />
+              <Linkedin className="w-7 h-7 text-white" />
             </div>
             <div className="flex-1">
               <h2 className="text-2xl font-bold mb-2">Uppdatera LinkedIn</h2>
-              <p className="text-blue-100">
+              <p className="text-pink-100">
                 Kopiera all optimerad text och uppdatera din LinkedIn-profil direkt
               </p>
             </div>
@@ -154,7 +154,7 @@ ${optimizedSections.skills.optimized}` : ''}`
 
           <button
             onClick={copyAllForLinkedIn}
-            className="w-full px-6 py-4 bg-white text-[#0A66C2] font-semibold rounded-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3 group"
+            className="w-full px-6 py-4 bg-white text-purple-600 font-semibold rounded-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3 group"
           >
             {copiedAll ? (
               <>
@@ -175,7 +175,7 @@ ${optimizedSections.skills.optimized}` : ''}`
               animate={{ opacity: 1, y: 0 }}
               className="mt-4 p-4 bg-white/10 rounded-lg backdrop-blur-sm"
             >
-              <p className="text-sm text-blue-100">
+              <p className="text-sm text-pink-100">
                 ✓ Texten är kopierad! Öppna nu LinkedIn och klistra in i respektive sektion.
               </p>
             </motion.div>
@@ -237,7 +237,7 @@ ${optimizedSections.skills.optimized}` : ''}`
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 border border-blue-200 mb-8"
+        className="bg-gradient-to-br from-pink-50 to-white rounded-xl p-6 border border-pink-200 mb-8"
       >
         <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <Linkedin className="w-5 h-5 text-[#0A66C2]" />
@@ -274,7 +274,7 @@ ${optimizedSections.skills.optimized}` : ''}`
         </button>
 
         <p className="text-sm text-gray-500 text-center">
-          Tack för att du använder Jobbcoach.ai! 💙
+          Tack för att du använder Jobbcoach.ai! 💜
         </p>
       </div>
     </div>

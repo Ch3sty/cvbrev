@@ -60,14 +60,14 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 rounded-full mb-6">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           >
-            <Sparkles className="w-5 h-5 text-[#0A66C2]" />
+            <Sparkles className="w-5 h-5 text-pink-600" />
           </motion.div>
-          <span className="text-sm font-semibold text-[#0A66C2]">Vi arbetar</span>
+          <span className="text-sm font-semibold text-pink-600">Vi arbetar</span>
         </div>
 
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -93,7 +93,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
             ease: 'easeInOut'
           }}
         >
-          <div className="w-full h-full border-4 border-[#0A66C2]/30 rounded-2xl" />
+          <div className="w-full h-full border-4 border-pink-500/30 rounded-2xl" />
         </motion.div>
         <motion.div
           className="absolute w-32 h-32"
@@ -121,7 +121,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
             repeat: Infinity,
             ease: 'easeInOut'
           }}
-          className="relative w-24 h-24 bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-500/30"
+          className="relative w-24 h-24 bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-500/30"
         >
           {/* Shimmer effect */}
           <motion.div
@@ -143,9 +143,9 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
           <span className="text-sm font-semibold text-gray-700">Framsteg</span>
           <motion.span
             key={Math.round(progress)}
-            initial={{ scale: 1.2, color: '#0A66C2' }}
+            initial={{ scale: 1.2, color: '#db2777' }}
             animate={{ scale: 1, color: '#1e293b' }}
-            className="text-lg font-bold text-[#0A66C2]"
+            className="text-lg font-bold text-pink-600"
           >
             {Math.round(progress)}%
           </motion.span>
@@ -154,7 +154,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
           <motion.div
             className="h-full rounded-full relative"
             style={{
-              background: 'linear-gradient(90deg, #0A66C2 0%, #3b82f6 50%, #8b5cf6 100%)',
+              background: 'linear-gradient(90deg, #db2777 0%, #a855f7 50%, #8b5cf6 100%)',
             }}
             initial={{ width: '0%' }}
             animate={{ width: `${progress}%` }}
@@ -173,7 +173,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
 
             {/* Glow effect */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-400/50 to-purple-400/50 blur-sm"
+              className="absolute inset-0 bg-gradient-to-r from-pink-400/50 to-purple-400/50 blur-sm"
               animate={{
                 opacity: [0.5, 0.8, 0.5]
               }}
@@ -222,7 +222,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
               whileHover={{ x: 5 }}
               className={`flex items-center gap-4 p-4 rounded-xl transition-all shadow-sm relative overflow-hidden ${
                 isActive
-                  ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-[#0A66C2] shadow-lg shadow-blue-500/20'
+                  ? 'bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-500 shadow-lg shadow-pink-500/20'
                   : isCompleted
                   ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-[#83941f] shadow-md'
                   : 'bg-white border-2 border-gray-200'
@@ -244,7 +244,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
               <motion.div
                 className={`w-12 h-12 rounded-full flex items-center justify-center relative z-10 ${
                   isActive
-                    ? 'bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 shadow-lg shadow-blue-500/50'
+                    ? 'bg-gradient-to-br from-pink-600 to-purple-600 shadow-lg shadow-pink-500/50'
                     : isCompleted
                     ? 'bg-gradient-to-br from-[#83941f] to-[#6b7e1a] shadow-md'
                     : 'bg-gray-300'
@@ -268,7 +268,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
                 {/* Pulsing ring for active step */}
                 {isActive && (
                   <motion.div
-                    className="absolute inset-0 rounded-full border-2 border-[#0A66C2]"
+                    className="absolute inset-0 rounded-full border-2 border-pink-600"
                     animate={{
                       scale: [1, 1.3, 1],
                       opacity: [0.7, 0, 0.7]
@@ -287,7 +287,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
                 <div
                   className={`font-semibold ${
                     isActive
-                      ? 'text-[#0A66C2]'
+                      ? 'text-pink-600'
                       : isCompleted
                       ? 'text-[#83941f]'
                       : 'text-gray-500'
@@ -302,7 +302,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
-                  className="text-xs font-medium text-[#0A66C2]"
+                  className="text-xs font-medium text-pink-600"
                 >
                   Pågår...
                 </motion.div>
@@ -331,7 +331,7 @@ export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressSt
         <div className="inline-block bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl px-6 py-4 border border-purple-200">
           <p className="text-sm text-gray-700">
             💡 <strong>Visste du?</strong> En optimerad LinkedIn-profil får i genomsnitt{' '}
-            <span className="text-[#0A66C2] font-bold">3x fler</span> profilvisningar
+            <span className="text-pink-600 font-bold">3x fler</span> profilvisningar
           </p>
         </div>
       </motion.div>

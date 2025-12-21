@@ -59,13 +59,13 @@ export default function OptimizationModeStep({
           whileTap={{ scale: 0.98 }}
           className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all relative overflow-hidden ${
             mode === 'stand_out'
-              ? 'border-[#0A66C2] shadow-xl shadow-[#0A66C2]/30'
-              : 'border-gray-200 hover:border-[#0A66C2]/50 hover:shadow-lg'
+              ? 'border-pink-500 shadow-xl shadow-pink-500/20'
+              : 'border-gray-200 hover:border-pink-300 hover:shadow-lg'
           }`}
         >
           {/* Gradient overlay on hover/active */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0"
+            className="absolute inset-0 bg-gradient-to-br from-pink-50 to-transparent opacity-0"
             animate={{ opacity: mode === 'stand_out' ? 0.5 : 0 }}
             whileHover={{ opacity: 0.3 }}
             transition={{ duration: 0.3 }}
@@ -75,7 +75,7 @@ export default function OptimizationModeStep({
               <motion.div
                 className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   mode === 'stand_out'
-                    ? 'border-[#0A66C2] bg-[#0A66C2] shadow-lg shadow-blue-500/50'
+                    ? 'border-pink-600 bg-pink-600 shadow-lg shadow-pink-500/50'
                     : 'border-gray-300'
                 }`}
                 whileHover={{ scale: 1.1 }}
@@ -98,7 +98,7 @@ export default function OptimizationModeStep({
                   whileHover={{ rotate: 180, scale: 1.1 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 >
-                  <Sparkles className="w-6 h-6 text-[#0A66C2]" />
+                  <Sparkles className="w-6 h-6 text-pink-600" />
                 </motion.div>
                 <h3 className="text-2xl font-bold text-gray-900">
                   Få min profil att sticka ut mer
@@ -138,13 +138,13 @@ export default function OptimizationModeStep({
           whileTap={{ scale: 0.98 }}
           className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all relative overflow-hidden ${
             mode === 'target_role'
-              ? 'border-[#0A66C2] shadow-xl shadow-[#0A66C2]/30'
-              : 'border-gray-200 hover:border-[#0A66C2]/50 hover:shadow-lg'
+              ? 'border-purple-500 shadow-xl shadow-purple-500/20'
+              : 'border-gray-200 hover:border-purple-300 hover:shadow-lg'
           }`}
         >
           {/* Gradient overlay on hover/active */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0"
+            className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0"
             animate={{ opacity: mode === 'target_role' ? 0.5 : 0 }}
             whileHover={{ opacity: 0.3 }}
             transition={{ duration: 0.3 }}
@@ -154,7 +154,7 @@ export default function OptimizationModeStep({
               <motion.div
                 className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   mode === 'target_role'
-                    ? 'border-[#0A66C2] bg-[#0A66C2] shadow-lg shadow-blue-500/50'
+                    ? 'border-purple-600 bg-purple-600 shadow-lg shadow-purple-500/50'
                     : 'border-gray-300'
                 }`}
                 whileHover={{ scale: 1.1 }}
@@ -177,7 +177,7 @@ export default function OptimizationModeStep({
                   whileHover={{ scale: 1.1, rotate: -10 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 >
-                  <Target className="w-6 h-6 text-[#0A66C2]" />
+                  <Target className="w-6 h-6 text-purple-600" />
                 </motion.div>
                 <h3 className="text-2xl font-bold text-gray-900">
                   Optimera för en specifik roll
@@ -220,7 +220,7 @@ export default function OptimizationModeStep({
                     placeholder="T.ex. VD, Projektledare, UX Designer, Säljchef..."
                     value={targetRole}
                     onChange={(e) => onTargetRoleChange(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0A66C2] focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
                     autoFocus
                   />
                   <p className="text-xs text-gray-500 mt-2">
@@ -242,8 +242,8 @@ export default function OptimizationModeStep({
       >
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
-              <Globe className="w-6 h-6 text-[#0A66C2]" />
+            <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center">
+              <Globe className="w-6 h-6 text-purple-600" />
             </div>
           </div>
 
@@ -263,14 +263,14 @@ export default function OptimizationModeStep({
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 relative ${
                   language === 'sv'
-                    ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
+                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-500/30'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {language === 'sv' && (
                   <motion.div
                     layoutId="language-indicator"
-                    className="absolute inset-0 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 rounded-lg"
+                    className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -284,14 +284,14 @@ export default function OptimizationModeStep({
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 relative ${
                   language === 'en'
-                    ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
+                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-500/30'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {language === 'en' && (
                   <motion.div
                     layoutId="language-indicator"
-                    className="absolute inset-0 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 rounded-lg"
+                    className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -326,7 +326,7 @@ export default function OptimizationModeStep({
           disabled={!canProceed}
           className={`px-8 py-3 rounded-xl font-semibold transition-all flex items-center gap-2 ${
             canProceed
-              ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white hover:shadow-lg hover:scale-105'
+              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:shadow-lg hover:scale-105'
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
