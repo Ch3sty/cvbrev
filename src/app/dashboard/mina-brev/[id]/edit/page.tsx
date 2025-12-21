@@ -441,9 +441,12 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               }}
             >
               {isTemplateHTML(formData.content) ? (
-                <div dangerouslySetInnerHTML={{ __html: formData.content }} />
+                // Mallbaserad HTML - lägg till padding runt
+                <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
+                  <div dangerouslySetInnerHTML={{ __html: formData.content }} />
+                </div>
               ) : (
-                <div className="p-8 sm:p-12">
+                <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
                   <div className="max-w-2xl mx-auto">
                     <div
                       className="prose prose-gray"

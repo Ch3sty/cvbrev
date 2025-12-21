@@ -47,6 +47,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [isTrialUser, setIsTrialUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [claimingReward, setClaimingReward] = useState(false);
+  const [cvCount, setCvCount] = useState<number | null>(null);
+  const [letterCount, setLetterCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
 
   // Use OnboardingContext for instant updates
@@ -100,6 +102,20 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             .maybeSingle();
 
           setIsAdmin(!!adminData);
+
+          // Fetch CV count
+          const { count: cvCountResult } = await supabase
+            .from('cvs')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId);
+          setCvCount(cvCountResult ?? 0);
+
+          // Fetch letter count
+          const { count: letterCountResult } = await supabase
+            .from('letters')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId);
+          setLetterCount(letterCountResult ?? 0);
         }
       } catch (error) {
         console.error('Error checking premium status:', error);
@@ -219,13 +235,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       label: 'Mina CV:n',
       icon: <FileText className="w-5 h-5" />,
       section: 'cvs',
-      highlight: true
+      highlight: true,
+      count: cvCount
     },
     {
       path: '/dashboard/mina-brev',
       label: 'Mina Brev',
       icon: <FileText className="w-5 h-5" />,
-      section: 'documents'
+      section: 'documents',
+      count: letterCount
     },
   ];
 
@@ -481,7 +499,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                   <span className={`flex-shrink-0 ${'highlight' in item && item.highlight ? 'text-green-600' : ''}`}>
                     {item.icon}
                   </span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {!collapsed && (
+                    <>
+                      <span className="ml-3">{item.label}</span>
+                      {'count' in item && typeof item.count === 'number' && item.count > 0 && (
+                        <span className="ml-auto text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                          {item.count}
+                        </span>
+                      )}
+                    </>
+                  )}
                 </Link>
               </li>
             ))}
@@ -511,7 +538,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                   `}
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
+                  {!collapsed && (
+                    <>
+                      <span className="ml-3 whitespace-pre-line">{item.label}</span>
+                      {'count' in item && typeof item.count === 'number' && item.count > 0 && (
+                        <span className="ml-auto text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                          {item.count}
+                        </span>
+                      )}
+                    </>
+                  )}
                 </Link>
               </li>
             ))}
