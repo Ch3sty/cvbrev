@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Languages, Plus, Trash2, Award, ChevronDown, ChevronUp } from 'lucide-react';
+import { Languages, Plus, Trash2, Award, ChevronDown, ChevronUp, Check, Globe } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -32,23 +32,192 @@ const PROFICIENCY_DOTS: Record<CVLanguage['proficiency'], number> = {
   'Tvåspråkig': 5,
 };
 
-// Common languages
+// Common languages with flags
 const COMMON_LANGUAGES = [
-  'Svenska',
-  'Engelska',
-  'Tyska',
-  'Franska',
-  'Spanska',
-  'Arabiska',
-  'Persiska',
-  'Turkiska',
-  'Polska',
-  'Finska',
-  'Norska',
-  'Danska',
-  'Kinesiska',
-  'Japanska',
+  { name: 'Svenska', flag: '🇸🇪' },
+  { name: 'Engelska', flag: '🇬🇧' },
+  { name: 'Tyska', flag: '🇩🇪' },
+  { name: 'Franska', flag: '🇫🇷' },
+  { name: 'Spanska', flag: '🇪🇸' },
+  { name: 'Arabiska', flag: '🇸🇦' },
+  { name: 'Persiska', flag: '🇮🇷' },
+  { name: 'Turkiska', flag: '🇹🇷' },
+  { name: 'Polska', flag: '🇵🇱' },
+  { name: 'Finska', flag: '🇫🇮' },
+  { name: 'Norska', flag: '🇳🇴' },
+  { name: 'Danska', flag: '🇩🇰' },
+  { name: 'Kinesiska', flag: '🇨🇳' },
+  { name: 'Japanska', flag: '🇯🇵' },
 ];
+
+// Custom dropdown component for nicer styling
+function LanguageDropdown({
+  value,
+  onChange,
+  placeholder = 'Välj språk',
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedLang = COMMON_LANGUAGES.find(l => l.name === value);
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full h-12 px-3 rounded-lg border border-gray-300 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent flex items-center justify-between transition-colors"
+      >
+        <span className={`flex items-center gap-2 ${!value ? 'text-gray-400' : 'text-gray-900'}`}>
+          {selectedLang ? (
+            <>
+              <span className="text-lg">{selectedLang.flag}</span>
+              <span>{selectedLang.name}</span>
+            </>
+          ) : (
+            <>
+              <Globe className="w-4 h-4" />
+              <span>{placeholder}</span>
+            </>
+          )}
+        </span>
+        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+          >
+            {COMMON_LANGUAGES.map((lang) => (
+              <button
+                key={lang.name}
+                type="button"
+                onClick={() => {
+                  onChange(lang.name);
+                  setIsOpen(false);
+                }}
+                className={`w-full px-3 py-2.5 flex items-center gap-3 hover:bg-pink-50 transition-colors ${
+                  value === lang.name ? 'bg-pink-50' : ''
+                }`}
+              >
+                <span className="text-lg">{lang.flag}</span>
+                <span className="flex-1 text-left text-gray-900">{lang.name}</span>
+                {value === lang.name && (
+                  <Check className="w-4 h-4 text-pink-600" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// Custom dropdown for proficiency level
+function ProficiencyDropdown({
+  value,
+  onChange,
+}: {
+  value: CVLanguage['proficiency'];
+  onChange: (value: CVLanguage['proficiency']) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const renderDots = (level: CVLanguage['proficiency']) => {
+    const count = PROFICIENCY_DOTS[level];
+    return (
+      <div className="flex gap-1">
+        {[1, 2, 3, 4, 5].map((dot) => (
+          <div
+            key={dot}
+            className={`w-2 h-2 rounded-full ${
+              dot <= count ? 'bg-pink-500' : 'bg-gray-200'
+            }`}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full h-12 px-3 rounded-lg border border-gray-300 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent flex items-center justify-between transition-colors"
+      >
+        <span className="flex items-center gap-3 text-gray-900">
+          {renderDots(value)}
+          <span>{value}</span>
+        </span>
+        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+          >
+            {PROFICIENCY_LEVELS.map((level) => (
+              <button
+                key={level}
+                type="button"
+                onClick={() => {
+                  onChange(level);
+                  setIsOpen(false);
+                }}
+                className={`w-full px-3 py-3 flex items-center gap-3 hover:bg-pink-50 transition-colors ${
+                  value === level ? 'bg-pink-50' : ''
+                }`}
+              >
+                {renderDots(level)}
+                <span className="flex-1 text-left text-gray-900">{level}</span>
+                {value === level && (
+                  <Check className="w-4 h-4 text-pink-600" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Step6Languages({
   cvData,
@@ -128,37 +297,22 @@ export default function Step6Languages({
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl"
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl"
                 >
                   {/* Language Select */}
                   <div className="flex-1">
-                    <select
+                    <LanguageDropdown
                       value={lang.language}
-                      onChange={(e) => updateLanguage(index, 'language', e.target.value)}
-                      className="w-full h-12 px-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    >
-                      <option value="">Välj språk</option>
-                      {COMMON_LANGUAGES.map((language) => (
-                        <option key={language} value={language}>
-                          {language}
-                        </option>
-                      ))}
-                    </select>
+                      onChange={(value) => updateLanguage(index, 'language', value)}
+                    />
                   </div>
 
                   {/* Proficiency */}
                   <div className="flex-1">
-                    <select
+                    <ProficiencyDropdown
                       value={lang.proficiency}
-                      onChange={(e) => updateLanguage(index, 'proficiency', e.target.value as CVLanguage['proficiency'])}
-                      className="w-full h-12 px-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    >
-                      {PROFICIENCY_LEVELS.map((level) => (
-                        <option key={level} value={level}>
-                          {'●'.repeat(PROFICIENCY_DOTS[level])}{'○'.repeat(5 - PROFICIENCY_DOTS[level])} {level}
-                        </option>
-                      ))}
-                    </select>
+                      onChange={(value) => updateLanguage(index, 'proficiency', value)}
+                    />
                   </div>
 
                   {/* Delete button */}
@@ -167,7 +321,7 @@ export default function Step6Languages({
                     variant="ghost"
                     size="sm"
                     onClick={() => removeLanguage(index)}
-                    className="text-gray-400 hover:text-red-600 hover:bg-red-50 flex-shrink-0 p-2"
+                    className="text-gray-400 hover:text-red-600 hover:bg-red-50 flex-shrink-0 p-2 self-end sm:self-center"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>

@@ -257,16 +257,19 @@ export default function Step3Experience({
                         <Label htmlFor={`description-${index}`}>
                           Arbetsuppgifter <span className="text-pink-600">*</span>
                         </Label>
+                        <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-2">
+                          <p className="text-sm text-blue-800">
+                            <strong>Så här gör du:</strong> Skriv en arbetsuppgift per rad. Tryck <kbd className="px-1.5 py-0.5 bg-blue-100 rounded text-blue-900 font-mono text-xs">Enter</kbd> för att starta en ny rad. Varje rad blir en punkt i ditt CV.
+                          </p>
+                        </div>
                         <Textarea
                           id={`description-${index}`}
                           value={getDescriptionText(exp)}
                           onChange={(e) => handleDescriptionChange(index, e.target.value)}
-                          placeholder="Beskriv dina huvudsakliga arbetsuppgifter. Varje rad blir en punkt i CV:t.
-
-• Ansvarade för kundservice och kassaköer
-• Hanterade lagerpåfyllning och varuexponering
-• Utbildade nyanställda i kassasystemet"
-                          className="min-h-[150px] resize-none"
+                          placeholder="Ansvarade för kundservice och kassaköer
+Hanterade lagerpåfyllning och varuexponering
+Utbildade nyanställda i kassasystemet"
+                          className="min-h-[150px] resize-none font-normal"
                         />
                         <p className="text-xs text-gray-500">
                           Tips: Använd aktiva verb (ansvarade, utvecklade, ledde) och kvantifiera när möjligt
