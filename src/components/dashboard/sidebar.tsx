@@ -29,7 +29,6 @@ import {
   X,
   Bug,
   Sparkles,
-  Info,
   MessageCircle,
   FilePlus
 } from 'lucide-react';
@@ -165,12 +164,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       path: '/dashboard',
       label: 'Översikt',
       icon: <LayoutDashboard className="w-5 h-5" />,
-      section: 'main'
-    },
-    {
-      path: '/dashboard/introduktion',
-      label: 'Introduktion',
-      icon: <Info className="w-5 h-5 text-blue-600" />,
       section: 'main'
     },
     {

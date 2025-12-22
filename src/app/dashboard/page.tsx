@@ -4,23 +4,12 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   PenTool,
-  Brain,
   FileText,
-  Palette,
-  TrendingUp,
-  Clock,
   Star,
   ArrowRight,
-  Plus,
-  Activity,
   Trophy,
-  Gift,
-  BarChart3,
   Users,
-  Target,
   Search,
-  GraduationCap,
-  Crown,
   Sparkles
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -30,8 +19,12 @@ import { useNotification } from '@/context/notificationcontext';
 // Import premium components
 import WelcomeHero from '@/components/dashboard/WelcomeHero';
 import QuotaCard from '@/components/dashboard/QuotaCard';
-import ActivityFeed from '@/components/dashboard/ActivityFeed';
-import AIInsights from '@/components/dashboard/AIInsights';
+// Borttagna komponenter: ActivityFeed, AIInsights
+// Ersatta med nya komponenter nedan
+import ProgressOverview from '@/components/dashboard/ProgressOverview';
+import ActivityInsights from '@/components/dashboard/ActivityInsights';
+import QuickActions from '@/components/dashboard/QuickActions';
+import PremiumStatusCard from '@/components/dashboard/PremiumStatusCard';
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
 import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
@@ -508,24 +501,54 @@ export default function DashboardPage() {
           </motion.div>
         )}
 
-        {/* Senaste Aktivitet & AI Insights Grid */}
+        {/* Progress Overview - Din Ansökningsresa */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+        >
+          <ProgressOverview
+            totalLetters={stats.totalLetters}
+            cvCount={stats.cvCount || 0}
+            onboardingCompleted={stats.onboardingCompleted || false}
+          />
+        </motion.div>
+
+        {/* Activity Insights & Premium Status Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6"
         >
-          <ActivityFeed
-            recentLetters={stats.recentLetters}
-            currentLevel={stats.currentLevel}
-            availableRewards={stats.availableRewards}
+          <ActivityInsights
+            weeklyLetterCount={stats.weeklyLetterCount || 0}
+            weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
+            weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
+            totalLetters={stats.totalLetters}
+            cvCount={stats.cvCount || 0}
           />
 
-          <AIInsights
+          <PremiumStatusCard
+            isPremium={stats.isPremium || false}
+            premiumUntil={stats.premiumUntil || null}
+            premiumSource={stats.premiumSource || null}
+            currentLevel={stats.currentLevel || 1}
+            levelTitle={stats.levelTitle || 'Novis'}
+          />
+        </motion.div>
+
+        {/* Quick Actions - Dynamiska nästa steg */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+        >
+          <QuickActions
+            onboardingCompleted={stats.onboardingCompleted || false}
             totalLetters={stats.totalLetters}
-            subscriptionTier={stats.subscriptionTier}
-            currentLevel={stats.currentLevel}
-            isPremium={stats.isPremium}
+            cvCount={stats.cvCount || 0}
+            isPremium={stats.isPremium || false}
           />
         </motion.div>
 
@@ -534,7 +557,7 @@ export default function DashboardPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
             className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl border border-pink-200/40 p-4 sm:p-6 md:p-8 text-center"
           >
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">
