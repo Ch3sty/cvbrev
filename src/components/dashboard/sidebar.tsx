@@ -106,15 +106,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           // Fetch CV count
           const { count: cvCountResult } = await supabase
             .from('cvs')
-            .select('*', { count: 'exact', head: true })
+            .select('id', { count: 'exact', head: true })
             .eq('user_id', userId);
           setCvCount(cvCountResult ?? 0);
 
-          // Fetch letter count
+          // Fetch letter count (only saved letters)
           const { count: letterCountResult } = await supabase
             .from('letters')
-            .select('*', { count: 'exact', head: true })
-            .eq('user_id', userId);
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId)
+            .eq('is_saved', true);
           setLetterCount(letterCountResult ?? 0);
         }
       } catch (error) {
