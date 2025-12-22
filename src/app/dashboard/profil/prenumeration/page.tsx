@@ -1,12 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
-import { UnifiedSubscriptionCard } from '@/components/subscription/UnifiedSubscriptionCard';
-import SubscriptionInfo from '@/components/subscription/subscription-info';
+import Link from 'next/link';
+import {
+  Crown,
+  CheckCircle,
+  Clock,
+  Gift,
+  Shield,
+  Calendar,
+  Zap,
+  Info,
+  Sparkles,
+  ArrowRight,
+  PenTool,
+  Search,
+  FileText,
+  Palette,
+  Brain,
+  Infinity as InfinityIcon,
+  ChevronDown,
+  ChevronUp,
+  CreditCard,
+  AlertCircle
+} from 'lucide-react';
 import { EmbeddedSubscribeButton } from '@/components/subscription/EmbeddedSubscribeButton';
-import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
   const {
@@ -15,12 +35,74 @@ export default function PrenumerationPage() {
     premiumUntil,
     premiumSource,
     isTrialUser,
-    isAdminGranted
+    isAdminGranted,
+    weeklyLetterCount,
+    cvCount,
+    savedLettersCount
   } = useProfile();
 
-  // *** STRIPE PRICE ID (Månad) ***
+  const [usageExpanded, setUsageExpanded] = useState(false);
+  const [stripeExpanded, setStripeExpanded] = useState(false);
+
+  const isPremium = subscriptionTier === 'premium';
+  const isFree = subscriptionTier === 'free';
+  const isOnboardingReward = premiumSource === 'onboarding_completion';
+  const isGuestInvitation = premiumSource === 'guest_invitation';
+
+  // Stripe Price ID
   const premiumMonthlyPriceId = "price_1SQSVlPWMWdjmTDjx1yo9m00";
-  // ******************************
+
+  // Premium-fördelar
+  const premiumFeatures = [
+    {
+      icon: <PenTool className="w-5 h-5" />,
+      title: 'Obegränsade brev',
+      description: 'Skriv så många personliga brev du behöver',
+      gradient: 'from-pink-500 to-rose-600'
+    },
+    {
+      icon: <Search className="w-5 h-5" />,
+      title: 'CV-analyser',
+      description: 'Optimera ditt CV hur ofta du vill',
+      gradient: 'from-blue-500 to-cyan-600'
+    },
+    {
+      icon: <FileText className="w-5 h-5" />,
+      title: '50 sparade CV',
+      description: 'Hantera alla dina CV-versioner',
+      gradient: 'from-indigo-500 to-purple-600'
+    },
+    {
+      icon: <Palette className="w-5 h-5" />,
+      title: '8 Premium-mallar',
+      description: 'Professionella CV-designs',
+      gradient: 'from-amber-500 to-orange-600'
+    },
+    {
+      icon: <Brain className="w-5 h-5" />,
+      title: 'Kognitiva tester',
+      description: 'Träna inför rekryteringstester',
+      gradient: 'from-emerald-500 to-teal-600'
+    },
+    {
+      icon: <Zap className="w-5 h-5" />,
+      title: 'Tonalitetsanpassning',
+      description: 'Anpassa språk och stil',
+      gradient: 'from-violet-500 to-purple-600'
+    },
+    {
+      icon: <InfinityIcon className="w-5 h-5" />,
+      title: 'Obegränsad lagring',
+      description: 'Spara allt du skapar',
+      gradient: 'from-pink-500 to-purple-600'
+    },
+    {
+      icon: <Sparkles className="w-5 h-5" />,
+      title: 'Prioriterad support',
+      description: 'Snabbare svar på dina frågor',
+      gradient: 'from-yellow-500 to-amber-600'
+    }
+  ];
 
   // Helper function to calculate time remaining
   const getTimeRemaining = () => {
@@ -41,35 +123,10 @@ export default function PrenumerationPage() {
 
   const timeRemaining = getTimeRemaining();
 
-  // Determine subscription UI type
-  const isStripePremium = subscriptionTier === 'premium' && !isTrialUser && !isAdminGranted;
-  const isOnboardingReward = premiumSource === 'onboarding_completion';
-  const isGuestInvitation = premiumSource === 'guest_invitation';
-
-  return (
-    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-6 sm:mb-8"
-      >
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="p-3 sm:p-4 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-            <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent truncate">
-              Prenumeration
-            </h1>
-            <p className="text-sm sm:text-base text-slate-600 mt-1 font-medium">Hantera din prenumeration och betalning</p>
-          </div>
-        </div>
-      </motion.div>
-
-      <div className="space-y-4 sm:space-y-6">
-        {/* Loading state */}
-        {profileLoading ? (
+  if (profileLoading) {
+    return (
+      <div className="relative min-h-screen overflow-hidden">
+        <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl">
           <div className="flex justify-center items-center p-4 sm:p-6 md:p-8 bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-200/50">
             <motion.div
               className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-pink-500 border-t-transparent rounded-full"
@@ -77,468 +134,403 @@ export default function PrenumerationPage() {
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
           </div>
-        ) : subscriptionTier === 'free' ? (
-          // GRATIS-ANVÄNDARE: Single unified card with upgrade CTA
-          <div className="space-y-6">
-            {/* Unified Card with Usage Stats */}
-            <UnifiedSubscriptionCard />
+        </div>
+      </div>
+    );
+  }
 
-            {/* Upgrade to Premium Card */}
+  return (
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Animated Background Orbs (samma som /rewards) */}
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.9 }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-50/20 to-pink-50/30" />
+
+        <div
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
+            filter: 'blur(60px)',
+            animation: 'float-orb1 25s ease-in-out infinite'
+          }}
+        />
+        <div
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+            animation: 'float-orb2 30s ease-in-out infinite'
+          }}
+        />
+        <div
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
+            filter: 'blur(70px)',
+            animation: 'float-orb3 20s ease-in-out infinite'
+          }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
+        <div className="space-y-4 sm:space-y-6">
+          {/* Hero Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 sm:mb-8"
+          >
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0
+                ${isPremium
+                  ? 'bg-gradient-to-br from-yellow-500 to-amber-600'
+                  : 'bg-gradient-to-br from-slate-400 to-slate-500'}`}
+              >
+                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  Prenumeration
+                </h1>
+                <p className="text-sm sm:text-base text-slate-600 mt-1 font-medium">
+                  {isPremium ? 'Hantera din Premium-prenumeration' : 'Uppgradera för full tillgång'}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Status Card - olika för Premium/Trial/Free */}
+          {isPremium ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-2xl p-6 md:p-8 border-2 border-pink-500/30 shadow-2xl relative overflow-hidden"
+              transition={{ duration: 0.5 }}
+              className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl sm:rounded-2xl border border-amber-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
             >
-              {/* Decorative gradient orbs */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-gradient-to-br from-purple-400/30 to-indigo-400/30 rounded-full blur-3xl" />
+              {/* Bakgrundsdekor */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200/30 to-yellow-200/30 rounded-full -translate-y-8 translate-x-8" />
 
               <div className="relative z-10">
                 {/* Header */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-xl shadow-lg">
-                    <Crown className="w-8 h-8 text-white" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 shadow-lg">
+                    <Crown className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                      Uppgradera till Premium
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-1">Lås upp alla funktioner och obegränsad användning</p>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900">Premium</h2>
+                      {isTrialUser && (
+                        <span className="px-2 py-0.5 bg-amber-200 text-amber-800 text-xs font-medium rounded-full">
+                          Provperiod
+                        </span>
+                      )}
+                      {isOnboardingReward && (
+                        <span className="px-2 py-0.5 bg-green-200 text-green-800 text-xs font-medium rounded-full">
+                          Belöning
+                        </span>
+                      )}
+                      {isGuestInvitation && (
+                        <span className="px-2 py-0.5 bg-purple-200 text-purple-800 text-xs font-medium rounded-full">
+                          Gäst
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-amber-700 font-medium">
+                      {isTrialUser || isOnboardingReward || isGuestInvitation ? (
+                        timeRemaining && !timeRemaining.expired ? (
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5" />
+                            {timeRemaining.days} {timeRemaining.days === 1 ? 'dag' : 'dagar'} kvar
+                          </span>
+                        ) : (
+                          'Provperiod utgången'
+                        )
+                      ) : (
+                        'Aktiv prenumeration'
+                      )}
+                    </p>
                   </div>
                 </div>
 
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">Obegränsade personliga brev</span>
+                {/* Countdown för trial/temporary premium */}
+                {(isTrialUser || isOnboardingReward || isGuestInvitation) && timeRemaining && !timeRemaining.expired && (
+                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-4 border border-amber-200/30 shadow-lg">
+                    <div className="text-4xl font-black bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent mb-3">
+                      {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="w-4 h-4" />
+                      <span>
+                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
+                          day: 'numeric',
+                          month: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">Obegränsade CV-analyser</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">50 uppladdade CV</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">Obegränsade sparade brev</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">8 Premium CV-mallar</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">3 Kognitiva tester</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">Tonalitetsanpassning</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-gray-900">Obegränsad lagring</span>
-                  </div>
-                </div>
+                )}
 
-                {/* CTA */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-pink-200/50">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <p className="text-3xl font-bold text-gray-900">149 kr</p>
-                      <p className="text-sm text-gray-600">per månad</p>
+                {/* CTA för trial users */}
+                {(isTrialUser || isOnboardingReward || isGuestInvitation) && (
+                  <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-6 text-white shadow-lg">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Zap className="w-6 h-6 flex-shrink-0" />
+                      <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-600">Ingen bindningstid</p>
-                      <p className="text-sm text-gray-600">Avsluta när du vill</p>
-                    </div>
+                    <p className="text-white/90 text-sm mb-4">
+                      Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
+                    </p>
+                    <EmbeddedSubscribeButton
+                      priceId={premiumMonthlyPriceId}
+                      planName="Premium Månad"
+                      className="w-full bg-white text-amber-600 hover:bg-amber-50 font-bold touch-manipulation"
+                    />
+                    <p className="text-center text-white/80 text-xs mt-3">
+                      149 kr/månad • Ingen bindningstid
+                    </p>
                   </div>
-                  <EmbeddedSubscribeButton
-                    priceId={premiumMonthlyPriceId}
-                    planName="Premium Månad"
-                    className="w-full touch-manipulation"
-                  />
-                </div>
+                )}
               </div>
             </motion.div>
-          </div>
-        ) : isTrialUser ? (
-          // TRIAL-ANVÄNDARE: Prova på med countdown
-          <>
-            <div>
-              <SubscriptionInfo />
-            </div>
-
-            <div className="relative overflow-hidden bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/80 rounded-2xl p-6 md:p-8 border border-blue-200/40 shadow-xl shadow-blue-500/10">
-              {/* Animated gradient orb background */}
+          ) : (
+            // Free User - Trial CTA
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-xl sm:rounded-2xl border-2 border-pink-300/40 p-4 sm:p-6 shadow-xl relative overflow-hidden"
+            >
+              {/* Decorative gradient orbs */}
               <motion.div
-                className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.15, 0.25, 0.15]
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  ease: 'easeInOut'
-                }}
+                className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-full blur-2xl"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity }}
               />
 
-              {/* Content */}
               <div className="relative z-10">
-                {/* Header with gradient icon */}
-                <div className="flex items-center mb-6">
-                  <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mr-3 flex-shrink-0 shadow-lg">
-                    <Gift className="w-6 h-6 text-white" />
+                <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  Testa Premium gratis
+                </h3>
+                <p className="text-sm text-slate-600 mb-3">
+                  7 dagar full tillgång • Inget kreditkort krävs
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <Clock className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-slate-900">7 dagar gratis</span>
                   </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    Du testar Premium gratis!
-                  </h3>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CreditCard className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-slate-900">Inget kort krävs</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <Shield className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-slate-900">Ingen bindning</span>
+                  </div>
                 </div>
 
-                {/* Countdown with glassmorphism */}
-                {timeRemaining && !timeRemaining.expired && (
-                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-6 border border-blue-200/30 shadow-lg">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          <Clock className="w-5 h-5 text-blue-600" />
-                        </motion.div>
-                        <span className="font-semibold text-slate-900">Tid kvar av provperioden</span>
+                <Link
+                  href="/trial-signup"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all min-h-[48px] touch-manipulation"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Prova gratis i 7 dagar
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <p className="text-xs text-center text-slate-600 mt-2">
+                  149 kr/mån efter provperiod • Ingen bindning
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Premium Features */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-emerald-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+          >
+            {/* Bakgrundsdekor */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full -translate-y-8 translate-x-8" />
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg">
+                  <CheckCircle className="w-5 h-5 text-white" />
+                </div>
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Vad ingår i Premium?</h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3">
+                {premiumFeatures.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.08, duration: 0.3 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    className="p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-slate-200/50 shadow-sm hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`p-2.5 rounded-xl bg-gradient-to-br ${feature.gradient} shadow-md flex-shrink-0`}>
+                        <div className="text-white">
+                          {feature.icon}
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-bold text-slate-900 mb-1">
+                          {feature.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {feature.description}
+                        </p>
                       </div>
                     </div>
-                    <div className="text-4xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
-                      {timeRemaining.days}d {timeRemaining.hours}h
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                      <Calendar className="w-4 h-4" />
-                      <span>
-                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
-                          day: 'numeric',
-                          month: 'long',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Benefits list - clean checkmarks */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Tillgång till <strong>alla premium-funktioner</strong> under provperioden</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Efter provperioden <strong>återgår du till gratis nivå</strong></span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
-                  </div>
-                </div>
-
-                {/* Source badge - subtle */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50/80 rounded-full border border-blue-200/50 mb-6">
-                  <Info className="w-4 h-4 text-blue-600" />
-                  <span className="text-xs font-medium text-blue-700">
-                    Aktiverades via: <strong>{premiumSource === 'signup_trial' ? 'Registrering' : 'Google-inloggning'}</strong>
-                  </span>
-                </div>
-
-                {/* CTA button - consistent with landing page */}
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-lg">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Zap className="w-6 h-6 flex-shrink-0" />
-                    <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
-                  </div>
-                  <p className="text-white/90 text-sm mb-4">
-                    Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
-                  </p>
-                  <EmbeddedSubscribeButton
-                    priceId={premiumMonthlyPriceId}
-                    planName="Premium Månad"
-                    className="w-full bg-white text-blue-600 hover:bg-blue-50 font-bold touch-manipulation"
-                  />
-                  <p className="text-center text-white/80 text-xs mt-3">
-                    149 kr/månad • Ingen bindningstid
-                  </p>
-                </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
-          </>
-        ) : isOnboardingReward ? (
-          // ONBOARDING REWARD: 1-dagars belöning från introduktionen
-          <>
-            <div>
-              <SubscriptionInfo />
-            </div>
+          </motion.div>
 
-            <div className="relative overflow-hidden bg-gradient-to-br from-green-50/80 via-emerald-50/60 to-teal-50/80 rounded-2xl p-6 md:p-8 border border-green-200/40 shadow-xl shadow-green-500/10">
-              {/* Animated gradient orb background */}
-              <motion.div
-                className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-green-400/20 to-teal-400/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.15, 0.25, 0.15]
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  ease: 'easeInOut'
-                }}
-              />
-
-              {/* Content */}
+          {/* Usage Stats (Collapsible) */}
+          {isPremium && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl sm:rounded-2xl border border-purple-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+            >
               <div className="relative z-10">
-                {/* Header with gradient icon */}
-                <div className="flex items-center mb-6">
-                  <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl mr-3 flex-shrink-0 shadow-lg">
-                    <Gift className="w-6 h-6 text-white" />
+                <button
+                  onClick={() => setUsageExpanded(!usageExpanded)}
+                  className="w-full flex items-center justify-between mb-4 touch-manipulation min-h-[44px]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 shadow-lg">
+                      <InfinityIcon className="w-5 h-5 text-white" />
+                    </div>
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-900">Min användning</h2>
                   </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                    Grattis! Din introduktionsbelöning är aktiv
-                  </h3>
-                </div>
+                  {usageExpanded ? <ChevronUp className="w-5 h-5 text-slate-600" /> : <ChevronDown className="w-5 h-5 text-slate-600" />}
+                </button>
 
-                {/* Countdown with glassmorphism */}
-                {timeRemaining && !timeRemaining.expired && (
-                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-6 border border-green-200/30 shadow-lg">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          <Clock className="w-5 h-5 text-green-600" />
-                        </motion.div>
-                        <span className="font-semibold text-slate-900">Tid kvar av din belöning</span>
+                {usageExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="space-y-3"
+                  >
+                    <div className="p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-purple-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-slate-700">Personliga brev denna vecka</span>
+                        <div className="flex items-center gap-2">
+                          <InfinityIcon className="w-4 h-4 text-purple-600" />
+                          <span className="text-sm font-bold text-slate-900">Obegränsat</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500">Du har skrivit {weeklyLetterCount || 0} brev denna vecka</p>
+                    </div>
+
+                    <div className="p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-purple-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-slate-700">Sparade CV</span>
+                        <span className="text-sm font-bold text-slate-900">{cvCount || 0} / 50</span>
                       </div>
                     </div>
-                    <div className="text-4xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3">
-                      {timeRemaining.days > 0 ? `${timeRemaining.days}d ` : ''}{timeRemaining.hours}h {timeRemaining.minutes}m
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                      <Calendar className="w-4 h-4" />
-                      <span>
-                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
-                          day: 'numeric',
-                          month: 'long',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </div>
-                  </div>
-                )}
 
-                {/* Benefits list - clean checkmarks */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Tillgång till <strong>alla premium-funktioner</strong> under belöningsperioden</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Efter belöningsperioden <strong>återgår du till gratis nivå</strong></span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
-                  </div>
-                </div>
-
-                {/* Source badge - subtle */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50/80 rounded-full border border-green-200/50 mb-6">
-                  <Info className="w-4 h-4 text-green-600" />
-                  <span className="text-xs font-medium text-green-700">
-                    Aktiverades via: <strong>Slutförd introduktion (6/6 steg)</strong>
-                  </span>
-                </div>
-
-                {/* CTA button - consistent with landing page */}
-                <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl p-6 text-white shadow-lg">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Zap className="w-6 h-6 flex-shrink-0" />
-                    <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
-                  </div>
-                  <p className="text-white/90 text-sm mb-4">
-                    Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
-                  </p>
-                  <EmbeddedSubscribeButton
-                    priceId={premiumMonthlyPriceId}
-                    planName="Premium Månad"
-                    className="w-full bg-white text-green-600 hover:bg-green-50 font-bold touch-manipulation"
-                  />
-                  <p className="text-center text-white/80 text-xs mt-3">
-                    149 kr/månad • Ingen bindningstid
-                  </p>
-                </div>
-              </div>
-            </div>
-          </>
-        ) : isGuestInvitation ? (
-          // GUEST INVITATION: 2-dagars belöning från gästinbjudan
-          <>
-            <div>
-              <SubscriptionInfo />
-            </div>
-
-            <div className="relative overflow-hidden bg-gradient-to-br from-purple-50/80 via-pink-50/60 to-rose-50/80 rounded-2xl p-6 md:p-8 border border-purple-200/40 shadow-xl shadow-purple-500/10">
-              {/* Animated gradient orb background */}
-              <motion.div
-                className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.15, 0.25, 0.15]
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  ease: 'easeInOut'
-                }}
-              />
-
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Header with gradient icon */}
-                <div className="flex items-center mb-6">
-                  <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mr-3 flex-shrink-0 shadow-lg">
-                    <Gift className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Välkommen! Din gästinbjudan är aktiv
-                  </h3>
-                </div>
-
-                {/* Countdown with glassmorphism */}
-                {timeRemaining && !timeRemaining.expired && (
-                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-6 border border-purple-200/30 shadow-lg">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          <Clock className="w-5 h-5 text-purple-600" />
-                        </motion.div>
-                        <span className="font-semibold text-slate-900">Tid kvar av din provperiod</span>
+                    <div className="p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-purple-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-slate-700">Sparade brev</span>
+                        <div className="flex items-center gap-2">
+                          <InfinityIcon className="w-4 h-4 text-purple-600" />
+                          <span className="text-sm font-bold text-slate-900">Obegränsat</span>
+                        </div>
                       </div>
+                      <p className="text-xs text-slate-500">Du har {savedLettersCount || 0} sparade brev</p>
                     </div>
-                    <div className="text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
-                      {timeRemaining.days > 0 ? `${timeRemaining.days}d ` : ''}{timeRemaining.hours}h {timeRemaining.minutes}m
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                      <Calendar className="w-4 h-4" />
-                      <span>
-                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
-                          day: 'numeric',
-                          month: 'long',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </div>
-                  </div>
+                  </motion.div>
                 )}
-
-                {/* Benefits list - clean checkmarks */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Tillgång till <strong>alla premium-funktioner</strong> under provperioden</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700">Efter provperioden <strong>återgår du till gratis nivå</strong></span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
-                  </div>
-                </div>
-
-                {/* Source badge - subtle */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-50/80 rounded-full border border-purple-200/50 mb-6">
-                  <Info className="w-4 h-4 text-purple-600" />
-                  <span className="text-xs font-medium text-purple-700">
-                    Aktiverades via: <strong>Gästinbjudan från en vän</strong>
-                  </span>
-                </div>
-
-                {/* CTA button - consistent with landing page */}
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6 text-white shadow-lg">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Zap className="w-6 h-6 flex-shrink-0" />
-                    <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
-                  </div>
-                  <p className="text-white/90 text-sm mb-4">
-                    Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
-                  </p>
-                  <EmbeddedSubscribeButton
-                    priceId={premiumMonthlyPriceId}
-                    planName="Premium Månad"
-                    className="w-full bg-white text-purple-600 hover:bg-purple-50 font-bold touch-manipulation"
-                  />
-                  <p className="text-center text-white/80 text-xs mt-3">
-                    149 kr/månad • Ingen bindningstid
-                  </p>
-                </div>
               </div>
-            </div>
-          </>
-        ) : isAdminGranted ? (
-          // ADMIN-GRANTED PREMIUM: Utan slutdatum
-          <>
-            <div>
-              <SubscriptionInfo />
-            </div>
+            </motion.div>
+          )}
 
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-blue-500/30 shadow-2xl">
-              <div className="flex items-center mb-4">
-                <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                  <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          {/* Stripe Details (för betalande premium) */}
+          {isPremium && !isTrialUser && !isAdminGranted && !isOnboardingReward && !isGuestInvitation && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-gradient-to-br from-slate-50 to-slate-100/50 rounded-xl sm:rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+            >
+              <div className="relative z-10">
+                <button
+                  onClick={() => setStripeExpanded(!stripeExpanded)}
+                  className="w-full flex items-center justify-between mb-4 touch-manipulation min-h-[44px]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-slate-500 to-slate-600 shadow-lg">
+                      <CreditCard className="w-5 h-5 text-white" />
+                    </div>
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-900">Betalningsinformation</h2>
+                  </div>
+                  {stripeExpanded ? <ChevronUp className="w-5 h-5 text-slate-600" /> : <ChevronDown className="w-5 h-5 text-slate-600" />}
+                </button>
+
+                {stripeExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="space-y-3"
+                  >
+                    <div className="p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200">
+                      <p className="text-sm text-slate-600 mb-3">
+                        Hantera din prenumeration, betalningssätt och fakturor via Stripe Customer Portal.
+                      </p>
+                      <a
+                        href="/api/stripe/create-portal-session"
+                        className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all text-sm touch-manipulation min-h-[48px]"
+                      >
+                        <CreditCard className="w-4 h-4" />
+                        Öppna Stripe Portal
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Admin Granted Info */}
+          {isAdminGranted && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl sm:rounded-2xl border-2 border-blue-500/30 p-4 sm:p-6 shadow-xl"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
+                  <Shield className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Du har Premium via admin</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900">Premium via Admin</h3>
               </div>
 
-              <div className="space-y-3 mb-6">
+              <div className="space-y-3 mb-4">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700"><strong>Aktivt utan slutdatum</strong></span>
+                  <span className="text-sm text-slate-700"><strong>Aktivt utan slutdatum</strong></span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Din premium-åtkomst har beviljats av en administratör</span>
+                  <span className="text-sm text-slate-700">Din premium-åtkomst har beviljats av en administratör</span>
                 </div>
               </div>
 
@@ -546,7 +538,7 @@ export default function PrenumerationPage() {
                 <div className="flex items-start gap-2">
                   <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-700 mb-2">
+                    <p className="text-sm text-slate-700 mb-2">
                       Kontakta support om du har frågor om din premium-åtkomst.
                     </p>
                     <a
@@ -558,18 +550,28 @@ export default function PrenumerationPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        ) : isStripePremium ? (
-          // STRIPE-KÖPT PREMIUM: Unified subscription card
-          <UnifiedSubscriptionCard />
-        ) : (
-          // Fallback om status är okänd
-          <div className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50">
-            <p className="text-xs sm:text-sm text-gray-600 text-center">Kunde inte ladda prenumerationsstatus.</p>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </div>
       </div>
+
+      {/* CSS Animations */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes float-orb1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(150px, -100px) scale(1.2); }
+          66% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+        @keyframes float-orb2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-200px, 150px) scale(0.8); }
+          66% { transform: translate(100px, -80px) scale(1.1); }
+        }
+        @keyframes float-orb3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(100px, -80px) scale(1.1); }
+        }
+      `}} />
     </div>
   );
 }

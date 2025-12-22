@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -246,7 +247,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     {
       path: '/dashboard/profil/prenumeration',
       label: 'Prenumeration',
-      icon: <Crown className="w-4 h-4" />
+      icon: <Crown className="w-4 h-4" />,
+      isPremiumLink: true,
+      showTrialBadge: !isPremium
     }
   ];
   
@@ -540,25 +543,75 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             </h3>
           )}
           <ul className="space-y-1">
-            {profileSubItems.map((subItem) => (
-              <li key={subItem.path}>
-                <Link
-                  href={subItem.path}
-                  prefetch={true}
-                  className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
-                    ${pathname === subItem.path
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{subItem.icon}</span>
-                  {!collapsed && <span className="ml-3">{subItem.label}</span>}
-                </Link>
-              </li>
-            ))}
+            {profileSubItems.map((subItem) => {
+              const isPremiumLink = 'isPremiumLink' in subItem && subItem.isPremiumLink;
+              const showTrialBadge = 'showTrialBadge' in subItem && subItem.showTrialBadge;
+
+              return (
+                <li key={subItem.path}>
+                  <Link
+                    href={subItem.path}
+                    prefetch={true}
+                    className={`
+                      flex items-center justify-between px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px] relative overflow-hidden group
+                      ${pathname === subItem.path
+                        ? isPremiumLink && isPremium
+                          ? 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border-l-4 border-amber-600 shadow-lg font-semibold'
+                          : isPremiumLink
+                          ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                          : 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                        : isPremiumLink && isPremium
+                        ? 'bg-gradient-to-r from-amber-50/50 to-yellow-50/50 text-amber-700 hover:from-amber-100 hover:to-yellow-100 hover:shadow-md font-medium'
+                        : isPremiumLink
+                        ? 'bg-gradient-to-r from-pink-50/50 to-purple-50/50 text-slate-700 hover:from-pink-100 hover:to-purple-100 hover:shadow-md font-medium'
+                        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
+                      }
+                      ${collapsed ? 'justify-center' : ''}
+                    `}
+                  >
+                    {/* Background animation for premium link */}
+                    {isPremiumLink && (
+                      <motion.div
+                        className={`absolute inset-0 rounded-lg ${
+                          isPremium
+                            ? 'bg-gradient-to-r from-amber-400/10 to-yellow-400/10'
+                            : 'bg-gradient-to-r from-pink-400/10 to-purple-400/10'
+                        }`}
+                        animate={{ opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                      />
+                    )}
+
+                    {/* Sparkle animation for free users on premium link */}
+                    {isPremiumLink && !isPremium && !collapsed && (
+                      <motion.div
+                        className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <Sparkles className="w-3 h-3 text-white" />
+                      </motion.div>
+                    )}
+
+                    <div className="flex items-center flex-1 relative z-10">
+                      <span className={`flex-shrink-0 ${isPremiumLink ? (isPremium ? 'text-amber-600' : 'text-pink-600') : ''}`}>
+                        {subItem.icon}
+                      </span>
+                      {!collapsed && (
+                        <div className="ml-3 flex items-center gap-2 flex-1">
+                          <span>{subItem.label}</span>
+                          {showTrialBadge && (
+                            <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                              prova på
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>

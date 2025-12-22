@@ -2,7 +2,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import DashboardSidebar from '@/components/dashboard/sidebar';
+import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import AchievementManager from '@/components/gamification/AchievementManager';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
