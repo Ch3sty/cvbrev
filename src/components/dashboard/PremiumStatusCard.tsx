@@ -185,15 +185,26 @@ export default function PremiumStatusCard({
           ))}
         </ul>
 
-        {/* Upgrade CTA */}
-        <Link
-          href="/priser"
-          className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all text-sm touch-manipulation"
-        >
-          <Sparkles className="w-4 h-4" />
-          Uppgradera till Premium
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+        {/* Upgrade CTA - Trial signup */}
+        <div className="space-y-2">
+          <Link
+            href="/trial-signup"
+            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all text-sm touch-manipulation min-h-[48px]"
+          >
+            <Sparkles className="w-4 h-4" />
+            Prova gratis i 7 dagar
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <p className="text-xs text-center text-slate-600">
+            149 kr/mån efter provperiod • Ingen bindning
+          </p>
+          <Link
+            href="/priser"
+            className="text-xs text-center text-slate-500 hover:text-slate-700 underline block"
+          >
+            Visa alla planer
+          </Link>
+        </div>
       </div>
     </div>
   );

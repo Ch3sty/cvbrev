@@ -19,12 +19,16 @@ import { useNotification } from '@/context/notificationcontext';
 // Import premium components
 import WelcomeHero from '@/components/dashboard/WelcomeHero';
 import QuotaCard from '@/components/dashboard/QuotaCard';
-// Borttagna komponenter: ActivityFeed, AIInsights
-// Ersatta med nya komponenter nedan
+// Nya dashboard-komponenter
 import ProgressOverview from '@/components/dashboard/ProgressOverview';
 import ActivityInsights from '@/components/dashboard/ActivityInsights';
 import QuickActions from '@/components/dashboard/QuickActions';
 import PremiumStatusCard from '@/components/dashboard/PremiumStatusCard';
+// Nya kort för premium-användare
+import MonthlyActivityCard from '@/components/dashboard/MonthlyActivityCard';
+import ProgressionCard from '@/components/dashboard/ProgressionCard';
+import CompactPremiumCard from '@/components/dashboard/CompactPremiumCard';
+// Övriga
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
 import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
@@ -350,68 +354,27 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4"
+          className={`grid gap-3 sm:gap-4 ${
+            stats.isPremium
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+              : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4'
+          }`}
         >
           {stats.isPremium ? (
-            // Premium Cards
+            // Premium Cards - Nya redesignade kort
             <>
-              <QuotaCard
-                title="Brev denna månad"
-                icon={<PenTool className="w-5 h-5" />}
-                used={stats.monthlyLetters || 0}
-                limit={-1}
-                remaining={-1}
-                isPremium={true}
-                premiumText="Obegränsat"
-                href="/dashboard/mina-brev"
+              <MonthlyActivityCard
+                letterCount={stats.monthlyLetters || 0}
+                analysisCount={stats.weeklyAnalysisCount || 0}
+                linkedInCount={stats.weeklyLinkedInCount || 0}
               />
-              <QuotaCard
-                title={`Level ${stats.currentLevel || 1}`}
-                icon={<Trophy className="w-5 h-5" />}
-                used={0}
-                limit={0}
-                remaining={0}
-                isPremium={true}
-                premiumText={stats.levelTitle || 'Novis'}
-                href="/dashboard/rewards"
+              <ProgressionCard
+                currentLevel={stats.currentLevel || 1}
+                levelTitle={stats.levelTitle || 'Novis'}
               />
-              <QuotaCard
-                title="Premium"
-                icon={<Star className="w-5 h-5" />}
-                used={0}
-                limit={0}
-                remaining={0}
-                isPremium={true}
-                premiumText={(() => {
-                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
-                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
-                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
-                  if (isTrialUser && stats.premiumUntil) {
-                    return 'Provperiod';
-                  }
-                  if (isOnboardingReward && stats.premiumUntil) {
-                    return 'Belöning aktiv';
-                  }
-                  if (isGuestInvitation && stats.premiumUntil) {
-                    return 'Gästinbjudan aktiv';
-                  }
-                  return 'Aktiv';
-                })()}
-                premiumStatus={(() => {
-                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
-                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
-                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
-                  return ((isTrialUser || isOnboardingReward || isGuestInvitation) && stats.premiumUntil) ? 'trial' : 'active';
-                })()}
-                resetDate={(() => {
-                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
-                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
-                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
-                  return ((isTrialUser || isOnboardingReward || isGuestInvitation) && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
-                })()}
-                premiumSource={stats.premiumSource || undefined}
-                resetType="weekly"
-                href="/dashboard/profil/prenumeration"
+              <CompactPremiumCard
+                premiumUntil={stats.premiumUntil || null}
+                premiumSource={stats.premiumSource || null}
               />
             </>
           ) : (
@@ -552,29 +515,51 @@ export default function DashboardPage() {
           />
         </motion.div>
 
-        {/* Bottom Section: Premium CTA (endast gratis-användare) */}
+        {/* Bottom Section: Premium Trial CTA (endast gratis-användare) */}
         {!stats.isPremium && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.6 }}
-            className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl border border-pink-200/40 p-4 sm:p-6 md:p-8 text-center"
+            className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 rounded-xl sm:rounded-2xl border-2 border-pink-200/50 p-6 sm:p-8 text-center shadow-xl"
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">
-              Uppgradera till Premium
+            {/* Badge */}
+            <div className="inline-block mb-3">
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
+                7 DAGAR GRATIS
+              </span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+              Testa alla premium-funktioner utan risk
             </h3>
-            <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 max-w-lg mx-auto">
-              Få tillgång till obegränsade CV-analyser, avancerade AI-funktioner och mycket mer för endast 149 SEK/månad.
+
+            <p className="text-sm sm:text-base text-slate-700 mb-6 max-w-2xl mx-auto">
+              Obegränsade personliga brev, CV-analyser och LinkedIn-optimering. Ingen bindning.
             </p>
-            <Link href="/priser">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 text-sm sm:text-base touch-manipulation"
-              >
-                Uppgradera för 149 SEK/månad
-              </motion.button>
-            </Link>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Link href="/trial-signup">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl hover:shadow-pink-500/30 transition-all duration-300 text-base touch-manipulation min-h-[48px]"
+                >
+                  Starta 7-dagars provperiod
+                </motion.button>
+              </Link>
+
+              <Link href="/priser">
+                <button className="px-6 py-3 rounded-xl font-semibold text-slate-700 hover:bg-white/80 border-2 border-slate-300 hover:border-slate-400 transition-all text-sm touch-manipulation min-h-[48px]">
+                  Se alla planer
+                </button>
+              </Link>
+            </div>
+
+            <p className="text-xs text-slate-600 mt-4">
+              0 kr idag • 149 kr/månad efter provperiod • Avsluta när som helst
+            </p>
           </motion.div>
         )}
       </div>

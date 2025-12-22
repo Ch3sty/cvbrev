@@ -44,18 +44,8 @@ export default function WelcomeHero({
   };
 
   return (
-    <div className="space-y-6">
-      {/* Date Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-slate-700 font-medium text-lg"
-      >
-        {getDateString()}
-      </motion.div>
-
-      {/* Main Greeting */}
+    <div className="space-y-4">
+      {/* Main Greeting - Datum visas redan i headern */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
