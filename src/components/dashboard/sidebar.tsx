@@ -103,9 +103,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
           setIsAdmin(!!adminData);
 
-          // Fetch CV count
+          // Fetch CV count (CVs are stored in cv_texts table)
           const { count: cvCountResult } = await supabase
-            .from('cvs')
+            .from('cv_texts')
             .select('id', { count: 'exact', head: true })
             .eq('user_id', userId);
           setCvCount(cvCountResult ?? 0);
@@ -177,15 +177,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       path: '/dashboard/rewards',
       label: 'Belöningar',
       icon: <Trophy className="w-5 h-5" />,
-      section: 'main',
-      highlight: true
+      section: 'main'
     },
     {
       path: '/dashboard/skapa-cv',
       label: 'Skapa ditt första CV',
       icon: <FilePlus className="w-5 h-5" />,
-      section: 'tools',
-      highlight: true
+      section: 'tools'
     },
     {
       path: '/dashboard/skapa-brev',
@@ -203,15 +201,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       path: '/dashboard/linkedin-optimizer',
       label: 'LinkedIn\nProfiloptimering',
       icon: <Linkedin className="w-5 h-5" />,
-      section: 'tools',
-      highlight: true
+      section: 'tools'
     },
     {
       path: '/dashboard/jobbcoachen',
       label: 'Jobbcoachen',
       icon: <MessageCircle className="w-5 h-5" />,
-      section: 'tools',
-      highlight: true
+      section: 'tools'
     },
     {
       path: '/dashboard/jobbmatchning',
@@ -236,7 +232,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       label: 'Mina CV:n',
       icon: <FileText className="w-5 h-5" />,
       section: 'cvs',
-      highlight: true,
       count: cvCount
     },
     {
@@ -253,15 +248,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     {
       path: '/dashboard/profil',
       label: 'Profilinformation',
-      icon: <User className="w-4 h-4" />,
-      highlight: false
+      icon: <User className="w-4 h-4" />
     },
     {
       path: '/dashboard/profil/prenumeration',
       label: 'Prenumeration',
-      icon: <Crown className="w-4 h-4" />,
-      highlight: true,
-      highlightType: 'premium'
+      icon: <Crown className="w-4 h-4" />
     }
   ];
   
@@ -453,7 +445,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                   href={item.path}
                   prefetch={true}
                   className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -463,11 +455,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
-                  {'highlight' in item && item.highlight && !collapsed && (
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-green-400 to-emerald-500 text-white text-xs font-bold rounded-full animate-pulse shadow-lg">
-                      NY
-                    </span>
-                  )}
                 </Link>
               </li>
             ))}
@@ -488,18 +475,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                   href={item.path}
                   prefetch={true}
                   className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path || pathname.startsWith(item.path + '/')
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
-                    ${'highlight' in item && item.highlight ? 'ring-2 ring-green-400/30' : ''}
                   `}
                 >
-                  <span className={`flex-shrink-0 ${'highlight' in item && item.highlight ? 'text-green-600' : ''}`}>
-                    {item.icon}
-                  </span>
+                  <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && (
                     <>
                       <span className="ml-3">{item.label}</span>
@@ -569,25 +553,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                   href={subItem.path}
                   prefetch={true}
                   className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === subItem.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
-                    ${subItem.highlight && subItem.highlightType === 'premium' ? 'ring-2 ring-yellow-400/40' : ''}
                   `}
                 >
-                  <span className={`flex-shrink-0 ${
-                    subItem.highlight && subItem.highlightType === 'premium' ? 'text-yellow-600' : ''
-                  }`}>
-                    {subItem.icon}
-                  </span>
-                  {!collapsed && (
-                    <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
-                      {subItem.label}
-                    </span>
-                  )}
+                  <span className="flex-shrink-0">{subItem.icon}</span>
+                  {!collapsed && <span className="ml-3">{subItem.label}</span>}
                 </Link>
               </li>
             ))}
