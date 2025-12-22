@@ -27,6 +27,7 @@ import {
 
 import DownloadButton from '@/components/letters/download-button';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 // Enkel tag-komponent
 const LetterTag = ({
@@ -199,65 +200,89 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header med gradient */}
-      <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-          {/* Tillbaka-länk */}
-          <Link
-            href="/dashboard/mina-brev"
-            className="inline-flex items-center text-white/80 hover:text-white transition-colors mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Tillbaka till mina brev
-          </Link>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground variant="purple" />
 
-          {/* Titel och taggar */}
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3">
-            {currentLetter.title || 'Ansökningsbrev'}
-          </h1>
+      {/* Hero Header Card */}
+      <div className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-6xl mx-auto px-4 sm:px-6 pt-6"
+        >
+          <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-xl sm:rounded-2xl border border-purple-200 p-4 sm:p-6 shadow-lg relative overflow-hidden">
+            {/* Dekorativ orb */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full -translate-y-12 translate-x-12" />
 
-          <div className="flex flex-wrap gap-2">
-            {currentLetter.company && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Building2 className="w-3 h-3 mr-1.5" />
-                {currentLetter.company}
-              </span>
-            )}
-            {currentLetter.job_title && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Briefcase className="w-3 h-3 mr-1.5" />
-                {currentLetter.job_title}
-              </span>
-            )}
-            {currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Palette className="w-3 h-3 mr-1.5" />
-                {DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name}
-              </span>
-            )}
+            <div className="relative z-10">
+              {/* Tillbaka-länk */}
+              <Link
+                href="/dashboard/mina-brev"
+                className="inline-flex items-center text-slate-600 hover:text-purple-600 transition-colors mb-4 min-h-[44px]"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Tillbaka till mina brev
+              </Link>
+
+              {/* Titel och taggar */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  {currentLetter.title || 'Ansökningsbrev'}
+                </h1>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {currentLetter.company && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700 border border-purple-200">
+                    <Building2 className="w-3 h-3 mr-1.5" />
+                    {currentLetter.company}
+                  </span>
+                )}
+                {currentLetter.job_title && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-pink-100 text-pink-700 border border-pink-200">
+                    <Briefcase className="w-3 h-3 mr-1.5" />
+                    {currentLetter.job_title}
+                  </span>
+                )}
+                {currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-rose-100 text-rose-700 border border-rose-200">
+                    <Palette className="w-3 h-3 mr-1.5" />
+                    {DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Huvudinnehåll */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-4 sm:space-y-6">
-        {/* Verktygsfält - Mobil-first */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-4 sm:space-y-6 relative z-10">
+        {/* Verktygsfält med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 shadow-lg p-4"
+        >
           {/* Zoom - centrerad på mobil */}
-          <div className="flex items-center justify-center gap-2 pb-4 mb-4 border-b border-gray-100">
+          <div className="flex items-center justify-center gap-2 pb-4 mb-4 border-b border-purple-100">
             <button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              className="p-2.5 text-slate-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px]"
             >
               <ZoomOut className="w-5 h-5" />
             </button>
-            <span className="text-sm font-medium text-gray-700 min-w-[60px] text-center">
+            <span className="text-sm font-medium text-slate-700 min-w-[60px] text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-              className="p-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              className="p-2.5 text-slate-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px]"
             >
               <ZoomIn className="w-5 h-5" />
             </button>
@@ -266,22 +291,24 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           {/* Åtgärdsknappar - Stack på mobil, rad på desktop */}
           <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch gap-2">
             {/* Redigera - Primär knapp */}
-            <button
+            <motion.button
               onClick={handleEdit}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg transition-all text-sm font-medium shadow-md hover:shadow-lg touch-manipulation"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl transition-all text-sm font-medium shadow-lg hover:shadow-xl touch-manipulation min-h-[48px]"
             >
               <Edit className="w-4 h-4" />
               Redigera brev
-            </button>
+            </motion.button>
 
             {/* Kopiera */}
             <button
               onClick={handleCopy}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-lg transition-all text-sm font-medium touch-manipulation"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-slate-700 bg-white border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 rounded-xl transition-all text-sm font-medium touch-manipulation min-h-[48px]"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-green-600" />
+                  <Check className="w-4 h-4 text-emerald-600" />
                   Kopierat!
                 </>
               ) : (
@@ -302,7 +329,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                   company: currentLetter.company || undefined,
                   position: currentLetter.job_title || undefined
                 }}
-                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation"
+                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation !min-h-[48px]"
                 showTemplateSelector={false}
                 showPreview={false}
               />
@@ -315,7 +342,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                   company: currentLetter.company || undefined,
                   position: currentLetter.job_title || undefined
                 }}
-                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation"
+                className="flex-1 sm:flex-none !px-4 !py-3 sm:!py-2.5 !text-sm !font-medium !shadow-sm touch-manipulation !min-h-[48px]"
                 showTemplateSelector={false}
                 showPreview={false}
               />
@@ -325,7 +352,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             <button
               onClick={handleDeleteRequest}
               disabled={isDeleting}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-lg transition-all text-sm font-medium disabled:opacity-50 touch-manipulation"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border-2 border-red-200 hover:border-red-300 rounded-xl transition-all text-sm font-medium disabled:opacity-50 touch-manipulation min-h-[48px]"
             >
               {isDeleting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -335,10 +362,15 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               {isDeleting ? 'Tar bort...' : 'Ta bort'}
             </button>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Dokumentförhandsvisning - MED PADDING */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        {/* Dokumentförhandsvisning med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 shadow-lg overflow-hidden"
+        >
           <div
             ref={previewRef}
             className="w-full"
@@ -358,7 +390,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
                 <div className="max-w-2xl mx-auto">
                   <div
-                    className="prose prose-gray"
+                    className="prose prose-slate"
                     style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
                     dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
                   />
@@ -366,15 +398,20 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Metainformation */}
-        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+        {/* Metainformation med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 p-4 shadow-lg"
+        >
           <div className="flex flex-wrap gap-6 text-sm">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Calendar className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center gap-2 text-slate-600">
+              <Calendar className="w-4 h-4 text-purple-400" />
               <span>Skapad: </span>
-              <span className="text-gray-900">
+              <span className="text-slate-900 font-medium">
                 {currentLetter.created_at
                   ? new Date(currentLetter.created_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })
                   : 'Okänt'}
@@ -382,16 +419,16 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             </div>
             {currentLetter.updated_at && currentLetter.created_at &&
                new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
-              <div className="flex items-center gap-2 text-gray-600">
-                <Clock className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-slate-600">
+                <Clock className="w-4 h-4 text-pink-400" />
                 <span>Uppdaterad: </span>
-                <span className="text-gray-900">
+                <span className="text-slate-900 font-medium">
                   {new Date(currentLetter.updated_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </span>
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bekräftelsedialog för borttagning */}

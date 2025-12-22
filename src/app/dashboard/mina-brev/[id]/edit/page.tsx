@@ -26,6 +26,7 @@ import {
 import DownloadButton from '@/components/letters/download-button';
 import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 export default function EditLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -203,53 +204,76 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header med gradient */}
-      <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-          {/* Tillbaka-länk */}
-          <Link
-            href={`/dashboard/mina-brev/${id}`}
-            className="inline-flex items-center text-white/80 hover:text-white transition-colors mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Tillbaka till brevet
-          </Link>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground variant="purple" />
 
-          {/* Titel */}
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3">
-            Redigera brev
-          </h1>
+      {/* Hero Header Card */}
+      <div className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-6xl mx-auto px-4 sm:px-6 pt-6"
+        >
+          <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-xl sm:rounded-2xl border border-purple-200 p-4 sm:p-6 shadow-lg relative overflow-hidden">
+            {/* Dekorativ orb */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full -translate-y-12 translate-x-12" />
 
-          {/* Taggar */}
-          <div className="flex flex-wrap gap-2">
-            {currentLetter.company && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Building2 className="w-3 h-3 mr-1.5" />
-                {currentLetter.company}
-              </span>
-            )}
-            {currentLetter.job_title && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Briefcase className="w-3 h-3 mr-1.5" />
-                {currentLetter.job_title}
-              </span>
-            )}
-            {currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white">
-                <Palette className="w-3 h-3 mr-1.5" />
-                {DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name}
-              </span>
-            )}
+            <div className="relative z-10">
+              {/* Tillbaka-länk */}
+              <Link
+                href={`/dashboard/mina-brev/${id}`}
+                className="inline-flex items-center text-slate-600 hover:text-purple-600 transition-colors mb-4 min-h-[44px]"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Tillbaka till brevet
+              </Link>
+
+              {/* Titel */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg">
+                  <Edit3 className="w-6 h-6 text-white" />
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Redigera brev
+                </h1>
+              </div>
+
+              {/* Taggar */}
+              <div className="flex flex-wrap gap-2">
+                {currentLetter.company && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700 border border-purple-200">
+                    <Building2 className="w-3 h-3 mr-1.5" />
+                    {currentLetter.company}
+                  </span>
+                )}
+                {currentLetter.job_title && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-pink-100 text-pink-700 border border-pink-200">
+                    <Briefcase className="w-3 h-3 mr-1.5" />
+                    {currentLetter.job_title}
+                  </span>
+                )}
+                {currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] && (
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-rose-100 text-rose-700 border border-rose-200">
+                    <Palette className="w-3 h-3 mr-1.5" />
+                    {DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Huvudinnehåll */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6 relative z-10">
         {/* Felmeddelande */}
         {saveError && (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-red-50/80 backdrop-blur-xl border border-red-200 rounded-xl sm:rounded-2xl p-4 flex items-start gap-3"
+          >
             <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-red-800 font-medium">Kunde inte spara</p>
@@ -257,21 +281,29 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             </div>
             <button
               onClick={() => setSaveError(null)}
-              className="text-red-600 hover:text-red-800"
+              className="text-red-600 hover:text-red-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
-          </div>
+          </motion.div>
         )}
 
-        {/* Brevinfo-formulär */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Brevinfo</h2>
+        {/* Brevinfo-formulär med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 p-6 shadow-lg"
+        >
+          <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-purple-600" />
+            Brevinfo
+          </h2>
           <div className="space-y-4">
             {/* Titel */}
             <div>
-              <label htmlFor="title" className="flex items-center mb-2 text-sm font-medium text-gray-700">
-                <FileText className="w-4 h-4 mr-2 text-pink-600" />
+              <label htmlFor="title" className="flex items-center mb-2 text-sm font-medium text-slate-700">
+                <FileText className="w-4 h-4 mr-2 text-purple-600" />
                 Titel
               </label>
               <input
@@ -280,7 +312,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full p-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
+                className="w-full p-3 text-slate-900 bg-white border border-purple-200/50 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all min-h-[48px]"
                 placeholder="Ansökningsbrev"
               />
             </div>
@@ -288,8 +320,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {/* Företag */}
               <div>
-                <label htmlFor="company" className="flex items-center mb-2 text-sm font-medium text-gray-700">
-                  <Building2 className="w-4 h-4 mr-2 text-pink-600" />
+                <label htmlFor="company" className="flex items-center mb-2 text-sm font-medium text-slate-700">
+                  <Building2 className="w-4 h-4 mr-2 text-purple-600" />
                   Företag
                 </label>
                 <input
@@ -298,15 +330,15 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full p-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
+                  className="w-full p-3 text-slate-900 bg-white border border-purple-200/50 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all min-h-[48px]"
                   placeholder="Företagsnamn"
                 />
               </div>
 
               {/* Tjänstetitel */}
               <div>
-                <label htmlFor="job_title" className="flex items-center mb-2 text-sm font-medium text-gray-700">
-                  <Briefcase className="w-4 h-4 mr-2 text-purple-600" />
+                <label htmlFor="job_title" className="flex items-center mb-2 text-sm font-medium text-slate-700">
+                  <Briefcase className="w-4 h-4 mr-2 text-pink-600" />
                   Tjänstetitel
                 </label>
                 <input
@@ -315,30 +347,35 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   name="job_title"
                   value={formData.job_title}
                   onChange={handleChange}
-                  className="w-full p-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                  className="w-full p-3 text-slate-900 bg-white border border-pink-200/50 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all min-h-[48px]"
                   placeholder="Jobbtitel"
                 />
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Verktygsfält */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
+        {/* Verktygsfält med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 shadow-lg"
+        >
           {/* Zoom-kontroller */}
           <div className="flex items-center gap-1">
             <button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-slate-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             >
               <ZoomOut className="w-4 h-4" />
             </button>
-            <span className="text-sm text-gray-600 min-w-[50px] text-center">
+            <span className="text-sm text-slate-600 min-w-[50px] text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-slate-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             >
               <ZoomIn className="w-4 h-4" />
             </button>
@@ -348,11 +385,11 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-3 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+              className="flex items-center gap-2 px-3 py-2 text-slate-700 bg-white border border-purple-200 rounded-xl hover:bg-purple-50 transition-colors text-sm min-h-[44px]"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-green-600" />
+                  <Check className="w-4 h-4 text-emerald-600" />
                   Kopierat!
                 </>
               ) : (
@@ -365,16 +402,18 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
 
             <button
               onClick={isEditing ? handleCancelEdit : handleStartEdit}
-              className="flex items-center gap-2 px-3 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+              className="flex items-center gap-2 px-3 py-2 text-slate-700 bg-white border border-purple-200 rounded-xl hover:bg-purple-50 transition-colors text-sm min-h-[44px]"
             >
               <Edit3 className="w-4 h-4" />
               {isEditing ? 'Avbryt' : 'Redigera text'}
             </button>
 
-            <button
+            <motion.button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl transition-colors text-sm font-medium disabled:opacity-50 shadow-lg min-h-[48px]"
             >
               {isSaving ? (
                 <>
@@ -387,7 +426,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   Spara
                 </>
               )}
-            </button>
+            </motion.button>
 
             <DownloadButton
               format="pdf"
@@ -397,37 +436,44 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 company: formData.company || undefined,
                 position: formData.job_title || undefined
               }}
-              className="!px-3 !py-2 !text-sm"
+              className="!px-3 !py-2 !text-sm !min-h-[44px]"
               showTemplateSelector={false}
               showPreview={false}
             />
           </div>
-        </div>
+        </motion.div>
 
-        {/* Dokumentförhandsvisning / Redigering */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        {/* Dokumentförhandsvisning / Redigering med glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-200/50 shadow-lg overflow-hidden"
+        >
           {isEditing ? (
             <div className="p-6">
               <textarea
                 value={editableText}
                 onChange={(e) => setEditableText(e.target.value)}
-                className="w-full min-h-[500px] p-6 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[500px] p-6 bg-white border border-purple-200/50 rounded-xl text-slate-900 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
                 placeholder="Skriv ditt brev här..."
               />
               <div className="flex justify-end gap-3 mt-4">
                 <button
                   onClick={handleCancelEdit}
-                  className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                  className="px-4 py-2 text-slate-700 bg-white border border-purple-200 hover:bg-purple-50 rounded-xl transition-colors min-h-[48px]"
                 >
                   Avbryt
                 </button>
-                <button
+                <motion.button
                   onClick={handleSaveEdit}
-                  className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors font-medium"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl transition-colors font-medium shadow-lg min-h-[48px]"
                 >
                   Spara ändringar
-                </button>
+                </motion.button>
               </div>
             </div>
           ) : (
@@ -449,7 +495,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
                   <div className="max-w-2xl mx-auto">
                     <div
-                      className="prose prose-gray"
+                      className="prose prose-slate"
                       style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
                       dangerouslySetInnerHTML={{ __html: formatContent(formData.content) }}
                     />
@@ -458,7 +504,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               )}
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

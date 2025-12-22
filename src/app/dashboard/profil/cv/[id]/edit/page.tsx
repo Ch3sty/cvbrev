@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Eye, Save, AlertTriangle, FileText, Clock } from 'lucide-react';
+import { ArrowLeft, Eye, Save, AlertTriangle, FileText, Clock, Edit3 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { use } from 'react';
 import { motion } from 'framer-motion';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 export default function CVEditPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -230,151 +231,162 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground variant="emerald" />
+
       {/* Success notification */}
       {successMessage && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="fixed top-4 right-4 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg shadow-xl z-50"
+          className="fixed top-4 right-4 bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg shadow-xl z-50"
         >
-          <p className="text-green-800 font-medium">{successMessage}</p>
+          <p className="text-emerald-800 font-medium">{successMessage}</p>
         </motion.div>
       )}
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleBack}
-              className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-700 transition-all shadow-sm hover:shadow-md"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Tillbaka
-            </button>
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl shadow-lg">
-                <FileText className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  Redigera {cvData?.file_name || 'CV'}
-                </h1>
-                <p className="text-sm text-gray-600 mt-1">Uppdatera ditt CV-innehåll</p>
-              </div>
-            </div>
-          </div>
-
-          {cvData && (
-            <motion.button
-              onClick={openCVInNewWindow}
-              className="flex items-center px-4 py-2 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Eye className="w-4 h-4 mr-2" />
-              Visa CV
-            </motion.button>
-          )}
-        </div>
-      </motion.div>
-
-      {/* Error message */}
-      {error && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg"
-        >
-          <div className="flex items-start">
-            <AlertTriangle className="w-5 h-5 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-red-800">Fel</h3>
-              <p className="text-red-700">{error}</p>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Edit form */}
-      {cvData && (
+      <div className="max-w-7xl mx-auto p-6 relative z-10">
+        {/* Hero Header Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50 shadow-xl"
+          className="mb-6 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 rounded-xl sm:rounded-2xl border border-emerald-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
         >
-          {/* Metadata */}
-          <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
-            <div className="flex items-center text-sm text-gray-600">
-              <Clock className="w-4 h-4 mr-2" />
-              <span>
-                Uppladdad: {formatDate(cvData.created_at)}
-                {cvData.updated_at && cvData.updated_at !== cvData.created_at &&
-                  <> • Uppdaterad: {formatDate(cvData.updated_at)}</>
-                }
-              </span>
+          {/* Dekorativ orb */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full -translate-y-12 translate-x-12" />
+
+          <div className="relative z-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleBack}
+                  className="flex items-center px-4 py-2 bg-white/80 hover:bg-white rounded-xl text-slate-700 transition-all shadow-sm hover:shadow-md min-h-[44px]"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Tillbaka
+                </button>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl shadow-lg">
+                    <Edit3 className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  </div>
+                  <div>
+                    <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      Redigera {cvData?.file_name || 'CV'}
+                    </h1>
+                    <p className="text-sm text-slate-600 mt-1">Uppdatera ditt CV-innehåll</p>
+                  </div>
+                </div>
+              </div>
+
+              {cvData && (
+                <motion.button
+                  onClick={openCVInNewWindow}
+                  className="flex items-center px-4 py-2 text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl transition-all shadow-lg hover:shadow-xl min-h-[48px]"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  Visa CV
+                </motion.button>
+              )}
             </div>
           </div>
-
-          {/* CV Text Editor */}
-          <div className="mb-6">
-            <label htmlFor="cv-text" className="block text-sm font-semibold text-gray-700 mb-3">
-              CV-text
-            </label>
-            <textarea
-              id="cv-text"
-              value={cvText}
-              onChange={(e) => setCvText(e.target.value)}
-              className="w-full min-h-[500px] px-4 py-3 rounded-xl bg-white text-gray-900 border-2 border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-4 focus:ring-pink-500/20 resize-y transition-all font-mono text-sm"
-              placeholder="Skriv eller klistra in ditt CV här..."
-            />
-            <p className="mt-2 text-xs text-gray-500">
-              Redigera texten direkt i fältet ovan. Alla ändringar sparas till ditt CV.
-            </p>
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex justify-between items-center pt-6 border-t border-gray-200">
-            <Link
-              href="/dashboard/profil/cv"
-              className="px-6 py-3 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all font-medium"
-            >
-              Avbryt
-            </Link>
-
-            <motion.button
-              onClick={handleSave}
-              disabled={saving}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl"
-              whileHover={!saving ? { scale: 1.02, y: -2 } : {}}
-              whileTap={!saving ? { scale: 0.98 } : {}}
-            >
-              {saving ? (
-                <>
-                  <motion.div
-                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  />
-                  Sparar ändringar...
-                </>
-              ) : (
-                <>
-                  <Save className="w-5 h-5 mr-2" />
-                  Spara ändringar
-                </>
-              )}
-            </motion.button>
-          </div>
         </motion.div>
-      )}
+
+        {/* Error message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 bg-red-50/80 backdrop-blur-xl border border-red-200 p-4 rounded-xl sm:rounded-2xl"
+          >
+            <div className="flex items-start">
+              <AlertTriangle className="w-5 h-5 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-red-800">Fel</h3>
+                <p className="text-red-700">{error}</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Edit form */}
+        {cvData && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-emerald-200/50 shadow-xl"
+          >
+            {/* Metadata */}
+            <div className="mb-6 p-4 bg-emerald-50/50 rounded-xl border border-emerald-200/50">
+              <div className="flex items-center text-sm text-slate-600">
+                <Clock className="w-4 h-4 mr-2 text-emerald-500" />
+                <span>
+                  Uppladdad: {formatDate(cvData.created_at)}
+                  {cvData.updated_at && cvData.updated_at !== cvData.created_at &&
+                    <> • Uppdaterad: {formatDate(cvData.updated_at)}</>
+                  }
+                </span>
+              </div>
+            </div>
+
+            {/* CV Text Editor */}
+            <div className="mb-6">
+              <label htmlFor="cv-text" className="block text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-emerald-600" />
+                CV-text
+              </label>
+              <textarea
+                id="cv-text"
+                value={cvText}
+                onChange={(e) => setCvText(e.target.value)}
+                className="w-full min-h-[500px] px-4 py-3 rounded-xl bg-white text-slate-900 border-2 border-emerald-200/50 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 resize-y transition-all font-mono text-sm"
+                placeholder="Skriv eller klistra in ditt CV här..."
+              />
+              <p className="mt-2 text-xs text-slate-500">
+                Redigera texten direkt i fältet ovan. Alla ändringar sparas till ditt CV.
+              </p>
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 border-t border-emerald-200/50">
+              <Link
+                href="/dashboard/profil/cv"
+                className="w-full sm:w-auto px-6 py-3 text-slate-700 bg-white border border-emerald-200/50 rounded-xl hover:bg-emerald-50 transition-all font-medium text-center min-h-[48px] flex items-center justify-center"
+              >
+                Avbryt
+              </Link>
+
+              <motion.button
+                onClick={handleSave}
+                disabled={saving}
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl min-h-[48px]"
+                whileHover={!saving ? { scale: 1.02, y: -2 } : {}}
+                whileTap={!saving ? { scale: 0.98 } : {}}
+              >
+                {saving ? (
+                  <>
+                    <motion.div
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                    Sparar ändringar...
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5 mr-2" />
+                    Spara ändringar
+                  </>
+                )}
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
