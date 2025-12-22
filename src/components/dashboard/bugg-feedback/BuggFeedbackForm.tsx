@@ -95,9 +95,9 @@ export default function BuggFeedbackForm() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Typ-väljare - enklare grid layout */}
-      <div className="grid grid-cols-2 gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      {/* Typ-väljare - grid layout med gradient-kort */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* Bugg-knapp */}
         <motion.button
           type="button"
@@ -105,21 +105,21 @@ export default function BuggFeedbackForm() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`
-            relative p-4 rounded-lg border transition-all duration-200
+            relative p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 min-h-[48px] touch-manipulation
             ${reportType === 'bug'
-              ? 'border-red-500 bg-red-50 shadow-sm'
-              : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+              ? 'border-red-500 bg-gradient-to-br from-red-50 to-orange-50 shadow-lg'
+              : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
             }
           `}
         >
           <div className="flex flex-col items-center text-center gap-2">
             <div className={`
-              w-10 h-10 rounded-lg flex items-center justify-center
-              ${reportType === 'bug' ? 'bg-red-500' : 'bg-slate-100'}
+              w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-md
+              ${reportType === 'bug' ? 'bg-gradient-to-br from-red-500 to-orange-600' : 'bg-slate-100'}
             `}>
-              <Bug className={`w-5 h-5 ${reportType === 'bug' ? 'text-white' : 'text-slate-600'}`} />
+              <Bug className={`w-5 h-5 sm:w-6 sm:h-6 ${reportType === 'bug' ? 'text-white' : 'text-slate-600'}`} />
             </div>
-            <span className={`text-sm font-medium ${reportType === 'bug' ? 'text-red-700' : 'text-slate-700'}`}>
+            <span className={`text-sm sm:text-base font-semibold ${reportType === 'bug' ? 'text-red-700' : 'text-slate-700'}`}>
               Rapportera bugg
             </span>
           </div>
@@ -132,29 +132,50 @@ export default function BuggFeedbackForm() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`
-            relative p-4 rounded-lg border transition-all duration-200
+            relative p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 min-h-[48px] touch-manipulation
             ${reportType === 'feedback'
-              ? 'border-blue-500 bg-blue-50 shadow-sm'
-              : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+              ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-lg'
+              : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
             }
           `}
         >
           <div className="flex flex-col items-center text-center gap-2">
             <div className={`
-              w-10 h-10 rounded-lg flex items-center justify-center
-              ${reportType === 'feedback' ? 'bg-blue-500' : 'bg-slate-100'}
+              w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-md
+              ${reportType === 'feedback' ? 'bg-gradient-to-br from-blue-500 to-cyan-600' : 'bg-slate-100'}
             `}>
-              <MessageSquare className={`w-5 h-5 ${reportType === 'feedback' ? 'text-white' : 'text-slate-600'}`} />
+              <MessageSquare className={`w-5 h-5 sm:w-6 sm:h-6 ${reportType === 'feedback' ? 'text-white' : 'text-slate-600'}`} />
             </div>
-            <span className={`text-sm font-medium ${reportType === 'feedback' ? 'text-blue-700' : 'text-slate-700'}`}>
+            <span className={`text-sm sm:text-base font-semibold ${reportType === 'feedback' ? 'text-blue-700' : 'text-slate-700'}`}>
               Skicka feedback
             </span>
           </div>
         </motion.button>
       </div>
 
-      {/* Formulär */}
-      <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Formulär Card med gradient */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className={`
+          rounded-xl sm:rounded-2xl border p-4 sm:p-6 shadow-lg relative overflow-hidden
+          ${reportType === 'bug'
+            ? 'bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 border-red-200'
+            : 'bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 border-blue-200'
+          }
+        `}
+      >
+        {/* Bakgrundsdekor */}
+        <div className={`
+          absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8
+          ${reportType === 'bug'
+            ? 'bg-gradient-to-br from-red-200/30 to-orange-200/30'
+            : 'bg-gradient-to-br from-blue-200/30 to-cyan-200/30'
+          }
+        `} />
+
+        <form onSubmit={handleSubmit} className="relative z-10 space-y-4 sm:space-y-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={reportType}
@@ -166,7 +187,7 @@ export default function BuggFeedbackForm() {
           >
             {/* Rubrik */}
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">
                 {reportType === 'bug' ? 'Kort beskrivning av buggen' : 'Vad gäller din feedback?'}
                 <span className="text-red-500 ml-1">*</span>
               </label>
@@ -177,7 +198,7 @@ export default function BuggFeedbackForm() {
                 required
                 value={formData.subject}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
                 placeholder={reportType === 'bug' ? 'T.ex. "CV-generering fastnar vid 50%"' : 'T.ex. "Förslag på mörkt tema"'}
               />
             </div>
@@ -185,7 +206,7 @@ export default function BuggFeedbackForm() {
             {/* Prioritet/Brådskande (endast för buggar) */}
             {reportType === 'bug' && (
               <div>
-                <label htmlFor="urgency" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="urgency" className="block text-sm font-semibold text-slate-700 mb-2">
                   Hur allvarlig är buggen?
                 </label>
                 <select
@@ -193,7 +214,7 @@ export default function BuggFeedbackForm() {
                   id="urgency"
                   value={formData.urgency}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
                 >
                   <option value="low">Låg - Mindre problem, kan vänta</option>
                   <option value="medium">Medel - Påverkar användningen</option>
@@ -204,7 +225,7 @@ export default function BuggFeedbackForm() {
 
             {/* URL (valfritt) */}
             <div>
-              <label htmlFor="url" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="url" className="block text-sm font-semibold text-slate-700 mb-2">
                 URL där problemet uppstod (valfritt)
               </label>
               <input
@@ -213,14 +234,14 @@ export default function BuggFeedbackForm() {
                 id="url"
                 value={formData.url}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
                 placeholder="https://jobbcoach.ai/dashboard/..."
               />
             </div>
 
             {/* Detaljerad beskrivning */}
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="description" className="block text-sm font-semibold text-slate-700 mb-2">
                 {reportType === 'bug' ? 'Detaljerad beskrivning' : 'Din feedback'}
                 <span className="text-red-500 ml-1">*</span>
               </label>
@@ -231,14 +252,14 @@ export default function BuggFeedbackForm() {
                 required
                 value={formData.description}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none touch-manipulation text-sm sm:text-base"
                 placeholder={
                   reportType === 'bug'
                     ? 'Beskriv vad som hände, vilka steg du tog, och vad du förväntade dig skulle hända...'
                     : 'Berätta mer om ditt förslag eller din feedback...'
                 }
               />
-              <p className="text-xs text-slate-500 mt-1.5">
+              <p className="text-xs sm:text-sm text-slate-500 mt-2">
                 {reportType === 'bug'
                   ? 'Tips: Inkludera steg för att återskapa buggen och eventuella felmeddelanden.'
                   : 'Vi uppskattar all feedback som hjälper oss att förbättra tjänsten!'}
@@ -251,26 +272,26 @@ export default function BuggFeedbackForm() {
                 type="submit"
                 disabled={isSubmitting}
                 className={`
-                  w-full px-6 py-3 text-sm font-semibold rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center
+                  w-full px-6 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center min-h-[48px] touch-manipulation
                   ${isSubmitting
                     ? 'bg-slate-200 cursor-not-allowed text-slate-500'
                     : reportType === 'bug'
-                      ? 'bg-red-600 text-white hover:bg-red-700'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                      ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white hover:from-red-700 hover:to-orange-700'
+                      : 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700'
                   }
                 `}
-                whileHover={!isSubmitting ? { scale: 1.01 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.99 } : {}}
+                whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin" />
                     Skickar...
                   </>
                 ) : (
                   <>
                     Skicka {reportType === 'bug' ? 'buggrapport' : 'feedback'}
-                    <Send className="w-4 h-4 ml-2" />
+                    <Send className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                   </>
                 )}
               </motion.button>
@@ -280,14 +301,14 @@ export default function BuggFeedbackForm() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 flex items-start p-3 bg-green-50 border border-green-200 rounded-lg"
+                  className="mt-4 flex items-start p-4 bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-xl shadow-md"
                 >
-                  <CheckCircle className="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 mr-3 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-green-900 text-sm">
+                    <p className="font-semibold text-emerald-900 text-sm sm:text-base">
                       {reportType === 'bug' ? 'Buggrapport skickad!' : 'Feedback skickad!'}
                     </p>
-                    <p className="text-green-700 text-xs mt-0.5">
+                    <p className="text-emerald-700 text-xs sm:text-sm mt-1">
                       Tack för att du hjälper oss förbättra Jobbcoach.ai!
                     </p>
                   </div>
@@ -299,12 +320,12 @@ export default function BuggFeedbackForm() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 flex items-start p-3 bg-red-50 border border-red-200 rounded-lg"
+                  className="mt-4 flex items-start p-4 bg-gradient-to-br from-red-50 to-orange-50 border border-red-200 rounded-xl shadow-md"
                 >
-                  <AlertTriangle className="w-4 h-4 mr-2 text-red-600 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-5 h-5 mr-3 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-red-900 text-sm">Något gick fel</p>
-                    <p className="text-red-700 text-xs mt-0.5">
+                    <p className="font-semibold text-red-900 text-sm sm:text-base">Något gick fel</p>
+                    <p className="text-red-700 text-xs sm:text-sm mt-1">
                       {errorMessage || 'Försök igen eller kontakta oss direkt på support@jobbcoach.ai'}
                     </p>
                   </div>
@@ -314,6 +335,7 @@ export default function BuggFeedbackForm() {
           </motion.div>
         </AnimatePresence>
       </form>
+      </motion.div>
     </div>
   )
 }

@@ -7,36 +7,42 @@
  */
 'use client'
 
+import { motion } from 'framer-motion'
+import { Mail } from 'lucide-react'
 import KontaktForm from '@/components/kontakt/KontaktForm'
 import KontaktInfo from '@/components/kontakt/KontaktInfo'
 
 export default function DashboardKontaktPage() {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Rubrik */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">
-          Kontakta oss
-        </h1>
-        <p className="text-slate-600">
-          Välj rätt e-postadress nedan eller skicka ett meddelande via formuläret.
-        </p>
-      </div>
+    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-6 sm:mb-8"
+      >
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="p-3 sm:p-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
+            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent truncate">
+              Kontakta oss
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 mt-1 font-medium">
+              Välj rätt kanal eller skicka ett meddelande
+            </p>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Grid med formulär och kontaktinfo */}
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Formulär */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-lg">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">
-            Skicka ett meddelande
-          </h2>
-          <KontaktForm variant="dashboard" />
-        </div>
+        <KontaktForm variant="dashboard" />
 
         {/* Kontaktinformation */}
-        <div>
-          <KontaktInfo variant="dashboard" />
-        </div>
+        <KontaktInfo variant="dashboard" />
       </div>
     </div>
   )

@@ -52,17 +52,17 @@ export default function PrenumerationPage() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-4 sm:mb-6 md:mb-8"
+        className="mb-6 sm:mb-8"
       >
-        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <div className="p-3 sm:p-4 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-            <Crown className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
+            <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent truncate">
               Prenumeration
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 font-medium">Hantera din prenumeration och betalning</p>
+            <p className="text-sm sm:text-base text-slate-600 mt-1 font-medium">Hantera din prenumeration och betalning</p>
           </div>
         </div>
       </motion.div>

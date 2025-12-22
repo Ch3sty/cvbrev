@@ -284,196 +284,223 @@ export default function ProfilPage() {
         </motion.div>
       )}
 
-      {/* Profile Form */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 shadow-xl"
-      >
-        <div className="space-y-4 sm:space-y-6">
-          {/* Email */}
-          <div className="relative">
-            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <Mail className="w-4 h-4 mr-2 text-blue-600" />
-              E-postadress
-              <span className="ml-1 text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={profile?.email || ''}
-              disabled
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gray-50 text-gray-600 border border-gray-200 cursor-not-allowed text-sm sm:text-base"
-            />
-            <p className="mt-2 text-xs text-gray-500 flex items-center">
-              <Info className="w-3 h-3 mr-1" />
-              Din e-postadress är obligatorisk och kan inte ändras
-            </p>
-          </div>
+      {/* 2-kolumn grid för desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+        {/* Personlig Information Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 rounded-xl sm:rounded-2xl border border-emerald-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+        >
+          {/* Bakgrundsdekor */}
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full -translate-y-8 translate-x-8" />
 
-          {/* Fullständigt namn */}
-          <div className="relative">
-            <label htmlFor="full_name" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <User className="w-4 h-4 mr-2 text-purple-600" />
-              Fullständigt namn
-              <span className="ml-1 text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="full_name"
-              name="full_name"
-              value={formData.full_name}
-              onChange={handleChange}
-              placeholder="Ditt namn"
-              required
-              minLength={2}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
-            />
-            <p className="mt-2 text-xs text-gray-500 flex items-center">
-              <Info className="w-3 h-3 mr-1" />
-              Fullständigt namn är obligatoriskt (minst 2 tecken)
-            </p>
-          </div>
-
-          {/* Profilbild */}
-          <ProfilePhotoUpload
-            currentPhotoUrl={formData.profile_photo_url}
-            onUploadComplete={(photoUrl) => {
-              setFormData(prev => ({ ...prev, profile_photo_url: photoUrl }));
-            }}
-            onRemovePhoto={() => {
-              setFormData(prev => ({ ...prev, profile_photo_url: '' }));
-            }}
-            onError={(message) => {
-              setNotification({
-                message,
-                type: 'error',
-                isVisible: true
-              });
-            }}
-            onSuccess={(message) => {
-              setNotification({
-                message,
-                type: 'success',
-                isVisible: true
-              });
-            }}
-            isUploading={saving}
-          />
-
-          {/* LinkedIn URL */}
-          <LinkedInInput
-            value={formData.linkedin_url}
-            onChange={(url) => {
-              setFormData(prev => ({ ...prev, linkedin_url: url }));
-            }}
-            disabled={saving}
-          />
-
-          {/* Telefonnummer (valfritt) */}
-          <div className="relative">
-            <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <Phone className="w-4 h-4 mr-2 text-green-600" />
-              Telefonnummer (valfritt)
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+46 70 123 45 67"
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
-            />
-
-            {/* Toggle för att inkludera telefon i brev */}
-            <div className="mt-3 flex items-center gap-3">
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.include_phone_in_letters}
-                  onChange={(e) => setFormData(prev => ({ ...prev, include_phone_in_letters: e.target.checked }))}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
-                <span className="ms-3 text-sm font-medium text-gray-700">
-                  Inkludera i personliga brev
-                </span>
-              </label>
+          <div className="relative z-10 space-y-4 sm:space-y-5">
+            {/* Header med gradient-ikon */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900">Personlig Information</h2>
             </div>
 
-            <p className="mt-2 text-xs text-gray-500 flex items-center">
-              <Info className="w-3 h-3 mr-1 flex-shrink-0" />
-              Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
-            </p>
-          </div>
-
-          {/* Ort/Plats (valfritt) */}
-          <div className="relative">
-            <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <MapPin className="w-4 h-4 mr-2 text-orange-600" />
-              Ort (valfritt)
-            </label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Stockholm"
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
-            />
-
-            {/* Toggle för att inkludera ort i brev */}
-            <div className="mt-3 flex items-center gap-3">
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.include_location_in_letters}
-                  onChange={(e) => setFormData(prev => ({ ...prev, include_location_in_letters: e.target.checked }))}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
-                <span className="ms-3 text-sm font-medium text-gray-700">
-                  Inkludera i personliga brev
-                </span>
+            {/* Email */}
+            <div className="relative">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                <Mail className="w-4 h-4 mr-2 text-blue-600" />
+                E-postadress
+                <span className="ml-1 text-red-500">*</span>
               </label>
+              <input
+                type="email"
+                id="email"
+                value={profile?.email || ''}
+                disabled
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gray-50 text-gray-600 border border-gray-200 cursor-not-allowed text-sm sm:text-base"
+              />
+              <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <Info className="w-3 h-3 mr-1" />
+                Din e-postadress är obligatorisk och kan inte ändras
+              </p>
             </div>
 
-            <p className="mt-2 text-xs text-gray-500 flex items-center">
-              <Info className="w-3 h-3 mr-1 flex-shrink-0" />
-              Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
-            </p>
-          </div>
+            {/* Fullständigt namn */}
+            <div className="relative">
+              <label htmlFor="full_name" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                <User className="w-4 h-4 mr-2 text-purple-600" />
+                Fullständigt namn
+                <span className="ml-1 text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                value={formData.full_name}
+                onChange={handleChange}
+                placeholder="Ditt namn"
+                required
+                minLength={2}
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
+              />
+              <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <Info className="w-3 h-3 mr-1" />
+                Fullständigt namn är obligatoriskt (minst 2 tecken)
+              </p>
+            </div>
 
-          {/* Integritets-infobox */}
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-            <div className="flex items-start gap-3">
-              <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-blue-900 text-sm mb-1">
-                  Din integritet är skyddad
-                </h4>
-                <p className="text-sm text-blue-800">
-                  Dina personuppgifter lagras säkert i vår databas och används ENDAST för att formatera dina brev.
-                  Vi skickar ALDRIG dessa till externa AI-tjänster. Din data anonymiseras innan den når OpenAI.
-                </p>
+            {/* Profilbild */}
+            <ProfilePhotoUpload
+              currentPhotoUrl={formData.profile_photo_url}
+              onUploadComplete={(photoUrl) => {
+                setFormData(prev => ({ ...prev, profile_photo_url: photoUrl }));
+              }}
+              onRemovePhoto={() => {
+                setFormData(prev => ({ ...prev, profile_photo_url: '' }));
+              }}
+              onError={(message) => {
+                setNotification({
+                  message,
+                  type: 'error',
+                  isVisible: true
+                });
+              }}
+              onSuccess={(message) => {
+                setNotification({
+                  message,
+                  type: 'success',
+                  isVisible: true
+                });
+              }}
+              isUploading={saving}
+            />
+
+            {/* LinkedIn URL */}
+            <LinkedInInput
+              value={formData.linkedin_url}
+              onChange={(url) => {
+                setFormData(prev => ({ ...prev, linkedin_url: url }));
+              }}
+              disabled={saving}
+            />
+
+            {/* Telefonnummer (valfritt) */}
+            <div className="relative">
+              <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                <Phone className="w-4 h-4 mr-2 text-green-600" />
+                Telefonnummer (valfritt)
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+46 70 123 45 67"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
+              />
+
+              {/* Toggle för att inkludera telefon i brev */}
+              <div className="mt-3 flex items-center gap-3">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.include_phone_in_letters}
+                    onChange={(e) => setFormData(prev => ({ ...prev, include_phone_in_letters: e.target.checked }))}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                  <span className="ms-3 text-sm font-medium text-gray-700">
+                    Inkludera i personliga brev
+                  </span>
+                </label>
+              </div>
+
+              <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <Info className="w-3 h-3 mr-1 flex-shrink-0" />
+                Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
+              </p>
+            </div>
+
+            {/* Ort/Plats (valfritt) */}
+            <div className="relative">
+              <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                <MapPin className="w-4 h-4 mr-2 text-orange-600" />
+                Ort (valfritt)
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Stockholm"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
+              />
+
+              {/* Toggle för att inkludera ort i brev */}
+              <div className="mt-3 flex items-center gap-3">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.include_location_in_letters}
+                    onChange={(e) => setFormData(prev => ({ ...prev, include_location_in_letters: e.target.checked }))}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                  <span className="ms-3 text-sm font-medium text-gray-700">
+                    Inkludera i personliga brev
+                  </span>
+                </label>
+              </div>
+
+              <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <Info className="w-3 h-3 mr-1 flex-shrink-0" />
+                Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
+              </p>
+            </div>
+
+            {/* Integritets-infobox */}
+            <div className="p-4 bg-white/60 backdrop-blur-sm border border-emerald-200/50 rounded-xl">
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-semibold text-emerald-900 text-sm mb-1">
+                    Din integritet är skyddad
+                  </h4>
+                  <p className="text-sm text-emerald-800">
+                    Dina personuppgifter lagras säkert i vår databas och används ENDAST för att formatera dina brev.
+                    Vi skickar ALDRIG dessa till externa AI-tjänster. Din data anonymiseras innan den når OpenAI.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
+        </motion.div>
 
-          {/* Föredragen tonalitet */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <Sparkles className="w-4 h-4 mr-2 text-pink-600" />
-              Föredragen tonalitet
-            </label>
-            <p className="text-sm text-gray-600 mb-4">
-              Din standardton när du skapar nya personliga brev.
-            </p>
+        {/* Tonalitet Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-xl sm:rounded-2xl border border-purple-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+        >
+          {/* Bakgrundsdekor */}
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full -translate-y-8 translate-x-8" />
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="relative z-10">
+            {/* Header med gradient-ikon */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 shadow-lg">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Föredragen Tonalitet</h2>
+                <p className="text-sm text-purple-700">Din standardton för nya brev</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3 sm:mb-4">
               {tonalityOptions
                 .filter(option => !(option.value === 'auto' && subscriptionTier !== 'premium'))
                 .map((option) => (
@@ -482,10 +509,10 @@ export default function ProfilPage() {
                   type="button"
                   onClick={() => handleTonalitySelect(option.value)}
                   className={`
-                    flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg sm:rounded-xl text-center border-2 transition-all touch-manipulation
+                    flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg sm:rounded-xl text-center border-2 transition-all min-h-[48px] touch-manipulation
                     ${formData.preferred_tonality === option.value
-                      ? 'border-pink-500 bg-pink-50 shadow-lg shadow-pink-500/20'
-                      : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+                      ? 'border-purple-500 bg-purple-100/60 backdrop-blur-sm shadow-lg shadow-purple-500/20'
+                      : 'border-purple-200/50 bg-white/60 backdrop-blur-sm hover:border-purple-300 hover:shadow-md'
                     }
                     ${option.value === 'auto' && subscriptionTier !== 'premium' ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
@@ -510,7 +537,7 @@ export default function ProfilPage() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-r mb-4"
+                className="p-4 bg-yellow-50/80 backdrop-blur-sm border-l-4 border-yellow-500 rounded-r mb-4"
               >
                 <div className="flex items-start">
                   <AlertTriangle className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0 mt-0.5" />
@@ -528,125 +555,144 @@ export default function ProfilPage() {
             )}
 
             {/* Beskrivning av vald tonalitet */}
-            <div className="p-4 border border-gray-200 rounded-xl text-sm text-gray-700 bg-gray-50">
+            <div className="p-4 border border-purple-200/50 rounded-xl text-sm text-gray-700 bg-white/60 backdrop-blur-sm">
               {tonalityOptions.find(opt => opt.value === formData.preferred_tonality)?.description || 'Välj en tonalitet ovan.'}
             </div>
           </div>
+        </motion.div>
+      </div>
 
-          {/* Spara-knapp */}
-          <div className="pt-4 sm:pt-6">
-            <motion.button
-              onClick={handleSaveProfile}
-              disabled={saving}
-              className="flex items-center justify-center w-full md:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation text-sm sm:text-base"
-              whileHover={!saving ? { scale: 1.02, y: -2 } : {}}
-              whileTap={!saving ? { scale: 0.98 } : {}}
-            >
-              {saving ? (
-                <>
-                  <motion.div
-                    className="w-4 h-4 sm:w-5 sm:h-5 mr-2 border-t-2 border-b-2 border-white rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  />
-                  <span className="text-sm sm:text-base">Sparar...</span>
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  <span className="text-sm sm:text-base">Spara ändringar</span>
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-                </>
-              )}
-            </motion.button>
-          </div>
+      {/* Spara-knapp - full bredd */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mb-4 sm:mb-6"
+      >
+        <motion.button
+          onClick={handleSaveProfile}
+          disabled={saving}
+          className="flex items-center justify-center w-full px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl sm:rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] touch-manipulation text-sm sm:text-base"
+          whileHover={!saving ? { scale: 1.02, y: -2 } : {}}
+          whileTap={!saving ? { scale: 0.98 } : {}}
+        >
+          {saving ? (
+            <>
+              <motion.div
+                className="w-4 h-4 sm:w-5 sm:h-5 mr-2 border-t-2 border-b-2 border-white rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              />
+              <span className="text-sm sm:text-base">Sparar...</span>
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <span className="text-sm sm:text-base">Spara ändringar</span>
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+            </>
+          )}
+        </motion.button>
+      </motion.div>
 
-          {/* Separator */}
-          <div className="pt-8 sm:pt-10 mt-8 sm:mt-10 border-t-2 border-gray-200">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">Kontoinställningar</h2>
+      {/* Kontoinställningar Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl sm:rounded-2xl border border-amber-200 p-4 sm:p-6 shadow-lg relative overflow-hidden"
+      >
+        {/* Bakgrundsdekor */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200/30 to-orange-200/30 rounded-full -translate-y-8 translate-x-8" />
+
+        <div className="relative z-10 space-y-6">
+          {/* Header med gradient-ikon */}
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 shadow-lg">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900">Kontoinställningar</h2>
           </div>
 
           {/* Sessionshantering */}
-          <div className="space-y-4">
-            <div className="pb-4 sm:pb-5">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1.5 sm:mb-2 flex items-center">
-                <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg mr-2 flex-shrink-0">
-                  <LogOut className="w-4 h-4 text-blue-600" />
+          <div>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1.5 sm:mb-2 flex items-center">
+              <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg mr-2 flex-shrink-0">
+                <LogOut className="w-4 h-4 text-blue-600" />
+              </div>
+              Sessionshantering
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+              Hantera aktiva sessioner och inloggningsstatus för ditt konto.
+            </p>
+            <motion.button
+              onClick={async () => {
+                if (profile) {
+                  logUserActivity(
+                    profile.id,
+                    'logout',
+                    'Användaren loggade ut',
+                    { from_page: 'profile' }
+                  ).catch(e => console.error('Loggningsfel:', e));
+                }
+
+                await supabase.auth.signOut();
+                router.push('/login');
+              }}
+              className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg hover:from-gray-700 hover:to-gray-800 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logga ut
+            </motion.button>
+          </div>
+
+          {/* Kontoborttagning */}
+          <div className="pt-4 border-t border-amber-300">
+            <h3 className="text-base sm:text-lg font-semibold text-red-600 mb-1.5 sm:mb-2 flex items-center">
+              <div className="p-1.5 sm:p-2 bg-red-100 rounded-lg mr-2 flex-shrink-0">
+                <Trash2 className="w-4 h-4 text-red-600" />
+              </div>
+              Radera konto
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">
+              Om du raderar ditt konto tas all din data, CV:n och personliga brev bort permanent.
+              Denna åtgärd kan inte ångras.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-yellow-50/80 backdrop-blur-sm p-3 sm:p-4 border border-yellow-200 rounded-lg mb-3 sm:mb-4"
+            >
+              <div className="flex items-start">
+                <div className="p-1.5 sm:p-2 bg-yellow-100 rounded-lg mr-2 sm:mr-3 flex-shrink-0">
+                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
                 </div>
-                Sessionshantering
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
-                Hantera aktiva sessioner och inloggningsstatus för ditt konto.
-              </p>
-              <motion.button
-                onClick={async () => {
-                  if (profile) {
-                    logUserActivity(
-                      profile.id,
-                      'logout',
-                      'Användaren loggade ut',
-                      { from_page: 'profile' }
-                    ).catch(e => console.error('Loggningsfel:', e));
-                  }
-
-                  await supabase.auth.signOut();
-                  router.push('/login');
-                }}
-                className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg hover:from-gray-700 hover:to-gray-800 transition-all touch-manipulation text-sm sm:text-base"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logga ut
-              </motion.button>
-            </div>
-
-            {/* Kontoborttagning */}
-            <div className="pt-4 border-t border-gray-200">
-              <h3 className="text-base sm:text-lg font-semibold text-red-600 mb-1.5 sm:mb-2 flex items-center">
-                <div className="p-1.5 sm:p-2 bg-red-100 rounded-lg mr-2 flex-shrink-0">
-                  <Trash2 className="w-4 h-4 text-red-600" />
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-yellow-900 font-semibold mb-1.5 text-sm sm:text-base">Viktigt att tänka på</h4>
+                  <ul className="text-xs sm:text-sm text-yellow-800 list-disc pl-4 space-y-1">
+                    <li>All din personliga information kommer att raderas</li>
+                    <li>Dina uppladdade CV:n och sparade brev förloras</li>
+                    <li>Du kan inte återställa ditt konto efter borttagning</li>
+                    {subscriptionTier === 'premium' && (
+                      <li className="font-medium">Din premium-prenumeration kommer inte att avslutas automatiskt. Du måste separat avsluta den via Stripe kundportal.</li>
+                    )}
+                  </ul>
                 </div>
-                Radera konto
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">
-                Om du raderar ditt konto tas all din data, CV:n och personliga brev bort permanent.
-                Denna åtgärd kan inte ångras.
-              </p>
+              </div>
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-yellow-50 p-3 sm:p-4 border border-yellow-200 rounded-lg mb-3 sm:mb-4"
-              >
-                <div className="flex items-start">
-                  <div className="p-1.5 sm:p-2 bg-yellow-100 rounded-lg mr-2 sm:mr-3 flex-shrink-0">
-                    <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="text-yellow-900 font-semibold mb-1.5 text-sm sm:text-base">Viktigt att tänka på</h4>
-                    <ul className="text-xs sm:text-sm text-yellow-800 list-disc pl-4 space-y-1">
-                      <li>All din personliga information kommer att raderas</li>
-                      <li>Dina uppladdade CV:n och sparade brev förloras</li>
-                      <li>Du kan inte återställa ditt konto efter borttagning</li>
-                      {subscriptionTier === 'premium' && (
-                        <li className="font-medium">Din premium-prenumeration kommer inte att avslutas automatiskt. Du måste separat avsluta den via Stripe kundportal.</li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.button
-                onClick={() => setShowDeleteAccountConfirm(true)}
-                className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all touch-manipulation text-sm sm:text-base"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Trash2 className="w-4 h-4 mr-2" />
-                Radera mitt konto
-              </motion.button>
-            </div>
+            <motion.button
+              onClick={() => setShowDeleteAccountConfirm(true)}
+              className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Radera mitt konto
+            </motion.button>
           </div>
         </div>
       </motion.div>
