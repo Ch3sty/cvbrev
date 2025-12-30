@@ -40,7 +40,7 @@ export default function SkapaCVLandingPage() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Jobbcoach.ai CV-Skapare",
-    "description": "Skapa ett professionellt CV gratis på 10 minuter med AI-vägledning och professionella mallar.",
+    "description": "Skapa ett professionellt CV gratis på 10 minuter med steg-för-steg vägledning och professionella mallar.",
     "url": "https://jobbcoach.ai/verktyg/skapa-cv",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
@@ -60,7 +60,7 @@ export default function SkapaCVLandingPage() {
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": "Skapa ett professionellt CV gratis på 10 minuter",
-    "description": "Steg-för-steg guide för att skapa ditt CV med AI-vägledning",
+    "description": "Steg-för-steg guide för att skapa ditt CV med smart vägledning",
     "totalTime": "PT10M",
     "step": [
       {
@@ -77,8 +77,8 @@ export default function SkapaCVLandingPage() {
       },
       {
         "@type": "HowToStep",
-        "name": "AI skriver professionella beskrivningar",
-        "text": "Vår AI omvandlar dina svar till professionella CV-formuleringar. Du godkänner eller redigerar varje förslag innan det läggs till.",
+        "name": "Vi skriver professionella beskrivningar",
+        "text": "Vårt verktyg omvandlar dina svar till professionella CV-formuleringar. Du godkänner eller redigerar varje förslag innan det läggs till.",
         "position": 3
       },
       {
@@ -104,10 +104,10 @@ export default function SkapaCVLandingPage() {
       },
       {
         "@type": "Question",
-        "name": "Hur fungerar AI-vägledningen?",
+        "name": "Hur fungerar vägledningen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi ställer enkla frågor om din erfarenhet och kompetenser. Du svarar med dina egna ord, och vår AI omvandlar det till professionella CV-formuleringar. Du godkänner eller redigerar varje förslag."
+          "text": "Vi ställer enkla frågor om din erfarenhet och kompetenser. Du svarar med dina egna ord, och vårt verktyg omvandlar det till professionella CV-formuleringar. Du godkänner eller redigerar varje förslag."
         }
       },
       {
@@ -147,7 +147,7 @@ export default function SkapaCVLandingPage() {
         "name": "Kan jag skapa CV på engelska?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja! Verktyget fungerar på både svenska och engelska. Du väljer språk när du börjar och AI-formuleringarna anpassas automatiskt."
+          "text": "Ja! Verktyget fungerar på både svenska och engelska. Du väljer språk när du börjar och formuleringarna anpassas automatiskt."
         }
       },
       {
@@ -155,7 +155,7 @@ export default function SkapaCVLandingPage() {
         "name": "Vad händer om jag aldrig skrivit ett CV förut?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Det är precis därför vi byggde verktyget! Du behöver ingen CV-erfarenhet. Vi guidar dig genom varje steg med konkreta exempel och AI hjälper dig formulera allt professionellt."
+          "text": "Det är precis därför vi byggde verktyget! Du behöver ingen CV-erfarenhet. Vi guidar dig genom varje steg med konkreta exempel och hjälper dig formulera allt professionellt."
         }
       }
     ]
@@ -202,7 +202,7 @@ export default function SkapaCVLandingPage() {
     },
     {
       icon: Sparkles,
-      title: 'AI skriver professionellt',
+      title: 'Vi formulerar professionellt',
       description: '"Jobbade på café" blir "Hanterade kundbemötande för 200+ kunder dagligen". Du godkänner eller redigerar.',
       time: '3-4 min',
       color: 'from-orange-600 to-red-600'
@@ -219,8 +219,8 @@ export default function SkapaCVLandingPage() {
   const features = [
     {
       icon: Bot,
-      title: 'AI-vägledning genom hela processen',
-      description: 'Du behöver inte kunna skriva professionellt. Berätta vad du gjorde med egna ord – AI omvandlar det till CV-språk.',
+      title: 'Vägledning genom hela processen',
+      description: 'Du behöver inte kunna skriva professionellt. Berätta vad du gjorde med egna ord – vi omvandlar det till CV-språk.',
       gradient: 'from-emerald-600 to-teal-600'
     },
     {
@@ -261,12 +261,12 @@ export default function SkapaCVLandingPage() {
       answer: 'Du kan börja skapa ditt CV utan konto, men för att spara och ladda ner behöver du ett gratis konto. Registreringen tar 30 sekunder och du kan fortsätta direkt där du var.'
     },
     {
-      question: 'Hur fungerar AI-vägledningen?',
-      answer: 'Vi ställer enkla frågor om din erfarenhet, utbildning och kompetenser. Du svarar med dina egna ord – precis som du skulle berätta för en kompis. Vår AI analyserar dina svar och föreslår professionella formuleringar. Du godkänner eller redigerar varje förslag innan det läggs till i ditt CV.'
+      question: 'Hur fungerar vägledningen?',
+      answer: 'Vi ställer enkla frågor om din erfarenhet, utbildning och kompetenser. Du svarar med dina egna ord – precis som du skulle berätta för en kompis. Vårt verktyg analyserar dina svar och föreslår professionella formuleringar. Du godkänner eller redigerar varje förslag innan det läggs till i ditt CV.'
     },
     {
       question: 'Vad händer om jag aldrig skrivit ett CV förut?',
-      answer: 'Det är precis därför vi byggde verktyget! Du behöver ingen CV-erfarenhet alls. Vi guidar dig genom varje steg med konkreta exempel och AI hjälper dig formulera allt professionellt. Tusentals nyexaminerade har skapat sitt första CV hos oss.'
+      answer: 'Det är precis därför vi byggde verktyget! Du behöver ingen CV-erfarenhet alls. Vi guidar dig genom varje steg med konkreta exempel och hjälper dig formulera allt professionellt. Tusentals nyexaminerade har skapat sitt första CV hos oss.'
     },
     {
       question: 'Fungerar CV:t i rekryteringssystem (ATS)?',
@@ -286,7 +286,7 @@ export default function SkapaCVLandingPage() {
     },
     {
       question: 'Kan jag skapa CV på engelska?',
-      answer: 'Ja! Verktyget fungerar på både svenska och engelska. Du väljer språk när du börjar. AI-formuleringarna anpassas automatiskt till det språk du valt, så du får naturliga och korrekta formuleringar oavsett språk.'
+      answer: 'Ja! Verktyget fungerar på både svenska och engelska. Du väljer språk när du börjar. Formuleringarna anpassas automatiskt till det språk du valt, så du får naturliga och korrekta formuleringar oavsett språk.'
     }
   ]
 
@@ -295,7 +295,7 @@ export default function SkapaCVLandingPage() {
       name: 'Emma S.',
       role: 'Nyexaminerad',
       avatar: 'E',
-      quote: 'Jag hade aldrig skrivit ett CV förut och var helt lost. Jobbcoach ställde enkla frågor och AI:n gjorde min praktikbeskrivning om från "gjorde lite av allt" till faktiska resultat med siffror.',
+      quote: 'Jag hade aldrig skrivit ett CV förut och var helt lost. Jobbcoach ställde enkla frågor och verktyget gjorde min praktikbeskrivning om från "gjorde lite av allt" till faktiska resultat med siffror.',
       result: 'Fick mitt första jobb på 3 veckor',
       rating: 5,
       gradient: 'from-purple-500 to-pink-500'
@@ -358,7 +358,7 @@ export default function SkapaCVLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  Sluta stirra på ett tomt dokument. Skapa ditt CV på 10 minuter med AI-vägledning
+                  Sluta stirra på ett tomt dokument. Skapa ditt CV på 10 minuter med steg-för-steg vägledning
                 </motion.h1>
 
                 <motion.p
@@ -367,7 +367,7 @@ export default function SkapaCVLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Du har aldrig skrivit ett CV förut. Du vet inte vilka rubriker du ska ha eller hur man beskriver sitt jobb. Vi ställer enkla frågor, du svarar, och vår AI hjälper dig formulera det professionellt. Du får ett färdigt CV som fungerar i rekryteringssystem.
+                  Du har aldrig skrivit ett CV förut. Du vet inte vilka rubriker du ska ha eller hur man beskriver sitt jobb. Vi ställer enkla frågor, du svarar, och vi hjälper dig formulera det professionellt. Du får ett färdigt CV som fungerar i rekryteringssystem.
                 </motion.p>
 
                 <motion.div
@@ -399,7 +399,7 @@ export default function SkapaCVLandingPage() {
                 >
                   <div className="flex items-start gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span>Du slipper fundera på hur saker ska formuleras – AI skriver åt dig baserat på dina svar</span>
+                    <span>Du slipper fundera på hur saker ska formuleras – vi skriver åt dig baserat på dina svar</span>
                   </div>
                   <div className="flex items-start gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -688,7 +688,7 @@ export default function SkapaCVLandingPage() {
                 <ul className="space-y-3 mb-8">
                   {[
                     'Skapa 1 komplett CV',
-                    'AI-assisterad formuleringshjälp',
+                    'Smart formuleringshjälp',
                     '2 professionella mallar',
                     'PDF-nedladdning',
                     'ATS-optimerad struktur'
@@ -739,7 +739,7 @@ export default function SkapaCVLandingPage() {
                     'Obegränsat antal CV',
                     'Alla 8 exklusiva mallar',
                     'PDF + Word-nedladdning',
-                    'Avancerad AI-formulering',
+                    'Avancerad formuleringshjälp',
                     'Personligt brev-generator',
                     'CV-analys och feedback',
                     'LinkedIn-optimering'
@@ -788,6 +788,7 @@ export default function SkapaCVLandingPage() {
                 >
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
+                    aria-expanded={expandedFaq === idx}
                     className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors min-h-[48px]"
                   >
                     <span className="font-semibold text-slate-900 pr-4">{faq.question}</span>
@@ -894,7 +895,7 @@ export default function SkapaCVLandingPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Sluta sitta fast med ett tomt dokument. Vårt verktyg guidar dig genom varje steg, AI hjälper dig formulera professionellt och du får ett färdigt CV som fungerar i alla rekryteringssystem.
+              Sluta sitta fast med ett tomt dokument. Vårt verktyg guidar dig genom varje steg, hjälper dig formulera professionellt och du får ett färdigt CV som fungerar i alla rekryteringssystem.
             </motion.p>
 
             <motion.div

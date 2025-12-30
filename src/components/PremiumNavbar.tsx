@@ -9,6 +9,7 @@ import { User as SupabaseUser } from '@supabase/supabase-js'
 import {
   ChevronDown,
   FileText,
+  FilePlus,
   Home,
   LayoutGrid,
   Tag,
@@ -96,6 +97,14 @@ export default function PremiumNavbar() {
       name: 'Vad vi erbjuder',
       icon: Wrench,
       items: [
+        {
+          name: 'Skapa CV',
+          href: '/verktyg/skapa-cv',
+          icon: FilePlus,
+          description: 'Skapa ditt CV gratis på 10 minuter',
+          gradient: 'from-emerald-500 to-teal-500',
+          requireLogin: false
+        },
         {
           name: 'CV-Mallar',
           href: '/verktyg/cv-mallar',

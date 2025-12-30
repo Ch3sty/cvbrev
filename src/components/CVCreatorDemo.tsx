@@ -34,8 +34,8 @@ const steps: CreatorStep[] = [
     content: null
   },
   {
-    id: 'ai',
-    title: 'AI formulerar professionellt',
+    id: 'formulate',
+    title: 'Vi formulerar professionellt',
     subtitle: 'Dina svar blir CV-text',
     icon: Sparkles,
     color: 'from-orange-600 to-red-600',
@@ -65,7 +65,7 @@ const formFields = [
   { icon: Briefcase, label: 'Senaste jobb', value: 'Kundtjänst på café', delay: 0.3 }
 ]
 
-const aiTransformation = {
+const textTransformation = {
   before: 'Jobbade med att ta emot kunder och hantera kassan',
   after: 'Hanterade daglig kundbemötande för 200+ kunder, ansvarade för kassahantering med noll avvikelser, och bidrog till 15% ökad kundnöjdhet genom proaktiv service.'
 }
@@ -115,12 +115,12 @@ export default function CVCreatorDemo() {
     const step4Timer = setTimeout(() => setActiveStep(4), 5500)
     const resultTimer = setTimeout(() => setShowResult(true), 6000)
 
-    // Typing animation for AI step
+    // Typing animation for formulation step
     if (currentStep === 2) {
       let charIndex = 0
       const typeInterval = setInterval(() => {
-        if (charIndex < aiTransformation.after.length) {
-          setTypedText(aiTransformation.after.slice(0, charIndex + 1))
+        if (charIndex < textTransformation.after.length) {
+          setTypedText(textTransformation.after.slice(0, charIndex + 1))
           charIndex++
         } else {
           clearInterval(typeInterval)
@@ -218,12 +218,12 @@ export default function CVCreatorDemo() {
           </div>
         )
 
-      case 2: // AI transformation
+      case 2: // Text transformation
         return (
           <div className="space-y-4">
             <div className="p-4 bg-slate-100 rounded-xl border border-slate-200">
               <p className="text-xs text-slate-500 mb-1">Ditt svar:</p>
-              <p className="text-sm text-slate-700 italic">&quot;{aiTransformation.before}&quot;</p>
+              <p className="text-sm text-slate-700 italic">&quot;{textTransformation.before}&quot;</p>
             </div>
             <div className="flex items-center justify-center">
               <motion.div
@@ -232,7 +232,7 @@ export default function CVCreatorDemo() {
               >
                 <Sparkles className="w-6 h-6 text-orange-500" />
               </motion.div>
-              <span className="mx-2 text-sm text-slate-500">AI omvandlar...</span>
+              <span className="mx-2 text-sm text-slate-500">Omvandlar...</span>
             </div>
             <div className="p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border-2 border-emerald-200">
               <p className="text-xs text-emerald-600 mb-1 font-medium">CV-text:</p>
@@ -357,8 +357,8 @@ export default function CVCreatorDemo() {
         </div>
       </motion.div>
 
-      {/* Step indicators */}
-      <div className="flex justify-center gap-2">
+      {/* Step indicators - using padding for touch target */}
+      <div className="flex justify-center gap-1">
         {steps.map((step, idx) => (
           <button
             key={step.id}
@@ -366,13 +366,16 @@ export default function CVCreatorDemo() {
               setCurrentStep(idx)
               setProgress(0)
             }}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className="p-3 -m-1 touch-manipulation"
+            aria-label={`Visa steg ${idx + 1}`}
+            aria-current={idx === currentStep ? 'step' : undefined}
+          >
+            <span className={`block h-2 rounded-full transition-all duration-300 ${
               idx === currentStep
                 ? 'w-8 bg-gradient-to-r from-emerald-600 to-teal-600'
                 : 'w-2 bg-slate-300 hover:bg-slate-400'
-            }`}
-            aria-label={`Visa steg ${idx + 1}`}
-          />
+            }`} />
+          </button>
         ))}
       </div>
 
