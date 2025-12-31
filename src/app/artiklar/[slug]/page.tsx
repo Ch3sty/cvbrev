@@ -39,6 +39,7 @@ import PersonligtBrevExampleUtbildning from '@/components/mdx/PersonligtBrevExam
 import PersonligtBrevPreview from '@/components/mdx/PersonligtBrevPreview';
 import LayoutFormatExample from '@/components/mdx/LayoutFormatExample';
 import CoverLetterHeaderExample from '@/components/mdx/CoverLetterHeaderExample';
+import CVExample from '@/components/mdx/CVExample';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
@@ -297,6 +298,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         PersonligtBrevPreview: PersonligtBrevPreview,
         LayoutFormatExample: LayoutFormatExample,
         CoverLetterHeaderExample: CoverLetterHeaderExample,
+        CVExample: CVExample,
         // Automatisk ID-generering för h2 headings - SEO-optimerad
         h2: (props: any) => {
             const text = typeof props.children === 'string' ? props.children : '';
