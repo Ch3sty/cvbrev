@@ -1381,6 +1381,51 @@ faq:
 - Storlek: Min 1200px bred
 - Alt-text: Beskrivande (genereras automatiskt från bildnamn)
 
+### CVExample-komponent (för CV-utdrag):
+
+Använd `<CVExample>` för att visa CV-exempel med vit bakgrund som smälter in på sidan. **Använd ALDRIG kodblock (```) eller blockquotes (>) för CV-exempel** – de får mörk bakgrund som ser konstigt ut.
+
+**Syntax:**
+```mdx
+<CVExample title="Kontaktuppgifter">
+**ANNA ANDERSSON**
+
+070-123 45 67 | anna.andersson@email.com | Stockholm | linkedin.com/in/annaandersson
+</CVExample>
+```
+
+**Användningsområden:**
+- Kontaktuppgifter/header-exempel
+- Arbetslivserfarenhet-exempel
+- Utbildning-exempel
+- Färdigheter-exempel
+- Övriga meriter-exempel
+
+**Styling:**
+- Vit bakgrund med subtil grå kantlinje
+- Valfri rubrik (title-prop) visas i grå header
+- Markdown fungerar inuti (bold, listor, etc.)
+- `not-prose` klass undviker Tailwind prose-styling
+
+**Exempel på arbetslivserfarenhet:**
+```mdx
+<CVExample title="Arbetslivserfarenhet">
+**PROJEKTLEDARE**
+
+Acme AB, Stockholm | Augusti 2020 – Pågående
+
+- Ledde implementeringen av nytt CRM-system som minskade administrativ tid med 30%
+- Ansvarade för budget på 8 MSEK och levererade projektet 5% under budget
+</CVExample>
+```
+
+### Undvik AI-mönster i texter:
+
+- ❌ INGA emoji-jämförelser som "❌ Dåligt: ... ✅ Bra: ..."
+- ❌ INGA listor med bara "Dåligt:" vs "Bra:"
+- ✅ Skriv istället naturligt: "Istället för att skriva 'X' är det bättre att vara specifik: 'Y'."
+- ✅ Eller: "Formuleringen 'X' är för vag. Skriv hellre 'Y'."
+
 ---
 
 ## Framgångsmått
