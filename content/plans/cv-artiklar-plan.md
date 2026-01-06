@@ -38,7 +38,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 1. Hur skriver man ett CV
+## 1. ✅ Hur skriver man ett CV (KLAR)
 
 **Filnamn:** `hur-skriver-man-cv.mdx`
 
@@ -93,7 +93,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 2. CV mall gratis
+## 2. ✅ CV mall gratis (KLAR)
 
 **Filnamn:** `cv-mall-gratis-guide.mdx`
 
@@ -147,7 +147,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 3. Exempel på CV
+## 3. ✅ Exempel på CV (KLAR)
 
 **Filnamn:** `exempel-pa-cv-guide.mdx`
 
@@ -202,7 +202,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 4. Vad är ett CV
+## 4. ✅ Vad är ett CV (KLAR)
 
 **Filnamn:** `vad-ar-ett-cv.mdx`
 
@@ -256,7 +256,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 5. Hur ska ett CV se ut (förbättra befintlig)
+## 5. ✅ Hur ska ett CV se ut (FÖRBÄTTRAD)
 
 **Filnamn:** `hur-ska-ett-cv-se-ut.mdx` (FINNS REDAN)
 
@@ -1276,14 +1276,14 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ## Implementeringsordning (rekommenderad)
 
-### Fas 1: Högt värde artiklar (vecka 1-4)
-1. Hur skriver man ett CV (4380 vol, KD 20)
-2. CV mall gratis (11,510 vol, KD 30) - HUB
-3. Exempel på CV (8190 vol, KD 20) - HUB
-4. Vad är ett CV (2140 vol, KD 14)
+### Fas 1: Högt värde artiklar ✅ KLAR
+1. ✅ Hur skriver man ett CV (4380 vol, KD 20)
+2. ✅ CV mall gratis (11,510 vol, KD 30) - HUB
+3. ✅ Exempel på CV (8190 vol, KD 20) - HUB
+4. ✅ Vad är ett CV (2140 vol, KD 14)
 
-### Fas 2: Förbättra befintliga (vecka 5-6)
-5. Hur ska ett CV se ut - FÖRBÄTTRA
+### Fas 2: Förbättra befintliga (pågående)
+5. ✅ Hur ska ett CV se ut - FÖRBÄTTRAD
 6. CV mall Word gratis - FÖRBÄTTRA
 7. Referenser CV - FÖRBÄTTRA
 8. CV och personligt brev - FÖRBÄTTRA BÅDA
