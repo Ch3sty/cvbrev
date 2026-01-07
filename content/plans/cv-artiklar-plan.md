@@ -279,7 +279,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 6. Färdigheter CV exempel
+## 6. ✅ Färdigheter CV exempel (KLAR)
 
 **Filnamn:** `fardigheter-cv-exempel.mdx`
 
@@ -489,7 +489,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 10. CV och personligt brev
+## 10. ✅ CV och personligt brev (FÖRBÄTTRAD)
 
 **Filnamn:** Finns redan som `cv-och-personligt-brev.mdx` och `skillnad-cv-personligt-brev.mdx`
 
@@ -562,7 +562,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 12. CV mall Word gratis (förbättra befintlig)
+## 12. ✅ CV mall Word gratis (FÖRBÄTTRAD)
 
 **Filnamn:** `cv-mall-word-gratis.mdx` (FINNS REDAN)
 
@@ -580,7 +580,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 13. Referenser CV (förbättra befintlig)
+## 13. ✅ Referenser CV (FÖRBÄTTRAD)
 
 **Filnamn:** `referenser-cv.mdx` (FINNS REDAN)
 
@@ -1241,7 +1241,7 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 
 ---
 
-## 28. CV personligt brev (förbättra befintlig)
+## 28. ✅ CV personligt brev (FÖRBÄTTRAD)
 
 **Filnamn:** `cv-och-personligt-brev.mdx` + `skillnad-cv-personligt-brev.mdx` (FINNS)
 
@@ -1282,17 +1282,17 @@ Denna plan identifierar 28 högprioriterade artikelmöjligheter inom CV-området
 3. ✅ Exempel på CV (8190 vol, KD 20) - HUB
 4. ✅ Vad är ett CV (2140 vol, KD 14)
 
-### Fas 2: Förbättra befintliga (pågående)
+### Fas 2: Förbättra befintliga ✅ KLAR
 5. ✅ Hur ska ett CV se ut - FÖRBÄTTRAD
-6. CV mall Word gratis - FÖRBÄTTRA
-7. Referenser CV - FÖRBÄTTRA
-8. CV och personligt brev - FÖRBÄTTRA BÅDA
+6. ✅ CV mall Word gratis - FÖRBÄTTRAD
+7. ✅ Referenser CV - FÖRBÄTTRAD
+8. ✅ CV och personligt brev - FÖRBÄTTRAD (båda artiklarna)
 
-### Fas 3: Kompletterande guider (vecka 7-10)
-9. Färdigheter CV exempel (1840 vol, KD 10)
-10. Bra CV (1320 vol, KD 12)
-11. CV bild (1440 vol, KD 14)
-12. Kompetenser CV (760 vol, KD 17)
+### Fas 3: Kompletterande guider ✅ KLAR
+9. ✅ Färdigheter CV exempel (1840 vol, KD 10)
+10. ✅ Bra CV (1320 vol, KD 12)
+11. ✅ CV bild (1440 vol, KD 14)
+12. ✅ Kompetenser CV (760 vol, KD 17)
 
 ### Fas 4: Specifika målgrupper (vecka 11-14)
 13. CV ungdom (860 vol, KD 23)

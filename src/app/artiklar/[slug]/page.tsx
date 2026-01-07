@@ -45,6 +45,7 @@ import CVExample from '@/components/mdx/CVExample';
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
 import BroadConversionBanner from '@/components/artiklar/BroadConversionBanner';
 import CVTemplateShowcase from '@/components/artiklar/CVTemplateShowcase';
+import PersonligtBrevTemplateShowcase from '@/components/artiklar/PersonligtBrevTemplateShowcase';
 import ComprehensiveServiceCard from '@/components/artiklar/ComprehensiveServiceCard';
 
 // Importera författarsystem
@@ -272,6 +273,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         // Lägg till konverteringskomponenter som kan användas i MDX
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,
+        PersonligtBrevTemplateShowcase: PersonligtBrevTemplateShowcase,
         PersonligtBrevExample: PersonligtBrevExample,
         PersonligtBrevExampleLarare: PersonligtBrevExampleLarare,
         PersonligtBrevExampleBarnskotare: PersonligtBrevExampleBarnskotare,

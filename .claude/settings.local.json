@@ -32,7 +32,8 @@
       "Bash(comm:*)",
       "Bash(timeout 90 npm run build:*)",
       "Bash(timeout 180 npm run build:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(git -C \"c:\\\\Users\\\\chris\\\\cvbrev\" status --short)"
     ],
     "deny": [],
     "ask": []
