@@ -47,6 +47,8 @@ import BroadConversionBanner from '@/components/artiklar/BroadConversionBanner';
 import CVTemplateShowcase from '@/components/artiklar/CVTemplateShowcase';
 import PersonligtBrevTemplateShowcase from '@/components/artiklar/PersonligtBrevTemplateShowcase';
 import ComprehensiveServiceCard from '@/components/artiklar/ComprehensiveServiceCard';
+import InteractiveCVShowcase from '@/components/artiklar/InteractiveCVShowcase';
+import InteractiveLetterShowcase from '@/components/artiklar/InteractiveLetterShowcase';
 
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
@@ -274,6 +276,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevTemplateShowcase: PersonligtBrevTemplateShowcase,
+        InteractiveCVShowcase: InteractiveCVShowcase,
+        InteractiveLetterShowcase: InteractiveLetterShowcase,
         PersonligtBrevExample: PersonligtBrevExample,
         PersonligtBrevExampleLarare: PersonligtBrevExampleLarare,
         PersonligtBrevExampleBarnskotare: PersonligtBrevExampleBarnskotare,
