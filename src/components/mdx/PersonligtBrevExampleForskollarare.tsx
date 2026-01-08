@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Regnbågsvägen 15
 581 34 Linköping
 
-Linköping, 29 oktober 2025
+Linköping, 29 oktober 2026
 
 Tjänsten som förskollärare på avdelningen Solen
 

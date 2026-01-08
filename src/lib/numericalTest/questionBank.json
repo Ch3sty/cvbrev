@@ -85,7 +85,7 @@
     "type": "word_problem",
     "topic": "Budget & Personalkostnader",
     "difficulty": 2,
-    "contextText": "Ett företag har en total personalbudget på 24 miljoner kronor för år 2025. Företaget har 80 anställda, varav 45 arbetar heltid (100%) och resten arbetar deltid (60%). Genomsnittslönen för en heltidsanställd är 42 000 kr/månad, medan en deltidsanställd tjänar 60% av denna summa.",
+    "contextText": "Ett företag har en total personalbudget på 24 miljoner kronor för år 2026. Företaget har 80 anställda, varav 45 arbetar heltid (100%) och resten arbetar deltid (60%). Genomsnittslönen för en heltidsanställd är 42 000 kr/månad, medan en deltidsanställd tjänar 60% av denna summa.",
     "questions": [
       {
         "id": "num-p02-q01",

@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Solvägen 8
 581 35 Linköping
 
-Linköping, 29 oktober 2025
+Linköping, 29 oktober 2026
 
 Tjänsten som barnskötare på småbarnsavdelningen
 

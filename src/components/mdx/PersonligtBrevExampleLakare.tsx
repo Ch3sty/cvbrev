@@ -13,7 +13,7 @@ Karolinska Universitetssjukhuset
 Rekryteringsenheten
 171 76 Stockholm
 
-Stockholm, 29 oktober 2025
+Stockholm, 29 oktober 2026
 
 Tjänsten som ST-läkare i internmedicin
 

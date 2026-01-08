@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Ekholmsvägen 5
 581 91 Linköping
 
-Linköping, 29 oktober 2025
+Linköping, 29 oktober 2026
 
 Tjänsten som undersköterska på Vårdcentralen Ekholmen
 

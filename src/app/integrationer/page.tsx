@@ -10,7 +10,7 @@ export default function IntegrationsPage() {
       icon: Linkedin,
       name: "LinkedIn",
       description: "Importera profil och optimera för jobbsökning",
-      status: "Planerad Q2 2025"
+      status: "Planerad Q2 2026"
     },
     {
       icon: Briefcase,
@@ -22,7 +22,7 @@ export default function IntegrationsPage() {
       icon: Mail,
       name: "Gmail & Outlook",
       description: "Skicka personliga brev direkt från din e-post",
-      status: "Planerad Q3 2025"
+      status: "Planerad Q3 2026"
     },
     {
       icon: Users,

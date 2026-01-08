@@ -291,7 +291,7 @@ export default function Step4Education({
           <li>• <strong>Börja med högsta utbildning</strong> - den är ofta mest relevant</li>
           <li>• <strong>Inkludera relevanta kurser</strong> om de stärker din profil</li>
           <li>• <strong>Nämn utmärkelser och stipendier</strong> om du har några</li>
-          <li>• <strong>Pågående utbildning?</strong> Skriv "Förväntat examen 2025"</li>
+          <li>• <strong>Pågående utbildning?</strong> Skriv "Förväntat examen 2026"</li>
         </ul>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CV-mallar Gratis – Ladda Ner Professionella CV-mallar 2025',
+  title: 'CV-mallar Gratis – Ladda Ner Professionella CV-mallar 2026',
   description: '8 professionella CV-mallar – 2 helt gratis, 6 premium. ATS-optimerade mallar i Word & PDF. Från modern minimal till executive premium. Ladda ner direkt.',
   keywords: 'cv mall, cv mall gratis, gratis cv mall, cv mall word, mall cv, bästa cv mall gratis, cv mall gratis ladda ner, cv mall gratis pdf, professionell cv mall, moderna cv mallar, cv mall svenska, cv mall ungdom, ats cv mall, executive cv mall, kreativ cv mall',
   openGraph: {

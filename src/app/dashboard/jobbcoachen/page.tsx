@@ -146,7 +146,7 @@ const SUGGESTED_QUESTIONS = [
   },
   {
     icon: <Lightbulb className="w-5 h-5 text-yellow-600" />,
-    question: 'Vilka kompetenser är mest efterfrågade på arbetsmarknaden 2025?',
+    question: 'Vilka kompetenser är mest efterfrågade på arbetsmarknaden 2026?',
     category: 'Karriär',
     categoryId: 'karriar'
   },

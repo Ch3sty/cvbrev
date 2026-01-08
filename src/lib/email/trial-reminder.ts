@@ -112,7 +112,7 @@ export function generateTrialReminderEmail(email: string, resumeUrl: string): st
                 <a href="https://www.jobbcoach.ai" style="color: #2563eb; text-decoration: none;">Avprenumerera</a>
               </p>
               <p style="margin: 0; color: #94a3b8; font-size: 12px;">
-                © 2025 Jobbcoach.ai. Alla rättigheter förbehållna.
+                © 2026 Jobbcoach.ai. Alla rättigheter förbehållna.
               </p>
             </td>
           </tr>

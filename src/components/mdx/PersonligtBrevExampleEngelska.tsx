@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Download, Copy } from 'lucide-react';
 
-const EXEMPEL_BREV_SVENSKA = `Stockholm, 15 januari 2025
+const EXEMPEL_BREV_SVENSKA = `Stockholm, 15 januari 2026
 
 Recruiting Manager
 Nordic Tech Solutions AB
@@ -25,7 +25,7 @@ Tack för att ni tar er tid att läsa min ansökan. Jag ser fram emot att höra 
 Med vänliga hälsningar,
 Anna Bergström`;
 
-const EXEMPEL_BREV_ENGELSKA = `Stockholm, January 15, 2025
+const EXEMPEL_BREV_ENGELSKA = `Stockholm, January 15, 2026
 
 Hiring Manager
 Global Tech Innovations Ltd

@@ -12,7 +12,7 @@ const SHOWCASE_LETTER = {
   epost: 'maria.johansson@email.se',
   arbetsgivare: 'Företaget AB',
   roll: 'Ekonomiassistent',
-  datum: '7 januari 2025',
+  datum: '7 januari 2026',
   brevText: `Hej,
 
 Jag söker tjänsten som ekonomiassistent hos Företaget AB eftersom jag vill arbeta i en organisation där jag kan kombinera min analytiska förmåga med mitt intresse för ekonomi och administration.

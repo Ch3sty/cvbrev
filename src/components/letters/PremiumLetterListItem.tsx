@@ -1,5 +1,5 @@
 /**
- * Premium 2025 Letter List Item
+ * Premium Letter List Item
  * Inspirerad av Linear, Notion och Vercel Dashboard
  *
  * Features:

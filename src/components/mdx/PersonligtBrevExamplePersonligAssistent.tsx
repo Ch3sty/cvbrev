@@ -13,7 +13,7 @@ Gotlands Kommun
 LSS-handläggare
 621 81 Visby
 
-Visby, 29 oktober 2025
+Visby, 29 oktober 2026
 
 Tjänsten som personlig assistent
 

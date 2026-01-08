@@ -144,7 +144,7 @@ export default function SaveAndTemplateStep({
                   type="text"
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
-                  placeholder="t.ex. Mitt förbättrade CV 2025"
+                  placeholder="t.ex. Mitt förbättrade CV 2026"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                 />
               </div>

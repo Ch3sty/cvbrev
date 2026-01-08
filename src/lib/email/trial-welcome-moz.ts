@@ -287,7 +287,7 @@ export function generateTrialWelcomeEmailMoz(email: string): string {
                       <a href="mailto:support@jobbcoach.ai" style="color: #E9457A; text-decoration: none;">support@jobbcoach.ai</a>
                     </p>
                     <p style="color: #64748b; font-size: 12px; margin: 16px 0 0 0;">
-                      © 2025 Jobbcoach.ai. Alla rättigheter förbehållna.
+                      © 2026 Jobbcoach.ai. Alla rättigheter förbehållna.
                     </p>
                   </td>
                 </tr>

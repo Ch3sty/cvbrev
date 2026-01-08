@@ -21,7 +21,7 @@ export default function LayoutFormatExample({ variant }: LayoutFormatExampleProp
 
 [Tom rad]
 
-Stockholm, 30 januari 2025
+Stockholm, 30 januari 2026
 
 [Tom rad]
 
@@ -53,7 +53,7 @@ Under mina tre år på Digital Growth har jag...`
 Storgatan 12, 111 22 Stockholm
 070-123 45 67 | anna.andersson@email.com
 
-Stockholm, 30 januari 2025
+Stockholm, 30 januari 2026
 
 Advokatfirman Lindahl KB
 Att: Maria Svensson, HR-chef
@@ -79,7 +79,7 @@ från UX-design och en passion för användarcentrerad produktutveckling...`
       content: `Anna Andersson
 070-123 45 67 | anna.andersson@email.com
 
-Stockholm, 30 januari 2025
+Stockholm, 30 januari 2026
 
 Nordic Consulting Group
 Att: Maria Svensson, Rekryteringsansvarig

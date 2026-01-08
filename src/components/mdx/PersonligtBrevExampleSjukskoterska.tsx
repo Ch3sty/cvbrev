@@ -13,7 +13,7 @@ Universitetssjukhuset i Linköping
 Rekryteringsenheten
 581 85 Linköping
 
-Linköping, 29 oktober 2025
+Linköping, 29 oktober 2026
 
 Tjänsten som sjuksköterska på intensivvårdsavdelningen
 

@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Box 1234
 111 82 Stockholm
 
-Stockholm, 29 oktober 2025
+Stockholm, 29 oktober 2026
 
 Tjänsten som administratör på TechNordic AB
 

@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Nordstadstorget 412 52
 404 22 Göteborg
 
-Göteborg, 29 oktober 2025
+Göteborg, 29 oktober 2026
 
 Tjänsten som butikssäljare på H&M Nordstan
 

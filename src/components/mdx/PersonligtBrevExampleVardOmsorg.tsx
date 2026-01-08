@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Download, Copy } from 'lucide-react';
 
-const EXEMPEL_BREV = `Stockholm, 15 januari 2025
+const EXEMPEL_BREV = `Stockholm, 15 januari 2026
 
 Rekryteringsansvarig
 Vårdföretagen Stockholm AB

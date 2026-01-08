@@ -133,7 +133,7 @@ export default function APIPage() {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200/50 p-8 text-center"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">API lanseras Q2 2025</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">API lanseras Q2 2026</h2>
             <p className="text-gray-600 mb-6">
               Vi förbereder en kraftfull och användarvänlig API för utvecklare och företag
             </p>

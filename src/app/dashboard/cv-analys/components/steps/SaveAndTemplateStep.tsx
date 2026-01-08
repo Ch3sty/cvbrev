@@ -182,7 +182,7 @@ export default function SaveAndTemplateStep({
                 type="text"
                 value={customName}
                 onChange={(e) => onNameChange(e.target.value)}
-                placeholder={nameSuggestions[0] || "Mitt CV 2025"}
+                placeholder={nameSuggestions[0] || "Mitt CV 2026"}
                 className="w-full px-4 py-3 md:py-2.5 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white text-gray-900 min-h-[48px]"
               />
             </label>
@@ -202,7 +202,7 @@ export default function SaveAndTemplateStep({
               <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900">
                 <p className="font-medium mb-1">💡 Tips för beskrivande namn:</p>
                 <ul className="space-y-1 list-disc list-inside text-blue-800">
-                  <li>Inkludera roll: "Frontend Developer CV 2025"</li>
+                  <li>Inkludera roll: "Frontend Developer CV 2026"</li>
                   <li>Inkludera bransch: "Säljare - Detaljhandel"</li>
                   <li>Inkludera månad för versionshantering</li>
                 </ul>

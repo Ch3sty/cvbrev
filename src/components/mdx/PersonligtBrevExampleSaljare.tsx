@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Box 567
 211 20 Malmö
 
-Malmö, 29 oktober 2025
+Malmö, 29 oktober 2026
 
 Tjänsten som säljare inom B2B-försäljning
 

@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Ängsvägen 12
 120 30 Stockholm
 
-Stockholm, 29 oktober 2025
+Stockholm, 29 oktober 2026
 
 Tjänsten som lärare i svenska och engelska, mellanstadiet
 

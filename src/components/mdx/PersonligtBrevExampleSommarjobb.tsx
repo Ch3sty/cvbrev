@@ -14,7 +14,7 @@ Rekryteringsansvarig
 Stora Torget 3
 621 56 Visby
 
-Visby, 29 oktober 2025
+Visby, 29 oktober 2026
 
 Sommarjobb som turistvärd på Gotlands Turistbyrå
 
@@ -26,7 +26,7 @@ Jag trivs med att möta människor och har lätt för att skapa kontakt. Att kun
 
 Det jag skulle uppskatta mest med detta sommarjobb är möjligheten att representera Gotland och få dela med mig av allt det fantastiska ön har att erbjuda. Jag växte upp här och känner till både de klassiska sevärdheterna och de mindre kända pärlorna som många turister missar. Att kunna kombinera mitt intresse för turism med praktisk erfarenhet inför framtida studier skulle vara ovärderligt.
 
-Jag ser fram emot möjligheten att bidra till att göra sommaren 2025 minnesvärd för Gotlands besökare. Hör gärna av er om ni vill veta mer.
+Jag ser fram emot möjligheten att bidra till att göra sommaren 2026 minnesvärd för Gotlands besökare. Hör gärna av er om ni vill veta mer.
 
 Med vänlig hälsning,
 

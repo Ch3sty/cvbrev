@@ -217,7 +217,7 @@ function TrialSignupContent() {
         <footer className="border-t border-slate-200 mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-              <p>© 2025 Jobbcoach.ai. Alla rättigheter förbehållna.</p>
+              <p>© 2026 Jobbcoach.ai. Alla rättigheter förbehållna.</p>
               <div className="flex items-center gap-4">
                 <Link href="/integritetspolicy" className="hover:text-slate-700 transition-colors">
                   Integritetspolicy
