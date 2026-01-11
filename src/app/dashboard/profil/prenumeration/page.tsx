@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfile } from '@/hooks/use-profile';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -24,7 +25,8 @@ import {
   ChevronDown,
   ChevronUp,
   CreditCard,
-  AlertCircle
+  AlertCircle,
+  XCircle
 } from 'lucide-react';
 import { EmbeddedSubscribeButton } from '@/components/subscription/EmbeddedSubscribeButton';
 
@@ -41,8 +43,22 @@ export default function PrenumerationPage() {
     savedLettersCount
   } = useProfile();
 
+  const searchParams = useSearchParams();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [usageExpanded, setUsageExpanded] = useState(false);
   const [stripeExpanded, setStripeExpanded] = useState(false);
+
+  // Visa felmeddelande från URL (t.ex. efter misslyckad portal-redirect)
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error) {
+      setErrorMessage(decodeURIComponent(error));
+      // Ta bort error från URL efter visning
+      const url = new URL(window.location.href);
+      url.searchParams.delete('error');
+      window.history.replaceState({}, '', url.pathname);
+    }
+  }, [searchParams]);
 
   const isPremium = subscriptionTier === 'premium';
   const isFree = subscriptionTier === 'free';
@@ -175,6 +191,29 @@ export default function PrenumerationPage() {
       {/* Main Content */}
       <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
         <div className="space-y-4 sm:space-y-6">
+          {/* Error Message */}
+          {errorMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3"
+            >
+              <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-red-800">{errorMessage}</p>
+                <p className="text-xs text-red-600 mt-1">
+                  Kontakta support@jobbcoach.ai om problemet kvarstår.
+                </p>
+              </div>
+              <button
+                onClick={() => setErrorMessage(null)}
+                className="text-red-400 hover:text-red-600 transition-colors"
+              >
+                <XCircle className="w-4 h-4" />
+              </button>
+            </motion.div>
+          )}
+
           {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
