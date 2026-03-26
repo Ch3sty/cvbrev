@@ -224,6 +224,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error?.message || 'Kunde inte skapa brev' }, { status: 500 });
     }
 
+    // Update onboarding progress - mark create_letter step as completed
+    const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+      user_id: user.id,
+      step_name: 'create_letter'
+    });
+    if (onboardingError) {
+      console.error('Failed to update onboarding progress:', onboardingError.message);
+    }
+
     // Award XP for creating a letter
     try {
       const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {

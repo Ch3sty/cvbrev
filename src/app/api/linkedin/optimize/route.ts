@@ -1112,14 +1112,12 @@ export async function POST(req: NextRequest) {
     )
 
     // Track onboarding progress for LinkedIn optimization
-    try {
-      await supabase.rpc('update_onboarding_progress', {
-        user_id: user.id,
-        step_name: 'optimize_linkedin'
-      });
-    } catch (onboardingError) {
-      console.error('Failed to update onboarding progress:', onboardingError);
-      // Don't fail the optimization if onboarding tracking fails
+    const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+      user_id: user.id,
+      step_name: 'optimize_linkedin'
+    });
+    if (onboardingError) {
+      console.error('Failed to update onboarding progress:', onboardingError.message);
     }
 
     return NextResponse.json({

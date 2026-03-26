@@ -2274,14 +2274,17 @@ export async function POST(request: NextRequest) {
         });
 
         // Update onboarding progress
-        await supabase.rpc('update_onboarding_progress', {
+        const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
           user_id: user.id,
           step_name: 'download_cv_template'
         });
+        if (onboardingError) {
+          console.error('Failed to update onboarding progress:', onboardingError.message);
+        }
       }
-    } catch (onboardingError) {
-      console.error('Failed to update onboarding progress:', onboardingError);
-      // Don't fail the CV generation if onboarding tracking fails
+    } catch (trackingError) {
+      console.error('Failed to track download/onboarding:', trackingError);
+      // Don't fail the CV generation if tracking fails
     }
 
     return new NextResponse(pdfBuffer, {

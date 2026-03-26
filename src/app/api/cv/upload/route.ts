@@ -240,14 +240,12 @@ Alternativt: Ladda upp som .DOCX istället.`,
     }
 
     // Update onboarding progress - mark upload_cv step as completed
-    try {
-      await supabase.rpc('update_onboarding_progress', {
-        user_id: user.id,
-        step_name: 'upload_cv'
-      });
-    } catch (onboardingError) {
-      // Don't fail the upload if onboarding update fails
-      console.error('Failed to update onboarding progress:', onboardingError);
+    const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+      user_id: user.id,
+      step_name: 'upload_cv'
+    });
+    if (onboardingError) {
+      console.error('Failed to update onboarding progress:', onboardingError.message);
     }
 
     return NextResponse.json({

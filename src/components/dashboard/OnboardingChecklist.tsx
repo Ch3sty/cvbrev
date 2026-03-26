@@ -11,11 +11,12 @@ import {
   ChevronDown,
   ChevronUp,
   Trophy,
-  Sparkles,
+  Target,
   ArrowRight,
   Palette,
   Briefcase,
-  Gift
+  Gift,
+  Clock
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -30,15 +31,20 @@ interface OnboardingStep {
   link: string;
   icon: React.ElementType;
   order: number;
+  timeEstimate: string;
+  required: boolean;
 }
 
 interface OnboardingChecklistProps {
   isPremium: boolean;
 }
 
+const REQUIRED_STEP_IDS = ['upload_cv', 'create_letter', 'analyze_cv'];
+
 export default function OnboardingChecklist({ isPremium }: OnboardingChecklistProps) {
   const [steps, setSteps] = useState<OnboardingStep[]>([]);
   const [isExpanded, setIsExpanded] = useState(true);
+  const [showBonusSteps, setShowBonusSteps] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
   const [claiming, setClaiming] = useState(false);
@@ -57,49 +63,27 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      // Hämta profil med onboarding data och CV count
       const { data: profile } = await supabase
         .from('profiles')
         .select('onboarding_steps_completed, onboarding_completed')
         .eq('id', user.id)
         .single();
 
-      // Hämta CV count
-      const { count: cvCount } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      // Hämta letter count
-      const { count: letterCount } = await supabase
-        .from('letters')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      // Hämta CV analysis count
-      const { count: analysisCount } = await supabase
-        .from('cv_analysis_jobs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-        .eq('status', 'completed');
-
-      // Hämta LinkedIn optimization count
-      const { count: linkedinCount } = await supabase
-        .from('linkedin_optimizations')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      // Hämta CV template downloads count (från formatted_cv_downloads eller generation count)
-      const { count: templateDownloadCount } = await supabase
-        .from('formatted_cv_downloads')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      // Hämta job matching count
-      const { count: jobMatchingCount } = await supabase
-        .from('job_matchings_cache')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', user.id);
+      const [
+        { count: cvCount },
+        { count: letterCount },
+        { count: analysisCount },
+        { count: linkedinCount },
+        { count: templateDownloadCount },
+        { count: jobMatchCount }
+      ] = await Promise.all([
+        supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed'),
+        supabase.from('linkedin_optimizations').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('formatted_cv_downloads').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('job_matchings_cache').select('*', { count: 'exact', head: true }).eq('user_id', user.id)
+      ]);
 
       const completedSteps = profile?.onboarding_steps_completed || [];
 
@@ -107,72 +91,83 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
         {
           id: 'upload_cv',
           title: 'Ladda upp ditt CV',
-          description: 'Första steget - ladda upp ditt CV så att vi kan hjälpa dig',
+          description: 'Grunden för alla funktioner',
           completed: completedSteps.includes('upload_cv') || (cvCount || 0) > 0,
           link: '/dashboard/profil/cv',
           icon: Upload,
-          order: 1
+          order: 1,
+          timeEstimate: '~1 min',
+          required: true
         },
         {
           id: 'create_letter',
-          title: 'Skapa ditt första personliga brev',
-          description: 'Låt AI:n skapa ett skräddarsytt personligt brev på sekunder',
+          title: 'Skapa ditt första brev',
+          description: 'Klistra in en jobbannons och få ett skräddarsytt personligt brev',
           completed: completedSteps.includes('create_letter') || (letterCount || 0) > 0,
           link: '/dashboard/skapa-brev',
           icon: FileText,
-          order: 2
+          order: 2,
+          timeEstimate: '~2 min',
+          required: true
         },
         {
           id: 'analyze_cv',
           title: 'Analysera ditt CV',
-          description: 'Få professionell feedback på ditt CV med AI-driven analys',
+          description: 'Få feedback på ditt CV eller ladda ner det i en professionell mall',
           completed: completedSteps.includes('analyze_cv') || (analysisCount || 0) > 0,
           link: '/dashboard/cv-analys',
           icon: Brain,
-          order: 3
+          order: 3,
+          timeEstimate: '~1 min',
+          required: true
         },
         {
           id: 'optimize_linkedin',
           title: 'Optimera din LinkedIn-profil',
-          description: 'Förbättra din synlighet på LinkedIn med AI-optimering',
+          description: 'Förbättra din synlighet på LinkedIn',
           completed: completedSteps.includes('optimize_linkedin') || (linkedinCount || 0) > 0,
           link: '/dashboard/linkedin-optimizer',
           icon: Linkedin,
-          order: 4
+          order: 4,
+          timeEstimate: '~3 min',
+          required: false
         },
         {
           id: 'download_cv_template',
-          title: 'Ladda ner ditt CV i en professionell mall',
-          description: 'Välj bland våra premium CV-mallar och ladda ner',
+          title: 'Ladda ner CV i professionell mall',
+          description: 'Välj bland våra CV-mallar',
           completed: completedSteps.includes('download_cv_template') || (templateDownloadCount || 0) > 0,
           link: '/dashboard/cv-mallar',
           icon: Palette,
-          order: 5
+          order: 5,
+          timeEstimate: '~1 min',
+          required: false
         },
         {
           id: 'match_jobs',
           title: 'Hitta matchande jobb',
-          description: 'Upptäck jobb som passar din profil med AI-matchning',
-          completed: completedSteps.includes('match_jobs') || (jobMatchingCount || 0) > 0,
+          description: 'Upptäck jobb som passar din profil',
+          completed: completedSteps.includes('match_jobs') || (jobMatchCount || 0) > 0,
           link: '/dashboard/jobbmatchning',
           icon: Briefcase,
-          order: 6
+          order: 6,
+          timeEstimate: '~2 min',
+          required: false
         }
       ];
 
       setSteps(allSteps);
 
-      const completedCount = allSteps.filter(s => s.completed).length;
-      const previousCompletedCount = steps.filter(s => s.completed).length;
+      const requiredSteps = allSteps.filter(s => s.required);
+      const requiredCompleted = requiredSteps.filter(s => s.completed).length;
+      const prevRequiredCompleted = steps.filter(s => s.required && s.completed).length;
 
-      // Visa celebration om användaren precis slutförde alla steg
-      if (completedCount === 6 && previousCompletedCount < 6 && steps.length > 0) {
+      if (requiredCompleted === 3 && prevRequiredCompleted < 3 && steps.length > 0) {
         setShowCelebration(true);
         setTimeout(() => setShowCelebration(false), 5000);
       }
 
-      // Auto-collapse efter att alla steg är klara
-      if (profile?.onboarding_completed && completedCount === 6) {
+      if (profile?.onboarding_completed && requiredCompleted === 3) {
         setIsExpanded(false);
       }
 
@@ -201,7 +196,6 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
       markRewardClaimed();
       setShowCelebration(true);
 
-      // Redirect to dashboard after a short delay
       setTimeout(() => {
         router.push('/dashboard');
       }, 2000);
@@ -213,10 +207,11 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
     }
   }
 
-  const completedCount = steps.filter(s => s.completed).length;
-  const totalSteps = steps.length;
-  const progressPercent = (completedCount / totalSteps) * 100;
-  const allCompleted = completedCount === totalSteps;
+  const requiredSteps = steps.filter(s => s.required);
+  const bonusSteps = steps.filter(s => !s.required);
+  const requiredCompleted = requiredSteps.filter(s => s.completed).length;
+  const allRequiredDone = requiredCompleted === 3;
+  const progressPercent = (requiredCompleted / 3) * 100;
 
   if (loading) {
     return (
@@ -227,8 +222,8 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
     );
   }
 
-  // Dölj helt om alla är klara och användaren har collapse:at
-  if (allCompleted && !isExpanded) {
+  // Collapsed state when all required steps are done
+  if (allRequiredDone && !isExpanded) {
     return (
       <motion.button
         onClick={() => setIsExpanded(true)}
@@ -241,7 +236,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
               <Trophy className="w-5 h-5 text-white" />
             </div>
             <div className="text-left">
-              <p className="font-semibold text-slate-900">Onboarding slutförd! 🎉</p>
+              <p className="font-semibold text-slate-900">Alla steg slutförda</p>
               <p className="text-sm text-slate-600">Klicka för att se vad du åstadkommit</p>
             </div>
           </div>
@@ -256,12 +251,12 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className={`relative overflow-hidden rounded-2xl shadow-sm border ${
-        allCompleted
+        allRequiredDone
           ? 'bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-emerald-200'
           : 'bg-white border-slate-200'
       }`}
     >
-      {/* Celebration confetti effect */}
+      {/* Celebration confetti */}
       <AnimatePresence>
         {showCelebration && (
           <motion.div
@@ -300,19 +295,19 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              {allCompleted ? (
+              {allRequiredDone ? (
                 <Trophy className="w-6 h-6 text-emerald-500" />
               ) : (
-                <Sparkles className="w-6 h-6 text-blue-500" />
+                <Target className="w-6 h-6 text-blue-500" />
               )}
               <h3 className="text-lg font-bold text-slate-900">
-                {allCompleted ? 'Grattis! Du är igång! 🎉' : 'Kom igång med Jobbcoach.ai'}
+                {allRequiredDone ? 'Alla steg slutförda' : 'Kom igång med Jobbcoach.ai'}
               </h3>
             </div>
             <p className="text-sm text-slate-600">
-              {allCompleted
-                ? 'Fantastiskt! Du har upptäckt alla våra huvudfunktioner.'
-                : `${completedCount} av ${totalSteps} steg klara • ${Math.round(8 - (completedCount * 1.3))} min kvar`
+              {allRequiredDone
+                ? 'Du har testat alla kärnfunktioner.'
+                : `${requiredCompleted} av 3 steg klara`
               }
             </p>
           </div>
@@ -333,7 +328,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
           <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
             <motion.div
               className={`h-full ${
-                allCompleted
+                allRequiredDone
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
                   : 'bg-gradient-to-r from-blue-500 to-indigo-500'
               }`}
@@ -344,7 +339,37 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
           </div>
         </div>
 
-        {/* Steps list */}
+        {/* Step progression indicator */}
+        {!allRequiredDone && isExpanded && (
+          <div className="flex items-center justify-center gap-0 mb-6">
+            {requiredSteps.map((step, index) => (
+              <div key={step.id} className="flex items-center">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                  step.completed
+                    ? 'bg-emerald-500 text-white'
+                    : index === requiredCompleted
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-slate-200 text-slate-500'
+                }`}>
+                  {step.completed ? (
+                    <CheckCircle2 className="w-5 h-5" />
+                  ) : (
+                    index + 1
+                  )}
+                </div>
+                {index < requiredSteps.length - 1 && (
+                  <div className={`w-12 sm:w-20 h-0.5 ${
+                    requiredSteps[index + 1]?.completed || (step.completed && index + 1 === requiredCompleted)
+                      ? 'bg-emerald-500'
+                      : 'bg-slate-200'
+                  }`} />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Required steps list */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -354,7 +379,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
               transition={{ duration: 0.3 }}
               className="space-y-3"
             >
-              {steps.map((step, index) => {
+              {requiredSteps.map((step, index) => {
                 const StepIcon = step.icon;
                 return (
                   <motion.div
@@ -368,8 +393,8 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
                         <CheckCircle2 className="w-6 h-6 text-emerald-500 flex-shrink-0" />
                         <div className="flex-1">
                           <p className="font-medium text-slate-700 line-through">{step.title}</p>
-                          <p className="text-sm text-slate-500">Slutförd!</p>
                         </div>
+                        <span className="text-xs text-slate-400">{step.timeEstimate}</span>
                       </div>
                     ) : (
                       <Link
@@ -385,18 +410,92 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
                           </p>
                           <p className="text-sm text-slate-600">{step.description}</p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <span className="text-xs text-slate-400 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {step.timeEstimate}
+                          </span>
+                          <ArrowRight className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
                       </Link>
                     )}
                   </motion.div>
                 );
               })}
+
+              {/* Reward text */}
+              {!allRequiredDone && (
+                <p className="text-sm text-slate-500 text-center pt-2">
+                  Slutför alla 3 steg och få 1 dag Premium gratis
+                </p>
+              )}
+
+              {/* Bonus steps section */}
+              {bonusSteps.length > 0 && (
+                <div className="pt-4 border-t border-slate-100">
+                  <button
+                    onClick={() => setShowBonusSteps(!showBonusSteps)}
+                    className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors w-full"
+                  >
+                    {showBonusSteps ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
+                    <span>Utforska fler verktyg (valfritt)</span>
+                    <span className="text-xs text-slate-400 ml-auto">
+                      {bonusSteps.filter(s => s.completed).length}/{bonusSteps.length}
+                    </span>
+                  </button>
+
+                  <AnimatePresence>
+                    {showBonusSteps && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="space-y-2 mt-3"
+                      >
+                        {bonusSteps.map((step) => {
+                          const StepIcon = step.icon;
+                          return (
+                            <Link
+                              key={step.id}
+                              href={step.link}
+                              className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                                step.completed
+                                  ? 'bg-slate-50'
+                                  : 'hover:bg-slate-50'
+                              }`}
+                            >
+                              {step.completed ? (
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                              ) : (
+                                <div className="w-5 h-5 rounded-full border-2 border-slate-300 flex-shrink-0" />
+                              )}
+                              <span className={`text-sm flex-1 ${
+                                step.completed ? 'text-slate-500 line-through' : 'text-slate-700'
+                              }`}>
+                                {step.title}
+                              </span>
+                              {!step.completed && (
+                                <ArrowRight className="w-4 h-4 text-slate-400" />
+                              )}
+                            </Link>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Reward claim card - shown when completed but reward not claimed */}
-        {allCompleted && !rewardClaimed && isExpanded && (
+        {/* Reward claim card */}
+        {allRequiredDone && !rewardClaimed && isExpanded && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -411,7 +510,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
                   Hämta din belöning
                 </h4>
                 <p className="text-sm text-slate-700 mb-4">
-                  Grattis! Du har slutfört alla onboarding-steg. Hämta 1 dag kostnadsfri Premium som tack.
+                  Du har slutfört alla steg. Hämta 1 dag kostnadsfri Premium som tack.
                 </p>
                 {claimError && (
                   <p className="text-sm text-red-600 mb-3">{claimError}</p>
@@ -439,7 +538,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
         )}
 
         {/* Success message after reward claimed */}
-        {allCompleted && rewardClaimed && isExpanded && (
+        {allRequiredDone && rewardClaimed && isExpanded && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

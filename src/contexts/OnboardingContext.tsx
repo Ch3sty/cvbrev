@@ -129,12 +129,16 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         validatedSteps.push('match_jobs');
       }
 
-      console.log('[OnboardingContext] ✅ Validated steps:', validatedSteps);
-      console.log('[OnboardingContext] 📈 Completed count:', validatedSteps.length, '/ 6');
+      // The 3 required steps for onboarding completion
+      const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
+      const requiredCompleted = REQUIRED_STEPS.filter(s => validatedSteps.includes(s)).length;
+
+      console.log('[OnboardingContext] Validated steps:', validatedSteps);
+      console.log('[OnboardingContext] Required completed:', requiredCompleted, '/ 3');
 
       // Update state with validated steps
       setCompletedSteps(validatedSteps);
-      setOnboardingCompleted(validatedSteps.length >= 6);
+      setOnboardingCompleted(requiredCompleted >= 3);
       setRewardClaimed(profile.onboarding_reward_claimed || false);
     } catch (error) {
       console.error('[OnboardingContext] ❌ CRITICAL ERROR in fetchOnboardingStatus:', error);
@@ -285,7 +289,9 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setCompletedSteps(prev => {
       if (prev.includes(stepName)) return prev;
       const newSteps = [...prev, stepName];
-      if (newSteps.length >= 6) {
+      const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
+      const requiredCompleted = REQUIRED_STEPS.filter(s => newSteps.includes(s)).length;
+      if (requiredCompleted >= 3) {
         setOnboardingCompleted(true);
       }
       return newSteps;

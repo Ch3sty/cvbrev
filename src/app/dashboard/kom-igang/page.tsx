@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Sparkles,
   Rocket,
   Trophy,
   Target,
@@ -122,9 +121,9 @@ export default function KomIgangPage() {
       setCompletedSteps(validatedSteps);
       setLoading(false);
 
-      // Check if ALL steps are completed (onboarding complete)
-      const allSteps = ['upload_cv', 'create_letter', 'analyze_cv', 'optimize_linkedin', 'download_cv_template', 'match_jobs'];
-      const allCompleted = allSteps.every(step => validatedSteps.includes(step));
+      // Check if 3 required steps are completed (onboarding complete)
+      const requiredSteps = ['upload_cv', 'create_letter', 'analyze_cv'];
+      const allCompleted = requiredSteps.every(step => validatedSteps.includes(step));
 
       // Show completion notification if just completed and not already shown
       if (allCompleted && !profile?.onboarding_completed) {
@@ -314,7 +313,7 @@ export default function KomIgangPage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            Välkommen till Jobbcoach.ai! Genomför alla 6 steg och <strong className="text-blue-600">få 1 dag gratis Premium</strong> att testa alla funktioner.
+            Slutför 3 steg och <strong className="text-blue-600">få 1 dag gratis Premium</strong> att testa alla funktioner.
           </p>
 
           {/* Reward Badge */}
@@ -326,7 +325,7 @@ export default function KomIgangPage() {
           >
             <Trophy className="w-5 h-5 text-yellow-600" />
             <span className="text-sm font-bold text-yellow-900">
-              🎁 Slutför alla 6 steg = 1 dag gratis Premium
+              Slutför 3 steg = 1 dag gratis Premium
             </span>
           </motion.div>
 
@@ -339,7 +338,7 @@ export default function KomIgangPage() {
           >
             <Target className="w-4 h-4 text-blue-600" />
             <span className="text-sm font-medium text-slate-700">
-              {completedSteps.length}/6 steg slutförda
+              {Math.min(completedSteps.filter(s => ['upload_cv', 'create_letter', 'analyze_cv'].includes(s)).length, 3)}/3 steg klara
             </span>
           </motion.div>
         </motion.div>
@@ -361,7 +360,7 @@ export default function KomIgangPage() {
           className="space-y-4"
         >
           <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="w-6 h-6 text-blue-600" />
+            <Target className="w-6 h-6 text-blue-600" />
             <h2 className="text-2xl font-bold text-slate-900">Snabbgenvägar</h2>
           </div>
 
@@ -448,7 +447,6 @@ export default function KomIgangPage() {
                   whileTap={{ scale: 0.95 }}
                   className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow inline-flex items-center gap-2"
                 >
-                  <Sparkles className="w-5 h-5" />
                   Uppgradera till Premium
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>

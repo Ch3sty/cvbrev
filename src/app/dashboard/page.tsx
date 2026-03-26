@@ -10,7 +10,7 @@ import {
   Trophy,
   Users,
   Search,
-  Sparkles
+  Target
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
@@ -129,9 +129,9 @@ export default function DashboardPage() {
 
         setIsFirstTimeUser(isNewUser);
 
-        // Show modal for new users after a short delay
+        // Show modal immediately for new users
         if (isNewUser) {
-          setTimeout(() => setShowFirstTimeModal(true), 1000);
+          setShowFirstTimeModal(true);
         }
 
         // Hämta gamification stats
@@ -437,15 +437,15 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
-                      <Sparkles className="w-7 h-7 text-white" />
+                    <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                      <Target className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-2">
-                        👋 Välkommen till Jobbcoach.ai!
+                      <h3 className="text-xl font-bold text-slate-900 mb-1">
+                        Kom igång med 3 enkla steg
                       </h3>
                       <p className="text-slate-600">
-                        Börja din resa mot drömjobbet. Följ vår guide för att upptäcka alla funktioner.
+                        Slutför alla 3 och få 1 dag gratis Premium.
                       </p>
                     </div>
                   </div>
