@@ -52,7 +52,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const supabase = getSupabaseClient();
 
   // Use OnboardingContext for instant updates
-  const { completedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
+  const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
 
   useEffect(() => {
     const checkPremiumStatus = async () => {
@@ -155,11 +155,11 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     {
       path: '/dashboard/kom-igang',
       label: 'Kom igång',
-      icon: <Sparkles className="w-5 h-5" />,
+      icon: <Target className="w-5 h-5" />,
       section: 'onboarding',
       showOnlyWhen: !onboardingCompleted || !rewardClaimed,
       pulse: true,
-      badge: completedCount < 6 ? `${completedCount}/6` : null
+      badge: requiredCompletedCount < 3 ? `${requiredCompletedCount}/3` : null
     },
     {
       path: '/dashboard',
@@ -346,17 +346,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 `}
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <Sparkles className="w-5 h-5" />
+                  <Target className="w-5 h-5" />
                   {!collapsed && (
                     <div className="flex-1">
                       <span className="font-bold">Kom igång</span>
-                      <p className="text-xs text-white/90">Genomför guiden – få 1 dag premium</p>
+                      <p className="text-xs text-white/90">3 steg till 1 dag premium</p>
                     </div>
                   )}
                 </div>
-                {!collapsed && completedCount < 6 && (
+                {!collapsed && requiredCompletedCount < 3 && (
                   <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold">
-                    {completedCount}/6
+                    {requiredCompletedCount}/3
                   </span>
                 )}
               </Link>

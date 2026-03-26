@@ -3,9 +3,12 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
+const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
+
 interface OnboardingContextType {
   completedSteps: string[];
   completedCount: number;
+  requiredCompletedCount: number;
   onboardingCompleted: boolean;
   rewardClaimed: boolean;
   isLoading: boolean;
@@ -308,6 +311,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       value={{
         completedSteps,
         completedCount: completedSteps.length,
+        requiredCompletedCount: completedSteps.filter(s => REQUIRED_STEPS.includes(s)).length,
         onboardingCompleted,
         rewardClaimed,
         isLoading,
