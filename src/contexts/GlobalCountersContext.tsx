@@ -6,6 +6,7 @@ interface GlobalCounters {
   activeUsers: number;
   todayLetters: number;
   totalUsers: number;
+  totalLetters: number;
 }
 
 interface GlobalCountersContextType {
@@ -17,35 +18,55 @@ const GlobalCountersContext = createContext<GlobalCountersContextType | undefine
 
 export function GlobalCountersProvider({ children }: { children: ReactNode }) {
   const [counters, setCounters] = useState<GlobalCounters>({
-    activeUsers: 30,
-    todayLetters: 15,
-    totalUsers: 500
+    activeUsers: 0,
+    todayLetters: 0,
+    totalUsers: 0,
+    totalLetters: 0,
   });
 
-  // Simulate live updates
+  // Fetch real stats from API
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/api/public-stats');
+        if (res.ok) {
+          const data = await res.json();
+          setCounters(prev => ({
+            ...prev,
+            totalUsers: data.totalUsers,
+            totalLetters: data.totalLetters,
+            todayLetters: data.todayLetters,
+          }));
+        }
+      } catch {
+        // Silently fail — counters stay at 0
+      }
+    };
+
+    fetchStats();
+
+    // Refresh every 5 minutes
+    const interval = setInterval(fetchStats, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Simulate activeUsers (no real-time data available)
+  useEffect(() => {
+    // Set initial value
+    setCounters(prev => ({
+      ...prev,
+      activeUsers: 28 + Math.floor(Math.random() * 8),
+    }));
+
     const interval = setInterval(() => {
       setCounters(prev => {
-        // Keep active users between 28-35
-        const activeChange = Math.floor(Math.random() * 3) - 1;
-        const newActive = Math.max(28, Math.min(35, prev.activeUsers + activeChange));
-
-        // Occasionally increment today's letters (15-25 range)
-        let newTodayLetters = prev.todayLetters;
-        if (Math.random() > 0.7 && prev.todayLetters < 25) {
-          newTodayLetters = prev.todayLetters + 1;
-        }
-
-        // Slowly grow total users
-        const newTotalUsers = Math.random() > 0.95 ? prev.totalUsers + 1 : prev.totalUsers;
-
+        const change = Math.floor(Math.random() * 3) - 1;
         return {
-          activeUsers: newActive,
-          todayLetters: newTodayLetters,
-          totalUsers: Math.min(600, newTotalUsers) // Cap at 600 for realism
+          ...prev,
+          activeUsers: Math.max(28, Math.min(35, prev.activeUsers + change)),
         };
       });
-    }, 4000 + Math.random() * 2000); // Update every 4-6 seconds
+    }, 8000 + Math.random() * 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -53,7 +74,7 @@ export function GlobalCountersProvider({ children }: { children: ReactNode }) {
   const updateCounter = (key: keyof GlobalCounters, value: number) => {
     setCounters(prev => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
   };
 

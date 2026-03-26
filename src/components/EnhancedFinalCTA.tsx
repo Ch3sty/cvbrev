@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight, Shield, Clock, CheckCircle,
-  Star, TrendingUp, Zap, Sparkles
+  Star, TrendingUp, Zap
 } from 'lucide-react'
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
 
 interface AnimatedCounterProps {
   from: number
@@ -36,6 +37,7 @@ function AnimatedCounter({ from, to, duration = 2000 }: AnimatedCounterProps) {
 }
 
 export default function EnhancedFinalCTA() {
+  const { counters } = useGlobalCounters()
   const [isInView, setIsInView] = useState(false)
 
   return (
@@ -152,11 +154,9 @@ export default function EnhancedFinalCTA() {
                 >
                   <p className="text-lg font-medium text-slate-700 whitespace-nowrap">
                     Gå med{' '}
-                    {isInView && (
-                      <span className="font-bold text-slate-900">
-                        <AnimatedCounter from={1800} to={2000} duration={2000} />+
-                      </span>
-                    )}{' '}
+                    <span className="font-bold text-slate-900">
+                      {counters.totalUsers}+
+                    </span>{' '}
                     svenskar som redan landat drömjobbet
                   </p>
                 </motion.div>
@@ -172,9 +172,9 @@ export default function EnhancedFinalCTA() {
               >
                 {[
                   {
-                    metric: "89%",
-                    label: "Får intervju",
-                    subtext: "inom 2 veckor",
+                    metric: `${counters.totalLetters}+`,
+                    label: "Brev skapade",
+                    subtext: "med AI-hjälp",
                     icon: TrendingUp,
                     color: "text-green-600",
                     bgColor: "from-green-50 to-emerald-50"
@@ -188,9 +188,9 @@ export default function EnhancedFinalCTA() {
                     bgColor: "from-blue-50 to-indigo-50"
                   },
                   {
-                    metric: "4.9",
-                    label: "Betyg",
-                    subtext: "200+ recensioner",
+                    metric: `${counters.totalUsers}+`,
+                    label: "Användare",
+                    subtext: "svenska jobbsökare",
                     icon: Star,
                     color: "text-yellow-600",
                     bgColor: "from-yellow-50 to-orange-50"

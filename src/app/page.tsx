@@ -230,7 +230,7 @@ export default function HomePage() {
                 {/* Underrubrik */}
                 <p className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                   Allt fler rekryterare låter AI-system sålla kandidater automatiskt — ofta utan att du vet om det. Om ditt CV inte är optimerat når det aldrig en mänsklig rekryterare.
-                  <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
+                  <span className="font-semibold text-slate-900"> Är ditt CV redo?</span>
                 </p>
 
                 {/* CTA-knapp with magnetic effect */}
@@ -318,7 +318,7 @@ export default function HomePage() {
                         </motion.div>
                       ))}
                     </div>
-                    <p className="text-sm text-slate-600">4.9/5 från 200+ recensioner</p>
+                    <p className="text-sm text-slate-600">Uppskattat av våra användare</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -547,7 +547,7 @@ export default function HomePage() {
                   <p className="text-sm font-medium text-slate-500">Jämfört med generiska verktyg</p>
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex-1 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
-                    <span className="text-lg font-bold text-slate-900">+300%</span>
+                    <span className="text-lg font-bold text-slate-900">3x</span>
                   </div>
                 </div>
               </div>
@@ -583,13 +583,13 @@ export default function HomePage() {
                   <Award className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  89% får intervju
+                  Bevisade resultat
                 </h3>
                 <p className="text-slate-600 mb-4">
-                  Bevisad framgång baserad på data från 2,000+ svenska jobbsökare
+                  Framgångsrik matchning baserad på data från svenska jobbsökare
                 </p>
                 <div className="pt-4 border-t border-slate-100">
-                  <p className="text-sm font-medium text-slate-500">Inom första 2 veckorna</p>
+                  <p className="text-sm font-medium text-slate-500">Förbättrad ansökningskvalitet</p>
                   <div className="grid grid-cols-5 gap-1 mt-2">
                     {[...Array(5)].map((_, i) => (
                       <div
@@ -914,7 +914,7 @@ export default function HomePage() {
                 Vad våra användare säger
               </h2>
               <p className="text-xl text-slate-600">
-                Över 2,000 svenskar har redan transformerat sin jobbsökning
+                Jobbsökare som redan transformerat sin jobbsökning
               </p>
             </div>
 

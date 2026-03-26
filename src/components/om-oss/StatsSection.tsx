@@ -13,9 +13,9 @@ import {
   Target,
   Zap,
   Heart,
-  Trophy,
-  Sparkles
+  Trophy
 } from 'lucide-react'
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
 
 interface StatItem {
   id: string
@@ -29,48 +29,40 @@ interface StatItem {
   gradient: string
 }
 
-const statsData: StatItem[] = [
-  {
-    id: 'users',
-    label: 'Arbetssökande',
-    value: 518,
-    suffix: '+',
-    icon: Users,
-    color: 'text-blue-600',
-    gradient: 'from-blue-500 to-cyan-500',
-    description: 'Aktiva användare av tjänsten'
-  },
-  {
-    id: 'letters',
-    label: 'Brev skapade',
-    value: 1250,
-    suffix: '+',
-    icon: FileText,
-    color: 'text-purple-600',
-    gradient: 'from-purple-500 to-pink-500',
-    description: 'Personliga brev med AI'
-  },
-  {
-    id: 'success',
-    label: 'Bättre intryck',
-    value: 80,
-    suffix: '%',
-    icon: TrendingUp,
-    color: 'text-green-600',
-    gradient: 'from-green-500 to-teal-500',
-    description: 'Gör starkare intryck på arbetsgivare'
-  },
-  {
-    id: 'rating',
-    label: 'Sparad tid',
-    value: 58,
-    suffix: ' min',
-    icon: Clock,
-    color: 'text-yellow-600',
-    gradient: 'from-yellow-500 to-orange-500',
-    description: 'Per personligt brev jämfört med manuellt'
-  }
-]
+function getStatsData(totalUsers: number, totalLetters: number): StatItem[] {
+  return [
+    {
+      id: 'users',
+      label: 'Användare',
+      value: totalUsers,
+      suffix: '+',
+      icon: Users,
+      color: 'text-blue-600',
+      gradient: 'from-blue-500 to-cyan-500',
+      description: 'Registrerade användare'
+    },
+    {
+      id: 'letters',
+      label: 'Brev skapade',
+      value: totalLetters,
+      suffix: '+',
+      icon: FileText,
+      color: 'text-purple-600',
+      gradient: 'from-purple-500 to-pink-500',
+      description: 'Personliga brev med AI'
+    },
+    {
+      id: 'rating',
+      label: 'Sparad tid',
+      value: 58,
+      suffix: ' min',
+      icon: Clock,
+      color: 'text-yellow-600',
+      gradient: 'from-yellow-500 to-orange-500',
+      description: 'Per personligt brev jämfört med manuellt'
+    }
+  ]
+}
 
 interface CountUpProps {
   end: number
@@ -135,6 +127,8 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
 }
 
 export default function StatsSection() {
+  const { counters } = useGlobalCounters()
+  const statsData = getStatsData(counters.totalUsers, counters.totalLetters)
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -215,7 +209,7 @@ export default function StatsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {statsData.map((stat, index) => (
             <motion.div
@@ -262,7 +256,7 @@ export default function StatsSection() {
                 {/* Progress Indicator */}
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <TrendingUp className="w-3 h-3 text-green-500" />
-                  <span>+12% senaste månaden</span>
+                  <span>Realtidsdata</span>
                 </div>
               </div>
 
@@ -282,7 +276,7 @@ export default function StatsSection() {
           <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>518+ aktiva användare</span>
+              <span>{counters.totalUsers}+ användare</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-blue-500" />
@@ -294,7 +288,7 @@ export default function StatsSection() {
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-yellow-500" />
-              <span>Inget kreditkort krävs</span>
+              <span>0 kr de första 7 dagarna</span>
             </div>
           </div>
         </motion.div>
@@ -317,8 +311,8 @@ export default function StatsSection() {
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <Sparkles className="w-5 h-5" />
-            Testa gratis nu
+            <Zap className="w-5 h-5" />
+            Prova Premium gratis i 7 dagar
             <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

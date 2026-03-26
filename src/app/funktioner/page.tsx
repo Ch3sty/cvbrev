@@ -11,7 +11,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
   ChevronRight, ChevronDown, ChevronUp, CheckCircle,
   FileText, FileSearch, Target, Lightbulb, BrainCircuit,
-  Clock, TrendingUp, Sparkles, Upload, ArrowRight,
+  Clock, TrendingUp, Upload, ArrowRight,
   Shield, Award, Zap, PenTool, Palette, GraduationCap,
   BarChart, Users, Star, Play, X, MessageCircle
 } from 'lucide-react'
@@ -69,7 +69,7 @@ export default function FunktionerPage() {
       description: 'Generera unika brev för varje ansökan på 60 sekunder. Anpassade efter företagskultur och jobbkrav.',
       badge: 'Mest använd',
       badgeColor: 'from-blue-500 to-blue-600',
-      stats: '10,000+ brev skapade',
+      stats: 'Mest använda funktionen',
       demoPoints: [
         'AI analyserar jobbannonsen',
         'Matchar dina kompetenser',
@@ -85,7 +85,7 @@ export default function FunktionerPage() {
       description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
       badge: 'Gratis',
       badgeColor: 'from-green-500 to-green-600',
-      stats: '4.9/5 användarbetyg',
+      stats: 'Uppskattad av användare',
       demoPoints: [
         'Identifierar svagheter',
         'Föreslår förbättringar',
@@ -231,7 +231,7 @@ export default function FunktionerPage() {
               className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full mb-6"
               whileHover={{ scale: 1.05 }}
             >
-              <Sparkles className="w-4 h-4 text-blue-600" />
+              <Zap className="w-4 h-4 text-blue-600" />
               <span className="text-sm font-semibold text-blue-900">AI-drivna verktyg</span>
             </motion.div>
 
@@ -268,8 +268,8 @@ export default function FunktionerPage() {
                 delay={0.4}
               />
               <StatCard
-                value="89%"
-                label="Får intervju inom 2 veckor"
+                value="60 sek"
+                label="Till färdigt brev"
                 icon={Target}
                 delay={0.6}
               />
@@ -655,7 +655,7 @@ export default function FunktionerPage() {
                   href="/trial-signup"
                   className="px-8 py-4 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all min-h-[44px] touch-manipulation hover:scale-105 flex items-center gap-2 justify-center"
                 >
-                  <Sparkles className="w-5 h-5" />
+                  <Zap className="w-5 h-5" />
                   Prova 7 dagar kostnadsfritt
                   <ArrowRight className="w-5 h-5" />
                 </Link>

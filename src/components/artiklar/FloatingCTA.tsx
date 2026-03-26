@@ -102,7 +102,7 @@ const FloatingCTA = () => {
               {/* Trust indicators */}
               <div className="mt-2 text-center">
                 <p className="text-xs text-gray-500">
-                  ⭐ 4.8/5 • 🚀 2 min • 💳 Inga kort krävs
+                  2 min • Inga kort krävs
                 </p>
               </div>
             </div>

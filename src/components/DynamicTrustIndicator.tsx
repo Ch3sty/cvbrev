@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CountUp from 'react-countup'
-import { Users, TrendingUp, Sparkles, CheckCircle } from 'lucide-react'
+import { Users, FileText, CheckCircle } from 'lucide-react'
 
 interface LiveMetric {
   label: string
@@ -17,7 +17,7 @@ import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
 
 export default function DynamicTrustIndicator() {
   const { counters } = useGlobalCounters()
-  const [successRate, setSuccessRate] = useState(89)
+  const totalLetters = counters.totalLetters
   const [recentUser, setRecentUser] = useState<string | null>(null)
   const [pulseAnimation, setPulseAnimation] = useState(false)
 
@@ -51,17 +51,8 @@ export default function DynamicTrustIndicator() {
       }, 4000)
     }, 8000)
 
-    // Uppdatera success rate ibland
-    const successInterval = setInterval(() => {
-      setSuccessRate(prev => {
-        const change = (Math.random() - 0.5) * 2
-        return Math.min(Math.max(prev + change, 85), 93)
-      })
-    }, 15000)
-
     return () => {
       clearInterval(userInterval)
-      clearInterval(successInterval)
     }
   }, [])
 
@@ -70,7 +61,7 @@ export default function DynamicTrustIndicator() {
       label: 'personliga brev idag',
       value: todayLetters,
       suffix: '',
-      icon: <Sparkles className="w-4 h-4" />,
+      icon: <FileText className="w-4 h-4" />,
       color: 'from-blue-500 to-indigo-600'
     },
     {
@@ -81,10 +72,10 @@ export default function DynamicTrustIndicator() {
       color: 'from-green-500 to-emerald-600'
     },
     {
-      label: 'får intervju',
-      value: successRate,
-      suffix: '%',
-      icon: <TrendingUp className="w-4 h-4" />,
+      label: 'brev skapade totalt',
+      value: totalLetters,
+      suffix: '+',
+      icon: <CheckCircle className="w-4 h-4" />,
       color: 'from-purple-500 to-pink-600'
     }
   ]

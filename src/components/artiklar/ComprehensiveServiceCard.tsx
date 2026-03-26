@@ -23,7 +23,7 @@ const ComprehensiveServiceCard: React.FC = () => {
     {
       icon: PenTool,
       title: "Personliga brev som konverterar",
-      description: "Matchade brev som ökar dina chanser med 300%"
+      description: "Matchade brev som ökar dina chanser"
     },
     {
       icon: Search,
@@ -52,8 +52,8 @@ const ComprehensiveServiceCard: React.FC = () => {
       label: 'brev idag'
     },
     {
-      value: '95%',
-      label: 'nöjdhetsgrad'
+      value: counters.totalLetters + '+',
+      label: 'brev skapade'
     }
   ];
 

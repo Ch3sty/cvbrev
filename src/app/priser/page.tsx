@@ -25,7 +25,7 @@ const CompetenceAnalysisDemo = lazy(() => import('@/components/CompetenceAnalysi
 import {
   CheckCircle, Lock, Zap, Save, Lightbulb, Gift, Repeat, Shield,
   Target, BrainCircuit, FileSearch, ChevronDown, ChevronUp, ArrowRight,
-  Sparkles, Star, Users, Trophy, Clock, TrendingUp, Heart, Award,
+  Star, Users, Trophy, Clock, TrendingUp, Heart, Award,
   PenTool, Palette, BarChart, Mail, Phone, Globe, Code
 } from 'lucide-react'
 
@@ -362,7 +362,7 @@ export default function PriserPage() {
                 className="mb-6"
               >
                 <span className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-full border border-blue-200">
-                  <Sparkles className="w-4 h-4 mr-2" />
+                  <CheckCircle className="w-4 h-4 mr-2" />
                   Transparent prissättning - inga dolda kostnader
                 </span>
               </motion.div>
@@ -540,7 +540,7 @@ export default function PriserPage() {
                 whileHover={{ scale: 1.05 }}
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-semibold rounded-full border border-green-200 shadow-sm"
               >
-                <Sparkles className="w-4 h-4 mr-2" />
+                <CheckCircle className="w-4 h-4 mr-2" />
                 Ingen bindningstid • Transparenta priser • Spara 15-20 timmar per månad
               </motion.div>
             </motion.div>
@@ -977,9 +977,9 @@ export default function PriserPage() {
                               transition: { duration: 0.8, ease: "easeInOut" }
                             }}
                           />
-                          <Sparkles className="w-5 h-5 mr-2 sm:mr-3" />
-                          <span className="hidden sm:inline">Prova 7 dagar kostnadsfritt</span>
-                          <span className="sm:hidden">Testa 7 dagar gratis</span>
+                          <Zap className="w-5 h-5 mr-2 sm:mr-3" />
+                          <span className="hidden sm:inline">Prova Premium gratis i 7 dagar</span>
+                          <span className="sm:hidden">Prova Premium gratis</span>
                           <ArrowRight className="w-5 h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-2" />
                         </Link>
                       )}
@@ -1569,8 +1569,8 @@ export default function PriserPage() {
                       {/* Shine effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
-                      <Sparkles className="w-5 h-5 mr-3 text-blue-600" />
-                      Prova 7 dagar kostnadsfritt
+                      <Zap className="w-5 h-5 mr-3 text-blue-600" />
+                      Prova Premium gratis i 7 dagar
                       <ArrowRight className="w-5 h-5 ml-3 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
 
