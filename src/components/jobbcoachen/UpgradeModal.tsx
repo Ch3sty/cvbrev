@@ -151,7 +151,7 @@ export default function UpgradeModal({ onClose }: UpgradeModalProps) {
         <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-1.5">
             <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>Inget kreditkort krävs</span>
+            <span>0 kr de första 7 dagarna</span>
           </div>
           <div className="flex items-center gap-1.5">
             <CheckCircle className="w-4 h-4 text-green-500" />

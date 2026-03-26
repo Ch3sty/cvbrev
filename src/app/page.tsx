@@ -20,7 +20,7 @@ import {
   ChevronLeft, PenTool, Palette, Trophy, Gift,
   GraduationCap, User, Building2, Layers, Settings,
   Timer, RefreshCw, Gauge, BookOpen, Code, Database,
-  Linkedin, AlertCircle
+  Linkedin, AlertCircle, ExternalLink, Newspaper
 } from 'lucide-react'
 
 // Custom components
@@ -229,7 +229,7 @@ export default function HomePage() {
 
                 {/* Underrubrik */}
                 <p className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
-                  Över 70% av alla CV sorteras bort av AI-system innan någon människa ser dem. Vi hjälper dig ta dig förbi robotarna – så att dina kvalifikationer faktiskt når fram.
+                  Allt fler rekryterare låter AI-system sålla kandidater automatiskt — ofta utan att du vet om det. Om ditt CV inte är optimerat når det aldrig en mänsklig rekryterare.
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
 
@@ -259,7 +259,7 @@ export default function HomePage() {
                       >
                         <span className="flex items-center justify-center gap-3">
                           <Sparkles className="w-6 h-6" />
-                          <span>Prova kostnadsfritt i 7 dagar</span>
+                          <span>Prova Premium gratis i 7 dagar</span>
                           <ArrowRight className="w-5 h-5" />
                         </span>
                       </motion.button>
@@ -273,13 +273,19 @@ export default function HomePage() {
                     </span>
                     <span className="flex items-center gap-1.5 touch-manipulation">
                       <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
-                      Inget betalkort krävs
+                      0 kr de första 7 dagarna
                     </span>
                     <span className="flex items-center gap-1.5 touch-manipulation">
                       <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
                       Avsluta när du vill
                     </span>
                   </div>
+
+                  <p className="text-center mt-4">
+                    <Link href="/register" className="text-sm text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-colors">
+                      Eller starta med ett gratis konto
+                    </Link>
+                  </p>
                 </motion.div>
 
                 {/* Animated social proof */}
@@ -332,67 +338,116 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Sveriges Radio - Trovärdighet & AI-sållning */}
-      <section className="py-16 bg-gradient-to-b from-blue-50/50 to-white border-y border-blue-100">
+      {/* Medierna bekräftar — AI sållar bort din ansökan */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-white border-y border-slate-200">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <motion.div
-              className="text-center mb-8"
+              className="text-center mb-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
-                <Shield className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-900">Bekräftat av Sveriges Radio</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-full mb-4">
+                <Newspaper className="w-4 h-4 text-red-600" />
+                <span className="text-sm font-semibold text-red-900">Bekräftat av SVT, SR, DN och Kollega</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                AI-system sållar bort din ansökan – här är lösningen
+                Medierna bekräftar: AI sållar bort din ansökan
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Sveriges Radio bekräftar: Allt fler rekryterare använder AI för att automatiskt sålla kandidater.
-                Om ditt CV inte är optimerat för dessa system når det aldrig en mänsklig rekryterare.
+                Sveriges största nyhetsredaktioner varnar — allt fler rekryterare låter AI sålla bort kandidater automatiskt. Är ditt CV optimerat?
               </p>
             </motion.div>
 
+            {/* Media cards */}
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-8">
+              {[
+                {
+                  source: 'Kollega',
+                  color: 'border-l-orange-500',
+                  bgHover: 'hover:bg-orange-50/50',
+                  quote: '40% av Teamtailors 10 000+ arbetsgivare har aktiverat AI-funktioner för rekrytering. EU klassificerar AI-rekrytering som "högriskverksamhet".',
+                  url: 'https://kollega.se/soka-jobb/ai-rekrytering-ats-cv-soka-jobb-intervju',
+                  delay: 0
+                },
+                {
+                  source: 'SVT Nyheter',
+                  color: 'border-l-red-500',
+                  bgHover: 'hover:bg-red-50/50',
+                  quote: 'Hur sticker du ut när "perfekta" AI-skrivna CV:n blivit norm? SVT undersöker knepen som gör att du inte sorteras bort.',
+                  url: 'https://www.svt.se/nyheter/inrikes/ai-och-jobbsokande-har-ar-knepen-som-gor-att-du-inte-sorteras-bort',
+                  delay: 0.1
+                },
+                {
+                  source: 'Sveriges Radio P1',
+                  color: 'border-l-blue-500',
+                  bgHover: 'hover:bg-blue-50/50',
+                  quote: 'Allt fler företag använder AI för att sålla bland CV:n. Jesper Olsson på Trygghetsrådet TRR förklarar hur du undviker att bli bortsållad.',
+                  url: 'https://www.sverigesradio.se/artikel/ai-sallar-bort-ditt-cv-sa-har-tar-du-dig-forbi-robotarna',
+                  delay: 0.2
+                },
+                {
+                  source: 'Dagens Nyheter',
+                  color: 'border-l-slate-900',
+                  bgHover: 'hover:bg-slate-50',
+                  quote: '"Intervjuad av en robot" — DN rapporterar om hur AI tar över allt fler steg i rekryteringsprocessen hos svenska företag.',
+                  url: 'https://www.dn.se/sverige/intervjuad-av-en-robot-sa-tar-ai-over-inom-rekrytering/',
+                  delay: 0.3
+                }
+              ].map((item, idx) => (
+                <motion.a
+                  key={idx}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`block bg-white rounded-xl border border-slate-200 border-l-4 ${item.color} p-5 shadow-sm hover:shadow-md ${item.bgHover} transition-all duration-300 group`}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: item.delay, duration: 0.5 }}
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{item.source}</span>
+                    <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors" />
+                  </div>
+                  <p className="text-sm text-slate-700 leading-relaxed">{item.quote}</p>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* CTA under mediakorten */}
             <motion.div
-              className="bg-white rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-200 p-8 mb-8"
+              className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 md:p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <div className="aspect-video w-full rounded-xl overflow-hidden mb-6 bg-slate-100">
-                <iframe
-                  title="Inbäddat innehåll från Sveriges Radio"
-                  width="100%"
-                  height="100%"
-                  src="https://www.sverigesradio.se/embed/publication/9064965"
-                  frameBorder="0"
-                  className="w-full h-full"
-                ></iframe>
-              </div>
-              <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl">
-                <div className="flex-shrink-0">
-                  <BrainCircuit className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-2">
-                    Varför det här spelar roll för dig
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1">
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">
+                    Vi hjälper dig passera AI-systemen
                   </h3>
-                  <p className="text-slate-600 mb-4">
-                    Även om du är perfekt kvalificerad för jobbet kan ett icke-optimerat CV sorteras bort automatiskt.
-                    Våra verktyg hjälper dig att passera både AI-systemen OCH imponera på rekryterarna.
+                  <p className="text-slate-600 text-sm">
+                    Våra verktyg är byggda för att optimera ditt CV och personliga brev för ATS-screening — så att dina kvalifikationer faktiskt når en mänsklig rekryterare.
                   </p>
-                  <Link
-                    href="/artiklar/ai-rekrytering-sverige"
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-                  >
-                    Läs vår djupanalys om AI-rekrytering
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
                 </div>
+                <Link href="/trial-signup" className="flex-shrink-0">
+                  <motion.button
+                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 whitespace-nowrap"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      Prova Premium gratis i 7 dagar
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -443,21 +498,23 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Testa nu - helt gratis
-                <ArrowRight className="inline-block ml-2 w-5 h-5" />
-              </motion.button>
+              <Link href="/trial-signup">
+                <motion.button
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Prova Premium gratis i 7 dagar
+                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
+                </motion.button>
+              </Link>
               <motion.p
                 className="mt-4 text-sm text-slate-500"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2 }}
               >
-                Ingen registrering krävs • Klart på 60 sekunder
+                0 kr de första 7 dagarna • Ingen bindningstid
               </motion.p>
             </motion.div>
           </div>

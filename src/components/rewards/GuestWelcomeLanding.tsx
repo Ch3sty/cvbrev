@@ -566,7 +566,7 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
                     </div>
                     <div className="flex items-center space-x-2 text-sm text-gray-400">
                       <CheckCircle2 className="w-4 h-4 text-green-400" />
-                      <span>Inget kreditkort krävs</span>
+                      <span>0 kr de första 7 dagarna</span>
                     </div>
                     <div className="flex items-center space-x-2 text-sm text-gray-400">
                       <CheckCircle2 className="w-4 h-4 text-green-400" />

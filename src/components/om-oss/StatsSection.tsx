@@ -307,7 +307,7 @@ export default function StatsSection() {
           className="mt-12 text-center"
         >
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Bli en av våra växande antal användare. Testa Jobbcoach.ai helt gratis idag - inget kreditkort krävs.
+            Bli en av våra växande antal användare. Testa Jobbcoach.ai helt gratis idag.
           </p>
           <motion.button
             whileHover={{

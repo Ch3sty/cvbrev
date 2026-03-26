@@ -183,7 +183,7 @@ export default function QuickInviteForm({
           <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
           <div className="space-y-1">
             <p>✓ Ingen spam – vi skickar ett mejl, punkt</p>
-            <p>✓ Inget betalkort krävs för provperioden</p>
+            <p>✓ 0 kr under provperioden</p>
             <p>✓ Dina vänner ser ett proffsigt erbjudande från oss</p>
           </div>
         </div>

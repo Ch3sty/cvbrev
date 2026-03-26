@@ -287,7 +287,7 @@ export default function EnhancedFinalCTA() {
                   viewport={{ once: true }}
                   transition={{ delay: 1 }}
                 >
-                  Ingen registrering krävs • Klart på 2 minuter
+                  Registrera dig på 2 minuter • 0 kr de första 7 dagarna
                 </motion.p>
               </motion.div>
 

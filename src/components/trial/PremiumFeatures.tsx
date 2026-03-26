@@ -14,7 +14,7 @@ export default function PremiumFeatures() {
       description: 'Skapa så många CV som du behöver'
     },
     {
-      title: 'AI-genererade personliga brev',
+      title: 'Skräddarsydda personliga brev',
       description: 'För varje ansökan du gör'
     },
     {
@@ -69,7 +69,7 @@ export default function PremiumFeatures() {
         Premium i 7 dagar
       </h2>
       <p className="text-center text-slate-600 mb-4">
-        Helt gratis, ingen bindningstid
+        0 kr i 7 dagar, ingen bindningstid
       </p>
 
       {/* Pris-card */}
