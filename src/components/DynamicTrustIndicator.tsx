@@ -17,7 +17,6 @@ import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
 
 export default function DynamicTrustIndicator() {
   const { counters } = useGlobalCounters()
-  const totalLetters = counters.totalLetters
   const [recentUser, setRecentUser] = useState<string | null>(null)
   const [pulseAnimation, setPulseAnimation] = useState(false)
 
@@ -72,8 +71,8 @@ export default function DynamicTrustIndicator() {
       color: 'from-green-500 to-emerald-600'
     },
     {
-      label: 'brev skapade totalt',
-      value: totalLetters,
+      label: 'användare totalt',
+      value: counters.totalUsers,
       suffix: '+',
       icon: <CheckCircle className="w-4 h-4" />,
       color: 'from-purple-500 to-pink-600'

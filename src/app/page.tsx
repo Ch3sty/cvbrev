@@ -189,7 +189,7 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-start">
               {/* Vänster kolumn - Text */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -325,7 +325,7 @@ export default function HomePage() {
 
               {/* Höger kolumn - AI Live Writing Demo */}
               <motion.div
-                className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-1/2"
+                className="relative w-full lg:pt-4"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -541,7 +541,7 @@ export default function HomePage() {
                   3x högre träffsäkerhet
                 </h3>
                 <p className="text-slate-600 mb-4">
-                  Våra smarta algoritmer är tränade på över 50,000 svenska jobbannonser och CV:n för maximal träffsäkerhet
+                  Våra algoritmer är byggda för den svenska arbetsmarknaden och optimerar varje ansökan för maximal träffsäkerhet
                 </p>
                 <div className="pt-4 border-t border-slate-100">
                   <p className="text-sm font-medium text-slate-500">Jämfört med generiska verktyg</p>
@@ -600,190 +600,6 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Funktioner - Användarfokuserad design med micro-interactions */}
-      <section id="funktioner" className="py-24 bg-white relative overflow-hidden">
-        {/* Animated background pattern */}
-        <motion.div
-          className="absolute inset-0 opacity-5"
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-            backgroundSize: '60px 60px',
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full mb-6"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Zap className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-900">Kraftfulla verktyg</span>
-              </motion.div>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                Allt du behöver för att lyckas
-              </h2>
-              <p className="text-xl text-slate-600">
-                Komplett verktygslåda för modern jobbsökning
-              </p>
-            </motion.div>
-
-            {/* Feature grid with advanced micro-interactions */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: PenTool,
-                  title: 'Skapa perfekta personliga brev',
-                  description: 'Generera unika brev för varje ansökan på 60 sekunder. Anpassade efter företagskultur och jobbkrav.',
-                  badge: 'Mest använd',
-                  badgeColor: 'from-blue-500 to-blue-600',
-                  stats: '10,000+ brev skapade',
-                  delay: 0,
-                  link: '/dashboard/skapa-brev'
-                },
-                {
-                  icon: FileSearch,
-                  title: 'CV-analys med expertfeedback',
-                  description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
-                  badge: 'Gratis',
-                  badgeColor: 'from-green-500 to-green-600',
-                  stats: '4.9/5 användarbetyg',
-                  delay: 0.1,
-                  link: '/dashboard/cv-analys'
-                },
-                {
-                  icon: Palette,
-                  title: 'Professionella CV-mallar',
-                  description: '8+ branschoptimerade mallar som passerar alla ATS-filter. Välj design som matchar din roll.',
-                  badge: 'Premium',
-                  badgeColor: 'from-purple-500 to-purple-600',
-                  stats: 'ATS-optimerade',
-                  delay: 0.2,
-                  link: '/cv-mallar'
-                },
-                {
-                  icon: Linkedin,
-                  title: 'LinkedIn-profiloptimering',
-                  description: '80% av rekryterare söker kandidater via LinkedIn. Optimera din profil för både AI-sökning och mänskliga rekryterare.',
-                  badge: 'Nytt',
-                  badgeColor: 'from-pink-500 to-pink-600',
-                  stats: 'AI-optimerad',
-                  delay: 0.3,
-                  link: '/dashboard/linkedin-optimizer'
-                },
-                {
-                  icon: Target,
-                  title: 'Smart nyckelordsmatchning',
-                  description: 'Våra verktyg identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
-                  badge: 'Smart',
-                  badgeColor: 'from-indigo-500 to-indigo-600',
-                  stats: '3x bättre matchning',
-                  delay: 0.4,
-                  link: '/dashboard'
-                },
-                {
-                  icon: Shield,
-                  title: 'Säker datahantering',
-                  description: 'GDPR-säker svensk plattform. Din data raderas automatiskt efter 30 dagar.',
-                  badge: 'Trygg',
-                  badgeColor: 'from-slate-500 to-slate-600',
-                  stats: '100% GDPR-säker',
-                  delay: 0.5,
-                  link: '/integritetspolicy'
-                }
-              ].map((feature, idx) => (
-                <motion.div
-                  key={idx}
-                  className="group relative"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: feature.delay, duration: 0.5 }}
-                >
-                  <motion.div
-                    className="relative h-full bg-white rounded-xl border border-slate-200 p-4 sm:p-6 cursor-pointer overflow-hidden"
-                    whileHover={{
-                      y: -8,
-                      transition: { duration: 0.3, ease: "easeOut" }
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {/* Gradient overlay on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0"
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div className="flex items-start justify-between mb-4">
-                        <motion.div
-                          className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center"
-                          whileHover={{
-                            scale: 1.15,
-                            rotate: 5,
-                            background: 'linear-gradient(135deg, rgb(239 246 255) 0%, rgb(219 234 254) 100%)',
-                          }}
-                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        >
-                          <feature.icon className="w-6 h-6 text-slate-700" />
-                        </motion.div>
-                        <motion.span
-                          className={`px-3 py-1 bg-gradient-to-r ${feature.badgeColor} text-white text-xs font-bold rounded-full`}
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        >
-                          {feature.badge}
-                        </motion.span>
-                      </div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 mb-4">{feature.description}</p>
-
-                      {/* Animated stats bar */}
-                      <div className="pt-4 border-t border-slate-100">
-                        <motion.p
-                          className="text-xs font-medium text-slate-500 flex items-center gap-2"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: 'auto' }}
-                          viewport={{ once: true }}
-                          transition={{ delay: feature.delay + 0.5, duration: 0.5 }}
-                        >
-                          <motion.span
-                            animate={{ opacity: [0.5, 1, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="w-1.5 h-1.5 bg-green-500 rounded-full"
-                          />
-                          {feature.stats}
-                        </motion.p>
-                      </div>
-                    </div>
-
-                  </motion.div>
-                </motion.div>
-              ))}
             </div>
           </div>
         </div>
@@ -905,6 +721,190 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Funktioner - Användarfokuserad design med micro-interactions */}
+      <section id="funktioner" className="py-24 bg-white relative overflow-hidden">
+        {/* Animated background pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Zap className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-900">Kraftfulla verktyg</span>
+              </motion.div>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Allt du behöver för att lyckas
+              </h2>
+              <p className="text-xl text-slate-600">
+                Komplett verktygslåda för modern jobbsökning
+              </p>
+            </motion.div>
+
+            {/* Feature grid with advanced micro-interactions */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: PenTool,
+                  title: 'Skapa perfekta personliga brev',
+                  description: 'Generera unika brev för varje ansökan på 60 sekunder. Anpassade efter företagskultur och jobbkrav.',
+                  badge: 'Mest använd',
+                  badgeColor: 'from-blue-500 to-blue-600',
+                  stats: 'Populäraste funktionen',
+                  delay: 0,
+                  link: '/dashboard/skapa-brev'
+                },
+                {
+                  icon: FileSearch,
+                  title: 'CV-analys med expertfeedback',
+                  description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
+                  badge: 'Gratis',
+                  badgeColor: 'from-green-500 to-green-600',
+                  stats: 'Uppskattad av användare',
+                  delay: 0.1,
+                  link: '/dashboard/cv-analys'
+                },
+                {
+                  icon: Palette,
+                  title: 'Professionella CV-mallar',
+                  description: '8+ branschoptimerade mallar som passerar alla ATS-filter. Välj design som matchar din roll.',
+                  badge: 'Premium',
+                  badgeColor: 'from-purple-500 to-purple-600',
+                  stats: 'ATS-optimerade',
+                  delay: 0.2,
+                  link: '/cv-mallar'
+                },
+                {
+                  icon: Linkedin,
+                  title: 'LinkedIn-profiloptimering',
+                  description: '80% av rekryterare söker kandidater via LinkedIn. Optimera din profil för både AI-sökning och mänskliga rekryterare.',
+                  badge: 'Nytt',
+                  badgeColor: 'from-pink-500 to-pink-600',
+                  stats: 'AI-optimerad',
+                  delay: 0.3,
+                  link: '/dashboard/linkedin-optimizer'
+                },
+                {
+                  icon: Target,
+                  title: 'Smart nyckelordsmatchning',
+                  description: 'Våra verktyg identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
+                  badge: 'Smart',
+                  badgeColor: 'from-indigo-500 to-indigo-600',
+                  stats: '3x bättre matchning',
+                  delay: 0.4,
+                  link: '/dashboard'
+                },
+                {
+                  icon: Shield,
+                  title: 'Säker datahantering',
+                  description: 'GDPR-säker svensk plattform. Din data raderas automatiskt efter 30 dagar.',
+                  badge: 'Trygg',
+                  badgeColor: 'from-slate-500 to-slate-600',
+                  stats: '100% GDPR-säker',
+                  delay: 0.5,
+                  link: '/integritetspolicy'
+                }
+              ].map((feature, idx) => (
+                <motion.div
+                  key={idx}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: feature.delay, duration: 0.5 }}
+                >
+                  <motion.div
+                    className="relative h-full bg-white rounded-xl border border-slate-200 p-4 sm:p-6 cursor-pointer overflow-hidden"
+                    whileHover={{
+                      y: -8,
+                      transition: { duration: 0.3, ease: "easeOut" }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Gradient overlay on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0"
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-4">
+                        <motion.div
+                          className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center"
+                          whileHover={{
+                            scale: 1.15,
+                            rotate: 5,
+                            background: 'linear-gradient(135deg, rgb(239 246 255) 0%, rgb(219 234 254) 100%)',
+                          }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          <feature.icon className="w-6 h-6 text-slate-700" />
+                        </motion.div>
+                        <motion.span
+                          className={`px-3 py-1 bg-gradient-to-r ${feature.badgeColor} text-white text-xs font-bold rounded-full`}
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          {feature.badge}
+                        </motion.span>
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-4">{feature.description}</p>
+
+                      {/* Animated stats bar */}
+                      <div className="pt-4 border-t border-slate-100">
+                        <motion.p
+                          className="text-xs font-medium text-slate-500 flex items-center gap-2"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: 'auto' }}
+                          viewport={{ once: true }}
+                          transition={{ delay: feature.delay + 0.5, duration: 0.5 }}
+                        >
+                          <motion.span
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-1.5 h-1.5 bg-green-500 rounded-full"
+                          />
+                          {feature.stats}
+                        </motion.p>
+                      </div>
+                    </div>
+
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4">
@@ -921,25 +921,19 @@ export default function HomePage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
                 {
-                  name: 'Anna Lindberg',
-                  role: 'Marknadsförare → Senior Marketing Manager',
-                  quote: 'Fick drömjobbet på Spotify efter bara 3 veckors sökande. Verktyget förstod exakt vad de letade efter.',
-                  rating: 5,
-                  increase: '+45% lön'
+                  role: 'Nyexaminerad, Stockholm',
+                  quote: 'Hade sökt i månader utan resultat. Med anpassade brev fick jag mitt första jobb inom tre veckor.',
+                  rating: 5
                 },
                 {
-                  name: 'Marcus Svensson',
-                  role: 'Nyexaminerad → Junior Developer',
-                  quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig framhäva mina projekt på ett kraftfullt sätt.',
-                  rating: 5,
-                  increase: 'Första jobbet på 2 veckor'
+                  role: 'Karriärbytare, Göteborg',
+                  quote: 'Att byta bransch kändes omöjligt. Verktyget hjälpte mig visa hur mina erfarenheter var relevanta för den nya rollen.',
+                  rating: 5
                 },
                 {
-                  name: 'Sofia Andersson',
-                  role: 'Konsult → Product Manager',
-                  quote: 'Bytte karriär från konsult till tech. Fick 5 intervjuer första veckan med de anpassade breven.',
-                  rating: 5,
-                  increase: '5 intervjuer första veckan'
+                  role: 'Projektledare, Malmö',
+                  quote: 'Sparar mig timmar varje vecka. Varje brev är unikt och anpassat — inte en generisk mall som alla andra skickar.',
+                  rating: 5
                 }
               ].map((testimonial, idx) => (
                 <div key={idx} className="bg-white rounded-xl p-4 sm:p-6 shadow-lg shadow-slate-900/5 border border-slate-100">
@@ -950,9 +944,7 @@ export default function HomePage() {
                   </div>
                   <p className="text-slate-600 mb-4 italic">"{testimonial.quote}"</p>
                   <div className="pt-4 border-t border-slate-100">
-                    <p className="font-semibold text-slate-900">{testimonial.name}</p>
-                    <p className="text-sm text-slate-600">{testimonial.role}</p>
-                    <p className="text-sm font-bold text-green-600 mt-2">{testimonial.increase}</p>
+                    <p className="text-sm font-medium text-slate-700">{testimonial.role}</p>
                   </div>
                 </div>
               ))}

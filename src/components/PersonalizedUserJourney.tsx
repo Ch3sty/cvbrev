@@ -20,9 +20,6 @@ interface Persona {
   challenges: string[]
   solutions: string[]
   careerPath: string[]
-  avgSalaryIncrease: string
-  timeToJob: string
-  matchRate: number
 }
 
 const personas: Persona[] = [
@@ -41,9 +38,6 @@ const personas: Persona[] = [
       'Personliga brev som kompenserar för erfarenhet'
     ],
     careerPath: ['Trainee/Junior', 'Specialist', 'Senior', 'Lead/Manager'],
-    avgSalaryIncrease: '+15%',
-    timeToJob: '3-4 veckor',
-    matchRate: 87
   },
   {
     id: 'switcher',
@@ -60,9 +54,6 @@ const personas: Persona[] = [
       'Gap-analys med utvecklingsförslag'
     ],
     careerPath: ['Lateral move', 'Byggkompetens', 'Specialisering', 'Expertroll'],
-    avgSalaryIncrease: '+25%',
-    timeToJob: '5-6 veckor',
-    matchRate: 92
   },
   {
     id: 'senior',
@@ -79,9 +70,6 @@ const personas: Persona[] = [
       'Moderna nyckelord för ATS-system'
     ],
     careerPath: ['Senior Expert', 'Tech Lead', 'Director', 'C-Level'],
-    avgSalaryIncrease: '+35%',
-    timeToJob: '6-8 veckor',
-    matchRate: 94
   },
   {
     id: 'jobseeker',
@@ -98,9 +86,6 @@ const personas: Persona[] = [
       '10x fler ansökningar med AI-automation'
     ],
     careerPath: ['Omstart', 'Stabilisering', 'Utveckling', 'Avancemang'],
-    avgSalaryIncrease: '+20%',
-    timeToJob: '2-3 veckor',
-    matchRate: 89
   }
 ]
 
@@ -109,7 +94,6 @@ export default function PersonalizedUserJourney() {
   const [hoveredPersona, setHoveredPersona] = useState<string | null>(null)
   const [animatedSkills, setAnimatedSkills] = useState<string[]>([])
   const [revealedPath, setRevealedPath] = useState(0)
-  const [showMetrics, setShowMetrics] = useState(false)
   const [showAutoDemo, setShowAutoDemo] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const controls = useAnimation()
@@ -130,14 +114,9 @@ export default function PersonalizedUserJourney() {
         }, 1000 + index * 300)
       })
 
-      // Visa metrics efter animationer
-      setTimeout(() => {
-        setShowMetrics(true)
-      }, 2500)
     } else {
       setAnimatedSkills([])
       setRevealedPath(0)
-      setShowMetrics(false)
     }
   }, [selectedPersona])
 
@@ -161,7 +140,6 @@ export default function PersonalizedUserJourney() {
       setSelectedPersona(persona)
       setAnimatedSkills([])
       setRevealedPath(0)
-      setShowMetrics(false)
     }
   }
 
@@ -242,26 +220,13 @@ export default function PersonalizedUserJourney() {
                 <h3 className="font-bold text-lg text-slate-900 mb-2">{persona.title}</h3>
                 <p className="text-sm text-slate-600 mb-4">{persona.description}</p>
 
-                {/* Quick metrics preview */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Tid till jobb:</span>
-                    <span className="font-bold text-slate-700">{persona.timeToJob}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Match-rate:</span>
-                    <div className="flex items-center gap-1">
-                      <div className="w-16 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <motion.div
-                          className={`h-full bg-gradient-to-r ${persona.gradient}`}
-                          initial={{ width: 0 }}
-                          animate={{ width: hoveredPersona === persona.id ? `${persona.matchRate}%` : '0%' }}
-                          transition={{ duration: 0.5, delay: 0.1 }}
-                        />
-                      </div>
-                      <span className="font-bold text-slate-700">{persona.matchRate}%</span>
-                    </div>
-                  </div>
+                {/* Skills preview */}
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {persona.skills.slice(0, 3).map((skill) => (
+                    <span key={skill} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full">
+                      {skill}
+                    </span>
+                  ))}
                 </div>
 
                 {/* Hover preview content */}
@@ -304,27 +269,6 @@ export default function PersonalizedUserJourney() {
                         <ChevronRight className="w-4 h-4" />
                       </motion.div>
 
-                      {/* Mini metrics preview */}
-                      <div className="flex justify-center gap-4 mt-2">
-                        <motion.div
-                          className="text-center"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.2 }}
-                        >
-                          <p className="text-xs font-bold text-green-600">{persona.avgSalaryIncrease}</p>
-                          <p className="text-xs text-slate-500">löneökning</p>
-                        </motion.div>
-                        <motion.div
-                          className="text-center"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.3 }}
-                        >
-                          <p className="text-xs font-bold text-purple-600">{persona.matchRate}%</p>
-                          <p className="text-xs text-slate-500">match</p>
-                        </motion.div>
-                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -493,28 +437,6 @@ export default function PersonalizedUserJourney() {
                   </div>
                 </div>
 
-                {/* Success metrics */}
-                <AnimatePresence>
-                  {showMetrics && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 20 }}
-                      className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200"
-                    >
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-blue-700">{selectedPersona.avgSalaryIncrease}</p>
-                          <p className="text-xs text-slate-600">Löneökning</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-blue-700">{selectedPersona.timeToJob}</p>
-                          <p className="text-xs text-slate-600">Till nytt jobb</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
 

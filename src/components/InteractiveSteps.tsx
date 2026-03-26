@@ -43,8 +43,8 @@ const steps: StepData[] = [
   },
   {
     id: 2,
-    title: 'AI analyserar jobbet',
-    description: 'Vår AI matchar dina kompetenser mot jobbkraven på sekunder.',
+    title: 'Vi matchar dig mot tjänsten',
+    description: 'Vi analyserar jobbannonsen och lyfter fram dina mest relevanta kompetenser.',
     icon: BrainCircuit,
     color: 'from-purple-500 to-pink-600',
     demoContent: {
