@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     const subscriptionTier = profile?.subscription_tier || 'free';
-    const maxCvs = subscriptionTier === 'premium' ? 50 : 5;
+    const maxCvs = subscriptionTier === 'premium' ? 50 : 2; // Matchar frontend use-profile.ts maxCVCount
 
     // Check current CV count
     const { count, error: countError } = await supabase

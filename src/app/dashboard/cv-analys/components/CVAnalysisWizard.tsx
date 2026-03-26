@@ -579,63 +579,91 @@ export default function CVAnalysisWizard({
           }
         }
 
-        // Generate and download PDF (for all options)
-        const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
-        const requestBody: any = {
-          template: selectedTemplate,
-          format: 'pdf',
-          templateOptions: {}
-        };
+        // Generate and download PDF (for all save choices)
+        let pdfFailed = false;
+        try {
+          const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
+          const requestBody: any = {
+            template: selectedTemplate,
+            format: 'pdf',
+            templateOptions: {}
+          };
 
-        if (improvedStructuredCV) {
-          requestBody.structuredData = improvedStructuredCV;
-        } else if (structuredCV) {
-          requestBody.structuredData = structuredCV;
-        } else {
-          const fixedCVText = improvedCV
-            .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
-            .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
-            .replace(/([a-zåäö])([0-9])/g, '$1 $2');
-          requestBody.cvText = fixedCVText;
+          if (improvedStructuredCV) {
+            requestBody.structuredData = improvedStructuredCV;
+          } else if (structuredCV) {
+            requestBody.structuredData = structuredCV;
+          } else {
+            const fixedCVText = improvedCV
+              .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
+              .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
+              .replace(/([a-zåäö])([0-9])/g, '$1 $2');
+            requestBody.cvText = fixedCVText;
+          }
+
+          const pdfResponse = await fetch('/api/cv/generate-formatted', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+          });
+
+          if (!pdfResponse.ok) {
+            const errorData = await pdfResponse.json();
+            throw new Error(errorData.error || 'Kunde inte generera PDF');
+          }
+
+          const blob = await pdfResponse.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = pdfFileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch (pdfError: any) {
+          console.error('PDF generation error:', pdfError);
+          pdfFailed = true;
         }
-
-        const pdfResponse = await fetch('/api/cv/generate-formatted', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        });
-
-        if (!pdfResponse.ok) {
-          const errorData = await pdfResponse.json();
-          throw new Error(errorData.error || 'Kunde inte generera PDF');
-        }
-
-        const blob = await pdfResponse.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = pdfFileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
 
         // Clear progress interval and set to 100%
         clearInterval(progressInterval);
         setSaveProgress(100);
 
         // Show mascot notification
-        successWithMascotAndActivity(
-          'CV-analysen är klar! Dina förbättringar väntar.',
-          '/images/maskot/success-cv-analysis.svg',
-          'cv_analysis_completed',
-          'slutförde en CV-analys',
-          {
-            cv_id: selectedCV,
-            improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
-          },
-          5000
-        );
+        if (pdfFailed && shouldSave) {
+          // CV was saved but PDF failed — inform user but don't block
+          successWithMascotAndActivity(
+            'Ditt CV har sparats! PDF-nedladdningen misslyckades, men du kan ladda ner det senare från ditt CV-bibliotek.',
+            '/images/maskot/success-cv-analysis.svg',
+            'cv_analysis_completed',
+            'slutförde en CV-analys',
+            {
+              cv_id: selectedCV,
+              improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
+            },
+            7000
+          );
+        } else if (pdfFailed && !shouldSave) {
+          // Download-only and PDF failed — this is a real failure
+          alert('Kunde inte generera PDF. Försök igen senare.');
+          setIsSaving(false);
+          setShowSaveProgress(false);
+          setSaveProgress(0);
+          return;
+        } else {
+          successWithMascotAndActivity(
+            'CV-analysen är klar! Dina förbättringar väntar.',
+            '/images/maskot/success-cv-analysis.svg',
+            'cv_analysis_completed',
+            'slutförde en CV-analys',
+            {
+              cv_id: selectedCV,
+              improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
+            },
+            5000
+          );
+        }
 
         // Wait a moment to show 100% completion
         setTimeout(() => {

@@ -99,6 +99,43 @@ export async function GET(
       }
     }
 
+    // Om jobbet misslyckades, rulla tillbaka räknaren för gratisanvändare
+    // Använd usage_counted som lås: sätt till false FÖRST för att undvika race conditions
+    if (job.status === 'failed' && (job as any).usage_counted) {
+      // Atomär uppdatering: markera rollback INNAN vi dekrementerar räknaren
+      // Om två requests kommer in samtidigt, lyckas bara en med denna WHERE-klausul
+      const { data: updatedJob, error: lockError } = await supabase
+        .from('cv_analysis_jobs')
+        .update({ usage_counted: false })
+        .eq('id', jobId)
+        .eq('usage_counted', true)
+        .select('id')
+        .single();
+
+      if (updatedJob && !lockError) {
+        // Bara denna request fick låset — säkert att dekrementera
+        const { data: profileData } = await supabase
+          .from('profiles')
+          .select('subscription_tier, weekly_analysis_count')
+          .eq('id', user.id)
+          .single();
+
+        if (profileData?.subscription_tier === 'free' && (profileData.weekly_analysis_count || 0) > 0) {
+          const rolledBackCount = (profileData.weekly_analysis_count || 1) - 1;
+          const { error: rollbackError } = await supabase
+            .from('profiles')
+            .update({ weekly_analysis_count: rolledBackCount })
+            .eq('id', user.id);
+
+          if (rollbackError) {
+            console.error('Failed to rollback weekly_analysis_count:', rollbackError);
+          } else {
+            console.log(`Rolled back weekly_analysis_count to ${rolledBackCount} for user ${user.id} (job ${jobId} failed)`);
+          }
+        }
+      }
+    }
+
     // Returnera status
     return NextResponse.json({
       id: job.id,

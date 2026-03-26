@@ -13,7 +13,7 @@ export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
 //  Constants & Configuration
 // ============================================================================
 
-const WEEKLY_ANALYSIS_LIMIT_FREE = 2; // Definiera gräns för gratisanvändare
+const WEEKLY_ANALYSIS_LIMIT_FREE = 1; // 1 analys per vecka för gratisanvändare (matchar frontend use-profile.ts)
 
 // ============================================================================
 //  Helper Functions
