@@ -18,7 +18,6 @@ export default function RegisterForm() {
 
   const router = useRouter()
   const searchParams = useSearchParams()
-  const wantsTrial = searchParams.get('trial') === 'true'
   const redirectTo = searchParams.get('redirect') || '/dashboard'
   const supabase = createClient()
 
@@ -76,85 +75,7 @@ export default function RegisterForm() {
             console.log('Data Layer event pushed: user_registered');
         } else { console.warn('Data Layer not available.'); }
 
-        // 4. Aktivera trial om requested (NYTT - före email)
-        if (wantsTrial && data.session) {
-          console.log('[TRIAL] Attempting trial activation:', {
-            userId: data.user.id,
-            email: data.user.email,
-            hasSession: !!data.session,
-            hasAccessToken: !!data.session.access_token,
-            wantsTrial,
-            timestamp: new Date().toISOString()
-          })
-
-          try {
-            const trialResponse = await fetch('/api/trial/auto-activate', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${data.session.access_token}`
-              },
-              body: JSON.stringify({
-                userId: data.user.id,
-                source: 'signup_trial'
-              })
-            })
-
-            const trialData = await trialResponse.json()
-
-            if (!trialResponse.ok) {
-              console.error('[TRIAL] Trial activation FAILED:', {
-                status: trialResponse.status,
-                statusText: trialResponse.statusText,
-                error: trialData,
-                userId: data.user.id
-              })
-
-              // Visa användaren att trial INTE aktiverades
-              setError(
-                <>
-                  Ditt konto skapades men Premium trial kunde inte aktiveras.
-                  Kontakta{' '}
-                  <a href="mailto:support@jobbcoach.ai" className="underline font-semibold">
-                    support@jobbcoach.ai
-                  </a>
-                  {' '}för hjälp.
-                </>
-              )
-            } else {
-              console.log('[TRIAL] Trial activated successfully:', {
-                data: trialData,
-                userId: data.user.id
-              })
-            }
-          } catch (trialError) {
-            console.error('[TRIAL] Trial activation exception:', {
-              error: trialError,
-              message: trialError instanceof Error ? trialError.message : 'Unknown error',
-              userId: data.user.id
-            })
-
-            // Visa användaren att något gick fel
-            setError(
-              <>
-                Ditt konto skapades men Premium trial kunde inte aktiveras.
-                Kontakta{' '}
-                <a href="mailto:support@jobbcoach.ai" className="underline font-semibold">
-                  support@jobbcoach.ai
-                </a>
-                {' '}för hjälp.
-              </>
-            )
-          }
-        } else if (wantsTrial && !data.session) {
-          console.warn('[TRIAL] User wants trial but no session available:', {
-            userId: data.user.id,
-            email: data.user.email,
-            wantsTrial
-          })
-        }
-
-        // 5. Skicka EGEN bekräftelse-email via Resend (inte Supabase)
+        // 4. Skicka EGEN bekräftelse-email via Resend (inte Supabase)
         try {
           const emailResponse = await fetch('/api/auth/send-confirmation', {
             method: 'POST',
@@ -178,14 +99,11 @@ export default function RegisterForm() {
           // Vi fortsätter ändå - användaren är registrerad
         }
 
-        // 6. Omdirigera till bekräftelsesida
+        // 5. Omdirigera till bekräftelsesida
         // Eftersom email confirmations är disabled, kommer användaren troligen ha session direkt
         if (data.session) {
             // Användare direkt inloggad (email confirmations disabled)
-            const successMsg = wantsTrial
-              ? 'Konto skapat! Din 7-dagars Premium-trial är nu aktiv.'
-              : 'Konto skapat! Kontrollera din e-post för att bekräfta din adress.'
-            setMessage(successMsg)
+            setMessage('Konto skapat! Kontrollera din e-post för att bekräfta din adress.')
             router.push(redirectTo);
             router.refresh();
         } else {
@@ -219,32 +137,6 @@ export default function RegisterForm() {
       setLoading(false)
     }
   }
-
-  // Google Register-funktion (uppdaterad - inkludera trial-parameter)
-  const handleGoogleRegister = async () => {
-    setLoading(true)
-    setError(null)
-    setMessage(null);
-    try {
-      // Inkludera trial-parameter i OAuth redirect
-      const callbackUrl = wantsTrial
-        ? `${window.location.origin}/auth/callback?trial=true&redirect=${encodeURIComponent(redirectTo)}`
-        : `${window.location.origin}/auth/callback`
-
-      const { error: oauthError } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: callbackUrl
-        }
-      })
-      if (oauthError) throw oauthError
-    } catch (error: any) {
-      setError(error.message || 'Ett fel uppstod vid Google-registrering');
-      setLoading(false);
-    }
-    // Omdirigering hanteras av Supabase
-  }
-
 
   return (
     <div className="w-full max-w-md p-8 space-y-6 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl">
@@ -401,30 +293,15 @@ export default function RegisterForm() {
         </button>
       </form>
 
-      {/* Delare */}
-       <div className="relative my-6">
-         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-           <div className="w-full border-t border-gray-200"></div>
-         </div>
-         <div className="relative flex justify-center text-sm">
-           <span className="px-4 bg-white/80 text-gray-500 font-medium">Eller fortsätt med</span>
-         </div>
-       </div>
-
-       {/* Google-knapp */}
-       <div>
-         <button
-           onClick={handleGoogleRegister}
-           disabled={loading}
-           type="button"
-           className="w-full min-h-[44px] touch-manipulation inline-flex justify-center items-center py-3.5 px-4 border border-gray-200 rounded-xl shadow-sm bg-white text-base font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
-         >
-           <svg className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-             <path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244 512 109.8 512 0 402.2 0 261.8 0 120.5 109.8 11.8 244 11.8c70.4 0 130.5 28.1 173.4 74.4l-61.6 56.7C326.8 111.7 289.1 91.8 244 91.8c-77.9 0-141.2 63.5-141.2 141.8s63.3 141.8 141.2 141.8c86.3 0 124.3-61.6 128.6-94.8H244v-72.4h241.8c2.5 13.2 4.2 26.8 4.2 40.8z"></path>
-           </svg>
-           Google
-         </button>
-       </div>
+      {/* Inloggningsförslag */}
+      <div className="text-center pt-2">
+        <p className="text-sm text-gray-600">
+          Har du redan ett konto?{' '}
+          <Link href="/login" className="font-medium text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all">
+            Logga in här
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }

@@ -16,13 +16,17 @@ interface EmbeddedSubscribeButtonProps {
   planName: string
   className?: string
   disabled?: boolean
+  apiEndpoint?: string
+  buttonText?: string
 }
 
 export function EmbeddedSubscribeButton({
   priceId,
   planName,
   className = '',
-  disabled = false
+  disabled = false,
+  apiEndpoint = '/api/stripe/create-upgrade-session',
+  buttonText = 'Uppgradera till Premium'
 }: EmbeddedSubscribeButtonProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -34,7 +38,7 @@ export function EmbeddedSubscribeButton({
     setError(null)
 
     try {
-      const response = await fetch('/api/stripe/create-upgrade-session', {
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,7 +122,7 @@ export function EmbeddedSubscribeButton({
             Bearbetar...
           </>
         ) : (
-          "Uppgradera till Premium"
+          buttonText
         )}
       </button>
 

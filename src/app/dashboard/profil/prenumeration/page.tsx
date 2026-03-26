@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import {
   Crown,
   CheckCircle,
@@ -354,7 +353,7 @@ export default function PrenumerationPage() {
                   Testa Premium gratis
                 </h3>
                 <p className="text-sm text-slate-600 mb-3">
-                  7 dagar full tillgång • Inget kreditkort krävs
+                  7 dagar full tillgång • 0 kr under provperioden
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
@@ -364,24 +363,22 @@ export default function PrenumerationPage() {
                   </div>
                   <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
                     <CreditCard className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-slate-900">Inget kort krävs</span>
+                    <span className="text-sm font-medium text-slate-900">0 kr första 7 dagarna</span>
                   </div>
                   <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
                     <Shield className="w-5 h-5 text-purple-600 flex-shrink-0" />
-                    <span className="text-sm font-medium text-slate-900">Ingen bindning</span>
+                    <span className="text-sm font-medium text-slate-900">Ingen bindningstid</span>
                   </div>
                 </div>
 
-                <Link
-                  href="/trial-signup"
-                  className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all min-h-[48px] touch-manipulation"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  Prova gratis i 7 dagar
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                <EmbeddedSubscribeButton
+                  priceId={premiumMonthlyPriceId}
+                  planName="Premium Trial"
+                  apiEndpoint="/api/stripe/create-trial-upgrade-session"
+                  buttonText="Prova gratis i 7 dagar"
+                />
                 <p className="text-xs text-center text-slate-600 mt-2">
-                  149 kr/mån efter provperiod • Ingen bindning
+                  149 kr/mån efter provperiod • Ingen bindningstid
                 </p>
               </div>
             </motion.div>

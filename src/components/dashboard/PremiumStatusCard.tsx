@@ -188,7 +188,7 @@ export default function PremiumStatusCard({
         {/* Upgrade CTA - Trial signup */}
         <div className="space-y-2">
           <Link
-            href="/trial-signup"
+            href="/dashboard/profil/prenumeration"
             className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all text-sm touch-manipulation min-h-[48px]"
           >
             <Sparkles className="w-4 h-4" />
@@ -196,7 +196,7 @@ export default function PremiumStatusCard({
             <ArrowRight className="w-4 h-4" />
           </Link>
           <p className="text-xs text-center text-slate-600">
-            149 kr/mån efter provperiod • Ingen bindning
+            149 kr/mån efter provperiod • Ingen bindningstid
           </p>
           <Link
             href="/priser"

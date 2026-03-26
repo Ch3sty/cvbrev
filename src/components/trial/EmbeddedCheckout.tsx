@@ -146,7 +146,7 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
         <ul className="space-y-1 text-sm text-blue-800">
           <li>• Ingen kostnad de första 7 dagarna</li>
           <li>• Efter trial: 149 kr/månad</li>
-          <li>• Avsluta när som helst - inga bindningar</li>
+          <li>• Avsluta när som helst - ingen bindningstid</li>
           <li>• Direkt tillgång till alla premiumfunktioner</li>
         </ul>
       </div>

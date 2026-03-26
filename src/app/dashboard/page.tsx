@@ -535,12 +535,12 @@ export default function DashboardPage() {
             </h3>
 
             <p className="text-sm sm:text-base text-slate-700 mb-6 max-w-2xl mx-auto">
-              Obegränsade personliga brev, CV-analyser och LinkedIn-optimering. Ingen bindning.
+              Obegränsade personliga brev, CV-analyser och LinkedIn-optimering. Ingen bindningstid.
             </p>
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Link href="/trial-signup">
+              <Link href="/dashboard/profil/prenumeration">
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
