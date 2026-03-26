@@ -269,8 +269,7 @@ export default function EnhancedFinalCTA() {
                   </div>
 
                   <span className="relative z-10 flex items-center justify-center gap-3">
-                    <Sparkles className="w-5 h-5 opacity-80" />
-                    Prova 7 dagar kostnadsfritt
+                    Prova Premium gratis i 7 dagar
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

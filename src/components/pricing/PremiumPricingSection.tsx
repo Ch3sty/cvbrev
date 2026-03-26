@@ -68,7 +68,7 @@ export default function PremiumPricingSection() {
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-semibold rounded-full border border-green-200 shadow-sm"
           >
-            <Sparkles className="w-4 h-4 mr-2" />
+            <CheckCircle className="w-4 h-4 mr-2" />
             Ingen bindningstid • Transparenta priser • Spara 15-20 timmar per månad
           </motion.div>
         </motion.div>
@@ -423,9 +423,8 @@ export default function PremiumPricingSection() {
                         transition: { duration: 0.8, ease: "easeInOut" }
                       }}
                     />
-                    <Sparkles className="w-5 h-5 mr-2 sm:mr-3" />
-                    <span className="hidden sm:inline">Prova 7 dagar kostnadsfritt</span>
-                    <span className="sm:hidden">Testa 7 dagar gratis</span>
+                    <span className="hidden sm:inline">Prova Premium gratis i 7 dagar</span>
+                    <span className="sm:hidden">Prova Premium i 7 dagar</span>
                     <ArrowRight className="w-5 h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-2" />
                   </Link>
 
