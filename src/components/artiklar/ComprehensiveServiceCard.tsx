@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { CheckCircle, Sparkles, FileText, Search, BrainCircuit, BarChart3, Users, Zap } from 'lucide-react';
+import { CheckCircle, FileText, Search, BrainCircuit, BarChart3, Users, Zap, PenTool } from 'lucide-react';
 import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 const ComprehensiveServiceCard: React.FC = () => {
@@ -21,7 +21,7 @@ const ComprehensiveServiceCard: React.FC = () => {
       description: "Djupgående feedback och konkreta förbättringsförslag"
     },
     {
-      icon: Sparkles,
+      icon: PenTool,
       title: "Personliga brev som konverterar",
       description: "Matchade brev som ökar dina chanser med 300%"
     },
@@ -72,7 +72,7 @@ const ComprehensiveServiceCard: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="inline-flex items-center gap-2 bg-pink-50 text-pink-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
         >
-          <Sparkles className="w-4 h-4" />
+          <Zap className="w-4 h-4" />
           Komplett karriärverktyg
         </motion.div>
 
@@ -143,7 +143,7 @@ const ComprehensiveServiceCard: React.FC = () => {
             className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
             <Users className="w-5 h-5" />
-            Börja gratis nu
+            Starta gratis
           </Link>
         </motion.div>
 

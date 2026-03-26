@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { CheckCircle, Users, Sparkles, FileText, Search, BrainCircuit } from 'lucide-react';
+import { CheckCircle, Users, FileText, Search, BrainCircuit, ScanSearch } from 'lucide-react';
 import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 const BroadConversionBanner: React.FC = () => {
@@ -17,7 +17,7 @@ const BroadConversionBanner: React.FC = () => {
       href: "/cv-mallar"
     },
     {
-      icon: Sparkles,
+      icon: ScanSearch,
       title: "CV-analys",
       description: "AI-driven feedback på ditt CV",
       href: "/analysera-cv"
@@ -94,7 +94,7 @@ const BroadConversionBanner: React.FC = () => {
           href="/register"
           className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2.5 rounded-lg font-medium hover:from-pink-500 hover:to-purple-500 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
         >
-          Testa allt helt gratis
+          Starta gratis
         </Link>
       </div>
     </motion.div>

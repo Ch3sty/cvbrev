@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, X } from 'lucide-react';
+import { ArrowRight, X, PenTool } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
@@ -74,7 +74,7 @@ const FloatingCTA = () => {
               {/* Icon */}
               <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-pink-600 to-purple-600
                             rounded-lg mb-3 shadow-lg">
-                <Sparkles className="w-5 h-5 text-white" />
+                <PenTool className="w-5 h-5 text-white" />
               </div>
 
               {/* Text */}
@@ -95,7 +95,6 @@ const FloatingCTA = () => {
                          transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105
                          focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
               >
-                <Sparkles className="w-3 h-3 mr-1.5" />
                 Skapa mitt brev - Gratis
                 <ArrowRight className="w-3 h-3 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>

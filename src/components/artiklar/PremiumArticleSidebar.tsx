@@ -6,8 +6,8 @@ import { PostMeta } from '@/lib/blog';
 import { Heading } from '@/lib/extractHeadings';
 import { motion } from 'framer-motion';
 import {
-  Sparkles, FileText, ArrowRight, ChevronDown, ChevronUp,
-  BookOpen, Zap, Star, TrendingUp, Gift, Rocket
+  FileText, ArrowRight, ChevronDown, ChevronUp,
+  BookOpen, Zap, Star, TrendingUp, Gift, Rocket, CheckCircle
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
@@ -163,7 +163,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
 
           <div className="space-y-2 mb-6">
             <div className="flex items-center gap-2 text-sm">
-              <Sparkles className="w-4 h-4 text-yellow-400" />
+              <CheckCircle className="w-4 h-4 text-green-500" />
               <span>Obegränsad tillgång till alla funktioner</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
@@ -197,7 +197,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
           className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
       >
         <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-5 h-5 text-pink-600" />
+          <Zap className="w-5 h-5 text-pink-600" />
           <h3 className="font-semibold text-gray-900">Populära AI-verktyg</h3>
         </div>
 

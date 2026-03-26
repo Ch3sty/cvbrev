@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import { PostMeta } from '@/lib/blog';
 // Importera ikoner
-import { Sparkles, ScanSearch, ArrowRight, FileText, BrainCircuit } from 'lucide-react'; // Lade till BrainCircuit här också
+import { PenTool, ScanSearch, ArrowRight, FileText, BrainCircuit } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
@@ -70,7 +70,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
           {/* Box 1: Skapa Personligt Brev */}
           <Link href="/skapa-brev" className={ctaLinkClasses}>
             <div className="flex items-start space-x-3">
-              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-600 mt-0.5 transition-all duration-300 group-hover:text-pink-500 group-hover:scale-110" />
+              <PenTool className="flex-shrink-0 w-6 h-6 text-pink-600 mt-0.5 transition-all duration-300 group-hover:text-pink-500 group-hover:scale-110" />
               <div>
                 <h4 className="font-semibold text-gray-900 mb-1">
                   Skapa personligt brev
@@ -123,7 +123,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
             href="/register"
             className="block w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2.5 px-4 rounded-lg text-center transition-all duration-200 shadow-sm hover:shadow-lg hover:shadow-pink-500/20 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-white"
           >
-            Prova gratis nu
+            Starta gratis
           </Link>
         </div>
 

@@ -35,16 +35,16 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
 
   const variants = {
     'free-trial': {
-      icon: Sparkles,
+      icon: CheckCircle,
       gradient: 'from-blue-600 to-indigo-600',
       bgGradient: 'from-blue-50 via-indigo-50 to-purple-50',
-      title: 'Testa allt helt gratis',
+      title: 'Kom igång gratis',
       subtitle: 'Ingen risk • Inget kreditkort',
       description: 'Upptäck vad jobbcoach.ai kan göra för dig utan att betala en krona. Alla grundfunktioner är gratis att använda - för alltid.',
-      ctaText: 'Testa gratis nu',
+      ctaText: 'Starta gratis',
       ctaLink: '/register',
       features: [
-        '✓ Skapa personligt brev med AI',
+        '✓ Skapa personliga brev',
         '✓ Få detaljerad CV-analys',
         '✓ Matcha mot jobbannonser',
         '✓ Feedback på din ansökan',
@@ -57,21 +57,21 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
       icon: Award,
       gradient: 'from-pink-600 to-purple-600',
       bgGradient: 'from-pink-50 via-purple-50 to-indigo-50',
-      title: 'Låt upp din karriärs fulla potential',
-      subtitle: 'Premium AI-karriärcoaching',
-      description: 'Få obegränsad tillgång till alla premium-funktioner och avancerade AI-verktyg som tar din jobbsökning till nästa nivå.',
-      ctaText: 'Uppgradera till Premium',
-      ctaLink: '/priser',
+      title: 'Lås upp din karriärs fulla potential',
+      subtitle: 'Prova Premium gratis i 7 dagar',
+      description: 'Få obegränsad tillgång till alla premium-funktioner och avancerade verktyg som tar din jobbsökning till nästa nivå.',
+      ctaText: 'Prova Premium gratis i 7 dagar',
+      ctaLink: '/trial-signup',
       features: [
-        '🚀 Obegränsade personliga brev',
-        '📊 Avancerad CV-analys & optimering',
-        '🎯 Personlig karriärcoaching',
-        '📈 Kompetensutvecklingsplaner',
-        '⚡ Prioriterad AI-support',
-        '📋 Premium CV-mallar'
+        '✓ Obegränsade personliga brev',
+        '✓ Avancerad CV-analys & optimering',
+        '✓ Personlig karriärcoaching',
+        '✓ Kompetensutvecklingsplaner',
+        '✓ Prioriterad support',
+        '✓ Premium CV-mallar'
       ],
       showPremiumBadge: true,
-      trustText: 'Endast 149 SEK/månad'
+      trustText: '0 kr de första 7 dagarna'
     }
   };
 
