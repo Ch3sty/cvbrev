@@ -81,7 +81,7 @@ export default function WizardContainer({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
+    <div className="bg-gradient-to-b from-white to-slate-50/50">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-4 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="mb-4 sm:mb-6 md:mb-8">

@@ -350,6 +350,24 @@ html {
   }
 }
 
+/* Bottom padding for dashboard scrollable area - clears mobile browser chrome */
+.dashboard-main-content {
+  padding-bottom: 5rem;
+}
+
+@supports (padding: max(0px)) {
+  .dashboard-main-content {
+    padding-bottom: max(5rem, calc(1.5rem + env(safe-area-inset-bottom)));
+  }
+}
+
+/* On desktop (lg+), restore normal padding */
+@media (min-width: 1024px) {
+  .dashboard-main-content {
+    padding-bottom: 1.5rem;
+  }
+}
+
 /* Improve text rendering on mobile */
 body {
   -webkit-font-smoothing: antialiased;

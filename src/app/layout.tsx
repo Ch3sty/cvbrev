@@ -1,7 +1,7 @@
 // CRITICAL: Import storage initialization FIRST before anything else
 import '@/lib/supabase/storage-init';
 
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
@@ -40,6 +40,10 @@ export const metadata: Metadata = {
   other: {
     'fb:app_id': '1234567890',
   },
+}
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({

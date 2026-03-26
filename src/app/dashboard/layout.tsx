@@ -134,7 +134,7 @@ export default function DashboardLayout({
           )}
 
           {/* Main Content Area - responsiv padding */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
+          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
             <div className="max-w-7xl mx-auto relative">
               {/* Page Transition Animation */}
               <AnimatePresence mode="wait">
