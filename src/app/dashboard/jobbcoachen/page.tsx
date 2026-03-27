@@ -446,7 +446,7 @@ export default function JobbcoachenPage() {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 truncate">
-                Din AI-karriärcoach för svenska arbetsmarknaden
+                Din karriärcoach, skapad för svenska arbetsmarknaden
               </p>
             </div>
 

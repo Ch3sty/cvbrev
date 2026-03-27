@@ -38,7 +38,7 @@ export default function LinkedInOptimeringSida() {
         "name": "Hur vet jag vilka keywords jag ska använda?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vårt AI-verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt."
+          "text": "Vårt verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt."
         }
       },
       {
@@ -54,7 +54,7 @@ export default function LinkedInOptimeringSida() {
         "name": "Hur lång tid tar det att optimera min LinkedIn-profil?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Själva AI-optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt."
+          "text": "Själva optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt."
         }
       },
       {
@@ -81,7 +81,7 @@ export default function LinkedInOptimeringSida() {
     "@type": "WebApplication",
     "name": "Jobbcoach.ai - LinkedIn-optimeringsverktyg",
     "url": "https://jobbcoach.ai/verktyg/linkedin-optimering",
-    "description": "AI-verktyg som optimerar din LinkedIn-profil för rekryterares sökningar. Få 3x fler synligheter och kontakter från rekryterare.",
+    "description": "Verktyg som optimerar din LinkedIn-profil för rekryterares sökningar. Få 3x fler synligheter och kontakter från rekryterare.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web browser",
     "offers": {
@@ -121,13 +121,13 @@ export default function LinkedInOptimeringSida() {
       {
         "@type": "HowToStep",
         "name": "Klistra in i LinkedIn-optimeringsverktyget",
-        "text": "Klistra in din profiltext i vårt AI-verktyg. Välj din bransch och erfarenhetsnivå så att AI:n kan anpassa keywords efter rätt målgrupp.",
+        "text": "Klistra in din profiltext i vårt verktyg. Välj din bransch och erfarenhetsnivå så att vi kan anpassa keywords efter rätt målgrupp.",
         "position": 2
       },
       {
         "@type": "HowToStep",
-        "name": "AI analyserar och genererar optimerad version",
-        "text": "Vårt AI-verktyg analyserar din text och identifierar vilka keywords rekryterare söker efter inom din bransch. AI:n genererar en optimerad version som både rankar högt i sökningar och låter professionell.",
+        "name": "Vi analyserar och skapar en optimerad version",
+        "text": "Verktyget analyserar din text och identifierar vilka keywords rekryterare söker efter inom din bransch. Du får en optimerad version som både rankar högt i sökningar och låter professionell.",
         "position": 3
       },
       {
@@ -375,7 +375,7 @@ export default function LinkedInOptimeringSida() {
                 },
                 {
                   question: 'Hur vet jag vilka keywords jag ska använda?',
-                  answer: 'Vårt AI-verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt.'
+                  answer: 'Vårt verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt.'
                 },
                 {
                   question: 'Kommer min LinkedIn-profil att låta robotisk efter optimering?',
@@ -383,7 +383,7 @@ export default function LinkedInOptimeringSida() {
                 },
                 {
                   question: 'Hur lång tid tar det att optimera min LinkedIn-profil?',
-                  answer: 'Själva AI-optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt.'
+                  answer: 'Själva optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt.'
                 },
                 {
                   question: 'Måste jag betala för att använda LinkedIn-optimering?',

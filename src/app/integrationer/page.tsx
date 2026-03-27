@@ -149,7 +149,7 @@ export default function IntegrationsPage() {
                 <span className="text-white font-bold text-xl">🎯</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Bättre matchning</h3>
-              <p className="text-gray-600 text-sm">AI anpassar innehåll baserat på jobbdata</p>
+              <p className="text-gray-600 text-sm">Vi anpassar innehållet efter jobbannonsen</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">

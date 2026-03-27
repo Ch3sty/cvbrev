@@ -1002,7 +1002,7 @@ export default function CVAnalysisLandingPage() {
                     'Obegränsade CV-analyser',
                     'Avancerade roll-baserade förslag',
                     'Djupgående kvantifieringstips',
-                    'Prioriterad AI-analys',
+                    'Prioriterad analys',
                     'Tillgång till ALLA professionella CV-mallar',
                     'Spara och jämför CV-versioner',
                     'Exportera till PDF och Word',

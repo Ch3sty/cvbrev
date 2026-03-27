@@ -32,7 +32,7 @@ export default function CVAnalysisIntro({
             className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full mb-6"
           >
             <Sparkles className="w-4 h-4 text-pink-600" />
-            <span className="text-sm font-semibold text-pink-700">AI-driven CV-analys</span>
+            <span className="text-sm font-semibold text-pink-700">Djupgående CV-analys</span>
           </motion.div>
 
           {/* Main Headline */}
@@ -45,8 +45,8 @@ export default function CVAnalysisIntro({
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            30 ansökningar. 0 svar. Känns det bekant? Vårt AI-verktyg hittar exakt vad
-            som håller dig tillbaka och ger konkreta förbättringsförslag.
+            30 ansökningar. 0 svar. Känns det bekant? Vi hittar exakt vad
+            som håller dig tillbaka och visar hur du fixar det.
           </p>
 
           {/* CTA Button */}
@@ -93,7 +93,7 @@ export default function CVAnalysisIntro({
             {
               icon: Zap,
               title: 'Direkt resultat',
-              description: 'AI-driven analys på under en minut. Inga väntetider.'
+              description: 'Fullständig analys på under en minut. Inga väntetider.'
             }
           ].map((benefit, index) => (
             <motion.div

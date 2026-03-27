@@ -803,7 +803,7 @@ export default function HomePage() {
                   description: '80% av rekryterare söker kandidater via LinkedIn. Optimera din profil för både AI-sökning och mänskliga rekryterare.',
                   badge: 'Nytt',
                   badgeColor: 'from-pink-500 to-pink-600',
-                  stats: 'AI-optimerad',
+                  stats: 'Sticker ut hos rekryterare',
                   delay: 0.3,
                   link: '/dashboard/linkedin-optimizer'
                 },

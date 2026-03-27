@@ -7386,7 +7386,7 @@ Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min för
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för boendestödjare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      text: 'Vill du skapa ett professionellt personligt brev för boendestödjare på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -7529,7 +7529,7 @@ Jag är redo att börja omgående och arbetar gärna varierande scheman inklusiv
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för barista på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      text: 'Vill du skapa ett professionellt personligt brev för barista på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -7672,7 +7672,7 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för köksbiträde på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      text: 'Vill du skapa ett professionellt personligt brev för köksbiträde på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -7803,7 +7803,7 @@ Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är ti
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för kontorsassistent på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      text: 'Vill du skapa ett professionellt personligt brev för kontorsassistent på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8070,7 +8070,7 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfaren
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för logistikassistent på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
+      text: 'Vill du skapa ett professionellt personligt brev för logistikassistent på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8217,7 +8217,7 @@ Jag kan börja inom fyra veckor och ser fram emot att diskutera hur jag kan stä
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för LSS-handläggare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom myndighetsutövning.',
+      text: 'Vill du skapa ett professionellt personligt brev för LSS-handläggare på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom myndighetsutövning.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8364,7 +8364,7 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för kundrådgivare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom finansiell rådgivning.',
+      text: 'Vill du skapa ett professionellt personligt brev för kundrådgivare på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom finansiell rådgivning.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8511,7 +8511,7 @@ Med tre års erfarenhet av gästservice i högt tempo, systemvana i Opera och Me
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för hotellvärd på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom hotell och gästservice.',
+      text: 'Vill du skapa ett professionellt personligt brev för hotellvärd på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom hotell och gästservice.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8658,7 +8658,7 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för vårdadministratör på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom vårdadministration.',
+      text: 'Vill du skapa ett professionellt personligt brev för vårdadministratör på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom vårdadministration.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },
@@ -8805,7 +8805,7 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidr
     ],
 
     cta: {
-      text: 'Vill du skapa ett professionellt personligt brev för kundtjänstmedarbetare på några minuter? Prova vårt AI-verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom kundservice.',
+      text: 'Vill du skapa ett professionellt personligt brev för kundtjänstmedarbetare på några minuter? Prova vårt verktyg och få ett skräddarsytt brev anpassat efter dina erfarenheter inom kundservice.',
       buttonText: 'Skapa ditt brev nu',
       buttonLink: '/verktyg/personligt-brev'
     },

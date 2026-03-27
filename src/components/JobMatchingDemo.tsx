@@ -82,7 +82,7 @@ const processSteps = [
   {
     icon: Sparkles,
     title: 'Extraherar kompetens',
-    subtitle: 'AI läser och förstår',
+    subtitle: 'Läser och tolkar jobbannonsen',
     color: 'from-purple-600 to-pink-600'
   },
   {

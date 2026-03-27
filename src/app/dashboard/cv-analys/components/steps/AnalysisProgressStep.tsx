@@ -21,7 +21,7 @@ const mascotStages = [
   },
   {
     image: '/images/maskot/cv-analys-2.svg',
-    text: 'AI-analys pågår',
+    text: 'Analys pågår',
     color: 'from-purple-500/20 to-pink-500/20',
     glowColor: 'rgba(168, 85, 247, 0.5)',
     particleCount: 15

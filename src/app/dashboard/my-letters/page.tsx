@@ -750,7 +750,7 @@ export default function MyLettersPage() {
                   <FileText className="w-16 h-16 mb-4 text-gray-600" />
                   <h2 className="mb-2 text-xl font-semibold text-white">Inga sparade brev ännu</h2>
                   <p className="mb-6 text-gray-400 text-sm max-w-md">
-                    Det ser lite tomt ut här. Klicka nedan för att skapa ditt första AI-genererade personliga brev!
+                    Det ser lite tomt ut här. Klicka nedan för att skapa ditt första skräddarsydda brev!
                   </p>
                   <Link
                     href="/create-letter"

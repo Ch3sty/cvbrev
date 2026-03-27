@@ -301,7 +301,7 @@ export default function CVAnalysisDemo() {
             <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white animate-pulse" />
             </div>
-            <h3 className="font-bold text-slate-900">AI Feedback</h3>
+            <h3 className="font-bold text-slate-900">Detaljerad feedback</h3>
           </div>
 
           {/* Progress */}

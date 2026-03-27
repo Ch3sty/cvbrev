@@ -1108,7 +1108,7 @@ export default function PriserPage() {
                 {
                   icon: Repeat,
                   title: "Obegränsade revisioner",
-                  description: "Justera och förbättra AI-utkast tills du är nöjd",
+                  description: "Finjustera och redigera varje förslag. Lägg till din personliga touch, obegränsat.",
                   color: "text-blue-600",
                   gradient: "from-blue-400/10 to-indigo-400/10"
                 },

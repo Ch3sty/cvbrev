@@ -19,7 +19,7 @@ const BroadConversionBanner: React.FC = () => {
     {
       icon: ScanSearch,
       title: "CV-analys",
-      description: "AI-driven feedback på ditt CV",
+      description: "Konkret, skarp feedback på ditt CV",
       href: "/analysera-cv"
     },
     {
@@ -48,7 +48,7 @@ const BroadConversionBanner: React.FC = () => {
           Allt du behöver för din karriär
         </h3>
         <p className="text-gray-600 text-sm">
-          Upptäck alla våra AI-drivna verktyg för att accelerera din jobbsökning
+          Upptäck alla våra verktyg för att accelerera din jobbsökning
         </p>
       </div>
 

@@ -135,12 +135,12 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
     {
       icon: <Target className="w-5 h-5" />,
       title: 'Avancerad CV-analys',
-      description: 'AI-driven analys som identifierar förbättringsområden'
+      description: 'Djupgående analys av ditt CV'
     },
     {
       icon: <Crown className="w-5 h-5" />,
       title: 'Automatisk tonalitetsanpassning',
-      description: 'AI anpassar ditt brev till företagskulturen'
+      description: 'Vi skräddarsyr ditt brev efter jobbannonsen'
     },
     {
       icon: <TrendingUp className="w-5 h-5" />,
@@ -169,7 +169,7 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
     {
       name: 'Erik Johansson',
       role: 'Systemutvecklare',
-      text: 'AI-analyserna hjälpte mig förstå vad rekryterare verkligen söker.',
+      text: 'Analyserna hjälpte mig förstå vad rekryterare verkligen söker.',
       rating: 5
     },
     {
@@ -367,7 +367,7 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
             </h1>
 
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Sveriges mest avancerade AI-drivna karriärcoach. Skapa personliga brev som verkligen sticker ut.
+              Din karriärcoach. Skapa personliga brev som verkligen sticker ut.
             </p>
           </div>
 

@@ -34,7 +34,7 @@ export default function LiveAIDemo() {
     },
     {
       icon: BrainCircuit,
-      title: "AI Analyserar",
+      title: "Analyserar annonsen",
       status: "analyzing",
       color: "from-purple-500 to-pink-500"
     },
@@ -56,7 +56,7 @@ export default function LiveAIDemo() {
     <div className="relative bg-white rounded-2xl border border-slate-200 shadow-xl p-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h3 className="text-2xl font-bold text-slate-900">Se AI:n i aktion</h3>
+        <h3 className="text-2xl font-bold text-slate-900">Se resultatet ta form</h3>
         <motion.div
           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full"
           animate={{ opacity: [0.5, 1, 0.5] }}
@@ -135,7 +135,7 @@ export default function LiveAIDemo() {
           >
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-yellow-500" />
-              <h4 className="font-semibold text-slate-900">AI-genererat personligt brev</h4>
+              <h4 className="font-semibold text-slate-900">Ditt färdiga brev</h4>
             </div>
 
             {/* Typewriter effect for generated content */}

@@ -108,7 +108,7 @@ export default function JobbcoachenPage() {
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": "Så använder du Jobbcoachen för att få karriärråd",
-    "description": "Steg-för-steg guide för att få svar på dina karriärfrågor med AI-coach specialiserad på svensk arbetsmarknad",
+    "description": "Steg-för-steg guide för att få svar på dina karriärfrågor med en karriärcoach specialiserad på svensk arbetsmarknad",
     "totalTime": "PT2M",
     "step": [
       {
@@ -147,9 +147,9 @@ export default function JobbcoachenPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Jobbcoachen - AI-karriärguide för svensk arbetsmarknad",
+    "name": "Jobbcoachen - Karriärguide för svensk arbetsmarknad",
     "url": "https://jobbcoach.ai/verktyg/jobbcoachen",
-    "description": "AI-driven karriärcoach specialiserad på svenska arbetsmarknaden. Få svar på frågor om CV, intervjuer, lön, arbetsrätt och karriärutveckling – baserat på svenska källor.",
+    "description": "Karriärcoach specialiserad på svenska arbetsmarknaden. Få svar på frågor om CV, intervjuer, lön, arbetsrätt och karriärutveckling, baserat på svenska källor.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web browser",
     "offers": {
@@ -382,7 +382,7 @@ export default function JobbcoachenPage() {
                     step: 2,
                     icon: Database,
                     iconColor: 'from-purple-600 to-purple-500',
-                    title: 'AI:n söker i svenska källor',
+                    title: 'Söker i svenska källor',
                     subtitle: 'Arbetsförmedlingen, fackförbund, LAS och karriärexperter',
                     description: 'Jobbcoachen analyserar din fråga och letar upp relevant information från Arbetsförmedlingen, Unionen, LAS-regler, kollektivavtal och svenska karriärguider. Allt är anpassat för svensk arbetsmarknad – inga generiska internationella tips.',
                     badge: 'Automatiskt',

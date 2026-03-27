@@ -109,13 +109,13 @@ export default function PersonligtBrevSida() {
       {
         "@type": "HowToStep",
         "name": "Klistra in jobbannonsen",
-        "text": "Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i verktyget. AI:n analyserar omedelbart vilka krav och kompetenser som efterfrågas.",
+        "text": "Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i verktyget. Verktyget analyserar omedelbart vilka krav och kompetenser som efterfrågas.",
         "position": 2
       },
       {
         "@type": "HowToStep",
-        "name": "AI analyserar och matchar",
-        "text": "Vår AI jämför automatiskt jobbannonsens krav med din CV. Den identifierar relevanta erfarenheter, kompetenser och nyckelord som matchar positionen – helt utan att du behöver göra något.",
+        "name": "Vi analyserar och matchar",
+        "text": "Vi jämför automatiskt jobbannonsens krav med ditt CV och identifierar relevanta erfarenheter, kompetenser och nyckelord som matchar positionen.",
         "position": 3
       },
       {
@@ -136,9 +136,9 @@ export default function PersonligtBrevSida() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Jobbcoach.ai - AI-verktyg för personliga brev",
+    "name": "Jobbcoach.ai - Skapa personliga brev",
     "url": "https://jobbcoach.ai/verktyg/personligt-brev",
-    "description": "AI-verktyg som genererar ATS-optimerade personliga brev baserat på jobbannons och CV. Klart på 2 minuter.",
+    "description": "Skapa ATS-optimerade personliga brev baserat på jobbannons och CV. Klart på 2 minuter.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web browser",
     "offers": {
@@ -214,7 +214,7 @@ export default function PersonligtBrevSida() {
                   transition={{ duration: 0.6 }}
                 >
                   <FileText className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-semibold text-purple-900">AI-verktyg</span>
+                  <span className="text-sm font-semibold text-purple-900">Personligt brev-verktyg</span>
                 </motion.div>
 
                 <motion.h1
@@ -365,7 +365,7 @@ export default function PersonligtBrevSida() {
                   Så fungerar det – enkelt och automatiskt
                 </h2>
                 <p className="text-lg text-slate-600">
-                  Din CV gör jobbet. Du klistrar bara in jobbannonser – AI:n sköter resten.
+                  Din CV gör jobbet. Du klistrar bara in jobbannonser – vi sköter resten.
                 </p>
               </motion.div>
             </div>
@@ -393,16 +393,16 @@ export default function PersonligtBrevSida() {
                     iconColor: 'from-blue-600 to-blue-500',
                     title: 'Klistra in jobbannonsen',
                     subtitle: 'För varje jobb du söker',
-                    description: 'Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in. AI:n analyserar omedelbart vilka krav, kompetenser och nyckelord som är viktigast för den specifika rollen.',
+                    description: 'Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in. Verktyget analyserar omedelbart vilka krav, kompetenser och nyckelord som är viktigast för den specifika rollen.',
                     badge: '10 sekunder'
                   },
                   {
                     step: 3,
                     icon: Sparkles,
                     iconColor: 'from-indigo-600 to-indigo-500',
-                    title: 'AI analyserar och matchar automatiskt',
+                    title: 'Vi analyserar och matchar automatiskt',
                     subtitle: 'Helt automatiskt – du behöver inte göra något',
-                    description: 'Vår AI jämför jobbannonsens krav med ditt CV. Den identifierar relevanta erfarenheter, projekt, kompetenser och resultat som matchar positionen. AI:n väljer automatiskt rätt nyckelord för ATS-system och formulerar övertygande argument baserat på din faktiska bakgrund.',
+                    description: 'Vi jämför jobbannonsens krav med ditt CV, identifierar relevanta erfarenheter, projekt, kompetenser och resultat som matchar positionen, och väljer automatiskt rätt nyckelord för ATS-system.',
                     badge: 'Automatiskt',
                     highlight: true
                   },
@@ -600,7 +600,7 @@ export default function PersonligtBrevSida() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Se skillnaden: Generiskt vs AI-optimerat brev
+                Se skillnaden: Generiskt vs skräddarsytt brev
               </h2>
               <p className="text-lg text-slate-600">
                 Här är ett verkligt exempel på hur vårt verktyg förvandlar ett standardbrev till ett som faktiskt får respons.
@@ -865,7 +865,7 @@ export default function PersonligtBrevSida() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Vanliga frågor om AI-genererade personliga brev
+                Vanliga frågor om personliga brev
               </h2>
               <p className="text-lg text-slate-600">
                 Allt du behöver veta för att komma igång
@@ -875,7 +875,7 @@ export default function PersonligtBrevSida() {
             <div className="space-y-4">
               {[
                 {
-                  question: 'Kommer mitt brev att låta robotiskt om det är AI-genererat?',
+                  question: 'Kommer mitt brev att låta robotiskt om det är skapat med Jobbcoach.ai?',
                   answer: 'Nej. Vårt verktyg är tränat på tusentals framgångsrika personliga brev skrivna av människor – inte robottexter. Resultatet är ett brev som balanserar ATS-optimering med naturlig, personlig ton. Du kan alltid redigera och lägga till din egen touch innan du skickar. Tänk på verktyget som en skribent som ger dig ett perfekt första utkast – som du sedan kan anpassa efter behov.'
                 },
                 {

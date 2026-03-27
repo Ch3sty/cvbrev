@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'AI-genererade Personliga Brev | ATS-optimerat på 2 minuter | Jobbcoach.ai',
-  description: 'Skapa personligt brev som passar både AI-rekrytering och mänskliga rekryterare. AI-verktyg som analyserar jobbannons och CV för perfekt matchning. Gratis att testa.',
+  title: 'Personliga Brev | ATS-optimerat på 2 minuter | Jobbcoach.ai',
+  description: 'Skapa personligt brev som passar både AI-rekrytering och mänskliga rekryterare. Verktyg som analyserar jobbannons och CV för perfekt matchning. Gratis att testa.',
   keywords: 'personligt brev, skriva personligt brev, personligt brev exempel, personligt brev mall, personligt brev mall gratis, hur skriver man ett personligt brev, exempel på personligt brev, personligt brev tips, cv och personligt brev, ATS-optimering personligt brev',
   openGraph: {
     title: 'Skapa Personligt Brev med AI | Optimerat för ATS och Rekryterare | Jobbcoach.ai',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Skapa ATS-optimerat personligt brev med AI | Jobbcoach.ai',
-    description: 'AI-verktyg som skapar personliga brev optimerade för både ATS-system och mänskliga rekryterare. Klart på 2 minuter.'
+    description: 'Verktyg som skapar personliga brev optimerade för både ATS-system och mänskliga rekryterare. Klart på 2 minuter.'
   },
   alternates: {
     canonical: 'https://jobbcoach.ai/verktyg/personligt-brev'

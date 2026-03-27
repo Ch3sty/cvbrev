@@ -224,7 +224,7 @@ export default function InvitePage() {
             profile_photo_url: undefined
           },
           features_included: [
-            'Obegränsade AI-genererade personliga brev',
+            'Obegränsade skräddarsydda personliga brev',
             'Professionella CV-mallar och analyser',
             'Personlig karriärvägledning med AI',
             '1.5x snabbare XP-intjäning',

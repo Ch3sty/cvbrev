@@ -156,7 +156,7 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
                   Skapa personligt brev
                 </h4>
                 <p className="text-sm text-gray-300 leading-snug">
-                  Matcha ditt CV mot jobbannonsen och låt vår AI skriva ett vinnande brev på sekunder.
+                  Matcha ditt CV mot jobbannonsen, vi skräddarsyr brevet åt dig.
                 </p>
               </div>
                <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />
@@ -173,7 +173,7 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
                   Analysera ditt CV
                 </h4>
                 <p className="text-sm text-gray-300 leading-snug">
-                  Få AI-feedback på styrkor och förbättringsområden (struktur, verb, tydlighet).
+                  Få konkret feedback på styrkor och förbättringsområden (struktur, verb, tydlighet).
                 </p>
               </div>
                <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />

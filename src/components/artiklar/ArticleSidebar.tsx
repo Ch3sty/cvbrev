@@ -63,7 +63,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
       {/* CTA Infobox Sektion - ljust tema */}
       <div className="bg-gradient-to-br from-white to-gray-50/30 p-5 rounded-lg border border-gray-200 shadow-sm">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-3">
-          Testa våra AI-verktyg
+          Testa våra verktyg gratis
         </h3>
         <div className="flex flex-col gap-4"> {/* Behåll gap */}
 
@@ -76,7 +76,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
                   Skapa personligt brev
                 </h4>
                 <p className="text-sm text-gray-600 leading-snug">
-                  Skapa ett vinnande brev på sekunder. Vår AI matchar ditt CV mot jobbannonsen och lyfter fram dina mest relevanta erfarenheter och kompetenser.
+                  Skapa ett vinnande brev på sekunder. Vi matchar ditt CV mot jobbannonsen och lyfter fram dina mest relevanta erfarenheter och kompetenser.
                 </p>
               </div>
                <ArrowRight className="w-5 h-5 text-gray-400 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-600 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />
@@ -92,7 +92,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
                   Analysera ditt CV
                 </h4>
                 <p className="text-sm text-gray-600 leading-snug">
-                  Få djupgående AI-feedback. Identifiera styrkor, se konkreta förbättringsområden (struktur, tydlighet, starka verb) och finslipa ditt viktigaste karriärdokument.
+                  Få konkret feedback på ditt CV. Identifiera styrkor, se konkreta förbättringsområden (struktur, tydlighet, starka verb) och finslipa ditt viktigaste karriärdokument.
                 </p>
               </div>
                <ArrowRight className="w-5 h-5 text-gray-400 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-600 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />

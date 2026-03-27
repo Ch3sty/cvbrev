@@ -49,7 +49,7 @@ function getStatsData(totalUsers: number, totalLetters: number): StatItem[] {
       icon: FileText,
       color: 'text-purple-600',
       gradient: 'from-purple-500 to-pink-500',
-      description: 'Personliga brev med AI'
+      description: 'Skapade personliga brev'
     },
     {
       id: 'rating',

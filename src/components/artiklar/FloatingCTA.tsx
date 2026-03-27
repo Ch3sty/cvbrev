@@ -82,7 +82,7 @@ const FloatingCTA = () => {
                 Gillar du våra artiklar?
               </h3>
               <p className="text-gray-600 text-xs mb-3 leading-relaxed">
-                Få personligt brev skrivet av AI på bara 2 minuter.
+                Skräddarsytt personligt brev. Klart på 2 minuter.
                 Över {counters.totalUsers} jobbsökare har redan förbättrat sina ansökningar.
               </p>
 

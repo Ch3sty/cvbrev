@@ -226,7 +226,7 @@ export default function MinaCVPage() {
               <div class="cv-container">${cv.cv_text ? cv.cv_text.replace(/\n/g, '<br />') : 'Inget CV-innehåll tillgängligt'}</div>
             </div>
             <div class="footer">
-              <a href="https://jobbcoach.ai" target="_blank">jobbcoach.ai</a> - Din AI-drivna karriärcoach
+              <a href="https://jobbcoach.ai" target="_blank">jobbcoach.ai</a> - din karriärcoach
             </div>
           </body>
         </html>

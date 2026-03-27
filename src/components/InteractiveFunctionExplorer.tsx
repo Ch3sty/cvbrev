@@ -28,8 +28,8 @@ const steps: Step[] = [
   },
   {
     id: 2,
-    title: 'AI analyserar innehåll',
-    description: 'Vår AI skannar jobbannonsen och matchar den mot ditt CV för optimal anpassning.',
+    title: 'Vi läser och analyserar innehållet',
+    description: 'Vi skannar jobbannonsen och identifierar vad arbetsgivaren verkligen letar efter.',
     icon: BrainCircuit,
     color: 'from-purple-500 to-pink-500',
     animation: 'morphIn'

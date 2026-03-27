@@ -41,7 +41,7 @@ const tonalityInfo: Record<Tonality, TonalityInfo> = {
   'creative': { label: 'Kreativ', description: 'Innovativ och nytänkande.', icon: <Lightbulb className="w-5 h-5 text-yellow-400" />, recommendedFor: 'Design, marknadsföring.', premiumOnly: false },
   'confident': { label: 'Självsäker', description: 'Betonar prestationer och resultat.', icon: <Trophy className="w-5 h-5 text-amber-400" />, recommendedFor: 'Chefsroller, sälj.', premiumOnly: false },
   'balanced': { label: 'Balanserad', description: 'Blandning av professionalitet & personlighet.', icon: <Scale className="w-5 h-5 text-emerald-400" />, recommendedFor: 'De flesta tjänster.', premiumOnly: false },
-  'auto': { label: 'AI-val (Premium)', description: 'AI anpassar tonen optimalt.', icon: <Bot className="w-5 h-5 text-purple-400" />, recommendedFor: 'Alla ansökningar för max effekt.', premiumOnly: true }
+  'auto': { label: 'Smart val (Premium)', description: 'Vi läser annonsen och väljer den ton som passar bäst.', icon: <Bot className="w-5 h-5 text-purple-400" />, recommendedFor: 'Alla ansökningar för max effekt.', premiumOnly: true }
 };
 
 const GENERATION_TIMEOUT = 45000; // ms
@@ -464,9 +464,9 @@ export default function CreateLetterPage() {
     <>
       {/* --- SEO Head --- */}
       <Head>
-        <title>Skapa Personligt Brev med AI | Jobbcoach.ai</title>
+        <title>Skapa Personligt Brev | Jobbcoach.ai</title>
         <meta name="description" content="Använd Jobbcoach.ai för att automatiskt generera ett skräddarsytt personligt brev baserat på ditt CV och jobbannonsen. Välj tonalitet och språk." />
-        <meta name="keywords" content="skapa personligt brev, AI personligt brev, jobbansökan, ansökningsbrev, AI jobbcoach, generera brev" />
+        <meta name="keywords" content="personligt brev, jobbansökan, ansökningsbrev, skräddarsytt brev, jobbcoach" />
       </Head>
 
       {/* --- Notifikationskomponent --- */}
@@ -485,10 +485,10 @@ export default function CreateLetterPage() {
               {/* --- Sidhuvud --- */}
               <div className="mb-8 md:mb-12 text-center">
                   <h1 className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                      Skapa <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Personligt Brev</span> med AI
+                      Skapa ditt <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Personliga Brev</span>
                   </h1>
                   <p className="max-w-2xl mx-auto text-lg text-gray-300">
-                      Välj ditt CV, klistra in jobbannonsen och låt vår AI skapa ett unikt och anpassat utkast på sekunder.
+                      Klistra in jobbannonsen, välj ton och vi matchar ditt CV mot tjänsten. Klart på sekunder.
                   </p>
               </div>
 
@@ -678,7 +678,7 @@ export default function CreateLetterPage() {
                           {!generatedLetter && (
                               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-gradient-to-br from-navy-900/30 to-navy-800/20">
                                   {/* Logik för laddning/placeholder (oförändrad från förra versionen) */}
-                                  {isSubmitting ? ( <><Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" /><p className="text-lg font-medium text-gray-200">AI:n arbetar...</p><p className="text-sm text-gray-400 mt-1">Skapar ett unikt brev baserat på din data.</p></> ) : ( <><div className="p-3 mb-4 text-6xl opacity-40 filter grayscale">📄✨</div><p className="mb-1 text-base font-medium text-gray-300">Resultatet visas här</p><p className="text-sm text-gray-400">Fyll i informationen till vänster och klicka på "Skapa".</p></> )}
+                                  {isSubmitting ? ( <><Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" /><p className="text-lg font-medium text-gray-200">Skriver ditt brev...</p><p className="text-sm text-gray-400 mt-1">Skapar ett unikt brev baserat på din data.</p></> ) : ( <><div className="p-3 mb-4 text-6xl opacity-40 filter grayscale">📄✨</div><p className="mb-1 text-base font-medium text-gray-300">Resultatet visas här</p><p className="text-sm text-gray-400">Fyll i informationen till vänster och klicka på "Skapa".</p></> )}
                               </div>
                           )}
 

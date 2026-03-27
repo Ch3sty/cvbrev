@@ -37,7 +37,7 @@ export default function AIInsights({
         id: 'first-letter',
         icon: <Target className="w-5 h-5" />,
         title: 'Börja din karriärresa',
-        description: 'Skapa ditt första personliga brev och få AI-optimerade förslag som ökar dina chanser att få intervju.',
+        description: 'Skapa ditt första personliga brev och få skräddarsydda förslag som ökar dina chanser att få intervju.',
         action: 'Skapa brev',
         href: '/dashboard/skapa-brev',
         color: 'from-pink-500 to-rose-500',
@@ -51,7 +51,7 @@ export default function AIInsights({
         id: 'cv-analysis',
         icon: <Brain className="w-5 h-5" />,
         title: 'Optimera ditt CV',
-        description: 'Låt vår AI analysera ditt CV och få konkreta förbättringsförslag som matchar moderna rekryterares förväntningar.',
+        description: 'Vi analyserar ditt CV och visar exakt vad du kan förbättra för att matcha moderna rekryterares förväntningar.',
         action: 'Analysera CV',
         href: '/dashboard/cv-analys',
         color: 'from-blue-500 to-cyan-500',
@@ -79,7 +79,7 @@ export default function AIInsights({
         id: 'premium-upgrade',
         icon: <Sparkles className="w-5 h-5" />,
         title: 'Uppgradera till Premium',
-        description: 'Få obegränsade CV-analyser, avancerade AI-funktioner och prioriterad support för bara 149 SEK/månad.',
+        description: 'Få obegränsade CV-analyser, avancerade funktioner och prioriterad support för bara 149 SEK/månad.',
         action: 'Uppgradera',
         href: '/priser',
         color: 'from-orange-500 to-red-500',
@@ -126,7 +126,7 @@ export default function AIInsights({
           <Lightbulb className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h3 className="text-base sm:text-lg font-semibold text-slate-900">AI Insights</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900">Insikter</h3>
           <p className="text-slate-600 text-sm">Personaliserade råd för din karriär</p>
         </div>
       </motion.div>
@@ -210,7 +210,7 @@ export default function AIInsights({
             </div>
             <h4 className="font-medium text-slate-900 mb-2">Fler insikter kommer</h4>
             <p className="text-slate-600 text-sm mb-4">
-              Skapa fler brev för att få personaliserade AI-råd
+              Skapa fler brev för att få personaliserade karriärråd
             </p>
             <Link
               href="/dashboard/skapa-brev"

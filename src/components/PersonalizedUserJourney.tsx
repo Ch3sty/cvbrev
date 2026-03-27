@@ -34,7 +34,7 @@ const personas: Persona[] = [
     challenges: ['Ingen arbetslivserfarenhet', 'Osäker på marknadsvärde', 'Brett sökande'],
     solutions: [
       'Framhäv akademiska projekt som arbetslivserfarenhet',
-      'AI matchar din utbildning mot 500+ juniora roller',
+      'Vi matchar din utbildning mot relevanta roller',
       'Personliga brev som kompenserar för erfarenhet'
     ],
     careerPath: ['Trainee/Junior', 'Specialist', 'Senior', 'Lead/Manager'],
@@ -49,7 +49,7 @@ const personas: Persona[] = [
     skills: ['Branschkunskap', 'Nätverk', 'Bevisad prestation', 'Mognad'],
     challenges: ['Övertyga om relevans', 'Kompetensglapp', 'Löneförhandling'],
     solutions: [
-      'AI identifierar överförbara kompetenser',
+      'Vi plockar fram dina överförbara kompetenser',
       'Skräddarsydda övergångsberättelser',
       'Gap-analys med utvecklingsförslag'
     ],
@@ -83,7 +83,7 @@ const personas: Persona[] = [
     solutions: [
       'Positiv framing av karriärpauser',
       'Snabboptimering för aktuella roller',
-      '10x fler ansökningar med AI-automation'
+      '10x fler ansökningar, utan att det tar 10x längre tid'
     ],
     careerPath: ['Omstart', 'Stabilisering', 'Utveckling', 'Avancemang'],
   }
@@ -325,7 +325,7 @@ export default function PersonalizedUserJourney() {
                 <div>
                   <h4 className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-green-500" />
-                    Våra AI-lösningar
+                    Våra verktyg
                   </h4>
                   <div className="space-y-3">
                     {selectedPersona.solutions.map((solution, idx) => (

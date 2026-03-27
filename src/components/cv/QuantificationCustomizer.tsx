@@ -350,8 +350,8 @@ export default function QuantificationCustomizer({
                             </TooltipTrigger>
                             <TooltipContent>
                               <p className="max-w-xs">
-                                Detta är ett AI-genererat förslag baserat på din roll och bransch.
-                                Justera siffrorna om de inte stämmer exakt.
+                                Detta är ett förslag baserat på din profil.
+                                Justera siffrorna efter din faktiska erfarenhet.
                               </p>
                             </TooltipContent>
                           </Tooltip>

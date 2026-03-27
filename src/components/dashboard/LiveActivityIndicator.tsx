@@ -42,7 +42,7 @@ export default function LiveActivityIndicator({
     },
     {
       type: 'cv_analyzed',
-      message: 'CV-analys slutförd med AI-rekommendationer',
+      message: 'CV-analys klar, nya rekommendationer redo',
       timestamp: new Date(),
       icon: TrendingUp,
       color: 'text-purple-600'

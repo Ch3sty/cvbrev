@@ -58,7 +58,7 @@ const GENERATION_STEPS: GenerationStep[] = [
   {
     id: 'generate',
     title: 'Generera',
-    subtitle: 'AI skapar ditt professionella CV',
+    subtitle: 'Skapar ditt professionella CV',
     icon: Wand2,
     color: 'pink'
   },

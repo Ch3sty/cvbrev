@@ -126,7 +126,7 @@ export default function LinkedInOptimizationDemo() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">{step.title}</h3>
-                  <p className="text-sm text-slate-500">AI arbetar...</p>
+                  <p className="text-sm text-slate-500">Optimerar din profil...</p>
                 </div>
               </div>
 
@@ -289,7 +289,7 @@ export default function LinkedInOptimizationDemo() {
       >
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4" />
-          AI-optimerad
+          Optimerad
         </div>
       </motion.div>
 

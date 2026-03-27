@@ -19,8 +19,8 @@ export default function JobbmatchningLandingPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Jobbmatchning AI – Jobbcoach",
-    "description": "AI-driven jobbmatchning som matchar ditt CV mot 300+ jobb från Arbetsförmedlingen. Få relevanspoäng och hitta rätt jobb snabbare.",
+    "name": "Jobbmatchning – Jobbcoach.ai",
+    "description": "Jobbmatchning som matchar ditt CV mot 300+ jobb från Arbetsförmedlingen. Få relevanspoäng och hitta rätt jobb snabbare.",
     "url": "https://jobbcoach.ai/verktyg/jobbmatchning",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
@@ -30,18 +30,18 @@ export default function JobbmatchningLandingPage() {
         "name": "Gratis Jobbmatchning",
         "price": "0",
         "priceCurrency": "SEK",
-        "description": "10 AI-matchade jobb baserat på ditt CV"
+        "description": "10 matchade jobb baserat på ditt CV"
       },
       {
         "@type": "Offer",
         "name": "Premium Jobbmatchning",
         "price": "149",
         "priceCurrency": "SEK",
-        "description": "300 AI-matchade jobb med avancerade filter och obegränsad CV-analys"
+        "description": "300 matchade jobb med avancerade filter och obegränsad CV-analys"
       }
     ],
     "featureList": [
-      "AI-driven CV-parsing",
+      "Automatisk CV-parsing",
       "Matchning mot Arbetsförmedlingens databas",
       "Relevanspoäng 0-100%",
       "Geografisk filtrering",
@@ -61,10 +61,10 @@ export default function JobbmatchningLandingPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Hur fungerar AI-driven jobbmatchning?",
+        "name": "Hur fungerar jobbmatchningen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vår AI analyserar ditt CV (kompetenser, erfarenhet, utbildning och plats) och jämför det mot Arbetsförmedlingens jobbannonser. Varje jobb får ett relevanspoäng mellan 0-100% baserat på hur väl det matchar din profil. Ju högre poäng, desto bättre match."
+          "text": "Vi analyserar ditt CV (kompetenser, erfarenhet, utbildning och plats) och jämför det mot Arbetsförmedlingens jobbannonser. Varje jobb får ett relevanspoäng mellan 0-100% baserat på hur väl det matchar din profil. Ju högre poäng, desto bättre match."
         }
       },
       {
@@ -136,7 +136,7 @@ export default function JobbmatchningLandingPage() {
         "name": "Är jobbmatchningen bättre än att söka manuellt på Arbetsförmedlingen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, av flera skäl: 1) AI:n analyserar hundratals jobb på sekunder (skulle ta timmar manuellt). 2) Du får objektiv relevanspoäng istället för att gissa. 3) Filtreringen är mycket mer avancerad. 4) Du ser kompetensglapp direkt. Manuell sökning är dock bra som komplement för att läsa originalannonser."
+          "text": "Ja, av flera skäl: 1) Vi analyserar hundratals jobb på sekunder (skulle ta timmar manuellt). 2) Du får objektiv relevanspoäng istället för att gissa. 3) Filtreringen är mycket mer avancerad. 4) Du ser kompetensglapp direkt. Manuell sökning är dock bra som komplement för att läsa originalannonser."
         }
       }
     ]
@@ -146,7 +146,7 @@ export default function JobbmatchningLandingPage() {
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": "Hur man hittar matchade jobb med AI baserat på sitt CV",
-    "description": "Steg-för-steg guide för att använda AI-driven jobbmatchning och hitta relevanta jobb på Arbetsförmedlingen baserat på ditt CV.",
+    "description": "Steg-för-steg guide för att använda jobbmatchning och hitta relevanta jobb på Arbetsförmedlingen baserat på ditt CV.",
     "totalTime": "PT3M",
     "estimatedCost": {
       "@type": "MonetaryAmount",
@@ -157,19 +157,19 @@ export default function JobbmatchningLandingPage() {
       {
         "@type": "HowToStep",
         "name": "Ladda upp ditt CV",
-        "text": "Registrera dig gratis på Jobbcoach.ai och ladda upp ditt CV i PDF, Word eller Google Docs-format. AI:n börjar analysera direkt.",
+        "text": "Registrera dig gratis på Jobbcoach.ai och ladda upp ditt CV i PDF, Word eller Google Docs-format. Analysen startar direkt.",
         "position": 1
       },
       {
         "@type": "HowToStep",
-        "name": "AI analyserar ditt CV",
-        "text": "Vår AI-parser identifierar dina yrkesroller, kompetenser, utbildning och geografisk plats. Denna data används för matchning mot jobbannonser.",
+        "name": "Vi analyserar ditt CV",
+        "text": "Vi identifierar dina yrkesroller, kompetenser, utbildning och geografisk plats. Denna data används för matchning mot jobbannonser.",
         "position": 2
       },
       {
         "@type": "HowToStep",
         "name": "Matchning mot Arbetsförmedlingen",
-        "text": "AI:n jämför din profil mot tusentals jobbannonser från Arbetsförmedlingens databas i realtid och hittar de mest relevanta matchningarna.",
+        "text": "Din profil jämförs mot tusentals jobbannonser från Arbetsförmedlingens databas i realtid för att hitta de mest relevanta matchningarna.",
         "position": 3
       },
       {
@@ -246,7 +246,7 @@ export default function JobbmatchningLandingPage() {
                   transition={{ duration: 0.6 }}
                 >
                   <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-semibold text-blue-900">AI-driven matchning</span>
+                  <span className="text-sm font-semibold text-blue-900">Smart matchning</span>
                 </motion.div>
 
                 <motion.h1
@@ -328,7 +328,7 @@ export default function JobbmatchningLandingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Slösa inte timmar på irrelevanta jobbannonser – låt AI:n filtrera åt dig
+                Slösa inte timmar på irrelevanta jobbannonser – låt oss filtrera åt dig
               </h2>
               <p className="text-lg text-slate-600">
                 Manuell jobbsökning är ineffektiv och frustrerande. Här är varför:
@@ -703,7 +703,7 @@ export default function JobbmatchningLandingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Vanliga frågor om AI-driven jobbmatchning
+                Vanliga frågor om jobbmatchning
               </h2>
               <p className="text-lg text-slate-600">
                 Allt du behöver veta för att förstå och använda jobbmatchning
@@ -713,8 +713,8 @@ export default function JobbmatchningLandingPage() {
             <div className="space-y-4">
               {[
                 {
-                  question: 'Hur fungerar AI-driven jobbmatchning?',
-                  answer: 'Vår AI analyserar ditt CV (kompetenser, erfarenhet, utbildning och plats) och jämför det mot Arbetsförmedlingens jobbannonser. Varje jobb får ett relevanspoäng mellan 0-100% baserat på hur väl det matchar din profil. Ju högre poäng, desto bättre match.'
+                  question: 'Hur fungerar jobbmatchningen?',
+                  answer: 'Vi analyserar ditt CV (kompetenser, erfarenhet, utbildning och plats) och jämför det mot Arbetsförmedlingens jobbannonser. Varje jobb får ett relevanspoäng mellan 0-100% baserat på hur väl det matchar din profil. Ju högre poäng, desto bättre match.'
                 },
                 {
                   question: 'Hur många jobb kan jag matcha mitt CV mot?',
@@ -750,7 +750,7 @@ export default function JobbmatchningLandingPage() {
                 },
                 {
                   question: 'Är jobbmatchningen bättre än att söka manuellt på Arbetsförmedlingen?',
-                  answer: 'Ja, av flera skäl: 1) AI:n analyserar hundratals jobb på sekunder (skulle ta timmar manuellt). 2) Du får objektiv relevanspoäng istället för att gissa. 3) Filtreringen är mycket mer avancerad. 4) Du ser kompetensglapp direkt. Manuell sökning är dock bra som komplement för att läsa originalannonser.'
+                  answer: 'Ja, av flera skäl: 1) Vi analyserar hundratals jobb på sekunder (skulle ta timmar manuellt). 2) Du får objektiv relevanspoäng istället för att gissa. 3) Filtreringen är mycket mer avancerad. 4) Du ser kompetensglapp direkt. Manuell sökning är dock bra som komplement för att läsa originalannonser.'
                 }
               ].map((faq, idx) => (
                 <motion.div

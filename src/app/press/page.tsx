@@ -78,7 +78,7 @@ export default function PressPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Fokus</h3>
-                <p className="text-gray-600">AI-driven karriärvägledning</p>
+                <p className="text-gray-600">Karriärvägledning som gör skillnad</p>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Pris</h3>

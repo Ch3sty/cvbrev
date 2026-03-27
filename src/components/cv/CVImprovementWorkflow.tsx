@@ -962,7 +962,7 @@ export default function CVImprovementWorkflow({
                       >
                         <Wand2 className="h-4 w-4" />
                       </motion.div>
-                      Förbereder AI-analys...
+                      Förbereder din analys...
                     </>
                   ) : (
                     <>

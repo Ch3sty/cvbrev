@@ -157,7 +157,7 @@ export default function KomIgangPage() {
     },
     {
       title: 'Skapa personligt brev',
-      description: 'Låt AI:n skapa ett skräddarsytt personligt brev på sekunder',
+      description: 'Skapa ett skräddarsytt personligt brev på under en minut',
       icon: FileText,
       href: '/dashboard/skapa-brev',
       gradient: 'from-purple-500 to-pink-600',
@@ -165,7 +165,7 @@ export default function KomIgangPage() {
     },
     {
       title: 'Analysera ditt CV',
-      description: 'Få professionell feedback med AI-driven CV-analys',
+      description: 'Få konkret feedback som lyfter ditt CV',
       icon: Brain,
       href: '/dashboard/cv-analys',
       gradient: 'from-emerald-500 to-teal-600',
@@ -173,7 +173,7 @@ export default function KomIgangPage() {
     },
     {
       title: 'Optimera LinkedIn',
-      description: 'Förbättra din synlighet på LinkedIn med AI-optimering',
+      description: 'Gör din LinkedIn-profil synlig för rekryterare',
       icon: Linkedin,
       href: '/dashboard/linkedin-optimizer',
       gradient: 'from-orange-500 to-red-600',
@@ -189,7 +189,7 @@ export default function KomIgangPage() {
     },
     {
       title: 'Hitta matchande jobb',
-      description: 'Upptäck jobb som passar din profil med AI-matchning',
+      description: 'Upptäck jobb som faktiskt matchar din profil',
       icon: Briefcase,
       href: '/dashboard/jobbmatchning',
       gradient: 'from-amber-500 to-orange-600',

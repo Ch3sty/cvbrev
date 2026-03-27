@@ -8,8 +8,8 @@ export default function APIPage() {
   const apiFeatures = [
     {
       icon: Zap,
-      title: "AI-genererade brev",
-      description: "Integrera vår AI för att skapa personliga brev programmatiskt"
+      title: "Personliga brev via API",
+      description: "Skapa skräddarsydda personliga brev programmatiskt via vårt API"
     },
     {
       icon: Book,
@@ -73,7 +73,7 @@ export default function APIPage() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-xl text-gray-600 mb-8 leading-relaxed"
             >
-              Integrera AI-driven karriärvägledning i dina applikationer
+              Integrera karriärvägledning i dina applikationer
             </motion.p>
           </div>
 

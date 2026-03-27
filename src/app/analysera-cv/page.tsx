@@ -174,7 +174,7 @@ export default function AnalyzeCvPage() {
       {/* --- Page Header --- */}
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Analysera CV</h1>
-        <p className="text-gray-300">Få AI-drivna insikter och förbättringsförslag för ditt uppladdade CV.</p>
+        <p className="text-gray-300">Se exakt vad rekryterare letar efter i ditt CV.</p>
       </header>
 
       {/* --- Analysis Limits Info (Free Tier Only) - UPPDATERAD SEKTION --- */}
@@ -269,7 +269,7 @@ export default function AnalyzeCvPage() {
           </h2>
           <div className="flex-grow flex flex-col">
             {isAnalyzing ? (
-              <div className="flex flex-col items-center justify-center text-center flex-grow"> <Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" aria-label="Analys pågår"/> <p className="text-lg text-gray-300 mb-1">Analyserar ditt CV...</p> <p className="text-sm text-gray-400">Ett ögonblick, AI:n jobbar.</p> </div>
+              <div className="flex flex-col items-center justify-center text-center flex-grow"> <Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" aria-label="Analys pågår"/> <p className="text-lg text-gray-300 mb-1">Analyserar ditt CV...</p> <p className="text-sm text-gray-400">Ett ögonblick, vi går igenom ditt CV.</p> </div>
             ) : analysisResult ? (
               <>
                 {/* Pass the analysis result to the dedicated display component */}

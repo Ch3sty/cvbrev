@@ -74,7 +74,7 @@ export default function ProfilPage() {
     { value: 'creative', label: 'Kreativ', icon: <Lightbulb className="w-5 h-5" />, description: 'Personlig och innovativ ton för kreativa branscher.' },
     { value: 'confident', label: 'Självsäker', icon: <Trophy className="w-5 h-5" />, description: 'Bestämd och självförtroende ton för ledarskapsroller.' },
     { value: 'balanced', label: 'Balanserad', icon: <Scale className="w-5 h-5" />, description: 'Lagom formell och personlig – passar de flesta situationer.' },
-    { value: 'auto', label: 'Smart val', icon: <Bot className="w-5 h-5" />, description: 'AI väljer automatiskt bästa tonalitet baserat på jobbet och branschen. (Premium)' }
+    { value: 'auto', label: 'Smart val', icon: <Bot className="w-5 h-5" />, description: 'Vi väljer den ton som passar tjänsten bäst. (Premium)' }
   ];
 
   // Ladda profildata när komponenten mountas

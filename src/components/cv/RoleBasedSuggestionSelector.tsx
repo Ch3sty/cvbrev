@@ -199,10 +199,10 @@ export default function RoleBasedSuggestionSelector({
           <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
           <div>
             <h4 className="font-medium text-yellow-900 mb-1">
-              Viktigt: Verifiera AI-genererade siffror
+              Stämmer siffrorna?
             </h4>
             <p className="text-sm text-yellow-800">
-              AI:n har genererat uppskattade siffror baserat på kontext.
+              Siffrorna är uppskattade utifrån din profil. Justera dem så de stämmer med din erfarenhet.
               <strong> Redigera alltid dessa så de stämmer överens med dina faktiska prestationer</strong>
               innan du använder dem i ditt CV. Klicka på "Redigera" vid varje förbättring för att anpassa texten.
             </p>
@@ -424,7 +424,7 @@ export default function RoleBasedSuggestionSelector({
                                   className="w-full min-h-[120px] p-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-y"
                                   value={editedText[roleImprovement.role] || roleImprovement.suggestedText}
                                   onChange={(e) => setEditedText({ ...editedText, [roleImprovement.role]: e.target.value })}
-                                  placeholder="Redigera AI-genererad text här..."
+                                  placeholder="Redigera texten här..."
                                 />
                                 <div className="flex justify-end gap-2">
                                   <Button

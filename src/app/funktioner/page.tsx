@@ -71,7 +71,7 @@ export default function FunktionerPage() {
       badgeColor: 'from-blue-500 to-blue-600',
       stats: 'Mest använda funktionen',
       demoPoints: [
-        'AI analyserar jobbannonsen',
+        'Plockar ut krav från annonsen',
         'Matchar dina kompetenser',
         'Skapar unikt innehåll',
         'ATS-optimerat format'
@@ -81,7 +81,7 @@ export default function FunktionerPage() {
     {
       id: 'cv-analysis',
       icon: FileSearch,
-      title: 'CV-analys med AI-feedback',
+      title: 'CV-analys med konkret feedback',
       description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
       badge: 'Gratis',
       badgeColor: 'from-green-500 to-green-600',
@@ -114,8 +114,8 @@ export default function FunktionerPage() {
       id: 'keyword-matching',
       icon: Target,
       title: 'Smart nyckelordsmatchning',
-      description: 'AI identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
-      badge: 'AI-driven',
+      description: 'Vi plockar ut nyckelorden från jobbannonsen och väver in dem i din ansökan. Rekryteraren ser direkt att du matchar.',
+      badge: 'Träffsäker',
       badgeColor: 'from-indigo-500 to-indigo-600',
       stats: '3x bättre matchning',
       demoPoints: [
@@ -155,12 +155,12 @@ export default function FunktionerPage() {
       answer: "Ja, säkerheten för din data är vår högsta prioritet. All dataöverföring är krypterad (SSL). Vi lagrar dina CV-texter och genererade brev säkert och delar dem aldrig med tredje part utan ditt uttryckliga medgivande. Du kan när som helst radera dina uppgifter från ditt konto."
     },
     {
-      question: "Hur 'smart' är AI:n? Vad baseras den på?",
-      answer: "Vår AI använder avancerade modeller (som GPT-4) men är finjusterad med expert-designade instruktioner specifikt framtagna för att skapa högkvalitativa, relevanta och anpassade jobbansökningar. Den är tränad att förstå sammanhanget i både ditt CV och jobbannonsen för att skapa bästa möjliga matchning."
+      question: "Hur fungerar det bakom kulisserna?",
+      answer: "Vi använder avancerade språkmodeller finjusterade för svenska jobbansökningar. Verktyget läser ditt CV och jobbannonsen, förstår sammanhanget och lyfter fram rätt kompetenser."
     },
     {
       question: "Kan jag lita på att texten blir unik och inte plagiat?",
-      answer: "Absolut. AI:n genererar text baserat på din unika input (CV och jobbannons). Varje genererat brev är unikt för den specifika kombinationen. Vi uppmuntrar dig dock alltid att granska och personifiera texten ytterligare för att säkerställa att den helt representerar dig."
+      answer: "Varje brev skapas utifrån just din kombination av CV och jobbannons. Resultatet är unikt varje gång. Granska, lägg till din personliga touch och skicka."
     },
     {
       question: "Hur fungerar betalning och kan jag avsluta när som helst?",
@@ -232,7 +232,7 @@ export default function FunktionerPage() {
               whileHover={{ scale: 1.05 }}
             >
               <Zap className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-semibold text-blue-900">AI-drivna verktyg</span>
+              <span className="text-sm font-semibold text-blue-900">Allt du behöver</span>
             </motion.div>
 
             {/* Main heading */}
@@ -250,7 +250,7 @@ export default function FunktionerPage() {
 
             <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto">
               Komplett verktygslåda som hjälper dig från CV till anställning.
-              Våra AI-verktyg sparar tid och ökar dina chanser dramatiskt.
+              Sluta lägga timmar på varje ansökan. Våra verktyg gör grovjobbet så du kan fokusera på det som faktiskt spelar roll.
             </p>
 
             {/* Static statistics with FULLY ISOLATED rendering context */}
@@ -350,10 +350,10 @@ export default function FunktionerPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                Se AI:n jobba i realtid
+                Se hur det fungerar, live
               </h2>
               <p className="text-xl text-slate-600">
-                Upplev kraften i vår AI-teknologi live
+                Från annons till färdigt brev. Så här ser det ut i praktiken.
               </p>
             </motion.div>
 
@@ -391,14 +391,6 @@ export default function FunktionerPage() {
 
               <div className="space-y-16">
                 {[
-                  {
-                    name: 'Anna Lindberg',
-                    role: 'Marknadsförare → Senior Marketing Manager',
-                    company: 'Spotify',
-                    time: '3 veckor',
-                    increase: '+45% lön',
-                    quote: 'AI:n förstod exakt vad Spotify letade efter och hjälpte mig framhäva rätt kompetenser.'
-                  },
                   {
                     name: 'Marcus Svensson',
                     role: 'Nyexaminerad → Junior Developer',
@@ -504,7 +496,7 @@ export default function FunktionerPage() {
                 </div>
                 <div className="p-4 sm:p-6 text-center">
                   <div className="font-medium text-slate-700 text-sm sm:text-base">ChatGPT</div>
-                  <div className="text-xs text-slate-600">Generell AI</div>
+                  <div className="text-xs text-slate-600">ChatGPT o.s.v.</div>
                 </div>
                 <div className="p-4 sm:p-6 text-center">
                   <div className="font-medium text-slate-700 text-sm sm:text-base">Traditionell</div>
@@ -515,7 +507,7 @@ export default function FunktionerPage() {
               {[
                 { feature: 'Svensk arbetsmarknad', us: true, chatgpt: false, traditional: false },
                 { feature: 'ATS-optimerade mallar', us: true, chatgpt: false, traditional: false },
-                { feature: 'Avancerade AI-prompts', us: true, chatgpt: 'partial', traditional: false },
+                { feature: 'Expertanpassade instruktioner', us: true, chatgpt: 'partial', traditional: false },
                 { feature: 'Djupgående CV-analys', us: true, chatgpt: false, traditional: false },
                 { feature: 'Färdiga snygga dokument', us: true, chatgpt: false, traditional: 'partial' },
                 { feature: 'Kompetensutvecklingsplan', us: true, chatgpt: false, traditional: false },
@@ -647,7 +639,7 @@ export default function FunktionerPage() {
                 Redo att revolutionera din jobbsökning?
               </h2>
               <p className="text-xl text-slate-600 mb-8">
-                Gå med 2,000+ svenskar som redan landat drömjobbet med våra AI-verktyg
+                Gå med 2,000+ svenskar som redan tagit nästa steg i karriären med Jobbcoach.ai
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

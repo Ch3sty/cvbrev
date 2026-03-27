@@ -31,7 +31,7 @@ export default function MatchExplanation() {
     },
     {
       icon: Brain,
-      title: 'AI-identifierade kompetenser',
+      title: 'Matchade kompetenser',
       points: 15,
       description: 'Kompetenser från CV-analysen',
       color: 'from-orange-500 to-red-500'
@@ -85,7 +85,7 @@ export default function MatchExplanation() {
             <div className="px-4 pb-4">
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 mb-4">
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Vi använder avancerad AI-analys och multi-query sökning för att hitta både exakt matchande och närliggande roller.
+                  Vi jämför ditt CV med jobbannonsen och lyfter fram det som matchar bäst.
                   Varje jobb får en relevanspoäng (0-100) baserad på 5 viktade faktorer:
                 </p>
               </div>

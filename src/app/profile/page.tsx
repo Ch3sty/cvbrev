@@ -96,7 +96,7 @@ export default function ProfilePage() {
   const tonalityOptions = [
     {
       value: 'auto',
-      label: 'AI-val (Rekommenderas)',
+      label: 'Smart val (Rekommenderas)',
       icon: <Bot className="w-5 h-5 text-purple-400" />,
       description: 'Låt AI analysera jobbannonsen och välja den bästa anpassade tonen baserat på bransch, företagskultur och tjänst.'
     },
@@ -599,7 +599,7 @@ export default function ProfilePage() {
                   <div className="flex items-start">
                     <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
                     <p className="text-yellow-200 text-sm">
-                      AI-optimerad tonalitet är endast tillgänglig för Premium-medlemmar.
+                      Smart tonalitet är endast tillgänglig för Premium-medlemmar.
                       <button
                         onClick={() => setActiveTab('subscription')}
                         className="ml-1 text-pink-400 hover:text-pink-300 underline"
@@ -838,7 +838,7 @@ export default function ProfilePage() {
             <div className="bg-navy-800 rounded-lg p-6 border border-pink-500/30 shadow-lg">
               <h3 className="text-lg font-semibold text-white mb-3">Uppgradera till Premium</h3>
               <p className="text-gray-300 mb-5 text-sm">
-                Lås upp obegränsad tillgång till brevgenerering, sparade brev, CV-uppladdningar, CV-analyser och AI-optimerad tonalitet för att maximera dina jobbchanser.
+                Lås upp obegränsad tillgång till brevgenerering, sparade brev, CV-uppladdningar, CV-analyser och smart tonalitet för att maximera dina jobbchanser.
               </p>
               <SubscribeButton
                 priceId={premiumMonthlyPriceId}

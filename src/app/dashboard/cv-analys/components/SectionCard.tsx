@@ -235,7 +235,7 @@ export default function SectionCard({
                   <div className="space-y-3">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Redigera AI-förslag
+                        Redigera förslaget
                         <span className="text-gray-500 font-normal ml-2">
                           (Justera siffror, erfarenheter och detaljer)
                         </span>
@@ -244,7 +244,7 @@ export default function SectionCard({
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
                         className="w-full min-h-[160px] md:min-h-[120px] p-4 md:p-3 text-base md:text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Redigera AI:ns förslag här..."
+                        placeholder="Redigera förslaget här..."
                         rows={6}
                       />
                     </div>

@@ -198,7 +198,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
       >
         <div className="flex items-center gap-2 mb-4">
           <Zap className="w-5 h-5 text-pink-600" />
-          <h3 className="font-semibold text-gray-900">Populära AI-verktyg</h3>
+          <h3 className="font-semibold text-gray-900">Populära verktyg</h3>
         </div>
 
         <div className="space-y-3">
@@ -211,7 +211,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             </div>
             <div className="flex-1">
               <h4 className="font-medium text-gray-900 text-sm">Skapa personligt brev</h4>
-              <p className="text-xs text-gray-600">AI-matchning mot jobbannonser</p>
+              <p className="text-xs text-gray-600">Matchning mot jobbannonser</p>
             </div>
             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-pink-600 group-hover:translate-x-1 transition-all duration-200" />
           </Link>
@@ -225,7 +225,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             </div>
             <div className="flex-1">
               <h4 className="font-medium text-gray-900 text-sm">CV-analys</h4>
-              <p className="text-xs text-gray-600">Få AI-feedback direkt</p>
+              <p className="text-xs text-gray-600">Få feedback direkt</p>
             </div>
             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-pink-600 group-hover:translate-x-1 transition-all duration-200" />
           </Link>

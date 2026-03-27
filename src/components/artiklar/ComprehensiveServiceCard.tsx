@@ -17,7 +17,7 @@ const ComprehensiveServiceCard: React.FC = () => {
     },
     {
       icon: BarChart3,
-      title: "AI-driven CV-analys",
+      title: "Djupgående CV-analys",
       description: "Djupgående feedback och konkreta förbättringsförslag"
     },
     {

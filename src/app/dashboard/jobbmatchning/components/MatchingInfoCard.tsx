@@ -29,7 +29,7 @@ export default function MatchingInfoCard() {
           </h3>
         </div>
         <p className="text-sm text-gray-700 font-medium">
-          AI-driven matchning som hjälper dig hitta fler relevanta möjligheter
+          Vi jämför din profil mot varje jobb och visar hur väl du matchar
         </p>
       </div>
 

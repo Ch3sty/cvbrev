@@ -16,7 +16,7 @@ export default function HjälpcenterPage() {
       icon: FileText,
       title: "Personliga brev",
       description: "Allt om att skapa och redigera brev",
-      topics: ["AI-generering", "Redigering", "Export och format"]
+      topics: ["Skapa brev", "Redigering", "Export och format"]
     },
     {
       icon: MessageCircle,

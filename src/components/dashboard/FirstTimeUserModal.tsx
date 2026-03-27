@@ -130,7 +130,7 @@ export default function FirstTimeUserModal({ onClose, onSkip }: FirstTimeUserMod
                 </div>
                 <div>
                   <p className="font-semibold text-slate-900">Få ett skräddarsytt brev</p>
-                  <p className="text-sm text-slate-600">AI:n matchar din profil mot tjänsten</p>
+                  <p className="text-sm text-slate-600">Vi matchar din profil mot tjänsten du söker</p>
                 </div>
               </div>
             </div>

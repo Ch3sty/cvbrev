@@ -109,7 +109,7 @@ export default function AILiveWriting() {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
               <BrainCircuit className="w-5 h-5 text-white" />
             </div>
-            <h3 className="font-bold text-slate-900">AI Analyserar</h3>
+            <h3 className="font-bold text-slate-900">Analyserar annonsen</h3>
           </div>
 
           {/* Karriärbyte info */}
@@ -173,7 +173,7 @@ export default function AILiveWriting() {
                 >
                   <Sparkles className="w-4 h-4" />
                 </motion.div>
-                <span>AI matchar dina kompetenser...</span>
+                <span>Matchar dina kompetenser mot tjänsten</span>
               </motion.div>
             )}
           </AnimatePresence>

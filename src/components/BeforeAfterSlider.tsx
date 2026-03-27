@@ -67,7 +67,7 @@ export default function BeforeAfterSlider({ examples = defaultExamples }: Before
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-50 to-white p-6 border-b border-slate-100">
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold text-slate-900">Före & Efter AI-optimering</h3>
+          <h3 className="text-2xl font-bold text-slate-900">Samma CV. Helt annat resultat.</h3>
           <div className="flex items-center gap-2">
             <button
               onClick={prevExample}
@@ -182,7 +182,7 @@ export default function BeforeAfterSlider({ examples = defaultExamples }: Before
         <div className="flex items-start gap-3">
           <TrendingUp className="w-5 h-5 text-green-600 mt-0.5" />
           <div className="flex-1">
-            <h4 className="font-semibold text-green-900 mb-2">AI-förbättringar</h4>
+            <h4 className="font-semibold text-green-900 mb-2">Förbättringar</h4>
             <div className="grid grid-cols-2 gap-2">
               {currentExample.improvements.map((improvement, idx) => (
                 <motion.div

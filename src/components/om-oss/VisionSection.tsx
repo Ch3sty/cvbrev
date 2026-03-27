@@ -30,7 +30,7 @@ const visionData: VisionItem[] = [
   {
     icon: Target,
     title: 'Vår Mission',
-    description: 'Att demokratisera karriärmöjligheter genom att ge alla svenskar tillgång till professionell karriärcoachning och AI-driven vägledning.',
+    description: 'Att demokratisera karriärmöjligheter genom att ge alla svenskar tillgång till professionell karriärcoachning och vägledning som faktiskt hjälper.',
     gradient: 'from-pink-500 to-rose-500',
     features: [
       'Tillgänglig för alla, oavsett bakgrund',
@@ -42,10 +42,10 @@ const visionData: VisionItem[] = [
   {
     icon: Lightbulb,
     title: 'Vår Vision',
-    description: 'En framtid där varje svensk kan navigera sin karriär med självförtroende, stödd av den mest avancerade AI-teknologin och mänskliga expertis.',
+    description: 'En framtid där varje svensk kan navigera sin karriär med självförtroende, stödd av den mest avancerade tekniken och mänsklig expertis.',
     gradient: 'from-purple-500 to-indigo-500',
     features: [
-      'AI som förstår svensk arbetsmarknad',
+      'Byggt för svenska arbetssökande',
       'Personlig utveckling för alla',
       'Jämställda karriärmöjligheter',
       'Innovation inom HR-teknik'
@@ -58,7 +58,7 @@ const visionData: VisionItem[] = [
     gradient: 'from-blue-500 to-cyan-500',
     features: [
       'Integritet och datasäkerhet först',
-      'Transparent AI och algoritmer',
+      'Transparent teknik',
       'Användaren i centrum alltid',
       'Kontinuerlig innovation'
     ]
@@ -141,10 +141,10 @@ export default function VisionSection() {
             Vår filosofi
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Mer än bara <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">AI-teknik</span>
+            Mer än bara <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">ett verktyg</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Vi kombinerar avancerad artificiell intelligens med djup förståelse för den svenska arbetsmarknaden
+            Vi kombinerar avancerad teknik med djup förståelse för den svenska arbetsmarknaden
             och genuint engagemang för varje användares framgång. Det är vad som gör Jobbcoach.ai unikt.
           </p>
         </motion.div>
@@ -233,12 +233,12 @@ export default function VisionSection() {
                   <BrainCircuit className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">
-                  AI som förstår Sverige
+                  Byggt för Sverige
                 </h3>
               </div>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Vår AI är tränad specifikt på den svenska arbetsmarknaden, kulturen och språket.
+                Vårt verktyg är byggt specifikt för den svenska arbetsmarknaden, kulturen och språket.
                 Det betyder att du får råd som faktiskt fungerar här, med terminologi som känns naturlig
                 och strategier anpassade för svenska arbetsgivare.
               </p>
@@ -283,7 +283,7 @@ export default function VisionSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">Mänsklig touch</h4>
-                      <p className="text-sm text-gray-600">AI + experters insikter</p>
+                      <p className="text-sm text-gray-600">Data + experters insikter</p>
                     </div>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ export default function VisionSection() {
                       <Star className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <div className="font-semibold">Premium AI-modell</div>
+                      <div className="font-semibold">Premium-analys</div>
                       <div className="text-white/80 text-sm">Tränad på 50,000+ svenska jobbansökningar</div>
                     </div>
                   </div>
@@ -341,7 +341,7 @@ export default function VisionSection() {
           className="text-center mt-16"
         >
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Upplev skillnaden med en AI-karriärcoach som verkligen förstår dig och den svenska arbetsmarknaden.
+            Upplev skillnaden med en karriärcoach som verkligen förstår dig och den svenska arbetsmarknaden.
           </p>
 
           <motion.div

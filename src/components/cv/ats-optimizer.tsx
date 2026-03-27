@@ -352,7 +352,7 @@ export default function ATSOptimizer({
       {activeTab === 'suggestions' && (
         <Card className="bg-navy-700 border-navy-600">
           <CardHeader>
-            <CardTitle className="text-white text-lg">AI-Genererade Förbättringsförslag</CardTitle>
+            <CardTitle className="text-white text-lg">Förbättringsförslag</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {optimization.suggestions.map((suggestion, index) => (

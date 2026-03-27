@@ -63,20 +63,20 @@ export default function OmOssPage() {
       title: 'Grundare & CEO',
       image: '/images/jobbcoach/Helena.webp',
       bio: 'Med över 10 års erfarenhet inom HR och rekrytering, driver Helena visionen om att demokratisera karriärmöjligheter för alla svenskar.',
-      expertise: ['Karriärstrategi', 'HR-ledarskap', 'AI-utveckling', 'Användareupplevelse']
+      expertise: ['Karriärstrategi', 'HR-ledarskap', 'AI & Språkmodeller', 'Användareupplevelse']
     },
     {
       name: 'Johan Eriksson',
-      title: 'Tech Lead & AI-Specialist',
+      title: 'Tech Lead & AI/LLM-Specialist',
       image: '/images/jobbcoach/Johan.webp',
-      bio: 'Johan leder utvecklingen av vår AI-teknologi och säkerställer att den alltid levererar värdefulla insikter för våra användare.',
-      expertise: ['AI & Machine Learning', 'Backend-utveckling', 'Data Science', 'Systemarkitektur']
+      bio: 'Johan leder den tekniska utvecklingen och våra AI-integrationer, och säkerställer att de alltid levererar värdefulla insikter för våra användare.',
+      expertise: ['AI, LLM:er & Data', 'Backend-utveckling', 'Data Science', 'Systemarkitektur']
     },
     {
       name: 'Linda Svensson',
       title: 'UX Designer & Produktstrateg',
       image: '/images/jobbcoach/Linda.webp',
-      bio: 'Linda ansvarar för att göra komplexa AI-funktioner intuitive och tillgängliga, med fokus på svensk användarupplevelse.',
+      bio: 'Linda ansvarar för att göra avancerad teknik enkel att använda, med fokus på svensk användarupplevelse.',
       expertise: ['UX/UI Design', 'Produktstrategi', 'Användarforskning', 'Design System']
     }
   ]
@@ -88,7 +88,7 @@ export default function OmOssPage() {
       {/* SEO och Metadata */}
       <Head>
         <title>Om Oss | Jobbcoach.ai - Din partner i karriären</title>
-        <meta name="description" content="Lär känna teamet och visionen bakom Jobbcoach.ai. Vi brinner för att hjälpa dig nå dina karriärmål med smarta, AI-drivna verktyg för jobbsökning." />
+        <meta name="description" content="Lär känna teamet och visionen bakom Jobbcoach.ai. Vi brinner för att hjälpa dig nå dina karriärmål med verktyg som förstår svenska jobbansökningar." />
         <meta name="keywords" content="om jobbcoach.ai, om oss, digital jobbcoach, AI jobbsökning, karriärutveckling, cvbrev.se" />
         <meta property="og:title" content="Om Oss | Jobbcoach.ai - Din partner i karriären" />
         <meta property="og:description" content="Upptäck missionen och människorna bakom Jobbcoach.ai. Läs om hur vi använder AI för att förenkla och förbättra din jobbsökning." />
@@ -133,7 +133,7 @@ export default function OmOssPage() {
 
               <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed">
                 Jobbcoach.ai är mer än bara ett verktyg – vi är din digitala partner,
-                dedikerade till att förenkla och förbättra din resa mot drömjobbet med hjälp av smart AI.
+                dedikerade till att förenkla och förbättra din resa mot drömjobbet med teknik byggd för svenska arbetssökande.
               </p>
 
               <motion.div
@@ -204,13 +204,12 @@ export default function OmOssPage() {
                   </p>
                   <p>
                     Men vi insåg att jobbsökning är mer än bara ett personligt brev. Vi såg potentialen
-                    i AI att erbjuda djupare insikter och stöd genom hela processen.
+                    att erbjuda djupare insikter och stöd genom hela processen.
                   </p>
                   <p>
                     Därför utvecklades vi till <strong className="text-pink-600">Jobbcoach.ai</strong> –
                     en mer komplett digital jobbcoach som inkluderar CV-analys, insikter och fler
-                    kommande funktioner, allt drivet av specialiserad AI designad för att maximera
-                    dina chanser på arbetsmarknaden.
+                    kommande funktioner, allt byggt för att maximera dina chanser på arbetsmarknaden.
                   </p>
                 </div>
 

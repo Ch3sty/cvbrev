@@ -177,7 +177,7 @@ export default function EnhancedFinalCTA() {
                   {
                     metric: `${counters.totalLetters}+`,
                     label: "Brev skapade",
-                    subtext: "med AI-hjälp",
+                    subtext: "på under 2 minuter",
                     icon: TrendingUp,
                     color: "text-green-600",
                     bgColor: "from-green-50 to-emerald-50"

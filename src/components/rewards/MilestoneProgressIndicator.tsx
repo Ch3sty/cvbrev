@@ -40,7 +40,7 @@ const defaultMilestones: MilestoneLevel[] = [
   {
     level: 5,
     title: 'Karriärutforskare',
-    description: 'Du har tagit dina första steg in i AI-driven karriärutveckling',
+    description: 'Du har tagit dina första steg mot strukturerad karriärutveckling',
     theme: 'bronze',
     rewards: [
       { type: 'trial', value: '3 dagar', description: 'Gratis premium-tid' },
@@ -50,7 +50,7 @@ const defaultMilestones: MilestoneLevel[] = [
   {
     level: 10,
     title: 'Professionell Navigatör',
-    description: 'Du behärskar grunderna i våra AI-verktyg',
+    description: 'Du behärskar grunderna i våra verktyg',
     theme: 'bronze',
     rewards: [
       { type: 'discount', value: '10%', description: 'Rabatt på premium-prenumeration' },
@@ -69,14 +69,14 @@ const defaultMilestones: MilestoneLevel[] = [
   },
   {
     level: 20,
-    title: 'AI-Expert',
-    description: 'Du har mäktigt djup förståelse för AI-driven karriärutveckling',
+    title: 'Expert',
+    description: 'Du har djup förståelse för avancerad karriärutveckling',
     theme: 'silver',
     isSpecial: true,
     rewards: [
       { type: 'discount', value: '20%', description: 'Stor rabatt på premium' },
       { type: 'guest_invitations', value: '+5', description: 'Månadsbonus för inbjudningar' },
-      { type: 'status', value: 'AI-Expert', description: 'Exklusiv expertsstatus' }
+      { type: 'status', value: 'Expert', description: 'Exklusiv expertsstatus' }
     ]
   },
   {
@@ -94,7 +94,7 @@ const defaultMilestones: MilestoneLevel[] = [
   {
     level: 40,
     title: 'Branschledare',
-    description: 'Du är nu en erkänd expert inom karriärutveckling och AI',
+    description: 'Du är nu en erkänd expert inom karriärutveckling',
     theme: 'platinum',
     isSpecial: true,
     rewards: [

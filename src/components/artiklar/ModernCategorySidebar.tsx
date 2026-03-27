@@ -150,7 +150,7 @@ const ModernCategorySidebar: React.FC<ModernCategorySidebarProps> = ({ categorie
                 Skapa personligt brev
               </h4>
               <p className="text-sm text-gray-600 leading-snug">
-                Matcha ditt CV mot jobbannonsen och låt vår AI skriva ett vinnande brev på sekunder.
+                Matcha ditt CV mot jobbannonsen, vi skräddarsyr brevet åt dig.
               </p>
             </div>
             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-pink-600 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />
@@ -169,7 +169,7 @@ const ModernCategorySidebar: React.FC<ModernCategorySidebarProps> = ({ categorie
                 Analysera ditt CV
               </h4>
               <p className="text-sm text-gray-600 leading-snug">
-                Få AI-feedback på styrkor och förbättringsområden (struktur, verb, tydlighet).
+                Få konkret feedback på styrkor och förbättringsområden (struktur, verb, tydlighet).
               </p>
             </div>
             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />
