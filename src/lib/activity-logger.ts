@@ -42,8 +42,11 @@ export type ActivityType =
   | 'linkedin_optimization_failed' // LinkedIn-optimering misslyckades
   | 'cv_generated'                  // Formatterat CV genererades och laddades ner
   | 'jobs_searched'                 // Jobbmatchning utfördes
-  | 'premium_activated';            // Premium-prenumeration aktiverades via Stripe
-  // Lägg till fler typer vid behov
+  | 'premium_activated'             // Premium-prenumeration aktiverades via Stripe
+  | 'page_viewed'                   // Användaren besökte en sida
+  | 'cta_clicked'                   // Användaren klickade på en CTA-knapp
+  | 'feature_explored'              // Användaren utforskade en funktion/feature
+  | 'pricing_viewed';               // Användaren tittade på prissidan
 
 /**
  * Loggar en användaraktivitet i databasen

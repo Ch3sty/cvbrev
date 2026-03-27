@@ -58,6 +58,7 @@
     "openai": "^4.87.3",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^5.0.375",
+    "posthog-js": "^1.364.0",
     "puppeteer-core": "^24.30.0",
     "qrcode": "^1.5.4",
     "react": "^19.0.0",

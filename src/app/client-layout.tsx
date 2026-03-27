@@ -10,6 +10,8 @@ import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-co
 import { NotificationProvider } from '@/context/notificationcontext';
 import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import { AuthProvider } from '@/contexts/AuthContext';
+import ActivityTracker from '@/components/ActivityTracker';
+import PostHogIdentify from '@/components/PostHogProvider';
 import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -107,6 +109,8 @@ export default function ClientLayout({
       {/* === GTM BODY SNIPPET (NOSCRIPT) SLUT === */}
 
       <AuthProvider>
+        <PostHogIdentify />
+        <ActivityTracker />
         <GlobalCountersProvider>
           <NotificationProvider>
             <main className="flex-grow">

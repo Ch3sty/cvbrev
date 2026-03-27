@@ -2,6 +2,7 @@
 import { createServerClient } from '@/lib/supabase/server'
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateLastActive } from '@/lib/utils/activity-tracker'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 // Routes som KRÄVER inloggning (allt annat är publikt)
 // Next.js 16: Ändrad från "blocka alla, tillåt några" till "tillåt alla, blocka specifika"
@@ -45,9 +46,9 @@ export async function updateSession(request: NextRequest) {
 
   // Om användare är inloggad, uppdatera last_active i bakgrunden (non-blocking)
   if (user) {
-    // Kör asynkront utan att vänta på resultat för att inte påverka sidladdning
-    updateLastActive(supabase, user.id).catch(err => {
-      // Logga fel men låt inte detta stoppa requesten
+    // Använd admin-klient (service role) för att bypassa RLS
+    // Den cookie-baserade klienten saknar korrekt auth-kontext för DB-skrivningar i proxy
+    updateLastActive(getSupabaseAdmin(), user.id).catch(err => {
       console.error('[Middleware] Misslyckades att uppdatera last_active:', err)
     })
   }

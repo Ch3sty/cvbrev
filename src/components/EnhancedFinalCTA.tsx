@@ -7,6 +7,8 @@ import {
   Star, TrendingUp, Zap
 } from 'lucide-react'
 import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
+import { useAuth } from '@/contexts/AuthContext'
+import { trackClick } from '@/components/ActivityTracker'
 
 interface AnimatedCounterProps {
   from: number
@@ -38,6 +40,7 @@ function AnimatedCounter({ from, to, duration = 2000 }: AnimatedCounterProps) {
 
 export default function EnhancedFinalCTA() {
   const { counters } = useGlobalCounters()
+  const { user } = useAuth()
   const [isInView, setIsInView] = useState(false)
 
   return (
@@ -231,7 +234,10 @@ export default function EnhancedFinalCTA() {
                 transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
               >
                 <motion.button
-                  onClick={() => window.location.href = '/trial-signup'}
+                  onClick={() => {
+                    if (user) trackClick(user.id, 'Prova Premium gratis i 7 dagar', { page: 'final-cta' })
+                    window.location.href = '/trial-signup'
+                  }}
                   className="group relative w-full px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-blue-500/25 overflow-hidden"
                   whileHover={{ scale: 1.02, y: -3 }}
                   whileTap={{ scale: 0.98 }}
