@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -12,13 +12,12 @@ import {
   Brain,
   Palette,
   User,
-  Users,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
+  ChevronUp,
   LogOut,
-  HelpCircle,
   Mail,
-  GraduationCap,
   Trophy,
   Gift,
   Briefcase,
@@ -29,15 +28,25 @@ import {
   Shield,
   X,
   Bug,
-  Sparkles,
   MessageCircle,
-  FilePlus
+  FilePlus,
+  Upload
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
   onClose?: () => void;
   isMobile?: boolean;
 }
+
+// Paths that belong to "Fler verktyg" — used for auto-expand
+const EXTRA_TOOLS_PATHS = [
+  '/dashboard/cv-analys',
+  '/dashboard/jobbmatchning',
+  '/dashboard/jobbcoachen',
+  '/dashboard/linkedin-optimizer',
+  '/dashboard/tester',
+  '/dashboard/rewards',
+];
 
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
@@ -50,6 +59,29 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
+
+  // "Fler verktyg" expand state — auto-expand if on one of those pages
+  const isOnExtraToolPage = EXTRA_TOOLS_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'));
+  const [extraToolsOpen, setExtraToolsOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('sidebar-extra-tools-open');
+      if (stored !== null) return stored === 'true';
+    }
+    return false;
+  });
+
+  // Auto-expand if navigating to an extra tool page
+  useEffect(() => {
+    if (isOnExtraToolPage && !extraToolsOpen) {
+      setExtraToolsOpen(true);
+    }
+  }, [isOnExtraToolPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const toggleExtraTools = () => {
+    const next = !extraToolsOpen;
+    setExtraToolsOpen(next);
+    localStorage.setItem('sidebar-extra-tools-open', String(next));
+  };
 
   // Use OnboardingContext for instant updates
   const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
@@ -65,13 +97,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         }
 
         if (user && user.id) {
-          // Ensure user.id is a string, not an array or undefined
           const userId = typeof user.id === 'string' ? user.id : null;
-
-          if (!userId) {
-            console.error('Invalid user ID format');
-            return;
-          }
+          if (!userId) return;
 
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
@@ -79,38 +106,29 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             .eq('id', userId)
             .single();
 
-          if (profileError) {
-            console.error('Profile query error:', profileError);
-            return;
-          }
+          if (profileError) return;
 
-          // Check both premium_until and subscription_tier
           const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
           const hasPremiumTier = profile?.subscription_tier === 'premium';
           setIsPremium(hasPremiumUntil || hasPremiumTier);
 
-          // Check if trial user
           const isTrialSource = profile?.premium_source === 'signup_trial' || profile?.premium_source === 'oauth_signup_trial';
           setIsTrialUser(isTrialSource && hasPremiumUntil);
 
-          // Check admin status
           const { data: adminData } = await supabase
             .from('admin_users')
             .select('role')
             .eq('id', userId)
             .eq('role', 'super_admin')
             .maybeSingle();
-
           setIsAdmin(!!adminData);
 
-          // Fetch CV count (CVs are stored in cv_texts table)
           const { count: cvCountResult } = await supabase
             .from('cv_texts')
             .select('id', { count: 'exact', head: true })
             .eq('user_id', userId);
           setCvCount(cvCountResult ?? 0);
 
-          // Fetch letter count (only saved letters)
           const { count: letterCountResult } = await supabase
             .from('letters')
             .select('id', { count: 'exact', head: true })
@@ -125,8 +143,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
     checkPremiumStatus();
   }, [supabase]);
-  
-  // Handler for claiming onboarding reward
+
   const handleClaimReward = async () => {
     setClaimingReward(true);
     try {
@@ -134,12 +151,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
-
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || 'Failed to claim reward');
       }
-
       markRewardClaimed();
       router.push('/dashboard');
     } catch (error) {
@@ -150,122 +165,61 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     }
   };
 
-  // Navigationslänkar för användardashboard
-  const navItems = [
-    {
-      path: '/dashboard/kom-igang',
-      label: 'Kom igång',
-      icon: <Target className="w-5 h-5" />,
-      section: 'onboarding',
-      showOnlyWhen: !onboardingCompleted || !rewardClaimed,
-      pulse: true,
-      badge: requiredCompletedCount < 3 ? `${requiredCompletedCount}/3` : null
-    },
-    {
-      path: '/dashboard',
-      label: 'Översikt',
-      icon: <LayoutDashboard className="w-5 h-5" />,
-      section: 'main'
-    },
-    {
-      path: '/dashboard/rewards',
-      label: 'Belöningar',
-      icon: <Trophy className="w-5 h-5" />,
-      section: 'main'
-    },
-    {
-      path: '/dashboard/skapa-cv',
-      label: 'Skapa ditt första CV',
-      icon: <FilePlus className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/skapa-brev',
-      label: 'Skapa personligt brev',
-      icon: <PenTool className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/cv-analys',
-      label: 'Förbättra CV',
-      icon: <Search className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/linkedin-optimizer',
-      label: 'LinkedIn\nProfiloptimering',
-      icon: <Linkedin className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/jobbcoachen',
-      label: 'Jobbcoachen',
-      icon: <MessageCircle className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/jobbmatchning',
-      label: 'Jobbmatchning',
-      icon: <Briefcase className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/tester',
-      label: 'Träna på rekryteringstester',
-      icon: <Brain className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/cv-mallar',
-      label: 'Byt CV-design',
-      icon: <Palette className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
-      path: '/dashboard/profil/cv',
-      label: 'Mina CV:n',
-      icon: <FileText className="w-5 h-5" />,
-      section: 'cvs',
-      count: cvCount
-    },
-    {
-      path: '/dashboard/mina-brev',
-      label: 'Mina Brev',
-      icon: <FileText className="w-5 h-5" />,
-      section: 'documents',
-      count: letterCount
-    },
-  ];
-
-  // Profile submenu items
-  const profileSubItems = [
-    {
-      path: '/dashboard/profil',
-      label: 'Profilinformation',
-      icon: <User className="w-4 h-4" />
-    },
-    {
-      path: '/dashboard/profil/prenumeration',
-      label: 'Prenumeration',
-      icon: <Crown className="w-4 h-4" />,
-      isPremiumLink: true,
-      showTrialBadge: !isPremium
-    }
-  ];
-  
-  // Logga ut funktion
   const handleLogout = async () => {
     await supabase.auth.signOut();
     window.location.href = '/';
   };
-  
-  // Gruppera navigation items
-  const onboardingItems = navItems.filter(item => item.section === 'onboarding' && ('showOnlyWhen' in item ? item.showOnlyWhen : true));
-  const toolsItems = navItems.filter(item => item.section === 'tools');
-  const cvsItems = navItems.filter(item => item.section === 'cvs');
-  const documentsItems = navItems.filter(item => item.section === 'documents');
-  const overviewItems = navItems.filter(item => item.section === 'main');
-  
+
+  const hasNoCv = cvCount !== null && cvCount === 0;
+
+  // Helper: render a nav link
+  const NavLink = ({ path, label, icon, count, sublabel, highlight }: {
+    path: string;
+    label: string;
+    icon: React.ReactNode;
+    count?: number | null;
+    sublabel?: string;
+    highlight?: boolean;
+  }) => {
+    const isActive = pathname === path || pathname.startsWith(path + '/');
+    return (
+      <li>
+        <Link
+          href={path}
+          prefetch={true}
+          onClick={() => isMobile && onClose?.()}
+          className={`
+            flex items-center px-4 py-3 sm:py-2.5 rounded-lg relative transition-all duration-200 touch-manipulation min-h-[44px]
+            ${isActive
+              ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+              : highlight
+              ? 'text-blue-600 bg-blue-50/50 hover:bg-blue-100 hover:shadow-sm font-medium'
+              : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
+            }
+            ${collapsed ? 'justify-center' : ''}
+          `}
+        >
+          <span className="flex-shrink-0">{icon}</span>
+          {!collapsed && (
+            <div className="ml-3 flex-1 flex items-center justify-between">
+              <div>
+                <span className="whitespace-pre-line">{label}</span>
+                {sublabel && (
+                  <span className="block text-xs text-slate-400 mt-0.5">{sublabel}</span>
+                )}
+              </div>
+              {typeof count === 'number' && count > 0 && (
+                <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                  {count}
+                </span>
+              )}
+            </div>
+          )}
+        </Link>
+      </li>
+    );
+  };
+
   return (
     <div
       className={`bg-white h-full ${
@@ -286,7 +240,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         )}
 
         <div className="flex items-center gap-2">
-          {/* Mobile close button */}
           {isMobile && onClose && (
             <button
               onClick={onClose}
@@ -295,8 +248,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               <X className="w-5 h-5" />
             </button>
           )}
-
-          {/* Desktop collapse button */}
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors shadow-sm hover:shadow-md hidden lg:block"
@@ -305,37 +256,27 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           </button>
         </div>
       </div>
-      
-      {/* Navigation Links - med scrollbar på mobil */}
+
+      {/* Navigation */}
       <nav
-        className="flex-1 py-4 space-y-6 overflow-y-auto"
-        style={{
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'contain'
-        }}
+        className="flex-1 py-4 space-y-4 overflow-y-auto"
+        style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
       >
-        {/* Kom igång - Onboarding (Pulserande, högst upp) */}
-        {/* Onboarding Section - Dynamic based on completion and reward status */}
+        {/* Onboarding */}
         {!isLoading && !rewardClaimed && (
           <div className="px-4">
             <style dangerouslySetInnerHTML={{__html: `
               @keyframes gentle-pulse {
-                0%, 100% {
-                  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-                }
-                50% {
-                  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
-                }
+                0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+                50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
               }
-              .onboarding-pulse {
-                animation: gentle-pulse 3s ease-in-out infinite;
-              }
+              .onboarding-pulse { animation: gentle-pulse 3s ease-in-out infinite; }
             `}} />
 
-            {/* State 1: Not completed (0-5 steps) - Show progress link */}
             {!onboardingCompleted && (
               <Link
                 href="/dashboard/kom-igang"
+                onClick={() => isMobile && onClose?.()}
                 className={`
                   flex items-center justify-between p-3 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl touch-manipulation min-h-[44px] relative
                   ${pathname === '/dashboard/kom-igang'
@@ -362,7 +303,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               </Link>
             )}
 
-            {/* State 2: Completed (6/6) but reward not claimed - Show claim button */}
             {onboardingCompleted && !rewardClaimed && (
               <button
                 onClick={handleClaimReward}
@@ -401,251 +341,195 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         )}
 
         {/* Översikt */}
-        <div>
-          <ul className="space-y-1">
-            {overviewItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  prefetch={true}
-                  className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg relative transition-all duration-200 touch-manipulation min-h-[44px]
-                    ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                    ${'locked' in item && item.locked ? 'opacity-60 cursor-not-allowed' : ''}
-                  `}
-                  {...('locked' in item && item.locked ? { onClick: (e: React.MouseEvent) => e.preventDefault() } : {})}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="space-y-1">
+          <NavLink path="/dashboard" label="Översikt" icon={<LayoutDashboard className="w-5 h-5" />} />
+        </ul>
 
-        {/* Verktyg Sektion */}
+        {/* MITT CV — grundstenen */}
         <div>
           {!collapsed && (
             <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Verktyg
+              Mitt CV
             </h3>
           )}
           <ul className="space-y-1">
-            {toolsItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  prefetch={true}
-                  className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
-                    ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
-                </Link>
-              </li>
-            ))}
+            <NavLink
+              path="/dashboard/profil/cv"
+              label="Mina CV:n"
+              icon={<FileText className="w-5 h-5" />}
+              count={cvCount}
+              sublabel={hasNoCv ? 'Ladda upp ditt CV' : undefined}
+              highlight={hasNoCv}
+            />
+            <NavLink
+              path="/dashboard/skapa-cv"
+              label="Skapa CV"
+              icon={<FilePlus className="w-5 h-5" />}
+            />
           </ul>
         </div>
 
-        {/* Mina CV:n Sektion */}
+        {/* SKAPA — primära verktyg */}
         <div>
           {!collapsed && (
             <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Mina CV:n
+              Skapa
             </h3>
           )}
           <ul className="space-y-1">
-            {cvsItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  prefetch={true}
-                  className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
-                    ${pathname === item.path || pathname.startsWith(item.path + '/')
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
+            <NavLink
+              path="/dashboard/skapa-brev"
+              label="Personligt brev"
+              icon={<PenTool className="w-5 h-5" />}
+              sublabel={hasNoCv ? 'Ladda upp CV först' : undefined}
+            />
+            <NavLink
+              path="/dashboard/cv-mallar"
+              label="CV Mallar"
+              icon={<Palette className="w-5 h-5" />}
+            />
+          </ul>
+        </div>
+
+        {/* SPARADE */}
+        <div>
+          {!collapsed && (
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
+              Sparade
+            </h3>
+          )}
+          <ul className="space-y-1">
+            <NavLink
+              path="/dashboard/mina-brev"
+              label="Sparade brev"
+              icon={<FileText className="w-5 h-5" />}
+              count={letterCount}
+            />
+          </ul>
+        </div>
+
+        {/* FLER VERKTYG — expanderbar */}
+        <div>
+          {!collapsed ? (
+            <button
+              onClick={toggleExtraTools}
+              className="w-full flex items-center justify-between px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider hover:text-slate-900 transition-colors"
+            >
+              <span>Fler verktyg</span>
+              {extraToolsOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+          ) : (
+            <button
+              onClick={toggleExtraTools}
+              className="w-full flex justify-center py-2 text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              {extraToolsOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+          )}
+          <AnimatePresence initial={false}>
+            {extraToolsOpen && (
+              <motion.ul
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-1 overflow-hidden"
+              >
+                <NavLink path="/dashboard/cv-analys" label="Förbättra CV" icon={<Search className="w-5 h-5" />} />
+                <NavLink path="/dashboard/jobbmatchning" label="Jobbmatchning" icon={<Briefcase className="w-5 h-5" />} />
+                <NavLink path="/dashboard/jobbcoachen" label="Jobbcoachen" icon={<MessageCircle className="w-5 h-5" />} />
+                <NavLink path="/dashboard/linkedin-optimizer" label="LinkedIn-optimering" icon={<Linkedin className="w-5 h-5" />} />
+                <NavLink path="/dashboard/tester" label="Rekryteringstester" icon={<Brain className="w-5 h-5" />} />
+                <NavLink path="/dashboard/rewards" label="Belöningar" icon={<Trophy className="w-5 h-5" />} />
+              </motion.ul>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Profil & Prenumeration — alltid synlig */}
+        <div className="pt-2">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href="/dashboard/profil"
+                prefetch={true}
+                onClick={() => isMobile && onClose?.()}
+                className={`
+                  flex items-center justify-between px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px] relative overflow-hidden group
+                  ${pathname === '/dashboard/profil' || pathname === '/dashboard/profil/prenumeration'
+                    ? isPremium
+                      ? 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border-l-4 border-amber-600 shadow-lg font-semibold'
+                      : 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                    : isPremium
+                    ? 'bg-gradient-to-r from-amber-50/50 to-yellow-50/50 text-amber-700 hover:from-amber-100 hover:to-yellow-100 hover:shadow-md font-medium'
+                    : 'bg-gradient-to-r from-pink-50/50 to-purple-50/50 text-slate-700 hover:from-pink-100 hover:to-purple-100 hover:shadow-md font-medium'
+                  }
+                  ${collapsed ? 'justify-center' : ''}
+                `}
+              >
+                <motion.div
+                  className={`absolute inset-0 rounded-lg ${
+                    isPremium
+                      ? 'bg-gradient-to-r from-amber-400/10 to-yellow-400/10'
+                      : 'bg-gradient-to-r from-pink-400/10 to-purple-400/10'
+                  }`}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+
+                <div className="flex items-center flex-1 relative z-10">
+                  <span className={`flex-shrink-0 ${isPremium ? 'text-amber-600' : 'text-pink-600'}`}>
+                    <Crown className="w-4 h-4" />
+                  </span>
                   {!collapsed && (
-                    <>
-                      <span className="ml-3">{item.label}</span>
-                      {'count' in item && typeof item.count === 'number' && item.count > 0 && (
-                        <span className="ml-auto text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-                          {item.count}
+                    <div className="ml-3 flex items-center gap-2 flex-1">
+                      <span>Profil & Prenumeration</span>
+                      {!isPremium && (
+                        <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full whitespace-nowrap">
+                          prova på
                         </span>
-                      )}
-                    </>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Mina Dokument Sektion */}
-        <div>
-          {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Mina Dokument
-            </h3>
-          )}
-          <ul className="space-y-1">
-            {documentsItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  prefetch={true}
-                  className={`
-                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
-                    ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && (
-                    <>
-                      <span className="ml-3 whitespace-pre-line">{item.label}</span>
-                      {'count' in item && typeof item.count === 'number' && item.count > 0 && (
-                        <span className="ml-auto text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-                          {item.count}
-                        </span>
-                      )}
-                    </>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Profil Sektion - Always Visible */}
-        <div>
-          {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Min Profil
-            </h3>
-          )}
-          <ul className="space-y-1">
-            {profileSubItems.map((subItem) => {
-              const isPremiumLink = 'isPremiumLink' in subItem && subItem.isPremiumLink;
-              const showTrialBadge = 'showTrialBadge' in subItem && subItem.showTrialBadge;
-
-              return (
-                <li key={subItem.path}>
-                  <Link
-                    href={subItem.path}
-                    prefetch={true}
-                    className={`
-                      flex items-center justify-between px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px] relative overflow-hidden group
-                      ${pathname === subItem.path
-                        ? isPremiumLink && isPremium
-                          ? 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border-l-4 border-amber-600 shadow-lg font-semibold'
-                          : isPremiumLink
-                          ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                          : 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                        : isPremiumLink && isPremium
-                        ? 'bg-gradient-to-r from-amber-50/50 to-yellow-50/50 text-amber-700 hover:from-amber-100 hover:to-yellow-100 hover:shadow-md font-medium'
-                        : isPremiumLink
-                        ? 'bg-gradient-to-r from-pink-50/50 to-purple-50/50 text-slate-700 hover:from-pink-100 hover:to-purple-100 hover:shadow-md font-medium'
-                        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                      }
-                      ${collapsed ? 'justify-center' : ''}
-                    `}
-                  >
-                    {/* Background animation for premium link */}
-                    {isPremiumLink && (
-                      <motion.div
-                        className={`absolute inset-0 rounded-lg ${
-                          isPremium
-                            ? 'bg-gradient-to-r from-amber-400/10 to-yellow-400/10'
-                            : 'bg-gradient-to-r from-pink-400/10 to-purple-400/10'
-                        }`}
-                        animate={{ opacity: [0.3, 0.6, 0.3] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                      />
-                    )}
-
-                    {/* Sparkle animation for free users on premium link */}
-                    {isPremiumLink && !isPremium && !collapsed && (
-                      <motion.div
-                        className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <Sparkles className="w-3 h-3 text-white" />
-                      </motion.div>
-                    )}
-
-                    <div className="flex items-center flex-1 relative z-10">
-                      <span className={`flex-shrink-0 ${isPremiumLink ? (isPremium ? 'text-amber-600' : 'text-pink-600') : ''}`}>
-                        {subItem.icon}
-                      </span>
-                      {!collapsed && (
-                        <div className="ml-3 flex items-center gap-2 flex-1">
-                          <span>{subItem.label}</span>
-                          {showTrialBadge && (
-                            <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                              prova på
-                            </span>
-                          )}
-                        </div>
                       )}
                     </div>
-                  </Link>
-                </li>
-              );
-            })}
+                  )}
+                </div>
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
-      
-      {/* Hjälp & Support */}
-      <div className="p-4 border-t border-slate-300 space-y-2 bg-gradient-to-r from-white to-slate-50/50">
+
+      {/* Footer */}
+      <div className="p-4 border-t border-slate-300 space-y-1 bg-gradient-to-r from-white to-slate-50/50">
         <Link
           href="/dashboard/bugg-feedback"
           prefetch={true}
+          onClick={() => isMobile && onClose?.()}
           className={`
-            flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
+            flex items-center text-slate-500 hover:text-slate-700 py-1.5 px-2 rounded-lg transition-all text-xs touch-manipulation min-h-[36px]
             ${collapsed ? 'justify-center' : ''}
           `}
         >
-          <Bug className="w-5 h-5" />
-          {!collapsed && <span className="ml-3">Buggar & Feedback</span>}
+          <Bug className="w-4 h-4" />
+          {!collapsed && <span className="ml-2">Buggar & Feedback</span>}
         </Link>
 
         <Link
           href="/dashboard/kontakt"
           prefetch={true}
+          onClick={() => isMobile && onClose?.()}
           className={`
-            flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
+            flex items-center text-slate-500 hover:text-slate-700 py-1.5 px-2 rounded-lg transition-all text-xs touch-manipulation min-h-[36px]
             ${collapsed ? 'justify-center' : ''}
           `}
         >
-          <Mail className="w-5 h-5" />
-          {!collapsed && <span className="ml-3">Kontakt</span>}
+          <Mail className="w-4 h-4" />
+          {!collapsed && <span className="ml-2">Kontakt</span>}
         </Link>
 
-        {/* ADMIN PANEL KNAPP - Endast för super_admin */}
         {isAdmin && (
           <Link
             href="/admin"
+            onClick={() => isMobile && onClose?.()}
             className={`
               flex items-center py-3 px-3 rounded-xl transition-all shadow-lg hover:shadow-2xl font-bold touch-manipulation min-h-[44px]
               bg-gradient-to-r from-red-600 via-pink-600 to-purple-600
@@ -664,12 +548,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         <button
           onClick={handleLogout}
           className={`
-            flex items-center text-slate-700 hover:text-red-600 hover:bg-red-50 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
+            flex items-center text-slate-500 hover:text-red-600 hover:bg-red-50 py-1.5 px-2 rounded-lg transition-all text-xs touch-manipulation min-h-[36px]
             ${collapsed ? 'justify-center' : 'w-full'}
           `}
         >
-          <LogOut className="w-5 h-5" />
-          {!collapsed && <span className="ml-3">Logga ut</span>}
+          <LogOut className="w-4 h-4" />
+          {!collapsed && <span className="ml-2">Logga ut</span>}
         </button>
       </div>
     </div>
