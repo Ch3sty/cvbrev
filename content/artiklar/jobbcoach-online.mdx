@@ -90,63 +90,59 @@ Online jobbcoach som Jobbcoach.ai kostar 0 kr för grundversion eller 149 kr/må
 <div className="my-8 bg-slate-50 rounded-lg p-6 border border-slate-200">
   <h4 className="font-bold text-lg mb-4">Tidsjämförelse: Hur lång tid tar det att få hjälp?</h4>
 
-  <div className="space-y-6">
+  <div className="space-y-4">
     <div>
-      <div className="flex items-center gap-2 mb-2">
-        <h5 className="font-semibold">Traditionell jobbcoach (total tid: 21+ dagar)</h5>
-      </div>
-      <div className="ml-6 space-y-2 text-sm">
+      <h5 className="font-semibold mb-2">Traditionell jobbcoach (total tid: 21+ dagar)</h5>
+      <div className="ml-4 space-y-1 text-sm">
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">Dag 1:</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">Dag 1:</span>
           <span>Du googlar "jobbcoach Stockholm" och börjar ringa runt</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">Dag 3:</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">Dag 3:</span>
           <span>Första lediga tid om 2-3 veckor (de flesta är fullbokade)</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">Dag 18:</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">Dag 18:</span>
           <span>Första mötet (60 min): Kartläggning av bakgrund och behov</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">Dag 25:</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">Dag 25:</span>
           <span>Andra mötet (60 min): CV-genomgång och feedback</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">Efter mötet:</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">Efter mötet:</span>
           <span>Du implementerar ändringar själv (flera timmar)</span>
         </div>
-        <div className="mt-3 p-3 bg-red-50 rounded border border-red-200">
-          <p className="font-semibold text-red-900">Total tid innan du kan skicka ansökan: 3+ veckor</p>
-          <p className="text-red-700 text-xs mt-1">Under tiden har jobbet du ville söka redan stängt.</p>
+        <div className="mt-2 p-2 bg-red-50 rounded border border-red-200">
+          <p className="font-semibold text-red-900 text-sm">Total tid innan du kan skicka ansökan: 3+ veckor</p>
+          <p className="text-red-700 text-xs mt-0.5">Under tiden har jobbet du ville söka redan stängt.</p>
         </div>
       </div>
     </div>
 
     <div>
-      <div className="flex items-center gap-2 mb-2">
-        <h5 className="font-semibold">Online AI-jobbcoach (total tid: 3 minuter)</h5>
-      </div>
-      <div className="ml-6 space-y-2 text-sm">
+      <h5 className="font-semibold mb-2">Online AI-jobbcoach (total tid: 3 minuter)</h5>
+      <div className="ml-4 space-y-1 text-sm">
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">00:00</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">00:00</span>
           <span>Du öppnar CV-analysverktyget och laddar upp ditt CV</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">00:10</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">00:10</span>
           <span>Upload klar, AI börjar analysera</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">01:10</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">01:10</span>
           <span>Du får resultat: poäng 0-100 + konkreta förbättringsförslag</span>
         </div>
         <div className="flex items-start gap-3">
-          <span className="text-slate-400 font-mono">03:00</span>
+          <span className="text-slate-400 font-mono w-20 flex-shrink-0">03:00</span>
           <span>Du har läst alla förbättringsförslag och vet exakt vad du ska fixa</span>
         </div>
-        <div className="mt-3 p-3 bg-green-50 rounded border border-green-200">
-          <p className="font-semibold text-green-900">Total tid innan du kan börja fixa: 3 minuter</p>
-          <p className="text-green-700 text-xs mt-1">Du kan skicka din optimerade ansökan samma kväll.</p>
+        <div className="mt-2 p-2 bg-green-50 rounded border border-green-200">
+          <p className="font-semibold text-green-900 text-sm">Total tid innan du kan börja fixa: 3 minuter</p>
+          <p className="text-green-700 text-xs mt-0.5">Du kan skicka din optimerade ansökan samma kväll.</p>
         </div>
       </div>
     </div>
@@ -201,29 +197,21 @@ Analyserar ditt CV mot 7 områden och ger konkreta förbättringsförslag.
 **Konkret exempel på feedback du får:**
 
 <div className="my-6 grid md:grid-cols-2 gap-4">
-  <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4">
-    <div className="flex items-center gap-2 mb-3">
-      <span className="font-bold text-sm">Problem identifierat</span>
-    </div>
-    <div className="text-sm space-y-2">
-      <p className="font-medium">"Din 'Arbetslivserfarenhet'-sektion innehåller vaga ansvarsområden utan mätbara resultat."</p>
-      <div className="bg-white p-3 rounded border border-red-200 mt-2">
-        <p className="text-xs text-slate-600 mb-1">Exempel från ditt CV:</p>
-        <p className="text-xs font-mono">"Ansvarade för teamets försäljningsmål"</p>
-      </div>
+  <div className="bg-red-50 border border-red-300 rounded-lg p-3">
+    <p className="font-bold text-sm mb-2">Problem identifierat</p>
+    <p className="text-sm">"Din 'Arbetslivserfarenhet'-sektion innehåller vaga ansvarsområden utan mätbara resultat."</p>
+    <div className="bg-white p-2 rounded border border-red-200 mt-2">
+      <p className="text-xs text-slate-500 mb-1">Exempel från ditt CV:</p>
+      <p className="text-xs font-mono">"Ansvarade för teamets försäljningsmål"</p>
     </div>
   </div>
 
-  <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4">
-    <div className="flex items-center gap-2 mb-3">
-      <span className="font-bold text-sm">Konkret lösning</span>
-    </div>
-    <div className="text-sm space-y-2">
-      <p className="font-medium">"Lägg till siffror och specifika resultat för att visa din påverkan."</p>
-      <div className="bg-white p-3 rounded border border-green-200 mt-2">
-        <p className="text-xs text-slate-600 mb-1">Förbättrat exempel:</p>
-        <p className="text-xs font-mono">"Överskred försäljningsmål med i snitt 23% genom att implementera ny CRM-strategi (Salesforce) och coacha team på 6 säljare"</p>
-      </div>
+  <div className="bg-green-50 border border-green-300 rounded-lg p-3">
+    <p className="font-bold text-sm mb-2">Konkret lösning</p>
+    <p className="text-sm">"Lägg till siffror och specifika resultat för att visa din påverkan."</p>
+    <div className="bg-white p-2 rounded border border-green-200 mt-2">
+      <p className="text-xs text-slate-500 mb-1">Förbättrat exempel:</p>
+      <p className="text-xs font-mono">"Överskred försäljningsmål med i snitt 23% genom att implementera ny CRM-strategi (Salesforce) och coacha team på 6 säljare"</p>
     </div>
   </div>
 </div>
@@ -873,47 +861,47 @@ Om du svarar JA på 2+ av dessa:
 
 **ROI:** Om du sparar bara 3 timmar genom att använda verktygen (och din tid är värd 200 kr/h) har verktyget betalat sig själv fyra gånger om.
 
-<div className="my-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg">
+<div className="my-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg">
   <h3 className="font-bold text-xl mb-3">Börja här (rekommenderad väg)</h3>
 
-  <div className="space-y-4">
+  <div className="space-y-3">
     <div className="flex items-start gap-3">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+      <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
       <div>
-        <p className="font-semibold">Analysera ditt CV (60 sekunder)</p>
+        <p className="font-semibold text-sm">Analysera ditt CV (60 sekunder)</p>
         <p className="text-sm text-slate-600">Se exakt vad som behöver fixas. Gratis.</p>
         <a href="/verktyg/cv-analys" className="text-blue-600 underline text-sm font-medium">Gå till CV-analys →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+      <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
       <div>
-        <p className="font-semibold">Fixa problemen (1-2 timmar)</p>
+        <p className="font-semibold text-sm">Fixa problemen (1-2 timmar)</p>
         <p className="text-sm text-slate-600">Implementera förbättringsförslagen. Ladda ner ATS-mall om behövs.</p>
         <a href="/verktyg/cv-mallar" className="text-blue-600 underline text-sm font-medium">Bläddra CV-mallar →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+      <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
       <div>
-        <p className="font-semibold">Skapa ditt första personliga brev (30 sekunder)</p>
+        <p className="font-semibold text-sm">Skapa ditt första personliga brev (30 sekunder)</p>
         <p className="text-sm text-slate-600">Klistra in jobbannonsen, få färdigt brev, anpassa och skicka.</p>
         <a href="/verktyg/personligt-brev" className="text-blue-600 underline text-sm font-medium">Skapa personligt brev →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
+      <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</div>
       <div>
-        <p className="font-semibold">Skicka optimerade ansökningar</p>
+        <p className="font-semibold text-sm">Skicka optimerade ansökningar</p>
         <p className="text-sm text-slate-600">Du har nu ATS-optimerat CV och skräddarsydda brev. Börja söka.</p>
       </div>
     </div>
   </div>
 
-  <div className="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+  <div className="mt-4 p-3 bg-white rounded border border-blue-200">
     <p className="text-sm font-semibold text-slate-900">Tips:</p>
     <p className="text-sm text-slate-700 mt-1">Om du får under 60/100 på CV-analysen, fixa problemen INNAN du skickar fler ansökningar. Annars kommer du fortsätta sorteras bort av ATS-system.</p>
   </div>
