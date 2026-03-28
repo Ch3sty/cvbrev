@@ -243,13 +243,13 @@ Du sitter i 2 timmar och försöker formulera varför du är perfekt för jobbet
 
 **Exempel på skillnad:**
 
-**Utan AI (generiskt):**
+<CVExample title="Utan AI" description="Generiskt brev">
+Jag heter Sara och söker jobbet som Content Manager. Jag har erfarenhet av content marketing och tycker att det verkar spännande att jobba på ert företag.
+</CVExample>
 
-"Jag heter Sara och söker jobbet som Content Manager. Jag har erfarenhet av content marketing och tycker att det verkar spännande att jobba på ert företag."
-
-**Med Jobbcoach.ai (skräddarsytt):**
-
-"Ni söker någon som kan öka er organiska trafik med datadrivet content. Under de senaste två åren har jag ökat min arbetsgivares blogg-trafik från 8 000 till 45 000 besökare/månad genom SEO-optimerat content och strategisk keyword research."
+<CVExample title="Med Jobbcoach.ai" description="Skräddarsytt brev">
+Ni söker någon som kan öka er organiska trafik med datadrivet content. Under de senaste två åren har jag ökat min arbetsgivares blogg-trafik från 8 000 till 45 000 besökare/månad genom SEO-optimerat content och strategisk keyword research.
+</CVExample>
 
 **Tidsbesparing:**
 
@@ -285,40 +285,54 @@ Vi nämnde detta ovan, men det är värt att fördjupa eftersom det är kärnan 
 
 **De 7 områden vi analyserar:**
 
-1. **Nyckelord (0-100 poäng)**
-   - Har du rätt bransch-specifika termer?
-   - Matchar ditt CV vanliga jobbannonser i din bransch?
-   - Saknas kritiska kompetenser?
-
-2. **Formatering (0-100 poäng)**
-   - Är layouten ATS-kompatibel?
-   - Använder du standardrubriker?
-   - Finns information i tabeller eller kolumner (dåligt)?
-
-3. **Mätbarhet (0-100 poäng)**
-   - Har du siffror och konkreta resultat?
-   - Börjar bullets med aktiva verb?
-   - Visar du påverkan, inte bara ansvar?
-
-4. **Relevans (0-100 poäng)**
-   - Är senaste 3-5 åren mest framträdande?
-   - Finns irrelevant information som kan tas bort?
-   - Är din erfarenhet presenterad i rätt ordning?
-
-5. **ATS-kompatibilitet (0-100 poäng)**
-   - Kan Teamtailor, Greenhouse, Workday läsa ditt CV?
-   - Är fonter och formatering standardiserade?
-   - Finns texten i huvuddokumentet (inte sidhuvud/sidfot)?
-
-6. **Tydlighet (0-100 poäng)**
-   - Är dina roller och arbetsgivare tydliga?
-   - Förstår man vad du gjort inom 6 sekunder?
-   - Är kontaktuppgifter lätta att hitta?
-
-7. **Struktur (0-100 poäng)**
-   - Följer CV:t logisk ordning (kronologiskt eller funktionellt)?
-   - Är längden lämplig (1-2 sidor)?
-   - Är avsnitt tydligt separerade?
+<div className="my-6 overflow-x-auto not-prose">
+  <table className="w-full border-collapse text-sm">
+    <thead>
+      <tr className="bg-slate-100">
+        <th className="border border-slate-300 px-4 py-2 text-left font-semibold">Område</th>
+        <th className="border border-slate-300 px-4 py-2 text-left font-semibold">Vad vi kollar</th>
+        <th className="border border-slate-300 px-4 py-2 text-left font-semibold">Vanliga problem</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Nyckelord</td>
+        <td className="border border-slate-300 px-4 py-2">Bransch-specifika termer, matchning mot jobbannonser</td>
+        <td className="border border-slate-300 px-4 py-2">Kritiska kompetenser saknas</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Formatering</td>
+        <td className="border border-slate-300 px-4 py-2">ATS-kompatibel layout, standardrubriker</td>
+        <td className="border border-slate-300 px-4 py-2">Tabeller och kolumner (ATS kan inte läsa)</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Mätbarhet</td>
+        <td className="border border-slate-300 px-4 py-2">Siffror och konkreta resultat, aktiva verb</td>
+        <td className="border border-slate-300 px-4 py-2">Ansvar beskrivs, inte påverkan</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Relevans</td>
+        <td className="border border-slate-300 px-4 py-2">Senaste 3–5 åren framträdande, rätt ordning</td>
+        <td className="border border-slate-300 px-4 py-2">Irrelevant information tar plats</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">ATS-kompatibilitet</td>
+        <td className="border border-slate-300 px-4 py-2">Teamtailor, Greenhouse, Workday kan läsa CV:t</td>
+        <td className="border border-slate-300 px-4 py-2">Text i sidhuvud/sidfot missas</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Tydlighet</td>
+        <td className="border border-slate-300 px-4 py-2">Roller och arbetsgivare klara inom 6 sekunder</td>
+        <td className="border border-slate-300 px-4 py-2">Svårhittade kontaktuppgifter</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="border border-slate-300 px-4 py-2 font-medium">Struktur</td>
+        <td className="border border-slate-300 px-4 py-2">Logisk ordning, lämplig längd (1–2 sidor)</td>
+        <td className="border border-slate-300 px-4 py-2">Avsnitt flödar ihop utan separation</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 **Exempel på verklig feedback:**
 
@@ -371,27 +385,52 @@ Lisa, 28, marknadsförare, hittar dröm-jobbet på LinkedIn söndagkväll klocka
 
 **Lösning med Jobbcoach.ai:**
 
-**21:35** – Lisa laddar upp sitt CV i CV-analysverktyget
-**21:36** – Får poäng 48/100 med konkreta problem:
-- Saknar nyckelord: "Google Analytics", "SEO", "Content Strategy"
-- Kreativ layout med tre kolumner (ATS kan inte läsa)
-- Inga mätbara resultat
+<div className="my-4 not-prose space-y-2">
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded shrink-0 mt-0.5">21:35</span>
+    <span className="text-sm text-slate-700">Lisa laddar upp sitt CV i CV-analysverktyget</span>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded shrink-0 mt-0.5">21:36</span>
+    <div className="text-sm text-slate-700">
+      <span className="block">Får poäng 48/100 med konkreta problem:</span>
+      <ul className="mt-1 ml-4 space-y-0.5 list-disc text-slate-600">
+        <li>Saknar nyckelord: "Google Analytics", "SEO", "Content Strategy"</li>
+        <li>Kreativ layout med tre kolumner (ATS kan inte läsa)</li>
+        <li>Inga mätbara resultat</li>
+      </ul>
+    </div>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded shrink-0 mt-0.5">21:40–22:30</span>
+    <span className="text-sm text-slate-700">Lisa laddar ner ATS-optimerad mall, fyller i sin info och lägger till saknade nyckelord</span>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-green-100 text-green-700 px-2 py-1 rounded shrink-0 mt-0.5">22:30</span>
+    <span className="text-sm text-slate-700">Laddar upp nytt CV — <strong>poäng 81/100</strong></span>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded shrink-0 mt-0.5">22:35</span>
+    <span className="text-sm text-slate-700">Klistrar in jobbannonsen i personligt brev-verktyget</span>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded shrink-0 mt-0.5">22:36</span>
+    <span className="text-sm text-slate-700">Får färdigt brev som hon anpassar med 2–3 meningar</span>
+  </div>
+  <div className="flex items-start gap-3">
+    <span className="font-mono text-xs bg-green-100 text-green-700 px-2 py-1 rounded shrink-0 mt-0.5">22:50</span>
+    <span className="text-sm font-medium text-slate-800">Ansökan skickad med optimerat CV och skräddarsytt brev</span>
+  </div>
+</div>
 
-**21:40-22:30** – Lisa laddar ner ATS-optimerad mall, fyller i sin info och lägger till saknade nyckelord
-
-**22:30** – Laddar upp nytt CV, får poäng 81/100
-
-**22:35** – Klistrar in jobbannonsen i personligt brev-verktyget
-**22:36** – Får färdigt brev som hon anpassar med 2-3 meningar
-
-**22:50** – Ansökan skickad med optimerat CV och skräddarsytt brev
-
-**Resultat:**
-
-Lisa fick intervju 4 dagar senare. HR-ansvarig sa: "Ditt CV stack ut – du hade exakt de nyckelord och metrics vi sökte efter."
-
-**Kostnad:** 0 kr (gratis version)
-**Tidsbesparing:** Jämfört med att skriva allt manuellt: ~4 timmar
+<div className="mt-3 p-3 bg-slate-50 rounded border border-slate-200 text-sm not-prose">
+  <p className="font-semibold text-slate-800 mb-1">Resultat</p>
+  <p className="text-slate-700">Lisa fick intervju 4 dagar senare. HR-ansvarig sa: "Ditt CV stack ut – du hade exakt de nyckelord och metrics vi sökte efter."</p>
+  <div className="mt-2 flex gap-4 text-xs text-slate-600">
+    <span><strong>Kostnad:</strong> 0 kr (gratis version)</span>
+    <span><strong>Tidsbesparing:</strong> ~4 timmar</span>
+  </div>
+</div>
 
 ### Case 2: Karriärbyte (kontinuerlig vägledning)
 
@@ -416,8 +455,13 @@ Marcus använder AI-coachen för att fråga:
 
 AI-coachen ger konkreta omformuleringar:
 
-**Lärar-CV:** "Undervisade svenska för gymnasieelever i tre år"
-**HR-CV:** "Utvecklade och levererade utbildningsprogram för grupper på 25-30 personer, anpassade innehåll baserat på olika lärstilar och kompetensnivåer"
+<CVExample title="Lärar-CV" description="Före — generisk formulering">
+Undervisade svenska för gymnasieelever i tre år
+</CVExample>
+
+<CVExample title="HR-CV" description="Efter — anpassad till privat sektor">
+Utvecklade och levererade utbildningsprogram för grupper på 25–30 personer, anpassade innehåll baserat på olika lärstilar och kompetensnivåer
+</CVExample>
 
 **Vecka 2-4: 30 ansökningar**
 
@@ -428,12 +472,14 @@ Marcus använder personligt brev-verktyget för alla 30 ansökningar. Varje brev
 - Med Jobbcoach.ai: 30 brev × 15 minuter = 7,5 timmar
 - **Sparad tid: 52,5 timmar**
 
-**Resultat:**
-
-Marcus fick 7 intervjuer (23% success rate). Tackade ja till en L&D Manager-roll med 18% löneökning jämfört med lärarlön.
-
-**Kostnad:** 149 kr för en månad (avslutade efter att ha fått jobb)
-**Jämfört med traditionell coach:** Sparade 8000-12000 kr
+<div className="mt-3 p-3 bg-slate-50 rounded border border-slate-200 text-sm not-prose">
+  <p className="font-semibold text-slate-800 mb-1">Resultat</p>
+  <p className="text-slate-700">Marcus fick 7 intervjuer (23% success rate). Tackade ja till en L&D Manager-roll med 18% löneökning jämfört med lärarlön.</p>
+  <div className="mt-2 flex gap-4 text-xs text-slate-600">
+    <span><strong>Kostnad:</strong> 149 kr för en månad</span>
+    <span><strong>Besparing vs traditionell coach:</strong> 8 000–12 000 kr</span>
+  </div>
+</div>
 
 ### Case 3: Optimering (förbättra befintliga dokument)
 
@@ -467,25 +513,30 @@ Nina laddar upp sitt CV i analysverktyget.
 
 **Exempel på förändring:**
 
-**Före:** "Ansvarade för IT-projekt hos storbank"
-**Efter:** "Ledde implementering av nytt CRM-system (Salesforce) för 450 användare, levererat 2 veckor före deadline och 12% under budget (3,2 MSEK projekt)"
+<CVExample title="Före" description="Vagt — visar ansvar, inte resultat">
+Ansvarade för IT-projekt hos storbank
+</CVExample>
+
+<CVExample title="Efter" description="Konkret — siffror, system, leverans">
+Ledde implementering av nytt CRM-system (Salesforce) för 450 användare, levererat 2 veckor före deadline och 12% under budget (3,2 MSEK projekt)
+</CVExample>
 
 **Dag 2:**
 - Laddar upp nytt CV: **Poäng 84/100**
 - Skickar nya ansökningar med optimerat CV
 
-**Resultat:**
-
-Efter 12 nya ansökningar (med optimerat CV):
-- 4 intervjuer (33% success rate)
-- 2 andra intervju-rundor
-- 1 jobberbjudande (Senior Project Manager, 15% löneökning)
-
-**Vad gjorde skillnaden?**
-
-Nina var kvalificerad hela tiden. Hennes CV bara presenterade inte hennes kompetens på ett sätt som ATS-system och rekryterare förstod.
-
-**Kostnad:** 0 kr (gratis version räckte)
+<div className="mt-3 p-3 bg-slate-50 rounded border border-slate-200 text-sm not-prose">
+  <p className="font-semibold text-slate-800 mb-1">Resultat — 12 nya ansökningar med optimerat CV</p>
+  <ul className="text-slate-700 space-y-0.5 list-disc ml-4">
+    <li>4 intervjuer (33% success rate)</li>
+    <li>2 andra intervju-rundor</li>
+    <li>1 jobberbjudande — Senior Project Manager, 15% löneökning</li>
+  </ul>
+  <p className="mt-2 text-slate-600 italic">Nina var kvalificerad hela tiden. Hennes CV presenterade bara inte hennes kompetens på ett sätt som ATS-system och rekryterare förstod.</p>
+  <div className="mt-2 text-xs text-slate-600">
+    <strong>Kostnad:</strong> 0 kr (gratis version räckte)
+  </div>
+</div>
 
 ## När ska du välja online jobbcoach vs traditionell?
 
@@ -584,24 +635,35 @@ Här är en ärlig jämförelse för att hjälpa dig välja rätt.
 
 Många framgångsrika jobbsökare använder båda:
 
-**Steg 1 (Vecka 1): Börja med online jobbcoach**
-- Få snabb feedback på CV och personligt brev
-- Fixa uppenbara problem (ATS-kompatibilitet, nyckelord, formatering)
-- Skicka första 10-15 ansökningar
-
-**Steg 2 (Vecka 2-4): Utvärdera resultat**
-- Får du intervjuer? → Fortsätt med online-verktyg, det funkar
-- Får du inga intervjuer trots optimerat CV? → Problemet kan vara strategiskt
-
-**Steg 3 (Om behov): Investera i mänsklig coach för strategi**
-- 1-2 sessioner för strategisk vägledning
-- Fokus på intervjuträning när du börjar få intervjuer
-- Hjälp med löneförhandling när erbjudande kommer
-
-**Kostnad för hybrid:**
-- Online-verktyg: 0-149 kr/mån
-- 2 sessioner med coach: 2000-3000 kr
-- **Totalt: 2000-3150 kr** (istället för 5000-15000 kr)
+<div className="my-6 not-prose space-y-4">
+  <div className="flex items-start gap-4">
+    <div className="shrink-0 w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm leading-none">1</div>
+    <div className="leading-snug">
+      <span className="block font-semibold text-slate-900">Vecka 1 — Börja med online jobbcoach</span>
+      <span className="block text-slate-600 text-sm mt-1">Få snabb feedback på CV och personligt brev. Fixa uppenbara problem (ATS-kompatibilitet, nyckelord, formatering). Skicka första 10–15 ansökningar.</span>
+    </div>
+  </div>
+  <div className="flex items-start gap-4">
+    <div className="shrink-0 w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm leading-none">2</div>
+    <div className="leading-snug">
+      <span className="block font-semibold text-slate-900">Vecka 2–4 — Utvärdera resultaten</span>
+      <span className="block text-slate-600 text-sm mt-1">Får du intervjuer? Fortsätt med online-verktyg — det funkar. Inga intervjuer trots optimerat CV? Problemet kan vara strategiskt.</span>
+    </div>
+  </div>
+  <div className="flex items-start gap-4">
+    <div className="shrink-0 w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm leading-none">3</div>
+    <div className="leading-snug">
+      <span className="block font-semibold text-slate-900">Vid behov — Investera i mänsklig coach för strategi</span>
+      <span className="block text-slate-600 text-sm mt-1">1–2 sessioner för strategisk vägledning, intervjuträning och löneförhandling när erbjudande kommer.</span>
+    </div>
+  </div>
+  <div className="mt-2 p-3 bg-slate-50 rounded border border-slate-200 text-sm">
+    <span className="font-medium text-slate-800">Kostnad för hybrid: </span>
+    <span className="text-slate-700">0–149 kr/mån (online) + 2 000–3 000 kr (2 coachsessioner) = </span>
+    <span className="font-semibold text-slate-900">totalt 2 000–3 150 kr</span>
+    <span className="text-slate-500"> (istället för 5 000–15 000 kr)</span>
+  </div>
+</div>
 
 Du får det bästa av två världar: Effektivitet och ATS-optimering från AI + strategisk guidning från människa.
 
@@ -861,36 +923,36 @@ Om du svarar JA på 2+ av dessa:
   <div className="space-y-2">
     <div className="flex items-start gap-3">
       <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
-      <div>
-        <p className="font-semibold text-sm">Analysera ditt CV (60 sekunder)</p>
-        <p className="text-sm text-slate-600">Se exakt vad som behöver fixas. Gratis.</p>
+      <div className="leading-snug">
+        <span className="block font-semibold text-sm">Analysera ditt CV (60 sekunder)</span>
+        <span className="block text-sm text-slate-600">Se exakt vad som behöver fixas. Gratis.</span>
         <a href="/verktyg/cv-analys" className="text-blue-600 underline text-sm font-medium">Gå till CV-analys →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
       <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
-      <div>
-        <p className="font-semibold text-sm">Fixa problemen (1-2 timmar)</p>
-        <p className="text-sm text-slate-600">Implementera förbättringsförslagen. Ladda ner ATS-mall om behövs.</p>
+      <div className="leading-snug">
+        <span className="block font-semibold text-sm">Fixa problemen (1-2 timmar)</span>
+        <span className="block text-sm text-slate-600">Implementera förbättringsförslagen. Ladda ner ATS-mall om behövs.</span>
         <a href="/verktyg/cv-mallar" className="text-blue-600 underline text-sm font-medium">Bläddra CV-mallar →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
       <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
-      <div>
-        <p className="font-semibold text-sm">Skapa ditt första personliga brev (30 sekunder)</p>
-        <p className="text-sm text-slate-600">Klistra in jobbannonsen, få färdigt brev, anpassa och skicka.</p>
+      <div className="leading-snug">
+        <span className="block font-semibold text-sm">Skapa ditt första personliga brev (30 sekunder)</span>
+        <span className="block text-sm text-slate-600">Klistra in jobbannonsen, få färdigt brev, anpassa och skicka.</span>
         <a href="/verktyg/personligt-brev" className="text-blue-600 underline text-sm font-medium">Skapa personligt brev →</a>
       </div>
     </div>
 
     <div className="flex items-start gap-3">
       <div className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</div>
-      <div>
-        <p className="font-semibold text-sm">Skicka optimerade ansökningar</p>
-        <p className="text-sm text-slate-600">Du har nu ATS-optimerat CV och skräddarsydda brev. Börja söka.</p>
+      <div className="leading-snug">
+        <span className="block font-semibold text-sm">Skicka optimerade ansökningar</span>
+        <span className="block text-sm text-slate-600">Du har nu ATS-optimerat CV och skräddarsydda brev. Börja söka.</span>
       </div>
     </div>
   </div>
