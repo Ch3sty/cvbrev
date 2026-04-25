@@ -36,14 +36,14 @@ export default function Streak14Days({ history }: Streak14DaysProps) {
         <h3 className="font-semibold text-slate-900">Senaste 14 dagarna</h3>
         <span className="text-xs text-slate-500">{activeCount} aktiva dagar</span>
       </div>
-      <div className="flex gap-1.5">
+      <div className="grid gap-1.5" style={{ gridTemplateColumns: 'repeat(14, minmax(0, 1fr))' }}>
         {safe.map((active, i) => {
           const isToday = i === safe.length - 1;
           const daysAgo = safe.length - 1 - i;
           return (
-            <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
+            <div key={i} className="flex flex-col items-center gap-1.5 min-w-0">
               <div
-                className={`w-full aspect-square rounded-lg flex items-center justify-center ${
+                className={`w-full aspect-square min-h-[28px] rounded-lg flex items-center justify-center ${
                   active
                     ? 'bg-gradient-to-br from-orange-400 to-red-500 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-300'
