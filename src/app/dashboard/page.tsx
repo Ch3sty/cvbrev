@@ -16,19 +16,13 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 
-// Import premium components
+// Streak-fokuserade komponenter (v2-redesign)
 import StreakHero from '@/components/dashboard/StreakHero';
+import Streak14Days from '@/components/dashboard/Streak14Days';
 import CvStatusCard from '@/components/dashboard/CvStatusCard';
 import QuotaCard from '@/components/dashboard/QuotaCard';
-// Nya dashboard-komponenter
-import ProgressOverview from '@/components/dashboard/ProgressOverview';
-import ActivityInsights from '@/components/dashboard/ActivityInsights';
 import QuickActionsGated from '@/components/dashboard/QuickActionsGated';
 import PremiumStatusCard from '@/components/dashboard/PremiumStatusCard';
-// Nya kort för premium-användare
-import MonthlyActivityCard from '@/components/dashboard/MonthlyActivityCard';
-import ProgressionCard from '@/components/dashboard/ProgressionCard';
-import CompactPremiumCard from '@/components/dashboard/CompactPremiumCard';
 // Övriga
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
@@ -61,6 +55,7 @@ interface DashboardStats {
   dailyStreak?: number;
   longestStreak?: number;
   dailyXpEarned?: number;
+  streakHistory?: boolean[];
   firstName?: string;
 }
 
@@ -149,6 +144,31 @@ export default function DashboardPage() {
           .eq('date', todayStockholm)
           .maybeSingle();
 
+        // 14-dagars streak-historik från xp_history (kolumnen heter "amount", inte "xp")
+        const fourteenDaysAgo = new Date();
+        fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 13);
+        fourteenDaysAgo.setHours(0, 0, 0, 0);
+        const { data: xpRows } = await supabase
+          .from('xp_history')
+          .select('created_at, amount')
+          .eq('user_id', user.id)
+          .gte('created_at', fourteenDaysAgo.toISOString());
+
+        // Bygg 14-element bool-array (äldsta först, idag sist)
+        const streakHistory: boolean[] = [];
+        for (let i = 13; i >= 0; i--) {
+          const day = new Date();
+          day.setDate(day.getDate() - i);
+          day.setHours(0, 0, 0, 0);
+          const next = new Date(day);
+          next.setDate(next.getDate() + 1);
+          const hasActivity = (xpRows || []).some(r => {
+            const d = new Date(r.created_at);
+            return d >= day && d < next && (r.amount ?? 0) > 0;
+          });
+          streakHistory.push(hasActivity);
+        }
+
         // Check if user is first-time (never started onboarding and has no CVs/letters)
         const isNewUser = !profile?.onboarding_started_at &&
                          !profile?.onboarding_skipped &&
@@ -221,6 +241,7 @@ export default function DashboardPage() {
           dailyStreak: gamStats?.daily_streak || 0,
           longestStreak: gamStats?.longest_streak || 0,
           dailyXpEarned: dailyXp?.daily_xp_earned || 0,
+          streakHistory,
           firstName: profile?.full_name?.split(' ')[0] || undefined,
         });
       } catch (error) {
@@ -374,7 +395,7 @@ export default function DashboardPage() {
         className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10"
       >
       <div className="space-y-4 sm:space-y-6 md:space-y-8">
-        {/* Streak Hero - dagsstreak som primärt narrativ */}
+        {/* 1. Streak Hero - dagsstreak som primärt narrativ */}
         <StreakHero
           firstName={stats.firstName}
           dailyStreak={stats.dailyStreak || 0}
@@ -385,89 +406,15 @@ export default function DashboardPage() {
           levelTitle={stats.levelTitle || 'Novis'}
         />
 
-        {/* CV Status Card - gating-element */}
+        {/* 2. CV Status Card - gating-element (alltid synlig) */}
         <CvStatusCard cvCount={stats.cvCount || 0} />
 
-        {/* Quota Cards / Stats Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className={`grid gap-3 sm:gap-4 ${
-            stats.isPremium
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-              : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4'
-          }`}
-        >
-          {stats.isPremium ? (
-            // Premium Cards - Nya redesignade kort
-            <>
-              <MonthlyActivityCard
-                letterCount={stats.monthlyLetters || 0}
-                analysisCount={stats.weeklyAnalysisCount || 0}
-                linkedInCount={stats.weeklyLinkedInCount || 0}
-              />
-              <ProgressionCard
-                currentLevel={stats.currentLevel || 1}
-                levelTitle={stats.levelTitle || 'Novis'}
-              />
-              <CompactPremiumCard
-                premiumUntil={stats.premiumUntil || null}
-                premiumSource={stats.premiumSource || null}
-              />
-            </>
-          ) : (
-            // Free User Quota Cards
-            <>
-              <QuotaCard
-                title="Skapade personliga brev"
-                icon={<PenTool className="w-5 h-5" />}
-                used={stats.weeklyLetterCount || 0}
-                limit={7}
-                remaining={Math.max(0, 7 - (stats.weeklyLetterCount || 0))}
-                resetDate={stats.letterResetDate}
-                resetType="weekly"
-                href="/dashboard/skapa-brev"
-              />
-              <QuotaCard
-                title="CV-analys"
-                icon={<Search className="w-5 h-5" />}
-                used={stats.weeklyAnalysisCount || 0}
-                limit={1}
-                remaining={Math.max(0, 1 - (stats.weeklyAnalysisCount || 0))}
-                resetDate={stats.analysisResetDate}
-                resetType="weekly"
-                href="/dashboard/cv-analys"
-              />
-              <QuotaCard
-                title="Uppladdade CV"
-                icon={<FileText className="w-5 h-5" />}
-                used={stats.cvCount || 0}
-                limit={2}
-                remaining={Math.max(0, 2 - (stats.cvCount || 0))}
-                resetType="permanent"
-                href="/dashboard/profil/cv"
-              />
-              <QuotaCard
-                title="LinkedIn-optimering"
-                icon={<Users className="w-5 h-5" />}
-                used={stats.weeklyLinkedInCount || 0}
-                limit={1}
-                remaining={Math.max(0, 1 - (stats.weeklyLinkedInCount || 0))}
-                resetDate={stats.linkedInResetDate}
-                resetType="weekly"
-                href="/dashboard/linkedin-optimizer"
-              />
-            </>
-          )}
-        </motion.div>
-
-        {/* Onboarding Banner - Välkomstbanner för nya användare */}
+        {/* 3. Onboarding Banner - bara när onboarding ej klar */}
         {!stats.onboardingCompleted && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
           >
             <Link href="/dashboard/kom-igang">
               <motion.div
@@ -503,48 +450,70 @@ export default function DashboardPage() {
           </motion.div>
         )}
 
-        {/* Progress Overview - Din Ansökningsresa */}
+        {/* 4. 14-dagars streak-rutnät */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <ProgressOverview
-            totalLetters={stats.totalLetters}
-            cvCount={stats.cvCount || 0}
-            onboardingCompleted={stats.onboardingCompleted || false}
-          />
+          <Streak14Days history={stats.streakHistory || new Array(14).fill(false)} />
         </motion.div>
 
-        {/* Activity Insights & Premium Status Grid */}
+        {/* 5. Kvot-grid - bara för free-users */}
+        {!stats.isPremium && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4"
+          >
+            <QuotaCard
+              title="Skapade personliga brev"
+              icon={<PenTool className="w-5 h-5" />}
+              used={stats.weeklyLetterCount || 0}
+              limit={7}
+              remaining={Math.max(0, 7 - (stats.weeklyLetterCount || 0))}
+              resetDate={stats.letterResetDate}
+              resetType="weekly"
+              href="/dashboard/skapa-brev"
+            />
+            <QuotaCard
+              title="CV-analys"
+              icon={<Search className="w-5 h-5" />}
+              used={stats.weeklyAnalysisCount || 0}
+              limit={1}
+              remaining={Math.max(0, 1 - (stats.weeklyAnalysisCount || 0))}
+              resetDate={stats.analysisResetDate}
+              resetType="weekly"
+              href="/dashboard/cv-analys"
+            />
+            <QuotaCard
+              title="Uppladdade CV"
+              icon={<FileText className="w-5 h-5" />}
+              used={stats.cvCount || 0}
+              limit={2}
+              remaining={Math.max(0, 2 - (stats.cvCount || 0))}
+              resetType="permanent"
+              href="/dashboard/profil/cv"
+            />
+            <QuotaCard
+              title="LinkedIn-optimering"
+              icon={<Users className="w-5 h-5" />}
+              used={stats.weeklyLinkedInCount || 0}
+              limit={1}
+              remaining={Math.max(0, 1 - (stats.weeklyLinkedInCount || 0))}
+              resetDate={stats.linkedInResetDate}
+              resetType="weekly"
+              href="/dashboard/linkedin-optimizer"
+            />
+          </motion.div>
+        )}
+
+        {/* 6. Snabbåtgärder med CV-gating */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6"
-        >
-          <ActivityInsights
-            weeklyLetterCount={stats.weeklyLetterCount || 0}
-            weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
-            weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
-            totalLetters={stats.totalLetters}
-            cvCount={stats.cvCount || 0}
-          />
-
-          <PremiumStatusCard
-            isPremium={stats.isPremium || false}
-            premiumUntil={stats.premiumUntil || null}
-            premiumSource={stats.premiumSource || null}
-            currentLevel={stats.currentLevel || 1}
-            levelTitle={stats.levelTitle || 'Novis'}
-          />
-        </motion.div>
-
-        {/* Quick Actions - Dynamiska nästa steg */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
         >
           <QuickActionsGated
             onboardingCompleted={stats.onboardingCompleted || false}
@@ -554,15 +523,31 @@ export default function DashboardPage() {
           />
         </motion.div>
 
-        {/* Bottom Section: Premium Trial CTA (endast gratis-användare) */}
+        {/* 7a. Premium-status-kort - bara free-users (konvertering) */}
         {!stats.isPremium && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <PremiumStatusCard
+              isPremium={stats.isPremium || false}
+              premiumUntil={stats.premiumUntil || null}
+              premiumSource={stats.premiumSource || null}
+              currentLevel={stats.currentLevel || 1}
+              levelTitle={stats.levelTitle || 'Novis'}
+            />
+          </motion.div>
+        )}
+
+        {/* 7b. Premium Trial CTA - bara free-users */}
+        {!stats.isPremium && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
             className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 rounded-xl sm:rounded-2xl border-2 border-pink-200/50 p-6 sm:p-8 text-center shadow-xl"
           >
-            {/* Badge */}
             <div className="inline-block mb-3">
               <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
                 7 DAGAR GRATIS
@@ -577,7 +562,6 @@ export default function DashboardPage() {
               Obegränsade personliga brev, CV-analyser och LinkedIn-optimering. Ingen bindningstid.
             </p>
 
-            {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Link href="/dashboard/profil/prenumeration">
                 <motion.button
