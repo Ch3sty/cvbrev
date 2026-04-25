@@ -150,12 +150,14 @@ export async function GET(request: NextRequest) {
 
     const weekly_courses_completed = weeklyCoursesData?.length || 0;
 
-    // Weekly goals (these could be user-configurable in the future)
+    const weekly_goal_xp = stats.weekly_goal_xp ?? 150;
+
     const weeklyGoals = {
-      weekly_goal: 600, // XP goal for the week
-      weekly_letters_goal: 5, // Letter creation goal
-      weekly_analyses_goal: 3, // CV analysis goal
-      weekly_courses_goal: 2 // Course completion goal
+      weekly_goal: weekly_goal_xp,
+      weekly_goal_xp,
+      weekly_letters_goal: 5,
+      weekly_analyses_goal: 3,
+      weekly_courses_goal: 2
     };
 
     return NextResponse.json({
