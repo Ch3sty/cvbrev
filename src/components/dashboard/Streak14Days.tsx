@@ -43,7 +43,7 @@ export default function Streak14Days({ history }: Streak14DaysProps) {
           return (
             <div key={i} className="flex flex-col items-center gap-1.5 min-w-0">
               <div
-                className={`w-full aspect-square min-h-[28px] rounded-lg flex items-center justify-center ${
+                className={`w-full h-10 sm:h-11 rounded-lg flex items-center justify-center ${
                   active
                     ? 'bg-gradient-to-br from-orange-400 to-red-500 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-300'
