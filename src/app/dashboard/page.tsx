@@ -17,12 +17,13 @@ import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 
 // Import premium components
-import WelcomeHero from '@/components/dashboard/WelcomeHero';
+import StreakHero from '@/components/dashboard/StreakHero';
+import CvStatusCard from '@/components/dashboard/CvStatusCard';
 import QuotaCard from '@/components/dashboard/QuotaCard';
 // Nya dashboard-komponenter
 import ProgressOverview from '@/components/dashboard/ProgressOverview';
 import ActivityInsights from '@/components/dashboard/ActivityInsights';
-import QuickActions from '@/components/dashboard/QuickActions';
+import QuickActionsGated from '@/components/dashboard/QuickActionsGated';
 import PremiumStatusCard from '@/components/dashboard/PremiumStatusCard';
 // Nya kort för premium-användare
 import MonthlyActivityCard from '@/components/dashboard/MonthlyActivityCard';
@@ -56,6 +57,11 @@ interface DashboardStats {
   premiumSource?: string | null;
   // Onboarding tracking
   onboardingCompleted?: boolean;
+  // Streak / gamification
+  dailyStreak?: number;
+  longestStreak?: number;
+  dailyXpEarned?: number;
+  firstName?: string;
 }
 
 export default function DashboardPage() {
@@ -104,6 +110,7 @@ export default function DashboardPage() {
         const { data: profile } = await supabase
           .from('profiles')
           .select(`
+            full_name,
             subscription_tier,
             premium_until,
             premium_source,
@@ -120,6 +127,27 @@ export default function DashboardPage() {
           `)
           .eq('id', user.id)
           .single();
+
+        // Hämta streak-data från global_user_stats
+        const { data: gamStats } = await supabase
+          .from('global_user_stats')
+          .select('daily_streak, longest_streak')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        // Hämta dagens XP från user_daily_xp (Stockholm-dygn)
+        const todayStockholm = new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Europe/Stockholm',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }).format(new Date());
+        const { data: dailyXp } = await supabase
+          .from('user_daily_xp')
+          .select('daily_xp_earned')
+          .eq('user_id', user.id)
+          .eq('date', todayStockholm)
+          .maybeSingle();
 
         // Check if user is first-time (never started onboarding and has no CVs/letters)
         const isNewUser = !profile?.onboarding_started_at &&
@@ -188,7 +216,12 @@ export default function DashboardPage() {
           premiumUntil: profile?.premium_until || null,
           premiumSource: profile?.premium_source || null,
           // Onboarding tracking
-          onboardingCompleted: profile?.onboarding_completed || false
+          onboardingCompleted: profile?.onboarding_completed || false,
+          // Streak / gamification
+          dailyStreak: gamStats?.daily_streak || 0,
+          longestStreak: gamStats?.longest_streak || 0,
+          dailyXpEarned: dailyXp?.daily_xp_earned || 0,
+          firstName: profile?.full_name?.split(' ')[0] || undefined,
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -341,13 +374,19 @@ export default function DashboardPage() {
         className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10"
       >
       <div className="space-y-4 sm:space-y-6 md:space-y-8">
-        {/* Welcome Hero Section - Redesigned */}
-        <WelcomeHero
-          currentLevel={stats.currentLevel}
-          levelTitle={stats.levelTitle}
-          totalLetters={stats.totalLetters}
-          cvCount={stats.cvCount}
+        {/* Streak Hero - dagsstreak som primärt narrativ */}
+        <StreakHero
+          firstName={stats.firstName}
+          dailyStreak={stats.dailyStreak || 0}
+          longestStreak={stats.longestStreak || 0}
+          dailyXpEarned={stats.dailyXpEarned || 0}
+          dailyCap={stats.isPremium ? Infinity : 100}
+          currentLevel={stats.currentLevel || 1}
+          levelTitle={stats.levelTitle || 'Novis'}
         />
+
+        {/* CV Status Card - gating-element */}
+        <CvStatusCard cvCount={stats.cvCount || 0} />
 
         {/* Quota Cards / Stats Row */}
         <motion.div
@@ -507,7 +546,7 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6 }}
         >
-          <QuickActions
+          <QuickActionsGated
             onboardingCompleted={stats.onboardingCompleted || false}
             totalLetters={stats.totalLetters}
             cvCount={stats.cvCount || 0}

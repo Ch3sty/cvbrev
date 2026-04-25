@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 // State Management & Hooks
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
+import { useCvQuota } from '@/hooks/useCvQuota';
 
 // Components
 import CVAnalysisWizard from './components/CVAnalysisWizard';
@@ -29,10 +30,18 @@ export default function CVAnalysisPage() {
     updateRemainingAnalyses, updateNextAnalysisResetDate,
     loading: profileLoading
   } = useProfile();
+  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
 
   const initialLoadRef = useRef(false);
   const authCheckedRef = useRef(false);
   const [showIntro, setShowIntro] = useState(true);
+
+  // Hård gating: utan CV → tillbaka till CV-uppladdning
+  useEffect(() => {
+    if (!cvQuotaLoading && cvCount === 0) {
+      router.push('/dashboard/profil/cv?reason=cv-required');
+    }
+  }, [cvCount, cvQuotaLoading, router]);
 
   // Authentication Check
   useEffect(() => {

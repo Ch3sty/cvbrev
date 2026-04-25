@@ -23,6 +23,7 @@ import {
   Crown
 } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
+import { useCvQuota } from '@/hooks/useCvQuota';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -62,9 +63,17 @@ interface ActiveCVData {
 export default function JobbmatchningPage() {
   // Hooks
   const { subscriptionTier } = useProfile();
+  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const isPremium = subscriptionTier === 'premium';
+
+  // Hård gating: utan CV → tillbaka till CV-uppladdning
+  useEffect(() => {
+    if (!cvQuotaLoading && cvCount === 0) {
+      router.push('/dashboard/profil/cv?reason=cv-required');
+    }
+  }, [cvCount, cvQuotaLoading, router]);
 
   // State
   const [cvs, setCvs] = useState<CV[]>([]);

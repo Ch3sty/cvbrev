@@ -8,6 +8,7 @@ import { FileText, MessageSquare, Layout, SlidersHorizontal, Brain, Eye, Info } 
 import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
+import { useCvQuota } from '@/hooks/useCvQuota';
 import { useCoverLetterStore } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -31,8 +32,16 @@ export default function CreateLetterPage() {
   const { fetchCVs } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
+  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
   const { prefillData, clearPrefillData } = useCoverLetterStore();
   const { successWithMascotAndActivity } = useNotification();
+
+  // Hård gating: utan CV → tillbaka till CV-uppladdning
+  useEffect(() => {
+    if (!cvQuotaLoading && cvCount === 0) {
+      router.push('/dashboard/profil/cv?reason=cv-required');
+    }
+  }, [cvCount, cvQuotaLoading, router]);
 
   // Calculate initial wizard step and completed steps based on prefill data
   const getInitialWizardState = () => {
