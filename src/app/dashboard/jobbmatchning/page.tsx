@@ -18,7 +18,8 @@ import { useNotification } from '@/context/notificationcontext';
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
-import InactiveCVCard from './components/InactiveCVCard';
+import CvSelectorCard from './components/CvSelectorCard';
+import EmptyStatePrompt from './components/EmptyStatePrompt';
 import MatchingHowItWorks from './components/MatchingHowItWorks';
 import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
@@ -492,15 +493,8 @@ export default function JobbmatchningPage() {
                   />
                 )}
 
-                {/* Inget aktivt CV — empty state */}
-                {!activeCVId && (
-                  <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 flex items-center justify-center min-h-[140px] sm:min-h-[180px]">
-                    <div className="text-center">
-                      <p className="text-sm sm:text-base text-slate-700 font-medium mb-1">Inget aktivt CV</p>
-                      <p className="text-xs sm:text-sm text-slate-500">Klicka på ett CV nedan för att aktivera det</p>
-                    </div>
-                  </div>
-                )}
+                {/* Inget aktivt CV — illustrerat onboarding-prompt */}
+                {!activeCVId && <EmptyStatePrompt />}
 
                 {/* Inactive CV Cards Grid - Below */}
                 {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
@@ -512,7 +506,7 @@ export default function JobbmatchningPage() {
                       {cvs
                         .filter(cv => cv.id !== activeCVId)
                         .map((cv) => (
-                          <InactiveCVCard
+                          <CvSelectorCard
                             key={cv.id}
                             cv={cv}
                             onActivate={handleActivateCV}
