@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
 import {
-  Sparkles,
   Search,
   Loader2,
   ArrowLeft,
@@ -410,36 +409,41 @@ export default function JobbmatchningPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-                <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+          <div className="flex items-center justify-between mb-6 gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div
+                className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+                }}
+              >
+                <Briefcase className="w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2.25} />
               </div>
               <div className="min-w-0 flex-1">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                   Jobbmatchning
                 </h1>
-                <p className="text-sm sm:text-base text-gray-600 mt-0.5 sm:mt-1 truncate">
+                <p className="text-sm sm:text-base text-slate-600 mt-0.5 truncate">
                   {showSearchView
-                    ? 'Matchade jobbannonser baserat på ditt CV'
+                    ? 'Matchade jobb baserat på ditt CV'
                     : activeCV
-                    ? 'Aktivt CV - redo att söka jobb'
-                    : 'Aktivera ett CV för att börja matcha jobb'
-                  }
+                    ? 'Aktivt CV — redo att söka jobb'
+                    : 'Välj ett CV nedan för att börja'}
                 </p>
               </div>
             </div>
 
-            {/* Back button när i sökvyn */}
+            {/* Tillbaka-knapp i sökvyn */}
             {showSearchView && (
               <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={handleBackToCVs}
-                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-xl border border-gray-200 hover:bg-white transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm sm:text-base"
+                className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 bg-white rounded-xl border border-slate-200 hover:border-orange-300 hover:bg-orange-50/50 transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm font-medium text-slate-700"
               >
                 <ArrowLeft className="w-4 h-4 flex-shrink-0" />
-                <span className="truncate">Tillbaka till CV-val</span>
+                <span className="hidden sm:inline">Tillbaka</span>
               </motion.button>
             )}
           </div>

@@ -110,7 +110,13 @@ export default function MatchingHowItWorks() {
 function Step({ n, label }: { n: number; label: string }) {
   return (
     <li className="flex items-center gap-2">
-      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold">
+      <span
+        className="flex-shrink-0 w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-bold"
+        style={{
+          background: 'linear-gradient(135deg, #FB923C 0%, #DC2626 100%)',
+          boxShadow: '0 2px 6px -1px rgba(220, 38, 38, 0.35)',
+        }}
+      >
         {n}
       </span>
       <span className="font-medium text-slate-700">{label}</span>
@@ -119,7 +125,7 @@ function Step({ n, label }: { n: number; label: string }) {
 }
 
 function Divider() {
-  return <span className="text-slate-300 hidden sm:inline">→</span>;
+  return <span className="text-orange-300 hidden sm:inline" aria-hidden="true">→</span>;
 }
 
 function Feature({

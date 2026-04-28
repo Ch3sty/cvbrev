@@ -26,7 +26,9 @@ const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
   <motion.div
     className={`
       relative bg-white rounded-2xl border border-slate-200
-      shadow-sm hover:shadow-md hover:border-orange-300 transition-all duration-200
+      shadow-sm hover:border-orange-300
+      hover:shadow-[0_12px_28px_-10px_rgba(249,115,22,0.25)]
+      transition-all duration-200
       overflow-hidden group cursor-pointer
       ${className}
     `}
@@ -240,7 +242,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                     });
                     router.push('/dashboard/skapa-brev');
                   }}
-                  className="col-span-2 py-2.5 px-3 border-2 border-orange-200 text-orange-700 bg-white text-center rounded-lg text-sm font-medium transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 flex items-center justify-center gap-1.5"
+                  className="col-span-2 py-2.5 px-3 border-2 border-orange-200 text-orange-700 bg-white text-center rounded-xl text-sm font-medium transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 flex items-center justify-center gap-1.5"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Skapa brev</span>
@@ -260,7 +262,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className={`${cvId ? 'col-span-3' : 'col-span-5'} py-2.5 px-3 text-white text-center rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md flex items-center justify-center gap-1.5`}
+                    className={`${cvId ? 'col-span-3' : 'col-span-5'} py-2.5 px-3 text-white text-center rounded-xl text-sm font-medium transition-all duration-200 hover:shadow-md flex items-center justify-center gap-1.5`}
                     style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
                   >
                     <span className="truncate">{buttonText}</span>

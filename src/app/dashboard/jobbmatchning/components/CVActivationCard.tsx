@@ -1,7 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle2, Lock, Sparkles, FileText, Briefcase, GraduationCap, MapPin, ChevronDown, ChevronUp, Search } from 'lucide-react';
+import {
+  CheckCircle2,
+  Lock,
+  FileText,
+  Briefcase,
+  GraduationCap,
+  MapPin,
+  ChevronDown,
+  ChevronUp,
+  Search,
+  Calendar,
+  Wrench,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface OccupationMatch {
@@ -49,321 +61,409 @@ export default function CVActivationCard({
   activeData,
   onActivate,
   onSearchJobs,
-  isActivating
+  isActivating,
 }: CVActivationCardProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`relative rounded-xl border-2 transition-all ${
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className={`relative rounded-3xl transition-all overflow-hidden ${
         isActive
-          ? 'border-green-500 bg-green-50/50 p-6'
-          : 'border-gray-200 bg-white hover:border-pink-200 p-4'
+          ? 'bg-white border border-orange-200/60'
+          : 'bg-white border border-slate-200 hover:border-orange-300 hover:shadow-md'
       }`}
+      style={
+        isActive
+          ? { boxShadow: '0 16px 36px -12px rgba(249, 115, 22, 0.18)' }
+          : undefined
+      }
     >
-      {/* Status Badge */}
-      <div className="absolute top-4 right-4">
-        {isActive ? (
-          <div className="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-            <CheckCircle2 className="w-4 h-4" />
-            Aktiverat
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">
-            <Lock className="w-4 h-4" />
-            Inaktivt
-          </div>
-        )}
-      </div>
+      {/* Gradient highlight bar pa toppen for aktivt CV */}
+      {isActive && (
+        <div
+          className="absolute top-0 inset-x-0 h-1"
+          style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+        />
+      )}
 
-      {/* CV Info */}
-      <div className={`pr-24 ${isActive ? 'mb-4' : 'mb-2'}`}>
-        <div className={`flex items-center mb-1 ${isActive ? 'gap-3' : 'gap-2'}`}>
-          <FileText className={`text-gray-400 ${isActive ? 'w-5 h-5' : 'w-4 h-4'}`} />
-          <h3 className={`font-semibold text-gray-900 truncate ${isActive ? 'text-base' : 'text-sm'}`}>{cv.file_name}</h3>
-        </div>
-        <p className={`text-gray-500 ${isActive ? 'text-sm' : 'text-xs'}`}>
-          Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
-        </p>
-      </div>
+      <div className="p-5 sm:p-6">
+        {/* Header: ikon + titel + datum + status-badge */}
+        <div className="flex items-start gap-3 mb-5">
+          <div
+            className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center ${
+              isActive ? 'text-white' : 'bg-slate-100 text-slate-500'
+            }`}
+            style={
+              isActive
+                ? {
+                    background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                    boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
+                  }
+                : undefined
+            }
+          >
+            <FileText className="w-5 h-5" strokeWidth={2.25} />
+          </div>
 
-      {/* Extracted Data Preview (if active) */}
-      {isActive && activeData && (
-        <div className="space-y-3">
-          {/* Occupations */}
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Briefcase className="w-4 h-4 text-pink-600" />
-              <span className="text-sm font-medium text-gray-700">Yrkesroller</span>
-              <span className="text-xs text-gray-500">({activeData.extracted_occupations.length})</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <h3 className="text-base sm:text-lg font-semibold text-slate-900 truncate">
+                  {cv.file_name}
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5">
+                  <Calendar className="w-3 h-3" />
+                  Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                </p>
+              </div>
+
+              {/* Status pill — i header-flow, inte absolut */}
+              {isActive ? (
+                <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+                  <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  Aktiverat
+                </span>
+              ) : (
+                <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-xs font-medium">
+                  <Lock className="w-3 h-3" />
+                  Inaktivt
+                </span>
+              )}
             </div>
-            <div className="flex flex-wrap gap-1">
-              {activeData.extracted_occupations.slice(0, 3).map((occ, i) => (
-                <div key={i} className="relative group">
-                  <span className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
-                    occ.confidence === 'high'
-                      ? 'bg-pink-100 text-pink-700'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}>
-                    {occ.normalized}
-                    {occ.confidence === 'high' && <CheckCircle2 className="w-3 h-3" />}
-                  </span>
-                  {occ.concept_id && (
-                    <div className="absolute bottom-full left-0 mb-2 hidden group-hover:block z-10">
-                      <div className="bg-gray-900 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                        ID: {occ.concept_id}
-                      </div>
-                    </div>
+          </div>
+        </div>
+
+        {/* Aktivt CV — visa extraherade fält */}
+        {isActive && activeData && (
+          <div className="space-y-4">
+            {/* Yrkesroller */}
+            {activeData.extracted_occupations.length > 0 && (
+              <SectionBlock
+                icon={Briefcase}
+                title="Yrkesroller"
+                count={activeData.extracted_occupations.length}
+              >
+                <div className="flex flex-wrap gap-1.5">
+                  {activeData.extracted_occupations.slice(0, 3).map((occ, i) => (
+                    <span
+                      key={i}
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
+                        occ.confidence === 'high'
+                          ? 'bg-orange-50 border border-orange-200 text-orange-700'
+                          : 'bg-slate-100 border border-slate-200 text-slate-600'
+                      }`}
+                    >
+                      {occ.normalized}
+                      {occ.confidence === 'high' && (
+                        <CheckCircle2 className="w-3 h-3" strokeWidth={2.5} />
+                      )}
+                    </span>
+                  ))}
+                  {activeData.extracted_occupations.length > 3 && (
+                    <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 text-xs">
+                      +{activeData.extracted_occupations.length - 3} till
+                    </span>
                   )}
                 </div>
-              ))}
-              {activeData.extracted_occupations.length > 3 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                  +{activeData.extracted_occupations.length - 3} till
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Skills */}
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Sparkles className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">Kompetenser</span>
-              <span className="text-xs text-gray-500">({activeData.extracted_skills.length})</span>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {activeData.extracted_skills.slice(0, 5).map((skill, i) => (
-                <span key={i} className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
-                  {skill}
-                </span>
-              ))}
-              {activeData.extracted_skills.length > 5 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                  +{activeData.extracted_skills.length - 5} till
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Location */}
-          {activeData.extracted_location && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="w-4 h-4" />
-              <span>{activeData.extracted_location}</span>
-            </div>
-          )}
-
-          {/* Toggle Details Button */}
-          <button
-            onClick={() => setShowDetails(!showDetails)}
-            className="flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors"
-          >
-            {showDetails ? (
-              <>
-                <ChevronUp className="w-4 h-4" />
-                Dölj detaljer
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4" />
-                Visa alla detaljer
-              </>
+              </SectionBlock>
             )}
-          </button>
 
-          {/* Detailed View */}
-          <AnimatePresence>
-            {showDetails && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
+            {/* Kompetenser */}
+            {activeData.extracted_skills.length > 0 && (
+              <SectionBlock
+                icon={Wrench}
+                title="Kompetenser"
+                count={activeData.extracted_skills.length}
               >
-                <div className="space-y-4 pt-4 border-t border-gray-200">
-                  {/* All Occupations */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      Alla yrkesroller ({activeData.extracted_occupations.length})
-                    </p>
-                    <div className="space-y-2">
-                      {activeData.extracted_occupations.map((occ, i) => (
-                        <div key={i} className={`p-2 rounded border ${
-                          occ.confidence === 'high'
-                            ? 'bg-pink-50 border-pink-200'
-                            : 'bg-gray-50 border-gray-200'
-                        }`}>
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm text-gray-900">{occ.normalized}</p>
-                              {occ.original !== occ.normalized && (
-                                <p className="text-xs text-gray-500">Original: {occ.original}</p>
-                              )}
-                              {occ.concept_id && (
-                                <p className="text-xs text-gray-500 font-mono">ID: {occ.concept_id}</p>
-                              )}
-                              {occ.alternative_labels.length > 0 && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                  Synonymer: {occ.alternative_labels.slice(0, 3).join(', ')}
-                                  {occ.alternative_labels.length > 3 && ` +${occ.alternative_labels.length - 3}`}
-                                </p>
-                              )}
-                            </div>
-                            <div className={`flex items-center gap-1 text-xs font-medium whitespace-nowrap ${
-                              occ.confidence === 'high' ? 'text-green-700' :
-                              occ.confidence === 'medium' ? 'text-yellow-700' :
-                              'text-gray-600'
-                            }`}>
-                              {occ.confidence === 'high' && <CheckCircle2 className="w-3.5 h-3.5" />}
-                              {occ.confidence === 'high' ? 'Verifierad' :
-                               occ.confidence === 'medium' ? 'Medium' : 'Låg'}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeData.extracted_skills.slice(0, 5).map((skill, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                  {activeData.extracted_skills.length > 5 && (
+                    <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 text-xs">
+                      +{activeData.extracted_skills.length - 5} till
+                    </span>
+                  )}
+                </div>
+              </SectionBlock>
+            )}
 
-                  {/* All Skills */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Alla kompetenser ({activeData.extracted_skills.length})
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeData.extracted_skills.map((skill, i) => (
-                        <span key={i} className="px-2.5 py-1 bg-purple-50 text-purple-700 rounded text-xs border border-purple-200">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+            {/* Plats */}
+            {activeData.extracted_location && (
+              <div className="flex items-center gap-2 text-sm text-slate-600">
+                <MapPin className="w-4 h-4 text-slate-400" />
+                <span>{activeData.extracted_location}</span>
+              </div>
+            )}
 
-                  {/* Educations */}
-                  {activeData.extracted_educations && activeData.extracted_educations.length > 0 && (
+            {/* Toggle detaljer */}
+            <button
+              onClick={() => setShowDetails(!showDetails)}
+              className="flex items-center gap-1.5 text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+            >
+              {showDetails ? (
+                <>
+                  <ChevronUp className="w-4 h-4" />
+                  Dölj detaljer
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-4 h-4" />
+                  Visa alla detaljer
+                </>
+              )}
+            </button>
+
+            {/* Detalj-vy */}
+            <AnimatePresence>
+              {showDetails && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-5 pt-4 border-t border-slate-200">
+                    {/* Alla yrkesroller */}
                     <div>
-                      <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                        <GraduationCap className="w-3.5 h-3.5" />
-                        Utbildningar ({activeData.extracted_educations.length})
-                      </p>
+                      <SectionLabel
+                        icon={Briefcase}
+                        title="Alla yrkesroller"
+                        count={activeData.extracted_occupations.length}
+                      />
                       <div className="space-y-2">
-                        {activeData.extracted_educations.map((edu, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs bg-blue-50 p-2.5 rounded border border-blue-200">
-                            <GraduationCap className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-gray-900">{edu.degree} - {edu.field}</p>
-                              <p className="text-gray-600">{edu.institution} ({edu.year})</p>
+                        {activeData.extracted_occupations.map((occ, i) => (
+                          <div
+                            key={i}
+                            className={`p-3 rounded-xl border ${
+                              occ.confidence === 'high'
+                                ? 'bg-orange-50/50 border-orange-200/60'
+                                : 'bg-slate-50 border-slate-200'
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="flex-1 min-w-0">
+                                <p className="font-semibold text-sm text-slate-900">
+                                  {occ.normalized}
+                                </p>
+                                {occ.original !== occ.normalized && (
+                                  <p className="text-xs text-slate-500 mt-0.5">
+                                    Ursprunglig: {occ.original}
+                                  </p>
+                                )}
+                                {occ.alternative_labels.length > 0 && (
+                                  <p className="text-xs text-slate-500 mt-1.5">
+                                    Synonymer:{' '}
+                                    {occ.alternative_labels.slice(0, 3).join(', ')}
+                                    {occ.alternative_labels.length > 3 &&
+                                      ` +${occ.alternative_labels.length - 3}`}
+                                  </p>
+                                )}
+                              </div>
+                              <ConfidencePill confidence={occ.confidence} />
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
-          {/* Parsed Date */}
-          <p className="text-xs text-gray-500 flex items-center gap-1.5 pt-2 border-t border-gray-200">
-            <Sparkles className="w-3 h-3" />
-            Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
-          </p>
-        </div>
-      )}
+                    {/* Alla kompetenser */}
+                    {activeData.extracted_skills.length > 0 && (
+                      <div>
+                        <SectionLabel
+                          icon={Wrench}
+                          title="Alla kompetenser"
+                          count={activeData.extracted_skills.length}
+                        />
+                        <div className="flex flex-wrap gap-1.5">
+                          {activeData.extracted_skills.map((skill, i) => (
+                            <span
+                              key={i}
+                              className="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-      {/* Action Buttons */}
-      {!isActive ? (
-        <button
-          onClick={() => onActivate(cv.id)}
-          disabled={isActivating}
-          className={`w-full rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
-            isActive ? 'py-3 mt-4' : 'py-2.5 mt-3'
-          } ${
-            isActivating
-              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white cursor-wait'
-              : 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-700 hover:to-purple-700 shadow-md hover:shadow-lg'
-          }`}
-        >
-          {isActivating && (
-            <>
-              {/* Animated gradient overlay */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                animate={{
-                  x: ['-100%', '200%'],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              {/* Pulsing dots */}
-              <div className="flex gap-1">
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0,
-                  }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0.2,
-                  }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0.4,
-                  }}
-                />
-              </div>
-              <span className="relative z-10">Aktiverar CV och justerar algoritmer...</span>
-            </>
-          )}
-          {!isActivating && (
-            <>
-              <Sparkles className="w-4 h-4" />
-              Aktivera för jobbmatchning
-            </>
-          )}
-        </button>
-      ) : (
-        onSearchJobs && (
+                    {/* Utbildningar */}
+                    {activeData.extracted_educations &&
+                      activeData.extracted_educations.length > 0 && (
+                        <div>
+                          <SectionLabel
+                            icon={GraduationCap}
+                            title="Utbildningar"
+                            count={activeData.extracted_educations.length}
+                          />
+                          <div className="space-y-2">
+                            {activeData.extracted_educations.map((edu, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200"
+                              >
+                                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center">
+                                  <GraduationCap
+                                    className="w-4 h-4 text-slate-500"
+                                    strokeWidth={2.25}
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-semibold text-sm text-slate-900">
+                                    {edu.degree}
+                                    {edu.field && ` — ${edu.field}`}
+                                  </p>
+                                  <p className="text-xs text-slate-500 mt-0.5">
+                                    {edu.institution} ({edu.year})
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Analyserad-datum */}
+            <p className="text-xs text-slate-500 flex items-center gap-1.5 pt-3 border-t border-slate-100">
+              <Calendar className="w-3 h-3" />
+              Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
+            </p>
+          </div>
+        )}
+
+        {/* Knappar */}
+        {!isActive ? (
           <button
-            onClick={onSearchJobs}
-            className="w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700 shadow-md hover:shadow-lg"
+            onClick={() => onActivate(cv.id)}
+            disabled={isActivating}
+            className="w-full mt-4 py-3 rounded-xl text-white font-semibold transition-all flex items-center justify-center gap-2 relative overflow-hidden shadow-sm hover:shadow-md disabled:cursor-wait"
+            style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
           >
-            <Search className="w-5 h-5" />
-            Sök matchande jobb
+            {isActivating ? (
+              <>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <PulsingDots />
+                <span className="relative z-10">Aktiverar CV...</span>
+              </>
+            ) : (
+              <>
+                <CheckCircle2 className="w-4 h-4" strokeWidth={2.5} />
+                Aktivera för jobbmatchning
+              </>
+            )}
           </button>
-        )
-      )}
+        ) : (
+          onSearchJobs && (
+            <button
+              onClick={onSearchJobs}
+              className="w-full mt-5 py-3 rounded-xl text-white font-semibold transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+              style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+            >
+              <Search className="w-5 h-5" strokeWidth={2.25} />
+              Sök matchande jobb
+            </button>
+          )
+        )}
+      </div>
     </motion.div>
+  );
+}
+
+function SectionBlock({
+  icon: Icon,
+  title,
+  count,
+  children,
+}: {
+  icon: typeof Briefcase;
+  title: string;
+  count?: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <SectionLabel icon={Icon} title={title} count={count} />
+      {children}
+    </div>
+  );
+}
+
+function SectionLabel({
+  icon: Icon,
+  title,
+  count,
+}: {
+  icon: typeof Briefcase;
+  title: string;
+  count?: number;
+}) {
+  return (
+    <div className="flex items-center gap-2 mb-2">
+      <Icon className="w-3.5 h-3.5 text-slate-500" strokeWidth={2.25} />
+      <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        {title}
+      </span>
+      {count !== undefined && (
+        <span className="px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold tabular-nums">
+          {count}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function ConfidencePill({ confidence }: { confidence: 'high' | 'medium' | 'low' }) {
+  if (confidence === 'high') {
+    return (
+      <span className="flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-semibold whitespace-nowrap">
+        <CheckCircle2 className="w-3 h-3" strokeWidth={2.5} />
+        Verifierad
+      </span>
+    );
+  }
+  if (confidence === 'medium') {
+    return (
+      <span className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-semibold whitespace-nowrap">
+        Medium
+      </span>
+    );
+  }
+  return (
+    <span className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-[10px] font-semibold whitespace-nowrap">
+      Låg
+    </span>
+  );
+}
+
+function PulsingDots() {
+  return (
+    <div className="flex gap-1">
+      {[0, 0.2, 0.4].map((delay, i) => (
+        <motion.div
+          key={i}
+          className="w-2 h-2 bg-white rounded-full"
+          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+          transition={{ duration: 1, repeat: Infinity, delay }}
+        />
+      ))}
+    </div>
   );
 }
