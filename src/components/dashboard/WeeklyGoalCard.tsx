@@ -86,27 +86,39 @@ export default function WeeklyGoalCard({ dailyXp }: WeeklyGoalCardProps) {
 
       {/* Dagsstaplar */}
       <div className="mt-auto">
-        <div className="flex items-end gap-1.5 h-12 mb-1">
+        <div
+          className="grid items-end gap-1.5 h-16 mb-1"
+          style={{ gridTemplateColumns: 'repeat(7, minmax(0, 1fr))' }}
+        >
           {week7.map((d, i) => {
-            const heightPct = d.isFuture ? 0 : Math.max(8, Math.round((d.xp / maxXp) * 100));
             const isActive = d.xp > 0;
+            // Aktiva dagar: 60-100% av container baserat pa xp/maxXp.
+            // Inaktiva (bara idag-cellen ska visas som streckad mini-stub) eller passé-dagar far en tunn linje.
+            let heightPx: number;
+            if (d.isFuture) {
+              heightPx = 0;
+            } else if (isActive) {
+              const ratio = Math.min(1, d.xp / maxXp);
+              heightPx = Math.round(28 + ratio * 36); // 28-64px
+            } else {
+              heightPx = 6; // tunn inaktiv linje
+            }
             return (
-              <div key={i} className="flex-1 flex items-end justify-center">
-                <div
-                  className={`w-full rounded-md transition-all ${
-                    d.isFuture
-                      ? 'bg-transparent'
-                      : isActive
-                      ? d.isToday
-                        ? 'bg-orange-500'
-                        : 'bg-orange-300'
-                      : d.isToday
-                      ? 'bg-orange-200'
-                      : 'bg-slate-100'
-                  }`}
-                  style={{ height: `${heightPct}%`, minHeight: d.isFuture ? 0 : '6px' }}
-                />
-              </div>
+              <div
+                key={i}
+                className={`w-full rounded-md transition-all ${
+                  d.isFuture
+                    ? 'bg-transparent'
+                    : isActive
+                    ? d.isToday
+                      ? 'bg-orange-500'
+                      : 'bg-orange-300'
+                    : d.isToday
+                    ? 'bg-orange-200'
+                    : 'bg-slate-100'
+                }`}
+                style={{ height: `${heightPx}px` }}
+              />
             );
           })}
         </div>
