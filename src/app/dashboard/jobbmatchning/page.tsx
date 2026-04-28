@@ -7,12 +7,10 @@ import {
   Search,
   Loader2,
   ArrowLeft,
-  ArrowRight,
   Briefcase,
   Crown,
 } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
-import { useCvQuota } from '@/hooks/useCvQuota';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -20,6 +18,7 @@ import { useNotification } from '@/context/notificationcontext';
 import CVActivationCard from './components/CVActivationCard';
 import CvSelectorCard from './components/CvSelectorCard';
 import EmptyStatePrompt from './components/EmptyStatePrompt';
+import JobMatchingOnboarding from './components/JobMatchingOnboarding';
 import MatchingHowItWorks from './components/MatchingHowItWorks';
 import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
@@ -54,17 +53,13 @@ interface ActiveCVData {
 export default function JobbmatchningPage() {
   // Hooks
   const { subscriptionTier } = useProfile();
-  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const isPremium = subscriptionTier === 'premium';
 
-  // Hård gating: utan CV → tillbaka till CV-uppladdning
-  useEffect(() => {
-    if (!cvQuotaLoading && cvCount === 0) {
-      router.push('/dashboard/profil/cv?reason=cv-required');
-    }
-  }, [cvCount, cvQuotaLoading, router]);
+  // Mjuk gate: utan CV visar vi <JobMatchingOnboarding /> istallet for att
+  // redirecta. Anvandaren ska forsta vad funktionen ar innan vi skickar dem
+  // till CV-uppladdningen. CV-rakning gors via cvs.length nedan.
 
   // State
   const [cvs, setCvs] = useState<CV[]>([]);
@@ -458,24 +453,15 @@ export default function JobbmatchningPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Dina CV:n</h2>
-
             {loadingCVs ? (
               <div className="flex items-center justify-center py-12">
-                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
               </div>
             ) : cvs.length === 0 ? (
-              <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-6 sm:p-8 text-center">
-                <p className="text-sm sm:text-base text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
-                <a
-                  href="/dashboard/profil/cv"
-                  className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base font-medium"
-                >
-                  Ladda upp CV
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                </a>
-              </div>
+              <JobMatchingOnboarding />
             ) : (
+              <>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Dina CV:n</h2>
               <div className="space-y-4 sm:space-y-6">
                 {/* 3-stegs-instruktion + info-popover */}
                 <MatchingHowItWorks />
@@ -517,6 +503,7 @@ export default function JobbmatchningPage() {
                   </div>
                 )}
               </div>
+              </>
             )}
           </motion.div>
         )}
