@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ShieldCheck, MapPin, Lock } from 'lucide-react';
 
 export default function CvUploadIllustration() {
   return (
@@ -27,14 +28,11 @@ export default function CvUploadIllustration() {
           </h2>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md mx-auto md:mx-0">
             Vi tolkar yrkesroller, kompetenser, utbildningar och plats. Du
-            laddar upp, vi gör resten.
+            laddar upp, vi gör resten — på under en minut, och du kan radera
+            CV:t när du vill.
           </p>
 
-          <ul className="mt-5 space-y-2.5 text-left max-w-md mx-auto md:mx-0">
-            <Bullet text="PDF, Word eller text — upp till 10 MB" />
-            <Bullet text="Klart på under en minut" />
-            <Bullet text="Du kan radera CV:t när du vill" />
-          </ul>
+          <PrivacyBlock />
         </div>
       </div>
     </motion.section>
@@ -142,33 +140,61 @@ function ScanningDocument() {
   );
 }
 
-function Bullet({ text }: { text: string }) {
+function PrivacyBlock() {
+  const items: { Icon: typeof ShieldCheck; title: string; body: string }[] = [
+    {
+      Icon: MapPin,
+      title: 'Lagrat på servrar i EU',
+      body: 'Dina personuppgifter lämnar aldrig EU.',
+    },
+    {
+      Icon: ShieldCheck,
+      title: 'Skickas aldrig till en språkmodell',
+      body: 'Vi sparar uppgifter direkt i vår databas. Ingen AI får se dem.',
+    },
+    {
+      Icon: Lock,
+      title: 'Du äger datan',
+      body: 'Krypterat under transport och i vila. Radera när du vill.',
+    },
+  ];
+
   return (
-    <li className="flex items-start gap-2.5 text-sm text-slate-700">
-      <span
-        className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-        style={{
-          background: 'linear-gradient(135deg, #FB923C 0%, #DC2626 100%)',
-        }}
-      >
-        <svg
-          width="10"
-          height="10"
-          viewBox="0 0 10 10"
-          fill="none"
-          aria-hidden="true"
+    <div className="mt-5 rounded-2xl border border-emerald-200/70 bg-emerald-50/50 p-4 sm:p-5 max-w-md mx-auto md:mx-0 text-left">
+      <div className="flex items-center gap-2 mb-3">
+        <div
+          className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
+          style={{
+            background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+            boxShadow: '0 4px 10px -3px rgba(5, 150, 105, 0.35)',
+          }}
         >
-          <path
-            d="M2 5.5L4 7.5L8 3"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      <span>{text}</span>
-    </li>
+          <ShieldCheck className="w-4 h-4" strokeWidth={2.25} />
+        </div>
+        <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+          Dina uppgifter stannar hos dig
+        </p>
+      </div>
+
+      <ul className="space-y-2.5">
+        {items.map(({ Icon, title, body }) => (
+          <li key={title} className="flex items-start gap-2.5">
+            <Icon
+              className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5"
+              strokeWidth={2.25}
+            />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-slate-900 leading-tight">
+                {title}
+              </p>
+              <p className="text-xs sm:text-[13px] text-slate-600 leading-snug mt-0.5">
+                {body}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
