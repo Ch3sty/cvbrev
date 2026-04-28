@@ -30,10 +30,10 @@ export default function MinaCVPage() {
   const [deleteId, setDeleteId] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const cvCount = cvs.length;
   const isPremium = subscriptionTier === 'premium';
-  const cvLimit = isPremium ? Infinity : FREE_LIMIT;
   const limitReached = !isPremium && cvCount >= FREE_LIMIT;
   const latestUploadedAt =
     cvs.length > 0
@@ -43,7 +43,13 @@ export default function MinaCVPage() {
       : null;
 
   useEffect(() => {
-    fetchCVs();
+    let cancelled = false;
+    fetchCVs().finally(() => {
+      if (!cancelled) setHasFetched(true);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [fetchCVs]);
 
   const handleDeleteCV = (id: string) => {
@@ -212,7 +218,20 @@ export default function MinaCVPage() {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const isEmpty = !cvListLoading && cvCount === 0;
+  // Vi vantar med att rendera empty/populated tills forsta fetchCVs har kort.
+  // Annars flashar empty-hero forst (cvs ar [] vid mount) och hoppar till
+  // populated nar datan kommit.
+  const initialLoading = !hasFetched || cvListLoading;
+  const isEmpty = hasFetched && cvCount === 0;
+
+  if (initialLoading) {
+    return (
+      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-5 sm:space-y-6">
+        <HeroSkeleton />
+        <BodySkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-5 sm:space-y-6">
@@ -245,19 +264,8 @@ export default function MinaCVPage() {
         </>
       )}
 
-      {/* Loading state */}
-      {cvListLoading && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 flex justify-center">
-          <motion.div
-            className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
-      )}
-
       {/* Populated state */}
-      {!cvListLoading && cvCount > 0 && (
+      {cvCount > 0 && (
         <>
           <CvUnlocksFlow variant="compact" />
 
@@ -358,6 +366,33 @@ function UploadCard({
       </div>
       {children}
     </motion.div>
+  );
+}
+
+function HeroSkeleton() {
+  return (
+    <div
+      className="rounded-3xl bg-gradient-to-br from-orange-100 via-orange-50 to-rose-50 animate-pulse"
+      style={{ height: 320 }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function BodySkeleton() {
+  return (
+    <div className="space-y-4 sm:space-y-5">
+      <div
+        className="rounded-3xl bg-white border border-slate-200/70 animate-pulse"
+        style={{ height: 280 }}
+        aria-hidden="true"
+      />
+      <div
+        className="rounded-3xl bg-white border border-slate-200/70 animate-pulse"
+        style={{ height: 220 }}
+        aria-hidden="true"
+      />
+    </div>
   );
 }
 
