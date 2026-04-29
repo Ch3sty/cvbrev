@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock, Loader2 } from 'lucide-react';
+import { Download, Edit3, Copy, Check, FileText, Save, Info, Loader2 } from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { extractEditableContent, isTemplateHTML as checkIsTemplateHTML } from '@/lib/letters/extract-editable-content';
 import FontSelector, { type FontId, FONTS } from '../FontSelector';
+import LetterFlowStepHeader from '../LetterFlowStepHeader';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -18,6 +19,7 @@ interface PreviewStepProps {
   saveError?: string | null;
   isPremium?: boolean;
   isRegeneratingTemplate?: boolean;
+  registerRef?: (el: HTMLElement | null) => void;
 }
 
 export default function PreviewStep({
@@ -30,7 +32,8 @@ export default function PreviewStep({
   onFontChange,
   saveError,
   isPremium = false,
-  isRegeneratingTemplate = false
+  isRegeneratingTemplate = false,
+  registerRef
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
@@ -154,7 +157,23 @@ export default function PreviewStep({
   };
 
   return (
-    <div className="space-y-6">
+    <motion.section
+      ref={registerRef}
+      data-flow-section="preview"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7 space-y-6"
+      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+    >
+      <LetterFlowStepHeader
+        stepNumber={6}
+        title="Granska & ladda ner"
+        description="Förhandsgranska, redigera och exportera ditt brev."
+        isDone={true}
+        isActive={true}
+      />
+
       {/* Success Banner */}
       {showSaveSuccess && (
         <motion.div
@@ -195,8 +214,8 @@ export default function PreviewStep({
         </motion.div>
       )}
 
-      {/* Action Bar - Sticky på desktop, normal flow på mobil */}
-      <div className="bg-white rounded-xl border-2 border-gray-200 shadow-lg p-3 sm:p-4">
+      {/* Action Bar */}
+      <div className="bg-orange-50/40 rounded-2xl border border-orange-200/60 p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Sekundära actions - Left side */}
           <div className="flex items-center gap-2 justify-center sm:justify-start">
@@ -242,7 +261,7 @@ export default function PreviewStep({
               <motion.button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={isSaving ? {} : { scale: 1.02 }}
                 whileTap={isSaving ? {} : { scale: 0.98 }}
                 title="Spara brevet"
@@ -265,7 +284,7 @@ export default function PreviewStep({
             <motion.button
               onClick={handleDownloadPdf}
               disabled={isPdfGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-orange-500 to-red-600 rounded-lg hover:from-orange-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={isPdfGenerating ? {} : { scale: 1.02 }}
               whileTap={isPdfGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som PDF"
@@ -287,7 +306,7 @@ export default function PreviewStep({
             <motion.button
               onClick={handleDownloadDocx}
               disabled={isDocxGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-slate-900 bg-white border-2 border-slate-300 hover:border-slate-400 rounded-lg transition-all shadow-sm hover:shadow-md font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={isDocxGenerating ? {} : { scale: 1.02 }}
               whileTap={isDocxGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som DOCX"
@@ -326,10 +345,10 @@ export default function PreviewStep({
             className="absolute inset-0 bg-white/90 backdrop-blur-sm rounded-2xl z-10 flex items-center justify-center"
           >
             <div className="flex flex-col items-center gap-4">
-              <Loader2 className="w-12 h-12 text-pink-600 animate-spin" />
+              <Loader2 className="w-12 h-12 text-orange-600 animate-spin" />
               <div className="text-center">
-                <p className="text-lg font-medium text-gray-900">Uppdaterar brevmall...</p>
-                <p className="text-sm text-gray-600 mt-1">Genererar om brevet med den nya designen</p>
+                <p className="text-lg font-medium text-slate-900">Uppdaterar brevmall…</p>
+                <p className="text-sm text-slate-600 mt-1">Vi skriver om brevet med den nya designen.</p>
               </div>
             </div>
           </motion.div>
@@ -344,20 +363,21 @@ export default function PreviewStep({
             <textarea
               value={editableText}
               onChange={(e) => setEditableText(e.target.value)}
-              className="w-full h-[600px] p-8 bg-white border border-gray-200 rounded-xl text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full h-[600px] p-8 bg-white border border-slate-200 rounded-2xl text-slate-900 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
               style={{ fontFamily: selectedFontData.fallback }}
               placeholder="Skriv ditt brev här..."
             />
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={handleCancelEdit}
-                className="px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 min-h-[44px]"
               >
                 Avbryt
               </button>
               <button
                 onClick={handleSaveEdit}
-                className="px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700"
+                className="px-5 py-2.5 text-white rounded-xl font-bold min-h-[44px] shadow-lg"
+                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
               >
                 Spara ändringar
               </button>
@@ -407,9 +427,9 @@ export default function PreviewStep({
           transition={{ delay: 0.5 }}
           className="text-center text-sm text-gray-600"
         >
-          💡 Dina kontaktuppgifter från profilen är redan inkluderade. Klicka på "Redigera" om du vill göra ändringar.
+          Dina kontaktuppgifter från profilen är redan inkluderade. Klicka på Redigera om du vill ändra.
         </motion.div>
       )}
-    </div>
+    </motion.section>
   );
 }

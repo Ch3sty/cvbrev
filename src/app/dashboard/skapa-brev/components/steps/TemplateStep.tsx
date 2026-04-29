@@ -2,19 +2,33 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Crown, Lock, FileText, X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Crown,
+  Lock,
+  FileText,
+  X,
+  Maximize2,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+} from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
+import LetterFlowStepHeader from '../LetterFlowStepHeader';
 
 interface TemplateStepProps {
   templateId: string;
   onTemplateChange: (templateId: string) => void;
   isPremium: boolean;
+  isActive: boolean;
+  registerRef?: (el: HTMLElement | null) => void;
 }
 
 export default function TemplateStep({
   templateId,
   onTemplateChange,
-  isPremium
+  isPremium,
+  isActive,
+  registerRef,
 }: TemplateStepProps) {
   const [previewTemplateId, setPreviewTemplateId] = useState<string | null>(null);
   const [currentMobileIndex, setCurrentMobileIndex] = useState(0);
@@ -22,7 +36,6 @@ export default function TemplateStep({
 
   const templates = Object.entries(DOCX_TEMPLATES);
 
-  // Sync carousel index with selected template
   useEffect(() => {
     const selectedIndex = templates.findIndex(([id]) => id === templateId);
     if (selectedIndex !== -1) {
@@ -30,91 +43,118 @@ export default function TemplateStep({
     }
   }, [templateId]);
 
-  // ESC key handler for modal
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && previewTemplateId) {
         setPreviewTemplateId(null);
       }
     };
-
     if (previewTemplateId) {
       window.addEventListener('keydown', handleEscape);
       return () => window.removeEventListener('keydown', handleEscape);
     }
   }, [previewTemplateId]);
 
-  // Scroll to index on mobile
   const scrollToIndex = (index: number) => {
     if (carouselRef.current) {
       const cardWidth = carouselRef.current.offsetWidth;
       carouselRef.current.scrollTo({
         left: index * cardWidth,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
     setCurrentMobileIndex(index);
   };
 
-  // Handle scroll end to update index
   const handleScroll = () => {
     if (carouselRef.current) {
       const cardWidth = carouselRef.current.offsetWidth;
       const scrollLeft = carouselRef.current.scrollLeft;
       const newIndex = Math.round(scrollLeft / cardWidth);
-      if (newIndex !== currentMobileIndex && newIndex >= 0 && newIndex < templates.length) {
+      if (
+        newIndex !== currentMobileIndex &&
+        newIndex >= 0 &&
+        newIndex < templates.length
+      ) {
         setCurrentMobileIndex(newIndex);
       }
     }
   };
 
-  const TemplateCard = ({ id, template, isSelected, isLocked }: {
+  const TemplateCard = ({
+    id,
+    template,
+    isSelected,
+    isLocked,
+  }: {
     id: string;
     template: typeof DOCX_TEMPLATES[keyof typeof DOCX_TEMPLATES];
     isSelected: boolean;
     isLocked: boolean;
   }) => (
     <motion.button
+      type="button"
       onClick={() => !isLocked && onTemplateChange(id as DocxTemplateId)}
       disabled={isLocked}
       className={`
-        relative p-4 rounded-xl border-2 transition-all w-full
-        ${isSelected
-          ? 'border-pink-500 bg-gradient-to-br from-pink-50 to-purple-50'
-          : isLocked
-          ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
-          : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50'
+        relative p-3 rounded-2xl border-2 transition-all w-full text-left bg-white
+        ${
+          isSelected
+            ? 'border-orange-400'
+            : isLocked
+            ? 'border-slate-200 opacity-60 cursor-not-allowed'
+            : 'border-slate-200 hover:border-orange-300'
         }
       `}
-      whileHover={!isLocked ? { scale: 1.02, y: -2 } : {}}
+      style={
+        isSelected
+          ? { boxShadow: '0 12px 28px -8px rgba(249, 115, 22, 0.35)' }
+          : undefined
+      }
+      whileHover={!isLocked ? { y: -2 } : {}}
       whileTap={!isLocked ? { scale: 0.98 } : {}}
     >
-      {/* Premium Badge */}
       {template.tier === 'premium' && (
-        <div className="absolute top-2 right-2 z-10">
-          <div className={`${isLocked ? 'bg-gray-800' : 'bg-gradient-to-r from-purple-600 to-pink-600'} text-white text-xs px-2 py-1 rounded-full flex items-center gap-1`}>
-            {isLocked ? <Lock className="w-3 h-3" /> : <Crown className="w-3 h-3" />}
+        <div className="absolute top-2.5 right-2.5 z-10">
+          <div
+            className={`text-white text-[10px] font-semibold px-2 py-1 rounded-full flex items-center gap-1 ${
+              isLocked ? 'bg-slate-700' : ''
+            }`}
+            style={
+              isLocked
+                ? undefined
+                : {
+                    background:
+                      'linear-gradient(135deg, #D946EF, #9333EA, #DB2777)',
+                  }
+            }
+          >
+            {isLocked ? (
+              <Lock className="w-3 h-3" />
+            ) : (
+              <Crown className="w-3 h-3" />
+            )}
             Premium
           </div>
         </div>
       )}
 
-      {/* Selection Indicator */}
       {isSelected && (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center z-10"
+          className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-10"
+          style={{
+            background: 'linear-gradient(135deg, #10B981, #059669)',
+            boxShadow: '0 4px 10px -2px rgba(16, 185, 129, 0.5)',
+          }}
         >
-          <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
+          <Check className="w-4 h-4 text-white" strokeWidth={3} />
         </motion.div>
       )}
 
-      {/* Template Preview */}
       <div
-        className="relative w-full h-48 mb-3 bg-gray-50 rounded-lg overflow-hidden border border-gray-200 cursor-pointer group"
+        className="relative w-full h-44 mb-3 bg-slate-50 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group"
         onClick={(e) => {
           e.stopPropagation();
           setPreviewTemplateId(id);
@@ -127,36 +167,43 @@ export default function TemplateStep({
             transform: 'scale(0.25)',
             transformOrigin: 'top left',
             width: '400%',
-            height: '400%'
+            height: '400%',
           }}
           title={`Preview av ${template.name}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent pointer-events-none" />
-
-        {/* Expand button overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <div className="bg-white rounded-full p-3 shadow-lg">
-            <Maximize2 className="w-6 h-6 text-gray-700" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <div className="bg-white rounded-full p-2.5 shadow-lg">
+            <Maximize2 className="w-5 h-5 text-slate-700" />
           </div>
         </div>
       </div>
 
-      <div className="text-left">
-        <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+      <div>
+        <h4 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
           {template.name}
           {template.tier === 'free' && (
-            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Gratis</span>
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-semibold">
+              Gratis
+            </span>
           )}
         </h4>
-        <p className="text-sm text-gray-600 mt-1">{template.description}</p>
+        <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+          {template.description}
+        </p>
         <div className="mt-2 flex flex-wrap gap-1">
           {template.industries.slice(0, 2).map((industry, idx) => (
-            <span key={idx} className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
+            <span
+              key={idx}
+              className="text-[10px] bg-slate-50 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded-full font-medium"
+            >
               {industry}
             </span>
           ))}
           {template.industries.length > 2 && (
-            <span className="text-xs text-gray-500">+{template.industries.length - 2}</span>
+            <span className="text-[10px] text-slate-500">
+              +{template.industries.length - 2}
+            </span>
           )}
         </div>
       </div>
@@ -164,52 +211,58 @@ export default function TemplateStep({
   );
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="text-center">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Välj din brevmall</h3>
-        <p className="text-sm text-gray-600">
-          Alla mallar är ATS-optimerade och professionellt designade
-        </p>
-      </div>
+    <motion.section
+      ref={registerRef}
+      data-flow-section="template"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
+      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+    >
+      <LetterFlowStepHeader
+        stepNumber={3}
+        title="Välj brevmall"
+        description="Alla mallar är ATS-optimerade."
+        isDone={!!templateId}
+        isActive={isActive}
+      />
 
       {/* Mobile Carousel */}
       <div className="block md:hidden">
         <div className="relative">
-          {/* Navigation buttons */}
           {currentMobileIndex > 0 && (
             <button
+              type="button"
               onClick={() => scrollToIndex(currentMobileIndex - 1)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-lg flex items-center justify-center"
+              className="absolute left-1 top-24 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              aria-label="Föregående mall"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
+              <ChevronLeft className="w-5 h-5 text-slate-700" />
             </button>
           )}
           {currentMobileIndex < templates.length - 1 && (
             <button
+              type="button"
               onClick={() => scrollToIndex(currentMobileIndex + 1)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-lg flex items-center justify-center"
+              className="absolute right-1 top-24 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              aria-label="Nästa mall"
             >
-              <ChevronRight className="w-5 h-5 text-gray-700" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </button>
           )}
 
-          {/* Carousel */}
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-4"
+            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-3 pb-4 -mx-5 px-5"
             style={{ scrollSnapType: 'x mandatory' }}
             onScroll={handleScroll}
           >
             {templates.map(([id, template]) => {
               const isSelected = templateId === id;
               const isLocked = template.tier === 'premium' && !isPremium;
-
               return (
-                <div
-                  key={id}
-                  className="flex-shrink-0 w-full snap-center px-2"
-                >
+                <div key={id} className="flex-shrink-0 w-full snap-center">
                   <TemplateCard
                     id={id}
                     template={template}
@@ -221,37 +274,40 @@ export default function TemplateStep({
             })}
           </div>
 
-          {/* Dot indicators */}
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="flex justify-center gap-1.5 mt-2">
             {templates.map(([id], index) => (
               <button
                 key={id}
+                type="button"
                 onClick={() => scrollToIndex(index)}
                 className={`
                   h-2 rounded-full transition-all duration-300
-                  ${index === currentMobileIndex
-                    ? 'w-6 bg-pink-500'
-                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                  ${
+                    index === currentMobileIndex
+                      ? 'w-6'
+                      : 'w-2 bg-slate-300 hover:bg-slate-400'
                   }
                 `}
+                style={
+                  index === currentMobileIndex
+                    ? {
+                        background:
+                          'linear-gradient(90deg, #F97316, #DC2626)',
+                      }
+                    : undefined
+                }
                 aria-label={`Gå till mall ${index + 1}`}
               />
             ))}
           </div>
-
-          {/* Current template name */}
-          <p className="text-center text-sm text-gray-600 mt-2">
-            {templates[currentMobileIndex]?.[1]?.name} ({currentMobileIndex + 1}/{templates.length})
-          </p>
         </div>
       </div>
 
       {/* Desktop Grid */}
-      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {templates.map(([id, template]) => {
           const isSelected = templateId === id;
           const isLocked = template.tier === 'premium' && !isPremium;
-
           return (
             <TemplateCard
               key={id}
@@ -264,7 +320,7 @@ export default function TemplateStep({
         })}
       </div>
 
-      {/* Template Preview Modal */}
+      {/* Preview Modal */}
       <AnimatePresence>
         {previewTemplateId && (
           <motion.div
@@ -278,71 +334,74 @@ export default function TemplateStep({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-                <div className="flex items-center gap-3">
-                  <FileText className="w-5 h-5 text-gray-600" />
-                  <div>
-                    <h3 className="font-semibold text-gray-900">
+              <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-gradient-to-r from-orange-50/50 to-white">
+                <div className="flex items-center gap-3 min-w-0">
+                  <FileText className="w-5 h-5 text-orange-600 flex-shrink-0" />
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-slate-900 truncate">
                       {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-slate-600 truncate">
                       {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.description}
                     </p>
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setPreviewTemplateId(null)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors flex-shrink-0"
+                  aria-label="Stäng förhandsvisning"
                 >
-                  <X className="w-5 h-5 text-gray-600" />
+                  <X className="w-5 h-5 text-slate-600" />
                 </button>
               </div>
 
-              {/* Modal Content */}
-              <div className="flex-1 overflow-auto bg-gray-50 p-4 md:p-8">
+              <div className="flex-1 overflow-auto bg-slate-50 p-4 md:p-8">
                 <div className="max-w-[21cm] mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
                   <iframe
                     src={`/images/templates/${previewTemplateId}-preview.html`}
                     className="w-full border-0"
-                    style={{
-                      height: '842px',
-                      minHeight: '842px'
-                    }}
+                    style={{ height: '842px', minHeight: '842px' }}
                     title={`Full preview av ${DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}`}
                   />
                 </div>
               </div>
 
-              {/* Modal Footer */}
-              <div className="p-4 border-t border-gray-200 bg-gray-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p className="text-sm text-gray-600 hidden sm:block">
-                  Klicka utanför för att stänga eller tryck ESC
+              <div className="p-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p className="text-xs text-slate-600 hidden sm:block">
+                  Klicka utanför eller tryck ESC för att stänga
                 </p>
                 <div className="flex items-center gap-2 w-full sm:w-auto">
                   <button
+                    type="button"
                     onClick={() => setPreviewTemplateId(null)}
-                    className="flex-1 sm:flex-none px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex-1 sm:flex-none px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors min-h-[44px]"
                   >
                     Stäng
                   </button>
                   {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.tier !== 'premium' || isPremium ? (
                     <button
+                      type="button"
                       onClick={() => {
                         onTemplateChange(previewTemplateId);
                         setPreviewTemplateId(null);
                       }}
-                      className="flex-1 sm:flex-none px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg transition-colors font-medium"
+                      className="flex-1 sm:flex-none px-5 py-2.5 text-white rounded-xl font-bold transition-all min-h-[44px] shadow-lg"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, #F97316, #DC2626)',
+                      }}
                     >
                       Välj denna mall
                     </button>
                   ) : (
                     <button
+                      type="button"
                       disabled
-                      className="flex-1 sm:flex-none px-4 py-2 text-white bg-gray-400 rounded-lg cursor-not-allowed flex items-center justify-center gap-2"
+                      className="flex-1 sm:flex-none px-5 py-2.5 text-white bg-slate-400 rounded-xl cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px]"
                     >
                       <Lock className="w-4 h-4" />
                       Premium krävs
@@ -354,6 +413,6 @@ export default function TemplateStep({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.section>
   );
 }
