@@ -9,7 +9,7 @@ import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
 import { useCvQuota } from '@/hooks/useCvQuota';
-import { useCoverLetterStore } from '@/store/cover-letter-store';
+import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
 
 // Wizard Components
@@ -26,54 +26,21 @@ import { type FontId } from './components/FontSelector';
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
 
-function CreateLetterLoading() {
-  return (
-    <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-slate-600">Förbereder brev-wizarden...</p>
-      </div>
-    </div>
-  );
-}
-
 export default function CreateLetterPage() {
-  // Vanta pa zustand-rehydration innan vi fortsatter. prefillData laddas
-  // fran sessionStorage asynkront pa klienten, sa om vi mountar wizarden
-  // for tidigt fastnar useState pa initial 0 (fel steg). Sa har sakerstaller
-  // vi att initial state laser korrekt prefillData.
-  const [hydrated, setHydrated] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return useCoverLetterStore.persist.hasHydrated();
-  });
-
-  useEffect(() => {
-    if (useCoverLetterStore.persist.hasHydrated()) {
-      setHydrated(true);
-      return;
-    }
-    const unsub = useCoverLetterStore.persist.onFinishHydration(() => {
-      setHydrated(true);
-    });
-    return unsub;
-  }, []);
-
-  if (!hydrated) {
-    return <CreateLetterLoading />;
-  }
-
-  return <CreateLetterPageInner />;
-}
-
-function CreateLetterPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { fetchCVs } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
   const { cvCount, loading: cvQuotaLoading } = useCvQuota();
-  const { prefillData, clearPrefillData } = useCoverLetterStore();
   const { successWithMascotAndActivity } = useNotification();
+
+  // Lasa prefill SYNKRONT fran sessionStorage vid forsta mount.
+  // useState-init-funktionen kor bara en gang (lazy initializer) sa det
+  // ar sakert mot dubbel-konsumption. Atomic consume = read + clear.
+  const [prefillData] = useState<CoverLetterPrefillData | null>(() => {
+    return coverLetterPrefill.consume();
+  });
 
   // Hård gating: utan CV → tillbaka till CV-uppladdning
   useEffect(() => {
@@ -197,17 +164,8 @@ function CreateLetterPageInner() {
     }
   }, [showExitWarning]);
 
-  // Clear prefill data efter att initial state har konsumerats av useState.
-  // Vi kor det i en effekt med tomt dep-array sa det bara sker en gang efter
-  // att komponenten mountats (initialCV och initialDescription redan kopierade
-  // till lokala state-falt). Detta forhindrar race condition dar prefillData
-  // rensas innan useState-initial-varden hinner anvandas.
-  useEffect(() => {
-    if (prefillData) {
-      clearPrefillData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Prefill-data konsumerades redan synkront via coverLetterPrefill.consume()
+  // i useState-initializern, sa ingen explicit clear behovs har.
 
   useEffect(() => {
     fetchCVs();

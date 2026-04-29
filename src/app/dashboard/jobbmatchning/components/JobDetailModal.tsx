@@ -18,7 +18,7 @@ import {
   ExternalLink,
   FileText,
 } from 'lucide-react';
-import { useCoverLetterStore } from '@/store/cover-letter-store';
+import { coverLetterPrefill } from '@/store/cover-letter-store';
 
 interface JobDetailModalProps {
   job: any | null;
@@ -35,7 +35,6 @@ interface JobDetailModalProps {
  */
 export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalProps) {
   const router = useRouter();
-  const { setPrefillData } = useCoverLetterStore();
 
   const applicationUrl =
     job?.application_details?.url || job?.application_url || job?.webpage_url;
@@ -46,7 +45,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
 
   const handleCreateLetter = () => {
     if (!cvId || !job) return;
-    setPrefillData({
+    coverLetterPrefill.set({
       cvId,
       jobTitle: job.headline,
       company: job.employer?.name || '',
