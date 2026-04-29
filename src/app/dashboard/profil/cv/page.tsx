@@ -321,9 +321,6 @@ export default function MinaCVPage() {
                     onDownload={() =>
                       router.push(`/dashboard/cv-mallar?cv=${cv.id}`)
                     }
-                    onEdit={() =>
-                      router.push(`/dashboard/profil/cv/${cv.id}/edit`)
-                    }
                     onDelete={() => handleDeleteCV(cv.id)}
                     onStructured={(data) =>
                       setStructuredOverrides((prev) => ({

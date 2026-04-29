@@ -8,7 +8,6 @@ import {
   Eye,
   EyeOff,
   Download,
-  Edit,
   ExternalLink,
 } from 'lucide-react';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
@@ -27,7 +26,6 @@ interface CvCardProps {
   onToggleExpand: () => void;
   onOpenInNewWindow: () => void;
   onDownload: () => void;
-  onEdit: () => void;
   onDelete: () => void;
   onStructured: (data: ParsedCV) => void;
   preview: string;
@@ -42,7 +40,6 @@ export default function CvCard({
   onToggleExpand,
   onOpenInNewWindow,
   onDownload,
-  onEdit,
   onDelete,
   onStructured,
   preview,
@@ -138,10 +135,10 @@ export default function CvCard({
           </div>
         )}
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <button
             onClick={onToggleExpand}
-            className="flex items-center justify-center gap-1 px-2 py-2.5 text-xs font-semibold text-white rounded-lg transition-all touch-manipulation min-h-[40px]"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold text-white rounded-lg transition-all touch-manipulation min-h-[40px]"
             style={{
               background: 'linear-gradient(90deg, #F97316, #DC2626)',
               boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
@@ -149,12 +146,12 @@ export default function CvCard({
           >
             {expanded ? (
               <>
-                <EyeOff className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
+                <EyeOff className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
                 <span className="truncate">Dölj</span>
               </>
             ) : (
               <>
-                <Eye className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
+                <Eye className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
                 <span className="truncate">Visa</span>
               </>
             )}
@@ -162,18 +159,10 @@ export default function CvCard({
 
           <button
             onClick={onDownload}
-            className="flex items-center justify-center gap-1 px-2 py-2.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/60 rounded-lg transition-all touch-manipulation min-h-[40px]"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/60 rounded-lg transition-all touch-manipulation min-h-[40px]"
           >
-            <Download className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
-            <span className="truncate">Mall</span>
-          </button>
-
-          <button
-            onClick={onEdit}
-            className="flex items-center justify-center gap-1 px-2 py-2.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/60 rounded-lg transition-all touch-manipulation min-h-[40px]"
-          >
-            <Edit className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
-            <span className="truncate">Redigera</span>
+            <Download className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
+            <span className="truncate">Välj mall</span>
           </button>
         </div>
 
