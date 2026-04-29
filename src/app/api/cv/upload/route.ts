@@ -147,61 +147,86 @@ async function runUpload(request: Request, emitter: SseEmitter) {
     // FAS 1: ladda upp + tolka text
     emitter.phase('uploading', 'Laddar upp och tolkar...');
 
+    const isPdf = originalFileName.toLowerCase().endsWith('.pdf');
+
     let extractedText = '';
     let textExtractionFailed = false;
     let placeholderUsed = false;
     let usedVisionFallback = false;
+    let needsVisionFallback = false;
 
     try {
       console.log(`📄 Starting text extraction for ${originalFileName} using parseCV...`);
       extractedText = await parseCV(file);
 
-      const knownErrorMessages = [
+      const pdfErrorMessages = [
         'Kunde inte läsa',
         'Misslyckades med att läsa',
         'PDF-texten kunde inte',
+      ];
+      const nonPdfErrorMessages = [
         'Filformatet stöds inte',
         'Kunde inte ladda DOCX-parsningsbiblioteket',
         'Kunde inte extrahera text från DOCX-filen (tom fil)',
       ];
 
-      if (knownErrorMessages.some((msg) => extractedText.startsWith(msg))) {
-        console.warn(`⚠️ parseCV returned an error for ${originalFileName}: ${extractedText}`);
+      const matchesPdfError = pdfErrorMessages.some((msg) => extractedText.startsWith(msg));
+      const matchesNonPdfError = nonPdfErrorMessages.some((msg) => extractedText.startsWith(msg));
+      const tooShort = !extractedText || extractedText.length < 50;
+
+      if (matchesNonPdfError) {
         textExtractionFailed = true;
         placeholderUsed = true;
-      }
-
-      // Längd-fallback
-      if (!textExtractionFailed && (!extractedText || extractedText.length < 50)) {
+      } else if (isPdf && (matchesPdfError || tooShort)) {
+        // PDF där pdf-parse strular eller returnerar för lite text →
+        // försök vision-fallback i alla fall
+        console.warn(
+          `⚠️ parseCV gav otillräcklig output för ${originalFileName} (${extractedText.length} tecken). Försöker vision-fallback.`
+        );
+        needsVisionFallback = true;
+      } else if (tooShort) {
         textExtractionFailed = true;
         placeholderUsed = true;
       }
     } catch (parseError) {
-      // Image-baserad PDF: trigga FAS 2 (vision)
       if (parseError instanceof ImageBasedPdfError) {
         console.info(
           `[upload] image-based PDF detected (${parseError.extractedLength} chars). Försöker vision-fallback.`
         );
-        emitter.phase(
-          'vision',
-          'Datan ligger bakom grafik. Vi läser igenom det — tar några sekunder till...'
-        );
+        needsVisionFallback = true;
+      } else {
+        console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, parseError);
+        emitter.error({
+          error: 'PARSING_ERROR',
+          code: 'PARSING_ERROR',
+          message: 'Ett oväntat fel uppstod vid läsning av filen. Kontrollera att filen inte är skadad.',
+          status: 500,
+        });
+        return emitter.close();
+      }
+    }
 
-        const pdfData = new Uint8Array(await file.arrayBuffer());
-        const visionText = await extractTextWithVision(pdfData);
+    // Vision-fallback (FAS 2)
+    if (needsVisionFallback) {
+      emitter.phase(
+        'vision',
+        'Datan ligger bakom grafik. Vi läser igenom det — tar några sekunder till...'
+      );
 
-        if (visionText && visionText.length >= 50) {
-          extractedText = visionText;
-          textExtractionFailed = false;
-          placeholderUsed = false;
-          usedVisionFallback = true;
-          console.info(`[upload] vision-fallback lyckades: ${visionText.length} tecken`);
-        } else {
-          // Vision misslyckades — blockera med samma instruktion som tidigare
-          emitter.error({
-            error: 'IMAGE_BASED_PDF',
-            code: 'IMAGE_BASED_PDF',
-            message: `PDF-filen verkar vara skannad eller bildbaserad och vi lyckades inte läsa innehållet.
+      const pdfData = new Uint8Array(await file.arrayBuffer());
+      const visionText = await extractTextWithVision(pdfData);
+
+      if (visionText && visionText.length >= 50) {
+        extractedText = visionText;
+        textExtractionFailed = false;
+        placeholderUsed = false;
+        usedVisionFallback = true;
+        console.info(`[upload] vision-fallback lyckades: ${visionText.length} tecken`);
+      } else {
+        emitter.error({
+          error: 'IMAGE_BASED_PDF',
+          code: 'IMAGE_BASED_PDF',
+          message: `PDF-filen verkar vara skannad eller bildbaserad och vi lyckades inte läsa innehållet.
 
 Lösning:
 1. Öppna ditt CV i Word/Pages/Google Docs
@@ -210,17 +235,7 @@ Lösning:
 4. Ladda upp den nya PDF:en
 
 Alternativt: Ladda upp som .DOCX istället.`,
-            status: 400,
-          });
-          return emitter.close();
-        }
-      } else {
-        console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, parseError);
-        emitter.error({
-          error: 'PARSING_ERROR',
-          code: 'PARSING_ERROR',
-          message: 'Ett oväntat fel uppstod vid läsning av filen. Kontrollera att filen inte är skadad.',
-          status: 500,
+          status: 400,
         });
         return emitter.close();
       }

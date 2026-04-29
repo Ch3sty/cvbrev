@@ -17,12 +17,17 @@ export class ImageBasedPdfError extends Error {
   }
 }
 
-// Dynamisk import för att undvika klientside-problem
+// Dynamisk import för att undvika klientside-problem.
+// Vi importerar pdf-parse/lib/pdf-parse direkt istället för package-roten
+// eftersom roten har en debug-block som forsoker oppna en test-fil
+// (./test/data/05-versions-space.pdf) i bundle-miljöer. Kand bug:
+// https://gitlab.com/autokent/pdf-parse/-/issues/24
 async function getPdfParser() {
   if (typeof window === 'undefined') {
     try {
-      const pdfParse = await import('pdf-parse');
-      return pdfParse.default || pdfParse;
+      // @ts-expect-error - intern path har ingen .d.ts
+      const mod = await import('pdf-parse/lib/pdf-parse.js');
+      return (mod as any).default || mod;
     } catch (error) {
       console.error('Failed to import pdf-parse:', error);
       return null;
