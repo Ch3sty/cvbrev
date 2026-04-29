@@ -49,8 +49,8 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
     setPrefillData({
       cvId,
       jobTitle: job.headline,
-      company: job.employer.name,
-      jobDescription: `${job.headline}\n\nFöretag: ${job.employer.name}\n\n${job.description?.text || ''}`,
+      company: job.employer?.name || '',
+      jobDescription: buildJobDescription(job),
     });
     router.push('/dashboard/skapa-brev');
   };
@@ -372,6 +372,112 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
       )}
     </AnimatePresence>
   );
+}
+
+/**
+ * Bygger en rik, naturlig jobbeskrivning från Arbetsförmedlingens job-objekt.
+ * Inkluderar titel, foretag, plats, anstallningsform, deadlines, krav, samt
+ * den ursprungliga annonstexten. Anvands som prefill till brev-wizarden sa
+ * AI:n far full kontext utan att anvandaren behover skriva om allt.
+ */
+function buildJobDescription(job: any): string {
+  const parts: string[] = [];
+
+  if (job.headline) parts.push(job.headline);
+  if (job.employer?.name) parts.push(`Företag: ${job.employer.name}`);
+
+  const locationParts = [
+    job.workplace_address?.municipality,
+    job.workplace_address?.region,
+    job.workplace_address?.country,
+  ].filter(Boolean);
+  if (locationParts.length > 0) {
+    parts.push(`Plats: ${locationParts.join(', ')}`);
+  }
+
+  if (job.employment_type?.label) {
+    parts.push(`Anställningsform: ${job.employment_type.label}`);
+  }
+
+  if (job.application_deadline) {
+    const date = new Date(job.application_deadline).toLocaleDateString('sv-SE');
+    parts.push(`Sista ansökningsdag: ${date}`);
+  }
+
+  // Krav (must_have)
+  if (job.must_have) {
+    const mustHave: string[] = [];
+    if (job.must_have.skills?.length) {
+      mustHave.push(
+        `Kompetenser: ${job.must_have.skills.map((s: any) => s.label).join(', ')}`
+      );
+    }
+    if (job.must_have.languages?.length) {
+      mustHave.push(
+        `Språk: ${job.must_have.languages.map((l: any) => l.label).join(', ')}`
+      );
+    }
+    if (job.must_have.work_experiences?.length) {
+      mustHave.push(
+        `Erfarenhet: ${job.must_have.work_experiences.map((e: any) => e.label).join(', ')}`
+      );
+    }
+    if (job.must_have.education?.length) {
+      mustHave.push(
+        `Utbildning: ${job.must_have.education.map((e: any) => e.label).join(', ')}`
+      );
+    }
+    if (mustHave.length > 0) {
+      parts.push(`\nKrav (måste):\n- ${mustHave.join('\n- ')}`);
+    }
+  }
+
+  // Meriterande (nice_to_have)
+  if (job.nice_to_have) {
+    const niceToHave: string[] = [];
+    if (job.nice_to_have.skills?.length) {
+      niceToHave.push(
+        `Kompetenser: ${job.nice_to_have.skills.map((s: any) => s.label).join(', ')}`
+      );
+    }
+    if (job.nice_to_have.languages?.length) {
+      niceToHave.push(
+        `Språk: ${job.nice_to_have.languages.map((l: any) => l.label).join(', ')}`
+      );
+    }
+    if (niceToHave.length > 0) {
+      parts.push(`\nMeriterande:\n- ${niceToHave.join('\n- ')}`);
+    }
+  }
+
+  // Annonstexten (huvudinnehållet)
+  const stripHtml = (html: string) =>
+    html
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>/gi, '\n\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+
+  if (job.description?.text) {
+    parts.push(`\nAnnonstext:\n${stripHtml(job.description.text)}`);
+  }
+
+  if (job.description?.needs && !job.description?.text) {
+    parts.push(`\nVi söker:\n${stripHtml(job.description.needs)}`);
+  }
+
+  if (job.description?.company_information) {
+    parts.push(
+      `\nOm företaget:\n${stripHtml(job.description.company_information)}`
+    );
+  }
+
+  return parts.join('\n\n').trim();
 }
 
 function Section({
