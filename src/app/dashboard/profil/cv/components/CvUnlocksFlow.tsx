@@ -176,24 +176,6 @@ function MobileFlow({
         <CvHubNode size={cvSize} pulse={!compact} />
       </div>
 
-      <div
-        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-        style={{ top: cvSize + 8, bottom: 0, width: 2 }}
-        aria-hidden="true"
-      >
-        <motion.div
-          className="w-full h-full"
-          style={{
-            background:
-              'repeating-linear-gradient(to bottom, #FB923C 0, #FB923C 4px, transparent 4px, transparent 8px)',
-            opacity: 0.4,
-          }}
-          initial={{ scaleY: 0, originY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-        />
-      </div>
-
       <div className="space-y-3 pt-2">
         {features.map((feature, i) => (
           <FeatureRow
