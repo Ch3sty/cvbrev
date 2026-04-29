@@ -101,8 +101,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
 
       if (success) {
         successWithMascot(
-          'Brevet har sparats! Du hittar det under "Mina brev".',
-          '/images/maskot/success-letter-saved.svg',
+          'Vi har sparat ditt brev. Du hittar det under Mina brev.',
+          'letter-saved',
           4000
         );
         router.push(`/dashboard/mina-brev/${id}`);

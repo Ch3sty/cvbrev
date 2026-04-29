@@ -135,8 +135,8 @@ export default function KomIgangPage() {
 
         // Show mascot notification
         successWithMascot(
-          'Grattis! Du har slutfört introduktionen och är redo att kickstarta din jobbsökning.',
-          '/images/maskot/success-onboarding-complete.svg',
+          'Du är redo att börja söka jobb. Vi har allt vi behöver för att hjälpa dig.',
+          'onboarding-complete',
           6000
         );
       }

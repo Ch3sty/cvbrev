@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
-import MascotNotification from '@/components/ui/mascot-notification'
+import Toast from '@/components/ui/toast/Toast'
 
 interface PaymentProcessingProps {
   token: string
@@ -414,14 +414,13 @@ export default function PaymentProcessing({ token }: PaymentProcessingProps) {
 
       {/* Success Notification */}
       {showNotification && (
-        <MascotNotification
+        <Toast
           isVisible={showNotification}
-          message="Välkommen till Premium! Din 7-dagars gratisperiod har startat."
+          message="Tack, betalningen är klar. Din 7-dagars gratisperiod har startat."
           type="success"
-          mascotImage="/images/maskot/success-payment-complete.svg"
+          scenario="payment-complete"
           onClose={() => setShowNotification(false)}
           duration={3000}
-          showConfetti={true}
         />
       )}
     </>

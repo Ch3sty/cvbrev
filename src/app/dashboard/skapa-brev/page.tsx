@@ -262,8 +262,8 @@ export default function CreateLetterPage() {
 
       // Show mascot notification
       successWithMascotAndActivity(
-        'Ditt brev är klart! Granska och spara när du är redo.',
-        '/images/maskot/success-letter-generated.svg',
+        'Ditt brev är skrivet. Granska gärna och spara om du vill behålla det.',
+        'letter-created',
         'letter_created',
         'genererade ett personligt brev',
         {

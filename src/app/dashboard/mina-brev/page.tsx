@@ -225,8 +225,8 @@ export default function MinaBrevPage() {
       try {
         await removeLetter(letterId);
         successWithMascot(
-          'Brevet har tagits bort',
-          '/images/maskot/success-letter-deleted.svg',
+          'Brevet är borttaget.',
+          'letter-deleted',
           3000,
           false
         );

@@ -142,8 +142,8 @@ function CVMallarContent() {
       setShowGenerationModal(false);
 
       successWithMascotAndActivity(
-        'Ditt CV är klart! PDF:en har laddats ner till din enhet.',
-        '/images/maskot/success-cv-created.svg',
+        'Vi har gjort en PDF av ditt CV. Den är nedladdad till din enhet.',
+        'cv-template-generated',
         'cv_generated',
         'skapade ett professionellt CV',
         {

@@ -129,8 +129,8 @@ export default function ProfilPage() {
 
         // Show mascot notification
         successWithMascot(
-          'Din profil har uppdaterats! Ändringarna är nu sparade.',
-          '/images/maskot/success-profile-updated.svg',
+          'Vi har uppdaterat din profil.',
+          'profile-updated',
           4000
         );
       } else {
@@ -220,10 +220,10 @@ export default function ProfilPage() {
 
       // 5. Show notification before redirecting
       successWithMascot(
-        'Ditt konto har raderats. Tack för att du använde Jobbcoach.ai!',
-        '/images/maskot/success-account-deleted.svg',
+        'Ditt konto är raderat. Tack för att du använde Jobbcoach.ai.',
+        'account-deleted',
         4000,
-        false // No confetti for account deletion
+        false
       );
 
       // 6. Delay redirect to allow user to see notification

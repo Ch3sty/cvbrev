@@ -10,7 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import MascotNotification from '@/components/ui/mascot-notification'
+import Toast from '@/components/ui/toast/Toast'
 import Image from 'next/image'
 
 type Status = 'verifying' | 'activating' | 'finalizing' | 'success' | 'error'
@@ -445,14 +445,13 @@ function ReturnContent() {
 
       {/* Success Notification */}
       {status === 'success' && (
-        <MascotNotification
+        <Toast
           isVisible={showNotification}
-          message="Välkommen till Premium! Din 7-dagars gratisperiod har startat."
+          message="Tack, betalningen är klar. Din 7-dagars gratisperiod har startat."
           type="success"
-          mascotImage="/images/maskot/success-payment-complete.svg"
+          scenario="payment-complete"
           onClose={() => setShowNotification(false)}
           duration={3000}
-          showConfetti={true}
         />
       )}
     </>

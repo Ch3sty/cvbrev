@@ -634,8 +634,8 @@ export default function CVAnalysisWizard({
         if (pdfFailed && shouldSave) {
           // CV was saved but PDF failed — inform user but don't block
           successWithMascotAndActivity(
-            'Ditt CV har sparats! PDF-nedladdningen misslyckades, men du kan ladda ner det senare från ditt CV-bibliotek.',
-            '/images/maskot/success-cv-analysis.svg',
+            'Vi har sparat ditt CV. PDF-nedladdningen misslyckades, men du kan ladda ner det senare från ditt CV-bibliotek.',
+            'cv-analyzed',
             'cv_analysis_completed',
             'slutförde en CV-analys',
             {
@@ -653,8 +653,8 @@ export default function CVAnalysisWizard({
           return;
         } else {
           successWithMascotAndActivity(
-            'CV-analysen är klar! Dina förbättringar väntar.',
-            '/images/maskot/success-cv-analysis.svg',
+            'Vi är klara med din analys. Dina förbättringar väntar.',
+            'cv-analyzed',
             'cv_analysis_completed',
             'slutförde en CV-analys',
             {

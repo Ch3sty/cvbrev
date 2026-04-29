@@ -234,8 +234,8 @@ export default function JobbmatchningPage() {
         // Show notification when jobs are found
         if (data.jobs && data.jobs.length > 0) {
           successWithMascotAndActivity(
-            `${data.jobs.length} jobb hittade! Utforska dina matchningar nedan.`,
-            '/images/maskot/success-jobs-found.svg',
+            `Vi hittade ${data.jobs.length} matchande jobb. Utforska träffarna nedan.`,
+            'jobs-found',
             'jobs_searched',
             'sökte matchande jobb',
             {

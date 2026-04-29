@@ -203,8 +203,10 @@ export default function CVActivationCard({
             boxShadow: '0 12px 24px -8px rgba(220, 38, 38, 0.4)',
           }}
         >
-          <Search className="w-5 h-5" strokeWidth={2.25} />
-          Sök matchande jobb
+          <Search className="w-5 h-5 flex-shrink-0" strokeWidth={2.25} />
+          <span className="text-center leading-tight">
+            Hitta lediga tjänster som matchar ditt valda CV
+          </span>
         </motion.button>
       )}
 

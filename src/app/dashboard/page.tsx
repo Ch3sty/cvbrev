@@ -268,8 +268,8 @@ export default function DashboardPage() {
     const premiumActivated = searchParams.get('premium_activated');
     if (premiumActivated === 'true' && stats.subscriptionTier === 'premium') {
       successWithMascotAndActivity(
-        'Premium aktiverat! Välkommen till en värld av obegränsade möjligheter.',
-        '/images/maskot/success-premium-activated.svg',
+        'Välkommen till Premium. Nu har du allt upplåst.',
+        'premium-activated',
         'premium_activated',
         'aktiverade Premium-prenumeration',
         {
