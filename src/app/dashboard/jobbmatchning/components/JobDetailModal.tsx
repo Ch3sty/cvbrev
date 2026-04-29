@@ -336,14 +336,13 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
             <div className="h-4" />
           </div>
 
-          {/* Sticky bottom-bar med Skapa brev + Ansok */}
+          {/* Sticky bottom-bar med Skapa personligt brev + Ansok.
+              Pa mobil maste vi lyfta baren over MobileBottomNav (~80px hojd
+              + safe-area). Pa desktop ar nav-baren gomd (lg:hidden) sa
+              standard-padding racker. */}
           {(cvId || applicationUrl) && (
             <div
-              className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 border-t border-slate-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1]"
-              style={{
-                paddingBottom:
-                  'max(0.75rem, env(safe-area-inset-bottom))',
-              }}
+              className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-t border-slate-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1] mb-[calc(env(safe-area-inset-bottom)+88px)] lg:mb-0"
             >
               {cvId && (
                 <button
@@ -351,7 +350,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                   className="flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-orange-200 text-orange-700 bg-white rounded-xl text-sm font-semibold hover:bg-orange-50 hover:border-orange-300 transition-colors touch-manipulation min-h-[48px]"
                 >
                   <FileText className="w-4 h-4 shrink-0" />
-                  <span>Skapa brev</span>
+                  <span>Skapa personligt brev</span>
                 </button>
               )}
               {applicationUrl && (
