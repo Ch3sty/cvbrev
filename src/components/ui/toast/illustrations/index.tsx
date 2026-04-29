@@ -15,6 +15,7 @@ export type ToastScenario =
   | 'account-deleted'
   | 'onboarding-complete'
   | 'payment-complete'
+  | 'chat-answered'
   | 'info';
 
 const ORANGE = '#F97316';
@@ -230,6 +231,27 @@ const PaymentComplete: FC<IllProps> = (props) =>
     </g>
   );
 
+// 13. chat-answered: chat-bubbla med checkmark — Jobbcoachen-svar
+const ChatAnswered: FC<IllProps> = (props) =>
+  wrap(
+    <g {...props}>
+      {/* Stor chat-bubbla */}
+      <path
+        d="M 12 18 Q 12 12, 18 12 L 46 12 Q 52 12, 52 18 L 52 38 Q 52 44, 46 44 L 28 44 L 20 52 L 20 44 L 18 44 Q 12 44, 12 38 Z"
+        fill="#FFFFFF"
+        stroke="url(#toast-orange-red)"
+        strokeWidth="1.75"
+      />
+      {/* Tre rader text */}
+      <line x1="18" y1="22" x2="40" y2="22" stroke={SLATE} strokeWidth="1.5" opacity="0.5" strokeLinecap="round" />
+      <line x1="18" y1="28" x2="46" y2="28" stroke={SLATE} strokeWidth="1.5" opacity="0.4" strokeLinecap="round" />
+      <line x1="18" y1="34" x2="36" y2="34" stroke={SLATE} strokeWidth="1.5" opacity="0.4" strokeLinecap="round" />
+      {/* Checkmark-circle nere höger */}
+      <circle cx="48" cy="44" r="9" fill="url(#toast-emerald)" />
+      <path d="M 44 44 L 47 47 L 52 41" stroke="white" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </g>
+  );
+
 // Info-fallback (om okand scenario kommer in)
 const Info: FC<IllProps> = (props) =>
   wrap(
@@ -254,6 +276,7 @@ export const TOAST_ILLUSTRATIONS: Record<ToastScenario, FC<IllProps>> = {
   'account-deleted': AccountDeleted,
   'onboarding-complete': OnboardingComplete,
   'payment-complete': PaymentComplete,
+  'chat-answered': ChatAnswered,
   info: Info,
 };
 

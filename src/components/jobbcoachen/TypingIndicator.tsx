@@ -5,9 +5,9 @@ import { Briefcase, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const LOADING_MESSAGES = [
-  'Söker i arbetsmarknadsdata...',
-  'Analyserar information...',
-  'Sammanställer svar...',
+  'Söker i arbetsmarknadsdata…',
+  'Analyserar information…',
+  'Sammanställer svar…',
 ];
 
 export default function TypingIndicator() {
@@ -25,18 +25,29 @@ export default function TypingIndicator() {
     <div className="flex justify-start mb-4">
       <div className="flex items-start gap-3 max-w-[85%] sm:max-w-[75%]">
         <motion.div
-          className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0"
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white"
+          style={{
+            background: 'linear-gradient(135deg, #F97316, #DC2626)',
+            boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.35)',
+          }}
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.25} />
         </motion.div>
-        <div className="bg-white border border-slate-200 px-5 py-3 rounded-2xl rounded-tl-sm shadow-sm relative overflow-hidden">
-          {/* Shimmer effect */}
+        <div
+          className="bg-white border border-orange-200/50 px-5 py-3 rounded-3xl rounded-bl-md relative overflow-hidden"
+          style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.18)' }}
+        >
+          {/* Shimmer effect (orange-tinted) */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-50 to-transparent"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.08), transparent)',
+            }}
             animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
           />
 
           <div className="relative z-10">
@@ -46,43 +57,30 @@ export default function TypingIndicator() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="text-xs text-slate-600 mb-2 font-medium"
+              className="text-xs text-orange-700 mb-2 font-semibold flex items-center gap-1"
             >
-              <Search className="w-3 h-3 inline mr-1" />
+              <Search className="w-3 h-3" strokeWidth={2.5} />
               {LOADING_MESSAGES[messageIndex]}
             </motion.p>
 
-            {/* Typing dots */}
+            {/* Typing dots i orange/röd-gradient */}
             <div className="flex items-center gap-1.5">
-              <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{ y: [0, -6, 0] }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{ y: [0, -6, 0] }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: 0.15,
-                }}
-              />
-              <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
-                animate={{ y: [0, -6, 0] }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: 0.3,
-                }}
-              />
+              {[0, 0.15, 0.3].map((delay, i) => (
+                <motion.div
+                  key={i}
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                  }}
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{
+                    duration: 0.6,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay,
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>

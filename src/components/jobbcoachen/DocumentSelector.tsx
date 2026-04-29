@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, X, ChevronDown, CheckCircle } from 'lucide-react';
+import { FileText, X, CheckCircle } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { extractEditableContent } from '@/lib/letters/extract-editable-content';
 
@@ -88,17 +88,22 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
+        className="bg-white rounded-3xl border border-orange-200/50 shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900">
-            Välj dokument att dela
-          </h2>
+        <div className="flex items-center justify-between p-6 border-b border-orange-100">
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-0.5">
+              Dela dokument
+            </div>
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+              Välj vad du vill fråga om
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-orange-50 rounded-lg transition-colors"
             aria-label="Stäng"
           >
             <X className="w-5 h-5 text-slate-600" />
@@ -106,36 +111,38 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-slate-200">
+        <div className="flex border-b border-orange-100">
           <button
             onClick={() => setActiveTab('cv')}
-            className={`flex-1 px-6 py-3 font-semibold transition-colors relative ${
+            className={`flex-1 px-6 py-3 font-bold transition-colors relative ${
               activeTab === 'cv'
-                ? 'text-blue-600'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'text-orange-700'
+                : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             CV ({cvs.length})
             {activeTab === 'cv' && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
+                className="absolute bottom-0 left-0 right-0 h-0.5"
+                style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
               />
             )}
           </button>
           <button
             onClick={() => setActiveTab('letter')}
-            className={`flex-1 px-6 py-3 font-semibold transition-colors relative ${
+            className={`flex-1 px-6 py-3 font-bold transition-colors relative ${
               activeTab === 'letter'
-                ? 'text-blue-600'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'text-orange-700'
+                : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             Personliga brev ({letters.length})
             {activeTab === 'letter' && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
+                className="absolute bottom-0 left-0 right-0 h-0.5"
+                style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
               />
             )}
           </button>
@@ -161,52 +168,92 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
             </div>
           ) : (
             <div className="space-y-2">
-              {documents.map((doc) => (
-                <motion.button
-                  key={doc.id}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  onClick={() => handleSelect(doc)}
-                  className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
-                    isSelected(doc)
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-slate-200 hover:border-blue-300 bg-white'
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <FileText className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                      isSelected(doc) ? 'text-blue-600' : 'text-slate-400'
-                    }`} />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <p className={`font-medium truncate ${
-                          isSelected(doc) ? 'text-blue-900' : 'text-slate-900'
-                        }`}>
-                          {doc.file_name}
-                        </p>
-                        {isSelected(doc) && (
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                        )}
+              {documents.map((doc) => {
+                const selected = isSelected(doc);
+                return (
+                  <motion.button
+                    key={doc.id}
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.99 }}
+                    onClick={() => handleSelect(doc)}
+                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                      selected
+                        ? 'border-emerald-500 bg-emerald-50/40'
+                        : 'border-slate-200 hover:border-orange-300 bg-white'
+                    }`}
+                    style={
+                      selected
+                        ? {
+                            boxShadow:
+                              '0 0 0 4px rgba(16, 185, 129, 0.12), 0 8px 20px -8px rgba(16, 185, 129, 0.25)',
+                          }
+                        : undefined
+                    }
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white"
+                        style={
+                          selected
+                            ? {
+                                background:
+                                  'linear-gradient(135deg, #10B981, #059669)',
+                              }
+                            : {
+                                background:
+                                  'linear-gradient(135deg, #F97316, #DC2626)',
+                              }
+                        }
+                      >
+                        <FileText className="w-4 h-4" strokeWidth={2.25} />
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">
-                        {new Date(doc.created_at).toLocaleDateString('sv-SE')}
-                      </p>
-                      <p className="text-xs text-slate-600 mt-2 line-clamp-2">
-                        {extractEditableContent(doc.cv_text).substring(0, 120)}...
-                      </p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="font-bold text-slate-900 truncate">
+                            {doc.file_name}
+                          </p>
+                          {selected && (
+                            <CheckCircle
+                              className="w-5 h-5 text-emerald-600 flex-shrink-0"
+                              strokeWidth={2.5}
+                            />
+                          )}
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {new Date(doc.created_at).toLocaleDateString('sv-SE')}
+                        </p>
+                        <p className="text-xs text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
+                          {extractEditableContent(doc.cv_text).substring(0, 120)}...
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </motion.button>
-              ))}
+                  </motion.button>
+                );
+              })}
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="border-t border-slate-200 p-4 bg-slate-50">
-          <p className="text-xs text-slate-600 text-center">
-            Välj dokument att dela med Jobbcoachen för personlig feedback
+        <div className="border-t border-orange-100 p-4 bg-orange-50/40 flex items-center justify-between gap-3">
+          <p className="text-xs text-slate-600 hidden sm:block">
+            Vi läser dokumenten och svarar utifrån just din situation.
           </p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-5 py-2.5 rounded-xl font-bold text-white text-sm transition-all min-h-[40px] shadow-md w-full sm:w-auto"
+            style={{
+              background:
+                selectedDocs.length > 0
+                  ? 'linear-gradient(135deg, #F97316, #DC2626)'
+                  : '#94A3B8',
+            }}
+          >
+            {selectedDocs.length > 0
+              ? `Klart (${selectedDocs.length} valda)`
+              : 'Stäng'}
+          </button>
         </div>
       </motion.div>
     </motion.div>
