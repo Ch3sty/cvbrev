@@ -1,42 +1,47 @@
 // src/lib/cv-parser/index.ts
-import { extractTextFromPdf, extractTextFallback } from './pdf-parser';
+import { extractTextFromPdf, extractTextFallback, ImageBasedPdfError } from './pdf-parser';
 import { extractTextFromDocx } from './docx-parser';
 import { cleanExtractedText } from './text-utils';
-export { cleanExtractedText, extractTextFromPdf, extractTextFromDocx };
+export { cleanExtractedText, extractTextFromPdf, extractTextFromDocx, ImageBasedPdfError };
 
 /**
  * Parse CV file based on its format
- * With improved error handling and fallback mechanisms
+ * With improved error handling and fallback mechanisms.
+ *
+ * Kastar `ImageBasedPdfError` om PDF:en innehåller för lite text för att
+ * vara användbar — upload-routen fångar detta och triggar vision-fallback.
  */
 export async function parseCV(file: File): Promise<string> {
   const fileName = file.name.toLowerCase();
   const fileExt = fileName.split('.').pop()?.toLowerCase();
-  
+
   if (!fileExt) {
     throw new Error('Kunde inte bestämma filformat');
   }
-  
+
   try {
-    // Handle different file types
     if (fileExt === 'pdf') {
+      const pdfData = new Uint8Array(await file.arrayBuffer());
       try {
-        // Try the main PDF parser first
-        const pdfData = new Uint8Array(await file.arrayBuffer());
         return await extractTextFromPdf(pdfData);
       } catch (pdfError) {
+        // Image-baserad PDF ska propageras hela vägen upp till routen
+        if (pdfError instanceof ImageBasedPdfError) {
+          throw pdfError;
+        }
         console.error('Primary PDF parsing failed, trying fallback:', pdfError);
-        // If main parser fails, try the fallback method
         return await extractTextFallback(file);
       }
     } else if (fileExt === 'docx') {
       const arrayBuffer = await file.arrayBuffer();
       return await extractTextFromDocx(arrayBuffer);
     } else if (fileExt === 'txt') {
-      return await file.text(); // Read as plain text
+      return await file.text();
     } else {
       throw new Error('Filformatet stöds inte. Vänligen använd PDF, DOCX eller TXT-filer.');
     }
   } catch (error: any) {
+    if (error instanceof ImageBasedPdfError) throw error;
     console.error(`Error parsing ${fileExt}-file:`, error);
     return `Kunde inte läsa ${fileExt.toUpperCase()}-filen: ${error.message || 'Okänt fel'}`;
   }

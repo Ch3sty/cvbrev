@@ -83,12 +83,15 @@ export default function MinaCVPage() {
     }
   };
 
-  const handleUpload = async (file: File) => {
+  const handleUpload = async (
+    file: File,
+    onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
+  ) => {
     setIsUploading(true);
     try {
       setProfileGdprConsent(gdprConsent);
       const title = file.name.split('.').slice(0, -1).join('.');
-      const success = await uploadCV(file, title);
+      const success = await uploadCV(file, title, onPhaseChange);
       if (success) {
         await fetchCVs();
         setGdprConsent(false);

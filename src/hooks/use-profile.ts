@@ -682,7 +682,11 @@ export const useProfile = () => {
   }, [updateProfile]);
 
   // CV-funktioner
-  const uploadCV = useCallback(async (file: File, title?: string): Promise<boolean> => {
+  const uploadCV = useCallback(async (
+    file: File,
+    title?: string,
+    onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
+  ): Promise<boolean> => {
     console.log("useProfile: Attempting to upload CV:", file.name);
     if (calculateCvLimitReached(subscriptionTier, cvCount)) {
        const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
@@ -692,11 +696,6 @@ export const useProfile = () => {
        console.error("uploadCV Error: Limit reached.");
        throw new Error(message);
     }
-
-    // GDPR-kontrollen har tagits bort härifrån eftersom:
-    // - Upload-knappen i CVUploadZone är disabled om GDPR ej accepterad
-    // - Användaren kan inte klicka utan att bocka i GDPR först
-    // - React state updates är asynkrona vilket skapade timing-problem
 
     const validTypes = ['.pdf', '.docx', '.txt'];
     const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
@@ -717,29 +716,73 @@ export const useProfile = () => {
     try {
       const response = await fetch('/api/cv/upload', { method: 'POST', body: formData });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid uppladdning' }));
-        console.error("uploadCV Error: Server responded with error:", response.status, errorData);
-        if (errorData.code === 'CV_LIMIT_REACHED' || response.status === 403) {
-             const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
-             throw new Error(subscriptionTier === 'free'
-                 ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium.`
-                 : `Du har nått maxgränsen på ${formatLimit(limit)} CV.`);
-        }
-        throw new Error(errorData.error || `Serverfel (${response.status})`);
+      if (!response.body) {
+        throw new Error('Servern svarade utan stream. Försök igen.');
       }
 
-      const data = await response.json();
-      if (data.success) {
+      // Parsa SSE-strömmen: events kommer som "event: phase\ndata: {...}\n\n"
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let completePayload: any = null;
+      let errorPayload: { error?: string; message?: string; code?: string } | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        let boundary = buffer.indexOf('\n\n');
+        while (boundary !== -1) {
+          const rawEvent = buffer.slice(0, boundary);
+          buffer = buffer.slice(boundary + 2);
+
+          const lines = rawEvent.split('\n');
+          let eventName = 'message';
+          let dataLine = '';
+          for (const line of lines) {
+            if (line.startsWith('event: ')) eventName = line.slice(7).trim();
+            else if (line.startsWith('data: ')) dataLine += line.slice(6);
+          }
+
+          if (dataLine) {
+            try {
+              const payload = JSON.parse(dataLine);
+              if (eventName === 'phase' && onPhaseChange) {
+                onPhaseChange(payload.phase, payload.label);
+              } else if (eventName === 'complete') {
+                completePayload = payload;
+              } else if (eventName === 'error') {
+                errorPayload = payload;
+              }
+            } catch (e) {
+              console.warn('Kunde inte parsa SSE-event:', dataLine);
+            }
+          }
+
+          boundary = buffer.indexOf('\n\n');
+        }
+      }
+
+      if (errorPayload) {
+        if (errorPayload.code === 'CV_LIMIT_REACHED') {
+          const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
+          throw new Error(subscriptionTier === 'free'
+            ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium.`
+            : `Du har nått maxgränsen på ${formatLimit(limit)} CV.`);
+        }
+        throw new Error(errorPayload.message || errorPayload.error || 'Okänt serverfel vid uppladdning');
+      }
+
+      if (completePayload?.success) {
         console.log("useProfile: CV uploaded successfully. Refreshing counts and info.");
         await fetchCvInfo();
         await fetchCvCount();
         setGdprConsent(false);
         return true;
-      } else {
-        console.error("uploadCV Error: Server responded success=false.", data);
-        throw new Error(data.error || "Okänt fel från servern efter uppladdning.");
       }
+
+      throw new Error('Uppladdningen avslutades utan svar från servern.');
     } catch (error: any) {
       console.error('uploadCV Exception:', error);
       throw error;

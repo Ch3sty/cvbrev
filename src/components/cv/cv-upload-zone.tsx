@@ -13,13 +13,24 @@ import {
 } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 
+type UploadPhase = 'uploading' | 'vision';
+
 interface CVUploadZoneProps {
-  onUpload: (file: File) => Promise<void>;
+  onUpload: (
+    file: File,
+    onPhaseChange?: (phase: UploadPhase, label: string) => void,
+  ) => Promise<void>;
   onGdprChange?: (accepted: boolean) => void;
   disabled?: boolean;
   maxSizeMB?: number;
   className?: string;
 }
+
+const PHASE_LABELS: Record<UploadPhase, string> = {
+  uploading: 'Laddar upp och tolkar...',
+  vision:
+    'Datan ligger bakom grafik. Vi läser igenom det — tar några sekunder till...',
+};
 
 export default function CVUploadZone({
   onUpload,
@@ -32,6 +43,7 @@ export default function CVUploadZone({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
+  const [phase, setPhase] = useState<UploadPhase>('uploading');
 
   const handleGdprChange = useCallback(
     (accepted: boolean) => {
@@ -54,10 +66,13 @@ export default function CVUploadZone({
     if (!selectedFile || !gdprAccepted || isUploading) return;
 
     setIsUploading(true);
+    setPhase('uploading');
     setUploadError(null);
 
     try {
-      await onUpload(selectedFile);
+      await onUpload(selectedFile, (newPhase) => {
+        setPhase(newPhase);
+      });
       setSelectedFile(null);
       setGdprAccepted(false);
       handleGdprChange(false);
@@ -69,6 +84,7 @@ export default function CVUploadZone({
       );
     } finally {
       setIsUploading(false);
+      setPhase('uploading');
     }
   };
 
@@ -342,8 +358,10 @@ export default function CVUploadZone({
         >
           {isUploading ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Laddar upp och tolkar...</span>
+              <Loader2 className="w-5 h-5 animate-spin flex-shrink-0" />
+              <span className="text-center leading-tight">
+                {PHASE_LABELS[phase]}
+              </span>
             </>
           ) : (
             <>
