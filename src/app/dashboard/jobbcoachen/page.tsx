@@ -10,16 +10,14 @@ import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 import JobbcoachenLayout from './components/JobbcoachenLayout';
 import JobbcoachenHero from './components/JobbcoachenHero';
 import ShareDocumentsCard from './components/ShareDocumentsCard';
-import CategoryChips from './components/CategoryChips';
-import SuggestedQuestionsGrid from './components/SuggestedQuestionsGrid';
 import ChatTrustStrip from './components/ChatTrustStrip';
+import MiniSuggestionChips from './components/MiniSuggestionChips';
 
 export default function JobbcoachenPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [cvCount, setCvCount] = useState(0);
   const [letterCount, setLetterCount] = useState(0);
   const [shouldOpenDocSelector, setShouldOpenDocSelector] = useState(0);
@@ -194,11 +192,6 @@ export default function JobbcoachenPage() {
               letterCount={letterCount}
               onOpenSelector={() => setShouldOpenDocSelector((v) => v + 1)}
             />
-            <CategoryChips selected={selectedCategory} onSelect={setSelectedCategory} />
-            <SuggestedQuestionsGrid
-              category={selectedCategory}
-              onAskQuestion={handleSendMessage}
-            />
           </>
         ) : (
           <div className="space-y-4">
@@ -240,6 +233,7 @@ export default function JobbcoachenPage() {
         conversationId={conversationId}
         hasMessages={messages.length > 0}
         externalOpenSignal={shouldOpenDocSelector}
+        suggestionChips={isWelcomeView ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
       />
     </>
   );

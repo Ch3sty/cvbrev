@@ -10,23 +10,37 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 // System prompt for Karriärguiden
-const SYSTEM_PROMPT = `Du är "Karriärguiden" på jobbcoach.ai - en expert på den svenska arbetsmarknaden och karriärutveckling.
+const SYSTEM_PROMPT = `Du är "Karriärguiden" på jobbcoach.ai — en personlig sparringpartner i svensk arbetsmarknad och karriärfrågor.
 
-Din roll:
-- Ge konkreta, handlingsorienterade råd om jobb, CV, intervjuer, lön och arbetsmarknadsfrågor
-- Var empatisk, uppmuntrande och professionell
-- Använd ENDAST information från de tillhandahållna källorna
-- Om du är osäker eller informationen saknas i källorna: säg det ärligt och föreslå var användaren kan verifiera
-- Inkludera alltid källor när du refererar till fakta, regler eller statistik
-- Avsluta alltid med 2-3 konkreta nästa steg
+Du är en SAMTALSPARTNER först, ett uppslagsverk sist.
 
-Språk: Svenska
-Ton: Vänlig men professionell, som en erfaren karriärcoach
+KÄRNREGEL — HUR DU SVARAR:
+- Vid hälsning, kort eller vag input ("hej", "hjälp", "CV-tips"): svara med en VÄNLIG, KORT REPLIK och EN konkret följdfråga. Inga rubriker. Inga listor. Inga källor. Som en kollega i pausen.
+- Vid en konkret fråga med tydlig riktning: ge ett fokuserat svar (2-4 stycken eller en kort lista). Bara så långt som behövs.
+- Vid en bred fråga ("hur byter jag karriär?"): ställ 1 följdfråga som zoomar in på personen, sen svarar du. Inte både och.
 
-VIKTIGT:
-- Ge ALDRIG juridisk rådgivning - hänvisa till Arbetsförmedlingen, fackförbund eller jurist
-- Fråga ALDRIG efter personnummer eller känslig information
-- Om frågan är utanför arbetsmarknads-domänen: förklara artigt att du är specialiserad på karriärfrågor`;
+KÄLLOR — VARFÖR & HUR:
+- Använd kontexten från KUNSKAPSBASEN bara när användaren faktiskt frågar efter fakta, statistik, regler, lagar eller verifierbar information.
+- När du citerar något konkret från en källa: skriv (Källa N) direkt efter påståendet, där N är källans nummer från kontexten.
+- Hitta INTE på citat. Citera bara om informationen verkligen finns i kontexten OCH är relevant för användarens fråga.
+- Om frågan är konversationell (t.ex. "hej", "vad tycker du om...", "tips för..."): hoppa över källor helt.
+
+LÄNGD:
+- Hälsning/följdfråga: 1-3 meningar.
+- Vanligt svar: 2-4 stycken eller en kort numrerad lista. Aldrig längre än det krävs.
+- Lista bara om informationen är genuint stegvis. Annars löpande text.
+
+TON & SPRÅK:
+- Svenska. Vänlig, jordnära, professionell. Som en mentor som lyssnar innan hon ger råd.
+- Inga em-dash i löptext. Variera meningslängd. Säg "vi" där det passar.
+- Aldrig: "Tack för att du kontaktar mig", "Här är några allmänna råd", "Lycka till på din resa".
+
+VAD DU INTE GÖR:
+- Spottar inte ut allt du vet. Ger inte 6 rubriker när användaren frågat något litet.
+- Avslutar inte alltid med "nästa steg". Bara när det är naturligt.
+- Ger ALDRIG juridisk rådgivning — hänvisa till Arbetsförmedlingen, fackförbund eller jurist.
+- Fråga ALDRIG efter personnummer eller känslig information.
+- Om frågan är utanför arbetsmarknads-domänen: säg artigt att du är specialiserad på karriärfrågor.`;
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder();
@@ -156,13 +170,13 @@ Bransch: ${profile.industry || 'Ej angivet'}`
         content: `ANVÄNDARPROFIL:
 ${userContext}
 
-KONTEXT FRÅN KUNSKAPSBAS:
+KONTEXT FRÅN KUNSKAPSBAS (använd BARA om relevant för frågan):
 ${context || 'Ingen relevant information hittades i kunskapsbasen.'}${attachmentContext}
 
 ANVÄNDARENS FRÅGA:
 ${message || '(Användaren har bifogat dokument för granskning)'}
 
-Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren bifogat ett CV eller personligt brev, ge konstruktiv feedback med specifika förbättringsförslag. Inkludera källor och avsluta med nästa steg.`,
+Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik + en följdfråga, inga rubriker, inga källor. Om användaren bifogat dokument: granska konkret det de delat. Citera bara med (Källa N) när du faktiskt använder fakta från kunskapsbasen.`,
       },
     ];
 
@@ -203,28 +217,54 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             }
           }
 
-          // Extract actual sources from chunk content (markdown links)
-          const extractedSources: any[] = [];
+          // Extrahera bara de chunk-källor AI:n faktiskt citerade.
+          // AI:n instrueras att skriva "(Källa N)" där N är chunk-numret (1-indexerat).
+          // Plocka unika N från svaret -> mappa till motsvarande chunk.
+          const citationRegex = /\(Källa\s+(\d+)\)/g;
+          const citedIndices = new Set<number>();
+          let citationMatch;
+          while ((citationMatch = citationRegex.exec(fullResponse)) !== null) {
+            const n = parseInt(citationMatch[1], 10);
+            if (!isNaN(n) && n >= 1 && n <= contextChunks.length) {
+              citedIndices.add(n - 1);
+            }
+          }
+
+          // Bygg källor: för varje citerad chunk, försök hitta första markdown-länken,
+          // annars fallback till chunk-metadata.
+          const sources: any[] = [];
           const seenUrls = new Set<string>();
 
-          contextChunks.forEach((chunk: any) => {
-            if (!chunk.content) return;
+          Array.from(citedIndices).sort((a, b) => a - b).forEach((idx) => {
+            const chunk = contextChunks[idx];
+            if (!chunk) return;
 
-            // Extract all markdown links: [title](url)
-            const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
-            let match;
+            // Försök plocka första markdown-länken i chunk-innehållet
+            const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/;
+            const linkMatch = chunk.content?.match(linkRegex);
 
-            while ((match = linkRegex.exec(chunk.content)) !== null) {
-              const title = match[1];
-              const url = match[2];
-
-              // Deduplicate by URL
+            if (linkMatch) {
+              const url = linkMatch[2];
               if (!seenUrls.has(url)) {
                 seenUrls.add(url);
-                extractedSources.push({
-                  title,
+                sources.push({
+                  title: linkMatch[1],
                   url,
-                  source_url: url, // Fallback field
+                  source_url: url,
+                  published_at: chunk.published_at,
+                  topic: chunk.topic,
+                });
+              }
+            } else if (chunk.source_url) {
+              // Fallback: bara om chunk har ett source_url
+              if (!seenUrls.has(chunk.source_url)) {
+                seenUrls.add(chunk.source_url);
+                sources.push({
+                  title: chunk.title || chunk.heading || 'Källa',
+                  url: chunk.source_url,
+                  heading: chunk.heading,
+                  source_url: chunk.source_url,
+                  storage_path: chunk.storage_path,
                   published_at: chunk.published_at,
                   topic: chunk.topic,
                 });
@@ -232,20 +272,7 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             }
           });
 
-          // Use extracted sources if available, otherwise fall back to document metadata
-          const sources = extractedSources.length > 0
-            ? extractedSources
-            : contextChunks.map((chunk: any) => ({
-                title: chunk.title || chunk.heading,
-                url: chunk.source_url,
-                heading: chunk.heading,
-                source_url: chunk.source_url,
-                storage_path: chunk.storage_path,
-                published_at: chunk.published_at,
-                topic: chunk.topic,
-              }));
-
-          // Send sources if we have any
+          // Send sources only if AI actually cited them
           if (sources.length > 0) {
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({

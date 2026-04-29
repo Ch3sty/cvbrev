@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, FileText, X } from 'lucide-react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
@@ -23,6 +23,8 @@ interface ChatInputProps {
   hasMessages?: boolean;
   /** Increment from parent to trigger document selector from outside */
   externalOpenSignal?: number;
+  /** Optional content rendered above the input (e.g. suggestion chips) */
+  suggestionChips?: ReactNode;
 }
 
 export default function ChatInput({
@@ -32,6 +34,7 @@ export default function ChatInput({
   conversationId = null,
   hasMessages = false,
   externalOpenSignal = 0,
+  suggestionChips = null,
 }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [selectedDocs, setSelectedDocs] = useState<Document[]>([]);
@@ -137,10 +140,15 @@ export default function ChatInput({
 
   return (
     <>
-      <div
-        className="sticky bottom-0 border-t border-orange-200/50 bg-white/95 backdrop-blur-xl px-4 py-3 sm:py-4 z-10 pb-[calc(0.75rem+env(safe-area-inset-bottom)+72px)] lg:pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
-      >
+      <div className="sticky bottom-0 bg-gradient-to-t from-white via-white to-white/0 px-4 pt-6 pb-3 sm:pb-4 z-10 pb-[calc(0.75rem+env(safe-area-inset-bottom)+72px)] lg:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
         <div className="max-w-3xl mx-auto">
+          {/* Optional suggestion chips (rendered by parent on welcome view) */}
+          {suggestionChips && (
+            <div className="mb-3">
+              {suggestionChips}
+            </div>
+          )}
+
           {/* Selected documents preview */}
           <AnimatePresence>
             {selectedDocs.length > 0 && (
