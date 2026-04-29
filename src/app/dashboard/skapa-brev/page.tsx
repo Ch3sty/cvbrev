@@ -26,7 +26,46 @@ import { type FontId } from './components/FontSelector';
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
 
+function CreateLetterLoading() {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="text-center space-y-4">
+        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-sm text-slate-600">Förbereder brev-wizarden...</p>
+      </div>
+    </div>
+  );
+}
+
 export default function CreateLetterPage() {
+  // Vanta pa zustand-rehydration innan vi fortsatter. prefillData laddas
+  // fran sessionStorage asynkront pa klienten, sa om vi mountar wizarden
+  // for tidigt fastnar useState pa initial 0 (fel steg). Sa har sakerstaller
+  // vi att initial state laser korrekt prefillData.
+  const [hydrated, setHydrated] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return useCoverLetterStore.persist.hasHydrated();
+  });
+
+  useEffect(() => {
+    if (useCoverLetterStore.persist.hasHydrated()) {
+      setHydrated(true);
+      return;
+    }
+    const unsub = useCoverLetterStore.persist.onFinishHydration(() => {
+      setHydrated(true);
+    });
+    return unsub;
+  }, []);
+
+  if (!hydrated) {
+    return <CreateLetterLoading />;
+  }
+
+  return <CreateLetterPageInner />;
+}
+
+function CreateLetterPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { fetchCVs } = useCVStore();
@@ -158,12 +197,17 @@ export default function CreateLetterPage() {
     }
   }, [showExitWarning]);
 
-  // Clear prefill data after initial mount
+  // Clear prefill data efter att initial state har konsumerats av useState.
+  // Vi kor det i en effekt med tomt dep-array sa det bara sker en gang efter
+  // att komponenten mountats (initialCV och initialDescription redan kopierade
+  // till lokala state-falt). Detta forhindrar race condition dar prefillData
+  // rensas innan useState-initial-varden hinner anvandas.
   useEffect(() => {
     if (prefillData) {
       clearPrefillData();
     }
-  }, []); // Only run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetchCVs();
@@ -491,6 +535,7 @@ export default function CreateLetterPage() {
   return (
     <>
       <WizardContainer
+        key={`wizard-${initialStep}`}
         steps={wizardSteps}
         onComplete={handleWizardComplete}
         onStepChange={setCurrentWizardStep}
