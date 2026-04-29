@@ -44,12 +44,33 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
     : `Ansök hos ${job?.employer?.name || 'företaget'}`;
 
   const handleCreateLetter = () => {
-    if (!cvId || !job) return;
-    coverLetterPrefill.set({
+    console.log('[handleCreateLetter] clicked', { cvId, hasJob: !!job });
+    if (!cvId) {
+      console.warn('[handleCreateLetter] aborted: no cvId. activeCV ej satt?');
+      return;
+    }
+    if (!job) {
+      console.warn('[handleCreateLetter] aborted: no job');
+      return;
+    }
+    const data = {
       cvId,
       jobTitle: job.headline,
       company: job.employer?.name || '',
       jobDescription: buildJobDescription(job),
+    };
+    console.log('[handleCreateLetter] writing prefill', {
+      cvId: data.cvId,
+      jobTitle: data.jobTitle,
+      company: data.company,
+      jobDescriptionLength: data.jobDescription.length,
+    });
+    coverLetterPrefill.set(data);
+    // Verifiera direkt att skrivningen lyckades
+    const verify = coverLetterPrefill.read();
+    console.log('[handleCreateLetter] post-write read:', {
+      hasData: !!verify,
+      jobDescriptionLength: verify?.jobDescription.length,
     });
     router.push('/dashboard/skapa-brev');
   };

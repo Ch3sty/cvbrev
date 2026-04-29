@@ -39,7 +39,13 @@ export default function CreateLetterPage() {
   // useState-init-funktionen kor bara en gang (lazy initializer) sa det
   // ar sakert mot dubbel-konsumption. Atomic consume = read + clear.
   const [prefillData] = useState<CoverLetterPrefillData | null>(() => {
-    return coverLetterPrefill.consume();
+    const data = coverLetterPrefill.consume();
+    console.log('[skapa-brev] consumed prefill at mount:', {
+      hasData: !!data,
+      cvId: data?.cvId,
+      jobDescriptionLength: data?.jobDescription.length,
+    });
+    return data;
   });
 
   // Hård gating: utan CV → tillbaka till CV-uppladdning
