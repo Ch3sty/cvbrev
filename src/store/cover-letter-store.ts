@@ -47,15 +47,43 @@ export const coverLetterPrefill = {
 
   /**
    * Atomic read-and-clear: vanlig pattern for "consume" av prefill.
-   * Anvands av wizarden vid forsta mount sa data ar tillganglig en gang
-   * och sen automatiskt rensad infor nasta sessionsanvanding.
+   *
+   * VIKTIGT: Next.js kan mounta samma komponent flera ganger under en
+   * navigation (prefetch + hydration, eller layout-remount). Om vi
+   * rensar sessionStorage i forsta mounten fastnar vi pa null vid
+   * andra mounten.
+   *
+   * Losning: en module-level cache som halls i minnet for hela tabben
+   * livstid. Forsta consume() laser fran sessionStorage OCH cachar i
+   * minnet, samtidigt som sessionStorage rensas (sa F5 inte aterhamtar).
+   * Efterfoljande consume() returnerar minnescachen.
+   *
+   * Cache rensas explicit nar wizarden faktiskt borjat anvanda datan,
+   * eller automatiskt nar tabben stangs.
    */
   consume(): CoverLetterPrefillData | null {
+    if (consumedCache !== undefined) {
+      return consumedCache;
+    }
     const data = this.read();
+    consumedCache = data;
     if (data) this.clear();
     return data;
   },
+
+  /**
+   * Rensa minnescachen explicit. Anropas av wizarden nar anvandaren
+   * faktiskt borjat anvanda prefill-datan, eller vid avbrutet flow.
+   */
+  reset(): void {
+    consumedCache = undefined;
+  },
 };
+
+// Module-level cache for att overleva multipla React-mounts under samma
+// navigation. undefined = inte konsumerad an, null = konsumerad och tom,
+// CoverLetterPrefillData = konsumerad med data.
+let consumedCache: CoverLetterPrefillData | null | undefined = undefined;
 
 // Bakatkompatibilitet: behaller useCoverLetterStore-API:t for komponenter
 // som redan anvander det, men implementerat ovanpa sessionStorage istallet
