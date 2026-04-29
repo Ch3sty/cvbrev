@@ -36,17 +36,11 @@ export default function CreateLetterPage() {
   const { successWithMascotAndActivity } = useNotification();
 
   // Lasa prefill SYNKRONT fran sessionStorage vid forsta mount.
-  // useState-init-funktionen kor bara en gang (lazy initializer) sa det
-  // ar sakert mot dubbel-konsumption. Atomic consume = read + clear.
-  const [prefillData] = useState<CoverLetterPrefillData | null>(() => {
-    const data = coverLetterPrefill.consume();
-    console.log('[skapa-brev] consumed prefill at mount:', {
-      hasData: !!data,
-      cvId: data?.cvId,
-      jobDescriptionLength: data?.jobDescription.length,
-    });
-    return data;
-  });
+  // coverLetterPrefill.consume() har en module-level cache sa det ar
+  // robust mot dubbel-mount under samma navigation.
+  const [prefillData] = useState<CoverLetterPrefillData | null>(() =>
+    coverLetterPrefill.consume()
+  );
 
   // Hård gating: utan CV → tillbaka till CV-uppladdning
   useEffect(() => {
