@@ -63,12 +63,11 @@ export default function CvPickerGrid({ selectedCV, onCVSelect }: CvPickerGridPro
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-        {cvs.map((cv, index) => (
+        {cvs.map((cv) => (
           <CvPickerCard
             key={cv.id}
             cv={cv}
             isSelected={selectedCV === cv.id}
-            index={index}
             onSelect={() => onCVSelect(cv.id)}
           />
         ))}
@@ -106,12 +105,10 @@ export default function CvPickerGrid({ selectedCV, onCVSelect }: CvPickerGridPro
 function CvPickerCard({
   cv,
   isSelected,
-  index,
   onSelect,
 }: {
   cv: { id: string; file_name: string; created_at: string };
   isSelected: boolean;
-  index: number;
   onSelect: () => void;
 }) {
   return (
@@ -120,7 +117,7 @@ function CvPickerCard({
       onClick={onSelect}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.06, type: 'spring', stiffness: 300, damping: 24 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       className={`group relative w-full text-left bg-white rounded-2xl border-2 transition-all overflow-hidden focus:outline-none ${
