@@ -158,7 +158,7 @@ export default function TonalityLanguageStep({
         {/* Bakgrundsnätverk: visar att vi kopplar ihop tre datakällor */}
         <SmartToneNetwork />
 
-        <div className="relative p-5 sm:p-7">
+        <div className="relative z-10 p-5 sm:p-7">
           <div className="flex items-start gap-4">
             <div className="relative flex-shrink-0">
               {/* Pulserande ringar bakom Brain-ikonen */}

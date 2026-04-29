@@ -4,11 +4,14 @@ import { motion } from 'framer-motion';
 
 /**
  * Subtilt nätverk: tre noder (CV, Annons, Brev) kopplade med kurvor.
- * Ligger i bakgrunden av Smart-anpassad-bannern och visualiserar visuellt
+ * Ligger som dekorativ bakgrund i Smart-anpassad-bannern och visualiserar
  * vad funktionen gör — analyserar tre datakällor och knyter ihop dem.
  *
- * Varje nod pulserar i tur och ordning för att antyda flödet.
- * Kurvorna har en mjuk dash-animation som "matar" linjen mellan noderna.
+ * Designprinciper:
+ * - Ligger i kortets över- och nederkant så texten i mitten är fri
+ * - Noderna är små (12px) — antydan, inte fokus
+ * - Kurvorna är tunna med mjuk dash-animation
+ * - Allt med låg opacity för att inte konkurrera med innehållet
  */
 export default function SmartToneNetwork() {
   return (
@@ -21,52 +24,75 @@ export default function SmartToneNetwork() {
     >
       <defs>
         <linearGradient id="smart-line" x1="0" y1="0" x2="600" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#F97316" stopOpacity="0.35" />
-          <stop offset="50%" stopColor="#DC2626" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#BE185D" stopOpacity="0.35" />
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+          <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.45" />
         </linearGradient>
-        <radialGradient id="smart-node-glow">
-          <stop offset="0%" stopColor="#F97316" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#F97316" stopOpacity="0" />
-        </radialGradient>
       </defs>
 
-      {/* Kurvor som binder ihop noderna */}
+      {/* Topp-kurva: tre noder högst upp i kortet */}
       <motion.path
-        d="M 90 120 Q 220 50, 300 120 T 510 120"
-        stroke="url(#smart-line)"
-        strokeWidth="1.5"
-        strokeDasharray="4 8"
-        fill="none"
-        opacity="0.55"
-        animate={{ strokeDashoffset: [0, -24] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
-      />
-      <motion.path
-        d="M 90 120 Q 220 190, 300 120 T 510 120"
+        d="M 60 26 Q 200 8, 300 26 T 540 26"
         stroke="url(#smart-line)"
         strokeWidth="1"
-        strokeDasharray="2 6"
+        strokeDasharray="3 6"
         fill="none"
-        opacity="0.35"
-        animate={{ strokeDashoffset: [0, 16] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: 'linear' }}
+        opacity="0.5"
+        animate={{ strokeDashoffset: [0, -18] }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+      />
+      <NetworkNode cx={60} cy={26} delay={0} />
+      <NetworkNode cx={300} cy={26} delay={0.5} />
+      <NetworkNode cx={540} cy={26} delay={1} />
+
+      {/* Botten-kurva: spegelbild för balans */}
+      <motion.path
+        d="M 80 215 Q 220 232, 300 215 T 520 215"
+        stroke="url(#smart-line)"
+        strokeWidth="1"
+        strokeDasharray="3 6"
+        fill="none"
+        opacity="0.4"
+        animate={{ strokeDashoffset: [0, 18] }}
+        transition={{ duration: 3.6, repeat: Infinity, ease: 'linear' }}
+      />
+      <NetworkNode cx={80} cy={215} delay={0.3} small />
+      <NetworkNode cx={300} cy={215} delay={0.8} small />
+      <NetworkNode cx={520} cy={215} delay={1.3} small />
+
+      {/* Sidostreck som binder topp + botten */}
+      <motion.line
+        x1="40"
+        y1="26"
+        x2="40"
+        y2="215"
+        stroke="white"
+        strokeWidth="0.75"
+        strokeDasharray="2 5"
+        opacity="0.18"
+        animate={{ strokeDashoffset: [0, 14] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.line
+        x1="560"
+        y1="26"
+        x2="560"
+        y2="215"
+        stroke="white"
+        strokeWidth="0.75"
+        strokeDasharray="2 5"
+        opacity="0.18"
+        animate={{ strokeDashoffset: [0, -14] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
       />
 
-      {/* Nod 1: CV (vänster) */}
-      <NetworkNode cx={90} cy={120} delay={0} icon="cv" />
-      {/* Nod 2: Annons (mitten) */}
-      <NetworkNode cx={300} cy={120} delay={0.6} icon="job" />
-      {/* Nod 3: Brev (höger) */}
-      <NetworkNode cx={510} cy={120} delay={1.2} icon="letter" />
-
-      {/* Subtila prickar runtomkring */}
-      <circle cx="170" cy="60" r="2" fill="white" opacity="0.25" />
-      <circle cx="380" cy="50" r="1.5" fill="white" opacity="0.2" />
-      <circle cx="220" cy="195" r="1.5" fill="white" opacity="0.2" />
-      <circle cx="450" cy="190" r="2" fill="white" opacity="0.25" />
-      <circle cx="40" cy="180" r="1" fill="white" opacity="0.2" />
-      <circle cx="565" cy="60" r="1" fill="white" opacity="0.2" />
+      {/* Spridda mikro-prickar för djup */}
+      <circle cx="160" cy="55" r="1" fill="white" opacity="0.3" />
+      <circle cx="240" cy="190" r="1" fill="white" opacity="0.25" />
+      <circle cx="380" cy="60" r="1.25" fill="white" opacity="0.3" />
+      <circle cx="450" cy="185" r="1" fill="white" opacity="0.22" />
+      <circle cx="120" cy="180" r="0.75" fill="white" opacity="0.2" />
+      <circle cx="500" cy="50" r="0.75" fill="white" opacity="0.2" />
     </svg>
   );
 }
@@ -75,79 +101,32 @@ function NetworkNode({
   cx,
   cy,
   delay,
-  icon,
+  small,
 }: {
   cx: number;
   cy: number;
   delay: number;
-  icon: 'cv' | 'job' | 'letter';
+  small?: boolean;
 }) {
+  const r = small ? 2.5 : 3.5;
+  const ringR = small ? 7 : 9;
   return (
     <g>
-      {/* Yttre pulserande glow */}
+      {/* Yttre pulserande ring */}
       <motion.circle
         cx={cx}
         cy={cy}
-        r="32"
-        fill="url(#smart-node-glow)"
-        animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
-        transition={{ duration: 2.6, repeat: Infinity, delay, ease: 'easeOut' }}
+        r={ringR}
+        stroke="white"
+        strokeWidth="0.75"
+        fill="none"
+        animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
+        transition={{ duration: 2.4, repeat: Infinity, delay, ease: 'easeOut' }}
         style={{ transformOrigin: `${cx}px ${cy}px` }}
       />
-      {/* Solid bakgrundscirkel */}
-      <circle cx={cx} cy={cy} r="22" fill="white" fillOpacity="0.12" />
-      <circle
-        cx={cx}
-        cy={cy}
-        r="22"
-        fill="none"
-        stroke="white"
-        strokeWidth="1.5"
-        strokeOpacity="0.55"
-      />
-      {/* Mini-ikon i mitten av noden */}
-      <NodeIcon variant={icon} cx={cx} cy={cy} />
-    </g>
-  );
-}
-
-function NodeIcon({
-  variant,
-  cx,
-  cy,
-}: {
-  variant: 'cv' | 'job' | 'letter';
-  cx: number;
-  cy: number;
-}) {
-  const x = cx - 8;
-  const y = cy - 9;
-
-  if (variant === 'cv') {
-    return (
-      <g transform={`translate(${x} ${y})`} opacity="0.85">
-        <rect x="0" y="0" width="16" height="18" rx="2" fill="white" fillOpacity="0.85" />
-        <line x1="3" y1="5" x2="13" y2="5" stroke="#DC2626" strokeWidth="1.2" />
-        <line x1="3" y1="9" x2="11" y2="9" stroke="#DC2626" strokeWidth="1" opacity="0.7" />
-        <line x1="3" y1="13" x2="13" y2="13" stroke="#DC2626" strokeWidth="1" opacity="0.7" />
-      </g>
-    );
-  }
-  if (variant === 'job') {
-    return (
-      <g transform={`translate(${x} ${y})`} opacity="0.85">
-        <rect x="0" y="3" width="16" height="13" rx="2" fill="white" fillOpacity="0.85" />
-        <rect x="5" y="0" width="6" height="4" rx="1" fill="white" fillOpacity="0.85" />
-        <line x1="3" y1="9" x2="13" y2="9" stroke="#DC2626" strokeWidth="1" opacity="0.7" />
-        <line x1="3" y1="12" x2="10" y2="12" stroke="#DC2626" strokeWidth="1" opacity="0.7" />
-      </g>
-    );
-  }
-  // letter
-  return (
-    <g transform={`translate(${x} ${y})`} opacity="0.85">
-      <rect x="0" y="2" width="16" height="14" rx="2" fill="white" fillOpacity="0.85" />
-      <path d="M 0 4 L 8 11 L 16 4" stroke="#DC2626" strokeWidth="1.2" fill="none" />
+      {/* Solid prick */}
+      <circle cx={cx} cy={cy} r={r} fill="white" fillOpacity="0.85" />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="white" strokeOpacity="0.4" strokeWidth="0.5" />
     </g>
   );
 }
