@@ -14,15 +14,17 @@ const nextConfig: NextConfig = {
   // Output file tracing root för att undvika lockfile varningar
   outputFileTracingRoot: process.cwd(),
 
-  // KRITISKT: Explicit inkludera @sparticuz/chromium binärfiler för Vercel deployment
+  // KRITISKT: Explicit inkludera native binärfiler för Vercel deployment
   // Turbopack (Next.js 16 standard) inkluderar inte binärfiler automatiskt
   outputFileTracingIncludes: {
     '/api/letters/download': ['./node_modules/@sparticuz/chromium/**/*'],
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*'],
+    '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
   },
 
   // Markera dessa paket som externa för serverside bundling
-  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
+  // (native bindings i .node-filer kan inte bundlas av Turbopack)
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core', '@napi-rs/canvas'],
 
   // Tillåt TypeScript errors i builds (om det behövs)
   typescript: {
@@ -34,7 +36,7 @@ const nextConfig: NextConfig = {
     // Specifik hantering för PDF.js och pdf-parse
     if (isServer) {
       // @ts-ignore - config.externals kan vara undefined
-      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth', 'canvas', 'pdf-parse'];
+      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth', 'canvas', 'pdf-parse', '@napi-rs/canvas'];
     }
     
     // Lägg till node-polyfills
