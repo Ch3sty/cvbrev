@@ -8,13 +8,15 @@ import {
   Lightbulb,
   Trophy,
   Scale,
-  Bot,
+  Brain,
   Languages,
   Crown,
   Lock,
   Check,
+  CheckCircle2,
 } from 'lucide-react';
 import LetterFlowStepHeader from '../LetterFlowStepHeader';
+import SmartToneNetwork from '../illustrations/SmartToneNetwork';
 
 type Tonality =
   | 'professional'
@@ -103,36 +105,33 @@ export default function TonalityLanguageStep({
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-3xl border-2 border-dashed border-fuchsia-300 bg-gradient-to-br from-fuchsia-50 via-purple-50 to-pink-50 p-5 sm:p-6"
+          className="relative overflow-hidden rounded-3xl border-2 border-dashed border-orange-300/70 bg-orange-50/40 p-5 sm:p-6"
         >
           <div className="flex items-start gap-4">
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 opacity-70"
-              style={{
-                background:
-                  'linear-gradient(135deg, #D946EF, #9333EA, #DB2777)',
-              }}
-            >
-              <Bot className="w-7 h-7 text-white" />
+            <div className="relative flex-shrink-0">
+              <div className="absolute inset-0 rounded-2xl bg-orange-100" />
+              <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center bg-white border border-orange-200/70">
+                <Lock className="w-6 h-6 text-orange-600" strokeWidth={2.25} />
+              </div>
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <h5 className="font-bold text-slate-800">Smart-anpassad</h5>
-                <div className="bg-slate-800 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Lock className="w-3 h-3" />
+                <h5 className="font-bold text-slate-900">Smart-anpassad</h5>
+                <div className="bg-slate-900 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
                   Premium
                 </div>
               </div>
               <p className="text-sm text-slate-600 mb-3 leading-relaxed">
-                Vi matchar tonen mot företagets kultur och branschens
-                förväntningar. Inte bara annonsen.
+                Vi matchar tonen mot företagets kultur och branschens förväntningar. Inte bara annonsen.
               </p>
               <a
                 href="/dashboard/installningar"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-purple-600 hover:text-purple-700"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-semibold text-sm shadow-md min-h-[40px]"
+                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
               >
                 <Crown className="w-4 h-4" />
-                Uppgradera för att låsa upp
+                Lås upp Premium
               </a>
             </div>
           </div>
@@ -147,52 +146,61 @@ export default function TonalityLanguageStep({
         className="relative w-full overflow-hidden rounded-3xl text-left transition-all"
         style={{
           background:
-            'linear-gradient(135deg, #D946EF 0%, #9333EA 50%, #DB2777 100%)',
+            'linear-gradient(135deg, #F97316 0%, #DC2626 55%, #BE185D 100%)',
           boxShadow: isAutoSelected
-            ? '0 20px 40px -12px rgba(168, 85, 247, 0.5)'
-            : '0 12px 28px -8px rgba(168, 85, 247, 0.35)',
+            ? '0 24px 48px -14px rgba(220, 38, 38, 0.55)'
+            : '0 16px 36px -10px rgba(220, 38, 38, 0.4)',
         }}
-        whileHover={{ scale: 1.005 }}
-        whileTap={{ scale: 0.995 }}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.99 }}
         aria-pressed={isAutoSelected}
       >
-        <div
-          className="absolute inset-0 opacity-15 pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '24px 24px',
-          }}
-        />
+        {/* Bakgrundsnätverk: visar att vi kopplar ihop tre datakällor */}
+        <SmartToneNetwork />
 
-        <div className="relative p-5 sm:p-6">
+        <div className="relative p-5 sm:p-7">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-              <Bot className="w-7 h-7 text-white" />
+            <div className="relative flex-shrink-0">
+              {/* Pulserande ringar bakom Brain-ikonen */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl bg-white/30"
+                animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
+              />
+              <div className="relative w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                <Brain className="w-7 h-7 text-white" strokeWidth={2.25} />
+              </div>
             </div>
 
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <h5 className="font-bold text-lg text-white">Smart-anpassad</h5>
-                <span className="bg-yellow-300/95 text-yellow-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  Bäst resultat
-                </span>
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                <h5 className="font-bold text-lg sm:text-xl text-white tracking-tight">
+                  Smart-anpassad
+                </h5>
+                <motion.span
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-1 bg-emerald-400/95 text-emerald-950 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                >
+                  <CheckCircle2 className="w-3 h-3" strokeWidth={3} />
+                  Rekommenderas
+                </motion.span>
               </div>
-              <p className="text-sm text-white/90 mb-3 leading-relaxed">
-                Vi matchar tonen mot företagets kultur och branschens
-                förväntningar.
+              <p className="text-sm sm:text-base text-white/90 mb-4 leading-relaxed max-w-xl">
+                Vi analyserar ditt CV, annonsen och företagets kultur. Sedan väljer vi tonen som ger högst chans till intervju.
               </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/80">
-                <span className="flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-green-300" strokeWidth={2.75} />
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs sm:text-sm text-white/85">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Djupanalys av krav
                 </span>
-                <span className="flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-green-300" strokeWidth={2.75} />
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Branschanpassad ton
                 </span>
-                <span className="flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-green-300" strokeWidth={2.75} />
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Högre svarsfrekvens
                 </span>
               </div>
@@ -200,11 +208,12 @@ export default function TonalityLanguageStep({
 
             {isAutoSelected && (
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-lg"
               >
-                <Check className="w-5 h-5 text-purple-600" strokeWidth={3} />
+                <Check className="w-5 h-5 text-orange-600" strokeWidth={3} />
               </motion.div>
             )}
           </div>

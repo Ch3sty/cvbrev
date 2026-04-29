@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, FileText } from 'lucide-react';
-import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
+import CvPickerGrid from '../CvPickerGrid';
 import { useCVStore } from '@/store/cv-store';
 import LetterFlowStepHeader from '../LetterFlowStepHeader';
 import { CvDocumentIcon } from '../illustrations/LetterFlowIcons';
@@ -101,12 +101,9 @@ export default function CVSelectionStep({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <UnifiedCVSelector
+            <CvPickerGrid
               selectedCV={selectedCV}
               onCVSelect={handleSelect}
-              variant="grid"
-              showEmptyState={true}
-              showHeader={false}
             />
           </motion.div>
         )}
