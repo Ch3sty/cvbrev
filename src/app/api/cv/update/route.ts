@@ -25,11 +25,14 @@ export async function PATCH(request: Request) {
       );
     }
 
-    // Uppdatera CV-text i databasen
+    // Uppdatera CV-text i databasen.
+    // Sätt structured_data till null så nästa visning triggar re-parsning
+    // mot den nya texten (detalj-vyn visar då "Strukturera nu"-prompten).
     const { data, error } = await supabase
       .from('cv_texts')
       .update({
         cv_text: cv_text,
+        structured_data: null,
         updated_at: new Date().toISOString()
       })
       .eq('id', id)

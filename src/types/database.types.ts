@@ -147,6 +147,8 @@ export interface Database {
           cv_text: string
           created_at: string | null
           updated_at: string | null
+          structured_data: Json | null
+          text_extraction_failed: boolean | null
         }
         Insert: {
           id?: string
@@ -156,6 +158,8 @@ export interface Database {
           cv_text: string
           created_at?: string | null
           updated_at?: string | null
+          structured_data?: Json | null
+          text_extraction_failed?: boolean | null
         }
         Update: {
           id?: string
@@ -165,6 +169,8 @@ export interface Database {
           cv_text?: string
           created_at?: string | null
           updated_at?: string | null
+          structured_data?: Json | null
+          text_extraction_failed?: boolean | null
         }
          Relationships: []
       }

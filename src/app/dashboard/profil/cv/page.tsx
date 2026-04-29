@@ -8,6 +8,7 @@ import { AlertTriangle, FileText, Trash2, CheckCircle2 } from 'lucide-react';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
+import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvHeroBanner from './components/CvHeroBanner';
 import CvUploadIllustration from './components/CvUploadIllustration';
@@ -31,6 +32,13 @@ export default function MinaCVPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
+  const [expandedCvId, setExpandedCvId] = useState<string | null>(null);
+  // Lokal overlay over store: nar /api/cv/structure returnerar
+  // strukturerad data lagger vi den har sa CvDetailView ser den utan
+  // att vi behover refetcha hela CV-listan.
+  const [structuredOverrides, setStructuredOverrides] = useState<
+    Record<string, ParsedCV>
+  >({});
 
   const cvCount = cvs.length;
   const isPremium = subscriptionTier === 'premium';
@@ -295,24 +303,39 @@ export default function MinaCVPage() {
             </div>
 
             <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {cvs.map((cv, i) => (
-                <CvCard
-                  key={cv.id}
-                  cv={cv}
-                  index={i}
-                  isDeleting={isDeleting && deleteId === cv.id}
-                  onView={() => openCVInNewWindow(cv)}
-                  onDownload={() =>
-                    router.push(`/dashboard/cv-mallar?cv=${cv.id}`)
-                  }
-                  onEdit={() =>
-                    router.push(`/dashboard/profil/cv/${cv.id}/edit`)
-                  }
-                  onDelete={() => handleDeleteCV(cv.id)}
-                  preview={getCleanPreview(cv.cv_text)}
-                  formatDate={formatDate}
-                />
-              ))}
+              {cvs.map((cv, i) => {
+                const structured =
+                  structuredOverrides[cv.id] ?? cv.structured_data ?? null;
+                const cvWithStructured = { ...cv, structured_data: structured };
+                return (
+                  <CvCard
+                    key={cv.id}
+                    cv={cvWithStructured}
+                    index={i}
+                    isDeleting={isDeleting && deleteId === cv.id}
+                    expanded={expandedCvId === cv.id}
+                    onToggleExpand={() =>
+                      setExpandedCvId((prev) => (prev === cv.id ? null : cv.id))
+                    }
+                    onOpenInNewWindow={() => openCVInNewWindow(cv)}
+                    onDownload={() =>
+                      router.push(`/dashboard/cv-mallar?cv=${cv.id}`)
+                    }
+                    onEdit={() =>
+                      router.push(`/dashboard/profil/cv/${cv.id}/edit`)
+                    }
+                    onDelete={() => handleDeleteCV(cv.id)}
+                    onStructured={(data) =>
+                      setStructuredOverrides((prev) => ({
+                        ...prev,
+                        [cv.id]: data,
+                      }))
+                    }
+                    preview={getCleanPreview(cv.cv_text)}
+                    formatDate={formatDate}
+                  />
+                );
+              })}
             </div>
           </section>
 

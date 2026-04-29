@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
+import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
 
 export const runtime = 'nodejs';
@@ -265,6 +266,21 @@ Alternativt: Ladda upp som .DOCX istället.`,
       textToSave = escapeDatabasePlaceholder(extractedText);
     }
 
+    // Strukturera CV:t med AI for vacker presentation pa /profil/cv-sidan.
+    // Non-blocking: misslyckas det sparar vi CV:t anda och anvandaren far
+    // en "Strukturera nu"-knapp i detalj-vyn.
+    let structuredData: ParsedCV | null = null;
+    if (!textExtractionFailed) {
+      try {
+        structuredData = await parseCVStructure(textToSave);
+        console.info(
+          `[upload] structured CV parsing OK: ${structuredData.roles.length} roles, ${structuredData.skills.length} skills`
+        );
+      } catch (err) {
+        console.warn('[upload] structured parsing failed, saving without:', err);
+      }
+    }
+
     // Storage upload
     try {
       const { data: folderExists } = await supabase.storage.from('cvs').list(userFolder);
@@ -308,6 +324,7 @@ Alternativt: Ladda upp som .DOCX istället.`,
         original_file_path: storageFilePath,
         cv_text: textToSave,
         text_extraction_failed: textExtractionFailed,
+        structured_data: structuredData as any,
       })
       .select()
       .single();

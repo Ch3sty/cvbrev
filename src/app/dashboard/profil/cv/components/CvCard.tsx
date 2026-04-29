@@ -1,27 +1,35 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText,
   Clock,
   Trash2,
   Eye,
+  EyeOff,
   Download,
   Edit,
+  ExternalLink,
 } from 'lucide-react';
+import type { ParsedCV } from '@/lib/cv/cv-parser';
+import CvDetailView from './CvDetailView';
 
 interface CvCardProps {
   cv: {
     id: string;
     file_name: string;
     created_at: string;
+    structured_data: ParsedCV | null;
   };
   index?: number;
   isDeleting: boolean;
-  onView: () => void;
+  expanded: boolean;
+  onToggleExpand: () => void;
+  onOpenInNewWindow: () => void;
   onDownload: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onStructured: (data: ParsedCV) => void;
   preview: string;
   formatDate: (iso: string) => string;
 }
@@ -30,10 +38,13 @@ export default function CvCard({
   cv,
   index = 0,
   isDeleting,
-  onView,
+  expanded,
+  onToggleExpand,
+  onOpenInNewWindow,
   onDownload,
   onEdit,
   onDelete,
+  onStructured,
   preview,
   formatDate,
 }: CvCardProps) {
@@ -47,8 +58,10 @@ export default function CvCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
-      whileHover={{ y: -4 }}
-      className="group relative bg-white rounded-2xl border border-slate-200 hover:border-orange-300 transition-all overflow-hidden"
+      whileHover={!expanded ? { y: -4 } : undefined}
+      className={`group relative bg-white rounded-2xl border transition-all overflow-hidden ${
+        expanded ? 'border-orange-300' : 'border-slate-200 hover:border-orange-300'
+      }`}
       style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
     >
       <div
@@ -117,23 +130,34 @@ export default function CvCard({
       </div>
 
       <div className="p-4 sm:p-5">
-        <div className="bg-orange-50/40 border border-orange-100 rounded-xl p-3 mb-4 min-h-[72px]">
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
-            {preview}
-          </p>
-        </div>
+        {!expanded && (
+          <div className="bg-orange-50/40 border border-orange-100 rounded-xl p-3 mb-4 min-h-[72px]">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+              {preview}
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-3 gap-2">
           <button
-            onClick={onView}
+            onClick={onToggleExpand}
             className="flex items-center justify-center gap-1 px-2 py-2.5 text-xs font-semibold text-white rounded-lg transition-all touch-manipulation min-h-[40px]"
             style={{
               background: 'linear-gradient(90deg, #F97316, #DC2626)',
               boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
             }}
           >
-            <Eye className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
-            <span className="truncate">Visa</span>
+            {expanded ? (
+              <>
+                <EyeOff className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
+                <span className="truncate">Dölj</span>
+              </>
+            ) : (
+              <>
+                <Eye className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
+                <span className="truncate">Visa</span>
+              </>
+            )}
           </button>
 
           <button
@@ -152,6 +176,40 @@ export default function CvCard({
             <span className="truncate">Redigera</span>
           </button>
         </div>
+
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              key="detail"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="overflow-hidden"
+            >
+              <div className="pt-5 mt-5 border-t border-slate-100 space-y-5">
+                <CvDetailView
+                  cvId={cv.id}
+                  structuredData={cv.structured_data}
+                  onStructured={onStructured}
+                />
+
+                <div className="flex justify-end">
+                  <button
+                    onClick={onOpenInNewWindow}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-orange-700 transition-colors"
+                  >
+                    <ExternalLink
+                      className="w-3.5 h-3.5"
+                      strokeWidth={2.25}
+                    />
+                    Öppna råtext i nytt fönster
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
