@@ -1,11 +1,20 @@
 'use client';
 
-import { Mail, User, Phone, MapPin, Camera, Linkedin, Crown, Lock } from 'lucide-react';
-import { ProfilePhotoUpload } from '@/components/profile/ProfilePhotoUpload';
-import { LinkedInInput } from '@/components/profile/LinkedInInput';
+import { Lock, Crown } from 'lucide-react';
+import { InlineProfilePhotoUpload } from './InlineProfilePhotoUpload';
+import { InlineLinkedInField } from './InlineLinkedInField';
 import IncludeInLettersToggle from './IncludeInLettersToggle';
 import ProfileSection from './ProfileSection';
-import { ProfileHeroOrb, ShieldGradientIcon } from './illustrations/ProfileIcons';
+import {
+  ProfileHeroOrb,
+  ShieldGradientIcon,
+  EmailEnvelopeIcon,
+  IdentityCardIcon,
+  PortraitFrameIcon,
+  LinkedInBadgeIcon,
+  PhoneSignalIcon,
+  LocationPinIcon,
+} from './illustrations/ProfileIcons';
 import type { PremiumFeature } from './PremiumGateModal';
 
 interface PersonalDetailsSectionProps {
@@ -44,11 +53,15 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
       title="Vem är du?"
       description="Uppgifterna används bara för att personalisera dina CV:n och brev. Vi delar dem aldrig med externa AI-tjänster."
       icon={<ProfileHeroOrb />}
-      delay={0.05}
+      delay={0.15}
     >
-      <div className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         {/* E-post */}
-        <FieldGroup label="E-postadress" icon={<Mail className="w-4 h-4" />} required>
+        <FieldCard
+          icon={<EmailEnvelopeIcon />}
+          label="E-postadress"
+          required
+        >
           <input
             type="email"
             value={props.email}
@@ -56,10 +69,14 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             className="w-full px-4 py-3 rounded-xl bg-slate-50 text-slate-600 border border-slate-200 cursor-not-allowed text-sm min-h-[48px]"
           />
           <FieldHint>Din e-postadress kan inte ändras.</FieldHint>
-        </FieldGroup>
+        </FieldCard>
 
         {/* Namn */}
-        <FieldGroup label="Fullständigt namn" icon={<User className="w-4 h-4" />} required>
+        <FieldCard
+          icon={<IdentityCardIcon />}
+          label="Fullständigt namn"
+          required
+        >
           <input
             type="text"
             value={props.fullName}
@@ -70,23 +87,23 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
-        </FieldGroup>
+        </FieldCard>
 
         {/* Profilbild */}
-        <FieldGroup
+        <FieldCard
+          icon={<PortraitFrameIcon />}
           label="Profilbild"
-          icon={<Camera className="w-4 h-4" />}
           premium={isFree}
+          optional
         >
           {isFree ? (
             <PremiumLockedField
-              icon={<Camera className="w-5 h-5" />}
               title="Lägg till profilbild"
               description="Visas på premium CV-mallar för ett mer personligt intryck."
               onClick={() => props.onPremiumGate('photo')}
             />
           ) : (
-            <ProfilePhotoUpload
+            <InlineProfilePhotoUpload
               currentPhotoUrl={props.profilePhotoUrl}
               onUploadComplete={props.onPhotoChange}
               onRemovePhoto={props.onPhotoRemove}
@@ -95,32 +112,36 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
               isUploading={props.isSaving}
             />
           )}
-        </FieldGroup>
+        </FieldCard>
 
         {/* LinkedIn */}
-        <FieldGroup
+        <FieldCard
+          icon={<LinkedInBadgeIcon />}
           label="LinkedIn-profil"
-          icon={<Linkedin className="w-4 h-4" />}
           premium={isFree}
+          optional
         >
           {isFree ? (
             <PremiumLockedField
-              icon={<Linkedin className="w-5 h-5" />}
               title="Visa LinkedIn på CV:n"
               description="Förbättrar ATS-poängen och rekryterare kan verifiera din profil snabbt."
               onClick={() => props.onPremiumGate('linkedin')}
             />
           ) : (
-            <LinkedInInput
+            <InlineLinkedInField
               value={props.linkedinUrl}
               onChange={props.onLinkedInChange}
               disabled={props.isSaving}
             />
           )}
-        </FieldGroup>
+        </FieldCard>
 
         {/* Telefon */}
-        <FieldGroup label="Telefonnummer" icon={<Phone className="w-4 h-4" />}>
+        <FieldCard
+          icon={<PhoneSignalIcon />}
+          label="Telefonnummer"
+          optional
+        >
           <input
             type="tel"
             value={props.phone}
@@ -130,18 +151,22 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
-          <div className="mt-3">
+          <FieldFooterToggle>
             <IncludeInLettersToggle
               checked={props.includePhoneInLetters}
               onChange={props.onIncludePhoneChange}
               label="Inkludera i personliga brev"
               description="Telefonnumret visas på dina genererade brev."
             />
-          </div>
-        </FieldGroup>
+          </FieldFooterToggle>
+        </FieldCard>
 
         {/* Ort */}
-        <FieldGroup label="Ort" icon={<MapPin className="w-4 h-4" />}>
+        <FieldCard
+          icon={<LocationPinIcon />}
+          label="Ort"
+          optional
+        >
           <input
             type="text"
             value={props.location}
@@ -151,35 +176,35 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
-          <div className="mt-3">
+          <FieldFooterToggle>
             <IncludeInLettersToggle
               checked={props.includeLocationInLetters}
               onChange={props.onIncludeLocationChange}
               label="Inkludera i personliga brev"
               description="Orten visas på dina genererade brev."
             />
-          </div>
-        </FieldGroup>
+          </FieldFooterToggle>
+        </FieldCard>
+      </div>
 
-        {/* Integritets-info */}
-        <div
-          className="rounded-2xl p-4 flex items-start gap-3"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.04) 100%)',
-            border: '1px solid rgba(16, 185, 129, 0.22)',
-          }}
-        >
-          <ShieldGradientIcon className="w-8 h-8 flex-shrink-0" />
-          <div className="min-w-0 flex-1">
-            <h4 className="text-sm font-bold text-emerald-900 mb-0.5">
-              Din integritet är skyddad
-            </h4>
-            <p className="text-xs text-emerald-800 leading-relaxed">
-              Vi lagrar dina uppgifter säkert och anonymiserar dem innan de skickas
-              till AI-tjänster. Du har full kontroll över vad som syns i dina brev.
-            </p>
-          </div>
+      {/* Integritets-info */}
+      <div
+        className="mt-5 sm:mt-6 rounded-2xl p-4 flex items-start gap-3"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.04) 100%)',
+          border: '1px solid rgba(16, 185, 129, 0.22)',
+        }}
+      >
+        <ShieldGradientIcon className="w-8 h-8 flex-shrink-0" />
+        <div className="min-w-0 flex-1">
+          <h4 className="text-sm font-bold text-emerald-900 mb-0.5">
+            Din integritet är skyddad
+          </h4>
+          <p className="text-xs text-emerald-800 leading-relaxed">
+            Vi lagrar dina uppgifter säkert och anonymiserar dem innan de skickas
+            till AI-tjänster. Du har full kontroll över vad som syns i dina brev.
+          </p>
         </div>
       </div>
     </ProfileSection>
@@ -188,38 +213,51 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
 /* ---------- Helpers ---------- */
 
-function FieldGroup({
-  label,
+function FieldCard({
   icon,
+  label,
   required,
   premium,
+  optional,
   children,
 }: {
-  label: string;
   icon: React.ReactNode;
+  label: string;
   required?: boolean;
   premium?: boolean;
+  optional?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-orange-700">{icon}</span>
-        <label className="text-sm font-semibold text-slate-900">{label}</label>
-        {required && <span className="text-orange-600 text-sm">*</span>}
-        {premium && (
-          <span
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-            style={{
-              background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
-            }}
-          >
-            <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-            Premium
-          </span>
-        )}
+    <div className="flex flex-col">
+      <div className="flex items-center gap-2.5 mb-2.5">
+        <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10">{icon}</div>
+        <div className="min-w-0 flex-1 flex items-center flex-wrap gap-x-1.5 gap-y-0.5">
+          <label className="text-sm font-bold text-slate-900 leading-tight">
+            {label}
+          </label>
+          {required && (
+            <span className="text-orange-600 text-sm leading-none" aria-hidden="true">
+              *
+            </span>
+          )}
+          {optional && !premium && (
+            <span className="text-[10px] font-medium uppercase tracking-wider text-slate-400">
+              Valfritt
+            </span>
+          )}
+          {premium && (
+            <span
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
+              style={{ background: 'linear-gradient(135deg, #FCD34D, #F59E0B)' }}
+            >
+              <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
+              Premium
+            </span>
+          )}
+        </div>
       </div>
-      {children}
+      <div className="flex-1">{children}</div>
     </div>
   );
 }
@@ -228,13 +266,22 @@ function FieldHint({ children }: { children: React.ReactNode }) {
   return <p className="text-xs text-slate-500 mt-2">{children}</p>;
 }
 
+function FieldFooterToggle({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="mt-3 pt-3"
+      style={{ borderTop: '1px dashed rgba(249, 115, 22, 0.2)' }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function PremiumLockedField({
-  icon,
   title,
   description,
   onClick,
 }: {
-  icon: React.ReactNode;
   title: string;
   description: string;
   onClick: () => void;
@@ -243,7 +290,7 @@ function PremiumLockedField({
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left rounded-2xl p-4 sm:p-5 transition-all hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+      className="w-full text-left rounded-2xl p-4 transition-all hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
       style={{
         background:
           'linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(220, 38, 38, 0.04) 100%)',
@@ -253,26 +300,20 @@ function PremiumLockedField({
       <div className="flex items-center gap-3">
         <div
           className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white relative"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          }}
+          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
         >
-          {icon}
-          <span
-            className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center"
-            style={{ boxShadow: '0 2px 6px -1px rgba(15, 23, 42, 0.2)' }}
-          >
-            <Lock className="w-2.5 h-2.5 text-orange-600" strokeWidth={3} />
-          </span>
+          <Lock className="w-4 h-4" strokeWidth={2.5} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-bold text-slate-900">{title}</div>
+          <div className="text-sm font-bold text-slate-900 leading-tight">
+            {title}
+          </div>
           <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
             {description}
           </p>
         </div>
         <span
-          className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
+          className="flex-shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
           style={{
             background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
             boxShadow: '0 3px 8px -2px rgba(245, 158, 11, 0.4)',

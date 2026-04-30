@@ -29,7 +29,7 @@ interface TonalityOption {
   premium?: boolean;
 }
 
-const TONALITIES: TonalityOption[] = [
+export const TONALITIES: TonalityOption[] = [
   {
     value: 'professional',
     label: 'Professionell',

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Check, Crown } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import { ProfileHeroOrb, PremiumCrownIcon } from './illustrations/ProfileIcons';
 
@@ -86,32 +86,23 @@ function FreeHero({
             </h1>
             <p className="text-sm text-slate-700 mb-4 truncate">{email}</p>
 
-            {/* Premium-CTA-kort */}
+            {/* Premium-CTA-kort — utan Crown-ikon för att undvika dubbla cirklar med ProfileHeroOrb */}
             <div
               className="rounded-2xl p-4 sm:p-5"
               style={{
-                background: 'rgba(255, 255, 255, 0.7)',
+                background: 'rgba(255, 255, 255, 0.75)',
                 backdropFilter: 'blur(8px)',
                 border: '1px solid rgba(249, 115, 22, 0.22)',
               }}
             >
-              <div className="flex items-start gap-3 mb-3">
-                <div
-                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                  style={{
-                    background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
-                    boxShadow: '0 6px 16px -4px rgba(245, 158, 11, 0.4)',
-                  }}
-                >
-                  <Crown className="w-5 h-5" strokeWidth={2.25} />
+              <div className="mb-3 text-left">
+                <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
+                  <span>Gratisplan</span>
+                  <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+                  <span className="text-amber-700">Premium</span>
                 </div>
-                <div className="min-w-0 flex-1 text-left">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
-                    Du är på gratis-planen
-                  </div>
-                  <div className="text-base font-bold text-slate-900 leading-tight">
-                    Testa Premium gratis i 7 dagar
-                  </div>
+                <div className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
+                  Testa Premium gratis i 7 dagar
                 </div>
               </div>
 
@@ -230,8 +221,8 @@ function PremiumHero({
 
           {/* Text + CTA */}
           <div className="flex-1 min-w-0 text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-sm mb-2">
-              <Sparkles className="w-3 h-3" strokeWidth={2.5} />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white/20 backdrop-blur-sm mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-white" aria-hidden="true" />
               {subStatus}
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight mb-1">
