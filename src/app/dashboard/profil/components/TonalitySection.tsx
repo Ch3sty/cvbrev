@@ -70,7 +70,7 @@ export const TONALITIES: TonalityOption[] = [
     label: 'Smart val',
     shortDescription: 'Vi väljer ton automatiskt baserat på varje annons.',
     example:
-      'AI:n analyserar varje annons och anpassar tonen så att brevet matchar arbetsgivarens stil.',
+      'Vi läser varje annons och anpassar tonen så att brevet matchar arbetsgivarens stil.',
     icon: <Sparkle className="w-5 h-5" strokeWidth={2} />,
     premium: true,
   },

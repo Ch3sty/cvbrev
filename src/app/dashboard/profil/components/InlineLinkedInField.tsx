@@ -105,7 +105,7 @@ export function InlineLinkedInField({
         </p>
       ) : (
         <p className="text-xs text-slate-500 mt-2">
-          Förbättrar CV-genereringen. Länken visas endast på dina CV:n.
+          Du väljer själv när du skapar varje CV om länken ska vara med.
         </p>
       )}
     </div>

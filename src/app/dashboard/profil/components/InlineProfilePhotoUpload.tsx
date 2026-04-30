@@ -109,7 +109,6 @@ export function InlineProfilePhotoUpload({
 
   return (
     <div>
-      {/* Drop-zone + förhandsvisning */}
       <div
         onDrop={handleDrop}
         onDragOver={(e) => {
@@ -117,89 +116,75 @@ export function InlineProfilePhotoUpload({
           setIsDragging(true);
         }}
         onDragLeave={() => setIsDragging(false)}
-        className="rounded-2xl p-4 transition-all"
+        className="flex items-center gap-3 rounded-xl bg-white px-3 py-2.5 transition-all"
         style={{
-          background: isDragging
-            ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%)'
-            : 'linear-gradient(135deg, rgba(249, 115, 22, 0.04) 0%, rgba(220, 38, 38, 0.02) 100%)',
           border: isDragging
             ? '2px dashed #F97316'
-            : '1px solid rgba(249, 115, 22, 0.22)',
+            : '1px solid rgba(249, 115, 22, 0.25)',
         }}
       >
-        <div className="flex items-center gap-4">
-          {/* Förhandsvisning */}
-          <div
-            className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0"
+        {/* Förhandsvisning */}
+        <div
+          className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0"
+          style={{
+            border: isDragging
+              ? '2px solid #F97316'
+              : '1px solid rgba(249, 115, 22, 0.25)',
+          }}
+        >
+          {currentPhotoUrl && !busy ? (
+            <Image
+              src={currentPhotoUrl}
+              alt="Profilbild"
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center"
+              style={{
+                background: 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)',
+              }}
+            >
+              <User className="w-5 h-5 text-orange-400" strokeWidth={2} />
+            </div>
+          )}
+        </div>
+
+        {/* Knappar */}
+        <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => fileInputRef.current?.click()}
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-white font-semibold text-xs transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              border: isDragging
-                ? '2px solid #F97316'
-                : '2px solid rgba(249, 115, 22, 0.3)',
-              boxShadow: '0 4px 12px -2px rgba(220, 38, 38, 0.2)',
+              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              boxShadow: '0 3px 10px -3px rgba(220, 38, 38, 0.4)',
             }}
           >
-            {currentPhotoUrl && !busy ? (
-              <Image
-                src={currentPhotoUrl}
-                alt="Profilbild"
-                fill
-                sizes="64px"
-                className="object-cover"
-              />
-            ) : (
-              <div
-                className="w-full h-full flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)',
-                }}
-              >
-                <User
-                  className={isDragging ? 'w-7 h-7 text-orange-600' : 'w-7 h-7 text-orange-400'}
-                  strokeWidth={2}
-                />
-              </div>
-            )}
-          </div>
+            <Upload className="w-3 h-3" strokeWidth={2.5} />
+            {busy ? 'Laddar upp…' : currentPhotoUrl ? 'Byt bild' : 'Ladda upp'}
+          </button>
 
-          {/* Knappar */}
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => fileInputRef.current?.click()}
-                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-white font-semibold text-xs sm:text-sm min-h-[40px] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                  boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                <Upload className="w-3.5 h-3.5" strokeWidth={2.5} />
-                {busy ? 'Laddar upp…' : 'Ladda upp'}
-              </button>
-
-              {currentPhotoUrl && (
-                <button
-                  type="button"
-                  disabled={busy}
-                  onClick={handleRemovePhoto}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-slate-600 font-semibold text-xs sm:text-sm min-h-[40px] bg-white border border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition-all disabled:opacity-50"
-                >
-                  <Trash2 className="w-3.5 h-3.5" strokeWidth={2.25} />
-                  Ta bort
-                </button>
-              )}
-            </div>
-
-            <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">
-              JPG, PNG eller WebP. Max 2 MB. Rekommenderat: 400×400 px.
-              {!isDragging && (
-                <span className="block text-slate-400">Du kan också dra och släppa en bild här.</span>
-              )}
-            </p>
-          </div>
+          {currentPhotoUrl && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={handleRemovePhoto}
+              className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50 font-medium text-xs transition-all disabled:opacity-50"
+            >
+              <Trash2 className="w-3 h-3" strokeWidth={2.25} />
+              Ta bort
+            </button>
+          )}
         </div>
       </div>
+
+      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+        Du väljer själv när du skapar varje CV om bilden ska vara med. JPG, PNG eller WebP, max 2 MB.
+      </p>
 
       <input
         ref={fileInputRef}

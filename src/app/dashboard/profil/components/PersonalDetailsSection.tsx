@@ -52,7 +52,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
     <ProfileSection
       eyebrow="Personliga uppgifter"
       title="Vem är du?"
-      description="Uppgifterna används bara för att personalisera dina CV:n och brev. Vi delar dem aldrig med externa AI-tjänster."
+      description="Det här använder vi när vi skapar dina CV:n och personliga brev."
       icon={<UserCircle className="w-6 h-6" strokeWidth={2} />}
       delay={0.15}
     >
@@ -95,12 +95,11 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
           icon={<Camera className="w-4 h-4" strokeWidth={2.25} />}
           label="Profilbild"
           premium={isFree}
-          optional
         >
           {isFree ? (
             <PremiumLockedField
               title="Lägg till profilbild"
-              description="Visas på premium CV-mallar för ett mer personligt intryck."
+              description="Då kan du välja att ha med ett foto när du skapar dina CV:n."
               onClick={() => props.onPremiumGate('photo')}
             />
           ) : (
@@ -120,12 +119,11 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
           icon={<Linkedin className="w-4 h-4" strokeWidth={2.25} />}
           label="LinkedIn-profil"
           premium={isFree}
-          optional
         >
           {isFree ? (
             <PremiumLockedField
-              title="Visa LinkedIn på CV:n"
-              description="Förbättrar ATS-poängen och rekryterare kan verifiera din profil snabbt."
+              title="Lägg till LinkedIn-länk"
+              description="Då kan du välja att ha med din LinkedIn-profil när du skapar dina CV:n."
               onClick={() => props.onPremiumGate('linkedin')}
             />
           ) : (
@@ -141,7 +139,6 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
         <FieldCard
           icon={<Phone className="w-4 h-4" strokeWidth={2.25} />}
           label="Telefonnummer"
-          optional
         >
           <input
             type="tel"
@@ -166,7 +163,6 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
         <FieldCard
           icon={<MapPin className="w-4 h-4" strokeWidth={2.25} />}
           label="Ort"
-          optional
         >
           <input
             type="text"
@@ -219,53 +215,35 @@ function FieldCard({
   label,
   required,
   premium,
-  optional,
   children,
 }: {
   icon: React.ReactNode;
   label: string;
   required?: boolean;
   premium?: boolean;
-  optional?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-2 mb-2">
-        <div
-          className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-orange-600"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%)',
-            border: '1px solid rgba(249, 115, 22, 0.25)',
-          }}
-        >
-          {icon}
-        </div>
-        <div className="min-w-0 flex-1 flex items-center flex-wrap gap-x-1.5 gap-y-0.5">
-          <label className="text-sm font-bold text-slate-900 leading-tight">
-            {label}
-          </label>
+        <div className="flex-shrink-0 text-orange-500">{icon}</div>
+        <label className="text-sm font-semibold text-slate-900 leading-tight">
+          {label}
           {required && (
-            <span className="text-orange-600 text-sm leading-none" aria-hidden="true">
+            <span className="text-orange-600 ml-0.5" aria-hidden="true">
               *
             </span>
           )}
-          {optional && !premium && (
-            <span className="text-[10px] font-medium uppercase tracking-wider text-slate-400">
-              Valfritt
-            </span>
-          )}
-          {premium && (
-            <span
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-              style={{ background: 'linear-gradient(135deg, #FCD34D, #F59E0B)' }}
-            >
-              <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-              Premium
-            </span>
-          )}
-        </div>
+        </label>
+        {premium && (
+          <span
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
+            style={{ background: 'linear-gradient(135deg, #FCD34D, #F59E0B)' }}
+          >
+            <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
+            Premium
+          </span>
+        )}
       </div>
       <div className="flex-1">{children}</div>
     </div>
@@ -277,14 +255,7 @@ function FieldHint({ children }: { children: React.ReactNode }) {
 }
 
 function FieldFooterToggle({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="mt-3 pt-3"
-      style={{ borderTop: '1px dashed rgba(249, 115, 22, 0.2)' }}
-    >
-      {children}
-    </div>
-  );
+  return <div className="mt-2.5">{children}</div>;
 }
 
 function PremiumLockedField({
