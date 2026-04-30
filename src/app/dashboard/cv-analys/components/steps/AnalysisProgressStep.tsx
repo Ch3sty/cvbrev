@@ -1,9 +1,8 @@
-// src/components/cv/analysis/steps/AnalysisProgressStep.tsx
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import AnalyzingCvIllustration from '../illustrations/AnalyzingCvIllustration';
 
 interface AnalysisProgressStepProps {
   progress: number; // 0-100
@@ -11,428 +10,156 @@ interface AnalysisProgressStepProps {
   estimatedTimeRemaining: number; // seconds
 }
 
-const mascotStages = [
-  {
-    image: '/images/maskot/cv-analys-1.svg',
-    text: 'Tar emot ditt CV',
-    color: 'from-blue-500/20 to-cyan-500/20',
-    glowColor: 'rgba(59, 130, 246, 0.5)',
-    particleCount: 5
-  },
-  {
-    image: '/images/maskot/cv-analys-2.svg',
-    text: 'Analys pågår',
-    color: 'from-purple-500/20 to-pink-500/20',
-    glowColor: 'rgba(168, 85, 247, 0.5)',
-    particleCount: 15
-  },
-  {
-    image: '/images/maskot/cv-analys-3.svg',
-    text: 'Bearbetar och optimerar',
-    color: 'from-pink-500/20 to-rose-500/20',
-    glowColor: 'rgba(236, 72, 153, 0.5)',
-    particleCount: 20
-  },
-  {
-    image: '/images/maskot/cv-analys-4.svg',
-    text: 'Slutför optimering',
-    color: 'from-orange-500/20 to-amber-500/20',
-    glowColor: 'rgba(249, 115, 22, 0.5)',
-    particleCount: 25
-  },
-  {
-    image: '/images/maskot/cv-analys-5.svg',
-    text: 'Nästan klart!',
-    color: 'from-green-500/20 to-emerald-500/20',
-    glowColor: 'rgba(34, 197, 94, 0.6)',
-    particleCount: 30
-  }
+const STAGES = [
+  { threshold: 0, text: 'Läser ditt CV', body: 'Vi går igenom struktur, sektioner och innehåll.' },
+  { threshold: 20, text: 'Identifierar nyckelord', body: 'Vi plockar ut de viktigaste begreppen från din erfarenhet.' },
+  { threshold: 45, text: 'Analyserar mot ATS-kriterier', body: 'Vi jämför mot mönster som rekryterarsystem letar efter.' },
+  { threshold: 70, text: 'Genererar förbättringar', body: 'Vi formulerar konkreta förslag för varje sektion.' },
+  { threshold: 90, text: 'Slutför analysen', body: 'Vi sätter ihop allt till en komplett rapport.' },
 ];
 
-// Particle component for floating effects
-const Particle = ({ delay, duration, x, y }: { delay: number; duration: number; x: number; y: number }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0, x, y }}
-    animate={{
-      opacity: [0, 1, 0],
-      scale: [0, 1, 0.5],
-      y: [y, y - 100],
-      x: [x, x + (Math.random() - 0.5) * 50]
-    }}
-    transition={{
-      duration,
-      delay,
-      repeat: Infinity,
-      ease: 'easeOut'
-    }}
-    className="absolute w-2 h-2 rounded-full bg-gradient-to-r from-pink-400 to-purple-400"
-  />
-);
-
-// Confetti component for completion
-const Confetti = ({ delay }: { delay: number }) => {
-  const colors = ['#EC4899', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6'];
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  const startX = (Math.random() - 0.5) * 200;
-
-  return (
-    <motion.div
-      initial={{ opacity: 1, scale: 1, x: startX, y: -50, rotate: 0 }}
-      animate={{
-        opacity: [1, 1, 0],
-        y: [0, 300],
-        x: [startX, startX + (Math.random() - 0.5) * 100],
-        rotate: [0, Math.random() * 720 - 360]
-      }}
-      transition={{
-        duration: 2,
-        delay,
-        ease: 'easeIn'
-      }}
-      className="absolute w-3 h-3 rounded-sm"
-      style={{ backgroundColor: color }}
-    />
-  );
-};
-
+/**
+ * Steg 1: Stor live-scan-animation av CV:t medan AI:n analyserar.
+ * Inga maskoter — bara en spektakulär custom SVG-illustration.
+ */
 export default function AnalysisProgressStep({
   progress,
-  currentActivity,
-  estimatedTimeRemaining
+  estimatedTimeRemaining,
 }: AnalysisProgressStepProps) {
-  const [activityIndex, setActivityIndex] = useState(0);
-  const [showConfetti, setShowConfetti] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [stageIndex, setStageIndex] = useState(0);
 
-  // Preload all SVG images immediately
   useEffect(() => {
-    const preloadImages = async () => {
-      const imagePromises = mascotStages.map((stage) => {
-        return new Promise((resolve, reject) => {
-          const img = new window.Image();
-          img.src = stage.image;
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-      });
-
-      try {
-        await Promise.all(imagePromises);
-        setImagesLoaded(true);
-      } catch (error) {
-        console.error('Error preloading images:', error);
-        // Set loaded anyway to show the component
-        setImagesLoaded(true);
+    let idx = 0;
+    for (let i = STAGES.length - 1; i >= 0; i--) {
+      if (progress >= STAGES[i].threshold) {
+        idx = i;
+        break;
       }
-    };
-
-    preloadImages();
-  }, []);
-
-  // Check for reduced motion preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  // Cycle through mascot stages based on progress
-  useEffect(() => {
-    if (progress < 20) setActivityIndex(0);
-    else if (progress < 40) setActivityIndex(1);
-    else if (progress < 60) setActivityIndex(2);
-    else if (progress < 80) setActivityIndex(3);
-    else setActivityIndex(4);
-
-    // Trigger confetti at completion
-    if (progress >= 100 && !showConfetti) {
-      setShowConfetti(true);
     }
-  }, [progress, showConfetti]);
+    setStageIndex(idx);
+  }, [progress]);
 
-  const currentStage = mascotStages[activityIndex];
-
-  // Generate particles based on current stage
-  const particles = useMemo(() => {
-    if (prefersReducedMotion) return [];
-    return Array.from({ length: currentStage.particleCount }, (_, i) => ({
-      id: `particle-${activityIndex}-${i}`,
-      delay: i * 0.2,
-      duration: 2 + Math.random() * 2,
-      x: (Math.random() - 0.5) * 150,
-      y: Math.random() * 50
-    }));
-  }, [activityIndex, currentStage.particleCount, prefersReducedMotion]);
-
-  // Confetti pieces
-  const confettiPieces = useMemo(() => {
-    if (!showConfetti || prefersReducedMotion) return [];
-    return Array.from({ length: 30 }, (_, i) => ({
-      id: `confetti-${i}`,
-      delay: i * 0.05
-    }));
-  }, [showConfetti, prefersReducedMotion]);
-
-  // Stage-specific animation variants
-  const stageVariants = {
-    0: {
-      initial: { opacity: 0, scale: 0.8, rotate: -15, y: 20 },
-      animate: {
-        opacity: 1,
-        scale: 1,
-        rotate: 0,
-        y: [0, -10, 0]
-      },
-      exit: { opacity: 0, scale: 0.9, rotate: 10, x: -20, transition: { duration: 0.3 } }
-    },
-    1: {
-      initial: { opacity: 0, scale: 0.8, x: 30 },
-      animate: {
-        opacity: 1,
-        scale: [1, 1.05, 1],
-        x: 0,
-        y: [0, -12, 0]
-      },
-      exit: { opacity: 0, scale: 0.85, x: -30, transition: { duration: 0.3 } }
-    },
-    2: {
-      initial: { opacity: 0, scale: 0.7, rotate: 15 },
-      animate: {
-        opacity: 1,
-        scale: [1, 1.08, 1],
-        rotate: [0, -3, 3, 0],
-        y: [0, -15, 0]
-      },
-      exit: { opacity: 0, scale: 0.8, rotate: -15, transition: { duration: 0.3 } }
-    },
-    3: {
-      initial: { opacity: 0, scale: 0.9, y: 30 },
-      animate: {
-        opacity: 1,
-        scale: [1, 1.1, 1.05, 1],
-        y: [0, -18, 0]
-      },
-      exit: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.3 } }
-    },
-    4: {
-      initial: { opacity: 0, scale: 0.6, y: 30 },
-      animate: {
-        opacity: 1,
-        scale: [1, 1.15, 1.1],
-        rotate: [0, -5, 5, 0],
-        y: [0, -20, 0]
-      },
-      exit: { opacity: 0, scale: 1.2, y: -30, transition: { duration: 0.4 } }
-    }
-  };
-
-  const variant = stageVariants[activityIndex as keyof typeof stageVariants];
+  const currentStage = STAGES[stageIndex];
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 overflow-hidden">
-      {/* Main mascot container with glow and particles */}
-      <div className="relative w-64 h-64 mb-8">
-        {/* Animated gradient background */}
-        <motion.div
-          key={`bg-${activityIndex}`}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-          className={`absolute inset-0 rounded-full bg-gradient-to-br ${currentStage.color} blur-3xl`}
-        />
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+      className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7 md:p-10"
+      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+    >
+      <DotPatternBg />
 
-        {/* Dynamic glow effect */}
-        <motion.div
-          animate={{
-            boxShadow: [
-              `0 0 40px ${currentStage.glowColor}`,
-              `0 0 80px ${currentStage.glowColor}`,
-              `0 0 40px ${currentStage.glowColor}`
-            ]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className="absolute inset-8 rounded-full"
-        />
+      <div className="relative flex flex-col items-center text-center">
+        {/* Hjälte-illustration */}
+        <AnalyzingCvIllustration progress={progress} />
 
-        {/* Circular progress ring */}
-        <svg className="absolute inset-0 w-full h-full -rotate-90">
-          <circle
-            cx="50%"
-            cy="50%"
-            r="120"
-            stroke="rgba(229, 231, 235, 0.3)"
-            strokeWidth="4"
-            fill="none"
-          />
-          <motion.circle
-            cx="50%"
-            cy="50%"
-            r="120"
-            stroke={currentStage.glowColor}
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: progress / 100 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            style={{
-              pathLength: progress / 100,
-              strokeDasharray: '1 1'
-            }}
-          />
-        </svg>
-
-        {/* Particles */}
-        {!prefersReducedMotion && particles.map(particle => (
-          <Particle key={particle.id} {...particle} />
-        ))}
-
-        {/* Confetti */}
-        {!prefersReducedMotion && confettiPieces.map(piece => (
-          <Confetti key={piece.id} delay={piece.delay} />
-        ))}
-
-        {/* Animated Mascot */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activityIndex}
-              initial={variant.initial}
-              animate={variant.animate}
-              exit={variant.exit}
-              transition={{
-                opacity: { duration: 0.2 },
-                scale: { duration: 0.3 },
-                rotate: { duration: 0.3 },
-                x: { duration: 0.3 },
-                y: {
-                  duration: prefersReducedMotion ? 0 : 2.5,
-                  repeat: prefersReducedMotion ? 0 : Infinity,
-                  ease: 'easeInOut'
-                }
-              }}
-              className="relative w-48 h-48"
-            >
-              {imagesLoaded ? (
-                <Image
-                  src={currentStage.image}
-                  alt={currentStage.text}
-                  width={192}
-                  height={192}
-                  unoptimized
-                  className="w-full h-full object-contain drop-shadow-2xl"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-16 h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin" />
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
+        {/* Status-text */}
+        <div className="mt-6 mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600">
+          Pågår
         </div>
-      </div>
-
-      {/* Activity Text with typewriter effect */}
-      <AnimatePresence mode="wait">
-        <motion.h3
-          key={activityIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.4 }}
-          className="text-2xl font-semibold text-gray-900 mb-2"
-        >
-          {currentStage.text}
-        </motion.h3>
-      </AnimatePresence>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="text-gray-600 mb-8"
-      >
-        Detta tar vanligtvis 30-60 sekunder
-      </motion.p>
-
-      {/* Enhanced Progress Bar */}
-      <div className="w-full max-w-md mb-4 relative">
-        <div className="h-3 bg-gray-200 rounded-full overflow-hidden relative">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="h-full bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 rounded-full relative"
-            style={{
-              backgroundSize: '200% 100%'
-            }}
+        <AnimatePresence mode="wait">
+          <motion.h3
+            key={stageIndex}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35 }}
+            className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2"
           >
-            {/* Shimmer effect */}
-            <motion.div
-              animate={{ x: ['-100%', '100%'] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-            />
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Progress Percentage with counter animation */}
-      <div className="flex items-center justify-between w-full max-w-md text-sm">
-        <motion.span
-          key={Math.floor(progress / 5)}
-          initial={{ scale: 1.2, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="text-gray-600 font-medium"
-        >
-          {progress}% klart
-        </motion.span>
-        {estimatedTimeRemaining > 0 && (
-          <motion.span
+            {currentStage.text}
+          </motion.h3>
+        </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={`body-${stageIndex}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-gray-600"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="text-sm text-slate-600 max-w-md leading-relaxed"
           >
-            ~{estimatedTimeRemaining}s kvar
-          </motion.span>
-        )}
-      </div>
+            {currentStage.body}
+          </motion.p>
+        </AnimatePresence>
 
-      {/* Activity Indicators with stagger */}
-      <div className="flex gap-2 mt-8">
-        {mascotStages.map((_, index) => (
-          <motion.div
-            key={index}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: index <= activityIndex ? 1 : 0.8,
-              opacity: 1
-            }}
-            transition={{
-              delay: index * 0.1,
-              type: 'spring',
-              stiffness: 260,
-              damping: 20
-            }}
-            className={`h-1.5 w-12 rounded-full transition-all duration-500 ${
-              index < activityIndex
-                ? 'bg-gradient-to-r from-pink-600 to-purple-600'
-                : index === activityIndex
-                ? 'bg-gradient-to-r from-pink-600 to-purple-600 shadow-lg shadow-pink-500/50'
-                : 'bg-gray-200'
-            }`}
-          />
-        ))}
+        {/* Progress-bar */}
+        <div className="w-full max-w-md mt-7">
+          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden relative">
+            <motion.div
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="h-full rounded-full"
+              style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+            />
+          </div>
+          <div className="flex items-center justify-between mt-2.5 text-xs">
+            <span className="tabular-nums font-semibold text-orange-700">
+              {Math.round(progress)}%
+            </span>
+            {estimatedTimeRemaining > 0 ? (
+              <span className="text-slate-500">~{estimatedTimeRemaining}s kvar</span>
+            ) : (
+              <span className="text-emerald-600 font-semibold">Klart strax</span>
+            )}
+          </div>
+        </div>
+
+        {/* Stage-indikatorer */}
+        <div className="flex gap-1.5 mt-6">
+          {STAGES.map((_, index) => (
+            <motion.div
+              key={index}
+              initial={{ scale: 0.8, opacity: 0.4 }}
+              animate={{
+                scale: index === stageIndex ? 1.1 : index < stageIndex ? 1 : 0.85,
+                opacity: index <= stageIndex ? 1 : 0.4,
+              }}
+              transition={{ duration: 0.3 }}
+              className="h-1.5 w-8 rounded-full"
+              style={{
+                background:
+                  index < stageIndex
+                    ? 'linear-gradient(90deg, #10B981, #059669)'
+                    : index === stageIndex
+                    ? 'linear-gradient(90deg, #F97316, #DC2626)'
+                    : '#E2E8F0',
+                boxShadow:
+                  index === stageIndex
+                    ? '0 2px 8px -2px rgba(220, 38, 38, 0.5)'
+                    : 'none',
+              }}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </motion.section>
+  );
+}
+
+function DotPatternBg() {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
+      aria-hidden="true"
+    >
+      <pattern
+        id="analysis-dots"
+        x="0"
+        y="0"
+        width="32"
+        height="32"
+        patternUnits="userSpaceOnUse"
+      >
+        <circle cx="16" cy="16" r="1" fill="#FB923C" />
+      </pattern>
+      <rect
+        width="100%"
+        height="100%"
+        fill="url(#analysis-dots)"
+        opacity="0.4"
+      />
+    </svg>
   );
 }

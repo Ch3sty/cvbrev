@@ -1,8 +1,7 @@
-// src/components/cv/analysis/steps/SelectImprovementsStep.tsx
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
   ChevronUp,
@@ -12,10 +11,8 @@ import {
   Target,
   CheckSquare,
   Square,
-  TrendingUp
+  TrendingUp,
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import ProfileSummaryCard from '../ProfileSummaryCard';
 import SkillSuggestionCard from '../SkillSuggestionCard';
 import SectionCard from '../SectionCard';
@@ -52,56 +49,49 @@ interface SelectImprovementsStepProps {
 
 type Category = 'profile' | 'roles' | 'skills' | 'general';
 
-// ============================================================================
-//  SAFE DATA VALIDATOR - Runs ONCE at component mount
-// ============================================================================
 function useSafeData(props: SelectImprovementsStepProps) {
   return useMemo(() => {
-    // Validate and sanitize ALL data at component initialization
     const safeRoles = Array.isArray(props.roleBasedImprovements)
-      ? props.roleBasedImprovements.map((role, index) => {
-          // Return GUARANTEED safe object structure
-          return {
-            roleTitle: String(role?.roleTitle || `Roll ${index + 1}`),
-            company: String(role?.company || 'Företag'),
-            period: String(role?.period || ''),
-            currentText: String(role?.currentText || ''),
-            suggestedText: String(role?.suggestedText || ''),
-            priority: role?.priority || 'medium',
-            atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0,
-            improvements: {
-              hasQuantification: Boolean(role?.improvements?.hasQuantification),
-              keywords: Array.isArray(role?.improvements?.keywords)
-                ? role.improvements.keywords
-                    .filter((k: any) => typeof k === 'string' && k.trim())
-                    .map((k: any) => String(k).trim())
-                : [],
-              grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
-                ? role.improvements.grammarIssues
-                    .filter((g: any) => typeof g === 'string' && g.trim())
-                    .map((g: any) => String(g).trim())
-                : [],
-              atsOptimization: Boolean(role?.improvements?.atsOptimization)
-            }
-          };
-        })
+      ? props.roleBasedImprovements.map((role, index) => ({
+          roleTitle: String(role?.roleTitle || `Roll ${index + 1}`),
+          company: String(role?.company || 'Företag'),
+          period: String(role?.period || ''),
+          currentText: String(role?.currentText || ''),
+          suggestedText: String(role?.suggestedText || ''),
+          priority: role?.priority || 'medium',
+          atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0,
+          improvements: {
+            hasQuantification: Boolean(role?.improvements?.hasQuantification),
+            keywords: Array.isArray(role?.improvements?.keywords)
+              ? role.improvements.keywords
+                  .filter((k: any) => typeof k === 'string' && k.trim())
+                  .map((k: any) => String(k).trim())
+              : [],
+            grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
+              ? role.improvements.grammarIssues
+                  .filter((g: any) => typeof g === 'string' && g.trim())
+                  .map((g: any) => String(g).trim())
+              : [],
+            atsOptimization: Boolean(role?.improvements?.atsOptimization),
+          },
+        }))
       : [];
 
-    const safeSkills = Array.isArray(props.skillSuggestions)
-      ? props.skillSuggestions
-      : [];
-
-    const safeGeneral = Array.isArray(props.generalImprovements)
-      ? props.generalImprovements
-      : [];
+    const safeSkills = Array.isArray(props.skillSuggestions) ? props.skillSuggestions : [];
+    const safeGeneral = Array.isArray(props.generalImprovements) ? props.generalImprovements : [];
 
     return {
       roles: safeRoles,
       skills: safeSkills,
       general: safeGeneral,
-      hasProfile: Boolean(props.profileSummary)
+      hasProfile: Boolean(props.profileSummary),
     };
-  }, [props.roleBasedImprovements, props.skillSuggestions, props.generalImprovements, props.profileSummary]);
+  }, [
+    props.roleBasedImprovements,
+    props.skillSuggestions,
+    props.generalImprovements,
+    props.profileSummary,
+  ]);
 }
 
 export default function SelectImprovementsStep(props: SelectImprovementsStepProps) {
@@ -110,24 +100,19 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     selectedProfile,
     selectedRoles,
     selectedSkills,
-    selectedGeneral,
     currentAtsScore = 0,
     dynamicPotentialScore = 0,
     onToggleProfile,
     onToggleRole,
     onToggleSkill,
-    onToggleGeneral,
     onSelectAllRoles,
     onDeselectAllRoles,
     onSelectAllSkills,
     onDeselectAllSkills,
-    onSelectAllGeneral,
-    onDeselectAllGeneral,
     onRoleTextEdit,
-    onProfileEdit
+    onProfileEdit,
   } = props;
 
-  // Get GUARANTEED safe data
   const safeData = useSafeData(props);
 
   const [expandedCategories, setExpandedCategories] = useState<Set<Category>>(
@@ -136,11 +121,8 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
 
   const toggleCategory = (category: Category) => {
     const newSet = new Set(expandedCategories);
-    if (newSet.has(category)) {
-      newSet.delete(category);
-    } else {
-      newSet.add(category);
-    }
+    if (newSet.has(category)) newSet.delete(category);
+    else newSet.add(category);
     setExpandedCategories(newSet);
   };
 
@@ -151,8 +133,6 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       onSelectAllRoles();
     } else if (category === 'skills' && onSelectAllSkills) {
       onSelectAllSkills();
-    } else if (category === 'general' && onSelectAllGeneral) {
-      onSelectAllGeneral();
     }
   };
 
@@ -163,303 +143,335 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       onDeselectAllRoles();
     } else if (category === 'skills' && onDeselectAllSkills) {
       onDeselectAllSkills();
-    } else if (category === 'general' && onDeselectAllGeneral) {
-      onDeselectAllGeneral();
     }
   };
 
-  const categories = [
+  const categories: Array<{
+    id: Category;
+    icon: typeof User;
+    title: string;
+    count: number;
+    selectedCount: number;
+  }> = [
     {
-      id: 'profile' as Category,
+      id: 'profile',
       icon: User,
       title: 'Personbeskrivning',
-      color: 'from-pink-600 to-rose-600',
       count: safeData.hasProfile ? 1 : 0,
-      selectedCount: selectedProfile ? 1 : 0
+      selectedCount: selectedProfile ? 1 : 0,
     },
     {
-      id: 'roles' as Category,
+      id: 'roles',
       icon: Briefcase,
       title: 'Rollbaserade förbättringar',
-      color: 'from-blue-600 to-cyan-600',
       count: safeData.roles.length,
-      selectedCount: selectedRoles.size
+      selectedCount: selectedRoles.size,
     },
     {
-      id: 'skills' as Category,
+      id: 'skills',
       icon: Award,
-      title: 'Lägg till kompetenser & färdigheter',
-      color: 'from-purple-600 to-pink-600',
+      title: 'Kompetenser & färdigheter',
       count: safeData.skills.length,
-      selectedCount: selectedSkills.size
+      selectedCount: selectedSkills.size,
     },
     {
-      id: 'general' as Category,
+      id: 'general',
       icon: Target,
       title: 'Automatiska förbättringar',
-      color: 'from-green-600 to-emerald-600',
       count: safeData.general.length,
-      selectedCount: safeData.general.length // All are automatically applied
-    }
+      selectedCount: safeData.general.length,
+    },
   ];
 
   const totalSelected =
-    (selectedProfile ? 1 : 0) +
-    selectedRoles.size +
-    selectedSkills.size;
-    // general improvements are automatically applied, not selected
-
+    (selectedProfile ? 1 : 0) + selectedRoles.size + selectedSkills.size;
   const totalAvailable =
-    (safeData.hasProfile ? 1 : 0) +
-    safeData.roles.length +
-    safeData.skills.length;
-    // general improvements are shown separately as auto-applied
-
+    (safeData.hasProfile ? 1 : 0) + safeData.roles.length + safeData.skills.length;
   const atsIncrease = Math.round(dynamicPotentialScore - currentAtsScore);
 
   return (
-    <div className="space-y-6">
-      {/* Header with total */}
-      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-xl p-6">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Välj förbättringar
-        </h3>
-        <p className="text-gray-700 mb-4">
-          Granska och välj vilka förbättringar du vill implementera i ditt CV
-        </p>
-        <div className="flex items-center gap-2">
-          <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            {totalSelected}
-          </div>
-          <div className="text-gray-600">
-            av {totalAvailable} förbättringar valda
-          </div>
-        </div>
-      </div>
-
-      {/* Sticky ATS Potential Card (non-sticky on mobile) */}
+    <div className="space-y-5">
+      {/* Sticky potential-bar */}
       {currentAtsScore > 0 && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:sticky md:top-4"
+          className="md:sticky md:top-16 z-20"
         >
-          <Card className="bg-gradient-to-r from-blue-600 to-cyan-600 border-0 shadow-lg">
-            <div className="p-3 md:p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h5 className="text-sm font-medium text-white/90">
-                      Potential med dina val
-                    </h5>
-                    <p className="text-xs text-white/70">
-                      {totalSelected} förbättring{totalSelected !== 1 ? 'ar' : ''} vald{totalSelected !== 1 ? 'a' : ''}
-                    </p>
-                  </div>
+          <div
+            className="rounded-2xl p-4 sm:p-5 text-white"
+            style={{
+              background:
+                'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+              boxShadow: '0 12px 28px -12px rgba(220, 38, 38, 0.45)',
+            }}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5" strokeWidth={2.25} />
                 </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="text-right">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold text-white">
-                        {currentAtsScore}
-                      </span>
-                      <span className="text-white/70">→</span>
-                      <span className="text-2xl font-bold text-white">
-                        {Math.round(dynamicPotentialScore)}
-                      </span>
-                    </div>
-                    <p className="text-xs text-white/70 mt-0.5">
-                      {atsIncrease > 0 ? (
-                        <span className="text-green-200 font-semibold">
-                          +{atsIncrease} poäng
-                        </span>
-                      ) : (
-                        <span className="text-white/50">
-                          Välj förbättringar
-                        </span>
-                      )}
-                    </p>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] opacity-80">
+                    Potential med dina val
+                  </div>
+                  <div className="text-xs opacity-80 mt-0.5">
+                    {totalSelected} av {totalAvailable} valda
                   </div>
                 </div>
               </div>
+              <div className="text-right flex-shrink-0">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-xl sm:text-2xl font-bold tabular-nums">
+                    {currentAtsScore}
+                  </span>
+                  <span className="opacity-70">→</span>
+                  <span className="text-xl sm:text-2xl font-bold tabular-nums">
+                    {Math.round(dynamicPotentialScore)}
+                  </span>
+                </div>
+                <div className="text-[11px] mt-0.5">
+                  {atsIncrease > 0 ? (
+                    <span className="font-semibold text-emerald-200">+{atsIncrease} poäng</span>
+                  ) : (
+                    <span className="opacity-80">Välj förbättringar</span>
+                  )}
+                </div>
+              </div>
             </div>
-          </Card>
+          </div>
         </motion.div>
       )}
 
-      {/* Categories */}
-      <div className="space-y-4">
+      {/* Kategorier */}
+      <div className="space-y-3">
         {categories.map((category) => {
           if (category.count === 0) return null;
-
           const isExpanded = expandedCategories.has(category.id);
-          const allSelected = category.selectedCount === category.count;
+          const allSelected =
+            category.id !== 'general' && category.selectedCount === category.count;
+          const isAuto = category.id === 'general';
 
           return (
-            <Card key={category.id} className="overflow-hidden">
-              {/* Category Header */}
+            <div
+              key={category.id}
+              className="bg-white rounded-2xl border border-orange-200/50 overflow-hidden"
+              style={{ boxShadow: '0 2px 8px -4px rgba(15, 23, 42, 0.06)' }}
+            >
               <button
+                type="button"
                 onClick={() => toggleCategory(category.id)}
-                className="w-full p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:bg-gray-50 transition-colors min-h-[60px] md:min-h-auto touch-manipulation"
+                className="w-full p-4 sm:p-5 flex items-center gap-3 sm:gap-4 hover:bg-orange-50/30 transition-colors text-left min-h-[68px]"
               >
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
-                  <category.icon className="w-6 h-6 text-white" />
+                <div
+                  className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
+                  style={{
+                    background: isAuto
+                      ? 'linear-gradient(135deg, #10B981, #059669)'
+                      : 'linear-gradient(135deg, #F97316, #DC2626)',
+                    boxShadow: isAuto
+                      ? '0 4px 12px -3px rgba(16, 185, 129, 0.35)'
+                      : '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
+                  }}
+                >
+                  <category.icon className="w-5 h-5" strokeWidth={2.25} />
                 </div>
 
-                <div className="flex-1 text-left">
-                  <h4 className="font-semibold text-gray-900 mb-1">
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-bold text-slate-900 text-sm sm:text-base">
                     {category.title}
                   </h4>
-                  <p className="text-sm text-gray-600">
-                    {category.selectedCount} av {category.count} valda
+                  <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+                    {isAuto ? (
+                      <span className="text-emerald-700 font-semibold">
+                        {category.count} tillämpas automatiskt
+                      </span>
+                    ) : (
+                      <>
+                        {category.selectedCount} av {category.count} valda
+                      </>
+                    )}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  {category.count > 1 && category.id !== 'general' && (
-                    <Button
-                      variant="outline"
-                      size="sm"
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {category.count > 1 && !isAuto && (
+                    <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (allSelected) {
-                          deselectAllInCategory(category.id);
-                        } else {
-                          selectAllInCategory(category.id);
-                        }
+                        if (allSelected) deselectAllInCategory(category.id);
+                        else selectAllInCategory(category.id);
                       }}
-                      className="text-sm md:text-xs min-h-[44px] md:min-h-[36px] px-4 md:px-3 touch-manipulation"
+                      className="text-[11px] sm:text-xs font-semibold px-3 py-2 rounded-lg border border-orange-200 text-orange-700 bg-white hover:bg-orange-50 transition-colors min-h-[36px] hidden sm:inline-flex items-center gap-1.5"
                     >
                       {allSelected ? (
                         <>
-                          <Square className="w-3 h-3 mr-1" />
-                          Avmarkera alla
+                          <Square className="w-3 h-3" />
+                          Avmarkera
                         </>
                       ) : (
                         <>
-                          <CheckSquare className="w-3 h-3 mr-1" />
+                          <CheckSquare className="w-3 h-3" />
                           Välj alla
                         </>
                       )}
-                    </Button>
+                    </button>
                   )}
-
                   {isExpanded ? (
-                    <ChevronUp className="w-5 h-5 text-gray-400" />
+                    <ChevronUp className="w-5 h-5 text-slate-400" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-slate-400" />
                   )}
                 </div>
               </button>
 
-              {/* Category Content */}
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="px-6 pb-6 space-y-3"
-                >
-                  {category.id === 'profile' && profileSummary && (
-                    <ProfileSummaryCard
-                      currentText={profileSummary.currentText}
-                      improvedText={profileSummary.improvedText}
-                      changes={profileSummary.changes}
-                      atsImpact={profileSummary.atsImpact}
-                      selected={selectedProfile}
-                      onToggle={onToggleProfile}
-                      onEdit={onProfileEdit}
-                    />
-                  )}
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-4 sm:px-5 pb-5 space-y-3">
+                      {/* Mobil select-all */}
+                      {category.count > 1 && !isAuto && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (allSelected) deselectAllInCategory(category.id);
+                            else selectAllInCategory(category.id);
+                          }}
+                          className="sm:hidden w-full text-xs font-semibold px-3 py-2.5 rounded-lg border border-orange-200 text-orange-700 bg-white hover:bg-orange-50 transition-colors min-h-[40px] inline-flex items-center justify-center gap-1.5"
+                        >
+                          {allSelected ? (
+                            <>
+                              <Square className="w-3.5 h-3.5" />
+                              Avmarkera alla
+                            </>
+                          ) : (
+                            <>
+                              <CheckSquare className="w-3.5 h-3.5" />
+                              Välj alla
+                            </>
+                          )}
+                        </button>
+                      )}
 
-                  {category.id === 'roles' && safeData.roles.map((role, index) => (
-                    <div key={index} className="relative">
-                      <input
-                        type="checkbox"
-                        checked={selectedRoles.has(index)}
-                        onChange={() => onToggleRole(index)}
-                        className="absolute top-4 left-4 z-10 w-6 h-6 md:w-5 md:h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer touch-manipulation"
-                      />
-                      <div className="ml-8">
-                        <SectionCard
-                          sectionName={`${role.roleTitle} - ${role.company}`}
-                          sectionType="work_experience"
-                          period={role.period}
-                          priority={role.priority as any}
-                          currentText={role.currentText}
-                          suggestedText={role.suggestedText}
-                          improvements={role.improvements}
-                          atsImpact={role.atsImpact}
-                          onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
+                      {category.id === 'profile' && profileSummary && (
+                        <ProfileSummaryCard
+                          currentText={profileSummary.currentText}
+                          improvedText={profileSummary.improvedText}
+                          changes={profileSummary.changes}
+                          atsImpact={profileSummary.atsImpact}
+                          selected={selectedProfile}
+                          onToggle={onToggleProfile}
+                          onEdit={onProfileEdit}
                         />
-                      </div>
-                    </div>
-                  ))}
+                      )}
 
-                  {category.id === 'skills' && safeData.skills.map((skill, index) => (
-                    <SkillSuggestionCard
-                      key={index}
-                      suggestion={skill}
-                      selected={selectedSkills.has(index)}
-                      onToggle={() => onToggleSkill(index)}
-                    />
-                  ))}
-
-                  {category.id === 'general' && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                          <Target className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h5 className="font-semibold text-blue-900 mb-1">
-                            Automatiska förbättringar
-                          </h5>
-                          <p className="text-sm text-blue-700">
-                            Dessa förbättringar kommer automatiskt att tillämpas när du väljer en CV-mall i nästa steg.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        {safeData.general.map((improvement, index) => (
-                          <div key={index} className="flex items-start gap-2 bg-white rounded-lg p-3">
-                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <CheckSquare className="w-3 h-3 text-green-600" />
-                            </div>
-                            <div className="flex-1">
-                              <h6 className="font-medium text-gray-900 text-sm mb-0.5">
-                                {improvement.area || improvement.title || 'Förbättring'}
-                              </h6>
-                              <p className="text-xs text-gray-600">
-                                {improvement.suggestion || improvement.description || 'Ingen beskrivning tillgänglig'}
-                              </p>
-                              {(improvement.example || improvement.category) && (
-                                <p className="text-xs text-gray-500 italic mt-1">
-                                  {improvement.example ? `Exempel: ${improvement.example}` : `Kategori: ${improvement.category}`}
-                                </p>
-                              )}
+                      {category.id === 'roles' &&
+                        safeData.roles.map((role, index) => (
+                          <div key={index} className="relative">
+                            <input
+                              type="checkbox"
+                              checked={selectedRoles.has(index)}
+                              onChange={() => onToggleRole(index)}
+                              className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-slate-300 text-orange-600 focus:ring-orange-500 cursor-pointer accent-orange-600"
+                            />
+                            <div className="ml-9">
+                              <SectionCard
+                                sectionName={`${role.roleTitle} - ${role.company}`}
+                                sectionType="work_experience"
+                                period={role.period}
+                                priority={role.priority as any}
+                                currentText={role.currentText}
+                                suggestedText={role.suggestedText}
+                                improvements={role.improvements}
+                                atsImpact={role.atsImpact}
+                                onTextEdit={
+                                  onRoleTextEdit
+                                    ? (newText) => onRoleTextEdit(index, newText)
+                                    : undefined
+                                }
+                              />
                             </div>
                           </div>
                         ))}
-                      </div>
+
+                      {category.id === 'skills' &&
+                        safeData.skills.map((skill, index) => (
+                          <SkillSuggestionCard
+                            key={index}
+                            suggestion={skill}
+                            selected={selectedSkills.has(index)}
+                            onToggle={() => onToggleSkill(index)}
+                          />
+                        ))}
+
+                      {category.id === 'general' && (
+                        <div
+                          className="rounded-xl p-4"
+                          style={{
+                            background:
+                              'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.04) 100%)',
+                            border: '1px solid rgba(16, 185, 129, 0.2)',
+                          }}
+                        >
+                          <p className="text-sm text-emerald-900 mb-3 font-medium">
+                            Vi tillämpar dessa automatiskt när du går vidare. Du behöver inte göra något här.
+                          </p>
+
+                          <div className="space-y-2">
+                            {safeData.general.map((improvement, index) => (
+                              <div
+                                key={index}
+                                className="flex items-start gap-2.5 bg-white rounded-lg p-3 border border-emerald-100"
+                              >
+                                <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                                     style={{
+                                       background: 'linear-gradient(135deg, #10B981, #059669)',
+                                     }}>
+                                  <CheckSquare className="w-3 h-3 text-white" strokeWidth={2.5} />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <h6 className="font-semibold text-slate-900 text-sm">
+                                    {improvement.area || improvement.title || 'Förbättring'}
+                                  </h6>
+                                  <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+                                    {improvement.suggestion ||
+                                      improvement.description ||
+                                      'Ingen beskrivning tillgänglig'}
+                                  </p>
+                                  {(improvement.example || improvement.category) && (
+                                    <p className="text-xs text-slate-500 italic mt-1">
+                                      {improvement.example
+                                        ? `Exempel: ${improvement.example}`
+                                        : `Kategori: ${improvement.category}`}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </motion.div>
-              )}
-            </Card>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           );
         })}
       </div>
 
-      {/* Bottom Info */}
       {totalSelected === 0 && (
-        <div className="text-center py-4 text-gray-600">
-          Välj minst en förbättring för att fortsätta
+        <div className="text-center py-2">
+          <p className="text-sm text-slate-600">
+            Välj minst en förbättring för att fortsätta
+          </p>
         </div>
       )}
     </div>
