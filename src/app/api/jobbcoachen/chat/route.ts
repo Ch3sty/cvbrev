@@ -40,7 +40,36 @@ VAD DU INTE GÖR:
 - Avslutar inte alltid med "nästa steg". Bara när det är naturligt.
 - Ger ALDRIG juridisk rådgivning — hänvisa till Arbetsförmedlingen, fackförbund eller jurist.
 - Fråga ALDRIG efter personnummer eller känslig information.
-- Om frågan är utanför arbetsmarknads-domänen: säg artigt att du är specialiserad på karriärfrågor.`;
+- Om frågan är utanför arbetsmarknads-domänen: säg artigt att du är specialiserad på karriärfrågor.
+- Hälsa BARA i första svaret i en konversation. Om historik finns: hoppa rakt in i svaret utan "Hej!" eller "Hej igen!".`;
+
+function historyToOpenAIMessages(
+  history: Array<{ role: string; content: any }>
+): Array<{ role: 'user' | 'assistant'; content: string }> {
+  return history
+    .filter((m) => m.role === 'user' || m.role === 'assistant')
+    .map((m) => {
+      const c = m.content || {};
+      const text = typeof c === 'string' ? c : (c.text || '');
+
+      if (m.role === 'user' && Array.isArray(c.attachments) && c.attachments.length > 0) {
+        const attachmentBlock = c.attachments
+          .map((att: any, idx: number) =>
+            `[Dokument ${idx + 1}] ${att.file_name} (${(att.file_type || '').toUpperCase()}):\n${att.extracted_text || ''}`
+          )
+          .join('\n---\n');
+        return {
+          role: 'user' as const,
+          content: text
+            ? `${text}\n\n[Användaren delade följande dokument:]\n${attachmentBlock}`
+            : `[Användaren delade följande dokument:]\n${attachmentBlock}`,
+        };
+      }
+
+      return { role: m.role as 'user' | 'assistant', content: text };
+    })
+    .filter((m) => m.content.length > 0);
+}
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder();
@@ -87,6 +116,18 @@ export async function POST(req: NextRequest) {
       if (convError) throw convError;
       convId = conversation.id;
     }
+
+    // Ladda senaste 20 meddelandena FÖRE vi sparar det nya user-meddelandet,
+    // sa vi inte dubblerar det (en gang som historik, en gang som wrappad final).
+    const { data: historyRows } = await supabase
+      .from('ai_messages')
+      .select('role, content, created_at')
+      .eq('conversation_id', convId)
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    const history = (historyRows || []).reverse();
 
     // Save user message (with optional attachments)
     await supabase.from('ai_messages').insert({
@@ -165,6 +206,7 @@ Bransch: ${profile.industry || 'Ej angivet'}`
         role: 'system',
         content: SYSTEM_PROMPT,
       },
+      ...historyToOpenAIMessages(history),
       {
         role: 'user',
         content: `ANVÄNDARPROFIL:
