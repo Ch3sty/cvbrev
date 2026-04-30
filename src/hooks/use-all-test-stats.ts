@@ -46,14 +46,16 @@ const TEST_ENDPOINTS: Record<TestSlug, string> = {
   'numeriskt-test-v2': '/api/numericalTestV2/session',
 };
 
-// Antalet frågor per test (för procent-beräkning). Defaultar till 15.
+// Antalet poäng-bärande frågor per test (för procent-beräkning).
+// Verbalen har 12 passages × 4 statements = 48. Numeriska har 5 frågor.
+// Matrislogik har 15 frågor.
 const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
   'matrislogik-grund': 15,
   'matrislogik-avancerad': 15,
-  'verbal-resonemang': 15,
-  'verbal-resonemang-v2': 15,
-  'numeriskt-test': 15,
-  'numeriskt-test-v2': 15,
+  'verbal-resonemang': 48,
+  'verbal-resonemang-v2': 48,
+  'numeriskt-test': 5,
+  'numeriskt-test-v2': 5,
 };
 
 const EMPTY_STATS: PerTestStats = {
@@ -69,7 +71,11 @@ function summarizeSessions(sessions: SessionRow[], totalQuestions: number): PerT
   if (completed.length === 0) return EMPTY_STATS;
 
   const bestScore = Math.max(...completed.map((s) => s.score ?? 0));
-  const bestPercentage = Math.round((bestScore / totalQuestions) * 100);
+  // Clampa till 0-100 för att undvika konstiga värden vid datafel
+  const bestPercentage = Math.max(
+    0,
+    Math.min(100, Math.round((bestScore / totalQuestions) * 100))
+  );
   const totalTimeSeconds = completed.reduce((acc, s) => acc + (s.time_spent ?? 0), 0);
 
   const sortedByDate = [...completed].sort(

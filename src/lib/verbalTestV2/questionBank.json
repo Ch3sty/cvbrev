@@ -66,7 +66,7 @@
       },
       {
         "text": "Sverige har redan uppnått nettonollutsläpp.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       },
       {
         "text": "Förnybar energi är ofta billigare än fossila bränslen idag.",
@@ -116,7 +116,7 @@
       },
       {
         "text": "EU har redan implementerat fullständig lagstiftning för AI.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       },
       {
         "text": "Algoritmer kan förstärka samhälleliga fördomar.",
@@ -195,7 +195,7 @@
       },
       {
         "text": "Alla länder subventionerar gym som en del av sjukförsäkringen.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       }
     ]
   },
@@ -212,7 +212,7 @@
       },
       {
         "text": "Alla företag som säger sig arbeta med cirkulär ekonomi gör verkliga förändringar.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       },
       {
         "text": "EU har infört lagstiftning som kräver att produkter ska vara mer reparerbara.",
@@ -237,7 +237,7 @@
       },
       {
         "text": "Alla länder har höjt pensionsåldern som svar på demografiska utmaningar.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       },
       {
         "text": "Teknologi kan helt eliminera behovet av mänsklig vårdpersonal.",
@@ -295,7 +295,7 @@
       },
       {
         "text": "Alla länder har infört lagstiftning mot desinformation på sociala medier.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "false"
       }
     ]
   }
