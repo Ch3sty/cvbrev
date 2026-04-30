@@ -276,46 +276,41 @@ Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik
             }
           }
 
-          // Bygg källor: för varje citerad chunk, försök hitta första markdown-länken,
-          // annars fallback till chunk-metadata.
+          // Bygg källor: en post per citerad chunk, i samma ordning som AI:n
+          // citerade dem (1, 2, 3...). Behall AVEN chunks utan URL - de visas som
+          // icke-klickbara informativa rader i frontend istallet for att droppas.
           const sources: any[] = [];
-          const seenUrls = new Set<string>();
+          const seenKeys = new Set<string>();
 
           Array.from(citedIndices).sort((a, b) => a - b).forEach((idx) => {
             const chunk = contextChunks[idx];
             if (!chunk) return;
 
-            // Försök plocka första markdown-länken i chunk-innehållet
+            // Forsok plocka forsta markdown-lanken i chunk-innehallet
             const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/;
             const linkMatch = chunk.content?.match(linkRegex);
 
-            if (linkMatch) {
-              const url = linkMatch[2];
-              if (!seenUrls.has(url)) {
-                seenUrls.add(url);
-                sources.push({
-                  title: linkMatch[1],
-                  url,
-                  source_url: url,
-                  published_at: chunk.published_at,
-                  topic: chunk.topic,
-                });
-              }
-            } else if (chunk.source_url) {
-              // Fallback: bara om chunk har ett source_url
-              if (!seenUrls.has(chunk.source_url)) {
-                seenUrls.add(chunk.source_url);
-                sources.push({
-                  title: chunk.title || chunk.heading || 'Källa',
-                  url: chunk.source_url,
-                  heading: chunk.heading,
-                  source_url: chunk.source_url,
-                  storage_path: chunk.storage_path,
-                  published_at: chunk.published_at,
-                  topic: chunk.topic,
-                });
-              }
-            }
+            const inlineTitle = linkMatch ? linkMatch[1] : null;
+            const inlineUrl = linkMatch ? linkMatch[2] : null;
+
+            const url = inlineUrl || chunk.source_url || null;
+            const title = inlineTitle || chunk.title || chunk.heading || 'Källa';
+
+            // Dedup: anvand URL om vi har en, annars title (sa olika chunks med
+            // samma URL inte upprepas, men chunks utan URL fortfarande inkluderas).
+            const dedupKey = url || `title:${title}`;
+            if (seenKeys.has(dedupKey)) return;
+            seenKeys.add(dedupKey);
+
+            sources.push({
+              title,
+              ...(url && { url }),
+              heading: chunk.heading,
+              ...(chunk.source_url && { source_url: chunk.source_url }),
+              ...(chunk.storage_path && { storage_path: chunk.storage_path }),
+              published_at: chunk.published_at,
+              topic: chunk.topic,
+            });
           });
 
           // Send sources only if AI actually cited them

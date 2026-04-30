@@ -105,14 +105,20 @@ function renderWithCitations(
         }
         const n = parseInt(match[1], 10);
         const source = sources[n - 1];
-        parts.push(
-          <CitationBadge
-            key={`${keyPrefix}-cite-${i}`}
-            n={n}
-            source={source}
-            onClick={() => scrollToSource(n)}
-          />
-        );
+        // Bara rendera fotnot om kallan faktiskt finns - annars bevara
+        // ursprungstexten sa AI:n inte verkar ha hittat pa en kalla.
+        if (source) {
+          parts.push(
+            <CitationBadge
+              key={`${keyPrefix}-cite-${i}`}
+              n={n}
+              source={source}
+              onClick={() => scrollToSource(n)}
+            />
+          );
+        } else {
+          parts.push(match[0]);
+        }
         lastIndex = match.index + match[0].length;
         i++;
       }
@@ -362,19 +368,9 @@ export default function MessageBubble({
                   const title = source.title || source.heading || source.source_url || 'Dokument';
                   const url = source.url || source.source_url;
                   const isHighlighted = highlightedSourceIdx === idx;
-                  return (
-                    <a
-                      key={idx}
-                      id={`${baseId}-source-${idx}`}
-                      href={url || undefined}
-                      target={url ? '_blank' : undefined}
-                      rel={url ? 'noopener noreferrer' : undefined}
-                      className={`group flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all ${
-                        isHighlighted
-                          ? 'border-orange-400 bg-orange-50 ring-2 ring-orange-200'
-                          : 'border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/40'
-                      }`}
-                    >
+
+                  const inner = (
+                    <>
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-orange-100 text-orange-700 text-[10px] font-bold flex-shrink-0">
                         {idx + 1}
                       </span>
@@ -388,7 +384,37 @@ export default function MessageBubble({
                       {url && (
                         <ArrowUpRight className="w-3 h-3 text-slate-400 group-hover:text-orange-600 flex-shrink-0" strokeWidth={2.5} />
                       )}
-                    </a>
+                    </>
+                  );
+
+                  const baseClass = `group flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all ${
+                    isHighlighted
+                      ? 'border-orange-400 bg-orange-50 ring-2 ring-orange-200'
+                      : 'border-slate-200 bg-white'
+                  }`;
+
+                  if (url) {
+                    return (
+                      <a
+                        key={idx}
+                        id={`${baseId}-source-${idx}`}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${baseClass} hover:border-orange-300 hover:bg-orange-50/40`}
+                      >
+                        {inner}
+                      </a>
+                    );
+                  }
+                  return (
+                    <div
+                      key={idx}
+                      id={`${baseId}-source-${idx}`}
+                      className={baseClass}
+                    >
+                      {inner}
+                    </div>
                   );
                 })}
               </div>
