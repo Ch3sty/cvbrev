@@ -15,9 +15,9 @@ import {
   Trophy,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import questionBank from '@/lib/logicTestV4/questionBank.json';
-import type { Question } from '@/lib/logicTestV4/types.v4';
-import { SvgCellV4 } from '@/lib/logicTestV4/renderers.v4';
+import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
+import type { Question } from '@/lib/logicTestV5/types.v5';
+import { SvgCellV5 } from '@/lib/logicTestV5/renderers.v5';
 
 const questions = questionBank as Question[];
 
@@ -42,21 +42,21 @@ interface PageProps {
 
 // Kategorier för insights
 const QUESTION_CATEGORIES: Record<string, string> = {
-  'v4-q1-count-progression': 'Progressioner & sekvenser',
-  'v4-q2-simple-rotation': 'Rotation & spegling',
-  'v4-q3-alternating-fill': 'Mönster & attribut',
-  'v4-q4-size-progression': 'Progressioner & sekvenser',
-  'v4-q5-position-sequence': 'Progressioner & sekvenser',
-  'v4-q6-line-union': 'Set-operationer',
-  'v4-q7-attribute-grid': 'Mönster & attribut',
-  'v4-q8-endpoint-count': 'Progressioner & sekvenser',
-  'v4-q9-reflection': 'Rotation & spegling',
-  'v4-q10-exclusive-or': 'Set-operationer',
-  'v4-q11-shape-subtraction': 'Set-operationer',
-  'v4-q12-line-xor': 'Set-operationer',
-  'v4-q13-conditional': 'Mönster & attribut',
-  'v4-q14-sudoku': 'Mönster & attribut',
-  'v4-q15-element-addition': 'Progressioner & sekvenser',
+  'v5-q1-count-progression': 'Progressioner & sekvenser',
+  'v5-q2-shape-by-row': 'Mönster & attribut',
+  'v5-q3-size-progression': 'Progressioner & sekvenser',
+  'v5-q4-arrow-rotation': 'Rotation & spegling',
+  'v5-q5-checker-fill': 'Mönster & attribut',
+  'v5-q6-attribute-grid': 'Mönster & attribut',
+  'v5-q7-line-union': 'Set-operationer',
+  'v5-q8-rotation-fill': 'Rotation & spegling',
+  'v5-q9-addition': 'Progressioner & sekvenser',
+  'v5-q10-subtract': 'Set-operationer',
+  'v5-q11-mirror': 'Rotation & spegling',
+  'v5-q12-latin-square': 'Mönster & attribut',
+  'v5-q13-line-xor': 'Set-operationer',
+  'v5-q14-rotation-grid': 'Rotation & spegling',
+  'v5-q15-corner-walk': 'Progressioner & sekvenser',
 };
 
 export default function ResultsPage({ params }: PageProps) {
@@ -147,15 +147,22 @@ export default function ResultsPage({ params }: PageProps) {
       })
     : '';
 
-  // Insights: kategorier
+  // Detektera om sessionen är från gamla v4-banken (q_id-prefix matchar inte v5)
+  const isLegacySession =
+    savedAnswers.length > 0 &&
+    !savedAnswers.some((a) => questions.find((q) => q.id === a.q_id));
+
+  // Insights: kategorier — bara för v5-sessioner
   const categoryStats: Record<string, { correct: number; total: number }> = {};
-  questions.forEach((q) => {
-    const cat = QUESTION_CATEGORIES[q.id] || 'Övrigt';
-    if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, total: 0 };
-    categoryStats[cat].total += 1;
-    const ans = savedAnswers.find((a) => a.q_id === q.id);
-    if (ans?.correct) categoryStats[cat].correct += 1;
-  });
+  if (!isLegacySession) {
+    questions.forEach((q) => {
+      const cat = QUESTION_CATEGORIES[q.id] || 'Övrigt';
+      if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, total: 0 };
+      categoryStats[cat].total += 1;
+      const ans = savedAnswers.find((a) => a.q_id === q.id);
+      if (ans?.correct) categoryStats[cat].correct += 1;
+    });
+  }
 
   const strengths = Object.entries(categoryStats).filter(
     ([, s]) => s.correct === s.total && s.total > 0
@@ -185,13 +192,17 @@ export default function ResultsPage({ params }: PageProps) {
           formatTime={formatTime}
         />
 
-        {/* Insights */}
-        {(strengths.length > 0 || weaknesses.length > 0) && (
+        {/* Legacy-banner */}
+        {isLegacySession && <LegacySessionNotice />}
+
+        {/* Insights & per-fråga-genomgång — bara för v5-sessioner */}
+        {!isLegacySession && (strengths.length > 0 || weaknesses.length > 0) && (
           <InsightsCard strengths={strengths} weaknesses={weaknesses} />
         )}
 
-        {/* Per-fråga-genomgång */}
-        <QuestionReview answers={savedAnswers} formatTimeShort={formatTimeShort} />
+        {!isLegacySession && (
+          <QuestionReview answers={savedAnswers} formatTimeShort={formatTimeShort} />
+        )}
 
         {/* Action buttons */}
         <ResultsActions onRestart={() => router.push('/dashboard/tester/matrislogik-grund')} />
@@ -307,6 +318,42 @@ function StatsRow({
           label="Per fråga"
           value={`${avgPerQuestion}s`}
         />
+      </div>
+    </motion.section>
+  );
+}
+
+/* ----------- Legacy session notice ----------- */
+
+function LegacySessionNotice() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.08 }}
+      className="bg-white rounded-3xl border border-amber-200/70 p-4 sm:p-5"
+      style={{ boxShadow: '0 4px 16px -8px rgba(245, 158, 11, 0.18)' }}
+    >
+      <div className="flex items-start gap-3">
+        <div
+          className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-white"
+          style={{
+            background: 'linear-gradient(135deg, #F59E0B, #F97316)',
+            boxShadow: '0 4px 10px -3px rgba(245, 158, 11, 0.4)',
+          }}
+        >
+          <TrendingUp className="w-4 h-4" strokeWidth={2.5} />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-sm font-bold text-slate-900 leading-tight">
+            Detta resultat är från en tidigare version av testet
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+            Vi har förbättrat frågebanken sedan den här sessionen gjordes.
+            Genomgång per fråga är inte tillgänglig — gör om testet för full
+            återkoppling.
+          </p>
+        </div>
       </div>
     </motion.section>
   );
@@ -577,7 +624,7 @@ function ReviewOption({
       </div>
       <div className="aspect-square w-full max-w-[80px] mx-auto bg-white rounded-lg border border-white p-2">
         <svg viewBox="0 0 100 100" className="w-full h-full" shapeRendering="geometricPrecision">
-          <SvgCellV4 cell={cell} />
+          <SvgCellV5 cell={cell} />
         </svg>
       </div>
     </div>

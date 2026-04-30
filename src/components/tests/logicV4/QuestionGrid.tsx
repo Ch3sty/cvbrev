@@ -1,22 +1,19 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import type { Cell } from '@/lib/logicTestV4/types.v4';
-import { SvgCellV4 } from '@/lib/logicTestV4/renderers.v4';
+import type { V5Cell } from '@/lib/logicTestV5/types.v5';
+import { SvgCellV5 } from '@/lib/logicTestV5/renderers.v5';
 
 interface QuestionGridProps {
-  grid: (Cell | null)[][];
-  showGrid?: boolean;
+  grid: (V5Cell | null)[][];
 }
 
-const Grid = () => (
-  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#ddd" strokeWidth="1" />
-);
-
-export function QuestionGrid({ grid, showGrid = false }: QuestionGridProps) {
+export function QuestionGrid({ grid }: QuestionGridProps) {
   return (
-    <div className="bg-white rounded-3xl border border-orange-200/60 p-3 sm:p-5 max-w-md mx-auto"
-         style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}>
+    <div
+      className="bg-white rounded-3xl border border-orange-200/60 p-3 sm:p-5 max-w-md mx-auto"
+      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+    >
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {grid.flat().map((cell, i) => (
           <motion.div
@@ -33,8 +30,7 @@ export function QuestionGrid({ grid, showGrid = false }: QuestionGridProps) {
                   className="w-full h-full p-1.5 sm:p-2"
                   shapeRendering="geometricPrecision"
                 >
-                  {showGrid && <Grid />}
-                  <SvgCellV4 cell={cell} />
+                  <SvgCellV5 cell={cell} />
                 </svg>
               </div>
             ) : (
@@ -57,7 +53,6 @@ function EmptyCell() {
         border: '2px dashed rgba(249, 115, 22, 0.45)',
       }}
     >
-      {/* Pulserande ring */}
       <motion.div
         className="absolute inset-1 rounded-lg"
         style={{ border: '2px solid rgba(249, 115, 22, 0.5)' }}

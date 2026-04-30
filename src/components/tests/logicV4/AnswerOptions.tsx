@@ -2,26 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import type { Cell } from '@/lib/logicTestV4/types.v4';
-import { SvgCellV4 } from '@/lib/logicTestV4/renderers.v4';
+import type { V5Cell } from '@/lib/logicTestV5/types.v5';
+import { SvgCellV5 } from '@/lib/logicTestV5/renderers.v5';
 
 interface AnswerOptionsProps {
-  options: Cell[];
+  options: V5Cell[];
   selectedIndex: number | null;
   onSelect: (index: number) => void;
-  showGrid?: boolean;
   disabled?: boolean;
 }
-
-const Grid = () => (
-  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#ddd" strokeWidth="1" />
-);
 
 export function AnswerOptions({
   options,
   selectedIndex,
   onSelect,
-  showGrid = false,
   disabled = false,
 }: AnswerOptionsProps) {
   return (
@@ -57,7 +51,6 @@ export function AnswerOptions({
             aria-label={`Svarsalternativ ${letter}`}
             aria-pressed={isSelected}
           >
-            {/* Letter badge */}
             <div
               className={cn(
                 'absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shadow-sm z-10 transition-colors',
@@ -77,19 +70,16 @@ export function AnswerOptions({
               {letter}
             </div>
 
-            {/* SVG content */}
             <div className="w-full h-full p-3 sm:p-3.5 flex items-center justify-center">
               <svg
                 viewBox="0 0 100 100"
                 className="w-full h-full"
                 shapeRendering="geometricPrecision"
               >
-                {showGrid && <Grid />}
-                <SvgCellV4 cell={option} />
+                <SvgCellV5 cell={option} />
               </svg>
             </div>
 
-            {/* Selected glow overlay */}
             {isSelected && (
               <motion.div
                 initial={{ opacity: 0 }}

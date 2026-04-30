@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import questionBank from '@/lib/logicTestV4/questionBank.json';
+import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
 
 export async function POST(request: Request) {
   try {

@@ -8,8 +8,8 @@ import { QuestionGrid } from '@/components/tests/logicV4/QuestionGrid';
 import { AnswerOptions } from '@/components/tests/logicV4/AnswerOptions';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
-import questionBank from '@/lib/logicTestV4/questionBank.json';
-import type { Question } from '@/lib/logicTestV4/types.v4';
+import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
+import type { Question } from '@/lib/logicTestV5/types.v5';
 
 const questions = questionBank as Question[];
 
@@ -184,7 +184,7 @@ export default function TestSessionPage({ params }: PageProps) {
               />
 
               {/* 3×3 Matris */}
-              <QuestionGrid grid={question.grid} showGrid={question.showGrid} />
+              <QuestionGrid grid={question.grid} />
 
               {/* Svarsalternativ */}
               <div>
@@ -195,7 +195,6 @@ export default function TestSessionPage({ params }: PageProps) {
                   options={question.options}
                   selectedIndex={answers[currentQuestion]}
                   onSelect={handleSelectAnswer}
-                  showGrid={question.showGrid}
                   disabled={isSaving}
                 />
               </div>
