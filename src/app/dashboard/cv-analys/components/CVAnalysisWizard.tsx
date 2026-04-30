@@ -869,12 +869,100 @@ export default function CVAnalysisWizard({
           selectedRoles.size +
           selectedSkills.size +
           selectedGeneral.size;
+
+        // Bygg en strukturerad change-log direkt från analysisResult + selections.
+        const changeLog = analysisResult
+          ? {
+              profile:
+                selectedProfile && analysisResult.profileSummary
+                  ? {
+                      currentText: analysisResult.profileSummary.currentText || '',
+                      improvedText:
+                        editedProfileText ||
+                        analysisResult.profileSummary.improvedText ||
+                        '',
+                      atsImpact:
+                        analysisResult.profileSummary.atsImpact || 0,
+                      changes: Array.isArray(
+                        analysisResult.profileSummary.changes
+                      )
+                        ? analysisResult.profileSummary.changes
+                        : [],
+                    }
+                  : undefined,
+              roles:
+                analysisResult.roleBasedImprovements && selectedRoles.size > 0
+                  ? Array.from(selectedRoles)
+                      .sort((a, b) => a - b)
+                      .map((idx: number) => {
+                        const r = analysisResult.roleBasedImprovements[idx];
+                        return {
+                          index: idx,
+                          roleTitle: r?.roleTitle || `Roll ${idx + 1}`,
+                          company: r?.company || '',
+                          period: r?.period || '',
+                          currentText: r?.currentText || '',
+                          improvedText:
+                            editedRoleTexts.get(idx) || r?.suggestedText || '',
+                          keywordsAdded: Array.isArray(r?.improvements?.keywords)
+                            ? r.improvements.keywords.length
+                            : 0,
+                          quantified: !r?.improvements?.hasQuantification,
+                          atsImpact: r?.atsImpact || 0,
+                        };
+                      })
+                  : [],
+              skills:
+                analysisResult.skillSuggestions && selectedSkills.size > 0
+                  ? {
+                      items: Array.from(selectedSkills)
+                        .sort((a, b) => a - b)
+                        .map((idx: number) => {
+                          const s = analysisResult.skillSuggestions[idx];
+                          return {
+                            skill: s?.skill || '',
+                            relevance: (s?.relevance ||
+                              'medium') as 'high' | 'medium' | 'low',
+                          };
+                        })
+                        .filter((s) => s.skill),
+                      atsImpact: Array.from(selectedSkills).reduce(
+                        (sum: number, idx: number) => {
+                          const s = analysisResult.skillSuggestions[idx];
+                          if (s?.atsImpact) return sum + s.atsImpact;
+                          if (s?.relevance === 'high') return sum + 3;
+                          if (s?.relevance === 'medium') return sum + 2;
+                          return sum + 1;
+                        },
+                        0
+                      ),
+                    }
+                  : undefined,
+              general:
+                analysisResult.generalImprovements &&
+                analysisResult.generalImprovements.length > 0
+                  ? {
+                      bullets: analysisResult.generalImprovements.map(
+                        (g: any) =>
+                          g?.area ||
+                          g?.title ||
+                          g?.suggestion ||
+                          g?.description ||
+                          'Förbättring'
+                      ),
+                    }
+                  : undefined,
+            }
+          : undefined;
+
         return (
           <PreviewComparisonStep
             originalCV={originalCV}
             improvedCV={improvedCV}
             improvementsCount={selectedImprovementsCount}
-            atsImprovement={selectedImprovementsCount * 2}
+            atsImprovement={Math.round(dynamicPotentialScore - (analysisResult?.atsFriendliness?.score || 0))}
+            changeLog={changeLog}
+            thumbnailSeed={currentAnalysisId || selectedCV || 'cv'}
           />
         );
       }

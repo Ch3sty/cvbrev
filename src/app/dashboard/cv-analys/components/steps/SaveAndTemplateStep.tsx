@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Save, Download, Lightbulb, Check } from 'lucide-react';
-import CVQuotaManager from '../CVQuotaManager';
+import { motion, AnimatePresence } from 'framer-motion';
 import TemplateSelector from '../TemplateSelector';
-import TemplateOptions from '../TemplateOptions';
+import TemplateInlineOptions from '../save/TemplateInlineOptions';
+import SaveActionSegments, { type SaveChoice } from '../save/SaveActionSegments';
+import CvFilenameInput from '../save/CvFilenameInput';
+import QuotaWarningBanner from '../save/QuotaWarningBanner';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 import { useCvQuota } from '@/hooks/useCvQuota';
 import { getTemplateById } from '@/lib/cv/simple-templates';
@@ -12,48 +14,14 @@ import { useProfile } from '@/hooks/use-profile';
 
 interface SaveAndTemplateStepProps {
   improvedCV: string;
-  saveChoice: 'save-and-download' | 'download' | 'save' | null;
-  onChoiceChange: (choice: 'save-and-download' | 'download' | 'save') => void;
+  saveChoice: SaveChoice | null;
+  onChoiceChange: (choice: SaveChoice) => void;
   selectedTemplate: string | null;
   onTemplateChange: (templateId: string | null) => void;
   customName: string;
   onNameChange: (name: string) => void;
   isSaving: boolean;
 }
-
-type ChoiceOption = {
-  id: 'save-and-download' | 'download' | 'save';
-  title: string;
-  description: string;
-  iconA: typeof Save;
-  iconB?: typeof Download;
-  needsQuota: boolean;
-};
-
-const CHOICES: ChoiceOption[] = [
-  {
-    id: 'save-and-download',
-    title: 'Spara på Jobbcoach.ai & ladda ned',
-    description: 'Spara i ditt CV-bibliotek och ladda ned PDF samtidigt.',
-    iconA: Save,
-    iconB: Download,
-    needsQuota: true,
-  },
-  {
-    id: 'download',
-    title: 'Ladda ned CV',
-    description: 'Ladda ned PDF utan att spara i biblioteket. Du kan ladda upp det senare.',
-    iconA: Download,
-    needsQuota: false,
-  },
-  {
-    id: 'save',
-    title: 'Spara CV på Jobbcoach.ai',
-    description: 'Spara i ditt CV-bibliotek utan nedladdning.',
-    iconA: Save,
-    needsQuota: true,
-  },
-];
 
 export default function SaveAndTemplateStep({
   saveChoice,
@@ -67,7 +35,6 @@ export default function SaveAndTemplateStep({
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
   const { profile } = useProfile();
   const [quotaRefreshKey, setQuotaRefreshKey] = useState(0);
-  const [showTips, setShowTips] = useState(false);
 
   const nameSuggestions = generateCVNameSuggestions();
   const selectedTemplateData = selectedTemplate
@@ -80,6 +47,8 @@ export default function SaveAndTemplateStep({
   };
 
   const handleQuotaRefresh = () => setQuotaRefreshKey((prev) => prev + 1);
+  const showFilenameInput =
+    saveChoice === 'save' || saveChoice === 'save-and-download';
 
   if (loading) {
     return (
@@ -90,176 +59,82 @@ export default function SaveAndTemplateStep({
     );
   }
 
-  const showNameInput = saveChoice === 'save' || saveChoice === 'save-and-download';
-
   return (
-    <div className="space-y-6">
-      {/* Spara-val */}
-      <div>
-        <h4 className="text-base font-bold text-slate-900 mb-3">
-          Vad vill du göra med ditt förbättrade CV?
-        </h4>
-
-        <div className="grid grid-cols-1 gap-3">
-          {CHOICES.map((choice) => {
-            const isSelected = saveChoice === choice.id;
-            const isDisabled = (choice.needsQuota && !canSave) || isSaving;
-
-            return (
-              <button
-                key={choice.id}
-                type="button"
-                onClick={() => !isDisabled && onChoiceChange(choice.id)}
-                disabled={isDisabled}
-                className={`relative w-full text-left rounded-2xl border-2 p-4 sm:p-5 transition-all min-h-[80px] focus:outline-none ${
-                  isSelected
-                    ? 'border-emerald-500 bg-emerald-50/40'
-                    : isDisabled
-                    ? 'border-slate-200 bg-slate-50/60 opacity-60 cursor-not-allowed'
-                    : 'border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/30'
-                }`}
-                style={{
-                  boxShadow: isSelected
-                    ? '0 0 0 4px rgba(16, 185, 129, 0.12), 0 8px 20px -8px rgba(16, 185, 129, 0.25)'
-                    : '0 1px 2px rgba(0, 0, 0, 0.04)',
-                }}
-                aria-pressed={isSelected}
-              >
-                <div className="flex items-start gap-3 sm:gap-4">
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
-                    style={{
-                      background: isSelected
-                        ? 'linear-gradient(135deg, #10B981, #059669)'
-                        : 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: isSelected
-                        ? '0 4px 12px -3px rgba(16, 185, 129, 0.4)'
-                        : '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
-                    }}
-                  >
-                    {choice.iconB ? (
-                      <div className="flex items-center gap-0.5">
-                        <choice.iconA className="w-3.5 h-3.5" strokeWidth={2.5} />
-                        <choice.iconB className="w-3.5 h-3.5" strokeWidth={2.5} />
-                      </div>
-                    ) : (
-                      <choice.iconA className="w-5 h-5" strokeWidth={2.25} />
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h5 className="font-bold text-slate-900 text-sm sm:text-base mb-1">
-                      {choice.title}
-                    </h5>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {choice.description}
-                    </p>
-                    {choice.needsQuota && (
-                      <p
-                        className={`text-xs mt-2 font-semibold ${
-                          canSave ? 'text-emerald-700' : 'text-red-600'
-                        }`}
-                      >
-                        {canSave ? (
-                          <>
-                            {cvCount}/{maxCvs} platser använda
-                          </>
-                        ) : (
-                          <>
-                            Biblioteket är fullt ({cvCount}/{maxCvs})
-                          </>
-                        )}
-                      </p>
-                    )}
-                  </div>
-
-                  {isSelected && (
-                    <div
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{
-                        background: 'linear-gradient(135deg, #10B981, #059669)',
-                      }}
-                    >
-                      <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
-                    </div>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Namn-input */}
-      {showNameInput && (
-        <div className="bg-white rounded-2xl border border-orange-200/50 p-4 sm:p-5 space-y-3">
-          <label className="block">
-            <span className="text-sm font-semibold text-slate-900 mb-2 block">
-              Ge ditt CV ett namn
-            </span>
-            <input
-              type="text"
-              value={customName}
-              onChange={(e) => onNameChange(e.target.value)}
-              placeholder={nameSuggestions[0] || 'Mitt CV 2026'}
-              className="w-full px-4 py-3 text-base border border-slate-300 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 min-h-[48px]"
-            />
-          </label>
-
-          <button
-            type="button"
-            onClick={() => setShowTips(!showTips)}
-            className="w-full text-left flex items-center gap-2 text-sm text-slate-600 hover:text-orange-700 transition-colors py-1"
-          >
-            <Lightbulb className="w-4 h-4" />
-            <span className="font-semibold">Namnförslag</span>
-            <span className="ml-auto text-slate-400">{showTips ? '−' : '+'}</span>
-          </button>
-
-          {showTips && (
-            <div
-              className="p-3 rounded-xl text-xs text-orange-900 leading-relaxed"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.05) 100%)',
-                border: '1px solid rgba(249, 115, 22, 0.15)',
-              }}
-            >
-              <p className="font-semibold mb-1.5">Tips för beskrivande namn:</p>
-              <ul className="space-y-1 list-disc list-inside text-orange-800">
-                <li>Inkludera roll: &quot;Frontend Developer CV 2026&quot;</li>
-                <li>Inkludera bransch: &quot;Säljare - Detaljhandel&quot;</li>
-                <li>Lägg till månad för versionshantering</li>
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Quota manager om biblioteket fullt */}
-      {!canSave && showNameInput && (
-        <div className="bg-white rounded-2xl border border-red-200 p-4 sm:p-5">
-          <CVQuotaManager
-            key={quotaRefreshKey}
-            cvCount={cvCount}
-            maxCvs={maxCvs}
-            subscriptionTier={subscriptionTier}
-            onCVDeleted={handleQuotaRefresh}
-          />
-        </div>
-      )}
-
-      {/* Mall-väljare */}
-      <div className="bg-white rounded-2xl border border-orange-200/50 p-4 sm:p-5">
+    <div className="space-y-5">
+      {/* MALL ÖVERST - huvudfokus */}
+      <div
+        className="rounded-3xl bg-white overflow-hidden p-4 sm:p-5"
+        style={{
+          border: '1px solid rgba(249, 115, 22, 0.2)',
+          boxShadow: '0 8px 28px -16px rgba(249, 115, 22, 0.18)',
+        }}
+      >
         <TemplateSelector
           selectedTemplateId={selectedTemplate}
           onSelectTemplate={onTemplateChange}
           subscriptionTier={subscriptionTier as 'free' | 'premium'}
         />
+
+        {/* Inline-options under carousellen */}
+        {selectedTemplateData && (
+          <div className="mt-4 pt-4 border-t border-orange-200/40">
+            <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
+              <div className="min-w-0">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700">
+                  Vald mall
+                </div>
+                <div className="text-base font-bold text-slate-900 truncate">
+                  {selectedTemplateData.name}
+                </div>
+              </div>
+            </div>
+            <TemplateInlineOptions
+              template={selectedTemplateData}
+              userProfile={userProfile}
+            />
+          </div>
+        )}
       </div>
 
-      {/* Mall-options */}
-      <TemplateOptions template={selectedTemplateData} userProfile={userProfile} />
+      {/* Quota-warning om biblioteket fullt och man behöver det */}
+      {!canSave && showFilenameInput && (
+        <QuotaWarningBanner
+          key={quotaRefreshKey}
+          cvCount={cvCount}
+          maxCvs={maxCvs}
+          subscriptionTier={subscriptionTier as 'free' | 'premium'}
+          onCVDeleted={handleQuotaRefresh}
+        />
+      )}
+
+      {/* Spara-segments */}
+      <SaveActionSegments
+        value={saveChoice}
+        onChange={onChoiceChange}
+        canSave={canSave}
+        cvCount={cvCount}
+        maxCvs={maxCvs}
+        disabled={isSaving}
+      />
+
+      {/* Filnamn (om relevant) */}
+      <AnimatePresence>
+        {showFilenameInput && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <CvFilenameInput
+              value={customName}
+              onChange={onNameChange}
+              suggestions={nameSuggestions}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
