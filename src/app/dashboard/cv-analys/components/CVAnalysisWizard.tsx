@@ -118,6 +118,10 @@ export default function CVAnalysisWizard({
 
   const [dynamicPotentialScore, setDynamicPotentialScore] = useState(0);
 
+  // Steg 3: spårar vilka kategorier användaren har besökt och hur många som finns
+  const [visitedSelectCategories, setVisitedSelectCategories] = useState<Set<string>>(new Set());
+  const [visibleSelectCategories, setVisibleSelectCategories] = useState<string[]>([]);
+
   // Auto-välj första CV
   useEffect(() => {
     if (!selectedCV && cvs && cvs.length > 0) {
@@ -695,7 +699,10 @@ export default function CVAnalysisWizard({
         selectedRoles.size +
         selectedSkills.size +
         selectedGeneral.size;
-      return totalSelected > 0;
+      const allCategoriesVisited =
+        visibleSelectCategories.length > 0 &&
+        visibleSelectCategories.every((c) => visitedSelectCategories.has(c));
+      return totalSelected > 0 && allCategoriesVisited;
     }
     if (currentStep === 5) {
       return saveChoice !== null && selectedTemplate !== null;
@@ -859,6 +866,17 @@ export default function CVAnalysisWizard({
               setEditedRoleTexts(newMap);
             }}
             onProfileEdit={(newText) => setEditedProfileText(newText)}
+            onCategoryVisited={(id) => {
+              setVisitedSelectCategories((prev) => {
+                if (prev.has(id)) return prev;
+                const next = new Set(prev);
+                next.add(id);
+                return next;
+              });
+            }}
+            onVisibleCategoriesChange={(cats) => {
+              setVisibleSelectCategories(cats);
+            }}
           />
         );
       }
@@ -1043,40 +1061,110 @@ export default function CVAnalysisWizard({
           </AnimatePresence>
 
           {/* Navigation-knappar (dolda på Steg 1, 6 och under SaveProgress) */}
-          {currentStep !== 1 && currentStep !== 6 && !showSaveProgress && (
-            <div className="flex items-center justify-between gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handlePrevious}
-                disabled={currentStep === 0 || isSaving}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed hover:border-orange-300 hover:bg-orange-50/40 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
-                Tillbaka
-              </button>
+          {currentStep !== 1 && currentStep !== 6 && !showSaveProgress && (() => {
+            const canNext = canNavigateNext();
 
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={!canNavigateNext() || isSaving}
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                style={{
-                  background:
-                    canNavigateNext() && !isSaving
-                      ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                      : '#E2E8F0',
-                  boxShadow:
-                    canNavigateNext() && !isSaving
-                      ? '0 8px 20px -6px rgba(220, 38, 38, 0.45)'
-                      : 'none',
-                  color: canNavigateNext() && !isSaving ? 'white' : '#94A3B8',
-                }}
-              >
-                {currentStep === 5 ? 'Spara mitt CV' : 'Nästa'}
-                <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-              </button>
-            </div>
-          )}
+            // Steg 3-specifik logik
+            const totalVisible = visibleSelectCategories.length;
+            const totalVisited = visibleSelectCategories.filter((c) =>
+              visitedSelectCategories.has(c)
+            ).length;
+            const totalSelectedStep3 =
+              (selectedProfile ? 1 : 0) +
+              selectedRoles.size +
+              selectedSkills.size +
+              selectedGeneral.size;
+            const isStep3 = currentStep === 3;
+            const allVisited = isStep3 && totalVisible > 0 && totalVisited === totalVisible;
+            const remainingCategories = isStep3
+              ? Math.max(0, totalVisible - totalVisited)
+              : 0;
+
+            // Visa "Färdig, gå vidare"-läge när alla kategorier besökts + minst en vald
+            const finishedMode = isStep3 && allVisited && totalSelectedStep3 > 0;
+
+            // Hjälptext under knappen
+            let helperText: string | null = null;
+            if (isStep3 && !canNext && !isSaving) {
+              if (totalSelectedStep3 === 0) {
+                helperText = 'Välj minst en förbättring';
+              } else if (remainingCategories > 0) {
+                helperText = `Kolla resten först (${remainingCategories} av ${totalVisible} ${
+                  remainingCategories === 1 ? 'kategori kvar' : 'kategorier kvar'
+                })`;
+              }
+            }
+
+            const buttonLabel =
+              currentStep === 5
+                ? 'Spara mitt CV'
+                : finishedMode
+                ? 'Färdig, gå vidare'
+                : 'Nästa';
+
+            return (
+              <div className="pt-2">
+                <div className="flex items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={handlePrevious}
+                    disabled={currentStep === 0 || isSaving}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed hover:border-orange-300 hover:bg-orange-50/40 transition-colors"
+                  >
+                    <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
+                    Tillbaka
+                  </button>
+
+                  <motion.button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={!canNext || isSaving}
+                    className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                    style={{
+                      background:
+                        canNext && !isSaving
+                          ? 'linear-gradient(135deg, #F97316, #DC2626)'
+                          : '#E2E8F0',
+                      boxShadow:
+                        canNext && !isSaving
+                          ? '0 8px 20px -6px rgba(220, 38, 38, 0.45)'
+                          : 'none',
+                      color: canNext && !isSaving ? 'white' : '#94A3B8',
+                    }}
+                    animate={
+                      finishedMode && !isSaving
+                        ? { scale: [1, 1.04, 1] }
+                        : { scale: 1 }
+                    }
+                    transition={
+                      finishedMode && !isSaving
+                        ? {
+                            duration: 1.6,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }
+                        : { duration: 0.2 }
+                    }
+                  >
+                    {buttonLabel}
+                    <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+                  </motion.button>
+                </div>
+
+                {helperText && (
+                  <motion.p
+                    key={helperText}
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-right text-xs text-slate-500 mt-2 sm:mt-2.5 px-1"
+                  >
+                    {helperText}
+                  </motion.p>
+                )}
+              </div>
+            );
+          })()}
         </AnalysisFlowLayout>
       </div>
     </div>

@@ -38,6 +38,10 @@ interface SelectImprovementsStepProps {
   onDeselectAllGeneral?: () => void;
   onRoleTextEdit?: (index: number, newText: string) => void;
   onProfileEdit?: (newText: string) => void;
+  /** Callback när en kategori visas (för att markera som besökt i parent) */
+  onCategoryVisited?: (id: SelectCategory) => void;
+  /** Callback när listan av synliga kategorier ändras */
+  onVisibleCategoriesChange?: (categories: SelectCategory[]) => void;
 }
 
 function useSafeData(props: SelectImprovementsStepProps) {
@@ -129,6 +133,8 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     onDeselectAllSkills,
     onRoleTextEdit,
     onProfileEdit,
+    onCategoryVisited,
+    onVisibleCategoriesChange,
   } = props;
 
   const safeData = useSafeData(props);
@@ -151,6 +157,16 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       setActive(visibleCategories[0]);
     }
   }, [visibleCategories, active]);
+
+  // Notifiera parent när listan av synliga kategorier ändras
+  useEffect(() => {
+    onVisibleCategoriesChange?.(visibleCategories);
+  }, [visibleCategories, onVisibleCategoriesChange]);
+
+  // Notifiera parent när en kategori visas (markera som besökt)
+  useEffect(() => {
+    onCategoryVisited?.(active);
+  }, [active, onCategoryVisited]);
 
   const totalSelected =
     (selectedProfile ? 1 : 0) + selectedRoles.size + selectedSkills.size;

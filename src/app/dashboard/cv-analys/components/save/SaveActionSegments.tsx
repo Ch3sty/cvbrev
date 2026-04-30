@@ -26,14 +26,14 @@ const CHOICES: Array<{
   {
     id: 'save-and-download',
     label: 'Spara och ladda ned',
-    shortLabel: 'Spara + ned',
+    shortLabel: 'Spara och ladda ned',
     description: 'Vi sparar i ditt CV-bibliotek och laddar ned PDF samtidigt.',
     icon: SaveDownloadIcon,
     needsQuota: true,
   },
   {
     id: 'download',
-    label: 'Bara ladda ned',
+    label: 'Ladda ned',
     shortLabel: 'Ladda ned',
     description: 'Vi laddar ned en PDF utan att spara. Du kan ladda upp senare.',
     icon: DownloadCloudIcon,
@@ -41,8 +41,8 @@ const CHOICES: Array<{
   },
   {
     id: 'save',
-    label: 'Bara spara',
-    shortLabel: 'Spara',
+    label: 'Spara på Jobbcoach',
+    shortLabel: 'Spara på Jobbcoach',
     description: 'Vi sparar i ditt CV-bibliotek utan nedladdning.',
     icon: SaveCloudIcon,
     needsQuota: true,
