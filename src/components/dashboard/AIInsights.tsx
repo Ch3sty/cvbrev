@@ -65,7 +65,7 @@ export default function AIInsights({
         id: 'level-up',
         icon: <TrendingUp className="w-5 h-5" />,
         title: 'Nå nästa level',
-        description: `Du är på Level ${currentLevel}. Skapa ${5 - totalLetters} fler brev för att låsa upp nya funktioner och belöningar.`,
+        description: `Du är på Level ${currentLevel}. Skapa ${5 - totalLetters} fler personliga brev för att låsa upp nya funktioner och belöningar.`,
         action: 'Se belöningar',
         href: '/dashboard/rewards',
         color: 'from-purple-500 to-indigo-500',
@@ -93,7 +93,7 @@ export default function AIInsights({
         id: 'advanced-tips',
         icon: <Lightbulb className="w-5 h-5" />,
         title: 'Avancerade karriärtips',
-        description: 'Du har skapat flera brev! Utforska våra CV-mallar för att ytterligare förbättra din ansökningsprocess.',
+        description: 'Du har skapat flera personliga brev! Utforska våra CV-mallar för att ytterligare förbättra din ansökningsprocess.',
         action: 'Se CV-mallar',
         href: '/dashboard/cv-mallar',
         color: 'from-green-500 to-emerald-500',
@@ -210,7 +210,7 @@ export default function AIInsights({
             </div>
             <h4 className="font-medium text-slate-900 mb-2">Fler insikter kommer</h4>
             <p className="text-slate-600 text-sm mb-4">
-              Skapa fler brev för att få personaliserade karriärråd
+              Skapa fler personliga brev för att få personaliserade karriärråd
             </p>
             <Link
               href="/dashboard/skapa-brev"

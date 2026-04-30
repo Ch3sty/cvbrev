@@ -51,13 +51,13 @@ export default function UsageStats({
         />
         <StatItem
           icon={<PenLine className="w-4 h-4" strokeWidth={2.25} />}
-          label="Brev denna vecka"
+          label="Personliga brev denna vecka"
           value={`${weeklyLetterCount}`}
           sub="Obegränsat"
         />
         <StatItem
           icon={<Mail className="w-4 h-4" strokeWidth={2.25} />}
-          label="Sparade brev"
+          label="Sparade personliga brev"
           value={`${savedLettersCount}`}
           sub="Obegränsat"
         />

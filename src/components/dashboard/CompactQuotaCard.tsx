@@ -29,7 +29,7 @@ export default function CompactQuotaCard({
   }[] = [
     {
       icon: PenTool,
-      label: 'Brev',
+      label: 'Personliga brev',
       used: weeklyLetterCount,
       limit: 7,
       color: 'bg-pink-500',

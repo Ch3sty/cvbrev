@@ -27,8 +27,8 @@ interface Feature {
 const FEATURES: Feature[] = [
   {
     icon: PenLine,
-    title: 'Obegränsade brev',
-    description: 'Skriv ett vasst brev till varje annons utan att räkna.',
+    title: 'Obegränsade personliga brev',
+    description: 'Skriv ett vasst personligt brev till varje annons utan att räkna.',
     href: '/dashboard/skapa-brev',
   },
   {

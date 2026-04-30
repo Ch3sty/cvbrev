@@ -28,7 +28,7 @@ const FEATURES: FeatureNode[] = [
   {
     id: 'letter',
     title: 'Personliga brev',
-    body: 'Brev som matchar varje annons',
+    body: 'Personliga brev som matchar varje annons',
     cta: 'Skapa brev',
     href: '/dashboard/skapa-brev',
     icon: PenLine,
