@@ -181,58 +181,58 @@ export default function JobbcoachenPage() {
   const isWelcomeView = messages.length === 0;
 
   return (
-    <>
-      <JobbcoachenLayout>
-        {isWelcomeView ? (
-          <div className="min-h-[60vh] sm:min-h-[55vh] flex flex-col justify-center">
-            <WelcomeMessage
-              cvCount={cvCount}
-              letterCount={letterCount}
-              onOpenSelector={() => setShouldOpenDocSelector((v) => v + 1)}
-            />
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <ChatTrustStrip />
-            <div className="space-y-2">
-              {messages.map((message, idx) => (
-                <MessageBubble
-                  key={idx}
-                  role={message.role}
-                  content={message.content}
-                  sources={message.sources}
-                  attachments={message.attachments}
-                  isStreaming={
-                    isLoading &&
-                    idx === messages.length - 1 &&
-                    message.role === 'assistant'
-                  }
-                />
-              ))}
-              {isLoading &&
-                messages[messages.length - 1]?.role === 'user' && (
-                  <TypingIndicator />
-                )}
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700">
-                  {error}
-                </div>
+    <JobbcoachenLayout
+      inputArea={
+        <ChatInput
+          onSend={handleSendMessage}
+          disabled={isLoading}
+          placeholder="Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…"
+          conversationId={conversationId}
+          hasMessages={messages.length > 0}
+          externalOpenSignal={shouldOpenDocSelector}
+          suggestionChips={isWelcomeView ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
+        />
+      }
+    >
+      {isWelcomeView ? (
+        <div className="flex-1 flex flex-col justify-center">
+          <WelcomeMessage
+            cvCount={cvCount}
+            letterCount={letterCount}
+            onOpenSelector={() => setShouldOpenDocSelector((v) => v + 1)}
+          />
+        </div>
+      ) : (
+        <div className="space-y-4">
+          <ChatTrustStrip />
+          <div className="space-y-2">
+            {messages.map((message, idx) => (
+              <MessageBubble
+                key={idx}
+                role={message.role}
+                content={message.content}
+                sources={message.sources}
+                attachments={message.attachments}
+                isStreaming={
+                  isLoading &&
+                  idx === messages.length - 1 &&
+                  message.role === 'assistant'
+                }
+              />
+            ))}
+            {isLoading &&
+              messages[messages.length - 1]?.role === 'user' && (
+                <TypingIndicator />
               )}
-              <div ref={messagesEndRef} />
-            </div>
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
-        )}
-      </JobbcoachenLayout>
-
-      <ChatInput
-        onSend={handleSendMessage}
-        disabled={isLoading}
-        placeholder="Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…"
-        conversationId={conversationId}
-        hasMessages={messages.length > 0}
-        externalOpenSignal={shouldOpenDocSelector}
-        suggestionChips={isWelcomeView ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
-      />
-    </>
+        </div>
+      )}
+    </JobbcoachenLayout>
   );
 }

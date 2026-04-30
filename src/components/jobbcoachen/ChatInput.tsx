@@ -140,8 +140,8 @@ export default function ChatInput({
 
   return (
     <>
-      <div className="sticky bottom-0 bg-gradient-to-t from-white via-white to-white/0 px-4 pt-6 pb-3 sm:pb-4 z-10 pb-[calc(0.75rem+env(safe-area-inset-bottom)+72px)] lg:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
-        <div className="max-w-3xl mx-auto">
+      <div className="px-3 sm:px-6 pt-5 pb-3 sm:pb-4">
+        <div className="w-full">
           {/* Optional suggestion chips (rendered by parent on welcome view) */}
           {suggestionChips && (
             <div className="mb-3">
