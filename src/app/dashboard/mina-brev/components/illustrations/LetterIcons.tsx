@@ -117,6 +117,99 @@ export function LetterDocIcon({ className = 'w-10 h-10' }: IconProps) {
 }
 
 /**
+ * Pappers-thumbnail för kort i magazine-grid. Visualiserar ett brev med
+ * vit yta, orange topp-band, datum-block, brödtextlinjer i varierande
+ * längder (deterministiskt från seed) och en orange signatur-svängd-linje.
+ *
+ * `seed` används för att hash:a fram unika linje-längder så samma brev
+ * alltid ser likadant ut, men olika brev ser olika ut. Också används som
+ * suffix på gradient-IDs för att undvika DOM-kollisioner.
+ */
+interface PaperThumbnailProps {
+  seed?: string;
+  className?: string;
+}
+export function LetterPaperThumbnail({ seed = '', className = 'w-28 h-36' }: PaperThumbnailProps) {
+  const safeSeed = seed.replace(/[^a-zA-Z0-9_-]/g, '') || 'x';
+  const gradId = `lpt-bg-${safeSeed}`;
+  const accentId = `lpt-accent-${safeSeed}`;
+
+  // Hash seed → deterministiska linje-längder
+  const hash = seed.split('').reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
+  const lineLen = (i: number) => 38 + (Math.abs((hash >> (i % 8)) + i * 11) % 22); // 38–60 av 64
+
+  // Linje-positioner (skipping vid 56-58 för signatur-utrymme)
+  const lineYs = [22, 28, 34, 40, 46, 52, 60, 66, 72];
+
+  return (
+    <svg
+      viewBox="0 0 80 100"
+      fill="none"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="100%" stopColor="#FFF7ED" />
+        </linearGradient>
+        <linearGradient id={accentId} x1="0" y1="0" x2="80" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#F97316" />
+          <stop offset="100%" stopColor="#DC2626" />
+        </linearGradient>
+      </defs>
+
+      {/* Pappers-yta */}
+      <rect
+        x="2"
+        y="2"
+        width="76"
+        height="96"
+        rx="3"
+        fill={`url(#${gradId})`}
+        stroke="#FED7AA"
+        strokeWidth="0.6"
+      />
+
+      {/* Topp-band (orange/röd) */}
+      <rect x="2" y="2" width="76" height="4" rx="3" fill={`url(#${accentId})`} />
+
+      {/* Datum-block (kort orange linje) */}
+      <line x1="6" y1="14" x2="22" y2="14" stroke="#FB923C" strokeWidth="0.9" strokeLinecap="round" />
+
+      {/* Brödtext-linjer med varierande längd */}
+      {lineYs.map((y, i) => (
+        <line
+          key={i}
+          x1="6"
+          y1={y}
+          x2={6 + lineLen(i)}
+          y2={y}
+          stroke="#E2E8F0"
+          strokeWidth="0.7"
+          strokeLinecap="round"
+        />
+      ))}
+
+      {/* Tom rad ovanför signatur (visuell paus) */}
+
+      {/* Signatur-svängd linje längst ner */}
+      <path
+        d="M 6 84 q 4 -2.5 8 0 t 8 0"
+        stroke="#DC2626"
+        strokeWidth="0.9"
+        fill="none"
+        strokeLinecap="round"
+      />
+
+      {/* Litet "stamp"-element nederst höger för charm */}
+      <circle cx="68" cy="86" r="3" fill="none" stroke="#FB923C" strokeWidth="0.5" strokeOpacity="0.5" />
+    </svg>
+  );
+}
+
+/**
  * Empty-state-illustration: ett tomt brev som svävar med en penna intill,
  * antyder "skapa ditt första brev". Subtil och glad, inte sorgsen.
  */

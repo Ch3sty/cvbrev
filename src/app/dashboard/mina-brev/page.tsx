@@ -7,43 +7,12 @@ import { useProfile } from '@/hooks/use-profile';
 import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  FileText, Plus, Search, Calendar, TrendingUp, Target,
-  ArrowRight,
-} from 'lucide-react';
+import { Plus, Search, ArrowRight } from 'lucide-react';
 
 import Notification from '@/components/ui/notification';
 import LetterCard from './components/LetterCard';
+import CreateLetterFab from './components/CreateLetterFab';
 import { LetterStackOrb, EmptyLetterIllustration } from './components/illustrations/LetterIcons';
-
-interface StatPillProps {
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  value: string | number;
-  label: string;
-  accent: 'orange' | 'emerald' | 'amber' | 'slate';
-}
-
-const StatPill = ({ icon: Icon, value, label, accent }: StatPillProps) => {
-  const accentClasses = {
-    orange: 'bg-orange-50 text-orange-700 border-orange-200',
-    emerald: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    amber: 'bg-amber-50 text-amber-700 border-amber-200',
-    slate: 'bg-slate-50 text-slate-700 border-slate-200',
-  } as const;
-  return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-orange-200/50"
-      style={{ boxShadow: '0 4px 16px -10px rgba(249, 115, 22, 0.15)' }}
-    >
-      <div className={`w-9 h-9 rounded-xl flex items-center justify-center border ${accentClasses[accent]}`}>
-        <Icon className="w-4 h-4" strokeWidth={2.5} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-lg sm:text-xl font-bold text-slate-900 leading-none">{value}</div>
-        <div className="text-[11px] text-slate-500 mt-1 truncate">{label}</div>
-      </div>
-    </div>
-  );
-};
 
 export default function MinaBrevPage() {
   const router = useRouter();
@@ -91,7 +60,7 @@ export default function MinaBrevPage() {
   }, [letters, searchTerm]);
 
   const stats = useMemo(() => {
-    if (!letters) return { total: 0, thisMonth: 0, avgPerMonth: 0 };
+    if (!letters) return { total: 0, thisMonth: 0 };
     const thisMonth = letters.filter((letter) => {
       if (!letter.created_at) return false;
       const letterDate = new Date(letter.created_at);
@@ -101,11 +70,7 @@ export default function MinaBrevPage() {
         letterDate.getFullYear() === now.getFullYear()
       );
     }).length;
-    return {
-      total: letters.length,
-      thisMonth,
-      avgPerMonth: letters.length > 0 ? Math.round(letters.length / 3) : 0,
-    };
+    return { total: letters.length, thisMonth };
   }, [letters]);
 
   const handleView = (letterId: string) => {
@@ -154,8 +119,8 @@ export default function MinaBrevPage() {
         }}
       />
 
-      <div className="max-w-5xl mx-auto pb-16 space-y-6 sm:space-y-8">
-        {/* Hero */}
+      <div className="max-w-6xl mx-auto pb-16 space-y-6 sm:space-y-7">
+        {/* Hero med integrerad statistik-rad */}
         <motion.section
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -178,7 +143,35 @@ export default function MinaBrevPage() {
                 Hantera, redigera och ladda ned dina sparade ansökningsbrev.
               </p>
 
-              <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              {/* Kompakt stat-rad */}
+              {totalCount > 0 && (
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <span>
+                    <span className="font-bold text-slate-900">{stats.total}</span> totalt
+                  </span>
+                  <span className="text-slate-300">·</span>
+                  <span>
+                    <span className="font-bold text-slate-900">{stats.thisMonth}</span> denna
+                    månad
+                  </span>
+                  <span className="text-slate-300">·</span>
+                  <span>
+                    <span className="font-bold text-slate-900">
+                      {totalCount}/{limitDisplay}
+                    </span>{' '}
+                    utrymme
+                  </span>
+                  {hasReachedLetterLimit && (
+                    <>
+                      <span className="text-slate-300">·</span>
+                      <span className="text-amber-700 font-semibold">Fullt</span>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Skapa-knapp (desktop) */}
+              <div className="mt-4 hidden sm:flex">
                 <Link
                   href="/dashboard/skapa-brev"
                   className="group inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-white text-sm font-bold shadow-md hover:shadow-lg transition-all min-h-[44px]"
@@ -189,48 +182,28 @@ export default function MinaBrevPage() {
                 >
                   <Plus className="w-4 h-4" strokeWidth={2.5} />
                   Skapa nytt brev
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2.5} />
+                  <ArrowRight
+                    className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                    strokeWidth={2.5}
+                  />
                 </Link>
-                <span className="text-xs text-slate-500 sm:ml-1">
-                  {totalCount} av {limitDisplay} brev sparade
-                  {hasReachedLetterLimit && (
-                    <span className="ml-2 text-amber-700 font-semibold">· Fullt</span>
-                  )}
-                </span>
               </div>
             </div>
           </div>
         </motion.section>
-
-        {/* Stat-pillar (kompakt) */}
-        {totalCount > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-3"
-          >
-            <StatPill icon={FileText} value={stats.total} label="Totalt antal brev" accent="orange" />
-            <StatPill icon={Calendar} value={stats.thisMonth} label="Skapade denna månad" accent="emerald" />
-            <StatPill icon={TrendingUp} value={stats.avgPerMonth} label="Genomsnitt/månad" accent="amber" />
-            <StatPill
-              icon={Target}
-              value={`${totalCount}/${limitDisplay}`}
-              label={hasReachedLetterLimit ? 'Fullt brevutrymme' : 'Brevutrymme'}
-              accent="slate"
-            />
-          </motion.div>
-        )}
 
         {/* Sökfält */}
         {totalCount > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
             className="relative"
           >
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" strokeWidth={2.5} />
+            <Search
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
+              strokeWidth={2.5}
+            />
             <input
               type="text"
               placeholder="Sök på företag eller tjänst…"
@@ -241,20 +214,21 @@ export default function MinaBrevPage() {
           </motion.div>
         )}
 
-        {/* Lista */}
+        {/* Magazine-grid */}
         {isLoading ? (
-          <div className="space-y-3">
-            {[...Array(3)].map((_, i) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+            {[...Array(4)].map((_, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-orange-200/50 p-5 animate-pulse"
+                className="bg-white rounded-2xl border border-orange-200/50 overflow-hidden animate-pulse"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-orange-100/60 rounded-xl flex-shrink-0" />
-                  <div className="flex-1 space-y-2">
-                    <div className="h-4 bg-orange-100/60 rounded w-2/3" />
-                    <div className="h-3 bg-orange-100/40 rounded w-1/3" />
-                    <div className="h-3 bg-orange-100/30 rounded w-full mt-3" />
+                <div className="aspect-[16/10] bg-orange-50/60" />
+                <div className="p-5 space-y-2.5">
+                  <div className="h-4 bg-orange-100/60 rounded w-3/4" />
+                  <div className="h-3 bg-orange-100/40 rounded w-1/2" />
+                  <div className="flex gap-1.5 pt-1">
+                    <div className="h-5 w-16 bg-orange-100/40 rounded-full" />
+                    <div className="h-5 w-20 bg-orange-100/40 rounded-full" />
                   </div>
                 </div>
               </div>
@@ -286,7 +260,10 @@ export default function MinaBrevPage() {
             >
               <Plus className="w-4 h-4" strokeWidth={2.5} />
               Skapa ditt första brev
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2.5} />
+              <ArrowRight
+                className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                strokeWidth={2.5}
+              />
             </Link>
           </motion.div>
         ) : filteredLetters.length === 0 ? (
@@ -301,7 +278,7 @@ export default function MinaBrevPage() {
             </button>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
             {filteredLetters.map((letter, index) => (
               <motion.div
                 key={letter.id}
@@ -322,6 +299,9 @@ export default function MinaBrevPage() {
           </div>
         )}
       </div>
+
+      {/* Mobile FAB för "Skapa nytt brev" */}
+      <CreateLetterFab />
 
       {notification?.isVisible && (
         <Notification

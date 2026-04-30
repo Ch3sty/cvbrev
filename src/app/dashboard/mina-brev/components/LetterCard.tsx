@@ -3,13 +3,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Eye, Pencil, Trash2, Download, Calendar, MoreHorizontal,
-  RefreshCw, X, FileType, FileText
+  Eye, Pencil, Trash2, Download, MoreHorizontal,
+  RefreshCw, FileType, FileText,
 } from 'lucide-react';
 import * as Popover from '@radix-ui/react-popover';
-import { LetterDocIcon } from './illustrations/LetterIcons';
+import { LetterPaperThumbnail } from './illustrations/LetterIcons';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
-import { htmlToPlainText, createPreview } from '@/utils/helpers';
 
 interface LetterCardProps {
   letter: any;
@@ -19,18 +18,6 @@ interface LetterCardProps {
   onDownload: (id: string, format: 'pdf' | 'docx') => void;
   isDeleting: boolean;
 }
-
-const getCleanPreview = (content: string, maxLength = 140): string => {
-  if (!content) return '';
-  let cleaned = htmlToPlainText(content);
-  cleaned = cleaned.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
-  cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
-  cleaned = cleaned.replace(/^\d{1,2}[\s/.-]\w+[\s/.-]?\d{2,4}\s*/i, '');
-  cleaned = cleaned.replace(/\s+/g, ' ').trim();
-  const sentences = cleaned.split(/(?<=[.!?])\s+/);
-  const meaningfulSentence = sentences.find((s) => s.length > 30) || sentences[0] || cleaned;
-  return createPreview(meaningfulSentence, maxLength);
-};
 
 export default function LetterCard({
   letter,
@@ -59,175 +46,188 @@ export default function LetterCard({
     ? letter.tonality.charAt(0).toUpperCase() + letter.tonality.slice(1)
     : null;
 
-  const titleParts =
-    letter.company && letter.job_title
-      ? { primary: letter.company, secondary: letter.job_title }
-      : letter.company
-      ? { primary: letter.company, secondary: null }
-      : letter.job_title
-      ? { primary: letter.job_title, secondary: null }
-      : { primary: letter.title || 'Ansökningsbrev', secondary: null };
+  const primary = letter.company || letter.job_title || letter.title || 'Ansökningsbrev';
+  const secondary = letter.company && letter.job_title ? letter.job_title : null;
 
   return (
     <>
-      <motion.div
+      <motion.article
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -2 }}
-        className="group relative bg-white rounded-2xl border border-orange-200/50 transition-shadow"
-        style={{ boxShadow: '0 6px 24px -12px rgba(249, 115, 22, 0.12)' }}
+        whileHover={{ y: -4 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+        className="group relative bg-white rounded-2xl border border-orange-200/50 overflow-hidden cursor-pointer"
+        style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
       >
-        {/* Klickbar yta för "öppna brevet" — täcker hela kortet utom action-knappar */}
+        {/* Hela kortet är klickbart → visa-sidan. Ligger under z-stacken så
+            mer-meny och dess bottom sheet/popover fortfarande tar emot klick. */}
         <button
           type="button"
           onClick={() => onView(letter.id)}
-          className="absolute inset-0 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2"
-          aria-label={`Visa brev till ${titleParts.primary}`}
+          className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-orange-300/60 focus:ring-offset-2 rounded-2xl"
+          aria-label={`Visa brev till ${primary}`}
         />
 
-        <div className="relative p-4 sm:p-5 pointer-events-none">
-          <div className="flex items-start gap-3 sm:gap-4">
-            {/* Brev-ikon med orange/röd-DNA */}
-            <div className="flex-shrink-0">
-              <LetterDocIcon className="w-11 h-11 sm:w-12 sm:h-12" />
-            </div>
+        {/* TOP: thumbnail-yta med orange-tonad bakgrund och dot-pattern */}
+        <div className="relative aspect-[16/10] bg-gradient-to-br from-orange-50/80 via-white to-rose-50/60 overflow-hidden">
+          {/* Subtila bakgrundsprickar */}
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
+          >
+            <pattern
+              id={`lc-dots-${letter.id}`}
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="10" cy="10" r="0.8" fill="#FB923C" />
+            </pattern>
+            <rect width="100%" height="100%" fill={`url(#lc-dots-${letter.id})`} opacity="0.5" />
+          </svg>
 
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 leading-tight truncate">
-                    {titleParts.primary}
-                    {titleParts.secondary && (
-                      <>
-                        <span className="text-slate-300 mx-1.5 font-normal">·</span>
-                        <span className="text-slate-700 font-semibold">{titleParts.secondary}</span>
-                      </>
-                    )}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-[11px] text-slate-500">
-                    <span className="inline-flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {dateStr}
-                    </span>
-                    {tonalityDisplay && (
-                      <span className="text-slate-400">{tonalityDisplay}</span>
-                    )}
-                    {templateName && (
-                      <span className="text-slate-400">{templateName}</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Desktop: Actions inline */}
-                <div className="hidden lg:flex items-center gap-1.5 flex-shrink-0 pointer-events-auto">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onView(letter.id);
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-xs font-semibold shadow-sm hover:shadow-md transition-shadow"
-                    style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                  >
-                    <Eye className="w-3.5 h-3.5" strokeWidth={2.5} />
-                    Visa
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEdit(letter.id);
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 text-xs font-semibold transition-colors"
-                  >
-                    <Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />
-                    Redigera
-                  </button>
-
-                  <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
-                    <Popover.Trigger asChild>
-                      <button
-                        type="button"
-                        onClick={(e) => e.stopPropagation()}
-                        className="w-8 h-8 inline-flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 bg-white border border-slate-200 hover:border-slate-300 transition-colors"
-                        aria-label="Fler alternativ"
-                      >
-                        <MoreHorizontal className="w-3.5 h-3.5" strokeWidth={2.5} />
-                      </button>
-                    </Popover.Trigger>
-                    <Popover.Portal>
-                      <Popover.Content
-                        align="end"
-                        sideOffset={8}
-                        className="z-50 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onDownload(letter.id, 'pdf');
-                            setPopoverOpen(false);
-                          }}
-                          className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                        >
-                          <FileType className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                          Ladda ned PDF
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onDownload(letter.id, 'docx');
-                            setPopoverOpen(false);
-                          }}
-                          className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                        >
-                          <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
-                          Ladda ned Word
-                        </button>
-                        <div className="h-px bg-slate-100 my-1" />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onDelete(letter.id);
-                            setPopoverOpen(false);
-                          }}
-                          disabled={isDeleting}
-                          className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2.5 transition-colors disabled:opacity-50"
-                        >
-                          {isDeleting ? (
-                            <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.25} />
-                          ) : (
-                            <Trash2 className="w-4 h-4" strokeWidth={2.25} />
-                          )}
-                          Ta bort
-                        </button>
-                      </Popover.Content>
-                    </Popover.Portal>
-                  </Popover.Root>
-                </div>
-
-                {/* Mobile: meny-knapp */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowMobileSheet(true);
-                  }}
-                  className="lg:hidden flex-shrink-0 w-9 h-9 inline-flex items-center justify-center rounded-lg text-slate-600 hover:bg-slate-50 pointer-events-auto"
-                  aria-label="Fler alternativ"
-                >
-                  <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
-                </button>
-              </div>
-
-              {/* Preview-text */}
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2 mt-2">
-                {getCleanPreview(letter.content, 140)}
-              </p>
+          {/* Pappers-thumbnail roterad lite, rätar upp vid hover */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="transform transition-transform duration-500 ease-out group-hover:rotate-0 group-hover:scale-[1.04]"
+              style={{
+                transform: 'rotate(-3deg)',
+                filter: 'drop-shadow(0 10px 18px rgba(0, 0, 0, 0.10))',
+              }}
+            >
+              <LetterPaperThumbnail
+                seed={letter.id || primary}
+                className="w-24 h-32 sm:w-28 sm:h-36"
+              />
             </div>
           </div>
+
+          {/* Mer-meny: top-höger, ovanpå klickbara ytan */}
+          <div className="absolute top-3 right-3 z-20">
+            {/* Desktop: popover */}
+            <div className="hidden lg:block pointer-events-auto">
+              <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
+                <Popover.Trigger asChild>
+                  <button
+                    type="button"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-9 h-9 inline-flex items-center justify-center rounded-full text-slate-600 hover:text-slate-900 bg-white/95 backdrop-blur-sm border border-slate-200/80 hover:border-orange-300 shadow-sm hover:shadow-md transition-all"
+                    aria-label="Fler alternativ"
+                  >
+                    <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
+                  </button>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Content
+                    align="end"
+                    sideOffset={8}
+                    className="z-50 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onEdit(letter.id);
+                        setPopoverOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    >
+                      <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                      Redigera
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onDownload(letter.id, 'pdf');
+                        setPopoverOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    >
+                      <FileType className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                      Ladda ned PDF
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onDownload(letter.id, 'docx');
+                        setPopoverOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    >
+                      <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
+                      Ladda ned Word
+                    </button>
+                    <div className="h-px bg-slate-100 my-1" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onDelete(letter.id);
+                        setPopoverOpen(false);
+                      }}
+                      disabled={isDeleting}
+                      className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2.5 transition-colors disabled:opacity-50"
+                    >
+                      {isDeleting ? (
+                        <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.25} />
+                      ) : (
+                        <Trash2 className="w-4 h-4" strokeWidth={2.25} />
+                      )}
+                      Ta bort
+                    </button>
+                  </Popover.Content>
+                </Popover.Portal>
+              </Popover.Root>
+            </div>
+
+            {/* Mobile: trigger för bottom sheet */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMobileSheet(true);
+              }}
+              className="lg:hidden w-9 h-9 inline-flex items-center justify-center rounded-full text-slate-600 bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-sm pointer-events-auto"
+              aria-label="Fler alternativ"
+            >
+              <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
+            </button>
+          </div>
+
+          {/* Liten datum-badge i top-vänster */}
+          <div className="absolute top-3 left-3 z-20 pointer-events-none">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700 border border-orange-200/80 shadow-sm">
+              {dateStr}
+            </span>
+          </div>
         </div>
-      </motion.div>
+
+        {/* BOTTOM: metadata */}
+        <div className="relative p-4 sm:p-5 space-y-2">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight line-clamp-2">
+            {primary}
+          </h3>
+          {secondary && (
+            <p className="text-sm text-slate-600 line-clamp-1 -mt-1">{secondary}</p>
+          )}
+
+          {/* Taggar */}
+          {(tonalityDisplay || templateName) && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {tonalityDisplay && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-[11px] font-semibold">
+                  {tonalityDisplay}
+                </span>
+              )}
+              {templateName && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200 text-[11px] font-semibold">
+                  {templateName}
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </motion.article>
 
       {/* Mobile bottom sheet */}
       <AnimatePresence>
