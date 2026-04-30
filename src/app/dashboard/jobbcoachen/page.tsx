@@ -8,8 +8,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 
 import JobbcoachenLayout from './components/JobbcoachenLayout';
-import JobbcoachenHero from './components/JobbcoachenHero';
-import ShareDocumentsCard from './components/ShareDocumentsCard';
+import WelcomeMessage from './components/WelcomeMessage';
 import ChatTrustStrip from './components/ChatTrustStrip';
 import MiniSuggestionChips from './components/MiniSuggestionChips';
 
@@ -185,14 +184,13 @@ export default function JobbcoachenPage() {
     <>
       <JobbcoachenLayout>
         {isWelcomeView ? (
-          <>
-            <JobbcoachenHero />
-            <ShareDocumentsCard
+          <div className="min-h-[60vh] sm:min-h-[55vh] flex flex-col justify-center">
+            <WelcomeMessage
               cvCount={cvCount}
               letterCount={letterCount}
               onOpenSelector={() => setShouldOpenDocSelector((v) => v + 1)}
             />
-          </>
+          </div>
         ) : (
           <div className="space-y-4">
             <ChatTrustStrip />

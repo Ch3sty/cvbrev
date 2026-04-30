@@ -236,7 +236,7 @@ export default function ChatInput({
                   <div className="absolute -top-6 left-0 right-0 flex items-center justify-center">
                     <p className="text-[10px] text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 font-semibold">
                       <FileText className="w-2.5 h-2.5 inline mr-1" />
-                      {cvCount + letterCount} dokument redo att dela
+                      Just nu kan du dela {cvCount + letterCount} av dina dokument med oss
                     </p>
                   </div>
                 )}
