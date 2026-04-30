@@ -129,6 +129,62 @@ export default function CVAnalysisWizard({
     }
   }, [cvs, selectedCV]);
 
+  /**
+   * Splittar en skill-sträng på vanliga separatorer och städar varje del.
+   * Exempel: "Kunskaper-Säljteknik-Mötesbokning" → ["Kunskaper", "Säljteknik", "Mötesbokning"]
+   * Exempel: "Ledarskap 3/5 4/5 5/5" → ["Ledarskap"]
+   */
+  const splitSkillString = (raw: string): string[] => {
+    if (!raw || typeof raw !== 'string') return [];
+    // Splitta på separatorer som ofta klumpar ihop skills i CV:n
+    const parts = raw
+      .split(/\s*[-–—•|/;,]\s*|\s+(?:och|samt)\s+/i)
+      .map((s) => s.trim())
+      // Ta bort betygs-suffix typ "3/5", "4/5 5/5", "(grund)"
+      .map((s) => s.replace(/\s*\d+\/\d+(\s*\d+\/\d+)*\s*$/g, '').trim())
+      .map((s) => s.replace(/^\(.*\)|\(.*\)$/g, '').trim())
+      .filter((s) => s.length >= 2 && s.length <= 60);
+    return parts;
+  };
+
+  /**
+   * Normaliserar skills-listan i strukturerad CV-data: splittar bindestreckade skills,
+   * tar bort dubbletter och tomma värden. Returnerar en kopia.
+   */
+  const sanitizeStructuredCV = (structured: any): any => {
+    if (!structured) return structured;
+    const copy = JSON.parse(JSON.stringify(structured));
+    if (Array.isArray(copy.skills)) {
+      copy.skills = copy.skills
+        .map((category: any) => {
+          if (
+            category &&
+            typeof category === 'object' &&
+            Array.isArray(category.skills)
+          ) {
+            const flat = category.skills.flatMap((s: any) =>
+              typeof s === 'string' ? splitSkillString(s) : []
+            );
+            // Dedupe case-insensitive
+            const seen = new Set<string>();
+            const unique = flat.filter((s: string) => {
+              const k = s.toLowerCase();
+              if (seen.has(k)) return false;
+              seen.add(k);
+              return true;
+            });
+            return { ...category, skills: unique };
+          }
+          if (typeof category === 'string') {
+            return { category: 'Färdigheter', skills: splitSkillString(category) };
+          }
+          return category;
+        })
+        .filter((c: any) => c && Array.isArray(c.skills) && c.skills.length > 0);
+    }
+    return copy;
+  };
+
   const generatePreviewFromStructured = (structured: any) => {
     if (!structured) return '';
     const sections: string[] = [];
@@ -467,6 +523,11 @@ export default function CVAnalysisWizard({
               });
             }
           }
+
+          // Splitta bindestreckade skills och dedupe innan vi skickar till backend.
+          // CV-parsern lamnar ibland kvar klumpar som "Kunskaper-Saljteknik-Motesbokning..."
+          // som vi maste plocka isar for att mallarna ska kunna rendera dem som chips.
+          improvedStructuredCV = sanitizeStructuredCV(improvedStructuredCV);
         }
 
         const shouldSave = saveChoice === 'save-and-download' || saveChoice === 'save';
@@ -564,7 +625,7 @@ export default function CVAnalysisWizard({
           };
 
           if (improvedStructuredCV) requestBody.structuredData = improvedStructuredCV;
-          else if (structuredCV) requestBody.structuredData = structuredCV;
+          else if (structuredCV) requestBody.structuredData = sanitizeStructuredCV(structuredCV);
           else {
             const fixedCVText = improvedCV
               .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
