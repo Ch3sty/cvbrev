@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import {
   Briefcase, User, ArrowUpRight, FileText, Download,
   Building2, TrendingUp, Users, Shield, CheckCircle,
-  Clock, Copy, ThumbsUp, ThumbsDown
+  Copy, ThumbsUp, ThumbsDown
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import type { MessageAttachment } from '@/types/jobbcoachen';
-import { useState } from 'react';
+import { useState, useId, useCallback, ReactNode } from 'react';
 
 interface Source {
   // Extracted from markdown links
@@ -30,6 +30,105 @@ interface MessageBubbleProps {
   isStreaming?: boolean;
 }
 
+/** Identifierar källtyp baserat på titel/URL — påverkar färg och ikon. */
+function getSourceMeta(source: Source) {
+  const url = (source.url || source.source_url || '').toLowerCase();
+  const title = (source.title || source.heading || '').toLowerCase();
+
+  if (title.includes('arbetsförmedlingen') || url.includes('arbetsformedlingen') || url.includes('af.se')) {
+    return { type: 'Arbetsförmedlingen', icon: Building2, dotColor: 'bg-blue-500', textColor: 'text-blue-700' };
+  }
+  if (title.includes('scb') || url.includes('scb.se')) {
+    return { type: 'SCB', icon: TrendingUp, dotColor: 'bg-emerald-500', textColor: 'text-emerald-700' };
+  }
+  if (title.includes('unionen') || title.includes('facklig') || title.includes('a-kassa') ||
+      url.includes('unionen') || url.includes('lo.se') || url.includes('tco.se')) {
+    return { type: 'Fackförbund', icon: Users, dotColor: 'bg-purple-500', textColor: 'text-purple-700' };
+  }
+  if (title.includes('försäkringskassan') || url.includes('forsakringskassan.se')) {
+    return { type: 'Försäkringskassan', icon: Shield, dotColor: 'bg-orange-500', textColor: 'text-orange-700' };
+  }
+  if (title.includes('csn') || url.includes('csn.se')) {
+    return { type: 'CSN', icon: Building2, dotColor: 'bg-cyan-500', textColor: 'text-cyan-700' };
+  }
+  if (title.includes('skatteverket') || url.includes('skatteverket.se')) {
+    return { type: 'Skatteverket', icon: Building2, dotColor: 'bg-slate-500', textColor: 'text-slate-700' };
+  }
+  return { type: 'Karriärexpert', icon: Briefcase, dotColor: 'bg-indigo-500', textColor: 'text-indigo-700' };
+}
+
+/** Inline-fotnot som ersätter "(Källa N)" i AI-text. Klick scrollar och highlightar källkortet. */
+function CitationBadge({
+  n,
+  source,
+  onClick,
+}: {
+  n: number;
+  source?: Source;
+  onClick: () => void;
+}) {
+  const title = source?.title || source?.heading || `Källa ${n}`;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      className="inline-flex items-baseline align-baseline mx-0.5 px-1.5 rounded text-[11px] font-bold text-orange-700 bg-orange-100/80 hover:bg-orange-200 hover:text-orange-900 transition-colors leading-tight"
+      aria-label={`Källa ${n}: ${title}`}
+    >
+      <sup className="leading-none">
+        {n}
+      </sup>
+    </button>
+  );
+}
+
+/**
+ * Tar text-noder från ReactMarkdown och ersätter "(Källa N)" med klickbara
+ * fotnoter. Måste hantera blandade children (text + inline-element).
+ */
+function renderWithCitations(
+  children: ReactNode,
+  sources: Source[],
+  scrollToSource: (n: number) => void
+): ReactNode {
+  const transform = (node: ReactNode, keyPrefix: string): ReactNode => {
+    if (typeof node === 'string') {
+      const parts: ReactNode[] = [];
+      const regex = /\(K[äa]lla\s+(\d+)\)/g;
+      let lastIndex = 0;
+      let match: RegExpExecArray | null;
+      let i = 0;
+      while ((match = regex.exec(node)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(node.substring(lastIndex, match.index));
+        }
+        const n = parseInt(match[1], 10);
+        const source = sources[n - 1];
+        parts.push(
+          <CitationBadge
+            key={`${keyPrefix}-cite-${i}`}
+            n={n}
+            source={source}
+            onClick={() => scrollToSource(n)}
+          />
+        );
+        lastIndex = match.index + match[0].length;
+        i++;
+      }
+      if (lastIndex < node.length) {
+        parts.push(node.substring(lastIndex));
+      }
+      return parts.length > 0 ? parts : node;
+    }
+    if (Array.isArray(node)) {
+      return node.map((child, idx) => transform(child, `${keyPrefix}-${idx}`));
+    }
+    return node;
+  };
+  return transform(children, 'r');
+}
+
 export default function MessageBubble({
   role,
   content,
@@ -38,111 +137,14 @@ export default function MessageBubble({
   isStreaming = false,
 }: MessageBubbleProps) {
   const [copiedMessage, setCopiedMessage] = useState(false);
+  const [highlightedSourceIdx, setHighlightedSourceIdx] = useState<number | null>(null);
+  const rawId = useId();
+  const baseId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
 
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-  };
-
-  // Identify source type based on title or URL
-  const getSourceInfo = (source: Source) => {
-    const url = (source.url || source.source_url || '').toLowerCase();
-    const title = (source.title || source.heading || '').toLowerCase();
-
-    // Check title first (since many sources don't have URLs)
-    if (title.includes('arbetsförmedlingen') || url.includes('arbetsformedlingen') || url.includes('af.se')) {
-      return {
-        type: 'Arbetsförmedlingen',
-        icon: Building2,
-        color: 'from-blue-600 to-blue-700',
-        bgColor: 'bg-blue-50',
-        borderColor: 'border-blue-200',
-        textColor: 'text-blue-900',
-        badge: 'Officiell källa',
-        badgeBg: 'bg-white',
-        badgeText: 'text-blue-700'
-      };
-    }
-    if (title.includes('scb') || url.includes('scb.se')) {
-      return {
-        type: 'SCB',
-        icon: TrendingUp,
-        color: 'from-emerald-600 to-emerald-700',
-        bgColor: 'bg-emerald-50',
-        borderColor: 'border-emerald-200',
-        textColor: 'text-emerald-900',
-        badge: 'Statistik',
-        badgeBg: 'bg-white',
-        badgeText: 'text-emerald-700'
-      };
-    }
-    if (title.includes('unionen') || title.includes('facklig') || title.includes('a-kassa') ||
-        url.includes('unionen') || url.includes('lo.se') || url.includes('tco.se')) {
-      return {
-        type: 'Fackförbund',
-        icon: Users,
-        color: 'from-purple-600 to-purple-700',
-        bgColor: 'bg-purple-50',
-        borderColor: 'border-purple-200',
-        textColor: 'text-purple-900',
-        badge: 'Facklig källa',
-        badgeBg: 'bg-white',
-        badgeText: 'text-purple-700'
-      };
-    }
-    if (title.includes('försäkringskassan') || url.includes('forsakringskassan.se')) {
-      return {
-        type: 'Försäkringskassan',
-        icon: Shield,
-        color: 'from-orange-600 to-orange-700',
-        bgColor: 'bg-orange-50',
-        borderColor: 'border-orange-200',
-        textColor: 'text-orange-900',
-        badge: 'Myndighet',
-        badgeBg: 'bg-white',
-        badgeText: 'text-orange-700'
-      };
-    }
-    if (title.includes('csn') || url.includes('csn.se')) {
-      return {
-        type: 'CSN',
-        icon: Building2,
-        color: 'from-cyan-600 to-cyan-700',
-        bgColor: 'bg-cyan-50',
-        borderColor: 'border-cyan-200',
-        textColor: 'text-cyan-900',
-        badge: 'Studiestöd',
-        badgeBg: 'bg-white',
-        badgeText: 'text-cyan-700'
-      };
-    }
-    if (title.includes('skatteverket') || url.includes('skatteverket.se')) {
-      return {
-        type: 'Skatteverket',
-        icon: Building2,
-        color: 'from-slate-600 to-slate-700',
-        bgColor: 'bg-slate-50',
-        borderColor: 'border-slate-200',
-        textColor: 'text-slate-900',
-        badge: 'Myndighet',
-        badgeBg: 'bg-white',
-        badgeText: 'text-slate-700'
-      };
-    }
-
-    // Default for other sources
-    return {
-      type: 'Karriärexpert',
-      icon: Briefcase,
-      color: 'from-indigo-600 to-indigo-700',
-      bgColor: 'bg-indigo-50',
-      borderColor: 'border-indigo-200',
-      textColor: 'text-indigo-900',
-      badge: 'Expert',
-      badgeBg: 'bg-white',
-      badgeText: 'text-indigo-700'
-    };
   };
 
   const handleCopy = async () => {
@@ -154,6 +156,17 @@ export default function MessageBubble({
       console.error('Failed to copy:', err);
     }
   };
+
+  const scrollToSource = useCallback((n: number) => {
+    const idx = n - 1;
+    if (!sources || idx < 0 || idx >= sources.length) return;
+    const el = document.getElementById(`${baseId}-source-${idx}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setHighlightedSourceIdx(idx);
+      setTimeout(() => setHighlightedSourceIdx((cur) => (cur === idx ? null : cur)), 1600);
+    }
+  }, [baseId, sources]);
 
   if (role === 'user') {
     return (
@@ -219,6 +232,8 @@ export default function MessageBubble({
     );
   }
 
+  const safeSources = sources || [];
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -237,18 +252,6 @@ export default function MessageBubble({
           <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.25} />
         </div>
         <div className="flex-1 min-w-0">
-          {/* Trust badge above message */}
-          {sources && sources.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold mb-2 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-700"
-            >
-              <Shield className="w-3 h-3" strokeWidth={2.75} />
-              <span>Baserat på {sources.length} verifierade {sources.length === 1 ? 'källa' : 'källor'}</span>
-            </motion.div>
-          )}
-
           {/* Message bubble */}
           <div className="relative group">
             <div
@@ -258,10 +261,18 @@ export default function MessageBubble({
               <div className="prose prose-sm sm:prose-base max-w-none">
                 <ReactMarkdown
                   components={{
-                    p: ({ children }) => <p className="mb-3 last:mb-0 text-slate-800">{children}</p>,
+                    p: ({ children }) => (
+                      <p className="mb-3 last:mb-0 text-slate-800">
+                        {renderWithCitations(children, safeSources, scrollToSource)}
+                      </p>
+                    ),
                     ul: ({ children }) => <ul className="mb-3 ml-4 list-disc text-slate-800">{children}</ul>,
                     ol: ({ children }) => <ol className="mb-3 ml-4 list-decimal text-slate-800">{children}</ol>,
-                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                    li: ({ children }) => (
+                      <li className="mb-1">
+                        {renderWithCitations(children, safeSources, scrollToSource)}
+                      </li>
+                    ),
                     strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
                     em: ({ children }) => <em className="italic">{children}</em>,
                     h1: ({ children }) => <h1 className="text-xl font-bold mb-2 text-slate-900">{children}</h1>,
@@ -332,93 +343,52 @@ export default function MessageBubble({
             </div>
           </div>
 
-          {/* Premium Sources Display */}
-          {sources && sources.length > 0 && (
+          {/* Kompakta källrader */}
+          {safeSources.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-3 ml-2"
+              transition={{ delay: 0.15 }}
+              className="mt-2 ml-1"
             >
-              {/* Sources header */}
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <div
-                    className="p-1.5 rounded-lg shadow-sm"
-                    style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                  >
-                    <Shield className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-900">Verifierade källor</p>
-                    <p className="text-xs text-slate-600">{sources.length} {sources.length === 1 ? 'källa granskad' : 'källor granskade'}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 text-xs text-emerald-600 font-semibold">
-                  <CheckCircle className="w-3.5 h-3.5" />
-                  <span>Pålitlig</span>
-                </div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-1.5 flex items-center gap-1.5">
+                <Shield className="w-3 h-3" strokeWidth={2.5} />
+                {safeSources.length} {safeSources.length === 1 ? 'källa' : 'källor'}
               </div>
-
-              {/* Premium source cards */}
-              <div className="space-y-2">
-                {sources.map((source, idx) => {
-                  const sourceInfo = getSourceInfo(source);
-                  const SourceIcon = sourceInfo.icon;
-                  const hasExtractedLink = source.title && source.url;
-                  const title = hasExtractedLink ? source.title : (source.heading || source.source_url || 'Dokument');
-
+              <div className="space-y-1">
+                {safeSources.map((source, idx) => {
+                  const meta = getSourceMeta(source);
+                  const Icon = meta.icon;
+                  const title = source.title || source.heading || source.source_url || 'Dokument';
+                  const url = source.url || source.source_url;
+                  const isHighlighted = highlightedSourceIdx === idx;
                   return (
-                    <motion.a
+                    <a
                       key={idx}
-                      href={source.url || source.source_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      whileHover={{
-                        scale: 1.03,
-                        y: -4,
-                      }}
-                      style={{ willChange: 'transform' }}
-                      className={`group relative overflow-hidden rounded-xl border-2 ${sourceInfo.borderColor} ${sourceInfo.bgColor} p-3 transition-all hover:shadow-xl block`}
+                      id={`${baseId}-source-${idx}`}
+                      href={url || undefined}
+                      target={url ? '_blank' : undefined}
+                      rel={url ? 'noopener noreferrer' : undefined}
+                      className={`group flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all ${
+                        isHighlighted
+                          ? 'border-orange-400 bg-orange-50 ring-2 ring-orange-200'
+                          : 'border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/40'
+                      }`}
                     >
-                      {/* Premium gradient header */}
-                      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${sourceInfo.color}`} />
-
-                      {/* Source organization badge (small, at top) */}
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className={`p-1 rounded-md bg-gradient-to-br ${sourceInfo.color} text-white shadow-sm`}>
-                            <SourceIcon className="w-3 h-3" />
-                          </div>
-                          <span className={`text-xs font-semibold ${sourceInfo.textColor}`}>
-                            {sourceInfo.type}
-                          </span>
-                          <span className={`text-xs px-1.5 py-0.5 ${sourceInfo.badgeBg} rounded-full font-medium ${sourceInfo.badgeText}`}>
-                            {sourceInfo.badge}
-                          </span>
-                        </div>
-                        <Shield className="w-3 h-3 text-green-600 flex-shrink-0" />
-                      </div>
-
-                      {/* Actual source title (prominent) */}
-                      <p className="text-sm font-semibold text-slate-900 group-hover:text-orange-700 transition-colors line-clamp-2 mb-1">
-                        {title}
-                      </p>
-
-                      {/* Published date */}
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-orange-100 text-orange-700 text-[10px] font-bold flex-shrink-0">
+                        {idx + 1}
+                      </span>
+                      <Icon className={`w-3 h-3 flex-shrink-0 ${meta.textColor}`} strokeWidth={2.5} />
+                      <span className={`font-semibold flex-shrink-0 ${meta.textColor}`}>{meta.type}</span>
+                      <span className="text-slate-300 flex-shrink-0">·</span>
+                      <span className="text-slate-700 truncate flex-1 min-w-0">{title}</span>
                       {source.published_at && (
-                        <div className="flex items-center gap-1 text-xs text-slate-500 mt-2">
-                          <Clock className="w-3 h-3" />
-                          <span>{source.published_at}</span>
-                        </div>
+                        <span className="text-slate-400 hidden sm:inline flex-shrink-0">{source.published_at}</span>
                       )}
-
-                      {/* Hover arrow indicator */}
-                      <ArrowUpRight className="absolute bottom-3 right-3 w-4 h-4 text-slate-400 group-hover:text-orange-600 opacity-0 group-hover:opacity-100 transition-all" />
-                    </motion.a>
+                      {url && (
+                        <ArrowUpRight className="w-3 h-3 text-slate-400 group-hover:text-orange-600 flex-shrink-0" strokeWidth={2.5} />
+                      )}
+                    </a>
                   );
                 })}
               </div>
