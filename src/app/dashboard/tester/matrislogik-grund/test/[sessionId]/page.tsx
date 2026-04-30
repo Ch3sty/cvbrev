@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { QuestionGrid } from '@/components/tests/logicV4/QuestionGrid';
 import { AnswerOptions } from '@/components/tests/logicV4/AnswerOptions';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
@@ -23,15 +22,16 @@ export default function TestSessionPage({ params }: PageProps) {
   const [sessionId, setSessionId] = useState<string | null>(null);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
+  const [answers, setAnswers] = useState<(number | null)[]>(
+    Array(questions.length).fill(null)
+  );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
   const [isSaving, setIsSaving] = useState(false);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
-  // Unwrap params Promise
   useEffect(() => {
-    params.then(p => setSessionId(p.sessionId));
+    params.then((p) => setSessionId(p.sessionId));
   }, [params]);
 
   const question = questions[currentQuestion];
@@ -39,60 +39,61 @@ export default function TestSessionPage({ params }: PageProps) {
     answers.map((ans, i) => (ans !== null ? i : null)).filter((i): i is number => i !== null)
   );
 
-  // Save answer to backend
-  const saveAnswer = useCallback(async (questionIndex: number, selectedIndex: number) => {
-    if (!sessionId) return;
-
-    const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
-
-    try {
-      await fetch('/api/logicTestV4/answer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId,
-          questionId: questions[questionIndex].id,
-          selectedIndex,
-          timeSpent
-        })
-      });
-    } catch (error) {
-      console.error('Failed to save answer:', error);
-    }
-  }, [sessionId, questionStartTime]);
-
-  // Handle answer selection
-  const handleSelectAnswer = async (index: number) => {
-    setIsSaving(true);
-
-    const newAnswers = [...answers];
-    newAnswers[currentQuestion] = index;
-    setAnswers(newAnswers);
-
-    await saveAnswer(currentQuestion, index);
-
-    setIsSaving(false);
-
-    // Auto-advance to next unanswered question
-    setTimeout(() => {
-      const nextUnanswered = newAnswers.findIndex((ans, i) => i > currentQuestion && ans === null);
-      if (nextUnanswered !== -1) {
-        setCurrentQuestion(nextUnanswered);
-        setQuestionStartTime(Date.now());
-      } else if (currentQuestion < questions.length - 1) {
-        setCurrentQuestion(currentQuestion + 1);
-        setQuestionStartTime(Date.now());
+  const saveAnswer = useCallback(
+    async (questionIndex: number, selectedIndex: number) => {
+      if (!sessionId) return;
+      const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
+      try {
+        await fetch('/api/logicTestV4/answer', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            questionId: questions[questionIndex].id,
+            selectedIndex,
+            timeSpent,
+          }),
+        });
+      } catch (error) {
+        console.error('Failed to save answer:', error);
       }
-    }, 300);
-  };
+    },
+    [sessionId, questionStartTime]
+  );
 
-  // Navigate to specific question
+  const handleSelectAnswer = useCallback(
+    async (index: number) => {
+      setIsSaving(true);
+
+      const newAnswers = [...answers];
+      newAnswers[currentQuestion] = index;
+      setAnswers(newAnswers);
+
+      await saveAnswer(currentQuestion, index);
+      setIsSaving(false);
+
+      // Auto-advance till nästa obesvarade
+      setTimeout(() => {
+        const nextUnanswered = newAnswers.findIndex(
+          (ans, i) => i > currentQuestion && ans === null
+        );
+        if (nextUnanswered !== -1) {
+          setCurrentQuestion(nextUnanswered);
+          setQuestionStartTime(Date.now());
+        } else if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+          setQuestionStartTime(Date.now());
+        }
+      }, 300);
+    },
+    [answers, currentQuestion, saveAnswer]
+  );
+
   const handleNavigate = (index: number) => {
     setCurrentQuestion(index);
     setQuestionStartTime(Date.now());
   };
 
-  // Navigate prev/next
   const handlePrev = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
@@ -107,19 +108,15 @@ export default function TestSessionPage({ params }: PageProps) {
     }
   };
 
-  // Finish test
   const handleFinishTest = async () => {
     if (!sessionId) return;
-
     try {
       const response = await fetch('/api/logicTestV4/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId })
+        body: JSON.stringify({ sessionId }),
       });
-
       const data = await response.json();
-
       if (data.success || data.message) {
         router.push(`/dashboard/tester/matrislogik-grund/test/${sessionId}/results`);
       }
@@ -128,36 +125,37 @@ export default function TestSessionPage({ params }: PageProps) {
     }
   };
 
-  // Keyboard shortcuts
+  // Tangentbordsgenvägar
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Arrow keys for navigation
       if (e.key === 'ArrowLeft') handlePrev();
       if (e.key === 'ArrowRight') handleNext();
-
-      // A-F for answer selection
       const letterKeys = ['a', 'b', 'c', 'd', 'e', 'f'];
       const index = letterKeys.indexOf(e.key.toLowerCase());
       if (index >= 0 && index < question.options.length) {
         handleSelectAnswer(index);
       }
     };
-
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentQuestion, question]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuestion, question, handleSelectAnswer]);
 
   if (!sessionId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 flex items-center justify-center">
-        <div className="text-slate-600">Laddar test...</div>
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 pb-56">
-      {/* Header */}
+    <div className="min-h-screen">
+      {/* Sticky Header */}
       <TestHeader
         currentQuestion={currentQuestion}
         totalQuestions={questions.length}
@@ -166,148 +164,212 @@ export default function TestSessionPage({ params }: PageProps) {
       />
 
       {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestion}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Question Title & Rule */}
-            <div className="mb-8 text-center">
-              <motion.h2
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-2xl md:text-3xl font-bold text-slate-900 mb-3"
-              >
-                {question.title}
-              </motion.h2>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
-                className="text-slate-600 max-w-2xl mx-auto leading-relaxed"
-              >
-                {question.rule}
-              </motion.p>
-
-              {/* Difficulty badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 mt-3 px-3 py-1 bg-slate-100 rounded-full"
-              >
-                <span className="text-xs font-semibold text-slate-600">
-                  Svårighetsgrad: {question.difficulty}/3
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Question Grid */}
-            <QuestionGrid grid={question.grid} showGrid={question.showGrid} />
-
-            {/* Answer Options */}
-            <div className="mt-12">
-              <AnswerOptions
-                options={question.options}
-                selectedIndex={answers[currentQuestion]}
-                onSelect={handleSelectAnswer}
-                showGrid={question.showGrid}
-                disabled={isSaving}
+      <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
+        <div className="space-y-5 sm:space-y-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -12 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-5"
+            >
+              {/* Frågetitel + regel */}
+              <QuestionHeader
+                index={currentQuestion}
+                title={question.title}
+                rule={question.rule}
+                difficulty={question.difficulty}
               />
-            </div>
-          </motion.div>
-        </AnimatePresence>
 
-        {/* Navigation Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex items-center justify-between mt-12 max-w-lg mx-auto gap-4"
-        >
-          <Button
-            onClick={handlePrev}
-            disabled={currentQuestion === 0}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Föregående
-          </Button>
+              {/* 3×3 Matris */}
+              <QuestionGrid grid={question.grid} showGrid={question.showGrid} />
 
-          <Button
-            onClick={() => setShowFinishConfirm(true)}
-            variant="outline"
-            className="flex items-center gap-2 border-orange-300 text-orange-700 hover:bg-orange-50"
-          >
-            <Flag className="w-4 h-4" />
-            Avsluta Test
-          </Button>
+              {/* Svarsalternativ */}
+              <div>
+                <p className="text-center text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-[0.18em] mb-3">
+                  Välj rätt svar
+                </p>
+                <AnswerOptions
+                  options={question.options}
+                  selectedIndex={answers[currentQuestion]}
+                  onSelect={handleSelectAnswer}
+                  showGrid={question.showGrid}
+                  disabled={isSaving}
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-          <Button
-            onClick={handleNext}
-            disabled={currentQuestion === questions.length - 1}
-            className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600"
-          >
-            Nästa
-            <ChevronRight className="w-4 h-4" />
-          </Button>
-        </motion.div>
+          {/* Navigation buttons */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
+            <button
+              onClick={handlePrev}
+              disabled={currentQuestion === 0}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
+            >
+              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
+              Föregående
+            </button>
+
+            <button
+              onClick={() => setShowFinishConfirm(true)}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation"
+            >
+              <Flag className="w-4 h-4" strokeWidth={2.5} />
+              Avsluta test
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={currentQuestion === questions.length - 1}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+              }}
+            >
+              Nästa
+              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+            </button>
+          </div>
+
+          {/* Question Navigation (alltid synlig) */}
+          <QuestionNavigation
+            totalQuestions={questions.length}
+            currentQuestion={currentQuestion}
+            answeredQuestions={answeredQuestions}
+            onNavigate={handleNavigate}
+          />
+        </div>
       </div>
 
-      {/* Question Navigation */}
-      <QuestionNavigation
-        totalQuestions={questions.length}
-        currentQuestion={currentQuestion}
-        answeredQuestions={answeredQuestions}
-        onNavigate={handleNavigate}
-      />
-
       {/* Finish Confirmation Modal */}
-      {showFinishConfirm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+      <AnimatePresence>
+        {showFinishConfirm && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            onClick={() => setShowFinishConfirm(false)}
           >
-            <div className="flex items-start gap-3 mb-4">
-              <div className="p-2 bg-orange-100 rounded-lg">
-                <AlertCircle className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">
-                  Avsluta testet?
-                </h3>
-                <p className="text-slate-600 mt-1">
-                  Du har besvarat {answeredQuestions.size} av {questions.length} frågor.
-                </p>
-              </div>
-            </div>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 8 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
+              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
+            >
+              <div
+                className="absolute top-0 inset-x-0 h-1"
+                style={{
+                  background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
+                }}
+              />
+              <div className="p-5 sm:p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div
+                    className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
+                    style={{
+                      background: 'linear-gradient(135deg, #F59E0B, #F97316)',
+                      boxShadow: '0 6px 14px -4px rgba(249, 115, 22, 0.4)',
+                    }}
+                  >
+                    <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+                      Avsluta testet?
+                    </h3>
+                    <p className="text-sm text-slate-600 mt-1">
+                      Du har besvarat <span className="font-bold text-slate-900">{answeredQuestions.size}</span> av{' '}
+                      <span className="font-bold text-slate-900">{questions.length}</span> frågor. Du kan inte gå tillbaka efter avslut.
+                    </p>
+                  </div>
+                </div>
 
-            <div className="flex gap-3 mt-6">
-              <Button
-                onClick={() => setShowFinishConfirm(false)}
-                variant="outline"
-                className="flex-1"
-              >
-                Fortsätt
-              </Button>
-              <Button
-                onClick={handleFinishTest}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-red-500"
-              >
-                Avsluta
-              </Button>
-            </div>
+                <div className="flex gap-2 sm:gap-3 mt-5">
+                  <button
+                    onClick={() => setShowFinishConfirm(false)}
+                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
+                  >
+                    Tillbaka
+                  </button>
+                  <button
+                    onClick={handleFinishTest}
+                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
+                    style={{
+                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
+                    }}
+                  >
+                    Avsluta och se resultat
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* --------- Question header (frågetitel + regel + svårighet) --------- */
+
+function QuestionHeader({
+  index,
+  title,
+  rule,
+  difficulty,
+}: {
+  index: number;
+  title: string;
+  rule: string;
+  difficulty: 1 | 2 | 3;
+}) {
+  // Strippa "FRÅGA X — " från title om det finns
+  const cleanTitle = title.replace(/^FRÅGA\s+\d+\s*[—-]\s*/i, '');
+
+  return (
+    <div className="text-center">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+        Fråga {index + 1}
+      </div>
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+        {cleanTitle}
+      </h2>
+
+      {/* Svårighetsindikator */}
+      <div className="inline-flex items-center gap-2 mb-3">
+        <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+          Svårighet
+        </span>
+        <div className="flex items-center gap-1">
+          {[1, 2, 3].map((level) => (
+            <div
+              key={level}
+              className="w-2 h-2 rounded-full"
+              style={{
+                background:
+                  level <= difficulty
+                    ? 'linear-gradient(135deg, #F97316, #DC2626)'
+                    : '#E2E8F0',
+              }}
+            />
+          ))}
         </div>
-      )}
+      </div>
+
+      {/* Regel-text */}
+      <div className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 sm:p-5 max-w-xl mx-auto">
+        <p className="text-sm sm:text-base text-slate-700 leading-relaxed text-left">
+          {rule}
+        </p>
+      </div>
     </div>
   );
 }

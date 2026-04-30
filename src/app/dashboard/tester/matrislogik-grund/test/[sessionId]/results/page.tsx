@@ -2,29 +2,75 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Trophy, Clock, Target, TrendingUp, RotateCcw, Home, CheckCircle2, XCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Clock,
+  CheckCircle2,
+  XCircle,
+  RotateCcw,
+  Home,
+  ChevronDown,
+  ChevronUp,
+  TrendingUp,
+  Trophy,
+} from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import questionBank from '@/lib/logicTestV4/questionBank.json';
+import type { Question } from '@/lib/logicTestV4/types.v4';
+import { SvgCellV4 } from '@/lib/logicTestV4/renderers.v4';
+
+const questions = questionBank as Question[];
+
+interface SavedAnswer {
+  q_id: string;
+  selected: number;
+  correct: boolean;
+  time_spent: number;
+}
+
+interface SessionData {
+  id: string;
+  score: number | null;
+  time_spent: number | null;
+  completed_at: string | null;
+  answers: SavedAnswer[];
+}
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
 }
 
+// Kategorier för insights
+const QUESTION_CATEGORIES: Record<string, string> = {
+  'v4-q1-count-progression': 'Progressioner & sekvenser',
+  'v4-q2-simple-rotation': 'Rotation & spegling',
+  'v4-q3-alternating-fill': 'Mönster & attribut',
+  'v4-q4-size-progression': 'Progressioner & sekvenser',
+  'v4-q5-position-sequence': 'Progressioner & sekvenser',
+  'v4-q6-line-union': 'Set-operationer',
+  'v4-q7-attribute-grid': 'Mönster & attribut',
+  'v4-q8-endpoint-count': 'Progressioner & sekvenser',
+  'v4-q9-reflection': 'Rotation & spegling',
+  'v4-q10-exclusive-or': 'Set-operationer',
+  'v4-q11-shape-subtraction': 'Set-operationer',
+  'v4-q12-line-xor': 'Set-operationer',
+  'v4-q13-conditional': 'Mönster & attribut',
+  'v4-q14-sudoku': 'Mönster & attribut',
+  'v4-q15-element-addition': 'Progressioner & sekvenser',
+};
+
 export default function ResultsPage({ params }: PageProps) {
   const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<SessionData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Unwrap params Promise
   useEffect(() => {
-    params.then(p => setSessionId(p.sessionId));
+    params.then((p) => setSessionId(p.sessionId));
   }, [params]);
 
   useEffect(() => {
     if (!sessionId) return;
-
     const fetchSession = async () => {
       try {
         const supabase = getSupabaseClient();
@@ -33,7 +79,6 @@ export default function ResultsPage({ params }: PageProps) {
           .select('*')
           .eq('id', sessionId)
           .single();
-
         if (error) throw error;
         setSession(data);
       } catch (error) {
@@ -42,33 +87,43 @@ export default function ResultsPage({ params }: PageProps) {
         setIsLoading(false);
       }
     };
-
     fetchSession();
   }, [sessionId]);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <motion.div
+          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        />
       </div>
     );
   }
 
   if (!session) {
     return (
-      <div className="max-w-2xl mx-auto p-6 text-center">
-        <p className="text-slate-600">Session not found</p>
-        <Button onClick={() => router.push('/dashboard/tester')} className="mt-4">
-          Tillbaka
-        </Button>
+      <div className="container mx-auto py-12 px-4 max-w-md text-center">
+        <p className="text-slate-600 mb-4">Sessionen kunde inte hittas.</p>
+        <button
+          onClick={() => router.push('/dashboard/tester')}
+          className="inline-flex items-center justify-center px-5 py-3 rounded-xl text-white font-bold text-sm"
+          style={{
+            background: 'linear-gradient(135deg, #F97316, #DC2626)',
+          }}
+        >
+          Tillbaka till tester
+        </button>
       </div>
     );
   }
 
-  const score = session.score || 0;
+  const score = session.score ?? 0;
   const totalQuestions = 15;
   const percentage = Math.round((score / totalQuestions) * 100);
-  const timeSpent = session.time_spent || 0;
+  const timeSpent = session.time_spent ?? 0;
+  const savedAnswers = session.answers || [];
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -76,154 +131,488 @@ export default function ResultsPage({ params }: PageProps) {
     return `${mins} min ${secs} sek`;
   };
 
-  const getPerformanceMessage = () => {
-    if (percentage >= 90) return { text: 'Exceptionellt!', emoji: '🌟', color: 'from-yellow-500 to-orange-500' };
-    if (percentage >= 80) return { text: 'Mycket bra!', emoji: '🎉', color: 'from-green-500 to-emerald-500' };
-    if (percentage >= 70) return { text: 'Bra jobbat!', emoji: '👏', color: 'from-blue-500 to-cyan-500' };
-    if (percentage >= 60) return { text: 'Godkänt!', emoji: '✓', color: 'from-purple-500 to-pink-500' };
-    return { text: 'Fortsätt öva!', emoji: '💪', color: 'from-slate-500 to-slate-600' };
+  const formatTimeShort = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const performance = getPerformanceMessage();
+  const avgPerQuestion = Math.round(timeSpent / totalQuestions);
+
+  const completedDate = session.completed_at
+    ? new Date(session.completed_at).toLocaleDateString('sv-SE', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : '';
+
+  // Insights: kategorier
+  const categoryStats: Record<string, { correct: number; total: number }> = {};
+  questions.forEach((q) => {
+    const cat = QUESTION_CATEGORIES[q.id] || 'Övrigt';
+    if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, total: 0 };
+    categoryStats[cat].total += 1;
+    const ans = savedAnswers.find((a) => a.q_id === q.id);
+    if (ans?.correct) categoryStats[cat].correct += 1;
+  });
+
+  const strengths = Object.entries(categoryStats).filter(
+    ([, s]) => s.correct === s.total && s.total > 0
+  );
+  const weaknesses = Object.entries(categoryStats).filter(
+    ([, s]) => s.correct < s.total && s.total > 0
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 py-12 px-6">
-      <div className="max-w-3xl mx-auto">
-        {/* Success Header */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center mb-8"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-block p-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mb-4 shadow-2xl"
-          >
-            <Trophy className="w-16 h-16 text-white" />
-          </motion.div>
+    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
+      <div className="space-y-5 sm:space-y-6">
+        {/* Hero med score */}
+        <ResultsHero
+          score={score}
+          totalQuestions={totalQuestions}
+          percentage={percentage}
+          completedDate={completedDate}
+          timeSpent={timeSpent}
+        />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 mb-2"
-          >
-            Test Slutfört!
-          </motion.h1>
+        {/* Stats-rad */}
+        <StatsRow
+          score={score}
+          totalQuestions={totalQuestions}
+          timeSpent={timeSpent}
+          avgPerQuestion={avgPerQuestion}
+          formatTime={formatTime}
+        />
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className={`text-2xl font-bold bg-gradient-to-r ${performance.color} bg-clip-text text-transparent`}
-          >
-            {performance.emoji} {performance.text}
-          </motion.p>
-        </motion.div>
+        {/* Insights */}
+        {(strengths.length > 0 || weaknesses.length > 0) && (
+          <InsightsCard strengths={strengths} weaknesses={weaknesses} />
+        )}
 
-        {/* Score Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-white rounded-2xl shadow-xl border-2 border-slate-200 p-8 mb-6"
-        >
-          {/* Main Score */}
-          <div className="text-center mb-8">
-            <p className="text-slate-600 mb-2 font-medium">Din Poäng</p>
-            <div className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              {score}/{totalQuestions}
-            </div>
-            <p className="text-2xl text-slate-500 mt-2 font-semibold">
-              {percentage}%
-            </p>
-          </div>
+        {/* Per-fråga-genomgång */}
+        <QuestionReview answers={savedAnswers} formatTimeShort={formatTimeShort} />
 
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${percentage}%` }}
-                transition={{ delay: 0.7, duration: 1, ease: "easeOut" }}
-                className={`h-full bg-gradient-to-r ${performance.color} rounded-full`}
-              />
-            </div>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Clock className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm text-blue-600 font-medium">Tid</p>
-                <p className="font-bold text-blue-900">{formatTime(timeSpent)}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-200">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm text-green-600 font-medium">Korrekta</p>
-                <p className="font-bold text-green-900">{score} frågor</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-200">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <Target className="w-5 h-5 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm text-purple-600 font-medium">Träffsäkerhet</p>
-                <p className="font-bold text-purple-900">{percentage}%</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-xl border border-orange-200">
-              <div className="p-2 bg-orange-100 rounded-lg">
-                <TrendingUp className="w-5 h-5 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-sm text-orange-600 font-medium">Genomsnitt/fråga</p>
-                <p className="font-bold text-orange-900">
-                  {Math.round(timeSpent / totalQuestions)}s
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <Button
-            onClick={() => router.push('/dashboard/tester/matrislogik-grund')}
-            className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-6 rounded-xl"
-          >
-            <RotateCcw className="w-5 h-5 mr-2" />
-            Gör Om Test
-          </Button>
-
-          <Button
-            onClick={() => router.push('/dashboard/tester')}
-            variant="outline"
-            className="flex-1 py-6 rounded-xl"
-          >
-            <Home className="w-5 h-5 mr-2" />
-            Tillbaka till Tester
-          </Button>
-        </motion.div>
+        {/* Action buttons */}
+        <ResultsActions onRestart={() => router.push('/dashboard/tester/matrislogik-grund')} />
       </div>
     </div>
+  );
+}
+
+/* ----------- Hero ----------- */
+
+function ResultsHero({
+  score,
+  totalQuestions,
+  percentage,
+  completedDate,
+  timeSpent,
+}: {
+  score: number;
+  totalQuestions: number;
+  percentage: number;
+  completedDate: string;
+  timeSpent: number;
+}) {
+  const isExcellent = percentage >= 80;
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      className="relative overflow-hidden rounded-3xl text-white"
+      style={{
+        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+        boxShadow: '0 20px 60px -20px rgba(220, 38, 38, 0.45)',
+      }}
+    >
+      <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" aria-hidden="true">
+        <pattern id="results-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+          <circle cx="12" cy="12" r="0.8" fill="white" />
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#results-dots)" />
+      </svg>
+
+      <div className="relative p-6 sm:p-8 md:p-10 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white/20 backdrop-blur-sm mb-4">
+          {isExcellent ? <Trophy className="w-3.5 h-3.5" strokeWidth={2.5} /> : <TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />}
+          Resultat
+        </div>
+
+        <div className="flex items-baseline justify-center gap-3 mb-2 flex-wrap">
+          <span className="text-5xl sm:text-6xl md:text-7xl font-black tabular-nums leading-none">
+            {score}
+          </span>
+          <span className="text-2xl sm:text-3xl font-bold text-white/80">
+            / {totalQuestions}
+          </span>
+          <span
+            className="inline-flex items-center justify-center px-3 py-1 rounded-full text-base sm:text-lg font-bold tabular-nums bg-white text-orange-700 ml-1"
+            style={
+              isExcellent
+                ? { boxShadow: '0 0 20px 4px rgba(251, 191, 36, 0.5)' }
+                : undefined
+            }
+          >
+            {percentage}%
+          </span>
+        </div>
+
+        <p className="text-sm sm:text-base opacity-95">
+          Slutfört på {Math.floor(timeSpent / 60)} min {timeSpent % 60} sek · {completedDate}
+        </p>
+      </div>
+    </motion.section>
+  );
+}
+
+/* ----------- Stats-rad ----------- */
+
+function StatsRow({
+  score,
+  totalQuestions,
+  timeSpent,
+  avgPerQuestion,
+  formatTime,
+}: {
+  score: number;
+  totalQuestions: number;
+  timeSpent: number;
+  avgPerQuestion: number;
+  formatTime: (s: number) => string;
+}) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.05 }}
+      className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5"
+      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+    >
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-orange-100">
+        <Stat
+          icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />}
+          label="Korrekta"
+          value={`${score} / ${totalQuestions}`}
+        />
+        <Stat
+          icon={<Clock className="w-4 h-4 text-orange-600" strokeWidth={2.5} />}
+          label="Tid"
+          value={formatTime(timeSpent)}
+        />
+        <Stat
+          icon={<TrendingUp className="w-4 h-4 text-blue-600" strokeWidth={2.5} />}
+          label="Per fråga"
+          value={`${avgPerQuestion}s`}
+        />
+      </div>
+    </motion.section>
+  );
+}
+
+function Stat({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center px-2 sm:px-3 text-center">
+      <div className="flex items-center gap-1.5 mb-1 text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+        {icon}
+        {label}
+      </div>
+      <div className="text-sm sm:text-base font-bold text-slate-900 tabular-nums">{value}</div>
+    </div>
+  );
+}
+
+/* ----------- Insights ----------- */
+
+function InsightsCard({
+  strengths,
+  weaknesses,
+}: {
+  strengths: [string, { correct: number; total: number }][];
+  weaknesses: [string, { correct: number; total: number }][];
+}) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.1 }}
+      className="grid sm:grid-cols-2 gap-3 sm:gap-4"
+    >
+      {strengths.length > 0 && (
+        <div
+          className="bg-white rounded-3xl border border-emerald-200/60 p-4 sm:p-5"
+          style={{ boxShadow: '0 4px 16px -8px rgba(16, 185, 129, 0.15)' }}
+        >
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700 mb-1.5">
+            Dina styrkor
+          </div>
+          <h3 className="text-sm font-bold text-slate-900 mb-3">Du behärskar</h3>
+          <ul className="space-y-2">
+            {strengths.map(([cat, s]) => (
+              <li key={cat} className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
+                <span className="text-slate-700">
+                  <span className="font-semibold">{cat}</span>{' '}
+                  <span className="text-slate-500 text-xs">
+                    ({s.correct}/{s.total})
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {weaknesses.length > 0 && (
+        <div
+          className="bg-white rounded-3xl border border-orange-200/60 p-4 sm:p-5"
+          style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+        >
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+            Att träna på
+          </div>
+          <h3 className="text-sm font-bold text-slate-900 mb-3">Områden att fokusera på</h3>
+          <ul className="space-y-2">
+            {weaknesses.map(([cat, s]) => (
+              <li key={cat} className="flex items-center gap-2 text-sm">
+                <TrendingUp className="w-4 h-4 text-orange-600 flex-shrink-0" strokeWidth={2.5} />
+                <span className="text-slate-700">
+                  <span className="font-semibold">{cat}</span>{' '}
+                  <span className="text-slate-500 text-xs">
+                    ({s.correct}/{s.total})
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </motion.section>
+  );
+}
+
+/* ----------- Per-fråga-genomgång ----------- */
+
+function QuestionReview({
+  answers,
+  formatTimeShort,
+}: {
+  answers: SavedAnswer[];
+  formatTimeShort: (s: number) => string;
+}) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.15 }}
+    >
+      <div className="mb-3 sm:mb-4">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+          Genomgång
+        </div>
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900">Fråga för fråga</h2>
+      </div>
+
+      <div
+        className="bg-white rounded-3xl border border-orange-100 overflow-hidden divide-y divide-orange-100"
+        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      >
+        {questions.map((q, i) => {
+          const answer = answers.find((a) => a.q_id === q.id);
+          const isAnswered = answer !== undefined;
+          const isCorrect = answer?.correct ?? false;
+          const isOpen = openIndex === i;
+
+          return (
+            <div key={q.id}>
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                className="w-full flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-3.5 text-left hover:bg-orange-50/40 transition-colors min-h-[60px]"
+                aria-expanded={isOpen}
+              >
+                {/* Nummer */}
+                <div
+                  className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-white text-sm font-bold tabular-nums"
+                  style={{
+                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                    boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.3)',
+                  }}
+                >
+                  {i + 1}
+                </div>
+
+                {/* Titel + status */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-900 truncate">
+                    {q.title.replace(/^FRÅGA\s+\d+\s*[—-]\s*/i, '')}
+                  </p>
+                  {isAnswered && (
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      {formatTimeShort(answer!.time_spent)} · Svårighet {q.difficulty}/3
+                    </p>
+                  )}
+                  {!isAnswered && (
+                    <p className="text-xs text-slate-400 mt-0.5">Inte besvarad</p>
+                  )}
+                </div>
+
+                {/* Status-ikon */}
+                <div className="flex-shrink-0 flex items-center gap-2">
+                  {isAnswered ? (
+                    isCorrect ? (
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600" strokeWidth={2.5} />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-red-500" strokeWidth={2.5} />
+                    )
+                  ) : (
+                    <span className="w-5 h-5 rounded-full border-2 border-slate-300" />
+                  )}
+                  {isOpen ? (
+                    <ChevronUp className="w-4 h-4 text-slate-400" strokeWidth={2.5} />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-slate-400" strokeWidth={2.5} />
+                  )}
+                </div>
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-4 sm:px-5 pb-5 pt-1 space-y-3">
+                      {/* Regel */}
+                      <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-3">
+                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                          {q.rule}
+                        </p>
+                      </div>
+
+                      {/* Ditt svar + rätt svar */}
+                      {isAnswered && (
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                          <ReviewOption
+                            label="Ditt svar"
+                            letter={String.fromCharCode(65 + answer!.selected)}
+                            cell={q.options[answer!.selected]}
+                            color={isCorrect ? 'emerald' : 'red'}
+                          />
+                          {!isCorrect && (
+                            <ReviewOption
+                              label="Rätt svar"
+                              letter={String.fromCharCode(65 + q.correctAnswer)}
+                              cell={q.options[q.correctAnswer]}
+                              color="emerald"
+                            />
+                          )}
+                          {isCorrect && (
+                            <div className="flex items-center justify-center p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                              <span className="text-sm font-semibold text-emerald-700">Rätt!</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {!isAnswered && (
+                        <div className="grid grid-cols-1">
+                          <ReviewOption
+                            label="Rätt svar"
+                            letter={String.fromCharCode(65 + q.correctAnswer)}
+                            cell={q.options[q.correctAnswer]}
+                            color="emerald"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </div>
+    </motion.section>
+  );
+}
+
+function ReviewOption({
+  label,
+  letter,
+  cell,
+  color,
+}: {
+  label: string;
+  letter: string;
+  cell: Question['options'][number];
+  color: 'emerald' | 'red';
+}) {
+  const colorClasses = {
+    emerald: 'border-emerald-200 bg-emerald-50/60',
+    red: 'border-red-200 bg-red-50/60',
+  };
+  const labelColors = {
+    emerald: 'text-emerald-700',
+    red: 'text-red-700',
+  };
+
+  return (
+    <div className={`p-2.5 rounded-xl border ${colorClasses[color]}`}>
+      <div className={`text-[10px] uppercase tracking-wider font-bold mb-1 ${labelColors[color]}`}>
+        {label} ({letter})
+      </div>
+      <div className="aspect-square w-full max-w-[80px] mx-auto bg-white rounded-lg border border-white p-2">
+        <svg viewBox="0 0 100 100" className="w-full h-full" shapeRendering="geometricPrecision">
+          <SvgCellV4 cell={cell} />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+/* ----------- Action buttons ----------- */
+
+function ResultsActions({ onRestart }: { onRestart: () => void }) {
+  const router = useRouter();
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+      className="flex flex-col sm:flex-row gap-3"
+    >
+      <button
+        onClick={onRestart}
+        className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[52px] touch-manipulation"
+        style={{
+          background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
+          boxShadow: '0 10px 30px -8px rgba(220, 38, 38, 0.45)',
+        }}
+      >
+        <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
+        Gör om testet
+      </button>
+      <button
+        onClick={() => router.push('/dashboard/tester')}
+        className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[52px] touch-manipulation"
+      >
+        <Home className="w-4 h-4" strokeWidth={2.5} />
+        Tillbaka till tester
+      </button>
+    </motion.section>
   );
 }

@@ -15,69 +15,71 @@ export function QuestionNavigation({
   totalQuestions,
   currentQuestion,
   answeredQuestions,
-  onNavigate
+  onNavigate,
 }: QuestionNavigationProps) {
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.4 }}
-      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, duration: 0.4 }}
+      className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5"
+      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
     >
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-4 border-2 border-slate-200">
-        <p className="text-xs text-slate-500 text-center mb-3 font-medium">
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700">
           Navigera mellan frågor
         </p>
+        <p className="text-xs text-slate-500 tabular-nums">
+          {answeredQuestions.size} / {totalQuestions} besvarade
+        </p>
+      </div>
 
-        <div className="flex flex-wrap gap-2 max-w-xl justify-center">
-          {Array.from({ length: totalQuestions }).map((_, i) => {
-            const isCurrent = currentQuestion === i;
-            const isAnswered = answeredQuestions.has(i);
+      <div className="grid grid-cols-5 sm:grid-cols-[repeat(15,_minmax(0,_1fr))] gap-1.5 sm:gap-2">
+        {Array.from({ length: totalQuestions }).map((_, i) => {
+          const isCurrent = currentQuestion === i;
+          const isAnswered = answeredQuestions.has(i);
 
-            return (
-              <motion.button
-                key={i}
-                onClick={() => onNavigate(i)}
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className={cn(
-                  "relative w-11 h-11 rounded-lg font-bold text-sm transition-all shadow-md",
-                  "flex items-center justify-center",
-                  isCurrent && "ring-2 ring-indigo-500 scale-110 z-10",
-                  isAnswered && !isCurrent && "bg-gradient-to-br from-green-500 to-emerald-600 text-white",
-                  isAnswered && isCurrent && "bg-gradient-to-br from-indigo-500 to-purple-600 text-white ring-purple-400",
-                  !isAnswered && !isCurrent && "bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700 hover:from-slate-300 hover:to-slate-400",
-                  !isAnswered && isCurrent && "bg-gradient-to-br from-indigo-500 to-indigo-600 text-white"
-                )}
-              >
-                {isAnswered && !isCurrent ? (
-                  <Check className="w-5 h-5" strokeWidth={3} />
-                ) : (
-                  <span>{i + 1}</span>
-                )}
-
-                {/* Current indicator */}
-                {isCurrent && (
-                  <motion.div
-                    layoutId="current-question"
-                    className="absolute -inset-1 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-lg -z-10 opacity-30"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            );
-          })}
-        </div>
-
-        {/* Progress text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="text-xs text-center mt-3 text-slate-600 font-medium"
-        >
-          {answeredQuestions.size} av {totalQuestions} besvarade
-        </motion.p>
+          return (
+            <motion.button
+              key={i}
+              onClick={() => onNavigate(i)}
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                'relative aspect-square rounded-lg font-bold text-xs sm:text-sm transition-all',
+                'flex items-center justify-center min-h-[36px] sm:min-h-[40px] touch-manipulation',
+                isCurrent && !isAnswered && 'text-white',
+                isCurrent && isAnswered && 'text-white ring-2 ring-orange-300',
+                !isCurrent && isAnswered && 'text-white',
+                !isCurrent && !isAnswered &&
+                  'bg-white text-slate-600 border border-slate-200 hover:border-orange-300 hover:text-orange-700'
+              )}
+              style={
+                isCurrent
+                  ? {
+                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                      boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.45)',
+                    }
+                  : isAnswered
+                  ? {
+                      background: 'linear-gradient(135deg, #10B981, #059669)',
+                      boxShadow: '0 2px 6px -2px rgba(16, 185, 129, 0.4)',
+                    }
+                  : undefined
+              }
+              aria-label={`Gå till fråga ${i + 1}${isAnswered ? ' (besvarad)' : ''}${
+                isCurrent ? ' (aktuell)' : ''
+              }`}
+              aria-current={isCurrent ? 'step' : undefined}
+            >
+              {isAnswered && !isCurrent ? (
+                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={3} />
+              ) : (
+                <span>{i + 1}</span>
+              )}
+            </motion.button>
+          );
+        })}
       </div>
     </motion.div>
   );
