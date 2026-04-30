@@ -195,7 +195,7 @@ export default function JobbcoachenPage() {
       }
     >
       {isWelcomeView ? (
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-start pt-[8%] sm:pt-[10%]">
           <WelcomeMessage
             cvCount={cvCount}
             letterCount={letterCount}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, X, CheckCircle } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -76,7 +77,9 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
 
   const documents = activeTab === 'cv' ? cvs : letters;
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -256,6 +259,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
           </button>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
