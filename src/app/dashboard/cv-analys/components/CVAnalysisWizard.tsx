@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, Suspense, lazy } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useNotification } from '@/context/notificationcontext';
@@ -917,58 +917,8 @@ export default function CVAnalysisWizard({
   const showStepHeaderForFinishing = currentStep === 6 ? false : showStepHeader;
 
   return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        background:
-          'linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 40%, #FFFFFF 100%)',
-      }}
-    >
-      {/* Subtila bakgrunds-orbs */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <motion.div
-          className="absolute top-[8%] left-[5%] w-[500px] h-[500px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(249, 115, 22, 0.07) 0%, rgba(220, 38, 38, 0.04) 40%, transparent 70%)',
-            filter: 'blur(60px)',
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, 120, 0],
-            y: [0, -80, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 28,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute top-[40%] right-[8%] w-[600px] h-[600px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(190, 24, 93, 0.05) 0%, rgba(220, 38, 38, 0.03) 40%, transparent 70%)',
-            filter: 'blur(80px)',
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 100, 0],
-            scale: [1, 0.85, 1],
-          }}
-          transition={{
-            duration: 32,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-        />
-      </div>
-
-      {/* Innehåll */}
+    <div className="relative">
+      {/* Innehåll - ärver bakgrunden från dashboard-layouten */}
       <div className="relative z-10 px-4 sm:px-6 lg:px-8">
         <AnalysisFlowLayout>
           <AnalysisFlowProgress
