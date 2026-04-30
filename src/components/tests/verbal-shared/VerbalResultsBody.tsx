@@ -14,6 +14,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { splitIntoParagraphs } from './splitParagraphs';
 
 export interface SavedAnswer {
   passageId: string;
@@ -233,11 +234,13 @@ function PassageReview({
                     className="overflow-hidden"
                   >
                     <div className="px-4 sm:px-5 pb-5 pt-1 space-y-3">
-                      {/* Passage-text */}
+                      {/* Passage-text — naturliga stycken */}
                       <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-3 sm:p-4">
-                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                          {p.text}
-                        </p>
+                        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                          {splitIntoParagraphs(p.text).map((paragraph, pi) => (
+                            <p key={pi}>{paragraph}</p>
+                          ))}
+                        </div>
                       </div>
 
                       {/* Statements */}

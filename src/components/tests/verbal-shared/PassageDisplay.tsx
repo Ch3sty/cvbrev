@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { splitIntoParagraphs } from './splitParagraphs';
 
 interface PassageDisplayProps {
   title: string;
@@ -71,16 +72,18 @@ export default function PassageDisplay({
           </div>
         </div>
 
-        {/* Passage-text — premium typografi */}
+        {/* Passage-text — premium typografi med naturliga stycken */}
         <div
           className="rounded-2xl p-4 sm:p-5 md:p-6 border border-orange-100"
           style={{
             background: 'linear-gradient(135deg, #FFFBF5, #FFF7ED)',
           }}
         >
-          <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
-            {text}
-          </p>
+          <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-slate-800 leading-relaxed">
+            {splitIntoParagraphs(text).map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
