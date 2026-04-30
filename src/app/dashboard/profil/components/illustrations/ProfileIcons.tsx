@@ -27,90 +27,86 @@ const SHARED_DEFS = (
 );
 
 /**
- * Stor profil-orb för plan-status-hero. Gradient-cirkel med subtil
- * porträtt-silhouette inuti och små decorative prickar runtom.
+ * Profil-orb för section-header. Centrerad porträtt-silhouette i en mjuk
+ * orange-rosa gradient-cirkel med dubbla glow-ringar. Inga element sticker
+ * ut utanför viewBox så den ser lika bra ut i alla storlekar.
  */
 export function ProfileHeroOrb({ className = 'w-24 h-24' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
 
-      {/* Yttre glow-ring */}
-      <circle cx="40" cy="40" r="38" fill="url(#pf-orange-pink)" opacity="0.15" />
-      <circle cx="40" cy="40" r="34" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.5" />
+      {/* Dubbla glow-ringar */}
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
+
+      {/* Vit innercirkel med gradient-stroke */}
+      <circle cx="32" cy="32" r="22" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
 
       {/* Porträtt-silhouette */}
-      <circle cx="40" cy="34" r="9" fill="url(#pf-orange-pink)" />
-      <path d="M24 60 Q24 47 40 47 Q56 47 56 60 L56 64 L24 64 Z" fill="url(#pf-orange-pink)" />
+      <circle cx="32" cy="27" r="6.5" fill="url(#pf-orange-pink)" />
+      <path
+        d="M20 46 Q20 36 32 36 Q44 36 44 46 L44 54 L20 54 Z"
+        fill="url(#pf-orange-pink)"
+      />
+      {/* Halsbåge för djup */}
+      <path d="M27 36 Q32 40 37 36" stroke="white" strokeWidth="1" fill="none" opacity="0.6" />
 
-      {/* Stjärna i kronan-position */}
-      <g transform="translate(60 18)">
-        <circle r="6" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.25" />
-        <path
-          d="M0 -3.5 L1 -1 L3.5 -0.5 L1.5 1 L2 3.5 L0 2 L-2 3.5 L-1.5 1 L-3.5 -0.5 L-1 -1 Z"
-          fill="url(#pf-orange-red)"
-        />
-      </g>
-
-      {/* Decorative prickar */}
-      <circle cx="14" cy="26" r="1.5" fill="#FB923C" opacity="0.7" />
-      <circle cx="68" cy="50" r="1" fill="#FB923C" opacity="0.6" />
-      <circle cx="20" cy="62" r="1" fill="#DC2626" opacity="0.5" />
-      <circle cx="56" cy="14" r="1" fill="#FB923C" opacity="0.5" />
+      {/* Subtila prickar runtom */}
+      <circle cx="50" cy="14" r="1.5" fill="#FB923C" opacity="0.7" />
+      <circle cx="14" cy="50" r="1.25" fill="#FB923C" opacity="0.55" />
+      <circle cx="54" cy="48" r="1" fill="#DC2626" opacity="0.5" />
+      <circle cx="12" cy="20" r="1" fill="#FB923C" opacity="0.4" />
     </svg>
   );
 }
 
 /**
- * Premium-krona med gradient och glöd. Används i premium-badge på hero
- * eller i PremiumGateModal.
+ * Premium-krona — finare variant inspirerad av toast-illustrationerna.
+ * Dubbla glow-ringar, ren krona-form i orange/röd/rosa-gradient och
+ * vita prickar ovanpå topparna. Används i premium-badge och PremiumGateModal.
  */
 export function PremiumCrownIcon({ className = 'w-12 h-12' }: IconProps) {
   return (
-    <svg viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
 
-      {/* Glow-bakgrund */}
-      <circle cx="24" cy="24" r="22" fill="url(#pf-amber)" opacity="0.18" />
+      {/* Dubbla glow-ringar */}
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
 
-      {/* Krona */}
+      {/* Krona-form */}
       <path
-        d="M10 20 L14 28 L20 14 L24 24 L28 14 L34 28 L38 20 L40 36 L8 36 Z"
-        fill="url(#pf-amber)"
-        stroke="#9A3412"
-        strokeWidth="0.6"
-        strokeLinejoin="round"
+        d="M16 30 L22 22 L28 30 L32 18 L36 30 L42 22 L48 30 L46 44 L18 44 Z"
+        fill="url(#pf-orange-pink)"
       />
 
-      {/* Bas */}
-      <rect x="8" y="36" width="32" height="4" rx="1" fill="#9A3412" />
+      {/* Bas-band */}
+      <rect x="16" y="46" width="32" height="4" rx="1" fill="url(#pf-orange-red)" />
 
-      {/* Juveler */}
-      <circle cx="14" cy="28" r="2" fill="#DC2626" />
-      <circle cx="24" cy="24" r="2.5" fill="url(#pf-orange-red)" />
-      <circle cx="34" cy="28" r="2" fill="#DC2626" />
-
-      {/* Glitter */}
-      <circle cx="20" cy="14" r="1" fill="white" />
-      <circle cx="28" cy="14" r="1" fill="white" />
+      {/* Vita prickar på topparna */}
+      <circle cx="22" cy="22" r="2" fill="#FFFFFF" />
+      <circle cx="32" cy="18" r="2" fill="#FFFFFF" />
+      <circle cx="42" cy="22" r="2" fill="#FFFFFF" />
     </svg>
   );
 }
 
 /**
- * Lås-ikon med orange/röd gradient. Används som premium-CTA-indikator.
+ * Lås-ikon med orange/röd gradient — toast-DNA. Används som premium-CTA-indikator.
  */
 export function LockedFieldIcon({ className = 'w-10 h-10' }: IconProps) {
   return (
-    <svg viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
 
-      {/* Bakgrund */}
-      <circle cx="24" cy="24" r="22" fill="url(#pf-orange-red)" opacity="0.12" />
+      {/* Glow */}
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
 
       {/* Lås-bygel */}
       <path
-        d="M16 22 L16 16 Q16 10 24 10 Q32 10 32 16 L32 22"
+        d="M22 28 L22 22 Q22 14 32 14 Q42 14 42 22 L42 28"
         fill="none"
         stroke="url(#pf-orange-red)"
         strokeWidth="2.5"
@@ -118,15 +114,11 @@ export function LockedFieldIcon({ className = 'w-10 h-10' }: IconProps) {
       />
 
       {/* Lås-kropp */}
-      <rect x="12" y="22" width="24" height="18" rx="3" fill="url(#pf-orange-pink)" />
+      <rect x="18" y="28" width="28" height="22" rx="3" fill="url(#pf-orange-pink)" />
 
       {/* Nyckelhål */}
-      <circle cx="24" cy="29" r="2" fill="white" />
-      <rect x="23" y="29" width="2" height="6" rx="1" fill="white" />
-
-      {/* Sparkles */}
-      <circle cx="38" cy="14" r="1.5" fill="#FCD34D" />
-      <circle cx="10" cy="38" r="1" fill="#FCD34D" />
+      <circle cx="32" cy="36" r="2.25" fill="white" />
+      <rect x="30.75" y="36" width="2.5" height="7" rx="1.25" fill="white" />
     </svg>
   );
 }
@@ -156,137 +148,123 @@ export function ShieldGradientIcon({ className = 'w-8 h-8' }: IconProps) {
 
 /* ----------------------------------------------------------------
    FIELD-IKONER för PersonalDetailsSection
-   Alla i samma stil: cirkel-stroke + ikon i mitten + dekor.
-   Default w-10 h-10 — passar i field-label.
+   Inspirerade av toast-illustrationerna: dubbla glow-ringar +
+   en tydlig central form. ViewBox 64×64, fyller w-10 h-10 cleant.
 ---------------------------------------------------------------- */
 
 /**
- * E-post: stiliserat kuvert med liten stjärna i hörn.
+ * Bakgrunds-glow för field-ikoner (dubbla ringar, samma som toast-stilen).
+ */
+function FieldGlowBg() {
+  return (
+    <>
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
+    </>
+  );
+}
+
+/**
+ * E-post: kuvert med flik och liten check-prick.
  */
 export function EmailEnvelopeIcon({ className = 'w-10 h-10' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
+      <FieldGlowBg />
 
       {/* Kuvert-bas */}
-      <rect x="22" y="28" width="36" height="24" rx="3" fill="url(#pf-orange-pink)" />
-      {/* Kuvert-flik */}
-      <path d="M22 30 L40 44 L58 30" stroke="white" strokeWidth="2.25" strokeLinejoin="round" fill="none" />
-      {/* Liten ljuspunkt */}
-      <circle cx="40" cy="44" r="1.5" fill="white" opacity="0.9" />
-
-      {/* Stjärna i hörn */}
-      <g transform="translate(60 18)">
-        <circle r="6" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.25" />
-        <path
-          d="M0 -3.5 L1 -1 L3.5 -0.5 L1.5 1 L2 3.5 L0 2 L-2 3.5 L-1.5 1 L-3.5 -0.5 L-1 -1 Z"
-          fill="url(#pf-orange-red)"
-        />
-      </g>
-
-      {/* Dekorativa prickar */}
-      <circle cx="14" cy="56" r="1.25" fill="#FB923C" opacity="0.6" />
-      <circle cx="66" cy="60" r="1" fill="#DC2626" opacity="0.5" />
-    </svg>
-  );
-}
-
-/**
- * Namn: ID-kort med porträtt-silhuett och rader.
- */
-export function IdentityCardIcon({ className = 'w-10 h-10' }: IconProps) {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
-
-      {/* Kort-bakgrund */}
-      <rect x="18" y="26" width="44" height="28" rx="4" fill="url(#pf-orange-pink)" />
-
-      {/* Porträtt-bubbla */}
-      <circle cx="29" cy="36" r="4" fill="white" />
-      <path d="M22 50 Q22 44 29 44 Q36 44 36 50 Z" fill="white" />
-
-      {/* Text-rader */}
-      <rect x="40" y="34" width="16" height="2.5" rx="1.25" fill="white" opacity="0.9" />
-      <rect x="40" y="40" width="12" height="2" rx="1" fill="white" opacity="0.7" />
-      <rect x="40" y="45" width="14" height="2" rx="1" fill="white" opacity="0.7" />
-
-      {/* Stjärna i hörn */}
-      <g transform="translate(60 18)">
-        <circle r="6" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.25" />
-        <path
-          d="M0 -3.5 L1 -1 L3.5 -0.5 L1.5 1 L2 3.5 L0 2 L-2 3.5 L-1.5 1 L-3.5 -0.5 L-1 -1 Z"
-          fill="url(#pf-orange-red)"
-        />
-      </g>
-
-      {/* Dekorativa prickar */}
-      <circle cx="14" cy="60" r="1.25" fill="#FB923C" opacity="0.6" />
-      <circle cx="66" cy="62" r="1" fill="#DC2626" opacity="0.5" />
-    </svg>
-  );
-}
-
-/**
- * Profilbild: foto-ram med liten kamera-pip i hörn.
- */
-export function PortraitFrameIcon({ className = 'w-10 h-10' }: IconProps) {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
-
-      {/* Foto-ram */}
-      <rect x="20" y="22" width="36" height="36" rx="4" fill="url(#pf-orange-pink)" />
-      {/* Innre vitt fält */}
-      <rect x="23" y="25" width="30" height="30" rx="2" fill="white" />
-
-      {/* Porträtt inuti ramen */}
-      <circle cx="38" cy="36" r="5" fill="url(#pf-orange-red)" />
-      <path d="M28 52 Q28 44 38 44 Q48 44 48 52 Z" fill="url(#pf-orange-red)" />
-
-      {/* Liten kamera-prick */}
-      <circle cx="58" cy="22" r="5" fill="url(#pf-amber)" stroke="white" strokeWidth="1.5" />
-      <circle cx="58" cy="22" r="2" fill="white" />
-
-      {/* Dekor */}
-      <circle cx="14" cy="58" r="1.25" fill="#FB923C" opacity="0.6" />
-      <circle cx="66" cy="62" r="1" fill="#DC2626" opacity="0.5" />
-    </svg>
-  );
-}
-
-/**
- * LinkedIn: orange/röd "in"-bricka — ersätter både Lucide Linkedin och blå inline-SVG.
- */
-export function LinkedInBadgeIcon({ className = 'w-10 h-10' }: IconProps) {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
-
-      {/* "in"-bricka (rounded square) */}
-      <rect x="22" y="22" width="36" height="36" rx="6" fill="url(#pf-orange-pink)" />
-
-      {/* Bokstaven "i" — prick + stapel */}
-      <circle cx="30" cy="32" r="2.5" fill="white" />
-      <rect x="27.75" y="36" width="4.5" height="14" rx="1" fill="white" />
-
-      {/* Bokstaven "n" */}
-      <rect x="36" y="36" width="4.5" height="14" rx="1" fill="white" />
+      <rect x="16" y="22" width="32" height="22" rx="3" fill="url(#pf-orange-pink)" />
+      {/* Kuvert-flik (V-form) */}
       <path
-        d="M40.5 42 Q40.5 36 46 36 Q51.5 36 51.5 42 L51.5 50"
+        d="M16 24 L32 36 L48 24"
         stroke="white"
-        strokeWidth="4.5"
+        strokeWidth="2.25"
+        strokeLinejoin="round"
         strokeLinecap="round"
         fill="none"
       />
+      {/* Markör-prick */}
+      <circle cx="32" cy="36" r="1.5" fill="white" opacity="0.95" />
+    </svg>
+  );
+}
 
-      {/* Dekor */}
-      <circle cx="14" cy="58" r="1.25" fill="#FB923C" opacity="0.6" />
-      <circle cx="66" cy="20" r="1" fill="#DC2626" opacity="0.5" />
+/**
+ * Namn: ID-kort med porträtt och rader.
+ */
+export function IdentityCardIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {SHARED_DEFS}
+      <FieldGlowBg />
+
+      {/* Kort */}
+      <rect x="14" y="20" width="36" height="24" rx="3" fill="url(#pf-orange-pink)" />
+      <rect x="14" y="20" width="36" height="4" rx="3" fill="url(#pf-orange-red)" />
+
+      {/* Porträtt-bubbla */}
+      <circle cx="23" cy="32" r="3.5" fill="white" />
+      <path d="M17 41 Q17 36 23 36 Q29 36 29 41 Z" fill="white" />
+
+      {/* Text-rader */}
+      <rect x="33" y="29" width="14" height="2" rx="1" fill="white" opacity="0.95" />
+      <rect x="33" y="34" width="11" height="1.5" rx="0.75" fill="white" opacity="0.7" />
+      <rect x="33" y="38" width="13" height="1.5" rx="0.75" fill="white" opacity="0.7" />
+    </svg>
+  );
+}
+
+/**
+ * Profilbild: foto-ram med porträtt och kamera-pip.
+ */
+export function PortraitFrameIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {SHARED_DEFS}
+      <FieldGlowBg />
+
+      {/* Foto-ram (yttre gradient) */}
+      <rect x="16" y="18" width="32" height="32" rx="4" fill="url(#pf-orange-pink)" />
+      {/* Innre vit yta */}
+      <rect x="19" y="21" width="26" height="26" rx="2" fill="white" />
+
+      {/* Porträtt inuti */}
+      <circle cx="32" cy="30" r="4.5" fill="url(#pf-orange-red)" />
+      <path d="M22 44 Q22 36 32 36 Q42 36 42 44 Z" fill="url(#pf-orange-red)" />
+
+      {/* Kamera-prick (uppe till höger) */}
+      <circle cx="46" cy="20" r="3.5" fill="url(#pf-amber)" stroke="white" strokeWidth="1.25" />
+      <circle cx="46" cy="20" r="1.5" fill="white" />
+    </svg>
+  );
+}
+
+/**
+ * LinkedIn: orange/röd "in"-bricka.
+ */
+export function LinkedInBadgeIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {SHARED_DEFS}
+      <FieldGlowBg />
+
+      {/* "in"-bricka */}
+      <rect x="16" y="16" width="32" height="32" rx="5" fill="url(#pf-orange-pink)" />
+
+      {/* Bokstaven "i" */}
+      <circle cx="24" cy="24" r="2.25" fill="white" />
+      <rect x="22" y="28" width="4" height="12" rx="1" fill="white" />
+
+      {/* Bokstaven "n" */}
+      <rect x="29" y="28" width="4" height="12" rx="1" fill="white" />
+      <path
+        d="M33 33 Q33 28 38 28 Q43 28 43 33 L43 40"
+        stroke="white"
+        strokeWidth="4"
+        strokeLinecap="round"
+        fill="none"
+      />
     </svg>
   );
 }
@@ -296,147 +274,135 @@ export function LinkedInBadgeIcon({ className = 'w-10 h-10' }: IconProps) {
  */
 export function PhoneSignalIcon({ className = 'w-10 h-10' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
+      <FieldGlowBg />
 
-      {/* Telefon-lur (rotated) */}
-      <g transform="translate(40 40) rotate(-30)">
+      {/* Telefon-lur (renare path, centrerad) */}
+      <g transform="translate(32 32) rotate(-30)">
         <path
-          d="M-14 -10 Q-14 -16 -8 -16 L-4 -16 Q-2 -16 -1 -14 L1 -10 Q2 -8 0 -6 L-2 -4 Q-1 0 3 4 Q7 8 11 9 L13 7 Q15 5 17 6 L21 8 Q23 9 23 11 L23 15 Q23 21 17 21 Q-1 21 -14 8 Z"
+          d="M-12 -9 Q-12 -14 -7 -14 L-3 -14 Q-1 -14 0 -12 L2 -8 Q3 -6 1 -5 L0 -4 Q1 0 4 3 Q7 6 11 7 L12 6 Q13 4 15 5 L19 7 Q21 8 21 10 L21 14 Q21 19 16 19 Q-1 19 -12 8 Z"
           fill="url(#pf-orange-pink)"
         />
       </g>
 
-      {/* Signal-vågor */}
-      <path d="M52 22 Q56 22 56 28" stroke="url(#pf-orange-red)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.9" />
-      <path d="M52 16 Q62 16 62 28" stroke="url(#pf-orange-red)" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
-
-      {/* Liten stjärna */}
-      <g transform="translate(20 22)">
-        <circle r="3" fill="url(#pf-amber)" />
-        <path d="M0 -1.5 L0.5 -0.5 L1.5 0 L0.5 0.5 L0 1.5 L-0.5 0.5 L-1.5 0 L-0.5 -0.5 Z" fill="white" />
-      </g>
-
-      <circle cx="66" cy="58" r="1" fill="#DC2626" opacity="0.5" />
+      {/* Signal-vågor (uppe till höger) */}
+      <path
+        d="M44 18 Q49 18 49 23"
+        stroke="url(#pf-orange-red)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path
+        d="M44 13 Q54 13 54 23"
+        stroke="url(#pf-orange-red)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.6"
+      />
     </svg>
   );
 }
 
 /**
- * Ort: pin med stjärna ovanpå.
+ * Ort: pin med ringad punkt och skugga.
  */
 export function LocationPinIcon({ className = 'w-10 h-10' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.75" />
+      <FieldGlowBg />
 
       {/* Pin-form */}
       <path
-        d="M40 18 Q52 18 52 32 Q52 44 40 58 Q28 44 28 32 Q28 18 40 18 Z"
+        d="M32 14 Q44 14 44 26 Q44 36 32 50 Q20 36 20 26 Q20 14 32 14 Z"
         fill="url(#pf-orange-pink)"
       />
-      {/* Vit cirkel inuti pinnen */}
-      <circle cx="40" cy="32" r="6" fill="white" />
-      {/* Liten röd punkt */}
-      <circle cx="40" cy="32" r="2.5" fill="url(#pf-orange-red)" />
+      {/* Vit cirkel */}
+      <circle cx="32" cy="26" r="5.5" fill="white" />
+      {/* Inre punkt */}
+      <circle cx="32" cy="26" r="2.5" fill="url(#pf-orange-red)" />
 
-      {/* Stjärna ovanpå */}
-      <g transform="translate(56 22)">
-        <circle r="6" fill="white" stroke="url(#pf-orange-red)" strokeWidth="1.25" />
-        <path
-          d="M0 -3.5 L1 -1 L3.5 -0.5 L1.5 1 L2 3.5 L0 2 L-2 3.5 L-1.5 1 L-3.5 -0.5 L-1 -1 Z"
-          fill="url(#pf-orange-red)"
-        />
-      </g>
-
-      {/* Skugga under pinnen */}
-      <ellipse cx="40" cy="62" rx="6" ry="1.5" fill="#DC2626" opacity="0.18" />
-
-      <circle cx="16" cy="50" r="1.25" fill="#FB923C" opacity="0.6" />
+      {/* Skugga */}
+      <ellipse cx="32" cy="52" rx="6" ry="1.5" fill="#DC2626" opacity="0.2" />
     </svg>
   );
 }
 
 /* ----------------------------------------------------------------
    ÖVERSIKT-IKONER för ProfileOverviewCards
+   Samma toast-DNA som field-ikonerna fast lite större detaljer.
 ---------------------------------------------------------------- */
 
 /**
- * Status-cirkel: visas i översiktskort för "Personliga uppgifter".
- * Större fält-orb med checkmarker.
+ * Översikt: Personliga uppgifter — porträtt med check-badge.
  */
 export function PersonalInfoOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="url(#pf-orange-pink)" opacity="0.12" />
-      <circle cx="40" cy="40" r="32" fill="white" stroke="url(#pf-orange-red)" strokeWidth="2" />
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
 
       {/* Porträtt */}
-      <circle cx="40" cy="32" r="8" fill="url(#pf-orange-pink)" />
-      <path d="M24 56 Q24 44 40 44 Q56 44 56 56 L56 60 L24 60 Z" fill="url(#pf-orange-pink)" />
+      <circle cx="28" cy="28" r="6" fill="url(#pf-orange-red)" />
+      <path d="M16 46 C16 40 22 36 28 36 C34 36 40 40 40 46 L40 48 L16 48 Z" fill="url(#pf-orange-red)" />
 
-      {/* Tre check-prickar runtom (status) */}
-      <circle cx="64" cy="20" r="6" fill="url(#pf-emerald)" />
-      <path d="M61 20 L63.5 22.5 L67 19" stroke="white" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Check-badge (nedre höger) */}
+      <circle cx="48" cy="48" r="9" fill="url(#pf-emerald)" stroke="white" strokeWidth="2" />
+      <path d="M44 48 L47 51 L52 46" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
   );
 }
 
 /**
- * Skrivton-ikon för översikt: stiliserad våg med stjärna.
+ * Översikt: Skrivton — våg-symbol.
  */
 export function ToneOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="url(#pf-orange-pink)" opacity="0.12" />
-      <circle cx="40" cy="40" r="32" fill="white" stroke="url(#pf-orange-red)" strokeWidth="2" />
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
 
       {/* Våg-stång */}
-      <rect x="38" y="22" width="4" height="36" rx="1.5" fill="url(#pf-orange-red)" />
-      {/* Tvärstången */}
-      <rect x="22" y="28" width="36" height="3" rx="1.5" fill="url(#pf-orange-red)" />
+      <rect x="30" y="16" width="4" height="32" rx="1.5" fill="url(#pf-orange-red)" />
+      {/* Bas */}
+      <rect x="22" y="46" width="20" height="3" rx="1.5" fill="url(#pf-orange-red)" />
+      {/* Tvärstång */}
+      <rect x="14" y="22" width="36" height="3" rx="1.5" fill="url(#pf-orange-red)" />
       {/* Vänster skål */}
-      <path d="M22 30 L18 42 Q22 46 26 42 Z" fill="url(#pf-orange-pink)" />
+      <path d="M14 24 L10 36 Q14 40 18 36 Z" fill="url(#pf-orange-pink)" />
       {/* Höger skål */}
-      <path d="M58 30 L54 42 Q58 46 62 42 Z" fill="url(#pf-orange-pink)" />
+      <path d="M50 24 L46 36 Q50 40 54 36 Z" fill="url(#pf-orange-pink)" />
 
-      {/* Stjärna högst upp */}
-      <g transform="translate(40 18)">
-        <path
-          d="M0 -5 L1.5 -1.5 L5 -1 L2.5 1.5 L3 5 L0 3 L-3 5 L-2.5 1.5 L-5 -1 L-1.5 -1.5 Z"
-          fill="url(#pf-amber)"
-        />
-      </g>
+      {/* Liten amber-stjärna högst upp */}
+      <circle cx="32" cy="14" r="3" fill="url(#pf-amber)" />
     </svg>
   );
 }
 
 /**
- * Plan/konto-ikon för översikt: krona på kort.
+ * Översikt: Plan & konto — premium-krona som matchar PremiumCrownIcon.
  */
 export function PlanOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
-      <circle cx="40" cy="40" r="36" fill="url(#pf-orange-pink)" opacity="0.12" />
-      <circle cx="40" cy="40" r="32" fill="white" stroke="url(#pf-orange-red)" strokeWidth="2" />
+      <circle cx="32" cy="32" r="28" fill="url(#pf-orange-pink)" opacity="0.1" />
+      <circle cx="32" cy="32" r="22" fill="url(#pf-orange-pink)" opacity="0.15" />
 
       {/* Krona */}
       <path
-        d="M22 38 L26 48 L34 28 L40 42 L46 28 L54 48 L58 38 L60 56 L20 56 Z"
-        fill="url(#pf-amber)"
-        stroke="#9A3412"
-        strokeWidth="0.6"
-        strokeLinejoin="round"
+        d="M16 30 L22 22 L28 30 L32 18 L36 30 L42 22 L48 30 L46 44 L18 44 Z"
+        fill="url(#pf-orange-pink)"
       />
-      <rect x="20" y="56" width="40" height="4" rx="1" fill="#9A3412" />
-      <circle cx="26" cy="48" r="1.75" fill="#DC2626" />
-      <circle cx="40" cy="44" r="2" fill="url(#pf-orange-red)" />
-      <circle cx="54" cy="48" r="1.75" fill="#DC2626" />
+      <rect x="16" y="46" width="32" height="4" rx="1" fill="url(#pf-orange-red)" />
+      <circle cx="22" cy="22" r="2" fill="#FFFFFF" />
+      <circle cx="32" cy="18" r="2" fill="#FFFFFF" />
+      <circle cx="42" cy="22" r="2" fill="#FFFFFF" />
     </svg>
   );
 }

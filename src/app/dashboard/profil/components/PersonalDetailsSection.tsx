@@ -156,7 +156,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
               checked={props.includePhoneInLetters}
               onChange={props.onIncludePhoneChange}
               label="Inkludera i personliga brev"
-              description="Telefonnumret visas på dina genererade brev."
+              description="Telefonnumret visas på dina personliga brev."
             />
           </FieldFooterToggle>
         </FieldCard>
@@ -181,7 +181,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
               checked={props.includeLocationInLetters}
               onChange={props.onIncludeLocationChange}
               label="Inkludera i personliga brev"
-              description="Orten visas på dina genererade brev."
+              description="Orten visas på dina personliga brev."
             />
           </FieldFooterToggle>
         </FieldCard>

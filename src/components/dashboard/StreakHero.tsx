@@ -18,7 +18,7 @@
  */
 
 import { motion } from 'framer-motion';
-import { Flame } from 'lucide-react';
+import { Flame, TrendingUp } from 'lucide-react';
 
 interface StreakHeroProps {
   firstName?: string;
@@ -49,17 +49,51 @@ export default function StreakHero({
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="space-y-4"
     >
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">{headline}</h1>
-        <p className="text-slate-600 mt-1 text-sm sm:text-base">
-          {dailyStreak > 0 ? (
-            <>
-              Du har haft <span className="text-orange-600 font-semibold">{dailyStreak} {dailyStreak === 1 ? 'dag' : 'dagar'} i rad</span> — fortsätt din streak idag.
-            </>
-          ) : (
-            <>Bra att se dig igen. Skapa ett brev eller analys idag för att starta en streak.</>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div className="min-w-0">
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500" aria-hidden="true" />
+            Din dashboard
+          </div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+            {headline}
+          </h1>
+          <p className="text-slate-600 mt-2 text-sm sm:text-base">
+            {dailyStreak > 0 ? (
+              <>
+                Du har haft{' '}
+                <span className="text-orange-600 font-semibold">
+                  {dailyStreak} {dailyStreak === 1 ? 'dag' : 'dagar'} i rad
+                </span>{' '}
+                — fortsätt din streak idag.
+              </>
+            ) : (
+              <>Bra att se dig igen. Skapa ett brev eller analys idag för att starta en streak.</>
+            )}
+          </p>
+        </div>
+
+        {/* Level + streak pillere — ger headern visuell tyngd */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white"
+            style={{
+              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.4)',
+            }}
+          >
+            <TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />
+            Level {currentLevel}
+            <span className="opacity-80">·</span>
+            <span className="opacity-90 font-semibold">{levelTitle}</span>
+          </span>
+          {longestStreak > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-orange-700 bg-orange-50 border border-orange-200">
+              <Flame className="w-3.5 h-3.5" strokeWidth={2.5} />
+              Bästa: {longestStreak} {longestStreak === 1 ? 'dag' : 'dgr'}
+            </span>
           )}
-        </p>
+        </div>
       </div>
 
       <div
