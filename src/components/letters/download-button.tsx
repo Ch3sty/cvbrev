@@ -196,16 +196,32 @@ export default function DownloadButton({
   };
 
   const getButtonStyle = () => {
-    const baseStyle = "px-3 py-2 text-sm font-medium text-white rounded-md flex items-center justify-center transition-colors border";
-    
+    const baseStyle = "px-3 py-2 text-sm font-medium text-white rounded-md flex items-center justify-center transition-shadow border-0 shadow-sm hover:shadow-md";
+
     if (format === 'pdf') {
-      return `${baseStyle} bg-pink-600 hover:bg-pink-700 border-pink-500 hover:border-pink-400 shadow-sm ${className}`;
+      // Orange/röd-DNA matchar resten av appen
+      return `${baseStyle} ${className}`;
     } else if (format === 'docx') {
-      // Förbättrad DOCX-knapp med synligare border och bättre kontrast
-      return `${baseStyle} bg-blue-600 hover:bg-blue-700 border-blue-400 hover:border-blue-300 shadow-sm ${className}`;
+      // Blå-gradient — Word-konvention med modern DNA
+      return `${baseStyle} ${className}`;
     }
-    
+
     return baseStyle;
+  };
+
+  const getButtonInlineStyle = () => {
+    if (format === 'pdf') {
+      return {
+        background: 'linear-gradient(135deg, #F97316, #DC2626)',
+        boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
+      };
+    } else if (format === 'docx') {
+      return {
+        background: 'linear-gradient(135deg, #2563EB, #1E40AF)',
+        boxShadow: '0 4px 12px -4px rgba(30, 64, 175, 0.4)',
+      };
+    }
+    return undefined;
   };
 
   return (
@@ -270,7 +286,8 @@ export default function DownloadButton({
         <button
           onClick={handleDownload}
           disabled={isDownloading}
-          className={`flex-1 ${getButtonStyle()}`}
+          className={`flex-1 ${getButtonStyle()} disabled:opacity-50 disabled:cursor-not-allowed`}
+          style={getButtonInlineStyle()}
         >
           {isDownloading ? (
             <>

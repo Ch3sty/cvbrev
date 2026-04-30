@@ -179,7 +179,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               </span>
             )}
             {currentLetter.job_title && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
                 <Briefcase className="w-3 h-3" strokeWidth={2.5} />
                 {currentLetter.job_title}
               </span>
@@ -350,7 +350,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             currentLetter.created_at &&
             new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
               <div className="inline-flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-rose-500" strokeWidth={2.5} />
+                <Clock className="w-3.5 h-3.5 text-emerald-500" strokeWidth={2.5} />
                 <span>
                   Uppdaterad{' '}
                   <span className="text-slate-700 font-semibold">

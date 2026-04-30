@@ -69,7 +69,7 @@ export default function LetterCard({
         />
 
         {/* TOP: thumbnail-yta med orange-tonad bakgrund och dot-pattern */}
-        <div className="relative aspect-[16/10] bg-gradient-to-br from-orange-50/80 via-white to-rose-50/60 overflow-hidden">
+        <div className="relative aspect-[16/10] bg-gradient-to-br from-orange-50/80 via-white to-orange-100/40 overflow-hidden">
           {/* Subtila bakgrundsprickar */}
           <svg
             aria-hidden="true"
