@@ -1,12 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Check } from 'lucide-react';
-import {
-  PersonalInfoOverviewIcon,
-  ToneOverviewIcon,
-  PlanOverviewIcon,
-} from './illustrations/ProfileIcons';
+import { ArrowRight, Check, UserCircle, Mail, Crown } from 'lucide-react';
 
 interface ProfileOverviewCardsProps {
   /** Hur många personliga uppgifter som är ifyllda */
@@ -30,7 +25,7 @@ export default function ProfileOverviewCards({
 
   const cards = [
     {
-      icon: <PersonalInfoOverviewIcon />,
+      icon: <UserCircle className="w-5 h-5" strokeWidth={2} />,
       eyebrow: 'Personliga uppgifter',
       title: `${filledFields} av ${totalFields} ifyllda`,
       hint: filledFields === totalFields ? 'Allt på plats' : 'Komplettera nedan',
@@ -38,15 +33,15 @@ export default function ProfileOverviewCards({
       tone: 'orange' as const,
     },
     {
-      icon: <ToneOverviewIcon />,
-      eyebrow: 'Skrivton',
+      icon: <Mail className="w-5 h-5" strokeWidth={2} />,
+      eyebrow: 'Skrivton i brev',
       title: tonalityLabel,
-      hint: 'Används i dina brev',
+      hint: 'Används i dina personliga brev',
       anchor: '#tonality',
       tone: 'orange' as const,
     },
     {
-      icon: <PlanOverviewIcon />,
+      icon: <Crown className="w-5 h-5" strokeWidth={2} />,
       eyebrow: 'Plan & konto',
       title: isPremium ? 'Premium aktiv' : 'Gratisplan',
       hint: isPremium ? 'Alla funktioner upplåsta' : 'Lås upp Premium',
@@ -108,7 +103,21 @@ export default function ProfileOverviewCards({
               }}
             >
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0">{card.icon}</div>
+                <div
+                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
+                  style={{
+                    background:
+                      card.tone === 'emerald'
+                        ? 'linear-gradient(135deg, #10B981, #059669)'
+                        : 'linear-gradient(135deg, #F97316, #DC2626)',
+                    boxShadow:
+                      card.tone === 'emerald'
+                        ? '0 6px 14px -6px rgba(16, 185, 129, 0.4)'
+                        : '0 6px 14px -6px rgba(220, 38, 38, 0.4)',
+                  }}
+                >
+                  {card.icon}
+                </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-0.5">
                     {card.eyebrow}

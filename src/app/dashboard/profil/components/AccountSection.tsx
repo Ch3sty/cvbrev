@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, Trash2, AlertTriangle, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { LogOut, Trash2, AlertTriangle, ChevronDown, ChevronUp, X, Settings } from 'lucide-react';
 import ProfileSection from './ProfileSection';
 
 interface AccountSectionProps {
@@ -40,6 +40,7 @@ export default function AccountSection({
       eyebrow="Kontoinställningar"
       title="Hantera ditt konto"
       description="Logga ut från den här enheten eller radera kontot permanent."
+      icon={<Settings className="w-6 h-6" strokeWidth={2} />}
       delay={0.15}
     >
       <div className="space-y-4">

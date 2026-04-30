@@ -53,10 +53,16 @@ export default function ProfileSection({
       </svg>
 
       {/* Header */}
-      <header className="relative flex items-start gap-4 mb-5 sm:mb-6">
+      <header className="relative flex items-start gap-3.5 mb-5 sm:mb-6">
         {icon && (
-          <div className="flex-shrink-0">
-            <div className="w-14 h-14 sm:w-16 sm:h-16">{icon}</div>
+          <div
+            className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
+            style={{
+              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              boxShadow: '0 6px 16px -6px rgba(220, 38, 38, 0.45)',
+            }}
+          >
+            {icon}
           </div>
         )}
         <div className="min-w-0 flex-1">

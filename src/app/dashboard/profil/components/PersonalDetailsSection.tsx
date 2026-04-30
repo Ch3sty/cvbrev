@@ -1,20 +1,21 @@
 'use client';
 
-import { Lock, Crown } from 'lucide-react';
+import {
+  Lock,
+  Crown,
+  Mail,
+  User,
+  Camera,
+  Linkedin,
+  Phone,
+  MapPin,
+  UserCircle,
+} from 'lucide-react';
 import { InlineProfilePhotoUpload } from './InlineProfilePhotoUpload';
 import { InlineLinkedInField } from './InlineLinkedInField';
 import IncludeInLettersToggle from './IncludeInLettersToggle';
 import ProfileSection from './ProfileSection';
-import {
-  ProfileHeroOrb,
-  ShieldGradientIcon,
-  EmailEnvelopeIcon,
-  IdentityCardIcon,
-  PortraitFrameIcon,
-  LinkedInBadgeIcon,
-  PhoneSignalIcon,
-  LocationPinIcon,
-} from './illustrations/ProfileIcons';
+import { ShieldGradientIcon } from './illustrations/ProfileIcons';
 import type { PremiumFeature } from './PremiumGateModal';
 
 interface PersonalDetailsSectionProps {
@@ -52,13 +53,13 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
       eyebrow="Personliga uppgifter"
       title="Vem är du?"
       description="Uppgifterna används bara för att personalisera dina CV:n och brev. Vi delar dem aldrig med externa AI-tjänster."
-      icon={<ProfileHeroOrb />}
+      icon={<UserCircle className="w-6 h-6" strokeWidth={2} />}
       delay={0.15}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         {/* E-post */}
         <FieldCard
-          icon={<EmailEnvelopeIcon />}
+          icon={<Mail className="w-4 h-4" strokeWidth={2.25} />}
           label="E-postadress"
           required
         >
@@ -73,7 +74,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
         {/* Namn */}
         <FieldCard
-          icon={<IdentityCardIcon />}
+          icon={<User className="w-4 h-4" strokeWidth={2.25} />}
           label="Fullständigt namn"
           required
         >
@@ -91,7 +92,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
         {/* Profilbild */}
         <FieldCard
-          icon={<PortraitFrameIcon />}
+          icon={<Camera className="w-4 h-4" strokeWidth={2.25} />}
           label="Profilbild"
           premium={isFree}
           optional
@@ -116,7 +117,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
         {/* LinkedIn */}
         <FieldCard
-          icon={<LinkedInBadgeIcon />}
+          icon={<Linkedin className="w-4 h-4" strokeWidth={2.25} />}
           label="LinkedIn-profil"
           premium={isFree}
           optional
@@ -138,7 +139,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
         {/* Telefon */}
         <FieldCard
-          icon={<PhoneSignalIcon />}
+          icon={<Phone className="w-4 h-4" strokeWidth={2.25} />}
           label="Telefonnummer"
           optional
         >
@@ -163,7 +164,7 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
         {/* Ort */}
         <FieldCard
-          icon={<LocationPinIcon />}
+          icon={<MapPin className="w-4 h-4" strokeWidth={2.25} />}
           label="Ort"
           optional
         >
@@ -230,8 +231,17 @@ function FieldCard({
 }) {
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-2.5 mb-2.5">
-        <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10">{icon}</div>
+      <div className="flex items-center gap-2 mb-2">
+        <div
+          className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-orange-600"
+          style={{
+            background:
+              'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%)',
+            border: '1px solid rgba(249, 115, 22, 0.25)',
+          }}
+        >
+          {icon}
+        </div>
         <div className="min-w-0 flex-1 flex items-center flex-wrap gap-x-1.5 gap-y-0.5">
           <label className="text-sm font-bold text-slate-900 leading-tight">
             {label}

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
-import { ProfileHeroOrb, PremiumCrownIcon } from './illustrations/ProfileIcons';
+import { ProfileHeroOrb } from './illustrations/ProfileIcons';
 
 interface ProfileHeroProps {
   fullName: string;
@@ -193,6 +193,9 @@ function PremiumHero({
         <rect width="100%" height="100%" fill="url(#hero-premium-dots)" />
       </svg>
 
+      {/* Profilformulär-stack i högerkanten — matchar Mina CV:s dokument-stack-DNA */}
+      <ProfileFormStackBg />
+
       <div className="relative p-5 sm:p-7 md:p-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-7">
           {/* Avatar */}
@@ -204,7 +207,7 @@ function PremiumHero({
                 </div>
               ) : (
                 <div
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm ring-4 ring-white/30"
                   style={{ boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.25)' }}
                 >
                   <span className="text-3xl sm:text-4xl font-bold text-white">
@@ -212,10 +215,6 @@ function PremiumHero({
                   </span>
                 </div>
               )}
-              {/* Premium-krona i hörnet */}
-              <div className="absolute -top-1 -right-1">
-                <PremiumCrownIcon className="w-9 h-9 sm:w-10 sm:h-10" />
-              </div>
             </div>
           </div>
 
@@ -251,5 +250,71 @@ function PremiumHero({
         </div>
       </div>
     </motion.section>
+  );
+}
+
+/**
+ * Bakgrundsstack av profilformulär-papper. Inspirerad av CvHeroBanner:s
+ * BackgroundDocStack men anpassad till profil — porträtt-cirkel + fält-rader.
+ * Visas endast på desktop (sm+) och ligger absolut-positionerad i högerkanten.
+ */
+function ProfileFormStackBg() {
+  return (
+    <svg
+      className="absolute -right-10 -top-6 sm:-right-12 sm:-top-8 opacity-15 pointer-events-none hidden sm:block"
+      width="320"
+      height="320"
+      viewBox="0 0 320 320"
+      fill="none"
+      aria-hidden="true"
+    >
+      {/* Bakre kort, roterat */}
+      <g transform="rotate(-8 150 170)">
+        <rect x="80" y="80" width="140" height="180" rx="14" stroke="white" strokeWidth="2" opacity="0.5" />
+        <circle cx="105" cy="110" r="10" stroke="white" strokeWidth="1.5" opacity="0.4" fill="none" />
+        <line x1="125" y1="105" x2="195" y2="105" stroke="white" strokeWidth="2" opacity="0.35" />
+        <line x1="125" y1="115" x2="180" y2="115" stroke="white" strokeWidth="1.5" opacity="0.3" />
+      </g>
+
+      {/* Mitten-kort */}
+      <g transform="rotate(4 170 160)">
+        <rect x="100" y="70" width="140" height="180" rx="14" stroke="white" strokeWidth="2" opacity="0.7" />
+        <circle cx="125" cy="100" r="11" stroke="white" strokeWidth="1.75" opacity="0.55" fill="none" />
+        <line x1="146" y1="95" x2="220" y2="95" stroke="white" strokeWidth="2" opacity="0.45" />
+        <line x1="146" y1="106" x2="200" y2="106" stroke="white" strokeWidth="1.5" opacity="0.4" />
+      </g>
+
+      {/* Främre kort (huvud) */}
+      <g>
+        <rect x="120" y="60" width="140" height="180" rx="14" fill="white" fillOpacity="0.08" stroke="white" strokeWidth="2" opacity="0.9" />
+        {/* Profilcirkel */}
+        <circle cx="148" cy="92" r="13" fill="white" fillOpacity="0.25" stroke="white" strokeWidth="1.75" />
+        <circle cx="148" cy="89" r="4.5" fill="white" opacity="0.85" />
+        <path d="M139 99 Q139 95 148 95 Q157 95 157 99 L157 102 L139 102 Z" fill="white" opacity="0.85" />
+        {/* Namn-rad */}
+        <rect x="170" y="84" width="74" height="4" rx="2" fill="white" opacity="0.7" />
+        <rect x="170" y="93" width="50" height="3" rx="1.5" fill="white" opacity="0.5" />
+        {/* Fält-rader */}
+        <rect x="138" y="125" width="14" height="14" rx="3" fill="white" opacity="0.18" />
+        <line x1="158" y1="129" x2="244" y2="129" stroke="white" strokeWidth="2" opacity="0.4" />
+        <line x1="158" y1="137" x2="220" y2="137" stroke="white" strokeWidth="1.5" opacity="0.3" />
+
+        <rect x="138" y="153" width="14" height="14" rx="3" fill="white" opacity="0.18" />
+        <line x1="158" y1="157" x2="240" y2="157" stroke="white" strokeWidth="2" opacity="0.35" />
+        <line x1="158" y1="165" x2="210" y2="165" stroke="white" strokeWidth="1.5" opacity="0.28" />
+
+        <rect x="138" y="181" width="14" height="14" rx="3" fill="white" opacity="0.18" />
+        <line x1="158" y1="185" x2="234" y2="185" stroke="white" strokeWidth="2" opacity="0.32" />
+        <line x1="158" y1="193" x2="200" y2="193" stroke="white" strokeWidth="1.5" opacity="0.25" />
+
+        <rect x="138" y="209" width="14" height="14" rx="3" fill="white" opacity="0.18" />
+        <line x1="158" y1="213" x2="240" y2="213" stroke="white" strokeWidth="2" opacity="0.28" />
+      </g>
+
+      {/* Subtila prickar */}
+      <circle cx="50" cy="240" r="3" fill="white" opacity="0.3" />
+      <circle cx="65" cy="265" r="2" fill="white" opacity="0.25" />
+      <circle cx="38" cy="215" r="2" fill="white" opacity="0.2" />
+    </svg>
   );
 }

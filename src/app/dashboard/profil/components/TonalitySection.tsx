@@ -1,15 +1,18 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Crown, Lock, Quote } from 'lucide-react';
-import ProfileSection from './ProfileSection';
 import {
-  ProfessionalToneIcon,
-  CreativeToneIcon,
-  ConfidentToneIcon,
-  BalancedToneIcon,
-  SmartAutoToneIcon,
-} from './illustrations/TonalityIcons';
+  Check,
+  Crown,
+  Lock,
+  Briefcase,
+  Palette,
+  Trophy,
+  Scale,
+  Sparkle,
+  Mail,
+} from 'lucide-react';
+import ProfileSection from './ProfileSection';
 import type { PremiumFeature } from './PremiumGateModal';
 
 export type TonalityValue =
@@ -34,36 +37,41 @@ export const TONALITIES: TonalityOption[] = [
     value: 'professional',
     label: 'Professionell',
     shortDescription: 'Formell och saklig — passar etablerade branscher.',
-    example: 'Med min bakgrund inom finans och tio års erfarenhet av riskanalys är jag väl rustad för rollen.',
-    icon: <ProfessionalToneIcon />,
+    example:
+      'Med min bakgrund inom finans och tio års erfarenhet av riskanalys är jag väl rustad för rollen.',
+    icon: <Briefcase className="w-5 h-5" strokeWidth={2} />,
   },
   {
     value: 'creative',
     label: 'Kreativ',
     shortDescription: 'Personlig och innovativ — passar reklam, design och media.',
-    example: 'När jag läste er annons kände jag direkt: det här är platsen där mitt nästa kapitel börjar.',
-    icon: <CreativeToneIcon />,
+    example:
+      'När jag läste er annons kände jag direkt: det här är platsen där mitt nästa kapitel börjar.',
+    icon: <Palette className="w-5 h-5" strokeWidth={2} />,
   },
   {
     value: 'confident',
     label: 'Självsäker',
     shortDescription: 'Bestämd och rakt på sak — passar ledarroller och säljpositioner.',
-    example: 'Jag vet vad som krävs för att leda ett team mot resultat. Det är därför jag söker den här rollen.',
-    icon: <ConfidentToneIcon />,
+    example:
+      'Jag vet vad som krävs för att leda ett team mot resultat. Det är därför jag söker den här rollen.',
+    icon: <Trophy className="w-5 h-5" strokeWidth={2} />,
   },
   {
     value: 'balanced',
     label: 'Balanserad',
     shortDescription: 'Lagom formell och personlig — passar de flesta jobb.',
-    example: 'Som jag ser det handlar bra arbete om både kompetens och samarbetsförmåga, och båda har jag med mig.',
-    icon: <BalancedToneIcon />,
+    example:
+      'Som jag ser det handlar bra arbete om både kompetens och samarbetsförmåga, och båda har jag med mig.',
+    icon: <Scale className="w-5 h-5" strokeWidth={2} />,
   },
   {
     value: 'auto',
     label: 'Smart val',
     shortDescription: 'Vi väljer ton automatiskt baserat på varje annons.',
-    example: 'AI:n analyserar varje annons och anpassar tonen så att brevet matchar arbetsgivarens stil.',
-    icon: <SmartAutoToneIcon />,
+    example:
+      'AI:n analyserar varje annons och anpassar tonen så att brevet matchar arbetsgivarens stil.',
+    icon: <Sparkle className="w-5 h-5" strokeWidth={2} />,
     premium: true,
   },
 ];
@@ -82,14 +90,15 @@ export default function TonalitySection({
   onPremiumGate,
 }: TonalitySectionProps) {
   const isFree = subscriptionTier === 'free';
-  const activeOption = TONALITIES.find((t) => t.value === selected) || TONALITIES[0];
+  const activeOption =
+    TONALITIES.find((t) => t.value === selected) || TONALITIES[0];
 
   return (
     <ProfileSection
       eyebrow="Min skrivställning"
       title="Hur ska vi låta i dina brev?"
       description="Välj en grundton som vi använder när vi skriver brev åt dig. Du kan alltid byta för enskilda brev senare."
-      icon={<BalancedToneIcon />}
+      icon={<Mail className="w-6 h-6" strokeWidth={2} />}
       delay={0.1}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -163,18 +172,27 @@ export default function TonalitySection({
                 </span>
               )}
 
-              {/* Illustration */}
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-3">
-                {tonality.icon}
+              {/* Ikon-chip */}
+              <div className="relative mb-3">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-white"
+                  style={{
+                    background: isLocked
+                      ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.6), rgba(220, 38, 38, 0.5))'
+                      : 'linear-gradient(135deg, #F97316, #DC2626)',
+                    boxShadow: '0 6px 14px -6px rgba(220, 38, 38, 0.4)',
+                  }}
+                >
+                  {tonality.icon}
+                </div>
                 {isLocked && (
                   <div
-                    className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center"
+                    className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center bg-white"
                     style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.4)',
+                      boxShadow: '0 2px 6px -1px rgba(15, 23, 42, 0.25)',
                     }}
                   >
-                    <Lock className="w-3 h-3 text-white" strokeWidth={3} />
+                    <Lock className="w-3 h-3 text-orange-600" strokeWidth={3} />
                   </div>
                 )}
               </div>
@@ -191,7 +209,7 @@ export default function TonalitySection({
         })}
       </div>
 
-      {/* Live-exempel */}
+      {/* "Så låter det" — mini-brev-mockup */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeOption.value}
@@ -199,29 +217,72 @@ export default function TonalitySection({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
           transition={{ duration: 0.25 }}
-          className="mt-5 rounded-2xl p-4 sm:p-5"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(220, 38, 38, 0.03) 100%)',
-            border: '1px solid rgba(249, 115, 22, 0.18)',
-          }}
+          className="mt-5"
         >
-          <div className="flex items-start gap-3">
+          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2 flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-orange-500" aria-hidden="true" />
+            Så låter det i ditt brev
+          </div>
+
+          <div className="relative">
+            {/* Liten papper-skugga bakom */}
             <div
-              className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
+              className="absolute -bottom-1 -right-1 left-2 top-2 rounded-2xl"
               style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                background:
+                  'linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%)',
+                transform: 'rotate(0.6deg)',
+              }}
+              aria-hidden="true"
+            />
+
+            <div
+              className="relative rounded-2xl bg-white p-5 sm:p-6"
+              style={{
+                border: '1px solid rgba(249, 115, 22, 0.25)',
+                boxShadow: '0 12px 32px -16px rgba(220, 38, 38, 0.18)',
               }}
             >
-              <Quote className="w-4 h-4" strokeWidth={2.5} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
-                Så låter det
+              {/* Brev-header (frimärke + adressrader) */}
+              <div className="flex items-start justify-between gap-4 mb-4 pb-3 border-b border-orange-100">
+                <div className="space-y-1.5 min-w-0 flex-1">
+                  <div className="h-1.5 rounded-full bg-orange-100 w-24 max-w-full" />
+                  <div className="h-1.5 rounded-full bg-orange-50 w-32 max-w-full" />
+                  <div className="h-1.5 rounded-full bg-orange-50 w-20 max-w-full" />
+                </div>
+                <div
+                  className="flex-shrink-0 w-9 h-11 rounded-md flex items-center justify-center text-white text-[9px] font-bold uppercase tracking-wider"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, #F97316, #DC2626)',
+                    border: '2px dashed rgba(255, 255, 255, 0.6)',
+                  }}
+                  aria-hidden="true"
+                >
+                  ABC
+                </div>
               </div>
-              <p className="text-sm text-slate-800 leading-relaxed italic">
+
+              {/* Brev-text (citat) */}
+              <p className="text-sm sm:text-base text-slate-800 leading-relaxed italic">
                 &ldquo;{activeOption.example}&rdquo;
               </p>
+
+              {/* Tonality-tagg */}
+              <div className="mt-4 pt-3 border-t border-orange-100 flex items-center justify-between gap-2">
+                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">
+                  Ton
+                </span>
+                <span
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold text-white"
+                  style={{
+                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                  }}
+                >
+                  {activeOption.icon}
+                  {activeOption.label}
+                </span>
+              </div>
             </div>
           </div>
         </motion.div>
