@@ -30,24 +30,35 @@ export type Question = {
 
 export type DataTable = {
   headers: string[];
-  rows: string[][];
+  rows: (string | number)[][];
   caption?: string;
+  highlightLastRow?: boolean;
 };
 
-export type GraphData = {
-  type: GraphType;
-  title: string;
-  xAxisLabel?: string;
-  yAxisLabel?: string;
-  data: {
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      color?: string;
-    }[];
-  };
-};
+// ChartData — matchar V1 så delade komponenter funkar med båda versioner
+export type ChartData =
+  | {
+      chartType: 'bar';
+      title?: string;
+      data: { label: string; value: number }[];
+      unit?: string;
+      yAxisLabel?: string;
+    }
+  | {
+      chartType: 'pie';
+      title?: string;
+      data: { label: string; value: number }[];
+      unit?: string;
+      centerLabel?: string;
+    }
+  | {
+      chartType: 'line';
+      title?: string;
+      data: { x: string | number; y: number }[];
+      unit?: string;
+      xAxisLabel?: string;
+      yAxisLabel?: string;
+    };
 
 export type Passage = {
   id: string;
@@ -57,7 +68,9 @@ export type Passage = {
   difficulty: DifficultyLevel;
   contextText: string;
   dataTable?: DataTable;
-  graphData?: GraphData;
+  chartData?: ChartData;
+  // Legacy field - behålls om någon kod refererar till det, men användning är via chartData
+  graphData?: any;
   questions: Question[];
 };
 
