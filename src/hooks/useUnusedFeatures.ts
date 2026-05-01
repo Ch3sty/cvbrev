@@ -36,7 +36,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     eyebrow: 'Prova nu',
     title: 'Hitta jobb som matchar dig',
     description:
-      'AI-matchar din profil mot tusentals annonser. Du får jobb som faktiskt passar dig.',
+      'Vi matchar din profil mot tusentals annonser. Du får jobb som faktiskt passar dig.',
     cta: 'Hitta matchningar',
   },
   {
@@ -45,7 +45,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     eyebrow: 'Prova nu',
     title: 'Förbättra ditt CV',
     description:
-      'Få konkreta förbättringsförslag på sekunder. Vi pekar ut vad som saknas.',
+      'Vi pekar ut vad som saknas och ger konkreta förbättringsförslag på sekunder.',
     cta: 'Analysera CV',
   },
   {
@@ -54,7 +54,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     eyebrow: 'Prova nu',
     title: 'Optimera din LinkedIn',
     description:
-      'Få en headline och About-text som syns i sökningar och fångar rekryterare.',
+      'Vi skriver en headline och About-text som syns i sökningar och fångar rekryterare.',
     cta: 'Optimera nu',
   },
   {

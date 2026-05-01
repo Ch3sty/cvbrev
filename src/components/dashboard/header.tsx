@@ -230,7 +230,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
   };
 
   return (
-    <header className="bg-white border-b border-slate-300 px-3 sm:px-4 md:px-6 py-3 md:py-4 shadow-lg relative z-10">
+    <header className="bg-white border-b border-orange-100 px-3 sm:px-4 md:px-6 py-3 md:py-4 shadow-sm sticky top-0 lg:relative z-30 lg:z-10">
       <div className="flex items-center justify-between gap-2 sm:gap-4">
         {/* Mobile Hamburger Menu */}
         {onMenuClick && (
