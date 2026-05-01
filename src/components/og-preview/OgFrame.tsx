@@ -6,20 +6,73 @@
  * Tailwind-klasser eller box-shadow.
  *
  * Layout:
- * - Vänster (~520px): eyebrow + yrkesnamn + jobbcoach.ai-tagg
- * - Höger (~620px): SVG-mockup
+ * - Vänster (~540px): eyebrow + titel + (subtitle) + jobbcoach.ai-tagg
+ * - Höger (~620px): SVG-illustration
+ *
+ * Stödjer två API:er:
+ *
+ * 1. **Legacy** (för exempel-sidor): { variant: 'letter' | 'cv', yrke }
+ *    Använder OgLetterMockup eller OgCvMockup automatiskt och
+ *    "Personligt brev exempel" / "CV exempel" som eyebrow.
+ *
+ * 2. **Custom** (för verktyg, listsidor etc): { eyebrow, title, subtitle,
+ *    illustration } — ger full kontroll över innehållet.
  */
 
+import { ReactNode } from 'react';
 import OgLetterMockup from './OgLetterMockup';
 import OgCvMockup from './OgCvMockup';
 
-interface OgFrameProps {
+interface OgFrameLegacyProps {
   variant: 'letter' | 'cv';
   yrke: string;
+  eyebrow?: never;
+  title?: never;
+  subtitle?: never;
+  illustration?: never;
 }
 
-export default function OgFrame({ variant, yrke }: OgFrameProps) {
-  const eyebrow = variant === 'letter' ? 'Personligt brev exempel' : 'CV exempel';
+interface OgFrameCustomProps {
+  variant?: never;
+  yrke?: never;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  illustration: ReactNode;
+}
+
+type OgFrameProps = OgFrameLegacyProps | OgFrameCustomProps;
+
+export default function OgFrame(props: OgFrameProps) {
+  // Härleder slutliga värden baserat på vilken signatur som används
+  let eyebrow: string;
+  let title: string;
+  let subtitle: string | undefined;
+  let illustration: ReactNode;
+  let patternKey: string;
+
+  if ('variant' in props && props.variant) {
+    eyebrow =
+      props.variant === 'letter' ? 'Personligt brev exempel' : 'CV exempel';
+    title = props.yrke;
+    subtitle = undefined;
+    illustration =
+      props.variant === 'letter' ? <OgLetterMockup /> : <OgCvMockup />;
+    patternKey = props.variant;
+  } else {
+    eyebrow = props.eyebrow;
+    title = props.title;
+    subtitle = props.subtitle;
+    illustration = props.illustration;
+    patternKey = props.eyebrow.toLowerCase().replace(/\s+/g, '-');
+  }
+
+  // Dynamisk titelstorlek baserat på längd
+  const titleLength = title.length;
+  let titleSize = 88;
+  if (titleLength > 14) titleSize = 76;
+  if (titleLength > 22) titleSize = 60;
+  if (titleLength > 32) titleSize = 50;
 
   return (
     <div
@@ -48,7 +101,7 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
         aria-hidden="true"
       >
         <pattern
-          id={`og-dots-${variant}`}
+          id={`og-dots-${patternKey}`}
           x="0"
           y="0"
           width="28"
@@ -57,10 +110,10 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
         >
           <circle cx="14" cy="14" r="1.2" fill="white" />
         </pattern>
-        <rect width="1200" height="630" fill={`url(#og-dots-${variant})`} />
+        <rect width="1200" height="630" fill={`url(#og-dots-${patternKey})`} />
       </svg>
 
-      {/* Mjuk vinjett-skugga från höger för att få mockupen att lyfta */}
+      {/* Mjuk vinjett-skugga från höger */}
       <div
         style={{
           position: 'absolute',
@@ -102,7 +155,6 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
             marginBottom: 28,
           }}
         >
-          {/* Liten dekor-prick */}
           <div
             style={{
               width: 6,
@@ -114,20 +166,39 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
           {eyebrow}
         </div>
 
-        {/* Yrkesnamn — jätte-typografi */}
+        {/* Titel — jätte-typografi */}
         <div
           style={{
             color: 'white',
-            fontSize: yrke.length > 14 ? 76 : 88,
+            fontSize: titleSize,
             fontWeight: 900,
             lineHeight: 1.02,
             letterSpacing: '-0.02em',
-            marginBottom: 24,
+            marginBottom: subtitle ? 16 : 24,
             textShadow: '0 4px 24px rgba(0,0,0,0.18)',
+            display: 'flex',
           }}
         >
-          {yrke}
+          {title}
         </div>
+
+        {/* Subtitle (om present) */}
+        {subtitle && (
+          <div
+            style={{
+              color: 'white',
+              fontSize: 22,
+              fontWeight: 500,
+              opacity: 0.92,
+              lineHeight: 1.3,
+              marginBottom: 24,
+              maxWidth: 460,
+              display: 'flex',
+            }}
+          >
+            {subtitle}
+          </div>
+        )}
 
         {/* jobbcoach.ai-tagg */}
         <div
@@ -154,7 +225,7 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
         </div>
       </div>
 
-      {/* Höger sida: mockup */}
+      {/* Höger sida: illustration */}
       <div
         style={{
           flex: 1,
@@ -165,10 +236,10 @@ export default function OgFrame({ variant, yrke }: OgFrameProps) {
           zIndex: 1,
         }}
       >
-        {variant === 'letter' ? <OgLetterMockup /> : <OgCvMockup />}
+        {illustration}
       </div>
 
-      {/* Subtila prickar runtom (samma som hero-banners) */}
+      {/* Subtila dekor-prickar */}
       <div
         style={{
           position: 'absolute',
