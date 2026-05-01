@@ -8,7 +8,6 @@ import {
   MessageCircle,
   FileText,
   CheckCircle2,
-  Sparkles,
 } from 'lucide-react';
 
 const SUGGESTED = [
@@ -162,7 +161,7 @@ export default function JobbcoachenSpotlight() {
                       'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
                   }}
                 >
-                  <Sparkles className="w-5 h-5" strokeWidth={2.5} />
+                  <MessageCircle className="w-5 h-5" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-black text-slate-900">Jobbcoachen</p>

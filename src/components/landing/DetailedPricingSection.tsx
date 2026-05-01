@@ -207,8 +207,8 @@ export default function DetailedPricingSection() {
             {/* "Mest populär"-badge */}
             <div className="absolute -top-px right-6 z-10">
               <div
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-b-xl text-[11px] font-black uppercase tracking-[0.14em] text-orange-700 bg-yellow-300"
-                style={{ boxShadow: '0 6px 14px -4px rgba(252, 211, 77, 0.5)' }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-b-xl text-[11px] font-black uppercase tracking-[0.14em] text-orange-700 bg-white"
+                style={{ boxShadow: '0 6px 14px -4px rgba(0, 0, 0, 0.18)' }}
               >
                 <Star className="w-3 h-3 fill-current" strokeWidth={2.5} />
                 Mest populär
@@ -286,7 +286,7 @@ export default function DetailedPricingSection() {
                       }}
                     >
                       <feature.icon
-                        className="w-4 h-4 text-yellow-300"
+                        className="w-4 h-4 text-white"
                         strokeWidth={2.2}
                       />
                     </div>

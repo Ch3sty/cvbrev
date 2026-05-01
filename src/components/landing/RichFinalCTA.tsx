@@ -72,7 +72,7 @@ export default function RichFinalCTA() {
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white/15 border border-white/25 mb-5">
                 <span
-                  className="inline-block w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse"
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-white animate-pulse"
                   aria-hidden="true"
                 />
                 Allt på ett ställe
@@ -80,7 +80,7 @@ export default function RichFinalCTA() {
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black leading-[1.05] tracking-tight mb-4 max-w-3xl mx-auto">
                 Allt du behöver för att{' '}
-                <span className="inline-block" style={{ color: '#FCD34D' }}>
+                <span className="inline-block underline decoration-white/40 decoration-[6px] underline-offset-[10px]">
                   landa nästa jobb
                 </span>
               </h2>
@@ -136,7 +136,7 @@ export default function RichFinalCTA() {
             <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm opacity-95 mb-8">
               <li className="inline-flex items-center gap-1.5">
                 <ShieldCheck
-                  className="w-3.5 h-3.5 text-yellow-300"
+                  className="w-3.5 h-3.5 text-orange-200"
                   strokeWidth={2.5}
                 />
                 Inget kreditkort krävs
@@ -147,7 +147,7 @@ export default function RichFinalCTA() {
               />
               <li className="inline-flex items-center gap-1.5">
                 <ShieldCheck
-                  className="w-3.5 h-3.5 text-yellow-300"
+                  className="w-3.5 h-3.5 text-orange-200"
                   strokeWidth={2.5}
                 />
                 Avsluta när du vill
@@ -158,7 +158,7 @@ export default function RichFinalCTA() {
               />
               <li className="inline-flex items-center gap-1.5">
                 <ShieldCheck
-                  className="w-3.5 h-3.5 text-yellow-300"
+                  className="w-3.5 h-3.5 text-orange-200"
                   strokeWidth={2.5}
                 />
                 Svensk support

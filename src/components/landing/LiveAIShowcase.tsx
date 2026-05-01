@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, Briefcase, Sparkles, CheckCircle2, ArrowDown } from 'lucide-react';
+import { FileText, Briefcase, CheckCircle2, ArrowDown, Clock } from 'lucide-react';
 
 type Match = {
   cvIndex: number;
@@ -275,7 +275,10 @@ export default function LiveAIShowcase() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 className="relative z-10 px-2.5 py-1 rounded-full bg-white shadow-md border border-orange-200 text-[10px] font-bold uppercase tracking-wider text-orange-700 flex items-center gap-1.5"
               >
-                <Sparkles className="w-3 h-3" strokeWidth={2.5} />
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"
+                  aria-hidden="true"
+                />
                 Matchar
               </motion.div>
             )}
@@ -467,7 +470,7 @@ export default function LiveAIShowcase() {
           <div className="bg-orange-50/40 rounded-xl border border-orange-100 p-4 min-h-[140px]">
             {phase === 'idle' || phase === 'matching' ? (
               <div className="flex items-center justify-center h-full py-6 gap-2 text-xs text-slate-400">
-                <Sparkles
+                <Clock
                   className="w-4 h-4 text-orange-300"
                   strokeWidth={2}
                 />

@@ -7,7 +7,7 @@ import MediaImpactSection from '@/components/landing/MediaImpactSection';
 import ToolsConstellation from '@/components/landing/ToolsConstellation';
 import JobbcoachenSpotlight from '@/components/landing/JobbcoachenSpotlight';
 import JobMatchingShowcase from '@/components/landing/JobMatchingShowcase';
-import CvTemplatesGallery from '@/components/landing/CvTemplatesGallery';
+import ProductShowcase from '@/components/landing/ProductShowcase';
 import TestsShowcase from '@/components/landing/TestsShowcase';
 import DetailedPricingSection from '@/components/landing/DetailedPricingSection';
 import TestimonialsRow from '@/components/landing/TestimonialsRow';
@@ -28,7 +28,7 @@ export default function HomePage() {
           <ToolsConstellation />
           <JobbcoachenSpotlight />
           <JobMatchingShowcase />
-          <CvTemplatesGallery />
+          <ProductShowcase />
           <TestsShowcase />
           <DetailedPricingSection />
           <TestimonialsRow />
