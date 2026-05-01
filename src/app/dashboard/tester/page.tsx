@@ -1,476 +1,196 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3, Info, Crown, Lock } from 'lucide-react';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { useProfile } from '@/hooks/use-profile';
-import { useRouter } from 'next/navigation';
+import { useAllTestStats, type TestSlug } from '@/hooks/use-all-test-stats';
+import TesterHubHero from './components/TesterHubHero';
+import TestStatsCard from './components/TestStatsCard';
+import EmptyTestsCallout from './components/EmptyTestsCallout';
+import TestCategorySection from './components/TestCategorySection';
+import TestCard, { type TestCardVariant } from './components/TestCard';
 
-export default function TesterPage() {
-  const [hoveredTooltip, setHoveredTooltip] = useState<string | null>(null);
-  const { subscriptionTier, loading } = useProfile();
-  const router = useRouter();
+interface TestDef {
+  slug: TestSlug;
+  variant: TestCardVariant;
+  title: string;
+  description: string;
+  questionCount: number;
+  timeLabel: string;
+  difficultyLabel: string;
+  isPremiumLocked: boolean;
+}
+
+const MATRIX_TESTS: TestDef[] = [
+  {
+    slug: 'matrislogik-grund',
+    variant: 'matrix-grund',
+    title: 'Matrislogik — grund',
+    description: 'Mönsterigenkänning och visuella sekvenser för nybörjare.',
+    questionCount: 15,
+    timeLabel: '~20',
+    difficultyLabel: '3',
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'matrislogik-avancerad',
+    variant: 'matrix-avancerad',
+    title: 'Matrislogik — avancerad',
+    description: 'Komplexa mönster och flerdimensionell logik på elit-nivå.',
+    questionCount: 15,
+    timeLabel: '~25',
+    difficultyLabel: '4',
+    isPremiumLocked: true,
+  },
+];
+
+const VERBAL_TESTS: TestDef[] = [
+  {
+    slug: 'verbal-resonemang',
+    variant: 'verbal-v1',
+    title: 'Verbalt resonemang — grund',
+    description: 'Förståelse av text, ordförråd och språkliga samband.',
+    questionCount: 15,
+    timeLabel: '~20',
+    difficultyLabel: '3',
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'verbal-resonemang-v2',
+    variant: 'verbal-v2',
+    title: 'Verbalt resonemang — avancerad',
+    description: 'Avancerad textanalys och slutledning från komplexa textstycken.',
+    questionCount: 15,
+    timeLabel: '~25',
+    difficultyLabel: '4',
+    isPremiumLocked: true,
+  },
+];
+
+const NUMERICAL_TESTS: TestDef[] = [
+  {
+    slug: 'numeriskt-test',
+    variant: 'numerical-v1',
+    title: 'Numeriskt test — grund',
+    description: 'Räkneförmåga, talföljder och grundläggande dataanalys.',
+    questionCount: 15,
+    timeLabel: '~20',
+    difficultyLabel: '3',
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'numeriskt-test-v2',
+    variant: 'numerical-v2',
+    title: 'Numeriskt test — avancerad',
+    description: 'Avancerade tabeller, diagram och flerstegs-resonemang med siffror.',
+    questionCount: 15,
+    timeLabel: '~25',
+    difficultyLabel: '4',
+    isPremiumLocked: true,
+  },
+];
+
+export default function TesterHubPage() {
+  const { subscriptionTier, loading: profileLoading } = useProfile();
+  const { perTest, aggregate, isLoading: statsLoading } = useAllTestStats();
+
   const isPremium = subscriptionTier === 'premium';
 
-  const handlePremiumClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    router.push('/priser');
-  };
+  // Hitta vilket test som har högst best-percentage (för crown)
+  const bestTest = Object.entries(perTest)
+    .filter(([, s]) => s.attempts > 0)
+    .sort((a, b) => b[1].bestPercentage - a[1].bestPercentage)[0]?.[0] as
+    | TestSlug
+    | undefined;
+
+  // Loading state
+  if (profileLoading || statsLoading) {
+    return (
+      <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-4xl">
+        <div className="space-y-5 sm:space-y-6">
+          <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-24 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-32 animate-pulse" />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-6xl mx-auto p-3 sm:p-4 md:p-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-6 sm:mb-8"
-      >
-        <div className="flex items-center gap-2 sm:gap-3 mb-2">
-          <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-            <Brain className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent truncate">
-              Kognitiva Tester
-            </h1>
-            <p className="text-sm sm:text-base text-slate-600 mt-0.5 sm:mt-1 truncate">
-              Träna inför rekryteringsprocesser
-            </p>
-          </div>
-        </div>
-      </motion.div>
+    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-4xl">
+      <div className="space-y-5 sm:space-y-6 lg:space-y-7">
+        <TesterHubHero
+          totalCompleted={aggregate.totalCompleted}
+          averageBestPercentage={aggregate.averageBestPercentage}
+        />
 
-      {/* Matrislogik Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-6 sm:mb-8"
-      >
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-          <Grid3x3 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
-          Matrislogik
-        </h2>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-3">
-          <p className="text-sm sm:text-base text-slate-600">
-            Identifiera logiska mönster och relationer i visuella matriser
-          </p>
-          <div className="relative">
-            <button
-              onMouseEnter={() => setHoveredTooltip('matrislogik')}
-              onMouseLeave={() => setHoveredTooltip(null)}
-              onClick={() => setHoveredTooltip(hoveredTooltip === 'matrislogik' ? null : 'matrislogik')}
-              className="p-2 hover:bg-purple-100 rounded-full transition-colors touch-manipulation min-w-[40px] min-h-[40px] flex items-center justify-center"
-            >
-              <Info className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-            </button>
-            {hoveredTooltip === 'matrislogik' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-purple-50 border-2 border-purple-500 p-3 sm:p-4 rounded-lg shadow-lg z-10"
-              >
-                <div className="text-xs sm:text-sm text-slate-700">
-                  <p className="font-semibold text-purple-900 mb-1">Varför detta test?</p>
-                  <p>Matrislogik mäter abstrakt tänkande och problemlösningsförmåga – viktigt för roller som kräver analytiskt arbete. <span className="font-medium">Tips:</span> Sök efter mönster systematiskt (färg, form, rotation, antal) och eliminera omöjliga alternativ.</p>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </div>
+        {aggregate.hasAnyData ? (
+          <TestStatsCard
+            completedTestCount={aggregate.completedTestCount}
+            totalTestCount={6}
+            averageBestPercentage={aggregate.averageBestPercentage}
+            totalTimeSeconds={aggregate.totalTimeSeconds}
+          />
+        ) : (
+          <EmptyTestsCallout />
+        )}
 
-        <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
-          {/* Matrislogik Grund */}
-          <Link href="/dashboard/tester/matrislogik-grund">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-indigo-400 transition-all shadow-md hover:shadow-lg group cursor-pointer touch-manipulation"
-            >
-              <div className="flex items-center justify-between mb-2 sm:mb-3">
-                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                  <div className="p-1.5 sm:p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex-shrink-0">
-                    <Grid3x3 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 truncate">Grundnivå</h3>
-                    <p className="text-xs text-slate-500">Nivå 1-3</p>
-                  </div>
-                </div>
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-              </div>
+        <TestCategorySection
+          kind="matrix"
+          eyebrow="Matrislogik"
+          title="Visuella mönster"
+          description="Identifiera logiska samband och relationer i matriser."
+          index={0}
+        >
+          {MATRIX_TESTS.map((test, i) => (
+            <TestCard
+              key={test.slug}
+              {...test}
+              isUserPremium={isPremium}
+              stats={perTest[test.slug]}
+              isBestOverall={bestTest === test.slug}
+              isRecommended={!aggregate.hasAnyData && test.slug === 'matrislogik-grund'}
+              index={i}
+            />
+          ))}
+        </TestCategorySection>
 
-              <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4 line-clamp-2">
-                Träna din förmåga att identifiera grundläggande logiska mönster i visuella matriser.
-              </p>
+        <TestCategorySection
+          kind="verbal"
+          eyebrow="Verbalt resonemang"
+          title="Språk och slutledning"
+          description="Förståelse, analys och argumentation i text."
+          index={1}
+        >
+          {VERBAL_TESTS.map((test, i) => (
+            <TestCard
+              key={test.slug}
+              {...test}
+              isUserPremium={isPremium}
+              stats={perTest[test.slug]}
+              isBestOverall={bestTest === test.slug}
+              index={i}
+            />
+          ))}
+        </TestCategorySection>
 
-              <div className="flex items-center gap-2 sm:gap-3 text-xs flex-wrap">
-                <span className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-md font-medium">
-                  <Target className="w-3 h-3" />
-                  15 frågor
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~25 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
-
-          {/* Matrislogik Avancerad */}
-          <div className="relative">
-            <Link href={isPremium ? "/dashboard/tester/matrislogik-avancerad" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
-              <motion.div
-                whileHover={{ scale: isPremium ? 1.02 : 1 }}
-                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-orange-400 hover:shadow-lg' : 'border-purple-300'
-                }`}
-              >
-                {/* Premium gradient overlay */}
-                {!isPremium && (
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-                )}
-
-                <div className="absolute top-2 right-2 z-10">
-                  <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    Avancerad
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg">
-                      <Grid3x3 className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900">Avancerad nivå</h3>
-                      <p className="text-xs text-slate-500">Nivå 2-3</p>
-                    </div>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-1 transition-transform" />
-                </div>
-
-                <p className="text-sm text-slate-600 mb-4">
-                  Utmana dig med komplexa logiska mönster, villkorliga transformationer och abstrakta relationer.
-                </p>
-
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1 px-2 py-1 bg-orange-50 text-orange-700 rounded-md font-medium">
-                    <Target className="w-3 h-3" />
-                    15 frågor
-                  </span>
-                  <span className="flex items-center gap-1 px-2 py-1 bg-red-50 text-red-700 rounded-md font-medium">
-                    <Clock className="w-3 h-3" />
-                    ~35 min
-                  </span>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Premium CTA Button - visas UNDER kortet */}
-            {!isPremium && (
-              <motion.button
-                onClick={handlePremiumClick}
-                whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
-              >
-                <Lock className="h-4 w-4 flex-shrink-0" />
-                <span className="truncate">Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4 flex-shrink-0" />
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Verbalt Resonemang Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-          <BookOpen className="w-6 h-6 text-green-600" />
-          Verbalt Resonemang
-        </h2>
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-slate-600">
-            Förstå, analysera och dra slutsatser från textbaserad information
-          </p>
-          <div className="relative">
-            <button
-              onMouseEnter={() => setHoveredTooltip('verbal')}
-              onMouseLeave={() => setHoveredTooltip(null)}
-              onClick={() => setHoveredTooltip(hoveredTooltip === 'verbal' ? null : 'verbal')}
-              className="p-2 hover:bg-green-100 rounded-full transition-colors"
-            >
-              <Info className="w-5 h-5 text-green-600" />
-            </button>
-            {hoveredTooltip === 'verbal' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 top-full mt-2 w-80 bg-green-50 border-2 border-green-500 p-4 rounded-lg shadow-lg z-10"
-              >
-                <div className="text-sm text-slate-700">
-                  <p className="font-semibold text-green-900 mb-1">Varför detta test?</p>
-                  <p>Verbalt resonemang mäter din förmåga att tolka text och dra logiska slutsatser – centralt för roller med mycket dokumentation eller kommunikation. <span className="font-medium">Tips:</span> Basera dina svar endast på given information, gissa inte eller använd extern kunskap.</p>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          {/* Verbal Resonemang */}
-          <Link href="/dashboard/tester/verbal-resonemang">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-green-400 transition-all shadow-md hover:shadow-lg group cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg">
-                    <BookOpen className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Läsförståelse</h3>
-                    <p className="text-xs text-slate-500">Nivå 1-3</p>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 text-green-600 group-hover:translate-x-1 transition-transform" />
-              </div>
-
-              <p className="text-sm text-slate-600 mb-4">
-                Bedöm påståenden som sanna, falska eller kan inte avgöras baserat på textpassager.
-              </p>
-
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 px-2 py-1 bg-green-50 text-green-700 rounded-md font-medium">
-                  <BookOpen className="w-3 h-3" />
-                  12 passager
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~25 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
-
-          {/* Verbalt Resonemang v2 */}
-          <div className="relative">
-            <Link href={isPremium ? "/dashboard/tester/verbal-resonemang-v2" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
-              <motion.div
-                whileHover={{ scale: isPremium ? 1.02 : 1 }}
-                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-teal-400 hover:shadow-lg' : 'border-purple-300'
-                }`}
-              >
-                {/* Premium gradient overlay */}
-                {!isPremium && (
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-                )}
-
-                <div className="absolute top-2 right-2 z-10">
-                  <span className="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    Ny!
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg">
-                      <BookOpen className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900">Kritisk Läsning</h3>
-                      <p className="text-xs text-slate-500">Nivå 1-3</p>
-                    </div>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-teal-600 group-hover:translate-x-1 transition-transform" />
-                </div>
-
-                <p className="text-sm text-slate-600 mb-4">
-                  Analysera textpassager om samhälle och vetenskap. Bedöm påståenden kritiskt och dra väl underbyggda slutsatser.
-                </p>
-
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1 px-2 py-1 bg-teal-50 text-teal-700 rounded-md font-medium">
-                    <BookOpen className="w-3 h-3" />
-                    12 passager
-                  </span>
-                  <span className="flex items-center gap-1 px-2 py-1 bg-cyan-50 text-cyan-700 rounded-md font-medium">
-                    <Clock className="w-3 h-3" />
-                    ~25 min
-                  </span>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Premium CTA Button - visas UNDER kortet */}
-            {!isPremium && (
-              <motion.button
-                onClick={handlePremiumClick}
-                whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
-              >
-                <Lock className="h-4 w-4 flex-shrink-0" />
-                <span className="truncate">Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4 flex-shrink-0" />
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Numeriskt Resonemang Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="mt-8"
-      >
-        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-          <Calculator className="w-6 h-6 text-blue-600" />
-          Numeriskt Resonemang
-        </h2>
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-slate-600">
-            Analysera sifferdata, tolka tabeller och lösa matematiska problem
-          </p>
-          <div className="relative">
-            <button
-              onMouseEnter={() => setHoveredTooltip('numerical')}
-              onMouseLeave={() => setHoveredTooltip(null)}
-              onClick={() => setHoveredTooltip(hoveredTooltip === 'numerical' ? null : 'numerical')}
-              className="p-2 hover:bg-blue-100 rounded-full transition-colors"
-            >
-              <Info className="w-5 h-5 text-blue-600" />
-            </button>
-            {hoveredTooltip === 'numerical' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 top-full mt-2 w-80 bg-blue-50 border-2 border-blue-500 p-4 rounded-lg shadow-lg z-10"
-              >
-                <div className="text-sm text-slate-700">
-                  <p className="font-semibold text-blue-900 mb-1">Varför detta test?</p>
-                  <p>Numeriskt resonemang bedömer din förmåga att arbeta med siffror, data och matematiska koncept – viktigt för analytiska roller, ekonomi och affärsanalys. <span className="font-medium">Tips:</span> Läs tabeller och grafer noggrant, dubbelkolla enheter och använd elimineringsmetoden för att spara tid.</p>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          {/* Numeriskt Test */}
-          <Link href="/dashboard/tester/numeriskt-test">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-blue-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
-                  Ny!
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
-                    <Calculator className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Affärsanalys</h3>
-                    <p className="text-xs text-slate-500">Nivå 2</p>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" />
-              </div>
-
-              <p className="text-sm text-slate-600 mb-4">
-                Tabeller, grafer, ordproblem och talserier. Testa din förmåga att arbeta med sifferdata.
-              </p>
-
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-md font-medium">
-                  <Target className="w-3 h-3" />
-                  20 frågor
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-indigo-50 text-indigo-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~20 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
-
-          {/* Numeriskt Test v2 */}
-          <div className="relative">
-            <Link href={isPremium ? "/dashboard/tester/numeriskt-test-v2" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
-              <motion.div
-                whileHover={{ scale: isPremium ? 1.02 : 1 }}
-                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-purple-400 hover:shadow-lg' : 'border-purple-300'
-                }`}
-              >
-                {/* Premium gradient overlay */}
-                {!isPremium && (
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-                )}
-
-                <div className="absolute top-2 right-2 z-10">
-                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    Ny!
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg">
-                      <BarChart3 className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900">Grafanalys</h3>
-                      <p className="text-xs text-slate-500">Nivå 2</p>
-                    </div>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform" />
-                </div>
-
-                <p className="text-sm text-slate-600 mb-4">
-                  Stapel-, linje- och cirkeldiagram. Träna visuell datatolkning och trendanalys.
-                </p>
-
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-md font-medium">
-                    <Target className="w-3 h-3" />
-                    20 frågor
-                  </span>
-                  <span className="flex items-center gap-1 px-2 py-1 bg-violet-50 text-violet-700 rounded-md font-medium">
-                    <Clock className="w-3 h-3" />
-                    ~20 min
-                  </span>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Premium CTA Button - visas UNDER kortet */}
-            {!isPremium && (
-              <motion.button
-                onClick={handlePremiumClick}
-                whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
-              >
-                <Lock className="h-4 w-4 flex-shrink-0" />
-                <span className="truncate">Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4 flex-shrink-0" />
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </motion.div>
+        <TestCategorySection
+          kind="numerical"
+          eyebrow="Numeriskt resonemang"
+          title="Räkning och dataanalys"
+          description="Talföljder, tabeller och beräkningar under tidspress."
+          index={2}
+        >
+          {NUMERICAL_TESTS.map((test, i) => (
+            <TestCard
+              key={test.slug}
+              {...test}
+              isUserPremium={isPremium}
+              stats={perTest[test.slug]}
+              isBestOverall={bestTest === test.slug}
+              index={i}
+            />
+          ))}
+        </TestCategorySection>
+      </div>
     </div>
   );
 }

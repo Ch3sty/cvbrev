@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, Crown, ChevronDown, Check, Sparkles, Type, Palette } from 'lucide-react'
+import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/templates'
-import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
 
 interface InteractiveCVPreviewProps {
@@ -60,7 +59,7 @@ const FONTS = [
   { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
 ]
 
-export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: InteractiveCVPreviewProps) {
+export default function InteractiveCVPreview({ exempelCV, initialHTML }: InteractiveCVPreviewProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
@@ -129,57 +128,20 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
   const freeTemplates = SIMPLE_TEMPLATES.filter(t => t.tier === 'free')
   const premiumTemplates = SIMPLE_TEMPLATES.filter(t => t.tier === 'premium')
 
-  // Static CV for SEO/noscript
-  const StaticCV = () => (
-    <div className="bg-white rounded-xl border-2 border-slate-200 p-8 shadow-lg">
-      <h1 className="text-2xl font-bold text-slate-900">{exempelCV.namn}</h1>
-      <p className="text-lg text-slate-700 mb-2">{exempelCV.titel}</p>
-      <div className="text-sm text-slate-600 mb-6">
-        <p>{exempelCV.kontakt.telefon} | {exempelCV.kontakt.epost}</p>
-        <p>{exempelCV.kontakt.plats}</p>
-      </div>
-      <div className="mb-6">
-        <h2 className="text-lg font-bold text-slate-900 mb-2">Profil</h2>
-        <p className="text-slate-700">{exempelCV.profil}</p>
-      </div>
-    </div>
-  )
-
   return (
     <div>
-      <div className="text-center mb-8">
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-50 to-indigo-50 rounded-full mb-4 border border-cyan-100"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-        >
-          <Eye className="w-4 h-4 text-cyan-600" />
-          <span className="text-sm font-semibold bg-gradient-to-r from-cyan-600 to-indigo-600 bg-clip-text text-transparent">
-            Interaktiv CV-förhandsvisning
-          </span>
-        </motion.div>
-
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-          Se hur CV:t ser ut i olika mallar
-        </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Byt mellan våra professionella CV-mallar och testa olika typsnitt
-        </p>
-      </div>
-
       <noscript>
-        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-4">
-          <p className="text-sm text-yellow-900 font-semibold">
+        <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-4">
+          <p className="text-sm text-amber-900 font-semibold">
             För bästa upplevelse, aktivera JavaScript i din webbläsare.
           </p>
         </div>
       </noscript>
-          <div className="bg-gradient-to-r from-cyan-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-cyan-100 mb-8">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-cyan-600" />
-              <h3 className="font-bold text-slate-900">Anpassa förhandsvisningen</h3>
+          <div className="bg-orange-50/60 rounded-2xl p-4 sm:p-5 border border-orange-100 mb-6">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base">Anpassa förhandsvisningen</h3>
             </div>
-            <p className="text-sm text-slate-600 mb-6">
+            <p className="text-xs sm:text-sm text-slate-600 mb-4">
               Testa olika mallar och typsnitt
             </p>
 
@@ -196,7 +158,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                     setIsTemplateOpen(!isTemplateOpen)
                     setIsFontOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-cyan-400 transition-all flex items-center justify-between"
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
                     {template.tier === 'premium' && <Crown className="w-4 h-4 text-amber-500" />}
@@ -225,7 +187,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                           }}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
                             selectedTemplate === t.id
-                              ? 'bg-cyan-50 text-cyan-900'
+                              ? 'bg-orange-50 text-orange-900'
                               : 'hover:bg-slate-50 text-slate-700'
                           }`}
                         >
@@ -234,7 +196,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                             <div className="text-xs text-slate-500">{t.description}</div>
                           </div>
                           {selectedTemplate === t.id && (
-                            <Check className="w-5 h-5 text-cyan-600 flex-shrink-0 ml-2" />
+                            <Check className="w-5 h-5 text-orange-700 flex-shrink-0 ml-2" />
                           )}
                         </button>
                       ))}
@@ -288,7 +250,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                     setIsFontOpen(!isFontOpen)
                     setIsTemplateOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-cyan-400 transition-all flex items-center justify-between"
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between"
                   style={{ fontFamily: font.family }}
                 >
                   <span className="font-semibold text-slate-900">{font.name}</span>
@@ -321,12 +283,12 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                                 setIsFontOpen(false)
                               }}
                               className={`w-full px-4 py-3 flex items-center gap-3 transition-colors ${
-                                selectedFont === fnt.id ? 'bg-cyan-50' : 'hover:bg-slate-50'
+                                selectedFont === fnt.id ? 'bg-orange-50' : 'hover:bg-slate-50'
                               }`}
                               style={{ fontFamily: fnt.family }}
                             >
                               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                selectedFont === fnt.id ? 'border-cyan-600 bg-cyan-600' : 'border-slate-300'
+                                selectedFont === fnt.id ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
                               }`}>
                                 {selectedFont === fnt.id && <Check className="w-3 h-3 text-white" />}
                               </div>
@@ -355,18 +317,24 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
               transition={{ duration: 0.3 }}
               className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden"
             >
-              <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+              <div className="bg-orange-50/50 px-5 sm:px-6 py-3 sm:py-4 border-b border-orange-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                    <Eye className="w-5 h-5 text-white" />
+                  <div
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                      boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
+                    }}
+                  >
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900">{template.name}</h3>
-                    <p className="text-sm text-slate-600">Med {font.name} typsnitt</p>
+                    <h3 className="font-bold text-slate-900 text-sm sm:text-base">{template.name}</h3>
+                    <p className="text-xs sm:text-sm text-slate-600">Med {font.name} typsnitt</p>
                   </div>
                 </div>
                 {template.tier === 'premium' && (
-                  <div className="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
+                  <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                     <Crown className="w-3 h-3" />
                     Premium
                   </div>
@@ -402,31 +370,8 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                 )}
               </div>
 
-              <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-white text-center sm:text-left">
-                  <p className="font-semibold">Förbättra ditt nuvarande CV</p>
-                  <p className="text-sm text-cyan-100">Ladda upp ditt CV. Vi pekar ut vad som saknas och flyttar över din info till professionell design.</p>
-                </div>
-                <a
-                  href="/dashboard/cv-mallar"
-                  className="px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
-                >
-                  <Sparkles className="w-5 h-5" />
-                  Kom igång gratis
-                </a>
-              </div>
             </motion.div>
           </AnimatePresence>
-
-          <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4 flex gap-3 mt-6">
-            <Eye className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-cyan-900">
-              <p className="font-semibold mb-1">Detta är en förhandsvisning</p>
-              <p className="text-cyan-800">
-                När du skapar ditt CV får du tillgång till alla mallar, färger och export till PDF/Word.
-              </p>
-            </div>
-          </div>
     </div>
   )
 }

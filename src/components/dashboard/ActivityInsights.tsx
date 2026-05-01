@@ -89,7 +89,7 @@ export default function ActivityInsights({
     // Om mest brev - rekommendera CV-analys
     if (weeklyLetterCount > 0 && weeklyAnalysisCount === 0) {
       return {
-        message: 'Du skapar bra med brev! Prova CV-analys för att optimera ditt CV.',
+        message: 'Du skapar bra med personliga brev! Prova CV-analys för att optimera ditt CV.',
         cta: 'Analysera CV',
         href: '/dashboard/cv-analys'
       };

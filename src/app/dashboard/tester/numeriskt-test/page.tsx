@@ -2,25 +2,35 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Calculator, Clock, BarChart3, TrendingUp, ArrowRight, CheckCircle2, History } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
-export default function NumericalTestLandingPage() {
+import NumericalTestHero from '@/components/tests/numerical-shared/NumericalTestHero';
+import NumericalInfoCard from '@/components/tests/numerical-shared/NumericalInfoCard';
+import NumericalStartCTA from '@/components/tests/numerical-shared/NumericalStartCTA';
+import NumericalPreviousResults from '@/components/tests/numerical-shared/NumericalPreviousResults';
+
+interface Session {
+  id: string;
+  score: number | null;
+  time_spent: number | null;
+  completed_at: string;
+}
+
+const TOTAL_QUESTIONS = 24;
+
+export default function NumeriskTestPage() {
   const router = useRouter();
-  const [isStarting, setIsStarting] = useState(false);
-  const [previousSessions, setPreviousSessions] = useState<any[]>([]);
+  const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch previous sessions
     fetch('/api/numericalTest/session')
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.sessions) {
-          const completed = data.sessions.filter((s: any) => s.completed_at);
-          // Sort by completed_at descending (newest first)
-          completed.sort((a: any, b: any) =>
-            new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime()
+          const completed = data.sessions.filter((s: Session) => s.completed_at);
+          completed.sort(
+            (a: Session, b: Session) =>
+              new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime()
           );
           setPreviousSessions(completed);
         }
@@ -29,293 +39,48 @@ export default function NumericalTestLandingPage() {
   }, []);
 
   const handleStartTest = async () => {
-    setIsStarting(true);
-
+    setIsLoading(true);
     try {
       const response = await fetch('/api/numericalTest/session', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
       });
-
-      if (response.ok) {
-        const data = await response.json();
+      const data = await response.json();
+      if (data.session) {
         router.push(`/dashboard/tester/numeriskt-test/test/${data.session.id}`);
       } else {
-        console.error('Failed to create session');
-        setIsStarting(false);
+        setIsLoading(false);
       }
     } catch (error) {
-      console.error('Error starting test:', error);
-      setIsStarting(false);
+      console.error('Failed to start test:', error);
+      setIsLoading(false);
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  // Find best score
-  const bestScore = previousSessions.length > 0
-    ? Math.max(...previousSessions.map(s => s.score || 0))
-    : 0;
+  const bestScore =
+    previousSessions.length > 0
+      ? Math.max(...previousSessions.map((s) => s.score ?? 0))
+      : 0;
+  const bestPercentage = bestScore > 0 ? Math.round((bestScore / TOTAL_QUESTIONS) * 100) : 0;
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
-            <Calculator className="w-10 h-10 text-white" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Numeriskt Resonemang
-            </h1>
-            <p className="text-slate-600 mt-1 font-medium">Tabeller, grafer & beräkningar</p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Main Content - Two Column Layout */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Test Info Card - Takes 2 columns */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="lg:col-span-2 bg-white rounded-2xl shadow-xl border-2 border-blue-200 overflow-hidden"
-        >
-          <div className="p-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">Om testet</h2>
-
-            <p className="text-slate-700 leading-relaxed mb-6">
-              Detta test utvärderar din förmåga att analysera sifferdata, tolka tabeller och grafer,
-              samt lösa matematiska problem under tidspress. Testet är vanligt i rekryteringsprocesser
-              för roller som kräver analytisk förmåga och numerisk kompetens.
-            </p>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-              <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <BarChart3 className="w-4 h-4 text-blue-600" />
-                <div>
-                  <p className="text-xs text-blue-600 font-medium">Frågor</p>
-                  <p className="text-lg font-bold text-blue-900">20</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                <Clock className="w-4 h-4 text-indigo-600" />
-                <div>
-                  <p className="text-xs text-indigo-600 font-medium">Tid</p>
-                  <p className="text-lg font-bold text-indigo-900">~20 min</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                <TrendingUp className="w-4 h-4 text-purple-600" />
-                <div>
-                  <p className="text-xs text-purple-600 font-medium">Nivå</p>
-                  <p className="text-lg font-bold text-purple-900">Mellan</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Frågetyper och Kompetenser */}
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-blue-600" />
-                  Frågetyper
-                </h3>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">•</span>
-                    <span>Tabellanalys och datautvinning</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">•</span>
-                    <span>Graf- och diagramtolkning</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">•</span>
-                    <span>Ordproblem från affärsvärlden</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">•</span>
-                    <span>Talserier och matematiska mönster</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-600" />
-                  Kompetenser
-                </h3>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-indigo-500 mt-1">•</span>
-                    <span>Procenträkning och nyckeltal</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-indigo-500 mt-1">•</span>
-                    <span>Lönsamhetsanalys och budgetering</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-indigo-500 mt-1">•</span>
-                    <span>Tillväxtberäkningar och prognoser</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-indigo-500 mt-1">•</span>
-                    <span>Logiskt tänkande under tidspress</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Tips */}
-            <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mb-6">
-              <h3 className="font-bold text-amber-900 mb-3">Tips inför testet</h3>
-              <ul className="space-y-2 text-sm text-amber-800">
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-0.5">•</span>
-                  <span>Ha en miniräknare redo – du kommer behöva den!</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-0.5">•</span>
-                  <span>Anteckningspapper kan vara till hjälp för komplexa beräkningar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-0.5">•</span>
-                  <span>Ta dig tid att läsa frågan noga</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-0.5">•</span>
-                  <span>Svara på alla frågor – ingen minuspoäng för felaktiga svar</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Start Button */}
-            <Button
-              onClick={handleStartTest}
-              disabled={isStarting}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
-            >
-              {isStarting ? (
-                <span className="flex items-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Startar test...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  Starta Numeriskt Test
-                  <ArrowRight className="w-5 h-5" />
-                </span>
-              )}
-            </Button>
-          </div>
-        </motion.div>
-
-        {/* Previous Sessions - Right Column */}
-        {previousSessions.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="lg:col-span-1 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-fit"
-          >
-            <div className="p-4 border-b border-slate-200 bg-slate-50">
-              <div className="flex items-center gap-2">
-                <History className="w-4 h-4 text-slate-600" />
-                <h3 className="text-sm font-bold text-slate-900">Tidigare Resultat</h3>
-              </div>
-            </div>
-
-            <div className="divide-y divide-slate-100 max-h-[600px] overflow-y-auto">
-              {previousSessions.slice(0, 5).map((session) => {
-                const isBest = session.score === bestScore;
-                return (
-                  <div
-                    key={session.id}
-                    className={`p-3 hover:bg-slate-50 transition-colors ${
-                      isBest ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''
-                    }`}
-                  >
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {session.score} / 20
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          ({Math.round((session.score / 20) * 100)}%)
-                        </p>
-                        {isBest && (
-                          <span className="text-xs font-bold text-yellow-700">⭐</span>
-                        )}
-                      </div>
-                      <p className="text-xs text-slate-500">
-                        {new Date(session.completed_at).toLocaleDateString('sv-SE', {
-                          day: 'numeric',
-                          month: 'short'
-                        })}
-                      </p>
-                      <p className="text-xs text-slate-600">
-                        {formatTime(session.time_spent)}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
+    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
+      <div className="space-y-5 sm:space-y-6">
+        <NumericalTestHero
+          variant="v1"
+          bestScore={bestScore}
+          bestPercentage={bestPercentage}
+          totalQuestions={TOTAL_QUESTIONS}
+        />
+        <NumericalInfoCard variant="v1" />
+        <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v1" />
+        <NumericalPreviousResults
+          variant="v1"
+          sessions={previousSessions}
+          bestScore={bestScore}
+          totalQuestions={TOTAL_QUESTIONS}
+        />
       </div>
-
-      {/* Example Card - Full Width Below */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-white rounded-2xl p-8 border-2 border-slate-200 shadow-lg mt-6"
-      >
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">
-          Exempel på fråga
-        </h2>
-
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-200">
-          <div className="bg-white rounded-lg p-4 mb-4 border border-slate-200">
-            <p className="text-sm font-medium text-slate-700 mb-3">
-              Ett företag hade 85.5 MSEK i intäkter och 38.5 MSEK i rörliga kostnader.
-              Vad är täckningsbidraget i procent av intäkterna?
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 bg-slate-50 rounded-lg text-sm text-slate-700">
-                A) 45%
-              </div>
-              <div className="p-3 bg-slate-50 rounded-lg text-sm text-slate-700">
-                B) 52%
-              </div>
-              <div className="p-3 bg-blue-100 rounded-lg text-sm text-blue-900 font-medium border-2 border-blue-400">
-                C) 55% ✓
-              </div>
-              <div className="p-3 bg-slate-50 rounded-lg text-sm text-slate-700">
-                D) 60%
-              </div>
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 italic">
-            Förklaring: Täckningsbidrag = Intäkter - Rörliga kostnader = 85.5 - 38.5 = 47 MSEK.
-            I procent: 47 / 85.5 × 100% ≈ 55%
-          </p>
-        </div>
-      </motion.div>
     </div>
   );
 }

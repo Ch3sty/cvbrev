@@ -1,22 +1,20 @@
-// src/components/cv/analysis/steps/AnalysisOverviewStep.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
-  CheckCircle2,
   TrendingUp,
-  Sparkles,
   Target,
   Briefcase,
   Award,
+  User,
   Info,
   ChevronDown,
   ChevronUp,
   Zap,
-  Clock
+  Lightbulb,
+  ArrowRight,
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
 import {
   Tooltip,
   TooltipContent,
@@ -49,19 +47,11 @@ export default function AnalysisOverviewStep({
   profileImproved,
   atsScore,
   potentialScore,
-  totalImpactBreakdown
+  totalImpactBreakdown,
 }: AnalysisOverviewStepProps) {
   const improvement = potentialScore - atsScore;
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
-  // Hjälpfunktion för att få ATS-färg baserat på poäng
-  const getATSColor = (score: number) => {
-    if (score >= 85) return { bg: 'bg-green-100', border: 'border-green-300', text: 'text-green-700', gradient: 'from-green-500 to-emerald-600' };
-    if (score >= 70) return { bg: 'bg-yellow-100', border: 'border-yellow-300', text: 'text-yellow-700', gradient: 'from-yellow-500 to-orange-500' };
-    return { bg: 'bg-red-100', border: 'border-red-300', text: 'text-red-700', gradient: 'from-red-500 to-rose-600' };
-  };
-
-  // Hjälpfunktion för att få ATS-betyg
   const getATSGrade = (score: number) => {
     if (score >= 90) return 'A';
     if (score >= 80) return 'B';
@@ -70,428 +60,396 @@ export default function AnalysisOverviewStep({
     return 'F';
   };
 
-  const currentColor = getATSColor(atsScore);
-  const potentialColor = getATSColor(potentialScore);
+  const getScoreTone = (score: number) => {
+    if (score >= 85) return { ring: 'ring-emerald-300', bg: 'bg-emerald-50', text: 'text-emerald-700' };
+    if (score >= 70) return { ring: 'ring-amber-300', bg: 'bg-amber-50', text: 'text-amber-700' };
+    return { ring: 'ring-red-300', bg: 'bg-red-50', text: 'text-red-700' };
+  };
+
+  const currentTone = getScoreTone(atsScore);
+  const potentialTone = getScoreTone(potentialScore);
 
   const categories = [
     {
+      id: 'profile',
+      icon: User,
+      title: 'Personbeskrivning',
+      count: profileImproved ? 1 : 0,
+      description: 'Vi optimerar din inledning så att rekryteraren stannar.',
+      detail: 'En vass personbeskrivning fångar uppmärksamhet på första raden.',
+      priority: profileImproved ? 'high' : 'low',
+    },
+    {
+      id: 'roles',
       icon: Briefcase,
       title: 'Rollbaserade förbättringar',
       count: roleBasedCount,
-      color: 'from-blue-600 to-cyan-600',
-      description: 'Optimering av arbetserfarenheter',
-      tooltip: 'Vi förbättrar beskrivningar av dina arbetsuppgifter för att bättre matcha din målroll',
-      value: `Optimerar ${roleBasedCount} arbetsupplevelser för att bättre framhäva relevanta resultat och kompetenser`,
-      priority: roleBasedCount > 5 ? 'high' : 'medium'
+      description: 'Vi förstärker varje arbetsbeskrivning med resultat och relevans.',
+      detail: `Vi går igenom ${roleBasedCount} roll${roleBasedCount === 1 ? '' : 'er'} och föreslår skarpare formuleringar med kvantifierad impact.`,
+      priority: roleBasedCount > 5 ? 'high' : 'medium',
     },
     {
+      id: 'skills',
       icon: Award,
       title: 'Kompetenser & färdigheter',
       count: skillsCount,
-      color: 'from-purple-600 to-pink-600',
-      description: 'Saknade kompetenser identifierade',
-      tooltip: 'Kompetenser som ofta efterfrågas i din bransch och som du bör lägga till',
-      value: `Lägger till ${skillsCount} efterfrågade kompetenser som ökar dina chanser att matcha jobb-annonser`,
-      priority: skillsCount > 7 ? 'high' : 'medium'
+      description: 'Vi hittar nyckelord som rekryterare och ATS letar efter.',
+      detail: `Vi lägger till ${skillsCount} efterfrågade kompetenser som matchar din målroll.`,
+      priority: skillsCount > 7 ? 'high' : 'medium',
     },
     {
-      icon: Sparkles,
-      title: 'Personbeskrivning',
-      count: profileImproved ? 1 : 0,
-      color: 'from-pink-600 to-rose-600',
-      description: 'Din inledning har optimerats',
-      tooltip: 'En stark personbeskrivning fångar rekryterarens uppmärksamhet direkt',
-      value: 'Skapar en engagerande inledning som framhäver din unika profil och dina styrkor',
-      priority: profileImproved ? 'high' : 'low'
-    },
-    {
+      id: 'general',
       icon: Target,
-      title: 'Allmänna förbättringar',
+      title: 'Automatiska förbättringar',
       count: generalCount,
-      color: 'from-green-600 to-emerald-600',
-      description: 'Övriga rekommendationer',
-      tooltip: 'Strukturella och formateringsmässiga förbättringar för ett mer professionellt CV',
-      value: `${generalCount} förbättringar som gör ditt CV mer läsbart och professionellt`,
-      priority: 'medium'
-    }
+      description: 'Strukturella justeringar som lyfter helhetsintrycket.',
+      detail: `${generalCount} förbättringar för läsbarhet, formatering och flow.`,
+      priority: 'medium',
+    },
   ];
 
-  // Identifiera quick wins (förbättringar med hög prioritet)
-  const quickWins = categories.filter(cat => cat.priority === 'high' && cat.count > 0);
+  const quickWins = categories.filter((c) => c.priority === 'high' && c.count > 0);
 
   return (
     <TooltipProvider>
-      <div className="space-y-8">
-        {/* Success Header */}
+      <div className="space-y-6">
+        {/* Resultat-kort: ATS Score */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
+          style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
         >
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-            <CheckCircle2 className="w-10 h-10 text-white" />
-          </div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-2">
-            Din analys är klar!
-          </h3>
-          <p className="text-lg text-gray-600">
-            Vi har identifierat <span className="font-semibold text-pink-600">{totalImprovements} förbättringar</span> för ditt CV
-          </p>
-        </motion.div>
-
-        {/* ATS Score Card - FÖRBÄTTRAD */}
-        <Card className="bg-gradient-to-br from-white via-purple-50/30 to-white border border-slate-200 shadow-lg p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h4 className="text-lg font-semibold text-gray-900">ATS-Optimering</h4>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                  ATS-optimering
+                </h3>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Info className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+                    <Info className="w-4 h-4 text-slate-400 hover:text-slate-600" />
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     <p className="text-sm">
-                      ATS (Applicant Tracking System) är programvara som stora företag använder för att automatiskt
-                      filtrera CV:n. Ett högre ATS-poäng ökar chansen att ditt CV når en mänsklig rekryterare.
+                      ATS (Applicant Tracking System) är programvara som många företag använder för att filtrera CV:n automatiskt. Ett högre poäng ökar chansen att ditt CV når en rekryterare.
                     </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <p className="text-sm text-gray-600">Applicant Tracking System</p>
+              <p className="text-sm text-slate-600 mt-0.5">Hur väl ditt CV passerar urvalssystem.</p>
             </div>
-            <TrendingUp className="w-8 h-8 text-green-600" />
-          </div>
-
-          <div className="grid grid-cols-3 gap-6 mb-6">
-            {/* Current Score */}
-            <div className="text-center">
-              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full ${currentColor.bg} ${currentColor.border} border-2 mb-2`}>
-                <span className={`text-3xl font-bold ${currentColor.text}`}>
-                  {getATSGrade(atsScore)}
-                </span>
-              </div>
-              <motion.div
-                className="text-3xl font-bold text-gray-900 mb-1"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {atsScore}
-              </motion.div>
-              <div className="text-sm text-gray-600">Nuvarande</div>
-            </div>
-
-            {/* Arrow & Progress */}
-            <div className="flex flex-col items-center justify-center">
-              <div className="w-full">
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  <motion.div
-                    className={`h-full bg-gradient-to-r ${currentColor.gradient}`}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(atsScore / 100) * 100}%` }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                  />
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <motion.div
-                    className={`h-full bg-gradient-to-r ${potentialColor.gradient}`}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(potentialScore / 100) * 100}%` }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                  />
-                </div>
-              </div>
-              <span className="text-2xl text-gray-400 mt-2">→</span>
-            </div>
-
-            {/* Potential Score */}
-            <div className="text-center">
-              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full ${potentialColor.bg} ${potentialColor.border} border-2 mb-2`}>
-                <span className={`text-3xl font-bold ${potentialColor.text}`}>
-                  {getATSGrade(potentialScore)}
-                </span>
-              </div>
-              <motion.div
-                className={`text-3xl font-bold ${potentialColor.text} mb-1`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {potentialScore}
-              </motion.div>
-              <div className="text-sm text-gray-600">Potential</div>
+            <div
+              className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
+              style={{
+                background: 'linear-gradient(135deg, #10B981, #059669)',
+                boxShadow: '0 4px 12px -2px rgba(16, 185, 129, 0.4)',
+              }}
+            >
+              <TrendingUp className="w-5 h-5" strokeWidth={2.25} />
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">+{improvement}</span>
+          <div className="grid grid-cols-[1fr,auto,1fr] gap-3 sm:gap-5 items-center">
+            <ScoreBadge
+              label="Nuvarande"
+              score={atsScore}
+              grade={getATSGrade(atsScore)}
+              tone={currentTone}
+            />
+
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center"
+                   style={{
+                     background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                     boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.45)',
+                   }}>
+                <ArrowRight className="w-4 h-4 text-white" strokeWidth={3} />
               </div>
-              <div>
-                <p className="text-sm font-semibold text-green-900 mb-1">
-                  {improvement >= 30 ? 'Betydande förbättring möjlig!' : improvement >= 20 ? 'God förbättringspotential' : 'Förbättring möjlig'}
-                </p>
-                <p className="text-sm text-green-800">
-                  Implementera våra rekommendationer för att öka chansen att ditt CV kommer förbi automatiska
-                  urvalsystem med <span className="font-semibold">~{Math.round(improvement * 1.5)}%</span>.
-                </p>
-              </div>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-600 hidden sm:inline">
+                Med vår hjälp
+              </span>
+            </div>
+
+            <ScoreBadge
+              label="Potential"
+              score={potentialScore}
+              grade={getATSGrade(potentialScore)}
+              tone={potentialTone}
+              highlight
+            />
+          </div>
+
+          <div className="mt-5 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100">
+            <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm tabular-nums"
+                 style={{
+                   background: 'linear-gradient(135deg, #10B981, #059669)',
+                 }}>
+              +{improvement}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-emerald-900">
+                {improvement >= 30 ? 'Stor potential för förbättring' : improvement >= 20 ? 'God förbättringspotential' : 'Förbättring inom räckhåll'}
+              </p>
+              <p className="text-sm text-emerald-800 mt-0.5 leading-relaxed">
+                Tillämpa våra förslag för att öka chansen att passera automatiska urvalssystem med
+                <span className="font-semibold"> ~{Math.round(improvement * 1.5)}%</span>.
+              </p>
             </div>
           </div>
-        </Card>
+        </motion.div>
 
-        {/* ATS Impact Breakdown - NYTT! */}
-        {totalImpactBreakdown && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-          >
-            <Card className="bg-white border border-gray-200 p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Info className="w-5 h-5 text-blue-600" />
-                <h5 className="text-base font-semibold text-gray-900">
-                  Poängfördelning från förbättringar
-                </h5>
-              </div>
-              <div className="space-y-3 text-sm">
-                {/* Pedagogisk info-box om beräkningen */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
-                  <div className="flex items-start gap-2">
-                    <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-xs text-blue-900 space-y-1">
-                      <p className="font-semibold">Så beräknar vi din potential:</p>
-                      <p>• <span className="font-medium">Rollförbättringar</span> baseras på dina 5 mest impactfulla roller (genomsnittlig kvalitet × 4)</p>
-                      <p>• Detta ger <span className="font-medium">rättvis poängsättning oavsett antal roller</span> – 2 starka roller kan ge lika mycket som 10 svaga</p>
-                      <p>• <span className="font-medium">Fokus på kvalitet över kvantitet</span> – vi belönar välskrivna, kvantifierade rollbeskrivningar</p>
-                    </div>
-                  </div>
-                </div>
+        {/* Resultat-summary */}
+        <div
+          className="rounded-2xl p-5 text-center"
+          style={{
+            background:
+              'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.06) 100%)',
+            border: '1px solid rgba(249, 115, 22, 0.15)',
+          }}
+        >
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+            Resultat
+          </div>
+          <p className="text-base sm:text-lg font-semibold text-slate-900">
+            Vi hittade{' '}
+            <span
+              className="text-transparent bg-clip-text font-bold"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
+              }}
+            >
+              {totalImprovements} förbättringar
+            </span>{' '}
+            för ditt CV
+          </p>
+        </div>
 
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Personbeskrivning:</span>
-                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.profile)} poäng</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Rollförbättringar (topp 5):</span>
-                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.roles)} poäng</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Kompetenser:</span>
-                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.skills)} poäng</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Allmänna förbättringar:</span>
-                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.general)} poäng</span>
-                </div>
-                <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
-                  <span className="font-semibold text-gray-900">Total möjlig ökning:</span>
-                  <span className="font-bold text-green-600 text-lg">+{totalImpactBreakdown.total} poäng</span>
-                </div>
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
-                  <p className="text-xs text-amber-900">
-                    <span className="font-semibold">💡 Tips:</span> Faktiskt resultat beror på vilka förbättringar du väljer i nästa steg.
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Quick Wins Section */}
+        {/* Quick wins */}
         {quickWins.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.1 }}
+            className="rounded-3xl p-5 sm:p-6"
+            style={{
+              background:
+                'linear-gradient(135deg, rgba(251, 146, 60, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%)',
+              border: '1px solid rgba(249, 115, 22, 0.25)',
+            }}
           >
-            <Card className="bg-gradient-to-r from-amber-50 to-yellow-50 border-2 border-amber-300 p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                    Quick Wins - Snabba förbättringar
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="w-4 h-4 text-gray-500" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="text-sm">Fokusera på dessa för störst effekt med minst arbete</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </h4>
-                  <p className="text-sm text-gray-700 mb-3">
-                    Dessa förbättringar ger störst genomslag och är enkla att implementera:
-                  </p>
-                  <div className="space-y-2">
-                    {quickWins.map((win) => (
-                      <div key={win.title} className="flex items-center gap-2 text-sm text-gray-800">
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                        <span className="font-medium">{win.title}:</span>
-                        <span className="text-gray-600">{win.count} förbättringar</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="flex items-start gap-4">
+              <div
+                className="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white"
+                style={{
+                  background: 'linear-gradient(135deg, #FB923C, #F59E0B)',
+                  boxShadow: '0 6px 14px -4px rgba(245, 158, 11, 0.45)',
+                }}
+              >
+                <Zap className="w-6 h-6" strokeWidth={2.25} />
               </div>
-            </Card>
+              <div className="flex-1 min-w-0">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+                  Snabba vinster
+                </div>
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
+                  Här ger förbättringarna störst effekt
+                </h4>
+                <ul className="space-y-1.5">
+                  {quickWins.map((win) => (
+                    <li key={win.id} className="flex items-center gap-2 text-sm text-slate-700">
+                      <span
+                        className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
+                        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                      />
+                      <span className="font-semibold">{win.title}</span>
+                      <span className="text-slate-500">·</span>
+                      <span className="text-slate-600">
+                        {win.count} {win.count === 1 ? 'punkt' : 'punkter'}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </motion.div>
         )}
 
-        {/* Category Grid - FÖRBÄTTRAD MED EXPANDERBAR FUNKTIONALITET */}
-        <div className="grid md:grid-cols-2 gap-4">
+        {/* Kategori-grid */}
+        <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
           {categories.map((category, index) => {
-            const isExpanded = expandedCategory === category.title;
+            if (category.count === 0) return null;
+            const isExpanded = expandedCategory === category.id;
             const isPriority = category.priority === 'high';
 
             return (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 20 }}
+              <motion.button
+                key={category.id}
+                type="button"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: 0.1 + index * 0.05 }}
+                whileHover={{ y: -2 }}
+                onClick={() => setExpandedCategory(isExpanded ? null : category.id)}
+                className="text-left bg-white rounded-2xl border border-slate-200 hover:border-orange-300 transition-all overflow-hidden p-5"
+                style={
+                  isPriority
+                    ? {
+                        boxShadow:
+                          '0 0 0 1px rgba(249, 115, 22, 0.4), 0 8px 24px -12px rgba(249, 115, 22, 0.25)',
+                      }
+                    : undefined
+                }
               >
-                <Card className={`bg-white border-slate-200 hover:shadow-md transition-all ${
-                  isPriority ? 'ring-2 ring-amber-300' : ''
-                }`}>
-                  <button
-                    onClick={() => setExpandedCategory(isExpanded ? null : category.title)}
-                    className="w-full p-6 text-left"
+                <div className="flex items-start gap-3">
+                  <div
+                    className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
+                    style={{
+                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                      boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
+                    }}
                   >
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
-                        <category.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h5 className="font-semibold text-gray-900">
-                            {category.title}
-                          </h5>
-                          <Tooltip>
-                            <TooltipTrigger onClick={(e) => e.stopPropagation()}>
-                              <Info className="w-4 h-4 text-gray-400 hover:text-gray-600" />
-                            </TooltipTrigger>
-                            <TooltipContent className="max-w-xs">
-                              <p className="text-sm">{category.tooltip}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                          {isPriority && (
-                            <span className="px-2 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 rounded-full">
-                              Prioritet
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">
-                          {category.description}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <div className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                            {category.count}
-                          </div>
-                          {category.count > 0 && (
-                            <div className="flex items-center gap-1 text-sm text-blue-600">
-                              <span>Detaljer</span>
-                              {isExpanded ? (
-                                <ChevronUp className="w-4 h-4" />
-                              ) : (
-                                <ChevronDown className="w-4 h-4" />
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                    <category.icon className="w-5 h-5" strokeWidth={2.25} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h5 className="font-bold text-slate-900 text-sm">{category.title}</h5>
+                      {isPriority && (
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                          Prioritet
+                        </span>
+                      )}
                     </div>
-                  </button>
+                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                      {category.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-3">
+                      <span
+                        className="text-2xl font-bold tabular-nums text-transparent bg-clip-text"
+                        style={{
+                          backgroundImage: 'linear-gradient(135deg, #F97316, #DC2626)',
+                        }}
+                      >
+                        {category.count}
+                      </span>
+                      <span className="flex items-center gap-1 text-xs text-orange-700 font-semibold">
+                        Detaljer
+                        {isExpanded ? (
+                          <ChevronUp className="w-3.5 h-3.5" />
+                        ) : (
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-                  {/* Expanderad sektion */}
-                  {isExpanded && category.count > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="px-6 pb-6 pt-2 border-t border-gray-100"
-                    >
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <p className="text-sm text-gray-700 font-medium mb-2">
-                          Vad du får:
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {category.value}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </Card>
-              </motion.div>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-4 pt-4 border-t border-orange-100"
+                  >
+                    <p className="text-sm text-slate-700 leading-relaxed">
+                      {category.detail}
+                    </p>
+                  </motion.div>
+                )}
+              </motion.button>
             );
           })}
         </div>
 
-        {/* Vad händer härnäst? - NY SEKTION */}
-        <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 p-6">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                Vad händer härnäst?
-              </h4>
-              <div className="space-y-3 mb-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                    1
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Välj förbättringar</p>
-                    <p className="text-sm text-gray-600">
-                      Granska och välj vilka förbättringar du vill implementera. Du har full kontroll!
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                    2
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Förhandsgranska resultat</p>
-                    <p className="text-sm text-gray-600">
-                      Se en jämförelse mellan ditt nuvarande CV och det förbättrade CV:t
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                    3
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Välj mall och spara</p>
-                    <p className="text-sm text-gray-600">
-                      Välj en professionell mall och ladda ner ditt förbättrade CV som PDF
-                    </p>
-                  </div>
-                </div>
+        {/* Poängfördelning */}
+        {totalImpactBreakdown && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6"
+          >
+            <div className="flex items-start gap-3 mb-4">
+              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center">
+                <Lightbulb className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
               </div>
-              <div className="flex items-center gap-2 text-sm text-blue-700 bg-blue-100 rounded-lg p-3">
-                <Clock className="w-4 h-4 flex-shrink-0" />
-                <span className="font-medium">
-                  Uppskattat tid kvar: ~3-5 minuter
-                </span>
+              <div className="min-w-0">
+                <h4 className="text-base font-bold text-slate-900">Så beräknar vi din potential</h4>
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Vi viktar dina fem starkaste roller för rättvis poängsättning.
+                </p>
               </div>
             </div>
-          </div>
-        </Card>
 
-        {/* Call to Action */}
-        <div className="text-center pt-4">
-          <p className="text-gray-600">
-            Klicka på <span className="font-semibold text-pink-600">Nästa</span> för att börja välja förbättringar
-          </p>
-        </div>
+            <div className="space-y-2.5 text-sm">
+              <PointRow label="Personbeskrivning" value={Math.round(totalImpactBreakdown.profile)} />
+              <PointRow label="Rollförbättringar (topp 5)" value={Math.round(totalImpactBreakdown.roles)} />
+              <PointRow label="Kompetenser" value={Math.round(totalImpactBreakdown.skills)} />
+              <PointRow label="Allmänna förbättringar" value={Math.round(totalImpactBreakdown.general)} />
+            </div>
+
+            <div className="border-t border-slate-200 mt-4 pt-4 flex items-center justify-between">
+              <span className="font-bold text-slate-900">Total möjlig ökning</span>
+              <span
+                className="text-xl font-bold tabular-nums text-transparent bg-clip-text"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #10B981, #059669)',
+                }}
+              >
+                +{totalImpactBreakdown.total} poäng
+              </span>
+            </div>
+
+            <div className="mt-3 px-3 py-2 rounded-xl bg-amber-50/80 border border-amber-100 text-xs text-amber-900">
+              <span className="font-semibold">Tips: </span>
+              Ditt faktiska resultat beror på vilka förbättringar du väljer i nästa steg.
+            </div>
+          </motion.div>
+        )}
       </div>
     </TooltipProvider>
+  );
+}
+
+function ScoreBadge({
+  label,
+  score,
+  grade,
+  tone,
+  highlight = false,
+}: {
+  label: string;
+  score: number;
+  grade: string;
+  tone: { ring: string; bg: string; text: string };
+  highlight?: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center text-center">
+      <div
+        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center ring-2 ${tone.ring} ${tone.bg} mb-2`}
+        style={
+          highlight
+            ? {
+                boxShadow: '0 8px 24px -8px rgba(16, 185, 129, 0.4)',
+              }
+            : undefined
+        }
+      >
+        <span className={`text-2xl sm:text-3xl font-bold ${tone.text}`}>{grade}</span>
+      </div>
+      <div className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums">{score}</div>
+      <div className="text-xs text-slate-600 mt-0.5 font-medium">{label}</div>
+    </div>
+  );
+}
+
+function PointRow({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex items-center justify-between">
+      <span className="text-slate-600">{label}</span>
+      <span className="font-semibold text-slate-900 tabular-nums">+{value} poäng</span>
+    </div>
   );
 }

@@ -3,11 +3,28 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Building2, Sparkles, Lightbulb, Trophy, Scale, Bot,
-  Languages, Crown, Lock, Check
+  Building2,
+  Wand2,
+  Lightbulb,
+  Trophy,
+  Scale,
+  Brain,
+  Languages,
+  Crown,
+  Lock,
+  Check,
+  CheckCircle2,
 } from 'lucide-react';
+import LetterFlowStepHeader from '../LetterFlowStepHeader';
+import SmartToneNetwork from '../illustrations/SmartToneNetwork';
 
-type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
+type Tonality =
+  | 'professional'
+  | 'enthusiastic'
+  | 'creative'
+  | 'confident'
+  | 'balanced'
+  | 'auto';
 type Language = 'sv' | 'en';
 
 interface TonalityLanguageStepProps {
@@ -16,50 +33,51 @@ interface TonalityLanguageStepProps {
   onTonalityChange: (tonality: Tonality) => void;
   onLanguageChange: (language: Language) => void;
   isPremium: boolean;
+  isActive: boolean;
+  registerRef?: (el: HTMLElement | null) => void;
 }
 
-// Standard tonality options (excluding auto/Smart-anpassad)
 const standardTonalityOptions = [
   {
     id: 'professional' as Tonality,
     label: 'Professionell',
     description: 'Formell och saklig ton',
     icon: Building2,
-    recommendedFor: 'Traditionella branscher'
+    recommendedFor: 'Traditionella branscher',
   },
   {
     id: 'enthusiastic' as Tonality,
     label: 'Entusiastisk',
     description: 'Energisk och passionerad',
-    icon: Sparkles,
-    recommendedFor: 'Kreativa yrken, startups'
+    icon: Wand2,
+    recommendedFor: 'Kreativa yrken, startups',
   },
   {
     id: 'creative' as Tonality,
     label: 'Kreativ',
     description: 'Innovativ och nytänkande',
     icon: Lightbulb,
-    recommendedFor: 'Design, marknadsföring'
+    recommendedFor: 'Design, marknadsföring',
   },
   {
     id: 'confident' as Tonality,
     label: 'Självsäker',
     description: 'Betonar prestationer',
     icon: Trophy,
-    recommendedFor: 'Chefsroller, sälj'
+    recommendedFor: 'Chefsroller, sälj',
   },
   {
     id: 'balanced' as Tonality,
     label: 'Balanserad',
     description: 'Mix av professionalitet och personlighet',
     icon: Scale,
-    recommendedFor: 'De flesta tjänster'
-  }
+    recommendedFor: 'De flesta tjänster',
+  },
 ];
 
 const languageOptions = [
   { id: 'sv' as Language, label: 'Svenska', flag: '🇸🇪' },
-  { id: 'en' as Language, label: 'English', flag: '🇬🇧' }
+  { id: 'en' as Language, label: 'English', flag: '🇬🇧' },
 ];
 
 export default function TonalityLanguageStep({
@@ -67,9 +85,10 @@ export default function TonalityLanguageStep({
   language,
   onTonalityChange,
   onLanguageChange,
-  isPremium
+  isPremium,
+  isActive,
+  registerRef,
 }: TonalityLanguageStepProps) {
-  // Auto-select "auto" for premium users if they haven't selected anything yet
   useEffect(() => {
     if (isPremium && tonality === 'balanced') {
       onTonalityChange('auto');
@@ -78,53 +97,41 @@ export default function TonalityLanguageStep({
 
   const isAutoSelected = tonality === 'auto';
 
-  // Featured card component for Smart-anpassad
-  const FeaturedCard = ({ isMobile = false }: { isMobile?: boolean }) => {
+  const FeaturedCard = () => {
     const isLocked = !isPremium;
 
     if (isLocked) {
-      // Locked state for non-premium users
       return (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`
-            relative overflow-hidden rounded-2xl border-2 border-dashed border-purple-300
-            bg-gradient-to-br from-purple-50 to-pink-50
-            ${isMobile ? 'p-5' : 'p-6'}
-          `}
+          className="relative overflow-hidden rounded-3xl border-2 border-dashed border-orange-300/70 bg-orange-50/40 p-5 sm:p-6"
         >
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0 opacity-60">
-              <Bot className="w-7 h-7 text-white" />
+            <div className="relative flex-shrink-0">
+              <div className="absolute inset-0 rounded-2xl bg-orange-100" />
+              <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center bg-white border border-orange-200/70">
+                <Lock className="w-6 h-6 text-orange-600" strokeWidth={2.25} />
+              </div>
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h5 className="font-bold text-gray-700">Smart-anpassad</h5>
-                <div className="bg-gray-800 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Lock className="w-3 h-3" />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <h5 className="font-bold text-slate-900">Smart-anpassad</h5>
+                <div className="bg-slate-900 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
                   Premium
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                Matchar tonen mot företagets kultur och branschens förväntningar – inte bara jobbannonsen.
+              <p className="text-sm text-slate-600 mb-3 leading-relaxed">
+                Vi matchar tonen mot företagets kultur och branschens förväntningar. Inte bara annonsen.
               </p>
-              <ul className="text-xs text-gray-500 space-y-1 mb-3">
-                <li className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-purple-400" />
-                  Analyserar nyckelord och krav på djupet
-                </li>
-                <li className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-purple-400" />
-                  Anpassar efter branschens kommunikationsstil
-                </li>
-              </ul>
               <a
                 href="/dashboard/installningar"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-600 hover:text-purple-700"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-semibold text-sm shadow-md min-h-[40px]"
+                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
               >
                 <Crown className="w-4 h-4" />
-                Uppgradera för att låsa upp
+                Lås upp Premium
               </a>
             </div>
           </div>
@@ -132,74 +139,82 @@ export default function TonalityLanguageStep({
       );
     }
 
-    // Premium user - full featured card
     return (
       <motion.button
+        type="button"
         onClick={() => onTonalityChange('auto')}
-        className={`
-          relative w-full overflow-hidden rounded-2xl transition-all text-left
-          ${isAutoSelected
-            ? 'ring-4 ring-pink-300/50 shadow-xl shadow-pink-500/20'
-            : 'hover:shadow-lg hover:shadow-pink-500/10'
-          }
-        `}
-        whileHover={{ scale: 1.01 }}
+        className="relative w-full overflow-hidden rounded-3xl text-left transition-all"
+        style={{
+          background:
+            'linear-gradient(135deg, #F97316 0%, #DC2626 55%, #BE185D 100%)',
+          boxShadow: isAutoSelected
+            ? '0 24px 48px -14px rgba(220, 38, 38, 0.55)'
+            : '0 16px 36px -10px rgba(220, 38, 38, 0.4)',
+        }}
+        whileHover={{ y: -2 }}
         whileTap={{ scale: 0.99 }}
-        aria-label="Välj Smart-anpassad tonalitet"
         aria-pressed={isAutoSelected}
       >
-        {/* Gradient background */}
-        <div className={`
-          absolute inset-0 bg-gradient-to-br from-pink-600 to-purple-600
-          ${isAutoSelected ? 'opacity-100' : 'opacity-90'}
-        `} />
+        {/* Bakgrundsnätverk: visar att vi kopplar ihop tre datakällor */}
+        <SmartToneNetwork />
 
-        {/* Subtle pattern overlay */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-          backgroundSize: '24px 24px'
-        }} />
-
-        {/* Content */}
-        <div className={`relative ${isMobile ? 'p-5' : 'p-6'}`}>
+        <div className="relative z-10 p-5 sm:p-7">
           <div className="flex items-start gap-4">
-            {/* Icon */}
-            <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-              <Bot className="w-7 h-7 text-white" />
+            <div className="relative flex-shrink-0">
+              {/* Pulserande ringar bakom Brain-ikonen */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl bg-white/30"
+                animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
+              />
+              <div className="relative w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                <Brain className="w-7 h-7 text-white" strokeWidth={2.25} />
+              </div>
             </div>
 
-            {/* Text content */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h5 className="font-bold text-lg text-white">Smart-anpassad</h5>
-                <span className="bg-yellow-400/90 text-yellow-900 text-xs font-semibold px-2 py-0.5 rounded-full">
-                  Bäst resultat
-                </span>
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                <h5 className="font-bold text-lg sm:text-xl text-white tracking-tight">
+                  Smart-anpassad
+                </h5>
+                <motion.span
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-1 bg-emerald-400/95 text-emerald-950 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                >
+                  <CheckCircle2 className="w-3 h-3" strokeWidth={3} />
+                  Rekommenderas
+                </motion.span>
               </div>
-              <p className="text-sm text-white/90 mb-2">
-                Matchar tonen mot företagets kultur och branschens förväntningar – inte bara jobbannonsen.
+              <p className="text-sm sm:text-base text-white/90 mb-4 leading-relaxed max-w-xl">
+                Vi analyserar ditt CV, annonsen och företagets kultur. Sedan väljer vi tonen som ger högst chans till intervju.
               </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/75">
-                <span className="flex items-center gap-1">
-                  <Check className="w-3 h-3 text-green-300" />
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs sm:text-sm text-white/85">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Djupanalys av krav
                 </span>
-                <span className="flex items-center gap-1">
-                  <Check className="w-3 h-3 text-green-300" />
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Branschanpassad ton
                 </span>
-                <span className="flex items-center gap-1">
-                  <Check className="w-3 h-3 text-green-300" />
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
                   Högre svarsfrekvens
                 </span>
               </div>
             </div>
 
-            {/* Selection indicator */}
             {isAutoSelected && (
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                <Check className="w-5 h-5 text-pink-600" />
-              </div>
+              <motion.div
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-lg"
+              >
+                <Check className="w-5 h-5 text-orange-600" strokeWidth={3} />
+              </motion.div>
             )}
           </div>
         </div>
@@ -207,63 +222,78 @@ export default function TonalityLanguageStep({
     );
   };
 
-  // Standard tonality card component
   const StandardCard = ({
     option,
-    isMobile = false
   }: {
     option: typeof standardTonalityOptions[0];
-    isMobile?: boolean;
   }) => {
     const isSelected = tonality === option.id;
     const Icon = option.icon;
 
     return (
       <motion.button
+        type="button"
         onClick={() => onTonalityChange(option.id)}
-        className={`
-          relative w-full rounded-xl border-2 transition-all text-left
-          focus:outline-none focus:ring-4 focus:ring-pink-500/20
-          ${isMobile ? 'p-4' : 'p-5'}
-          ${isSelected
-            ? 'border-pink-500 bg-gradient-to-br from-pink-50 to-purple-50 shadow-md'
-            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
-          }
-        `}
-        whileHover={{ scale: 1.01 }}
+        className={`relative w-full rounded-2xl border-2 transition-all text-left p-4 focus:outline-none ${
+          isSelected
+            ? 'border-orange-400 bg-orange-50/50'
+            : 'border-slate-200 bg-white hover:border-orange-300'
+        }`}
+        style={
+          isSelected
+            ? { boxShadow: '0 8px 20px -6px rgba(249, 115, 22, 0.3)' }
+            : undefined
+        }
+        whileHover={{ y: -1 }}
         whileTap={{ scale: 0.98 }}
-        aria-label={`Välj ${option.label} tonalitet`}
         aria-pressed={isSelected}
       >
         <div className="flex items-start gap-3">
-          {/* Icon - neutral design */}
-          <div className={`
-            w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0
-            ${isSelected ? 'bg-pink-100' : 'bg-gray-100'}
-          `}>
-            <Icon className={`w-5 h-5 ${isSelected ? 'text-pink-600' : 'text-gray-600'}`} />
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={
+              isSelected
+                ? {
+                    background:
+                      'linear-gradient(135deg, #F97316, #DC2626)',
+                  }
+                : { background: '#F1F5F9' }
+            }
+          >
+            <Icon
+              className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-slate-500'}`}
+              strokeWidth={2.25}
+            />
           </div>
 
-          {/* Content */}
           <div className="flex-1 min-w-0">
-            <h5 className={`font-semibold ${isSelected ? 'text-gray-900' : 'text-gray-800'}`}>
-              {option.label}
-            </h5>
-            <p className="text-sm text-gray-600 mt-0.5">{option.description}</p>
-            <p className="text-xs text-gray-500 mt-1.5 flex items-center gap-1.5">
-              <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-pink-400' : 'bg-gray-400'}`} />
+            <h5 className="font-bold text-slate-900 text-sm">{option.label}</h5>
+            <p className="text-xs text-slate-600 mt-0.5">
+              {option.description}
+            </p>
+            <p className="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={
+                  isSelected
+                    ? { background: '#F97316' }
+                    : { background: '#CBD5E1' }
+                }
+              />
               {option.recommendedFor}
             </p>
           </div>
 
-          {/* Selection indicator */}
           {isSelected && (
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0"
+              className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              }}
             >
-              <Check className="w-4 h-4 text-white" />
+              <Check className="w-4 h-4 text-white" strokeWidth={3} />
             </motion.div>
           )}
         </div>
@@ -272,93 +302,86 @@ export default function TonalityLanguageStep({
   };
 
   return (
-    <div className="space-y-8">
-      {/* Tonality Selection */}
-      <section>
-        <h4 className="text-lg font-semibold text-gray-900 mb-4">Vilken ton passar bäst?</h4>
+    <motion.section
+      ref={registerRef}
+      data-flow-section="tone"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
+      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+    >
+      <LetterFlowStepHeader
+        stepNumber={4}
+        title="Ton & språk"
+        description="Välj hur brevet ska låta."
+        isDone={!!tonality}
+        isActive={isActive}
+      />
 
-        {/* Mobile Layout */}
-        <div className="space-y-3 md:hidden">
-          {/* Featured card first */}
-          <FeaturedCard isMobile />
+      <div className="space-y-5">
+        <FeaturedCard />
 
-          {/* Divider */}
-          <div className="flex items-center gap-3 py-2">
-            <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-xs text-gray-500 font-medium">eller välj manuellt</span>
-            <div className="flex-1 h-px bg-gray-200" />
-          </div>
+        <div className="flex items-center gap-3 py-1">
+          <div className="flex-1 h-px bg-slate-200" />
+          <span className="text-xs text-slate-500 font-medium">
+            eller välj manuellt
+          </span>
+          <div className="flex-1 h-px bg-slate-200" />
+        </div>
 
-          {/* Standard options */}
+        <div className="grid sm:grid-cols-2 gap-3">
           {standardTonalityOptions.map((option) => (
-            <StandardCard key={option.id} option={option} isMobile />
+            <StandardCard key={option.id} option={option} />
           ))}
         </div>
 
-        {/* Desktop Layout */}
-        <div className="hidden md:block space-y-5">
-          {/* Featured card */}
-          <FeaturedCard />
+        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200 mt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <Languages className="w-5 h-5 text-slate-600" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="font-bold text-slate-900 text-sm">
+                  Brevets språk
+                </h4>
+                <p className="text-xs text-slate-500">
+                  Vilket språk ska brevet skrivas på?
+                </p>
+              </div>
+            </div>
 
-          {/* Divider */}
-          <div className="flex items-center gap-4 py-1">
-            <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-sm text-gray-500 font-medium">eller välj manuellt</span>
-            <div className="flex-1 h-px bg-gray-200" />
-          </div>
-
-          {/* Standard options in grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {standardTonalityOptions.map((option) => (
-              <StandardCard key={option.id} option={option} />
-            ))}
+            <div className="flex gap-2">
+              {languageOptions.map((lang) => {
+                const isSelected = language === lang.id;
+                return (
+                  <motion.button
+                    key={lang.id}
+                    type="button"
+                    onClick={() => onLanguageChange(lang.id)}
+                    className={`px-4 py-2.5 rounded-xl border-2 transition-all flex items-center gap-2 min-h-[44px] focus:outline-none ${
+                      isSelected
+                        ? 'border-orange-400 bg-orange-50'
+                        : 'border-slate-200 bg-white hover:border-orange-300'
+                    }`}
+                    whileTap={{ scale: 0.95 }}
+                    aria-pressed={isSelected}
+                  >
+                    <span className="text-xl">{lang.flag}</span>
+                    <span className="font-semibold text-slate-900 text-sm">
+                      {lang.label}
+                    </span>
+                    {isSelected && (
+                      <Check className="w-4 h-4 text-orange-600" strokeWidth={3} />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* Language Selection - Compact integrated design */}
-      <section className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center">
-              <Languages className="w-5 h-5 text-gray-600" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-gray-900">Brevets språk</h4>
-              <p className="text-xs text-gray-500">Vilket språk ska brevet skrivas på?</p>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            {languageOptions.map((lang) => {
-              const isSelected = language === lang.id;
-              return (
-                <motion.button
-                  key={lang.id}
-                  onClick={() => onLanguageChange(lang.id)}
-                  className={`
-                    px-4 py-2.5 rounded-lg border-2 transition-all flex items-center gap-2
-                    focus:outline-none focus:ring-4 focus:ring-pink-500/20
-                    ${isSelected
-                      ? 'border-pink-500 bg-white shadow-sm'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                    }
-                  `}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={`Välj ${lang.label}`}
-                  aria-pressed={isSelected}
-                >
-                  <span className="text-xl">{lang.flag}</span>
-                  <span className="font-medium text-gray-900 text-sm">{lang.label}</span>
-                  {isSelected && (
-                    <Check className="w-4 h-4 text-pink-500" />
-                  )}
-                </motion.button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </motion.section>
   );
 }

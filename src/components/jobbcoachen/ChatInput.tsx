@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect, KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, FileText, X, Sparkles } from 'lucide-react';
+import { Send, FileText, X } from 'lucide-react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -20,7 +20,11 @@ interface ChatInputProps {
   disabled?: boolean;
   placeholder?: string;
   conversationId?: string | null;
-  hasMessages?: boolean; // To control banner visibility
+  hasMessages?: boolean;
+  /** Increment from parent to trigger document selector from outside */
+  externalOpenSignal?: number;
+  /** Optional content rendered above the input (e.g. suggestion chips) */
+  suggestionChips?: ReactNode;
 }
 
 export default function ChatInput({
@@ -29,6 +33,8 @@ export default function ChatInput({
   placeholder = 'Skriv ditt meddelande...',
   conversationId = null,
   hasMessages = false,
+  externalOpenSignal = 0,
+  suggestionChips = null,
 }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [selectedDocs, setSelectedDocs] = useState<Document[]>([]);
@@ -76,6 +82,13 @@ export default function ChatInput({
       textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`;
     }
   }, [message]);
+
+  // External trigger to open document selector (from ShareDocumentsCard)
+  useEffect(() => {
+    if (externalOpenSignal > 0) {
+      setShowDocSelector(true);
+    }
+  }, [externalOpenSignal]);
 
   const handleDocumentSelect = (doc: Document) => {
     // Toggle selection
@@ -127,8 +140,15 @@ export default function ChatInput({
 
   return (
     <>
-      <div className="sticky bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-3 sm:py-4 z-10" style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}>
-        <div className="max-w-4xl mx-auto">
+      <div className="px-3 sm:px-6 pt-5 pb-3 sm:pb-4">
+        <div className="w-full">
+          {/* Optional suggestion chips (rendered by parent on welcome view) */}
+          {suggestionChips && (
+            <div className="mb-3">
+              {suggestionChips}
+            </div>
+          )}
+
           {/* Selected documents preview */}
           <AnimatePresence>
             {selectedDocs.length > 0 && (
@@ -144,23 +164,25 @@ export default function ChatInput({
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
-                    className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-sm"
+                    className="flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-xl px-3 py-2 text-sm"
                   >
-                    <FileText className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white flex-shrink-0" style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}>
+                      <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-blue-900 truncate max-w-[200px]">
+                      <p className="font-semibold text-slate-900 truncate max-w-[200px]">
                         {doc.file_name}
                       </p>
-                      <p className="text-xs text-blue-600">
+                      <p className="text-[11px] text-orange-700">
                         {doc.type === 'cv' ? 'CV' : 'Personligt brev'}
                       </p>
                     </div>
                     <button
                       onClick={() => handleRemoveDoc(doc.id, doc.type)}
-                      className="p-1 hover:bg-blue-100 rounded-md transition-colors"
+                      className="p-1 hover:bg-orange-100 rounded-md transition-colors"
                       aria-label="Ta bort dokument"
                     >
-                      <X className="w-4 h-4 text-blue-600" />
+                      <X className="w-4 h-4 text-orange-700" />
                     </button>
                   </motion.div>
                 ))}
@@ -168,33 +190,17 @@ export default function ChatInput({
             )}
           </AnimatePresence>
 
-          {/* Premium input with glow effect */}
+          {/* Input area */}
           <div className="relative group">
-            {/* Glow effect on focus */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl opacity-0 group-focus-within:opacity-20 blur-lg transition-opacity" />
-
             <div className="relative flex items-end gap-2 sm:gap-3">
-              {/* Document selector button with premium glow effects */}
+              {/* Document selector button */}
               <motion.div className="relative flex-shrink-0">
-                {/* Animated glow effect */}
-                <motion.div
-                  className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-0 group-hover:opacity-40 transition-opacity"
-                  animate={{
-                    opacity: (cvCount + letterCount) > 0 ? [0.2, 0.4, 0.2] : 0
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-
                 <motion.button
                   onClick={() => setShowDocSelector(true)}
                   disabled={disabled}
-                  whileHover={{ scale: disabled ? 1 : 1.08, rotate: disabled ? 0 : 3 }}
+                  whileHover={{ scale: disabled ? 1 : 1.05 }}
                   whileTap={{ scale: disabled ? 1 : 0.95 }}
-                  className="relative p-3 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-400 hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
+                  className="relative p-3 bg-white border-2 border-orange-300 rounded-xl hover:bg-orange-50 hover:border-orange-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
                   aria-label="Dela CV eller personligt brev"
                   title={
                     (cvCount + letterCount) > 0
@@ -202,37 +208,23 @@ export default function ChatInput({
                       : 'Dela CV eller personligt brev'
                   }
                 >
-                  <FileText className="w-5 h-5 text-blue-600 group-hover:text-blue-700 transition-colors" />
+                  <FileText className="w-5 h-5 text-orange-600 group-hover:text-orange-700 transition-colors" strokeWidth={2.25} />
 
-                  {/* Premium pulse badge */}
+                  {/* Pulse badge */}
                   {(cvCount + letterCount) > 0 && (
                     <>
                       <motion.span
-                        className="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
-                        animate={{
-                          scale: [1, 1.15, 1]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
+                        className="absolute -top-1.5 -right-1.5 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
+                        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                        animate={{ scale: [1, 1.15, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                       >
                         {cvCount + letterCount}
                       </motion.span>
-
-                      {/* Pulse ring */}
                       <motion.span
-                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full border-2 border-blue-600"
-                        animate={{
-                          scale: [1, 1.6, 1],
-                          opacity: [0.6, 0, 0.6]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeOut"
-                        }}
+                        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border-2 border-orange-500"
+                        animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
                       />
                     </>
                   )}
@@ -240,12 +232,11 @@ export default function ChatInput({
               </motion.div>
 
               <div className="flex-1 relative">
-                {/* Diskret dokumentnotis */}
                 {(cvCount + letterCount) > 0 && selectedDocs.length === 0 && (
                   <div className="absolute -top-6 left-0 right-0 flex items-center justify-center">
-                    <p className="text-[10px] text-slate-500 bg-white px-2 py-0.5 rounded-full border border-slate-200">
-                      <FileText className="w-2.5 h-2.5 inline mr-1 text-blue-600" />
-                      {cvCount + letterCount} dokument redo att dela
+                    <p className="text-[10px] text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 font-semibold">
+                      <FileText className="w-2.5 h-2.5 inline mr-1" />
+                      Just nu kan du dela {cvCount + letterCount} av dina dokument med oss
                     </p>
                   </div>
                 )}
@@ -258,58 +249,48 @@ export default function ChatInput({
                   disabled={disabled}
                   placeholder={placeholder}
                   rows={1}
-                  className="w-full px-4 py-3 pr-12 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none disabled:bg-slate-100 disabled:cursor-not-allowed text-slate-900 placeholder-slate-500 focus:shadow-lg"
+                  className="w-full px-4 py-3 pr-12 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-200/40 focus:border-orange-400 transition-all resize-none disabled:bg-slate-100 disabled:cursor-not-allowed text-slate-900 placeholder-slate-400"
                   style={{
-                    fontSize: '16px', // Prevent iOS zoom
+                    fontSize: '16px',
                     minHeight: '48px',
                     maxHeight: '120px'
                   }}
                 />
-                {/* Character count - only on desktop */}
                 {message.length > 0 && (
-                  <div className="hidden sm:block absolute bottom-2 right-2 text-xs text-slate-400">
+                  <div className="hidden sm:block absolute bottom-2 right-2 text-xs text-slate-400 tabular-nums">
                     {message.length}
                   </div>
                 )}
               </div>
 
-              {/* Premium send button with multi-layer glow */}
-              <motion.div className="relative group/send flex-shrink-0">
-                {/* Outer glow ring */}
-                <motion.div
-                  className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl blur-lg opacity-40"
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [0.95, 1.05, 0.95]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-
-                {/* Middle glow layer */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-50 group-hover/send:opacity-75 transition-opacity" />
-
-                <motion.button
-                  onClick={handleSubmit}
-                  disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
-                  whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.08, y: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 0 : -2 }}
-                  whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.95 }}
-                  className="relative px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
-                >
-                  <Send className="w-5 h-5" />
-                  <span className="hidden sm:inline ml-2">Skicka</span>
-                </motion.button>
-              </motion.div>
+              {/* Send button */}
+              <motion.button
+                onClick={handleSubmit}
+                disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
+                whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.05 }}
+                whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.95 }}
+                className="relative px-5 py-3 text-white rounded-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation flex-shrink-0"
+                style={{
+                  background:
+                    disabled || (!message.trim() && selectedDocs.length === 0)
+                      ? '#94A3B8'
+                      : 'linear-gradient(135deg, #F97316, #DC2626)',
+                  boxShadow:
+                    disabled || (!message.trim() && selectedDocs.length === 0)
+                      ? 'none'
+                      : '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+                }}
+              >
+                <Send className="w-5 h-5" strokeWidth={2.25} />
+                <span className="hidden sm:inline ml-2">Skicka</span>
+              </motion.button>
             </div>
           </div>
 
           {/* Keyboard hint - desktop only */}
           <p className="hidden sm:block text-xs text-slate-500 mt-2 text-center">
-            <kbd className="px-1.5 py-0.5 bg-slate-200 rounded text-slate-700 font-mono text-xs">Enter</kbd> skickar,
-            <kbd className="px-1.5 py-0.5 bg-slate-200 rounded text-slate-700 font-mono text-xs ml-1">Shift+Enter</kbd> ny rad
+            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-700 font-mono text-xs">Enter</kbd> skickar,
+            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-700 font-mono text-xs ml-1">Shift+Enter</kbd> ny rad
           </p>
         </div>
       </div>

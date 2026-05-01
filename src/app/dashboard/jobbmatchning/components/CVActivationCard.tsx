@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { CheckCircle2, Lock, Sparkles, FileText, Briefcase, GraduationCap, MapPin, ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2, Lock, FileText, Search, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
+import CvHeroStrip from './CvHeroStrip';
+import RoleMatchCard from './RoleMatchCard';
+import SkillCloud from './SkillCloud';
+import EducationTimeline from './EducationTimeline';
 
 interface OccupationMatch {
   original: string;
@@ -43,327 +46,192 @@ interface CVActivationCardProps {
   isActivating: boolean;
 }
 
+/**
+ * Orkestrator-komponent for det aktiva (eller aktivera-bara) CV-kortet.
+ * Komponerar fyra distinkta visuella moduler:
+ *   1. CvHeroStrip   - gradient hero med stat-cells (rolesCount/skills/edu)
+ *   2. RoleMatchCard - horisontell grid av yrkesroller med ConfidenceMeter
+ *   3. SkillCloud    - kompetenser med gradient-djup
+ *   4. EducationTimeline - vertikal tidslinje med ar-prickar
+ *
+ * Inaktivt state: kompakt rad med fil-info och Aktivera-knapp.
+ */
 export default function CVActivationCard({
   cv,
   isActive,
   activeData,
   onActivate,
   onSearchJobs,
-  isActivating
+  isActivating,
 }: CVActivationCardProps) {
-  const [showDetails, setShowDetails] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={`relative rounded-xl border-2 transition-all ${
-        isActive
-          ? 'border-green-500 bg-green-50/50 p-6'
-          : 'border-gray-200 bg-white hover:border-pink-200 p-4'
-      }`}
-    >
-      {/* Status Badge */}
-      <div className="absolute top-4 right-4">
-        {isActive ? (
-          <div className="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-            <CheckCircle2 className="w-4 h-4" />
-            Aktiverat
+  // Inaktivt state - kompakt rad
+  if (!isActive) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white rounded-2xl border border-slate-200 hover:border-orange-300 hover:shadow-md transition-all p-4 sm:p-5"
+      >
+        <div className="flex items-start gap-3 mb-4">
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+            <FileText className="w-5 h-5" strokeWidth={2.25} />
           </div>
-        ) : (
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">
-            <Lock className="w-4 h-4" />
-            Inaktivt
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">
+                  {cv.file_name}
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5">
+                  <Calendar className="w-3 h-3" />
+                  Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                </p>
+              </div>
+              <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-xs font-medium">
+                <Lock className="w-3 h-3" />
+                Inaktivt
+              </span>
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* CV Info */}
-      <div className={`pr-24 ${isActive ? 'mb-4' : 'mb-2'}`}>
-        <div className={`flex items-center mb-1 ${isActive ? 'gap-3' : 'gap-2'}`}>
-          <FileText className={`text-gray-400 ${isActive ? 'w-5 h-5' : 'w-4 h-4'}`} />
-          <h3 className={`font-semibold text-gray-900 truncate ${isActive ? 'text-base' : 'text-sm'}`}>{cv.file_name}</h3>
         </div>
-        <p className={`text-gray-500 ${isActive ? 'text-sm' : 'text-xs'}`}>
-          Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
-        </p>
-      </div>
 
-      {/* Extracted Data Preview (if active) */}
-      {isActive && activeData && (
-        <div className="space-y-3">
-          {/* Occupations */}
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Briefcase className="w-4 h-4 text-pink-600" />
-              <span className="text-sm font-medium text-gray-700">Yrkesroller</span>
-              <span className="text-xs text-gray-500">({activeData.extracted_occupations.length})</span>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {activeData.extracted_occupations.slice(0, 3).map((occ, i) => (
-                <div key={i} className="relative group">
-                  <span className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
-                    occ.confidence === 'high'
-                      ? 'bg-pink-100 text-pink-700'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}>
-                    {occ.normalized}
-                    {occ.confidence === 'high' && <CheckCircle2 className="w-3 h-3" />}
-                  </span>
-                  {occ.concept_id && (
-                    <div className="absolute bottom-full left-0 mb-2 hidden group-hover:block z-10">
-                      <div className="bg-gray-900 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                        ID: {occ.concept_id}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {activeData.extracted_occupations.length > 3 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                  +{activeData.extracted_occupations.length - 3} till
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Skills */}
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Sparkles className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">Kompetenser</span>
-              <span className="text-xs text-gray-500">({activeData.extracted_skills.length})</span>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {activeData.extracted_skills.slice(0, 5).map((skill, i) => (
-                <span key={i} className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
-                  {skill}
-                </span>
-              ))}
-              {activeData.extracted_skills.length > 5 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                  +{activeData.extracted_skills.length - 5} till
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Location */}
-          {activeData.extracted_location && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="w-4 h-4" />
-              <span>{activeData.extracted_location}</span>
-            </div>
-          )}
-
-          {/* Toggle Details Button */}
-          <button
-            onClick={() => setShowDetails(!showDetails)}
-            className="flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors"
-          >
-            {showDetails ? (
-              <>
-                <ChevronUp className="w-4 h-4" />
-                Dölj detaljer
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4" />
-                Visa alla detaljer
-              </>
-            )}
-          </button>
-
-          {/* Detailed View */}
-          <AnimatePresence>
-            {showDetails && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="space-y-4 pt-4 border-t border-gray-200">
-                  {/* All Occupations */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      Alla yrkesroller ({activeData.extracted_occupations.length})
-                    </p>
-                    <div className="space-y-2">
-                      {activeData.extracted_occupations.map((occ, i) => (
-                        <div key={i} className={`p-2 rounded border ${
-                          occ.confidence === 'high'
-                            ? 'bg-pink-50 border-pink-200'
-                            : 'bg-gray-50 border-gray-200'
-                        }`}>
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm text-gray-900">{occ.normalized}</p>
-                              {occ.original !== occ.normalized && (
-                                <p className="text-xs text-gray-500">Original: {occ.original}</p>
-                              )}
-                              {occ.concept_id && (
-                                <p className="text-xs text-gray-500 font-mono">ID: {occ.concept_id}</p>
-                              )}
-                              {occ.alternative_labels.length > 0 && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                  Synonymer: {occ.alternative_labels.slice(0, 3).join(', ')}
-                                  {occ.alternative_labels.length > 3 && ` +${occ.alternative_labels.length - 3}`}
-                                </p>
-                              )}
-                            </div>
-                            <div className={`flex items-center gap-1 text-xs font-medium whitespace-nowrap ${
-                              occ.confidence === 'high' ? 'text-green-700' :
-                              occ.confidence === 'medium' ? 'text-yellow-700' :
-                              'text-gray-600'
-                            }`}>
-                              {occ.confidence === 'high' && <CheckCircle2 className="w-3.5 h-3.5" />}
-                              {occ.confidence === 'high' ? 'Verifierad' :
-                               occ.confidence === 'medium' ? 'Medium' : 'Låg'}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* All Skills */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Alla kompetenser ({activeData.extracted_skills.length})
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeData.extracted_skills.map((skill, i) => (
-                        <span key={i} className="px-2.5 py-1 bg-purple-50 text-purple-700 rounded text-xs border border-purple-200">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Educations */}
-                  {activeData.extracted_educations && activeData.extracted_educations.length > 0 && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                        <GraduationCap className="w-3.5 h-3.5" />
-                        Utbildningar ({activeData.extracted_educations.length})
-                      </p>
-                      <div className="space-y-2">
-                        {activeData.extracted_educations.map((edu, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs bg-blue-50 p-2.5 rounded border border-blue-200">
-                            <GraduationCap className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-gray-900">{edu.degree} - {edu.field}</p>
-                              <p className="text-gray-600">{edu.institution} ({edu.year})</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Parsed Date */}
-          <p className="text-xs text-gray-500 flex items-center gap-1.5 pt-2 border-t border-gray-200">
-            <Sparkles className="w-3 h-3" />
-            Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
-          </p>
-        </div>
-      )}
-
-      {/* Action Buttons */}
-      {!isActive ? (
         <button
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
-          className={`w-full rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
-            isActive ? 'py-3 mt-4' : 'py-2.5 mt-3'
-          } ${
-            isActivating
-              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white cursor-wait'
-              : 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-700 hover:to-purple-700 shadow-md hover:shadow-lg'
-          }`}
+          className="w-full py-3 rounded-xl text-white font-semibold transition-all flex items-center justify-center gap-2 relative overflow-hidden shadow-sm hover:shadow-md disabled:cursor-wait"
+          style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
         >
-          {isActivating && (
+          {isActivating ? (
             <>
-              {/* Animated gradient overlay */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                animate={{
-                  x: ['-100%', '200%'],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={{ x: ['-100%', '200%'] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
               />
-              {/* Pulsing dots */}
-              <div className="flex gap-1">
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0,
-                  }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0.2,
-                  }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: 0.4,
-                  }}
-                />
-              </div>
-              <span className="relative z-10">Aktiverar CV och justerar algoritmer...</span>
+              <PulsingDots />
+              <span className="relative z-10">Aktiverar CV...</span>
             </>
-          )}
-          {!isActivating && (
+          ) : (
             <>
-              <Sparkles className="w-4 h-4" />
+              <CheckCircle2 className="w-4 h-4" strokeWidth={2.5} />
               Aktivera för jobbmatchning
             </>
           )}
         </button>
-      ) : (
-        onSearchJobs && (
-          <button
-            onClick={onSearchJobs}
-            className="w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700 shadow-md hover:shadow-lg"
-          >
-            <Search className="w-5 h-5" />
-            Sök matchande jobb
-          </button>
-        )
+      </motion.div>
+    );
+  }
+
+  // Aktivt state - full upplevelse med alla moduler
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="space-y-4 sm:space-y-5"
+    >
+      {/* 1. Gradient hero */}
+      <CvHeroStrip
+        fileName={cv.file_name}
+        uploadedAt={cv.created_at}
+        rolesCount={activeData?.extracted_occupations.length || 0}
+        skillsCount={activeData?.extracted_skills.length || 0}
+        educationsCount={activeData?.extracted_educations.length || 0}
+        location={activeData?.extracted_location || null}
+        isActive
+      />
+
+      {/* 2. Yrkesroller - horisontell grid */}
+      {activeData && activeData.extracted_occupations.length > 0 && (
+        <section className="bg-white rounded-2xl border border-slate-200 p-5">
+          <header className="flex items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                Yrkesroller som matchar
+              </span>
+              <span className="px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold tabular-nums">
+                {activeData.extracted_occupations.length}
+              </span>
+            </div>
+          </header>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {activeData.extracted_occupations.map((occ, i) => (
+              <RoleMatchCard
+                key={`${occ.normalized}-${i}`}
+                normalized={occ.normalized}
+                original={occ.original}
+                alternativeLabels={occ.alternative_labels || []}
+                confidence={occ.confidence}
+                index={i}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 3. Kompetens-cloud + 4. Tidslinje i grid pa desktop */}
+      {activeData &&
+        (activeData.extracted_skills.length > 0 ||
+          activeData.extracted_educations.length > 0) && (
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
+            {/* Kompetenser - bredare kolumn */}
+            {activeData.extracted_skills.length > 0 && (
+              <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200 p-5">
+                <SkillCloud skills={activeData.extracted_skills} />
+              </div>
+            )}
+
+            {/* Utbildnings-tidslinje - smalare kolumn */}
+            {activeData.extracted_educations.length > 0 && (
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5">
+                <EducationTimeline educations={activeData.extracted_educations} />
+              </div>
+            )}
+          </div>
+        )}
+
+      {/* 5. CTA-banner */}
+      {onSearchJobs && (
+        <motion.button
+          whileHover={{ y: -1 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={onSearchJobs}
+          className="w-full py-4 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg text-base sm:text-lg"
+          style={{
+            background: 'linear-gradient(90deg, #F97316, #DC2626)',
+            boxShadow: '0 12px 24px -8px rgba(220, 38, 38, 0.4)',
+          }}
+        >
+          <Search className="w-5 h-5 flex-shrink-0" strokeWidth={2.25} />
+          <span className="text-center leading-tight">
+            Hitta lediga tjänster som matchar ditt valda CV
+          </span>
+        </motion.button>
+      )}
+
+      {/* Analyserad-datum */}
+      {activeData && (
+        <p className="text-xs text-slate-500 flex items-center gap-1.5 justify-center">
+          <Calendar className="w-3 h-3" />
+          Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
+        </p>
       )}
     </motion.div>
+  );
+}
+
+function PulsingDots() {
+  return (
+    <div className="flex gap-1">
+      {[0, 0.2, 0.4].map((delay, i) => (
+        <motion.div
+          key={i}
+          className="w-2 h-2 bg-white rounded-full"
+          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+          transition={{ duration: 1, repeat: Infinity, delay }}
+        />
+      ))}
+    </div>
   );
 }

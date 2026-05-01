@@ -1,8 +1,8 @@
 [
   {
     "id": "v4-q1-count-progression",
-    "title": "FRÅGA 1 — Progression av antal",
-    "rule": "Antalet prickar ökar med en för varje kolumn (1, 2, 3). Raden ändrar prickarnas position (topp, mitt, botten) inom ramen.",
+    "title": "Progression av antal",
+    "rule": "Antalet prickar ökar med en per kolumn: 1 → 2 → 3. Raden bestämmer prickens lodräta position inom ramen — rad 1 = topp, rad 2 = mitten, rad 3 = botten.",
     "difficulty": 1,
     "showGrid": true,
     "grid": [
@@ -22,8 +22,8 @@
   },
   {
     "id": "v4-q2-simple-rotation",
-    "title": "FRÅGA 2 — Enkel rotation",
-    "rule": "L-formen roterar 90° medurs för varje steg åt höger. Raden ändrar fyllningen (ofylld, grå, fylld).",
+    "title": "Enkel rotation",
+    "rule": "L-formen roterar 90° medurs per kolumn (0° → 90° → 180°). Raden bestämmer fyllningen: rad 1 = ofylld, rad 2 = grå, rad 3 = svart.",
     "difficulty": 1,
     "grid": [
       [{ "kind": "l_shape", "rotation": 0, "fill": "none" }, { "kind": "l_shape", "rotation": 90, "fill": "none" }, { "kind": "l_shape", "rotation": 180, "fill": "none" }],
@@ -42,8 +42,8 @@
   },
   {
     "id": "v4-q3-alternating-fill",
-    "title": "FRÅGA 3 — Alternerande fyllning",
-    "rule": "Formen är alltid densamma. Fyllningen alternerar mellan fylld och ofylld för varje cell, läst radvis.",
+    "title": "Alternerande fyllning",
+    "rule": "Formen är alltid samma. Fyllningen alternerar mellan fylld och ofylld för varje cell — läst rad för rad, vänster till höger.",
     "difficulty": 1,
     "grid": [
       [{ "kind": "icon", "shape": "pacman", "fill": true }, { "kind": "icon", "shape": "pacman", "fill": false }, { "kind": "icon", "shape": "pacman", "fill": true }],
@@ -62,8 +62,8 @@
   },
   {
     "id": "v4-q4-size-progression",
-    "title": "FRÅGA 4 — Storleksprogression",
-    "rule": "Formen växer i storlek för varje kolumn (liten, mellan, stor). Raden bestämmer vilken form som används.",
+    "title": "Storleksprogression",
+    "rule": "Formen växer per kolumn: liten → mellan → stor. Raden bestämmer formen — rad 1 = romb, rad 2 = kvadrat, rad 3 = triangel.",
     "difficulty": 1,
     "grid": [
       [{ "kind": "sized_shape", "shape": "rhombus", "size": "S" }, { "kind": "sized_shape", "shape": "rhombus", "size": "M" }, { "kind": "sized_shape", "shape": "rhombus", "size": "L" }],
@@ -82,8 +82,8 @@
   },
   {
     "id": "v4-q5-position-sequence",
-    "title": "FRÅGA 5 — Positionssekvens",
-    "rule": "En prick rör sig medurs ett steg i taget mellan de fyra hörnen på ramen.",
+    "title": "Positionssekvens",
+    "rule": "En prick rör sig medurs ett steg per cell mellan ramens fyra hörn (övre vänstra → övre högra → nedre högra → nedre vänstra → övre vänstra ...). Läs rad för rad, vänster till höger.",
     "difficulty": 1,
     "showGrid": true,
     "grid": [
@@ -103,8 +103,8 @@
   },
   {
     "id": "v4-q6-line-union",
-    "title": "FRÅGA 6 — Union av linjer",
-    "rule": "I varje rad är Kolumn 3 en sammanslagning (union) av alla linjer från Kolumn 1 och 2.",
+    "title": "Union av linjer",
+    "rule": "Kolumn 3 är en sammanslagning av alla linjer i kolumn 1 och kolumn 2. Alla linjer från båda cellerna behålls.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "lines", "lines": ["horiz"] }, { "kind": "lines", "lines": ["vert"] }, { "kind": "lines", "lines": ["cross"] }],
@@ -123,8 +123,8 @@
   },
   {
     "id": "v4-q7-attribute-grid",
-    "title": "FRÅGA 7 — Två attribut per axel",
-    "rule": "Raden bestämmer formen (cirkel, kvadrat, triangel). Kolumnen bestämmer fyllnadsgrad (kontur, grå, svart).",
+    "title": "Två attribut per axel",
+    "rule": "Raden bestämmer formen — rad 1 = cirkel, rad 2 = kvadrat, rad 3 = triangel. Kolumnen bestämmer fyllningen — kolumn 1 = kontur, kolumn 2 = grå, kolumn 3 = svart.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "shaded_shape", "shape": "circle", "fill": "none" }, { "kind": "shaded_shape", "shape": "circle", "fill": "gray" }, { "kind": "shaded_shape", "shape": "circle", "fill": "black" }],
@@ -143,8 +143,8 @@
   },
   {
     "id": "v4-q8-endpoint-count",
-    "title": "FRÅGA 8 — Räkna slutpunkter",
-    "rule": "Antalet 'slutpunkter' (ändar på linjer) i figuren ökar med 1 för varje kolumn (2, 3, 4).",
+    "title": "Räkna slutpunkter",
+    "rule": "En slutpunkt är där en linje slutar utan att fortsätta. Antalet slutpunkter ökar med 1 per kolumn: 2 → 3 → 4. Räkna ändarna i figuren.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "endpoints", "count": 2, "shape": "V_shape" }, { "kind": "endpoints", "count": 3, "shape": "pitchfork" }, { "kind": "endpoints", "count": 4, "shape": "H_shape" }],
@@ -163,8 +163,8 @@
   },
   {
     "id": "v4-q9-reflection",
-    "title": "FRÅGA 9 — Vertikal spegling",
-    "rule": "Kolumn 2 är en upp-och-ner-vänd version (vertikal flip) av Kolumn 1. Kolumn 3 är en flip av Kolumn 2 (och därmed identisk med Kolumn 1).",
+    "title": "Vertikal spegling",
+    "rule": "Kolumn 2 är en spegling (upp-och-ner) av kolumn 1. Kolumn 3 är en spegling av kolumn 2 — och blir därför identisk med kolumn 1.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "hook", "mirror_v": false }, { "kind": "hook", "mirror_v": true }, { "kind": "hook", "mirror_v": false }],
@@ -183,8 +183,8 @@
   },
   {
     "id": "v4-q10-exclusive-or",
-    "title": "FRÅGA 10 — Exklusiv eller (A ⊕ B)",
-    "rule": "I varje rad är Kolumn 3 den del som INTE överlappar mellan formerna i Kolumn 1 och 2 (exklusiv eller, XOR).",
+    "title": "Exklusiv eller — XOR",
+    "rule": "Kolumn 3 visar de delar av formerna i kolumn 1 och 2 som inte överlappar. Det område där båda formerna täcker varandra försvinner — bara skillnaden mellan dem behålls.",
     "difficulty": 2,
     "grid": [
       [
@@ -215,8 +215,8 @@
   },
   {
     "id": "v4-q11-shape-subtraction",
-    "title": "FRÅGA 11 — Subtraktion av form",
-    "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2 (den inre formen 'stansas ut').",
+    "title": "Subtraktion av form",
+    "rule": "Kolumn 3 är kolumn 1 minus kolumn 2. Yttre formen behålls men den inre formen från kolumn 2 stansas ut — bara den yttre konturen återstår.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "subtraction", "outer": "square", "inner": "circle" }, { "kind": "subtraction", "outer": "circle", "inner": "none" }, { "kind": "subtraction", "outer": "square", "inner": "none" }],
@@ -235,8 +235,8 @@
   },
   {
     "id": "v4-q12-line-xor",
-    "title": "FRÅGA 12 — XOR av linjer",
-    "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
+    "title": "XOR av linjer",
+    "rule": "Lägg kolumn 1 och kolumn 2 ovanpå varandra. Linjer som finns i bara en av cellerna behålls. Linjer som finns i båda försvinner. Resultatet visas i kolumn 3.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "lines", "lines": ["frame", "diag_down"] }, { "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["frame", "diag_up"] }],
@@ -255,8 +255,8 @@
   },
   {
     "id": "v4-q13-conditional",
-    "title": "FRÅGA 13 — Villkorlig förändring",
-    "rule": "Formen ändras baserat på dess position: I den vänstra kolumnen är formen en triangel. I mittenkolumnen är den en kvadrat. I den högra kolumnen är den en cirkel. Fyllningen är alltid densamma inom en rad.",
+    "title": "Villkorlig förändring",
+    "rule": "Kolumnen bestämmer formen — kolumn 1 = triangel, kolumn 2 = kvadrat, kolumn 3 = cirkel. Raden bestämmer fyllningen som är samma genom hela raden.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "shaded_shape", "shape": "triangle", "fill": "none" }, { "kind": "shaded_shape", "shape": "square", "fill": "none" }, { "kind": "shaded_shape", "shape": "circle", "fill": "none" }],
@@ -275,8 +275,8 @@
   },
   {
     "id": "v4-q14-sudoku",
-    "title": "FRÅGA 14 — Latin square (form & fyllning)",
-    "rule": "Varje rad och kolumn måste innehålla exakt en av varje form (pil, plus, måne) OCH exakt en av varje fyllning (svart, grå, ofylld).",
+    "title": "Latin square — form och fyllning",
+    "rule": "Varje rad och varje kolumn ska innehålla exakt en av varje form (pil, plus, måne) — och exakt en av varje fyllning (svart, grå, ofylld). Inget får upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "sudoku", "shape": "arrow", "fill": "black" }, { "kind": "sudoku", "shape": "moon", "fill": "gray" }, { "kind": "sudoku", "shape": "plus", "fill": "none" }],
@@ -295,8 +295,8 @@
   },
   {
     "id": "v4-q15-element-addition",
-    "title": "FRÅGA 15 — Addition av element",
-    "rule": "I varje rad är antalet element i Kolumn 3 summan av antalet element i Kolumn 1 och Kolumn 2.",
+    "title": "Addition av element",
+    "rule": "Antalet prickar i kolumn 3 är summan av antalet prickar i kolumn 1 och kolumn 2 (kolumn 1 + kolumn 2 = kolumn 3).",
     "difficulty": 2,
     "grid": [
       [{ "kind": "dots", "count": 1, "pos": "C" }, { "kind": "dots", "count": 2, "pos": "C" }, { "kind": "dots", "count": 3, "pos": "C" }],

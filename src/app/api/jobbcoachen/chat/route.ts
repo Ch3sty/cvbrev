@@ -10,23 +10,70 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 // System prompt for Karriärguiden
-const SYSTEM_PROMPT = `Du är "Karriärguiden" på jobbcoach.ai - en expert på den svenska arbetsmarknaden och karriärutveckling.
+const SYSTEM_PROMPT = `Du är "Karriärguiden" på jobbcoach.ai — en personlig sparringpartner i svensk arbetsmarknad och karriärfrågor.
 
-Din roll:
-- Ge konkreta, handlingsorienterade råd om jobb, CV, intervjuer, lön och arbetsmarknadsfrågor
-- Var empatisk, uppmuntrande och professionell
-- Använd ENDAST information från de tillhandahållna källorna
-- Om du är osäker eller informationen saknas i källorna: säg det ärligt och föreslå var användaren kan verifiera
-- Inkludera alltid källor när du refererar till fakta, regler eller statistik
-- Avsluta alltid med 2-3 konkreta nästa steg
+Du är en SAMTALSPARTNER först, ett uppslagsverk sist.
 
-Språk: Svenska
-Ton: Vänlig men professionell, som en erfaren karriärcoach
+KÄRNREGEL — HUR DU SVARAR:
+- Vid hälsning, kort eller vag input ("hej", "hjälp", "CV-tips"): svara med en VÄNLIG, KORT REPLIK och EN konkret följdfråga. Inga rubriker. Inga listor. Inga källor. Som en kollega i pausen.
+- Vid en konkret fråga med tydlig riktning: ge ett fokuserat svar (2-4 stycken eller en kort lista). Bara så långt som behövs.
+- Vid en bred fråga ("hur byter jag karriär?"): ställ 1 följdfråga som zoomar in på personen, sen svarar du. Inte både och.
 
-VIKTIGT:
-- Ge ALDRIG juridisk rådgivning - hänvisa till Arbetsförmedlingen, fackförbund eller jurist
-- Fråga ALDRIG efter personnummer eller känslig information
-- Om frågan är utanför arbetsmarknads-domänen: förklara artigt att du är specialiserad på karriärfrågor`;
+KÄLLOR — VARFÖR & HUR:
+- KUNSKAPSBASEN innehåller verifierad information om svenska arbetsmarknaden: regler, program, stöd, ersättningar, lön, lagar, branscher, fackförbund. Använd den när användarens fråga rör något av detta.
+- När du använder information från en källa: skriv (Källa N) direkt efter påståendet, där N är källans nummer från kontexten. Detta är OBLIGATORISKT — utan citering kan användaren inte verifiera ditt svar.
+- Citera även i uppföljningsfrågor. Om användaren först frågar "vad gäller för nyanlända?" och sen "berätta mer om stöden" – andra svaret ska också citera de relevanta källorna.
+- Hitta INTE på citat. Citera bara om informationen verkligen finns i kontexten.
+- Hoppa över källor BARA vid:
+  - Rena hälsningar ("hej", "tjena")
+  - Smalltalk eller åsiktsfrågor ("vad tycker du om...")
+  - Frågor där kontexten inte innehåller relevant information (var ärlig: "Jag har inte specifik info om det, men generellt...").
+
+LÄNGD:
+- Hälsning/följdfråga: 1-3 meningar.
+- Vanligt svar: 2-4 stycken eller en kort numrerad lista. Aldrig längre än det krävs.
+- Lista bara om informationen är genuint stegvis. Annars löpande text.
+
+TON & SPRÅK:
+- Svenska. Vänlig, jordnära, professionell. Som en mentor som lyssnar innan hon ger råd.
+- Inga em-dash i löptext. Variera meningslängd. Säg "vi" där det passar.
+- Aldrig: "Tack för att du kontaktar mig", "Här är några allmänna råd", "Lycka till på din resa".
+
+VAD DU INTE GÖR:
+- Spottar inte ut allt du vet. Ger inte 6 rubriker när användaren frågat något litet.
+- Avslutar inte alltid med "nästa steg". Bara när det är naturligt.
+- Ger ALDRIG juridisk rådgivning — hänvisa till Arbetsförmedlingen, fackförbund eller jurist.
+- Fråga ALDRIG efter personnummer eller känslig information.
+- Om frågan är utanför arbetsmarknads-domänen: säg artigt att du är specialiserad på karriärfrågor.
+- Hälsa BARA i första svaret i en konversation. Om historik finns: hoppa rakt in i svaret utan "Hej!" eller "Hej igen!".`;
+
+function historyToOpenAIMessages(
+  history: Array<{ role: string; content: any }>
+): Array<{ role: 'user' | 'assistant'; content: string }> {
+  return history
+    .filter((m) => m.role === 'user' || m.role === 'assistant')
+    .map((m) => {
+      const c = m.content || {};
+      const text = typeof c === 'string' ? c : (c.text || '');
+
+      if (m.role === 'user' && Array.isArray(c.attachments) && c.attachments.length > 0) {
+        const attachmentBlock = c.attachments
+          .map((att: any, idx: number) =>
+            `[Dokument ${idx + 1}] ${att.file_name} (${(att.file_type || '').toUpperCase()}):\n${att.extracted_text || ''}`
+          )
+          .join('\n---\n');
+        return {
+          role: 'user' as const,
+          content: text
+            ? `${text}\n\n[Användaren delade följande dokument:]\n${attachmentBlock}`
+            : `[Användaren delade följande dokument:]\n${attachmentBlock}`,
+        };
+      }
+
+      return { role: m.role as 'user' | 'assistant', content: text };
+    })
+    .filter((m) => m.content.length > 0);
+}
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder();
@@ -73,6 +120,18 @@ export async function POST(req: NextRequest) {
       if (convError) throw convError;
       convId = conversation.id;
     }
+
+    // Ladda senaste 20 meddelandena FÖRE vi sparar det nya user-meddelandet,
+    // sa vi inte dubblerar det (en gang som historik, en gang som wrappad final).
+    const { data: historyRows } = await supabase
+      .from('ai_messages')
+      .select('role, content, created_at')
+      .eq('conversation_id', convId)
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    const history = (historyRows || []).reverse();
 
     // Save user message (with optional attachments)
     await supabase.from('ai_messages').insert({
@@ -151,18 +210,19 @@ Bransch: ${profile.industry || 'Ej angivet'}`
         role: 'system',
         content: SYSTEM_PROMPT,
       },
+      ...historyToOpenAIMessages(history),
       {
         role: 'user',
         content: `ANVÄNDARPROFIL:
 ${userContext}
 
-KONTEXT FRÅN KUNSKAPSBAS:
+KONTEXT FRÅN KUNSKAPSBAS (använd BARA om relevant för frågan):
 ${context || 'Ingen relevant information hittades i kunskapsbasen.'}${attachmentContext}
 
 ANVÄNDARENS FRÅGA:
 ${message || '(Användaren har bifogat dokument för granskning)'}
 
-Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren bifogat ett CV eller personligt brev, ge konstruktiv feedback med specifika förbättringsförslag. Inkludera källor och avsluta med nästa steg.`,
+Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik + en följdfråga, inga rubriker, inga källor. Om användaren bifogat dokument: granska konkret det de delat. När du använder information från KUNSKAPSBASEN ovan: citera med (Källa N) direkt efter påståendet — detta är obligatoriskt så användaren kan verifiera. Korta uppföljningsfrågor inom samma ämne ska också citera relevanta källor.`,
       },
     ];
 
@@ -203,49 +263,57 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             }
           }
 
-          // Extract actual sources from chunk content (markdown links)
-          const extractedSources: any[] = [];
-          const seenUrls = new Set<string>();
-
-          contextChunks.forEach((chunk: any) => {
-            if (!chunk.content) return;
-
-            // Extract all markdown links: [title](url)
-            const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
-            let match;
-
-            while ((match = linkRegex.exec(chunk.content)) !== null) {
-              const title = match[1];
-              const url = match[2];
-
-              // Deduplicate by URL
-              if (!seenUrls.has(url)) {
-                seenUrls.add(url);
-                extractedSources.push({
-                  title,
-                  url,
-                  source_url: url, // Fallback field
-                  published_at: chunk.published_at,
-                  topic: chunk.topic,
-                });
-              }
+          // Extrahera bara de chunk-källor AI:n faktiskt citerade.
+          // AI:n instrueras att skriva "(Källa N)" där N är chunk-numret (1-indexerat).
+          // Plocka unika N från svaret -> mappa till motsvarande chunk.
+          const citationRegex = /\(Källa\s+(\d+)\)/g;
+          const citedIndices = new Set<number>();
+          let citationMatch;
+          while ((citationMatch = citationRegex.exec(fullResponse)) !== null) {
+            const n = parseInt(citationMatch[1], 10);
+            if (!isNaN(n) && n >= 1 && n <= contextChunks.length) {
+              citedIndices.add(n - 1);
             }
+          }
+
+          // Bygg källor: en post per citerad chunk, i samma ordning som AI:n
+          // citerade dem (1, 2, 3...). Behall AVEN chunks utan URL - de visas som
+          // icke-klickbara informativa rader i frontend istallet for att droppas.
+          const sources: any[] = [];
+          const seenKeys = new Set<string>();
+
+          Array.from(citedIndices).sort((a, b) => a - b).forEach((idx) => {
+            const chunk = contextChunks[idx];
+            if (!chunk) return;
+
+            // Forsok plocka forsta markdown-lanken i chunk-innehallet
+            const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/;
+            const linkMatch = chunk.content?.match(linkRegex);
+
+            const inlineTitle = linkMatch ? linkMatch[1] : null;
+            const inlineUrl = linkMatch ? linkMatch[2] : null;
+
+            const url = inlineUrl || chunk.source_url || null;
+            const title = inlineTitle || chunk.title || chunk.heading || 'Källa';
+
+            // Dedup: anvand URL om vi har en, annars title (sa olika chunks med
+            // samma URL inte upprepas, men chunks utan URL fortfarande inkluderas).
+            const dedupKey = url || `title:${title}`;
+            if (seenKeys.has(dedupKey)) return;
+            seenKeys.add(dedupKey);
+
+            sources.push({
+              title,
+              ...(url && { url }),
+              heading: chunk.heading,
+              ...(chunk.source_url && { source_url: chunk.source_url }),
+              ...(chunk.storage_path && { storage_path: chunk.storage_path }),
+              published_at: chunk.published_at,
+              topic: chunk.topic,
+            });
           });
 
-          // Use extracted sources if available, otherwise fall back to document metadata
-          const sources = extractedSources.length > 0
-            ? extractedSources
-            : contextChunks.map((chunk: any) => ({
-                title: chunk.title || chunk.heading,
-                url: chunk.source_url,
-                heading: chunk.heading,
-                source_url: chunk.source_url,
-                storage_path: chunk.storage_path,
-                published_at: chunk.published_at,
-                topic: chunk.topic,
-              }));
-
-          // Send sources if we have any
+          // Send sources only if AI actually cited them
           if (sources.length > 0) {
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({

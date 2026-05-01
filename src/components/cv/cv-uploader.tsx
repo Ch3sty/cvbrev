@@ -140,8 +140,8 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
         
         // Visa success-notifikation med maskot och logga framgångsrik uppladdning
         successWithMascotAndActivity(
-          'CV uppladdad framgångsrikt!',
-          '/images/maskot/success-cv-uploaded.svg',
+          'Tack, vi har sparat ditt CV.',
+          'cv-uploaded',
           'cv_uploaded',
           'laddade upp ett CV',
           {

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, Type, Eye, Download, Sparkles, Crown, CheckCircle, ChevronDown, Check } from 'lucide-react'
+import { Palette, Type, Eye, Download, Crown, CheckCircle, ChevronDown, Check } from 'lucide-react'
 
 interface InteractiveLetterPreviewProps {
   exempelBrev: {
@@ -196,13 +196,12 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
       {isClient && (
         <>
           {/* Controls */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-100">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-blue-600" />
-              <h3 className="font-bold text-slate-900">Anpassa förhandsvisningen</h3>
+          <div className="bg-orange-50/60 rounded-2xl p-4 sm:p-5 border border-orange-100">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base">Anpassa förhandsvisningen</h3>
             </div>
-            <p className="text-sm text-slate-600 mb-6">
-              Testa olika mallar och typsnitt för att se hur ditt personliga brev kan se ut
+            <p className="text-xs sm:text-sm text-slate-600 mb-4">
+              Testa olika mallar och typsnitt
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -218,7 +217,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     setIsTemplateOpen(!isTemplateOpen)
                     setIsFontOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-blue-400 transition-all flex items-center justify-between group"
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-2">
                     {template.tier === 'premium' && (
@@ -249,12 +248,12 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                           }}
                           className={`w-full px-4 py-3 flex items-start gap-3 transition-colors border-l-4 ${
                             isSelected
-                              ? 'bg-blue-50 border-blue-600'
+                              ? 'bg-orange-50 border-orange-600'
                               : 'bg-white border-transparent hover:bg-slate-50'
                           }`}
                         >
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                            isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                            isSelected ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
                           }`}>
                             {isSelected && <Check className="w-3 h-3 text-white" />}
                           </div>
@@ -316,12 +315,12 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                                 }}
                                 className={`w-full px-4 py-4 mb-2 rounded-lg border-2 flex items-start gap-3 transition-all ${
                                   isSelected
-                                    ? 'bg-blue-50 border-blue-600'
+                                    ? 'bg-orange-50 border-orange-600'
                                     : 'bg-white border-slate-200'
                                 }`}
                               >
                                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                  isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                  isSelected ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
                                 }`}>
                                   {isSelected && <Check className="w-4 h-4 text-white" />}
                                 </div>
@@ -355,7 +354,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     setIsFontOpen(!isFontOpen)
                     setIsTemplateOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-blue-400 transition-all flex items-center justify-between group"
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between group"
                   style={{ fontFamily: font.family }}
                 >
                   <div className="flex items-center gap-2">
@@ -399,13 +398,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                                 }}
                                 className={`w-full px-4 py-3 flex items-center gap-3 transition-colors border-l-4 ${
                                   isSelected
-                                    ? 'bg-blue-50 border-blue-600'
+                                    ? 'bg-orange-50 border-orange-600'
                                     : 'bg-white border-transparent hover:bg-slate-50'
                                 }`}
                                 style={{ fontFamily: fnt.family }}
                               >
                                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                  isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                  isSelected ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
                                 }`}>
                                   {isSelected && <Check className="w-3 h-3 text-white" />}
                                 </div>
@@ -485,13 +484,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                                         }}
                                         className={`w-full px-4 py-4 mb-2 rounded-lg border-2 flex items-center gap-3 transition-all ${
                                           isSelected
-                                            ? 'bg-blue-50 border-blue-600'
+                                            ? 'bg-orange-50 border-orange-600'
                                             : 'bg-white border-slate-200'
                                         }`}
                                         style={{ fontFamily: fnt.family }}
                                       >
                                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                          isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                          isSelected ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
                                         }`}>
                                           {isSelected && <Check className="w-4 h-4 text-white" />}
                                         </div>
@@ -546,20 +545,26 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
           className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden"
         >
           {/* Preview Header */}
-          <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+          <div className="bg-orange-50/50 px-5 sm:px-6 py-3 sm:py-4 border-b border-orange-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <Eye className="w-5 h-5 text-white" />
+              <div
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
+                }}
+              >
+                <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900">{template.name}</h3>
-                <p className="text-sm text-slate-600">
+                <h3 className="font-bold text-slate-900 text-sm sm:text-base">{template.name}</h3>
+                <p className="text-xs sm:text-sm text-slate-600">
                   Med {font.name} typsnitt
                 </p>
               </div>
             </div>
             {template.tier === 'premium' && (
-              <div className="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
+              <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                 <Crown className="w-3 h-3" />
                 Premium
               </div>
@@ -794,40 +799,15 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     <p className="text-xs text-slate-700 mb-2">{exempelBrev.roll}</p>
                     <p className="text-xs text-slate-700 mb-2">{exempelBrev.adress}</p>
                     <p className="text-xs text-slate-700 mb-2">{exempelBrev.telefon}</p>
-                    <p className="text-xs text-blue-600">{exempelBrev.epost}</p>
+                    <p className="text-xs text-orange-700">{exempelBrev.epost}</p>
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-          {/* CTA Footer */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-white text-center sm:text-left">
-              <p className="font-semibold">Gillar du vad du ser?</p>
-              <p className="text-sm text-blue-100">Vi matchar ditt CV med jobbannonsen och skapar det perfekta brevet åt dig på mindre än 60 sekunder</p>
-            </div>
-            <a
-              href="/dashboard/skapa-brev"
-              className="px-6 py-3 bg-white text-blue-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
-            >
-              <Sparkles className="w-5 h-5" />
-              Skapa mitt brev
-            </a>
-          </div>
         </motion.div>
       </AnimatePresence>
-
-      {/* Info Box */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
-        <Eye className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-blue-900">
-          <p className="font-semibold mb-1">Detta är en förhandsvisning</p>
-          <p className="text-blue-800">
-            När du skapar ditt personliga brev får du tillgång till alla mallar, anpassningsbara färger, och export till både PDF och Word. Helt kostnadsfritt att prova!
-          </p>
-        </div>
-      </div>
         </>
       )}
     </div>

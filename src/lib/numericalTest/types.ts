@@ -28,9 +28,36 @@ export type Question = {
 
 export type DataTable = {
   headers: string[];
-  rows: string[][];
+  rows: (string | number)[][];
   caption?: string;
+  highlightLastRow?: boolean;
 };
+
+export type ChartType = 'bar' | 'pie' | 'line';
+
+export type ChartData =
+  | {
+      chartType: 'bar';
+      title?: string;
+      data: { label: string; value: number }[];
+      unit?: string;
+      yAxisLabel?: string;
+    }
+  | {
+      chartType: 'pie';
+      title?: string;
+      data: { label: string; value: number }[];
+      unit?: string;
+      centerLabel?: string;
+    }
+  | {
+      chartType: 'line';
+      title?: string;
+      data: { x: string | number; y: number }[];
+      unit?: string;
+      xAxisLabel?: string;
+      yAxisLabel?: string;
+    };
 
 export type Passage = {
   id: string;
@@ -40,7 +67,8 @@ export type Passage = {
   difficulty: DifficultyLevel;
   contextText: string; // Introductory text explaining the scenario
   dataTable?: DataTable; // For table-based questions
-  graphData?: any; // For graph-based questions (will use recharts)
+  chartData?: ChartData; // For chart-based questions
+  graphData?: any; // Legacy field - kept for backwards compatibility
   questions: Question[];
 };
 

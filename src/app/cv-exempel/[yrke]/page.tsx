@@ -19993,14 +19993,43 @@ export async function generateMetadata({ params }: { params: Promise<{ yrke: str
     }
   }
 
+  // Exempelsidan är alltid den kanoniska URL:en
+  const canonicalUrl = `https://jobbcoach.ai/cv-exempel/${yrke}`
+
   return {
     title: data.metaTitle,
     description: data.metaDescription,
+
+    // Canonical URL
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
+    // Open Graph metadata
+    // OG-bild genereras dynamiskt per yrke via opengraph-image.tsx
     openGraph: {
+      type: 'article',
+      url: canonicalUrl,
       title: data.metaTitle,
       description: data.metaDescription,
-      type: 'article',
+      siteName: 'Jobbcoach.ai',
+      locale: 'sv_SE',
     },
+
+    // Twitter Card metadata - använder samma dynamiska OG-bild
+    twitter: {
+      card: 'summary_large_image',
+      title: data.metaTitle,
+      description: data.metaDescription,
+    },
+
+    // Additional metadata
+    keywords: `cv exempel, ${data.yrke.toLowerCase()}, cv mall, jobbansökan, ATS-optimering, ${data.yrke.toLowerCase()} jobb`,
+
+    // Author and publisher
+    authors: [{ name: 'Jobbcoach.ai' }],
+    creator: 'Jobbcoach.ai',
+    publisher: 'Jobbcoach.ai',
   }
 }
 
@@ -20034,5 +20063,130 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     // Fallback: låt client-side hantera rendering
   }
 
-  return <CVExempelPage data={data} slug={yrke} initialHTML={initialHTML} />
+  // SEO: Schema markup för att garantera att CV-innehållet indexeras
+
+  // Bygg articleBody från profil + erfarenhet för att ge sökmotorn
+  // textinnehåll att indexera
+  const articleBodyText = [
+    data.exempelCV.profil,
+    ...((data.exempelCV.erfarenhet as any[]) || []).flatMap((e: any) =>
+      [e.titel, e.arbetsgivare, ...((e.beskrivning as string[]) || [])]
+    ),
+  ]
+    .filter(Boolean)
+    .join('. ')
+
+  // 1. Article Schema - för CV-innehållet
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": `CV-exempel för ${data.yrke}`,
+    "description": data.intro,
+    "articleBody": articleBodyText,
+    "author": {
+      "@type": "Organization",
+      "name": "Jobbcoach.ai",
+      "url": "https://jobbcoach.ai"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jobbcoach.ai",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://jobbcoach.ai/logo.png"
+      }
+    },
+    "datePublished": new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "about": {
+      "@type": "Occupation",
+      "name": data.yrke,
+      "description": `CV-guide och exempel för ${data.yrke}`
+    },
+    "keywords": `cv, ${data.yrke.toLowerCase()}, jobbansökan, ATS-optimering`
+  }
+
+  // 2. FAQPage Schema - för featured snippets
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (data.faq as any[])
+      .filter((item: any) =>
+        item.fraga &&
+        item.svar &&
+        item.fraga.trim() !== '' &&
+        item.svar.trim() !== ''
+      )
+      .map((item: any) => ({
+        "@type": "Question",
+        "name": item.fraga,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.svar
+        }
+      }))
+  }
+
+  // 3. HowTo Schema - för tips-sektionen
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `Hur du skriver ett CV som ${data.yrke}`,
+    "description": `Steg-för-steg guide för att skriva ett ATS-optimerat CV för ${data.yrke}`,
+    "step": (data.tips as any[]).map((tip: any, index: number) => ({
+      "@type": "HowToStep",
+      "position": index + 1,
+      "name": tip.rubrik,
+      "text": tip.text
+    }))
+  }
+
+  // 4. BreadcrumbList Schema - för navigation
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Hem",
+        "item": "https://jobbcoach.ai"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "CV Exempel",
+        "item": "https://jobbcoach.ai/cv-exempel"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": data.yrke,
+        "item": `https://jobbcoach.ai/cv-exempel/${yrke}`
+      }
+    ]
+  }
+
+  return (
+    <>
+      {/* Schema markup för SEO - 4 typer för maximal synlighet */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <CVExempelPage data={data} slug={yrke} initialHTML={initialHTML} />
+    </>
+  )
 }

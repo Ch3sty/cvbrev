@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import Notification from '@/components/ui/notification'
-import MascotNotification from '@/components/ui/mascot-notification'
+import Toast from '@/components/ui/toast/Toast'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { ActivityType, logUserActivity } from '@/lib/activity-logger'
 
@@ -273,19 +273,19 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   return (
     <NotificationContext.Provider value={contextValue}>
       {children}
-      {/* Render maskot-notification om mascotImage finns, annars standard */}
+      {/* mascotImage tolkas nu som scenario-key (eller legacy maskot-sokvag).
+          Om den finns -> ny Toast-komponent. Annars -> standardnotifikation. */}
       {mascotImage ? (
-        <MascotNotification
+        <Toast
           isVisible={isVisible}
           message={message}
           type={type}
-          mascotImage={mascotImage}
+          scenario={mascotImage}
           onClose={() => {
             closeNotification()
-            setMascotImage(undefined) // Återställ maskot för nästa notifikation
+            setMascotImage(undefined)
           }}
           duration={duration}
-          showConfetti={showConfetti}
         />
       ) : (
         <Notification

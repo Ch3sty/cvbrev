@@ -1,24 +1,25 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { PassageDisplay } from '@/components/tests/verbalV1/PassageDisplay';
-import { StatementList } from '@/components/tests/verbalV1/StatementList';
-import { ProgressTracker } from '@/components/tests/verbalV1/ProgressTracker';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
+
+import VerbalTestHeader from '@/components/tests/verbal-shared/VerbalTestHeader';
+import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
+import StatementList from '@/components/tests/verbal-shared/StatementList';
+import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
 import questionBank from '@/lib/verbalTestV2/questionBank.json';
 import type { Question, UserAnswer } from '@/lib/verbalTestV2/types.v2';
 
 const questions = questionBank as Question[];
-const TOTAL_TIME = 25 * 60; // 25 minutes in seconds
+const TOTAL_TIME = 25 * 60;
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
 }
 
-export default function VerbalTestPage({ params }: PageProps) {
+export default function VerbalTestV2Page({ params }: PageProps) {
   const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
@@ -27,25 +28,52 @@ export default function VerbalTestPage({ params }: PageProps) {
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME);
   const [statementStartTime, setStatementStartTime] = useState(Date.now());
+  const finishedRef = useRef(false);
 
-  // Unwrap params Promise
   useEffect(() => {
-    params.then(p => setSessionId(p.sessionId));
+    params.then((p) => setSessionId(p.sessionId));
   }, [params]);
 
-  // Initialize answers for all passages
   useEffect(() => {
-    const initialAnswers: Record<string, UserAnswer[]> = {};
-    questions.forEach(q => {
-      initialAnswers[q.id] = Array(q.statements.length).fill(null);
+    const initial: Record<string, UserAnswer[]> = {};
+    questions.forEach((q) => {
+      initial[q.id] = Array(q.statements.length).fill(null);
     });
-    setAnswers(initialAnswers);
+    setAnswers(initial);
   }, []);
 
-  // Timer
+  const currentPassage = questions[currentPassageIndex];
+  const currentAnswers = answers[currentPassage?.id] || [];
+  const totalStatements = questions.reduce((sum, q) => sum + q.statements.length, 0);
+  const answeredCount = Object.values(answers).reduce(
+    (sum, p) => sum + p.filter((a) => a !== null).length,
+    0
+  );
+  const answeredPerPassage = questions.map(
+    (q) => (answers[q.id] || []).filter((a) => a !== null).length
+  );
+
+  const handleFinishTest = useCallback(async () => {
+    if (!sessionId || finishedRef.current) return;
+    finishedRef.current = true;
+    try {
+      const response = await fetch('/api/verbalTestV2/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      });
+      if (response.ok) {
+        router.push(`/dashboard/tester/verbal-resonemang-v2/test/${sessionId}/results`);
+      }
+    } catch (error) {
+      console.error('Failed to finish test:', error);
+      finishedRef.current = false;
+    }
+  }, [sessionId, router]);
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeRemaining(prev => {
+      setTimeRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
           handleFinishTest();
@@ -54,225 +82,232 @@ export default function VerbalTestPage({ params }: PageProps) {
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(timer);
-  }, []);
+  }, [handleFinishTest]);
 
-  const currentPassage = questions[currentPassageIndex];
-  const currentAnswers = answers[currentPassage?.id] || [];
-
-  // Count total answered statements
-  const totalStatements = questions.reduce((sum, q) => sum + q.statements.length, 0);
-  const answeredCount = Object.values(answers).reduce(
-    (sum, passageAnswers) => sum + passageAnswers.filter(a => a !== null).length,
-    0
+  const saveAnswer = useCallback(
+    async (
+      passageId: string,
+      statementIndex: number,
+      answer: 'true' | 'false' | 'cannot_say'
+    ) => {
+      if (!sessionId) return;
+      const timeSpent = Math.floor((Date.now() - statementStartTime) / 1000);
+      try {
+        await fetch('/api/verbalTestV2/answer', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            passageId,
+            statementIndex,
+            answer,
+            timeSpent,
+          }),
+        });
+      } catch (error) {
+        console.error('Failed to save answer:', error);
+      }
+    },
+    [sessionId, statementStartTime]
   );
 
-  // Save answer to backend
-  const saveAnswer = useCallback(async (
-    passageId: string,
+  const handleSelectAnswer = async (
     statementIndex: number,
-    answer: 'true' | 'false' | 'cannot_say'
+    value: 'true' | 'false' | 'cannot_say'
   ) => {
-    if (!sessionId) return;
-
-    const timeSpent = Math.floor((Date.now() - statementStartTime) / 1000);
-
-    try {
-      await fetch('/api/verbalTestV2/answer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId,
-          passageId,
-          statementIndex,
-          answer,
-          timeSpent
-        })
-      });
-    } catch (error) {
-      console.error('Failed to save answer:', error);
-    }
-  }, [sessionId, statementStartTime]);
-
-  // Handle answer selection
-  const handleSelectAnswer = async (statementIndex: number, answer: 'true' | 'false' | 'cannot_say') => {
     setIsSaving(true);
-
     const newAnswers = { ...answers };
     newAnswers[currentPassage.id] = [...currentAnswers];
-    newAnswers[currentPassage.id][statementIndex] = answer;
+    newAnswers[currentPassage.id][statementIndex] = value;
     setAnswers(newAnswers);
-
-    await saveAnswer(currentPassage.id, statementIndex, answer);
+    await saveAnswer(currentPassage.id, statementIndex, value);
     setStatementStartTime(Date.now());
-
     setIsSaving(false);
   };
 
-  // Navigate between passages
-  const handlePrevPassage = () => {
-    if (currentPassageIndex > 0) {
-      setCurrentPassageIndex(currentPassageIndex - 1);
-      setStatementStartTime(Date.now());
+  const handleNavigate = (index: number) => {
+    setCurrentPassageIndex(index);
+    setStatementStartTime(Date.now());
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  const handleNextPassage = () => {
-    if (currentPassageIndex < questions.length - 1) {
-      setCurrentPassageIndex(currentPassageIndex + 1);
-      setStatementStartTime(Date.now());
-    }
+  const handlePrev = () => {
+    if (currentPassageIndex > 0) handleNavigate(currentPassageIndex - 1);
+  };
+  const handleNext = () => {
+    if (currentPassageIndex < questions.length - 1) handleNavigate(currentPassageIndex + 1);
   };
 
-  // Finish test
-  const handleFinishTest = async () => {
-    if (!sessionId) return;
-
-    try {
-      const response = await fetch('/api/verbalTestV2/complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId })
-      });
-
-      if (response.ok) {
-        router.push(`/dashboard/tester/verbal-resonemang-v2/test/${sessionId}/results`);
-      }
-    } catch (error) {
-      console.error('Failed to finish test:', error);
-    }
-  };
-
-  // Format time
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  if (!currentPassage) {
-    return <div>Loading...</div>;
+  if (!currentPassage || !sessionId) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+    );
   }
 
+  const isLastPassage = currentPassageIndex === questions.length - 1;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-4 lg:p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-white rounded-2xl border-2 border-green-200 p-4 mb-4 flex items-center justify-between shadow-lg">
-          <div className="flex items-center gap-4">
-            <ProgressTracker
-              totalQuestions={totalStatements}
-              answeredQuestions={answeredCount}
-            />
-          </div>
+    <div className="min-h-screen">
+      <VerbalTestHeader
+        currentPassage={currentPassageIndex}
+        totalPassages={questions.length}
+        answeredCount={answeredCount}
+        totalStatements={totalStatements}
+        timeRemaining={timeRemaining}
+      />
 
-          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl text-white">
-            <Clock className="w-5 h-5" />
-            <span className="font-bold text-lg">{formatTime(timeRemaining)}</span>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Left: Passage */}
-          <div className="h-[600px]">
-            <PassageDisplay
-              title={currentPassage.title}
-              text={currentPassage.text}
-              passageNumber={currentPassageIndex + 1}
-              totalPassages={questions.length}
-              difficulty={currentPassage.difficulty}
-              topic={currentPassage.topic}
-            />
-          </div>
-
-          {/* Right: Statements */}
-          <div className="lg:h-[600px] lg:overflow-y-auto lg:pr-2">
-            <StatementList
-              statements={currentPassage.statements}
-              userAnswers={currentAnswers}
-              onSelectAnswer={handleSelectAnswer}
-              isSaving={isSaving}
-            />
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <div className="mt-6 bg-white rounded-2xl border-2 border-green-200 p-4 flex items-center justify-between shadow-lg">
-          <Button
-            onClick={handlePrevPassage}
-            disabled={currentPassageIndex === 0}
-            variant="outline"
-            className="border-2 border-green-300"
-          >
-            <ChevronLeft className="w-5 h-5 mr-2" />
-            Föregående
-          </Button>
-
-          <div className="text-center">
-            <p className="text-sm text-slate-600">
-              Passage {currentPassageIndex + 1} av {questions.length}
-            </p>
-          </div>
-
-          {currentPassageIndex === questions.length - 1 ? (
-            <Button
-              onClick={() => setShowFinishConfirm(true)}
-              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
+      <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
+        <div className="space-y-5 sm:space-y-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPassageIndex}
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -12 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-5 sm:space-y-6"
             >
-              <Flag className="w-5 h-5 mr-2" />
-              Avsluta test
-            </Button>
-          ) : (
-            <Button
-              onClick={handleNextPassage}
-              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
+              <PassageDisplay
+                title={currentPassage.title}
+                topic={currentPassage.topic}
+                text={currentPassage.text}
+                difficulty={currentPassage.difficulty}
+                passageNumber={currentPassageIndex + 1}
+              />
+
+              <StatementList
+                statements={currentPassage.statements}
+                answers={currentAnswers}
+                onAnswer={handleSelectAnswer}
+                disabled={isSaving}
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
+            <button
+              onClick={handlePrev}
+              disabled={currentPassageIndex === 0}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
+            >
+              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
+              Föregående
+            </button>
+
+            <button
+              onClick={() => setShowFinishConfirm(true)}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation"
+            >
+              <Flag className="w-4 h-4" strokeWidth={2.5} />
+              Avsluta
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={isLastPassage}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+              }}
             >
               Nästa
-              <ChevronRight className="w-5 h-5 ml-2" />
-            </Button>
-          )}
+              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+            </button>
+          </div>
+
+          <PassageNavigation
+            totalPassages={questions.length}
+            currentPassage={currentPassageIndex}
+            answeredPerPassage={answeredPerPassage}
+            statementsPerPassage={4}
+            onNavigate={handleNavigate}
+          />
         </div>
       </div>
 
-      {/* Finish Confirmation Modal */}
-      {showFinishConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <AnimatePresence>
+        {showFinishConfirm && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl p-8 max-w-md w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            onClick={() => setShowFinishConfirm(false)}
           >
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">
-              Avsluta testet?
-            </h2>
-            <p className="text-slate-600 mb-2">
-              Du har besvarat <strong>{answeredCount} av {totalStatements}</strong> påståenden.
-            </p>
-            {answeredCount < totalStatements && (
-              <p className="text-orange-600 text-sm mb-6">
-                Du har {totalStatements - answeredCount} obesvarade påståenden.
-              </p>
-            )}
-            <div className="flex gap-4">
-              <Button
-                onClick={() => setShowFinishConfirm(false)}
-                variant="outline"
-                className="flex-1"
-              >
-                Fortsätt testet
-              </Button>
-              <Button
-                onClick={handleFinishTest}
-                className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600"
-              >
-                Avsluta
-              </Button>
-            </div>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 8 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
+              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
+            >
+              <div
+                className="absolute top-0 inset-x-0 h-1"
+                style={{
+                  background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
+                }}
+              />
+              <div className="p-5 sm:p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <div
+                    className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
+                    style={{
+                      background: 'linear-gradient(135deg, #F59E0B, #F97316)',
+                      boxShadow: '0 6px 14px -4px rgba(249, 115, 22, 0.4)',
+                    }}
+                  >
+                    <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+                      Avsluta testet?
+                    </h3>
+                    <p className="text-sm text-slate-600 mt-1">
+                      Du har besvarat <span className="font-bold text-slate-900">{answeredCount}</span> av{' '}
+                      <span className="font-bold text-slate-900">{totalStatements}</span> påståenden.
+                      {answeredCount < totalStatements && (
+                        <span className="block mt-1 text-amber-700">
+                          {totalStatements - answeredCount} kvar att besvara.
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2 sm:gap-3 mt-5">
+                  <button
+                    onClick={() => setShowFinishConfirm(false)}
+                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
+                  >
+                    Tillbaka
+                  </button>
+                  <button
+                    onClick={handleFinishTest}
+                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
+                    style={{
+                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
+                    }}
+                  >
+                    Avsluta och se resultat
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

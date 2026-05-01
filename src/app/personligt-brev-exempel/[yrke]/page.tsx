@@ -10451,6 +10451,7 @@ export async function generateMetadata({
     },
 
     // Open Graph metadata
+    // OG-bild genereras dynamiskt per yrke via opengraph-image.tsx
     openGraph: {
       type: 'article',
       url: canonicalUrl,
@@ -10458,26 +10459,17 @@ export async function generateMetadata({
       description: data.metaDescription,
       siteName: 'Jobbcoach.ai',
       locale: 'sv_SE',
-      images: [
-        {
-          url: 'https://jobbcoach.ai/og-image.png',
-          width: 1200,
-          height: 630,
-          alt: `Personligt brev exempel för ${data.yrke}`,
-        },
-      ],
     },
 
-    // Twitter Card metadata
+    // Twitter Card metadata - använder samma dynamiska OG-bild
     twitter: {
       card: 'summary_large_image',
       title: data.metaTitle,
       description: data.metaDescription,
-      images: ['https://jobbcoach.ai/og-image.png'],
     },
 
     // Additional metadata
-    keywords: `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering, ${data.yrke.toLowerCase()} jobb, svenska vårdmiljöer`,
+    keywords: `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering, ${data.yrke.toLowerCase()} jobb`,
 
     // Author and publisher
     authors: [{ name: 'Jobbcoach.ai' }],

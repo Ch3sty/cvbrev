@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight, Menu, Gift } from 'lucide-react';
+import { Zap, ChevronRight, Menu, Gift } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 
@@ -230,140 +230,21 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
   };
 
   return (
-    <header className="bg-white border-b border-slate-300 px-3 sm:px-4 md:px-6 py-3 md:py-4 shadow-lg relative z-10">
+    <header className="bg-white border-b border-orange-100 px-3 sm:px-4 md:px-6 py-3 md:py-4 shadow-sm sticky top-0 lg:relative z-30 lg:z-10">
       <div className="flex items-center justify-between gap-2 sm:gap-4">
         {/* Mobile Hamburger Menu */}
         {onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="p-2 sm:p-2.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 sm:p-2.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Öppna meny"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5" strokeWidth={2.5} />
           </button>
         )}
 
-        {/* Vänster sida - Välkomstmeddelande */}
-        <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6 flex-1 min-w-0">
-          {/* Mobile: Compact welcome */}
-          <div className="flex flex-col lg:hidden min-w-0">
-            <h1 className="text-base sm:text-lg font-bold text-slate-900 truncate">
-              Hej, {getUserName().split(' ')[0]}!
-            </h1>
-            <p className="text-xs text-slate-700 font-medium">
-              {formatTime(currentTime)}
-            </p>
-          </div>
-
-          {/* Desktop: Full welcome */}
-          <div className="hidden lg:flex flex-col">
-            <h1 className="text-2xl font-bold text-slate-900">
-              Välkommen tillbaka, {getUserName()}!
-            </h1>
-            <p className="text-sm text-slate-700 font-medium">
-              {formatDate(currentTime)} • {formatTime(currentTime)}
-            </p>
-          </div>
-
-          {/* Mobile: Mini Gamification Badge */}
-          {gamificationStats && (
-            <Link href="/dashboard/rewards" className="lg:hidden touch-manipulation min-h-[44px] flex items-center">
-              <div className="flex items-center gap-2 px-2 py-2 sm:py-1.5 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-300 hover:border-pink-400 transition-all shadow-sm min-h-[44px]">
-                <div className="relative">
-                  <div className="w-8 h-8 sm:w-8 sm:h-8 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
-                    <Crown className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="absolute -bottom-0.5 -right-0.5 bg-yellow-500 text-navy-900 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                    {gamificationStats.stats.current_level}
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-slate-900">Lvl {gamificationStats.stats.current_level}</span>
-                  <div className="flex items-center gap-0.5">
-                    <Zap className="w-2.5 h-2.5 text-yellow-500" />
-                    <span className="text-[10px] text-slate-700 font-medium">{gamificationStats.stats.total_xp.toLocaleString()}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          )}
-
-          {/* Desktop: Full Gamification Stats */}
-          {gamificationStats && (
-            <div className="hidden lg:flex items-center space-x-4 pl-6 border-l border-slate-300">
-              {/* Compact Gamified Level Badge */}
-              <Link href="/dashboard/rewards" className="relative group">
-                <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 shadow-lg">
-                  {/* Level Icon */}
-                  <div className="relative">
-                    <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                      <Crown className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="absolute -bottom-1 -right-1 bg-yellow-500 text-navy-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                      {gamificationStats.stats.current_level}
-                    </div>
-                  </div>
-
-                  {/* XP Info */}
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-slate-900">Level {gamificationStats.stats.current_level}</span>
-                      <span className="text-xs text-purple-700 font-semibold">• {getXPProgress()}%</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Zap className="w-3 h-3 text-yellow-500" />
-                      <span className="text-xs text-slate-700 font-medium">{gamificationStats.stats.total_xp.toLocaleString()} XP</span>
-                    </div>
-                  </div>
-
-                  {/* Progress Bar */}
-                  <div className="w-24">
-                    <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden mb-1">
-                      <div
-                        className="h-full bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-500"
-                        style={{ width: `${getXPProgress()}%` }}
-                      />
-                    </div>
-                    {/* Weekly Activity moved here */}
-                    <div className="text-[10px] text-purple-700 text-center font-bold">
-                      +{gamificationStats.stats.weekly_xp} XP denna vecka
-                    </div>
-                  </div>
-
-                  {/* Hover Arrow */}
-                  <ChevronRight className="w-4 h-4 text-purple-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                </div>
-              </Link>
-
-              {/* Compact Next Milestone Preview */}
-              <div className="px-3 py-2 bg-slate-100 rounded-xl border border-slate-300 shadow-sm">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-yellow-500" />
-                  <div>
-                    <p className="text-xs text-slate-700 font-medium">Nästa milstolpe</p>
-                    <p className="text-sm font-bold text-slate-900">Level {Math.ceil(gamificationStats.stats.current_level / 5) * 5 + 5}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Compact Streak Display */}
-              {gamificationStats.stats.daily_streak > 0 && (
-                <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl border border-orange-300 shadow-sm">
-                  <span className="text-lg">
-                    {getStreakDisplay(gamificationStats.stats.daily_streak).emoji}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-orange-700">
-                      {gamificationStats.stats.daily_streak}
-                    </span>
-                    <span className="text-xs text-orange-700 font-medium">dagars streak</span>
-                  </div>
-                </div>
-              )}
-
-            </div>
-          )}
-        </div>
+        {/* Vänster sida - tom (StreakHero äger hälsningen och stats) */}
+        <div className="flex-1" />
 
         {/* Höger sida - Användarinfo och snabblänkar */}
         <div className="flex items-center space-x-2 sm:space-x-3">

@@ -4,12 +4,19 @@ import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
+import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
 import AchievementManager from '@/components/gamification/AchievementManager';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
 import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProfile } from '@/hooks/use-profile';
+
+function MobileBottomNavWrapper() {
+  const { cvCount } = useProfile();
+  return <MobileBottomNav cvCount={cvCount || 0} />;
+}
 
 export default function DashboardLayout({
   children,
@@ -71,19 +78,6 @@ export default function DashboardLayout({
           {/* Achievement Notifications */}
           {user && <AchievementManager userId={user.id} />}
 
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-          )}
-        </AnimatePresence>
-
         {/* Dashboard Sidebar - Desktop (alltid synlig) */}
         <div className="hidden lg:block lg:relative lg:z-20">
           <DashboardSidebar
@@ -92,20 +86,31 @@ export default function DashboardLayout({
           />
         </div>
 
-        {/* Dashboard Sidebar - Mobile (drawer) */}
-        <motion.div
-          initial={false}
-          animate={{
-            x: isMobileMenuOpen ? 0 : '-100%'
-          }}
-          transition={{ type: 'tween', duration: 0.3 }}
-          className="fixed inset-y-0 left-0 z-50 lg:hidden"
-        >
-          <DashboardSidebar
-            onClose={() => setIsMobileMenuOpen(false)}
-            isMobile={true}
-          />
-        </motion.div>
+        {/* Dashboard Sidebar - Mobile (full-screen overlay) */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 lg:hidden bg-orange-50/30 backdrop-blur-md"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.98 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                className="h-full"
+              >
+                <DashboardSidebar
+                  onClose={() => setIsMobileMenuOpen(false)}
+                  isMobile={true}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden relative z-10">
@@ -134,7 +139,7 @@ export default function DashboardLayout({
           )}
 
           {/* Main Content Area - responsiv padding */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
+          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pb-24 lg:pb-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
             <div className="max-w-7xl mx-auto relative">
               {/* Page Transition Animation */}
               <AnimatePresence mode="wait">
@@ -152,6 +157,9 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
+
+      {/* Mobil bottennavigation - bara på mobil (lg:hidden inuti komponenten) */}
+      <MobileBottomNavWrapper />
       </div>
     </OnboardingProvider>
   );

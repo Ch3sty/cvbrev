@@ -1,26 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
 import {
-  Sparkles,
   Search,
   Loader2,
   ArrowLeft,
-  ArrowRight,
-  ExternalLink,
-  Building2,
-  MapPin,
   Briefcase,
-  Calendar,
-  Clock,
-  X,
-  Car,
-  GraduationCap,
-  Phone,
-  AlertCircle,
-  Crown
+  Crown,
 } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { useRouter } from 'next/navigation';
@@ -28,10 +16,13 @@ import { useNotification } from '@/context/notificationcontext';
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
-import InactiveCVCard from './components/InactiveCVCard';
-import MatchingInfoCard from './components/MatchingInfoCard';
+import CvSelectorCard from './components/CvSelectorCard';
+import EmptyStatePrompt from './components/EmptyStatePrompt';
+import JobMatchingOnboarding from './components/JobMatchingOnboarding';
+import MatchingHowItWorks from './components/MatchingHowItWorks';
 import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
+import JobDetailModal from './components/JobDetailModal';
 
 interface CV {
   id: string;
@@ -65,6 +56,10 @@ export default function JobbmatchningPage() {
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const isPremium = subscriptionTier === 'premium';
+
+  // Mjuk gate: utan CV visar vi <JobMatchingOnboarding /> istallet for att
+  // redirecta. Anvandaren ska forsta vad funktionen ar innan vi skickar dem
+  // till CV-uppladdningen. CV-rakning gors via cvs.length nedan.
 
   // State
   const [cvs, setCvs] = useState<CV[]>([]);
@@ -239,8 +234,8 @@ export default function JobbmatchningPage() {
         // Show notification when jobs are found
         if (data.jobs && data.jobs.length > 0) {
           successWithMascotAndActivity(
-            `${data.jobs.length} jobb hittade! Utforska dina matchningar nedan.`,
-            '/images/maskot/success-jobs-found.svg',
+            `Vi hittade ${data.jobs.length} matchande jobb. Utforska träffarna nedan.`,
+            'jobs-found',
             'jobs_searched',
             'sökte matchande jobb',
             {
@@ -410,36 +405,41 @@ export default function JobbmatchningPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-                <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+          <div className="flex items-center justify-between mb-6 gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div
+                className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+                }}
+              >
+                <Briefcase className="w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2.25} />
               </div>
               <div className="min-w-0 flex-1">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                   Jobbmatchning
                 </h1>
-                <p className="text-sm sm:text-base text-gray-600 mt-0.5 sm:mt-1 truncate">
+                <p className="text-sm sm:text-base text-slate-600 mt-0.5 truncate">
                   {showSearchView
-                    ? 'Matchade jobbannonser baserat på ditt CV'
+                    ? 'Matchade jobb baserat på ditt CV'
                     : activeCV
-                    ? 'Aktivt CV - redo att söka jobb'
-                    : 'Aktivera ett CV för att börja matcha jobb'
-                  }
+                    ? 'Aktivt CV — redo att söka jobb'
+                    : 'Välj ett CV nedan för att börja'}
                 </p>
               </div>
             </div>
 
-            {/* Back button när i sökvyn */}
+            {/* Tillbaka-knapp i sökvyn */}
             {showSearchView && (
               <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={handleBackToCVs}
-                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-xl border border-gray-200 hover:bg-white transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm sm:text-base"
+                className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 bg-white rounded-xl border border-slate-200 hover:border-orange-300 hover:bg-orange-50/50 transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm font-medium text-slate-700"
               >
                 <ArrowLeft className="w-4 h-4 flex-shrink-0" />
-                <span className="truncate">Tillbaka till CV-val</span>
+                <span className="hidden sm:inline">Tillbaka</span>
               </motion.button>
             )}
           </div>
@@ -453,53 +453,34 @@ export default function JobbmatchningPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Dina CV:n</h2>
-
             {loadingCVs ? (
               <div className="flex items-center justify-center py-12">
-                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
               </div>
             ) : cvs.length === 0 ? (
-              <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-6 sm:p-8 text-center">
-                <p className="text-sm sm:text-base text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
-                <a
-                  href="/dashboard/profil/cv"
-                  className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base font-medium"
-                >
-                  Ladda upp CV
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                </a>
-              </div>
+              <JobMatchingOnboarding />
             ) : (
-              <div className="space-y-6">
-                {/* Top Row: Info Card (Left) + Active CV Card (Right) */}
-                <div className="grid gap-4 md:grid-cols-2 items-start">
-                  {/* Info Card - Always Left */}
-                  <MatchingInfoCard />
+              <>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Dina CV:n</h2>
+              <div className="space-y-4 sm:space-y-6">
+                {/* 3-stegs-instruktion + info-popover */}
+                <MatchingHowItWorks />
 
-                  {/* Active CV Card - Always Right */}
-                  {activeCVId && cvs.find(cv => cv.id === activeCVId) && (
-                    <CVActivationCard
-                      key={activeCVId}
-                      cv={cvs.find(cv => cv.id === activeCVId)!}
-                      isActive={true}
-                      activeData={activeCV}
-                      onActivate={handleActivateCV}
-                      onSearchJobs={handleSearchJobs}
-                      isActivating={activatingCVId === activeCVId}
-                    />
-                  )}
+                {/* Aktivt CV-kort i full bredd */}
+                {activeCVId && cvs.find(cv => cv.id === activeCVId) && (
+                  <CVActivationCard
+                    key={activeCVId}
+                    cv={cvs.find(cv => cv.id === activeCVId)!}
+                    isActive={true}
+                    activeData={activeCV}
+                    onActivate={handleActivateCV}
+                    onSearchJobs={handleSearchJobs}
+                    isActivating={activatingCVId === activeCVId}
+                  />
+                )}
 
-                  {/* If no active CV, show empty state on the right */}
-                  {!activeCVId && (
-                    <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-6 sm:p-8 flex items-center justify-center min-h-[200px] sm:min-h-[300px]">
-                      <div className="text-center">
-                        <p className="text-sm sm:text-base text-slate-600 mb-2">Inget aktivt CV</p>
-                        <p className="text-xs sm:text-sm text-slate-500">Klicka på ett CV nedan för att aktivera det</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                {/* Inget aktivt CV — illustrerat onboarding-prompt */}
+                {!activeCVId && <EmptyStatePrompt />}
 
                 {/* Inactive CV Cards Grid - Below */}
                 {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
@@ -511,7 +492,7 @@ export default function JobbmatchningPage() {
                       {cvs
                         .filter(cv => cv.id !== activeCVId)
                         .map((cv) => (
-                          <InactiveCVCard
+                          <CvSelectorCard
                             key={cv.id}
                             cv={cv}
                             onActivate={handleActivateCV}
@@ -522,6 +503,7 @@ export default function JobbmatchningPage() {
                   </div>
                 )}
               </div>
+              </>
             )}
           </motion.div>
         )}
@@ -660,421 +642,12 @@ export default function JobbmatchningPage() {
         )}
       </div>
 
-      {/* Job Detail Modal */}
-      <AnimatePresence>
-        {selectedJob && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedJob(null)}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 max-w-3xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto"
-              style={{
-                WebkitOverflowScrolling: 'touch',
-                overscrollBehavior: 'contain'
-              }}
-            >
-              {/* Close button */}
-              <button
-                onClick={() => setSelectedJob(null)}
-                className="absolute top-4 right-4 p-3 sm:p-2 hover:bg-gray-100 rounded-full transition-colors touch-manipulation min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
-                aria-label="Stäng jobbdetaljer"
-              >
-                <X className="w-5 h-5 sm:w-5 sm:h-5 text-gray-500" />
-              </button>
-
-              {/* Logo + Relevance */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  {/* Company Logo */}
-                  {selectedJob.logo_url ? (
-                    <img
-                      src={selectedJob.logo_url}
-                      alt={selectedJob.employer?.name || 'Företag'}
-                      className="w-16 h-16 rounded-xl object-cover bg-gray-100"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-2xl">
-                      {(selectedJob.employer?.name || 'U').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
-
-                  {/* Relevance Badge */}
-                  {selectedJob.relevance !== undefined && (
-                    <div className={`px-4 py-2 rounded-xl text-white font-semibold ${
-                      selectedJob.relevance >= 70
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500'
-                        : selectedJob.relevance >= 40
-                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                        : 'bg-gradient-to-r from-gray-400 to-gray-500'
-                    }`}>
-                      {selectedJob.relevance}% matchning
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
-                {selectedJob.headline}
-              </h2>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 text-gray-700">
-                  <Building2 className="w-5 h-5" />
-                  <span className="font-semibold">{selectedJob.employer.name}</span>
-                </div>
-
-                {selectedJob.workplace_address && (
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <MapPin className="w-5 h-5" />
-                    <span>
-                      {[
-                        selectedJob.workplace_address.municipality,
-                        selectedJob.workplace_address.region,
-                        selectedJob.workplace_address.country
-                      ].filter(Boolean).join(', ')}
-                    </span>
-                  </div>
-                )}
-
-                {selectedJob.employment_type && (
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <Briefcase className="w-5 h-5" />
-                    <span>{selectedJob.employment_type.label}</span>
-                  </div>
-                )}
-
-                <div className="flex items-center gap-3 text-gray-600">
-                  <Calendar className="w-5 h-5" />
-                  <span>Publicerad: {new Date(selectedJob.publication_date).toLocaleDateString('sv-SE')}</span>
-                </div>
-
-                {selectedJob.application_deadline && (
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <Clock className="w-5 h-5" />
-                    <span>Sista ansökningsdag: {new Date(selectedJob.application_deadline).toLocaleDateString('sv-SE')}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Viktiga krav - högt upp för synlighet */}
-              {(selectedJob.experience_required || selectedJob.driving_license_required || (selectedJob.driving_license && selectedJob.driving_license.length > 0) || selectedJob.access_to_own_car) && (
-                <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl">
-                  <div className="flex items-center gap-2 mb-3">
-                    <AlertCircle className="w-5 h-5 text-amber-600" />
-                    <h3 className="text-lg font-bold text-amber-900">Viktiga krav</h3>
-                  </div>
-                  <div className="space-y-2">
-                    {selectedJob.experience_required && (
-                      <div className="flex items-center gap-2 text-sm text-amber-800">
-                        <GraduationCap className="w-4 h-4 shrink-0" />
-                        <span className="font-medium">Erfarenhet krävs för denna tjänst</span>
-                      </div>
-                    )}
-                    {(selectedJob.driving_license_required || (selectedJob.driving_license && selectedJob.driving_license.length > 0)) && (
-                      <div className="flex items-start gap-2 text-sm text-amber-800">
-                        <Car className="w-4 h-4 shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <p className="font-medium mb-1">Körkort krävs</p>
-                          {selectedJob.driving_license && selectedJob.driving_license.length > 0 && (
-                            <div className="flex flex-wrap gap-1">
-                              {selectedJob.driving_license.map((license: any, i: number) => (
-                                <span key={i} className="px-2 py-0.5 bg-amber-100 border border-amber-300 text-amber-700 rounded text-xs font-medium">
-                                  {license.label}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    {selectedJob.access_to_own_car && (
-                      <div className="flex items-center gap-2 text-sm text-amber-800">
-                        <Car className="w-4 h-4 shrink-0" />
-                        <span className="font-medium">Tillgång till egen bil krävs</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Structured Description */}
-              <div className="space-y-6 mb-8">
-                {/* Vi söker / Needs */}
-                {selectedJob.description?.needs && (
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
-                      <Search className="w-5 h-5 text-indigo-600" />
-                      Vi söker
-                    </h3>
-                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.needs }} />
-                  </div>
-                )}
-
-                {/* Om företaget */}
-                {selectedJob.description?.company_information && (
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
-                      <Building2 className="w-5 h-5 text-indigo-600" />
-                      Om företaget
-                    </h3>
-                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.company_information }} />
-                  </div>
-                )}
-
-                {/* Arbetsuppgifter / Description */}
-                {selectedJob.description?.text && (
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
-                      <Briefcase className="w-5 h-5 text-indigo-600" />
-                      Arbetsuppgifter
-                    </h3>
-                    <div className="text-gray-700 prose max-w-none whitespace-pre-wrap" dangerouslySetInnerHTML={{
-                      __html: selectedJob.description.text_formatted || selectedJob.description.text
-                    }} />
-                  </div>
-                )}
-
-                {/* Must-have & Nice-to-have (Two Columns) - Only show if there's actual data */}
-                {(() => {
-                  const hasMustHave = selectedJob.must_have && (
-                    (selectedJob.must_have.skills && selectedJob.must_have.skills.length > 0) ||
-                    (selectedJob.must_have.languages && selectedJob.must_have.languages.length > 0) ||
-                    (selectedJob.must_have.work_experiences && selectedJob.must_have.work_experiences.length > 0) ||
-                    (selectedJob.must_have.education && selectedJob.must_have.education.length > 0) ||
-                    (selectedJob.must_have.education_level && selectedJob.must_have.education_level.length > 0)
-                  );
-
-                  const hasNiceToHave = selectedJob.nice_to_have && (
-                    (selectedJob.nice_to_have.skills && selectedJob.nice_to_have.skills.length > 0) ||
-                    (selectedJob.nice_to_have.languages && selectedJob.nice_to_have.languages.length > 0) ||
-                    (selectedJob.nice_to_have.work_experiences && selectedJob.nice_to_have.work_experiences.length > 0) ||
-                    (selectedJob.nice_to_have.education && selectedJob.nice_to_have.education.length > 0) ||
-                    (selectedJob.nice_to_have.education_level && selectedJob.nice_to_have.education_level.length > 0)
-                  );
-
-                  if (!hasMustHave && !hasNiceToHave) return null;
-
-                  return (
-                    <div className={`gap-6 mt-8 p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 ${hasMustHave && hasNiceToHave ? 'grid md:grid-cols-2' : ''}`}>
-                      {/* Must-Have */}
-                      {hasMustHave && (
-                        <div>
-                          <h3 className="text-lg font-bold text-red-700 mb-3">Krav (måste)</h3>
-                          <div className="space-y-3">
-                            {selectedJob.must_have?.skills && selectedJob.must_have.skills.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {selectedJob.must_have.skills.map((skill: any, i: number) => (
-                                    <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs font-medium">
-                                      {skill.label}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {selectedJob.must_have?.languages && selectedJob.must_have.languages.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {selectedJob.must_have.languages.map((lang: any, i: number) => (
-                                    <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs">
-                                      {lang.label}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {selectedJob.must_have?.work_experiences && selectedJob.must_have.work_experiences.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Arbetserfarenhet:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.must_have.work_experiences.map((exp: any, i: number) => (
-                                    <li key={i}>• {exp.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                            {selectedJob.must_have?.education && selectedJob.must_have.education.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.must_have.education.map((edu: any, i: number) => (
-                                    <li key={i}>• {edu.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                            {selectedJob.must_have?.education_level && selectedJob.must_have.education_level.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildningsnivå:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.must_have.education_level.map((level: any, i: number) => (
-                                    <li key={i}>• {level.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Nice-to-Have */}
-                      {hasNiceToHave && (
-                        <div>
-                          <h3 className="text-lg font-bold text-green-700 mb-3">Meriterande</h3>
-                          <div className="space-y-3">
-                            {selectedJob.nice_to_have?.skills && selectedJob.nice_to_have.skills.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {selectedJob.nice_to_have.skills.map((skill: any, i: number) => (
-                                    <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs font-medium">
-                                      {skill.label}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {selectedJob.nice_to_have?.languages && selectedJob.nice_to_have.languages.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {selectedJob.nice_to_have.languages.map((lang: any, i: number) => (
-                                    <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs">
-                                      {lang.label}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            {selectedJob.nice_to_have?.work_experiences && selectedJob.nice_to_have.work_experiences.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Arbetserfarenhet:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.nice_to_have.work_experiences.map((exp: any, i: number) => (
-                                    <li key={i}>• {exp.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                            {selectedJob.nice_to_have?.education && selectedJob.nice_to_have.education.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.nice_to_have.education.map((edu: any, i: number) => (
-                                    <li key={i}>• {edu.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                            {selectedJob.nice_to_have?.education_level && selectedJob.nice_to_have.education_level.length > 0 && (
-                              <div>
-                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildningsnivå:</p>
-                                <ul className="text-sm text-gray-600 space-y-1">
-                                  {selectedJob.nice_to_have.education_level.map((level: any, i: number) => (
-                                    <li key={i}>• {level.label}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
-
-                {/* Villkor / Conditions */}
-                {selectedJob.description?.conditions && (
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Vi erbjuder</h3>
-                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.conditions }} />
-                  </div>
-                )}
-
-                {/* Salary & Benefits */}
-                {(selectedJob.salary_description || selectedJob.access) && (
-                  <div className="p-4 bg-blue-50 rounded-xl">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Villkor</h3>
-                    {selectedJob.salary_description && (
-                      <p className="text-sm text-gray-700 mb-1"><strong>Lön:</strong> {selectedJob.salary_description}</p>
-                    )}
-                    {selectedJob.access && (
-                      <p className="text-sm text-gray-700"><strong>Tillträde:</strong> {selectedJob.access}</p>
-                    )}
-                  </div>
-                )}
-
-                {/* Contact Person */}
-                {selectedJob.application_contacts && (selectedJob.application_contacts.name || selectedJob.application_contacts.email || selectedJob.application_contacts.telephone) && (
-                  <div className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-200">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Phone className="w-5 h-5 text-indigo-600" />
-                      <h3 className="text-lg font-bold text-indigo-900">Kontaktperson</h3>
-                    </div>
-                    <div className="space-y-2">
-                      {selectedJob.application_contacts.name && (
-                        <p className="text-sm text-gray-800"><strong>Namn:</strong> {selectedJob.application_contacts.name}</p>
-                      )}
-                      {selectedJob.application_contacts.description && (
-                        <p className="text-sm text-gray-700">{selectedJob.application_contacts.description}</p>
-                      )}
-                      {selectedJob.application_contacts.email && (
-                        <p className="text-sm text-gray-800">
-                          <strong>E-post:</strong>{' '}
-                          <a href={`mailto:${selectedJob.application_contacts.email}`} className="text-indigo-600 hover:underline">
-                            {selectedJob.application_contacts.email}
-                          </a>
-                        </p>
-                      )}
-                      {selectedJob.application_contacts.telephone && (
-                        <p className="text-sm text-gray-800">
-                          <strong>Telefon:</strong>{' '}
-                          <a href={`tel:${selectedJob.application_contacts.telephone}`} className="text-indigo-600 hover:underline">
-                            {selectedJob.application_contacts.telephone}
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Apply button - Dynamisk text */}
-              {(() => {
-                const applicationUrl = selectedJob.application_details?.url || selectedJob.application_url || selectedJob.webpage_url;
-                if (!applicationUrl) return null;
-
-                const isViaAF = selectedJob.application_details?.via_af === true;
-                const buttonText = isViaAF
-                  ? 'Ansök via Arbetsförmedlingen'
-                  : `Ansök hos ${selectedJob.employer?.name || 'företaget'}`;
-
-                return (
-                  <a
-                    href={applicationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 sm:py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 touch-manipulation min-h-[44px] text-sm sm:text-base"
-                  >
-                    <span className="truncate">{buttonText}</span>
-                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  </a>
-                );
-              })()}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Job Detail Modal — full-screen pa mobil + sticky bottom-bar */}
+      <JobDetailModal
+        job={selectedJob}
+        cvId={activeCVId || undefined}
+        onClose={() => setSelectedJob(null)}
+      />
     </div>
   );
 }

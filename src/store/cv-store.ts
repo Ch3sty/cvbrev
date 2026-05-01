@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { parseCV } from '@/lib/cv-parser'
 import type { CVTemplateType } from '@/lib/cv/cv-metadata'
+import type { ParsedCV } from '@/lib/cv/cv-parser'
 // AI recommendations removed - using simple static recommendations instead
 
 interface CV {
@@ -13,6 +14,7 @@ interface CV {
   original_file_path: string
   cv_text: string
   created_at: string
+  structured_data: ParsedCV | null
 }
 
 // Template preview cache interface

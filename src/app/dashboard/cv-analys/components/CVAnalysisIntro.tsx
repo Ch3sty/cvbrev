@@ -1,164 +1,228 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { CheckCircle, ArrowRight, Sparkles, Target, FileSearch, Zap } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
+import { HeroAnalysisIcon } from './illustrations/AnalysisIcons';
 
 interface CVAnalysisIntroProps {
-  onStartAnalysis: () => void
-  remainingAnalyses?: number | null
-  isPremium?: boolean
+  onStartAnalysis: () => void;
+  remainingAnalyses?: number | null;
+  isPremium?: boolean;
 }
 
 export default function CVAnalysisIntro({
   onStartAnalysis,
   remainingAnalyses,
-  isPremium = false
+  isPremium = false,
 }: CVAnalysisIntroProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto px-4 py-12 md:py-20">
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      {/* Hero-kort: stort, sammanhållet, ingen vit rektangel-känsla */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative overflow-hidden rounded-3xl p-6 sm:p-10"
+        style={{
+          background:
+            'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 45%, #FECACA 100%)',
+          border: '1px solid rgba(249, 115, 22, 0.2)',
+          boxShadow: '0 20px 60px -24px rgba(220, 38, 38, 0.25)',
+        }}
+      >
+        {/* Subtilt prick-pattern */}
+        <svg
+          className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
+          aria-hidden="true"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full mb-6"
+          <pattern
+            id="intro-dots"
+            x="0"
+            y="0"
+            width="28"
+            height="28"
+            patternUnits="userSpaceOnUse"
           >
-            <Sparkles className="w-4 h-4 text-pink-600" />
-            <span className="text-sm font-semibold text-pink-700">Djupgående CV-analys</span>
-          </motion.div>
+            <circle cx="14" cy="14" r="1" fill="#FB923C" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#intro-dots)" />
+        </svg>
 
-          {/* Main Headline */}
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Sluta gissa vad som är fel
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">
-              med ditt CV
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            30 ansökningar. 0 svar. Känns det bekant? Vi hittar exakt vad
-            som håller dig tillbaka och visar hur du fixar det.
-          </p>
-
-          {/* CTA Button */}
-          <motion.button
-            onClick={onStartAnalysis}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg group"
-          >
-            <span>Analysera mitt CV nu</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-
-          {/* Quota Info */}
-          {remainingAnalyses !== null && remainingAnalyses !== undefined && (
-            <p className="mt-4 text-sm text-gray-500">
-              {isPremium ? (
-                <span className="text-purple-600 font-medium">Obegränsade analyser med Premium</span>
-              ) : (
-                <>Du har <span className="font-semibold text-pink-600">{remainingAnalyses}</span> {remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar denna vecka</>
-              )}
+        <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-7">
+          <div className="flex-shrink-0">
+            <HeroAnalysisIcon className="w-20 h-20 sm:w-24 sm:h-24" />
+          </div>
+          <div className="text-center sm:text-left min-w-0 flex-1">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
+              Djupgående CV-analys
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+              Sluta gissa{' '}
+              <span
+                className="text-transparent bg-clip-text"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
+                }}
+              >
+                vad som är fel
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">
+              30 ansökningar och 0 svar känns bekant. Vi hittar exakt vad som håller dig
+              tillbaka och visar hur du fixar det.
             </p>
-          )}
-        </motion.div>
 
-        {/* Benefits Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="grid md:grid-cols-3 gap-6 mb-16"
-        >
+            <button
+              type="button"
+              onClick={onStartAnalysis}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-white font-bold text-base min-h-[56px]"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 12px 28px -8px rgba(220, 38, 38, 0.45)',
+              }}
+            >
+              Analysera mitt CV nu
+              <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
+            </button>
+
+            {remainingAnalyses !== null && remainingAnalyses !== undefined && (
+              <p className="mt-3 text-sm text-slate-700">
+                {isPremium ? (
+                  <span className="font-semibold text-orange-700">
+                    Obegränsade analyser med Premium
+                  </span>
+                ) : (
+                  <>
+                    Du har{' '}
+                    <span className="font-bold text-orange-700">
+                      {remainingAnalyses}
+                    </span>{' '}
+                    {remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar denna vecka
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Benefits - flytande korten över bakgrunden */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="grid sm:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8"
+      >
+        {[
+          {
+            icon: Target,
+            title: 'ATS-optimering',
+            description:
+              'Vi analyserar om ditt CV passerar de automatiska urvalssystem som de flesta arbetsgivare använder.',
+          },
+          {
+            icon: FileSearch,
+            title: 'Detaljerad feedback',
+            description:
+              'Konkreta förslag på förbättringar för varje sektion av ditt CV.',
+          },
+          {
+            icon: Zap,
+            title: 'Snabbt resultat',
+            description: 'Fullständig analys på under en minut. Inga onödiga väntetider.',
+          },
+        ].map((benefit, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + index * 0.06 }}
+            className="rounded-2xl p-5 bg-white border border-orange-200/60"
+            style={{ boxShadow: '0 4px 14px -6px rgba(249, 115, 22, 0.12)' }}
+          >
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-white mb-3"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
+              }}
+            >
+              <benefit.icon className="w-5 h-5" strokeWidth={2.25} />
+            </div>
+            <h3 className="text-base font-bold text-slate-900 mb-1.5">
+              {benefit.title}
+            </h3>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {benefit.description}
+            </p>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Det här får du */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="rounded-3xl p-6 sm:p-8 mt-6 sm:mt-8"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.05) 100%)',
+          border: '1px solid rgba(249, 115, 22, 0.18)',
+        }}
+      >
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
+          Det här får du
+        </div>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-5">
+          En komplett bild av ditt CV
+        </h2>
+
+        <div className="grid sm:grid-cols-2 gap-3">
           {[
-            {
-              icon: Target,
-              title: 'ATS-optimering',
-              description: 'Vi analyserar om ditt CV passerar automatiska urvalssystem som 70% av arbetsgivare använder.'
-            },
-            {
-              icon: FileSearch,
-              title: 'Detaljerad feedback',
-              description: 'Få specifika förslag på förbättringar för varje sektion av ditt CV.'
-            },
-            {
-              icon: Zap,
-              title: 'Direkt resultat',
-              description: 'Fullständig analys på under en minut. Inga väntetider.'
-            }
-          ].map((benefit, index) => (
+            'Poäng för hur ATS-vänligt ditt CV är',
+            'Analys av dina kompetenser och nyckelord',
+            'Granskning av personlig beskrivning',
+            'Konkreta förbättringar för varje sektion',
+            'Jämförelse av före och efter',
+            'Möjlighet att exportera till PDF',
+          ].map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-              className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 + index * 0.04 }}
+              className="flex items-start gap-2.5"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center mb-4">
-                <benefit.icon className="w-6 h-6 text-pink-600" />
+              <div
+                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white mt-0.5"
+                style={{
+                  background: 'linear-gradient(135deg, #10B981, #059669)',
+                }}
+              >
+                <CheckCircle className="w-3 h-3" strokeWidth={3} fill="white" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-              <p className="text-gray-600 text-sm">{benefit.description}</p>
+              <span className="text-sm text-slate-700">{item}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* What You Get Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-8 md:p-12 border border-pink-100"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
-            Det här får du
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              'Poäng för hur ATS-vänligt ditt CV är',
-              'Analys av dina kompetenser och nyckelord',
-              'Granskning av personlig beskrivning',
-              'Förslag på förbättringar för varje sektion',
-              'Jämförelse före och efter',
-              'Möjlighet att exportera till PDF'
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + index * 0.05 }}
-                className="flex items-start gap-3"
-              >
-                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-700">{item}</span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Secondary CTA */}
-          <div className="mt-10 text-center">
-            <motion.button
-              onClick={onStartAnalysis}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-pink-600 font-semibold rounded-xl border-2 border-pink-600 hover:bg-pink-50 transition-colors"
-            >
-              <span>Kom igång</span>
-              <ArrowRight className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </motion.div>
-      </div>
+        <div className="mt-7 text-center sm:text-left">
+          <button
+            type="button"
+            onClick={onStartAnalysis}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px]"
+            style={{
+              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+            }}
+          >
+            Kom igång
+            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+          </button>
+        </div>
+      </motion.div>
     </div>
-  )
+  );
 }

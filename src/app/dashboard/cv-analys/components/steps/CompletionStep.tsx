@@ -1,10 +1,9 @@
-// src/components/cv/analysis/steps/CompletionStep.tsx
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Download, FolderOpen, RotateCcw, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Download, FolderOpen, RotateCcw, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { CompletionTrophyIcon } from '../illustrations/AnalysisIcons';
 
 interface CompletionStepProps {
   savedCvId?: string;
@@ -17,144 +16,173 @@ export default function CompletionStep({
   savedCvId,
   fileName,
   onAnalyzeAnother,
-  onDownloadAgain
+  onDownloadAgain,
 }: CompletionStepProps) {
   return (
-    <div className="text-center space-y-8 py-8">
-      {/* Success Animation */}
+    <div className="space-y-6">
+      {/* Hero-success */}
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{
-          type: 'spring',
-          stiffness: 200,
-          damping: 15
-        }}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+        className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-6 sm:p-8 text-center"
+        style={{ boxShadow: '0 12px 36px -16px rgba(249, 115, 22, 0.25)' }}
       >
-        <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center relative">
-          <CheckCircle2 className="w-16 h-16 text-white" />
+        {/* Bakgrund-glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at 50% 30%, rgba(249, 115, 22, 0.12) 0%, transparent 60%)',
+          }}
+        />
 
-          {/* Sparkle effects */}
+        <div className="relative flex flex-col items-center">
           <motion.div
-            className="absolute top-0 right-0"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 1, 0.5]
-            }}
+            initial={{ scale: 0, rotate: -45 }}
+            animate={{ scale: 1, rotate: 0 }}
             transition={{
-              duration: 2,
-              repeat: Infinity
+              type: 'spring',
+              stiffness: 200,
+              damping: 15,
+              delay: 0.15,
             }}
           >
-            <Sparkles className="w-8 h-8 text-yellow-400" />
+            <CompletionTrophyIcon className="w-24 h-24 sm:w-28 sm:h-28" />
           </motion.div>
-          <motion.div
-            className="absolute bottom-0 left-0"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: 1
-            }}
-          >
-            <Sparkles className="w-6 h-6 text-yellow-400" />
-          </motion.div>
+
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mt-4 mb-1">
+            Klart
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-2">
+            Bra jobbat
+          </h3>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md">
+            Ditt CV är optimerat och redo att skicka in. Lycka till med ansökningarna.
+          </p>
+          {fileName && (
+            <div
+              className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold"
+              style={{
+                background:
+                  'linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(220, 38, 38, 0.06) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.2)',
+                color: '#9A3412',
+              }}
+            >
+              {fileName}
+            </div>
+          )}
         </div>
-
-        <h3 className="text-3xl font-bold text-gray-900 mb-3">
-          Klart!
-        </h3>
-        <p className="text-lg text-gray-600 mb-2">
-          Ditt CV har förbättrats framgångsrikt
-        </p>
-        <p className="text-sm text-gray-500">
-          {fileName}
-        </p>
       </motion.div>
 
-      {/* Success Cards */}
-      <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-        <Card className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
-          <div className="text-3xl font-bold text-blue-600 mb-1">✓</div>
-          <div className="text-sm font-medium text-gray-900">ATS-Optimerat</div>
-          <div className="text-xs text-gray-600 mt-1">Redo för tracking-system</div>
-        </Card>
-
-        <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
-          <div className="text-3xl font-bold text-purple-600 mb-1">✓</div>
-          <div className="text-sm font-medium text-gray-900">Förbättrat</div>
-          <div className="text-xs text-gray-600 mt-1">Professionellt innehåll</div>
-        </Card>
-
-        <Card className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-          <div className="text-3xl font-bold text-green-600 mb-1">✓</div>
-          <div className="text-sm font-medium text-gray-900">Redo att använda</div>
-          <div className="text-xs text-gray-600 mt-1">Börja söka jobb nu</div>
-        </Card>
+      {/* Status-kort */}
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        <StatusCard label="ATS-optimerat" sub="Klar för system" />
+        <StatusCard label="Förbättrat" sub="Skarpare innehåll" />
+        <StatusCard label="Redo" sub="Skicka in nu" />
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      {/* Action-knappar */}
+      <div className="grid sm:grid-cols-2 gap-3">
         {onDownloadAgain && (
-          <Button
+          <button
+            type="button"
             onClick={onDownloadAgain}
-            variant="outline"
-            className="flex-1"
+            className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/40 transition-colors min-h-[48px] font-semibold text-slate-900 text-sm"
           >
-            <Download className="w-4 h-4 mr-2" />
-            Ladda ner igen
-          </Button>
+            <Download className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+            Ladda ned igen
+          </button>
         )}
 
         {savedCvId && (
-          <Button
-            onClick={() => window.location.href = '/dashboard/profil/cv'}
-            variant="outline"
-            className="flex-1"
+          <Link
+            href="/dashboard/profil/cv"
+            className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/40 transition-colors min-h-[48px] font-semibold text-slate-900 text-sm"
           >
-            <FolderOpen className="w-4 h-4 mr-2" />
-            Visa i bibliotek
-          </Button>
+            <FolderOpen className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+            Visa i CV-bibliotek
+          </Link>
         )}
 
-        <Button
+        <button
+          type="button"
           onClick={onAnalyzeAnother}
-          className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+          className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px] sm:col-span-2"
+          style={{
+            background: 'linear-gradient(135deg, #F97316, #DC2626)',
+            boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
+          }}
         >
-          <RotateCcw className="w-4 h-4 mr-2" />
+          <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
           Analysera ett annat CV
-        </Button>
+        </button>
       </div>
 
-      {/* Tips */}
-      <Card className="max-w-2xl mx-auto p-6 bg-blue-50 border-blue-200">
-        <h4 className="font-semibold text-gray-900 mb-3">💡 Nästa steg:</h4>
-        <ul className="text-sm text-gray-700 space-y-2 text-left">
-          <li className="flex items-start gap-2">
-            <span className="text-blue-600 mt-0.5">•</span>
-            <span>Använd ditt förbättrade CV när du söker jobb</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-blue-600 mt-0.5">•</span>
-            <span>Skapa ett matchande personligt brev med vår brevgenerator</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-blue-600 mt-0.5">•</span>
-            <span>Kom ihåg att anpassa ditt CV för varje specifik tjänst</span>
-          </li>
-        </ul>
-
-        <Button
-          onClick={() => window.location.href = '/dashboard/skapa-brev'}
-          variant="outline"
-          className="w-full mt-4"
+      {/* Nästa steg */}
+      <div
+        className="relative overflow-hidden rounded-3xl p-5 sm:p-6"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.05) 100%)',
+          border: '1px solid rgba(249, 115, 22, 0.18)',
+        }}
+      >
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+          Nästa steg
+        </div>
+        <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-3">
+          Skriv ett matchande personligt brev
+        </h4>
+        <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+          Vi har redan din CV-data. Att lägga till ett vasst personligt brev tar bara
+          några minuter och dubblar dina chanser till intervju.
+        </p>
+        <Link
+          href="/dashboard/skapa-brev"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold text-sm min-h-[44px]"
+          style={{
+            background: 'linear-gradient(135deg, #F97316, #DC2626)',
+            boxShadow: '0 6px 16px -6px rgba(220, 38, 38, 0.45)',
+          }}
         >
-          Skapa personligt brev →
-        </Button>
-      </Card>
+          Skapa personligt brev
+          <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function StatusCard({ label, sub }: { label: string; sub: string }) {
+  return (
+    <div className="bg-white rounded-2xl border border-emerald-200/60 p-3 sm:p-4 text-center">
+      <div
+        className="w-7 h-7 mx-auto mb-2 rounded-full flex items-center justify-center text-white"
+        style={{
+          background: 'linear-gradient(135deg, #10B981, #059669)',
+          boxShadow: '0 3px 10px -3px rgba(16, 185, 129, 0.5)',
+        }}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M3 7 L6 10 L11 4"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+      <div className="text-xs sm:text-sm font-bold text-slate-900">{label}</div>
+      <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">{sub}</div>
     </div>
   );
 }
