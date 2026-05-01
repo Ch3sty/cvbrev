@@ -54,8 +54,8 @@ const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
   'matrislogik-avancerad': 15,
   'verbal-resonemang': 48,
   'verbal-resonemang-v2': 48,
-  'numeriskt-test': 5,
-  'numeriskt-test-v2': 5,
+  'numeriskt-test': 24,
+  'numeriskt-test-v2': 24,
 };
 
 const EMPTY_STATS: PerTestStats = {

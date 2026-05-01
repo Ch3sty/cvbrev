@@ -283,17 +283,34 @@ export function TestCardThumbnail({
 
       {variant === 'numerical-v1' && (
         <g>
-          <text x="24" y="30" textAnchor="middle" fontSize="18" fontWeight="800" fill="url(#hub-orange-red)">123</text>
+          {/* Mini-stapeldiagram för grundnivå */}
+          <line x1="9" y1="38" x2="39" y2="38" stroke="#FB923C" strokeWidth="1" />
+          <line x1="9" y1="38" x2="9" y2="14" stroke="#FB923C" strokeWidth="1" />
+          <rect x="13" y="28" width="5" height="10" rx="1" fill="url(#hub-orange-red)" />
+          <rect x="20" y="22" width="5" height="16" rx="1" fill="url(#hub-orange-red)" opacity="0.85" />
+          <rect x="27" y="18" width="5" height="20" rx="1" fill="url(#hub-orange-red)" opacity="0.95" />
+          <rect x="34" y="24" width="5" height="14" rx="1" fill="url(#hub-orange-red)" opacity="0.75" />
         </g>
       )}
 
       {variant === 'numerical-v2' && (
         <g>
-          {/* Stapeldiagram */}
-          <rect x="11" y="26" width="5" height="12" rx="1" fill="url(#hub-orange-red)" />
-          <rect x="18" y="20" width="5" height="18" rx="1" fill="url(#hub-orange-red)" opacity="0.85" />
-          <rect x="25" y="14" width="5" height="24" rx="1" fill="url(#hub-orange-red)" opacity="0.95" />
-          <rect x="32" y="22" width="5" height="16" rx="1" fill="url(#hub-orange-red)" opacity="0.7" />
+          {/* Linjediagram för avancerad */}
+          <line x1="9" y1="38" x2="39" y2="38" stroke="#FB923C" strokeWidth="1" />
+          <line x1="9" y1="38" x2="9" y2="14" stroke="#FB923C" strokeWidth="1" />
+          <path
+            d="M 11 32 L 17 28 L 23 24 L 29 18 L 35 14"
+            stroke="url(#hub-orange-red)"
+            strokeWidth="1.8"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle cx="11" cy="32" r="1.5" fill="#DC2626" />
+          <circle cx="17" cy="28" r="1.5" fill="#DC2626" />
+          <circle cx="23" cy="24" r="1.5" fill="#DC2626" />
+          <circle cx="29" cy="18" r="1.5" fill="#DC2626" />
+          <circle cx="35" cy="14" r="1.5" fill="#DC2626" />
         </g>
       )}
     </svg>
