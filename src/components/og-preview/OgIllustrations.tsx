@@ -98,7 +98,9 @@ export function OgCvAnalysisIllustration() {
           <circle cx="48" cy="48" r="44" fill="white" opacity="0.95" />
           <circle cx="48" cy="48" r="32" stroke="url(#cva-loupe)" strokeWidth="6" fill="none" />
           <line x1="72" y1="72" x2="92" y2="92" stroke="#DC2626" strokeWidth="8" strokeLinecap="round" />
-          <text x="48" y="56" fontSize="32" fontWeight="900" fill="#DC2626" textAnchor="middle">!</text>
+          {/* Utropstecken som path */}
+          <rect x="44" y="32" width="8" height="20" rx="3" fill="#DC2626" />
+          <circle cx="48" cy="60" r="4" fill="#DC2626" />
         </g>
       </svg>
     </div>
@@ -174,13 +176,11 @@ export function OgJobbmatchningIllustration() {
             />
             <rect x="0" y="0" width="240" height="6" rx="3" fill="url(#jm-piece2)" />
             <rect x="80" y="30" width="40" height="40" rx="6" fill="#FED7AA" />
-            <text x="100" y="58" fontSize="24" fontWeight="900" fill="#DC2626" textAnchor="middle">95%</text>
             <rect x="80" y="84" width="140" height="8" rx="3" fill="#1E293B" />
             <rect x="80" y="100" width="100" height="5" rx="2" fill="#94A3B8" />
             <rect x="80" y="120" width="160" height="4" rx="2" fill="#CBD5E1" />
             <rect x="80" y="132" width="140" height="4" rx="2" fill="#CBD5E1" />
             <rect x="80" y="156" width="100" height="20" rx="10" fill="url(#jm-piece2)" />
-            <text x="130" y="170" fontSize="11" fontWeight="700" fill="white" textAnchor="middle">SE JOBB</text>
           </g>
 
           {/* Fram match-prick i mitten där bitarna möts */}
@@ -218,7 +218,6 @@ export function OgJobbcoachenIllustration() {
           <rect x="20" y="36" width="240" height="5" rx="2" fill="#94A3B8" />
           <rect x="20" y="50" width="220" height="5" rx="2" fill="#94A3B8" />
           <rect x="20" y="78" width="60" height="20" rx="10" fill="#FFEDD5" />
-          <text x="50" y="92" fontSize="11" fontWeight="700" fill="#C2410C" textAnchor="middle">DU</text>
         </g>
 
         {/* Stor svarsbubbla (jobbcoachen) */}
@@ -249,13 +248,8 @@ export function OgJobbcoachenIllustration() {
 
           {/* Tagg-rad */}
           <rect x="24" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-          <text x="64" y="163" fontSize="11" fontWeight="700" fill="white" textAnchor="middle">LÖN</text>
           <rect x="112" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-          <text x="152" y="163" fontSize="11" fontWeight="700" fill="white" textAnchor="middle">INTERVJU</text>
           <rect x="200" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-          <text x="240" y="163" fontSize="11" fontWeight="700" fill="white" textAnchor="middle">CV-TIPS</text>
-
-          <text x="200" y="195" fontSize="14" fontWeight="600" fill="white" textAnchor="middle" opacity="0.9">jobbcoachen</text>
         </g>
       </svg>
     </div>
@@ -301,7 +295,6 @@ export function OgLinkedinIllustration() {
 
           {/* "in"-pill */}
           <rect x="320" y="124" width="58" height="32" rx="8" fill="#0A66C2" />
-          <text x="349" y="146" fontSize="20" fontWeight="900" fill="white" textAnchor="middle">in</text>
 
           {/* Namn + Headline */}
           <rect x="36" y="200" width="200" height="14" rx="4" fill="#1E293B" />
@@ -371,9 +364,7 @@ export function OgRekryteringstesterIllustration() {
 
           {/* Test-meta-rad */}
           <rect x="36" y="86" width="60" height="20" rx="10" fill="#FFEDD5" stroke="#FED7AA" />
-          <text x="66" y="100" fontSize="11" fontWeight="700" fill="#C2410C" textAnchor="middle">15 ST</text>
           <rect x="106" y="86" width="80" height="20" rx="10" fill="#FFEDD5" stroke="#FED7AA" />
-          <text x="146" y="100" fontSize="11" fontWeight="700" fill="#C2410C" textAnchor="middle">25 MIN</text>
 
           {/* Matrix-grid */}
           <g transform="translate(60 130)">
@@ -415,7 +406,6 @@ export function OgRekryteringstesterIllustration() {
 
             {/* Sista cellen: ? */}
             <rect x="208" y="200" width="80" height="80" rx="10" fill="url(#rt-tile)" />
-            <text x="248" y="252" fontSize="48" fontWeight="900" fill="white" textAnchor="middle">?</text>
           </g>
 
           {/* Svarsknappar */}
@@ -513,8 +503,6 @@ export function OgCvMallarIllustration() {
         <g transform="translate(420 380)">
           <circle cx="60" cy="60" r="50" fill="#FCD34D" />
           <circle cx="60" cy="60" r="50" fill="url(#cm-strip)" opacity="0.95" />
-          <text x="60" y="58" fontSize="32" fontWeight="900" fill="white" textAnchor="middle">8+</text>
-          <text x="60" y="78" fontSize="12" fontWeight="700" fill="white" textAnchor="middle">MALLAR</text>
         </g>
       </svg>
     </div>
@@ -589,8 +577,6 @@ export function OgPersonligtBrevIllustration() {
           <rect x="0" y="0" width="160" height="4" rx="2" fill="url(#pb-strip)" />
           <circle cx="22" cy="28" r="10" fill="url(#pb-strip)" />
           <path d="M 18 28 L 22 32 L 28 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="42" y="24" fontSize="11" fontWeight="700" fill="#1E293B">MATCHAT MOT</text>
-          <text x="42" y="40" fontSize="13" fontWeight="900" fill="#DC2626">JOBBANNONSEN</text>
         </g>
       </svg>
     </div>
@@ -624,7 +610,6 @@ export function OgSkapaCvIllustration() {
 
           {/* Header med animerad blink-cursor */}
           <circle cx="76" cy="76" r="32" stroke="url(#sc-plus)" strokeWidth="3" strokeDasharray="6 4" fill="#FFEDD5" />
-          <text x="76" y="86" fontSize="32" fontWeight="900" fill="#DC2626" textAnchor="middle">+</text>
 
           <rect x="124" y="58" width="180" height="14" rx="4" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1" strokeDasharray="4 3" />
           <rect x="124" y="80" width="140" height="7" rx="3" fill="#FED7AA" />
@@ -641,7 +626,6 @@ export function OgSkapaCvIllustration() {
           {/* Sektion 2 - tom (placeholder) */}
           <rect x="36" y="252" width="84" height="8" rx="3" fill="#1E293B" />
           <rect x="36" y="274" width="328" height="50" rx="6" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1.5" strokeDasharray="6 4" />
-          <text x="200" y="305" fontSize="14" fontWeight="600" fill="#C2410C" textAnchor="middle">Klicka för att lägga till</text>
 
           <line x1="36" y1="346" x2="364" y2="346" stroke="#FED7AA" strokeWidth="1.5" />
 
@@ -651,20 +635,17 @@ export function OgSkapaCvIllustration() {
           <rect x="120" y="386" width="64" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
           {/* Tom pill med + */}
           <rect x="192" y="386" width="44" height="22" rx="11" fill="white" stroke="#FED7AA" strokeWidth="1.5" strokeDasharray="3 3" />
-          <text x="214" y="401" fontSize="16" fontWeight="900" fill="#FB923C" textAnchor="middle">+</text>
         </g>
 
         {/* Stor "Bygg ditt CV"-pil ovan */}
         <g transform="translate(380 60)">
           <circle cx="60" cy="60" r="56" fill="white" />
           <circle cx="60" cy="60" r="48" fill="url(#sc-plus)" />
-          <text x="60" y="76" fontSize="48" fontWeight="900" fill="white" textAnchor="middle">+</text>
         </g>
 
         {/* Tids-badge */}
         <g transform="translate(400 380)">
           <rect x="0" y="0" width="120" height="44" rx="22" fill="#FCD34D" />
-          <text x="60" y="28" fontSize="18" fontWeight="900" fill="#1E293B" textAnchor="middle">60 SEK</text>
         </g>
       </svg>
     </div>
@@ -711,7 +692,6 @@ export function OgArticlesListIllustration() {
           <rect x="20" y="158" width="220" height="8" rx="3" fill="#1E293B" />
           <rect x="20" y="180" width="100" height="5" rx="2" fill="#94A3B8" />
           <rect x="200" y="194" width="60" height="14" rx="7" fill="#FB923C" />
-          <text x="230" y="205" fontSize="9" fontWeight="700" fill="white" textAnchor="middle">LÄS MER</text>
         </g>
 
         {/* Förgrund */}
@@ -722,17 +702,14 @@ export function OgArticlesListIllustration() {
           <rect x="0" y="0" width="160" height="190" fill="url(#al-strip)" opacity="0.5" />
           {/* "CV"-text på vänster bild */}
           <rect x="40" y="76" width="80" height="40" rx="6" fill="white" opacity="0.95" />
-          <text x="80" y="103" fontSize="22" fontWeight="900" fill="#DC2626" textAnchor="middle">CV</text>
 
           <rect x="180" y="20" width="50" height="14" rx="7" fill="#FFEDD5" />
-          <text x="205" y="31" fontSize="9" fontWeight="700" fill="#C2410C" textAnchor="middle">CV-TIPS</text>
           <rect x="180" y="46" width="180" height="9" rx="3" fill="#1E293B" />
           <rect x="180" y="62" width="160" height="9" rx="3" fill="#1E293B" />
           <rect x="180" y="86" width="190" height="5" rx="2" fill="#94A3B8" />
           <rect x="180" y="98" width="170" height="5" rx="2" fill="#94A3B8" />
           <rect x="180" y="110" width="160" height="5" rx="2" fill="#94A3B8" />
           <rect x="180" y="140" width="100" height="20" rx="10" fill="url(#al-strip)" />
-          <text x="230" y="154" fontSize="11" fontWeight="700" fill="white" textAnchor="middle">LÄS HELA</text>
         </g>
       </svg>
     </div>
@@ -819,8 +796,6 @@ export function OgExempelIllustration() {
         <g transform="translate(380 400)">
           <circle cx="60" cy="60" r="56" fill="#FCD34D" />
           <circle cx="60" cy="60" r="48" fill="url(#ex-strip)" />
-          <text x="60" y="58" fontSize="28" fontWeight="900" fill="white" textAnchor="middle">150+</text>
-          <text x="60" y="76" fontSize="10" fontWeight="700" fill="white" textAnchor="middle">YRKEN</text>
         </g>
       </svg>
     </div>
@@ -896,8 +871,6 @@ export function OgHomeIllustration() {
         <g transform="translate(220 220)">
           <circle cx="50" cy="50" r="46" fill="white" opacity="0.95" />
           <circle cx="50" cy="50" r="38" fill="url(#home-strip)" />
-          <text x="50" y="46" fontSize="22" fontWeight="900" fill="white" textAnchor="middle">95%</text>
-          <text x="50" y="64" fontSize="10" fontWeight="700" fill="white" textAnchor="middle">MATCH</text>
         </g>
       </svg>
     </div>
