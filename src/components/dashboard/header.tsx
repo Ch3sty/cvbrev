@@ -236,10 +236,10 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         {onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="p-2 sm:p-2.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 sm:p-2.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Öppna meny"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5" strokeWidth={2.5} />
           </button>
         )}
 
