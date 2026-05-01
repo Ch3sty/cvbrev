@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Target, Zap, Award, ShieldCheck, Sparkle } from 'lucide-react';
+import { CheckCircle2, Target, Zap, Award, ShieldCheck, TrendingUp } from 'lucide-react';
+import RichText from './RichText';
 
 interface VarforItem {
   titel: string;
@@ -14,7 +15,7 @@ interface VarforFungerarSectionProps {
   items: VarforItem[];
 }
 
-const ICONS = [CheckCircle2, Target, Zap, Award, ShieldCheck, Sparkle];
+const ICONS = [CheckCircle2, Target, Zap, Award, ShieldCheck, TrendingUp];
 
 export default function VarforFungerarSection({
   yrke,
@@ -77,12 +78,10 @@ export default function VarforFungerarSection({
                   <Icon className="w-5 h-5 text-white" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-1.5 leading-snug">
+                  <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-2 leading-snug">
                     {item.titel}
                   </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {item.beskrivning}
-                  </p>
+                  <RichText text={item.beskrivning} />
                 </div>
               </div>
             </motion.div>

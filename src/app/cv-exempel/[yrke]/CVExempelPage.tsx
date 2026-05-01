@@ -1,9 +1,6 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Wand2, ArrowRight } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
 import CompleteApplicationPackage from '@/components/CompleteApplicationPackage'
@@ -103,7 +100,6 @@ export default function CVExempelPage({
           variant="cv"
           yrke={data.yrke}
           intro={data.intro}
-          sokvolym={data.sokvolym}
           primaryCtaHref="/dashboard/skapa-cv"
           primaryCtaLabel="Skapa mitt CV"
           secondaryCtaTargetId="preview"

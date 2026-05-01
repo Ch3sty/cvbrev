@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Eye, Layers, ShieldCheck, TrendingUp } from 'lucide-react';
+import { ArrowRight, Eye, Layers, ShieldCheck, Clock } from 'lucide-react';
 import OgLetterMockup from '@/components/og-preview/OgLetterMockup';
 import OgCvMockup from '@/components/og-preview/OgCvMockup';
 
@@ -10,7 +10,6 @@ interface ExempelHeroProps {
   variant: 'letter' | 'cv';
   yrke: string;
   intro: string;
-  sokvolym?: number;
   primaryCtaHref: string;
   primaryCtaLabel: string;
   secondaryCtaTargetId?: string;
@@ -21,7 +20,6 @@ export default function ExempelHero({
   variant,
   yrke,
   intro,
-  sokvolym,
   primaryCtaHref,
   primaryCtaLabel,
   secondaryCtaTargetId = 'preview',
@@ -138,15 +136,11 @@ export default function ExempelHero({
                 icon={<ShieldCheck className="w-3.5 h-3.5" strokeWidth={2.5} />}
                 label="ATS-optimerat"
               />
-              {sokvolym && sokvolym > 0 && (
-                <>
-                  <Divider />
-                  <Stat
-                    icon={<TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                    label={`${sokvolym.toLocaleString('sv-SE')} sökningar/mån`}
-                  />
-                </>
-              )}
+              <Divider />
+              <Stat
+                icon={<Clock className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                label="Klart på 60 sek"
+              />
             </div>
           </div>
 

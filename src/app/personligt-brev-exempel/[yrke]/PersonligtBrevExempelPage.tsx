@@ -108,7 +108,6 @@ export default function PersonligtBrevExempelPage({
           variant="letter"
           yrke={data.yrke}
           intro={data.intro}
-          sokvolym={data.sokvolym}
           primaryCtaHref="/dashboard/skapa-brev"
           primaryCtaLabel="Skapa mitt personliga brev"
           secondaryCtaTargetId="preview"

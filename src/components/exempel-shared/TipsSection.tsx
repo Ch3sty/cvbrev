@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Lightbulb, Pen, Brain, MessageSquare, FileSearch, Star } from 'lucide-react';
+import RichText from './RichText';
 
 interface TipsItem {
   rubrik: string;
@@ -70,11 +71,7 @@ export default function TipsSection({ yrke, items }: TipsSectionProps) {
                   <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-2 leading-snug">
                     {tip.rubrik}
                   </h3>
-                  <div className="text-sm text-slate-600 leading-relaxed space-y-3">
-                    {tip.text.split('\n\n').map((paragraph, pIdx) => (
-                      <p key={pIdx}>{paragraph.trim()}</p>
-                    ))}
-                  </div>
+                  <RichText text={tip.text} />
                 </div>
               </div>
             </motion.div>
