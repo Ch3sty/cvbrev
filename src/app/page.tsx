@@ -3,16 +3,16 @@ import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import AuthRedirect from '@/components/landing/AuthRedirect';
 import LandingHero from '@/components/landing/LandingHero';
 import MatchingShowcaseSection from '@/components/landing/MatchingShowcaseSection';
-import MediaBar from '@/components/landing/MediaBar';
-import FeaturesGrid from '@/components/landing/FeaturesGrid';
-import ProductShowcase from '@/components/landing/ProductShowcase';
+import MediaImpactSection from '@/components/landing/MediaImpactSection';
+import ToolsConstellation from '@/components/landing/ToolsConstellation';
+import JobbcoachenSpotlight from '@/components/landing/JobbcoachenSpotlight';
 import JobMatchingShowcase from '@/components/landing/JobMatchingShowcase';
+import CvTemplatesGallery from '@/components/landing/CvTemplatesGallery';
 import TestsShowcase from '@/components/landing/TestsShowcase';
-import ValuePropsGrid from '@/components/landing/ValuePropsGrid';
-import PricingTeaser from '@/components/landing/PricingTeaser';
+import DetailedPricingSection from '@/components/landing/DetailedPricingSection';
 import TestimonialsRow from '@/components/landing/TestimonialsRow';
 import LandingFAQ from '@/components/landing/LandingFAQ';
-import LandingFinalCTA from '@/components/landing/LandingFinalCTA';
+import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
 export default function HomePage() {
   return (
@@ -24,16 +24,16 @@ export default function HomePage() {
         <main>
           <LandingHero />
           <MatchingShowcaseSection />
-          <MediaBar />
-          <FeaturesGrid />
-          <ProductShowcase />
+          <MediaImpactSection />
+          <ToolsConstellation />
+          <JobbcoachenSpotlight />
           <JobMatchingShowcase />
+          <CvTemplatesGallery />
           <TestsShowcase />
-          <ValuePropsGrid />
-          <PricingTeaser />
+          <DetailedPricingSection />
           <TestimonialsRow />
           <LandingFAQ />
-          <LandingFinalCTA />
+          <RichFinalCTA />
         </main>
       </div>
     </GlobalCountersProvider>
