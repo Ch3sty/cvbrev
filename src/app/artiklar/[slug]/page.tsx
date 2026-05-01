@@ -219,8 +219,26 @@ function injectBannerIntoContent(content: string): string {
     return paragraphs.join('\n\n');
 }
 
-// Funktion för att injicera CVTemplateShowcase i mitten av MDX-innehåll
-function injectCVTemplateShowcase(content: string): string {
+// CV-relaterade taggar som triggar template-showcase
+const CV_RELATED_TAGS = ['cv', 'cv-mall', 'cv mall', 'cv mallar', 'cv-mallar', 'cv-bild', 'cv bild', 'cv-tips', 'cv-skapande'];
+
+function isCvRelatedArticle(tags: string[] | undefined): boolean {
+    if (!tags || tags.length === 0) return false;
+    const lowered = tags.map(t => t.toLowerCase());
+    return lowered.some(tag =>
+        CV_RELATED_TAGS.some(cvTag => tag.includes(cvTag))
+    );
+}
+
+// Funktion för att injicera CVTemplateShowcase i mitten av MDX-innehåll.
+// Bara för CV-relaterade artiklar — meningslöst på t.ex. brev- eller
+// intervju-artiklar.
+function injectCVTemplateShowcase(content: string, tags: string[] | undefined): string {
+    // Hoppa över för icke-CV-artiklar
+    if (!isCvRelatedArticle(tags)) {
+        return content;
+    }
+
     // Redan innehåller CV showcase? Hoppa över injection
     if (content.includes('<CVTemplateShowcase') || content.includes('CVTemplateShowcase')) {
         return content;
@@ -230,13 +248,13 @@ function injectCVTemplateShowcase(content: string): string {
     const paragraphs = content.split('\n\n');
 
     // Om innehållet är för kort, lägg inte in showcase
-    if (paragraphs.length < 4) {
+    if (paragraphs.length < 6) {
         return content;
     }
 
-    // Beräkna mitten av innehållet (runt 50-60% av vägen genom artikeln)
+    // Beräkna mitten av innehållet (runt 60% av vägen genom artikeln)
     const totalParagraphs = paragraphs.length;
-    const middleIndex = Math.floor(totalParagraphs * 0.55); // 55% genom artikeln
+    const middleIndex = Math.floor(totalParagraphs * 0.6);
 
     // Säkerställ att vi inte går utanför gränserna
     const insertIndex = Math.max(3, Math.min(middleIndex, totalParagraphs - 2));
@@ -263,7 +281,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     // Injicera båda komponenter i innehållet - UTAN att modifiera headings
     const contentWithBanner = injectBannerIntoContent(post.content);
-    const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner);
+    const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner, post.frontmatter.tags);
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
 
     // Calculate reading time

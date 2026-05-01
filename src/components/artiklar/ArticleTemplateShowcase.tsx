@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, Crown } from 'lucide-react';
 import {
   MallThumbnailMinimal,
   MallThumbnailClassic,
@@ -15,123 +15,124 @@ const TEMPLATES = [
     name: 'Modern Minimal',
     Thumbnail: MallThumbnailMinimal,
     badge: 'Populärast',
-    desc: 'Perfekt för tech och konsult',
   },
   {
     name: 'Classic Professional',
     Thumbnail: MallThumbnailClassic,
     badge: 'Rekommenderad',
-    desc: 'Traditionell och pålitlig',
   },
   {
-    name: 'Nordic Professional',
+    name: 'Nordic',
     Thumbnail: MallThumbnailNordic,
     badge: 'Heta just nu',
-    desc: 'Skandinavisk elegans',
   },
   {
     name: 'Creative Edge',
     Thumbnail: MallThumbnailCreative,
     badge: 'Trendigt',
-    desc: 'För kreativa yrken',
   },
 ];
 
+/**
+ * Mid-article CV-mall-showcase. Bara injekteras för CV-relaterade artiklar.
+ *
+ * Designad för att smälta in i läsflödet — kompakt, vit bakgrund med
+ * orange-accenter, inte en stor gradient-banner.
+ */
 export default function ArticleTemplateShowcase() {
   return (
     <motion.aside
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-white p-5 sm:p-7 md:p-8 my-8 sm:my-10 not-prose"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+      transition={{ duration: 0.4 }}
+      className="relative overflow-hidden rounded-2xl border border-orange-200/60 bg-white my-7 sm:my-8 not-prose"
+      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      aria-label="Populära CV-mallar"
     >
       {/* Gradient-strip topp */}
       <div
-        className="absolute top-0 left-0 right-0 h-1"
+        className="absolute top-0 left-0 right-0 h-0.5"
         style={{
           background: 'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
         }}
+        aria-hidden="true"
       />
 
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-5 sm:mb-6">
-        <div>
-          <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            <TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />
-            Populära CV-mallar
+      <div className="p-4 sm:p-5">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3 mb-3.5 sm:mb-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
+              <Crown className="w-3 h-3" strokeWidth={2.5} />
+              Populära CV-mallar
+            </div>
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
+              Mallar som ökar dina chanser att få jobbet
+            </h3>
           </div>
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
-            Mallar som ökar dina chanser
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Professionellt designade mallar — välj den som passar din bransch.
-          </p>
         </div>
-      </div>
 
-      {/* Template-grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-5 sm:mb-6">
-        {TEMPLATES.map((template, idx) => {
-          const Thumbnail = template.Thumbnail;
-          return (
-            <motion.div
-              key={template.name}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: idx * 0.05 }}
-              className="group relative"
-            >
-              {/* Badge */}
-              <div className="absolute -top-2 left-2 z-10">
-                <span
-                  className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide text-white"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                    boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-                  }}
-                >
-                  {template.badge}
-                </span>
-              </div>
-
-              {/* Thumbnail-card */}
-              <div className="rounded-2xl bg-orange-50/40 border border-orange-100 p-2.5 sm:p-3 hover:border-orange-300 hover:shadow-md group-hover:-translate-y-0.5 transition-all">
-                <div className="aspect-[10/13] rounded-lg overflow-hidden bg-white flex items-center justify-center">
-                  <Thumbnail className="w-full h-full" />
+        {/* Thumbnail-grid */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-2.5">
+          {TEMPLATES.map((template) => {
+            const Thumbnail = template.Thumbnail;
+            return (
+              <Link
+                key={template.name}
+                href="/dashboard/cv-mallar"
+                className="group relative block touch-manipulation"
+              >
+                {/* Badge */}
+                <div className="absolute -top-1.5 left-1 right-1 z-10 flex justify-center">
+                  <span
+                    className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white whitespace-nowrap leading-none"
+                    style={{
+                      background:
+                        'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                      boxShadow: '0 3px 8px -2px rgba(220, 38, 38, 0.35)',
+                    }}
+                  >
+                    {template.badge}
+                  </span>
                 </div>
-                <div className="pt-2 sm:pt-2.5 px-0.5">
-                  <div className="font-bold text-slate-900 text-xs sm:text-sm leading-tight mb-0.5">
+
+                {/* Thumbnail-card */}
+                <div className="rounded-lg overflow-hidden bg-orange-50/40 border border-orange-100 hover:border-orange-300 group-hover:-translate-y-0.5 group-hover:shadow-md transition-all">
+                  <div className="aspect-[10/13] flex items-center justify-center bg-white">
+                    <Thumbnail className="w-full h-full" />
+                  </div>
+                </div>
+
+                {/* Namn */}
+                <div className="mt-1.5 text-center">
+                  <div className="font-semibold text-slate-800 text-[10px] sm:text-[11px] leading-tight group-hover:text-orange-800 transition-colors line-clamp-1">
                     {template.name}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] text-slate-500 leading-tight">
-                    {template.desc}
-                  </div>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Footer-rad */}
-      <div className="flex items-center justify-between gap-3 pt-4 border-t border-orange-100">
-        <div className="text-xs sm:text-sm text-slate-600">
-          <span className="font-semibold text-slate-900">8 professionella mallar</span> att välja mellan
+              </Link>
+            );
+          })}
         </div>
-        <Link
-          href="/dashboard/cv-mallar"
-          className="inline-flex items-center gap-1.5 text-orange-700 hover:text-orange-800 font-bold text-xs sm:text-sm group"
-        >
-          Visa alla mallar
-          <ArrowRight
-            className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
-            strokeWidth={2.5}
-          />
-        </Link>
+
+        {/* Footer-rad */}
+        <div className="flex items-center justify-between gap-3 mt-3.5 pt-3 border-t border-orange-100">
+          <div className="text-[11px] sm:text-xs text-slate-600">
+            <span className="font-semibold text-slate-900">8+ mallar</span>
+            <span className="text-slate-400 mx-1.5">·</span>
+            <span>Alla branscher</span>
+          </div>
+          <Link
+            href="/dashboard/cv-mallar"
+            className="inline-flex items-center gap-1 text-orange-700 hover:text-orange-800 font-bold text-xs group"
+          >
+            Se alla mallar
+            <ArrowRight
+              className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
+              strokeWidth={2.5}
+            />
+          </Link>
+        </div>
       </div>
     </motion.aside>
   );
