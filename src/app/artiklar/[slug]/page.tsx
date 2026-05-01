@@ -43,12 +43,16 @@ import CVExample from '@/components/mdx/CVExample';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
-import BroadConversionBanner from '@/components/artiklar/BroadConversionBanner';
-import CVTemplateShowcase from '@/components/artiklar/CVTemplateShowcase';
+import ArticleToolBanner from '@/components/artiklar/ArticleToolBanner';
+import ArticleTemplateShowcase from '@/components/artiklar/ArticleTemplateShowcase';
+import ArticleFinalCTA from '@/components/artiklar/ArticleFinalCTA';
 import PersonligtBrevTemplateShowcase from '@/components/artiklar/PersonligtBrevTemplateShowcase';
-import ComprehensiveServiceCard from '@/components/artiklar/ComprehensiveServiceCard';
 import InteractiveCVShowcase from '@/components/artiklar/InteractiveCVShowcase';
 import InteractiveLetterShowcase from '@/components/artiklar/InteractiveLetterShowcase';
+
+// Backwards compat - äldre artiklar refererar till dessa namn i MDX
+const BroadConversionBanner = ArticleToolBanner;
+const CVTemplateShowcase = ArticleTemplateShowcase;
 
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
@@ -354,9 +358,42 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         },
     };
 
-    // Generera båda schema-skripten med TOC-data för SEO
+    // Generera schema-skript med TOC-data för SEO
     const articleSchemaScript = generateEnhancedArticleSchema(post, slug, headings);
     const faqSchemaScript = generateFaqSchema(articleFaqData);
+
+    // BreadcrumbList JSON-LD för SEO
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Hem",
+                "item": "https://www.jobbcoach.ai"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Artiklar",
+                "item": "https://www.jobbcoach.ai/artiklar"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.frontmatter.title,
+                "item": `https://www.jobbcoach.ai/artiklar/${slug}`
+            }
+        ]
+    };
+    const breadcrumbSchemaScript = (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            key="breadcrumb-schema"
+        />
+    );
 
     return (
         <>
@@ -369,16 +406,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-
-                {/* Comprehensive Service Card - Final CTA */}
-                <div className="mt-12">
-                    <ComprehensiveServiceCard />
-                </div>
+                {/* Final CTA */}
+                <ArticleFinalCTA />
             </ArticleClientWrapper>
 
             {/* Schema markup */}
             {articleSchemaScript}
             {faqSchemaScript}
+            {breadcrumbSchemaScript}
         </>
     );
 }
