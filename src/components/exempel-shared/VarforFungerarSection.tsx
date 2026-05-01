@@ -4,9 +4,13 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, Target, Zap, Award, ShieldCheck, TrendingUp } from 'lucide-react';
 import RichText from './RichText';
 
+// Datan i page.tsx är inkonsekvent - vissa yrken har { titel, beskrivning }
+// och vissa har { rubrik, text }. Komponenten stödjer båda formaten.
 interface VarforItem {
-  titel: string;
-  beskrivning: string;
+  titel?: string;
+  beskrivning?: string;
+  rubrik?: string;
+  text?: string;
 }
 
 interface VarforFungerarSectionProps {
@@ -46,6 +50,9 @@ export default function VarforFungerarSection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         {items.map((item, idx) => {
           const Icon = ICONS[idx % ICONS.length];
+          const titel = item.titel || item.rubrik || '';
+          const text = item.beskrivning || item.text || '';
+          if (!titel && !text) return null;
           return (
             <motion.div
               key={idx}
@@ -79,9 +86,9 @@ export default function VarforFungerarSection({
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-2 leading-snug">
-                    {item.titel}
+                    {titel}
                   </h3>
-                  <RichText text={item.beskrivning} />
+                  <RichText text={text} />
                 </div>
               </div>
             </motion.div>

@@ -2,7 +2,7 @@ import { CheckCircle2, XCircle } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 interface RichTextProps {
-  text: string;
+  text?: string | null;
 }
 
 /**
@@ -15,6 +15,7 @@ interface RichTextProps {
  * renderas som professionella komponenter, inte rå text.
  */
 export default function RichText({ text }: RichTextProps) {
+  if (!text) return null;
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   return (

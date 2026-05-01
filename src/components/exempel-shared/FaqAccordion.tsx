@@ -4,9 +4,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, Plus, Minus } from 'lucide-react';
 
+// Datan i page.tsx är inkonsekvent - vissa har { q, a } och vissa har { fraga, svar }
 interface FaqItem {
-  q: string;
-  a: string;
+  q?: string;
+  a?: string;
+  fraga?: string;
+  svar?: string;
 }
 
 interface FaqAccordionProps {
@@ -40,6 +43,9 @@ export default function FaqAccordion({ yrke, variant, items }: FaqAccordionProps
       >
         {items.map((item, index) => {
           const isOpen = openIndex === index;
+          const q = item.q || item.fraga || '';
+          const a = item.a || item.svar || '';
+          if (!q || !a) return null;
           return (
             <div key={index}>
               <button
@@ -48,7 +54,7 @@ export default function FaqAccordion({ yrke, variant, items }: FaqAccordionProps
                 aria-expanded={isOpen}
               >
                 <span className="text-sm sm:text-base font-semibold text-slate-900 leading-snug">
-                  {item.q}
+                  {q}
                 </span>
                 <span
                   className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
@@ -77,7 +83,7 @@ export default function FaqAccordion({ yrke, variant, items }: FaqAccordionProps
                     className="overflow-hidden"
                   >
                     <div className="px-5 sm:px-6 pb-5 text-sm sm:text-base text-slate-700 leading-relaxed">
-                      {item.a}
+                      {a}
                     </div>
                   </motion.div>
                 )}

@@ -5,8 +5,10 @@ import { Lightbulb, Pen, Brain, MessageSquare, FileSearch, Star } from 'lucide-r
 import RichText from './RichText';
 
 interface TipsItem {
-  rubrik: string;
-  text: string;
+  rubrik?: string;
+  text?: string;
+  titel?: string;
+  beskrivning?: string;
 }
 
 interface TipsSectionProps {
@@ -36,6 +38,9 @@ export default function TipsSection({ yrke, items }: TipsSectionProps) {
       <div className="space-y-4">
         {items.map((tip, idx) => {
           const Icon = ICONS[idx % ICONS.length];
+          const rubrik = tip.rubrik || tip.titel || '';
+          const text = tip.text || tip.beskrivning || '';
+          if (!rubrik && !text) return null;
           return (
             <motion.div
               key={idx}
@@ -69,9 +74,9 @@ export default function TipsSection({ yrke, items }: TipsSectionProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-2 leading-snug">
-                    {tip.rubrik}
+                    {rubrik}
                   </h3>
-                  <RichText text={tip.text} />
+                  <RichText text={text} />
                 </div>
               </div>
             </motion.div>
