@@ -10469,7 +10469,7 @@ export async function generateMetadata({
     },
 
     // Additional metadata
-    keywords: `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering, ${data.yrke.toLowerCase()} jobb, svenska vårdmiljöer`,
+    keywords: `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering, ${data.yrke.toLowerCase()} jobb`,
 
     // Author and publisher
     authors: [{ name: 'Jobbcoach.ai' }],
