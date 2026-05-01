@@ -1,67 +1,42 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { ArrowLeft, FileText, Sparkles, Target, Lightbulb, CheckCircle } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { Wand2, ArrowRight } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
 import CompleteApplicationPackage from '@/components/CompleteApplicationPackage'
-import HeroWithSEOIntro from './HeroWithSEOIntro'
-import CVSidebar from './CVSidebar'
-import TipsSectionFlat from './TipsSectionFlat'
-import FAQSection from './FAQSection'
-import VarforDetFungerarCard from './VarforDetFungerarCard'
 
-// SEO: Lazy-load InteractiveCVPreview för bättre Page Speed (client-only, tungt)
-const InteractiveCVPreview = dynamic(
-  () => import('./InteractiveCVPreview'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden">
-        {/* Matcha header från InteractiveCVPreview */}
-        <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-b border-slate-200">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-slate-200 rounded-lg animate-pulse" />
-            <div className="space-y-2">
-              <div className="h-4 bg-slate-200 rounded w-32 animate-pulse" />
-              <div className="h-3 bg-slate-200 rounded w-24 animate-pulse" />
-            </div>
-          </div>
-        </div>
-        {/* Matcha CV-preview höjd (800px) för att förhindra CLS */}
-        <div className="bg-white p-12 space-y-6 animate-pulse" style={{ minHeight: '800px' }}>
-          <div className="space-y-2">
-            <div className="h-8 bg-slate-200 rounded w-3/4"></div>
-            <div className="h-4 bg-slate-200 rounded w-1/2"></div>
-          </div>
-          <div className="space-y-2">
-            <div className="h-4 bg-slate-200 rounded w-full"></div>
-            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-            <div className="h-4 bg-slate-200 rounded w-4/5"></div>
-          </div>
-          <div className="space-y-2">
-            <div className="h-6 bg-slate-200 rounded w-1/3"></div>
-            <div className="h-4 bg-slate-200 rounded w-full"></div>
-            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-          </div>
-        </div>
-        {/* Matcha footer från InteractiveCVPreview */}
-        <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 px-6 py-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="space-y-2 text-center sm:text-left">
-              <div className="h-4 bg-white/30 rounded w-40 animate-pulse mx-auto sm:mx-0" />
-              <div className="h-3 bg-white/20 rounded w-64 animate-pulse" />
-            </div>
-            <div className="h-12 w-36 bg-white/30 rounded-xl animate-pulse" />
-          </div>
+import Breadcrumb from '@/components/exempel-shared/Breadcrumb'
+import ExempelHero from '@/components/exempel-shared/ExempelHero'
+import ExempelInfoCard from '@/components/exempel-shared/ExempelInfoCard'
+import VarforFungerarSection from '@/components/exempel-shared/VarforFungerarSection'
+import TipsSection from '@/components/exempel-shared/TipsSection'
+import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
+import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
+import FinalCTA from '@/components/exempel-shared/FinalCTA'
+import CvPreviewShell from '@/components/cv-exempel-shared/CvPreviewShell'
+
+// Lazy-load InteractiveCVPreview för Page Speed
+const InteractiveCVPreview = dynamic(() => import('./InteractiveCVPreview'), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="bg-white rounded-2xl border border-orange-100 p-8 animate-pulse"
+      style={{ minHeight: '800px' }}
+    >
+      <div className="space-y-4">
+        <div className="h-8 bg-orange-100 rounded w-3/4" />
+        <div className="h-4 bg-orange-100/70 rounded w-1/2" />
+        <div className="space-y-2 mt-6">
+          <div className="h-4 bg-orange-100/70 rounded w-full" />
+          <div className="h-4 bg-orange-100/70 rounded w-5/6" />
         </div>
       </div>
-    )
-  }
-)
+    </div>
+  ),
+})
 
 interface CVExampleData {
   yrke: string
@@ -94,250 +69,127 @@ interface CVExempelPageProps {
   initialHTML: string
 }
 
-export default function CVExempelPage({ data, slug, initialHTML }: CVExempelPageProps) {
-  const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
+export default function CVExempelPage({
+  data,
+  slug,
+  initialHTML,
+}: CVExempelPageProps) {
+  // Mappa CV-data till de delade komponenternas format
+  const varforItems = data.varforDetFungerar.map((item) => ({
+    titel: item.rubrik,
+    beskrivning: item.text,
+  }))
 
-  // Icon mapping för "Varför det fungerar" cards
-  const ICONS = [CheckCircle, Target, Sparkles, FileText, CheckCircle, Target]
+  const faqItems = data.faq.map((item) => ({
+    q: item.fraga,
+    a: item.svar,
+  }))
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/40">
       <PremiumNavbar />
 
-      {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center gap-2 text-sm text-slate-600">
-          <Link href="/" className="hover:text-cyan-600 transition-colors">
-            Hem
-          </Link>
-          <span>/</span>
-          <Link href="/cv-exempel" className="hover:text-cyan-600 transition-colors">
-            CV-exempel
-          </Link>
-          <span>/</span>
-          <span className="text-slate-900 font-semibold">{data.yrke}</span>
-        </nav>
-      </div>
-
-      {/* Hero with SEO Intro - ALLTID SYNLIG */}
-      <HeroWithSEOIntro
-        yrke={data.yrke}
-        intro={data.intro}
-        seoIntro={data.seoIntro}
+      <Breadcrumb
+        items={[
+          { label: 'Hem', href: '/' },
+          { label: 'CV-exempel', href: '/cv-exempel' },
+          { label: data.yrke },
+        ]}
       />
 
-      {/* NY: Tab Layout Section */}
-      <section id="preview" className="py-12 md:py-16 bg-white scroll-mt-4">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-12 gap-8">
+      <main className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-10 max-w-6xl space-y-10 sm:space-y-12 md:space-y-16">
+        {/* Hero */}
+        <ExempelHero
+          variant="cv"
+          yrke={data.yrke}
+          intro={data.intro}
+          sokvolym={data.sokvolym}
+          primaryCtaHref="/dashboard/skapa-cv"
+          primaryCtaLabel="Skapa mitt CV"
+          secondaryCtaTargetId="preview"
+          secondaryCtaLabel="Se exemplet"
+        />
 
-              {/* Sidebar - Vänster kolumn */}
-              <div className="lg:col-span-4 order-2 lg:order-1">
-                <div className="lg:sticky lg:top-6">
-                  <CVSidebar
-                    yrke={data.yrke}
-                    slug={slug}
-                    viktigtAttTankaPa={[
-                      'Använd ATS-optimerade nyckelord från jobbannonsen',
-                      'Kvantifiera resultat med konkreta siffror',
-                      'Anpassa profiltext för varje ansökan',
-                      'Inkludera branschspecifika certifieringar',
-                      'Balansera tekniska och mjuka färdigheter'
-                    ]}
-                  />
-                </div>
-              </div>
+        {/* Info-card */}
+        <ExempelInfoCard
+          eyebrow="Vad du får här"
+          title="Komplett CV-exempel som inspirerar"
+          description={`Se exakt hur ett ATS-optimerat CV för ${data.yrke.toLowerCase()} ser ut — med rätt nyckelord, kvantifierade resultat och struktur. Använd det som mall för ditt eget.`}
+          features={[
+            'ATS-optimerat',
+            'Branschspecifika nyckelord',
+            'Kvantifierade resultat',
+            'Modern design',
+            'Färdig att kopiera',
+          ]}
+        />
 
-              {/* Main Content - Höger kolumn */}
-              <div className="lg:col-span-8 order-1 lg:order-2">
-                {/* Tab Navigation */}
-                <div className="border-b border-slate-200 mb-6">
-                  <div className="flex flex-col sm:flex-row gap-1">
-                    {[
-                      { id: 'preview' as const, label: 'Se hur CV:t ser ut', icon: FileText },
-                      { id: 'varfor' as const, label: 'Varför det fungerar', icon: Target },
-                      { id: 'tips' as const, label: 'Tips för ditt yrke', icon: Lightbulb }
-                    ].map((tab) => (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-6 py-3 font-semibold transition-all duration-200 border-b-2 min-h-[48px] touch-manipulation ${
-                          activeTab === tab.id
-                            ? 'text-cyan-600 border-cyan-600 bg-cyan-50/50'
-                            : 'text-slate-600 border-transparent hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50'
-                        }`}
-                      >
-                        <tab.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="text-sm sm:text-base">{tab.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+        {/* Live preview */}
+        <section id="preview" className="scroll-mt-6">
+          <CvPreviewShell yrke={data.yrke}>
+            <InteractiveCVPreview
+              exempelCV={data.exempelCV}
+              yrke={data.yrke}
+              initialHTML={initialHTML}
+            />
+          </CvPreviewShell>
+        </section>
 
-                {/* Tab Content - undvik CLS med konsekvent animation */}
-                <AnimatePresence mode="wait">
-                  {activeTab === 'preview' && (
-                    <motion.div
-                      key="preview"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <InteractiveCVPreview
-                        exempelCV={data.exempelCV}
-                        yrke={data.yrke}
-                        initialHTML={initialHTML}
-                      />
-                    </motion.div>
-                  )}
+        {/* Varför det fungerar */}
+        <VarforFungerarSection
+          variant="cv"
+          yrke={data.yrke}
+          items={varforItems}
+        />
 
-                  {activeTab === 'varfor' && (
-                    <motion.div
-                      key="varfor"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {data.varforDetFungerar.map((item, idx) => {
-                          const Icon = ICONS[idx] || CheckCircle
-                          return (
-                            <VarforDetFungerarCard
-                              key={idx}
-                              rubrik={item.rubrik}
-                              text={item.text}
-                              icon={Icon}
-                              index={idx}
-                            />
-                          )
-                        })}
-                      </div>
-                    </motion.div>
-                  )}
+        {/* Tips */}
+        <TipsSection yrke={data.yrke} items={data.tips} />
 
-                  {activeTab === 'tips' && (
-                    <motion.div
-                      key="tips"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <TipsSectionFlat
-                        tips={data.tips}
-                        yrke={data.yrke}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+        {/* SEO Intro-text */}
+        {data.seoIntro && (
+          <section
+            className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-white p-6 sm:p-8 md:p-10"
+            style={{
+              boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)',
+            }}
+          >
+            <div
+              className="absolute top-0 left-0 right-0 h-1"
+              style={{
+                background:
+                  'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
+              }}
+            />
+            <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
+              Skriv-guide
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ - Accordion med Schema.org */}
-      <FAQSection
-        faq={data.faq}
-        yrke={data.yrke}
-      />
-
-      {/* Komplett ansökningspaket - Länk till Personligt brev */}
-      <CompleteApplicationPackage
-        currentType="cv"
-        yrke={data.yrke}
-        slug={slug}
-      />
-
-      {/* Relaterade Resurser */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            {/* Relaterade CV-exempel */}
-            <div className="mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
-                Relaterade CV-exempel
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {data.relaterade.map((rel, idx) => (
-                  <Link
-                    key={idx}
-                    href={`/cv-exempel/${rel.slug}`}
-                    className="group bg-gradient-to-br from-cyan-50 to-indigo-50 rounded-xl p-6 border-2 border-transparent hover:border-cyan-600 transition-all duration-300 hover:shadow-lg"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-white" />
-                      </div>
-                      <h3 className="font-bold text-slate-900 text-lg">
-                        {rel.yrke}
-                      </h3>
-                    </div>
-                    <p className="text-slate-600 text-sm">
-                      Se professionellt CV-exempel för {rel.yrke.toLowerCase()}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Användbara verktyg */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
-                Skapa ditt eget CV
-              </h2>
-              <div className="max-w-2xl mx-auto">
-                <Link
-                  href="/dashboard/skapa-cv"
-                  className="group bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-xl p-8 hover:shadow-2xl transition-all duration-300 block"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl text-white mb-2">
-                        Få konkret feedback
-                      </h3>
-                      <p className="text-white/90 leading-relaxed">
-                        Vi pekar ut vad rekryterare saknar och ger förbättringsförslag du kan använda direkt.
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-cyan-50 via-white to-indigo-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Gör ditt CV redo för ATS-system
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+              Så bygger du ett CV som {data.yrke.toLowerCase()}
             </h2>
-            <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
-              Ladda upp ditt nuvarande CV så visar vi automatiskt exakt vad som saknas för att passera ATS-filter. Du godkänner ändringarna och laddar ner i valfri professionell design. Alternativt flyttar vi över all din info till ny mall direkt – utan omskrivning.
-            </p>
-            <div className="flex justify-center">
-              <Link href="/dashboard/skapa-cv">
-                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5" />
-                  Kom igång gratis
-                </button>
-              </Link>
+            <div className="text-base sm:text-lg text-slate-700 leading-relaxed space-y-4 max-w-3xl">
+              {data.seoIntro.split('\n\n').map((paragraph, pIdx) => (
+                <p key={pIdx}>{paragraph.trim()}</p>
+              ))}
             </div>
-            <p className="text-sm text-slate-500 mt-6">
-              Analys på 60 sekunder • Fungerar med ATS-system • Professionella mallar
-            </p>
-          </div>
-        </div>
-      </section>
+          </section>
+        )}
+
+        {/* FAQ */}
+        <FaqAccordion variant="cv" yrke={data.yrke} items={faqItems} />
+
+        {/* Relaterade yrken */}
+        <RelateradeYrkenGrid variant="cv" items={data.relaterade} />
+
+        {/* CompleteApplicationPackage */}
+        <CompleteApplicationPackage
+          currentType="cv"
+          yrke={data.yrke}
+          slug={slug}
+        />
+
+        {/* Final CTA */}
+        <FinalCTA variant="cv" yrke={data.yrke} ctaHref="/dashboard/skapa-cv" />
+      </main>
     </div>
   )
 }

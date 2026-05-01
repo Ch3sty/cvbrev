@@ -12,6 +12,7 @@ const GTM_ID = 'GTM-5KLW66PJ';
 
 // Export metadata for Open Graph / Twitter Cards
 export const metadata: Metadata = {
+  metadataBase: new URL('https://jobbcoach.ai'),
   title: 'Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester',
   description: 'Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.',
   openGraph: {
