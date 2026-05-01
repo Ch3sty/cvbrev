@@ -1,6 +1,6 @@
-import PremiumNavbar from '@/components/PremiumNavbar';
 import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import AuthRedirect from '@/components/landing/AuthRedirect';
+import LandingNavbar from '@/components/landing/LandingNavbar';
 import LandingHero from '@/components/landing/LandingHero';
 import MatchingShowcaseSection from '@/components/landing/MatchingShowcaseSection';
 import MediaImpactSection from '@/components/landing/MediaImpactSection';
@@ -19,7 +19,7 @@ export default function HomePage() {
     <GlobalCountersProvider>
       <div className="min-h-screen bg-white">
         <AuthRedirect />
-        <PremiumNavbar />
+        <LandingNavbar />
 
         <main>
           <LandingHero />
