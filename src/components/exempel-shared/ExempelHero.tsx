@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Eye, Layers, ShieldCheck, Clock } from 'lucide-react';
+import { ArrowRight, Eye, Layers, ShieldCheck, Clock, Gift } from 'lucide-react';
 import OgLetterMockup from '@/components/og-preview/OgLetterMockup';
 import OgCvMockup from '@/components/og-preview/OgCvMockup';
 
@@ -128,8 +128,13 @@ export default function ExempelHero({
             {/* Stat-rad */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 border-t border-white/20">
               <Stat
-                icon={<Layers className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                label={variant === 'letter' ? '6 mallar' : '8+ mallar'}
+                icon={<Gift className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                label={
+                  variant === 'letter'
+                    ? 'Skapa ditt eget brev — helt gratis'
+                    : 'Skapa ditt eget CV — helt gratis'
+                }
+                highlight
               />
               <Divider />
               <Stat
@@ -139,7 +144,12 @@ export default function ExempelHero({
               <Divider />
               <Stat
                 icon={<Clock className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                label="Klart på 60 sek"
+                label="60 sek"
+              />
+              <Divider />
+              <Stat
+                icon={<Layers className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                label={variant === 'letter' ? '6 mallar' : '8+ mallar'}
               />
             </div>
           </div>
@@ -177,13 +187,19 @@ export default function ExempelHero({
 function Stat({
   icon,
   label,
+  highlight,
 }: {
   icon: React.ReactNode;
   label: string;
+  highlight?: boolean;
 }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium opacity-95">
-      <span className="opacity-80">{icon}</span>
+    <span
+      className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${
+        highlight ? 'font-bold' : 'font-medium opacity-95'
+      }`}
+    >
+      <span className={highlight ? 'text-yellow-200' : 'opacity-80'}>{icon}</span>
       {label}
     </span>
   );

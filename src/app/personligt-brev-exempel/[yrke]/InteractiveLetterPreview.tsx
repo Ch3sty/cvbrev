@@ -808,17 +808,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
 
         </motion.div>
       </AnimatePresence>
-
-      {/* Info Box */}
-      <div className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 flex gap-3">
-        <Eye className="w-5 h-5 text-orange-700 flex-shrink-0 mt-0.5" strokeWidth={2.5} />
-        <div className="text-sm text-slate-700">
-          <p className="font-bold text-slate-900 mb-0.5">Detta är en förhandsvisning</p>
-          <p className="text-slate-600">
-            När du skapar ditt personliga brev får du tillgång till alla mallar, anpassningsbara färger, och export till både PDF och Word.
-          </p>
-        </div>
-      </div>
         </>
       )}
     </div>
