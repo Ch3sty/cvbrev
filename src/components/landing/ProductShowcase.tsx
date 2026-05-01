@@ -23,8 +23,9 @@ export default function ProductShowcase() {
             Två verktyg, en sammanhängande ansökan
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Bygg ditt CV i en av våra ATS-säkra mallar och låt AI:n skriva
-            det matchande brevet. Allt på samma ställe.
+            Bygg ditt CV i en ATS-säker mall och låt oss skriva det
+            matchande brevet utifrån din egen erfarenhet. Allt på samma
+            ställe.
           </p>
         </motion.div>
 
@@ -66,8 +67,8 @@ export default function ProductShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                Tio mallar som alla är granskade av rekryterare. Välj en, fyll
-                i — färdig på minuter.
+                Åtta mallar granskade av rekryterare och byggda för att
+                passera ATS-systemen. Välj en, fyll i, klar på minuter.
               </p>
 
               {/* Stack av CV-mallar */}
@@ -122,10 +123,10 @@ export default function ProductShowcase() {
               </div>
 
               <Link
-                href="/cv-mallar"
+                href="/cv-exempel"
                 className="inline-flex items-center gap-1.5 text-orange-700 hover:text-orange-800 font-bold text-sm group"
               >
-                Se alla CV-mallar
+                Bläddra 75+ CV-exempel
                 <ArrowRight
                   className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                   strokeWidth={2.5}
@@ -163,7 +164,7 @@ export default function ProductShowcase() {
             <div className="relative">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white text-orange-700 border border-orange-200 mb-4 shadow-sm">
                 <Mail className="w-3.5 h-3.5" strokeWidth={2.5} />
-                AI-skrivet personligt brev
+                Personligt brev från ditt CV
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight mb-3">
@@ -171,8 +172,9 @@ export default function ProductShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                Klistra in jobbannonsen, lägg till lite om dig — AI:n skriver
-                ett unikt brev som matchar tjänstens nyckelord.
+                Klistra in jobbannonsen. Vi läser ditt CV, identifierar
+                tjänstens krav och bygger brevet med din egen erfarenhet
+                som bevisar matchningen, på under en minut.
               </p>
 
               {/* Brev-mockup */}
@@ -211,7 +213,7 @@ export default function ProductShowcase() {
                 href="/personligt-brev-exempel"
                 className="inline-flex items-center gap-1.5 text-orange-700 hover:text-orange-800 font-bold text-sm group"
               >
-                Se brev-exempel
+                Bläddra 77+ brev-exempel
                 <ArrowRight
                   className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                   strokeWidth={2.5}

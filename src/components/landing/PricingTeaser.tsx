@@ -37,7 +37,7 @@ export default function PricingTeaser() {
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
             Inga bindningstider. Inga dolda avgifter. Avsluta när du fått
-            jobbet — eller fortsätt så länge du behöver oss.
+            jobbet eller fortsätt så länge du behöver oss.
           </p>
         </motion.div>
 

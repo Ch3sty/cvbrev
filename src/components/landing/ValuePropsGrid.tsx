@@ -10,7 +10,7 @@ const PROPS = [
     statLabel: 'högre svarsfrekvens',
     title: 'Bevisade resultat',
     description:
-      'Användare som låter AI:n optimera sina ansökningar får i snitt tre gånger fler intervjuer.',
+      'Användare som låter oss optimera sina ansökningar får i snitt tre gånger fler intervjuer.',
   },
   {
     icon: Clock,

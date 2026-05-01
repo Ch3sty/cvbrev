@@ -6,12 +6,12 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 
 const FAQ_ITEMS = [
   {
-    q: 'Vad är ATS — och varför ska mitt CV vara anpassat?',
+    q: 'Vad är ATS, och varför ska mitt CV vara anpassat?',
     a: 'ATS (Applicant Tracking System) är de program som de flesta större svenska arbetsgivare använder för att sortera ansökningar automatiskt. Är inte ditt CV läsbart för systemet kan du sorteras bort innan en människa ens öppnar det. Vi bygger alla CV-mallar för att vara ATS-säkra.',
   },
   {
-    q: 'Hur mycket av jobbet gör AI:n åt mig?',
-    a: 'AI:n skriver utkastet baserat på din profil och jobbannonsen. Du läser igenom, justerar tonen där det känns bra och skickar in. Resultatet låter som du — bara mer slipat än om du skrev varje brev från noll.',
+    q: 'Hur mycket av jobbet gör ni åt mig?',
+    a: 'Vi skriver utkastet baserat på ditt CV och jobbannonsen. Du läser igenom, justerar tonen där det känns bra och skickar in. Resultatet låter som du, bara mer slipat än om du hade skrivit varje brev från noll.',
   },
   {
     q: 'Hur snabbt kan jag skapa ett personligt brev?',
@@ -19,11 +19,11 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Är mina uppgifter säkra?',
-    a: 'Ja. Vi följer GDPR och all data lagras i EU. Vi säljer aldrig din information vidare och du kan när som helst radera ditt konto med ett klick — då försvinner allt, även våra kopior.',
+    a: 'Ja. Vi följer GDPR och all data lagras i EU. Vi säljer aldrig din information vidare och du kan när som helst radera ditt konto med ett klick. Då försvinner allt, även våra kopior.',
   },
   {
     q: 'Vad händer efter de 7 gratisdagarna med Premium?',
-    a: 'Inget oväntat. Du behöver inte ange kreditkort innan trial-perioden, så du blir inte debiterad automatiskt. Vill du fortsätta uppgraderar du med ett klick. Vill du inte — gör absolut ingenting, så fortsätter ditt gratiskonto fungera.',
+    a: 'Inget oväntat. Du behöver inte ange kreditkort innan trial-perioden, så du blir inte debiterad automatiskt. Vill du fortsätta uppgraderar du med ett klick. Vill du inte fortsätta gör du absolut ingenting, så rullar ditt gratiskonto vidare.',
   },
 ];
 

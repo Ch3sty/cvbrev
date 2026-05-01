@@ -6,7 +6,7 @@ import { Star, Quote } from 'lucide-react';
 const TESTIMONIALS = [
   {
     quote:
-      'Hade sökt i månader utan att få svar. Med ett anpassat brev fick jag mitt första intervju-svar inom tre veckor — och jobbet kort därefter.',
+      'Hade sökt i månader utan att få svar. Med ett anpassat brev fick jag mitt första intervju-svar inom tre veckor, och jobbet kort därefter.',
     name: 'Emma',
     role: 'Nyexaminerad, Stockholm',
     initial: 'E',
