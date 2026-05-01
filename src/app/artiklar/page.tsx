@@ -1,31 +1,74 @@
-import Link from 'next/link';
-import { getAllPostsMeta, PostMeta } from '@/lib/blog';
+import { getAllPostsMeta } from '@/lib/blog';
 import { Metadata } from 'next';
-import { BookOpen, Filter, TrendingUp } from 'lucide-react';
-import { Suspense } from 'react';
 import PremiumNavbar from '@/components/PremiumNavbar';
-import ModernArticleCard from '@/components/artiklar/ModernArticleCard';
-import ModernCategoriesServer from '@/components/artiklar/ModernCategoriesServer';
-import ModernPaginationControls from '@/components/artiklar/ModernPaginationControls';
-import ConversionCard from '@/components/artiklar/ConversionCard';
-import OrganicTrafficBanner from '@/components/artiklar/OrganicTrafficBanner';
-import FloatingCTA from '@/components/artiklar/FloatingCTA';
-import ArticlesClientWrapper from '@/components/artiklar/ArticlesClientWrapper';
+import { generateTagsData } from '@/components/artiklar/ModernCategoriesServer';
+import ArticlesHero from '@/components/artiklar/ArticlesHero';
+import StickyCategoryBar from '@/components/artiklar/StickyCategoryBar';
+import ArticleCard from '@/components/artiklar/ArticleCard';
+import InlineFeedCTA from '@/components/artiklar/InlineFeedCTA';
+import ArticlesPagination from '@/components/artiklar/ArticlesPagination';
+import ArticlesFinalCTA from '@/components/artiklar/ArticlesFinalCTA';
+import EmptyState from '@/components/artiklar/EmptyState';
 
-export const metadata: Metadata = {
-  title: 'Artiklar och karriärtips | jobbcoach.ai',
-  description: 'Lär dig skriva bättre CV, personliga brev och ansökningar. Vi guidar dig genom moderna jobbsökningsprocesser.',
-  alternates: {
-    canonical: '/artiklar',
-  },
-};
-
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
+const SITE_URL = 'https://www.jobbcoach.ai';
 
 type ResolvedSearchParams = {
   tag?: string | string[] | undefined;
   page?: string | string[] | undefined;
 };
+
+// === METADATA ===
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<ResolvedSearchParams>;
+}): Promise<Metadata> {
+  const resolved = await searchParams;
+  const tag = typeof resolved?.tag === 'string' ? resolved.tag : undefined;
+  const page = typeof resolved?.page === 'string' ? resolved.page : undefined;
+
+  const baseTitle = tag
+    ? `Artiklar om ${tag} | jobbcoach.ai`
+    : 'Artiklar och karriärtips | jobbcoach.ai';
+  const description = tag
+    ? `Läs våra senaste artiklar om ${tag}. Tips, guider och insikter för att lyckas med din jobbsökning.`
+    : 'Lär dig skriva bättre CV, personliga brev och ansökningar. Vi guidar dig genom moderna jobbsökningsprocesser.';
+
+  // Canonical: alltid till bas-URL utan page-parameter (page=1 är default).
+  // Om en tag finns, behåll tag i canonical så Google indexerar filter-vyer.
+  const canonicalParams = new URLSearchParams();
+  if (tag) canonicalParams.set('tag', tag);
+  if (page && page !== '1') canonicalParams.set('page', page);
+  const canonicalQs = canonicalParams.toString();
+  const canonicalUrl = canonicalQs
+    ? `${SITE_URL}/artiklar?${canonicalQs}`
+    : `${SITE_URL}/artiklar`;
+
+  return {
+    title: baseTitle,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: canonicalUrl,
+      title: baseTitle,
+      description,
+      siteName: 'jobbcoach.ai',
+      locale: 'sv_SE',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: baseTitle,
+      description,
+    },
+    keywords: tag
+      ? `${tag}, jobbsökning, CV-tips, karriärtips, jobbcoach`
+      : 'CV-tips, personligt brev, jobbsökning, karriär, ansökan',
+  };
+}
 
 export default async function ArticlesIndexPage({
   searchParams,
@@ -34,202 +77,189 @@ export default async function ArticlesIndexPage({
 }) {
   const resolvedParams = await searchParams;
 
-  // Get all posts server-side
+  // === DATA-FETCHING ===
   const allPosts = getAllPostsMeta();
+  const tagsData = generateTagsData();
 
-  // Extract params
-  const tagFilter = typeof resolvedParams?.tag === 'string' ? resolvedParams.tag : undefined;
-  const pageParam = typeof resolvedParams?.page === 'string' ? resolvedParams.page : '1';
+  // === FILTER ===
+  const tagFilter =
+    typeof resolvedParams?.tag === 'string' ? resolvedParams.tag : undefined;
+  const pageParam =
+    typeof resolvedParams?.page === 'string' ? resolvedParams.page : '1';
   const page = parseInt(pageParam, 10);
   const currentPage = isNaN(page) || page < 1 ? 1 : page;
 
-  // Filter posts based on tag
   const filteredPosts = tagFilter
-    ? allPosts.filter(post =>
-        post.tags &&
-        Array.isArray(post.tags) &&
-        post.tags.some(tag => typeof tag === 'string' && tag.toLowerCase() === tagFilter.toLowerCase())
+    ? allPosts.filter(
+        (post) =>
+          post.tags &&
+          Array.isArray(post.tags) &&
+          post.tags.some(
+            (t) => typeof t === 'string' && t.toLowerCase() === tagFilter.toLowerCase()
+          )
       )
     : allPosts;
 
-  // Calculate pagination
+  // === PAGINATION ===
   const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / ITEMS_PER_PAGE);
   const validCurrentPage = Math.min(currentPage, Math.max(totalPages, 1));
-
-  // Get posts for current page
   const startIndex = (validCurrentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
 
+  // === FEATURED + REGULAR-DELNING ===
+  const showFeatured = !tagFilter && validCurrentPage === 1 && paginatedPosts.length > 0;
+  const featuredPost = showFeatured ? paginatedPosts[0] : null;
+  const regularPosts = showFeatured ? paginatedPosts.slice(1) : paginatedPosts;
+
+  // Inline-CTA i feed:en EN gång (efter pos 5 om >= 6 regular posts, ingen filter)
+  const showInlineCTA = !tagFilter && regularPosts.length >= 6;
+  const inlineCTAIndex = 5; // injekteras EFTER index 4 (dvs efter 5:e kortet)
+
+  // === SEO: SCHEMA MARKUP ===
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Hem',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Artiklar',
+        item: `${SITE_URL}/artiklar`,
+      },
+      ...(tagFilter
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: tagFilter,
+              item: `${SITE_URL}/artiklar?tag=${encodeURIComponent(tagFilter)}`,
+            },
+          ]
+        : []),
+    ],
+  };
+
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: tagFilter
+      ? `Artiklar om ${tagFilter}`
+      : 'Karriärbiblioteket — alla artiklar',
+    description: tagFilter
+      ? `Samling av artiklar om ${tagFilter}.`
+      : 'Vår samling av karriärguider, CV-tips och artiklar för att lyckas med jobbsökningen.',
+    url: `${SITE_URL}/artiklar${tagFilter ? `?tag=${encodeURIComponent(tagFilter)}` : ''}`,
+    inLanguage: 'sv-SE',
+    isPartOf: { '@type': 'WebSite', name: 'jobbcoach.ai', url: SITE_URL },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: paginatedPosts.slice(0, 10).map((post, idx) => ({
+        '@type': 'ListItem',
+        position: startIndex + idx + 1,
+        url: `${SITE_URL}/artiklar/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Premium Navigation Bar */}
+    <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/20">
       <PremiumNavbar />
 
-      {/* Organic Traffic Conversion Banner - positioned below navbar */}
-      <div className="pt-16">
-        <OrganicTrafficBanner />
+      {/* Schema markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+
+      {/* Hero */}
+      <div className="container max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 pt-20 sm:pt-24 pb-4 sm:pb-6">
+        <ArticlesHero totalPosts={allPosts.length} />
       </div>
 
-      <div className="container max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 mx-auto lg:py-20">
-        <header className="mb-8 sm:mb-12 text-center md:mb-16">
-          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6">
-            <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 md:text-5xl lg:text-6xl mb-4 leading-tight">
-            <span className="hidden sm:inline">Artiklar som förbättrar din jobbsökning</span>
-            <span className="sm:hidden">Karriärtips & artiklar</span>
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 md:text-xl max-w-3xl mx-auto leading-relaxed">
-            <span className="hidden sm:block">
-              Lär dig skriva starkare ansökningar och CV:n som går igenom. Våra artiklar guidar dig genom moderna rekryteringsprocesser.
-            </span>
-            <span className="sm:hidden">
-              Tips och guider för att lyckas med din jobbsökning.
-            </span>
-          </p>
-        </header>
+      {/* Sticky kategori-bar */}
+      <StickyCategoryBar
+        categories={tagsData}
+        activeTag={tagFilter}
+        totalCount={allPosts.length}
+      />
 
-        {/* Filter Info */}
-        {tagFilter && (
-          <div className="mb-8 sm:mb-12 bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-              <div className="flex items-center">
-                <Filter className="w-5 h-5 mr-3 text-blue-600 flex-shrink-0" />
-                <p className="text-blue-800 text-base sm:text-lg">
-                  Du ser artiklar om: <span className="font-semibold">"{tagFilter}"</span>
-                </p>
-              </div>
-              <Link
-                href="/artiklar"
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors text-sm sm:text-base"
-              >
-                <span className="hidden sm:inline">Visa alla artiklar</span>
-                <span className="sm:hidden">Visa alla</span>
-              </Link>
-            </div>
-          </div>
-        )}
-
-        {/* Categories Section */}
-        <div className="mb-12">
-          <ModernCategoriesServer />
-        </div>
-
-        {/* Articles Content */}
+      {/* Innehåll */}
+      <div className="container max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-10">
         {filteredPosts.length === 0 ? (
-          <div className="text-center py-12 sm:py-16 md:py-20 bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
-            <BookOpen className="w-16 h-16 sm:w-20 sm:h-20 text-slate-300 mx-auto mb-4 sm:mb-6" />
-            <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-2 sm:mb-3">Här var det tomt</h3>
-            <p className="text-slate-600 text-base sm:text-lg mb-4 sm:mb-6 px-4">
-              {tagFilter ? `Vi har inga artiklar om "${tagFilter}" än.` : 'Just nu finns inga artiklar här.'}
-            </p>
-            <Link
-              href="/artiklar"
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-300 touch-manipulation"
-            >
-              Tillbaka till alla artiklar
-            </Link>
-          </div>
+          <EmptyState
+            tagFilter={tagFilter}
+            popularTags={tagsData.slice(0, 4).map((t) => t.tag)}
+          />
         ) : (
-          <div className="flex flex-col gap-16">
-            {/* Featured Article */}
-            {paginatedPosts.length > 0 && currentPage === 1 && !tagFilter && (
-              <section className="mb-6 sm:mb-8">
-                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                  <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    <span className="hidden sm:inline">Utvalda artiklar</span>
-                    <span className="sm:hidden">Utvalda</span>
-                  </h2>
-                </div>
-                <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-                  <ModernArticleCard
-                    key={paginatedPosts[0].slug}
-                    post={paginatedPosts[0]}
-                    tagFilter={tagFilter}
-                    featured={true}
-                  />
-                </div>
+          <div className="space-y-10 sm:space-y-14">
+            {/* Featured */}
+            {featuredPost && (
+              <section>
+                <ArticleCard
+                  key={featuredPost.slug}
+                  post={featuredPost}
+                  tagFilter={tagFilter}
+                  featured
+                />
               </section>
             )}
 
-            {/* Regular Articles Grid */}
+            {/* Grid med inline-CTA */}
             <section>
-              {((currentPage === 1 && !tagFilter) ? paginatedPosts.length > 1 : paginatedPosts.length > 0) && (
-                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                  <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600" />
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    <span className="hidden sm:inline">
-                      {(currentPage === 1 && !tagFilter) ? 'Senaste artiklar' : 'Artiklar'}
-                    </span>
-                    <span className="sm:hidden">Senaste</span>
-                  </h2>
-                </div>
-              )}
-              <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-12">
-                {((currentPage === 1 && !tagFilter) ? paginatedPosts.slice(1) : paginatedPosts).map((post, index) => {
-                  const elements = [];
-                  const globalIndex = (currentPage === 1 && !tagFilter) ? index + 1 : (validCurrentPage - 1) * ITEMS_PER_PAGE + index;
+              <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {regularPosts.map((post, idx) => {
+                  // Injekta InlineFeedCTA efter pos 5 (om visas)
+                  const elements: React.ReactNode[] = [];
+
+                  if (showInlineCTA && idx === inlineCTAIndex) {
+                    elements.push(<InlineFeedCTA key="inline-cta" />);
+                  }
 
                   elements.push(
-                    <ModernArticleCard
+                    <ArticleCard
                       key={post.slug}
                       post={post}
                       tagFilter={tagFilter}
                     />
                   );
 
-                  // Conversion card placement - every 5th position
-                  if (!tagFilter && (globalIndex + 1) % 5 === 0) {
-                    const conversionPosition = Math.floor((globalIndex + 1) / 5);
-                    const selectedVariant = (conversionPosition % 3 === 0) ? 'premium' : 'free-trial';
-
-                    elements.push(
-                      <ArticlesClientWrapper key={`wrapper-${globalIndex}`}>
-                        <ConversionCard
-                          variant={selectedVariant}
-                          position={globalIndex + 1}
-                        />
-                      </ArticlesClientWrapper>
-                    );
-                  }
-
                   return elements;
-                }).flat()}
-
-                {/* Final conversion CTA */}
-                {!tagFilter && paginatedPosts.length > 3 && (
-                  <div className="md:col-span-2 lg:col-span-3">
-                    <ArticlesClientWrapper>
-                      <ConversionCard
-                        variant="free-trial"
-                        position={999}
-                      />
-                    </ArticlesClientWrapper>
-                  </div>
-                )}
+                })}
               </div>
             </section>
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <section className="flex justify-center">
-                <ModernPaginationControls
+              <section className="pt-2">
+                <ArticlesPagination
                   currentPage={validCurrentPage}
                   totalPages={totalPages}
+                  totalPosts={totalPosts}
+                  itemsPerPage={ITEMS_PER_PAGE}
                   tag={tagFilter}
                 />
               </section>
             )}
+
+            {/* Final CTA */}
+            <section>
+              <ArticlesFinalCTA />
+            </section>
           </div>
         )}
-
-        {/* Floating CTA */}
-        <ArticlesClientWrapper>
-          <FloatingCTA />
-        </ArticlesClientWrapper>
       </div>
     </div>
   );
