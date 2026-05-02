@@ -3,80 +3,100 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
-  PenLine,
-  FileSearch,
-  FilePlus,
-  Palette,
-  Compass,
-  MessageCircle,
-  Brain,
-  Linkedin,
-} from 'lucide-react';
+  ToolBrevIllustration,
+  ToolCvAnalysIllustration,
+  ToolSkapaCvIllustration,
+  ToolCvMallarIllustration,
+  ToolJobbmatchningIllustration,
+  ToolJobbcoachenIllustration,
+  ToolTesterIllustration,
+  ToolLinkedinIllustration,
+} from './illustrations/ToolIllustrations';
 
 const TOOLS = [
   {
     label: 'Personligt brev',
     href: '#brev',
-    icon: PenLine,
+    illustration: ToolBrevIllustration,
     blurb: 'Skräddarsytt från ditt CV mot annonsen.',
   },
   {
     label: 'CV-analys',
     href: '#cv-analys',
-    icon: FileSearch,
+    illustration: ToolCvAnalysIllustration,
     blurb: 'Konkret feedback med ATS-score.',
   },
   {
     label: 'Skapa CV',
     href: '#cv-skapa-mallar',
-    icon: FilePlus,
+    illustration: ToolSkapaCvIllustration,
     blurb: 'Bygg ett komplett CV på minuter.',
   },
   {
     label: 'CV-mallar',
     href: '#cv-skapa-mallar',
-    icon: Palette,
-    blurb: 'Åtta mallar, alla ATS-säkra.',
+    illustration: ToolCvMallarIllustration,
+    blurb: 'Mallar granskade av rekryterare.',
   },
   {
     label: 'Jobbmatchning',
     href: '#jobbmatchning',
-    icon: Compass,
+    illustration: ToolJobbmatchningIllustration,
     blurb: 'Jobb från Arbetsförmedlingen och JobTech.',
   },
   {
     label: 'Jobbcoachen',
     href: '#jobbcoachen',
-    icon: MessageCircle,
+    illustration: ToolJobbcoachenIllustration,
     blurb: 'Karriärchatt med riktiga svar.',
   },
   {
     label: 'Rekryteringstester',
     href: '#tester',
-    icon: Brain,
+    illustration: ToolTesterIllustration,
     blurb: 'Träna logik, verbal och numerisk.',
   },
   {
     label: 'LinkedIn-optimering',
     href: '#linkedin',
-    icon: Linkedin,
+    illustration: ToolLinkedinIllustration,
     blurb: 'Profilen som hittas av rekryterare.',
   },
 ];
 
 export default function ToolsOverview() {
   return (
-    <section className="relative py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-orange-50/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.p
+    <section className="relative py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-orange-50/30 overflow-hidden">
+      {/* Bakgrunds-prickar */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
+        aria-hidden="true"
+      >
+        <pattern
+          id="tools-overview-dots"
+          x="0"
+          y="0"
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle cx="20" cy="20" r="1" fill="#FB923C" opacity="0.18" />
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#tools-overview-dots)" />
+      </svg>
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.4 }}
-          className="text-center text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-6"
+          className="text-center mb-8 sm:mb-10"
         >
-          Hoppa direkt till verktyget du vill veta mer om
-        </motion.p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
+            Hoppa direkt till verktyget du vill veta mer om
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {TOOLS.map((tool, i) => (
@@ -89,29 +109,34 @@ export default function ToolsOverview() {
             >
               <Link
                 href={tool.href}
-                className="group relative flex flex-col h-full p-4 sm:p-5 rounded-2xl bg-white border border-orange-100 hover:border-orange-300 hover:-translate-y-0.5 transition-all duration-300"
+                className="group relative flex flex-col h-full pt-3 pb-4 px-4 rounded-2xl bg-white border border-orange-100 hover:border-orange-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                 style={{
                   boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)',
                 }}
               >
+                {/* Hover-glow */}
                 <div
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3 group-hover:scale-110 transition-transform duration-300"
+                  className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-25 blur-2xl transition-opacity duration-500 pointer-events-none"
                   style={{
                     background:
-                      'linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%)',
+                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
                   }}
-                >
-                  <tool.icon
-                    className="w-5 h-5 text-orange-600"
-                    strokeWidth={2.2}
-                  />
+                  aria-hidden="true"
+                />
+
+                <div className="relative flex flex-col h-full">
+                  {/* Illustration tar full bredd */}
+                  <div className="flex items-center justify-center mb-2 group-hover:scale-105 transition-transform duration-300">
+                    <tool.illustration className="w-20 h-20 sm:w-24 sm:h-24" />
+                  </div>
+
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 leading-tight mb-1">
+                    {tool.label}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-snug">
+                    {tool.blurb}
+                  </p>
                 </div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 leading-tight mb-1">
-                  {tool.label}
-                </h3>
-                <p className="text-[11px] sm:text-xs text-slate-600 leading-snug">
-                  {tool.blurb}
-                </p>
               </Link>
             </motion.div>
           ))}

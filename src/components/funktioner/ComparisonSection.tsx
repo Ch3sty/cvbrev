@@ -99,17 +99,172 @@ export default function ComparisonSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.4 }}
-          className="text-center mb-10 sm:mb-12"
+          className="relative text-center mb-10 sm:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-            Gratis vs Premium
+          {/* Dekoration: två symmetriska prick-cluster */}
+          <div
+            className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none"
+            aria-hidden="true"
+          >
+            <svg width="100" height="80" viewBox="0 0 100 80" fill="none">
+              <circle cx="20" cy="20" r="3" fill="#F97316" opacity="0.4" />
+              <circle cx="40" cy="40" r="2" fill="#DC2626" opacity="0.5" />
+              <circle cx="20" cy="60" r="2" fill="#BE185D" opacity="0.4" />
+              <circle cx="60" cy="20" r="1.5" fill="#F97316" opacity="0.3" />
+              <circle cx="70" cy="55" r="1.5" fill="#DC2626" opacity="0.3" />
+              <line
+                x1="20"
+                y1="20"
+                x2="40"
+                y2="40"
+                stroke="#FB923C"
+                strokeWidth="1"
+                strokeDasharray="2 3"
+                opacity="0.5"
+              />
+              <line
+                x1="40"
+                y1="40"
+                x2="20"
+                y2="60"
+                stroke="#FB923C"
+                strokeWidth="1"
+                strokeDasharray="2 3"
+                opacity="0.5"
+              />
+            </svg>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-4">
-            Vad ingår på respektive nivå
-          </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Alla siffror är hämtade direkt från produkten. Inget finstilt.
-          </p>
+          <div
+            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none"
+            aria-hidden="true"
+          >
+            <svg width="100" height="80" viewBox="0 0 100 80" fill="none">
+              <circle cx="80" cy="20" r="3" fill="#BE185D" opacity="0.4" />
+              <circle cx="60" cy="40" r="2" fill="#DC2626" opacity="0.5" />
+              <circle cx="80" cy="60" r="2" fill="#F97316" opacity="0.4" />
+              <circle cx="40" cy="20" r="1.5" fill="#BE185D" opacity="0.3" />
+              <circle cx="30" cy="55" r="1.5" fill="#DC2626" opacity="0.3" />
+              <line
+                x1="80"
+                y1="20"
+                x2="60"
+                y2="40"
+                stroke="#FB923C"
+                strokeWidth="1"
+                strokeDasharray="2 3"
+                opacity="0.5"
+              />
+              <line
+                x1="60"
+                y1="40"
+                x2="80"
+                y2="60"
+                stroke="#FB923C"
+                strokeWidth="1"
+                strokeDasharray="2 3"
+                opacity="0.5"
+              />
+            </svg>
+          </div>
+
+          <div className="relative">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500"
+                aria-hidden="true"
+              />
+              Gratis vs Premium
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black text-slate-900 leading-[1.05] tracking-tight mb-5 max-w-3xl mx-auto">
+              Vad ingår på{' '}
+              <span
+                className="relative inline-block"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                respektive nivå
+                <svg
+                  className="absolute -bottom-1 left-0 w-full"
+                  height="6"
+                  viewBox="0 0 200 6"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M 2 4 Q 50 1 100 3 T 198 4"
+                    stroke="url(#compare-underline)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="compare-underline"
+                      x1="0"
+                      y1="0"
+                      x2="200"
+                      y2="0"
+                    >
+                      <stop offset="0%" stopColor="#F97316" />
+                      <stop offset="50%" stopColor="#DC2626" />
+                      <stop offset="100%" stopColor="#BE185D" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </span>
+            </h2>
+
+            <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto mb-6">
+              Alla siffror är hämtade direkt från produkten. Inget finstilt.
+            </p>
+
+            {/* Stat-rad — tre korta blickfång */}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs sm:text-sm">
+              <div className="inline-flex items-center gap-1.5">
+                <span
+                  className="text-base sm:text-lg font-black tabular-nums"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  149 kr
+                </span>
+                <span className="text-slate-600 font-medium">/ månad</span>
+              </div>
+              <span
+                className="hidden sm:inline-block w-px h-4 bg-orange-200"
+                aria-hidden="true"
+              />
+              <span className="inline-flex items-center gap-1.5 text-slate-600 font-medium">
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"
+                  aria-hidden="true"
+                />
+                7 dagar gratis trial
+              </span>
+              <span
+                className="hidden sm:inline-block w-px h-4 bg-orange-200"
+                aria-hidden="true"
+              />
+              <span className="inline-flex items-center gap-1.5 text-slate-600 font-medium">
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"
+                  aria-hidden="true"
+                />
+                Ingen bindningstid
+              </span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Desktop: tabell. Mobile: två kort */}

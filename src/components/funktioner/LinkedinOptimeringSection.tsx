@@ -119,62 +119,104 @@ export default function LinkedinOptimeringSection() {
             >
               {/* Profil-mockup */}
               <div className="relative">
-                {/* Banner */}
+                {/* Banner med profil-mönster */}
                 <div
-                  className="h-24 sm:h-28 relative overflow-hidden"
+                  className="h-20 sm:h-24 relative overflow-hidden"
                   style={{
                     background:
                       'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
                   }}
                 >
+                  {/* Diagonalt streck-mönster */}
                   <svg
                     className="absolute inset-0 w-full h-full opacity-25"
                     aria-hidden="true"
                   >
                     <pattern
-                      id="li-banner-dots"
+                      id="li-banner-lines"
                       x="0"
                       y="0"
-                      width="20"
-                      height="20"
+                      width="32"
+                      height="32"
                       patternUnits="userSpaceOnUse"
+                      patternTransform="rotate(35)"
                     >
-                      <circle cx="10" cy="10" r="0.8" fill="white" />
+                      <line
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="32"
+                        stroke="white"
+                        strokeWidth="1"
+                      />
                     </pattern>
                     <rect
                       width="100%"
                       height="100%"
-                      fill="url(#li-banner-dots)"
+                      fill="url(#li-banner-lines)"
                     />
                   </svg>
+                  {/* Subtila vita prickar */}
+                  <span
+                    className="absolute top-3 right-6 w-1 h-1 rounded-full bg-white/50"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="absolute top-8 right-16 w-1.5 h-1.5 rounded-full bg-white/40"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="absolute bottom-4 left-1/3 w-1 h-1 rounded-full bg-white/35"
+                    aria-hidden="true"
+                  />
                 </div>
 
-                {/* Avatar + headline */}
-                <div className="px-5 sm:px-6 -mt-8 pb-5">
-                  <div className="flex items-end gap-3 mb-3">
-                    <div
-                      className="w-16 h-16 rounded-full bg-white border-4 border-white flex items-center justify-center font-black text-orange-700 text-xl"
+                {/* Avatar — absolut positionerad så den överlappar bannern korrekt */}
+                <div className="relative px-5 sm:px-6">
+                  <div
+                    className="absolute -top-9 left-5 sm:left-6 w-[68px] h-[68px] rounded-full bg-white border-4 border-white flex items-center justify-center font-black text-orange-700 text-lg overflow-hidden"
+                    style={{
+                      boxShadow: '0 8px 20px -6px rgba(0, 0, 0, 0.22)',
+                    }}
+                  >
+                    <span
+                      className="absolute inset-1 rounded-full flex items-center justify-center text-white"
                       style={{
-                        boxShadow:
-                          '0 8px 20px -6px rgba(0, 0, 0, 0.18)',
+                        background:
+                          'linear-gradient(135deg, #FED7AA 0%, #FECACA 100%)',
                       }}
                     >
-                      EM
-                    </div>
-                    <div className="pb-1 flex-1 min-w-0">
-                      <p className="text-sm font-black text-slate-900 leading-tight">
-                        Emma M.
+                      <span className="text-orange-700">EM</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Profil-info (under bannern, namn under avataren) */}
+                <div className="px-5 sm:px-6 pt-12 pb-5">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-base font-black text-slate-900 leading-tight">
+                        Emma Mårtensson
                       </p>
-                      <p className="text-[11px] text-slate-500 leading-snug">
-                        Stockholm, Sverige
+                      <p className="text-xs text-slate-500 leading-snug">
+                        Stockholm, Sverige · 1 247 kontakter
                       </p>
                     </div>
+                    <span
+                      className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider text-white"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                      }}
+                    >
+                      Premium
+                    </span>
                   </div>
 
                   <p className="text-sm font-bold text-slate-900 leading-snug mb-1">
                     Senior Projektledare med fokus på agil leverans
                   </p>
-                  <p className="text-[11px] text-slate-600 leading-snug">
+                  <p className="text-xs text-slate-600 leading-snug">
                     Bygger team som levererar i tid och inom budget. Specialist
                     på CI/CD, automation och Kubernetes-migration.
                   </p>
