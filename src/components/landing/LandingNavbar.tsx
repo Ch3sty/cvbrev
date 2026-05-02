@@ -304,7 +304,7 @@ export default function LandingNavbar() {
                 Logga in
               </Link>
               <Link
-                href="/login?signup=true"
+                href="/register"
                 data-cta="navbar-signup"
                 className="group inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.02]"
                 style={{
@@ -325,7 +325,7 @@ export default function LandingNavbar() {
             {/* Mobile-knappar */}
             <div className="flex lg:hidden items-center gap-2">
               <Link
-                href="/login?signup=true"
+                href="/register"
                 data-cta="navbar-mobile-signup"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-white font-bold text-xs transition-all"
                 style={{
@@ -516,9 +516,14 @@ export default function LandingNavbar() {
               </nav>
 
               {/* Footer med CTA — som Sidebar */}
-              <div className="border-t border-orange-100 px-3 pt-3 pb-4 space-y-2 bg-white/60 backdrop-blur-sm flex-shrink-0">
+              <div
+                className="border-t border-orange-100 px-3 pt-3 space-y-2 bg-white/60 backdrop-blur-sm flex-shrink-0"
+                style={{
+                  paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)',
+                }}
+              >
                 <Link
-                  href="/login?signup=true"
+                  href="/register"
                   onClick={() => setMobileOpen(false)}
                   data-cta="navbar-mobile-drawer-primary"
                   className="relative overflow-hidden flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.01] group"
@@ -538,7 +543,7 @@ export default function LandingNavbar() {
                 <Link
                   href="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-slate-700 hover:text-orange-700 hover:bg-orange-50/60 transition-colors text-sm font-bold"
+                  className="flex items-center justify-center gap-2 px-3 py-3 min-h-[48px] rounded-xl text-slate-700 hover:text-orange-700 hover:bg-orange-50/60 transition-colors text-sm font-bold"
                 >
                   Logga in
                 </Link>
