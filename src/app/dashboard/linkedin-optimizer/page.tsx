@@ -1,19 +1,19 @@
 /**
- * LinkedIn Profile Optimizer - Dashboard Page
- * Premium wizard experience for LinkedIn profile optimization
+ * Förbättra LinkedIn-profil — Dashboard Page
+ * Live LinkedIn-makeover wizard med orange/röd-DNA.
  */
 'use client'
 
 import { Suspense } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import LinkedInWizard from './components/LinkedInWizard'
+import LinkedInOptimizer from './components/LinkedInOptimizer'
 
 const PageSkeleton = () => (
-  <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-    <div className="animate-pulse p-8">
-      <div className="h-12 bg-gray-200 rounded w-3/4 mx-auto mb-8"></div>
-      <div className="h-64 bg-gray-200 rounded"></div>
+  <div className="min-h-screen bg-gradient-to-b from-white via-orange-50/30 to-white">
+    <div className="animate-pulse p-8 max-w-6xl mx-auto">
+      <div className="h-12 w-3/4 rounded-full bg-orange-100/50 mb-8" />
+      <div className="h-64 rounded-3xl bg-orange-100/30" />
     </div>
   </div>
 )
@@ -22,9 +22,16 @@ export default function LinkedInOptimizerPage() {
   return (
     <>
       <Suspense fallback={<PageSkeleton />}>
-        <LinkedInWizard />
+        <LinkedInOptimizer />
       </Suspense>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2200}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        theme="light"
+      />
     </>
   )
 }

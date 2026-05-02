@@ -294,7 +294,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
           <SidebarLink
             href="/dashboard/linkedin-optimizer"
-            label="LinkedIn-optimering"
+            label="Förbättra LinkedIn-profil"
             icon={LinkedinIcon}
             isMobile={isMobile}
             onClick={onClose}
