@@ -1,72 +1,79 @@
+// src/app/register/page.tsx
 'use client'
 
-import Link from 'next/link'
+import { Suspense, useCallback, useState } from 'react'
 import RegisterForm from '@/components/auth/register-form'
-import { motion } from 'framer-motion'
-import { Suspense } from 'react'
+import AuthShell from '@/components/auth/AuthShell'
+import RegisterCvPreview from '@/components/auth/RegisterCvPreview'
+import { ToolSkapaCvIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+
+const REGISTER_QUOTES = [
+  'Bygg ett CV som öppnar dörrar.',
+  'Personliga brev som faktiskt läses.',
+  'Din nästa jobbansökan börjar här.',
+]
+
+const REGISTER_STATS = [
+  { value: '12 487', label: 'CV:n skapade' },
+  { value: '94%', label: 'når intervju' },
+  { value: '8', label: 'AI-verktyg' },
+  { value: '2 min', label: 'till färdigt CV' },
+]
+
+interface FormState {
+  fullName: string
+  email: string
+  phone: string
+  location: string
+  score: number
+}
 
 export default function RegisterPage() {
+  const [formState, setFormState] = useState<FormState>({
+    fullName: '',
+    email: '',
+    phone: '',
+    location: '',
+    score: 0,
+  })
+
+  const handleStateChange = useCallback((state: FormState) => {
+    setFormState(state)
+  }, [])
+
+  const hasContent =
+    formState.fullName.trim().length > 0 ||
+    formState.email.trim().length > 0 ||
+    formState.phone.trim().length > 0 ||
+    formState.location.trim().length > 0
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50/30 overflow-hidden">
-      {/* Animated background orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400/10 to-blue-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, -75, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-6">
-          <Suspense fallback={<div className="text-center">Laddar...</div>}>
-            <RegisterForm />
-          </Suspense>
-
-          {/* Länk för att logga in */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Har du redan ett konto?{' '}
-              <Link href="/login" className="font-semibold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all">
-                Logga in
-              </Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AuthShell
+      illustration={
+        // På desktop: göm illustrationen när användaren börjat skriva (preview tar över)
+        hasContent ? null : <ToolSkapaCvIllustration className="w-full h-full" />
+      }
+      quotes={REGISTER_QUOTES}
+      stats={REGISTER_STATS}
+      desktopSideSlot={
+        hasContent ? (
+          <RegisterCvPreview
+            fullName={formState.fullName}
+            email={formState.email}
+            phone={formState.phone}
+            location={formState.location}
+            variant="desktop"
+          />
+        ) : null
+      }
+    >
+      <Suspense
+        fallback={
+          <div className="text-center text-slate-500 py-12">Laddar...</div>
+        }
+      >
+        <RegisterForm onStateChange={handleStateChange} />
+      </Suspense>
+    </AuthShell>
   )
 }

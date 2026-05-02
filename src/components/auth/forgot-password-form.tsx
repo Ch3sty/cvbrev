@@ -2,8 +2,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, ArrowLeft } from 'lucide-react'
+import { Mail, ArrowLeft, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
+import AuthCvPaper from './AuthCvPaper'
+import AuthInput from './AuthInput'
+import AuthSubmitButton from './AuthSubmitButton'
+import SuccessStamp from './SuccessStamp'
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('')
@@ -40,85 +44,111 @@ export default function ForgotPasswordForm() {
 
   if (success) {
     return (
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-8">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Mail className="w-8 h-8 text-white" />
+      <AuthCvPaper
+        title="Återställ lösenord"
+        subtitle="Klart — kolla din inkorg"
+        sectionLabel="Bekräftelse"
+      >
+        <div className="space-y-5">
+          {/* Stämpel + ikon */}
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-orange-100 bg-orange-50/40 px-4 py-3.5">
+            <div className="flex items-center gap-3 min-w-0">
+              <div
+                className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                style={{
+                  background:
+                    'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                }}
+              >
+                <Mail className="w-5 h-5 text-white" strokeWidth={2.2} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-slate-900">
+                  Mejl skickat
+                </p>
+                <p className="text-xs text-slate-600 truncate">
+                  Till: <span className="font-semibold text-slate-900">{email}</span>
+                </p>
+              </div>
+            </div>
+            <SuccessStamp text="Mottaget" rotation={-6} />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">
-            Kolla din e-post
-          </h2>
-
-          <p className="text-gray-600 mb-6">
-            Vi har skickat instruktioner för återställning av lösenord till <span className="font-semibold text-gray-900">{email}</span>
+          <p className="text-sm text-slate-700 leading-relaxed">
+            Vi har skickat instruktioner för att återställa ditt lösenord.
+            Klicka på länken i mejlet för att välja ett nytt.
           </p>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <p className="text-sm text-blue-900">
-              <strong>Tips:</strong> Kom ihåg att kolla din skräppost-mapp om du inte ser mejlet inom några minuter.
+          <div className="rounded-xl border border-orange-100 bg-white px-4 py-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-1">
+              Tips
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Kolla skräppost-mappen om mejlet inte dykt upp inom några
+              minuter.
             </p>
           </div>
 
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 text-sm font-medium text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-orange-700 hover:text-orange-800 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-blue-600" />
+            <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
             Tillbaka till inloggning
           </Link>
         </div>
-      </div>
+      </AuthCvPaper>
     )
   }
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-8">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Mail className="w-8 h-8 text-white" />
-        </div>
-
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Återställ lösenord
-        </h2>
-
-        <p className="text-gray-600">
-          Ange din e-postadress så skickar vi instruktioner för hur du återställer ditt lösenord.
-        </p>
-      </div>
-
+    <AuthCvPaper
+      title="Återställ lösenord"
+      subtitle="Vi skickar en länk till din e-post"
+      sectionLabel="Kontoåtkomst"
+    >
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <div
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 p-3.5 flex items-start gap-2.5"
+          role="alert"
+        >
+          <AlertCircle
+            className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+            strokeWidth={2.2}
+          />
           <p className="text-sm text-red-800">{error}</p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            E-postadress
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="din@email.com"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            disabled={loading}
-          />
-        </div>
-
-        <button
-          type="submit"
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <AuthInput
+          id="email"
+          type="email"
+          label="E-postadress"
+          placeholder="din.email@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          autoComplete="email"
           disabled={loading}
-          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? 'Skickar...' : 'Skicka återställningslänk'}
-        </button>
+        />
+
+        <AuthSubmitButton loading={loading} loadingText="Skickar...">
+          Skicka återställningslänk
+        </AuthSubmitButton>
       </form>
-    </div>
+
+      <div className="mt-6 pt-5 border-t border-orange-50 text-center">
+        <p className="text-sm text-slate-600">
+          Kom du ihåg ditt lösenord?{' '}
+          <Link
+            href="/login"
+            className="font-bold text-orange-700 hover:text-orange-800 transition-colors"
+          >
+            Logga in
+          </Link>
+        </p>
+      </div>
+    </AuthCvPaper>
   )
 }

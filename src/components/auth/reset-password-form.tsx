@@ -2,10 +2,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Lock, Check, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import AuthCvPaper from './AuthCvPaper'
+import AuthInput from './AuthInput'
+import AuthSubmitButton from './AuthSubmitButton'
+import SuccessStamp from './SuccessStamp'
 
 export default function ResetPasswordForm() {
   const [password, setPassword] = useState('')
@@ -19,29 +23,28 @@ export default function ResetPasswordForm() {
   const [sessionReady, setSessionReady] = useState(false)
 
   const router = useRouter()
-  const searchParams = useSearchParams()
   const supabase = createClient()
 
-  // Handle the recovery token from email link
   useEffect(() => {
-    // Listen for auth state changes to capture the recovery session
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'PASSWORD_RECOVERY') {
-        // User has clicked the reset link and Supabase has created a session
         console.log('Password recovery session established')
         setSessionReady(true)
         setError(null)
       } else if (event === 'SIGNED_IN' && session) {
-        // Session is ready
         console.log('User signed in with recovery token')
         setSessionReady(true)
         setError(null)
       }
     })
 
-    // Also check if we already have a session (in case auth state change already happened)
     const checkSession = async () => {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
       if (sessionError) {
         console.error('Error getting session:', sessionError)
@@ -53,19 +56,18 @@ export default function ResetPasswordForm() {
         setSessionReady(true)
         setError(null)
       } else {
-        // No session yet - wait for onAuthStateChange
-        // Only show error after a delay to give Supabase time to process the hash
         setTimeout(() => {
-          supabase.auth.getSession().then(({ data: { session } }) => {
-            if (!session) {
-              setError('Ogiltig eller utgången återställningslänk. Begär en ny länk.')
+          supabase.auth.getSession().then(({ data: { session: s } }) => {
+            if (!s) {
+              setError(
+                'Ogiltig eller utgången återställningslänk. Begär en ny länk.'
+              )
             }
           })
         }, 2000)
       }
     }
 
-    // Wait a moment for Supabase to process the hash fragment from URL
     const timer = setTimeout(checkSession, 500)
 
     return () => {
@@ -101,7 +103,6 @@ export default function ResetPasswordForm() {
     setLoading(true)
     setError(null)
 
-    // Validate password
     const validation = validatePassword(password)
     if (validation) {
       setError(validation)
@@ -109,7 +110,6 @@ export default function ResetPasswordForm() {
       return
     }
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       setError('Lösenorden matchar inte')
       setLoading(false)
@@ -118,16 +118,12 @@ export default function ResetPasswordForm() {
 
     try {
       const { error: updateError } = await supabase.auth.updateUser({
-        password: password
+        password: password,
       })
 
-      if (updateError) {
-        throw updateError
-      }
+      if (updateError) throw updateError
 
       setSuccess(true)
-
-      // Redirect to login after 2 seconds
       setTimeout(() => {
         router.push('/login?reset=success')
       }, 2000)
@@ -141,54 +137,72 @@ export default function ResetPasswordForm() {
 
   if (success) {
     return (
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-8">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Check className="w-8 h-8 text-white" />
+      <AuthCvPaper
+        title="Lösenord uppdaterat"
+        subtitle="Du omdirigeras till inloggningssidan..."
+        sectionLabel="Bekräftelse"
+      >
+        <div className="space-y-5">
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-emerald-500 to-emerald-600">
+                <Check className="w-5 h-5 text-white" strokeWidth={2.5} />
+              </div>
+              <p className="text-sm font-bold text-slate-900">
+                Klart — du kan logga in
+              </p>
+            </div>
+            <SuccessStamp text="Godkänt" rotation={-6} />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">
-            Lösenordet har återställts!
-          </h2>
-
-          <p className="text-gray-600 mb-6">
-            Ditt lösenord har uppdaterats. Du omdirigeras till inloggningssidan...
+          <p className="text-sm text-slate-700 leading-relaxed">
+            Ditt lösenord har uppdaterats. Spara det säkert och logga in
+            med det nya lösenordet.
           </p>
 
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
+            className="inline-flex items-center justify-center w-full min-h-[44px] gap-2 px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all"
           >
             Gå till inloggning
           </Link>
         </div>
-      </div>
+      </AuthCvPaper>
     )
   }
 
+  // Validerings-checklist
+  const checks = [
+    { ok: password.length >= 8, label: 'Minst 8 tecken' },
+    { ok: /[A-Z]/.test(password), label: 'Minst en stor bokstav' },
+    { ok: /[a-z]/.test(password), label: 'Minst en liten bokstav' },
+    { ok: /[0-9]/.test(password), label: 'Minst en siffra' },
+  ]
+
+  const isInvalidLink = error?.includes('Ogiltig eller utgången')
+
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-8">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Lock className="w-8 h-8 text-white" />
-        </div>
-
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Skapa nytt lösenord
-        </h2>
-
-        <p className="text-gray-600">
-          Välj ett starkt lösenord för ditt konto.
-        </p>
-      </div>
-
+    <AuthCvPaper
+      title="Skapa nytt lösenord"
+      subtitle="Välj något du kommer ihåg — minst 8 tecken med blandade typer."
+      sectionLabel="Kontoåtkomst"
+    >
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-sm text-red-800">{error}</p>
-          {error.includes('Ogiltig eller utgången') && (
+        <div
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 p-3.5"
+          role="alert"
+        >
+          <div className="flex items-start gap-2.5">
+            <AlertCircle
+              className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+              strokeWidth={2.2}
+            />
+            <p className="text-sm text-red-800">{error}</p>
+          </div>
+          {isInvalidLink && (
             <Link
               href="/auth/forgot-password"
-              className="text-sm font-medium text-blue-600 hover:text-blue-700 mt-2 inline-block"
+              className="ml-7 mt-1.5 inline-block text-sm font-bold text-orange-700 hover:text-orange-800 transition-colors"
             >
               Begär ny återställningslänk →
             </Link>
@@ -197,91 +211,133 @@ export default function ResetPasswordForm() {
       )}
 
       {!sessionReady && !error && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-800">Verifierar återställningslänk...</p>
+        <div className="mb-5 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5 flex items-center gap-2.5">
+          <Loader2
+            className="w-5 h-5 text-orange-600 flex-shrink-0 animate-spin"
+            strokeWidth={2.2}
+          />
+          <p className="text-sm text-orange-900">
+            Verifierar återställningslänk...
+          </p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-            Nytt lösenord
-          </label>
-          <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => handlePasswordChange(e.target.value)}
-              required
-              placeholder="Minst 8 tecken"
-              className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              disabled={loading || !sessionReady}
-            />
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <AuthInput
+          id="password"
+          type={showPassword ? 'text' : 'password'}
+          label="Nytt lösenord"
+          placeholder="Minst 8 tecken"
+          value={password}
+          onChange={(e) => handlePasswordChange(e.target.value)}
+          required
+          disabled={loading || !sessionReady}
+          autoComplete="new-password"
+          rightSlot={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              className="p-1 text-slate-400 hover:text-orange-600 transition-colors"
+              tabIndex={-1}
+              aria-label={
+                showPassword ? 'Dölj lösenord' : 'Visa lösenord'
+              }
             >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showPassword ? (
+                <EyeOff className="w-5 h-5" strokeWidth={2} />
+              ) : (
+                <Eye className="w-5 h-5" strokeWidth={2} />
+              )}
             </button>
-          </div>
-          {validationError && (
-            <p className="mt-2 text-sm text-red-600">{validationError}</p>
-          )}
-        </div>
+          }
+          hint={
+            validationError ? (
+              <span className="text-red-600">{validationError}</span>
+            ) : undefined
+          }
+        />
 
-        <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-            Bekräfta lösenord
-          </label>
-          <div className="relative">
-            <input
-              id="confirmPassword"
-              type={showConfirmPassword ? 'text' : 'password'}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              placeholder="Ange lösenordet igen"
-              className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              disabled={loading || !sessionReady}
-            />
+        <AuthInput
+          id="confirmPassword"
+          type={showConfirmPassword ? 'text' : 'password'}
+          label="Bekräfta lösenord"
+          placeholder="Ange lösenordet igen"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          disabled={loading || !sessionReady}
+          autoComplete="new-password"
+          rightSlot={
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              className="p-1 text-slate-400 hover:text-orange-600 transition-colors"
+              tabIndex={-1}
+              aria-label={
+                showConfirmPassword ? 'Dölj lösenord' : 'Visa lösenord'
+              }
             >
-              {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showConfirmPassword ? (
+                <EyeOff className="w-5 h-5" strokeWidth={2} />
+              ) : (
+                <Eye className="w-5 h-5" strokeWidth={2} />
+              )}
             </button>
-          </div>
-        </div>
+          }
+        />
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-900 font-medium mb-2">Lösenordskrav:</p>
-          <ul className="text-sm text-blue-800 space-y-1">
-            <li className={password.length >= 8 ? 'text-green-700' : ''}>
-              • Minst 8 tecken
-            </li>
-            <li className={/[A-Z]/.test(password) ? 'text-green-700' : ''}>
-              • Minst en stor bokstav
-            </li>
-            <li className={/[a-z]/.test(password) ? 'text-green-700' : ''}>
-              • Minst en liten bokstav
-            </li>
-            <li className={/[0-9]/.test(password) ? 'text-green-700' : ''}>
-              • Minst en siffra
-            </li>
+        {/* Krav-checklist (CV-stil) */}
+        <div className="rounded-xl border border-orange-100 bg-orange-50/40 px-4 py-3.5">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-2.5">
+            Lösenordskrav
+          </p>
+          <ul className="space-y-1.5">
+            {checks.map((check) => (
+              <li
+                key={check.label}
+                className="flex items-center gap-2 text-sm transition-colors"
+              >
+                <span
+                  className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center transition-all ${
+                    check.ok
+                      ? 'bg-emerald-500'
+                      : 'bg-white border border-slate-300'
+                  }`}
+                >
+                  {check.ok && (
+                    <Check
+                      className="w-3 h-3 text-white"
+                      strokeWidth={3}
+                    />
+                  )}
+                </span>
+                <span
+                  className={
+                    check.ok
+                      ? 'text-emerald-700 font-semibold'
+                      : 'text-slate-600'
+                  }
+                >
+                  {check.label}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading || !!validationError || !password || !confirmPassword || !sessionReady}
-          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        <AuthSubmitButton
+          loading={loading}
+          loadingText="Återställer..."
+          disabled={
+            !!validationError ||
+            !password ||
+            !confirmPassword ||
+            !sessionReady
+          }
         >
-          {loading ? 'Återställer...' : 'Återställ lösenord'}
-        </button>
+          Återställ lösenord
+        </AuthSubmitButton>
       </form>
-    </div>
+    </AuthCvPaper>
   )
 }

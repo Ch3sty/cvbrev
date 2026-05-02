@@ -1,73 +1,38 @@
 // src/app/login/page.tsx
 'use client'
 
-import Link from 'next/link'
-import LoginForm from '@/components/auth/login-form'
-import { motion } from 'framer-motion'
 import { Suspense } from 'react'
+import LoginForm from '@/components/auth/login-form'
+import AuthShell from '@/components/auth/AuthShell'
+import { ToolCvAnalysIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+
+const LOGIN_QUOTES = [
+  'Tillbaka för att jaga ditt nästa jobb.',
+  'Var inte ödmjuk — du har stora drömmar.',
+  'En vana att fortsätta söka. En coach som hjälper.',
+]
+
+const LOGIN_STATS = [
+  { value: '12 487', label: 'CV:n skapade' },
+  { value: '94%', label: 'når intervju' },
+  { value: '8', label: 'AI-verktyg' },
+  { value: '2 min', label: 'till färdigt CV' },
+]
 
 export default function LoginPage() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50/30 overflow-hidden">
-      {/* Animated background orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400/10 to-blue-400/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, -75, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-6">
-          <Suspense fallback={<div className="text-center">Laddar...</div>}>
-            <LoginForm />
-          </Suspense>
-
-          {/* Länk för att registrera */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Har du inget konto?{' '}
-              <Link href="/register" className="font-semibold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all">
-                Registrera dig
-              </Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AuthShell
+      illustration={<ToolCvAnalysIllustration className="w-full h-full" />}
+      quotes={LOGIN_QUOTES}
+      stats={LOGIN_STATS}
+    >
+      <Suspense
+        fallback={
+          <div className="text-center text-slate-500 py-12">Laddar...</div>
+        }
+      >
+        <LoginForm />
+      </Suspense>
+    </AuthShell>
   )
 }
