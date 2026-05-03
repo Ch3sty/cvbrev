@@ -1,17 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
+import { useCVStore } from '@/store/cv-store'
 import LinkedInLayout from './LinkedInLayout'
 import AnalysisOverlay from './AnalysisOverlay'
 import Step1Mode, {
   type Language,
   type OptimizationMode,
+  type SourceMode,
 } from './steps/Step1Mode'
 import Step2Profile, { type LinkedInSections } from './steps/Step2Profile'
 import Step3Results, { type OptimizationResults } from './steps/Step3Results'
 import Step4Done from './steps/Step4Done'
+import { cvToLinkedIn } from '../lib/cvToLinkedIn'
 
 const EMPTY_SECTIONS: LinkedInSections = {
   headline: '',
@@ -29,6 +32,10 @@ export default function LinkedInOptimizer() {
   const [targetRole, setTargetRole] = useState('')
   const [language, setLanguage] = useState<Language>('sv')
 
+  // Source-mode: bygg från CV eller manuell inmatning
+  const [sourceMode, setSourceMode] = useState<SourceMode>('manual')
+  const [selectedCvId, setSelectedCvId] = useState<string | null>(null)
+
   const [sections, setSections] = useState<LinkedInSections>(EMPTY_SECTIONS)
 
   const [isAnalyzing, setIsAnalyzing] = useState(false)
@@ -36,6 +43,21 @@ export default function LinkedInOptimizer() {
   const [error, setError] = useState<string | null>(null)
 
   const [fullName, setFullName] = useState<string | undefined>(undefined)
+
+  // Hämta CV-listan via store
+  const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore()
+
+  // Initial fetch + sätt default sourceMode baserat på om användaren har CV
+  useEffect(() => {
+    fetchCVs()
+  }, [fetchCVs])
+
+  useEffect(() => {
+    if (!cvsLoading && cvs.length > 0 && sourceMode === 'manual' && currentStep === 0 && !selectedCvId) {
+      // Default till 'cv' om användaren har CV och vi är på Step 1 utan val ännu
+      setSourceMode('cv')
+    }
+  }, [cvsLoading, cvs.length, sourceMode, currentStep, selectedCvId])
 
   // Hämta användarens namn för mockup
   useEffect(() => {
@@ -46,6 +68,11 @@ export default function LinkedInOptimizer() {
     })
   }, [])
 
+  const selectedCv = useMemo(
+    () => cvs.find((c) => c.id === selectedCvId) ?? null,
+    [cvs, selectedCvId]
+  )
+
   const markCompleted = (step: number) => {
     setCompletedSteps((prev) => (prev.includes(step) ? prev : [...prev, step]))
   }
@@ -53,6 +80,27 @@ export default function LinkedInOptimizer() {
   const handleSectionChange = (key: keyof LinkedInSections, value: string) => {
     setSections((prev) => ({ ...prev, [key]: value }))
     setError(null)
+  }
+
+  const handleSourceModeChange = (next: SourceMode) => {
+    setSourceMode(next)
+    if (next === 'manual') {
+      // Rensa CV-val och tomma fält när användaren byter till manuell
+      setSelectedCvId(null)
+      setSections(EMPTY_SECTIONS)
+    }
+  }
+
+  const handleCvSelect = (cvId: string) => {
+    setSelectedCvId(cvId)
+    const cv = cvs.find((c) => c.id === cvId)
+    if (cv?.structured_data) {
+      const mapped = cvToLinkedIn(cv.structured_data)
+      setSections(mapped)
+    } else {
+      // CV utan strukturerad data — lämna fälten tomma så användaren kan skriva själv
+      setSections(EMPTY_SECTIONS)
+    }
   }
 
   const handleStep1Next = () => {
@@ -140,6 +188,8 @@ export default function LinkedInOptimizer() {
     setResults(null)
     setError(null)
     setIsAnalyzing(false)
+    setSelectedCvId(null)
+    setSourceMode(cvs.length > 0 ? 'cv' : 'manual')
   }
 
   const handleStepClick = (step: number) => {
@@ -168,9 +218,14 @@ export default function LinkedInOptimizer() {
               mode={mode}
               targetRole={targetRole}
               language={language}
+              sourceMode={sourceMode}
+              selectedCvId={selectedCvId}
+              hasCvs={cvs.length > 0}
               onModeChange={setMode}
               onTargetRoleChange={setTargetRole}
               onLanguageChange={setLanguage}
+              onSourceModeChange={handleSourceModeChange}
+              onCvSelect={handleCvSelect}
               onNext={handleStep1Next}
             />
           )}
@@ -182,6 +237,8 @@ export default function LinkedInOptimizer() {
               onBack={() => setCurrentStep(0)}
               onSubmit={handleStartAnalysis}
               error={error}
+              sourceMode={sourceMode}
+              cvFileName={selectedCv?.file_name}
             />
           )}
 
@@ -190,6 +247,7 @@ export default function LinkedInOptimizer() {
               originalSections={sections}
               results={results}
               fullName={fullName}
+              language={language}
               onBack={() => setCurrentStep(1)}
               onNext={handleStep3Next}
             />

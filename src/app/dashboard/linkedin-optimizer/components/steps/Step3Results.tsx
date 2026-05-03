@@ -23,6 +23,7 @@ import CompareToggle, { type CompareSide } from '../CompareToggle'
 import ScoreHero from '../ScoreHero'
 import SectionDetail from '../SectionDetail'
 import type { LinkedInSections } from './Step2Profile'
+import { formatSkillsForCopy } from '../../lib/formatSkillsForCopy'
 
 interface SectionResult {
   optimized: string
@@ -47,6 +48,7 @@ interface Props {
   originalSections: LinkedInSections
   results: OptimizationResults
   fullName?: string
+  language?: 'sv' | 'en'
   onBack: () => void
   onNext: () => void
 }
@@ -68,6 +70,7 @@ export default function Step3Results({
   originalSections,
   results,
   fullName,
+  language = 'sv',
   onBack,
   onNext,
 }: Props) {
@@ -109,7 +112,12 @@ export default function Step3Results({
         const r = results.sections[s.key as keyof typeof results.sections]
         if (r) {
           text += `=== ${s.title.toUpperCase()} ===\n\n`
-          text += r.optimized + '\n\n'
+          // Skills returneras som JSON-objekt — formatera till läsbar text
+          if (s.key === 'skills') {
+            text += formatSkillsForCopy(r.optimized, language) + '\n\n'
+          } else {
+            text += r.optimized + '\n\n'
+          }
         }
       })
       await navigator.clipboard.writeText(text)

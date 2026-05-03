@@ -12,10 +12,12 @@ import {
   Wrench,
   ChevronDown,
   AlertCircle,
+  FileText,
 } from 'lucide-react'
 import LinkedInProfileMockup, { type ProfileMockupData } from '../LinkedInProfileMockup'
 import SectionInput from '../SectionInput'
 import PasteHelper from '../PasteHelper'
+import type { SourceMode } from './Step1Mode'
 
 export interface LinkedInSections {
   headline: string
@@ -31,6 +33,8 @@ interface Props {
   onBack: () => void
   onSubmit: () => void
   error: string | null
+  sourceMode?: SourceMode
+  cvFileName?: string
 }
 
 const SECTION_CONFIG = [
@@ -97,8 +101,12 @@ export default function Step2Profile({
   onBack,
   onSubmit,
   error,
+  sourceMode = 'manual',
+  cvFileName,
 }: Props) {
   const [previewOpen, setPreviewOpen] = useState(false)
+
+  const isFromCv = sourceMode === 'cv'
 
   const previewData: ProfileMockupData = {
     headline: sections.headline,
@@ -129,13 +137,47 @@ export default function Step2Profile({
             Steg 2 av 4
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight">
-            Klistra in din nuvarande profil
+            {isFromCv ? 'Granska och redigera' : 'Klistra in din nuvarande profil'}
           </h1>
           <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
-            Kopiera direkt från LinkedIn. Du ser din profil byggas upp till
-            höger medan du fyller i.
+            {isFromCv
+              ? 'Vi har förslag baserat på ditt CV. Redigera fritt — det du ser här är vad vi optimerar.'
+              : 'Kopiera direkt från LinkedIn. Du ser din profil byggas upp till höger medan du fyller i.'}
           </p>
         </div>
+
+        {/* CV-banner */}
+        {isFromCv && (
+          <div className="mb-5 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5 flex items-start gap-3">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{
+                background:
+                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+              }}
+            >
+              <FileText
+                className="w-4 h-4 text-white"
+                strokeWidth={2.4}
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-slate-900 leading-tight">
+                Förslag baserat på ditt CV
+                {cvFileName && (
+                  <span className="font-medium text-slate-600">
+                    {' · '}
+                    {cvFileName}
+                  </span>
+                )}
+              </p>
+              <p className="text-xs text-slate-600 leading-snug mt-0.5">
+                Redigera fritt — det du ser här är det som skickas till AI:n.
+                Vi hittar inte på något utöver det du har i fälten.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Mobil: dragspel för att se mockupen */}
         <div className="lg:hidden mb-4">
@@ -187,9 +229,11 @@ export default function Step2Profile({
           </AnimatePresence>
         </div>
 
-        <div className="mb-5">
-          <PasteHelper />
-        </div>
+        {!isFromCv && (
+          <div className="mb-5">
+            <PasteHelper />
+          </div>
+        )}
 
         {/* Inputs — alla synliga, scroll igenom */}
         <div className="space-y-5">
