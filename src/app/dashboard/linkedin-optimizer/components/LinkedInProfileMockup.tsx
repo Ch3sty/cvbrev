@@ -38,9 +38,27 @@ const PLACEHOLDER_HEADLINE = 'Din rubrik kommer synas här'
 const PLACEHOLDER_ABOUT =
   'Din presentationstext dyker upp här när du klistrar in din "Om mig"-sektion.'
 
-function getInitials(name?: string): string {
-  if (!name || !name.trim()) return '?'
-  const parts = name.trim().split(/\s+/)
+/**
+ * Säker konvertering till string. Edge function kan ibland returnera objekt
+ * istället för string för vissa fält (t.ex. skills som JSON-objekt).
+ */
+function safeStr(value: unknown): string {
+  if (typeof value === 'string') return value
+  if (value == null) return ''
+  if (typeof value === 'object') {
+    try {
+      return JSON.stringify(value)
+    } catch {
+      return ''
+    }
+  }
+  return String(value)
+}
+
+function getInitials(name?: unknown): string {
+  const safe = safeStr(name)
+  if (!safe.trim()) return '?'
+  const parts = safe.trim().split(/\s+/)
   if (parts.length === 1) return parts[0]!.charAt(0).toUpperCase()
   return (parts[0]!.charAt(0) + parts[parts.length - 1]!.charAt(0)).toUpperCase()
 }
@@ -49,9 +67,10 @@ function getInitials(name?: string): string {
  * Parsa erfarenhet-text till entries.
  * Vi gör en pragmatisk split: dubbel-radbrytning = ny roll. Första raden = titel, andra = företag/datum.
  */
-function parseExperience(text?: string): Array<{ title: string; meta: string; body: string }> {
-  if (!text || !text.trim()) return []
-  const blocks = text
+function parseExperience(text?: unknown): Array<{ title: string; meta: string; body: string }> {
+  const safe = safeStr(text)
+  if (!safe.trim()) return []
+  const blocks = safe
     .split(/\n\s*\n/)
     .map((b) => b.trim())
     .filter(Boolean)
@@ -65,9 +84,10 @@ function parseExperience(text?: string): Array<{ title: string; meta: string; bo
   })
 }
 
-function parseEducation(text?: string): Array<{ school: string; meta: string }> {
-  if (!text || !text.trim()) return []
-  const blocks = text
+function parseEducation(text?: unknown): Array<{ school: string; meta: string }> {
+  const safe = safeStr(text)
+  if (!safe.trim()) return []
+  const blocks = safe
     .split(/\n\s*\n/)
     .map((b) => b.trim())
     .filter(Boolean)
@@ -81,11 +101,37 @@ function parseEducation(text?: string): Array<{ school: string; meta: string }> 
   })
 }
 
-function parseSkills(raw?: string): string[] {
-  if (!raw || !raw.trim()) return []
-  // Försök först JSON-parse (för optimerad output)
+function parseSkills(raw?: unknown): string[] {
+  // Hantera direkt objekt-input (edge function kan returnera struktur)
+  if (raw && typeof raw === 'object') {
+    const obj = raw as Record<string, unknown>
+    const strong = Array.isArray(obj.strong_skills)
+      ? (obj.strong_skills as unknown[]).filter(
+          (s): s is string => typeof s === 'string'
+        )
+      : []
+    const suggested = Array.isArray(obj.suggested_skills)
+      ? (obj.suggested_skills as unknown[])
+          .map((s) =>
+            typeof s === 'string'
+              ? s
+              : s && typeof s === 'object' && 'skill' in s
+              ? safeStr((s as { skill: unknown }).skill)
+              : ''
+          )
+          .filter(Boolean)
+      : []
+    const combined = [...strong, ...suggested]
+    if (combined.length > 0) return combined.slice(0, 8)
+    return []
+  }
+
+  const safe = safeStr(raw)
+  if (!safe.trim()) return []
+
+  // Försök först JSON-parse (för optimerad output som string-JSON)
   try {
-    const parsed = JSON.parse(raw)
+    const parsed = JSON.parse(safe)
     if (parsed && typeof parsed === 'object') {
       const strong = Array.isArray(parsed.strong_skills) ? parsed.strong_skills : []
       const suggested = Array.isArray(parsed.suggested_skills)
@@ -97,8 +143,9 @@ function parseSkills(raw?: string): string[] {
   } catch {
     // ignore
   }
+
   // Fall: komma-separerat
-  return raw
+  return safe
     .split(/[,\n]+/)
     .map((s) => s.trim())
     .filter(Boolean)
@@ -160,14 +207,19 @@ export default function LinkedInProfileMockup({
   const educations = useMemo(() => parseEducation(data.education), [data.education])
   const skills = useMemo(() => parseSkills(data.skills), [data.skills])
 
-  const displayName = data.fullName?.trim() || PLACEHOLDER_NAME
-  const displayLocation = data.location?.trim() || PLACEHOLDER_LOCATION
-  const displayHeadline = data.headline?.trim() || PLACEHOLDER_HEADLINE
-  const displayAbout = data.about?.trim() || PLACEHOLDER_ABOUT
+  const fullNameStr = safeStr(data.fullName).trim()
+  const locationStr = safeStr(data.location).trim()
+  const headlineStr = safeStr(data.headline).trim()
+  const aboutStr = safeStr(data.about).trim()
 
-  const hasName = !!data.fullName?.trim()
-  const hasHeadline = !!data.headline?.trim()
-  const hasAbout = !!data.about?.trim()
+  const displayName = fullNameStr || PLACEHOLDER_NAME
+  const displayLocation = locationStr || PLACEHOLDER_LOCATION
+  const displayHeadline = headlineStr || PLACEHOLDER_HEADLINE
+  const displayAbout = aboutStr || PLACEHOLDER_ABOUT
+
+  const hasName = !!fullNameStr
+  const hasHeadline = !!headlineStr
+  const hasAbout = !!aboutStr
 
   return (
     <div className={`relative w-full ${className}`}>
