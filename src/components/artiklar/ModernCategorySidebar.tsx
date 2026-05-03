@@ -159,7 +159,7 @@ const ModernCategorySidebar: React.FC<ModernCategorySidebarProps> = ({ categorie
 
         {/* CTA Card 2: Analysera CV */}
         <Link
-          href="/analysera-cv"
+          href="/dashboard/cv-analys"
           className="group block p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
         >
           <div className="flex items-start space-x-3">

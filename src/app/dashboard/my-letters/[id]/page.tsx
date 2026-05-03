@@ -187,7 +187,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       {/* Navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-8">
         <Link href="/dashboard/my-letters" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <ArrowLeft className="w-4 h-4 mr-2" /> Tillbaka till mina brev </Link>
-        <Link href="/create-letter" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors"> <Plus className="w-4 h-4 mr-2" /> Skapa nytt brev </Link>
+        <Link href="/dashboard/skapa-brev" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors"> <Plus className="w-4 h-4 mr-2" /> Skapa nytt brev </Link>
       </div>
 
       {/* Delete confirmation modal */}

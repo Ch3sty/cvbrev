@@ -588,7 +588,7 @@ export default function MyLettersPage() {
                   )}
                 </button>
                 
-                <Link href="/create-letter"
+                <Link href="/dashboard/skapa-brev"
                   className={`inline-flex items-center px-5 py-2.5 text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all font-medium shadow-lg hover:shadow-pink-500/25 ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
                   aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
                   onClick={(e) => {
@@ -715,7 +715,7 @@ export default function MyLettersPage() {
                       <h4 className="font-semibold text-red-200 mb-1">Maxgräns nådd</h4>
                       <p className="text-red-200 text-sm">
                         Du har nått maxgränsen ({maxSavedLetters}). Ta bort ett brev eller
-                        <Link href="/profile#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">
+                        <Link href="/dashboard/profil#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">
                           uppgradera till Premium
                         </Link>.
                       </p>
@@ -753,7 +753,7 @@ export default function MyLettersPage() {
                     Det ser lite tomt ut här. Klicka nedan för att skapa ditt första skräddarsydda brev!
                   </p>
                   <Link
-                    href="/create-letter"
+                    href="/dashboard/skapa-brev"
                     className="inline-flex items-center px-6 py-3 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium" // ProfilePage knappstil
                     >
                     <Plus className="w-5 h-5 mr-2" />

@@ -323,7 +323,7 @@ export default function CvSkapaOchMallarSection() {
 
         <div className="text-center mt-8">
           <Link
-            href="/cv-mallar"
+            href="/dashboard/cv-mallar"
             className="inline-flex items-center gap-1.5 text-orange-700 hover:text-orange-800 font-bold text-sm group"
           >
             Se alla CV-mallar

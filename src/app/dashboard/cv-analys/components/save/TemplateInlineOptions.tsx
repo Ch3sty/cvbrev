@@ -89,7 +89,7 @@ export default function TemplateInlineOptions({
 
       {hasMissingData && (
         <Link
-          href="/profile"
+          href="/dashboard/profil"
           className="inline-flex items-center gap-1.5 text-xs text-rose-700 hover:text-rose-900 font-semibold"
         >
           <AlertCircle className="w-3.5 h-3.5" strokeWidth={2.25} />

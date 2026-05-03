@@ -101,7 +101,7 @@ function DefaultErrorFallback({ error, resetError }: FallbackProps) {
             Försök igen
           </Button>
           
-          <Link href="/profile" className="block">
+          <Link href="/dashboard/profil" className="block">
             <Button variant="outline" className="w-full border-navy-600 hover:bg-navy-700 text-gray-300">
               <Home className="w-4 h-4 mr-2" />
               Gå till profil

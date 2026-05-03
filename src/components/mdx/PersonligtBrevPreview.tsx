@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 
 // Dynamisk import för att undvika SSR-problem med framer-motion
 const InteractiveLetterPreview = dynamic(
-  () => import('@/app/personligt-brev-exempel/[yrke]/InteractiveLetterPreview'),
+  () => import('@/app/(public)/personligt-brev-exempel/[yrke]/InteractiveLetterPreview'),
   { ssr: false, loading: () => <LetterSkeleton /> }
 )
 

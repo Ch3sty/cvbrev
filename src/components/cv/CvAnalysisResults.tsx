@@ -510,7 +510,7 @@ const PremiumTeaserSection: React.FC = React.memo(() => (
             Få detaljerade exempel, ATS-analys, kvantifieringsförslag och mer avancerad poängsättning för att verkligen optimera ditt CV.
         </p>
         <Link
-            href="/profile?tab=subscription"
+            href="/dashboard/profil/prenumeration"
             className="inline-flex items-center px-6 py-3 text-sm font-medium text-white transition-all bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
         >
             Uppgradera till Premium
@@ -826,7 +826,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                                 </Link>
 
                                 <Link
-                                    href="/cv-mallar"
+                                    href="/dashboard/cv-mallar"
                                     className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all"
                                 >
                                     <div className="flex items-center justify-center gap-2">

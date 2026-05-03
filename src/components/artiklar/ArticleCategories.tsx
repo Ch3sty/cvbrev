@@ -164,7 +164,7 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
           </Link>
 
           {/* Box 2: Analysera CV */}
-          <Link href="/analysera-cv" className={ctaLinkClasses} >
+          <Link href="/dashboard/cv-analys" className={ctaLinkClasses} >
             <div className="flex items-start space-x-3">
               {/* Ikon: Lite subtil glow på hover */}
               <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
