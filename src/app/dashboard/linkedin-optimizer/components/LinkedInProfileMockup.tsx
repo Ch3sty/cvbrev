@@ -55,6 +55,37 @@ function safeStr(value: unknown): string {
   return String(value)
 }
 
+/**
+ * Strippa markdown-syntax så texten visas rent i mockupen.
+ * Edge functionens optimerade output använder ofta **bold**, *italic*,
+ * `- bullet`, `### heading` etc. som ser fult ut i en visuell mockup.
+ */
+function stripMarkdown(text: string): string {
+  return text
+    // Tre-stjärnig bold-italic
+    .replace(/\*\*\*([^*]+?)\*\*\*/g, '$1')
+    // Bold **text**
+    .replace(/\*\*([^*]+?)\*\*/g, '$1')
+    // Italic *text*  (men inte * i mitten av ord)
+    .replace(/(^|\s)\*([^*\n]+?)\*(?=\s|$|[.,;:!?])/g, '$1$2')
+    // Underline-bold __text__
+    .replace(/__([^_]+?)__/g, '$1')
+    // Inline code `text`
+    .replace(/`([^`]+?)`/g, '$1')
+    // Heading-markörer i början på rad: ###, ##, #
+    .replace(/^#{1,6}\s+/gm, '')
+    // Bullet-markörer i början på rad: -, *, +
+    .replace(/^[\s]*[-*+]\s+/gm, '')
+    // Numrerade listor: 1.  2.  etc
+    .replace(/^[\s]*\d+\.\s+/gm, '')
+    // Markdown-länkar [text](url) → text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Blockquote >
+    .replace(/^>\s+/gm, '')
+    // Trim efter ändringar
+    .replace(/[ \t]+\n/g, '\n')
+}
+
 function getInitials(name?: unknown): string {
   const safe = safeStr(name)
   if (!safe.trim()) return '?'
@@ -68,7 +99,7 @@ function getInitials(name?: unknown): string {
  * Vi gör en pragmatisk split: dubbel-radbrytning = ny roll. Första raden = titel, andra = företag/datum.
  */
 function parseExperience(text?: unknown): Array<{ title: string; meta: string; body: string }> {
-  const safe = safeStr(text)
+  const safe = stripMarkdown(safeStr(text))
   if (!safe.trim()) return []
   const blocks = safe
     .split(/\n\s*\n/)
@@ -85,7 +116,7 @@ function parseExperience(text?: unknown): Array<{ title: string; meta: string; b
 }
 
 function parseEducation(text?: unknown): Array<{ school: string; meta: string }> {
-  const safe = safeStr(text)
+  const safe = stripMarkdown(safeStr(text))
   if (!safe.trim()) return []
   const blocks = safe
     .split(/\n\s*\n/)
@@ -207,10 +238,10 @@ export default function LinkedInProfileMockup({
   const educations = useMemo(() => parseEducation(data.education), [data.education])
   const skills = useMemo(() => parseSkills(data.skills), [data.skills])
 
-  const fullNameStr = safeStr(data.fullName).trim()
-  const locationStr = safeStr(data.location).trim()
-  const headlineStr = safeStr(data.headline).trim()
-  const aboutStr = safeStr(data.about).trim()
+  const fullNameStr = stripMarkdown(safeStr(data.fullName)).trim()
+  const locationStr = stripMarkdown(safeStr(data.location)).trim()
+  const headlineStr = stripMarkdown(safeStr(data.headline)).trim()
+  const aboutStr = stripMarkdown(safeStr(data.about)).trim()
 
   const displayName = fullNameStr || PLACEHOLDER_NAME
   const displayLocation = locationStr || PLACEHOLDER_LOCATION

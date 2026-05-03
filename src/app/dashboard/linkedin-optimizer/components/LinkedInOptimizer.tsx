@@ -35,6 +35,9 @@ export default function LinkedInOptimizer() {
   // Source-mode: bygg från CV eller manuell inmatning
   const [sourceMode, setSourceMode] = useState<SourceMode>('manual')
   const [selectedCvId, setSelectedCvId] = useState<string | null>(null)
+  // Flagga som visar att användaren gjort ett aktivt val — vi auto-sätter
+  // sourceMode bara EN gång, vid första gången CV-listan laddats.
+  const [sourceModeInitialized, setSourceModeInitialized] = useState(false)
 
   const [sections, setSections] = useState<LinkedInSections>(EMPTY_SECTIONS)
 
@@ -53,11 +56,14 @@ export default function LinkedInOptimizer() {
   }, [fetchCVs])
 
   useEffect(() => {
-    if (!cvsLoading && cvs.length > 0 && sourceMode === 'manual' && currentStep === 0 && !selectedCvId) {
-      // Default till 'cv' om användaren har CV och vi är på Step 1 utan val ännu
+    // Kör bara EN gång efter att CV-listan laddats första gången.
+    // Sedan respekterar vi alltid användarens aktiva val.
+    if (cvsLoading || sourceModeInitialized) return
+    if (cvs.length > 0) {
       setSourceMode('cv')
     }
-  }, [cvsLoading, cvs.length, sourceMode, currentStep, selectedCvId])
+    setSourceModeInitialized(true)
+  }, [cvsLoading, cvs.length, sourceModeInitialized])
 
   // Hämta användarens namn för mockup
   useEffect(() => {
