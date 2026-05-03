@@ -295,7 +295,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           <div className="flex items-center justify-between">
             <div className="flex-1">
               {hasReachedLimit && (
-                <div className="flex items-center text-yellow-700 text-sm">
+                <div className="flex items-center text-orange-700 text-sm font-semibold">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Du har nått din veckogräns
                 </div>
@@ -306,7 +306,12 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
               {hasReachedLimit ? (
                 <button
                   onClick={handleUpgrade}
-                  className="flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                  className="flex items-center px-5 py-3 text-white rounded-xl font-bold transition-all hover:scale-[1.02] active:scale-[0.99]"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                    boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
+                  }}
                 >
                   <Lock className="w-4 h-4 mr-2" />
                   Uppgradera för fler analyser
@@ -315,11 +320,21 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                 <button
                   onClick={handleStartAnalysis}
                   disabled={!isInputValid() || loading}
-                  className={`flex items-center px-6 py-3 rounded-lg font-medium transition-all ${
+                  className={`flex items-center px-6 py-3 rounded-xl font-bold transition-all ${
                     isInputValid() && !loading
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      ? 'text-white hover:scale-[1.02] active:scale-[0.99]'
+                      : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   }`}
+                  style={
+                    isInputValid() && !loading
+                      ? {
+                          background:
+                            'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                          boxShadow:
+                            '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
+                        }
+                      : undefined
+                  }
                 >
                   <PlayCircle className="w-5 h-5 mr-2" />
                   Starta analys

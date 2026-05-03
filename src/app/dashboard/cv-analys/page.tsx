@@ -15,6 +15,7 @@ import { useCvQuota } from '@/hooks/useCvQuota';
 // Components
 import CVAnalysisWizard from './components/CVAnalysisWizard';
 import CVAnalysisIntro from './components/CVAnalysisIntro';
+import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
 
 // Utility Functions
 import { logUserActivity } from '@/lib/activity-logger';
@@ -151,18 +152,11 @@ export default function CVAnalysisPage() {
 
   if (hasReachedLimit) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="max-w-md text-center">
-          <h2 className="text-2xl font-bold mb-4">Veckogräns nådd</h2>
-          <p className="text-gray-600 mb-6">Du har använt alla dina CV-analyser denna vecka.</p>
-          <button
-            onClick={() => router.push('/profile?tab=subscription')}
-            className="px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg"
-          >
-            Uppgradera till Premium
-          </button>
-        </div>
-      </div>
+      <WeeklyLimitReached
+        title="Veckogräns nådd"
+        description="Du har använt alla dina CV-analyser denna vecka."
+        resetHint="Din kvot återställs automatiskt nästa måndag."
+      />
     );
   }
 

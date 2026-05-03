@@ -8,6 +8,7 @@ import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
 import { useCvQuota } from '@/hooks/useCvQuota';
+import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
 import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -353,6 +354,24 @@ export default function CreateLetterPage() {
 
   const canGenerate =
     !!selectedCV && jobDescription.length > 20 && !!templateId && !!tonality;
+
+  // Free-användare som använt sin veckokvot ser tom-state istället för flödet
+  const isFreeTier = subscriptionTier === 'free';
+  const hasReachedWeeklyLimit =
+    isFreeTier &&
+    remainingWeeklyLetters !== null &&
+    remainingWeeklyLetters !== undefined &&
+    remainingWeeklyLetters <= 0;
+
+  if (hasReachedWeeklyLimit) {
+    return (
+      <WeeklyLimitReached
+        title="Veckogräns nådd"
+        description="Du har använt alla dina personliga brev denna vecka."
+        resetHint="Din kvot återställs automatiskt nästa måndag."
+      />
+    );
+  }
 
   return (
     <>
