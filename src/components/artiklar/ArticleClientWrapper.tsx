@@ -5,7 +5,6 @@ import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import { PostMeta } from '@/lib/blog';
 
-import PremiumNavbar from '@/components/PremiumNavbar';
 import ArticleSidebar from '@/components/artiklar/ArticleSidebar';
 import ArticleHero from '@/components/artiklar/ArticleHero';
 import ArticleAuthorCard from '@/components/artiklar/ArticleAuthorCard';
@@ -57,8 +56,6 @@ export default function ArticleClientWrapper({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/20">
-      <PremiumNavbar />
-
       {/* Reading progress bar */}
       <motion.div
         className="fixed top-16 left-0 right-0 h-1 z-40 origin-left"
