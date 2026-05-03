@@ -162,37 +162,15 @@ export default function RewardsPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Premium Dynamic Background */}
-      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.9 }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-50/20 to-pink-50/30" />
-
-        {/* Animated gradient orbs */}
-        <div
-          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
-            filter: 'blur(60px)',
-            animation: 'float-orb1 25s ease-in-out infinite'
-          }}
-        />
-        <div
-          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
-            filter: 'blur(80px)',
-            animation: 'float-orb2 30s ease-in-out infinite'
-          }}
-        />
-        <div
-          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
-            filter: 'blur(70px)',
-            animation: 'float-orb3 20s ease-in-out infinite'
-          }}
-        />
-      </div>
+      {/* Subtil orange radial-glow uppe — matchar (public)/auth-DNA */}
+      <div
+        className="fixed inset-x-0 top-0 h-[50vh] pointer-events-none z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
 
       {/* Main Content */}
       <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
@@ -282,23 +260,6 @@ export default function RewardsPage() {
         activationResult={activationResult}
       />
 
-      {/* CSS Animations */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes float-orb1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(150px, -100px) scale(1.2); }
-          66% { transform: translate(-50px, 50px) scale(0.9); }
-        }
-        @keyframes float-orb2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-200px, 150px) scale(0.8); }
-          66% { transform: translate(100px, -80px) scale(1.1); }
-        }
-        @keyframes float-orb3 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(100px, -80px) scale(1.1); }
-        }
-      `}} />
     </div>
   )
 }

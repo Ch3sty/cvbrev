@@ -52,7 +52,6 @@ import CostTimeSeriesChart from '@/components/admin/CostTimeSeriesChart';
 import UsageStatisticsChart from '@/components/admin/UsageStatisticsChart';
 import FeaturePopularityChart from '@/components/admin/FeaturePopularityChart';
 import UserEngagementTable from '@/components/admin/UserEngagementTable';
-import FloatingParticles from '@/components/dashboard/FloatingParticles';
 
 interface DashboardStats {
   users: {
@@ -729,90 +728,14 @@ export default function StatisticsPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Premium Dynamic Background */}
-      <motion.div
-        className="fixed inset-0 pointer-events-none -z-10"
-        style={{ opacity: 0.9 }}
-      >
-        {/* Primary gradient foundation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
-
-        {/* Animated morphing gradient orbs */}
-        <motion.div
-          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
-            filter: 'blur(60px)',
-          }}
-          animate={{
-            x: [0, 150, 0],
-            y: [0, -100, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: "easeInOut"
-          }}
-        />
-
-        <motion.div
-          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-          animate={{
-            x: [0, -200, 0],
-            y: [0, 150, 0],
-            scale: [1, 0.8, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: "easeInOut"
-          }}
-        />
-
-        <motion.div
-          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
-            filter: 'blur(70px)',
-          }}
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -80, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: "easeInOut"
-          }}
-        />
-
-        {/* Subtle pattern overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            opacity: 0.015,
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\'/%3E%3C/g%3E%3C/svg%3E")',
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </motion.div>
-
-      {/* Floating particles */}
-      <FloatingParticles
-        count={15}
-        colors={['bg-pink-400/8', 'bg-purple-400/8', 'bg-blue-400/8', 'bg-indigo-400/8', 'bg-emerald-400/8']}
-        size="lg"
-        speed="slow"
-        className="fixed inset-0 pointer-events-none -z-5"
+      {/* Subtil orange radial-glow uppe — matchar (public)/auth-DNA */}
+      <div
+        className="fixed inset-x-0 top-0 h-[50vh] pointer-events-none -z-10"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
       />
 
       <div className="container mx-auto px-4 py-8 relative z-10">
