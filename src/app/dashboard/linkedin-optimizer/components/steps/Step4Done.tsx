@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import {
   ExternalLink,
   FileText,
@@ -17,6 +16,7 @@ import {
 import { toast } from 'react-toastify'
 import { createCVFromLinkedIn } from '@/lib/linkedin/linkedin-to-cv-converter'
 import { createClient } from '@/lib/supabase/client'
+import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner'
 import LinkedInProfileMockup, {
   type ProfileMockupData,
 } from '../LinkedInProfileMockup'
@@ -219,38 +219,8 @@ export default function Step4Done({
         </button>
 
         {saveError && quotaExceeded && (
-          <div
-            className="mb-3 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5"
-            role="alert"
-          >
-            <div className="flex items-start gap-2.5">
-              <AlertCircle
-                className="w-4 h-4 text-orange-700 flex-shrink-0 mt-0.5"
-                strokeWidth={2.4}
-              />
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-slate-900 mb-1">
-                  Du har nått din CV-gräns
-                </p>
-                <p className="text-xs text-slate-700 leading-relaxed mb-2">
-                  {saveError}
-                </p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Link
-                    href="/dashboard/profil/cv"
-                    className="text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
-                  >
-                    Hantera CV →
-                  </Link>
-                  <Link
-                    href="/dashboard/profil/prenumeration"
-                    className="text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
-                  >
-                    Uppgradera till Premium →
-                  </Link>
-                </div>
-              </div>
-            </div>
+          <div className="mb-3">
+            <QuotaExceededBanner message={saveError} />
           </div>
         )}
 

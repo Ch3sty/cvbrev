@@ -11,6 +11,7 @@ import AnalysisFlowLayout from './AnalysisFlowLayout';
 import AnalysisFlowHero from './AnalysisFlowHero';
 import AnalysisFlowProgress, { ANALYSIS_STEPS } from './AnalysisFlowProgress';
 import AnalysisFlowStepHeader from './AnalysisFlowStepHeader';
+import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner';
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -107,6 +108,7 @@ export default function CVAnalysisWizard({
 
   const [isSaving, setIsSaving] = useState(false);
   const [savedCvId, setSavedCvId] = useState<string | undefined>();
+  const [quotaError, setQuotaError] = useState<string | null>(null);
   const [savedFileName, setSavedFileName] = useState('');
 
   const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
@@ -545,8 +547,14 @@ export default function CVAnalysisWizard({
           });
 
           if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || 'Kunde inte spara CV');
+            const errorData = await response.json();
+            const err = new Error(
+              errorData.message || errorData.error || 'Kunde inte spara CV'
+            ) as Error & { quotaExceeded?: boolean; status?: number };
+            err.quotaExceeded =
+              errorData.quota_exceeded === true || response.status === 403;
+            err.status = response.status;
+            throw err;
           }
 
           const { cvId: newCvId } = await response.json();
@@ -714,7 +722,15 @@ export default function CVAnalysisWizard({
       } catch (error: any) {
         console.error('Save error:', error);
         clearInterval(progressInterval);
-        alert(error.message || 'Ett fel uppstod vid sparande');
+        const isQuota = error?.quotaExceeded === true;
+        if (isQuota) {
+          setQuotaError(error.message);
+          if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        } else {
+          alert(error.message || 'Ett fel uppstod vid sparande');
+        }
         setIsSaving(false);
         setShowSaveProgress(false);
         setSaveProgress(0);
@@ -1093,6 +1109,13 @@ export default function CVAnalysisWizard({
             completedSteps={completedSteps}
             onStepClick={goToStep}
           />
+
+          {/* Kvotgräns nådd */}
+          {quotaError && (
+            <div className="mb-4">
+              <QuotaExceededBanner message={quotaError} />
+            </div>
+          )}
 
           {/* Hero visas bara på Steg 0 */}
           {currentStep === 0 && <AnalysisFlowHero />}

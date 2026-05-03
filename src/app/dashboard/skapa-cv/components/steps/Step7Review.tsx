@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
 import { getTemplateGenerator } from '@/lib/cv/templates';
+import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner';
 import type { CVDraft } from '../CVCreatorWizard';
 import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
 
@@ -192,6 +193,7 @@ export default function Step7Review({
   const [cvName, setCvName] = useState(`CV - ${cvData.personalInfo.fullName || 'Nytt CV'}`);
   const [previewHTML, setPreviewHTML] = useState<string>('');
   const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
+  const [quotaError, setQuotaError] = useState<string | null>(null);
 
   // Generate HTML preview when template or data changes
   useEffect(() => {
@@ -292,6 +294,7 @@ export default function Step7Review({
 
   // Handle action completion with confirmation view
   const handleAction = async (action: 'save' | 'download' | 'both') => {
+    setQuotaError(null);
     try {
       await onComplete(action);
 
@@ -303,7 +306,16 @@ export default function Step7Review({
       setViewMode('confirmation');
     } catch (error) {
       console.error('Error completing action:', error);
-      // Fel hanteras av parent-komponenten
+      const isQuota =
+        error instanceof Error &&
+        (error as Error & { quotaExceeded?: boolean }).quotaExceeded === true;
+      if (isQuota) {
+        setQuotaError(error.message);
+        // Scrolla upp så banner syns
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
     }
   };
 
@@ -352,6 +364,11 @@ export default function Step7Review({
           Välj en mall och se hur ditt CV ser ut innan du laddar ner.
         </p>
       </div>
+
+      {/* Kvotgräns nådd */}
+      {quotaError && (
+        <QuotaExceededBanner message={quotaError} />
+      )}
 
       {/* Template Selection - Horizontal Carousel */}
       <div className="space-y-3">

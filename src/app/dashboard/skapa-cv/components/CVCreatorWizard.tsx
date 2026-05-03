@@ -431,7 +431,13 @@ export default function CVCreatorWizard() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Kunde inte spara CV');
+          const error = new Error(
+            errorData.message || errorData.error || 'Kunde inte spara CV'
+          ) as Error & { quotaExceeded?: boolean; status?: number };
+          error.quotaExceeded =
+            errorData.quota_exceeded === true || response.status === 403;
+          error.status = response.status;
+          throw error;
         }
 
         // Clear draft after successful save
