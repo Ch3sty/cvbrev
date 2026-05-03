@@ -128,7 +128,7 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
         // Hämta alla activity-typer användaren har
         const { data: activities } = await supabase
           .from('user_activities')
-          .select('activity_type, target_id')
+          .select('activity_type, metadata')
           .eq('user_id', userId);
 
         const usedTypes = new Set<string>();
@@ -136,7 +136,13 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
         if (activities) {
           for (const a of activities) {
             if (a.activity_type) usedTypes.add(a.activity_type);
-            if (a.target_id) usedTargets.add(a.target_id);
+            // Försök läsa target ur metadata (jsonb) — fallback om det saknas
+            const meta = (a as { metadata?: Record<string, unknown> }).metadata;
+            const target =
+              meta && typeof meta === 'object'
+                ? (meta.target ?? meta.target_id ?? meta.feature)
+                : undefined;
+            if (typeof target === 'string') usedTargets.add(target);
           }
         }
 
@@ -147,7 +153,7 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
         };
 
         const isUsed = (slug: FeatureSlug['slug']): boolean => {
-          // För jobbcoachen/tester/rewards kollar vi om target_id matchar route
+          // För jobbcoachen/tester/rewards kollar vi om target i metadata matchar route
           if (slug === 'jobbcoachen') return usedTargets.has('jobbcoachen');
           if (slug === 'tester') return usedTargets.has('tester');
           if (slug === 'rewards') return usedTargets.has('rewards');

@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LinkedInProfileMockup from '../LinkedInProfileMockup'
-import UnifiedCVSelector from '@/components/cv/unified-cv-selector'
+import CvSelectorList from '../CvSelectorList'
 
 export type OptimizationMode = 'stand_out' | 'target_role'
 export type Language = 'sv' | 'en'
@@ -233,12 +233,9 @@ export default function Step1Mode({
                     Välj CV att utgå ifrån
                   </span>
                 </div>
-                <UnifiedCVSelector
-                  selectedCV={selectedCvId}
-                  onCVSelect={onCvSelect}
-                  variant="compact"
-                  showHeader={false}
-                  showEmptyState={false}
+                <CvSelectorList
+                  selectedCvId={selectedCvId}
+                  onSelect={onCvSelect}
                 />
               </div>
             </motion.div>
