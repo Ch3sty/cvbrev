@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, Calendar, Check, ArrowRight, Upload } from 'lucide-react';
+import { FileText, Calendar, Check, ArrowRight, Upload, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { formatCVDate } from '@/lib/utils/date-formatter';
+import { useCvQuota } from '@/hooks/useCvQuota';
 
 interface CVSelectionStepProps {
   cvs: any[];
@@ -17,6 +18,8 @@ interface CVSelectionStepProps {
  * emerald done-state, dokument-mönster i bakgrunden).
  */
 export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelectionStepProps) {
+  const { isLocked } = useCvQuota();
+
   if (!cvs || cvs.length === 0) {
     return (
       <div className="rounded-2xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-8 text-center">
@@ -41,14 +44,20 @@ export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelec
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-        {cvs.map((cv) => (
-          <CvPickerCard
-            key={cv.id}
-            cv={cv}
-            isSelected={selectedCV === cv.id}
-            onSelect={() => onSelectCV(cv.id)}
-          />
-        ))}
+        {cvs.map((cv) => {
+          const locked = isLocked(cv.id);
+          return (
+            <CvPickerCard
+              key={cv.id}
+              cv={cv}
+              isSelected={selectedCV === cv.id}
+              isLocked={locked}
+              onSelect={() => {
+                if (!locked) onSelectCV(cv.id);
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Subtil länk till uppladdning */}
@@ -80,30 +89,42 @@ export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelec
 function CvPickerCard({
   cv,
   isSelected,
+  isLocked,
   onSelect,
 }: {
   cv: { id: string; file_name: string; created_at: string };
   isSelected: boolean;
+  isLocked: boolean;
   onSelect: () => void;
 }) {
   return (
     <motion.button
       type="button"
       onClick={onSelect}
+      disabled={isLocked}
+      title={
+        isLocked
+          ? 'CV:t är låst — uppgradera till Premium för att kunna analysera det'
+          : undefined
+      }
       initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: isLocked ? 0.6 : 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
-      className={`group relative w-full text-left bg-white rounded-2xl border-2 transition-all overflow-hidden focus:outline-none ${
-        isSelected
-          ? 'border-emerald-500'
-          : 'border-slate-200 hover:border-orange-300'
+      whileHover={isLocked ? undefined : { y: -3 }}
+      whileTap={isLocked ? undefined : { scale: 0.98 }}
+      className={`group relative w-full text-left rounded-2xl border-2 transition-all overflow-hidden focus:outline-none ${
+        isLocked
+          ? 'bg-slate-50 border-slate-200 cursor-not-allowed'
+          : isSelected
+            ? 'bg-white border-emerald-500'
+            : 'bg-white border-slate-200 hover:border-orange-300'
       }`}
       style={{
-        boxShadow: isSelected
-          ? '0 0 0 4px rgba(16, 185, 129, 0.15), 0 8px 24px -8px rgba(16, 185, 129, 0.25)'
-          : '0 1px 2px rgba(0, 0, 0, 0.04)',
+        boxShadow: isLocked
+          ? '0 1px 2px rgba(0, 0, 0, 0.04)'
+          : isSelected
+            ? '0 0 0 4px rgba(16, 185, 129, 0.15), 0 8px 24px -8px rgba(16, 185, 129, 0.25)'
+            : '0 1px 2px rgba(0, 0, 0, 0.04)',
       }}
       aria-pressed={isSelected}
     >
@@ -111,11 +132,23 @@ function CvPickerCard({
       <div
         className="absolute top-0 left-0 right-0 h-[3px]"
         style={{
-          background: isSelected
-            ? 'linear-gradient(90deg, #10B981, #059669)'
-            : 'linear-gradient(90deg, #F97316, #DC2626)',
+          background: isLocked
+            ? 'linear-gradient(90deg, #CBD5E1, #94A3B8)'
+            : isSelected
+              ? 'linear-gradient(90deg, #10B981, #059669)'
+              : 'linear-gradient(90deg, #F97316, #DC2626)',
         }}
       />
+
+      {/* Lås-pill i övre högra hörnet när låst */}
+      {isLocked && (
+        <div className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-orange-100 border border-orange-200">
+          <Lock className="w-3 h-3 text-orange-700" strokeWidth={2.5} />
+          <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700">
+            Låst
+          </span>
+        </div>
+      )}
 
       {!isSelected && (
         <div
@@ -175,12 +208,24 @@ function CvPickerCard({
 
       <div
         className={`px-5 py-3 border-t flex items-center justify-between text-sm font-semibold transition-colors ${
-          isSelected
-            ? 'bg-emerald-50/60 border-emerald-100'
-            : 'bg-orange-50/40 border-slate-100'
+          isLocked
+            ? 'bg-slate-100/80 border-slate-200'
+            : isSelected
+              ? 'bg-emerald-50/60 border-emerald-100'
+              : 'bg-orange-50/40 border-slate-100'
         }`}
       >
-        {isSelected ? (
+        {isLocked ? (
+          <>
+            <span className="text-slate-500 flex items-center gap-1.5">
+              <Lock className="w-4 h-4" strokeWidth={2.5} />
+              Premium-låst
+            </span>
+            <span className="text-[11px] font-bold text-orange-700 uppercase tracking-wider">
+              Uppgradera
+            </span>
+          </>
+        ) : isSelected ? (
           <>
             <span className="text-emerald-700 flex items-center gap-1.5">
               <Check className="w-4 h-4" strokeWidth={3} />

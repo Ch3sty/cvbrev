@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Clock, Plus } from 'lucide-react'
+import { Clock, Plus, Lock } from 'lucide-react'
 import { useCVStore } from '@/store/cv-store'
+import { useCvQuota } from '@/hooks/useCvQuota'
 import { formatCVDate } from '@/lib/utils/date-formatter'
 
 /**
@@ -123,6 +124,7 @@ interface Props {
 
 export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
   const { cvs, isLoading } = useCVStore()
+  const { isLocked } = useCvQuota()
 
   if (isLoading) {
     return (
@@ -145,34 +147,47 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
     <div className="space-y-2">
       {cvs.map((cv, i) => {
         const isSelected = selectedCvId === cv.id
+        const locked = isLocked(cv.id)
         const ageLabel = formatCVDate(cv.created_at)
 
         return (
           <motion.button
             key={cv.id}
             type="button"
-            onClick={() => onSelect(cv.id)}
+            onClick={() => {
+              if (!locked) onSelect(cv.id)
+            }}
+            disabled={locked}
+            title={
+              locked
+                ? 'CV:t är låst — uppgradera till Premium för att kunna välja det'
+                : undefined
+            }
             initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: locked ? 0.6 : 1, y: 0 }}
             transition={{ duration: 0.25, delay: i * 0.04 }}
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.99 }}
-            className={`group relative w-full text-left rounded-xl bg-white transition-all overflow-hidden ${
-              isSelected
-                ? 'border-2 border-orange-300'
-                : 'border border-slate-200 hover:border-orange-200'
+            whileHover={locked ? undefined : { y: -1 }}
+            whileTap={locked ? undefined : { scale: 0.99 }}
+            className={`group relative w-full text-left rounded-xl transition-all overflow-hidden disabled:cursor-not-allowed ${
+              locked
+                ? 'bg-slate-50 border border-slate-200'
+                : isSelected
+                  ? 'bg-white border-2 border-orange-300'
+                  : 'bg-white border border-slate-200 hover:border-orange-200'
             }`}
             style={
-              isSelected
-                ? {
-                    boxShadow:
-                      '0 8px 20px -8px rgba(249, 115, 22, 0.30)',
-                  }
-                : { boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }
+              locked
+                ? { boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }
+                : isSelected
+                  ? {
+                      boxShadow:
+                        '0 8px 20px -8px rgba(249, 115, 22, 0.30)',
+                    }
+                  : { boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }
             }
           >
             {/* Orange topplist när vald */}
-            {isSelected && (
+            {isSelected && !locked && (
               <div
                 className="absolute top-0 inset-x-0 h-0.5"
                 style={{
@@ -193,7 +208,11 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
               <div className="flex-1 min-w-0">
                 <p
                   className={`text-sm font-bold truncate ${
-                    isSelected ? 'text-slate-900' : 'text-slate-800'
+                    locked
+                      ? 'text-slate-500'
+                      : isSelected
+                        ? 'text-slate-900'
+                        : 'text-slate-800'
                   }`}
                 >
                   {cv.file_name}
@@ -204,8 +223,16 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
                 </div>
               </div>
 
+              {/* Lås-pill när låst */}
+              {locked && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.14em] flex-shrink-0 bg-orange-100 border border-orange-200 text-orange-700">
+                  <Lock className="w-2.5 h-2.5" strokeWidth={2.5} />
+                  Låst
+                </span>
+              )}
+
               {/* Vald-indikator */}
-              {isSelected && (
+              {isSelected && !locked && (
                 <span
                   className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.16em] text-white flex-shrink-0"
                   style={{

@@ -524,7 +524,23 @@ export async function createCVFromLinkedIn(
   })
 
   if (!response.ok) {
-    throw new Error('Failed to create CV from LinkedIn data')
+    // Försök läsa det tydliga felmeddelandet från API:t (t.ex. kvot-fel)
+    let errorMessage = 'Failed to create CV from LinkedIn data'
+    let quotaExceeded = false
+    try {
+      const errorData = await response.json()
+      if (errorData?.message) errorMessage = errorData.message
+      if (errorData?.quota_exceeded) quotaExceeded = true
+    } catch {
+      // ignore json parse-fel — använder default-meddelande
+    }
+    const error = new Error(errorMessage) as Error & {
+      quotaExceeded?: boolean
+      status?: number
+    }
+    error.quotaExceeded = quotaExceeded
+    error.status = response.status
+    throw error
   }
 
   const result = await response.json()

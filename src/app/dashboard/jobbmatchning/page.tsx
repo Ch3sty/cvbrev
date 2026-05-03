@@ -11,6 +11,7 @@ import {
   Crown,
 } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
+import { useCvQuota } from '@/hooks/useCvQuota';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -53,6 +54,7 @@ interface ActiveCVData {
 export default function JobbmatchningPage() {
   // Hooks
   const { subscriptionTier } = useProfile();
+  const { isLocked: isCvLocked } = useCvQuota();
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const isPremium = subscriptionTier === 'premium';
@@ -427,6 +429,7 @@ export default function JobbmatchningPage() {
                             cv={cv}
                             onActivate={handleActivateCV}
                             isActivating={activatingCVId === cv.id}
+                            isLocked={isCvLocked(cv.id)}
                           />
                         ))}
                     </div>

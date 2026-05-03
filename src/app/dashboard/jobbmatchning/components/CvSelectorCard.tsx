@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, Calendar, ArrowRight } from 'lucide-react';
+import { FileText, Calendar, ArrowRight, Lock } from 'lucide-react';
 
 interface CvSelectorCardProps {
   cv: {
@@ -11,6 +11,7 @@ interface CvSelectorCardProps {
   };
   onActivate: (cvId: string) => void;
   isActivating: boolean;
+  isLocked?: boolean;
 }
 
 /**
@@ -21,29 +22,52 @@ interface CvSelectorCardProps {
  * - Tydlig "Aktivera detta CV ->" CTA
  * - PulsingDots overlay vid aktivering
  */
-export default function CvSelectorCard({ cv, onActivate, isActivating }: CvSelectorCardProps) {
+export default function CvSelectorCard({ cv, onActivate, isActivating, isLocked = false }: CvSelectorCardProps) {
   return (
     <motion.button
-      onClick={() => onActivate(cv.id)}
-      disabled={isActivating}
-      whileHover={{ y: -4 }}
-      whileTap={{ scale: 0.98 }}
+      onClick={() => {
+        if (!isLocked) onActivate(cv.id)
+      }}
+      disabled={isActivating || isLocked}
+      title={
+        isLocked
+          ? 'CV:t är låst — uppgradera till Premium för att kunna aktivera det'
+          : undefined
+      }
+      whileHover={isLocked ? undefined : { y: -4 }}
+      whileTap={isLocked ? undefined : { scale: 0.98 }}
       initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: isLocked ? 0.6 : 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-      className="group relative w-full text-left bg-white rounded-2xl border border-slate-200 hover:border-orange-300 transition-all overflow-hidden focus:outline-none focus:ring-2 focus:ring-orange-300/50 disabled:cursor-wait"
+      className={`group relative w-full text-left rounded-2xl border transition-all overflow-hidden focus:outline-none focus:ring-2 disabled:cursor-not-allowed ${
+        isLocked
+          ? 'bg-slate-50 border-slate-200 focus:ring-slate-300/50'
+          : 'bg-white border-slate-200 hover:border-orange-300 focus:ring-orange-300/50'
+      }`}
       style={{
         boxShadow:
           '0 1px 2px rgba(0, 0, 0, 0.04)',
       }}
     >
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-        style={{
-          boxShadow: '0 12px 32px -8px rgba(249, 115, 22, 0.25)',
-          borderRadius: 'inherit',
-        }}
-      />
+      {!isLocked && (
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+          style={{
+            boxShadow: '0 12px 32px -8px rgba(249, 115, 22, 0.25)',
+            borderRadius: 'inherit',
+          }}
+        />
+      )}
+
+      {/* Lås-pill i övre högra hörnet när låst */}
+      {isLocked && (
+        <div className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-orange-100 border border-orange-200">
+          <Lock className="w-3 h-3 text-orange-700" strokeWidth={2.5} />
+          <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700">
+            Låst
+          </span>
+        </div>
+      )}
 
       {/* Header med subtilt dokument-monster i bakgrunden */}
       <div className="relative p-5 overflow-hidden">
@@ -72,8 +96,24 @@ export default function CvSelectorCard({ cv, onActivate, isActivating }: CvSelec
       </div>
 
       {/* CTA-rad */}
-      <div className="px-5 py-3 bg-orange-50/40 border-t border-slate-100 flex items-center justify-between text-sm font-semibold">
-        {isActivating ? (
+      <div
+        className={`px-5 py-3 border-t flex items-center justify-between text-sm font-semibold ${
+          isLocked
+            ? 'bg-slate-100/80 border-slate-200'
+            : 'bg-orange-50/40 border-slate-100'
+        }`}
+      >
+        {isLocked ? (
+          <>
+            <span className="text-slate-500 flex items-center gap-1.5">
+              <Lock className="w-4 h-4" strokeWidth={2.5} />
+              Premium-låst
+            </span>
+            <span className="text-[11px] font-bold text-orange-700 uppercase tracking-wider">
+              Uppgradera
+            </span>
+          </>
+        ) : isActivating ? (
           <div className="flex items-center gap-2 text-orange-700">
             <PulsingDots />
             <span>Aktiverar...</span>

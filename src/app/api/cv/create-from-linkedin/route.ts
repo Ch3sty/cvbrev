@@ -24,6 +24,36 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Kvotvalidering — samma policy som /api/cv/upload och /api/cv/save-improved.
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('subscription_tier')
+      .eq('id', userId)
+      .single()
+
+    const subscriptionTier = profile?.subscription_tier || 'free'
+    const maxCvs = subscriptionTier === 'premium' ? 50 : 2
+
+    const { count: cvCount } = await supabase
+      .from('cv_texts')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId)
+
+    if ((cvCount || 0) >= maxCvs) {
+      return NextResponse.json(
+        {
+          error: 'CV limit reached',
+          message:
+            subscriptionTier === 'free'
+              ? `Du har nått din gräns på ${maxCvs} CV:n. Uppgradera till Premium eller ta bort ett CV för att skapa ett nytt.`
+              : `Du har nått din gräns på ${maxCvs} CV:n. Ta bort ett gammalt CV för att skapa ett nytt.`,
+          quota_exceeded: true,
+          subscription_tier: subscriptionTier,
+        },
+        { status: 403 }
+      )
+    }
+
     // Create CV in database (save to cv_texts table)
     const timestamp = Date.now()
     const formattedDate = new Date().toLocaleDateString('sv-SE')

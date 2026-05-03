@@ -9,7 +9,9 @@ import {
   EyeOff,
   Download,
   ExternalLink,
+  Lock,
 } from 'lucide-react';
+import Link from 'next/link';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 import CvDetailView from './CvDetailView';
 
@@ -30,6 +32,8 @@ interface CvCardProps {
   onStructured: (data: ParsedCV) => void;
   preview: string;
   formatDate: (iso: string) => string;
+  /** Sant om CV:t är låst (free-användare med fler CV än kvoten) */
+  isLocked?: boolean;
 }
 
 export default function CvCard({
@@ -44,39 +48,74 @@ export default function CvCard({
   onStructured,
   preview,
   formatDate,
+  isLocked = false,
 }: CvCardProps) {
   const ageDays = Math.floor(
     (Date.now() - new Date(cv.created_at).getTime()) / (1000 * 60 * 60 * 24)
   );
-  const isFresh = ageDays < 7;
+  const isFresh = ageDays < 7 && !isLocked;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
-      whileHover={!expanded ? { y: -4 } : undefined}
-      className={`group relative bg-white rounded-2xl border transition-all overflow-hidden ${
-        expanded ? 'border-orange-300' : 'border-slate-200 hover:border-orange-300'
+      whileHover={!expanded && !isLocked ? { y: -4 } : undefined}
+      className={`group relative rounded-2xl border transition-all overflow-hidden ${
+        isLocked
+          ? 'bg-slate-50/80 border-slate-200'
+          : expanded
+            ? 'bg-white border-orange-300'
+            : 'bg-white border-slate-200 hover:border-orange-300'
       }`}
       style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
     >
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-        style={{
-          boxShadow: '0 12px 32px -8px rgba(249, 115, 22, 0.25)',
-          borderRadius: 'inherit',
-        }}
-      />
+      {!isLocked && (
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+          style={{
+            boxShadow: '0 12px 32px -8px rgba(249, 115, 22, 0.25)',
+            borderRadius: 'inherit',
+          }}
+        />
+      )}
 
       <div
         className="absolute top-0 inset-x-0 h-0.5"
         style={{
-          background: isFresh
-            ? 'linear-gradient(90deg, #FB923C, #DC2626)'
-            : 'linear-gradient(90deg, #CBD5E1, #94A3B8)',
+          background: isLocked
+            ? 'linear-gradient(90deg, #CBD5E1, #94A3B8)'
+            : isFresh
+              ? 'linear-gradient(90deg, #FB923C, #DC2626)'
+              : 'linear-gradient(90deg, #CBD5E1, #94A3B8)',
         }}
       />
+
+      {/* Premium-låst overlay-banner */}
+      {isLocked && (
+        <div className="relative bg-gradient-to-r from-orange-50 to-rose-50 border-b border-orange-100 px-4 py-2 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <div
+              className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center"
+              style={{
+                background:
+                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+              }}
+            >
+              <Lock className="w-3 h-3 text-white" strokeWidth={2.5} />
+            </div>
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-700 truncate">
+              Premium-låst
+            </span>
+          </div>
+          <Link
+            href="/dashboard/profil/prenumeration"
+            className="flex-shrink-0 text-[11px] font-bold text-orange-700 hover:text-orange-800 transition-colors"
+          >
+            Lås upp →
+          </Link>
+        </div>
+      )}
 
       <div className="relative p-4 sm:p-5 overflow-hidden border-b border-slate-100">
         <DocumentPatternBg />
@@ -128,8 +167,18 @@ export default function CvCard({
 
       <div className="p-4 sm:p-5">
         {!expanded && (
-          <div className="bg-orange-50/40 border border-orange-100 rounded-xl p-3 mb-4 min-h-[72px]">
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+          <div
+            className={`rounded-xl p-3 mb-4 min-h-[72px] ${
+              isLocked
+                ? 'bg-slate-100/60 border border-slate-200'
+                : 'bg-orange-50/40 border border-orange-100'
+            }`}
+          >
+            <p
+              className={`text-xs sm:text-sm leading-relaxed line-clamp-3 ${
+                isLocked ? 'text-slate-500' : 'text-slate-600'
+              }`}
+            >
               {preview}
             </p>
           </div>
@@ -137,14 +186,33 @@ export default function CvCard({
 
         <div className="grid grid-cols-2 gap-2">
           <button
-            onClick={onToggleExpand}
-            className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold text-white rounded-lg transition-all touch-manipulation min-h-[40px]"
-            style={{
-              background: 'linear-gradient(90deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
-            }}
+            onClick={isLocked ? undefined : onToggleExpand}
+            disabled={isLocked}
+            title={
+              isLocked
+                ? 'CV:t är låst — uppgradera till Premium för att kunna använda det'
+                : undefined
+            }
+            className={`flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-all touch-manipulation min-h-[40px] ${
+              isLocked
+                ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
+                : 'text-white'
+            }`}
+            style={
+              isLocked
+                ? undefined
+                : {
+                    background: 'linear-gradient(90deg, #F97316, #DC2626)',
+                    boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
+                  }
+            }
           >
-            {expanded ? (
+            {isLocked ? (
+              <>
+                <Lock className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
+                <span className="truncate">Låst</span>
+              </>
+            ) : expanded ? (
               <>
                 <EyeOff className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
                 <span className="truncate">Dölj</span>
@@ -158,8 +226,18 @@ export default function CvCard({
           </button>
 
           <button
-            onClick={onDownload}
-            className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/60 rounded-lg transition-all touch-manipulation min-h-[40px]"
+            onClick={isLocked ? undefined : onDownload}
+            disabled={isLocked}
+            title={
+              isLocked
+                ? 'CV:t är låst — uppgradera till Premium för att kunna använda det'
+                : undefined
+            }
+            className={`flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-lg transition-all touch-manipulation min-h-[40px] ${
+              isLocked
+                ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
+                : 'text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/60'
+            }`}
           >
             <Download className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
             <span className="truncate">Välj mall</span>

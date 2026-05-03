@@ -7,6 +7,7 @@ import { AlertTriangle, FileText, Trash2, CheckCircle2 } from 'lucide-react';
 
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
+import { useCvQuota } from '@/hooks/useCvQuota';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
@@ -26,6 +27,7 @@ export default function MinaCVPage() {
     uploadCV,
     setGdprConsent: setProfileGdprConsent,
   } = useProfile();
+  const { isLocked: isCvLocked, refresh: refreshQuota } = useCvQuota();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState('');
@@ -78,6 +80,7 @@ export default function MinaCVPage() {
 
       if (response.ok) {
         fetchCVs();
+        refreshQuota();
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Kunde inte ta bort CV');
@@ -330,6 +333,7 @@ export default function MinaCVPage() {
                     }
                     preview={getCleanPreview(cv.cv_text)}
                     formatDate={formatDate}
+                    isLocked={isCvLocked(cv.id)}
                   />
                 );
               })}

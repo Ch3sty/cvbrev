@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import {
   ExternalLink,
   FileText,
@@ -57,6 +58,7 @@ export default function Step4Done({
   const router = useRouter()
   const [isSavingCV, setIsSavingCV] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  const [quotaExceeded, setQuotaExceeded] = useState(false)
 
   const finalData: ProfileMockupData = {
     fullName,
@@ -76,6 +78,7 @@ export default function Step4Done({
   const handleSaveAsCV = async () => {
     setIsSavingCV(true)
     setSaveError(null)
+    setQuotaExceeded(false)
     try {
       const supabase = createClient()
       const {
@@ -115,8 +118,15 @@ export default function Step4Done({
     } catch (err) {
       const msg =
         err instanceof Error ? err.message : 'Kunde inte spara som CV'
+      const isQuota =
+        err instanceof Error &&
+        (err as Error & { quotaExceeded?: boolean }).quotaExceeded === true
       setSaveError(msg)
-      toast.error(msg, { position: 'bottom-center' })
+      setQuotaExceeded(isQuota)
+      // Toast bara för icke-kvot-fel — kvot visas tydligt i UI:t
+      if (!isQuota) {
+        toast.error(msg, { position: 'bottom-center' })
+      }
     } finally {
       setIsSavingCV(false)
     }
@@ -208,7 +218,43 @@ export default function Step4Done({
           />
         </button>
 
-        {saveError && (
+        {saveError && quotaExceeded && (
+          <div
+            className="mb-3 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5"
+            role="alert"
+          >
+            <div className="flex items-start gap-2.5">
+              <AlertCircle
+                className="w-4 h-4 text-orange-700 flex-shrink-0 mt-0.5"
+                strokeWidth={2.4}
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-slate-900 mb-1">
+                  Du har nått din CV-gräns
+                </p>
+                <p className="text-xs text-slate-700 leading-relaxed mb-2">
+                  {saveError}
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/dashboard/profil/cv"
+                    className="text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
+                  >
+                    Hantera CV →
+                  </Link>
+                  <Link
+                    href="/dashboard/profil/prenumeration"
+                    className="text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
+                  >
+                    Uppgradera till Premium →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {saveError && !quotaExceeded && (
           <div
             className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 flex items-start gap-2"
             role="alert"
