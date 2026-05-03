@@ -519,7 +519,8 @@ export default function LandingNavbar() {
               <div
                 className="border-t border-orange-100 px-3 pt-3 space-y-2 bg-white/60 backdrop-blur-sm flex-shrink-0"
                 style={{
-                  paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)',
+                  paddingBottom:
+                    'max(env(safe-area-inset-bottom, 0px) + 16px, 32px)',
                 }}
               >
                 <Link

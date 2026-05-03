@@ -95,7 +95,7 @@ export default function ArticleClientWrapper({
         <div className="container max-w-7xl px-3 sm:px-4 lg:px-8 py-6 sm:py-10 mx-auto">
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-10">
             {/* Main column */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 min-w-0">
               <ArticleHero
                 title={post.frontmatter.title}
                 date={post.frontmatter.date}
@@ -108,7 +108,7 @@ export default function ArticleClientWrapper({
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="bg-white rounded-3xl border border-orange-100 p-6 sm:p-8 md:p-10"
+                className="bg-white rounded-3xl border border-orange-100 p-6 sm:p-8 md:p-10 overflow-x-hidden"
                 style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
               >
                 <ArticleAuthorCard author={author} />

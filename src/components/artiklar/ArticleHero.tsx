@@ -31,7 +31,7 @@ export default function ArticleHero({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl bg-white border border-orange-100 mb-6 sm:mb-8"
+      className="relative overflow-hidden rounded-3xl bg-white border border-orange-100 mb-6 sm:mb-8 max-w-full"
       style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
     >
       {/* Subtil bakgrund med dot-pattern */}
@@ -49,8 +49,8 @@ export default function ArticleHero({
       <div className="relative p-6 sm:p-8 md:p-10">
         {/* Breadcrumb */}
         <nav aria-label="Brödsmulor" className="mb-4 sm:mb-5">
-          <ol className="flex items-center gap-1.5 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
-            <li>
+          <ol className="flex items-center gap-1.5 text-xs sm:text-sm whitespace-nowrap min-w-0">
+            <li className="flex-shrink-0">
               <Link
                 href="/"
                 className="text-slate-600 hover:text-orange-700 font-medium transition-colors"
@@ -58,7 +58,7 @@ export default function ArticleHero({
                 Hem
               </Link>
             </li>
-            <li className="flex items-center gap-1.5">
+            <li className="flex items-center gap-1.5 flex-shrink-0">
               <ChevronRight
                 className="w-3.5 h-3.5 text-orange-300 flex-shrink-0"
                 strokeWidth={2.5}
@@ -71,14 +71,14 @@ export default function ArticleHero({
                 Artiklar
               </Link>
             </li>
-            <li className="flex items-center gap-1.5 min-w-0">
+            <li className="flex items-center gap-1.5 min-w-0 flex-1">
               <ChevronRight
                 className="w-3.5 h-3.5 text-orange-300 flex-shrink-0"
                 strokeWidth={2.5}
                 aria-hidden="true"
               />
               <span
-                className="text-slate-900 font-bold truncate"
+                className="text-slate-900 font-bold truncate min-w-0"
                 aria-current="page"
               >
                 {title}
@@ -95,7 +95,10 @@ export default function ArticleHero({
         )}
 
         {/* H1 */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-4 sm:mb-5">
+        <h1
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-4 sm:mb-5 break-words hyphens-auto"
+          style={{ overflowWrap: 'anywhere' }}
+        >
           {title}
         </h1>
 
