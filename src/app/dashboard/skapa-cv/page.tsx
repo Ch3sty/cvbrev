@@ -29,7 +29,7 @@ export default function SkapaCVPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
         <div className="text-center">
-          <div className="animate-spin w-10 h-10 border-4 border-pink-600 border-t-transparent rounded-full mx-auto mb-4" />
+          <div className="animate-spin w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full mx-auto mb-4" />
           <p className="text-gray-600">Laddar...</p>
         </div>
       </div>

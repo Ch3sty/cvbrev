@@ -131,7 +131,7 @@ function ConfirmationView({
         {/* Primary CTA: ATS-optimering */}
         <Button
           onClick={onGoToATS}
-          className="w-full min-h-[56px] md:min-h-[52px] bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-base font-semibold shadow-lg shadow-pink-500/25"
+          className="w-full min-h-[56px] md:min-h-[52px] text-white text-base font-semibold shadow-lg shadow-pink-500/25"
         >
           <Sparkles className="w-5 h-5 mr-2" />
           Optimera för ATS-system
@@ -414,7 +414,7 @@ export default function Step7Review({
                     onClick={() => handleTemplateSelect(template.id)}
                     className={`relative flex-shrink-0 w-[140px] rounded-xl border-2 overflow-hidden transition-all ${
                       isSelected
-                        ? 'border-pink-500 ring-2 ring-pink-200'
+                        ? 'border-orange-400 ring-2 ring-orange-200'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -439,8 +439,16 @@ export default function Step7Review({
 
                       {/* Selected checkmark */}
                       {isSelected && !isLocked && (
-                        <div className="absolute top-2 right-2 w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" />
+                        <div
+                          className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"
+                          style={{
+                            background:
+                              'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                            boxShadow:
+                              '0 4px 10px -2px rgba(220, 38, 38, 0.4)',
+                          }}
+                        >
+                          <Check className="w-4 h-4 text-white" strokeWidth={2.8} />
                         </div>
                       )}
 
@@ -571,7 +579,7 @@ export default function Step7Review({
               {isGeneratingPreview ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
                   <div className="flex flex-col items-center gap-2">
-                    <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
+                    <Loader2 className="w-8 h-8 animate-spin text-orange-600" />
                     <span className="text-sm text-gray-500">Genererar förhandsvisning...</span>
                   </div>
                 </div>
@@ -614,7 +622,12 @@ export default function Step7Review({
         <Button
           onClick={() => handleAction('both')}
           disabled={!isValid || isSaving || isTemplateLocked}
-          className="min-h-[48px] px-8 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+          className="min-h-[48px] px-8 text-white font-bold rounded-xl border-0 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:hover:scale-100"
+          style={{
+            background:
+              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+            boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
+          }}
         >
           {isSaving ? (
             <>
