@@ -1180,8 +1180,47 @@ export default function PersonligtBrevGalleri() {
     }
   ]
 
+  // === SEO: ItemList-schema med alla brev-exempel ===
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Personligt brev-exempel för svenska yrken',
+    description:
+      'Bibliotek med 75 personliga brev-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor.',
+    numberOfItems: coverLetterExamples.length,
+    itemListElement: coverLetterExamples.map((ex, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: `Personligt brev-exempel: ${ex.yrke}`,
+      url: `https://jobbcoach.ai/personligt-brev-exempel/${ex.slug}`,
+    })),
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://jobbcoach.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://jobbcoach.ai/exempel' },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Personligt brev-exempel',
+        item: 'https://jobbcoach.ai/personligt-brev-exempel',
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* Hero Section - Enhanced with WOW factor */}
       <section className="relative pt-32 pb-24 overflow-hidden">

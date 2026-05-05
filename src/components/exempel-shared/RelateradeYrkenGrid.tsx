@@ -25,6 +25,7 @@ export default function RelateradeYrkenGrid({
     variant === 'letter' ? '/personligt-brev-exempel' : '/cv-exempel';
   const what =
     variant === 'letter' ? 'personliga brev-exempel' : 'CV-exempel';
+  const shortWhat = variant === 'letter' ? 'brev' : 'CV';
 
   return (
     <section>
@@ -43,7 +44,12 @@ export default function RelateradeYrkenGrid({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {items.map((item, idx) => (
-          <Link key={idx} href={`${basePath}/${item.slug}`} className="group block">
+          <Link
+            key={idx}
+            href={`${basePath}/${item.slug}`}
+            className="group block"
+            aria-label={`Se ${shortWhat}-exempel för ${item.yrke}`}
+          >
             <motion.div
               whileHover={{ y: -3 }}
               transition={{ duration: 0.2 }}
@@ -74,7 +80,7 @@ export default function RelateradeYrkenGrid({
               </div>
 
               <div className="flex items-center justify-center gap-1 text-orange-700 text-xs sm:text-sm font-bold group-hover:gap-2 transition-all">
-                <span>Se exemplet</span>
+                <span>Se {shortWhat}-exempel</span>
                 <ArrowRight
                   className="w-3.5 h-3.5"
                   strokeWidth={2.5}

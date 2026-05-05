@@ -1148,8 +1148,47 @@ export default function CVExempelGalleri() {
     }
   ]
 
+  // === SEO: ItemList-schema med alla CV-exempel ===
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'CV-exempel för svenska yrken',
+    description:
+      'Bibliotek med professionella CV-exempel för 75 yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.',
+    numberOfItems: cvExamples.length,
+    itemListElement: cvExamples.map((ex, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: `CV-exempel: ${ex.yrke}`,
+      url: `https://jobbcoach.ai/cv-exempel/${ex.slug}`,
+    })),
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://jobbcoach.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://jobbcoach.ai/exempel' },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'CV-exempel',
+        item: 'https://jobbcoach.ai/cv-exempel',
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 overflow-hidden">

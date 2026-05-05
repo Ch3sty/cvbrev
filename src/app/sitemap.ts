@@ -1,6 +1,7 @@
 // src/app/sitemap.ts
 import { MetadataRoute } from 'next';
 import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
+import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
@@ -24,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/priser`,
@@ -54,13 +55,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/cv-exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 1, // Kategoriöversikt - högsta SEO-värde
+      priority: 0.9, // Galleri-översikt
     },
     {
       url: `${baseUrl}/personligt-brev-exempel`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 1, // Kategoriöversikt - högsta SEO-värde
+      priority: 0.9, // Galleri-översikt
     },
     {
       url: `${baseUrl}/skapa-brev`,
@@ -337,9 +338,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/personligt-brev-exempel/${yrke}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
-    priority: 0.85, // Högt prio för SEO-viktiga sidor
+    priority: 0.7,
   }));
 
-  // 6. Kombinera alla sidor
-  return [...staticPages, ...verktygPages, ...articlePages, ...cvExempelPages, ...brevExempelPages];
+  // 6. Kategori-sidor (NYA: 6 CV-kategorier + 6 brev-kategorier = 12 nya rankingsidor)
+  const cvKategoriPages: MetadataRoute.Sitemap = KATEGORIER.map((kat) => ({
+    url: `${baseUrl}/cv-exempel/kategori/${kat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  const brevKategoriPages: MetadataRoute.Sitemap = KATEGORIER.map((kat) => ({
+    url: `${baseUrl}/personligt-brev-exempel/kategori/${kat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  // 7. Kombinera alla sidor
+  return [
+    ...staticPages,
+    ...verktygPages,
+    ...articlePages,
+    ...cvExempelPages,
+    ...brevExempelPages,
+    ...cvKategoriPages,
+    ...brevKategoriPages,
+  ];
 }

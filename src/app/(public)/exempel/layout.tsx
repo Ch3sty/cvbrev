@@ -1,26 +1,34 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CV-exempel och personliga brev | 30+ yrken | jobbcoach.ai',
-  description: 'Hitta professionella exempel på CV och personliga brev för ditt yrke. 30+ yrkesspecifika mallar – gratis att använda som inspiration.',
-  keywords: [
-    'personligt brev exempel',
-    'cv exempel',
-    'cv mall',
-    'personligt brev mall',
-    'jobbansökan exempel',
-    'yrkesspecifika cv',
-    'professionellt cv',
-    'svenska cv-mallar'
-  ],
+  title:
+    'CV-exempel och personliga brev: 151 yrkes-mallar | Jobbcoach.ai',
+  description:
+    'Bläddra bland 75 CV-exempel och 75 personliga brev fördelade över sex stora branscher. ATS-optimerade, gratis och anpassade för svenska arbetsgivare.',
+  keywords:
+    'cv exempel, personligt brev exempel, cv mall, personligt brev mall, jobbansökan exempel, yrkesspecifikt cv, ats-optimerat cv, cv exempel vård, cv exempel tech, cv exempel ekonomi',
   openGraph: {
-    title: 'CV-exempel och personliga brev | 30+ yrken',
-    description: 'Hitta professionella exempel på CV och personliga brev för ditt yrke. 30+ yrkesspecifika mallar – gratis att använda som inspiration.',
-    url: 'https://jobbcoach.ai/exempel',
+    title:
+      '151 yrkes-exempel på CV och personliga brev | Jobbcoach.ai',
+    description:
+      'Sex branscher, 151 mallar. Vi visar exakt hur en stark ansökan ser ut för ditt yrke. Helt gratis.',
     type: 'website',
+    locale: 'sv_SE',
+    url: 'https://jobbcoach.ai/exempel',
+    siteName: 'Jobbcoach.ai',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '151 yrkes-exempel på CV och personliga brev | Jobbcoach.ai',
+    description:
+      'Sex branscher, 151 mallar. Anpassade för svenska arbetsgivare. Helt gratis.',
   },
   alternates: {
     canonical: 'https://jobbcoach.ai/exempel',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
