@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
       mode: 'subscription',
       customer: stripeCustomerId,
       payment_method_types: ['card'],
+      locale: 'sv',
       line_items: [{
         price: priceId,
         quantity: 1

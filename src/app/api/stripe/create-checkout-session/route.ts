@@ -89,10 +89,11 @@ export async function POST(request: Request) {
     try {
         console.log(`Checkout Info: Creating Stripe checkout session for customer ${customerId} with price ${priceId}`);
         const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'], 
+          payment_method_types: ['card'],
           mode: 'subscription',
-          billing_address_collection: 'required', 
-          customer: customerId, 
+          locale: 'sv',
+          billing_address_collection: 'required',
+          customer: customerId,
           line_items: [ { price: priceId, quantity: 1 } ],
           success_url: getURL('create-letter?status=success&session_id={CHECKOUT_SESSION_ID}'), 
           cancel_url: getURL('priser?status=cancelled'), 

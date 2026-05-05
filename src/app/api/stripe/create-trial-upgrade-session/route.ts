@@ -89,6 +89,7 @@ export async function POST(request: NextRequest) {
       mode: 'subscription',
       customer: customerId,
       payment_method_types: ['card'],
+      locale: 'sv',
       line_items: [{
         price: priceId,
         quantity: 1
