@@ -79,7 +79,7 @@ export default function BrevResultatBevis() {
               <blockquote className="text-base sm:text-lg text-slate-800 leading-relaxed font-medium mb-5">
                 ”Jag hade fått fjorton avslag på rad. Skrev om brevet med
                 Jobbcoach.ai för en roll på Klarna och kallades till intervju
-                samma vecka. Det var inte CV:t som var fel — det var att jag
+                samma vecka. Det var inte CV:t som var fel. Det var att jag
                 inte talade rekryterarens språk.”
               </blockquote>
 

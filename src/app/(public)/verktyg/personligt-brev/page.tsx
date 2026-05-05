@@ -74,7 +74,7 @@ export default function PersonligtBrevSida() {
         position: 3,
         name: 'Välj mall och ton',
         text:
-          'Sju mallar för olika branscher och sex tonalitetsval — från professionellt till entusiastiskt.',
+          'Sju mallar för olika branscher och sex tonalitetsval, från professionellt till entusiastiskt.',
       },
       {
         '@type': 'HowToStep',

@@ -24,7 +24,7 @@ const SCENARIOS = [
       { text: 'Hej Spotify-teamet,', delay: 0 },
       { text: '', delay: 200 },
       {
-        text: 'Tjänsten som Senior UX Designer fångade mig direkt — särskilt arbetet med era',
+        text: 'Tjänsten som Senior UX Designer fångade mig direkt, särskilt arbetet med era',
         delay: 400,
       },
       {
@@ -59,7 +59,7 @@ const SCENARIOS = [
         delay: 400,
       },
       {
-        text: 'vill växa — React och TypeScript är min vardag sedan tre år.',
+        text: 'vill växa, och React och TypeScript är min vardag sedan tre år.',
         delay: 700,
       },
       { text: '', delay: 200 },
@@ -67,7 +67,7 @@ const SCENARIOS = [
         text: 'Tillgänglighet är inget jag bockar av efteråt, utan något jag bygger in från',
         delay: 400,
       },
-      { text: 'första prototypen — det är så jag jobbar.', delay: 700 },
+      { text: 'första prototypen. Det är så jag jobbar.', delay: 700 },
     ],
   },
   {
@@ -92,7 +92,7 @@ const SCENARIOS = [
       },
       { text: '', delay: 200 },
       {
-        text: 'Stakeholder-arbete är inte krångligt — det är att lyssna, översätta och',
+        text: 'Stakeholder-arbete är inte krångligt. Det är att lyssna, översätta och',
         delay: 400,
       },
       { text: 'leverera roadmaps som håller över tid.', delay: 700 },
@@ -296,7 +296,7 @@ export default function BrevLiveDemo() {
                         : undefined
                     }
                   >
-                    {activeStep >= 3 ? scenario.template : '—'}
+                    {activeStep >= 3 ? scenario.template : '...'}
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -316,7 +316,7 @@ export default function BrevLiveDemo() {
                         : 'border-slate-200 bg-slate-100 text-slate-400'
                     }`}
                   >
-                    {activeStep >= 4 ? scenario.tone : '—'}
+                    {activeStep >= 4 ? scenario.tone : '...'}
                   </motion.div>
                 </AnimatePresence>
               </div>

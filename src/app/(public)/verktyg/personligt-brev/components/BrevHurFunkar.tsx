@@ -23,14 +23,14 @@ const STEPS = [
     Icon: IconAnnons,
     title: 'Klistra in jobbannonsen',
     body:
-      'Vi läser annonsen, identifierar nyckelkraven och matchar dem mot din bakgrund. Inga generiska brev — bara det som spelar roll.',
+      'Vi läser annonsen, identifierar nyckelkraven och matchar dem mot din bakgrund. Inga generiska brev, bara det som spelar roll.',
   },
   {
     num: 3,
     Icon: IconMall,
     title: 'Välj mall och ton',
     body:
-      'Sju mallar för olika branscher. Sex tonalitetsval — från professionellt till entusiastiskt. Du bestämmer hur det låter.',
+      'Sju mallar för olika branscher. Sex tonalitetsval från professionellt till entusiastiskt. Du bestämmer hur det låter.',
   },
   {
     num: 4,

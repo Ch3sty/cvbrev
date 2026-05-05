@@ -14,7 +14,7 @@ const TIPS = [
     Icon: IconNyckelord,
     title: 'Använd annonsens egna ord',
     body:
-      'Om annonsen säger "stakeholder management" — använd den frasen, inte din egen variant. Rekryterare letar efter exakta termer när de skummar.',
+      'Om annonsen säger "stakeholder management", använd den frasen, inte din egen variant. Rekryterare letar efter exakta termer när de skummar.',
   },
   {
     Icon: IconSiffra,
@@ -32,7 +32,7 @@ const TIPS = [
     Icon: IconTon,
     title: 'Matcha företagets ton',
     body:
-      'Konsultbyrå behöver en annan ton än startup. Läs deras hemsida — speglar de formell engelska? Slang? Lägg dig nära det.',
+      'Konsultbyrå behöver en annan ton än startup. Läs deras hemsida. Speglar de formell engelska? Slang? Lägg dig nära det.',
   },
   {
     Icon: IconStruktur,
@@ -73,7 +73,7 @@ export default function BrevSkrivtips() {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Vår tjänst följer dem automatiskt. Om du skriver själv — nu vet du
+            Vår tjänst följer dem automatiskt. Om du skriver själv vet du nu
             också vad rekryterare faktiskt reagerar på.
           </p>
         </motion.div>

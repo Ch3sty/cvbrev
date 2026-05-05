@@ -42,7 +42,7 @@ export default function BrevCTABand() {
                 tre minuter, inte tre timmar.
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Skapa ditt första personliga brev nu — gratis, utan
+                Skapa ditt första personliga brev nu. Gratis, utan
                 kortuppgift. Du har fem brev per vecka att leka med.
               </p>
 

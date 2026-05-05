@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     'Personligt brev: skräddarsydda jobbansökningar på minuter | Jobbcoach.ai',
   description:
-    'Vi skriver personliga brev som matchar jobbannonsen — sju mallar, sex tonaliteter, export som PDF eller Word. Fem brev gratis varje vecka, ingen kortuppgift.',
+    'Vi skriver personliga brev som matchar jobbannonsen. Sju mallar, sex tonaliteter, export som PDF eller Word. Fem brev gratis varje vecka, ingen kortuppgift.',
   keywords:
     'personligt brev, personligt brev mall, personligt brev exempel, ansökningsbrev, ansökningsbrev mall, hur skriver man ett personligt brev, personligt brev tips, personligt brev gratis, personligt brev mall gratis',
   openGraph: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Skräddarsy ditt personliga brev till varje annons | Jobbcoach.ai',
     description:
-      'Sju mallar, sex toner, klart på minuter. Fem brev gratis varje vecka. PDF eller Word — du väljer.',
+      'Sju mallar, sex toner, klart på minuter. Fem brev gratis varje vecka. PDF eller Word, du väljer.',
   },
   alternates: {
     canonical: 'https://jobbcoach.ai/verktyg/personligt-brev',
