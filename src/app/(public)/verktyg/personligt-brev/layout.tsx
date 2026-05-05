@@ -1,31 +1,41 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Personliga Brev | ATS-optimerat på 2 minuter | Jobbcoach.ai',
-  description: 'Skapa personligt brev som passar både AI-rekrytering och mänskliga rekryterare. Verktyg som analyserar jobbannons och CV för perfekt matchning. Gratis att testa.',
-  keywords: 'personligt brev, skriva personligt brev, personligt brev exempel, personligt brev mall, personligt brev mall gratis, hur skriver man ett personligt brev, exempel på personligt brev, personligt brev tips, cv och personligt brev, ATS-optimering personligt brev',
+  title:
+    'Personligt brev: skräddarsydda jobbansökningar på minuter | Jobbcoach.ai',
+  description:
+    'Vi skriver personliga brev som matchar jobbannonsen — sju mallar, sex tonaliteter, export som PDF eller Word. Fem brev gratis varje vecka, ingen kortuppgift.',
+  keywords:
+    'personligt brev, personligt brev mall, personligt brev exempel, ansökningsbrev, ansökningsbrev mall, hur skriver man ett personligt brev, personligt brev tips, personligt brev gratis, personligt brev mall gratis',
   openGraph: {
-    title: 'Skapa Personligt Brev med AI | Optimerat för ATS och Rekryterare | Jobbcoach.ai',
-    description: '70% av personliga brev filtreras av AI innan de når mänskliga rekryterare. Vårt verktyg skapar ATS-optimerade brev som matchar jobbannons perfekt. Klart på 2 minuter.',
+    title:
+      'Personligt brev som matchar annonsen | Jobbcoach.ai',
+    description:
+      'Vi läser jobbannonsen och ditt CV och skriver ett brev som faktiskt låter som dig. Sju mallar, sex toner, PDF och Word. Fem brev gratis varje vecka.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://jobbcoach.ai/verktyg/personligt-brev',
-    siteName: 'Jobbcoach.ai'
+    siteName: 'Jobbcoach.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Skapa ATS-optimerat personligt brev med AI | Jobbcoach.ai',
-    description: 'Verktyg som skapar personliga brev optimerade för både ATS-system och mänskliga rekryterare. Klart på 2 minuter.'
+    title: 'Skräddarsy ditt personliga brev till varje annons | Jobbcoach.ai',
+    description:
+      'Sju mallar, sex toner, klart på minuter. Fem brev gratis varje vecka. PDF eller Word — du väljer.',
   },
   alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/personligt-brev'
+    canonical: 'https://jobbcoach.ai/verktyg/personligt-brev',
   },
   robots: {
     index: true,
-    follow: true
-  }
+    follow: true,
+  },
 }
 
-export default function PersonligtBrevLayout({ children }: { children: React.ReactNode }) {
+export default function PersonligtBrevLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return children
 }
