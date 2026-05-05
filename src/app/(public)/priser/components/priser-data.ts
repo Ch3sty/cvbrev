@@ -109,7 +109,7 @@ export const COMPARISON: ComparisonGroup[] = [
     rows: [
       { label: 'Svenska arbetsmarknaden', free: 'Ja', premium: 'Ja' },
       { label: 'GDPR-säker, data i EU', free: 'Ja', premium: 'Ja' },
-      { label: 'Ingen kortuppgift för att testa', free: 'Ja', premium: 'Ja' },
+      { label: 'Sju dagar gratis trial', free: 'Inte tillämpligt', premium: 'Ja' },
     ],
   },
 ]
@@ -123,7 +123,7 @@ export const PRISER_FAQ_ITEMS = [
   },
   {
     q: 'Hur fungerar de sju gratis dagarna?',
-    a: 'Du får full tillgång till Premium i sju dagar utan att lämna kortuppgifter. Vill du fortsätta uppgraderar du med ett klick. Vill du inte fortsätta gör du absolut ingenting och kontot rullar tillbaka till gratisnivån.',
+    a: 'Du får full tillgång till Premium i sju dagar utan att betala något. Vi tar dina kortuppgifter när du startar trialen, men debiterar 0 kr fram till dag åtta. Avsluta innan dess och du betalar aldrig något. Avslutar du senare debiteras 149 kr för en månad framåt och kontot går tillbaka till gratisnivån när månaden är slut.',
   },
   {
     q: 'Finns det bindningstid eller uppsägningstid?',

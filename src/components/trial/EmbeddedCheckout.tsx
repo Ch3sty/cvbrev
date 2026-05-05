@@ -1,13 +1,19 @@
 'use client'
 
 // src/components/trial/EmbeddedCheckout.tsx
-// Steg 2: Stripe embedded checkout för betalning
+// Steg 2: Stripe embedded checkout for betalning.
+// Stil: orange/rod-DNA wrapper. Sjalva Stripe-formuleret styls via
+// Dashboard branding (Settings > Branding) - andra primary color till
+// #DC2626 dar.
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Loader2, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Loader2, AlertCircle, ShieldCheck, Lock, CreditCard } from 'lucide-react'
 import { loadStripe } from '@stripe/stripe-js'
-import { EmbeddedCheckoutProvider, EmbeddedCheckout as StripeEmbeddedCheckout } from '@stripe/react-stripe-js'
+import {
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout as StripeEmbeddedCheckout,
+} from '@stripe/react-stripe-js'
 
 interface EmbeddedCheckoutProps {
   signupData: {
@@ -19,7 +25,6 @@ interface EmbeddedCheckoutProps {
   onBack: () => void
 }
 
-// Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckoutProps) {
@@ -28,36 +33,27 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Create Stripe checkout session
     const createCheckoutSession = async () => {
       try {
-        console.log('[EMBEDDED CHECKOUT] Creating session for:', signupData.email)
-
         const response = await fetch('/api/stripe/create-trial-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             stripeCustomerId: signupData.stripeCustomerId,
             userId: signupData.userId,
-            email: signupData.email
-          })
+            email: signupData.email,
+          }),
         })
 
         const data = await response.json()
-
         if (!response.ok) {
           throw new Error(data.error || 'Kunde inte skapa checkout-session')
         }
-
-        console.log('[EMBEDDED CHECKOUT] Session created successfully')
         setClientSecret(data.clientSecret)
         setIsLoading(false)
-
-        // Auto-login is now handled via database token (not sessionStorage)
-
-      } catch (error: any) {
-        console.error('[EMBEDDED CHECKOUT] Error:', error)
-        setError(error.message)
+      } catch (err: any) {
+        console.error('[EMBEDDED CHECKOUT] Error:', err)
+        setError(err.message)
         setIsLoading(false)
       }
     }
@@ -66,58 +62,81 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
   }, [signupData])
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-slate-900 mb-2">
+    <div
+      className="rounded-3xl bg-white border border-orange-100 p-6 sm:p-8"
+      style={{
+        boxShadow: '0 12px 40px -16px rgba(249, 115, 22, 0.22)',
+      }}
+    >
+      <button
+        onClick={onBack}
+        className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-500 hover:text-orange-700 transition-colors mb-5"
+      >
+        <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+        Tillbaka till kontouppgifter
+      </button>
+
+      <div className="mb-6">
+        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
+          Steg 2 av 2
+        </div>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-1.5 tracking-tight">
           Lägg till betalningsmetod
         </h2>
-        <p className="text-slate-600">
-          Du debiteras <strong>0 kr idag</strong>. Efter 7 dagar: 149 kr/månad.
+        <p className="text-sm sm:text-base text-slate-600">
+          Du debiteras{' '}
+          <strong className="text-slate-900">0 kr idag</strong>. Efter sju dagar:{' '}
+          149 kr per månad. Avsluta innan dess och du betalar inget.
         </p>
       </div>
 
-      {/* Back button */}
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        <span className="text-sm">Tillbaka till kontouppgifter</span>
-      </button>
+      {/* Trust-rad */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 rounded-xl bg-orange-50/60 border border-orange-100 mb-5 text-xs text-slate-700">
+        <span className="inline-flex items-center gap-1.5 font-bold">
+          <Lock className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
+          SSL-krypterad
+        </span>
+        <span className="inline-flex items-center gap-1.5 font-bold">
+          <ShieldCheck className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
+          Stripe-säker
+        </span>
+        <span className="inline-flex items-center gap-1.5 font-bold">
+          <CreditCard className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
+          PCI-DSS kompatibel
+        </span>
+      </div>
 
-      {/* Loading state */}
+      {/* Loading */}
       {isLoading && (
         <div className="flex flex-col items-center justify-center py-12">
-          <Loader2 className="w-12 h-12 text-blue-600 animate-spin mb-4" />
-          <p className="text-slate-600">Laddar betalningsformulär...</p>
+          <Loader2 className="w-10 h-10 text-orange-600 animate-spin mb-3" strokeWidth={2.2} />
+          <p className="text-sm text-slate-600">Laddar betalningsformulär...</p>
         </div>
       )}
 
-      {/* Error state */}
+      {/* Error */}
       {error && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-4 bg-red-50 border border-red-200 rounded-xl"
+          className="rounded-xl border border-red-200 bg-red-50 p-3.5 flex items-start gap-2.5"
         >
-          <div className="flex items-center gap-2 text-red-800">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <div>
-              <p className="text-sm font-medium">{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="text-sm underline mt-1"
-              >
-                Försök igen
-              </button>
-            </div>
+          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" strokeWidth={2.2} />
+          <div className="flex-1">
+            <p className="text-sm font-bold text-red-800">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="text-sm text-red-700 underline mt-1"
+            >
+              Försök igen
+            </button>
           </div>
         </motion.div>
       )}
 
       {/* Stripe Embedded Checkout */}
       {clientSecret && !error && (
-        <div className="bg-white rounded-xl border border-slate-200 p-1">
+        <div className="rounded-2xl overflow-hidden border border-orange-100 bg-white">
           <EmbeddedCheckoutProvider
             stripe={stripePromise}
             options={{ clientSecret }}
@@ -127,27 +146,26 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
         </div>
       )}
 
-      {/* Security badges */}
-      <div className="flex items-center justify-center gap-4 pt-4 text-xs text-slate-500">
-        <span className="flex items-center gap-1">
-          🔒 SSL-krypterad
-        </span>
-        <span className="flex items-center gap-1">
-          💳 Stripe-säker
-        </span>
-        <span className="flex items-center gap-1">
-          ✓ PCI-DSS kompatibel
-        </span>
-      </div>
-
-      {/* Important info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-6">
-        <h3 className="font-semibold text-blue-900 mb-2">Viktigt att veta:</h3>
-        <ul className="space-y-1 text-sm text-blue-800">
-          <li>• Ingen kostnad de första 7 dagarna</li>
-          <li>• Efter trial: 149 kr/månad</li>
-          <li>• Avsluta när som helst - ingen bindningstid</li>
-          <li>• Direkt tillgång till alla premiumfunktioner</li>
+      {/* Vad du far veta */}
+      <div className="mt-6 rounded-xl bg-orange-50/40 border border-orange-100 p-4">
+        <h3 className="text-sm font-black text-slate-900 mb-2">Det här gäller:</h3>
+        <ul className="space-y-1.5 text-sm text-slate-700">
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 flex-shrink-0" />
+            <span>Sju dagar gratis Premium med full tillgång till allt</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 flex-shrink-0" />
+            <span>0 kr debiteras idag. Inga avgifter under trialen.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 flex-shrink-0" />
+            <span>Efter dag åtta: 149 kr per månad. Avsluta när du vill.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 flex-shrink-0" />
+            <span>Vill du inte fortsätta? Avsluta innan dag åtta så betalar du aldrig något.</span>
+          </li>
         </ul>
       </div>
     </div>

@@ -62,20 +62,20 @@ const mascotStages = [
   {
     image: '/images/maskot/payment-verifying.svg',
     text: 'Verifierar ditt betalkort',
-    color: 'from-blue-500/20 to-indigo-500/20',
-    glowColor: 'rgba(59, 130, 246, 0.5)'
+    color: 'from-orange-500/20 to-red-500/20',
+    glowColor: 'rgba(249, 115, 22, 0.5)'
   },
   {
     image: '/images/maskot/payment-activating.svg',
     text: 'Aktiverar ditt Premium-konto',
-    color: 'from-purple-500/20 to-pink-500/20',
-    glowColor: 'rgba(168, 85, 247, 0.5)'
+    color: 'from-red-500/20 to-pink-600/20',
+    glowColor: 'rgba(220, 38, 38, 0.5)'
   },
   {
     image: '/images/maskot/payment-finalizing.svg',
     text: 'Slutför aktivering',
-    color: 'from-emerald-500/20 to-amber-500/20',
-    glowColor: 'rgba(16, 185, 129, 0.6)'
+    color: 'from-pink-600/20 to-orange-500/20',
+    glowColor: 'rgba(190, 24, 93, 0.55)'
   }
 ]
 
@@ -224,13 +224,18 @@ export default function PaymentProcessing({ token }: PaymentProcessingProps) {
             <div className="space-y-3 max-w-md mx-auto">
               <button
                 onClick={() => router.push('/login')}
-                className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full py-3 text-white font-bold rounded-2xl transition-all hover:shadow-xl"
+                style={{
+                  background:
+                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.45)',
+                }}
               >
                 Gå till inloggning
               </button>
               <button
                 onClick={() => router.push('/kontakt')}
-                className="w-full py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+                className="w-full py-3 bg-slate-100 text-slate-700 font-bold rounded-2xl hover:bg-slate-200 transition-colors"
               >
                 Kontakta support
               </button>
@@ -352,10 +357,14 @@ export default function PaymentProcessing({ token }: PaymentProcessingProps) {
 
             {/* Progress Bar */}
             <div className="w-full max-w-md mx-auto mb-4">
-              <div className="h-3 bg-gray-200 rounded-full overflow-hidden relative">
+              <div className="h-3 bg-orange-100/60 rounded-full overflow-hidden relative">
                 <div
-                  style={{ width: `${progress}%` }}
-                  className="h-full bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 rounded-full relative transition-all duration-500"
+                  style={{
+                    width: `${progress}%`,
+                    background:
+                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  }}
+                  className="h-full rounded-full relative transition-all duration-500"
                 >
                   {/* Shimmer effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />

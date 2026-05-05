@@ -164,7 +164,7 @@ export default function PriserKort() {
                 />
               </Link>
               <p className="text-center text-xs text-white/85 mt-3">
-                {TRIAL_DAYS} dagar gratis · Inget kreditkort krävs
+                {TRIAL_DAYS} dagar gratis · Avsluta innan dag {TRIAL_DAYS + 1} och du betalar inget
               </p>
             </div>
           </motion.div>

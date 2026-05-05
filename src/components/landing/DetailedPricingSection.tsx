@@ -316,7 +316,7 @@ export default function DetailedPricingSection() {
               </Link>
 
               <p className="text-[11px] opacity-90 text-center mt-3">
-                7 dagar gratis · Inget kreditkort krävs
+                7 dagar gratis · Avsluta innan dag 8 och du betalar inget
               </p>
             </div>
           </motion.div>

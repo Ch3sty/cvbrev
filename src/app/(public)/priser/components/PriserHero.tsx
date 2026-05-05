@@ -55,8 +55,8 @@ export default function PriserHero() {
           {/* Subtitle */}
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-2xl mx-auto">
             149 kr per månad för obegränsad tillgång till hela plattformen.
-            Sju dagar gratis. Ingen kortuppgift för att testa, ingen
-            bindningstid och avsluta när du fått jobbet.
+            Sju dagar gratis och ingen bindningstid. Avsluta innan trialen
+            är slut och du betalar aldrig något.
           </p>
 
           {/* Trust-pillar */}

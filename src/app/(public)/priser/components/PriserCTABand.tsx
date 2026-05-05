@@ -35,12 +35,12 @@ export default function PriserCTABand() {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-4">
                 Testa Premium i {TRIAL_DAYS} dagar.
                 <br className="hidden sm:block" />{' '}
-                Inget kreditkort krävs.
+                Helt utan kostnad.
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Vill du fortsätta? Då kostar det 149 kr per månad. Vill du
-                inte fortsätta? Gör absolut ingenting och kontot rullar
-                tillbaka till gratis.
+                Vill du fortsätta? Då kostar det 149 kr per månad. Avsluta
+                innan trialen är slut och du betalar aldrig något. Inga
+                avgifter, ingen bindningstid.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
@@ -67,7 +67,7 @@ export default function PriserCTABand() {
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>Ingen kortuppgift</span>
+                <span>Avsluta innan dag åtta</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Ingen bindningstid</span>
                 <span className="hidden sm:inline text-white/40">·</span>
