@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User as SupabaseUser } from '@supabase/supabase-js'
+import Logo from '@/components/Logo'
 import {
   ChevronDown,
   FileText,
@@ -193,23 +194,9 @@ export default function PremiumNavbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
 
-          {/* Premium Logo with Enhanced Design */}
-          <div className="flex items-center">
-            <Link
-              href="/"
-              className="group flex items-center text-xl font-bold transition-all duration-300 hover:scale-105"
-              onClick={closeAllDropdowns}
-            >
-              <span className="text-xl sm:text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
-                Jobbcoach
-              </span>
-              <div className="relative">
-                <span className="text-xl sm:text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
-                  .ai
-                </span>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse" />
-              </div>
-            </Link>
+          {/* Logo */}
+          <div className="flex items-center" onClick={closeAllDropdowns}>
+            <Logo href="/" variant="compact" height={36} />
           </div>
 
           {/* Desktop Navigation */}

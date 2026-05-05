@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Facebook, Instagram, Linkedin, Twitter, Github, Heart } from 'lucide-react'
+import Logo from '@/components/Logo'
 
 export default function PremiumFooter() {
   return (
@@ -11,15 +12,9 @@ export default function PremiumFooter() {
 
           {/* Kolumn 1: Om Jobbcoach.ai */}
           <div className="lg:col-span-2">
-            {/* Logotyp - matchar PremiumNavbar stil */}
-            <Link href="/" className="inline-block mb-6">
-              <span className="text-2xl font-bold text-gray-900">
-                Jobbcoach
-              </span>
-              <span className="text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight shadow-sm">
-                .ai
-              </span>
-            </Link>
+            <div className="mb-6">
+              <Logo href="/" variant="default-tag" height={56} />
+            </div>
 
             <p className="text-gray-600 mb-6 max-w-md">
               Din smarta karriärpartner för svenska arbetsmarknaden.

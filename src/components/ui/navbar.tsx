@@ -9,6 +9,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { Menu, Transition, Disclosure } from '@headlessui/react'
 import { useProfile } from '@/hooks/use-profile'; // Importera useProfile
 import GuestInvitationButton from '@/components/ui/GuestInvitationButton';
+import Logo from '@/components/Logo';
 
 // --- Icon Imports (Lucide React) ---
 import {
@@ -231,10 +232,9 @@ export default function Navbar() {
             <div className="flex items-center justify-between h-16">
 
               {/* Logotyp */}
-              <Link href="/" className="flex-shrink-0 flex items-center space-x-px" onClick={() => { if (mobileMenuIsOpen) closeMobileMenu(); }}>
-                 <span className="text-2xl font-bold text-white hover:opacity-90 transition-opacity">Jobbcoach</span>
-                 <span className="text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">.ai</span>
-              </Link>
+              <div className="flex-shrink-0" onClick={() => { if (mobileMenuIsOpen) closeMobileMenu(); }}>
+                <Logo href="/" variant="on-dark" height={36} />
+              </div>
 
               {/* --- Desktop Nav (Med Dropdown) --- */}
               <div className="hidden md:flex items-center space-x-1 lg:space-x-2">

@@ -106,6 +106,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "jsdom": "^25.0.0",
+    "png-to-ico": "^3.0.1",
     "postcss": "^8.5.3",
     "supabase": "^2.19.7",
     "tailwindcss": "^3.4.17",

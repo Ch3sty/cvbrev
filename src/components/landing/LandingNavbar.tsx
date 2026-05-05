@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from '@/components/Logo';
 import {
   Menu,
   X,
@@ -157,32 +158,8 @@ export default function LandingNavbar() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo — samma stil som SidebarLogo */}
-            <Link
-              href="/"
-              className="group flex items-center"
-              aria-label="Jobbcoach.ai start"
-            >
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 group-hover:opacity-90 transition-opacity">
-                Jobbcoach
-              </span>
-              <span className="relative ml-1">
-                <span
-                  className="inline-block text-xl sm:text-2xl font-black text-white rounded-md px-1.5 py-0.5 leading-tight transition-transform group-hover:scale-105"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                    boxShadow:
-                      '0 4px 12px -2px rgba(220, 38, 38, 0.4)',
-                  }}
-                >
-                  .ai
-                </span>
-                <span
-                  className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-yellow-400 animate-pulse"
-                  aria-hidden="true"
-                />
-              </span>
-            </Link>
+            <Logo href="/" variant="compact" height={36} />
+
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-1">
@@ -376,27 +353,9 @@ export default function LandingNavbar() {
                   href="/"
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center"
+                  aria-label="Jobbcoach.ai start"
                 >
-                  <span className="text-xl font-black tracking-tight text-slate-900">
-                    Jobbcoach
-                  </span>
-                  <span className="relative ml-1">
-                    <span
-                      className="inline-block text-xl font-black text-white rounded-md px-1.5 py-0.5 leading-tight"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                        boxShadow:
-                          '0 4px 12px -2px rgba(220, 38, 38, 0.4)',
-                      }}
-                    >
-                      .ai
-                    </span>
-                    <span
-                      className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-yellow-400"
-                      aria-hidden="true"
-                    />
-                  </span>
+                  <Logo variant="compact" height={32} />
                 </Link>
                 <button
                   onClick={() => setMobileOpen(false)}
