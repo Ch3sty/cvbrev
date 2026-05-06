@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight, Target } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { IconTarget } from '@/components/dashboard/illustrations/DashboardIcons';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
@@ -304,15 +305,7 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div
-                      className="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                      }}
-                    >
-                      <Target className="w-6 h-6" strokeWidth={2.2} />
-                    </div>
+                    <IconTarget className="w-12 h-12 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-base sm:text-lg font-black text-slate-900 mb-0.5 leading-tight">
                         Kom igång med 3 enkla steg

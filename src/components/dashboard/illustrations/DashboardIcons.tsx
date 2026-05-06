@@ -1,7 +1,7 @@
 /**
  * Custom SVG-illustrationer for /dashboard.
  * 4 snabb-ikoner (48x48) + 6 aktivitet-ikoner (32x32) + 3 kvot-ikoner (24x24)
- * + 1 streak-eld (96x96) = 14 ikoner totalt.
+ * + 1 streak-eld (96x96) + 3 shell-ikoner (40x40 / 48x48) = 17 ikoner totalt.
  * Stil: orange/rod-DNA med Defs-pattern.
  */
 
@@ -345,6 +345,98 @@ export function IconKvotLinkedin({ className }: IllustrationProps) {
       <circle cx="8" cy="13" r="2" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="1.2" />
       <line x1="11" y1="13" x2="19" y2="13" stroke="#1E293B" strokeWidth="1.2" strokeLinecap="round" />
       <line x1="11" y1="16" x2="17" y2="16" stroke="#94A3B8" strokeWidth="1" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// =============================================================
+// SHELL-IKONER - for header, banner och CvStatusCard
+// =============================================================
+
+/**
+ * IconCheckmark (40x40) - Gradient-cirkel med vit bock.
+ * Anvands i CvStatusCard nar anvandaren har CV.
+ */
+export function IconCheckmark({ className }: IllustrationProps) {
+  const id = 'db-chk'
+  return (
+    <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      {/* Soft halo */}
+      <circle cx="20" cy="20" r="18" fill={`url(#${id}-soft)`} opacity="0.6" />
+      {/* Filled gradient circle */}
+      <circle cx="20" cy="20" r="13" fill={`url(#${id}-warm)`} />
+      {/* White checkmark */}
+      <path
+        d="M 13.5 20 L 18 24.5 L 27 15.5"
+        stroke="white"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  )
+}
+
+/**
+ * IconVarning (40x40) - Vanlig varningstriangel i orange/rod-gradient.
+ * Anvands i email-verification-banner och no-CV-banner.
+ */
+export function IconVarning({ className }: IllustrationProps) {
+  const id = 'db-var'
+  return (
+    <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      {/* Soft halo */}
+      <circle cx="20" cy="20" r="18" fill={`url(#${id}-soft)`} opacity="0.7" />
+      {/* Triangle */}
+      <path
+        d="M 20 9 L 32 28 Q 33 30 31 30 L 9 30 Q 7 30 8 28 Z"
+        fill={`url(#${id}-warm)`}
+      />
+      {/* Exclamation */}
+      <rect x="18.7" y="15" width="2.6" height="8" rx="1.3" fill="white" />
+      <circle cx="20" cy="26" r="1.5" fill="white" />
+    </svg>
+  )
+}
+
+/**
+ * IconTarget (48x48) - Sikt-mal med koncentriska cirklar.
+ * Anvands i onboarding-banner pa dashboarden.
+ */
+export function IconTarget({ className }: IllustrationProps) {
+  const id = 'db-tgt'
+  return (
+    <svg className={className} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      {/* Outermost ring */}
+      <circle cx="24" cy="24" r="20" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="2" />
+      {/* Middle ring */}
+      <circle cx="24" cy="24" r="14" fill={`url(#${id}-soft)`} stroke={`url(#${id}-warm)`} strokeWidth="1.5" opacity="0.85" />
+      {/* Inner ring */}
+      <circle cx="24" cy="24" r="8" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="1.5" />
+      {/* Bullseye */}
+      <circle cx="24" cy="24" r="3.5" fill={`url(#${id}-deep)`} />
+      {/* Pil som pekar mot mal (subtilt fran ovre hogra hornet) */}
+      <line
+        x1="38"
+        y1="10"
+        x2="27"
+        y2="21"
+        stroke={`url(#${id}-warm)`}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 27 21 L 30 19 M 27 21 L 29 24"
+        stroke={`url(#${id}-warm)`}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
     </svg>
   )
 }
