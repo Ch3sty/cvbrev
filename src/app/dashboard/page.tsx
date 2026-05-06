@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 // Streak-fokuserade komponenter
 import StreakHero from '@/components/dashboard/StreakHero';
@@ -47,6 +48,7 @@ interface DashboardStats {
 export default function DashboardPage() {
   const searchParams = useSearchParams();
   const { successWithMascotAndActivity } = useNotification();
+  const { completedSteps, rewardClaimed } = useOnboarding();
 
   const [stats, setStats] = useState<DashboardStats>({
     totalLetters: 0,
@@ -55,6 +57,11 @@ export default function DashboardPage() {
     recentLetters: []
   });
   const [loading, setLoading] = useState(true);
+
+  // Refetch dashboard-data nar onboarding-state andras (efter att t.ex.
+  // CV-analys completas pollar OnboardingContext via realtime och uppdaterar
+  // completedSteps - vi vill da spegla det i streak-stats m.m.)
+  const onboardingSnapshot = `${completedSteps.length}-${rewardClaimed}`;
 
   useEffect(() => {
     async function fetchDashboardData() {
@@ -214,7 +221,8 @@ export default function DashboardPage() {
     }
 
     fetchDashboardData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onboardingSnapshot]);
 
   useEffect(() => {
     const premiumActivated = searchParams.get('premium_activated');

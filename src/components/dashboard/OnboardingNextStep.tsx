@@ -46,12 +46,24 @@ const NEXT_STEP_CONFIG = {
   },
 }
 
+// Mappar varje steg till nasta steg i onboarding-sekvensen.
+// Anvands for att dolja prompten nar nasta steg redan ar klart.
+const NEXT_STEP_MAP: Record<string, string | null> = {
+  upload_cv: 'create_letter',
+  create_letter: 'analyze_cv',
+  analyze_cv: null, // sista steget - visas tills reward claimat
+}
+
 export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStepProps) {
   const { completedSteps, rewardClaimed, isLoading } = useOnboarding()
 
   // Visa inget om laddar, om belogning redan hamtats, eller om steget INTE ar slutfort
   if (isLoading || rewardClaimed) return null
   if (!completedSteps.includes(stepCompleted)) return null
+
+  // Visa inget om nasta steg redan ar klart - prompten ar redundant
+  const nextStep = NEXT_STEP_MAP[stepCompleted]
+  if (nextStep && completedSteps.includes(nextStep)) return null
 
   const config = NEXT_STEP_CONFIG[stepCompleted]
 

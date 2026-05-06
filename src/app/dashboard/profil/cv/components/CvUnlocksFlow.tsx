@@ -43,7 +43,7 @@ const FEATURES: FeatureNode[] = [
   },
   {
     id: 'analysis',
-    title: 'Profilanalys',
+    title: 'Förbättra CV',
     body: 'Få feedback på 30 sekunder',
     cta: 'Analysera CV',
     href: '/dashboard/cv-analys',
