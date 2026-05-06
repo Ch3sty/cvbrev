@@ -1,32 +1,51 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'LinkedIn-optimering för Jobbsökare | Syns i Rekryterarnas Sökningar | Jobbcoach.ai',
-  description: 'Optimera din LinkedIn-profil för AI-driven rekrytering. Få fler synligheter och kontakter från rekryterare med keywords, headline-generator och About-optimering. Gratis att testa.',
-  keywords: 'LinkedIn-optimering, LinkedIn-profil, optimera LinkedIn, LinkedIn tips Sverige, LinkedIn rekrytering, LinkedIn keywords, LinkedIn headline, LinkedIn för jobbsökare, AI-rekrytering LinkedIn, synas på LinkedIn',
+  title:
+    'LinkedIn-optimering: hamna i rekryterarnas sökresultat | Jobbcoach.ai',
+  description:
+    'Optimera din LinkedIn-profil för rekryterar-sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka. Gratis att börja, vi loggar aldrig in på din LinkedIn.',
+  keywords: [
+    'linkedin-optimering',
+    'optimera linkedin',
+    'linkedin profil tips',
+    'linkedin headline',
+    'linkedin om mig exempel',
+    'linkedin profil sammanfattning',
+    'hur skriver man linkedin profil',
+    'linkedin keywords',
+    'linkedin sökoptimering',
+    'linkedin rekryterare',
+    'linkedin headline tips',
+    'linkedin för jobbsökare',
+  ],
   openGraph: {
-    title: 'LinkedIn-profil som lockar rekryterare | Jobbcoach.ai',
-    description: '80% av rekryterare söker kandidater på LinkedIn. Optimera din profil för AI-drivna sökningar på 5 minuter. Gratis att testa.',
-    type: 'website',
-    locale: 'sv_SE',
+    title:
+      'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
+    description:
+      'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan, ingen LinkedIn-inloggning.',
     url: 'https://jobbcoach.ai/verktyg/linkedin-optimering',
     siteName: 'Jobbcoach.ai',
+    type: 'website',
+    locale: 'sv_SE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LinkedIn-optimering för jobbsökare | Jobbcoach.ai',
-    description: 'Optimera din LinkedIn-profil för AI-driven rekrytering. 3x fler synligheter med rätt keywords och optimerad profil.',
-  },
-  alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/linkedin-optimering'
+    title:
+      'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
+    description:
+      'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan.',
   },
   robots: {
     index: true,
     follow: true,
-  }
+  },
+  alternates: {
+    canonical: 'https://jobbcoach.ai/verktyg/linkedin-optimering',
+  },
 }
 
-export default function LinkedInOptimeringSidaLayout({
+export default function LinkedinOptimeringLayout({
   children,
 }: {
   children: React.ReactNode
