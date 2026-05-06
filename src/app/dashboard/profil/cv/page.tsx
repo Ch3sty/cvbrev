@@ -12,6 +12,7 @@ import CVUploadZone from '@/components/cv/cv-upload-zone';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvHeroBanner from './components/CvHeroBanner';
+import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 import CvUploadIllustration from './components/CvUploadIllustration';
 import CvUnlocksFlow from './components/CvUnlocksFlow';
 import CvCard from './components/CvCard';
@@ -256,6 +257,9 @@ export default function MinaCVPage() {
         latestUploadedAt={latestUploadedAt}
         cvLimit={FREE_LIMIT}
       />
+
+      {/* Onboarding-prompt: pekar mot nasta steg om CV nyss laddats upp */}
+      <OnboardingNextStep stepCompleted="upload_cv" />
 
       {/* Empty state body */}
       {isEmpty && (

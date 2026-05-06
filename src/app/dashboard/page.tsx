@@ -1,9 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
-import { IconTarget } from '@/components/dashboard/illustrations/DashboardIcons';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
@@ -14,9 +11,11 @@ import CvStatusCard from '@/components/dashboard/CvStatusCard';
 // Nya redesignade komponenter (orange/rod-DNA)
 import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
+// Onboarding
+import OnboardingHero from '@/components/dashboard/OnboardingHero';
+import OnboardingDag2 from '@/components/dashboard/OnboardingDag2';
 // Ovriga
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
-import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
 
 interface DashboardStats {
   totalLetters: number;
@@ -56,8 +55,6 @@ export default function DashboardPage() {
     recentLetters: []
   });
   const [loading, setLoading] = useState(true);
-  const [showFirstTimeModal, setShowFirstTimeModal] = useState(false);
-  const [, setIsFirstTimeUser] = useState(false);
 
   useEffect(() => {
     async function fetchDashboardData() {
@@ -152,16 +149,6 @@ export default function DashboardPage() {
           });
         }
 
-        const isNewUser = !profile?.onboarding_started_at &&
-                         !profile?.onboarding_skipped &&
-                         (cvCount || 0) === 0 &&
-                         (letters?.length || 0) === 0;
-
-        setIsFirstTimeUser(isNewUser);
-
-        if (isNewUser) {
-          setShowFirstTimeModal(true);
-        }
 
         let rewardsData = {
           currentLevel: 1,
@@ -284,52 +271,13 @@ export default function DashboardPage() {
             Nar CV finns visas det som status-rad UNDER streak-kortet (langre ner). */}
         {cvCount === 0 && <CvStatusCard cvCount={cvCount} />}
 
-        {/* Onboarding-banner - bara nar onboarding ej klar */}
-        {!stats.onboardingCompleted && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05, duration: 0.4 }}
-          >
-            <Link href="/dashboard/kom-igang">
-              <motion.div
-                whileHover={{ y: -2 }}
-                className="rounded-3xl p-5 sm:p-6 border border-orange-200 hover:border-orange-300 transition-all cursor-pointer group"
-                style={{
-                  background:
-                    'linear-gradient(135deg, rgba(255, 237, 213, 0.6) 0%, rgba(254, 215, 170, 0.4) 100%)',
-                  boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.2)',
-                }}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <IconTarget className="w-12 h-12 flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg font-black text-slate-900 mb-0.5 leading-tight">
-                        Kom igång med 3 enkla steg
-                      </h3>
-                      <p className="text-sm text-slate-600">
-                        Slutför alla 3 och få 1 dag gratis Premium.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 hidden sm:block">
-                    <div
-                      className="flex items-center gap-2 px-5 py-2.5 text-white rounded-xl font-bold text-sm group-hover:translate-x-0.5 transition-transform"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                      }}
-                    >
-                      <span>Kom igång</span>
-                      <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-          </motion.div>
-        )}
+        {/* OnboardingHero - hanterar in_progress + ready_to_claim states.
+            Doljer sig sjalv nar rewardClaimed === true. */}
+        <OnboardingHero />
+
+        {/* OnboardingDag2 - utforska-mer-kort efter belogning ar hamtat.
+            Renderas bara nar rewardClaimed === true och inte dismissed. */}
+        <OnboardingDag2 />
 
         {/* StreakHero - innehaller nu streak-stats OCH veckokvotor i samma kort */}
         <StreakHero
@@ -358,13 +306,6 @@ export default function DashboardPage() {
         {/* Senaste aktivitet - full bredd */}
         <DashboardSenasteAktivitet />
       </motion.div>
-
-      {showFirstTimeModal && (
-        <FirstTimeUserModal
-          onClose={() => setShowFirstTimeModal(false)}
-          onSkip={() => setShowFirstTimeModal(false)}
-        />
-      )}
     </div>
   );
 }

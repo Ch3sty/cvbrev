@@ -1,393 +1,267 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+/**
+ * /dashboard/kom-igang
+ * --------------------
+ * Linjar onboarding-sekvens. Visar tre steg som dynamiska states:
+ * - completed (gron check, kompakt)
+ * - current (stort kort med illustration + CTA)
+ * - locked (graytone med la-ikon)
+ *
+ * Belogning visas alltid (informativt) och blir aktiv nar 3/3 ar klara.
+ */
+
+import { motion } from 'framer-motion'
+import { useOnboarding } from '@/contexts/OnboardingContext'
+import OnboardingStep from '@/components/dashboard/OnboardingStep'
+import OnboardingReward from '@/components/dashboard/OnboardingReward'
+import OnboardingDag2 from '@/components/dashboard/OnboardingDag2'
 import {
-  Rocket,
-  Trophy,
-  Target,
-  ArrowRight,
-  Upload,
-  FileText,
-  Brain,
-  Linkedin,
-  CheckCircle,
-  Palette,
-  Briefcase
-} from 'lucide-react';
-import Link from 'next/link';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { useNotification } from '@/context/notificationcontext';
+  OnboardingHeroIllustration,
+  OnboardingStep1Cv,
+  OnboardingStep2Brev,
+  OnboardingStep3Analys,
+  OnboardingTrofe,
+} from '@/components/dashboard/illustrations/OnboardingIcons'
+import { Check } from 'lucide-react'
 
-// Components
-import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist';
-
-interface QuickStartCard {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-  href: string;
-  gradient: string;
-  completed?: boolean;
-}
+const STEPS = [
+  {
+    name: 'upload_cv',
+    title: 'Ladda upp ditt CV',
+    description: 'Vi läser ditt CV och låser upp resten.',
+    why: 'Utan CV kan vi inte matcha dig mot jobb, skapa anpassade brev eller analysera dina styrkor.',
+    timeEstimate: '~30 sek',
+    ctaLabel: 'Ladda upp CV',
+    ctaHref: '/dashboard/profil/cv',
+    illustration: <OnboardingStep1Cv className="w-32 h-32" />,
+  },
+  {
+    name: 'create_letter',
+    title: 'Skapa ditt första personliga brev',
+    description: 'Klistra in en jobbannons och få ett färdigt brev anpassat efter ditt CV.',
+    why: 'Personliga brev är ofta avgörande. Vi gör det på 30 sekunder istället för en timme.',
+    timeEstimate: '~2 min',
+    ctaLabel: 'Skapa brev',
+    ctaHref: '/dashboard/skapa-brev',
+    illustration: <OnboardingStep2Brev className="w-32 h-32" />,
+  },
+  {
+    name: 'analyze_cv',
+    title: 'Analysera ditt CV',
+    description: 'Få konkret feedback på vad rekryterare ser och vad du kan förbättra.',
+    why: 'Vår CV-analys visar vilka nyckelord som saknas, vad ATS-system fångar upp och hur du sticker ut.',
+    timeEstimate: '~1 min',
+    ctaLabel: 'Kör analys',
+    ctaHref: '/dashboard/cv-analys',
+    illustration: <OnboardingStep3Analys className="w-32 h-32" />,
+  },
+]
 
 export default function KomIgangPage() {
-  const [isPremium, setIsPremium] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  const { successWithMascot } = useNotification();
+  const {
+    completedSteps,
+    requiredCompletedCount,
+    onboardingCompleted,
+    rewardClaimed,
+    isLoading,
+  } = useOnboarding()
 
-  const supabase = getSupabaseClient();
-
-  useEffect(() => {
-    fetchUserStatus();
-  }, []);
-
-  async function fetchUserStatus() {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('subscription_tier, premium_until, premium_source, onboarding_steps_completed, onboarding_completed')
-        .eq('id', user.id)
-        .single();
-
-      const isPremiumUser = !!(
-        profile?.subscription_tier === 'premium' ||
-        (profile?.premium_until && new Date(profile.premium_until) > new Date()) ||
-        profile?.premium_source
-      );
-
-      setIsPremium(isPremiumUser);
-
-      // Fetch actual counts from database to validate completed steps
-      const completedStepsArray = profile?.onboarding_steps_completed || [];
-
-      const { count: cvCount } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      const { count: letterCount } = await supabase
-        .from('letters')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      const { count: analysisCount } = await supabase
-        .from('cv_analysis_jobs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-        .eq('status', 'completed');
-
-      const { count: linkedinCount } = await supabase
-        .from('linkedin_optimizations')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      const { count: templateCount } = await supabase
-        .from('formatted_cv_downloads')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      const { count: jobMatchCount } = await supabase
-        .from('job_matchings_cache')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      // Build validated steps array using hybrid logic
-      const validatedSteps: string[] = [];
-      if (completedStepsArray.includes('upload_cv') || (cvCount || 0) > 0) {
-        validatedSteps.push('upload_cv');
-      }
-      if (completedStepsArray.includes('create_letter') || (letterCount || 0) > 0) {
-        validatedSteps.push('create_letter');
-      }
-      if (completedStepsArray.includes('analyze_cv') || (analysisCount || 0) > 0) {
-        validatedSteps.push('analyze_cv');
-      }
-      if (completedStepsArray.includes('optimize_linkedin') || (linkedinCount || 0) > 0) {
-        validatedSteps.push('optimize_linkedin');
-      }
-      if (completedStepsArray.includes('download_cv_template') || (templateCount || 0) > 0) {
-        validatedSteps.push('download_cv_template');
-      }
-      if (completedStepsArray.includes('match_jobs') || (jobMatchCount || 0) > 0) {
-        validatedSteps.push('match_jobs');
-      }
-
-      setCompletedSteps(validatedSteps);
-      setLoading(false);
-
-      // Check if 3 required steps are completed (onboarding complete)
-      const requiredSteps = ['upload_cv', 'create_letter', 'analyze_cv'];
-      const allCompleted = requiredSteps.every(step => validatedSteps.includes(step));
-
-      // Show completion notification if just completed and not already shown
-      if (allCompleted && !profile?.onboarding_completed) {
-        // Update onboarding_completed in database
-        await supabase
-          .from('profiles')
-          .update({ onboarding_completed: true })
-          .eq('id', user.id);
-
-        // Show mascot notification
-        successWithMascot(
-          'Du är redo att börja söka jobb. Vi har allt vi behöver för att hjälpa dig.',
-          'onboarding-complete',
-          6000
-        );
-      }
-    } catch (error) {
-      console.error('Error fetching user status:', error);
-      setLoading(false);
-    }
-  }
-
-  const quickStartCards: QuickStartCard[] = [
-    {
-      title: 'Ladda upp ditt CV',
-      description: 'Grunden för alla funktioner - ladda upp ditt CV i PDF-format',
-      icon: Upload,
-      href: '/dashboard/profil/cv',
-      gradient: 'from-blue-500 to-indigo-600',
-      completed: completedSteps.includes('upload_cv')
-    },
-    {
-      title: 'Skapa personligt brev',
-      description: 'Skapa ett skräddarsytt personligt brev på under en minut',
-      icon: FileText,
-      href: '/dashboard/skapa-brev',
-      gradient: 'from-purple-500 to-pink-600',
-      completed: completedSteps.includes('create_letter')
-    },
-    {
-      title: 'Analysera ditt CV',
-      description: 'Få konkret feedback som lyfter ditt CV',
-      icon: Brain,
-      href: '/dashboard/cv-analys',
-      gradient: 'from-emerald-500 to-teal-600',
-      completed: completedSteps.includes('analyze_cv')
-    },
-    {
-      title: 'Optimera LinkedIn',
-      description: 'Gör din LinkedIn-profil synlig för rekryterare',
-      icon: Linkedin,
-      href: '/dashboard/linkedin-optimizer',
-      gradient: 'from-orange-500 to-red-600',
-      completed: completedSteps.includes('optimize_linkedin')
-    },
-    {
-      title: 'Ladda ner CV-mall',
-      description: 'Välj en professionell mall och ladda ner ditt CV',
-      icon: Palette,
-      href: '/dashboard/cv-mallar',
-      gradient: 'from-rose-500 to-pink-600',
-      completed: completedSteps.includes('download_cv_template')
-    },
-    {
-      title: 'Hitta matchande jobb',
-      description: 'Upptäck jobb som faktiskt matchar din profil',
-      icon: Briefcase,
-      href: '/dashboard/jobbmatchning',
-      gradient: 'from-amber-500 to-orange-600',
-      completed: completedSteps.includes('match_jobs')
-    }
-  ];
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-slate-600">Laddar...</p>
-        </div>
+        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
-    );
+    )
   }
+
+  // Hitta vilket steg som ar nuvarande (forsta som inte ar klart)
+  const currentStepIndex = STEPS.findIndex((s) => !completedSteps.includes(s.name))
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Subtil orange radial-glow uppe — matchar (public)/auth-DNA */}
+      {/* Bakgrunds-glow */}
       <div
-        className="fixed inset-x-0 top-0 h-[50vh] pointer-events-none z-0"
+        className="fixed inset-x-0 top-0 h-[40vh] pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.1) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Main Content */}
-      <div className="relative z-10 space-y-8">
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-4 mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg mb-4"
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="space-y-6 sm:space-y-7 relative z-10"
+      >
+        {/* Hero */}
+        <section className="relative overflow-hidden rounded-3xl bg-white border border-orange-100 p-6 sm:p-8 lg:p-10">
+          <div
+            aria-hidden="true"
+            className="absolute -right-8 -top-8 opacity-15 pointer-events-none hidden lg:block"
           >
-            <Rocket className="w-10 h-10 text-white" />
-          </motion.div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
-              Din väg till framgång
-            </span>
-            <br />
-            <span className="text-slate-900">börjar här</span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            Slutför 3 steg och <strong className="text-blue-600">få 1 dag gratis Premium</strong> att testa alla funktioner.
-          </p>
-
-          {/* Reward Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, type: "spring" }}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300/50 rounded-full shadow-lg mb-2"
-          >
-            <Trophy className="w-5 h-5 text-yellow-600" />
-            <span className="text-sm font-bold text-yellow-900">
-              Slutför 3 steg = 1 dag gratis Premium
-            </span>
-          </motion.div>
-
-          {/* Progress indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-slate-200 shadow-sm"
-          >
-            <Target className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-medium text-slate-700">
-              {Math.min(completedSteps.filter(s => ['upload_cv', 'create_letter', 'analyze_cv'].includes(s)).length, 3)}/3 steg klara
-            </span>
-          </motion.div>
-        </motion.div>
-
-        {/* Onboarding Checklist */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          <OnboardingChecklist isPremium={isPremium} />
-        </motion.div>
-
-        {/* Quick Start Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="space-y-4"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Target className="w-6 h-6 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">Snabbgenvägar</h2>
+            <OnboardingHeroIllustration className="w-64 h-64" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {quickStartCards.map((card, index) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={card.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                >
-                  <Link href={card.href}>
-                    <motion.div
-                      whileHover={{ scale: 1.02, y: -4 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${card.gradient} shadow-lg hover:shadow-xl transition-shadow group cursor-pointer`}
-                    >
-                      {/* Completed badge */}
-                      {card.completed && (
-                        <div className="absolute top-4 right-4">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm">
-                            <CheckCircle className="w-5 h-5 text-white" />
-                          </div>
-                        </div>
-                      )}
+          <div className="relative max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-orange-700 mb-2.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                }}
+                aria-hidden="true"
+              />
+              Onboarding
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-3">
+              Tre steg till{' '}
+              <span
+                style={{
+                  background:
+                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                din första ansökan
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-5">
+              5-10 minuter och du är igång på riktigt. Vi visar konkret hur varje
+              steg hjälper dig som söker jobb.
+            </p>
 
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="flex-1 text-white">
-                          <h3 className="text-xl font-bold mb-2">{card.title}</h3>
-                          <p className="text-white/90 text-sm mb-4">
-                            {card.description}
-                          </p>
-                          <div className="flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all">
-                            <span>{card.completed ? 'Gå till' : 'Börja nu'}</span>
-                            <ArrowRight className="w-4 h-4" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Hover gradient effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity"
-                      />
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+            <ProgressBar
+              completed={requiredCompletedCount}
+              total={STEPS.length}
+            />
           </div>
-        </motion.div>
+        </section>
 
-        {/* Motivational Footer */}
+        {/* Stegen */}
+        <section className="space-y-3 sm:space-y-4">
+          {STEPS.map((step, idx) => {
+            const isCompleted = completedSteps.includes(step.name)
+            const isCurrent = idx === currentStepIndex
+            const state = isCompleted ? 'completed' : isCurrent ? 'current' : 'locked'
+
+            return (
+              <OnboardingStep
+                key={step.name}
+                number={idx + 1}
+                total={STEPS.length}
+                state={state}
+                title={step.title}
+                description={step.description}
+                why={step.why}
+                timeEstimate={step.timeEstimate}
+                ctaLabel={step.ctaLabel}
+                ctaHref={step.ctaHref}
+                illustration={step.illustration}
+              />
+            )
+          })}
+        </section>
+
+        {/* Belogning - alltid synlig */}
+        {onboardingCompleted && !rewardClaimed ? (
+          <OnboardingReward />
+        ) : !rewardClaimed ? (
+          <RewardPreview />
+        ) : null}
+
+        {/* Dag-2 nar belogning ar hamtat */}
+        {rewardClaimed && <OnboardingDag2 />}
+      </motion.div>
+    </div>
+  )
+}
+
+function ProgressBar({ completed, total }: { completed: number; total: number }) {
+  const pct = (completed / total) * 100
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {Array.from({ length: total }).map((_, i) => {
+            const isCompleted = i < completed
+            const isCurrent = i === completed
+            return (
+              <div
+                key={i}
+                className={`flex items-center justify-center rounded-full transition-all ${
+                  isCompleted
+                    ? 'w-8 h-8 text-white'
+                    : isCurrent
+                    ? 'w-8 h-8 border-2 border-orange-300 text-orange-700'
+                    : 'w-7 h-7 border-2 border-slate-200 text-slate-300'
+                }`}
+                style={
+                  isCompleted
+                    ? {
+                        background:
+                          'linear-gradient(135deg, #F97316, #DC2626)',
+                      }
+                    : undefined
+                }
+              >
+                {isCompleted ? (
+                  <Check className="w-4 h-4" strokeWidth={3.5} />
+                ) : (
+                  <span className="text-sm font-black">{i + 1}</span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <span className="text-sm font-black text-slate-700 tabular-nums">
+          {completed}/{total} klara
+        </span>
+      </div>
+
+      <div className="h-2 rounded-full bg-orange-100 overflow-hidden">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="text-center py-12 space-y-4"
-        >
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg mb-4">
-            <Trophy className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-2xl font-bold text-slate-900">
-            Du är på rätt väg!
-          </h3>
-          <p className="text-slate-600 max-w-xl mx-auto">
-            Varje steg du tar för dig närmare ditt drömjobb. Ta det i din egen takt och kom ihåg - vi finns här för att hjälpa dig hela vägen.
-          </p>
-
-          {!isPremium && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-              className="pt-6"
-            >
-              <Link href="/dashboard/profil/prenumeration">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow inline-flex items-center gap-2"
-                >
-                  Uppgradera till Premium
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-              </Link>
-            </motion.div>
-          )}
-        </motion.div>
+          initial={{ width: 0 }}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="h-full rounded-full"
+          style={{
+            background:
+              'linear-gradient(90deg, #F97316, #DC2626, #BE185D)',
+          }}
+        />
       </div>
     </div>
-  );
+  )
+}
+
+function RewardPreview() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-orange-50/40 border border-orange-200 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5"
+    >
+      <OnboardingTrofe className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0" />
+
+      <div className="flex-1 min-w-0">
+        <div className="text-[10px] font-black uppercase tracking-[0.14em] text-orange-700 mb-1">
+          Belöning väntar
+        </div>
+        <h3 className="text-base sm:text-lg font-black text-slate-900 mb-1.5 leading-tight">
+          När du klarat alla tre steg får du 1 dag Premium gratis
+        </h3>
+        <p className="text-sm text-slate-600 leading-relaxed">
+          Det betyder obegränsade brev, obegränsade CV-analyser och
+          LinkedIn-optimering under 24 timmar. Inget kort krävs.
+        </p>
+      </div>
+    </motion.section>
+  )
 }

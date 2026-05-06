@@ -15,6 +15,7 @@ import { useCvQuota } from '@/hooks/useCvQuota';
 // Components
 import CVAnalysisWizard from './components/CVAnalysisWizard';
 import CVAnalysisIntro from './components/CVAnalysisIntro';
+import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
 
 // Utility Functions
@@ -172,11 +173,16 @@ export default function CVAnalysisPage() {
   }
 
   return (
-    <CVAnalysisWizard
-      cvs={cvs}
-      onAnalysisStart={handleAnalysisStart}
-      onPollJob={pollForJobResult}
-      onComplete={handleWizardComplete}
-    />
+    <div className="space-y-4">
+      {/* Onboarding-prompt: pekar mot belogning om analys nyss korts */}
+      <OnboardingNextStep stepCompleted="analyze_cv" />
+
+      <CVAnalysisWizard
+        cvs={cvs}
+        onAnalysisStart={handleAnalysisStart}
+        onPollJob={pollForJobResult}
+        onComplete={handleWizardComplete}
+      />
+    </div>
   );
 }

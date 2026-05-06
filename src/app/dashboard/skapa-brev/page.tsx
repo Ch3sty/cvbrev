@@ -24,6 +24,7 @@ import TonalityLanguageStep from './components/steps/TonalityLanguageStep';
 import PreviewStep from './components/steps/PreviewStep';
 import LetterPipelineLoader from './components/illustrations/LetterPipelineLoader';
 import { type FontId } from './components/FontSelector';
+import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
@@ -383,6 +384,9 @@ export default function CreateLetterPage() {
         />
 
         <LetterFlowHero />
+
+        {/* Onboarding-prompt: pekar mot nasta steg om brev nyss skapats */}
+        <OnboardingNextStep stepCompleted="create_letter" />
 
         {prefillData && (prefillData.cvId || prefillData.jobDescription) && (
           <PrefillBadgeCard
