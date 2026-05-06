@@ -15,24 +15,24 @@ const TYPER = [
     title: 'Matrislogik',
     body:
       'Hitta mönstret i en 3×3-matris med abstrakta former. Tränar mönsterigenkänning och logiskt tänkande, samma format som SHL Inductive Reasoning och Cut-e Scales numerical.',
-    grund: '15 frågor · ~20 min · gratis',
-    avancerad: '15 frågor · ~25 min · Premium',
+    grund: { antal: '15 frågor', tid: '~20 min' },
+    avancerad: { antal: '15 frågor', tid: '~25 min' },
   },
   {
     Icon: IconVerbal,
     title: 'Verbalt resonemang',
     body:
       'Läs en kort text och avgör om ett påstående är sant, falskt eller går ej att avgöra. Tränar läsförståelse och kritiskt tänkande utan att fastna i förkunskaper.',
-    grund: '48 påståenden i 12 passager · ~20 min · gratis',
-    avancerad: '48 påståenden · ~25 min · Premium',
+    grund: { antal: '48 påståenden', tid: '~20 min' },
+    avancerad: { antal: '48 påståenden', tid: '~25 min' },
   },
   {
     Icon: IconNumerisk,
     title: 'Numeriskt resonemang',
     body:
       'Tabeller och diagram med ekonomiska siffror, frågor om procent och beräkningar. Tränar tabell-tolkning och snabbräkning under tidspress.',
-    grund: '24 frågor · ~20 min · gratis',
-    avancerad: '24 frågor · ~25 min · Premium',
+    grund: { antal: '24 frågor', tid: '~20 min' },
+    avancerad: { antal: '24 frågor', tid: '~25 min' },
   },
 ]
 
@@ -92,21 +92,31 @@ export default function RekryteringstesterTesttyper() {
               </p>
 
               <div className="space-y-2 mb-5">
-                <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-100">
-                  <span className="text-[10px] font-black uppercase tracking-[0.14em] text-emerald-700 flex-shrink-0">
-                    Gratis
-                  </span>
-                  <span className="text-xs font-bold text-slate-700 truncate">
-                    {grund}
+                <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-100">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-[10px] font-black uppercase tracking-[0.14em] text-emerald-700 flex-shrink-0">
+                      Gratis
+                    </span>
+                    <span className="text-xs font-bold text-slate-700 truncate">
+                      {grund.antal}
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-500 flex-shrink-0 tabular-nums">
+                    {grund.tid}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-orange-50 border border-orange-100">
-                  <Lock className="w-3 h-3 text-orange-700 flex-shrink-0" strokeWidth={3} />
-                  <span className="text-[10px] font-black uppercase tracking-[0.14em] text-orange-700 flex-shrink-0">
-                    Premium
-                  </span>
-                  <span className="text-xs font-bold text-slate-700 truncate">
-                    {avancerad}
+                <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-orange-50 border border-orange-100">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Lock className="w-3 h-3 text-orange-700 flex-shrink-0" strokeWidth={3} />
+                    <span className="text-[10px] font-black uppercase tracking-[0.14em] text-orange-700 flex-shrink-0">
+                      Premium
+                    </span>
+                    <span className="text-xs font-bold text-slate-700 truncate">
+                      {avancerad.antal}
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-500 flex-shrink-0 tabular-nums">
+                    {avancerad.tid}
                   </span>
                 </div>
               </div>

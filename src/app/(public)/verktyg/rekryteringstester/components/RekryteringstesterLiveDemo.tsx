@@ -242,38 +242,43 @@ export default function RekryteringstesterLiveDemo() {
   )
 }
 
-// === Matris-fraga: 3x3 grid med formers progression ===
+// === Matris-fraga: 3x3 grid med rotation-progression (klassiskt SHL-monster) ===
 
 function MatrisFraga() {
+  // Klassiskt rotationsmonster: pilen roterar 45 grader per kolumn
+  // Rad 1: 0deg, 45deg, 90deg
+  // Rad 2: 90deg, 135deg, 180deg
+  // Rad 3: 180deg, 225deg, ? (=270deg)
+  const cells = [
+    { rotation: 0 },
+    { rotation: 45 },
+    { rotation: 90 },
+    { rotation: 90 },
+    { rotation: 135 },
+    { rotation: 180 },
+    { rotation: 180 },
+    { rotation: 225 },
+    { rotation: null }, // empty
+  ]
+
   return (
     <div>
       <div className="text-xs font-bold text-slate-500 mb-3">
         Vilken form ska stå i den tomma rutan?
       </div>
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-[240px] mx-auto">
-        {[
-          { dots: 1, type: 'circle' },
-          { dots: 2, type: 'circle' },
-          { dots: 3, type: 'circle' },
-          { dots: 1, type: 'square' },
-          { dots: 2, type: 'square' },
-          { dots: 3, type: 'square' },
-          { dots: 1, type: 'triangle' },
-          { dots: 2, type: 'triangle' },
-          { dots: 0, type: 'empty' },
-        ].map((cell, i) => (
+      <div className="grid grid-cols-3 gap-2 max-w-[260px] mx-auto">
+        {cells.map((cell, i) => (
           <div
             key={i}
             className={`aspect-square rounded-lg border-2 flex items-center justify-center ${
-              cell.type === 'empty'
+              cell.rotation === null
                 ? 'border-dashed border-orange-300 bg-orange-50/50'
                 : 'border-orange-100 bg-white'
             }`}
           >
-            {cell.type !== 'empty' && (
-              <MatrisCell dots={cell.dots} type={cell.type} />
-            )}
-            {cell.type === 'empty' && (
+            {cell.rotation !== null ? (
+              <ArrowGlyph rotation={cell.rotation} />
+            ) : (
               <span className="text-2xl font-black text-orange-300">?</span>
             )}
           </div>
@@ -283,23 +288,40 @@ function MatrisFraga() {
   )
 }
 
-function MatrisCell({ dots, type }: { dots: number; type: string }) {
-  const dotColor =
-    type === 'circle' ? '#F97316' : type === 'square' ? '#DC2626' : '#BE185D'
+function ArrowGlyph({ rotation }: { rotation: number }) {
   return (
-    <div className="flex flex-wrap gap-0.5 justify-center items-center max-w-[80%]">
-      {Array.from({ length: dots }).map((_, i) => (
-        <span
-          key={i}
-          className="block w-1.5 h-1.5"
-          style={{
-            backgroundColor: dotColor,
-            borderRadius: type === 'circle' ? '50%' : '0',
-            transform: type === 'triangle' ? 'rotate(45deg)' : undefined,
-          }}
-        />
-      ))}
-    </div>
+    <svg
+      viewBox="0 0 32 32"
+      className="w-7 h-7 sm:w-8 sm:h-8"
+      style={{ transform: `rotate(${rotation}deg)` }}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="arrow-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#F97316" />
+          <stop offset="1" stopColor="#DC2626" />
+        </linearGradient>
+      </defs>
+      {/* Pil-skaft */}
+      <line
+        x1="16"
+        y1="24"
+        x2="16"
+        y2="10"
+        stroke="url(#arrow-grad)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      {/* Pil-spets */}
+      <path
+        d="M 11 13 L 16 8 L 21 13"
+        stroke="url(#arrow-grad)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
   )
 }
 
