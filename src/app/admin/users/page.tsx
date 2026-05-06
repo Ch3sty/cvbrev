@@ -73,6 +73,9 @@ export default function AdminUsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
+  const [premiumDays, setPremiumDays] = useState<number | 'unlimited'>('unlimited');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
   const supabase = getSupabaseClient();
 
@@ -356,6 +359,9 @@ export default function AdminUsersPage() {
       setSelectedUser(null);
       setError(null);
       setUpdateSuccess(null);
+      setPremiumDays('unlimited');
+      setShowDeleteConfirm(false);
+      setDeleteConfirmText('');
     }
   };
 
@@ -367,11 +373,19 @@ export default function AdminUsersPage() {
     setError(null);
 
     try {
+      // Berakna premium_until baserat pa valt intervall
+      let premiumUntil: string | null = null;
+      if (premiumDays !== 'unlimited') {
+        const until = new Date();
+        until.setDate(until.getDate() + premiumDays);
+        premiumUntil = until.toISOString();
+      }
+
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
           subscription_tier: 'premium',
-          premium_until: null,
+          premium_until: premiumUntil,
           premium_source: 'admin',
           updated_at: new Date().toISOString()
         })
@@ -379,13 +393,24 @@ export default function AdminUsersPage() {
 
       if (updateError) throw updateError;
 
-      const updatedUser = { ...selectedUser, subscription_tier: 'premium', premium_source: 'admin' } as User;
+      const updatedUser = {
+        ...selectedUser,
+        subscription_tier: 'premium',
+        premium_source: 'admin',
+        premium_until: premiumUntil,
+      } as User;
       setUsers(prevUsers => prevUsers.map(user =>
         user.id === selectedUser.id ? updatedUser : user
       ));
       setSelectedUser(updatedUser);
 
-      setUpdateSuccess(`${selectedUser.full_name || selectedUser.email} har uppgraderats till Premium!`);
+      const durationLabel =
+        premiumDays === 'unlimited'
+          ? 'obegränsad tid'
+          : `${premiumDays} ${premiumDays === 1 ? 'dag' : 'dagar'}`;
+      setUpdateSuccess(
+        `${selectedUser.full_name || selectedUser.email} har uppgraderats till Premium (${durationLabel}).`
+      );
 
       setTimeout(() => {
         closeActionModal();
@@ -395,6 +420,44 @@ export default function AdminUsersPage() {
       console.error('Error upgrading user:', err);
       setError(err.message || 'Ett fel uppstod vid uppgradering av användaren');
     } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (!selectedUser) return;
+    if (deleteConfirmText !== selectedUser.email) {
+      setError('Bekräftelsetexten matchar inte e-postadressen');
+      return;
+    }
+
+    setIsUpdating(true);
+    setUpdateSuccess(null);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Kunde inte ta bort användaren');
+      }
+
+      // Ta bort fran lokala listan
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== selectedUser.id));
+
+      setUpdateSuccess(
+        `${selectedUser.full_name || selectedUser.email} har tagits bort permanent.`
+      );
+
+      setTimeout(() => {
+        closeActionModal();
+      }, 1800);
+    } catch (err: any) {
+      console.error('Error deleting user:', err);
+      setError(err.message || 'Ett fel uppstod vid borttagning av användaren');
       setIsUpdating(false);
     }
   };
@@ -1014,18 +1077,40 @@ export default function AdminUsersPage() {
 
               <div className="grid grid-cols-1 gap-3">
                 {selectedUser.subscription_tier !== 'premium' && (
-                  <button
-                    onClick={handleUpgradeUser}
-                    disabled={isUpdating}
-                    className="flex items-center justify-center w-full px-4 py-2 bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-lg hover:from-yellow-500 hover:to-amber-600 disabled:opacity-60 transition-all"
-                  >
-                    {isUpdating ? (
-                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
-                    ) : (
-                      <Crown className="w-4 h-4 mr-2" />
-                    )}
-                    Uppgradera till Premium
-                  </button>
+                  <div className="space-y-2 p-3 border border-amber-200 bg-amber-50/50 rounded-lg">
+                    <label className="block text-xs font-medium text-amber-900 uppercase tracking-wide">
+                      Premium-varaktighet
+                    </label>
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {([1, 2, 5, 7, 'unlimited'] as const).map((days) => (
+                        <button
+                          key={days}
+                          onClick={() => setPremiumDays(days)}
+                          disabled={isUpdating}
+                          className={`px-2 py-1.5 rounded-md text-xs font-bold transition-colors ${
+                            premiumDays === days
+                              ? 'bg-amber-500 text-white'
+                              : 'bg-white border border-amber-200 text-amber-800 hover:bg-amber-100'
+                          }`}
+                        >
+                          {days === 'unlimited' ? '∞' : `${days} ${days === 1 ? 'dag' : 'dgr'}`}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      onClick={handleUpgradeUser}
+                      disabled={isUpdating}
+                      className="flex items-center justify-center w-full px-4 py-2 bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-lg hover:from-yellow-500 hover:to-amber-600 disabled:opacity-60 transition-all font-medium"
+                    >
+                      {isUpdating ? (
+                        <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                      ) : (
+                        <Crown className="w-4 h-4 mr-2" />
+                      )}
+                      Uppgradera till Premium
+                      {premiumDays !== 'unlimited' && ` (${premiumDays} ${premiumDays === 1 ? 'dag' : 'dgr'})`}
+                    </button>
+                  </div>
                 )}
 
                 {selectedUser.subscription_tier === 'premium' && (
@@ -1052,14 +1137,60 @@ export default function AdminUsersPage() {
                   Visa detaljer
                 </Link>
 
-                <button
-                  className="flex items-center justify-center w-full px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white disabled:opacity-50 transition-colors"
-                  disabled
-                  title="Funktion ej implementerad"
-                >
-                  <Trash className="w-4 h-4 mr-2" />
-                  Ta bort konto
-                </button>
+                {/* Ta bort-knapp + bekraftelse-flode */}
+                {!showDeleteConfirm ? (
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    disabled={isUpdating}
+                    className="flex items-center justify-center w-full px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white disabled:opacity-50 transition-colors"
+                  >
+                    <Trash className="w-4 h-4 mr-2" />
+                    Ta bort konto
+                  </button>
+                ) : (
+                  <div className="space-y-2 p-3 border border-red-300 bg-red-50 rounded-lg">
+                    <p className="text-xs text-red-800 leading-relaxed">
+                      <strong>Varning:</strong> Detta tar bort kontot permanent
+                      tillsammans med ALL data (CV:n, brev, analyser).
+                      Bekräfta genom att skriva e-postadressen nedan:
+                    </p>
+                    <input
+                      type="text"
+                      value={deleteConfirmText}
+                      onChange={(e) => setDeleteConfirmText(e.target.value)}
+                      placeholder={selectedUser.email}
+                      disabled={isUpdating}
+                      className="w-full px-3 py-2 border border-red-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 disabled:bg-gray-100"
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => {
+                          setShowDeleteConfirm(false);
+                          setDeleteConfirmText('');
+                          setError(null);
+                        }}
+                        disabled={isUpdating}
+                        className="flex-1 px-3 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 disabled:opacity-50"
+                      >
+                        Avbryt
+                      </button>
+                      <button
+                        onClick={handleDeleteUser}
+                        disabled={isUpdating || deleteConfirmText !== selectedUser.email}
+                        className="flex-1 flex items-center justify-center px-3 py-2 bg-red-600 text-white rounded-md text-sm font-bold hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isUpdating ? (
+                          <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white" />
+                        ) : (
+                          <>
+                            <Trash className="w-3.5 h-3.5 mr-1.5" />
+                            Ta bort permanent
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
