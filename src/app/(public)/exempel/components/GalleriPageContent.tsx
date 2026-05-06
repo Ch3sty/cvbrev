@@ -2,8 +2,16 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { ArrowRight, FileText, Mail, Search, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  ArrowRight,
+  FileText,
+  Mail,
+  Search,
+  X,
+  HelpCircle,
+  ChevronDown,
+} from 'lucide-react'
 import {
   IconVard,
   IconTech,
@@ -14,6 +22,7 @@ import {
   ExempelHeroIcon,
 } from './illustrations/ExempelIcons'
 import { Kategori, KATEGORIER } from './exempel-data'
+import type { FaqItem } from './galleri-faq'
 
 const ICON_MAP: Record<
   Kategori['iconKey'],
@@ -46,14 +55,17 @@ export interface GalleriYrke {
 interface GalleriPageContentProps {
   type: 'cv' | 'brev'
   yrken: GalleriYrke[]
+  faqItems: FaqItem[]
 }
 
 export default function GalleriPageContent({
   type,
   yrken,
+  faqItems,
 }: GalleriPageContentProps) {
   const [activeKat, setActiveKat] = useState<'all' | Kategori['slug']>('all')
   const [search, setSearch] = useState('')
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   const isCV = type === 'cv'
   const typeLabel = isCV ? 'CV-exempel' : 'Personliga brev-exempel'
@@ -342,6 +354,98 @@ export default function GalleriPageContent({
             Bläddra {otherTypeLabel}-exempel
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 sm:py-20 bg-orange-50/30">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.4 }}
+            className="text-center mb-10"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white text-orange-700 border border-orange-200 mb-4">
+              <HelpCircle className="w-3.5 h-3.5" strokeWidth={2.5} />
+              Vanliga frågor om {typeShort}-exempel
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
+              Det du undrar om {typeShort}-exemplen
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600">
+              Hittar du inte svaret?{' '}
+              <a
+                href="mailto:hej@jobbcoach.ai"
+                className="text-orange-700 hover:text-orange-800 font-bold"
+              >
+                Hör av dig
+              </a>
+              .
+            </p>
+          </motion.div>
+
+          <div className="space-y-3">
+            {faqItems.map((item, idx) => {
+              const isOpen = openFaq === idx
+              return (
+                <motion.div
+                  key={item.q}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: idx * 0.04 }}
+                  className={`bg-white rounded-2xl border overflow-hidden transition-colors ${
+                    isOpen ? 'border-orange-300' : 'border-orange-100'
+                  }`}
+                  style={
+                    isOpen
+                      ? {
+                          boxShadow:
+                            '0 8px 24px -12px rgba(249, 115, 22, 0.18)',
+                        }
+                      : {
+                          boxShadow:
+                            '0 2px 8px -4px rgba(249, 115, 22, 0.08)',
+                        }
+                  }
+                >
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full min-h-[56px] flex items-center justify-between gap-4 px-5 sm:px-6 py-4 text-left hover:bg-orange-50/40 transition-colors touch-manipulation"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="font-bold text-slate-900 text-sm sm:text-base leading-snug">
+                      {item.q}
+                    </span>
+                    <ChevronDown
+                      className={`flex-shrink-0 w-5 h-5 text-orange-600 transition-transform duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                      strokeWidth={2.5}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 sm:px-6 pb-5 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-orange-100 pt-4">
+                          {item.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </section>
 

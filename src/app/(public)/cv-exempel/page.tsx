@@ -1,18 +1,47 @@
 /**
  * /cv-exempel - galleri-sida med 74 CV-exempel.
  * Renderar GalleriPageContent med CV-yrkes-data.
- * SEO: ItemList + BreadcrumbList JSON-LD.
+ * SEO: ItemList + BreadcrumbList + FAQPage JSON-LD + dynamisk metadata.
  */
+import type { Metadata } from 'next'
 import GalleriPageContent from '@/app/(public)/exempel/components/GalleriPageContent'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
+import { CV_GALLERI_FAQ } from '@/app/(public)/exempel/components/galleri-faq'
+
+const ANTAL_CV = CV_GALLERI.length
+
+export function generateMetadata(): Metadata {
+  return {
+    title: `CV-exempel: ${ANTAL_CV} yrken med ATS-optimerade mallar | Jobbcoach.ai`,
+    description: `Bläddra bland ${ANTAL_CV} CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor. Alla är ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+    keywords:
+      'cv exempel, cv mall, cv mall gratis, ats-optimerat cv, professionellt cv, svenska cv, cv exempel vård, cv exempel tech, cv exempel ekonomi, jobbansökan',
+    openGraph: {
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+      type: 'website',
+      locale: 'sv_SE',
+      url: 'https://jobbcoach.ai/cv-exempel',
+      siteName: 'Jobbcoach.ai',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
+    },
+    alternates: {
+      canonical: 'https://jobbcoach.ai/cv-exempel',
+    },
+    robots: { index: true, follow: true },
+  }
+}
 
 export default function CVExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'CV-exempel för svenska yrken',
-    description:
-      'Bibliotek med professionella CV-exempel för 74 yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.',
+    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
     numberOfItems: CV_GALLERI.length,
     itemListElement: CV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',
@@ -37,6 +66,19 @@ export default function CVExempelGalleri() {
     ],
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: CV_GALLERI_FAQ.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  }
+
   return (
     <>
       <script
@@ -47,7 +89,15 @@ export default function CVExempelGalleri() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <GalleriPageContent type="cv" yrken={CV_GALLERI} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <GalleriPageContent
+        type="cv"
+        yrken={CV_GALLERI}
+        faqItems={CV_GALLERI_FAQ}
+      />
     </>
   )
 }
