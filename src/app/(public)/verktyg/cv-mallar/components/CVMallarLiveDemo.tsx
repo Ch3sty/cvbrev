@@ -29,16 +29,35 @@ const DEMO_TEMPLATES = DEMO_TEMPLATE_IDS.map((id) =>
 ).filter((t): t is NonNullable<typeof t> => t !== undefined)
 
 const ROTATION_MS = 4000
+// Hur lange auto-rotationen ska vila efter att anvandaren klickat
+const PAUSE_AFTER_CLICK_MS = 10000
 
 export default function CVMallarLiveDemo() {
   const [activeIdx, setActiveIdx] = useState(0)
+  const [paused, setPaused] = useState(false)
 
+  // Auto-rotation som pausar nar paused = true
   useEffect(() => {
+    if (paused) return
     const interval = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % DEMO_TEMPLATES.length)
     }, ROTATION_MS)
     return () => clearInterval(interval)
-  }, [])
+  }, [paused])
+
+  // Resume auto-rotation efter PAUSE_AFTER_CLICK_MS av inaktivitet
+  useEffect(() => {
+    if (!paused) return
+    const timer = setTimeout(() => {
+      setPaused(false)
+    }, PAUSE_AFTER_CLICK_MS)
+    return () => clearTimeout(timer)
+  }, [paused, activeIdx])
+
+  const handleSelect = (idx: number) => {
+    setActiveIdx(idx)
+    setPaused(true)
+  }
 
   const active = DEMO_TEMPLATES[activeIdx]
 
@@ -67,7 +86,7 @@ export default function CVMallarLiveDemo() {
           return (
             <button
               key={tpl.id}
-              onClick={() => setActiveIdx(idx)}
+              onClick={() => handleSelect(idx)}
               className={`px-2.5 py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all text-left truncate ${
                 aktiv
                   ? 'text-white shadow-sm'
@@ -128,7 +147,7 @@ export default function CVMallarLiveDemo() {
         {DEMO_TEMPLATES.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => setActiveIdx(idx)}
+            onClick={() => handleSelect(idx)}
             aria-label={`Visa mall ${idx + 1}`}
             className="touch-manipulation p-1"
           >
