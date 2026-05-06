@@ -30,13 +30,25 @@ export default function CVAnalysisPage() {
   const {
     profile, subscriptionTier, remainingWeeklyAnalyses,
     updateRemainingAnalyses, updateNextAnalysisResetDate,
+    refreshProfile,
     loading: profileLoading
   } = useProfile();
   const { cvCount, loading: cvQuotaLoading } = useCvQuota();
 
   const initialLoadRef = useRef(false);
   const authCheckedRef = useRef(false);
+  const refreshedOnMountRef = useRef(false);
   const [showIntro, setShowIntro] = useState(true);
+
+  // Refetch profile vid mount sa stale state (t.ex. fran tidigare misslyckad
+  // analys eller efter ekvota-reset i en annan flik) inte felaktigt blockerar
+  // anvandaren med "Veckograns nadd".
+  useEffect(() => {
+    if (!refreshedOnMountRef.current && !profileLoading && profile) {
+      refreshedOnMountRef.current = true;
+      refreshProfile();
+    }
+  }, [profile, profileLoading, refreshProfile]);
 
   // Hård gating: utan CV → tillbaka till CV-uppladdning
   useEffect(() => {

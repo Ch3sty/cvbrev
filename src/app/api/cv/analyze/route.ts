@@ -297,16 +297,14 @@ export async function POST(request: NextRequest) {
         // anvander 'usage_counted'-flagga som idempotent-las och har
         // rollback-logik vid failure. Att rakna har skulle ge dubbelrakning.
 
-        // Track onboarding progress for CV analysis
-        const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
-            user_id: userId,
-            step_name: 'analyze_cv'
-        });
-        if (onboardingError) {
-            console.error('Failed to update onboarding progress:', onboardingError.message);
-        }
+        // Onboarding-progress for analyze_cv markeras INTE har heller -
+        // det gors i jobs/[jobId] vid 'completed' sa anvandaren inte
+        // markeras klar pa ett misslyckat eller pagaende jobb.
 
         // Return 202 Accepted immediately with job info
+        // remaining/currentCount ar oforandrade - inget ar konsumerat
+        // fore completion (annars skulle frontend visa fel siffra och
+        // kunna blockera anvandaren felaktigt).
         return NextResponse.json(
             {
                 message: 'CV-analysen har startats och körs i bakgrunden.',
@@ -314,9 +312,9 @@ export async function POST(request: NextRequest) {
                 status: 'processing',
                 isBackgroundJob: true,
                 estimatedTime: '30-60 sekunder',
-                remainingAnalyses: profileData.subscriptionTier === 'free' ? (currentRemainingAnalyses - 1) : null,
+                remainingAnalyses: profileData.subscriptionTier === 'free' ? currentRemainingAnalyses : null,
                 nextResetDate: nextResetDate.toISOString(),
-                currentCount: profileData.subscriptionTier === 'free' ? (resetInfo.count + 1) : null,
+                currentCount: profileData.subscriptionTier === 'free' ? resetInfo.count : null,
                 limit: profileData.subscriptionTier === 'free' ? WEEKLY_ANALYSIS_LIMIT_FREE : null
             },
             { status: 202 } // Accepted

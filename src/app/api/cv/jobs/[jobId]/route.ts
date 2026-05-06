@@ -74,6 +74,16 @@ export async function GET(
         console.error('Failed to mark job as usage_counted:', jobUpdateError);
       }
 
+      // Onboarding: markera analyze_cv som klart NU nar jobbet faktiskt
+      // ar slutfort (inte vid jobbskapande som tidigare)
+      const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+        user_id: user.id,
+        step_name: 'analyze_cv'
+      });
+      if (onboardingError) {
+        console.error('Failed to update onboarding progress (analyze_cv):', onboardingError.message);
+      }
+
       // Award XP for CV analysis
       try {
         const origin = request.headers.get('origin') || 'https://jobbcoach.ai';
