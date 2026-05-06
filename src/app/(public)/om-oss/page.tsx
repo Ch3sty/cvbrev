@@ -28,7 +28,7 @@ export default function OmOssSida() {
     email: 'info@jobbcoach.ai',
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'info@jobbcoach.ai',
+      email: 'support@jobbcoach.ai',
       contactType: 'customer support',
       availableLanguage: ['Swedish', 'English'],
       areaServed: 'SE',
