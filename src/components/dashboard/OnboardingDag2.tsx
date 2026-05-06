@@ -15,6 +15,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, X } from 'lucide-react'
+import { useOnboarding } from '@/contexts/OnboardingContext'
 import {
   OnboardingJobbmatch,
   OnboardingLinkedin,
@@ -54,6 +55,7 @@ const NEXT_STEPS = [
 ]
 
 export default function OnboardingDag2() {
+  const { rewardClaimed, isLoading } = useOnboarding()
   const [dismissed, setDismissed] = useState(() => {
     if (typeof window === 'undefined') return false
     return localStorage.getItem(STORAGE_KEY) === 'true'
@@ -66,6 +68,9 @@ export default function OnboardingDag2() {
     }
   }
 
+  // Visas BARA efter att anvandaren hamtat sin onboarding-belogning.
+  // Annars syns det direkt for nya anvandare innan de gjort nagot.
+  if (isLoading || !rewardClaimed) return null
   if (dismissed) return null
 
   return (

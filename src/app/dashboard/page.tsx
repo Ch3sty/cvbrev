@@ -267,11 +267,9 @@ export default function DashboardPage() {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="space-y-5 sm:space-y-6 relative z-10"
       >
-        {/* CV Status Card - bara overst nar CV SAKNAS (gating).
-            Nar CV finns visas det som status-rad UNDER streak-kortet (langre ner). */}
-        {cvCount === 0 && <CvStatusCard cvCount={cvCount} />}
-
         {/* OnboardingHero - hanterar in_progress + ready_to_claim states.
+            Inkluderar redan steg 1 (ladda upp CV) sa vi behover ingen
+            separat "Du behover CV"-banner overst.
             Doljer sig sjalv nar rewardClaimed === true. */}
         <OnboardingHero />
 
