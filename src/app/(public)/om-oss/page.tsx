@@ -25,10 +25,10 @@ export default function OmOssSida() {
     description:
       'Svenska jobbverktyg byggda för svensk arbetsmarknad. CV-byggare, jobbmatchning, karriärrådgivning, rekryteringstester och LinkedIn-optimering, allt med svenska källor.',
     foundingDate: '2023',
-    email: 'hej@jobbcoach.ai',
+    email: 'info@jobbcoach.ai',
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'hej@jobbcoach.ai',
+      email: 'info@jobbcoach.ai',
       contactType: 'customer support',
       availableLanguage: ['Swedish', 'English'],
       areaServed: 'SE',

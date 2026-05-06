@@ -28,7 +28,7 @@ export default function CVMallarFAQ() {
           <p className="text-base sm:text-lg text-slate-600">
             Hittar du inte svaret?{' '}
             <a
-              href="mailto:hej@jobbcoach.ai"
+              href="mailto:info@jobbcoach.ai"
               className="text-orange-700 hover:text-orange-800 font-bold"
             >
               Hör av dig

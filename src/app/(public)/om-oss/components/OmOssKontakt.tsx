@@ -75,10 +75,10 @@ export default function OmOssKontakt() {
                 <div className="min-w-0 flex-1">
                   <div className="text-xs text-white/70 mb-0.5">E-post</div>
                   <a
-                    href="mailto:hej@jobbcoach.ai"
+                    href="mailto:info@jobbcoach.ai"
                     className="text-base sm:text-lg font-black text-white hover:underline break-all"
                   >
-                    hej@jobbcoach.ai
+                    info@jobbcoach.ai
                   </a>
                 </div>
               </div>
