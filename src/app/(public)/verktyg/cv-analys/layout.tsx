@@ -1,27 +1,37 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Gratis CV-analys – Få feedback på 60 sekunder | Jobbcoach.ai',
-  description: 'Analysera ditt CV gratis. Få detaljerad feedback på struktur, ATS-vänlighet och förbättringsförslag på 60 sekunder. 2 gratis analyser/vecka.',
-  keywords: 'cv analys, analysera cv, cv granskning gratis, granska cv, ats cv, cv feedback, cv betyg, cv poäng, cv optimering, cv granskare, cv check svenska, cv scanner',
+  title:
+    'CV-analys: ATS-poäng och konkreta förbättringsförslag på 60 sekunder | Jobbcoach.ai',
+  description:
+    'Vi analyserar ditt CV mot svenska ATS-system och ger dig en poäng från 0 till 100, sex kategori-betyg och konkreta förbättringsförslag du kan applicera direkt. En analys gratis varje vecka.',
+  keywords:
+    'cv analys, ats cv, ats-poäng, cv feedback, granska cv, cv betyg, cv granskare, cv optimering, cv check svenska',
   openGraph: {
-    title: 'Gratis CV-analys – Få feedback på 60 sekunder',
-    description: 'Analysera ditt CV gratis. Få detaljerad feedback på struktur, ATS-vänlighet och konkreta förbättringsförslag. 97% av stora företag använder ATS-system som filtrerar 75% av CV:n.',
+    title: 'CV-analys på 60 sekunder med ATS-poäng | Jobbcoach.ai',
+    description:
+      'Vi kontrollerar struktur, språk, nyckelord och kvantifiering. Du får en ATS-poäng plus konkreta förslag i sex kategorier. En analys gratis varje vecka.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://jobbcoach.ai/verktyg/cv-analys',
-  },
-  alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/cv-analys'
+    siteName: 'Jobbcoach.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gratis CV-analys – Få feedback på 60 sekunder',
-    description: 'Analysera ditt CV gratis. Få feedback på struktur, ATS-vänlighet och konkreta förbättringsförslag.',
-  }
+    title: 'CV-analys på 60 sekunder med ATS-poäng | Jobbcoach.ai',
+    description:
+      'Vi kontrollerar struktur, språk, nyckelord och kvantifiering. En analys gratis varje vecka.',
+  },
+  alternates: {
+    canonical: 'https://jobbcoach.ai/verktyg/cv-analys',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
-export default function CVAnalysisLayout({
+export default function CVAnalysLayout({
   children,
 }: {
   children: React.ReactNode
