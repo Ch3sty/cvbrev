@@ -86,24 +86,27 @@ export async function POST(request: Request) {
     }
 
     // Check email verification for free users FIRST (before saved letter limit)
+    // Raknar bara SPARADE brev (is_saved = true) - inte rader som auto-skapas
+    // vid generering. Annars blockeras anvandaren redan vid sitt forsta sparforsok.
     if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
-      const { count: totalLetterCount, error: totalCountError } = await supabase
+      const { count: savedLetterCount, error: totalCountError } = await supabase
         .from('letters')
         .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .eq('is_saved', true);
 
       if (totalCountError) {
-        console.error('Fel vid räkning av totala brev:', totalCountError);
+        console.error('Fel vid räkning av sparade brev:', totalCountError);
         return NextResponse.json(
           { error: 'Kunde inte verifiera antal brev' },
           { status: 500 }
         );
       }
 
-      if (totalLetterCount !== null && totalLetterCount >= 1) {
+      if (savedLetterCount !== null && savedLetterCount >= 1) {
         return NextResponse.json(
           {
-            error: 'Du måste verifiera din e-post för att skapa fler brev. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
+            error: 'Du måste verifiera din e-post för att spara fler brev. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
             code: 'EMAIL_NOT_VERIFIED',
             verification_required: true
           },
