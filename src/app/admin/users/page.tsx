@@ -77,6 +77,13 @@ export default function AdminUsersPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
+  // Bulk-selektion
+  const [selectedUserIds, setSelectedUserIds] = useState<Set<string>>(new Set());
+  const [bulkPremiumDays, setBulkPremiumDays] = useState<number | 'unlimited'>(7);
+  const [bulkActionMode, setBulkActionMode] = useState<'idle' | 'confirm_delete' | 'choose_premium'>('idle');
+  const [bulkProcessing, setBulkProcessing] = useState(false);
+  const [bulkMessage, setBulkMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   const supabase = getSupabaseClient();
 
   const getFilteredAndSortedUsers = useCallback((userList = users) => {
@@ -452,6 +459,9 @@ export default function AdminUsersPage() {
         `${selectedUser.full_name || selectedUser.email} har tagits bort permanent.`
       );
 
+      // Frigor laddning innan timeout sa modalen kan oppna for annan anvandare
+      setIsUpdating(false);
+
       setTimeout(() => {
         closeActionModal();
       }, 1800);
@@ -506,6 +516,154 @@ export default function AdminUsersPage() {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     return filteredUsers.slice(startIndex, endIndex);
+  };
+
+  // ============== BULK-SELEKTION ==============
+
+  const toggleUserSelection = (userId: string) => {
+    setSelectedUserIds(prev => {
+      const next = new Set(prev);
+      if (next.has(userId)) {
+        next.delete(userId);
+      } else {
+        next.add(userId);
+      }
+      return next;
+    });
+  };
+
+  const togglePageSelection = () => {
+    const pageUsers = getCurrentPageUsers();
+    const pageIds = pageUsers.map(u => u.id);
+    const allSelected = pageIds.every(id => selectedUserIds.has(id));
+
+    setSelectedUserIds(prev => {
+      const next = new Set(prev);
+      if (allSelected) {
+        pageIds.forEach(id => next.delete(id));
+      } else {
+        pageIds.forEach(id => next.add(id));
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedUserIds(new Set());
+    setBulkActionMode('idle');
+    setBulkMessage(null);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedUserIds.size === 0) return;
+
+    setBulkProcessing(true);
+    setBulkMessage(null);
+
+    try {
+      const response = await fetch('/api/admin/users/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete',
+          userIds: Array.from(selectedUserIds),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Kunde inte ta bort användare');
+      }
+
+      // Ta bort lyckade fran lokala listan
+      const succeededIds: string[] = data.succeeded || [];
+      setUsers(prev => prev.filter(u => !succeededIds.includes(u.id)));
+
+      const failed = data.failed || [];
+      if (failed.length > 0) {
+        setBulkMessage({
+          type: 'error',
+          text: `${succeededIds.length} av ${selectedUserIds.size} togs bort. ${failed.length} misslyckades.`,
+        });
+      } else {
+        setBulkMessage({
+          type: 'success',
+          text: data.message || `${succeededIds.length} användare borttagna.`,
+        });
+      }
+
+      setSelectedUserIds(new Set());
+      setBulkActionMode('idle');
+    } catch (err: any) {
+      setBulkMessage({
+        type: 'error',
+        text: err.message || 'Ett fel uppstod',
+      });
+    } finally {
+      setBulkProcessing(false);
+    }
+  };
+
+  const handleBulkGrantPremium = async () => {
+    if (selectedUserIds.size === 0) return;
+
+    setBulkProcessing(true);
+    setBulkMessage(null);
+
+    try {
+      const response = await fetch('/api/admin/users/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'grant_premium',
+          userIds: Array.from(selectedUserIds),
+          premiumDays: bulkPremiumDays,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Kunde inte uppgradera användare');
+      }
+
+      // Uppdatera lokala listan
+      let premiumUntil: string | null = null;
+      if (bulkPremiumDays !== 'unlimited' && typeof bulkPremiumDays === 'number') {
+        const until = new Date();
+        until.setDate(until.getDate() + bulkPremiumDays);
+        premiumUntil = until.toISOString();
+      }
+
+      setUsers(prev =>
+        prev.map(u =>
+          selectedUserIds.has(u.id)
+            ? {
+                ...u,
+                subscription_tier: 'premium',
+                premium_source: 'admin',
+                premium_until: premiumUntil,
+              }
+            : u
+        )
+      );
+
+      setBulkMessage({
+        type: 'success',
+        text: data.message || `${selectedUserIds.size} användare uppgraderade.`,
+      });
+
+      setSelectedUserIds(new Set());
+      setBulkActionMode('idle');
+    } catch (err: any) {
+      setBulkMessage({
+        type: 'error',
+        text: err.message || 'Ett fel uppstod',
+      });
+    } finally {
+      setBulkProcessing(false);
+    }
   };
 
   const formatDate = (dateStr: string): string => {
@@ -664,10 +822,159 @@ export default function AdminUsersPage() {
           </div>
         ) : (
           <>
+            {/* BULK ACTION-BAR */}
+            {selectedUserIds.size > 0 && (
+              <div className="mb-3 sticky top-0 z-20 bg-white border border-pink-200 rounded-lg shadow-md overflow-hidden">
+                {/* Status-rad */}
+                {bulkMessage && (
+                  <div
+                    className={`px-4 py-2 text-sm font-medium ${
+                      bulkMessage.type === 'success'
+                        ? 'bg-emerald-50 text-emerald-800 border-b border-emerald-200'
+                        : 'bg-red-50 text-red-800 border-b border-red-200'
+                    }`}
+                  >
+                    {bulkMessage.text}
+                  </div>
+                )}
+
+                <div className="px-4 py-3 flex flex-col lg:flex-row lg:items-center gap-3">
+                  {/* Vänster: antal valda */}
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <div className="px-3 py-1 rounded-full bg-pink-100 text-pink-800 text-sm font-bold tabular-nums">
+                      {selectedUserIds.size} valda
+                    </div>
+                    <button
+                      onClick={clearSelection}
+                      className="text-xs text-gray-500 hover:text-gray-700 underline"
+                    >
+                      rensa
+                    </button>
+                  </div>
+
+                  {/* Mitten: åtgärds-zoner */}
+                  <div className="flex-1 flex flex-wrap items-center gap-2">
+                    {/* Idle: visa val-knappar */}
+                    {bulkActionMode === 'idle' && (
+                      <>
+                        <button
+                          onClick={() => setBulkActionMode('choose_premium')}
+                          disabled={bulkProcessing}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-md text-sm font-medium hover:from-yellow-500 hover:to-amber-600 disabled:opacity-50"
+                        >
+                          <Crown className="w-3.5 h-3.5" />
+                          Ge Premium
+                        </button>
+                        <button
+                          onClick={() => setBulkActionMode('confirm_delete')}
+                          disabled={bulkProcessing}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-red-600 text-red-600 rounded-md text-sm font-medium hover:bg-red-600 hover:text-white disabled:opacity-50"
+                        >
+                          <Trash className="w-3.5 h-3.5" />
+                          Ta bort
+                        </button>
+                      </>
+                    )}
+
+                    {/* Premium-val */}
+                    {bulkActionMode === 'choose_premium' && (
+                      <>
+                        <span className="text-xs font-medium text-gray-600 mr-1">
+                          Varaktighet:
+                        </span>
+                        <div className="flex gap-1 flex-wrap">
+                          {([1, 2, 5, 7, 'unlimited'] as const).map((days) => (
+                            <button
+                              key={days}
+                              onClick={() => setBulkPremiumDays(days)}
+                              disabled={bulkProcessing}
+                              className={`px-2.5 py-1.5 rounded-md text-xs font-bold transition-colors ${
+                                bulkPremiumDays === days
+                                  ? 'bg-amber-500 text-white'
+                                  : 'bg-white border border-amber-200 text-amber-800 hover:bg-amber-100'
+                              }`}
+                            >
+                              {days === 'unlimited' ? '∞' : `${days} ${days === 1 ? 'dag' : 'dgr'}`}
+                            </button>
+                          ))}
+                        </div>
+                        <button
+                          onClick={handleBulkGrantPremium}
+                          disabled={bulkProcessing}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-md text-sm font-bold hover:from-yellow-500 hover:to-amber-600 disabled:opacity-50 ml-auto lg:ml-0"
+                        >
+                          {bulkProcessing ? (
+                            <div className="animate-spin rounded-full h-3.5 w-3.5 border-t-2 border-b-2 border-white" />
+                          ) : (
+                            <>
+                              <Crown className="w-3.5 h-3.5" />
+                              Bekräfta
+                            </>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => setBulkActionMode('idle')}
+                          disabled={bulkProcessing}
+                          className="px-2 py-1.5 text-xs text-gray-500 hover:text-gray-700"
+                        >
+                          Avbryt
+                        </button>
+                      </>
+                    )}
+
+                    {/* Delete-bekräftelse */}
+                    {bulkActionMode === 'confirm_delete' && (
+                      <>
+                        <span className="text-sm font-medium text-red-700">
+                          Ta bort {selectedUserIds.size} användare permanent?
+                        </span>
+                        <button
+                          onClick={handleBulkDelete}
+                          disabled={bulkProcessing}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-md text-sm font-bold hover:bg-red-700 disabled:opacity-50 ml-auto lg:ml-0"
+                        >
+                          {bulkProcessing ? (
+                            <div className="animate-spin rounded-full h-3.5 w-3.5 border-t-2 border-b-2 border-white" />
+                          ) : (
+                            <>
+                              <Trash className="w-3.5 h-3.5" />
+                              Ja, ta bort permanent
+                            </>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => setBulkActionMode('idle')}
+                          disabled={bulkProcessing}
+                          className="px-2 py-1.5 text-xs text-gray-500 hover:text-gray-700"
+                        >
+                          Avbryt
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th
+                      scope="col"
+                      className="px-3 py-3 text-center w-10"
+                    >
+                      <input
+                        type="checkbox"
+                        className="rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+                        checked={
+                          getCurrentPageUsers().length > 0 &&
+                          getCurrentPageUsers().every(u => selectedUserIds.has(u.id))
+                        }
+                        onChange={togglePageSelection}
+                        title="Markera alla på denna sida"
+                      />
+                    </th>
                     <th
                       scope="col"
                       className="px-3 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
@@ -808,7 +1115,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={14} className="px-6 py-12 text-center">
+                      <td colSpan={15} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -822,7 +1129,20 @@ export default function AdminUsersPage() {
                     </tr>
                   ) : (
                     getCurrentPageUsers().map((user) => (
-                      <tr key={user.id} className="hover:bg-gray-50 transition-colors group">
+                      <tr
+                        key={user.id}
+                        className={`hover:bg-gray-50 transition-colors group ${
+                          selectedUserIds.has(user.id) ? 'bg-pink-50/40' : ''
+                        }`}
+                      >
+                        <td className="px-3 py-4 whitespace-nowrap text-center">
+                          <input
+                            type="checkbox"
+                            className="rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+                            checked={selectedUserIds.has(user.id)}
+                            onChange={() => toggleUserSelection(user.id)}
+                          />
+                        </td>
                         <td className="px-3 py-4 whitespace-nowrap text-center">
                           <div title={user.email_verified_at ? "E-post verifierad" : "E-post ej verifierad"} className="inline-block">
                             {user.email_verified_at ? (
