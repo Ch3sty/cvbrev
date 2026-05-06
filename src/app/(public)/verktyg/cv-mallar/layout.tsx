@@ -1,24 +1,34 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CV-mallar Gratis – Ladda Ner Professionella CV-mallar 2026',
-  description: '8 professionella CV-mallar – 2 helt gratis, 6 premium. ATS-optimerade mallar i Word & PDF. Från modern minimal till executive premium. Ladda ner direkt.',
-  keywords: 'cv mall, cv mall gratis, gratis cv mall, cv mall word, mall cv, bästa cv mall gratis, cv mall gratis ladda ner, cv mall gratis pdf, professionell cv mall, moderna cv mallar, cv mall svenska, cv mall ungdom, ats cv mall, executive cv mall, kreativ cv mall',
+  title:
+    'CV-mallar: professionella designs för svenska arbetsgivare | Jobbcoach.ai',
+  description:
+    'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra, anpassade för svenska arbetsgivare och redo att fylla i. Bygg ditt CV på minuter och ladda ner som PDF eller Word.',
+  keywords:
+    'cv mall, cv mallar, cv mall gratis, professionell cv mall, ats cv mall, svensk cv mall, cv mall pdf, cv mall word, cv mall ungdom, modern cv mall',
   openGraph: {
-    title: 'CV-mallar Gratis – Ladda Ner Professionella CV-mallar',
-    description: '8 professionella CV-mallar (2 gratis, 6 premium). ATS-optimerade och perfekta för svenska arbetsmarknaden. Ladda ner som Word eller PDF direkt.',
+    title: 'Professionella CV-mallar för svenska arbetsgivare | Jobbcoach.ai',
+    description:
+      'Modern, traditionell och kreativ stil. ATS-säkra mallar redo att fylla i. PDF och Word. Helt gratis att börja.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://jobbcoach.ai/verktyg/cv-mallar',
-  },
-  alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/cv-mallar'
+    siteName: 'Jobbcoach.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CV-mallar Gratis – 8 Professionella Mallar',
-    description: '2 gratis CV-mallar + 6 premium. ATS-optimerade, exportera till Word/PDF. Perfekta för svenska arbetsmarknaden.',
-  }
+    title: 'Professionella CV-mallar för svenska arbetsgivare | Jobbcoach.ai',
+    description:
+      'Modern, traditionell och kreativ stil. ATS-säkra. PDF och Word. Helt gratis att börja.',
+  },
+  alternates: {
+    canonical: 'https://jobbcoach.ai/verktyg/cv-mallar',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function CVMallarLayout({
