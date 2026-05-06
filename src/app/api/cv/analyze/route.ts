@@ -292,20 +292,10 @@ export async function POST(request: NextRequest) {
 
         console.log(`✅ Background job created: ${jobId}`);
 
-        // --- 6. Increment Analysis Count for Free Users ---
-        if (profileData.subscriptionTier === 'free') {
-            const newCount = resetInfo.count + 1;
-            const { error: updateError } = await supabase
-                .from('profiles')
-                .update({ weekly_analysis_count: newCount })
-                .eq('id', userId);
-
-            if (updateError) {
-                console.error(`Failed to increment analysis count for user ${userId}:`, updateError);
-            } else {
-                console.log(`Incremented analysis count for user ${userId}: ${newCount}/${WEEKLY_ANALYSIS_LIMIT_FREE}`);
-            }
-        }
+        // OBS: weekly_analysis_count okas INTE har. Det gors istallet i
+        // /api/cv/jobs/[jobId] nar jobbet faktiskt ar 'completed'. Den vagen
+        // anvander 'usage_counted'-flagga som idempotent-las och har
+        // rollback-logik vid failure. Att rakna har skulle ge dubbelrakning.
 
         // Track onboarding progress for CV analysis
         const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
