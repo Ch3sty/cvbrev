@@ -182,7 +182,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         )
         .subscribe();
 
-      // Subscribe to user_cvs table
+      // Subscribe to cv_texts table (matchar tabellen som faktiskt querryas)
       const cvChannel = supabase
         .channel('onboarding_cv_changes')
         .on(
@@ -190,7 +190,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
           {
             event: '*',
             schema: 'public',
-            table: 'user_cvs',
+            table: 'cv_texts',
             filter: `user_id=eq.${user.id}`
           },
           () => fetchOnboardingStatus()

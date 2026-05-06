@@ -50,12 +50,14 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
 
   useEffect(() => {
+    let userId: string | null = null;
+
     const loadProfile = async () => {
       try {
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         if (authError || !user?.id) return;
 
-        const userId = user.id;
+        userId = user.id;
 
         const { data: profile } = await supabase
           .from('profiles')
@@ -75,24 +77,50 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           .maybeSingle();
         setIsAdmin(!!adminData);
 
-        const { count: cvCountResult } = await supabase
-          .from('cv_texts')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', userId);
-        setCvCount(cvCountResult ?? 0);
-
-        const { count: letterCountResult } = await supabase
-          .from('letters')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', userId)
-          .eq('is_saved', true);
-        setLetterCount(letterCountResult ?? 0);
+        await refreshCounts(userId);
       } catch (error) {
         console.error('Sidebar: error loading profile', error);
       }
     };
 
+    const refreshCounts = async (uid: string) => {
+      const [{ count: cvCountResult }, { count: letterCountResult }] = await Promise.all([
+        supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', uid),
+        supabase
+          .from('letters')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', uid)
+          .eq('is_saved', true),
+      ]);
+      setCvCount(cvCountResult ?? 0);
+      setLetterCount(letterCountResult ?? 0);
+    };
+
     loadProfile();
+
+    // Realtime: lyssna pa cv_texts + letters sa countarna uppdateras direkt
+    // efter att anvandaren laddar upp CV / sparar brev (utan ctrl+shift+r).
+    const cvChannel = supabase
+      .channel('sidebar_cv_texts_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'cv_texts' }, () => {
+        if (userId) refreshCounts(userId);
+      })
+      .subscribe();
+
+    const letterChannel = supabase
+      .channel('sidebar_letters_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'letters' }, () => {
+        if (userId) refreshCounts(userId);
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(cvChannel);
+      supabase.removeChannel(letterChannel);
+    };
   }, [supabase]);
 
   const handleClaimReward = async () => {
