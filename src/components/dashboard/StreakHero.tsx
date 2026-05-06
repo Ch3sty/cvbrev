@@ -17,6 +17,10 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { TrendingUp, Flame, Crown, Check, ArrowRight } from 'lucide-react';
+import {
+  IconKvotorTimer,
+  IconKvotorPremium,
+} from './illustrations/DashboardIcons';
 
 interface StreakHeroProps {
   firstName?: string;
@@ -109,9 +113,18 @@ export default function StreakHero({
           boxShadow: '0 20px 40px -12px rgba(220, 38, 38, 0.35)',
         }}
       >
-        {/* Bakgrunds-eld - krympt och flyttad uppat for att inte konkurrera med kvotor */}
-        <div className="absolute -right-6 -top-6 opacity-15 pointer-events-none hidden sm:block">
-          <Flame className="w-44 h-44 lg:w-52 lg:h-52" strokeWidth={1} />
+        {/* Bakgrunds-eld bakom streak-stats (vanster kolumn pa desktop) */}
+        <div className="absolute left-1/3 -translate-x-1/2 -top-8 opacity-15 pointer-events-none hidden lg:block">
+          <Flame className="w-44 h-44" strokeWidth={1} />
+        </div>
+
+        {/* Bakgrunds-ikon bakom kvotor (hoger kolumn pa desktop) */}
+        <div className="absolute right-2 -bottom-6 opacity-10 pointer-events-none hidden lg:block text-white">
+          {isPremium ? (
+            <IconKvotorPremium className="w-48 h-48" />
+          ) : (
+            <IconKvotorTimer className="w-44 h-44" />
+          )}
         </div>
 
         <div className="relative grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8">

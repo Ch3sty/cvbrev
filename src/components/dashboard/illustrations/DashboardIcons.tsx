@@ -440,3 +440,95 @@ export function IconTarget({ className }: IllustrationProps) {
     </svg>
   )
 }
+
+// =============================================================
+// BAKGRUNDS-IKONER for streak-kortets kvota-kolumn (192x192)
+// Tunn stroke, opacity styrs av forbrukaren via opacity-prop
+// =============================================================
+
+/**
+ * IconKvotorTimer - klocka som visar att tiden tickar mot reset.
+ * Anvands som bakgrundsfigur i kvota-kolumnen for free-anvandare.
+ */
+export function IconKvotorTimer({ className }: IllustrationProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 192 192"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      {/* Klock-ram (yttre) */}
+      <circle cx="96" cy="104" r="68" strokeWidth="3" />
+      {/* Inre ring */}
+      <circle cx="96" cy="104" r="56" strokeWidth="1.5" opacity="0.6" />
+      {/* Toppknapp */}
+      <line x1="96" y1="36" x2="96" y2="24" strokeWidth="3" strokeLinecap="round" />
+      <line x1="84" y1="20" x2="108" y2="20" strokeWidth="3" strokeLinecap="round" />
+      {/* Timmarmarkeringar */}
+      <line x1="96" y1="44" x2="96" y2="52" strokeWidth="2" strokeLinecap="round" />
+      <line x1="96" y1="156" x2="96" y2="164" strokeWidth="2" strokeLinecap="round" />
+      <line x1="36" y1="104" x2="44" y2="104" strokeWidth="2" strokeLinecap="round" />
+      <line x1="148" y1="104" x2="156" y2="104" strokeWidth="2" strokeLinecap="round" />
+      {/* Diagonala markeringar (svagare) */}
+      <line x1="56" y1="62" x2="62" y2="68" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      <line x1="130" y1="68" x2="136" y2="62" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      <line x1="56" y1="146" x2="62" y2="140" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      <line x1="130" y1="140" x2="136" y2="146" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      {/* Visare */}
+      <line x1="96" y1="104" x2="96" y2="60" strokeWidth="3" strokeLinecap="round" />
+      <line x1="96" y1="104" x2="128" y2="120" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="96" cy="104" r="4" fill="currentColor" />
+    </svg>
+  )
+}
+
+/**
+ * IconKvotorPremium - krona med stralar som visuellt forstarker "Premium aktivt".
+ * Anvands som bakgrundsfigur i kvota-kolumnen for premium-anvandare.
+ */
+export function IconKvotorPremium({ className }: IllustrationProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 192 192"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      {/* Krona-bas */}
+      <path
+        d="M 36 124 L 36 88 L 60 108 L 96 64 L 132 108 L 156 88 L 156 124 Z"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
+      {/* Botten-rektangel pa kronan */}
+      <line x1="36" y1="132" x2="156" y2="132" strokeWidth="3" strokeLinecap="round" />
+      <line x1="36" y1="148" x2="156" y2="148" strokeWidth="3" strokeLinecap="round" />
+      {/* Stenar pa kronan (cirklar) */}
+      <circle cx="60" cy="108" r="4" strokeWidth="2" />
+      <circle cx="96" cy="100" r="5" strokeWidth="2" />
+      <circle cx="132" cy="108" r="4" strokeWidth="2" />
+      {/* Stralar ovanfor */}
+      <line x1="96" y1="48" x2="96" y2="36" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="74" y1="54" x2="68" y2="44" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+      <line x1="118" y1="54" x2="124" y2="44" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+      <line x1="56" y1="74" x2="46" y2="70" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      <line x1="136" y1="74" x2="146" y2="70" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      {/* Stjarnor for extra effekt */}
+      <path
+        d="M 30 60 L 32 64 L 36 65 L 32 66 L 30 70 L 28 66 L 24 65 L 28 64 Z"
+        fill="currentColor"
+        opacity="0.7"
+      />
+      <path
+        d="M 162 56 L 164 60 L 168 61 L 164 62 L 162 66 L 160 62 L 156 61 L 160 60 Z"
+        fill="currentColor"
+        opacity="0.7"
+      />
+    </svg>
+  )
+}
