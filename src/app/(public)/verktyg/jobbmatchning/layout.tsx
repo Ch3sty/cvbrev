@@ -1,24 +1,35 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Jobbmatchning AI – Hitta jobb som matchar ditt CV | Jobbcoach',
-  description: 'Jobbmatchning baserat på ditt CV. Få relevanspoäng för 300+ jobb från Arbetsförmedlingen. Prova gratis – 10 matchningar utan kostnad.',
-  keywords: 'jobbmatchning, jobbmatchning ai, hitta jobb baserat på cv, automatisk jobbmatchning, cv till jobb, arbetsförmedlingen jobbmatchning, hitta rätt jobb, jobbsökning ai, kompetensbaserad matchning',
+  title:
+    'Hitta jobb online: matcha CV mot tusentals lediga tjänster | Jobbcoach.ai',
+  description:
+    'Hitta jobb som matchar ditt CV. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons. Helt gratis att börja.',
+  keywords:
+    'söka jobb, hitta jobb, lediga jobb, jobb sverige, jobbportal, hitta jobb online, söka jobb online, jobb som passar mig, jobbmatchning, jobbmatchning ai',
   openGraph: {
-    title: 'Jobbmatchning AI – Hitta jobb som matchar ditt CV',
-    description: 'Jobbmatchning baserat på ditt CV. Få relevanspoäng för 300+ jobb från Arbetsförmedlingen. Prova gratis – 10 matchningar utan kostnad.',
+    title:
+      'Hitta jobb som matchar ditt CV | Jobbcoach.ai',
+    description:
+      'Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons. Helt gratis att börja.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://jobbcoach.ai/verktyg/jobbmatchning',
-  },
-  alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/jobbmatchning'
+    siteName: 'Jobbcoach.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jobbmatchning AI – Hitta jobb som matchar ditt CV',
-    description: 'Jobbmatchning. 300+ matchade jobb från Arbetsförmedlingen baserat på ditt CV. Prova gratis.',
-  }
+    title: 'Hitta jobb som matchar ditt CV | Jobbcoach.ai',
+    description:
+      'Vi söker bland tusentals lediga tjänster i Sverige och ger dig matchnings-procent per annons. Helt gratis att börja.',
+  },
+  alternates: {
+    canonical: 'https://jobbcoach.ai/verktyg/jobbmatchning',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function JobbmatchningLayout({
