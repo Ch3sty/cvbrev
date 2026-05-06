@@ -10,13 +10,10 @@ import { useNotification } from '@/context/notificationcontext';
 
 // Streak-fokuserade komponenter
 import StreakHero from '@/components/dashboard/StreakHero';
-import ThisWeekStreak from '@/components/dashboard/Streak14Days';
-import WeeklyGoalCard from '@/components/dashboard/WeeklyGoalCard';
 import CvStatusCard from '@/components/dashboard/CvStatusCard';
 // Nya redesignade komponenter (orange/rod-DNA)
 import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
-import DashboardKvotor from '@/components/dashboard/DashboardKvotor';
 // Ovriga
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
@@ -283,8 +280,9 @@ export default function DashboardPage() {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="space-y-5 sm:space-y-6 relative z-10"
       >
-        {/* CV Status Card - gating-element nar CV saknas */}
-        <CvStatusCard cvCount={cvCount} />
+        {/* CV Status Card - bara overst nar CV SAKNAS (gating).
+            Nar CV finns visas det som status-rad UNDER streak-kortet (langre ner). */}
+        {cvCount === 0 && <CvStatusCard cvCount={cvCount} />}
 
         {/* Onboarding-banner - bara nar onboarding ej klar */}
         {!stats.onboardingCompleted && (
@@ -333,48 +331,32 @@ export default function DashboardPage() {
           </motion.div>
         )}
 
-        {/* Hero-rad: StreakHero (3 col) + WeeklyGoalCard (1 col) pa desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-          <div className="lg:col-span-3">
-            <StreakHero
-              firstName={stats.firstName}
-              dailyStreak={stats.dailyStreak || 0}
-              longestStreak={stats.longestStreak || 0}
-              dailyXpEarned={stats.dailyXpEarned || 0}
-              dailyCap={isPremium ? Infinity : 100}
-              currentLevel={stats.currentLevel || 1}
-              levelTitle={stats.levelTitle || 'Novis'}
-            />
-          </div>
-          <WeeklyGoalCard dailyXp={stats.dailyXp || []} />
-        </div>
+        {/* StreakHero - innehaller nu streak-stats OCH veckokvotor i samma kort */}
+        <StreakHero
+          firstName={stats.firstName}
+          dailyStreak={stats.dailyStreak || 0}
+          longestStreak={stats.longestStreak || 0}
+          dailyXpEarned={stats.dailyXpEarned || 0}
+          dailyCap={isPremium ? Infinity : 100}
+          currentLevel={stats.currentLevel || 1}
+          levelTitle={stats.levelTitle || 'Novis'}
+          isPremium={isPremium}
+          weeklyLetterCount={stats.weeklyLetterCount || 0}
+          weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
+          weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
+          letterResetDate={stats.letterResetDate}
+          premiumUntil={stats.premiumUntil}
+          premiumSource={stats.premiumSource}
+        />
 
-        {/* Den har veckan + 4-veckors-heatmap */}
-        <ThisWeekStreak dailyXp={stats.dailyXp || []} />
+        {/* CvStatusCard - status-rad nar CV finns (under streak-kortet, fran email-bannern) */}
+        {cvCount > 0 && <CvStatusCard cvCount={cvCount} />}
 
-        {/* HUVUD-LAYOUT: Tva-kolumn pa desktop, stack pa mobil
-            Vanster (2/3): Snabbatgarder + Senaste aktivitet
-            Hoger (1/3): Sticky Kvotor-kort */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div className="lg:col-span-2 space-y-5">
-            <DashboardSnabbAtgarder cvCount={cvCount} />
-            <DashboardSenasteAktivitet />
-          </div>
+        {/* Snabbatgarder - full bredd */}
+        <DashboardSnabbAtgarder cvCount={cvCount} />
 
-          <div className="lg:col-span-1">
-            <div className="lg:sticky lg:top-6">
-              <DashboardKvotor
-                isPremium={isPremium}
-                weeklyLetterCount={stats.weeklyLetterCount || 0}
-                weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
-                weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
-                letterResetDate={stats.letterResetDate}
-                premiumUntil={stats.premiumUntil}
-                premiumSource={stats.premiumSource}
-              />
-            </div>
-          </div>
-        </div>
+        {/* Senaste aktivitet - full bredd */}
+        <DashboardSenasteAktivitet />
       </motion.div>
 
       {showFirstTimeModal && (
