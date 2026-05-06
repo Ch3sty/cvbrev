@@ -294,7 +294,7 @@ function StreakKvotor({
             boxShadow: '0 6px 16px -4px rgba(0, 0, 0, 0.18)',
           }}
         >
-          Lås upp obegränsat
+          Lås upp obegränsat med Jobbcoach Premium
           <ArrowRight
             className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
             strokeWidth={2.5}
