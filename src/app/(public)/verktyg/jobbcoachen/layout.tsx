@@ -1,39 +1,47 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Jobbcoachen – AI-karriärcoach med svensk arbetsmarknadsdata | Jobbcoach.ai',
-  description: 'Få karriärråd baserat på Arbetsförmedlingen, fackförbund och SCB. AI-assistent som svarar på frågor om CV, lön, intervjuer och arbetsrätt. Testa gratis.',
+  title:
+    'Karriärrådgivning på sekunder: AI-coach med svenska källor | Jobbcoach.ai',
+  description:
+    'Få karriärråd baserat på Arbetsförmedlingen, SCB, fackförbund och svensk arbetsrätt. Fråga om lön, intervju, uppsägning eller karriärbyte. Helt gratis att börja, med källa till varje svar.',
   keywords: [
-    'jobbcoach',
-    'karriärcoach',
     'karriärrådgivning',
-    'arbetsmarknadsråd',
+    'karriärcoach',
+    'ai karriärcoach',
+    'jobbcoach',
     'karriärcoach online',
-    'digital karriärcoach',
-    'svensk arbetsmarknad',
-    'karriärassistent',
-    'karriärbyte tips',
-    'intervjutips',
-    'lönestatistik',
+    'lönestatistik sverige',
+    'marknadslön',
     'arbetsrätt frågor',
-    'CV-tips'
+    'las uppsägning',
+    'intervjutips',
+    'karriärbyte',
+    'a-kassa regler',
+    'svensk arbetsmarknad',
   ],
   openGraph: {
-    // OG-bild genereras dynamiskt via opengraph-image.tsx
-    title: 'Jobbcoachen – AI-karriärcoach med svensk arbetsmarknadsdata',
-    description: 'Få karriärråd baserat på Arbetsförmedlingen, fackförbund och SCB. Testa gratis med 5 meddelanden.',
+    title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
+    description:
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Fem frågor gratis, källa till varje svar.',
     url: 'https://jobbcoach.ai/verktyg/jobbcoachen',
     siteName: 'Jobbcoach.ai',
     type: 'website',
+    locale: 'sv_SE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jobbcoachen – AI-karriärcoach med svensk arbetsmarknadsdata',
-    description: 'Få karriärråd baserat på Arbetsförmedlingen, fackförbund och SCB. Testa gratis.',
+    title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
+    description:
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Fem frågor gratis.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/jobbcoachen'
-  }
+    canonical: 'https://jobbcoach.ai/verktyg/jobbcoachen',
+  },
 }
 
 export default function JobbcoachenLayout({
