@@ -12,16 +12,22 @@ import {
 
 const FEATURES = [
   {
-    Icon: IconTusentals,
-    title: 'Tusentals lediga jobb',
+    Icon: IconAllaBranscher,
+    title: 'Roller du inte tänkt på själv',
     body:
-      'Direkt åtkomst till hela Arbetsförmedlingens databas. Sveriges största samling av lediga tjänster, från offentlig sektor till privata bolag.',
+      'Du som söker stirrar dig lätt blind på din titel. Vi vet att en undersköterska också matchar mot stödassistent, vårdbiträde och boendestödjare. Vi öppnar upp tjänster du aldrig hade hittat genom att söka på samma ord som förra gången.',
   },
   {
     Icon: IconProcent,
     title: 'Matchnings-procent per annons',
     body:
       'Varje jobb får en siffra mellan 0 och 100 som visar hur väl just ditt CV svarar mot kraven. Slipp gissa, se direkt vad du har störst chans till.',
+  },
+  {
+    Icon: IconTusentals,
+    title: 'Tusentals lediga jobb',
+    body:
+      'Direkt åtkomst till hela Arbetsförmedlingens databas. Sveriges största samling av lediga tjänster, från offentlig sektor till privata bolag.',
   },
   {
     Icon: IconDistans,
@@ -39,13 +45,7 @@ const FEATURES = [
     Icon: IconRelevans,
     title: 'Sortering på relevans',
     body:
-      'Toppmatchningarna hamnar överst. Du slipper scrolla genom hundratals oranga annonser för att hitta de få som faktiskt passar dig.',
-  },
-  {
-    Icon: IconAllaBranscher,
-    title: 'Funkar för alla branscher',
-    body:
-      'Vården, tech, ekonomi, utbildning, service. Vår matchning är yrkesneutral och bygger på den officiella svenska yrkesklassificeringen.',
+      'Toppmatchningarna hamnar överst. Du slipper scrolla genom hundratals annonser för att hitta de få som faktiskt passar dig.',
   },
 ]
 
@@ -64,7 +64,7 @@ export default function JobbmatchningVadDuFar() {
             Vad du får
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Sex anledningar att{' '}
+            Sex anledningar att låta oss{' '}
             <span
               style={{
                 background:
@@ -74,12 +74,12 @@ export default function JobbmatchningVadDuFar() {
                 backgroundClip: 'text',
               }}
             >
-              söka jobb hos oss
+              hjälpa dig hitta jobbet
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Vi har byggt jobbmatchningen för att spara dig tid och visa dig
-            tjänster du faktiskt har chans att få.
+            Vi söker bredare än du gör själv och visar tjänster du faktiskt
+            har chans att få. Tid sparad, fler dörrar öppnade.
           </p>
         </motion.div>
 

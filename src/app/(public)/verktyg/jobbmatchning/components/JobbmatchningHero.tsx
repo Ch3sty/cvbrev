@@ -56,9 +56,10 @@ export default function JobbmatchningHero() {
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-              Aktivera ditt CV så söker vi bland tusentals lediga jobb i hela
-              Sverige från Arbetsförmedlingen. Du får en matchnings-procent per
-              annons så du ser direkt vilka tjänster du har bäst chans till.
+              Aktivera ditt CV så söker vi bland tusentals lediga jobb från
+              Arbetsförmedlingen. Vi matchar dig mot roller du kanske inte
+              tänkt på själv, så du får fler dörrar att knacka på än om du sökt
+              på din titel.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
