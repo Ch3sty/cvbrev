@@ -1,8 +1,8 @@
 /**
- * /verktyg/personligt-brev â€” landningssida i orange/rÃ¶d-DNA.
- * Sektioner: Hero (med live-demo) â†’ SÃ¥ funkar det â†’ Mallgalleri â†’
- * Resultat-bevis â†’ Skrivtips â†’ FAQ â†’ Final CTA-band.
- * BehÃ¥ller stark SEO: 3 JSON-LD-scheman + Breadcrumb-schema.
+ * /verktyg/personligt-brev — landningssida i orange/röd-DNA.
+ * Sektioner: Hero (med live-demo) → Så funkar det → Mallgalleri →
+ * Resultat-bevis → Skrivtips → FAQ → Final CTA-band.
+ * Behåller stark SEO: 3 JSON-LD-scheman + Breadcrumb-schema.
  */
 import Breadcrumb from '@/components/Breadcrumb'
 import BrevHero from './components/BrevHero'
@@ -22,7 +22,7 @@ export default function PersonligtBrevSida() {
     name: 'Jobbcoach.ai Personligt brev-verktyg',
     url: 'https://www.jobbcoach.ai/verktyg/personligt-brev',
     description:
-      'SkrÃ¤ddarsy personliga brev som matchar jobbannonsen. Sju mallar, sex tonaliteter, ATS-optimerat. Export som PDF eller Word.',
+      'Skräddarsy personliga brev som matchar jobbannonsen. Sju mallar, sex tonaliteter, ATS-optimerat. Export som PDF eller Word.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -32,7 +32,7 @@ export default function PersonligtBrevSida() {
       description: '5 brev gratis varje vecka, ingen kortuppgift',
     },
     featureList:
-      '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelsksprÃ¥kigt',
+      '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -45,9 +45,9 @@ export default function PersonligtBrevSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ skapar du ett personligt brev med Jobbcoach.ai',
+    name: 'Så skapar du ett personligt brev med Jobbcoach.ai',
     description:
-      'Fyra steg frÃ¥n tomt papper till fÃ¤rdig ansÃ¶kan: vÃ¤lj CV, klistra in annons, vÃ¤lj mall och ton, ladda ner.',
+      'Fyra steg från tomt papper till färdig ansökan: välj CV, klistra in annons, välj mall och ton, ladda ner.',
     totalTime: 'PT4M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -58,30 +58,30 @@ export default function PersonligtBrevSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'VÃ¤lj ditt CV',
+        name: 'Välj ditt CV',
         text:
-          'Ladda upp eller vÃ¤lj ett CV du redan sparat. VÃ¥r tjÃ¤nst plockar ut din erfarenhet och dina styrkor.',
+          'Ladda upp eller välj ett CV du redan sparat. Vår tjänst plockar ut din erfarenhet och dina styrkor.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Klistra in jobbannonsen',
         text:
-          'Vi lÃ¤ser annonsen, identifierar nyckelkraven och matchar dem mot din bakgrund.',
+          'Vi läser annonsen, identifierar nyckelkraven och matchar dem mot din bakgrund.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'VÃ¤lj mall och ton',
+        name: 'Välj mall och ton',
         text:
-          'Sju mallar fÃ¶r olika branscher och sex tonalitetsval, frÃ¥n professionellt till entusiastiskt.',
+          'Sju mallar för olika branscher och sex tonalitetsval, från professionellt till entusiastiskt.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Ladda ner som PDF eller Word',
         text:
-          'Granska, finjustera om du vill, exportera. Spara brevet i ditt konto fÃ¶r senare.',
+          'Granska, finjustera om du vill, exportera. Spara brevet i ditt konto för senare.',
       },
     ],
   }

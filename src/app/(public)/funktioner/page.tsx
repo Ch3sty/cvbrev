@@ -15,24 +15,24 @@ import FunktionerFAQ from '@/components/funktioner/FunktionerFAQ';
 import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
 export const metadata: Metadata = {
-  title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver fÃ¶r jobbsÃ¶kningen | Jobbcoach.ai',
+  title: 'Våra funktioner: alla verktyg du behöver för jobbsökningen | Jobbcoach.ai',
   description:
-    'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och Ã¥tta professionella mallar. Byggt fÃ¶r svenska arbetsmarknaden.',
+    'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar. Byggt för svenska arbetsmarknaden.',
   alternates: {
     canonical: 'https://www.jobbcoach.ai/funktioner',
   },
   openGraph: {
-    title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver | Jobbcoach.ai',
+    title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
     description:
-      'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och Ã¥tta professionella mallar.',
+      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar.',
     url: 'https://www.jobbcoach.ai/funktioner',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver | Jobbcoach.ai',
+    title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
     description:
-      'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering.',
+      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering.',
   },
 };
 

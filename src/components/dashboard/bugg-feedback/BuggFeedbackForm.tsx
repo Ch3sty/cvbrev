@@ -2,7 +2,7 @@
  * Fil: src/components/dashboard/bugg-feedback/BuggFeedbackForm.tsx
  *
  * Beskrivning:
- * FormulÃ¤r fÃ¶r att rapportera buggar eller skicka feedback frÃ¥n dashboarden.
+ * Formulär för att rapportera buggar eller skicka feedback från dashboarden.
  * Skickar email via Resend till support@jobbcoach.ai.
  */
 'use client'
@@ -53,7 +53,7 @@ export default function BuggFeedbackForm() {
     try {
       // Validering
       if (!formData.subject || !formData.description) {
-        throw new Error('VÃ¤nligen fyll i alla obligatoriska fÃ¤lt.')
+        throw new Error('Vänligen fyll i alla obligatoriska fält.')
       }
 
       // Skicka till API
@@ -67,11 +67,11 @@ export default function BuggFeedbackForm() {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.message || 'NÃ¥got gick fel vid skickandet.')
+        throw new Error(error.message || 'Något gick fel vid skickandet.')
       }
 
       setSubmitStatus('success')
-      // Rensa formulÃ¤r
+      // Rensa formulär
       setFormData({
         type: reportType,
         subject: '',
@@ -80,7 +80,7 @@ export default function BuggFeedbackForm() {
         url: ''
       })
 
-      // Ã…terstÃ¤ll success-meddelande efter 5 sekunder
+      // Återställ success-meddelande efter 5 sekunder
       setTimeout(() => {
         setSubmitStatus('idle')
       }, 5000)
@@ -88,7 +88,7 @@ export default function BuggFeedbackForm() {
     } catch (error: any) {
       console.error('Fel vid skickande:', error)
       setSubmitStatus('error')
-      setErrorMessage(error.message || 'Ett ovÃ¤ntat fel intrÃ¤ffade. FÃ¶rsÃ¶k igen senare.')
+      setErrorMessage(error.message || 'Ett oväntat fel inträffade. Försök igen senare.')
     } finally {
       setIsSubmitting(false)
     }
@@ -96,7 +96,7 @@ export default function BuggFeedbackForm() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Typ-vÃ¤ljare - grid layout med gradient-kort */}
+      {/* Typ-väljare - grid layout med gradient-kort */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* Bugg-knapp */}
         <motion.button
@@ -153,7 +153,7 @@ export default function BuggFeedbackForm() {
         </motion.button>
       </div>
 
-      {/* FormulÃ¤r Card med gradient */}
+      {/* Formulär Card med gradient */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export default function BuggFeedbackForm() {
             {/* Rubrik */}
             <div>
               <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">
-                {reportType === 'bug' ? 'Kort beskrivning av buggen' : 'Vad gÃ¤ller din feedback?'}
+                {reportType === 'bug' ? 'Kort beskrivning av buggen' : 'Vad gäller din feedback?'}
                 <span className="text-red-500 ml-1">*</span>
               </label>
               <input
@@ -199,15 +199,15 @@ export default function BuggFeedbackForm() {
                 value={formData.subject}
                 onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
-                placeholder={reportType === 'bug' ? 'T.ex. "CV-generering fastnar vid 50%"' : 'T.ex. "FÃ¶rslag pÃ¥ mÃ¶rkt tema"'}
+                placeholder={reportType === 'bug' ? 'T.ex. "CV-generering fastnar vid 50%"' : 'T.ex. "Förslag på mörkt tema"'}
               />
             </div>
 
-            {/* Prioritet/BrÃ¥dskande (endast fÃ¶r buggar) */}
+            {/* Prioritet/Brådskande (endast för buggar) */}
             {reportType === 'bug' && (
               <div>
                 <label htmlFor="urgency" className="block text-sm font-semibold text-slate-700 mb-2">
-                  Hur allvarlig Ã¤r buggen?
+                  Hur allvarlig är buggen?
                 </label>
                 <select
                   name="urgency"
@@ -216,9 +216,9 @@ export default function BuggFeedbackForm() {
                   onChange={handleInputChange}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[48px] touch-manipulation text-sm sm:text-base"
                 >
-                  <option value="low">LÃ¥g - Mindre problem, kan vÃ¤nta</option>
-                  <option value="medium">Medel - PÃ¥verkar anvÃ¤ndningen</option>
-                  <option value="high">HÃ¶g - Kritisk, blockerar funktioner</option>
+                  <option value="low">Låg - Mindre problem, kan vänta</option>
+                  <option value="medium">Medel - Påverkar användningen</option>
+                  <option value="high">Hög - Kritisk, blockerar funktioner</option>
                 </select>
               </div>
             )}
@@ -226,7 +226,7 @@ export default function BuggFeedbackForm() {
             {/* URL (valfritt) */}
             <div>
               <label htmlFor="url" className="block text-sm font-semibold text-slate-700 mb-2">
-                URL dÃ¤r problemet uppstod (valfritt)
+                URL där problemet uppstod (valfritt)
               </label>
               <input
                 type="url"
@@ -255,14 +255,14 @@ export default function BuggFeedbackForm() {
                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg sm:rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none touch-manipulation text-sm sm:text-base"
                 placeholder={
                   reportType === 'bug'
-                    ? 'Beskriv vad som hÃ¤nde, vilka steg du tog, och vad du fÃ¶rvÃ¤ntade dig skulle hÃ¤nda...'
-                    : 'BerÃ¤tta mer om ditt fÃ¶rslag eller din feedback...'
+                    ? 'Beskriv vad som hände, vilka steg du tog, och vad du förväntade dig skulle hända...'
+                    : 'Berätta mer om ditt förslag eller din feedback...'
                 }
               />
               <p className="text-xs sm:text-sm text-slate-500 mt-2">
                 {reportType === 'bug'
-                  ? 'Tips: Inkludera steg fÃ¶r att Ã¥terskapa buggen och eventuella felmeddelanden.'
-                  : 'Vi uppskattar all feedback som hjÃ¤lper oss att fÃ¶rbÃ¤ttra tjÃ¤nsten!'}
+                  ? 'Tips: Inkludera steg för att återskapa buggen och eventuella felmeddelanden.'
+                  : 'Vi uppskattar all feedback som hjälper oss att förbättra tjänsten!'}
               </p>
             </div>
 
@@ -309,7 +309,7 @@ export default function BuggFeedbackForm() {
                       {reportType === 'bug' ? 'Buggrapport skickad!' : 'Feedback skickad!'}
                     </p>
                     <p className="text-emerald-700 text-xs sm:text-sm mt-1">
-                      Tack fÃ¶r att du hjÃ¤lper oss fÃ¶rbÃ¤ttra Jobbcoach.ai!
+                      Tack för att du hjälper oss förbättra Jobbcoach.ai!
                     </p>
                   </div>
                 </motion.div>
@@ -324,9 +324,9 @@ export default function BuggFeedbackForm() {
                 >
                   <AlertTriangle className="w-5 h-5 mr-3 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-red-900 text-sm sm:text-base">NÃ¥got gick fel</p>
+                    <p className="font-semibold text-red-900 text-sm sm:text-base">Något gick fel</p>
                     <p className="text-red-700 text-xs sm:text-sm mt-1">
-                      {errorMessage || 'FÃ¶rsÃ¶k igen eller kontakta oss direkt pÃ¥ support@jobbcoach.ai'}
+                      {errorMessage || 'Försök igen eller kontakta oss direkt på support@jobbcoach.ai'}
                     </p>
                   </div>
                 </motion.div>

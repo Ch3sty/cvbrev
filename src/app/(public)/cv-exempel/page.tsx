@@ -13,12 +13,12 @@ const ANTAL_CV = CV_GALLERI.length
 export function generateMetadata(): Metadata {
   return {
     title: `CV-exempel: ${ANTAL_CV} yrken med ATS-optimerade mallar | Jobbcoach.ai`,
-    description: `BlÃ¤ddra bland ${ANTAL_CV} CV-exempel inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor. Alla Ã¤r ATS-optimerade och anpassade fÃ¶r svenska arbetsgivare. Helt gratis.`,
+    description: `Bläddra bland ${ANTAL_CV} CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor. Alla är ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
     keywords:
-      'cv exempel, cv mall, cv mall gratis, ats-optimerat cv, professionellt cv, svenska cv, cv exempel vÃ¥rd, cv exempel tech, cv exempel ekonomi, jobbansÃ¶kan',
+      'cv exempel, cv mall, cv mall gratis, ats-optimerat cv, professionellt cv, svenska cv, cv exempel vård, cv exempel tech, cv exempel ekonomi, jobbansökan',
     openGraph: {
-      title: `${ANTAL_CV} CV-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken. ATS-optimerade och anpassade fÃ¶r svenska arbetsgivare. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/cv-exempel',
@@ -26,8 +26,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_CV} CV-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/cv-exempel',
@@ -40,8 +40,8 @@ export default function CVExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'CV-exempel fÃ¶r svenska yrken',
-    description: `Bibliotek med professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    name: 'CV-exempel för svenska yrken',
+    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
     numberOfItems: CV_GALLERI.length,
     itemListElement: CV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',

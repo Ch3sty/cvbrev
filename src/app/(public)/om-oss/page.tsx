@@ -23,7 +23,7 @@ export default function OmOssSida() {
     url: 'https://www.jobbcoach.ai',
     logo: 'https://www.jobbcoach.ai/logo.png',
     description:
-      'Svenska jobbverktyg byggda fÃ¶r svensk arbetsmarknad. CV-byggare, jobbmatchning, karriÃ¤rrÃ¥dgivning, rekryteringstester och LinkedIn-optimering, allt med svenska kÃ¤llor.',
+      'Svenska jobbverktyg byggda för svensk arbetsmarknad. CV-byggare, jobbmatchning, karriärrådgivning, rekryteringstester och LinkedIn-optimering, allt med svenska källor.',
     foundingDate: '2023',
     email: 'info@jobbcoach.ai',
     contactPoint: {
@@ -40,8 +40,8 @@ export default function OmOssSida() {
     knowsAbout: [
       'CV-skrivning',
       'Personliga brev',
-      'JobbsÃ¶kning',
-      'KarriÃ¤rrÃ¥dgivning',
+      'Jobbsökning',
+      'Karriärrådgivning',
       'Rekryteringstester',
       'LinkedIn-optimering',
       'Svensk arbetsmarknad',
@@ -54,7 +54,7 @@ export default function OmOssSida() {
     name: 'Om Jobbcoach.ai',
     url: 'https://www.jobbcoach.ai/om-oss',
     description:
-      'LÃ¤r kÃ¤nna teamet och plattformen bakom Jobbcoach.ai. Vi bygger svenska jobbverktyg sedan 2023, frÃ¥n cvbrev.se till en komplett karriÃ¤rplattform.',
+      'Lär känna teamet och plattformen bakom Jobbcoach.ai. Vi bygger svenska jobbverktyg sedan 2023, från cvbrev.se till en komplett karriärplattform.',
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [

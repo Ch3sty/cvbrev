@@ -25,7 +25,7 @@ export default function PriserSida() {
     '@type': 'Product',
     name: 'Jobbcoach.ai Premium',
     description:
-      'Allt-i-ett-plattform fÃ¶r svensk jobbsÃ¶kning: obegrÃ¤nsade personliga brev och CV-analyser, alla CV-mallar, Smart-anpassad ton, LinkedIn-optimering, jobbmatchning och rekryteringstester.',
+      'Allt-i-ett-plattform för svensk jobbsökning: obegränsade personliga brev och CV-analyser, alla CV-mallar, Smart-anpassad ton, LinkedIn-optimering, jobbmatchning och rekryteringstester.',
     brand: {
       '@type': 'Brand',
       name: 'Jobbcoach.ai',
@@ -61,7 +61,7 @@ export default function PriserSida() {
     '@context': 'https://schema.org',
     '@type': 'Offer',
     name: `Jobbcoach.ai Premium ${TRIAL_DAYS} dagar gratis trial`,
-    description: `Prova Premium gratis i ${TRIAL_DAYS} dagar utan att lÃ¤mna kortuppgifter. DÃ¤refter ${PREMIUM_PRICE} kr per mÃ¥nad. Avsluta nÃ¤r som helst.`,
+    description: `Prova Premium gratis i ${TRIAL_DAYS} dagar utan att lämna kortuppgifter. Därefter ${PREMIUM_PRICE} kr per månad. Avsluta när som helst.`,
     price: PREMIUM_PRICE,
     priceCurrency: PREMIUM_CURRENCY,
     url: 'https://www.jobbcoach.ai/trial-signup',

@@ -2,28 +2,28 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'KarriÃ¤rrÃ¥dgivning pÃ¥ sekunder: AI-coach med svenska kÃ¤llor | Jobbcoach.ai',
+    'Karriärrådgivning på sekunder: AI-coach med svenska källor | Jobbcoach.ai',
   description:
-    'FÃ¥ karriÃ¤rrÃ¥d baserat pÃ¥ ArbetsfÃ¶rmedlingen, SCB, fackfÃ¶rbund och svensk arbetsrÃ¤tt. FrÃ¥ga om lÃ¶n, intervju, uppsÃ¤gning eller karriÃ¤rbyte. Helt gratis att bÃ¶rja, med kÃ¤lla till varje svar.',
+    'Få karriärråd baserat på Arbetsförmedlingen, SCB, fackförbund och svensk arbetsrätt. Fråga om lön, intervju, uppsägning eller karriärbyte. Helt gratis att börja, med källa till varje svar.',
   keywords: [
-    'karriÃ¤rrÃ¥dgivning',
-    'karriÃ¤rcoach',
-    'ai karriÃ¤rcoach',
+    'karriärrådgivning',
+    'karriärcoach',
+    'ai karriärcoach',
     'jobbcoach',
-    'karriÃ¤rcoach online',
-    'lÃ¶nestatistik sverige',
-    'marknadslÃ¶n',
-    'arbetsrÃ¤tt frÃ¥gor',
-    'las uppsÃ¤gning',
+    'karriärcoach online',
+    'lönestatistik sverige',
+    'marknadslön',
+    'arbetsrätt frågor',
+    'las uppsägning',
     'intervjutips',
-    'karriÃ¤rbyte',
+    'karriärbyte',
     'a-kassa regler',
     'svensk arbetsmarknad',
   ],
   openGraph: {
-    title: 'KarriÃ¤rrÃ¥dgivning pÃ¥ sekunder: AI-coach med svenska kÃ¤llor',
+    title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
     description:
-      'FÃ¥ karriÃ¤rrÃ¥d baserat pÃ¥ ArbetsfÃ¶rmedlingen, SCB och fackfÃ¶rbund. Fem frÃ¥gor gratis, kÃ¤lla till varje svar.',
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Fem frågor gratis, källa till varje svar.',
     url: 'https://www.jobbcoach.ai/verktyg/jobbcoachen',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KarriÃ¤rrÃ¥dgivning pÃ¥ sekunder: AI-coach med svenska kÃ¤llor',
+    title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
     description:
-      'FÃ¥ karriÃ¤rrÃ¥d baserat pÃ¥ ArbetsfÃ¶rmedlingen, SCB och fackfÃ¶rbund. Fem frÃ¥gor gratis.',
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Fem frågor gratis.',
   },
   robots: {
     index: true,

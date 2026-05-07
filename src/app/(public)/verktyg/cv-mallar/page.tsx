@@ -21,9 +21,9 @@ export default function CVMallarSida() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'CV-mallar fÃ¶r svenska arbetsgivare',
+    name: 'CV-mallar för svenska arbetsgivare',
     description:
-      'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-sÃ¤kra och anpassade fÃ¶r svenska arbetsgivare.',
+      'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra och anpassade för svenska arbetsgivare.',
     numberOfItems: SIMPLE_TEMPLATES.length,
     itemListElement: SIMPLE_TEMPLATES.map((tpl, idx) => ({
       '@type': 'ListItem',
@@ -47,9 +47,9 @@ export default function CVMallarSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ bygger du ett CV med Jobbcoach.ai',
+    name: 'Så bygger du ett CV med Jobbcoach.ai',
     description:
-      'Fyra steg frÃ¥n val till fÃ¤rdig PDF: vÃ¤lj mall, fyll i, vi flyttar in datan, ladda ner.',
+      'Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in datan, ladda ner.',
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
@@ -59,30 +59,30 @@ export default function CVMallarSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'VÃ¤lj en mall',
+        name: 'Välj en mall',
         text:
-          'BlÃ¤ddra bland modern, traditionell och kreativ stil. Klicka pÃ¥ den som passar din bransch.',
+          'Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Fyll i dina uppgifter',
         text:
-          'VÃ¥rt formulÃ¤r guidar dig genom varje sektion. Du kan importera frÃ¥n LinkedIn eller bÃ¶rja frÃ¥n ett befintligt CV.',
+          'Vårt formulär guidar dig genom varje sektion. Du kan importera från LinkedIn eller börja från ett befintligt CV.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
         name: 'Vi flyttar in datan',
         text:
-          'Allt landar automatiskt pÃ¥ rÃ¤tt plats i mallen. Byter du mall efterÃ¥t fÃ¶ljer datan med.',
+          'Allt landar automatiskt på rätt plats i mallen. Byter du mall efteråt följer datan med.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Ladda ner som PDF eller Word',
         text:
-          'Exportera ditt CV. Sparas i ditt konto fÃ¶r senare redigering.',
+          'Exportera ditt CV. Sparas i ditt konto för senare redigering.',
       },
     ],
   }

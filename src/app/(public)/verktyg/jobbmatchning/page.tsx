@@ -23,17 +23,17 @@ export default function JobbmatchningSida() {
     name: 'Jobbcoach.ai jobbmatchning',
     url: 'https://www.jobbcoach.ai/verktyg/jobbmatchning',
     description:
-      'Hitta jobb som matchar ditt CV automatiskt. Vi sÃ¶ker bland tusentals lediga tjÃ¤nster i Sverige frÃ¥n ArbetsfÃ¶rmedlingen och ger dig matchnings-procent per annons.',
+      'Hitta jobb som matchar ditt CV automatiskt. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '10 matchade jobb gratis per sÃ¶kning, ingen kortuppgift',
+      description: '10 matchade jobb gratis per sökning, ingen kortuppgift',
     },
     featureList:
-      'Tusentals lediga jobb frÃ¥n ArbetsfÃ¶rmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering pÃ¥ relevans, alla branscher i Sverige',
+      'Tusentals lediga jobb från Arbetsförmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
@@ -46,9 +46,9 @@ export default function JobbmatchningSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ hittar du jobb med Jobbcoach.ai jobbmatchning',
+    name: 'Så hittar du jobb med Jobbcoach.ai jobbmatchning',
     description:
-      'Fyra steg frÃ¥n aktiverat CV till sorterade jobbmatchningar: aktivera CV, vi extraherar yrkesdata, vi sÃ¶ker tusentals annonser, du fÃ¥r jobben sorterade efter relevans.',
+      'Fyra steg från aktiverat CV till sorterade jobbmatchningar: aktivera CV, vi extraherar yrkesdata, vi söker tusentals annonser, du får jobben sorterade efter relevans.',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -61,28 +61,28 @@ export default function JobbmatchningSida() {
         position: 1,
         name: 'Aktivera ditt CV',
         text:
-          'Ladda upp ett CV eller vÃ¤lj ett du redan sparat. Aktivering tar nÃ¥gra sekunder.',
+          'Ladda upp ett CV eller välj ett du redan sparat. Aktivering tar några sekunder.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Vi extraherar yrkesdata',
         text:
-          'Vi lÃ¤ser ut yrkesroller, kompetenser, utbildning, plats och sprÃ¥k automatiskt.',
+          'Vi läser ut yrkesroller, kompetenser, utbildning, plats och språk automatiskt.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'Vi sÃ¶ker tusentals annonser',
+        name: 'Vi söker tusentals annonser',
         text:
-          'Vi sÃ¶ker direkt mot ArbetsfÃ¶rmedlingens Ã¶ppna API i hela Sverige.',
+          'Vi söker direkt mot Arbetsförmedlingens öppna API i hela Sverige.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'Du fÃ¥r jobben sorterade',
+        name: 'Du får jobben sorterade',
         text:
-          'Varje annons fÃ¥r matchnings-procent. Toppmatchningarna hamnar Ã¶verst.',
+          'Varje annons får matchnings-procent. Toppmatchningarna hamnar överst.',
       },
     ],
   }

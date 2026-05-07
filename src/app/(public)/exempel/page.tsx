@@ -1,5 +1,5 @@
 /**
- * /exempel â€” hub-sida for hela exempel-biblioteket.
+ * /exempel — hub-sida for hela exempel-biblioteket.
  * Sektioner: Hero -> Kategori-paneler (CV + Brev) -> Populara yrken (12) ->
  * Bransch-hub (6 kategorier) -> Sa anvander du -> FAQ -> CTA-band.
  * SEO: WebPage + BreadcrumbList + FAQPage + ItemList JSON-LD.
@@ -27,7 +27,7 @@ export default function ExempelPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: `${TOTAL_EXEMPEL} CV-exempel och personliga brev | Jobbcoach.ai`,
-    description: `BlÃ¤ddra bland ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} personliga brev fÃ¶r 151 yrken fÃ¶rdelade Ã¶ver sex branscher. ATS-optimerade och gratis.`,
+    description: `Bläddra bland ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} personliga brev för 151 yrken fördelade över sex branscher. ATS-optimerade och gratis.`,
     url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',
@@ -72,8 +72,8 @@ export default function ExempelPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'PopulÃ¤ra yrkes-exempel',
-    description: 'De mest sÃ¶kta yrkena fÃ¶r CV och personliga brev i Sverige',
+    name: 'Populära yrkes-exempel',
+    description: 'De mest sökta yrkena för CV och personliga brev i Sverige',
     numberOfItems: POPULARA_YRKEN.length * 2, // CV + brev for varje
     itemListElement: POPULARA_YRKEN.flatMap((yrke, idx) => [
       {

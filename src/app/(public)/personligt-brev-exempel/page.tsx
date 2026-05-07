@@ -13,12 +13,12 @@ const ANTAL_BREV = BREV_GALLERI.length
 export function generateMetadata(): Metadata {
   return {
     title: `Personligt brev-exempel: ${ANTAL_BREV} yrkesmallar | Jobbcoach.ai`,
-    description: `BlÃ¤ddra bland ${ANTAL_BREV} personliga brev-exempel inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor. Skrivna fÃ¶r svenska rekryterare och ATS-system. Helt gratis.`,
+    description: `Bläddra bland ${ANTAL_BREV} personliga brev-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor. Skrivna för svenska rekryterare och ATS-system. Helt gratis.`,
     keywords:
-      'personligt brev exempel, personligt brev mall, personligt brev mall gratis, ansÃ¶kningsbrev mall, jobbansÃ¶kan exempel, personligt brev vÃ¥rd, personligt brev tech, brev till jobb',
+      'personligt brev exempel, personligt brev mall, personligt brev mall gratis, ansökningsbrev mall, jobbansökan exempel, personligt brev vård, personligt brev tech, brev till jobb',
     openGraph: {
-      title: `${ANTAL_BREV} personliga brev-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
-      description: `Professionella personliga brev-exempel fÃ¶r ${ANTAL_BREV} yrken. Skrivna fÃ¶r svenska rekryterare. Helt gratis.`,
+      title: `${ANTAL_BREV} personliga brev-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella personliga brev-exempel för ${ANTAL_BREV} yrken. Skrivna för svenska rekryterare. Helt gratis.`,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/personligt-brev-exempel',
@@ -26,8 +26,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_BREV} personliga brev-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
-      description: `Professionella personliga brev-exempel fÃ¶r ${ANTAL_BREV} yrken. Helt gratis.`,
+      title: `${ANTAL_BREV} personliga brev-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella personliga brev-exempel för ${ANTAL_BREV} yrken. Helt gratis.`,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/personligt-brev-exempel',
@@ -40,8 +40,8 @@ export default function PersonligtBrevExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Personligt brev-exempel fÃ¶r svenska yrken',
-    description: `Bibliotek med ${ANTAL_BREV} personliga brev-exempel inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    name: 'Personligt brev-exempel för svenska yrken',
+    description: `Bibliotek med ${ANTAL_BREV} personliga brev-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
     numberOfItems: BREV_GALLERI.length,
     itemListElement: BREV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',

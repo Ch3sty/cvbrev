@@ -1,5 +1,5 @@
-// FÃ¶rfattardatabas fÃ¶r jobbcoach.ai artiklar
-// Alla fÃ¶rfattare Ã¤r fiktiva personer skapade fÃ¶r E-E-A-T SEO-optimering
+// Författardatabas för jobbcoach.ai artiklar
+// Alla författare är fiktiva personer skapade för E-E-A-T SEO-optimering
 
 export interface Author {
   id: string;
@@ -16,9 +16,9 @@ export const AUTHORS: Author[] = [
     id: 'helena',
     name: 'Helena Andersson',
     image: '/images/jobbcoach/Helena.webp',
-    title: 'Senior KarriÃ¤rcoach',
-    bio: 'Certifierad karriÃ¤rcoach med mÃ¥ngÃ¥rig erfarenhet frÃ¥n ledande rekryteringsfÃ¶retag. Specialiserar sig pÃ¥ att vÃ¤gleda kandidater genom komplexa karriÃ¤rÃ¶vergÃ¥ngar och strategisk positionering pÃ¥ arbetsmarknaden.',
-    expertise: ['KarriÃ¤rstrategi', 'Meritdokumentation', 'Intervjumetodik', 'Professionell utveckling'],
+    title: 'Senior Karriärcoach',
+    bio: 'Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.',
+    expertise: ['Karriärstrategi', 'Meritdokumentation', 'Intervjumetodik', 'Professionell utveckling'],
     articleCount: 0
   },
   {
@@ -26,8 +26,8 @@ export const AUTHORS: Author[] = [
     name: 'Johan Lindberg',
     image: '/images/jobbcoach/Johan.webp',
     title: 'AI & HR-teknikspecialist',
-    bio: 'Teknologiexpert inom HR-automation med djup fÃ¶rstÃ¥else fÃ¶r ATS-system och digitala rekryteringsprocesser. Utvecklar strategier fÃ¶r hur kandidater navigerar dagens teknikdrivna rekryteringslandskap.',
-    expertise: ['HR-teknologi', 'Digitala ansÃ¶kningsprocesser', 'ATS-optimering', 'LinkedIn-strategier'],
+    bio: 'Teknologiexpert inom HR-automation med djup förståelse för ATS-system och digitala rekryteringsprocesser. Utvecklar strategier för hur kandidater navigerar dagens teknikdrivna rekryteringslandskap.',
+    expertise: ['HR-teknologi', 'Digitala ansökningsprocesser', 'ATS-optimering', 'LinkedIn-strategier'],
     articleCount: 0
   },
   {
@@ -35,26 +35,26 @@ export const AUTHORS: Author[] = [
     name: 'Linda Eriksson',
     image: '/images/jobbcoach/Linda.webp',
     title: 'Chefsrekryterare & Employer Branding Expert',
-    bio: 'Senior rekryteringskonsult med omfattande erfarenhet frÃ¥n executive search och talangfÃ¶rvÃ¤rv. Inriktad pÃ¥ kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.',
-    expertise: ['Executive Search', 'Kompetensbaserad rekrytering', 'FÃ¶rhandlingsstrategier', 'Employer Branding'],
+    bio: 'Senior rekryteringskonsult med omfattande erfarenhet från executive search och talangförvärv. Inriktad på kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.',
+    expertise: ['Executive Search', 'Kompetensbaserad rekrytering', 'Förhandlingsstrategier', 'Employer Branding'],
     articleCount: 0
   }
 ];
 
-// Vikter fÃ¶r Ã¤mnesomrÃ¥den per fÃ¶rfattare
+// Vikter för ämnesområden per författare
 const AUTHOR_TOPIC_WEIGHTS: Record<string, Record<string, number>> = {
   helena: {
     'cv': 0.9,
     'curriculum': 0.9,
-    'meritfÃ¶rteckning': 0.9,
+    'meritförteckning': 0.9,
     'intervju': 0.8,
     'arbetsintervju': 0.8,
-    'anstÃ¤llningsintervju': 0.8,
-    'karriÃ¤r': 0.8,
-    'karriÃ¤rstrategi': 0.9,
-    'karriÃ¤rvÃ¤xling': 0.8,
-    'karriÃ¤rÃ¶vergÃ¥ng': 0.8,
-    'ansÃ¶kan': 0.7
+    'anställningsintervju': 0.8,
+    'karriär': 0.8,
+    'karriärstrategi': 0.9,
+    'karriärväxling': 0.8,
+    'karriärövergång': 0.8,
+    'ansökan': 0.7
   },
   johan: {
     'ai': 0.9,
@@ -62,7 +62,7 @@ const AUTHOR_TOPIC_WEIGHTS: Record<string, Record<string, number>> = {
     'ats': 0.9,
     'ats-system': 0.9,
     'personligt brev': 0.8,
-    'fÃ¶ljebrev': 0.8,
+    'följebrev': 0.8,
     'automation': 0.8,
     'digital': 0.8,
     'linkedin': 0.9,
@@ -72,11 +72,11 @@ const AUTHOR_TOPIC_WEIGHTS: Record<string, Record<string, number>> = {
     'hr-teknologi': 0.9
   },
   linda: {
-    'lÃ¶n': 0.9,
-    'lÃ¶nefÃ¶rhandling': 0.9,
-    'fÃ¶rhandling': 0.9,
+    'lön': 0.9,
+    'löneförhandling': 0.9,
+    'förhandling': 0.9,
     'employer branding': 0.9,
-    'fÃ¶retagskultur': 0.8,
+    'företagskultur': 0.8,
     'executive': 0.9,
     'chef': 0.8,
     'ledare': 0.8,
@@ -88,8 +88,8 @@ const AUTHOR_TOPIC_WEIGHTS: Record<string, Record<string, number>> = {
 };
 
 /**
- * Genererar en deterministisk hash frÃ¥n en strÃ¤ng
- * AnvÃ¤nds fÃ¶r konsistent fÃ¶rfattartilldelning
+ * Genererar en deterministisk hash från en sträng
+ * Används för konsistent författartilldelning
  */
 function hashString(str: string): number {
   let hash = 0;
@@ -102,7 +102,7 @@ function hashString(str: string): number {
 }
 
 /**
- * BerÃ¤knar matchningspoÃ¤ng fÃ¶r en fÃ¶rfattare baserat pÃ¥ artikelns Ã¤mne
+ * Beräknar matchningspoäng för en författare baserat på artikelns ämne
  */
 function calculateAuthorScore(authorId: string, tags: string[], title: string): number {
   const weights = AUTHOR_TOPIC_WEIGHTS[authorId] || {};
@@ -118,40 +118,40 @@ function calculateAuthorScore(authorId: string, tags: string[], title: string): 
     }
   }
 
-  // Normalisera poÃ¤ngen baserat pÃ¥ antal matchningar
+  // Normalisera poängen baserat på antal matchningar
   return matchCount > 0 ? score / matchCount : 0;
 }
 
 /**
- * Intelligent fÃ¶rfattartilldelning med fallback fÃ¶r nya Ã¤mnen
- * Garanterar jÃ¤mn fÃ¶rdelning Ã¤ven fÃ¶r artiklar utan tydlig Ã¤mnesmatchning
+ * Intelligent författartilldelning med fallback för nya ämnen
+ * Garanterar jämn fördelning även för artiklar utan tydlig ämnesmatchning
  */
 export function getAuthorForArticle(
   slug: string,
   tags: string[] = [],
   title: string = ''
 ): Author {
-  // Steg 1: FÃ¶rsÃ¶k hitta bÃ¤sta matchning baserat pÃ¥ Ã¤mne
+  // Steg 1: Försök hitta bästa matchning baserat på ämne
   const scores = AUTHORS.map(author => ({
     author,
     score: calculateAuthorScore(author.id, tags, title)
   }));
 
-  // Sortera efter poÃ¤ng
+  // Sortera efter poäng
   scores.sort((a, b) => b.score - a.score);
 
-  // Om vi har en tydlig vinnare (score > 0.5), anvÃ¤nd den
+  // Om vi har en tydlig vinnare (score > 0.5), använd den
   if (scores[0].score > 0.5) {
     return scores[0].author;
   }
 
-  // Steg 2: Om vi har en svag matchning (score > 0.2), anvÃ¤nd viktat urval
-  // Detta ger fortfarande viss preferens men med slumpmÃ¤ssighet
+  // Steg 2: Om vi har en svag matchning (score > 0.2), använd viktat urval
+  // Detta ger fortfarande viss preferens men med slumpmässighet
   if (scores[0].score > 0.2) {
     const weightedScores = scores.filter(s => s.score > 0.1);
     const totalWeight = weightedScores.reduce((sum, s) => sum + s.score, 0);
 
-    // AnvÃ¤nd slug-hash fÃ¶r att vÃ¤lja bland de viktade alternativen
+    // Använd slug-hash för att välja bland de viktade alternativen
     const hashValue = hashString(slug) / 2147483647; // Normalisera till 0-1
     let accumWeight = 0;
 
@@ -163,23 +163,23 @@ export function getAuthorForArticle(
     }
   }
 
-  // Steg 3: Fallback - Deterministisk tilldelning baserat pÃ¥ slug
+  // Steg 3: Fallback - Deterministisk tilldelning baserat på slug
   // Detta garanterar:
-  // 1. Samma fÃ¶rfattare fÃ¶r samma artikel varje gÃ¥ng
-  // 2. JÃ¤mn fÃ¶rdelning Ã¶ver alla fÃ¶rfattare
+  // 1. Samma författare för samma artikel varje gång
+  // 2. Jämn fördelning över alla författare
   const index = hashString(slug) % AUTHORS.length;
   return AUTHORS[index];
 }
 
 /**
- * HÃ¤mtar en fÃ¶rfattare baserat pÃ¥ ID
+ * Hämtar en författare baserat på ID
  */
 export function getAuthorById(id: string): Author | undefined {
   return AUTHORS.find(author => author.id === id);
 }
 
 /**
- * Genererar Schema.org Person markup fÃ¶r en fÃ¶rfattare
+ * Genererar Schema.org Person markup för en författare
  */
 export function generateAuthorSchema(author: Author, articleUrl?: string) {
   return {
@@ -211,7 +211,7 @@ export function generateAuthorSchema(author: Author, articleUrl?: string) {
 }
 
 /**
- * Uppdaterar artikelrÃ¤knare fÃ¶r en fÃ¶rfattare (fÃ¶r framtida anvÃ¤ndning)
+ * Uppdaterar artikelräknare för en författare (för framtida användning)
  */
 export function incrementAuthorArticleCount(authorId: string): void {
   const author = AUTHORS.find(a => a.id === authorId);

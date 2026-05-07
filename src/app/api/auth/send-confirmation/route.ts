@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       to: email,
       subject: isInvitation
         ? `${inviterName} har bjudit in dig till Jobbcoach.ai Premium!`
-        : 'BekrÃ¤fta din e-postadress - Jobbcoach.ai',
+        : 'Bekräfta din e-postadress - Jobbcoach.ai',
       html: generateConfirmationEmailHTML(emailData),
       text: generateConfirmationEmailText(emailData)
     })

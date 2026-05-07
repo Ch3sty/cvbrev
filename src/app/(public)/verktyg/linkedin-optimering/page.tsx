@@ -24,7 +24,7 @@ export default function LinkedinOptimeringSida() {
     name: 'Jobbcoach.ai LinkedIn-optimering',
     url: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
     description:
-      'Optimera din LinkedIn-profil fÃ¶r rekryterares sÃ¶kningar. Vi fÃ¶rbÃ¤ttrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och fÃ¥r optimerad version tillbaka, vi loggar aldrig in pÃ¥ din LinkedIn.',
+      'Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -34,7 +34,7 @@ export default function LinkedinOptimeringSida() {
       description: '1 optimering gratis per vecka, ingen kortuppgift',
     },
     featureList:
-      'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport fÃ¶re och efter per sektion, tvÃ¥ lÃ¤gen (stÃ¥ ut eller specifik roll), CV-autofyll frÃ¥n sparat CV, copy-paste-flÃ¶de utan LinkedIn-inloggning, STAR-format pÃ¥ erfarenhet, ATS-optimering med branschkeywords',
+      'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
@@ -47,9 +47,9 @@ export default function LinkedinOptimeringSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ optimerar du din LinkedIn-profil med Jobbcoach.ai',
+    name: 'Så optimerar du din LinkedIn-profil med Jobbcoach.ai',
     description:
-      'Fem steg frÃ¥n copy-paste till uppdaterad LinkedIn-profil: hÃ¤mta din profiltext, klistra in eller vÃ¤lj sparat CV, vi optimerar fem sektioner, jÃ¤mfÃ¶r fÃ¶re och efter, kopiera tillbaka till LinkedIn.',
+      'Fem steg från copy-paste till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.',
     totalTime: 'PT5M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -60,37 +60,37 @@ export default function LinkedinOptimeringSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'HÃ¤mta din profiltext frÃ¥n LinkedIn',
+        name: 'Hämta din profiltext från LinkedIn',
         text:
-          'Kopiera din nuvarande rubrik, om-mig och erfarenhet frÃ¥n LinkedIn. Eller vÃ¤lj ett sparat CV som kÃ¤lla.',
+          'Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
-        name: 'Klistra in i fem fÃ¤lt',
+        name: 'Klistra in i fem fält',
         text:
-          'Klistra in texten i fÃ¤lten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fÃ¤lt.',
+          'Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
         name: 'Vi optimerar fem sektioner samtidigt',
         text:
-          'KarriÃ¤rguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning pÃ¥ 30-60 sekunder.',
+          'Karriärguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning på 30-60 sekunder.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'JÃ¤mfÃ¶r fÃ¶re och efter',
+        name: 'Jämför före och efter',
         text:
-          'Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som Ã¤ndrats.',
+          'Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som ändrats.',
       },
       {
         '@type': 'HowToStep',
         position: 5,
         name: 'Kopiera tillbaka till LinkedIn',
         text:
-          'En knapp kopierar hela paketet eller en sektion Ã¥t gÃ¥ngen. Du klistrar in pÃ¥ LinkedIn manuellt och sparar.',
+          'En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.',
       },
     ],
   }

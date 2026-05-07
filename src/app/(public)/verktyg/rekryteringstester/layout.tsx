@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     'Rekryteringstester gratis: matrislogik, verbalt och numeriskt resonemang | Jobbcoach.ai',
   description:
-    'TrÃ¤na pÃ¥ rekryteringstester innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio anvÃ¤nder. Tre tester gratis, ingen kortuppgift.',
+    'Träna på rekryteringstester innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder. Tre tester gratis, ingen kortuppgift.',
   keywords: [
     'rekryteringstester',
     'logiska tester',
@@ -12,18 +12,18 @@ export const metadata: Metadata = {
     'matrislogik',
     'verbalt resonemang test',
     'numeriskt resonemang test',
-    'Ã¶va rekryteringstester',
+    'öva rekryteringstester',
     'shl test',
     'cut-e test',
     'assessio',
-    'logiskt tÃ¤nkande test',
+    'logiskt tänkande test',
     'tester vid rekrytering',
   ],
   openGraph: {
     title:
       'Rekryteringstester gratis: matrislogik, verbalt och numeriskt resonemang',
     description:
-      'TrÃ¤na pÃ¥ rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis, rapport direkt efter varje pass.',
+      'Träna på rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis, rapport direkt efter varje pass.',
     url: 'https://www.jobbcoach.ai/verktyg/rekryteringstester',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title:
       'Rekryteringstester gratis: matrislogik, verbalt och numeriskt resonemang',
     description:
-      'TrÃ¤na pÃ¥ rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis.',
+      'Träna på rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis.',
   },
   robots: {
     index: true,

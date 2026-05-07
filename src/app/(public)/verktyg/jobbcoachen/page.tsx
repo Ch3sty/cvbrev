@@ -20,20 +20,20 @@ export default function JobbcoachenSida() {
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Jobbcoach.ai KarriÃ¤rguiden',
+    name: 'Jobbcoach.ai Karriärguiden',
     url: 'https://www.jobbcoach.ai/verktyg/jobbcoachen',
     description:
-      'KarriÃ¤rrÃ¥dgivning baserad pÃ¥ ArbetsfÃ¶rmedlingen, SCB, fackfÃ¶rbund, FÃ¶rsÃ¤kringskassan, CSN och Skatteverket. FÃ¥ svar pÃ¥ frÃ¥gor om lÃ¶n, intervju, arbetsrÃ¤tt och karriÃ¤rbyte med klickbara kÃ¤llhÃ¤nvisningar.',
+      'Karriärrådgivning baserad på Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket. Få svar på frågor om lön, intervju, arbetsrätt och karriärbyte med klickbara källhänvisningar.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '5 frÃ¥gor gratis utan kortuppgift',
+      description: '5 frågor gratis utan kortuppgift',
     },
     featureList:
-      'KarriÃ¤rrÃ¥dgivning frÃ¥n svenska kÃ¤llor, klickbara kÃ¤llhÃ¤nvisningar i varje svar, marknadslÃ¶n per yrke, arbetsrÃ¤tt och LAS, intervjufÃ¶rberedelse, karriÃ¤rbyte, A-kassa och CSN, dokumentdelning av CV och brev',
+      'Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
@@ -46,9 +46,9 @@ export default function JobbcoachenSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ fÃ¥r du karriÃ¤rrÃ¥d med KarriÃ¤rguiden pÃ¥ Jobbcoach.ai',
+    name: 'Så får du karriärråd med Karriärguiden på Jobbcoach.ai',
     description:
-      'Fyra steg frÃ¥n frÃ¥ga till svar med kÃ¤llhÃ¤nvisning: stÃ¤ll frÃ¥gan, vi sÃ¶ker bland verifierade kÃ¤llor, du fÃ¥r svaret med citat, du fÃ¶ljer upp.',
+      'Fyra steg från fråga till svar med källhänvisning: ställ frågan, vi söker bland verifierade källor, du får svaret med citat, du följer upp.',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -59,30 +59,30 @@ export default function JobbcoachenSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'StÃ¤ll frÃ¥gan',
+        name: 'Ställ frågan',
         text:
-          'Skriv en frÃ¥ga om lÃ¶n, intervju, arbetsrÃ¤tt, karriÃ¤rbyte eller annat som rÃ¶r jobblivet i Sverige.',
+          'Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
-        name: 'Vi sÃ¶ker bland verifierade kÃ¤llor',
+        name: 'Vi söker bland verifierade källor',
         text:
-          'KarriÃ¤rguiden sÃ¶ker i en kunskapsbas av ArbetsfÃ¶rmedlingen, SCB, fackfÃ¶rbund, FÃ¶rsÃ¤kringskassan, CSN och Skatteverket.',
+          'Karriärguiden söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'Du fÃ¥r svar med kÃ¤llhÃ¤nvisning',
+        name: 'Du får svar med källhänvisning',
         text:
-          'Svaret Ã¤r kort och konkret med klickbara kÃ¤llor markerade direkt i texten.',
+          'Svaret är kort och konkret med klickbara källor markerade direkt i texten.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'FÃ¶lj upp tills det Ã¤r klart',
+        name: 'Följ upp tills det är klart',
         text:
-          'KarriÃ¤rguiden minns samtalet och du kan fÃ¶lja upp utan att bÃ¶rja om.',
+          'Karriärguiden minns samtalet och du kan följa upp utan att börja om.',
       },
     ],
   }

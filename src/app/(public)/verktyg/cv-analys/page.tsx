@@ -23,7 +23,7 @@ export default function CVAnalysSida() {
     name: 'Jobbcoach.ai CV-analys',
     url: 'https://www.jobbcoach.ai/verktyg/cv-analys',
     description:
-      'CV-analys som ger ATS-poÃ¤ng frÃ¥n 0 till 100, sex kategori-betyg och konkreta fÃ¶rbÃ¤ttringsfÃ¶rslag pÃ¥ 60 sekunder. Anpassad fÃ¶r svenska arbetsgivare.',
+      'CV-analys som ger ATS-poäng från 0 till 100, sex kategori-betyg och konkreta förbättringsförslag på 60 sekunder. Anpassad för svenska arbetsgivare.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -33,7 +33,7 @@ export default function CVAnalysSida() {
       description: '1 CV-analys gratis varje vecka, ingen kortuppgift',
     },
     featureList:
-      'ATS-poÃ¤ng 0-100, sex kategorier (ATS, struktur, sprÃ¥k, nyckelord, kvantifiering, profil), before/after-text, konkreta fÃ¶rbÃ¤ttringsfÃ¶rslag, svenska och engelska CV',
+      'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), before/after-text, konkreta förbättringsförslag, svenska och engelska CV',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -46,9 +46,9 @@ export default function CVAnalysSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'SÃ¥ analyserar du ditt CV med Jobbcoach.ai',
+    name: 'Så analyserar du ditt CV med Jobbcoach.ai',
     description:
-      'Fyra steg frÃ¥n upplagt CV till starkare ansÃ¶kan: ladda upp, vi analyserar, fÃ¥ ATS-poÃ¤ng, spara fÃ¶rbÃ¤ttrad version.',
+      'Fyra steg från upplagt CV till starkare ansökan: ladda upp, vi analyserar, få ATS-poäng, spara förbättrad version.',
     totalTime: 'PT60S',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -61,28 +61,28 @@ export default function CVAnalysSida() {
         position: 1,
         name: 'Ladda upp ditt CV',
         text:
-          'Ladda upp ett befintligt CV som PDF eller vÃ¤lj ett du redan sparat. Vi accepterar bÃ¥de svenska och engelska.',
+          'Ladda upp ett befintligt CV som PDF eller välj ett du redan sparat. Vi accepterar både svenska och engelska.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Vi analyserar i bakgrunden',
         text:
-          'Det tar 30 till 60 sekunder. Vi kontrollerar struktur, sprÃ¥k, nyckelord och kvantifierade resultat.',
+          'Det tar 30 till 60 sekunder. Vi kontrollerar struktur, språk, nyckelord och kvantifierade resultat.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'FÃ¥ ATS-poÃ¤ng och fÃ¶rslag',
+        name: 'Få ATS-poäng och förslag',
         text:
-          'Du fÃ¥r en ATS-poÃ¤ng frÃ¥n 0 till 100 plus fÃ¶rslag i sex kategorier med exakt vad som bÃ¶r Ã¤ndras.',
+          'Du får en ATS-poäng från 0 till 100 plus förslag i sex kategorier med exakt vad som bör ändras.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'Spara den fÃ¶rbÃ¤ttrade versionen',
+        name: 'Spara den förbättrade versionen',
         text:
-          'VÃ¤lj vilka fÃ¶rslag du vill applicera, granska before/after och ladda ner som PDF eller Word.',
+          'Välj vilka förslag du vill applicera, granska before/after och ladda ner som PDF eller Word.',
       },
     ],
   }

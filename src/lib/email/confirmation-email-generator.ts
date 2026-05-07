@@ -1,5 +1,5 @@
 // src/lib/email/confirmation-email-generator.ts
-// Genererar professionella HTML-e-postmallar fÃ¶r e-postbekrÃ¤ftelse
+// Genererar professionella HTML-e-postmallar för e-postbekräftelse
 
 export interface ConfirmationEmailData {
   userEmail: string;
@@ -18,7 +18,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BekrÃ¤fta din e-postadress - Jobbcoach.ai</title>
+  <title>Bekräfta din e-postadress - Jobbcoach.ai</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -53,10 +53,10 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
           <tr>
             <td style="background-color: #E9457A; background-image: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); padding: 50px 40px; text-align: center;" class="mobile-padding">
               <h1 style="color: #ffffff; font-size: 32px; margin: 0 0 10px 0; font-weight: 700; line-height: 1.2;" class="mobile-text">
-                VÃ¤lkommen till Jobbcoach.ai!
+                Välkommen till Jobbcoach.ai!
               </h1>
               <p style="color: rgba(255,255,255,0.9); font-size: 18px; margin: 0; font-weight: 400;">
-                Vi behÃ¶ver bara bekrÃ¤fta din e-postadress
+                Vi behöver bara bekräfta din e-postadress
               </p>
             </td>
           </tr>
@@ -68,7 +68,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                 <tr>
                   <td style="text-align: center;">
                     <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 50%; margin: 0 auto 30px auto; display: flex; align-items: center; justify-content: center; line-height: 80px;">
-                      <span style="color: white; font-size: 36px;">âœ‰ï¸</span>
+                      <span style="color: white; font-size: 36px;">✉️</span>
                     </div>
 
                     <h2 style="color: #131B32; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">
@@ -86,26 +86,26 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
 
                     <p style="color: #64748b; font-size: 17px; line-height: 1.6; margin: 0 0 35px 0;">
                       ${isInvitation
-                        ? 'Klicka pÃ¥ knappen nedan fÃ¶r att bekrÃ¤fta din e-postadress och aktivera din gratis Premium-period.'
-                        : 'Tack fÃ¶r att du registrerat dig! Klicka pÃ¥ knappen nedan fÃ¶r att bekrÃ¤fta din e-postadress och komma igÃ¥ng.'}
+                        ? 'Klicka på knappen nedan för att bekräfta din e-postadress och aktivera din gratis Premium-period.'
+                        : 'Tack för att du registrerat dig! Klicka på knappen nedan för att bekräfta din e-postadress och komma igång.'}
                     </p>
 
                     <!-- CTA Button -->
                     <!--[if mso]>
                     <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${confirmationUrl}" style="height:56px;v-text-anchor:middle;width:280px;" arcsize="20%" strokecolor="#E9457A" fillcolor="#E9457A">
                       <w:anchorlock/>
-                      <center style="color:#ffffff;font-family:sans-serif;font-size:18px;font-weight:bold;">BekrÃ¤fta e-postadress</center>
+                      <center style="color:#ffffff;font-family:sans-serif;font-size:18px;font-weight:bold;">Bekräfta e-postadress</center>
                     </v:roundrect>
                     <![endif]-->
                     <!--[if !mso]><!-->
                     <a href="${confirmationUrl}" style="display: inline-block; text-decoration: none; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); color: #ffffff; padding: 18px 45px; border-radius: 12px; font-size: 18px; font-weight: 600; letter-spacing: 0.3px; box-shadow: 0 4px 15px rgba(233, 69, 122, 0.3);">
-                      BekrÃ¤fta e-postadress â†’
+                      Bekräfta e-postadress →
                     </a>
                     <!--<![endif]-->
 
                     <!-- Alternative Link -->
                     <p style="color: #94a3b8; font-size: 14px; margin: 30px 0 0 0;">
-                      Problem med knappen? Kopiera och klistra in denna lÃ¤nk i din webblÃ¤sare:
+                      Problem med knappen? Kopiera och klistra in denna länk i din webbläsare:
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 10px 0 0 0; word-break: break-all;">
                       <a href="${confirmationUrl}" style="color: #E9457A; text-decoration: underline;">
@@ -123,7 +123,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
           <tr>
             <td style="background-color: #F8FAFC; padding: 35px 40px; border-top: 1px solid #E2E8F0;" class="mobile-padding">
               <h3 style="color: #131B32; font-size: 20px; margin: 0 0 20px 0; font-weight: 600; text-align: center;">
-                Vad ingÃ¥r i din Premium-provperiod?
+                Vad ingår i din Premium-provperiod?
               </h3>
 
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -133,12 +133,12 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       <tr>
                         <td style="width: 36px; vertical-align: top;">
                           <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">âœ“</span>
+                            <span style="color: white; font-size: 14px;">✓</span>
                           </div>
                         </td>
                         <td style="padding-left: 12px;">
                           <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>ObegrÃ¤nsade AI-genererade personliga brev</strong> anpassade fÃ¶r varje jobb
+                            <strong>Obegränsade AI-genererade personliga brev</strong> anpassade för varje jobb
                           </p>
                         </td>
                       </tr>
@@ -151,12 +151,12 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       <tr>
                         <td style="width: 36px; vertical-align: top;">
                           <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">âœ“</span>
+                            <span style="color: white; font-size: 14px;">✓</span>
                           </div>
                         </td>
                         <td style="padding-left: 12px;">
                           <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Professionella CV-mallar</strong> som fÃ¥r dig att sticka ut
+                            <strong>Professionella CV-mallar</strong> som får dig att sticka ut
                           </p>
                         </td>
                       </tr>
@@ -169,12 +169,12 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       <tr>
                         <td style="width: 36px; vertical-align: top;">
                           <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">âœ“</span>
+                            <span style="color: white; font-size: 14px;">✓</span>
                           </div>
                         </td>
                         <td style="padding-left: 12px;">
                           <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Smart kompetensanalys</strong> som visar vad du behÃ¶ver utveckla
+                            <strong>Smart kompetensanalys</strong> som visar vad du behöver utveckla
                           </p>
                         </td>
                       </tr>
@@ -196,10 +196,10 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       Jobbcoach.ai
                     </h4>
                     <p style="color: #94a3b8; font-size: 14px; margin: 0 0 16px 0;">
-                      Din partner fÃ¶r en framgÃ¥ngsrik karriÃ¤r
+                      Din partner för en framgångsrik karriär
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 0;">
-                      Â© 2024 Jobbcoach.ai â€¢ Denna lÃ¤nk Ã¤r giltig i 24 timmar
+                      © 2024 Jobbcoach.ai • Denna länk är giltig i 24 timmar
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 8px 0 0 0;">
                       <a href="https://www.jobbcoach.ai" style="color: #E9457A; text-decoration: none;">jobbcoach.ai</a>
@@ -222,59 +222,59 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
   `;
 }
 
-// Generera en enklare textversion fÃ¶r e-postklienter som inte stÃ¶djer HTML
+// Generera en enklare textversion för e-postklienter som inte stödjer HTML
 export function generateConfirmationEmailText(data: ConfirmationEmailData): string {
   const { userName, confirmationUrl, isInvitation, inviterName } = data;
 
   if (isInvitation && inviterName) {
     return `
-VÃ¤lkommen till Jobbcoach.ai!
+Välkommen till Jobbcoach.ai!
 
 Hej ${userName}!
 
 ${inviterName} har bjudit in dig att prova Jobbcoach.ai Premium gratis i 7 dagar!
 
-FÃ¶r att aktivera ditt konto och din gratis Premium-period, bekrÃ¤fta din e-postadress genom att klicka pÃ¥ lÃ¤nken nedan:
+För att aktivera ditt konto och din gratis Premium-period, bekräfta din e-postadress genom att klicka på länken nedan:
 
 ${confirmationUrl}
 
-VAD INGÃ…R I DIN PREMIUM-PROVPERIOD?
+VAD INGÅR I DIN PREMIUM-PROVPERIOD?
 
-âœ“ ObegrÃ¤nsade AI-genererade personliga brev anpassade fÃ¶r varje jobb
-âœ“ Professionella CV-mallar som fÃ¥r dig att sticka ut
-âœ“ Smart kompetensanalys som visar vad du behÃ¶ver utveckla
-âœ“ Personlig karriÃ¤rvÃ¤gledning med AI
-âœ“ Ingen bindningstid eller kreditkort krÃ¤vs
+✓ Obegränsade AI-genererade personliga brev anpassade för varje jobb
+✓ Professionella CV-mallar som får dig att sticka ut
+✓ Smart kompetensanalys som visar vad du behöver utveckla
+✓ Personlig karriärvägledning med AI
+✓ Ingen bindningstid eller kreditkort krävs
 
-LÃ¤nken Ã¤r giltig i 24 timmar.
+Länken är giltig i 24 timmar.
 
-Har du problem? Kontakta oss pÃ¥ support@jobbcoach.ai
+Har du problem? Kontakta oss på support@jobbcoach.ai
 
 ---
-Jobbcoach.ai - Din partner fÃ¶r en framgÃ¥ngsrik karriÃ¤r
-Â© 2024 Jobbcoach.ai
+Jobbcoach.ai - Din partner för en framgångsrik karriär
+© 2024 Jobbcoach.ai
 jobbcoach.ai
     `;
   }
 
   return `
-VÃ¤lkommen till Jobbcoach.ai!
+Välkommen till Jobbcoach.ai!
 
 Hej ${userName}!
 
-Tack fÃ¶r att du registrerat dig! FÃ¶r att komma igÃ¥ng behÃ¶ver du bekrÃ¤fta din e-postadress.
+Tack för att du registrerat dig! För att komma igång behöver du bekräfta din e-postadress.
 
-Klicka pÃ¥ lÃ¤nken nedan fÃ¶r att bekrÃ¤fta:
+Klicka på länken nedan för att bekräfta:
 
 ${confirmationUrl}
 
-LÃ¤nken Ã¤r giltig i 24 timmar.
+Länken är giltig i 24 timmar.
 
-Har du problem? Kontakta oss pÃ¥ support@jobbcoach.ai
+Har du problem? Kontakta oss på support@jobbcoach.ai
 
 ---
-Jobbcoach.ai - Din partner fÃ¶r en framgÃ¥ngsrik karriÃ¤r
-Â© 2024 Jobbcoach.ai
+Jobbcoach.ai - Din partner för en framgångsrik karriär
+© 2024 Jobbcoach.ai
 jobbcoach.ai
   `;
 }
