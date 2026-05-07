@@ -198,9 +198,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Send invitation email
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://jobbcoach.ai'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://www.jobbcoach.ai'
     const inviteUrl = `${baseUrl}/invite/${invitationCode}`
-    const inviterName = profile?.full_name || 'En vän'
+    const inviterName = profile?.full_name || 'En vÃ¤n'
 
     console.log('Invitation URL:', inviteUrl) // Debug log
 
@@ -239,7 +239,7 @@ export async function POST(request: NextRequest) {
       user_id_param: user.id,
       xp_amount: 25,
       source_param: 'guest_invitation',
-      description_param: 'Skickade gästinbjudan'
+      description_param: 'Skickade gÃ¤stinbjudan'
     })
 
     // Calculate remaining invitations for response

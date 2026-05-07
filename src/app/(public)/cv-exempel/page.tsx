@@ -13,24 +13,24 @@ const ANTAL_CV = CV_GALLERI.length
 export function generateMetadata(): Metadata {
   return {
     title: `CV-exempel: ${ANTAL_CV} yrken med ATS-optimerade mallar | Jobbcoach.ai`,
-    description: `Bläddra bland ${ANTAL_CV} CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor. Alla är ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+    description: `BlÃ¤ddra bland ${ANTAL_CV} CV-exempel inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor. Alla Ã¤r ATS-optimerade och anpassade fÃ¶r svenska arbetsgivare. Helt gratis.`,
     keywords:
-      'cv exempel, cv mall, cv mall gratis, ats-optimerat cv, professionellt cv, svenska cv, cv exempel vård, cv exempel tech, cv exempel ekonomi, jobbansökan',
+      'cv exempel, cv mall, cv mall gratis, ats-optimerat cv, professionellt cv, svenska cv, cv exempel vÃ¥rd, cv exempel tech, cv exempel ekonomi, jobbansÃ¶kan',
     openGraph: {
-      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken. ATS-optimerade och anpassade fÃ¶r svenska arbetsgivare. Helt gratis.`,
       type: 'website',
       locale: 'sv_SE',
-      url: 'https://jobbcoach.ai/cv-exempel',
+      url: 'https://www.jobbcoach.ai/cv-exempel',
       siteName: 'Jobbcoach.ai',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel fÃ¶r svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
     },
     alternates: {
-      canonical: 'https://jobbcoach.ai/cv-exempel',
+      canonical: 'https://www.jobbcoach.ai/cv-exempel',
     },
     robots: { index: true, follow: true },
   }
@@ -40,14 +40,14 @@ export default function CVExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'CV-exempel för svenska yrken',
-    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    name: 'CV-exempel fÃ¶r svenska yrken',
+    description: `Bibliotek med professionella CV-exempel fÃ¶r ${ANTAL_CV} yrken inom vÃ¥rd, tech, ekonomi, service, utbildning och offentlig sektor.`,
     numberOfItems: CV_GALLERI.length,
     itemListElement: CV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
       name: `CV-exempel: ${y.namn}`,
-      url: `https://jobbcoach.ai/cv-exempel/${y.slug}`,
+      url: `https://www.jobbcoach.ai/cv-exempel/${y.slug}`,
     })),
   }
 
@@ -55,13 +55,13 @@ export default function CVExempelGalleri() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://jobbcoach.ai' },
-      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://jobbcoach.ai/exempel' },
+      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://www.jobbcoach.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://www.jobbcoach.ai/exempel' },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'CV-exempel',
-        item: 'https://jobbcoach.ai/cv-exempel',
+        item: 'https://www.jobbcoach.ai/cv-exempel',
       },
     ],
   }

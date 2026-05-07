@@ -33,7 +33,7 @@ export async function generateMetadata({
       description: kat.kortBeskrivning,
       type: 'website',
       locale: 'sv_SE',
-      url: `https://jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
+      url: `https://www.jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
       siteName: 'Jobbcoach.ai',
     },
     twitter: {
@@ -42,7 +42,7 @@ export async function generateMetadata({
       description: kat.kortBeskrivning,
     },
     alternates: {
-      canonical: `https://jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
+      canonical: `https://www.jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
     },
   }
 }
@@ -59,26 +59,26 @@ export default async function BrevKategoriSida({ params }: PageProps) {
     '@type': 'CollectionPage',
     name: `Personligt brev-exempel för ${kat.namn}`,
     description: kat.introIngress,
-    url: `https://jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
+    url: `https://www.jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
   }
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://jobbcoach.ai' },
-      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://jobbcoach.ai/exempel' },
+      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://www.jobbcoach.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://www.jobbcoach.ai/exempel' },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Personligt brev-exempel',
-        item: 'https://jobbcoach.ai/personligt-brev-exempel',
+        item: 'https://www.jobbcoach.ai/personligt-brev-exempel',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: kat.namn,
-        item: `https://jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
+        item: `https://www.jobbcoach.ai/personligt-brev-exempel/kategori/${slug}`,
       },
     ],
   }
@@ -92,7 +92,7 @@ export default async function BrevKategoriSida({ params }: PageProps) {
       '@type': 'ListItem',
       position: idx + 1,
       name: `Personligt brev-exempel: ${BREV_YRKEN[yrkesSlug]}`,
-      url: `https://jobbcoach.ai/personligt-brev-exempel/${yrkesSlug}`,
+      url: `https://www.jobbcoach.ai/personligt-brev-exempel/${yrkesSlug}`,
     })),
   }
 

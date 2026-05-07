@@ -15,24 +15,24 @@ import FunktionerFAQ from '@/components/funktioner/FunktionerFAQ';
 import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
 export const metadata: Metadata = {
-  title: 'Våra funktioner: alla verktyg du behöver för jobbsökningen | Jobbcoach.ai',
+  title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver fÃ¶r jobbsÃ¶kningen | Jobbcoach.ai',
   description:
-    'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar. Byggt för svenska arbetsmarknaden.',
+    'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och Ã¥tta professionella mallar. Byggt fÃ¶r svenska arbetsmarknaden.',
   alternates: {
-    canonical: 'https://jobbcoach.ai/funktioner',
+    canonical: 'https://www.jobbcoach.ai/funktioner',
   },
   openGraph: {
-    title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
+    title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver | Jobbcoach.ai',
     description:
-      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar.',
-    url: 'https://jobbcoach.ai/funktioner',
+      'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och Ã¥tta professionella mallar.',
+    url: 'https://www.jobbcoach.ai/funktioner',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
+    title: 'VÃ¥ra funktioner: alla verktyg du behÃ¶ver | Jobbcoach.ai',
     description:
-      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering.',
+      'Ã…tta verktyg pÃ¥ en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering.',
   },
 };
 

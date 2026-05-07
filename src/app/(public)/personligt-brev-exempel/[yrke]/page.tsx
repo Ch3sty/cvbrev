@@ -10439,7 +10439,7 @@ export async function generateMetadata({
   }
 
   // Exempelsidan är alltid den kanoniska URL:en
-  const canonicalUrl = `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
+  const canonicalUrl = `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke}`
 
   return {
     title: data.metaTitle,
@@ -10506,14 +10506,14 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     "author": {
       "@type": "Organization",
       "name": "Jobbcoach.ai",
-      "url": "https://jobbcoach.ai"
+      "url": "https://www.jobbcoach.ai"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Jobbcoach.ai",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://jobbcoach.ai/logo.png"
+        "url": "https://www.jobbcoach.ai/logo.png"
       }
     },
     "datePublished": new Date().toISOString(),
@@ -10570,19 +10570,19 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         "@type": "ListItem",
         "position": 1,
         "name": "Hem",
-        "item": "https://jobbcoach.ai"
+        "item": "https://www.jobbcoach.ai"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Personligt Brev Exempel",
-        "item": "https://jobbcoach.ai/personligt-brev-exempel"
+        "item": "https://www.jobbcoach.ai/personligt-brev-exempel"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": data.yrke,
-        "item": `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
+        "item": `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke}`
       }
     ]
   }

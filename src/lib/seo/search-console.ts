@@ -33,7 +33,7 @@ export class GoogleSearchConsole {
   private siteUrl: string;
 
   constructor() {
-    this.siteUrl = process.env.SITE_URL || 'https://jobbcoach.ai';
+    this.siteUrl = process.env.SITE_URL || 'https://www.jobbcoach.ai';
     
     // Konfigurera Google Auth
     const auth = new GoogleAuth({
@@ -48,7 +48,7 @@ export class GoogleSearchConsole {
     });
   }
 
-  // Hämta keyword ranking för ett specifikt keyword
+  // HÃ¤mta keyword ranking fÃ¶r ett specifikt keyword
   async getKeywordRanking(keyword: string): Promise<{
     position: number;
     clicks: number;
@@ -84,7 +84,7 @@ export class GoogleSearchConsole {
         impressions: row.impressions,
         ctr: row.ctr * 100,
         url: row.keys?.[1] || '',
-        // Dessa värden skulle hämtas från andra källor som Semrush
+        // Dessa vÃ¤rden skulle hÃ¤mtas frÃ¥n andra kÃ¤llor som Semrush
         searchVolume: undefined,
         difficulty: undefined,
         serpFeatures: undefined
@@ -95,7 +95,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta prestanda för en specifik sida
+  // HÃ¤mta prestanda fÃ¶r en specifik sida
   async getPagePerformance(pagePath: string, dateRange: {start: string, end: string}): Promise<SearchConsoleData> {
     try {
       const response = await this.webmasters.searchanalytics.query({
@@ -130,7 +130,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta de bästa keywords för webbplatsen
+  // HÃ¤mta de bÃ¤sta keywords fÃ¶r webbplatsen
   async getTopKeywords(dateRange: {start: string, end: string}, limit: number = 50): Promise<KeywordData[]> {
     try {
       const response = await this.webmasters.searchanalytics.query({
@@ -149,10 +149,10 @@ export class GoogleSearchConsole {
         impressions: row.impressions || 0,
         ctr: (row.ctr || 0) * 100,
         position: row.position || 0,
-        changeFromPrevious: 0 // Detta skulle beräknas genom att jämföra med tidigare period
+        changeFromPrevious: 0 // Detta skulle berÃ¤knas genom att jÃ¤mfÃ¶ra med tidigare period
       })) || [];
 
-      // Beräkna förändringar från föregående period
+      // BerÃ¤kna fÃ¶rÃ¤ndringar frÃ¥n fÃ¶regÃ¥ende period
       for (const keyword of keywords) {
         keyword.changeFromPrevious = await this.calculatePositionChange(
           keyword.query, 
@@ -168,7 +168,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta de bästa sidorna baserat på organisk trafik
+  // HÃ¤mta de bÃ¤sta sidorna baserat pÃ¥ organisk trafik
   async getTopPages(dateRange: {start: string, end: string}, limit: number = 20): Promise<PagePerformanceData[]> {
     try {
       const response = await this.webmasters.searchanalytics.query({
@@ -194,7 +194,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta svenska specifika keywords och deras prestanda
+  // HÃ¤mta svenska specifika keywords och deras prestanda
   async getSwedishKeywords(dateRange: {start: string, end: string}): Promise<KeywordData[]> {
     try {
       const response = await this.webmasters.searchanalytics.query({
@@ -226,7 +226,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta mobile vs desktop prestanda
+  // HÃ¤mta mobile vs desktop prestanda
   async getDevicePerformance(dateRange: {start: string, end: string}): Promise<{
     mobile: SearchConsoleData;
     desktop: SearchConsoleData;
@@ -274,10 +274,10 @@ export class GoogleSearchConsole {
   // Identifiera trending keywords (stigande keywords)
   async getTrendingKeywords(dateRange: {start: string, end: string}): Promise<KeywordData[]> {
     try {
-      // Hämta keywords för den aktuella perioden
+      // HÃ¤mta keywords fÃ¶r den aktuella perioden
       const currentKeywords = await this.getTopKeywords(dateRange, 100);
       
-      // Beräkna tidigare period
+      // BerÃ¤kna tidigare period
       const daysDiff = Math.floor(
         (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) / (1000 * 60 * 60 * 24)
       );
@@ -287,13 +287,13 @@ export class GoogleSearchConsole {
       const previousEnd = new Date(new Date(dateRange.end).getTime() - daysDiff * 24 * 60 * 60 * 1000)
         .toISOString().split('T')[0];
 
-      // Hämta keywords för föregående period
+      // HÃ¤mta keywords fÃ¶r fÃ¶regÃ¥ende period
       const previousKeywords = await this.getTopKeywords(
         { start: previousStart, end: previousEnd }, 
         100
       );
 
-      // Beräkna förändringar och identifiera trending keywords
+      // BerÃ¤kna fÃ¶rÃ¤ndringar och identifiera trending keywords
       const trendingKeywords: KeywordData[] = [];
 
       for (const currentKw of currentKeywords) {
@@ -301,9 +301,9 @@ export class GoogleSearchConsole {
         
         if (previousKw) {
           const clickChange = ((currentKw.clicks - previousKw.clicks) / previousKw.clicks) * 100;
-          const positionChange = previousKw.position - currentKw.position; // Positiv = förbättring
+          const positionChange = previousKw.position - currentKw.position; // Positiv = fÃ¶rbÃ¤ttring
 
-          // Keyword är trending om klick ökar med mer än 20% eller position förbättras med mer än 5
+          // Keyword Ã¤r trending om klick Ã¶kar med mer Ã¤n 20% eller position fÃ¶rbÃ¤ttras med mer Ã¤n 5
           if (clickChange > 20 || positionChange > 5) {
             trendingKeywords.push({
               ...currentKw,
@@ -320,7 +320,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Hämta SERP features för svenska keywords
+  // HÃ¤mta SERP features fÃ¶r svenska keywords
   async getSERPFeatures(keyword: string): Promise<{
     featuredSnippet: boolean;
     peopleAlsoAsk: boolean;
@@ -329,8 +329,8 @@ export class GoogleSearchConsole {
     videoCarousel: boolean;
     knowledgePanel: boolean;
   }> {
-    // Detta skulle kräva integration med tredjepartsverktyg som Semrush eller Ahrefs
-    // eftersom Search Console API inte tillhandahåller SERP features data
+    // Detta skulle krÃ¤va integration med tredjepartsverktyg som Semrush eller Ahrefs
+    // eftersom Search Console API inte tillhandahÃ¥ller SERP features data
     
     try {
       // Placeholder implementation - i verkligheten skulle detta anropa Semrush API
@@ -355,7 +355,7 @@ export class GoogleSearchConsole {
     }
   }
 
-  // Övervaka konkurrenternas prestanda för specifika keywords
+  // Ã–vervaka konkurrenternas prestanda fÃ¶r specifika keywords
   async getCompetitorAnalysis(keywords: string[]): Promise<Array<{
     keyword: string;
     ourPosition: number;
@@ -366,21 +366,21 @@ export class GoogleSearchConsole {
       description: string;
     }>;
   }>> {
-    // Detta skulle implementeras med hjälp av tredjepartsverktyg
+    // Detta skulle implementeras med hjÃ¤lp av tredjepartsverktyg
     // eftersom Search Console inte ger konkurrentdata
     
     console.log('Competitor analysis would be implemented with third-party tools');
     return [];
   }
 
-  // Privata hjälpmetoder
+  // Privata hjÃ¤lpmetoder
   private async calculatePositionChange(
     keyword: string, 
     currentPosition: number, 
     dateRange: {start: string, end: string}
   ): Promise<number> {
     try {
-      // Beräkna föregående period
+      // BerÃ¤kna fÃ¶regÃ¥ende period
       const daysDiff = Math.floor(
         (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) / (1000 * 60 * 60 * 24)
       );
@@ -408,7 +408,7 @@ export class GoogleSearchConsole {
       const previousRow = response.data.rows?.[0];
       if (!previousRow) return 0;
 
-      // Returnera skillnaden (positiv = förbättring)
+      // Returnera skillnaden (positiv = fÃ¶rbÃ¤ttring)
       return previousRow.position - currentPosition;
     } catch (error) {
       console.error('Error calculating position change:', error);

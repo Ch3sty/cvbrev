@@ -82,6 +82,14 @@ const nextConfig: NextConfig = {
   // 301 Redirects för personligt brev exempel-galleri
   async redirects() {
     return [
+      // Tvinga www-version (kanonisk domän). Google ser jobbcoach.ai och
+      // www.jobbcoach.ai som tva separata sajter sa lange detta inte finns.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'jobbcoach.ai' }],
+        destination: 'https://www.jobbcoach.ai/:path*',
+        permanent: true,
+      },
       // Yrkesspecifika personliga brev exempel
       {
         source: '/artiklar/personligt-brev-underskoterska',

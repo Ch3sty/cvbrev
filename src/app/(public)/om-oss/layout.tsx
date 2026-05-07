@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'Om Jobbcoach.ai: svenska jobbverktyg byggda för svensk arbetsmarknad | Jobbcoach.ai',
+    'Om Jobbcoach.ai: svenska jobbverktyg byggda fÃ¶r svensk arbetsmarknad | Jobbcoach.ai',
   description:
-    'Vi har byggt jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. GDPR-säker, ingen LinkedIn-inloggning. Möt teamet bakom plattformen.',
+    'Vi har byggt jobbverktyg fÃ¶r svensk arbetsmarknad sedan 2023. KÃ¤llor frÃ¥n ArbetsfÃ¶rmedlingen, SCB och fackfÃ¶rbund. GDPR-sÃ¤ker, ingen LinkedIn-inloggning. MÃ¶t teamet bakom plattformen.',
   keywords: [
     'om jobbcoach.ai',
     'om oss jobbcoach',
@@ -12,30 +12,30 @@ export const metadata: Metadata = {
     'jobbcoach grundare',
     'jobbcoach team',
     'cvbrev jobbcoach',
-    'svenska karriärverktyg',
+    'svenska karriÃ¤rverktyg',
     'jobbcoach historia',
   ],
   openGraph: {
-    title: 'Om Jobbcoach.ai: svenska jobbverktyg byggda för svensk arbetsmarknad',
+    title: 'Om Jobbcoach.ai: svenska jobbverktyg byggda fÃ¶r svensk arbetsmarknad',
     description:
-      'Vi har byggt jobbverktyg för svensk arbetsmarknad sedan 2023. Möt teamet och se vad plattformen gör för dig.',
-    url: 'https://jobbcoach.ai/om-oss',
+      'Vi har byggt jobbverktyg fÃ¶r svensk arbetsmarknad sedan 2023. MÃ¶t teamet och se vad plattformen gÃ¶r fÃ¶r dig.',
+    url: 'https://www.jobbcoach.ai/om-oss',
     siteName: 'Jobbcoach.ai',
     type: 'website',
     locale: 'sv_SE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Om Jobbcoach.ai: svenska jobbverktyg byggda för svensk arbetsmarknad',
+    title: 'Om Jobbcoach.ai: svenska jobbverktyg byggda fÃ¶r svensk arbetsmarknad',
     description:
-      'Vi har byggt jobbverktyg för svensk arbetsmarknad sedan 2023. Möt teamet bakom plattformen.',
+      'Vi har byggt jobbverktyg fÃ¶r svensk arbetsmarknad sedan 2023. MÃ¶t teamet bakom plattformen.',
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: 'https://jobbcoach.ai/om-oss',
+    canonical: 'https://www.jobbcoach.ai/om-oss',
   },
 }
 

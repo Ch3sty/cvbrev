@@ -21,7 +21,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": `https://jobbcoach.ai${item.href}`
+      "item": `https://www.jobbcoach.ai${item.href}`
     }))
   }
 

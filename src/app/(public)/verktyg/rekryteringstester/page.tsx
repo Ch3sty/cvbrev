@@ -21,9 +21,9 @@ export default function RekryteringstesterSida() {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Jobbcoach.ai Rekryteringstester',
-    url: 'https://jobbcoach.ai/verktyg/rekryteringstester',
+    url: 'https://www.jobbcoach.ai/verktyg/rekryteringstester',
     description:
-      'Träna på rekryteringstester innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder.',
+      'TrÃ¤na pÃ¥ rekryteringstester innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio anvÃ¤nder.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -33,7 +33,7 @@ export default function RekryteringstesterSida() {
       description: '3 tester gratis utan kortuppgift',
     },
     featureList:
-      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök',
+      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/gÃ¥r ej att avgÃ¶ra, numeriskt resonemang med tabeller och procent, score och tid direkt efter varje pass, frÃ¥ga-fÃ¶r-frÃ¥ga-genomgÃ¥ng med rÃ¤tt svar, obegrÃ¤nsat antal fÃ¶rsÃ¶k',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
@@ -46,9 +46,9 @@ export default function RekryteringstesterSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'Så tränar du på rekryteringstester med Jobbcoach.ai',
+    name: 'SÃ¥ trÃ¤nar du pÃ¥ rekryteringstester med Jobbcoach.ai',
     description:
-      'Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.',
+      'Fyra steg frÃ¥n val av test till fÃ¤rdig rapport: vÃ¤lj test, lÃ¶s frÃ¥gor i din takt, fÃ¥ score och tid direkt, se vad du missade.',
     totalTime: 'PT20M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -59,30 +59,30 @@ export default function RekryteringstesterSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'Välj test',
+        name: 'VÃ¤lj test',
         text:
           'Plocka ett av tre gratistester: matrislogik, verbalt resonemang eller numeriskt resonemang.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
-        name: 'Lös frågor i din takt',
+        name: 'LÃ¶s frÃ¥gor i din takt',
         text:
-          'Markera ditt svar och gå till nästa fråga. Timern räknar tempot men avbryter aldrig.',
+          'Markera ditt svar och gÃ¥ till nÃ¤sta frÃ¥ga. Timern rÃ¤knar tempot men avbryter aldrig.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'Få score och tid direkt',
+        name: 'FÃ¥ score och tid direkt',
         text:
-          'När du svarat klart visas procent korrekta, total tid och snitt-tid per fråga.',
+          'NÃ¤r du svarat klart visas procent korrekta, total tid och snitt-tid per frÃ¥ga.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Se vad du missade',
         text:
-          'Fråga för fråga ser du ditt svar mot facit och förstår vilka mönster du kan träna mer på.',
+          'FrÃ¥ga fÃ¶r frÃ¥ga ser du ditt svar mot facit och fÃ¶rstÃ¥r vilka mÃ¶nster du kan trÃ¤na mer pÃ¥.',
       },
     ],
   }

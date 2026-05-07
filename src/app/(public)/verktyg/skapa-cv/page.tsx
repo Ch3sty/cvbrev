@@ -22,9 +22,9 @@ export default function SkapaCvSida() {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Jobbcoach.ai CV-byggare',
-    url: 'https://jobbcoach.ai/verktyg/skapa-cv',
+    url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     description:
-      'Skapa CV gratis online med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.',
+      'Skapa CV gratis online med vÃ¥r CV-byggare. Sju enkla steg, live-preview, ATS-sÃ¤kra mallar och export till PDF eller Word. Helt pÃ¥ svenska.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -34,7 +34,7 @@ export default function SkapaCvSida() {
       description: 'Skapa CV helt gratis, ingen kortuppgift',
     },
     featureList:
-      'Sju-stegs CV-byggare, live-preview, ATS-säkra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly',
+      'Sju-stegs CV-byggare, live-preview, ATS-sÃ¤kra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -47,9 +47,9 @@ export default function SkapaCvSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'Så skapar du ett CV med Jobbcoach.ai',
+    name: 'SÃ¥ skapar du ett CV med Jobbcoach.ai',
     description:
-      'Fyra steg från val till färdig PDF: välj mall, fyll i sju enkla steg, vi sätter ihop, ladda ner.',
+      'Fyra steg frÃ¥n val till fÃ¤rdig PDF: vÃ¤lj mall, fyll i sju enkla steg, vi sÃ¤tter ihop, ladda ner.',
     totalTime: 'PT10M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -60,30 +60,30 @@ export default function SkapaCvSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'Välj en mall',
+        name: 'VÃ¤lj en mall',
         text:
-          'Bläddra bland modern, traditionell och kreativ stil. Du kan byta mall efteråt utan att förlora din data.',
+          'BlÃ¤ddra bland modern, traditionell och kreativ stil. Du kan byta mall efterÃ¥t utan att fÃ¶rlora din data.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Fyll i sju enkla steg',
         text:
-          'Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och språk. Allt sparas automatiskt.',
+          'Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och sprÃ¥k. Allt sparas automatiskt.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
-        name: 'Vi sätter ihop CV:t',
+        name: 'Vi sÃ¤tter ihop CV:t',
         text:
-          'Allt landar automatiskt på rätt plats i mallen. Live-preview visar slutresultatet medan du skriver.',
+          'Allt landar automatiskt pÃ¥ rÃ¤tt plats i mallen. Live-preview visar slutresultatet medan du skriver.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Ladda ner som PDF eller Word',
         text:
-          'När du är nöjd exporterar du ditt CV. Sparas i ditt konto för senare redigering.',
+          'NÃ¤r du Ã¤r nÃ¶jd exporterar du ditt CV. Sparas i ditt konto fÃ¶r senare redigering.',
       },
     ],
   }

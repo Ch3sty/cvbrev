@@ -5,7 +5,7 @@
 
 export const siteMetadata = {
   siteName: 'Jobbcoach.ai',
-  siteUrl: 'https://jobbcoach.ai',
+  siteUrl: 'https://www.jobbcoach.ai',
   defaultTitle: 'Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester',
   defaultDescription: 'Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.',
   tagline: 'Ett effektivt verktyg för arbetssökande',

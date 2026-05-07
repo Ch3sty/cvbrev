@@ -21,9 +21,9 @@ export default function CVMallarSida() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'CV-mallar för svenska arbetsgivare',
+    name: 'CV-mallar fÃ¶r svenska arbetsgivare',
     description:
-      'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra och anpassade för svenska arbetsgivare.',
+      'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-sÃ¤kra och anpassade fÃ¶r svenska arbetsgivare.',
     numberOfItems: SIMPLE_TEMPLATES.length,
     itemListElement: SIMPLE_TEMPLATES.map((tpl, idx) => ({
       '@type': 'ListItem',
@@ -32,7 +32,7 @@ export default function CVMallarSida() {
         '@type': 'Product',
         name: tpl.name,
         description: tpl.description,
-        image: `https://jobbcoach.ai${tpl.imagePath}`,
+        image: `https://www.jobbcoach.ai${tpl.imagePath}`,
         category: tpl.category,
         offers: {
           '@type': 'Offer',
@@ -47,9 +47,9 @@ export default function CVMallarSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'Så bygger du ett CV med Jobbcoach.ai',
+    name: 'SÃ¥ bygger du ett CV med Jobbcoach.ai',
     description:
-      'Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in datan, ladda ner.',
+      'Fyra steg frÃ¥n val till fÃ¤rdig PDF: vÃ¤lj mall, fyll i, vi flyttar in datan, ladda ner.',
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
@@ -59,30 +59,30 @@ export default function CVMallarSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'Välj en mall',
+        name: 'VÃ¤lj en mall',
         text:
-          'Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch.',
+          'BlÃ¤ddra bland modern, traditionell och kreativ stil. Klicka pÃ¥ den som passar din bransch.',
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Fyll i dina uppgifter',
         text:
-          'Vårt formulär guidar dig genom varje sektion. Du kan importera från LinkedIn eller börja från ett befintligt CV.',
+          'VÃ¥rt formulÃ¤r guidar dig genom varje sektion. Du kan importera frÃ¥n LinkedIn eller bÃ¶rja frÃ¥n ett befintligt CV.',
       },
       {
         '@type': 'HowToStep',
         position: 3,
         name: 'Vi flyttar in datan',
         text:
-          'Allt landar automatiskt på rätt plats i mallen. Byter du mall efteråt följer datan med.',
+          'Allt landar automatiskt pÃ¥ rÃ¤tt plats i mallen. Byter du mall efterÃ¥t fÃ¶ljer datan med.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Ladda ner som PDF eller Word',
         text:
-          'Exportera ditt CV. Sparas i ditt konto för senare redigering.',
+          'Exportera ditt CV. Sparas i ditt konto fÃ¶r senare redigering.',
       },
     ],
   }

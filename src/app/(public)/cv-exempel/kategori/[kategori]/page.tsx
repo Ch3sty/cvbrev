@@ -33,7 +33,7 @@ export async function generateMetadata({
       description: kat.kortBeskrivning,
       type: 'website',
       locale: 'sv_SE',
-      url: `https://jobbcoach.ai/cv-exempel/kategori/${slug}`,
+      url: `https://www.jobbcoach.ai/cv-exempel/kategori/${slug}`,
       siteName: 'Jobbcoach.ai',
     },
     twitter: {
@@ -42,7 +42,7 @@ export async function generateMetadata({
       description: kat.kortBeskrivning,
     },
     alternates: {
-      canonical: `https://jobbcoach.ai/cv-exempel/kategori/${slug}`,
+      canonical: `https://www.jobbcoach.ai/cv-exempel/kategori/${slug}`,
     },
   }
 }
@@ -61,26 +61,26 @@ export default async function CvKategoriSida({ params }: PageProps) {
     '@type': 'CollectionPage',
     name: `CV-exempel för ${kat.namn}`,
     description: kat.introIngress,
-    url: `https://jobbcoach.ai/cv-exempel/kategori/${slug}`,
+    url: `https://www.jobbcoach.ai/cv-exempel/kategori/${slug}`,
   }
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://jobbcoach.ai' },
-      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://jobbcoach.ai/exempel' },
+      { '@type': 'ListItem', position: 1, name: 'Hem', item: 'https://www.jobbcoach.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Exempel', item: 'https://www.jobbcoach.ai/exempel' },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'CV-exempel',
-        item: 'https://jobbcoach.ai/cv-exempel',
+        item: 'https://www.jobbcoach.ai/cv-exempel',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: kat.namn,
-        item: `https://jobbcoach.ai/cv-exempel/kategori/${slug}`,
+        item: `https://www.jobbcoach.ai/cv-exempel/kategori/${slug}`,
       },
     ],
   }
@@ -94,7 +94,7 @@ export default async function CvKategoriSida({ params }: PageProps) {
       '@type': 'ListItem',
       position: idx + 1,
       name: `CV-exempel: ${CV_YRKEN[yrkesSlug]}`,
-      url: `https://jobbcoach.ai/cv-exempel/${yrkesSlug}`,
+      url: `https://www.jobbcoach.ai/cv-exempel/${yrkesSlug}`,
     })),
   }
 

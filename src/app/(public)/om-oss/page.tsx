@@ -20,10 +20,10 @@ export default function OmOssSida() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Jobbcoach.ai',
-    url: 'https://jobbcoach.ai',
-    logo: 'https://jobbcoach.ai/logo.png',
+    url: 'https://www.jobbcoach.ai',
+    logo: 'https://www.jobbcoach.ai/logo.png',
     description:
-      'Svenska jobbverktyg byggda för svensk arbetsmarknad. CV-byggare, jobbmatchning, karriärrådgivning, rekryteringstester och LinkedIn-optimering, allt med svenska källor.',
+      'Svenska jobbverktyg byggda fÃ¶r svensk arbetsmarknad. CV-byggare, jobbmatchning, karriÃ¤rrÃ¥dgivning, rekryteringstester och LinkedIn-optimering, allt med svenska kÃ¤llor.',
     foundingDate: '2023',
     email: 'info@jobbcoach.ai',
     contactPoint: {
@@ -40,8 +40,8 @@ export default function OmOssSida() {
     knowsAbout: [
       'CV-skrivning',
       'Personliga brev',
-      'Jobbsökning',
-      'Karriärrådgivning',
+      'JobbsÃ¶kning',
+      'KarriÃ¤rrÃ¥dgivning',
       'Rekryteringstester',
       'LinkedIn-optimering',
       'Svensk arbetsmarknad',
@@ -52,9 +52,9 @@ export default function OmOssSida() {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     name: 'Om Jobbcoach.ai',
-    url: 'https://jobbcoach.ai/om-oss',
+    url: 'https://www.jobbcoach.ai/om-oss',
     description:
-      'Lär känna teamet och plattformen bakom Jobbcoach.ai. Vi bygger svenska jobbverktyg sedan 2023, från cvbrev.se till en komplett karriärplattform.',
+      'LÃ¤r kÃ¤nna teamet och plattformen bakom Jobbcoach.ai. Vi bygger svenska jobbverktyg sedan 2023, frÃ¥n cvbrev.se till en komplett karriÃ¤rplattform.',
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -62,13 +62,13 @@ export default function OmOssSida() {
           '@type': 'ListItem',
           position: 1,
           name: 'Hem',
-          item: 'https://jobbcoach.ai',
+          item: 'https://www.jobbcoach.ai',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Om oss',
-          item: 'https://jobbcoach.ai/om-oss',
+          item: 'https://www.jobbcoach.ai/om-oss',
         },
       ],
     },

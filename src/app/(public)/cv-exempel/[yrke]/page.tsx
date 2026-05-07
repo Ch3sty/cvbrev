@@ -19994,7 +19994,7 @@ export async function generateMetadata({ params }: { params: Promise<{ yrke: str
   }
 
   // Exempelsidan är alltid den kanoniska URL:en
-  const canonicalUrl = `https://jobbcoach.ai/cv-exempel/${yrke}`
+  const canonicalUrl = `https://www.jobbcoach.ai/cv-exempel/${yrke}`
 
   return {
     title: data.metaTitle,
@@ -20086,14 +20086,14 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     "author": {
       "@type": "Organization",
       "name": "Jobbcoach.ai",
-      "url": "https://jobbcoach.ai"
+      "url": "https://www.jobbcoach.ai"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Jobbcoach.ai",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://jobbcoach.ai/logo.png"
+        "url": "https://www.jobbcoach.ai/logo.png"
       }
     },
     "datePublished": new Date().toISOString(),
@@ -20150,19 +20150,19 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         "@type": "ListItem",
         "position": 1,
         "name": "Hem",
-        "item": "https://jobbcoach.ai"
+        "item": "https://www.jobbcoach.ai"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "CV Exempel",
-        "item": "https://jobbcoach.ai/cv-exempel"
+        "item": "https://www.jobbcoach.ai/cv-exempel"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": data.yrke,
-        "item": `https://jobbcoach.ai/cv-exempel/${yrke}`
+        "item": `https://www.jobbcoach.ai/cv-exempel/${yrke}`
       }
     ]
   }

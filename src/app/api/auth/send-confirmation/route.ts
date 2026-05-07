@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate confirmation URL
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://jobbcoach.ai'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://www.jobbcoach.ai'
     const confirmationUrl = isInvitation && invitationCode
       ? `${baseUrl}/api/auth/confirm-email?token=${confirmationToken}&invite=${invitationCode}`
       : `${baseUrl}/api/auth/confirm-email?token=${confirmationToken}`
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       to: email,
       subject: isInvitation
         ? `${inviterName} har bjudit in dig till Jobbcoach.ai Premium!`
-        : 'Bekräfta din e-postadress - Jobbcoach.ai',
+        : 'BekrÃ¤fta din e-postadress - Jobbcoach.ai',
       html: generateConfirmationEmailHTML(emailData),
       text: generateConfirmationEmailText(emailData)
     })

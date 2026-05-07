@@ -86,7 +86,7 @@ export async function GET(
 
       // Award XP for CV analysis
       try {
-        const origin = request.headers.get('origin') || 'https://jobbcoach.ai';
+        const origin = request.headers.get('origin') || 'https://www.jobbcoach.ai';
         const xpResponse = await fetch(`${origin}/api/gamification/award-xp`, {
           method: 'POST',
           headers: {

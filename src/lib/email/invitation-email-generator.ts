@@ -1,5 +1,5 @@
 // src/lib/email/invitation-email-generator.ts
-// Genererar professionella HTML-e-postmallar för gästinbjudningar
+// Genererar professionella HTML-e-postmallar fÃ¶r gÃ¤stinbjudningar
 
 export interface InvitationEmailData {
   inviterName: string;
@@ -61,7 +61,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 2 dagar gratis Premium
               </h1>
               <p style="color: rgba(255,255,255,0.9); font-size: 18px; margin: 0; font-weight: 400;">
-                Värd 149 kr - helt kostnadsfritt för dig
+                VÃ¤rd 149 kr - helt kostnadsfritt fÃ¶r dig
               </p>
             </td>
           </tr>
@@ -73,13 +73,13 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 <tr>
                   <td style="text-align: center;">
                     <div style="width: 60px; height: 60px; background-color: #E9457A; border-radius: 50%; margin: 0 auto 24px auto; line-height: 60px; text-align: center;">
-                      <span style="color: white; font-size: 24px;">🎁</span>
+                      <span style="color: white; font-size: 24px;">ðŸŽ</span>
                     </div>
                     <h2 style="color: #131B32; font-size: 28px; margin: 0 0 16px 0; font-weight: 700;">
-                      ${inviterName} tänkte på dig!
+                      ${inviterName} tÃ¤nkte pÃ¥ dig!
                     </h2>
                     <p style="color: #64748b; font-size: 18px; line-height: 1.6; margin: 0 auto; max-width: 480px;">
-                      Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg.
+                      Du har fÃ¥tt en personlig inbjudan att uppleva Sveriges mest avancerade karriÃ¤rverktyg.
                       Helt kostnadsfritt i 2 dagar.
                     </p>
                   </td>
@@ -96,13 +96,13 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 <tr>
                   <td style="padding: 30px;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                      <span style="font-size: 24px;">💬</span>
+                      <span style="font-size: 24px;">ðŸ’¬</span>
                     </div>
                     <p style="color: #475569; font-size: 16px; font-style: italic; line-height: 1.6; margin: 0 0 16px 0; text-align: center;">
                       "${personalMessage}"
                     </p>
                     <p style="color: #E9457A; font-size: 14px; margin: 0; font-weight: 600; text-align: center;">
-                      — ${inviterName}
+                      â€” ${inviterName}
                     </p>
                   </td>
                 </tr>
@@ -115,7 +115,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
           <tr>
             <td style="padding: 30px 40px;" class="mobile-padding">
               <h3 style="color: #131B32; font-size: 24px; margin: 0 0 30px 0; font-weight: 700; text-align: center;">
-                Vad får du tillgång till?
+                Vad fÃ¥r du tillgÃ¥ng till?
               </h3>
 
               <!-- Benefits Grid -->
@@ -126,7 +126,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
                           <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
-                            <span style="color: white; font-size: 18px;">✉️</span>
+                            <span style="color: white; font-size: 18px;">âœ‰ï¸</span>
                           </div>
                         </td>
                         <td style="padding-left: 16px; vertical-align: top;">
@@ -134,7 +134,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                             Personliga brev
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Vi matchar ditt CV mot jobbkrav för att automatiskt skapa ett världsklass personligt följebrev
+                            Vi matchar ditt CV mot jobbkrav fÃ¶r att automatiskt skapa ett vÃ¤rldsklass personligt fÃ¶ljebrev
                           </p>
                         </td>
                       </tr>
@@ -148,7 +148,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
                           <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
-                            <span style="color: white; font-size: 18px;">📄</span>
+                            <span style="color: white; font-size: 18px;">ðŸ“„</span>
                           </div>
                         </td>
                         <td style="padding-left: 16px; vertical-align: top;">
@@ -156,7 +156,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                             Professionella CV-mallar
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Välj bara en design du gillar så skapar vi ditt färdiga CV på sekunder utan att du lyfter ett finger
+                            VÃ¤lj bara en design du gillar sÃ¥ skapar vi ditt fÃ¤rdiga CV pÃ¥ sekunder utan att du lyfter ett finger
                           </p>
                         </td>
                       </tr>
@@ -170,7 +170,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
                           <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
-                            <span style="color: white; font-size: 18px;">🎯</span>
+                            <span style="color: white; font-size: 18px;">ðŸŽ¯</span>
                           </div>
                         </td>
                         <td style="padding-left: 16px; vertical-align: top;">
@@ -178,7 +178,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                             Smart CV-analys
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Vi matchar ditt CV mot din önskade roll för att identifiera kompetensluckor och föreslår relevanta kurser
+                            Vi matchar ditt CV mot din Ã¶nskade roll fÃ¶r att identifiera kompetensluckor och fÃ¶reslÃ¥r relevanta kurser
                           </p>
                         </td>
                       </tr>
@@ -192,15 +192,15 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
                           <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
-                            <span style="color: white; font-size: 18px;">🚀</span>
+                            <span style="color: white; font-size: 18px;">ðŸš€</span>
                           </div>
                         </td>
                         <td style="padding-left: 16px; vertical-align: top;">
                           <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
-                            Personlig karriärvägledning
+                            Personlig karriÃ¤rvÃ¤gledning
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Strategisk rådgivning för din karriärutveckling och nästa steg framåt
+                            Strategisk rÃ¥dgivning fÃ¶r din karriÃ¤rutveckling och nÃ¤sta steg framÃ¥t
                           </p>
                         </td>
                       </tr>
@@ -217,21 +217,21 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
               <!--[if mso]>
               <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${inviteUrl}" style="height:60px;v-text-anchor:middle;width:280px;" arcsize="20%" strokecolor="#E9457A" fillcolor="#E9457A">
                 <w:anchorlock/>
-                <center style="color:#ffffff;font-family:sans-serif;font-size:19px;font-weight:bold;">Starta min gratisperiod →</center>
+                <center style="color:#ffffff;font-family:sans-serif;font-size:19px;font-weight:bold;">Starta min gratisperiod â†’</center>
               </v:roundrect>
               <![endif]-->
               <!--[if !mso]><!-->
               <a href="${inviteUrl}" style="display: inline-block; text-decoration: none; background-color: #E9457A; color: #ffffff; padding: 20px 50px; border-radius: 16px; font-size: 19px; font-weight: 700; letter-spacing: 0.3px;">
-                Starta min gratisperiod →
+                Starta min gratisperiod â†’
               </a>
               <!--<![endif]-->
 
               <div style="margin-top: 24px;">
                 <p style="color: #94a3b8; font-size: 14px; margin: 0 0 8px 0;">
-                  ✓ Ingen betalningsinformation krävs
+                  âœ“ Ingen betalningsinformation krÃ¤vs
                 </p>
                 <p style="color: #94a3b8; font-size: 14px; margin: 0;">
-                  ✓ Avregistreras automatiskt efter 2 dagar
+                  âœ“ Avregistreras automatiskt efter 2 dagar
                 </p>
               </div>
             </td>
@@ -244,13 +244,13 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 <tr>
                   <td style="text-align: center;">
                     <div style="margin-bottom: 16px;">
-                      <span style="font-size: 32px;">🎉</span>
+                      <span style="font-size: 32px;">ðŸŽ‰</span>
                     </div>
                     <h4 style="color: #131B32; font-size: 18px; margin: 0 0 12px 0; font-weight: 600;">
-                      Tack för att du sprider ordet!
+                      Tack fÃ¶r att du sprider ordet!
                     </h4>
                     <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin: 0; max-width: 400px; margin: 0 auto;">
-                      När du blir Premium-medlem får ${inviterName} en hel månad extra Premium som tack för rekommendationen!
+                      NÃ¤r du blir Premium-medlem fÃ¥r ${inviterName} en hel mÃ¥nad extra Premium som tack fÃ¶r rekommendationen!
                     </p>
                   </td>
                 </tr>
@@ -268,13 +268,13 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                       Jobbcoach.ai
                     </h4>
                     <p style="color: #94a3b8; font-size: 14px; margin: 0 0 16px 0;">
-                      Din partner för en framgångsrik karriär
+                      Din partner fÃ¶r en framgÃ¥ngsrik karriÃ¤r
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 0;">
-                      © 2024 Jobbcoach.ai • Inbjudan giltig i 30 dagar
+                      Â© 2024 Jobbcoach.ai â€¢ Inbjudan giltig i 30 dagar
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 8px 0 0 0;">
-                      <a href="https://jobbcoach.ai" style="color: #E9457A; text-decoration: none;">jobbcoach.ai</a>
+                      <a href="https://www.jobbcoach.ai" style="color: #E9457A; text-decoration: none;">jobbcoach.ai</a>
                     </p>
                   </td>
                 </tr>
@@ -292,47 +292,47 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
   `;
 }
 
-// Generera en enklare textversion för e-postklienter som inte stödjer HTML
+// Generera en enklare textversion fÃ¶r e-postklienter som inte stÃ¶djer HTML
 export function generateInvitationEmailText(data: InvitationEmailData): string {
   const { inviterName, personalMessage, inviteUrl } = data;
 
   return `
-🎁 DIN EXKLUSIVA INBJUDAN TILL JOBBCOACH.AI PREMIUM
+ðŸŽ DIN EXKLUSIVA INBJUDAN TILL JOBBCOACH.AI PREMIUM
 
-${inviterName} tänkte på dig!
+${inviterName} tÃ¤nkte pÃ¥ dig!
 
-Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg helt kostnadsfritt i 2 dagar.
+Du har fÃ¥tt en personlig inbjudan att uppleva Sveriges mest avancerade karriÃ¤rverktyg helt kostnadsfritt i 2 dagar.
 
-Värd 149 kr - helt gratis för dig.
+VÃ¤rd 149 kr - helt gratis fÃ¶r dig.
 
-${personalMessage ? `💬 Personligt meddelande från ${inviterName}:\n"${personalMessage}"\n\n` : ''}
+${personalMessage ? `ðŸ’¬ Personligt meddelande frÃ¥n ${inviterName}:\n"${personalMessage}"\n\n` : ''}
 
-VAD FÅR DU TILLGÅNG TILL?
+VAD FÃ…R DU TILLGÃ…NG TILL?
 
-✉️ Personliga brev
-Vi matchar ditt CV mot jobbkrav för att automatiskt skapa ett världsklass personligt följebrev
+âœ‰ï¸ Personliga brev
+Vi matchar ditt CV mot jobbkrav fÃ¶r att automatiskt skapa ett vÃ¤rldsklass personligt fÃ¶ljebrev
 
-📄 Professionella CV-mallar
-Välj bara en design du gillar så skapar vi ditt färdiga CV på sekunder utan att du lyfter ett finger
+ðŸ“„ Professionella CV-mallar
+VÃ¤lj bara en design du gillar sÃ¥ skapar vi ditt fÃ¤rdiga CV pÃ¥ sekunder utan att du lyfter ett finger
 
-🎯 Smart CV-analys
-Vi matchar ditt CV mot din önskade roll för att identifiera kompetensluckor och föreslå relevanta kurser
+ðŸŽ¯ Smart CV-analys
+Vi matchar ditt CV mot din Ã¶nskade roll fÃ¶r att identifiera kompetensluckor och fÃ¶reslÃ¥ relevanta kurser
 
-🚀 Personlig karriärvägledning
-Strategisk rådgivning för din karriärutveckling och nästa steg framåt
+ðŸš€ Personlig karriÃ¤rvÃ¤gledning
+Strategisk rÃ¥dgivning fÃ¶r din karriÃ¤rutveckling och nÃ¤sta steg framÃ¥t
 
-👉 STARTA DIN GRATISPERIOD:
+ðŸ‘‰ STARTA DIN GRATISPERIOD:
 ${inviteUrl}
 
-✓ Ingen betalningsinformation krävs
-✓ Avregistreras automatiskt efter 2 dagar
+âœ“ Ingen betalningsinformation krÃ¤vs
+âœ“ Avregistreras automatiskt efter 2 dagar
 
-🎉 TACK FÖR ATT DU SPRIDER ORDET!
-När du blir Premium-medlem får ${inviterName} en hel månad extra Premium som tack för rekommendationen!
+ðŸŽ‰ TACK FÃ–R ATT DU SPRIDER ORDET!
+NÃ¤r du blir Premium-medlem fÃ¥r ${inviterName} en hel mÃ¥nad extra Premium som tack fÃ¶r rekommendationen!
 
 ---
-Jobbcoach.ai - Din partner för en framgångsrik karriär
-© 2024 Jobbcoach.ai • Inbjudan giltig i 30 dagar
+Jobbcoach.ai - Din partner fÃ¶r en framgÃ¥ngsrik karriÃ¤r
+Â© 2024 Jobbcoach.ai â€¢ Inbjudan giltig i 30 dagar
 jobbcoach.ai
   `;
 }

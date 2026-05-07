@@ -122,26 +122,26 @@ export default function MinaCVPage() {
       (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
     );
     if (diffDays === 0) return 'Idag';
-    if (diffDays === 1) return 'Igår';
+    if (diffDays === 1) return 'IgÃ¥r';
     if (diffDays < 7) return `${diffDays} dagar sedan`;
     if (diffDays < 30) return `${Math.floor(diffDays / 7)} veckor sedan`;
     return date.toLocaleDateString('sv-SE');
   };
 
   const getCleanPreview = (cvText: string | null): string => {
-    if (!cvText) return 'Ingen förhandsgranskning tillgänglig';
+    if (!cvText) return 'Ingen fÃ¶rhandsgranskning tillgÃ¤nglig';
     let cleaned = cvText.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
     cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
     cleaned = cleaned.replace(/\d{3}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
-    cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g, '');
+    cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÃ…Ã„Ã–][a-zÃ¥Ã¤Ã¶]+/g, '');
     const lines = cleaned
       .split(/\n+/)
       .map((line) => line.trim())
       .filter((line) => {
         if (line.length < 3) return false;
-        if (line.length < 20 && !line.includes(' ') && /^[A-ZÅÄÖ]/.test(line))
+        if (line.length < 20 && !line.includes(' ') && /^[A-ZÃ…Ã„Ã–]/.test(line))
           return false;
-        if (/^[A-ZÅÄÖ\s]{4,20}$/.test(line) && line === line.toUpperCase())
+        if (/^[A-ZÃ…Ã„Ã–\s]{4,20}$/.test(line) && line === line.toUpperCase())
           return false;
         return true;
       });
@@ -153,7 +153,7 @@ export default function MinaCVPage() {
       if (breakPoint > 80) return finalText.substring(0, breakPoint + 1);
       return finalText.substring(0, 147) + '...';
     }
-    return finalText || 'Ingen förhandsgranskning tillgänglig';
+    return finalText || 'Ingen fÃ¶rhandsgranskning tillgÃ¤nglig';
   };
 
   const openCVInNewWindow = (cv: any) => {
@@ -207,7 +207,7 @@ export default function MinaCVPage() {
                         month: 'long',
                         day: 'numeric',
                       })
-                    : 'okänt datum'
+                    : 'okÃ¤nt datum'
                 }
               </div>
             </div>
@@ -215,11 +215,11 @@ export default function MinaCVPage() {
               <div class="cv-container">${
                 cv.cv_text
                   ? cv.cv_text.replace(/\n/g, '<br />')
-                  : 'Inget CV-innehåll tillgängligt'
+                  : 'Inget CV-innehÃ¥ll tillgÃ¤ngligt'
               }</div>
             </div>
             <div class="footer">
-              <a href="https://jobbcoach.ai" target="_blank">jobbcoach.ai</a> · din karriärcoach
+              <a href="https://www.jobbcoach.ai" target="_blank">jobbcoach.ai</a> Â· din karriÃ¤rcoach
             </div>
           </body>
         </html>
@@ -304,7 +304,7 @@ export default function MinaCVPage() {
               <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2 min-w-0">
                 <span className="truncate">Dina CV</span>
                 <span className="flex-shrink-0 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-xs font-bold text-orange-700 tabular-nums">
-                  {cvCount} / {isPremium ? '∞' : FREE_LIMIT}
+                  {cvCount} / {isPremium ? 'âˆž' : FREE_LIMIT}
                 </span>
               </h2>
             </div>
@@ -430,7 +430,7 @@ function BodySkeleton() {
 function TrustChips() {
   const items = [
     'Tar 30 sekunder',
-    'GDPR-säkert, radera när du vill',
+    'GDPR-sÃ¤kert, radera nÃ¤r du vill',
     'Krypterat och privat',
   ];
   return (
@@ -490,12 +490,12 @@ function DeleteConfirmModal({
                   <AlertTriangle className="w-5 h-5" strokeWidth={2.25} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">
-                  Bekräfta borttagning
+                  BekrÃ¤fta borttagning
                 </h3>
               </div>
 
               <p className="text-sm text-slate-700 mb-3">
-                Är du säker på att du vill ta bort detta CV?
+                Ã„r du sÃ¤ker pÃ¥ att du vill ta bort detta CV?
               </p>
               <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 mb-4 flex items-center gap-2.5 min-w-0">
                 <FileText className="w-4 h-4 text-orange-600 flex-shrink-0" />
@@ -509,7 +509,7 @@ function DeleteConfirmModal({
                   strokeWidth={2.25}
                 />
                 <p className="text-xs sm:text-sm text-amber-800 leading-snug">
-                  Detta kan inte ångras och all data raderas permanent.
+                  Detta kan inte Ã¥ngras och all data raderas permanent.
                 </p>
               </div>
 

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'LinkedIn-optimering: hamna i rekryterarnas sökresultat | Jobbcoach.ai',
+    'LinkedIn-optimering: hamna i rekryterarnas sÃ¶kresultat | Jobbcoach.ai',
   description:
-    'Optimera din LinkedIn-profil för rekryterar-sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka. Gratis att börja, vi loggar aldrig in på din LinkedIn.',
+    'Optimera din LinkedIn-profil fÃ¶r rekryterar-sÃ¶kningar. Vi fÃ¶rbÃ¤ttrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och fÃ¥r optimerad version tillbaka. Gratis att bÃ¶rja, vi loggar aldrig in pÃ¥ din LinkedIn.',
   keywords: [
     'linkedin-optimering',
     'optimera linkedin',
@@ -14,17 +14,17 @@ export const metadata: Metadata = {
     'linkedin profil sammanfattning',
     'hur skriver man linkedin profil',
     'linkedin keywords',
-    'linkedin sökoptimering',
+    'linkedin sÃ¶koptimering',
     'linkedin rekryterare',
     'linkedin headline tips',
-    'linkedin för jobbsökare',
+    'linkedin fÃ¶r jobbsÃ¶kare',
   ],
   openGraph: {
     title:
-      'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
+      'LinkedIn-optimering: hamna i rekryterarnas sÃ¶kresultat',
     description:
       'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan, ingen LinkedIn-inloggning.',
-    url: 'https://jobbcoach.ai/verktyg/linkedin-optimering',
+    url: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
     siteName: 'Jobbcoach.ai',
     type: 'website',
     locale: 'sv_SE',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title:
-      'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
+      'LinkedIn-optimering: hamna i rekryterarnas sÃ¶kresultat',
     description:
       'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan.',
   },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/linkedin-optimering',
+    canonical: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
   },
 }
 

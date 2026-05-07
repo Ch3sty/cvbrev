@@ -1,5 +1,5 @@
 /**
- * /exempel — hub-sida for hela exempel-biblioteket.
+ * /exempel â€” hub-sida for hela exempel-biblioteket.
  * Sektioner: Hero -> Kategori-paneler (CV + Brev) -> Populara yrken (12) ->
  * Bransch-hub (6 kategorier) -> Sa anvander du -> FAQ -> CTA-band.
  * SEO: WebPage + BreadcrumbList + FAQPage + ItemList JSON-LD.
@@ -27,12 +27,12 @@ export default function ExempelPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: `${TOTAL_EXEMPEL} CV-exempel och personliga brev | Jobbcoach.ai`,
-    description: `Bläddra bland ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} personliga brev för 151 yrken fördelade över sex branscher. ATS-optimerade och gratis.`,
-    url: 'https://jobbcoach.ai/exempel',
+    description: `BlÃ¤ddra bland ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} personliga brev fÃ¶r 151 yrken fÃ¶rdelade Ã¶ver sex branscher. ATS-optimerade och gratis.`,
+    url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',
       name: 'Jobbcoach.ai',
-      url: 'https://jobbcoach.ai',
+      url: 'https://www.jobbcoach.ai',
     },
   }
 
@@ -44,13 +44,13 @@ export default function ExempelPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Hem',
-        item: 'https://jobbcoach.ai',
+        item: 'https://www.jobbcoach.ai',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Exempel',
-        item: 'https://jobbcoach.ai/exempel',
+        item: 'https://www.jobbcoach.ai/exempel',
       },
     ],
   }
@@ -72,21 +72,21 @@ export default function ExempelPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Populära yrkes-exempel',
-    description: 'De mest sökta yrkena för CV och personliga brev i Sverige',
+    name: 'PopulÃ¤ra yrkes-exempel',
+    description: 'De mest sÃ¶kta yrkena fÃ¶r CV och personliga brev i Sverige',
     numberOfItems: POPULARA_YRKEN.length * 2, // CV + brev for varje
     itemListElement: POPULARA_YRKEN.flatMap((yrke, idx) => [
       {
         '@type': 'ListItem',
         position: idx * 2 + 1,
         name: `CV-exempel: ${yrke.namn}`,
-        url: `https://jobbcoach.ai/cv-exempel/${yrke.slug}`,
+        url: `https://www.jobbcoach.ai/cv-exempel/${yrke.slug}`,
       },
       {
         '@type': 'ListItem',
         position: idx * 2 + 2,
         name: `Personligt brev-exempel: ${yrke.namn}`,
-        url: `https://jobbcoach.ai/personligt-brev-exempel/${yrke.slug}`,
+        url: `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke.slug}`,
       },
     ]),
   }

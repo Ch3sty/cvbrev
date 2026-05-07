@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
+  title: 'Skapa CV gratis online: bygg ditt CV pÃ¥ minuter | Jobbcoach.ai',
   description:
-    'Skapa ditt CV gratis med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska, anpassat för svenska arbetsgivare.',
+    'Skapa ditt CV gratis med vÃ¥r CV-byggare. Sju enkla steg, live-preview, ATS-sÃ¤kra mallar och export till PDF eller Word. Helt pÃ¥ svenska, anpassat fÃ¶r svenska arbetsgivare.',
   keywords: [
     'skapa cv',
     'skapa cv gratis',
@@ -17,22 +17,22 @@ export const metadata: Metadata = {
     'cv-skapare online',
   ],
   openGraph: {
-    title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
+    title: 'Skapa CV gratis online: bygg ditt CV pÃ¥ minuter | Jobbcoach.ai',
     description:
-      'Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt gratis.',
-    url: 'https://jobbcoach.ai/verktyg/skapa-cv',
+      'Sju enkla steg, live-preview, ATS-sÃ¤kra mallar och export till PDF eller Word. Helt gratis.',
+    url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     siteName: 'Jobbcoach.ai',
     type: 'website',
     locale: 'sv_SE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
+    title: 'Skapa CV gratis online: bygg ditt CV pÃ¥ minuter | Jobbcoach.ai',
     description:
-      'Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt gratis.',
+      'Sju enkla steg, live-preview, ATS-sÃ¤kra mallar och export till PDF eller Word. Helt gratis.',
   },
   alternates: {
-    canonical: 'https://jobbcoach.ai/verktyg/skapa-cv',
+    canonical: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
   },
   robots: {
     index: true,
