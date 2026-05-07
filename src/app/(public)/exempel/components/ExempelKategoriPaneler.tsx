@@ -17,7 +17,7 @@ export default function ExempelKategoriPaneler() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Två bibliotek.{' '}
+            Två mall-bibliotek.{' '}
             <span
               style={{
                 background:
@@ -27,12 +27,12 @@ export default function ExempelKategoriPaneler() {
                 backgroundClip: 'text',
               }}
             >
-              En för varje yrke.
+              En mall för varje yrke.
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Välj om du behöver ett CV eller ett personligt brev. Båda är ATS-säkra
-            och anpassade för svenska arbetsgivare.
+            Välj om du behöver en CV-mall eller en mall för personligt brev.
+            Båda är ATS-säkra och anpassade för svenska arbetsgivare.
           </p>
         </motion.div>
 
@@ -78,16 +78,16 @@ export default function ExempelKategoriPaneler() {
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 leading-tight tracking-tight">
-                CV-exempel
+                CV-mallar
               </h3>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-5">
-                Se hur ett professionellt CV ser ut för just ditt yrke. Rätt
+                Se hur en professionell CV-mall ser ut för just ditt yrke. Rätt
                 struktur, rätt nyckelord, rätt kvantifierade resultat. Allt
                 för att passera ATS och fånga rekryterarens öga.
               </p>
 
               <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-base group-hover:gap-2.5 transition-all">
-                Se alla CV-exempel
+                Se alla CV-mallar
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </span>
             </Link>
@@ -130,16 +130,16 @@ export default function ExempelKategoriPaneler() {
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-black mb-2 leading-tight tracking-tight">
-                  Personligt brev
+                  Mallar för personligt brev
                 </h3>
                 <p className="text-sm sm:text-base text-white/90 leading-relaxed mb-5">
-                  Brev som faktiskt får svar. Vi visar tonalitet, struktur och
-                  hur du knyter ihop ditt CV med jobbannonsens krav. Olika
-                  exempel för olika branscher och erfarenhetsnivåer.
+                  Brev-mallar som faktiskt får svar. Vi visar tonalitet,
+                  struktur och hur du knyter ihop ditt CV med jobbannonsens
+                  krav. Olika mallar för olika branscher och erfarenhetsnivåer.
                 </p>
 
                 <span className="inline-flex items-center gap-1.5 font-bold text-base group-hover:gap-2.5 transition-all">
-                  Se alla brev-exempel
+                  Se alla brev-mallar
                   <ArrowRight className="w-4 h-4" strokeWidth={2.8} />
                 </span>
               </div>

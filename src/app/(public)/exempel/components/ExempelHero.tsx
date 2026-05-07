@@ -41,11 +41,11 @@ export default function ExempelHero() {
                   background: 'linear-gradient(135deg, #F97316, #DC2626)',
                 }}
               />
-              Exempel-bibliotek
+              Mall-bibliotek
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-              {TOTAL_EXEMPEL} riktiga exempel.{' '}
+              CV-mallar och brev-mallar:{' '}
               <span
                 style={{
                   background:
@@ -55,14 +55,15 @@ export default function ExempelHero() {
                   backgroundClip: 'text',
                 }}
               >
-                För ditt yrke.
+                {TOTAL_EXEMPEL} färdiga exempel.
               </span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-xl mx-auto lg:mx-0">
-              {TOTAL_CV_YRKEN} CV-exempel och {TOTAL_BREV_YRKEN} personliga brev,
-              fördelade över sex stora branscher. Sök ditt yrke och se exakt hur
-              en stark ansökan ser ut.
+              {TOTAL_CV_YRKEN} CV-mallar och {TOTAL_BREV_YRKEN} mallar för
+              personligt brev, fördelade över sex branscher. Hitta rätt mall
+              för ditt yrke och använd den som utgångspunkt för din egen
+              ansökan.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
@@ -76,7 +77,7 @@ export default function ExempelHero() {
                 }}
               >
                 <FileText className="w-5 h-5" strokeWidth={2.5} />
-                Bläddra CV-exempel
+                Bläddra CV-mallar
                 <ArrowRight
                   className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                   strokeWidth={2.5}
@@ -87,7 +88,7 @@ export default function ExempelHero() {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white border-2 border-orange-200 text-slate-900 font-bold text-base w-full sm:w-auto min-h-[52px] hover:border-orange-300 hover:bg-orange-50/50 transition-colors"
               >
                 <Mail className="w-5 h-5 text-orange-600" strokeWidth={2.5} />
-                Bläddra brev-exempel
+                Bläddra brev-mallar
               </Link>
             </div>
 

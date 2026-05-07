@@ -26,8 +26,8 @@ export default function ExempelPage() {
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: `${TOTAL_EXEMPEL} CV-exempel och personliga brev | Jobbcoach.ai`,
-    description: `Bläddra bland ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} personliga brev för 151 yrken fördelade över sex branscher. ATS-optimerade och gratis.`,
+    name: `${TOTAL_EXEMPEL} CV-mallar och mallar för personligt brev | Jobbcoach.ai`,
+    description: `${TOTAL_CV_YRKEN} CV-mallar och ${TOTAL_BREV_YRKEN} mallar för personligt brev fördelade över sex branscher. ATS-optimerade och gratis.`,
     url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',
@@ -72,20 +72,20 @@ export default function ExempelPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Populära yrkes-exempel',
-    description: 'De mest sökta yrkena för CV och personliga brev i Sverige',
+    name: 'Populära CV-mallar och brev-mallar',
+    description: 'De mest sökta yrkesspecifika mallarna för CV och personligt brev i Sverige',
     numberOfItems: POPULARA_YRKEN.length * 2, // CV + brev for varje
     itemListElement: POPULARA_YRKEN.flatMap((yrke, idx) => [
       {
         '@type': 'ListItem',
         position: idx * 2 + 1,
-        name: `CV-exempel: ${yrke.namn}`,
+        name: `CV-mall: ${yrke.namn}`,
         url: `https://www.jobbcoach.ai/cv-exempel/${yrke.slug}`,
       },
       {
         '@type': 'ListItem',
         position: idx * 2 + 2,
-        name: `Personligt brev-exempel: ${yrke.namn}`,
+        name: `Mall för personligt brev: ${yrke.namn}`,
         url: `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke.slug}`,
       },
     ]),
