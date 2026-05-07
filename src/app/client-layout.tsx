@@ -2,7 +2,7 @@
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import PremiumFooter from '@/components/PremiumFooter'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Suspense, useState, useEffect } from 'react';
@@ -117,8 +117,8 @@ export default function ClientLayout({
               {children}
             </main>
 
-        {/* Footer - använd PremiumFooter överallt utom på dashboard */}
-        {!isDashboard && <PremiumFooter />}
+        {/* Footer - visas overallt utom pa dashboard */}
+        {!isDashboard && <Footer />}
 
         {/* === COOKIE BANNER === */}
         <CookieConsent
