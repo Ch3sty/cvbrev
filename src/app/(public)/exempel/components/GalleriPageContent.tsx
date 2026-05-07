@@ -23,6 +23,7 @@ import {
 } from './illustrations/ExempelIcons'
 import { Kategori, KATEGORIER } from './exempel-data'
 import type { FaqItem } from './galleri-faq'
+import MallarGuideSection from './MallarGuideSection'
 
 const ICON_MAP: Record<
   Kategori['iconKey'],
@@ -142,7 +143,7 @@ export default function GalleriPageContent({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-                {yrken.length} {typeShort}-exempel.{' '}
+                {isCV ? 'CV-mallar' : 'Personligt brev-mallar'} och exempel:{' '}
                 <span
                   style={{
                     background:
@@ -152,14 +153,14 @@ export default function GalleriPageContent({
                     backgroundClip: 'text',
                   }}
                 >
-                  Ett för ditt yrke.
+                  {yrken.length} yrken (gratis)
                 </span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
                 {isCV
-                  ? 'Bläddra bland professionella CV-exempel för olika yrken och branscher. Alla är ATS-optimerade och anpassade för svenska arbetsgivare.'
-                  : 'Bläddra bland personliga brev-exempel för olika yrken och branscher. Skrivna med rätt ton, struktur och nyckelord för svenska rekryterare.'}
+                  ? 'Hitta rätt CV-mall för ditt yrke. Färdiga, ATS-optimerade exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor som du kan använda som mall för ditt eget CV.'
+                  : 'Hitta rätt mall för ditt personliga brev. Färdiga exempel skrivna med rätt ton, struktur och nyckelord för svenska rekryterare som du kan använda som mall för ditt eget brev.'}
               </p>
 
               {/* Sok */}
@@ -356,6 +357,9 @@ export default function GalleriPageContent({
           </Link>
         </div>
       </section>
+
+      {/* Long-form SEO-section: guide om mallar */}
+      <MallarGuideSection type={type} />
 
       {/* FAQ */}
       <section className="py-16 sm:py-20 bg-orange-50/30">
