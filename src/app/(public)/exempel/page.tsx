@@ -9,6 +9,7 @@ import ExempelHero from './components/ExempelHero'
 import ExempelKategoriPaneler from './components/ExempelKategoriPaneler'
 import ExempelPopulara from './components/ExempelPopulara'
 import ExempelKategoriHub from './components/ExempelKategoriHub'
+import MallarHubGuideSection from './components/MallarHubGuideSection'
 import ExempelHurAnvanda from './components/ExempelHurAnvanda'
 import ExempelFAQ from './components/ExempelFAQ'
 import ExempelCTABand from './components/ExempelCTABand'
@@ -124,6 +125,7 @@ export default function ExempelPage() {
         <ExempelKategoriPaneler />
         <ExempelPopulara />
         <ExempelKategoriHub />
+        <MallarHubGuideSection />
         <ExempelHurAnvanda />
         <ExempelFAQ />
         <ExempelCTABand />
