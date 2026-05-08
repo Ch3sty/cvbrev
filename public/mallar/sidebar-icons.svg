@@ -1,0 +1,102 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sidopanel Template - sidebar with icons + main content -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- ===== Sidopanel (vänster, 105px bred) ===== -->
+  <rect x="0" y="0" width="105" height="400" fill="#fef7ed"/>
+  <line x1="105" y1="0" x2="105" y2="400" stroke="#fed7aa" stroke-width="1"/>
+
+  <!-- Sidopanel: KONTAKT-rubrik -->
+  <rect x="14" y="32" width="48" height="5" fill="#9a3412" rx="1"/>
+  <line x1="14" y1="42" x2="91" y2="42" stroke="#fed7aa" stroke-width="1"/>
+
+  <!-- Email-rad: ikon (mail) + text -->
+  <rect x="14" y="52" width="9" height="6" rx="1" stroke="#f97316" stroke-width="1.2" fill="none"/>
+  <path d="M14 53 L18.5 57 L23 53" stroke="#f97316" stroke-width="1.2" fill="none"/>
+  <rect x="28" y="53" width="55" height="3" fill="#374151" rx="1"/>
+  <rect x="28" y="58" width="40" height="3" fill="#374151" rx="1"/>
+
+  <!-- Telefon-rad: ikon (phone) + text -->
+  <path d="M16 73 Q14 73 14 75 L14 78 Q14 80 16 80 L17 80 L19 78 L19 76 L18 75 L18 73 Z" fill="none" stroke="#f97316" stroke-width="1.2"/>
+  <rect x="28" y="74" width="48" height="3" fill="#374151" rx="1"/>
+
+  <!-- Plats-rad: ikon (pin) + text -->
+  <path d="M18 90 C16 90 14 92 14 94 C14 97 18 100 18 100 C18 100 22 97 22 94 C22 92 20 90 18 90 Z" fill="none" stroke="#f97316" stroke-width="1.2"/>
+  <circle cx="18" cy="94" r="1.5" fill="none" stroke="#f97316" stroke-width="1"/>
+  <rect x="28" y="93" width="42" height="3" fill="#374151" rx="1"/>
+
+  <!-- Sidopanel: KOMPETENSER-rubrik -->
+  <rect x="14" y="120" width="62" height="5" fill="#9a3412" rx="1"/>
+  <line x1="14" y1="130" x2="91" y2="130" stroke="#fed7aa" stroke-width="1"/>
+
+  <!-- Skills-rader (med prick) -->
+  <circle cx="16" cy="143" r="1.5" fill="#f97316"/>
+  <rect x="22" y="141" width="55" height="3" fill="#374151" rx="1"/>
+  <circle cx="16" cy="153" r="1.5" fill="#f97316"/>
+  <rect x="22" y="151" width="48" height="3" fill="#374151" rx="1"/>
+  <circle cx="16" cy="163" r="1.5" fill="#f97316"/>
+  <rect x="22" y="161" width="60" height="3" fill="#374151" rx="1"/>
+  <circle cx="16" cy="173" r="1.5" fill="#f97316"/>
+  <rect x="22" y="171" width="42" height="3" fill="#374151" rx="1"/>
+  <circle cx="16" cy="183" r="1.5" fill="#f97316"/>
+  <rect x="22" y="181" width="52" height="3" fill="#374151" rx="1"/>
+
+  <!-- Sidopanel: SPRAK-rubrik -->
+  <rect x="14" y="215" width="35" height="5" fill="#9a3412" rx="1"/>
+  <line x1="14" y1="225" x2="91" y2="225" stroke="#fed7aa" stroke-width="1"/>
+
+  <!-- Sprak-rader (namn + niva) -->
+  <rect x="14" y="234" width="35" height="3" fill="#1f2937" rx="1"/>
+  <rect x="62" y="234" width="22" height="3" fill="#92400e" rx="1"/>
+  <rect x="14" y="244" width="40" height="3" fill="#1f2937" rx="1"/>
+  <rect x="62" y="244" width="22" height="3" fill="#92400e" rx="1"/>
+
+  <!-- ===== Huvudinnehall (höger) ===== -->
+
+  <!-- Namn (stort) -->
+  <rect x="125" y="38" width="130" height="9" fill="#111827" rx="2"/>
+  <!-- Titel (orange) -->
+  <rect x="125" y="52" width="90" height="5" fill="#f97316" rx="1"/>
+  <!-- Underline -->
+  <line x1="125" y1="68" x2="282" y2="68" stroke="#fed7aa" stroke-width="2"/>
+
+  <!-- Sammanfattning (tre rader) -->
+  <rect x="125" y="80" width="155" height="3" fill="#374151" rx="1"/>
+  <rect x="125" y="88" width="148" height="3" fill="#374151" rx="1"/>
+  <rect x="125" y="96" width="130" height="3" fill="#374151" rx="1"/>
+
+  <!-- ARBETSLIVSERFARENHET-rubrik -->
+  <rect x="125" y="118" width="80" height="4" fill="#111827" rx="1"/>
+  <line x1="125" y1="128" x2="282" y2="128" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="125" y="127" width="22" height="2" fill="#f97316"/>
+
+  <!-- Job 1: titel + period + foretag + beskrivning -->
+  <rect x="125" y="140" width="80" height="4" fill="#111827" rx="1"/>
+  <rect x="248" y="141" width="32" height="3" fill="#6b7280" rx="1"/>
+  <rect x="125" y="150" width="60" height="3" fill="#f97316" rx="1"/>
+  <circle cx="129" cy="161" r="1" fill="#d1d5db"/>
+  <rect x="135" y="160" width="135" height="2.5" fill="#374151" rx="1"/>
+  <circle cx="129" cy="168" r="1" fill="#d1d5db"/>
+  <rect x="135" y="167" width="125" height="2.5" fill="#374151" rx="1"/>
+
+  <!-- Job 2 -->
+  <rect x="125" y="186" width="70" height="4" fill="#111827" rx="1"/>
+  <rect x="248" y="187" width="32" height="3" fill="#6b7280" rx="1"/>
+  <rect x="125" y="196" width="55" height="3" fill="#f97316" rx="1"/>
+  <circle cx="129" cy="207" r="1" fill="#d1d5db"/>
+  <rect x="135" y="206" width="130" height="2.5" fill="#374151" rx="1"/>
+  <circle cx="129" cy="214" r="1" fill="#d1d5db"/>
+  <rect x="135" y="213" width="115" height="2.5" fill="#374151" rx="1"/>
+
+  <!-- UTBILDNING-rubrik -->
+  <rect x="125" y="240" width="62" height="4" fill="#111827" rx="1"/>
+  <line x1="125" y1="250" x2="282" y2="250" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="125" y="249" width="22" height="2" fill="#f97316"/>
+
+  <!-- Education item -->
+  <rect x="125" y="262" width="100" height="4" fill="#111827" rx="1"/>
+  <rect x="125" y="272" width="80" height="3" fill="#6b7280" rx="1"/>
+
+  <rect x="125" y="288" width="90" height="4" fill="#111827" rx="1"/>
+  <rect x="125" y="298" width="70" height="3" fill="#6b7280" rx="1"/>
+</svg>

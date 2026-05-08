@@ -10,6 +10,8 @@ import { executivePremiumTemplate } from './executive-premium/generator';
 import { nordicProfessionalTemplate } from './nordic-professional/generator';
 import { platinumExecutiveTemplate } from './platinum-executive/generator';
 import { creativeMinimalTemplate } from './creative-minimal/generator';
+import { sidebarIconsTemplate } from './sidebar-icons/generator';
+import { editorialMagazineTemplate } from './editorial-magazine/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -62,7 +64,9 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'executive-premium': executivePremiumTemplate,
   'nordic-professional': nordicProfessionalTemplate,
   'platinum-executive': platinumExecutiveTemplate,
-  'creative-minimal': creativeMinimalTemplate
+  'creative-minimal': creativeMinimalTemplate,
+  'sidebar-icons': sidebarIconsTemplate,
+  'editorial-magazine': editorialMagazineTemplate
 } as const;
 
 /**

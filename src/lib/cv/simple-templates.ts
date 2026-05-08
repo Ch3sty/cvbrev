@@ -92,6 +92,30 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       supportsLinkedIn: true,
       columns: 2
     }
+  },
+  {
+    id: 'sidebar-icons',
+    name: 'Sidopanel',
+    description: 'Tydlig sidopanel med kontakt och kompetenser, modernt utseende',
+    imagePath: '/mallar/sidebar-icons.svg',
+    category: 'modern',
+    tier: 'free',
+    features: {
+      columns: 2
+    }
+  },
+  {
+    id: 'editorial-magazine',
+    name: 'Editorial',
+    description: 'Asymmetrisk magazine-layout med foto, LinkedIn och tidslinje',
+    imagePath: '/mallar/editorial-magazine.svg',
+    category: 'creative',
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   }
 ];
 

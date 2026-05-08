@@ -1,0 +1,129 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Editorial Template - asymmetric magazine layout with photo + LinkedIn -->
+  <rect width="300" height="400" fill="white"/>
+
+  <defs>
+    <linearGradient id="photo-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="quote-bar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== Header med foto, namn, kontakt ===== -->
+
+  <!-- Foto-cirkel med gradient-ring -->
+  <circle cx="48" cy="55" r="22" fill="url(#photo-ring)"/>
+  <circle cx="48" cy="55" r="19" fill="white"/>
+  <!-- Profil-silhuett inuti -->
+  <circle cx="48" cy="50" r="6.5" fill="#cbd5e1"/>
+  <path d="M34 70 Q34 60 48 60 Q62 60 62 70 L62 74 L34 74 Z" fill="#cbd5e1"/>
+
+  <!-- Namn (stort) -->
+  <rect x="82" y="40" width="105" height="11" fill="#111827" rx="2"/>
+  <!-- Titel (orange) -->
+  <rect x="82" y="56" width="75" height="5" fill="#f97316" rx="1"/>
+
+  <!-- Kontakt (höger) -->
+  <rect x="220" y="38" width="60" height="3" fill="#4b5563" rx="1"/>
+  <rect x="232" y="46" width="48" height="3" fill="#4b5563" rx="1"/>
+  <rect x="225" y="54" width="55" height="3" fill="#4b5563" rx="1"/>
+
+  <!-- LinkedIn-badge -->
+  <rect x="240" y="63" width="40" height="11" rx="2" fill="#0a66c2"/>
+  <!-- LinkedIn-ikon (förenklad) -->
+  <rect x="245" y="66" width="5" height="5" fill="white" rx="0.5"/>
+  <rect x="246.5" y="68" width="2" height="2" fill="#0a66c2"/>
+  <rect x="252" y="66" width="2" height="5" fill="white" rx="0.5"/>
+  <!-- LinkedIn-text -->
+  <rect x="256" y="67" width="20" height="3" fill="white" rx="0.5"/>
+
+  <!-- Header-divider (orange) -->
+  <line x1="20" y1="92" x2="280" y2="92" stroke="#fed7aa" stroke-width="1"/>
+
+  <!-- ===== Sammanfattning som blockquote (serif-känsla) ===== -->
+  <rect x="20" y="105" width="260" height="46" fill="#fffbf5" rx="2"/>
+  <rect x="20" y="105" width="3" height="46" fill="url(#quote-bar)" rx="1.5"/>
+  <!-- Tre rader kursiv text -->
+  <rect x="32" y="116" width="230" height="3" fill="#374151" rx="1"/>
+  <rect x="32" y="125" width="220" height="3" fill="#374151" rx="1"/>
+  <rect x="32" y="134" width="180" height="3" fill="#374151" rx="1"/>
+
+  <!-- ===== Body grid: vänster (erfarenhet) | höger (utbildning + kompetenser) ===== -->
+
+  <!-- Vänster kolumn (1.5fr - bredare) -->
+  <!-- ARBETSLIVSERFARENHET-rubrik -->
+  <rect x="20" y="172" width="78" height="4" fill="#111827" rx="1"/>
+  <line x1="20" y1="182" x2="170" y2="182" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="20" y="181" width="22" height="2" fill="#f97316"/>
+
+  <!-- Job 1 - timeline med cirkel + linje -->
+  <circle cx="24" cy="196" r="3" fill="white" stroke="#f97316" stroke-width="1.5"/>
+  <line x1="24" y1="201" x2="24" y2="232" stroke="#fed7aa" stroke-width="1"/>
+  <rect x="34" y="193" width="80" height="4" fill="#111827" rx="1"/>
+  <rect x="34" y="202" width="60" height="3" fill="#f97316" rx="1"/>
+  <circle cx="38" cy="213" r="1" fill="#d1d5db"/>
+  <rect x="44" y="212" width="120" height="2.5" fill="#374151" rx="1"/>
+  <circle cx="38" cy="220" r="1" fill="#d1d5db"/>
+  <rect x="44" y="219" width="110" height="2.5" fill="#374151" rx="1"/>
+
+  <!-- Job 2 -->
+  <circle cx="24" cy="244" r="3" fill="white" stroke="#f97316" stroke-width="1.5"/>
+  <line x1="24" y1="249" x2="24" y2="280" stroke="#fed7aa" stroke-width="1"/>
+  <rect x="34" y="241" width="70" height="4" fill="#111827" rx="1"/>
+  <rect x="34" y="250" width="55" height="3" fill="#f97316" rx="1"/>
+  <circle cx="38" cy="261" r="1" fill="#d1d5db"/>
+  <rect x="44" y="260" width="120" height="2.5" fill="#374151" rx="1"/>
+  <circle cx="38" cy="268" r="1" fill="#d1d5db"/>
+  <rect x="44" y="267" width="105" height="2.5" fill="#374151" rx="1"/>
+
+  <!-- Job 3 (utan trail-linje) -->
+  <circle cx="24" cy="292" r="3" fill="white" stroke="#f97316" stroke-width="1.5"/>
+  <rect x="34" y="289" width="65" height="4" fill="#111827" rx="1"/>
+  <rect x="34" y="298" width="50" height="3" fill="#f97316" rx="1"/>
+  <circle cx="38" cy="309" r="1" fill="#d1d5db"/>
+  <rect x="44" y="308" width="115" height="2.5" fill="#374151" rx="1"/>
+
+  <!-- Höger kolumn (1fr) -->
+  <!-- UTBILDNING-rubrik -->
+  <rect x="190" y="172" width="60" height="4" fill="#111827" rx="1"/>
+  <line x1="190" y1="182" x2="280" y2="182" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="190" y="181" width="22" height="2" fill="#f97316"/>
+
+  <!-- Edu 1 -->
+  <rect x="190" y="194" width="80" height="4" fill="#111827" rx="1"/>
+  <rect x="190" y="204" width="65" height="3" fill="#6b7280" rx="1"/>
+
+  <!-- Edu 2 -->
+  <rect x="190" y="218" width="70" height="4" fill="#111827" rx="1"/>
+  <rect x="190" y="228" width="60" height="3" fill="#6b7280" rx="1"/>
+
+  <!-- KOMPETENSER-rubrik -->
+  <rect x="190" y="248" width="65" height="4" fill="#111827" rx="1"/>
+  <line x1="190" y1="258" x2="280" y2="258" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="190" y="257" width="22" height="2" fill="#f97316"/>
+
+  <!-- Skills (med pricks) -->
+  <circle cx="192" cy="271" r="1.5" fill="#f97316"/>
+  <rect x="198" y="269" width="65" height="3" fill="#374151" rx="1"/>
+  <circle cx="192" cy="281" r="1.5" fill="#f97316"/>
+  <rect x="198" y="279" width="55" height="3" fill="#374151" rx="1"/>
+  <circle cx="192" cy="291" r="1.5" fill="#f97316"/>
+  <rect x="198" y="289" width="70" height="3" fill="#374151" rx="1"/>
+  <circle cx="192" cy="301" r="1.5" fill="#f97316"/>
+  <rect x="198" y="299" width="50" height="3" fill="#374151" rx="1"/>
+
+  <!-- SPRAK-rubrik -->
+  <rect x="190" y="318" width="38" height="4" fill="#111827" rx="1"/>
+  <line x1="190" y1="328" x2="280" y2="328" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="190" y="327" width="22" height="2" fill="#f97316"/>
+
+  <!-- Sprak-rader -->
+  <rect x="190" y="338" width="38" height="3" fill="#1f2937" rx="1"/>
+  <rect x="252" y="338" width="22" height="3" fill="#92400e" rx="1"/>
+  <rect x="190" y="348" width="42" height="3" fill="#1f2937" rx="1"/>
+  <rect x="252" y="348" width="22" height="3" fill="#92400e" rx="1"/>
+</svg>
