@@ -16,7 +16,13 @@ import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
 
 interface PreviewRequest {
   template: string;
-  cvText: string;
+  cvText?: string;
+  /**
+   * Pre-parsed CVMetadata. Om klient har detta tillgangligt (sparad i db
+   * som structured_data) ska det skickas - da slipper vi ParserKalla helt
+   * och fAr exakt samma data som PDF-flow anvander.
+   */
+  structuredData?: CVMetadata;
   templateOptions?: {
     includePhoto?: boolean;
     includeLinkedIn?: boolean;
@@ -27,11 +33,11 @@ interface PreviewRequest {
 export async function POST(request: NextRequest) {
   try {
     const body: PreviewRequest = await request.json();
-    const { template, cvText, templateOptions = {}, fontFamily } = body;
+    const { template, cvText, structuredData, templateOptions = {}, fontFamily } = body;
 
-    if (!template || !cvText) {
+    if (!template || (!cvText && !structuredData)) {
       return NextResponse.json(
-        { error: 'Template och cvText krävs' },
+        { error: 'Template och antingen cvText eller structuredData krävs' },
         { status: 400 }
       );
     }
@@ -44,16 +50,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Inte inloggad' }, { status: 401 });
     }
 
-    // Parsa CV-text till CVMetadata med samma parser som PDF-flow
+    // Anvand structuredData direkt om det finns (redan AI-parsed och sparad).
+    // Annars fall back till regex-parser. Same logik som PDF-flow.
     let cvData: CVMetadata;
-    try {
-      cvData = await parseSwedishCVContent(cvText);
-    } catch (err) {
-      console.error('Fel vid CV-parsing i preview:', err);
-      return NextResponse.json(
-        { error: 'Kunde inte tolka CV-text' },
-        { status: 500 }
-      );
+    if (structuredData) {
+      cvData = structuredData;
+    } else {
+      try {
+        cvData = await parseSwedishCVContent(cvText!);
+      } catch (err) {
+        console.error('Fel vid CV-parsing i preview:', err);
+        return NextResponse.json(
+          { error: 'Kunde inte tolka CV-text' },
+          { status: 500 }
+        );
+      }
     }
 
     // Berika med profile-data sa preview matchar PDF (foto + LinkedIn)

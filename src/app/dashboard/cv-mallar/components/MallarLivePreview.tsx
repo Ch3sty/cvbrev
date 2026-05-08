@@ -18,6 +18,8 @@ interface CV {
   id: string;
   file_name: string;
   cv_text: string;
+  /** Pre-parsed CV-metadata - skickas till preview-API for hogsta kvalitet */
+  structured_data?: any;
 }
 
 interface MallarLivePreviewProps {
@@ -108,6 +110,9 @@ export default function MallarLivePreview({
           signal: controller.signal,
           body: JSON.stringify({
             template: selectedTemplate,
+            // Skicka pre-parsed structured_data om finns (hogsta kvalitet)
+            // - sparar AI-cost och tid och far exakt samma resultat som PDF
+            structuredData: selectedCV.structured_data || undefined,
             cvText: selectedCV.cv_text,
             templateOptions,
             fontFamily: font.family,

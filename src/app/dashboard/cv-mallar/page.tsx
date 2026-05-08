@@ -105,6 +105,8 @@ function CVMallarContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           template: params.templateId,
+          // Skicka pre-parsed structured_data om finns (matchar preview exakt)
+          structuredData: (selectedCV as any).structured_data || undefined,
           cvText: selectedCV.cv_text,
           format: 'pdf',
           templateOptions,
