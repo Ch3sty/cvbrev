@@ -1,0 +1,76 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Student Template - utbildning forst, projekt, praktik -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- ===== Header med cyan-divider ===== -->
+  <!-- Namn -->
+  <rect x="30" y="34" width="120" height="9" fill="#0f172a" rx="1"/>
+  <!-- Roll/program (cyan) -->
+  <rect x="30" y="48" width="105" height="5" fill="#0891b2" rx="1"/>
+  <!-- Meta-line -->
+  <rect x="30" y="62" width="160" height="3" fill="#475569" rx="0.5"/>
+  <!-- Cyan border-bottom (2px) -->
+  <line x1="30" y1="76" x2="270" y2="76" stroke="#0891b2" stroke-width="2"/>
+
+  <!-- ===== Sammanfattning ===== -->
+  <rect x="30" y="92" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="100" width="220" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="108" width="180" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- ===== UTBILDNING (forst!) ===== -->
+  <rect x="30" y="130" width="58" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="140" x2="270" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="30" y="139" width="22" height="2" fill="#0891b2"/>
+
+  <!-- Edu 1 (sista aret) -->
+  <rect x="30" y="152" width="120" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="220" y="153" width="42" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="30" y="162" width="100" height="3" fill="#475569" rx="0.5"/>
+  <!-- Bullet med GPA -->
+  <circle cx="34" cy="174" r="1.5" fill="#0891b2"/>
+  <rect x="40" y="173" width="160" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="34" cy="181" r="1.5" fill="#0891b2"/>
+  <rect x="40" y="180" width="180" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Edu 2 (gymnasium) -->
+  <rect x="30" y="200" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="220" y="201" width="42" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="30" y="210" width="80" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- ===== PROJEKT ===== -->
+  <rect x="30" y="234" width="46" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="244" x2="270" y2="244" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="30" y="243" width="22" height="2" fill="#0891b2"/>
+
+  <!-- Project 1 -->
+  <rect x="30" y="256" width="125" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="225" y="257" width="40" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="30" y="266" width="200" height="2.5" fill="#374151" rx="0.5"/>
+  <rect x="30" y="272" width="180" height="2.5" fill="#374151" rx="0.5"/>
+  <!-- Tech-pills -->
+  <rect x="30" y="280" width="22" height="6" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="55" y="280" width="20" height="6" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="78" y="280" width="26" height="6" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+
+  <!-- ===== PRAKTIK & SOMMARJOBB ===== -->
+  <rect x="30" y="308" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="318" x2="270" y2="318" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="30" y="317" width="22" height="2" fill="#0891b2"/>
+
+  <!-- Praktik 1 -->
+  <rect x="30" y="330" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="225" y="331" width="40" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="30" y="340" width="60" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- ===== KOMPETENSER (sma pills) ===== -->
+  <rect x="30" y="360" width="65" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="370" x2="270" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="30" y="369" width="22" height="2" fill="#0891b2"/>
+
+  <!-- Pills -->
+  <rect x="30" y="380" width="20" height="7" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="53" y="380" width="14" height="7" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="70" y="380" width="22" height="7" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="95" y="380" width="20" height="7" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+  <rect x="118" y="380" width="28" height="7" fill="#ecfeff" stroke="#cffafe" stroke-width="0.5" rx="1"/>
+</svg>

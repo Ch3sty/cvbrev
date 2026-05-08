@@ -1,0 +1,136 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Varden Template - sage green sidebar with certifications first -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- ===== Salviegron sidopanel (130px bred) ===== -->
+  <rect x="0" y="0" width="130" height="400" fill="#5d8a73"/>
+
+  <!-- Foto-cirkel med tunn vit ring -->
+  <circle cx="65" cy="48" r="22" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="65" cy="48" r="19" fill="white"/>
+  <!-- Profil-silhuett inuti -->
+  <circle cx="65" cy="42" r="6.5" fill="#cbd5e1"/>
+  <path d="M51 65 Q51 55 65 55 Q79 55 79 65 L79 69 L51 69 Z" fill="#cbd5e1"/>
+
+  <!-- LEGITIMATIONER-rubrik (forst, viktigast) -->
+  <rect x="14" y="90" width="68" height="3.5" fill="white" rx="0.5"/>
+  <line x1="14" y1="100" x2="116" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <!-- Cert-rader med checkmark -->
+  <!-- Check 1 -->
+  <path d="M15 110 L17 112 L21 108" stroke="#d4f5dd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="25" y="109" width="80" height="2.5" fill="white" rx="0.5"/>
+  <!-- Check 2 -->
+  <path d="M15 119 L17 121 L21 117" stroke="#d4f5dd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="25" y="118" width="70" height="2.5" fill="white" rx="0.5"/>
+  <!-- Check 3 -->
+  <path d="M15 128 L17 130 L21 126" stroke="#d4f5dd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="25" y="127" width="62" height="2.5" fill="white" rx="0.5"/>
+
+  <!-- KONTAKT-rubrik -->
+  <rect x="14" y="148" width="42" height="3.5" fill="white" rx="0.5"/>
+  <line x1="14" y1="158" x2="116" y2="158" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <rect x="14" y="166" width="80" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+  <rect x="14" y="173" width="60" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+  <rect x="14" y="180" width="55" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+
+  <!-- LinkedIn-badge (vit pill) -->
+  <rect x="14" y="190" width="46" height="9" fill="white" rx="2"/>
+  <rect x="17" y="192" width="4" height="4" fill="#0a66c2" rx="0.5"/>
+  <rect x="18" y="194" width="2" height="1.5" fill="white"/>
+  <rect x="22" y="192" width="2" height="4" fill="#0a66c2" rx="0.5"/>
+  <rect x="26" y="193" width="30" height="3" fill="#0a66c2" rx="0.5"/>
+
+  <!-- KOMPETENSOMRADEN-rubrik -->
+  <rect x="14" y="216" width="78" height="3.5" fill="white" rx="0.5"/>
+  <line x1="14" y1="226" x2="116" y2="226" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <!-- Skills med ljus prick -->
+  <circle cx="16" cy="236" r="1.5" fill="#d4f5dd"/>
+  <rect x="22" y="234" width="60" height="2.5" fill="white" rx="0.5"/>
+  <circle cx="16" cy="245" r="1.5" fill="#d4f5dd"/>
+  <rect x="22" y="243" width="50" height="2.5" fill="white" rx="0.5"/>
+  <circle cx="16" cy="254" r="1.5" fill="#d4f5dd"/>
+  <rect x="22" y="252" width="68" height="2.5" fill="white" rx="0.5"/>
+  <circle cx="16" cy="263" r="1.5" fill="#d4f5dd"/>
+  <rect x="22" y="261" width="55" height="2.5" fill="white" rx="0.5"/>
+
+  <!-- ARBETSPLATSER-rubrik -->
+  <rect x="14" y="284" width="60" height="3.5" fill="white" rx="0.5"/>
+  <line x1="14" y1="294" x2="116" y2="294" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <rect x="14" y="302" width="68" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+  <rect x="14" y="310" width="80" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+  <rect x="14" y="318" width="60" height="2.5" fill="rgba(255,255,255,0.92)" rx="0.5"/>
+
+  <!-- SPRAK-rubrik -->
+  <rect x="14" y="340" width="32" height="3.5" fill="white" rx="0.5"/>
+  <line x1="14" y1="350" x2="116" y2="350" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <rect x="14" y="358" width="40" height="2.5" fill="white" rx="0.5"/>
+  <rect x="86" y="358" width="28" height="2.5" fill="rgba(255,255,255,0.75)" rx="0.5"/>
+  <rect x="14" y="366" width="42" height="2.5" fill="white" rx="0.5"/>
+  <rect x="86" y="366" width="28" height="2.5" fill="rgba(255,255,255,0.75)" rx="0.5"/>
+
+  <!-- ===== Huvudinnehall (hoger) ===== -->
+
+  <!-- Namn (stort) -->
+  <rect x="148" y="36" width="120" height="10" fill="#1f2937" rx="1"/>
+  <!-- Roll (sage green) -->
+  <rect x="148" y="50" width="80" height="5" fill="#5d8a73" rx="1"/>
+
+  <!-- Sammanfattning (4 rader) -->
+  <rect x="148" y="68" width="135" height="2.5" fill="#374151" rx="0.5"/>
+  <rect x="148" y="75" width="138" height="2.5" fill="#374151" rx="0.5"/>
+  <rect x="148" y="82" width="125" height="2.5" fill="#374151" rx="0.5"/>
+  <rect x="148" y="89" width="105" height="2.5" fill="#374151" rx="0.5"/>
+  <line x1="148" y1="100" x2="285" y2="100" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- KLINISK ERFARENHET-rubrik -->
+  <rect x="148" y="114" width="80" height="4" fill="#1f2937" rx="0.5"/>
+  <line x1="148" y1="124" x2="285" y2="124" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="148" y="123" width="22" height="2" fill="#5d8a73"/>
+
+  <!-- Job 1 - pagaende (orange period) -->
+  <rect x="148" y="134" width="100" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="252" y="135" width="32" height="3" fill="#f97316" rx="0.5"/>
+  <rect x="148" y="143" width="70" height="3" fill="#5d8a73" rx="0.5"/>
+  <circle cx="151" cy="154" r="1" fill="#5d8a73"/>
+  <rect x="156" y="153" width="125" height="2.5" fill="#374151" rx="0.5"/>
+  <circle cx="151" cy="160" r="1" fill="#5d8a73"/>
+  <rect x="156" y="159" width="115" height="2.5" fill="#374151" rx="0.5"/>
+
+  <!-- Job 2 -->
+  <rect x="148" y="178" width="92" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="252" y="179" width="32" height="3" fill="#6b7280" rx="0.5"/>
+  <rect x="148" y="187" width="65" height="3" fill="#5d8a73" rx="0.5"/>
+  <circle cx="151" cy="198" r="1" fill="#5d8a73"/>
+  <rect x="156" y="197" width="120" height="2.5" fill="#374151" rx="0.5"/>
+  <circle cx="151" cy="204" r="1" fill="#5d8a73"/>
+  <rect x="156" y="203" width="105" height="2.5" fill="#374151" rx="0.5"/>
+
+  <!-- Job 3 -->
+  <rect x="148" y="222" width="80" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="252" y="223" width="32" height="3" fill="#6b7280" rx="0.5"/>
+  <rect x="148" y="231" width="60" height="3" fill="#5d8a73" rx="0.5"/>
+
+  <!-- UTBILDNING-rubrik -->
+  <rect x="148" y="262" width="58" height="4" fill="#1f2937" rx="0.5"/>
+  <line x1="148" y1="272" x2="285" y2="272" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="148" y="271" width="22" height="2" fill="#5d8a73"/>
+
+  <!-- Edu 1 -->
+  <rect x="148" y="284" width="115" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="252" y="285" width="32" height="3" fill="#6b7280" rx="0.5"/>
+  <rect x="148" y="293" width="80" height="3" fill="#5d8a73" rx="0.5"/>
+
+  <!-- Edu 2 -->
+  <rect x="148" y="308" width="105" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="252" y="309" width="32" height="3" fill="#6b7280" rx="0.5"/>
+  <rect x="148" y="317" width="70" height="3" fill="#5d8a73" rx="0.5"/>
+
+  <!-- Referenser (italic) -->
+  <line x1="148" y1="346" x2="285" y2="346" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="190" y="354" width="80" height="3" fill="#94a3b8" rx="0.5"/>
+</svg>

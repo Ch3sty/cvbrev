@@ -164,6 +164,30 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       supportsLinkedIn: true,
       columns: 1
     }
+  },
+  {
+    id: 'student-startup',
+    name: 'Student',
+    description: 'För studenter och nyexaminerade — utbildning först, projekt och praktik',
+    imagePath: '/mallar/student-startup.svg',
+    category: 'modern',
+    tier: 'free',
+    features: {
+      columns: 1
+    }
+  },
+  {
+    id: 'varden-omsorg',
+    name: 'Vården',
+    description: 'Designad för vård och omsorg med legitimationer först och kompetensområden',
+    imagePath: '/mallar/varden-omsorg.svg',
+    category: 'traditional',
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   }
 ];
 

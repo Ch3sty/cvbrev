@@ -16,6 +16,8 @@ import { tidlosFormellTemplate } from './tidlos-formell/generator';
 import { konsultKompaktTemplate } from './konsult-kompakt/generator';
 import { stackDeveloperTemplate } from './stack-developer/generator';
 import { boldModernTemplate } from './bold-modern/generator';
+import { studentStartupTemplate } from './student-startup/generator';
+import { vardenOmsorgTemplate } from './varden-omsorg/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -74,7 +76,9 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'tidlos-formell': tidlosFormellTemplate,
   'konsult-kompakt': konsultKompaktTemplate,
   'stack-developer': stackDeveloperTemplate,
-  'bold-modern': boldModernTemplate
+  'bold-modern': boldModernTemplate,
+  'student-startup': studentStartupTemplate,
+  'varden-omsorg': vardenOmsorgTemplate
 } as const;
 
 /**
