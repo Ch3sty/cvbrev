@@ -14,6 +14,8 @@ import { sidebarIconsTemplate } from './sidebar-icons/generator';
 import { editorialMagazineTemplate } from './editorial-magazine/generator';
 import { tidlosFormellTemplate } from './tidlos-formell/generator';
 import { konsultKompaktTemplate } from './konsult-kompakt/generator';
+import { stackDeveloperTemplate } from './stack-developer/generator';
+import { boldModernTemplate } from './bold-modern/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -70,7 +72,9 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'sidebar-icons': sidebarIconsTemplate,
   'editorial-magazine': editorialMagazineTemplate,
   'tidlos-formell': tidlosFormellTemplate,
-  'konsult-kompakt': konsultKompaktTemplate
+  'konsult-kompakt': konsultKompaktTemplate,
+  'stack-developer': stackDeveloperTemplate,
+  'bold-modern': boldModernTemplate
 } as const;
 
 /**

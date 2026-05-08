@@ -140,6 +140,30 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       supportsLinkedIn: true,
       columns: 2
     }
+  },
+  {
+    id: 'stack-developer',
+    name: 'Stack',
+    description: 'Modern utvecklarmall med kompetens-stack ovanför erfarenhet',
+    imagePath: '/mallar/stack-developer.svg',
+    category: 'modern',
+    tier: 'free',
+    features: {
+      columns: 1
+    }
+  },
+  {
+    id: 'bold-modern',
+    name: 'Bold',
+    description: 'Stark typografisk hierarki med foto och LinkedIn för marknadsföring',
+    imagePath: '/mallar/bold-modern.svg',
+    category: 'creative',
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 1
+    }
   }
 ];
 
