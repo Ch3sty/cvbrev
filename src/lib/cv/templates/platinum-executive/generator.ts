@@ -47,16 +47,21 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
             }
             
             /* Executive Header Section.
-               Fast hojd behalls for design-konsistens. Line-clamp pa
-               summary forhindrar att text overflowar headerns granser. */
+               Flexibel layout - headern vaxer med innehallet.
+               Min-height ger designen visuell tyngd vid kort innehall.
+               Inget line-clamp - all text visas i sin helhet. */
             .executive-header {
                 background: linear-gradient(135deg, #1a365d 0%, #2d5a87 50%, #1e3a5f 100%);
-                height: ${includePhoto ? '180px' : '160px'};
+                min-height: ${includePhoto ? '180px' : '160px'};
+                padding: 30px 30px 34px 30px;
                 position: relative;
                 overflow: hidden;
                 border-radius: 8px 8px 0 0;
+                display: flex;
+                align-items: center;
+                gap: 20px;
             }
-            
+
             .executive-header::before {
                 content: '';
                 position: absolute;
@@ -64,11 +69,12 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: 
+                background:
                     radial-gradient(circle at 20% 30%, rgba(246, 173, 85, 0.1) 0%, transparent 50%),
                     radial-gradient(circle at 80% 70%, rgba(226, 232, 240, 0.05) 0%, transparent 50%);
+                pointer-events: none;
             }
-            
+
             .gold-accent {
                 position: absolute;
                 bottom: 0;
@@ -77,7 +83,7 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 height: 4px;
                 background: linear-gradient(90deg, #f6ad55, #ed8936, #f6ad55);
             }
-            
+
             .gold-accent::after {
                 content: '';
                 position: absolute;
@@ -87,13 +93,10 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 height: 1px;
                 background: rgba(246, 173, 85, 0.3);
             }
-            
+
             /* Profile Photo Styling */
             .profile-photo {
-                position: absolute;
-                left: 30px;
-                top: 50%;
-                transform: translateY(-50%);
+                flex-shrink: 0;
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
@@ -101,16 +104,16 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 border: 4px solid rgba(242, 243, 244, 0.9);
                 box-shadow: 0 6px 20px rgba(26, 54, 93, 0.3);
                 background: rgba(255, 255, 255, 0.1);
+                position: relative;
+                z-index: 1;
             }
-            
+
             /* Name and Title Area */
             .name-title-area {
-                position: absolute;
-                left: ${includePhoto ? '150px' : '40px'};
-                top: 50%;
-                transform: translateY(-50%);
-                right: ${includeLinkedIn ? '200px' : '40px'};
-                overflow: hidden;
+                flex: 1;
+                min-width: 0;
+                position: relative;
+                z-index: 1;
             }
 
             .executive-name {
@@ -138,31 +141,26 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
             .executive-summary-brief {
                 font-size: 14px;
                 color: rgba(255, 255, 255, 0.8);
-                line-height: 1.4;
-                max-width: 100%;
+                line-height: 1.5;
                 padding: 12px 0;
                 margin-top: 12px;
                 margin-bottom: 0;
-                overflow: hidden;
                 overflow-wrap: break-word;
                 word-wrap: break-word;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
+                max-width: 100%;
             }
-            
+
             /* Contact & LinkedIn Section */
             .contact-linkedin-area {
-                position: absolute;
-                right: 30px;
-                top: 50%;
-                transform: translateY(-50%);
+                flex-shrink: 0;
                 background: rgba(255, 255, 255, 0.08);
                 backdrop-filter: blur(10px);
                 padding: 15px;
                 border-radius: 8px;
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 min-width: 140px;
+                position: relative;
+                z-index: 1;
             }
             
             .contact-item {

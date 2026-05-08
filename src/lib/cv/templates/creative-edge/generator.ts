@@ -30,17 +30,18 @@ function generateCreativeEdgeHTML(cvData: CVMetadata, options: any = {}): string
                 padding: 0;
             }
             
-            /* Creative header med angled design som matchar SVG.
-               Ingen fast hojd - headern vaxer med innehallet.
-               Min-height behaller designens visuella vikt for korta texter.
-               Stor padding-bottom forhindrar att text hamnar i clip-pathens
-               diagonala "doda zon" (klipper bort 20% av hogerkanten). */
+            /* Creative header med angled design.
+               Flexibel layout - headern vaxer naturligt med innehallet.
+               Clip-pathen ar procentbaserad (klipper 20% av hogerkanten)
+               sa den foljer headerns faktiska hojd.
+               Padding-bottom 60px ger sakerhets-zon mot clip-pathens
+               diagonala kant oavsett om headern ar 150px eller 350px hog.
+               Inget line-clamp - all text visas i sin helhet. */
             .header {
                 background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-                min-height: 200px;
                 position: relative;
                 clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-                padding: 35px 30px 75px 30px;
+                padding: 35px 30px 60px 30px;
                 box-sizing: border-box;
                 overflow: hidden;
             }
@@ -61,13 +62,10 @@ function generateCreativeEdgeHTML(cvData: CVMetadata, options: any = {}): string
                 font-size: 16px;
                 padding: 12px 0;
                 margin: 5px 0;
+                line-height: 1.5;
                 overflow-wrap: break-word;
                 word-wrap: break-word;
                 max-width: 100%;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
             }
 
             .header .contact {
