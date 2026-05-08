@@ -192,20 +192,8 @@ export default function MallarLivePreview({
           />
         </aside>
 
-        {/* Hogerspalt: preview + toolbar + info + CTA */}
+        {/* Hogerspalt: preview + info + toolbar + CTA */}
         <div className="space-y-5 min-w-0">
-          {/* Toolbar (font + toggles) */}
-          <MallToolbar
-            template={template}
-            selectedFont={selectedFont}
-            onFontChange={setSelectedFont}
-            includePhoto={includePhoto}
-            onTogglePhoto={() => setIncludePhoto(v => !v)}
-            includeLinkedIn={includeLinkedIn}
-            onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
-            isPremium={isPremium}
-          />
-
           {/* Live-preview */}
           <PreviewContainer
             previewHTML={previewHTML}
@@ -217,6 +205,19 @@ export default function MallarLivePreview({
 
           {/* Mall-info */}
           <MallInfoCard template={template} />
+
+          {/* Toolbar (font + toggles) - placerad direkt over CTA sa
+              anvandaren ser senaste anpassning innan generering */}
+          <MallToolbar
+            template={template}
+            selectedFont={selectedFont}
+            onFontChange={setSelectedFont}
+            includePhoto={includePhoto}
+            onTogglePhoto={() => setIncludePhoto(v => !v)}
+            includeLinkedIn={includeLinkedIn}
+            onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
+            isPremium={isPremium}
+          />
 
           {/* CTA */}
           <GenerateButton

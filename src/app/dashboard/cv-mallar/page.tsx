@@ -12,8 +12,7 @@ import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
 import MallarLivePreview from './components/MallarLivePreview';
 import CvGenerationOverlay from './components/CvGenerationOverlay';
-import CvPickerGrid from '../skapa-brev/components/CvPickerGrid';
-import LetterFlowStepHeader from '../skapa-brev/components/LetterFlowStepHeader';
+import CompactCvPicker from './components/CompactCvPicker';
 
 function CVMallarContent() {
   const searchParams = useSearchParams();
@@ -159,54 +158,33 @@ function CVMallarContent() {
     <CvMallarLayout>
       <CvMallarHero />
 
-      {/* Steg 1: VAlj CV (kompakt) */}
+      {/* Kompakt CV-vajare - tar lite plats sa fokus ligger pa preview */}
       <motion.section
         data-flow-section="cv"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-6"
-        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
       >
-        <LetterFlowStepHeader
-          stepNumber={1}
-          title="Välj ditt CV"
-          description="Innehållet visas i den nya designen direkt."
-          isDone={!!selectedCV}
-          isActive={!selectedCV}
-        />
-        <CvPickerGrid
+        <CompactCvPicker
           selectedCV={selectedCV?.id || null}
           onCVSelect={(cvId) => selectCV(cvId)}
         />
       </motion.section>
 
-      {/* Steg 2: Live-preview-vyn med mall-lista, toolbar, info, CTA */}
+      {/* Live-preview-vy med mall-lista, toolbar, info, CTA */}
       <motion.section
         data-flow-section="template"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut', delay: 0.05 }}
-        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-6"
-        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
       >
-        <LetterFlowStepHeader
-          stepNumber={2}
-          title="Välj design"
-          description="Bläddra mallar och se din ansökan i realtid."
-          isDone={false}
-          isActive={!!selectedCV}
+        <MallarLivePreview
+          selectedCV={selectedCV}
+          isPremium={isPremium}
+          isGenerating={isGenerating}
+          onGenerate={handleGenerateCV}
+          onUpgrade={handleUpgradeClick}
         />
-
-        <div className="mt-4">
-          <MallarLivePreview
-            selectedCV={selectedCV}
-            isPremium={isPremium}
-            isGenerating={isGenerating}
-            onGenerate={handleGenerateCV}
-            onUpgrade={handleUpgradeClick}
-          />
-        </div>
       </motion.section>
 
       {/* Generation overlay */}

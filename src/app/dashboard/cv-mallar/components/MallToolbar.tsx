@@ -243,7 +243,7 @@ function FontOptionRow({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  ToggleChip - foto/LinkedIn toggles                                         */
+/*  ToggleChip - foto/LinkedIn toggles (renare design)                         */
 /* -------------------------------------------------------------------------- */
 
 function ToggleChip({
@@ -260,24 +260,28 @@ function ToggleChip({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border font-semibold text-sm transition-colors min-h-[40px] ${
+      className={`flex items-center gap-2.5 pl-3 pr-2.5 py-2 rounded-xl border font-semibold text-sm transition-all min-h-[40px] ${
         checked
-          ? 'bg-orange-50 border-orange-200 text-orange-700'
+          ? 'bg-white border-orange-200 text-slate-800'
           : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
       }`}
       aria-pressed={checked}
     >
-      <span className={checked ? 'text-orange-700' : 'text-slate-400'}>{icon}</span>
+      <span className={`transition-colors ${checked ? 'text-orange-600' : 'text-slate-400'}`}>{icon}</span>
       <span>{label}</span>
       <span
-        className={`w-8 h-4 rounded-full relative transition-colors ${
-          checked ? 'bg-orange-500' : 'bg-slate-300'
-        }`}
+        className="relative w-8 h-[18px] rounded-full transition-colors flex-shrink-0"
+        style={{
+          background: checked
+            ? 'linear-gradient(135deg, #F97316, #DC2626)'
+            : '#cbd5e1',
+        }}
       >
         <span
-          className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform ${
-            checked ? 'translate-x-4' : 'translate-x-0.5'
-          }`}
+          className="absolute top-[2px] w-3.5 h-3.5 rounded-full bg-white transition-transform shadow-sm"
+          style={{
+            transform: checked ? 'translateX(16px)' : 'translateX(2px)',
+          }}
         />
       </span>
     </button>

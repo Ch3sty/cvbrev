@@ -46,10 +46,10 @@ export default function TemplateListSidebar({
     <div className="flex flex-col h-full">
       {/* Header med kategori-filter */}
       <div className="flex-shrink-0 mb-4">
-        <h2 className="text-base font-black text-slate-900 mb-3 px-1">
+        <h2 className="text-base font-black text-slate-900 mb-3">
           {filteredTemplates.length} mallar
         </h2>
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1">
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
           {CATEGORIES.map(cat => (
             <CategoryPill
               key={cat.value}
@@ -62,7 +62,7 @@ export default function TemplateListSidebar({
       </div>
 
       {/* Mall-lista — desktop vertikal, mobile horisontell carousel */}
-      <div className="flex-1 lg:overflow-y-auto -mx-1 px-1 lg:pb-4">
+      <div className="flex-1 lg:overflow-y-auto lg:pb-4">
         {/* Desktop: vertikal lista */}
         <ul className="hidden lg:flex flex-col gap-2">
           {filteredTemplates.map(template => (
