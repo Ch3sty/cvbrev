@@ -94,7 +94,6 @@ function generateTidlosFormellHTML(cvData: CVMetadata, _options: any = {}): stri
                 color: #1f2937;
                 line-height: 1.75;
                 margin-bottom: 32px;
-                text-align: justify;
                 overflow-wrap: break-word;
                 word-wrap: break-word;
             }
