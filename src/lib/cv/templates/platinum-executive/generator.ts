@@ -46,7 +46,9 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 box-shadow: 0 4px 20px rgba(26, 54, 93, 0.1);
             }
             
-            /* Executive Header Section */
+            /* Executive Header Section.
+               Fast hojd behalls for design-konsistens. Line-clamp pa
+               summary forhindrar att text overflowar headerns granser. */
             .executive-header {
                 background: linear-gradient(135deg, #1a365d 0%, #2d5a87 50%, #1e3a5f 100%);
                 height: ${includePhoto ? '180px' : '160px'};
