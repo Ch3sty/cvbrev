@@ -1,19 +1,14 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Sparkles, ArrowRight, Eye } from 'lucide-react';
 
-import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
-import { getTemplateGenerator } from '@/lib/cv/templates';
-import { getSwedishCVParser } from '@/lib/cv/swedish-cv-content-parser';
+import { getTemplateById } from '@/lib/cv/simple-templates';
 import {
-  FONTS,
   DEFAULT_FONT_ID,
   getFontById,
-  injectFontIntoHTML,
 } from '@/lib/cv/preview-utils';
-import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
 
 import TemplateListSidebar from './TemplateListSidebar';
 import MallToolbar from './MallToolbar';
@@ -41,17 +36,16 @@ interface MallarLivePreviewProps {
 }
 
 const DEFAULT_TEMPLATE_ID = 'modern-minimal';
+const PREVIEW_DEBOUNCE_MS = 250;
 
 /**
  * Huvudkomponent fOr live-preview-vyn pa /dashboard/cv-mallar.
  *
- * Layout (desktop):
- *   ┌─ TemplateListSidebar ─┬─ Toolbar ──────────┐
- *   │  (lista mallar)        │  Preview (sticky)  │
- *   │                        │  MallInfoCard      │
- *   │                        │  Skapa CV-PDF      │
- *
+ * Layout (desktop): split-view med 360px lista vanster + flex preview hoger.
  * Mobile: lista som carousel overst, preview + info under.
+ *
+ * Preview-HTML hamtas fran /api/cv/preview-html (samme server-parser som PDF-flow)
+ * for att garantera att preview matchar PDF-output exakt.
  */
 export default function MallarLivePreview({
   selectedCV,
@@ -68,44 +62,85 @@ export default function MallarLivePreview({
   const [includePhoto, setIncludePhoto] = useState(true);
   const [includeLinkedIn, setIncludeLinkedIn] = useState(true);
 
-  // Parsa CV-text till CVMetadata. Cache:as via useMemo sa vi inte
-  // re-parsar pa varje render om CV:t inte andrats.
-  const [parsedCV, setParsedCV] = useState<CVMetadata | null>(null);
-  const [isParsing, setIsParsing] = useState(false);
+  const [previewHTML, setPreviewHTML] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!selectedCV?.cv_text) {
-      setParsedCV(null);
-      return;
-    }
-    setIsParsing(true);
-    const parser = getSwedishCVParser();
-    parser
-      .parseSwedishCV(selectedCV.cv_text)
-      .then(setParsedCV)
-      .catch(err => {
-        console.error('Kunde inte parsa CV-text:', err);
-        setParsedCV(null);
-      })
-      .finally(() => setIsParsing(false));
-  }, [selectedCV?.cv_text]);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const fetchAbortRef = useRef<AbortController | null>(null);
 
   const template = useMemo(() => getTemplateById(selectedTemplate), [selectedTemplate]);
 
-  // Generera HTML fOr live-preview baserat pa parsed CV + mall + font + toggles.
-  const previewHTML = useMemo(() => {
-    if (!parsedCV || !selectedTemplate) return '';
-    const generator = getTemplateGenerator(selectedTemplate as CVTemplateType);
-    if (!generator) return '';
-    try {
-      const html = generator.generate(parsedCV, { includePhoto, includeLinkedIn });
-      const font = getFontById(selectedFont);
-      return injectFontIntoHTML(html, font.family);
-    } catch (err) {
-      console.error('Fel vid HTML-generering:', err);
-      return '';
+  // Hamta preview-HTML fran API nar nagot relevant andras.
+  // Debounce 250ms sa snabba andringar (toggla photo + LinkedIn snabbt) inte
+  // skickar 3 requests.
+  useEffect(() => {
+    if (!selectedCV?.cv_text || !selectedTemplate) {
+      setPreviewHTML('');
+      setPreviewError(null);
+      return;
     }
-  }, [parsedCV, selectedTemplate, selectedFont, includePhoto, includeLinkedIn]);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (fetchAbortRef.current) fetchAbortRef.current.abort();
+
+    debounceRef.current = setTimeout(async () => {
+      const controller = new AbortController();
+      fetchAbortRef.current = controller;
+
+      setIsLoading(true);
+      setPreviewError(null);
+
+      try {
+        const tpl = getTemplateById(selectedTemplate);
+        const supportsPhoto = tpl?.features?.supportsPhoto === true;
+        const supportsLinkedIn = tpl?.features?.supportsLinkedIn === true;
+
+        const templateOptions: { includePhoto?: boolean; includeLinkedIn?: boolean } = {};
+        if (supportsPhoto) templateOptions.includePhoto = includePhoto;
+        if (supportsLinkedIn) templateOptions.includeLinkedIn = includeLinkedIn;
+
+        const font = getFontById(selectedFont);
+
+        const response = await fetch('/api/cv/preview-html', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            template: selectedTemplate,
+            cvText: selectedCV.cv_text,
+            templateOptions,
+            fontFamily: font.family,
+          }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || 'Kunde inte hämta förhandsvisning');
+        }
+
+        const data = await response.json();
+        if (!controller.signal.aborted) {
+          setPreviewHTML(data.html || '');
+        }
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+        console.error('Fel vid preview-hamtning:', err);
+        if (!controller.signal.aborted) {
+          setPreviewError(err?.message || 'Något gick fel vid förhandsvisning');
+          setPreviewHTML('');
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    }, PREVIEW_DEBOUNCE_MS);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [selectedCV?.cv_text, selectedTemplate, selectedFont, includePhoto, includeLinkedIn]);
 
   const handleTemplateSelect = (templateId: string) => {
     const tpl = getTemplateById(templateId);
@@ -127,7 +162,7 @@ export default function MallarLivePreview({
   };
 
   const isLockedPremium = template?.tier === 'premium' && !isPremium;
-  const canGenerate = !!selectedCV && !!parsedCV && !!selectedTemplate && !isGenerating && !isLockedPremium;
+  const canGenerate = !!selectedCV && !!selectedTemplate && !isGenerating && !isLockedPremium;
 
   return (
     <div className="relative">
@@ -141,7 +176,7 @@ export default function MallarLivePreview({
         }}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-5 lg:gap-7">
+      <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-5 lg:gap-7">
         {/* Vansterspalt: mall-lista */}
         <aside className="lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-3rem)]">
           <TemplateListSidebar
@@ -153,7 +188,7 @@ export default function MallarLivePreview({
         </aside>
 
         {/* Hogerspalt: preview + toolbar + info + CTA */}
-        <div className="space-y-5">
+        <div className="space-y-5 min-w-0">
           {/* Toolbar (font + toggles) */}
           <MallToolbar
             template={template}
@@ -170,7 +205,8 @@ export default function MallarLivePreview({
           <PreviewContainer
             previewHTML={previewHTML}
             templateName={template?.name}
-            isParsing={isParsing}
+            isLoading={isLoading}
+            previewError={previewError}
             hasCV={!!selectedCV}
           />
 
@@ -199,12 +235,14 @@ export default function MallarLivePreview({
 function PreviewContainer({
   previewHTML,
   templateName,
-  isParsing,
+  isLoading,
+  previewError,
   hasCV,
 }: {
   previewHTML: string;
   templateName: string | undefined;
-  isParsing: boolean;
+  isLoading: boolean;
+  previewError: string | null;
   hasCV: boolean;
 }) {
   return (
@@ -234,13 +272,16 @@ function PreviewContainer({
             )}
           </div>
         </div>
+        {isLoading && (
+          <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        )}
       </div>
 
-      {/* Preview-area */}
-      <div className="relative bg-slate-100 max-h-[800px] overflow-y-auto">
+      {/* Preview-area med horisontell scroll for A4-bredd pa mindre skarmar */}
+      <div className="relative bg-slate-100 max-h-[850px] overflow-auto">
         {!hasCV && <PreviewEmptyState />}
-        {hasCV && isParsing && <PreviewLoading />}
-        {hasCV && !isParsing && previewHTML && (
+        {hasCV && previewError && <PreviewError message={previewError} />}
+        {hasCV && !previewError && previewHTML && (
           <AnimatePresence mode="wait">
             <motion.div
               key={previewHTML.slice(0, 100)}
@@ -248,22 +289,20 @@ function PreviewContainer({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="p-3 sm:p-4"
+              className="p-3 sm:p-4 flex justify-center"
             >
               <div
-                className="bg-white origin-top mx-auto"
+                className="bg-white shadow-lg origin-top"
                 style={{
                   width: '210mm',
-                  maxWidth: '100%',
-                  transform: 'scale(0.9)',
-                  transformOrigin: 'top center',
+                  flexShrink: 0,
                 }}
                 dangerouslySetInnerHTML={{ __html: previewHTML }}
               />
             </motion.div>
           </AnimatePresence>
         )}
-        {hasCV && !isParsing && !previewHTML && <PreviewError />}
+        {hasCV && !previewError && !previewHTML && isLoading && <PreviewLoading />}
       </div>
     </div>
   );
@@ -272,9 +311,7 @@ function PreviewContainer({
 function PreviewEmptyState() {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
-      <div
-        className="w-14 h-14 rounded-2xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4"
-      >
+      <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4">
         <FileText className="w-7 h-7" strokeWidth={2} />
       </div>
       <h3 className="text-base font-bold text-slate-900 mb-1">Välj ett CV först</h3>
@@ -294,12 +331,11 @@ function PreviewLoading() {
   );
 }
 
-function PreviewError() {
+function PreviewError({ message }: { message: string }) {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
-      <p className="text-sm text-slate-600">
-        Kunde inte generera förhandsvisning. Försök välja en annan mall.
-      </p>
+      <p className="text-sm text-slate-600 mb-2">{message}</p>
+      <p className="text-xs text-slate-500">Försök välja en annan mall eller ladda om sidan.</p>
     </div>
   );
 }

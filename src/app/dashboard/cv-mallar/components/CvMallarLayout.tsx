@@ -8,7 +8,7 @@ interface CvMallarLayoutProps {
 
 export default function CvMallarLayout({ children }: CvMallarLayoutProps) {
   return (
-    <div className="max-w-3xl mx-auto py-2 sm:py-6 pb-32 sm:pb-20 space-y-6 sm:space-y-8">
+    <div className="max-w-7xl mx-auto py-2 sm:py-6 pb-32 sm:pb-20 space-y-6 sm:space-y-8 px-1 sm:px-0">
       {children}
     </div>
   );
