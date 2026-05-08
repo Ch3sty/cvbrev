@@ -6,7 +6,14 @@ import { motion } from 'framer-motion';
 import { Lock, ShieldCheck, Crown, ChevronRight } from 'lucide-react';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 
-type CategoryFilter = 'all' | 'modern' | 'traditional' | 'creative';
+export type CategoryFilter = 'all' | 'modern' | 'traditional' | 'creative';
+
+export const TEMPLATE_CATEGORIES: { value: CategoryFilter; label: string }[] = [
+  { value: 'all', label: 'Alla' },
+  { value: 'modern', label: 'Modern' },
+  { value: 'traditional', label: 'Traditionell' },
+  { value: 'creative', label: 'Kreativ' },
+];
 
 interface TemplateListSidebarProps {
   selectedTemplate: string | null;
@@ -14,13 +21,6 @@ interface TemplateListSidebarProps {
   isPremium: boolean;
   onUpgradeClick?: () => void;
 }
-
-const CATEGORIES: { value: CategoryFilter; label: string }[] = [
-  { value: 'all', label: 'Alla' },
-  { value: 'modern', label: 'Modern' },
-  { value: 'traditional', label: 'Traditionell' },
-  { value: 'creative', label: 'Kreativ' },
-];
 
 /**
  * Kompakt vertikal mall-lista (desktop) eller horisontell carousel (mobile).
@@ -50,7 +50,7 @@ export default function TemplateListSidebar({
           {filteredTemplates.length} mallar
         </h2>
         <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
-          {CATEGORIES.map(cat => (
+          {TEMPLATE_CATEGORIES.map(cat => (
             <CategoryPill
               key={cat.value}
               label={cat.label}
@@ -109,7 +109,7 @@ export default function TemplateListSidebar({
 /*  CategoryPill                                                              */
 /* -------------------------------------------------------------------------- */
 
-function CategoryPill({
+export function CategoryPill({
   label,
   active,
   onClick,
@@ -144,7 +144,7 @@ function CategoryPill({
 /*  TemplateRow (desktop)                                                     */
 /* -------------------------------------------------------------------------- */
 
-function TemplateRow({
+export function TemplateRow({
   template,
   isSelected,
   isPremiumUser,
@@ -250,7 +250,7 @@ function TemplateRow({
 /*  TemplateCardMobile (mobile carousel)                                       */
 /* -------------------------------------------------------------------------- */
 
-function TemplateCardMobile({
+export function TemplateCardMobile({
   template,
   isSelected,
   isPremiumUser,

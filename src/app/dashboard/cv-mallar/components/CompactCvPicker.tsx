@@ -72,19 +72,30 @@ export default function CompactCvPicker({ selectedCV, onCVSelect }: CompactCvPic
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-3 p-3 rounded-2xl bg-white border border-orange-100 hover:border-orange-200 transition-colors text-left"
-        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
+        className="relative w-full flex items-center gap-3 p-3 pl-4 rounded-2xl bg-orange-50/40 border border-orange-200 hover:border-orange-300 transition-colors text-left"
+        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
       >
+        {/* Aktiv-pip i vanster kant */}
         <span
-          className="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0"
+          aria-hidden
+          className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full"
+          style={{ background: 'linear-gradient(180deg, #F97316, #DC2626)' }}
+        />
+
+        <span className="relative w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0"
           style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
         >
           <FileText className="w-5 h-5" strokeWidth={2.25} />
+          {/* Emerald-check som visar att CV:t ar aktivt och redo */}
+          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center">
+            <Check className="w-2 h-2 text-white" strokeWidth={3.5} />
+          </span>
         </span>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden />
             Aktivt CV
-          </div>
+          </span>
           <div className="text-sm font-bold text-slate-900 truncate">{displayName}</div>
           {displayDate && (
             <div className="text-xs text-slate-500">{displayDate}</div>

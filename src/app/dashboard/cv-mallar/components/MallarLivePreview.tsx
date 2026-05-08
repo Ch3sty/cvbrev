@@ -10,7 +10,7 @@ import {
   getFontById,
 } from '@/lib/cv/preview-utils';
 
-import TemplateListSidebar from './TemplateListSidebar';
+import TemplateSelector from './TemplateSelector';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 
@@ -181,54 +181,49 @@ export default function MallarLivePreview({
         }}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-5 lg:gap-7">
-        {/* Vansterspalt: mall-lista */}
-        <aside className="lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-3rem)]">
-          <TemplateListSidebar
-            selectedTemplate={selectedTemplate}
-            onTemplateSelect={handleTemplateSelect}
-            isPremium={isPremium}
-            onUpgradeClick={onUpgrade}
-          />
-        </aside>
+      <div className="flex flex-col gap-5 min-w-0">
+        {/* Mall-vajare (dropdown + galleri-toggle) */}
+        <TemplateSelector
+          selectedTemplate={selectedTemplate}
+          onTemplateSelect={handleTemplateSelect}
+          isPremium={isPremium}
+          onUpgradeClick={onUpgrade}
+        />
 
-        {/* Hogerspalt: preview + info + toolbar + CTA */}
-        <div className="space-y-5 min-w-0">
-          {/* Live-preview */}
-          <PreviewContainer
-            previewHTML={previewHTML}
-            templateName={template?.name}
-            isLoading={isLoading}
-            previewError={previewError}
-            hasCV={!!selectedCV}
-          />
+        {/* Live-preview */}
+        <PreviewContainer
+          previewHTML={previewHTML}
+          templateName={template?.name}
+          isLoading={isLoading}
+          previewError={previewError}
+          hasCV={!!selectedCV}
+        />
 
-          {/* Mall-info */}
-          <MallInfoCard template={template} />
+        {/* Mall-info */}
+        <MallInfoCard template={template} />
 
-          {/* Toolbar (font + toggles) - placerad direkt over CTA sa
-              anvandaren ser senaste anpassning innan generering */}
-          <MallToolbar
-            template={template}
-            selectedFont={selectedFont}
-            onFontChange={setSelectedFont}
-            includePhoto={includePhoto}
-            onTogglePhoto={() => setIncludePhoto(v => !v)}
-            includeLinkedIn={includeLinkedIn}
-            onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
-            isPremium={isPremium}
-          />
+        {/* Toolbar (font + toggles) - placerad direkt over CTA sa
+            anvandaren ser senaste anpassning innan generering */}
+        <MallToolbar
+          template={template}
+          selectedFont={selectedFont}
+          onFontChange={setSelectedFont}
+          includePhoto={includePhoto}
+          onTogglePhoto={() => setIncludePhoto(v => !v)}
+          includeLinkedIn={includeLinkedIn}
+          onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
+          isPremium={isPremium}
+        />
 
-          {/* CTA */}
-          <GenerateButton
-            canGenerate={canGenerate}
-            isGenerating={isGenerating}
-            isLockedPremium={isLockedPremium}
-            onGenerate={handleGenerate}
-            onUpgrade={onUpgrade}
-            templateName={template?.name}
-          />
-        </div>
+        {/* CTA */}
+        <GenerateButton
+          canGenerate={canGenerate}
+          isGenerating={isGenerating}
+          isLockedPremium={isLockedPremium}
+          onGenerate={handleGenerate}
+          onUpgrade={onUpgrade}
+          templateName={template?.name}
+        />
       </div>
     </div>
   );
@@ -283,8 +278,8 @@ function PreviewContainer({
         )}
       </div>
 
-      {/* Preview-area med horisontell scroll for A4-bredd pa mindre skarmar */}
-      <div className="relative bg-slate-100 max-h-[850px] overflow-auto">
+      {/* Preview-area: skala A4-bredden till tillgangligt utrymme pa mobil */}
+      <div className="relative bg-slate-100 max-h-[850px] overflow-y-auto overflow-x-hidden">
         {!hasCV && <PreviewEmptyState />}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
@@ -295,20 +290,79 @@ function PreviewContainer({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="p-3 sm:p-4 flex justify-center"
             >
-              <div
-                className="bg-white shadow-lg origin-top"
-                style={{
-                  width: '210mm',
-                  flexShrink: 0,
-                }}
-                dangerouslySetInnerHTML={{ __html: previewHTML }}
-              />
+              <ScaledPreview html={previewHTML} />
             </motion.div>
           </AnimatePresence>
         )}
         {hasCV && !previewError && !previewHTML && isLoading && <PreviewLoading />}
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  ScaledPreview - skalar A4-bredden till mobilskarm                          */
+/* -------------------------------------------------------------------------- */
+
+const A4_WIDTH_PX = 794; // 210mm @ 96dpi
+const HORIZONTAL_PADDING = 24; // 12px var sida
+
+function ScaledPreview({ html }: { html: string }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(A4_WIDTH_PX + HORIZONTAL_PADDING);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  // Matt tillgangligt utrymme i wrapper-divren
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Matt riktig hojd pa det renderade CV:t (foran scaling)
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setContentHeight(entry.contentRect.height);
+      }
+    });
+    observer.observe(contentRef.current);
+    return () => observer.disconnect();
+  }, [html]);
+
+  const availableWidth = Math.max(containerWidth - HORIZONTAL_PADDING, 280);
+  const scale = availableWidth < A4_WIDTH_PX ? availableWidth / A4_WIDTH_PX : 1;
+  const scaledHeight = contentHeight * scale;
+
+  return (
+    <div ref={wrapperRef} className="px-3 sm:px-4 py-3 sm:py-4 flex justify-center">
+      {/* Outer-div har den slutgiltiga (skalade) hojden sa containern reserverar
+          ratt utrymme. transform paverkar inte layout-storlek, dafor reservation. */}
+      <div
+        style={{
+          width: `${A4_WIDTH_PX * scale}px`,
+          height: contentHeight > 0 ? `${scaledHeight}px` : 'auto',
+          flexShrink: 0,
+        }}
+      >
+        <div
+          ref={contentRef}
+          className="bg-white shadow-lg"
+          style={{
+            width: `${A4_WIDTH_PX}px`,
+            transform: scale < 1 ? `scale(${scale})` : undefined,
+            transformOrigin: 'top left',
+          }}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </div>
     </div>
   );
