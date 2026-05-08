@@ -92,14 +92,15 @@ function CVMallarContent() {
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
 
-      const supportsCustomization =
-        selectedTemplate === 'platinum-executive' ||
-        selectedTemplate === 'nordic-professional' ||
-        selectedTemplate === 'creative-minimal';
+      // Lasa stOd-flaggor fran mall-registret istallet for hardkodad lista,
+      // sa nya mallar med foto/LinkedIn-stOd respekterar UI-toggles automatiskt.
+      const templateMeta = getTemplateById(selectedTemplate);
+      const supportsPhoto = templateMeta?.features?.supportsPhoto === true;
+      const supportsLinkedIn = templateMeta?.features?.supportsLinkedIn === true;
 
-      const templateOptions = supportsCustomization
-        ? { includePhoto, includeLinkedIn }
-        : {};
+      const templateOptions: { includePhoto?: boolean; includeLinkedIn?: boolean } = {};
+      if (supportsPhoto) templateOptions.includePhoto = includePhoto;
+      if (supportsLinkedIn) templateOptions.includeLinkedIn = includeLinkedIn;
 
       const response = await fetch('/api/cv/generate-formatted', {
         method: 'POST',
