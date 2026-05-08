@@ -4,6 +4,7 @@ import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/c
 import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
 import { getTemplateGenerator } from '@/lib/cv/templates';
+import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
@@ -2207,15 +2208,19 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // NEW: Use structured data if available, otherwise parse from text
-    let extractedCVData: CVMetadata;
-
+    // Use structured data if available and valid, otherwise parse from text.
+    // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
+    // hanterar bada formaten och returnerar null om strukturen ar trasig.
+    let extractedCVData: CVMetadata | null = null;
     if (structuredData) {
-      // Use structured data directly (best quality)
-      console.log('✅ Använder strukturerad CV-data direkt (högsta kvalitet)');
-      extractedCVData = structuredData;
-    } else {
-      // FALLBACK: Parse from text
+      extractedCVData = normalizeStructuredData(structuredData);
+      if (extractedCVData) {
+        console.log('✅ Använder strukturerad CV-data direkt (högsta kvalitet)');
+      } else {
+        console.log('⚠️ structured_data var ogiltig - faller tillbaka till text-parser');
+      }
+    }
+    if (!extractedCVData) {
       console.log('⚠️ Fallback: Extraherar svenskt CV-innehåll från text...');
       extractedCVData = await extractSwedishCVContent(cvText);
     }

@@ -13,6 +13,7 @@ import {
 import TemplateSelector from './TemplateSelector';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
+import StepHeader from './StepHeader';
 
 interface CV {
   id: string;
@@ -181,49 +182,66 @@ export default function MallarLivePreview({
         }}
       />
 
-      <div className="flex flex-col gap-5 min-w-0">
-        {/* Mall-vajare (dropdown + galleri-toggle) */}
-        <TemplateSelector
-          selectedTemplate={selectedTemplate}
-          onTemplateSelect={handleTemplateSelect}
-          isPremium={isPremium}
-          onUpgradeClick={onUpgrade}
-        />
+      <div className="flex flex-col gap-7 min-w-0">
+        {/* Steg 2: Vala mall */}
+        <section>
+          <StepHeader
+            number={2}
+            title="Välj din mall"
+            description="Bläddra i listan eller öppna galleriet för att se alla 16 mallar."
+          />
+          <TemplateSelector
+            selectedTemplate={selectedTemplate}
+            onTemplateSelect={handleTemplateSelect}
+            isPremium={isPremium}
+            onUpgradeClick={onUpgrade}
+          />
+        </section>
 
-        {/* Live-preview */}
-        <PreviewContainer
-          previewHTML={previewHTML}
-          templateName={template?.name}
-          isLoading={isLoading}
-          previewError={previewError}
-          hasCV={!!selectedCV}
-        />
+        {/* Steg 3: Granska och anpassa */}
+        <section>
+          <StepHeader
+            number={3}
+            title="Granska och ladda ner"
+            description="Så här kommer ditt CV se ut. Anpassa typsnitt och alternativ innan du laddar ner."
+          />
+          <div className="flex flex-col gap-5">
+            {/* Live-preview */}
+            <PreviewContainer
+              previewHTML={previewHTML}
+              templateName={template?.name}
+              isLoading={isLoading}
+              previewError={previewError}
+              hasCV={!!selectedCV}
+            />
 
-        {/* Mall-info */}
-        <MallInfoCard template={template} />
+            {/* Mall-info */}
+            <MallInfoCard template={template} />
 
-        {/* Toolbar (font + toggles) - placerad direkt over CTA sa
-            anvandaren ser senaste anpassning innan generering */}
-        <MallToolbar
-          template={template}
-          selectedFont={selectedFont}
-          onFontChange={setSelectedFont}
-          includePhoto={includePhoto}
-          onTogglePhoto={() => setIncludePhoto(v => !v)}
-          includeLinkedIn={includeLinkedIn}
-          onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
-          isPremium={isPremium}
-        />
+            {/* Toolbar (font + toggles) - placerad direkt over CTA sa
+                anvandaren ser senaste anpassning innan generering */}
+            <MallToolbar
+              template={template}
+              selectedFont={selectedFont}
+              onFontChange={setSelectedFont}
+              includePhoto={includePhoto}
+              onTogglePhoto={() => setIncludePhoto(v => !v)}
+              includeLinkedIn={includeLinkedIn}
+              onToggleLinkedIn={() => setIncludeLinkedIn(v => !v)}
+              isPremium={isPremium}
+            />
 
-        {/* CTA */}
-        <GenerateButton
-          canGenerate={canGenerate}
-          isGenerating={isGenerating}
-          isLockedPremium={isLockedPremium}
-          onGenerate={handleGenerate}
-          onUpgrade={onUpgrade}
-          templateName={template?.name}
-        />
+            {/* CTA */}
+            <GenerateButton
+              canGenerate={canGenerate}
+              isGenerating={isGenerating}
+              isLockedPremium={isLockedPremium}
+              onGenerate={handleGenerate}
+              onUpgrade={onUpgrade}
+              templateName={template?.name}
+            />
+          </div>
+        </section>
       </div>
     </div>
   );

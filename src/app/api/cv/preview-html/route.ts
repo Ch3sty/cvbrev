@@ -12,17 +12,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getTemplateGenerator } from '@/lib/cv/templates';
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
+import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
 
 interface PreviewRequest {
   template: string;
   cvText?: string;
   /**
-   * Pre-parsed CVMetadata. Om klient har detta tillgangligt (sparad i db
-   * som structured_data) ska det skickas - da slipper vi ParserKalla helt
-   * och fAr exakt samma data som PDF-flow anvander.
+   * Pre-parsed structured data fran db. Kan vara CVMetadata (nyare CV:n)
+   * eller gammal ParsedCV (aldre CV:n) - normalizeStructuredData hanterar
+   * bada formaten och faller tillbaka till regex-parser om strukturen
+   * inte gar att tolka.
    */
-  structuredData?: CVMetadata;
+  structuredData?: unknown;
   templateOptions?: {
     includePhoto?: boolean;
     includeLinkedIn?: boolean;
@@ -50,14 +52,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Inte inloggad' }, { status: 401 });
     }
 
-    // Anvand structuredData direkt om det finns (redan AI-parsed och sparad).
-    // Annars fall back till regex-parser. Same logik som PDF-flow.
-    let cvData: CVMetadata;
+    // Anvand structuredData direkt om det finns OCH ar i ratt format.
+    // Aldre CV:n kan vara sparade i ParsedCV-format - vi normaliserar.
+    // Om data ar trasig faller vi tillbaka till regex-parser pa cvText.
+    let cvData: CVMetadata | null = null;
     if (structuredData) {
-      cvData = structuredData;
-    } else {
+      cvData = normalizeStructuredData(structuredData);
+    }
+    if (!cvData) {
+      if (!cvText) {
+        return NextResponse.json(
+          { error: 'CV-data saknas eller kan inte tolkas' },
+          { status: 400 }
+        );
+      }
       try {
-        cvData = await parseSwedishCVContent(cvText!);
+        cvData = await parseSwedishCVContent(cvText);
       } catch (err) {
         console.error('Fel vid CV-parsing i preview:', err);
         return NextResponse.json(

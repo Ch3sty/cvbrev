@@ -13,6 +13,7 @@ import CvMallarHero from './components/CvMallarHero';
 import MallarLivePreview from './components/MallarLivePreview';
 import CvGenerationOverlay from './components/CvGenerationOverlay';
 import CompactCvPicker from './components/CompactCvPicker';
+import StepHeader from './components/StepHeader';
 
 function CVMallarContent() {
   const searchParams = useSearchParams();
@@ -158,13 +159,18 @@ function CVMallarContent() {
     <CvMallarLayout>
       <CvMallarHero />
 
-      {/* Kompakt CV-vajare - tar lite plats sa fokus ligger pa preview */}
+      {/* Steg 1: Valj CV */}
       <motion.section
         data-flow-section="cv"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
+        <StepHeader
+          number={1}
+          title="Välj vilket CV du vill använda"
+          description="Vi använder innehållet från CV:t i mallen du väljer i nästa steg."
+        />
         <CompactCvPicker
           selectedCV={selectedCV?.id || null}
           onCVSelect={(cvId) => selectCV(cvId)}
