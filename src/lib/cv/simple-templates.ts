@@ -116,6 +116,30 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       supportsLinkedIn: true,
       columns: 2
     }
+  },
+  {
+    id: 'tidlos-formell',
+    name: 'Tidlös',
+    description: 'Klassisk formell mall för juridik, bank och offentlig sektor',
+    imagePath: '/mallar/tidlos-formell.svg',
+    category: 'traditional',
+    tier: 'free',
+    features: {
+      columns: 1
+    }
+  },
+  {
+    id: 'konsult-kompakt',
+    name: 'Konsulten',
+    description: 'Kompakt premium-mall för seniora kandidater med foto och LinkedIn',
+    imagePath: '/mallar/konsult-kompakt.svg',
+    category: 'traditional',
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   }
 ];
 

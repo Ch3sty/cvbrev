@@ -12,6 +12,8 @@ import { platinumExecutiveTemplate } from './platinum-executive/generator';
 import { creativeMinimalTemplate } from './creative-minimal/generator';
 import { sidebarIconsTemplate } from './sidebar-icons/generator';
 import { editorialMagazineTemplate } from './editorial-magazine/generator';
+import { tidlosFormellTemplate } from './tidlos-formell/generator';
+import { konsultKompaktTemplate } from './konsult-kompakt/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -66,7 +68,9 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'platinum-executive': platinumExecutiveTemplate,
   'creative-minimal': creativeMinimalTemplate,
   'sidebar-icons': sidebarIconsTemplate,
-  'editorial-magazine': editorialMagazineTemplate
+  'editorial-magazine': editorialMagazineTemplate,
+  'tidlos-formell': tidlosFormellTemplate,
+  'konsult-kompakt': konsultKompaktTemplate
 } as const;
 
 /**
