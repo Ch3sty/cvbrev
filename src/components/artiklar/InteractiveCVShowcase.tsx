@@ -6,6 +6,7 @@ import { Eye, Crown, ChevronDown, Check, Sparkles, Type, Palette } from 'lucide-
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/templates'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
+import { FONTS } from '@/lib/cv/preview-utils'
 
 // Inbyggd exempeldata - projektledare (brett användbar för artiklar)
 const SHOWCASE_CV = {
@@ -79,20 +80,7 @@ const SHOWCASE_CV = {
   ]
 }
 
-// Font options
-const FONTS = [
-  { id: 'calibri', name: 'Calibri', family: 'Calibri, Arial, sans-serif', category: 'ATS-Säkra', tier: 'free' },
-  { id: 'arial', name: 'Arial', family: 'Arial, Helvetica, sans-serif', category: 'ATS-Säkra', tier: 'free' },
-  { id: 'verdana', name: 'Verdana', family: 'Verdana, Geneva, sans-serif', category: 'ATS-Säkra', tier: 'free' },
-  { id: 'lato', name: 'Lato', family: "'Lato', Arial, sans-serif", category: 'Moderna', tier: 'free' },
-  { id: 'open-sans', name: 'Open Sans', family: "'Open Sans', Arial, sans-serif", category: 'Moderna', tier: 'free' },
-  { id: 'roboto', name: 'Roboto', family: "'Roboto', Arial, sans-serif", category: 'Moderna', tier: 'free' },
-  { id: 'poppins', name: 'Poppins', family: "'Poppins', Arial, sans-serif", category: 'Moderna', tier: 'free' },
-  { id: 'georgia', name: 'Georgia', family: 'Georgia, Times, serif', category: 'Formella', tier: 'free' },
-  { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
-  { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
-]
+// Font options imported from shared preview-utils.ts (single source of truth)
 
 export default function InteractiveCVShowcase() {
   const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')

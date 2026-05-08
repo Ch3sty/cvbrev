@@ -2133,7 +2133,7 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
 
 export async function POST(request: NextRequest) {
   try {
-    const { template, cvText, structuredData, format = 'pdf', colorScheme = 'blue', templateOptions = {} } = await request.json();
+    const { template, cvText, structuredData, format = 'pdf', colorScheme = 'blue', templateOptions = {}, fontFamily } = await request.json();
 
     // DEBUG: Log what the API receives
     console.log('🔍 DEBUG - generate-formatted API: Mottagen data:', {
@@ -2234,7 +2234,17 @@ export async function POST(request: NextRequest) {
     }
     
     // Generera template-specifik HTML baserat på vald mall
-    const html = generateTemplateHTML(extractedCVData, template as CVTemplateType, templateOptions);
+    let html = generateTemplateHTML(extractedCVData, template as CVTemplateType, templateOptions);
+
+    // Applicera anvandarvalt typsnitt om sant. Same teknik som preview pa
+    // klientsidan: injecta CSS-override direkt efter <style>-taggen sa den
+    // vinner specificity-striden mot mallens default-typsnitt.
+    if (fontFamily && typeof fontFamily === 'string') {
+      html = html.replace(
+        /<style>/,
+        `<style>\n  body, body * { font-family: ${fontFamily} !important; }\n  `
+      );
+    }
     
     // Generera PDF med svenska premium-kvalitet
     console.log('Genererar svenskt premium-CV PDF...');

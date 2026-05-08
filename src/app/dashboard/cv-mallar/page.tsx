@@ -10,8 +10,7 @@ import { getTemplateById } from '@/lib/cv/simple-templates';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
-import TemplateGalleryGrid from './components/TemplateGalleryGrid';
-import CvMallarSummary from './components/CvMallarSummary';
+import MallarLivePreview from './components/MallarLivePreview';
 import CvGenerationOverlay from './components/CvGenerationOverlay';
 import CvPickerGrid from '../skapa-brev/components/CvPickerGrid';
 import LetterFlowStepHeader from '../skapa-brev/components/LetterFlowStepHeader';
@@ -30,11 +29,8 @@ function CVMallarContent() {
   const { profile, loading: profileLoading, subscriptionTier } = useProfile();
   const { successWithMascotAndActivity } = useNotification();
 
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
-  const [includePhoto, setIncludePhoto] = useState(true);
-  const [includeLinkedIn, setIncludeLinkedIn] = useState(true);
 
   const isPremium = subscriptionTier === 'premium';
 
@@ -47,7 +43,7 @@ function CVMallarContent() {
     fetchCVs();
   }, [profile, profileLoading, router, fetchCVs]);
 
-  // Auto-välj CV från URL eller senaste, samt default-mall
+  // Auto-vAlj CV frán URL eller senaste
   useEffect(() => {
     if (cvs.length === 0) return;
 
@@ -67,20 +63,22 @@ function CVMallarContent() {
     if (!selectedCV && !cvIdFromUrl) {
       selectCV(cvs[0].id);
     }
-
-    if (!selectedTemplate) {
-      setSelectedTemplate('modern-minimal');
-    }
-  }, [cvs, selectedCV, selectCV, selectedTemplate, cvIdFromUrl]);
+  }, [cvs, selectedCV, selectCV, cvIdFromUrl]);
 
   const handleUpgradeClick = () => {
     router.push('/priser');
   };
 
-  const handleGenerateCV = async () => {
-    if (!selectedTemplate || !selectedCV) return;
+  const handleGenerateCV = async (params: {
+    templateId: string;
+    fontFamily: string;
+    fontId: string;
+    includePhoto: boolean;
+    includeLinkedIn: boolean;
+  }) => {
+    if (!selectedCV) return;
 
-    const template = getTemplateById(selectedTemplate);
+    const template = getTemplateById(params.templateId);
     if (template?.tier === 'premium' && subscriptionTier !== 'premium') {
       handleUpgradeClick();
       return;
@@ -92,24 +90,25 @@ function CVMallarContent() {
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
 
-      // Lasa stOd-flaggor fran mall-registret istallet for hardkodad lista,
-      // sa nya mallar med foto/LinkedIn-stOd respekterar UI-toggles automatiskt.
-      const templateMeta = getTemplateById(selectedTemplate);
-      const supportsPhoto = templateMeta?.features?.supportsPhoto === true;
-      const supportsLinkedIn = templateMeta?.features?.supportsLinkedIn === true;
+      // Anvand features fran mall-registret for att avgora vilka toggles som
+      // ska skickas. Mallar utan stOd far inte options-falt sa generators
+      // anvander default-beteende.
+      const supportsPhoto = template?.features?.supportsPhoto === true;
+      const supportsLinkedIn = template?.features?.supportsLinkedIn === true;
 
       const templateOptions: { includePhoto?: boolean; includeLinkedIn?: boolean } = {};
-      if (supportsPhoto) templateOptions.includePhoto = includePhoto;
-      if (supportsLinkedIn) templateOptions.includeLinkedIn = includeLinkedIn;
+      if (supportsPhoto) templateOptions.includePhoto = params.includePhoto;
+      if (supportsLinkedIn) templateOptions.includeLinkedIn = params.includeLinkedIn;
 
       const response = await fetch('/api/cv/generate-formatted', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          template: selectedTemplate,
+          template: params.templateId,
           cvText: selectedCV.cv_text,
           format: 'pdf',
           templateOptions,
+          fontFamily: params.fontFamily,
         }),
       });
 
@@ -136,7 +135,8 @@ function CVMallarContent() {
         'cv_generated',
         'skapade ett professionellt CV',
         {
-          template: selectedTemplate,
+          template: params.templateId,
+          font: params.fontId,
           cv_id: selectedCV.id,
           file_name: fileName,
         },
@@ -145,7 +145,7 @@ function CVMallarContent() {
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);
       setGenerationError(error?.message || 'Något gick fel. Försök igen.');
-      // Lämnar isGenerating=true så error-vyn syns; stängs av onClose
+      // LAmnar isGenerating=true sa error-vyn syns; stangs av onClose
     }
   };
 
@@ -157,19 +157,19 @@ function CVMallarContent() {
     <CvMallarLayout>
       <CvMallarHero />
 
-      {/* Steg 1: Välj CV */}
+      {/* Steg 1: VAlj CV (kompakt) */}
       <motion.section
         data-flow-section="cv"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
+        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-6"
         style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
       >
         <LetterFlowStepHeader
           stepNumber={1}
           title="Välj ditt CV"
-          description="Innehållet kopieras över till den nya designen."
+          description="Innehållet visas i den nya designen direkt."
           isDone={!!selectedCV}
           isActive={!selectedCV}
         />
@@ -179,43 +179,33 @@ function CVMallarContent() {
         />
       </motion.section>
 
-      {/* Steg 2: Välj design */}
+      {/* Steg 2: Live-preview-vyn med mall-lista, toolbar, info, CTA */}
       <motion.section
         data-flow-section="template"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut', delay: 0.05 }}
-        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
+        className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-6"
         style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
       >
         <LetterFlowStepHeader
           stepNumber={2}
           title="Välj design"
-          description="Alla mallar fungerar för alla yrken."
-          isDone={!!selectedTemplate}
-          isActive={!!selectedCV && !selectedTemplate}
+          description="Bläddra mallar och se din ansökan i realtid."
+          isDone={false}
+          isActive={!!selectedCV}
         />
-        <TemplateGalleryGrid
-          selectedTemplate={selectedTemplate}
-          onTemplateSelect={setSelectedTemplate}
-          isPremium={isPremium}
-          onUpgradeClick={handleUpgradeClick}
-        />
-      </motion.section>
 
-      {/* Summary + Skapa-knapp */}
-      <CvMallarSummary
-        cvName={selectedCV?.file_name?.replace(/\.[^.]+$/, '') || null}
-        templateId={selectedTemplate}
-        isPremium={isPremium}
-        isGenerating={isGenerating}
-        includePhoto={includePhoto}
-        includeLinkedIn={includeLinkedIn}
-        onTogglePhoto={() => setIncludePhoto((v) => !v)}
-        onToggleLinkedIn={() => setIncludeLinkedIn((v) => !v)}
-        onGenerate={handleGenerateCV}
-        onUpgrade={handleUpgradeClick}
-      />
+        <div className="mt-4">
+          <MallarLivePreview
+            selectedCV={selectedCV}
+            isPremium={isPremium}
+            isGenerating={isGenerating}
+            onGenerate={handleGenerateCV}
+            onUpgrade={handleUpgradeClick}
+          />
+        </div>
+      </motion.section>
 
       {/* Generation overlay */}
       <CvGenerationOverlay
