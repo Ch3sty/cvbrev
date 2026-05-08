@@ -38,27 +38,37 @@ function generateCreativeEdgeHTML(cvData: CVMetadata, options: any = {}): string
                 clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
                 padding: 35px 30px 40px 30px;
                 box-sizing: border-box;
+                overflow: hidden;
             }
-            
+
             .header h1 {
                 color: white;
                 font-size: 28px;
                 font-weight: bold;
                 margin: 0 0 8px 0;
                 text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                max-width: 100%;
             }
-            
+
             .header .title {
                 color: rgba(255,255,255,0.9);
                 font-size: 16px;
                 padding: 12px 0;
                 margin: 5px 0;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                max-width: 100%;
             }
-            
+
             .header .contact {
                 color: rgba(255,255,255,0.8);
                 font-size: 14px;
                 margin: 3px 0;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                max-width: 100%;
             }
             
             /* Main content area */

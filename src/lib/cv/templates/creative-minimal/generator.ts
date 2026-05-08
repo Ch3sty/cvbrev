@@ -120,8 +120,9 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             /* Name and Title */
             .name-title-container {
                 flex: 1;
+                min-width: 0;
             }
-            
+
             .name {
                 font-size: 22px; /* Mindre namn */
                 font-weight: 700;
@@ -132,8 +133,11 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 margin-bottom: 6px;
                 display: inline-block;
                 box-shadow: 0 4px 12px rgba(124,58,237,0.2);
+                max-width: 100%;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .header-description {
                 font-size: 13px; /* En storlek mindre än title */
                 color: rgba(124,58,237,0.8); /* Samma färg som title */
@@ -143,6 +147,8 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 margin-bottom: 8px;
                 max-width: 100%;
                 font-weight: 400; /* Normal weight, inte fetstil */
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
             
             .header-accent {

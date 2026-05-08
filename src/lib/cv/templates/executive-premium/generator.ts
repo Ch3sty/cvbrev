@@ -42,8 +42,10 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
+                gap: 20px;
+                overflow: hidden;
             }
-            
+
             .executive-header::after {
                 content: '';
                 position: absolute;
@@ -53,11 +55,12 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 height: 4px;
                 background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
             }
-            
+
             .header-main {
                 flex: 1;
+                min-width: 0;
             }
-            
+
             .header-main h1 {
                 font-size: 32px;
                 font-weight: 700;
@@ -65,8 +68,10 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 margin-bottom: 8px;
                 font-family: 'Georgia', serif;
                 letter-spacing: 0.5px;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .header-contact {
                 flex-shrink: 0;
                 text-align: right;
@@ -75,7 +80,7 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 color: rgba(255, 255, 255, 0.9);
                 margin-top: 5px;
             }
-            
+
             .header-summary {
                 color: rgba(255, 255, 255, 0.9);
                 font-size: 14px;
@@ -84,6 +89,8 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 margin-top: 12px;
                 margin-bottom: 0;
                 font-style: italic;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
             
             /* Content Area */

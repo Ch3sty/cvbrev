@@ -108,8 +108,9 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 top: 50%;
                 transform: translateY(-50%);
                 right: ${includeLinkedIn ? '200px' : '40px'};
+                overflow: hidden;
             }
-            
+
             .executive-name {
                 font-size: 28px;
                 font-weight: 700;
@@ -117,23 +118,35 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 margin-bottom: 8px;
                 line-height: 1.2;
                 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                max-width: 100%;
             }
-            
+
             .executive-title {
                 font-size: 16px;
                 color: rgba(255, 255, 255, 0.9);
                 font-weight: 500;
                 margin-bottom: 4px;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                max-width: 100%;
             }
-            
+
             .executive-summary-brief {
                 font-size: 14px;
                 color: rgba(255, 255, 255, 0.8);
                 line-height: 1.4;
-                max-width: 300px;
+                max-width: 100%;
                 padding: 12px 0;
                 margin-top: 12px;
                 margin-bottom: 0;
+                overflow: hidden;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
             }
             
             /* Contact & LinkedIn Section */

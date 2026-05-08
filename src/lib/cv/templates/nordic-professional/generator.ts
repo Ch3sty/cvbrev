@@ -289,8 +289,10 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
                 position: relative;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .name::after {
                 content: '';
                 position: absolute;
@@ -301,24 +303,28 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 background: linear-gradient(90deg, #d97706, #f59e0b);
                 border-radius: 2px;
             }
-            
+
             .title {
                 font-size: 16px;
                 color: rgba(6, 78, 59, 0.8);
                 font-weight: 600;
                 margin-bottom: 20px;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .summary {
                 font-size: 14px;
                 color: #4a5568;
                 line-height: 1.7;
                 text-align: justify;
                 font-weight: 500;
-                max-width: 450px;
+                max-width: 100%;
                 padding: 12px 0;
                 margin-top: 12px;
                 margin-bottom: 0;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
             
             /* Section Styling */

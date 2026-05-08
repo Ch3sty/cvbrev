@@ -141,22 +141,26 @@ function generateCleanCorporateHTML(cvData: CVMetadata, options: any = {}): stri
                 border-bottom: 2px solid #e2e8f0;
                 padding-bottom: 20px;
             }
-            
+
             .header h1 {
                 color: #1e293b;
                 font-size: 32px;
                 font-weight: 700;
                 margin: 0 0 8px 0;
                 letter-spacing: -0.5px;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .header .title {
                 color: #64748b;
                 font-size: 16px;
                 font-weight: 500;
                 margin-bottom: 12px;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
-            
+
             .header .summary {
                 color: #374151;
                 font-size: 14px;
@@ -164,6 +168,8 @@ function generateCleanCorporateHTML(cvData: CVMetadata, options: any = {}): stri
                 padding: 12px 0;
                 margin-top: 12px;
                 margin-bottom: 0;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
             }
             
             /* Section styling */
