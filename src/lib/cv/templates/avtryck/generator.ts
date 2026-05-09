@@ -43,40 +43,36 @@ function generateAvtryckHTML(cvData: CVMetadata, options: any = {}): string {
                 font-size: 13px;
             }
 
+            /* CV-container: cream background tar hela sidan.
+               Vid PDF-utskrift bryts inte ramar mitt i sektioner tack
+               vare page-break-rules. Ingen absolutpositionerad ram -
+               istallet anvander vi border + outline direkt pa content
+               sa inramningen aterges pa varje sida som genereras. */
             .cv-container {
                 width: 210mm;
                 min-height: 297mm;
                 margin: 0 auto;
                 background: #fef3e8;
-                padding: 30mm 28mm;
-                position: relative;
+                padding: 22mm 20mm;
             }
 
-            /* Decorative outer frame */
-            .frame-outer {
-                position: absolute;
-                top: 22mm;
-                left: 20mm;
-                right: 20mm;
-                bottom: 22mm;
-                border: 1px solid #9a3412;
-                pointer-events: none;
-            }
-
-            .frame-inner {
-                position: absolute;
-                top: 24mm;
-                left: 22mm;
-                right: 22mm;
-                bottom: 24mm;
-                border: 0.5px solid rgba(154, 52, 18, 0.4);
-                pointer-events: none;
-            }
-
+            /* Inner frame: dubbel border via border + outline-offset.
+               Outline ar PDF-sakert och bryts korrekt over sidor. */
             .content {
-                position: relative;
-                z-index: 1;
-                padding: 8mm 10mm;
+                border: 1px solid #9a3412;
+                outline: 0.5px solid rgba(154, 52, 18, 0.4);
+                outline-offset: 4px;
+                padding: 14mm 12mm;
+                background: #fef3e8;
+            }
+
+            /* Forhindra page-break inuti sektioner och experience items
+               sa de inte splittas konstigt mellan sidor. */
+            .section,
+            .experience-item,
+            .education-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
 
             /* Header */
@@ -85,6 +81,8 @@ function generateAvtryckHTML(cvData: CVMetadata, options: any = {}): string {
                 margin-bottom: 28px;
                 padding-bottom: 22px;
                 position: relative;
+                page-break-after: avoid;
+                break-after: avoid;
             }
 
             .header::after {
@@ -360,9 +358,6 @@ function generateAvtryckHTML(cvData: CVMetadata, options: any = {}): string {
     </head>
     <body>
         <div class="cv-container">
-            <div class="frame-outer" aria-hidden="true"></div>
-            <div class="frame-inner" aria-hidden="true"></div>
-
             <div class="content">
                 <header class="header">
                     <h1>${cvData.personalInfo.fullName}</h1>
