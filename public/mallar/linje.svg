@@ -1,0 +1,70 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Linje - monokrom Swiss-design, helt utan accentfärg -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Asymmetrisk header: namn vänster + vertikal linje + kontakt höger -->
+  <rect x="30" y="40" width="140" height="14" fill="#000000"/>
+  <rect x="30" y="62" width="100" height="5" fill="#404040"/>
+
+  <!-- Vertikal divider -->
+  <line x1="190" y1="38" x2="190" y2="80" stroke="#000000" stroke-width="1"/>
+
+  <!-- Höger kontakt-info -->
+  <rect x="200" y="40" width="22" height="3" fill="#888888"/>
+  <rect x="200" y="48" width="68" height="3" fill="#000000"/>
+  <rect x="200" y="56" width="32" height="3" fill="#888888"/>
+  <rect x="200" y="64" width="50" height="3" fill="#000000"/>
+  <rect x="200" y="72" width="20" height="3" fill="#888888"/>
+  <rect x="200" y="80" width="60" height="3" fill="#000000"/>
+
+  <!-- Header underline -->
+  <line x1="30" y1="98" x2="270" y2="98" stroke="#000000" stroke-width="1"/>
+
+  <!-- Sammanfattning -->
+  <rect x="30" y="118" width="220" height="3" fill="#000000"/>
+  <rect x="30" y="126" width="200" height="3" fill="#000000"/>
+  <rect x="30" y="134" width="180" height="3" fill="#000000"/>
+
+  <!-- Sektion: Arbetslivserfarenhet (linje + text) -->
+  <rect x="30" y="160" width="80" height="3" fill="#000000"/>
+  <line x1="118" y1="161.5" x2="270" y2="161.5" stroke="#000000" stroke-width="1"/>
+
+  <!-- Job 1 -->
+  <rect x="30" y="178" width="120" height="4" fill="#000000"/>
+  <rect x="230" y="179" width="40" height="3" fill="#888888"/>
+  <rect x="30" y="188" width="80" height="3" fill="#404040"/>
+  <line x1="30" y1="201" x2="38" y2="201" stroke="#000000" stroke-width="1"/>
+  <rect x="42" y="200" width="220" height="2.5" fill="#000000"/>
+  <line x1="30" y1="209" x2="38" y2="209" stroke="#000000" stroke-width="1"/>
+  <rect x="42" y="208" width="200" height="2.5" fill="#000000"/>
+  <line x1="30" y1="217" x2="38" y2="217" stroke="#000000" stroke-width="1"/>
+  <rect x="42" y="216" width="180" height="2.5" fill="#000000"/>
+
+  <!-- Job 2 -->
+  <rect x="30" y="240" width="100" height="4" fill="#000000"/>
+  <rect x="230" y="241" width="40" height="3" fill="#888888"/>
+  <rect x="30" y="250" width="70" height="3" fill="#404040"/>
+  <line x1="30" y1="263" x2="38" y2="263" stroke="#000000" stroke-width="1"/>
+  <rect x="42" y="262" width="210" height="2.5" fill="#000000"/>
+  <line x1="30" y1="271" x2="38" y2="271" stroke="#000000" stroke-width="1"/>
+  <rect x="42" y="270" width="190" height="2.5" fill="#000000"/>
+
+  <!-- Sektion: Utbildning -->
+  <rect x="30" y="298" width="60" height="3" fill="#000000"/>
+  <line x1="98" y1="299.5" x2="270" y2="299.5" stroke="#000000" stroke-width="1"/>
+  <rect x="30" y="316" width="120" height="4" fill="#000000"/>
+  <rect x="230" y="317" width="40" height="3" fill="#888888"/>
+  <rect x="30" y="326" width="80" height="3" fill="#404040"/>
+
+  <!-- Sektion: Kompetenser (typografisk lista) -->
+  <rect x="30" y="356" width="80" height="3" fill="#000000"/>
+  <line x1="118" y1="357.5" x2="270" y2="357.5" stroke="#000000" stroke-width="1"/>
+
+  <!-- Skill row med label vänster + lista höger -->
+  <rect x="30" y="372" width="40" height="2.5" fill="#888888"/>
+  <rect x="148" y="372" width="120" height="2.5" fill="#000000"/>
+  <rect x="30" y="382" width="48" height="2.5" fill="#888888"/>
+  <rect x="148" y="382" width="100" height="2.5" fill="#000000"/>
+  <rect x="30" y="392" width="36" height="2.5" fill="#888888"/>
+  <rect x="148" y="392" width="110" height="2.5" fill="#000000"/>
+</svg>

@@ -209,6 +209,94 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       ],
     },
   },
+  // === Tredje omgangen nya (maj 2026 vol. 3) ===
+  {
+    id: 'bygg',
+    name: 'Bygg',
+    description: 'Gratis CV-mall för bygg och hantverk med behörighets-sektion och certifikat',
+    imagePath: '/mallar/bygg.svg',
+    category: 'traditional',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Snickare', 'Elektriker', 'VVS', 'Målare', 'Plåtslagare', 'Byggjobbare'],
+      strengths: [
+        'Behörigheter & körkort i framträdande block direkt efter sammanfattning',
+        'Auto-genererad pill-rad över arbetsplatser och byggprojekt',
+        '"Yrkeserfarenhet" istället för arbetslivserfarenhet — mer naturligt',
+        'Tjock orange-accent under header signalerar bygg-DNA',
+      ],
+    },
+  },
+  {
+    id: 'forskare',
+    name: 'Forskare',
+    description: 'Premium-mall för forskare och doktorander med publikationer och stipendier',
+    imagePath: '/mallar/forskare.svg',
+    category: 'traditional',
+    tier: 'premium',
+    features: {
+      supportsPhoto: false,
+      supportsLinkedIn: true,
+      columns: 2,
+      atsSafe: true,
+    },
+    metadata: {
+      suitableFor: ['Doktorander', 'Postdocs', 'Forskningsledare', 'Professorer', 'Lektorer'],
+      strengths: [
+        'Centrerad serif-header följer akademisk konvention',
+        '"Forskningserfarenhet" och 65/35 layout för publikationer i sidopanel',
+        'Auto-genererad sektion "Senaste publikationer" från projekt-data',
+        'Subtil indigo-accent — akademisk auktoritet utan att vara stiff',
+      ],
+    },
+  },
+  {
+    id: 'servering',
+    name: 'Servering',
+    description: 'Premium-mall för restaurang, hotell och service med språk och diplom i fokus',
+    imagePath: '/mallar/servering.svg',
+    category: 'modern',
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2,
+      atsSafe: true,
+    },
+    metadata: {
+      suitableFor: ['Kockar', 'Servitörer', 'Baristas', 'Hovmästare', 'Hotell', 'Restaurangchefer'],
+      strengths: [
+        'Champagne-färgad sidopanel ger gastronomi-vibe utan klyschor',
+        'Språk högst upp i sidopanelen — kritiskt för service-yrken',
+        '"Branscherfarenhet" istället för arbetslivserfarenhet',
+        'Auto-genererad lista över unika restauranger och hotell',
+      ],
+    },
+  },
+  {
+    id: 'linje',
+    name: 'Linje',
+    description: 'Minimalistisk Swiss-design — helt monokrom, ingen accentfärg',
+    imagePath: '/mallar/linje.svg',
+    category: 'modern',
+    tier: 'premium',
+    features: {
+      supportsPhoto: false,
+      supportsLinkedIn: true,
+      columns: 1,
+      atsSafe: true,
+    },
+    metadata: {
+      suitableFor: ['Arkitekter', 'Design leads', 'Redaktörer', 'Intellektuella roller'],
+      strengths: [
+        'Helt monokrom — bara svart, vit och två gråtoner',
+        'Asymmetrisk header med vertikal divider mellan namn och kontakt',
+        'Helvetica Neue + hairline-linjer i klassisk Swiss-stil',
+        'Sticker ut genom att INTE sticka ut — innehållet talar',
+      ],
+    },
+  },
   // === Befintliga mallar ===
   {
     id: 'sidebar-icons',

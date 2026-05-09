@@ -18,6 +18,10 @@ import { pedagogTemplate } from './pedagog/generator';
 import { aspektTemplate } from './aspekt/generator';
 import { klinikTemplate } from './klinik/generator';
 import { skymningTemplate } from './skymning/generator';
+import { byggTemplate } from './bygg/generator';
+import { forskareTemplate } from './forskare/generator';
+import { serveringTemplate } from './servering/generator';
+import { linjeTemplate } from './linje/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -78,7 +82,11 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'pedagog': pedagogTemplate,
   'aspekt': aspektTemplate,
   'klinik': klinikTemplate,
-  'skymning': skymningTemplate
+  'skymning': skymningTemplate,
+  'bygg': byggTemplate,
+  'forskare': forskareTemplate,
+  'servering': serveringTemplate,
+  'linje': linjeTemplate
 } as const;
 
 /**

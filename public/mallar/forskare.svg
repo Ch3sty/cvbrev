@@ -1,0 +1,72 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Forskare - centrerad serif med 65/35 + indigo accent -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Centrerad header -->
+  <rect x="80" y="34" width="140" height="13" fill="#0f172a" rx="1"/>
+  <rect x="100" y="55" width="100" height="5" fill="#3730a3" rx="0.5"/>
+  <rect x="60" y="72" width="180" height="3" fill="#475569" rx="0.5"/>
+  <line x1="30" y1="90" x2="270" y2="90" stroke="#3730a3" stroke-width="1.2"/>
+
+  <!-- Sammanfattning -->
+  <rect x="30" y="104" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="112" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="120" width="220" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- Vänster: Forskningserfarenhet -->
+  <rect x="30" y="148" width="100" height="3" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="158" x2="190" y2="158" stroke="#3730a3" stroke-width="1"/>
+
+  <!-- Job 1 -->
+  <rect x="30" y="170" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="155" y="171" width="35" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="30" y="180" width="80" height="3" fill="#3730a3" rx="0.5"/>
+  <rect x="32" y="193" width="3" height="3" fill="#3730a3"/>
+  <rect x="42" y="192" width="148" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="32" y="201" width="3" height="3" fill="#3730a3"/>
+  <rect x="42" y="200" width="135" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="32" y="209" width="3" height="3" fill="#3730a3"/>
+  <rect x="42" y="208" width="120" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Job 2 -->
+  <rect x="30" y="232" width="90" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="155" y="233" width="35" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="30" y="242" width="70" height="3" fill="#3730a3" rx="0.5"/>
+  <rect x="32" y="255" width="3" height="3" fill="#3730a3"/>
+  <rect x="42" y="254" width="140" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Vänster: Utbildning -->
+  <rect x="30" y="284" width="60" height="3" fill="#0f172a" rx="0.5"/>
+  <line x1="30" y1="294" x2="190" y2="294" stroke="#3730a3" stroke-width="1"/>
+  <rect x="30" y="306" width="120" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="155" y="307" width="35" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="30" y="316" width="100" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- Höger: Senaste publikationer -->
+  <rect x="200" y="148" width="65" height="3" fill="#0f172a" rx="0.5"/>
+  <line x1="200" y1="156" x2="270" y2="156" stroke="#e5e7eb" stroke-width="0.8"/>
+  <rect x="200" y="164" width="60" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="172" width="65" height="2.5" fill="#64748b" rx="0.5"/>
+  <rect x="200" y="184" width="55" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="192" width="60" height="2.5" fill="#64748b" rx="0.5"/>
+  <rect x="200" y="204" width="62" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="212" width="58" height="2.5" fill="#64748b" rx="0.5"/>
+  <rect x="200" y="224" width="50" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="232" width="55" height="2.5" fill="#64748b" rx="0.5"/>
+
+  <!-- Höger: Stipendier -->
+  <rect x="200" y="252" width="65" height="3" fill="#0f172a" rx="0.5"/>
+  <line x1="200" y1="260" x2="270" y2="260" stroke="#e5e7eb" stroke-width="0.8"/>
+  <rect x="200" y="268" width="55" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="276" width="48" height="2.5" fill="#64748b" rx="0.5"/>
+  <rect x="200" y="288" width="60" height="3" fill="#0f172a" rx="0.5"/>
+  <rect x="200" y="296" width="50" height="2.5" fill="#64748b" rx="0.5"/>
+
+  <!-- Höger: Forskningsområden -->
+  <rect x="200" y="316" width="70" height="3" fill="#0f172a" rx="0.5"/>
+  <line x1="200" y1="324" x2="270" y2="324" stroke="#e5e7eb" stroke-width="0.8"/>
+  <rect x="200" y="332" width="65" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="200" y="339" width="55" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="200" y="346" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="200" y="353" width="50" height="2.5" fill="#1f2937" rx="0.5"/>
+</svg>
