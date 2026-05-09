@@ -1,0 +1,88 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pedagog - sidopanel salviegrön + main för lärare -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Sidopanel salviegrön -->
+  <rect x="0" y="0" width="105" height="400" fill="#84a98c"/>
+
+  <!-- Foto cirkel -->
+  <circle cx="52" cy="44" r="22" fill="white" opacity="0.95"/>
+  <circle cx="52" cy="44" r="20" fill="#cbd5e1"/>
+
+  <!-- Sidopanel: Kontakt -->
+  <rect x="14" y="82" width="50" height="3" fill="white" opacity="0.95"/>
+  <line x1="14" y1="91" x2="92" y2="91" stroke="white" opacity="0.4"/>
+  <rect x="14" y="98" width="80" height="2.5" fill="white" opacity="0.92"/>
+  <rect x="14" y="105" width="60" height="2.5" fill="white" opacity="0.92"/>
+  <rect x="14" y="112" width="70" height="2.5" fill="white" opacity="0.92"/>
+  <rect x="14" y="119" width="55" height="2.5" fill="white" opacity="0.92"/>
+
+  <!-- Sidopanel: Behörigheter -->
+  <rect x="14" y="142" width="60" height="3" fill="white" opacity="0.95"/>
+  <line x1="14" y1="151" x2="92" y2="151" stroke="white" opacity="0.4"/>
+  <circle cx="20" cy="161" r="3" fill="white" opacity="0.4"/>
+  <rect x="27" y="160" width="60" height="2.5" fill="white" opacity="0.92"/>
+  <circle cx="20" cy="173" r="3" fill="white" opacity="0.4"/>
+  <rect x="27" y="172" width="68" height="2.5" fill="white" opacity="0.92"/>
+  <circle cx="20" cy="185" r="3" fill="white" opacity="0.4"/>
+  <rect x="27" y="184" width="55" height="2.5" fill="white" opacity="0.92"/>
+
+  <!-- Sidopanel: Kompetensområden -->
+  <rect x="14" y="208" width="70" height="3" fill="white" opacity="0.95"/>
+  <line x1="14" y1="217" x2="92" y2="217" stroke="white" opacity="0.4"/>
+  <rect x="14" y="225" width="80" height="2.5" fill="white" opacity="0.9"/>
+  <rect x="14" y="232" width="65" height="2.5" fill="white" opacity="0.9"/>
+  <rect x="14" y="239" width="75" height="2.5" fill="white" opacity="0.9"/>
+  <rect x="14" y="246" width="50" height="2.5" fill="white" opacity="0.9"/>
+  <rect x="14" y="253" width="80" height="2.5" fill="white" opacity="0.9"/>
+
+  <!-- Sidopanel: Skolor -->
+  <rect x="14" y="278" width="55" height="3" fill="white" opacity="0.95"/>
+  <line x1="14" y1="287" x2="92" y2="287" stroke="white" opacity="0.4"/>
+  <rect x="14" y="295" width="78" height="2.5" fill="white" opacity="0.85"/>
+  <rect x="14" y="302" width="65" height="2.5" fill="white" opacity="0.85"/>
+  <rect x="14" y="309" width="72" height="2.5" fill="white" opacity="0.85"/>
+
+  <!-- Main: Header -->
+  <rect x="118" y="32" width="120" height="11" fill="#1f2937" rx="1"/>
+  <rect x="118" y="50" width="80" height="5" fill="#5d8a6e" rx="1"/>
+  <line x1="118" y1="68" x2="280" y2="68" stroke="#84a98c" stroke-width="1.5"/>
+
+  <!-- Sammanfattning -->
+  <rect x="118" y="80" width="160" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="118" y="88" width="155" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="118" y="96" width="140" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- Sektion: Pedagogisk erfarenhet -->
+  <rect x="118" y="120" width="100" height="4" fill="#1f2937" rx="0.5"/>
+  <line x1="118" y1="130" x2="280" y2="130" stroke="#84a98c" stroke-width="1.2"/>
+
+  <!-- Job 1 -->
+  <rect x="118" y="142" width="100" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="240" y="143" width="40" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="118" y="152" width="80" height="3" fill="#5d8a6e" rx="0.5"/>
+  <circle cx="121" cy="165" r="2" fill="#84a98c"/>
+  <rect x="128" y="163" width="148" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="121" cy="173" r="2" fill="#84a98c"/>
+  <rect x="128" y="171" width="135" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Job 2 -->
+  <line x1="118" y1="190" x2="280" y2="190" stroke="#f1f5f9" stroke-width="1"/>
+  <rect x="118" y="200" width="90" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="240" y="201" width="40" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="118" y="210" width="70" height="3" fill="#5d8a6e" rx="0.5"/>
+  <circle cx="121" cy="223" r="2" fill="#84a98c"/>
+  <rect x="128" y="221" width="140" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Sektion: Utbildning -->
+  <rect x="118" y="252" width="60" height="4" fill="#1f2937" rx="0.5"/>
+  <line x1="118" y1="262" x2="280" y2="262" stroke="#84a98c" stroke-width="1.2"/>
+
+  <rect x="118" y="274" width="120" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="240" y="275" width="40" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="118" y="284" width="80" height="3" fill="#475569" rx="0.5"/>
+
+  <rect x="118" y="305" width="110" height="4" fill="#1f2937" rx="0.5"/>
+  <rect x="240" y="306" width="40" height="3" fill="#64748b" rx="0.5"/>
+  <rect x="118" y="315" width="75" height="3" fill="#475569" rx="0.5"/>
+</svg>

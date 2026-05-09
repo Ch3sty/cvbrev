@@ -87,16 +87,6 @@ function generateAtlasHTML(cvData: CVMetadata, _options: any = {}): string {
                 word-wrap: break-word;
             }
 
-            .eyebrow-label {
-                font-family: 'Source Sans Pro', 'Calibri', sans-serif;
-                font-size: 10px;
-                font-weight: 700;
-                color: #a88b5c;
-                text-transform: uppercase;
-                letter-spacing: 0.32em;
-                margin-bottom: 14px;
-            }
-
             .meta-line {
                 font-size: 12px;
                 color: #475569;
@@ -347,7 +337,6 @@ function generateAtlasHTML(cvData: CVMetadata, _options: any = {}): string {
         <div class="cv-container">
             <!-- Header (centrerad) -->
             <header class="header">
-                <div class="eyebrow-label">Executive Profile</div>
                 <h1>${cvData.personalInfo.fullName}</h1>
                 ${cvData.personalInfo.title ? `<div class="role">${cvData.personalInfo.title}</div>` : ''}
                 <div class="meta-line">

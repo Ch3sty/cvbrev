@@ -14,6 +14,10 @@ import { norrskenTemplate } from './norrsken/generator';
 import { auroraTemplate } from './aurora/generator';
 import { atlasTemplate } from './atlas/generator';
 import { galleriTemplate } from './galleri/generator';
+import { pedagogTemplate } from './pedagog/generator';
+import { aspektTemplate } from './aspekt/generator';
+import { klinikTemplate } from './klinik/generator';
+import { skymningTemplate } from './skymning/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -70,7 +74,11 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'norrsken': norrskenTemplate,
   'aurora': auroraTemplate,
   'atlas': atlasTemplate,
-  'galleri': galleriTemplate
+  'galleri': galleriTemplate,
+  'pedagog': pedagogTemplate,
+  'aspekt': aspektTemplate,
+  'klinik': klinikTemplate,
+  'skymning': skymningTemplate
 } as const;
 
 /**
