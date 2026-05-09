@@ -143,7 +143,7 @@ export default function GalleriPageContent({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-                {isCV ? 'CV-mallar' : 'Personligt brev-mallar'} och exempel:{' '}
+                {isCV ? `${yrken.length} CV-exempel.` : 'Personligt brev-mallar och exempel:'}{' '}
                 <span
                   style={{
                     background:
@@ -153,13 +153,13 @@ export default function GalleriPageContent({
                     backgroundClip: 'text',
                   }}
                 >
-                  {yrken.length} yrken (gratis)
+                  {isCV ? 'Ett för ditt yrke.' : `${yrken.length} yrken (gratis)`}
                 </span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
                 {isCV
-                  ? 'Hitta rätt CV-mall för ditt yrke. Färdiga, ATS-optimerade exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor som du kan använda som mall för ditt eget CV.'
+                  ? 'Inspiration för ditt eget CV. Se färdiga, ATS-optimerade CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor — perfekta att utgå från för din egen jobbansökan.'
                   : 'Hitta rätt mall för ditt personliga brev. Färdiga exempel skrivna med rätt ton, struktur och nyckelord för svenska rekryterare som du kan använda som mall för ditt eget brev.'}
               </p>
 

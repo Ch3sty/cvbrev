@@ -12,13 +12,13 @@ const ANTAL_CV = CV_GALLERI.length
 
 export function generateMetadata(): Metadata {
   return {
-    title: `CV-mallar: ${ANTAL_CV} ATS-optimerade exempel för svenska yrken | Jobbcoach.ai`,
-    description: `${ANTAL_CV} färdiga CV-mallar och exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor. ATS-optimerade och gratis att använda som mall för ditt eget CV.`,
+    title: `${ANTAL_CV} CV-exempel för svenska yrken 2026 — gratis och ATS-optimerade | Jobbcoach.ai`,
+    description: `Se färdiga CV-exempel för ${ANTAL_CV} svenska yrken — vård, tech, ekonomi, service, utbildning och offentlig sektor. Lärorika exempel för din egen jobbansökan.`,
     keywords:
-      'cv mall, cv mall gratis, gratis cv mall, cv mallar, cv mall ladda ner, cv mall word, cv exempel, ats-optimerat cv, professionellt cv, svenska cv, jobbansökan',
+      'cv exempel, exempel cv, bra cv exempel, cv exempel student, cv exempel säljare, cv exempel barnskötare, ats-optimerat cv, professionellt cv, svenska cv, jobbansökan',
     openGraph: {
-      title: `${ANTAL_CV} CV-mallar och exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Färdiga CV-mallar för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/cv-exempel',
@@ -26,8 +26,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_CV} CV-mallar och exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Färdiga CV-mallar för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
+      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
+      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/cv-exempel',
@@ -40,13 +40,13 @@ export default function CVExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'CV-mallar och exempel för svenska yrken',
-    description: `Bibliotek med ${ANTAL_CV} CV-mallar och exempel för yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    name: 'CV-exempel för svenska yrken',
+    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
     numberOfItems: CV_GALLERI.length,
     itemListElement: CV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
-      name: `CV-mall: ${y.namn}`,
+      name: `CV-exempel: ${y.namn}`,
       url: `https://www.jobbcoach.ai/cv-exempel/${y.slug}`,
     })),
   }

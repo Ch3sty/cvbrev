@@ -1,6 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { ArrowRight, FileText } from 'lucide-react'
 
 import CompleteApplicationPackage from '@/components/CompleteApplicationPackage'
 
@@ -13,6 +15,7 @@ import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
 import FinalCTA from '@/components/exempel-shared/FinalCTA'
 import CvPreviewShell from '@/components/cv-exempel-shared/CvPreviewShell'
+import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data'
 
 // Lazy-load InteractiveCVPreview för Page Speed
 const InteractiveCVPreview = dynamic(() => import('./InteractiveCVPreview'), {
@@ -164,6 +167,39 @@ export default function CVExempelPage({
               {data.seoIntro.split('\n\n').map((paragraph, pIdx) => (
                 <p key={pIdx}>{paragraph.trim()}</p>
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* Cross-link till motsvarande CV-mall (om vi har en yrkesmall för detta yrke) */}
+        {YRKESMALL_SLUGS.includes(slug) && (
+          <section className="rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-6 sm:p-8">
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+              <span
+                className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-white"
+                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+              >
+                <FileText className="w-6 h-6" strokeWidth={2.4} />
+              </span>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1 leading-tight">
+                  Letar du efter en CV-mall för {data.yrke.toLowerCase()}?
+                </h2>
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                  Vi har en specialiserad mall med rätt sektioner och rekryterar-tips för {data.yrke.toLowerCase()}.
+                </p>
+              </div>
+              <Link
+                href={`/cv-mallar/${slug}`}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-white font-bold text-sm hover:shadow-xl transition-all whitespace-nowrap"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.4)',
+                }}
+              >
+                Se mallen
+                <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+              </Link>
             </div>
           </section>
         )}

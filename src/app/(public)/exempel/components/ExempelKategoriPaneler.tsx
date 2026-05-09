@@ -17,7 +17,7 @@ export default function ExempelKategoriPaneler() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Två mall-bibliotek.{' '}
+            Två exempel-bibliotek.{' '}
             <span
               style={{
                 background:
@@ -27,12 +27,19 @@ export default function ExempelKategoriPaneler() {
                 backgroundClip: 'text',
               }}
             >
-              En mall för varje yrke.
+              Ett exempel för varje yrke.
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Välj om du behöver en CV-mall eller en mall för personligt brev.
-            Båda är ATS-säkra och anpassade för svenska arbetsgivare.
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-3">
+            Välj om du behöver ett CV-exempel eller ett exempel på personligt brev.
+            Alla är ATS-säkra och anpassade för svenska arbetsgivare.
+          </p>
+          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
+            Letar du efter en{' '}
+            <Link href="/cv-mallar" className="text-orange-700 font-bold underline underline-offset-2 hover:text-orange-800">
+              CV-mall
+            </Link>
+            {' '}istället? Vi har 25+ designer att välja mellan.
           </p>
         </motion.div>
 
@@ -78,16 +85,16 @@ export default function ExempelKategoriPaneler() {
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 leading-tight tracking-tight">
-                CV-mallar
+                CV-exempel
               </h3>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-5">
-                Se hur en professionell CV-mall ser ut för just ditt yrke. Rätt
-                struktur, rätt nyckelord, rätt kvantifierade resultat. Allt
-                för att passera ATS och fånga rekryterarens öga.
+                Se färdiga CV-exempel för just ditt yrke. Rätt struktur,
+                rätt nyckelord, rätt kvantifierade resultat. Allt för att
+                passera ATS och fånga rekryterarens öga.
               </p>
 
               <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-base group-hover:gap-2.5 transition-all">
-                Se alla CV-mallar
+                Se alla CV-exempel
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </span>
             </Link>

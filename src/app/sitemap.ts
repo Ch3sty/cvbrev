@@ -2,6 +2,7 @@
 import { MetadataRoute } from 'next';
 import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
+import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
@@ -48,8 +49,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/cv-mallar`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
+      changeFrequency: 'weekly',
+      priority: 0.95, // Huvudhub fOr "cv mall"-sokintent
     },
     {
       url: `${baseUrl}/cv-exempel`,
@@ -356,7 +357,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // 7. Kombinera alla sidor
+  // 7. Yrkesmall-sidor (/cv-mallar/[yrke]) - dedikerade fOr "cv mall {yrke}"-sokintent
+  const yrkesmallPages: MetadataRoute.Sitemap = YRKESMALL_SLUGS.map((slug) => ({
+    url: `${baseUrl}/cv-mallar/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  // 8. Kombinera alla sidor
   return [
     ...staticPages,
     ...verktygPages,
@@ -365,5 +374,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...brevExempelPages,
     ...cvKategoriPages,
     ...brevKategoriPages,
+    ...yrkesmallPages,
   ];
 }

@@ -1,11 +1,28 @@
 /**
- * /verktyg/cv-mallar - landningssida i orange/rod-DNA.
+ * /verktyg/cv-mallar - produktdemo-landningssida i orange/rod-DNA.
+ *
+ * SEO-roll: produkt-/funktionsdemo, INTE huvudsidan fOr "cv mall"-sokintent.
+ * Den huvudsidan ar /cv-mallar (kortare URL, optimerad fOr sokord).
+ * Darfor sätter vi canonical till /cv-mallar sa Google forstar att
+ * /verktyg/cv-mallar ar en alternativ vy och inte ska konkurrera om ranking.
+ *
  * Sektioner: Hero med live-demo -> Sa funkar det -> Mall-galleri ->
  * Vad du far -> Resultat-bevis -> FAQ -> CTA-band.
  * SEO: ItemList (dynamisk fran SIMPLE_TEMPLATES) + HowTo + FAQPage.
  */
+import type { Metadata } from 'next'
 import Breadcrumb from '@/components/Breadcrumb'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+
+export const metadata: Metadata = {
+  title: 'CV-mallar — verktyg och funktion | Jobbcoach.ai',
+  description:
+    'Funktionsdemo för Jobbcoach.ai:s CV-mallverktyg. Se hur du väljer mall, fyller i uppgifter och laddar ner färdig PDF.',
+  alternates: {
+    canonical: 'https://www.jobbcoach.ai/cv-mallar',
+  },
+  robots: { index: true, follow: true },
+}
 import CVMallarHero from './components/CVMallarHero'
 import CVMallarHurFunkar from './components/CVMallarHurFunkar'
 import CVMallarGalleri from './components/CVMallarGalleri'
