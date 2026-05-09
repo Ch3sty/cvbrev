@@ -56,7 +56,8 @@
       "Bash(xargs -I{} git show --name-only --format=\"\" {})",
       "Bash(git -C /c/Users/chris/cvbrev log --diff-filter=A --format=\"%ad\" --date=format:\"%Y-%m-%d\" --name-only -- \"content/artiklar/*.mdx\")",
       "Read(//c/Users/chris/cvbrev/**)",
-      "Bash(sort -k2)"
+      "Bash(sort -k2)",
+      "PowerShell(grep -E \"\\(styrkor-svagheter|hur-ska-ett-cv|hur-skriver-man-ett-personligt|skriva-personligt|online-cv|vad-ar-en-jobbcoach|vad-ar-ett-personligt|rubrik|fardigheter-cv|bild-i-cv|kompetensbaserad|personligt-brev-pa-engelska|cover-letter|hur-avslutar-man\\)\")"
     ],
     "deny": [],
     "ask": []

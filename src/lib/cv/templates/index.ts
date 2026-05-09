@@ -2,14 +2,6 @@ import type { CVTemplateType } from '@/lib/cv/cv-metadata';
 import type { CVTemplateGenerator } from './base/template-base';
 
 // Import all template generators
-import { modernMinimalTemplate } from './modern-minimal/generator';
-import { classicProfessionalTemplate } from './classic-professional/generator';
-import { cleanCorporateTemplate } from './clean-corporate/generator';
-import { creativeEdgeTemplate } from './creative-edge/generator';
-import { executivePremiumTemplate } from './executive-premium/generator';
-import { nordicProfessionalTemplate } from './nordic-professional/generator';
-import { platinumExecutiveTemplate } from './platinum-executive/generator';
-import { creativeMinimalTemplate } from './creative-minimal/generator';
 import { sidebarIconsTemplate } from './sidebar-icons/generator';
 import { editorialMagazineTemplate } from './editorial-magazine/generator';
 import { tidlosFormellTemplate } from './tidlos-formell/generator';
@@ -18,6 +10,10 @@ import { stackDeveloperTemplate } from './stack-developer/generator';
 import { boldModernTemplate } from './bold-modern/generator';
 import { studentStartupTemplate } from './student-startup/generator';
 import { vardenOmsorgTemplate } from './varden-omsorg/generator';
+import { norrskenTemplate } from './norrsken/generator';
+import { auroraTemplate } from './aurora/generator';
+import { atlasTemplate } from './atlas/generator';
+import { galleriTemplate } from './galleri/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -63,14 +59,6 @@ const createDefaultTemplate = (templateId: CVTemplateType): CVTemplateGenerator 
  * Registry of all available template generators
  */
 export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = {
-  'modern-minimal': modernMinimalTemplate,
-  'classic-professional': classicProfessionalTemplate,
-  'clean-corporate': cleanCorporateTemplate,
-  'creative-edge': creativeEdgeTemplate,
-  'executive-premium': executivePremiumTemplate,
-  'nordic-professional': nordicProfessionalTemplate,
-  'platinum-executive': platinumExecutiveTemplate,
-  'creative-minimal': creativeMinimalTemplate,
   'sidebar-icons': sidebarIconsTemplate,
   'editorial-magazine': editorialMagazineTemplate,
   'tidlos-formell': tidlosFormellTemplate,
@@ -78,7 +66,11 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'stack-developer': stackDeveloperTemplate,
   'bold-modern': boldModernTemplate,
   'student-startup': studentStartupTemplate,
-  'varden-omsorg': vardenOmsorgTemplate
+  'varden-omsorg': vardenOmsorgTemplate,
+  'norrsken': norrskenTemplate,
+  'aurora': auroraTemplate,
+  'atlas': atlasTemplate,
+  'galleri': galleriTemplate
 } as const;
 
 /**

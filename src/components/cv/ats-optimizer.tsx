@@ -464,21 +464,14 @@ function analyzeKeywords(cvText: string, analysis: ATSOptimization) {
 }
 
 function analyzeFormat(selectedTemplate: string | null, analysis: ATSOptimization) {
-  if (selectedTemplate === 'clean-corporate') {
+  const atsSafeTemplates = ['norrsken', 'tidlos-formell', 'sidebar-icons', 'stack-developer', 'student-startup'];
+  if (selectedTemplate && atsSafeTemplates.includes(selectedTemplate)) {
     analysis.suggestions.push({
       type: 'format',
       title: 'Perfekt mallval för ATS',
-      description: 'Du använder redan den mest ATS-vänliga mallen',
+      description: 'Du använder en av de mest ATS-vänliga mallarna',
       impact: 'high',
       swedishRelevance: 95
-    });
-  } else if (selectedTemplate === 'creative-edge') {
-    analysis.issues.push({
-      type: 'warning',
-      category: 'format',
-      title: 'Kreativ mall kan orsaka ATS-problem',
-      description: 'Komplexa layouter kan vara svåra for ATS-system att läsa',
-      fix: 'Överväg att byta till "ATS-Optimerad" mall för bättre genomslagskraft'
     });
   }
 }

@@ -24,22 +24,22 @@ const SECTIONS = [
 
 const PREVIEW_TEMPLATES = [
   {
-    slug: 'classic-professional',
-    label: 'Klassisk Professionell',
+    slug: 'norrsken',
+    label: 'Norrsken',
     rotate: -6,
     offset: 'left-0',
     premium: false,
   },
   {
-    slug: 'executive-premium',
-    label: 'Executive Premium',
+    slug: 'atlas',
+    label: 'Atlas',
     rotate: 0,
     offset: 'left-1/2 -translate-x-1/2 z-10',
     premium: true,
   },
   {
-    slug: 'nordic-professional',
-    label: 'Nordic Professional',
+    slug: 'aurora',
+    label: 'Aurora',
     rotate: 6,
     offset: 'right-0',
     premium: true,

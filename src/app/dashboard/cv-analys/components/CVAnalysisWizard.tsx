@@ -112,7 +112,7 @@ export default function CVAnalysisWizard({
   const [savedFileName, setSavedFileName] = useState('');
 
   const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('norrsken');
   const [customCVName, setCustomCVName] = useState('');
 
   const [showSaveProgress, setShowSaveProgress] = useState(false);

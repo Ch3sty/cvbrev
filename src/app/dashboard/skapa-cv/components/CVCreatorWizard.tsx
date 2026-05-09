@@ -154,7 +154,7 @@ export default function CVCreatorWizard() {
   const [cvData, setCVData] = useState<CVDraft>(initialCVDraft);
 
   // Template selection state (for step 7)
-  const [selectedTemplate, setSelectedTemplate] = useState<string>('modern-minimal');
+  const [selectedTemplate, setSelectedTemplate] = useState<string>('norrsken');
 
   // Saving state
   const [isSaving, setIsSaving] = useState(false);

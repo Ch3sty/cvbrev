@@ -23,21 +23,23 @@ export function optimizeContentForTemplate(cvData: CVMetadata, templateId: strin
   const optimizedData = JSON.parse(JSON.stringify(cvData)) as CVMetadata;
   
   switch (templateId) {
-    case 'modern-minimal':
+    case 'stack-developer':
       return optimizeForTechTemplate(optimizedData);
-    
-    case 'creative-edge':
+
+    case 'galleri':
       return optimizeForCreativeTemplate(optimizedData);
-    
-    case 'clean-corporate':
+
+    case 'aurora':
+    case 'sidebar-icons':
       return optimizeForATSTemplate(optimizedData);
-    
-    case 'executive-premium':
+
+    case 'atlas':
+    case 'tidlos-formell':
       return optimizeForAcademicTemplate(optimizedData);
-    
-    case 'classic-professional':
+
+    case 'norrsken':
       return optimizeForClassicTemplate(optimizedData);
-    
+
     // Legacy support - redirect to modern equivalents
     case 'modern':
     case 'modern-tech':
@@ -51,7 +53,7 @@ export function optimizeContentForTemplate(cvData: CVMetadata, templateId: strin
     case 'klassisk':
     case 'minimalistisk':
       return optimizeForClassicTemplate(optimizedData);
-    
+
     default:
       return optimizedData;
   }

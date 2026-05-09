@@ -60,7 +60,7 @@ const FONTS = [
 ]
 
 export default function InteractiveCVPreview({ exempelCV, initialHTML }: InteractiveCVPreviewProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')
+  const [selectedTemplate, setSelectedTemplate] = useState('norrsken')
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
   const [isFontOpen, setIsFontOpen] = useState(false)

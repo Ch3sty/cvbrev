@@ -16,12 +16,12 @@ import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
  * automatiskt om man uppdaterar DEMO_TEMPLATE_IDS.
  */
 
-// Plocka 4 representativa mallar att rotera genom (1 modern, 1 traditionell, 1 kreativ, 1 premium)
+// Plocka 4 representativa mallar att rotera genom (1 modern free, 1 modern premium, 1 traditional premium, 1 creative premium)
 const DEMO_TEMPLATE_IDS = [
-  'modern-minimal',
-  'classic-professional',
-  'creative-edge',
-  'executive-premium',
+  'norrsken',
+  'aurora',
+  'atlas',
+  'galleri',
 ]
 
 const DEMO_TEMPLATES = DEMO_TEMPLATE_IDS.map((id) =>

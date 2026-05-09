@@ -203,10 +203,9 @@ export default function CVExportOptions({
 
       const fileName = `${generateFilename()}.${selectedFormat}`;
 
-      // Template options for customizable templates
-      const templateOptions = (selectedTemplate === 'platinum-executive' ||
-                              selectedTemplate === 'nordic-professional' ||
-                              selectedTemplate === 'creative-minimal') ? {
+      // Template options for customizable templates (foto + LinkedIn)
+      const customizableTemplates = ['aurora', 'galleri', 'konsult-kompakt', 'editorial-magazine', 'bold-modern', 'varden-omsorg'];
+      const templateOptions = (selectedTemplate && customizableTemplates.includes(selectedTemplate)) ? {
         includePhoto: true,
         includeLinkedIn: true
       } : {};

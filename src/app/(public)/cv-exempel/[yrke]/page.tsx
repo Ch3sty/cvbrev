@@ -20053,7 +20053,7 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
   let initialHTML = ''
   try {
     const cvMetadata = convertToCVMetadata(data.exempelCV)
-    const templateGenerator = getTemplateGenerator('modern-minimal')
+    const templateGenerator = getTemplateGenerator('norrsken')
 
     if (templateGenerator) {
       initialHTML = templateGenerator.generate(cvMetadata, {})

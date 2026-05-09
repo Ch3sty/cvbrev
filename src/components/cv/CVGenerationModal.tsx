@@ -84,9 +84,9 @@ export default function CVGenerationModal({
   const [includeLinkedIn, setIncludeLinkedIn] = useState(true);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const canCustomize = selectedTemplate?.id === 'platinum-executive' ||
-                      selectedTemplate?.id === 'nordic-professional' ||
-                      selectedTemplate?.id === 'creative-minimal';
+  // Visa customization-toggles for mallar som stOder foto/LinkedIn
+  const canCustomize = selectedTemplate?.features?.supportsPhoto === true ||
+                       selectedTemplate?.features?.supportsLinkedIn === true;
 
   const progress = ((currentStep + 1) / GENERATION_STEPS.length) * 100;
 

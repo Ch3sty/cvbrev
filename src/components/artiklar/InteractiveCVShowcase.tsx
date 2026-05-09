@@ -83,7 +83,7 @@ const SHOWCASE_CV = {
 // Font options imported from shared preview-utils.ts (single source of truth)
 
 export default function InteractiveCVShowcase() {
-  const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')
+  const [selectedTemplate, setSelectedTemplate] = useState('norrsken')
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
   const [isFontOpen, setIsFontOpen] = useState(false)

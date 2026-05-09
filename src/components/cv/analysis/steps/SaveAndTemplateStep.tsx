@@ -24,7 +24,7 @@ export default function SaveAndTemplateStep({
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
   const [saveToLibrary, setSaveToLibrary] = useState(canSave);
   const [customName, setCustomName] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('norrsken');
   const [quotaRefreshKey, setQuotaRefreshKey] = useState(0);
 
   const nameSuggestions = generateCVNameSuggestions();

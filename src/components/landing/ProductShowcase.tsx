@@ -83,8 +83,8 @@ export default function ProductShowcase() {
                   whileHover={{ rotate: -8, y: -4 }}
                 >
                   <Image
-                    src="/mallar/classic-professional.svg"
-                    alt="Klassisk professionell CV-mall"
+                    src="/mallar/norrsken.svg"
+                    alt="Norrsken CV-mall"
                     fill
                     className="object-cover"
                   />
@@ -99,8 +99,8 @@ export default function ProductShowcase() {
                   whileHover={{ y: -6 }}
                 >
                   <Image
-                    src="/mallar/executive-premium.svg"
-                    alt="Executive Premium CV-mall"
+                    src="/mallar/atlas.svg"
+                    alt="Atlas executive CV-mall"
                     fill
                     className="object-cover"
                   />
@@ -115,8 +115,8 @@ export default function ProductShowcase() {
                   whileHover={{ rotate: 8, y: -4 }}
                 >
                   <Image
-                    src="/mallar/nordic-professional.svg"
-                    alt="Nordic Professional CV-mall"
+                    src="/mallar/aurora.svg"
+                    alt="Aurora premium CV-mall"
                     fill
                     className="object-cover"
                   />

@@ -38,7 +38,7 @@ interface MallarLivePreviewProps {
   initialTemplate?: string;
 }
 
-const DEFAULT_TEMPLATE_ID = 'modern-minimal';
+const DEFAULT_TEMPLATE_ID = 'norrsken';
 const PREVIEW_DEBOUNCE_MS = 250;
 
 /**

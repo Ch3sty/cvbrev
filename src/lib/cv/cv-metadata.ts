@@ -96,7 +96,7 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'modern-minimal' | 'classic-professional' | 'clean-corporate' | 'creative-edge' | 'executive-premium' | 'nordic-professional' | 'platinum-executive' | 'creative-minimal' | 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg';
+export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri';
 
 export interface CVTemplate {
   id: CVTemplateType;
@@ -433,8 +433,8 @@ export const generateDynamicHeadings = (cvData: CVMetadata, templateId: CVTempla
   // Adjust headings based on template style
   const baseHeadings = headingMap[industry] || headingMap.general;
   
-  // Template-specific adjustments for modern templates
-  if (templateId === 'classic-professional') {
+  // Template-specific adjustments for formal/traditional templates
+  if (templateId === 'tidlos-formell' || templateId === 'atlas') {
     return {
       ...baseHeadings,
       experience: 'Professionell Bakgrund',
