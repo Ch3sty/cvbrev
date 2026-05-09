@@ -1,0 +1,111 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Karta - timeline + kompetensstaplar (datavis) -->
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Header med namn vänster + geometriskt mönster höger -->
+  <rect x="30" y="34" width="160" height="14" fill="#0f172a" rx="1"/>
+  <rect x="30" y="56" width="100" height="5" fill="#0891b2" rx="1"/>
+  <rect x="30" y="70" width="180" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- Geometriskt mönster (3 staplade rektanglar) -->
+  <rect x="220" y="34" width="50" height="9" fill="#0891b2"/>
+  <rect x="220" y="46" width="40" height="9" fill="#0891b2" opacity="0.6"/>
+  <rect x="220" y="58" width="30" height="9" fill="#0891b2" opacity="0.3"/>
+
+  <line x1="30" y1="92" x2="270" y2="92" stroke="#0891b2" stroke-width="1.5"/>
+
+  <!-- Sammanfattning -->
+  <rect x="30" y="106" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="114" width="220" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="122" width="200" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- Sektion: Erfarenhet -->
+  <rect x="30" y="142" width="14" height="6" fill="#0891b2"/>
+  <rect x="50" y="143" width="80" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="138" y1="145" x2="270" y2="145" stroke="#e5e7eb"/>
+
+  <!-- Timeline -->
+  <line x1="42" y1="165" x2="42" y2="280" stroke="#0891b2" stroke-width="1.5"/>
+
+  <!-- Timeline item 1 (current - fylld cirkel) -->
+  <circle cx="42" cy="170" r="6" fill="#0891b2" stroke="#0891b2" stroke-width="2.5"/>
+  <rect x="60" y="167" width="120" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="220" y="168" width="50" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="60" y="177" width="80" height="3" fill="#475569" rx="0.5"/>
+  <text x="62" y="190" font-size="6" fill="#0891b2">▸</text>
+  <rect x="68" y="187" width="200" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="62" y="198" font-size="6" fill="#0891b2">▸</text>
+  <rect x="68" y="195" width="180" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Timeline item 2 -->
+  <circle cx="42" cy="220" r="6" fill="white" stroke="#0891b2" stroke-width="2.5"/>
+  <rect x="60" y="217" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="220" y="218" width="50" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="60" y="227" width="70" height="3" fill="#475569" rx="0.5"/>
+  <text x="62" y="240" font-size="6" fill="#0891b2">▸</text>
+  <rect x="68" y="237" width="190" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Timeline item 3 -->
+  <circle cx="42" cy="266" r="6" fill="white" stroke="#0891b2" stroke-width="2.5"/>
+  <rect x="60" y="263" width="90" height="4" fill="#0f172a" rx="0.5"/>
+  <rect x="220" y="264" width="50" height="3" fill="#0891b2" rx="0.5"/>
+  <rect x="60" y="273" width="60" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- Sektion: Kompetensstaplar -->
+  <rect x="30" y="298" width="14" height="6" fill="#0891b2"/>
+  <rect x="50" y="299" width="100" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="158" y1="301" x2="270" y2="301" stroke="#e5e7eb"/>
+
+  <!-- Skill bars 2x3 grid med dots (5-pricks-skala) -->
+  <!-- Row 1 -->
+  <rect x="30" y="318" width="50" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="100" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="108" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="116" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="124" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="132" cy="320" r="3" fill="#0891b2"/>
+
+  <rect x="160" y="318" width="55" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="225" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="233" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="241" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="249" cy="320" r="3" fill="#0891b2"/>
+  <circle cx="257" cy="320" r="3" fill="#e0f2fe"/>
+
+  <!-- Row 2 -->
+  <rect x="30" y="334" width="60" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="100" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="108" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="116" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="124" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="132" cy="336" r="3" fill="#e0f2fe"/>
+
+  <rect x="160" y="334" width="48" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="225" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="233" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="241" cy="336" r="3" fill="#0891b2"/>
+  <circle cx="249" cy="336" r="3" fill="#e0f2fe"/>
+  <circle cx="257" cy="336" r="3" fill="#e0f2fe"/>
+
+  <!-- Row 3 -->
+  <rect x="30" y="350" width="55" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="100" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="108" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="116" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="124" cy="352" r="3" fill="#e0f2fe"/>
+  <circle cx="132" cy="352" r="3" fill="#e0f2fe"/>
+
+  <rect x="160" y="350" width="60" height="3" fill="#1f2937" rx="0.5"/>
+  <circle cx="225" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="233" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="241" cy="352" r="3" fill="#0891b2"/>
+  <circle cx="249" cy="352" r="3" fill="#e0f2fe"/>
+  <circle cx="257" cy="352" r="3" fill="#e0f2fe"/>
+
+  <!-- Sektion: Utbildning -->
+  <rect x="30" y="376" width="14" height="6" fill="#0891b2"/>
+  <rect x="50" y="377" width="60" height="4" fill="#0f172a" rx="0.5"/>
+  <line x1="118" y1="379" x2="270" y2="379" stroke="#e5e7eb"/>
+
+  <rect x="30" y="392" width="120" height="4" fill="#0f172a" rx="0.5"/>
+</svg>

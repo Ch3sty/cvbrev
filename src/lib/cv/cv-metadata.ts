@@ -96,7 +96,7 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri' | 'pedagog' | 'aspekt' | 'klinik' | 'skymning' | 'bygg' | 'forskare' | 'servering' | 'linje';
+export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri' | 'pedagog' | 'aspekt' | 'klinik' | 'skymning' | 'bygg' | 'forskare' | 'servering' | 'linje' | 'spektrum' | 'kvist' | 'magasin' | 'karta' | 'avtryck';
 
 export interface CVTemplate {
   id: CVTemplateType;

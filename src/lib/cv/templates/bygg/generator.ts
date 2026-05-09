@@ -464,8 +464,8 @@ export const byggTemplate: CVTemplateGenerator = {
   templateId: 'bygg',
   generate: generateByggHTML,
   metadata: {
-    name: 'Bygg',
-    description: 'Gratis CV-mall för bygg och hantverk med behörighets-sektion och certifikat',
+    name: 'Hantverkare',
+    description: 'Gratis CV-mall för hantverkare och bygg med behörigheter och certifikat',
     category: 'traditional',
     tier: 'free'
   }
