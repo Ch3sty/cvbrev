@@ -427,16 +427,236 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   },
 
   'sjukskoterska': {
+    seoIntro:
+      'Som sjuksköterska tillhör du Sveriges mest efterfrågade yrkesgrupp. Region- och kommunala arbetsgivare har nästan alltid öppna tjänster och konkurrensen sker inte om jobben i sig, utan om vilken klinik och vilket schema du får. Ett bra CV avgör om du blir kallad till första intervju på din drömavdelning eller hamnar i en avdelnings-bemanningspool.\n\nVår mall för sjuksköterskor lyfter legitimation från Socialstyrelsen, eventuella specialistutbildningar och vårdtyngd som första visuella element. Kliniska metoder, dokumentationssystem och delegeringar (PVK, EKG-tolkning, A-HLR, ATLS) får eget block i klartext. Det betyder att Heroma och Visma Recruit kan filtrera in dig på exakta termer från jobbannonsen.\n\nKonkret innehåll vi rekommenderar: legitimationsdatum, sjuksköterskeprogrammet med lärosäte och år, eventuella specialistutbildningar (anestesi, akutsjukvård, IVA, distrikt, psykiatri), klinisk erfarenhet uppdelad per avdelning med vårdtyngd (1-2 patienter på IVA, 6-8 på vårdavdelning), kompetenser i dokumentationssystem (Cosmic, TakeCare, Melior, NPÖ), och vidareutbildningar med utgångsdatum.\n\nNedan hittar du två CV-mallar designade för sjuksköterske-rollen, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rekryterare på sjukhus, vårdcentraler och kommunal hemsjukvård letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Legitimation och specialistutbildning först',
+        description: 'Ange Socialstyrelsens registreringsdatum och eventuell specialistutbildning högst upp. Specialistsjuksköterskor får upp till 30% högre lön och prioriteras i rekrytering, så det är värt att lyfta synligt.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Vårdtyngd och patientvolymer i klartext',
+        description: 'Skriv hur många patienter du ansvarade för per pass. På IVA är det 1-2, på vårdavdelning 6-8, i hemsjukvården 8-12 besök per dag. Vårdtyngd är hårdvaluta som chefer förstår direkt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Dokumentationssystem du behärskar',
+        description: 'Cosmic dominerar i Region Stockholm och Skåne, TakeCare i flera regioner, Melior på vissa kliniker. Skriv ut systemnamnen så ATS kan filtrera fram dig och rekryteraren ser att du kan starta utan introduktion.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Kliniska metoder och behandlingar',
+        description: 'PVK-sättning, EKG-tolkning, sårvård, smärtskattning enligt VAS, triage enligt RETTS. Var konkret om vilka metoder du behärskar i stället för att skriva "kliniska färdigheter" som inte säger något.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Vidareutbildningar med utgångsdatum',
+        description: 'A-HLR, ATLS, CMP, ALS-certifikat har utgångsdatum. Lista dem så rekryteraren direkt ser om du behöver förnya. Att vara aktiv i Vårdförbundet eller skyddsombud är meriterande för seniora roller.',
+      },
+      {
+        icon: 'Target',
+        title: 'Tillgänglighet för rotationsschema',
+        description: 'Många avdelningar prioriterar sökande som tar dag, kväll, natt och helg. Skriv tydligt om du är öppen för rotationsschema inklusive natt och helg, eller om du söker fasta dagtider.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Legitimation överst i sidopanelen',
+        description: 'Vi har gjort Socialstyrelsens registrering till första visuella element så vårdchefer kan bekräfta status på fem sekunder. Specialistutbildningar lyfts i samma block, inte gömda i en utbildningssektion.',
+      },
+      {
+        title: 'Klinisk tjänstgöring per avdelning',
+        description: 'Mallen separerar avdelningar (akut, vårdavdelning, IVA, mottagning) så vårdtyngd och patientgrupper syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för delegeringar och certifikat',
+        description: 'A-HLR, ATLS, CMP, sterilteknik och förskrivningsrätt har egen sektion. Vi har sett att vårdchefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
+      },
+      {
+        title: 'Premium-mallen lägger till foto',
+        description: 'För distrikt, hemsjukvård och primärvård där relationer värderas, lägger premium-varianten till foto och LinkedIn. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Sober färgsättning för vårdsektorn',
+        description: 'Vården värderar saklighet. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meritbilden.',
+      },
+      {
+        title: 'Plats för fackliga och utvecklingsuppdrag',
+        description: 'Skyddsombud, Vårdförbundet-aktiv, kvalitetsregister, utvecklingsuppdrag har egen rad. Det visar att du tar ansvar bortom det dagliga vårdarbetet, vilket meriterar för senior- och chefroller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Klinisk omvårdnad och behandling',
+        punkter: [
+          'Bedöma patienters tillstånd, prioritera och planera omvårdnadsåtgärder',
+          'Genomföra ordinationer från läkare och dokumentera utförande',
+          'Sätta PVK, ta EKG, hantera infusioner och smärtbehandling',
+          'Akut omhändertagande och triage enligt RETTS eller motsvarande',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och vårdplanering',
+        punkter: [
+          'Journalföring i Cosmic, TakeCare, Melior eller motsvarande system',
+          'Vårdplanering enligt VIPS-modellen eller standardvårdplaner',
+          'Skriva remisser, rapporter och avvikelser enligt patientsäkerhetslagen',
+          'Delta i utskrivningsplanering med kommun och primärvård',
+        ],
+      },
+      {
+        rubrik: 'Patientmöten och anhörigkontakt',
+        punkter: [
+          'Pedagogiska samtal vid diagnos, behandling och egenvård',
+          'Stötta anhöriga vid svår sjukdom och palliativa situationer',
+          'Hantera oro, smärta och konflikter med lugn och professionalism',
+          'Anpassa kommunikation efter patientens språk och kognitiva förmåga',
+        ],
+      },
+      {
+        rubrik: 'Tvärprofessionellt teamarbete',
+        punkter: [
+          'Rapportera till och samverka med läkare, undersköterskor och paramedicinsk personal',
+          'Delta i ronder och vårdteammöten där behandlingsbeslut tas',
+          'Handleda undersköterskor och delegera medicinska uppgifter',
+          'Samverka med biståndsbedömare och kommunal hälso- och sjukvård',
+        ],
+      },
+      {
+        rubrik: 'Utvecklings- och kvalitetsarbete',
+        punkter: [
+          'Bidra till kvalitetsregister och avvikelseanalys på avdelningen',
+          'Mentor för nya kollegor och studenter under VFU',
+          'Delta i förbättringsprojekt och kollegial fortbildning',
+          'Utveckla rutiner och vårdprogram baserat på evidens',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'PDL', forklaring: 'Patientdatalagen, reglerar journalföring och hantering av patientuppgifter.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, ramverk för all sjukvård i Sverige.' },
+          { term: 'PSL', forklaring: 'Patientsäkerhetslagen, reglerar anmälningsskyldighet och kvalitetsarbete.' },
+          { term: 'SOSFS 2014:5', forklaring: 'Socialstyrelsens föreskrifter om dokumentation i social- och hälsovård.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskada eller risk för sådan.' },
+          { term: 'Förskrivningsrätt', forklaring: 'Specialistsjuksköterskor inom vissa områden har egen förskrivningsrätt på utvalda läkemedel.' },
+        ],
+      },
+      {
+        kategori: 'Specialistutbildningar',
+        termer: [
+          { term: 'Anestesisjuksköterska', forklaring: 'Specialistutbildning för arbete på operation och postop.' },
+          { term: 'IVA-sjuksköterska', forklaring: 'Specialistutbildning för intensivvård, hög vårdtyngd och teknisk utrustning.' },
+          { term: 'Akutsjuksköterska', forklaring: 'Specialistutbildning för akutmottagning och primärbedömning.' },
+          { term: 'Distriktssköterska', forklaring: 'Specialistutbildning för primärvård, ofta med förskrivningsrätt.' },
+          { term: 'Psykiatrisjuksköterska', forklaring: 'Specialistutbildning för psykiatrisk vård och bedömning.' },
+          { term: 'Onkologisjuksköterska', forklaring: 'Specialistutbildning för cancervård och cytostatikabehandling.' },
+        ],
+      },
+      {
+        kategori: 'Kliniska metoder och certifikat',
+        termer: [
+          { term: 'A-HLR', forklaring: 'Avancerad hjärt-lungräddning, förnyas vart annat år.' },
+          { term: 'D-HLR', forklaring: 'HLR med defibrillator, grundkompetens på flera avdelningar.' },
+          { term: 'ATLS', forklaring: 'Advanced Trauma Life Support, certifikat för traumahantering.' },
+          { term: 'CMP', forklaring: 'Course in Medical Primary care, vidareutbildning i primärvård.' },
+          { term: 'PEWS', forklaring: 'Pediatric Early Warning Score, bedömningsskala för barn.' },
+          { term: 'NEWS2', forklaring: 'National Early Warning Score, vuxenbedömning vid försämring.' },
+        ],
+      },
+      {
+        kategori: 'Journalsystem och IT',
+        termer: [
+          { term: 'Cosmic', forklaring: 'Vanligaste journalsystemet i offentlig vård i flera regioner.' },
+          { term: 'TakeCare', forklaring: 'Journalsystem som används i bland annat Region Stockholm.' },
+          { term: 'Melior', forklaring: 'Äldre journalsystem fortfarande i bruk på vissa kliniker.' },
+          { term: 'NCS Cross', forklaring: 'Journalsystem för primärvård i flera regioner.' },
+          { term: 'NPÖ', forklaring: 'Nationell patientöversikt över region- och vårdgränser.' },
+          { term: 'Procapita', forklaring: 'Verksamhetssystem för kommunal hemsjukvård och äldreomsorg.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Region och universitetssjukhus',
+        exempel: [
+          'Karolinska, Sahlgrenska, Skånes Universitetssjukhus, Akademiska',
+          'Region- och länssjukhus i alla 21 regioner',
+          'Specialistmottagningar och dagvård',
+          'Akutmottagningar och prehospital vård (ambulans)',
+        ],
+      },
+      {
+        kategori: 'Primärvård',
+        exempel: [
+          'Vårdcentraler i regional regi',
+          'Privata vårdcentraler (Capio, Praktikertjänst, Doktor.se)',
+          'Företagshälsa (Avonova, Feelgood, Previa)',
+          'Specialistmottagningar inom kvinnohälsa, hud, ögon',
+        ],
+      },
+      {
+        kategori: 'Kommunal vård och omsorg',
+        exempel: [
+          'Hemsjukvård i 290 kommuner',
+          'Särskilda boenden och vård- och omsorgsboenden',
+          'LSS-boenden där sjuksköterska behövs',
+          'Kommunal akutsjukvård och hospice',
+        ],
+      },
+      {
+        kategori: 'Privata och bemanning',
+        exempel: [
+          'Privata sjukhus (Sophiahemmet, GHP, Capio S:t Görans)',
+          'Bemanningsbolag (Dedicare, Nightingale, Empleo)',
+          'Hyrtjänster i Norge eller Danmark',
+          'Företagshälsovård och försäkringsbolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Sjuksköterskeprogrammet (3 år)',
+        beskrivning: 'Grundutbildning vid 24 lärosäten i Sverige, kandidatexamen i omvårdnad. Innehåller VFU på sjukhus och primärvård. Examen ger rätt att söka legitimation från Socialstyrelsen.',
+      },
+      {
+        rubrik: 'Specialistutbildning (1-1,5 år)',
+        beskrivning: 'Magisterexamen inom specifikt område: anestesi, IVA, akutsjukvård, distrikt, psykiatri, operation, onkologi eller barn. Krav på minst 1 års klinisk erfarenhet före antagning.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifikat',
+        beskrivning: 'A-HLR, ATLS, CMP, sterilteknik, sårvård, palliativ vård. Förskrivningsrätt för distriktssköterskor inom vissa läkemedelsgrupper. Förnyas vart andra till tredje år.',
+      },
+      {
+        rubrik: 'Forskarutbildning (4-5 år)',
+        beskrivning: 'Doktorsexamen i omvårdnad parallellt med klinisk tjänst. Disputerade sjuksköterskor söker ofta universitetstjänster, FoU-roller eller specialistmottagningar med forskningsfokus.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
+        'Klinisk bedömning enligt VIPS-modellen',
         'Medicinsk delegering (insulin, PEG, subkutana injektioner)',
-        'Vårdplanering enligt VIPS-modell',
-        'Journalsystem (Cosmic, TakeCare, Pascal, NPÖ)',
-        'Akut omhändertagande och triage',
-        'Patientsäkerhet och kvalitetsregister',
-        'A-HLR och D-HLR',
+        'PVK-sättning, EKG-tolkning och blodprovstagning',
+        'Journalsystem (Cosmic, TakeCare, Melior, NCS Cross, NPÖ)',
+        'Akut omhändertagande och triage enligt RETTS',
+        'Patientsäkerhet och kvalitetsregisterarbete',
+        'A-HLR, D-HLR och avancerat omhändertagande',
         'Sårbehandling och PVK-skötsel',
-        'Smärtskattning och smärtbehandling',
+        'Smärtskattning enligt VAS och NRS',
+        'Vårdplanering och utskrivningsplanering',
+        'Vårdpedagogik mot patient och anhöriga',
+        'Mentorskap och delegering till undersköterskor',
       ],
       personliga: [
         'Empatiskt patientbemötande',
@@ -444,14 +664,20 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Strukturerad och prioritetsskicklig',
         'Tvärprofessionellt samarbete',
         'Pedagogisk i patient- och anhörigkommunikation',
+        'Lyhörd för kulturella och språkliga skillnader',
+        'Initiativrik i utvecklingsarbete',
       ],
     },
-    profilExempel: 'Legitimerad sjuksköterska med 6 års klinisk erfarenhet inom internmedicin och akutsjukvård. Hanterar 8-10 patienter per pass med fokus på multisjuka och kardiella tillstånd. Specialistutbildning inom akutsjukvård 2024 och handledare för 4 sjuksköterskestudenter per termin.',
-    profilTips: 'Skriv legitimationsstatus, år av erfarenhet och primärt verksamhetsområde i öppningsraden. Andra meningen kvantifierar vårdtyngd (patienter/pass). Tredje meningen lyfter specialiseringar, handledning eller utvecklingsuppdrag.',
+    profilExempel:
+      'Legitimerad sjuksköterska med 6 års klinisk erfarenhet inom internmedicin och akutsjukvård. Hanterar 8-10 patienter per pass med fokus på multisjuka och kardiella tillstånd. Specialistutbildning inom akutsjukvård 2024 och handledare för 4 sjuksköterskestudenter per termin.',
+
+    profilTips:
+      'Skriv legitimationsstatus, år av erfarenhet och primärt verksamhetsområde i öppningsraden. Andra meningen kvantifierar vårdtyngd (patienter per pass). Tredje meningen lyfter specialiseringar, handledning eller utvecklingsuppdrag som differentierar dig.',
+
     rekryterarTipsen: [
       {
         rubrik: 'Vårdtyngd och patientvolymer',
-        text: 'Hur många patienter ansvarade du för per pass? På IVA är det 1-2, på vårdavdelning 6-8. Ange det. Vårdtyngd är en hårdvaluta som chefer förstår direkt.',
+        text: 'Hur många patienter ansvarade du för per pass? På IVA är det 1-2, på vårdavdelning 6-8, i hemsjukvården 8-12 besök per dag. Vårdtyngd är hårdvaluta som chefer förstår direkt.',
       },
       {
         rubrik: 'Specialistutbildning är CV-avgörande',
@@ -459,37 +685,87 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Dokumentationssystem och fackliga uppdrag',
-        text: 'Cosmic, TakeCare, Melior, NCS Cross. Nämn dokumentationssystem du använt. Eventuella fackliga uppdrag (skyddsombud, Vårdförbundet-aktiv) är meriterande för seniora roller.',
+        text: 'Cosmic, TakeCare, Melior, NCS Cross. Nämn dokumentationssystem du använt. Fackliga uppdrag (skyddsombud, Vårdförbundet-aktiv) är meriterande för seniora roller.',
+      },
+      {
+        rubrik: 'Aktuella certifikat och utgångsdatum',
+        text: 'A-HLR, ATLS, CMP och förskrivningsrätt har utgångsdatum. Lista varje certifikat med datum så rekryteraren ser vad som är aktuellt och du undviker frågor om förnyelse.',
+      },
+      {
+        rubrik: 'Kvalitetsarbete och utvecklingsuppdrag',
+        text: 'Avvikelseregister, kvalitetsregister (Riksstroke, SwedeHeart), förbättringsprojekt och vårdprogram-utveckling. För senior- och teamledar-roller väger detta tyngre än bara klinisk erfarenhet.',
+      },
+      {
+        rubrik: 'Pedagogisk meritering',
+        text: 'Handledning av studenter och nya kollegor, mentor för introduktion av nyanställda, utbildning på avdelningen. Många chefer söker aktivt sjuksköterskor som kan stötta upp introduktionen av nya kollegor.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'Legitimationsstatus, år av erfarenhet, primärt vårdområde. Eventuella specialistutbildningar.' },
-      { sektion: 'Erfarenhet', tips: 'Klinik och avdelning + tidsperiod + vårdtyngd (patienter/pass). Vidareutbildningar som påverkat din tjänstgöring.' },
-      { sektion: 'Utbildning', tips: 'Sjuksköterskeexamen + lärosäte + år. Specialistutbildningar som egna rader. Vidareutbildningar (CMP, ALS, A-HLR) som certifikat.' },
-      { sektion: 'Kompetenser', tips: 'Dokumentationssystem, kliniska metoder, behandlingar du behärskar. Var konkret: "PVK-sättning, EKG-tolkning" istället för "kliniska färdigheter".' },
+      { sektion: 'Sammanfattning', tips: 'Legitimationsstatus, år av erfarenhet, primärt vårdområde. Eventuella specialistutbildningar och din kärnkompetens på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Klinik och avdelning, tidsperiod, vårdtyngd per pass. Vidareutbildningar som påverkat din tjänstgöring och eventuella utvecklingsuppdrag.' },
+      { sektion: 'Utbildning', tips: 'Sjuksköterskeexamen, lärosäte, år. Specialistutbildningar som egna rader. Vidareutbildningar (CMP, ALS, A-HLR) som certifikat med datum.' },
+      { sektion: 'Kompetenser', tips: 'Dokumentationssystem, kliniska metoder och behandlingar i klartext. PVK-sättning, EKG-tolkning, smärtskattning enligt VAS, triage enligt RETTS.' },
+      { sektion: 'Vidareutbildning', tips: 'Lista certifikat med utgångsdatum. Inkludera handledarutbildningar och eventuell utbildning till kvalitetsutvecklare eller ledarskap.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet för rotationsschema (dag, kväll, natt, helg), körkort om relevant, språkkunskaper utöver svenska och engelska.' },
     ],
+
     checklista: [
       'Sjuksköterskeexamen och legitimation från Socialstyrelsen',
-      'Specialistutbildning (om någon) med år',
-      'Vidareutbildningar (CMP, ALS, A-HLR, ATLS) med utgångsdatum',
-      'Erfarenhet av specifika dokumentationssystem',
-      'Klinisk erfarenhet med specifika patientgrupper',
-      'Forskningsmeriter eller utvecklingsprojekt',
-      'Eventuell handledarutbildning',
+      'Specialistutbildning med år och lärosäte',
+      'Klinisk erfarenhet uppdelad per avdelning med vårdtyngd',
+      'Dokumentationssystem du behärskar i klartext',
+      'A-HLR, ATLS, CMP eller motsvarande certifikat med utgångsdatum',
+      'Kliniska metoder du behärskar (PVK, EKG, smärtskattning)',
+      'Forskningsmeriter eller utvecklingsuppdrag',
+      'Handledarutbildning och pedagogisk meritering',
+      'Tillgänglighet för olika scheman (dag, kväll, natt, helg)',
+      'Språkkunskaper utöver svenska och engelska',
     ],
-    atsInfo: 'Ja, både Norrsken (gratis) och Vården-mallen (premium) är ATS-säkra. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit. Båda läser "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar.',
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit, båda läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare filtrerar exakta termer.',
+
     faqItems: [
       {
+        q: 'Vad ska finnas med i ett sjuksköterske-CV?',
+        a: 'Legitimation från Socialstyrelsen med datum, sjuksköterskeexamen med lärosäte, klinisk erfarenhet uppdelad per avdelning med vårdtyngd, dokumentationssystem (Cosmic, TakeCare, Melior), kliniska metoder (PVK, EKG, smärtskattning), aktuella certifikat (A-HLR, ATLS, CMP) med utgångsdatum, eventuell specialistutbildning, och språkkunskaper. Lägg till handledarmeritering och utvecklingsuppdrag om du söker senior-roller.',
+      },
+      {
         q: 'Hur skiljer sig CV för sjuksköterska från undersköterska?',
-        a: 'Sjuksköterska har akademisk grundutbildning och legitimation som måste anges precist (datum, registreringsnummer). Specialistutbildningar och vetenskapliga uppdrag är CV-relevanta. För undersköterska är medicinska delegeringar centrala — för sjuksköterska är det egen ordinationsrätt och självständigt arbete.',
+        a: 'Sjuksköterska har akademisk grundutbildning och legitimation som måste anges precist (datum, registreringsnummer). Specialistutbildningar och vetenskapliga uppdrag är CV-relevanta. För undersköterska är medicinska delegeringar centrala. För sjuksköterska är det egen ordinationsrätt, ledarskap i teamet, och självständigt arbete inom evidensbaserad omvårdnad som lyfts.',
       },
       {
         q: 'Ska jag nämna nattjour och övertid?',
-        a: 'Ja om du är beredd till det. Många avdelningar prioriterar sökande som tar både dag, kväll, natt och helg. Skriv tydligt: "Tillgänglig för rotationsschema inkl natt och helg".',
+        a: 'Ja om du är beredd till det. Många avdelningar prioriterar sökande som tar dag, kväll, natt och helg. Skriv tydligt: "Tillgänglig för rotationsschema inklusive natt och helg" eller "Söker dagtid med möjlighet till sporadisk kvällstjänst". Att vara explicit minskar antalet ansökningar du bedöms olämplig för.',
       },
       {
-        q: 'Hur långt ska ett sjuksköterske-CV vara?',
-        a: 'Grundutbildade 1-1.5 sidor. Specialistsjuksköterskor med flera års erfarenhet 2 sidor. Forskande eller disputerade sjuksköterskor 2-3 sidor. Vården accepterar längre CV än andra branscher.',
+        q: 'Hur lång ska ett sjuksköterske-CV vara?',
+        a: 'Grundutbildade 1-1,5 sidor. Specialistsjuksköterskor med flera års erfarenhet 2 sidor. Forskande eller disputerade sjuksköterskor 2-3 sidor. Vården accepterar längre CV än andra branscher eftersom meritprofiler är centrala. Det viktiga är att första sidan rymmer det starkaste innehållet.',
+      },
+      {
+        q: 'Vilka nyckelord behöver CV:t passera ATS?',
+        a: 'Specifika system (Cosmic, TakeCare, Melior, NCS Cross), kliniska metoder (PVK-sättning, EKG-tolkning, sårvård, A-HLR), patientgrupper (multisjuka, palliativ, akut, geriatrik) och certifikat. Nämn legitimation och eventuell specialistutbildning i klartext. Heroma och Visma Recruit söker exakt på dessa termer i jobbannonsens språk.',
+      },
+      {
+        q: 'Hur skriver jag CV som nyutbildad sjuksköterska utan erfarenhet?',
+        a: 'Lyft VFU-perioder med klinik, antal veckor och vad du fick göra. Inkludera examensarbete med titel och tidskrift om publicerat. Praktiska kurser (A-HLR, sterilteknik), eventuella tidigare yrken som vårdbiträde eller undersköterska, och språkkunskaper väger tungt. Skriv ut din vilja och förmåga att lära dig snabbt, många kliniker har strukturerade introduktionsprogram för nyexade.',
+      },
+      {
+        q: 'Vilka specialistutbildningar är mest värdefulla för CV:t?',
+        a: 'Det beror på vilken bransch du söker. IVA, anestesi och akutsjukvård för slutenvård. Distrikt och förskrivningsrätt för primärvård. Psykiatri för psykiatrisk vård. Onkologi för cancervård. Operation för operationsavdelningar. Specialistutbildningar tar 1-1,5 år och kräver minst 1 års klinisk erfarenhet före antagning. För kommunal hemsjukvård är distriktsutbildning eller äldrevård starkast.',
+      },
+      {
+        q: 'Behöver jag skriva personligt brev till sjuksköterske-tjänster?',
+        a: 'För de flesta tjänster ja. Använd brevet för att förklara varför just den klinik och vad du ger till deras team. Beskriv en specifik patientsituation där du visat din kliniska bedömning, eller en kollegial situation där du tagit ansvar utöver det vanliga. Håll till en sida på 300-400 ord. Ett välskrivet brev kan vara avgörande när två kandidater har liknande CV.',
+      },
+      {
+        q: 'Ska jag inkludera referenser direkt på CV:t?',
+        a: 'Nej, skriv "Referenser lämnas på begäran". Referenser tar plats du behöver för meriter, och nuvarande arbetsgivare kanske inte vet att du söker. Förbered dig istället på att kunna ge två-tre referenser snabbt vid förfrågan: tidigare chef, klinikens utbildningsansvarig, och en senior kollega.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt sjuksköterske-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden som "god empatisk förmåga" utan stöd, patientuppgifter eller sekretessbelagda detaljer, och hobbies som inte är relevanta. Stavfel och inkonsekvent formatering diskvalificerar direkt eftersom dokumentationsförmåga är central i rollen.',
       },
     ],
   },
