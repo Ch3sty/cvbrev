@@ -12862,6 +12862,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'butikschef': {
+    seoIntro:
+      'Som butikschef bedöms du på din ledarförmåga, P&L-ansvar och konkreta säljresultat. ICA, Coop, H&M, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikschef-roller, men distriktschefer slänger CV:n som inte tydligt visar omsättning, personalansvar och säljresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butikschefer lyfter omsättning, personalansvar och konkreta säljresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, omsättning, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikschef-erfarenhet med omsättning och teamstorlek, säljresultat (snittnota, mersälj, kampanjvinster), P&L-ansvar och budgetstyrning, personalansvar (rekrytering, schemaläggning, arbetsmiljö), kassasystem (ICA-kassan, NCR, Sitoo), eventuell ledarskap-utbildning (UGL, IFL), arbetsrätt-erfarenhet (LAS, MBL), samt branschvana (dagligvaror, mode, sport, elektronik).\n\nNedan hittar du två CV-mallar designade för butikschefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på butikskedjor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'TrendingUp',
+        title: 'Omsättning och säljresultat',
+        description: '"Drev butik med 35 MSEK omsättning och 12% säljtillväxt 3 år i rad" säger mer än "ansvarig för butik". Konkreta omsättnings- och tillväxtsiffror differentierar senior butikschefer.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'P&L-ansvar och budget',
+        description: 'EBITDA-bidrag, marginal, kostnadsstyrning. Distriktschefer värderar butikschefer som tänker affärsmässigt och kan styra både intäkter och kostnader.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Personalansvar i klartext',
+        description: '"15-personers team med rekryteringsansvar och schemaplanering" är konkret. Skriv ut antal personer du lett, rekryteringsvolym och eventuell facklig samverkan.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Kassasystem och rutiner',
+        description: 'ICA-kassan, NCR, Sitoo, Iiko. Skriv ut kassasystem du behärskar plus rutiner som dagsavstämning, inventering, svinnhantering. Branschspecifikt och CV-kritiskt.',
+      },
+      {
+        icon: 'Award',
+        title: 'Ledarskap-utbildning',
+        description: 'UGL, IFL, Mind-Lab, eventuella ledarskap-program från kedjan (IKEA Academy, ICA-skolan). Sådana utbildningar ger trovärdighet och påverkar lönen direkt.',
+      },
+      {
+        icon: 'Target',
+        title: 'Arbetsrätt och samverkan',
+        description: 'Som butikschef hanterar du lönerevisioner, sjuksamtal, rehabilitering, eventuella uppsägningar enligt LAS. Lyft din arbetsrättsliga erfarenhet och kollektivavtal-vana.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Omsättning och team överst',
+        description: 'Vår mall lyfter butiksomsättning, teamstorlek och konkreta resultat i sidopanelen. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Erfarenhet med ledar-bidrag',
+        description: 'Mallen separerar bolag och dina ledar-bidrag (säljtillväxt, retention, marginal-förbättring). Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för utbildningar',
+        description: 'UGL, IFL, kedje-specifika program. Mallen lyfter ledarskap-utveckling som eget block med datum.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För senior butikschefer och regional manager lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression som passar premium-retail.',
+      },
+      {
+        title: 'Plats för P&L och KPI:er',
+        description: 'Mallen har dedikerade rader för omsättning, EBITDA-bidrag och konkreta KPI:er (snittnota, UPT, retention). Visar att du tänker affärsmässigt.',
+      },
+      {
+        title: 'Plats för operativ och strategisk',
+        description: 'Mallen har dedikerade rader för både operativt arbete (kassa, kundservice) och strategiskt (sälj, marketing, personal). Butikschefer behärskar både.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Försäljning och resultatansvar',
+        punkter: [
+          'Säkerställa daglig leverans av butikens säljmål och KPI:er',
+          'Driva mersälj och kampanjarbete för ökad omsättning',
+          'Analysera säljdata och justera strategi baserat på trender',
+          'Hantera prishantering, kampanjmaterial och säljytseffektivitet',
+        ],
+      },
+      {
+        rubrik: 'Personalansvar och utveckling',
+        punkter: [
+          'Rekrytera, introducera och utveckla butikspersonal',
+          'Hantera schemaläggning, semester och frånvaro',
+          'Genomföra utvecklingssamtal och feedback-möten',
+          'Driva kompetensutveckling och säljutbildningar',
+        ],
+      },
+      {
+        rubrik: 'Ekonomi och rapportering',
+        punkter: [
+          'Styra butikens P&L och budget i samråd med distriktschef',
+          'Genomföra dagsavstämning, inventering och svinnanalys',
+          'Rapportera säljresultat och KPI:er veckovis och månadsvis',
+          'Hantera kostnader och optimera marginal',
+        ],
+      },
+      {
+        rubrik: 'Kundservice och butiksmiljö',
+        punkter: [
+          'Säkerställa hög kundservice-nivå och NPS',
+          'Hantera klagomål och svåra kundsituationer',
+          'Driva visuell merchandising enligt kedjans riktlinjer',
+          'Genomföra kvalitetskontroller och förbättringar',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och compliance',
+        punkter: [
+          'Säkerställa följsamhet till säkerhets- och hygienrutiner',
+          'Hantera kontant- och säkerhetsfrågor enligt rutin',
+          'Driva svinnreducering och säkerhetsutbildning',
+          'Compliance med ansvarsfull försäljning (alkohol, tobak, lotter)',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Roller och ledarnivåer',
+        termer: [
+          { term: 'Butikschef', forklaring: 'Operativ chef över enskild butik med P&L-ansvar.' },
+          { term: 'Avdelningschef', forklaring: 'Chef över specifik avdelning, vanlig på storbutiker.' },
+          { term: 'Distriktschef', forklaring: 'Senior chef över flera butikschefer i geografiskt område.' },
+          { term: 'Regional Manager', forklaring: 'Chef över flera distrikt eller region.' },
+          { term: 'Storeplanner', forklaring: 'Specialist på butikslayout och säljytseffektivitet.' },
+          { term: 'Visual Merchandiser', forklaring: 'Specialist på butiksskyltning och produktexponering.' },
+        ],
+      },
+      {
+        kategori: 'Kassasystem och teknik',
+        termer: [
+          { term: 'ICA-kassan', forklaring: 'ICA:s egna kassasystem som används i alla ICA-butiker.' },
+          { term: 'NCR', forklaring: 'Globalt kassasystem som används i Coop, Hemköp.' },
+          { term: 'Sitoo', forklaring: 'Molnbaserat kassasystem som dominerar kläd- och specialbutiker.' },
+          { term: 'Iiko', forklaring: 'Kassasystem populärt i restaurang och småbutiker.' },
+          { term: 'Lawson', forklaring: 'ERP-system vanlig på storbutiker och kedjor.' },
+          { term: 'Bizpoint', forklaring: 'Svenskt kassasystem för små och medelstora butiker.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och affärsmått',
+        termer: [
+          { term: 'Snittnota', forklaring: 'Genomsnittligt belopp per transaktion, central KPI.' },
+          { term: 'UPT', forklaring: 'Units Per Transaction, antal artiklar per kvitto.' },
+          { term: 'Konvertering', forklaring: 'Andel besökare som blir köpare, mäts via räknare.' },
+          { term: 'Säljytseffektivitet', forklaring: 'Omsättning per kvadratmeter.' },
+          { term: 'Svinn', forklaring: 'Förlorad varuvärde genom stöld, skador eller felinventering.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, kundnöjdhet och rekommendationsvilja.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'LAS', forklaring: 'Lagen om anställningsskydd, central för uppsägning.' },
+          { term: 'MBL', forklaring: 'Medbestämmandelagen, reglerar facklig samverkan.' },
+          { term: 'AML', forklaring: 'Arbetsmiljölagen, gäller fysisk och psykosocial arbetsmiljö.' },
+          { term: 'Konsumentköplagen', forklaring: 'Reglerar returer och reklamationer i detaljhandel.' },
+          { term: 'Ansvarsfull försäljning', forklaring: 'Utbildning i ålderkontroll vid alkohol, tobak, lotter.' },
+          { term: 'Handels kollektivavtal', forklaring: 'Avtal mellan Handels och Svensk Handel för butikspersonal.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Dagligvaruhandel',
+        exempel: [
+          'ICA-handlare i Stockholm, Göteborg, Malmö och övriga landet',
+          'Coop, Hemköp, Willys, Lidl, City Gross',
+          'Mindre lokala livsmedelsbutiker',
+          'Apoteket och Apotek Hjärtat',
+        ],
+      },
+      {
+        kategori: 'Mode och kläder',
+        exempel: [
+          'H&M, Lindex, KappAhl, MQ, Bik Bok',
+          'Zara, Mango, Cubus, Gina Tricot',
+          'Lyxbutiker (NK, Acne Studios, Filippa K)',
+          'Sportbutiker (Stadium, XXL, Intersport)',
+        ],
+      },
+      {
+        kategori: 'Heminredning och elektronik',
+        exempel: [
+          'IKEA, JYSK, Mio, Hemtex',
+          'Elgiganten, NetOnNet, Media Markt',
+          'Specialbutiker för design och inredning',
+          'Möbelhus och inredningskedjor',
+        ],
+      },
+      {
+        kategori: 'Skönhet, sport och övrigt',
+        exempel: [
+          'KICKS, Lyko, Sephora, The Body Shop',
+          'Apoteket, Apotek Hjärtat, Kronans Apotek',
+          'Bensinmackar (Circle K, Preem, OKQ8)',
+          'Köpcentrum och flagship-butiker',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt avancemang från butikspersonal',
+        beskrivning: 'Vanligaste vägen i Sverige. Många butikschefer har avancerat från säljare via avdelningschef till butikschef. Internutbildning från kedjan kompletterar.',
+      },
+      {
+        rubrik: 'Civilekonom eller högskoleutbildning (3-5 år)',
+        beskrivning: 'Civilekonom från Handelshögskolan, Lund, Göteborg. Vanligare på senior- och regionchefroller. Inriktning marknadsföring eller retail management.',
+      },
+      {
+        rubrik: 'Kedje-specifika ledarskap-program',
+        beskrivning: 'IKEA Academy, ICA-skolan, H&M Way, Coop Akademin. Större kedjor har strukturerade interna ledarskap-program som leder till butikschef- och distriktschef-roller.',
+      },
+      {
+        rubrik: 'Extern ledarskap-utbildning',
+        beskrivning: 'UGL (Utveckling av Grupp och Ledare), IFL Stockholm Business School. Korta program som stärker ledarkompetens och påverkar lönen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'P&L-ansvar och budgetstyrning',
+        'Personalansvar och rekrytering',
+        'Schemaläggning och bemanningsplanering',
+        'Kassasystem (ICA-kassan, NCR, Sitoo)',
+        'KPI-uppföljning (snittnota, UPT, konvertering)',
+        'Säljanalys och kampanjarbete',
+        'Visuell merchandising',
+        'Inventering och svinnhantering',
+        'Svensk arbetsrätt (LAS, MBL, AML)',
+        'Kollektivavtal med Handels',
+        'Ansvarsfull försäljning',
+        'Office-paketet och rapportverktyg',
+      ],
+      personliga: [
+        'Resultatdriven och målmedveten',
+        'Strukturerad i daglig drift',
+        'Empatisk och kommunikativ',
+        'Lugn vid svåra personalärenden',
+        'Pedagogisk i säljutveckling',
+        'Pragmatisk i tradeoffs',
+        'Driven av kundservice',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren butikschef med 6 års erfarenhet från ICA och H&M. Driver butik med 28 MSEK omsättning och 14-personers team med ansvar för P&L, säljresultat och personal. Ökade snittnota 12% och retention från 78% till 92% genom strukturerad säljutbildning. UGL-utbildning, certifierad i ansvarsfull försäljning och svensk arbetsrätt-vana. Söker avancemang mot distriktschef inom 2 år.',
+
+    profilTips:
+      'Antal år som butikschef, butikskedja och bransch i öppningsraden. Andra meningen lyfter omsättning, teamstorlek och konkreta resultat. Tredje meningen visar utbildningar och eventuell karriärambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Omsättning och säljresultat',
+        text: '"Drev butik med 35 MSEK omsättning och 12% säljtillväxt 3 år i rad" säger mer än "ansvarig för butik". Konkreta siffror differentierar senior butikschefer.',
+      },
+      {
+        rubrik: 'P&L-ansvar och budget',
+        text: 'EBITDA-bidrag, marginal, kostnadsstyrning. Distriktschefer värderar butikschefer som tänker affärsmässigt och kan styra både intäkter och kostnader.',
+      },
+      {
+        rubrik: 'Personalansvar i klartext',
+        text: '"15-personers team med rekryteringsansvar" är konkret. Skriv ut antal personer du lett, rekryteringsvolym och eventuell facklig samverkan.',
+      },
+      {
+        rubrik: 'Kassasystem och rutiner',
+        text: 'ICA-kassan, NCR, Sitoo, Iiko. Skriv ut kassasystem plus rutiner som dagsavstämning, inventering, svinnhantering. Branschspecifikt och CV-kritiskt.',
+      },
+      {
+        rubrik: 'Ledarskap-utbildning',
+        text: 'UGL, IFL, kedje-specifika program (IKEA Academy, ICA-skolan). Sådana utbildningar ger trovärdighet och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Arbetsrätt och samverkan',
+        text: 'LAS, MBL, kollektivavtal med Handels. Lyft din arbetsrättsliga erfarenhet och eventuell facklig samverkan.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Antal år som butikschef, butikskedja, omsättning och teamstorlek på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Butik, kedja, period, omsättning. Konkretisera teamstorlek och säljresultat.' },
+      { sektion: 'Utbildning', tips: 'Eventuell akademisk bakgrund. Ledarskap-utbildningar (UGL, IFL, kedje-program) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Kassasystem, P&L-styrning, personalansvar. Var konkret om svensk arbetsrätt.' },
+      { sektion: 'Ledarskap', tips: 'Eget block med UGL, IFL, kedje-program och eventuella mentor-roller.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ambition (distriktschef-mål), eventuell facklig samverkan.' },
+    ],
+
+    checklista: [
+      'Butikschef-erfarenhet med omsättning',
+      'Personalansvar med teamstorlek',
+      'P&L-ansvar och budgetstyrning',
+      'Kassasystem du behärskar',
+      'Säljresultat och KPI:er',
+      'Svensk arbetsrätt-vana',
+      'Eventuell ledarskap-utbildning',
+      'Branschvana (dagligvaror, mode, elektronik)',
+      'Rekrytering och utvecklingssamtal',
+      'Compliance och ansvarsfull försäljning',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor och KPI:er (snittnota, UPT) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett butikschef-CV?',
+        a: 'Butikschef-erfarenhet med omsättning och teamstorlek, P&L-ansvar, säljresultat (snittnota, mersälj), personalansvar (rekrytering, schemaläggning), kassasystem, eventuell ledarskap-utbildning (UGL, IFL), arbetsrätt-erfarenhet, samt branschvana (dagligvaror, mode, sport, elektronik).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny butikschef?',
+        a: 'Lyft tidigare butikserfarenhet med konkreta säljresultat (även som säljare eller avdelningschef), eventuell intern utbildning från kedjan, ledar-roller du haft (mentor, schemaläggare, kassansvar), och språkkunskaper. Skriv ut din vilja att utvecklas som ledare. Många kedjor har strukturerade trainee-program för butikschefer.',
+      },
+      {
+        q: 'Vilken ledarskap-utbildning är värdefullast?',
+        a: 'UGL (Utveckling av Grupp och Ledare) är klassisk svensk standard. IFL Stockholm Business School premium-segment. Kedje-specifika program (IKEA Academy, ICA-skolan, H&M Way) räknas och påverkar lönen direkt. För avancemang till distriktschef väger MBA tungt.',
+      },
+      {
+        q: 'Hur viktig är akademisk examen?',
+        a: 'Inte alltid krav. Många butikschefer har avancerat internt utan akademisk examen. Civilekonom är värdefull för senior- och regionchefroller på storkedjor som H&M och IKEA. För mindre butiker och dagligvaruhandel är butikserfarenhet och resultat viktigare.',
+      },
+      {
+        q: 'Hur lyfter jag P&L-ansvar?',
+        a: 'Konkret: "Drev butik med 35 MSEK omsättning och 12% EBITDA-marginal", "Sänkte kostnader 8% genom personalplanering", "Ökade lönsamhet 15% genom mersälj-program". Distriktschefer värderar butikschefer som tänker affärsmässigt utöver bara säljmål.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor (ICA, Coop, H&M, Stadium), KPI:er (snittnota, UPT, konvertering, retention), ledarskap-utbildning (UGL, IFL), och svensk arbetsrätt (LAS, MBL). Teamtailor och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett butikschef-CV vara?',
+        a: 'Junior butikschef 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller distriktschef-kandidat: 2 sidor. Det viktigaste är att omsättning, teamstorlek och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till butikschef-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik ledar-utmaning du löst. Beskriv en svår personalärende, en säljutmaning eller hur du drivit en specifik förbättring. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är arbetsrätt-erfarenhet?',
+        a: 'Mycket. Som butikschef hanterar du löneförhandling, sjuksamtal, rehabilitering, eventuella uppsägningar enligt LAS, samverkan med fack (Handels). Erfarenhet av MBL-förhandling eller uppsägningsärenden är meriterande för senior-roller.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt butikschef-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, namn på medarbetare eller sekretessbelagda detaljer, och hobbies som inte är ledarskaps-relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
+  'kundtjanstmedarbetare': {
+    seoIntro:
+      'Som kundtjänstmedarbetare bedöms du på din serviceförmåga, system-vana och språkkunskaper. Stora bolag som Telia, Klarna, Tre, ICA, banker och scale-ups har konstant öppna kundtjänst-tjänster, men team leaders slänger CV:n som inte tydligt visar serviceresultat, system och språk. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för kundtjänstmedarbetare lyfter system, språk och serviceresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, kanal (telefon, mejl, chat), tidsperiod och nyckelresultat syns direkt. Det betyder att team leaders kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av kundtjänst i specifik bransch (telecom, bank, e-handel, försäkring), kanaler (telefon, mejl, chat, sociala medier), system (Zendesk, Salesforce Service Cloud, Freshdesk, Intercom), språkkunskaper med nivå, KPI:er (NPS, FCR-First Call Resolution, AHT, lösningsgrad), eventuell utbildning, samt schemaflexibilitet.\n\nNedan hittar du två CV-mallar designade för kundtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad team leaders och customer service managers på telecom-, bank- och scale-up-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Kundtjänstsystem i klartext',
+        description: 'Zendesk, Salesforce Service Cloud, Freshdesk, Intercom, ServiceNow. Olika bolag använder olika system. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara serviceresultat',
+        description: '"NPS 78 (vs 65 för team)", "FCR 89%", "AHT 4:30 (mål 5:00)". Konkreta KPI:er differentierar senior- från junior-kundtjänst och visar att du tänker prestationsmässigt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Kanaler du behärskar',
+        description: 'Telefon, mejl, chat, sociala medier, video. Olika team kräver olika kanal-fokus. Telefon-tunga miljöer värderar uthållighet, chat värderar typing-hastighet och multitasking.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper är hård valuta',
+        description: 'Engelska är förmodat. Andra språk (tyska, spanska, finska, polska, arabiska) är värdefulla för internationella bolag och flerspråkiga kundgrupper. Lägg språk synligt med nivå.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Branschvana är differentiator',
+        description: 'Telecom, bank, e-handel, försäkring, sjukvård. Olika branscher har olika regelverk och produktkomplexitet. Lyft den bransch där du har djupast erfarenhet.',
+      },
+      {
+        icon: 'Award',
+        title: 'Schemaflexibilitet',
+        description: 'Kundtjänst kör ofta rotation (dag, kväll, helger). Var explicit om vilket schema du söker. "Tillgänglig för rotationsschema" sätter dig i rätt urvalslista.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'System och språk överst',
+        description: 'Vår mall lyfter kundtjänstsystem och språk i sidopanelen. Team leaders ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet med serviceresultat',
+        description: 'Mallen separerar bolag och dina serviceresultat (NPS, FCR, AHT). Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för kanaler och system',
+        description: 'Telefon, mejl, chat, system. Mallen lyfter kanaler och system som eget block så team leaders ser specifik kompetens direkt.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För senior kundtjänst-roller och team leader lägger Disk Plus till foto. Skapar mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för KPI:er',
+        description: 'Mallen har dedikerade rader för KPI:er (NPS, FCR, AHT, lösningsgrad). Visar att du tänker prestationsmässigt och inte bara reaktivt.',
+      },
+      {
+        title: 'Energisk men professionell färgsättning',
+        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för kundtjänstbranschen.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Kundkontakt på flera kanaler',
+        punkter: [
+          'Hantera inkommande samtal, mejl, chat och sociala medier',
+          'Möta kunder professionellt och serviceinriktat',
+          'Eskalera komplexa ärenden till specialiserade team',
+          'Hantera klagomål och svåra situationer med diplomati',
+        ],
+      },
+      {
+        rubrik: 'Ärendehantering och dokumentation',
+        punkter: [
+          'Dokumentera ärenden i Zendesk, Salesforce eller motsvarande',
+          'Följa SLA (Service Level Agreement) och svarstider',
+          'Skapa och uppdatera kundprofiler i CRM',
+          'Hantera tekniska supportärenden enligt rutin',
+        ],
+      },
+      {
+        rubrik: 'Försäljning och mersälj',
+        punkter: [
+          'Identifiera mersälj-möjligheter under kundsamtal',
+          'Föreslå relevanta tjänster eller produkter',
+          'Bidra till retention genom proaktiv service',
+          'Genomföra outbound-kampanjer vid behov',
+        ],
+      },
+      {
+        rubrik: 'Produkt- och systemkunskap',
+        punkter: [
+          'Behärska företagets produkter och tjänster',
+          'Använda kunskapsdatabaser och knowledge management',
+          'Navigera mellan flera system parallellt (CRM, faktura, support)',
+          'Hålla sig uppdaterad om produktändringar och kampanjer',
+        ],
+      },
+      {
+        rubrik: 'KPI-uppföljning och utveckling',
+        punkter: [
+          'Följa upp egna KPI:er (NPS, FCR, AHT) dagligen',
+          'Bidra till team-mål och säkerställa SLA',
+          'Genomföra coaching-samtal och kompetensutveckling',
+          'Föreslå förbättringar i process och rutiner',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'NPS', forklaring: 'Net Promoter Score, kundnöjdhet och rekommendationsvilja.' },
+          { term: 'FCR', forklaring: 'First Call Resolution, andel ärenden lösta vid första kontakten.' },
+          { term: 'AHT', forklaring: 'Average Handle Time, genomsnittlig samtalstid.' },
+          { term: 'CSAT', forklaring: 'Customer Satisfaction, kundnöjdhet efter ärende.' },
+          { term: 'Lösningsgrad', forklaring: 'Andel ärenden som löses utan eskalering.' },
+          { term: 'SLA', forklaring: 'Service Level Agreement, svarstider och prestationsmål.' },
+        ],
+      },
+      {
+        kategori: 'System och plattformar',
+        termer: [
+          { term: 'Zendesk', forklaring: 'Marknadsledande customer service-plattform.' },
+          { term: 'Salesforce Service Cloud', forklaring: 'Premium kundtjänstsystem från Salesforce.' },
+          { term: 'Freshdesk', forklaring: 'Modern kundtjänstplattform populär på scale-ups.' },
+          { term: 'Intercom', forklaring: 'Chat- och kundtjänstplattform vanlig i tech.' },
+          { term: 'ServiceNow', forklaring: 'Enterprise-system för IT-service och kundtjänst.' },
+          { term: 'Kustomer', forklaring: 'Modern customer service-plattform från Meta.' },
+        ],
+      },
+      {
+        kategori: 'Kanaler och kommunikation',
+        termer: [
+          { term: 'Inbound', forklaring: 'Kundinitierat kontakt (telefon, mejl, chat).' },
+          { term: 'Outbound', forklaring: 'Företagsinitierat kontakt (försäljning, uppföljning).' },
+          { term: 'Live chat', forklaring: 'Realtids-chat på webbplatsen.' },
+          { term: 'Social customer service', forklaring: 'Kundtjänst via Twitter, Facebook, Instagram.' },
+          { term: 'Webchat', forklaring: 'Chat-baserad kundkontakt på webben.' },
+          { term: 'Self-service', forklaring: 'FAQ, knowledge base, AI-chatbot.' },
+        ],
+      },
+      {
+        kategori: 'Branscher',
+        termer: [
+          { term: 'Telecom', forklaring: 'Telia, Tele2, Tre, Comhem.' },
+          { term: 'Bank och finans', forklaring: 'SEB, Handelsbanken, Swedbank, Nordea, Klarna.' },
+          { term: 'E-handel', forklaring: 'Boozt, Apotea, NetOnNet, Adlibris.' },
+          { term: 'Försäkring', forklaring: 'Folksam, Trygg-Hansa, If, Länsförsäkringar.' },
+          { term: 'Sjukvård', forklaring: '1177, Kry, Doktor.se.' },
+          { term: 'BPO', forklaring: 'Business Process Outsourcing (Webhelp, Transcom).' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Telecom och media',
+        exempel: [
+          'Telia, Tele2, Tre, Comhem',
+          'Boxer, Viaplay, C More',
+          'Bredbandsleverantörer',
+          'Operatörer och nätverkstjänster',
+        ],
+      },
+      {
+        kategori: 'Bank och fintech',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'Klarna, Avanza, Nordnet',
+          'Försäkringsbolag (Folksam, Trygg-Hansa)',
+          'Fintech-bolag',
+        ],
+      },
+      {
+        kategori: 'E-handel och retail',
+        exempel: [
+          'Boozt, NA-KD, Apotea, NetOnNet',
+          'IKEA, H&M, Stadium kundtjänst',
+          'Amazon, Zalando',
+          'Mindre e-handelsbolag',
+        ],
+      },
+      {
+        kategori: 'BPO och bemanning',
+        exempel: [
+          'Webhelp, Transcom, Foundever',
+          'Bemanningsbolag (Adecco, Manpower)',
+          'Outsourcing-leverantörer',
+          'Egen verksamhet eller frilans',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen in. Många bolag rekryterar utan formell utbildning om du har språk och servicekänsla. Arbetsgivaren ger introduktion på 1-2 veckor.',
+      },
+      {
+        rubrik: 'Yrkeshögskola kundtjänst (1-2 år)',
+        beskrivning: 'YH-utbildningar inom kundtjänst, customer service eller digital marknadsföring. Kvalificerar för senior-roller och team leader.',
+      },
+      {
+        rubrik: 'Internutbildningar från bolag',
+        beskrivning: 'Klarna Academy, Telia Education, Webhelp Training. Större bolag har strukturerade interna utbildningsprogram.',
+      },
+      {
+        rubrik: 'Specialistcertifieringar',
+        beskrivning: 'CCNP (Cisco Certified Network Professional) för telecom, bank- och försäkringscertifieringar (SwedSec) för finansbolag. Påverkar lön och tjänsteansvar.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Kundtjänstsystem (Zendesk, Salesforce, Freshdesk, Intercom)',
+        'CRM-system och kunddatabaser',
+        'Telefon-, mejl- och chat-hantering',
+        'KPI-uppföljning (NPS, FCR, AHT)',
+        'SLA och svarstider',
+        'Knowledge base och self-service',
+        'Sociala medier och social customer service',
+        'Outbound-försäljning och mersälj',
+        'Eskaleringsrutiner och back-office',
+        'Office-paketet och rapportverktyg',
+        'Eventuella branschspecifika system',
+        'Multitasking på flera kanaler',
+      ],
+      personliga: [
+        'Servicemedveten och kundorienterad',
+        'Lugn vid svåra kunder',
+        'Kommunikativ skriftligt och muntligt',
+        'Strukturerad i ärendehantering',
+        'Empatisk och relationsskapande',
+        'Pedagogisk i förklaringar',
+        'Lagspelare i team-miljö',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren kundtjänstmedarbetare med 4 års erfarenhet inom telecom (Telia) och bank (Klarna). Hanterar 60+ ärenden per dag i Zendesk via telefon, mejl och chat med NPS 82 och FCR 91% (vs team-snitt 78%). Flerspråkig (svenska, engelska, tyska, finska) och utbildad i SwedSec-licens samt eskaleringsrutiner. Tillgänglig för rotationsschema inklusive kvällar och helger.',
+
+    profilTips:
+      'Antal år och bransch i öppningsraden. Andra meningen lyfter konkreta KPI:er och system. Tredje meningen visar språk och tillgänglighet som differentierar dig från generiska kundtjänst-CV.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Kundtjänstsystem',
+        text: 'Zendesk, Salesforce Service Cloud, Freshdesk, Intercom. Olika bolag använder olika system. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Mätbara serviceresultat',
+        text: '"NPS 78", "FCR 89%", "AHT 4:30". Konkreta KPI:er differentierar senior- från junior-kundtjänst.',
+      },
+      {
+        rubrik: 'Kanaler',
+        text: 'Telefon, mejl, chat, sociala medier. Olika team kräver olika kanal-fokus. Lyft dina styrkor.',
+      },
+      {
+        rubrik: 'Språk',
+        text: 'Engelska är förmodat. Tyska, spanska, finska, polska, arabiska är värdefulla för internationella bolag.',
+      },
+      {
+        rubrik: 'Bransch',
+        text: 'Telecom, bank, e-handel, försäkring. Olika branscher har olika regelverk. Lyft den bransch där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'Schema',
+        text: 'Kundtjänst kör ofta rotation. Var explicit om vilket schema du söker. "Tillgänglig för rotation" sätter dig i rätt urvalslista.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Antal år, bransch, primära system och KPI:er på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, kanal, period, system. Konkretisera serviceresultat (NPS, FCR, AHT).' },
+      { sektion: 'Utbildning', tips: 'Eventuell utbildning eller intern certifiering. Branschspecifika cert (SwedSec).' },
+      { sektion: 'Kompetenser', tips: 'System, kanaler, branschvana. Var konkret om KPI-mätningar.' },
+      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå.' },
+      { sektion: 'Övrigt', tips: 'Schema-flexibilitet, eventuell körkort, internationella stints.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika kundtjänstsystem',
+      'Kanaler du behärskar (telefon, mejl, chat)',
+      'KPI:er (NPS, FCR, AHT, CSAT)',
+      'Språkkunskaper med nivå',
+      'Branschvana (telecom, bank, e-handel)',
+      'SLA och svarstider',
+      'Eskaleringsrutiner',
+      'Schemaflexibilitet',
+      'Eventuella branschcertifieringar',
+      'Outbound- eller mersäljs-erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora bolag använder Workday eller Teamtailor. BPO-bolag har ofta egna ATS. Skriv ut kundtjänstsystem (Zendesk, Salesforce), KPI:er (NPS, FCR, AHT) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett kundtjänst-CV?',
+        a: 'Erfarenhet av kundtjänst i specifik bransch, kanaler (telefon, mejl, chat), system (Zendesk, Salesforce, Freshdesk), språkkunskaper med nivå, KPI:er (NPS, FCR, AHT), eventuell utbildning, schemaflexibilitet, samt eventuella branschcertifieringar. Lägg till team leader-erfarenhet om relevant.',
+      },
+      {
+        q: 'Behövs erfarenhet för kundtjänst-jobb?',
+        a: 'Inte alltid. Många bolag rekryterar utan erfarenhet om du har språk och servicekänsla. Arbetsgivaren ger introduktion på 1-2 veckor. För specialiserade roller (bank, försäkring) krävs ofta SwedSec-licens eller motsvarande certifiering.',
+      },
+      {
+        q: 'Vilka system är viktigast 2026?',
+        a: 'Zendesk dominerar e-handel och scale-ups. Salesforce Service Cloud på enterprise. Freshdesk växer på scale-ups. Intercom på tech-bolag. ServiceNow på enterprise och IT-service. AI-baserade verktyg (chatbots, AI-assist) blir allt viktigare.',
+      },
+      {
+        q: 'Hur lyfter jag KPI:er på CV:t?',
+        a: 'Konkret: "NPS 82 (team-snitt 75)", "FCR 91% (mål 85%)", "AHT 4:15 (mål 4:30)". Bench-marka mot team eller bransch-snitt så siffrorna får kontext. Indirekta exempel: "Topp-3 i månadens NPS-mätning".',
+      },
+      {
+        q: 'Hur viktigt är språk?',
+        a: 'Mycket. Engelska är förmodat. Andra språk (tyska, spanska, finska, polska, arabiska, kinesiska) är värdefulla för internationella bolag och flerspråkiga kundgrupper. Modersmålsnivå värderas högt och påverkar lönen.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Kundtjänstsystem (Zendesk, Salesforce, Freshdesk, Intercom), KPI:er (NPS, FCR, AHT, CSAT, SLA), kanaler (telefon, mejl, chat, social), branscher (telecom, bank, e-handel), och språk. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett kundtjänst-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet och team leader-roller kan det bli 1,5 sidor. Det viktiga är att system, språk och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kundtjänst-tjänster?',
+        a: 'Beror på bolaget. Stora bolag som Telia och Klarna förväntar sig oftast brev. BPO-bolag och bemanningsbolag accepterar bara CV. När brev förväntas, fokusera på service-filosofi och varför just det bolag. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur skiljer sig kundtjänst-roller mellan branscher?',
+        a: 'Telecom kräver teknisk produktkunskap. Bank kräver SwedSec-licens och regulatorisk kunskap. E-handel värderar snabbhet och multitasking. Försäkring kräver detaljkunskap om policy och claims. Sjukvård (1177) kräver medicinsk grundkunskap.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt kundtjänst-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, kund- eller företagshemligheter, och hobbies som inte är service-relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
+  'bartender': {
+    seoIntro:
+      'Som bartender bedöms du på din drink-portfölj, gästkontakt och förmåga att hålla tempo i serviceläge. Restauranger, hotellbarer, cocktail-barer och nattklubbar har konstant öppna roller, men barchefer slänger CV:n som inte tydligt visar barerfarenhet, drink-bredd och säljförmåga. Ett välskrivet CV avgör om du blir kallad till provdag på den bar du faktiskt vill jobba på.\n\nVår mall för bartenders lyfter barerfarenhet, drink-portfölj och eventuella certifieringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att bar, koncept och tidsperiod syns direkt med eventuella signature drinks eller resultat. Det betyder att barchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barerfarenhet med koncept (cocktail-bar, hotellbar, restaurangbar, nattklubb), drink-portfölj (klassiska cocktails, signature drinks, beer-/vinkunskap), kassasystem (POS, IIko, Sitoo), HACCP- och alkohollagsutbildning (ansvarsfull alkoholservering), eventuella tävlingsdeltaganden (Nordic Bartender of the Year, World Class), gästkontakt och säljförmåga, samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för bartenderrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad barchefer på cocktail-, hotell- och restaurangbarer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Bar-koncept och stjärnstatus',
+        description: 'Cocktail-bar, hotellbar, fine dining-bar, nattklubb, brewpub. Olika bar-koncept kräver olika kompetens. Lyft typen i bar-namnet eller med kort beskrivning så barchefen ser direkt om du matchar.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Drink-portfölj och specialiseringar',
+        description: 'Klassiska cocktails, modern mixology, beer-cocktail, vinkunskap, signature drinks. Premium-barer förväntar sig djup drink-kunskap. Lyft specifika kategorier du behärskar.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'HACCP och alkohollagsutbildning',
+        description: 'Ansvarsfull alkoholservering enligt alkohollagen är krav. Skriv ut utbildning med datum. HACCP är grundkrav på alla restauranger sedan 2006.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Tävlingar och utmärkelser',
+        description: 'Nordic Bartender of the Year, World Class, lokala tävlingar. Tävlingsdeltaganden är meriterande och visar driv. Lyft eventuella vinster eller deltagande även om du inte vunnit.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Volym och tempo',
+        description: '"500+ drinks per kväll på fredagsservice" säger mer än "ansvarig för bar". Konkreta volymer visar din förmåga att klara tempo och press, vilket är hård valuta i restaurangbranschen.',
+      },
+      {
+        icon: 'Target',
+        title: 'Gästkontakt och säljförmåga',
+        description: 'Bartendern är ofta en av de viktigaste gästkontakterna. Beskriv mersäljs-resultat, snittnota och eventuella stamkund-relationer du byggt.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Bar-koncept och drink-portfölj överst',
+        description: 'Vår mall lyfter barer du arbetat på, koncept och eventuell stjärnstatus i sidopanelen. Barchefer ser vilka kök du arbetat i utan att behöva läsa hela CV:t.',
+      },
+      {
+        title: 'Plats för signature drinks och stilar',
+        description: 'Mallen separerar barer och dina specialiseringar (klassisk mixology, beer-cocktails, vin) så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för certifikat och tävlingar',
+        description: 'HACCP, alkohollagen, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
+      },
+      {
+        title: 'Premium-mallen Servering med foto',
+        description: 'För senior-roller (bar manager, bar chef, executive bartender) lägger Servering till foto och magazine-känsla. Skapar professionell first impression som passar premium-barer.',
+      },
+      {
+        title: 'Plats för stilar och referenser',
+        description: 'Klassisk fransk mixology, modern, japansk, italiensk. Mallen har dedikerat block för dina kulinariska stilar och eventuella mentorer från branschen.',
+      },
+      {
+        title: 'Kompakt typografi för flera år',
+        description: 'Bartenders har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Mallen är kompakt nog för att rymma 6-8 anställningar utan att verka rörig.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Mise en place och förberedelser',
+        punkter: [
+          'Förbereda garnityr, sirap och förinfunderade ingredienser',
+          'Stationera bar och säkerställa korrekt setup för service',
+          'Hantera leveranser och rotera lager (FIFO)',
+          'Anpassa förberedelser efter dagens menyt och förväntad volym',
+        ],
+      },
+      {
+        rubrik: 'Service och cocktail-skapande',
+        punkter: [
+          'Mixa cocktails enligt receptbok eller skapa egna',
+          'Hantera flera ordrar parallellt under intensiv service',
+          'Säkerställa konsekvent kvalitet och presentation',
+          'Plate up med precision enligt barens stil',
+        ],
+      },
+      {
+        rubrik: 'Gästkontakt och rekommendationer',
+        punkter: [
+          'Möta gäster professionellt och bygga relation',
+          'Rekommendera drinks baserat på gästens preferenser',
+          'Bidra till mersäljs-mål och premium-cocktails',
+          'Hantera klagomål och svåra gäster med diplomati',
+        ],
+      },
+      {
+        rubrik: 'Ansvar och säkerhet',
+        punkter: [
+          'Tillämpa ansvarsfull alkoholservering enligt alkohollagen',
+          'Hantera ID-kontroll vid 18-årsregler',
+          'Säkerställa kassansvar och dagsavstämning',
+          'Förebygga konflikter och hantera berusade gäster',
+        ],
+      },
+      {
+        rubrik: 'Kunskapsutveckling och tävlingar',
+        punkter: [
+          'Hålla sig uppdaterad om trender och nya cocktails',
+          'Delta i barbranschens utbildningar och kurser',
+          'Eventuellt delta i tävlingar för synlighet',
+          'Utveckla egna signature drinks och menyförslag',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Bar-koncept',
+        termer: [
+          { term: 'Cocktail-bar', forklaring: 'Specialiserad på klassiska och moderna cocktails (Linje 10, Tjoget, Pharmarium).' },
+          { term: 'Hotellbar', forklaring: 'Bar i hotell, ofta med varierad meny för olika gäster.' },
+          { term: 'Brewpub', forklaring: 'Bar med egen ölbryggning eller fokus på craft beer.' },
+          { term: 'Nattklubb', forklaring: 'Hög volym och tempo, fokus på enkla men effektiva drinks.' },
+          { term: 'Speakeasy', forklaring: 'Hemlig bar-stil med fokus på prohibition-era cocktails.' },
+          { term: 'Tiki-bar', forklaring: 'Specialiserad på tropiska cocktails och rom.' },
+        ],
+      },
+      {
+        kategori: 'Roller och hierarki',
+        termer: [
+          { term: 'Bartender', forklaring: 'Allmän roll med fokus på cocktail-skapande och service.' },
+          { term: 'Senior Bartender', forklaring: 'Erfaren bartender med ansvar för specifik station.' },
+          { term: 'Bar Manager', forklaring: 'Operativ chef över baren med ansvar för meny och personal.' },
+          { term: 'Head Bartender', forklaring: 'Senior bartender med ansvar för kreativ utveckling.' },
+          { term: 'Beverage Manager', forklaring: 'Strategiskt ansvar för dryckesutbud på flera bar/restaurang.' },
+          { term: 'Executive Bartender', forklaring: 'Senior roll med fokus på menyutveckling och utbildning.' },
+        ],
+      },
+      {
+        kategori: 'Drink-kategorier',
+        termer: [
+          { term: 'Classic cocktails', forklaring: 'Klassiska cocktails: Old Fashioned, Manhattan, Negroni.' },
+          { term: 'Modern mixology', forklaring: 'Innovativa drinks med molekulärgastronomi.' },
+          { term: 'Tiki', forklaring: 'Tropiska cocktails baserade på rom.' },
+          { term: 'Highball', forklaring: 'Long drinks med spirit och mixer.' },
+          { term: 'Sour', forklaring: 'Kategorin med syrlighet (Whiskey Sour, Daiquiri).' },
+          { term: 'Stirred drinks', forklaring: 'Rörda drinks som Martini, Old Fashioned.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning och certifieringar',
+        termer: [
+          { term: 'Alkohollagen', forklaring: 'Reglerar all alkoholservering i Sverige.' },
+          { term: 'Ansvarsfull alkoholservering', forklaring: 'Krav på utbildning för att servera alkohol.' },
+          { term: 'HACCP', forklaring: 'Hazard Analysis and Critical Control Points, krav i alla bar/restaurang.' },
+          { term: 'Egenkontroll', forklaring: 'Restaurangens system för livsmedelssäkerhet.' },
+          { term: 'WSET', forklaring: 'Wine and Spirit Education Trust, internationell vincertifiering.' },
+          { term: 'Bols Bartending Academy', forklaring: 'Internationell bartendingsutbildning från Lucas Bols.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Premium-barer och cocktail',
+        exempel: [
+          'Linje 10, Tjoget, Pharmarium (Stockholm)',
+          'Honest, Sailors (Göteborg)',
+          'Tween, Speakeasy (Malmö)',
+          'Mindre cocktail-bar och hidden gems',
+        ],
+      },
+      {
+        kategori: 'Hotellbarer',
+        exempel: [
+          'Operakällaren, Berns, Grand Hôtel',
+          'Scandic, Elite, Nordic Choice hotellbar',
+          'Marriott, Hilton, Radisson Blu',
+          'Designhotell och boutique-hotell',
+        ],
+      },
+      {
+        kategori: 'Restaurangbarer',
+        exempel: [
+          'Fine dining-restauranger med bar',
+          'Bistro och brasserie',
+          'Italienska och asiatiska restauranger',
+          'Brunch- och dagsrestauranger',
+        ],
+      },
+      {
+        kategori: 'Nattklubb och säsong',
+        exempel: [
+          'Nattklubbar i Stockholm, Göteborg, Malmö',
+          'Sommarrestauranger på västkusten',
+          'Vinterstationer i Åre, Sälen',
+          'Festivaler och eventuella popup-barer',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Restaurang- och livsmedelsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning servering eller bar. Innehåller praktikperioder. Vanlig grund för svenska bartenders.',
+      },
+      {
+        rubrik: 'Yrkeshögskola bartender (1-2 år)',
+        beskrivning: 'YH-utbildningar med specifik inriktning (mixology, vin, premium-bar). Snabbare väg in i premium-segmentet.',
+      },
+      {
+        rubrik: 'Internationella bartendingsskolor',
+        beskrivning: 'European Bartender School, Bols Bartending Academy. Internationell utbildning är meriterande för premium-segmentet.',
+      },
+      {
+        rubrik: 'Lärlingsplatser och on-the-job',
+        beskrivning: 'Många bartenders utvecklas via lärlingsplatser i specifika barer. Att ha jobbat under en namnkunnig bartender är meriterande.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Klassisk mixology och cocktail-skapande',
+        'Modern mixology och fermenterade ingredienser',
+        'Vinkunskap (eventuell WSET-cert)',
+        'Beer-kunskap och pairing',
+        'Mise en place och stationhantering',
+        'Kassasystem (POS, IIko, Sitoo)',
+        'HACCP och egenkontroll',
+        'Allergenhantering enligt EU 1169/2011',
+        'Ansvarsfull alkoholservering',
+        'ID-kontroll och alkohollagen',
+        'Garnityr- och sirap-tillverkning',
+        'Plating och presentationsteknik',
+      ],
+      personliga: [
+        'Stresstålig vid intensiv service',
+        'Strukturerad i mise en place',
+        'Kreativ i menyplanering',
+        'Karismatisk i gästkontakt',
+        'Snabbtänkt vid problem',
+        'Lagspelare i barbrigad',
+        'Detaljorienterad i presentation',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren bartender med 6 års erfarenhet inom premium cocktail-bar och hotellbar i Stockholm. Specialist på klassisk mixology och modern fermentering med fokus på lokala råvaror. Arbetade på Linje 10 (Best Bar 2022) och nu på Operakällaren med ansvar för signature-meny och 500+ drinks per kväll. WSET Level 2 och certifierad i ansvarsfull alkoholservering. Deltog i Nordic Bartender of the Year 2023.',
+
+    profilTips:
+      'Antal år och bar-koncept i öppningsraden. Andra meningen lyfter specialisering och stil. Tredje meningen visor mentorskap, tävlingar eller utmärkelser som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Bar-koncept och stjärnstatus',
+        text: 'Cocktail-bar, hotellbar, fine dining-bar, nattklubb. Olika koncept kräver olika kompetens. Lyft typen i bar-namnet.',
+      },
+      {
+        rubrik: 'Drink-portfölj',
+        text: 'Klassiska cocktails, modern mixology, beer-cocktail, vin. Premium-barer förväntar sig djup. Lyft specifika kategorier du behärskar.',
+      },
+      {
+        rubrik: 'HACCP och alkohollag',
+        text: 'Ansvarsfull alkoholservering är krav. Skriv ut utbildning med datum. HACCP är grundkrav på alla restauranger.',
+      },
+      {
+        rubrik: 'Tävlingar',
+        text: 'Nordic Bartender of the Year, World Class. Tävlingsdeltaganden är meriterande och visar driv.',
+      },
+      {
+        rubrik: 'Volym och tempo',
+        text: '"500+ drinks per kväll" säger mer än "ansvarig för bar". Konkreta volymer visar din förmåga att klara tempo.',
+      },
+      {
+        rubrik: 'Gästkontakt och sälj',
+        text: 'Bartendern är ofta en av de viktigaste gästkontakterna. Beskriv mersäljs-resultat och stamkund-relationer.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Antal år, bar-koncept, specialisering på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bar, koncept, tidsperiod. Konkretisera signature drinks och eventuella priser.' },
+      { sektion: 'Utbildning', tips: 'Restaurang- och livsmedel, YH eller internationella bartendingsskolor.' },
+      { sektion: 'Kompetenser', tips: 'Tekniker, drink-kategorier, vin/beer. Var konkret om certifieringar.' },
+      { sektion: 'Hygien och certifikat', tips: 'HACCP, ansvarsfull alkoholservering, WSET med utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Tävlingsdeltaganden, mentorer, språkkunskaper för internationella barer.' },
+    ],
+
+    checklista: [
+      'Bartender-utbildning (gymnasium, YH eller bartendingsskola)',
+      'Bar-koncept du arbetat på',
+      'Drink-portfölj och specialiseringar',
+      'HACCP och ansvarsfull alkoholservering',
+      'Allergenhantering enligt EU 1169/2011',
+      'Volym per service och bar-koncept',
+      'Tävlingsdeltaganden och utmärkelser',
+      'Mentorer och referenser från branschen',
+      'Eventuell WSET- eller Bols-cert',
+      'Språkkunskaper för internationella barer',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack-developer och premium-varianten Servering är ATS-säkra. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut bar-koncept (cocktail-bar, hotellbar), drink-kategorier (klassisk mixology, modern) och hygien-certifikat (HACCP, ansvarsfull alkoholservering) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett bartender-CV?',
+        a: 'Barer du arbetat på med koncept (cocktail-bar, hotellbar), position och drink-portfölj, kassasystem (POS, IIko), HACCP och ansvarsfull alkoholservering, eventuella tävlingar och utmärkelser, samt språkkunskaper. Lägg till mentorer eller referenser om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som ung bartender utan premium-erfarenhet?',
+        a: 'Lyft barer du arbetat på med konkreta uppgifter, även om de inte är premium. Praktiska kurser från utbildningen, eventuella tävlingar i lokala mästerskap, säsongsarbete på sommarrestauranger, och vilka specialiseringar du provat. Skriv ut din vilja att utvecklas. Många premium-barer tar in junior-bartenders för att forma dem.',
+      },
+      {
+        q: 'Hur viktig är bar-typ på CV:t?',
+        a: 'Mycket. En bartender från premium cocktail-bar söker andra tjänster än en från nattklubb. Ange typ av bar och eventuell stjärnstatus eller annan utmärkelse. Hotellbar, cocktail-bar, brewpub är olika världar med olika förväntningar.',
+      },
+      {
+        q: 'Vad räknas som meriterande för senior bartender-roller?',
+        a: 'Erfarenhet från premium-segment (Linje 10, Tjoget, Operakällaren), arbete under namnkunniga bartenders, internationell erfarenhet, tävlingsdeltaganden, bar manager- eller head bartender-roller, och egen menyutveckling.',
+      },
+      {
+        q: 'Hur lyfter jag kreativitet på CV:t?',
+        a: 'Konkreta signature drinks du utvecklat, deltagande i menyutveckling, säsongsanpassning du drivit, tävlingsdeltaganden eller utmärkelser. Skriv "Utvecklade fyra signature-cocktails som ökade dryckesomsättning 18%" istället för "kreativ bartender".',
+      },
+      {
+        q: 'Behövs HACCP- och alkohollagsutbildning?',
+        a: 'Ja, det är grundkrav på alla bar/restaurang. Skriv ut HACCP-utbildning och ansvarsfull alkoholservering med datum. Allergenhantering enligt EU 1169/2011 är också krav.',
+      },
+      {
+        q: 'Hur lång ska ett bartender-CV vara?',
+        a: 'Junior 0-5 år: 1 sida. Erfaren senior bartender: 1,5 sidor. Bar manager eller executive bartender: 2 sidor. Det viktiga är att bar-typ, position och senaste anställning syns på första sidan.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Bar-koncept (cocktail-bar, hotellbar, premium), drink-kategorier (klassisk mixology, modern), tekniker (sous vide, fermentering), HACCP och hygien-certifikat, samt språk. Teamtailor och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Behöver jag personligt brev till bartender-tjänster?',
+        a: 'Beror på bar-typ. Premium-barer förväntar sig oftast personligt brev plus provdag. Mindre barer kan acceptera bara CV. När brev förväntas, fokusera på kulinarisk filosofi och varför just den baren.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt bartender-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("passion för bar") utan konkreta exempel, och hobbies som inte är kulinariskt relevanta. Stavfel av kulinariska termer signalerar oseriös bakgrund.',
+      },
+    ],
+  },
+
+  'konstruktor': {
+    seoIntro:
+      'Som konstruktör bedöms du på din tekniska skicklighet, CAD-vana och förmåga att omsätta krav till färdiga produktritningar. Industri-, bygg- och tillverkningsbolag har konstant brist på erfarna konstruktörer, men teknikchefer slänger CV:n som inte tydligt visar specialisering, system-vana och projektresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för konstruktörer lyfter teknisk specialisering, CAD-system och eventuella standarder som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller högskoleingenjör med inriktning konstruktion, specialisering (mekanik, elektronik, plastdetaljer, plåtkonstruktion, byggkonstruktion), CAD-system (SolidWorks, Catia, Inventor, NX, AutoCAD), simuleringsverktyg (ANSYS, Abaqus), branschvana (fordon, energi, telecom, bygg), standarder (CE, ISO, ASME), eventuella certifieringar (Six Sigma, CSWP), samt konkreta projektresultat.\n\nNedan hittar du två CV-mallar designade för konstruktörrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri-, bygg- och tillverkningsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'CAD-system med versioner',
+        description: 'SolidWorks dominerar i Sverige för mekanik. Catia på Volvo, Scania, Saab. Inventor och NX växer. AutoCAD för byggritningar. Skriv ut version och erfarenhetsår. CSWP-cert är meriterande.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Teknisk specialisering',
+        description: 'Mekanikkonstruktion, plastdetaljer, plåtkonstruktion, elektronik, byggkonstruktion. Olika specialiseringar kvalificerar för olika tjänster. Lyft din spetskompetens i sammanfattningen.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta projektresultat',
+        description: '"Designade komponent som minskade vikt 25% och kostnad 18%" säger mer än "ansvarig för konstruktion". Konkreta siffror differentierar senior- från junior-konstruktörer.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Standarder och regelverk',
+        description: 'CE-märkning, ISO 9001, ASME, branschspecifika standarder (ISO 26262 för fordon, IEC för elektronik). Lyft de standarder du arbetat efter.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Simuleringsverktyg',
+        description: 'ANSYS för FEA, Abaqus, Simulia, MoldFlow för plastkonstruktion. Simuleringskompetens är ofta differentiator. Beskriv vilka analyser du genomfört.',
+      },
+      {
+        icon: 'Target',
+        title: 'PDM och processkompetens',
+        description: 'Teamcenter, Windchill, ENOVIA för dokumenthantering. FMEA-, DVP&R- och DfMEA-arbete för designkvalitet. Lyft din processvana.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Specialisering och CAD överst',
+        description: 'Vår mall Verkstad lyfter teknisk specialisering, CAD-system och certifieringar i sidopanelen. Teknikchefer ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med tekniska resultat',
+        description: 'Mallen separerar bolag och dina konstruktörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för CAD och simulering',
+        description: 'SolidWorks, Catia, Inventor, NX, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
+      },
+      {
+        title: 'Premium-mallen Verkstad Plus med blueprint-grid',
+        description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar designresonemang som passar konstruktörer.',
+      },
+      {
+        title: 'Strukturerad teknisk färgpalett',
+        description: 'Vi har valt grafit och steel-blue accent som signalerar industri och precision. Inga distraherande färger som drar fokus från tekniska meriter.',
+      },
+      {
+        title: 'Plats för standarder och certifieringar',
+        description: 'CE, ISO 9001, ISO 14001, Six Sigma har egen rad med utgångsdatum. Mallen lyfter formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Konstruktion och design',
+        punkter: [
+          'Designa komponenter och produkter enligt produktkrav',
+          'Skapa 3D-modeller och tekniska ritningar i SolidWorks, Catia eller AutoCAD',
+          'Genomföra tolerans- och materialanalys',
+          'Samverka med inköp för materialspecifikation och leverantörer',
+        ],
+      },
+      {
+        rubrik: 'Simulering och beräkning',
+        punkter: [
+          'Genomföra FEA-analyser i ANSYS eller Abaqus',
+          'Hantera CFD-analyser för flöden och termik',
+          'Validera designval genom prototyping och tester',
+          'Optimera design baserat på simuleringsresultat',
+        ],
+      },
+      {
+        rubrik: 'Projekt och dokumentation',
+        punkter: [
+          'Driva tekniskt ansvar för delsystem eller hela produkter',
+          'Skriva tekniska specifikationer, FMEA och DVP&R',
+          'Hantera dokumentation i PDM-system (Teamcenter, Windchill)',
+          'Genomföra design reviews och technical signoff',
+        ],
+      },
+      {
+        rubrik: 'Standarder och kvalitet',
+        punkter: [
+          'Säkerställa CE-märkning och regulatorisk compliance',
+          'Tillämpa ISO 9001 eller branschspecifika standarder',
+          'Genomföra DFMEA och PFMEA för designsäkring',
+          'Stötta i kvalitetsutredningar och root cause-analys',
+        ],
+      },
+      {
+        rubrik: 'Test och validering',
+        punkter: [
+          'Designa och genomföra prototyptester',
+          'Hantera testrapporter och dokumentation',
+          'Samverka med externa testlabb och certifieringsorgan',
+          'Iterera design baserat på testresultat och fältdata',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'CAD och simulering',
+        termer: [
+          { term: 'SolidWorks', forklaring: 'Marknadsledande CAD-system i Sverige för mekanik.' },
+          { term: 'Catia', forklaring: 'Premium-CAD från Dassault, vanlig på Volvo, Scania, Saab.' },
+          { term: 'Inventor', forklaring: 'Autodesks 3D-CAD, vanlig på medelstora industribolag.' },
+          { term: 'NX', forklaring: 'Siemens premium-CAD, växande på fordonsbolag.' },
+          { term: 'AutoCAD', forklaring: 'Klassisk CAD, vanlig för 2D-ritningar och bygg.' },
+          { term: 'ANSYS', forklaring: 'Premium FEA- och simuleringsplattform.' },
+        ],
+      },
+      {
+        kategori: 'Specialiseringar',
+        termer: [
+          { term: 'Mekanikkonstruktion', forklaring: 'Design av mekaniska komponenter och produkter.' },
+          { term: 'Plastdetaljer', forklaring: 'Konstruktion för formsprutning och MoldFlow-simulering.' },
+          { term: 'Plåtkonstruktion', forklaring: 'Konstruktion för plåtbearbetning och bockning.' },
+          { term: 'Byggkonstruktion', forklaring: 'Bärande system, byggnadsfysik och statik.' },
+          { term: 'Elektronikkonstruktion', forklaring: 'Kretskort, hårdvara och PCB-design.' },
+          { term: 'Hydraulik och pneumatik', forklaring: 'Vätske- och gas-baserade system.' },
+        ],
+      },
+      {
+        kategori: 'Standarder och regelverk',
+        termer: [
+          { term: 'CE-märkning', forklaring: 'EU-märkning som visar att produkt uppfyller direktivkrav.' },
+          { term: 'ISO 9001', forklaring: 'Internationell standard för kvalitetsledningssystem.' },
+          { term: 'ISO 14001', forklaring: 'Standard för miljöledningssystem.' },
+          { term: 'ASME', forklaring: 'American Society of Mechanical Engineers, internationell standard.' },
+          { term: 'ISO 26262', forklaring: 'Funktionssäkerhet för fordon.' },
+          { term: 'Eurocode', forklaring: 'EU:s byggstandarder för konstruktion.' },
+        ],
+      },
+      {
+        kategori: 'Metodik och PDM',
+        termer: [
+          { term: 'FMEA', forklaring: 'Failure Mode and Effects Analysis, riskanalys.' },
+          { term: 'DFMEA', forklaring: 'Design FMEA, fokus på designrisker.' },
+          { term: 'DVP&R', forklaring: 'Design Verification Plan and Report.' },
+          { term: 'Teamcenter', forklaring: 'Siemens PDM-system, vanlig på fordonsbolag.' },
+          { term: 'Windchill', forklaring: 'PTC PDM-system, vanlig på industribolag.' },
+          { term: 'ENOVIA', forklaring: 'Dassault PDM-system, vanlig på Catia-användare.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Fordonsindustri',
+        exempel: [
+          'Volvo Cars, Volvo Trucks, Scania, Polestar',
+          'Northvolt och elektrifierings-bolag',
+          'Underleverantörer (Autoliv, Plastal)',
+          'Konsultbolag (Volvo Cars Consultants, AVL)',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'ABB, Atlas Copco, Sandvik, Tetra Pak',
+          'Electrolux, Husqvarna, AssaAbloy',
+          'Saab Group, FMV (försvarsindustri)',
+          'Mindre tillverkningsbolag',
+        ],
+      },
+      {
+        kategori: 'Bygg och anläggning',
+        exempel: [
+          'Skanska, NCC, Peab, JM',
+          'Sweco, WSP, Tyréns, COWI',
+          'Konstruktörsfirmor och arkitektkontor',
+          'Trafikverket, Svenska Kraftnät',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'Sweco, ÅF/AFRY, Sigma',
+          'CGI, Sopra Steria (tekniska divisioner)',
+          'Mindre konstruktörsfirmor',
+          'Bemanningsbolag (Adecco, Manpower)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjörsexamen (5 år)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping, Uppsala. Vanlig grund för senior-roller på storbolag och regulatoriskt tunga branscher (fordon, medtech).',
+      },
+      {
+        rubrik: 'Högskoleingenjörsexamen (3 år)',
+        beskrivning: 'Kortare teknisk utbildning från högskolor. Räcker för de flesta konstruktörsroller och vanlig på medelstora bolag.',
+      },
+      {
+        rubrik: 'Yrkeshögskola CAD-konstruktör (1-2 år)',
+        beskrivning: 'YH-utbildningar inom CAD, mekanikkonstruktion eller byggteknik. Snabbare väg in och meriterande kombinerat med praktik.',
+      },
+      {
+        rubrik: 'CSWP och specialistcertifieringar',
+        beskrivning: 'Certified SolidWorks Professional, Six Sigma, Catia-cert. Stark merit för senior-roller och konsultsegmentet.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'CAD-system (SolidWorks, Catia, Inventor, NX, AutoCAD)',
+        'FEA-simulering (ANSYS, Abaqus)',
+        'PDM-system (Teamcenter, Windchill, ENOVIA)',
+        'Tolerans- och materialanalys',
+        'FMEA och DVP&R-metodik',
+        'Standarder (CE, ISO 9001, branschspecifika)',
+        'Six Sigma-metodik',
+        'Plåtkonstruktion eller plastdetaljkonstruktion',
+        'MoldFlow för plastkonstruktion',
+        'Tekniska rapporter och specifikationer',
+        'Engelska för internationell kommunikation',
+        'Programmeringsspråk (Python, Matlab) för automation',
+      ],
+      personliga: [
+        'Strukturerad och analytisk',
+        'Pragmatisk i tradeoffs mellan funktion och kostnad',
+        'Detaljorienterad i konstruktion',
+        'Kollaborativ i tvärfunktionella team',
+        'Driven av kvalitet och prestanda',
+        'Etisk medvetenhet kring säkerhet',
+        'Kommunikativ med icke-tekniska intressenter',
+      ],
+    },
+
+    profilExempel:
+      'Senior konstruktör med 9 års erfarenhet inom fordonsindustrin på Scania och Volvo Cars Consultants. Arbetar med Catia V6 och Teamcenter för chassi- och drivlinekonstruktion enligt ISO 26262 och Six Sigma. Designade chassikomponent som minskade vikt 22% och produktionskostnad 15% utan kompromiss på säkerhet. Civilingenjör i maskinteknik från Chalmers samt CSWP-certifierad och Six Sigma Green Belt.',
+
+    profilTips:
+      'Senioritet, primär specialisering och bransch i öppningsraden. Andra meningen lyfter CAD-system och eventuella standarder. Tredje meningen visor konkret tekniskt resultat och certifieringar.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'CAD-system med versioner',
+        text: 'SolidWorks dominerar i Sverige. Catia på Volvo, Scania, Saab. Inventor och NX växer. Skriv ut version och erfarenhetsår. CSWP-cert är meriterande.',
+      },
+      {
+        rubrik: 'Teknisk specialisering',
+        text: 'Mekanikkonstruktion, plastdetaljer, plåtkonstruktion, elektronik, byggkonstruktion. Olika specialiseringar kvalificerar för olika tjänster.',
+      },
+      {
+        rubrik: 'Konkreta projektresultat',
+        text: '"Designade komponent som minskade vikt 25%", "Implementerade automation som ökade produktion 30%". Konkreta siffror differentierar senior konstruktörer.',
+      },
+      {
+        rubrik: 'Standarder och regelverk',
+        text: 'CE, ISO 9001, ASME, branschspecifika. Lyft de standarder du arbetat efter och eventuell certifiering.',
+      },
+      {
+        rubrik: 'Simuleringsverktyg',
+        text: 'ANSYS, Abaqus, MoldFlow. Simuleringskompetens är differentiator. Beskriv vilka analyser du genomfört.',
+      },
+      {
+        rubrik: 'PDM och processkompetens',
+        text: 'Teamcenter, Windchill, ENOVIA. FMEA, DVP&R, DfMEA. Lyft din processvana.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, specialisering, bransch och primära system på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera tekniska bidrag och resultat.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör med specialisering. Examensår och lärosäte.' },
+      { sektion: 'Kompetenser', tips: 'CAD, simulering, PDM, standarder. Var konkret om versioner och nivå.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med CSWP, Six Sigma, ISO-certifikat med datum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, internationell erfarenhet, eventuella tekniska publikationer.' },
+    ],
+
+    checklista: [
+      'Civilingenjörs- eller högskoleingenjörsexamen',
+      'Specialisering (mekanik, plast, plåt, elektronik, bygg)',
+      'CAD-system du behärskar med versioner',
+      'Simuleringsverktyg (ANSYS, Abaqus, MoldFlow)',
+      'PDM-system (Teamcenter, Windchill, ENOVIA)',
+      'Standarder (CE, ISO 9001, branschspecifika)',
+      'Konkreta tekniska resultat',
+      'Bransch-erfarenhet (fordon, energi, bygg)',
+      'CSWP eller Six Sigma-certifiering',
+      'Programmeringsspråk eller automation',
+    ],
+
+    atsInfo:
+      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia, NX), standarder (ISO 9001, CE, ASME) och specialiseringar (mekanikkonstruktion, plastdetaljer) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett konstruktör-CV?',
+        a: 'Civilingenjörs- eller högskoleingenjörsexamen, specialisering (mekanik, plast, plåt, elektronik, bygg), CAD-system (SolidWorks, Catia, AutoCAD, Inventor, NX), simuleringsverktyg (ANSYS, Abaqus), PDM-system (Teamcenter, Windchill), standarder (CE, ISO 9001), konkreta tekniska resultat, samt eventuella certifieringar (CSWP, Six Sigma).',
+      },
+      {
+        q: 'Räcker högskoleingenjör eller behöver jag civilingenjör?',
+        a: 'Beror på roll och bransch. Högskoleingenjör räcker för operativa konstruktörsroller och scale-ups. Civilingenjör är ofta krav för senior-roller på storbolag, regulatoriskt tunga branscher (fordon, medtech, energi) och konsultsegmentet. För forskning krävs nästan alltid civilingenjör eller doktorand.',
+      },
+      {
+        q: 'Vilka CAD-system är viktigast 2026?',
+        a: 'SolidWorks dominerar svenska medelstora industribolag. Catia på Volvo, Scania, Saab och flygindustri. Inventor och NX växer på fordonsbolag. AutoCAD för bygg och 2D-ritningar. Skriv ut version och erfarenhetsår.',
+      },
+      {
+        q: 'Hur visar jag teknisk erfarenhet utan senior-titel?',
+        a: 'Beskriv konkreta projekt: "Designade kåpa till elmotor som minskade kylförluster med 12%", "Implementerade automation som minskade ledtid 40%". Konkreta tekniska bidrag är värt mer än titel.',
+      },
+      {
+        q: 'Hur viktig är CSWP-certifiering?',
+        a: 'Värdefull för konstruktörer som arbetar mycket i SolidWorks. CSWP är gold standard för SolidWorks-användare. För Catia finns motsvarande Catia-certifieringar. Sådana cert visar djup och skiljer dig från andra kandidater.',
+      },
+      {
+        q: 'Hur lyfter jag bransch-erfarenhet?',
+        a: 'Skriv ut bransch-specifika standarder: ISO 26262 för fordon, IEC 61508 för industri, Eurocode för bygg, GAMP för medtech. Beskriv specifika produkt- eller projekttyper. Branschvana är ofta differentiator vid likvärdiga CV.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'CAD-system (SolidWorks, Catia, AutoCAD, Inventor, NX), simulering (ANSYS, Abaqus, MoldFlow), PDM (Teamcenter, Windchill, ENOVIA), standarder (CE, ISO 9001, ISO 26262), specialisering (mekanikkonstruktion, plastdetaljer, elektronik), och programmeringsspråk. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett konstruktör-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller technical lead: 2 sidor. Konsult-CV kan vara 3-5 sidor. Det viktiga är att specialisering, CAD-system och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till konstruktörstjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik teknisk utmaning du löst. Beskriv ett designval, en kostnadsoptimering eller en kvalitetsförbättring du drivit. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt konstruktör-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och problem-lösare") utan stöd, sekretessbelagda tekniska detaljer eller patent, och hobbies som inte är teknik-relevanta.',
+      },
+    ],
+  },
+
+  'lagerchef': {
+    seoIntro:
+      'Som lagerchef bedöms du på din ledarförmåga, P&L-ansvar och förmåga att driva lager mot KPI:er. Storbolag som DB Schenker, PostNord, DHL, IKEA, e-handelsterminaler och 3PL-bolag har konstant öppna lagerchef-roller, men distriktschefer slänger CV:n som inte tydligt visar omfattning, personalansvar och prestandaresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för lagerchefer lyfter omfattning, personalansvar och konkreta lagerresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, lagerstorlek, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lagerchef-erfarenhet med omfattning (m², antal kollin, antal anställda), KPI-resultat (OTIF, plockhastighet, säkerhetsincidenter), WMS-system (SAP WMS, Manhattan, Pyramid, Astro), Lean och Six Sigma-metodik, eventuell ledarskap-utbildning, arbetsrätt-erfarenhet, samt branschvana (e-handel, industri, 3PL, livsmedel).\n\nNedan hittar du två CV-mallar designade för lagerchefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på logistikbolag och industri faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'TrendingUp',
+        title: 'Lagerstorlek och omfattning',
+        description: '"Drev 25 000 m² e-handelsterminal med 80-personers team och 12 000 plockorder per dag" säger mer än "lagerchef". Konkreta volymer differentierar senior lagerchefer.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'P&L-ansvar och budget',
+        description: 'Lager-OPEX, kostnad per order, marginalförbättring. Distriktschefer värderar lagerchefer som tänker affärsmässigt och kan styra både prestanda och kostnader.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'KPI-resultat',
+        description: '"OTIF 96% (mål 92%)", "Plockhastighet 220 rader/timme", "Sänkte säkerhetsincidenter 60%". Konkreta KPI:er differentierar senior- från junior-lagerchefer.',
+      },
+      {
+        icon: 'FileText',
+        title: 'WMS och teknik',
+        description: 'SAP WMS dominerar industri. Manhattan på e-handel. Pyramid på mindre lager. Astro på terminal. Skriv ut systemnamnen plus eventuell automation och AGV-vana.',
+      },
+      {
+        icon: 'Award',
+        title: 'Lean och Six Sigma',
+        description: 'Lean-metodik och Six Sigma (Yellow/Green/Black Belt) är ofta krav för senior lagerchefer. Lyft din metodikvana och konkreta förbättringsprojekt.',
+      },
+      {
+        icon: 'Target',
+        title: 'Personalansvar och arbetsrätt',
+        description: 'Som lagerchef hanterar du rekrytering, schemaläggning, arbetsmiljö, eventuella uppsägningar enligt LAS, samverkan med fack (Transport eller IF Metall). Lyft din arbetsrättsliga erfarenhet.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Omfattning och team överst',
+        description: 'Vår mall lyfter lagerstorlek, teamstorlek och konkreta resultat i sidopanelen. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Erfarenhet med ledar-bidrag',
+        description: 'Mallen separerar bolag och dina ledar-bidrag (KPI-resultat, kostnadsbesparingar, säkerhetsförbättringar). Du kan visa både operativ och strategisk förmåga.',
+      },
+      {
+        title: 'Eget block för WMS och metodik',
+        description: 'SAP WMS, Manhattan, Lean, Six Sigma. Mallen lyfter system och metodik som eget block så distriktschefer ser specifik nivå direkt.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior lagerchef-roller och regional manager lägger Logistik Plus till foto, dark header och tabellär layout. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för P&L och KPI:er',
+        description: 'Mallen har dedikerade rader för OPEX, kostnad per order och konkreta KPI:er. Visar att du tänker affärsmässigt och inte bara operativt.',
+      },
+      {
+        title: 'Industriell typografi',
+        description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Inga distraherande färger som drar fokus från meriter.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Operativ leverans',
+        punkter: [
+          'Säkerställa daglig leverans av lager-KPI:er (OTIF, plockhastighet, kvalitet)',
+          'Driva förbättringsprojekt enligt Lean och Six Sigma',
+          'Hantera kapacitetsplanering och bemanningsbehov',
+          'Säkerställa SLA och kundnöjdhet',
+        ],
+      },
+      {
+        rubrik: 'Personalansvar och utveckling',
+        punkter: [
+          'Rekrytera, introducera och utveckla lagerpersonal och arbetsledare',
+          'Hantera schemaläggning, semester och frånvaro för 50-200 anställda',
+          'Genomföra utvecklingssamtal och feedback-möten',
+          'Driva arbetsmiljöarbete enligt AML',
+        ],
+      },
+      {
+        rubrik: 'Ekonomi och rapportering',
+        punkter: [
+          'Styra lagerets P&L och budget i samråd med distriktschef',
+          'Genomföra kostnadsanalys och optimering',
+          'Rapportera KPI:er och resultat veckovis och månadsvis',
+          'Hantera kostnadsstyrning för personal, lokaler, utrustning',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och compliance',
+        punkter: [
+          'Säkerställa följsamhet till säkerhetsrutiner och AML',
+          'Driva säkerhetsutbildning och PPE-användning',
+          'Hantera incident- och olycksrapportering',
+          'Compliance med ADR, brand- och fallskyddskrav',
+        ],
+      },
+      {
+        rubrik: 'Strategisk utveckling',
+        punkter: [
+          'Driva digitalisering och automationprojekt (AGV, robotik)',
+          'Implementera nya processer och WMS-funktioner',
+          'Samverka med inköp, logistik och kundservice',
+          'Bidra till bolagets långsiktiga lagerstrategi',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagerroller och nivåer',
+        termer: [
+          { term: 'Lagerchef', forklaring: 'Operativ chef över lager med P&L-ansvar.' },
+          { term: 'Lagerförman', forklaring: 'Operativ ledare för team av lagerarbetare.' },
+          { term: 'Distriktschef', forklaring: 'Senior chef över flera lagerchefer i geografiskt område.' },
+          { term: 'Operations Manager', forklaring: 'Operativ chef med ansvar för flera funktioner.' },
+          { term: 'Site Manager', forklaring: 'Chef över hela siten inklusive lager och administration.' },
+          { term: 'Regional Director', forklaring: 'Senior chef med strategiskt ansvar för region.' },
+        ],
+      },
+      {
+        kategori: 'WMS och system',
+        termer: [
+          { term: 'SAP WMS', forklaring: 'Marknadsledande WMS, dominerar storbolag och industrilager.' },
+          { term: 'Manhattan WMS', forklaring: 'Vanligaste WMS på e-handelsterminaler.' },
+          { term: 'Pyramid', forklaring: 'Svenskt WMS för mindre och medelstora lager.' },
+          { term: 'Astro', forklaring: 'WMS för terminal och 3PL-bolag.' },
+          { term: 'Blue Yonder', forklaring: 'Premium WMS från Blue Yonder, vanlig på storbolag.' },
+          { term: 'Körber', forklaring: 'WMS från Körber, växande på e-handel.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'OTIF', forklaring: 'On Time In Full, leveransprecision på rätt tid och fullständigt.' },
+          { term: 'Plockhastighet', forklaring: 'Antal rader plockade per timme.' },
+          { term: 'Cost per order', forklaring: 'Total lagerkostnad delat på antal ordrar.' },
+          { term: 'Inventeringsexakthet', forklaring: 'Hur väl WMS-saldo stämmer mot fysiskt lager.' },
+          { term: 'Säkerhetsincidenter', forklaring: 'Antal arbetsolyckor och tillbud per period.' },
+          { term: 'Sjukfrånvaro', forklaring: 'Procent sjukfrånvaro, indikator på arbetsmiljö.' },
+        ],
+      },
+      {
+        kategori: 'Metodik och regelverk',
+        termer: [
+          { term: 'Lean', forklaring: 'Eliminera slöseri och optimera flöden.' },
+          { term: 'Six Sigma', forklaring: 'Datadriven förbättringsmetod (Yellow/Green/Black Belt).' },
+          { term: '5S', forklaring: 'Sortera, Strukturera, Städa, Standardisera, Sköta om.' },
+          { term: 'Kaizen', forklaring: 'Kontinuerlig förbättring genom små steg.' },
+          { term: 'AML', forklaring: 'Arbetsmiljölagen, central för lagerverksamhet.' },
+          { term: 'ADR', forklaring: 'Behörighet för transport av farligt gods.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Logistikbolag och 3PL',
+        exempel: [
+          'PostNord, DB Schenker, DHL, DSV',
+          'Bring, Best Transport, Schenker Logistics',
+          'XPO, Geodis, Itella',
+          'Mindre svenska transportbolag',
+        ],
+      },
+      {
+        kategori: 'E-handel och scale-ups',
+        exempel: [
+          'Klarna Logistics, Mathem, Foodora',
+          'Boozt, Apotea, NetOnNet, Adlibris',
+          'Lyko, Babyshop',
+          'Tredjepartslogistiker',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Sandvik, Atlas Copco, Tetra Pak',
+          'Tillverkningsbolag i Mälardalen',
+          'Underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Detaljhandel och dagligvaror',
+        exempel: [
+          'ICA Logistik, Coop, Axfood, Lidl',
+          'IKEA, H&M, Stadium centrallager',
+          'Apoteket centrallager',
+          'Konsumentvaru-bolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt avancemang från lagerarbete',
+        beskrivning: 'Vanligaste vägen i Sverige. Många lagerchefer har avancerat från lagerarbetare via lagerförman till lagerchef. Internutbildning kompletterar.',
+      },
+      {
+        rubrik: 'Civilekonom eller civilingenjör (5 år)',
+        beskrivning: 'Vanligare på senior- och regionchefroller. Inriktning logistik, supply chain eller industriell ekonomi från Handelshögskolan, KTH, Chalmers, LTH.',
+      },
+      {
+        rubrik: 'Yrkeshögskola lager och logistik (1-2 år)',
+        beskrivning: 'YH-utbildningar inom lager, logistik och transport. Kvalificerar för arbetsledar- och lagerchef-roller.',
+      },
+      {
+        rubrik: 'Lean och Six Sigma-certifieringar',
+        beskrivning: 'Lean Practitioner, Six Sigma Yellow/Green/Black Belt. Stark merit för senior-roller och påverkar lönen direkt.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'P&L-ansvar och budgetstyrning',
+        'WMS (SAP WMS, Manhattan, Pyramid, Astro)',
+        'Personalansvar för 50-200 anställda',
+        'Schemaläggning och bemanningsplanering',
+        'Lean och Six Sigma-metodik',
+        '5S och Kaizen-arbete',
+        'KPI-uppföljning (OTIF, plockhastighet, kvalitet)',
+        'Säkerhetsarbete enligt AML',
+        'Svensk arbetsrätt (LAS, MBL, AML)',
+        'Kollektivavtal med Transport eller IF Metall',
+        'Kostnadsanalys och optimering',
+        'Excel och Power BI för rapportering',
+      ],
+      personliga: [
+        'Resultatdriven och målmedveten',
+        'Strukturerad i operativ drift',
+        'Kommunikativ med team och ledning',
+        'Lugn vid leveranskriser',
+        'Pedagogisk i utveckling',
+        'Pragmatisk i tradeoffs mellan prestanda och kostnad',
+        'Driven av säkerhet och kvalitet',
+      ],
+    },
+
+    profilExempel:
+      'Senior lagerchef med 9 års erfarenhet inom e-handel och industri. Driver 22 000 m² e-handelsterminal med 65-personers team och 10 000 plockorder per dag på Klarna Logistics. Förbättrade OTIF från 88% till 96% och sänkte cost per order 18% genom Lean-arbete och WMS-optimering. Six Sigma Green Belt och UGL-utbildad. Söker avancemang mot site manager eller regional director inom 2-3 år.',
+
+    profilTips:
+      'Antal år som lagerchef, lagertyp och bransch i öppningsraden. Andra meningen lyfter omfattning (m², team, volymer) och konkreta resultat. Tredje meningen visar metodik, certifieringar och eventuell karriärambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Lagerstorlek och omfattning',
+        text: '"Drev 25 000 m² e-handelsterminal med 80-personers team" säger mer än "lagerchef". Konkreta volymer differentierar senior lagerchefer.',
+      },
+      {
+        rubrik: 'P&L-ansvar och budget',
+        text: 'OPEX, cost per order, marginalförbättring. Distriktschefer värderar lagerchefer som tänker affärsmässigt.',
+      },
+      {
+        rubrik: 'KPI-resultat',
+        text: '"OTIF 96%", "Plockhastighet 220 rader/timme", "Sänkte säkerhetsincidenter 60%". Konkreta KPI:er differentierar senior-roller.',
+      },
+      {
+        rubrik: 'WMS och teknik',
+        text: 'SAP WMS dominerar industri. Manhattan på e-handel. Skriv ut systemnamnen plus eventuell automation och AGV-vana.',
+      },
+      {
+        rubrik: 'Lean och Six Sigma',
+        text: 'Lean-metodik och Six Sigma är ofta krav för senior lagerchefer. Lyft din metodikvana och konkreta förbättringsprojekt.',
+      },
+      {
+        rubrik: 'Personalansvar och arbetsrätt',
+        text: 'LAS, MBL, AML, kollektivavtal med Transport eller IF Metall. Lyft din arbetsrättsliga erfarenhet och eventuell facklig samverkan.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Antal år som lagerchef, omfattning, bransch och nyckelresultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, lagertyp, period, omfattning. Konkretisera teamstorlek och KPI-resultat.' },
+      { sektion: 'Utbildning', tips: 'Akademisk bakgrund eller YH. Lean/Six Sigma och ledarskap-utbildningar i eget block.' },
+      { sektion: 'Kompetenser', tips: 'WMS, Lean, P&L, personalansvar. Var konkret om systemvana.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med Six Sigma, UGL, ADR och utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ambition (site manager-mål), eventuell internationell erfarenhet.' },
+    ],
+
+    checklista: [
+      'Lagerchef-erfarenhet med omfattning',
+      'Personalansvar med teamstorlek',
+      'P&L-ansvar och budgetstyrning',
+      'WMS-system du behärskar',
+      'KPI-resultat (OTIF, plockhastighet)',
+      'Lean och Six Sigma-metodik',
+      'Svensk arbetsrätt-vana',
+      'Eventuell ledarskap-utbildning',
+      'Branschvana (e-handel, industri, 3PL)',
+      'Säkerhetsarbete och AML',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Storbolag som DB Schenker och PostNord använder Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut WMS-system (SAP WMS, Manhattan), metodik (Lean, Six Sigma) och KPI:er (OTIF, plockhastighet) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett lagerchef-CV?',
+        a: 'Lagerchef-erfarenhet med omfattning (m², team, volym), KPI-resultat (OTIF, plockhastighet, säkerhet), WMS-system (SAP WMS, Manhattan), Lean och Six Sigma-metodik, eventuell ledarskap-utbildning, arbetsrätt-erfarenhet (LAS, MBL, AML), branschvana, samt P&L-ansvar.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny lagerchef?',
+        a: 'Lyft tidigare lagererfarenhet med konkreta resultat, eventuell lagerförman-roll, ledar-roller du haft (mentor, schemaläggare), eventuella förbättringsprojekt, och språkkunskaper. Skriv ut din vilja att utvecklas som ledare. Många kedjor har strukturerade trainee-program.',
+      },
+      {
+        q: 'Vilka WMS-system är viktigast 2026?',
+        a: 'SAP WMS dominerar industri. Manhattan på e-handelsterminaler. Pyramid på mindre lager. Astro på terminal. Blue Yonder och Körber växer på storbolag. AI-baserade WMS och AGV-system blir allt viktigare.',
+      },
+      {
+        q: 'Hur viktig är Six Sigma-certifiering?',
+        a: 'Värdefull för senior lagerchefer. Six Sigma Green Belt är gold standard för förbättringsarbete. Black Belt kvalificerar för site manager och regional director. Lean Practitioner är också meriterande och påverkar lönen direkt.',
+      },
+      {
+        q: 'Hur lyfter jag P&L-ansvar?',
+        a: 'Konkret: "Drev lager med 45 MSEK OPEX och cost per order 12 SEK", "Sänkte kostnader 15% genom personalplanering", "Ökade marginal 8% genom WMS-optimering". Distriktschefer värderar lagerchefer som tänker affärsmässigt.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'WMS-system (SAP WMS, Manhattan, Pyramid, Astro), KPI:er (OTIF, plockhastighet, cost per order), metodik (Lean, Six Sigma, 5S, Kaizen), ledarskap-utbildning (UGL, IFL), och svensk arbetsrätt. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett lagerchef-CV vara?',
+        a: 'Junior lagerchef 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller distriktschef-kandidat: 2 sidor. Det viktigaste är att omfattning, teamstorlek och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till lagerchef-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik ledar-utmaning du löst. Beskriv ett förbättringsprojekt, en KPI-förbättring eller hur du drivit en svår personalärende. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är arbetsrätt-erfarenhet?',
+        a: 'Mycket. Som lagerchef hanterar du löneförhandling, sjuksamtal, rehabilitering, eventuella uppsägningar enligt LAS, samverkan med fack (Transport eller IF Metall). Erfarenhet av MBL-förhandling eller uppsägningsärenden är meriterande för senior-roller.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt lagerchef-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och resultatorienterad") utan stöd, namn på medarbetare eller sekretessbelagda detaljer, och hobbies som inte är ledarskaps-relevanta.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
