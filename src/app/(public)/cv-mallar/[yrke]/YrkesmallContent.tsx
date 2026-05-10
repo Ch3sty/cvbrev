@@ -507,10 +507,10 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                     {y.intro}
                   </p>
 
-                  <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all">
-                    <FileText className="w-4 h-4" strokeWidth={2.5} />
+                  <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all whitespace-nowrap">
+                    <FileText className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
                     Se CV-mall
-                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
                   </span>
                 </Link>
               )
