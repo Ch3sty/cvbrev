@@ -63,7 +63,7 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   'psykolog':                 { free: 'tidlos-formell', premium: 'klinik' },
   'kurator':                  { free: 'norrsken',       premium: 'pedagog' },
   'boendestod':               { free: 'norrsken',       premium: 'varden-omsorg' },
-  'vardadministrator':        { free: 'norrsken',       premium: 'varden-omsorg' },
+  'vardadministrator':        { free: 'konto',          premium: 'varden-omsorg' },
 
   // Utbildning (9)
   'forskollarare':            { free: 'norrsken',       premium: 'pedagog' },
@@ -76,27 +76,27 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   'fritidsledare':            { free: 'norrsken',       premium: 'pedagog' },
   'student':                  { free: 'student-startup', premium: 'aspekt' },
 
-  // Service - butik/frontline (8)
-  'butiksbitrade':            { free: 'sidebar-icons',  premium: 'aurora' },
-  'butikssaljare':            { free: 'sidebar-icons',  premium: 'aurora' },
-  'butikschef':               { free: 'sidebar-icons',  premium: 'konsult-kompakt' },
-  'kassorska':                { free: 'sidebar-icons',  premium: 'aurora' },
-  'kundtjanstmedarbetare':    { free: 'sidebar-icons',  premium: 'aurora' },
-  'kundtjanst':               { free: 'sidebar-icons',  premium: 'aurora' },
-  'hotellvard':               { free: 'sidebar-icons',  premium: 'aurora' },
-  'receptionist':             { free: 'sidebar-icons',  premium: 'aurora' },
+  // Service - butik/frontline (8) - NYA Disk-mallen
+  'butiksbitrade':            { free: 'disk',           premium: 'aurora' },
+  'butikssaljare':            { free: 'disk',           premium: 'aurora' },
+  'butikschef':               { free: 'disk',           premium: 'konsult-kompakt' },
+  'kassorska':                { free: 'disk',           premium: 'aurora' },
+  'kundtjanstmedarbetare':    { free: 'disk',           premium: 'aurora' },
+  'kundtjanst':               { free: 'disk',           premium: 'aurora' },
+  'hotellvard':               { free: 'disk',           premium: 'aurora' },
+  'receptionist':             { free: 'disk',           premium: 'aurora' },
   'kundradgivare':            { free: 'norrsken',       premium: 'aspekt' },
 
-  // Service - lager/logistik (9)
-  'lagerarbetare':            { free: 'bygg',           premium: 'konsult-kompakt' },
-  'truckforare':              { free: 'bygg',           premium: 'konsult-kompakt' },
-  'logistiker':               { free: 'bygg',           premium: 'aspekt' },
-  'lagerchef':                { free: 'norrsken',       premium: 'konsult-kompakt' },
-  'terminalarbetare':         { free: 'bygg',           premium: 'konsult-kompakt' },
-  'logistikassistent':        { free: 'bygg',           premium: 'konsult-kompakt' },
+  // Service - lager/logistik (9) - NYA Logistik-mallen
+  'lagerarbetare':            { free: 'logistik',       premium: 'konsult-kompakt' },
+  'truckforare':              { free: 'logistik',       premium: 'konsult-kompakt' },
+  'logistiker':               { free: 'logistik',       premium: 'aspekt' },
+  'lagerchef':                { free: 'logistik',       premium: 'konsult-kompakt' },
+  'terminalarbetare':         { free: 'logistik',       premium: 'konsult-kompakt' },
+  'logistikassistent':        { free: 'logistik',       premium: 'konsult-kompakt' },
   'fastighetsskotare':        { free: 'bygg',           premium: 'aspekt' },
-  'servicemedarbetare':       { free: 'bygg',           premium: 'aspekt' },
-  'lokalvardare':             { free: 'bygg',           premium: 'aspekt' },
+  'servicemedarbetare':       { free: 'logistik',       premium: 'aspekt' },
+  'lokalvardare':             { free: 'logistik',       premium: 'aspekt' },
 
   // Service - gastro (6)
   'kock':                     { free: 'stack-developer', premium: 'servering' },
@@ -121,25 +121,25 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   'scrum-master':             { free: 'linje',          premium: 'aspekt' },
   'produktchef':              { free: 'linje',          premium: 'magasin' },
 
-  // Teknik - industri (3)
-  'ingenjor':                 { free: 'tidlos-formell', premium: 'konsult-kompakt' },
-  'automationsingenior':      { free: 'tidlos-formell', premium: 'konsult-kompakt' },
-  'konstruktor':              { free: 'tidlos-formell', premium: 'konsult-kompakt' },
+  // Teknik - industri (3) - NYA Verkstad-mallen
+  'ingenjor':                 { free: 'verkstad',       premium: 'konsult-kompakt' },
+  'automationsingenior':      { free: 'verkstad',       premium: 'konsult-kompakt' },
+  'konstruktor':              { free: 'verkstad',       premium: 'konsult-kompakt' },
 
-  // Ekonomi (7)
-  'ekonomiassistent':         { free: 'norrsken',       premium: 'aspekt' },
-  'administrativ-assistent':  { free: 'norrsken',       premium: 'aspekt' },
-  'redovisningsekonom':       { free: 'tidlos-formell', premium: 'konsult-kompakt' },
-  'controller':               { free: 'tidlos-formell', premium: 'konsult-kompakt' },
-  'ekonom':                   { free: 'tidlos-formell', premium: 'konsult-kompakt' },
-  'hr-specialist':            { free: 'norrsken',       premium: 'aspekt' },
+  // Ekonomi (7) - NYA Konto-mallen
+  'ekonomiassistent':         { free: 'konto',          premium: 'aspekt' },
+  'administrativ-assistent':  { free: 'konto',          premium: 'aspekt' },
+  'redovisningsekonom':       { free: 'konto',          premium: 'konsult-kompakt' },
+  'controller':               { free: 'konto',          premium: 'konsult-kompakt' },
+  'ekonom':                   { free: 'konto',          premium: 'konsult-kompakt' },
+  'hr-specialist':            { free: 'konto',          premium: 'aspekt' },
 
-  // Offentlig sektor (7)
-  'administrator':            { free: 'norrsken',       premium: 'aspekt' },
-  'handlaggare':              { free: 'tidlos-formell', premium: 'aspekt' },
-  'lss-handlaggare':          { free: 'tidlos-formell', premium: 'aspekt' },
-  'socialsekreterare':        { free: 'tidlos-formell', premium: 'pedagog' },
-  'kontorsassistent':         { free: 'norrsken',       premium: 'aspekt' },
+  // Offentlig sektor (7) - NYA Myndighet-mallen
+  'administrator':            { free: 'myndighet',      premium: 'aspekt' },
+  'handlaggare':              { free: 'myndighet',      premium: 'aspekt' },
+  'lss-handlaggare':          { free: 'myndighet',      premium: 'aspekt' },
+  'socialsekreterare':        { free: 'myndighet',      premium: 'pedagog' },
+  'kontorsassistent':         { free: 'myndighet',      premium: 'aspekt' },
   'chef':                     { free: 'tidlos-formell', premium: 'atlas' },
   'enhetschef':               { free: 'tidlos-formell', premium: 'atlas' },
   'projektledare':            { free: 'norrsken',       premium: 'aspekt' },

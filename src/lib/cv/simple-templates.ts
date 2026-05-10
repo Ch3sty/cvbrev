@@ -209,6 +209,97 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       ],
     },
   },
+  // === Femte omgangen nya (maj 2026 vol. 5) - yrkesgruppmallar ===
+  {
+    id: 'disk',
+    name: 'Disk',
+    description: 'Gratis CV-mall för butik, kassa och kundnära service',
+    imagePath: '/mallar/disk.svg',
+    category: 'modern',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Butiksbiträde', 'Butikssäljare', 'Kassörska', 'Kundtjänst', 'Hotellvärd', 'Receptionist'],
+      strengths: [
+        '"Försäljningsresultat"-banner överst lyfter dina kvantifierade siffror',
+        'Energisk emerald-accent matchar handelns DNA',
+        'Kompakt en-kolumn för flexibilitet (deltid och säsong vanligt)',
+        'ATS-säker med tydliga rubriker för rekryteringssystem',
+      ],
+    },
+  },
+  {
+    id: 'logistik',
+    name: 'Logistik',
+    description: 'Gratis CV-mall för lager, logistik och transport',
+    imagePath: '/mallar/logistik.svg',
+    category: 'traditional',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Lagerarbetare', 'Truckförare', 'Logistiker', 'Lagerchef', 'Terminalarbetare'],
+      strengths: [
+        '"Behörigheter & körkort"-block direkt efter header — det rekryterare först söker efter',
+        'Industriell typografi (Roboto) signalerar branschen',
+        'Cyan-accent och kondenserad layout för robust läsbarhet',
+        'WMS-system och certifikat lyfts som egen sektion',
+      ],
+    },
+  },
+  {
+    id: 'verkstad',
+    name: 'Verkstad',
+    description: 'Gratis CV-mall för industri, maskin och produktion',
+    imagePath: '/mallar/verkstad.svg',
+    category: 'traditional',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Ingenjör', 'Automationsingenjör', 'Konstruktör', 'Produktionsledare'],
+      strengths: [
+        'Mörk grafit-accent (#374151) signalerar industri och precision',
+        '"Tekniska system & CAD"-sektion lyfter PLC, SCADA, SolidWorks',
+        '"Standarder & certifikat"-block med ISO, CE, ATEX',
+        'Mono-font på datum för precisions-känsla',
+      ],
+    },
+  },
+  {
+    id: 'myndighet',
+    name: 'Myndighet',
+    description: 'Gratis CV-mall för offentlig sektor och myndighetsutövning',
+    imagePath: '/mallar/myndighet.svg',
+    category: 'traditional',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Handläggare', 'LSS-handläggare', 'Socialsekreterare', 'Administratör', 'Kontorsassistent'],
+      strengths: [
+        'Konservativ navy + svartvit signalerar saklighet',
+        '"Lagstiftning & metoder"-sektion (LSS, SoL, OSL, BBIC, IBIC)',
+        '§-symboler i bullets påminner om förvaltningsrätt',
+        'Sober Source Sans utan extra-grafik',
+      ],
+    },
+  },
+  {
+    id: 'konto',
+    name: 'Konto',
+    description: 'Gratis CV-mall för ekonomi, redovisning och finans',
+    imagePath: '/mallar/konto.svg',
+    category: 'modern',
+    tier: 'free',
+    features: { atsSafe: true, columns: 1 },
+    metadata: {
+      suitableFor: ['Ekonomiassistent', 'Redovisningsekonom', 'Controller', 'Ekonom', 'HR-specialist'],
+      strengths: [
+        'Strukturerad tabell-layout med tabular-nums för siffror',
+        'Mörkblå (#1e3a8a) signalerar bank och finans',
+        '"Redovisningssystem"-sektion (Visma, Fortnox, SAP, Hogia)',
+        'Dubbel-divider under header — bokslut-känsla',
+      ],
+    },
+  },
   // === Tredje omgangen nya (maj 2026 vol. 3) ===
   {
     id: 'bygg',

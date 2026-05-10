@@ -1,0 +1,62 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Header grafit accent med signaturmärke -->
+  <rect x="30" y="34" width="160" height="13" fill="#111827" rx="1"/>
+  <rect x="30" y="54" width="100" height="5" fill="#4b5563" rx="1"/>
+  <rect x="30" y="68" width="180" height="3" fill="#6b7280" rx="0.5"/>
+  <line x1="30" y1="86" x2="270" y2="86" stroke="#374151" stroke-width="1"/>
+  <rect x="30" y="86" width="80" height="3" fill="#374151"/>
+
+  <!-- Sammanfattning -->
+  <rect x="30" y="100" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="108" width="220" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="30" y="116" width="200" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- Standarder & Certifikat block -->
+  <rect x="30" y="134" width="240" height="48" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1" rx="3"/>
+  <rect x="38" y="142" width="120" height="3" fill="#374151" rx="0.5"/>
+  <text x="38" y="158" font-size="6" fill="#374151">◆</text>
+  <rect x="46" y="155" width="80" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="38" y="166" font-size="6" fill="#374151">◆</text>
+  <rect x="46" y="163" width="70" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="148" y="158" font-size="6" fill="#374151">◆</text>
+  <rect x="156" y="155" width="90" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="148" y="166" font-size="6" fill="#374151">◆</text>
+  <rect x="156" y="163" width="80" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="38" y="174" font-size="6" fill="#374151">◆</text>
+  <rect x="46" y="171" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Sektion: Arbetslivserfarenhet -->
+  <rect x="30" y="200" width="120" height="3" fill="#111827" rx="0.5"/>
+  <line x1="30" y1="210" x2="270" y2="210" stroke="#d1d5db"/>
+
+  <!-- Job 1 -->
+  <rect x="30" y="222" width="130" height="4" fill="#111827" rx="0.5"/>
+  <rect x="220" y="224" width="50" height="3" fill="#4b5563" rx="0.5"/>
+  <rect x="30" y="232" width="100" height="3" fill="#4b5563" rx="0.5"/>
+  <text x="30" y="248" font-size="9" fill="#9ca3af" font-weight="700">–</text>
+  <rect x="40" y="246" width="220" height="2.5" fill="#1f2937" rx="0.5"/>
+  <text x="30" y="256" font-size="9" fill="#9ca3af" font-weight="700">–</text>
+  <rect x="40" y="254" width="200" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Dashed divider -->
+  <line x1="30" y1="270" x2="270" y2="270" stroke="#e5e7eb" stroke-dasharray="3 2"/>
+
+  <!-- Job 2 -->
+  <rect x="30" y="282" width="110" height="4" fill="#111827" rx="0.5"/>
+  <rect x="220" y="284" width="50" height="3" fill="#4b5563" rx="0.5"/>
+  <rect x="30" y="292" width="80" height="3" fill="#4b5563" rx="0.5"/>
+  <text x="30" y="308" font-size="9" fill="#9ca3af" font-weight="700">–</text>
+  <rect x="40" y="306" width="210" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Sektion: Utbildning -->
+  <rect x="30" y="332" width="60" height="3" fill="#111827" rx="0.5"/>
+  <line x1="30" y1="342" x2="270" y2="342" stroke="#d1d5db"/>
+  <rect x="30" y="354" width="120" height="4" fill="#111827" rx="0.5"/>
+  <rect x="220" y="356" width="50" height="3" fill="#4b5563" rx="0.5"/>
+
+  <!-- Sektion: Tekniska system -->
+  <rect x="30" y="378" width="100" height="3" fill="#111827" rx="0.5"/>
+  <line x1="30" y1="388" x2="270" y2="388" stroke="#d1d5db"/>
+</svg>

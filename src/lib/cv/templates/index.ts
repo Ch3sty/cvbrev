@@ -27,6 +27,11 @@ import { kvistTemplate } from './kvist/generator';
 import { magasinTemplate } from './magasin/generator';
 import { kartaTemplate } from './karta/generator';
 import { avtryckTemplate } from './avtryck/generator';
+import { diskTemplate } from './disk/generator';
+import { logistikTemplate } from './logistik/generator';
+import { verkstadTemplate } from './verkstad/generator';
+import { myndighetTemplate } from './myndighet/generator';
+import { kontoTemplate } from './konto/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -96,7 +101,12 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'kvist': kvistTemplate,
   'magasin': magasinTemplate,
   'karta': kartaTemplate,
-  'avtryck': avtryckTemplate
+  'avtryck': avtryckTemplate,
+  'disk': diskTemplate,
+  'logistik': logistikTemplate,
+  'verkstad': verkstadTemplate,
+  'myndighet': myndighetTemplate,
+  'konto': kontoTemplate
 } as const;
 
 /**

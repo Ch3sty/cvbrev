@@ -1,0 +1,171 @@
+import type { CVMetadata } from '@/lib/cv/cv-metadata';
+import { shouldShowSection } from '@/lib/cv/cv-metadata';
+import { formatSwedishAddress } from '../base/address-formatter';
+import type { CVTemplateGenerator } from '../base/template-base';
+
+/**
+ * Myndighet - gratis CV-mall fOr offentlig sektor och myndighetsutOvning.
+ *
+ * Designprinciper:
+ *  - Konservativ navy (#1e3a8a) + svartvit
+ *  - "Aerendetyper & handlaeggning"-sektion
+ *  - "Lagstiftning & metoder"-block (LSS, SoL, OSL, BBIC, IBIC)
+ *  - Sober Calibri/Source Sans, ingen extra-grafik
+ *  - ATS-saker
+ */
+function generateMyndighetHTML(cvData: CVMetadata, _options: any = {}): string {
+  return `
+    <!DOCTYPE html>
+    <html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CV - ${cvData.personalInfo.fullName}</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Source Sans Pro', 'Calibri', 'Segoe UI', sans-serif;
+                line-height: 1.6; color: #1f2937; background: white; font-size: 13px;
+            }
+            .cv-container {
+                width: 210mm; min-height: 297mm; margin: 0 auto;
+                background: white; padding: 30mm 26mm;
+            }
+            .header {
+                margin-bottom: 18px; padding-bottom: 14px;
+                border-bottom: 2px solid #1e3a8a;
+            }
+            .header h1 {
+                font-size: 28px; font-weight: 700; color: #0f172a;
+                line-height: 1.05; margin-bottom: 4px;
+            }
+            .header .role {
+                font-size: 14px; color: #1e3a8a; font-weight: 600; margin-bottom: 10px;
+            }
+            .meta-line { font-size: 12px; color: #475569; line-height: 1.7; }
+            .meta-separator { margin: 0 8px; color: #cbd5e1; }
+            .summary-block {
+                font-size: 13px; color: #1f2937; line-height: 1.75; margin-bottom: 22px;
+            }
+            .section { margin-bottom: 22px; }
+            .section:last-child { margin-bottom: 0; }
+            .section-heading {
+                font-size: 11px; font-weight: 700; color: #0f172a;
+                text-transform: uppercase; letter-spacing: 0.18em;
+                margin-bottom: 12px; padding-bottom: 4px;
+                border-bottom: 1px solid #1e3a8a;
+            }
+            .experience-item { margin-bottom: 16px; }
+            .experience-item:last-child { margin-bottom: 0; }
+            .experience-header {
+                display: flex; justify-content: space-between; align-items: baseline;
+                gap: 12px; margin-bottom: 3px; flex-wrap: wrap;
+            }
+            .job-title { font-size: 14px; font-weight: 700; color: #0f172a; flex: 1; min-width: 0; }
+            .job-period {
+                font-size: 11.5px; color: #475569; font-weight: 500;
+                font-variant-numeric: tabular-nums; flex-shrink: 0;
+            }
+            .company { font-size: 12.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 6px; }
+            .description-list { list-style: none; padding: 0; margin: 0; }
+            .description-list li {
+                position: relative; padding-left: 14px; font-size: 12.5px;
+                color: #1f2937; line-height: 1.6; margin-bottom: 3px;
+            }
+            .description-list li::before {
+                content: '§'; position: absolute; left: 0; color: #1e3a8a;
+                font-weight: 700; font-size: 11px; top: 1px;
+            }
+            .education-item { margin-bottom: 12px; }
+            .education-item:last-child { margin-bottom: 0; }
+            .education-header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+            .degree { font-size: 13px; font-weight: 700; color: #0f172a; flex: 1; min-width: 0; }
+            .education-year { font-size: 11.5px; color: #475569; font-weight: 500; flex-shrink: 0; }
+            .institution { font-size: 12px; color: #475569; margin-top: 2px; }
+            .skill-group { margin-bottom: 6px; }
+            .skill-group-name { font-size: 11.5px; font-weight: 700; color: #1e3a8a; margin-right: 6px; }
+            .skill-list { font-size: 12.5px; color: #1f2937; }
+            .language-row { display: flex; gap: 8px; margin-bottom: 3px; font-size: 12.5px; }
+            .language-name { font-weight: 700; color: #0f172a; }
+            .language-level { color: #475569; }
+        </style>
+    </head>
+    <body>
+        <div class="cv-container">
+            <header class="header">
+                <h1>${cvData.personalInfo.fullName}</h1>
+                ${cvData.personalInfo.title ? `<div class="role">${cvData.personalInfo.title}</div>` : ''}
+                <div class="meta-line">
+                    ${cvData.personalInfo.email || ''}
+                    ${cvData.personalInfo.phone ? `<span class="meta-separator">·</span>${cvData.personalInfo.phone}` : ''}
+                    ${cvData.personalInfo.address ? `<span class="meta-separator">·</span>${formatSwedishAddress(cvData.personalInfo.address)}` : ''}
+                </div>
+            </header>
+
+            ${cvData.summary ? `<div class="summary-block">${cvData.summary}</div>` : ''}
+
+            ${cvData.experience.length > 0 ? `
+            <div class="section">
+                <h2 class="section-heading">Yrkeserfarenhet och ärendetyper</h2>
+                ${cvData.experience.map(exp => `
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="job-title">${exp.position}</div>
+                        <div class="job-period">${exp.startDate || ''}${exp.endDate ? ' – ' + exp.endDate : (exp.startDate ? ' – Pågående' : '')}</div>
+                    </div>
+                    <div class="company">${exp.company}</div>
+                    ${exp.description && exp.description.length > 0 ? `
+                    <ul class="description-list">
+                        ${exp.description.map(d => `<li>${d}</li>`).join('')}
+                    </ul>` : ''}
+                </div>`).join('')}
+            </div>` : ''}
+
+            ${cvData.education.length > 0 ? `
+            <div class="section">
+                <h2 class="section-heading">Utbildning</h2>
+                ${cvData.education.map(edu => `
+                <div class="education-item">
+                    <div class="education-header">
+                        <div class="degree">${edu.degree}</div>
+                        <div class="education-year">${edu.graduationYear || edu.startDate || ''}${edu.endDate ? ' – ' + edu.endDate : ''}</div>
+                    </div>
+                    <div class="institution">${edu.institution}</div>
+                </div>`).join('')}
+            </div>` : ''}
+
+            ${cvData.skills.length > 0 ? `
+            <div class="section">
+                <h2 class="section-heading">Lagstiftning & metoder</h2>
+                ${cvData.skills.map(g => `
+                <div class="skill-group">
+                    ${g.category ? `<span class="skill-group-name">${g.category}:</span>` : ''}
+                    <span class="skill-list">${g.skills.join(', ')}</span>
+                </div>`).join('')}
+            </div>` : ''}
+
+            ${shouldShowSection('languages', cvData) && cvData.languages && cvData.languages.length > 0 ? `
+            <div class="section">
+                <h2 class="section-heading">Språk</h2>
+                ${cvData.languages.map(l => `
+                <div class="language-row">
+                    <span class="language-name">${l.language}</span>
+                    <span class="language-level">— ${l.proficiency}</span>
+                </div>`).join('')}
+            </div>` : ''}
+        </div>
+    </body>
+    </html>
+  `;
+}
+
+export const myndighetTemplate: CVTemplateGenerator = {
+  templateId: 'myndighet' as any,
+  generate: generateMyndighetHTML,
+  metadata: {
+    name: 'Myndighet',
+    description: 'Gratis CV-mall för offentlig sektor och myndighetsutövning',
+    category: 'traditional',
+    tier: 'free'
+  }
+};
