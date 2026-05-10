@@ -32,11 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `CV-mall för ${data.namn} 2026 — gratis nedladdning | Jobbcoach.ai`,
-    description: `Färdig CV-mall för ${data.namnBestamd} som är ATS-optimerad och matchar svenska arbetsgivares förväntningar. Se ${data.freeMallNamn} (gratis) och ${data.premiumMallNamn} (premium) och vad rekryterare letar efter. Gratis att ladda ner.`,
+    description: `ATS-säker CV-mall för ${data.namnBestamd}, anpassad för svenska arbetsgivare. Se konkret exempel och vad rekryterare letar efter. Gratis nedladdning.`,
     keywords: `cv mall ${data.namnBestamd}, ${data.namnBestamd} cv mall, mall cv ${data.namnBestamd}, gratis cv mall ${data.namnBestamd}, ${data.namnBestamd} cv exempel, ats-säker cv mall`,
     openGraph: {
       title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
-      description: `Specialiserad CV-mall för ${data.namnBestamd}. ATS-säker och anpassad för svenska arbetsgivare.`,
+      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis och premium-version. Anpassad för svenska arbetsgivare.`,
       type: 'article',
       locale: 'sv_SE',
       url: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
-      description: `Specialiserad CV-mall för ${data.namnBestamd}. ATS-säker. Gratis att ladda ner.`,
+      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis nedladdning.`,
     },
     alternates: {
       canonical: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
