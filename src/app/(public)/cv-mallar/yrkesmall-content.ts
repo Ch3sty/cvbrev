@@ -1119,6 +1119,223 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // SERVICE - säljare/butik (samlad mall för flera yrken med samma DNA)
   // ============================================================================
   'saljare': {
+    seoIntro:
+      'Som säljare bedöms du på en sak framför andra: dina siffror. Säljchefer på SaaS-bolag, traditionell B2B och konsumentvarubranschen läser CV:n med ögonen på pipeline-storlek, måluppfyllelse och tillväxt. Ett välskrivet CV avgör om du blir kallad till intervju på ett bolag där du kan dubbla din lön, eller fastnar i samma mid-market-segment du försökt lämna i flera år.\n\nVår mall för säljare lyfter kvantifierade resultat (ARR-tillväxt, måluppfyllelse, snitt-affärsstorlek) som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, segment och din specifika ansvarsbudget syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet utan att behöva läsa hela CV:t.\n\nKonkret innehåll vi rekommenderar: säljroll och senioritet (BDR, AE, KAM, Sales Manager), branscher du sålt till (SaaS, fintech, industri, healthtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, BANT, Challenger, SPIN), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong, ZoomInfo).\n\nNedan hittar du två CV-mallar designade för säljarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och account-management-tunga organisationer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'TrendingUp',
+        title: 'Kvantifiera allt med siffror',
+        description: 'Säljchefer slänger CV:n utan siffror. Skriv "ökade ARR 24% från 8M till 9,9M genom upselling till 12 nyckelkunder" istället för "ansvarig för storkundsförsäljning". Konkreta procent och absoluta tal är hela poängen.',
+      },
+      {
+        icon: 'Target',
+        title: 'Måluppfyllelse per år',
+        description: '"130% av mål 2 år i rad" säger mer än "uppfyllde säljmål". Lista varje år med procent. Säljchefer letar efter konsekvent prestation, inte enstaka topprestationer som kan vara tur.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Säljmetoder du behärskar',
+        description: 'MEDDIC, BANT, Challenger Sale, SPIN, Solution Selling. Nämn metoder du faktiskt arbetar efter. ATS-system på SaaS-bolag som Teamtailor och Manatal filtrerar exakta termer från jobbannonsen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'CRM-system och säljstack',
+        description: 'Salesforce dominerar på enterprise-bolag. HubSpot vanligast på scale-ups. Pipedrive och Lime på mindre B2B. Skriv ut systemnamnen plus säljstack-verktyg (Apollo, Outreach, Gong) som ATS-keywords.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Affärsstorlek och säljcykel',
+        description: 'Snittstorlek på dina stängda affärer (50K transaktion, 450K SaaS-årsavtal, 5M enterprise) och cykellängd (3 veckor, 6 månader, 18 månader). Säljchefer matchar din erfarenhet mot deras pipeline-profil.',
+      },
+      {
+        icon: 'Award',
+        title: 'Branschspecialisering',
+        description: 'Att ha sålt till specifika vertikaler (fintech, healthtech, retail) är meriterande eftersom säljcyklar och beslutsprocesser skiljer sig. Lyft de 2-3 vertikaler där du har djupast erfarenhet och kontaktnät.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Nyckelresultat överst i sidopanelen',
+        description: 'Vår premium-mall Aurora har en dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder utan att läsa hela CV:t.',
+      },
+      {
+        title: 'Erfarenhet med procent-fokus',
+        description: 'Mallen separerar bolag, roll och måluppfyllelse så procentsiffror syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för CRM och säljstack',
+        description: 'Salesforce, HubSpot, Lime, Apollo, Outreach. Säljstack-block separerar systemen från generiska kompetenser. Säljchefer letar specifikt efter system de redan kör i sin organisation.',
+      },
+      {
+        title: 'Emerald-orange gradient signalerar tillväxt',
+        description: 'Vi har valt en gradient som visuellt kopplar till säljbranschen utan att bli aggressiv. Subtila accenter på siffror och resultat-block utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för säljmetodik och certifieringar',
+        description: 'MEDDIC-certifiering, Challenger Academy, Salesforce Trailhead. Eget block för metoder och certifikat så bevisad kompetens syns direkt utan att blanda med generisk utbildning.',
+      },
+      {
+        title: 'Kompakt typografi för senior-roller',
+        description: 'Seniora säljare har ofta 8-15 års erfarenhet att rymma. Vi använder kompakt typografi för att få plats med fler bolag och resultat utan att verka cramped.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Prospektering och nykundsbearbetning',
+        punkter: [
+          'Identifiera och kvalificera prospekt enligt ICP (Ideal Customer Profile)',
+          'Genomföra cold outreach via mail, LinkedIn och telefon',
+          'Använda säljstack-verktyg (Apollo, Outreach, ZoomInfo) för leadgenerering',
+          'Kvalificera leads enligt BANT, MEDDIC eller motsvarande ramverk',
+        ],
+      },
+      {
+        rubrik: 'Pipeline och affärshantering',
+        punkter: [
+          'Bygga och underhålla pipeline i Salesforce, HubSpot eller Pipedrive',
+          'Forecasta affärsutfall per månad och kvartal till säljledning',
+          'Driva affärer genom upptäckt, demonstration, förhandling och stängning',
+          'Hantera flera parallella affärer med olika säljcykler och beslutsprocesser',
+        ],
+      },
+      {
+        rubrik: 'Demo, presentation och förhandling',
+        punkter: [
+          'Genomföra produktdemos och pitcha värdeerbjudande till olika roller',
+          'Förhandla pris, villkor och avtalstid med inköpare och beslutsfattare',
+          'Hantera invändningar och konkurrentjämförelser med faktiska argument',
+          'Skriva tjänsteavtal och hantera juridiska detaljer i samverkan med legal',
+        ],
+      },
+      {
+        rubrik: 'Account management och upselling',
+        punkter: [
+          'Bygga långsiktiga relationer med befintliga kunder för retention',
+          'Identifiera upselling- och cross-selling-möjligheter inom kontot',
+          'Genomföra QBR (Quarterly Business Review) med strategiska kunder',
+          'Samverka med Customer Success för att säkra renewals och tillväxt',
+        ],
+      },
+      {
+        rubrik: 'Säljanalys och rapportering',
+        punkter: [
+          'Analysera säljdata och identifiera trender i konvertering och cykellängd',
+          'Rapportera till säljledning om pipeline, prognoser och risker',
+          'Bidra till säljstrategi genom insikt om kundbehov och konkurrensläge',
+          'Mentor för junior-säljare och bidra till säljmetodik-utveckling',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Säljroller och nivåer',
+        termer: [
+          { term: 'BDR/SDR', forklaring: 'Business/Sales Development Representative, prospektering och kvalificering av leads.' },
+          { term: 'AE', forklaring: 'Account Executive, ansvarar för affärscykel från demo till stängning.' },
+          { term: 'KAM', forklaring: 'Key Account Manager, ansvarar för strategiska befintliga kunder.' },
+          { term: 'Sales Manager', forklaring: 'Säljchef med eget team av AEs eller KAMs och budgetansvar.' },
+          { term: 'Head of Sales', forklaring: 'Senior säljchef med ansvar för hela säljorganisationen, ofta i ledningsgrupp.' },
+          { term: 'CRO', forklaring: 'Chief Revenue Officer, högsta säljansvariga med både sales, marketing och customer success.' },
+        ],
+      },
+      {
+        kategori: 'Säljmetodiker',
+        termer: [
+          { term: 'MEDDIC', forklaring: 'Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, Champion. B2B-kvalificering.' },
+          { term: 'BANT', forklaring: 'Budget, Authority, Need, Timeline. Klassisk leadkvalificeringsmetod.' },
+          { term: 'Challenger Sale', forklaring: 'Säljmetod där du utmanar kundens nuvarande tänkesätt med insikter.' },
+          { term: 'SPIN Selling', forklaring: 'Situation, Problem, Implication, Need-payoff. Frågedriven säljmetod.' },
+          { term: 'Solution Selling', forklaring: 'Säljmetod fokuserad på att lösa kundens specifika problem snarare än att pitcha produkter.' },
+          { term: 'ABM', forklaring: 'Account-Based Marketing, fokuserad bearbetning av specifika strategiska konton.' },
+        ],
+      },
+      {
+        kategori: 'CRM och säljstack',
+        termer: [
+          { term: 'Salesforce', forklaring: 'Marknadsledande CRM, dominerar enterprise och stora SaaS-bolag.' },
+          { term: 'HubSpot', forklaring: 'CRM och marketing automation, populärt på scale-ups och mid-market.' },
+          { term: 'Pipedrive', forklaring: 'Svenskt CRM, vanligt på mindre B2B-bolag och konsultverksamheter.' },
+          { term: 'Lime CRM', forklaring: 'Svenskt CRM med stark närvaro på den nordiska marknaden.' },
+          { term: 'Apollo', forklaring: 'Säljstack-verktyg för prospektering med inbyggd databas av kontakter.' },
+          { term: 'Outreach', forklaring: 'Säljengagemang-plattform för att automatisera och spåra outreach.' },
+          { term: 'Gong', forklaring: 'Conversation intelligence, analyserar säljsamtal för att förbättra prestanda.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och säljstatistik',
+        termer: [
+          { term: 'ARR', forklaring: 'Annual Recurring Revenue, årligt återkommande intäkter från SaaS- eller prenumerationsavtal.' },
+          { term: 'MRR', forklaring: 'Monthly Recurring Revenue, månadsversion av ARR.' },
+          { term: 'ACV', forklaring: 'Annual Contract Value, värdet av ett enskilt avtal på årsbasis.' },
+          { term: 'Win rate', forklaring: 'Andel av kvalificerade affärer som faktiskt stängs, normalt 20-30% i B2B.' },
+          { term: 'Sales cycle', forklaring: 'Tid från första kontakt till stängd affär, varierar från veckor till år.' },
+          { term: 'Pipeline coverage', forklaring: 'Förhållande mellan pipeline och kvartalsmål, oftast 3-5x för säkerhet.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'SaaS- och tech-bolag',
+        exempel: [
+          'Klarna, Spotify, Tink, Storytel',
+          'iZettle, Truecaller, Voi, Kry',
+          'Internationella SaaS-bolag med Sverige-team',
+          'Startup-bolag i Stockholm, Göteborg, Malmö',
+        ],
+      },
+      {
+        kategori: 'Traditionell B2B och industri',
+        exempel: [
+          'Volvo, Scania, Atlas Copco, Sandvik',
+          'Telia, Tele2, Ericsson, ABB',
+          'Tetra Pak, IKEA Industry, ASSA ABLOY',
+          'Mindre nischade industribolag',
+        ],
+      },
+      {
+        kategori: 'Bank, finans och försäkring',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'Försäkringsbolag (Folksam, Trygg-Hansa, If)',
+          'Investmentbolag och kapitalförvaltning',
+          'Fintech-bolag (Klarna, Tink, Lendify)',
+        ],
+      },
+      {
+        kategori: 'Konsumentvaror och retail',
+        exempel: [
+          'H&M, IKEA, Coop, ICA, Axfood',
+          'Konsumentvaru-bolag (Procter & Gamble, Unilever)',
+          'E-handelsbolag och D2C-varumärken',
+          'B2B-distributörer och partner-säljare',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Akademisk utbildning (3-5 år)',
+        beskrivning: 'Civilekonomprogrammet, ekonomi-kandidat, marknadsföring eller business administration från Handelshögskolan, Lund, Uppsala eller motsvarande. Vanlig grund för senior B2B-roller och account management.',
+      },
+      {
+        rubrik: 'Yrkeshögskola eller säljutbildning (1-2 år)',
+        beskrivning: 'YH-utbildningar inom B2B-säljare, key account management eller digital försäljning. Snabbare väg in i yrket och ofta lika värderad som högskola av scale-ups och tech-bolag.',
+      },
+      {
+        rubrik: 'Säljmetodik-certifieringar',
+        beskrivning: 'MEDDIC Academy, Challenger Sale, Sandler Sales, Salesforce Trailhead. Certifieringar visar djup i metodik och prioriteras av SaaS-bolag som arbetar strukturerat.',
+      },
+      {
+        rubrik: 'Internutbildning och on-the-job',
+        beskrivning: 'Många säljare utvecklas via internutbildning på sin första arbetsgivare. Klarna, Storytel och andra scale-ups har strukturerade BDR-program som leder till AE-roller på 12-18 månader.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'CRM-system (Salesforce, HubSpot, Pipedrive, Lime)',
@@ -1129,6 +1346,10 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Säljanalys och rapportering',
         'Account-baserad försäljning (ABM)',
         'Säljstack (Apollo, Outreach, Gong, ZoomInfo)',
+        'Demo- och presentationsteknik',
+        'LinkedIn Sales Navigator och social selling',
+        'Quarterly Business Review (QBR)',
+        'Customer success och renewal-arbete',
       ],
       personliga: [
         'Resultatdriven och målmedveten',
@@ -1136,65 +1357,344 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Lyhörd för kundbehov',
         'Strukturerad i pipeline-arbete',
         'Driven utan att vara påflugen',
+        'Kompetitiv men kollegial',
+        'Uthållig vid långa säljcykler',
       ],
     },
-    profilExempel: 'Senior B2B-säljare med 8 års erfarenhet inom SaaS och teknisk försäljning. Ökade ARR från 8M till 9.9M (+24%) under 18 månader genom strategisk upselling till 12 nyckelkunder. Arbetar metodiskt enligt MEDDIC och stänger affärer med snittstorlek 450K SEK.',
-    profilTips: 'Säljroll och år. Specifik bransch (SaaS, fintech, industri). Konkret resultat med procent eller absoluta tal. Säljmetodik du arbetar efter.',
+
+    profilExempel:
+      'Senior B2B-säljare med 8 års erfarenhet inom SaaS och teknisk försäljning. Ökade ARR från 8M till 9,9M (+24%) under 18 månader genom strategisk upselling till 12 nyckelkunder. Arbetar metodiskt enligt MEDDIC och stänger affärer med snittstorlek 450K SEK.',
+
+    profilTips:
+      'Säljroll och år av erfarenhet i öppningsraden. Andra meningen lyfter konkret resultat med procent eller absoluta tal. Tredje meningen visar säljmetodik och affärsstorlek som differentierar dig från generiska säljar-CV:n.',
+
     rekryterarTipsen: [
       {
         rubrik: 'Säljsiffror är allt — kvantifiera allt',
-        text: 'Skriv inte "ansvarig för försäljning till storkunder". Skriv "ökade ARR 24% (från 8M till 9.9M) under 18 mån genom upselling till 12 nyckelkunder". Säljchefer slänger CV:n utan siffror.',
+        text: 'Skriv inte "ansvarig för försäljning till storkunder". Skriv "ökade ARR 24% från 8M till 9,9M under 18 månader genom upselling till 12 nyckelkunder". Säljchefer slänger CV:n utan siffror.',
+      },
+      {
+        rubrik: 'Måluppfyllelse per år',
+        text: '"130% av mål 2 år i rad" säger mer än "uppfyllde säljmål". Lista varje år med procent. Säljchefer letar efter konsekvent prestation, inte enstaka topprestationer som kan vara tur.',
       },
       {
         rubrik: 'Säljmetoder du behärskar',
-        text: 'MEDDIC, BANT, Challenger Sale, SPIN. Nämn metoder du arbetat efter. Det är ATS-keywords som SaaS- och B2B-företag filtrerar på.',
+        text: 'MEDDIC, BANT, Challenger Sale, SPIN. Nämn metoder du faktiskt arbetar efter. Det är ATS-keywords som SaaS- och B2B-företag filtrerar på i jobbannonsens språk.',
       },
       {
         rubrik: 'CRM-system och säljstack',
         text: 'Salesforce, HubSpot, Pipedrive, Lime. Vilka system har du jobbat i? Säljstacken (Apollo, Outreach, Gong, ZoomInfo) är meriterande för moderna B2B-roller.',
       },
+      {
+        rubrik: 'Affärsstorlek och säljcykel',
+        text: 'Snittstorlek på dina stängda affärer (50K transaktion, 450K SaaS-årsavtal, 5M enterprise) och cykellängd (3 veckor, 6 månader, 18 månader). Säljchefer matchar din erfarenhet mot deras pipeline-profil.',
+      },
+      {
+        rubrik: 'Branschspecialisering',
+        text: 'Att ha sålt till specifika vertikaler (fintech, healthtech, retail, industri) är meriterande eftersom säljcyklar och beslutsprocesser skiljer sig. Lyft de 2-3 vertikaler där du har djupast erfarenhet och kontaktnät.',
+      },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, primärt segment (B2B/B2C, bransch), kärnresultat och metodik.' },
-      { sektion: 'Erfarenhet', tips: 'Företag + roll + tidsperiod + budgetomfattning + måluppfyllelse. Skriv "130% av mål 2 år i rad" istället för "uppfyllde säljmål".' },
-      { sektion: 'Utbildning', tips: 'Akademisk bakgrund + säljutbildningar + certifieringar (SwedSec, MEDDIC-cert).' },
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, primärt segment (B2B/B2C, bransch), kärnresultat och metodik på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Företag, roll, tidsperiod, budgetomfattning och måluppfyllelse. "130% av mål 2 år i rad" istället för "uppfyllde säljmål".' },
+      { sektion: 'Utbildning', tips: 'Akademisk bakgrund, säljutbildningar och certifieringar (SwedSec, MEDDIC-cert, Challenger Academy).' },
       { sektion: 'Kompetenser', tips: 'CRM-system, säljmetoder, vertikaler du sålt till. Var specifik om dealsstorlekar och cykler.' },
+      { sektion: 'Vidareutbildning', tips: 'Säljmetodik-certifieringar, ledarskapsutbildningar, eventuell MBA. Kontinuerlig utveckling visar engagemang.' },
+      { sektion: 'Övrigt', tips: 'Eventuell föreningserfarenhet, mentor-roller, talanger på industri-konferenser. Säljnätverk är värdefullt och kan lyftas i sidopanelen.' },
     ],
+
     checklista: [
       'Total försäljningsbudget du ansvarat för',
-      'Konkret måluppfyllelse (% av budget) per år',
+      'Konkret måluppfyllelse i procent per år',
       'Säljmetod du arbetar efter (MEDDIC, BANT, etc)',
-      'CRM-system du behärskar',
-      'Antal kunder/leads du hanterat parallellt',
+      'CRM-system och säljstack du behärskar',
+      'Antal kunder eller leads du hanterat parallellt',
       'Snittstorlek på affärer du stängt',
+      'Säljcykellängd i din nuvarande roll',
+      'Branschvertikaler där du har djupast erfarenhet',
       'Eventuella säljutbildningar och certifieringar',
+      'Mentorskap, ledarskap eller talangs-bidrag',
     ],
-    atsInfo: 'Ja, både Norrsken och Aurora-mallen är ATS-säkra. Aurora har en "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal — alla läser Aurora korrekt.',
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Aurora är ATS-säkra. Aurora har en "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal, alla läser Aurora korrekt. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+
     faqItems: [
       {
+        q: 'Vad ska finnas med i ett säljar-CV?',
+        a: 'Säljroll och senioritet (BDR, AE, KAM, Sales Manager), bransch och segment, konkret måluppfyllelse i procent per år, total budget du ansvarat för, snittstorlek på affärer, säljcykellängd, CRM-system (Salesforce, HubSpot, Pipedrive), säljmetodik (MEDDIC, BANT, Challenger), och eventuella certifieringar. Lägg till mentorskap och ledarroller om du söker senior-tjänster.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-säljare utan referenssiffror?',
+        a: 'Lyft akademiska prestationer (snittbetyg, examensarbete, eventuell SaSS-praktik), tävlingar och case-studies där du kvantifierade resultat, eventuell extra- eller säsongsarbete med kundkontakt, och språkkunskaper. Skriv ut dina personliga driv-egenskaper med konkreta exempel. Många bolag har strukturerade BDR-program för junior-säljare.',
+      },
+      {
         q: 'Vilka siffror är viktigast på ett säljar-CV?',
-        a: 'Tre kärnsiffror. Total budget du ansvarat för. Måluppfyllelse i procent. Tillväxt i absoluta tal (ARR, omsättning, antal kunder). En säljare som visar "ökade ARR med 24%" får intervju över en som skriver "drev tillväxt".',
+        a: 'Tre kärnsiffror. Total budget du ansvarat för (i SEK eller absoluta tal). Måluppfyllelse i procent per år. Tillväxt i absoluta tal (ARR, omsättning, antal kunder). En säljare som visar "ökade ARR med 24%" får intervju över en som skriver "drev tillväxt".',
       },
       {
         q: 'Ska jag nämna provisioner eller bonusar?',
-        a: 'Inte själva provisionsbeloppet, men gärna måluppfyllelse i procent som triggade bonus ("130% av mål 2 år i rad"). Det visar att du levererar konsekvent.',
+        a: 'Inte själva provisionsbeloppet, men gärna måluppfyllelse i procent som triggade bonus ("130% av mål 2 år i rad"). Det visar att du levererar konsekvent. För enterprise-roller där du jobbat med stora affärer kan du nämna att du varit President\'s Club eller motsvarande topp-säljarprogram.',
       },
       {
-        q: 'Hur långt CV ska en säljare ha?',
-        a: 'Junior säljare 0-5 år: 1 sida. Erfaren B2B/key account: 1.5-2 sidor. Säljchef eller CSO: 2 sidor. Säljchefer skannar fort så håll varje rad relevant.',
+        q: 'Hur lång ska ett säljar-CV vara?',
+        a: 'Junior säljare 0-5 år: 1 sida. Erfaren B2B eller key account: 1,5-2 sidor. Säljchef eller CSO: 2 sidor max. Säljchefer skannar fort så håll varje rad relevant. Skriv siffror utan att bädda in dem i löpande text och prioritera senaste 5-7 åren.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika säljroller (Account Executive, Key Account Manager, Sales Manager), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetoder (MEDDIC, BANT, Challenger, SPIN), branschvertikaler du sålt till, och säljstack-verktyg (Apollo, Outreach, Gong). Teamtailor och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur visar jag säljkompetens utan SaaS-bakgrund?',
+        a: 'Lyft kvantifierade resultat oavsett bransch. En säljare i industri som ökat orderingång med 30% har samma värde för en säljchef som en SaaS-säljare som ökat ARR. Beskriv säljmetodik du använt, kundtyp du jobbat med, och avtalsstrukturer. Tydlig branschöverföring kommer från konkreta resultat och inte titel.',
+      },
+      {
+        q: 'Behöver jag personligt brev till säljroller?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att visa att du läst om bolaget och förstår deras säljutmaning. Beskriv en specifik affär du stängt eller en säljcykel du drivit som matchar deras profil. Säljchefer värderar kandidater som visar säljförmåga redan i sin egen ansökan. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vilka säljcertifieringar är värda 2026?',
+        a: 'MEDDIC Academy är gold standard på enterprise SaaS. Challenger Sale är efterfrågad på scale-ups med komplexa säljcyklar. Salesforce Trailhead-certifieringar visar systemkunskap. SwedSec-licens krävs för bank- och försäkringsförsäljning. AI-baserade säljverktyg (Gong, Clari) blir allt viktigare och eventuellt egen certifiering ger fördel.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt säljar-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror eller bonusbelopp, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och resultatorienterad") utan stöd, säljkampanjer du inte vunnit, och hobbies som inte är säljrelevanta. Säljchefer förväntar sig stark skriftlig kommunikation, så stavfel diskvalificerar direkt.',
       },
     ],
   },
 
   'butiksbitrade': {
+    seoIntro:
+      'Som butiksbiträde söker du tjänster i en bransch där konkurrensen om jobben är stor men personalomsättningen ännu större. ICA, Coop, H&M, Lindex, Stadium och tusentals mindre butiker rekryterar konstant, men butikschefer slänger CV:n som inte visar konkret kassasystem-erfarenhet eller serviceanda. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butiksbiträden lyfter kassasystem, försäljningsresultat och flexibilitet kring schema som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljprestationer. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint), butikskedjor och varugrupper du sålt, eventuella säljresultat (snittnota, mersälj, kundnöjdhet), kassansvar och kontanthantering, varuplockning och inventering, returhantering, visuell merchandising, samt språkkunskaper för internationell kundkrets.\n\nNedan hittar du två CV-mallar designade för butiksrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel, mode- och elektronikbutiker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Kassasystem i klartext',
+        description: 'Sitoo dominerar i kläd- och specialbutiker. NCR används i större kedjor som ICA. Iiko vanligast i restaurang och café. Skriv ut exakta produktnamn så ATS-system kan filtrera fram dig. "Erfarenhet av kassasystem" är för generiskt.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Säljresultat och mersälj',
+        description: '"Ökade snittnotan med 8% genom aktiv merförsäljning" säger mer än "ansvarade för försäljning". Konkreta siffror skiljer ut dig bland 30+ ansökningar och visar att du tänker affärsmässigt på din yta.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Schema-flexibilitet är hård valuta',
+        description: 'Detaljhandeln behöver medarbetare som kan kvällar, helger, högtider. Skriv ut din tillgänglighet konkret. "Flexibel för rotationsschema inkl helger" sätter dig framför kandidater som bara vill jobba dagtid.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Varugrupp och produktkunskap',
+        description: 'Kläder, dagligvaror, elektronik, sport, skönhet. Olika butikschefer letar efter olika produktkunskap. En sportbutik värderar erfarenhet från Stadium högre än från klädbutik. Var specifik om varugrupp.',
+      },
+      {
+        icon: 'Award',
+        title: 'Kontanthantering och ansvar',
+        description: 'Kassansvar, dagsavstämning, inventering. Att ha haft förtroende för stora summor är meriterande för senior-roller (avdelningschef, supervisor). Skriv ut om du varit huvudkassör eller ansvarig för stängning.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språk för internationell kundkrets',
+        description: 'Stockholm Central, Arlanda, NK, Mall of Scandinavia. Många butiker har internationella kunder. Engelska är förmodat. Tyska, spanska, kinesiska eller arabiska är meriterande för centrum-butiker och premium-segment.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Kassasystem och resultat överst',
+        description: 'Vår mall Disk har en "Försäljningsresultat"-banner överst där siffror och kassasystem-erfarenhet lyfts visuellt. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per butikskedja',
+        description: 'Mallen separerar butiker, varugrupp och tidsperiod så bredd och djup syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för kompetens och certifikat',
+        description: 'Säljutbildningar (intern eller extern), kassansvar-certifikat och kundbemötande-utbildningar har egen rad. Visar att du har strukturerad utveckling utöver bara "tid i butik".',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För senior-roller (butikschef, avdelningschef, flagship-butiker) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Energisk emerald-accent för handel',
+        description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
+      },
+      {
+        title: 'Kompakt layout för flexibilitet',
+        description: 'Butiksbiträden har ofta varierande arbetstid (heltid, deltid, säsong). Mallen är kompakt nog för att rymma flera samtidiga anställningar utan att verka rörig.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Kundservice och säljarbete',
+        punkter: [
+          'Möta kunder vid entrén och i butiken med servicekänsla',
+          'Aktivt sälja produkter genom rådgivning och produktdemonstrationer',
+          'Genomföra mersälj och kompletterande försäljning vid kassan',
+          'Hantera kundklagomål och returer med lugn och professionalism',
+        ],
+      },
+      {
+        rubrik: 'Kassa och betalning',
+        punkter: [
+          'Köra kassa i Sitoo, NCR, Iiko eller motsvarande system',
+          'Hantera kontant, kort, mobilbetalning och presentkort korrekt',
+          'Genomföra dagsavstämning och rapportera till butikschef',
+          'Hantera kassaöppning, kassastängning och växelkassan',
+        ],
+      },
+      {
+        rubrik: 'Varuplockning och påfyllning',
+        punkter: [
+          'Plocka ur varor från lager och fylla på i butiken enligt planogram',
+          'Märka varor med rätt prislapp och kampanjmaterial',
+          'Genomföra cykelräkning och inventering vid skiftbyten',
+          'Hantera leveranser och kontrollera mot följesedel',
+        ],
+      },
+      {
+        rubrik: 'Visuell merchandising',
+        punkter: [
+          'Bygga skyltning enligt centrala riktlinjer från huvudkontor',
+          'Anpassa visuellt uttryck efter säsong, kampanj eller högtider',
+          'Hålla butiken ren, snygg och säljvänlig under hela skiftet',
+          'Föreslå förbättringar av exponering baserat på säljdata',
+        ],
+      },
+      {
+        rubrik: 'Returer och reklamationer',
+        punkter: [
+          'Hantera returer enligt butikens policy och konsumentlagstiftningen',
+          'Bedöma reklamationer och eskalera till butikschef vid behov',
+          'Dokumentera returer i kassasystemet och hantera återbetalning',
+          'Förebygga svinn genom uppmärksamhet på säljytan',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Kassasystem och betalning',
+        termer: [
+          { term: 'Sitoo', forklaring: 'Molnbaserat kassasystem som dominerar kläd- och specialbutiker.' },
+          { term: 'NCR', forklaring: 'Globalt kassasystem som används i större kedjor som ICA, Coop, Hemköp.' },
+          { term: 'Iiko', forklaring: 'Kassasystem populärt i restaurang, café och småbutiker.' },
+          { term: 'Bizpoint', forklaring: 'Svenskt kassasystem för små och medelstora butiker.' },
+          { term: 'Kassansvar', forklaring: 'Ansvar för dagskassan, dagsavstämning och deponering.' },
+          { term: 'Z-rapport', forklaring: 'Daglig avslutsrapport som summerar alla transaktioner i kassan.' },
+        ],
+      },
+      {
+        kategori: 'Detaljhandelsroller',
+        termer: [
+          { term: 'Butiksbiträde', forklaring: 'Allmän roll med kassa, kundservice och varuplockning.' },
+          { term: 'Butikssäljare', forklaring: 'Säljfokuserad roll, ofta provisionsbaserad i mode och elektronik.' },
+          { term: 'Avdelningschef', forklaring: 'Ansvarig för en specifik avdelning och dess säljmål.' },
+          { term: 'Butikschef', forklaring: 'Övergripande chef med personalansvar, resultatmål och budget.' },
+          { term: 'Visual merchandiser', forklaring: 'Specialist på butiksskyltning och produktexponering.' },
+          { term: 'Stockwoman/man', forklaring: 'Lager- och påfyllningsroll, ofta nattskift för att förbereda butiken.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'Snittnota', forklaring: 'Genomsnittligt belopp per transaktion, central KPI för säljare.' },
+          { term: 'Konvertering', forklaring: 'Andel besökare som blir köpare, mäts via räknare vid entrén.' },
+          { term: 'UPT', forklaring: 'Units Per Transaction, antal artiklar per kvitto.' },
+          { term: 'Säljytseffektivitet', forklaring: 'Omsättning per kvadratmeter, viktigt för butiksbedömning.' },
+          { term: 'Svinn', forklaring: 'Förlorad varuvärde genom stöld, skador eller felinventering.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, mäter kundnöjdhet och rekommendationsvilja.' },
+        ],
+      },
+      {
+        kategori: 'Branscher och varugrupper',
+        termer: [
+          { term: 'Dagligvaruhandel', forklaring: 'Mat, drycker, hushållsprodukter (ICA, Coop, Willys, Hemköp, Lidl).' },
+          { term: 'Mode och kläder', forklaring: 'Kläder, skor, accessoarer (H&M, Lindex, Zara, MQ, Stadium).' },
+          { term: 'Heminredning', forklaring: 'Möbler, textil, dekoration (IKEA, Mio, Hemtex, Ellos).' },
+          { term: 'Elektronik', forklaring: 'Hemelektronik, vitvaror (Elgiganten, NetOnNet, Media Markt).' },
+          { term: 'Sport och fritid', forklaring: 'Sportkläder och utrustning (Stadium, XXL, Intersport, Naturkompaniet).' },
+          { term: 'Skönhet och hälsa', forklaring: 'Kosmetika, parfym, hudvård (KICKS, Lyko, Sephora, Apoteket).' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Dagligvaruhandel',
+        exempel: [
+          'ICA-handlare i Stockholm, Göteborg, Malmö och övriga landet',
+          'Coop, Hemköp, Willys, Lidl, City Gross',
+          'Mindre lokala livsmedelsbutiker och specialbutiker',
+          'Apoteket och Apotek Hjärtat',
+        ],
+      },
+      {
+        kategori: 'Mode och kläder',
+        exempel: [
+          'H&M, Lindex, KappAhl, MQ, Bik Bok',
+          'Zara, Mango, Cubus, Gina Tricot',
+          'Lyxbutiker (NK, Acne Studios, Filippa K)',
+          'Sportbutiker (Stadium, XXL, Intersport)',
+        ],
+      },
+      {
+        kategori: 'Heminredning och elektronik',
+        exempel: [
+          'IKEA, Mio, JYSK, Hemtex',
+          'Elgiganten, NetOnNet, Media Markt',
+          'Specialbutiker för design och inredning',
+          'E-handelsbolag med fysiska showrooms',
+        ],
+      },
+      {
+        kategori: 'Skönhet, sport och övrigt',
+        exempel: [
+          'KICKS, Lyko, Sephora, The Body Shop',
+          'Sportkedjor och utomhusbutiker',
+          'Bensinmackar och servicebutiker',
+          'Köpcentrum och flagship-butiker (Mall of Scandinavia, Emporia, NK)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Handels- och administrationsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning handel eller administration. Innehåller praktikperioder hos butiker. Vanlig grund för butiksbiträden och säljkonsulenter.',
+      },
+      {
+        rubrik: 'Yrkeshögskola butikssäljare (1-2 år)',
+        beskrivning: 'YH-utbildningar som butikssäljare, e-handel eller retail manager. Kortare väg in i yrket och meriterande för chefroller.',
+      },
+      {
+        rubrik: 'Internutbildningar från kedjor',
+        beskrivning: 'IKEA Academy, H&M Way, ICA-skolan. Större kedjor har strukturerade interna utbildningsprogram som ofta leder till avdelnings- och butikschefroller.',
+      },
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många butiker rekryterar utan formell utbildning om du visar serviceanda och flexibilitet. Vanlig väg in för deltidsarbete och säsongsarbete.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'Kassasystem (Sitoo, Iiko, NCR, Bizpoint)',
-        'Varuplockning och påfyllning',
-        'Inventering och cykelräkning',
+        'Varuplockning och påfyllning enligt planogram',
+        'Inventering, cykelräkning och svinnhantering',
         'Returhantering och kvittogivning',
-        'Visuell merchandising',
-        'Försäljningsstatistik och KPI:er',
+        'Visuell merchandising och skyltning',
+        'Försäljningsstatistik och KPI:er (UPT, snittnota, konvertering)',
+        'Kontanthantering och dagsavstämning',
+        'Mersälj och kompletterande försäljning',
+        'Produkt- och varukännedom',
+        'Kundbemötande och konflikthantering',
+        'Skyltning enligt kampanjmaterial och centrala riktlinjer',
+        'Reklamationer och konsumentlagstiftning',
       ],
       personliga: [
         'Servicemedveten och kundorienterad',
@@ -1202,48 +1702,109 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Ärlig och pålitlig kring kontanthantering',
         'Lagspelare i butiksmiljö',
         'Flexibel kring kvällar och helger',
+        'Energisk och utåtriktad',
+        'Pedagogisk i produktrådgivning',
       ],
     },
-    profilExempel: 'Erfaren butiksmedarbetare med 3 års erfarenhet från klädbutik och dagligvaruhandel. Hanterar kassa-, retur- och inventeringsprocesser i Sitoo och NCR med hög precision. Topp-3-säljare på avdelningen 2024 med 8% högre snittnota än kollegor genom aktivt merförsäljningsarbete.',
-    profilTips: 'År av erfarenhet och bransch. Vilka system du behärskar. Konkret resultat eller säljprestation som differentierar dig.',
+
+    profilExempel:
+      'Erfaren butiksmedarbetare med 3 års erfarenhet från klädbutik och dagligvaruhandel. Hanterar kassa-, retur- och inventeringsprocesser i Sitoo och NCR med hög precision. Topp-3-säljare på avdelningen 2024 med 8% högre snittnota än kollegor genom aktivt merförsäljningsarbete.',
+
+    profilTips:
+      'År av erfarenhet och bransch i öppningsraden. Andra meningen lyfter vilka system du behärskar. Tredje meningen visar konkret resultat eller säljprestation som differentierar dig från generiska CV:n.',
+
     rekryterarTipsen: [
       {
-        rubrik: 'Kassaerfarenhet är CV-kritiskt',
-        text: 'Vilka kassasystem har du arbetat med? Sitoo, Iiko, NCR, Bizpoint. Nämn dem konkret. Många butiker använder samma system och söker efter exakt erfarenhet.',
+        rubrik: 'Kassasystem är CV-kritiskt',
+        text: 'Vilka kassasystem har du arbetat med? Sitoo, Iiko, NCR, Bizpoint. Nämn dem konkret. Många butiker använder samma system och söker efter exakt erfarenhet i jobbannonsens språk.',
       },
       {
         rubrik: 'Försäljningsresultat över passiv listning',
         text: 'Skriv inte "ansvarade för försäljning". Skriv "ökade kategori-omsättningen 12% under sommarsäsongen". Konkreta siffror gör att du sticker ut bland 30+ ansökningar.',
       },
       {
-        rubrik: 'Mertid och sociala kvällar/helger',
+        rubrik: 'Schema-flexibilitet är hård valuta',
         text: 'Detaljhandeln behöver flexibla medarbetare. Nämn att du kan jobba kvällar, helger, högtider. Det sätter dig framför sökande som bara vill jobba dagtid.',
       },
+      {
+        rubrik: 'Varugrupp och produktkunskap',
+        text: 'Olika butikschefer letar efter olika produktkunskap. En sportbutik värderar erfarenhet från Stadium högre än från klädbutik. Var specifik om varugrupp och eventuell produktcertifiering.',
+      },
+      {
+        rubrik: 'Kassansvar och kontanthantering',
+        text: 'Att ha haft förtroende för stora summor är meriterande för senior-roller. Skriv ut om du varit huvudkassör, ansvarig för stängning eller hanterat dagsavstämning.',
+      },
+      {
+        rubrik: 'Språk och kulturell kompetens',
+        text: 'Centrumbutiker, flagship-butiker och premium-segment har internationella kunder. Engelska är förmodat. Andra språk (tyska, kinesiska, spanska, arabiska) är starkt meriterande och bör ligga synligt.',
+      },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, branscher du arbetat i, primära system och din särprägel.' },
-      { sektion: 'Erfarenhet', tips: 'Butik + bransch + tidsperiod + kärnuppgifter. Konkretisera med kassasystem och försäljningsresultat.' },
-      { sektion: 'Utbildning', tips: 'Gymnasium + eventuella säljutbildningar (interna kedjeutbildningar räknas).' },
-      { sektion: 'Kompetenser', tips: 'Kassasystem, varugrupper du har erfarenhet av, språk för internationell kundkrets.' },
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, branscher du arbetat i, primära kassasystem och din särprägel på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Butik, bransch, tidsperiod och kärnuppgifter. Konkretisera med kassasystem och försäljningsresultat (snittnota, mersälj).' },
+      { sektion: 'Utbildning', tips: 'Gymnasium, YH-utbildning eller motsvarande. Eventuella säljutbildningar (interna kedjeutbildningar som IKEA Academy räknas).' },
+      { sektion: 'Kompetenser', tips: 'Kassasystem i klartext, varugrupper du har erfarenhet av, språk för internationell kundkrets.' },
+      { sektion: 'Kassansvar', tips: 'Eget block om du haft kassansvar eller varit huvudkassör. Stort plus för senior-roller och chefspositioner.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet (heltid, deltid, kvällar, helger, säsong), körkort om du söker storbutik med varuintag.' },
     ],
+
     checklista: [
-      'Erfarenhet av kassasystem (specifikt vilka)',
+      'Erfarenhet av specifika kassasystem (Sitoo, NCR, Iiko)',
       'Kundbemötande och servicekompetens',
-      'Varuplockning och påfyllning',
-      'Inventering och ordermottagning',
+      'Varuplockning och påfyllning enligt planogram',
+      'Inventering, cykelräkning och svinnhantering',
       'Eventuell säljutbildning (intern eller extern)',
-      'Flexibilitet (kvällar/helger)',
-      'Språk utöver svenska',
+      'Schema-flexibilitet (kvällar, helger, säsong)',
+      'Språk utöver svenska och engelska',
+      'Konkret säljresultat eller mersäljs-prestation',
+      'Eventuellt kassansvar och dagsavstämning',
+      'Produktkunskap och varugruppserfarenhet',
     ],
-    atsInfo: 'Ja, Sidopanel-mallen är ATS-säker. Större kedjor som ICA, Coop, Hemköp använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem".',
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem". Skriv också ut varugrupper och butikskedjor i klartext.',
+
     faqItems: [
       {
+        q: 'Vad ska finnas med i ett butiksbiträde-CV?',
+        a: 'Erfarenhet av specifika kassasystem (Sitoo, NCR, Iiko), butikskedjor och varugrupper du arbetat med, eventuella säljresultat (snittnota, mersälj, kampanjresultat), kassansvar och kontanthantering, varuplockning och inventering, schema-flexibilitet, samt språkkunskaper. Lägg till säljutbildningar och eventuella chefroller om du söker senior-tjänster.',
+      },
+      {
         q: 'Behövs erfarenhet för butiksbiträde-jobb?',
-        a: 'Inte alltid. Många butiker rekryterar utan erfarenhet om du visar serviceanda och flexibilitet. Däremot väger relevant erfarenhet (även café, restaurang, kundtjänst) tungt eftersom det visar att du kan hantera kundkontakt.',
+        a: 'Inte alltid. Många butiker rekryterar utan erfarenhet om du visar serviceanda och flexibilitet. Däremot väger relevant erfarenhet (även café, restaurang, kundtjänst) tungt eftersom det visar att du kan hantera kundkontakt. För säsongsarbete sommar och jul tar man oftast in nya utan krav.',
       },
       {
         q: 'Vad ska sammanfattningen på CV:t handla om?',
-        a: 'Tre saker. Hur länge du jobbat i service, vilka system du behärskar, och vad som driver dig (kundbemötande, säljmål, lagarbete). Håll det till 3-4 meningar — rekryterare läser det först.',
+        a: 'Tre saker. Hur länge du jobbat i service, vilka system och varugrupper du behärskar, och vad som driver dig (kundbemötande, säljmål, lagarbete). Håll det till 3-4 meningar, rekryterare läser det först. Konkreta resultat (snittnota, kampanjvinster) är ett plus.',
+      },
+      {
+        q: 'Hur lyfter jag säljresultat utan att ha haft uttalat säljmål?',
+        a: 'De flesta butiker mäter snittnota, UPT och konvertering även om medarbetarna inte ser direkt provision. Fråga din chef om du var topp-3 på avdelningen, om kampanjer du varit del av drev mest omsättning, eller om kunder gett positiv NPS-feedback. Indirekta resultat går också att lyfta.',
+      },
+      {
+        q: 'Hur lång ska ett butiksbiträde-CV vara?',
+        a: 'En sida räcker för de flesta. Om du har 5+ års erfarenhet med flera kedjor och säljresultat kan det bli 1,5 sidor. Det viktiga är att din tillgänglighet, dina kassasystem och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika kassasystem (Sitoo, NCR, Iiko, Bizpoint), butikskedjor (ICA, Coop, H&M, Stadium), varugrupper (kläder, dagligvaror, sport, elektronik), KPI:er (snittnota, UPT, konvertering) och språk. Teamtailor och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Ska jag ha med foto på butiksbiträde-CV?',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom detaljhandel. Vår premium-mall Disk Plus har stöd för foto. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker. För flagship-butiker och premium-segment är foto ett plus.',
+      },
+      {
+        q: 'Behöver jag personligt brev till butiks-tjänster?',
+        a: 'Beror på butiken. Kedjor som ICA och Coop förväntar sig oftast brev medan mindre butiker kan acceptera bara CV. När brev förväntas, fokusera på varför just den butik och beskriv en kundsituation där du visat din serviceanda. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur visar jag mersäljs-förmåga på CV:t?',
+        a: 'Konkreta exempel av kampanjer du drivit, produkter du varit topp-säljare på, eller tillfällen du adderat värde i kassan. "Adderade snitt 80 SEK per kvitto via aktiv mersälj av tilbehör under julkampanj" är konkret. Indirekta exempel som "alltid topp-3 på avdelningen" funkar också.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt butiksbiträde-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och målmedveten") utan stöd, hobbies som inte är butiksrelevanta, och grumliga formuleringar om varför du lämnat tidigare jobb. Stavfel diskvalificerar omedelbart.',
       },
       {
         q: 'Hur viktigt är språk för butiksjobb?',
@@ -1256,68 +1817,348 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // SERVICE - lager/logistik
   // ============================================================================
   'lagerarbetare': {
+    seoIntro:
+      'Som lagerarbetare jobbar du i en bransch där behörigheter och plockhastighet avgör mer än personlig profil. DB Schenker, PostNord, DHL, Klarna Logistics, Mathem och tusentals tredjepartslogistiker har tusentals öppna roller varje månad, men lagerchefer slänger CV:n som inte tydligt visar truckbehörigheter och WMS-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVår mall för lagerarbetare lyfter truckbehörigheter och WMS-system som första visuella element. Vi har strukturerat erfarenhetssektionen så att lager, branschtyp och tidsperiod syns direkt med plockhastighet, felfri-procent och specifika system. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, WMS-system du arbetat i (SAP WMS, Manhattan, Pyramid, Astro), plockhastighet i rader per timme och felfri-procent, eventuella ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, brandskydd, fallskydd), körkort B (ofta krav), och tillgänglighet för 2- eller 3-skift och helger.\n\nNedan hittar du två CV-mallar designade för lagerrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager, transport och tredjepartslogistik faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Truckbehörigheter med utgångsdatum',
+        description: 'Lista exakt vilka truckar du har behörighet på (A1, A2, A3, A4, B1, B2, B3, B4, B5, C, D, E) med utgångsdatum. Lagerchefer matchar varje tjänst mot specifika krav, och utan rätt behörighet sorteras du bort omedelbart.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Plockhastighet i rader per timme',
+        description: '"Plockhastighet 180 rader per timme i SAP WMS med 99,7% korrekt plock" säger allt en lagerchef vill veta. Konkreta siffror skiljer dig från ansökningar som bara skriver "lagerarbete och plockning".',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'WMS-system i klartext',
+        description: 'SAP WMS dominerar storbolag. Manhattan vanligast på e-handel. Pyramid på mindre lager. Astro på terminal. Skriv ut systemnamnen så ATS kan filtrera fram dig och rekryteraren ser att du kan starta utan introduktion.',
+      },
+      {
+        icon: 'FileText',
+        title: 'ADR-bevis för farligt gods',
+        description: 'För lager som hanterar farligt gods (kemikalier, batterier, tryckkärl) är ADR ett krav, inte ett plus. Lager utan farligt gods värderar det också som senior-meritering. Lägg utgångsdatum eftersom det förnyas vart femte år.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Körkort B är ofta krav',
+        description: 'Större terminaler kräver körkort B för att kunna hämta material från olika delar av området. Hemleverans-bolag som Mathem och Foodora kräver det alltid. Skriv ut B om du har det.',
+      },
+      {
+        icon: 'Target',
+        title: 'Schemaflexibilitet',
+        description: 'Lager kör ofta 2- eller 3-skift, och högsäsong (jul, sommar) kräver helgarbete. Tillgänglighet för rotation är hård valuta. Skriv ut konkret: "Tillgänglig för 2-skift inkl helger" eller "Söker dagtid med möjlighet till sporadiska kvällar".',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Behörigheter och körkort överst',
+        description: 'Vår mall Logistik har "Behörigheter och körkort" som första block direkt efter rubriken. Lagerchefer ser dina truckkort, ADR och B-körkort på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'WMS-system som eget block',
+        description: 'SAP WMS, Manhattan, Pyramid, Astro. Mallen separerar systemen från generiska kompetenser så lagerchefer letar specifikt efter system de redan kör i sin organisation.',
+      },
+      {
+        title: 'Industriell typografi för branschen',
+        description: 'Vi har valt Roboto Condensed med cyan-accent och kondenserad layout som signalerar industri och produktion. Ingen klick-baitig design som drar fokus från meriterna.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior-roller (lagerchef, terminalansvarig) lägger Logistik Plus till foto, mörkt grafit-band och tabellär arbetslivshistorik. Skapar en mer professionell first impression utan att kompromissa med ATS.',
+      },
+      {
+        title: 'Plats för plockstatistik',
+        description: 'Mallen har dedikerade rader för rader per timme, felfri-procent och plocktyper (pick-by-voice, pick-by-light, RF-scanner). Så dina prestationssiffror syns synligt utan att blandas in i löpande text.',
+      },
+      {
+        title: 'Skiftarbete-tillgänglighet i sidopanelen',
+        description: 'Lagerchefer behöver veta om du kan rotation, helger, högsäsong. Mallen har ett synligt block i sidopanelen för tillgänglighet, vilket sätter dig i rätt urvalslista.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Plock och packning',
+        punkter: [
+          'Plocka order enligt pick-by-voice, pick-by-light eller RF-scanner-system',
+          'Packa varor i kartong eller container enligt orderspecifikation',
+          'Märka kollin med rätt fraktsedel och destinationsuppgifter',
+          'Kvalitetskontrollera plockad order innan avsändning',
+        ],
+      },
+      {
+        rubrik: 'Truckkörning och materialhantering',
+        punkter: [
+          'Köra plocktruck (A2, A3) i smala gångar och höglager',
+          'Hantera motviktstruck (B1-B5) för pallhantering och lastning',
+          'Lasta och lossa lastbilar med truckar eller manuell pallhantering',
+          'Förflytta material mellan lagerzoner och packningsområden',
+        ],
+      },
+      {
+        rubrik: 'Inventering och kvalitet',
+        punkter: [
+          'Genomföra cykelräkning och fullinventering enligt schema',
+          'Justera lagersaldo i WMS efter avvikelser och rapportera diff',
+          'Kontrollera inkommande gods mot följesedel och PO',
+          'Hantera reklamationer och returer enligt rutin',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och hygien',
+        punkter: [
+          'Följa lagrets säkerhetsrutiner och bära PPE (skyddsskor, hjälm, väst)',
+          'Hantera farligt gods enligt ADR vid behov',
+          'Genomföra dagliga säkerhetsronder och rapportera incidenter',
+          'Hålla arbetsplatsen ren enligt 5S eller motsvarande standard',
+        ],
+      },
+      {
+        rubrik: 'Skiftarbete och samverkan',
+        punkter: [
+          'Genomföra skiftöverlämning till nästa skift med statusrapport',
+          'Samverka med produktion, transport och inköp',
+          'Stötta nya kollegor under introduktion',
+          'Bidra till förbättringsförslag enligt Lean eller Kaizen',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Truckar och behörigheter',
+        termer: [
+          { term: 'A1', forklaring: 'Plocktruck med plockare i förhöjt läge, vanlig i höglager.' },
+          { term: 'A2', forklaring: 'Stå-på-truck för plock i smala gångar, mycket vanlig på e-handelslager.' },
+          { term: 'A3', forklaring: 'Sittande plocktruck för höga plockhöjder.' },
+          { term: 'A4', forklaring: 'Skjutstativtruck för smala gångar och höglager.' },
+          { term: 'B1-B5', forklaring: 'Motviktstruckar i olika storleksklasser för pallhantering och lastning.' },
+          { term: 'C', forklaring: 'Sidlastare för långgodshantering.' },
+          { term: 'TYA', forklaring: 'Transportfackens Yrkes- och Arbetsmiljönämnd, utfärdar truckutbildning.' },
+        ],
+      },
+      {
+        kategori: 'WMS och lagersystem',
+        termer: [
+          { term: 'SAP WMS', forklaring: 'Marknadsledande WMS, dominerar storbolag och industrilager.' },
+          { term: 'Manhattan', forklaring: 'WMS från Manhattan Associates, populärt på e-handelsterminaler.' },
+          { term: 'Pyramid', forklaring: 'Svenskt WMS för mindre och medelstora lager.' },
+          { term: 'Astro', forklaring: 'WMS för terminal och 3PL-bolag som DB Schenker.' },
+          { term: 'Pick-by-voice', forklaring: 'Plocksystem där order kommuniceras via headset, vanlig på e-handel.' },
+          { term: 'Pick-by-light', forklaring: 'Plocksystem med ljussignaler vid varje plockplats för snabbhet.' },
+          { term: 'RF-scanner', forklaring: 'Handhållen scanner för plockorder, vanligaste plockmetoden.' },
+        ],
+      },
+      {
+        kategori: 'Lagertyper och bransch',
+        termer: [
+          { term: 'E-handelsterminal', forklaring: 'Stora lager för B2C med snabb plock (Klarna Logistics, Amazon).' },
+          { term: 'Industrilager', forklaring: 'Lager för tillverkningsbolag (Volvo, Scania, IKEA Industry).' },
+          { term: '3PL', forklaring: 'Tredjepartslogistik, lager som driftas på uppdrag av flera kunder.' },
+          { term: 'Crossdock', forklaring: 'Genomflöde utan långtidslagring, vanligt på terminaler.' },
+          { term: 'Höglager', forklaring: 'Automatiserat lager med pallar i 10-30 meter höjd.' },
+          { term: 'Plocklager', forklaring: 'Manuellt lager där plockare hämtar enskilda varor till order.' },
+        ],
+      },
+      {
+        kategori: 'Säkerhet och certifikat',
+        termer: [
+          { term: 'ADR', forklaring: 'Behörighet för transport av farligt gods, förnyas vart femte år.' },
+          { term: 'Akta Ryggen', forklaring: 'Certifierad ergonomisk lyfteknik, vanligt krav på lager.' },
+          { term: 'BAM', forklaring: 'Bättre arbetsmiljö, grundläggande utbildning för arbetsledare.' },
+          { term: 'Heta arbeten', forklaring: 'Certifikat för svetsning eller kapning på arbetsplats.' },
+          { term: 'Fallskydd', forklaring: 'Utbildning för arbete på höjd, krävs på höglager.' },
+          { term: 'Brandskydd', forklaring: 'Grundläggande brandskyddsutbildning, krav på de flesta lager.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Logistik och transport',
+        exempel: [
+          'PostNord, DB Schenker, DHL, DSV',
+          'Bring, Best Transport, Schenker Logistics',
+          'Mindre svenska transport- och åkeribolag',
+          'Åkerier kopplade till specifika kunder',
+        ],
+      },
+      {
+        kategori: 'E-handel och 3PL',
+        exempel: [
+          'Klarna Logistics, Mathem, Foodora',
+          'Boozt, Apotea, NetOnNet, Adlibris',
+          'Tredjepartslogistiker (XPO, Geodis, Itella)',
+          'Egna e-handelsterminaler för stora kedjor',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Sandvik, Atlas Copco, Tetra Pak',
+          'Tillverkningsbolag i Mälardalen och Småland',
+          'Mindre tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Detaljhandel och dagligvaror',
+        exempel: [
+          'ICA Logistik, Coop, Axfood, Lidl',
+          'IKEA, H&M, Stadium centrallager',
+          'Apoteket centrallager och distribution',
+          'Säsongsarbete på julpaketterminaler',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Truckutbildning enligt TYA (1-5 dagar)',
+        beskrivning: 'TYA (Transportfackens Yrkes- och Arbetsmiljönämnd) utfärdar truckutbildning. Längden beror på vilka behörigheter du tar. Krav i de flesta lager och förnyas vart femte år.',
+      },
+      {
+        rubrik: 'Yrkeshögskola lager och logistik (1-2 år)',
+        beskrivning: 'YH-utbildningar inom lager, logistik och transport. Kortare väg till arbetsledar- och chefroller. Innehåller WMS-praktik och affärsmässig logistik.',
+      },
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många lager rekryterar utan formell utbildning för plock- och packroller. Truckutbildning betalas ofta av arbetsgivaren efter provanställning. Vanlig väg in.',
+      },
+      {
+        rubrik: 'ADR och säkerhetscertifikat (1-3 dagar)',
+        beskrivning: 'ADR-utbildning för farligt gods, fallskydd, brandskydd och Akta Ryggen. Korta certifikatkurser som ger meriterande kompetens utöver grundutbildning.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
-        'Truckkort A1-A4 och B1-B5',
+        'Truckkort A1-A4 och B1-B5 enligt TYA',
         'WMS-system (SAP WMS, Manhattan, Pyramid, Astro)',
         'Plock med pick-by-voice eller pick-by-light',
-        'Cykelräkning och inventering',
-        'ADR-bevis (för farligt gods)',
-        'Pallhantering och paketering',
-        'Säkerhetsutbildning enligt TYA',
+        'RF-scanner och handburna terminaler',
+        'Cykelräkning och inventering enligt schema',
+        'ADR-bevis för farligt gods',
+        'Pallhantering, paketering och fraktdokument',
+        'Säkerhetsutbildning enligt TYA och Akta Ryggen',
+        'Lastsäkring och kontroll av leveranser',
+        '5S och Lean-metodik på lagergolv',
+        'Skiftöverlämning och rapportering',
+        'Produktkunskap inom specifika varugrupper',
       ],
       personliga: [
-        'Fysiskt uthållig',
+        'Fysiskt uthållig och stresstålig',
         'Strukturerad i höga tempon',
         'Säkerhetsmedveten',
         'Lagspelare på golvet',
-        'Flexibel kring skift',
+        'Flexibel kring skift och helger',
+        'Noggrann i kvalitetskontroll',
+        'Pålitlig och punktlig',
       ],
     },
-    profilExempel: 'Erfaren lagerarbetare med 4 års erfarenhet från lager och terminal med truckkort A1-A4 och B1-B3. Plockhastighet 180 rader/timme i SAP WMS med 99.7% korrekt plock. ADR-bevis för farligt gods och utbildad i Akta Ryggen för säker hantering.',
-    profilTips: 'Antal år, branscher (e-handel, industri, terminal), specifika behörigheter och plockhastighet eller felfri-procent som differentierar dig.',
+
+    profilExempel:
+      'Erfaren lagerarbetare med 4 års erfarenhet från e-handelsterminal och industrilager. Truckkort A1-A4 och B1-B3 med plockhastighet 180 rader per timme i SAP WMS och 99,7% korrekt plock. ADR-bevis för farligt gods, utbildad i Akta Ryggen och tillgänglig för 2-skift inklusive helger.',
+
+    profilTips:
+      'Antal år och branschen (e-handel, industri, terminal) i öppningsraden. Andra meningen lyfter dina specifika behörigheter och plockhastighet. Tredje meningen visar säkerhetscertifikat och tillgänglighet som differentierar dig.',
+
     rekryterarTipsen: [
       {
-        rubrik: 'Truck-behörigheter avgör vilka jobb du kan söka',
-        text: 'Lista exakt vilka truckar du har behörighet på (A1, A2, A3, B1, B2, B3, B4, C, D, E). Många annonser kräver specifika behörigheter — utan rätt papper sorteras du bort omedelbart.',
+        rubrik: 'Truckbehörigheter avgör vilka jobb du kan söka',
+        text: 'Lista exakt vilka truckar du har behörighet på (A1, A2, A3, A4, B1, B2, B3, B4, C, D, E). Många annonser kräver specifika behörigheter. Utan rätt papper sorteras du bort omedelbart.',
       },
       {
         rubrik: 'WMS-system och plockerfarenhet',
-        text: 'Vilka lagersystem har du arbetat i? SAP WMS, Pyramid, Manhattan, Astro. Plockhastighet (rader/timme) och feltal är CV-relevanta för lager med pick-by-voice eller pick-by-light.',
+        text: 'Vilka lagersystem har du arbetat i? SAP WMS, Pyramid, Manhattan, Astro. Plockhastighet (rader per timme) och feltal är CV-relevanta för lager med pick-by-voice eller pick-by-light.',
       },
       {
         rubrik: 'ADR-bevis och säkerhetsutbildning',
         text: 'För lager som hanterar farligt gods (kemikalier, batterier, tryckkärl) är ADR ett krav. Brand- och säkerhetsutbildningar är meriterande för chefroller eller större lagerterminalsanläggningar.',
       },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Lager kör ofta 2- eller 3-skift, och högsäsong kräver helgarbete. Skriv ut konkret: "Tillgänglig för 2-skift inkl helger" eller "Söker dagtid med möjlighet till sporadiska kvällar". Det sätter dig i rätt urvalslista.',
+      },
+      {
+        rubrik: 'Körkort B är ofta krav',
+        text: 'Större terminaler kräver körkort B för att hämta material från olika delar av området. Hemleverans-bolag som Mathem och Foodora kräver det alltid. Skriv ut B om du har det.',
+      },
+      {
+        rubrik: 'Bransch-specialisering',
+        text: 'E-handelsterminal kräver snabb plock. Industrilager kräver pallhantering. 3PL kräver flexibilitet med flera kunder. Lyft den bransch där du har djupast erfarenhet i sammanfattningen.',
+      },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, brancher du arbetat i, dina behörigheter och prestationssiffror.' },
-      { sektion: 'Erfarenhet', tips: 'Företag + lager + tidsperiod. Kärnuppgifter med WMS-system, plockmetod och volym (rader/timme).' },
-      { sektion: 'Utbildning', tips: 'Gymnasium + truckutbildning (TYA, Lager- och Terminal). Datum för truckkort.' },
-      { sektion: 'Kompetenser', tips: 'Truckkort med utgångsdatum, WMS-system, säkerhetsbevis. Skiftarbete-tillgänglighet.' },
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, branscher du arbetat i, dina behörigheter och plockhastighet på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Företag, lager, tidsperiod. Kärnuppgifter med WMS-system, plockmetod och volym (rader per timme, felfri-procent).' },
+      { sektion: 'Utbildning', tips: 'Gymnasium plus truckutbildning (TYA, Lager- och Terminal). Datum för truckkort och eventuella YH-utbildningar.' },
+      { sektion: 'Behörigheter', tips: 'Eget block med truckkort (A1-B5), körkort B, ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
+      { sektion: 'Kompetenser', tips: 'WMS-system i klartext, plocktyper (pick-by-voice, RF-scanner), produktkunskap. Skiftarbete-tillgänglighet.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet för 2- eller 3-skift, helger, högsäsong. Eventuella språkkunskaper för internationella terminaler.' },
     ],
+
     checklista: [
-      'Truckutbildning med specifika behörigheter',
+      'Truckutbildning med specifika behörigheter (A1-A4, B1-B5)',
       'Körkort B (ofta krav)',
-      'ADR-bevis (för farligt gods)',
-      'Erfarenhet av WMS-system (vilka)',
-      'Plock- och packerfarenhet (volym/hastighet)',
+      'ADR-bevis för farligt gods',
+      'Erfarenhet av specifika WMS-system',
+      'Plockhastighet (rader per timme) och felfri-procent',
       'Inventering och cykelräkning',
-      'Eventuell skiftarbete (3-skift, helger)',
+      'Akta Ryggen eller motsvarande säkerhetsutbildning',
+      'Tillgänglighet för 2- eller 3-skift, helger',
+      'Eventuell brand- eller fallskyddsutbildning',
+      'Branschvana (e-handel, industri, terminal, 3PL)',
     ],
-    atsInfo: 'Ja, både Hantverkare (gratis) och Konsulten-mallen (premium) är ATS-säkra. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" — det är typiska sökord rekryterare filtrerar på.',
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut WMS-systemnamn (SAP WMS, Manhattan) i klartext.',
+
     faqItems: [
       {
-        q: 'Vilka truck-behörigheter ska jag nämna på CV:t?',
-        a: 'Alla aktiva. Skriv typ (A1-A4, B1-B5, C, D, E) och utgångsdatum. För nybörjare lista även vilken utbildning du gått (TYA, Lager- och Terminal, Industrirådets utbildning). Lagerchefer söker ofta efter specifika typer.',
+        q: 'Vad ska finnas med i ett lagerarbetare-CV?',
+        a: 'Alla aktiva truckbehörigheter (A1-A4, B1-B5) med utgångsdatum, WMS-system du arbetat i (SAP WMS, Manhattan, Pyramid, Astro), plockhastighet i rader per timme och felfri-procent, eventuella ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, brandskydd), körkort B, och tillgänglighet för rotationsschema. Lägg till YH-utbildning om du söker arbetsledar-tjänster.',
+      },
+      {
+        q: 'Hur skriver jag CV som lagerarbetare utan tidigare erfarenhet?',
+        a: 'Lyft eventuell tidigare erfarenhet av fysiskt arbete (bygg, jordbruk, produktion), tillgänglighet för rotationsschema, körkort B om du har det, och vilken truckutbildning du gått (TYA-grundkurs är vanlig). Skriv ut din vilja att lära och vara fysiskt aktiv. Många lager tar in nya utan erfarenhet under högsäsong och betalar truckutbildning efter provanställning.',
+      },
+      {
+        q: 'Vilka truckbehörigheter ska jag nämna på CV:t?',
+        a: 'Alla aktiva. Skriv typ (A1-A4, B1-B5, C, D, E) och utgångsdatum. För nybörjare lista även vilken utbildning du gått (TYA, Lager- och Terminal, Industrirådets utbildning). Lagerchefer söker ofta efter specifika typer beroende på vilken sorts lager de driver.',
       },
       {
         q: 'Hur viktigt är arbetstider på lager-CV?',
-        a: 'Mycket. Många lager kör 3-skift, kvällar eller helger. Ange tydligt: "Tillgänglig för 2-skift och helgarbete". Det sorterar dig in i en kortare urvalslista.',
+        a: 'Mycket. Många lager kör 2- eller 3-skift, kvällar eller helger. Ange tydligt: "Tillgänglig för 2-skift och helgarbete" eller "Söker dagtid endast". Det sorterar dig direkt in i rätt urvalslista och rekryteraren slipper ringa för att ta reda på det.',
       },
       {
         q: 'Räcker erfarenhet eller behövs utbildning?',
-        a: 'Truck och ADR kräver formell utbildning — inget alternativ. Men för plock, pack och inventering vinner erfarenhet över utbildning. Specifika WMS-system och plockmetoder är mer värda än "lagerlogistik 50 hp".',
+        a: 'Truck och ADR kräver formell utbildning, det är inget alternativ. Men för plock, pack och inventering vinner erfarenhet över utbildning. Specifika WMS-system och plockmetoder är mer värda än generisk "lagerlogistik 50 hp" om du inte söker arbetsledar-roll.',
+      },
+      {
+        q: 'Hur lång ska ett lagerarbetare-CV vara?',
+        a: 'En sida räcker för de flesta. Om du har 5+ års erfarenhet med flera bolag och flera behörigheter kan det bli 1,5 sidor. Det viktigaste är att truckbehörigheter, WMS-erfarenhet och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika truckar (A1, A2, A3, B1, B2), WMS-system (SAP WMS, Manhattan, Pyramid, Astro), plocktyper (pick-by-voice, pick-by-light, RF-scanner), säkerhetscertifikat (ADR, Akta Ryggen, fallskydd) och bransch (e-handel, industri, 3PL). SAP SuccessFactors och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Behöver jag personligt brev till lager-tjänster?',
+        a: 'Beror på arbetsgivaren. Större bolag som PostNord och DB Schenker förväntar sig oftast brev medan mindre lager och bemanningsbolag kan acceptera bara CV. När brev förväntas, fokusera på tillgänglighet, fysisk uthållighet och varför just det lagret. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur lyfter jag plockhastighet utan formell mätning?',
+        a: 'De flesta WMS-system mäter plockhastighet automatiskt. Fråga din chef om dina siffror för senaste kvartalet eller året. Om du inte kan få ut exakt data, använd ungefärliga siffror med försiktighet ("ca 150 rader per timme") eller lyft kvalitativa resultat ("alltid topp-3 på avdelningen").',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt lagerarbetare-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("hårt arbetande och ansvarstagande") utan stöd, hobbies som inte är lagerrelevanta, och utgångna truckkort eller certifikat. Stavfel och inkonsekvent formatering signalerar slarv, vilket är negativt i en bransch där noggrannhet räknas.',
       },
     ],
   },
@@ -1674,15 +2515,236 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // EKONOMI
   // ============================================================================
   'redovisningsekonom': {
+    seoIntro:
+      'Som redovisningsekonom bedöms du på en kombination av regelverkskunskap, systemvana och bransch-erfarenhet. Redovisningsbyråer som PwC, EY, KPMG och Grant Thornton tillsammans med tusentals mindre byråer och industribolag har konstant öppna roller, men ekonomichefer slänger CV:n som inte tydligt visar K2/K3-vana och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVår mall för redovisningsekonomer lyfter regelverk (K2/K3, IFRS), redovisningssystem (Visma, Fortnox, SAP, Hogia) och eventuell auktorisation som första visuella element. Vi har strukturerat erfarenhetssektionen så att byrå eller bolag, kundvolym och bokslutsvana syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomiexamen från högskola eller YH, eventuell auktorisation (auktoriserad redovisningskonsult via FAR, revisor via Revisorsinspektionen), redovisningssystem du behärskar (Visma Administration, Fortnox, BL Administration, SAP, Hogia), regelverk (K2, K3, IFRS), bokslutsvana med volym, skatte- och momskunskap, lönehantering, samt Excel-färdigheter på rätt nivå.\n\nNedan hittar du två CV-mallar designade för redovisningsekonom-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på redovisningsbyråer, industribolag och e-handel faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Auktorisation och utbildning först',
+        description: 'Auktoriserad redovisningskonsult (FAR), godkänd revisor eller magister i redovisning. Skriv ut titeln exakt eftersom det är högsta meriteringen i branschen. Auktorisationen ger högre lön och kvalificerar för fler tjänster.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Bokslutsvolym i klartext',
+        description: '"Hanterar 25 kunders bokslut enligt K2/K3 årligen" säger mer än "ansvarig för bokslut". Kvantifiera antal kunder eller bolag, omsättningsnivå och regelverk. Konkreta volymer skiljer ut dig bland generiska CV.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Redovisningssystem i klartext',
+        description: 'Visma Administration dominerar småföretag och byråer. Fortnox vanligast på e-handel och scale-ups. SAP på industri. Hogia på lön. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Regelverk och specialiseringar',
+        description: 'K2 för småföretag, K3 för medelstora, IFRS för noterade. Moms (inkl EU-moms), arbetsgivaravgifter, koncernredovisning. Specialisering inom branscher (e-handel, fastighetsbolag, tjänsteföretag) väger tungt.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Bransch-erfarenhet är hård valuta',
+        description: 'En redovisningsekonom som arbetat med tjänsteföretag är inte samma som en som arbetat med industri eller bygg. Lyft branschen i din titel eller sammanfattning. K3-bolag, fastighet, koncernredovisning är specialiseringar.',
+      },
+      {
+        icon: 'Target',
+        title: 'Excel och digital kompetens',
+        description: 'Avancerad Excel (PivotTable, VLOOKUP, makron, Power Query) är förmodat. Power BI eller Tableau för rapportering är meriterande. Vana med digitala lösningar (Klippan, Bokio, Visma eEkonomi) blir allt viktigare 2026.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Auktorisation och regelverk överst',
+        description: 'Vår mall Konto har dedikerad sidopanel för auktorisation, regelverk och systemvana. Ekonomichefer ser dina meriter på fem sekunder utan att behöva scrolla genom löpande text.',
+      },
+      {
+        title: 'Tabellär layout med tabular-nums',
+        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Bokslutsvolym, omsättning och kundantal lyfts visuellt utan att rymma i löpande prosa.',
+      },
+      {
+        title: 'Eget block för system och certifieringar',
+        description: 'Visma, Fortnox, SAP, Hogia. Mallen separerar systemen från generiska kompetenser så ekonomichefer letar specifikt efter system de redan kör i sin organisation.',
+      },
+      {
+        title: 'Mörkblå navy signalerar finans',
+        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och regelverken.',
+      },
+      {
+        title: 'Premium-mallen Konto Plus med snabbfakta',
+        description: 'För senior-roller (controller, redovisningschef) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar en mer professionell first impression.',
+      },
+      {
+        title: 'Plats för bransch-specialisering',
+        description: 'Mallen har dedikerade rader för branschvana (e-handel, industri, fastighet, tjänsteföretag) och regelverk-fördjupning (K3, IFRS). Visar djup utan att blanda med generisk kompetens.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Löpande bokföring och avstämning',
+        punkter: [
+          'Kontera leverantörsfakturor, kundfakturor och bankhändelser',
+          'Genomföra månads-, kvartal- och årsavstämningar enligt schema',
+          'Hantera utlägg, representation och milersättning',
+          'Avstämma bank, kassa, kund- och leverantörsreskontra',
+        ],
+      },
+      {
+        rubrik: 'Bokslut och årsredovisning',
+        punkter: [
+          'Genomföra delårs- och årsbokslut enligt K2 eller K3',
+          'Skriva årsredovisning inklusive förvaltningsberättelse och noter',
+          'Hantera periodiseringar, avskrivningar och nedskrivningar',
+          'Samverka med revisor inför granskning och årsredovisning',
+        ],
+      },
+      {
+        rubrik: 'Skatt, moms och deklarationer',
+        punkter: [
+          'Beräkna och deklarera moms månadsvis eller kvartalsvis',
+          'Hantera arbetsgivardeklarationer och skattekontoavstämning',
+          'Upprätta inkomstdeklaration (INK2, INK3, INK4) för bolag',
+          'Hantera EU-moms, omvänd skattskyldighet och periodisk sammanställning',
+        ],
+      },
+      {
+        rubrik: 'Lön och personalrelaterat',
+        punkter: [
+          'Köra lön enligt kollektivavtal eller tjänstemannaregler',
+          'Beräkna semester, sjuklön, förmåner och arbetsgivaravgifter',
+          'Lämna AGI och kontrolluppgifter till Skatteverket',
+          'Hantera utlägg, traktamenten och milersättning enligt regelverk',
+        ],
+      },
+      {
+        rubrik: 'Rådgivning och rapportering',
+        punkter: [
+          'Ta fram månadsrapporter, prognoser och budgetuppföljning',
+          'Rådgiva företagsledning kring skatter, periodiseringar och risker',
+          'Stötta inför ägarskifte, fusion eller verksamhetsförsäljning',
+          'Bidra till digitalisering och processförbättring i redovisning',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Regelverk och redovisningsstandarder',
+        termer: [
+          { term: 'K2', forklaring: 'Förenklat regelverk för mindre aktiebolag, max 3 av 4 gränsvärden överskrids ej.' },
+          { term: 'K3', forklaring: 'Huvudregelverk för medelstora och större aktiebolag, mer detaljerade noter.' },
+          { term: 'IFRS', forklaring: 'Internationell redovisningsstandard för börsnoterade och vissa större bolag.' },
+          { term: 'BFL', forklaring: 'Bokföringslagen, grundlag för all bokföring och arkivering.' },
+          { term: 'ÅRL', forklaring: 'Årsredovisningslagen, reglerar årsredovisningens innehåll och form.' },
+          { term: 'BFN', forklaring: 'Bokföringsnämnden, utfärdar K2, K3 och övriga föreskrifter.' },
+        ],
+      },
+      {
+        kategori: 'Skatter och deklarationer',
+        termer: [
+          { term: 'Moms', forklaring: 'Mervärdesskatt, deklareras månads-, kvartals- eller årsvis beroende på omsättning.' },
+          { term: 'INK2', forklaring: 'Inkomstdeklaration för aktiebolag och ekonomiska föreningar.' },
+          { term: 'INK3', forklaring: 'Inkomstdeklaration för stiftelser, ideella föreningar.' },
+          { term: 'INK4', forklaring: 'Inkomstdeklaration för handelsbolag och kommanditbolag.' },
+          { term: 'AGI', forklaring: 'Arbetsgivardeklaration på individnivå, månadsvis till Skatteverket.' },
+          { term: 'EU-moms', forklaring: 'Moms vid handel inom EU, kräver periodisk sammanställning och VIES-koll.' },
+        ],
+      },
+      {
+        kategori: 'Redovisningssystem',
+        termer: [
+          { term: 'Visma Administration', forklaring: 'Marknadsledande affärssystem för småföretag och byråer.' },
+          { term: 'Fortnox', forklaring: 'Molnbaserat affärssystem populärt på e-handel och scale-ups.' },
+          { term: 'BL Administration', forklaring: 'Affärssystem från Björn Lundén för småföretag och redovisningsbyråer.' },
+          { term: 'SAP S/4HANA', forklaring: 'Enterprise-system som dominerar industri och stora bolag.' },
+          { term: 'Hogia Lön', forklaring: 'Lönesystem som dominerar svensk lönehantering.' },
+          { term: 'Aaro', forklaring: 'Konsolidieringssystem för koncernredovisning enligt IFRS.' },
+        ],
+      },
+      {
+        kategori: 'Roller och titlar',
+        termer: [
+          { term: 'Redovisningsekonom', forklaring: 'Allmän roll med löpande bokföring, bokslut och deklarationer.' },
+          { term: 'Auktoriserad redovisningskonsult', forklaring: 'FAR-auktoriserad redovisningskonsult med högsta meritering inom redovisning.' },
+          { term: 'Godkänd revisor', forklaring: 'Statligt auktoriserad revisor via Revisorsinspektionen.' },
+          { term: 'Auktoriserad revisor', forklaring: 'Senior revisor med behörighet att granska börsbolag.' },
+          { term: 'Controller', forklaring: 'Internekonom som fokuserar på rapportering, prognos och styrning.' },
+          { term: 'Redovisningschef', forklaring: 'Senior chef över redovisningsfunktionen, ofta i ledningsgrupp.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Stora redovisningsbyråer',
+        exempel: [
+          'PwC, EY, KPMG, Deloitte, Grant Thornton',
+          'BDO, Mazars, RSM, Forvis Mazars',
+          'Tholin & Larsson, Fyrklöverns Redovisningsbyrå',
+          'Mindre lokala byråer i Stockholm, Göteborg, Malmö',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, Atlas Copco, Sandvik',
+          'IKEA, Tetra Pak, Electrolux, AssaAbloy',
+          'Ericsson och teleoperatörer (Telia, Tele2)',
+          'Mindre tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'E-handel, scale-ups och tech',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink, Voi',
+          'Boozt, NA-KD, Apotea, NetOnNet',
+          'Kry, Mathem, Foodora, Truecaller',
+          'Mindre tech-bolag och startups',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och fastighet',
+        exempel: [
+          'Statliga bolag (PostNord, SJ, Vattenfall)',
+          'Kommuner och regioner',
+          'Fastighetsbolag (Vasakronan, Akelius, Rikshem)',
+          'Bostadsrättsföreningar och stiftelser',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom eller ekonomi-kandidat (3-5 år)',
+        beskrivning: 'Civilekonomprogrammet, ekonomi-kandidat eller magister i redovisning från Handelshögskolan, Lund, Uppsala, Linköping eller motsvarande. Vanlig grund för senior-roller och revisor-vägen.',
+      },
+      {
+        rubrik: 'Yrkeshögskola redovisning (1-2 år)',
+        beskrivning: 'YH-utbildningar som redovisningsekonom, lönespecialist eller controller. Snabbare väg in i yrket och vanlig på byråer och mindre bolag som värderar praktisk vana.',
+      },
+      {
+        rubrik: 'Auktoriserad redovisningskonsult (FAR)',
+        beskrivning: 'Vidareutbildning till auktoriserad redovisningskonsult via FAR. Kräver minst tre års praktisk erfarenhet och flera kurser. Ger högre lön och kvalificerar för rådgivningsuppdrag.',
+      },
+      {
+        rubrik: 'Revisorexamen (5-7 år total)',
+        beskrivning: 'Civilekonom plus tre års praktik plus revisorexamen via Revisorsinspektionen. Ger godkänd eller auktoriserad revisor och möjlighet att granska aktiebolag.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'Bokslut enligt K2 och K3-regelverket',
         'Visma Administration, Fortnox, BL Administration',
+        'SAP S/4HANA och Microsoft Dynamics',
         'Skatteberäkning (inkomstskatt, moms, arbetsgivaravgift)',
-        'Avstämningar och periodiseringar',
+        'Avstämningar, periodiseringar och avskrivningar',
         'Inkomstdeklaration (INK2, INK3, INK4)',
         'Lönehantering (Hogia, Fortnox Lön, Visma Lön)',
-        'Excel (PivotTable, VLOOKUP, makron)',
+        'EU-moms och omvänd skattskyldighet',
+        'Excel (PivotTable, VLOOKUP, makron, Power Query)',
+        'Power BI eller Tableau för rapportering',
+        'Koncernredovisning och konsolidering',
+        'IFRS för noterade bolag',
       ],
       personliga: [
         'Noggrann och strukturerad',
@@ -1690,52 +2752,109 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Sekretessmedveten',
         'Lugn vid bokslut och deadline',
         'Pedagogisk i kontakt med kunder',
+        'Etisk medvetenhet vid revisionsfrågor',
+        'Lyhörd för bransch-specifika behov',
       ],
     },
-    profilExempel: 'Auktoriserad redovisningskonsult (FAR) med 6 års erfarenhet från redovisningsbyrå och industribolag. Hanterar ~25 kunders löpande bokföring och bokslut enligt K2/K3 i Visma och Fortnox. Specialiserad på branschen tjänsteföretag och e-handel med erfarenhet av valutahantering och periodisering.',
-    profilTips: 'Auktorisation eller examen, år av erfarenhet, branscher du arbetat i, dina specialiseringar (K2/K3, moms, lön, fonder).',
+
+    profilExempel:
+      'Auktoriserad redovisningskonsult (FAR) med 6 års erfarenhet från redovisningsbyrå och industribolag. Hanterar 25 kunders löpande bokföring och bokslut enligt K2 och K3 i Visma och Fortnox. Specialiserad på tjänsteföretag och e-handel med erfarenhet av valutahantering och periodisering.',
+
+    profilTips:
+      'Auktorisation eller examen, år av erfarenhet, primära branscher i öppningsraden. Andra meningen lyfter konkret kund- eller bokslutsvolym samt regelverk. Tredje meningen visar specialiseringar (K2, K3, IFRS, koncern, lön) som differentierar dig.',
+
     rekryterarTipsen: [
       {
-        rubrik: 'System och certifieringar avgör tjänsten',
-        text: 'Vilka redovisningssystem behärskar du? Visma, Fortnox, BL Administration, SAP, Hogia. Auktoriserad redovisningskonsult (FAR) eller revisor (FAR/Revisorsinspektionen) är CV-kritiska titlar. Skriv ut dem exakt.',
+        rubrik: 'Auktorisation och certifieringar avgör tjänsten',
+        text: 'Vilka redovisningssystem behärskar du? Visma, Fortnox, BL Administration, SAP, Hogia. Auktoriserad redovisningskonsult (FAR) eller revisor via Revisorsinspektionen är CV-kritiska titlar. Skriv ut dem exakt.',
       },
       {
-        rubrik: 'Branschvana är värt mer än titel',
-        text: 'En redovisningsekonom som arbetat med tjänsteföretag är inte samma som en som arbetat med industri eller bygg. Lyft branschen i din titel. K3-bolag, fastighetsbolag, koncernredovisning — alla är specialiseringar.',
+        rubrik: 'Bransch-erfarenhet är värt mer än titel',
+        text: 'En redovisningsekonom som arbetat med tjänsteföretag är inte samma som en som arbetat med industri eller bygg. Lyft branschen i din titel. K3-bolag, fastighetsbolag, koncernredovisning är specialiseringar.',
       },
       {
         rubrik: 'Bokslutskompetens är hård valuta',
-        text: 'Hur många bokslut har du gjort? K2 vs K3? Egen-skriven årsredovisning eller grundbokföring för revisor? Konkret omfattning gör skillnad: "30 bokslut/år för småföretag (K2)" är tydligt.',
+        text: 'Hur många bokslut har du gjort? K2 vs K3? Egen-skriven årsredovisning eller grundbokföring för revisor? Konkret omfattning gör skillnad: "30 bokslut per år för småföretag enligt K2" är tydligt.',
+      },
+      {
+        rubrik: 'Specialisering inom skatt eller lön',
+        text: 'Moms (särskilt EU-moms), koncernredovisning, lönehantering enligt kollektivavtal. Specialiseringar öppnar specifika tjänster och differentierar dig från generiska redovisningsekonomer.',
+      },
+      {
+        rubrik: 'Excel- och digitalkompetens',
+        text: 'Avancerad Excel (PivotTable, VLOOKUP, makron, Power Query) är förmodat. Power BI eller Tableau för rapportering är meriterande. Vana med digitala redovisningsverktyg blir allt viktigare 2026.',
+      },
+      {
+        rubrik: 'Kundvolym och relationer',
+        text: 'På byråer värderas kundvolym: "25 kunder med snittomsättning 5 MSEK". På bolag värderas bredd: "ansvar för 3 dotterbolag inom koncernen". Anpassa måtten efter målgruppen för din ansökan.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'Auktorisation, år av erfarenhet, primära branscher och system. Specialiseringar.' },
-      { sektion: 'Erfarenhet', tips: 'Bolag + tidsperiod + dina ansvarsområden. Konkretisera kund- eller bolagsantal, omsättning, regelverk (K2/K3).' },
-      { sektion: 'Utbildning', tips: 'Ekonomi/redovisningsutbildning + lärosäte. FAR-cert, vidareutbildningar (Skatterätt, IFRS-kurs).' },
+      { sektion: 'Sammanfattning', tips: 'Auktorisation, år av erfarenhet, primära branscher och system. Specialiseringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, tidsperiod, ansvarsområden. Konkretisera kund- eller bolagsantal, omsättning, regelverk (K2/K3).' },
+      { sektion: 'Utbildning', tips: 'Ekonomi- eller redovisningsutbildning med lärosäte. FAR-cert, vidareutbildningar (skatterätt, IFRS-kurs, lönerådgivning).' },
       { sektion: 'Kompetenser', tips: 'System, regelverk, specialområden (moms, lön, koncern, IFRS). Excel-färdigheter på rätt nivå.' },
+      { sektion: 'Auktorisation', tips: 'Eget block om du är auktoriserad redovisningskonsult eller revisor. Datum för auktorisation och eventuell specialisering.' },
+      { sektion: 'Övrigt', tips: 'Branschvana och eventuella ledarskapsuppdrag. Kompetensutveckling visar engagemang och uppdaterad kunskap.' },
     ],
+
     checklista: [
-      'Ekonomiutbildning från högskola eller yrkeshögskola',
+      'Ekonomi- eller redovisningsutbildning från högskola eller YH',
       'FAR-cert eller liknande auktorisation',
       'Erfarenhet av specifika redovisningssystem',
-      'Bokslutsvana (volym + K2/K3)',
+      'Bokslutsvana med volym och regelverk (K2/K3)',
       'Skatte- och momskunskap',
-      'Lönehantering (om relevant)',
+      'Lönehantering om relevant',
       'Excel- och rapporteringsfärdigheter',
+      'Bransch-erfarenhet (tjänsteföretag, industri, e-handel)',
+      'Eventuell IFRS- eller koncernerfarenhet',
+      'Digital kompetens (Power BI, e-bokföring, automation)',
     ],
-    atsInfo: 'Ja, både Tidlös (gratis) och Konsulten-mallen (premium) är ATS-säkra. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox" och "Visma" istället för "redovisningssystem" — de filtreras på.',
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox", "Visma" och "SAP" istället för "redovisningssystem" eftersom de filtreras på. Auktorisation (FAR) ska skrivas i klartext.',
+
     faqItems: [
       {
+        q: 'Vad ska finnas med i ett redovisningsekonom-CV?',
+        a: 'Ekonomi- eller redovisningsutbildning, eventuell auktorisation (FAR eller revisor), redovisningssystem du behärskar (Visma, Fortnox, SAP, Hogia), regelverk (K2, K3, IFRS), bokslutsvolym och kundantal, skatte- och momskunskap, lönehantering om relevant, samt Excel- och digital kompetens. Lägg till bransch-erfarenhet och eventuella ledarroller om du söker senior-tjänster.',
+      },
+      {
         q: 'Behöver jag FAR-auktorisation för att jobba som redovisningsekonom?',
-        a: 'Inte för junior- och mid-level-tjänster. Men för senior-roller och rådgivande tjänster är auktoriserad redovisningskonsult (FAR) eller revisor närmast krav. Auktorisationen ger högre lön och kvalificerar dig för fler tjänster.',
+        a: 'Inte för junior- och mid-level-tjänster. Men för senior-roller och rådgivande tjänster är auktoriserad redovisningskonsult (FAR) eller revisor närmast krav. Auktorisationen ger högre lön (10-20% påslag), kvalificerar dig för fler tjänster och är ett krav för att kunna ha eget byråansvar.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-redovisningsekonom utan praktisk erfarenhet?',
+        a: 'Lyft examensarbete med specifik inriktning, eventuell praktik eller VFU på byrå, kurser i specifika system (Fortnox-certifikat, Visma-utbildning), och Excel-färdigheter med konkreta exempel. Många byråer har strukturerade introduktionsprogram för nyexade. Skriv ut din vilja att utvecklas och söka FAR-auktorisation efter tre års praktik.',
       },
       {
         q: 'Vilka redovisningssystem är viktigast att behärska?',
-        a: 'För småföretag och byråer: Fortnox, Visma Administration, BL Administration. För industri och större bolag: SAP, Microsoft Dynamics, Hogia. För koncerner: Aaro eller IBM Cognos. Lista de du faktiskt behärskar.',
+        a: 'För småföretag och byråer: Fortnox, Visma Administration, BL Administration. För industri och större bolag: SAP, Microsoft Dynamics, Hogia. För koncerner: Aaro eller IBM Cognos för konsolidering. Lista de du faktiskt behärskar med ungefärlig erfarenhet (år eller månader) och eventuella certifieringar.',
       },
       {
         q: 'Hur visar jag att jag är noggrann på CV:t?',
-        a: 'Skriv inte "noggrann". Visa det. "0% felaktigheter i 30 K2-bokslut 2024", "Hanterade 25 kundavstämningar varje månad utan revisorsanmärkning". Konkreta resultat snarare än adjektiv.',
+        a: 'Skriv inte "noggrann". Visa det. "0% felaktigheter i 30 K2-bokslut 2024", "Hanterade 25 kundavstämningar varje månad utan revisorsanmärkning", "Byggde Excel-mall som minskade avstämningstid med 40%". Konkreta resultat snarare än adjektiv differentierar ditt CV.',
+      },
+      {
+        q: 'Hur lång ska ett redovisningsekonom-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med auktorisation eller chef-roll: 2 sidor. Det viktiga är att utbildning, auktorisation och senaste erfarenhet syns på första sidan. Branschen värderar precision även i CV-format.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika system (Fortnox, Visma, SAP, Hogia), regelverk (K2, K3, IFRS), processer (bokslut, deklaration, avstämning, periodisering), auktorisation (FAR, godkänd revisor), och bransch-erfarenhet. Workday och egna ATS söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Behöver jag personligt brev till redovisningstjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den byrå eller bolag och beskriv en specifik bokslutssituation eller utmaning du löst. Beskriv en kund du hjälpt eller ett system du implementerat. Håll till en sida på 300-400 ord. Branschen värderar tydlig kommunikation.',
+      },
+      {
+        q: 'Hur visar jag bransch-erfarenhet utan att ha jobbat på byrå?',
+        a: 'Lyft de bolag du arbetat på och deras bransch (industri, e-handel, fastighet). Beskriv specifika utmaningar: "K3-bokslut med 5 dotterbolag", "EU-moms för e-handel med 12 marknader", "Koncernredovisning enligt IFRS för noterat moderbolag". Konkreta erfarenheter från intern redovisning är ofta mer värdefulla än byråvana för bolag som söker kompetens internt.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt redovisningsekonom-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("noggrann och driven") utan stöd, kund- eller bolagsspecifika sekretessbelagda detaljer, och hobbies som inte är ekonomi-relevanta. Stavfel och inkonsekvent formatering signalerar slarv, vilket är kritiskt i en bransch där precision räknas.',
       },
     ],
   },
@@ -2092,15 +3211,236 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // OFFENTLIG SEKTOR
   // ============================================================================
   'handlaggare': {
+    seoIntro:
+      'Som handläggare i offentlig sektor jobbar du i en bransch där rättssäkerhet, lagstiftningskunskap och systemvana avgör mer än din personliga profil. Sveriges 290 kommuner, 21 regioner och statliga myndigheter har konstant öppna handläggartjänster, men enhetschefer slänger CV:n som inte tydligt visar lagstiftningsområde och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för handläggare lyfter examen, lagstiftningsområde (LSS, SoL, OSL, BBIC, IBIC) och ärendehanteringssystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och volym syns direkt med konkreta utredningsuppdrag. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: examen (socionom, jurist, förvaltningsekonom, eller motsvarande), lagstiftning du arbetat efter (SoL, LSS, OSL, BBIC, IBIC, VAB, Förvaltningslagen), ärendehanteringssystem (Treserva, Procapita, Lifecare), utredningsmetodik (BBIC, IBIC, MI), ärendevolym och komplexitet, eventuella specialuppdrag (omprövningar, överklaganden, juridiska beslut), samt vidareutbildningar och certifikat.\n\nNedan hittar du två CV-mallar designade för handläggarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och regional förvaltning faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Examen och lagstiftningsområde först',
+        description: 'Socionom för socialtjänst, jurist för rätts- och förvaltningstjänster, förvaltningsekonom för administrativa tjänster. Skriv ut examen och primärt lagstiftningsområde i rubriken. Det avgör om du ens kvalificerar för tjänsten.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Ärendevolym i klartext',
+        description: '"35-40 LSS-ärenden parallellt" eller "150 utredningar per år" ger enhetschefen snabbt en bild av din kapacitet. Volym plus komplexitet differentierar dig från generiska handläggar-CV.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Lagstiftning du behärskar',
+        description: 'SoL, LSS, OSL, BBIC, IBIC, Förvaltningslagen, Patientdatalagen. Var specifik om vilka paragrafer du arbetat efter. Olika kommuner och förvaltningar söker handläggare med exakt erfarenhet av specifik lagstiftning.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Ärendehanteringssystem',
+        description: 'Treserva dominerar i social- och äldreomsorg. Procapita används i flera kommuner. Lifecare används i vård- och omsorgsboenden. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Utredningsmetodik och process',
+        description: 'BBIC för barnutredningar, IBIC för biståndsbedömning, MI för motiverande samtal. Beskriv vilka metoder du arbetar efter. Strukturerade utredningar enligt SOSFS-föreskrifterna är meriterande.',
+      },
+      {
+        icon: 'Target',
+        title: 'Specialuppdrag och rättssäkerhet',
+        description: 'Omprövningar, överklaganden, samverkansmöten med andra myndigheter, juridiska beslut. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden bortom standardflöde.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Lagstiftning lyfts överst',
+        description: 'Vår mall Myndighet har dedikerad sidopanel för lagstiftningsområde och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Konservativ navy och svartvit',
+        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
+      },
+      {
+        title: '§-symboler i bullets',
+        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+      },
+      {
+        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        description: 'För senior-roller (enhetschef, förvaltningschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för volymsstatistik',
+        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+      },
+      {
+        title: 'Plats för specialuppdrag',
+        description: 'Omprövningar, överklaganden, samverkansuppdrag har egen rad. Det visar att du tar ansvar bortom standardärenden, vilket meriterar för senior- och enhetschef-roller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Utredning och bedömning',
+        punkter: [
+          'Genomföra utredningar enligt SoL, LSS, OSL eller motsvarande lagstiftning',
+          'Bedöma rätt till insatser baserat på individuella behov och rättspraxis',
+          'Skriva juridiskt korrekta utredningar enligt SOSFS 2014:5 eller motsvarande',
+          'Hantera komplexa ärenden med samsjuklighet eller multipel problematik',
+        ],
+      },
+      {
+        rubrik: 'Beslutsfattande och dokumentation',
+        punkter: [
+          'Fatta myndighetsbeslut enligt Förvaltningslagen med korrekt motivering',
+          'Dokumentera utredningar och beslut i Treserva, Procapita eller Lifecare',
+          'Hantera diariehantering och GDPR-arbete enligt OSL och Patientdatalagen',
+          'Kvalitetssäkra beslut för rättssäkerhet och uppföljningsbarhet',
+        ],
+      },
+      {
+        rubrik: 'Klientsamtal och möten',
+        punkter: [
+          'Genomföra utredningssamtal med brukare och anhöriga',
+          'Leda vårdplaneringsmöten och samordnad individuell plan (SIP)',
+          'Säkerställa brukarmedverkan och självbestämmanderätt',
+          'Hantera klagomål och svåra samtalssituationer professionellt',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och nätverk',
+        punkter: [
+          'Samverka med andra myndigheter (Försäkringskassan, Arbetsförmedlingen, Region)',
+          'Kontakt med utförare, leverantörer och utredande verksamheter',
+          'Delta i tvärprofessionella team och multidisciplinära möten',
+          'Bidra till samordnad individuell plan vid flera huvudmän',
+        ],
+      },
+      {
+        rubrik: 'Juridisk handläggning',
+        punkter: [
+          'Hantera överklaganden och förbereda inför förvaltningsdomstol',
+          'Genomföra omprövningar av tidigare beslut vid förändrade förutsättningar',
+          'Tillämpa aktuell rättspraxis och förarbeten i komplexa ärenden',
+          'Dokumentera avvikelser och anmäla enligt Lex Sarah eller Lex Maria',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, ramverk för all kommunal socialtjänst.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller all offentlig verksamhet.' },
+          { term: 'FL', forklaring: 'Förvaltningslagen, reglerar myndighetsutövning och beslutsfattande.' },
+          { term: 'PDL', forklaring: 'Patientdatalagen, gäller hälso- och sjukvård.' },
+          { term: 'SOSFS 2014:5', forklaring: 'Socialstyrelsens föreskrifter om dokumentation i socialtjänst.' },
+        ],
+      },
+      {
+        kategori: 'Utredningsmetodik',
+        termer: [
+          { term: 'BBIC', forklaring: 'Barns Behov i Centrum, utredningsmodell för barn och unga.' },
+          { term: 'IBIC', forklaring: 'Individens Behov i Centrum, behovsbedömning för vuxna och äldre.' },
+          { term: 'MI', forklaring: 'Motiverande samtal, samtalsmetodik för förändringsarbete.' },
+          { term: 'ASI', forklaring: 'Addiction Severity Index, bedömningsinstrument för missbruksvård.' },
+          { term: 'FREDA', forklaring: 'Bedömningsinstrument för våld i nära relationer.' },
+          { term: 'SAVRY', forklaring: 'Bedömning av risk för upprepat våld hos ungdomar.' },
+        ],
+      },
+      {
+        kategori: 'Ärendehanteringssystem',
+        termer: [
+          { term: 'Treserva', forklaring: 'Mest använda verksamhetssystem i kommunal social- och äldreomsorg.' },
+          { term: 'Procapita', forklaring: 'Integrerat system för LSS, SoL och äldreomsorg.' },
+          { term: 'Lifecare', forklaring: 'Omsorgsplaneringssystem i flera kommuner.' },
+          { term: 'CombineLite', forklaring: 'Verksamhetssystem för socialtjänsten i några kommuner.' },
+          { term: 'eArkiv', forklaring: 'Digitalt arkiv enligt arkivlagen.' },
+          { term: 'eBlanketter', forklaring: 'Digitala formulär för ärendeinrapportering.' },
+        ],
+      },
+      {
+        kategori: 'Roller och insatser',
+        termer: [
+          { term: 'LSS-handläggare', forklaring: 'Bedömer rätt till LSS-insatser enligt §§ 9-10.' },
+          { term: 'Biståndshandläggare', forklaring: 'Bedömer bistånd enligt SoL för vuxna och äldre.' },
+          { term: 'Socialsekreterare', forklaring: 'Bredare roll inom socialtjänsten med utredning och beslut.' },
+          { term: 'Familjehemssekreterare', forklaring: 'Specialiserad på familjehem och placeringar.' },
+          { term: 'Försörjningsstöd-handläggare', forklaring: 'Hanterar ekonomiskt bistånd enligt SoL kapitel 4.' },
+          { term: 'Lex Sarah-anmälan', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunala förvaltningar',
+        exempel: [
+          'Socialförvaltningar i Sveriges 290 kommuner',
+          'Stadsdelsförvaltningar i Stockholm, Göteborg, Malmö',
+          'Äldre- och vård- och omsorgsförvaltningar',
+          'Kommunala biståndsenheter och vuxenenheter',
+        ],
+      },
+      {
+        kategori: 'Specialiserade kommunala enheter',
+        exempel: [
+          'LSS-enheter och funktionsstöd-team',
+          'Barn- och ungdomsenheter (BUE)',
+          'Familjehem och socialjour',
+          'Vuxenpsykiatri och missbruksvård',
+        ],
+      },
+      {
+        kategori: 'Statliga myndigheter',
+        exempel: [
+          'Försäkringskassan (assistansersättning, sjukpenning)',
+          'Arbetsförmedlingen (matchningshandläggare)',
+          'Migrationsverket (asyl- och uppehållsärenden)',
+          'Inspektionen för vård och omsorg (IVO)',
+        ],
+      },
+      {
+        kategori: 'Regional förvaltning',
+        exempel: [
+          'Regionernas habilitering och hälsoval',
+          'Skattekontorens beslutshandläggare',
+          'Länsstyrelser och regional planering',
+          'Domstolsverket och förvaltningsdomstolar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Socionomprogrammet (3,5 år)',
+        beskrivning: 'Vanligaste vägen till socialtjänst-handläggare. Innehåller juridik, samhällsvetenskap och praktik. Examen ger direkt behörighet till handläggartjänster inom kommunal socialtjänst.',
+      },
+      {
+        rubrik: 'Juristexamen eller offentlig rätt (5 år)',
+        beskrivning: 'Juristprogrammet eller magister i offentlig rätt från svenska lärosäten. Vanlig grund för handläggar-tjänster på myndigheter (Försäkringskassan, Skatteverket) och för juridiska beslutsroller.',
+      },
+      {
+        rubrik: 'Beteendevetenskap eller socialt arbete (3 år)',
+        beskrivning: 'Kandidatexamen i beteendevetenskap, sociologi eller socialt arbete. Alternativ väg in i handläggar-yrket, ofta med kompletterande kurser i juridik.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'BBIC-utbildning för barnärenden, IBIC för biståndsbedömning, MI-cert för samtal, fördjupningskurser i LSS eller förvaltningsrätt. Kontinuerlig fortbildning är meriterande för senior-roller.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'Förvaltningsrätt och offentlighetsprincipen (OSL)',
-        'Ärendehanteringssystem (Treserva, Procapita, ProCapita)',
-        'Utredningsmetodik och rapportskrivning',
-        'Diariehantering och GDPR-arbete',
-        'Beslutsmotiverande prosa enligt FL',
         'Lagstiftning per ärendetyp (LSS, SoL, BBIC, IBIC)',
-        'Statistikanalys och uppföljning',
+        'Ärendehanteringssystem (Treserva, Procapita, Lifecare)',
+        'Utredningsmetodik enligt SOSFS-föreskrifterna',
+        'Beslutsmotiverande prosa enligt Förvaltningslagen',
+        'Diariehantering och GDPR-arbete',
+        'MI (Motiverande samtal) och ASI-bedömning',
+        'BBIC-cert för barnärenden',
+        'IBIC-utbildning för biståndsbedömning',
+        'Statistikanalys och uppföljning av insatser',
+        'Samordnad individuell plan (SIP)',
+        'Avvikelsehantering enligt Lex Sarah',
       ],
       personliga: [
         'Saklig och neutralt språkbruk',
@@ -2108,10 +3448,17 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         'Empatisk i klientmöten',
         'Sekretessmedveten',
         'Stresstålig vid hög ärendebelastning',
+        'Etisk medvetenhet vid svåra avvägningar',
+        'Pedagogisk i mötet med olika brukargrupper',
       ],
     },
-    profilExempel: 'Erfaren handläggare med 6 års erfarenhet från kommunal myndighet inom socialtjänst och äldreomsorg. Hanterar 35-40 aktiva ärenden parallellt enligt SoL och LSS i Treserva med fokus på korrekta beslut, motivering och uppföljning. Handledare för 3 nya kollegor och delaktig i kommunens utvecklingsprojekt kring digital ärendehantering.',
-    profilTips: 'År av erfarenhet, lagstiftningsområde (SoL, LSS, BBIC), system du arbetat i. Konkret ärendevolym eller uppdrag som differentierar dig.',
+
+    profilExempel:
+      'Erfaren handläggare med 6 års erfarenhet från kommunal myndighet inom socialtjänst och äldreomsorg. Hanterar 35-40 aktiva ärenden parallellt enligt SoL och LSS i Treserva med fokus på korrekta beslut, motivering och uppföljning. Handledare för 3 nya kollegor och delaktig i kommunens utvecklingsprojekt kring digital ärendehantering.',
+
+    profilTips:
+      'År av erfarenhet, primärt lagstiftningsområde (SoL, LSS, BBIC) och förvaltning i öppningsraden. Andra meningen lyfter konkret ärendevolym och system. Tredje meningen visar specialuppdrag eller utvecklingsuppdrag som differentierar dig.',
+
     rekryterarTipsen: [
       {
         rubrik: 'Lagstiftningsområde är CV-avgörande',
@@ -2119,41 +3466,91 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Ärendevolym och komplexitet',
-        text: 'Hur många ärenden hanterar du parallellt? Är de standardiserade eller komplexa? Skriv "35-40 LSS-ärenden parallellt" istället för "ansvarat för ärendehandläggning". Volym + komplexitet ger arbetsledaren bild av din kapacitet.',
+        text: 'Hur många ärenden hanterar du parallellt? Är de standardiserade eller komplexa? Skriv "35-40 LSS-ärenden parallellt" istället för "ansvarat för ärendehandläggning". Volym plus komplexitet ger enhetschefen bild av din kapacitet.',
       },
       {
         rubrik: 'System och digitalisering',
-        text: 'Treserva, Procapita, ProCapita Vård och Omsorg. Vilket har du jobbat i? Hur länge? Eventuell erfarenhet av digitala utvecklingsprojekt eller GDPR-arbete är meriterande för seniora handläggare.',
+        text: 'Treserva, Procapita, Lifecare. Vilket har du jobbat i? Hur länge? Eventuell erfarenhet av digitala utvecklingsprojekt eller GDPR-arbete är meriterande för seniora handläggare och chefroller.',
+      },
+      {
+        rubrik: 'Utredningsmetodik som specialisering',
+        text: 'BBIC för barnärenden, IBIC för biståndsbedömning, MI för motiverande samtal. Specialistutbildningar inom utredningsmetodik öppnar specifika tjänster och differentierar dig från generiska handläggare.',
+      },
+      {
+        rubrik: 'Specialuppdrag och rättssäkerhet',
+        text: 'Omprövningar, överklaganden, samverkansmöten, juridiska beslut. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden bortom standardflöde. Lyft dem i sammanfattningen.',
+      },
+      {
+        rubrik: 'Vidareutbildning och fortbildning',
+        text: 'Förvaltningsrätt, fördjupningskurs LSS, NPF-utbildning, traumamedveten omsorg. Kontinuerlig fortbildning visar engagemang och uppdaterad kunskap, viktigt för senior-roller.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, lagstiftningsområden, system, ärendetyper. Eventuella specialiseringar.' },
-      { sektion: 'Erfarenhet', tips: 'Förvaltning + tidsperiod + ärendetyp + ärendevolym. Konkretisera komplexitet (BBIC-utredningar, omprövningar, överklaganden).' },
-      { sektion: 'Utbildning', tips: 'Socionom/jurist/förvaltning + lärosäte. Vidareutbildningar (BBIC-cert, IBIC-utbildning, MI-kurs).' },
-      { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av FL eller SoL du arbetat efter.' },
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, lagstiftningsområden, system och ärendetyper. Eventuella specialiseringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp och ärendevolym. Konkretisera komplexitet (BBIC-utredningar, omprövningar, överklaganden).' },
+      { sektion: 'Utbildning', tips: 'Socionom, jurist eller förvaltningsexamen med lärosäte. Vidareutbildningar (BBIC-cert, IBIC, MI-kurs).' },
+      { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av FL, SoL eller LSS du arbetat efter.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar. Visar djup bortom standardärenden.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet för olika kommuner eller verksamheter.' },
     ],
+
     checklista: [
-      'Examen (socionom, jurist, förvaltning, eller liknande)',
-      'Specifik lagstiftning du arbetat efter',
-      'Ärendehanteringssystem (Treserva, Procapita)',
-      'Utredningsmetodik (BBIC, IBIC, MI)',
+      'Examen (socionom, jurist, förvaltning eller motsvarande)',
+      'Specifik lagstiftning du arbetat efter (SoL, LSS, BBIC)',
+      'Ärendehanteringssystem (Treserva, Procapita, Lifecare)',
+      'Utredningsmetodik (BBIC, IBIC, MI, ASI)',
       'Volym och komplexitet på ärendetyper',
       'Eventuella specialuppdrag (omprövningar, överklaganden)',
       'Vidareutbildningar och certifikat',
+      'Förvaltningsrätt och GDPR-arbete',
+      'Ledar- eller handledaruppdrag',
+      'Språkkunskaper utöver svenska',
     ],
-    atsInfo: 'Ja, både Tidlös (gratis) och Aspekt-mallen (premium) är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, BBIC) och systemnamn är typiska sökord — skriv ut dem exakt.',
+
+    atsInfo:
+      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (LSS, SoL, BBIC, IBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+
     faqItems: [
       {
+        q: 'Vad ska finnas med i ett handläggar-CV?',
+        a: 'Examen (socionom, jurist, förvaltning), lagstiftningsområde du arbetat efter (SoL, LSS, BBIC, IBIC), ärendehanteringssystem (Treserva, Procapita), utredningsmetodik (BBIC-cert, IBIC-utbildning, MI), ärendevolym och komplexitet, eventuella specialuppdrag (omprövningar, överklaganden), och vidareutbildningar. Lägg till handledar- eller ledarroller om du söker senior-tjänster.',
+      },
+      {
         q: 'Vilken examen krävs för handläggare?',
-        a: 'Beror på förvaltning. Socionomexamen för socialtjänst-handläggare. Juridisk examen eller offentlig rätt-utbildning för juridiska handläggare. Förvaltningsutbildning eller annan akademisk examen för administrativa handläggare.',
+        a: 'Beror på förvaltning. Socionomexamen för socialtjänst-handläggare. Juridisk examen eller offentlig rätt-utbildning för juridiska handläggare. Förvaltningsutbildning eller annan akademisk examen för administrativa handläggare. Vissa myndigheter (Försäkringskassan, Migrationsverket) accepterar andra akademiska examina med kompletterande utbildning.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-handläggare utan praktisk erfarenhet?',
+        a: 'Lyft examensarbete med specifik inriktning, eventuell praktik eller volontärarbete inom socialtjänst, kurser i specifik lagstiftning, MI- eller BBIC-utbildning, och språkkunskaper. Praktiska kurser från utbildningen, tidigare arbete inom omsorg eller stöd, och ideella engagemang räknas. Många kommuner har strukturerade introduktionsprogram för nya handläggare.',
       },
       {
         q: 'Hur viktigt är specifik lagstiftningserfarenhet?',
-        a: 'Kritiskt. Många handläggartjänster kräver exakt erfarenhet av specifik lagstiftning. En LSS-handläggare kan inte direkt gå in som BBIC-handläggare utan utbildning. Lyft alltid din lagstiftningsbakgrund i sammanfattningen.',
+        a: 'Kritiskt. Många handläggartjänster kräver exakt erfarenhet av specifik lagstiftning. En LSS-handläggare kan inte direkt gå in som BBIC-handläggare utan utbildning. Lyft alltid din lagstiftningsbakgrund i sammanfattningen. Kommuner och myndigheter söker oftast handläggare med matchande lagstiftningsdjup.',
       },
       {
         q: 'Ska jag nämna ärendevolym?',
-        a: 'Ja om du har bra siffror. "35-40 LSS-ärenden parallellt" eller "150 utredningar/år" ger arbetsledaren snabbt en bild av din kapacitet och stresstålighet.',
+        a: 'Ja om du har bra siffror. "35-40 LSS-ärenden parallellt" eller "150 utredningar per år" ger enhetschefen snabbt en bild av din kapacitet och stresstålighet. Konkreta volymer differentierar ditt CV från generiska påståenden.',
+      },
+      {
+        q: 'Hur lång ska ett handläggar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller specialist: 2 sidor max. Det viktiga är att examen, lagstiftningsområde och senaste erfarenhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika lagar (SoL, LSS, OSL, BBIC, IBIC, FL, PDL), system (Treserva, Procapita, Lifecare), utredningsmetodik (BBIC-utbildning, IBIC-cert, MI), ärendetyper (biståndsbedömning, försörjningsstöd, LSS-insatser) och förvaltning (socialförvaltning, äldreförvaltning). Visma Recruit och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Behöver jag personligt brev till handläggar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den förvaltning och beskriv en specifik utredningssituation eller komplex ärende du löst. Beskriv en brukare du hjälpt eller ett samverkansprojekt du varit del av. Håll till en sida på 300-400 ord. Branschen värderar tydlig skriftlig kommunikation.',
+      },
+      {
+        q: 'Hur visar jag rättssäkerhetskunskap på CV:t?',
+        a: 'Beskriv konkreta arbetsuppgifter där du tillämpat lagstiftning korrekt: "Hanterade 12 omprövningar enligt FL § 26 utan revisorsanmärkning", "Skrev beslutsmotivering enligt SOSFS 2014:5 i 200+ LSS-ärenden". Specifika paragrafer och föreskrifter signalerar djup och rättskunskap.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt handläggar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (kan leda till diskriminering), brukar- eller ärendespecifika sekretessbelagda detaljer, generiska påståenden ("driven och ansvarstagande") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är relevanta. Stavfel diskvalificerar direkt eftersom skriftlig korrekthet är central i rollen.',
       },
     ],
   },
