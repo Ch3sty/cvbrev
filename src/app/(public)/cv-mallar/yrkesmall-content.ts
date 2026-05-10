@@ -9412,6 +9412,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'specialistsjukskoterska': {
+    seoIntro:
+      'Som specialistsjuksköterska bedöms du på din specialistutbildning, klinisk djup och förmåga att arbeta självständigt i komplexa vårdsituationer. Region- och universitetssjukhus har konstant brist på specialister inom IVA, anestesi, akut, distrikt och psykiatri, men verksamhetschefer slänger CV:n som inte tydligt visar specialistexamen, vårdtyngd och förskrivningsrätt. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVår mall för specialistsjuksköterskor lyfter specialistexamen, klinisk inriktning och eventuell förskrivningsrätt som första visuella element. Vi har strukturerat erfarenhetssektionen så att klinik, specialitet och tidsperiod syns direkt med vårdtyngd och eventuella forskningsmeriter. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: sjuksköterskeexamen och magisterexamen i specialistutbildning (anestesi, intensivvård, akutsjukvård, distrikt, psykiatri, operation, onkologi, barn), legitimation från Socialstyrelsen, eventuell förskrivningsrätt, journalsystem (Cosmic, TakeCare, Melior), avancerade kliniska metoder, kvalitetsregister-arbete, eventuell forskning, samt handledar-meriter för ST-sjuksköterskor.\n\nNedan hittar du två CV-mallar designade för specialistsjuksköterskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på universitetssjukhus, region-sjukhus och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Specialistexamen och datum',
+        description: 'Magisterexamen i anestesi-, IVA-, akut-, distrikt- eller psykiatrisjuksköterska. Skriv ut Socialstyrelsens registrering med datum. Specialistsjuksköterskor får upp till 30% högre lön och kvalificerar för specifika tjänster.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Vårdtyngd och patientvolymer',
+        description: 'IVA: 1-2 patienter per pass. Anestesi: 4-6 operationer per dag. Akut: 30-40 patienter triagerade per skift. Distrikt: 8-12 hembesök plus mottagning. Konkreta volymer visar klinisk djup.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Avancerade kliniska metoder',
+        description: 'A-HLR, ATLS, ALS, ECMO, NIV, CPAP, intuberingar, A-linje, CVK-skötsel, dialys. Specialistsjuksköterskor förväntas behärska avancerade metoder. Skriv ut konkret vilka du certifierat på.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Förskrivningsrätt om relevant',
+        description: 'Distriktssköterskor och vissa specialiserade roller har förskrivningsrätt på utvalda läkemedel. Skriv ut om du har det och vilka läkemedelsgrupper. Det är central CV-merit.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Forskning och utvecklingsarbete',
+        description: 'Eventuell licentiat eller doktorsexamen, publikationer i Vancouver-format, forskningsbidrag, kvalitetsregister-arbete. Forskningsmeriter är centrala för universitetssjukhus och regionalanknutna kliniker.',
+      },
+      {
+        icon: 'Target',
+        title: 'Handledning och utveckling',
+        description: 'Att handleda ST-sjuksköterskor, sjuksköterskestudenter eller nya kollegor är meriterande för senior- och teamledar-roller. Lyft handledarutbildning och pedagogisk meritering.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Specialistexamen och certifikat överst',
+        description: 'Vår mall Klinik har dedikerad sidopanel för specialistexamen, legitimation och avancerade certifikat (A-HLR, ATLS). Verksamhetschefer ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Klinisk tjänstgöring per specialitet',
+        description: 'Mallen separerar avdelningar (IVA, anestesi, akut, distrikt) så vårdtyngd och patientgrupper syns. Du kan visa bredd över olika kliniker utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för forskningsmeriter',
+        description: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell licentiat eller disputation. Mallen har dedikerat block som passar regionalanknutna och universitetstjänster.',
+      },
+      {
+        title: 'Premium-mallen Klinik med sidopanel för meriter',
+        description: 'Klinik-mallen har specialistuppdelning, kompetensområden och publikationer i högerpanel. Skapar formell prestige som passar specialistroller och senior-tjänster.',
+      },
+      {
+        title: 'Burgundy-accent för akademisk kontext',
+        description: 'Vi har valt burgundy-accent som signalerar akademisk grund och evidensbaserad praxis utan att bli kall. Vården och Region Sverige värderar formell uttryckssätt.',
+      },
+      {
+        title: 'Plats för förskrivningsrätt',
+        description: 'Mallen har dedikerad rad för förskrivningsrätt och eventuella delegeringar bortom standard. Visar att du arbetar självständigt på senior-nivå.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Avancerad klinisk omvårdnad',
+        punkter: [
+          'Genomföra avancerad klinisk bedömning enligt VIPS eller motsvarande',
+          'Hantera intuberingar, A-linjer, CVK och andra invasiva metoder',
+          'Stötta i ECMO, dialys, hemodynamisk monitorering på IVA',
+          'Anpassa vård efter komplex multisjuklighet och organsvikt',
+        ],
+      },
+      {
+        rubrik: 'Specialistspecifika arbetsuppgifter',
+        punkter: [
+          'Anestesisjuksköterska: prebedömning, induktion, peroperativt och postoperativt arbete',
+          'Distriktssköterska: mottagning, hembesök, förskrivningsrätt, hälsofrämjande arbete',
+          'Akutsjuksköterska: triage enligt RETTS, traumamottagning, avancerad bedömning',
+          'Psykiatrisjuksköterska: bedömning av psykisk hälsa, KBT-stöd, eventuell ECT-deltagande',
+        ],
+      },
+      {
+        rubrik: 'Patientpedagogik och samtal',
+        punkter: [
+          'Pedagogiska samtal vid komplex sjukdom, behandling och egenvård',
+          'Stötta anhöriga vid kritisk sjukdom och slutskede',
+          'Genomföra hälsofrämjande samtal enligt MI eller motsvarande',
+          'Hantera oro, smärta och konflikter med klinisk professionalism',
+        ],
+      },
+      {
+        rubrik: 'Kvalitetsarbete och utveckling',
+        punkter: [
+          'Bidra till kvalitetsregister (SIR, SwedeHeart, Riksstroke)',
+          'Genomföra avvikelse- och händelseanalys enligt patientsäkerhetslagen',
+          'Driva förbättringsprojekt och vårdprogram-utveckling',
+          'Delta i klinisk forskning och evidensbaserad praxis',
+        ],
+      },
+      {
+        rubrik: 'Handledning och utveckling',
+        punkter: [
+          'Handleda ST-sjuksköterskor och sjuksköterskestudenter',
+          'Mentorera nya specialistsjuksköterskor under introduktion',
+          'Bidra till klinikens utbildningsprogram och simuleringsövningar',
+          'Genomföra fortbildning och peer-to-peer-utbildning',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Specialistutbildningar',
+        termer: [
+          { term: 'Anestesisjuksköterska', forklaring: 'Specialistutbildning för operation, postop och intensivvårdsövergångar.' },
+          { term: 'IVA-sjuksköterska', forklaring: 'Specialistutbildning för intensivvård med hög vårdtyngd och teknisk utrustning.' },
+          { term: 'Akutsjuksköterska', forklaring: 'Specialistutbildning för akutmottagning och primärbedömning.' },
+          { term: 'Distriktssköterska', forklaring: 'Specialistutbildning för primärvård med förskrivningsrätt.' },
+          { term: 'Psykiatrisjuksköterska', forklaring: 'Specialistutbildning för psykiatrisk vård och bedömning.' },
+          { term: 'Onkologisjuksköterska', forklaring: 'Specialistutbildning för cancervård och cytostatikabehandling.' },
+        ],
+      },
+      {
+        kategori: 'Avancerade kliniska metoder',
+        termer: [
+          { term: 'A-HLR', forklaring: 'Avancerad hjärt-lungräddning, krav för specialister på akut/IVA.' },
+          { term: 'ATLS', forklaring: 'Advanced Trauma Life Support, traumahantering.' },
+          { term: 'ALS', forklaring: 'Advanced Life Support, avancerat omhändertagande av kritiskt sjuk.' },
+          { term: 'ECMO', forklaring: 'Extracorporeal Membrane Oxygenation, hjärt-/lungbypass utanför kropp.' },
+          { term: 'NIV/CPAP', forklaring: 'Non-Invasive Ventilation, andningsstöd utan intubering.' },
+          { term: 'CVK', forklaring: 'Central Venös Kateter, anläggning och skötsel.' },
+        ],
+      },
+      {
+        kategori: 'Journalsystem och kvalitetsregister',
+        termer: [
+          { term: 'Cosmic', forklaring: 'Vanligaste journalsystemet i offentlig vård.' },
+          { term: 'TakeCare', forklaring: 'Journalsystem som används i bland annat Region Stockholm.' },
+          { term: 'Melior', forklaring: 'Äldre journalsystem fortfarande i bruk på vissa kliniker.' },
+          { term: 'SIR', forklaring: 'Svenska Intensivvårdsregistret, kvalitetsregister för IVA.' },
+          { term: 'SwedeHeart', forklaring: 'Kvalitetsregister för hjärtsjukvård.' },
+          { term: 'Riksstroke', forklaring: 'Kvalitetsregister för stroke-vård.' },
+        ],
+      },
+      {
+        kategori: 'Roller och titlar',
+        termer: [
+          { term: 'Specialistsjuksköterska', forklaring: 'Sjuksköterska med magisterexamen i specialistinriktning.' },
+          { term: 'Avancerad specialistsjuksköterska', forklaring: 'Senior roll med ansvar för komplex vård och kvalitetsarbete.' },
+          { term: 'Sektionsledare', forklaring: 'Operativ ledare för team på specifik enhet.' },
+          { term: 'Nurse practitioner', forklaring: 'Internationellt erkänd avancerad roll, växande i Sverige.' },
+          { term: 'Forskningssjuksköterska', forklaring: 'Specialiserad roll för kliniska studier och forskning.' },
+          { term: 'Verksamhetsutvecklare', forklaring: 'Senior roll med ansvar för kvalitets- och processutveckling.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Universitetssjukhus',
+        exempel: [
+          'Karolinska Universitetssjukhuset, Stockholm',
+          'Sahlgrenska Universitetssjukhuset, Göteborg',
+          'Skånes Universitetssjukhus, Lund och Malmö',
+          'Akademiska Sjukhuset, Uppsala',
+        ],
+      },
+      {
+        kategori: 'Region- och länssjukhus',
+        exempel: [
+          'Södersjukhuset och Danderyds sjukhus, Stockholm',
+          'NÄL och Östra sjukhuset, Västra Götaland',
+          'Universitetssjukhuset Örebro',
+          'Norrlands universitetssjukhus, Umeå',
+        ],
+      },
+      {
+        kategori: 'Primärvård och specialistmottagningar',
+        exempel: [
+          'Vårdcentraler i regional regi (för distriktssköterskor)',
+          'Privata primärvårdsbolag (Capio, Praktikertjänst)',
+          'Specialistmottagningar inom akut, dagvård',
+          'Företagshälsa och försäkringsbolag',
+        ],
+      },
+      {
+        kategori: 'Privata och bemanning',
+        exempel: [
+          'Privata sjukhus (Sophiahemmet, GHP, Capio S:t Görans)',
+          'Bemanningsbolag (Dedicare, Nightingale, Empleo)',
+          'Hyrtjänster i Norge eller Danmark',
+          'Forskningsinstitut och bioteknikbolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Sjuksköterskeprogrammet (3 år)',
+        beskrivning: 'Grundutbildning vid 24 lärosäten i Sverige. Kandidatexamen i omvårdnad. Krav för att kunna söka specialistutbildning.',
+      },
+      {
+        rubrik: 'Specialistutbildning (1-1,5 år)',
+        beskrivning: 'Magisterexamen inom anestesi, IVA, akut, distrikt, psykiatri, operation, onkologi eller barn. Krav på minst 1 års klinisk erfarenhet före antagning. Många kombinerar med tjänst.',
+      },
+      {
+        rubrik: 'Förskrivningsrätt-utbildning',
+        beskrivning: 'För distriktssköterskor (krav) och vissa andra specialister. Korta kurser via lärosäten. Ger rätt att förskriva på utvalda läkemedelsgrupper.',
+      },
+      {
+        rubrik: 'Forskarutbildning (4-5 år)',
+        beskrivning: 'Doktorsexamen i omvårdnad parallellt med klinisk tjänst. Disputerade specialistsjuksköterskor söker oftast universitetssjukhus, FoU-roller eller specialistmottagningar.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Specialistutbildning med magisterexamen',
+        'Avancerad klinisk bedömning enligt VIPS',
+        'A-HLR, ATLS, ALS-certifikat',
+        'Avancerade kliniska metoder (ECMO, NIV, CPAP)',
+        'Förskrivningsrätt om distriktssköterska',
+        'Journalsystem (Cosmic, TakeCare, Melior)',
+        'Kvalitetsregister (SIR, SwedeHeart, Riksstroke)',
+        'Smärtskattning enligt VAS, NRS, BPS',
+        'Triage enligt RETTS eller motsvarande',
+        'Vårdpedagogik på avancerad nivå',
+        'Handledning av ST-sjuksköterskor',
+        'Forskning och evidensbaserad praxis',
+      ],
+      personliga: [
+        'Klinisk självständighet',
+        'Strukturerad i komplexa situationer',
+        'Empatisk i kritiska skeden',
+        'Pedagogisk i mentor-roller',
+        'Stresstålig vid hög vårdtyngd',
+        'Tvärprofessionell samarbetsförmåga',
+        'Etisk medvetenhet i komplexa avvägningar',
+      ],
+    },
+
+    profilExempel:
+      'Specialistsjuksköterska inom anestesi och intensivvård med 9 års klinisk erfarenhet på universitetssjukhus. Magisterexamen i anestesi 2019 från Karolinska Institutet samt ATLS-, A-HLR- och ALS-certifierad. Hanterar 4-6 anestesier per pass med fokus på neuro- och kärlkirurgi. Handledare för 3 ST-sjuksköterskor per termin samt delaktig i kvalitetsregisterarbete och en publicerad studie kring postoperativ smärtbehandling.',
+
+    profilTips:
+      'Specialistinriktning, år av erfarenhet och primärt verksamhetsområde i öppningsraden. Andra meningen lyfter specialistexamen och avancerade certifikat. Tredje meningen visar volym, handledning eller forskning som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Specialistexamen och datum',
+        text: 'Magisterexamen i anestesi-, IVA-, akut-, distrikt- eller psykiatrisjuksköterska. Skriv ut Socialstyrelsens registrering med datum. Specialistsjuksköterskor får upp till 30% högre lön.',
+      },
+      {
+        rubrik: 'Vårdtyngd och patientvolymer',
+        text: 'IVA: 1-2 patienter per pass. Anestesi: 4-6 operationer per dag. Akut: 30-40 patienter triagerade per skift. Konkreta volymer visar klinisk djup.',
+      },
+      {
+        rubrik: 'Avancerade kliniska metoder',
+        text: 'A-HLR, ATLS, ALS, ECMO, NIV, CPAP, intuberingar, A-linje, CVK-skötsel. Specialistsjuksköterskor förväntas behärska avancerade metoder. Skriv ut konkret vilka du certifierat på.',
+      },
+      {
+        rubrik: 'Förskrivningsrätt om relevant',
+        text: 'Distriktssköterskor och vissa specialiserade roller har förskrivningsrätt. Skriv ut om du har det och vilka läkemedelsgrupper. Central CV-merit.',
+      },
+      {
+        rubrik: 'Forskning och utvecklingsarbete',
+        text: 'Eventuell licentiat eller doktorsexamen, publikationer i Vancouver-format, forskningsbidrag, kvalitetsregister-arbete. Forskningsmeriter är centrala för universitetssjukhus.',
+      },
+      {
+        rubrik: 'Handledning och utveckling',
+        text: 'Att handleda ST-sjuksköterskor, sjuksköterskestudenter eller nya kollegor är meriterande för senior- och teamledar-roller. Lyft handledarutbildning.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Specialistinriktning, år av erfarenhet, primärt verksamhetsområde och certifikat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Klinik, ort, specialitet, period. Konkretisera vårdtyngd, avancerade metoder och eventuella utvecklingsuppdrag.' },
+      { sektion: 'Utbildning', tips: 'Sjuksköterskeexamen, magisterexamen i specialistutbildning, eventuell forskarutbildning.' },
+      { sektion: 'Certifikat', tips: 'A-HLR, ATLS, ALS med utgångsdatum. Eventuell förskrivningsrätt och delegeringar.' },
+      { sektion: 'Forskningsmeriter', tips: 'Publikationer i Vancouver-format, forskningsbidrag, kvalitetsregister-bidrag.' },
+      { sektion: 'Övrigt', tips: 'Handledarutbildning, eventuell ledarskap-utbildning, internationella stints.' },
+    ],
+
+    checklista: [
+      'Sjuksköterskeexamen och legitimation',
+      'Specialistutbildning med magisterexamen',
+      'Avancerade certifikat (A-HLR, ATLS, ALS)',
+      'Specialistspecifika kompetenser (ECMO, NIV, etc)',
+      'Förskrivningsrätt om distriktssköterska',
+      'Journalsystem du behärskar',
+      'Vårdtyngd per specialitet och pass',
+      'Forskningsmeriter eller kvalitetsregister-arbete',
+      'Handledar-erfarenhet',
+      'Eventuell ledarskap-utbildning',
+    ],
+
+    atsInfo:
+      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut specialistinriktning (anestesi, IVA, akut), certifikat (A-HLR, ATLS, ALS) och journalsystem (Cosmic, TakeCare) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett specialistsjuksköterske-CV?',
+        a: 'Sjuksköterskeexamen och legitimation, specialistutbildning med magisterexamen, avancerade certifikat (A-HLR, ATLS, ALS), specialistspecifika kompetenser (ECMO, NIV, intubering), eventuell förskrivningsrätt, journalsystem, vårdtyngd per pass, forskningsmeriter, samt handledar-erfarenhet.',
+      },
+      {
+        q: 'Vilken specialistutbildning är värdefullast?',
+        a: 'Beror på var du vill jobba. IVA, anestesi och akut har högst lön och flest tjänster på storsjukhus. Distriktssköterska ger förskrivningsrätt och stark ställning i primärvård. Psykiatri har växande efterfrågan. Onkologi och operation är specialiserade och få i tjänst. Räkna med 1-1,5 års studier plus eventuell tjänst vid sidan.',
+      },
+      {
+        q: 'Hur skriver jag CV som färsk specialistsjuksköterska?',
+        a: 'Lyft din magisterexamen med inriktning, lärosäte och datum. Beskriv den kliniska tjänstgöring du gjorde under specialistutbildningen. Inkludera examensarbete med titel och eventuell publicering. Lista certifikat (A-HLR, ATLS) med datum. Många kliniker har strukturerade introduktionsprogram för nya specialister.',
+      },
+      {
+        q: 'Hur viktig är förskrivningsrätt?',
+        a: 'Mycket viktig för distriktssköterskor (krav i primärvården). Vissa specialiserade roller (avancerade specialistsjuksköterskor) har också förskrivningsrätt. Skriv ut om du har det och vilka läkemedelsgrupper. Det öppnar specifika tjänster och påverkar lönen.',
+      },
+      {
+        q: 'Vilka avancerade kliniska metoder ska jag lyfta?',
+        a: 'A-HLR, ATLS, ALS för akut/IVA. ECMO för IVA. NIV, CPAP för andningsvård. Intuberingar, A-linje, CVK-skötsel. Olika specialiteter förväntar sig olika metoder. Skriv ut konkret vilka du certifierat på och hur länge du arbetat med dem.',
+      },
+      {
+        q: 'Hur lyfter jag forskningsmeriter?',
+        a: 'Publikationer i Vancouver-format med författarordning markerad. Forskningsbidrag och anslag. Kvalitetsregister-arbete (SIR, SwedeHeart, Riksstroke). Kongressbidrag och poster-presentationer. Eventuell licentiat eller disputation. Forskningsmeriter är centrala för universitetssjukhus.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specialistinriktning (anestesi, IVA, akut, distrikt, psykiatri), certifikat (A-HLR, ATLS, ALS), avancerade metoder (ECMO, NIV, intubering), journalsystem (Cosmic, TakeCare), kvalitetsregister (SIR, SwedeHeart) och förskrivningsrätt. Heroma och Visma Recruit söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett specialistsjuksköterske-CV vara?',
+        a: 'Specialist 0-5 år: 1,5-2 sidor. Senior eller forskande: 2-3 sidor. Disputerad: 3 sidor med publikationslista. Vården accepterar längre CV än andra branscher eftersom meritprofiler är centrala.',
+      },
+      {
+        q: 'Behöver jag personligt brev till specialisttjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att förklara varför just den klinik och beskriv en specifik patient eller klinisk utmaning du löst. Beskriv din kliniska filosofi och vad du tar med dig. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt specialistsjuksköterske-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), patientuppgifter eller sekretessbelagda detaljer, generiska påståenden ("empatisk specialist") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år. Stavfel diskvalificerar direkt eftersom dokumentation är central.',
+      },
+    ],
+  },
+
+  'grundskollarare': {
+    seoIntro:
+      'Som grundskollärare bedöms du på din lärarlegitimation, ämnesbehörigheter och förmåga att leda klassrum med stort spann av elever. Sveriges 290 kommuner och tusentals fristående skolor har konstant brist på behöriga grundskollärare, men rektorer slänger CV:n som inte tydligt visar exakta behörigheter och pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för grundskollärare lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och stadium (F-3, 4-6 eller 7-9) som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen och lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat, pedagogiska metoder (Bornholmsmodellen, Singapore-matematik, formativ bedömning), IKT-verktyg (Schoolsoft, Vklass, Unikum), eventuella specialiseringar (NPF, läs- och skrivutveckling, programmering), samt kollegiala uppdrag.\n\nNedan hittar du två CV-mallar designade för grundskollärarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Behörighet och stadium',
+        description: 'F-3 (lågstadium), 4-6 (mellanstadium) eller 7-9 (högstadium). Skriv åldersgrupp och ämnen exakt som de står på din legitimation. "Behörig åk 4-6 i svenska, matematik och NO" är tydligare än bara "Lärarlegitimation".',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Klassrumsledning med konkreta resultat',
+        description: 'Rektorer värderar lärare som klarar svåra klassrum. Nämn klasstorlek, antal elever med extra anpassningar, måluppfyllelse. "95% nådde målen i åk 6 svenska" är tydligt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Pedagogiska metoder och program',
+        description: 'Bornholmsmodellen för lågstadium, Singapore-matematik, formativ bedömning enligt Hattie, lågaffektivt bemötande. Programmering blir krav 2026. Var konkret om vilka metoder du behärskar.',
+      },
+      {
+        icon: 'FileText',
+        title: 'IKT-verktyg och digital pedagogik',
+        description: 'Schoolsoft, Vklass, Unikum för dokumentation. Google Classroom, Microsoft Teams för undervisning. Skola24 för schema. Skriv ut systemnamnen så ATS-system kan filtrera fram dig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'NPF och särskilt stöd',
+        description: 'Erfarenhet av elever med autism, ADHD, dyslexi eller språkstöd. Beskriv typ av stöd du arbetat med och eventuell specialpedagogisk samverkan. Allt vanligare och meriterande.',
+      },
+      {
+        icon: 'Target',
+        title: 'Kollegiala uppdrag',
+        description: 'Mentor för nya lärare, ämneslagsledare, IT-pedagog, förstelärare, IKT-coach. Sådana uppdrag visar att du tar ansvar bortom undervisningen och meriterar för senior- och utvecklingsroller.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Behörighet och ämnen överst',
+        description: 'Vår mall lyfter lärarlegitimation och dina exakta behörigheter (åldersgrupp + ämnen) som första visuella element. Rektorer skannar först efter behörighetsmatchning.',
+      },
+      {
+        title: 'Pedagogisk erfarenhet per skola',
+        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående) så huvudman och årskurs syns. Du kan visa bredd över olika skolformer.',
+      },
+      {
+        title: 'Eget block för pedagogiska metoder',
+        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Rektorer letar specifikt efter metoder de redan använder.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'I lärarrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+      },
+      {
+        title: 'Plats för utvecklingsprojekt',
+        description: 'Mentorskap, ämneslagsledare, läsutvecklingsprojekt har egen rad. Visar att du tar ansvar bortom det dagliga klassrumsarbetet.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Undervisning och lärande',
+        punkter: [
+          'Planera, genomföra och utvärdera lektioner enligt Lgr22',
+          'Anpassa undervisning för olika elevbehov och lärstilar',
+          'Använda formativ bedömning och feedback för elevernas utveckling',
+          'Implementera ämnesspecifika metoder (Bornholm, Singapore-matte)',
+        ],
+      },
+      {
+        rubrik: 'Bedömning och dokumentation',
+        punkter: [
+          'Bedöma elevernas kunskap mot kunskapskraven i Lgr22',
+          'Skriva omdömen och betyg enligt Skolverkets riktlinjer',
+          'Dokumentera elevernas utveckling i Schoolsoft, Vklass eller Unikum',
+          'Genomföra och rätta nationella prov enligt anvisningar',
+        ],
+      },
+      {
+        rubrik: 'Klassrumsledning och elevhälsa',
+        punkter: [
+          'Skapa trygg och studieinriktad miljö i klassrummet',
+          'Hantera konflikter, mobbning och kränkningar enligt Skollagen',
+          'Samverka med elevhälsoteam och specialpedagog',
+          'Implementera anpassningar för elever med NPF eller särskilt stöd',
+        ],
+      },
+      {
+        rubrik: 'Vårdnadshavarsamverkan',
+        punkter: [
+          'Genomföra utvecklingssamtal med elev och vårdnadshavare 1-2 gånger per termin',
+          'Kommunicera via Schoolsoft, Vklass eller Unikum',
+          'Hantera oro, klagomål och åtgärdsprogram med juridisk korrekthet',
+          'Bjuda in till föräldramöten och samråd',
+        ],
+      },
+      {
+        rubrik: 'Kollegial samverkan',
+        punkter: [
+          'Delta i ämneslag, arbetslag och kollegialt lärande',
+          'Mentor för nya kollegor och VFU-studenter',
+          'Bidra till skolans systematiska kvalitetsarbete (SKA)',
+          'Delta i förbättringsprojekt och utvecklingsuppdrag',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Behörigheter och stadium',
+        termer: [
+          { term: 'F-3-behörighet', forklaring: 'Förskoleklass och åk 1-3, lågstadielärare.' },
+          { term: '4-6-behörighet', forklaring: 'Mellanstadielärare med specifika ämnen.' },
+          { term: '7-9-behörighet', forklaring: 'Högstadielärare med ämnesfördjupning i två-tre ämnen.' },
+          { term: 'Lärarlegitimation', forklaring: 'Utfärdas av Skolverket med exakta behörigheter.' },
+          { term: 'Förstelärare', forklaring: 'Senior pedagogisk roll med utvecklingsuppdrag och högre lön.' },
+          { term: 'Mentor', forklaring: 'Stödjer ny kollega eller VFU-student under introduktion.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'Bornholmsmodellen', forklaring: 'Strukturerad metod för läs- och skrivinlärning i åk 1-3.' },
+          { term: 'Singapore-matematik', forklaring: 'Visuellt baserad matematikmetod med fokus på begreppsförståelse.' },
+          { term: 'Formativ bedömning', forklaring: 'Bedömning för lärande, fokus på återkoppling under processen.' },
+          { term: 'Hattie/Marzano', forklaring: 'Meta-analyser av vad som fungerar i klassrummet.' },
+          { term: 'NTA', forklaring: 'Naturvetenskap och Teknik för Alla, experimentbaserad NO-undervisning.' },
+          { term: 'Lågaffektivt bemötande', forklaring: 'Metod för att hantera utåtagerande beteende lugnt.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Lgr22', forklaring: 'Läroplan för grundskolan från 2022, ersatte Lgr11.' },
+          { term: 'Skollagen', forklaring: 'Reglerar all skolverksamhet inklusive elevrätter.' },
+          { term: 'Barnkonventionen', forklaring: 'Sedan 2020 svensk lag, vägleder skolan.' },
+          { term: 'IUP', forklaring: 'Individuell utvecklingsplan, dokumenteras 1-2 gånger per termin.' },
+          { term: 'Åtgärdsprogram', forklaring: 'Plan för elever som riskerar att inte nå kunskapskraven.' },
+          { term: 'Likabehandlingsplan', forklaring: 'Krav enligt diskrimineringslagen.' },
+        ],
+      },
+      {
+        kategori: 'IKT och digitala system',
+        termer: [
+          { term: 'Schoolsoft', forklaring: 'Skoladministrativt system för dokumentation och kommunikation.' },
+          { term: 'Vklass', forklaring: 'Lärplattform för uppgifter, dokumentation och föräldrakontakt.' },
+          { term: 'Unikum', forklaring: 'Plattform för IUP, omdömen och elevdokumentation.' },
+          { term: 'Google Classroom', forklaring: 'Lärplattform från Google.' },
+          { term: 'Microsoft Teams', forklaring: 'Lärplattform från Microsoft.' },
+          { term: 'Skolverkets bedömningsstöd', forklaring: 'Diagnostiska prov för läs-, skriv- och matematikförmåga.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal grundskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Resursskolor och anpassade grundskolor',
+          'Sameskolor och teckenspråkiga skolor',
+        ],
+      },
+      {
+        kategori: 'Fristående skolkoncerner',
+        exempel: [
+          'Internationella Engelska Skolan (IES)',
+          'Kunskapsskolan, Academedia, Pysslingen',
+          'Vittra och AcadeMedia-bolag',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Pedagogiska inriktningar',
+        exempel: [
+          'Waldorfskolor (Steiner)',
+          'Montessoriskolor',
+          'Reggio Emilia-inspirerade skolor',
+          'I Ur och Skur (utomhuspedagogik)',
+        ],
+      },
+      {
+        kategori: 'Övriga arbetsgivare',
+        exempel: [
+          'Specialpedagogiska skolmyndigheten (SPSM)',
+          'Behandlingshem och resursskolor',
+          'Bemanningsbolag (Lärarjobb, Vikariat.se)',
+          'Vikariat och säsongsuppdrag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Grundlärarprogrammet F-3 eller 4-6 (4 år)',
+        beskrivning: 'Lärarexamen med inriktning lågstadium eller mellanstadium. Innehåller VFU-perioder. Examen ger rätt att söka lärarlegitimation från Skolverket.',
+      },
+      {
+        rubrik: 'Ämneslärarprogrammet 7-9 (4-4,5 år)',
+        beskrivning: 'Lärarexamen med ämnesfördjupning för högstadium. Vanligtvis två ämneskombinationer.',
+      },
+      {
+        rubrik: 'KPU - kompletterande pedagogisk utbildning (1,5 år)',
+        beskrivning: 'För dig som redan har akademisk examen i ämnen och vill bli lärare. Vanlig väg för yrkesväxlare.',
+      },
+      {
+        rubrik: 'Förstelärarutbildning eller specialpedagog (deltid)',
+        beskrivning: 'Vidareutbildning till förstelärare med pedagogiskt utvecklingsuppdrag. Specialpedagog kräver magisterexamen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Lärarlegitimation från Skolverket med exakta behörigheter',
+        'Lgr22 och kunskapskrav',
+        'Bedömningsstöd och formativ bedömning',
+        'Klassrumsledning enligt Hattie och Marzano',
+        'IKT-pedagogik (Schoolsoft, Vklass, Unikum)',
+        'Specialpedagogiska metoder och NPF-anpassning',
+        'Föräldrakommunikation via digital plattform',
+        'Bornholmsmodellen, Singapore-matematik och NTA',
+        'Lågaffektivt bemötande och konflikthantering',
+        'Nationella prov och diagnostiska prov',
+        'IUP, åtgärdsprogram och anpassningar',
+        'Mentorskap för VFU-studenter',
+      ],
+      personliga: [
+        'Tydlig och strukturerad i klassrummet',
+        'Empatisk och relationsskapande',
+        'Pedagogisk i kollegial samverkan',
+        'Tålmodig med olikheter och lärsvårigheter',
+        'Drivkraft för elevernas utveckling',
+        'Lyhörd för kulturella skillnader',
+        'Etisk medvetenhet i bedömningar',
+      ],
+    },
+
+    profilExempel:
+      'Behörig grundskollärare åk 4-6 med 7 års erfarenhet från kommunal grundskola. Ämnesbehörighet i svenska, matematik och NO. 95% av eleverna nådde målen i åk 6 svenska under läsåret 2024 efter implementering av strukturerad läsförståelseundervisning enligt Bornholmsmodellen. Förstelärare och mentor för 4 nya kollegor.',
+
+    profilTips:
+      'Behörighet (åldersgrupp + ämnen), år av erfarenhet, kommunal eller fristående huvudman i öppningsraden. Andra meningen lyfter konkret elevresultat. Tredje meningen visar kollegiala uppdrag som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Lärarlegitimation och exakta behörigheter',
+        text: 'Skriv åldersgrupp och ämnen exakt som de står på din legitimation. "Behörig åk 4-6 i svenska, matematik och NO" är tydligare än bara "Lärarlegitimation".',
+      },
+      {
+        rubrik: 'Klassrumsledning över ämneskompetens',
+        text: 'Rektorer söker lärare som klarar klassrumsmiljö. Nämn klasstorlek, antal elever med extra anpassningar, hur du hanterat svåra grupper.',
+      },
+      {
+        rubrik: 'Pedagogiska metoder och program',
+        text: 'Bornholm, Singapore-matte, formativ bedömning, lågaffektivt bemötande. Programmering blir krav 2026. Var konkret om vilka metoder du behärskar.',
+      },
+      {
+        rubrik: 'IKT-verktyg och digital pedagogik',
+        text: 'Schoolsoft, Vklass, Unikum, Google Classroom, Teams. Skriv ut systemnamnen så ATS-system kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'NPF och särskilt stöd',
+        text: 'Erfarenhet av elever med autism, ADHD, dyslexi eller språkstöd. Beskriv typ av stöd du arbetat med och eventuell specialpedagogisk samverkan.',
+      },
+      {
+        rubrik: 'Kollegiala uppdrag',
+        text: 'Mentor, ämneslagsledare, IT-pedagog, förstelärare. Sådana uppdrag visar att du tar ansvar bortom undervisningen.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Behörighet, år av erfarenhet, primär huvudman och resultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Skola, huvudman, period, årskurs. Konkreta uppdrag och elevresultat.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen med stadium och ämnen, lärosäte, år. VFU-skolor om relevanta.' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, IKT-verktyg, specialpedagogiska anpassningar.' },
+      { sektion: 'Vidareutbildning', tips: 'NPF-kurs, läsutvecklingscertifikat, förstelärare. Ange utbildare och år.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper, eventuell handledarutbildning, tillgänglighet.' },
+    ],
+
+    checklista: [
+      'Lärarexamen med åldersgrupp och ämnen',
+      'Lärarlegitimation från Skolverket',
+      'Behörighet i specifika ämnen',
+      'VFU-skolor och eventuella handledningsuppdrag',
+      'Pedagogiska metoder',
+      'Kollegialt lärande och utvecklingsuppdrag',
+      'Specialiseringar (NPF, läs- och skrivutveckling)',
+      'IKT-verktyg och digitala system',
+      'Konkreta elevresultat',
+      'Mentor- eller förstelärarmeritering',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) i klartext.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett grundskollärar-CV?',
+        a: 'Lärarexamen med lärosäte, lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning med konkreta resultat, pedagogiska metoder, IKT-verktyg, eventuella specialiseringar (NPF, läs-skriv), och kollegiala uppdrag.',
+      },
+      {
+        q: 'Vad är skillnaden mellan F-3-, 4-6- och 7-9-behörighet?',
+        a: 'F-3 är lågstadielärare (förskoleklass och åk 1-3), oftast ämnesgeneralister. 4-6 är mellanstadielärare med specifika ämnen (svenska, matte, NO/SO). 7-9 är högstadielärare med ämnesfördjupning, oftast två-tre ämnen. Lärarprogrammet är specialiserat efter stadium så behörighet är inte överförbar utan kompletterande studier.',
+      },
+      {
+        q: 'Hur skriver jag CV som nyutexaminerad grundskollärare?',
+        a: 'Lyft VFU-perioder med skola, antal veckor och vad du fick göra. Inkludera examensarbete med titel. Praktiska kurser, programmering eller specialpedagogik från utbildningen, tidigare erfarenhet av barn (ledarskap, fritids, idrott), och språkkunskaper. Skriv ut din vilja att lära och vara öppen för olika skolformer.',
+      },
+      {
+        q: 'Vilka pedagogiska metoder är värda att lyfta?',
+        a: 'Bornholmsmodellen för lågstadium läsinlärning. Singapore-matematik för matematikförståelse. Formativ bedömning enligt Hattie. Lågaffektivt bemötande för konflikthantering. NTA för NO. Programmering från åk 1 enligt Lgr22. Var konkret om vilka metoder du faktiskt använt.',
+      },
+      {
+        q: 'Hur viktigt är NPF-kompetens?',
+        a: 'Mycket. Cirka 5-10% av eleverna har NPF-diagnos. Erfarenhet av autism, ADHD eller språkstörning är meriterande. Beskriv konkreta anpassningar du gjort och samverkan med specialpedagog. NPF-utbildning är värt att lyfta i eget block.',
+      },
+      {
+        q: 'Vilka digitala verktyg ska jag kunna 2026?',
+        a: 'Schoolsoft, Vklass eller Unikum för dokumentation. Google Classroom eller Microsoft Teams för undervisning. Skola24 för schema. Programmeringsverktyg (Scratch, Code.org) blir krav i Lgr22. AI-baserade verktyg (Khanmigo, ChatGPT for Education) växer.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika behörigheter (åk 4-6, åk 7-9, gymnasielärare i svenska, matematik), läroplan (Lgr22), pedagogiska metoder (Bornholm, formativ bedömning), system (Schoolsoft, Vklass, Unikum) och eventuella specialiseringar (NPF, dyslexi, programmering). Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett grundskollärar-CV vara?',
+        a: 'En sida räcker för nyutexaminerade. Med 5-10 års erfarenhet är 1,5 sidor lagom. Förstelärare och specialpedagoger kan ha upp till 2 sidor. Det viktigaste är att lärarlegitimation, behörigheter och senaste tjänsten syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till lärartjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just den skola och beskriv en specifik situation där du visat din pedagogiska förmåga. Beskriv en elev du hjälpt utvecklas eller hur du jobbat med en svår grupp. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt grundskollärar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("god kommunikationsförmåga") utan stöd, namn på enskilda elever, sekretessbelagda detaljer från åtgärdsprogram. Stavfel diskvalificerar direkt.',
+      },
+    ],
+  },
+
+  'lokalvardare': {
+    seoIntro:
+      'Som lokalvårdare arbetar du i en bransch med mycket stark efterfrågan i Sverige, både inom kommunal sektor och privata utförare. Yrket är ofta ingång för nyanlända och har låg tröskel utan att kräva formell utbildning. Stora utförare som ISS, Sodexo, Compass och Förenade Service tillsammans med tusentals mindre städbolag har konstant öppna roller, men arbetsledare slänger CV:n som inte tydligt visar erfarenhet, körkort och språk. Ett välskrivet CV avgör om du blir kallad till intervju.\n\nVår mall för lokalvårdare lyfter erfarenhet, körkort och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, lokaltyp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att arbetsledare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika lokaltyper (kontor, skola, vård, industri), körkort B (ofta krav vid områdesservice), kemi- och hygienutbildning, eventuell specialisering (storstädning, fönsterputsning, golvskötsel, vårdhygien), schemaflexibilitet (kvällar, helger, tidiga morgnar), samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för lokalvårdarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad arbetsledare på städbolag och kommunal sektor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Lokaltyp och bransch',
+        description: 'Kontor, skola, sjukhus, industri, restaurang, butik. Olika lokaltyper kräver olika kompetens. Vårdlokaler kräver vårdhygien-utbildning. Industri kräver kemi-vana. Lyft den lokaltyp där du har djupast erfarenhet.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Körkort B är ofta krav',
+        description: 'Vid områdesservice eller flerlokal-uppdrag krävs körkort B för att kunna ta sig mellan adresser. Skriv ut körkort, eventuell rutin med servicebil och om du har egen bil.',
+      },
+      {
+        icon: 'Award',
+        title: 'Kemi- och hygienutbildning',
+        description: 'Olika städmedel kräver olika hantering. Eventuell utbildning i kemikaliehantering, fönsterputs eller golvskötsel är meriterande. Vårdhygien-cert öppnar specifika tjänster.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Specialiseringar är differentiator',
+        description: 'Storstädning, fönsterputsning, golvbehandling, sanering, mattvätt, vårdhygien. Specialiseringar öppnar specifika tjänster och påverkar lönen direkt. Lyft din spetskompetens.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Schemaflexibilitet',
+        description: 'Lokalvård kör ofta tidiga morgnar (5-8) eller kvällar (16-22) när lokalerna är tomma. Skriv ut din tillgänglighet konkret. "Tillgänglig för tidiga morgnar och kvällar" sätter dig i rätt urvalslista.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper',
+        description: 'Många städteam har internationell sammansättning. Engelska, arabiska, persiska, somaliska, polska eller turkiska är värdefulla. Lägg språk synligt med nivå (modersmål, flytande, konversation).',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Lokaltyp och körkort överst',
+        description: 'Vår mall lyfter erfarenhet av lokaltyper, körkort och språk i sidopanelen. Arbetsledare ser dina baskrav på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per arbetsplats',
+        description: 'Mallen separerar arbetsplatser, lokaltyp och tidsperiod så bredd syns. Du kan visa erfarenhet från flera kunder utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för utbildningar och certifikat',
+        description: 'Kemikaliehantering, vårdhygien, fönsterputs, golvbehandling. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+      },
+      {
+        title: 'Logistik-mallens industriella DNA',
+        description: 'För senior-roller som arbetsledare lägger Logistik-mallen till industriell typografi och tabellär layout. Skapar professionell first impression utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för språk och kulturell kompetens',
+        description: 'Mallen har dedikerat block för språkkunskaper utöver svenska och engelska, vilket är värdefullt i internationella team.',
+      },
+      {
+        title: 'Schema-block i sidopanelen',
+        description: 'Mallen har dedikerat block för tillgänglighet (tidiga morgnar, kvällar, helger). Arbetsledare behöver veta direkt vilka pass du kan ta.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Daglig städning',
+        punkter: [
+          'Damma, dammsuga, moppa golv enligt arbetsbeskrivning',
+          'Tömma papperskorgar och hantera avfall enligt branschstandard',
+          'Rengöra toaletter, kök och pausrum med rätt kemikalier',
+          'Återställa möbler och säkerställa funktionell arbetsmiljö',
+        ],
+      },
+      {
+        rubrik: 'Specialstädning',
+        punkter: [
+          'Genomföra storstädning och periodisk djuprengöring',
+          'Polera och behandla golv (vinyl, sten, parkett)',
+          'Putsa fönster på höjd med säkerhetsutrustning',
+          'Genomföra mattvätt och tygrengöring',
+        ],
+      },
+      {
+        rubrik: 'Vårdlokaler och industri',
+        punkter: [
+          'Tillämpa vårdhygien-rutiner enligt SOSFS i vårdlokaler',
+          'Hantera kemikalier enligt skyddsblad och CLP-förordningen',
+          'Sanera vid blod, kroppsvätskor eller smittsamma sjukdomar',
+          'Följa industri-specifika säkerhetsrutiner (skyddsutrustning, livsmedelshygien)',
+        ],
+      },
+      {
+        rubrik: 'Kvalitet och rapportering',
+        punkter: [
+          'Genomföra egenkontroller enligt arbetsplan',
+          'Rapportera fel, skador eller behov av påfyllning till arbetsledaren',
+          'Hantera kundklagomål och förbättringsförslag',
+          'Bidra till kvalitetsutveckling och processförbättring',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och samverkan',
+        punkter: [
+          'Använda korrekt skyddsutrustning enligt branschkrav',
+          'Förebygga olyckor genom riskbedömning och säker arbetsteknik',
+          'Samverka med kollegor i större lokaler eller specialuppdrag',
+          'Hantera säkerhetsrutiner för låsning och larm',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lokaltyper och uppdrag',
+        termer: [
+          { term: 'Kontorsstädning', forklaring: 'Daglig städning av kontorslokaler, vanligast.' },
+          { term: 'Vårdstädning', forklaring: 'Lokaler inom hälso- och sjukvård, kräver vårdhygien-utbildning.' },
+          { term: 'Skolstädning', forklaring: 'Förskola, grundskola, gymnasium med specifika rutiner.' },
+          { term: 'Industristädning', forklaring: 'Tillverkningslokaler, kräver ofta säkerhetsutbildning.' },
+          { term: 'Trappstädning', forklaring: 'Bostadsrättsföreningar och hyresfastigheter.' },
+          { term: 'Storstädning', forklaring: 'Periodisk djuprengöring, ofta 1-2 gånger per år.' },
+        ],
+      },
+      {
+        kategori: 'Specialiseringar',
+        termer: [
+          { term: 'Fönsterputsning', forklaring: 'Specialisering med säkerhetskrav vid arbete på höjd.' },
+          { term: 'Golvbehandling', forklaring: 'Polering, skurning, behandling av olika golvtyper.' },
+          { term: 'Mattvätt', forklaring: 'Specialiserad vått-/torrengöring av textilgolv.' },
+          { term: 'Vårdhygien', forklaring: 'Specialcertifiering för vårdlokaler enligt SOSFS.' },
+          { term: 'Sanering', forklaring: 'Specialrengöring vid smitta, blod eller skadedjur.' },
+          { term: 'Sanering av brandskador', forklaring: 'Specialrengöring efter brand och sotskador.' },
+        ],
+      },
+      {
+        kategori: 'Säkerhet och regelverk',
+        termer: [
+          { term: 'CLP-förordningen', forklaring: 'EU-lag om klassificering, märkning och förpackning av kemikalier.' },
+          { term: 'Säkerhetsblad', forklaring: 'Dokument för varje kemikalie med hanteringsinstruktioner.' },
+          { term: 'Skyddsutrustning', forklaring: 'Handskar, skyddsglasögon, andningsskydd för specifika rengöringsuppdrag.' },
+          { term: 'SOSFS 2015:10', forklaring: 'Socialstyrelsens föreskrifter för vårdhygien i vårdlokaler.' },
+          { term: 'Akta Ryggen', forklaring: 'Certifierad ergonomisk arbetsteknik vid lyft.' },
+          { term: 'BAM', forklaring: 'Bättre arbetsmiljö, grundutbildning för arbetsledare.' },
+        ],
+      },
+      {
+        kategori: 'Roller och företag',
+        termer: [
+          { term: 'Lokalvårdare', forklaring: 'Allmän roll med daglig städning och underhåll.' },
+          { term: 'Specialiserad lokalvårdare', forklaring: 'Med specifik certifiering (vårdhygien, fönster, sanering).' },
+          { term: 'Arbetsledare', forklaring: 'Senior roll med ansvar för team och specifika kunder.' },
+          { term: 'Distriktschef', forklaring: 'Senior chef med ansvar för flera arbetsledare och kunder.' },
+          { term: 'KFS', forklaring: 'Kommunala företagens samorganisation, kollektivavtalspart.' },
+          { term: 'Almega', forklaring: 'Arbetsgivarorganisation för städbranschen.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Stora städbolag',
+        exempel: [
+          'ISS Facility Services',
+          'Sodexo, Compass Group',
+          'Förenade Service, Coor Service Management',
+          'Nordlund, Servicekompetens',
+        ],
+      },
+      {
+        kategori: 'Kommunal sektor',
+        exempel: [
+          'Kommunala lokalvårdare i 290 kommuner',
+          'Region- och universitetssjukhus (egen drift)',
+          'Skolor och förskolor (kommunal regi)',
+          'Statliga myndigheter (vissa har egen lokalvård)',
+        ],
+      },
+      {
+        kategori: 'Specialiserade bolag',
+        exempel: [
+          'Fönsterputsbolag (Höjdmaster, Fönsterspecialisten)',
+          'Saneringsbolag (Polygon, Skadeservice)',
+          'Vårdstädnings-specialister',
+          'Industriella städbolag',
+        ],
+      },
+      {
+        kategori: 'Mindre företag och bemanning',
+        exempel: [
+          'Lokala städbolag och familjeägda företag',
+          'Bemanningsbolag (Adecco, Manpower)',
+          'Direktanställning hos fastighetsbolag',
+          'Egenanställning som soloföretagare',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen in. Många bolag rekryterar utan formell utbildning om du visar pålitlighet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 dagar plus praktisk upplärning.',
+      },
+      {
+        rubrik: 'Yrkeshögskola lokalvård (1 år)',
+        beskrivning: 'YH-utbildningar inom lokalvård, fastighetsskötsel eller serviceverksamhet. Snabbare väg till arbetsledar-roller och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Internutbildningar och certifieringar',
+        beskrivning: 'Vårdhygien-utbildning, kemikaliehantering, fönsterputs på höjd, sanering, golvbehandling. Korta certifikatkurser via arbetsgivaren eller Almega.',
+      },
+      {
+        rubrik: 'Integrationsutbildning Komvux',
+        beskrivning: 'För nyanlända som vill in i lokalvårdsbranschen. Innehåller svenska, fackspråk och praktik. Vanlig väg in för utlandsutbildade.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Daglig städning av kontor, skola, vård, industri',
+        'Storstädning och periodisk djuprengöring',
+        'Kemikaliehantering enligt CLP och säkerhetsblad',
+        'Vårdhygien enligt SOSFS 2015:10',
+        'Fönsterputsning på höjd',
+        'Golvbehandling (polering, skurning, behandling)',
+        'Mattvätt och tygrengöring',
+        'Sanering vid blod, kroppsvätskor, smittsam sjukdom',
+        'Avfallshantering och källsortering',
+        'Akta Ryggen och ergonomisk arbetsteknik',
+        'Egenkontroll och kvalitetsuppföljning',
+        'Säkerhetsutrustning och skyddsutbildning',
+      ],
+      personliga: [
+        'Pålitlig och punktlig',
+        'Strukturerad i arbetsgång',
+        'Diskret och respektfull i kundens lokaler',
+        'Fysiskt uthållig',
+        'Uppmärksam på detaljer',
+        'Lagspelare i större team',
+        'Kommunikativ trots språkbarriärer',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren lokalvårdare med 4 års erfarenhet inom kontor, vård och skola via ISS och kommunal regi. Specialiserad på vårdhygien enligt SOSFS 2015:10 och utbildad i kemikaliehantering. Körkort B med rutin på flerlokal-uppdrag. Flerspråkig (svenska, arabiska, engelska) och tillgänglig för tidiga morgnar och kvällar inklusive helger.',
+
+    profilTips:
+      'År av erfarenhet och primär lokaltyp i öppningsraden. Andra meningen lyfter eventuella specialiseringar och certifikat. Tredje meningen visar körkort, språk och tillgänglighet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Lokaltyp och bransch',
+        text: 'Kontor, skola, sjukhus, industri. Olika lokaltyper kräver olika kompetens. Vårdlokaler kräver vårdhygien-utbildning. Lyft den lokaltyp där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'Körkort B är ofta krav',
+        text: 'Vid områdesservice eller flerlokal-uppdrag krävs körkort B. Skriv ut körkort, eventuell rutin med servicebil och om du har egen bil.',
+      },
+      {
+        rubrik: 'Kemi- och hygienutbildning',
+        text: 'Olika städmedel kräver olika hantering. Eventuell utbildning i kemikaliehantering eller vårdhygien öppnar specifika tjänster.',
+      },
+      {
+        rubrik: 'Specialiseringar',
+        text: 'Storstädning, fönsterputsning, golvbehandling, sanering, vårdhygien. Specialiseringar öppnar specifika tjänster och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Lokalvård kör ofta tidiga morgnar (5-8) eller kvällar (16-22). Skriv ut din tillgänglighet konkret för att hamna i rätt urvalslista.',
+      },
+      {
+        rubrik: 'Språkkunskaper',
+        text: 'Många städteam har internationell sammansättning. Engelska, arabiska, persiska, somaliska, polska. Lägg språk synligt med nivå.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, lokaltyp, körkort och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Arbetsgivare, lokaltyp, period. Konkretisera specialiseringar och certifikat.' },
+      { sektion: 'Utbildning', tips: 'Eventuell utbildning, integrationsutbildning eller YH. Internutbildningar räknas.' },
+      { sektion: 'Kompetenser', tips: 'Specialiseringar, kemikalievana, säkerhetsutbildning. Var konkret.' },
+      { sektion: 'Certifikat', tips: 'Eget block med vårdhygien, fönsterputs, sanering, kemikaliehantering med datum.' },
+      { sektion: 'Övrigt', tips: 'Körkort B, språk, tillgänglighet för specifika tider.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika lokaltyper',
+      'Körkort B om relevant',
+      'Eventuell vårdhygien-utbildning',
+      'Kemikaliehantering och säkerhetsblad',
+      'Specialiseringar (fönster, golv, sanering)',
+      'Akta Ryggen eller motsvarande',
+      'Schemaflexibilitet',
+      'Språkkunskaper utöver svenska',
+      'Internutbildningar via arbetsgivare',
+      'Eventuell arbetsledar-erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Disk är ATS-säkra. Stora städbolag som ISS, Sodexo och Förenade Service använder oftast Workday eller Teamtailor. Skriv ut lokaltyper (vårdstädning, kontorsstädning), specialiseringar (vårdhygien, fönsterputs) och certifikat i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett lokalvårdar-CV?',
+        a: 'Erfarenhet av specifika lokaltyper (kontor, vård, skola, industri), körkort B om relevant, eventuell vårdhygien- eller kemikaliehantering, specialiseringar (fönster, golv, sanering), Akta Ryggen, schemaflexibilitet, språkkunskaper, samt arbetsledar-erfarenhet om du söker senior-roller.',
+      },
+      {
+        q: 'Behövs formell utbildning för att bli lokalvårdare?',
+        a: 'Inte alltid. Många bolag rekryterar utan formell utbildning om du visar pålitlighet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 dagar plus praktisk upplärning. Vårdstädning kräver dock vårdhygien-utbildning. Specialiseringar (fönster, sanering) kräver också certifiering.',
+      },
+      {
+        q: 'Hur skriver jag CV utan tidigare erfarenhet?',
+        a: 'Lyft eventuell tidigare erfarenhet av fysiskt arbete eller serviceyrken. Beskriv pålitlighet och tillgänglighet konkret. Skriv ut körkort B om du har det. Språkkunskaper är meriterande. Många bolag tar in nya för specifika kunder med strukturerad introduktion.',
+      },
+      {
+        q: 'Vilka specialiseringar är värdefullast?',
+        a: 'Vårdhygien öppnar tjänster på sjukhus och vårdcentraler med högre lön. Fönsterputs på höjd är specialiserad och välbetald. Sanering vid skador eller smitta är efterfrågad och meriterande. Golvbehandling (polering, skurning) är värdefullt för storstädning.',
+      },
+      {
+        q: 'Hur viktigt är schemaflexibilitet?',
+        a: 'Mycket. Lokalvård kör ofta tidiga morgnar (5-8) eller kvällar (16-22) när lokalerna är tomma. Var explicit om vilket schema du söker: "Tillgänglig för tidiga morgnar och kvällar inkl helger" eller "Söker dagtid endast". Det sätter dig direkt i rätt urvalslista.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Lokaltyper (kontorsstädning, vårdstädning, skolstädning, industristädning), specialiseringar (vårdhygien, fönsterputs, golvbehandling, sanering), körkort B, kemikaliehantering, Akta Ryggen, och språk. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett lokalvårdar-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet och flera specialiseringar kan det bli 1,5 sidor. Det viktigaste är att körkort, lokaltyp och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till lokalvårdar-tjänster?',
+        a: 'Beror på arbetsgivaren. Stora bolag som ISS och kommuner förväntar sig oftast brev. Mindre städbolag accepterar bara CV. När brev förväntas, fokusera på tillgänglighet, pålitlighet och varför just det bolaget. Håll till en sida på 200-300 ord.',
+      },
+      {
+        q: 'Hur viktigt är språk för lokalvårdar-jobb?',
+        a: 'Svenska och engelska räcker oftast. Andra språk (arabiska, persiska, somaliska, polska, turkiska) är värdefulla i internationella team eller på arbetsplatser med flerspråkig personal. För arbetsledar-roller är svenska ofta krav.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt lokalvårdar-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, hobbies som inte är arbets-relevanta, och kund-specifika sekretessbelagda detaljer. Stavfel signalerar slarv, vilket är negativt.',
+      },
+    ],
+  },
+
+  'logistiker': {
+    seoIntro:
+      'Som logistiker bedöms du på din kompetens inom planering, supply chain och affärssystem-vana. Sverige har stark logistiksektor med både svenska bolag som DB Schenker, PostNord, DSV och internationella som Maersk, DHL. Industrin behöver också kvalificerade logistiker. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för logistiker lyfter examen, affärssystem och konkreta logistik-resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll och typ av logistik (3PL, in-house, e-handel, industri) syns direkt med dina nyckelresultat. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller civilingenjör med inriktning logistik, eller YH-utbildning, affärssystem (SAP, Microsoft Dynamics, Oracle, Manhattan, Pyramid), Excel- och BI-färdigheter (Power BI, Power Query), supply chain-metodik (Lean, Six Sigma, JIT, Kanban), branschvana (e-handel, industri, dagligvaruhandel, fordon), incoterms och tullkunskap, eventuella certifieringar, samt konkreta resultat (kostnadsbesparing, ledtid, leveransprecision).\n\nNedan hittar du två CV-mallar designade för logistikrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på industri, e-handel och 3PL-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Affärssystem och WMS',
+        description: 'SAP S/4HANA dominerar industri. Manhattan på e-handel. Microsoft Dynamics på medelstora bolag. Oracle på enterprise. Pyramid och Astro på terminaler. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara logistik-resultat',
+        description: '"Minskade ledtid från 14 till 8 dagar", "Sänkte lagerkostnader 22%", "Förbättrade leveransprecision från 87% till 96%". Konkreta siffror differentierar senior- från junior-logistiker.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Supply chain-metodik',
+        description: 'Lean, Six Sigma, JIT, Kanban, S&OP (Sales & Operations Planning). Skriv ut metodiker du behärskar och vilka projekt du applicerat dem på.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Excel och BI-färdigheter',
+        description: 'PowerQuery, Power Pivot, Power BI, Tableau. Avancerad Excel är förmodat på logistikroller. Skriv ut konkreta funktioner i stället för "god datavana".',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Branschvana är differentiator',
+        description: 'E-handel kräver snabb plock och kort ledtid. Industri kräver komplex supply chain och leverantörsstyrning. 3PL kräver flexibilitet med flera kunder. Lyft branschen där du har djupast erfarenhet.',
+      },
+      {
+        icon: 'Target',
+        title: 'Tull och incoterms',
+        description: 'Vid internationell logistik krävs förståelse för tullhantering, incoterms (FOB, CIF, EXW, DAP) och TARIC. Lyft erfarenhet av export/import om du söker globala roller.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och affärssystem överst',
+        description: 'Vår mall lyfter examen, affärssystem och eventuella certifieringar i sidopanelen. Logistikchefer ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med logistik-resultat',
+        description: 'Mallen separerar bolag och dina logistik-bidrag (kostnadsbesparingar, ledtid, leveransprecision). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för system och metodik',
+        description: 'SAP, Manhattan, Lean, Six Sigma. Mallen separerar system och metodik från generiska kompetenser så logistikchefer ser specifik nivå direkt.',
+      },
+      {
+        title: 'Premium-mallen Aspekt med fokusområden',
+        description: 'För senior logistik-roller och supply chain manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för bransch och processdjup',
+        description: 'Mallen har dedikerade rader för branschvana (e-handel, industri, 3PL) och processdjup (S&OP, demand planning, inköp). Visar djup utan att blanda med generisk kompetens.',
+      },
+      {
+        title: 'Sober färgsättning för logistikbranschen',
+        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och pålitlighet. Passar både konsultbolag och industribolag.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Supply chain-planering',
+        punkter: [
+          'Driva S&OP-process tillsammans med försäljning, produktion och inköp',
+          'Genomföra demand planning och prognosarbete',
+          'Optimera lagerstyrning och säkerhetslager',
+          'Hantera kapacitetsplanering och resursallokering',
+        ],
+      },
+      {
+        rubrik: 'Inköp och leverantörsstyrning',
+        punkter: [
+          'Förhandla avtal och pris med leverantörer',
+          'Genomföra leverantörsutvärdering och riskbedömning',
+          'Hantera inköpsorder och leveranser via SAP eller motsvarande',
+          'Driva kostnadsoptimering och effektiviseringar',
+        ],
+      },
+      {
+        rubrik: 'Lager och distribution',
+        punkter: [
+          'Hantera WMS-system (SAP WMS, Manhattan, Pyramid)',
+          'Optimera plockflöden och packningsprocesser',
+          'Driva lagerstyrning och inventering',
+          'Samverka med 3PL-leverantörer eller egen lagerverksamhet',
+        ],
+      },
+      {
+        rubrik: 'Tull och internationell logistik',
+        punkter: [
+          'Hantera incoterms (FOB, CIF, EXW, DAP) i avtal',
+          'Genomföra tullhantering enligt TARIC',
+          'Samverka med tullombud och speditörer',
+          'Hantera frakthandlingar och regulatoriska krav',
+        ],
+      },
+      {
+        rubrik: 'Analys och rapportering',
+        punkter: [
+          'Producera KPI-rapporter (OTIF, leveransprecision, kostnad per order)',
+          'Genomföra ad hoc-analyser i Excel och Power BI',
+          'Driva förbättringsprojekt med Lean och Six Sigma',
+          'Rapportera till logistikchef och ledning månadsvis',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Affärssystem och WMS',
+        termer: [
+          { term: 'SAP S/4HANA', forklaring: 'Marknadsledande ERP, dominerar industri och stora bolag.' },
+          { term: 'Microsoft Dynamics', forklaring: 'ERP från Microsoft, vanlig på medelstora bolag.' },
+          { term: 'Oracle', forklaring: 'Enterprise-ERP, vanlig på storbolag.' },
+          { term: 'Manhattan WMS', forklaring: 'Vanligaste WMS på e-handelsterminaler.' },
+          { term: 'Pyramid', forklaring: 'Svenskt WMS för mindre och medelstora lager.' },
+          { term: 'Astro', forklaring: 'WMS för terminal och 3PL-bolag.' },
+        ],
+      },
+      {
+        kategori: 'Metodik och processer',
+        termer: [
+          { term: 'S&OP', forklaring: 'Sales & Operations Planning, månatlig planeringsprocess.' },
+          { term: 'JIT', forklaring: 'Just-In-Time, leverans precis när det behövs.' },
+          { term: 'Kanban', forklaring: 'Visuell signalering vid lagerpåfyllning.' },
+          { term: 'Lean', forklaring: 'Eliminera slöseri och optimera flöden.' },
+          { term: 'Six Sigma', forklaring: 'Datadriven förbättringsmetod (Yellow/Green/Black Belt).' },
+          { term: 'MRP', forklaring: 'Material Requirements Planning, behovsplanering.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'OTIF', forklaring: 'On Time In Full, leveransprecision på rätt tid och fullständigt.' },
+          { term: 'Leveranstid', forklaring: 'Tid från order till leverans hos kund.' },
+          { term: 'Lageromsättningshastighet', forklaring: 'Hur snabbt lagret omsätts (gånger per år).' },
+          { term: 'Säkerhetslager', forklaring: 'Buffert för osäkerhet i efterfrågan eller leverans.' },
+          { term: 'Cost per order', forklaring: 'Total logistikkostnad delat på antal ordrar.' },
+          { term: 'Backorder', forklaring: 'Order som väntar på leverans p.g.a. lagerbrist.' },
+        ],
+      },
+      {
+        kategori: 'Tull och internationellt',
+        termer: [
+          { term: 'Incoterms', forklaring: 'Internationella regler för leveransvillkor (FOB, CIF, EXW).' },
+          { term: 'TARIC', forklaring: 'EU:s tulltariff och statistik-database.' },
+          { term: 'Tullombud', forklaring: 'Företag som hanterar tullformaliteter åt importörer.' },
+          { term: 'Speditör', forklaring: 'Företag som arrangerar transport och tullhantering.' },
+          { term: 'Bill of Lading', forklaring: 'Sjötransporthandling, dokumentation av frakt.' },
+          { term: 'AWB', forklaring: 'Air Waybill, flygfrakt-handling.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Logistikbolag och 3PL',
+        exempel: [
+          'PostNord, DB Schenker, DHL, DSV',
+          'Bring, Best Transport, Schenker Logistics',
+          'XPO, Geodis, Itella',
+          'Mindre svenska transport- och åkeribolag',
+        ],
+      },
+      {
+        kategori: 'E-handel och scale-ups',
+        exempel: [
+          'Klarna Logistics, Mathem, Foodora',
+          'Boozt, Apotea, NetOnNet, Adlibris',
+          'Lyko, Babyshop, Stylepit',
+          'Tredjepartslogistiker',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Sandvik, Atlas Copco, Tetra Pak',
+          'Tillverkningsbolag i Mälardalen och Småland',
+          'Underleverantörer till fordonsindustrin',
+        ],
+      },
+      {
+        kategori: 'Detaljhandel och dagligvaror',
+        exempel: [
+          'ICA Logistik, Coop, Axfood, Lidl',
+          'IKEA, H&M, Stadium centrallager',
+          'Apoteket centrallager och distribution',
+          'Konsumentvaru-bolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom eller civilingenjör (5 år)',
+        beskrivning: 'Inriktning logistik, supply chain eller industriell ekonomi från Handelshögskolan, KTH, Chalmers, LTH, Linköping. Vanlig grund för senior-roller.',
+      },
+      {
+        rubrik: 'Yrkeshögskola logistik (1-2 år)',
+        beskrivning: 'YH-utbildningar inom logistik, supply chain, transport eller inköp. Snabbare väg in och meriterande kombinerat med praktik.',
+      },
+      {
+        rubrik: 'Internationella certifieringar',
+        beskrivning: 'APICS CPIM/CSCP, Six Sigma (Yellow/Green/Black Belt), Lean Practitioner. Stark merit för senior-roller och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Internutbildningar och avancemang',
+        beskrivning: 'Många logistiker avancerar internt. Volvo Group Academy, IKEA Academy, ICA-skolan har strukturerade utbildningsprogram för logistikroller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'SAP S/4HANA, Microsoft Dynamics, Oracle',
+        'WMS (Manhattan, Pyramid, Astro)',
+        'Excel (PowerQuery, Power Pivot, makron)',
+        'Power BI och Tableau',
+        'S&OP och demand planning',
+        'JIT, Kanban och Lean-metodik',
+        'Six Sigma (Yellow/Green/Black Belt)',
+        'Inköpsförhandling och leverantörsstyrning',
+        'Tullhantering och incoterms',
+        'Lagerstyrning och säkerhetslager',
+        'Transport och fraktupphandling',
+        'Cost-analys och budgetering',
+      ],
+      personliga: [
+        'Strukturerad och analytisk',
+        'Affärsmässig i förhandling',
+        'Pragmatisk i tradeoffs mellan kostnad och service',
+        'Driven av förbättring och effektivisering',
+        'Kommunikativ med tvärfunktionella team',
+        'Lugn vid leveranskriser',
+        'Helhetsorienterad i supply chain',
+      ],
+    },
+
+    profilExempel:
+      'Senior logistiker med 8 års erfarenhet inom industri och 3PL, civilingenjör i industriell ekonomi från KTH. Driver supply chain-arbete för 250 MSEK-verksamhet i SAP S/4HANA med fokus på S&OP, lagerstyrning och leverantörsstyrning. Minskade total logistikkostnad 18% genom konsolidering av leverantörer och förbättrade OTIF från 89% till 96%. Six Sigma Green Belt-certifierad och driver Lean-program på distributionscenter.',
+
+    profilTips:
+      'Senioritet, primär bransch och utbildning i öppningsraden. Andra meningen lyfter system och processdjup. Tredje meningen visar konkret resultat och certifieringar som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Affärssystem och WMS',
+        text: 'SAP S/4HANA dominerar industri. Manhattan på e-handel. Microsoft Dynamics på medelstora bolag. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Mätbara logistik-resultat',
+        text: '"Minskade ledtid från 14 till 8 dagar", "Sänkte lagerkostnader 22%", "Förbättrade OTIF från 87% till 96%". Konkreta siffror differentierar senior-roller.',
+      },
+      {
+        rubrik: 'Supply chain-metodik',
+        text: 'Lean, Six Sigma, JIT, Kanban, S&OP. Skriv ut metodiker du behärskar och vilka projekt du applicerat dem på.',
+      },
+      {
+        rubrik: 'Excel och BI-färdigheter',
+        text: 'PowerQuery, Power Pivot, Power BI. Avancerad Excel är förmodat. Skriv ut konkreta funktioner.',
+      },
+      {
+        rubrik: 'Branschvana',
+        text: 'E-handel, industri, 3PL, dagligvaruhandel. Olika branscher kräver olika logistik-kompetens. Lyft den bransch där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'Tull och incoterms',
+        text: 'Vid internationell logistik krävs förståelse för tullhantering och incoterms. Lyft erfarenhet av export/import om du söker globala roller.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, examen och primära system på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera affärsresultat och processförbättringar.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör med inriktning, lärosäte, år. APICS, Six Sigma i eget block.' },
+      { sektion: 'Kompetenser', tips: 'System, metodik, branschdjup. Var konkret om Excel-nivå.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med APICS CPIM/CSCP, Six Sigma, Lean och datum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, internationell erfarenhet, eventuella språk för global logistik.' },
+    ],
+
+    checklista: [
+      'Civilekonom, civilingenjör eller YH med inriktning logistik',
+      'Affärssystem (SAP, Microsoft Dynamics, Oracle)',
+      'WMS-vana (Manhattan, Pyramid, Astro)',
+      'Excel på avancerad nivå',
+      'Supply chain-metodik (S&OP, JIT, Lean)',
+      'Six Sigma eller motsvarande certifiering',
+      'Branschvana (e-handel, industri, 3PL)',
+      'Mätbara logistik-resultat',
+      'Tull och incoterms om internationell',
+      'Eventuell ledar- eller projekterfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Storbolag som DB Schenker och PostNord använder oftast Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut affärssystem (SAP, Microsoft Dynamics), WMS (Manhattan, Pyramid) och metodik (Lean, Six Sigma, S&OP) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett logistiker-CV?',
+        a: 'Civilekonom, civilingenjör eller YH med inriktning logistik, affärssystem (SAP, Microsoft Dynamics, Oracle), WMS-vana (Manhattan, Pyramid), Excel- och BI-färdigheter, supply chain-metodik (S&OP, JIT, Lean), branschvana, eventuella certifieringar (APICS, Six Sigma), tullkunskap, samt mätbara logistik-resultat.',
+      },
+      {
+        q: 'Vad är skillnaden mellan logistiker och lagerarbetare?',
+        a: 'Lagerarbetare är operativa med plock, pack och truckhantering. Logistiker är analytiker och planerare som styr supply chain, inköp, distribution och lagerstyrning. Logistiker har oftast akademisk examen eller YH-utbildning och arbetar mot KPI:er (OTIF, leveranstid, kostnad per order).',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-logistiker?',
+        a: 'Lyft civilekonom-, civilingenjörs- eller YH-examen med inriktning, eventuell trainee-program eller praktik på storbolag, kurser i specifik metodik (Lean, Six Sigma), Excel-färdigheter med konkreta exempel, och eventuella ERP-certifieringar (SAP-kurser).',
+      },
+      {
+        q: 'Vilka system är viktigast 2026?',
+        a: 'SAP S/4HANA dominerar industri. Microsoft Dynamics på medelstora bolag. Oracle på enterprise. Manhattan på e-handel. Power BI för analys. Excel på avancerad nivå. AI-drivna verktyg (RPA, prediktiv analys) växer i logistikbranschen.',
+      },
+      {
+        q: 'Hur viktig är APICS-certifiering?',
+        a: 'CPIM (Certified in Production and Inventory Management) är gold standard för production planning. CSCP (Certified Supply Chain Professional) för bredare supply chain-roller. Stark merit för senior-roller på internationella bolag och i konsultsegmentet.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Affärssystem (SAP, Microsoft Dynamics, Oracle), WMS (Manhattan, Pyramid, Astro), metodik (S&OP, JIT, Kanban, Lean, Six Sigma), KPI:er (OTIF, leveransprecision, lageromsättning), specialiseringar (inköp, distribution, demand planning) och bransch. Workday och SuccessFactors söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett logistiker-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller supply chain manager: 2 sidor. Det viktigaste är att examen, system och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till logistiker-tjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att förklara varför just det bolag och beskriv en specifik supply chain-utmaning du löst. Beskriv en kostnadsoptimering, leverantörsförhandling eller process du drivit. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur visar jag analytisk förmåga utan formell titel?',
+        a: 'Beskriv konkreta projekt: "Byggde Excel-modell som identifierade 8 MSEK årlig besparing genom konsolidering av leverantörer", "Drev förbättringsprojekt som minskade ledtid 35% via S&OP-implementation". Konkreta resultat och tidshorisonter visar genomförandekraft.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt logistiker-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("strukturerad och driven") utan stöd, sekretessbelagda affärsdetaljer, och hobbies som inte är professionellt relevanta.',
+      },
+    ],
+  },
+
+  'hotellvard': {
+    seoIntro:
+      'Som hotellvärd är du ansiktet utåt för hotellet och avgör gästens första intryck. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion samt boutique- och designhotell har konstant öppna roller, men hotellchefer slänger CV:n som inte tydligt visar språk, system och representativ erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det hotell du faktiskt vill jobba på.\n\nVår mall för hotellvärdar lyfter språkkunskaper, PMS-vana och representativ erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att hotell, kategori (kedja, boutique, premium) och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell- eller serviceverksamhet, PMS-system (Opera, Mews, Cloudbeds, Hotsoft), bokningssystem (Booking.com, Expedia, kanalmanager), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt schemaflexibilitet för rotation, kvällar, helger och nätter.\n\nNedan hittar du två CV-mallar designade för hotellvärdrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer på kedjor, boutique- och premium-hotell faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper är hård valuta',
+        description: 'Engelska är förmodat. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell. Ange nivå (modersmål, flytande, konversation) i sidopanelen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'PMS-system du behärskar',
+        description: 'Opera PMS dominerar internationella kedjor. Mews på boutique-segment. Cloudbeds på mindre hotell. Hotsoft på nordiska kedjor. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Multitasking och flerkanals-hantering',
+        description: 'Telefon, mejl, gäst-incheckning, bokningar parallellt. Konkret exempel: "Hanterade incheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift". Visar din kapacitet.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Bokning och OTA-vana',
+        description: 'Booking.com, Expedia, kanalmanager, OTA-kommissioner. Bokningssystem är specifika för hotellbranschen. Visa erfarenhet av flerkanals-bokning och no-show-hantering.',
+      },
+      {
+        icon: 'Award',
+        title: 'Representativ förmåga',
+        description: 'Du representerar hotellet. Kläd- och uppförandekod är ofta strikta. Erfarenhet från VIP-mottagning, eventservice eller premium-segment är meriterande för exklusiva arbetsgivare.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Schema och tillgänglighet',
+        description: 'Hotellreception kräver rotation, kvällar, helger och natt. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Språk och PMS överst',
+        description: 'Vår mall lyfter språkkunskaper och PMS-system i sidopanelen. Hotellchefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per hotell och kategori',
+        description: 'Mallen separerar hotellkategorier (boutique, kedja, premium) så bredd syns. Du kan visa erfarenhet från flera segment utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för system och certifikat',
+        description: 'Opera PMS, Mews, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För premium-hotell där förstaintrycket räknas, lägger Disk Plus till foto. För hotellbranschen är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för representativa meriter',
+        description: 'VIP-mottagning, eventservice, premium-erfarenhet har egen rad. Visar att du arbetat med kunder som har högre förväntningar.',
+      },
+      {
+        title: 'Energisk men professionell färgsättning',
+        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för hotellbranschen.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Mottagning av gäster',
+        punkter: [
+          'Möta och välkomna gäster professionellt vid in- och utcheckning',
+          'Genomföra check-in i Opera PMS, Mews eller motsvarande',
+          'Hantera passar, betalkort och eventuella deposititioner',
+          'Vägleda gäster till rätt rum, restaurang eller serviceområden',
+        ],
+      },
+      {
+        rubrik: 'Bokning och betalning',
+        punkter: [
+          'Hantera bokningar via Booking.com, Expedia och kanalmanager',
+          'Behandla telefon- och mejl-bokningar med korrekt prissättning',
+          'Hantera no-show, dubbelbokningar och room moves',
+          'Genomföra dagsavstämning och rapportera till administration',
+        ],
+      },
+      {
+        rubrik: 'Service och gästupplevelse',
+        punkter: [
+          'Hjälpa gäster med praktiska frågor och rekommendationer',
+          'Hantera klagomål och svåra situationer med diplomati',
+          'Eskalera komplexa frågor till manager eller specialiserad kollega',
+          'Säkerställa premium-upplevelse vid VIP-besök',
+        ],
+      },
+      {
+        rubrik: 'Telefon och e-post',
+        punkter: [
+          'Hantera inkommande samtal och vidarekoppling',
+          'Svara på e-post och förfrågningar om bokningar och tjänster',
+          'Hantera samtal från korpkunder och bokningskanaler',
+          'Föra meddelanden vidare och uppmärksamma akuta ärenden',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och nattarbete',
+        punkter: [
+          'Hantera passerkort, nyckelhantering och säkerhetsrutiner',
+          'Övervaka entrén och rapportera misstänkta personer',
+          'Genomföra brand- och säkerhetskontroller enligt rutin',
+          'Vid nattskift: hantera night audit och dagsavstämning',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'PMS och hotellsystem',
+        termer: [
+          { term: 'Opera PMS', forklaring: 'Marknadsledande Property Management System från Oracle.' },
+          { term: 'Mews', forklaring: 'Modern molnbaserad PMS, populär på boutique-hotell.' },
+          { term: 'Cloudbeds', forklaring: 'PMS för mindre och medelstora hotell.' },
+          { term: 'Hotsoft', forklaring: 'Svenskt PMS som används på flera nordiska hotell.' },
+          { term: 'Suite8', forklaring: 'PMS från Oracle, vanlig på premium-hotell.' },
+          { term: 'Apaleo', forklaring: 'Modern API-first PMS för boutique- och designhotell.' },
+        ],
+      },
+      {
+        kategori: 'Bokning och OTA',
+        termer: [
+          { term: 'OTA', forklaring: 'Online Travel Agency: Booking.com, Expedia, HRS, Hotels.com.' },
+          { term: 'Kanalmanager', forklaring: 'System som synkar bokningar mellan PMS och OTA:er.' },
+          { term: 'Korpkund', forklaring: 'Företagskund med specialavtal och fakturering.' },
+          { term: 'GDS', forklaring: 'Global Distribution System (Amadeus, Sabre) för resebyråer.' },
+          { term: 'Direktbokning', forklaring: 'Bokning direkt via hotellets webb utan OTA-kommission.' },
+          { term: 'Loyalty-program', forklaring: 'Stamkundprogram (Scandic Friends, Choice Loyalty, Elite Voyager).' },
+        ],
+      },
+      {
+        kategori: 'Hotellroller',
+        termer: [
+          { term: 'Receptionist/Hotellvärd', forklaring: 'Allmän roll vid hotellreception.' },
+          { term: 'Front Office Manager', forklaring: 'Chef över receptionen, ofta med personalansvar.' },
+          { term: 'Night Auditor', forklaring: 'Nattreceptionist med ansvar för dagsavstämning.' },
+          { term: 'Concierge', forklaring: 'Specialiserad service-roll med fokus på rekommendationer.' },
+          { term: 'Reservations Manager', forklaring: 'Ansvarig för bokningar, intäktsoptimering och kanalstrategi.' },
+          { term: 'Guest Service', forklaring: 'Roll fokuserad på gästens hela vistelse.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'RevPAR', forklaring: 'Revenue Per Available Room, central hotell-KPI.' },
+          { term: 'ADR', forklaring: 'Average Daily Rate, genomsnittligt rumspris.' },
+          { term: 'Beläggningsgrad', forklaring: 'Andel sålda rum av totalt antal rum.' },
+          { term: 'OTA-andel', forklaring: 'Andel bokningar från OTA jämfört med direkt.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score för gästnöjdhet.' },
+          { term: 'TripAdvisor-betyg', forklaring: 'Gästbetyg som påverkar hotellets ranking.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Hotellkedjor',
+        exempel: [
+          'Scandic Hotels (största nordiska kedjan)',
+          'Elite Hotels och Nordic Choice',
+          'Radisson Blu, Clarion, Hilton, Marriott',
+          'Mindre boutique- och designhotell',
+        ],
+      },
+      {
+        kategori: 'Premium- och lyxhotell',
+        exempel: [
+          'Grand Hôtel, Operakällaren',
+          'Berns, Hotel Diplomat, Pelican',
+          'NK och Stockholm Stadshus-restauranger',
+          'Privata sjukhus och företagshotell',
+        ],
+      },
+      {
+        kategori: 'Säsongs- och destinationshotell',
+        exempel: [
+          'Sommarhotell på västkusten och i skärgården',
+          'Vinterstationer i Åre, Sälen, Riksgränsen',
+          'Spa- och konferenshotell',
+          'Eventbolag och premium-evenemang',
+        ],
+      },
+      {
+        kategori: 'Internationella med Sverige-närvaro',
+        exempel: [
+          'Marriott och Hilton-properties',
+          'Accor (Sofitel, Mercure, Novotel)',
+          'IHG (InterContinental, Holiday Inn, Crowne Plaza)',
+          'Bemanningsbolag (Inhouse, Manpower)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många hotell rekryterar utan formell utbildning om du har språk och servicekänsla. Arbetsgivaren ger introduktion i system och rutiner. Vanlig väg in.',
+      },
+      {
+        rubrik: 'Hotell- och restaurangprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning hotellservice. Innehåller praktikperioder hos hotell. Vanlig grund för fast tjänst.',
+      },
+      {
+        rubrik: 'Yrkeshögskola hotellreception (1-2 år)',
+        beskrivning: 'YH-utbildningar med specifik inriktning (hotellreception, revenue management, eventbranschen). Kvalificerar för manager-roller.',
+      },
+      {
+        rubrik: 'Internutbildningar från kedjor',
+        beskrivning: 'Scandic Academy, Elite Academy, Marriott LMS. Större kedjor har strukturerade interna utbildningsprogram med fokus på system och servicestandard.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'PMS-system (Opera, Mews, Cloudbeds, Hotsoft, Suite8)',
+        'Bokningssystem (Booking.com, Expedia, kanalmanager)',
+        'Telefonväxel och flerkanals-hantering',
+        'Office-paketet (Word, Excel, Outlook)',
+        'Loyalty-program och stamkund-hantering',
+        'No-show och dubbelbokningar',
+        'Brand- och säkerhetsrutiner',
+        'Mötesrumsbokning och passerkort',
+        'Kreditkortshantering enligt PCI DSS',
+        'Konflikthantering och klagomål',
+        'Night audit och dagsavstämning',
+        'Eventuella revenue management-grunder',
+      ],
+      personliga: [
+        'Representativ och välvårdad',
+        'Servicemedveten och kundorienterad',
+        'Multitasking under press',
+        'Lugn vid svåra gäster',
+        'Diskret och sekretessmedveten',
+        'Pedagogisk i mötet med olika kulturer',
+        'Lagspelare i front office-team',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren hotellvärd med 5 års erfarenhet från Scandic och boutique-hotell i Stockholm. Hanterar in- och utcheckning för 200+ gäster per skift i Opera PMS med fokus på flerkanals-bokningar (Booking.com, Expedia, direkt). Flerspråkig (svenska, engelska, tyska, franska) och utbildad i revenue management-grunder. Tillgänglig för rotationsschema inklusive natt och helger.',
+
+    profilTips:
+      'År av erfarenhet och hotellkategori i öppningsraden. Andra meningen lyfter system-vana och eventuella språk. Tredje meningen visar tillgänglighet och specialiseringar (revenue management, VIP) som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Språkkunskaper är hård valuta',
+        text: 'Engelska är förmodat. Tyska, franska, spanska, ryska, kinesiska, japanska, arabiska är meriterande för internationella hotell. Ange nivå.',
+      },
+      {
+        rubrik: 'PMS-system',
+        text: 'Opera PMS dominerar internationella kedjor. Mews på boutique. Cloudbeds på mindre. Hotsoft på nordiska. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Multitasking och volym',
+        text: '"Hanterade incheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift" säger mer än "ansvarade för reception". Konkreta volymer visar din kapacitet.',
+      },
+      {
+        rubrik: 'Bokning och OTA-vana',
+        text: 'Booking.com, Expedia, kanalmanager. Bokningssystem är specifika för hotellbranschen. Visa erfarenhet av flerkanals-bokning och no-show-hantering.',
+      },
+      {
+        rubrik: 'Representativ förmåga',
+        text: 'Erfarenhet från VIP-mottagning, eventservice eller premium-segment är meriterande för exklusiva arbetsgivare. Lyft i sammanfattningen om relevant.',
+      },
+      {
+        rubrik: 'Schema och tillgänglighet',
+        text: 'Hotellreception kräver rotation. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, hotellkategori, primära system och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Hotell, position, period, system. Konkretisera volymer och eventuella ansvarsområden.' },
+      { sektion: 'Utbildning', tips: 'Hotell- och restaurangprogrammet, YH eller internutbildningar (Scandic Academy, Elite Academy).' },
+      { sektion: 'Kompetenser', tips: 'PMS-system, bokningssystem, Office-paketet. Var konkret om vilka system du behärskar.' },
+      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå. Lyft alla språk även konversationsnivå.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet (rotation, kvällar, natt, helger), eventuell körkortsbehörighet.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika PMS-system',
+      'Språkkunskaper med nivå',
+      'Telefonväxel- och flerkanals-vana',
+      'Bokningssystem (Booking.com, Expedia)',
+      'Office-paketet och e-posthantering',
+      'Schemaflexibilitet (rotation, natt, helger)',
+      'Representativ förmåga (VIP, premium)',
+      'Konflikthantering och klagomål',
+      'Eventuell utbildning (Hotell- och restaurang, YH)',
+      'Brand- och säkerhetsrutiner',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Internationella kedjor (Marriott, Hilton) använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett hotellvärd-CV?',
+        a: 'Erfarenhet av specifika PMS-system (Opera, Mews, Hotsoft), bokningssystem (Booking.com, Expedia), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, schemaflexibilitet, eventuell utbildning, samt eventuell representativ erfarenhet (VIP, premium). Lägg till specialiseringar (night audit, revenue management) om relevant.',
+      },
+      {
+        q: 'Behövs erfarenhet för hotellvärd-jobb?',
+        a: 'Inte alltid. Många hotell rekryterar utan erfarenhet om du har språk och servicekänsla. Hotellbranschen tar ofta in nya för säsongsarbete (sommar, jul). Sommarhotell på västkusten och vinterstationer rekryterar mycket utan erfarenhet.',
+      },
+      {
+        q: 'Vilka språk är viktigast för hotellvärdar?',
+        a: 'Engelska är förmodat. Tyska efterfrågat på hotell med tyska turister. Franska och spanska för internationella resenärer. Kinesiska och japanska för premium-segment och Stockholm Central. Arabiska och ryska efterfrågade i specifika hotell. Modersmålsnivå värderas högt.',
+      },
+      {
+        q: 'Vilka system är viktigast 2026?',
+        a: 'Opera PMS dominerar internationella kedjor och stora hotell. Mews växer på boutique-segment. Cloudbeds och Apaleo på mindre hotell. Hotsoft på nordiska kedjor. Bokningskanal-managers (SiteMinder, RateGain). Office-paketet är förmodat. AI-baserad bokning blir allt vanligare.',
+      },
+      {
+        q: 'Hur visar jag multitasking på CV:t?',
+        a: 'Konkreta volymer: "Hanterade incheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift". Beskriv en svår situation där du löste flera ärenden parallellt. Indirekta exempel: "Topp-3 i hotellets multitasking-mätning".',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'PMS-system (Opera, Mews, Cloudbeds, Hotsoft), bokningssystem (Booking.com, Expedia, kanalmanager), språk med nivå, hotellkategori (boutique, premium, kedja), och specialiseringar (night audit, VIP, revenue management). Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett hotellvärd-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktiga är att språk, system och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till hotellvärd-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just det hotell och beskriv en specifik servicesituation där du visat din förmåga. Beskriv en svår gäst eller en VIP-situation. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur viktig är representativ förmåga?',
+        a: 'Mycket viktig på premium- och lyxhotell. Kläd- och uppförandekod är ofta strikta. Erfarenhet från VIP-mottagning, eventservice eller premium-segment är meriterande. Foto på CV:t är ofta värdefullt på premium-segment där förstaintrycket räknas.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt hotellvärd-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, gäst- eller företagshemligheter, och hobbies som inte är service-relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
