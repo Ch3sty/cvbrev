@@ -1,0 +1,98 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Sidopanel med foto + LinkedIn + gradient ring -->
+  <defs>
+    <linearGradient id="spGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fdf2f8"/>
+    </linearGradient>
+    <linearGradient id="spRing" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#db2777"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="105" height="400" fill="url(#spGrad)"/>
+  <line x1="105" y1="0" x2="105" y2="400" stroke="#fed7aa"/>
+
+  <!-- Foto med gradient ring -->
+  <circle cx="52" cy="56" r="32" fill="url(#spRing)"/>
+  <circle cx="52" cy="56" r="28" fill="white"/>
+  <text x="52" y="64" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#9a3412">A</text>
+
+  <!-- Kontakt -->
+  <rect x="14" y="106" width="60" height="6" fill="#9a3412" rx="0.5"/>
+  <line x1="14" y1="118" x2="92" y2="118" stroke="#f97316" stroke-width="0.7"/>
+  <circle cx="18" cy="128" r="2" fill="#db2777"/>
+  <rect x="24" y="126" width="68" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="138" r="2" fill="#db2777"/>
+  <rect x="24" y="136" width="60" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="148" r="2" fill="#db2777"/>
+  <rect x="24" y="146" width="65" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="158" r="2" fill="#db2777"/>
+  <rect x="24" y="156" width="50" height="2.5" fill="#9a3412" rx="0.5"/>
+
+  <!-- Kompetenser -->
+  <rect x="14" y="186" width="80" height="6" fill="#9a3412" rx="0.5"/>
+  <line x1="14" y1="198" x2="92" y2="198" stroke="#f97316" stroke-width="0.7"/>
+  <circle cx="18" cy="208" r="1.5" fill="#f97316"/>
+  <rect x="24" y="207" width="60" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="216" r="1.5" fill="#db2777"/>
+  <rect x="24" y="215" width="55" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="224" r="1.5" fill="#f97316"/>
+  <rect x="24" y="223" width="65" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="232" r="1.5" fill="#db2777"/>
+  <rect x="24" y="231" width="50" height="2.5" fill="#475569" rx="0.5"/>
+  <circle cx="18" cy="240" r="1.5" fill="#f97316"/>
+  <rect x="24" y="239" width="60" height="2.5" fill="#475569" rx="0.5"/>
+
+  <!-- Språk -->
+  <rect x="14" y="270" width="40" height="6" fill="#9a3412" rx="0.5"/>
+  <line x1="14" y1="282" x2="92" y2="282" stroke="#f97316" stroke-width="0.7"/>
+  <rect x="14" y="290" width="40" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="62" y="290" width="30" height="3" fill="#9a3412" rx="0.5"/>
+
+  <!-- Huvudinnehall -->
+  <!-- Namn (serif) + accent bar -->
+  <rect x="120" y="32" width="160" height="14" fill="#0f172a" rx="0.5"/>
+  <rect x="120" y="52" width="100" height="6" fill="#db2777" rx="0.5"/>
+  <rect x="120" y="64" width="40" height="2" fill="#f97316"/>
+
+  <!-- Profilrubrik blockquote -->
+  <rect x="120" y="78" width="160" height="40" fill="#fff7ed" rx="2"/>
+  <rect x="120" y="78" width="2" height="40" fill="#f97316"/>
+  <rect x="128" y="86" width="80" height="3" fill="#9a3412" rx="0.5"/>
+  <rect x="128" y="96" width="148" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="128" y="103" width="140" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="128" y="110" width="130" height="2.5" fill="#475569" rx="0.5"/>
+
+  <!-- Sektion (serif rubriker) -->
+  <rect x="120" y="138" width="120" height="6" fill="#0f172a" rx="0.5"/>
+  <line x1="120" y1="148" x2="280" y2="148" stroke="#e5e7eb"/>
+  <rect x="120" y="148" width="42" height="2" fill="#f97316"/>
+
+  <rect x="120" y="160" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="120" y="168" width="80" height="3" fill="#db2777" rx="0.5"/>
+  <rect x="240" y="161" width="40" height="3" fill="#475569" rx="0.5"/>
+  <circle cx="122" cy="182" r="1.5" fill="#f97316"/>
+  <rect x="128" y="180" width="150" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="122" cy="190" r="1.5" fill="#db2777"/>
+  <rect x="128" y="188" width="140" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="120" y1="204" x2="280" y2="204" stroke="#f1f5f9"/>
+
+  <rect x="120" y="214" width="100" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="120" y="222" width="70" height="3" fill="#db2777" rx="0.5"/>
+  <rect x="240" y="215" width="40" height="3" fill="#475569" rx="0.5"/>
+  <circle cx="122" cy="236" r="1.5" fill="#f97316"/>
+  <rect x="128" y="234" width="150" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="122" cy="244" r="1.5" fill="#db2777"/>
+  <rect x="128" y="242" width="135" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Utbildning -->
+  <rect x="120" y="280" width="80" height="6" fill="#0f172a" rx="0.5"/>
+  <line x1="120" y1="290" x2="280" y2="290" stroke="#e5e7eb"/>
+  <rect x="120" y="290" width="42" height="2" fill="#f97316"/>
+  <rect x="120" y="302" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="120" y="310" width="100" height="3" fill="#475569" rx="0.5"/>
+</svg>

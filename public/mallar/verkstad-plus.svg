@@ -1,0 +1,73 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Blueprint-grid header -->
+  <defs>
+    <pattern id="bpGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#cbd5e1" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="300" height="120" fill="#f8fafc"/>
+  <rect x="0" y="0" width="300" height="120" fill="url(#bpGrid)"/>
+  <line x1="0" y1="120" x2="300" y2="120" stroke="#374151" stroke-width="2"/>
+
+  <!-- Rektangulärt foto med offset shadow -->
+  <rect x="225" y="22" width="50" height="62" fill="#94a3b8"/>
+  <rect x="222" y="20" width="50" height="62" fill="white" stroke="#374151" stroke-width="1.5"/>
+  <text x="247" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#374151">A</text>
+
+  <rect x="20" y="32" width="170" height="13" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="52" width="120" height="6" fill="#475569" rx="0.5"/>
+  <rect x="20" y="72" width="160" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="80" width="140" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="92" width="60" height="2.5" fill="#374151" rx="0.5"/>
+
+  <!-- Två-kolumn body -->
+  <!-- Vänster (huvud) -->
+  <rect x="20" y="138" width="80" height="5" fill="#374151" rx="0.5"/>
+  <rect x="20" y="148" width="170" height="1" fill="#374151"/>
+  <rect x="20" y="160" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="168" width="80" height="3" fill="#374151" rx="0.5"/>
+  <rect x="155" y="160" width="35" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="180" width="170" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="187" width="160" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="194" width="150" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="20" y1="210" x2="190" y2="210" stroke="#e5e7eb"/>
+
+  <rect x="20" y="220" width="100" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="228" width="70" height="3" fill="#374151" rx="0.5"/>
+  <rect x="20" y="240" width="170" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="247" width="160" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Standarder-block med ◆ -->
+  <rect x="20" y="272" width="80" height="5" fill="#374151" rx="0.5"/>
+  <rect x="20" y="282" width="170" height="1" fill="#374151"/>
+  <polygon points="22,294 25,290 28,294 25,298" fill="#475569"/>
+  <rect x="32" y="293" width="50" height="2.5" fill="#1f2937" rx="0.5"/>
+  <polygon points="22,304 25,300 28,304 25,308" fill="#475569"/>
+  <rect x="32" y="303" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Höger sidopanel: Verktygs-stack -->
+  <rect x="200" y="138" width="80" height="180" fill="#f8fafc" stroke="#e5e7eb" stroke-width="0.5" rx="2"/>
+  <rect x="208" y="148" width="60" height="5" fill="#374151" rx="0.5"/>
+  <rect x="208" y="162" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="170" width="50" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="178" width="55" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="186" width="40" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <rect x="208" y="210" width="60" height="5" fill="#374151" rx="0.5"/>
+  <rect x="208" y="224" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="232" width="50" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="240" width="55" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <rect x="208" y="262" width="60" height="5" fill="#374151" rx="0.5"/>
+  <rect x="208" y="276" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="284" width="50" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Utbildning -->
+  <rect x="20" y="346" width="80" height="5" fill="#374151" rx="0.5"/>
+  <rect x="20" y="356" width="170" height="1" fill="#374151"/>
+  <rect x="20" y="368" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="376" width="80" height="3" fill="#475569" rx="0.5"/>
+</svg>

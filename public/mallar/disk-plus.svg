@@ -1,0 +1,60 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Foto-banner gradient emerald-magenta -->
+  <defs>
+    <linearGradient id="dpGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="60%" stop-color="#db2777"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="100" fill="url(#dpGrad)"/>
+  <circle cx="50" cy="50" r="26" fill="white"/>
+  <circle cx="50" cy="50" r="22" fill="#fff7ed"/>
+  <text x="50" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#9a3412">A</text>
+  <rect x="92" y="38" width="120" height="11" fill="white" rx="1"/>
+  <rect x="92" y="56" width="80" height="6" fill="#fff7ed" rx="1"/>
+
+  <!-- Två-kolumn body -->
+  <!-- Vänster kolumn -->
+  <rect x="20" y="120" width="160" height="5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="132" width="155" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="140" width="150" height="3" fill="#475569" rx="0.5"/>
+
+  <rect x="20" y="166" width="120" height="6" fill="#9a3412" rx="1"/>
+  <rect x="20" y="180" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="188" width="80" height="3" fill="#db2777" rx="0.5"/>
+  <circle cx="22" cy="200" r="1.5" fill="#10b981"/>
+  <rect x="28" y="198" width="140" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="22" cy="208" r="1.5" fill="#10b981"/>
+  <rect x="28" y="206" width="135" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <rect x="20" y="232" width="120" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="240" width="80" height="3" fill="#db2777" rx="0.5"/>
+  <circle cx="22" cy="252" r="1.5" fill="#10b981"/>
+  <rect x="28" y="250" width="140" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="22" cy="260" r="1.5" fill="#10b981"/>
+  <rect x="28" y="258" width="125" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Höger sidopanel: Customer voice-block -->
+  <rect x="190" y="120" width="90" height="120" fill="#fdf2f8" rx="2"/>
+  <rect x="190" y="120" width="3" height="120" fill="#db2777"/>
+  <rect x="200" y="130" width="60" height="5" fill="#9a3412" rx="0.5"/>
+  <rect x="200" y="144" width="70" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="200" y="151" width="65" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="200" y="158" width="68" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="200" y="174" width="40" height="3" fill="#db2777" rx="0.5"/>
+
+  <rect x="190" y="252" width="90" height="6" fill="#9a3412" rx="1"/>
+  <rect x="190" y="266" width="60" height="3" fill="#10b981" rx="0.5"/>
+  <rect x="190" y="274" width="80" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="190" y="282" width="70" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="190" y="290" width="75" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Bottom serif sektion -->
+  <rect x="20" y="320" width="120" height="6" fill="#9a3412" rx="1"/>
+  <rect x="20" y="336" width="100" height="3.5" fill="#0f172a" rx="0.5"/>
+  <rect x="20" y="344" width="60" height="3" fill="#475569" rx="0.5"/>
+  <rect x="190" y="336" width="50" height="3" fill="#64748b" rx="0.5"/>
+</svg>

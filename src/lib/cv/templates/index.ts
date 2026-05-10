@@ -32,6 +32,17 @@ import { logistikTemplate } from './logistik/generator';
 import { verkstadTemplate } from './verkstad/generator';
 import { myndighetTemplate } from './myndighet/generator';
 import { kontoTemplate } from './konto/generator';
+import { diskPlusTemplate } from './disk-plus/generator';
+import { logistikPlusTemplate } from './logistik-plus/generator';
+import { verkstadPlusTemplate } from './verkstad-plus/generator';
+import { myndighetPlusTemplate } from './myndighet-plus/generator';
+import { kontoPlusTemplate } from './konto-plus/generator';
+import { norrskenPlusTemplate } from './norrsken-plus/generator';
+import { tidlosPlusTemplate } from './tidlos-plus/generator';
+import { stackPlusTemplate } from './stack-plus/generator';
+import { hantverkarePlusTemplate } from './hantverkare-plus/generator';
+import { studentPlusTemplate } from './student-plus/generator';
+import { sidopanelPlusTemplate } from './sidopanel-plus/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -106,7 +117,18 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'logistik': logistikTemplate,
   'verkstad': verkstadTemplate,
   'myndighet': myndighetTemplate,
-  'konto': kontoTemplate
+  'konto': kontoTemplate,
+  'disk-plus': diskPlusTemplate,
+  'logistik-plus': logistikPlusTemplate,
+  'verkstad-plus': verkstadPlusTemplate,
+  'myndighet-plus': myndighetPlusTemplate,
+  'konto-plus': kontoPlusTemplate,
+  'norrsken-plus': norrskenPlusTemplate,
+  'tidlos-plus': tidlosPlusTemplate,
+  'stack-plus': stackPlusTemplate,
+  'hantverkare-plus': hantverkarePlusTemplate,
+  'student-plus': studentPlusTemplate,
+  'sidopanel-plus': sidopanelPlusTemplate
 } as const;
 
 /**

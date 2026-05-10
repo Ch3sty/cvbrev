@@ -1,0 +1,56 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Foto med orange ram -->
+  <rect x="20" y="22" width="56" height="56" fill="#ea580c" rx="4"/>
+  <rect x="22" y="24" width="52" height="52" fill="#fff7ed" rx="3"/>
+  <text x="48" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#c2410c">A</text>
+
+  <rect x="86" y="30" width="180" height="14" fill="#0c0a09" rx="0.5"/>
+  <rect x="86" y="50" width="100" height="6" fill="#ea580c" rx="0.5"/>
+  <rect x="86" y="64" width="180" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="86" y="71" width="120" height="2.5" fill="#475569" rx="0.5"/>
+
+  <!-- Dubbel-accent: orange + grafit -->
+  <rect x="20" y="92" width="260" height="3" fill="#ea580c"/>
+  <rect x="200" y="92" width="80" height="3" fill="#374151"/>
+
+  <!-- Behörigheter-block -->
+  <rect x="20" y="106" width="260" height="36" fill="#fff7ed" stroke="#ea580c" stroke-width="0.5" rx="2"/>
+  <rect x="28" y="114" width="80" height="5" fill="#9a3412" rx="0.5"/>
+  <rect x="28" y="126" width="36" height="10" fill="white" stroke="#ea580c" stroke-width="0.5" rx="1"/>
+  <rect x="68" y="126" width="36" height="10" fill="white" stroke="#ea580c" stroke-width="0.5" rx="1"/>
+  <rect x="108" y="126" width="36" height="10" fill="white" stroke="#ea580c" stroke-width="0.5" rx="1"/>
+  <rect x="148" y="126" width="36" height="10" fill="white" stroke="#ea580c" stroke-width="0.5" rx="1"/>
+  <rect x="188" y="126" width="36" height="10" fill="white" stroke="#ea580c" stroke-width="0.5" rx="1"/>
+
+  <!-- Projekt & arbetsplatser pill-row -->
+  <rect x="20" y="156" width="160" height="5" fill="#9a3412" rx="0.5"/>
+  <rect x="20" y="170" width="50" height="11" fill="#fff7ed" stroke="#ea580c" stroke-width="0.5" rx="6"/>
+  <rect x="76" y="170" width="50" height="11" fill="#fff7ed" stroke="#ea580c" stroke-width="0.5" rx="6"/>
+  <rect x="132" y="170" width="50" height="11" fill="#fff7ed" stroke="#ea580c" stroke-width="0.5" rx="6"/>
+  <rect x="188" y="170" width="50" height="11" fill="#fff7ed" stroke="#ea580c" stroke-width="0.5" rx="6"/>
+
+  <!-- Sektion: Yrkeserfarenhet -->
+  <rect x="20" y="200" width="120" height="6" fill="#0c0a09" rx="1"/>
+  <rect x="20" y="212" width="40" height="2" fill="#ea580c"/>
+
+  <rect x="20" y="222" width="160" height="4" fill="#0c0a09" rx="0.5"/>
+  <rect x="220" y="223" width="40" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="232" width="100" height="3" fill="#ea580c" rx="0.5"/>
+  <rect x="20" y="244" width="220" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="252" width="200" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="20" y1="266" x2="280" y2="266" stroke="#fed7aa"/>
+
+  <rect x="20" y="278" width="140" height="4" fill="#0c0a09" rx="0.5"/>
+  <rect x="220" y="279" width="40" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="288" width="80" height="3" fill="#ea580c" rx="0.5"/>
+  <rect x="20" y="300" width="200" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Utbildning -->
+  <rect x="20" y="332" width="80" height="6" fill="#0c0a09" rx="1"/>
+  <rect x="20" y="344" width="40" height="2" fill="#ea580c"/>
+  <rect x="20" y="356" width="120" height="3.5" fill="#0c0a09" rx="0.5"/>
+  <rect x="20" y="364" width="80" height="3" fill="#475569" rx="0.5"/>
+</svg>

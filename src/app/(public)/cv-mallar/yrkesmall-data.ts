@@ -63,7 +63,7 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   'psykolog':                 { free: 'tidlos-formell', premium: 'klinik' },
   'kurator':                  { free: 'norrsken',       premium: 'pedagog' },
   'boendestod':               { free: 'norrsken',       premium: 'varden-omsorg' },
-  'vardadministrator':        { free: 'konto',          premium: 'varden-omsorg' },
+  'vardadministrator':        { free: 'konto',          premium: 'konto-plus' },
 
   // Utbildning (9)
   'forskollarare':            { free: 'norrsken',       premium: 'pedagog' },
@@ -74,29 +74,29 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   'elevassistent':            { free: 'norrsken',       premium: 'pedagog' },
   'fritidspedagog':           { free: 'norrsken',       premium: 'pedagog' },
   'fritidsledare':            { free: 'norrsken',       premium: 'pedagog' },
-  'student':                  { free: 'student-startup', premium: 'aspekt' },
+  'student':                  { free: 'student-startup', premium: 'student-plus' },
 
-  // Service - butik/frontline (8) - NYA Disk-mallen
-  'butiksbitrade':            { free: 'disk',           premium: 'aurora' },
-  'butikssaljare':            { free: 'disk',           premium: 'aurora' },
-  'butikschef':               { free: 'disk',           premium: 'konsult-kompakt' },
-  'kassorska':                { free: 'disk',           premium: 'aurora' },
-  'kundtjanstmedarbetare':    { free: 'disk',           premium: 'aurora' },
-  'kundtjanst':               { free: 'disk',           premium: 'aurora' },
-  'hotellvard':               { free: 'disk',           premium: 'aurora' },
-  'receptionist':             { free: 'disk',           premium: 'aurora' },
-  'kundradgivare':            { free: 'norrsken',       premium: 'aspekt' },
+  // Service - butik/frontline (8) - Disk + Disk Plus
+  'butiksbitrade':            { free: 'disk',           premium: 'disk-plus' },
+  'butikssaljare':            { free: 'disk',           premium: 'disk-plus' },
+  'butikschef':               { free: 'disk',           premium: 'disk-plus' },
+  'kassorska':                { free: 'disk',           premium: 'disk-plus' },
+  'kundtjanstmedarbetare':    { free: 'disk',           premium: 'disk-plus' },
+  'kundtjanst':               { free: 'disk',           premium: 'disk-plus' },
+  'hotellvard':               { free: 'disk',           premium: 'disk-plus' },
+  'receptionist':             { free: 'disk',           premium: 'disk-plus' },
+  'kundradgivare':            { free: 'norrsken',       premium: 'norrsken-plus' },
 
-  // Service - lager/logistik (9) - NYA Logistik-mallen
-  'lagerarbetare':            { free: 'logistik',       premium: 'konsult-kompakt' },
-  'truckforare':              { free: 'logistik',       premium: 'konsult-kompakt' },
-  'logistiker':               { free: 'logistik',       premium: 'aspekt' },
-  'lagerchef':                { free: 'logistik',       premium: 'konsult-kompakt' },
-  'terminalarbetare':         { free: 'logistik',       premium: 'konsult-kompakt' },
-  'logistikassistent':        { free: 'logistik',       premium: 'konsult-kompakt' },
-  'fastighetsskotare':        { free: 'bygg',           premium: 'aspekt' },
-  'servicemedarbetare':       { free: 'logistik',       premium: 'aspekt' },
-  'lokalvardare':             { free: 'logistik',       premium: 'aspekt' },
+  // Service - lager/logistik (9) - Logistik + Logistik Plus
+  'lagerarbetare':            { free: 'logistik',       premium: 'logistik-plus' },
+  'truckforare':              { free: 'logistik',       premium: 'logistik-plus' },
+  'logistiker':               { free: 'logistik',       premium: 'logistik-plus' },
+  'lagerchef':                { free: 'logistik',       premium: 'logistik-plus' },
+  'terminalarbetare':         { free: 'logistik',       premium: 'logistik-plus' },
+  'logistikassistent':        { free: 'logistik',       premium: 'logistik-plus' },
+  'fastighetsskotare':        { free: 'bygg',           premium: 'hantverkare-plus' },
+  'servicemedarbetare':       { free: 'logistik',       premium: 'logistik-plus' },
+  'lokalvardare':             { free: 'logistik',       premium: 'logistik-plus' },
 
   // Service - gastro (6)
   'kock':                     { free: 'stack-developer', premium: 'servering' },
@@ -109,41 +109,41 @@ export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }>
   // Service - säljare/account (3)
   'saljare':                  { free: 'norrsken',       premium: 'aurora' },
   'account-manager':          { free: 'norrsken',       premium: 'aurora' },
-  'sommarjobb':               { free: 'student-startup', premium: 'aspekt' },
+  'sommarjobb':               { free: 'student-startup', premium: 'student-plus' },
 
-  // Teknik - dev (3)
-  'systemutvecklare':         { free: 'stack-developer', premium: 'aspekt' },
-  'devops-engineer':          { free: 'stack-developer', premium: 'aspekt' },
-  'it-konsult':               { free: 'stack-developer', premium: 'aspekt' },
+  // Teknik - dev (3) - Stack + Stack Plus
+  'systemutvecklare':         { free: 'stack-developer', premium: 'stack-plus' },
+  'devops-engineer':          { free: 'stack-developer', premium: 'stack-plus' },
+  'it-konsult':               { free: 'stack-developer', premium: 'stack-plus' },
 
   // Teknik - produkt/strategi (3)
   'projektledare-it':         { free: 'linje',          premium: 'aspekt' },
   'scrum-master':             { free: 'linje',          premium: 'aspekt' },
   'produktchef':              { free: 'linje',          premium: 'magasin' },
 
-  // Teknik - industri (3) - NYA Verkstad-mallen
-  'ingenjor':                 { free: 'verkstad',       premium: 'konsult-kompakt' },
-  'automationsingenior':      { free: 'verkstad',       premium: 'konsult-kompakt' },
-  'konstruktor':              { free: 'verkstad',       premium: 'konsult-kompakt' },
+  // Teknik - industri (3) - Verkstad + Verkstad Plus
+  'ingenjor':                 { free: 'verkstad',       premium: 'verkstad-plus' },
+  'automationsingenior':      { free: 'verkstad',       premium: 'verkstad-plus' },
+  'konstruktor':              { free: 'verkstad',       premium: 'verkstad-plus' },
 
-  // Ekonomi (7) - NYA Konto-mallen
-  'ekonomiassistent':         { free: 'konto',          premium: 'aspekt' },
-  'administrativ-assistent':  { free: 'konto',          premium: 'aspekt' },
-  'redovisningsekonom':       { free: 'konto',          premium: 'konsult-kompakt' },
-  'controller':               { free: 'konto',          premium: 'konsult-kompakt' },
-  'ekonom':                   { free: 'konto',          premium: 'konsult-kompakt' },
-  'hr-specialist':            { free: 'konto',          premium: 'aspekt' },
+  // Ekonomi (7) - Konto + Konto Plus
+  'ekonomiassistent':         { free: 'konto',          premium: 'konto-plus' },
+  'administrativ-assistent':  { free: 'konto',          premium: 'konto-plus' },
+  'redovisningsekonom':       { free: 'konto',          premium: 'konto-plus' },
+  'controller':               { free: 'konto',          premium: 'konto-plus' },
+  'ekonom':                   { free: 'konto',          premium: 'konto-plus' },
+  'hr-specialist':            { free: 'konto',          premium: 'konto-plus' },
 
-  // Offentlig sektor (7) - NYA Myndighet-mallen
-  'administrator':            { free: 'myndighet',      premium: 'aspekt' },
-  'handlaggare':              { free: 'myndighet',      premium: 'aspekt' },
-  'lss-handlaggare':          { free: 'myndighet',      premium: 'aspekt' },
-  'socialsekreterare':        { free: 'myndighet',      premium: 'pedagog' },
-  'kontorsassistent':         { free: 'myndighet',      premium: 'aspekt' },
-  'chef':                     { free: 'tidlos-formell', premium: 'atlas' },
-  'enhetschef':               { free: 'tidlos-formell', premium: 'atlas' },
-  'projektledare':            { free: 'norrsken',       premium: 'aspekt' },
-  'teamledare':               { free: 'norrsken',       premium: 'aspekt' },
+  // Offentlig sektor (7) - Myndighet + Myndighet Plus
+  'administrator':            { free: 'myndighet',      premium: 'myndighet-plus' },
+  'handlaggare':              { free: 'myndighet',      premium: 'myndighet-plus' },
+  'lss-handlaggare':          { free: 'myndighet',      premium: 'myndighet-plus' },
+  'socialsekreterare':        { free: 'myndighet',      premium: 'myndighet-plus' },
+  'kontorsassistent':         { free: 'myndighet',      premium: 'myndighet-plus' },
+  'chef':                     { free: 'tidlos-formell', premium: 'tidlos-plus' },
+  'enhetschef':               { free: 'tidlos-formell', premium: 'tidlos-plus' },
+  'projektledare':            { free: 'norrsken',       premium: 'norrsken-plus' },
+  'teamledare':               { free: 'norrsken',       premium: 'norrsken-plus' },
 }
 
 /** Lista over alla yrkesmall-slugs (anvands av sitemap, generateStaticParams etc) */

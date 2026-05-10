@@ -1,0 +1,58 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Centrerad serif-header med foto -->
+  <circle cx="150" cy="50" r="28" fill="#0c4a6e"/>
+  <circle cx="150" cy="50" r="24" fill="#fff"/>
+  <text x="150" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#0c4a6e">A</text>
+
+  <rect x="80" y="92" width="140" height="11" fill="#0c4a6e" rx="0.5"/>
+  <rect x="105" y="110" width="90" height="5" fill="#1e3a8a" rx="0.5"/>
+  <rect x="60" y="124" width="180" height="2" fill="#475569" rx="0.5"/>
+
+  <!-- Divider med guld-skugga -->
+  <line x1="40" y1="138" x2="260" y2="138" stroke="#1e3a8a" stroke-width="1"/>
+  <line x1="40" y1="142" x2="260" y2="142" stroke="#a88b5c" stroke-width="0.7"/>
+
+  <!-- Två-kolumn body -->
+  <!-- Vänster huvud -->
+  <rect x="20" y="160" width="80" height="3" fill="#a88b5c" rx="0.5"/>
+  <rect x="20" y="170" width="180" height="6" fill="#0c4a6e" rx="0.5"/>
+  <rect x="20" y="184" width="170" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="20" y="191" width="170" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="20" y="198" width="160" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="20" y="205" width="120" height="2.5" fill="#475569" rx="0.5"/>
+
+  <rect x="20" y="226" width="100" height="5" fill="#1e3a8a" rx="0.5"/>
+  <rect x="20" y="236" width="170" height="0.7" fill="#1e3a8a"/>
+  <rect x="20" y="244" width="120" height="3.5" fill="#0c4a6e" rx="0.5"/>
+  <rect x="20" y="252" width="80" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="262" width="170" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="269" width="160" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="20" y1="282" x2="190" y2="282" stroke="#e5e7eb"/>
+
+  <rect x="20" y="290" width="120" height="3.5" fill="#0c4a6e" rx="0.5"/>
+  <rect x="20" y="298" width="70" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="308" width="170" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="315" width="160" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Höger sidopanel: Volymsstatistik blockquote -->
+  <rect x="200" y="160" width="80" height="120" fill="#f8fafc" rx="2"/>
+  <rect x="200" y="160" width="2" height="120" fill="#a88b5c"/>
+  <rect x="208" y="170" width="60" height="3" fill="#a88b5c" rx="0.5"/>
+  <rect x="208" y="180" width="60" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="208" y="187" width="55" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="208" y="194" width="50" height="2.5" fill="#475569" rx="0.5"/>
+  <rect x="208" y="208" width="40" height="3" fill="#1e3a8a" rx="0.5"/>
+
+  <rect x="200" y="298" width="80" height="5" fill="#1e3a8a" rx="0.5"/>
+  <rect x="208" y="312" width="60" height="2.5" fill="#1f2937" rx="0.5"/>
+  <rect x="208" y="319" width="55" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <!-- Utbildning -->
+  <rect x="20" y="346" width="100" height="5" fill="#1e3a8a" rx="0.5"/>
+  <rect x="20" y="356" width="170" height="0.7" fill="#1e3a8a"/>
+  <rect x="20" y="364" width="120" height="3.5" fill="#0c4a6e" rx="0.5"/>
+  <rect x="20" y="372" width="80" height="3" fill="#475569" rx="0.5"/>
+</svg>

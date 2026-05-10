@@ -1,0 +1,63 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="white"/>
+
+  <!-- Foto med cyan ram + eyebrow + serif name -->
+  <circle cx="48" cy="50" r="26" fill="#06b6d4"/>
+  <circle cx="48" cy="50" r="22" fill="#ecfeff"/>
+  <text x="48" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#0e7490">A</text>
+
+  <!-- Eyebrow pill -->
+  <rect x="86" y="28" width="80" height="9" fill="#ecfeff" rx="4"/>
+  <text x="92" y="34" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0e7490">SÖKER · UTVECKLARE</text>
+
+  <!-- Serif name -->
+  <rect x="86" y="44" width="180" height="14" fill="#0c4a6e" rx="0.5"/>
+  <rect x="86" y="64" width="120" height="6" fill="#0e7490" rx="0.5"/>
+  <rect x="86" y="76" width="100" height="2.5" fill="#475569" rx="0.5"/>
+
+  <line x1="20" y1="92" x2="280" y2="92" stroke="#06b6d4" stroke-width="2"/>
+
+  <!-- Sammanfattning -->
+  <rect x="20" y="106" width="260" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="114" width="240" height="3" fill="#1f2937" rx="0.5"/>
+  <rect x="20" y="122" width="200" height="3" fill="#1f2937" rx="0.5"/>
+
+  <!-- Utbildning först (ung student) -->
+  <rect x="20" y="144" width="100" height="6" fill="#0c4a6e" rx="1"/>
+  <rect x="20" y="156" width="260" height="2" fill="#06b6d4"/>
+
+  <rect x="20" y="168" width="160" height="4" fill="#0c4a6e" rx="0.5"/>
+  <rect x="220" y="169" width="50" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="178" width="140" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="188" width="220" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="20" y1="200" x2="280" y2="200" stroke="#f1f5f9"/>
+
+  <rect x="20" y="210" width="160" height="4" fill="#0c4a6e" rx="0.5"/>
+  <rect x="220" y="211" width="50" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="220" width="140" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- Praktik & arbetslivserfarenhet -->
+  <rect x="20" y="244" width="160" height="6" fill="#0c4a6e" rx="1"/>
+  <rect x="20" y="256" width="260" height="2" fill="#06b6d4"/>
+
+  <rect x="20" y="268" width="120" height="4" fill="#0c4a6e" rx="0.5"/>
+  <rect x="220" y="269" width="50" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="278" width="80" height="3" fill="#475569" rx="0.5"/>
+  <circle cx="22" cy="294" r="1.8" fill="#06b6d4"/>
+  <rect x="28" y="292" width="220" height="2.5" fill="#1f2937" rx="0.5"/>
+  <circle cx="22" cy="302" r="1.8" fill="#06b6d4"/>
+  <rect x="28" y="300" width="200" height="2.5" fill="#1f2937" rx="0.5"/>
+
+  <line x1="20" y1="316" x2="280" y2="316" stroke="#f1f5f9"/>
+
+  <rect x="20" y="326" width="100" height="4" fill="#0c4a6e" rx="0.5"/>
+  <rect x="220" y="327" width="50" height="3" fill="#475569" rx="0.5"/>
+  <rect x="20" y="336" width="80" height="3" fill="#475569" rx="0.5"/>
+
+  <!-- Kompetenser -->
+  <rect x="20" y="358" width="100" height="6" fill="#0c4a6e" rx="1"/>
+  <rect x="20" y="370" width="260" height="2" fill="#06b6d4"/>
+  <rect x="20" y="380" width="40" height="3" fill="#0e7490" rx="0.5"/>
+  <rect x="70" y="380" width="200" height="3" fill="#1f2937" rx="0.5"/>
+</svg>

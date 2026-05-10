@@ -96,7 +96,7 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri' | 'pedagog' | 'aspekt' | 'klinik' | 'skymning' | 'bygg' | 'forskare' | 'servering' | 'linje' | 'spektrum' | 'kvist' | 'magasin' | 'karta' | 'avtryck' | 'disk' | 'logistik' | 'verkstad' | 'myndighet' | 'konto';
+export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri' | 'pedagog' | 'aspekt' | 'klinik' | 'skymning' | 'bygg' | 'forskare' | 'servering' | 'linje' | 'spektrum' | 'kvist' | 'magasin' | 'karta' | 'avtryck' | 'disk' | 'logistik' | 'verkstad' | 'myndighet' | 'konto' | 'disk-plus' | 'logistik-plus' | 'verkstad-plus' | 'myndighet-plus' | 'konto-plus' | 'norrsken-plus' | 'tidlos-plus' | 'stack-plus' | 'hantverkare-plus' | 'student-plus' | 'sidopanel-plus';
 
 export interface CVTemplate {
   id: CVTemplateType;
