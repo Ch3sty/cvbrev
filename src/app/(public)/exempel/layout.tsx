@@ -2,16 +2,15 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'CV-mallar och personligt brev-mallar: 151 färdiga exempel (gratis) | Jobbcoach.ai',
+    'CV-exempel, brev-exempel och CV-mallar för svenska yrken | Jobbcoach.ai',
   description:
-    '75 CV-mallar och 75 mallar för personligt brev fördelade över sex branscher. ATS-optimerade och gratis att använda för svenska arbetsgivare.',
+    'Vi har 75 CV-exempel, 75 exempel på personligt brev och 25 färdiga CV-mallar. Hitta ett exempel som passar ditt yrke eller välj en mall-design som matchar din bransch.',
   keywords:
-    'cv mall, cv mallar, cv mall gratis, gratis cv mall, personligt brev mall, personligt brev mall gratis, mall personligt brev, cv mall ladda ner, cv mall word, cv exempel, personligt brev exempel, jobbansökan',
+    'cv exempel, exempel cv, bra cv exempel, personligt brev exempel, exempel på personligt brev, spontanansökan exempel, cv mall, cv mallar, jobbansökan',
   openGraph: {
-    title:
-      '151 CV-mallar och mallar för personligt brev | Jobbcoach.ai',
+    title: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
     description:
-      'Sex branscher, 151 färdiga mallar. Vi visar exakt hur en stark ansökan ser ut för ditt yrke. Helt gratis.',
+      'Vi har 175 färdiga exempel och mallar för svenska yrken. Helt gratis att använda.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/exempel',
@@ -19,9 +18,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '151 CV-mallar och mallar för personligt brev | Jobbcoach.ai',
+    title: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
     description:
-      'Sex branscher, 151 färdiga mallar. Anpassade för svenska arbetsgivare. Helt gratis.',
+      'CV-exempel, exempel på personligt brev och färdiga mall-designer. Helt gratis.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/exempel',

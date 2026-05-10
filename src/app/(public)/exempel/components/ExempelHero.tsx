@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, FileText, Mail } from 'lucide-react'
+import { ArrowRight, FileText, Mail, LayoutGrid } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
 import { ExempelHeroIcon } from './illustrations/ExempelIcons'
-import { TOTAL_EXEMPEL, TOTAL_CV_YRKEN, TOTAL_BREV_YRKEN } from './exempel-data'
+import { TOTAL_CV_YRKEN, TOTAL_BREV_YRKEN } from './exempel-data'
 
 const TRUST = [
   'Helt gratis',
@@ -41,11 +41,11 @@ export default function ExempelHero() {
                   background: 'linear-gradient(135deg, #F97316, #DC2626)',
                 }}
               />
-              Mall-bibliotek
+              Inspiration
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-              CV-mallar och brev-mallar:{' '}
+              CV-exempel, brev-exempel och{' '}
               <span
                 style={{
                   background:
@@ -55,15 +55,14 @@ export default function ExempelHero() {
                   backgroundClip: 'text',
                 }}
               >
-                {TOTAL_EXEMPEL} färdiga exempel.
+                CV-mallar för svenska yrken.
               </span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-xl mx-auto lg:mx-0">
-              {TOTAL_CV_YRKEN} CV-mallar och {TOTAL_BREV_YRKEN} mallar för
-              personligt brev, fördelade över sex branscher. Hitta rätt mall
-              för ditt yrke och använd den som utgångspunkt för din egen
-              ansökan.
+              Vi har {TOTAL_CV_YRKEN} CV-exempel och {TOTAL_BREV_YRKEN} exempel
+              på personligt brev fördelade över sex branscher. Behöver du en
+              färdig design istället? Då finns 25 CV-mallar att välja mellan.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
@@ -77,18 +76,25 @@ export default function ExempelHero() {
                 }}
               >
                 <FileText className="w-5 h-5" strokeWidth={2.5} />
-                Bläddra CV-mallar
+                Se CV-exempel
                 <ArrowRight
                   className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                   strokeWidth={2.5}
                 />
               </Link>
               <Link
+                href="/cv-mallar"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white border-2 border-orange-200 text-slate-900 font-bold text-base w-full sm:w-auto min-h-[52px] hover:border-orange-300 hover:bg-orange-50/50 transition-colors"
+              >
+                <LayoutGrid className="w-5 h-5 text-orange-600" strokeWidth={2.5} />
+                Bläddra CV-mallar
+              </Link>
+              <Link
                 href="/personligt-brev-exempel"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white border-2 border-orange-200 text-slate-900 font-bold text-base w-full sm:w-auto min-h-[52px] hover:border-orange-300 hover:bg-orange-50/50 transition-colors"
               >
                 <Mail className="w-5 h-5 text-orange-600" strokeWidth={2.5} />
-                Bläddra brev-mallar
+                Brev-exempel
               </Link>
             </div>
 

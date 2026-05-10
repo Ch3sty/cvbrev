@@ -1,7 +1,8 @@
 /**
- * /exempel — hub-sida for hela exempel-biblioteket.
- * Sektioner: Hero -> Kategori-paneler (CV + Brev) -> Populara yrken (12) ->
- * Bransch-hub (6 kategorier) -> Sa anvander du -> FAQ -> CTA-band.
+ * /exempel - hub-sida for hela exempel-biblioteket.
+ * Sektioner: Hero -> Kategori-paneler (CV-exempel + CV-mallar + Brev) ->
+ * Populara yrken (12) -> Bransch-hub (6 kategorier) -> Sa anvander du ->
+ * FAQ -> CTA-band.
  * SEO: WebPage + BreadcrumbList + FAQPage + ItemList JSON-LD.
  */
 import Breadcrumb from '@/components/Breadcrumb'
@@ -27,8 +28,8 @@ export default function ExempelPage() {
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: `${TOTAL_EXEMPEL} CV-mallar och mallar för personligt brev | Jobbcoach.ai`,
-    description: `${TOTAL_CV_YRKEN} CV-mallar och ${TOTAL_BREV_YRKEN} mallar för personligt brev fördelade över sex branscher. ATS-optimerade och gratis.`,
+    name: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
+    description: `${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} exempel på personligt brev fördelade över sex branscher, plus 25 färdiga CV-mallar att välja design från. Allt gratis.`,
     url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',
@@ -73,20 +74,20 @@ export default function ExempelPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Populära CV-mallar och brev-mallar',
-    description: 'De mest sökta yrkesspecifika mallarna för CV och personligt brev i Sverige',
-    numberOfItems: POPULARA_YRKEN.length * 2, // CV + brev for varje
+    name: 'Populära CV-exempel och brev-exempel',
+    description: 'De mest sökta yrkesspecifika CV-exemplen och brev-exemplen i Sverige',
+    numberOfItems: POPULARA_YRKEN.length * 2,
     itemListElement: POPULARA_YRKEN.flatMap((yrke, idx) => [
       {
         '@type': 'ListItem',
         position: idx * 2 + 1,
-        name: `CV-mall: ${yrke.namn}`,
+        name: `CV-exempel: ${yrke.namn}`,
         url: `https://www.jobbcoach.ai/cv-exempel/${yrke.slug}`,
       },
       {
         '@type': 'ListItem',
         position: idx * 2 + 2,
-        name: `Mall för personligt brev: ${yrke.namn}`,
+        name: `Personligt brev exempel: ${yrke.namn}`,
         url: `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke.slug}`,
       },
     ]),
