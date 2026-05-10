@@ -14587,6 +14587,3111 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'kurator': {
+    seoIntro:
+      'Som kurator bedöms du på din samtalsmetodik, juridiska vana och systemkunskap. Skolor, vårdcentraler, sjukhus, socialtjänst och privata aktörer har konstant öppna kuratorstjänster, men chefer slänger CV:n som inte tydligt visar legitimation, behörighet och målgruppsvana. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVår mall för kuratorer lyfter socionomexamen, eventuell vidareutbildning (KBT, MI, traumafokuserad terapi) och målgrupp som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, målgrupp (barn, ungdomar, vuxna, äldre) och samtalsmetodik syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen, vidareutbildningar (steg 1 i KBT, MI, ACT, traumafokuserad samtalsterapi), målgrupp och inriktning (skolkurator, sjukvårdskurator, socialtjänst), juridisk vana (SoL, LSS, OSL, HSL), system (Procapita, Treserva, Take Care, Cosmic, IST Lärande), samverkansvana (skola, hem, BUP, polis), samt eventuell handledningskompetens.\n\nNedan hittar du två CV-mallar designade för kuratorsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer inom skola, vård och socialtjänst faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Socionomexamen och steg 1',
+        description: 'Skriv ut socionomexamen, lärosäte och år. Steg 1 i KBT eller psykodynamisk grundutbildning är meriterande och ska ligga separat under utbildning eller vidareutbildning.',
+      },
+      {
+        icon: 'Target',
+        title: 'Målgrupp och inriktning',
+        description: 'Skolkurator, sjukvårdskurator, BUP-kurator, kurator inom socialtjänst eller habilitering är olika roller. Skriv tydligt vilken målgrupp och vilken kontext du arbetat i.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Samtalsmetodik i klartext',
+        description: 'KBT, MI, ACT, traumafokuserad samtalsterapi, lösningsfokuserad metod. Skriv ut metoderna du behärskar och i vilken kontext du använt dem. Chefer söker exakta termer.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Juridisk vana',
+        description: 'SoL, LSS, OSL, HSL, skollagen. Skriv vilken lagstiftning du arbetat utifrån och eventuell vana av orosanmälan, vårdnadstvist, anmälningsplikt och samverkan med myndigheter.',
+      },
+      {
+        icon: 'Award',
+        title: 'Samverkan och nätverk',
+        description: 'Samverkan med BUP, skola, polis, socialtjänst, hälso- och sjukvård. Konkretisera nätverksmöten, SIP-möten, hemmaplanslösningar och multiprofessionella team du arbetat i.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Dokumentation och system',
+        description: 'Procapita, Treserva, Take Care, Cosmic, IST Lärande. Vilka dokumentationssystem du behärskar är CV-kritiskt för både skola, vård och socialtjänst.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och behörighet överst',
+        description: 'Vår mall lyfter socionomexamen och vidareutbildningar i sidopanelen. Enhetschefer ser din formella behörighet på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för samtalsmetodik',
+        description: 'KBT, MI, ACT och annan terapeutisk metod ligger i eget kompetensblock. Differentierar dig från kuratorer som bara har grundexamen.',
+      },
+      {
+        title: 'Tydlig målgrupp per arbetsplats',
+        description: 'Mallen lyfter målgrupp (barn, ungdom, vuxna) per uppdragsgivare. Skolkurator-erfarenhet och sjukvårdskurator-erfarenhet konkurrerar inte.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'För senior kurator inom skola eller habilitering lägger Pedagog till foto och varm färgton. Skapar trygghet och passar verksamheter där personlig kontakt är central.',
+      },
+      {
+        title: 'Plats för juridisk erfarenhet',
+        description: 'Mallen har dedikerade rader för lagstiftning du arbetat med (SoL, LSS, OSL, HSL). Visar att du behärskar både samtal och myndighetsutövning.',
+      },
+      {
+        title: 'Plats för handledning och uppdrag',
+        description: 'Egna rader för handledning, mentorsuppdrag och eventuell privat verksamhet. Senior kurator har ofta extra uppdrag som inte passar i ren CV-rad.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Samtal och stöd',
+        punkter: [
+          'Genomföra individuella stödsamtal och krissamtal',
+          'Hålla psykosocial kartläggning och bedömning',
+          'Arbeta med korttidsbehandling enligt KBT, MI eller ACT',
+          'Stötta vid krisreaktion, sorg, stress och relationsproblem',
+        ],
+      },
+      {
+        rubrik: 'Familje- och nätverksarbete',
+        punkter: [
+          'Genomföra familjesamtal och föräldrastöd',
+          'Driva SIP-möten och nätverksmöten med skola, vård, socialtjänst',
+          'Stötta familjer vid separation, vårdnadstvist eller LVU',
+          'Samverka med BUP, polis, kriminalvård och frivilligorganisationer',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och juridik',
+        punkter: [
+          'Dokumentera samtal och bedömningar enligt OSL och HSL',
+          'Genomföra orosanmälan enligt 14 kap 1 § SoL',
+          'Hantera sekretess inom skola, vård och socialtjänst',
+          'Bidra till utredning enligt SoL, LSS eller skollagen',
+        ],
+      },
+      {
+        rubrik: 'Förebyggande och hälsofrämjande',
+        punkter: [
+          'Driva grupp-insatser kring stress, ångest, kost eller relationer',
+          'Hålla föreläsningar för elever, personal eller patienter',
+          'Bidra till elevhälsoarbete och systematiskt arbetsmiljöarbete',
+          'Utveckla rutiner för krisstöd och våld i nära relation',
+        ],
+      },
+      {
+        rubrik: 'Handledning och konsultation',
+        punkter: [
+          'Handleda kollegor i komplexa ärenden',
+          'Konsultera lärare, sjuksköterskor eller socialsekreterare',
+          'Genomföra extern handledning vid auktorisation',
+          'Bidra till kompetensutveckling i arbetsgruppen',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, ramlag för socialtjänstens arbete.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, central för dokumentation.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, gäller sjukvårdskurator.' },
+          { term: 'Skollagen', forklaring: 'Reglerar elevhälsa och skolkurators uppdrag.' },
+          { term: 'LVU', forklaring: 'Lagen om vård av unga, tvångsvård för barn.' },
+        ],
+      },
+      {
+        kategori: 'Samtalsmetodik',
+        termer: [
+          { term: 'KBT', forklaring: 'Kognitiv beteendeterapi, evidensbaserad samtalsmetod.' },
+          { term: 'MI', forklaring: 'Motiverande samtal, evidensbaserad förändringsmetod.' },
+          { term: 'ACT', forklaring: 'Acceptance and Commitment Therapy, tredje vågens KBT.' },
+          { term: 'Lösningsfokuserad metod', forklaring: 'Korttidsmetodik fokuserad på undantag och resurser.' },
+          { term: 'Traumafokuserad samtalsterapi', forklaring: 'Specifik metod vid trauma och PTSD.' },
+          { term: 'Steg 1', forklaring: 'Grundutbildning i KBT eller psykodynamisk terapi (45 hp).' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'Procapita', forklaring: 'Verksamhetssystem för socialtjänst och skola.' },
+          { term: 'Treserva', forklaring: 'Tieto Evry-system för socialtjänst och äldreomsorg.' },
+          { term: 'Take Care', forklaring: 'Patientjournalsystem dominerande inom region Stockholm.' },
+          { term: 'Cosmic', forklaring: 'Patientjournalsystem från Cambio, vanlig i flera regioner.' },
+          { term: 'IST Lärande', forklaring: 'Skolsystem för dokumentation av elevhälsa.' },
+          { term: 'Tieto Lifecare', forklaring: 'Verksamhetssystem för LSS och socialtjänst.' },
+        ],
+      },
+      {
+        kategori: 'Samverkan',
+        termer: [
+          { term: 'SIP', forklaring: 'Samordnad individuell plan mellan kommun och region.' },
+          { term: 'EHM', forklaring: 'Elevhälsomöte i skolan med kurator, psykolog, skolsköterska.' },
+          { term: 'BUP', forklaring: 'Barn- och ungdomspsykiatrin, primär samverkanspart.' },
+          { term: 'Orosanmälan', forklaring: 'Anmälan enligt 14 kap 1 § SoL vid oro för barn.' },
+          { term: 'Hemmaplanslösning', forklaring: 'Insatser i hemmet istället för placering.' },
+          { term: 'Anmälningsplikt', forklaring: 'Lagstadgad skyldighet att anmäla oro för barn.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Skola och elevhälsa',
+        exempel: [
+          'Kommunala grundskolor och gymnasieskolor',
+          'Friskolekoncerner (AcadeMedia, Internationella Engelska Skolan, Kunskapsskolan)',
+          'Centrala elevhälsoteam i större kommuner',
+          'Specialpedagogiska skolmyndigheten (SPSM)',
+        ],
+      },
+      {
+        kategori: 'Vård och sjukvård',
+        exempel: [
+          'Sjukvårdskurator vid universitetssjukhus (Karolinska, Sahlgrenska, Akademiska)',
+          'Vårdcentraler och primärvård',
+          'BUP, vuxenpsykiatri, beroendecentrum',
+          'Habilitering och rehabilitering',
+        ],
+      },
+      {
+        kategori: 'Socialtjänst och kommun',
+        exempel: [
+          'Individ- och familjeomsorg (IFO)',
+          'Familjerätt och familjerådgivning',
+          'Kommunal familjerådgivning',
+          'Barn- och ungdomsenheter',
+        ],
+      },
+      {
+        kategori: 'Privat och idéburen sektor',
+        exempel: [
+          'Privata vårdgivare (Capio, Aleris, Praktikertjänst)',
+          'BRIS, Rädda Barnen, Kvinnojourer',
+          'Företagshälsovård (Avonova, Previa, Feelgood)',
+          'Egen verksamhet med F-skatt',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Socionomprogrammet (3,5 år, 210 hp)',
+        beskrivning: 'Bredprogrammet vid universitet (Stockholm, Göteborg, Lund, Umeå). Krävs för titeln kurator i de flesta verksamheter. Inkluderar verksamhetsförlagd utbildning och socialjuridik.',
+      },
+      {
+        rubrik: 'Steg 1 i KBT eller psykodynamisk terapi',
+        beskrivning: '45 hp grundutbildning i samtalsterapi. Krav för många kurator-roller inom vård och starkt meriterande inom skola och socialtjänst. Ger behörighet att arbeta med korttidsbehandling.',
+      },
+      {
+        rubrik: 'Vidareutbildningar (MI, ACT, trauma)',
+        beskrivning: 'Korta utbildningar i specifika metoder. MI-utbildning är vanlig inom socialtjänst och primärvård. Traumafokuserad samtalsterapi efterfrågas inom BUP, kvinnojour och flyktingmottagning.',
+      },
+      {
+        rubrik: 'Auktorisation som socionom',
+        beskrivning: 'Akademikerförbundet SSR auktoriserar erfarna socionomer. Kräver minst tre års yrkeserfarenhet plus fortbildning. Ger högre lön och stärker positionen vid förhandling.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Socionomexamen från universitet',
+        'Steg 1 i KBT eller psykodynamisk terapi',
+        'Motiverande samtal (MI)',
+        'ACT och tredje vågens KBT',
+        'Traumafokuserad samtalsterapi',
+        'Procapita, Treserva, Take Care, Cosmic',
+        'IST Lärande och elevhälsodokumentation',
+        'SoL, LSS, OSL, HSL och skollagen',
+        'Orosanmälan och anmälningsplikt',
+        'SIP-möten och samverkan med BUP',
+        'Krisstöd och debriefing',
+        'Familjesamtal och föräldrastöd',
+      ],
+      personliga: [
+        'Empatisk och lugn i kris',
+        'Strukturerad i dokumentation',
+        'Tydlig i samverkan',
+        'Pragmatisk vid svåra ärenden',
+        'Lyhörd för barn och ungdomar',
+        'Reflekterande i metodval',
+        'Trygg i myndighetsutövning',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren skolkurator med socionomexamen från Göteborgs universitet och steg 1 i KBT. Sex års erfarenhet från grundskolan med fokus på elevhälsa, krisstöd och föräldrasamverkan. Driver EHM-möten, samverkar löpande med BUP och socialtjänst, och håller gruppinsatser kring stresshantering. MI-utbildad, vana vid orosanmälan och dokumentation i IST Lärande. Söker nya uppdrag inom skola eller habilitering där förebyggande arbete värderas.',
+
+    profilTips:
+      'År som kurator, målgrupp och utbildning i öppningsraden. Andra meningen lyfter samtalsmetodik (KBT, MI, ACT) och samverkansvana. Tredje meningen visar fördjupningsområde eller eventuell handledningskompetens.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Examen och behörighet i klartext',
+        text: 'Socionomexamen, lärosäte, år. Steg 1 i KBT eller psykodynamisk grundutbildning lyfts som eget block. Enhetschefer söker exakta termer i ATS.',
+      },
+      {
+        rubrik: 'Målgrupp differentierar',
+        text: 'Skolkurator, sjukvårdskurator, kurator inom socialtjänst eller habilitering är olika roller. Skriv tydligt vilken målgrupp och kontext du arbetat i.',
+      },
+      {
+        rubrik: 'Samtalsmetodik konkret',
+        text: 'KBT, MI, ACT, lösningsfokuserad metod, traumafokuserad samtalsterapi. Skriv ut metoderna du behärskar och i vilken kontext du använt dem.',
+      },
+      {
+        rubrik: 'Juridik och dokumentation',
+        text: 'SoL, LSS, OSL, HSL, skollagen. Vilken lagstiftning du arbetat utifrån och eventuell vana av orosanmälan, vårdnadstvist och anmälningsplikt.',
+      },
+      {
+        rubrik: 'Samverkan och nätverk',
+        text: 'BUP, skola, polis, socialtjänst, hälso- och sjukvård. Konkretisera SIP-möten, EHM och multiprofessionella team du arbetat i.',
+      },
+      {
+        rubrik: 'Handledning och fördjupning',
+        text: 'Egen handledning, gruppinsatser, föreläsningar, eventuell auktorisation via SSR. Senior kurator har ofta uppdrag som inte passar i ren CV-rad.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som kurator, målgrupp, utbildning och fördjupningsområde på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Arbetsplats, period, målgrupp. Konkretisera samtalsmetodik, samverkansparter och dokumentationssystem.' },
+      { sektion: 'Utbildning', tips: 'Socionomexamen + lärosäte. Steg 1 i KBT eller psykodynamisk terapi i eget block.' },
+      { sektion: 'Vidareutbildning', tips: 'MI, ACT, trauma, handledarutbildning. Datum och timmar där relevant.' },
+      { sektion: 'Kompetenser', tips: 'Samtalsmetodik, lagstiftning, system. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Auktorisation, eventuell privat verksamhet, handledning, språk.' },
+    ],
+
+    checklista: [
+      'Socionomexamen från universitet',
+      'Steg 1 eller annan terapeutisk grundutbildning',
+      'Målgrupp och inriktning (skola, vård, socialtjänst)',
+      'Samtalsmetodik (KBT, MI, ACT)',
+      'System du behärskar (Procapita, Take Care, IST)',
+      'Juridisk vana (SoL, LSS, OSL, HSL)',
+      'Samverkansvana (SIP, EHM, BUP)',
+      'Dokumentation och anmälningsplikt',
+      'Eventuell handledningskompetens',
+      'Auktorisation eller pågående fortbildning',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommuner och regioner använder Visma Recruit, Heroma och egna ATS. Skriv ut socionomexamen, steg 1, samtalsmetodik (KBT, MI, ACT), system (Procapita, Take Care) och lagstiftning (SoL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett kurator-CV?',
+        a: 'Socionomexamen, eventuell steg 1 i KBT eller psykodynamisk terapi, målgrupp och inriktning, samtalsmetodik, juridisk vana (SoL, LSS, OSL, HSL), system (Procapita, Take Care, IST Lärande), samverkansvana med BUP och skola, samt eventuell handledningskompetens.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny socionom utan kurator-erfarenhet?',
+        a: 'Lyft VFU-platser från utbildningen med tydlig målgrupp, eventuella sommarvikariat inom socialtjänst eller habilitering, samtalsmetodik från utbildningen, frivilligengagemang i kvinnojour eller BRIS, samt språk. Var konkret om SoL och anmälningsplikt även om erfarenheten är ny.',
+      },
+      {
+        q: 'Vilken vidareutbildning är värdefullast?',
+        a: 'Steg 1 i KBT eller psykodynamisk grundutbildning är guldstandard och krav i många vård-roller. MI är vanligt inom socialtjänst och primärvård. Traumafokuserad samtalsterapi efterfrågas inom BUP och kvinnojour. Handledarutbildning öppnar för ledarroll.',
+      },
+      {
+        q: 'Hur viktigt är auktorisation via SSR?',
+        a: 'Inte krav men starkt meriterande. Auktorisation visar minst tre års yrkeserfarenhet plus dokumenterad fortbildning. Påverkar lönen och stärker positionen vid förhandling, särskilt inom privat verksamhet och företagshälsovård.',
+      },
+      {
+        q: 'Hur lyfter jag samtalsmetodik på CV:t?',
+        a: 'Skriv ut metod (KBT, MI, ACT), kontext (skola, primärvård, BUP), volym (antal patienter eller elever) och eventuella resultat. "Genomförde 80+ MI-samtal inom rökavvänjning med 60% ökat avslutsbeslut" är konkret. Generella påståenden filtreras bort i ATS.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Socionomexamen, steg 1, KBT, MI, ACT, SoL, LSS, OSL, HSL, skollagen, Procapita, Treserva, Take Care, IST Lärande, SIP, EHM, orosanmälan, anmälningsplikt. Kommuner använder Visma Recruit som söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett kurator-CV vara?',
+        a: 'Junior kurator 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med specialisering eller handledning: 2 sidor. Det viktigaste är att examen, steg 1 och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kurator-tjänster?',
+        a: 'Ja. Kommuner och regioner förväntar sig personligt brev. Använd brevet för att förklara varför just den arbetsplatsen passar din metodikorientering och beskriv ett konkret samtals- eller samverkansärende du löst. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur visar jag vana av komplexa ärenden?',
+        a: 'Konkret: "Hanterade 5 LVU-ärenden i samverkan med BUP", "Drev SIP-möten kring 12 elever med skolfrånvaro", "Genomförde traumafokuserad behandling efter våld i nära relation". Senior kurator visar både djup och bredd i ärendetyper.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt kurator-CV?',
+        a: 'Personnummer (bara födelseår), klientuppgifter, sekretessbelagda detaljer, exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("empatisk och lyhörd") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'vardadministrator': {
+    seoIntro:
+      'Som vårdadministratör bedöms du på din journalsystemskunskap, medicinska terminologi och administrativa precision. Sjukhus, vårdcentraler, privata vårdgivare och regioner som Region Stockholm, Västra Götaland och Skåne har konstant öppna vårdadministratörstjänster, men verksamhetschefer slänger CV:n som inte tydligt visar journalsystem, medicinsk dokumentation och kassakunskap. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVår mall för vårdadministratörer lyfter journalsystem (Take Care, Cosmic, Melior, Cambio), medicinsk terminologi och kassasystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, system och nyckelresultat syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning till vårdadministratör eller medicinsk sekreterare, journalsystem du behärskar (Take Care, Cosmic, Melior, Profdoc, ProSang), medicinsk terminologi och latinkunskap, ICD-10 och KVÅ-kodning, kassasystem (Pasiva, Webbtidbok 1177), GDPR och PUL inom vård, telefonkommunikation, samt eventuell vana av remisser och DRG.\n\nNedan hittar du två CV-mallar designade för vårdadministratörsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, vårdcentraler och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'FileText',
+        title: 'Journalsystem i klartext',
+        description: 'Take Care, Cosmic, Melior, Profdoc, ProSang, Cambio. Skriv ut alla journalsystem du behärskar och vilken volym du arbetat med. Helt avgörande för CV-matchning.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Utbildning till vårdadministratör',
+        description: 'YH-utbildning till vårdadministratör eller medicinsk sekreterare (1,5 år) är standard. Ange utbildning, ort och år. Eventuell vidareutbildning i medicinsk språkvård lyfts.',
+      },
+      {
+        icon: 'Award',
+        title: 'Medicinsk terminologi och latin',
+        description: 'Vana av medicinska termer, latin och nomenklatur är CV-kritiskt. Skriv ut "medicinsk terminologi", "latinsk nomenklatur" och eventuell certifiering eller specialistområde.',
+      },
+      {
+        icon: 'Target',
+        title: 'ICD-10 och KVÅ-kodning',
+        description: 'Diagnoskodning enligt ICD-10 och åtgärdskodning enligt KVÅ är kärnkompetens. Lyft vana av kodning, eventuell DRG-vana och kvalitetssäkring av journaldata.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Kassa, remisser och tidbok',
+        description: 'Pasiva, kassasystem på vårdcentral, hantering av remisser, tidbokning via 1177 e-tjänster. Skriv ut administrativa system du arbetat i.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Sekretess och GDPR',
+        description: 'OSL, HSL, PDL och GDPR är fundamentet. Lyft vana av sekretessbestämmelser, hantering av journalkopior och utlämnande av handlingar enligt OSL.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Journalsystem överst i sidopanel',
+        description: 'Vår mall lyfter Take Care, Cosmic, Melior och övriga journalsystem i sidopanelen. Verksamhetschefer ser systemvana på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Plats för utbildning och kursintyg',
+        description: 'Vårdadministratörsutbildning, latinkurs, ICD-10-kurs lyfts som separata block. Differentierar dig från medicinska sekreterare med bara grundutbildning.',
+      },
+      {
+        title: 'Tydlig verksamhetsangivelse',
+        description: 'Mallen har dedikerade rader för verksamhetsområde (kirurgi, ortopedi, primärvård, BUP). Specialisering är CV-kritisk inom vård.',
+      },
+      {
+        title: 'Premium-mallen Konto Plus med foto',
+        description: 'För senior vårdadministratör eller koordinator lägger Konto Plus till foto och ren design. Skapar trygghet vilket passar verksamheter där noggrannhet värderas.',
+      },
+      {
+        title: 'Plats för administrativ bredd',
+        description: 'Mallen har dedikerade rader för kassa, remisser, statistik, DRG-vana. Vårdadministratörer hanterar bred administration utöver journalskrivande.',
+      },
+      {
+        title: 'Plats för språk och terminologi',
+        description: 'Egen rad för medicinsk terminologi, latinkunskap och eventuella språkkunskaper. Visar att du behärskar kärnan i yrket.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Journaldokumentation',
+        punkter: [
+          'Skriva diktat från läkare i Take Care, Cosmic eller Melior',
+          'Granska och korrigera medicinska anteckningar',
+          'Hantera signering, godkännande och låsning av journaler',
+          'Säkerställa sekretess enligt OSL och PDL',
+        ],
+      },
+      {
+        rubrik: 'Kodning och statistik',
+        punkter: [
+          'Sätta diagnoskoder enligt ICD-10',
+          'Sätta åtgärdskoder enligt KVÅ',
+          'Bidra till DRG-statistik och vårdtyngdsmätning',
+          'Kvalitetssäkra journaldata och rapportering',
+        ],
+      },
+      {
+        rubrik: 'Patientkommunikation',
+        punkter: [
+          'Hantera tidbokning via telefon och 1177 e-tjänster',
+          'Bemöta patienter i reception och kassa',
+          'Hantera remisshantering inåt och utåt',
+          'Skicka kallelser och påminnelser',
+        ],
+      },
+      {
+        rubrik: 'Kassa och administration',
+        punkter: [
+          'Hantera patientavgifter och kvitton',
+          'Sköta dagsavstämning och kassarapport',
+          'Beställa material, kontorsmaterial och förbrukningsvaror',
+          'Bidra till verksamhetsadministration och statistik',
+        ],
+      },
+      {
+        rubrik: 'Sekretess och utlämnande',
+        punkter: [
+          'Hantera utlämnande av journalkopior enligt OSL',
+          'Genomföra menprövning vid sekretessfrågor',
+          'Bidra till PUB-arbete och GDPR-compliance',
+          'Stötta verksamhetschef i administrativa rutiner',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Journalsystem',
+        termer: [
+          { term: 'Take Care', forklaring: 'Patientjournalsystem dominerande i Region Stockholm.' },
+          { term: 'Cosmic', forklaring: 'Cambios journalsystem, vanlig i flera regioner.' },
+          { term: 'Melior', forklaring: 'Siemens journalsystem, vanlig på sjukhus.' },
+          { term: 'Profdoc', forklaring: 'Journalsystem för primärvård och privata vårdgivare.' },
+          { term: 'ProSang', forklaring: 'Journalsystem inom blodverksamhet.' },
+          { term: 'PMO', forklaring: 'Journalsystem dominerande inom primärvård.' },
+        ],
+      },
+      {
+        kategori: 'Kodning och klassifikation',
+        termer: [
+          { term: 'ICD-10', forklaring: 'Internationell sjukdomsklassifikation, version 10.' },
+          { term: 'KVÅ', forklaring: 'Klassifikation av vårdåtgärder, svensk åtgärdskodning.' },
+          { term: 'DRG', forklaring: 'Diagnosrelaterade grupper, ersättningsmodell.' },
+          { term: 'NCSP', forklaring: 'Nordic Classification of Surgical Procedures.' },
+          { term: 'ATC', forklaring: 'Anatomisk terapeutisk kemisk klassifikation av läkemedel.' },
+          { term: 'KKÅ', forklaring: 'Klassifikation av kirurgiska åtgärder, äldre standard.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'PDL', forklaring: 'Patientdatalagen, central för journalhantering.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen.' },
+          { term: 'GDPR', forklaring: 'EU:s dataskyddsförordning, gäller även sjukvård.' },
+          { term: 'Patientlagen', forklaring: 'Reglerar patientens rättigheter och inflytande.' },
+          { term: 'Menprövning', forklaring: 'Sekretessbedömning vid utlämnande av handlingar.' },
+        ],
+      },
+      {
+        kategori: 'Roller och verksamhet',
+        termer: [
+          { term: 'Vårdadministratör', forklaring: 'Modern titel som ersätter medicinsk sekreterare.' },
+          { term: 'Medicinsk sekreterare', forklaring: 'Äldre titel, fortfarande vanlig på sjukhus.' },
+          { term: 'Vårdkoordinator', forklaring: 'Senior roll med samordningsansvar.' },
+          { term: 'Verksamhetsadministratör', forklaring: 'Brett administrativt ansvar i verksamhet.' },
+          { term: 'Receptionist inom vård', forklaring: 'Frontline med kassa och tidbok.' },
+          { term: '1177 e-tjänster', forklaring: 'Patientportal för tidbok och kommunikation.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Universitetssjukhus',
+        exempel: [
+          'Karolinska Universitetssjukhuset (Solna, Huddinge)',
+          'Sahlgrenska Universitetssjukhuset (Göteborg)',
+          'Akademiska sjukhuset (Uppsala)',
+          'Skånes universitetssjukhus (Lund, Malmö)',
+        ],
+      },
+      {
+        kategori: 'Regionala sjukhus',
+        exempel: [
+          'Södersjukhuset, Danderyds sjukhus, S:t Görans sjukhus',
+          'NU-sjukvården, Södra Älvsborgs sjukhus, Östra sjukhuset',
+          'Centrallasarettet Växjö, Kalmar, Karlskrona',
+          'Norrlands universitetssjukhus, Sundsvall, Östersund',
+        ],
+      },
+      {
+        kategori: 'Primärvård',
+        exempel: [
+          'Vårdcentraler i alla regioner',
+          'Capio, Praktikertjänst, Aleris, Min Doktor',
+          'Husläkarmottagningar och privata kliniker',
+          'BVC, MVC, ungdomsmottagningar',
+        ],
+      },
+      {
+        kategori: 'Privata vårdgivare',
+        exempel: [
+          'Capio S:t Göran, Capio specialistmottagningar',
+          'Aleris specialistvård och rehab',
+          'Praktikertjänst (specialister, tandläkare)',
+          'Privattandvård och tandregleringskliniker',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'YH-utbildning till vårdadministratör (1,5 år)',
+        beskrivning: 'Vanligaste vägen idag. Yrkeshögskoleutbildning på 1,5 år vid skolor som Stockholms tillskärarakademi, Yrkesakademin, Hermods, Lernia. Inkluderar praktik på sjukhus eller vårdcentral.',
+      },
+      {
+        rubrik: 'Komvux och kortare utbildningar',
+        beskrivning: 'Kommunal vuxenutbildning eller arbetsmarknadsutbildning till medicinsk sekreterare. Vanlig för omskolning. Längd 6-12 månader.',
+      },
+      {
+        rubrik: 'Internutbildning från arbetsgivaren',
+        beskrivning: 'Sjukhus och vårdcentraler erbjuder ibland internutbildning för befintlig administrativ personal. Kompletterar med medicinsk terminologi och journalsystem.',
+      },
+      {
+        rubrik: 'Vidareutbildning och specialisering',
+        beskrivning: 'Kurser i ICD-10, latinsk medicinsk terminologi, vårdadministratör med specialisering inom radiologi, patologi eller psykiatri. Ger högre lön och fördjupningsroller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Take Care, Cosmic, Melior, Profdoc, PMO',
+        'Medicinsk terminologi och latin',
+        'ICD-10 diagnoskodning',
+        'KVÅ-kodning av åtgärder',
+        'DRG och vårdtyngdsmätning',
+        'Pasiva och kassasystem',
+        '1177 e-tjänster och tidbok',
+        'Office 365 och Outlook',
+        'PDL, HSL, OSL och GDPR',
+        'Remisshantering inåt och utåt',
+        'Diktatskrivning och korrekturläsning',
+        'Statistik och rapportering',
+      ],
+      personliga: [
+        'Strukturerad och noggrann',
+        'Diskret med sekretess',
+        'Snabb skrivare med precision',
+        'Lugn under hög arbetsbelastning',
+        'Pedagogisk i patientmöte',
+        'Lojal mot rutiner och regelverk',
+        'Lyhörd för olika professioner',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren vårdadministratör med YH-utbildning och 5 års erfarenhet från Karolinska och Capio. Behärskar Take Care, Cosmic och Profdoc samt ICD-10-kodning på avancerad nivå. Skriver 80+ diktat per dag med hög precision och hanterar remisshantering, tidbok via 1177 och kassa. Vana av sekretessfrågor enligt OSL och PDL. Söker nya uppdrag på sjukhus eller specialistklinik där administrativ precision värderas.',
+
+    profilTips:
+      'År som vårdadministratör, journalsystem och verksamhetsområde i öppningsraden. Andra meningen lyfter kodningsvana och administrativ bredd. Tredje meningen visar specialisering eller eventuell koordinatorroll.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Journalsystem i klartext',
+        text: 'Take Care, Cosmic, Melior, Profdoc, PMO, ProSang. Skriv ut alla journalsystem du behärskar och volym. Helt avgörande för CV-matchning i ATS.',
+      },
+      {
+        rubrik: 'Utbildning och latinkunskap',
+        text: 'YH-utbildning till vårdadministratör eller medicinsk sekreterare. Latinkurs och medicinsk terminologi i eget block. Verksamhetschefer söker exakta termer.',
+      },
+      {
+        rubrik: 'Kodningsvana är CV-kritisk',
+        text: 'ICD-10 och KVÅ-kodning. Eventuell DRG-vana och kvalitetssäkring av journaldata. Lyft volym av kodning per dag eller månad.',
+      },
+      {
+        rubrik: 'Verksamhetsområde differentierar',
+        text: 'Kirurgi, ortopedi, primärvård, BUP, radiologi, patologi. Specialisering inom verksamhetsområde är meriterande och påverkar lönen.',
+      },
+      {
+        rubrik: 'Administrativ bredd',
+        text: 'Pasiva, kassa, remisshantering, tidbok via 1177, statistik. Vårdadministratörer hanterar mycket utöver diktatskrivning. Visa bredd.',
+      },
+      {
+        rubrik: 'Sekretess och GDPR',
+        text: 'OSL, HSL, PDL och GDPR. Lyft vana av menprövning, utlämnande av journalkopior och PUB-arbete. Senior nivå.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som vårdadministratör, journalsystem, verksamhetsområde på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Verksamhet, period, journalsystem. Konkretisera diktatvolym, kodningsvana och eventuell koordinatorroll.' },
+      { sektion: 'Utbildning', tips: 'YH-utbildning + ort + år. Latinkurs och eventuella vidareutbildningar i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Journalsystem, kodning, lagstiftning. Skilj på tekniska och personliga.' },
+      { sektion: 'System', tips: 'Lista alla journalsystem och övriga verktyg. Var konkret med versioner där relevant.' },
+      { sektion: 'Övrigt', tips: 'Specialisering, eventuell vidareutbildning, språk.' },
+    ],
+
+    checklista: [
+      'YH-utbildning till vårdadministratör',
+      'Journalsystem du behärskar (Take Care, Cosmic, Melior)',
+      'Medicinsk terminologi och latinkunskap',
+      'ICD-10 och KVÅ-kodning',
+      'Verksamhetsområde och specialisering',
+      'Pasiva och kassasystem',
+      '1177 e-tjänster och tidbok',
+      'PDL, OSL, GDPR-vana',
+      'Diktatvolym per dag',
+      'Remisshantering inåt och utåt',
+    ],
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut journalsystem (Take Care, Cosmic, Melior), kodningssystem (ICD-10, KVÅ) och lagstiftning (PDL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett vårdadministratör-CV?',
+        a: 'YH-utbildning eller motsvarande, journalsystem (Take Care, Cosmic, Melior, Profdoc), medicinsk terminologi och latinkunskap, ICD-10 och KVÅ-kodning, kassasystem (Pasiva), 1177 e-tjänster, sekretessvana enligt PDL och OSL, samt eventuell specialisering inom verksamhetsområde.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny vårdadministratör?',
+        a: 'Lyft YH-utbildningen med praktikplats i klartext, journalsystem från utbildningen, latinkunskap, eventuell tidigare administrativ erfarenhet (även från andra branscher), språk och datorvana. Var konkret om vilka system du tränat på under praktiken.',
+      },
+      {
+        q: 'Vilket journalsystem är viktigast att kunna?',
+        a: 'Beror på region. Take Care dominerar Stockholm. Cosmic är vanlig i Östergötland, Värmland och Västmanland. Melior på flera sjukhus. PMO och Profdoc i primärvård. Hade du flera regioner i sikte är bredd viktigare än djup. Kodningsvana (ICD-10, KVÅ) är universal.',
+      },
+      {
+        q: 'Hur viktig är latinkunskap?',
+        a: 'Mycket. Medicinsk terminologi är kärnan i yrket. Latinkurs ingår i YH-utbildningen. Ange den separat på CV:t eftersom rekryterare och chefer letar efter den. Vana av att slå upp termer är inte tillräckligt, du ska behärska dem.',
+      },
+      {
+        q: 'Hur visar jag kodningsvana?',
+        a: 'Konkret: "Sätter ICD-10 och KVÅ-koder för 80+ vårdtillfällen per dag", "Kvalitetssäkrade DRG-rapportering med 99% accuracy", "Stöttade verksamhetschef i diagnoskvalitet vid Socialstyrelsens granskning". Volym och kvalitet differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Take Care, Cosmic, Melior, Profdoc, PMO, ProSang, ICD-10, KVÅ, DRG, medicinsk terminologi, latinsk nomenklatur, Pasiva, 1177 e-tjänster, PDL, OSL, GDPR. Visma Recruit och Heroma söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett vårdadministratör-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med specialisering eller koordinatorroll: 2 sidor. Det viktigaste är att YH-utbildning, journalsystem och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till vårdadministratör-tjänster?',
+        a: 'Ja. Sjukhus och privata vårdgivare förväntar sig personligt brev. Använd brevet för att förklara varför just den verksamheten passar och beskriv ett konkret administrativt eller systemrelaterat ärende du löst. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur skiljer sig vårdadministratör från medicinsk sekreterare?',
+        a: 'Samma yrke, modern titel. Vårdadministratör är den nya titeln som breddar uppdraget bortom diktatskrivning. Många sjukhus har bytt över. Använd båda termerna på CV:t så ATS hittar dig oavsett vilken titel rekryteraren söker på.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt vårdadministratör-CV?',
+        a: 'Personnummer (bara födelseår), patientuppgifter, sekretessbelagda detaljer, exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("noggrann och strukturerad") utan stöd, samt hobbies som inte är relevanta.',
+      },
+    ],
+  },
+
+  'fritidspedagog': {
+    seoIntro:
+      'Som fritidspedagog bedöms du på din pedagogiska grund, gruppledning och förmåga att driva meningsfull fritid. Kommuner, friskolor och privata aktörer som AcadeMedia, Internationella Engelska Skolan och Kunskapsskolan har konstant öppna fritidspedagogtjänster, men rektorer slänger CV:n som inte tydligt visar lärarexamen mot fritidshem, åldersgrupp och pedagogiskt fokus. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för fritidspedagoger lyfter lärarexamen mot fritidshem, åldersgrupp och pedagogisk inriktning som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och konkreta projekt syns direkt. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen mot fritidshem eller motsvarande YH-utbildning, åldersgrupp (förskoleklass, F-3, 4-6), pedagogisk inriktning (skapande verksamhet, idrott, natur, språk), läroplanskännedom (Lgr22 kapitel 4 om fritidshem), system (Schoolsoft, Vklass, IST Lärande), samverkan med klasslärare, samt eventuell specialpedagogik och NPF-vana.\n\nNedan hittar du två CV-mallar designade för fritidspedagogrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer på kommunala och fristående skolor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Lärarexamen mot fritidshem',
+        description: 'Skriv ut lärarexamen mot fritidshem (180 hp), lärosäte och år. Är du legitimerad fritidspedagog ska legitimationsnumret ligga separat. Behörighet differentierar.',
+      },
+      {
+        icon: 'Target',
+        title: 'Åldersgrupp och fokus',
+        description: 'F-klass, F-3, 4-6 är olika roller. Pedagogiskt fokus (skapande, idrott, natur, språk, digital teknik) är meriterande. Var tydlig med din specialisering.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Lgr22 kapitel 4 i klartext',
+        description: 'Läroplanen för grundskolan har eget kapitel om fritidshemmet. Skriv att du arbetar utifrån Lgr22 kapitel 4 med planering, dokumentation och utvärdering.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Samverkan med klasslärare',
+        description: 'Fritidspedagoger samverkar tätt med F-3-lärare under skoldagen. Lyft vana av tvålärarsystem, gemensam planering och övergångar mellan skola och fritids.',
+      },
+      {
+        icon: 'Award',
+        title: 'NPF och specialpedagogik',
+        description: 'Vana av neuropsykiatriska funktionsnedsättningar (autism, ADHD), tydliggörande pedagogik och anpassningar är högt värderat och påverkar lönen.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'System och dokumentation',
+        description: 'Schoolsoft, Vklass, IST Lärande, Unikum. Skriv ut system du arbetat i för planering, närvaro och kommunikation med vårdnadshavare.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och legitimation överst',
+        description: 'Vår mall lyfter lärarexamen mot fritidshem och eventuell legitimation i sidopanelen. Rektorer ser behörigheten direkt utan att scrolla.',
+      },
+      {
+        title: 'Eget block för pedagogisk inriktning',
+        description: 'Skapande verksamhet, idrott, natur, språk eller digital teknik lyfts som eget block. Differentierar dig från fritidspedagoger med bara generell behörighet.',
+      },
+      {
+        title: 'Tydlig åldersgrupp per skola',
+        description: 'Mallen har dedikerade rader för åldersgrupp per uppdragsgivare. Erfarenhet från F-klass och 4-6 konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'För senior fritidspedagog eller arbetslagsledare lägger Pedagog till foto och varm färgton. Skapar trygghet och passar skolverksamhet där personlig kontakt är central.',
+      },
+      {
+        title: 'Plats för projekt och temaarbete',
+        description: 'Mallen har dedikerade rader för pedagogiska projekt, temaarbete och eventuella lov-program. Visar att du kan driva meningsfull fritid bortom passningsverksamhet.',
+      },
+      {
+        title: 'Plats för utbildning och fortbildning',
+        description: 'Egen rad för fortbildning inom NPF, lågaffektivt bemötande, rörelse eller skapande. Senior fritidspedagog har ofta fortbildning som inte passar i ren CV-rad.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Pedagogisk planering',
+        punkter: [
+          'Planera dag, vecka och termin utifrån Lgr22 kapitel 4',
+          'Driva temaarbete kring rörelse, skapande, natur eller språk',
+          'Dokumentera och utvärdera fritidsverksamheten',
+          'Säkerställa progression och meningsfullhet',
+        ],
+      },
+      {
+        rubrik: 'Gruppledning och bemötande',
+        punkter: [
+          'Leda grupper på 20-40 elever i fritidshem och skola',
+          'Tillämpa lågaffektivt bemötande och tydliggörande pedagogik',
+          'Hantera konflikter med restorativa samtal',
+          'Stödja barn med särskilda behov i samverkan med specialpedagog',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och övergångar',
+        punkter: [
+          'Samverka tätt med klasslärare i tvålärarsystem',
+          'Driva gemensam planering vid övergångar skola-fritids',
+          'Genomföra utvecklingssamtal tillsammans med klasslärare',
+          'Bidra till elevhälsoarbete och EHM',
+        ],
+      },
+      {
+        rubrik: 'Vårdnadshavarkontakt',
+        punkter: [
+          'Hantera daglig kommunikation via Schoolsoft eller Vklass',
+          'Genomföra introduktionssamtal vid inskolning',
+          'Dokumentera närvaro och frånvaro',
+          'Bidra till föräldramöten och info-kvällar',
+        ],
+      },
+      {
+        rubrik: 'Lov och projekt',
+        punkter: [
+          'Planera och driva lovverksamhet',
+          'Genomföra utflykter och friluftsdagar',
+          'Driva pedagogiska projekt över ämnen och åldrar',
+          'Bidra till skolans systematiska kvalitetsarbete',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Lgr22', forklaring: 'Läroplan för grundskolan, förskoleklassen och fritidshemmet 2022.' },
+          { term: 'Lgr22 kapitel 4', forklaring: 'Specifikt kapitel om fritidshemmets uppdrag.' },
+          { term: 'Skollagen', forklaring: 'Reglerar fritidshemmets uppdrag och behörighet.' },
+          { term: 'Diskrimineringslagen', forklaring: 'Gäller bemötande och anpassningar i fritidshemmet.' },
+          { term: 'Likabehandlingsplan', forklaring: 'Skolans plan mot kränkande behandling.' },
+          { term: 'Anmälningsplikt', forklaring: 'Skolpersonals plikt att anmäla oro enligt SoL.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'Lågaffektivt bemötande', forklaring: 'Metodik för att förebygga och hantera utmanande beteende.' },
+          { term: 'Tydliggörande pedagogik', forklaring: 'Visualisering av tid, struktur och uppgifter.' },
+          { term: 'Restorativa samtal', forklaring: 'Konfliktlösning fokuserad på relation.' },
+          { term: 'Tvålärarsystem', forklaring: 'Klasslärare och fritidspedagog i samma klassrum.' },
+          { term: 'Temaarbete', forklaring: 'Pedagogiskt arbete kring gemensamt tema över tid.' },
+          { term: 'Reggio Emilia', forklaring: 'Pedagogisk filosofi som influerar fritidsverksamhet.' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'Schoolsoft', forklaring: 'Skolsystem dominerande i friskolor.' },
+          { term: 'Vklass', forklaring: 'Lärplattform vanlig i kommunala skolor.' },
+          { term: 'IST Lärande', forklaring: 'IST:s system för dokumentation och planering.' },
+          { term: 'Unikum', forklaring: 'Plattform för dokumentation och utvecklingssamtal.' },
+          { term: 'InfoMentor', forklaring: 'Skolsystem för planering och bedömning.' },
+          { term: 'Tempus', forklaring: 'System för närvaro och schemaläggning.' },
+        ],
+      },
+      {
+        kategori: 'Roller och organisation',
+        termer: [
+          { term: 'Fritidspedagog', forklaring: 'Lärare med examen mot fritidshem.' },
+          { term: 'Fritidsledare', forklaring: 'Pedagog utan lärarexamen, ofta YH-utbildning.' },
+          { term: 'Arbetslagsledare', forklaring: 'Senior roll med samordningsansvar.' },
+          { term: 'Förstelärare fritidshem', forklaring: 'Karriärstjänst med pedagogiskt utvecklingsuppdrag.' },
+          { term: 'Elevhälsoteam', forklaring: 'Team med rektor, kurator, psykolog, sjuksköterska, specialpedagog.' },
+          { term: 'EHM', forklaring: 'Elevhälsomöte med fokus på enskilda elever.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunala skolor',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Uppsala, Linköping, Västerås, Örebro',
+          'Mindre kommuner i hela landet',
+          'Kommunala fritidshem F-6',
+        ],
+      },
+      {
+        kategori: 'Friskolekoncerner',
+        exempel: [
+          'AcadeMedia (Pysslingen, Vittra, Norlandia)',
+          'Internationella Engelska Skolan (IES)',
+          'Kunskapsskolan',
+          'Stiftelsedrivna skolor (Carlsson, Tellus)',
+        ],
+      },
+      {
+        kategori: 'Specialverksamhet',
+        exempel: [
+          'Specialskolor inom SPSM',
+          'Resursskolor och anpassad grundskola',
+          'Internationella skolor (SIS, Internationella Skolan)',
+          'Waldorf- och Montessoriskolor',
+        ],
+      },
+      {
+        kategori: 'Fritidsverksamhet utanför skola',
+        exempel: [
+          'Kommunal öppen fritidsverksamhet',
+          'Fritidsklubbar och fritidsgårdar',
+          'Lovverksamhet (sommarläger, skidskolor)',
+          'Idrottsföreningar med pedagogisk verksamhet',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Lärarexamen mot fritidshem (3 år, 180 hp)',
+        beskrivning: 'Vanligaste vägen idag. Universitet i Stockholm, Göteborg, Malmö, Umeå, Linköping. Ger legitimation att undervisa i fritidshem och eventuellt i ett praktiskt-estetiskt ämne.',
+      },
+      {
+        rubrik: 'Äldre fritidspedagogexamen',
+        beskrivning: 'Före 2011 års reform fanns fritidspedagogexamen utan legitimation. Erfarna pedagoger kan ha denna och har samma behörighet i fritidshem.',
+      },
+      {
+        rubrik: 'YH-utbildning till fritidsledare',
+        beskrivning: '1,5-2 års yrkeshögskoleutbildning. Ger inte legitimation men kvalificerar för fritidsledarrollen och öppen fritidsverksamhet. Vanlig i fritidsklubbar och lovverksamhet.',
+      },
+      {
+        rubrik: 'Vidareutbildning och förstelärare',
+        beskrivning: 'Magisterexamen, läs upp till förstelärare fritidshem, fortbildning inom NPF, lågaffektivt bemötande, rörelse eller skapande. Påverkar lönen och leder till karriärstjänst.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Lärarexamen mot fritidshem',
+        'Lgr22 kapitel 4 - planering och utvärdering',
+        'Lågaffektivt bemötande',
+        'Tydliggörande pedagogik',
+        'Restorativa samtal och konflikthantering',
+        'Tvålärarsystem och samverkan med klasslärare',
+        'NPF (autism, ADHD) och anpassningar',
+        'Schoolsoft, Vklass, IST Lärande, Unikum',
+        'Skapande verksamhet och estetiska lärprocesser',
+        'Rörelse och friluftsliv',
+        'Temaarbete och projektledning',
+        'Dokumentation och systematiskt kvalitetsarbete',
+      ],
+      personliga: [
+        'Engagerad och nyfiken',
+        'Lugn vid utmanande beteende',
+        'Tydlig och förutsägbar',
+        'Kreativ i pedagogisk planering',
+        'Lyhörd för barns initiativ',
+        'Strukturerad i samverkan',
+        'Trygg ledare för stora grupper',
+      ],
+    },
+
+    profilExempel:
+      'Engagerad fritidspedagog med lärarexamen mot fritidshem från Stockholms universitet och 7 års erfarenhet på AcadeMedia och kommunal skola. Driver pedagogisk planering för 35 elever i F-3 enligt Lgr22 kapitel 4 med fokus på rörelse och skapande. Vana av tvålärarsystem, lågaffektivt bemötande och NPF-anpassningar. Förstelärare fritidshem sedan 2024 med utvecklingsuppdrag inom systematiskt kvalitetsarbete. Söker nya uppdrag på skola där fritidshemmet värderas som pedagogisk verksamhet.',
+
+    profilTips:
+      'År som fritidspedagog, åldersgrupp och pedagogisk inriktning i öppningsraden. Andra meningen lyfter konkreta projekt och samverkansvana. Tredje meningen visar fördjupningsområde eller eventuell förstelärartjänst.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Examen och legitimation',
+        text: 'Lärarexamen mot fritidshem (180 hp), lärosäte och år. Legitimationsnummer i eget block. Rektorer söker exakta termer i ATS.',
+      },
+      {
+        rubrik: 'Åldersgrupp differentierar',
+        text: 'F-klass, F-3, 4-6 är olika roller. Pedagogiskt fokus (skapande, idrott, natur, språk) är meriterande. Var tydlig med specialisering.',
+      },
+      {
+        rubrik: 'Lgr22 kapitel 4',
+        text: 'Skriv att du arbetar utifrån Lgr22 kapitel 4 med planering, dokumentation och utvärdering. Visar pedagogisk självständighet bortom passningsverksamhet.',
+      },
+      {
+        rubrik: 'Samverkan med klasslärare',
+        text: 'Tvålärarsystem, gemensam planering, övergångar skola-fritids. Senior fritidspedagog visar samverkansvana som värderas högt.',
+      },
+      {
+        rubrik: 'NPF och anpassningar',
+        text: 'Vana av autism, ADHD, tydliggörande pedagogik, lågaffektivt bemötande. Påverkar lönen och differentierar dig.',
+      },
+      {
+        rubrik: 'System och dokumentation',
+        text: 'Schoolsoft, Vklass, IST Lärande, Unikum. Skriv ut system du arbetat i för planering, närvaro och kommunikation med vårdnadshavare.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som fritidspedagog, åldersgrupp, pedagogisk inriktning på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Skola, period, åldersgrupp. Konkretisera projekt, temaarbete och eventuell förstelärartjänst.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen mot fritidshem + lärosäte. Eventuell magisterexamen i eget block.' },
+      { sektion: 'Fortbildning', tips: 'NPF, lågaffektivt bemötande, rörelse, skapande. Datum och timmar där relevant.' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, system, samverkan. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Förstelärartjänst, eventuell magisterexamen, språk, eventuella idrotts- eller skapandeintressen.' },
+    ],
+
+    checklista: [
+      'Lärarexamen mot fritidshem och eventuell legitimation',
+      'Åldersgrupp och pedagogisk inriktning',
+      'Lgr22 kapitel 4 - planering och utvärdering',
+      'Lågaffektivt bemötande och NPF-vana',
+      'Samverkan med klasslärare i tvålärarsystem',
+      'System du behärskar (Schoolsoft, Vklass, IST)',
+      'Pedagogiska projekt och temaarbete',
+      'Vårdnadshavarkontakt och utvecklingssamtal',
+      'Eventuell förstelärartjänst eller magisterexamen',
+      'Fortbildning inom relevanta områden',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommuner och friskolor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut lärarexamen mot fritidshem, Lgr22 kapitel 4, system (Schoolsoft, Vklass) och pedagogiska metoder (lågaffektivt bemötande, tydliggörande pedagogik) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett fritidspedagog-CV?',
+        a: 'Lärarexamen mot fritidshem och eventuell legitimation, åldersgrupp och pedagogisk inriktning, vana av Lgr22 kapitel 4, samverkan med klasslärare, NPF och lågaffektivt bemötande, system (Schoolsoft, Vklass, IST Lärande), samt eventuell förstelärartjänst eller magisterexamen.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny fritidspedagog?',
+        a: 'Lyft VFU-platser från utbildningen med åldersgrupp, eventuella sommarvikariat på fritids eller skidskola, pedagogisk inriktning från utbildningen, eventuella idrotts-, scout- eller frivilligengagemang som visar gruppledningsvana, samt språk. Var konkret om Lgr22 kapitel 4 även om erfarenheten är ny.',
+      },
+      {
+        q: 'Skiljer sig fritidspedagog från fritidsledare?',
+        a: 'Ja. Fritidspedagog har lärarexamen mot fritidshem (180 hp) och kan få legitimation. Fritidsledare har YH-utbildning utan legitimation. Båda yrken finns och är värderade men har olika behörighet och lön. Var tydlig på CV:t med vilken examen du har.',
+      },
+      {
+        q: 'Hur viktig är legitimation?',
+        a: 'Mycket. Sedan 2011 års reform krävs legitimation för fast tjänst som fritidspedagog. Rektorer prioriterar legitimerade pedagoger. Saknar du legitimation kan du få visstidstjänst eller arbeta som fritidsledare. Påbörjad lärarexamen är meriterande.',
+      },
+      {
+        q: 'Hur lyfter jag NPF-erfarenhet?',
+        a: 'Konkret: "Stöttar 4 elever med autismdiagnos i F-3 med tydliggörande pedagogik och visuella schema", "Genomförde fortbildning i lågaffektivt bemötande 2024", "Samverkar med specialpedagog kring anpassningar för ADHD-elever". Konkreta exempel differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Lärarexamen mot fritidshem, Lgr22, Lgr22 kapitel 4, fritidshemmet, lågaffektivt bemötande, tydliggörande pedagogik, tvålärarsystem, restorativa samtal, NPF, autism, ADHD, Schoolsoft, Vklass, IST Lärande, Unikum, EHM. Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett fritidspedagog-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med förstelärartjänst eller magisterexamen: 2 sidor. Det viktigaste är att lärarexamen, åldersgrupp och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till fritidspedagog-tjänster?',
+        a: 'Ja. Skolor förväntar sig personligt brev. Använd brevet för att förklara varför just den skolan passar din pedagogiska syn och beskriv ett konkret projekt eller bemötandeärende du löst. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktigt är pedagogiskt fokus eller specialisering?',
+        a: 'Värdefullt. Skapande verksamhet, rörelse, natur, språk, digital teknik är vanliga inriktningar. Skolor söker ofta fritidspedagog med specifik specialisering för att komplettera arbetslaget. Lyft din inriktning på CV:t och i brevet.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt fritidspedagog-CV?',
+        a: 'Personnummer (bara födelseår), elevuppgifter, sekretessbelagda detaljer, exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("engagerad och kreativ") utan stöd, samt hobbies som inte är pedagogiskt relevanta.',
+      },
+    ],
+  },
+
+  'butikssaljare': {
+    seoIntro:
+      'Som butikssäljare bedöms du på din serviceförmåga, säljresultat och kassavana. Stora kedjor som H&M, ICA, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikssäljartjänster, men butikschefer slänger CV:n som inte tydligt visar säljresultat, kassasystem och produktområde. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butikssäljare lyfter säljresultat, kassasystem och produktkunskap som första visuella element. Vi har strukturerat erfarenhetssektionen så att butik, kedja, period och säljresultat syns direkt. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikserfarenhet med kedja och produktområde, kassasystem (ICA-kassan, NCR, Sitoo), KPI:er (snittnota, mersälj, UPT), produktkunskap (mode, sport, elektronik, dagligvaror), eventuell ansvarsfull försäljning (alkohol, tobak, lotter), språkkunskaper, samt schemaflexibilitet kvällar och helger.\n\nNedan hittar du två CV-mallar designade för butikssäljarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaror, mode, sport och elektronik faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'TrendingUp',
+        title: 'Säljresultat med siffror',
+        description: '"Ökade snittnotan 12% under julkampanjen" eller "låg topp 3 i regionen på mersälj" är konkret. Generella påståenden om "driven säljare" filtreras bort.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Kassasystem i klartext',
+        description: 'ICA-kassan, NCR, Sitoo, Iiko. Skriv ut alla kassasystem du behärskar plus rutiner som dagsavstämning, kortbetalning och returhantering.',
+      },
+      {
+        icon: 'Target',
+        title: 'Produktområde och kedja',
+        description: 'Mode, sport, elektronik, dagligvaror, kosmetik är olika världar. Skriv ut kedja och produktområde tydligt så butikschefer ser branschvana direkt.',
+      },
+      {
+        icon: 'Award',
+        title: 'Ansvarsfull försäljning',
+        description: 'Certifiering i ansvarsfull försäljning (alkohol, tobak, folköl, lotter) är CV-kritisk för dagligvaror och bensinmackar. Lyft eventuell godkänd utbildning.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Språk och kundbemötande',
+        description: 'Engelska är standard i större städer. Andra språk (arabiska, persiska, tigrinja, ukrainska) är meriterande för butiker med diverse kundunderlag.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Schemaflexibilitet',
+        description: 'Helger, kvällar, deltid eller heltid. Var tydlig med din tillgänglighet eftersom det är CV-kritiskt för butikschefer som planerar bemanning.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Säljresultat och kedja överst',
+        description: 'Vår mall lyfter säljresultat, kassasystem och butikskedja i sidopanelen. Butikschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Erfarenhet med produktområde',
+        description: 'Mallen separerar bolag och produktområde (mode, sport, dagligvaror). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för certifieringar',
+        description: 'Ansvarsfull försäljning, säljutbildningar (Mystery Shopper, NPS), kedje-specifika program lyfts som eget block.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För butikssäljare som söker premium-roller eller butikschefsambition lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för KPI:er och resultat',
+        description: 'Mallen har dedikerade rader för snittnota, UPT, mersälj och eventuell topp-placering i kedjan. Visar att du tänker resultatorienterat.',
+      },
+      {
+        title: 'Plats för språk och flexibilitet',
+        description: 'Egen rad för språkkunskaper, schemaflexibilitet och eventuell körkortsklass (för utkörning). Konkret information som butikschefer värderar.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Försäljning och kundmöte',
+        punkter: [
+          'Driva mersälj och kundnöjdhet i butik',
+          'Genomföra produkt-rådgivning och konsultativ försäljning',
+          'Hantera reklamationer och returer enligt konsumentköplagen',
+          'Bidra till säljkampanjer och tema-veckor',
+        ],
+      },
+      {
+        rubrik: 'Kassa och betalning',
+        punkter: [
+          'Hantera kassa, kortbetalning, kontant och Swish',
+          'Genomföra dagsavstämning och rapportera kassadifferens',
+          'Bemöta kunder vid byten och returer',
+          'Säkerställa korrekt prishantering och rabatter',
+        ],
+      },
+      {
+        rubrik: 'Varuhantering',
+        punkter: [
+          'Beställa varor och fyll på säljytor',
+          'Genomföra inventering och svinnanalys',
+          'Hantera returer från kunder och tillbaka till leverantör',
+          'Bidra till visuell merchandising enligt riktlinjer',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och compliance',
+        punkter: [
+          'Genomföra ålderkontroll vid alkohol, tobak och lotter',
+          'Hantera misstänkt snatteri enligt rutin',
+          'Säkerställa hygien- och säkerhetsrutiner',
+          'Bidra till personalsäkerhet och larmrutiner',
+        ],
+      },
+      {
+        rubrik: 'Stöd till team',
+        punkter: [
+          'Mentorera nya säljare under upplärning',
+          'Bidra till säljmöten och kampanjarbete',
+          'Stödja butikschef vid behov i öppning eller stängning',
+          'Driva säljutveckling tillsammans med kollegor',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Kassasystem',
+        termer: [
+          { term: 'ICA-kassan', forklaring: 'ICA:s egna kassasystem, dominerar dagligvaror.' },
+          { term: 'NCR', forklaring: 'Globalt kassasystem i Coop, Hemköp.' },
+          { term: 'Sitoo', forklaring: 'Molnbaserat kassasystem i mode och specialbutiker.' },
+          { term: 'Iiko', forklaring: 'Kassasystem populärt i restaurang och småbutiker.' },
+          { term: 'Bizpoint', forklaring: 'Svenskt kassasystem för små och medelstora butiker.' },
+          { term: 'Shopify POS', forklaring: 'Kassasystem för butiker med e-handelsintegration.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och säljmått',
+        termer: [
+          { term: 'Snittnota', forklaring: 'Genomsnittligt belopp per transaktion.' },
+          { term: 'UPT', forklaring: 'Units Per Transaction, antal artiklar per kvitto.' },
+          { term: 'Mersälj', forklaring: 'Tillägg utöver vad kunden ursprungligen sökte.' },
+          { term: 'Konvertering', forklaring: 'Andel besökare som blir köpare.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, kundnöjdhet och rekommendationsvilja.' },
+          { term: 'Mystery Shopper', forklaring: 'Anonym testkund som mäter servicekvalitet.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'Konsumentköplagen', forklaring: 'Reglerar reklamationer, returer och garanti.' },
+          { term: 'Avtalsvillkorslagen', forklaring: 'Skyddar konsument mot oskäliga villkor.' },
+          { term: 'Distansavtalslagen', forklaring: 'Gäller online-handel och ångerrätt.' },
+          { term: 'Alkohollagen', forklaring: 'Reglerar försäljning av alkohol.' },
+          { term: 'Tobakslagen', forklaring: 'Reglerar försäljning av tobak och e-cigaretter.' },
+          { term: 'Ansvarsfull försäljning', forklaring: 'Utbildning i ålderkontroll, krav i många kedjor.' },
+        ],
+      },
+      {
+        kategori: 'Roller och organisation',
+        termer: [
+          { term: 'Butikssäljare', forklaring: 'Operativ frontline-roll i butik.' },
+          { term: 'Avdelningssäljare', forklaring: 'Säljare med ansvar för specifik avdelning.' },
+          { term: 'Senior säljare', forklaring: 'Erfaren säljare med mentor- eller schemaansvar.' },
+          { term: 'Avdelningschef', forklaring: 'Chef över specifik avdelning, ofta nästa karriärsteg.' },
+          { term: 'Visual Merchandiser', forklaring: 'Specialist på butiksskyltning och produktexponering.' },
+          { term: 'Stocker', forklaring: 'Roll fokuserad på varuhantering och påfyllning.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Dagligvaror',
+        exempel: [
+          'ICA, Coop, Hemköp, Willys, Lidl, City Gross',
+          'Apoteket, Apotek Hjärtat, Kronans Apotek',
+          'Bensinmackar (Circle K, Preem, OKQ8)',
+          'Mindre lokala livsmedelsbutiker',
+        ],
+      },
+      {
+        kategori: 'Mode och kläder',
+        exempel: [
+          'H&M, Lindex, KappAhl, MQ, Bik Bok',
+          'Zara, Mango, Cubus, Gina Tricot',
+          'Lyxbutiker (NK, Acne Studios, Filippa K)',
+          'Sportbutiker (Stadium, XXL, Intersport)',
+        ],
+      },
+      {
+        kategori: 'Heminredning och elektronik',
+        exempel: [
+          'IKEA, JYSK, Mio, Hemtex',
+          'Elgiganten, NetOnNet, Media Markt',
+          'Specialbutiker för design och inredning',
+          'Bygg- och järnhandel (Bauhaus, Hornbach, K-rauta)',
+        ],
+      },
+      {
+        kategori: 'Skönhet och övrigt',
+        exempel: [
+          'KICKS, Lyko, Sephora, The Body Shop',
+          'Bokus, Akademibokhandeln',
+          'Leksaksbutiker (Lekia, BR Toys)',
+          'Köpcentrum och flagship-butiker',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direktanställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen i Sverige. Många butikssäljare börjar som extra eller sommarvikariat och växer in i rollen. Internutbildning från kedjan kompletterar.',
+      },
+      {
+        rubrik: 'Gymnasieprogram inriktning handel',
+        beskrivning: 'Handels- och administrationsprogrammet på gymnasiet ger grund för butiksyrket. Vissa gymnasier samarbetar direkt med butikskedjor.',
+      },
+      {
+        rubrik: 'YH-utbildning till butikssäljare',
+        beskrivning: 'Korta yrkeshögskoleutbildningar (6-12 månader) inom butiksförsäljning, visual merchandising eller specifika produktområden. Vanlig för omskolning.',
+      },
+      {
+        rubrik: 'Kedje-specifika program',
+        beskrivning: 'IKEA Academy, ICA-skolan, H&M Way, Stadium Academy. Större kedjor har strukturerade interna utbildningsprogram som leder till avancemang.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Kassasystem (ICA-kassan, NCR, Sitoo, Iiko)',
+        'Konsultativ försäljning och mersälj',
+        'Produktkunskap (mode, sport, elektronik, dagligvaror)',
+        'Kassaavstämning och kortbetalning',
+        'Returhantering och reklamationer',
+        'Visuell merchandising och säljytseffektivitet',
+        'Inventering och svinnanalys',
+        'Konsumentköplagen och retail-juridik',
+        'Ansvarsfull försäljning (alkohol, tobak)',
+        'KPI-uppföljning (snittnota, UPT, mersälj)',
+        'Office och POS-rapportverktyg',
+        'Engelska och eventuellt övriga språk',
+      ],
+      personliga: [
+        'Driven av kundservice',
+        'Resultatorienterad i sälj',
+        'Lugn vid svåra kundsituationer',
+        'Strukturerad i kassa och varuhantering',
+        'Lojal mot rutiner',
+        'Lagspelare i butiksteam',
+        'Pedagogisk vid produktrådgivning',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren butikssäljare med 5 års erfarenhet från H&M och Stadium med fokus på mode och sport. Behärskar Sitoo och ICA-kassan, hanterar kassa, kassaavstämning och returer. Ökade snittnotan 14% under julkampanjen 2024 och lågat topp 3 i regionen på mersälj tre kvartal i rad. Certifierad i ansvarsfull försäljning, talar engelska flytande och har H&M Way grundutbildning. Söker nya uppdrag i mode- eller sportbutik med möjlighet till avancemang till avdelningschef.',
+
+    profilTips:
+      'År som butikssäljare, kedja och produktområde i öppningsraden. Andra meningen lyfter konkreta säljresultat med siffror. Tredje meningen visar utbildningar och eventuell karriärambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Säljresultat med siffror',
+        text: '"Ökade snittnotan 12%" eller "låg topp 3 i regionen på mersälj" är konkret. Generella påståenden filtreras bort av butikschefer som ser hundratals CV:n.',
+      },
+      {
+        rubrik: 'Kassasystem och produktområde',
+        text: 'ICA-kassan, NCR, Sitoo, Iiko. Mode, sport, elektronik, dagligvaror. Skriv ut alla system och områden eftersom branschvana avgör matchning.',
+      },
+      {
+        rubrik: 'Ansvarsfull försäljning',
+        text: 'Certifiering i ansvarsfull försäljning är CV-kritisk för dagligvaror och bensinmackar. Lyft eventuell godkänd utbildning som eget block.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Helger, kvällar, deltid eller heltid. Var tydlig med tillgänglighet eftersom butikschefer planerar bemanning utifrån det.',
+      },
+      {
+        rubrik: 'Språk för olika kundunderlag',
+        text: 'Engelska är standard. Övriga språk (arabiska, persiska, tigrinja, ukrainska) är meriterande för butiker med diverse kundunderlag.',
+      },
+      {
+        rubrik: 'Kedje-specifika utbildningar',
+        text: 'IKEA Academy, ICA-skolan, H&M Way, Stadium Academy. Sådana program ger trovärdighet och kan påverka lönen.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som butikssäljare, kedja, produktområde på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Butik, kedja, period. Konkretisera kassasystem, säljresultat och eventuell mentor- eller avdelningsroll.' },
+      { sektion: 'Utbildning', tips: 'Eventuellt gymnasium eller YH. Kedje-specifika utbildningar i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Kassasystem, säljmetodik, produktområde. Skilj på tekniska och personliga.' },
+      { sektion: 'Certifieringar', tips: 'Ansvarsfull försäljning, eventuella säljutbildningar, första hjälpen.' },
+      { sektion: 'Övrigt', tips: 'Schemaflexibilitet, körkortsklass, språk, eventuell ambition mot avdelningschef.' },
+    ],
+
+    checklista: [
+      'Butikserfarenhet med kedja och produktområde',
+      'Kassasystem du behärskar',
+      'Konkreta säljresultat med siffror',
+      'Ansvarsfull försäljning eller motsvarande certifiering',
+      'Språkkunskaper med nivå',
+      'Schemaflexibilitet (helger, kvällar)',
+      'Kedje-specifika utbildningar',
+      'Eventuell avdelnings- eller mentorroll',
+      'Erfarenhet av kampanjarbete',
+      'Eventuell körkortsklass',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora kedjor som ICA, H&M, Stadium använder Teamtailor och Workday. Skriv ut kassasystem (ICA-kassan, Sitoo, NCR), kedjor och KPI:er (snittnota, UPT, mersälj) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett butikssäljar-CV?',
+        a: 'Butikserfarenhet med kedja och produktområde, kassasystem (ICA-kassan, NCR, Sitoo), konkreta säljresultat (snittnota, mersälj, UPT), ansvarsfull försäljning, språkkunskaper, schemaflexibilitet, samt eventuella kedje-specifika utbildningar (IKEA Academy, H&M Way).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny butikssäljare utan erfarenhet?',
+        a: 'Lyft eventuella sommarvikariat, praktik från gymnasiet, frivilligengagemang som visar kundbemötande (idrott, scout, kafé), gymnasie-utbildning, språkkunskaper, datorvana och tillgänglighet helger och kvällar. Konkret beskrivning av varför du vill arbeta i butik.',
+      },
+      {
+        q: 'Hur visar jag säljresultat?',
+        a: 'Konkret: "Ökade snittnotan 12% under Q4", "Låg topp 3 i regionen på mersälj 3 kvartal i rad", "Genomförde 80+ konsultativa säljsamtal per dag i sportbutik". Siffror och relativa jämförelser differentierar.',
+      },
+      {
+        q: 'Behövs ansvarsfull försäljning-certifikat?',
+        a: 'Krav i dagligvaror, bensinmackar och butiker som säljer alkohol, tobak eller folköl. Certifieringen är gratis online via Folkhälsomyndigheten eller via arbetsgivaren. Lyft den separat på CV:t eftersom rekryterare letar efter den.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Kassasystem (ICA-kassan, NCR, Sitoo, Iiko), kedjor (ICA, H&M, Stadium), KPI:er (snittnota, UPT, mersälj, konvertering), ansvarsfull försäljning, kedje-specifika utbildningar (IKEA Academy, H&M Way). Teamtailor och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett butikssäljar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1 sida. Senior med många kedjor eller kampanjarbete: max 1,5 sidor. Det viktigaste är att kassasystem, kedjor och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till butikssäljar-tjänster?',
+        a: 'Ofta, men inte alltid. Stora kedjor som H&M och ICA accepterar bara CV och formulär. Mindre butiker och premium-segment förväntar sig personligt brev. När brev krävs, håll till en sida på 250-300 ord och beskriv varför just den kedjan passar dig.',
+      },
+      {
+        q: 'Hur viktig är schemaflexibilitet?',
+        a: 'Mycket. Butikschefer planerar bemanning utifrån tillgänglighet. Var tydlig med dina tider (helger, kvällar, deltid eller heltid) och eventuella begränsningar (skola, andra åtaganden). Hög flexibilitet ger fler erbjudanden.',
+      },
+      {
+        q: 'Hur lyfter jag karriärambition?',
+        a: 'Konkret: "Söker avancemang mot avdelningschef inom 2 år", "Vill växa in i visual merchandiser-roll efter 1 år som säljare". Butikschefer värderar säljare som tänker karriär eftersom de stannar längre och engagerar sig.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt butikssäljar-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("driven och social") utan stöd, namn på medarbetare eller sekretessbelagda detaljer, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'kundradgivare': {
+    seoIntro:
+      'Som kundrådgivare bedöms du på din rådgivningsförmåga, regelverkskunskap och försäljningsresultat. Storbanker som Swedbank, SEB, Handelsbanken och Nordea, sparbanker och försäkringsbolag har konstant öppna kundrådgivartjänster, men chefer slänger CV:n som inte tydligt visar Swedsec-licens, IDD-licens och rådgivningsvolym. Ett välskrivet CV avgör om du blir kallad till intervju på den bank eller det bolag du faktiskt vill jobba på.\n\nVår mall för kundrådgivare lyfter Swedsec-licens, IDD-licens och rådgivningsvolym som första visuella element. Vi har strukturerat erfarenhetssektionen så att bank, kundsegment och affärsresultat syns direkt. Det betyder att teamledare och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Swedsec-licens (rådgivnings- eller informationslicens), IDD-licens för försäkringsförmedling, eventuell InsureSec, kundsegment (privat, företag, premium), produktområde (bolån, sparande, pension, försäkring), KPI:er (säljvolym, NKI, retention), regelverk (MiFID II, IDD, penningtvättslagen, Konsumentkreditlagen) och system (ProCapita Bank, Trapets, BankID).\n\nNedan hittar du två CV-mallar designade för kundrådgivarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teamledare och kontorschefer på banker, sparbanker och försäkringsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Swedsec och IDD i klartext',
+        description: 'Swedsec rådgivningslicens, informationslicens, IDD-licens för försäkring. Skriv ut licens, datum för senaste prov och eventuell specialistlicens. Helt avgörande i bank-ATS.',
+      },
+      {
+        icon: 'Target',
+        title: 'Kundsegment och produktområde',
+        description: 'Privat, företag, premium-private banking är olika världar. Bolån, sparande, pension, försäkring kräver olika kompetenser. Skriv tydligt segment och område.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Säljvolym och NKI',
+        description: '"Förvaltade portfölj på 280 MSEK med NKI 4,7" är konkret. Volymsiffror, antal kunder, retention och kundnöjdhet differentierar senior kundrådgivare.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Regelverk och compliance',
+        description: 'MiFID II, IDD, penningtvättslagen (PTL), KYC, Konsumentkreditlagen. Skriv ut vilka regelverk du arbetat med eftersom compliance är CV-kritiskt i bank.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'System och digital vana',
+        description: 'ProCapita Bank, Trapets, BankID, eIDAS, Office 365. Banker investerar i digitala flöden. Lyft eventuell vana av digital onboarding och remote-rådgivning.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Penningtvätt och KYC',
+        description: 'Vana av PEP-kontroll, sanktionsscreening, riskbedömning enligt PTL. Senior kundrådgivare visar både rådgivnings- och compliance-kompetens.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Licenser överst i sidopanel',
+        description: 'Vår mall lyfter Swedsec-licens, IDD-licens och eventuell specialistlicens i sidopanelen. Teamledare ser din behörighet på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för regelverk',
+        description: 'MiFID II, IDD, PTL, KYC, Konsumentkreditlagen lyfts som eget kompetensblock. Differentierar dig från generella säljare i finansbranschen.',
+      },
+      {
+        title: 'Tydligt kundsegment per arbetsgivare',
+        description: 'Mallen separerar bolag och kundsegment (privat, företag, premium). Erfarenhet inom olika segment konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Norrsken Plus med foto',
+        description: 'Bank- och försäkringsbranschen värderar personlig kontakt. Norrsken Plus lägger till foto och varm färgton som passar relationsbyggande roller.',
+      },
+      {
+        title: 'Plats för affärsresultat',
+        description: 'Mallen har dedikerade rader för säljvolym, antal kunder, NKI och retention. Visar att du tänker både rådgivning och affär.',
+      },
+      {
+        title: 'Plats för specialisering',
+        description: 'Egen rad för specialisering (bolån, pension, företag, ISK, kapitalförsäkring). Differentierar senior kundrådgivare från generalister.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Kundrådgivning och försäljning',
+        punkter: [
+          'Genomföra rådgivning kring sparande, lån, försäkring och pension',
+          'Säkerställa lämplighetsbedömning enligt MiFID II och IDD',
+          'Hantera kundmöten i kontor, telefon och digitalt',
+          'Driva mersälj och retention',
+        ],
+      },
+      {
+        rubrik: 'Bolån och kreditbedömning',
+        punkter: [
+          'Genomföra bolåneansökan och kreditbedömning',
+          'Säkerställa följsamhet till Konsumentkreditlagen och bolåneregler',
+          'Hantera amorteringsplan och tilläggslån',
+          'Stötta kund vid omförhandling och flytt av lån',
+        ],
+      },
+      {
+        rubrik: 'Compliance och KYC',
+        punkter: [
+          'Genomföra KYC enligt penningtvättslagen',
+          'Hantera PEP-kontroll och sanktionsscreening',
+          'Riskbedöma kund enligt risk-baserad metodik',
+          'Rapportera misstänkta transaktioner',
+        ],
+      },
+      {
+        rubrik: 'Pension och försäkring',
+        punkter: [
+          'Rådgiva kring tjänstepension, privat pension och premiepension',
+          'Genomföra IDD-rådgivning för liv- och sakförsäkring',
+          'Säkerställa lämplighetsbedömning per kund',
+          'Stötta kund vid livshändelser (skilsmässa, dödsfall)',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och uppföljning',
+        punkter: [
+          'Dokumentera rådgivning enligt MiFID II och IDD',
+          'Hantera klagomål och eskalering',
+          'Genomföra uppföljning och proaktiv kontakt',
+          'Bidra till team-mål och kontorets affärsplan',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Licenser och certifieringar',
+        termer: [
+          { term: 'Swedsec', forklaring: 'Brancsstandard för bankrådgivning, rådgivnings- och informationslicens.' },
+          { term: 'IDD-licens', forklaring: 'Insurance Distribution Directive-licens för försäkringsförmedling.' },
+          { term: 'InsureSec', forklaring: 'Branschstandard för försäkringsförmedlare.' },
+          { term: 'EFPA', forklaring: 'European Financial Planning Association, certifiering inom finansiell planering.' },
+          { term: 'Bolicens', forklaring: 'Specifik licens för bolånerådgivning.' },
+          { term: 'Specialistlicens', forklaring: 'Swedsec utökad licens för specialistroller.' },
+        ],
+      },
+      {
+        kategori: 'Regelverk',
+        termer: [
+          { term: 'MiFID II', forklaring: 'EU:s direktiv för finansiella instrument och rådgivning.' },
+          { term: 'IDD', forklaring: 'Insurance Distribution Directive, EU-regelverk för försäkring.' },
+          { term: 'PTL', forklaring: 'Penningtvättslagen, central för KYC och AML.' },
+          { term: 'KYC', forklaring: 'Know Your Customer, kundkännedom enligt PTL.' },
+          { term: 'Konsumentkreditlagen', forklaring: 'Reglerar krediter till privatpersoner.' },
+          { term: 'GDPR', forklaring: 'EU:s dataskyddsförordning, gäller all kunddata.' },
+        ],
+      },
+      {
+        kategori: 'Produkter och affär',
+        termer: [
+          { term: 'ISK', forklaring: 'Investeringssparkonto, schablonbeskattat sparande.' },
+          { term: 'Kapitalförsäkring', forklaring: 'Försäkringsbaserat sparande med skattefördelar.' },
+          { term: 'Bolån', forklaring: 'Lån med bostad som säkerhet.' },
+          { term: 'Tjänstepension', forklaring: 'Pension via arbetsgivaren, ITP, SAF-LO eller motsvarande.' },
+          { term: 'Premiepension', forklaring: 'Del av allmän pension som placeras i fonder.' },
+          { term: 'PPM', forklaring: 'Premiepensionsmyndigheten, äldre namn.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er',
+        termer: [
+          { term: 'NKI', forklaring: 'Nöjd Kund-Index, kundnöjdhetsmått.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, rekommendationsvilja.' },
+          { term: 'Retention', forklaring: 'Andel kunder som stannar, central KPI.' },
+          { term: 'Cross-sell', forklaring: 'Försäljning av flera produkter till samma kund.' },
+          { term: 'AUM', forklaring: 'Assets Under Management, förvaltat kapital.' },
+          { term: 'Conversion rate', forklaring: 'Andel rådgivningsmöten som leder till affär.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Storbanker',
+        exempel: [
+          'Swedbank (rikstäckande)',
+          'SEB (storstad och premium)',
+          'Handelsbanken (lokala kontor)',
+          'Nordea (rikstäckande)',
+        ],
+      },
+      {
+        kategori: 'Sparbanker och nischbanker',
+        exempel: [
+          'Sparbankerna (Sparbankerna Skåne, Sörmlands Sparbank, m.fl.)',
+          'Länsförsäkringar Bank',
+          'ICA Banken, Marginalen Bank, Resurs Bank',
+          'Avanza, Nordnet (digitala banker)',
+        ],
+      },
+      {
+        kategori: 'Försäkringsbolag',
+        exempel: [
+          'Skandia, Folksam, If, Trygg-Hansa, Länsförsäkringar',
+          'Movestic, Storebrand, Handelsbanken Liv',
+          'AMF Pension, Alecta, KPA Pension',
+          'Säkra, Söderberg & Partners (förmedlare)',
+        ],
+      },
+      {
+        kategori: 'Fristående rådgivare',
+        exempel: [
+          'Söderberg & Partners, Nordic Wealth, Carnegie Private Banking',
+          'Pekka Förvaltning, Trends Capital',
+          'Fristående försäkringsförmedlare',
+          'Familjejurist eller egen verksamhet',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom eller finansexamen (3-5 år)',
+        beskrivning: 'Vanligaste vägen idag. Civilekonom från Handelshögskolan, Lund, Göteborg, Linköping. Inriktning finans, redovisning eller marknadsföring. Stockholm Business School är populärt premium-spår.',
+      },
+      {
+        rubrik: 'Annan högskoleutbildning + Swedsec',
+        beskrivning: 'Många banker rekryterar från andra utbildningar (juridik, statsvetenskap, ekonomi 60-180 hp) och utbildar internt. Swedsec licenseras inom första året.',
+      },
+      {
+        rubrik: 'Internutbildning från banken',
+        beskrivning: 'Storbankerna har strukturerade trainee-program (Swedbank Akademin, SEB Programmet, Nordea Future Talents) som kombinerar arbete med utbildning till Swedsec och IDD.',
+      },
+      {
+        rubrik: 'EFPA och specialistutbildning',
+        beskrivning: 'EFPA Financial Planner och Financial Adviser är europeiska certifieringar. Bolicens, fondlicens och specialistutbildningar för pension stärker positionen och påverkar lönen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Swedsec rådgivningslicens',
+        'IDD-licens för försäkring',
+        'Eventuell EFPA eller specialistlicens',
+        'MiFID II och IDD-rådgivning',
+        'Penningtvättslagen (PTL) och KYC',
+        'Konsumentkreditlagen',
+        'Bolåne- och kreditbedömning',
+        'Pensionsplanering (tjänstepension, IPS)',
+        'Försäkringsrådgivning (liv, sak)',
+        'ISK och kapitalförsäkring',
+        'CRM och kärnsystem',
+        'Office 365 och Excel',
+      ],
+      personliga: [
+        'Förtroendeingivande',
+        'Strukturerad i dokumentation',
+        'Lyhörd för kundens behov',
+        'Resultatinriktad',
+        'Etisk i rådgivning',
+        'Lugn vid svåra samtal',
+        'Pedagogisk i komplexa frågor',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren kundrådgivare med 6 års erfarenhet från Swedbank och Länsförsäkringar Bank med fokus på privatkund och bolån. Civilekonom från Handelshögskolan i Stockholm, Swedsec rådgivningslicens, IDD-licens samt EFPA Financial Planner. Förvaltar portfölj på 280 MSEK med NKI 4,7 och retention 96%. Vana av MiFID II-rådgivning, KYC enligt PTL och digitala flöden via BankID. Söker nya uppdrag som senior kundrådgivare eller premium-rådgivare med möjlighet till specialisering inom pension.',
+
+    profilTips:
+      'År som kundrådgivare, bank och kundsegment i öppningsraden. Andra meningen lyfter licenser och konkreta affärsresultat med siffror. Tredje meningen visar specialisering eller eventuell karriärambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Licenser i klartext',
+        text: 'Swedsec rådgivningslicens, IDD-licens, eventuell EFPA. Skriv ut licens, datum och eventuell specialistlicens. Helt avgörande i bank-ATS.',
+      },
+      {
+        rubrik: 'Kundsegment och produktområde',
+        text: 'Privat, företag, premium-private banking är olika världar. Bolån, sparande, pension, försäkring kräver olika kompetenser. Var tydlig med segment.',
+      },
+      {
+        rubrik: 'Säljvolym och NKI',
+        text: '"Förvaltade portfölj på 280 MSEK med NKI 4,7 och retention 96%". Volymsiffror, kunder, retention och kundnöjdhet differentierar.',
+      },
+      {
+        rubrik: 'Regelverk och compliance',
+        text: 'MiFID II, IDD, PTL, KYC, Konsumentkreditlagen. Skriv ut vilka regelverk du arbetat med eftersom compliance är CV-kritiskt.',
+      },
+      {
+        rubrik: 'KYC och penningtvätt',
+        text: 'PEP-kontroll, sanktionsscreening, riskbedömning enligt PTL. Senior kundrådgivare visar både rådgivnings- och compliance-kompetens.',
+      },
+      {
+        rubrik: 'Specialisering differentierar',
+        text: 'Bolån, pension, företag, ISK, kapitalförsäkring. Lyft din specialisering eftersom banker söker komplettering till befintligt team.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som kundrådgivare, bank, kundsegment och licenser på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bank, kontor, period. Konkretisera AUM, antal kunder, NKI, retention och cross-sell.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Eventuell magister i finans i eget block.' },
+      { sektion: 'Licenser', tips: 'Swedsec, IDD, EFPA, eventuell specialistlicens. Datum för senaste prov.' },
+      { sektion: 'Kompetenser', tips: 'Regelverk, produktområde, system. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Eventuella uppdrag (mentor, teamlead-vikariat), språk, eventuella sociala uppdrag.' },
+    ],
+
+    checklista: [
+      'Civilekonom eller motsvarande utbildning',
+      'Swedsec rådgivningslicens',
+      'IDD-licens för försäkring',
+      'Kundsegment och produktområde',
+      'AUM, antal kunder och NKI',
+      'Vana av MiFID II och PTL',
+      'Erfarenhet av digitala flöden',
+      'Eventuell EFPA eller specialistlicens',
+      'Cross-sell och retention',
+      'Eventuell mentor- eller teamlead-roll',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Norrsken Plus är ATS-säkra. Banker använder Workday, Teamtailor och egna ATS. Skriv ut licenser (Swedsec, IDD, EFPA), regelverk (MiFID II, PTL, IDD) och produktområde (bolån, pension, ISK) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett kundrådgivare-CV?',
+        a: 'Civilekonom eller motsvarande, Swedsec rådgivningslicens, IDD-licens, eventuell EFPA, kundsegment och produktområde, konkreta affärsresultat (AUM, NKI, retention, cross-sell), regelverkskunskap (MiFID II, PTL, Konsumentkreditlagen), system samt eventuell specialisering.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny kundrådgivare?',
+        a: 'Lyft din civilekonomi eller motsvarande utbildning, eventuell trainee-position eller praktik från bank, planerad eller pågående Swedsec-utbildning, språk och eventuell internationell erfarenhet. Banker värderar potential för kandidater med högskoleutbildning även utan tidigare bank-erfarenhet.',
+      },
+      {
+        q: 'Hur viktig är Swedsec?',
+        a: 'Helt avgörande. Utan Swedsec rådgivningslicens kan du inte ge regulerad rådgivning. Banker rekryterar antingen kandidater med befintlig licens eller utbildar internt under första året. Skriv ut datum för senaste prov eftersom licenser kräver omcertifiering.',
+      },
+      {
+        q: 'Skiljer sig informations- och rådgivningslicens?',
+        a: 'Ja. Informationslicens räcker för information om produkter men inte för individuell rådgivning. Rådgivningslicens krävs för lämplighetsbedömning enligt MiFID II. Många nya kundrådgivare har informationslicens första 6-12 månader och uppgraderar.',
+      },
+      {
+        q: 'Hur lyfter jag affärsresultat?',
+        a: 'Konkret: "Förvaltade portfölj på 280 MSEK", "NKI 4,7 av 5", "Retention 96% över 3 år", "Cross-sell-ratio 3,2 produkter per kund". Volymsiffror och relativa jämförelser differentierar senior kundrådgivare.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Swedsec, IDD, EFPA, MiFID II, PTL, KYC, Konsumentkreditlagen, ISK, kapitalförsäkring, tjänstepension, bolån, AUM, NKI, retention, cross-sell. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett kundrådgivare-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med specialisering eller premium-rådgivning: 2 sidor. Det viktigaste är att utbildning, licenser och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kundrådgivare-tjänster?',
+        a: 'Ja. Banker förväntar sig personligt brev. Använd brevet för att förklara varför just den banken passar din rådgivningsfilosofi och beskriv ett konkret kundärende du löst (anonymiserat). Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är specialisering?',
+        a: 'Mycket. Bolån, pension, företag, premium-private banking är olika spår. Banker rekryterar ofta för komplettering av befintligt team. Lyft din specialisering på CV:t och i brevet eftersom det avgör matchning.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt kundrådgivare-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, kunduppgifter, sekretessbelagda detaljer, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, samt hobbies som inte är relevanta.',
+      },
+    ],
+  },
+
+  'konditor': {
+    seoIntro:
+      'Som konditor bedöms du på din hantverksskicklighet, produktbredd och hygienvana. Konditorier, hotell, bagerier som Sturebageriet, Vetekatten, Cajsa Warg och tusentals mindre verksamheter har konstant öppna konditortjänster, men kökschefer och bagerichefer slänger CV:n som inte tydligt visar gesäll- eller mästarbrev, produktionserfarenhet och hygiencertifiering. Ett välskrivet CV avgör om du blir kallad till intervju på det bageri eller konditori du faktiskt vill jobba på.\n\nVår mall för konditorer lyfter gesäll- eller mästarbrev, produktbredd och hygiencertifiering som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, produktområde (bröllopstårtor, viennoiserie, choklad, bröd) och produktionsvolym syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: gesäll- eller mästarbrev från Sveriges Bagare och Konditorer (eller motsvarande internationell utbildning), produktområde (sockerkonst, choklad, viennoiserie, bröllopstårtor, fika), HACCP-utbildning, hygiencertifiering, produktionsvolym, eventuell tävlingserfarenhet (Konditor-SM, Coupe du Monde), samt kökssystem och kalkyl.\n\nNedan hittar du två CV-mallar designade för konditorrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer och bagerichefer på premium-konditorier, hotell och kedjebagerier faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Gesäll- eller mästarbrev i klartext',
+        description: 'Gesällbrev efter 3-4 års lärlingstid, mästarbrev efter ytterligare 3-5 år. Skriv ut brev, datum och eventuella tävlingsplaceringar (Konditor-SM, Coupe du Monde de la Pâtisserie).',
+      },
+      {
+        icon: 'Target',
+        title: 'Produktområde och specialisering',
+        description: 'Bröllopstårtor, sockerkonst, choklad, viennoiserie, bröd, glass är olika världar. Var tydlig med specialisering och produktbredd eftersom det avgör matchning.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'HACCP och hygiencertifiering',
+        description: 'HACCP-utbildning, EHEDG, livsmedelshygien-certifikat. Skriv ut hygienutbildning eftersom det är CV-kritiskt och krav på alla seriösa konditorier.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Produktionsvolym och team',
+        description: '"Producerade 200 wienerbröd per dag" eller "Drev konditori med 15-personers team" är konkret. Volymsiffror och teamstorlek differentierar senior konditorer.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Internationell erfarenhet',
+        description: 'Praktik på franskt eller schweiziskt premium-konditori (Pierre Hermé, Jordi Roca, Cédric Grolet) väger tungt. Lyft eventuell utlands-erfarenhet och språk.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Kalkyl och kostnad',
+        description: 'Senior konditor kan kalkylera marginal, råvaruinköp, svinn och prissättning. Lyft eventuell budget-vana och affärsförståelse om du söker chef- eller produktionsledar-roll.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Brev och tävlingar överst',
+        description: 'Vår mall lyfter gesäll- eller mästarbrev, hygiencertifiering och eventuella tävlingsplaceringar i sidopanelen. Kökschefer ser din behörighet på fem sekunder.',
+      },
+      {
+        title: 'Eget block för specialisering',
+        description: 'Sockerkonst, choklad, viennoiserie, bröllopstårtor lyfts som eget block. Differentierar dig från konditorer med bara generell erfarenhet.',
+      },
+      {
+        title: 'Tydlig produktbredd per arbetsgivare',
+        description: 'Mallen har dedikerade rader för produktområde per uppdragsgivare. Erfarenhet från premium-konditori och industri-bageri konkurrerar inte.',
+      },
+      {
+        title: 'Premium-mallen Servering med foto',
+        description: 'För senior konditor eller chefskonditor lägger Servering till foto och varm färgton. Skapar professionell first impression som passar premium-segment.',
+      },
+      {
+        title: 'Plats för internationell erfarenhet',
+        description: 'Mallen har dedikerade rader för utlandspraktik eller internationella tävlingar. Visar bredd och premium-positionering.',
+      },
+      {
+        title: 'Plats för affärsförståelse',
+        description: 'Egen rad för kalkyl, marginal, råvaruinköp och eventuell budget-vana. Senior konditor som tänker affär differentierar sig från ren produktion.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Produktion',
+        punkter: [
+          'Producera bakverk, bröd, viennoiserie och tårtor enligt recept',
+          'Genomföra mise en place och förberedelser inför produktion',
+          'Kvalitetssäkra varje produkt enligt verksamhetens standard',
+          'Bidra till receptutveckling och ny meny',
+        ],
+      },
+      {
+        rubrik: 'Specialprodukter',
+        punkter: [
+          'Skapa bröllopstårtor och tårtor till specialevenemang',
+          'Arbeta med sockerkonst, choklad och garnering',
+          'Producera laktos- och glutenfria varianter',
+          'Hantera kundbeställningar och anpassningar',
+        ],
+      },
+      {
+        rubrik: 'Hygien och säkerhet',
+        punkter: [
+          'Säkerställa följsamhet till HACCP-rutiner',
+          'Genomföra egenkontroll och temperaturmätning',
+          'Bidra till hygienrond och Livsmedelsverkets-revision',
+          'Hantera allergener enligt Livsmedelsförordningen',
+        ],
+      },
+      {
+        rubrik: 'Råvaror och inköp',
+        punkter: [
+          'Hantera råvarubeställning och leverantörskontakt',
+          'Genomföra inventering och svinnanalys',
+          'Bidra till kalkyl och marginal-analys',
+          'Säkerställa korrekt rotation (FIFO) av råvaror',
+        ],
+      },
+      {
+        rubrik: 'Team och utveckling',
+        punkter: [
+          'Mentorera lärlingar och praktikanter',
+          'Bidra till teammöten och produktionsplanering',
+          'Driva utvecklingsarbete kring nya produkter',
+          'Stötta chefskonditor i schemaläggning vid behov',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Utbildning och certifiering',
+        termer: [
+          { term: 'Gesällbrev', forklaring: 'Yrkesbevis efter avslutad lärlingstid (3-4 år).' },
+          { term: 'Mästarbrev', forklaring: 'Senior yrkesbevis efter ytterligare 3-5 års erfarenhet plus prov.' },
+          { term: 'Sveriges Bagare och Konditorer', forklaring: 'Branschorganisation som utfärdar gesäll- och mästarbrev.' },
+          { term: 'HACCP', forklaring: 'Hazard Analysis and Critical Control Points, hygienmetodik.' },
+          { term: 'EHEDG', forklaring: 'European Hygienic Engineering and Design Group, premium-standard.' },
+          { term: 'Livsmedelshygien-certifikat', forklaring: 'Grundutbildning i hygien för livsmedelspersonal.' },
+        ],
+      },
+      {
+        kategori: 'Produktområden',
+        termer: [
+          { term: 'Viennoiserie', forklaring: 'Smörlagat bakverk (croissant, pain au chocolat).' },
+          { term: 'Sockerkonst', forklaring: 'Avancerad teknik med dragen och gjuten socker.' },
+          { term: 'Pralin', forklaring: 'Handgjord choklad med fyllning, avancerad teknik.' },
+          { term: 'Petit four', forklaring: 'Små bakverk i miniatyr-format för kalas.' },
+          { term: 'Pièce montée', forklaring: 'Skulptural tårta för bröllop och evenemang.' },
+          { term: 'Tempering', forklaring: 'Kontrollerad upphettning av choklad för glans.' },
+        ],
+      },
+      {
+        kategori: 'Tekniker',
+        termer: [
+          { term: 'Tablage', forklaring: 'Tempering av choklad på marmor.' },
+          { term: 'Mise en place', forklaring: 'Förberedelse av råvaror och utrustning före produktion.' },
+          { term: 'Pâte à choux', forklaring: 'Vattendeg för kakor som éclair och profitrole.' },
+          { term: 'Pâte feuilletée', forklaring: 'Smörlagad bladdeg för viennoiserie.' },
+          { term: 'Crème pâtissière', forklaring: 'Vaniljkräm, grundbas i många bakverk.' },
+          { term: 'Ganache', forklaring: 'Blandning av choklad och grädde, grund i pralin och tårta.' },
+        ],
+      },
+      {
+        kategori: 'Tävlingar',
+        termer: [
+          { term: 'Konditor-SM', forklaring: 'Svenska mästerskapen i konditorkonst.' },
+          { term: 'Coupe du Monde de la Pâtisserie', forklaring: 'VM i konditorkonst, prestigefull internationell tävling.' },
+          { term: 'World Pastry Cup', forklaring: 'Internationell konditortävling, ofta sammankopplad med Coupe du Monde.' },
+          { term: 'Bocuse d\'Or Pastry', forklaring: 'Pastry-version av prestigefulla Bocuse d\'Or.' },
+          { term: 'Baking-VM', forklaring: 'Internationella mästerskap i bakning.' },
+          { term: 'Konditorlandslaget', forklaring: 'Sveriges konditorlandslag, deltar i internationella tävlingar.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Premium-konditorier',
+        exempel: [
+          'Vetekatten, Sturebageriet, Cajsa Warg, Tössebageriet (Stockholm)',
+          'Hjelms i Söder, Café Saturnus, Café Pascal',
+          'Konditori Centrum, Hjelms (Göteborg)',
+          'Hollandia, Olof Viktors, Söderbergs (övriga landet)',
+        ],
+      },
+      {
+        kategori: 'Hotell och restaurang',
+        exempel: [
+          'Grand Hotel, Diplomat Hotel, Bank Hotel (Stockholm)',
+          'Upper House, Avalon, Clarion Post (Göteborg)',
+          'Ystad Saltsjöbad, Vann (premium-resorter)',
+          'Stjärn-restauranger med pastry-team',
+        ],
+      },
+      {
+        kategori: 'Bagerikedjor och industri',
+        exempel: [
+          'Cajsa Warg, Brödernas Kvarn, Eataly',
+          'Pågen, Skogaholms, Polarbröd',
+          'Fazer Bageri, Lantmännen Cerealia',
+          'Industribagerier och catering-leverantörer',
+        ],
+      },
+      {
+        kategori: 'Egen verksamhet',
+        exempel: [
+          'Eget konditori eller bageri',
+          'Catering och beställningstjänster',
+          'Online-försäljning av specialprodukter',
+          'Konsult och utbildning för andra konditorier',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Restaurang- och livsmedelsprogrammet med inriktning bageri-konditori',
+        beskrivning: 'Vanligaste vägen idag. Gymnasieprogram (3 år) som leder till anställning som lärling. Skolor i Stockholm, Göteborg, Malmö, Sundsvall och övriga landet erbjuder inriktningen.',
+      },
+      {
+        rubrik: 'Lärlingsutbildning till gesäll',
+        beskrivning: 'Efter gymnasiet följer 2-4 års lärlingstid på konditori med examensarbete. Avslutas med gesällbrev från Sveriges Bagare och Konditorer. Vanligaste vägen till yrket.',
+      },
+      {
+        rubrik: 'YH-utbildning till konditor',
+        beskrivning: 'Yrkeshögskoleutbildning (2-2,5 år) för omskolning. Skolor som Yrkesakademin och Hermods erbjuder. Inkluderar praktik på konditori och leder till anställning.',
+      },
+      {
+        rubrik: 'Mästarbrev och internationell erfarenhet',
+        beskrivning: 'Mästarbrev efter 3-5 års erfarenhet som gesäll plus prov. Praktik på premium-konditori i Frankrike (Le Cordon Bleu, École Lenôtre), Schweiz eller Belgien stärker positionen och påverkar lönen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Gesäll- eller mästarbrev',
+        'Viennoiserie (croissant, pain au chocolat)',
+        'Bröllopstårtor och pièce montée',
+        'Sockerkonst och choklad-tempering',
+        'Pralin- och chokladtillverkning',
+        'Crème pâtissière och ganache',
+        'Glutenfri och laktosfri produktion',
+        'HACCP och egenkontroll',
+        'Råvaruhantering och kalkyl',
+        'Allergenhantering enligt Livsmedelsförordningen',
+        'Receptutveckling och produktion i större volym',
+        'Kökssystem och inventering',
+      ],
+      personliga: [
+        'Hantverksskicklig och precisionsorienterad',
+        'Kreativ i produktutveckling',
+        'Lugn under hög arbetsbelastning',
+        'Strukturerad i mise en place',
+        'Pedagogisk vid lärlingsutbildning',
+        'Lojal mot kvalitetsstandard',
+        'Lagspelare i högintensivt kök',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren konditor med gesällbrev från Sveriges Bagare och Konditorer, praktik på Pierre Hermé i Paris och 8 års erfarenhet från Vetekatten och Grand Hotel. Specialiserad på viennoiserie, bröllopstårtor och sockerkonst med produktion av 150-300 enheter per dag i premium-segmentet. Silvermedalj i Konditor-SM 2023, HACCP-utbildning och vana av allergenhantering. Söker nya uppdrag som chefskonditor eller pastry chef på premium-konditori eller hotell.',
+
+    profilTips:
+      'År som konditor, gesäll- eller mästarbrev och produktområde i öppningsraden. Andra meningen lyfter konkreta verksamheter och eventuella tävlingsplaceringar. Tredje meningen visar specialisering eller eventuell internationell erfarenhet.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Brev och tävlingar',
+        text: 'Gesäll- eller mästarbrev, datum och utfärdare. Tävlingsplaceringar (Konditor-SM, Coupe du Monde) i eget block. Differentierar premium-konditorer.',
+      },
+      {
+        rubrik: 'Produktområde och specialisering',
+        text: 'Bröllopstårtor, sockerkonst, choklad, viennoiserie. Var tydlig med specialisering eftersom verksamheter söker komplettering till team.',
+      },
+      {
+        rubrik: 'HACCP och hygiencertifiering',
+        text: 'HACCP, EHEDG, livsmedelshygien. CV-kritiskt och krav på alla seriösa konditorier. Lyft som eget block.',
+      },
+      {
+        rubrik: 'Produktionsvolym och team',
+        text: '"Producerade 200 wienerbröd per dag" eller "Drev konditori med 15-personers team". Konkretisera volym och teamstorlek.',
+      },
+      {
+        rubrik: 'Internationell erfarenhet',
+        text: 'Praktik på Pierre Hermé, Jordi Roca, Cédric Grolet eller motsvarande. Väger tungt och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Affärsförståelse',
+        text: 'Kalkyl, marginal, råvaruinköp, svinn, prissättning. Lyft om du söker chef- eller produktionsledar-roll.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som konditor, brev, produktområde och eventuella tävlingar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Verksamhet, period, produktområde. Konkretisera produktionsvolym, specialiteter och team.' },
+      { sektion: 'Utbildning', tips: 'Restaurang- eller livsmedelsprogrammet + skola. Gesäll- eller mästarbrev i eget block.' },
+      { sektion: 'Tävlingar', tips: 'Konditor-SM, Coupe du Monde, internationella tävlingar. Datum och placering.' },
+      { sektion: 'Kompetenser', tips: 'Produktområden, tekniker, hygien. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Internationell erfarenhet, mentorskap, eventuella föreläsningar eller TV-medverkan.' },
+    ],
+
+    checklista: [
+      'Gesäll- eller mästarbrev',
+      'Produktområde och specialisering',
+      'HACCP och hygiencertifiering',
+      'Produktionsvolym och team',
+      'Eventuella tävlingsplaceringar',
+      'Internationell erfarenhet eller praktik',
+      'Råvaruhantering och kalkyl',
+      'Allergenhantering',
+      'Receptutveckling',
+      'Eventuell mentor- eller chefsroll',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Hotellkedjor och industri-bagerier använder Workday och Teamtailor. Skriv ut gesäll- eller mästarbrev, hygiencertifiering (HACCP, EHEDG), produktområden (viennoiserie, sockerkonst, choklad) och eventuella tävlingsplaceringar i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett konditor-CV?',
+        a: 'Gesäll- eller mästarbrev från Sveriges Bagare och Konditorer, produktområde och specialisering, HACCP-utbildning, produktionsvolym, eventuella tävlingsplaceringar (Konditor-SM, Coupe du Monde), internationell erfarenhet, samt eventuell affärsförståelse om du söker chefroll.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny konditor?',
+        a: 'Lyft restaurang- eller livsmedelsprogrammet med inriktning bageri-konditori, lärlingstid och eventuellt gesällbrev, eventuell tidigare erfarenhet i kök eller café, hygiencertifiering, språk och tillgänglighet helger och tidiga morgnar. Var konkret om vilka tekniker du behärskar.',
+      },
+      {
+        q: 'Hur viktigt är gesäll- eller mästarbrev?',
+        a: 'Mycket. Gesällbrev är standard för fast tjänst på konditorier i Sverige. Mästarbrev krävs för chefskonditor eller pastry chef-roller på premium-segmentet. Brev från Sveriges Bagare och Konditorer är universalt erkända.',
+      },
+      {
+        q: 'Hur lyfter jag tävlingserfarenhet?',
+        a: 'Konkret: "Silvermedalj i Konditor-SM 2023", "Lagmedlem i Konditorlandslaget 2022-2024", "Topp 5 i regional tävling i sockerkonst". Tävlingsplaceringar väger tungt på premium-konditorier och hotell.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Gesällbrev, mästarbrev, HACCP, EHEDG, viennoiserie, sockerkonst, pralin, ganache, crème pâtissière, tempering, pièce montée, allergenhantering, livsmedelsförordningen, Konditor-SM. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett konditor-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med tävlingar eller internationell erfarenhet: 2 sidor. Det viktigaste är att brev, specialisering och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till konditor-tjänster?',
+        a: 'Ja på premium-segmentet. Hotell och premium-konditorier förväntar sig personligt brev. Använd brevet för att förklara varför just den verksamheten passar din specialisering och beskriv en konkret produkt eller utmaning du löst. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är internationell erfarenhet?',
+        a: 'Mycket på premium-segmentet. Praktik på Pierre Hermé, Jordi Roca, Cédric Grolet eller motsvarande på Le Cordon Bleu, École Lenôtre i Frankrike eller Belgien stärker positionen och påverkar lönen direkt. Lyft även eventuell tävlingserfarenhet utomlands.',
+      },
+      {
+        q: 'Hur skiljer sig konditor från bagare?',
+        a: 'Bagare arbetar primärt med bröd och deg. Konditor specialiserar sig på söta bakverk, tårtor, choklad och sockerkonst. Vissa verksamheter har separat brev för båda yrken. Var tydlig på CV:t med vilken inriktning du har.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt konditor-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("kreativ och noggrann") utan stöd, namn på medarbetare eller sekretessbelagda detaljer, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'it-konsult': {
+    seoIntro:
+      'Som IT-konsult bedöms du på din tekniska bredd, kundleverans och förmåga att fakturera. Konsultbolag som Accenture, Capgemini, Sopra Steria, TietoEvry, Cygni och tusentals mindre boutique-konsulter har konstant öppna IT-konsult-tjänster, men account managers och tech leads slänger CV:n som inte tydligt visar uppdragshistorik, teknisk stack och kundfakturering. Ett välskrivet CV avgör om du blir kallad till intervju på det konsultbolag du faktiskt vill jobba på.\n\nVår mall för IT-konsulter lyfter teknisk stack, uppdragshistorik och fakturerbar tid som första visuella element. Vi har strukturerat erfarenhetssektionen så att kund, period, roll och leveransresultat syns direkt. Det betyder att account managers och tech leads kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör, systemvetare eller motsvarande), uppdragshistorik (kund, period, teknisk stack, roll), teknisk bredd (.NET, Java, JavaScript, TypeScript, Python, React, Angular, Vue, AWS, Azure, GCP, Kubernetes), certifieringar (AWS, Azure, GCP, Scrum, ITIL), eventuell branschvana (bank, försäkring, retail, offentlig sektor) samt språk och fakturerbar tid om du driver eget.\n\nNedan hittar du två CV-mallar designade för IT-konsult-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad account managers och tech leads på konsultbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den uppdrag du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Uppdrag, inte anställningar',
+        description: 'IT-konsulter listar uppdrag (kund + period + roll + stack), inte bara arbetsgivare. Skriv ut Telia 2024 (.NET-arkitekt), Swedbank 2022-2023 (DevOps-engineer). Konsult-CV strukturen.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Teknisk stack i klartext',
+        description: '.NET 8, C#, Java 17, Spring Boot, React 18, TypeScript, Kubernetes, Docker, AWS, Azure DevOps, Terraform. Skriv ut versioner och specifika ramverk eftersom tech leads söker exakt match.',
+      },
+      {
+        icon: 'Award',
+        title: 'Certifieringar i eget block',
+        description: 'AWS Solutions Architect, Azure Solutions Architect, Google Cloud Professional, Scrum Master, ITIL, Microsoft MCSE. Konsultbolag fakturerar mer för certifierade konsulter, så lyft alla.',
+      },
+      {
+        icon: 'Target',
+        title: 'Branschvana differentierar',
+        description: 'Bank, försäkring, retail, offentlig sektor, telecom är olika världar med olika säkerhets- och regelverkskrav. Lyft branschvana eftersom det avgör matchning till uppdrag.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta leveransresultat',
+        description: '"Migrerade legacy-monolit till mikrotjänst på AWS, sparade 35% i drift" eller "Ledde DevOps-team som ökade deploys från 1/månad till 25/dag" är konkret. Tech leads värderar leverans.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Utbildning och certifieringar',
+        description: 'Civilingenjör data, systemvetare, KTH, Chalmers, LTH. Magisterexamen eller PhD är meriterande för senior-roller. Bootcamp-utbildning räcker för junior-uppdrag.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Stack och certifieringar överst',
+        description: 'Vår mall lyfter teknisk stack och certifieringar i sidopanelen. Account managers och tech leads ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Konsult-CV med uppdragshistorik',
+        description: 'Mallen är strukturerad för uppdrag (kund + period + roll + stack), inte bara anställningar. Standard-CV för IT-konsulter i Sverige.',
+      },
+      {
+        title: 'Eget block för branschvana',
+        description: 'Bank, försäkring, retail, offentlig sektor lyfts som eget kompetensblock. Differentierar dig från konsulter med bara teknisk bredd.',
+      },
+      {
+        title: 'Premium-mallen Stack Plus med foto',
+        description: 'För senior IT-konsult eller tech lead lägger Stack Plus till foto och ren design. Skapar professionell first impression som passar konsultbranschen där relation värderas.',
+      },
+      {
+        title: 'Plats för leveransresultat',
+        description: 'Mallen har dedikerade rader för konkreta leveransresultat per uppdrag. Visar att du tänker både teknik och affär.',
+      },
+      {
+        title: 'Plats för fakturerbar tid och rate',
+        description: 'Egen rad för fakturerbar tid (utnyttjandegrad) och eventuell rate-information om du driver eget. Senior konsulter visar både tekniska och affärsmått.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Tekniska leveranser',
+        punkter: [
+          'Bygga och leverera mjukvarulösningar enligt kunds krav',
+          'Designa arkitektur, integrationer och datamodeller',
+          'Genomföra code review, parprogrammering och teknisk mentorskap',
+          'Säkerställa kvalitet genom testning och DevOps-pipelines',
+        ],
+      },
+      {
+        rubrik: 'Kundkontakt och kravarbete',
+        punkter: [
+          'Genomföra kravinsamling och teknisk specifikation',
+          'Hålla daglig kontakt med kund och produktägare',
+          'Bidra till backlog-grooming, planering och retro',
+          'Presentera lösningar för stakeholders och beslutsforum',
+        ],
+      },
+      {
+        rubrik: 'Roller och ansvar',
+        punkter: [
+          'Verka som utvecklare, tech lead, arkitekt eller DevOps-engineer',
+          'Driva eller stötta vid agila events (sprint planning, retros)',
+          'Ta ansvar för specifika system, moduler eller miljöer',
+          'Bidra till uppdragets bemanning och övergripande planering',
+        ],
+      },
+      {
+        rubrik: 'Kunskapsdelning',
+        punkter: [
+          'Mentorera junior konsulter på uppdraget',
+          'Bidra till konsultbolagets kompetensutveckling',
+          'Hålla interna föreläsningar eller workshops',
+          'Skriva tekniska bloggposter eller artiklar',
+        ],
+      },
+      {
+        rubrik: 'Affär och fakturering',
+        punkter: [
+          'Säkerställa hög utnyttjandegrad och fakturerbar tid',
+          'Bidra till anbudsarbete och kunddialog',
+          'Stötta account manager vid utökning av uppdrag',
+          'Bidra till positionering inom kontot och cross-sell',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Teknisk stack',
+        termer: [
+          { term: '.NET / C#', forklaring: 'Microsofts plattform, vanlig i bank, försäkring, offentlig sektor.' },
+          { term: 'Java / Spring', forklaring: 'Enterprise-stack, vanlig på storföretag och bank.' },
+          { term: 'TypeScript / Node.js', forklaring: 'Modern stack för fullstack och backend.' },
+          { term: 'React / Angular / Vue', forklaring: 'Frontend-ramverk som dominerar i konsultuppdrag.' },
+          { term: 'Kubernetes / Docker', forklaring: 'Container-orkestrering, standard i cloud-uppdrag.' },
+          { term: 'Terraform / IaC', forklaring: 'Infrastructure as Code, central i DevOps-uppdrag.' },
+        ],
+      },
+      {
+        kategori: 'Cloud-plattformar',
+        termer: [
+          { term: 'AWS', forklaring: 'Amazon Web Services, marknadsledare globalt.' },
+          { term: 'Azure', forklaring: 'Microsofts moln, dominerar i .NET-uppdrag och Microsoft Stack.' },
+          { term: 'GCP', forklaring: 'Google Cloud Platform, vanlig i tech-bolag och data-uppdrag.' },
+          { term: 'AWS Solutions Architect', forklaring: 'AWS-certifiering, mycket meriterande.' },
+          { term: 'Azure Solutions Architect', forklaring: 'Azure-certifiering på arkitekt-nivå.' },
+          { term: 'GCP Professional', forklaring: 'Google Cloud Professional-certifieringar.' },
+        ],
+      },
+      {
+        kategori: 'Konsultbranschen',
+        termer: [
+          { term: 'Utnyttjandegrad', forklaring: 'Andel arbetstid som faktureras till kund (typiskt 80-90%).' },
+          { term: 'Fakturerbar tid', forklaring: 'Tid som debiteras kund kontra intern tid.' },
+          { term: 'Rate', forklaring: 'Timpris eller dagpris konsulten faktureras till kund.' },
+          { term: 'Bench', forklaring: 'Tid mellan uppdrag, ofakturerad tid.' },
+          { term: 'Anbud / RFP', forklaring: 'Request for Proposal, formell upphandling.' },
+          { term: 'SOW', forklaring: 'Statement of Work, uppdragsavtal med scope och leverans.' },
+        ],
+      },
+      {
+        kategori: 'Metodik och certifiering',
+        termer: [
+          { term: 'Scrum Master', forklaring: 'Certifierad scrum-metodik (CSM eller PSM).' },
+          { term: 'SAFe', forklaring: 'Scaled Agile Framework, vanlig på storkund.' },
+          { term: 'ITIL', forklaring: 'IT Infrastructure Library, central i drift-uppdrag.' },
+          { term: 'TOGAF', forklaring: 'Enterprise architecture framework.' },
+          { term: 'PMP', forklaring: 'Project Management Professional, klassisk projektledar-certifiering.' },
+          { term: 'CISSP', forklaring: 'Certified Information Systems Security Professional, senior cybersäkerhets-certifiering.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Globala konsultbolag',
+        exempel: [
+          'Accenture, Capgemini, Sopra Steria, IBM',
+          'Deloitte, EY, KPMG, PwC (digital consulting)',
+          'TietoEvry, CGI, Atea',
+          'Cognizant, Infosys, Wipro, TCS',
+        ],
+      },
+      {
+        kategori: 'Svenska konsultbolag',
+        exempel: [
+          'Cygni, Knowit, Sigma, B3 Consulting',
+          'AFRY (digital), Combitech, Forefront',
+          'Devoteam, Webstep, Cybercom',
+          'Boutique-konsulter (5-50 personer)',
+        ],
+      },
+      {
+        kategori: 'Egen verksamhet',
+        exempel: [
+          'Eget AB med F-skatt, fakturerar via Cinode/Brainville',
+          'Frilans via konsultmäklare (Dfind, Eyeon, Brainville)',
+          'Long-term inhouse-konsult hos enstaka kund',
+          'Subkontraktor under konsultbolag',
+        ],
+      },
+      {
+        kategori: 'Inhouse-team som anlitar konsulter',
+        exempel: [
+          'Bank (Swedbank, SEB, Handelsbanken, Nordea)',
+          'Telecom (Telia, Tele2, Telenor)',
+          'Retail och e-handel (H&M, IKEA, Klarna, Spotify)',
+          'Offentlig sektor (Skatteverket, Försäkringskassan, Pensionsmyndigheten)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör data eller teknisk fysik (5 år)',
+        beskrivning: 'Vanligaste vägen för senior konsultroller. KTH, Chalmers, LTH, Linköping, Uppsala, Umeå. Ger djup teoretisk grund och attraktion på premium-konsultbolag.',
+      },
+      {
+        rubrik: 'Systemvetare eller dataingenjör (3-3,5 år)',
+        beskrivning: 'Bachelor i systemvetenskap, datateknik eller motsvarande. Kortare än civilingenjör men kvalificerar för de flesta utvecklarroller. Vanligt på mid-tier-konsultbolag.',
+      },
+      {
+        rubrik: 'Bootcamp och YH-utbildning (6-24 mån)',
+        beskrivning: 'Korta utbildningar för omskolning. Skolor som Nackademin, Lexicon, KYH. Räcker för junior-uppdrag och utvecklarroller, men premium-bolag vill ofta se fortsatt utveckling.',
+      },
+      {
+        rubrik: 'Certifieringar (löpande)',
+        beskrivning: 'AWS Solutions Architect, Azure Solutions Architect, Google Cloud Professional, Scrum Master, ITIL, CISSP. Konsultbolag fakturerar mer för certifierade konsulter, så certifieringar är ofta finansierade av arbetsgivaren.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        '.NET 8, C#, ASP.NET Core',
+        'Java 17, Spring Boot, Spring Cloud',
+        'TypeScript, Node.js, Express',
+        'React 18, Angular 17, Vue 3',
+        'Kubernetes, Docker, Helm',
+        'AWS (Lambda, EKS, RDS, S3)',
+        'Azure (App Service, AKS, SQL)',
+        'Terraform och Infrastructure as Code',
+        'CI/CD (GitHub Actions, Azure DevOps, GitLab)',
+        'PostgreSQL, MongoDB, Redis',
+        'GraphQL, REST API-design',
+        'OAuth 2.0, OpenID Connect, säkerhet',
+      ],
+      personliga: [
+        'Strukturerad i kunddialog',
+        'Pedagogisk i komplex teknik',
+        'Pragmatisk vid trade-offs',
+        'Lugn under tidspress',
+        'Lojal mot kvalitet och leverans',
+        'Lyhörd för affärsmässiga krav',
+        'Lagspelare i blandade team',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren IT-konsult med civilingenjör data från KTH och 9 års erfarenhet på Cygni och Capgemini. Specialiserad på .NET och Azure med uppdrag inom bank (Swedbank, Handelsbanken), försäkring (Folksam) och offentlig sektor. AWS Solutions Architect Associate och Azure Solutions Architect Expert. Driver senior utvecklar- och arkitekt-uppdrag med ansvar för migrationer från legacy till mikrotjänster på cloud, utnyttjandegrad 92%. Söker nya uppdrag som tech lead eller solution architect inom bank eller offentlig sektor.',
+
+    profilTips:
+      'År som IT-konsult, primär stack och branschvana i öppningsraden. Andra meningen lyfter konkreta uppdragstyper och kunder. Tredje meningen visar certifieringar och eventuell utnyttjandegrad eller affärsmått.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Uppdrag, inte anställningar',
+        text: 'Konsult-CV strukturen: kund + period + roll + stack. Telia 2024 (.NET-arkitekt), Swedbank 2022-2023 (DevOps-engineer). Skiljer sig från inhouse-CV.',
+      },
+      {
+        rubrik: 'Teknisk stack i klartext',
+        text: '.NET 8, Java 17, React 18, Kubernetes. Skriv ut versioner och specifika ramverk eftersom tech leads söker exakt match i ATS.',
+      },
+      {
+        rubrik: 'Certifieringar i eget block',
+        text: 'AWS Solutions Architect, Azure, Google Cloud, Scrum Master, ITIL. Konsultbolag fakturerar mer för certifierade, så lyft alla.',
+      },
+      {
+        rubrik: 'Branschvana differentierar',
+        text: 'Bank, försäkring, retail, offentlig sektor. Olika säkerhets- och regelverkskrav. Lyft branschvana eftersom det avgör uppdragsmatchning.',
+      },
+      {
+        rubrik: 'Konkreta leveransresultat',
+        text: '"Migrerade monolit till mikrotjänst på AWS, sparade 35% i drift", "Ledde DevOps-team som ökade deploys 25x". Tech leads värderar leverans.',
+      },
+      {
+        rubrik: 'Utnyttjandegrad och affärsmått',
+        text: 'Lyft fakturerbar tid och utnyttjandegrad om över 85%. Visar att du driver konsultaffär bortom ren teknik.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som IT-konsult, primär stack, branschvana och certifieringar på 3-4 rader.' },
+      { sektion: 'Uppdrag', tips: 'Kund, period, roll, stack. Konkretisera leveransresultat per uppdrag.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller motsvarande + lärosäte. Eventuell magister eller PhD.' },
+      { sektion: 'Certifieringar', tips: 'AWS, Azure, GCP, Scrum, ITIL. Datum för senaste prov där relevant.' },
+      { sektion: 'Kompetenser', tips: 'Stack, cloud, metodik. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Tidigare anställningar, eventuell egen verksamhet, språk, eventuella öppen källkod-bidrag.' },
+    ],
+
+    checklista: [
+      'Civilingenjör eller motsvarande utbildning',
+      'Uppdragshistorik (kund + period + roll + stack)',
+      'Teknisk stack med versioner',
+      'Cloud-erfarenhet (AWS, Azure, GCP)',
+      'Certifieringar i eget block',
+      'Branschvana (bank, försäkring, offentlig)',
+      'Konkreta leveransresultat',
+      'Eventuell utnyttjandegrad',
+      'Engelska och språk',
+      'Eventuella öppen källkod-bidrag',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack Developer och premium-varianten Stack Plus är ATS-säkra. Konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut teknisk stack med versioner (.NET 8, Java 17, React 18), cloud-plattformar (AWS, Azure, GCP) och certifieringar (AWS Solutions Architect, Azure Expert) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett IT-konsult-CV?',
+        a: 'Civilingenjör eller motsvarande utbildning, uppdragshistorik (kund + period + roll + stack), teknisk stack med versioner, cloud-erfarenhet (AWS, Azure, GCP), certifieringar i eget block, branschvana, konkreta leveransresultat samt eventuell utnyttjandegrad om över 85%.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny IT-konsult utan uppdragshistorik?',
+        a: 'Lyft civilingenjör eller systemvetenskap, examensarbete eller masterthesis, eventuella praktikplatser, hobbyprojekt på GitHub, certifieringar du tagit (AWS, Azure cert), bootcamp-utbildning, samt eventuell tidigare inhouse-erfarenhet. Konsultbolag rekryterar gärna nya med stark utbildning.',
+      },
+      {
+        q: 'Hur strukturerar jag uppdragshistorik?',
+        a: 'Kund + period + roll + stack + leveransresultat. Exempel: "Telia, 2024 (8 mån). .NET-arkitekt på telecom-billing-system. Migrerade legacy-COBOL till .NET 8 + Azure Service Bus, sparade 35% i drift". Tydligt och fakturabart.',
+      },
+      {
+        q: 'Hur viktiga är certifieringar?',
+        a: 'Mycket. AWS Solutions Architect, Azure Solutions Architect, Google Cloud Professional är de mest värdefulla. Scrum Master, ITIL och CISSP differentierar inom respektive område. Konsultbolag fakturerar mer för certifierade konsulter och finansierar ofta certifieringen.',
+      },
+      {
+        q: 'Hur lyfter jag branschvana?',
+        a: 'Konkret: "5 års erfarenhet av bank-IT (Swedbank, Handelsbanken)", "Vana av PSD2, MiFID II och PCI-DSS", "Erfarenhet av offentlig upphandling och Kammarkollegiets ramavtal". Tech leads söker konsulter som förstår branschens regelverk.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifik stack med versioner (.NET 8, Java 17, React 18, Kubernetes), cloud (AWS, Azure, GCP), certifieringar (AWS Solutions Architect, Azure Expert), metodik (Scrum, SAFe), och branschvana (bank, försäkring, offentlig). Workday och Cinode söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett IT-konsult-CV vara?',
+        a: 'Junior 0-3 år: 1-1,5 sidor. Mid-level: 2 sidor. Senior tech lead eller solution architect: 2-3 sidor. Det viktigaste är att stack, certifieringar och senaste uppdrag syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till IT-konsult-uppdrag?',
+        a: 'Ofta inte. Konsultbolag och konsultmäklare arbetar främst med CV och kompetensprofil. Inhouse-team som anlitar konsulter förväntar sig ibland kort introduktion. När brev krävs, fokus på uppdrags-fit och teknisk match till kundens stack.',
+      },
+      {
+        q: 'Hur viktig är utnyttjandegrad?',
+        a: 'Värdefull för seniora konsulter som driver eget eller arbetar fast på konsultbolag. Lyft 85-95% utnyttjandegrad om du har den. Visar både teknisk skicklighet och kommersiell positionering inom kontot.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt IT-konsult-CV?',
+        a: 'Personnummer (bara födelseår), kunduppgifter under NDA, sekretessbelagda detaljer, exakta lönesiffror eller rates, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och lösningsorienterad") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'scrum-master': {
+    seoIntro:
+      'Som Scrum Master bedöms du på din metodikförståelse, coaching-förmåga och teamleverans. Konsultbolag som Capgemini, Cygni, Sopra Steria, scale-ups som Klarna, Spotify, iZettle och stora bolag som Swedbank, Telia, IKEA har konstant öppna Scrum Master-tjänster, men engineering managers slänger CV:n som inte tydligt visar certifiering, teamtyp och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för Scrum Masters lyfter certifiering (PSM, CSM, SAFe), teamtyp och konkreta facilitering-resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, teamtyp och leveransresultat syns direkt. Det betyder att engineering managers kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Scrum Master-certifiering (PSM I/II/III, CSM, A-CSM, CSP-SM), SAFe-certifiering (SA, RTE, SPC), eventuell PMP eller Kanban Management Professional, teamtyp och teknisk kontext, konkreta resultat (velocity-ökning, lead time-reduktion, retention), coaching-erfarenhet, samt verktygsvana (Jira, Azure DevOps, Confluence, Miro, Mural).\n\nNedan hittar du två CV-mallar designade för Scrum Master-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad engineering managers och agile coaches på konsultbolag, scale-ups och storbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Certifiering i klartext',
+        description: 'PSM I/II/III, CSM, A-CSM, CSP-SM är olika nivåer. SAFe-certifiering (SA, RTE, SPC) är CV-kritisk på storbolag som kör SAFe. Skriv ut datum och utfärdare.',
+      },
+      {
+        icon: 'Target',
+        title: 'Teamtyp och teknisk kontext',
+        description: 'Frontend-team, mobilteam, backend-team, plattformsteam, cross-functional team är olika världar. Var tydlig med teknisk kontext, antal personer i teamet och teamets uppdrag.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta resultat',
+        description: '"Sänkte lead time från 14 till 4 dagar" eller "Ökade velocity 40% genom retro-driven förbättring" är konkret. Generella påståenden om "agila förbättringar" filtreras bort.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Metodik utöver scrum',
+        description: 'Kanban, XP, Lean, ICP-AGC. Skriv ut metodiker du behärskar utöver Scrum eftersom moderna team blandar metodik och engineering managers söker bredd.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'SAFe på storbolag',
+        description: 'Storbolag (bank, telecom, försäkring) kör nästan alltid SAFe. Lyft RTE-erfarenhet, ART, PI Planning, Inspect & Adapt om du har det. CV-kritiskt på enterprise.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Coaching-erfarenhet',
+        description: 'Coaching av PO, dev-team, ledning. Vana av att facilitera retros, planning, demo. Senior Scrum Master visar bredare coaching-portfolio bortom ren scrum-mekanik.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Certifieringar och metodik överst',
+        description: 'Vår mall lyfter Scrum Master- och SAFe-certifieringar i sidopanelen. Engineering managers ser din behörighet på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för coaching',
+        description: 'Coaching-stilar, retros-format, facilitering-tekniker lyfts som eget kompetensblock. Differentierar dig från Scrum Masters med bara certifiering.',
+      },
+      {
+        title: 'Tydlig teamtyp per arbetsgivare',
+        description: 'Mallen har dedikerade rader för teamtyp och teknisk kontext per uppdragsgivare. Erfarenhet från frontend-team och plattformsteam konkurrerar inte.',
+      },
+      {
+        title: 'Premium-mallen Aspekt med foto',
+        description: 'För senior Scrum Master eller agile coach lägger Aspekt till foto och premium-känsla. Skapar professionell first impression som passar coaching-roller.',
+      },
+      {
+        title: 'Plats för konkreta resultat',
+        description: 'Mallen har dedikerade rader för velocity-ökning, lead time-reduktion, deployment frequency och DORA-mått per uppdrag. Visar mätbar effekt.',
+      },
+      {
+        title: 'Plats för coaching och utbildning',
+        description: 'Egen rad för intern utbildning, agile-events och eventuell föreläsningsverksamhet. Senior Scrum Master har ofta uppdrag som inte passar i ren CV-rad.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Facilitering av scrum-events',
+        punkter: [
+          'Facilitera daily stand-up, sprint planning, sprint review och retrospective',
+          'Säkerställa att events tar lagom tid och levererar värde',
+          'Variera retro-format för att hålla engagemang',
+          'Bidra till backlog-grooming tillsammans med PO',
+        ],
+      },
+      {
+        rubrik: 'Coaching och utveckling',
+        punkter: [
+          'Coacha PO i backlog-prioritering och stakeholder-dialog',
+          'Coacha dev-team i självorganisation och teknisk excellens',
+          'Coacha ledning i agila principer och organisatorisk förändring',
+          'Mentorera junior Scrum Masters i organisationen',
+        ],
+      },
+      {
+        rubrik: 'Hinderhantering och processförbättring',
+        punkter: [
+          'Identifiera och eskalera hinder som teamet inte kan lösa',
+          'Driva systematisk förbättring genom retros och experiment',
+          'Bidra till organisationens agila transformation',
+          'Mäta och visualisera teamprestation (velocity, lead time, throughput)',
+        ],
+      },
+      {
+        rubrik: 'Samverkan över team',
+        punkter: [
+          'Samverka med andra Scrum Masters och RTE',
+          'Bidra till Scrum-of-Scrums eller ART-events',
+          'Säkerställa beroenden hanteras mellan team',
+          'Stötta vid PI Planning och cross-team-koordinering',
+        ],
+      },
+      {
+        rubrik: 'Utbildning och evangelism',
+        punkter: [
+          'Hålla workshops i agila metoder för team och ledning',
+          'Bidra till organisationens agila community och meetups',
+          'Skriva interna riktlinjer och best practice',
+          'Stötta vid externa rekryteringsintervjuer för agila roller',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Scrum-certifieringar',
+        termer: [
+          { term: 'PSM I/II/III', forklaring: 'Professional Scrum Master, från Scrum.org (tre nivåer).' },
+          { term: 'CSM', forklaring: 'Certified Scrum Master, från Scrum Alliance.' },
+          { term: 'A-CSM', forklaring: 'Advanced Certified Scrum Master, mid-level.' },
+          { term: 'CSP-SM', forklaring: 'Certified Scrum Professional - Scrum Master, senior.' },
+          { term: 'CST', forklaring: 'Certified Scrum Trainer, kan utbilda andra.' },
+          { term: 'PSPO', forklaring: 'Professional Scrum Product Owner.' },
+        ],
+      },
+      {
+        kategori: 'SAFe-certifieringar',
+        termer: [
+          { term: 'SA', forklaring: 'SAFe Agilist, grundcertifiering.' },
+          { term: 'SP', forklaring: 'SAFe Practitioner, för team-medlemmar.' },
+          { term: 'RTE', forklaring: 'Release Train Engineer, ART-koordinator.' },
+          { term: 'SPC', forklaring: 'SAFe Program Consultant, kan utbilda andra.' },
+          { term: 'PI Planning', forklaring: '2-dagars planering varje 8-12 veckor.' },
+          { term: 'ART', forklaring: 'Agile Release Train, 50-125 personer.' },
+        ],
+      },
+      {
+        kategori: 'Metodik',
+        termer: [
+          { term: 'Kanban', forklaring: 'Flödesbaserad metodik, kompletterar eller ersätter scrum.' },
+          { term: 'XP', forklaring: 'Extreme Programming, teknisk metodik (TDD, parprogrammering).' },
+          { term: 'Lean', forklaring: 'Lean-tänkande, fokus på flöde och elimination av slöseri.' },
+          { term: 'DevOps', forklaring: 'Kombination av utveckling och drift för snabb leverans.' },
+          { term: 'DORA-mått', forklaring: 'Deployment frequency, lead time, change failure rate, MTTR.' },
+          { term: 'OKR', forklaring: 'Objectives and Key Results, målstyrning.' },
+        ],
+      },
+      {
+        kategori: 'Verktyg',
+        termer: [
+          { term: 'Jira', forklaring: 'Atlassians scrum/kanban-verktyg, dominerar i konsultbranschen.' },
+          { term: 'Azure DevOps', forklaring: 'Microsofts ALM-plattform, vanlig i .NET-team.' },
+          { term: 'Confluence', forklaring: 'Atlassians wiki för dokumentation.' },
+          { term: 'Miro / Mural', forklaring: 'Online-whiteboards för retros och facilitering.' },
+          { term: 'Slack / Teams', forklaring: 'Daglig kommunikationsverktyg.' },
+          { term: 'Trello / Linear', forklaring: 'Lättviktsverktyg för mindre team.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'Capgemini, Sopra Steria, Accenture, IBM',
+          'Cygni, Knowit, Sigma, B3 Consulting',
+          'Devoteam, Webstep, Forefront',
+          'Boutique-konsulter med agile-fokus',
+        ],
+      },
+      {
+        kategori: 'Scale-ups och tech-bolag',
+        exempel: [
+          'Klarna, Spotify, iZettle (Zettle by PayPal)',
+          'King, Mojang (Microsoft), Avanza',
+          'Truecaller, Voi, Northvolt',
+          'Mindre tech-scale-ups med 50-300 anställda',
+        ],
+      },
+      {
+        kategori: 'Storbolag och bank',
+        exempel: [
+          'Swedbank, SEB, Handelsbanken, Nordea',
+          'Telia, Tele2, Telenor',
+          'IKEA, H&M, Volvo (digital), Scania',
+          'Försäkringsbolag (Folksam, If, Trygg-Hansa)',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor',
+        exempel: [
+          'Skatteverket, Försäkringskassan, Pensionsmyndigheten',
+          'Arbetsförmedlingen, Kronofogden, Migrationsverket',
+          'Stockholms stad, Göteborgs stad, Region Stockholm',
+          'Myndigheter under digital transformation',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör data eller systemvetare (3-5 år)',
+        beskrivning: 'Vanligaste vägen för Scrum Masters. Civilingenjör data, systemvetare eller motsvarande från KTH, Chalmers, Linköping. Ger teknisk grund som komplement till coaching-kompetens.',
+      },
+      {
+        rubrik: 'Övriga utbildningar plus certifiering',
+        beskrivning: 'Många Scrum Masters kommer från andra discipliner (psykologi, beteendevetenskap, ledarskap, ekonomi). Kompletterar med Scrum- och SAFe-certifieringar för formell kompetens.',
+      },
+      {
+        rubrik: 'Scrum-certifiering (1-3 dagars kurs)',
+        beskrivning: 'PSM I (online-prov via Scrum.org) eller CSM (2-dagars kurs via Scrum Alliance) är minimum. PSM II och A-CSM kräver mer erfarenhet. PSM III och CSP-SM kräver dokumenterad praktik.',
+      },
+      {
+        rubrik: 'SAFe och senior coaching-utbildningar',
+        beskrivning: 'SAFe Agilist (SA), SAFe Release Train Engineer (RTE), SAFe Program Consultant (SPC). ICAgile certifieringar (ICP-ACC, ICP-AGC) är värdefulla för senior coaching-roller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Scrum (PSM I/II/III, CSM, A-CSM)',
+        'SAFe (SA, RTE, SPC)',
+        'Kanban och flödesoptimering',
+        'XP och teknisk metodik',
+        'OKR och målstyrning',
+        'DORA-mått och DevOps-metrics',
+        'Coaching-tekniker (GROW, ICF)',
+        'Facilitering och retro-format',
+        'Jira, Azure DevOps, Confluence',
+        'Miro, Mural för online-facilitering',
+        'PI Planning och ART-events',
+        'Scrum-of-Scrums och cross-team-koordinering',
+      ],
+      personliga: [
+        'Lyhörd och empatisk',
+        'Pragmatisk i metodval',
+        'Tydlig i kommunikation',
+        'Lugn vid konflikt',
+        'Pedagogisk i workshops',
+        'Modig i att utmana ledningen',
+        'Lojal mot teamets utveckling',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren Scrum Master med PSM II, A-CSM och SAFe Release Train Engineer (RTE). 7 års erfarenhet från Klarna och Swedbank med fokus på 8-12-personers cross-functional dev-team. Sänkte lead time från 14 till 4 dagar och ökade deployment frequency från 1/månad till 25/dag genom systematisk DORA-driven förbättring. Vana av PI Planning på ART-nivå med 80+ personer. Coaching-certifierad ICP-ACC, mentor för 4 junior Scrum Masters. Söker nya uppdrag som senior Scrum Master eller agile coach på scale-up eller bank.',
+
+    profilTips:
+      'År som Scrum Master, certifieringar och teamtyp i öppningsraden. Andra meningen lyfter konkreta resultat med siffror (lead time, velocity, DORA-mått). Tredje meningen visar coaching-bredd och eventuell mentorroll.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Certifiering i klartext',
+        text: 'PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC. Skriv ut datum, utfärdare och eventuell specialisering. Engineering managers söker exakta termer.',
+      },
+      {
+        rubrik: 'Teamtyp och teknisk kontext',
+        text: 'Frontend, mobil, backend, plattform, cross-functional. Antal personer i teamet och teknisk stack ger viktigt sammanhang.',
+      },
+      {
+        rubrik: 'Konkreta resultat med siffror',
+        text: '"Sänkte lead time från 14 till 4 dagar", "Ökade velocity 40%". Generella påståenden om agila förbättringar filtreras bort.',
+      },
+      {
+        rubrik: 'Metodik utöver scrum',
+        text: 'Kanban, XP, Lean, ICP-AGC. Moderna team blandar metodik och engineering managers söker bredd, inte bara scrum-mekanik.',
+      },
+      {
+        rubrik: 'SAFe på storbolag',
+        text: 'RTE, ART, PI Planning, Inspect & Adapt. Storbolag (bank, telecom, försäkring) kör nästan alltid SAFe. CV-kritiskt på enterprise.',
+      },
+      {
+        rubrik: 'Coaching-bredd',
+        text: 'Coaching av PO, dev-team, ledning. Vana av retros, planning, demo. Senior Scrum Master visar bredare portfolio bortom ren mekanik.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som Scrum Master, certifieringar, teamtyp och konkreta resultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, period, teamtyp. Konkretisera lead time, velocity, deployment frequency och DORA-mått.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller motsvarande + lärosäte. Eventuell magister eller PhD.' },
+      { sektion: 'Certifieringar', tips: 'PSM, CSM, SAFe, ICAgile. Datum för senaste prov där relevant.' },
+      { sektion: 'Kompetenser', tips: 'Metodik, coaching, verktyg. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Eventuella föreläsningar, podcast-medverkan, mentorskap, agila community-engagemang.' },
+    ],
+
+    checklista: [
+      'Scrum Master-certifiering (PSM, CSM, eller motsvarande)',
+      'Eventuell SAFe-certifiering',
+      'Teamtyp och teknisk kontext',
+      'Konkreta resultat (lead time, velocity, DORA)',
+      'Metodik utöver scrum (Kanban, XP, Lean)',
+      'Coaching-erfarenhet (PO, team, ledning)',
+      'Verktygsvana (Jira, Azure DevOps, Miro)',
+      'Eventuell mentor- eller coaching-certifiering',
+      'Branschvana och teknisk stack',
+      'Utbildning och eventuell PhD',
+    ],
+
+    atsInfo:
+      'Både vår mall Linje och premium-varianten Aspekt är ATS-säkra. Konsultbolag, scale-ups och storbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut certifieringar (PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC), metodik (Scrum, Kanban, XP, Lean) och DORA-mått i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett Scrum Master-CV?',
+        a: 'Scrum Master-certifiering (PSM, CSM eller motsvarande), eventuell SAFe-certifiering, teamtyp och teknisk kontext, konkreta resultat (lead time, velocity, DORA-mått), metodikbredd (Kanban, XP, Lean), coaching-erfarenhet, verktygsvana (Jira, Azure DevOps), samt eventuell utbildningsbakgrund.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny Scrum Master?',
+        a: 'Lyft din civilingenjörs- eller motsvarande utbildning, PSM I- eller CSM-certifiering, eventuell tidigare team-roll (utvecklare, projektledare, PO), facilitering eller coaching i andra sammanhang, samt språk. Många Scrum Masters kommer från andra roller och växer in i metodiken.',
+      },
+      {
+        q: 'PSM eller CSM - vilken är bättre?',
+        a: 'PSM (Scrum.org) är mer rigorös med online-prov och högre godkännandekrav. CSM (Scrum Alliance) kräver 2-dagars kurs men ger nätverk och community. Engineering managers accepterar båda. För senior-roller är PSM II/III eller A-CSM/CSP-SM avgörande.',
+      },
+      {
+        q: 'Hur viktig är SAFe-certifiering?',
+        a: 'CV-kritisk på storbolag (bank, telecom, försäkring, offentlig sektor) som kör SAFe. SAFe Agilist (SA) är minimum, RTE och SPC är senior. För scale-ups och mindre bolag är SAFe ofta inte aktuellt, då räcker Scrum + Kanban.',
+      },
+      {
+        q: 'Hur lyfter jag konkreta resultat?',
+        a: 'Använd DORA-mått: deployment frequency (1/månad → 25/dag), lead time (14 dagar → 4), change failure rate (15% → 3%), MTTR (24h → 1h). Plus team-mått: velocity-ökning, retro-driven förbättring, retention. Generella påståenden om "smidigare team" filtreras bort.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'PSM, CSM, A-CSM, CSP-SM, SAFe, SA, RTE, SPC, Scrum, Kanban, XP, Lean, OKR, DORA, lead time, velocity, deployment frequency, Jira, Azure DevOps, Confluence, Miro. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett Scrum Master-CV vara?',
+        a: 'Junior 0-3 år: 1-1,5 sidor. Mid-level: 2 sidor. Senior agile coach eller RTE: 2-3 sidor. Det viktigaste är att certifieringar, teamtyp och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till Scrum Master-tjänster?',
+        a: 'Ja på de flesta tjänster. Använd brevet för att förklara din coaching-stil och beskriv ett konkret hinder du hjälpte ett team eliminera. Engineering managers vill se din metodikförståelse och förmåga att kommunicera den. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är teknisk bakgrund?',
+        a: 'Värdefull men inte obligatorisk. Tekniska Scrum Masters (med utvecklarbakgrund) har lättare att coacha dev-team i teknisk excellens och förstå hinder. Icke-tekniska Scrum Masters kompenserar med starkare coaching-kompetens. Båda fungerar beroende på teamtyp.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt Scrum Master-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och lösningsorienterad") utan stöd, vague metodikuttryck ("hjälpte teamet bli mer agilt") utan resultat, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'ekonom': {
+    seoIntro:
+      'Som ekonom bedöms du på din analytiska förmåga, regelverkskunskap och systemvana. Industribolag, e-handel, banker, försäkringsbolag, redovisningsbyråer och startups har konstant öppna ekonomtjänster, men ekonomichefer och CFO:er slänger CV:n som inte tydligt visar utbildning, regelverk och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för ekonomer lyfter civilekonom-examen, regelverkskunskap (K2/K3, IFRS) och systemvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, period, ansvarsområde och konkreta resultat syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom-examen från Handelshögskolan eller motsvarande, eventuell auktorisation (auktoriserad redovisningskonsult, revisor, EFPA), regelverk (K2, K3, IFRS, US GAAP), system (SAP, Visma, Fortnox, Hogia, Excel-modellering), specialistområde (redovisning, controlling, analys, treasury, M&A), branschvana, samt eventuell systemimplementering och projektledning.\n\nNedan hittar du två CV-mallar designade för ekonomrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer och CFO:er på industribolag, e-handel och scale-ups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Examen och lärosäte',
+        description: 'Civilekonom från Handelshögskolan i Stockholm, Lund, Göteborg, Linköping är guldstandard för premium-roller. Magister inom finans eller redovisning väger tungt på senior-nivå.',
+      },
+      {
+        icon: 'Award',
+        title: 'Regelverk i klartext',
+        description: 'K2, K3, IFRS, US GAAP, lokal SEK eller övriga GAAP. Skriv ut vilka regelverk du arbetat med eftersom det är CV-kritiskt och avgör matchning till bolag som rapporterar enligt IFRS.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Specialistområde',
+        description: 'Redovisning, controlling, FP&A, analys, treasury, M&A, internrevision är olika spår. Var tydlig med specialisering eftersom ekonomavdelningar söker komplettering till befintligt team.',
+      },
+      {
+        icon: 'Target',
+        title: 'System och Excel',
+        description: 'SAP, Oracle, Visma, Fortnox, Hogia, BC. Excel-modellering på avancerad nivå (Power Query, Power BI, makron). Skriv ut alla system och din Excel-nivå konkret.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Branschvana och bolag',
+        description: 'Industri, e-handel, bank, försäkring, fastighet, life science har olika ekonomiska modeller. Lyft branschvana eftersom det avgör matchning och påverkar lönen.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Resultat med siffror',
+        description: '"Drev konsolidering av 12 dotterbolag enligt IFRS" eller "Implementerade SAP S/4HANA på 200-personers bolag" är konkret. Ekonomichefer värderar leverans och påverkan.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och regelverk överst',
+        description: 'Vår mall lyfter civilekonom-examen, eventuell auktorisation och regelverkskunskap i sidopanelen. Ekonomichefer ser din behörighet på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för specialisering',
+        description: 'Redovisning, controlling, FP&A, treasury lyfts som eget kompetensblock. Differentierar dig från generella ekonomer.',
+      },
+      {
+        title: 'Tydlig branschvana per arbetsgivare',
+        description: 'Mallen har dedikerade rader för bransch och bolagsstorlek per uppdragsgivare. Erfarenhet från industri och e-handel konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Konto Plus med foto',
+        description: 'För senior ekonom eller controller lägger Konto Plus till foto och ren design. Skapar professionell first impression som passar ekonomi-branschen.',
+      },
+      {
+        title: 'Plats för konkreta resultat',
+        description: 'Mallen har dedikerade rader för leveranser per uppdrag (konsolidering, systemimplementering, processförbättring). Visar både teknisk och affärsmässig påverkan.',
+      },
+      {
+        title: 'Plats för certifieringar och fortbildning',
+        description: 'Egen rad för auktorisation (revisor, redovisningskonsult), EFPA, FAR-utbildning, IFRS-fördjupning. Senior ekonom har ofta certifieringar som inte passar i ren CV-rad.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Redovisning och bokslut',
+        punkter: [
+          'Genomföra månads-, kvartals- och årsbokslut',
+          'Säkerställa följsamhet till K2, K3 eller IFRS',
+          'Hantera koncernredovisning och konsolidering',
+          'Bidra till revisionsarbete och samverka med revisor',
+        ],
+      },
+      {
+        rubrik: 'Analys och controlling',
+        punkter: [
+          'Genomföra månads- och kvartalsanalys av resultat',
+          'Driva budget- och prognosarbete',
+          'Bygga och underhålla finansiella modeller i Excel/Power BI',
+          'Analysera marginal, kostnadsstruktur och avvikelser',
+        ],
+      },
+      {
+        rubrik: 'System och processer',
+        punkter: [
+          'Driva systemförvaltning av ERP (SAP, Oracle, Visma)',
+          'Bidra till systemimplementering och förbättring',
+          'Automatisera processer med Power Automate eller RPA',
+          'Säkerställa internkontroll och Sarbanes-Oxley om relevant',
+        ],
+      },
+      {
+        rubrik: 'Skatt och moms',
+        punkter: [
+          'Hantera momsdeklaration, arbetsgivardeklaration och inkomstdeklaration',
+          'Genomföra skatteberäkning och uppskjuten skatt',
+          'Bidra till transfer pricing och internprissättning',
+          'Stötta vid skatterevision och samverka med Skatteverket',
+        ],
+      },
+      {
+        rubrik: 'Stakeholder-kommunikation',
+        punkter: [
+          'Presentera resultat och analys för ledning',
+          'Bidra till investerar-rapportering och kvartalspresentationer',
+          'Stötta verksamhetschefer i ekonomiska beslut',
+          'Driva utbildning av icke-ekonomer i finansiella mått',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Regelverk',
+        termer: [
+          { term: 'K2', forklaring: 'Förenklat regelverk för mindre företag.' },
+          { term: 'K3', forklaring: 'Huvudregelverk för medelstora och stora företag.' },
+          { term: 'IFRS', forklaring: 'International Financial Reporting Standards, krav för noterade bolag.' },
+          { term: 'US GAAP', forklaring: 'Amerikanska redovisningsregler, vanlig på USA-noterade bolag.' },
+          { term: 'BFNAR', forklaring: 'Bokföringsnämndens allmänna råd, kompletterar K-regelverken.' },
+          { term: 'Sarbanes-Oxley', forklaring: 'SOX, internkontroll-regelverk för USA-noterade bolag.' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'SAP', forklaring: 'ERP-system dominerande på storbolag.' },
+          { term: 'Oracle', forklaring: 'ERP-konkurrent till SAP, vanlig på multinationella bolag.' },
+          { term: 'Visma', forklaring: 'Svenskt ekonomisystem dominerande på SME.' },
+          { term: 'Fortnox', forklaring: 'Molnbaserat system för småbolag och redovisningsbyråer.' },
+          { term: 'Hogia', forklaring: 'Svenskt ekonomisystem för SME.' },
+          { term: 'Power BI', forklaring: 'Microsofts BI-verktyg, standard för analys.' },
+        ],
+      },
+      {
+        kategori: 'Specialistområden',
+        termer: [
+          { term: 'FP&A', forklaring: 'Financial Planning & Analysis, budget och prognos.' },
+          { term: 'Treasury', forklaring: 'Likviditets- och valutahantering.' },
+          { term: 'M&A', forklaring: 'Mergers & Acquisitions, företagsförvärv och fusioner.' },
+          { term: 'Internrevision', forklaring: 'Granskning av internkontroll och processer.' },
+          { term: 'Transfer pricing', forklaring: 'Internprissättning mellan koncernbolag.' },
+          { term: 'Konsolidering', forklaring: 'Koncernredovisning av flera dotterbolag.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar',
+        termer: [
+          { term: 'Auktoriserad redovisningskonsult', forklaring: 'Certifiering via FAR, kräver erfarenhet och prov.' },
+          { term: 'Auktoriserad revisor', forklaring: 'Certifiering via Revisorsinspektionen, hög nivå.' },
+          { term: 'EFPA', forklaring: 'European Financial Planner, finansiell planering.' },
+          { term: 'CIMA', forklaring: 'Chartered Institute of Management Accountants.' },
+          { term: 'CFA', forklaring: 'Chartered Financial Analyst, prestigefull finanscertifiering.' },
+          { term: 'CPA', forklaring: 'Certified Public Accountant, amerikansk auktorisation.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, SKF, Sandvik',
+          'Atlas Copco, Alfa Laval, Tetra Pak',
+          'AstraZeneca, Stora Enso, Boliden',
+          'Mindre industrier och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Bank, försäkring och finans',
+        exempel: [
+          'Swedbank, SEB, Handelsbanken, Nordea',
+          'Folksam, If, Trygg-Hansa, Skandia',
+          'EQT, Investor, Industrivärden',
+          'Avanza, Nordnet, Cinode, Pareto',
+        ],
+      },
+      {
+        kategori: 'E-handel och tech',
+        exempel: [
+          'Klarna, Spotify, iZettle (Zettle by PayPal)',
+          'H&M, IKEA, Boozt, NA-KD',
+          'Tradera, Blocket, Schibsted',
+          'Scale-ups med 50-500 anställda',
+        ],
+      },
+      {
+        kategori: 'Konsult och redovisningsbyråer',
+        exempel: [
+          'PwC, EY, KPMG, Deloitte (Big 4)',
+          'Grant Thornton, BDO, Mazars',
+          'PE-Accounting, Aspia, Frejs',
+          'Mindre lokala redovisningsbyråer',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom (4 år, 240 hp)',
+        beskrivning: 'Vanligaste vägen för seniora ekonomroller. Civilekonom från Handelshögskolan i Stockholm, Lund, Göteborg, Linköping. Inriktning redovisning, finans eller management. Magisteråret är central för premium-roller.',
+      },
+      {
+        rubrik: 'Ekonomi-bachelor (3 år, 180 hp)',
+        beskrivning: 'Grundutbildning i företagsekonomi från universitet. Räcker för junior- och mid-level-roller. Många kompletterar med magister inom 1-2 år för senior-positioner.',
+      },
+      {
+        rubrik: 'YH-utbildning till redovisningsekonom',
+        beskrivning: '2-årig yrkeshögskoleutbildning för omskolning. Skolor som Stockholms tillskärarakademi, Yrkesakademin, Hermods. Räcker för redovisningsekonom-roller men inte för senior controlling eller M&A.',
+      },
+      {
+        rubrik: 'Auktorisation och certifieringar',
+        beskrivning: 'Auktoriserad redovisningskonsult via FAR, auktoriserad revisor via Revisorsinspektionen, CIMA, CFA, CPA. Påverkar lönen direkt och öppnar för senior-roller. Vanligaste vägen till partnernivå på revisionsbyrå.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'K2, K3, IFRS-redovisning',
+        'Koncernredovisning och konsolidering',
+        'Bokslut och årsredovisning',
+        'Budget och prognos',
+        'SAP, Oracle, Visma, Fortnox, Hogia',
+        'Excel-modellering på avancerad nivå',
+        'Power BI och dataanalys',
+        'Moms- och inkomstdeklaration',
+        'Transfer pricing',
+        'Internkontroll och Sarbanes-Oxley',
+        'Treasury och valutahantering',
+        'M&A och due diligence',
+      ],
+      personliga: [
+        'Analytisk och precisionsorienterad',
+        'Strukturerad i komplext material',
+        'Kommunikativ med icke-ekonomer',
+        'Lugn vid bokslutspress',
+        'Pragmatisk i tradeoffs',
+        'Lojal mot kvalitetsstandard',
+        'Pedagogisk vid utbildning',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren ekonom med civilekonom-magister från Handelshögskolan i Stockholm och 8 års erfarenhet från Volvo och Klarna. Specialiserad på koncernredovisning, IFRS och FP&A med ansvar för konsolidering av 12 dotterbolag och budget på 2,4 miljarder. Driver Power BI-modellering, SAP S/4HANA-implementering och kvartalsrapportering till ledning. Auktoriserad redovisningskonsult via FAR sedan 2022. Söker nya uppdrag som controller eller financial controller på scale-up eller industribolag.',
+
+    profilTips:
+      'År som ekonom, specialisering och utbildning i öppningsraden. Andra meningen lyfter konkreta ansvarsområden och systemvana. Tredje meningen visar certifieringar och eventuell branschspecialisering.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Examen och lärosäte',
+        text: 'Civilekonom från Handelshögskolan, Lund, Göteborg, Linköping är guldstandard. Magister inom finans eller redovisning väger tungt på senior-nivå.',
+      },
+      {
+        rubrik: 'Regelverk i klartext',
+        text: 'K2, K3, IFRS, US GAAP. Skriv ut vilka regelverk du arbetat med eftersom det är CV-kritiskt och avgör matchning till noterade bolag.',
+      },
+      {
+        rubrik: 'Specialistområde differentierar',
+        text: 'Redovisning, controlling, FP&A, treasury, M&A. Var tydlig med specialisering eftersom ekonomavdelningar söker komplettering till team.',
+      },
+      {
+        rubrik: 'System och Excel-nivå',
+        text: 'SAP, Oracle, Visma, Power BI. Excel-modellering på avancerad nivå (Power Query, makron). Skriv ut alla system och din Excel-nivå konkret.',
+      },
+      {
+        rubrik: 'Branschvana och bolag',
+        text: 'Industri, e-handel, bank, försäkring. Olika ekonomiska modeller och regelverk. Lyft branschvana eftersom det påverkar lönen.',
+      },
+      {
+        rubrik: 'Konkreta resultat',
+        text: '"Drev konsolidering av 12 dotterbolag enligt IFRS", "Implementerade SAP S/4HANA". Ekonomichefer värderar leverans och påverkan.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som ekonom, specialisering, examen och eventuell auktorisation på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera regelverk, system och leveranser.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Magister eller PhD i eget block.' },
+      { sektion: 'Certifieringar', tips: 'Auktorisation, EFPA, CIMA, CFA. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'Regelverk, system, specialisering. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, eventuell projektledning, språk och styrelseuppdrag.' },
+    ],
+
+    checklista: [
+      'Civilekonom eller motsvarande utbildning',
+      'Specialisering (redovisning, controlling, FP&A, treasury)',
+      'Regelverk (K2, K3, IFRS)',
+      'System du behärskar (SAP, Oracle, Visma)',
+      'Excel-nivå (Power Query, Power BI)',
+      'Branschvana',
+      'Konkreta leveranser och resultat',
+      'Eventuell auktorisation',
+      'Engelska och språk',
+      'Eventuella styrelse- eller mentor-uppdrag',
+    ],
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Industri- och tech-bolag använder Workday, Teamtailor, SAP SuccessFactors och Oracle. Skriv ut regelverk (K2, K3, IFRS, US GAAP), system (SAP, Oracle, Visma, Fortnox) och specialisering (FP&A, treasury, M&A) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett ekonom-CV?',
+        a: 'Civilekonom eller motsvarande utbildning, specialisering (redovisning, controlling, FP&A, treasury), regelverkskunskap (K2, K3, IFRS), system (SAP, Oracle, Visma), Excel-nivå (Power Query, Power BI), branschvana, konkreta leveranser, samt eventuell auktorisation eller certifiering (FAR, CIMA, CFA).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny ekonom utan erfarenhet?',
+        a: 'Lyft din civilekonom- eller bachelor-utbildning, examensarbete inom relevant område, eventuell trainee-position eller praktik på revisionsbyrå, Excel-färdigheter, språk, samt eventuell internationell erfarenhet (Erasmus). Bolag rekryterar gärna nya med stark utbildning.',
+      },
+      {
+        q: 'Hur viktig är civilekonom-examen?',
+        a: 'Krav för premium-roller på storbolag och Big 4. Bachelor (3 år) räcker för junior- och mid-level. Magister inom finans eller redovisning är meriterande för senior-nivå. Handelshögskolan i Stockholm, Lund, Göteborg, Linköping är guldstandard.',
+      },
+      {
+        q: 'Hur skiljer sig redovisning från controlling?',
+        a: 'Redovisning fokuserar på bokslut, regelverk och rapportering bakåt. Controlling fokuserar på analys, budget och prognos framåt. FP&A är senior controlling med strategisk inriktning. Vissa ekonomer har bredd, andra specialiserar sig. Var tydlig på CV:t med din specialisering.',
+      },
+      {
+        q: 'Hur viktig är auktorisation?',
+        a: 'Värdefull men inte obligatorisk. Auktoriserad redovisningskonsult via FAR ger trovärdighet och påverkar lönen. Auktoriserad revisor är krav för partnerväg på revisionsbyrå. CIMA, CFA, CPA är internationella alternativ värda på multinationella bolag.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'K2, K3, IFRS, US GAAP, BFNAR, SAP, Oracle, Visma, Fortnox, Hogia, Power BI, Power Query, FP&A, treasury, M&A, transfer pricing, koncernredovisning, konsolidering, SOX, auktoriserad redovisningskonsult, FAR. Workday och SAP SuccessFactors söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett ekonom-CV vara?',
+        a: 'Junior 0-3 år: 1-1,5 sidor. Mid-level: 2 sidor. Senior controller, CFO eller M&A-specialist: 2-3 sidor. Det viktigaste är att utbildning, regelverk och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till ekonom-tjänster?',
+        a: 'Ja på de flesta tjänster. Använd brevet för att förklara din specialisering och beskriv en konkret leverans (bokslut, systemimplementering, M&A-process) du drivit. Ekonomichefer värderar både teknisk kompetens och kommunikationsförmåga. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är branschvana?',
+        a: 'Mycket. Industri, e-handel, bank, försäkring, fastighet, life science har olika ekonomiska modeller och regelverk. Bank och försäkring kräver ofta IFRS-vana. Fastighetsbolag behöver K3 plus värderingsregler. Lyft branschvana eftersom det avgör matchning och påverkar lönen.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt ekonom-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, kunduppgifter under NDA, sekretessbelagda detaljer (M&A-process, kvartalsrapporter), irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("analytisk och strukturerad") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
