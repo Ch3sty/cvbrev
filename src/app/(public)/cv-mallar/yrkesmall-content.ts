@@ -11137,6 +11137,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'psykolog': {
+    seoIntro:
+      'Som psykolog bedöms du på din legitimation, terapeutiska metoder och din förmåga att arbeta evidensbaserat med klienter. Region, kommun, privata mottagningar och företagshälsa har växande efterfrågan på legitimerade psykologer i Sverige, men verksamhetschefer slänger CV:n som inte tydligt visar PTP-status, terapeutisk inriktning och klientgrupper. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för psykologer lyfter legitimation från Socialstyrelsen, terapeutisk inriktning och klientgrupper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, klientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller specialistutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: psykologprogrammet med examen, PTP-tjänstgöring, legitimation från Socialstyrelsen, terapeutisk inriktning (KBT, PDT, ACT, EMDR, IPT, schematerapi), klientgrupper (vuxen, barn, par, neuropsykiatri, missbruk), eventuell specialistexamen (klinisk vuxen, klinisk barn, neuropsykologi, organisationspsykologi), bedömnings- och testmetoder, journalsystem (TakeCare, Cosmic, Kaddio), samt eventuell forskning eller publikationer.\n\nNedan hittar du två CV-mallar designade för psykologrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på regional sjukvård, primärvård, kommunal verksamhet och privata mottagningar faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Legitimation och PTP-status',
+        description: 'Skriv ut Socialstyrelsens legitimation med datum. PTP-tjänstgöring är krav för legitimation efter examen. Verksamhetschefer skannar först efter legitimationsstatus innan de bedömer övriga meriter.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Terapeutisk inriktning i klartext',
+        description: 'KBT (Kognitiv Beteende Terapi), PDT (Psykodynamisk Terapi), ACT, EMDR, IPT, schematerapi. Olika tjänster kräver olika metoder. Region- och primärvård kräver oftast KBT-grund.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Klientgrupper och volymer',
+        description: '"Behandlar 25-30 klienter parallellt med fokus på depression och ångest" säger mer än "klinisk psykolog". Lyft konkreta klientgrupper och eventuella diagnosspecialiseringar.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Bedömnings- och testmetoder',
+        description: 'Neuropsykologiska tester (WAIS, WISC, MMSE), självskattningsskalor (PHQ-9, GAD-7, MADRS, BDI), strukturerade intervjuer. Lyft de tester du behärskar och eventuella certifieringar.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Specialistexamen är differentiator',
+        description: 'Klinisk vuxenpsykologi, klinisk barn- och ungdomspsykologi, neuropsykologi, organisationspsykologi. Specialistexamen kräver 5 års klinisk erfarenhet plus magisterprojekt och kvalificerar för specifika tjänster.',
+      },
+      {
+        icon: 'Target',
+        title: 'Forskning och evidensbaserad praxis',
+        description: 'Eventuell licentiat eller doktorsexamen, publikationer, forskningsbidrag, kliniska studier. Forskningsmeriter är centrala för universitetssjukhus och regionalanknutna specialistmottagningar.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Legitimation och inriktning överst',
+        description: 'Vår mall Klinik har dedikerad sidopanel för Socialstyrelsens legitimation, terapeutisk inriktning och eventuell specialistexamen. Verksamhetschefer ser dina meriter på fem sekunder.',
+      },
+      {
+        title: 'Klinisk erfarenhet uppdelad per område',
+        description: 'Mallen separerar slutenvård, primärvård, kommunal verksamhet och privatpraktik så klientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för terapeutiska metoder',
+        description: 'KBT, PDT, ACT, EMDR. Mallen lyfter terapimetoder som eget block så verksamhetschefer letar specifikt efter metoder de redan använder på mottagningen.',
+      },
+      {
+        title: 'Plats för forskningsmeriter',
+        description: 'Mallen har dedikerat block för publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionalanknutna specialistkliniker.',
+      },
+      {
+        title: 'Tidlös serif för formell prestige',
+        description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
+      },
+      {
+        title: 'Premium-mallen Klinik med foto',
+        description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Bedömning och utredning',
+        punkter: [
+          'Genomföra psykologisk bedömning med strukturerade intervjuer och självskattningsskalor',
+          'Sätta diagnos enligt DSM-5 eller ICD-11 efter omfattande utredning',
+          'Använda neuropsykologiska tester (WAIS-IV, WISC-V, Stroop) vid behov',
+          'Skriva utredningsutlåtanden enligt SOSFS och regionens riktlinjer',
+        ],
+      },
+      {
+        rubrik: 'Terapeutisk behandling',
+        punkter: [
+          'Genomföra individualterapi enligt KBT, PDT, ACT eller motsvarande',
+          'Behandla depression, ångest, PTSD, OCD och andra primära diagnoser',
+          'Anpassa terapi efter klientens individuella mål och resurser',
+          'Använda evidensbaserade behandlingsmanualer vid komplex problematik',
+        ],
+      },
+      {
+        rubrik: 'Specialiserade behandlingsmetoder',
+        punkter: [
+          'Tillämpa EMDR vid trauma och PTSD enligt certifierad metodik',
+          'Genomföra KBT-baserad parterapi eller familjeterapi',
+          'Arbeta med exposition vid OCD, fobier eller social ångest',
+          'Använda gruppterapi för specifika diagnosgrupper',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och uppföljning',
+        punkter: [
+          'Journalföring i TakeCare, Cosmic, Kaddio eller motsvarande enligt PDL',
+          'Skriva remisser, intyg och epikriser till andra vårdgivare',
+          'Sätta mätbara mål och utvärdera behandlingsresultat enligt skattningsskalor',
+          'Hantera försäkringsärenden och rehabintyg vid behov',
+        ],
+      },
+      {
+        rubrik: 'Tvärprofessionellt teamarbete',
+        punkter: [
+          'Samverka med läkare, sjuksköterskor, kuratorer och socionomer',
+          'Delta i ronder, vårdplaneringar och behandlingskonferenser',
+          'Handleda PTP-psykologer och psykologstudenter',
+          'Bidra till verksamhetens kvalitetsarbete och utvecklingsprojekt',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'PDL', forklaring: 'Patientdatalagen, reglerar journalföring inom hälso- och sjukvård.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, ramverk för all sjukvård i Sverige.' },
+          { term: 'PSL', forklaring: 'Patientsäkerhetslagen, reglerar avvikelsehantering och anmälningsplikt.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller offentlig sjukvård.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskada eller risk för sådan.' },
+          { term: 'SOSFS 2017:14', forklaring: 'Socialstyrelsens föreskrifter om psykologisk dokumentation.' },
+        ],
+      },
+      {
+        kategori: 'Terapeutiska metoder',
+        termer: [
+          { term: 'KBT', forklaring: 'Kognitiv Beteende Terapi, evidensbaserad standardmetod i Region Sverige.' },
+          { term: 'PDT', forklaring: 'Psykodynamisk Terapi, fokus på omedvetna processer och relationer.' },
+          { term: 'ACT', forklaring: 'Acceptance and Commitment Therapy, tredje vågens KBT.' },
+          { term: 'EMDR', forklaring: 'Eye Movement Desensitization and Reprocessing, för traumabehandling.' },
+          { term: 'IPT', forklaring: 'Interpersonell Terapi, fokus på relationer och rollkonflikter.' },
+          { term: 'Schematerapi', forklaring: 'Specialiserad metod för personlighetsstörningar och kronisk depression.' },
+        ],
+      },
+      {
+        kategori: 'Specialistutbildningar',
+        termer: [
+          { term: 'Klinisk vuxenpsykologi', forklaring: 'Specialistexamen för arbete med vuxna inom slutenvård eller primärvård.' },
+          { term: 'Klinisk barn- och ungdomspsykologi', forklaring: 'Specialistexamen för arbete med barn och unga inom BUP.' },
+          { term: 'Neuropsykologi', forklaring: 'Specialistexamen för utredning av kognitiva funktioner.' },
+          { term: 'Organisationspsykologi', forklaring: 'Specialistexamen för arbete med arbetsmiljö och ledarskap.' },
+          { term: 'Hälsopsykologi', forklaring: 'Specialistexamen för psykologisk behandling vid somatisk sjukdom.' },
+          { term: 'Pedagogisk psykologi', forklaring: 'Specialistexamen för arbete inom skola och elevhälsa.' },
+        ],
+      },
+      {
+        kategori: 'Tester och bedömningsinstrument',
+        termer: [
+          { term: 'WAIS-IV', forklaring: 'Wechsler Adult Intelligence Scale, intelligenstest för vuxna.' },
+          { term: 'WISC-V', forklaring: 'Wechsler Intelligence Scale for Children, för barn 6-16 år.' },
+          { term: 'PHQ-9', forklaring: 'Patient Health Questionnaire, depressionsskattning.' },
+          { term: 'GAD-7', forklaring: 'Generalized Anxiety Disorder, ångestskattning.' },
+          { term: 'MADRS', forklaring: 'Montgomery-Åsberg Depression Rating Scale, klinikerskattad depression.' },
+          { term: 'MMSE', forklaring: 'Mini-Mental State Examination, kognitiv screening.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Region och universitetssjukhus',
+        exempel: [
+          'Karolinska, Sahlgrenska, Skånes Universitetssjukhus, Akademiska',
+          'Region- och länssjukhus i alla 21 regioner',
+          'BUP (Barn- och ungdomspsykiatri)',
+          'Vuxenpsykiatri och rättspsykiatri',
+        ],
+      },
+      {
+        kategori: 'Primärvård och företagshälsa',
+        exempel: [
+          'Vårdcentraler i regional regi',
+          'Privata vårdcentraler (Capio, Praktikertjänst)',
+          'Företagshälsa (Avonova, Feelgood, Previa)',
+          'Försäkringskassan och statliga myndigheter',
+        ],
+      },
+      {
+        kategori: 'Privata mottagningar och kliniker',
+        exempel: [
+          'Privata psykologmottagningar och solopraktiker',
+          'Online-tjänster (Mindler, Kry, Min Doktor)',
+          'Specialiserade kliniker (PBM, WeMind, Aleris)',
+          'Privata behandlingshem och hospice',
+        ],
+      },
+      {
+        kategori: 'Skola, kommun och övrigt',
+        exempel: [
+          'Elevhälsa i kommunala och fristående skolor',
+          'Habilitering och rehabilitering',
+          'Statliga myndigheter (FOI, Försvarsmakten, Polisen)',
+          'Forskningsinstitut och universitet',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Psykologprogrammet (5 år)',
+        beskrivning: 'Mastersexamen från Karolinska Institutet, Stockholms universitet, Göteborgs universitet, Uppsala, Lund, Linköping, Umeå eller Örebro. Examen ger rätt att söka PTP-tjänst.',
+      },
+      {
+        rubrik: 'PTP-tjänstgöring (12 månader)',
+        beskrivning: 'Praktisk tjänstgöring efter examen, vanligen inom regional sjukvård eller primärvård. Avslutas med PTP-prov för psykologlegitimation från Socialstyrelsen.',
+      },
+      {
+        rubrik: 'Specialistutbildning (3-5 år)',
+        beskrivning: 'Specialistutbildning inom klinisk vuxen, klinisk barn, neuropsykologi, organisationspsykologi eller hälsopsykologi. Kräver minst 5 års klinisk erfarenhet och magisterprojekt.',
+      },
+      {
+        rubrik: 'Forskarutbildning (4-5 år)',
+        beskrivning: 'Doktorsexamen i psykologi parallellt med klinisk tjänst. Disputerade psykologer söker oftast universitetssjukhus, FoU-roller eller forskningsinstitut.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'KBT, PDT, ACT, EMDR och IPT',
+        'Neuropsykologisk testning (WAIS, WISC, Stroop)',
+        'Skattningsskalor (PHQ-9, GAD-7, MADRS, BDI)',
+        'Strukturerade kliniska intervjuer (SCID, MINI)',
+        'Diagnostik enligt DSM-5 och ICD-11',
+        'Trauma- och PTSD-behandling',
+        'Journalsystem (TakeCare, Cosmic, Kaddio)',
+        'Försäkringsmedicin och rehabintyg',
+        'Specialiserade behandlingsmanualer',
+        'Gruppterapi och parterapi',
+        'Utlåtandeskrivning enligt SOSFS',
+        'Handledning av PTP-psykologer och studenter',
+      ],
+      personliga: [
+        'Empatisk och relationsskapande',
+        'Strukturerad i bedömning och behandling',
+        'Tålmodig vid långsam förändring',
+        'Evidensbaserad i behandlingsval',
+        'Etisk medvetenhet kring tystnadsplikt',
+        'Lyhörd för kulturella och språkliga skillnader',
+        'Reflekterande och självkritisk',
+      ],
+    },
+
+    profilExempel:
+      'Legitimerad psykolog med 6 års klinisk erfarenhet inom primärvård och vuxenpsykiatri. Specialistutbildning i klinisk vuxenpsykologi 2024 med fokus på depression och ångestbehandling enligt KBT och ACT. Behandlar 25 klienter parallellt och driver gruppterapi för PTSD enligt evidensbaserad metodik. Handledare för 3 PTP-psykologer per år och delaktig i forskning kring digital KBT-behandling.',
+
+    profilTips:
+      'Legitimation, år av erfarenhet och primärt verksamhetsområde i öppningsraden. Andra meningen lyfter terapeutisk inriktning och eventuell specialistutbildning. Tredje meningen visar konkret klientvolym, forskning eller handledning som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Legitimation och PTP-status',
+        text: 'Skriv ut Socialstyrelsens legitimation med datum. PTP-tjänstgöring är krav för legitimation. Verksamhetschefer skannar först efter legitimationsstatus.',
+      },
+      {
+        rubrik: 'Terapeutisk inriktning',
+        text: 'KBT, PDT, ACT, EMDR, IPT, schematerapi. Olika tjänster kräver olika metoder. Region- och primärvård kräver oftast KBT-grund.',
+      },
+      {
+        rubrik: 'Klientgrupper och volymer',
+        text: '"Behandlar 25-30 klienter parallellt med fokus på depression och ångest" säger mer än "klinisk psykolog". Konkreta klientgrupper och diagnosspecialiseringar är hård valuta.',
+      },
+      {
+        rubrik: 'Bedömnings- och testmetoder',
+        text: 'Neuropsykologiska tester (WAIS, WISC), självskattningsskalor (PHQ-9, GAD-7, MADRS), strukturerade intervjuer. Lyft de tester du behärskar.',
+      },
+      {
+        rubrik: 'Specialistexamen',
+        text: 'Klinisk vuxenpsykologi, klinisk barn, neuropsykologi, organisationspsykologi. Specialistexamen kräver 5 års klinisk erfarenhet plus magisterprojekt och kvalificerar för specifika tjänster.',
+      },
+      {
+        rubrik: 'Forskning och evidensbaserad praxis',
+        text: 'Eventuell licentiat eller doktorsexamen, publikationer, forskningsbidrag. Forskningsmeriter är centrala för universitetssjukhus och regionalanknutna specialistmottagningar.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Legitimation, år av erfarenhet, primärt verksamhetsområde och terapeutisk inriktning på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Klinik, ort, tidsperiod, klientgrupp. Konkretisera volym, specialiseringar och eventuella utvecklingsuppdrag.' },
+      { sektion: 'Utbildning', tips: 'Psykologexamen, lärosäte, år. PTP-tjänstgöring som egen rad. Specialistutbildningar och eventuell forskarutbildning.' },
+      { sektion: 'Kompetenser', tips: 'Terapeutiska metoder, tester, journalsystem. Var konkret om certifieringar (EMDR, KBT-cert).' },
+      { sektion: 'Forskningsmeriter', tips: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell disputation.' },
+      { sektion: 'Övrigt', tips: 'Handledning, eventuell egen mottagning, internationella stints, språkkunskaper.' },
+    ],
+
+    checklista: [
+      'Psykologexamen och legitimation från Socialstyrelsen',
+      'PTP-tjänstgöring slutförd',
+      'Eventuell specialistexamen',
+      'Terapeutiska metoder du behärskar',
+      'Klientgrupper och diagnosspecialiseringar',
+      'Bedömnings- och testmetoder',
+      'Journalsystem du behärskar',
+      'Forskningsmeriter eller publikationer',
+      'Eventuell handledar-utbildning',
+      'Försäkringsmedicinsk erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut terapeutiska metoder (KBT, PDT, ACT, EMDR), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett psykolog-CV?',
+        a: 'Psykologexamen från svenskt lärosäte med datum, PTP-tjänstgöring och legitimation från Socialstyrelsen, terapeutisk inriktning (KBT, PDT, ACT), klientgrupper, journalsystem (TakeCare, Cosmic, Kaddio), bedömningsmetoder, eventuell specialistexamen, samt forskningsmeriter. Lägg till handledar-erfarenhet om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som PTP-psykolog?',
+        a: 'Lyft examen och PTP-tjänstgöring med klinik och tidsperiod. Beskriv vilka klientgrupper du arbetat med och terapeutiska metoder du tränat på. Inkludera eventuell forskning från utbildningen och praktiska kurser (KBT-grund, EMDR-introduktion). Många regioner har strukturerade introduktionsprogram för nyligen legitimerade psykologer.',
+      },
+      {
+        q: 'Hur viktig är specialistexamen?',
+        a: 'Mycket. Specialistpsykolog är skyddad titel som kräver 5 års klinisk erfarenhet plus magisterprojekt. Klinisk vuxen, klinisk barn och neuropsykologi är de vanligaste. Specialistexamen ger högre lön och kvalificerar för specifika tjänster. Universitetssjukhus och regionalanknutna kliniker föredrar specialister.',
+      },
+      {
+        q: 'Vilka terapeutiska metoder är värdefullast?',
+        a: 'KBT är gold standard inom Region Sverige och i primärvården. PDT värderas inom psykodynamiska mottagningar. ACT växer som tredje vågens KBT. EMDR kvalificerar för traumabehandling och PTSD. Schematerapi för personlighetsstörningar. Lyft de metoder du faktiskt arbetar med.',
+      },
+      {
+        q: 'Vilka journalsystem ska jag kunna 2026?',
+        a: 'TakeCare dominerar Region Stockholm. Cosmic används i flera regioner. Kaddio är populär hos privata mottagningar och företagshälsa. Min Doktor och Mindler har egna system för online-vård. Skriv ut systemnamnen så Heroma och Visma Recruit kan filtrera fram dig.',
+      },
+      {
+        q: 'Hur lyfter jag forskningsmeriter?',
+        a: 'Publikationer i Vancouver-format med författarordning markerad. Forskningsbidrag och anslag. Eventuella kliniska studier du varit del av. Kongressbidrag och poster-presentationer. Eventuell licentiat eller disputation. Forskningsmeriter är centrala för universitetssjukhus.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Terapeutiska metoder (KBT, PDT, ACT, EMDR, IPT), patientgrupper (depression, ångest, PTSD, OCD, neuropsykiatri), tester (WAIS, WISC, PHQ-9, GAD-7, MADRS), journalsystem (TakeCare, Cosmic, Kaddio) och specialistutbildningar. Heroma och Visma Recruit söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett psykolog-CV vara?',
+        a: 'Junior 0-3 år: 1,5 sidor. Specialistpsykolog: 2 sidor. Disputerad psykolog: 2-3 sidor med publikationslista. Vården accepterar längre CV än andra branscher eftersom meritprofiler är centrala. Det viktigaste är att första sidan rymmer det starkaste innehållet.',
+      },
+      {
+        q: 'Behöver jag personligt brev till psykolog-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den klinik och beskriv en specifik klientsituation eller behandlingsutmaning du löst. Beskriv din terapeutiska filosofi och vad du tar med dig. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt psykolog-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), patient- eller klientuppgifter (sekretessbelagda detaljer), generiska påståenden ("empatisk psykolog") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är vård-relevanta. Stavfel diskvalificerar direkt eftersom dokumentation är central.',
+      },
+    ],
+  },
+
+  'lss-handlaggare': {
+    seoIntro:
+      'Som LSS-handläggare bedöms du på din socionomexamen, lagstiftningskunskap och förmåga att fatta rättssäkra biståndsbeslut. Sveriges 290 kommuner har konstant brist på LSS-handläggare, men enhetschefer slänger CV:n som inte tydligt visar SoL/LSS-vana, ärendevolym och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för LSS-handläggare lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar (NPF, autism, intellektuell funktionsnedsättning). Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, LSS och SoL-kunskap (specifikt §§ 9-10 LSS), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI), ärendehanteringssystem (Treserva, Procapita, Lifecare), målgruppskunskap (NPF, autism, intellektuell funktionsnedsättning, fysisk funktionsnedsättning), eventuella specialuppdrag (omprövningar, överklaganden, förvaltningsdomstol), samt kollektivavtal-erfarenhet med Vision eller SSR.\n\nNedan hittar du två CV-mallar designade för LSS-handläggarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst och funktionsstöd faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Socionomexamen och behörighet',
+        description: 'Socionomexamen är krav för LSS-handläggare i de flesta kommuner. Vissa accepterar beteendevetare med kompletterande utbildning. Skriv ut examen, lärosäte och datum.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'LSS-paragrafer och insatstyper',
+        description: 'LSS § 9 (insatser), § 10 (utredning), personkrets 1-3. Var specifik om vilka insatser du arbetat med (personlig assistent, ledsagarservice, kontaktperson, daglig verksamhet, bostad med särskild service).',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Ärendevolym och komplexitet',
+        description: '"35-40 LSS-ärenden parallellt" eller "150 utredningar per år" ger enhetschefen snabbt en bild av din kapacitet. Volym plus komplexitet differentierar dig från generiska handläggar-CV.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Målgruppskunskap',
+        description: 'Personkrets 1 (utvecklingsstörning, autism), personkrets 2 (förvärvad hjärnskada), personkrets 3 (varaktiga fysiska eller psykiska funktionsnedsättningar). Lyft din målgruppserfarenhet eftersom kompetensen skiljer sig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Ärendehanteringssystem',
+        description: 'Treserva dominerar. Procapita används i flera kommuner. Lifecare i vård- och omsorgsboenden. Combine och Magna på vissa förvaltningar. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'Target',
+        title: 'Specialuppdrag och rättssäkerhet',
+        description: 'Omprövningar, överklaganden, förvaltningsdomstol, samverkansmöten med Försäkringskassan. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden bortom standardflöde.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och lagstiftning överst',
+        description: 'Vår mall Myndighet har dedikerad sidopanel för socionomexamen, LSS-vana och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Konservativ navy och svartvit',
+        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
+      },
+      {
+        title: '§-symboler i bullets',
+        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+      },
+      {
+        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        description: 'För senior-roller (1:e-handläggare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för volymsstatistik',
+        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+      },
+      {
+        title: 'Plats för specialuppdrag',
+        description: 'Omprövningar, överklaganden, samverkansuppdrag har egen rad. Det visar att du tar ansvar bortom standardärenden, vilket meriterar för senior- och 1:e-handläggar-roller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Utredning och bedömning',
+        punkter: [
+          'Genomföra LSS-utredningar enligt § 10 med personkretsbedömning',
+          'Bedöma rätt till insatser enligt § 9 baserat på individuella behov',
+          'Skriva juridiskt korrekta utredningar enligt SOSFS-föreskrifterna',
+          'Hantera komplexa ärenden med samsjuklighet eller multipel funktionsnedsättning',
+        ],
+      },
+      {
+        rubrik: 'Beslutsfattande och dokumentation',
+        punkter: [
+          'Fatta myndighetsbeslut enligt Förvaltningslagen med korrekt motivering',
+          'Dokumentera utredningar och beslut i Treserva, Procapita eller Lifecare',
+          'Hantera diariehantering och GDPR-arbete enligt OSL och Patientdatalagen',
+          'Kvalitetssäkra beslut för rättssäkerhet och uppföljningsbarhet',
+        ],
+      },
+      {
+        rubrik: 'Brukarmöten och samtal',
+        punkter: [
+          'Genomföra utredningssamtal med brukare och anhöriga',
+          'Använda strukturerade samtalsmetoder anpassade efter funktionsnedsättning',
+          'Säkerställa brukarmedverkan och självbestämmanderätt',
+          'Hantera kriser och svåra samtalssituationer professionellt',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och nätverk',
+        punkter: [
+          'Samverka med Försäkringskassan kring assistansersättning',
+          'Kontakt med utförare, leverantörer och anhörigorganisationer',
+          'Delta i tvärprofessionella team med arbetsterapeut, sjuksköterska, kurator',
+          'Bidra till samordnad individuell plan (SIP) vid flera huvudmän',
+        ],
+      },
+      {
+        rubrik: 'Juridisk handläggning',
+        punkter: [
+          'Hantera överklaganden och förbereda inför förvaltningsdomstol',
+          'Genomföra omprövningar av tidigare beslut vid förändrade förutsättningar',
+          'Tillämpa aktuell rättspraxis från Högsta förvaltningsdomstolen',
+          'Dokumentera avvikelser och anmäla enligt Lex Sarah',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade.' },
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, gäller i vissa LSS-relaterade situationer.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller all offentlig verksamhet.' },
+          { term: 'FL', forklaring: 'Förvaltningslagen, reglerar myndighetsutövning och beslutsfattande.' },
+          { term: 'SOSFS 2014:5', forklaring: 'Socialstyrelsens föreskrifter om dokumentation i socialtjänst.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst eller LSS.' },
+        ],
+      },
+      {
+        kategori: 'LSS-insatser och personkretsar',
+        termer: [
+          { term: 'LSS § 9:1', forklaring: 'Rådgivning och annat personligt stöd.' },
+          { term: 'LSS § 9:2', forklaring: 'Personlig assistent eller assistansersättning.' },
+          { term: 'LSS § 9:3', forklaring: 'Ledsagarservice för fritidsaktiviteter.' },
+          { term: 'LSS § 9:4', forklaring: 'Kontaktperson som regelbundet kontakt och stöd.' },
+          { term: 'LSS § 9:8', forklaring: 'Bostad med särskild service för barn och unga.' },
+          { term: 'LSS § 9:9', forklaring: 'Bostad med särskild service för vuxna.' },
+        ],
+      },
+      {
+        kategori: 'Utredningsmetodik',
+        termer: [
+          { term: 'IBIC', forklaring: 'Individens Behov i Centrum, behovsbedömning för vuxna och äldre.' },
+          { term: 'BBIC', forklaring: 'Barns Behov i Centrum, utredningsmodell för barn och unga.' },
+          { term: 'MI', forklaring: 'Motiverande samtal, samtalsmetodik för förändringsarbete.' },
+          { term: 'ASI', forklaring: 'Addiction Severity Index, bedömningsinstrument vid missbruk.' },
+          { term: 'Personcentrerad vård', forklaring: 'Brukaren i centrum med fokus på självbestämmande.' },
+          { term: 'Rättspraxis', forklaring: 'Domar från Högsta förvaltningsdomstolen som vägleder LSS-tolkningen.' },
+        ],
+      },
+      {
+        kategori: 'Ärendehanteringssystem',
+        termer: [
+          { term: 'Treserva', forklaring: 'Mest använda verksamhetssystem i kommunal social- och äldreomsorg.' },
+          { term: 'Procapita', forklaring: 'Integrerat system för LSS, SoL och äldreomsorg.' },
+          { term: 'Lifecare', forklaring: 'Omsorgsplaneringssystem i flera kommuner.' },
+          { term: 'Combine', forklaring: 'Verksamhetssystem för socialtjänsten i några kommuner.' },
+          { term: 'Magna', forklaring: 'Verksamhetssystem på vissa kommuner med fokus på ekonomi.' },
+          { term: 'eArkiv', forklaring: 'Digitalt arkiv enligt arkivlagen för långtidslagring.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunala socialförvaltningar',
+        exempel: [
+          'Socialförvaltningar i Sveriges 290 kommuner',
+          'Stadsdelsförvaltningar i Stockholm, Göteborg, Malmö',
+          'Funktionsstöds- och LSS-enheter',
+          'Specialiserade LSS-team för komplexa ärenden',
+        ],
+      },
+      {
+        kategori: 'Specialiserade kommunala enheter',
+        exempel: [
+          'Barn- och ungdomsenheter (BUE) inom funktionsstöd',
+          'Vuxenenheter för LSS och socialpsykiatri',
+          'Familjehem och personlig assistens-enheter',
+          'Habilitering och rehabiliteringsenheter',
+        ],
+      },
+      {
+        kategori: 'Statliga myndigheter',
+        exempel: [
+          'Försäkringskassan (assistansersättning)',
+          'Inspektionen för vård och omsorg (IVO)',
+          'Socialstyrelsen och Folkhälsomyndigheten',
+          'Statens institutionsstyrelse (SiS)',
+        ],
+      },
+      {
+        kategori: 'Privata och övriga',
+        exempel: [
+          'Privata utförare av personlig assistens (Frösunda, Humana, Nytida)',
+          'Brukarkooperativ (JAG)',
+          'Bemanningsbolag (Dedicare, Veteranpoolen)',
+          'Konsultuppdrag inom funktionsstöd',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Socionomprogrammet (3,5 år)',
+        beskrivning: 'Vanligaste vägen till LSS-handläggare. Innehåller juridik, samhällsvetenskap och praktik. Examen ger direkt behörighet till handläggar-tjänster inom kommunal socialtjänst.',
+      },
+      {
+        rubrik: 'Beteendevetenskap (3 år)',
+        beskrivning: 'Kandidatexamen i beteendevetenskap eller socialt arbete. Alternativ väg in, ofta med kompletterande kurser i juridik och utredningsmetodik.',
+      },
+      {
+        rubrik: 'Juristexamen (5 år)',
+        beskrivning: 'Juristprogrammet med inriktning mot förvaltningsrätt. Vanlig grund för LSS-handläggare som vill specialisera sig på rättssäkerhet och överklaganden.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'IBIC-utbildning för biståndsbedömning, BBIC för barnärenden, MI-cert, fördjupningskurser i LSS eller förvaltningsrätt. Kontinuerlig fortbildning är meriterande för senior-roller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'LSS § 9-10 och personkretsbedömning',
+        'SoL och Förvaltningsrätt',
+        'OSL och Patientdatalagen',
+        'IBIC för biståndsbedömning',
+        'BBIC för barnärenden',
+        'MI (Motiverande samtal)',
+        'Treserva, Procapita, Lifecare',
+        'Diariehantering och GDPR-arbete',
+        'Beslutsmotivering enligt SOSFS',
+        'Samverkan med Försäkringskassan kring assistans',
+        'Statistikanalys och uppföljning',
+        'Lex Sarah och avvikelsehantering',
+      ],
+      personliga: [
+        'Saklig och neutralt språkbruk',
+        'Strukturerad i ärendehantering',
+        'Empatisk i brukarmöten',
+        'Sekretessmedveten',
+        'Stresstålig vid hög ärendebelastning',
+        'Etisk medvetenhet vid svåra avvägningar',
+        'Pedagogisk i mötet med olika brukargrupper',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren LSS-handläggare med 7 års erfarenhet inom kommunal funktionsstöd och vuxenenhet. Hanterar 35-40 aktiva LSS-ärenden parallellt enligt §§ 9-10 i Treserva med fokus på personlig assistens, ledsagarservice och daglig verksamhet. Specialiserad på personkrets 1 (autism och intellektuell funktionsnedsättning) och driver kommunens utvecklingsprojekt kring digital ärendehantering. IBIC-certifierad och handledare för 3 nya kollegor.',
+
+    profilTips:
+      'Socionomexamen, år av erfarenhet, primärt lagstiftningsområde och förvaltning i öppningsraden. Andra meningen lyfter konkret ärendevolym och system. Tredje meningen visar målgruppskunskap, specialuppdrag eller utvecklingsuppdrag.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Socionomexamen och behörighet',
+        text: 'Socionomexamen är krav för LSS-handläggare i de flesta kommuner. Vissa accepterar beteendevetare med kompletterande utbildning. Skriv ut examen, lärosäte och datum.',
+      },
+      {
+        rubrik: 'LSS-paragrafer och insatstyper',
+        text: 'LSS § 9 (insatser), § 10 (utredning), personkrets 1-3. Var specifik om vilka insatser du arbetat med (personlig assistent, ledsagarservice, kontaktperson, daglig verksamhet).',
+      },
+      {
+        rubrik: 'Ärendevolym och komplexitet',
+        text: '"35-40 LSS-ärenden parallellt" eller "150 utredningar per år" ger enhetschefen snabbt en bild av din kapacitet och förmåga att hantera press.',
+      },
+      {
+        rubrik: 'Målgruppskunskap',
+        text: 'Personkrets 1 (utvecklingsstörning, autism), personkrets 2 (förvärvad hjärnskada), personkrets 3 (varaktiga funktionsnedsättningar). Lyft din målgruppserfarenhet.',
+      },
+      {
+        rubrik: 'Utredningsmetodik och certifieringar',
+        text: 'IBIC, BBIC, MI. Specialistutbildningar inom metodik öppnar specifika tjänster och differentierar dig från generiska LSS-handläggare.',
+      },
+      {
+        rubrik: 'Specialuppdrag och rättssäkerhet',
+        text: 'Omprövningar, överklaganden, förvaltningsdomstol, samverkansmöten med Försäkringskassan. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Examen, år av erfarenhet, LSS-vana, system och målgrupp på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp, volym. Konkretisera personkrets och insatstyper.' },
+      { sektion: 'Utbildning', tips: 'Socionomexamen, lärosäte, år. Vidareutbildningar (IBIC-cert, MI, fördjupning LSS) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av LSS du arbetat med.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, förvaltningsdomstol.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet.' },
+    ],
+
+    checklista: [
+      'Socionomexamen från svenskt lärosäte',
+      'LSS § 9-10 och personkretsbedömning',
+      'Ärendehanteringssystem (Treserva, Procapita)',
+      'Utredningsmetodik (IBIC, BBIC, MI)',
+      'Volym och komplexitet på ärendetyper',
+      'Målgruppskunskap (personkrets 1-3)',
+      'Eventuella specialuppdrag',
+      'Förvaltningsrätt och GDPR-arbete',
+      'Vidareutbildningar och certifikat',
+      'Språkkunskaper utöver svenska',
+    ],
+
+    atsInfo:
+      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, OSL) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett LSS-handläggar-CV?',
+        a: 'Socionomexamen, LSS § 9-10 och personkretsbedömning, ärendehanteringssystem (Treserva, Procapita), utredningsmetodik (IBIC, BBIC, MI), volym och komplexitet, målgruppskunskap, specialuppdrag, samt vidareutbildningar. Lägg till handledar- eller ledarroller om du söker senior-tjänster.',
+      },
+      {
+        q: 'Vilken examen krävs för LSS-handläggare?',
+        a: 'Socionomexamen är krav i de flesta kommuner. Vissa kommuner accepterar beteendevetare eller jurist med kompletterande utbildning. Migrationsverket och vissa specialiserade myndigheter är mer flexibla med akademisk bakgrund.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior LSS-handläggare?',
+        a: 'Lyft examensarbete med specifik LSS-inriktning, eventuell praktik på funktionsstöd, kurser i specifik lagstiftning, IBIC- eller MI-utbildning, och språkkunskaper. Praktiska kurser, tidigare arbete inom omsorg eller stöd, och ideella engagemang räknas. Många kommuner har strukturerade introduktionsprogram.',
+      },
+      {
+        q: 'Hur viktig är LSS-specifik erfarenhet?',
+        a: 'Kritisk. Många LSS-handläggar-tjänster kräver specifik erfarenhet av LSS, inte bara generell socialtjänst. En socialsekreterare kan inte direkt bli LSS-handläggare utan utbildning. Lyft alltid din LSS-bakgrund i sammanfattningen.',
+      },
+      {
+        q: 'Vilka utredningsmetodiker är värdefullast?',
+        a: 'IBIC är central för LSS-biståndsbedömning. BBIC för barnärenden. MI för motiverande samtal. ASI för missbruk om relevant. Specialistutbildningar inom metodik öppnar specifika tjänster och påverkar lönen direkt.',
+      },
+      {
+        q: 'Hur visar jag rättssäkerhetskunskap på CV:t?',
+        a: 'Beskriv konkreta arbetsuppgifter där du tillämpat lagstiftning korrekt: "Hanterade 12 omprövningar enligt FL § 26 utan revisorsanmärkning", "Skrev beslutsmotivering enligt SOSFS i 200+ LSS-ärenden". Specifika paragrafer och föreskrifter signalerar djup.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika lagar (LSS, SoL, OSL, FL), system (Treserva, Procapita, Lifecare), utredningsmetodik (IBIC, BBIC, MI), insatstyper (personlig assistens, ledsagarservice, daglig verksamhet) och förvaltning. Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett LSS-handläggar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller specialist: 2 sidor max. Det viktiga är att examen, LSS-vana och senaste erfarenhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till LSS-handläggar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den förvaltning och beskriv en specifik utredningssituation eller komplext ärende du löst. Beskriv en brukare du hjälpt eller ett samverkansprojekt du varit del av. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt LSS-handläggar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (kan leda till diskriminering), brukar- eller ärendespecifika sekretessbelagda detaljer, generiska påståenden ("driven och ansvarstagande") utan stöd, irrelevanta arbetslivserfarenheter, och hobbies som inte är relevanta. Stavfel diskvalificerar direkt eftersom skriftlig korrekthet är central i rollen.',
+      },
+    ],
+  },
+
+  'specialpedagog': {
+    seoIntro:
+      'Som specialpedagog bedöms du på din specialpedagogexamen, lärarlegitimation och förmåga att stödja elever i behov av särskilt stöd. Sveriges kommunala och fristående skolor har konstant brist på specialpedagoger, men rektorer och elevhälsoteam slänger CV:n som inte tydligt visar specialisering, åtgärdsprogram-vana och samverkan med EHT. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för specialpedagoger lyfter specialpedagogexamen, lärarlegitimation och elevgruppsspecialisering som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och insatser syns direkt med eventuella forskningsmeriter eller utvecklingsuppdrag. Det betyder att rektorer och elevhälsochefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen plus specialpedagogexamen (magisterexamen 90 hp), lärarlegitimation från Skolverket, specialisering (NPF, läs- och skrivsvårigheter, dövhet, intellektuell funktionsnedsättning, ESS), åtgärdsprogram-arbete, IUP och anpassningar, samverkan med elevhälsoteam, system (Schoolsoft, Vklass, Unikum), eventuell handledning av lärare, samt forskningsmeriter eller publikationer.\n\nNedan hittar du två CV-mallar designade för specialpedagogrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och elevhälsochefer i kommunal och fristående grundskola, gymnasium och anpassad skola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Specialpedagogexamen och legitimation',
+        description: 'Specialpedagogexamen (90 hp magisterexamen) plus lärarlegitimation från Skolverket är krav. Skriv ut examen, lärosäte och datum. Specialpedagoger i kommunala skolor får oftast högre lön än grundskollärare.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Specialisering är differentiator',
+        description: 'NPF (autism, ADHD), läs- och skrivsvårigheter (dyslexi), dövhet, intellektuell funktionsnedsättning, emotionellt sociala svårigheter (ESS). Olika skolor söker olika specialiseringar.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Åtgärdsprogram och anpassningar',
+        description: '"Skrev och följde upp 25 åtgärdsprogram per år" eller "Drev anpassningar för 15 elever med autism" säger mer än "specialpedagogiskt stöd". Konkreta volymer visar din kapacitet.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Samverkan med EHT',
+        description: 'Elevhälsoteam består av rektor, specialpedagog, kurator, skolsköterska, skolläkare, skolpsykolog. Lyft din samverkanserfarenhet eftersom det är central kompetens.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Pedagogiska metoder',
+        description: 'TEACCH för autism, lågaffektivt bemötande, AKK och bildstöd, Bornholm-metoden för läs- och skrivutveckling. Lyft de metoder du faktiskt använder och eventuella certifieringar.',
+      },
+      {
+        icon: 'Target',
+        title: 'Handledning av lärare',
+        description: 'Specialpedagogen handleder ofta lärare i klassrummet. Beskriv din erfarenhet av kollegial handledning, kompetensutveckling och eventuellt mentor-ansvar för nya lärare.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och specialisering överst',
+        description: 'Vår mall lyfter specialpedagogexamen, lärarlegitimation och elevgruppsspecialisering i sidopanelen. Rektorer och elevhälsochefer ser dina behörigheter på fem sekunder.',
+      },
+      {
+        title: 'Pedagogisk erfarenhet per skola',
+        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående gymnasium, anpassad grundskola) så huvudman och åldersgrupp syns. Du kan visa bredd över olika skolformer.',
+      },
+      {
+        title: 'Eget block för specialiseringar',
+        description: 'TEACCH, AKK, bildstöd, Bornholm, lågaffektivt bemötande. Mallen lyfter pedagogiska metoder som eget block så rektorer letar specifikt efter metoder de redan använder.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'I specialpedagogrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar mer personligt intryck för elevhälsochefer.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+      },
+      {
+        title: 'Plats för utvecklingsuppdrag',
+        description: 'Mentorskap för nya lärare, ansvarsområden (NPF-team, läs- och skrivutvecklingsplaner), kompetensutveckling. Visar att du tar ansvar bortom specialpedagogiska enskilda insatser.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Utredning och bedömning',
+        punkter: [
+          'Genomföra pedagogiska utredningar och kartläggningar',
+          'Använda läs- och skrivdiagnostik (LäSt, Logos, DLS) vid behov',
+          'Bedöma elevers behov av särskilt stöd enligt Skollagen',
+          'Skriva pedagogiska utredningar enligt skolans rutiner',
+        ],
+      },
+      {
+        rubrik: 'Åtgärdsprogram och anpassningar',
+        punkter: [
+          'Skriva och följa upp åtgärdsprogram tillsammans med klassläraren',
+          'Föreslå och implementera extra anpassningar i klassrummet',
+          'Stötta elever individuellt eller i mindre grupp vid behov',
+          'Utvärdera insatser och justera efter elevernas progress',
+        ],
+      },
+      {
+        rubrik: 'Handledning och konsultation',
+        punkter: [
+          'Handleda klasslärare i didaktik och bemötande av elever med särskilda behov',
+          'Genomföra kollegial handledning kring NPF, läs- och skrivutveckling',
+          'Stötta i kompetensutveckling och kursplanering',
+          'Vara konsultativ till föräldrar och vårdnadshavare',
+        ],
+      },
+      {
+        rubrik: 'EHT-samverkan',
+        punkter: [
+          'Delta i elevhälsomöten och åtgärdsprogramsuppföljningar',
+          'Samverka med kurator, skolsköterska och skolpsykolog',
+          'Kontakt med BUP, habilitering och sociala myndigheter vid behov',
+          'Bidra till skolans systematiska kvalitetsarbete (SKA)',
+        ],
+      },
+      {
+        rubrik: 'Pedagogisk utveckling',
+        punkter: [
+          'Driva utvecklingsprojekt kring NPF eller läs- och skrivutveckling',
+          'Bidra till skolans tillgänglighetsarbete enligt Skolinspektionens riktlinjer',
+          'Implementera nya metoder (TEACCH, lågaffektivt bemötande)',
+          'Genomföra fortbildning för lärare och annan personal',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Skollagen', forklaring: 'Reglerar elevernas rätt till stöd och skolans ansvar.' },
+          { term: 'Lgr22', forklaring: 'Läroplan för grundskolan från 2022.' },
+          { term: 'SOSFS 2014:5', forklaring: 'Socialstyrelsens föreskrifter om dokumentation.' },
+          { term: 'Åtgärdsprogram', forklaring: 'Plan för elever som riskerar att inte nå kunskapskraven.' },
+          { term: 'Extra anpassningar', forklaring: 'Mindre justeringar utan formellt åtgärdsprogram.' },
+          { term: 'Särskilt stöd', forklaring: 'Mer omfattande stöd som kräver formellt åtgärdsprogram.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'TEACCH', forklaring: 'Strukturerad pedagogik för elever med autism.' },
+          { term: 'Lågaffektivt bemötande', forklaring: 'Metod för att hantera utåtagerande beteende lugnt.' },
+          { term: 'AKK', forklaring: 'Alternativ och Kompletterande Kommunikation.' },
+          { term: 'Bildstöd', forklaring: 'Visuella stödbilder enligt PCS, Pictogram, Widgit.' },
+          { term: 'Bornholmsmodellen', forklaring: 'Strukturerad metod för läs- och skrivinlärning.' },
+          { term: 'Sociala berättelser', forklaring: 'Korta berättelser för elever med autism.' },
+        ],
+      },
+      {
+        kategori: 'Bedömningsinstrument',
+        termer: [
+          { term: 'LäSt', forklaring: 'Läs- och skrivutvecklingsschema från Skolverket.' },
+          { term: 'Logos', forklaring: 'Diagnostisk läs- och skrivtest.' },
+          { term: 'DLS', forklaring: 'Diagnostiska läs- och skrivtester för olika åldrar.' },
+          { term: 'DSM-5', forklaring: 'Diagnostic and Statistical Manual of Mental Disorders.' },
+          { term: 'WISC-V', forklaring: 'Wechsler Intelligence Scale for Children.' },
+          { term: 'TROG', forklaring: 'Test for Reception of Grammar.' },
+        ],
+      },
+      {
+        kategori: 'Roller och samverkan',
+        termer: [
+          { term: 'EHT', forklaring: 'Elevhälsoteam, samverkan mellan rektor, specialpedagog, kurator m.fl.' },
+          { term: 'Speciallärare', forklaring: 'Lärare med specialpedagogisk kompetens, alternativ till specialpedagog.' },
+          { term: 'Förstelärare', forklaring: 'Senior pedagogisk roll med utvecklingsuppdrag.' },
+          { term: 'BUP', forklaring: 'Barn- och ungdomspsykiatri, samverkanspartner.' },
+          { term: 'Habilitering', forklaring: 'Vårdgivare för barn och unga med funktionsnedsättning.' },
+          { term: 'SPSM', forklaring: 'Specialpedagogiska skolmyndigheten, statlig myndighet.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal grundskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Resursskolor och anpassade grundskolor',
+          'Centrala elevhälsoteam i kommuner',
+        ],
+      },
+      {
+        kategori: 'Fristående skolor',
+        exempel: [
+          'Internationella Engelska Skolan (IES)',
+          'Kunskapsskolan, Academedia, Pysslingen',
+          'Waldorfskolor och Montessoriskolor',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Anpassad skola och specialskola',
+        exempel: [
+          'Anpassad grundskola (tidigare grundsärskolan)',
+          'Anpassat gymnasium',
+          'Specialpedagogiska skolmyndigheten (SPSM)',
+          'Behandlingshem och resursskolor',
+        ],
+      },
+      {
+        kategori: 'Övriga arbetsgivare',
+        exempel: [
+          'Förskolor med specialpedagogiskt stöd',
+          'Vuxenutbildning och Komvux',
+          'Konsultuppdrag inom specialpedagogik',
+          'Bemanningsbolag (Lärarjobb, Vikariat.se)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Lärarexamen plus specialpedagogexamen (4-5 + 3 år)',
+        beskrivning: 'Vanligaste vägen. Lärarexamen från lärarprogrammet plus specialpedagogexamen (90 hp magisterexamen) på deltid eller heltid.',
+      },
+      {
+        rubrik: 'Specialpedagogprogrammet (3 år deltid)',
+        beskrivning: 'Magisterexamen i specialpedagogik från Stockholms universitet, Göteborg, Lund, Linköping eller Umeå. Krav på minst 3 års lärarerfarenhet före antagning.',
+      },
+      {
+        rubrik: 'Speciallärarprogrammet (3 år deltid)',
+        beskrivning: 'Alternativ specialisering inom läs- och skrivsvårigheter, matematik eller utvecklingsstörning. Magisterexamen.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'TEACCH-utbildning, lågaffektivt bemötande, NPF-fördjupning, läs- och skrivdiagnostik. Korta certifikatkurser via SPSM eller universitet.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Specialpedagogexamen och lärarlegitimation',
+        'Åtgärdsprogram och IUP',
+        'Pedagogiska utredningar och kartläggningar',
+        'NPF-anpassning (autism, ADHD)',
+        'TEACCH och visuell struktur',
+        'Lågaffektivt bemötande',
+        'AKK, TAKK och bildstöd',
+        'Läs- och skrivdiagnostik (LäSt, Logos, DLS)',
+        'Bornholmsmodellen och språkträning',
+        'EHT-samverkan',
+        'Schoolsoft, Vklass, Unikum',
+        'Handledning av lärare',
+      ],
+      personliga: [
+        'Pedagogisk i stöttning av elever',
+        'Lugn vid utbrott och kriser',
+        'Strukturerad i åtgärdsprogram',
+        'Empatisk och relationsskapande',
+        'Diplomatisk i samverkan med EHT',
+        'Lyhörd för individuella behov',
+        'Reflekterande över egen praktik',
+      ],
+    },
+
+    profilExempel:
+      'Specialpedagog med 8 års erfarenhet inom kommunal grundskola och anpassad grundskola. Specialpedagogexamen 2018 från Stockholms universitet samt lärarlegitimation åk 4-6 i svenska och NO. Specialiserad på elever med autism och ADHD med fokus på TEACCH och lågaffektivt bemötande. Skriver 30+ åtgärdsprogram per år och handleder 8 klasslärare i NPF-anpassning. Förstelärare med utvecklingsuppdrag kring tillgänglighet.',
+
+    profilTips:
+      'Specialpedagogexamen, år av erfarenhet och primär målgrupp i öppningsraden. Andra meningen lyfter specialisering och pedagogiska metoder. Tredje meningen visor volym, handledning eller utvecklingsuppdrag.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Specialpedagogexamen och legitimation',
+        text: 'Specialpedagogexamen (90 hp magisterexamen) plus lärarlegitimation från Skolverket är krav. Skriv ut examen, lärosäte och datum.',
+      },
+      {
+        rubrik: 'Specialisering är differentiator',
+        text: 'NPF (autism, ADHD), läs- och skrivsvårigheter, dövhet, intellektuell funktionsnedsättning, ESS. Olika skolor söker olika specialiseringar.',
+      },
+      {
+        rubrik: 'Åtgärdsprogram och anpassningar',
+        text: '"Skrev och följde upp 25 åtgärdsprogram per år" eller "Drev anpassningar för 15 elever med autism" säger mer än "specialpedagogiskt stöd".',
+      },
+      {
+        rubrik: 'Samverkan med EHT',
+        text: 'Elevhälsoteam består av rektor, specialpedagog, kurator, skolsköterska, skolläkare, skolpsykolog. Lyft din samverkanserfarenhet.',
+      },
+      {
+        rubrik: 'Pedagogiska metoder',
+        text: 'TEACCH, lågaffektivt bemötande, AKK, bildstöd, Bornholm. Lyft de metoder du faktiskt använder och eventuella certifieringar.',
+      },
+      {
+        rubrik: 'Handledning av lärare',
+        text: 'Specialpedagogen handleder ofta lärare. Beskriv din erfarenhet av kollegial handledning, kompetensutveckling och eventuellt mentor-ansvar.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Examen, år av erfarenhet, specialisering och pedagogiska metoder på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Skola, åldersgrupp, period. Konkretisera målgrupp, åtgärdsprogram-volym och handledning.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen plus specialpedagogexamen, lärosäte och år. Vidareutbildningar (TEACCH, NPF) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, system, anpassningar. Var konkret om certifieringar.' },
+      { sektion: 'Specialiseringar', tips: 'Eget block med målgrupp (NPF, dyslexi, ESS) och konkreta metoder.' },
+      { sektion: 'Övrigt', tips: 'Forskningsmeriter, eventuell handledar-utbildning, språkkunskaper.' },
+    ],
+
+    checklista: [
+      'Lärarexamen plus specialpedagogexamen',
+      'Lärarlegitimation från Skolverket',
+      'Specialisering (NPF, läs-skriv, ESS)',
+      'Åtgärdsprogram-vana med volym',
+      'Pedagogiska metoder (TEACCH, AKK, Bornholm)',
+      'EHT-samverkan',
+      'Bedömningsinstrument (LäSt, Logos, DLS)',
+      'Handledning av lärare',
+      'Eventuella vidareutbildningar',
+      'Forskningsmeriter eller utvecklingsuppdrag',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder Visma Recruit, fristående koncerner Workday eller Teamtailor. Skriv ut examen (specialpedagogexamen), pedagogiska metoder (TEACCH, lågaffektivt bemötande) och målgrupp (NPF, autism, ADHD) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett specialpedagog-CV?',
+        a: 'Lärarexamen plus specialpedagogexamen (90 hp magister), lärarlegitimation från Skolverket, specialisering (NPF, läs-skriv, ESS), åtgärdsprogram-volym, pedagogiska metoder (TEACCH, lågaffektivt bemötande, AKK), EHT-samverkan, system (Schoolsoft, Vklass), eventuella vidareutbildningar, samt handledar-erfarenhet.',
+      },
+      {
+        q: 'Vad är skillnaden mellan specialpedagog och speciallärare?',
+        a: 'Båda har magisterexamen (90 hp). Specialpedagog är breddare och fokuserar på utveckling, handledning och organisation. Speciallärare är mer ämnesspecifik (läs-skriv, matematik, utvecklingsstörning) med direkt elevarbete. På många skolor används titlarna omväxlande. Specialpedagogexamen är vanligare i Sverige.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny specialpedagog?',
+        a: 'Lyft lärarexamen och specialpedagogexamen tydligt. Beskriv klinisk tjänstgöring under specialpedagogutbildningen och eventuellt examensarbete. Inkludera tidigare lärarår med åtgärdsprogram-vana och samverkan med EHT. Skriv ut din specialisering eftersom det avgör vilka tjänster du kvalificerar för.',
+      },
+      {
+        q: 'Vilka pedagogiska metoder är värdefullast?',
+        a: 'TEACCH för autism är gold standard. Lågaffektivt bemötande för utåtagerande beteende. AKK och bildstöd för kommunikation. Bornholmsmodellen för läs- och skrivutveckling. Lyft de metoder du faktiskt använder och eventuella certifieringar. Olika skolor söker olika metoder.',
+      },
+      {
+        q: 'Hur viktig är NPF-kompetens 2026?',
+        a: 'Mycket. Cirka 5-10% av eleverna har NPF-diagnos. Specialpedagoger med fördjupad NPF-utbildning är efterfrågade. Sammanställ din erfarenhet av autism, ADHD och språkstörning konkret. NPF-utbildning kan vara avgörande för specifika tjänster.',
+      },
+      {
+        q: 'Hur lyfter jag åtgärdsprogram-erfarenhet?',
+        a: 'Konkreta volymer: "Skrev och följde upp 25 åtgärdsprogram per år", "Drev anpassningar för 15 elever med autism", "Genomförde 8 pedagogiska utredningar enligt skolans rutiner". Konkret data är bättre än generiska påståenden.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Examen (specialpedagogexamen, lärarlegitimation), pedagogiska metoder (TEACCH, lågaffektivt bemötande, AKK, Bornholm), målgrupp (NPF, autism, ADHD, dyslexi), bedömningsinstrument (LäSt, Logos, DLS), system (Schoolsoft, Vklass) och samverkan (EHT). Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett specialpedagog-CV vara?',
+        a: 'Junior 0-3 år: 1,5 sidor. Mid-level: 2 sidor. Senior eller forskande specialpedagog: 2-3 sidor. Det viktigaste är att examen, specialisering och senaste tjänsten syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till specialpedagog-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just den skola och beskriv en specifik elev eller situation där du visat din specialpedagogiska förmåga. Beskriv hur du hanterade en svår situation eller hjälpte en elev utvecklas. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt specialpedagog-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), namn på enskilda elever, sekretessbelagda detaljer från åtgärdsprogram, generiska påståenden ("snäll och tålmodig") utan konkreta exempel, irrelevanta arbetslivserfarenheter, och hobbies som inte är pedagogiskt relevanta.',
+      },
+    ],
+  },
+
+  'account-manager': {
+    seoIntro:
+      'Som account manager bedöms du på din B2B-säljförmåga, kundkontakt och konkreta resultat på pipeline och retention. SaaS-bolag, scale-ups, traditionell B2B och konsultbolag har konstant öppna account manager-roller, men säljchefer slänger CV:n som inte tydligt visar måluppfyllelse, branschvana och CRM-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för account managers lyfter måluppfyllelse, CRM-system och branschvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, segment, säljansvar och nyckelresultat syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: rolltyp (KAM, AE, Strategic AM), branscher du sålt till (SaaS, fintech, industri, medtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, Challenger, BANT, Solution Selling), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, retention och upselling-resultat, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong).\n\nNedan hittar du två CV-mallar designade för account manager-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och konsultsegmentet faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'TrendingUp',
+        title: 'Måluppfyllelse i procent per år',
+        description: '"130% av mål 3 år i rad" eller "ARR-tillväxt 28% per år" säger mer än "uppfyllde säljmål". Konkreta procent och absoluta tal är hela poängen i ett account manager-CV.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Branschvana är differentiator',
+        description: 'SaaS, fintech, industri, medtech, retail. Olika branscher har olika säljcyklar och beslutsprocesser. Lyft de 2-3 vertikaler där du har djupast erfarenhet och kontaktnät.',
+      },
+      {
+        icon: 'Award',
+        title: 'CRM-system och säljstack',
+        description: 'Salesforce dominerar enterprise. HubSpot vanligast på scale-ups. Pipedrive och Lime på mindre B2B. Skriv ut systemnamnen plus säljstack-verktyg (Apollo, Outreach, Gong) som ATS-keywords.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Säljmetoder du behärskar',
+        description: 'MEDDIC, Challenger Sale, BANT, Solution Selling. Specifika metoder är CV-keywords som SaaS- och B2B-företag filtrerar på. Skriv ut metoder du arbetat efter.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Affärsstorlek och säljcykel',
+        description: 'Snittstorlek på dina stängda affärer (50K transaktion, 450K SaaS-årsavtal, 5M enterprise) och cykellängd (3 veckor, 6 månader, 18 månader). Säljchefer matchar din erfarenhet mot deras pipeline-profil.',
+      },
+      {
+        icon: 'Target',
+        title: 'Retention och upselling',
+        description: '"Upsold ARR 40% genom strategiska kontomöten" eller "Retention 95% över 2 år". Account managers bedöms på både ny försäljning och förvaltning av befintliga konton.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Nyckelresultat överst i sidopanelen',
+        description: 'Vår premium-mall Aurora har dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med procent-fokus',
+        description: 'Mallen separerar bolag, roll och måluppfyllelse så procentsiffror syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för CRM och säljstack',
+        description: 'Salesforce, HubSpot, Pipedrive, Apollo, Outreach. Säljstack-block separerar systemen från generiska kompetenser så säljchefer letar specifikt efter system de redan kör.',
+      },
+      {
+        title: 'Emerald-orange gradient signalerar tillväxt',
+        description: 'Vi har valt en gradient som visuellt kopplar till säljbranschen utan att bli aggressiv. Subtila accenter på siffror och resultat-block utan att kompromissa med ATS.',
+      },
+      {
+        title: 'Plats för säljmetodik och certifieringar',
+        description: 'MEDDIC-cert, Challenger Academy, Salesforce Trailhead. Eget block för metoder och certifikat så bevisad kompetens syns direkt utan att blanda med generisk utbildning.',
+      },
+      {
+        title: 'Plats för retention och upselling',
+        description: 'Mallen har dedikerade rader för både ny försäljning och förvaltning av befintliga konton. Account managers bedöms på båda dimensionerna.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Konthantering och relationer',
+        punkter: [
+          'Bygga långsiktiga relationer med befintliga kunder för retention och tillväxt',
+          'Genomföra QBR (Quarterly Business Review) med strategiska kunder',
+          'Identifiera nya behov och cross-sell-möjligheter inom kontot',
+          'Hantera escalations och svåra situationer med diplomati',
+        ],
+      },
+      {
+        rubrik: 'Pipeline och affärshantering',
+        punkter: [
+          'Bygga och underhålla pipeline i Salesforce, HubSpot eller Pipedrive',
+          'Forecasta affärsutfall per månad och kvartal till säljledning',
+          'Driva nya affärer från första kontakt till stängning',
+          'Hantera flera parallella affärer med olika säljcykler',
+        ],
+      },
+      {
+        rubrik: 'Demo, presentation och förhandling',
+        punkter: [
+          'Genomföra produktdemos och pitcha värdeerbjudande',
+          'Förhandla pris, villkor och avtalstid med inköpare och beslutsfattare',
+          'Hantera invändningar och konkurrentjämförelser med faktiska argument',
+          'Skriva tjänsteavtal och hantera juridiska detaljer i samverkan med legal',
+        ],
+      },
+      {
+        rubrik: 'Strategisk planering',
+        punkter: [
+          'Utveckla account plans för strategiska kunder',
+          'Identifiera ICP (Ideal Customer Profile) inom befintliga kunder',
+          'Driva expansion-strategier i nya divisioner eller geografier',
+          'Samverka med Customer Success för att säkra renewals',
+        ],
+      },
+      {
+        rubrik: 'Säljanalys och rapportering',
+        punkter: [
+          'Analysera säljdata och identifiera trender i konvertering och cykellängd',
+          'Rapportera till säljledning om pipeline, prognoser och risker',
+          'Bidra till säljstrategi genom insikt om kundbehov och konkurrensläge',
+          'Genomföra konkurrent- och marknadsanalys',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Roller och nivåer',
+        termer: [
+          { term: 'AE', forklaring: 'Account Executive, ansvarig för affärscykel från demo till stängning.' },
+          { term: 'KAM', forklaring: 'Key Account Manager, strategisk roll med ansvar för stora konton.' },
+          { term: 'Strategic AM', forklaring: 'Senior account manager med ansvar för enterprise-konton.' },
+          { term: 'BDR/SDR', forklaring: 'Business/Sales Development Representative, prospektering.' },
+          { term: 'CSM', forklaring: 'Customer Success Manager, fokuserad på retention och adoption.' },
+          { term: 'Sales Engineer', forklaring: 'Tekniskt-fokuserad säljroll för komplexa lösningar.' },
+        ],
+      },
+      {
+        kategori: 'Säljmetodiker',
+        termer: [
+          { term: 'MEDDIC', forklaring: 'Metrics, Economic buyer, Decision criteria/process, Identify pain, Champion.' },
+          { term: 'BANT', forklaring: 'Budget, Authority, Need, Timeline. Klassisk leadkvalificeringsmetod.' },
+          { term: 'Challenger Sale', forklaring: 'Säljmetod där du utmanar kundens nuvarande tänkesätt.' },
+          { term: 'SPIN', forklaring: 'Situation, Problem, Implication, Need-payoff. Frågedriven metod.' },
+          { term: 'Solution Selling', forklaring: 'Säljmetod fokuserad på att lösa kundens specifika problem.' },
+          { term: 'ABM', forklaring: 'Account-Based Marketing, fokuserad bearbetning av strategiska konton.' },
+        ],
+      },
+      {
+        kategori: 'CRM och säljstack',
+        termer: [
+          { term: 'Salesforce', forklaring: 'Marknadsledande CRM, dominerar enterprise och stora SaaS-bolag.' },
+          { term: 'HubSpot', forklaring: 'CRM och marketing automation, populärt på scale-ups.' },
+          { term: 'Pipedrive', forklaring: 'Svenskt CRM, vanligt på mindre B2B-bolag.' },
+          { term: 'Lime CRM', forklaring: 'Svenskt CRM med stark närvaro på den nordiska marknaden.' },
+          { term: 'Apollo', forklaring: 'Säljstack-verktyg för prospektering med inbyggd databas.' },
+          { term: 'Gong', forklaring: 'Conversation intelligence, analyserar säljsamtal.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'ARR', forklaring: 'Annual Recurring Revenue, årligt återkommande intäkter.' },
+          { term: 'MRR', forklaring: 'Monthly Recurring Revenue, månadsversion av ARR.' },
+          { term: 'NRR', forklaring: 'Net Revenue Retention, mäter expansion + churn.' },
+          { term: 'Win rate', forklaring: 'Andel kvalificerade affärer som stängs.' },
+          { term: 'Sales cycle', forklaring: 'Tid från första kontakt till stängd affär.' },
+          { term: 'Pipeline coverage', forklaring: 'Förhållande mellan pipeline och kvartalsmål.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'SaaS- och tech-bolag',
+        exempel: [
+          'Klarna, Spotify, Tink, Storytel',
+          'iZettle, Truecaller, Voi, Kry',
+          'Internationella SaaS-bolag med Sverige-team',
+          'Startup-bolag i Stockholm, Göteborg, Malmö',
+        ],
+      },
+      {
+        kategori: 'Traditionell B2B och industri',
+        exempel: [
+          'Volvo, Scania, Atlas Copco, Sandvik',
+          'Telia, Tele2, Ericsson, ABB',
+          'Tetra Pak, IKEA Industry, ASSA ABLOY',
+          'Mindre nischade industribolag',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag och tjänsteföretag',
+        exempel: [
+          'CGI, Sopra Steria, Capgemini, Knowit',
+          'Accenture, Deloitte, McKinsey, BCG',
+          'Reklam- och designbyråer',
+          'IT-konsultbolag',
+        ],
+      },
+      {
+        kategori: 'Bank, finans och försäkring',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'Folksam, Trygg-Hansa, If, Länsförsäkringar',
+          'Investmentbolag och kapitalförvaltning',
+          'Fintech-bolag (Klarna, Tink, Lendify)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom (3-5 år)',
+        beskrivning: 'Vanlig grund för senior account manager-roller. Inriktning marknadsföring, finans eller business administration från Handelshögskolan, Lund, Uppsala eller motsvarande.',
+      },
+      {
+        rubrik: 'Yrkeshögskola eller säljutbildning (1-2 år)',
+        beskrivning: 'YH-utbildningar inom B2B-säljare, key account management eller digital försäljning. Snabbare väg in och ofta lika värderad som högskola av scale-ups och tech-bolag.',
+      },
+      {
+        rubrik: 'Säljmetodik-certifieringar',
+        beskrivning: 'MEDDIC Academy, Challenger Sale, Sandler Sales, Salesforce Trailhead. Certifieringar visar djup i metodik och prioriteras av SaaS-bolag som arbetar strukturerat.',
+      },
+      {
+        rubrik: 'Internutbildning och on-the-job',
+        beskrivning: 'Många account managers utvecklas via internutbildning. Klarna, Storytel och andra scale-ups har strukturerade BDR-program som leder till AE-roller på 12-18 månader.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'CRM-system (Salesforce, HubSpot, Pipedrive, Lime)',
+        'Säljmetodiker (MEDDIC, BANT, Challenger, Solution Selling)',
+        'Pipeline-hantering och forecasting',
+        'Account planning och strategisk försäljning',
+        'Avtals- och förhandlingsteknik',
+        'Säljanalys och rapportering',
+        'Account-baserad försäljning (ABM)',
+        'Säljstack (Apollo, Outreach, Gong, ZoomInfo)',
+        'Demo- och presentationsteknik',
+        'LinkedIn Sales Navigator',
+        'QBR och customer success',
+        'Excel och Power BI för rapportering',
+      ],
+      personliga: [
+        'Resultatdriven och målmedveten',
+        'Övertygande och relationsskapande',
+        'Lyhörd för kundbehov',
+        'Strukturerad i pipeline-arbete',
+        'Driven utan att vara påflugen',
+        'Kompetitiv men kollegial',
+        'Uthållig vid långa säljcykler',
+      ],
+    },
+
+    profilExempel:
+      'Senior account manager med 7 års erfarenhet inom SaaS och B2B-tech. Hanterar 25 strategiska konton med 35 MSEK ARR och driver expansion-strategier i nya divisioner. Måluppfyllelse 132% per år 3 år i rad och NRR 118%. Arbetar metodiskt enligt MEDDIC och behärskar Salesforce, Outreach och Gong. Branschvana inom fintech och e-handel med stort kontaktnät i Stockholm och Göteborg.',
+
+    profilTips:
+      'Senioritet, branscher och primärt segment i öppningsraden. Andra meningen lyfter konkret kontvolym och måluppfyllelse. Tredje meningen visar metodik, system och eventuella branschspecialiseringar.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Måluppfyllelse i procent',
+        text: '"130% av mål 3 år i rad" eller "ARR-tillväxt 28%" säger mer än "uppfyllde säljmål". Konkreta procent och absoluta tal är hela poängen.',
+      },
+      {
+        rubrik: 'Branschvana',
+        text: 'SaaS, fintech, industri, medtech, retail. Olika branscher har olika säljcyklar. Lyft de 2-3 vertikaler där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'CRM och säljstack',
+        text: 'Salesforce, HubSpot, Pipedrive, Lime. Skriv ut systemen plus säljstack (Apollo, Outreach, Gong) som ATS-keywords.',
+      },
+      {
+        rubrik: 'Säljmetoder',
+        text: 'MEDDIC, Challenger Sale, BANT, Solution Selling. Specifika metoder är CV-keywords som SaaS- och B2B-företag filtrerar på.',
+      },
+      {
+        rubrik: 'Affärsstorlek och cykel',
+        text: 'Snitt-affärsstorlek (50K, 450K, 5M) och cykellängd (3 veckor, 6 månader, 18 månader). Säljchefer matchar din erfarenhet mot pipeline-profil.',
+      },
+      {
+        rubrik: 'Retention och upselling',
+        text: '"Upsold ARR 40%" eller "NRR 118%". Account managers bedöms på både ny försäljning och förvaltning. Lyft båda dimensionerna.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, segment, primära branscher och måluppfyllelse på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, ansvar. Konkretisera måluppfyllelse, ARR-tillväxt och NRR.' },
+      { sektion: 'Utbildning', tips: 'Akademisk bakgrund, säljutbildningar och certifieringar (MEDDIC, Salesforce Trailhead).' },
+      { sektion: 'Kompetenser', tips: 'CRM, säljmetoder, vertikaler. Var konkret om dealsstorlekar och cykler.' },
+      { sektion: 'Säljstack', tips: 'Eget block för Salesforce, HubSpot, Apollo, Outreach, Gong med erfarenhetsår.' },
+      { sektion: 'Övrigt', tips: 'Eventuell föreningserfarenhet, mentor-roller, branschnätverk.' },
+    ],
+
+    checklista: [
+      'Civilekonom eller säljutbildning',
+      'CRM-system med erfarenhetsår',
+      'Säljmetoder du arbetar efter',
+      'Branscher och segment',
+      'Måluppfyllelse i procent per år',
+      'Snitt-affärsstorlek och säljcykel',
+      'Retention och upselling-resultat',
+      'Säljstack-verktyg',
+      'Eventuella säljcertifieringar',
+      'Ledar- eller mentorroller',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Aurora är ATS-säkra. Aurora har "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett account manager-CV?',
+        a: 'Säljroll och senioritet (AE, KAM, Strategic AM), bransch och segment, konkret måluppfyllelse i procent per år, ARR och NRR, snittstorlek på affärer, säljcykellängd, CRM-system (Salesforce, HubSpot), säljmetodik (MEDDIC, Challenger), och eventuella certifieringar.',
+      },
+      {
+        q: 'Vad är skillnaden mellan AE och KAM?',
+        a: 'AE (Account Executive) fokuserar på ny försäljning och stängning av nya kunder. KAM (Key Account Manager) fokuserar på befintliga strategiska kunder med fokus på retention, expansion och relationsbyggande. Båda kräver liknande kompetens men olika beteende. KAM är oftast senior-roll med högre lön.',
+      },
+      {
+        q: 'Vilka siffror är viktigast på ett account manager-CV?',
+        a: 'Tre kärnsiffror. Total ARR eller pipeline du ansvarat för. Måluppfyllelse i procent per år. NRR (Net Revenue Retention) som mäter expansion plus churn. En account manager som visar "NRR 118%" får intervju över en som skriver "drev tillväxt".',
+      },
+      {
+        q: 'Hur skriver jag CV som junior account manager?',
+        a: 'Lyft akademisk bakgrund och eventuella prestationer (snittbetyg, examensarbete, eventuell SaaS-praktik), tävlingar där du kvantifierade resultat, eventuell extra- eller säsongsarbete med kundkontakt, och språkkunskaper. Skriv ut dina personliga driv-egenskaper med konkreta exempel. Många bolag har strukturerade BDR-program.',
+      },
+      {
+        q: 'Vilka säljmetodiker är värdefullast?',
+        a: 'MEDDIC är gold standard på enterprise SaaS. Challenger Sale är efterfrågad på scale-ups med komplexa säljcyklar. BANT är klassisk och fortfarande relevant. Solution Selling för konsultiv försäljning. Salesforce Trailhead-certifieringar visar systemkunskap. SwedSec-licens krävs för bank- och försäkringsförsäljning.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika säljroller (Account Executive, Key Account Manager, Strategic AM), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetoder (MEDDIC, BANT, Challenger), branschvertikaler du sålt till, och säljstack-verktyg (Apollo, Outreach, Gong). Teamtailor och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett account manager-CV vara?',
+        a: 'Junior säljare 0-5 år: 1 sida. Erfaren AE eller KAM: 1,5-2 sidor. Senior eller Strategic AM: 2 sidor max. Säljchefer skannar fort så håll varje rad relevant. Skriv siffror utan att bädda in dem i löpande text och prioritera senaste 5-7 åren.',
+      },
+      {
+        q: 'Behöver jag personligt brev till account manager-tjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att visa att du läst om bolaget och förstår deras säljutmaning. Beskriv en specifik affär du stängt eller en säljcykel du drivit som matchar deras profil. Säljchefer värderar kandidater som visar säljförmåga redan i sin egen ansökan. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur visar jag säljkompetens utan SaaS-bakgrund?',
+        a: 'Lyft kvantifierade resultat oavsett bransch. En säljare i industri som ökat orderingång 30% har samma värde för en säljchef som en SaaS-säljare som ökat ARR. Beskriv säljmetodik du använt, kundtyp du jobbat med, och avtalsstrukturer.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt account manager-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror eller bonusbelopp, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och resultatorienterad") utan stöd, säljkampanjer du inte vunnit, och hobbies som inte är säljrelevanta. Säljchefer förväntar sig stark skriftlig kommunikation.',
+      },
+    ],
+  },
+
+  'produktchef': {
+    seoIntro:
+      'Som produktchef bedöms du på din förmåga att driva produktstrategi, samverka med tvärfunktionella team och leverera mätbara affärsresultat. Tech-bolag, scale-ups och konsultbolag har konstant brist på erfarna produktchefer, men VD:ar och CTO:er slänger CV:n som inte tydligt visor produkterfarenhet, metodik och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för produktchefer lyfter produktansvar, agila metodiker och konkreta produktresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, produkt, omfattning och nyckelresultat syns direkt med dina strategiska bidrag. Det betyder att VD:ar och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller civilekonom med inriktning produkt, agila metodiker (Scrum, Kanban, SAFe), produktstrategi och roadmap, OKR och KPI-arbete, eventuella certifieringar (CSPO, SAFe POPM), system (Jira, Confluence, Productboard, Aha!), bransch (SaaS, fintech, e-handel, healthtech), användarforskning och customer development, samt konkreta produktresultat (DAU, MAU, retention, NPS, ARR-bidrag).\n\nNedan hittar du två CV-mallar designade för produktchefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad VD:ar och CTO:er på SaaS-bolag, scale-ups och tech-segmentet faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Produkt och bransch i klartext',
+        description: 'B2B SaaS, B2C app, e-handelsplattform, fintech-produkt. Olika produkter kräver olika kompetens. Lyft den produkttyp och bransch där du har djupast erfarenhet.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta produktresultat',
+        description: '"Ökade DAU 35% genom onboarding-redesign", "Drev ARR-bidrag på 18 MSEK från ny feature", "Förbättrade NPS från 32 till 58". Konkreta siffror differentierar senior produktchefer.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Agila metodiker och processer',
+        description: 'Scrum, Kanban, SAFe, dual-track agile. Lyft vilka metodiker du behärskar och vilka projekt du applicerat dem på. Olika bolag använder olika ramverk.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Produktverktyg och system',
+        description: 'Jira, Confluence, Productboard, Aha!, Figma, Mixpanel, Amplitude, Hotjar. Produktchefer använder många verktyg. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Användarforskning och customer development',
+        description: 'Användarintervjuer, A/B-tester, kohortanalys, jobs-to-be-done. Lyft din erfarenhet av att samla insights från användare och hur det påverkat produkten.',
+      },
+      {
+        icon: 'Target',
+        title: 'OKR och KPI-arbete',
+        description: 'Sätt mål och mät resultat. Beskriv KPI:er du ansvarat för (DAU, MAU, retention, churn, NPS, ARR). Säljchefer och VD:ar värderar produktchefer som tänker affärsmässigt.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Produkt och resultat överst',
+        description: 'Vår mall lyfter produkt, bransch och konkreta resultat i sidopanelen. VD:ar och CTO:er ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med produktbidrag',
+        description: 'Mallen separerar bolag och dina produktbidrag (DAU-tillväxt, ARR-impact, retention-förbättring). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för verktyg och certifieringar',
+        description: 'Jira, Productboard, CSPO-cert, SAFe POPM. Mallen lyfter formell kompetens som eget block med datum.',
+      },
+      {
+        title: 'Premium-mallen Magasin med editorial-känsla',
+        description: 'För senior produktchefer och chief product officer lägger Magasin till asymmetrisk grid och plats för "tankeledare-citat". Skapar visuell tyngd som passar SaaS- och fintech-bolag.',
+      },
+      {
+        title: 'Plats för OKR och KPI:er',
+        description: 'Mallen har dedikerade rader för OKR-arbete och konkreta KPI:er. Visar att du tänker affärsmässigt och inte bara feature-utvecklande.',
+      },
+      {
+        title: 'Modern typografi för tech-segmentet',
+        description: 'Vi har valt modern serif-typografi som signalerar professionalism och tankegrundighet. Passar både SaaS-scale-ups och konsultsegmentet.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Produktstrategi och vision',
+        punkter: [
+          'Utveckla produktstrategi och roadmap tillsammans med VD och team',
+          'Sätta produktvision baserad på marknadsanalys och customer insights',
+          'Prioritera features och initiativ baserat på affärsvärde',
+          'Bidra till bolagets långsiktiga riktning genom produktbeslut',
+        ],
+      },
+      {
+        rubrik: 'Discovery och customer development',
+        punkter: [
+          'Genomföra användarintervjuer och customer development',
+          'Analysera kvantitativ data (Mixpanel, Amplitude, Hotjar)',
+          'Driva A/B-tester och kohortanalyser för produktbeslut',
+          'Översätta användarinsights till konkreta produktinitiativ',
+        ],
+      },
+      {
+        rubrik: 'Utveckling och leverans',
+        punkter: [
+          'Driva agila utvecklingsteam (Scrum, Kanban, SAFe)',
+          'Skriva user stories och acceptanskriterier i Jira',
+          'Genomföra sprint planning, demos och retrospektiver',
+          'Säkerställa leverans inom kvalitet och tidsplan',
+        ],
+      },
+      {
+        rubrik: 'Lansering och go-to-market',
+        punkter: [
+          'Driva produktlanseringar tillsammans med marketing och sales',
+          'Skriva product marketing-material och release notes',
+          'Utbilda kundsupport och customer success kring nya features',
+          'Mäta lanseringsresultat och iterera baserat på feedback',
+        ],
+      },
+      {
+        rubrik: 'Stakeholder-management och rapportering',
+        punkter: [
+          'Rapportera till ledningsgrupp om produkt-KPI:er och OKR',
+          'Samverka med engineering, design, marketing, sales',
+          'Driva quarterly business review (QBR) med produktteam',
+          'Hantera externa intressenter (partners, kunder, investerare)',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Produktroller',
+        termer: [
+          { term: 'Product Manager (PM)', forklaring: 'Operativ produktroll med ansvar för specifik produkt eller område.' },
+          { term: 'Senior PM', forklaring: 'Senior PM med 5-8 års erfarenhet, ansvarar ofta för flera områden.' },
+          { term: 'Lead PM', forklaring: 'Senior roll med ansvar för team av PMs.' },
+          { term: 'Group PM', forklaring: 'Strategisk roll med ansvar för flera produktområden.' },
+          { term: 'Director of Product', forklaring: 'Senior chefroll med strategiskt ansvar.' },
+          { term: 'CPO', forklaring: 'Chief Product Officer, högsta produktansvariga.' },
+        ],
+      },
+      {
+        kategori: 'Metodiker och ramverk',
+        termer: [
+          { term: 'Scrum', forklaring: 'Agil metodik med sprintar, daily standups och retrospektiver.' },
+          { term: 'Kanban', forklaring: 'Visuell agil metodik fokuserad på flöde och WIP-limiter.' },
+          { term: 'SAFe', forklaring: 'Scaled Agile Framework, skalad agile för stora organisationer.' },
+          { term: 'Dual-track agile', forklaring: 'Parallell discovery och delivery.' },
+          { term: 'Jobs-to-be-done', forklaring: 'Ramverk för att förstå användares behov.' },
+          { term: 'OKR', forklaring: 'Objectives and Key Results, målstyrningsmetod.' },
+        ],
+      },
+      {
+        kategori: 'Verktyg och system',
+        termer: [
+          { term: 'Jira', forklaring: 'Atlassian-verktyg för agila team och produktbacklog.' },
+          { term: 'Confluence', forklaring: 'Atlassian-wiki för produktdokumentation.' },
+          { term: 'Productboard', forklaring: 'Verktyg för produktstrategi och prioritering.' },
+          { term: 'Aha!', forklaring: 'Roadmap- och strategi-verktyg.' },
+          { term: 'Mixpanel/Amplitude', forklaring: 'Produktanalys och användardata.' },
+          { term: 'Figma', forklaring: 'Designverktyg för wireframes och prototyping.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'DAU/MAU', forklaring: 'Daily/Monthly Active Users, användarengagemang.' },
+          { term: 'Retention', forklaring: 'Andel användare som återkommer över tid.' },
+          { term: 'Churn', forklaring: 'Andel användare som lämnar produkten.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, kundnöjdhet och rekommendationsvilja.' },
+          { term: 'CAC/LTV', forklaring: 'Customer Acquisition Cost och Lifetime Value.' },
+          { term: 'Activation rate', forklaring: 'Andel nya användare som aktiveras inom första X dagar.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'SaaS- och tech-bolag',
+        exempel: [
+          'Klarna, Spotify, Tink, Storytel',
+          'iZettle, Truecaller, Voi, Kry',
+          'Boozt, NA-KD, Apotea',
+          'Internationella SaaS-bolag med Sverige-team',
+        ],
+      },
+      {
+        kategori: 'Scale-ups och unicorns',
+        exempel: [
+          'Northvolt, Polestar (tech-roller)',
+          'Foodora, Mathem, Kry',
+          'PE-ägda scale-ups',
+          'Tech-bolag i tillväxtfas',
+        ],
+      },
+      {
+        kategori: 'Bank, finans och fintech',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'Tink, Klarna, Lendify, Avanza',
+          'Försäkringsbolag (Folksam, Trygg-Hansa)',
+          'Fintech-bolag och payment-providers',
+        ],
+      },
+      {
+        kategori: 'Industri och konsult',
+        exempel: [
+          'Volvo Cars, Polestar (digital produkter)',
+          'IKEA, H&M (digital plattformar)',
+          'Konsultbolag (Accenture, McKinsey, BCG)',
+          'Mindre tech-bolag och B2B SaaS',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör eller civilekonom (5 år)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping för teknisk produktutveckling. Handelshögskolan, Lund, Uppsala för affärs-/marknadsfokus. Vanlig grund för senior- och chefroller.',
+      },
+      {
+        rubrik: 'Yrkeshögskola och bootcamps',
+        beskrivning: 'YH-utbildningar inom digital marknadsföring, UX eller produktledning. Bootcamps från Hyper Island, Berghs. Kortare väg in i tech-segmentet.',
+      },
+      {
+        rubrik: 'CSPO eller SAFe-certifieringar',
+        beskrivning: 'Certified Scrum Product Owner (CSPO), SAFe POPM (Product Owner/Product Manager). Stark merit för senior-roller och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Produktcertifieringar och kurser',
+        beskrivning: 'Pendo Product School, Reforge, Mind the Product. Korta program (1-3 månader) som stärker specifika produktkompetenser.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Produktstrategi och roadmap',
+        'Agila metodiker (Scrum, Kanban, SAFe)',
+        'OKR och KPI-arbete',
+        'Användarforskning och customer development',
+        'A/B-tester och kohortanalys',
+        'Jira, Confluence, Productboard, Aha!',
+        'Mixpanel, Amplitude, Hotjar för analys',
+        'Figma och prototyping',
+        'User story writing och requirement specification',
+        'Go-to-market och lansering',
+        'Stakeholder-management',
+        'Sales enablement och customer success',
+      ],
+      personliga: [
+        'Strategisk och visionär',
+        'Datadriven och analytisk',
+        'Kommunikativ med olika nivåer',
+        'Lyhörd för användarbehov',
+        'Pragmatisk i tradeoffs mellan funktion och deadline',
+        'Driven av affärsresultat',
+        'Lagspelare med tvärfunktionell förmåga',
+      ],
+    },
+
+    profilExempel:
+      'Senior produktchef med 8 års erfarenhet inom B2B SaaS och fintech. Leder 3 produktteam med 15 utvecklare och designers, ansvar för 40 MSEK ARR-bidrag. Drev redesign av onboarding som ökade activation rate 45% och NPS från 28 till 64. CSPO och SAFe POPM-certifierad. Civilingenjör i datateknik från KTH och tidigare BDR-erfarenhet ger affärs- och tech-bredd. Talare på två produktkonferenser 2024.',
+
+    profilTips:
+      'Senioritet, primär bransch och rolltyp i öppningsraden. Andra meningen lyfter konkret produktresultat (DAU, ARR, NPS). Tredje meningen visar metodik, certifieringar och eventuella branschspecialiseringar.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Produkt och bransch i klartext',
+        text: 'B2B SaaS, B2C app, e-handelsplattform, fintech-produkt. Lyft produkttyp och bransch där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'Konkreta produktresultat',
+        text: '"Ökade DAU 35%", "Drev ARR-bidrag 18 MSEK", "Förbättrade NPS från 32 till 58". Konkreta siffror differentierar senior produktchefer.',
+      },
+      {
+        rubrik: 'Agila metodiker',
+        text: 'Scrum, Kanban, SAFe, dual-track agile. Lyft vilka metodiker du behärskar och vilka projekt du applicerat dem på.',
+      },
+      {
+        rubrik: 'Produktverktyg',
+        text: 'Jira, Confluence, Productboard, Aha!, Figma, Mixpanel, Amplitude. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Användarforskning',
+        text: 'Användarintervjuer, A/B-tester, kohortanalys, jobs-to-be-done. Lyft din erfarenhet av att samla insights och hur det påverkat produkten.',
+      },
+      {
+        rubrik: 'OKR och KPI-arbete',
+        text: 'Beskriv KPI:er du ansvarat för (DAU, MAU, retention, churn, NPS, ARR). Säljchefer och VD:ar värderar produktchefer som tänker affärsmässigt.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, primär produkt och nyckelresultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, produkt. Konkretisera produktbidrag (DAU, ARR, NPS).' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller civilekonom, lärosäte, år. CSPO, SAFe POPM, Reforge i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Metodiker, verktyg, KPI:er. Var konkret om systemvana.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med CSPO, SAFe POPM, Reforge med datum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, eventuell talangs- eller mentorroll, tech-talks och konferensbidrag.' },
+    ],
+
+    checklista: [
+      'Civilingenjör eller civilekonom',
+      'Agila metodiker (Scrum, Kanban, SAFe)',
+      'Produktverktyg (Jira, Productboard, Figma)',
+      'Analytics-system (Mixpanel, Amplitude)',
+      'OKR och KPI-arbete',
+      'Konkreta produktresultat',
+      'Branschvana (SaaS, fintech, e-handel)',
+      'Användarforskning och customer development',
+      'Eventuella certifieringar (CSPO, SAFe POPM)',
+      'Ledar- eller mentorroller',
+    ],
+
+    atsInfo:
+      'Både vår mall Linje och premium-varianten Magasin är ATS-säkra. Tech-bolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut metodiker (Scrum, SAFe), verktyg (Jira, Productboard) och KPI:er (DAU, ARR, NPS) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett produktchef-CV?',
+        a: 'Civilingenjör eller civilekonom, agila metodiker (Scrum, Kanban, SAFe), produktverktyg (Jira, Productboard, Figma), analytics-system (Mixpanel, Amplitude), OKR och KPI-arbete, konkreta produktresultat (DAU, ARR, NPS), branschvana, eventuella certifieringar (CSPO, SAFe POPM), och ledarroller.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior produktchef?',
+        a: 'Lyft civilingenjör- eller civilekonom-examen, eventuell trainee-program eller produktassistent-roll, kurser i produktmetodik (CSPO-grunder, SAFe), och konkreta projekt du varit del av. Många bolag har strukturerade APM- eller trainee-program för junior produktchefer.',
+      },
+      {
+        q: 'Vilken certifiering är värd mest?',
+        a: 'CSPO (Certified Scrum Product Owner) är gold standard internationellt. SAFe POPM dominerar enterprise och konsultbolag. PSPO (Professional Scrum Product Owner) växer i värde. Reforge-program ger djup och prioriteras av senior-roller. CSM och certifieringar inom UX är meriterande.',
+      },
+      {
+        q: 'Hur skiljer sig PM, Senior PM och Lead PM?',
+        a: 'PM (Product Manager) är operativ med ansvar för specifik produkt eller område. Senior PM har 5-8 års erfarenhet och ansvarar ofta för flera områden. Lead PM eller Group PM har ansvar för team av PMs och strategisk inriktning. Director of Product och CPO är chefnivå.',
+      },
+      {
+        q: 'Hur lyfter jag produktresultat utan formell PM-titel?',
+        a: 'Beskriv konkreta initiativ du drivit: "Drev redesign av checkout-flow som ökade conversion 18%", "Identifierade och prioriterade 4 features som drev ARR-tillväxt 12 MSEK". Konkreta uppdrag och resultat differentierar dig från andra junior-kandidater.',
+      },
+      {
+        q: 'Vilka verktyg är viktigast 2026?',
+        a: 'Jira är fortfarande standard för agila team. Productboard växer för produktstrategi. Aha! för roadmap. Figma för design och prototyping. Mixpanel/Amplitude för produktanalys. Hotjar för UX-insights. AI-baserade verktyg (Notion AI, ChatGPT) blir allt viktigare för effektivitet.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Metodiker (Scrum, Kanban, SAFe, dual-track agile), verktyg (Jira, Confluence, Productboard, Aha!, Figma, Mixpanel, Amplitude), KPI:er (DAU, MAU, retention, churn, NPS, ARR, NRR), produktroller (PM, Senior PM, Lead PM), och bransch. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett produktchef-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller Lead PM: 2 sidor. CPO-kandidat: 2-3 sidor. Det viktiga är att produkterfarenhet, metodikvana och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till produktchef-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik produktutmaning du löst. Beskriv en feature-lansering, ett strategiskt initiativ eller hur du drivit en specifik förbättring. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt produktchef-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("strategisk och driven") utan stöd, sekretessbelagda produktdetaljer, och hobbies som inte är professionellt relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
