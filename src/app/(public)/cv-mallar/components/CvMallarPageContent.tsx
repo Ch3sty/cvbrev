@@ -3,13 +3,30 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ChevronRight, Search, ShieldCheck, Crown, FileText, Sparkles } from 'lucide-react'
+import { ChevronRight, Search, ShieldCheck, Crown, FileText, Sparkles, ArrowRight } from 'lucide-react'
 import { useState, useMemo } from 'react'
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import {
+  IconVard,
+  IconTech,
+  IconEkonomi,
+  IconService,
+  IconUtbildning,
+  IconOffentlig,
+} from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
+
+const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?: string }) => React.ReactElement> = {
+  'vard': IconVard,
+  'utbildning': IconUtbildning,
+  'service': IconService,
+  'teknik': IconTech,
+  'ekonomi': IconEkonomi,
+  'offentlig-sektor': IconOffentlig,
+}
 
 type FilterType = 'all' | 'free' | 'premium' | 'yrkesmallar' | 'modern' | 'traditional' | 'creative'
 
@@ -135,43 +152,48 @@ export default function CvMallarPageContent({
             Mallar designade för specifika yrken med sektioner som lyfter rätt meriter — legitimationer, behörigheter, kompetensområden. Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {yrkesmallar.map((y) => (
-              <Link
-                key={y.slug}
-                href={`/cv-mallar/${y.slug}`}
-                className="group flex flex-col bg-orange-50/40 hover:bg-orange-50 border border-orange-100 hover:border-orange-200 rounded-2xl p-4 transition-all"
-              >
-                <div className="flex items-start gap-3 mb-2">
-                  <span
-                    className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-white"
-                    style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+            {yrkesmallar.map((y, idx) => {
+              const Icon = KATEGORI_ICON[y.kategori]
+              return (
+                <motion.div
+                  key={y.slug}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: Math.min(idx * 0.015, 0.4) }}
+                >
+                  <Link
+                    href={`/cv-mallar/${y.slug}`}
+                    className="group block bg-white rounded-3xl border border-orange-100 p-5 hover:border-orange-200 transition-colors h-full"
+                    style={{ boxShadow: '0 6px 24px -14px rgba(249, 115, 22, 0.16)' }}
+                    aria-label={`Se CV-mall för ${y.namn}`}
                   >
-                    <FileText className="w-4 h-4" strokeWidth={2.4} />
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700">
+                    <Icon className="w-12 h-12 sm:w-14 sm:h-14 mb-3" />
+
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mb-1">
                       {KATEGORI_LABEL[y.kategori]}
                     </div>
-                    <div className="text-base font-black text-slate-900 leading-tight mt-0.5">
+                    <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 leading-tight">
                       {y.namn}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 line-clamp-3">
+                      {y.intro}
+                    </p>
+
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                        Gratis + Premium
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all">
+                        <FileText className="w-4 h-4" strokeWidth={2.5} />
+                        Se CV-mall
+                        <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                      </span>
                     </div>
-                  </div>
-                </div>
-                <p className="text-sm text-slate-600 leading-snug line-clamp-2 mb-3 flex-1">
-                  {y.intro}
-                </p>
-                <div className="flex items-center justify-between gap-2 pt-2 border-t border-orange-100/70">
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                    Gratis + Premium · ATS
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
-                    Visa mall
-                    <ChevronRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  </Link>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>

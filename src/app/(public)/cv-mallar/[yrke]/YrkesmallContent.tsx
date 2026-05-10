@@ -9,8 +9,25 @@ import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, E
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import { getTemplateById } from '@/lib/cv/simple-templates'
+import {
+  IconVard,
+  IconTech,
+  IconEkonomi,
+  IconService,
+  IconUtbildning,
+  IconOffentlig,
+} from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 import { buildYrkesmallExempelCV } from './YrkesmallExempelData'
+
+const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?: string }) => React.ReactElement> = {
+  'vard': IconVard,
+  'utbildning': IconUtbildning,
+  'service': IconService,
+  'teknik': IconTech,
+  'ekonomi': IconEkonomi,
+  'offentlig-sektor': IconOffentlig,
+}
 
 // Lazy-load interaktiv preview fOr bundle-size
 const YrkesmallInteractivePreview = dynamic(
@@ -467,34 +484,37 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               Andra yrkesmallar du kanske gillar
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {relaterade.map((y) => (
-              <Link
-                key={y.slug}
-                href={`/cv-mallar/${y.slug}`}
-                className="group bg-white border border-slate-200 hover:border-orange-200 rounded-2xl p-5 transition-all"
-                style={{ boxShadow: '0 4px 14px -10px rgba(0, 0, 0, 0.08)' }}
-              >
-                <div className="flex items-start gap-3 mb-2">
-                  <span
-                    className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
-                    style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                  >
-                    <FileText className="w-4 h-4" strokeWidth={2.4} />
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700">
-                      {KATEGORI_LABEL[y.kategori]}
-                    </div>
-                    <div className="font-black text-slate-900 leading-tight mt-0.5">{y.namn}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {relaterade.map((y) => {
+              const Icon = KATEGORI_ICON[y.kategori]
+              return (
+                <Link
+                  key={y.slug}
+                  href={`/cv-mallar/${y.slug}`}
+                  className="group block bg-white rounded-3xl border border-orange-100 p-5 hover:border-orange-200 transition-colors h-full"
+                  style={{ boxShadow: '0 6px 24px -14px rgba(249, 115, 22, 0.16)' }}
+                  aria-label={`Se CV-mall för ${y.namn}`}
+                >
+                  <Icon className="w-12 h-12 sm:w-14 sm:h-14 mb-3" />
+
+                  <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mb-1">
+                    {KATEGORI_LABEL[y.kategori]}
                   </div>
-                </div>
-                <p className="text-xs text-slate-600 leading-snug line-clamp-2 mb-2">{y.intro}</p>
-                <div className="text-[10px] font-bold uppercase tracking-wide text-slate-500 pt-2 border-t border-slate-100">
-                  Gratis + Premium · ATS
-                </div>
-              </Link>
-            ))}
+                  <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 leading-tight">
+                    {y.namn}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 line-clamp-3">
+                    {y.intro}
+                  </p>
+
+                  <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all">
+                    <FileText className="w-4 h-4" strokeWidth={2.5} />
+                    Se CV-mall
+                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         </SectionWrapper>
       )}
