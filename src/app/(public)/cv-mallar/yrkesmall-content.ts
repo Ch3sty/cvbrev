@@ -18,21 +18,47 @@
 export interface YrkesContent {
   /** Hero-ingress (60-80 ord) for sidans h1-paragraf - unik per yrke. Optional under utbyggnad. */
   heroIngress?: string
+
+  /** SEO-intro: 185-220 ord under hero (4 stycken: hook, lOsning, specificitet, CTA) */
+  seoIntro?: string
+
+  /** 6 punkter "Viktigt att tanka pa" - icon + title + description (2-3 meningar) */
+  viktigtAttTankaPa?: {
+    icon: 'FileText' | 'Target' | 'Award' | 'TrendingUp' | 'CheckCircle' | 'AlertCircle' | 'Briefcase' | 'GraduationCap'
+    title: string
+    description: string
+  }[]
+
+  /** 6 punkter "Varfor var mall passar yrket" - hur den ar designad, vad vi tankt pa */
+  varforVarMallPassar?: { title: string; description: string }[]
+
+  /** Vanliga arbetsuppgifter for yrket - 5 grupper med 3-4 underpunkter */
+  arbetsuppgifter?: { rubrik: string; punkter: string[] }[]
+
+  /** Branschterminologi - 4-6 grupper med termer + fOrklaringar (rendreras som accordion) */
+  branschtermer?: { kategori: string; termer: { term: string; forklaring: string }[] }[]
+
+  /** Typiska arbetsgivare - 3-5 grupper */
+  typiskaArbetsgivare?: { kategori: string; exempel: string[] }[]
+
+  /** Utbildningsvagar - vilka examen/kurser leder till yrket */
+  utbildningsvagar?: { rubrik: string; beskrivning: string }[]
+
   /** Branschspecifika kompetenser */
   kompetenser: { tekniska: string[]; personliga: string[] }
   /** Konkret 3-radig profil-exempel-text (matchar GSC: "cv profil exempel") */
   profilExempel: string
   /** Tips for hur man skriver bra profil for yrket */
   profilTips: string
-  /** 3 unika rekryterar-tips per yrke */
+  /** Rekryterar-tips per yrke (3 idag, ska utOkas till 6) */
   rekryterarTipsen: { rubrik: string; text: string }[]
   /** Vad som ska sta i varje CV-sektion */
   sektionTips: { sektion: string; tips: string }[]
-  /** Yrkesspecifik checklista */
+  /** Yrkesspecifik checklista (utOkas till 8-10 punkter) */
   checklista: string[]
   /** ATS-info specifik for yrket */
   atsInfo: string
-  /** 3-5 yrkes-specifika FAQ */
+  /** Yrkes-specifika FAQ (3 idag, ska utOkas till 10) */
   faqItems: { q: string; a: string }[]
 }
 
@@ -45,69 +71,357 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // VÅRD
   // ============================================================================
   'lakare': {
+    seoIntro:
+      'Som läkare i Sverige söker du tjänster där varje merit har sitt eget värde. Legitimation från Socialstyrelsen, AT- och ST-tjänstgöringar, specialistbevis och publikationer bedöms separat av verksamhetschefer som ofta skannar 30 ansökningar på en eftermiddag. Ett generiskt CV-format döljer dina starkaste meriter mitt i en löpande text.\n\nVår mall för läkare är byggd för att lyfta legitimationsstatus och specialistutbildning som första visuella element. Klinisk tjänstgöring lägger vi i kronologisk ordning med diagnosspektra, volymer och dokumentationssystem (Cosmic, TakeCare, Melior, NCS Cross) i klartext. Publikationer får eget block med tidskrift, år och författarordning, vilket gör dem läsbara både för rekryteraren och för Heroma och Visma Recruits ATS-system.\n\nKonkret innehåll vi rekommenderar i ett läkar-CV: legitimationsdatum från Socialstyrelsen, AT-block med klinik och längd, ST-tjänstgöringar uppdelade per delspecialitet, specialistbevis och eventuella subspecialiseringar, publikationer i Vancouver-format, konferensbidrag och forskningsbidrag. Lägg till CME-poäng, handledarutbildningar och tjänsteresor om du söker överläkar- eller verksamhetschefroller.\n\nNedan hittar du två CV-mallar designade för läkar-rollen, ett färdigt CV-exempel för internmedicin du kan utgå från, och konkreta tips på vad rekryterare på sjukhus och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa den efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Legitimation och specialistbevis först',
+        description: 'Verksamhetschefer kollar först om du är legitimerad och inom vilken specialitet. Ange Socialstyrelsens registreringsdatum och eventuella subspecialiseringar i sidopanelen så de syns inom de första fem sekunderna.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Kvantifiera kliniska volymer',
+        description: 'Antal patienter per vecka, jourdygn per månad, utredningar du genomfört. Konkreta siffror gör skillnad mellan ett anonymt CV och ett som chefer minns. "Ansvarade för 30-40 inneliggande patienter på medicinavdelning" säger mer än "klinisk erfarenhet".',
+      },
+      {
+        icon: 'FileText',
+        title: 'Publikationer i Vancouver-format',
+        description: 'Forskningsmeriter listas kronologiskt fallande med tidskrift, år, författarordning. Markera ditt namn fetstil. Begränsa till 5-10 senaste och mest relevanta för tjänsten du söker. Inkludera DOI eller PubMed-länk där det går.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Diagnosspektra du behärskar',
+        description: 'Olika sjukhus har olika behov. Vid akutkliniken vill de se akutmedicin och triage. På geriatrik vill de se demens och multisjuklighet. Var konkret om vilka tillstånd du hanterat och i vilken volym.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Dokumentationssystem i klartext',
+        description: 'Cosmic, TakeCare, Melior, Pascal, NCS Cross. Skriv ut systemnamnen så ATS-system kan filtrera fram dig. Olika regioner använder olika system och rekryteraren letar specifikt efter det system kliniken har.',
+      },
+      {
+        icon: 'Target',
+        title: 'Handledning och utvecklingsuppdrag',
+        description: 'Att handleda ST-läkare, AT-läkare eller medicinstudenter är en stark merit för senior- och överläkar-roller. Ange antal handledningstimmar per termin och eventuella utbildningsuppdrag.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Legitimation lyfts överst i sidopanelen',
+        description: 'Verksamhetschefer skannar först efter Socialstyrelsens registrering. Vi har gjort det till första visuella elementet i sidopanelen så det syns på fem sekunder utan att du behöver scrolla.',
+      },
+      {
+        title: 'AT, ST och specialiseringar har egen sektion',
+        description: 'Tre olika typer av tjänstgöring som chefer värderar olika. Mallen separerar dem så ingen merit drunknar i en generisk arbetslivshistorik. ST-tjänstgöringar grupperas dessutom efter delspecialitet.',
+      },
+      {
+        title: 'Tabellär layout för publikationer',
+        description: 'Forskande läkare har ofta 10-30 publikationer. Vår tabellära struktur ger plats utan att ta över första sidan. Författarordning syns visuellt med din position fetad.',
+      },
+      {
+        title: 'Diagnosspektra som taggrad',
+        description: 'Olika sjukhus letar efter olika kompetensprofiler. Vi har en taggrad där du listar diagnosspektra och utredningstyper du behärskar i klartext, vilket både rekryterare och ATS kan parsa.',
+      },
+      {
+        title: 'Premium-mallen lägger CME-block',
+        description: 'För specialist- och överläkarroller väger vidareutbildning tungt. Premium-varianten har ett dedikerat block för CME-poäng, kongressbidrag och fortbildning som inte tar plats från klinisk tjänstgöring.',
+      },
+      {
+        title: 'Sober färgsättning för tradition',
+        description: 'Vården värderar tradition och saklighet. Vi använder dämpad serif på rubriker och svartvit grund med subtila accenter. Inget som distraherar från meritbilden eller signalerar oprofessionell.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Klinisk diagnostik och behandling',
+        punkter: [
+          'Anamnes, status, differentialdiagnos och behandlingsplan för varierande patientgrupper',
+          'Bedömning av akut sjukdom och initial behandling vid akutmottagning eller jour',
+          'Uppföljning av kroniska tillstånd och justering av medicinering över tid',
+          'Konsultation till andra avdelningar och tvärprofessionella team',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och förskrivning',
+        punkter: [
+          'Journalföring enligt patientdatalagen i Cosmic, TakeCare, Melior eller motsvarande',
+          'Förskrivning av läkemedel via receptmodul med kontroll mot Socialstyrelsens regelverk',
+          'Skriva intyg, remisser och epikriser med juridisk korrekthet',
+          'Dokumentera avvikelser och delta i Lex Maria-processer vid behov',
+        ],
+      },
+      {
+        rubrik: 'Multidisciplinärt teamarbete',
+        punkter: [
+          'Ronder med sjuksköterskor, undersköterskor och paramedicinsk personal',
+          'Vårdplaneringsmöten med patient, anhöriga och utskrivningsteam',
+          'Konsultation med specialister från andra kliniker och regioner',
+          'Samverkan med kommunal hälso- och sjukvård vid utskrivning',
+        ],
+      },
+      {
+        rubrik: 'Handledning och utbildning',
+        punkter: [
+          'Handleda AT- och ST-läkare under tjänstgöring',
+          'Handleda medicinstudenter under VFU-perioder',
+          'Kollegial fortbildning på avdelningen och delta i journal club',
+          'Bidra till verksamhetens utvecklingsarbete och kvalitetsregister',
+        ],
+      },
+      {
+        rubrik: 'Forskning och utvecklingsarbete',
+        punkter: [
+          'Klinisk forskning inom eget specialistområde med peer-reviewed publikationer',
+          'Bidra till kvalitetsregister och avvikelseanalys på kliniken',
+          'Konferensbidrag, posters och föreläsningar',
+          'Handledning av doktorander eller examensarbeten på medicinprogrammet',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'PDL', forklaring: 'Patientdatalagen, reglerar all journaldokumentation och hantering av patientuppgifter.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, ramen för all hälso- och sjukvård i Sverige.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller när du arbetar inom region eller kommun.' },
+          { term: 'PSL', forklaring: 'Patientsäkerhetslagen, reglerar vårdgivarens och din skyldighet att rapportera avvikelser.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskador eller risk för sådana.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden inom socialtjänst och LSS.' },
+        ],
+      },
+      {
+        kategori: 'Tjänstgöring och specialiteter',
+        termer: [
+          { term: 'AT-läkare', forklaring: 'Allmäntjänstgöring, 18-21 månader efter läkarexamen innan legitimation.' },
+          { term: 'ST-läkare', forklaring: 'Specialiseringstjänstgöring, minst 5 år för att bli specialist inom valt område.' },
+          { term: 'BT-läkare', forklaring: 'Bastjänstgöring, ny modell som ersätter AT från 2027 (12 månader).' },
+          { term: 'Specialistläkare', forklaring: 'Läkare med specialistbevis från Socialstyrelsen inom någon av över 50 specialiteter.' },
+          { term: 'Överläkare', forklaring: 'Senior specialistläkare med medicinskt eller administrativt ledarskapsansvar.' },
+          { term: 'Verksamhetschef', forklaring: 'Övergripande chef för en klinik eller verksamhet, ofta överläkare med MBA eller motsvarande.' },
+        ],
+      },
+      {
+        kategori: 'Journalsystem och IT',
+        termer: [
+          { term: 'Cosmic', forklaring: 'Vanligaste journalsystemet i offentlig vård, används i bland annat Region Stockholm och Skåne.' },
+          { term: 'TakeCare', forklaring: 'Journalsystem som används i flera regioner, främst i mellersta och norra Sverige.' },
+          { term: 'Melior', forklaring: 'Äldre journalsystem som fortfarande är i bruk på vissa kliniker, oftast slutenvård.' },
+          { term: 'Pascal', forklaring: 'Förskrivningsmodul för läkemedel kopplad till SoS register.' },
+          { term: 'NCS Cross', forklaring: 'Journalsystem för primärvård i flera regioner.' },
+          { term: 'NPÖ', forklaring: 'Nationell patientöversikt, gemensam patientinformation över region- och vårdgränser.' },
+        ],
+      },
+      {
+        kategori: 'Forskning och meritering',
+        termer: [
+          { term: 'Vancouver-format', forklaring: 'Standard för referenser i medicinsk litteratur, används för publikationer på CV.' },
+          { term: 'Impact factor', forklaring: 'Ett mått på en tidskrifts genomslag, ofta efterfrågat på meriterande CV.' },
+          { term: 'CME-poäng', forklaring: 'Continuing Medical Education, dokumenterad fortbildning för specialistläkare.' },
+          { term: 'Klinisk forskarutbildning', forklaring: 'Disputation med kliniskt fokus, ofta meriterande för tjänster på universitetssjukhus.' },
+          { term: 'Förstaförfattare', forklaring: 'Position i publikation som indikerar att du gjort huvuddelen av arbetet.' },
+          { term: 'Sistaförfattare', forklaring: 'Senior position som indikerar handledarroll eller forskningsledarskap.' },
+        ],
+      },
+      {
+        kategori: 'Roll- och verksamhetstermer',
+        termer: [
+          { term: 'Slutenvård', forklaring: 'Vård där patienten är inneliggande på sjukhus, ofta längre vårdtider och tyngre patienter.' },
+          { term: 'Öppenvård', forklaring: 'Mottagningsverksamhet utan inneliggande, vanligast inom primärvård och specialistmottagningar.' },
+          { term: 'Akutsjukvård', forklaring: 'Akutmottagning och akut omhändertagande av patienter med varierande problembild.' },
+          { term: 'Primärvård', forklaring: 'Första linjens sjukvård, ofta vårdcentral. Här jobbar oftast specialister i allmänmedicin.' },
+          { term: 'Subspecialitet', forklaring: 'Fördjupning inom en grundspecialitet, t.ex. kardiologi inom internmedicin.' },
+          { term: 'Konsultläkare', forklaring: 'Specialistläkare anlitad för enstaka uppdrag eller jourkonsultationer.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Universitetssjukhus',
+        exempel: [
+          'Karolinska Universitetssjukhuset, Stockholm',
+          'Sahlgrenska Universitetssjukhuset, Göteborg',
+          'Skånes Universitetssjukhus, Lund och Malmö',
+          'Akademiska Sjukhuset, Uppsala',
+        ],
+      },
+      {
+        kategori: 'Region- och länssjukhus',
+        exempel: [
+          'Södersjukhuset och Danderyds sjukhus, Stockholm',
+          'NÄL och Östra sjukhuset, Västra Götaland',
+          'Universitetssjukhuset Örebro',
+          'Norrlands universitetssjukhus, Umeå',
+        ],
+      },
+      {
+        kategori: 'Primärvård och specialistmottagningar',
+        exempel: [
+          'Vårdcentraler i regional regi',
+          'Privata primärvårdsbolag (Capio, Praktikertjänst)',
+          'Specialistmottagningar inom hud, ögon, gyn',
+          'Företagshälsa (Avonova, Feelgood, Previa)',
+        ],
+      },
+      {
+        kategori: 'Privata och utländska arbetsgivare',
+        exempel: [
+          'Privata sjukhus och kliniker (Sophiahemmet, GHP)',
+          'Bemanningsbolag (Dedicare, Nightingale, Empleo)',
+          'Hyrläkaruppdrag i Norge eller Danmark',
+          'Forskningsinstitut och bioteknikbolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Läkarprogrammet (5,5 år)',
+        beskrivning: 'Grundutbildning vid Karolinska Institutet, Lunds universitet, Göteborgs universitet, Uppsala universitet, Umeå universitet, Linköpings universitet eller Örebro universitet. Examen ger rätt att söka AT-tjänst.',
+      },
+      {
+        rubrik: 'AT- eller BT-tjänstgöring (1,5-2,5 år)',
+        beskrivning: 'Allmäntjänstgöring eller bastjänstgöring efter examen. Kombination av medicin, kirurgi, psykiatri och primärvård. Avslutas med AT-prov för läkarlegitimation från Socialstyrelsen.',
+      },
+      {
+        rubrik: 'ST-tjänstgöring (5-7 år)',
+        beskrivning: 'Specialiseringstjänstgöring inom någon av över 50 svenska medicinska specialiteter. Kombineras ofta med kurser, sidotjänstgöring och eventuell forskarutbildning. Avslutas med specialistexamen.',
+      },
+      {
+        rubrik: 'Subspecialisering eller doktorsexamen',
+        beskrivning: 'För senior- och överläkarroller är subspecialisering eller disputation ofta meriterande. Kliniska forskarutbildningar tar 4-5 år parallellt med tjänstgöring.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'Klinisk diagnostik och differentialdiagnos',
-        'Journalsystem (Cosmic, TakeCare, Melior, Pascal)',
+        'Journalsystem (Cosmic, TakeCare, Melior, Pascal, NCS Cross)',
         'Akutmedicin och initial bedömning',
-        'Förskrivning och receptmodul',
-        'Medicinsk dokumentation enligt PDL',
+        'Förskrivning och receptmodul enligt Socialstyrelsens regelverk',
+        'Medicinsk dokumentation enligt patientdatalagen',
         'Vetenskaplig metodik och kritisk granskning',
-        'Multidisciplinärt teamarbete',
+        'Multidisciplinärt teamarbete och rondledning',
         'Patientsäkerhetsarbete och avvikelseanalys',
+        'A-HLR och avancerat omhändertagande',
+        'Konsultation och remisshantering',
+        'Handledning av AT-, ST- och studentläkare',
+        'Kvalitetsregister och kliniskt utvecklingsarbete',
       ],
       personliga: [
-        'Empatiskt patientbemötande',
+        'Empatiskt och professionellt patientbemötande',
         'Stresstålighet i akuta situationer',
-        'Kommunikativ förmåga',
-        'Pedagogisk i mötet med patient och anhöriga',
-        'Etiskt förhållningssätt',
+        'Tydlig kommunikation med patient, anhöriga och team',
+        'Pedagogisk i mötet med oroliga patienter',
+        'Etiskt förhållningssätt vid svåra avvägningar',
+        'Strukturerad i prioritering och beslutsfattande',
+        'Lagspelare i tvärprofessionellt arbete',
       ],
     },
-    profilExempel: 'Specialistläkare i internmedicin med 8 års klinisk erfarenhet av akutsjukvård och slutenvård. Genomför 1500+ patientmöten per år med fokus på multisjuka patienter och komplex differentialdiagnostik. Handledare för ST-läkare och delaktig i klinisk forskning kring sepsis och antibiotikaresistens.',
-    profilTips: 'Ange specialitet och år av erfarenhet i första meningen. Andra meningen ska kvantifiera din volym (patienter/år, antal specialiseringar). Tredje meningen lyfter forskning, handledning eller specialiserade insatser som differentierar dig.',
+
+    profilExempel:
+      'Specialistläkare i internmedicin med 8 års klinisk erfarenhet av akutsjukvård och slutenvård. Genomför 1500+ patientmöten per år med fokus på multisjuka patienter och komplex differentialdiagnostik. Handledare för ST-läkare och delaktig i klinisk forskning kring sepsis och antibiotikaresistens.',
+
+    profilTips:
+      'Ange specialitet och år av erfarenhet i första meningen. Andra meningen kvantifierar din volym (patienter per år, antal jourdygn). Tredje meningen lyfter forskning, handledning eller subspecialisering som differentierar dig från andra med samma titel.',
+
     rekryterarTipsen: [
       {
         rubrik: 'Specialistbevis och legitimation tydligt placerade',
-        text: 'Verksamhetschefer skannar först efter legitimationsstatus och specialistbevis. Ange utfärdande myndighet (Socialstyrelsen) och datum. Subspecialiseringar ska finnas i eget block.',
+        text: 'Verksamhetschefer skannar först efter legitimationsstatus och specialistbevis. Ange utfärdande myndighet (Socialstyrelsen), datum och eventuella subspecialiseringar i en egen sidopanel.',
       },
       {
-        rubrik: 'Publikationer som meritmarkör',
-        text: 'För specialist- och forskningsläkare väger publikationer tungt. Ange tidskrift (med impact factor), år och din position bland författarna. Begränsa till 5-10 senaste och mest relevanta.',
+        rubrik: 'Publikationer i Vancouver-format',
+        text: 'För specialist- och forskningsläkare väger publikationer tungt. Lista i kronologiskt fallande ordning med tidskrift, år, författarordning. Markera ditt namn fetstil och begränsa till 5-10 senaste och mest relevanta.',
       },
       {
         rubrik: 'Kvantifiera kliniska volymer',
-        text: 'Skriv antal patienter du ansvarat för per vecka, antal utredningar du gjort, vilka diagnosspektra du behärskar. Konkreta siffror ger rekryteraren snabbt en bild av din kapacitet.',
+        text: 'Skriv antal patienter du ansvarat för per vecka, antal jourdygn per månad, vilka diagnosspektra du behärskar. Konkreta siffror ger rekryteraren snabbt en bild av din kapacitet och var du kan plockas in.',
+      },
+      {
+        rubrik: 'Diagnosspektra och utredningstyper',
+        text: 'Olika sjukhus har olika behov. Akutkliniken vill se akutmedicin och triage, geriatriken vill se demens och multisjuklighet. Var explicit om vilka tillstånd du hanterat så rekryteraren kan matcha dig direkt.',
+      },
+      {
+        rubrik: 'Dokumentationssystem och rondledning',
+        text: 'Cosmic, TakeCare, Melior, Pascal, NCS Cross. Skriv ut systemnamnen i kompetens-listan så ATS-system kan filtrera fram dig. Inkludera rondledar-erfarenhet om du söker senior-roller.',
+      },
+      {
+        rubrik: 'Handledning och utvecklingsuppdrag',
+        text: 'Att handleda ST-läkare, AT-läkare eller medicinstudenter är stark merit för senior- och överläkar-roller. Ange antal handledningstimmar per termin och eventuella utvecklingsuppdrag på kliniken.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'Specialitet, år av erfarenhet, primärt verksamhetsområde. 3-4 rader, ingen onödig fluffspråk.' },
-      { sektion: 'Erfarenhet', tips: 'AT, ST och specialisttjänstgöringar i kronologisk ordning. Klinik + ort + tidsperiod. Bullets med diagnosspektra och volymer.' },
-      { sektion: 'Utbildning', tips: 'Läkarexamen från lärosäte + AT-block. Specialistutbildning som egen rad med kursprogram (t.ex. Medicin, Karolinska Universitetssjukhuset).' },
-      { sektion: 'Publikationer', tips: 'Kronologiskt fallande. Författarordning markeras med fetstil på ditt namn. Inkludera DOI eller PubMed-länk där det går.' },
+      { sektion: 'Sammanfattning', tips: 'Specialitet, år av erfarenhet, primärt verksamhetsområde. 3-4 rader. Inga floskler om "engagerad och driven" utan konkreta meriter.' },
+      { sektion: 'Erfarenhet', tips: 'AT, ST och specialisttjänstgöringar i kronologisk ordning. Klinik, ort, tidsperiod. Bullets med diagnosspektra, vårdtyngd och nyckelvolymer.' },
+      { sektion: 'Utbildning', tips: 'Läkarexamen från lärosäte med år. AT-/BT-block med klinik och längd. Specialistutbildning som egen rad med kursprogram och delspecialitet.' },
+      { sektion: 'Publikationer', tips: 'Kronologiskt fallande i Vancouver-format. Författarordning markeras med fetstil på ditt namn. Inkludera DOI eller PubMed-länk där möjligt.' },
+      { sektion: 'Vidareutbildning', tips: 'CME-poäng, kongressbidrag, kurser och certifieringar (A-HLR, ATLS, ALS). Ange utgångsdatum för certifikat som löper ut.' },
+      { sektion: 'Forskningsmeriter', tips: 'Anslag, stipendier, posters, konferensbidrag. Lägg till handledning av doktorander om relevant.' },
     ],
+
     checklista: [
-      'Legitimationsbevis från Socialstyrelsen (med datum)',
+      'Legitimationsbevis från Socialstyrelsen med datum',
       'Specialistbevis och eventuella subspecialiseringar',
-      'AT- och ST-tjänstgöringar med klinik och tidsperiod',
-      'Vetenskapliga publikationer med tidskrift och år',
-      'Forskningsbidrag och stipendier',
-      'Konferensföreläsningar och poster-presentationer',
-      'CME-poäng och vidareutbildningar',
+      'AT- eller BT-tjänstgöring med klinik och tidsperiod',
+      'ST-tjänstgöringar uppdelade per delspecialitet',
+      'Vetenskapliga publikationer i Vancouver-format',
+      'Forskningsbidrag, anslag och stipendier',
+      'Konferensbidrag och poster-presentationer',
+      'CME-poäng och vidareutbildningar med datum',
+      'Handledarutbildning och pedagogisk meritering',
+      'Dokumentationssystem och kliniska metoder',
     ],
-    atsInfo: 'Ja, både Tidlös och Klinik-mallarna är ATS-säkra. Sjukhusens HR använder vanligtvis Heroma, Visma Recruit eller eRecruiter — alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Undvik tabeller eller spaltad layout för publikationer; använd vanlig listformatering så systemet kan parsa författare, titel och år.',
+
+    atsInfo:
+      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter, alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Använd vanlig listformatering för publikationer så systemet kan parsa författare, titel och år. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare ofta filtrerar exakta termer från jobbannonsen.',
+
     faqItems: [
       {
-        q: 'Behöver jag en CV-mall som läkare eller räcker ett standardformat?',
-        a: 'Som läkare har du fler meritkategorier än de flesta yrken. Legitimation, specialistbevis, ST-tjänstgöringar, publikationer och forskningsbidrag har alla egen plats. En specialiserad mall som Klinik gör att alla dessa syns korrekt utan att din kliniska erfarenhet trycks ner i ett anonymt block.',
+        q: 'Vad ska finnas med i ett läkar-CV?',
+        a: 'Legitimation från Socialstyrelsen med datum, AT- eller BT-tjänstgöring, ST-tjänstgöringar uppdelat per delspecialitet, specialistbevis och subspecialiseringar. Lägg till publikationer i Vancouver-format, forskningsbidrag, CME-poäng och handledarmeritering om du söker senior-roller. Konkreta volymer (patienter per vecka, jourdygn per månad) gör att din kapacitet syns direkt.',
+      },
+      {
+        q: 'Hur skriver jag ett läkar-CV utan färdig specialistexamen?',
+        a: 'Som AT- eller ST-läkare lyfter du istället klinisk bredd och delspecialiteter du tjänstgjort inom. Ange varje sidotjänstgöring med klinik, längd och vilka tillstånd du hanterat. Forskningsuppsatser, valfria kurser och eventuell vetenskaplig produktion under läkarprogrammet är meriterande. Lägg också in språkkunskaper och eventuell utlandserfarenhet som kan vara värdefull för specifika tjänster.',
+      },
+      {
+        q: 'Hur lång ska ett läkar-CV vara?',
+        a: 'AT- och ST-läkare 1-2 sidor är lagom. Specialistläkare och överläkare med längre meritlistor brukar ha 2-3 sidor och det är acceptabelt i sjukvården eftersom meritprofiler är centrala. Forskningsläkare med disputation kan ha 3-4 sidor med dedikerad publikationslista. Det viktiga är att första sidan innehåller det starkaste innehållet.',
       },
       {
         q: 'Ska jag inkludera publikationer på ett läkar-CV?',
-        a: 'Ja om du söker tjänster där forskningsmeriter värderas. Universitetsklinik, specialistmottagning, akademisk klinik. Lista i omvänd kronologisk ordning med tidskrift, år och din position. Begränsa till 5-10 senaste och relevanta för tjänsten.',
+        a: 'Ja om du söker tjänster där forskningsmeriter värderas: universitetssjukhus, specialistmottagningar, akademiska kliniker. Lista i Vancouver-format, kronologiskt fallande, med din författarordning markerad. Begränsa till 5-10 senaste och mest relevanta för tjänsten. För renodlade kliniska roller på mindre sjukhus räcker en kortfattad rad med antal publikationer plus de tre viktigaste.',
       },
       {
-        q: 'Hur många sidor ska ett läkar-CV vara?',
-        a: 'AT- och ST-läkare 1-2 sidor är lagom. Specialistläkare och överläkare med längre meritlistor brukar ha 2-3 sidor och det är acceptabelt i sjukvården eftersom meritprofiler är centrala. Forskningsläkare med disputation kan ha längre.',
+        q: 'Vilka nyckelord behöver CV:t passera ATS?',
+        a: 'Specifika diagnosspektra (sepsis, KOL, hjärtsvikt, diabetes typ 2), dokumentationssystem (Cosmic, TakeCare, Melior, Pascal), och kliniska metoder du behärskar. Nämn legitimation, specialistbevis och subspecialiseringar i klartext. Heroma och Visma Recruit söker exakt på dessa termer. Kopiera språkbruket från jobbannonsen där du faktiskt har erfarenheten.',
+      },
+      {
+        q: 'Behöver jag personligt brev till läkar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför du söker just den klinik och inte upprepa CV-meriter. Beskriv en specifik utveckling du varit med om, vilken patientgrupp du brinner för, och vad som drar dig till verksamheten. Håll till en sida på 300-400 ord. Ett välskrivet brev kan vara avgörande när två kandidater har liknande CV.',
+      },
+      {
+        q: 'Ska jag ange önskad lön eller löneförväntningar?',
+        a: 'Nej, inte i CV eller personligt brev. Inom offentlig sjukvård sker löneförhandling enligt Sveriges Läkarförbunds tariffer plus individuella påslag, och hanteras vid intervju eller kontraktsskrivning. Inom privat vård är det förhandlingsbart men nämns vid första djupare kontakt. Att förstora upp lönefrågan tidigt signalerar fel prioritering.',
+      },
+      {
+        q: 'Hur visar jag forskningskompetens om jag inte är disputerad?',
+        a: 'Bidragsförfattarskap, posters, konferensföreläsningar, kvalitetsregisterarbete och egen kvalitetsutveckling är alla forskningsmeriter. Lägg in en sektion "Vetenskapligt arbete" eller "Utvecklingsuppdrag" där du listar dem. Studentprojekt under läkarprogrammet, examensarbeten på masternivå och eventuellt arbete med kliniska studier räknas också. Fokusera på vad du faktiskt bidragit med, inte titeln.',
+      },
+      {
+        q: 'Vilka IT-system förväntas en läkare kunna 2026?',
+        a: 'Cosmic dominerar Region Stockholm och Skåne, TakeCare används i fler regioner, Melior finns på vissa kliniker. Pascal är förskrivningsmodul och NPÖ är gemensam patientöversikt. Lägg också till Office-paketet, Teams för digitala möten, och eventuell vana med kvalitetsregister (Riksstroke, SwedeHeart, etc). Att vara öppen för digitala vårdmöten och AI-baserat beslutsstöd är meriterande för 2026.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt läkar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 15 år, generiska påståenden utan stöd ("god empatisk förmåga"), patientuppgifter eller sekretessbelagda detaljer, och hobbies som inte är relevanta. Stavfel och inkonsekvent formatering diskvalificerar dig direkt eftersom dokumentationsförmåga är central i rollen.',
       },
     ],
   },

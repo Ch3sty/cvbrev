@@ -19,6 +19,13 @@ import {
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 import { buildYrkesmallExempelCV } from './YrkesmallExempelData'
+import ViktigtPunkter from './components/ViktigtPunkter'
+import VarforVarMallPassar from './components/VarforVarMallPassar'
+import ArbetsuppgifterList from './components/ArbetsuppgifterList'
+import BranschtermerList from './components/BranschtermerList'
+import StortExempelCTA from './components/StortExempelCTA'
+import TypiskaArbetsgivare from './components/TypiskaArbetsgivare'
+import Utbildningsvagar from './components/Utbildningsvagar'
 
 const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?: string }) => React.ReactElement> = {
   'vard': IconVard,
@@ -218,6 +225,22 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
         </div>
       </section>
 
+      {/* SEO Intro: 185-220 ord rik content under hero */}
+      {data.seoIntro && (
+        <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-3xl">
+          <div
+            className="prose prose-slate max-w-none text-base sm:text-lg leading-relaxed text-slate-700"
+            style={{ fontFamily: "'Source Serif Pro', Georgia, serif" }}
+          >
+            {data.seoIntro.split(/\n\n+/).map((stycke, i) => (
+              <p key={i} className="mb-5 last:mb-0">
+                {stycke}
+              </p>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Interaktiv mall-preview — yrkets mallar prio */}
       <section id="preview" className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-5xl scroll-mt-6">
         <div className="text-center mb-6 sm:mb-8">
@@ -226,10 +249,10 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Live preview
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-            Testa mallarna direkt
+            Se ditt {data.namnBestamd}-CV i olika designer
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Förhandsgranska hur ett {data.namnBestamd}-CV ser ut i {data.freeMallNamn} eller {data.premiumMallNamn}. Byt mall och typsnitt och se skillnaderna live.
+            Förhandsgranska ditt CV i vår gratismall {data.freeMallNamn} eller premium-varianten {data.premiumMallNamn}. Byt mall och typsnitt och se skillnaderna direkt.
           </p>
         </div>
         <YrkesmallInteractivePreview
@@ -241,40 +264,64 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
         />
       </section>
 
-      {/* Varför mallen är bra */}
-      <SectionWrapper>
-        <SectionTitle
-          eyebrow="Varför just dessa mallar"
-          title={`${data.freeMallNamn} och ${data.premiumMallNamn} för ${data.namnBestamd}`}
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {data.varforDennaMall.map((reason, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: idx * 0.05 }}
-              className="flex items-start gap-3 p-4 bg-orange-50/40 rounded-2xl"
-            >
-              <span
-                className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white mt-0.5"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+      {/* Viktigt att tanka pa (NY djup-content) — fallback till varforDennaMall om saknas */}
+      {data.viktigtAttTankaPa && data.viktigtAttTankaPa.length > 0 ? (
+        <SectionWrapper>
+          <SectionTitle
+            eyebrow="Viktigt att tänka på"
+            title={`Så bygger du ett starkt ${data.namnBestamd}-CV`}
+            description="Sex punkter som rekryterare specifikt letar efter i din ansökan."
+          />
+          <ViktigtPunkter punkter={data.viktigtAttTankaPa} />
+        </SectionWrapper>
+      ) : (
+        <SectionWrapper>
+          <SectionTitle
+            eyebrow="Varför just dessa mallar"
+            title={`Mallarna ${data.freeMallNamn} och ${data.premiumMallNamn} för ${data.namnBestamd}`}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {data.varforDennaMall.map((reason, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                className="flex items-start gap-3 p-4 bg-orange-50/40 rounded-2xl"
               >
-                <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
-              </span>
-              <p className="text-sm sm:text-base text-slate-800 leading-relaxed">{reason}</p>
-            </motion.div>
-          ))}
-        </div>
-      </SectionWrapper>
+                <span
+                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white mt-0.5"
+                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                </span>
+                <p className="text-sm sm:text-base text-slate-800 leading-relaxed">{reason}</p>
+              </motion.div>
+            ))}
+          </div>
+        </SectionWrapper>
+      )}
+
+      {/* Vanliga arbetsuppgifter (NY) */}
+      {data.arbetsuppgifter && data.arbetsuppgifter.length > 0 && (
+        <SectionWrapper>
+          <SectionTitle
+            eyebrow="Yrkesinnehåll"
+            title={`Vanliga arbetsuppgifter för ${data.namnBestamd}`}
+            description="Vad du faktiskt gör i rollen och vad rekryterare förväntar sig att du har erfarenhet av."
+            color="emerald"
+          />
+          <ArbetsuppgifterList grupper={data.arbetsuppgifter} />
+        </SectionWrapper>
+      )}
 
       {/* Vad rekryterare letar efter */}
       <SectionWrapper narrow>
         <SectionTitle
           eyebrow="Rekryterar-perspektiv"
           title={`Vad rekryterare letar efter i ett ${data.namnBestamd}-CV`}
-          description="Tre saker som avgör om du går vidare till intervju."
+          description={data.rekryterarTipsen.length > 3 ? 'Sex saker som avgör om du går vidare till intervju.' : 'Tre saker som avgör om du går vidare till intervju.'}
           color="emerald"
         />
         <div className="space-y-6">
@@ -294,6 +341,36 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed pl-11">{tip.text}</p>
             </div>
           ))}
+        </div>
+      </SectionWrapper>
+
+      {/* Varför vår mall passar yrket (NY designresonemang) */}
+      {data.varforVarMallPassar && data.varforVarMallPassar.length > 0 && (
+        <SectionWrapper>
+          <SectionTitle
+            eyebrow="Vår design"
+            title={`Så har vi byggt mallarna för ${data.namnBestamd}`}
+            description={`Det här är våra designval och varför mallen ${data.freeMallNamn} och premium-varianten ${data.premiumMallNamn} fungerar för rollen.`}
+          />
+          <VarforVarMallPassar punkter={data.varforVarMallPassar} yrkesNamn={data.namn} />
+        </SectionWrapper>
+      )}
+
+      {/* Stora CTA-kort (CV-exempel + brev) — flyttade hit fran botten */}
+      <SectionWrapper>
+        <div className="space-y-4">
+          <StortExempelCTA
+            variant="cv-exempel"
+            yrkesNamn={data.namn}
+            namnBestamd={data.namnBestamd}
+            slug={data.slug}
+          />
+          <StortExempelCTA
+            variant="personligt-brev"
+            yrkesNamn={data.namn}
+            namnBestamd={data.namnBestamd}
+            slug={data.slug}
+          />
         </div>
       </SectionWrapper>
 
@@ -358,6 +435,18 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
           </div>
         </div>
       </SectionWrapper>
+
+      {/* Branschterminologi (NY accordion) */}
+      {data.branschtermer && data.branschtermer.length > 0 && (
+        <SectionWrapper narrow>
+          <SectionTitle
+            eyebrow="Branschterminologi"
+            title={`Termer, system och lagar för ${data.namnBestamd}`}
+            description="De begrepp rekryterare och chefer använder i jobbannonser. Klicka för att expandera varje grupp."
+          />
+          <BranschtermerList grupper={data.branschtermer} />
+        </SectionWrapper>
+      )}
 
       {/* Tips per sektion */}
       <SectionWrapper narrow>
@@ -425,56 +514,30 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
         </div>
       </SectionWrapper>
 
-      {/* Cross-link CV-exempel + brev */}
-      <SectionWrapper>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Link
-            href={`/cv-exempel/${data.slug}`}
-            className="group bg-white border border-orange-100 hover:border-orange-300 rounded-2xl p-6 transition-all"
-            style={{ boxShadow: '0 4px 16px -10px rgba(249, 115, 22, 0.15)' }}
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <span
-                className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-              >
-                <Eye className="w-5 h-5" strokeWidth={2.4} />
-              </span>
-              <h3 className="text-lg font-black text-slate-900">Färdigt CV-exempel</h3>
-            </div>
-            <p className="text-sm text-slate-600 mb-3">
-              Se hur ett komplett CV för {data.namnBestamd} ser ut. Konkret innehåll, formuleringar och struktur.
-            </p>
-            <span className="inline-flex items-center gap-1 text-sm font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
-              Se exempel
-              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-            </span>
-          </Link>
+      {/* Typiska arbetsgivare (NY) */}
+      {data.typiskaArbetsgivare && data.typiskaArbetsgivare.length > 0 && (
+        <SectionWrapper>
+          <SectionTitle
+            eyebrow="Var jobben finns"
+            title={`Typiska arbetsgivare för ${data.namnBestamd}`}
+            description="Var de flesta tjänsterna finns och hur arbetsmarknaden ser ut."
+            color="emerald"
+          />
+          <TypiskaArbetsgivare grupper={data.typiskaArbetsgivare} />
+        </SectionWrapper>
+      )}
 
-          <Link
-            href={`/personligt-brev-exempel/${data.slug}`}
-            className="group bg-white border border-orange-100 hover:border-orange-300 rounded-2xl p-6 transition-all"
-            style={{ boxShadow: '0 4px 16px -10px rgba(249, 115, 22, 0.15)' }}
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <span
-                className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                style={{ background: 'linear-gradient(135deg, #DC2626, #BE185D)' }}
-              >
-                <BookOpen className="w-5 h-5" strokeWidth={2.4} />
-              </span>
-              <h3 className="text-lg font-black text-slate-900">Personligt brev</h3>
-            </div>
-            <p className="text-sm text-slate-600 mb-3">
-              Skriv ett starkt personligt brev som matchar ditt CV. Se exempel för {data.namnBestamd}.
-            </p>
-            <span className="inline-flex items-center gap-1 text-sm font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
-              Se brev-exempel
-              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-            </span>
-          </Link>
-        </div>
-      </SectionWrapper>
+      {/* Utbildningsvagar (NY) */}
+      {data.utbildningsvagar && data.utbildningsvagar.length > 0 && (
+        <SectionWrapper narrow>
+          <SectionTitle
+            eyebrow="Utbildning"
+            title={`Hur du blir ${data.namnBestamd}`}
+            description="Vanliga vägar in i yrket och vad som krävs."
+          />
+          <Utbildningsvagar vagar={data.utbildningsvagar} />
+        </SectionWrapper>
+      )}
 
       {/* Relaterade yrkesmallar */}
       {relaterade.length > 0 && (

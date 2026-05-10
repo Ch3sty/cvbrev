@@ -21,6 +21,8 @@ export interface Yrkesmall {
   intro: string
   /** Hero-ingress (60-80 ord) for sidans h1-paragraf - unik per yrke */
   heroIngress?: string
+  /** SEO-intro: 185-220 ord under hero (rik content for SEO) */
+  seoIntro?: string
   /** ID for gratis-mallen (utan foto/LinkedIn) */
   freeMallId: string
   freeMallNamn: string
@@ -29,7 +31,7 @@ export interface Yrkesmall {
   premiumMallNamn: string
   /** "Varfor mallen ar bra" - 4-5 punkter, kan dela med andra yrken som har samma mall-pair */
   varforDennaMall: string[]
-  /** "Vad rekryterare letar efter" - 3 unika tips per yrke */
+  /** "Vad rekryterare letar efter" - 3-6 unika tips per yrke */
   rekryterarTipsen: { rubrik: string; text: string }[]
   /** "Personlig profil" - kort exempel-text + tips */
   profilExempel: string
@@ -42,8 +44,27 @@ export interface Yrkesmall {
   sektionTips: { sektion: string; tips: string }[]
   /** ATS-info specifik for yrket */
   atsInfo: string
-  /** 3-5 yrkes-specifika FAQ */
+  /** Yrkes-specifika FAQ (3 idag, kan vara upp till 10) */
   faqItems: { q: string; a: string }[]
+
+  // === NYA fOr djup SEO-content (Fas 1: 10 yrken har dessa, resten ar undefined) ===
+
+  /** 6 punkter "Viktigt att tanka pa" - ikon + titel + 2-3 meningars rad */
+  viktigtAttTankaPa?: {
+    icon: 'FileText' | 'Target' | 'Award' | 'TrendingUp' | 'CheckCircle' | 'AlertCircle' | 'Briefcase' | 'GraduationCap'
+    title: string
+    description: string
+  }[]
+  /** 6 punkter "Varfor var mall passar yrket" - designresonemang per punkt */
+  varforVarMallPassar?: { title: string; description: string }[]
+  /** Vanliga arbetsuppgifter - 5 grupper med 3-4 underpunkter */
+  arbetsuppgifter?: { rubrik: string; punkter: string[] }[]
+  /** Branschterminologi - 4-6 grupper med termer + fOrklaringar (accordion) */
+  branschtermer?: { kategori: string; termer: { term: string; forklaring: string }[] }[]
+  /** Typiska arbetsgivare - 3-5 grupper */
+  typiskaArbetsgivare?: { kategori: string; exempel: string[] }[]
+  /** Utbildningsvagar - vilka examen/kurser leder till yrket */
+  utbildningsvagar?: { rubrik: string; beskrivning: string }[]
 }
 
 /**
@@ -284,10 +305,17 @@ function buildYrkesmallList(): Yrkesmall[] {
         kategori: galleri.kategori as Yrkesmall['kategori'],
         intro: galleri.intro,
         heroIngress: content.heroIngress,
+        seoIntro: content.seoIntro,
         freeMallId: mallar.free,
         freeMallNamn,
         premiumMallId: mallar.premium,
         premiumMallNamn,
+        viktigtAttTankaPa: content.viktigtAttTankaPa,
+        varforVarMallPassar: content.varforVarMallPassar,
+        arbetsuppgifter: content.arbetsuppgifter,
+        branschtermer: content.branschtermer,
+        typiskaArbetsgivare: content.typiskaArbetsgivare,
+        utbildningsvagar: content.utbildningsvagar,
         varforDennaMall: [
           `${freeMallNamn}-mallen ger en ATS-säker baseline för ${galleri.namn.toLowerCase()} med tydlig struktur och rätt sektionsordning.`,
           `${premiumMallNamn}-varianten har plats för foto och LinkedIn, vilket lyfter personlig touch i ansökningar där det värderas.`,
