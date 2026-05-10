@@ -19,6 +19,8 @@ export interface Yrkesmall {
   /** Kategori (vard, utbildning, service, teknik, ekonomi, offentlig-sektor) */
   kategori: 'vard' | 'utbildning' | 'service' | 'teknik' | 'ekonomi' | 'offentlig-sektor'
   intro: string
+  /** Hero-ingress (60-80 ord) for sidans h1-paragraf - unik per yrke */
+  heroIngress?: string
   /** ID for gratis-mallen (utan foto/LinkedIn) */
   freeMallId: string
   freeMallNamn: string
@@ -155,7 +157,7 @@ export const YRKESMALL_SLUGS = Object.keys(YRKE_TILL_MALLAR)
 
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
-import { YRKES_CONTENT, KATEGORI_DEFAULT_CONTENT, type YrkesContent } from './yrkesmall-content'
+import { YRKES_CONTENT, KATEGORI_DEFAULT_CONTENT, HERO_INGRESS, type YrkesContent } from './yrkesmall-content'
 
 /** Bestamd-form-mappning fOr yrkesnamn (for naturligt sprak: "CV-mall fOr lakare") */
 const NAMNBESTAMD_OVERRIDES: Record<string, string> = {
@@ -218,12 +220,14 @@ function getDefaultRekryterarTips(namn: string, kategori: string): { rubrik: str
 }
 
 function buildYrkesContent(slug: string, namn: string, kategori: string): YrkesContent {
+  const heroIngress = HERO_INGRESS[slug]
   const explicit = YRKES_CONTENT[slug]
-  if (explicit) return explicit
+  if (explicit) return { ...explicit, heroIngress: explicit.heroIngress || heroIngress }
 
   const kategoriDefault = KATEGORI_DEFAULT_CONTENT[kategori] || {}
 
   return {
+    heroIngress,
     kompetenser: kategoriDefault.kompetenser || {
       tekniska: ['System och verktyg du behärskar', 'Branschspecifika metoder', 'Kvalitetsarbete'],
       personliga: ['Strukturerad', 'Lagspelare', 'Lyhörd för kundbehov'],
@@ -279,6 +283,7 @@ function buildYrkesmallList(): Yrkesmall[] {
         namnBestamd: getNamnBestamd(slug, galleri.namn),
         kategori: galleri.kategori as Yrkesmall['kategori'],
         intro: galleri.intro,
+        heroIngress: content.heroIngress,
         freeMallId: mallar.free,
         freeMallNamn,
         premiumMallId: mallar.premium,
