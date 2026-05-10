@@ -5962,6 +5962,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'kassorska': {
+    seoIntro:
+      'Som kassörska arbetar du i frontlinjen för svenska butikskedjor. ICA, Coop, Hemköp, Willys, Lidl, Apoteket och tusentals mindre butiker har konstant öppna kassörsketjänster, men butikschefer slänger CV:n som inte tydligt visar kassasystem-vana och servicekänsla. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för kassörskor lyfter kassasystem, servicekompetens och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljresultat. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint, ICA-kassan), butikskedjor du arbetat på, kontanthantering och dagsavstämning, mertid- och säljresultat (snittnota, kampanjvinster), varugrupper och produktkunskap, eventuell ålderkontrollsutbildning för åldersgränspliktiga produkter (alkohol, tobak, snus, lotter), schema-flexibilitet och språkkunskaper.\n\nNedan hittar du två CV-mallar designade för kassörskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel och specialbutiker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Kassasystem i klartext',
+        description: 'ICA-kassan, Coop-kassan, Sitoo, NCR, Iiko, Bizpoint. Skriv ut exakta produktnamn så ATS-system kan filtrera fram dig. Olika butikskedjor använder olika system och rätt erfarenhet öppnar specifika tjänster.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Snittnota och säljresultat',
+        description: '"Topp-3 i mersäljs-tävlingen 2024" eller "Snittnota 8% över avdelningens snitt" säger mer än "ansvarade för försäljning". Konkreta resultat skiljer dig från andra ansökningar.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Ålderkontroll och säkerhet',
+        description: 'Alkohol, tobak, snus, läkemedel, lotter och nikotinläkemedel kräver ålderkontroll. Skriv ut eventuell utbildning i ansvarsfull försäljning. Det är ofta krav på dagligvaruhandel.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Kontanthantering och växel',
+        description: 'Att kunna växla snabbt och hålla kassan ren är fortfarande viktigt även med kortbetalningar. Skriv ut eventuell rutin med kassadepart, dagsavstämning och Z-rapport.',
+      },
+      {
+        icon: 'Award',
+        title: 'Schemaflexibilitet är hård valuta',
+        description: 'Detaljhandeln behöver flexibla medarbetare. Var explicit: "Tillgänglig för rotationsschema inkl helger och högtider" sätter dig framför sökande som bara vill jobba dagtid.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språk för internationella kunder',
+        description: 'Centrumbutiker och flagship-butiker har internationella kunder. Engelska är förmodat. Andra språk (tyska, kinesiska, spanska, arabiska) är meriterande för premium-segment.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Kassasystem och säljresultat överst',
+        description: 'Vår mall Disk lyfter kassasystem och eventuella säljresultat i en banner överst. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per butikskedja',
+        description: 'Mallen separerar butikskedjor och varugrupper så bredd syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för utbildningar',
+        description: 'Ansvarsfull försäljning, säljutbildningar (intern eller extern), HLR-certifikat. Mallen lyfter formell kompetens som eget block med datum.',
+      },
+      {
+        title: 'Energisk emerald-accent för handel',
+        description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För senior-roller (huvudkassör, kassansvarig, supervisor) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla som passar premium-retail.',
+      },
+      {
+        title: 'Plats för säljkampanjer',
+        description: 'Kampanjvinster, mersäljs-tävlingar, avdelningstoppningar har egen rad. Visar att du tänker affärsmässigt och tar ansvar för säljresultaten på din yta.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Kassa och betalning',
+        punkter: [
+          'Köra kassa i butikens system (ICA-kassan, NCR, Sitoo, Iiko)',
+          'Hantera kontant, kort, mobilbetalning, presentkort och swish',
+          'Genomföra ålderkontroll vid försäljning av alkohol, tobak, snus, lotter',
+          'Hantera kassadepart, dagsavstämning och Z-rapport',
+        ],
+      },
+      {
+        rubrik: 'Kundservice',
+        punkter: [
+          'Möta kunder med servicekänsla och hjälpa vid frågor',
+          'Aktivt arbeta med mersälj och kompletterande försäljning',
+          'Hantera kundklagomål, returer och reklamationer',
+          'Vägleda kunder till rätt avdelning eller produkter',
+        ],
+      },
+      {
+        rubrik: 'Returer och reklamationer',
+        punkter: [
+          'Bedöma returer enligt butikens policy och konsumentlagstiftningen',
+          'Hantera kreditfakturor och återbetalningar i kassasystemet',
+          'Eskalera reklamationer till butikschef eller avdelningschef',
+          'Dokumentera returer för eventuell svinnanalys',
+        ],
+      },
+      {
+        rubrik: 'Påfyllning och butiksmiljö',
+        punkter: [
+          'Hjälpa till med påfyllning vid kassan (kassanära varor, godis, snacks)',
+          'Hålla kassaområdet rent och säljvänligt',
+          'Märka varor med rätt prislapp och kampanjmaterial',
+          'Bidra till skyltning enligt centrala riktlinjer',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och svinnhantering',
+        punkter: [
+          'Förebygga snatteri genom uppmärksamhet på säljytan',
+          'Hantera misstänkt stöld enligt butikens rutiner',
+          'Säkerställa korrekt hantering av kontanter (Akt mot rån)',
+          'Genomföra inventering och cykelräkning vid behov',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Kassasystem',
+        termer: [
+          { term: 'ICA-kassan', forklaring: 'ICA:s egna kassasystem som används i alla ICA-butiker.' },
+          { term: 'NCR', forklaring: 'Globalt kassasystem som används i Coop, Hemköp och flera storkedjor.' },
+          { term: 'Sitoo', forklaring: 'Molnbaserat kassasystem som dominerar kläd- och specialbutiker.' },
+          { term: 'Iiko', forklaring: 'Kassasystem populärt i restaurang, café och småbutiker.' },
+          { term: 'Bizpoint', forklaring: 'Svenskt kassasystem för små och medelstora butiker.' },
+          { term: 'Z-rapport', forklaring: 'Daglig avslutsrapport som summerar alla transaktioner i kassan.' },
+        ],
+      },
+      {
+        kategori: 'Betalningssätt',
+        termer: [
+          { term: 'Swish', forklaring: 'Mobil betalning, dominerar i Sverige och kräver QR-kod eller telefonnummer.' },
+          { term: 'Klarna', forklaring: 'Faktura- eller delbetalning, vanligt i specialbutiker.' },
+          { term: 'Apple Pay/Google Pay', forklaring: 'Mobilbetalning via NFC, vanligt i större butiker.' },
+          { term: 'Presentkort', forklaring: 'Butikens egna eller företagspresentkort som hanteras i kassasystemet.' },
+          { term: 'ICA-banken', forklaring: 'ICA:s eget medlemsprogram med stamkund-rabatter.' },
+          { term: 'Coop-medlem', forklaring: 'Coops medlemsprogram med poäng och rabatter.' },
+        ],
+      },
+      {
+        kategori: 'Ansvar och behörigheter',
+        termer: [
+          { term: 'Ansvarsfull försäljning', forklaring: 'Utbildning i ålderkontroll vid alkohol, tobak och lotter.' },
+          { term: 'Kassansvar', forklaring: 'Ansvar för dagskassan, dagsavstämning och deponering.' },
+          { term: 'Huvudkassör', forklaring: 'Erfaren kassörska med extra ansvar och högre lön.' },
+          { term: 'Tobakstillstånd', forklaring: 'Krav från Skatteverket för butiker som säljer tobak.' },
+          { term: 'Alkoholtillstånd', forklaring: 'Servtillstånd från kommunen för butiker som säljer alkohol över 3,5%.' },
+          { term: 'Spelmissbruk', forklaring: 'Utbildning för butiker som säljer Svenska Spel-produkter.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och nyckeltal',
+        termer: [
+          { term: 'Snittnota', forklaring: 'Genomsnittligt belopp per transaktion, central KPI för kassörskor.' },
+          { term: 'UPT', forklaring: 'Units Per Transaction, antal artiklar per kvitto.' },
+          { term: 'Mersälj', forklaring: 'Aktivt sälj av kompletterande varor vid kassan.' },
+          { term: 'Konvertering', forklaring: 'Andel av besökare som blir köpare, mäts via räknare.' },
+          { term: 'Svinn', forklaring: 'Förlorad varuvärde genom stöld, skador eller felinventering.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, mäter kundnöjdhet i butiken.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Dagligvaruhandel',
+        exempel: [
+          'ICA-handlare i Stockholm, Göteborg, Malmö och övriga landet',
+          'Coop, Hemköp, Willys, Lidl, City Gross',
+          'Mindre lokala livsmedelsbutiker och specialbutiker',
+          'Apoteket och Apotek Hjärtat',
+        ],
+      },
+      {
+        kategori: 'Mode och kläder',
+        exempel: [
+          'H&M, Lindex, KappAhl, MQ, Bik Bok',
+          'Zara, Mango, Cubus, Gina Tricot',
+          'Lyxbutiker (NK, Acne Studios, Filippa K)',
+          'Sportbutiker (Stadium, XXL, Intersport)',
+        ],
+      },
+      {
+        kategori: 'Specialbutiker',
+        exempel: [
+          'KICKS, Lyko, Sephora, The Body Shop',
+          'Apoteket, Apotek Hjärtat, Kronans Apotek',
+          'Bensinmackar (Circle K, Preem, OKQ8)',
+          'Servicebutiker och 7-Eleven',
+        ],
+      },
+      {
+        kategori: 'Hemvaror och övrigt',
+        exempel: [
+          'IKEA, JYSK, Mio, Hemtex',
+          'Elgiganten, NetOnNet, Media Markt',
+          'Sportkedjor och specialbutiker',
+          'Bemanningsbolag inom retail',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen in. Många butiker rekryterar utan formell utbildning om du visar serviceanda och flexibilitet. Arbetsgivaren ger introduktion på några dagar inklusive kassasystem och rutiner.',
+      },
+      {
+        rubrik: 'Handels- och administrationsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning handel ger fördel för fast tjänst. Innehåller praktikperioder hos butiker. Vanlig grund för avancemang till avdelningschef eller butikschef.',
+      },
+      {
+        rubrik: 'Internutbildningar från kedjor',
+        beskrivning: 'IKEA Academy, ICA-skolan, H&M Way, Coop Akademin. Större kedjor har strukturerade interna utbildningsprogram som leder till avdelnings- och butikschefroller.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'Ansvarsfull försäljning (krav vid alkohol/tobak), HLR-certifikat, kundbemötande-utbildningar. Korta certifikatkurser som ger meriterande spetskompetens.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Kassasystem (ICA-kassan, NCR, Sitoo, Iiko, Bizpoint)',
+        'Kontanthantering och dagsavstämning',
+        'Betalningssätt (swish, Klarna, Apple Pay, presentkort)',
+        'Ansvarsfull försäljning och ålderkontroll',
+        'Returhantering och konsumentlagstiftning',
+        'Mersälj och kompletterande försäljning',
+        'Kundbemötande och konflikthantering',
+        'Kampanjmaterial och prislappar',
+        'Cykelräkning och inventering',
+        'Z-rapport och avslutsrutiner',
+        'Stamkundsprogram (ICA-banken, Coop-medlem)',
+        'Hygien och temperaturkontroll vid livsmedel',
+      ],
+      personliga: [
+        'Servicemedveten och kundorienterad',
+        'Snabbtänkt under press',
+        'Ärlig och pålitlig kring kontanter',
+        'Lagspelare i butiksmiljö',
+        'Flexibel kring kvällar och helger',
+        'Energisk och utåtriktad',
+        'Lugn vid svåra kunder',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren kassörska med 4 års erfarenhet från ICA och Coop. Hanterar kassa-, retur- och inventeringsprocesser i ICA-kassan och NCR med hög precision och daglig snittnota över avdelningens snitt. Utbildad i ansvarsfull försäljning och topp-3 i mersäljs-tävlingen 2024. Tillgänglig för rotationsschema inklusive helger och högtider.',
+
+    profilTips:
+      'År av erfarenhet och butikskedjor i öppningsraden. Andra meningen lyfter konkreta system och eventuella resultat. Tredje meningen visar utbildningar och tillgänglighet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Kassasystem i klartext',
+        text: 'ICA-kassan, NCR, Sitoo, Iiko, Bizpoint. Skriv ut exakta produktnamn så ATS-system kan filtrera fram dig. Olika butikskedjor använder olika system.',
+      },
+      {
+        rubrik: 'Snittnota och säljresultat',
+        text: '"Topp-3 i mersäljs-tävlingen 2024" eller "Snittnota 8% över avdelningens snitt" säger mer än "ansvarade för försäljning". Konkreta resultat skiljer dig från andra ansökningar.',
+      },
+      {
+        rubrik: 'Ålderkontroll och säkerhet',
+        text: 'Alkohol, tobak, snus, läkemedel, lotter kräver ålderkontroll. Skriv ut eventuell utbildning i ansvarsfull försäljning. Det är ofta krav på dagligvaruhandel.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet är hård valuta',
+        text: 'Detaljhandeln behöver flexibla medarbetare. "Tillgänglig för rotationsschema inkl helger och högtider" sätter dig framför sökande som bara vill jobba dagtid.',
+      },
+      {
+        rubrik: 'Språk för internationella kunder',
+        text: 'Centrumbutiker har internationella kunder. Engelska är förmodat. Andra språk är meriterande för premium-segment och flagship-butiker.',
+      },
+      {
+        rubrik: 'Kassansvar och förtroende',
+        text: 'Att ha haft kassansvar eller varit huvudkassör är meriterande för senior-roller. Skriv ut om du varit ansvarig för stängning eller dagsavstämning.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, butikskedjor, primära kassasystem och din särprägel på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Butikskedja, position, tidsperiod, kassasystem. Konkretisera mersäljs-resultat och eventuell kassansvar.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium plus eventuella internutbildningar från kedjorna (ICA-skolan, H&M Way).' },
+      { sektion: 'Kompetenser', tips: 'Kassasystem i klartext, betalningssätt, mersäljs- och returrutiner. Var konkret om vilka system du behärskar.' },
+      { sektion: 'Certifikat', tips: 'Ansvarsfull försäljning, HLR-certifikat. Skriv utgångsdatum för varje.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet (heltid, deltid, kvällar, helger), språkkunskaper utöver svenska.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika kassasystem',
+      'Kontanthantering och dagsavstämning',
+      'Mersäljs- och kundbemötande-erfarenhet',
+      'Ansvarsfull försäljning för åldersgränspliktiga produkter',
+      'Eventuell kassansvar eller huvudkassör-roll',
+      'Schema-flexibilitet (kvällar, helger, högtider)',
+      'Språkkunskaper utöver svenska',
+      'Returhantering och konsumentlagstiftning',
+      'Eventuell HLR-certifiering',
+      'Säljresultat eller kampanjvinster',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem ("ICA-kassan", "NCR", "Sitoo") i klartext eftersom rekryterare filtrerar exakta termer. Butikskedjor och varugrupper ska också skrivas ut.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett kassörska-CV?',
+        a: 'Erfarenhet av specifika kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor du arbetat på, kontanthantering och dagsavstämning, eventuella säljresultat, ansvarsfull försäljning-utbildning, schemaflexibilitet, språkkunskaper, samt eventuell kassansvar. Lägg till säljkampanjer eller mersäljs-prestationer om relevant.',
+      },
+      {
+        q: 'Behövs erfarenhet för kassörske-jobb?',
+        a: 'Inte alltid. Många butiker rekryterar utan erfarenhet om du visar serviceanda och tillgänglighet. Arbetsgivaren ger introduktion på några dagar inklusive kassasystem och rutiner. För säsongsarbete (sommar, jul) tar man oftast in nya utan krav.',
+      },
+      {
+        q: 'Hur viktigt är ansvarsfull försäljning?',
+        a: 'Krav på dagligvaruhandel som säljer alkohol, tobak, snus eller lotter. Utbildningen tar 1-2 dagar och betalas oftast av arbetsgivaren. Att redan ha utbildningen är meriterande och visar att du är seriös om yrket.',
+      },
+      {
+        q: 'Hur lyfter jag säljresultat utan att ha haft uttalat säljmål?',
+        a: 'De flesta butiker mäter snittnota, UPT och konvertering även om medarbetarna inte ser direkt provision. Fråga din chef om du var topp-3 på avdelningen, om kampanjer du varit del av drev mest omsättning, eller om kunder gett positiv NPS-feedback. Indirekta resultat går också att lyfta.',
+      },
+      {
+        q: 'Vilka kassasystem är värdefullast att kunna?',
+        a: 'ICA-kassan dominerar ICA. NCR används i Coop, Hemköp och flera storkedjor. Sitoo i kläd- och specialbutiker. Iiko i café och småbutiker. Lista de du behärskar med ungefärlig erfarenhet (år eller månader) så ATS-system kan filtrera fram dig.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika kassasystem (ICA-kassan, NCR, Sitoo, Iiko, Bizpoint), butikskedjor (ICA, Coop, H&M, Stadium), KPI:er (snittnota, UPT, konvertering), ansvarsfull försäljning, och språk. Teamtailor och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett kassörska-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktiga är att kassasystem, butikskedja och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kassörske-tjänster?',
+        a: 'Beror på butiken. Kedjor som ICA och Coop förväntar sig oftast brev. Mindre butiker accepterar bara CV. När brev förväntas, fokusera på varför just den butik och beskriv en kundsituation där du visat din serviceanda. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur visar jag mersäljs-förmåga på CV:t?',
+        a: 'Konkreta exempel: "Topp-3 i kampanj-tävlingen 2024", "Adderade snitt 80 SEK per kvitto via aktiv mersälj av tillbehör under julkampanj", "Alltid topp-3 på avdelningen i mersäljs-mätning". Indirekta exempel som "alltid över avdelningens snitt" funkar också.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, hobbies som inte är butiksrelevanta, och grumliga formuleringar om varför du lämnat tidigare jobb. Stavfel diskvalificerar omedelbart.',
+      },
+    ],
+  },
+
+  'receptionist': {
+    seoIntro:
+      'Som receptionist är du ansiktet utåt för bolaget eller hotellet. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion och tusentals mindre hotell, advokatbyråer, läkarhus och tech-bolag har konstant öppna tjänster, men chefer slänger CV:n som inte tydligt visar språk, system-vana och representativ förmåga. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVår mall för receptionister lyfter språkkunskaper, system-vana och representativ erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsgivare, bransch och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell, kontor, advokatbyrå, läkarhus eller tech, system du behärskar (Opera PMS, Mews, MicroPos, Visma Reception, Cosmic), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar designade för receptionistrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer, kontorsadministratörer och receptions-managers faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper är hård valuta',
+        description: 'Engelska är förmodat på alla receptioner. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell och bolag. Ange nivå (modersmål, flytande, konversation) i sidopanelen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'PMS- eller telefonväxel-system',
+        description: 'Opera PMS, Mews, Cloudbeds, Visma Reception, MicroPos. Hotell- och bolagsystem är specifika. Skriv ut systemnamnen så ATS kan filtrera fram dig och chefen ser att du kan starta utan introduktion.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Multitasking och flerkanals-hantering',
+        description: 'Telefon, mejl, besökare, in-/utcheckning, bokningar samtidigt. Konkret exempel: "Hanterade in-/utcheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift". Visar din kapacitet.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Bokning och betalning',
+        description: 'Booking.com, Expedia, kanalmanager, OTA-kommissioner, hantering av kreditkort och no-show. Bokningssystem och betalningsrutiner är specifika för hotellbranschen.',
+      },
+      {
+        icon: 'Award',
+        title: 'Representativ förmåga',
+        description: 'Du representerar bolaget eller hotellet. Kläd- och uppförandekod är ofta strikta. Erfarenhet från VIP-mottagning, eventservice eller premium-segment är meriterande för exklusiva arbetsgivare.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Schema och tillgänglighet',
+        description: 'Hotellreception kräver ofta rotation, kvällar, helger och natt. Kontorsreception är oftast dagtid. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Språk och system överst',
+        description: 'Vår mall lyfter språkkunskaper och system-vana i sidopanelen. Hotellchefer och kontorschefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per arbetsgivare och bransch',
+        description: 'Mallen separerar hotell, kontor, advokatbyrå och tech-bolag så bredd syns. Du kan visa erfarenhet från flera branscher utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för system och certifikat',
+        description: 'Opera PMS, Mews, Visma Reception, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+      },
+      {
+        title: 'Premium-mallen Disk Plus med foto',
+        description: 'För senior-roller eller premium-segment lägger Disk Plus till foto. För hotellbranschen där förstaintrycket räknas är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Plats för representativa meriter',
+        description: 'VIP-mottagning, eventservice, premium-erfarenhet har egen rad. Visar att du arbetat med kunder som har högre förväntningar.',
+      },
+      {
+        title: 'Energisk men professionell färgsättning',
+        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för kontorsbranschen.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Mottagning av besökare',
+        punkter: [
+          'Möta och välkomna besökare professionellt',
+          'In-/utcheckning på hotell enligt PMS-rutiner',
+          'Hantera bokningar, ändringar och avbokningar',
+          'Vägleda gäster till rätt mötesrum, avdelning eller serviceområde',
+        ],
+      },
+      {
+        rubrik: 'Telefon och e-post',
+        punkter: [
+          'Hantera telefonväxel och vidarekoppling till rätt person',
+          'Svara på inkommande e-post och förfrågningar',
+          'Hantera bokningar via telefon, mejl och bokningssystem (Booking.com, Expedia)',
+          'Föra meddelanden vidare och uppmärksamma vid akuta ärenden',
+        ],
+      },
+      {
+        rubrik: 'Administration',
+        punkter: [
+          'Hantera fakturor, betalningar och kreditkort i kassasystem',
+          'Bokföra utlägg, småinköp och kontorsmaterial',
+          'Hantera post, paket och kurirleveranser',
+          'Genomföra dagsavstämning och rapportera till administration',
+        ],
+      },
+      {
+        rubrik: 'Service och problemhantering',
+        punkter: [
+          'Hjälpa gäster med praktiska frågor och rekommendationer (restauranger, sevärdheter)',
+          'Hantera klagomål och svåra situationer med diplomati',
+          'Eskalera komplexa frågor till chef eller specialiserad kollega',
+          'Hantera no-show, dubbelbokningar och room moves',
+        ],
+      },
+      {
+        rubrik: 'Kontor och säkerhet',
+        punkter: [
+          'Hantera passerkort, mötesrumsbokningar och säkerhetsrutiner',
+          'Övervaka entrén och rapportera misstänkta personer',
+          'Genomföra brand- och säkerhetskontroller enligt rutin',
+          'Vara stöd vid evakuering eller akuta situationer',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'PMS och hotellsystem',
+        termer: [
+          { term: 'Opera PMS', forklaring: 'Marknadsledande Property Management System från Oracle, dominerar internationella kedjor.' },
+          { term: 'Mews', forklaring: 'Modern molnbaserad PMS, populär på boutique-hotell och scale-ups.' },
+          { term: 'Cloudbeds', forklaring: 'PMS för mindre och medelstora hotell med god integrationsbredd.' },
+          { term: 'Hotsoft', forklaring: 'Svenskt PMS som används på flera nordiska hotell.' },
+          { term: 'Visma Reception', forklaring: 'System för kontorsreception med besökarregistrering och passerkort.' },
+          { term: 'MicroPos', forklaring: 'Kassasystem som ofta integreras med PMS för restaurangbetalningar.' },
+        ],
+      },
+      {
+        kategori: 'Bokning och kanaler',
+        termer: [
+          { term: 'OTA', forklaring: 'Online Travel Agency: Booking.com, Expedia, HRS, Hotels.com.' },
+          { term: 'Kanalmanager', forklaring: 'System som synkar bokningar mellan PMS och flera OTA:er.' },
+          { term: 'Korpkund', forklaring: 'Företagskund med specialavtal och fakturering.' },
+          { term: 'GDS', forklaring: 'Global Distribution System (Amadeus, Sabre) för resebyråer.' },
+          { term: 'Direktbokning', forklaring: 'Bokning direkt via hotellets webb utan OTA-kommission.' },
+          { term: 'Loyalty-program', forklaring: 'Stamkundprogram (Scandic Friends, Choice Loyalty, Elite Voyager).' },
+        ],
+      },
+      {
+        kategori: 'Hotellroller',
+        termer: [
+          { term: 'Receptionist', forklaring: 'Allmän roll vid hotellreception.' },
+          { term: 'Front Office Manager', forklaring: 'Chef över receptionen, ofta med personalansvar.' },
+          { term: 'Night Auditor', forklaring: 'Nattreceptionist med ansvar för dagsavstämning.' },
+          { term: 'Concierge', forklaring: 'Specialiserad service-roll med fokus på rekommendationer och bokningar.' },
+          { term: 'Reservations Manager', forklaring: 'Ansvarig för bokningar, intäktsoptimering och kanalstrategi.' },
+          { term: 'Guest Service', forklaring: 'Roll fokuserad på gästens hela vistelse.' },
+        ],
+      },
+      {
+        kategori: 'Kontorsroller',
+        termer: [
+          { term: 'Kontorsreceptionist', forklaring: 'Reception på kontor, advokatbyrå, läkarhus eller tech-bolag.' },
+          { term: 'Office Manager', forklaring: 'Senior administrativ roll med ansvar för kontorets drift.' },
+          { term: 'Executive Assistant', forklaring: 'Kvalificerad assistent till VD eller ledning.' },
+          { term: 'Front of House', forklaring: 'Engelsk term för receptions- och servicepersonal.' },
+          { term: 'Värd/Värdinna', forklaring: 'Roll på premium-kontor eller lyxbutiker med fokus på upplevelse.' },
+          { term: 'Hostess', forklaring: 'Roll vid evenemang, mässor eller premium-restauranger.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Hotellkedjor',
+        exempel: [
+          'Scandic Hotels (största nordiska kedjan)',
+          'Elite Hotels och Nordic Choice (Choice Hotels)',
+          'Radisson Blu, Clarion, Hilton, Marriott',
+          'Mindre boutique- och designhotell',
+        ],
+      },
+      {
+        kategori: 'Kontor och tjänsteföretag',
+        exempel: [
+          'Advokatbyråer (Mannheimer Swartling, Vinge, Setterwalls)',
+          'Läkarhus och privatkliniker',
+          'Tech-bolag och scale-ups (Klarna, Spotify, Storytel)',
+          'Konsultbolag och revisionsbyråer (PwC, EY, KPMG)',
+        ],
+      },
+      {
+        kategori: 'Premium och VIP',
+        exempel: [
+          'Lyxhotell (Grand Hôtel, Operakällaren, Berns)',
+          'Privata sjukhus och premium-vårdcentraler',
+          'Företagshotell och konferenscenter',
+          'Eventbolag och premium-evenemang',
+        ],
+      },
+      {
+        kategori: 'Bemanning och säsong',
+        exempel: [
+          'Bemanningsbolag (Inhouse, Manpower, Adecco)',
+          'Sommarhotell på västkusten och i skärgården',
+          'Vinterstationer i Åre, Sälen, Riksgränsen',
+          'Mässor, evenemang och konferenscenter',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många arbetsgivare rekryterar utan formell utbildning om du har språk och servicekänsla. Arbetsgivaren ger introduktion i system och rutiner. Vanlig väg in.',
+      },
+      {
+        rubrik: 'Hotell- och restaurangprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning hotellservice. Innehåller praktikperioder hos hotell. Vanlig grund för fast tjänst på hotell.',
+      },
+      {
+        rubrik: 'Yrkeshögskola hotellreception (1-2 år)',
+        beskrivning: 'YH-utbildningar med specifik inriktning (hotellreception, revenue management, eventbranschen). Kvalificerar för manager-roller.',
+      },
+      {
+        rubrik: 'Internutbildningar från kedjor',
+        beskrivning: 'Scandic Academy, Elite Academy, Marriott LMS. Större kedjor har strukturerade interna utbildningsprogram med fokus på system och servicestandard.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'PMS-system (Opera, Mews, Cloudbeds, Hotsoft)',
+        'Bokningssystem (Booking.com, Expedia, kanalmanager)',
+        'Telefonväxel och flerkanals-hantering',
+        'Office-paketet (Word, Excel, Outlook)',
+        'Visma Reception och besökarregistrering',
+        'Kassasystem (MicroPos, ICA-kassan)',
+        'Loyalty-program och stamkund-hantering',
+        'No-show och dubbelbokningar',
+        'Brand- och säkerhetsrutiner',
+        'Mötesrumsbokning och passerkort-hantering',
+        'Kreditkortshantering enligt PCI DSS',
+        'Konflikthantering och klagomål',
+      ],
+      personliga: [
+        'Representativ och välvårdad',
+        'Servicemedveten och kundorienterad',
+        'Multitasking under press',
+        'Lugn vid svåra gäster eller besökare',
+        'Diskret och sekretessmedveten',
+        'Pedagogisk i mötet med olika kulturer',
+        'Lagspelare i front office-team',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren receptionist med 5 års erfarenhet från Scandic och boutique-hotell i Stockholm. Hanterar in-/utcheckning för 200+ gäster per skift i Opera PMS med fokus på flerkanals-bokningar (Booking.com, Expedia, direkt). Flerspråkig (svenska, engelska, tyska, franska) och utbildad i revenue management. Tillgänglig för rotationsschema inklusive natt och helger.',
+
+    profilTips:
+      'År av erfarenhet och bransch (hotell, kontor, advokatbyrå) i öppningsraden. Andra meningen lyfter system-vana och eventuella språk. Tredje meningen visar tillgänglighet och specialiseringar (revenue management, VIP) som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Språkkunskaper är hård valuta',
+        text: 'Engelska är förmodat. Tyska, franska, spanska, ryska, kinesiska, japanska, arabiska är meriterande för internationella hotell. Ange nivå (modersmål, flytande, konversation).',
+      },
+      {
+        rubrik: 'PMS- eller telefonväxel-system',
+        text: 'Opera PMS, Mews, Cloudbeds, Visma Reception. Skriv ut systemnamnen så ATS kan filtrera fram dig och chefen ser att du kan starta utan introduktion.',
+      },
+      {
+        rubrik: 'Multitasking och volym',
+        text: '"Hanterade in-/utcheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift" säger mer än "ansvarade för reception". Konkreta volymer visar din kapacitet.',
+      },
+      {
+        rubrik: 'Bokning och OTA-vana',
+        text: 'Booking.com, Expedia, kanalmanager, OTA-kommissioner. Bokningssystem är specifika för hotellbranschen. Visa erfarenhet av flerkanals-bokning och no-show-hantering.',
+      },
+      {
+        rubrik: 'Representativ förmåga',
+        text: 'Erfarenhet från VIP-mottagning, eventservice eller premium-segment är meriterande för exklusiva arbetsgivare. Lyft i sammanfattningen om relevant.',
+      },
+      {
+        rubrik: 'Schema och tillgänglighet',
+        text: 'Hotellreception kräver rotation. Kontorsreception är dagtid. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, bransch, primära system och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Hotell eller kontor, tidsperiod, system. Konkretisera volymer och eventuella ansvarsområden (VIP, revenue management).' },
+      { sektion: 'Utbildning', tips: 'Hotell- och restaurangprogrammet, YH eller internutbildningar (Scandic Academy, Elite Academy).' },
+      { sektion: 'Kompetenser', tips: 'PMS-system, bokningssystem, Office-paketet. Var konkret om vilka system du behärskar.' },
+      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå. Lyft alla språk även om du bara har konversationsnivå.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet (rotation, kvällar, natt, helger), eventuell körkortsbehörighet.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika PMS- eller receptionssystem',
+      'Språkkunskaper med nivå',
+      'Telefonväxel- och flerkanals-vana',
+      'Bokningssystem (Booking.com, Expedia, kanalmanager)',
+      'Office-paketet och e-posthantering',
+      'Schemaflexibilitet (rotation, natt, helger)',
+      'Representativ förmåga (VIP, premium-erfarenhet)',
+      'Konflikthantering och klagomål',
+      'Eventuell utbildning (Hotell- och restaurang, YH)',
+      'Brand- och säkerhetsrutiner',
+    ],
+
+    atsInfo:
+      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Kontorsbolag och advokatbyråer använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett receptionist-CV?',
+        a: 'Erfarenhet av specifika PMS- eller receptionssystem (Opera, Mews, Visma Reception), bokningssystem (Booking.com, Expedia), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, schemaflexibilitet, eventuell utbildning, samt eventuell representativ erfarenhet (VIP, premium). Lägg till specialiseringar (night audit, revenue management) om relevant.',
+      },
+      {
+        q: 'Behövs erfarenhet för receptionist-jobb?',
+        a: 'Inte alltid. Många arbetsgivare rekryterar utan erfarenhet om du har språk och servicekänsla. Hotellbranschen tar ofta in nya för säsongsarbete. Kontorsreception kräver oftast lite erfarenhet eller utbildning. Lyft eventuell tidigare service-erfarenhet (café, restaurang, butik).',
+      },
+      {
+        q: 'Vilka språk är viktigast för receptionister?',
+        a: 'Engelska är förmodat på alla receptioner. Tyska efterfrågat på hotell med tyska turister. Franska och spanska för internationella resenärer. Kinesiska och japanska för premium-segment och Stockholm Central. Arabiska och ryska efterfrågade i specifika hotell. Modersmålsnivå värderas högt.',
+      },
+      {
+        q: 'Hur skiljer sig hotell- och kontorsreception?',
+        a: 'Hotellreception kräver rotation (dag, kväll, natt, helger), in-/utcheckning, bokningar, OTA-hantering, gästkontakt och multitasking. Kontorsreception är oftast dagtid med besökare, telefonväxel, post, mötesrum och administrativa uppgifter. PMS-system skiljer mellan branscherna (Opera vs Visma Reception).',
+      },
+      {
+        q: 'Vilka system ska jag kunna 2026?',
+        a: 'Hotell: Opera PMS dominerar internationella kedjor, Mews på boutique-segment, Cloudbeds på mindre hotell, Hotsoft på nordiska kedjor. Kontor: Visma Reception, Vergic, Calendly för bokning. Office-paketet är förmodat. AI-baserad bokning blir allt vanligare.',
+      },
+      {
+        q: 'Hur visar jag multitasking på CV:t?',
+        a: 'Konkreta volymer: "Hanterade in-/utcheckning för 200 gäster, 50+ telefonsamtal och 30 e-postärenden per skift". Beskriv en svår situation där du löste flera ärenden parallellt. Indirekta exempel: "Topp-3 i hotellets multitasking-mätning". Konkret data är bättre än generiska påståenden.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'PMS-system (Opera, Mews, Cloudbeds, Hotsoft), bokningssystem (Booking.com, Expedia, kanalmanager), kontorssystem (Visma Reception, Office), språk med nivå, och bransch (hotell, advokatbyrå, läkarhus, tech). Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett receptionist-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktiga är att språk, system och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till receptionist-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just det hotell eller bolag och beskriv en specifik servicesituation där du visat din förmåga. Beskriv en svår gäst eller en VIP-situation. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, gäst- eller företagshemligheter, och hobbies som inte är service-relevanta. Stavfel signalerar slarv i en bransch där förstaintrycket räknas.',
+      },
+    ],
+  },
+
+  'devops-engineer': {
+    seoIntro:
+      'Som DevOps-engineer eller SRE (Site Reliability Engineer) bedöms du på din infrastruktur-stack, automationsförmåga och cloud-kompetens. Konsultbolag, scale-ups och tech-bolag har konstant brist på erfarna DevOps-engineers, men tekniska rekryterare slänger CV:n som inte tydligt visar Kubernetes, Terraform och CI/CD-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för DevOps-engineers lyfter cloud-plattform, infrastructure-as-code och CI/CD-pipelines som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, period och tech-stack syns direkt med dina automationsbidrag och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: cloud-plattform (AWS, GCP, Azure med specifika tjänster), Kubernetes och container orchestration, Infrastructure as Code (Terraform, Pulumi, CloudFormation), CI/CD-pipelines (GitHub Actions, GitLab CI, Jenkins, ArgoCD), monitoring och observability (Datadog, Grafana, Prometheus, New Relic), incident-erfarenhet och SLO/SLA-arbete, eventuella certifieringar (AWS Certified, CKA, HashiCorp Certified), samt programmeringsspråk (Python, Go, Bash).\n\nNedan hittar du två CV-mallar designade för DevOps-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och plattformschefer på konsultbolag, scale-ups och produktbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Cloud-tjänster i klartext',
+        description: 'AWS Lambda, EKS, RDS, S3. GCP Cloud Run, GKE, BigQuery. Azure Functions, AKS, CosmosDB. Specifika tjänster är CV-kritiska eftersom rekryterare letar efter exakta matchningar mot vad bolaget redan kör.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara prestandaresultat',
+        description: '"Minskade deploy-tid från 30 min till 4 min", "Ökade SLA till 99,99% genom auto-scaling", "Minskade cloud-kostnad 35% genom rightsizing". Konkreta siffror differentierar senior- från junior-DevOps.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Kubernetes och container-erfarenhet',
+        description: 'Kubernetes är de facto-standard för moderna tech-bolag. Lyft erfarenhet av cluster-skalning, Helm-charts, Operators, service mesh (Istio, Linkerd). CKA- eller CKAD-certifiering är meriterande.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Infrastructure as Code',
+        description: 'Terraform dominerar. Pulumi växer. CloudFormation används på AWS-tunga bolag. Skriv ut IaC-system med moduler eller plugins du byggt. "Skrev 30 Terraform-moduler för multi-region-deployment" är konkret.',
+      },
+      {
+        icon: 'Award',
+        title: 'CI/CD och automationspipeline',
+        description: 'GitHub Actions, GitLab CI, Jenkins, ArgoCD, Spinnaker, Tekton. Beskriv pipelines du byggt med deploy-frekvens och rollback-strategier. GitOps med ArgoCD är hett 2026.',
+      },
+      {
+        icon: 'Target',
+        title: 'Incident och SRE-mognad',
+        description: 'On-call-rotation, runbooks, post-mortems, error budgets, SLO/SLA-arbete. SRE-mognad är en differentiator för senior-roller. Beskriv konkreta incidents du hanterat och vad du implementerat efter.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Cloud-stack och certifikat överst',
+        description: 'Vår mall Stack-developer lyfter cloud-plattform och certifieringar (AWS Certified, CKA) i sidopanelen. Plattformschefer ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med arkitekturresultat',
+        description: 'Mallen separerar bolag och tekniska bidrag (architecture decisions, automationer, kostnadsoptimeringar). Du kan visa både stack-bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för IaC och pipelines',
+        description: 'Terraform-moduler, Helm-charts, GitHub Actions-workflows har egen rad. Mallen visar bevisad kompetens (kod, certifikat, projekt) som tech-rekryterare värderar.',
+      },
+      {
+        title: 'Stack-developer-mallen för tech-DNA',
+        description: 'Vår premium-mall Stack-developer har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli avantgardistisk för konsultsegmentet.',
+      },
+      {
+        title: 'Kompakt typografi för senior-roller',
+        description: 'Senior DevOps har ofta 8-15 års erfarenhet. Vi använder kompakt typografi för att rymma fler bolag och certifieringar utan att verka cramped.',
+      },
+      {
+        title: 'Plats för open source och community',
+        description: 'GitHub-länk, OSS-bidrag, tech-talks, runbooks publicerade har egen rad. Det visar att du är aktiv i tech-communityt och bidrar bortom egen produktion.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Cloud-infrastruktur',
+        punkter: [
+          'Designa och underhålla cloud-arkitektur i AWS, GCP eller Azure',
+          'Hantera multi-region och multi-AZ deployment för hög tillgänglighet',
+          'Optimera kostnader genom rightsizing, reserved instances och spot-instances',
+          'Implementera networking, VPC, säkerhetsgrupper och IAM',
+        ],
+      },
+      {
+        rubrik: 'Containerization och Kubernetes',
+        punkter: [
+          'Bygga och underhålla Kubernetes-kluster (EKS, GKE, AKS)',
+          'Skriva Helm-charts och Kustomize-konfigurationer',
+          'Implementera service mesh (Istio, Linkerd) vid behov',
+          'Hantera autoscaling, pod disruption budgets och resource limits',
+        ],
+      },
+      {
+        rubrik: 'Infrastructure as Code',
+        punkter: [
+          'Skriva Terraform-moduler för återanvändbar infrastruktur',
+          'Hantera state med Terraform Cloud, S3 backend eller motsvarande',
+          'Implementera GitOps med ArgoCD eller Flux',
+          'Granska och godkänna PR enligt least-privilege-principen',
+        ],
+      },
+      {
+        rubrik: 'CI/CD och automation',
+        punkter: [
+          'Bygga GitHub Actions-, GitLab CI- eller Jenkins-pipelines',
+          'Implementera multi-environment deployment (dev, staging, prod)',
+          'Hantera secrets med Vault, AWS Secrets Manager eller motsvarande',
+          'Automatisera testning, säkerhetscanning (SAST, DAST) och deployment',
+        ],
+      },
+      {
+        rubrik: 'Observability och on-call',
+        punkter: [
+          'Implementera monitoring med Datadog, Prometheus eller New Relic',
+          'Skriva alerting-regler enligt SLO och error budget',
+          'Hantera on-call-rotation och respond på incidents',
+          'Genomföra post-mortems och dokumentera runbooks',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Cloud-plattformar',
+        termer: [
+          { term: 'AWS', forklaring: 'Marknadsledande cloud, dominerar svenska tech-bolag.' },
+          { term: 'GCP', forklaring: 'Google Cloud Platform, populär för data och ML.' },
+          { term: 'Azure', forklaring: 'Microsofts cloud, vanlig på .NET-bolag och statlig sektor.' },
+          { term: 'EKS', forklaring: 'AWS Elastic Kubernetes Service, managed K8s på AWS.' },
+          { term: 'GKE', forklaring: 'Google Kubernetes Engine, managed K8s på GCP.' },
+          { term: 'AKS', forklaring: 'Azure Kubernetes Service, managed K8s på Azure.' },
+        ],
+      },
+      {
+        kategori: 'Infrastructure as Code',
+        termer: [
+          { term: 'Terraform', forklaring: 'HashiCorp IaC-verktyg, marknadsledande för multi-cloud.' },
+          { term: 'Pulumi', forklaring: 'IaC med riktiga programmeringsspråk (TypeScript, Python, Go).' },
+          { term: 'CloudFormation', forklaring: 'AWS:s egna IaC-system, vanligt på AWS-tunga bolag.' },
+          { term: 'Ansible', forklaring: 'Configuration management från Red Hat.' },
+          { term: 'Helm', forklaring: 'Package manager för Kubernetes, hanterar charts.' },
+          { term: 'Kustomize', forklaring: 'Kubernetes-config-tool för miljöspecifika overlays.' },
+        ],
+      },
+      {
+        kategori: 'CI/CD och GitOps',
+        termer: [
+          { term: 'GitHub Actions', forklaring: 'CI/CD integrerad med GitHub, marknadsledande.' },
+          { term: 'GitLab CI', forklaring: 'CI/CD i GitLab, populär på enterprise och självhostade bolag.' },
+          { term: 'Jenkins', forklaring: 'Etablerat CI-verktyg, fortfarande i bruk på storföretag.' },
+          { term: 'ArgoCD', forklaring: 'GitOps-verktyg för Kubernetes deployment.' },
+          { term: 'Flux', forklaring: 'Alternativ GitOps-verktyg, ofta som CNCF-graduated.' },
+          { term: 'Spinnaker', forklaring: 'Multi-cloud deployment platform från Netflix.' },
+        ],
+      },
+      {
+        kategori: 'Observability och SRE',
+        termer: [
+          { term: 'SLO', forklaring: 'Service Level Objective, mätbart prestationsmål.' },
+          { term: 'SLA', forklaring: 'Service Level Agreement, kontrakterad prestationsnivå.' },
+          { term: 'Error budget', forklaring: 'Tillåten "icke-tillgänglighet" mellan 100% och SLO.' },
+          { term: 'Datadog', forklaring: 'Marknadsledande observability-plattform.' },
+          { term: 'Prometheus', forklaring: 'Open source monitoring, standard i Kubernetes-värld.' },
+          { term: 'Grafana', forklaring: 'Open source visualiseringsplattform, ofta med Prometheus.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Tech-bolag och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Tink, Storytel, Voi',
+          'iZettle, Truecaller, Mathem, Kry',
+          'Northvolt, Polestar (tech-roller)',
+          'Mindre tech-bolag och startups',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'CGI, Sopra Steria, Capgemini, Knowit',
+          'Cybercom, HiQ, Acando, Avanade',
+          'Tieto Evry, Accenture',
+          'Mindre nischade DevOps-konsultbolag',
+        ],
+      },
+      {
+        kategori: 'Storbolag och bank',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'IKEA Tech, Volvo, Ericsson',
+          'H&M Tech, Telia, Tele2',
+          'ICA Tech, Coop Tech',
+        ],
+      },
+      {
+        kategori: 'Internationella med Sverige-team',
+        exempel: [
+          'Google, Meta, Amazon, Microsoft',
+          'Oracle, Salesforce, ServiceNow',
+          'Datadog, Snowflake, Cloudflare',
+          'Mindre internationella tech-bolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjörsexamen i datateknik (5 år)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping eller Uppsala. Vanlig grund för senior-roller på storbolag och i regulatoriskt tunga branscher. Fördjupning inom systems eller cloud rekommenderas.',
+      },
+      {
+        rubrik: 'Kandidat eller högskoleingenjör (3 år)',
+        beskrivning: 'Kortare teknisk utbildning från högskolor. Räcker för junior- och mid-level DevOps-roller. Vanlig på scale-ups som värderar praktik över akademisk djup.',
+      },
+      {
+        rubrik: 'Yrkeshögskola och bootcamps',
+        beskrivning: 'YH-utbildningar inom cloud och DevOps, AWS Solutions Architect-bootcamps. Linux Academy, A Cloud Guru. Snabbare väg in men mest värdefullt kombinerat med praktisk erfarenhet.',
+      },
+      {
+        rubrik: 'Certifieringar och självlärt',
+        beskrivning: 'AWS Certified Solutions Architect, Kubernetes CKA, HashiCorp Certified, Linux Foundation. Certifikat och GitHub-portfolio är ofta lika värdefulla som formell examen i tech-branschen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Cloud-plattformar (AWS, GCP, Azure)',
+        'Kubernetes och container-orchestration',
+        'Terraform och Pulumi för Infrastructure as Code',
+        'GitHub Actions, GitLab CI, Jenkins, ArgoCD',
+        'Helm-charts och Kustomize',
+        'Monitoring (Datadog, Prometheus, Grafana)',
+        'Service mesh (Istio, Linkerd)',
+        'Programmeringsspråk (Python, Go, Bash)',
+        'Networking (VPC, BGP, load balancers)',
+        'Security (IAM, Vault, OAuth, mTLS)',
+        'Databaser (PostgreSQL, MongoDB, Redis)',
+        'CDN och edge computing',
+      ],
+      personliga: [
+        'Problemlösningsfokuserad',
+        'Strukturerad i automation och dokumentation',
+        'Pragmatisk i tradeoff mellan ideal och deadline',
+        'Lugn under incidents',
+        'Kollaborativ i tvärfunktionella team',
+        'Driven av kvalitet och tillförlitlighet',
+        'Kommunikativ med icke-tekniska intressenter',
+      ],
+    },
+
+    profilExempel:
+      'Senior DevOps-engineer med 8 års erfarenhet av AWS, Kubernetes och Terraform i scale-up-miljö. Byggde och underhåller multi-region EKS-platform för fintech-applikation med 99,99% SLA och 50+ deployment per dag. AWS Certified Solutions Architect Professional och CKA-certifierad. Bidrog till open source via 5 Terraform-moduler och föreläst på två devops-konferenser.',
+
+    profilTips:
+      'Senioritet, primär cloud, år av erfarenhet och bransch i öppningsraden. Andra meningen lyfter konkreta resultat (SLA, deploy-frekvens, kostnadsoptimering). Tredje meningen visar certifieringar och community-bidrag som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Cloud-tjänster i klartext',
+        text: 'AWS Lambda, EKS, RDS. GCP Cloud Run, GKE. Azure Functions, AKS. Specifika tjänster är CV-kritiska eftersom rekryterare letar efter exakta matchningar mot vad bolaget redan kör.',
+      },
+      {
+        rubrik: 'Mätbara prestandaresultat',
+        text: '"Minskade deploy-tid från 30 min till 4 min", "Ökade SLA till 99,99%", "Minskade cloud-kostnad 35%". Konkreta siffror differentierar senior- från junior-DevOps.',
+      },
+      {
+        rubrik: 'Kubernetes och container-erfarenhet',
+        text: 'Cluster-skalning, Helm-charts, Operators, service mesh. CKA- eller CKAD-certifiering är meriterande. Kubernetes är de facto-standard för moderna tech-bolag.',
+      },
+      {
+        rubrik: 'Infrastructure as Code',
+        text: 'Terraform-moduler, Pulumi, CloudFormation. Beskriv hur du strukturerat din IaC: "Skrev 30 Terraform-moduler för multi-region-deployment" är konkret.',
+      },
+      {
+        rubrik: 'CI/CD och automationspipeline',
+        text: 'GitHub Actions, GitLab CI, Jenkins, ArgoCD. Beskriv pipelines du byggt med deploy-frekvens och rollback-strategier. GitOps med ArgoCD är hett 2026.',
+      },
+      {
+        rubrik: 'Incident och SRE-mognad',
+        text: 'On-call-rotation, runbooks, post-mortems, error budgets. SRE-mognad är differentiator för senior-roller. Beskriv konkreta incidents du hanterat och vad du implementerat efter.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, cloud, år av erfarenhet, specialisering på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, tidsperiod, tech-stack. Dina bidrag (architecture, automation, prestanda) med konkreta siffror.' },
+      { sektion: 'Utbildning', tips: 'Examen, lärosäte, år. Certifieringar (AWS Certified, CKA, HashiCorp Certified).' },
+      { sektion: 'Kompetenser', tips: 'Cloud, Kubernetes, IaC, CI/CD, monitoring i tydliga grupper.' },
+      { sektion: 'Open source', tips: 'GitHub-länk, OSS-bidrag, Helm-charts, Terraform-moduler du publicerat.' },
+      { sektion: 'Övrigt', tips: 'Tech-talks, blog-posts, hiring-loop-erfarenhet, mentorskap.' },
+    ],
+
+    checklista: [
+      'Cloud-plattform med specifika tjänster',
+      'Kubernetes och container-erfarenhet',
+      'Terraform eller annan IaC',
+      'CI/CD-pipelines (GitHub Actions, GitLab CI, ArgoCD)',
+      'Monitoring och observability',
+      'On-call och incident-erfarenhet',
+      'Certifieringar (AWS, CKA, HashiCorp)',
+      'GitHub-portfolio eller OSS-bidrag',
+      'Security och compliance-vana',
+      'Mätbara prestandaresultat',
+    ],
+
+    atsInfo:
+      'Vår mall Stack-developer är ATS-säker och optimerad för tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder Workday eller Teamtailor. Specifika tech-keywords (Kubernetes, Terraform, AWS Lambda, GitHub Actions) är CV-kritiska. Skriv ut dem i kompetens-listan, inte i löpande text.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett DevOps-CV?',
+        a: 'Cloud-plattform med specifika tjänster (AWS Lambda, EKS, RDS), Kubernetes och container-erfarenhet, Terraform eller annan IaC, CI/CD-pipelines, monitoring (Datadog, Prometheus, Grafana), incident-erfarenhet och SRE-mognad, eventuella certifieringar (AWS, CKA, HashiCorp), programmeringsspråk (Python, Go, Bash), och GitHub-portfolio. Lägg till tech-talks och OSS-bidrag om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior DevOps?',
+        a: 'Lyft GitHub-portfolio med IaC-projekt eller Kubernetes-experiment. Inkludera examensarbete med teknisk fördjupning, eventuella bootcamps (A Cloud Guru, Linux Academy) eller YH-utbildningar, och AWS- eller GCP-certifieringar (Associate-nivå). Praktikperioder, hackathons och tekniska blog-posts visar engagemang. Skriv ut din vilja att lära.',
+      },
+      {
+        q: 'Vilka certifieringar är värdefullast 2026?',
+        a: 'AWS Certified Solutions Architect (Associate eller Professional) är mest efterfrågad. Kubernetes CKA är gold standard för K8s-roller. HashiCorp Certified Terraform Associate ger trovärdighet på IaC. Google Cloud Professional Cloud Architect växer i Sverige. Linux Foundation-certifikat värderas för enterprise. Räkna med 5-15k SEK per cert.',
+      },
+      {
+        q: 'Hur viktigt är open source och GitHub?',
+        a: 'Mycket. Tech-rekryterare och CTO:er granskar GitHub-profilen innan intervju. Synliga commits, repos med stjärnor, eller bidrag till stora projekt är ett av de starkaste signalerna. Helm-charts, Terraform-moduler, eller eget verktyg som löser ett konkret problem är värdefulla. Hobby-projekt utan dokumentation sänker mer än lyfter.',
+      },
+      {
+        q: 'Vad är skillnaden mellan DevOps och SRE?',
+        a: 'DevOps fokuserar på automation, CI/CD och cloud-infrastruktur. SRE (Site Reliability Engineering) fokuserar på pålitlighet, SLO/SLA, error budgets och on-call. Många bolag blandar rollerna. SRE-mognad är differentiator för senior-roller och kräver djupare förståelse för observability och incident management.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Cloud-tjänster (AWS Lambda, EKS, S3, RDS), Kubernetes (CKA, Helm, Istio), IaC (Terraform, Pulumi, CloudFormation), CI/CD (GitHub Actions, GitLab CI, ArgoCD), monitoring (Datadog, Prometheus, Grafana), och programmeringsspråk (Python, Go, Bash). Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett DevOps-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller staff: 2 sidor max. Konsult-CV kan vara 3-4 sidor men det är separat från ditt eget CV. Lyft de senaste 5-7 åren tydligast.',
+      },
+      {
+        q: 'Behöver jag formell examen för DevOps-roller?',
+        a: 'Inte alltid. Många scale-ups och konsultbolag värderar portfolio och certifieringar över examen. För senior-roller på storbolag (bank, regulatoriska branscher) är teknisk högskoleexamen ofta krav. Bootcamps och YH-utbildningar fungerar bra som ingång.',
+      },
+      {
+        q: 'Hur visar jag arkitekturkompetens utan staff-titel?',
+        a: 'Beskriv konkreta arkitekturbeslut: ADR (Architecture Decision Records) du skrivit, system-design-dokument, prestandaanalyser, kostnadsoptimeringar du lett. "Föreslog och drev migrering till multi-region EKS som ökade SLA från 99,9% till 99,99%". Konkreta bidrag visar arkitekturmognad.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt DevOps-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, foto (inte standard i tech), generiska påståenden ("driven och problem-lösare") utan stöd, kursbevis utan praktisk tillämpning, hobby-projekt utan dokumentation, och stavfel av tech-termer (skriva "Kubernetes" som "Kubernates"). Tech-rekryterare är skeptiska mot CV utan tydligt portfolio.',
+      },
+    ],
+  },
+
+  'controller': {
+    seoIntro:
+      'Som controller är du den interna ekonomen som styr bolagets riktning genom prognoser, rapportering och analys. Storbolag, scale-ups, konsultbyråer och industriföretag har konstant öppna controller-roller, men ekonomi- och CFO-chefer slänger CV:n som inte tydligt visar BI-vana, modelleringsförmåga och affärsförståelse. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för controllers lyfter BI-system, Excel-djup och konkreta affärsresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och rapporterings-frekvens syns direkt med dina analytiska bidrag. Det betyder att CFO:er och ekonomichefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller magister i finans/redovisning, BI-system du behärskar (Power BI, Tableau, Cognos, Qlik), affärssystem (SAP, Microsoft Dynamics, Oracle, Workday Adaptive), Excel-djup (PowerQuery, makron, Power Pivot, finansiella modeller), prognos- och budget-arbete, månads-, kvartals- och årsbokslut, IFRS eller K3-vana, eventuell auktorisation (CMA, ACCA), samt branschvana (industri, tech, retail, fintech).\n\nNedan hittar du två CV-mallar designade för controller-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad CFO:er, ekonomichefer och plattformschefer på industri-, scale-up- och konsultbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'BI-system och affärssystem',
+        description: 'Power BI dominerar i Sverige. Tableau på premium-segment. Cognos på storbolag. SAP S/4HANA på industri. Workday Adaptive på växande scale-ups. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara analytiska resultat',
+        description: '"Minskade prognosfel från 12% till 3%", "Identifierade 15 MSEK årlig besparing genom kostnadsanalys", "Byggde modell som ökade marginalprecisionen med 20%". Konkreta siffror separerar senior- från junior-controllers.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Excel-djup på rätt nivå',
+        description: 'PowerQuery, Power Pivot, finansiella modeller, three-statement-modellering, scenario-analys. Avancerad Excel är förmodat på controller-tjänster. Skriv ut konkreta funktioner i stället för "god datavana".',
+      },
+      {
+        icon: 'FileText',
+        title: 'Prognos och budget-erfarenhet',
+        description: 'Rolling forecast, årsbudget, kvartalsbudget, scenario-modellering. Olika bolag använder olika frekvens. Lyft din erfarenhet av specifika prognosmetoder och eventuell rolling forecast.',
+      },
+      {
+        icon: 'Award',
+        title: 'Bransch-erfarenhet är differentiator',
+        description: 'En controller på industribolag har annan vana än en på SaaS-bolag. ARR, MRR, churn, gross margin för SaaS. COGS, working capital, EBITDA för industri. Lyft branschen tydligt.',
+      },
+      {
+        icon: 'Target',
+        title: 'IFRS, K3 eller US GAAP',
+        description: 'Noterade bolag använder IFRS. Onoterade medelstora K3. US-noterade dotterbolag US GAAP. Skriv ut vilka standarder du behärskar och eventuell konsolideringsvana.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'BI och regelverk överst',
+        description: 'Vår mall Konto har dedikerad sidopanel för BI-system och regelverk. CFO:er och ekonomichefer ser systemvana på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Tabellär layout med tabular-nums',
+        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Volymsiffror (omsättning, kundantal, personalantal) lyfts visuellt utan att rymma i löpande prosa.',
+      },
+      {
+        title: 'Eget block för Excel- och BI-färdigheter',
+        description: 'Power BI, Tableau, PowerQuery, Power Pivot, finansiella modeller. Mallen separerar systemen från generiska kompetenser så CFO:er ser specifik nivå direkt.',
+      },
+      {
+        title: 'Mörkblå navy signalerar finans',
+        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
+      },
+      {
+        title: 'Premium-mallen Konto Plus med snabbfakta',
+        description: 'För senior-roller (group controller, head of FP&A) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för bransch och regelverk',
+        description: 'Mallen har dedikerade rader för branschvana (SaaS, industri, retail) och regelverk (IFRS, K3, US GAAP). Visar djup utan att blanda med generisk kompetens.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Rapportering och analys',
+        punkter: [
+          'Genomföra månads-, kvartal- och årsrapporter till ledning och styrelse',
+          'Bygga finansiella modeller och analyser för affärsbeslut',
+          'Producera management reports med KPI:er och insights',
+          'Stötta CFO i investerar- och bankkommunikation',
+        ],
+      },
+      {
+        rubrik: 'Prognos och budget',
+        punkter: [
+          'Driva årsbudget-process med affärscheferna',
+          'Genomföra rolling forecast månads- eller kvartalsvis',
+          'Bygga scenario-modeller för strategiska beslut',
+          'Analysera avvikelse mellan budget och utfall',
+        ],
+      },
+      {
+        rubrik: 'Affärsstöd och beslut',
+        punkter: [
+          'Stötta affärscheferna med marginal- och kostnadsanalys',
+          'Föra business case för investeringar och projekt',
+          'Genomföra ROI-beräkningar och prissättningsanalys',
+          'Identifiera kostnadsbesparingar och effektiviseringar',
+        ],
+      },
+      {
+        rubrik: 'Bokslut och konsolidering',
+        punkter: [
+          'Stötta i månads- och kvartalsbokslut enligt IFRS eller K3',
+          'Genomföra konsolidering vid moder- och dotterbolag',
+          'Hantera periodiseringar, accruals och skattefrågor',
+          'Samverka med revisor inför granskning',
+        ],
+      },
+      {
+        rubrik: 'System och processutveckling',
+        punkter: [
+          'Implementera och underhålla BI-dashboards i Power BI eller Tableau',
+          'Förbättra rapporterings- och prognosprocesser',
+          'Driva projekt för automation av rapportering',
+          'Samverka med IT i system-implementeringar',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'BI och rapportering',
+        termer: [
+          { term: 'Power BI', forklaring: 'Microsofts BI-plattform, marknadsledande i Sverige.' },
+          { term: 'Tableau', forklaring: 'Premium BI-verktyg från Salesforce, vanlig på enterprise-bolag.' },
+          { term: 'Cognos', forklaring: 'IBM:s BI-plattform, vanlig på storbolag och bank.' },
+          { term: 'Qlik', forklaring: 'BI-plattform med stark närvaro i Norden.' },
+          { term: 'PowerQuery', forklaring: 'Excel- och Power BI-verktyg för datatransformation.' },
+          { term: 'Power Pivot', forklaring: 'Excel-add-on för avancerad data-modellering.' },
+        ],
+      },
+      {
+        kategori: 'Affärs- och konsolidieringssystem',
+        termer: [
+          { term: 'SAP S/4HANA', forklaring: 'Enterprise-system som dominerar industri och stora bolag.' },
+          { term: 'Microsoft Dynamics', forklaring: 'ERP från Microsoft, vanlig på medelstora bolag.' },
+          { term: 'Oracle', forklaring: 'Enterprise-ERP, vanlig på storbolag och finansbolag.' },
+          { term: 'Workday Adaptive', forklaring: 'Modern molnbaserad planeringsplattform.' },
+          { term: 'Aaro', forklaring: 'Konsolidieringssystem för koncernredovisning enligt IFRS.' },
+          { term: 'Tagetik (CCH)', forklaring: 'Premium konsolidieringsplattform för storbolag.' },
+        ],
+      },
+      {
+        kategori: 'Regelverk och finansiella standarder',
+        termer: [
+          { term: 'IFRS', forklaring: 'Internationell redovisningsstandard för noterade bolag.' },
+          { term: 'K3', forklaring: 'Huvudregelverk för medelstora svenska aktiebolag.' },
+          { term: 'US GAAP', forklaring: 'Amerikansk redovisningsstandard, gäller vissa svenska dotterbolag.' },
+          { term: 'IFRS 15', forklaring: 'Standard för intäktsredovisning, viktig för SaaS och projekt-bolag.' },
+          { term: 'IFRS 16', forklaring: 'Standard för leasing, ändrade balansräkning för många bolag.' },
+          { term: 'Sarbanes-Oxley (SOX)', forklaring: 'Reglerar internkontroll i US-noterade bolag.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och finansiella mått',
+        termer: [
+          { term: 'EBITDA', forklaring: 'Resultat före räntor, skatter, avskrivningar och amorteringar.' },
+          { term: 'Gross margin', forklaring: 'Bruttomarginalen, intäkter minus direkta kostnader.' },
+          { term: 'ARR/MRR', forklaring: 'Annual/Monthly Recurring Revenue, viktigast för SaaS.' },
+          { term: 'Working capital', forklaring: 'Rörelsekapital, viktigt för cash flow-styrning.' },
+          { term: 'CAC och LTV', forklaring: 'Customer Acquisition Cost och Lifetime Value, för D2C/SaaS.' },
+          { term: 'Cash burn', forklaring: 'Hur snabbt bolaget förbrukar likviditet, kritisk för scale-ups.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, Atlas Copco, Sandvik',
+          'Ericsson, ABB, Tetra Pak, IKEA Industry',
+          'AssaAbloy, Electrolux, Husqvarna',
+          'Mindre tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Tech och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink, Voi',
+          'Boozt, NA-KD, Apotea, NetOnNet',
+          'Kry, Mathem, Foodora, Truecaller',
+          'Mindre tech-bolag och B2B SaaS',
+        ],
+      },
+      {
+        kategori: 'Bank och finans',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'Carnegie, Nordnet, Avanza',
+          'Försäkringsbolag (Folksam, Trygg-Hansa)',
+          'Investmentbolag och kapitalförvaltning',
+        ],
+      },
+      {
+        kategori: 'Konsult och övrigt',
+        exempel: [
+          'Konsultbolag (PwC, EY, KPMG, BDO)',
+          'Statligt ägda bolag (PostNord, Vattenfall, SJ)',
+          'Fastighetsbolag (Vasakronan, Akelius, Hufvudstaden)',
+          'Detaljhandel (ICA, Coop, H&M Group)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonomprogrammet (5 år)',
+        beskrivning: 'Mastersexamen från Handelshögskolan, Lunds universitet, Uppsala, Linköping eller Stockholms universitet med fördjupning i redovisning, finans eller controlling. Vanligaste vägen till senior controller-roller.',
+      },
+      {
+        rubrik: 'Magister i finans eller redovisning (1-2 år)',
+        beskrivning: 'Påbyggnad efter kandidatexamen. Master in Finance från SSE, Master of Accounting från Lund. Ger spetskompetens för Big Four och premium-segment.',
+      },
+      {
+        rubrik: 'Auktorisation och certifieringar',
+        beskrivning: 'CMA (Certified Management Accountant), ACCA, CFA är internationellt erkända. Auktoriserad redovisningskonsult via FAR är svensk specialisering. Power BI-certifieringar växer i värde.',
+      },
+      {
+        rubrik: 'Big Four och konsultkarriär',
+        beskrivning: 'Många controllers börjar på PwC, EY, KPMG eller Deloitte och flyttar till industri eller scale-up efter 3-5 år. Konsultbakgrund ger bredd och strukturerad rapportering.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Power BI och Tableau för visualisering',
+        'Excel (PowerQuery, Power Pivot, makron, finansiella modeller)',
+        'SAP S/4HANA, Microsoft Dynamics, Oracle',
+        'Workday Adaptive eller Anaplan för planering',
+        'Aaro eller Tagetik för konsolidering',
+        'IFRS, K3 och US GAAP',
+        'Three-statement-modellering',
+        'Scenario-analys och rolling forecast',
+        'KPI-design och dashboard-utveckling',
+        'M&A-analys och due diligence',
+        'SQL och dataanalys',
+        'Treasury och cash flow-modellering',
+      ],
+      personliga: [
+        'Analytisk och strukturerad',
+        'Pedagogisk i stöttning av affärscheferna',
+        'Pragmatisk i tradeoff mellan precision och hastighet',
+        'Etisk medvetenhet kring siffrorna',
+        'Kommunikativ med icke-ekonomiska intressenter',
+        'Driven av affärsförståelse',
+        'Lugn vid bokslut och deadlines',
+      ],
+    },
+
+    profilExempel:
+      'Senior controller med 8 års erfarenhet från noterad SaaS-bolag och industrikoncern. Bygger månads-, kvartals- och årsrapportering enligt IFRS i SAP S/4HANA och Power BI med fokus på rolling forecast och scenario-analys. Identifierade 25 MSEK årlig besparing genom kostnadsanalys 2024 och driver implementering av Workday Adaptive. CMA-certifierad och svensk auktoriserad redovisningskonsult.',
+
+    profilTips:
+      'Senioritet och bransch i öppningsraden. Andra meningen lyfter primära system och rapporteringsfrekvens. Tredje meningen visar konkret affärsresultat och eventuella certifieringar som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'BI-system och affärssystem',
+        text: 'Power BI dominerar. Tableau på premium. SAP S/4HANA på industri. Workday Adaptive på scale-ups. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Mätbara analytiska resultat',
+        text: '"Minskade prognosfel från 12% till 3%", "Identifierade 15 MSEK årlig besparing", "Byggde modell som ökade marginalprecisionen 20%". Konkreta siffror separerar senior- från junior-controllers.',
+      },
+      {
+        rubrik: 'Excel-djup på rätt nivå',
+        text: 'PowerQuery, Power Pivot, finansiella modeller, three-statement-modellering, scenario-analys. Avancerad Excel är förmodat. Skriv ut konkreta funktioner.',
+      },
+      {
+        rubrik: 'Prognos och budget-erfarenhet',
+        text: 'Rolling forecast, årsbudget, kvartalsbudget, scenario-modellering. Olika bolag använder olika frekvens. Lyft din specifika erfarenhet.',
+      },
+      {
+        rubrik: 'Bransch-erfarenhet är differentiator',
+        text: 'SaaS-controller har annan vana än industri-controller. ARR/MRR/churn för SaaS. COGS/EBITDA för industri. Lyft branschen tydligt i sammanfattningen.',
+      },
+      {
+        rubrik: 'IFRS, K3 eller US GAAP',
+        text: 'Noterade bolag använder IFRS. Onoterade medelstora K3. US-noterade dotterbolag US GAAP. Skriv ut vilka standarder du behärskar och eventuell konsolideringsvana.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, primära system, regelverk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, omfattning (kund-/koncern-volym), rapporteringsfrekvens. Konkreta affärsresultat.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom eller magister, lärosäte, år. Auktorisation eller certifiering (CMA, ACCA, CFA, FAR).' },
+      { sektion: 'Kompetenser', tips: 'BI-system, affärssystem, regelverk i tydliga grupper. Var konkret om Excel-nivå.' },
+      { sektion: 'System', tips: 'Eget block för Power BI, Tableau, SAP, Workday Adaptive med erfarenhetsår.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ledarskap, eventuell M&A-erfarenhet, internationella stints.' },
+    ],
+
+    checklista: [
+      'Civilekonom eller magister i finans/redovisning',
+      'BI-system (Power BI, Tableau, Cognos, Qlik)',
+      'Affärssystem (SAP, Dynamics, Oracle, Workday)',
+      'Excel på avancerad nivå (PowerQuery, Power Pivot)',
+      'Regelverk (IFRS, K3, US GAAP)',
+      'Rolling forecast och budget-erfarenhet',
+      'Mätbara affärsresultat',
+      'Bransch-erfarenhet (SaaS, industri, retail)',
+      'Eventuell auktorisation (CMA, ACCA, CFA, FAR)',
+      'M&A- eller konsolideringsvana om relevant',
+    ],
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Storbolag och scale-ups använder oftast Workday eller egna ATS. Konsultbyråer (PwC, EY, KPMG) använder Workday eller Oracle Recruiting. Skriv ut system-namn (Power BI, Tableau, SAP S/4HANA) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett controller-CV?',
+        a: 'Civilekonom eller magister, BI-system (Power BI, Tableau), affärssystem (SAP, Dynamics, Oracle, Workday Adaptive), Excel-djup, regelverk (IFRS, K3, US GAAP), prognos- och budget-erfarenhet, mätbara affärsresultat, bransch-vana, eventuell auktorisation (CMA, ACCA, CFA, FAR). Lägg till M&A- eller konsolideringsvana om relevant.',
+      },
+      {
+        q: 'Vad är skillnaden mellan controller och redovisningsekonom?',
+        a: 'Controller är intern-fokuserad: prognoser, rapportering, KPI:er, affärsstöd. Redovisningsekonom är extern-fokuserad: bokslut, deklarationer, regelverk. Controllers använder oftast Power BI och affärsystem för analys. Redovisningsekonomer använder främst redovisningssystem för dokumentation. Senior controllers tjänar oftast mer.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior controller?',
+        a: 'Lyft civilekonom-examen med inriktning, eventuell trainee-program eller praktik på Big Four (PwC, EY, KPMG, Deloitte), Excel-färdigheter med konkreta exempel (PowerQuery, finansiella modeller), och eventuella certifieringar (Power BI, ACCA-grunder). Många bolag har strukturerade trainee-program för junior controllers.',
+      },
+      {
+        q: 'Vilka system är viktigast att kunna 2026?',
+        a: 'Power BI dominerar BI-segmentet. Tableau på premium. SAP S/4HANA på industri. Microsoft Dynamics på medelstora bolag. Workday Adaptive och Anaplan på växande scale-ups. Excel på avancerad nivå (PowerQuery, Power Pivot, finansiella modeller). Python eller SQL för dataanalys är meriterande.',
+      },
+      {
+        q: 'Hur viktigt är CMA, ACCA eller CFA?',
+        a: 'CMA är värdefull för management accounting-roller. ACCA är internationellt erkänd och stark för Big Four. CFA är gold standard för finans- och investeringsroller. För svenska industri-controllers räcker civilekonom plus eventuell FAR-auktorisation. Senior-roller på multinationella bolag värderar CMA eller ACCA högre.',
+      },
+      {
+        q: 'Vad är rolling forecast?',
+        a: 'Kontinuerlig prognos som uppdateras månads- eller kvartalsvis och alltid pekar 12-18 månader framåt, i kontrast till statisk årsbudget som blir inaktuell efter 3-6 månader. Modernt sätt att hantera osäkerhet. Erfarenhet av rolling forecast är meriterande för moderna bolag och scale-ups.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'BI-system (Power BI, Tableau, Cognos, Qlik), affärssystem (SAP, Microsoft Dynamics, Oracle, Workday Adaptive), regelverk (IFRS, K3, US GAAP), KPI:er (EBITDA, ARR, gross margin, CAC/LTV), processer (rolling forecast, budget, konsolidering), och eventuella auktoriseringar. Workday och egna ATS söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett controller-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller group controller: 2 sidor. CFO-kandidat: 2-3 sidor. Det viktiga är att utbildning, system och senaste roll syns på första sidan. Branschen värderar precision även i CV-format.',
+      },
+      {
+        q: 'Behöver jag personligt brev till controller-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik affärsanalys eller process du löst. Beskriv hur du identifierat besparingsmöjligheter eller drivit en specifik förbättring. Håll till en sida på 300-400 ord. Branschen värderar tydlig kommunikation.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt controller-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("analytisk och driven") utan stöd, kund- eller bolagsspecifika sekretessbelagda detaljer, och hobbies som inte är finans-relevanta. Stavfel signalerar slarv, vilket är kritiskt i en bransch där precision räknas.',
+      },
+    ],
+  },
+
+  'socialsekreterare': {
+    seoIntro:
+      'Som socialsekreterare arbetar du i kommunal socialtjänst med utredning, beslut och stöd till människor i utsatta situationer. Sveriges 290 kommuner har konstant brist på socialsekreterare, men enhetschefer slänger CV:n som inte tydligt visar examen, lagstiftningsområde och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för socialsekreterare lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, lagstiftning du arbetat efter (SoL, LVU, LVM, LSS), ärendetyper (barn och unga, vuxna, missbruk, försörjningsstöd, boendebistånd), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI för missbruk, FREDA för våld), ärendehanteringssystem (Treserva, Procapita, Combine, Lifecare), volym och komplexitet, samt eventuella specialuppdrag (omprövningar, överklaganden, lex Sarah).\n\nNedan hittar du två CV-mallar designade för socialsekreterarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Socionomexamen och behörighet',
+        description: 'Socionomexamen är krav för socialsekreterare i de flesta kommuner. Vissa tjänster accepterar beteendevetare eller jurist med kompletterande utbildning. Skriv ut examen, lärosäte och datum.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Lagstiftningsområde i klartext',
+        description: 'SoL för socialtjänstgöring, LVU för tvångsvård av barn, LVM för missbruksvård, LSS för funktionsstöd. Var specifik om vilka paragrafer du arbetat efter. Olika tjänster kräver olika lagstiftningsdjup.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Ärendevolym och komplexitet',
+        description: '"45-50 BBIC-utredningar parallellt" eller "150 LVU-ärenden per år" ger enhetschefen snabbt en bild av din kapacitet. Volym plus komplexitet differentierar dig från generiska CV.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Utredningsmetodik och certifieringar',
+        description: 'BBIC för barnärenden, IBIC för biståndsbedömning, MI för motiverande samtal, ASI för missbruksbedömning, FREDA för våldsbedömning. Specialistutbildningar inom metodik öppnar specifika tjänster.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Ärendehanteringssystem',
+        description: 'Treserva dominerar. Procapita används i flera kommuner. Combine, Lifecare och Magna finns på vissa förvaltningar. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'Target',
+        title: 'Specialuppdrag och rättssäkerhet',
+        description: 'Omprövningar, överklaganden, samverkansmöten med polis och åklagare, juridiska beslut. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden bortom standardflöde.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Examen och lagstiftning överst',
+        description: 'Vår mall Myndighet har dedikerad sidopanel för socionomexamen, lagstiftningsområde och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Konservativ navy och svartvit',
+        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger.',
+      },
+      {
+        title: '§-symboler i bullets',
+        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+      },
+      {
+        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        description: 'För senior-roller (förstesocialsekreterare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla.',
+      },
+      {
+        title: 'Plats för volymsstatistik',
+        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+      },
+      {
+        title: 'Plats för specialuppdrag',
+        description: 'Omprövningar, överklaganden, samverkansuppdrag har egen rad. Visar att du tar ansvar bortom standardärenden, vilket meriterar för senior- och chef-roller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Utredning och bedömning',
+        punkter: [
+          'Genomföra utredningar enligt SoL, LVU, LVM eller motsvarande lagstiftning',
+          'Bedöma rätt till insatser baserat på individuella behov och rättspraxis',
+          'Skriva juridiskt korrekta utredningar enligt SOSFS och BBIC eller IBIC',
+          'Hantera komplexa ärenden med samsjuklighet eller multipel problematik',
+        ],
+      },
+      {
+        rubrik: 'Beslutsfattande och dokumentation',
+        punkter: [
+          'Fatta myndighetsbeslut enligt Förvaltningslagen med korrekt motivering',
+          'Dokumentera utredningar och beslut i Treserva, Procapita eller Combine',
+          'Hantera diariehantering och GDPR-arbete enligt OSL och Patientdatalagen',
+          'Kvalitetssäkra beslut för rättssäkerhet och uppföljningsbarhet',
+        ],
+      },
+      {
+        rubrik: 'Klientmöten och samtal',
+        punkter: [
+          'Genomföra utredningssamtal med klienter och anhöriga',
+          'Använda MI (motiverande samtal) eller annan strukturerad samtalsmetodik',
+          'Hantera kriser, akuta situationer och svåra samtalssituationer',
+          'Säkerställa klientmedverkan och självbestämmanderätt',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och nätverk',
+        punkter: [
+          'Samverka med andra myndigheter (polis, åklagare, sjukvård, skola)',
+          'Kontakt med utförare, leverantörer och behandlingshem',
+          'Delta i tvärprofessionella team och multidisciplinära möten',
+          'Bidra till samordnad individuell plan vid flera huvudmän',
+        ],
+      },
+      {
+        rubrik: 'Juridisk handläggning',
+        punkter: [
+          'Hantera överklaganden och förbereda inför förvaltningsdomstol',
+          'Genomföra omprövningar av tidigare beslut vid förändrade förutsättningar',
+          'Tillämpa aktuell rättspraxis och förarbeten i komplexa ärenden',
+          'Dokumentera avvikelser och anmäla enligt Lex Sarah',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, ramverk för all kommunal socialtjänst.' },
+          { term: 'LVU', forklaring: 'Lagen med särskilda bestämmelser om vård av unga, tvångsvård av barn.' },
+          { term: 'LVM', forklaring: 'Lagen om vård av missbrukare i vissa fall, tvångsvård av missbrukare.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller all offentlig verksamhet.' },
+          { term: 'FL', forklaring: 'Förvaltningslagen, reglerar myndighetsutövning och beslutsfattande.' },
+        ],
+      },
+      {
+        kategori: 'Utredningsmetodik',
+        termer: [
+          { term: 'BBIC', forklaring: 'Barns Behov i Centrum, utredningsmodell för barn och unga.' },
+          { term: 'IBIC', forklaring: 'Individens Behov i Centrum, behovsbedömning för vuxna och äldre.' },
+          { term: 'MI', forklaring: 'Motiverande samtal, samtalsmetodik för förändringsarbete.' },
+          { term: 'ASI', forklaring: 'Addiction Severity Index, bedömningsinstrument för missbruksvård.' },
+          { term: 'FREDA', forklaring: 'Bedömningsinstrument för våld i nära relationer.' },
+          { term: 'SAVRY', forklaring: 'Bedömning av risk för upprepat våld hos ungdomar.' },
+        ],
+      },
+      {
+        kategori: 'Ärendehanteringssystem',
+        termer: [
+          { term: 'Treserva', forklaring: 'Mest använda verksamhetssystem i kommunal social- och äldreomsorg.' },
+          { term: 'Procapita', forklaring: 'Integrerat system för LSS, SoL och äldreomsorg.' },
+          { term: 'Combine', forklaring: 'Verksamhetssystem för socialtjänsten i några kommuner.' },
+          { term: 'Lifecare', forklaring: 'Omsorgsplaneringssystem i flera kommuner.' },
+          { term: 'Magna', forklaring: 'Verksamhetssystem på vissa kommuner med fokus på ekonomi och dokumentation.' },
+          { term: 'eArkiv', forklaring: 'Digitalt arkiv enligt arkivlagen för långtidslagring av ärenden.' },
+        ],
+      },
+      {
+        kategori: 'Roller och insatser',
+        termer: [
+          { term: 'Socialsekreterare', forklaring: 'Bredare roll inom socialtjänsten med utredning och beslut.' },
+          { term: 'Familjesekreterare', forklaring: 'Specialiserad på barn- och ungdomsärenden enligt SoL och LVU.' },
+          { term: 'Försörjningsstöd-handläggare', forklaring: 'Hanterar ekonomiskt bistånd enligt SoL kapitel 4.' },
+          { term: 'Missbrukshandläggare', forklaring: 'Specialiserad på missbruksvård enligt SoL och LVM.' },
+          { term: 'Förstesocialsekreterare', forklaring: 'Senior socialsekreterare med specialuppdrag eller mentorroll.' },
+          { term: 'Lex Sarah-anmälan', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunala socialförvaltningar',
+        exempel: [
+          'Socialförvaltningar i Sveriges 290 kommuner',
+          'Stadsdelsförvaltningar i Stockholm, Göteborg, Malmö',
+          'Familje- och vuxenenheter',
+          'Specialiserade enheter (våld i nära relationer, missbruk)',
+        ],
+      },
+      {
+        kategori: 'Specialiserade kommunala enheter',
+        exempel: [
+          'Barn- och ungdomsenheter (BUE)',
+          'Försörjningsstöd-enheter',
+          'Familjehem och socialjour',
+          'Vuxenpsykiatri och missbruksvård',
+        ],
+      },
+      {
+        kategori: 'Statliga myndigheter',
+        exempel: [
+          'Migrationsverket (asyl- och uppehållsärenden)',
+          'Försäkringskassan (sjukvårdsersättning, aktivitetsersättning)',
+          'Inspektionen för vård och omsorg (IVO)',
+          'Statens institutionsstyrelse (SiS)',
+        ],
+      },
+      {
+        kategori: 'Privata utförare',
+        exempel: [
+          'Behandlingshem och HVB-hem',
+          'Familjehemsbolag',
+          'Privata utförare av socialtjänst-uppdrag',
+          'Bemanningsbolag (Dedicare, Veteranpoolen)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Socionomprogrammet (3,5 år)',
+        beskrivning: 'Vanligaste vägen till socialsekreterare. Innehåller juridik, samhällsvetenskap, beteendevetenskap och praktik. Examen ger direkt behörighet till socialsekreterar-tjänster.',
+      },
+      {
+        rubrik: 'Beteendevetenskap eller socialt arbete (3 år)',
+        beskrivning: 'Kandidatexamen i beteendevetenskap, sociologi eller socialt arbete. Alternativ väg in i socialsekreterar-yrket, ofta med kompletterande kurser i juridik och utredningsmetodik.',
+      },
+      {
+        rubrik: 'Juristexamen (5 år)',
+        beskrivning: 'Juristprogrammet med inriktning mot förvaltningsrätt. Vanlig grund för socialsekreterare som vill specialisera sig på rättssäkerhet och överklaganden.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'BBIC-utbildning för barnärenden, IBIC för biståndsbedömning, MI-cert för samtal, ASI-utbildning för missbruksbedömning. Kontinuerlig fortbildning är meriterande för senior-roller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Förvaltningsrätt och offentlighetsprincipen (OSL)',
+        'Lagstiftning per ärendetyp (SoL, LVU, LVM, LSS)',
+        'Ärendehanteringssystem (Treserva, Procapita, Combine, Lifecare)',
+        'Utredningsmetodik enligt SOSFS-föreskrifterna',
+        'BBIC-cert för barnärenden',
+        'IBIC-utbildning för biståndsbedömning',
+        'MI (motiverande samtal) på avancerad nivå',
+        'ASI för missbruksbedömning',
+        'FREDA för våldsbedömning i nära relationer',
+        'Diariehantering och GDPR-arbete',
+        'Statistikanalys och uppföljning av insatser',
+        'Lex Sarah och avvikelsehantering',
+      ],
+      personliga: [
+        'Saklig och neutralt språkbruk',
+        'Strukturerad i ärendehantering',
+        'Empatisk i klientmöten',
+        'Sekretessmedveten',
+        'Stresstålig vid hög ärendebelastning',
+        'Etisk medvetenhet vid svåra avvägningar',
+        'Pedagogisk i mötet med olika klientgrupper',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren socialsekreterare med 6 års erfarenhet från kommunal socialtjänst inom barn- och ungdomsenhet. Hanterar 45-50 BBIC-utredningar parallellt enligt SoL och LVU i Treserva med fokus på korrekta beslut, motivering och rättssäkerhet. BBIC-utbildning, MI-certifiering och handledare för 4 nya kollegor. Delaktig i kommunens utvecklingsprojekt kring digital ärendehantering.',
+
+    profilTips:
+      'År av erfarenhet, primärt lagstiftningsområde och förvaltning i öppningsraden. Andra meningen lyfter konkret ärendevolym och system. Tredje meningen visar metodik-certifieringar och eventuella specialuppdrag.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Socionomexamen och behörighet',
+        text: 'Socionomexamen är krav för socialsekreterare i de flesta kommuner. Vissa tjänster accepterar beteendevetare eller jurist med kompletterande utbildning. Skriv ut examen, lärosäte och datum.',
+      },
+      {
+        rubrik: 'Lagstiftningsområde i klartext',
+        text: 'SoL för socialtjänstgöring, LVU för tvångsvård, LVM för missbruk, LSS för funktionsstöd. Var specifik om vilka paragrafer du arbetat efter.',
+      },
+      {
+        rubrik: 'Ärendevolym och komplexitet',
+        text: '"45-50 BBIC-utredningar parallellt" eller "150 LVU-ärenden per år" ger enhetschefen snabbt en bild av din kapacitet och rättssäkerhetsfokus.',
+      },
+      {
+        rubrik: 'Utredningsmetodik',
+        text: 'BBIC, IBIC, MI, ASI, FREDA. Specialistutbildningar inom metodik öppnar specifika tjänster och differentierar dig från generiska socialsekreterare.',
+      },
+      {
+        rubrik: 'Ärendehanteringssystem',
+        text: 'Treserva, Procapita, Combine, Lifecare. Skriv ut systemnamnen så ATS kan filtrera fram dig och enhetschefen ser att du kan starta utan introduktion.',
+      },
+      {
+        rubrik: 'Specialuppdrag och rättssäkerhet',
+        text: 'Omprövningar, överklaganden, samverkansmöten med polis och åklagare. Specialuppdrag visar djup och förmåga att hantera komplexa ärenden.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, lagstiftningsområde, system och utredningstyper på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp och volym. Konkretisera komplexitet (BBIC, omprövningar, LVU).' },
+      { sektion: 'Utbildning', tips: 'Socionomexamen, lärosäte och år. Vidareutbildningar (BBIC-cert, MI, ASI).' },
+      { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av FL eller SoL du arbetat efter.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet för olika kommuner.' },
+    ],
+
+    checklista: [
+      'Socionomexamen från svenskt lärosäte',
+      'Lagstiftningsområde du arbetat efter',
+      'Ärendehanteringssystem du behärskar',
+      'Utredningsmetodik (BBIC, IBIC, MI, ASI)',
+      'Volym och komplexitet på ärendetyper',
+      'Eventuella specialuppdrag (omprövningar, överklaganden)',
+      'Vidareutbildningar och certifikat',
+      'Förvaltningsrätt och GDPR-arbete',
+      'Ledar- eller handledaruppdrag',
+      'Språkkunskaper utöver svenska',
+    ],
+
+    atsInfo:
+      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (SoL, LVU, LVM, BBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett socialsekreterar-CV?',
+        a: 'Socionomexamen från svenskt lärosäte med datum, lagstiftning du arbetat efter (SoL, LVU, LVM, LSS), ärendehanteringssystem (Treserva, Procapita), utredningsmetodik (BBIC, IBIC, MI, ASI, FREDA), ärendevolym och komplexitet, eventuella specialuppdrag, samt vidareutbildningar. Lägg till handledar- eller ledarroller om du söker senior-tjänster.',
+      },
+      {
+        q: 'Vilken examen krävs för socialsekreterare?',
+        a: 'Socionomexamen är vanligaste vägen och krav i de flesta kommuner. Vissa tjänster accepterar beteendevetare eller jurist med kompletterande utbildning. Migrationsverket och vissa specialiserade myndigheter är mer flexibla med akademisk bakgrund. Lyft alltid socionomexamen i sammanfattningen om du har den.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-socialsekreterare?',
+        a: 'Lyft examensarbete med specifik inriktning, eventuell praktik på socialtjänst, kurser i specifik lagstiftning, MI- eller BBIC-utbildning, och språkkunskaper. Praktiska kurser från utbildningen, tidigare arbete inom omsorg eller stöd, och ideella engagemang räknas. Många kommuner har strukturerade introduktionsprogram för nyutexaminerade.',
+      },
+      {
+        q: 'Hur viktigt är specifik lagstiftningserfarenhet?',
+        a: 'Kritiskt. En BBIC-handläggare kan inte direkt gå in som LVM-handläggare utan utbildning. Kommuner och myndigheter söker socialsekreterare med matchande lagstiftningsdjup. Lyft alltid din lagstiftningsbakgrund i sammanfattningen.',
+      },
+      {
+        q: 'Vilka utredningsmetodiker är värdefullast?',
+        a: 'BBIC är central för barnärenden. IBIC för biståndsbedömning av vuxna. MI är gold standard för samtal. ASI för missbruksbedömning. FREDA för våld i nära relationer. SAVRY för riskbedömning hos ungdomar. Specialistutbildningar inom metodik öppnar specifika tjänster och påverkar lönen.',
+      },
+      {
+        q: 'Hur visar jag rättssäkerhetskunskap på CV:t?',
+        a: 'Beskriv konkreta arbetsuppgifter där du tillämpat lagstiftning korrekt: "Hanterade 12 omprövningar enligt FL § 26 utan revisorsanmärkning", "Skrev beslutsmotivering enligt SOSFS i 200+ LVU-ärenden". Specifika paragrafer och föreskrifter signalerar djup.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika lagar (SoL, LVU, LVM, LSS, OSL, FL), system (Treserva, Procapita, Combine, Lifecare), utredningsmetodik (BBIC, IBIC, MI, ASI, FREDA), ärendetyper (barn och unga, missbruk, försörjningsstöd) och förvaltning. Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett socialsekreterar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller specialist: 2 sidor max. Det viktiga är att examen, lagstiftningsområde och senaste erfarenhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till socialsekreterar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den förvaltning och beskriv en specifik utredningssituation eller komplext ärende du löst. Beskriv en klient du hjälpt eller ett samverkansprojekt du varit del av. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt socialsekreterar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (kan leda till diskriminering), klient- eller ärendespecifika sekretessbelagda detaljer, generiska påståenden ("driven och ansvarstagande") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är relevanta. Stavfel diskvalificerar direkt eftersom skriftlig korrekthet är central i rollen.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
