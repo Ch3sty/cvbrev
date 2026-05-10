@@ -15,14 +15,15 @@ export default async function Image({
   const { yrke } = await params
   const data = YRKESMALL_LIST.find(y => y.slug === yrke)
   const yrkesNamn = data?.namn || 'CV-mall'
-  const mallNamn = data?.mallNamn || 'Mall'
+  const freeMallNamn = data?.freeMallNamn || 'Gratis'
+  const premiumMallNamn = data?.premiumMallNamn || 'Premium'
 
   return new ImageResponse(
     (
       <OgFrame
         eyebrow="CV-mall"
         title={yrkesNamn}
-        subtitle={`${mallNamn}-design · ATS-säker · gratis`}
+        subtitle={`${freeMallNamn} (gratis) eller ${premiumMallNamn} (premium)`}
         illustration={<OgCvMockup />}
       />
     ),

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `CV-mall för ${data.namn} 2026 — gratis nedladdning | Jobbcoach.ai`,
-    description: `Färdig CV-mall för ${data.namnBestamd} som är ATS-optimerad och matchar svenska arbetsgivares förväntningar. Se varför ${data.mallNamn}-mallen passar ${data.namnBestamd} och vad rekryterare letar efter. Gratis att ladda ner.`,
+    description: `Färdig CV-mall för ${data.namnBestamd} som är ATS-optimerad och matchar svenska arbetsgivares förväntningar. Se ${data.freeMallNamn} (gratis) och ${data.premiumMallNamn} (premium) och vad rekryterare letar efter. Gratis att ladda ner.`,
     keywords: `cv mall ${data.namnBestamd}, ${data.namnBestamd} cv mall, mall cv ${data.namnBestamd}, gratis cv mall ${data.namnBestamd}, ${data.namnBestamd} cv exempel, ats-säker cv mall`,
     openGraph: {
       title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
@@ -80,7 +80,7 @@ export default async function YrkesmallPage({ params }: Props) {
       availability: 'https://schema.org/InStock',
       url: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
     },
-    image: `https://www.jobbcoach.ai/mallar/${data.mallId}.svg`,
+    image: `https://www.jobbcoach.ai/mallar/${data.freeMallId}.svg`,
   }
 
   const breadcrumbSchema = {

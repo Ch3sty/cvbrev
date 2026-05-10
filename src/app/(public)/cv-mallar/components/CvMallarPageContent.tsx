@@ -26,7 +26,7 @@ export default function CvMallarPageContent({
   const [searchQuery, setSearchQuery] = useState('')
 
   const yrkesmallSlugSet = useMemo(
-    () => new Set(yrkesmallar.map(y => y.mallId)),
+    () => new Set(yrkesmallar.flatMap(y => [y.freeMallId, y.premiumMallId])),
     [yrkesmallar]
   )
 
@@ -145,7 +145,7 @@ export default function CvMallarPageContent({
                       {y.namn}
                     </div>
                     <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700 mt-0.5">
-                      {y.mallNamn}-mallen
+                      {y.freeMallNamn} · {y.premiumMallNamn}
                     </div>
                   </div>
                 </div>

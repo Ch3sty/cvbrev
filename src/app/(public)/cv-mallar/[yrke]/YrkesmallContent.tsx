@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye } from 'lucide-react'
+import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Sparkles, BookOpen, Layers } from 'lucide-react'
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
@@ -16,7 +16,8 @@ interface YrkesmallContentProps {
 }
 
 export default function YrkesmallContent({ data, relaterade }: YrkesmallContentProps) {
-  const template = getTemplateById(data.mallId)
+  const freeTemplate = getTemplateById(data.freeMallId)
+  const premiumTemplate = getTemplateById(data.premiumMallId)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/40">
@@ -28,10 +29,10 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
         ]}
       />
 
-      {/* Hero: stort namn + mall-thumbnail + CTA */}
-      <section className="container mx-auto px-3 sm:px-4 pt-6 pb-12 sm:pt-10 sm:pb-16 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-center">
-          {/* Vanster: text */}
+      {/* Hero med text + två mallkort */}
+      <section className="container mx-auto px-3 sm:px-4 pt-6 pb-10 sm:pt-10 sm:pb-14 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-10 lg:gap-12 items-center">
+          {/* Vänster: text */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
               <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -53,24 +54,13 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-xl">
-              {data.intro} ATS-säker, gratis att ladda ner och anpassad för svenska arbetsgivare 2026.
+              {data.intro} Välj mellan vår gratis-mall och premium-varianten. Båda är ATS-säkra och optimerade för svenska arbetsgivare 2026.
             </p>
 
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/dashboard/cv-mallar"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm transition-all hover:shadow-xl"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                Använd mallen
-                <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-              </Link>
-              <Link
                 href={`/cv-exempel/${data.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
               >
                 <Eye className="w-4 h-4" strokeWidth={2.4} />
                 Se färdigt CV-exempel
@@ -78,104 +68,116 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             </div>
           </div>
 
-          {/* Höger: mall-thumbnail */}
-          <div className="lg:order-2">
-            <div className="relative aspect-[3/4] bg-white rounded-3xl border border-orange-100 overflow-hidden" style={{ boxShadow: '0 12px 40px -12px rgba(249, 115, 22, 0.25)' }}>
-              {template && (
-                <Image
-                  src={template.imagePath}
-                  alt={`${template.name} CV-mall för ${data.namnBestamd}`}
-                  fill
-                  className="object-cover object-top"
-                  sizes="(min-width: 1024px) 320px, 100vw"
-                  priority
-                />
-              )}
-              <div className="absolute top-3 left-3 right-3 flex justify-between gap-2">
-                {template?.features?.atsSafe && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">
-                    <ShieldCheck className="w-2.5 h-2.5" strokeWidth={2.5} />
-                    ATS-säker
-                  </span>
+          {/* Höger: två mallkort sida vid sida */}
+          <div className="grid grid-cols-2 gap-3 lg:gap-4">
+            {/* Gratis-mall */}
+            <div className="flex flex-col bg-white rounded-2xl border-2 border-emerald-200 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(16, 185, 129, 0.25)' }}>
+              <div className="relative aspect-[3/4] bg-slate-50">
+                {freeTemplate && (
+                  <Image
+                    src={freeTemplate.imagePath}
+                    alt={`${freeTemplate.name} CV-mall för ${data.namnBestamd} (gratis)`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 1024px) 220px, 50vw"
+                    priority
+                  />
                 )}
-                {template?.tier === 'premium' && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold ml-auto">
-                    <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-                    Premium
-                  </span>
-                )}
+                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold">
+                  Gratis
+                </span>
+              </div>
+              <div className="p-3 flex-1 flex flex-col">
+                <div className="font-black text-sm text-slate-900">{data.freeMallNamn}</div>
+                <div className="text-[11px] text-slate-600 mb-2">ATS-säker · ren design</div>
+                <Link
+                  href="/dashboard/cv-mallar"
+                  className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors"
+                >
+                  Använd gratis
+                  <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+                </Link>
               </div>
             </div>
-            <div className="mt-3 text-center text-xs text-slate-500">
-              <span className="font-bold text-slate-700">{template?.name}</span> — {template?.tier === 'free' ? 'Gratis' : 'Premium'}
+
+            {/* Premium-mall */}
+            <div className="flex flex-col bg-white rounded-2xl border-2 border-orange-300 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(249, 115, 22, 0.32)' }}>
+              <div className="relative aspect-[3/4] bg-slate-50">
+                {premiumTemplate && (
+                  <Image
+                    src={premiumTemplate.imagePath}
+                    alt={`${premiumTemplate.name} CV-mall för ${data.namnBestamd} (premium)`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 1024px) 220px, 50vw"
+                  />
+                )}
+                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
+                  <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
+                  Premium
+                </span>
+              </div>
+              <div className="p-3 flex-1 flex flex-col">
+                <div className="font-black text-sm text-slate-900">{data.premiumMallNamn}</div>
+                <div className="text-[11px] text-slate-600 mb-2">Foto + LinkedIn · visuellt rikare</div>
+                <Link
+                  href="/dashboard/cv-mallar"
+                  className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full text-white font-bold text-xs transition-all hover:shadow-lg"
+                  style={{
+                    background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  }}
+                >
+                  Lås upp premium
+                  <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* "Varför just denna mall för {yrke}?" - UNIK content per yrke */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-6xl">
-        <div className="bg-white rounded-3xl border border-orange-100 p-6 sm:p-10" style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.12)' }}>
-          <div className="flex items-center gap-3 mb-6">
-            <span
-              className="w-1 h-8 rounded-sm"
-              style={{ background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)' }}
-              aria-hidden
-            />
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Varför {template?.name}-mallen passar {data.namnBestamd}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {data.varforDennaMall.map((reason, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="flex items-start gap-3 p-4 bg-orange-50/40 rounded-2xl"
-              >
-                <span
-                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white mt-0.5"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
-                </span>
-                <p className="text-sm sm:text-base text-slate-800 leading-relaxed">{reason}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Vad rekryterare letar efter - UNIK content (skiljer sig från cv-exempel) */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-3xl">
-        <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-emerald-50 text-emerald-700 border border-emerald-200 mb-4">
-            Rekryterar-perspektiv
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3 leading-[1.1]">
-            Vad rekryterare letar efter i ett {data.namnBestamd}-CV
-          </h2>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-            Tre saker som avgör om du går vidare till intervju.
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {data.rekryterarTipsen.map((tip, idx) => (
+      {/* Varför mallen är bra */}
+      <SectionWrapper>
+        <SectionTitle
+          eyebrow="Varför just dessa mallar"
+          title={`${data.freeMallNamn} och ${data.premiumMallNamn} för ${data.namnBestamd}`}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {data.varforDennaMall.map((reason, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35 }}
-              className="bg-white rounded-2xl border border-slate-200 p-6"
+              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              className="flex items-start gap-3 p-4 bg-orange-50/40 rounded-2xl"
             >
+              <span
+                className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white mt-0.5"
+                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+              </span>
+              <p className="text-sm sm:text-base text-slate-800 leading-relaxed">{reason}</p>
+            </motion.div>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      {/* Vad rekryterare letar efter */}
+      <SectionWrapper narrow>
+        <SectionTitle
+          eyebrow="Rekryterar-perspektiv"
+          title={`Vad rekryterare letar efter i ett ${data.namnBestamd}-CV`}
+          description="Tre saker som avgör om du går vidare till intervju."
+          color="emerald"
+        />
+        <div className="space-y-6">
+          {data.rekryterarTipsen.map((tip, idx) => (
+            <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-6">
               <div className="flex items-baseline gap-3 mb-3">
-                <span className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-black text-sm"
+                <span
+                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-black text-sm"
                   style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
                 >
                   {idx + 1}
@@ -184,27 +186,128 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                   {tip.rubrik}
                 </h3>
               </div>
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed pl-11">
-                {tip.text}
-              </p>
-            </motion.div>
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed pl-11">{tip.text}</p>
+            </div>
           ))}
         </div>
-      </section>
+      </SectionWrapper>
+
+      {/* Personlig profil — exempel + tips */}
+      <SectionWrapper narrow>
+        <SectionTitle
+          eyebrow="Personlig profil"
+          title={`Personlig profil för ${data.namnBestamd}`}
+          description="Sammanfattningen längst upp på CV:t är det första rekryteraren läser. Här är ett konkret exempel och våra bästa tips."
+          color="orange"
+        />
+        <div className="bg-white rounded-3xl border border-orange-100 p-6 sm:p-8" style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.12)' }}>
+          <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-2">
+            Exempel
+          </div>
+          <blockquote className="text-base sm:text-lg text-slate-800 leading-relaxed italic border-l-4 border-orange-400 pl-4 mb-6">
+            {data.profilExempel}
+          </blockquote>
+          <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-2">
+            Så skriver du
+          </div>
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed">{data.profilTips}</p>
+        </div>
+      </SectionWrapper>
+
+      {/* Kompetenser */}
+      <SectionWrapper narrow>
+        <SectionTitle
+          eyebrow="Kompetenser"
+          title={`Vilka kompetenser ska finnas på ett ${data.namnBestamd}-CV`}
+          description="Vi har samlat de tekniska och personliga kompetenser som rekryterare värderar mest för rollen."
+          color="emerald"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Layers className="w-4 h-4 text-orange-700" strokeWidth={2.5} />
+              <h3 className="text-base font-black text-slate-900 uppercase tracking-wide text-sm">Tekniska kompetenser</h3>
+            </div>
+            <ul className="space-y-2">
+              {data.kompetenser.tekniska.map((k, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5" />
+                  {k}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="w-4 h-4 text-emerald-700" strokeWidth={2.5} />
+              <h3 className="text-base font-black text-slate-900 uppercase tracking-wide text-sm">Personliga egenskaper</h3>
+            </div>
+            <ul className="space-y-2">
+              {data.kompetenser.personliga.map((k, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5" />
+                  {k}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </SectionWrapper>
+
+      {/* Tips per sektion */}
+      <SectionWrapper narrow>
+        <SectionTitle
+          eyebrow="Skriv-guide"
+          title="Vad ska stå i varje sektion av CV:t"
+          description={`Vi går igenom de viktigaste sektionerna i ett ${data.namnBestamd}-CV och vad som ska finnas med i varje.`}
+          color="orange"
+        />
+        <div className="space-y-4">
+          {data.sektionTips.map((tip, idx) => (
+            <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-5">
+              <div className="flex items-baseline gap-3">
+                <span className="flex-shrink-0 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700 mt-1 min-w-[100px]">
+                  {tip.sektion}
+                </span>
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">{tip.tips}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      {/* ATS-info */}
+      <SectionWrapper narrow>
+        <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <span className="flex-shrink-0 w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white">
+              <ShieldCheck className="w-6 h-6" strokeWidth={2.5} />
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-700 mb-1">
+                ATS-säkerhet
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 leading-tight">
+                Är mallen ATS-säker för {data.namnBestamd}?
+              </h3>
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed">{data.atsInfo}</p>
+            </div>
+          </div>
+        </div>
+      </SectionWrapper>
 
       {/* Checklista */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-3xl">
+      <SectionWrapper narrow>
         <div className="bg-gradient-to-br from-orange-50 to-white border border-orange-200 rounded-3xl p-6 sm:p-10">
           <div className="text-center mb-6">
+            <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-2">
+              Checklista
+            </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-              Checklista för {data.namnBestamd}-CV
+              Det här ska finnas med i ditt {data.namnBestamd}-CV
             </h2>
-            <p className="text-sm sm:text-base text-slate-600">
-              Det här ska finnas med — bocka av efter hand som du fyller i mallen.
-            </p>
           </div>
-
-          <ul className="space-y-2.5">
+          <ul className="space-y-2.5 max-w-2xl mx-auto">
             {data.checklista.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3 p-3 bg-white rounded-xl border border-orange-100/60">
                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center mt-0.5">
@@ -215,10 +318,10 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             ))}
           </ul>
         </div>
-      </section>
+      </SectionWrapper>
 
-      {/* Cross-link till cv-exempel + brev-exempel */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-6xl">
+      {/* Cross-link CV-exempel + brev */}
+      <SectionWrapper>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href={`/cv-exempel/${data.slug}`}
@@ -235,7 +338,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               <h3 className="text-lg font-black text-slate-900">Färdigt CV-exempel</h3>
             </div>
             <p className="text-sm text-slate-600 mb-3">
-              Se hur ett komplett CV för {data.namnBestamd} ser ut — innehåll, formuleringar och struktur.
+              Se hur ett komplett CV för {data.namnBestamd} ser ut. Konkret innehåll, formuleringar och struktur.
             </p>
             <span className="inline-flex items-center gap-1 text-sm font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
               Se exempel
@@ -253,7 +356,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
                 style={{ background: 'linear-gradient(135deg, #DC2626, #BE185D)' }}
               >
-                <FileText className="w-5 h-5" strokeWidth={2.4} />
+                <BookOpen className="w-5 h-5" strokeWidth={2.4} />
               </span>
               <h3 className="text-lg font-black text-slate-900">Personligt brev</h3>
             </div>
@@ -266,52 +369,54 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             </span>
           </Link>
         </div>
-      </section>
+      </SectionWrapper>
 
       {/* Relaterade yrkesmallar */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-6xl">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-            Andra yrkesmallar du kanske gillar
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {relaterade.map((y) => (
-            <Link
-              key={y.slug}
-              href={`/cv-mallar/${y.slug}`}
-              className="group bg-white border border-slate-200 hover:border-orange-200 rounded-2xl p-5 transition-all"
-              style={{ boxShadow: '0 4px 14px -10px rgba(0, 0, 0, 0.08)' }}
-            >
-              <div className="flex items-start gap-3 mb-2">
-                <span
-                  className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                >
-                  <FileText className="w-4 h-4" strokeWidth={2.4} />
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-black text-slate-900 leading-tight">{y.namn}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mt-0.5">
-                    {y.mallNamn}-mallen
+      {relaterade.length > 0 && (
+        <SectionWrapper>
+          <div className="text-center mb-6">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Andra yrkesmallar du kanske gillar
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {relaterade.map((y) => (
+              <Link
+                key={y.slug}
+                href={`/cv-mallar/${y.slug}`}
+                className="group bg-white border border-slate-200 hover:border-orange-200 rounded-2xl p-5 transition-all"
+                style={{ boxShadow: '0 4px 14px -10px rgba(0, 0, 0, 0.08)' }}
+              >
+                <div className="flex items-start gap-3 mb-2">
+                  <span
+                    className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
+                    style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                  >
+                    <FileText className="w-4 h-4" strokeWidth={2.4} />
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-black text-slate-900 leading-tight">{y.namn}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mt-0.5">
+                      {y.freeMallNamn} · {y.premiumMallNamn}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <p className="text-xs text-slate-600 leading-snug line-clamp-2">{y.intro}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+                <p className="text-xs text-slate-600 leading-snug line-clamp-2">{y.intro}</p>
+              </Link>
+            ))}
+          </div>
+        </SectionWrapper>
+      )}
 
       {/* FAQ */}
-      <section className="container mx-auto px-3 sm:px-4 py-12 sm:py-16 max-w-3xl">
+      <SectionWrapper narrow>
         <div className="text-center mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-2">
             Vanliga frågor om {data.namnBestamd}-CV
           </h2>
         </div>
         <FaqAccordion variant="cv" yrke={data.namn} items={data.faqItems} />
-      </section>
+      </SectionWrapper>
 
       {/* Final CTA */}
       <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-16 max-w-4xl">
@@ -320,7 +425,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Klar att skapa ditt {data.namnBestamd}-CV?
           </h2>
           <p className="text-base sm:text-lg text-white/90 mb-6 max-w-xl mx-auto">
-            Använd {template?.name}-mallen direkt i appen. Gratis att börja, ingen kortuppgift krävs.
+            Använd någon av våra mallar direkt i appen. Gratis att börja, ingen kortuppgift krävs.
           </p>
           <Link
             href="/dashboard/cv-mallar"
@@ -331,6 +436,50 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
           </Link>
         </div>
       </section>
+    </div>
+  )
+}
+
+// ============================================================================
+// Hjalp-komponenter
+// ============================================================================
+
+function SectionWrapper({ children, narrow }: { children: React.ReactNode; narrow?: boolean }) {
+  return (
+    <section className={`container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 ${narrow ? 'max-w-3xl' : 'max-w-6xl'}`}>
+      {children}
+    </section>
+  )
+}
+
+function SectionTitle({
+  eyebrow,
+  title,
+  description,
+  color = 'orange',
+}: {
+  eyebrow: string
+  title: string
+  description?: string
+  color?: 'orange' | 'emerald'
+}) {
+  const eyebrowColor = color === 'emerald'
+    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+    : 'bg-orange-50 text-orange-700 border-orange-200'
+
+  return (
+    <div className="text-center mb-8 sm:mb-10">
+      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] border ${eyebrowColor} mb-4`}>
+        {eyebrow}
+      </div>
+      <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3 leading-[1.1]">
+        {title}
+      </h2>
+      {description && (
+        <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          {description}
+        </p>
+      )}
     </div>
   )
 }
