@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FileText, Mail } from 'lucide-react'
+import { FileText, Mail, LayoutTemplate } from 'lucide-react'
 import {
   IconVard,
   IconTech,
@@ -54,8 +54,8 @@ export default function ExempelPopulara() {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Tolv yrken som tusentals söker jobb inom varje månad. Klicka för CV
-            eller personligt brev.
+            Tolv yrken som tusentals söker jobb inom varje månad. Välj CV-exempel,
+            CV-mall eller personligt brev.
           </p>
         </motion.div>
 
@@ -91,9 +91,16 @@ export default function ExempelPopulara() {
                       className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
                     >
                       <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
-                      Se CV
+                      Se CV-exempel
                     </Link>
                   )}
+                  <Link
+                    href={`/cv-mallar/${yrke.slug}`}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
+                  >
+                    <LayoutTemplate className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    Se CV-mallar
+                  </Link>
                   {yrke.hasBrev && (
                     <Link
                       href={`/personligt-brev-exempel/${yrke.slug}`}
@@ -104,7 +111,7 @@ export default function ExempelPopulara() {
                       }}
                     >
                       <Mail className="w-3.5 h-3.5" strokeWidth={2.5} />
-                      Se brev
+                      Se brev-exempel
                     </Link>
                   )}
                 </div>
