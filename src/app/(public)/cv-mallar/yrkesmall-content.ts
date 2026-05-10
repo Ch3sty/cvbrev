@@ -771,69 +771,346 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   },
 
   'underskoterska': {
+    seoIntro:
+      'Som undersköterska är du ryggraden i svensk vård. Region- och kommunala arbetsgivare har tusentals öppna tjänster varje månad, och konkurrensen sker inte om jobben utan om vilken arbetsplats och vilket schema du får. Ett välskrivet CV avgör om du blir kallad till intervju på den avdelning du vill jobba på, eller hamnar i en bemanningspool för långtidsvikariat.\n\nVår mall för undersköterskor lyfter aktiva medicinska delegeringar, specialiseringar och dokumentationssystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, tidsperiod och patientvolym syns direkt. Det betyder att enhetschefer i hemtjänsten eller på äldreboendet kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsprogrammet eller motsvarande vuxenutbildning, aktiva delegeringar (insulin, PEG, subkutana injektioner, blodtrycksmätning) med datum, klinisk erfarenhet uppdelad per arbetsplats, dokumentationssystem (Cosmic, Procapita, Pascal, NPÖ), specialiseringar (demens-BPSD, palliativ, geriatrik), och certifikat (HLR, Akta Ryggen, basala hygienrutiner) med utgångsdatum.\n\nNedan hittar du två CV-mallar designade för undersköterskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst, äldreomsorg och slutenvård faktiskt letar efter. Ladda ner mallen gratis och anpassa den efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Aktiva delegeringar i klartext',
+        description: 'Insulin, PEG-sondmatning, subkutana injektioner, blodtrycksmätning, sårvård. Varje delegering öppnar specifika tjänster. Lista vilka du har aktiva och när de senast förnyades så enhetschefen kan matcha dig direkt.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Patientvolymer och arbetsplatser',
+        description: 'Skriv hur många brukare du ansvarat för per pass. I hemtjänst kan det vara 8-12 besök per dag, på äldreboende 8-15 boende, på sjukhusavdelning 6-8. Volymerna visar din erfarenhet bättre än antal år ensamt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Specialiseringar lyfter ditt värde',
+        description: 'Demensvård och BPSD-hantering, palliativ vård, geriatrik, psykiatri, eller arbete med personer med funktionsvariationer. Varje specialisering öppnar olika tjänster och påverkar lönen direkt.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Dokumentationssystem du behärskar',
+        description: 'Cosmic används i regional slutenvård. Procapita dominerar i kommunal äldreomsorg. Pascal är förskrivningsmodul. NPÖ är gemensam patientöversikt. Skriv ut systemnamnen så Heroma och Visma Recruit kan filtrera fram dig.',
+      },
+      {
+        icon: 'Target',
+        title: 'Certifikat med utgångsdatum',
+        description: 'HLR förnyas vart annat år. Akta Ryggen och basala hygienrutiner förnyas regelbundet. Lista varje certifikat med utfärdande datum så enhetschefen direkt ser vad som är aktuellt.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Tillgänglighet för olika scheman',
+        description: 'Hemtjänst kräver ofta körkort och bil. Äldreboenden har rotationsschema med kvällar och helger. Sjukvård kräver oftast nattjour. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Delegeringar lyfts överst i sidopanelen',
+        description: 'Vi har gjort medicinska delegeringar till första visuella element så enhetschefer kan bekräfta dem direkt. Insulin, PEG och subkutana är de tyngsta och de syns utan att man behöver scrolla.',
+      },
+      {
+        title: 'Klinisk erfarenhet per arbetsplats',
+        description: 'Mallen separerar arbetsplatser (hemtjänst, äldreboende, sjukhus, LSS) så patientgrupper och vårdtyngd syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för certifikat',
+        description: 'HLR, Akta Ryggen, basala hygienrutiner, BPSD och nutrition har egen sektion med utgångsdatum. Vi har sett att enhetschefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
+      },
+      {
+        title: 'Premium-mallen lägger till foto',
+        description: 'För hemtjänst och kundnära roller där relationer värderas, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Sober färgsättning för vårdsektorn',
+        description: 'Vården värderar saklighet. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet. Inget i mallen drar fokus från meritbilden eller signalerar oprofessionellt.',
+      },
+      {
+        title: 'Plats för språkkunskaper i sidopanelen',
+        description: 'I Sverige möter du patienter med olika språkbakgrund. Mallen har dedikerat språkblock i sidopanelen där arabiska, persiska, somaliska, tigrinja och andra efterfrågade språk syns direkt för rekryterare.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personcentrerad omvårdnad och ADL',
+        punkter: [
+          'Hjälp med daglig livsföring: hygien, måltider, påklädning, förflyttning',
+          'Stötta patienter och brukare i att bibehålla självständighet och värdighet',
+          'Identifiera förändrade behov och rapportera till sjuksköterska eller chef',
+          'Anpassa omvårdnadsåtgärder efter individens kognitiva förmåga och kultur',
+        ],
+      },
+      {
+        rubrik: 'Medicinska delegeringar och behandling',
+        punkter: [
+          'Ge insulin, ögondroppar och subkutana injektioner enligt delegering',
+          'Hantera PEG-sondmatning, sårvård, kompressionsbehandling och katetervård',
+          'Mäta blodtryck, blodsocker, puls och temperatur enligt ordination',
+          'Rapportera avvikelser och delta i avvikelsehantering enligt Lex Sarah',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och rapportering',
+        punkter: [
+          'Dokumentera omvårdnadsåtgärder i Cosmic, Procapita eller motsvarande',
+          'Skriva genomförandeplaner med fokus på personcentrerade mål',
+          'Rapportera muntligt och skriftligt vid skiftbyten',
+          'Hantera sekretess och integritetsfrågor enligt OSL och patientdatalagen',
+        ],
+      },
+      {
+        rubrik: 'Demens- och BPSD-hantering',
+        punkter: [
+          'Tillämpa personcentrerat förhållningssätt vid demenssjukdom',
+          'Hantera BPSD-symtom (oro, vandring, aggressivitet) med icke-farmakologiska metoder',
+          'Använda bemötandeplaner och struktur i vardagen för trygghet',
+          'Stödja anhöriga med information och stöttning vid svåra situationer',
+        ],
+      },
+      {
+        rubrik: 'Palliativ och slutskedesvård',
+        punkter: [
+          'Genomföra palliativ omvårdnad enligt nationella riktlinjer',
+          'Stötta patient och anhöriga vid livets slutskede med närvaro och respekt',
+          'Hantera smärtskattning, munvård och hudvård i livets slut',
+          'Delta i brytpunktssamtal och vårdplaneringsmöten',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, ramverk för all sjukvård i Sverige.' },
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, gäller kommunal omsorg och hemtjänst.' },
+          { term: 'PDL', forklaring: 'Patientdatalagen, reglerar journalföring och dokumentation.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller all offentlig vård.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst eller LSS.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskador inom hälso- och sjukvård.' },
+        ],
+      },
+      {
+        kategori: 'Delegeringar och certifikat',
+        termer: [
+          { term: 'Insulindelegering', forklaring: 'Rätt att administrera insulin enligt sjuksköterskas ordination.' },
+          { term: 'PEG-delegering', forklaring: 'Rätt att hantera PEG-sondmatning och vätsketillförsel.' },
+          { term: 'Subkutan delegering', forklaring: 'Rätt att ge subkutana injektioner (smärtlindring, blodförtunnande).' },
+          { term: 'Akta Ryggen', forklaring: 'Certifierad förflyttningsteknik för att skydda din rygg och brukarens säkerhet.' },
+          { term: 'HLR-certifikat', forklaring: 'Hjärt-lungräddning, förnyas vart annat år och krävs på de flesta arbetsplatser.' },
+          { term: 'Basala hygienrutiner', forklaring: 'Grundkrav på alla vårdarbetsplatser, certifikat förnyas regelbundet.' },
+        ],
+      },
+      {
+        kategori: 'Specialiseringar och vårdmetoder',
+        termer: [
+          { term: 'BPSD', forklaring: 'Beteendemässiga och Psykiska Symtom vid Demens, eget metodområde.' },
+          { term: 'Personcentrerad vård', forklaring: 'Brukaren i centrum med fokus på individens behov och självbestämmande.' },
+          { term: 'IBIC', forklaring: 'Individens Behov i Centrum, behovsbedömningsmodell i kommunal vård.' },
+          { term: 'Palliativ vård', forklaring: 'Lindrande vård i livets slutskede med fokus på livskvalitet.' },
+          { term: 'Sårvård', forklaring: 'Bedömning, omläggning och uppföljning av sår enligt evidensbaserade metoder.' },
+          { term: 'Geriatrik', forklaring: 'Specialitet inom äldre och åldrandets sjukdomar.' },
+        ],
+      },
+      {
+        kategori: 'Dokumentation och IT',
+        termer: [
+          { term: 'Cosmic', forklaring: 'Vanligaste journalsystemet i regional slutenvård.' },
+          { term: 'Procapita', forklaring: 'Verksamhetssystem som dominerar kommunal äldreomsorg och hemtjänst.' },
+          { term: 'Lifecare', forklaring: 'Verksamhetssystem för omsorgsplanering i flera kommuner.' },
+          { term: 'Pascal', forklaring: 'Förskrivningsmodul för läkemedel kopplad till Socialstyrelsens register.' },
+          { term: 'NPÖ', forklaring: 'Nationell patientöversikt över region- och vårdgränser.' },
+          { term: 'Genomförandeplan', forklaring: 'Dokument som beskriver hur en brukares behov ska tillgodoses.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal vård och omsorg',
+        exempel: [
+          'Hemtjänst i 290 kommuner runt om i Sverige',
+          'Vård- och omsorgsboenden för äldre',
+          'LSS-boenden för personer med funktionsvariationer',
+          'Korttidsboenden och dagverksamhet',
+        ],
+      },
+      {
+        kategori: 'Region och slutenvård',
+        exempel: [
+          'Sjukhus och vårdavdelningar',
+          'Akutmottagningar och prehospital vård',
+          'Specialistmottagningar och dagvård',
+          'Geriatriska kliniker och rehabilitering',
+        ],
+      },
+      {
+        kategori: 'Privat vård och bemanning',
+        exempel: [
+          'Privata äldreboenden (Attendo, Vardaga, Humana)',
+          'Privata vårdcentraler och hemtjänstutförare',
+          'Bemanningsbolag (Dedicare, Empleo)',
+          'Personlig assistans (Frösunda, Nytida)',
+        ],
+      },
+      {
+        kategori: 'Övriga arbetsgivare',
+        exempel: [
+          'Företagshälsa och försäkringsbolag',
+          'Skolor och förskolor med särskilda behov',
+          'Habilitering och rehabilitering',
+          'Hospice och palliativa enheter',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Vård- och omsorgsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning omvårdnad, akutsjukvård, hälso- och sjukvård eller funktionsnedsättning. Innehåller praktikperioder hos olika arbetsgivare. Examen ger skyddad yrkestitel undersköterska från 1 juli 2023.',
+      },
+      {
+        rubrik: 'Vuxenutbildning Komvux (1-2 år)',
+        beskrivning: 'Komvux erbjuder vård- och omsorgsutbildning med samma kurser som gymnasieprogrammet, anpassad för vuxna. Vanlig väg för yrkesväxlare och nyanlända med utländsk vårdutbildning.',
+      },
+      {
+        rubrik: 'Yrkeshögskola (1-2 år)',
+        beskrivning: 'YH-utbildningar som specialistundersköterska inom demens, psykiatri, palliativ vård eller akutsjukvård. Ger fördjupning utöver grundutbildningen och högre lön.',
+      },
+      {
+        rubrik: 'Validering av utländsk utbildning',
+        beskrivning: 'Har du utländsk vårdutbildning kan du validera den genom Socialstyrelsen och eventuellt komplettera med svenska och fackspråk. Många kommuner erbjuder anpassade introduktionsprogram för validerade kandidater.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
         'ADL-stöd och personcentrerad omvårdnad',
-        'Medicinsk delegering (insulin, PEG, subkutana)',
-        'Demensvård och BPSD-hantering',
-        'Dokumentation i Cosmic och Procapita',
+        'Medicinsk delegering: insulin, PEG, subkutana injektioner',
+        'Demensvård och BPSD-hantering enligt nationella riktlinjer',
+        'Dokumentation i Cosmic, Procapita, Lifecare och Pascal',
         'Akta Ryggen-certifierad förflyttningsteknik',
-        'Basala hygienrutiner',
-        'Sårvård och inkontinensvård',
-        'Palliativ omvårdnad',
+        'Basala hygienrutiner och vårdhygien',
+        'Sårvård, kompressionsbehandling och katetervård',
+        'Palliativ omvårdnad och munvård i livets slut',
+        'Smärtskattning enligt VAS och Abbey Pain Scale',
+        'Genomförandeplaner enligt IBIC',
+        'A-HLR och D-HLR med aktuellt certifikat',
+        'Nutritionsbedömning och kosthållning',
       ],
       personliga: [
         'Empati och relationsskapande',
         'Stresstålig i akuta situationer',
         'Tvärprofessionellt samarbete',
-        'Lyhördhet och kommunikation',
+        'Lyhördhet och kulturell kompetens',
         'Initiativförmåga och problemlösning',
+        'Pedagogisk i mötet med oroliga anhöriga',
+        'Etisk medvetenhet vid svåra avvägningar',
       ],
     },
-    profilExempel: 'Erfaren undersköterska med 5+ års erfarenhet av personcentrerad vård inom geriatrik och hemtjänst. Gedigen kompetens i ADL-stöd, demensvård och medicinsk delegering (insulin, PEG, subkutana). Stresstålig lagspelare som skapar trygghet för patienter genom empati, kommunikation och evidensbaserad omvårdnad.',
-    profilTips: 'Antal år, primärt verksamhetsområde och din kärnkompetens i öppningen. Andra meningen specificerar dina delegeringar och specialiseringar. Tredje meningen lyfter värderingar och arbetssätt.',
+
+    profilExempel:
+      'Erfaren undersköterska med 5+ års erfarenhet av personcentrerad vård inom geriatrik och hemtjänst. Gedigen kompetens i ADL-stöd, demensvård och medicinsk delegering (insulin, PEG, subkutana). Stresstålig lagspelare som skapar trygghet för patienter genom empati, kommunikation och evidensbaserad omvårdnad.',
+
+    profilTips:
+      'Antal år, primärt verksamhetsområde och din kärnkompetens i öppningsraden. Andra meningen specificerar dina aktiva delegeringar och specialiseringar. Tredje meningen lyfter värderingar och arbetssätt som differentierar dig.',
+
     rekryterarTipsen: [
       {
-        rubrik: 'Medicinsk delegering är CV-kritiskt',
-        text: 'Vilka delegeringar har du genomgått? Insulin, PEG-sondmatning, subkutana injektioner, blodtrycksmätning. Lista varje delegering eftersom det avgör vilka tjänster du kan söka.',
+        rubrik: 'Aktiva medicinska delegeringar är avgörande',
+        text: 'Insulin, PEG-sondmatning, subkutana injektioner, blodtrycksmätning, sårvård. Lista varje aktiv delegering eftersom det avgör vilka tjänster du kan söka och vilken lön du kan förhandla.',
       },
       {
         rubrik: 'Specialiseringar gör skillnad',
-        text: 'Demensvård (BPSD), palliativ vård, geriatrik, hemtjänst, akutvård. Varje specialisering öppnar olika tjänster. Lyft den du har mest erfarenhet av i din titel och sammanfattning.',
+        text: 'Demensvård (BPSD), palliativ vård, geriatrik, hemtjänst, psykiatri. Varje specialisering öppnar olika tjänster. Lyft den du har mest erfarenhet av i din titel och sammanfattning.',
       },
       {
-        rubrik: 'System du behärskar',
-        text: 'Cosmic, Procapita, Pascal, NPÖ. Nämn de dokumentationssystem du arbetat med. Det är ATS-keywords som rekryterare filtrerar på.',
+        rubrik: 'Dokumentationssystem du behärskar',
+        text: 'Cosmic, Procapita, Lifecare, Pascal, NPÖ. Nämn de system du arbetat med så Heroma och Visma Recruit kan filtrera fram dig. Olika kommuner använder olika system.',
+      },
+      {
+        rubrik: 'Kvantifiera din arbetsbelastning',
+        text: 'Antal brukare per pass, antal hembesök per dag, vilka diagnosgrupper du jobbat med. Konkreta siffror skiljer ett starkt CV från ett genomsnittligt och visar enhetschefen din kapacitet.',
+      },
+      {
+        rubrik: 'Språkkunskaper är värdefulla',
+        text: 'Arabiska, persiska, somaliska, tigrinja, finska, polska. Språkkunskap öppnar tjänster där brukargruppen inte talar svenska som modersmål. Lägg dem synligt i sidopanelen.',
+      },
+      {
+        rubrik: 'Vidareutbildning visar engagemang',
+        text: 'BPSD-utbildning, sårvårdskurs, palliativ vård, validerad nutritionsbedömning. Kontinuerlig fortbildning signalerar att du tar ansvar för din yrkesutveckling och är meriterande för specialist-tjänster.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, primärt vårdområde, dina delegeringar och certifikat.' },
-      { sektion: 'Erfarenhet', tips: 'Arbetsplats + tidsperiod + patientantal/dag. Konkreta åtgärder och resultat. Använd siffror där det går (15% minskade fall, 20+ patienter).' },
-      { sektion: 'Utbildning', tips: 'Vård- och omsorgsprogrammet eller motsvarande vuxenutbildning. Aktuella delegeringar med datum.' },
-      { sektion: 'Kompetenser', tips: 'Dokumentationssystem, behandlingar, certifikat. Var specifik om vilka delegeringar du har aktiva.' },
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, primärt vårdområde, dina aktiva delegeringar och specialiseringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Arbetsplats med tidsperiod och patientantal per dag. Konkreta åtgärder och resultat. Använd siffror där det går (15% minskade fall, 20+ brukare).' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorgsprogrammet eller motsvarande vuxenutbildning med år. Eventuella YH-utbildningar och valideringar.' },
+      { sektion: 'Kompetenser', tips: 'Dokumentationssystem, behandlingar, certifikat. Var specifik om vilka delegeringar du har aktiva och när de senast förnyades.' },
+      { sektion: 'Vidareutbildning', tips: 'BPSD, sårvård, palliativ vård, nutrition. Aktuella kurser med datum och eventuella certifieringar.' },
+      { sektion: 'Övrigt', tips: 'Körkort B (ofta krav i hemtjänst), tillgänglighet för rotationsschema, språkkunskaper utöver svenska.' },
     ],
+
     checklista: [
       'Vård- och omsorgsutbildning från gymnasium eller vuxenutbildning',
-      'Medicinska delegeringar (specifika: insulin, PEG, etc)',
+      'Aktiva medicinska delegeringar (specifika: insulin, PEG, etc)',
       'HLR-certifiering med utgångsdatum',
-      'Akta Ryggen / förflyttningsteknik',
+      'Akta Ryggen eller motsvarande förflyttningsteknik',
       'Basala hygienrutiner',
-      'Erfarenhet av dokumentationssystem (Cosmic, Procapita)',
+      'Erfarenhet av specifika dokumentationssystem',
       'Specialiseringar: demens, palliativ, geriatrik, hemtjänst',
+      'Patientvolymer per arbetsplats i klartext',
+      'Språkkunskaper utöver svenska',
+      'Körkort B om du söker hemtjänst',
     ],
-    atsInfo: 'Ja, både Norrsken och Vården-mallen är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt.',
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt. Inkludera systemnamnen (Cosmic, Procapita) i klartext eftersom rekryterare filtrerar exakta termer.',
+
     faqItems: [
       {
-        q: 'Vad är viktigast på ett undersköterska-CV?',
-        a: 'Tre saker. Utbildning från vård- och omsorgsprogrammet (eller motsvarande vuxenutbildning). Aktiva medicinska delegeringar. Konkret klinisk erfarenhet med arbetsplatser. Allt det visar Vården-mallen tydligt.',
+        q: 'Vad ska finnas med i ett undersköterska-CV?',
+        a: 'Vård- och omsorgsutbildning eller motsvarande, aktiva medicinska delegeringar (insulin, PEG, subkutana), klinisk erfarenhet med arbetsplats och patientvolymer, dokumentationssystem (Cosmic, Procapita), certifikat (HLR, Akta Ryggen, basala hygienrutiner) med utgångsdatum, specialiseringar (demens, palliativ, geriatrik), och språkkunskaper. Lägg till körkort B om du söker hemtjänst.',
+      },
+      {
+        q: 'Hur skriver jag CV som undersköterska utan tidigare erfarenhet?',
+        a: 'Lyft praktikperioder från vård- och omsorgsprogrammet med arbetsplats, antal veckor och vad du fick göra. Om du har tidigare arbete inom service, omsorg eller stöd, koppla det till vårdrollen genom mjuka kompetenser. Praktiska kurser (HLR, hygien, BPSD) väger tungt. Skriv ut din vilja och förmåga att lära dig och vara öppen för rotation.',
+      },
+      {
+        q: 'Vilka delegeringar är viktigast att lyfta på CV:t?',
+        a: 'Insulin är den vanligaste och mest efterfrågade. PEG-sondmatning öppnar tjänster på äldreboenden och hemtjänst för komplicerade brukare. Subkutana injektioner krävs för smärtbehandling i palliativ vård. Lista alla aktiva delegeringar med datum eftersom enhetschefer matchar varje tjänst mot specifika krav.',
+      },
+      {
+        q: 'Hur lång ska ett undersköterska-CV vara?',
+        a: 'En sida räcker för de flesta. Om du har 10+ års erfarenhet, flera specialiseringar och vidareutbildningar kan det bli 1,5 sidor. Det viktigaste är att din utbildning, dina delegeringar och din senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
       },
       {
         q: 'Ska jag ha med foto på undersköterska-CV?',
-        a: 'Inte obligatoriskt men vanligt i Sverige. Vården-mallen har stöd för foto i sidopanelen. Använd ett professionellt bröstbild om du har en. ATS läser ditt CV ändå eftersom mallen är ATS-säker.',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom vården. Vår premium-mall Vården har stöd för foto i sidopanelen. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker.',
       },
       {
         q: 'Hur lyfter jag mina språkkunskaper på CV:t?',
-        a: 'Språk är värdefullt i vården eftersom du möter patienter med olika bakgrund. Lista dem i sidopanelen med nivå (modersmål, flytande, konversation). Arabiska, persiska, somaliska och tigrinja är efterfrågade i många regioner.',
+        a: 'Språk är värdefullt i vården eftersom du möter patienter med olika bakgrund. Lista dem i sidopanelen med nivå (modersmål, flytande, konversation). Arabiska, persiska, somaliska, tigrinja, finska och polska är efterfrågade i många regioner och kommuner.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika delegeringar (insulin, PEG, subkutan), system (Cosmic, Procapita, Lifecare, Pascal), specialiseringar (BPSD, palliativ, geriatrik) och certifikat (HLR, Akta Ryggen). Skriv ut termerna i klartext eftersom Heroma och Visma Recruit söker på exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Behöver jag personligt brev till undersköterska-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den arbetsplats och beskriv en specifik situation där du visat din omvårdnadskompetens eller din relation till en brukare. Håll till en sida på 300-400 ord. Ett välskrivet brev kan vara avgörande när två kandidater har liknande CV.',
+      },
+      {
+        q: 'Vilka certifikat och vidareutbildningar är värda att skaffa?',
+        a: 'BPSD-utbildning för demensvård är högt värderad. Sårvårdskurs öppnar tjänster där sårvård är central. Palliativ vård-kurs efterfrågas i hospice och äldreboenden. Validering till specialistundersköterska genom YH-utbildning ger högre lön och fler valmöjligheter. HLR och Akta Ryggen är grundkrav på de flesta arbetsplatser.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt undersköterska-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("god empatisk förmåga") utan stöd, brukar-uppgifter eller sekretessbelagda detaljer, och hobbies som inte är relevanta. Stavfel diskvalificerar direkt eftersom dokumentationsförmåga är central i rollen.',
       },
     ],
   },
@@ -1049,68 +1326,346 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // UTBILDNING
   // ============================================================================
   'larare': {
+    seoIntro:
+      'Som lärare bedöms du på lärarlegitimation, ämnesbehörigheter och din pedagogiska skicklighet i klassrummet. Sveriges 290 kommuner och tusentals fristående skolor söker hela tiden behöriga lärare, och konkurrensen sker oftast om vilken skola och vilka kollegor du får. Ett välskrivet CV avgör om du blir kallad till intervju på din drömskola eller hamnar långt ner i högen.\n\nVår mall för lärare lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och åldersgrupper som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din behörighetsmatchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen med lärosäte och ämnesinriktning, lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat med konkreta siffror, pedagogiska metoder du behärskar (Bornholm, Singapore-matematik, formativ bedömning), IKT-verktyg (Google Classroom, Teams, Schoolsoft), och specialiseringar för elever med särskilda behov.\n\nNedan hittar du två CV-mallar designade för lärarrollen, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola, gymnasium och vuxenutbildning faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Lärarlegitimation och exakta behörigheter',
+        description: 'Skriv åldersgrupp och ämnen exakt som de står på din legitimation. "Behörig åk 4-6 i svenska, matematik och NO" är tydligare än bara "Lärarlegitimation". Behörighetsmatchningen avgör om du ens kan söka tjänsten.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Klassrumsledning med konkreta resultat',
+        description: 'Rektorer värderar lärare som klarar svåra klassrum. Nämn klasstorlek, antal elever med extra anpassningar, måluppfyllelse i specifika ämnen. "95% nådde målen i åk 6 svenska" säger mer än "god pedagogisk förmåga".',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Pedagogiska metoder och program',
+        description: 'Bornholmsmodellen, Singapore-matematik, formativ bedömning enligt Hattie, lågaffektivt bemötande. Var konkret om vilka metoder du behärskar i stället för att skriva "varierad undervisning". Specifika program signalerar ämnesdjup.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Bedömningsstöd och dokumentation',
+        description: 'Skolverkets bedömningsstöd, IUP, Schoolsoft, Vklass, Unikum. Skriv ut systemnamnen så Visma Recruit kan filtrera fram dig. Olika kommuner använder olika system för att dokumentera elevernas utveckling.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Kollegiala uppdrag och utveckling',
+        description: 'Mentorskap, ämneslagsledare, IT-pedagog, förstelärare, IKT-coach. Sådana uppdrag visar att du tar ansvar bortom undervisningen och är meriterande för senior- och utvecklingsroller.',
+      },
+      {
+        icon: 'Target',
+        title: 'NPF-anpassning och särskilt stöd',
+        description: 'Erfarenhet av elever med autism, ADHD, dyslexi eller språkstöd är efterfrågad. Skriv konkret hur du anpassat undervisning, vilka stödinsatser du jobbat med, och resultat. Specialpedagogisk samverkan väger tungt.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Behörigheter lyfts överst',
+        description: 'Vi har gjort lärarlegitimationen och dina exakta behörigheter (åldersgrupp + ämnen) till första visuella element. Rektorer skannar först efter behörighetsmatchning och vår mall ger den synlig på fem sekunder.',
+      },
+      {
+        title: 'Pedagogisk erfarenhet per skola',
+        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående gymnasium, vuxenutbildning) så huvudman och årskurs syns. Du kan visa bredd över olika skolformer utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för pedagogiska metoder',
+        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Vi har sett att rektorer letar specifikt efter metoder de redan använder på skolan.',
+      },
+      {
+        title: 'Premium-mallen lägger till foto',
+        description: 'I lärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn, struktur och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+      },
+      {
+        title: 'Plats för utvecklingsprojekt',
+        description: 'Mentorskap, ämneslagsledare, läsutvecklingsprojekt har egen rad. Det visar att du tar ansvar bortom det dagliga klassrumsarbetet, vilket meriterar för förstelärar- och chefroller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Undervisning och lärande',
+        punkter: [
+          'Planera, genomföra och utvärdera lektioner enligt läroplanen',
+          'Anpassa undervisning för olika elevbehov och lärstilar',
+          'Använda formativ bedömning och feedback för elevernas utveckling',
+          'Implementera ämnesspecifika metoder (Bornholm, Singapore-matte, NTA)',
+        ],
+      },
+      {
+        rubrik: 'Bedömning och dokumentation',
+        punkter: [
+          'Bedöma elevernas kunskap mot kunskapskraven i Lgr22 eller Gy22',
+          'Skriva omdömen och betyg enligt Skolverkets riktlinjer',
+          'Dokumentera elevernas utveckling i Schoolsoft, Vklass eller Unikum',
+          'Genomföra och rätta nationella prov enligt Skolverkets anvisningar',
+        ],
+      },
+      {
+        rubrik: 'Klassrumsledning och elevhälsa',
+        punkter: [
+          'Skapa trygg och studiero i klassrummet med tydliga rutiner',
+          'Hantera konflikter, mobbning och kränkningar enligt Skollagen',
+          'Samverka med elevhälsoteam, specialpedagog och kurator',
+          'Implementera anpassningar för elever med NPF eller särskilt stöd',
+        ],
+      },
+      {
+        rubrik: 'Kontakt med vårdnadshavare',
+        punkter: [
+          'Genomföra utvecklingssamtal med elev och vårdnadshavare 1-2 gånger per termin',
+          'Kommunicera via Schoolsoft, Unikum eller motsvarande plattform',
+          'Hantera oro, klagomål och åtgärdsprogram med juridisk korrekthet',
+          'Bjuda in till föräldramöten och samråd om skolans utveckling',
+        ],
+      },
+      {
+        rubrik: 'Kollegial samverkan',
+        punkter: [
+          'Delta i ämneslag, arbetslag och kollegialt lärande',
+          'Mentor för nya kollegor och VFU-studenter',
+          'Bidra till skolans systematiska kvalitetsarbete (SKA)',
+          'Delta i förbättringsprojekt och utvecklingsuppdrag',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Skollagen', forklaring: 'Reglerar all skolverksamhet i Sverige inklusive elevrätter och skolans ansvar.' },
+          { term: 'Lgr22', forklaring: 'Läroplan för grundskolan från 2022, ersatte Lgr11.' },
+          { term: 'Gy22', forklaring: 'Reviderad läroplan för gymnasieskolan från 2022.' },
+          { term: 'Lpfö 18', forklaring: 'Läroplan för förskolan från 2018.' },
+          { term: 'IUP', forklaring: 'Individuell utvecklingsplan, dokumenteras 1-2 gånger per termin.' },
+          { term: 'Åtgärdsprogram', forklaring: 'Plan för elever som riskerar att inte nå kunskapskraven.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'Bornholmsmodellen', forklaring: 'Strukturerad metod för läs- och skrivinlärning i åk 1-3.' },
+          { term: 'Singapore-matematik', forklaring: 'Visuellt baserad matematikmetod med betoning på begreppsförståelse.' },
+          { term: 'Formativ bedömning', forklaring: 'Bedömning för lärande, fokus på återkoppling under processen.' },
+          { term: 'Hattie/Marzano', forklaring: 'Meta-analyser av vad som faktiskt fungerar i klassrummet.' },
+          { term: 'NTA', forklaring: 'Naturvetenskap och Teknik för Alla, experimentbaserad NO-undervisning.' },
+          { term: 'Lågaffektivt bemötande', forklaring: 'Metod för att hantera utåtagerande beteende lugnt och professionellt.' },
+        ],
+      },
+      {
+        kategori: 'Behörigheter och utbildning',
+        termer: [
+          { term: 'Lärarlegitimation', forklaring: 'Utfärdas av Skolverket och anger exakta behörigheter (åldersgrupp + ämnen).' },
+          { term: 'F-3-behörighet', forklaring: 'Förskoleklass och årskurs 1-3, vanligast för lågstadielärare.' },
+          { term: '4-6-behörighet', forklaring: 'Mellanstadielärare, ofta med specifika ämnen som svenska, matte, NO/SO.' },
+          { term: '7-9-behörighet', forklaring: 'Högstadielärare med ämnesfördjupning i två-tre ämnen.' },
+          { term: 'Gymnasielärare', forklaring: 'Behörig åk 7-gy med fördjupning, oftast två ämnen.' },
+          { term: 'Förstelärare', forklaring: 'Senior pedagogisk roll med utvecklingsuppdrag och högre lön.' },
+        ],
+      },
+      {
+        kategori: 'Digitala verktyg och system',
+        termer: [
+          { term: 'Schoolsoft', forklaring: 'Skoladministrativt system för dokumentation, omdömen och kommunikation.' },
+          { term: 'Vklass', forklaring: 'Lärplattform för uppgifter, dokumentation och föräldrakontakt.' },
+          { term: 'Unikum', forklaring: 'Plattform för IUP, omdömen och elevdokumentation.' },
+          { term: 'Google Classroom', forklaring: 'Lärplattform från Google, vanlig i många skolor.' },
+          { term: 'Microsoft Teams', forklaring: 'Lärplattform från Microsoft för digital undervisning och samverkan.' },
+          { term: 'Skolverkets bedömningsstöd', forklaring: 'Diagnostiska prov för läs-, skriv- och matematikförmåga.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal grundskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Resursskolor och anpassade grundskolor',
+          'Sameskolor och teckenspråkiga skolor',
+        ],
+      },
+      {
+        kategori: 'Fristående skolor och koncerner',
+        exempel: [
+          'Internationella Engelska Skolan (IES)',
+          'Kunskapsskolan, Academedia, Pysslingen',
+          'Waldorfskolor och Montessoriskolor',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Gymnasium och vuxenutbildning',
+        exempel: [
+          'Kommunala gymnasier och fristående gymnasier',
+          'Komvux och vuxenutbildning',
+          'Yrkesgymnasier och lärlingsutbildning',
+          'Folkhögskolor och studieförbund',
+        ],
+      },
+      {
+        kategori: 'Övriga arbetsgivare',
+        exempel: [
+          'SFI och studievägledning',
+          'Specialpedagogiska skolmyndigheten (SPSM)',
+          'Privata utbildningsföretag',
+          'Bemanningsbolag (Lärarjobb, Vikariat.se)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Lärarprogrammet (3,5-5 år)',
+        beskrivning: 'Ämneslärare 7-gy: 5 år, kandidatexamen i ämnen plus pedagogik. Grundlärare F-3 eller 4-6: 4 år. Förskollärare: 3,5 år. VFU-perioder integrerade. Examen ger rätt att söka lärarlegitimation från Skolverket.',
+      },
+      {
+        rubrik: 'KPU - kompletterande pedagogisk utbildning (1,5 år)',
+        beskrivning: 'För dig som redan har akademisk examen i ämnen och vill bli ämneslärare. Innehåller pedagogik, didaktik och VFU. Vanlig väg för yrkesväxlare från andra branscher.',
+      },
+      {
+        rubrik: 'Förstelärarutbildning (deltid)',
+        beskrivning: 'Vidareutbildning till förstelärare med pedagogiskt utvecklingsuppdrag och högre lön. Kräver lärarlegitimation och flera års erfarenhet, ges i kommunal regi eller via lärosäten.',
+      },
+      {
+        rubrik: 'Specialpedagog eller speciallärare (3 år deltid)',
+        beskrivning: 'Vidareutbildning för lärare som vill arbeta med särskilt stöd, åtgärdsprogram och elevhälsa. Magisterexamen krävs. Stark efterfrågan i alla skolformer.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
-        'Lärarlegitimation åk 1-9 (specifika ämnen)',
-        'Lgr22 och kunskapskrav',
+        'Lärarlegitimation från Skolverket med exakta behörigheter',
+        'Lgr22, Gy22 eller Lpfö 18 och kunskapskrav',
         'Bedömningsstöd och formativ bedömning',
-        'Klassrumsledning enligt Hattie/Marzano',
-        'IKT-pedagogik (Google Classroom, Teams)',
-        'Specialpedagogiska metoder (NPF-anpassning)',
-        'Föräldrakommunikation via Schoolsoft/Vklass',
+        'Klassrumsledning enligt Hattie och Marzano',
+        'IKT-pedagogik (Google Classroom, Teams, iPad)',
+        'Specialpedagogiska metoder och NPF-anpassning',
+        'Föräldrakommunikation via Schoolsoft, Vklass, Unikum',
+        'Bornholmsmodellen, Singapore-matematik och NTA',
+        'Lågaffektivt bemötande och konflikthantering',
+        'Nationella prov och diagnostiska prov',
+        'IUP, åtgärdsprogram och anpassningar',
+        'Mentorskap för VFU-studenter och nya kollegor',
       ],
       personliga: [
         'Tydlig och strukturerad i klassrummet',
-        'Empatisk och relationsskapande',
+        'Empatisk och relationsskapande med elever',
         'Pedagogisk i kollegial samverkan',
-        'Tålmodig med olikheter',
-        'Drivkraft för elevutveckling',
+        'Tålmodig med olikheter och lärsvårigheter',
+        'Drivkraft för elevernas utveckling',
+        'Lyhörd för kulturella och språkliga skillnader',
+        'Etisk medvetenhet i bedömningar',
       ],
     },
-    profilExempel: 'Behörig grundskollärare åk 4-6 med 7 års erfarenhet från kommunal grundskola. Ämnesbehörighet i svenska, matematik och NO. 95% av eleverna nådde målen i åk 6 svenska under läsåret 2024 efter implementering av strukturerad läsförståelseundervisning enligt Bornholmsmodellen.',
-    profilTips: 'Behörighet (åldersgrupp + ämnen), år av erfarenhet, kommunal eller fristående huvudman. Konkret elevresultat eller utvecklingsprojekt som differentierar dig.',
+
+    profilExempel:
+      'Behörig grundskollärare åk 4-6 med 7 års erfarenhet från kommunal grundskola. Ämnesbehörighet i svenska, matematik och NO. 95% av eleverna nådde målen i åk 6 svenska under läsåret 2024 efter implementering av strukturerad läsförståelseundervisning enligt Bornholmsmodellen.',
+
+    profilTips:
+      'Behörighet (åldersgrupp + ämnen), år av erfarenhet, kommunal eller fristående huvudman. Andra meningen lyfter konkret elevresultat eller utvecklingsprojekt. Tredje meningen visar specialiseringar eller kollegiala uppdrag som differentierar dig.',
+
     rekryterarTipsen: [
       {
-        rubrik: 'Lärarlegitimation och behörigheter är CV-kritiskt',
-        text: 'Skriv exakt vilka åldersgrupper och ämnen du är behörig i. "Lärarlegitimation åk 1-6 i svenska, matematik och NO" är tydligare än bara "Lärarlegitimation". Det avgör om du över huvud taget kan söka tjänsten.',
+        rubrik: 'Lärarlegitimation och exakta behörigheter',
+        text: 'Skriv åldersgrupp och ämnen exakt som de står på din legitimation. "Behörig åk 4-6 i svenska, matematik och NO" är tydligare än bara "Lärarlegitimation". Det avgör om du över huvud taget kan söka tjänsten.',
       },
       {
         rubrik: 'Klassrumsledning över ämneskompetens',
-        text: 'Rektorer söker lärare som klarar klassrumsmiljö. Nämn konkret: storlek på klasser du haft, antal elever med extra anpassningar, hur du hanterat svåra grupper. Ämneskompetens är förmodat — klassrumsledning skiljer ut dig.',
+        text: 'Rektorer söker lärare som klarar klassrumsmiljö. Nämn klasstorlek, antal elever med extra anpassningar, hur du hanterat svåra grupper. Ämneskompetens är förmodat, klassrumsledning skiljer ut dig.',
       },
       {
         rubrik: 'Kollegial samverkan och utvecklingsprojekt',
-        text: 'Har du varit med i ämneslag, drivit kollegialt lärande, eller arbetat med läs-/skrivutveckling? Det är efterfrågat. Skriv konkret om resultat: "ledde implementering av Bornholmsmodellen i åk 1, 95% nådde målet".',
+        text: 'Har du varit med i ämneslag, drivit kollegialt lärande, eller arbetat med läs- och skrivutveckling? Skriv konkret om resultat: "ledde implementering av Bornholmsmodellen i åk 1, 95% nådde målet".',
+      },
+      {
+        rubrik: 'Konkret elevresultat',
+        text: 'Måluppfyllelse i specifika ämnen, framsteg på nationella prov, minskat avhopp. Konkreta siffror skiljer ett starkt CV från ett genomsnittligt och ger rektorn en bild av din effektivitet.',
+      },
+      {
+        rubrik: 'NPF och särskilt stöd',
+        text: 'Erfarenhet av elever med autism, ADHD, dyslexi eller språkstöd är efterfrågad. Beskriv typ av stöd, anpassningar och resultat. "100% av eleverna med autism nådde kunskapskraven" är konkret.',
+      },
+      {
+        rubrik: 'Digital pedagogik och IKT',
+        text: 'Google Classroom, Teams, iPad-användning i undervisning, programmeringsundervisning, AI-verktyg. Digital kompetens är allt viktigare 2026 och visar att du kan möta elevernas verklighet.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'Behörighet (åldersgrupp + ämnen), år av erfarenhet, primär huvudman, dina resultat eller specialiseringar.' },
-      { sektion: 'Erfarenhet', tips: 'Skola + huvudman + tidsperiod + årskurs. Konkreta uppdrag (mentorskap, ämneslagsledare, IT-pedagog).' },
-      { sektion: 'Utbildning', tips: 'Lärarexamen + lärosäte + ämneskombination. VFU-skolor om relevanta. Vidareutbildningar (NPF-kurs, lågaffektivt bemötande).' },
-      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, IKT-verktyg, specialpedagogiska anpassningar du behärskar.' },
+      { sektion: 'Sammanfattning', tips: 'Behörighet (åldersgrupp + ämnen), år av erfarenhet, primär huvudman. Konkreta resultat eller specialiseringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Skola, huvudman, tidsperiod, årskurs. Konkreta uppdrag (mentorskap, ämneslagsledare, IT-pedagog) och elevresultat.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen, lärosäte, ämneskombination med år. VFU-skolor om relevanta. Vidareutbildningar (NPF-kurs, lågaffektivt bemötande, förstelärare).' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, IKT-verktyg, specialpedagogiska anpassningar. Skriv ut systemnamn (Schoolsoft, Vklass) i klartext.' },
+      { sektion: 'Vidareutbildning', tips: 'NPF-kurs, läsutvecklingscertifikat, förstelärare-uppdrag. Ange utbildare och år. Visa kontinuerlig kompetensutveckling.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet för olika tjänster (heltid, deltid, vikariat).' },
     ],
+
     checklista: [
       'Lärarexamen med specifika åldersgrupper och ämnen',
-      'Lärarlegitimation från Skolverket',
+      'Lärarlegitimation från Skolverket med exakta behörigheter',
       'Behörighet i specifika ämnen (svenska, matematik, NO, etc)',
-      'VFU-skolor och handledningserfarenhet',
-      'Pedagogiska program och metoder du behärskar',
-      'Kollegialt lärande / ämneslagsarbete',
-      'Eventuella specialiseringar (NPF, läs-/skrivutveckling, etc)',
+      'VFU-skolor och eventuella handledningsuppdrag',
+      'Pedagogiska metoder du behärskar (Bornholm, formativ bedömning)',
+      'Kollegialt lärande och eventuella utvecklingsuppdrag',
+      'Specialiseringar (NPF, läs- och skrivutveckling, programmering)',
+      'IKT-verktyg och digitala system du arbetat i',
+      'Konkreta elevresultat och måluppfyllelse',
+      'Mentor- eller förstelärarmeritering',
     ],
-    atsInfo: 'Ja, både Norrsken (gratis) och Pedagog-mallen (premium) är ATS-säkra. Kommuner använder oftast Visma Recruit för lärartjänster. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen — det är exakta sökord rekryterare filtrerar på.',
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen, eftersom det är exakta sökord rekryterare filtrerar på. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) så ATS kan parsa dem.',
+
     faqItems: [
       {
-        q: 'Hur skiljer sig CV för lärare från andra yrken?',
-        a: 'Behörigheter är centrala och måste vara absolut korrekta. Ange åldersgrupp + ämne enligt din legitimation. Klassrumsstorlek och elevprofil är CV-stoff som inte finns i andra yrken. Pedagogiska metoder du behärskar väger tyngre än generiska "kommunikationsförmåga".',
+        q: 'Vad ska finnas med i ett lärar-CV?',
+        a: 'Lärarexamen med lärosäte, lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning med konkreta resultat, pedagogiska metoder du behärskar, IKT-verktyg, eventuella specialiseringar (NPF, läs- och skrivutveckling), och kollegiala uppdrag. Lägg till språkkunskaper och handledarmeritering om du söker senior-roller.',
       },
       {
-        q: 'Ska jag nämna kommunala upphandlingsavtal?',
-        a: 'Bara om du sökt en specifik kommun där det är avgörande. Generellt fokus på din pedagogiska identitet, dina metoder, dina resultat med elever. Det är vad rektorer värderar mest.',
+        q: 'Hur skriver jag CV som nyutexaminerad lärare?',
+        a: 'Lyft VFU-perioder med skola, antal veckor och vad du fick göra. Inkludera examensarbete med titel och eventuell publicering. Praktiska kurser, programmering eller specialpedagogik från utbildningen, tidigare erfarenhet av barn (ledarskap, fritids, idrott), och språkkunskaper väger tungt. Skriv ut din vilja att lära och vara öppen för olika skolformer. Många kommuner har strukturerade introduktionsprogram för nyexade.',
+      },
+      {
+        q: 'Hur skiljer sig CV för lärare från andra yrken?',
+        a: 'Behörigheter är centrala och måste vara absolut korrekta. Ange åldersgrupp och ämne exakt enligt din legitimation. Klasstorlek, elevprofil och måluppfyllelse är CV-stoff som inte finns i andra yrken. Pedagogiska metoder du behärskar väger tyngre än generiska "kommunikationsförmåga". Och kollegial samverkan är meriterande för senior-roller.',
       },
       {
         q: 'Hur lyfter jag erfarenhet av elever med särskilt stöd?',
-        a: 'Skriv konkret om typ av stöd (NPF, dyslexi, språkstöd) och hur du arbetat. "Anpassade undervisning för 4 elever med autism, 100% nådde kunskapskraven i åk 6" säger mer än "har erfarenhet av elever med särskilt stöd".',
+        a: 'Skriv konkret om typ av stöd (NPF, dyslexi, språkstöd, AKK) och hur du arbetat. "Anpassade undervisning för 4 elever med autism, 100% nådde kunskapskraven i åk 6" säger mer än "har erfarenhet av elever med särskilt stöd". Inkludera samverkan med specialpedagog, kurator och elevhälsoteam. Konkreta åtgärder och resultat differentierar dig från andra kandidater.',
+      },
+      {
+        q: 'Vilka pedagogiska metoder är värda att lyfta på CV:t?',
+        a: 'Bornholmsmodellen för läsinlärning, Singapore-matematik för matematikförståelse, NTA för NO, formativ bedömning enligt Hattie, lågaffektivt bemötande för konflikthantering. Programmering och digital pedagogik blir allt viktigare. Var konkret om vilka metoder du faktiskt använt och vilka resultat du sett, inte bara vilka kurser du gått.',
+      },
+      {
+        q: 'Hur lång ska ett lärar-CV vara?',
+        a: 'En sida räcker för nyutexaminerade. Med 5-10 års erfarenhet är 1,5-2 sidor lagom. Förstelärare och specialpedagoger kan ha upp till 2,5 sidor. Det viktiga är att lärarlegitimation, behörigheter och senaste tjänsten syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika behörigheter (åk 4-6, åk 7-9, gymnasielärare i svenska, matematik), läroplanen (Lgr22, Gy22, Lpfö 18), pedagogiska metoder (Bornholm, formativ bedömning), system (Schoolsoft, Vklass, Unikum) och eventuella specialiseringar (NPF, dyslexi, programmering). Heroma och Visma Recruit söker exakt på dessa termer i jobbannonsens språk.',
+      },
+      {
+        q: 'Behöver jag personligt brev till lärartjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just den skola och beskriv en specifik situation där du visat din pedagogiska förmåga. Beskriv en elev du hjälpt, ett utvecklingsprojekt du drivit, eller hur du jobbat med en svår grupp. Håll till en sida på 300-400 ord. Ett välskrivet brev kan vara avgörande när två kandidater har liknande CV.',
+      },
+      {
+        q: 'Ska jag inkludera elever som referenser?',
+        a: 'Nej, aldrig. Använd istället tidigare rektor, biträdande rektor, ämneslagsledare eller VFU-handledare som referenser. Skriv "Referenser lämnas på begäran" på CV:t och förbered en lista med 2-3 personer du frågat om tillstånd. Vårdnadshavare som referenser fungerar inte heller, det är professionella referenser som väger.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt lärar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("god kommunikationsförmåga") utan stöd, namn på enskilda elever, sekretessbelagda detaljer från åtgärdsprogram, och hobbies som inte är pedagogiskt relevanta. Stavfel diskvalificerar direkt eftersom skriftlig kommunikation är central i lärarrollen.',
       },
     ],
   },
@@ -1189,69 +1744,346 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // TEKNIK
   // ============================================================================
   'systemutvecklare': {
+    seoIntro:
+      'Som systemutvecklare i Sverige bedöms du på din tech-stack, dina projekt och hur du bidragit i kodbaser. Konsultbolag, scale-ups och tech-bolag har konstant öppna roller, men konkurrensen är hård bland senior- och staff-positioner. Ett välskrivet CV avgör om du fastnar i ett bemanningsbolags pool eller blir kallad till de bolag du faktiskt vill jobba på.\n\nVår mall för systemutvecklare lyfter primär tech-stack, senioritet och konkreta projektresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, period och teknik-stack syns direkt med dina arkitekturbeslut, refaktoreringar och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: programmeringsspråk och frameworks (TypeScript, React, Node.js, Python, Go), cloud-erfarenhet (AWS, GCP, Azure med specifika tjänster), CI/CD-pipelines (GitHub Actions, GitLab CI), containerization (Docker, Kubernetes), databaser (PostgreSQL, MongoDB, Redis), testningsmetoder (Jest, Playwright), versionshantering (Git med GitFlow eller trunk-based), och eventuella certifieringar (AWS Certified, CKA).\n\nNedan hittar du två CV-mallar designade för utvecklarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och CTO:er på konsultbolag, produktbolag och startups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Stack-specifika sökord avgör matchning',
+        description: 'CV-screeners söker exakta termer. "TypeScript", "React 18", "Next.js 14" är tydligare än "JavaScript-utveckling". Lista exakta frameworks, versioner och bibliotek så Workday och Teamtailor kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara prestandaresultat',
+        description: 'Refaktoreringsresultat (50% snabbare), uptime-siffror (99.95%), användarvolym (50K samtidiga sessioner), kostnadsminskning på cloud-infra. Konkreta siffror gör utvecklare till senior-kandidater i CTO-ögon.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Bygg-från-grunden vs underhåll',
+        description: 'Har du byggt nya system från grunden eller underhållit existerande? Båda värderas men olika. Senior arkitekt-roller söker bygg-från-grunden, mid-level söker stabil underhållsförmåga. Var tydlig om vad du gjort.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Cloud-tjänster i klartext',
+        description: 'AWS Lambda, S3, RDS, ECS. GCP Cloud Run, BigQuery, Pub/Sub. Azure Functions, Service Bus. Specifika tjänster är CV-kritiska eftersom rekryterare letar efter exakta matchningar mot vad bolaget redan kör.',
+      },
+      {
+        icon: 'Award',
+        title: 'Certifikat och senior-meritering',
+        description: 'AWS Certified Solutions Architect, Kubernetes CKA, HashiCorp Certified, Google Cloud Professional. Certifikat visar djup och prioriteras i konsultsegmentet där kunder betalar för certifierad kompetens.',
+      },
+      {
+        icon: 'Target',
+        title: 'Ledarskap och teknisk roll',
+        description: 'Tech lead, staff engineer, principal, eller arkitekt? Ange tydligt vad du gjort i tidigare roller: arkitekturbeslut, kod-granskning, mentorskap, hiring-loops. Det skiljer junior från senior i många bolags interna kalibrering.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Tech-stack lyfts överst',
+        description: 'Vi har gjort din primära stack till första visuella element så CTO:er och tekniska rekryterare kan bekräfta matchning på fem sekunder. Frontend, backend, cloud och databaser har egna grupper för snabbare scanning.',
+      },
+      {
+        title: 'Projekterfarenhet med arkitekturresultat',
+        description: 'Mallen separerar bolag och tekniska bidrag (architecture decisions, refaktoreringar, prestandavinster). Du kan visa både stack-bredd och djup utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för open source och certifikat',
+        description: 'GitHub-länk, AWS Certified, CKA, talks och konferensbidrag har egen sektion. Vi har sett att tech-rekryterare värderar bevisad kompetens (commits, certifikat) över titlar.',
+      },
+      {
+        title: 'Stack-developer-mallen för tech-DNA',
+        description: 'Vår premium-mall Stack-developer har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli för avantgardistisk för konsultsegmentet.',
+      },
+      {
+        title: 'Kompakt typografi för senior-roller',
+        description: 'Seniora utvecklare har ofta 7-12 års erfarenhet att rymma. Vi använder 12.5px body-text för att få plats med fler projekt utan att verka cramped, vilket är vanligt vid senior-CV.',
+      },
+      {
+        title: 'Plats för tekniska bidrag bortom kod',
+        description: 'Hiring-loops, tech-talks, konferensbidrag, mentorskap har egen rad. Det visar att du är en del av tech-communityt och tar ansvar bortom egen produktion, vilket meriterar för staff- och principal-roller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Utveckling och kodning',
+        punkter: [
+          'Designa, bygga och underhålla applikationer i frontend, backend eller fullstack',
+          'Skriva ren och testbar kod enligt teamets standarder och stilguider',
+          'Implementera nya funktioner enligt produktrelaterade krav och användarfeedback',
+          'Refaktorera existerande kod för bättre prestanda, läsbarhet och underhållbarhet',
+        ],
+      },
+      {
+        rubrik: 'Arkitektur och tekniska beslut',
+        punkter: [
+          'Föreslå och dokumentera arkitekturbeslut via ADR (Architecture Decision Records)',
+          'Välja teknik-stack och bibliotek baserat på krav, prestanda och underhållskostnad',
+          'Designa API:er enligt REST, GraphQL eller gRPC med tydlig versionhantering',
+          'Optimera prestanda genom caching, queueing, och databasindexering',
+        ],
+      },
+      {
+        rubrik: 'CI/CD och drift',
+        punkter: [
+          'Underhålla pipelines i GitHub Actions, GitLab CI eller Jenkins',
+          'Implementera automatiserad testning på unit, integration och e2e-nivå',
+          'Hantera deployment till staging och produktion via GitOps eller manuella releases',
+          'Övervaka system med Datadog, New Relic eller Grafana och svara på incidenter',
+        ],
+      },
+      {
+        rubrik: 'Code review och team',
+        punkter: [
+          'Granska kollegors kod via Pull Request med fokus på kvalitet, säkerhet och stil',
+          'Mentor för junior- och mid-level-utvecklare i kodning och tekniska beslut',
+          'Delta i sprint planning, standups och retros enligt Scrum eller Kanban',
+          'Bidra till hiring-loops genom tekniska intervjuer och kodgranskningar',
+        ],
+      },
+      {
+        rubrik: 'Kunskapsdelning och utveckling',
+        punkter: [
+          'Skriva teknisk dokumentation, README, ADR och runbooks',
+          'Hålla tech-talks internt eller på konferenser om verktyg och metoder',
+          'Bidra till open source-projekt och bygga upp personlig portfolio',
+          'Hålla sig uppdaterad om nya frameworks, säkerhetsproblem och best practices',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Frontend',
+        termer: [
+          { term: 'React', forklaring: 'Vanligaste frontend-frameworket i Sverige, används av majoriteten av tech-bolag.' },
+          { term: 'Next.js', forklaring: 'React-framework för server-side rendering och full-stack-utveckling.' },
+          { term: 'Vue.js', forklaring: 'Alternativ till React, populärt på vissa scale-ups och i mindre team.' },
+          { term: 'Angular', forklaring: 'Enterprise-framework från Google, vanligare på större företag och konsultbolag.' },
+          { term: 'TypeScript', forklaring: 'Typad superset av JavaScript, standard på de flesta seriösa kodbaser.' },
+          { term: 'Svelte', forklaring: 'Modern, kompilerad framework med växande popularitet bland startup-utvecklare.' },
+        ],
+      },
+      {
+        kategori: 'Backend och språk',
+        termer: [
+          { term: 'Node.js', forklaring: 'JavaScript-runtime för server-side-utveckling, dominerar JS-bolag.' },
+          { term: 'Python', forklaring: 'Vanligt i datascience, ML och backend (Django, FastAPI, Flask).' },
+          { term: 'Go', forklaring: 'Statiskt typat språk från Google för high-performance services och cloud-tooling.' },
+          { term: '.NET / C#', forklaring: 'Microsoft-stacken, dominerar enterprise och statlig sektor i Sverige.' },
+          { term: 'Java', forklaring: 'Etablerat på storbolag, banksektorn och konsultbolag som CGI och Sopra Steria.' },
+          { term: 'Rust', forklaring: 'Modernt systemspråk med växande användning för prestanda-kritiska tjänster.' },
+        ],
+      },
+      {
+        kategori: 'Cloud och infrastruktur',
+        termer: [
+          { term: 'AWS', forklaring: 'Marknadsledande cloud-plattform, används av majoriteten av svenska tech-bolag.' },
+          { term: 'GCP', forklaring: 'Google Cloud Platform, växande popularitet inom data och ML.' },
+          { term: 'Azure', forklaring: 'Microsofts cloud, dominerar i .NET-segmentet och statlig sektor.' },
+          { term: 'Kubernetes', forklaring: 'Containerorchestration som standard för modern microservice-arkitektur.' },
+          { term: 'Terraform', forklaring: 'Infrastructure as Code-verktyg från HashiCorp för cloud-hantering.' },
+          { term: 'Docker', forklaring: 'Container-runtime, grundläggande kompetens för moderna utvecklare.' },
+        ],
+      },
+      {
+        kategori: 'Verktyg och processer',
+        termer: [
+          { term: 'GitHub Actions', forklaring: 'CI/CD-plattform integrerad med GitHub, vanligast för moderna kodbaser.' },
+          { term: 'GitLab CI', forklaring: 'CI/CD i GitLab, vanligt på större företag som självhostar Git.' },
+          { term: 'Jenkins', forklaring: 'Etablerat CI-verktyg, fortfarande i bruk på enterprise och konsultbolag.' },
+          { term: 'Trunk-based development', forklaring: 'Utvecklingsmetod med korta feature-grenar och frekventa releases.' },
+          { term: 'GitFlow', forklaring: 'Branch-modell med separata grenar för development, release och hotfix.' },
+          { term: 'TDD/BDD', forklaring: 'Test-Driven respektive Behavior-Driven Development, metoder för testdriven kodning.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'CGI, Sopra Steria, Capgemini, Knowit',
+          'Cybercom, HiQ, Acando, Avanade',
+          'Tieto Evry, Accenture, Tietoevry',
+          'Mindre nischade konsultbolag och frilans',
+        ],
+      },
+      {
+        kategori: 'Produkt- och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Tink, iZettle, Bolt',
+          'Truecaller, Northvolt, Voi, Mathem',
+          'Storytel, Kry, MAG Interactive, King',
+          'Startup-bolag i Stockholm, Göteborg, Malmö',
+        ],
+      },
+      {
+        kategori: 'Storbolag och bank',
+        exempel: [
+          'SEB, Handelsbanken, Swedbank, Nordea',
+          'IKEA, Volvo, Ericsson, ABB, Scania',
+          'H&M, Telia, Tele2, ICA',
+          'Statligt ägda bolag (SJ, Vattenfall, PostNord)',
+        ],
+      },
+      {
+        kategori: 'Övriga arbetsgivare',
+        exempel: [
+          'Statliga myndigheter (Skatteverket, Försäkringskassan)',
+          'Forskningsinstitut och universitet',
+          'Utländska tech-bolag med Sverige-kontor (Google, Meta, Amazon)',
+          'Bemanningsbolag och frilans-plattformar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjörsexamen i datateknik (5 år)',
+        beskrivning: 'Master-examen från KTH, Chalmers, LTH, Linköping eller Uppsala. Vanlig väg för senior-roller på storbolag och i regulatoriskt tunga branscher som bank och fintech.',
+      },
+      {
+        rubrik: 'Kandidat eller högskoleingenjör (3 år)',
+        beskrivning: 'Kortare teknisk utbildning från högskolor och tekniska program. Räcker för de flesta utvecklarroller, vanlig väg in i tech utan master-djup.',
+      },
+      {
+        rubrik: 'Yrkeshögskola och bootcamps (3-12 månader)',
+        beskrivning: 'YH-utbildningar från till exempel Nackademin, KYH eller Webbutvecklarens. Bootcamps från Hyper Island, Nuiteq. Kortare väg in i tech, ofta lika värderad som högskola hos scale-ups.',
+      },
+      {
+        rubrik: 'Självlärd med portfolio',
+        beskrivning: 'Många bolag (särskilt scale-ups) värderar GitHub-portfolio, open source-bidrag och egenstudier över formell examen. Ger snabbaste vägen in men kan vara svårare för senior-roller på storbolag.',
+      },
+    ],
+
     kompetenser: {
       tekniska: [
-        'TypeScript/JavaScript (Node.js, React, Next.js)',
-        'Backend (REST, GraphQL, gRPC)',
-        'Databaser (PostgreSQL, MongoDB, Redis)',
-        'Cloud (AWS, GCP, Azure)',
+        'TypeScript och JavaScript (Node.js, React, Next.js)',
+        'Backend-utveckling (REST, GraphQL, gRPC)',
+        'Databaser (PostgreSQL, MongoDB, Redis, MySQL)',
+        'Cloud-plattformar (AWS, GCP, Azure)',
         'CI/CD (GitHub Actions, GitLab CI, Jenkins)',
         'Containerization (Docker, Kubernetes)',
         'Testning (Jest, Vitest, Playwright, Cypress)',
-        'Versionhantering (Git, GitHub Flow, GitFlow)',
+        'Versionshantering (Git, GitHub Flow, GitFlow)',
+        'Infrastructure as Code (Terraform, Pulumi)',
+        'Monitoring och observability (Datadog, Grafana, New Relic)',
+        'Säkerhet (OWASP Top 10, SAST, DAST)',
+        'Agile-metoder (Scrum, Kanban, SAFe)',
       ],
       personliga: [
         'Problemlösningsfokuserad',
         'Strukturerad i kodorganisation',
         'Kollaborativ i kodgranskning',
-        'Driven av kvalitet',
+        'Driven av kvalitet och underhållbarhet',
         'Lärande och kunskapsdelande',
+        'Kommunikativ med icke-tekniska intressenter',
+        'Pragmatisk i avvägning mellan ideal och deadline',
       ],
     },
-    profilExempel: 'Senior fullstack-utvecklare med 8 års erfarenhet av TypeScript, React och Node.js. Byggt och underhållit produktionsmiljö för fintech-applikation med 50K+ aktiva användare och 99.95% uptime. Arbetar enligt trunk-based development i AWS-baserad CI/CD-miljö med automatiserad e2e-testning.',
-    profilTips: 'Senioritet, primär stack, år av erfarenhet, branschen du arbetat i. Konkret resultat (uptime, användarvolym, prestanda) eller arbetssätt som differentierar dig.',
+
+    profilExempel:
+      'Senior fullstack-utvecklare med 8 års erfarenhet av TypeScript, React och Node.js. Byggt och underhållit produktionsmiljö för fintech-applikation med 50K+ aktiva användare och 99.95% uptime. Arbetar enligt trunk-based development i AWS-baserad CI/CD-miljö med automatiserad e2e-testning.',
+
+    profilTips:
+      'Senioritet, primär stack, år av erfarenhet, branschen du arbetat i. Andra meningen lyfter konkret resultat (uptime, användarvolym, prestanda). Tredje meningen visar arbetssätt, ledarskap eller specialisering som differentierar dig.',
+
     rekryterarTipsen: [
       {
         rubrik: 'Stack-specifika sökord avgör matchning',
-        text: 'CV-screeners (oftast tekniska rekryterare på konsultbolag) söker exakta termer. "TypeScript", "React", "Next.js" — inte "JavaScript-utveckling". Lista de specifika frameworks och versioner du arbetat med.',
+        text: 'CV-screeners söker exakta termer. "TypeScript", "React 18", "Next.js" är tydligare än bara "JavaScript-utveckling". Lista de specifika frameworks, versioner och bibliotek du arbetat med för att passera ATS.',
       },
       {
         rubrik: 'Bygg- vs underhåll-erfarenhet',
-        text: 'Har du byggt nya system från grunden eller underhållit existerande? Båda värderas men olika. Senior arkitektur-roller söker bygg-från-grunden, mid-level söker stabil underhållsförmåga. Var tydlig.',
+        text: 'Har du byggt nya system från grunden eller underhållit existerande? Båda värderas men olika. Senior arkitektroller söker bygg-från-grunden, mid-level söker stabil underhållsförmåga. Var tydlig om vad du gjort.',
       },
       {
         rubrik: 'Mätbara prestandaresultat',
-        text: 'Refaktoreringsresultat (50% snabbare), uptime-siffror (99.95%), eller användarvolym (50K samtidiga sessioner). Konkreta siffror gör utvecklare till seniora kandidater i CTO-ögon.',
+        text: 'Refaktoreringsresultat (50% snabbare), uptime-siffror (99.95%), användarvolym (50K samtidiga sessioner). Konkreta siffror gör utvecklare till senior-kandidater i CTO-ögon och differentierar från generiska CV:n.',
+      },
+      {
+        rubrik: 'Cloud-tjänster i klartext',
+        text: 'AWS Lambda, S3, RDS, ECS. GCP Cloud Run, BigQuery. Azure Functions. Specifika tjänster är CV-kritiska eftersom rekryterare letar efter exakta matchningar mot vad bolaget redan kör i sin infra.',
+      },
+      {
+        rubrik: 'Open source och GitHub',
+        text: 'GitHub-länk på CV:t med synlig commit-historik, repos med stjärnor, eller open source-bidrag är ett av de starkaste signalerna för tech-rekryterare. Konsulter och produktbolag granskar din profil innan intervju.',
+      },
+      {
+        rubrik: 'Tech-talks och community',
+        text: 'Konferensbidrag, meetup-presentationer, blog-posts om tekniska problem. Sådana meriter signalerar att du är aktiv i communityt och tar ansvar bortom egen produktion. Viktigt för staff- och principal-roller.',
       },
     ],
+
     sektionTips: [
-      { sektion: 'Sammanfattning', tips: 'Senioritet, primär stack, år av erfarenhet, bransch. Specialitet (frontend-arkitektur, backend-skalning, devops).' },
-      { sektion: 'Erfarenhet', tips: 'Bolag + roll + tidsperiod + tech-stack + dina bidrag (architecture decisions, refaktorering, prestanda-vinster).' },
-      { sektion: 'Utbildning', tips: 'Examen + lärosäte. Kortare bootcamps eller online-cert räknas (AWS Certified, Kubernetes CKA).' },
-      { sektion: 'Kompetenser', tips: 'Strukturera i grupper: Languages, Frameworks, Tools, Cloud. Lista versioner där relevant.' },
+      { sektion: 'Sammanfattning', tips: 'Senioritet, primär stack, år av erfarenhet, bransch. Specialitet (frontend-arkitektur, backend-skalning, devops) på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, tidsperiod, tech-stack. Dina bidrag (architecture decisions, refaktoreringar, prestanda-vinster) med konkreta siffror.' },
+      { sektion: 'Utbildning', tips: 'Examen, lärosäte, år. Kortare bootcamps eller online-cert räknas (AWS Certified, Kubernetes CKA, HashiCorp Certified).' },
+      { sektion: 'Kompetenser', tips: 'Strukturera i grupper: Languages, Frameworks, Tools, Cloud, Databases. Lista versioner där relevant.' },
+      { sektion: 'Open source', tips: 'GitHub-länk, repos med 50+ stjärnor, open source-bidrag, npm-paket du publicerat. Hobby-projekt utan commits eller produktion sänker mer än lyfter.' },
+      { sektion: 'Övrigt', tips: 'Tech-talks och konferensbidrag, blog, eventuell hiring-loop-erfarenhet, mentorskap för junior-utvecklare.' },
     ],
+
     checklista: [
-      'Primär programmeringsstack och senioritet',
-      'Cloud-erfarenhet (AWS, GCP, Azure)',
-      'CI/CD-pipeline-erfarenhet',
-      'Specifika databaser du behärskar',
+      'Primär programmeringsstack med versioner och senioritet',
+      'Cloud-erfarenhet (AWS, GCP, Azure med specifika tjänster)',
+      'CI/CD-pipeline-erfarenhet och verktyg',
+      'Specifika databaser du behärskar (relationella och NoSQL)',
       'Testningsmetoder (unit, integration, e2e)',
       'Open source-bidrag eller GitHub-portfolio',
       'Eventuella certifieringar (AWS, K8s, Terraform)',
+      'Mätbara prestandaresultat eller arkitekturbidrag',
+      'Hiring-loops, mentorskap eller tech-leadership',
+      'Tech-talks, blog-posts eller community-bidrag',
     ],
-    atsInfo: 'Ja, Stack-developer-mallen är ATS-säker och optimerad för tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder oftast Workday eller Teamtailor. Specifika tech-keywords (TypeScript, React, AWS) är CV-kritiska — skriv ut dem som listpunkter, inte i löpande text.',
+
+    atsInfo:
+      'Vår mall Stack-developer är ATS-säker och optimerad för tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder oftast Workday eller Teamtailor. Specifika tech-keywords (TypeScript, React, AWS Lambda, PostgreSQL) är CV-kritiska. Skriv ut dem som listpunkter i kompetens-sektionen, inte i löpande text. ATS-system filtrerar exakta matchningar mot jobbannonsens språk.',
+
     faqItems: [
       {
-        q: 'Ska jag inkludera personliga sidoprojekt på CV:t?',
-        a: 'Ja om de är relevanta. GitHub-repos med 50+ stjärnor, open source-bidrag, eller en portfolio-app som visar din arkitekturtänkande är CV-värt. Hobby-projekt utan commit-historia eller produktion sänker mer än lyfter.',
+        q: 'Vad ska finnas med i ett utvecklar-CV?',
+        a: 'Primär tech-stack med versioner, klinisk erfarenhet uppdelad per bolag och roll, mätbara prestandaresultat, cloud-erfarenhet (AWS/GCP/Azure med specifika tjänster), CI/CD-pipelines, databaser, testningsmetoder, eventuella certifieringar (AWS Certified, CKA), GitHub-länk, och open source-bidrag. Lägg till tech-talks och mentorskap om du söker senior-roller.',
       },
       {
-        q: 'Hur långt ska ett utvecklar-CV vara?',
-        a: 'Junior 0-3 år: 1 sida. Mid-level: 1.5 sidor. Senior eller staff: 2 sidor max. Cv-screeners hinner inte läsa längre. Lyft de senaste 5-7 åren tydligast och kondensera tidigare.',
+        q: 'Hur skriver jag CV som junior-utvecklare utan kommersiell erfarenhet?',
+        a: 'Lyft GitHub-portfolio med 3-5 projekt som visar olika delar av stacken. Inkludera examensarbete med teknisk fördjupning, eventuella bootcamps eller YH-utbildningar, och open source-bidrag (även små Pull Requests räknas). Praktikperioder, tävlingar (hackathons, Advent of Code), och tekniska blog-posts visar engagemang. Skriv ut din vilja att lära och vara öppen för olika stack.',
+      },
+      {
+        q: 'Hur lång ska ett utvecklar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller staff: 2 sidor max. CV-screeners hinner inte läsa längre. Lyft de senaste 5-7 åren tydligast och kondensera tidigare. För konsultbolag som har långa CV-mallar (5-10 sidor) skriver du ett separat konsult-CV utöver ditt eget.',
       },
       {
         q: 'Behöver jag formell examen för utvecklar-jobb?',
-        a: 'Inte alltid. Många bolag (särskilt scale-ups och konsultbolag) värderar portfolio och GitHub över examen. Men för seniora roller på regulatoriskt tunga branscher (fintech, healthcare) är teknisk högskoleexamen ofta krav.',
+        a: 'Inte alltid. Många bolag (särskilt scale-ups och konsultbolag) värderar portfolio och GitHub över examen. För seniora roller på regulatoriskt tunga branscher (fintech, healthcare, statlig sektor) är teknisk högskoleexamen ofta krav. För FAANG-bolag i Stockholm är masterexamen ofta förväntat. Bootcamps och YH-utbildningar fungerar bra som ingångsväg.',
+      },
+      {
+        q: 'Ska jag inkludera personliga sidoprojekt på CV:t?',
+        a: 'Ja om de är relevanta och dokumenterade. GitHub-repos med 50+ stjärnor, open source-bidrag, eller en portfolio-app som visar din arkitekturtänkande är CV-värt. Hobby-projekt utan commit-historia eller utan produktion sänker mer än lyfter. Bättre att lista 2-3 starka projekt än 10 halvfärdiga.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika språk och frameworks (TypeScript, React, Next.js), cloud-tjänster (AWS Lambda, S3, RDS), databaser (PostgreSQL, MongoDB), CI/CD-verktyg (GitHub Actions, GitLab CI), containerization (Docker, Kubernetes), och testverktyg (Jest, Playwright). Workday och Teamtailor söker exakta matchningar mot jobbannonsens språk. Kopiera språkbruket där du faktiskt har erfarenheten.',
+      },
+      {
+        q: 'Hur visar jag arkitekturkompetens utan staff-titel?',
+        a: 'Beskriv konkreta arkitekturbeslut du varit del av: ADR du skrivit, system-design-dokument, prestandaanalyser, refaktoreringar du lett. Skriv "Föreslog och drev migrering från monolith till mikroservices" eller "Designade caching-lager som minskade DB-belastning med 60%". Konkreta bidrag visar arkitekturmognad utan att titeln behöver vara staff.',
+      },
+      {
+        q: 'Behöver jag personligt brev till tech-jobb?',
+        a: 'Beror på bolaget. Konsultbolag och svenska traditional-bolag förväntar sig brev. Scale-ups och tech-bolag accepterar ofta bara CV. När brev förväntas, fokusera på varför just det bolaget och vad du tar med dig. Beskriv ett konkret problem du löst eller en arkitektur-utmaning du tagit dig an. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vilka certifieringar är värda för utvecklare 2026?',
+        a: 'AWS Certified Solutions Architect (Associate eller Professional) är mest efterfrågad i konsultsegmentet. Kubernetes CKA för devops-roller. HashiCorp Certified för Terraform-tunga uppdrag. Google Cloud Professional Cloud Architect växer i Sverige. För säkerhet: OSCP eller CompTIA Security+. Certifieringar väger tyngst i konsultbolag där kunder betalar för bevisad kompetens.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt utvecklar-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, foto (inte standard i tech-segmentet), irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och ansvarstagande") utan stöd, kursbevis utan praktisk tillämpning, och hobby-projekt utan dokumentation. Stavfel i tech-termer (skriva "Java" när du menar "JavaScript") diskvalificerar omedelbart.',
       },
     ],
   },
