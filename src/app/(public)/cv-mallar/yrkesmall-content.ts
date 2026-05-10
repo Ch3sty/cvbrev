@@ -7687,6 +7687,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'projektledare': {
+    seoIntro:
+      'Som projektledare bedöms du på din leveransförmåga, metodikvana och hur du driver tvärfunktionella team mot resultat. Konsultbolag, scale-ups, industri och offentlig sektor har konstant brist på erfarna projektledare, men rekryterande chefer slänger CV:n som inte tydligt visar projektomfattning, certifieringar och konkret affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för projektledare lyfter projektmetodik, certifieringar och konkreta leveransresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att uppdragsgivare, projektomfattning, budget och teamstorlek syns direkt med dina nyckelresultat. Det betyder att rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: certifieringar (PMP, PRINCE2, IPMA, Scrum Master, SAFe), projekttyper (IT-implementation, byggprojekt, organisationsförändring), branschvana (industri, tech, offentlig sektor, fastighet), verktyg (Microsoft Project, Jira, Asana, Monday, Smartsheet), budget och teamstorlek du ansvarat för, projektmetodik (agil, vattenfall, hybrid), eventuell ledarskap-utbildning, samt konkreta leveransresultat (tid, budget, kvalitet).\n\nNedan hittar du två CV-mallar designade för projektledarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterande chefer på konsultbolag, industri och scale-ups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Certifieringar i klartext',
+        description: 'PMP är gold standard internationellt. PRINCE2 vanlig på offentlig sektor och bolag med brittiska kopplingar. IPMA stark i industrin. Scrum Master och SAFe Agilist för agila projekt. Skriv ut certifikat med datum.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta leveransresultat',
+        description: '"Levererade 15 MSEK-projekt på tid och inom budget", "Minskade time-to-market från 18 till 9 månader" säger mer än "ansvarade för projektledning". Konkreta siffror differentierar senior- från junior-projektledare.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Projektmetodik och hybridmodeller',
+        description: 'Agil (Scrum, Kanban, SAFe), vattenfall (PMP, PRINCE2), hybrid. Skriv ut vilka metodiker du behärskar och vilken du applicerat på vilka projekt. Olika branscher kräver olika metodik.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Budget och teamstorlek',
+        description: '"Drivit projekt med 12 MSEK-budget och 25-personers tvärfunktionellt team" är tydligt. Lyft den största projektomfattning du haft eftersom det avgör vilken nivå av projekt du kvalificerar för.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Branschvana är differentiator',
+        description: 'IT-implementation kräver Jira-vana. Byggprojekt kräver Microsoft Project och kostnadsstyrning. Offentlig sektor kräver upphandlingsvana. Lyft den bransch där du har djupast erfarenhet.',
+      },
+      {
+        icon: 'Target',
+        title: 'Stakeholder-management',
+        description: 'Ledningsgrupp, styrgrupp, slutanvändare, leverantörer, externa partners. Erfarenhet av att kommunicera mot olika nivåer är central. Beskriv konkret hur du hanterat svåra stakeholder-situationer.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Certifieringar och projekt-metodik överst',
+        description: 'Vår mall lyfter PMP, PRINCE2, IPMA och Scrum-certifieringar i sidopanelen. Rekryterande chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Projekterfarenhet med omfattning',
+        description: 'Mallen separerar projekt med budget, teamstorlek och leveransresultat. Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för verktyg och system',
+        description: 'Microsoft Project, Jira, Asana, Monday, Smartsheet, Confluence. Mallen separerar verktygen från generiska kompetenser så rekryterare ser specifik systemvana direkt.',
+      },
+      {
+        title: 'Premium-mallen Aspekt med fokusområden',
+        description: 'För senior projektledare och program manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression utan att bli flashig för konsultsegmentet.',
+      },
+      {
+        title: 'Plats för stakeholder och samverkan',
+        description: 'Mallen har dedikerade rader för intern samverkan, externa leverantörer och eventuell program-koordinering. Visar att du tar ansvar bortom enskilda projekt.',
+      },
+      {
+        title: 'Sober färgsättning för konsultsegmentet',
+        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism utan att bli flashig. Passar både konsultbolag och industribolag.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Projektplanering och initiering',
+        punkter: [
+          'Skriva projektmål, scope och business case tillsammans med beställare',
+          'Identifiera intressenter och bygga kommunikationsplan',
+          'Bygga work breakdown structure (WBS) och tidplan',
+          'Estimera budget och resursbehov tillsammans med specialister',
+        ],
+      },
+      {
+        rubrik: 'Genomförande och leverans',
+        punkter: [
+          'Driva dagligt projektarbete med tvärfunktionellt team',
+          'Hantera scope creep och förändringshantering',
+          'Köra stand-ups, planeringsmöten och demo enligt agil eller hybrid',
+          'Säkerställa leverans inom tid, budget och kvalitet',
+        ],
+      },
+      {
+        rubrik: 'Riskhantering och kvalitet',
+        punkter: [
+          'Identifiera och hantera risker tidigt enligt PMI eller PRINCE2',
+          'Skriva och underhålla risk register med mitigation-planer',
+          'Säkerställa kvalitet genom code review, tester och acceptanstester',
+          'Hantera issues och eskalera till styrgrupp vid behov',
+        ],
+      },
+      {
+        rubrik: 'Kommunikation och rapportering',
+        punkter: [
+          'Rapportera status till styrgrupp och ledning enligt mall',
+          'Hantera dagligt-, veckovis- och månadsvis kommunikation',
+          'Driva styrgruppsmöten med beslutsunderlag',
+          'Hantera kommunikation mot kunder och slutanvändare',
+        ],
+      },
+      {
+        rubrik: 'Avslutning och uppföljning',
+        punkter: [
+          'Genomföra projektavslut med leverans till mottagaren',
+          'Skriva slutrapport och dokumentera lessons learned',
+          'Genomföra retrospektiver och förbättringsförslag',
+          'Säkerställa kunskapsöverföring och dokumentation',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Projektmetodik',
+        termer: [
+          { term: 'PMP', forklaring: 'Project Management Professional, internationell certifiering från PMI.' },
+          { term: 'PRINCE2', forklaring: 'PRojects IN Controlled Environments, brittisk metodik vanlig i offentlig sektor.' },
+          { term: 'IPMA', forklaring: 'International Project Management Association, fyra nivåer (D till A).' },
+          { term: 'Scrum', forklaring: 'Agil metodik med sprintar, daily standups och retrospektiver.' },
+          { term: 'Kanban', forklaring: 'Visuell agil metodik fokuserad på flöde och WIP-limiter.' },
+          { term: 'SAFe', forklaring: 'Scaled Agile Framework, skalad agile för stora organisationer.' },
+        ],
+      },
+      {
+        kategori: 'Projektroller',
+        termer: [
+          { term: 'Projektledare', forklaring: 'Operativ ansvarig för enskilt projekts genomförande.' },
+          { term: 'Program Manager', forklaring: 'Senior roll med ansvar för flera relaterade projekt.' },
+          { term: 'Portfolio Manager', forklaring: 'Strategisk roll med ansvar för bolagets projektportfölj.' },
+          { term: 'Scrum Master', forklaring: 'Agil coach med fokus på Scrum-processen och teamets flöde.' },
+          { term: 'Product Owner', forklaring: 'Ansvarig för produktbacklog och prioritering, ofta i agila team.' },
+          { term: 'PMO', forklaring: 'Project Management Office, central funktion för projektstyrning.' },
+        ],
+      },
+      {
+        kategori: 'Verktyg och system',
+        termer: [
+          { term: 'Microsoft Project', forklaring: 'Klassiskt verktyg för planering, ofta krav i industri och bygg.' },
+          { term: 'Jira', forklaring: 'Atlassian-verktyg för agila team och buggspårning.' },
+          { term: 'Asana', forklaring: 'Modern projektplattform vanlig på scale-ups.' },
+          { term: 'Monday.com', forklaring: 'Visuell projektplattform med stark stark närvaro i Sverige.' },
+          { term: 'Smartsheet', forklaring: 'Excel-liknande projektplattform vanlig på enterprise.' },
+          { term: 'Confluence', forklaring: 'Atlassian-wiki för projektdokumentation och kunskapsdelning.' },
+        ],
+      },
+      {
+        kategori: 'Nyckelbegrepp',
+        termer: [
+          { term: 'WBS', forklaring: 'Work Breakdown Structure, hierarkisk uppdelning av projektets arbete.' },
+          { term: 'Critical path', forklaring: 'Längsta vägen genom projektet som styr leveranstid.' },
+          { term: 'Risk register', forklaring: 'Strukturerad lista av risker med sannolikhet och påverkan.' },
+          { term: 'Stakeholder map', forklaring: 'Mapping av intressenter med inflytande och attityd.' },
+          { term: 'RACI', forklaring: 'Responsible, Accountable, Consulted, Informed - rollmatris.' },
+          { term: 'Scope creep', forklaring: 'Okontrollerad utvidgning av projektets omfattning.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'McKinsey, BCG, Bain (strategi)',
+          'Accenture, PwC, EY, KPMG, Deloitte',
+          'CGI, Sopra Steria, Capgemini, Knowit',
+          'Mindre nischade projektledningsbolag',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, Atlas Copco',
+          'Ericsson, Sandvik, IKEA Industry',
+          'Bygg- och anläggningsbolag (Skanska, NCC, Peab)',
+          'Tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och myndigheter',
+        exempel: [
+          'Statliga myndigheter (Skatteverket, Försäkringskassan)',
+          'Region Stockholm, Region Västra Götaland',
+          'Kommuner i Sveriges 290 kommuner',
+          'Statligt ägda bolag (Vattenfall, PostNord, SJ)',
+        ],
+      },
+      {
+        kategori: 'Tech och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink',
+          'Boozt, NA-KD, Apotea',
+          'Mindre tech-bolag och B2B SaaS',
+          'Fintech och healthtech',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör eller civilekonom (5 år)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping för teknisk projektledning. Handelshögskolan, Lund, Uppsala för affärsprojektledning. Vanlig grund för senior- och program manager-roller.',
+      },
+      {
+        rubrik: 'Yrkeshögskola projektledning (1-2 år)',
+        beskrivning: 'YH-utbildningar inom projektledning, ofta med specialisering (IT, bygg, event). Snabbare väg in och meriterande kombinerat med praktisk erfarenhet.',
+      },
+      {
+        rubrik: 'PMP-, PRINCE2- eller IPMA-certifiering',
+        beskrivning: 'PMP kräver 3-5 års erfarenhet och 35 timmars utbildning. PRINCE2 har Foundation och Practitioner. IPMA har fyra nivåer (D till A). Stark merit för senior-roller.',
+      },
+      {
+        rubrik: 'Agil utbildning (Scrum Master, SAFe)',
+        beskrivning: 'Certified Scrum Master, SAFe Agilist eller SAFe POPM. Korta kurser med årsförnyelse. Krav i många tech-bolag och scale-ups.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Microsoft Project, Jira, Asana, Monday.com',
+        'Smartsheet, Confluence, Trello',
+        'Agila metodiker (Scrum, Kanban, SAFe)',
+        'Vattenfallsmetodik (PMP, PRINCE2, IPMA)',
+        'Hybrid och stage-gate-metodik',
+        'Riskhantering och risk register',
+        'Stakeholder-management och RACI-matriser',
+        'Budget- och kostnadsstyrning',
+        'WBS och critical path-analys',
+        'Förändringshantering (change management)',
+        'Office-paketet och Power BI för rapportering',
+        'Eventuella branschsystem (SAP, ERP, CMS)',
+      ],
+      personliga: [
+        'Strukturerad och leveransorienterad',
+        'Kommunikativ med olika nivåer',
+        'Lugn under press och vid eskalering',
+        'Pedagogisk i kunskapsdelning',
+        'Pragmatisk i tradeoffs',
+        'Driven av resultat och kvalitet',
+        'Lagspelare med tvärfunktionell förmåga',
+      ],
+    },
+
+    profilExempel:
+      'Senior projektledare med 10 års erfarenhet av komplexa IT- och förändringsprojekt inom industri och scale-ups. Levererade 12 MSEK ERP-implementation på 14 månader (3 månader före plan) med 30-personers tvärfunktionellt team. PMP- och PRINCE2-certifierad samt SAFe Agilist 5. Erfarenhet av att rapportera till ledningsgrupp och styrelse på två börsnoterade bolag.',
+
+    profilTips:
+      'Senioritet, primär projekttyp och bransch i öppningsraden. Andra meningen lyfter konkret leveransresultat (budget, tid, team). Tredje meningen visar certifieringar och eventuell stakeholder-erfarenhet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Certifieringar i klartext',
+        text: 'PMP, PRINCE2, IPMA, Scrum Master, SAFe. Skriv ut certifikat med datum och förnyelse-status. Dessa är CV-kritiska för senior- och konsultroller.',
+      },
+      {
+        rubrik: 'Konkreta leveransresultat',
+        text: '"Levererade 15 MSEK-projekt på tid och inom budget", "Minskade time-to-market 50%". Konkreta siffror differentierar senior- från junior-projektledare.',
+      },
+      {
+        rubrik: 'Projektmetodik och hybrid',
+        text: 'Agil, vattenfall, hybrid. Skriv ut vilka metodiker du behärskar och vilken du applicerat på vilka projekt. Olika branscher kräver olika metodik.',
+      },
+      {
+        rubrik: 'Budget och teamstorlek',
+        text: '"Drivit projekt med 12 MSEK-budget och 25-personers team" är tydligt. Lyft den största projektomfattning du haft eftersom det avgör vilken nivå du kvalificerar för.',
+      },
+      {
+        rubrik: 'Branschvana är differentiator',
+        text: 'IT-implementation kräver Jira. Bygg kräver Microsoft Project. Offentlig sektor kräver upphandlingsvana. Lyft den bransch där du har djupast erfarenhet.',
+      },
+      {
+        rubrik: 'Stakeholder-management',
+        text: 'Ledningsgrupp, styrgrupp, slutanvändare, leverantörer. Erfarenhet av att kommunicera mot olika nivåer är central. Beskriv konkret hur du hanterat svåra stakeholder-situationer.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, primär projekttyp, bransch och certifieringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera budget, teamstorlek och leveransresultat.' },
+      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Certifieringar (PMP, PRINCE2, IPMA, SAFe) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Verktyg, metodiker, branschsystem i tydliga grupper. Var konkret om systemvana.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med PMP, PRINCE2, IPMA, Scrum Master och utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell talangs- eller mentorroll.' },
+    ],
+
+    checklista: [
+      'Akademisk examen eller YH-utbildning',
+      'Certifieringar (PMP, PRINCE2, IPMA, Scrum)',
+      'Verktyg (Microsoft Project, Jira, Asana, Monday)',
+      'Metodikvana (agil, vattenfall, hybrid)',
+      'Projektomfattning (budget, team, leveransresultat)',
+      'Branschvana (IT, industri, bygg, offentlig sektor)',
+      'Stakeholder-management och rapportering',
+      'Riskhantering och förändringshantering',
+      'Konkreta leveransresultat med siffror',
+      'Eventuell program- eller portföljerfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Aspekt är ATS-säkra. Konsultbolag och scale-ups använder Workday eller Teamtailor. Storbolag och offentlig sektor använder egna ATS. Skriv ut certifieringar (PMP, PRINCE2, IPMA), verktyg (Microsoft Project, Jira) och metodiker (Scrum, SAFe) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett projektledar-CV?',
+        a: 'Akademisk examen eller YH-utbildning, certifieringar (PMP, PRINCE2, IPMA, Scrum), verktyg (Microsoft Project, Jira, Asana), metodikvana (agil, vattenfall, hybrid), projektomfattning (budget, team, resultat), branschvana, stakeholder-erfarenhet, samt konkreta leveransresultat. Lägg till program- eller portföljerfarenhet om relevant.',
+      },
+      {
+        q: 'Vilken certifiering är värd mest?',
+        a: 'Beror på bransch. PMP är gold standard internationellt och stark i tech, industri och konsult. PRINCE2 dominerar offentlig sektor och brittiska bolag. IPMA är stark i svensk industri. Scrum Master och SAFe Agilist är krav i agila tech-bolag. För konsultbolag är PMP+SAFe en stark kombination.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior-projektledare?',
+        a: 'Lyft akademisk examen, eventuell trainee-program eller projektkoordinator-roll, kurser i metodik (PMP-grunder, Scrum Master), och konkreta projekt du varit del av (även som teammedlem). Beskriv stakeholder-situationer du hanterat och eventuella förbättringsprojekt du drivit. Många bolag har strukturerade trainee-program för junior-projektledare.',
+      },
+      {
+        q: 'Hur lyfter jag projekterfarenhet utan formell projektledar-titel?',
+        a: 'Beskriv konkreta projekt du drivit eller varit del av: "Drev implementering av nytt CRM-system med 8-personers team över 6 månader, levererade på tid och inom budget". Konkreta uppdrag och resultat differentierar dig. Beskriv stakeholder-management, riskhantering och leverans även utan formell titel.',
+      },
+      {
+        q: 'Vilka verktyg är viktigast 2026?',
+        a: 'Microsoft Project är fortfarande standard i industri och bygg. Jira dominerar tech-bolag. Asana och Monday.com växer i scale-up-segmentet. Smartsheet vanlig på enterprise. Confluence för dokumentation. Power BI för rapportering. AI-baserade verktyg (Notion AI, ChatGPT) blir allt viktigare för effektivitet.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Certifieringar (PMP, PRINCE2, IPMA, Scrum Master, SAFe), verktyg (Microsoft Project, Jira, Asana, Monday), metodiker (Scrum, Kanban, vattenfall, hybrid), nyckelbegrepp (WBS, RACI, stakeholder-management, change management) och bransch. Workday och Teamtailor söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett projektledar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller program manager: 2 sidor. Konsult-CV kan vara 3-4 sidor men det är separat från ditt eget. Det viktiga är att certifieringar, projekt-omfattning och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till projektledar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik projektutmaning du löst. Beskriv en svår leverans, en kris du hanterat eller hur du drivit en förändring. Håll till en sida på 300-400 ord. Rekryterare värderar tydlig kommunikation.',
+      },
+      {
+        q: 'Vad är skillnaden mellan projektledare och program manager?',
+        a: 'Projektledare ansvarar för enskilt projekts genomförande. Program manager ansvarar för flera relaterade projekt med strategisk koordinering. Program manager kräver oftast 8-12 års erfarenhet plus PMP eller motsvarande. Lön påverkas direkt av rolltitel. För senior-tjänster är distinktionen viktig.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt projektledar-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och ledare") utan stöd, sekretessbelagda projektdetaljer, och hobbies som inte är relevanta. Stavfel signalerar slarv, vilket är negativt i ett yrke där dokumentation och kommunikation räknas.',
+      },
+    ],
+  },
+
+  'hr-specialist': {
+    seoIntro:
+      'Som HR-specialist i Sverige bedöms du på din specialisering, systemkunskap och förståelse för svensk arbetsrätt. Storbolag, scale-ups, konsultbolag och offentlig sektor har konstant öppna HR-roller, men HR-chefer slänger CV:n som inte tydligt visar specialiserings-område, HRIS-vana och konkreta affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den HR-funktion du faktiskt vill jobba på.\n\nVår mall för HR-specialister lyfter specialisering (rekrytering, talent, comp&ben, organisation, arbetsrätt), HRIS-system och konkreta resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: HR-utbildning eller PA-program, specialisering (rekrytering, talent management, comp&ben, organisationsutveckling, arbetsrätt), HRIS-system (Workday, SuccessFactors, BambooHR, Heroma, Visma Lön), arbetsrätt och kollektivavtal, eventuell certifiering (CIPD, SHRM-CP, IPMA), konkreta resultat (rekryteringsvolym, retention, employee NPS), samt branschvana (industri, tech, retail, vård).\n\nNedan hittar du två CV-mallar designade för HR-specialistrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på storbolag, scale-ups och offentlig sektor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Specialisering i klartext',
+        description: 'Rekrytering (talent acquisition), talent management, comp&ben (compensation), organisationsutveckling (OD), arbetsrätt, learning & development. Olika roller kräver olika specialisering. Lyft din djupaste i sammanfattningen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'HRIS-system du behärskar',
+        description: 'Workday dominerar internationella bolag. SuccessFactors på SAP-tunga bolag. BambooHR på scale-ups. Heroma och Visma Lön på svensk offentlig sektor. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Mätbara HR-resultat',
+        description: '"Minskade time-to-hire från 60 till 35 dagar", "Ökade employee NPS från 32 till 58", "Sänkte rekryteringskostnad 40%". Konkreta siffror differentierar senior- från junior-HR och visar affärsförståelse.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Svensk arbetsrätt och kollektivavtal',
+        description: 'LAS, MBL, AML, diskrimineringslagen, GDPR. Kollektivavtal med Unionen, Akademikerförbunden, Kommunal. Lyft din specifika arbetsrättserfarenhet eftersom det är centralt i svenska HR-roller.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Volymer och omfattning',
+        description: '"Hanterade rekrytering för 200+ tjänster per år" eller "Ansvarade för HR-stöd till 500 anställda". Konkreta volymer visar din kapacitet och vilken nivå av komplexitet du kan hantera.',
+      },
+      {
+        icon: 'Target',
+        title: 'Bransch-erfarenhet är differentiator',
+        description: 'En HR från industri har annan vana än HR från tech-scaleup. LAS-tunga miljöer kräver djup arbetsrätt. Tech-scaleups kräver agil rekrytering. Lyft branschen i sammanfattningen.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Specialisering och HRIS överst',
+        description: 'Vår mall lyfter specialiserings-område och HRIS-system i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet med affärsresultat',
+        description: 'Mallen separerar bolag och dina HR-bidrag (rekryteringsvolym, retention, employee NPS, organisationsförändringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för system och certifieringar',
+        description: 'Workday, SuccessFactors, BambooHR, CIPD-cert. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+      },
+      {
+        title: 'Premium-mallen Aspekt med fokusområden',
+        description: 'För senior HR-roller och HRBP lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression som passar HR-chefer.',
+      },
+      {
+        title: 'Plats för förändringsledning',
+        description: 'Mallen har dedikerade rader för organisationsförändringar, omstruktureringar och transformationsprojekt. Visar att du arbetar strategiskt utöver operativ HR.',
+      },
+      {
+        title: 'Sober färgsättning för HR',
+        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och förtroende. Passar både HR-konsultroller och interna HR-funktioner.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Rekrytering och talent acquisition',
+        punkter: [
+          'Driva rekryteringsprocesser från brief till anställning',
+          'Skapa annonser, jobbeskrivningar och målgruppsanalys',
+          'Genomföra screenings och kompetensbaserade intervjuer',
+          'Arbeta med rekryteringssystem (Workday Recruiting, Teamtailor, Manpower)',
+        ],
+      },
+      {
+        rubrik: 'Onboarding och offboarding',
+        punkter: [
+          'Skapa strukturerade onboarding-program för nya medarbetare',
+          'Hantera anställningsavtal, anställningsbevis och förmåner',
+          'Genomföra exit-intervjuer och dokumentera insikter',
+          'Säkerställa kunskapsöverföring och avslutsrutiner',
+        ],
+      },
+      {
+        rubrik: 'Arbetsrätt och samverkan',
+        punkter: [
+          'Tolka och tillämpa LAS, MBL, AML och diskrimineringslagen',
+          'Hantera MBL-förhandlingar med fackliga parter',
+          'Genomföra omplaceringsutredningar och uppsägningar',
+          'Stötta chefer i svåra personalärenden och rehabilitering',
+        ],
+      },
+      {
+        rubrik: 'Comp&ben och förmåner',
+        punkter: [
+          'Genomföra lönerevisioner enligt kollektivavtal',
+          'Arbeta med pensionsavtal, försäkringar och förmåner',
+          'Bench-marka mot marknad och säkerställa internt rättvisa',
+          'Hantera förhandlingar och eventuella bonusmodeller',
+        ],
+      },
+      {
+        rubrik: 'Organisation och kultur',
+        punkter: [
+          'Stötta organisationsförändringar och omstruktureringar',
+          'Driva employee engagement-mätningar (NPS, pulse surveys)',
+          'Bygga och underhålla performance management-process',
+          'Utveckla ledarskap och kompetensutveckling tillsammans med chefer',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Svensk arbetsrätt',
+        termer: [
+          { term: 'LAS', forklaring: 'Lagen om anställningsskydd, central för uppsägning och anställningstid.' },
+          { term: 'MBL', forklaring: 'Medbestämmandelagen, reglerar facklig samverkan vid förändringar.' },
+          { term: 'AML', forklaring: 'Arbetsmiljölagen, gäller fysisk och psykosocial arbetsmiljö.' },
+          { term: 'Diskrimineringslagen', forklaring: 'Skydd mot diskriminering på sju grunder.' },
+          { term: 'Föräldraledighetslagen', forklaring: 'Reglerar föräldraledighet och VAB.' },
+          { term: 'Kollektivavtal', forklaring: 'Avtal mellan fack och arbetsgivarorganisation som reglerar villkor.' },
+        ],
+      },
+      {
+        kategori: 'HRIS och system',
+        termer: [
+          { term: 'Workday', forklaring: 'Marknadsledande HRIS för internationella bolag.' },
+          { term: 'SuccessFactors', forklaring: 'SAP:s HR-system, vanlig på SAP-tunga bolag.' },
+          { term: 'BambooHR', forklaring: 'Modern HRIS populär på scale-ups och mindre bolag.' },
+          { term: 'Heroma', forklaring: 'Svenskt HR-system som dominerar offentlig sektor.' },
+          { term: 'Visma Lön', forklaring: 'Lönesystem som vanlig på svenska bolag.' },
+          { term: 'Hogia', forklaring: 'Svenskt lönesystem, vanlig på medelstora bolag.' },
+        ],
+      },
+      {
+        kategori: 'HR-specialiseringar',
+        termer: [
+          { term: 'Talent Acquisition', forklaring: 'Specialiserad rekrytering med fokus på pipeline och employer branding.' },
+          { term: 'Talent Management', forklaring: 'Performance management, development och succession planning.' },
+          { term: 'Comp&Ben', forklaring: 'Compensation and Benefits, lön- och förmånsstrategi.' },
+          { term: 'Organisation Development (OD)', forklaring: 'Strategisk organisationsutveckling och kulturarbete.' },
+          { term: 'Learning & Development', forklaring: 'Utbildning, kompetensutveckling och ledarskapsprogram.' },
+          { term: 'HRBP', forklaring: 'HR Business Partner, strategisk HR mot specifik affärsenhet.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och mått',
+        termer: [
+          { term: 'Time-to-hire', forklaring: 'Tid från jobbannons till anställningskontrakt, central rekryterings-KPI.' },
+          { term: 'Cost-per-hire', forklaring: 'Total rekryteringskostnad delat på antal anställningar.' },
+          { term: 'Employee NPS', forklaring: 'Net Promoter Score för medarbetarna, mäter engagemang.' },
+          { term: 'Retention rate', forklaring: 'Andel anställda som stannar över viss period.' },
+          { term: 'Voluntary turnover', forklaring: 'Frivillig personalomsättning, indikator på arbetsmiljö.' },
+          { term: 'Headcount', forklaring: 'Antal anställda, ofta uppdelat per bolagsenhet eller funktion.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Storbolag och industri',
+        exempel: [
+          'Volvo, Scania, Ericsson, ABB, IKEA',
+          'Tetra Pak, Sandvik, Atlas Copco, Electrolux',
+          'H&M, ICA, Coop, Axfood',
+          'AssaAbloy, Husqvarna, Saab',
+        ],
+      },
+      {
+        kategori: 'Tech och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink, Voi',
+          'Boozt, NA-KD, Apotea, NetOnNet',
+          'Kry, Mathem, Foodora, Truecaller',
+          'Mindre tech-bolag och B2B SaaS',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'PwC, EY, KPMG, Deloitte (HR-konsult)',
+          'Mercer, Willis Towers Watson, Korn Ferry',
+          'Mindre HR-konsultbolag och rekryteringsbyråer',
+          'Bemanningsbolag (Adecco, Manpower, Randstad)',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor',
+        exempel: [
+          'Statliga myndigheter (Skatteverket, Försäkringskassan)',
+          'Region Stockholm, Region Västra Götaland',
+          'Kommuner och stadsdelsförvaltningar',
+          'Statligt ägda bolag (Vattenfall, PostNord, SJ)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'PA-programmet eller civilekonom (3-5 år)',
+        beskrivning: 'Personalvetarprogrammet (PA) på Stockholms universitet, Lund, Göteborg eller Umeå. Civilekonom med inriktning HR. Vanliga grunder för senior HR-roller och HRBP.',
+      },
+      {
+        rubrik: 'Yrkeshögskola HR (1-2 år)',
+        beskrivning: 'YH-utbildningar inom HR, lön, rekrytering eller arbetsrätt. Kortare väg in i yrket och meriterande kombinerat med praktik.',
+      },
+      {
+        rubrik: 'Internationella certifieringar',
+        beskrivning: 'CIPD (Chartered Institute of Personnel and Development), SHRM-CP/SHRM-SCP, IPMA-HR. Stark merit för senior-roller på internationella bolag.',
+      },
+      {
+        rubrik: 'Specialistutbildningar',
+        beskrivning: 'Arbetsrätt vid Stockholms universitet, Karolinska medarbetarundersökning, ledarskapsutbildningar (IFL, Stockholm Business School). Påverkar lön och tjänsteansvar.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'HRIS-system (Workday, SuccessFactors, BambooHR)',
+        'Svenska HR-system (Heroma, Visma Lön, Hogia)',
+        'Rekryteringsverktyg (Teamtailor, Manpower, LinkedIn Recruiter)',
+        'Svensk arbetsrätt (LAS, MBL, AML, diskrimineringslagen)',
+        'Kollektivavtal (Unionen, Akademikerförbunden, Kommunal)',
+        'Performance management och OKRs',
+        'Compensation och benchmarking',
+        'Organisationsutveckling och förändringsledning',
+        'Employer branding och social media-rekrytering',
+        'GDPR och dataskydd inom HR',
+        'Excel (PivotTable, VLOOKUP) och Power BI',
+        'Employee survey-system (Peakon, Glint, CultureAmp)',
+      ],
+      personliga: [
+        'Diskret och förtroendeingivande',
+        'Empatisk i svåra personalärenden',
+        'Strukturerad i processarbete',
+        'Pragmatisk i arbetsrättsliga avvägningar',
+        'Kommunikativ med chefer och medarbetare',
+        'Driven av affärsresultat',
+        'Etisk medvetenhet i HR-frågor',
+      ],
+    },
+
+    profilExempel:
+      'Senior HR-specialist med 8 års erfarenhet inom rekrytering och talent acquisition på industri och tech-scaleup. Drev rekryteringsprocesser för 200+ tjänster per år i Workday och Teamtailor med fokus på sourcing och employer branding. Minskade time-to-hire från 65 till 38 dagar (-42%) och ökade quality-of-hire-mätning med 28%. CIPD Level 5 och certifierad i kompetensbaserad intervju.',
+
+    profilTips:
+      'Senioritet, primär specialisering och bransch i öppningsraden. Andra meningen lyfter system och konkreta volymer. Tredje meningen visar mätbara resultat och certifieringar som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Specialisering i klartext',
+        text: 'Rekrytering, talent management, comp&ben, OD, arbetsrätt, L&D. Olika roller kräver olika specialisering. Lyft din djupaste i sammanfattningen.',
+      },
+      {
+        rubrik: 'HRIS-system du behärskar',
+        text: 'Workday dominerar internationella bolag. SuccessFactors på SAP-tunga. BambooHR på scale-ups. Heroma och Visma Lön på svensk offentlig sektor. Skriv ut systemnamnen.',
+      },
+      {
+        rubrik: 'Mätbara HR-resultat',
+        text: '"Minskade time-to-hire från 60 till 35 dagar", "Ökade employee NPS från 32 till 58". Konkreta siffror differentierar senior- från junior-HR.',
+      },
+      {
+        rubrik: 'Svensk arbetsrätt och kollektivavtal',
+        text: 'LAS, MBL, AML, diskrimineringslagen. Kollektivavtal med Unionen, Akademikerförbunden, Kommunal. Lyft din specifika arbetsrättserfarenhet.',
+      },
+      {
+        rubrik: 'Volymer och omfattning',
+        text: '"Hanterade rekrytering för 200+ tjänster per år" eller "Ansvarade för HR-stöd till 500 anställda". Konkreta volymer visar din kapacitet.',
+      },
+      {
+        rubrik: 'Bransch-erfarenhet',
+        text: 'Industri har annan HR-vana än tech-scaleup. LAS-tunga miljöer kräver djup arbetsrätt. Tech-scaleups kräver agil rekrytering. Lyft branschen.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, specialisering, bransch och primära system på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera HR-resultat och projektledningsroller.' },
+      { sektion: 'Utbildning', tips: 'PA-program, civilekonom, YH eller motsvarande. Certifieringar (CIPD, SHRM, IPMA-HR) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'HRIS, arbetsrätt, specialisering. Var konkret om systemvana och regelverk.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med CIPD, SHRM, kompetensbaserad intervju och utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell facklig samverkan eller Lex Sarah-erfarenhet.' },
+    ],
+
+    checklista: [
+      'PA-program, civilekonom eller YH-utbildning',
+      'Specialisering (rekrytering, talent, comp&ben, OD)',
+      'HRIS-system (Workday, SuccessFactors, BambooHR)',
+      'Svenska HR-system (Heroma, Visma Lön)',
+      'Svensk arbetsrätt (LAS, MBL, AML)',
+      'Kollektivavtals-erfarenhet',
+      'Konkreta HR-resultat med siffror',
+      'Bransch-erfarenhet',
+      'Eventuella certifieringar (CIPD, SHRM)',
+      'Förändringsledning eller HRBP-erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Aspekt är ATS-säkra. Storbolag och scale-ups använder Workday eller egna ATS. Konsultbolag använder Workday eller Oracle Recruiting. Skriv ut HRIS-system (Workday, SuccessFactors), specialiseringar (talent acquisition, comp&ben) och certifieringar (CIPD, SHRM) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett HR-specialist-CV?',
+        a: 'PA-program eller relevant utbildning, specialisering (rekrytering, talent, comp&ben, OD, arbetsrätt), HRIS-system (Workday, SuccessFactors, BambooHR), svensk arbetsrätt (LAS, MBL), kollektivavtal, konkreta HR-resultat, bransch-erfarenhet, samt eventuella certifieringar (CIPD, SHRM). Lägg till ledarroll och förändringsledning om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som junior HR?',
+        a: 'Lyft PA-program eller relevant kandidat, eventuell HR-praktik eller trainee-program, kurser i specifik specialisering (kompetensbaserad intervju, lönehantering), och Excel-färdigheter med konkreta exempel. Skriv ut din vilja att utvecklas och söka HRBP-roll efter några år. Många bolag har strukturerade trainee-program.',
+      },
+      {
+        q: 'Vilka HR-system är viktigast 2026?',
+        a: 'Workday dominerar internationella bolag. SuccessFactors på SAP-tunga bolag. BambooHR på scale-ups och mindre bolag. Heroma och Visma Lön på svensk offentlig sektor. Hogia på medelstora svenska bolag. AI-drivna verktyg (HiBob, Lattice) växer i scale-up-segmentet.',
+      },
+      {
+        q: 'Hur viktig är CIPD eller SHRM-certifiering?',
+        a: 'CIPD är gold standard internationellt och stark för bolag med brittiska kopplingar. SHRM dominerar amerikanska bolag. För svenska bolag är PA-program och praktisk erfarenhet ofta mer värt. För senior-roller på multinationella bolag väger CIPD och SHRM tungt och påverkar lönen.',
+      },
+      {
+        q: 'Vad är skillnaden mellan HR-specialist och HRBP?',
+        a: 'HR-specialist är operativ med specifik specialisering (rekrytering, lön, arbetsrätt). HRBP (HR Business Partner) är strategisk och rapporterar mot specifik affärsenhet. HRBP kräver oftast 8-12 års erfarenhet plus strategisk förmåga. Lön påverkas direkt av rolltitel.',
+      },
+      {
+        q: 'Hur lyfter jag arbetsrättsvana på CV:t?',
+        a: 'Beskriv konkreta uppdrag: "Hanterade 8 omplaceringsutredningar enligt LAS § 22 utan rättsliga klagomål", "Förhandlade kollektivavtal med Unionen för 200 anställda". Specifika paragrafer och kollektivavtal signalerar djup arbetsrättserfarenhet.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'HRIS-system (Workday, SuccessFactors, BambooHR), specialiseringar (talent acquisition, comp&ben, OD, HRBP), svensk arbetsrätt (LAS, MBL, AML), kollektivavtal (Unionen, Akademikerförbunden), KPI:er (time-to-hire, retention, NPS) och certifieringar. Workday och egna ATS söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett HR-specialist-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller HRBP: 2 sidor. HR-direktör: 2-3 sidor. Det viktiga är att specialisering, system och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till HR-tjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att förklara varför just det bolag och beskriv en specifik HR-utmaning du löst. Beskriv en svår personalärende, en organisationsförändring du drivit eller hur du minskat time-to-hire. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt HR-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("empatisk och driven") utan stöd, kund- eller medarbetarspecifika sekretessbelagda detaljer, och hobbies som inte är HR-relevanta. Stavfel signalerar slarv, vilket är negativt i ett yrke där dokumentation räknas.',
+      },
+    ],
+  },
+
+  'ingenjor': {
+    seoIntro:
+      'Som ingenjör i Sverige bedöms du på din specialisering, certifieringar och konkreta projektresultat. Industri, bygg, tech och konsultbolag har konstant brist på erfarna ingenjörer, men rekryterande chefer slänger CV:n som inte tydligt visar tekniskt djup, branschkompetens och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för ingenjörer lyfter teknisk specialisering, system-/CAD-vana och projektresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer och rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjörs- eller högskoleingenjörsexamen, specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation), CAD- och simuleringssystem (SolidWorks, Catia, AutoCAD, ANSYS, Matlab), branschvana (fordon, energi, telecom, bygg, life science), konkreta projektresultat (kostnadsbesparing, ledtid, kvalitet), eventuella certifieringar (CE, ISO 9001, Six Sigma), samt programmeringsspråk eller verktyg.\n\nNedan hittar du två CV-mallar designade för ingenjörsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri, bygg och tech faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Specialisering och examen',
+        description: 'Civilingenjör (5 år) ger fördel för senior-roller. Högskoleingenjör (3 år) räcker för de flesta. Lyft specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation) i sammanfattningen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'CAD och simuleringssystem',
+        description: 'SolidWorks dominerar i Sverige för mekanik. Catia på Volvo, Scania, Saab. AutoCAD för byggritningar. ANSYS, Matlab och Simulink för simulering. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta tekniska resultat',
+        description: '"Designade komponent som minskade vikt 25% och kostnad 18%", "Implementerade automation som ökade produktion 30%". Konkreta siffror differentierar senior- från junior-ingenjörer.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Branschvana är differentiator',
+        description: 'Fordon kräver ISO 26262 och funktionssäkerhet. Energi kräver IEC- och NEMA-standarder. Bygg kräver Eurocode och AMA. Lyft din branschvana eftersom regelverken skiljer.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Standarder och certifieringar',
+        description: 'CE-märkning, ISO 9001, ISO 14001, ISO 45001. Six Sigma (Yellow/Green/Black Belt), Lean. Specifika branschstandarder. Lyft certifieringar med datum och förnyelse-status.',
+      },
+      {
+        icon: 'Target',
+        title: 'Projektomfattning och ledningsroll',
+        description: 'Tekniskt ansvar för delsystem, helprodukt eller hela projekt. Antal personer du lett, budget du ansvarat för, externa leverantörer du hanterat. Lyft den största projektomfattning du haft.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Specialisering och CAD överst',
+        description: 'Vår mall Verkstad lyfter teknisk specialisering, CAD-system och eventuella certifieringar (CE, ISO) i sidopanelen. Teknikchefer ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med tekniska resultat',
+        description: 'Mallen separerar bolag och dina ingenjörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för CAD och simulering',
+        description: 'SolidWorks, Catia, AutoCAD, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
+      },
+      {
+        title: 'Premium-mallen Verkstad Plus med blueprint-grid',
+        description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar en designresonemang som passar konstruktörer och senior-ingenjörer.',
+      },
+      {
+        title: 'Strukturerad teknisk färgpalett',
+        description: 'Vi har valt grafit och steel-blue accent som signalerar industri och precision. Inga distraherande färger som drar fokus från tekniska meriter.',
+      },
+      {
+        title: 'Plats för standarder och certifieringar',
+        description: 'CE, ISO 9001, ISO 14001, Six Sigma har egen rad med utgångsdatum. Mallen lyfter formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Konstruktion och design',
+        punkter: [
+          'Designa komponenter och system enligt produktkrav och branschstandarder',
+          'Skapa 3D-modeller och tekniska ritningar i SolidWorks, Catia eller AutoCAD',
+          'Genomföra tolerans- och materialanalys för funktion och kostnad',
+          'Samverka med inköp för materialspecifikation och leverantörer',
+        ],
+      },
+      {
+        rubrik: 'Simulering och beräkning',
+        punkter: [
+          'Genomföra FEA-analyser i ANSYS, Abaqus eller motsvarande',
+          'Bygga simuleringsmodeller i Matlab/Simulink',
+          'Hantera CFD-analyser för flöden och termik',
+          'Validera designval genom prototyping och tester',
+        ],
+      },
+      {
+        rubrik: 'Projektarbete och leverans',
+        punkter: [
+          'Driva tekniskt ansvar för delsystem eller hela produkter',
+          'Samverka med inköp, kvalitet, produktion och eftermarknad',
+          'Skriva tekniska specifikationer, FMEA och DVP&R',
+          'Hantera change requests och tekniska eskaleringar',
+        ],
+      },
+      {
+        rubrik: 'Standarder och kvalitet',
+        punkter: [
+          'Säkerställa CE-märkning och regulatorisk compliance',
+          'Tillämpa ISO 9001, ISO 14001 eller branschspecifika standarder',
+          'Genomföra DFMEA och PFMEA för designsäkring',
+          'Stötta i kvalitetsutredningar och root cause-analys',
+        ],
+      },
+      {
+        rubrik: 'Test och validering',
+        punkter: [
+          'Designa och genomföra prototyptester och valideringsprogram',
+          'Hantera testrapporter och dokumentation enligt standarder',
+          'Samverka med externa testlabb och certifieringsorgan',
+          'Iterera design baserat på testresultat och fältdata',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'CAD och simulering',
+        termer: [
+          { term: 'SolidWorks', forklaring: 'Marknadsledande CAD-system i Sverige för mekanik.' },
+          { term: 'Catia', forklaring: 'Premium-CAD från Dassault, vanlig på Volvo, Scania, Saab och flygindustri.' },
+          { term: 'AutoCAD', forklaring: 'Klassisk CAD från Autodesk, vanlig för 2D-ritningar och bygg.' },
+          { term: 'Inventor', forklaring: 'Autodesks 3D-CAD, vanlig på medelstora industribolag.' },
+          { term: 'ANSYS', forklaring: 'Premium FEA- och simuleringsplattform.' },
+          { term: 'Matlab/Simulink', forklaring: 'Verktyg för simulering, kontroll och dataanalys.' },
+        ],
+      },
+      {
+        kategori: 'Standarder och regelverk',
+        termer: [
+          { term: 'CE-märkning', forklaring: 'EU-märkning som visar att produkt uppfyller direktivkrav.' },
+          { term: 'ISO 9001', forklaring: 'Internationell standard för kvalitetsledningssystem.' },
+          { term: 'ISO 14001', forklaring: 'Standard för miljöledningssystem.' },
+          { term: 'ISO 45001', forklaring: 'Standard för arbetsmiljö och säkerhet.' },
+          { term: 'IEC 61508', forklaring: 'Funktionssäkerhet för industriella system.' },
+          { term: 'ISO 26262', forklaring: 'Funktionssäkerhet för fordon och autonoma system.' },
+        ],
+      },
+      {
+        kategori: 'Specialiseringar',
+        termer: [
+          { term: 'Mekanikkonstruktion', forklaring: 'Design av mekaniska komponenter och produkter.' },
+          { term: 'Elektronik', forklaring: 'Kretskort, hårdvara, embedded och digital design.' },
+          { term: 'Byggteknik', forklaring: 'Konstruktion, bärande system, byggnadsfysik.' },
+          { term: 'Kemiteknik', forklaring: 'Process, kemiska reaktioner, läkemedel, energi.' },
+          { term: 'Automation', forklaring: 'PLC, SCADA, robotik och industriella styrningssystem.' },
+          { term: 'Energiteknik', forklaring: 'Värme, kyla, ventilation, energieffektivitet.' },
+        ],
+      },
+      {
+        kategori: 'Metodik och nyckelbegrepp',
+        termer: [
+          { term: 'FMEA', forklaring: 'Failure Mode and Effects Analysis, riskanalys för design.' },
+          { term: 'DFMEA/PFMEA', forklaring: 'Design FMEA respektive Process FMEA.' },
+          { term: 'Six Sigma', forklaring: 'Kvalitetsförbättringsmetod (Yellow/Green/Black Belt).' },
+          { term: 'Lean', forklaring: 'Kontinuerlig förbättring och eliminering av slöseri.' },
+          { term: 'V-modellen', forklaring: 'Utvecklingsprocess för regulatoriska branscher (fordon, medtech).' },
+          { term: 'DVP&R', forklaring: 'Design Verification Plan and Report, valideringsstrategi.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Fordonsindustri',
+        exempel: [
+          'Volvo Cars, Volvo Trucks, Scania, Polestar',
+          'Northvolt och elektrifierings-bolag',
+          'Underleverantörer (Autoliv, Veoneer, Plastal)',
+          'Konsultbolag (Volvo Cars Consultants, AVL)',
+        ],
+      },
+      {
+        kategori: 'Tillverkning och industri',
+        exempel: [
+          'ABB, Atlas Copco, Sandvik, IKEA Industry',
+          'Tetra Pak, Electrolux, Husqvarna',
+          'AssaAbloy, Saab, Ericsson',
+          'Mindre tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Bygg och anläggning',
+        exempel: [
+          'Skanska, NCC, Peab, JM',
+          'Sweco, WSP, Tyréns, COWI',
+          'Trafikverket, Svenska Kraftnät',
+          'Arkitektkontor och konsultbolag',
+        ],
+      },
+      {
+        kategori: 'Energi, life science och övrigt',
+        exempel: [
+          'Vattenfall, E.ON, Fortum, OKG',
+          'AstraZeneca, Octapharma, Recipharm',
+          'Konsultbolag (Sweco, ÅF/AFRY, Sigma)',
+          'Statliga myndigheter (FOI, FMV)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjörsexamen (5 år)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping, Uppsala, Umeå, Luleå. Vanlig grund för senior-roller på storbolag och regulatoriskt tunga branscher (fordon, medtech, energi).',
+      },
+      {
+        rubrik: 'Högskoleingenjörsexamen (3 år)',
+        beskrivning: 'Kortare teknisk utbildning från högskolor och tekniska program. Räcker för de flesta ingenjörsroller och vanlig på scale-ups som värderar praktik över akademisk djup.',
+      },
+      {
+        rubrik: 'Yrkeshögskola (1-2 år)',
+        beskrivning: 'YH-utbildningar inom CAD, automation, byggteknik. Kortare väg in och meriterande kombinerat med praktik. Vanlig på mindre bolag.',
+      },
+      {
+        rubrik: 'Specialistcertifieringar',
+        beskrivning: 'Six Sigma (Yellow/Green/Black Belt), PMP, Catia/SolidWorks-certifieringar, branschspecifika certifikat. Stark merit för senior-roller och konsultsegmentet.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'CAD-system (SolidWorks, Catia, AutoCAD, Inventor)',
+        'FEA-simulering (ANSYS, Abaqus)',
+        'Matlab och Simulink',
+        'PLC-programmering (Siemens, Beckhoff)',
+        'Standarder (CE, ISO 9001, ISO 14001, IEC 61508)',
+        'FMEA och DVP&R-metodik',
+        'Six Sigma och Lean-metodik',
+        'Tolerans- och materialanalys',
+        'Programmeringsspråk (Python, C, C++)',
+        'PDM/PLM-system (Teamcenter, Windchill)',
+        'Office-paketet och tekniska rapportverktyg',
+        'Engelska för tekniska specifikationer',
+      ],
+      personliga: [
+        'Strukturerad och analytisk',
+        'Pragmatisk i tradeoffs mellan funktion och kostnad',
+        'Detaljorienterad i konstruktion',
+        'Kollaborativ i tvärfunktionella team',
+        'Driven av kvalitet och prestanda',
+        'Etisk medvetenhet kring säkerhet',
+        'Kommunikativ med icke-tekniska intressenter',
+      ],
+    },
+
+    profilExempel:
+      'Senior mekanikkonstruktör med 9 års erfarenhet inom fordonsindustrin på Volvo Cars och underleverantör. Arbetar med Catia V6 och Teamcenter för bilkomponentkonstruktion enligt ISO 26262 och Six Sigma. Designade chassikomponent som minskade vikt 22% och produktionskostnad 15% utan kompromiss på säkerhet. Civilingenjör i maskinteknik från Chalmers samt Six Sigma Green Belt-certifierad.',
+
+    profilTips:
+      'Senioritet, primär specialisering och bransch i öppningsraden. Andra meningen lyfter CAD-system och eventuella standarder. Tredje meningen visar konkret tekniskt resultat och certifieringar som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Specialisering och examen',
+        text: 'Civilingenjör (5 år) ger fördel för senior-roller. Högskoleingenjör (3 år) räcker för de flesta. Lyft specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation) i sammanfattningen.',
+      },
+      {
+        rubrik: 'CAD och simuleringssystem',
+        text: 'SolidWorks dominerar i Sverige. Catia på Volvo, Scania, Saab. AutoCAD för byggritningar. ANSYS och Matlab för simulering. Skriv ut systemnamnen så ATS kan filtrera fram dig.',
+      },
+      {
+        rubrik: 'Konkreta tekniska resultat',
+        text: '"Designade komponent som minskade vikt 25%", "Implementerade automation som ökade produktion 30%". Konkreta siffror differentierar senior- från junior-ingenjörer.',
+      },
+      {
+        rubrik: 'Branschvana är differentiator',
+        text: 'Fordon kräver ISO 26262. Energi kräver IEC och NEMA. Bygg kräver Eurocode och AMA. Lyft din branschvana eftersom regelverken skiljer.',
+      },
+      {
+        rubrik: 'Standarder och certifieringar',
+        text: 'CE, ISO 9001, ISO 14001, ISO 45001. Six Sigma (Yellow/Green/Black Belt), Lean. Specifika branschstandarder. Lyft certifieringar med datum.',
+      },
+      {
+        rubrik: 'Projektomfattning och ledningsroll',
+        text: 'Tekniskt ansvar för delsystem, helprodukt eller hela projekt. Antal personer du lett, budget du ansvarat för, externa leverantörer du hanterat.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, specialisering, bransch och primära system på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera tekniska bidrag och resultat.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör med specialisering. Examensår och lärosäte.' },
+      { sektion: 'Kompetenser', tips: 'CAD, simulering, programmering, standarder. Var konkret om versioner och nivå.' },
+      { sektion: 'Certifieringar', tips: 'Eget block med Six Sigma, ISO-certifikat, CAD-certifikat och utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell talangs- eller mentorroll, tekniska publikationer.' },
+    ],
+
+    checklista: [
+      'Civilingenjörs- eller högskoleingenjörsexamen',
+      'Specialisering (mekanik, elektronik, byggteknik, kemi)',
+      'CAD-system du behärskar med versioner',
+      'Simuleringsverktyg (ANSYS, Matlab, Simulink)',
+      'Standarder (CE, ISO 9001, branschspecifika)',
+      'Konkreta tekniska resultat',
+      'Bransch-erfarenhet',
+      'Projektledarroll och teamstorlek',
+      'Six Sigma eller Lean-certifiering',
+      'Programmeringsspråk eller PDM-system',
+    ],
+
+    atsInfo:
+      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia), standarder (ISO 9001, CE) och specialiseringar (mekanikkonstruktion, automation) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett ingenjör-CV?',
+        a: 'Civilingenjörs- eller högskoleingenjörsexamen, specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation), CAD-system (SolidWorks, Catia, AutoCAD), simuleringsverktyg (ANSYS, Matlab), standarder (CE, ISO 9001, branschspecifika), konkreta tekniska resultat, bransch-erfarenhet, samt eventuella certifieringar (Six Sigma, ISO).',
+      },
+      {
+        q: 'Räcker högskoleingenjör eller behöver jag civilingenjör?',
+        a: 'Beror på roll och bransch. Högskoleingenjör (3 år) räcker för de flesta operativa roller och scale-ups. Civilingenjör (5 år) är ofta krav för senior-roller på storbolag, regulatoriskt tunga branscher (fordon, medtech, energi) och konsultsegmentet. För forskning och utveckling krävs nästan alltid civilingenjör eller doktorand.',
+      },
+      {
+        q: 'Vilka CAD-system är viktigast 2026?',
+        a: 'SolidWorks dominerar svenska medelstora industribolag. Catia på Volvo, Scania, Saab och flygindustri. AutoCAD och Inventor för bygg och 2D-ritningar. NX (Siemens) växer på fordonsbolag. Fusion 360 på scale-ups. Skriv ut version och erfarenhetsår.',
+      },
+      {
+        q: 'Hur visar jag teknisk erfarenhet utan senior-titel?',
+        a: 'Beskriv konkreta projekt: "Designade kåpa till elmotor som minskade kylförluster med 12%", "Implementerade automation som minskade ledtid 40%". Konkreta tekniska bidrag är värt mer än titel. Visa även stakeholder-arbete och eventuell projektledarroll.',
+      },
+      {
+        q: 'Hur viktig är Six Sigma eller Lean-certifiering?',
+        a: 'Beror på bransch. Industri och tillverkning värderar Six Sigma Green Belt eller Black Belt högt, ofta krav för senior-roller. Lean är vanligt i scale-ups och processeffektivisering. För konsultsegmentet är båda meriterande och påverkar lönen direkt.',
+      },
+      {
+        q: 'Hur lyfter jag bransch-erfarenhet?',
+        a: 'Skriv ut bransch-specifika standarder och regelverk: ISO 26262 för fordon, IEC 61508 för industri, Eurocode för bygg, GAMP för medtech. Beskriv specifika produkt- eller projekttyper: elektrifiering, autonoma system, hållbar design. Branschvana är ofta differentiator vid likvärdiga CV.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'CAD-system (SolidWorks, Catia, AutoCAD, Inventor, NX), simulering (ANSYS, Abaqus, Matlab), standarder (CE, ISO 9001, ISO 26262, IEC 61508), specialisering (mekanikkonstruktion, automation, byggteknik), och programmeringsspråk (Python, C, C++, Matlab). Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett ingenjör-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior eller technical lead: 2 sidor. Konsult-CV kan vara 3-5 sidor. Det viktiga är att specialisering, CAD-system och senaste roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till ingenjörstjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just det bolag och beskriv en specifik teknisk utmaning du löst. Beskriv ett designval, en kostnadsoptimering eller en kvalitetsförbättring du drivit. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt ingenjör-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och problem-lösare") utan stöd, sekretessbelagda tekniska detaljer eller patent, och hobbies som inte är teknik-relevanta. Stavfel av tekniska termer signalerar slarv, vilket är negativt.',
+      },
+    ],
+  },
+
+  'teamledare': {
+    seoIntro:
+      'Som teamledare bedöms du på din ledarförmåga, operativa leverans och hur du driver mindre team mot resultat. Det är ofta första chefroll och avgörande för fortsatt karriär. Industri, retail, tech, vård och offentlig sektor har konstant öppna teamledar-roller, men HR- och avdelningschefer slänger CV:n som inte tydligt visar konkret personalansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för teamledare lyfter teamstorlek, ansvarsområden och konkreta resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, teamomfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ledarskap-utbildning eller examen, teamstorlek du lett (2-15 personer), bransch och funktion (säljteam, lagerteam, kundtjänst, produktion), konkreta resultat (KPI-uppfyllelse, retention, NPS), eventuella certifieringar (UGL, IFL, Mind-Lab), arbetsrätt-grund (LAS, MBL), samt branschspecifik systemkompetens.\n\nNedan hittar du två CV-mallar designade för teamledarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR- och avdelningschefer i industri, retail, tech och vård faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Teamstorlek och ansvarsområden',
+        description: '"Ledde 8-personers säljteam med ansvar för 18 MSEK omsättning" är konkret. "Ledde team" är inte. Skriv ut antal personer, deras roller och vilken affärsenhet du ansvarat för.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta team-resultat',
+        description: '"Ökade KPI-uppfyllelse från 78% till 96% på 12 månader", "Minskade personalomsättning från 18% till 7%". Konkreta siffror differentierar senior- från junior-teamledare.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Ledarskap-utbildning',
+        description: 'UGL (Utveckling av Grupp och Ledare), IFL (Institutet för Företagsledning), Mind-Lab. Sådana utbildningar ger trovärdighet i ledarrollen och påverkar lönen direkt.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Arbetsrätt och samverkan',
+        description: 'Som teamledare hanterar du löneförhandling, sjuksamtal, rehabilitering, eventuella uppsägningar enligt LAS. Lyft din arbetsrättsliga erfarenhet eftersom det är centralt.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Operativ kompetens',
+        description: 'Du måste behärska teamets arbete för att kunna leda. Bibehåll och lyft din operativa kompetens (säljvana, lagerteknik, kundtjänst). Många teamledare gör hands-on-arbete.',
+      },
+      {
+        icon: 'Target',
+        title: 'Karriärväg och utveckling',
+        description: 'Teamledare är ofta steg till avdelningschef eller senior manager. Lyft eventuell mentor-roll, projektledning utöver teamarbete, eller specialuppdrag som visar kapacitet för nästa steg.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Teamstorlek och resultat överst',
+        description: 'Vår mall lyfter teamstorlek, ansvarsområden och konkreta resultat i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet med ledarbidrag',
+        description: 'Mallen separerar bolag och dina ledarbidrag (KPI-resultat, retention, kompetensutveckling). Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för utbildningar',
+        description: 'UGL, IFL, Mind-Lab, eventuella certifieringar. Mallen lyfter ledarskaps-utveckling som eget block med datum.',
+      },
+      {
+        title: 'Premium-mallen Aspekt med fokusområden',
+        description: 'För avancemang till avdelningschef lägger Aspekt till "Fokusområden"-pills. Skapar professionell first impression som passar nästa karriärsteg.',
+      },
+      {
+        title: 'Plats för operativ kompetens',
+        description: 'Mallen har dedikerade rader för både ledarskap och teamets operativa område (säljvana, system, processer). Visar att du behärskar både att leda och göra.',
+      },
+      {
+        title: 'Sober färgsättning för ledarroll',
+        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och förtroende. Passar både industri- och tjänsteledare.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personalansvar och utveckling',
+        punkter: [
+          'Genomföra rekryteringssamtal och introduktion av nya medarbetare',
+          'Hålla utvecklingssamtal och feedback-möten',
+          'Identifiera utbildningsbehov och driva kompetensutveckling',
+          'Hantera lönesamtal och kollegial samverkan',
+        ],
+      },
+      {
+        rubrik: 'Operativ leverans',
+        punkter: [
+          'Säkerställa daglig leverans av teamets KPI:er och mål',
+          'Hantera schemaläggning, semester och frånvaro',
+          'Stötta teamet operativt vid behov (hands-on)',
+          'Eskalera problem till chefen vid behov',
+        ],
+      },
+      {
+        rubrik: 'Arbetsrätt och svåra ärenden',
+        punkter: [
+          'Tillämpa LAS, MBL och AML i personalärenden',
+          'Hantera sjukfrånvaro, rehabilitering och samtal',
+          'Genomföra omplaceringar eller uppsägningar enligt LAS § 22',
+          'Samverka med HR och fackligt ombud vid svåra ärenden',
+        ],
+      },
+      {
+        rubrik: 'Teamutveckling',
+        punkter: [
+          'Bygga team-kultur, samarbete och prestationskultur',
+          'Genomföra teamutvecklingsdagar och feedback-rundor',
+          'Hantera konflikter och interpersonella problem',
+          'Stötta i karriärutveckling och interna byten',
+        ],
+      },
+      {
+        rubrik: 'Rapportering och samverkan',
+        punkter: [
+          'Rapportera KPI:er och status till avdelningschef veckovis eller månadsvis',
+          'Stötta i budget-arbete och prognoser',
+          'Samverka med andra teamledare och avdelningar',
+          'Bidra till verksamhetsutveckling och effektivisering',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Ledarskap-utbildning',
+        termer: [
+          { term: 'UGL', forklaring: 'Utveckling av Grupp och Ledare, klassisk svensk ledarskaps-utbildning.' },
+          { term: 'IFL', forklaring: 'Institutet för Företagsledning, premium-utbildningar.' },
+          { term: 'Mind-Lab', forklaring: 'Utbildningsbolag med fokus på ledarskap och beteendeförändring.' },
+          { term: 'Stockholm School of Economics IFL', forklaring: 'Premium ledarskaps-utbildning på SSE.' },
+          { term: 'GMP-certifiering', forklaring: 'Grunder i ledarskap, vanlig på medelstora bolag.' },
+          { term: 'Coaching-utbildning', forklaring: 'ICF eller motsvarande certifiering för ledare-coacher.' },
+        ],
+      },
+      {
+        kategori: 'Arbetsrätt och regelverk',
+        termer: [
+          { term: 'LAS', forklaring: 'Lagen om anställningsskydd, central för uppsägning och anställningstid.' },
+          { term: 'MBL', forklaring: 'Medbestämmandelagen, reglerar facklig samverkan vid förändringar.' },
+          { term: 'AML', forklaring: 'Arbetsmiljölagen, gäller fysisk och psykosocial arbetsmiljö.' },
+          { term: 'Diskrimineringslagen', forklaring: 'Skydd mot diskriminering på sju grunder.' },
+          { term: 'LAS § 22', forklaring: 'Reglerar uppsägning på grund av arbetsbrist och turordning.' },
+          { term: 'Rehabkedjan', forklaring: 'Strukturerat förfarande vid sjukfrånvaro enligt SGI.' },
+        ],
+      },
+      {
+        kategori: 'Ledarroll-titlar',
+        termer: [
+          { term: 'Teamledare', forklaring: 'Operativ ledare för mindre team (2-15 personer).' },
+          { term: 'Gruppchef', forklaring: 'Liknande teamledare, vanlig titel i industri och offentlig sektor.' },
+          { term: 'Avdelningschef', forklaring: 'Senior chef över större avdelning med flera teamledare under sig.' },
+          { term: 'First Line Manager', forklaring: 'Internationell term för första chefnivå.' },
+          { term: 'Operations Manager', forklaring: 'Operativt ansvar för verksamhet, ofta mellan teamledare och avdelningschef.' },
+          { term: 'Coach', forklaring: 'Specialiserad ledare med fokus på utveckling.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er och prestandamått',
+        termer: [
+          { term: 'KPI', forklaring: 'Key Performance Indicator, mätbara prestationsmål.' },
+          { term: 'NPS', forklaring: 'Net Promoter Score, kund- eller medarbetar-mätning.' },
+          { term: 'Retention', forklaring: 'Andel av anställda som stannar över viss period.' },
+          { term: 'Voluntary turnover', forklaring: 'Frivillig personalomsättning, indikator på arbetsmiljö.' },
+          { term: 'Absentism', forklaring: 'Sjukfrånvaro, mäts ofta som procent av total arbetstid.' },
+          { term: 'Engagement-index', forklaring: 'Mäter medarbetar-engagemang, ofta via Peakon eller Glint.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Ericsson, Sandvik, Atlas Copco',
+          'Tetra Pak, Electrolux, Husqvarna',
+          'Mindre tillverkningsbolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Retail och konsument',
+        exempel: [
+          'ICA, Coop, Axfood, H&M',
+          'IKEA, Stadium, Lindex, KappAhl',
+          'Apoteket, KICKS, Lyko',
+          'E-handelsbolag (Boozt, NA-KD, Apotea)',
+        ],
+      },
+      {
+        kategori: 'Tech och scale-ups',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink',
+          'Mathem, Foodora, Voi, Truecaller',
+          'Mindre tech-bolag och B2B SaaS',
+          'IT-konsult och bemanningsbolag',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och vård',
+        exempel: [
+          'Region Stockholm, Region Västra Götaland',
+          'Kommuner och stadsdelsförvaltningar',
+          'Statliga myndigheter och statligt ägda bolag',
+          'Privata vårdbolag (Attendo, Humana, Capio)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Akademisk examen (3-5 år)',
+        beskrivning: 'Civilekonom, civilingenjör, sjuksköterska, socionom eller annan branschspecifik examen. Vanlig grund för teamledare-roller på storbolag.',
+      },
+      {
+        rubrik: 'Yrkeshögskola (1-2 år)',
+        beskrivning: 'YH-utbildningar inom ledarskap, arbetsledning eller branschspecifika roller. Snabbare väg in och meriterande kombinerat med erfarenhet.',
+      },
+      {
+        rubrik: 'Internutbildningar och avancemang',
+        beskrivning: 'Många teamledare avancerar internt. Bolagets egna ledarskaps-program (UGL via SPSM, Volvo-program) räknas och påverkar lönen.',
+      },
+      {
+        rubrik: 'Ledarskaps-certifieringar',
+        beskrivning: 'UGL, IFL, Mind-Lab, ICF coaching. Korta kurser med stark merit för senior- och avdelningschef-roller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Personalansvar och utvecklingssamtal',
+        'Svensk arbetsrätt (LAS, MBL, AML)',
+        'Kollektivavtal och samverkan med fack',
+        'Schemaläggning och bemanningsplanering',
+        'KPI-uppföljning och rapportering',
+        'Teamets operativa område (säljvana, system, processer)',
+        'Coaching och feedback-tekniker',
+        'Rekrytering och introduktion',
+        'Performance management och OKRs',
+        'Konflikthantering och svåra samtal',
+        'Office-paketet och rapportverktyg',
+        'Eventuella branschsystem',
+      ],
+      personliga: [
+        'Strukturerad och leveransorienterad',
+        'Empatisk och kommunikativ',
+        'Lugn vid svåra personalärenden',
+        'Pedagogisk i utveckling',
+        'Pragmatisk i tradeoffs',
+        'Driven av team-resultat',
+        'Etisk medvetenhet i ledarskap',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren teamledare med 6 års erfarenhet inom säljteam på industri och retail. Leder 9-personers nyckelkundsteam med ansvar för 24 MSEK omsättning, ökade KPI-uppfyllelse från 82% till 98% på 14 månader och minskade personalomsättning från 18% till 6%. UGL-utbildning, kompetensbaserad intervju-cert och GMP-grunder. Söker avancemang mot avdelningschef inom 2 år.',
+
+    profilTips:
+      'Antal år som ledare, teamtyp och bransch i öppningsraden. Andra meningen lyfter teamstorlek och konkreta resultat. Tredje meningen visar utbildningar och eventuell karriärambition som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Teamstorlek och ansvarsområden',
+        text: '"Ledde 8-personers säljteam med ansvar för 18 MSEK" är konkret. "Ledde team" är inte. Skriv ut antal personer, roller och affärsenhet.',
+      },
+      {
+        rubrik: 'Konkreta team-resultat',
+        text: '"Ökade KPI-uppfyllelse från 78% till 96%", "Minskade personalomsättning från 18% till 7%". Konkreta siffror differentierar senior- från junior-teamledare.',
+      },
+      {
+        rubrik: 'Ledarskap-utbildning',
+        text: 'UGL, IFL, Mind-Lab. Sådana utbildningar ger trovärdighet i ledarrollen och påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Arbetsrätt och samverkan',
+        text: 'Som teamledare hanterar du löneförhandling, sjuksamtal, rehabilitering, eventuella uppsägningar enligt LAS. Lyft din arbetsrättsliga erfarenhet.',
+      },
+      {
+        rubrik: 'Operativ kompetens',
+        text: 'Du måste behärska teamets arbete för att kunna leda. Bibehåll och lyft din operativa kompetens (säljvana, lagerteknik, kundtjänst).',
+      },
+      {
+        rubrik: 'Karriärväg',
+        text: 'Teamledare är ofta steg till avdelningschef. Lyft eventuell mentor-roll, projektledning eller specialuppdrag som visar kapacitet för nästa steg.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som ledare, teamtyp, bransch och nyckelresultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, teamstorlek. Konkretisera ledar-resultat och operativa bidrag.' },
+      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Ledarskaps-utbildningar (UGL, IFL) i eget block.' },
+      { sektion: 'Kompetenser', tips: 'Personalansvar, arbetsrätt, KPI-uppföljning, operativ vana. Var konkret om regelverk.' },
+      { sektion: 'Ledarskap', tips: 'Eget block med UGL, IFL, coaching-utbildning, eventuell mentor-roll.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, ambition (avdelningschef-mål), eventuell facklig erfarenhet.' },
+    ],
+
+    checklista: [
+      'Akademisk examen eller YH',
+      'Personalansvar med teamstorlek',
+      'Konkret team-resultat (KPI, retention)',
+      'Ledarskaps-utbildning (UGL, IFL)',
+      'Svensk arbetsrätt-vana',
+      'Operativ kompetens i teamets område',
+      'Rekryterings- och utvecklingssamtals-erfarenhet',
+      'Schemaläggning och bemanningsplanering',
+      'KPI-uppföljning och rapportering',
+      'Eventuella mentor- eller projektledar-roller',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Aspekt är ATS-säkra. Storbolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut ledarskaps-utbildning (UGL, IFL), arbetsrätt (LAS, MBL) och teamomfattning i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett teamledar-CV?',
+        a: 'Akademisk examen eller YH-utbildning, ledarskaps-utbildning (UGL, IFL, Mind-Lab), konkret personalansvar (teamstorlek, ansvarsområde), team-resultat (KPI, retention, NPS), arbetsrätt-vana, operativ kompetens, eventuella mentor- eller projektledar-roller, samt karriärambition. Lägg till facklig erfarenhet om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som första gången-teamledare?',
+        a: 'Lyft akademisk examen och eventuell ledarskaps-utbildning. Beskriv informella ledar-roller du haft (mentor, projektledare, facklig representant). Konkreta resultat från operativ roll: "Effektiviserade arbetsflöde som tog 3 timmar till 45 min". Skriv ut din vilja att utvecklas som ledare. Många bolag har strukturerade trainee-program för nya ledare.',
+      },
+      {
+        q: 'Vilken ledarskaps-utbildning är värdefullast?',
+        a: 'UGL (Utveckling av Grupp och Ledare) är klassisk svensk standard och ofta krav i offentlig sektor. IFL Stockholm Business School premium-segment. Mind-Lab populär på industri. ICF Coaching-cert för senior-coacher. För avancemang till avdelningschef väger MBA tungt. Räkna med 30-150k SEK per utbildning.',
+      },
+      {
+        q: 'Hur visar jag ledarskap utan formell titel?',
+        a: 'Beskriv konkreta uppdrag: mentor för 3 nya kollegor, projektledare för specifik förändring, facklig representant, gruppledare för specifik leverans. Om du drivit förbättringsprojekt eller varit huvudkassör räknas det. Konkreta uppdrag och resultat differentierar dig från andra junior-kandidater.',
+      },
+      {
+        q: 'Vilka resultat-KPI:er är viktigast på CV:t?',
+        a: 'Beror på funktion. Säljteam: KPI-uppfyllelse, snitt-affär. Lagerteam: plockhastighet, säkerhet. Kundtjänst: NPS, lösningsgrad. För alla funktioner: retention, sjukfrånvaro, engagement-mätning. Bench-marka mot bransch-snitt så siffrorna får kontext.',
+      },
+      {
+        q: 'Hur viktig är arbetsrätt-erfarenhet?',
+        a: 'Mycket. Som teamledare hanterar du löneförhandling, sjuksamtal, rehabilitering, omplaceringar enligt LAS, samverkan med fack. Erfarenhet av MBL-förhandling eller uppsägningsärenden är meriterande för senior-roller. Lyft konkret hur du hanterat svåra personalärenden.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Ledarskaps-utbildningar (UGL, IFL, Mind-Lab), svensk arbetsrätt (LAS, MBL, AML), KPI:er (retention, NPS, engagement), funktion (säljteam, lagerteam, kundtjänst, produktion), och bransch. Workday och Teamtailor söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett teamledar-CV vara?',
+        a: 'Junior 0-3 år som ledare: 1 sida. Mid-level: 1,5 sidor. Senior eller avancemangs-kandidat till avdelningschef: 2 sidor. Det viktiga är att teamstorlek, resultat och senaste ledar-roll syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till teamledar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just det bolag och beskriv en specifik ledar-utmaning du löst. Beskriv en svår personalärende, en team-förändring eller ett resultat du drivit. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt teamledar-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("driven och social") utan stöd, namn på medarbetare eller sekretessbelagda detaljer, och hobbies som inte är ledarskaps-relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
+  'chef': {
+    seoIntro:
+      'Som chef bedöms du på din ledarförmåga, strategiska förmåga och konkreta affärsresultat. Storbolag, scale-ups, offentlig sektor och konsultbolag har konstant öppna chef-roller, men styrelser och VD:ar slänger CV:n som inte tydligt visar omfattning, P&L-ansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de positioner du faktiskt vill kvalificera dig för.\n\nVår mall för chefer lyfter ledarroll-omfattning, P&L-ansvar och konkreta affärsresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att styrelser, VD:ar och executive search-rekryterare kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: akademisk examen (oftast civilekonom, civilingenjör eller MBA), ledarroll med totalt antal underställda och organisations-omfattning, P&L-ansvar (omsättning, EBITDA, resultatansvar), konkreta affärsresultat (tillväxt, lönsamhet, transformation), eventuell styrelseerfarenhet, MBA eller motsvarande, samt branschvana och eventuell internationell erfarenhet.\n\nNedan hittar du två CV-mallar designade för chefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad styrelser, VD:ar och executive search-rekryterare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'P&L-ansvar och omfattning',
+        description: '"Ansvar för 250 MSEK omsättning och EBITDA-tillväxt 18% per år" är tydligt. "Affärsansvarig" är inte. Lyft total omsättning, EBITDA-bidrag och organisations-omfattning.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Konkreta affärsresultat',
+        description: '"Drev tillväxt från 80 MSEK till 165 MSEK på 4 år", "Genomförde turnaround från -8% till +12% EBITDA". Konkreta siffror differentierar senior från VD-kandidat.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Styrelseerfarenhet och representation',
+        description: 'Styrelseledamot, ordförande, advisory board, branschorganisationer. Sådana uppdrag signalerar bredd och nätverk för senior chefroller. Lyft i eget block.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'MBA eller executive education',
+        description: 'MBA från Handelshögskolan, INSEAD, IESE, IMD. Executive Education från SSE, Harvard, Wharton. Stark merit för C-suite och styrelse-positioner.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Transformation och förändringsledning',
+        description: 'Turnaround, omstrukturering, M&A, internationalisering, digitalisering. Beskriv konkreta transformationsprojekt du lett. Sådana meriter differentierar VD-kandidater från avdelningschefer.',
+      },
+      {
+        icon: 'Target',
+        title: 'Internationell erfarenhet',
+        description: 'Stints i Tyskland, USA, Kina, eller Norden. Ansvar för geografiska expansioner. Multinationella team eller bolagsstrukturer. Lyft internationell vana för noterade bolag och scale-ups.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'P&L och omfattning överst',
+        description: 'Vår mall Tidlös har dedikerad sidopanel för P&L-ansvar, organisations-omfattning och styrelseerfarenhet. Styrelser och VD:ar ser dina baskompetenser på fem sekunder.',
+      },
+      {
+        title: 'Erfarenhet med affärsresultat',
+        description: 'Mallen separerar bolag och dina chef-bidrag (tillväxt, lönsamhet, transformation, M&A). Du kan visa både operativa och strategiska resultat utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Eget block för MBA och executive education',
+        description: 'MBA från Handels, INSEAD, IESE. Executive Education från SSE, Harvard. Mallen lyfter formell utbildning som eget block med datum.',
+      },
+      {
+        title: 'Premium-mallen Atlas eller Tidlös Plus',
+        description: 'För C-suite och senior chef-roller lägger Atlas till centrerad serif-header med Playfair Display och guld-accent. Tidlös Plus har Garamond serif och burgundy-accent. Båda signalerar prestige.',
+      },
+      {
+        title: 'Plats för styrelseuppdrag',
+        description: 'Mallen har dedikerade rader för styrelseledamot-uppdrag, advisory board och branschorganisationer. Visar att du tar ansvar bortom egen exekutivt-roll.',
+      },
+      {
+        title: 'Formell typografi för senior chef',
+        description: 'Vi har valt klassisk serif-typografi som signalerar tradition, prestige och affärsmognad. Inga distraherande designval som kan upplevas oseriösa för senior-segmentet.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Strategi och affärsledning',
+        punkter: [
+          'Sätta strategisk inriktning för verksamheten i samråd med styrelse',
+          'Driva strategi-implementering med tvärfunktionellt ledarskap',
+          'Säkerställa vinst- och lönsamhet inom budget',
+          'Driva affärsutveckling och nya marknadsmöjligheter',
+        ],
+      },
+      {
+        rubrik: 'Personalansvar och organisation',
+        punkter: [
+          'Leda och utveckla ledningsgrupp och senior chefer',
+          'Sätta målbild, kultur och prestationskultur',
+          'Hantera senior rekrytering och successionsplanering',
+          'Genomföra organisationsförändringar och omstruktureringar',
+        ],
+      },
+      {
+        rubrik: 'Ekonomi och rapportering',
+        punkter: [
+          'Ansvar för P&L, balansräkning och cashflow',
+          'Rapportera till styrelse, VD eller ägare månadsvis',
+          'Driva budget-process och rolling forecast',
+          'Genomföra kostnads- och investeringsanalyser',
+        ],
+      },
+      {
+        rubrik: 'Externa intressenter',
+        punkter: [
+          'Hantera kund-, partner- och leverantörsrelationer på senior nivå',
+          'Representera bolaget i medier, branschorganisationer och konferenser',
+          'Driva förvärvs- och fusionsdiskussioner',
+          'Hantera myndighets- och regulatorisk samverkan',
+        ],
+      },
+      {
+        rubrik: 'Förändring och transformation',
+        punkter: [
+          'Driva turnaround och omstruktureringar vid behov',
+          'Hantera digitalisering och AI-implementation',
+          'Genomföra geografisk expansion och internationalisering',
+          'Säkerställa hållbarhetsarbete och ESG-kraven',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Chef-titlar och ledarnivåer',
+        termer: [
+          { term: 'VD/CEO', forklaring: 'Verkställande direktör, högsta operativa chef i bolaget.' },
+          { term: 'CFO', forklaring: 'Chief Financial Officer, högsta ekonomiansvariga.' },
+          { term: 'CMO', forklaring: 'Chief Marketing Officer, högsta marknadsansvariga.' },
+          { term: 'CTO', forklaring: 'Chief Technology Officer, högsta tekniska ansvariga.' },
+          { term: 'COO', forklaring: 'Chief Operating Officer, högsta operativt-ansvariga.' },
+          { term: 'CHRO', forklaring: 'Chief Human Resources Officer, högsta HR-ansvariga.' },
+        ],
+      },
+      {
+        kategori: 'Affärs- och finansiella mått',
+        termer: [
+          { term: 'EBITDA', forklaring: 'Resultat före räntor, skatter, avskrivningar och amorteringar.' },
+          { term: 'P&L', forklaring: 'Profit and Loss, resultaträkning som chef ansvarar för.' },
+          { term: 'Working capital', forklaring: 'Rörelsekapital, viktig styrning för cash flow.' },
+          { term: 'ROCE', forklaring: 'Return on Capital Employed, mäter avkastning på sysselsatt kapital.' },
+          { term: 'ROIC', forklaring: 'Return on Invested Capital, central för värdering av bolag.' },
+          { term: 'Cash burn', forklaring: 'Hur snabbt bolaget förbrukar likviditet, kritiskt för scale-ups.' },
+        ],
+      },
+      {
+        kategori: 'Strategi och transformation',
+        termer: [
+          { term: 'M&A', forklaring: 'Mergers and Acquisitions, fusioner och förvärv.' },
+          { term: 'Turnaround', forklaring: 'Att vända en olönsam verksamhet till lönsam.' },
+          { term: 'Due diligence', forklaring: 'Granskning vid företagsförvärv eller investering.' },
+          { term: 'Carve-out', forklaring: 'Avknoppning av verksamhetsdel till självständigt bolag.' },
+          { term: 'Restructuring', forklaring: 'Strukturell förändring av organisation eller verksamhet.' },
+          { term: 'IPO', forklaring: 'Initial Public Offering, börsintroduktion av bolag.' },
+        ],
+      },
+      {
+        kategori: 'Styrning och ESG',
+        termer: [
+          { term: 'Corporate governance', forklaring: 'Bolagsstyrning enligt svensk kod eller motsvarande.' },
+          { term: 'ESG', forklaring: 'Environmental, Social, Governance, hållbarhetskriterier.' },
+          { term: 'Compliance', forklaring: 'Efterlevnad av lagstiftning och interna regelverk.' },
+          { term: 'KPMG audit', forklaring: 'Revision av storbolag, ofta från Big Four.' },
+          { term: 'Sustainability report', forklaring: 'Hållbarhetsrapport enligt EU CSRD.' },
+          { term: 'Stakeholder management', forklaring: 'Hantering av aktieägare, kunder, anställda, samhälle.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Storbolag och börsbolag',
+        exempel: [
+          'OMXS30-bolag (Volvo, Ericsson, Atlas Copco, ABB)',
+          'Mindre noterade bolag och midcap',
+          'Familjeägda bolag (Wallenberg, Persson, Stenbeck-sfären)',
+          'Statligt ägda bolag (Vattenfall, PostNord)',
+        ],
+      },
+      {
+        kategori: 'Scale-ups och tech',
+        exempel: [
+          'Klarna, Spotify, Northvolt, Storytel',
+          'PE-ägda scale-ups och unicorns',
+          'Tech-bolag i tillväxtfas',
+          'Internationella bolag med Sverige-bas',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag och PE',
+        exempel: [
+          'McKinsey, BCG, Bain (Senior Partner-roller)',
+          'EY, PwC, KPMG, Deloitte (Partner-nivå)',
+          'EQT, Nordic Capital, Altor (PE-bolag)',
+          'Ratos, Kinnevik och investmentbolag',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och myndigheter',
+        exempel: [
+          'Generaldirektörer på myndigheter',
+          'Region- och kommundirektörer',
+          'Verkschefer på Trafikverket, Försvarsmakten',
+          'VD på statligt ägda bolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilekonom eller civilingenjör (5 år)',
+        beskrivning: 'Handelshögskolan i Stockholm, KTH, Chalmers, LTH. Vanlig grund för C-suite och styrelse-roller. Specialisering inom finans, strategi eller industriell ekonomi.',
+      },
+      {
+        rubrik: 'MBA eller Executive MBA (1-2 år)',
+        beskrivning: 'Handelshögskolan EMBA, INSEAD, IESE, IMD, Wharton. Stark merit för senior chefroller. Internationella program ger nätverk och perspektiv.',
+      },
+      {
+        rubrik: 'Executive Education',
+        beskrivning: 'SSE Executive Education, Harvard Business School Executive Education, Wharton. Korta program (1-3 veckor) som stärker specifika ledarkompetenser.',
+      },
+      {
+        rubrik: 'Doktorsexamen (4-5 år)',
+        beskrivning: 'PhD i ekonomi, ledarskap eller branschspecifikt område. Vanlig för forsknings-tunga bolag (life science) och vissa konsultroller.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Strategi och affärsutveckling',
+        'P&L-ansvar och budget-styrning',
+        'Personalansvar på senior nivå',
+        'M&A och förvärvsstrategi',
+        'Turnaround och förändringsledning',
+        'Corporate governance och styrelsearbete',
+        'Investerar- och bankrelationer',
+        'Internationell expansion',
+        'Digitalisering och transformation',
+        'ESG och hållbarhetsarbete',
+        'Compliance och regulatorisk samverkan',
+        'Krishantering och kommunikation',
+      ],
+      personliga: [
+        'Strategisk och visionär',
+        'Resultatorienterad och driven',
+        'Pragmatisk i komplexa situationer',
+        'Kommunikativ med olika nivåer',
+        'Etisk medvetenhet i ledarskap',
+        'Lugn under press och kris',
+        'Karismatisk i representation',
+      ],
+    },
+
+    profilExempel:
+      'Senior chef med 15 års erfarenhet inom industri och tech-sektorn. Drev tillväxt från 80 MSEK till 320 MSEK omsättning som affärsområdeschef inom 5 år, med EBITDA-marginal förbättrad från 8% till 17%. Civilekonom från Handelshögskolan plus EMBA från IESE. Styrelseledamot i två noterade bolag och tidigare COO för PE-ägt scale-up. Erfarenhet av carve-out, IPO-förberedelse och internationalisering till tre nya marknader.',
+
+    profilTips:
+      'Senioritet, primär bransch och rolltyp i öppningsraden. Andra meningen lyfter konkret affärsresultat (omsättning, EBITDA, transformation). Tredje meningen visar utbildning, styrelseerfarenhet och eventuell internationell vana som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'P&L-ansvar och omfattning',
+        text: '"Ansvar för 250 MSEK omsättning och EBITDA-tillväxt 18%" är tydligt. "Affärsansvarig" är inte. Lyft total omsättning, EBITDA-bidrag och organisations-omfattning.',
+      },
+      {
+        rubrik: 'Konkreta affärsresultat',
+        text: '"Drev tillväxt 80 till 165 MSEK", "Genomförde turnaround -8% till +12% EBITDA". Konkreta siffror differentierar senior från VD-kandidat.',
+      },
+      {
+        rubrik: 'Styrelseerfarenhet',
+        text: 'Styrelseledamot, ordförande, advisory board, branschorganisationer. Sådana uppdrag signalerar bredd och nätverk för senior chefroller.',
+      },
+      {
+        rubrik: 'MBA eller Executive Education',
+        text: 'MBA från Handels, INSEAD, IESE, IMD. Executive Education från SSE, Harvard, Wharton. Stark merit för C-suite och styrelse-positioner.',
+      },
+      {
+        rubrik: 'Transformation och förändringsledning',
+        text: 'Turnaround, omstrukturering, M&A, internationalisering, digitalisering. Beskriv konkreta transformationsprojekt du lett.',
+      },
+      {
+        rubrik: 'Internationell erfarenhet',
+        text: 'Stints i Tyskland, USA, Kina eller Norden. Ansvar för geografiska expansioner. Multinationella team eller bolagsstrukturer.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, primär rolltyp och nyckelresultat på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera P&L-ansvar och affärsresultat.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör, MBA, Executive Education i eget block.' },
+      { sektion: 'Styrelseuppdrag', tips: 'Eget block med styrelseledamot, ordförande, advisory board och branschorganisationer.' },
+      { sektion: 'Kompetenser', tips: 'Strategi, P&L, M&A, transformation. Var konkret om vilka områden.' },
+      { sektion: 'Övrigt', tips: 'Internationell vana, språk, eventuella publikationer eller offentliga framträdanden.' },
+    ],
+
+    checklista: [
+      'Akademisk examen och eventuell MBA',
+      'P&L-ansvar med konkreta siffror',
+      'Personalansvar med organisations-omfattning',
+      'Konkreta affärsresultat (tillväxt, lönsamhet)',
+      'Eventuell styrelseerfarenhet',
+      'Transformation- eller M&A-erfarenhet',
+      'Internationell vana',
+      'Branschvana och nätverk',
+      'Executive Education eller specialistutbildningar',
+      'Eventuella offentliga framträdanden eller publikationer',
+    ],
+
+    atsInfo:
+      'Både vår mall Tidlös och premium-varianten Atlas är ATS-säkra. Executive search-bolag (Egon Zehnder, Korn Ferry, Heidrick & Struggles) använder oftast egna ATS. Storbolag använder Workday. Skriv ut ledarroll-titlar (CEO, CFO, COO), affärsmått (P&L, EBITDA, ROCE) och utbildning (MBA, EMBA) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett senior chef-CV?',
+        a: 'Akademisk examen och eventuell MBA, ledarroll-omfattning (totalt antal underställda), P&L-ansvar (omsättning, EBITDA), konkreta affärsresultat (tillväxt, lönsamhet, transformation), styrelseerfarenhet, MBA eller Executive Education, branschvana, internationell erfarenhet, samt eventuella publikationer eller offentliga framträdanden.',
+      },
+      {
+        q: 'Hur skriver jag CV för avancemang till VD?',
+        a: 'Lyft P&L-ansvar och konkreta affärsresultat. Beskriv strategiska initiativ du drivit (M&A, internationalisering, digitalisering, turnaround). Inkludera styrelseerfarenhet, MBA eller Executive Education, internationell vana, och nätverk. För VD-kandidatur är resultat- och transformationsförmåga viktigast.',
+      },
+      {
+        q: 'Vilken utbildning är värdefullast för chefroller?',
+        a: 'Civilekonom från Handelshögskolan eller motsvarande är grund. MBA från Handels, INSEAD, IESE, IMD, Wharton är stark merit för senior-roller. Executive MBA är meriterande och visar att du investerat i ledarskap. Doktorsexamen är värdefull för forsknings-tunga branscher (life science, tech).',
+      },
+      {
+        q: 'Hur viktig är styrelseerfarenhet?',
+        a: 'Mycket viktig för C-suite och senior chefroller. Visar bredd, nätverk och förmåga att tänka strategiskt. Styrelseledamot eller ordförande i mindre bolag, advisory board i scale-ups, eller branschorganisationer räknas. Lyft i eget block.',
+      },
+      {
+        q: 'Hur visar jag transformation-erfarenhet?',
+        a: 'Beskriv konkreta projekt: "Drev turnaround från -5% till +12% EBITDA på 24 månader genom kostnadsreduktion och produktportfölj-justering", "Genomförde carve-out och integration efter förvärv av 200 MSEK-bolag". Konkreta resultat och tidshorisonter visar genomförandekraft.',
+      },
+      {
+        q: 'Hur viktig är internationell erfarenhet?',
+        a: 'Mycket viktig för noterade bolag, scale-ups och multinationella koncerner. Stints i Tyskland, USA, Kina eller Norden, ansvar för geografisk expansion, multinationella team. Modersmål eller flytande engelska är förmodat. Andra språk (tyska, franska, kinesiska) är meriterande.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Chef-titlar (CEO, CFO, COO, CMO, CTO, CHRO), affärsmått (P&L, EBITDA, ROCE, ROIC), strategiska begrepp (M&A, turnaround, IPO, restructuring), utbildning (MBA, EMBA, civilekonom) och branschvana. Workday och executive search-ATS söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett senior chef-CV vara?',
+        a: 'Senior chef: 2 sidor. C-suite: 2-3 sidor. VD-kandidat: 3 sidor max. Det viktiga är att P&L-ansvar, transformation-erfarenhet och senaste roll syns på första sidan. Executive search-rekryterare värderar tydlighet över längd.',
+      },
+      {
+        q: 'Behöver jag personligt brev till chef-tjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att förklara varför just det bolag och beskriv en specifik affärsutmaning du löst. Beskriv en transformation, ett strategiskt initiativ eller hur du drivit en specifik förändring. Håll till en sida på 400-500 ord. Senior chef-rekryterare värderar tydlig kommunikation.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt chef-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 15-20 år, generiska påståenden ("strategisk och driven") utan stöd, sekretessbelagda affärsdetaljer, och hobbies som inte är professionellt relevanta. Stavfel eller slarvig formatering signalerar oseriös bakgrund och kan diskvalificera.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
