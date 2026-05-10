@@ -2511,6 +2511,1732 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'forskollarare': {
+    seoIntro:
+      'Som förskollärare i Sverige bedöms du på lärarlegitimation, pedagogisk skicklighet och förmåga att tolka Lpfö 18 i praktiken. Sveriges 290 kommuner och tusentals fristående förskolor har konstant brist på behöriga förskollärare, men rektorer slänger CV:n som inte tydligt visar legitimation och pedagogisk identitet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVår mall för förskollärare lyfter lärarlegitimation från Skolverket, Lpfö 18-kompetens och pedagogiska metoder som första visuella element. Vi har strukturerat erfarenhetssektionen så att förskola, huvudman och åldersgrupp syns direkt med konkreta uppdrag som mentorskap eller utvecklingsuppdrag. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: förskollärarexamen med lärosäte och år, lärarlegitimation från Skolverket, pedagogisk inriktning (Reggio Emilia, Montessori, Waldorf, traditionell), åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd, integration), digital pedagogik (lärplattor, dokumentation), samverkan med vårdnadshavare, samt eventuella språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar designade för förskollärarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Lärarlegitimation och behörighet först',
+        description: 'Skriv ut Skolverkets registrering med datum. Förskollärarlegitimation är krav i kommunala förskolor och allt vanligare i fristående. Lyft den i sidopanelen så rektorer kan bekräfta status på fem sekunder.',
+      },
+      {
+        icon: 'Target',
+        title: 'Pedagogisk inriktning är differentiator',
+        description: 'Reggio Emilia, Montessori, Waldorf, traditionell pedagogik. Olika förskolor söker olika inriktningar. Lyft den du har djupast erfarenhet av i sammanfattningen så rektor direkt ser om ni matchar.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Åldersgrupp och barngruppsstorlek',
+        description: '"4 år på avdelning för 3-5-åringar med 18 barn" säger mer än "arbetade i förskolan". Konkreta åldrar och gruppsstorlek visar din kapacitet och vad du klarar i en svensk förskolas vardag.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Lpfö 18 och systematiskt kvalitetsarbete',
+        description: 'Förskolans läroplan från 2018 är grunden. Beskriv hur du tolkat och tillämpat Lpfö 18, hur du dokumenterar barns lärande och bidragit till SKA (systematiskt kvalitetsarbete). Visa pedagogisk struktur.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Digital pedagogik och dokumentation',
+        description: 'Lärplattor, Tyra, Snitch, Pluttra eller Vklass. Beskriv vilka digitala verktyg du använt för pedagogisk dokumentation och föräldrakommunikation. Allt viktigare 2026.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Specialpedagogik och flerspråkighet',
+        description: 'NPF-kompetens, språkstöd, TAKK (tecken som stöd), bildstöd. Många förskolor har barn med särskilda behov eller flerspråkig bakgrund. Specifika metoder är meriterande.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Legitimation och behörighet överst',
+        description: 'Vi har gjort Skolverkets legitimation till första visuella element så rektorer kan bekräfta status på fem sekunder. Inriktning och åldersgrupp lyfts i samma block utan att gömmas i en utbildningssektion.',
+      },
+      {
+        title: 'Pedagogisk erfarenhet per förskola',
+        description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för pedagogiska metoder',
+        description: 'Reggio Emilia, Montessori, NPF-kompetens, språkstöd, TAKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter pedagogik som matchar deras förskola.',
+      },
+      {
+        title: 'Premium-mallen lägger till foto',
+        description: 'I förskollärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck som passar pedagogiskt yrke utan att kompromissa med ATS.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+      },
+      {
+        title: 'Plats för utvecklingsprojekt',
+        description: 'Mentorskap för nya förskollärare, ansvarsområden (utomhuspedagogik, naturkunskap, språkutveckling) har egen rad. Visar att du tar ansvar bortom vardagsarbete och meriterar för förstelärarroller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Pedagogisk planering och genomförande',
+        punkter: [
+          'Planera, genomföra och utvärdera pedagogiska aktiviteter enligt Lpfö 18',
+          'Anpassa undervisning för olika åldrar och utvecklingsnivåer',
+          'Använda lekens potential för lärande och språkutveckling',
+          'Implementera pedagogiska metoder (Reggio Emilia, Montessori, naturpedagogik)',
+        ],
+      },
+      {
+        rubrik: 'Barns utveckling och lärande',
+        punkter: [
+          'Observera och dokumentera enskilda barns utveckling över tid',
+          'Bedöma barns behov av stöd och anpassningar',
+          'Stötta språkutveckling med TAKK, bildstöd eller flerspråkig pedagogik',
+          'Identifiera tidiga signaler på utvecklingsavvikelser och samverka med specialpedagog',
+        ],
+      },
+      {
+        rubrik: 'Vårdnadshavarsamverkan',
+        punkter: [
+          'Genomföra introduktions-, utvecklings- och avslutningssamtal',
+          'Kommunicera daglig hämtning och lämning med trygghet',
+          'Använda digital plattform (Tyra, Snitch, Pluttra) för dokumentation',
+          'Hantera konflikter och svåra samtal med lugn och respekt',
+        ],
+      },
+      {
+        rubrik: 'Trygghet och omsorg',
+        punkter: [
+          'Säkerställa barnens fysiska och emotionella säkerhet under hela dagen',
+          'Stötta måltidssituationer, vila och toalettrutiner',
+          'Hantera kränkande särbehandling enligt likabehandlingsplanen',
+          'Bygga trygga anknytningar med varje barn i gruppen',
+        ],
+      },
+      {
+        rubrik: 'Kollegial samverkan och utveckling',
+        punkter: [
+          'Delta i arbetslag och pedagogiska planeringsmöten',
+          'Bidra till systematiskt kvalitetsarbete (SKA) och årshjul',
+          'Mentor för barnskötare och nya kollegor under introduktion',
+          'Delta i kompetensutveckling och förbättringsprojekt',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Lpfö 18', forklaring: 'Läroplan för förskolan från 2018, grunden för all pedagogisk planering.' },
+          { term: 'Skollagen', forklaring: 'Reglerar förskolans verksamhet, barnens rätt till stöd och rektors ansvar.' },
+          { term: 'Barnkonventionen', forklaring: 'Sedan 2020 svensk lag, vägleder hela förskolans förhållningssätt.' },
+          { term: 'Likabehandlingsplan', forklaring: 'Krav enligt diskrimineringslagen, ska finnas på varje förskola.' },
+          { term: 'SKA', forklaring: 'Systematiskt kvalitetsarbete, krav enligt Skollagen för förskolor.' },
+          { term: 'Anmälningsplikt', forklaring: 'Skyldighet att anmäla oro för barn till socialtjänsten enligt SoL 14:1.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska inriktningar',
+        termer: [
+          { term: 'Reggio Emilia', forklaring: 'Italiensk pedagogik med fokus på barns kompetens och miljöns roll.' },
+          { term: 'Montessori', forklaring: 'Pedagogik baserad på självständigt lärande med specialdesignat material.' },
+          { term: 'Waldorf', forklaring: 'Pedagogik från Steiners filosofi med fokus på rytm och kreativitet.' },
+          { term: 'Utomhuspedagogik', forklaring: 'Lärande genom natur och friluftsliv, vanligt i I Ur och Skur-förskolor.' },
+          { term: 'Språkstöd', forklaring: 'Pedagogiska metoder för flerspråkiga barn och språkutveckling.' },
+          { term: 'TAKK', forklaring: 'Tecken som Alternativ och Kompletterande Kommunikation, för barn med kommunikationssvårigheter.' },
+        ],
+      },
+      {
+        kategori: 'Behörigheter och utbildning',
+        termer: [
+          { term: 'Förskollärarexamen', forklaring: 'Akademisk examen från lärarprogrammet med inriktning förskola, 3,5 år.' },
+          { term: 'Lärarlegitimation', forklaring: 'Utfärdas av Skolverket, krävs i kommunal förskola och allt fler fristående.' },
+          { term: 'KPU förskollärare', forklaring: 'Kompletterande pedagogisk utbildning för dig med annan akademisk examen.' },
+          { term: 'Barnskötare', forklaring: 'Yrkesutbildad personal som kompletterar förskolläraren i barngruppen.' },
+          { term: 'Förstelärare', forklaring: 'Senior pedagogisk roll med utvecklingsuppdrag och högre lön.' },
+          { term: 'Specialpedagog förskola', forklaring: 'Vidareutbildning för arbete med barn i behov av särskilt stöd.' },
+        ],
+      },
+      {
+        kategori: 'Digitala verktyg och dokumentation',
+        termer: [
+          { term: 'Tyra', forklaring: 'Vanligaste plattformen för pedagogisk dokumentation och föräldrakontakt.' },
+          { term: 'Snitch', forklaring: 'Plattform för dokumentation, schema och kommunikation med vårdnadshavare.' },
+          { term: 'Pluttra', forklaring: 'Digital plattform för förskolans dokumentation och föräldrakommunikation.' },
+          { term: 'Skola24', forklaring: 'System för schemaläggning, frånvaro och administrativ hantering.' },
+          { term: 'Lärlogg', forklaring: 'Pedagogisk dokumentation av barns lärande och utveckling.' },
+          { term: 'Pedagogisk dokumentation', forklaring: 'Process för att synliggöra barns lärprocesser enligt Reggio Emilia.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal förskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Förskolor med särskild inriktning (utomhus, kultur, idrott)',
+          'Familjedaghem och pedagogisk omsorg',
+        ],
+      },
+      {
+        kategori: 'Fristående förskolekoncerner',
+        exempel: [
+          'Pysslingen, Inspira, Norlandia, Tellusbarn',
+          'AcadeMedia, Atvexa, Vittra, Engelska Förskolan',
+          'Kooperativ och föräldradrivna förskolor',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Pedagogiska inriktningar',
+        exempel: [
+          'Reggio Emilia-inspirerade förskolor',
+          'Montessoriförskolor',
+          'Waldorfförskolor (Steiner)',
+          'I Ur och Skur (utomhuspedagogik)',
+        ],
+      },
+      {
+        kategori: 'Specialiserade verksamheter',
+        exempel: [
+          'Förskolor med språkprofil',
+          'Habilitering och resursförskolor',
+          'Internationella förskolor (engelska, spanska, franska)',
+          'Bemanningsbolag (Lärarjobb, Vikariat.se)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Förskollärarprogrammet (3,5 år)',
+        beskrivning: 'Akademisk examen från lärarprogrammet med inriktning förskola, kandidat-nivå. Ges vid 24 lärosäten i Sverige. Innehåller VFU på olika förskolor. Examen ger rätt att söka legitimation från Skolverket.',
+      },
+      {
+        rubrik: 'KPU förskollärare (1,5 år)',
+        beskrivning: 'Kompletterande pedagogisk utbildning för dig med annan akademisk examen. Vanlig väg för yrkesväxlare från andra branscher. Innehåller pedagogik, didaktik och VFU.',
+      },
+      {
+        rubrik: 'Validering av utländsk utbildning',
+        beskrivning: 'Har du utländsk lärarutbildning kan du validera den genom Universitets- och högskolerådet. Komplettering med svenska och pedagogiska kurser kan krävas innan legitimation.',
+      },
+      {
+        rubrik: 'Specialpedagog förskola (3 år deltid)',
+        beskrivning: 'Vidareutbildning till specialpedagog med fokus på barn i behov av särskilt stöd. Magisterexamen krävs. Stark efterfrågan i alla huvudmän.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Lpfö 18 och systematiskt kvalitetsarbete (SKA)',
+        'Pedagogisk dokumentation enligt Reggio Emilia',
+        'Lärarlegitimation från Skolverket',
+        'Pedagogiska inriktningar (Reggio, Montessori, Waldorf)',
+        'NPF-kompetens (autism, ADHD, språkstörning)',
+        'TAKK och bildstöd för kommunikation',
+        'Digital pedagogik (Tyra, Snitch, Pluttra)',
+        'Likabehandlingsarbete och anmälningsplikt',
+        'Språkstöd och flerspråkig pedagogik',
+        'Naturpedagogik och utomhusvistelse',
+        'Skapande verksamhet (bild, musik, drama)',
+        'Hjärt-lungräddning och första hjälpen',
+      ],
+      personliga: [
+        'Tålmodig och lyhörd för barns behov',
+        'Strukturerad i pedagogisk planering',
+        'Empatisk och relationsskapande',
+        'Pedagogisk i mötet med vårdnadshavare',
+        'Kollegial och samverkansorienterad',
+        'Lugn vid konflikter och kriser',
+        'Reflekterande över egen praktik',
+      ],
+    },
+
+    profilExempel:
+      'Legitimerad förskollärare med 6 års erfarenhet från kommunal och fristående Reggio Emilia-inspirerad förskola. Specialiserad på språkutveckling för flerspråkiga barn 3-5 år med TAKK och bildstöd. Mentor för 4 nya kollegor och delaktig i förskolans systematiska kvalitetsarbete enligt Lpfö 18.',
+
+    profilTips:
+      'Lärarlegitimation, år av erfarenhet och pedagogisk inriktning i öppningsraden. Andra meningen lyfter åldersgrupp och eventuell specialisering (språkstöd, NPF, naturpedagogik). Tredje meningen visar utvecklingsuppdrag eller kollegiala uppdrag som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Lärarlegitimation och behörighet',
+        text: 'Skriv ut Skolverkets registrering med datum. Förskollärarlegitimation är krav i kommunala förskolor och allt vanligare i fristående. Rektorer letar specifikt efter behörighet och kan inte erbjuda fast tjänst utan legitimation.',
+      },
+      {
+        rubrik: 'Pedagogisk inriktning är differentiator',
+        text: 'Reggio Emilia, Montessori, Waldorf, traditionell pedagogik, utomhuspedagogik. Olika förskolor söker olika inriktningar. Lyft den du har djupast erfarenhet av i sammanfattningen så rektor direkt ser om ni matchar.',
+      },
+      {
+        rubrik: 'Åldersgrupp och barngruppsstorlek',
+        text: '"4 år på avdelning för 3-5-åringar med 18 barn" säger mer än "arbetade i förskolan". Konkreta åldrar och gruppsstorlek visar din kapacitet i en svensk förskolas vardag.',
+      },
+      {
+        rubrik: 'Lpfö 18 och kvalitetsarbete',
+        text: 'Beskriv hur du tolkat och tillämpat Lpfö 18, hur du dokumenterar barns lärande och bidragit till SKA. Visar pedagogisk struktur som rektorer i kommunal sektor specifikt letar efter.',
+      },
+      {
+        rubrik: 'Specialkompetens och stöd',
+        text: 'NPF-kompetens, språkstöd, TAKK, bildstöd, samverkan med specialpedagog. Många förskolor har barn med särskilda behov. Specialkompetens öppnar specifika tjänster och påverkar lönen.',
+      },
+      {
+        rubrik: 'Digital pedagogik och dokumentation',
+        text: 'Tyra, Snitch, Pluttra, lärplattor i barngrupp. Beskriv vilka digitala verktyg du använt för pedagogisk dokumentation och föräldrakommunikation. Allt viktigare 2026 och meriterande för utvecklingsuppdrag.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Lärarlegitimation, år av erfarenhet, pedagogisk inriktning och primär huvudman. Eventuella specialiseringar på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Förskola, huvudman, tidsperiod och åldersgrupp. Konkreta uppdrag (mentorskap, ansvarsområden) och pedagogisk inriktning.' },
+      { sektion: 'Utbildning', tips: 'Förskollärarexamen med lärosäte och år. VFU-förskolor om relevanta. Vidareutbildningar (Reggio, NPF, TAKK, specialpedagog).' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, digitala verktyg, specialpedagogiska anpassningar. Skriv ut systemnamn (Tyra, Snitch) i klartext.' },
+      { sektion: 'Vidareutbildning', tips: 'Reggio Emilia-fördjupning, NPF-kurs, TAKK-utbildning, specialpedagog. Kontinuerlig kompetensutveckling visar engagemang.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska (värdefulla i flerspråkiga förskolor), eventuell handledarutbildning, körkort om relevant.' },
+    ],
+
+    checklista: [
+      'Förskollärarexamen från svenskt eller validerat lärosäte',
+      'Lärarlegitimation från Skolverket med datum',
+      'Pedagogisk inriktning du arbetat efter',
+      'Åldersgrupper och barngruppsstorlek per förskola',
+      'Erfarenhet av Lpfö 18 och systematiskt kvalitetsarbete',
+      'Specialkompetens (NPF, språkstöd, TAKK)',
+      'Digitala verktyg du använder (Tyra, Snitch, Pluttra)',
+      'Samverkan med vårdnadshavare och specialpedagog',
+      'Eventuella mentor- eller utvecklingsuppdrag',
+      'Språkkunskaper utöver svenska',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "förskollärarlegitimation" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett förskollärar-CV?',
+        a: 'Förskollärarexamen med lärosäte, lärarlegitimation från Skolverket med datum, pedagogisk inriktning, klinisk erfarenhet uppdelad per förskola och åldersgrupp, barngruppsstorlek, pedagogiska metoder du behärskar, digitala verktyg (Tyra, Snitch), specialkompetens (NPF, språkstöd, TAKK), samverkan med vårdnadshavare, samt språkkunskaper. Lägg till mentorskap om du söker senior-roller.',
+      },
+      {
+        q: 'Hur skriver jag CV som nyutbildad förskollärare?',
+        a: 'Lyft VFU-perioder med förskola, antal veckor och vad du fick göra. Inkludera examensarbete med titel och eventuell publicering. Praktiska kurser (TAKK, NPF), tidigare erfarenhet av barn (vikarie, idrottsledare, fritids), och språkkunskaper väger tungt. Skriv ut din vilja och förmåga att lära. Många kommuner har strukturerade introduktionsprogram för nyexade förskollärare.',
+      },
+      {
+        q: 'Behöver jag lärarlegitimation för att jobba i förskola?',
+        a: 'För kommunal förskola krävs förskollärarlegitimation för att få fast tjänst. Vikariat går utan men begränsade till 6 månader åt gången. Många fristående huvudmän kräver också legitimation. Utan legitimation kan du jobba som barnskötare, men inte som ansvarig förskollärare för barngrupp.',
+      },
+      {
+        q: 'Hur viktig är pedagogisk inriktning?',
+        a: 'Mycket. Reggio Emilia-förskolor söker förskollärare med Reggio-erfarenhet eller -intresse. Montessoriförskolor kräver ofta Montessori-utbildning. Traditionella kommunala förskolor är mer flexibla. Lyft din inriktning i sammanfattningen så rektorer direkt kan bedöma matchning.',
+      },
+      {
+        q: 'Vilka digitala verktyg ska jag kunna 2026?',
+        a: 'Tyra, Snitch och Pluttra är de tre vanligaste plattformarna för pedagogisk dokumentation och föräldrakontakt. Lärplattor (iPad) i barngrupp för digital läsning, fotodokumentation och pedagogiska appar. Skola24 för schema och frånvaro. Att vara öppen för AI-baserade verktyg blir allt viktigare.',
+      },
+      {
+        q: 'Hur visar jag erfarenhet av barn med särskilda behov?',
+        a: 'Beskriv konkret typ av stöd (NPF, autism, ADHD, språkstörning, motorik) och hur du arbetat. "Anpassade verksamhet för 3 barn med autism med bildstöd och struktur, samverkan med specialpedagog veckovis" säger mer än "har erfarenhet av barn med särskilda behov". Inkludera samverkan med specialpedagog och elevhälsoteam.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika behörigheter (förskollärarlegitimation), läroplan (Lpfö 18), pedagogiska metoder (Reggio Emilia, Montessori, utomhuspedagogik, TAKK), digitala system (Tyra, Snitch, Pluttra) och eventuella specialiseringar (NPF, språkstöd, specialpedagog). Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett förskollärar-CV vara?',
+        a: 'En sida räcker för nyutexaminerade. Med 5-10 års erfarenhet är 1,5 sidor lagom. Förstelärare och specialpedagoger kan ha upp till 2 sidor. Det viktiga är att lärarlegitimation och senaste tjänsten syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till förskollärartjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just den förskola och beskriv en specifik situation där du visat din pedagogiska förmåga. Beskriv ett barn du hjälpt utvecklas eller hur du arbetat med en svår grupp. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt förskollärar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("god kommunikationsförmåga") utan stöd, namn på enskilda barn, sekretessbelagda detaljer från arbetsplaner, och hobbies som inte är pedagogiskt relevanta. Stavfel diskvalificerar direkt.',
+      },
+    ],
+  },
+
+  'personlig-assistent': {
+    seoIntro:
+      'Som personlig assistent jobbar du nära en brukare med funktionsvariation där kontinuitet, lyhördhet och personkemi avgör mer än formella meriter. Frösunda, Humana, Nytida och Olivia är de stora privata assistansanordnarna i Sverige. Tillsammans med kommunerna och brukarkooperativen finns tusentals öppna tjänster. Ett välskrivet CV avgör om du blir kallad till första intervju med brukare och anhöriga.\n\nVår mall för personliga assistenter lyfter erfarenhet med olika funktionsvariationer, schemaflexibilitet och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att brukargrupper, arbetsplats och tidsperiod syns direkt med eventuella specialkompetenser. Det betyder att assistenter, anhöriga och anordnare snabbt kan bedöma om ni matchar.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika funktionsvariationer (autism, NPF, fysiska funktionsnedsättningar, förvärvad hjärnskada), hjälpmedel och tekniker (lyft, kommunikationshjälpmedel, AKK), körkort B (ofta krav), eventuella språkkunskaper (för brukare med flerspråkig bakgrund), schemaflexibilitet (jour, helger, nätter), och eventuella delegeringar (insulin, sondmat, medicin).\n\nNedan hittar du två CV-mallar designade för rollen som personlig assistent, ett färdigt CV-exempel att utgå från, och konkreta tips på vad assistansanordnare och brukare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'CheckCircle',
+        title: 'Erfarenhet av specifika funktionsvariationer',
+        description: 'Autism, ADHD, intellektuell funktionsnedsättning, CP-skada, ALS, MS, förvärvad hjärnskada. Olika brukare kräver olika kompetens. Skriv konkret om vilka funktionsvariationer du arbetat med och hur länge.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Körkort B är ofta krav',
+        description: 'Många brukare behöver assistans vid resor, sjukvårdsbesök eller fritidsaktiviteter. Körkort B är vanligtvis krav, ibland även BE för anpassade fordon. Skriv ut det tydligt i CV:t och eventuell körrutin.',
+      },
+      {
+        icon: 'Award',
+        title: 'Hjälpmedel och tekniska lösningar',
+        description: 'Personlift, taklyft, andningshjälpmedel, AKK (alternativ kommunikation), bildstöd, ögonstyrning. Erfarenhet av specifika hjälpmedel är värdefullt och gör introduktionstiden kortare för anordnaren.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Schemaflexibilitet och kontinuitet',
+        description: 'Brukare värderar långa anställningar mer än bredd. Skriv ut hur länge du jobbat med varje brukare och din tillgänglighet (jour, helg, natt). Nattjour och beredskap kräver särskild hantering enligt arbetstidslagen.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper är värdefullt',
+        description: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i sidopanelen.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Delegeringar och sjukvårdsuppgifter',
+        description: 'Insulin, sondmatning, medicin via PEG, andningsövervakning. Vissa brukare behöver assistenter med sjukvårdsdelegering från sjuksköterska. Lyft eventuella delegeringar med datum.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Brukargrupper och funktionsvariationer överst',
+        description: 'Vår mall lyfter dina erfarenheter med specifika funktionsvariationer i sidopanelen. Anordnare ser direkt om du matchar brukarens behov utan att behöva scrolla genom hela CV:t.',
+      },
+      {
+        title: 'Plats för långa relationer',
+        description: 'Mallen separerar brukare och tidsperiod så kontinuitet syns visuellt. "Personlig assistent åt samma brukare 4 år" är hård valuta inom assistansbranschen och vi lyfter det medvetet.',
+      },
+      {
+        title: 'Eget block för körkort och hjälpmedel',
+        description: 'Körkort B, anpassade fordon, lyfthjälpmedel och AKK har egen rad. Många brukare behöver specifika kompetenser och vår mall låter dem syns utan att blanda in i generisk text.',
+      },
+      {
+        title: 'Premium-mallen lägger till foto',
+        description: 'I assistansrollen där relationer värderas mest, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
+      },
+      {
+        title: 'Sober färgsättning för omsorgssektorn',
+        description: 'Omsorgssektorn värderar saklighet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meritbilden.',
+      },
+      {
+        title: 'Plats för språk och kulturell kompetens',
+        description: 'Brukare med utländsk bakgrund söker assistenter med rätt språk och kulturella förståelse. Mallen har dedikerat block för språkkunskaper utöver svenska och engelska.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personlig omsorg och hygien',
+        punkter: [
+          'Hjälp med daglig livsföring: hygien, måltider, påklädning, toalettbesök',
+          'Assistans vid förflyttning med eller utan hjälpmedel',
+          'Stöd vid medicinering, sondmatning eller andningsövervakning vid behov',
+          'Anpassa stödet efter brukarens egna önskemål och självbestämmande',
+        ],
+      },
+      {
+        rubrik: 'Aktivering och delaktighet',
+        punkter: [
+          'Stötta brukaren i fritidsaktiviteter och sociala sammanhang',
+          'Bistå vid resor, sjukvårdsbesök och myndighetskontakt',
+          'Hjälpa till med matlagning, hushållsarbete och inköp',
+          'Möjliggöra arbete, studier eller frivilligengagemang',
+        ],
+      },
+      {
+        rubrik: 'Kommunikation och anpassning',
+        punkter: [
+          'Använda AKK (alternativ och kompletterande kommunikation), bildstöd, TAKK',
+          'Tolka och respektera brukarens önskemål även vid kommunikationssvårigheter',
+          'Stötta vid kontakt med anhöriga, arbetsgivare och myndigheter',
+          'Anpassa stödet efter brukarens kognitiva förmåga och dagsform',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och hälsa',
+        punkter: [
+          'Hantera medicinska delegeringar enligt sjuksköterskas instruktion',
+          'Förebygga trycksår, fall och andra hälsorisker',
+          'Larma 112 eller jour vid akuta situationer',
+          'Dokumentera avvikelser och anmäla enligt Lex Sarah vid behov',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och dokumentation',
+        punkter: [
+          'Samverka med anhöriga, gode män och andra assistenter',
+          'Delta i assistansmöten och planeringssamtal med arbetsledaren',
+          'Dokumentera arbetspass och avvikelser i anordnarens system',
+          'Stötta brukarens egen ledarroll i sin assistans',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'LSS', forklaring: 'Lagen om stöd och service, ger rätt till personlig assistans vid stora behov.' },
+          { term: 'LASS', forklaring: 'Lagen om assistansersättning, reglerar Försäkringskassans betalning.' },
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, kan ge rätt till assistans när LSS inte räcker.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst och LSS.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller när du har info om brukaren.' },
+          { term: 'Anhöriganställning', forklaring: 'Vissa LSS-insatser kan utföras av anhörig som anställs.' },
+        ],
+      },
+      {
+        kategori: 'Funktionsvariationer',
+        termer: [
+          { term: 'NPF', forklaring: 'Neuropsykiatriska funktionsnedsättningar (autism, ADHD, Tourettes).' },
+          { term: 'CP', forklaring: 'Cerebral pares, motorisk funktionsnedsättning från hjärnskada vid födsel.' },
+          { term: 'ALS', forklaring: 'Amyotrofisk lateralskleros, progredierande sjukdom som ger ökat assistansbehov.' },
+          { term: 'MS', forklaring: 'Multipel skleros, neurologisk sjukdom som varierar i intensitet.' },
+          { term: 'Förvärvad hjärnskada', forklaring: 'Skada efter olycka eller stroke som ger varaktig funktionsnedsättning.' },
+          { term: 'Intellektuell funktionsnedsättning', forklaring: 'Tidigare kallat utvecklingsstörning, varierar från lätt till grav.' },
+        ],
+      },
+      {
+        kategori: 'Hjälpmedel och tekniker',
+        termer: [
+          { term: 'Personlift', forklaring: 'Mobilt lyfthjälpmedel för förflyttning från säng eller stol.' },
+          { term: 'Taklyft', forklaring: 'Fast monterad lyft i tak för säkra förflyttningar.' },
+          { term: 'AKK', forklaring: 'Alternativ och Kompletterande Kommunikation för brukare som inte talar.' },
+          { term: 'Bildstöd', forklaring: 'Bildkommunikation enligt PCS, Pictogram eller liknande.' },
+          { term: 'Ögonstyrning', forklaring: 'Tobii eller motsvarande system där brukaren styr dator med ögonen.' },
+          { term: 'Andningshjälpmedel', forklaring: 'CPAP, BiPAP, hemventilator eller hostmaskin för andningsstöd.' },
+        ],
+      },
+      {
+        kategori: 'Anordnare och organisation',
+        termer: [
+          { term: 'Anordnare', forklaring: 'Företag eller kommun som driver assistansen och är arbetsgivare.' },
+          { term: 'Brukarkooperativ', forklaring: 'Kooperativ ägd av brukarna själva (JAG, Frösunda Bryggan).' },
+          { term: 'Assistansersättning', forklaring: 'Pengar från Försäkringskassan som finansierar assistansen.' },
+          { term: 'Assistansbeslut', forklaring: 'LSS-handläggarens beslut om antal timmar per vecka.' },
+          { term: 'Beredskapstjänst', forklaring: 'Tillgänglig på distans, ofta nattetid med utryckning vid behov.' },
+          { term: 'Jourtjänst', forklaring: 'Sömntid hos brukaren med möjlighet att rycka in vid behov.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Stora privata anordnare',
+        exempel: [
+          'Frösunda Personlig Assistans',
+          'Humana Assistans',
+          'Nytida (tidigare Olivia)',
+          'Attendo, Vardaga, Olivia',
+        ],
+      },
+      {
+        kategori: 'Brukarkooperativ',
+        exempel: [
+          'JAG (Jämlikhet, Assistans, Gemenskap)',
+          'Bryggan (tidigare Frösunda Bryggan)',
+          'IfA (Intressegruppen för Assistansberättigade)',
+          'Lokala kooperativ i kommunerna',
+        ],
+      },
+      {
+        kategori: 'Mindre privata anordnare',
+        exempel: [
+          'Veteranpoolen Assistans',
+          'Assistansia, Capere Assistans',
+          'KFO-anslutna och idéburna anordnare',
+          'Lokala anordnare i kommuner',
+        ],
+      },
+      {
+        kategori: 'Kommunal regi och anhöriganställning',
+        exempel: [
+          'Kommunala assistansenheter',
+          'Anhöriganställning hos brukarens egen anordnare',
+          'Egen arbetsgivare där brukaren är arbetsledare',
+          'Ideella föreningar och stiftelser',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många anordnare rekryterar utan formell vårdutbildning om du visar lyhördhet, körkort B och rätt schemaflexibilitet. Anordnaren ger introduktion på 1-2 veckor parallellt med brukaren.',
+      },
+      {
+        rubrik: 'Vård- och omsorgsutbildning (1-3 år)',
+        beskrivning: 'Vård- och omsorgsprogrammet på gymnasium eller komvux ger fördel för komplexa brukare med medicinska behov. Vanlig grund för anhöriganställda och senior-roller.',
+      },
+      {
+        rubrik: 'Yrkeshögskola personlig assistent (1-2 år)',
+        beskrivning: 'YH-utbildningar med inriktning personlig assistans, funktionsstöd eller assistans för specifika diagnoser. Ger fördjupning och kvalificerar för arbetsledar-roller.',
+      },
+      {
+        rubrik: 'Internutbildningar från anordnare',
+        beskrivning: 'Frösunda, Humana och andra större anordnare har strukturerade internutbildningar med fokus på specifika brukargrupper, hjälpmedel och bemötande. Värdefullt för assistenter som vill specialisera sig.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Personlig omvårdnad och ADL-stöd',
+        'Förflyttningsteknik och Akta Ryggen-certifikat',
+        'Personlift, taklyft och anpassade fordon',
+        'AKK, bildstöd och TAKK för kommunikation',
+        'Andningshjälpmedel (CPAP, BiPAP, hemventilator)',
+        'Sondmatning, insulin och medicindelegering',
+        'Bemötande av personer med autism och NPF',
+        'Lex Sarah-anmälan och avvikelsehantering',
+        'Schemaläggning och beredskapstjänst',
+        'Hjärt-lungräddning och första hjälpen',
+        'Dokumentation enligt anordnarens system',
+        'Smärtskattning för icke-kommunikativa brukare',
+      ],
+      personliga: [
+        'Lyhörd och respektfull mot brukarens självbestämmande',
+        'Pålitlig och punktlig',
+        'Stresstålig vid akuta situationer',
+        'Empatisk och relationsskapande',
+        'Diskret och sekretessmedveten',
+        'Flexibel kring scheman och rutiner',
+        'Pedagogisk i mötet med anhöriga',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren personlig assistent med 5 års erfarenhet av assistans åt brukare med autism och förvärvad hjärnskada. Behärskar AKK, bildstöd och personlift, samt har körkort B med rutin för anpassade fordon. Sjuksköterskedelegering för insulin och sondmatning. Tillgänglig för rotationsschema inklusive jour och helger.',
+
+    profilTips:
+      'År av erfarenhet och vilka funktionsvariationer du arbetat med i öppningsraden. Andra meningen lyfter hjälpmedel, körkort och eventuella delegeringar. Tredje meningen visar tillgänglighet och språkkunskaper som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Funktionsvariationer i klartext',
+        text: 'Olika brukare kräver olika kompetens. Skriv konkret om vilka funktionsvariationer du arbetat med och hur länge: "Personlig assistent åt brukare med autism 4 år, brukare med ALS 2 år". Anordnare matchar mot specifika brukares behov.',
+      },
+      {
+        rubrik: 'Körkort B är ofta krav',
+        text: 'Många brukare behöver assistans vid resor, sjukvårdsbesök och fritidsaktiviteter. Körkort B är vanligtvis krav, ibland även BE eller B96 för anpassade fordon. Skriv ut det tydligt i CV:t och eventuell körrutin.',
+      },
+      {
+        rubrik: 'Hjälpmedel och tekniska lösningar',
+        text: 'Personlift, taklyft, andningshjälpmedel, AKK, bildstöd. Erfarenhet av specifika hjälpmedel gör introduktionstiden kortare för anordnaren och brukaren och är värdefullt på CV:t.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet och kontinuitet',
+        text: 'Brukare värderar långa anställningar mer än bredd. Skriv ut hur länge du jobbat med varje brukare och din tillgänglighet (jour, helg, natt). Kontinuitet är hård valuta i assistansbranschen.',
+      },
+      {
+        rubrik: 'Språkkunskaper är värdefullt',
+        text: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i sidopanelen.',
+      },
+      {
+        rubrik: 'Sjukvårdsdelegeringar',
+        text: 'Insulin, sondmatning, medicin via PEG, andningsövervakning. Vissa brukare behöver assistenter med sjukvårdsdelegering från sjuksköterska. Lyft eventuella delegeringar med datum och vilken sjuksköterska som delegerat.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, vilka funktionsvariationer du arbetat med, körkort och tillgänglighet på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Anordnare eller brukarens namn (med medgivande), tidsperiod, brukarens funktionsvariation och vilka uppgifter du haft. Konkretisera hjälpmedel och rutiner.' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorgsutbildning eller annan relevant utbildning. Internutbildningar från anordnaren räknas (Frösunda Academy, Humana Skola).' },
+      { sektion: 'Kompetenser', tips: 'Hjälpmedel, kommunikationstekniker, delegeringar och språk. Var konkret om vilken AKK eller specifika hjälpmedel du behärskar.' },
+      { sektion: 'Körkort', tips: 'Eget block med körkort B (eller BE, B96), eventuell rutin på anpassade fordon. Skriv utgångsdatum för körkortet.' },
+      { sektion: 'Övrigt', tips: 'Schemaflexibilitet (jour, beredskap, helger), språk utöver svenska, eventuella personliga referenser från anhöriga med medgivande.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika funktionsvariationer',
+      'Körkort B med eventuell rutin på anpassade fordon',
+      'Erfarenhet av hjälpmedel (lift, AKK, andningshjälpmedel)',
+      'Eventuella sjukvårdsdelegeringar från sjuksköterska',
+      'Schemaflexibilitet (dag, kväll, natt, helger, jour)',
+      'Språkkunskaper utöver svenska',
+      'Akta Ryggen eller motsvarande förflyttningsutbildning',
+      'HLR-certifikat med utgångsdatum',
+      'Vana med dokumentationssystem hos anordnare',
+      'Eventuell anhöriganställning eller arbetsledar-erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Anordnare som Frösunda, Humana och Nytida använder oftast Visma Recruit eller Workday. Skriv ut funktionsvariationer (autism, ALS, CP, NPF), hjälpmedel (personlift, AKK) och delegeringar i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett CV som personlig assistent?',
+        a: 'Erfarenhet av specifika funktionsvariationer (autism, NPF, CP, ALS, MS), körkort B, hjälpmedel du behärskar (personlift, AKK, andningshjälpmedel), eventuella sjukvårdsdelegeringar, schemaflexibilitet (dag, kväll, natt, helger, jour), språkkunskaper, samt eventuella vidareutbildningar (HLR, Akta Ryggen, BPSD). Lägg till anhöriganställning eller arbetsledar-erfarenhet om relevant.',
+      },
+      {
+        q: 'Behöver jag formell utbildning för att jobba som personlig assistent?',
+        a: 'Inte alltid. Många anordnare rekryterar utan formell vårdutbildning om du visar lyhördhet, körkort B och rätt schemaflexibilitet. Anordnaren ger introduktion parallellt med brukaren. Däremot väger vård- och omsorgsutbildning tungt för komplexa brukare med medicinska behov.',
+      },
+      {
+        q: 'Hur skriver jag CV utan tidigare assistanserfarenhet?',
+        a: 'Lyft eventuell tidigare erfarenhet av barnomsorg, äldreomsorg, vård eller stöd. Frivilligarbete med personer med funktionsnedsättning räknas. Idrottsledarroller, scout, fritids eller liknande visar lyhördhet. Skriv ut körkort B, schemaflexibilitet och eventuella språk. Anordnaren värderar personlighet lika mycket som meriter.',
+      },
+      {
+        q: 'Hur viktigt är körkort?',
+        a: 'Mycket viktigt för de flesta tjänster. Många brukare behöver assistans vid resor, sjukvårdsbesök, fritidsaktiviteter och inköp. Körkort B är vanligtvis krav. Vissa brukare har anpassade fordon som kräver BE eller B96. Skriv ut det tydligt och hur länge du haft körkortet.',
+      },
+      {
+        q: 'Vilka hjälpmedel ska jag kunna nämna?',
+        a: 'Personlift, taklyft, hygienhjälpmedel, anpassade fordon, AKK (alternativ kommunikation), bildstöd, ögonstyrning (Tobii), andningshjälpmedel (CPAP, BiPAP, hemventilator). Olika brukare har olika behov och anordnare matchar specifik kompetens. Konkreta hjälpmedel är meriterande.',
+      },
+      {
+        q: 'Hur visar jag erfarenhet av specifika funktionsvariationer?',
+        a: 'Var konkret om diagnos och hur du arbetat. "Personlig assistent åt brukare med autism och utvecklingsstörning 4 år, använt bildstöd och TAKK för kommunikation" säger mer än "har erfarenhet av funktionsvariationer". Inkludera bemötande och eventuella anpassningar du gjort.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika funktionsvariationer (autism, NPF, ALS, CP, MS, förvärvad hjärnskada), hjälpmedel (personlift, taklyft, AKK, bildstöd), körkort (B, BE, B96), delegeringar (insulin, sondmatning) och schemaflexibilitet (jour, beredskap). Visma Recruit och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett CV som personlig assistent vara?',
+        a: 'En sida räcker för de flesta. Om du har 10+ års erfarenhet med flera brukare och vidareutbildningar kan det bli 1,5 sidor. Det viktiga är att körkort, funktionsvariationer du arbetat med och senaste anställningen syns på första sidan.',
+      },
+      {
+        q: 'Behöver jag personligt brev till assistanstjänster?',
+        a: 'Ja för de flesta tjänster. Använd brevet för att förklara varför just den brukaren eller anordnaren och beskriv en specifik situation där du visat lyhördhet eller hanterat svår kommunikation. Anhöriga och brukaren själv läser ofta brevet, så fokusera på personlighet snarare än meriter.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor, brukarens namn utan medgivande, sekretessbelagda detaljer om brukares hälsa eller hem, generiska påståenden ("empatisk och social") utan konkreta exempel, hobbies som inte är assistans-relevanta, och löneförväntningar. Stavfel och slarvig formatering signalerar otillförlitlighet i en bransch där noggrannhet räknas.',
+      },
+    ],
+  },
+
+  'kock': {
+    seoIntro:
+      'Som kock i Sverige bedöms du på matlagningskunnande, kökens hierarki och förmåga att leverera under press. Restaurangbranschen från Michelin-stjärnigt till lunchrestaurang har konstant öppna roller, men kökschefer slänger CV:n som inte tydligt visar specialisering och ansvar. Ett välskrivet CV avgör om du blir kallad till provlagning på den restaurang du faktiskt vill jobba på.\n\nVår mall för kockar lyfter restaurangtyper, kökspositioner och eventuella specialiseringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att restaurang, ägare eller köksmästare och tidsperiod syns direkt med konkreta ansvarsområden. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kockutbildning (gymnasium eller YH), restauranger du arbetat på med stjärnstatus eller kategori, kökspositioner (köksbiträde, kallskänka, kock, sous chef, köksmästare), specialiseringar (kallskänka, varmkök, bakery, garde manger, sushi), HACCP-utbildning och livsmedelshygien, eventuella tävlingar eller utmärkelser, samt språk för internationellt kök.\n\nNedan hittar du två CV-mallar designade för kockrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad köksmästare och restaurangägare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Restaurangtyp och stjärnstatus',
+        description: 'Michelin-stjärnig, Bib Gourmand, lunchrestaurang, kvarterskrog, hotellrestaurang. Olika restauranger värderar olika erfarenhet. Lyft typen i restaurang-namnet eller med en kort beskrivning så köksmästare ser direkt om du matchar.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Position och hierarki',
+        description: 'Köksbiträde, kallskänka, partiekök (varmkök), sous chef, köksmästare. Den franska kökshierarkin är fortfarande standard i Sverige. Skriv ut din position eftersom det avgör vilken tjänst du kvalificerar för.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Specialiseringar i klartext',
+        description: 'Garde manger, varmkök, bakery, pastry, charkuteri, fisk, kött, sushi, vegetarisk. Specialiseringar öppnar specifika tjänster och differentierar dig. En kallskänka och en varmkock har olika CV även med samma år.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Volym och tempo',
+        description: '"40 covers per service" eller "lunch för 200 gäster dagligen" säger mer än "ansvarig för matlagning". Konkreta volymer visar din förmåga att klara tempo och press, vilket är hård valuta i restaurangbranschen.',
+      },
+      {
+        icon: 'FileText',
+        title: 'HACCP och livsmedelshygien',
+        description: 'HACCP-utbildning, livsmedelshygien, allergenhantering. Krav på alla restauranger sedan 2006. Skriv ut certifikat med datum eftersom det är grundkrav som måste finnas.',
+      },
+      {
+        icon: 'Target',
+        title: 'Tävlingar och utmärkelser',
+        description: 'Sveriges kockmästare, Bocuse d\'Or, Kock-VM, lokala tävlingar. Tävlingar är meriterande och visar driv. Lyft eventuella vinster eller deltagande på CV:t även om du inte vunnit.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Restauranger och positioner överst',
+        description: 'Vår mall lyfter restauranger, kökspositioner och eventuella stjärnstatus i sidopanelen. Köksmästare ser direkt vilka kök du arbetat i utan att behöva läsa hela CV:t.',
+      },
+      {
+        title: 'Plats för signature dishes och stilar',
+        description: 'Mallen separerar restauranger och dina specialiseringar (garde manger, varmkök, bakery) så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för certifikat och utmärkelser',
+        description: 'HACCP, livsmedelshygien, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
+      },
+      {
+        title: 'Premium-mallen Servering med foto',
+        description: 'För senior-roller (sous chef, köksmästare, executive chef) lägger Servering till foto och magazine-känsla. Skapar en professionell first impression som passar premium-restauranger.',
+      },
+      {
+        title: 'Plats för stilar och referenser',
+        description: 'Klassisk fransk, nordisk, italiensk, asiatisk fusion, vegan. Mallen har dedikerat block för dina kulinariska stilar och eventuella mentorer eller referenser från branschen.',
+      },
+      {
+        title: 'Kompakt typografi för flera år',
+        description: 'Kockar har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Mallen är kompakt nog för att rymma 6-8 anställningar utan att verka rörig.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Mise en place och förberedelser',
+        punkter: [
+          'Förbereda ingredienser, såser och garnityr inför service',
+          'Stationera kallskänk eller varmkök och hålla mise en place uppdaterad',
+          'Hantera leveranser, kontrollera kvalitet och rotera lager (FIFO)',
+          'Anpassa förberedelser efter dagens menyt och förväntad volym',
+        ],
+      },
+      {
+        rubrik: 'Service och tillagning',
+        punkter: [
+          'Tillaga rätter enligt restaurangens recept och presentationsstandard',
+          'Hantera flera tickets parallellt under intensiv service',
+          'Säkerställa korrekt tillagningstemperatur och allergenhantering',
+          'Plate up med precision enligt köksmästarens specifikation',
+        ],
+      },
+      {
+        rubrik: 'Hygien och säkerhet',
+        punkter: [
+          'Följa HACCP och egenkontrollprogrammet',
+          'Hantera allergener enligt EU-förordning 1169/2011',
+          'Hålla arbetsplatsen ren och säker enligt branschstandard',
+          'Genomföra dagliga säkerhets- och hygienkontroller',
+        ],
+      },
+      {
+        rubrik: 'Kollegial samverkan',
+        punkter: [
+          'Samverka med kallskänk, varmkök, bakery och servisstab',
+          'Stötta nya kockar och köksbiträden under introduktion',
+          'Delta i menyplanering och säsongsanpassning',
+          'Bidra till förbättringsförslag för köksflöde och effektivitet',
+        ],
+      },
+      {
+        rubrik: 'Menyplanering och kreativitet',
+        punkter: [
+          'Föreslå nya rätter baserat på säsong, leverantörer och trender',
+          'Beräkna kostnader, marginal och food cost för menyalternativ',
+          'Anpassa rätter efter kundsegment, allergier och dietkrav',
+          'Bidra till specialevent, vinmiddagar och tasting-meny',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Kökspositioner (Brigade de cuisine)',
+        termer: [
+          { term: 'Köksmästare', forklaring: 'Chef över hela köket, ansvar för meny, personal och budget. Executive chef.' },
+          { term: 'Sous chef', forklaring: 'Köksmästarens högra hand, ansvarig för dagligt köksarbete och personal.' },
+          { term: 'Chef de partie', forklaring: 'Stationchef för specifik del av köket (kallskänk, varmkök, etc).' },
+          { term: 'Garde manger', forklaring: 'Kallskänk, ansvarig för förrätter, sallader och kalla tillbehör.' },
+          { term: 'Saucier', forklaring: 'Specialist på såser och varma rätter, traditionellt högstatuspoäng.' },
+          { term: 'Pâtissier', forklaring: 'Konditor med ansvar för efterrätter, bröd och bakverk.' },
+        ],
+      },
+      {
+        kategori: 'Restaurangtyper och kategorier',
+        termer: [
+          { term: 'Michelin-stjärna', forklaring: 'Internationell utmärkelse för exceptionell matlagning, mycket hög status.' },
+          { term: 'Bib Gourmand', forklaring: 'Michelin-utmärkelse för "rejäl mat till bra pris", populär bland kockar.' },
+          { term: 'Fine dining', forklaring: 'Lyxrestaurang med fokus på matupplevelse, ofta tasting-meny.' },
+          { term: 'Bistro', forklaring: 'Mindre restaurang med klassisk fransk stil till rimliga priser.' },
+          { term: 'Brasseri', forklaring: 'Större restaurang med längre öppettider och bred meny.' },
+          { term: 'Lunchrestaurang', forklaring: 'Fokus på lunch, dagens rätt och snabb service.' },
+        ],
+      },
+      {
+        kategori: 'Kulinariska stilar och tekniker',
+        termer: [
+          { term: 'Klassisk fransk', forklaring: 'Grunden för västerländsk fine dining, fokus på såser och teknik.' },
+          { term: 'Nordisk kök', forklaring: 'New Nordic Cuisine med fokus på lokala råvaror och säsong.' },
+          { term: 'Sous vide', forklaring: 'Vakuumkokning vid låg temperatur för precision i tillagning.' },
+          { term: 'Fermentering', forklaring: 'Bevarings- och smaktekniker (kombucha, kimchi, miso, surdeg).' },
+          { term: 'Mise en place', forklaring: 'Förberedelser inför service, "allt på plats" enligt klassisk metod.' },
+          { term: 'Plating', forklaring: 'Presentationsteknik för att placera mat snyggt på tallriken.' },
+        ],
+      },
+      {
+        kategori: 'Hygien och regelverk',
+        termer: [
+          { term: 'HACCP', forklaring: 'Hazard Analysis and Critical Control Points, krav i alla restaurangkök.' },
+          { term: 'Egenkontroll', forklaring: 'Restaurangens system för att säkerställa livsmedelssäkerhet enligt Livsmedelsverket.' },
+          { term: 'Allergenhantering', forklaring: 'EU-förordning 1169/2011 kring 14 allergener på menyn.' },
+          { term: 'Livsmedelshygien', forklaring: 'Grundutbildning i mathantering, krav i alla professionella kök.' },
+          { term: 'Temperaturkedja', forklaring: 'Rutiner för att hålla mat säker temperatur från leverans till servering.' },
+          { term: 'FIFO', forklaring: 'First In, First Out, lagerhanteringsprincip för att undvika svinn.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Premium-restauranger',
+        exempel: [
+          'Michelin-stjärniga restauranger (Frantzén, Aira, Etoile)',
+          'Bib Gourmand-restauranger',
+          'Fine dining och tasting-restauranger',
+          'Hotellrestauranger med ambition (Operakällaren, Mathias Dahlgren)',
+        ],
+      },
+      {
+        kategori: 'Bistro och mellansegment',
+        exempel: [
+          'Mellanrestauranger i Stockholm, Göteborg, Malmö',
+          'Trendiga restauranger och brasserier',
+          'Hotellrestauranger med varierande nivå',
+          'Specialrestauranger (italiensk, asiatisk, vegansk)',
+        ],
+      },
+      {
+        kategori: 'Storkök och catering',
+        exempel: [
+          'Skola och förskola (kommunal storkök)',
+          'Sjukhus och äldreboenden',
+          'Företagsrestauranger (Sodexo, ISS, Compass Group)',
+          'Catering-bolag och eventbolag',
+        ],
+      },
+      {
+        kategori: 'Bemanning och säsong',
+        exempel: [
+          'Bemanningsbolag (Inhouse, Manpower Restaurang)',
+          'Sommarrestauranger på västkusten och i skärgården',
+          'Vinterstationer i Åre, Sälen, Riksgränsen',
+          'Festivaler och eventuell egen verksamhet',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Restaurang- och livsmedelsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning kock. Vanlig grund för svenska kockar med APL-perioder på olika restauranger. Examen ger grundkompetens men många kockar lär sig framförallt på jobb.',
+      },
+      {
+        rubrik: 'Yrkeshögskola kock (1-2 år)',
+        beskrivning: 'YH-utbildningar med specifik inriktning (gourmetkök, vegetariskt, sushi, bakery). Snabbare väg in i premium-segmentet och meriterande för senior-roller.',
+      },
+      {
+        rubrik: 'Internationella kockskolor',
+        beskrivning: 'Le Cordon Bleu (Paris, London), Culinary Institute of America, Hattori Nutrition College (Tokyo). Internationell utbildning är meriterande för Michelin-segmentet och premium-restauranger.',
+      },
+      {
+        rubrik: 'Lärlingsplatser och on-the-job',
+        beskrivning: 'Många kockar utvecklas via lärlingsplatser i specifika kök. Att ha jobbat under en namnkunnig köksmästare är meriterande och öppnar dörrar till andra premium-restauranger.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Klassisk fransk teknik och Brigade de cuisine',
+        'Sous vide och precisionstekniker',
+        'Kallskänk (förrätter, sallader, charkuteri)',
+        'Varmkök (såser, kött, fisk, vegetariskt)',
+        'Bakery och pastry',
+        'Fermentering och konservering',
+        'Allergenhantering enligt EU 1169/2011',
+        'HACCP och egenkontrollprogram',
+        'Menyplanering och food cost-beräkning',
+        'Mise en place och stationhantering',
+        'Plating och presentationsteknik',
+        'Säsongsanpassning och lokala råvaror',
+      ],
+      personliga: [
+        'Stresstålig vid intensiv service',
+        'Strukturerad i mise en place',
+        'Kreativ i menyplanering',
+        'Fysiskt uthållig',
+        'Snabbtänkt vid problem',
+        'Lagspelare i köksbrigad',
+        'Detaljorienterad i presentation',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren chef de partie med 8 års erfarenhet från Michelin-stjärnig och fine dining-segment. Specialist på saucier-station med fokus på klassiska franska tekniker och nordiska råvaror. Arbetat under två stjärnköksmästare och deltagit i Sveriges kockmästare 2023.',
+
+    profilTips:
+      'Aktuell position och år av erfarenhet i öppningsraden. Andra meningen lyfter specialisering och kulinarisk stil. Tredje meningen visar mentorskap, tävlingar eller utmärkelser som differentierar dig från generiska kock-CV.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Restaurangtyp och stjärnstatus',
+        text: 'Michelin-stjärnig, Bib Gourmand, fine dining, bistro, hotellrestaurang. Olika restauranger värderar olika erfarenhet. Lyft typen i restaurang-namnet eller med en kort beskrivning så köksmästare ser direkt om du matchar.',
+      },
+      {
+        rubrik: 'Position och hierarki',
+        text: 'Köksbiträde, kallskänka, chef de partie, sous chef, köksmästare. Skriv ut din position eftersom det avgör vilken tjänst du kvalificerar för. Den franska kökshierarkin är fortfarande standard.',
+      },
+      {
+        rubrik: 'Specialiseringar i klartext',
+        text: 'Garde manger, varmkök, bakery, pastry, charkuteri, fisk, kött, sushi, vegetarisk. Specialiseringar öppnar specifika tjänster och differentierar dig. En kallskänka och en varmkock har olika CV.',
+      },
+      {
+        rubrik: 'Volym och tempo',
+        text: '"40 covers per service" eller "lunch för 200 gäster dagligen" säger mer än "ansvarig för matlagning". Konkreta volymer visar din förmåga att klara tempo och press.',
+      },
+      {
+        rubrik: 'HACCP och hygiencertifikat',
+        text: 'HACCP, livsmedelshygien, allergenhantering. Skriv ut certifikat med datum eftersom det är grundkrav på alla restauranger. Vissa kommuner kräver också intyg om Salmonella-test.',
+      },
+      {
+        rubrik: 'Tävlingar och utmärkelser',
+        text: 'Sveriges kockmästare, Bocuse d\'Or, Kock-VM, lokala tävlingar. Tävlingar är meriterande och visar driv. Lyft eventuella vinster eller deltagande även om du inte vunnit.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Position, år av erfarenhet, primär kulinarisk stil och eventuell stjärnstatus på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Restaurang, köksmästare och tidsperiod. Konkretisera position, specialisering och eventuella signature dishes.' },
+      { sektion: 'Utbildning', tips: 'Restaurang- och livsmedelsprogrammet, YH eller internationell kockskola. Internutbildningar från premium-restauranger räknas också.' },
+      { sektion: 'Kompetenser', tips: 'Tekniker (sous vide, klassisk fransk), specialiseringar (garde manger, bakery), allergener och HACCP.' },
+      { sektion: 'Hygien och certifikat', tips: 'HACCP, livsmedelshygien, allergenhantering med utgångsdatum. Eventuella körkort eller specialcertifikat (truck för storkök).' },
+      { sektion: 'Övrigt', tips: 'Tävlingsdeltaganden, utmärkelser, mentorer från branschen. Språk om du söker internationella restauranger.' },
+    ],
+
+    checklista: [
+      'Kockutbildning (gymnasium, YH eller internationell skola)',
+      'Position i kökshierarkin (chef de partie, sous chef, etc)',
+      'Specialiseringar (garde manger, varmkök, bakery)',
+      'Kulinariska stilar (klassisk fransk, nordisk, italiensk)',
+      'HACCP och livsmedelshygien med utgångsdatum',
+      'Allergenhantering enligt EU 1169/2011',
+      'Volym per service och restaurangtyp',
+      'Eventuella tävlingsdeltaganden och utmärkelser',
+      'Mentorer och referenser från branschen',
+      'Språkkunskaper för internationella kök',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack-developer och premium-varianten Servering är ATS-säkra. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut köksposition (chef de partie, sous chef), specialisering (garde manger, saucier) och hygien-certifikat (HACCP) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett kock-CV?',
+        a: 'Kockutbildning, restauranger du arbetat på med kategori (Michelin, Bib Gourmand, fine dining, bistro), position i kökshierarkin (chef de partie, sous chef), specialiseringar (garde manger, varmkök, bakery), kulinariska stilar, HACCP och hygiencertifikat, eventuella tävlingar och utmärkelser, samt språkkunskaper. Lägg till mentorer eller referenser om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som ung kock utan premium-restauranger?',
+        a: 'Lyft restauranger du arbetat på med konkreta uppgifter, även om de inte är stjärnrestauranger. Praktiska kurser från utbildningen, eventuella tävlingsdeltaganden i lokala kockmästerskap, säsongsarbete på sommarrestauranger, och vilka specialiseringar du provat på. Skriv ut din vilja att utvecklas och lära dig av seniora kockar. Många premium-restauranger tar in junior-kockar för att forma dem.',
+      },
+      {
+        q: 'Hur viktig är restaurangtyp på CV:t?',
+        a: 'Mycket. En kock från Michelin-stjärnig restaurang söker andra tjänster än en från lunchrestaurang. Ange typ av restaurang och eventuell stjärnstatus eller annan utmärkelse. Hotellrestaurang, fine dining-segment, kvarterskrog och storkök är olika världar med olika förväntningar.',
+      },
+      {
+        q: 'Vad räknas som meriterande för senior-kockroller?',
+        a: 'Erfarenhet från premium-segment (Michelin, Bib Gourmand), arbete under namnkunniga köksmästare, internationell erfarenhet, tävlingsdeltaganden, sous chef- eller köksmästar-roller, och egen menyutveckling. För executive chef-roller är även personalledning, food cost-kontroll och ekonomi viktigt.',
+      },
+      {
+        q: 'Hur lyfter jag kreativitet på CV:t?',
+        a: 'Konkreta signature dishes du utvecklat, deltagande i menyutveckling, säsongsanpassning du drivit, tävlingsdeltaganden eller utmärkelser. Skriv "Utvecklade fyra rätter för säsongsmeny som ökade vinmarginal med 12%" istället för "kreativ kock". Konkret kreativitet med affärsresultat differentierar dig.',
+      },
+      {
+        q: 'Behövs HACCP-utbildning?',
+        a: 'Ja, det är grundkrav på alla restauranger sedan 2006. Skriv ut HACCP-utbildning med datum. Allergenhantering enligt EU 1169/2011 är också krav. Salmonella-test kan krävas i vissa kommuner. Lägg dem synligt så restaurangägaren ser att du klarar livsmedelsverkets krav.',
+      },
+      {
+        q: 'Hur lång ska ett kock-CV vara?',
+        a: 'Junior 0-5 år: 1 sida. Erfaren chef de partie eller sous chef: 1,5 sidor. Köksmästare eller executive chef: 2 sidor. Det viktiga är att restaurangtyp, position och senaste anställning syns på första sidan. Restaurangbranschen värderar konkret erfarenhet över akademisk längd.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Kökspositioner (chef de partie, sous chef, saucier, garde manger), restaurangtyper (fine dining, Michelin, Bib Gourmand), tekniker (sous vide, fermentering), specialiseringar (kallskänk, varmkök, bakery, pastry), HACCP och hygiencertifikat, samt språk för internationella kök. Teamtailor och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kock-tjänster?',
+        a: 'Beror på restaurangtyp. Premium-restauranger förväntar sig oftast personligt brev plus provlagning. Mindre restauranger kan acceptera bara CV. När brev förväntas, fokusera på kulinarisk filosofi och varför just den restaurang. Beskriv en signature dish eller en menyutmaning du löst. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt kock-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("passion för matlagning") utan konkreta exempel, hobbies som inte är kulinariskt relevanta, och slarvigt skrivna restaurangnamn. Stavfel av kulinariska termer (skriva "soux chef" istället för "sous chef") signalerar oseriös bakgrund.',
+      },
+    ],
+  },
+
+  'truckforare': {
+    seoIntro:
+      'Som truckförare bedöms du framför allt på dina behörigheter och din rutin med olika trucktyper. Logistik- och industribolag som DB Schenker, PostNord, DHL, IKEA och Volvo har konstant öppna roller, men lagerchefer slänger CV:n som inte tydligt visar exakta truckkort med utgångsdatum. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVår mall för truckförare lyfter alla aktiva truckbehörigheter, körkort och eventuella ADR-bevis som första visuella element. Vi har strukturerat erfarenhetssektionen så att lager, branschtyp och truck-typ syns direkt med eventuella prestandasiffror. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, körkort B (oftast krav), eventuella tunga körkort (BE, C, CE, D), ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, fallskydd, brandskydd), erfarenhet av specifika trucktyper (skjutstativtruck, sidlastare, motviktstruck), branschvana (e-handel, industri, terminal), och tillgänglighet för 2- eller 3-skift.\n\nNedan hittar du två CV-mallar designade för truckförarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager och transport faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Alla truckbehörigheter med datum',
+        description: 'A1, A2, A3, A4 (plocktruckar), B1, B2, B3, B4, B5 (motviktstruckar), C (sidlastare), D, E. Utgångsdatum krävs för varje. Lagerchefer matchar varje tjänst mot specifika krav, så listan måste vara komplett och uppdaterad.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Körkort B är ofta krav',
+        description: 'Större terminaler kräver körkort B för att hämta material från olika delar av området. Tunga körkort (BE, C, CE, D) öppnar fler tjänster och påverkar lönen. Skriv ut samtliga körkort med utgångsdatum.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'ADR-bevis för farligt gods',
+        description: 'För terminal och industri som hanterar farligt gods (kemikalier, batterier, tryckkärl) är ADR krav. Lager utan farligt gods värderar det också som senior-meritering. Bevis förnyas vart femte år.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Trucktyp och rutin',
+        description: 'Skjutstativtruck för smala gångar, sidlastare för långgods, motviktstruck för pallar. Olika lager kräver olika trucker. Skriv ut hur länge du kört varje typ och vilka höjder du arbetat på.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Branschvana är värdefullt',
+        description: 'E-handelsterminal, industrilager, livsmedelslager, frys- och kyllager, byggvaruhus. Olika branscher har olika krav. En truckförare från livsmedel kan ofta inte direkt gå till industri utan introduktion.',
+      },
+      {
+        icon: 'Target',
+        title: 'Schemaflexibilitet och skift',
+        description: 'Lager kör ofta 2- eller 3-skift, högsäsong kräver helgarbete. Tillgänglighet för rotation är hård valuta. Skriv ut konkret: "Tillgänglig för 2-skift inkl helger" eller "Söker dagtid endast".',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Behörigheter och körkort överst',
+        description: 'Vår mall Logistik har "Behörigheter och körkort"-block direkt efter rubriken. Lagerchefer ser dina truckkort, ADR och körkort på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Plats för trucktyp och bransch',
+        description: 'Mallen separerar truckar och lagertyp så branschvana syns. Du kan visa erfarenhet från flera lager utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för säkerhetsutbildningar',
+        description: 'ADR, Akta Ryggen, fallskydd, brandskydd, BAM. Mallen lyfter säkerhetsutbildningar som eget block så lagerchefer ser komplett certifieringsbild.',
+      },
+      {
+        title: 'Industriell typografi för branschen',
+        description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Ingen klick-baitig design som drar fokus från behörigheter och meriter.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior-roller (truckchef, lagerförman) lägger Logistik Plus till foto och dark header. Skapar en mer professionell first impression utan att kompromissa med ATS-läsbarhet.',
+      },
+      {
+        title: 'Tillgänglighet i sidopanelen',
+        description: 'Mallen har dedikerat block för schemaflexibilitet (dag, kväll, natt, helger). Lagerchefer behöver veta rotationsmöjligheter och vår mall sätter dig i rätt urvalslista direkt.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Lastning och lossning',
+        punkter: [
+          'Lossa lastbilar och containers med motviktstruck eller skjutstativtruck',
+          'Kontrollera leverans mot följesedel och rapportera avvikelser',
+          'Lasta utgående trafik enligt fraktbrev och destination',
+          'Säkra last med spännband och korrekta lastsäkringsmetoder',
+        ],
+      },
+      {
+        rubrik: 'Materialhantering i lager',
+        punkter: [
+          'Förflytta pallar mellan inkommande, lagring och plockzoner',
+          'Plocka och placera material på rätt position enligt WMS',
+          'Hantera farligt gods enligt ADR vid behov',
+          'Köra plocktruck (A1, A2, A3) i smala gångar och höglager',
+        ],
+      },
+      {
+        rubrik: 'Inventering och kvalitet',
+        punkter: [
+          'Genomföra cykelräkning och fullinventering enligt schema',
+          'Justera lagersaldo i WMS efter avvikelser',
+          'Kontrollera produktkvalitet och rapportera skador',
+          'Hantera reklamationer och returer enligt rutin',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och underhåll',
+        punkter: [
+          'Genomföra dagliga säkerhets- och förkörskontroller på trucken',
+          'Rapportera tekniska fel och underhållsbehov till verkstad',
+          'Följa lagrets säkerhetsrutiner och bära PPE',
+          'Genomföra brandskyddsrundor och säkerhetskontroller',
+        ],
+      },
+      {
+        rubrik: 'Skiftarbete och samverkan',
+        punkter: [
+          'Genomföra skiftöverlämning till nästa skift med statusrapport',
+          'Samverka med plockare, packare och transportkoordinator',
+          'Stötta nya kollegor under introduktion',
+          'Bidra till förbättringsförslag enligt Lean eller 5S',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Truckar och behörigheter',
+        termer: [
+          { term: 'A1', forklaring: 'Plocktruck med plockare i förhöjt läge, vanlig i höglager.' },
+          { term: 'A2', forklaring: 'Stå-på-truck för plock i smala gångar, mycket vanlig på e-handelslager.' },
+          { term: 'A3', forklaring: 'Sittande plocktruck för höga plockhöjder.' },
+          { term: 'A4', forklaring: 'Skjutstativtruck för smala gångar och höglager med pallar.' },
+          { term: 'B1-B5', forklaring: 'Motviktstruckar i olika storleksklasser för pallhantering och lastning.' },
+          { term: 'C', forklaring: 'Sidlastare för långgodshantering (rör, balkar, virke).' },
+          { term: 'D', forklaring: 'Större motviktstruckar över 10 ton.' },
+        ],
+      },
+      {
+        kategori: 'Körkort och behörigheter',
+        termer: [
+          { term: 'B', forklaring: 'Personbil, ofta krav även för truckförare på större terminaler.' },
+          { term: 'BE', forklaring: 'Personbil med tung släpvagn, krävs för vissa transportuppdrag.' },
+          { term: 'C', forklaring: 'Lastbil över 3,5 ton, krävs för tunga transporter inom industri.' },
+          { term: 'CE', forklaring: 'Lastbil med släp, krävs för dragbilar och längre transporter.' },
+          { term: 'D', forklaring: 'Buss, krävs för persontrafik (mindre relevant för truckförare).' },
+          { term: 'YKB', forklaring: 'Yrkeskompetensbevis, krävs för yrkesmässig persontrafik och vissa godstransporter.' },
+        ],
+      },
+      {
+        kategori: 'Säkerhet och certifikat',
+        termer: [
+          { term: 'TYA', forklaring: 'Transportfackens Yrkes- och Arbetsmiljönämnd, utfärdar truckutbildning.' },
+          { term: 'ADR', forklaring: 'Behörighet för transport av farligt gods, förnyas vart femte år.' },
+          { term: 'Akta Ryggen', forklaring: 'Certifierad ergonomisk lyfteknik, vanligt krav på lager.' },
+          { term: 'Fallskydd', forklaring: 'Utbildning för arbete på höjd, krävs på höglager.' },
+          { term: 'Brandskydd', forklaring: 'Grundläggande brandskyddsutbildning, krav på de flesta lager.' },
+          { term: 'BAM', forklaring: 'Bättre arbetsmiljö, grundläggande utbildning för arbetsledare.' },
+        ],
+      },
+      {
+        kategori: 'Lagertyper och bransch',
+        termer: [
+          { term: 'E-handelsterminal', forklaring: 'Stora lager för B2C med snabb plock och packning.' },
+          { term: 'Industrilager', forklaring: 'Lager för tillverkningsbolag (Volvo, IKEA Industry, Sandvik).' },
+          { term: 'Livsmedelslager', forklaring: 'Lager för dagligvaruhandel (ICA, Coop, Axfood) med strikta hygienkrav.' },
+          { term: 'Fryslager', forklaring: 'Lager med temperatur under -18°C, kräver kompletterande klädsel.' },
+          { term: '3PL', forklaring: 'Tredjepartslogistik, lager som driftas på uppdrag av flera kunder.' },
+          { term: 'Crossdock', forklaring: 'Genomflöde utan långtidslagring, vanligt på terminaler.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Logistik och transport',
+        exempel: [
+          'PostNord, DB Schenker, DHL, DSV',
+          'Bring, Best Transport, Schenker Logistics',
+          'Mindre svenska transport- och åkeribolag',
+          'Bemanningsbolag (Manpower, Adecco)',
+        ],
+      },
+      {
+        kategori: 'E-handel och 3PL',
+        exempel: [
+          'Klarna Logistics, Mathem, Foodora',
+          'Boozt, Apotea, NetOnNet, Adlibris',
+          'Tredjepartslogistiker (XPO, Geodis)',
+          'Egna e-handelsterminaler för stora kedjor',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Sandvik, Atlas Copco, Tetra Pak',
+          'Tillverkningsbolag i Mälardalen och Småland',
+          'Bygg- och anläggningsföretag',
+        ],
+      },
+      {
+        kategori: 'Detaljhandel och dagligvaror',
+        exempel: [
+          'ICA Logistik, Coop, Axfood, Lidl',
+          'IKEA, H&M, Stadium centrallager',
+          'Apoteket centrallager och distribution',
+          'Säsongsarbete på julpaketterminaler',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Truckutbildning enligt TYA (1-5 dagar)',
+        beskrivning: 'TYA utfärdar truckutbildning. Längden beror på antal behörigheter du tar. Krav i de flesta lager och förnyas vart femte år. Kostnaden betalas ofta av arbetsgivaren efter provanställning.',
+      },
+      {
+        rubrik: 'Yrkeshögskola lager och logistik (1-2 år)',
+        beskrivning: 'YH-utbildningar inom lager, logistik och transport. Kortare väg till arbetsledar- och chefroller. Innehåller WMS-praktik, säkerhetsutbildningar och affärsmässig logistik.',
+      },
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många lager rekryterar utan formell utbildning för truckförar-roller. Truckutbildning betalas ofta av arbetsgivaren efter provanställning. Vanlig väg in.',
+      },
+      {
+        rubrik: 'ADR och säkerhetscertifikat (1-3 dagar)',
+        beskrivning: 'ADR-utbildning för farligt gods, fallskydd, brandskydd och Akta Ryggen. Korta certifikatkurser som ger meriterande kompetens utöver grundutbildning.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Truckkort A1-A4 och B1-B5 enligt TYA',
+        'Skjutstativtruck och sidlastare',
+        'Motviktstruck upp till 10 ton',
+        'Höglager och plock i smala gångar',
+        'WMS-system (SAP WMS, Manhattan, Pyramid)',
+        'RF-scanner och handburna terminaler',
+        'ADR-bevis för farligt gods',
+        'Lastsäkring och fraktbrev',
+        'Akta Ryggen och ergonomisk lyfteknik',
+        'Brandskydd och fallskydd',
+        '5S och Lean-metodik på lagergolv',
+        'Trucksäkerhet och förkörskontroll',
+      ],
+      personliga: [
+        'Säkerhetsmedveten och ansvarstagande',
+        'Strukturerad i höga tempon',
+        'Fysiskt uthållig och stresstålig',
+        'Lagspelare på lagergolv',
+        'Flexibel kring skift och helger',
+        'Noggrann i materialhantering',
+        'Pålitlig och punktlig',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren truckförare med 5 års erfarenhet från e-handelsterminal och industrilager. Truckkort A1-A4 och B1-B3 med rutin på skjutstativtruck och sidlastare i höglager upp till 12 meter. Körkort B och ADR-bevis för farligt gods. Tillgänglig för 2-skift inklusive helger.',
+
+    profilTips:
+      'Antal år och branscher i öppningsraden. Andra meningen lyfter dina specifika behörigheter, trucktyper och eventuell höjd. Tredje meningen visar körkort, ADR och tillgänglighet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Alla truckbehörigheter med datum',
+        text: 'Lista exakt vilka truckar du har behörighet på (A1, A2, A3, A4, B1, B2, B3, B4, B5, C) och utgångsdatum. Lagerchefer matchar varje tjänst mot specifika krav. Utan rätt papper sorteras du bort omedelbart.',
+      },
+      {
+        rubrik: 'Körkort och tunga behörigheter',
+        text: 'Körkort B är ofta krav. Tunga körkort (BE, C, CE) öppnar fler tjänster och påverkar lönen. Skriv ut samtliga körkort med utgångsdatum så lagerchefen ser komplett bild av dina körrättigheter.',
+      },
+      {
+        rubrik: 'ADR-bevis för farligt gods',
+        text: 'För terminal och industri som hanterar farligt gods är ADR krav. Lager utan farligt gods värderar det också som senior-meritering. Bevis förnyas vart femte år. Lyft det med datum.',
+      },
+      {
+        rubrik: 'Trucktyp och rutin',
+        text: 'Skjutstativtruck för smala gångar, sidlastare för långgods, motviktstruck för pallar. Olika lager kräver olika trucker. Skriv ut hur länge du kört varje typ och vilka höjder du arbetat på.',
+      },
+      {
+        rubrik: 'Branschvana är värdefullt',
+        text: 'E-handelsterminal, industrilager, livsmedelslager, frys- och kyllager. Olika branscher har olika krav. En truckförare från livsmedel kan ofta inte direkt gå till industri utan introduktion.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Lager kör ofta 2- eller 3-skift, högsäsong kräver helgarbete. Skriv ut konkret: "Tillgänglig för 2-skift inkl helger" eller "Söker dagtid endast". Det sätter dig direkt i rätt urvalslista.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Antal år, branscher du arbetat i, dina behörigheter och tillgänglighet på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Företag, lager, tidsperiod. Konkretisera trucktyp, lagertyp och eventuell höjd. Branschvana lyfts.' },
+      { sektion: 'Behörigheter', tips: 'Eget block med truckkort (A1-B5), körkort (B, BE, C), ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium plus truckutbildning (TYA). Datum för truckkort och eventuella YH-utbildningar.' },
+      { sektion: 'Säkerhet', tips: 'Akta Ryggen, fallskydd, brandskydd, BAM. Lyft alla aktuella säkerhetsutbildningar.' },
+      { sektion: 'Övrigt', tips: 'Tillgänglighet för 2- eller 3-skift, helger, högsäsong. Eventuella språkkunskaper för internationella terminaler.' },
+    ],
+
+    checklista: [
+      'Truckutbildning med specifika behörigheter (A1-A4, B1-B5)',
+      'Körkort B (ofta krav)',
+      'Tunga körkort (BE, C, CE) om relevant',
+      'ADR-bevis för farligt gods',
+      'Erfarenhet av specifika trucktyper',
+      'Akta Ryggen eller motsvarande säkerhetsutbildning',
+      'Tillgänglighet för 2- eller 3-skift, helger',
+      'Eventuell brand- eller fallskyddsutbildning',
+      'Branschvana (e-handel, industri, terminal, 3PL)',
+      'WMS-system du arbetat i',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1, B2" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut körkort (B, BE, C) och ADR i klartext.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett truckförar-CV?',
+        a: 'Alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D) med utgångsdatum, körkort (B, eventuellt BE, C, CE), ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, fallskydd, brandskydd), erfarenhet av specifika trucktyper, branschvana (e-handel, industri, terminal), WMS-system och tillgänglighet för rotationsschema. Lägg till YH-utbildning om du söker arbetsledar-tjänster.',
+      },
+      {
+        q: 'Hur skriver jag CV som truckförare utan tidigare erfarenhet?',
+        a: 'Lyft eventuell tidigare erfarenhet av fysiskt arbete (bygg, jordbruk, produktion), tillgänglighet för rotationsschema, körkort B om du har det, och vilken truckutbildning du gått (TYA-grundkurs är vanlig). Skriv ut din vilja att lära och vara fysiskt aktiv. Många lager tar in nya utan erfarenhet under högsäsong och betalar truckutbildning efter provanställning.',
+      },
+      {
+        q: 'Vilka truckbehörigheter är värdefullast?',
+        a: 'B1-B3 motviktstruck är grundbehörigheterna och krav på de flesta lager. A2 stå-på-truck för smala gångar är värdefull på e-handelsterminaler. A4 skjutstativtruck öppnar tjänster på höglager. C sidlastare är specialiserad och meriterande för bygg- och industribolag.',
+      },
+      {
+        q: 'Hur viktigt är ADR-bevis?',
+        a: 'Mycket viktigt för specifika tjänster. Terminaler som hanterar farligt gods (kemikalier, batterier, tryckkärl) kräver ADR. Lager utan farligt gods värderar också ADR som senior-meritering. Bevis förnyas vart femte år, så håll det aktuellt. Kostnaden är låg jämfört med löneskillnaden.',
+      },
+      {
+        q: 'Hur viktigt är arbetstider på CV:t?',
+        a: 'Mycket. Många lager kör 2- eller 3-skift, kvällar eller helger. Ange tydligt: "Tillgänglig för 2-skift och helgarbete" eller "Söker dagtid endast". Det sorterar dig direkt in i rätt urvalslista och rekryteraren slipper ringa för att ta reda på det.',
+      },
+      {
+        q: 'Vad är skillnaden mellan truckförare och lagerarbetare på CV:t?',
+        a: 'Truckförare fokuserar främst på trucktyper, körkort och behörigheter. Lagerarbetare har bredare profil med plock, packning och inventering. Båda yrken överlappar i praktiken. Om du söker som truckförare, lyft truckkort och rutin överst. Om du söker som lagerarbetare, lyft även plockhastighet och WMS-erfarenhet.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika truckar (A1, A2, A3, B1, B2), körkort (B, BE, C, CE), ADR-bevis, säkerhetscertifikat (Akta Ryggen, fallskydd), trucktyper (skjutstativtruck, sidlastare, motviktstruck), och bransch (e-handel, industri, 3PL, livsmedel). SAP SuccessFactors och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett truckförar-CV vara?',
+        a: 'En sida räcker för de flesta. Om du har 5+ års erfarenhet med flera lager och flera behörigheter kan det bli 1,5 sidor. Det viktigaste är att truckbehörigheter, körkort och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till truckförar-tjänster?',
+        a: 'Beror på arbetsgivaren. Större bolag som PostNord och DB Schenker förväntar sig oftast brev medan mindre lager och bemanningsbolag kan acceptera bara CV. När brev förväntas, fokusera på tillgänglighet, fysisk uthållighet och varför just det lagret. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt truckförar-CV?',
+        a: 'Personnummer (bara födelseår), löneförväntningar, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("hårt arbetande och ansvarstagande") utan stöd, hobbies som inte är lagerrelevanta, och utgångna truckkort eller certifikat. Stavfel och inkonsekvent formatering signalerar slarv, vilket är negativt i en bransch där noggrannhet räknas.',
+      },
+    ],
+  },
+
+  'ekonomiassistent': {
+    seoIntro:
+      'Som ekonomiassistent är du ofta första kontakten med ekonomi-yrket. Bolag inom alla branscher rekryterar ekonomiassistenter konstant, och det är oftast en ingång till mer seniora roller (controller, redovisningsekonom, ekonomichef). Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVår mall för ekonomiassistenter lyfter system (Visma, Fortnox, SAP), Excel-färdigheter och eventuella delar av redovisningsprocessen som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområden och systemvana syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomi- eller redovisningsutbildning från gymnasium eller YH, redovisningssystem du behärskar (Visma, Fortnox, SAP, Hogia, BL Administration), Excel-färdigheter (PivotTable, VLOOKUP, makron), löpande bokföringserfarenhet (kund- och leverantörsreskontra, avstämningar, periodiseringar), eventuell lönehantering, vana med kvitto- och utläggshantering, samt eventuell fakturering eller inkasso-erfarenhet.\n\nNedan hittar du två CV-mallar designade för ekonomiassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på byråer, industribolag och tjänsteföretag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Redovisningssystem i klartext',
+        description: 'Visma Administration dominerar småbolag och byråer. Fortnox vanligast på e-handel och scale-ups. SAP på industri. Hogia på lön. Skriv ut systemnamnen så ATS-system kan filtrera fram dig.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Vilka delar av processen du behärskar',
+        description: '"Hanterar 200 leverantörsfakturor per månad och avstämmer kund-/leverantörsreskontra varje vecka" säger mer än "ansvarade för bokföring". Konkretisera vilka delar av redovisningen du faktiskt jobbat med.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Excel-färdigheter på rätt nivå',
+        description: 'PivotTable, VLOOKUP, INDEX/MATCH, makron, Power Query. Avancerad Excel är förmodat på ekonomijobb. Skriv ut vilka funktioner du behärskar i stället för "god datavana", som inte säger något.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Eventuell bokslutsvana',
+        description: 'Junior-roller fokuserar på löpande bokföring. Mid-level-roller stödjer i bokslut och årsredovisning. Skriv ut om du varit del av bokslutsteam eller bara löpande arbete. Det avgör vilka tjänster du kvalificerar för.',
+      },
+      {
+        icon: 'Award',
+        title: 'Bransch-erfarenhet',
+        description: 'En ekonomiassistent från byrå har annan erfarenhet än en från industri eller e-handel. Lyft branschen i sammanfattningen så ekonomichefer ser om matchningen finns för deras typ av verksamhet.',
+      },
+      {
+        icon: 'Target',
+        title: 'Lönehantering är specialisering',
+        description: 'Lön är ofta egen specialisering med Hogia, Visma Lön eller Fortnox Lön. Om du har lönehanteringsvana ska det lyftas tydligt eftersom det öppnar specifika tjänster och påverkar lönen.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'System och certifieringar överst',
+        description: 'Vår mall Konto har dedikerad sidopanel för redovisningssystem och eventuella certifieringar. Ekonomichefer ser systemvana på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Tabellär layout med tabular-nums',
+        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Volymsiffror (antal fakturor, kontering, avstämningar) lyfts visuellt utan att rymma i löpande prosa.',
+      },
+      {
+        title: 'Eget block för Excel-färdigheter',
+        description: 'PivotTable, VLOOKUP, makron, Power Query. Mallen separerar Excel-funktioner från generiska kompetenser så ekonomichefer ser specifik nivå direkt.',
+      },
+      {
+        title: 'Mörkblå navy signalerar finans',
+        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
+      },
+      {
+        title: 'Premium-mallen Konto Plus med snabbfakta',
+        description: 'För senior-roller (senior ekonomiassistent, redovisningsassistent) lägger Konto Plus till tre-kolumns header med snabbfakta och navy-emerald gradient. Skapar en mer professionell first impression.',
+      },
+      {
+        title: 'Plats för bransch och processdjup',
+        description: 'Mallen har dedikerade rader för branschvana och vilka delar av redovisningsprocessen du behärskar. Visar djup utan att blanda med generisk kompetens.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Löpande bokföring',
+        punkter: [
+          'Kontera leverantörsfakturor och kundfakturor enligt kontoplanen',
+          'Bokföra bankhändelser, kvitton och utlägg',
+          'Hantera reskontra för kund och leverantör',
+          'Skapa månads- och kvartalsavstämningar',
+        ],
+      },
+      {
+        rubrik: 'Fakturahantering',
+        punkter: [
+          'Skapa kundfakturor enligt order eller avtalsbasis',
+          'Skicka, följa upp och hantera obetalda fakturor',
+          'Hantera kreditfakturor och returer',
+          'Eventuell inkassohantering vid obetalda fordringar',
+        ],
+      },
+      {
+        rubrik: 'Avstämningar och periodiseringar',
+        punkter: [
+          'Avstämma bank, kassa, kund- och leverantörsreskontra',
+          'Genomföra periodiseringar för kostnader och intäkter',
+          'Förbereda underlag för bokslut och årsredovisning',
+          'Stötta redovisningsekonom eller controller med utredningar',
+        ],
+      },
+      {
+        rubrik: 'Skatt och moms',
+        punkter: [
+          'Förbereda underlag för momsdeklaration månadsvis eller kvartalsvis',
+          'Hantera arbetsgivardeklaration och AGI',
+          'Stötta vid skattekontoavstämning och deklarationer',
+          'Hantera EU-moms och periodisk sammanställning vid behov',
+        ],
+      },
+      {
+        rubrik: 'Lön och utlägg',
+        punkter: [
+          'Förbereda löneunderlag (timrapporter, frånvaro, förmåner) vid behov',
+          'Köra lön i Hogia, Visma Lön eller Fortnox Lön',
+          'Hantera utlägg, traktamenten och milersättning',
+          'Stötta HR med arbetsgivarintyg och anställningsavtal',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Redovisningssystem',
+        termer: [
+          { term: 'Visma Administration', forklaring: 'Marknadsledande affärssystem för småföretag och redovisningsbyråer.' },
+          { term: 'Fortnox', forklaring: 'Molnbaserat affärssystem populärt på e-handel och scale-ups.' },
+          { term: 'BL Administration', forklaring: 'Affärssystem från Björn Lundén för småföretag.' },
+          { term: 'SAP', forklaring: 'Enterprise-system som dominerar industri och stora bolag.' },
+          { term: 'Hogia Lön', forklaring: 'Lönesystem som dominerar svensk lönehantering.' },
+          { term: 'Microsoft Dynamics', forklaring: 'Affärssystem från Microsoft, vanligt på medelstora bolag.' },
+        ],
+      },
+      {
+        kategori: 'Redovisningstermer',
+        termer: [
+          { term: 'Kontering', forklaring: 'Att tilldela en bokföringspost rätt konto och kostnadsställe.' },
+          { term: 'Reskontra', forklaring: 'Detaljerad uppföljning av kund- och leverantörsfordringar.' },
+          { term: 'Periodisering', forklaring: 'Fördelning av kostnader och intäkter över rätt period.' },
+          { term: 'Avstämning', forklaring: 'Kontroll av att bokföringen stämmer mot underlag (bank, leverantörer).' },
+          { term: 'Bokföringsorder', forklaring: 'Manuell bokföringspost för att korrigera eller komplettera transaktioner.' },
+          { term: 'Verifikation', forklaring: 'Underlag för en bokföringspost (faktura, kvitto, kontrakt).' },
+        ],
+      },
+      {
+        kategori: 'Skatt och moms',
+        termer: [
+          { term: 'Moms', forklaring: 'Mervärdesskatt, deklareras månads-, kvartals- eller årsvis.' },
+          { term: 'AGI', forklaring: 'Arbetsgivardeklaration på individnivå, månadsvis till Skatteverket.' },
+          { term: 'Skattekonto', forklaring: 'Företagets konto hos Skatteverket för moms, arbetsgivaravgift och skatt.' },
+          { term: 'EU-moms', forklaring: 'Moms vid handel inom EU, kräver periodisk sammanställning och VIES-koll.' },
+          { term: 'Omvänd skattskyldighet', forklaring: 'Moms-regel där köparen redovisar moms istället för säljaren.' },
+          { term: 'Skattedeklaration', forklaring: 'Företagets skattedeklaration som lämnas till Skatteverket månadsvis.' },
+        ],
+      },
+      {
+        kategori: 'Roller och titlar',
+        termer: [
+          { term: 'Ekonomiassistent', forklaring: 'Junior-roll med löpande bokföring, fakturering och avstämningar.' },
+          { term: 'Redovisningsassistent', forklaring: 'Mid-level-roll som stödjer i bokslut och rapportering.' },
+          { term: 'Redovisningsekonom', forklaring: 'Senior-roll med ansvar för bokslut och årsredovisning.' },
+          { term: 'Lönespecialist', forklaring: 'Specialist på löpande lönehantering och kollektivavtal.' },
+          { term: 'Controller', forklaring: 'Internekonom med fokus på rapportering, prognos och styrning.' },
+          { term: 'Auktoriserad redovisningskonsult', forklaring: 'FAR-auktoriserad redovisningskonsult med högsta meritering.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Redovisningsbyråer',
+        exempel: [
+          'PwC, EY, KPMG, Grant Thornton, BDO',
+          'Mindre och medelstora redovisningsbyråer',
+          'Lokala byråer i Stockholm, Göteborg, Malmö',
+          'Bokföringsbyråer för småföretagare',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, IKEA Industry',
+          'Ericsson, Sandvik, Atlas Copco',
+          'Mindre tillverkningsbolag och underleverantörer',
+          'Bygg- och anläggningsföretag',
+        ],
+      },
+      {
+        kategori: 'E-handel och tjänsteföretag',
+        exempel: [
+          'Klarna, Spotify, Storytel, Tink',
+          'Boozt, NA-KD, Apotea, NetOnNet',
+          'Konsultbolag och advokatbyråer',
+          'Mindre tjänsteföretag och scale-ups',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och bemanning',
+        exempel: [
+          'Statliga bolag (PostNord, SJ, Vattenfall)',
+          'Kommuner och regioner',
+          'Bemanningsbolag (Manpower, Adecco, Inhouse)',
+          'Bostadsrättsföreningar och fastighetsbolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Ekonomi- eller handelsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning ekonomi eller handel ger grundkunskap. Vanlig ingång till ekonomiassistent-roller utan vidare studier.',
+      },
+      {
+        rubrik: 'Yrkeshögskola redovisningsekonom (1-2 år)',
+        beskrivning: 'YH-utbildningar med specifik inriktning (redovisningsekonom, ekonomiassistent, lönespecialist). Kvalificerar för senior-roller och ger fördel mot bara gymnasium.',
+      },
+      {
+        rubrik: 'Civilekonom eller ekonomi-kandidat (3-5 år)',
+        beskrivning: 'Akademisk examen från Handelshögskolan, Lund, Uppsala eller motsvarande. Vanlig grund för controller- och senior-roller. För ekonomiassistent något över-kvalificerat.',
+      },
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Mindre bolag och byråer rekryterar ibland utan formell ekonomiutbildning om du har systemvana och Excel-kunskaper. Vanligt vid familjeföretag eller mindre redovisningsbyråer.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Löpande bokföring enligt BAS-kontoplanen',
+        'Visma Administration och Visma eEkonomi',
+        'Fortnox och Fortnox Lön',
+        'BL Administration och SAP',
+        'Excel (PivotTable, VLOOKUP, makron, Power Query)',
+        'Avstämningar och periodiseringar',
+        'Kund- och leverantörsreskontra',
+        'Momshantering och AGI',
+        'Lönehantering i Hogia, Visma Lön eller Fortnox Lön',
+        'Fakturering, inkasso och kreditbedömning',
+        'Kvitto- och utläggshantering',
+        'Digital bokföring och e-fakturahantering',
+      ],
+      personliga: [
+        'Noggrann och strukturerad',
+        'Sifferorienterad och analytisk',
+        'Sekretessmedveten',
+        'Pedagogisk i kontakt med kollegor',
+        'Lugn vid deadlines och bokslut',
+        'Lyhörd för förändrade rutiner',
+        'Lagspelare i ekonomiteamet',
+      ],
+    },
+
+    profilExempel:
+      'Ekonomiassistent med 4 års erfarenhet från redovisningsbyrå och e-handelsbolag. Hanterar löpande bokföring för 15 kunder i Visma och Fortnox med fokus på leverantörsreskontra, avstämningar och momshantering. Avancerad Excel-användare med vana av PivotTable, makron och Power Query. Söker mer kvalificerade redovisningsuppdrag mot redovisningsekonom-roll.',
+
+    profilTips:
+      'År av erfarenhet och bransch i öppningsraden. Andra meningen lyfter konkreta system och vilka delar av redovisningen du behärskar. Tredje meningen visar Excel-färdigheter och eventuell utvecklingsambition som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Redovisningssystem i klartext',
+        text: 'Visma, Fortnox, SAP, Hogia, BL Administration. Skriv ut systemnamnen så ATS-system kan filtrera fram dig och rekryteraren ser att du kan starta utan introduktion. Olika bolag använder olika system.',
+      },
+      {
+        rubrik: 'Vilka delar av processen du behärskar',
+        text: '"Hanterar 200 leverantörsfakturor per månad och avstämmer kund- och leverantörsreskontra varje vecka" säger mer än "ansvarade för bokföring". Konkretisera vilka delar av redovisningen du faktiskt jobbat med.',
+      },
+      {
+        rubrik: 'Excel-färdigheter på rätt nivå',
+        text: 'PivotTable, VLOOKUP, INDEX/MATCH, makron, Power Query. Avancerad Excel är förmodat på ekonomijobb. Skriv ut vilka funktioner du behärskar i stället för "god datavana".',
+      },
+      {
+        rubrik: 'Eventuell bokslutsvana',
+        text: 'Junior-roller fokuserar på löpande bokföring. Mid-level-roller stödjer i bokslut. Skriv ut om du varit del av bokslutsteam eller bara löpande arbete. Det avgör vilka tjänster du kvalificerar för.',
+      },
+      {
+        rubrik: 'Bransch-erfarenhet',
+        text: 'Byrå, industri, e-handel, tjänsteföretag. En ekonomiassistent från byrå har annan erfarenhet än en från industri. Lyft branschen i sammanfattningen så ekonomichefer ser matchningen.',
+      },
+      {
+        rubrik: 'Lönehantering är specialisering',
+        text: 'Lön är ofta egen specialisering med Hogia, Visma Lön eller Fortnox Lön. Om du har lönehanteringsvana ska det lyftas tydligt eftersom det öppnar specifika tjänster och påverkar lönen.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, bransch, primära system och Excel-nivå på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, tidsperiod, ansvarsområden. Konkretisera systemvana, kund- eller bolagsantal, volymer (fakturor per månad).' },
+      { sektion: 'Utbildning', tips: 'Ekonomi- eller handelsprogrammet, YH-utbildning eller civilekonom. Eventuella vidareutbildningar (Excel-kurser, lönehantering).' },
+      { sektion: 'Kompetenser', tips: 'System, processdelar (löpande, bokslut, lön), Excel-funktioner. Var konkret i stället för generiska påståenden.' },
+      { sektion: 'Vidareutbildning', tips: 'Eventuella Excel-certifikat, kurser i specifik lagstiftning, utbildningar i nya system. Visar engagemang för utveckling.' },
+      { sektion: 'Övrigt', tips: 'Branschvana, eventuell mentor- eller projekterfarenhet, ambition mot redovisningsekonom-roll om relevant.' },
+    ],
+
+    checklista: [
+      'Ekonomi- eller handelsutbildning (gymnasium, YH eller universitet)',
+      'Erfarenhet av specifika redovisningssystem',
+      'Excel-färdigheter (PivotTable, VLOOKUP, makron)',
+      'Löpande bokföringserfarenhet',
+      'Kund- och leverantörsreskontra',
+      'Avstämningar och periodiseringar',
+      'Momshantering och AGI',
+      'Eventuell bokslutsvana',
+      'Lönehantering om relevant',
+      'Bransch-erfarenhet (byrå, industri, e-handel)',
+    ],
+
+    atsInfo:
+      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Ekonomi- och redovisningsbolag använder oftast Workday eller egna ATS. Skriv ut system-namn (Fortnox, Visma, SAP, Hogia) i klartext eftersom rekryterare filtrerar exakta termer. Excel-funktioner (PivotTable, VLOOKUP) ska också skrivas ut.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett ekonomiassistent-CV?',
+        a: 'Ekonomi- eller handelsutbildning, erfarenhet av specifika redovisningssystem (Visma, Fortnox, SAP, Hogia), Excel-färdigheter (PivotTable, VLOOKUP, makron), vilka delar av redovisningsprocessen du behärskar (löpande bokföring, avstämningar, fakturering, lön), bransch-erfarenhet, eventuell bokslutsvana, samt språkkunskaper. Lägg till ambition mot mer kvalificerade roller om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som ekonomiassistent utan tidigare erfarenhet?',
+        a: 'Lyft examensarbete med ekonomi-inriktning, eventuell praktik på byrå, kurser i specifika system (Fortnox-certifikat, Visma-utbildning), och Excel-färdigheter med konkreta exempel. Skriv ut din vilja att utvecklas och söka redovisningsekonom-roll efter några år. Många byråer har strukturerade introduktionsprogram för nyexade.',
+      },
+      {
+        q: 'Vilka redovisningssystem är viktigast?',
+        a: 'Visma Administration dominerar småbolag och byråer. Fortnox vanligast på e-handel och scale-ups. SAP på industri. Hogia på lön. BL Administration på mindre bolag. Lista de du faktiskt behärskar med ungefärlig erfarenhet (år eller månader).',
+      },
+      {
+        q: 'Hur visar jag Excel-kunskaper på rätt nivå?',
+        a: 'Skriv ut konkreta funktioner: PivotTable, VLOOKUP, INDEX/MATCH, SUMIF/SUMIFS, makron, Power Query, dashboards. Generiska "god datavana" säger inget. Beskriv eventuella verktyg du byggt: "Skapade Excel-mall för leverantörsavstämning som minskade tid med 30%".',
+      },
+      {
+        q: 'Är ekonomiassistent en bra karriärstart?',
+        a: 'Ja. Ekonomiassistent är klassisk ingång till mer seniora ekonomiroller (redovisningsekonom, controller, ekonomichef). Många auktoriserade redovisningskonsulter började som ekonomiassistent på byrå. Det ger praktisk vana som senior-utbildningar inte alltid täcker.',
+      },
+      {
+        q: 'Hur länge ska jag vara ekonomiassistent innan jag söker mer kvalificerade roller?',
+        a: 'Beror på bolag och utbildning. Med YH-utbildning eller civilekonom kan du oftast söka redovisningsekonom-roll efter 2-3 år. Med bara gymnasieutbildning är det vanligtvis 4-5 år. På större bolag och byråer finns ofta interna karriärvägar med formella steg.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika system (Fortnox, Visma, SAP, Hogia, BL Administration), processer (kontering, reskontra, avstämning, momshantering, AGI), Excel-funktioner (PivotTable, VLOOKUP, makron) och bransch-erfarenhet. Workday och egna ATS söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett ekonomiassistent-CV vara?',
+        a: 'En sida räcker för junior-roller. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktiga är att utbildning, system och senaste erfarenhet syns på första sidan. Branschen värderar precision även i CV-format.',
+      },
+      {
+        q: 'Behöver jag personligt brev till ekonomiassistent-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den byrå eller bolag och beskriv en specifik situation där du visat noggrannhet eller löst ett ekonomiproblem. Beskriv ett system du implementerat eller en effektivisering du föreslagit. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("noggrann och driven") utan stöd, kund- eller bolagsspecifika sekretessbelagda detaljer, och hobbies som inte är ekonomi-relevanta. Stavfel signalerar slarv, vilket är kritiskt i en bransch där precision räknas.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
