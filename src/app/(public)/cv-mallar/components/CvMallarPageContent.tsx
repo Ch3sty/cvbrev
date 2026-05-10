@@ -13,6 +13,15 @@ import type { Yrkesmall } from '../yrkesmall-data'
 
 type FilterType = 'all' | 'free' | 'premium' | 'yrkesmallar' | 'modern' | 'traditional' | 'creative'
 
+const KATEGORI_LABEL: Record<Yrkesmall['kategori'], string> = {
+  'vard': 'Vård',
+  'utbildning': 'Utbildning',
+  'service': 'Service',
+  'teknik': 'Tech',
+  'ekonomi': 'Ekonomi',
+  'offentlig-sektor': 'Offentlig sektor',
+}
+
 interface CvMallarPageContentProps {
   yrkesmallar: Yrkesmall[]
   faqItems: { q: string; a: string }[]
@@ -141,21 +150,26 @@ export default function CvMallarPageContent({
                     <FileText className="w-4 h-4" strokeWidth={2.4} />
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-base font-black text-slate-900 leading-tight">
-                      {y.namn}
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700">
+                      {KATEGORI_LABEL[y.kategori]}
                     </div>
-                    <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700 mt-0.5">
-                      {y.freeMallNamn} · {y.premiumMallNamn}
+                    <div className="text-base font-black text-slate-900 leading-tight mt-0.5">
+                      {y.namn}
                     </div>
                   </div>
                 </div>
                 <p className="text-sm text-slate-600 leading-snug line-clamp-2 mb-3 flex-1">
                   {y.intro}
                 </p>
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
-                  Visa mall
-                  <ChevronRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                </span>
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-orange-100/70">
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                    Gratis + Premium · ATS
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 group-hover:translate-x-0.5 transition-transform">
+                    Visa mall
+                    <ChevronRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
