@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Sparkles, BookOpen, Layers } from 'lucide-react'
 
@@ -9,6 +10,37 @@ import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import { getTemplateById } from '@/lib/cv/simple-templates'
 import type { Yrkesmall } from '../yrkesmall-data'
+import { buildYrkesmallExempelCV } from './YrkesmallExempelData'
+
+// Lazy-load interaktiv preview fOr bundle-size
+const YrkesmallInteractivePreview = dynamic(
+  () => import('./YrkesmallInteractivePreview'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden">
+        <div className="bg-orange-50/50 px-5 py-4 border-b border-orange-100">
+          <div className="h-6 bg-slate-200 rounded w-1/3 animate-pulse" />
+        </div>
+        <div className="p-12 space-y-6 animate-pulse" style={{ minHeight: '800px' }}>
+          <div className="h-8 bg-slate-200 rounded w-3/4" />
+          <div className="h-4 bg-slate-200 rounded w-1/2" />
+          <div className="h-4 bg-slate-200 rounded w-full" />
+          <div className="h-4 bg-slate-200 rounded w-5/6" />
+        </div>
+      </div>
+    ),
+  }
+)
+
+const KATEGORI_LABEL: Record<Yrkesmall['kategori'], string> = {
+  'vard': 'Vård',
+  'utbildning': 'Utbildning',
+  'service': 'Service',
+  'teknik': 'Tech',
+  'ekonomi': 'Ekonomi',
+  'offentlig-sektor': 'Offentlig sektor',
+}
 
 interface YrkesmallContentProps {
   data: Yrkesmall
@@ -19,24 +51,30 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
   const freeTemplate = getTemplateById(data.freeMallId)
   const premiumTemplate = getTemplateById(data.premiumMallId)
 
+  // Bygger generisk exempel-CV fOr den interaktiva preview-komponenten
+  const previewExempelCV = buildYrkesmallExempelCV(data.namn, data.kompetenser)
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/40">
-      <Breadcrumb
-        items={[
-          { name: 'Hem', href: '/' },
-          { name: 'CV-mallar', href: '/cv-mallar' },
-          { name: data.namn, href: `/cv-mallar/${data.slug}` },
-        ]}
-      />
+      {/* Breadcrumb i samma container som hero så den linjerar med h1 */}
+      <div className="container mx-auto px-3 sm:px-4 pt-4 sm:pt-6 max-w-6xl">
+        <Breadcrumb
+          items={[
+            { name: 'Hem', href: '/' },
+            { name: 'CV-mallar', href: '/cv-mallar' },
+            { name: data.namn, href: `/cv-mallar/${data.slug}` },
+          ]}
+        />
+      </div>
 
-      {/* Hero med text + två mallkort */}
-      <section className="container mx-auto px-3 sm:px-4 pt-6 pb-10 sm:pt-10 sm:pb-14 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-10 lg:gap-12 items-center">
+      {/* Hero — vänsterställd, med längre ingress + 3 CTA + två mallkort */}
+      <section className="container mx-auto px-3 sm:px-4 pb-10 sm:pb-14 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(360px,420px)] gap-8 lg:gap-12 items-start">
           {/* Vänster: text */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
               <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
-              CV-mall för {data.namnBestamd}
+              CV-mall för {KATEGORI_LABEL[data.kategori]}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
@@ -53,24 +91,52 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-xl">
-              {data.intro} Välj mellan vår gratis-mall och premium-varianten. Båda är ATS-säkra och optimerade för svenska arbetsgivare 2026.
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-5 max-w-xl">
+              {data.heroIngress || data.intro}
             </p>
 
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-600 mb-7">
+              <span className="inline-flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
+                <span className="font-semibold text-slate-700">ATS-säkra</span>
+              </span>
+              <span className="text-slate-300">·</span>
+              <span className="font-semibold text-slate-700">Uppdaterade 2026</span>
+              <span className="text-slate-300">·</span>
+              <span className="font-semibold text-slate-700">Svenska arbetsgivare</span>
+            </div>
+
             <div className="flex flex-wrap gap-3">
+              <a
+                href="#preview"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm transition-all hover:shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                  boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.35)',
+                }}
+              >
+                <Eye className="w-4 h-4" strokeWidth={2.4} />
+                Testa mallen live
+              </a>
               <Link
                 href={`/cv-exempel/${data.slug}`}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
               >
-                <Eye className="w-4 h-4" strokeWidth={2.4} />
-                Se färdigt CV-exempel
+                <FileText className="w-4 h-4" strokeWidth={2.4} />
+                Se CV-exempel
+              </Link>
+              <Link
+                href={`/personligt-brev-exempel/${data.slug}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
+              >
+                <BookOpen className="w-4 h-4" strokeWidth={2.4} />
+                Personligt brev
               </Link>
             </div>
           </div>
 
-          {/* Höger: två mallkort sida vid sida */}
-          <div className="grid grid-cols-2 gap-3 lg:gap-4">
-            {/* Gratis-mall */}
+          {/* Höger: två mallkort kompaktare */}
+          <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col bg-white rounded-2xl border-2 border-emerald-200 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(16, 185, 129, 0.25)' }}>
               <div className="relative aspect-[3/4] bg-slate-50">
                 {freeTemplate && (
@@ -79,7 +145,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                     alt={`${freeTemplate.name} CV-mall för ${data.namnBestamd} (gratis)`}
                     fill
                     className="object-cover object-top"
-                    sizes="(min-width: 1024px) 220px, 50vw"
+                    sizes="(min-width: 1024px) 200px, 50vw"
                     priority
                   />
                 )}
@@ -100,7 +166,6 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               </div>
             </div>
 
-            {/* Premium-mall */}
             <div className="flex flex-col bg-white rounded-2xl border-2 border-orange-300 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(249, 115, 22, 0.32)' }}>
               <div className="relative aspect-[3/4] bg-slate-50">
                 {premiumTemplate && (
@@ -109,7 +174,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                     alt={`${premiumTemplate.name} CV-mall för ${data.namnBestamd} (premium)`}
                     fill
                     className="object-cover object-top"
-                    sizes="(min-width: 1024px) 220px, 50vw"
+                    sizes="(min-width: 1024px) 200px, 50vw"
                   />
                 )}
                 <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
@@ -134,6 +199,29 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Interaktiv mall-preview — yrkets mallar prio */}
+      <section id="preview" className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-5xl scroll-mt-6">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-3">
+            <Eye className="w-3.5 h-3.5" strokeWidth={2.5} />
+            Live preview
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
+            Testa mallarna direkt
+          </h2>
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+            Förhandsgranska hur ett {data.namnBestamd}-CV ser ut i {data.freeMallNamn} eller {data.premiumMallNamn}. Byt mall och typsnitt och se skillnaderna live.
+          </p>
+        </div>
+        <YrkesmallInteractivePreview
+          exempelCV={previewExempelCV}
+          yrkesNamn={data.namn}
+          freeMallId={data.freeMallId}
+          premiumMallId={data.premiumMallId}
+          defaultMallId={data.premiumMallId}
+        />
       </section>
 
       {/* Varför mallen är bra */}
@@ -395,13 +483,16 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                     <FileText className="w-4 h-4" strokeWidth={2.4} />
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="font-black text-slate-900 leading-tight">{y.namn}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mt-0.5">
-                      {y.freeMallNamn} · {y.premiumMallNamn}
+                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700">
+                      {KATEGORI_LABEL[y.kategori]}
                     </div>
+                    <div className="font-black text-slate-900 leading-tight mt-0.5">{y.namn}</div>
                   </div>
                 </div>
-                <p className="text-xs text-slate-600 leading-snug line-clamp-2">{y.intro}</p>
+                <p className="text-xs text-slate-600 leading-snug line-clamp-2 mb-2">{y.intro}</p>
+                <div className="text-[10px] font-bold uppercase tracking-wide text-slate-500 pt-2 border-t border-slate-100">
+                  Gratis + Premium · ATS
+                </div>
               </Link>
             ))}
           </div>
