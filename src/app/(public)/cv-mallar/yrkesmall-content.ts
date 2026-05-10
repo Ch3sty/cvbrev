@@ -4237,6 +4237,1731 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'vardbitrade': {
+    seoIntro:
+      'Som vårdbiträde är du grunden i svensk äldreomsorg och hemtjänst. Sveriges 290 kommuner har ständig brist på vårdbiträden, både för fast tjänst och vikariat, men enhetschefer slänger CV:n som inte tydligt visar erfarenhet av specifika brukargrupper, körkort och språkkunskaper. Ett välskrivet CV avgör om du blir kallad till intervju på det boende eller den hemtjänstgrupp du faktiskt vill jobba på.\n\nVår mall för vårdbiträden lyfter erfarenhet, körkort och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, brukargrupp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom äldreomsorg, hemtjänst eller LSS-boende, eventuell vårdutbildning (vård- och omsorgsprogrammet, integrationsutbildning), körkort B (krav i hemtjänst), HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuell delegeringsbehörighet, språkkunskaper (arabiska, persiska, somaliska, finska är efterfrågade), och tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar designade för vårdbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal äldreomsorg och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'CheckCircle',
+        title: 'Brukargrupp i klartext',
+        description: 'Äldreomsorg, demensvård, hemtjänst, LSS-boende, korttidsboende. Olika verksamheter kräver olika kompetens. Skriv konkret vilka brukargrupper du arbetat med och hur länge så enhetschefen ser direkt om matchningen finns.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Körkort B är krav i hemtjänst',
+        description: 'Hemtjänst kräver körkort B för att kunna besöka brukare. Äldreboenden och gruppboenden kräver det inte alltid. Skriv ut körkort, eventuell rutin och om du har egen bil. Det öppnar fler tjänster.',
+      },
+      {
+        icon: 'Award',
+        title: 'Vårdutbildning eller integrationsutbildning',
+        description: 'Vård- och omsorgsprogrammet (gymnasium eller komvux) är meriterande men inte alltid krav. Validerad utländsk utbildning kompletterad med integrationsutbildning eller SAS funkar också. Skriv ut allt med datum.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Språkkunskaper är hård valuta',
+        description: 'Brukare med utländsk bakgrund söker vårdbiträden med rätt språk. Arabiska, persiska, somaliska, finska, polska, tigrinja är efterfrågade i många kommuner. Lägg språk synligt med nivå (modersmål, flytande, konversation).',
+      },
+      {
+        icon: 'FileText',
+        title: 'HLR och hygienrutiner',
+        description: 'HLR-certifikat och basala hygienrutiner är krav på de flesta arbetsplatser. Skriv ut utgångsdatum för HLR (förnyas vart annat år) så enhetschefen direkt ser om du behöver förnya.',
+      },
+      {
+        icon: 'Target',
+        title: 'Tillgänglighet och schema',
+        description: 'Hemtjänst kör ofta delade turer (morgon/kväll). Äldreboenden har rotationsschema med natt och helger. Var explicit: "Tillgänglig för rotationsschema inkl helger" eller "Söker dagtid med möjlighet till sporadiska kvällar".',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Brukargrupp och språk överst',
+        description: 'Vår mall lyfter erfarenhet av specifika brukargrupper och språkkunskaper i sidopanelen. Enhetschefer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
+      },
+      {
+        title: 'Erfarenhet per arbetsplats',
+        description: 'Mallen separerar arbetsplatser (hemtjänst, äldreboende, LSS-boende, korttid) så bredd och djup syns. Du kan visa olika typer av omsorg utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för certifikat',
+        description: 'HLR, basala hygienrutiner, Akta Ryggen, BPSD-utbildning, eventuella delegeringar. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+      },
+      {
+        title: 'Premium-mallen Vården med foto',
+        description: 'I omsorgssektorn där relationer värderas, lägger premium-varianten Vården till foto och språkblock i sidopanelen. Skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
+      },
+      {
+        title: 'Sober färgsättning för omsorgssektorn',
+        description: 'Vården värderar saklighet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meriterna.',
+      },
+      {
+        title: 'Plats för delegeringar',
+        description: 'Insulin, sondmatning eller medicindelegering har egen rad. Det visar att du tar ansvar bortom standarduppgifter och meriterar för senior- och samordnar-roller.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personlig omvårdnad',
+        punkter: [
+          'Hjälp med daglig hygien, måltider, toalettbesök och påklädning',
+          'Stödja brukaren i att bibehålla självständighet och värdighet',
+          'Använda förflyttningshjälpmedel (lift, glidlakan, rullator) säkert',
+          'Anpassa stödet efter brukarens dagsform och kognitiva förmåga',
+        ],
+      },
+      {
+        rubrik: 'Hushållsarbete och praktiskt stöd',
+        punkter: [
+          'Städning, tvätt och inköp för brukare i hemtjänst',
+          'Tillaga måltider eller värma färdigmat enligt önskemål',
+          'Sköta växter och lättare hushållsuppgifter i hemmet',
+          'Följa med på sjukvårdsbesök och myndighetskontakt',
+        ],
+      },
+      {
+        rubrik: 'Social aktivering',
+        punkter: [
+          'Delta i aktiviteter, utflykter och sociala sammanhang',
+          'Stötta vid telefon- och digital kommunikation med anhöriga',
+          'Bygga trygga relationer som motverkar ensamhet',
+          'Identifiera tidiga tecken på psykisk eller fysisk ohälsa',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och rapportering',
+        punkter: [
+          'Dokumentera omvårdnadsåtgärder i Procapita, Lifecare eller motsvarande',
+          'Följa genomförandeplaner och rapportera avvikelser',
+          'Hantera sekretess och integritetsfrågor enligt OSL',
+          'Lex Sarah-anmäla vid misstanke om missförhållanden',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och utveckling',
+        punkter: [
+          'Samverka med sjuksköterska, biståndshandläggare och anhöriga',
+          'Delta i arbetslagsmöten och brukarkonferenser',
+          'Stötta nya kollegor under introduktion',
+          'Bidra till förbättringsarbete och kvalitetsarbete på enheten',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, gäller kommunal äldreomsorg och hemtjänst.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade, gäller LSS-boenden.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller offentlig vård.' },
+          { term: 'PDL', forklaring: 'Patientdatalagen, gäller hälso- och sjukvård och dokumentation.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden i socialtjänst.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskada inom hälso- och sjukvård.' },
+        ],
+      },
+      {
+        kategori: 'Verksamheter och brukargrupper',
+        termer: [
+          { term: 'Äldreboende', forklaring: 'Vård- och omsorgsboende för äldre med stora omsorgsbehov.' },
+          { term: 'Demensboende', forklaring: 'Specialiserat boende för personer med demenssjukdom (BPSD-vård).' },
+          { term: 'Hemtjänst', forklaring: 'Stöd i brukarens eget hem, ofta delade turer morgon och kväll.' },
+          { term: 'LSS-boende', forklaring: 'Bostad med särskild service enligt LSS § 9:9.' },
+          { term: 'Korttidsboende', forklaring: 'Tillfällig vistelse vid avlastning eller efter sjukhusvård.' },
+          { term: 'Trygghetsboende', forklaring: 'Mellanting mellan eget hem och äldreboende, mindre stöd.' },
+        ],
+      },
+      {
+        kategori: 'Arbetsmetoder och kompetens',
+        termer: [
+          { term: 'BPSD-vård', forklaring: 'Beteendemässiga och Psykiska Symtom vid Demens, eget metodområde.' },
+          { term: 'Personcentrerad vård', forklaring: 'Brukaren i centrum med fokus på individens behov och självbestämmande.' },
+          { term: 'IBIC', forklaring: 'Individens Behov i Centrum, behovsbedömningsmodell i kommunal vård.' },
+          { term: 'Genomförandeplan', forklaring: 'Dokument som beskriver hur en brukares behov ska tillgodoses.' },
+          { term: 'Akta Ryggen', forklaring: 'Certifierad förflyttningsteknik för säker hantering av brukare.' },
+          { term: 'Basala hygienrutiner', forklaring: 'Grundläggande hygienkrav på alla vårdarbetsplatser.' },
+        ],
+      },
+      {
+        kategori: 'System och dokumentation',
+        termer: [
+          { term: 'Procapita', forklaring: 'Verksamhetssystem som dominerar kommunal äldreomsorg.' },
+          { term: 'Lifecare', forklaring: 'Omsorgsplaneringssystem i flera kommuner.' },
+          { term: 'Combine', forklaring: 'Verksamhetssystem för socialtjänsten i några kommuner.' },
+          { term: 'NPÖ', forklaring: 'Nationell patientöversikt över region- och vårdgränser.' },
+          { term: 'Pascal', forklaring: 'Förskrivningsmodul för läkemedel kopplad till Socialstyrelsens register.' },
+          { term: 'Trygghetslarm', forklaring: 'Larmsystem för brukare i hemtjänst, ofta kopplat till bemanning.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal äldreomsorg',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Hemtjänst i kommunal regi',
+          'Korttidsboenden och dagverksamhet',
+        ],
+      },
+      {
+        kategori: 'Privata utförare',
+        exempel: [
+          'Attendo, Vardaga, Humana, Ambea',
+          'Norlandia, Tellusbarn, Frösunda',
+          'Privata hemtjänstföretag',
+          'LSS-utförare och funktionsstöd',
+        ],
+      },
+      {
+        kategori: 'Bemanning och vikariat',
+        exempel: [
+          'Bemanningsbolag (Dedicare, Veteranpoolen)',
+          'Adecco Care, Manpower Vård',
+          'Lokala bemanningsföretag i kommuner',
+          'Säsongsvikariat och timanställningar',
+        ],
+      },
+      {
+        kategori: 'Specialiserade verksamheter',
+        exempel: [
+          'Demens- och BPSD-boenden',
+          'Hospice och palliativa enheter',
+          'Korttidsboenden för avlastning',
+          'Daglig verksamhet enligt LSS',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många kommuner och utförare rekryterar utan formell vårdutbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor och betalar HLR-utbildning efter provanställning.',
+      },
+      {
+        rubrik: 'Vård- och omsorgsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning omvårdnad. Vanlig grund för fast tjänst på äldreboende eller LSS-boende. Examen ger skyddad yrkestitel undersköterska från 1 juli 2023.',
+      },
+      {
+        rubrik: 'Integrationsutbildning Komvux (1 år)',
+        beskrivning: 'Vård- och omsorg-utbildning anpassad för nyanlända med utländsk vårdutbildning. Innehåller svenska, fackspråk och praktik. Vanlig väg in i svenska vårdyrket.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och kurser',
+        beskrivning: 'BPSD-utbildning, HLR-certifikat, Akta Ryggen, basala hygienrutiner, demensvård. Kontinuerlig kompetensutveckling är meriterande och påverkar lön och tjänsteansvar.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Personcentrerad omvårdnad och ADL-stöd',
+        'Förflyttningsteknik enligt Akta Ryggen',
+        'Demensvård och BPSD-hantering',
+        'Hygien och basala hygienrutiner',
+        'HLR och första hjälpen',
+        'Eventuella medicindelegeringar (insulin, sondmatning)',
+        'Dokumentation i Procapita, Lifecare eller Combine',
+        'Genomförandeplaner enligt IBIC',
+        'Trygghetslarm och larmhantering',
+        'Måltidsförberedelser och kost för äldre',
+        'Hjälpmedel (lift, glidlakan, rullator)',
+        'Lex Sarah-anmälan och avvikelsehantering',
+      ],
+      personliga: [
+        'Empati och relationsskapande',
+        'Tålamod och lyhördhet',
+        'Pålitlig och punktlig',
+        'Stresstålig vid akuta situationer',
+        'Kulturell kompetens',
+        'Diskret och sekretessmedveten',
+        'Lagspelare i arbetsgrupp',
+      ],
+    },
+
+    profilExempel:
+      'Erfaret vårdbiträde med 5 års erfarenhet inom kommunal äldreomsorg och hemtjänst. Specialiserad på demensvård och BPSD-hantering med utbildning från Demenscentrum 2023. Körkort B, HLR-certifikat och flerspråkig (svenska, arabiska, engelska). Tillgänglig för rotationsschema inklusive helger.',
+
+    profilTips:
+      'År av erfarenhet och primär brukargrupp i öppningsraden. Andra meningen lyfter eventuella specialiseringar (demens, palliativ, LSS) och certifikat. Tredje meningen visar körkort, språk och tillgänglighet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Brukargrupp i klartext',
+        text: 'Äldreomsorg, demensvård, hemtjänst, LSS-boende. Olika verksamheter kräver olika kompetens. Skriv konkret vilka brukargrupper du arbetat med och hur länge så enhetschefen ser direkt om matchningen finns.',
+      },
+      {
+        rubrik: 'Körkort B är krav i hemtjänst',
+        text: 'Hemtjänst kräver körkort B för att besöka brukare. Äldreboenden och gruppboenden kräver det inte alltid. Skriv ut körkort, eventuell rutin och om du har egen bil. Det öppnar fler tjänster.',
+      },
+      {
+        rubrik: 'Vårdutbildning eller integrationsutbildning',
+        text: 'Vård- och omsorgsprogrammet är meriterande men inte alltid krav. Validerad utländsk utbildning kompletterad med integrationsutbildning eller SAS funkar också. Skriv ut allt med datum.',
+      },
+      {
+        rubrik: 'Språkkunskaper är hård valuta',
+        text: 'Brukare med utländsk bakgrund söker vårdbiträden med rätt språk. Arabiska, persiska, somaliska, finska, polska, tigrinja är efterfrågade. Lägg språk synligt med nivå.',
+      },
+      {
+        rubrik: 'HLR och hygienrutiner',
+        text: 'HLR-certifikat och basala hygienrutiner är krav på de flesta arbetsplatser. Skriv ut utgångsdatum så enhetschefen direkt ser om du behöver förnya.',
+      },
+      {
+        rubrik: 'Tillgänglighet och schema',
+        text: 'Hemtjänst kör ofta delade turer. Äldreboenden har rotationsschema. Var explicit om vilket schema du söker så minskar antalet ansökningar du bedöms olämplig för.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, primär brukargrupp, körkort och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Arbetsplats, brukargrupp, tidsperiod. Konkretisera arbetsuppgifter och eventuella specialiseringar (demens, palliativ).' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorgsprogrammet, integrationsutbildning eller motsvarande. Eventuella vidareutbildningar (BPSD, demens).' },
+      { sektion: 'Kompetenser', tips: 'Specifika kompetenser och certifikat. Var konkret om vilka delegeringar du har eller vilka hjälpmedel du behärskar.' },
+      { sektion: 'Certifikat', tips: 'Eget block med HLR, basala hygienrutiner, Akta Ryggen, BPSD. Skriv utgångsdatum för varje.' },
+      { sektion: 'Övrigt', tips: 'Körkort B, språk utöver svenska, tillgänglighet för rotationsschema.' },
+    ],
+
+    checklista: [
+      'Erfarenhet av specifika brukargrupper',
+      'Körkort B (krav i hemtjänst)',
+      'HLR-certifikat med utgångsdatum',
+      'Basala hygienrutiner',
+      'Akta Ryggen eller motsvarande förflyttningsteknik',
+      'Eventuella medicindelegeringar',
+      'Vårdutbildning eller integrationsutbildning',
+      'Språkkunskaper utöver svenska',
+      'Tillgänglighet för rotationsschema',
+      'Dokumentationssystem (Procapita, Lifecare)',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Privata utförare som Attendo och Humana använder Workday eller Teamtailor. Skriv ut systemnamn (Procapita, Lifecare), brukargrupper (demens, LSS) och certifikat (HLR, BPSD) i klartext.',
+
+    faqItems: [
+      {
+        q: 'Vad är skillnaden mellan vårdbiträde och undersköterska?',
+        a: 'Vårdbiträde är allmän personal utan formell vårdutbildning. Undersköterska har genomgått vård- och omsorgsprogrammet (3 år gymnasium eller komvux) och har sedan 1 juli 2023 skyddad yrkestitel. Undersköterskor får högre lön och kan ha medicindelegeringar. Vårdbiträden gör mest praktiskt stöd utan medicinska uppgifter.',
+      },
+      {
+        q: 'Vad ska finnas med i ett vårdbiträde-CV?',
+        a: 'Erfarenhet av specifika brukargrupper (äldre, demens, LSS), körkort B (krav i hemtjänst), HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuella medicindelegeringar, språkkunskaper, samt tillgänglighet för rotationsschema. Lägg till vidareutbildningar (BPSD, demens) om du har dem.',
+      },
+      {
+        q: 'Behövs vårdutbildning för att jobba som vårdbiträde?',
+        a: 'Inte alltid. Många kommuner och utförare rekryterar utan formell vårdutbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor och betalar HLR-utbildning efter provanställning. Däremot är vård- och omsorgsprogrammet meriterande och öppnar fler tjänster.',
+      },
+      {
+        q: 'Hur lyfter jag språkkunskaper på CV:t?',
+        a: 'Lista språk i sidopanelen med nivå (modersmål, flytande, konversation). Arabiska, persiska, somaliska, finska, polska, tigrinja är särskilt efterfrågade i många kommuner med flerspråkiga brukare. Eventuell tolkutbildning eller validering är meriterande.',
+      },
+      {
+        q: 'Hur viktigt är körkort?',
+        a: 'Körkort B är krav på de flesta hemtjänstorganisationer eftersom du måste kunna besöka brukare på olika adresser. På äldreboenden och gruppboenden är det inte alltid krav, men meriterande. Skriv ut körkortet och om du har egen bil, det påverkar vilka tjänster du kvalificerar för.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika brukargrupper (äldre, demens, BPSD, LSS), arbetsplatstyper (äldreboende, hemtjänst, korttidsboende), certifikat (HLR, basala hygienrutiner, Akta Ryggen), system (Procapita, Lifecare), och språk. Visma Recruit och Workday söker exakta matchningar mot jobbannonsens språk.',
+      },
+      {
+        q: 'Hur lång ska ett vårdbiträde-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktigaste är att körkort, språk och senaste arbetsplats syns på första sidan. Vården värderar tydlighet över längd.',
+      },
+      {
+        q: 'Behöver jag personligt brev till vårdbiträde-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just det boende eller den hemtjänstgrupp och beskriv en specifik situation där du visat omsorg eller löst en utmaning. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad är BPSD och varför är det meriterande?',
+        a: 'BPSD står för Beteendemässiga och Psykiska Symtom vid Demens. Det är ett eget metodområde med utbildning genom Svenskt Demenscentrum och BPSD-registret. Vårdbiträden med BPSD-utbildning kvalificerar för specialiserade demensboenden och får ofta högre lön. Utbildningen tar 1-3 dagar.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt vårdbiträde-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), brukares namn eller sekretessbelagda detaljer, generiska påståenden ("empatisk och social") utan konkreta exempel, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är vård-relevanta. Stavfel signalerar slarv i en bransch där dokumentation räknas.',
+      },
+    ],
+  },
+
+  'hemtjanst': {
+    seoIntro:
+      'Som personal i hemtjänsten möter du varje dag äldre och funktionsnedsatta personer som vill bo kvar hemma. Sveriges 290 kommuner har konstant brist på hemtjänstpersonal, både i kommunal regi och hos privata utförare som Attendo, Vardaga och Humana. Ett välskrivet CV avgör om du blir kallad till intervju på den hemtjänstgrupp eller geografiska område du faktiskt vill jobba på.\n\nVår mall för hemtjänstpersonal lyfter körkort B, språk och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att hemtjänstgrupp, brukartyp och tidsperiod syns direkt med eventuella delegeringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: körkort B (absolut krav), erfarenhet av äldre, demens eller funktionsstöd, HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuella medicindelegeringar (insulin, ögondroppar, kompressionsstrumpor), språkkunskaper för flerspråkiga brukare, mobil dokumentation (Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil), samt tillgänglighet för delade turer morgon och kväll.\n\nNedan hittar du två CV-mallar designade för hemtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Briefcase',
+        title: 'Körkort B är absolut krav',
+        description: 'Hemtjänsten kräver körkort B för att kunna besöka 8-15 brukare per dag på olika adresser. Skriv ut körkort, hur länge du haft det och eventuell rutin med servicebil eller egen bil i tjänst.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Geografisk kunskap',
+        description: 'Lokal kännedom om gator, kollektivtrafik och brukares områden är meriterande. Skriv ut vilka kommuner eller stadsdelar du arbetat i. Stockholm, Göteborg och Malmö delar oftast in hemtjänsten i geografiska zoner.',
+      },
+      {
+        icon: 'Award',
+        title: 'Erfarenhet av delade turer',
+        description: 'Hemtjänsten kör ofta delade turer (morgon 7-11, kväll 16-21). Skriv ut din tillgänglighet konkret. "Tillgänglig för delade turer inkl helger" sätter dig i rätt urvalslista.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Brukartyper och specialiseringar',
+        description: 'Äldre med fysisk funktionsnedsättning, demens, palliativ vård, neurologi (MS, Parkinson). Olika hemtjänstgrupper har olika brukarprofiler. Lyft din erfarenhet av specifika grupper.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Mobil dokumentation',
+        description: 'Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil dominerar svensk hemtjänst. Skriv ut systemnamnen så ATS-system kan filtrera fram dig och enhetschefen ser att du kan starta utan introduktion.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språk för flerspråkiga brukare',
+        description: 'Många äldre i större kommuner har utländsk bakgrund och vill ha personal som talar deras modersmål. Arabiska, finska, persiska, polska, somaliska är efterfrågade. Lägg språk synligt.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Körkort och språk överst',
+        description: 'Vår mall Vården lyfter körkort B och språkkunskaper i sidopanelen så enhetschefer ser baskraven på fem sekunder. Båda är hård valuta i hemtjänstbranschen.',
+      },
+      {
+        title: 'Erfarenhet per hemtjänstgrupp',
+        description: 'Mallen separerar hemtjänstgrupper, geografiska områden och brukartyper. Du kan visa lokal kännedom utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Plats för delegeringar och certifikat',
+        description: 'HLR, basala hygienrutiner, Akta Ryggen, eventuella medicindelegeringar har egen rad med utgångsdatum. Mallen lyfter formell kompetens utan att blanda med löpande text.',
+      },
+      {
+        title: 'Premium-mallen Vården med foto',
+        description: 'I hemtjänsten där relationer värderas, lägger premium-varianten Vården till foto. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
+      },
+      {
+        title: 'Schema-block i sidopanelen',
+        description: 'Mallen har dedikerat block för tillgänglighet (delade turer, helger, jour). Enhetschefer behöver veta direkt vilka pass du kan ta.',
+      },
+      {
+        title: 'Sober färgsättning för hemvistelse',
+        description: 'Hemtjänsten värderar trygghet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar professionell omsorg utan att bli sterila.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personlig omvårdnad i hemmet',
+        punkter: [
+          'Hjälp med daglig hygien, toalettbesök, påklädning och måltider',
+          'Stödja brukaren att bibehålla självständighet i sitt eget hem',
+          'Använda hjälpmedel (lift, glidlakan, duschpall) säkert',
+          'Anpassa stödet efter brukarens önskemål och rutiner',
+        ],
+      },
+      {
+        rubrik: 'Hushållsarbete och inköp',
+        punkter: [
+          'Städning, tvätt och sänglinneskifte enligt genomförandeplan',
+          'Inköp av matvaror, hygienartiklar och receptbelagda läkemedel',
+          'Tillaga måltider eller värma färdigmat enligt brukarens önskemål',
+          'Sköta växter, post och praktiska sysslor i hemmet',
+        ],
+      },
+      {
+        rubrik: 'Medicinsk hantering vid delegering',
+        punkter: [
+          'Ge insulin, ögondroppar eller kompressionsstrumpor enligt delegering',
+          'Påminna om eller dela ut läkemedel ur dosett',
+          'Mäta blodtryck och blodsocker vid behov',
+          'Rapportera förändringar i brukarens hälsa till sjuksköterska',
+        ],
+      },
+      {
+        rubrik: 'Trygghet och social kontakt',
+        punkter: [
+          'Bygga trygga relationer med brukare och anhöriga',
+          'Hantera trygghetslarm och akuta situationer',
+          'Identifiera tecken på psykisk eller fysisk ohälsa',
+          'Stötta brukaren i kontakt med vården och anhöriga',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och samverkan',
+        punkter: [
+          'Dokumentera besök i mobil enhet (Tunstall, Phoniro, Lifecare)',
+          'Följa genomförandeplaner och rapportera avvikelser',
+          'Samverka med biståndshandläggare och sjuksköterska',
+          'Lex Sarah-anmäla vid misstanke om missförhållanden',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, ramverk för hemtjänst.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service vid funktionsnedsättning.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen vid hemtjänst i kommunal regi.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen vid medicinska delegeringar.' },
+          { term: 'Lex Sarah', forklaring: 'Anmälningsskyldighet vid missförhållanden i hemtjänsten.' },
+          { term: 'Genomförandeplan', forklaring: 'Dokument som beskriver hur brukarens behov ska tillgodoses.' },
+        ],
+      },
+      {
+        kategori: 'Mobila system och dokumentation',
+        termer: [
+          { term: 'Tunstall Mobiltjänster', forklaring: 'Vanligaste mobilappen för hemtjänstpersonal i Sverige.' },
+          { term: 'Phoniro Care', forklaring: 'Mobil dokumentation och dörrhantering med digital nyckel.' },
+          { term: 'Lifecare Mobil', forklaring: 'Mobil version av Lifecare-systemet för dokumentation i hemmet.' },
+          { term: 'Procapita Mobil', forklaring: 'Mobilversion av Procapita för dokumentation under besök.' },
+          { term: 'Trygghetslarm', forklaring: 'Larmsystem som brukare bär hemma, kopplat till bemanning.' },
+          { term: 'Digital nyckel', forklaring: 'Elektronisk nyckelhantering via mobilapp för säker hemleverans.' },
+        ],
+      },
+      {
+        kategori: 'Brukargrupper och insatser',
+        termer: [
+          { term: 'Äldre med ADL-behov', forklaring: 'Personer som behöver stöd med daglig livsföring.' },
+          { term: 'Demens i hemmet', forklaring: 'Personer med demens som bor kvar hemma med stöd.' },
+          { term: 'Hemsjukvård', forklaring: 'Sjukvård som ges i hemmet av sjuksköterska, ofta i kombination med hemtjänst.' },
+          { term: 'Palliativ hemvård', forklaring: 'Lindrande vård i livets slutskede i brukarens eget hem.' },
+          { term: 'Anhörigstöd', forklaring: 'Stöd och avlastning för anhöriga som vårdar närstående.' },
+          { term: 'Korttidsboende', forklaring: 'Tillfällig vistelse vid avlastning, ofta växelvis med hemtjänst.' },
+        ],
+      },
+      {
+        kategori: 'Schema och anställning',
+        termer: [
+          { term: 'Delade turer', forklaring: 'Två arbetspass per dag (morgon + kväll) med ledig tid emellan.' },
+          { term: 'Heltidsmått', forklaring: 'Fullt heltidsmått inom Kommunals avtal är 38,25 timmar per vecka.' },
+          { term: 'Vikariat', forklaring: 'Tillfälliga anställningar som ofta används vid sjukvikariat.' },
+          { term: 'Timanställning', forklaring: 'Anställning per timme utan fast schema, vanligt vid kortare uppdrag.' },
+          { term: 'Beredskap', forklaring: 'Tillgänglighet hemma med utryckning vid behov, ofta nattetid.' },
+          { term: 'LOV', forklaring: 'Lagen om valfrihetssystem, brukaren väljer själv utförare.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal hemtjänst',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Hemtjänst i kommunal regi inom alla 290 kommuner',
+          'Specialteam för demens, palliativ vård eller LSS',
+        ],
+      },
+      {
+        kategori: 'Privata utförare via LOV',
+        exempel: [
+          'Attendo, Vardaga, Humana, Ambea',
+          'Norlandia, Frösunda Hemtjänst',
+          'Mindre privata hemtjänstföretag',
+          'Brukarvalda utförare i större kommuner',
+        ],
+      },
+      {
+        kategori: 'Bemanning och vikariat',
+        exempel: [
+          'Bemanningsbolag (Dedicare, Veteranpoolen)',
+          'Adecco Care, Manpower Vård',
+          'Lokala bemanningsföretag',
+          'Säsongsvikariat och timanställningar',
+        ],
+      },
+      {
+        kategori: 'Specialiserade verksamheter',
+        exempel: [
+          'Demens-specialiserad hemtjänst',
+          'Hemsjukvård (oftast region men i kombination)',
+          'Palliativ hemvård och hospice',
+          'Daglig verksamhet enligt LSS',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen in. Många kommuner och utförare rekryterar utan formell vårdutbildning om du har körkort B och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor och betalar HLR-utbildning.',
+      },
+      {
+        rubrik: 'Vård- och omsorgsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning ger fast tjänst och högre lön. Examen ger skyddad yrkestitel undersköterska från 1 juli 2023. Vanlig grund för demens- eller palliativa team.',
+      },
+      {
+        rubrik: 'Integrationsutbildning Komvux (1 år)',
+        beskrivning: 'Vård- och omsorg-utbildning anpassad för nyanlända med utländsk vårdbakgrund. Innehåller svenska, fackspråk och praktik. Vanlig väg in för utlandsutbildade.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och delegeringskurser',
+        beskrivning: 'BPSD-utbildning, demensvård, insulindelegering, palliativ vård. Korta kurser som ger meriterande kompetens och påverkar lön och möjligheter.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Personcentrerad omvårdnad i hemmiljö',
+        'Förflyttningsteknik enligt Akta Ryggen',
+        'Demensvård och BPSD-hantering',
+        'Mobil dokumentation (Tunstall, Phoniro, Lifecare Mobil)',
+        'HLR och första hjälpen',
+        'Eventuella medicindelegeringar (insulin, ögondroppar, kompressionsstrumpor)',
+        'Trygghetslarm och larmhantering',
+        'Hjälpmedel för rörelseförmåga (lift, rullator, duschpall)',
+        'Måltidsförberedelser och kost för äldre',
+        'Hygien och basala hygienrutiner',
+        'Digital nyckelhantering',
+        'Lex Sarah-anmälan',
+      ],
+      personliga: [
+        'Empati och relationsskapande',
+        'Pålitlig och punktlig',
+        'Stresstålig vid akuta hembesök',
+        'Diskret och respektfull i brukarens hem',
+        'Lyhörd för brukarens önskemål',
+        'Kulturell kompetens',
+        'Självständig i mobilt arbete',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren hemtjänstpersonal med 6 års erfarenhet inom kommunal och privat hemtjänst i Stockholm. Hanterar 10-12 brukarbesök per dag med fokus på äldre med demens och fysisk funktionsnedsättning. Insulindelegering, körkort B, HLR-certifikat och flerspråkig (svenska, arabiska, engelska). Tillgänglig för delade turer inklusive helger.',
+
+    profilTips:
+      'År av erfarenhet, geografiskt område och brukartyp i öppningsraden. Andra meningen lyfter besöksvolym, eventuella delegeringar och körkort. Tredje meningen visar språk och tillgänglighet som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Körkort B är absolut krav',
+        text: 'Hemtjänsten kräver körkort B för att kunna besöka 8-15 brukare per dag på olika adresser. Skriv ut körkort, hur länge du haft det och eventuell rutin med servicebil.',
+      },
+      {
+        rubrik: 'Geografisk kunskap',
+        text: 'Lokal kännedom om gator, kollektivtrafik och brukares områden är meriterande. Skriv ut vilka kommuner eller stadsdelar du arbetat i.',
+      },
+      {
+        rubrik: 'Erfarenhet av delade turer',
+        text: 'Hemtjänsten kör ofta delade turer (morgon 7-11, kväll 16-21). Skriv ut din tillgänglighet konkret. "Tillgänglig för delade turer inkl helger" sätter dig i rätt urvalslista.',
+      },
+      {
+        rubrik: 'Brukartyper och specialiseringar',
+        text: 'Äldre med fysisk funktionsnedsättning, demens, palliativ vård, neurologi. Olika hemtjänstgrupper har olika brukarprofiler. Lyft din erfarenhet av specifika grupper.',
+      },
+      {
+        rubrik: 'Mobil dokumentation',
+        text: 'Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil. Skriv ut systemnamnen så ATS-system kan filtrera fram dig och enhetschefen ser att du kan starta utan introduktion.',
+      },
+      {
+        rubrik: 'Språk för flerspråkiga brukare',
+        text: 'Många äldre i större kommuner har utländsk bakgrund. Arabiska, finska, persiska, polska, somaliska är efterfrågade. Lägg språk synligt med nivå.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, område, brukartyp, körkort och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Hemtjänstgrupp, geografiskt område, tidsperiod, brukartyper. Konkretisera besöksvolym och eventuella specialiseringar.' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorgsutbildning eller integrationsutbildning. Eventuella vidareutbildningar (BPSD, demens, palliativ).' },
+      { sektion: 'Kompetenser', tips: 'Mobila system, hjälpmedel, delegeringar och certifikat. Var konkret om vilka system du arbetat i.' },
+      { sektion: 'Certifikat', tips: 'Eget block med HLR, basala hygienrutiner, Akta Ryggen, eventuella delegeringar med utgångsdatum.' },
+      { sektion: 'Övrigt', tips: 'Körkort B med datum, språk utöver svenska, tillgänglighet för delade turer och helger.' },
+    ],
+
+    checklista: [
+      'Körkort B (absolut krav)',
+      'Erfarenhet av brukargrupper',
+      'HLR-certifikat med utgångsdatum',
+      'Basala hygienrutiner',
+      'Akta Ryggen eller motsvarande',
+      'Eventuella medicindelegeringar',
+      'Mobila system (Tunstall, Phoniro, Lifecare Mobil)',
+      'Språkkunskaper utöver svenska',
+      'Tillgänglighet för delade turer',
+      'Geografisk kännedom',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit. Privata utförare som Attendo, Vardaga och Humana använder Workday eller Teamtailor. Skriv ut körkort B, system (Tunstall, Phoniro), brukargrupper (demens, palliativ) och certifikat (HLR) i klartext.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett hemtjänst-CV?',
+        a: 'Körkort B (krav), erfarenhet av brukargrupper, HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuella medicindelegeringar, mobila system du arbetat i (Tunstall, Phoniro, Lifecare Mobil), språkkunskaper, samt tillgänglighet för delade turer. Lägg till vidareutbildningar och geografisk kännedom om relevant.',
+      },
+      {
+        q: 'Behöver jag formell utbildning för hemtjänst?',
+        a: 'Inte alltid. Många kommuner och utförare rekryterar utan formell vårdutbildning om du har körkort B och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor och betalar HLR-utbildning efter provanställning. Vård- och omsorgsprogrammet är meriterande och öppnar fler tjänster med högre lön.',
+      },
+      {
+        q: 'Hur viktigt är körkort B?',
+        a: 'Absolut krav i de flesta hemtjänstorganisationer eftersom du måste kunna besöka 8-15 brukare per dag på olika adresser. Vissa stadskärnor i Stockholm och Göteborg har gångdistrikt där körkort inte krävs, men det är undantag. Utan körkort begränsas dina möjligheter kraftigt.',
+      },
+      {
+        q: 'Vad är skillnaden mellan kommunal och privat hemtjänst?',
+        a: 'Kommunal hemtjänst drivs av kommunen själv. Privata utförare (Attendo, Humana, Vardaga) driver hemtjänst på uppdrag enligt LOV (Lagen om valfrihet). Brukaren väljer själv. Kollektivavtal (Kommunal eller KFO/KFS) reglerar villkor. Privata utförare har ofta fler vikariat och högre flexibilitet, kommunal har ofta mer schema-stabilitet.',
+      },
+      {
+        q: 'Hur lyfter jag mobil dokumentation på CV:t?',
+        a: 'Skriv ut konkreta system: Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil, Procapita Mobil. Olika kommuner använder olika system. Att kunna det system kommunen redan har minskar din introduktionstid och är värdefullt på CV:t.',
+      },
+      {
+        q: 'Vilka delegeringar är mest värdefulla?',
+        a: 'Insulin är vanligaste och mest efterfrågade. Ögondroppar och kompressionsstrumpor är också vanliga. Sondmatning och PEG-hantering kvalificerar för komplexa brukare. Skriv ut alla aktiva delegeringar med datum och från vilken sjuksköterska du fick delegeringen.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Körkort B, brukargrupper (äldre, demens, BPSD, LSS), system (Tunstall, Phoniro, Lifecare Mobil, Procapita), certifikat (HLR, basala hygienrutiner, Akta Ryggen, BPSD), och språk. Visma Recruit, Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett hemtjänst-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet och flera arbetsplatser kan det bli 1,5 sidor. Det viktigaste är att körkort B, språk och senaste arbetsplats syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till hemtjänst-tjänster?',
+        a: 'Ja, för de flesta tjänster. Använd brevet för att förklara varför just den hemtjänstgrupp eller utförare och beskriv en specifik situation där du visat omsorg eller löst en utmaning hemma hos brukare. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt hemtjänst-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor, brukares namn eller adresser, sekretessbelagda detaljer om besök, generiska påståenden ("empatisk och pålitlig") utan konkreta exempel, och hobbies som inte är vård-relevanta. Stavfel och slarv signalerar oseriös attityd, vilket är negativt i ett yrke där noggrannhet räknas.',
+      },
+    ],
+  },
+
+  'fysioterapeut': {
+    seoIntro:
+      'Som fysioterapeut bedöms du på legitimation, specialiseringar och din förmåga att leverera evidensbaserad rehabilitering. Region- och kommunala arbetsgivare har konstant öppna tjänster, både inom slutenvård, primärvård och kommunal hemrehabilitering. Privata kliniker som Curera, Aleris, Capio och mindre praktiker konkurrerar om samma kandidater. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik eller mottagning du faktiskt vill jobba på.\n\nVår mall för fysioterapeuter lyfter legitimation från Socialstyrelsen, behandlingsmetoder och specialistutbildningar som första visuella element. Vi har strukturerat erfarenhetssektionen så att klinik, patientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller vidareutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: fysioterapeutexamen med lärosäte och år, legitimation från Socialstyrelsen med datum, eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi), behandlingsmetoder du behärskar (McKenzie, akupunktur, manuell terapi, MTT), patientgrupper (ortopedi, neurologi, geriatrik, idrott), journalsystem (TakeCare, Cosmic, Medicus), forskningsmeriter, samt eventuell egen praktik eller mottagning.\n\nNedan hittar du två CV-mallar designade för fysioterapeutrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, primärvård och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Legitimation och specialistbevis först',
+        description: 'Skriv ut Socialstyrelsens registrering med datum. Eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi) lyfts i samma block. Verksamhetschefer skannar först efter behörighet.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Behandlingsmetoder du behärskar',
+        description: 'McKenzie-metoden för rygg, ortopedisk manuell terapi (OMT), Mulligan, Maitland, akupunktur, MTT (Medicinsk Tränings Terapi), basal kroppskännedom. Var konkret om vilka metoder du behärskar i stället för "manuella tekniker".',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Patientgrupper och volymer',
+        description: '"30 patienter per dag på ortopedmottagning" eller "12 hemrehab-besök dagligen" säger mer än "klinisk fysioterapi". Konkreta volymer visar din förmåga att leverera i svensk vårdvardag.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Journalsystem och dokumentation',
+        description: 'TakeCare, Cosmic, Medicus, Carejourney. Olika regioner och privata kliniker använder olika system. Skriv ut systemnamnen så Heroma och Visma Recruit kan filtrera fram dig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Specialistområde och vidareutbildning',
+        description: 'OMT, ortopedisk medicin, idrottsmedicin, neurologi, geriatrik, andning, lymfödembehandling. Specialistinriktning öppnar specifika tjänster och påverkar lönen direkt. Lyft din spetskompetens i sammanfattningen.',
+      },
+      {
+        icon: 'Target',
+        title: 'Forskning och utvecklingsarbete',
+        description: 'Eventuell licentiat eller doktorsexamen, publikationer, forskningsbidrag, kliniska studier. Forskningsmeriter är centrala för universitetstjänster och seniora roller på regionalanknutna kliniker.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Legitimation och specialistbevis överst',
+        description: 'Vår mall Klinik har sidopanel för Socialstyrelsens legitimation och eventuell specialistutbildning. Verksamhetschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Klinisk erfarenhet uppdelad per område',
+        description: 'Mallen separerar slutenvård, primärvård, hemrehab och privatpraktik så patientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för behandlingsmetoder',
+        description: 'McKenzie, OMT, Mulligan, akupunktur, MTT. Mallen lyfter behandlingsmetoder som eget block så verksamhetschefer letar specifikt efter metoder de redan använder på kliniken.',
+      },
+      {
+        title: 'Plats för forskningsmeriter',
+        description: 'Mallen har dedikerat block för publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionalanknutna specialistkliniker.',
+      },
+      {
+        title: 'Tidlös serif för formell prestige',
+        description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
+      },
+      {
+        title: 'Premium-mallen Klinik med foto',
+        description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar en mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Bedömning och behandling',
+        punkter: [
+          'Genomföra fysioterapeutiska undersökningar och funktionsbedömningar',
+          'Sätta diagnos och behandlingsplan utifrån evidensbaserad praxis',
+          'Behandla patienter med manuell terapi, träning och pedagogiska råd',
+          'Anpassa behandling efter patientens individuella mål och resurser',
+        ],
+      },
+      {
+        rubrik: 'Rehabilitering och träning',
+        punkter: [
+          'Utforma individuella rehab-program efter ortopediska skador eller operationer',
+          'Genomföra gruppträning för specifika diagnoser (rygg, knä, höft, axel)',
+          'Använda MTT (Medicinsk Tränings Terapi) eller motsvarande träningsmetoder',
+          'Stötta patienter med långvarig smärta enligt biopsykosocial modell',
+        ],
+      },
+      {
+        rubrik: 'Specialiserade behandlingsmetoder',
+        punkter: [
+          'Tillämpa OMT, McKenzie, Mulligan eller Maitland enligt specialistutbildning',
+          'Genomföra akupunkturbehandling vid smärta eller spänningstillstånd',
+          'Behandla lymfödem med manuell lymfdränage och kompressionsbehandling',
+          'Arbeta med basal kroppskännedom eller psykosomatik vid behov',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och uppföljning',
+        punkter: [
+          'Journalföring i TakeCare, Cosmic eller motsvarande enligt PDL',
+          'Skriva remisser, intyg och status till andra vårdgivare',
+          'Sätta mätbara mål och utvärdera behandlingsresultat enligt skattningsskalor',
+          'Hantera försäkringsärenden och rehabintyg vid behov',
+        ],
+      },
+      {
+        rubrik: 'Tvärprofessionellt teamarbete',
+        punkter: [
+          'Samverka med läkare, sjuksköterskor, arbetsterapeuter och kuratorer',
+          'Delta i ronder, vårdplaneringar och rehabiliteringsmöten',
+          'Handleda fysioterapeutstudenter och nya kollegor',
+          'Bidra till klinikens utvecklingsarbete och kvalitetsregister',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och regelverk',
+        termer: [
+          { term: 'PDL', forklaring: 'Patientdatalagen, reglerar journalföring inom hälso- och sjukvård.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, ramverk för all sjukvård i Sverige.' },
+          { term: 'PSL', forklaring: 'Patientsäkerhetslagen, reglerar avvikelsehantering och anmälningsplikt.' },
+          { term: 'Lex Maria', forklaring: 'Anmälningsskyldighet vid vårdskada eller risk för sådan.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen, gäller offentlig sjukvård.' },
+          { term: 'Förskrivningsrätt', forklaring: 'Fysioterapeuter har inte förskrivningsrätt på läkemedel men kan rekommendera hjälpmedel.' },
+        ],
+      },
+      {
+        kategori: 'Behandlingsmetoder',
+        termer: [
+          { term: 'OMT', forklaring: 'Ortopedisk Manuell Terapi, evidensbaserad metod för leder och muskler.' },
+          { term: 'McKenzie', forklaring: 'Mekanisk diagnostik och behandling för ryggbesvär (MDT).' },
+          { term: 'Mulligan', forklaring: 'Manuell behandlingsmetod med rörelse under kompression eller drag.' },
+          { term: 'Maitland', forklaring: 'Klassisk OMT-metod för perifera leder och rygg.' },
+          { term: 'MTT', forklaring: 'Medicinsk Tränings Terapi, strukturerad träningsmodell för rehabilitering.' },
+          { term: 'Bassängträning', forklaring: 'Hydroterapi för rehabilitering vid bland annat ortopediska besvär.' },
+        ],
+      },
+      {
+        kategori: 'Specialistutbildningar',
+        termer: [
+          { term: 'Specialist OMT', forklaring: 'Specialistutbildning inom ortopedisk manuell terapi, magisterexamen.' },
+          { term: 'Specialist Idrottsmedicin', forklaring: 'Specialistutbildning för fysioterapeuter inom idrottsskador och prestation.' },
+          { term: 'Specialist Neurologi', forklaring: 'Specialistutbildning för rehabilitering vid neurologisk sjukdom.' },
+          { term: 'Specialist Geriatrik', forklaring: 'Specialistutbildning för rehabilitering av äldre.' },
+          { term: 'Specialist Andning', forklaring: 'Specialistutbildning för respiratorisk fysioterapi och andningsrehab.' },
+          { term: 'Specialist Onkologi', forklaring: 'Specialistutbildning för rehabilitering vid och efter cancersjukdom.' },
+        ],
+      },
+      {
+        kategori: 'Journalsystem och verktyg',
+        termer: [
+          { term: 'TakeCare', forklaring: 'Journalsystem som används i bland annat Region Stockholm.' },
+          { term: 'Cosmic', forklaring: 'Vanligaste journalsystemet i offentlig vård i flera regioner.' },
+          { term: 'Medicus', forklaring: 'Journalsystem för privat sjukvård och mindre kliniker.' },
+          { term: 'Carejourney', forklaring: 'Privat journalsystem populärt på fysioterapikliniker.' },
+          { term: 'NPÖ', forklaring: 'Nationell patientöversikt över region- och vårdgränser.' },
+          { term: 'Försäkringskassan SASSAM', forklaring: 'System för rehabintyg och ersättningsärenden.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Region och universitetssjukhus',
+        exempel: [
+          'Karolinska, Sahlgrenska, Skånes Universitetssjukhus, Akademiska',
+          'Region- och länssjukhus i alla 21 regioner',
+          'Specialistmottagningar och rehabkliniker',
+          'Akutmottagningar med fysioterapeut i jour',
+        ],
+      },
+      {
+        kategori: 'Primärvård',
+        exempel: [
+          'Vårdcentraler i regional regi',
+          'Privata vårdcentraler (Capio, Praktikertjänst)',
+          'Företagshälsa (Avonova, Feelgood, Previa)',
+          'Specialistmottagningar inom rygg, axel, idrottsmedicin',
+        ],
+      },
+      {
+        kategori: 'Privata fysioterapikliniker',
+        exempel: [
+          'Curera, Aleris Rehab, Capio Rehab',
+          'Unisport och idrottsklinker',
+          'Mindre privata praktiker och solopraktiker',
+          'Hälsohem och behandlingscenter',
+        ],
+      },
+      {
+        kategori: 'Kommunal rehabilitering',
+        exempel: [
+          'Kommunal hemrehabilitering i 290 kommuner',
+          'Korttidsboenden med rehabavdelning',
+          'Demensvård med fysioterapeutisk del',
+          'Habilitering för barn och vuxna med funktionsnedsättning',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Fysioterapeutprogrammet (3 år)',
+        beskrivning: 'Kandidatexamen från Karolinska Institutet, Lunds universitet, Göteborgs universitet, Uppsala, Umeå, Linköping, Mälardalens högskola eller Luleå tekniska universitet. Examen ger rätt att söka legitimation från Socialstyrelsen.',
+      },
+      {
+        rubrik: 'Magister- eller masterutbildning (1-2 år)',
+        beskrivning: 'Specialistutbildning inom OMT, idrottsmedicin, neurologi, geriatrik, andning eller onkologi. Magisterexamen krävs för titeln "specialistfysioterapeut" som påverkar lön och tjänsteansvar.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'McKenzie-certifiering (MDT), Mulligan-cert, akupunkturutbildning, basal kroppskännedom. Korta certifikatkurser som ger meriterande spetskompetens.',
+      },
+      {
+        rubrik: 'Forskarutbildning (4-5 år)',
+        beskrivning: 'Doktorsexamen i fysioterapi parallellt med klinisk tjänst. Disputerade fysioterapeuter söker oftast universitetssjukhus, FoU-roller eller privatkliniker med forskningsfokus.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Klinisk bedömning och funktionsanalys',
+        'Manuell terapi och OMT',
+        'McKenzie-metoden för ryggbehandling',
+        'MTT (Medicinsk Tränings Terapi)',
+        'Akupunktur enligt traditionell eller dry needling',
+        'Lymfödembehandling och kompressionsbehandling',
+        'Bassängträning och hydroterapi',
+        'Journalsystem (TakeCare, Cosmic, Medicus)',
+        'Skattningsskalor (NPRS, ROM, MMT, FBE)',
+        'Försäkringsmedicin och rehabintyg',
+        'Träning för specifika diagnoser (rygg, knä, höft, axel)',
+        'Bedömning av äldres balans och fallrisk',
+      ],
+      personliga: [
+        'Pedagogisk i patientutbildning',
+        'Empatisk och relationsskapande',
+        'Strukturerad i bedömning och behandling',
+        'Tålmodig vid långsam progress',
+        'Evidensbaserad i behandlingsval',
+        'Tvärprofessionell samarbetsförmåga',
+        'Lyhörd för patientens egna mål',
+      ],
+    },
+
+    profilExempel:
+      'Legitimerad fysioterapeut med 7 års erfarenhet inom ortopedisk slutenvård och primärvård. Specialistutbildning inom OMT 2023 med klinisk inriktning på rygg- och axelbesvär. Behandlar 30-35 patienter per vecka med fokus på evidensbaserad rehabilitering, McKenzie-metoden och MTT. Handledare för 4 fysioterapeutstudenter per termin.',
+
+    profilTips:
+      'Legitimation, år av erfarenhet och primärt verksamhetsområde i öppningsraden. Andra meningen lyfter specialistutbildning och behandlingsmetoder. Tredje meningen visar volym, forskning eller handledning som differentierar dig.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Legitimation och specialistbevis',
+        text: 'Skriv ut Socialstyrelsens registrering med datum. Specialistutbildning (OMT, idrottsmedicin, neurologi) lyfts i samma block. Verksamhetschefer skannar först efter behörighet.',
+      },
+      {
+        rubrik: 'Behandlingsmetoder du behärskar',
+        text: 'McKenzie-metoden, OMT, Mulligan, Maitland, akupunktur, MTT, basal kroppskännedom. Var konkret om vilka metoder du behärskar i stället för "manuella tekniker".',
+      },
+      {
+        rubrik: 'Patientgrupper och volymer',
+        text: '"30 patienter per dag på ortopedmottagning" säger mer än "klinisk fysioterapi". Konkreta volymer och patientgrupper visar din förmåga att leverera i svensk vårdvardag.',
+      },
+      {
+        rubrik: 'Journalsystem och dokumentation',
+        text: 'TakeCare, Cosmic, Medicus, Carejourney. Olika regioner och privata kliniker använder olika system. Skriv ut systemnamnen i klartext.',
+      },
+      {
+        rubrik: 'Specialistområde och vidareutbildning',
+        text: 'OMT, ortopedisk medicin, idrottsmedicin, neurologi, geriatrik. Specialistinriktning öppnar specifika tjänster och påverkar lönen. Lyft spetskompetens i sammanfattningen.',
+      },
+      {
+        rubrik: 'Forskning och utvecklingsarbete',
+        text: 'Eventuell licentiat eller doktorsexamen, publikationer, forskningsbidrag. Forskningsmeriter är centrala för universitetstjänster och seniora roller på regionalanknutna kliniker.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Legitimation, år av erfarenhet, primärt verksamhetsområde och eventuell specialistutbildning på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Klinik, ort, tidsperiod, patientgrupp. Konkretisera volym och eventuella specialiseringar (rygg, idrott, neuro).' },
+      { sektion: 'Utbildning', tips: 'Fysioterapeutexamen, lärosäte, år. Specialistutbildningar som egen rad. Vidareutbildningar (McKenzie-cert, akupunktur).' },
+      { sektion: 'Kompetenser', tips: 'Behandlingsmetoder, journalsystem, skattningsskalor. Var konkret om vilka metoder du behärskar.' },
+      { sektion: 'Forskningsmeriter', tips: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell disputation. Lyft i kronologisk ordning.' },
+      { sektion: 'Övrigt', tips: 'Handledning, ledarskap, klinisk utveckling, eventuell egen praktik eller mottagning.' },
+    ],
+
+    checklista: [
+      'Fysioterapeutexamen och legitimation från Socialstyrelsen',
+      'Specialistutbildning eller magisterexamen om relevant',
+      'Behandlingsmetoder (OMT, McKenzie, Mulligan, MTT)',
+      'Patientgrupper du arbetat med',
+      'Journalsystem du behärskar',
+      'Skattningsskalor och bedömningsinstrument',
+      'Eventuella vidareutbildningar med datum',
+      'Handledarutbildning eller pedagogiska meriter',
+      'Forskningsmeriter och publikationer',
+      'Försäkringsmedicinsk erfarenhet',
+    ],
+
+    atsInfo:
+      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut behandlingsmetoder (OMT, McKenzie, Mulligan), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett fysioterapeut-CV?',
+        a: 'Legitimation från Socialstyrelsen med datum, fysioterapeutexamen med lärosäte, eventuell specialistutbildning, behandlingsmetoder du behärskar (OMT, McKenzie, Mulligan, MTT), patientgrupper, journalsystem (TakeCare, Cosmic), skattningsskalor, forskningsmeriter, samt eventuell handledarutbildning. Lägg till privatpraktik eller egen mottagning om relevant.',
+      },
+      {
+        q: 'Hur skriver jag CV som nyutbildad fysioterapeut?',
+        a: 'Lyft VFU-perioder med klinik, antal veckor och vilka patientgrupper du fick arbeta med. Examensarbete med titel och eventuell publicering. Praktiska kurser från utbildningen, skattningsskalor du använt, och behandlingsmetoder du tränat på. Många regioner har strukturerade introduktionsprogram för nyexade fysioterapeuter.',
+      },
+      {
+        q: 'Hur viktigt är specialistutbildning?',
+        a: 'Mycket. Specialistfysioterapeut är skyddad titel som kräver magisterexamen och kvalificerar för specialistmottagningar och seniora roller. OMT, idrottsmedicin och neurologi är de vanligaste specialiseringarna. Lön påverkas direkt av specialistgrad. Universitetssjukhus och regionalanknutna kliniker föredrar specialister.',
+      },
+      {
+        q: 'Vilka behandlingsmetoder är värda att lyfta på CV:t?',
+        a: 'McKenzie-metoden för ryggbehandling, OMT för leder och muskler, Mulligan, akupunktur (traditionell eller dry needling), MTT, basal kroppskännedom. Lyft de metoder du faktiskt använder dagligen och eventuella certifieringar. Olika kliniker söker olika metoder, så branschmatchning räknas.',
+      },
+      {
+        q: 'Hur skiljer sig CV för offentlig och privat fysioterapi?',
+        a: 'Offentlig sektor (region) värderar formell utbildning, specialistgrad, evidensbaserad praxis och eventuell forskning. Privat sektor värderar kommunikation, kundbemötande och förmåga att arbeta självständigt. Privatpraktik kräver också affärsmässig förmåga (fakturering, försäkringskontakter). Anpassa CV:t efter målgrupp.',
+      },
+      {
+        q: 'Vilka journalsystem ska jag kunna 2026?',
+        a: 'TakeCare dominerar Region Stockholm. Cosmic används i flera regioner. Medicus och Carejourney är vanliga på privata kliniker. NPÖ är gemensam patientöversikt. Skriv ut systemnamnen så Heroma och Visma Recruit kan filtrera fram dig.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika behandlingsmetoder (OMT, McKenzie, Mulligan, MTT), patientgrupper (ortopedi, neurologi, geriatrik, idrott), journalsystem (TakeCare, Cosmic, Medicus), specialistutbildningar och eventuell forskningsmeritering. Heroma och Visma Recruit söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett fysioterapeut-CV vara?',
+        a: 'Junior 0-3 år: 1-1,5 sidor. Specialistfysioterapeut: 1,5-2 sidor. Disputerad fysioterapeut: 2-3 sidor. Vården accepterar längre CV än andra branscher eftersom meritprofiler är centrala. Det viktigaste är att första sidan rymmer det starkaste innehållet.',
+      },
+      {
+        q: 'Behöver jag personligt brev till fysioterapeut-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den klinik och beskriv en specifik patient eller behandlingsutmaning du löst. Beskriv din kliniska filosofi och vad du tar med dig. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt fysioterapeut-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), patientuppgifter eller sekretessbelagda detaljer, generiska påståenden ("empatisk fysioterapeut") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är vård-relevanta. Stavfel diskvalificerar direkt eftersom dokumentation är central i rollen.',
+      },
+    ],
+  },
+
+  'barnskotare': {
+    seoIntro:
+      'Som barnskötare arbetar du nära förskollärare i Sveriges 290 kommuner och tusentals fristående förskolor. Yrket har ständig efterfrågan, både för fast tjänst och vikariat, men rektorer slänger CV:n som inte tydligt visar erfarenhet, eventuell utbildning och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVår mall för barnskötare lyfter eventuell barnskötarutbildning, åldersgrupper du arbetat med och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att förskola, huvudman och åldersgrupp syns direkt med eventuella ansvarsområden. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barnskötarutbildning från gymnasium eller komvux, åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd), digital pedagogik (Tyra, Snitch, Pluttra), pedagogisk inriktning (Reggio Emilia, Montessori, traditionell), HLR-certifikat med utgångsdatum, basala hygienrutiner, samt språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar designade för barnskötarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Barnskötarutbildning eller validering',
+        description: 'Barn- och fritidsprogrammet eller motsvarande komvux-utbildning är meriterande men inte alltid krav. Validerad utländsk utbildning eller integrationsutbildning räknas också. Lyft formell utbildning med datum.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Åldersgrupper du arbetat med',
+        description: '1-3 år (småbarn) kräver mycket fysisk omsorg. 3-5 år är mer pedagogiskt fokuserade. Specifik åldersgrupp visar din erfarenhet och rektorer matchar mot avdelningens behov.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Erfarenhet av särskilda behov',
+        description: 'NPF (autism, ADHD), språkstöd för flerspråkiga barn, motorisk träning, TAKK eller bildstöd. Många förskolor har barn med särskilda behov och specifik kompetens är meriterande.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Digital pedagogik',
+        description: 'Tyra, Snitch, Pluttra. Digital dokumentation är standard i svensk förskola. Lärplattor i barngrupp blir vanligare. Skriv ut vilka system du använt så ATS kan filtrera fram dig.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Pedagogisk inriktning',
+        description: 'Reggio Emilia, Montessori, Waldorf, utomhuspedagogik (I Ur och Skur). Olika förskolor söker olika inriktningar. Lyft den du har djupast erfarenhet av.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper är värdefullt',
+        description: 'Många förskolor har flerspråkiga barn och vill ha personal som talar deras modersmål. Arabiska, persiska, somaliska, finska, polska är efterfrågade i många kommuner.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Erfarenhet och språk överst',
+        description: 'Vår mall lyfter åldersgrupper, pedagogisk inriktning och språk i sidopanelen. Rektorer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
+      },
+      {
+        title: 'Eget block för certifikat',
+        description: 'HLR, basala hygienrutiner, eventuell AKK- eller TAKK-utbildning har egen rad med utgångsdatum. Visar formell kompetens utan att blanda med generisk text.',
+      },
+      {
+        title: 'Pedagogisk erfarenhet per förskola',
+        description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'I förskolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett mer personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+      },
+      {
+        title: 'Plats för utvecklingsuppdrag',
+        description: 'Eventuella ansvarsområden (utomhuspedagogik, naturkunskap, språkutveckling, mentor) har egen rad. Visar att du tar ansvar bortom vardagsarbete.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Daglig omsorg och trygghet',
+        punkter: [
+          'Skapa trygg och utvecklande miljö för barn 1-5 år',
+          'Stötta måltidssituationer, vila och toalettrutiner',
+          'Hantera blöjbyten, påklädning och hygienrutiner',
+          'Bygga trygga anknytningar med varje barn',
+        ],
+      },
+      {
+        rubrik: 'Pedagogisk verksamhet',
+        punkter: [
+          'Genomföra pedagogiska aktiviteter enligt Lpfö 18 i samverkan med förskollärare',
+          'Använda lekens potential för lärande och språkutveckling',
+          'Anpassa aktiviteter för olika åldrar och utvecklingsnivåer',
+          'Implementera pedagogiska metoder (Reggio Emilia, naturpedagogik, skapande verksamhet)',
+        ],
+      },
+      {
+        rubrik: 'Kommunikation och dokumentation',
+        punkter: [
+          'Använda Tyra, Snitch eller Pluttra för pedagogisk dokumentation',
+          'Genomföra hämtning och lämning med trygg kommunikation till vårdnadshavare',
+          'Stötta barn med särskilda behov (NPF, språkstöd, AKK, bildstöd)',
+          'Dokumentera barnens utveckling i samverkan med förskollärare',
+        ],
+      },
+      {
+        rubrik: 'Hälsa och säkerhet',
+        punkter: [
+          'Följa basala hygienrutiner och förebygga smitta',
+          'Hantera akuta situationer enligt HLR och första hjälpen',
+          'Identifiera tecken på sjukdom eller utvecklingsavvikelser',
+          'Anmäla oro till socialtjänsten enligt anmälningsplikten (SoL 14:1)',
+        ],
+      },
+      {
+        rubrik: 'Kollegial samverkan',
+        punkter: [
+          'Delta i arbetslagsmöten och pedagogiska planeringar',
+          'Stötta nya kollegor och vikarier under introduktion',
+          'Bidra till systematiskt kvalitetsarbete (SKA)',
+          'Delta i kompetensutveckling och förbättringsprojekt',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning och styrdokument',
+        termer: [
+          { term: 'Lpfö 18', forklaring: 'Läroplan för förskolan från 2018, grunden för all pedagogisk planering.' },
+          { term: 'Skollagen', forklaring: 'Reglerar förskolans verksamhet, barnens rätt till stöd och rektors ansvar.' },
+          { term: 'Barnkonventionen', forklaring: 'Sedan 2020 svensk lag, vägleder hela förskolans förhållningssätt.' },
+          { term: 'Anmälningsplikt', forklaring: 'Skyldighet att anmäla oro för barn till socialtjänsten enligt SoL 14:1.' },
+          { term: 'SKA', forklaring: 'Systematiskt kvalitetsarbete, krav enligt Skollagen för förskolor.' },
+          { term: 'Likabehandlingsplan', forklaring: 'Krav enligt diskrimineringslagen, ska finnas på varje förskola.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'Reggio Emilia', forklaring: 'Italiensk pedagogik med fokus på barns kompetens och miljöns roll.' },
+          { term: 'Montessori', forklaring: 'Pedagogik baserad på självständigt lärande med specialdesignat material.' },
+          { term: 'Waldorf', forklaring: 'Pedagogik från Steiners filosofi med fokus på rytm och kreativitet.' },
+          { term: 'Utomhuspedagogik', forklaring: 'Lärande genom natur och friluftsliv, vanligt i I Ur och Skur-förskolor.' },
+          { term: 'TAKK', forklaring: 'Tecken som Alternativ och Kompletterande Kommunikation.' },
+          { term: 'Bildstöd', forklaring: 'Visuella stödbilder för barn med språkstörning eller NPF.' },
+        ],
+      },
+      {
+        kategori: 'Roller och utbildning',
+        termer: [
+          { term: 'Barnskötare', forklaring: 'Yrkesutbildad personal som kompletterar förskollärare i barngruppen.' },
+          { term: 'Förskollärare', forklaring: 'Akademiskt utbildad lärare med lärarlegitimation från Skolverket.' },
+          { term: 'Specialpedagog', forklaring: 'Senior pedagogisk roll för arbete med barn i behov av särskilt stöd.' },
+          { term: 'Förstelärare', forklaring: 'Senior pedagogisk roll med utvecklingsuppdrag och högre lön.' },
+          { term: 'Barn- och fritidsprogrammet', forklaring: 'Gymnasieutbildning för barnskötare, fritidspedagog och stödassistenter.' },
+          { term: 'Komvux barnskötare', forklaring: 'Vuxenutbildning med samma kursplan som gymnasieprogrammet.' },
+        ],
+      },
+      {
+        kategori: 'Digitala verktyg',
+        termer: [
+          { term: 'Tyra', forklaring: 'Vanligaste plattformen för pedagogisk dokumentation och föräldrakontakt.' },
+          { term: 'Snitch', forklaring: 'Plattform för dokumentation, schema och kommunikation med vårdnadshavare.' },
+          { term: 'Pluttra', forklaring: 'Digital plattform för förskolans dokumentation och föräldrakommunikation.' },
+          { term: 'Skola24', forklaring: 'System för schemaläggning, frånvaro och administrativ hantering.' },
+          { term: 'Lärlogg', forklaring: 'Pedagogisk dokumentation av barns lärande och utveckling.' },
+          { term: 'Pedagogisk dokumentation', forklaring: 'Process för att synliggöra barns lärprocesser enligt Reggio Emilia.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal förskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Förskolor med särskild inriktning (utomhus, kultur, idrott)',
+          'Familjedaghem och pedagogisk omsorg',
+        ],
+      },
+      {
+        kategori: 'Fristående förskolekoncerner',
+        exempel: [
+          'Pysslingen, Inspira, Norlandia, Tellusbarn',
+          'AcadeMedia, Atvexa, Vittra',
+          'Kooperativ och föräldradrivna förskolor',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Pedagogiska inriktningar',
+        exempel: [
+          'Reggio Emilia-inspirerade förskolor',
+          'Montessoriförskolor',
+          'Waldorfförskolor (Steiner)',
+          'I Ur och Skur (utomhuspedagogik)',
+        ],
+      },
+      {
+        kategori: 'Bemanning och vikariat',
+        exempel: [
+          'Bemanningsbolag (Lärarjobb, Vikariat.se)',
+          'Adecco Education',
+          'Lokala bemanningsföretag i kommuner',
+          'Säsongsvikariat och timanställningar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många förskolor rekryterar utan formell barnskötarutbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor och betalar HLR-utbildning efter provanställning.',
+      },
+      {
+        rubrik: 'Barn- och fritidsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning pedagogiskt arbete. Innehåller praktikperioder på förskolor. Ger fast tjänst och högre lön än utan utbildning.',
+      },
+      {
+        rubrik: 'Komvux barnskötare (1-2 år)',
+        beskrivning: 'Vuxenutbildning med samma kursplan som gymnasieprogrammet. Vanlig väg för yrkesväxlare och nyanlända med utländsk pedagogisk bakgrund.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och kurser',
+        beskrivning: 'TAKK-utbildning, NPF-kurs, motorisk träning, naturpedagogik. Korta kurser som ger meriterande spetskompetens utöver grundutbildning.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Pedagogisk verksamhet enligt Lpfö 18',
+        'Daglig omsorg av barn 1-5 år',
+        'Hygien och basala hygienrutiner',
+        'HLR och första hjälpen för barn',
+        'Pedagogisk dokumentation (Tyra, Snitch, Pluttra)',
+        'TAKK och bildstöd för kommunikation',
+        'Skapande verksamhet (bild, musik, drama)',
+        'Naturpedagogik och utomhusvistelse',
+        'NPF-anpassning (autism, ADHD, språkstörning)',
+        'Måltidsförberedelser och kost för barn',
+        'Likabehandlingsarbete och anmälningsplikt',
+        'Föräldrakommunikation via digital plattform',
+      ],
+      personliga: [
+        'Tålmodig och lyhörd för barns behov',
+        'Empatisk och relationsskapande',
+        'Strukturerad i daglig rutin',
+        'Lugn vid konflikter och kriser',
+        'Pedagogisk i mötet med vårdnadshavare',
+        'Kollegial och samverkansorienterad',
+        'Kulturell kompetens',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren barnskötare med 5 års erfarenhet från kommunal Reggio Emilia-inspirerad förskola. Arbetar med åldersgruppen 3-5 år med fokus på språkutveckling och utomhuspedagogik. Komvux barnskötare 2020, TAKK-utbildning och flerspråkig (svenska, arabiska, engelska). Tillgänglig för heltid inklusive eventuella vikariat.',
+
+    profilTips:
+      'År av erfarenhet, åldersgrupp och pedagogisk inriktning i öppningsraden. Andra meningen lyfter formell utbildning och eventuella specialiseringar (TAKK, NPF, språkstöd). Tredje meningen visar språk och tillgänglighet.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Barnskötarutbildning eller validering',
+        text: 'Barn- och fritidsprogrammet eller motsvarande komvux är meriterande men inte alltid krav. Validerad utländsk utbildning räknas också. Lyft formell utbildning med datum.',
+      },
+      {
+        rubrik: 'Åldersgrupper du arbetat med',
+        text: '1-3 år kräver mycket fysisk omsorg. 3-5 år är mer pedagogiskt fokuserade. Specifik åldersgrupp visar din erfarenhet och rektorer matchar mot avdelningens behov.',
+      },
+      {
+        rubrik: 'Erfarenhet av särskilda behov',
+        text: 'NPF, språkstöd, TAKK eller bildstöd. Många förskolor har barn med särskilda behov och specifik kompetens är meriterande och påverkar lönen.',
+      },
+      {
+        rubrik: 'Digital pedagogik',
+        text: 'Tyra, Snitch, Pluttra. Digital dokumentation är standard. Skriv ut vilka system du använt så ATS kan filtrera fram dig och rektor ser att du kan starta utan introduktion.',
+      },
+      {
+        rubrik: 'Pedagogisk inriktning',
+        text: 'Reggio Emilia, Montessori, Waldorf, utomhuspedagogik. Olika förskolor söker olika inriktningar. Lyft den du har djupast erfarenhet av i sammanfattningen.',
+      },
+      {
+        rubrik: 'Språkkunskaper är värdefullt',
+        text: 'Många förskolor har flerspråkiga barn. Arabiska, persiska, somaliska, finska, polska är efterfrågade. Lägg språk synligt med nivå.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, åldersgrupp, pedagogisk inriktning och språk på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Förskola, huvudman, tidsperiod, åldersgrupp. Konkretisera ansvarsområden och pedagogisk inriktning.' },
+      { sektion: 'Utbildning', tips: 'Barn- och fritidsprogrammet, komvux, eller integrationsutbildning. Vidareutbildningar (TAKK, NPF, naturpedagogik).' },
+      { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, digitala verktyg, specialpedagogiska anpassningar. Skriv ut systemnamn (Tyra, Snitch).' },
+      { sektion: 'Certifikat', tips: 'HLR, basala hygienrutiner, TAKK-utbildning, NPF-kurs. Skriv utgångsdatum för varje.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, tillgänglighet, eventuell handledarutbildning eller mentorroller.' },
+    ],
+
+    checklista: [
+      'Eventuell barnskötarutbildning eller validering',
+      'Erfarenhet av specifika åldersgrupper',
+      'HLR-certifikat med utgångsdatum',
+      'Basala hygienrutiner',
+      'Pedagogisk inriktning du arbetat efter',
+      'Erfarenhet av barn med särskilda behov',
+      'Digitala verktyg (Tyra, Snitch, Pluttra)',
+      'Språkkunskaper utöver svenska',
+      'Tillgänglighet för heltid eller vikariat',
+      'Eventuella vidareutbildningar (TAKK, NPF)',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "barnskötarutbildning" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+
+    faqItems: [
+      {
+        q: 'Vad är skillnaden mellan barnskötare och förskollärare?',
+        a: 'Förskollärare har akademisk examen (3,5 år) och lärarlegitimation från Skolverket. Är ansvarig för pedagogisk planering och dokumentation. Barnskötare har gymnasieutbildning eller komvux och kompletterar förskolläraren i barngruppen. Ingen lärarlegitimation krävs men barnskötarutbildning är meriterande.',
+      },
+      {
+        q: 'Vad ska finnas med i ett barnskötar-CV?',
+        a: 'Eventuell barnskötarutbildning, åldersgrupper du arbetat med, pedagogisk inriktning, erfarenhet av barn med särskilda behov, digitala system du använt, HLR-certifikat med utgångsdatum, basala hygienrutiner, samt språkkunskaper. Lägg till vidareutbildningar (TAKK, NPF) om du har dem.',
+      },
+      {
+        q: 'Behöver jag formell utbildning för att jobba som barnskötare?',
+        a: 'Inte alltid. Många förskolor rekryterar utan formell barnskötarutbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion på 1-2 veckor. Däremot är barn- och fritidsprogrammet eller komvux meriterande och öppnar fler tjänster med högre lön och fast anställning.',
+      },
+      {
+        q: 'Hur viktigt är pedagogisk inriktning?',
+        a: 'Mycket. Reggio Emilia-förskolor söker barnskötare med Reggio-erfarenhet eller -intresse. Montessoriförskolor kräver ofta Montessori-utbildning. Traditionella kommunala förskolor är mer flexibla. Lyft din inriktning i sammanfattningen så rektorer direkt kan bedöma matchning.',
+      },
+      {
+        q: 'Vilka digitala verktyg ska jag kunna 2026?',
+        a: 'Tyra, Snitch och Pluttra är de tre vanligaste plattformarna för pedagogisk dokumentation och föräldrakontakt. Lärplattor (iPad) i barngrupp för digital läsning, fotodokumentation och pedagogiska appar. Skola24 för schema och frånvaro.',
+      },
+      {
+        q: 'Hur visar jag erfarenhet av barn med särskilda behov?',
+        a: 'Beskriv konkret typ av stöd (NPF, autism, ADHD, språkstörning, motorik) och hur du arbetat. "Anpassade verksamhet för 3 barn med autism med bildstöd och struktur" säger mer än "har erfarenhet av barn med särskilda behov". Inkludera samverkan med specialpedagog.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika åldersgrupper (1-3 år, 3-5 år), pedagogiska metoder (Reggio Emilia, Montessori, utomhuspedagogik, TAKK), digitala system (Tyra, Snitch, Pluttra), eventuella specialiseringar (NPF, språkstöd) och språk. Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett barnskötar-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet kan det bli 1,5 sidor. Det viktigaste är att utbildning, åldersgrupp och senaste tjänsten syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till barnskötar-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige förväntas ett personligt brev. Använd brevet för att förklara varför just den förskola och beskriv en specifik situation där du visat din pedagogiska förmåga. Beskriv ett barn du hjälpt utvecklas eller hur du arbetat med en svår grupp. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt barnskötar-CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), namn på enskilda barn, sekretessbelagda detaljer, generiska påståenden ("snäll och tålmodig") utan stöd, irrelevanta arbetslivserfarenheter äldre än 10-15 år, och hobbies som inte är pedagogiskt relevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
+  'elevassistent': {
+    seoIntro:
+      'Som elevassistent stöttar du elever med särskilda behov i grundskola, gymnasium eller särskola. Yrket har stor efterfrågan i Sveriges 290 kommuner och fristående skolor, men rektorer slänger CV:n som inte tydligt visar erfarenhet av specifika diagnoser eller pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för elevassistenter lyfter erfarenhet av specifika diagnoser, pedagogiska metoder och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och elevprofil syns direkt med eventuella anpassningar du varit del av. Det betyder att rektorer och specialpedagoger kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika diagnoser (autism, ADHD, ADD, dyslexi, intellektuell funktionsnedsättning, språkstörning), pedagogiska metoder (lågaffektivt bemötande, TEACCH, bildstöd, AKK), åldersgrupper (lågstadium, mellanstadium, högstadium, gymnasium, särskola), eventuell utbildning (Barn- och fritidsprogrammet, integrationsutbildning, validering), HLR-certifikat, samt språkkunskaper för flerspråkiga elever.\n\nNedan hittar du två CV-mallar designade för elevassistentrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och specialpedagoger faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'CheckCircle',
+        title: 'Diagnoser du arbetat med',
+        description: 'Autism, ADHD, ADD, dyslexi, intellektuell funktionsnedsättning, språkstörning, selektiv mutism, Tourettes syndrom. Var konkret om vilka diagnoser du arbetat med så rektor och specialpedagog ser om matchningen finns.',
+      },
+      {
+        icon: 'Award',
+        title: 'Pedagogiska metoder',
+        description: 'Lågaffektivt bemötande, TEACCH, bildstöd, sociala berättelser, AKK, TAKK. Specifika metoder är meriterande och visar att du har strukturerad approach i stället för generell omsorg.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Åldersgrupp och stadium',
+        description: 'Lågstadium kräver mycket struktur och rutiner. Högstadium och gymnasium kräver mer självständigt arbete. Särskola är specialiserad. Lyft åldersgrupp så rektor matchar mot tjänsten.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Samverkan med specialpedagog',
+        description: 'Elevassistenter arbetar nära specialpedagog och elevhälsoteam. Erfarenhet av åtgärdsprogram, IUP-anpassningar och uppföljningssamtal är meriterande för senior-tjänster.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Utbildning eller validering',
+        description: 'Barn- och fritidsprogrammet, komvux barn- och fritid, eller integrationsutbildning. Validerad utländsk utbildning räknas också. Lyft formell utbildning med datum och eventuell specialinriktning.',
+      },
+      {
+        icon: 'Target',
+        title: 'Språkkunskaper',
+        description: 'Många elever har flerspråkig bakgrund. Arabiska, persiska, somaliska, polska, tigrinja är särskilt efterfrågade. Språk öppnar specifika tjänster och kan vara avgörande för specifika elever.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Diagnoser och metoder överst',
+        description: 'Vår mall lyfter erfarenhet av specifika diagnoser och pedagogiska metoder i sidopanelen. Rektorer och specialpedagoger ser matchningen på fem sekunder utan att behöva scrolla.',
+      },
+      {
+        title: 'Erfarenhet per skola och elevprofil',
+        description: 'Mallen separerar skolor, åldersgrupp och elevprofil. Du kan visa bredd över olika diagnoser och stadium utan att meriter konkurrerar om samma yta.',
+      },
+      {
+        title: 'Eget block för pedagogiska metoder',
+        description: 'Lågaffektivt bemötande, TEACCH, bildstöd, AKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter metoder de redan använder på skolan.',
+      },
+      {
+        title: 'Plats för samverkan med EHT',
+        description: 'Mallen har dedikerade rader för samverkan med specialpedagog, kurator och elevhälsoteam. Visar att du tar ansvar bortom enskild eleven och kan arbeta strukturerat.',
+      },
+      {
+        title: 'Premium-mallen Pedagog med foto',
+        description: 'I skolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+      },
+      {
+        title: 'Salviegrön ton för pedagogisk identitet',
+        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Stöd i undervisning',
+        punkter: [
+          'Stötta elev under lektioner enligt åtgärdsprogram eller IUP',
+          'Anpassa material och uppgifter efter elevens kognitiva förmåga',
+          'Använda bildstöd, AKK eller pedagogiska appar vid behov',
+          'Förklara instruktioner och uppgifter på elevens nivå',
+        ],
+      },
+      {
+        rubrik: 'Beteendestöd och struktur',
+        punkter: [
+          'Tillämpa lågaffektivt bemötande vid utåtagerande beteende',
+          'Skapa rutiner och struktur för elever med NPF',
+          'Hantera kriser, utbrott och konflikter lugnt och professionellt',
+          'Förebygga svåra situationer genom uppmärksamhet på tidiga signaler',
+        ],
+      },
+      {
+        rubrik: 'Kommunikation och anpassning',
+        punkter: [
+          'Använda TEACCH eller motsvarande visuell struktur',
+          'Stötta elever med språkstörning eller selektiv mutism',
+          'Tillämpa sociala berättelser och bildstöd vid förändringar',
+          'Anpassa kommunikation efter elevens kognitiva och språkliga förmåga',
+        ],
+      },
+      {
+        rubrik: 'Praktiskt stöd och omsorg',
+        punkter: [
+          'Stötta vid måltider, raster och praktiska situationer',
+          'Hjälpa till med toalettbesök eller hygien för yngre elever vid behov',
+          'Säkerställa att eleven kommer i tid till lektioner och aktiviteter',
+          'Följa med på utflykter och studiebesök',
+        ],
+      },
+      {
+        rubrik: 'Samverkan och dokumentation',
+        punkter: [
+          'Samverka med lärare, specialpedagog och kurator',
+          'Delta i elevhälsomöten och åtgärdsprogramsuppföljningar',
+          'Dokumentera elevens utveckling i Schoolsoft, Vklass eller Unikum',
+          'Hantera kontakt med vårdnadshavare i samråd med klassföreståndare',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Diagnoser och funktionsvariationer',
+        termer: [
+          { term: 'Autism', forklaring: 'Autismspektrumtillstånd, brett spektrum med varierande behov.' },
+          { term: 'ADHD/ADD', forklaring: 'Attention Deficit Hyperactivity Disorder, med eller utan hyperaktivitet.' },
+          { term: 'Dyslexi', forklaring: 'Specifika läs- och skrivsvårigheter trots normal intelligens.' },
+          { term: 'Språkstörning', forklaring: 'DLD - Developmental Language Disorder, försenad eller avvikande språkutveckling.' },
+          { term: 'Intellektuell funktionsnedsättning', forklaring: 'Tidigare kallat utvecklingsstörning, varierar från lätt till grav.' },
+          { term: 'Tourettes syndrom', forklaring: 'Neurologisk störning med tics och ofrivilliga rörelser eller ljud.' },
+        ],
+      },
+      {
+        kategori: 'Pedagogiska metoder',
+        termer: [
+          { term: 'Lågaffektivt bemötande', forklaring: 'Metod för att hantera utåtagerande beteende lugnt och professionellt.' },
+          { term: 'TEACCH', forklaring: 'Strukturerad pedagogik för elever med autism, baserad på visuellt stöd.' },
+          { term: 'Sociala berättelser', forklaring: 'Korta berättelser som förklarar sociala situationer för elever med autism.' },
+          { term: 'AKK', forklaring: 'Alternativ och Kompletterande Kommunikation för elever som inte talar.' },
+          { term: 'TAKK', forklaring: 'Tecken som Alternativ och Kompletterande Kommunikation.' },
+          { term: 'Bildstöd', forklaring: 'Visuella stödbilder enligt PCS, Pictogram eller Widgit.' },
+        ],
+      },
+      {
+        kategori: 'Stöd och regelverk',
+        termer: [
+          { term: 'Åtgärdsprogram', forklaring: 'Plan för elever som riskerar att inte nå kunskapskraven.' },
+          { term: 'IUP', forklaring: 'Individuell utvecklingsplan, dokumenteras 1-2 gånger per termin.' },
+          { term: 'EHT', forklaring: 'Elevhälsoteam, samverkan mellan rektor, specialpedagog, kurator, skolsköterska.' },
+          { term: 'Anpassningar', forklaring: 'Förändringar i undervisning för att stötta elev (extra tid, lugn miljö).' },
+          { term: 'Särskilt stöd', forklaring: 'Mer omfattande stöd som kräver formellt åtgärdsprogram.' },
+          { term: 'Kränkande särbehandling', forklaring: 'Krav på handlingsplan enligt diskrimineringslagen och Skollagen.' },
+        ],
+      },
+      {
+        kategori: 'Skolformer och digitala verktyg',
+        termer: [
+          { term: 'Grundskola', forklaring: 'Åk 1-9, krav på behörighet för lärare men inte för elevassistenter.' },
+          { term: 'Gymnasium', forklaring: 'Frivilligt skolform efter grundskola, ofta med tillgång till elevassistent.' },
+          { term: 'Anpassad grundskola', forklaring: 'Tidigare grundsärskolan, för elever med intellektuell funktionsnedsättning.' },
+          { term: 'Schoolsoft', forklaring: 'Skoladministrativt system för dokumentation och föräldrakontakt.' },
+          { term: 'Vklass', forklaring: 'Lärplattform för uppgifter, dokumentation och kommunikation.' },
+          { term: 'Unikum', forklaring: 'Plattform för IUP, omdömen och elevdokumentation.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal grundskola',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Mindre och medelstora kommuner runt om i Sverige',
+          'Resursskolor och anpassade grundskolor',
+          'Sameskolor och teckenspråkiga skolor',
+        ],
+      },
+      {
+        kategori: 'Fristående skolor',
+        exempel: [
+          'Internationella Engelska Skolan (IES)',
+          'Kunskapsskolan, Academedia, Pysslingen',
+          'Waldorfskolor och Montessoriskolor',
+          'Religiösa friskolor och idéburna huvudmän',
+        ],
+      },
+      {
+        kategori: 'Anpassad grundskola och gymnasium',
+        exempel: [
+          'Anpassad grundskola (tidigare grundsärskolan)',
+          'Anpassat gymnasium',
+          'Specialpedagogiska skolmyndigheten (SPSM)',
+          'Behandlingshem och resursskolor',
+        ],
+      },
+      {
+        kategori: 'Bemanning och vikariat',
+        exempel: [
+          'Lärarjobb, Vikariat.se',
+          'Adecco Education',
+          'Lokala bemanningsföretag i kommuner',
+          'Vikariat och timanställningar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direkt anställning utan formell utbildning',
+        beskrivning: 'Många skolor rekryterar utan formell utbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion. Vanlig väg in för vikariat och säsongsuppdrag.',
+      },
+      {
+        rubrik: 'Barn- och fritidsprogrammet (3 år)',
+        beskrivning: 'Gymnasieutbildning med inriktning pedagogiskt arbete. Innehåller praktikperioder. Meriterande för fast tjänst och påverkar lönen.',
+      },
+      {
+        rubrik: 'Komvux barn- och fritid (1-2 år)',
+        beskrivning: 'Vuxenutbildning med samma kursplan som gymnasieprogrammet. Vanlig väg för yrkesväxlare och nyanlända.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'Lågaffektivt bemötande (LABU), TEACCH-utbildning, NPF-kurser, AKK-utbildning. Korta certifikatkurser som ger meriterande spetskompetens.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Stöd vid undervisning enligt åtgärdsprogram',
+        'Lågaffektivt bemötande och konflikthantering',
+        'TEACCH och visuell struktur',
+        'AKK, TAKK och bildstöd',
+        'Sociala berättelser och pedagogiska anpassningar',
+        'Samverkan med EHT och specialpedagog',
+        'HLR och första hjälpen',
+        'Dokumentation i Schoolsoft, Vklass eller Unikum',
+        'Specifika diagnoser (autism, ADHD, dyslexi, språkstörning)',
+        'Krishantering och förebyggande arbete',
+        'Anpassning av material och uppgifter',
+        'Stöd i sociala situationer',
+      ],
+      personliga: [
+        'Tålmodig och lyhörd',
+        'Lugn vid utbrott och kriser',
+        'Strukturerad i daglig rutin',
+        'Empatisk och relationsskapande',
+        'Pedagogisk i anpassning',
+        'Diskret och respektfull',
+        'Lagspelare i EHT',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren elevassistent med 4 års erfarenhet från resursskola och anpassad grundskola. Specialiserad på elever med autism och språkstörning på lågstadium med fokus på lågaffektivt bemötande, TEACCH och bildstöd. Komvux barn- och fritid 2021, LABU-utbildning och flerspråkig (svenska, arabiska). Tillgänglig för heltid inklusive eventuella vikariat.',
+
+    profilTips:
+      'År av erfarenhet, åldersgrupp och primär elevprofil i öppningsraden. Andra meningen lyfter pedagogiska metoder och eventuella specialiseringar. Tredje meningen visar utbildning, språk och tillgänglighet.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Diagnoser du arbetat med',
+        text: 'Autism, ADHD, dyslexi, språkstörning, intellektuell funktionsnedsättning. Var konkret om vilka diagnoser du arbetat med så rektor och specialpedagog ser om matchningen finns.',
+      },
+      {
+        rubrik: 'Pedagogiska metoder',
+        text: 'Lågaffektivt bemötande, TEACCH, bildstöd, sociala berättelser, AKK, TAKK. Specifika metoder är meriterande och visar att du har strukturerad approach.',
+      },
+      {
+        rubrik: 'Åldersgrupp och stadium',
+        text: 'Lågstadium kräver struktur. Högstadium och gymnasium kräver mer självständigt arbete. Anpassad grundskola är specialiserad. Lyft åldersgrupp så rektor matchar.',
+      },
+      {
+        rubrik: 'Samverkan med specialpedagog',
+        text: 'Erfarenhet av åtgärdsprogram, IUP-anpassningar och elevhälsomöten är meriterande för senior-tjänster. Visar att du arbetar strukturerat och inte bara reaktivt.',
+      },
+      {
+        rubrik: 'Utbildning eller validering',
+        text: 'Barn- och fritidsprogrammet, komvux eller integrationsutbildning. Validerad utländsk utbildning räknas också. Lyft formell utbildning med datum.',
+      },
+      {
+        rubrik: 'Språkkunskaper',
+        text: 'Många elever har flerspråkig bakgrund. Arabiska, persiska, somaliska, polska är efterfrågade. Språk kan vara avgörande för specifika elever.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År av erfarenhet, åldersgrupp, elevprofil och pedagogiska metoder på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Skola, åldersgrupp, elevprofil. Konkretisera diagnoser och pedagogiska metoder du använt.' },
+      { sektion: 'Utbildning', tips: 'Barn- och fritidsprogrammet eller komvux. Vidareutbildningar (LABU, TEACCH, NPF, AKK).' },
+      { sektion: 'Kompetenser', tips: 'Diagnoser, metoder, system. Var konkret om vilka anpassningar du behärskar.' },
+      { sektion: 'Certifikat', tips: 'HLR, lågaffektivt bemötande, TEACCH-utbildning. Skriv utgångsdatum för varje.' },
+      { sektion: 'Övrigt', tips: 'Språkkunskaper, tillgänglighet, eventuell handledarutbildning eller mentorroller.' },
+    ],
+
+    checklista: [
+      'Eventuell utbildning (barn- och fritid, komvux)',
+      'Erfarenhet av specifika diagnoser',
+      'Pedagogiska metoder (LABU, TEACCH, AKK)',
+      'Åldersgrupp och stadium',
+      'Samverkan med specialpedagog och EHT',
+      'HLR-certifikat med utgångsdatum',
+      'Digitala system (Schoolsoft, Vklass, Unikum)',
+      'Språkkunskaper utöver svenska',
+      'Tillgänglighet för heltid eller vikariat',
+      'Eventuella vidareutbildningar',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut diagnoser (autism, ADHD), pedagogiska metoder (lågaffektivt bemötande, TEACCH) och digitala system (Schoolsoft) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med i ett elevassistent-CV?',
+        a: 'Erfarenhet av specifika diagnoser (autism, ADHD, språkstörning), pedagogiska metoder (LABU, TEACCH, bildstöd), åldersgrupper du arbetat med, eventuell utbildning (Barn- och fritid, komvux), HLR-certifikat, samverkan med specialpedagog och EHT, samt språkkunskaper. Lägg till vidareutbildningar om du har dem.',
+      },
+      {
+        q: 'Behöver jag formell utbildning för att jobba som elevassistent?',
+        a: 'Inte alltid. Många skolor rekryterar utan formell utbildning om du visar lyhördhet och tillgänglighet. Arbetsgivaren ger introduktion. Däremot är Barn- och fritidsprogrammet eller komvux meriterande och öppnar fler tjänster med högre lön.',
+      },
+      {
+        q: 'Hur viktigt är erfarenhet av specifika diagnoser?',
+        a: 'Mycket. Skolor söker oftast elevassistenter som har erfarenhet av specifik diagnos eftersom strategier och bemötande skiljer sig. Autism kräver TEACCH och visuell struktur. ADHD kräver pauser och kortare uppgifter. Lyft din erfarenhet av specifika diagnoser i sammanfattningen.',
+      },
+      {
+        q: 'Vad är lågaffektivt bemötande?',
+        a: 'LABU är en metod för att hantera utåtagerande beteende lugnt och professionellt. Utvecklad av Bo Hejlskov Elvén. Bygger på principen att ditt eget lugn är förebild för eleven. Standardmetod på resursskolor och anpassade verksamheter. Egen utbildning som kvalificerar för specifika tjänster.',
+      },
+      {
+        q: 'Hur lyfter jag erfarenhet utan formell utbildning?',
+        a: 'Beskriv konkreta situationer där du visat strukturerad approach: "Anpassade undervisning för 2 elever med autism med bildstöd och TEACCH, samverkan med specialpedagog veckovis". Konkreta åtgärder och resultat differentierar dig från andra kandidater.',
+      },
+      {
+        q: 'Vilka digitala verktyg ska jag kunna 2026?',
+        a: 'Schoolsoft, Vklass och Unikum är de tre vanligaste systemen. Pedagogiska appar (Skoldigistöd, Polyglutt, Widgit). Bildstödsapp (Pictogrammen). Skola24 för schema. Att vara öppen för AI-baserade verktyg blir allt viktigare.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Specifika diagnoser (autism, ADHD, dyslexi, språkstörning), pedagogiska metoder (LABU, TEACCH, AKK, bildstöd), åldersgrupper, system (Schoolsoft, Vklass, Unikum) och språk. Visma Recruit och Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett elevassistent-CV vara?',
+        a: 'En sida räcker för de flesta. Med 5+ års erfarenhet och flera diagnoser kan det bli 1,5 sidor. Det viktiga är att utbildning, diagnoser du arbetat med och senaste tjänsten syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till elevassistent-tjänster?',
+        a: 'Ja, för de flesta tjänster i Sverige. Använd brevet för att förklara varför just den skola och beskriv en specifik elev eller situation där du visat din pedagogiska förmåga. Beskriv hur du hanterade en svår situation eller hjälpte en elev utvecklas. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt CV?',
+        a: 'Personnummer (bara födelseår), foto i offentlig sektor (riskerar diskriminering), namn på enskilda elever, sekretessbelagda detaljer från åtgärdsprogram, generiska påståenden ("snäll och tålmodig") utan konkreta exempel, irrelevanta arbetslivserfarenheter, och hobbies som inte är pedagogiskt relevanta.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
