@@ -21142,6 +21142,3456 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
   },
 
+  'hemtjanstpersonal': {
+    seoIntro:
+      'Som hemtjänstpersonal bedöms du på din omvårdnadsvana, juridiska kunskap och förmåga att möta brukare med värdighet. Kommuner och privata utförare som Attendo, Humana, Ambea har konstant öppna hemtjänsttjänster, men enhetschefer slänger CV:n som inte tydligt visar utbildning, delegation och B-körkort. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för hemtjänstpersonal lyfter utbildning, HSL-delegation och B-körkort som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, period och konkreta insatser syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsexamen eller motsvarande, HSL-delegation (medicinhantering, blodsockermätning, sårvård), bemötandevana (demens, palliativ vård), system (Procapita, Treserva, Lifecare, Phoniro Care), juridisk grund (SoL, OSL, HSL, anmälningsplikt), B-körkort, eventuell vana av larm- och nattjänst samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för hemtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer på kommun och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Utbildning och inriktning',
+        description: 'Vård- och omsorgsexamen, undersköterska, omvårdnadsprogrammet eller motsvarande. Skriv ut utbildning, ort och år. Tidigare hemtjänsterfarenhet differentierar.',
+      },
+      {
+        icon: 'Award',
+        title: 'HSL-delegation i klartext',
+        description: 'Medicinhantering, blodsockermätning, sårvård, kateter, insulin. Skriv ut alla delegationer du har eller har haft. Påverkar lönen direkt och avgör arbetsuppgifter.',
+      },
+      {
+        icon: 'Target',
+        title: 'Bemötandevana',
+        description: 'Demens, palliativ vård, NPF, missbruk är olika världar. Var tydlig med vilka brukargrupper du har erfarenhet av eftersom det avgör matchning till verksamheten.',
+      },
+      {
+        icon: 'FileText',
+        title: 'System och digital vana',
+        description: 'Procapita, Treserva, Lifecare, Phoniro Care, TES, Mobilcare. Skriv ut verksamhetssystem du behärskar. Modern hemtjänst är digital med mobil dokumentation.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'B-körkort och bilvana',
+        description: 'B-körkort är nästan alltid krav eftersom hemtjänst reser mellan brukare. Skriv ut körkortsklass och eventuell egen bil. Vissa områden har cykel- eller eldrivna fordon.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Schemaflexibilitet och jour',
+        description: 'Helger, kvällar, natter, larmtjänst. Var tydlig med tillgänglighet eftersom hemtjänst kräver bemanning 24/7 och flexibilitet påverkar erbjudanden.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Utbildning och delegation överst',
+        description: 'Vår mall lyfter vård- och omsorgsutbildning, HSL-delegation och B-körkort i sidopanelen. Enhetschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för bemötandevana',
+        description: 'Demens, palliativ vård, NPF lyfts som eget kompetensblock. Differentierar dig från hemtjänstpersonal med bara generell erfarenhet.',
+      },
+      {
+        title: 'Tydlig brukargrupp per arbetsgivare',
+        description: 'Mallen har dedikerade rader för brukargrupp och kontext per uppdragsgivare. Erfarenhet från demensvård och palliativ vård konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Vården & Omsorg med foto',
+        description: 'För senior hemtjänstpersonal eller kontaktperson lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
+      },
+      {
+        title: 'Plats för delegation',
+        description: 'Mallen har dedikerade rader för delegerade arbetsuppgifter inom HSL. Visar att du behärskar både SoL-insatser och medicinsk delegation.',
+      },
+      {
+        title: 'Plats för körkort och flexibilitet',
+        description: 'Egen rad för körkortsklass, schemaflexibilitet, larmtjänst och eventuell nattjänst. Konkret information som enhetschefer värderar.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Personlig omvårdnad',
+        punkter: [
+          'Stötta brukare i daglig livsföring (hygien, dusch, toalettbestyr)',
+          'Hjälpa vid på- och avklädning samt förflyttningar',
+          'Stötta vid måltider och matlagning',
+          'Bemöta värdigt och utifrån brukarens egna preferenser',
+        ],
+      },
+      {
+        rubrik: 'Service och praktiskt stöd',
+        punkter: [
+          'Genomföra städning, tvätt och inköp',
+          'Stötta vid ärenden, läkarbesök och samhällsservice',
+          'Hantera post och enklare ekonomi (efter delegation)',
+          'Bidra till brukarens sociala aktiviteter och promenader',
+        ],
+      },
+      {
+        rubrik: 'Hälsa och medicinhantering',
+        punkter: [
+          'Hantera medicinhantering enligt HSL-delegation',
+          'Stötta vid läkemedelsadministration och uppföljning',
+          'Genomföra blodsockermätning eller sårvård efter delegation',
+          'Bidra till uppföljning och samverkan med sjuksköterska',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och planering',
+        punkter: [
+          'Dokumentera insatser i Procapita, Treserva eller Phoniro Care',
+          'Bidra till genomförandeplan tillsammans med biståndshandläggare',
+          'Säkerställa sekretess enligt OSL',
+          'Hantera anmälningsplikt enligt 14 kap 1 § SoL',
+        ],
+      },
+      {
+        rubrik: 'Samverkan',
+        punkter: [
+          'Samverka med biståndshandläggare och sjuksköterska',
+          'Bidra till SIP-möten och nätverksträffar',
+          'Hålla kontakt med anhöriga och god man',
+          'Stötta vid akutsituationer och larmtjänst',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'SoL', forklaring: 'Socialtjänstlagen, ramlag för socialtjänstens arbete.' },
+          { term: 'HSL', forklaring: 'Hälso- och sjukvårdslagen, gäller delegerade uppgifter.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen.' },
+          { term: 'LSS', forklaring: 'Lagen om stöd och service till vissa funktionshindrade.' },
+          { term: 'Anmälningsplikt', forklaring: 'Skyldighet att anmäla oro för barn enligt 14 kap 1 § SoL.' },
+          { term: 'Patientdatalagen (PDL)', forklaring: 'Reglerar journalhantering inom HSL.' },
+        ],
+      },
+      {
+        kategori: 'Brukargrupper',
+        termer: [
+          { term: 'Äldreomsorg', forklaring: 'Stöd till personer 65+ i hemtjänst eller särskilt boende.' },
+          { term: 'Demens', forklaring: 'Kognitiv nedsättning, vanlig diagnos i hemtjänst.' },
+          { term: 'Palliativ vård', forklaring: 'Vård i livets slutskede.' },
+          { term: 'NPF', forklaring: 'Neuropsykiatriska funktionsnedsättningar (autism, ADHD).' },
+          { term: 'Psykisk ohälsa', forklaring: 'Depression, ångest, schizofreni hos vuxna.' },
+          { term: 'Missbruk', forklaring: 'Beroendesjukdom, ofta kombination med psykisk ohälsa.' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'Procapita', forklaring: 'Verksamhetssystem för socialtjänst och äldreomsorg.' },
+          { term: 'Treserva', forklaring: 'Tieto Evry-system för socialtjänst och LSS.' },
+          { term: 'Lifecare', forklaring: 'Tietos verksamhetssystem för äldreomsorg.' },
+          { term: 'Phoniro Care', forklaring: 'Mobilsystem för hemtjänst med tidsregistrering och larm.' },
+          { term: 'TES', forklaring: 'Tieto Evry Service, mobilsystem för hemtjänst.' },
+          { term: 'Mobilcare', forklaring: 'Mobilsystem för hemtjänst och hemsjukvård.' },
+        ],
+      },
+      {
+        kategori: 'Delegation',
+        termer: [
+          { term: 'Medicinhantering', forklaring: 'Administrera läkemedel enligt HSL-delegation.' },
+          { term: 'Insulingivning', forklaring: 'Subkutan injektion av insulin efter delegation.' },
+          { term: 'Blodsockermätning', forklaring: 'Mätning av blodsocker hos diabetiker.' },
+          { term: 'Sårvård', forklaring: 'Omläggning av sår efter delegation.' },
+          { term: 'Katetervård', forklaring: 'Skötsel av kateter, kräver specifik delegation.' },
+          { term: 'Stomivård', forklaring: 'Skötsel av stomi, kräver delegation.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Kommunal hemtjänst',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Uppsala, Linköping, Västerås',
+          'Mindre kommuner i hela landet',
+          'Kommunala äldreboenden och hemtjänstenheter',
+        ],
+      },
+      {
+        kategori: 'Privata utförare',
+        exempel: [
+          'Attendo, Humana, Ambea, Nytida',
+          'Aleris, Vardaga, Frösunda Omsorg',
+          'Förenade Care, Curera, Olivia Omsorg',
+          'Mindre lokala utförare',
+        ],
+      },
+      {
+        kategori: 'Specialverksamhet',
+        exempel: [
+          'Demensteam och specialiserad demensvård',
+          'Palliativa team och hospis',
+          'Nattjänst och larmtjänst',
+          'Hemsjukvård och avancerad hemsjukvård (ASIH)',
+        ],
+      },
+      {
+        kategori: 'LSS och socialpsykiatri',
+        exempel: [
+          'Personlig assistans-bolag (JAG, Furuboda, Olivia)',
+          'Kommunal LSS-verksamhet och boendestöd',
+          'Socialpsykiatri och stödboenden',
+          'Korttidsboenden och avlastning',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Vård- och omsorgsprogrammet (3 år)',
+        beskrivning: 'Vanlig grundutbildning på gymnasiet. Ger behörighet till undersköterska och hemtjänstpersonal. Inkluderar HSL och SoL samt VFU på olika vårdverksamheter.',
+      },
+      {
+        rubrik: 'Komvux till undersköterska',
+        beskrivning: 'Kommunal vuxenutbildning för omskolning, vanligtvis 1-1,5 år. Ger samma yrkesexamen som gymnasiet. Vanlig väg för byte av yrke.',
+      },
+      {
+        rubrik: 'Direktanställning utan formell utbildning',
+        beskrivning: 'Vanlig väg vid akut bemanningsbehov. Internutbildning från arbetsgivaren under 1-4 veckor. Kompletteras ofta med yrkesexamen via komvux parallellt.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'Demenskurs, palliativ vård, NPF, lågaffektivt bemötande, första hjälpen. Korta kurser som påverkar lönen och stärker positionen vid förhandling.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Vård- och omsorgsexamen eller motsvarande',
+        'HSL-delegation (medicin, insulin, blodsocker)',
+        'Demens- och palliativ vård',
+        'Lågaffektivt bemötande',
+        'Sårvård efter delegation',
+        'Procapita, Treserva, Lifecare',
+        'Phoniro Care, TES, Mobilcare',
+        'SoL, HSL, OSL och anmälningsplikt',
+        'Genomförandeplan och dokumentation',
+        'Förflyttningsteknik och ergonomi',
+        'Första hjälpen och L-ABC',
+        'B-körkort',
+      ],
+      personliga: [
+        'Empatisk och respektfull',
+        'Lugn vid akutsituationer',
+        'Strukturerad i hembesök',
+        'Pålitlig och förutsägbar',
+        'Lyhörd för brukarens behov',
+        'Pedagogisk i kommunikation',
+        'Pragmatisk i tradeoffs',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren hemtjänstpersonal med vård- och omsorgsexamen och 6 års erfarenhet från kommunal hemtjänst och Attendo. Specialiserad på äldreomsorg och demensvård med ansvar för 12 brukare under dagpass. HSL-delegation för medicinhantering, insulin och sårvård. Driver dokumentation i Phoniro Care och Treserva på mobil. B-körkort och egen bil. Söker nya uppdrag som senior hemtjänstpersonal eller kontaktperson inom kommunal eller privat verksamhet.',
+
+    profilTips:
+      'År som hemtjänstpersonal, brukargrupp och utbildning i öppningsraden. Andra meningen lyfter delegation och systemvana. Tredje meningen visar B-körkort och eventuell senior- eller kontaktperson-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Utbildning och inriktning',
+        text: 'Vård- och omsorgsexamen, undersköterska. Skriv ut utbildning, ort och år. Tidigare hemtjänsterfarenhet differentierar.',
+      },
+      {
+        rubrik: 'HSL-delegation i klartext',
+        text: 'Medicinhantering, blodsockermätning, insulin, sårvård. Skriv ut alla delegationer. Påverkar lönen direkt.',
+      },
+      {
+        rubrik: 'Bemötandevana',
+        text: 'Demens, palliativ vård, NPF, missbruk. Var tydlig med brukargrupper eftersom det avgör matchning till verksamheten.',
+      },
+      {
+        rubrik: 'System och digital vana',
+        text: 'Procapita, Treserva, Lifecare, Phoniro Care, TES, Mobilcare. Modern hemtjänst är digital med mobil dokumentation.',
+      },
+      {
+        rubrik: 'B-körkort och bilvana',
+        text: 'B-körkort är nästan alltid krav. Skriv ut körkortsklass och eventuell egen bil eller cykelvana.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet och jour',
+        text: 'Helger, kvällar, natter, larmtjänst. Var tydlig med tillgänglighet eftersom hemtjänst kräver 24/7-bemanning.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som hemtjänstpersonal, brukargrupp, utbildning och delegation på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Verksamhet, period, antal brukare. Konkretisera delegation, system och brukargrupp.' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorg + ort. Eventuell komvux eller vidareutbildning i eget block.' },
+      { sektion: 'Vidareutbildning', tips: 'Demens, palliativ vård, lågaffektivt bemötande. Datum och timmar där relevant.' },
+      { sektion: 'Kompetenser', tips: 'Lagstiftning, delegation, system. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Körkort, schemaflexibilitet, språk, eventuell jourvana.' },
+    ],
+
+    checklista: [
+      'Vård- och omsorgsexamen eller motsvarande',
+      'HSL-delegation (medicin, blodsocker, sårvård)',
+      'Brukargrupp och inriktning',
+      'Bemötandevana (demens, palliativ, NPF)',
+      'System (Procapita, Treserva, Phoniro Care)',
+      'Lagstiftning (SoL, HSL, OSL)',
+      'B-körkort och eventuell egen bil',
+      'Schemaflexibilitet och eventuell jourvana',
+      'Vidareutbildningar',
+      'Eventuell kontaktperson-roll',
+    ],
+
+    atsInfo:
+      'Både vår mall Norrsken och premium-varianten Vården & Omsorg är ATS-säkra. Kommuner och privata utförare använder Visma Recruit, Heroma och egna ATS. Skriv ut utbildning, HSL-delegation (medicin, insulin, blodsocker), system (Procapita, Treserva, Phoniro Care, TES) och B-körkort i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett hemtjänst-CV?',
+        a: 'Vård- och omsorgsexamen eller motsvarande, HSL-delegation (medicin, blodsocker, insulin, sårvård), brukargrupp och inriktning, bemötandevana, system (Procapita, Treserva, Phoniro Care), lagstiftning (SoL, HSL, OSL), B-körkort och eventuell egen bil, schemaflexibilitet samt eventuella vidareutbildningar.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny hemtjänstpersonal?',
+        a: 'Lyft vård- och omsorgsexamen eller pågående studier, eventuell praktik på äldreboende eller sjukhus, frivilligengagemang som visar empati och bemötandevana, B-körkort, schemaflexibilitet, samt internutbildning från arbetsgivaren. Var konkret om SoL och anmälningsplikt även om erfarenheten är ny.',
+      },
+      {
+        q: 'Hur viktig är HSL-delegation?',
+        a: 'Mycket. Hemtjänst utan delegation är begränsad till SoL-insatser. Delegation för medicinhantering, blodsockermätning, insulin höjer din användbarhet och påverkar lönen direkt. Skriv ut alla delegationer och datum för senaste uppdatering.',
+      },
+      {
+        q: 'Hur viktigt är B-körkort?',
+        a: 'Nästan alltid krav. Hemtjänst reser mellan brukare. Kommunal verksamhet kan ha tjänstebil eller cykel/el-cykel i tätort. Privata utförare kräver ofta egen bil. Skriv ut körkortsklass och eventuell egen bil tydligt på CV:t.',
+      },
+      {
+        q: 'Hur lyfter jag bemötandevana?',
+        a: 'Konkret: "Specialiserad på demensvård för 8 brukare med Alzheimer", "Genomför palliativ vård enligt nationella riktlinjer", "Vana av lågaffektivt bemötande vid utmanande beteende". Konkreta exempel differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Vård- och omsorgsexamen, undersköterska, HSL-delegation, medicinhantering, insulin, blodsockermätning, demens, palliativ vård, lågaffektivt bemötande, SoL, HSL, OSL, Procapita, Treserva, Phoniro Care, TES, B-körkort. Visma Recruit och Heroma söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett hemtjänst-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior med specialisering eller kontaktperson-roll: 2 sidor. Det viktigaste är att utbildning, delegation och senaste verksamhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till hemtjänst-tjänster?',
+        a: 'Ofta. Kommuner och privata utförare förväntar sig ofta personligt brev. Använd brevet för att förklara varför just den verksamheten passar dig och beskriv ett konkret bemötandeärende du löst (anonymiserat). Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur skiljer sig hemtjänst från äldreboende?',
+        a: 'Hemtjänst arbetar hos brukaren i hemmet. Äldreboende har personal som arbetar på samma plats. Båda jobben kräver liknande kompetens men hemtjänst kräver B-körkort och självständighet, medan äldreboende är mer teamarbete med fler kollegor på samma plats.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt hemtjänst-CV?',
+        a: 'Personnummer (bara födelseår), brukaruppgifter, sekretessbelagda detaljer, exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("empatisk och pålitlig") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'student': {
+    seoIntro:
+      'Som student bedöms du på din potential, kursinriktning och engagemang utanför studierna. Sommarjobb, deltidsjobb, praktik och trainee-program konkurrerar du om mot tusentals andra studenter. Rekryterare slänger CV:n som inte tydligt visar utbildning, kursinriktning och konkreta erfarenheter från studietiden. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVår mall för studenter lyfter utbildning, kursinriktning och konkreta engagemang som första visuella element. Vi har strukturerat erfarenhetssektionen så att lärosäte, program och relevanta projekt syns direkt. Det betyder att rekryterare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildningsprogram med lärosäte och förväntat examensdatum, relevanta kurser och fördjupningar, sommarjobb och deltidsjobb (även icke-relaterade visar arbetsmoral), studentengagemang (kåren, mentorskap, projekt), eventuella praktikplatser, språkkunskaper, datorvana, körkort samt eventuella tävlingar eller utmärkelser.\n\nNedan hittar du två CV-mallar designade för student-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterare på trainee-program, sommarjobb och deltidsjobb faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Utbildning överst',
+        description: 'Program, lärosäte, förväntat examensdatum. Studenter har utbildning i fokus istället för erfarenhet. Skriv ut kursinriktning och relevanta fördjupningar.',
+      },
+      {
+        icon: 'Target',
+        title: 'Relevanta kurser och projekt',
+        description: 'Lyft kurser som matchar tjänsten. Examensarbete, kandidatuppsats eller större projektarbeten ska beskrivas konkret. Visar vad du faktiskt kan, inte bara vad du läser.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Alla arbetslivserfarenheter räknas',
+        description: 'Café, kassa, kundtjänst, sommarjobb i butik - allt visar arbetsmoral. Lyft konkreta resultat även från till synes irrelevanta jobb (ansvar, mängd kunder, språk).',
+      },
+      {
+        icon: 'Award',
+        title: 'Studentengagemang',
+        description: 'Kårarbete, mentorskap, idrottsledare, projekt utanför studier visar initiativ. Företag rekryterar gärna studenter med engagemang bortom betygen.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Datorvana och språk',
+        description: 'Excel, Python, R, SPSS, SAP, Adobe-paketet, programmering. Skriv ut konkret nivå. Språk är meriterande för internationella program.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Anpassa CV per ansökan',
+        description: 'Trainee-program, sommarjobb och deltidsjobb söker olika saker. Justera vilka kurser, jobb och engagemang du lyfter beroende på företaget och rollen.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Utbildning överst, inte erfarenhet',
+        description: 'Vår mall för studenter har utbildning i sidopanelen istället för anställningar. Rekryterare ser ditt program och lärosäte på fem sekunder.',
+      },
+      {
+        title: 'Eget block för projekt',
+        description: 'Examensarbete, kandidatuppsats och större projektarbeten får eget block. Differentierar dig från studenter med bara kurslista.',
+      },
+      {
+        title: 'Plats för alla typer av erfarenhet',
+        description: 'Mallen lyfter både relevant och icke-relevant arbete på samma sätt. Sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
+      },
+      {
+        title: 'Premium-mallen Student Plus med foto',
+        description: 'För trainee-program eller premium-praktik lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för engagemang',
+        description: 'Mallen har dedikerade rader för kårarbete, ideell verksamhet, idrott. Visar att du har bredd och initiativ utöver studierna.',
+      },
+      {
+        title: 'Plats för språk och datorvana',
+        description: 'Egen rad för språk med nivå och datorvana med konkreta verktyg. Differentierar studenter med specifik teknisk kompetens.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Studier och akademiskt arbete',
+        punkter: [
+          'Genomföra kurser och examinationer på högskolenivå',
+          'Skriva uppsatser, projekt och rapporter enligt akademisk standard',
+          'Genomföra grupparbeten och bidra till team-leveranser',
+          'Bidra till seminarier och presentationer',
+        ],
+      },
+      {
+        rubrik: 'Praktiska och praktik',
+        punkter: [
+          'Genomföra praktik eller VFU enligt programmets struktur',
+          'Bidra till verksamhet på praktikplats',
+          'Reflektera över praktikens lärdomar',
+          'Bygga professionellt nätverk under praktiken',
+        ],
+      },
+      {
+        rubrik: 'Sommar- och deltidsjobb',
+        punkter: [
+          'Genomföra arbetsuppgifter inom service, butik, kundtjänst',
+          'Hantera kassa, beställningar och kundbemötande',
+          'Stötta vid evenemang och kampanjer',
+          'Bidra till verksamhetens dagliga drift',
+        ],
+      },
+      {
+        rubrik: 'Studentengagemang',
+        punkter: [
+          'Driva projekt inom kår eller studentförening',
+          'Mentorera nya studenter eller leda evenemang',
+          'Genomföra ledaruppdrag i idrottsförening eller scout',
+          'Bidra till hållbarhets- eller samhällsprojekt',
+        ],
+      },
+      {
+        rubrik: 'Karriärförberedande',
+        punkter: [
+          'Söka praktikplatser och trainee-program',
+          'Bygga LinkedIn-profil och nätverk',
+          'Delta i karriärmässor och företagspresentationer',
+          'Genomföra Case-tävlingar och hackathons',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Utbildningsnivåer',
+        termer: [
+          { term: 'Kandidatexamen', forklaring: 'Grundnivå, 3 år (180 hp).' },
+          { term: 'Magisterexamen', forklaring: '1 år utöver kandidat (60 hp).' },
+          { term: 'Masterexamen', forklaring: '2 år utöver kandidat (120 hp).' },
+          { term: 'Civilingenjör', forklaring: 'Sammanhållet 5-årigt program (300 hp).' },
+          { term: 'Yrkesexamen', forklaring: 'Civilekonom, jurist, läkare, lärare, sjuksköterska.' },
+          { term: 'YH-utbildning', forklaring: 'Yrkeshögskola, 1-2 år med stark arbetsmarknadskoppling.' },
+        ],
+      },
+      {
+        kategori: 'Trainee och karriärprogram',
+        termer: [
+          { term: 'Trainee-program', forklaring: '1-2 års strukturerat program för nyutbildade.' },
+          { term: 'Sommarpraktik', forklaring: '8-12 veckors praktik under sommarmånaderna.' },
+          { term: 'Examensjobb', forklaring: 'Företagsstött examensarbete med möjlighet till anställning.' },
+          { term: 'Co-op', forklaring: 'Studier varvat med arbete på partnerföretag.' },
+          { term: 'Internship', forklaring: 'Praktik, ofta internationellt eller på tech-bolag.' },
+          { term: 'Junior associate', forklaring: 'Inträdesroll på konsult- och advokatbyråer.' },
+        ],
+      },
+      {
+        kategori: 'Karriärtävlingar',
+        termer: [
+          { term: 'Case-tävling', forklaring: 'Lag löser företags-case i tävlingsformat.' },
+          { term: 'Hackathon', forklaring: 'Programmeringstävling under tidspress.' },
+          { term: 'Pitch-tävling', forklaring: 'Presentation av idé eller affärsplan.' },
+          { term: 'Karriärmässa', forklaring: 'Mötesplats mellan studenter och företag.' },
+          { term: 'Företagspresentation', forklaring: 'Företag presenterar sig för studenter.' },
+          { term: 'CV-bok', forklaring: 'Studentkårens samling av CV:n för rekryterare.' },
+        ],
+      },
+      {
+        kategori: 'Studentliv',
+        termer: [
+          { term: 'Studentkåren', forklaring: 'Studenters intresseorganisation på lärosätet.' },
+          { term: 'Sektion', forklaring: 'Programspecifik förening inom kåren.' },
+          { term: 'Nation', forklaring: 'Social förening i Lund och Uppsala.' },
+          { term: 'Phadder', forklaring: 'Mentor för nya studenter, ofta humoristisk titel.' },
+          { term: 'Spex', forklaring: 'Studentersrevy med tradition.' },
+          { term: 'Kårhus', forklaring: 'Studentkårens lokal med pub och evenemang.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Trainee-program',
+        exempel: [
+          'McKinsey, BCG, Bain (konsult-trainee)',
+          'EY, KPMG, PwC, Deloitte (revision och rådgivning)',
+          'Swedbank Future Talent, SEB Programmet, Nordea',
+          'IKEA Trainee, Volvo Trainee, Klarna Future Tech',
+        ],
+      },
+      {
+        kategori: 'Sommarjobb och deltid',
+        exempel: [
+          'Storbanker (Swedbank, SEB, Handelsbanken)',
+          'IT-konsulter (Cygni, Knowit, Sigma, Capgemini)',
+          'Detaljhandel (ICA, H&M, Stadium)',
+          'Café- och restaurangkedjor (Espresso House, MAX)',
+        ],
+      },
+      {
+        kategori: 'Praktikplatser',
+        exempel: [
+          'Civilekonomers praktik på revisionsbyrå eller bank',
+          'Civilingenjörers praktik på tech-bolag eller industri',
+          'Juriststudenters tingstjänstgöring',
+          'Läkar- och sjuksköterskestudenters VFU',
+        ],
+      },
+      {
+        kategori: 'Studentnära jobb',
+        exempel: [
+          'Studentkår och studentförening (avlönade uppdrag)',
+          'Lärosätets administration eller bibliotek',
+          'Forskningsassistent på institution',
+          'Tutor eller mentor för nya studenter',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör (5 år, 300 hp)',
+        beskrivning: 'KTH, Chalmers, LTH, Linköping, Uppsala, Umeå. Sammanhållet program med stark arbetsmarknadsposition. Många program leder direkt till trainee eller tech-konsult-roll.',
+      },
+      {
+        rubrik: 'Civilekonom (4 år, 240 hp)',
+        beskrivning: 'Handelshögskolan i Stockholm, Lund, Göteborg, Linköping. Sammanhållet program med specialisering inom finans, redovisning eller marknadsföring. Vanlig väg till bank och konsult.',
+      },
+      {
+        rubrik: 'Yrkesexamen (3-6 år)',
+        beskrivning: 'Läkare (5,5 år), jurist (4,5 år), sjuksköterska (3 år), socionom (3,5 år), lärare (3-5 år). Yrkesexamina leder direkt till specifika yrkesroller.',
+      },
+      {
+        rubrik: 'Kandidat- eller magisterprogram (3-5 år)',
+        beskrivning: 'Bredare akademiska program inom samhällsvetenskap, humaniora, naturvetenskap. Kombineras ofta med praktik eller masterprogram för anställningsbarhet.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Office 365 (Word, Excel, PowerPoint)',
+        'Excel på medel- eller avancerad nivå',
+        'Programmering (Python, R, SQL, Java)',
+        'Data-analys och visualisering (Power BI, Tableau)',
+        'Statistikprogram (SPSS, Stata)',
+        'Adobe Creative Suite (Photoshop, Illustrator)',
+        'Projektledning och agila metoder',
+        'Akademiskt skrivande och referenser',
+        'Källkritik och vetenskaplig metod',
+        'Presentationsteknik',
+        'Engelska och eventuellt övriga språk',
+        'Eventuell branschspecifik kompetens',
+      ],
+      personliga: [
+        'Nyfiken och lärande',
+        'Strukturerad i komplext material',
+        'Lagspelare i grupparbeten',
+        'Lyhörd för feedback',
+        'Driven av utveckling',
+        'Pragmatisk i tradeoffs',
+        'Trygg vid presentationer',
+      ],
+    },
+
+    profilExempel:
+      'Civilekonomstudent på Handelshögskolan i Stockholm med specialisering inom finans, examen våren 2027. Topp 10% i kursen Financial Modelling och kandidatuppsats om ESG-rapportering bedömd Excellent. Sommarpraktik på SEB inom corporate finance 2025 och relevanta deltidsjobb som dataanalysassistent på MQ. Driver Case-tävlingar i kåren och var Phadder för 30 nya studenter 2024. Talar svenska, engelska och tyska. Söker sommarpraktik 2026 inom investment banking, corporate finance eller management consulting.',
+
+    profilTips:
+      'Utbildning, lärosäte och förväntat examensdatum i öppningsraden. Andra meningen lyfter relevanta kurser, betyg eller projekt. Tredje meningen visar arbetslivserfarenhet och engagemang som differentierar.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Utbildning överst',
+        text: 'Program, lärosäte, förväntat examensdatum. Studenter har utbildning i fokus istället för erfarenhet. Skriv ut kursinriktning och fördjupningar.',
+      },
+      {
+        rubrik: 'Relevanta kurser och projekt',
+        text: 'Lyft kurser som matchar tjänsten. Examensarbete eller kandidatuppsats konkret. Visar vad du kan, inte bara vad du läser.',
+      },
+      {
+        rubrik: 'Alla arbetslivserfarenheter räknas',
+        text: 'Café, kassa, kundtjänst - allt visar arbetsmoral. Lyft konkreta resultat även från till synes irrelevanta jobb.',
+      },
+      {
+        rubrik: 'Studentengagemang',
+        text: 'Kårarbete, mentorskap, idrottsledare, projekt utanför studier visar initiativ. Företag rekryterar gärna studenter med engagemang bortom betygen.',
+      },
+      {
+        rubrik: 'Datorvana och språk',
+        text: 'Excel, Python, R, SPSS, SAP, Adobe-paketet, programmering. Skriv ut konkret nivå. Språk är meriterande för internationella program.',
+      },
+      {
+        rubrik: 'Anpassa CV per ansökan',
+        text: 'Trainee-program, sommarjobb och deltidsjobb söker olika saker. Justera vilka kurser, jobb och engagemang du lyfter beroende på företag och roll.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Program, lärosäte, förväntat examensdatum och kärnintresse på 3-4 rader.' },
+      { sektion: 'Utbildning', tips: 'Program + lärosäte + examensdatum. Relevanta kurser, betyg eller fördjupningar.' },
+      { sektion: 'Arbetslivserfarenhet', tips: 'Företag, period, roll. Konkretisera konkreta arbetsuppgifter och resultat även från icke-relevanta jobb.' },
+      { sektion: 'Projekt', tips: 'Examensarbete, kandidatuppsats, större grupparbeten. Beskriv metod, resultat och eventuell uppdragsgivare.' },
+      { sektion: 'Studentengagemang', tips: 'Kåren, idrottsförening, scout, frivilligorganisation. Konkretisera roll och ansvar.' },
+      { sektion: 'Kompetenser', tips: 'Datorvana, språk, branschspecifika verktyg. Skilj på tekniska och personliga.' },
+    ],
+
+    checklista: [
+      'Utbildningsprogram med lärosäte och examensdatum',
+      'Relevanta kurser och betyg',
+      'Examensarbete eller kandidatuppsats',
+      'Sommarjobb, deltidsjobb och praktik',
+      'Studentengagemang (kår, förening)',
+      'Datorvana och programmeringsspråk',
+      'Språkkunskaper med nivå',
+      'Eventuellt körkort',
+      'Eventuella case-tävlingar eller hackathons',
+      'LinkedIn-profil med matchande information',
+    ],
+
+    atsInfo:
+      'Både vår mall Student Startup och premium-varianten Student Plus är ATS-säkra. Trainee-program och konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut program, lärosäte, relevanta kurser, programmeringsspråk (Python, R, SQL), Excel-nivå och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett student-CV?',
+        a: 'Utbildningsprogram med lärosäte och förväntat examensdatum, relevanta kurser och fördjupningar, examensarbete eller kandidatuppsats, sommarjobb och deltidsjobb (även icke-relevanta), studentengagemang (kår, idrott, frivillig), datorvana (Excel, programmeringsspråk), språkkunskaper, samt eventuell praktik.',
+      },
+      {
+        q: 'Hur skriver jag CV utan arbetslivserfarenhet?',
+        a: 'Lyft utbildningen i fokus med relevanta kurser, betyg och projektarbeten. Studentengagemang räknas (kåren, idrottsföreningen, scoutkåren, mentor-roller). Sommarjobb och tillfälliga uppdrag visar arbetsmoral. Beskriv eventuella case-tävlingar, hackathons eller frivilliguppdrag konkret.',
+      },
+      {
+        q: 'Räknas sommarjobb på café eller butik?',
+        a: 'Absolut. Alla arbetslivserfarenheter visar arbetsmoral och konkreta kompetenser (kundbemötande, kassa, problemlösning, lagarbete). Skriv ut konkreta resultat ("hanterade 200+ kunder per dag", "ansvarade för kvällsöppning"). Rekryterare värderar bevisad arbetsmoral.',
+      },
+      {
+        q: 'Hur viktig är LinkedIn för studenter?',
+        a: 'Mycket. Trainee-program och konsultbolag granskar LinkedIn aktivt. Säkerställ att CV och LinkedIn är synkroniserade. Lägg upp examensarbete, projekt och engagemang. Använd professionellt foto och kort sammanfattning som matchar dina karriärmål.',
+      },
+      {
+        q: 'Ska jag lägga med betyg på CV:t?',
+        a: 'Vanligt för svenska trainee-program att lyfta höga betyg eller topp-placering i specifika kurser. "Topp 10% i kursen Financial Modelling" eller "Excellent på kandidatuppsats" differentierar. Lägg inte ut hela betygsregister utan plocka relevanta höjdpunkter.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Program (civilekonom, civilingenjör), lärosäte (KTH, Handelshögskolan, Chalmers), specifika kurser, programmeringsspråk (Python, R, SQL, Java), Excel-funktioner (Power Query, makron, pivot), Adobe Creative Suite, agila metoder. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett student-CV vara?',
+        a: '1 sida är standard för studenter. Trainee-program är vana vid kortare CV:n med fokus på utbildning, projekt och engagemang. Spara längre CV:n till efter examen. Det viktigaste är att utbildning, projekt och engagemang syns utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev som student?',
+        a: 'Nästan alltid. Trainee-program, sommarjobb och praktikplatser förväntar sig personligt brev. Använd brevet för att förklara din motivation och visa kunskap om företaget. Beskriv ett konkret projekt eller engagemang som visar varför du är rätt person. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur viktigt är studentengagemang?',
+        a: 'Mycket på trainee-program och konsultbolag. Engagemang i kår, sektion, idrottsförening eller frivilligverksamhet visar ledarskap, initiativ och samarbetsförmåga utöver studierna. Företag rekryterar gärna engagerade studenter eftersom de ofta blir starka ledare.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt student-CV?',
+        a: 'Personnummer (bara födelseår), grundskole- eller gymnasiebetyg om du är på högskolenivå, alla kurser från utbildningen (välj relevanta), generiska påståenden ("driven och ambitiös") utan stöd, samt hobbies som inte är yrkesrelevanta utan att tillföra något ("Netflix och vänner").',
+      },
+    ],
+  },
+
+  'terminalarbetare': {
+    seoIntro:
+      'Som terminalarbetare bedöms du på din truckvana, fysiska styrka och flexibilitet. Terminaler hos PostNord, DHL, Bring, Schenker, DSV och tusentals mindre logistikaktörer har konstant öppna terminaltjänster, men terminalchefer slänger CV:n som inte tydligt visar truckkort, fysisk lämplighet och skiftvillighet. Ett välskrivet CV avgör om du blir kallad till intervju på den terminal du faktiskt vill jobba på.\n\nVår mall för terminalarbetare lyfter truckkort, certifieringar och skiftvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att terminal, period och konkret ansvar syns direkt. Det betyder att terminalchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: truckkort (A, B, C, D enligt TLP), eventuell traverskran-utbildning, ADR-utbildning för farligt gods, fysiska resultat (lyftvikt, uthållighet), skiftvana (3-skift, natt, helg), system (WMS, Astro, Movex), B-körkort, eventuell BE eller C-behörighet samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för terminalarbetar-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad terminalchefer på post-, logistik- och transportbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Award',
+        title: 'Truckkort i klartext',
+        description: 'TLP A, B, C, D enligt Truckförarbevis. Skriv ut alla behörigheter med datum. A-truck (lågt staplande) räcker för enklare uppdrag. B (motvikts) och C (skjutstativ) är CV-kritiska.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Skiftvana och flexibilitet',
+        description: '3-skift, nattskift, helger, jourtjänst. Var tydlig med skiftvana eftersom terminaler kör 24/7 och flexibilitet påverkar erbjudanden direkt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'ADR och farligt gods',
+        description: 'ADR-utbildning för transport av farligt gods är värdefull och påverkar lönen. Olika klasser för olika farligheter. Skriv ut ADR-klass och datum.',
+      },
+      {
+        icon: 'Target',
+        title: 'Fysisk lämplighet',
+        description: 'Lyftvikt, uthållighet och kroppsstyrka är kritiska. Lyft eventuell idrottsbakgrund, militärtjänst eller motsvarande som visar fysisk förmåga.',
+      },
+      {
+        icon: 'FileText',
+        title: 'WMS och system',
+        description: 'WMS-system (Astro, Movex, SAP EWM, Manhattan), handterminal, barcode-scanning. Skriv ut alla system du arbetat i. Modern terminal är digital.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'B-körkort och C-behörighet',
+        description: 'B-körkort är ofta krav. C-behörighet (lastbil) öppnar för transport och högre lön. BE-behörighet för släp meriterande för vissa terminaler.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Truckkort och behörigheter överst',
+        description: 'Vår mall lyfter truckkort, ADR och körkort i sidopanelen. Terminalchefer ser dina behörigheter på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för certifieringar',
+        description: 'Truckkort (A, B, C, D), ADR, traverskran lyfts som eget block. Differentierar dig från generella lagerarbetare.',
+      },
+      {
+        title: 'Tydlig terminal per arbetsgivare',
+        description: 'Mallen har dedikerade rader för terminaltyp och ansvarsområde per uppdragsgivare. Erfarenhet från pakettransport och industrilager konkurrerar inte.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior terminalarbetare eller lagerförman lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+      },
+      {
+        title: 'Plats för skiftvana',
+        description: 'Mallen har dedikerade rader för 3-skift, natt, helg, jour. Konkret information som terminalchefer värderar för bemanningsplanering.',
+      },
+      {
+        title: 'Plats för systemvana',
+        description: 'Egen rad för WMS-system och handterminal. Modern terminal är digital och förvaltare söker exakta termer.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Lossning och lastning',
+        punkter: [
+          'Lossning av inkommande lastbilar och containrar',
+          'Lastning av utgående försändelser till lastbilar',
+          'Hantering av paket, pallar och bulkvaror',
+          'Säkring av last enligt regelverk',
+        ],
+      },
+      {
+        rubrik: 'Truckkörning',
+        punkter: [
+          'Köra A-truck (handdragen), B-truck (motvikt), C-truck (skjutstativ)',
+          'Hantera höglagerlyft och plockning på hög höjd',
+          'Genomföra säkerhetskontroll av truck dagligen',
+          'Bidra till underhåll och rapportering av fel',
+        ],
+      },
+      {
+        rubrik: 'Sortering och plockning',
+        punkter: [
+          'Sortera paket enligt destination och prioritet',
+          'Plocka order enligt WMS-instruktioner',
+          'Kvalitetskontrollera och packa om vid behov',
+          'Hantera retur- och reklamationsförsändelser',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och rutiner',
+        punkter: [
+          'Följa säkerhetsföreskrifter och AML',
+          'Genomföra ADR-rutiner vid farligt gods',
+          'Bidra till systematiskt arbetsmiljöarbete (SAM)',
+          'Hantera akuta situationer enligt larm- och utrymningsrutin',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och rapportering',
+        punkter: [
+          'Genomföra inkvittering och utkvittering i WMS',
+          'Rapportera avvikelser och skador',
+          'Stötta vid inventering och stickprov',
+          'Bidra till leveransrapportering och statistik',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Truckkort',
+        termer: [
+          { term: 'TLP', forklaring: 'Truckförarbevis enligt LIA - Liftutbildningarnas Intresseorganisation.' },
+          { term: 'A-truck', forklaring: 'Lågt staplande truck, lättaste behörigheten.' },
+          { term: 'B-truck', forklaring: 'Motviktstruck, vanligaste yrkestrucken.' },
+          { term: 'C-truck', forklaring: 'Skjutstativstruck för höglager.' },
+          { term: 'D-truck', forklaring: 'Övriga truckar (terrang, container).' },
+          { term: 'Riskkurs', forklaring: 'Obligatorisk del av truckutbildning.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar',
+        termer: [
+          { term: 'ADR', forklaring: 'Transport av farligt gods enligt internationellt regelverk.' },
+          { term: 'Traverskran', forklaring: 'Utbildning för traverskran-användning.' },
+          { term: 'Fallskydd', forklaring: 'Utbildning för säkert arbete på höjd.' },
+          { term: 'Första hjälpen', forklaring: 'L-ABC eller hjärt-lungräddning.' },
+          { term: 'Heta arbeten', forklaring: 'Certifiering för svetsning, lödning och annat eldfarligt.' },
+          { term: 'C-körkort', forklaring: 'Lastbilskörkort, öppnar för transportroller.' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'WMS', forklaring: 'Warehouse Management System, lagerhanteringssystem.' },
+          { term: 'Astro', forklaring: 'WMS-system vanlig på svenska lager.' },
+          { term: 'Movex', forklaring: 'ERP/WMS från Infor, industri-orienterad.' },
+          { term: 'SAP EWM', forklaring: 'Extended Warehouse Management från SAP.' },
+          { term: 'Manhattan', forklaring: 'Premium WMS, vanlig på e-handel och 3PL.' },
+          { term: 'Handterminal', forklaring: 'Mobil enhet för WMS-kommunikation och scanning.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'AML', forklaring: 'Arbetsmiljölagen.' },
+          { term: 'SAM', forklaring: 'Systematiskt Arbetsmiljöarbete (AFS 2001:1).' },
+          { term: 'LAS', forklaring: 'Lagen om anställningsskydd.' },
+          { term: 'MBL', forklaring: 'Medbestämmandelagen, reglerar facklig samverkan.' },
+          { term: 'Lyft- och travers-AFS', forklaring: 'AFS 2006:6 om lyftanordningar.' },
+          { term: 'Transport-kollektivavtal', forklaring: 'Avtal mellan Transport och Biltrafikens Arbetsgivareförbund.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Post och paket',
+        exempel: [
+          'PostNord (rikstäckande)',
+          'DHL Express, DHL Freight',
+          'Bring, FedEx',
+          'Schenker Privatpaket, Best Transport',
+        ],
+      },
+      {
+        kategori: 'Logistik och 3PL',
+        exempel: [
+          'Schenker, DSV, Kuehne+Nagel',
+          'Posten Norden, Bring Logistics',
+          'Bring Express, Speedmark',
+          'Mindre 3PL-bolag',
+        ],
+      },
+      {
+        kategori: 'E-handelslager',
+        exempel: [
+          'H&M, IKEA, Klarna-relaterade lager',
+          'NA-KD, Boozt, Boozt fulfillment',
+          'PostNord och DHL e-handelslager',
+          'Mindre fulfillment-bolag',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, SKF logistik',
+          'Stora Enso, Boliden, Sandvik distribution',
+          'IKEA Distribution',
+          'Mindre industribolag med eget lager',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direktanställning med truckkort',
+        beskrivning: 'Vanligaste vägen. Truckkort tas på 3-5 dagars kurs (4-12 000 kr). Många terminaler erbjuder anställning direkt vid truckkort och internutbildning på resten.',
+      },
+      {
+        rubrik: 'Gymnasieprogram inriktning transport',
+        beskrivning: 'Fordons- och transportprogrammet med inriktning lager. Inkluderar truckkort under utbildningen. Ger grund för många roller inom logistik.',
+      },
+      {
+        rubrik: 'YH-utbildning till lagermedarbetare (6-12 mån)',
+        beskrivning: 'Kortare yrkeshögskoleutbildning. Inkluderar truckkort, ADR och WMS-system. Vanlig vid omskolning eller karriärbyte.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'ADR, traverskran, C-körkort, fallskydd, KMA-utbildning. Korta kurser som påverkar lönen och stärker positionen vid förhandling.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'TLP truckkort A, B, C',
+        'ADR-utbildning för farligt gods',
+        'Eventuell traverskran-behörighet',
+        'WMS (Astro, Movex, SAP EWM, Manhattan)',
+        'Handterminal och barcode-scanning',
+        'Säkring av last enligt regelverk',
+        'Inventering och plockning',
+        'Lossning och lastning',
+        'Skiftvana (3-skift, natt, helg)',
+        'B-körkort och eventuell C-behörighet',
+        'Första hjälpen och L-ABC',
+        'Fysisk uthållighet och styrka',
+      ],
+      personliga: [
+        'Punktlig och pålitlig',
+        'Strukturerad i arbetet',
+        'Lagspelare i terminalteam',
+        'Lugn under tidspress',
+        'Flexibel vid skiftbyten',
+        'Pragmatisk i problemlösning',
+        'Lojal mot säkerhetsrutiner',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren terminalarbetare med 7 års erfarenhet från PostNord och Schenker terminaler i Stockholm. TLP-truckkort A, B, C med ADR-utbildning för klass 3 och 8. Arbetar på 3-skift inklusive nattskift och helger. Hanterar 200+ pallar per dag via Astro WMS och handterminal. B-körkort och C-behörighet sedan 2022. Mentor för 3 nya kollegor och vana av att stötta team-lead. Söker nya uppdrag som senior terminalarbetare eller lagerförman inom logistik eller e-handel.',
+
+    profilTips:
+      'År som terminalarbetare, terminaltyp och truckkort i öppningsraden. Andra meningen lyfter konkreta certifieringar och skiftvana. Tredje meningen visar systemvana och eventuell senior- eller förman-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Truckkort i klartext',
+        text: 'TLP A, B, C, D enligt Truckförarbevis. Skriv ut alla behörigheter med datum. B (motvikts) och C (skjutstativ) är CV-kritiska.',
+      },
+      {
+        rubrik: 'Skiftvana och flexibilitet',
+        text: '3-skift, nattskift, helger, jourtjänst. Var tydlig med skiftvana eftersom terminaler kör 24/7.',
+      },
+      {
+        rubrik: 'ADR och farligt gods',
+        text: 'ADR-utbildning för transport av farligt gods är värdefull och påverkar lönen. Olika klasser för olika farligheter.',
+      },
+      {
+        rubrik: 'Fysisk lämplighet',
+        text: 'Lyftvikt, uthållighet och kroppsstyrka är kritiska. Lyft eventuell idrottsbakgrund eller militärtjänst som visar fysisk förmåga.',
+      },
+      {
+        rubrik: 'WMS och system',
+        text: 'Astro, Movex, SAP EWM, Manhattan, handterminal. Skriv ut alla system du arbetat i. Modern terminal är digital.',
+      },
+      {
+        rubrik: 'B-körkort och C-behörighet',
+        text: 'B-körkort är ofta krav. C-behörighet (lastbil) öppnar för transport och högre lön.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som terminalarbetare, terminaltyp, truckkort och skiftvana på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Terminal, period, ansvarsområde. Konkretisera trucktyp, systemvana och eventuell mentor-roll.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH om relevant. Internutbildning från arbetsgivaren.' },
+      { sektion: 'Certifieringar', tips: 'Truckkort (A, B, C, D), ADR, traverskran, första hjälpen. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'System, certifieringar, fysik. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Körkort (B, C, BE), skiftvana, eventuella idrottsmeriter, språk.' },
+    ],
+
+    checklista: [
+      'TLP-truckkort (minst B)',
+      'Eventuell ADR-utbildning',
+      'WMS-vana (Astro, Movex, SAP EWM)',
+      'Skiftvana (3-skift, natt, helg)',
+      'Fysisk lämplighet och uthållighet',
+      'B-körkort',
+      'Eventuell C-behörighet',
+      'Säkerhetsföreskrifter (AML, SAM)',
+      'Första hjälpen och L-ABC',
+      'Branschvana (post, e-handel, industri)',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Stora logistikbolag som PostNord och DHL använder Workday, Teamtailor och egna ATS. Skriv ut truckkort (TLP A, B, C, D), ADR, WMS-system (Astro, Movex, SAP EWM) och skiftvana i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett terminalarbetar-CV?',
+        a: 'TLP-truckkort med datum, eventuell ADR-utbildning, skiftvana (3-skift, natt, helg), WMS-systemvana (Astro, Movex, SAP EWM), fysisk lämplighet, B-körkort, eventuell C-behörighet, säkerhetsföreskrifter (AML, SAM), samt eventuella vidareutbildningar.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny terminalarbetare?',
+        a: 'Lyft truckkort (om du tagit det), eventuell militärtjänst eller idrottsbakgrund som visar fysisk förmåga, B-körkort, schemaflexibilitet inklusive natt och helg, samt språkkunskaper. Många terminaler rekryterar gärna nya med rätt attityd och truckkort.',
+      },
+      {
+        q: 'Vilket truckkort är viktigast?',
+        a: 'B-truck (motviktstruck) är mest universal och CV-kritisk. C-truck (skjutstativ) krävs på höglagerterminaler. A-truck räcker för enklare uppdrag. D-truck (terrang, container) är specialiserad. Skriv ut alla behörigheter eftersom det avgör matchning.',
+      },
+      {
+        q: 'Hur viktig är skiftvana?',
+        a: 'Mycket. Terminaler kör 24/7 och bemanning är ofta största utmaningen. Var tydlig med din skiftvana (dag, kväll, natt, helg) och tillgänglighet. Hög flexibilitet ger fler erbjudanden och ofta bättre tjänster.',
+      },
+      {
+        q: 'Hur viktigt är ADR-utbildning?',
+        a: 'Värdefull. ADR (Accord européen relatif au transport international des marchandises Dangereuses par Route) för farligt gods påverkar lönen. Klass 3 (brandfarliga vätskor) är vanligast. Lyft alla ADR-klasser och datum för senaste uppdatering.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'TLP, truckkort, A-truck, B-truck, C-truck, ADR, motvikt, skjutstativ, WMS, Astro, Movex, SAP EWM, Manhattan, handterminal, 3-skift, nattskift, B-körkort, C-körkort, BE-behörighet, AML, SAM, lyft- och travers-AFS. Workday söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett terminalarbetar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior med specialisering eller förman-roll: 1,5 sidor. Det viktigaste är att truckkort, skiftvana och senaste terminal syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till terminalarbetar-tjänster?',
+        a: 'Ofta inte. Stora logistikbolag som PostNord och DHL accepterar oftast bara CV och formulär. Mindre logistikbolag förväntar sig ibland personligt brev. När brev krävs, fokus på truckkort, skiftvana och fysisk lämplighet.',
+      },
+      {
+        q: 'Hur skiljer sig terminalarbetare från lagerarbetare?',
+        a: 'Terminalarbetare jobbar oftast med korta omloppstider (paket in/ut samma dag) på terminaler för post, paket och bulk. Lagerarbetare jobbar på lagerverksamhet med längre lagring och plockning för beställningar. Olika takt och olika typer av truckkörning.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt terminalarbetar-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("driven och pålitlig") utan stöd, sjukdomshistorik eller andra hälsofrågor (utöver fysisk lämplighet), samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'logistikassistent': {
+    seoIntro:
+      'Som logistikassistent bedöms du på din systemvana, planeringsförmåga och förmåga att stötta logistikflöden. Tredjepartslogistiker (3PL), industribolag, e-handlare och transportbolag har konstant öppna logistikassistent-tjänster, men logistikchefer slänger CV:n som inte tydligt visar systemvana, processförståelse och relevanta certifieringar. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för logistikassistenter lyfter systemvana, processförståelse och eventuella certifieringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområde och konkreta processer syns direkt. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium med logistikinriktning, YH-utbildning), system (WMS, TMS, SAP, Movex, Astro, Excel), processförståelse (inköp, lagerstyrning, distribution, returer), nyckeltal (lead time, fyllnadsgrad, leveransprecision), eventuell vana av tull och Incoterms, språkkunskaper samt eventuell branschvana (e-handel, industri, livsmedel).\n\nNedan hittar du två CV-mallar designade för logistikassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på 3PL, industri och e-handel faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'FileText',
+        title: 'System i klartext',
+        description: 'WMS (Astro, Movex, SAP EWM, Manhattan), TMS (Centiro, AX4, nShift), SAP, Excel. Skriv ut alla system du arbetat i. Helt avgörande för CV-matchning i ATS.',
+      },
+      {
+        icon: 'Target',
+        title: 'Processförståelse',
+        description: 'Inköp, lagerstyrning, distribution, returer, transport. Var tydlig med vilka processer du arbetat med eftersom logistikchefer söker komplettering till befintligt team.',
+      },
+      {
+        icon: 'TrendingUp',
+        title: 'Nyckeltal och resultat',
+        description: '"Förbättrade leveransprecision från 92% till 98%", "Sänkte lead time 25%" är konkret. Logistikvärldens KPI:er differentierar erfarna logistikassistenter.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Tull och Incoterms',
+        description: 'Tullhantering, Incoterms (FOB, CIF, DDP, EXW), TSD (transit security declaration), AEO-status. CV-kritiskt på import/export-roller.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Excel på rätt nivå',
+        description: 'Excel på medel- eller avancerad nivå (Power Query, formler, pivottabeller, makron). Power BI för rapportering. Logistik är datatung och Excel är vardagsverktyg.',
+      },
+      {
+        icon: 'Award',
+        title: 'Eventuella certifieringar',
+        description: 'Plan Tillgänglighet (PLAN), APICS CSCP eller CPIM, Lean-certifieringar, Six Sigma. Påverkar lönen direkt och differentierar dig från generella assistenter.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'System och processer överst',
+        description: 'Vår mall lyfter WMS, TMS och SAP i sidopanelen. Logistikchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för certifieringar',
+        description: 'PLAN, APICS, Lean, Six Sigma lyfts som eget kompetensblock. Differentierar dig från generella logistikassistenter.',
+      },
+      {
+        title: 'Tydlig bransch per arbetsgivare',
+        description: 'Mallen har dedikerade rader för bransch och processområde per uppdragsgivare. Erfarenhet från 3PL och e-handel konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior logistikassistent eller logistikkoordinator lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+      },
+      {
+        title: 'Plats för KPI:er',
+        description: 'Mallen har dedikerade rader för leveransprecision, lead time, fyllnadsgrad. Visar att du arbetar datadrivet med logistikens nyckeltal.',
+      },
+      {
+        title: 'Plats för Excel-nivå',
+        description: 'Egen rad för Excel-färdigheter (Power Query, makron, Power BI). Logistik är datatung och Excel är vardagsverktyg.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Operativ logistik',
+        punkter: [
+          'Stötta inköp med orderläggning och leverantörsuppföljning',
+          'Bidra till lagerstyrning och inventering',
+          'Hantera utleveranser och distribution',
+          'Stötta vid returhantering och reklamationer',
+        ],
+      },
+      {
+        rubrik: 'System och dokumentation',
+        punkter: [
+          'Hantera WMS, TMS och ERP-system dagligen',
+          'Dokumentera processer och avvikelser',
+          'Bidra till master data-underhåll',
+          'Säkerställa korrekt etikettering och packning',
+        ],
+      },
+      {
+        rubrik: 'Transport och tull',
+        punkter: [
+          'Boka transporter med 3PL och åkerier',
+          'Hantera tulldeklarationer och Incoterms',
+          'Stötta vid import- och export-flöden',
+          'Bidra till TSD och säkerhetsdeklarationer',
+        ],
+      },
+      {
+        rubrik: 'Analys och rapportering',
+        punkter: [
+          'Bygga rapporter i Excel och Power BI',
+          'Analysera leveransprecision, lead time och fyllnadsgrad',
+          'Stötta logistikchef i KPI-uppföljning',
+          'Bidra till månadsrapportering och förbättringsarbete',
+        ],
+      },
+      {
+        rubrik: 'Stakeholder-kontakt',
+        punkter: [
+          'Samverka med leverantörer, åkerier och kunder',
+          'Bidra till anbudsarbete och leverantörsavtal',
+          'Stötta vid kundkontakt och eskaleringar',
+          'Driva intern kommunikation kring logistikflöden',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'WMS', forklaring: 'Warehouse Management System.' },
+          { term: 'TMS', forklaring: 'Transport Management System.' },
+          { term: 'ERP', forklaring: 'Enterprise Resource Planning (SAP, Oracle, Movex).' },
+          { term: 'OMS', forklaring: 'Order Management System.' },
+          { term: 'SCM', forklaring: 'Supply Chain Management, övergripande system.' },
+          { term: 'EDI', forklaring: 'Electronic Data Interchange för automatisk kommunikation.' },
+        ],
+      },
+      {
+        kategori: 'KPI:er',
+        termer: [
+          { term: 'Leveransprecision', forklaring: 'Andel leveranser i tid.' },
+          { term: 'Lead time', forklaring: 'Tid från order till leverans.' },
+          { term: 'Fyllnadsgrad', forklaring: 'Utnyttjandegrad i lager eller transport.' },
+          { term: 'OTIF', forklaring: 'On-Time-In-Full, leverans i tid och fullständig.' },
+          { term: 'Lageromsättning', forklaring: 'Antal gånger lagret omsätts per år.' },
+          { term: 'Servicegrad', forklaring: 'Andel order som kan levereras direkt.' },
+        ],
+      },
+      {
+        kategori: 'Tull och transport',
+        termer: [
+          { term: 'Incoterms', forklaring: 'Internationella handelstermer (FOB, CIF, DDP, EXW).' },
+          { term: 'TSD', forklaring: 'Transit Security Declaration.' },
+          { term: 'AEO', forklaring: 'Authorised Economic Operator, tull-status.' },
+          { term: 'HS-kod', forklaring: 'Harmoniserat varuklassificeringssystem.' },
+          { term: 'BAF', forklaring: 'Bunker Adjustment Factor, bränsletillägg sjöfart.' },
+          { term: 'CMR', forklaring: 'Fraktbrev för vägtransport.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar',
+        termer: [
+          { term: 'PLAN', forklaring: 'Plan Tillgänglighet, svensk logistikcertifiering.' },
+          { term: 'APICS CSCP', forklaring: 'Certified Supply Chain Professional.' },
+          { term: 'APICS CPIM', forklaring: 'Certified in Production and Inventory Management.' },
+          { term: 'CILT', forklaring: 'Chartered Institute of Logistics and Transport.' },
+          { term: 'Six Sigma', forklaring: 'Metodik för processförbättring (Green Belt, Black Belt).' },
+          { term: 'Lean', forklaring: 'Metodik för slimmade flöden och eliminering av slöseri.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Tredjepartslogistik (3PL)',
+        exempel: [
+          'Schenker, DSV, Kuehne+Nagel',
+          'PostNord Logistics, Bring',
+          'Posten Norden, DHL Supply Chain',
+          'Mindre 3PL-bolag',
+        ],
+      },
+      {
+        kategori: 'E-handel och retail',
+        exempel: [
+          'H&M, IKEA, Boozt, NA-KD',
+          'Klarna och e-handelsplattformar',
+          'PostNord och DHL e-handelslager',
+          'Mindre fulfillment-bolag',
+        ],
+      },
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, SKF',
+          'Atlas Copco, Alfa Laval, Tetra Pak',
+          'AstraZeneca, Stora Enso, Boliden',
+          'Mindre industribolag',
+        ],
+      },
+      {
+        kategori: 'Detaljhandel och livsmedel',
+        exempel: [
+          'ICA, Coop, Lidl, City Gross logistik',
+          'Apoteket, Apotek Hjärtat',
+          'Stadium, Elgiganten distributionscentral',
+          'Mindre detaljhandel-bolag',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Gymnasieprogram inriktning logistik',
+        beskrivning: 'Handels- och administrationsprogrammet eller fordons- och transportprogrammet med logistikinriktning. Ger grund för logistikassistent-roll och kompletteras ofta med YH.',
+      },
+      {
+        rubrik: 'YH-utbildning till logistiker (2 år)',
+        beskrivning: 'Yrkeshögskoleutbildning specialiserad mot logistik. Skolor som Yrkesakademin, Hermods, Stockholms tillskärarakademi. Inkluderar praktik och leder ofta till anställning.',
+      },
+      {
+        rubrik: 'Universitetsutbildning i logistik (3-5 år)',
+        beskrivning: 'Civilingenjör industriell ekonomi, magisterprogram i Supply Chain Management. Linköping, Lund, Chalmers, KTH har starka program. Vanligare för senior logistik-roller.',
+      },
+      {
+        rubrik: 'Certifieringar (löpande)',
+        beskrivning: 'PLAN-certifiering, APICS CSCP, APICS CPIM, CILT, Six Sigma Green Belt. Korta kurser plus prov. Påverkar lönen direkt och stärker positionen vid förhandling.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'WMS (Astro, Movex, SAP EWM, Manhattan)',
+        'TMS (Centiro, AX4, nShift)',
+        'SAP eller annan ERP',
+        'Excel på avancerad nivå (Power Query, makron)',
+        'Power BI och dataanalys',
+        'Incoterms och tullhantering',
+        'Inköp och orderläggning',
+        'Lagerstyrning och inventering',
+        'KPI-uppföljning (OTIF, lead time)',
+        'Lean och processförbättring',
+        'EDI och systemintegration',
+        'Engelska och eventuellt övriga språk',
+      ],
+      personliga: [
+        'Strukturerad i komplext flöde',
+        'Lyhörd för stakeholders',
+        'Analytisk i problemlösning',
+        'Pragmatisk i tradeoffs',
+        'Lojal mot kvalitet och leverans',
+        'Pedagogisk i kommunikation',
+        'Lugn vid tidspress',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren logistikassistent med YH-utbildning i logistik och 5 års erfarenhet från Schenker och H&M. Behärskar Astro WMS, Centiro TMS, SAP och Excel på avancerad nivå (Power Query, Power BI). Stöttar inköpsteam med leverantörsuppföljning för 80+ leverantörer och driver KPI-rapportering (leveransprecision, lead time, OTIF). Vana av Incoterms, tullhantering och AEO-frågor. Bidrog till projekt som höjde leveransprecisionen från 92% till 98% under 2024. Söker nya uppdrag som senior logistikassistent eller logistikkoordinator inom 3PL eller e-handel.',
+
+    profilTips:
+      'År som logistikassistent, bransch och kärnsystem i öppningsraden. Andra meningen lyfter konkreta processer och KPI-resultat. Tredje meningen visar certifieringar och eventuell senior- eller koordinator-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'System i klartext',
+        text: 'WMS (Astro, Movex, SAP EWM), TMS (Centiro, AX4), SAP, Excel. Skriv ut alla system du arbetat i. Helt avgörande för CV-matchning i ATS.',
+      },
+      {
+        rubrik: 'Processförståelse',
+        text: 'Inköp, lagerstyrning, distribution, returer, transport. Var tydlig med processer du arbetat med eftersom logistikchefer söker komplettering.',
+      },
+      {
+        rubrik: 'Nyckeltal och resultat',
+        text: '"Förbättrade leveransprecision från 92% till 98%", "Sänkte lead time 25%". Logistik-KPI:er differentierar.',
+      },
+      {
+        rubrik: 'Tull och Incoterms',
+        text: 'Tullhantering, Incoterms (FOB, CIF, DDP, EXW), TSD, AEO-status. CV-kritiskt på import/export-roller.',
+      },
+      {
+        rubrik: 'Excel på rätt nivå',
+        text: 'Excel på medel- eller avancerad nivå (Power Query, makron, Power BI). Logistik är datatung.',
+      },
+      {
+        rubrik: 'Certifieringar',
+        text: 'PLAN, APICS CSCP, APICS CPIM, CILT, Six Sigma, Lean. Påverkar lönen direkt och differentierar.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som logistikassistent, bransch, kärnsystem och processområde på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera system, KPI-resultat och processer.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell magisterexamen i eget block.' },
+      { sektion: 'Certifieringar', tips: 'PLAN, APICS, CILT, Six Sigma, Lean. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'System, KPI:er, processer. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Språk, eventuella deltagande i förbättringsprojekt, körkort.' },
+    ],
+
+    checklista: [
+      'Gymnasium eller YH-utbildning i logistik',
+      'WMS-vana (Astro, Movex, SAP EWM)',
+      'TMS eller transportsystem',
+      'ERP-vana (SAP, Movex, Oracle)',
+      'Excel på rätt nivå',
+      'KPI-förståelse (OTIF, lead time)',
+      'Incoterms och tullhantering',
+      'Branschvana',
+      'Eventuella certifieringar (PLAN, APICS)',
+      'Språkkunskaper med nivå',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. 3PL, industri och e-handel använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (WMS, TMS, SAP, Movex), processer (inköp, lagerstyrning, distribution, tull), KPI:er (OTIF, lead time, leveransprecision) och certifieringar (PLAN, APICS) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett logistikassistent-CV?',
+        a: 'Gymnasium eller YH-utbildning i logistik, system (WMS, TMS, SAP, Excel), processförståelse (inköp, lagerstyrning, distribution, returer), KPI:er (OTIF, lead time, leveransprecision), tull och Incoterms, branschvana samt eventuella certifieringar (PLAN, APICS CSCP, Lean).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny logistikassistent?',
+        a: 'Lyft YH-utbildningen i logistik med praktikplats i klartext, eventuella sommarjobb i lager eller transport, Excel-färdigheter, datorvana, körkort, samt språkkunskaper. Var konkret om processförståelse och eventuell systemvana från utbildningen.',
+      },
+      {
+        q: 'Vilket system är viktigast att kunna?',
+        a: 'Beror på bransch. SAP dominerar industri och storbolag. Astro och Movex är vanliga i Sverige. Manhattan på e-handel och 3PL. Centiro och nShift för transport. Hade du flera arbetsgivare i sikte är bredd viktigare än djup. Excel är universellt CV-kritiskt.',
+      },
+      {
+        q: 'Hur viktig är Excel-nivå?',
+        a: 'Mycket. Logistik är datatung och Excel är vardagsverktyg. Power Query för datatransformation, pivottabeller för analys, makron för automation. Power BI är meriterande för rapportering. Skriv ut din nivå konkret med exempel på vad du gjort.',
+      },
+      {
+        q: 'Hur lyfter jag KPI-resultat?',
+        a: 'Konkret: "Förbättrade leveransprecision från 92% till 98% genom processarbete", "Sänkte lead time 25% via leverantörsdialog", "Höjde OTIF från 88% till 96% på 6 månader". Konkreta nyckeltal och relativa jämförelser differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'WMS, TMS, SAP, Movex, Astro, Manhattan, Centiro, nShift, Excel, Power Query, Power BI, Incoterms, AEO, TSD, OTIF, lead time, leveransprecision, fyllnadsgrad, PLAN, APICS, Lean, Six Sigma. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett logistikassistent-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1,5 sidor. Senior med specialisering eller koordinator-roll: 2 sidor. Det viktigaste är att system, processer och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till logistikassistent-tjänster?',
+        a: 'Ofta. 3PL, industri och e-handel förväntar sig ofta personligt brev. Använd brevet för att förklara din processförståelse och beskriv ett konkret förbättringsprojekt du bidragit till. Konkret om KPI:er och resultat. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktiga är certifieringar?',
+        a: 'Värdefulla på senior-nivå. PLAN (Plan Tillgänglighet) är svensk standard. APICS CSCP och CPIM är internationella. CILT är bred logistikcertifiering. Six Sigma och Lean är värdefulla på processförbättring. Påverkar lönen och differentierar dig.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt logistikassistent-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, kunduppgifter under NDA, sekretessbelagda detaljer (leverantörsavtal, priser), irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("strukturerad och driven") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'servicemedarbetare': {
+    seoIntro:
+      'Som servicemedarbetare bedöms du på din serviceförmåga, flexibilitet och förmåga att stötta verksamheten i vardagen. Hotell, konferenser, fastighetsbolag, offentlig sektor, idrottsanläggningar och kontor har konstant öppna servicemedarbetar-tjänster, men HR-chefer slänger CV:n som inte tydligt visar servicevana, flexibilitet och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för servicemedarbetare lyfter servicevana, flexibilitet och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, ansvarsområde och konkreta resultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, branschvana (hotell, fastighet, kontor, konferens, idrott), konkreta arbetsuppgifter (städ, posthantering, reception, evenemangsstöd), eventuella certifieringar (HACCP, första hjälpen, brandskydd), språkkunskaper med nivå, schemaflexibilitet samt B-körkort om relevant.\n\nNedan hittar du två CV-mallar designade för servicemedarbetar-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på hotell, fastighet, kontor och idrottsanläggningar faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Target',
+        title: 'Branschvana konkret',
+        description: 'Hotell, fastighet, kontor, konferens, idrott är olika världar. Var tydlig med branschvana eftersom verksamhetsrutiner skiljer sig kraftigt.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Arbetsuppgifter i klartext',
+        description: 'Städ, posthantering, reception, evenemangsstöd, lokalvård, leveransmottagning. Var konkret med vilka uppgifter du hanterat eftersom rollen är bred.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Servicevana och bemötande',
+        description: 'Vana av att möta kunder, hyresgäster, hotellgäster eller medarbetare. Skriv ut konkreta exempel på bemötande och problemlösning.',
+      },
+      {
+        icon: 'Award',
+        title: 'Certifieringar',
+        description: 'HACCP-utbildning (livsmedel), första hjälpen, brandskydd, heta arbeten, fallskydd. Lyft alla certifieringar med datum och utfärdare.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Schemaflexibilitet',
+        description: 'Helger, kvällar, tidiga morgnar. Var tydlig med tillgänglighet eftersom service kräver bemanning 24/7 på många verksamheter.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Språk och kommunikation',
+        description: 'Svenska, engelska, eventuellt övriga språk med nivå. Internationella hotell och konferensanläggningar söker specifika språkkombinationer.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Branschvana och uppgifter överst',
+        description: 'Vår mall lyfter branschvana och konkreta arbetsuppgifter i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för certifieringar',
+        description: 'HACCP, första hjälpen, brandskydd, heta arbeten lyfts som eget block. Differentierar dig från generella städ- eller städpersonal.',
+      },
+      {
+        title: 'Tydlig verksamhet per arbetsgivare',
+        description: 'Mallen har dedikerade rader för verksamhetstyp och kontext per uppdragsgivare. Erfarenhet från hotell och fastighet konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Logistik Plus med foto',
+        description: 'För senior servicemedarbetare eller koordinator lägger Logistik Plus till foto och magazine-känsla. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för servicevana',
+        description: 'Mallen har dedikerade rader för bemötande och kundnöjdhet. Visar både teknisk och social kompetens.',
+      },
+      {
+        title: 'Plats för språk',
+        description: 'Egen rad för språkkunskaper med nivå. Internationella verksamheter söker specifika kombinationer.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Lokalvård och städ',
+        punkter: [
+          'Genomföra daglig städning av kontorslokaler, hotellrum eller konferensrum',
+          'Hantera påfyllning av material och förbrukningsvaror',
+          'Säkerställa hygienrutiner och städkvalitet',
+          'Bidra till storstädning och periodiskt underhåll',
+        ],
+      },
+      {
+        rubrik: 'Reception och bemötande',
+        punkter: [
+          'Möta besökare, gäster och hyresgäster',
+          'Hantera telefon, post och leveranser',
+          'Hjälpa med bokningar av lokaler eller tjänster',
+          'Bidra till informationsmaterial och skyltning',
+        ],
+      },
+      {
+        rubrik: 'Evenemang och konferens',
+        punkter: [
+          'Stötta vid evenemang, konferenser och möten',
+          'Möblera och utrusta rum enligt önskemål',
+          'Hantera teknik (projektor, ljud, video)',
+          'Bidra till catering och after-event-städ',
+        ],
+      },
+      {
+        rubrik: 'Praktiskt underhåll',
+        punkter: [
+          'Genomföra mindre reparationer och tillsyn',
+          'Hantera kontors- och förbrukningsmaterial',
+          'Stötta vid in- och utflyttning av medarbetare eller hyresgäster',
+          'Bidra till sophantering och återvinning',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och rutiner',
+        punkter: [
+          'Genomföra brand- och säkerhetsronder',
+          'Hantera larm och larmkort',
+          'Säkerställa låsrutiner morgon och kväll',
+          'Bidra till systematiskt brandskyddsarbete (SBA)',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Verksamhetstyper',
+        termer: [
+          { term: 'Hotell', forklaring: 'Övernattningsverksamhet med daglig städ och reception.' },
+          { term: 'Fastighet', forklaring: 'Bostads- eller kontorsfastigheter med löpande service.' },
+          { term: 'Konferensanläggning', forklaring: 'Möten och evenemang med flexibel möblering.' },
+          { term: 'Kontor', forklaring: 'Företagskontor med daglig service till medarbetare.' },
+          { term: 'Idrottsanläggning', forklaring: 'Träning och tävling med specifik utrustningsservice.' },
+          { term: 'Skola', forklaring: 'Utbildningsverksamhet med daglig städ och underhåll.' },
+        ],
+      },
+      {
+        kategori: 'Roller',
+        termer: [
+          { term: 'Servicemedarbetare', forklaring: 'Bred roll med varierat ansvar.' },
+          { term: 'Lokalvårdare', forklaring: 'Specialist på städning och hygien.' },
+          { term: 'Vaktmästare', forklaring: 'Klassisk titel med praktiskt underhåll.' },
+          { term: 'Husfru', forklaring: 'Klassisk titel inom hotell för städansvar.' },
+          { term: 'Servicetekniker', forklaring: 'Senior roll med praktiskt och tekniskt ansvar.' },
+          { term: 'Koordinator', forklaring: 'Senior roll med samordningsansvar.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar',
+        termer: [
+          { term: 'HACCP', forklaring: 'Livsmedelshygien-metodik, krav på livsmedelshantering.' },
+          { term: 'Första hjälpen', forklaring: 'L-ABC eller hjärt-lungräddning.' },
+          { term: 'Brandskydd', forklaring: 'Utbildning i SBA och brandsläckare-användning.' },
+          { term: 'Heta arbeten', forklaring: 'Certifiering för svetsning och eldfarligt arbete.' },
+          { term: 'Fallskydd', forklaring: 'Utbildning för säkert arbete på höjd.' },
+          { term: 'PRYL', forklaring: 'Allergenutbildning för livsmedelspersonal.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'AML', forklaring: 'Arbetsmiljölagen.' },
+          { term: 'LSO', forklaring: 'Lagen om skydd mot olyckor, gäller brandskydd.' },
+          { term: 'Livsmedelsförordningen', forklaring: 'Reglerar allergener och hygien.' },
+          { term: 'Miljöbalken', forklaring: 'Reglerar miljö och avfall.' },
+          { term: 'Kollektivavtal Fastighets', forklaring: 'Avtal mellan Fastighetsanställdas Förbund.' },
+          { term: 'Kollektivavtal Visita', forklaring: 'Avtal för hotell- och restaurangbranschen.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Hotell och restaurang',
+        exempel: [
+          'Scandic Hotels, Nordic Choice, Elite Hotels',
+          'Radisson Blu, Hilton, Marriott',
+          'Grand Hotel, Diplomat, Bank Hotel',
+          'Mindre hotell och bed & breakfast',
+        ],
+      },
+      {
+        kategori: 'Fastighet och kontor',
+        exempel: [
+          'Wallenstam, Castellum, Atrium Ljungberg',
+          'Stockholmshem, Familjebostäder, Akademiska Hus',
+          'Riksbyggen, HSB, Sodexo',
+          'Mindre fastighetsförvaltare',
+        ],
+      },
+      {
+        kategori: 'Konferens och evenemang',
+        exempel: [
+          'Stockholmsmässan, Svenska Mässan, MalmöMässan',
+          'Konferensanläggningar (Stockholm Waterfront, Cape East)',
+          'Hotellanknutna konferensanläggningar',
+          'Mindre konferens- och eventbolag',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och idrott',
+        exempel: [
+          'Kommunal lokalvård och kontorsservice',
+          'Skolor och förskolor',
+          'Idrottsanläggningar (simhallar, gym, hallar)',
+          'Friskvård- och spa-anläggningar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direktanställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen. Servicemedarbetare lärs ofta upp internt under 1-4 veckor. Hotell och fastighet finansierar ofta certifieringar (HACCP, första hjälpen).',
+      },
+      {
+        rubrik: 'Gymnasieprogram inriktning service',
+        beskrivning: 'Hotell- och turismprogrammet eller handels- och administrationsprogrammet ger grund för service-roller. Inkluderar ofta praktik på partnerverksamhet.',
+      },
+      {
+        rubrik: 'YH-utbildning till servicekoordinator (1-2 år)',
+        beskrivning: 'Yrkeshögskoleutbildning för omskolning eller karriärbyte. Skolor som Hermods, Yrkesakademin erbjuder. Inkluderar praktik på hotell, kontor eller fastighet.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'HACCP, första hjälpen, brandskydd, heta arbeten. Korta kurser som påverkar lönen och stärker positionen. Större hotell finansierar ofta certifieringar.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Hotell-PMS (Opera, Mews, Sihot)',
+        'Bokningssystem och kalenderverktyg',
+        'Office 365 och Outlook',
+        'HACCP och livsmedelshygien',
+        'Första hjälpen och L-ABC',
+        'Brandskydd och SBA',
+        'Lokalvårdsteknik och kemikalier',
+        'AV-teknik (projektor, ljud, video)',
+        'Säkerhetssystem och larm',
+        'Kassasystem (om relevant)',
+        'B-körkort vid behov',
+        'Engelska och eventuellt övriga språk',
+      ],
+      personliga: [
+        'Lyhörd för gäster och kunder',
+        'Strukturerad i daglig drift',
+        'Lugn vid akutsituationer',
+        'Pålitlig och förutsägbar',
+        'Flexibel vid skiftbyten',
+        'Pragmatisk i tradeoffs',
+        'Lojal mot servicekvalitet',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren servicemedarbetare med 4 års erfarenhet från Scandic Hotels och Wallenstam. Hanterar daglig städning, reception och evenemangsstöd för 80+ konferensgäster per dag. HACCP-utbildning, första hjälpen och brandskydds-certifierad. Behärskar Opera PMS och Office 365. Talar svenska och engelska flytande samt grundläggande tyska. Schemaflexibel inklusive helger, kvällar och tidiga morgnar. Söker nya uppdrag som senior servicemedarbetare eller koordinator inom hotell, konferens eller fastighet.',
+
+    profilTips:
+      'År som servicemedarbetare, verksamhetstyp och kärnuppgifter i öppningsraden. Andra meningen lyfter certifieringar och system. Tredje meningen visar språk och schemaflexibilitet.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Branschvana konkret',
+        text: 'Hotell, fastighet, kontor, konferens, idrott. Var tydlig med branschvana eftersom verksamhetsrutiner skiljer sig kraftigt.',
+      },
+      {
+        rubrik: 'Arbetsuppgifter i klartext',
+        text: 'Städ, posthantering, reception, evenemangsstöd, lokalvård. Var konkret med vilka uppgifter du hanterat eftersom rollen är bred.',
+      },
+      {
+        rubrik: 'Servicevana och bemötande',
+        text: 'Vana av att möta kunder, hyresgäster, hotellgäster. Skriv ut konkreta exempel på bemötande och problemlösning.',
+      },
+      {
+        rubrik: 'Certifieringar',
+        text: 'HACCP, första hjälpen, brandskydd, heta arbeten, fallskydd. Lyft alla certifieringar med datum och utfärdare.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Helger, kvällar, tidiga morgnar. Var tydlig med tillgänglighet eftersom service kräver bemanning 24/7.',
+      },
+      {
+        rubrik: 'Språk och kommunikation',
+        text: 'Svenska, engelska, eventuellt övriga språk med nivå. Internationella hotell söker specifika kombinationer.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som servicemedarbetare, verksamhetstyp, kärnuppgifter på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Verksamhet, period, ansvarsområde. Konkretisera bemötandevana, certifieringar och systemvana.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH om relevant. Internutbildning från arbetsgivaren.' },
+      { sektion: 'Certifieringar', tips: 'HACCP, första hjälpen, brandskydd, heta arbeten. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'System, certifieringar, språk. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Schemaflexibilitet, körkort, eventuella idrottsmeriter, språk.' },
+    ],
+
+    checklista: [
+      'Branschvana (hotell, fastighet, kontor, konferens)',
+      'Konkreta arbetsuppgifter',
+      'Certifieringar (HACCP, första hjälpen, brandskydd)',
+      'Servicevana och bemötande',
+      'Eventuell systemvana (PMS, bokning)',
+      'Språkkunskaper med nivå',
+      'Schemaflexibilitet',
+      'Eventuellt B-körkort',
+      'Kollektivavtal-kunskap',
+      'Vidareutbildningar',
+    ],
+
+    atsInfo:
+      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Hotell, fastighet och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut bransch (hotell, fastighet, kontor, konferens), certifieringar (HACCP, första hjälpen, brandskydd, heta arbeten) och system (Opera, Mews, Office 365) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett servicemedarbetar-CV?',
+        a: 'Utbildning eller gymnasium, branschvana (hotell, fastighet, kontor, konferens), konkreta arbetsuppgifter (städ, reception, evenemang, underhåll), certifieringar (HACCP, första hjälpen, brandskydd), språkkunskaper med nivå, schemaflexibilitet samt eventuellt B-körkort.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny servicemedarbetare?',
+        a: 'Lyft eventuellt gymnasium eller YH-utbildning, sommarjobb som visar service-erfarenhet (café, butik, idrottsförening), datorvana, språk, schemaflexibilitet, samt eventuell internutbildning. Många hotell och fastighetsbolag rekryterar gärna nya med rätt attityd.',
+      },
+      {
+        q: 'Vilka certifieringar är värdefullast?',
+        a: 'HACCP för livsmedelshantering (hotell, konferens). Första hjälpen är universellt värdefull. Brandskydd för hotell och fastighet. Heta arbeten för praktiskt underhåll. Lyft alla certifieringar med datum eftersom de påverkar lönen direkt.',
+      },
+      {
+        q: 'Hur viktig är språkkunskap?',
+        a: 'Mycket på internationella hotell, konferensanläggningar och scale-ups. Svenska och engelska är minimum. Tyska, franska, spanska, kinesiska är meriterande för premium-hotell. Var konkret med nivå (modersmål, flytande, kommunikativ).',
+      },
+      {
+        q: 'Hur lyfter jag servicevana?',
+        a: 'Konkret: "Möter 200+ konferensgäster per dag på Scandic Stockholm", "Hanterar VIP-bokningar och specialönskemål", "Bidrog till 4,7 av 5 i kundnöjdhet på TripAdvisor". Konkreta volymer och resultat differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Servicemedarbetare, lokalvårdare, vaktmästare, husfru, Opera PMS, Mews, HACCP, första hjälpen, brandskydd, heta arbeten, SBA, AML, kollektivavtal Fastighets, kollektivavtal Visita. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett servicemedarbetar-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior med specialisering eller koordinator-roll: 1,5 sidor. Det viktigaste är att branschvana, certifieringar och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till servicemedarbetar-tjänster?',
+        a: 'Ofta. Hotell och fastighet förväntar sig ofta personligt brev. Använd brevet för att förklara din serviceförmåga och beskriv ett konkret bemötandeärende du löst. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur viktig är schemaflexibilitet?',
+        a: 'Mycket. Hotell, konferens och idrottsanläggningar kör helger, kvällar och tidiga morgnar. Var tydlig med dina tider och eventuella begränsningar. Hög flexibilitet ger fler erbjudanden och ofta bättre tjänster.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt servicemedarbetar-CV?',
+        a: 'Personnummer (bara födelseår), gästuppgifter, sekretessbelagda detaljer, exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 10 år, generiska påståenden ("driven och serviceminded") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'servitris-restaurangbitrade': {
+    seoIntro:
+      'Som servitris eller restaurangbiträde bedöms du på din serviceförmåga, snabbhet och produktkunskap. Restauranger, kaféer, hotellrestauranger och kedjor som MAX, MAX Premium Burgers, McDonald\'s, O\'Learys har konstant öppna tjänster, men restaurangchefer slänger CV:n som inte tydligt visar service-erfarenhet, kassasystem och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den restaurang du faktiskt vill jobba på.\n\nVår mall för servitriser och restaurangbiträden lyfter service-erfarenhet, kassasystem och språk som första visuella element. Vi har strukturerat erfarenhetssektionen så att restaurang, period och konkreta resultat syns direkt. Det betyder att restaurangchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: restaurangerfarenhet med koncept, kassasystem (Caspeco, Sitoo, Eat&Drink, Square), specialfunktioner (vinrådgivning, allergikunskap, bar), HACCP, allergenhantering, eventuell sommelier- eller barista-utbildning, språkkunskaper med nivå, schemaflexibilitet samt eventuell ansvarsfull alkoholservering.\n\nNedan hittar du två CV-mallar designade för servitris- och restaurangbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad restaurangchefer på premium-restauranger och kedjor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Target',
+        title: 'Restaurangtyp i klartext',
+        description: 'Fine dining, premium-restaurang, café, snabbmat, hotellrestaurang är olika världar. Var tydlig med koncept eftersom det avgör matchning till den restaurang du söker.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Kassasystem konkret',
+        description: 'Caspeco, Sitoo, Eat&Drink, Square, iZettle, Lightspeed. Skriv ut alla kassasystem du behärskar samt vana av kortbetalning, Swish och kontant.',
+      },
+      {
+        icon: 'Award',
+        title: 'Specialkunskaper',
+        description: 'Vinrådgivning, ölkunskap, sommelier-utbildning, barista-färdigheter, mixology. Lyft specialisering eftersom premium-restauranger värderar det direkt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'HACCP och allergener',
+        description: 'HACCP-utbildning, allergenhantering enligt Livsmedelsförordningen, ansvarsfull alkoholservering. CV-kritiskt på alla seriösa restauranger.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Språk på rätt nivå',
+        description: 'Svenska, engelska, eventuellt övriga språk med nivå. Internationella restauranger och stadskärnan söker specifika kombinationer.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Schemaflexibilitet',
+        description: 'Kvällar, helger, högtider. Var tydlig med tillgänglighet eftersom restaurang kräver hög flexibilitet och det är CV-kritiskt för bemanningsplanering.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Erfarenhet och kassa överst',
+        description: 'Vår mall lyfter restaurangerfarenhet, kassasystem och språk i sidopanelen. Restaurangchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för specialkunskaper',
+        description: 'Sommelier-utbildning, ölkunskap, mixology lyfts som eget block. Differentierar dig från servitriser med bara generell erfarenhet.',
+      },
+      {
+        title: 'Tydlig restaurangtyp per arbetsgivare',
+        description: 'Mallen har dedikerade rader för restaurangkoncept per uppdragsgivare. Erfarenhet från fine dining och snabbmat konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Servering med foto',
+        description: 'För senior servitris eller premium-restaurang lägger Servering till foto och varm färgton. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för HACCP och allergener',
+        description: 'Mallen har dedikerade rader för HACCP, allergenhantering och ansvarsfull alkoholservering. CV-kritiskt på seriösa restauranger.',
+      },
+      {
+        title: 'Plats för språk',
+        description: 'Egen rad för språkkunskaper med nivå. Internationella restauranger söker specifika kombinationer.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Servering och bordsservice',
+        punkter: [
+          'Möta och placera gäster vid bord',
+          'Ta beställningar och rekommendera mat och dryck',
+          'Servera mat och dryck enligt restaurangens standard',
+          'Hantera betalning och avslut av besök',
+        ],
+      },
+      {
+        rubrik: 'Produktkunskap och rådgivning',
+        punkter: [
+          'Beskriva menyn för gäster med olika behov',
+          'Hantera allergi- och dietfrågor enligt regelverk',
+          'Rekommendera viner och drycker till maträtter',
+          'Stötta vid specialönskemål och VIP-bokningar',
+        ],
+      },
+      {
+        rubrik: 'Kassa och betalning',
+        punkter: [
+          'Hantera kassa, kortbetalning och Swish',
+          'Genomföra dagsavstämning och rapportera kassadifferens',
+          'Bemöta vid byten, returer och reklamationer',
+          'Säkerställa korrekt prishantering och kampanjer',
+        ],
+      },
+      {
+        rubrik: 'Förberedelser och mise en place',
+        punkter: [
+          'Genomföra bordsdukning och förberedelser',
+          'Hantera duktyg, glas och bestick',
+          'Bidra till städning av sal och bar',
+          'Säkerställa restaurangens visuella standard',
+        ],
+      },
+      {
+        rubrik: 'Hygien och säkerhet',
+        punkter: [
+          'Genomföra HACCP-rutiner och egenkontroll',
+          'Hantera allergener enligt Livsmedelsförordningen',
+          'Säkerställa ansvarsfull alkoholservering',
+          'Bidra till hygienrond och Livsmedelsverkets-revision',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Restaurangtyper',
+        termer: [
+          { term: 'Fine dining', forklaring: 'Premium-restaurang med strukturerad service.' },
+          { term: 'Bistrot', forklaring: 'Mindre formell restaurang, ofta franskinspirerad.' },
+          { term: 'Brasserie', forklaring: 'Restaurang med både service och bar-koncept.' },
+          { term: 'Café', forklaring: 'Lättare måltider med kaffe och bakverk.' },
+          { term: 'Snabbmat', forklaring: 'Counter service med snabb produktion.' },
+          { term: 'Hotellrestaurang', forklaring: 'Restaurang knuten till hotellverksamhet.' },
+        ],
+      },
+      {
+        kategori: 'Service-roller',
+        termer: [
+          { term: 'Servitris/Servitör', forklaring: 'Service-medarbetare i sal.' },
+          { term: 'Restaurangbiträde', forklaring: 'Allmän service-roll i restaurang.' },
+          { term: 'Hovmästare', forklaring: 'Senior service-medarbetare med ansvar för sal.' },
+          { term: 'Maître d\'', forklaring: 'Premium-restaurangs chef-hovmästare.' },
+          { term: 'Sommelier', forklaring: 'Vinexpert med utbildning.' },
+          { term: 'Bartender', forklaring: 'Specialist på drycker och bar.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar',
+        termer: [
+          { term: 'HACCP', forklaring: 'Livsmedelshygien-metodik.' },
+          { term: 'Ansvarsfull alkoholservering', forklaring: 'Utbildning i åldersgräns och berusade gäster.' },
+          { term: 'Allergenutbildning', forklaring: 'Hantering av de 14 allergengrupperna.' },
+          { term: 'Sommelier-utbildning', forklaring: 'Vinkunskap, från grundnivå till master sommelier.' },
+          { term: 'WSET', forklaring: 'Wine & Spirit Education Trust, internationell vinutbildning.' },
+          { term: 'Första hjälpen', forklaring: 'L-ABC eller hjärt-lungräddning.' },
+        ],
+      },
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'Caspeco', forklaring: 'Marknadsledande kassasystem för restaurang i Sverige.' },
+          { term: 'Sitoo', forklaring: 'Molnbaserat kassasystem för retail och restaurang.' },
+          { term: 'Eat&Drink', forklaring: 'Specifikt kassasystem för restaurang.' },
+          { term: 'Square', forklaring: 'Internationellt kassasystem för småbolag.' },
+          { term: 'iZettle', forklaring: 'PayPals kassasystem för småbolag.' },
+          { term: 'Lightspeed', forklaring: 'Premium kassasystem för restaurang.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Premium-restauranger',
+        exempel: [
+          'Frantzén, Operakällaren, Mathias Dahlgren',
+          'Speceriet, Esperanto, Daniel Berlin',
+          'PM & Vänner, Riche, Sturehof',
+          'Stjärn-restauranger och fine dining',
+        ],
+      },
+      {
+        kategori: 'Hotell- och konferensrestauranger',
+        exempel: [
+          'Grand Hotel, Diplomat Hotel, Bank Hotel',
+          'Upper House, Avalon, Clarion Post',
+          'Scandic Hotels och Nordic Choice',
+          'Konferensanläggningar med restaurang',
+        ],
+      },
+      {
+        kategori: 'Kedjor och snabbmat',
+        exempel: [
+          'MAX Premium Burgers, McDonald\'s, Burger King',
+          'O\'Learys, Vapiano, Pizza Hut',
+          'Subway, Sibylla, Sushi Yama',
+          'Mindre kedjor och franchise',
+        ],
+      },
+      {
+        kategori: 'Café och bistrot',
+        exempel: [
+          'Espresso House, Wayne\'s Coffee, Café Pascal',
+          'Mindre cafékedjor och fristående',
+          'Bistroter och bistrot-restauranger',
+          'Hotellanknutna kaféer och bistroter',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direktanställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen. Restauranger lärs ofta upp internt under 1-4 veckor. Inkluderar HACCP, ansvarsfull alkoholservering och kassasystem.',
+      },
+      {
+        rubrik: 'Restaurang- och livsmedelsprogrammet (3 år)',
+        beskrivning: 'Gymnasieprogram med inriktning servering. Ger grund för fine dining och premium-restauranger. Inkluderar HACCP och praktik.',
+      },
+      {
+        rubrik: 'YH-utbildning till sommelier eller maître d\' (1-2 år)',
+        beskrivning: 'Specialiserad yrkeshögskoleutbildning. Inkluderar WSET-nivåer eller motsvarande. Värdefull för premium-restauranger och avancemang.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'WSET vinutbildning (nivåer 1-4), barista-utbildning, mixology-kurser, allergenutbildning, ansvarsfull alkoholservering. Påverkar lönen direkt.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Caspeco, Sitoo, Eat&Drink',
+        'Kortbetalning, Swish, kontant',
+        'HACCP och allergenhantering',
+        'Ansvarsfull alkoholservering',
+        'Vinkunskap (grundläggande eller WSET)',
+        'Ölkunskap och bartending',
+        'Bordsdukning och mise en place',
+        'Mat- och dryckesrekommendationer',
+        'Hygienrutiner enligt Livsmedelsverket',
+        'Mersälj och kundbemötande',
+        'B-körkort vid behov',
+        'Engelska och eventuellt övriga språk',
+      ],
+      personliga: [
+        'Lyhörd för gäster',
+        'Snabb och precisionsorienterad',
+        'Lugn under hög arbetsbelastning',
+        'Lagspelare i sal och bar',
+        'Pedagogisk vid produktrådgivning',
+        'Pålitlig vid kassa',
+        'Pragmatisk i tradeoffs',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren servitris med 4 års erfarenhet från PM & Vänner och Grand Hotel. Specialiserad på fine dining med 60+ gäster per kväll och vinrådgivning för 200+ olika viner. WSET nivå 2 sommelier-utbildning, HACCP-certifierad och ansvarsfull alkoholservering. Behärskar Caspeco och Lightspeed kassasystem. Talar svenska, engelska och tyska flytande. Schemaflexibel inklusive kvällar och helger. Söker nya uppdrag som senior servitris eller hovmästare på premium-restaurang.',
+
+    profilTips:
+      'År som servitris, restaurangtyp och specialisering i öppningsraden. Andra meningen lyfter certifieringar och språk. Tredje meningen visar schemaflexibilitet och eventuell hovmästare-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Restaurangtyp i klartext',
+        text: 'Fine dining, premium, café, snabbmat, hotellrestaurang. Var tydlig med koncept eftersom det avgör matchning.',
+      },
+      {
+        rubrik: 'Kassasystem konkret',
+        text: 'Caspeco, Sitoo, Eat&Drink, Square, iZettle, Lightspeed. Skriv ut alla kassasystem du behärskar.',
+      },
+      {
+        rubrik: 'Specialkunskaper',
+        text: 'Vinrådgivning, ölkunskap, sommelier-utbildning, barista, mixology. Lyft specialisering eftersom premium-restauranger värderar det direkt.',
+      },
+      {
+        rubrik: 'HACCP och allergener',
+        text: 'HACCP-utbildning, allergenhantering enligt Livsmedelsförordningen, ansvarsfull alkoholservering. CV-kritiskt på alla seriösa restauranger.',
+      },
+      {
+        rubrik: 'Språk på rätt nivå',
+        text: 'Svenska, engelska, eventuellt övriga språk med nivå. Internationella restauranger söker specifika kombinationer.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Kvällar, helger, högtider. Var tydlig med tillgänglighet eftersom restaurang kräver hög flexibilitet.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som servitris, restaurangtyp och specialisering på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Restaurang, period, koncept. Konkretisera kassasystem, gästvolym och specialiteter.' },
+      { sektion: 'Utbildning', tips: 'Restaurangprogram eller YH om relevant. Internutbildning från arbetsgivaren.' },
+      { sektion: 'Certifieringar', tips: 'HACCP, ansvarsfull alkoholservering, WSET, sommelier. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'Kassa, produktkunskap, hygien. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Schemaflexibilitet, körkort, eventuella tävlingar, språk.' },
+    ],
+
+    checklista: [
+      'Restaurangerfarenhet med koncept',
+      'Kassasystem du behärskar',
+      'HACCP och allergenhantering',
+      'Ansvarsfull alkoholservering',
+      'Eventuell vinkunskap eller sommelier-utbildning',
+      'Språkkunskaper med nivå',
+      'Schemaflexibilitet (kvällar, helger)',
+      'Bordsdukning och mise en place',
+      'Eventuell ölkunskap eller mixology',
+      'Konkret kundvolym per kväll',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Restauranger och hotell använder Workday, Teamtailor och egna ATS. Skriv ut kassasystem (Caspeco, Sitoo, Eat&Drink, Lightspeed), certifieringar (HACCP, ansvarsfull alkoholservering, WSET) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett servitris- eller restaurangbiträdes-CV?',
+        a: 'Restaurangerfarenhet med koncept, kassasystem (Caspeco, Sitoo, Eat&Drink), HACCP, ansvarsfull alkoholservering, allergenhantering, eventuella specialkunskaper (vinrådgivning, sommelier, barista), språkkunskaper med nivå, schemaflexibilitet samt eventuell tävlingserfarenhet.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny servitris?',
+        a: 'Lyft eventuellt restaurang- och livsmedelsprogrammet, sommarjobb i café eller butik, datorvana, språk, schemaflexibilitet inklusive kvällar och helger, samt internutbildning. Restauranger rekryterar gärna nya med rätt attityd och servicevana.',
+      },
+      {
+        q: 'Hur viktig är sommelier-utbildning?',
+        a: 'Mycket på fine dining och premium-restauranger. WSET nivå 1-2 räcker för grundläggande vinrådgivning, nivå 3-4 är senior. Sveriges sommelierförening utfärdar svenska certifieringar. Påverkar lönen direkt och differentierar dig på premium-segmentet.',
+      },
+      {
+        q: 'Vilket kassasystem är viktigast?',
+        a: 'Caspeco dominerar svensk restaurang. Sitoo är vanlig på premium och kedjor. Eat&Drink, Lightspeed och Square också vanliga. iZettle på mindre verksamheter. Hade du flera arbetsgivare i sikte är bredd viktigare än djup.',
+      },
+      {
+        q: 'Hur lyfter jag servicevana?',
+        a: 'Konkret: "Hanterar 60+ gäster per kväll på premium-restaurang", "Bidrog till topplacering på White Guide", "Driver vinmenyer för 200+ olika viner med rekommendationer". Konkreta volymer och resultat differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Servitris, restaurangbiträde, Caspeco, Sitoo, Eat&Drink, Lightspeed, HACCP, ansvarsfull alkoholservering, allergenhantering, WSET, sommelier, mise en place, fine dining, hovmästare. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett servitris- eller restaurangbiträdes-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior hovmästare eller sommelier: 1,5-2 sidor. Det viktigaste är att restaurangtyp, certifieringar och senaste verksamhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till restaurang-tjänster?',
+        a: 'Beror på restaurang. Premium-restauranger och fine dining förväntar sig personligt brev. Snabbmat och kedjor accepterar oftast bara CV. När brev krävs, fokus på din servicefilosofi och varför just den restaurangen passar dig.',
+      },
+      {
+        q: 'Hur viktig är schemaflexibilitet?',
+        a: 'Mycket. Restauranger kör kvällar, helger och högtider. Var tydlig med dina tider och eventuella begränsningar (skola, andra åtaganden). Hög flexibilitet ger fler erbjudanden och bättre tjänster på premium-restauranger.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt servitris- eller restaurangbiträdes-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 5-10 år, generiska påståenden ("driven och social") utan stöd, gästuppgifter eller specifika klagomål, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'koksbitrade': {
+    seoIntro:
+      'Som köksbiträde bedöms du på din kökserfarenhet, hygienvana och flexibilitet. Restauranger, kaféer, hotell, skolkök, sjukhuskök och kedjor som MAX, McDonald\'s, Compass Group, ISS Catering har konstant öppna köksbiträdestjänster, men kökschefer slänger CV:n som inte tydligt visar hygien, kökstyp och fysisk lämplighet. Ett välskrivet CV avgör om du blir kallad till intervju på det kök du faktiskt vill jobba på.\n\nVår mall för köksbiträden lyfter HACCP-utbildning, kökstyp och flexibilitet som första visuella element. Vi har strukturerat erfarenhetssektionen så att kök, period och konkreta arbetsuppgifter syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kökstyp (restaurang, café, snabbmat, skolkök, sjukhuskök, äldreboende, catering), HACCP-utbildning, allergenhantering, eventuell kallskänka- eller varmkock-stöd, fysisk lämplighet och uthållighet, schemaflexibilitet (tidiga morgnar, helger), språkkunskaper samt eventuella vidareutbildningar (kokutbildning, dietistkunskap).\n\nNedan hittar du två CV-mallar designade för köksbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer på restauranger, skolkök och äldreboende faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'Target',
+        title: 'Kökstyp konkret',
+        description: 'Restaurang, snabbmat, skolkök, sjukhuskök, äldreboende, catering är olika världar. Var tydlig med kökstyp eftersom rutiner och tempo skiljer sig kraftigt.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'HACCP och allergener',
+        description: 'HACCP-utbildning, allergenhantering enligt Livsmedelsförordningen, hygienrutiner. CV-kritiskt och krav från Livsmedelsverket på alla kök.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Arbetsuppgifter i klartext',
+        description: 'Diskning, förberedelser, mise en place, sallad och kallskänka, varmkock-stöd, packning. Var konkret med vilka uppgifter du hanterat eftersom rollen är bred.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Fysisk lämplighet',
+        description: 'Lyftvikt, uthållighet, stå upp långa pass, hetta. Lyft eventuell idrottsbakgrund eller militärtjänst som visar fysisk förmåga.',
+      },
+      {
+        icon: 'Award',
+        title: 'Eventuella vidareutbildningar',
+        description: 'Kockutbildning, kallskänka-utbildning, dietistkunskap, allergenutbildning. Påverkar lönen och differentierar dig på senior-roller.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Schemaflexibilitet',
+        description: 'Tidiga morgnar (skolkök öppnar 5-6), helger (restaurang), kvällar. Var tydlig med tillgänglighet eftersom kök kräver hög flexibilitet.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'HACCP och kökstyp överst',
+        description: 'Vår mall lyfter HACCP, kökstyp och hygiencertifieringar i sidopanelen. Kökschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för arbetsuppgifter',
+        description: 'Diskning, mise en place, kallskänka, kock-stöd, packning lyfts som eget kompetensblock. Differentierar dig från generella städ-roller.',
+      },
+      {
+        title: 'Tydlig kökstyp per arbetsgivare',
+        description: 'Mallen har dedikerade rader för kökstyp per uppdragsgivare. Erfarenhet från restaurang och skolkök konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Servering med foto',
+        description: 'För senior köksbiträde eller kock-aspirant lägger Servering till foto och varm färgton. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för certifieringar',
+        description: 'Mallen har dedikerade rader för HACCP, allergenutbildning, första hjälpen, brandskydd. CV-kritiskt på alla seriösa kök.',
+      },
+      {
+        title: 'Plats för fysisk lämplighet',
+        description: 'Egen rad för fysik, idrottsbakgrund och uthållighet. Köksarbete är fysiskt krävande och kökschefer värderar det direkt.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Diskning och städ',
+        punkter: [
+          'Hantera disk för 200+ portioner per dag',
+          'Driva diskmaskin och kontrollera resultatet',
+          'Genomföra storstädning av kök efter service',
+          'Hantera sopor och återvinning',
+        ],
+      },
+      {
+        rubrik: 'Förberedelser och mise en place',
+        punkter: [
+          'Skala, hacka och förbereda råvaror',
+          'Genomföra portionering enligt recept',
+          'Hjälpa kock med mise en place inför service',
+          'Bidra till sallads- och tillbehörsproduktion',
+        ],
+      },
+      {
+        rubrik: 'Produktion och stöd till kock',
+        punkter: [
+          'Stötta varmkock under service',
+          'Driva kallskänka och tillbehörstation',
+          'Bidra till bakning och bakverksproduktion',
+          'Genomföra grillning och stektion vid behov',
+        ],
+      },
+      {
+        rubrik: 'Hygien och säkerhet',
+        punkter: [
+          'Genomföra HACCP-egenkontroll och temperaturmätning',
+          'Hantera allergener enligt Livsmedelsförordningen',
+          'Sköta daglig och veckorengöring',
+          'Säkerställa hygienrutiner enligt Livsmedelsverket',
+        ],
+      },
+      {
+        rubrik: 'Servering och stöd',
+        punkter: [
+          'Bidra vid servering och avdukning',
+          'Stötta i bardisken vid behov',
+          'Hjälpa till med kundbemötande',
+          'Driva packning av takeaway-beställningar',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Kökstyper',
+        termer: [
+          { term: 'Restaurang-kök', forklaring: 'À la carte-produktion med snabba leveranser.' },
+          { term: 'Catering-kök', forklaring: 'Storskalig produktion för evenemang.' },
+          { term: 'Skolkök', forklaring: 'Daglig produktion av lunch för 200-1000 elever.' },
+          { term: 'Sjukhus-kök', forklaring: 'Produktion av specialdieter och allergikost.' },
+          { term: 'Äldreboende-kök', forklaring: 'Produktion av anpassad kost för äldre.' },
+          { term: 'Snabbmats-kök', forklaring: 'Hög omsättning med standardiserade produkter.' },
+        ],
+      },
+      {
+        kategori: 'Roller',
+        termer: [
+          { term: 'Köksbiträde', forklaring: 'Allmän roll med varierat ansvar.' },
+          { term: 'Kallskänka', forklaring: 'Specialist på kalla rätter, sallader, smörgåsar.' },
+          { term: 'Kock', forklaring: 'Senior roll med ansvar för produktion.' },
+          { term: 'Sous chef', forklaring: 'Köksmästarens högra hand.' },
+          { term: 'Köksmästare', forklaring: 'Köks-chefen med övergripande ansvar.' },
+          { term: 'Konditor', forklaring: 'Specialist på desserter och bakverk.' },
+        ],
+      },
+      {
+        kategori: 'Tekniker',
+        termer: [
+          { term: 'Mise en place', forklaring: 'Förberedelse av råvaror och utrustning före produktion.' },
+          { term: 'Brunoise', forklaring: 'Liten tärningsskärning (3-5 mm).' },
+          { term: 'Julienne', forklaring: 'Strimmel-skärning av grönsaker.' },
+          { term: 'Blanching', forklaring: 'Kort koktid följt av iskylning.' },
+          { term: 'Confit', forklaring: 'Långsam tillagning i fett vid låg temperatur.' },
+          { term: 'Sous vide', forklaring: 'Vakuumförpackad tillagning i vattenbad.' },
+        ],
+      },
+      {
+        kategori: 'Hygien och regelverk',
+        termer: [
+          { term: 'HACCP', forklaring: 'Hazard Analysis and Critical Control Points.' },
+          { term: 'EHEDG', forklaring: 'European Hygienic Engineering and Design Group.' },
+          { term: 'Egenkontroll', forklaring: 'Daglig kontroll av temperatur och hygien.' },
+          { term: 'Livsmedelsförordningen', forklaring: 'EU-regelverk för livsmedel.' },
+          { term: 'Allergener', forklaring: 'De 14 allergengrupperna som måste markeras.' },
+          { term: 'Spårbarhet', forklaring: 'Möjlighet att spåra råvarors ursprung.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Restauranger',
+        exempel: [
+          'Fine dining-restauranger med stora kök',
+          'Premium-restauranger och bistroter',
+          'Snabbmat (MAX, McDonald\'s, Burger King)',
+          'Café- och bagerikedjor',
+        ],
+      },
+      {
+        kategori: 'Catering och företagsmat',
+        exempel: [
+          'Compass Group, ISS Catering, Eurest',
+          'Sodexo, Restaurang och Café (kommunal catering)',
+          'Lunchrestauranger på kontor',
+          'Eventcatering och bröllopskök',
+        ],
+      },
+      {
+        kategori: 'Skola och vård',
+        exempel: [
+          'Kommunala skolkök och förskolor',
+          'Sjukhus-kök (Karolinska, Sahlgrenska, Akademiska)',
+          'Vårdcentraler och äldreboenden',
+          'Kommunalt äldreomsorg-kök',
+        ],
+      },
+      {
+        kategori: 'Hotell och konferens',
+        exempel: [
+          'Hotellrestaurang och frukost-kök',
+          'Konferenscenter och eventanläggningar',
+          'Spa- och friskvårds-kök',
+          'Festvåning och bröllopsanläggningar',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Direktanställning utan formell utbildning',
+        beskrivning: 'Vanligaste vägen. Restauranger och catering lärs upp internt under 1-2 veckor. Inkluderar HACCP, allergenhantering och kökshygien.',
+      },
+      {
+        rubrik: 'Restaurang- och livsmedelsprogrammet (3 år)',
+        beskrivning: 'Gymnasieprogram med inriktning kök. Ger grund för avancemang till kock. Inkluderar HACCP och VFU på olika kökstyper.',
+      },
+      {
+        rubrik: 'Lärlingsutbildning till kock (2-4 år)',
+        beskrivning: 'Efter gymnasiet följer lärlingstid hos kock. Avslutas med gesällbrev. Många köksbiträden växer in i kock-rollen via lärlingstid.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        beskrivning: 'HACCP, allergenutbildning, kallskänka-utbildning, dietistkunskap för specialkost. Korta kurser som påverkar lönen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'HACCP och egenkontroll',
+        'Allergenhantering enligt Livsmedelsförordningen',
+        'Diskmaskin och diskhall',
+        'Mise en place och förberedelser',
+        'Knivteknik (brunoise, julienne)',
+        'Kallskänka och saladstation',
+        'Stöd till varmkock under service',
+        'Grillning och stektion',
+        'Sousvide och moderna tillagningstekniker',
+        'Bakning och bakverksstöd',
+        'Storkok och portionering',
+        'Spårbarhet och dokumentation',
+      ],
+      personliga: [
+        'Snabb och precisionsorienterad',
+        'Lugn vid hög arbetsbelastning',
+        'Lagspelare i intensivt kök',
+        'Strukturerad i mise en place',
+        'Lojal mot hygienstandard',
+        'Pragmatisk i tradeoffs',
+        'Trygg i fysiskt krävande miljö',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren köksbiträde med 4 års erfarenhet från fine dining-restaurang och Compass Group catering. Hanterar mise en place för 150+ portioner per service, driver kallskänka och stöttar varmkock. HACCP-certifierad, allergenutbildad och vana av spårbarhet. Genomför diskning och kökshygien enligt Livsmedelsverkets riktlinjer. Talar svenska och engelska. Schemaflexibel inklusive kvällar, helger och tidiga morgnar. Söker nya uppdrag som senior köksbiträde eller lärlings-position som kock.',
+
+    profilTips:
+      'År som köksbiträde, kökstyp och specialisering i öppningsraden. Andra meningen lyfter HACCP, allergener och konkreta arbetsuppgifter. Tredje meningen visar schemaflexibilitet och eventuell kock-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Kökstyp konkret',
+        text: 'Restaurang, snabbmat, skolkök, sjukhuskök, äldreboende, catering. Var tydlig med kökstyp eftersom rutiner och tempo skiljer sig kraftigt.',
+      },
+      {
+        rubrik: 'HACCP och allergener',
+        text: 'HACCP-utbildning, allergenhantering, hygienrutiner. CV-kritiskt och krav från Livsmedelsverket.',
+      },
+      {
+        rubrik: 'Arbetsuppgifter i klartext',
+        text: 'Diskning, förberedelser, mise en place, kallskänka, varmkock-stöd. Var konkret med vilka uppgifter du hanterat.',
+      },
+      {
+        rubrik: 'Fysisk lämplighet',
+        text: 'Lyftvikt, uthållighet, långa pass, hetta. Lyft eventuell idrottsbakgrund eller militärtjänst.',
+      },
+      {
+        rubrik: 'Vidareutbildningar',
+        text: 'Kockutbildning, kallskänka, dietistkunskap. Påverkar lönen och differentierar dig.',
+      },
+      {
+        rubrik: 'Schemaflexibilitet',
+        text: 'Tidiga morgnar, helger, kvällar. Var tydlig med tillgänglighet eftersom kök kräver hög flexibilitet.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som köksbiträde, kökstyp och specialisering på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Kök, period, ansvarsområde. Konkretisera portionsantal, mise en place och specialiteter.' },
+      { sektion: 'Utbildning', tips: 'Restaurangprogram om relevant. Internutbildning från arbetsgivaren.' },
+      { sektion: 'Certifieringar', tips: 'HACCP, allergenutbildning, första hjälpen. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'Kökstekniker, hygien, system. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Schemaflexibilitet, eventuella tävlingar eller kockaspirationer, språk.' },
+    ],
+
+    checklista: [
+      'Kökstyp och erfarenhet',
+      'HACCP och allergenhantering',
+      'Konkreta arbetsuppgifter (disk, mise en place, kallskänka)',
+      'Fysisk lämplighet och uthållighet',
+      'Eventuella vidareutbildningar',
+      'Språkkunskaper med nivå',
+      'Schemaflexibilitet (tidiga morgnar, helger)',
+      'Spårbarhet och dokumentation',
+      'Eventuell kock-ambition',
+      'Hygienrutiner enligt Livsmedelsverket',
+    ],
+
+    atsInfo:
+      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Restauranger, catering och offentliga kök använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut HACCP, allergenhantering, kökstekniker (mise en place, kallskänka) och kökstyp i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett köksbiträdes-CV?',
+        a: 'Kökstyp och erfarenhet, HACCP-utbildning, allergenhantering, konkreta arbetsuppgifter (diskning, mise en place, kallskänka, varmkock-stöd), fysisk lämplighet, schemaflexibilitet, språkkunskaper samt eventuella vidareutbildningar (kockutbildning, dietistkunskap).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny köksbiträde?',
+        a: 'Lyft eventuellt restaurang- och livsmedelsprogrammet, sommarjobb i café eller butik, fysisk uthållighet från idrott eller militärtjänst, språk, schemaflexibilitet inklusive tidiga morgnar och helger, samt internutbildning. Kök rekryterar gärna nya med rätt attityd och fysisk lämplighet.',
+      },
+      {
+        q: 'Hur viktig är HACCP?',
+        a: 'Helt avgörande. HACCP är krav från Livsmedelsverket på alla seriösa kök. Många arbetsgivare finansierar utbildningen. Skriv ut datum och utfärdare. Allergenutbildning kompletterar och påverkar lönen direkt.',
+      },
+      {
+        q: 'Skiljer sig köksbiträde från kock?',
+        a: 'Ja. Köksbiträde stöttar kock med disk, mise en place, kallskänka och förberedelser. Kock har huvudansvar för produktion och recept. Köksbiträden växer ofta in i kock-rollen via lärlingstid (2-4 år) och gesällbrev. Var tydlig med vilken roll du sökt.',
+      },
+      {
+        q: 'Hur lyfter jag konkreta arbetsuppgifter?',
+        a: 'Konkret: "Hanterar mise en place för 150+ portioner per service", "Driver kallskänka med 30+ sallader per dag", "Genomför diskning för 800 portioner skolkök". Konkreta volymer och områden differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Köksbiträde, HACCP, allergenhantering, livsmedelsförordningen, mise en place, kallskänka, brunoise, julienne, sous vide, egenkontroll, spårbarhet, kökshygien, dietistkunskap. Workday och Visma Recruit söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett köksbiträdes-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior med kock-ambition: 1,5 sidor. Det viktigaste är att HACCP, kökstyp och senaste verksamhet syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till köksbiträdes-tjänster?',
+        a: 'Ofta inte. Snabbmat och kedjor accepterar oftast bara CV. Premium-restauranger och fine dining förväntar sig personligt brev. När brev krävs, fokus på din kökserfarenhet och varför just den verksamheten passar dig.',
+      },
+      {
+        q: 'Hur viktig är fysisk lämplighet?',
+        a: 'Mycket. Köksarbete är fysiskt krävande - långa stående pass, hetta, lyft, snabbt tempo. Lyft eventuell idrottsbakgrund, militärtjänst eller motsvarande som visar fysisk förmåga. Kökschefer värderar bevisad uthållighet.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt köksbiträdes-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, irrelevanta arbetslivserfarenheter äldre än 5-10 år, generiska påståenden ("driven och social") utan stöd, samt hobbies som inte är yrkesrelevanta. Stavfel signalerar slarv.',
+      },
+    ],
+  },
+
+  'sommarjobb': {
+    seoIntro:
+      'Som sommarjobbare bedöms du på din potential, arbetsmoral och vilja att bidra till verksamheten under semesterperioden. Tusentals svenska bolag, kommuner och organisationer rekryterar sommarjobbare varje år, men HR-chefer slänger CV:n som inte tydligt visar arbetsförmåga, körkort och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVår mall för sommarjobb lyfter utbildning, tidigare erfarenhet och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, eventuella tidigare jobb och engagemang syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium eller högskola) med specialinriktning, tidigare arbetslivserfarenheter (även korta uppdrag), idrotts- eller frivilligengagemang, körkort (B), språkkunskaper, datorvana, tillgänglighet under sommarmånaderna samt eventuella certifieringar (truckkort, kassaerfarenhet, HACCP).\n\nNedan hittar du två CV-mallar designade för sommarjobb-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på industri, vård, butik och kontor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'GraduationCap',
+        title: 'Utbildning överst',
+        description: 'Sommarjobbare har utbildning i fokus istället för erfarenhet. Skriv ut program, skola och förväntat examensår. Lyft relevanta kurser eller fördjupningar.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Alla erfarenheter räknas',
+        description: 'Tidigare sommarjobb, hjälparbete, hemtjänst för anhöriga, idrottsledare. Lyft konkreta resultat eftersom det visar arbetsmoral oavsett bransch.',
+      },
+      {
+        icon: 'Target',
+        title: 'Anpassa till bransch',
+        description: 'Industri, vård, butik, café, kontor söker olika saker. Justera vilka erfarenheter du lyfter beroende på bransch och tjänst.',
+      },
+      {
+        icon: 'Award',
+        title: 'Certifieringar och behörigheter',
+        description: 'B-körkort är ofta krav. Truckkort, HACCP, kassaerfarenhet, första hjälpen, simkunnighet differentierar. Lyft alla.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Tillgänglighet i klartext',
+        description: 'Datum för tillgänglighet (juni-augusti), helger, kvällar. Var tydlig eftersom sommarjobb planeras månader i förväg.',
+      },
+      {
+        icon: 'FileText',
+        title: 'Engagemang utanför studierna',
+        description: 'Idrottsförening, scout, ideell verksamhet, kåren, kompisars företag. Visar initiativ och samarbetsförmåga utöver skolan.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Utbildning överst, inte erfarenhet',
+        description: 'Vår mall för sommarjobb har utbildning i sidopanelen istället för anställningar. HR-chefer ser ditt program och skola på fem sekunder.',
+      },
+      {
+        title: 'Eget block för engagemang',
+        description: 'Idrott, scout, ideellt arbete, kören lyfts som eget block. Differentierar dig från andra sommarjobbare med liknande utbildning.',
+      },
+      {
+        title: 'Plats för alla typer av jobb',
+        description: 'Mallen lyfter både relevant och icke-relevant arbete. Tidigare sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
+      },
+      {
+        title: 'Premium-mallen Student Plus med foto',
+        description: 'För premium-sommarjobb eller trainee-program lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för certifieringar',
+        description: 'Mallen har dedikerade rader för B-körkort, truckkort, HACCP, kassaerfarenhet. Värdefulla för specifika sommarjobb-typer.',
+      },
+      {
+        title: 'Plats för tillgänglighet',
+        description: 'Egen rad för datum, schemaflexibilitet och eventuell körkortsklass. HR-chefer planerar bemanning utifrån detta.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Tidigare sommarjobb',
+        punkter: [
+          'Genomföra arbetsuppgifter inom service, butik, kassa eller café',
+          'Bidra till evenemang och kampanjer',
+          'Stötta vid sommaröppning eller högsäsong',
+          'Hjälpa till med inventering och påfyllning',
+        ],
+      },
+      {
+        rubrik: 'Skola och studier',
+        punkter: [
+          'Genomföra kurser och examinationer enligt programmet',
+          'Bidra till grupparbeten och projektarbeten',
+          'Genomföra praktik eller VFU enligt programmets struktur',
+          'Skriva uppsatser och reflektera över lärdomar',
+        ],
+      },
+      {
+        rubrik: 'Engagemang utanför skolan',
+        punkter: [
+          'Driva ideellt arbete i förening eller scout',
+          'Genomföra idrottsledar-uppdrag eller tränaransvar',
+          'Stötta vid kåren eller studentförening',
+          'Bidra till samhällsprojekt eller volontäruppdrag',
+        ],
+      },
+      {
+        rubrik: 'Praktiska färdigheter',
+        punkter: [
+          'Genomföra körkortsutbildning och eventuella körprov',
+          'Bidra till hjälparbete för familj och grannar',
+          'Hantera ekonomi (sparande, fakturor) på egen hand',
+          'Bygga digital kompetens (Office, sociala medier, Photoshop)',
+        ],
+      },
+      {
+        rubrik: 'Förberedelser för sommarjobb',
+        punkter: [
+          'Söka och granska annonser via Arbetsförmedlingen och LinkedIn',
+          'Genomföra intervjuer och förberedelse',
+          'Skaffa intyg och certifieringar (HACCP, truckkort)',
+          'Förbereda CV och personligt brev för olika branscher',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'Vanliga sommarjobb',
+        termer: [
+          { term: 'Industri-sommarjobb', forklaring: 'Volvo, Scania, ABB, SKF erbjuder strukturerade program.' },
+          { term: 'Vård-sommarjobb', forklaring: 'Regioner rekryterar vikarier till sjukhus och äldreboende.' },
+          { term: 'Butik och café', forklaring: 'Detaljhandel och café-kedjor under högsäsong.' },
+          { term: 'Kontor och administration', forklaring: 'Företag behöver ersättare vid semester.' },
+          { term: 'Förskola och fritidshem', forklaring: 'Kommunerna rekryterar vikarier till semestrar.' },
+          { term: 'Trädgård och fastighet', forklaring: 'Säsongsarbete med snöröjning, gräsklippning, plantering.' },
+        ],
+      },
+      {
+        kategori: 'Certifieringar för sommarjobb',
+        termer: [
+          { term: 'B-körkort', forklaring: 'Standard krav för många sommarjobb.' },
+          { term: 'BE-körkort', forklaring: 'Släp, värdefullt för fastighet och utomhusarbete.' },
+          { term: 'Truckkort', forklaring: 'TLP A eller B räcker för många lager-sommarjobb.' },
+          { term: 'HACCP', forklaring: 'Krav på livsmedelsbranschen.' },
+          { term: 'Första hjälpen', forklaring: 'Värdefullt för vård- och simhallsjobb.' },
+          { term: 'Simlärar-certifikat', forklaring: 'Krav för simhall- och badanläggning.' },
+        ],
+      },
+      {
+        kategori: 'Skolnivåer',
+        termer: [
+          { term: 'Gymnasieelev', forklaring: 'Sommarjobb under och efter gymnasiet (16-19 år).' },
+          { term: 'Mellan studier', forklaring: 'Sommarjobb mellan gymnasium och högskola.' },
+          { term: 'Student', forklaring: 'Sommarjobb under högskoleutbildning.' },
+          { term: 'Sommarpraktik', forklaring: 'Strukturerad praktik 8-12 veckor.' },
+          { term: 'Sommartrainee', forklaring: 'Premium-program på storbolag.' },
+          { term: 'Examensjobb', forklaring: 'Företagsstött examensarbete sommar/höst.' },
+        ],
+      },
+      {
+        kategori: 'Engagemang',
+        termer: [
+          { term: 'Studentkår', forklaring: 'Studenters intresseorganisation på lärosätet.' },
+          { term: 'Idrottsförening', forklaring: 'Träning eller ledaruppdrag.' },
+          { term: 'Scout', forklaring: 'Friluftsverksamhet med ledarskap.' },
+          { term: 'Frivilligorganisation', forklaring: 'Stadsmissionen, Frälsningsarmén, BRIS.' },
+          { term: 'Volontäruppdrag', forklaring: 'Ideellt arbete utomlands eller hemma.' },
+          { term: 'Politisk ungdomsförening', forklaring: 'Engagemang i partipolitik.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industri och tillverkning',
+        exempel: [
+          'Volvo, Scania, ABB, SKF (strukturerade sommarprogram)',
+          'Sandvik, Atlas Copco, Alfa Laval',
+          'Stora Enso, Boliden, LKAB',
+          'Mindre industribolag och underleverantörer',
+        ],
+      },
+      {
+        kategori: 'Vård och omsorg',
+        exempel: [
+          'Regioner (Stockholm, VGR, Skåne) sommarvikariat',
+          'Sjukhus och vårdcentraler',
+          'Kommuner (äldreomsorg, hemtjänst, LSS)',
+          'Privata vårdgivare (Attendo, Capio, Humana)',
+        ],
+      },
+      {
+        kategori: 'Service och detaljhandel',
+        exempel: [
+          'Hotell (Scandic, Nordic Choice, Elite)',
+          'Restaurang- och cafékedjor (MAX, Espresso House)',
+          'Detaljhandel (ICA, H&M, Stadium)',
+          'Mindre butiker och caféer',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor och friskvård',
+        exempel: [
+          'Kommunala simhallar och friskvårdanläggningar',
+          'Förskolor och fritidshem (semesterstängningar)',
+          'Parkförvaltning och trädgårdsskötsel',
+          'Lagrings- och logistikbolag (PostNord, DHL)',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Sommarjobb under gymnasietiden',
+        beskrivning: 'Vanlig första anställning för 16-19-åringar. Många kommuner erbjuder strukturerade feriearbeten. Ger arbetslivserfarenhet och första referenser.',
+      },
+      {
+        rubrik: 'Sommarjobb under högskola',
+        beskrivning: 'Vanlig finansiering för studenter. Premium-program (Volvo Trainee, Klarna Future Tech) kombinerar betalning med karriärutveckling.',
+      },
+      {
+        rubrik: 'Sommarpraktik som karriärinvestering',
+        beskrivning: 'Strukturerade praktikplatser hos konsultbolag, bank, industri. Ofta avlönade och med möjlighet till anställning efter examen.',
+      },
+      {
+        rubrik: 'Certifieringar inför sommarjobb',
+        beskrivning: 'B-körkort, truckkort, HACCP, första hjälpen, simlärar-certifikat. Investera i certifieringar som passar din branschambition.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Office 365 (Word, Excel, PowerPoint)',
+        'Datorvana och digital kompetens',
+        'Eventuell programmering eller design',
+        'B-körkort',
+        'Eventuellt truckkort',
+        'Kassasystem (om relevant)',
+        'HACCP (om livsmedel)',
+        'Första hjälpen och L-ABC',
+        'Engelska och eventuellt övriga språk',
+        'Sociala medier och kommunikation',
+        'Eventuell ledaregenskap',
+        'Branschspecifik kompetens',
+      ],
+      personliga: [
+        'Punktlig och pålitlig',
+        'Lärande och nyfiken',
+        'Lagspelare i nytt team',
+        'Lyhörd för instruktioner',
+        'Snabb och flexibel',
+        'Ansvarstagande',
+        'Glad och positiv attityd',
+      ],
+    },
+
+    profilExempel:
+      'Engagerad gymnasieelev från ekonomiprogrammet på Östra Reals Gymnasium med examen våren 2026. Tidigare sommarjobb som kassör på ICA Maxi (2024 och 2025) med vana av kassasystem och kundbemötande. Driver lokalavdelning i scoutkåren som ledare för 25 ungdomar och var Phadder för nya studenter. B-körkort sedan mars 2025, HACCP-utbildning och första hjälpen. Talar svenska, engelska och spanska. Tillgänglig 17 juni - 31 augusti 2026 inklusive helger. Söker sommarjobb inom service, butik eller administration.',
+
+    profilTips:
+      'Skola och utbildningsnivå i öppningsraden. Andra meningen lyfter tidigare arbetslivserfarenhet och engagemang. Tredje meningen visar certifieringar, språk och tillgänglighet.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Utbildning överst',
+        text: 'Sommarjobbare har utbildning i fokus istället för erfarenhet. Skriv ut program, skola och förväntat examensår. Lyft relevanta kurser.',
+      },
+      {
+        rubrik: 'Alla erfarenheter räknas',
+        text: 'Tidigare sommarjobb, hjälparbete, idrottsledare. Lyft konkreta resultat eftersom det visar arbetsmoral oavsett bransch.',
+      },
+      {
+        rubrik: 'Anpassa till bransch',
+        text: 'Industri, vård, butik, café, kontor söker olika saker. Justera vilka erfarenheter du lyfter beroende på bransch.',
+      },
+      {
+        rubrik: 'Certifieringar och behörigheter',
+        text: 'B-körkort är ofta krav. Truckkort, HACCP, kassaerfarenhet, första hjälpen differentierar. Lyft alla.',
+      },
+      {
+        rubrik: 'Tillgänglighet i klartext',
+        text: 'Datum för tillgänglighet (juni-augusti), helger, kvällar. Var tydlig eftersom sommarjobb planeras månader i förväg.',
+      },
+      {
+        rubrik: 'Engagemang utanför studierna',
+        text: 'Idrottsförening, scout, ideell verksamhet. Visar initiativ och samarbetsförmåga utöver skolan.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'Skola, examensår, kärnintresse, tillgänglighet på 3-4 rader.' },
+      { sektion: 'Utbildning', tips: 'Skola + program + examensår. Relevanta kurser eller fördjupningar.' },
+      { sektion: 'Arbetslivserfarenhet', tips: 'Företag, period, roll. Konkretisera arbetsuppgifter och resultat även från korta uppdrag.' },
+      { sektion: 'Engagemang', tips: 'Idrottsförening, scout, kåren, frivilligorganisation. Roll och ansvar.' },
+      { sektion: 'Kompetenser', tips: 'Datorvana, språk, branschspecifika verktyg. Skilj på tekniska och personliga.' },
+      { sektion: 'Tillgänglighet', tips: 'Datum, helger, kvällar. Var konkret eftersom det är CV-kritiskt.' },
+    ],
+
+    checklista: [
+      'Skola och utbildningsprogram',
+      'Tidigare arbetslivserfarenheter',
+      'Engagemang utanför skolan',
+      'B-körkort eller annat körkort',
+      'Eventuella certifieringar',
+      'Språkkunskaper med nivå',
+      'Tillgänglighet i datum',
+      'Datorvana och digital kompetens',
+      'Eventuell branschspecifik kompetens',
+      'Referenser från tidigare arbete eller engagemang',
+    ],
+
+    atsInfo:
+      'Både vår mall Student Startup och premium-varianten Student Plus är ATS-säkra. Sommarjobb-givare som industri, vård, retail och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut körkort, certifieringar (HACCP, truckkort, första hjälpen), språk och tillgänglighetsdatum i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett sommarjobb-CV?',
+        a: 'Skola och utbildningsprogram, tidigare arbetslivserfarenheter (även korta), engagemang utanför skolan, certifieringar (körkort, truckkort, HACCP), språkkunskaper, datorvana, tillgänglighetsdatum samt eventuell branschspecifik kompetens.',
+      },
+      {
+        q: 'Hur skriver jag CV utan tidigare arbetserfarenhet?',
+        a: 'Lyft utbildningen i fokus med relevanta kurser eller projektarbeten. Engagemang räknas (idrottsförening, scout, kåren, frivillig). Hjälparbete för familj och grannar visar ansvarstagande. Sommarjobb-givare värderar bevisad arbetsmoral över formell erfarenhet.',
+      },
+      {
+        q: 'Hur viktigt är B-körkort?',
+        a: 'Ofta krav. Många sommarjobb (industri, fastighet, vård, transport) kräver B-körkort. Lyft det tydligt på CV:t. BE-körkort för släp meriterande för fastighet och utomhusarbete. Investera i körkort så tidigt som möjligt.',
+      },
+      {
+        q: 'Hur tidigt ska jag söka sommarjobb?',
+        a: 'Stora bolag (Volvo, Scania, regioner) öppnar ansökningar december-januari. Mindre bolag februari-april. Sista chansen mars-april för premium-program. Var tidigt ute eftersom konkurrensen är hård och bra sommarjobb går snabbt.',
+      },
+      {
+        q: 'Hur lyfter jag engagemang utanför skolan?',
+        a: 'Konkret: "Driver lokalavdelning i scoutkåren med 25 ungdomar", "Är Phadder för 30 nya studenter", "Tränare för 8-årigt fotbollslag i 3 år". Konkreta roller och volymer visar ledarskap och samarbete.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Beror på bransch. B-körkort, truckkort, HACCP, första hjälpen, kassavana, Office 365, programmeringsspråk (om relevant), engelska. Workday och Teamtailor söker exakta matchningar. Anpassa CV:t per ansökan.',
+      },
+      {
+        q: 'Hur lång ska ett sommarjobb-CV vara?',
+        a: '1 sida är standard. Sommarjobb-givare läser snabbt och vill se utbildning, erfarenhet och tillgänglighet utan att scrolla. Spara längre CV:n till efter examen. Det viktigaste är att tillgänglighetsdatum och körkort syns tydligt.',
+      },
+      {
+        q: 'Behöver jag personligt brev till sommarjobb?',
+        a: 'Ja, nästan alltid. Sommarjobb-givare värderar motivation eftersom alla har begränsad erfarenhet. Använd brevet för att förklara varför just det bolaget passar dig och beskriv ett konkret engagemang. Håll till en sida på 200-300 ord.',
+      },
+      {
+        q: 'Vilka är de bästa sommarjobben?',
+        a: 'Beror på karriärambition. Industri-sommarprogram (Volvo, Scania) ger bredd och stark lön. Vård ger praktisk erfarenhet och kontakter. Konsult-sommartrainee öppnar för trainee-program efter examen. Service-jobb (butik, café) ger bevisad arbetsmoral.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt sommarjobb-CV?',
+        a: 'Personnummer (bara födelseår), grundskolebetyg om du är på gymnasium eller högre, alla kurser från utbildningen (välj relevanta), generiska påståenden ("driven och ambitiös") utan stöd, samt hobbies som inte tillför något ("Netflix och vänner").',
+      },
+    ],
+  },
+
+  'automationsingenior': {
+    seoIntro:
+      'Som automationsingenjör bedöms du på din PLC-vana, robotprogrammering och industri-erfarenhet. Industribolag som Volvo, Scania, ABB, SKF, Sandvik, automationsbolag och konsultbolag har konstant öppna automationsingenjör-tjänster, men ingenjörschefer slänger CV:n som inte tydligt visar PLC-stack, robotmärken och bransch-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för automationsingenjörer lyfter PLC-stack, robotmärken och industri-erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att projekt, anläggning och konkreta resultat syns direkt. Det betyder att ingenjörschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör automation, högskoleingenjör, YH-utbildning), PLC-stack (Siemens S7/TIA Portal, Beckhoff TwinCAT, Allen-Bradley/Studio 5000, Mitsubishi GX Works), robotmärken (ABB RobotStudio, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect, Wonderware), kommunikationsprotokoll (Profinet, Profibus, EtherCAT, Modbus), maskinsäkerhet (CE, ISO 13849, Pilz, Sick), branschvana (fordon, livsmedel, läkemedel, processindustri) samt eventuell vana av Industry 4.0, OPC UA och AI inom produktion.\n\nNedan hittar du två CV-mallar designade för automationsingenjör-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ingenjörschefer på industri och automationsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'FileText',
+        title: 'PLC-stack i klartext',
+        description: 'Siemens S7 med TIA Portal, Beckhoff TwinCAT, Allen-Bradley Studio 5000, Mitsubishi GX Works. Skriv ut alla PLC-system du behärskar med versioner. Helt avgörande för CV-matchning.',
+      },
+      {
+        icon: 'Target',
+        title: 'Robotmärken och programmering',
+        description: 'ABB RobotStudio och RAPID, KUKA Sim och KRL, Fanuc TPP, Yaskawa MotoSim. Var konkret med vilka robotar du programmerat eftersom bolag investerat i specifika märken.',
+      },
+      {
+        icon: 'Award',
+        title: 'Maskinsäkerhet och CE',
+        description: 'Maskinsäkerhet enligt EN ISO 13849, riskanalys, CE-märkning, Pilz, Sick. Lyft eventuella säkerhetscertifieringar eftersom det är CV-kritiskt och påverkar lönen.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'HMI/SCADA-system',
+        description: 'WinCC, iX (Beijer), Citect, Wonderware, Ignition. Skriv ut HMI/SCADA-system du arbetat i. Modern automation kräver bred systemvana.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'Kommunikation och nätverk',
+        description: 'Profinet, Profibus, EtherCAT, Modbus, OPC UA. Lyft alla kommunikationsprotokoll. Industri 4.0 och uppkopplade fabriker värderas högt.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Branschvana',
+        description: 'Fordon, livsmedel, läkemedel, processindustri, papper, gruv är olika världar. Var tydlig med branschvana eftersom valideringskrav och regelverk skiljer sig.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'PLC och robot överst',
+        description: 'Vår mall lyfter Siemens, Beckhoff, ABB och övriga märken i sidopanelen. Ingenjörschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för säkerhet',
+        description: 'Maskinsäkerhet, CE-märkning, EN ISO 13849, Pilz lyfts som eget kompetensblock. Differentierar dig från generella programmerare.',
+      },
+      {
+        title: 'Tydlig branschvana per arbetsgivare',
+        description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från fordon och livsmedel konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Verkstad Plus med foto',
+        description: 'För senior automationsingenjör eller systemansvarig lägger Verkstad Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+      },
+      {
+        title: 'Plats för konkreta projekt',
+        description: 'Mallen har dedikerade rader för konkreta automationsprojekt (linjeintegration, robotcell, OEE-förbättring). Visar mätbar effekt.',
+      },
+      {
+        title: 'Plats för Industry 4.0',
+        description: 'Egen rad för IoT, OPC UA, MES, Industry 4.0, AI inom produktion. Modern automation kräver digital bredd.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'PLC-programmering',
+        punkter: [
+          'Programmera och felsöka PLC i Siemens TIA, Beckhoff TwinCAT, Studio 5000',
+          'Designa funktionsblock och bibliotek för återanvändning',
+          'Bidra till strukturerad programmering enligt IEC 61131-3',
+          'Genomföra commissioning och idrifttagning',
+        ],
+      },
+      {
+        rubrik: 'Robotprogrammering',
+        punkter: [
+          'Programmera ABB, KUKA, Fanuc eller Yaskawa-robotar',
+          'Genomföra offline-simulering i RobotStudio, KUKA Sim, Roboguide',
+          'Optimera cykeltid och produktivitet i robotceller',
+          'Hantera vision-system och pick-and-place',
+        ],
+      },
+      {
+        rubrik: 'HMI och SCADA',
+        punkter: [
+          'Bygga HMI i WinCC, iX, Citect, Wonderware',
+          'Designa SCADA-system för fabriksövervakning',
+          'Integrera larmhantering och historikdatabaser',
+          'Bidra till MES- och OEE-uppföljning',
+        ],
+      },
+      {
+        rubrik: 'Säkerhet och CE',
+        punkter: [
+          'Genomföra riskanalys enligt EN ISO 12100',
+          'Designa säkerhetssystem enligt EN ISO 13849',
+          'Programmera säkerhets-PLC (Siemens Safety, Pilz)',
+          'Bidra till CE-märkning och teknisk fil',
+        ],
+      },
+      {
+        rubrik: 'Industri 4.0 och digitalisering',
+        punkter: [
+          'Implementera OPC UA-kommunikation',
+          'Integrera PLC mot MES och ERP',
+          'Bidra till IoT-projekt och uppkopplade fabriker',
+          'Stötta vid AI-projekt och prediktiv underhåll',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'PLC-system',
+        termer: [
+          { term: 'Siemens S7/TIA Portal', forklaring: 'Marknadsledande PLC, dominant i Europa.' },
+          { term: 'Beckhoff TwinCAT', forklaring: 'Premium-system med PC-baserad styrning.' },
+          { term: 'Allen-Bradley/Studio 5000', forklaring: 'Rockwell, dominant i USA och fordonsindustrin.' },
+          { term: 'Mitsubishi GX Works', forklaring: 'Vanlig i japanskt och asiatiskt fordon.' },
+          { term: 'Schneider', forklaring: 'Modicon och M340-serien för processindustri.' },
+          { term: 'Omron', forklaring: 'PLC-märke från Japan.' },
+        ],
+      },
+      {
+        kategori: 'Robotmärken',
+        termer: [
+          { term: 'ABB', forklaring: 'Svenskt-schweiziskt, dominant inom industrirobotar.' },
+          { term: 'KUKA', forklaring: 'Tyskt premium-märke, vanlig i fordonsindustrin.' },
+          { term: 'Fanuc', forklaring: 'Japansk marknadsledare globalt.' },
+          { term: 'Yaskawa Motoman', forklaring: 'Japansk konkurrent till Fanuc.' },
+          { term: 'Universal Robots', forklaring: 'Danskt, dominant inom cobots.' },
+          { term: 'Stäubli', forklaring: 'Schweiziskt premium-märke.' },
+        ],
+      },
+      {
+        kategori: 'Kommunikation',
+        termer: [
+          { term: 'Profinet', forklaring: 'Siemens industri-ethernet-standard.' },
+          { term: 'Profibus', forklaring: 'Klassisk fältbuss från Siemens.' },
+          { term: 'EtherCAT', forklaring: 'Beckhoffs realtids-ethernet.' },
+          { term: 'Modbus', forklaring: 'Klassisk industri-protokoll, brett använt.' },
+          { term: 'OPC UA', forklaring: 'Modern industristandard för Industry 4.0.' },
+          { term: 'EtherNet/IP', forklaring: 'Allen-Bradley/Rockwells industri-ethernet.' },
+        ],
+      },
+      {
+        kategori: 'Säkerhet och regelverk',
+        termer: [
+          { term: 'EN ISO 13849', forklaring: 'Maskinsäkerhet, riskbaserad design.' },
+          { term: 'EN 60204', forklaring: 'Elsäkerhet för maskiner.' },
+          { term: 'EN ISO 12100', forklaring: 'Generella säkerhetsprinciper för maskiner.' },
+          { term: 'CE-märkning', forklaring: 'EU-konformitet för maskiner.' },
+          { term: 'Pilz', forklaring: 'Premium-leverantör av säkerhetslösningar.' },
+          { term: 'Sick', forklaring: 'Sensor- och säkerhetsleverantör.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industribolag',
+        exempel: [
+          'Volvo Cars, Volvo Group, Scania, Polestar',
+          'ABB, SKF, Sandvik, Atlas Copco',
+          'Tetra Pak, AstraZeneca, Stora Enso',
+          'Boliden, LKAB, Outokumpu',
+        ],
+      },
+      {
+        kategori: 'Automationsbolag',
+        exempel: [
+          'ABB Robotics, KUKA Sverige, Fanuc Nordic',
+          'Beckhoff Automation, Siemens Sverige',
+          'Schneider Electric, Rockwell Automation',
+          'Mindre svenska automationsleverantörer',
+        ],
+      },
+      {
+        kategori: 'Konsultbolag',
+        exempel: [
+          'AFRY, Combitech, Knowit, Sigma',
+          'Cygni, Forefront, Etteplan',
+          'Boutique-konsulter inom automation',
+          'Internationella konsultbolag (Capgemini, Accenture)',
+        ],
+      },
+      {
+        kategori: 'Systemintegratörer',
+        exempel: [
+          'Pulsen, ÅF Industry, Tema Automation',
+          'Lokala systemintegratörer',
+          'Maskinbyggare och OEM',
+          'Process- och anläggningsbyggare',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Civilingenjör mekatronik, elektroteknik eller automation (5 år)',
+        beskrivning: 'Vanligaste vägen för senior automationsingenjör. KTH, Chalmers, LTH, Linköping, Halmstad. Ger djup teoretisk grund och attraktion på premium-bolag.',
+      },
+      {
+        rubrik: 'Högskoleingenjör automation (3 år)',
+        beskrivning: 'Kortare program med stark arbetsmarknadskoppling. Halmstad, Karlskrona, Mälardalen, Gävle. Räcker för de flesta automationsroller.',
+      },
+      {
+        rubrik: 'YH-utbildning till automationstekniker (2 år)',
+        beskrivning: 'Yrkeshögskoleutbildning med stark praktisk inriktning. Skolor som Yrkesakademin, NTI Skolan. Vanlig för PLC- och robotprogrammerar-roller utan akademisk examen.',
+      },
+      {
+        rubrik: 'Certifieringar och fortbildning',
+        beskrivning: 'Siemens Certified Programmer, ABB Certified Robot Operator, Pilz CMSE, TÜV Functional Safety Engineer. Påverkar lönen och stärker positionen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Siemens S7 och TIA Portal',
+        'Beckhoff TwinCAT 3',
+        'Allen-Bradley Studio 5000',
+        'ABB RobotStudio och RAPID',
+        'KUKA Sim och KRL',
+        'Fanuc Roboguide och TPP',
+        'WinCC, iX, Citect HMI/SCADA',
+        'Profinet, Profibus, EtherCAT, OPC UA',
+        'Maskinsäkerhet EN ISO 13849',
+        'CE-märkning och teknisk fil',
+        'Industri 4.0 och MES-integration',
+        'Vision-system och bildbehandling',
+      ],
+      personliga: [
+        'Strukturerad i komplex programmering',
+        'Lyhörd för stakeholders',
+        'Pragmatisk i tradeoffs',
+        'Lugn vid felsökning',
+        'Tydlig i dokumentation',
+        'Lojal mot säkerhetskrav',
+        'Pedagogisk i kunskapsdelning',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren automationsingenjör med civilingenjörsexamen i mekatronik från KTH och 8 års erfarenhet från ABB Robotics och Volvo Cars. Specialiserad på Siemens S7/TIA Portal, ABB-robotar (RobotStudio, RAPID) och maskinsäkerhet enligt EN ISO 13849. Drev integration av 4 robotceller i karossfabrik som höjde OEE från 78% till 91%. Pilz CMSE-certifierad, vana av CE-märkning och teknisk fil. Talar svenska och engelska samt grundläggande tyska. Söker nya uppdrag som senior automationsingenjör eller systemansvarig inom fordon eller automationsbolag.',
+
+    profilTips:
+      'År som automationsingenjör, PLC-stack och primär bransch i öppningsraden. Andra meningen lyfter konkreta projekt och resultat. Tredje meningen visar certifieringar och eventuell ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'PLC-stack i klartext',
+        text: 'Siemens S7/TIA Portal, Beckhoff TwinCAT, Allen-Bradley Studio 5000. Skriv ut alla PLC-system med versioner. Helt avgörande för CV-matchning.',
+      },
+      {
+        rubrik: 'Robotmärken och programmering',
+        text: 'ABB RobotStudio, KUKA Sim, Fanuc TPP, Yaskawa MotoSim. Var konkret med vilka robotar du programmerat.',
+      },
+      {
+        rubrik: 'Maskinsäkerhet och CE',
+        text: 'EN ISO 13849, riskanalys, CE-märkning, Pilz, Sick. Lyft säkerhetscertifieringar eftersom det är CV-kritiskt.',
+      },
+      {
+        rubrik: 'HMI/SCADA-system',
+        text: 'WinCC, iX (Beijer), Citect, Wonderware, Ignition. Skriv ut HMI/SCADA-system du arbetat i.',
+      },
+      {
+        rubrik: 'Kommunikation och nätverk',
+        text: 'Profinet, Profibus, EtherCAT, Modbus, OPC UA. Industri 4.0 och uppkopplade fabriker värderas högt.',
+      },
+      {
+        rubrik: 'Branschvana',
+        text: 'Fordon, livsmedel, läkemedel, processindustri. Var tydlig med bransch eftersom valideringskrav skiljer sig.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som automationsingenjör, PLC-stack och bransch på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, projekt, period. Konkretisera PLC, robotmärke, OEE-resultat och säkerhetsarbete.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör + lärosäte. Eventuell magister i eget block.' },
+      { sektion: 'Certifieringar', tips: 'Siemens, ABB, Pilz CMSE, TÜV FSE. Datum och utfärdare.' },
+      { sektion: 'Kompetenser', tips: 'PLC, robot, HMI/SCADA, kommunikation. Skilj på tekniska och personliga.' },
+      { sektion: 'Övrigt', tips: 'Bransch, eventuella öppna källkod-bidrag, språk.' },
+    ],
+
+    checklista: [
+      'Civilingenjör eller högskoleingenjör i automation',
+      'PLC-stack med versioner (Siemens, Beckhoff, AB)',
+      'Robotmärken (ABB, KUKA, Fanuc, Yaskawa)',
+      'HMI/SCADA-system',
+      'Kommunikationsprotokoll',
+      'Maskinsäkerhet (EN ISO 13849)',
+      'CE-märkning och teknisk fil',
+      'Branschvana',
+      'Eventuella certifieringar (Pilz CMSE, TÜV)',
+      'Engelska och eventuellt tyska',
+    ],
+
+    atsInfo:
+      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Industribolag, automationsbolag och konsultbolag använder Workday, Teamtailor, Cinode och egna ATS. Skriv ut PLC-stack (Siemens S7, TIA Portal, Beckhoff TwinCAT, Studio 5000), robotmärken (ABB, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect), kommunikation (Profinet, EtherCAT, OPC UA) och säkerhet (EN ISO 13849, CE) i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett automationsingenjör-CV?',
+        a: 'Civilingenjör eller högskoleingenjör i automation/mekatronik, PLC-stack med versioner (Siemens, Beckhoff, AB), robotmärken (ABB, KUKA, Fanuc), HMI/SCADA-system, kommunikationsprotokoll (Profinet, OPC UA), maskinsäkerhet (EN ISO 13849), CE-märkning, branschvana samt eventuella certifieringar (Pilz CMSE, TÜV FSE).',
+      },
+      {
+        q: 'Hur skriver jag CV som ny automationsingenjör?',
+        a: 'Lyft civilingenjörs- eller högskoleingenjörsutbildningen, examensarbete inom automation, eventuell sommarpraktik, hobbyprojekt (Arduino, Raspberry Pi, hemautomation), programmeringsspråk (Python, C, IEC 61131-3), samt språk. Industri rekryterar gärna nya med stark utbildning.',
+      },
+      {
+        q: 'Vilken PLC-stack är viktigast?',
+        a: 'Siemens S7 med TIA Portal dominerar Europa och Sverige. Beckhoff TwinCAT är premium för moderna anläggningar. Allen-Bradley/Studio 5000 vanlig på USA-orienterade bolag och fordonsindustri. Mitsubishi och Schneider har sina nischer. Bredd över flera är värdefullt.',
+      },
+      {
+        q: 'Hur viktigt är robotmärke?',
+        a: 'Mycket. ABB dominerar Sverige, KUKA premium-segment och fordon. Fanuc globalt ledande, Yaskawa konkurrerande. Universal Robots dominerar cobots. Skriv ut alla märken du programmerat eftersom bolag har investerat i specifika märken.',
+      },
+      {
+        q: 'Hur viktig är maskinsäkerhet?',
+        a: 'CV-kritisk. EN ISO 13849, CE-märkning, riskanalys är kärnan i alla automation-projekt. Pilz CMSE och TÜV Functional Safety Engineer är värdefulla certifieringar som påverkar lönen direkt och differentierar dig.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Siemens S7, TIA Portal, Beckhoff TwinCAT, Allen-Bradley, Studio 5000, ABB RobotStudio, RAPID, KUKA, KRL, Fanuc, Yaskawa, WinCC, iX, Citect, Profinet, Profibus, EtherCAT, OPC UA, EN ISO 13849, CE-märkning, Pilz, Sick, Industry 4.0, MES. Workday och Cinode söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett automationsingenjör-CV vara?',
+        a: 'Junior 0-3 år: 1-1,5 sidor. Mid-level: 2 sidor. Senior systemansvarig eller solution architect: 2-3 sidor. Det viktigaste är att PLC-stack, robotmärken och senaste projekt syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till automationsingenjör-tjänster?',
+        a: 'Ofta. Industribolag och konsultbolag förväntar sig personligt brev. Använd brevet för att förklara teknisk preferens och beskriv ett konkret projekt du levererat. Konkret om PLC, robot och resultat. Håll till en sida på 300-400 ord.',
+      },
+      {
+        q: 'Hur viktig är Industry 4.0?',
+        a: 'Allt viktigare. OPC UA, MES-integration, IoT, AI inom produktion, digital twin värderas högt. Industri och konsultbolag investerar tungt i digitalisering. Lyft eventuell vana av OPC UA, MES-integration eller IoT-projekt.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt automationsingenjör-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, kunduppgifter under NDA, sekretessbelagda detaljer (recept, processparametrar), irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("strukturerad och lösningsorienterad") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
+  'kontorsassistent': {
+    seoIntro:
+      'Som kontorsassistent bedöms du på din strukturkänsla, systemvana och förmåga att stötta verksamheten i vardagen. Stora bolag, scale-ups, offentlig sektor och tusentals SME har konstant öppna kontorsassistent-tjänster, men HR-chefer slänger CV:n som inte tydligt visar Office-färdigheter, språk och konkreta arbetsuppgifter. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för kontorsassistenter lyfter Office-färdigheter, språk och administrativ bredd som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområde och konkreta uppgifter syns direkt. Det betyder att HR-chefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, system (Office 365, Outlook, SharePoint, Visma, Fortnox), administrativ bredd (kalender, möten, posthantering, reception, evenemang), språkkunskaper med nivå, samt eventuell vana av kundbemötande, leverantörskontakt och GDPR.\n\nNedan hittar du två CV-mallar designade för kontorsassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer, kontorschefer och chefer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+
+    viktigtAttTankaPa: [
+      {
+        icon: 'FileText',
+        title: 'Office i klartext',
+        description: 'Office 365 (Word, Excel, PowerPoint), Outlook, SharePoint, Teams. Skriv ut alla verktyg du behärskar och konkret nivå (grundläggande, medel, avancerad).',
+      },
+      {
+        icon: 'Target',
+        title: 'Administrativ bredd',
+        description: 'Kalender, möten, posthantering, reception, leverantörskontakt, evenemang. Var konkret med vilka områden du behärskar eftersom rollen är bred.',
+      },
+      {
+        icon: 'GraduationCap',
+        title: 'Språk på rätt nivå',
+        description: 'Svenska, engelska, eventuellt övriga språk. Skriv ut nivå (modersmål, flytande, kommunikativ). Internationella bolag söker specifika kombinationer.',
+      },
+      {
+        icon: 'Briefcase',
+        title: 'Bransch och kontext',
+        description: 'Industri, finansbolag, scale-up, offentlig sektor, advokatbyrå är olika världar. Var tydlig med bransch eftersom administrativa rutiner skiljer sig.',
+      },
+      {
+        icon: 'CheckCircle',
+        title: 'GDPR och sekretess',
+        description: 'GDPR, OSL (på myndighet), företagshemligheter. Lyft vana av sekretessfrågor och säker hantering av personuppgifter eftersom det är CV-kritiskt.',
+      },
+      {
+        icon: 'Award',
+        title: 'Eventuella certifieringar',
+        description: 'Excel på avancerad nivå (Power Query, Power BI), projektledning (PMI-CAPM), GDPR-certifiering. Påverkar lönen och differentierar dig.',
+      },
+    ],
+
+    varforVarMallPassar: [
+      {
+        title: 'Office och språk överst',
+        description: 'Vår mall lyfter Office 365, språk och administrativ bredd i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+      },
+      {
+        title: 'Eget block för administrativa områden',
+        description: 'Kalender, möten, posthantering, reception, evenemang lyfts som eget kompetensblock. Differentierar dig från generella receptionister.',
+      },
+      {
+        title: 'Tydlig bransch per arbetsgivare',
+        description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
+      },
+      {
+        title: 'Premium-mallen Myndighet Plus med foto',
+        description: 'För senior kontorsassistent eller office manager lägger Myndighet Plus till foto och formell färgton. Skapar professionell first impression.',
+      },
+      {
+        title: 'Plats för Excel-nivå',
+        description: 'Mallen har dedikerade rader för Excel-färdigheter (Power Query, makron, pivottabeller). Visar att du behärskar avancerad administration.',
+      },
+      {
+        title: 'Plats för språk och kommunikation',
+        description: 'Egen rad för språkkunskaper med nivå. Internationella bolag söker specifika kombinationer.',
+      },
+    ],
+
+    arbetsuppgifter: [
+      {
+        rubrik: 'Reception och bemötande',
+        punkter: [
+          'Möta besökare och hantera reception',
+          'Svara på telefon och vidarekoppla samtal',
+          'Hantera post och leveranser',
+          'Hjälpa med bokningar av lokaler',
+        ],
+      },
+      {
+        rubrik: 'Kalender och möten',
+        punkter: [
+          'Hantera kalender för chefer eller team',
+          'Boka möten över tidszoner i Teams eller Zoom',
+          'Förbereda agenda, lokal, teknik och catering',
+          'Genomföra mötesprotokoll och uppföljning',
+        ],
+      },
+      {
+        rubrik: 'Administration och fakturering',
+        punkter: [
+          'Hantera leverantörsfakturor i Visma eller Fortnox',
+          'Stötta vid resebokning och reseräkningar',
+          'Bidra till kontorsmaterial-inköp',
+          'Genomföra utgiftsuppföljning',
+        ],
+      },
+      {
+        rubrik: 'Dokumentation och struktur',
+        punkter: [
+          'Bygga och underhålla SharePoint- eller intranät-sidor',
+          'Hantera dokumentmallar och företagspolicys',
+          'Säkerställa GDPR och säker personuppgiftshantering',
+          'Stötta vid arkivering och dokumenthantering',
+        ],
+      },
+      {
+        rubrik: 'Stöd och evenemang',
+        punkter: [
+          'Stötta vid kick-offs, konferenser och utbildningar',
+          'Bidra till företagsevenemang och samverkan med leverantörer',
+          'Hjälpa med onboarding av nya medarbetare',
+          'Genomföra praktiska uppgifter (kaffe, lunch, blommor)',
+        ],
+      },
+    ],
+
+    branschtermer: [
+      {
+        kategori: 'System',
+        termer: [
+          { term: 'Office 365', forklaring: 'Microsofts kontorspaket, standard i de flesta bolag.' },
+          { term: 'SharePoint', forklaring: 'Microsofts samarbetsplattform för dokument.' },
+          { term: 'Outlook', forklaring: 'Microsofts e-post och kalender.' },
+          { term: 'Teams', forklaring: 'Microsofts chat- och möteslösning.' },
+          { term: 'Visma', forklaring: 'Svenskt ekonomisystem dominerande på SME.' },
+          { term: 'Fortnox', forklaring: 'Molnbaserat system för småbolag.' },
+        ],
+      },
+      {
+        kategori: 'Roller',
+        termer: [
+          { term: 'Kontorsassistent', forklaring: 'Bred administrativ roll med stöd till verksamheten.' },
+          { term: 'Receptionist', forklaring: 'Frontline-roll med besöks- och samtalshantering.' },
+          { term: 'Administrativ assistent', forklaring: 'Bredare titel än kontorsassistent.' },
+          { term: 'Office Manager', forklaring: 'Bred roll med kontorsdrift och leverantörer.' },
+          { term: 'Sekreterare', forklaring: 'Klassisk titel, vanlig på myndighet.' },
+          { term: 'Verksamhetsassistent', forklaring: 'Senior administrativ roll.' },
+        ],
+      },
+      {
+        kategori: 'Områden',
+        termer: [
+          { term: 'Kalenderhantering', forklaring: 'Strukturerad bokning och uppföljning.' },
+          { term: 'Posthantering', forklaring: 'Mottagande och distribution av post och paket.' },
+          { term: 'Resebokning', forklaring: 'Hantering av tjänsteresor och boenden.' },
+          { term: 'Fakturahantering', forklaring: 'Mottagande, attestering, betalning.' },
+          { term: 'Eventplanering', forklaring: 'Konferenser, kick-offs, utbildningar.' },
+          { term: 'Onboarding', forklaring: 'Strukturerad introduktion av nya medarbetare.' },
+        ],
+      },
+      {
+        kategori: 'Lagstiftning',
+        termer: [
+          { term: 'GDPR', forklaring: 'EU:s dataskyddsförordning, kärnregelverk.' },
+          { term: 'OSL', forklaring: 'Offentlighets- och sekretesslagen (myndighet).' },
+          { term: 'Företagshemligheter', forklaring: 'Lagen om företagshemligheter.' },
+          { term: 'Bokföringslagen', forklaring: 'Reglerar bokföring och arkivering.' },
+          { term: 'LAS', forklaring: 'Lagen om anställningsskydd.' },
+          { term: 'Arbetsmiljölagen', forklaring: 'AML, reglerar arbetsmiljö.' },
+        ],
+      },
+    ],
+
+    typiskaArbetsgivare: [
+      {
+        kategori: 'Industri och finans',
+        exempel: [
+          'Volvo, Scania, ABB, SKF, Sandvik',
+          'Swedbank, SEB, Handelsbanken, Nordea',
+          'Folksam, If, Trygg-Hansa, Skandia',
+          'EQT, Investor, Industrivärden',
+        ],
+      },
+      {
+        kategori: 'Scale-ups och tech',
+        exempel: [
+          'Klarna, Spotify, iZettle (Zettle by PayPal)',
+          'Truecaller, Voi, Northvolt',
+          'King, Mojang (Microsoft)',
+          'Mindre scale-ups med 50-500 anställda',
+        ],
+      },
+      {
+        kategori: 'Offentlig sektor',
+        exempel: [
+          'Stockholms stad, Göteborgs stad, Malmö stad',
+          'Region Stockholm, VGR, Region Skåne',
+          'Skatteverket, Försäkringskassan, Arbetsförmedlingen',
+          'Mindre myndigheter och kommuner',
+        ],
+      },
+      {
+        kategori: 'Konsult och advokatbyråer',
+        exempel: [
+          'PwC, EY, KPMG, Deloitte',
+          'Mannheimer Swartling, Vinge, Cederquist',
+          'Bain, McKinsey, BCG',
+          'Mindre konsult- och advokatbyråer',
+        ],
+      },
+    ],
+
+    utbildningsvagar: [
+      {
+        rubrik: 'Gymnasieprogram inriktning administration',
+        beskrivning: 'Handels- och administrationsprogrammet på gymnasiet ger grund för administrativ roll. Vissa gymnasier samarbetar med bolag för praktik och anställning.',
+      },
+      {
+        rubrik: 'YH-utbildning till kontorsassistent (1-2 år)',
+        beskrivning: 'Yrkeshögskoleutbildning för omskolning eller karriärbyte. Skolor som Hermods, Yrkesakademin, Lernia erbjuder. Inkluderar praktik och leder till anställning.',
+      },
+      {
+        rubrik: 'Universitetsutbildning + språk',
+        beskrivning: 'Många internationella bolag värderar universitetsutbildning kombinerat med språk. Statsvetare, språkutbildning eller civilekonom passar bra för senior roller.',
+      },
+      {
+        rubrik: 'Vidareutbildningar och certifieringar',
+        beskrivning: 'Excel på avancerad nivå, Power BI, Power Automate, projektledning (PMI-CAPM), GDPR-certifiering. Korta kurser som påverkar lönen och stärker positionen.',
+      },
+    ],
+
+    kompetenser: {
+      tekniska: [
+        'Office 365 (Word, Excel, PowerPoint, Outlook)',
+        'SharePoint och Teams',
+        'Visma, Fortnox',
+        'Excel på medel- eller avancerad nivå',
+        'Power BI och dataanalys',
+        'Resebokningssystem',
+        'Kalenderhantering och Outlook',
+        'GDPR och sekretesshantering',
+        'Mötesprotokoll och dokumentation',
+        'Telefonväxel och reception',
+        'Fakturahantering',
+        'Engelska och eventuellt övriga språk',
+      ],
+      personliga: [
+        'Strukturerad i komplext flöde',
+        'Lyhörd för olika behov',
+        'Diskret med sekretess',
+        'Pålitlig och förutsägbar',
+        'Pedagogisk vid utbildning',
+        'Pragmatisk i tradeoffs',
+        'Snabb och precisionsorienterad',
+      ],
+    },
+
+    profilExempel:
+      'Erfaren kontorsassistent med 5 års erfarenhet från Volvo och Klarna. Behärskar Office 365, Visma, SharePoint och Excel på medel-nivå (formler, pivottabeller). Hanterar reception, kalender för 3 chefer, leverantörsfakturor, resebokning och stöttar onboarding av 15+ nya medarbetare per år. Vana av GDPR och säker hantering av personuppgifter. Talar svenska och engelska flytande samt grundläggande tyska. Söker nya uppdrag som senior kontorsassistent eller Office Manager på scale-up eller storbolag.',
+
+    profilTips:
+      'År som kontorsassistent, bransch och kärnsystem i öppningsraden. Andra meningen lyfter konkreta administrativa områden och Excel-nivå. Tredje meningen visar språk och eventuell Office Manager-ambition.',
+
+    rekryterarTipsen: [
+      {
+        rubrik: 'Office i klartext',
+        text: 'Office 365 (Word, Excel, PowerPoint), Outlook, SharePoint, Teams. Skriv ut alla verktyg du behärskar och konkret nivå.',
+      },
+      {
+        rubrik: 'Administrativ bredd',
+        text: 'Kalender, möten, posthantering, reception, leverantörskontakt, evenemang. Var konkret med vilka områden du behärskar.',
+      },
+      {
+        rubrik: 'Språk på rätt nivå',
+        text: 'Svenska, engelska, eventuellt övriga språk. Skriv ut nivå (modersmål, flytande, kommunikativ).',
+      },
+      {
+        rubrik: 'Bransch och kontext',
+        text: 'Industri, finansbolag, scale-up, offentlig sektor. Var tydlig med bransch eftersom administrativa rutiner skiljer sig.',
+      },
+      {
+        rubrik: 'GDPR och sekretess',
+        text: 'GDPR, OSL (på myndighet), företagshemligheter. Lyft vana av sekretessfrågor och säker personuppgiftshantering.',
+      },
+      {
+        rubrik: 'Excel och digital vana',
+        text: 'Excel på medel-nivå (pivottabeller, formler) är CV-kritisk. Power BI och Power Automate meriterande.',
+      },
+    ],
+
+    sektionTips: [
+      { sektion: 'Sammanfattning', tips: 'År som kontorsassistent, bransch och kärnsystem på 3-4 rader.' },
+      { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera reception, kalender, evenemang och systemvana.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell universitetsutbildning i eget block.' },
+      { sektion: 'Kompetenser', tips: 'System, administrativ bredd, lagstiftning. Skilj på tekniska och personliga.' },
+      { sektion: 'Språk', tips: 'Skriv ut språk med nivå (modersmål, flytande, kommunikativ).' },
+      { sektion: 'Övrigt', tips: 'Eventuella certifieringar, körkort, frivilligengagemang.' },
+    ],
+
+    checklista: [
+      'Gymnasium, YH- eller universitetsutbildning',
+      'Office 365 och SharePoint',
+      'Eventuellt ekonomisystem (Visma, Fortnox)',
+      'Excel på rätt nivå',
+      'Administrativ bredd (kalender, reception, evenemang)',
+      'Språkkunskaper med nivå',
+      'GDPR och sekretessvana',
+      'Branscherfarenhet',
+      'Eventuell körkort',
+      'Eventuella certifieringar',
+    ],
+
+    atsInfo:
+      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox), Excel-färdigheter och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+
+    faqItems: [
+      {
+        q: 'Vad ska finnas med på ett kontorsassistent-CV?',
+        a: 'Utbildning eller gymnasium, system du behärskar (Office 365, Outlook, SharePoint, Visma, Fortnox), administrativ bredd (kalender, möten, reception, evenemang), Excel-nivå, språkkunskaper, GDPR-vana, branscherfarenhet samt eventuella certifieringar.',
+      },
+      {
+        q: 'Hur skriver jag CV som ny kontorsassistent?',
+        a: 'Lyft eventuell gymnasieutbildning, sommarjobb som visar struktur (kassa, butik, café), datorvana, språkkunskaper, schemaflexibilitet, samt eventuell internutbildning eller frivilligengagemang. Bolag rekryterar gärna nya med rätt attityd och Excel-färdigheter.',
+      },
+      {
+        q: 'Skiljer sig kontorsassistent från administrativ assistent?',
+        a: 'Mest semantiskt. Båda är breda administrativa roller. Kontorsassistent kan vara mer frontline-orienterad (reception, samtal, post) medan administrativ assistent ofta är mer back-office (kalender, dokumentation, ekonomi). Roller och titlar varierar mellan bolag.',
+      },
+      {
+        q: 'Vilka system är viktigast att kunna?',
+        a: 'Office 365 är minimum (Word, Excel, PowerPoint, Outlook). SharePoint och Teams för samarbete. Visma eller Fortnox för ekonomi. På internationella bolag är Workday och SAP vanliga. Hade du flera arbetsgivare i sikte är bredd viktigare än djup.',
+      },
+      {
+        q: 'Hur lyfter jag konkreta arbetsuppgifter?',
+        a: 'Konkret: "Hanterar reception och 80+ besökare per vecka", "Bokar 25+ möten per vecka för 3 chefer", "Genomför 150+ leverantörsfakturor per månad i Visma". Konkreta volymer och områden differentierar.',
+      },
+      {
+        q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
+        a: 'Kontorsassistent, receptionist, Office 365, SharePoint, Outlook, Teams, Visma, Fortnox, Excel, kalenderhantering, resebokning, fakturahantering, onboarding, GDPR. Workday och Teamtailor söker exakta matchningar.',
+      },
+      {
+        q: 'Hur lång ska ett kontorsassistent-CV vara?',
+        a: 'Junior 0-3 år: 1 sida. Mid-level: 1-1,5 sidor. Senior med Office Manager-roll: 2 sidor. Det viktigaste är att system, administrativ bredd och senaste roll syns på första sidan utan att man behöver scrolla.',
+      },
+      {
+        q: 'Behöver jag personligt brev till kontorsassistent-tjänster?',
+        a: 'Ofta. Bolag och offentlig sektor förväntar sig ofta personligt brev. Använd brevet för att förklara din strukturkänsla och beskriv en konkret administrativ utmaning du löst. Håll till en sida på 250-350 ord.',
+      },
+      {
+        q: 'Hur viktig är språkkunskap?',
+        a: 'Mycket på internationella bolag. Svenska och engelska är minimum. Tyska, franska, spanska, danska, norska är meriterande för specifika roller. Var konkret med nivå (modersmål, flytande, kommunikativ). På scale-ups är engelska ofta arbetsspråk.',
+      },
+      {
+        q: 'Vad ska jag inte ha med på mitt kontorsassistent-CV?',
+        a: 'Personnummer (bara födelseår), exakta lönesiffror, intern företagsdata eller sekretessbelagda detaljer, irrelevanta arbetslivserfarenheter äldre än 10-15 år, generiska påståenden ("strukturerad och pålitlig") utan stöd, samt hobbies som inte är yrkesrelevanta.',
+      },
+    ],
+  },
+
   // ============================================================================
   // EKONOMI
   // ============================================================================
