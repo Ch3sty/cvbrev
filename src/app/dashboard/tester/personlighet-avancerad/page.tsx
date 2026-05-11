@@ -70,8 +70,8 @@ export default function PersonlighetAvanceradPage() {
     return (
       <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
         <div className="space-y-4">
-          <div className="rounded-3xl bg-indigo-50/40 h-48 animate-pulse" />
-          <div className="rounded-3xl bg-indigo-50/40 h-32 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-32 animate-pulse" />
         </div>
       </div>
     );
@@ -156,7 +156,7 @@ function PremiumGate() {
           <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
         </Link>
         <p className="text-xs text-slate-500 mt-3">
-          Du kan börja med <Link href="/dashboard/tester/personlighet-grund" className="font-semibold text-indigo-700 underline">grundtestet</Link> gratis.
+          Du kan börja med <Link href="/dashboard/tester/personlighet-grund" className="font-semibold text-orange-700 underline">grundtestet</Link> gratis.
         </p>
       </div>
     </section>

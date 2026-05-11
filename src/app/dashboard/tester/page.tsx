@@ -1,91 +1,120 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useProfile } from '@/hooks/use-profile';
 import { useAllTestStats, type TestSlug } from '@/hooks/use-all-test-stats';
 import { usePersonalityTestStats } from '@/hooks/use-personality-test-stats';
 import TesterHubHero from './components/TesterHubHero';
 import TestStatsCard from './components/TestStatsCard';
 import EmptyTestsCallout from './components/EmptyTestsCallout';
-import TestCategorySection from './components/TestCategorySection';
-import TestCard, { type TestCardVariant } from './components/TestCard';
+import TestCard, {
+  type TestCardVariant,
+  type TestCategoryLabel,
+  type TestLevelLabel,
+} from './components/TestCard';
 import PersonalityTestCard from './components/PersonalityTestCard';
 
 interface TestDef {
   slug: TestSlug;
   variant: TestCardVariant;
   title: string;
-  description: string;
+  categoryLabel: TestCategoryLabel;
+  levelLabel: TestLevelLabel;
   questionCount: number;
   timeLabel: string;
-  difficultyLabel: string;
   isPremiumLocked: boolean;
 }
 
-const MATRIX_TESTS: TestDef[] = [
+interface PersonalityDef {
+  slug: 'personlighet-grund' | 'personlighet-avancerad';
+  variant: 'personality-grund' | 'personality-avancerad';
+  title: string;
+  levelLabel: TestLevelLabel;
+  questionCount: number;
+  timeLabel: string;
+  isPremiumLocked: boolean;
+}
+
+const COGNITIVE_TESTS: TestDef[] = [
   {
     slug: 'matrislogik-grund',
     variant: 'matrix-grund',
-    title: 'Matrislogik — grund',
-    description: 'Mönsterigenkänning och visuella sekvenser för nybörjare.',
+    title: 'Matrislogik',
+    categoryLabel: 'Logik',
+    levelLabel: 'Grund',
     questionCount: 15,
-    timeLabel: '~20',
-    difficultyLabel: '3',
+    timeLabel: '20',
     isPremiumLocked: false,
   },
   {
     slug: 'matrislogik-avancerad',
     variant: 'matrix-avancerad',
-    title: 'Matrislogik — avancerad',
-    description: 'Komplexa mönster och flerdimensionell logik på elit-nivå.',
+    title: 'Matrislogik',
+    categoryLabel: 'Logik',
+    levelLabel: 'Avancerad',
     questionCount: 15,
-    timeLabel: '~25',
-    difficultyLabel: '4',
+    timeLabel: '25',
     isPremiumLocked: true,
   },
-];
-
-const VERBAL_TESTS: TestDef[] = [
   {
     slug: 'verbal-resonemang',
     variant: 'verbal-v1',
-    title: 'Verbalt resonemang — grund',
-    description: 'Förståelse av text, ordförråd och språkliga samband.',
+    title: 'Verbalt resonemang',
+    categoryLabel: 'Språk',
+    levelLabel: 'Grund',
     questionCount: 15,
-    timeLabel: '~20',
-    difficultyLabel: '3',
+    timeLabel: '20',
     isPremiumLocked: false,
   },
   {
     slug: 'verbal-resonemang-v2',
     variant: 'verbal-v2',
-    title: 'Verbalt resonemang — avancerad',
-    description: 'Avancerad textanalys och slutledning från komplexa textstycken.',
+    title: 'Verbalt resonemang',
+    categoryLabel: 'Språk',
+    levelLabel: 'Avancerad',
     questionCount: 15,
-    timeLabel: '~25',
-    difficultyLabel: '4',
+    timeLabel: '25',
     isPremiumLocked: true,
   },
-];
-
-const NUMERICAL_TESTS: TestDef[] = [
   {
     slug: 'numeriskt-test',
     variant: 'numerical-v1',
-    title: 'Numeriskt test — grund',
-    description: 'Räkneförmåga, talföljder och grundläggande dataanalys.',
+    title: 'Numeriskt test',
+    categoryLabel: 'Siffror',
+    levelLabel: 'Grund',
     questionCount: 15,
-    timeLabel: '~20',
-    difficultyLabel: '3',
+    timeLabel: '20',
     isPremiumLocked: false,
   },
   {
     slug: 'numeriskt-test-v2',
     variant: 'numerical-v2',
-    title: 'Numeriskt test — avancerad',
-    description: 'Avancerade tabeller, diagram och flerstegs-resonemang med siffror.',
+    title: 'Numeriskt test',
+    categoryLabel: 'Siffror',
+    levelLabel: 'Avancerad',
     questionCount: 15,
-    timeLabel: '~25',
-    difficultyLabel: '4',
+    timeLabel: '25',
+    isPremiumLocked: true,
+  },
+];
+
+const PERSONALITY_TESTS: PersonalityDef[] = [
+  {
+    slug: 'personlighet-grund',
+    variant: 'personality-grund',
+    title: 'Personlighetsprofil',
+    levelLabel: 'Grund',
+    questionCount: 50,
+    timeLabel: '10',
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'personlighet-avancerad',
+    variant: 'personality-avancerad',
+    title: 'Personlighetsprofil',
+    levelLabel: 'Avancerad',
+    questionCount: 120,
+    timeLabel: '25',
     isPremiumLocked: true,
   },
 ];
@@ -125,10 +154,10 @@ export default function TesterHubPage() {
           averageBestPercentage={aggregate.averageBestPercentage}
         />
 
-        {aggregate.hasAnyData ? (
+        {aggregate.hasAnyData || personalityStats.grund.hasProfile || personalityStats.avancerad.hasProfile ? (
           <TestStatsCard
             completedTestCount={aggregate.completedTestCount}
-            totalTestCount={6}
+            totalTestCount={8}
             averageBestPercentage={aggregate.averageBestPercentage}
             totalTimeSeconds={aggregate.totalTimeSeconds}
           />
@@ -136,98 +165,51 @@ export default function TesterHubPage() {
           <EmptyTestsCallout />
         )}
 
-        <TestCategorySection
-          kind="matrix"
-          eyebrow="Matrislogik"
-          title="Visuella mönster"
-          description="Identifiera logiska samband och relationer i matriser."
-          index={0}
+        {/* En enda sektion: alla test i ett rutnät */}
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
         >
-          {MATRIX_TESTS.map((test, i) => (
-            <TestCard
-              key={test.slug}
-              {...test}
-              isUserPremium={isPremium}
-              stats={perTest[test.slug]}
-              isBestOverall={bestTest === test.slug}
-              isRecommended={!aggregate.hasAnyData && test.slug === 'matrislogik-grund'}
-              index={i}
-            />
-          ))}
-        </TestCategorySection>
+          <div className="mb-4 sm:mb-5">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+              Alla tester
+            </div>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+              Träna och förbered dig
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+              Sex kognitiva test som mäter logik, språk och siffror. Plus personlighetsprofiler för intervjuförberedelse.
+            </p>
+          </div>
 
-        <TestCategorySection
-          kind="verbal"
-          eyebrow="Verbalt resonemang"
-          title="Språk och slutledning"
-          description="Förståelse, analys och argumentation i text."
-          index={1}
-        >
-          {VERBAL_TESTS.map((test, i) => (
-            <TestCard
-              key={test.slug}
-              {...test}
-              isUserPremium={isPremium}
-              stats={perTest[test.slug]}
-              isBestOverall={bestTest === test.slug}
-              index={i}
-            />
-          ))}
-        </TestCategorySection>
-
-        <TestCategorySection
-          kind="numerical"
-          eyebrow="Numeriskt resonemang"
-          title="Räkning och dataanalys"
-          description="Talföljder, tabeller och beräkningar under tidspress."
-          index={2}
-        >
-          {NUMERICAL_TESTS.map((test, i) => (
-            <TestCard
-              key={test.slug}
-              {...test}
-              isUserPremium={isPremium}
-              stats={perTest[test.slug]}
-              isBestOverall={bestTest === test.slug}
-              index={i}
-            />
-          ))}
-        </TestCategorySection>
-
-        <TestCategorySection
-          kind="personality"
-          eyebrow="Personlighet"
-          title="Big Five-profil"
-          description="Lär känna dina personlighetsdrag — inget rätt eller fel, bara du."
-          index={3}
-        >
-          <PersonalityTestCard
-            slug="personlighet-grund"
-            variant="personality-grund"
-            title="Personlighetsprofil — grund"
-            description="50 frågor som visar din profil på fem personlighetsdimensioner."
-            questionCount={50}
-            timeLabel="~10"
-            extraLabel="5"
-            isPremiumLocked={false}
-            isUserPremium={isPremium}
-            stats={personalityStats.grund}
-            index={0}
-          />
-          <PersonalityTestCard
-            slug="personlighet-avancerad"
-            variant="personality-avancerad"
-            title="Personlighetsprofil — avancerad"
-            description="120 frågor med 30 facetter för en djupare bild av vem du är."
-            questionCount={120}
-            timeLabel="~25"
-            extraLabel="30"
-            isPremiumLocked={true}
-            isUserPremium={isPremium}
-            stats={personalityStats.avancerad}
-            index={1}
-          />
-        </TestCategorySection>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            {COGNITIVE_TESTS.map((test, i) => (
+              <TestCard
+                key={test.slug}
+                {...test}
+                isUserPremium={isPremium}
+                stats={perTest[test.slug]}
+                isBestOverall={bestTest === test.slug}
+                isRecommended={!aggregate.hasAnyData && test.slug === 'matrislogik-grund'}
+                index={i}
+              />
+            ))}
+            {PERSONALITY_TESTS.map((test, i) => (
+              <PersonalityTestCard
+                key={test.slug}
+                {...test}
+                isUserPremium={isPremium}
+                stats={
+                  test.slug === 'personlighet-grund'
+                    ? personalityStats.grund
+                    : personalityStats.avancerad
+                }
+                index={COGNITIVE_TESTS.length + i}
+              />
+            ))}
+          </div>
+        </motion.section>
       </div>
     </div>
   );

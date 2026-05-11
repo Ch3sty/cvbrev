@@ -73,8 +73,8 @@ export default function ResultsView({
     return (
       <div className="container mx-auto py-8 px-3 max-w-3xl">
         <div className="space-y-4">
-          <div className="rounded-3xl bg-indigo-50/40 h-48 animate-pulse" />
-          <div className="rounded-3xl bg-indigo-50/40 h-64 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
+          <div className="rounded-3xl bg-orange-50/40 h-64 animate-pulse" />
         </div>
       </div>
     );
@@ -87,7 +87,7 @@ export default function ResultsView({
           <p className="text-slate-700">{error ?? 'Resultatet är inte tillgängligt än.'}</p>
           <Link
             href={hubPath}
-            className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 font-semibold text-sm"
+            className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 rounded-xl border border-orange-200 bg-orange-50 text-orange-700 font-semibold text-sm"
           >
             <Home className="w-4 h-4" strokeWidth={2.5} />
             Tillbaka
@@ -130,7 +130,7 @@ export default function ResultsView({
         >
           <Link
             href={hubPath}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-indigo-300 hover:text-indigo-700 transition-colors min-h-[48px]"
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
           >
             <Home className="w-4 h-4" strokeWidth={2.5} />
             Till testhuben
@@ -139,8 +139,8 @@ export default function ResultsView({
             href={hubPath}
             className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
             style={{
-              background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-              boxShadow: '0 8px 20px -6px rgba(139, 92, 246, 0.45)',
+              background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
+              boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
             }}
           >
             <RotateCcw className="w-4 h-4" strokeWidth={2.5} />

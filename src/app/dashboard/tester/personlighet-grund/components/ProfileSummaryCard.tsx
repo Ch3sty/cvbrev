@@ -26,13 +26,13 @@ export default function ProfileSummaryCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-indigo-100 overflow-hidden"
-      style={{ boxShadow: '0 4px 16px -8px rgba(99, 102, 241, 0.18)' }}
+      className="bg-white rounded-3xl border border-orange-100 overflow-hidden"
+      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
     >
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-3 mb-4">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700 mb-1">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
               Din senaste profil
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-slate-900">
@@ -61,7 +61,7 @@ export default function ProfileSummaryCard({
                     className="h-full rounded-full transition-all"
                     style={{
                       width: `${score}%`,
-                      background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)',
+                      background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
                     }}
                   />
                 </div>
@@ -72,7 +72,7 @@ export default function ProfileSummaryCard({
 
         <Link
           href={resultsHref}
-          className="inline-flex items-center justify-between gap-2 w-full px-4 py-3 rounded-xl border border-indigo-200 bg-indigo-50/50 hover:bg-indigo-50 text-indigo-700 font-semibold text-sm transition-colors min-h-[48px]"
+          className="inline-flex items-center justify-between gap-2 w-full px-4 py-3 rounded-xl border border-orange-200 bg-orange-50/50 hover:bg-orange-50 text-orange-700 font-semibold text-sm transition-colors min-h-[48px]"
         >
           <span>Se hela analysen</span>
           <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

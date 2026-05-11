@@ -142,11 +142,11 @@ export default function TestSessionView({
               className="space-y-5 sm:space-y-6"
             >
               <div className="text-center">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700 mb-2">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
                   Påstående {currentIdx + 1} av {items.length}
                 </div>
-                <div className="bg-white border border-indigo-100 rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl mx-auto"
-                  style={{ boxShadow: '0 8px 24px -12px rgba(99, 102, 241, 0.2)' }}>
+                <div className="bg-white border border-orange-100 rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl mx-auto"
+                  style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.2)' }}>
                   <p className="text-lg sm:text-xl md:text-2xl font-semibold text-slate-900 leading-relaxed">
                     {item.text}
                   </p>
@@ -169,7 +169,7 @@ export default function TestSessionView({
             <button
               onClick={handlePrev}
               disabled={currentIdx === 0}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
               Föregående
@@ -178,7 +178,7 @@ export default function TestSessionView({
             <button
               onClick={() => setShowFinishConfirm(true)}
               disabled={!allAnswered}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-indigo-300 bg-white text-indigo-700 hover:bg-indigo-50 transition-colors min-h-[48px] touch-manipulation disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation disabled:opacity-40 disabled:cursor-not-allowed"
               title={allAnswered ? 'Slutför testet' : 'Svara på alla frågor för att slutföra'}
             >
               <Flag className="w-4 h-4" strokeWidth={2.5} />
@@ -190,8 +190,8 @@ export default function TestSessionView({
               disabled={currentIdx === items.length - 1}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
               style={{
-                background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
-                boxShadow: '0 8px 20px -6px rgba(139, 92, 246, 0.4)',
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
               }}
             >
               Nästa
@@ -225,19 +225,19 @@ export default function TestSessionView({
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
               className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
-              style={{ boxShadow: '0 24px 60px -16px rgba(139, 92, 246, 0.4)' }}
+              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
             >
               <div
                 className="absolute top-0 inset-x-0 h-1"
-                style={{ background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)' }}
+                style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }}
               />
               <div className="p-5 sm:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <div
                     className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
                     style={{
-                      background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
-                      boxShadow: '0 6px 14px -4px rgba(139, 92, 246, 0.4)',
+                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                      boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.4)',
                     }}
                   >
                     <Flag className="w-5 h-5" strokeWidth={2.25} />
@@ -264,7 +264,7 @@ export default function TestSessionView({
                 <div className="flex gap-2 sm:gap-3 mt-5">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-indigo-300 hover:text-indigo-700 transition-colors min-h-[48px]"
+                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
                   >
                     Tillbaka
                   </button>
@@ -272,8 +272,8 @@ export default function TestSessionView({
                     onClick={handleFinish}
                     className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
                     style={{
-                      background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-                      boxShadow: '0 8px 20px -6px rgba(139, 92, 246, 0.45)',
+                      background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
+                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
                     }}
                   >
                     Se min profil
@@ -314,14 +314,14 @@ function QuestionNavigationDots({
               onClick={() => onNavigate(i)}
               className={`relative aspect-square rounded-md text-[9px] sm:text-[10px] font-bold tabular-nums transition-all touch-manipulation ${
                 isCurrent
-                  ? 'ring-2 ring-indigo-500 ring-offset-1 text-white'
+                  ? 'ring-2 ring-orange-500 ring-offset-1 text-white'
                   : isAnswered
                   ? 'text-white hover:scale-105'
                   : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
               }`}
               style={
                 isAnswered || isCurrent
-                  ? { background: 'linear-gradient(135deg, #6366F1, #8B5CF6)' }
+                  ? { background: 'linear-gradient(135deg, #F97316, #DC2626)' }
                   : undefined
               }
               aria-label={`Gå till påstående ${i + 1}`}

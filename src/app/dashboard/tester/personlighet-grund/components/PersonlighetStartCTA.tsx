@@ -26,8 +26,8 @@ export default function PersonlighetStartCTA({ onStart, isLoading, hasProfile }:
                    disabled:opacity-60 disabled:cursor-not-allowed
                    touch-manipulation"
         style={{
-          background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%)',
-          boxShadow: '0 12px 36px -8px rgba(139, 92, 246, 0.5)',
+          background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+          boxShadow: '0 12px 36px -8px rgba(220, 38, 38, 0.5)',
         }}
       >
         {isLoading ? (
@@ -49,11 +49,11 @@ export default function PersonlighetStartCTA({ onStart, isLoading, hasProfile }:
 
       <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-600">
         <span className="inline-flex items-center gap-1.5">
-          <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" strokeWidth={2.5} />
+          <ShieldCheck className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
           Helt privat
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <Save className="w-3.5 h-3.5 text-indigo-600" strokeWidth={2.5} />
+          <Save className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
           Sparas i din profil
         </span>
       </div>

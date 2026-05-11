@@ -91,23 +91,23 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
       </div>
 
       {/* Alla 30 facetter grupperade per dimension */}
-      <div className="bg-white rounded-3xl border border-indigo-100 overflow-hidden"
-        style={{ boxShadow: '0 8px 32px -12px rgba(99, 102, 241, 0.18)' }}>
+      <div className="bg-white rounded-3xl border border-orange-100 overflow-hidden"
+        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}>
         <div className="h-1"
-          style={{ background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)' }} />
+          style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }} />
         <div className="p-5 sm:p-7">
           <div className="flex items-start gap-3 mb-5">
             <div
               className="flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center text-white"
               style={{
-                background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
-                boxShadow: '0 6px 14px -4px rgba(139, 92, 246, 0.4)',
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.4)',
               }}
             >
               <Microscope className="w-5 h-5" strokeWidth={2.25} />
             </div>
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700 mb-0.5">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
                 Djupgående
               </div>
               <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
@@ -125,7 +125,7 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
               const facets = DIMENSION_FACETS[dim];
               return (
                 <div key={dim}>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 mb-2">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-orange-700 mb-2">
                     {meta.name}
                   </div>
                   <div className="grid sm:grid-cols-2 gap-2">
@@ -147,7 +147,7 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
                               style={{
                                 width: `${score}%`,
                                 background:
-                                  'linear-gradient(90deg, #6366F1, #8B5CF6)',
+                                  'linear-gradient(90deg, #FB923C, #DC2626)',
                               }}
                             />
                           </div>

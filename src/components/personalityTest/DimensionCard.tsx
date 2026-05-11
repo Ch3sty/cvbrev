@@ -30,12 +30,12 @@ export default function DimensionCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
       className="bg-white rounded-3xl border border-slate-200 overflow-hidden"
-      style={{ boxShadow: '0 4px 16px -8px rgba(99, 102, 241, 0.12)' }}
+      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
     >
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700 mb-1">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
               {meta.name}
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
@@ -46,8 +46,8 @@ export default function DimensionCard({
             <div
               className="inline-flex items-center justify-center px-3 py-1.5 rounded-2xl text-white font-bold text-sm tabular-nums"
               style={{
-                background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
-                boxShadow: '0 4px 12px -3px rgba(139, 92, 246, 0.4)',
+                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.4)',
               }}
             >
               {score}
@@ -96,10 +96,10 @@ export default function DimensionCard({
           </div>
         </div>
 
-        <div className="rounded-2xl bg-indigo-50/60 border border-indigo-100 p-3">
+        <div className="rounded-2xl bg-orange-50/60 border border-orange-100 p-3">
           <div className="flex items-center gap-1.5 mb-1.5">
-            <Briefcase className="w-3.5 h-3.5 text-indigo-600" strokeWidth={2.5} />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700">
+            <Briefcase className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-orange-700">
               I arbetslivet
             </span>
           </div>

@@ -24,8 +24,8 @@ export default function ResultsHero({
       transition={{ duration: 0.45 }}
       className="relative overflow-hidden rounded-3xl text-white"
       style={{
-        background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%)',
-        boxShadow: '0 20px 60px -20px rgba(139, 92, 246, 0.45)',
+        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+        boxShadow: '0 20px 60px -20px rgba(220, 38, 38, 0.45)',
       }}
     >
       <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" aria-hidden="true">

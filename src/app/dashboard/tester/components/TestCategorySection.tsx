@@ -38,9 +38,7 @@ export default function TestCategorySection({
           <CategoryIcon kind={kind} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className={`text-[11px] font-semibold uppercase tracking-[0.18em] mb-1 ${
-            kind === 'personality' ? 'text-indigo-700' : 'text-orange-700'
-          }`}>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] mb-1 text-orange-700">
             {eyebrow}
           </div>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-tight">

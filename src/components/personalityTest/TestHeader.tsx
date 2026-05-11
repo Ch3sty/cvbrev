@@ -23,7 +23,7 @@ export default function TestHeader({
             Fråga {currentQuestion + 1}{' '}
             <span className="font-normal text-slate-500">av {totalQuestions}</span>
           </span>
-          <span className="font-semibold tabular-nums px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+          <span className="font-semibold tabular-nums px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-100">
             {answeredCount} svar · {progressPct}%
           </span>
         </div>
@@ -31,7 +31,7 @@ export default function TestHeader({
           <motion.div
             className="h-full rounded-full"
             style={{
-              background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)',
+              background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
             }}
             initial={false}
             animate={{ width: `${progressPct}%` }}

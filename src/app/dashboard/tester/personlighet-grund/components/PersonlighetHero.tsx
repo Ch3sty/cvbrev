@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { UserCircle2, Clock, Target, Sparkles as _S } from 'lucide-react';
+import { UserCircle2, Clock, Target } from 'lucide-react';
 
 interface PersonlighetHeroProps {
   variant: 'grund' | 'avancerad';
@@ -12,9 +12,9 @@ interface PersonlighetHeroProps {
 const COPY = {
   grund: {
     eyebrow: 'Personlighetstest',
-    title: 'Förstå din personlighet',
+    title: 'Förstå hur du fungerar i arbete',
     description:
-      'Big Five-baserat test med 50 frågor som visar din profil på fem grundläggande personlighetsdimensioner — inget rätt eller fel, bara du.',
+      'Många arbetsgivare använder personlighetstester i rekryteringen. Här får du en egen profil byggd på Big Five, modellen som forskningen vilar på, plus konkreta tips inför skarpa tester.',
     questions: '50 frågor',
     time: 'ca 10 min',
     extra: '5 dimensioner',
@@ -23,7 +23,7 @@ const COPY = {
     eyebrow: 'Personlighetstest — avancerad',
     title: 'Din djupgående personlighetsprofil',
     description:
-      'Utökat Big Five-test med 120 frågor som mäter både huvuddimensioner och 30 underfacetter — den djupaste profilen vi erbjuder.',
+      'Utökad version med 120 frågor som mäter både huvuddimensioner och 30 underliggande facetter. Den djupaste profilen vi erbjuder, med personliga karriärinsikter.',
     questions: '120 frågor',
     time: 'ca 25 min',
     extra: '30 facetter',
@@ -44,8 +44,8 @@ export default function PersonlighetHero({
       transition={{ duration: 0.45, ease: 'easeOut' }}
       className="relative overflow-hidden rounded-3xl text-white"
       style={{
-        background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%)',
-        boxShadow: '0 20px 60px -20px rgba(139, 92, 246, 0.45)',
+        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+        boxShadow: '0 20px 60px -20px rgba(220, 38, 38, 0.45)',
       }}
     >
       <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" aria-hidden="true">
@@ -53,6 +53,28 @@ export default function PersonlighetHero({
           <circle cx="14" cy="14" r="1" fill="white" />
         </pattern>
         <rect width="100%" height="100%" fill="url(#hero-pers-dots)" />
+      </svg>
+
+      {/* Bakgrunds-Big-Five-orbit */}
+      <svg className="absolute -right-12 -bottom-12 opacity-20 pointer-events-none hidden sm:block" width="240" height="240" viewBox="0 0 240 240" aria-hidden="true">
+        <circle cx="120" cy="120" r="96" fill="none" stroke="white" strokeWidth="1.2" strokeDasharray="2 5" />
+        {[
+          { cx: 120, cy: 24 },
+          { cx: 211, cy: 91 },
+          { cx: 176, cy: 198 },
+          { cx: 64, cy: 198 },
+          { cx: 29, cy: 91 },
+        ].map((p, i) => (
+          <circle key={i} cx={p.cx} cy={p.cy} r="6" fill="white" opacity={0.9 - i * 0.1} />
+        ))}
+        <path
+          d="M 120 24 L 211 91 L 176 198 L 64 198 L 29 91 Z"
+          fill="none"
+          stroke="white"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+          opacity="0.5"
+        />
       </svg>
 
       <div className="relative p-6 sm:p-8 md:p-10 lg:p-12">
