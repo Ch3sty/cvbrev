@@ -5,9 +5,10 @@ import {
   MatrixCategoryIllustration,
   VerbalCategoryIllustration,
   NumericalCategoryIllustration,
+  PersonalityCategoryIllustration,
 } from './illustrations/TesterHubIcons';
 
-export type CategoryKind = 'matrix' | 'verbal' | 'numerical';
+export type CategoryKind = 'matrix' | 'verbal' | 'numerical' | 'personality';
 
 interface TestCategorySectionProps {
   kind: CategoryKind;
@@ -37,7 +38,9 @@ export default function TestCategorySection({
           <CategoryIcon kind={kind} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+          <div className={`text-[11px] font-semibold uppercase tracking-[0.18em] mb-1 ${
+            kind === 'personality' ? 'text-indigo-700' : 'text-orange-700'
+          }`}>
             {eyebrow}
           </div>
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-tight">
@@ -59,5 +62,6 @@ export default function TestCategorySection({
 function CategoryIcon({ kind }: { kind: CategoryKind }) {
   if (kind === 'matrix') return <MatrixCategoryIllustration className="w-11 h-11 sm:w-12 sm:h-12" />;
   if (kind === 'verbal') return <VerbalCategoryIllustration className="w-11 h-11 sm:w-12 sm:h-12" />;
+  if (kind === 'personality') return <PersonalityCategoryIllustration className="w-11 h-11 sm:w-12 sm:h-12" />;
   return <NumericalCategoryIllustration className="w-11 h-11 sm:w-12 sm:h-12" />;
 }

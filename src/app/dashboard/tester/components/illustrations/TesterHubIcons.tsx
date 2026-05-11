@@ -19,6 +19,11 @@ const SHARED_DEFS = (
       <stop offset="0%" stopColor="#FCD34D" />
       <stop offset="100%" stopColor="#F59E0B" />
     </linearGradient>
+    <linearGradient id="hub-indigo-pink" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#6366F1" />
+      <stop offset="50%" stopColor="#8B5CF6" />
+      <stop offset="100%" stopColor="#EC4899" />
+    </linearGradient>
   </defs>
 );
 
@@ -207,6 +212,25 @@ export function NumericalCategoryIllustration({ className = 'w-10 h-10' }: IconP
 }
 
 /**
+ * Liten kategori-ikon för personlighetstest — fem cirklar i Big Five-anda.
+ */
+export function PersonalityCategoryIllustration({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {SHARED_DEFS}
+      {/* 5 cirklar = Big Five */}
+      <circle cx="8" cy="20" r="4" fill="url(#hub-indigo-pink)" />
+      <circle cx="16" cy="13" r="4" fill="url(#hub-indigo-pink)" opacity="0.85" />
+      <circle cx="20" cy="26" r="4" fill="url(#hub-indigo-pink)" opacity="0.9" />
+      <circle cx="28" cy="14" r="4" fill="url(#hub-indigo-pink)" opacity="0.75" />
+      <circle cx="32" cy="24" r="4" fill="url(#hub-indigo-pink)" opacity="0.65" />
+      {/* Förbindelselinjer */}
+      <path d="M 8 20 L 16 13 L 20 26 L 28 14 L 32 24" stroke="#A5B4FC" strokeWidth="1.2" fill="none" opacity="0.55" />
+    </svg>
+  );
+}
+
+/**
  * Liten test-specifik thumbnail per testkort. Olika ikon per test-slug.
  */
 export function TestCardThumbnail({
@@ -219,7 +243,9 @@ export function TestCardThumbnail({
     | 'verbal-v1'
     | 'verbal-v2'
     | 'numerical-v1'
-    | 'numerical-v2';
+    | 'numerical-v2'
+    | 'personality-grund'
+    | 'personality-avancerad';
 }) {
   return (
     <svg viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -290,6 +316,29 @@ export function TestCardThumbnail({
           <rect x="20" y="22" width="5" height="16" rx="1" fill="url(#hub-orange-red)" opacity="0.85" />
           <rect x="27" y="18" width="5" height="20" rx="1" fill="url(#hub-orange-red)" opacity="0.95" />
           <rect x="34" y="24" width="5" height="14" rx="1" fill="url(#hub-orange-red)" opacity="0.75" />
+        </g>
+      )}
+
+      {variant === 'personality-grund' && (
+        <g>
+          {/* 5 cirklar = Big Five, blå-rosa gradient */}
+          <circle cx="14" cy="24" r="3.5" fill="url(#hub-indigo-pink)" />
+          <circle cx="20" cy="17" r="3.5" fill="url(#hub-indigo-pink)" opacity="0.85" />
+          <circle cx="24" cy="28" r="3.5" fill="url(#hub-indigo-pink)" opacity="0.9" />
+          <circle cx="30" cy="18" r="3.5" fill="url(#hub-indigo-pink)" opacity="0.75" />
+          <circle cx="34" cy="26" r="3.5" fill="url(#hub-indigo-pink)" opacity="0.65" />
+          <path d="M 14 24 L 20 17 L 24 28 L 30 18 L 34 26" stroke="#A5B4FC" strokeWidth="1" fill="none" opacity="0.55" />
+        </g>
+      )}
+
+      {variant === 'personality-avancerad' && (
+        <g>
+          {/* Stiliserad människo-silhuett + cirkel-orbit */}
+          <circle cx="24" cy="20" r="6" fill="url(#hub-indigo-pink)" />
+          <path d="M 14 36 Q 14 28 24 28 Q 34 28 34 36 Z" fill="url(#hub-indigo-pink)" opacity="0.85" />
+          {/* Orbit */}
+          <circle cx="24" cy="24" r="16" fill="none" stroke="url(#hub-indigo-pink)" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.6" />
+          <circle cx="40" cy="24" r="2" fill="#EC4899" />
         </g>
       )}
 

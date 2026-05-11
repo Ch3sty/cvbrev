@@ -2,11 +2,13 @@
 
 import { useProfile } from '@/hooks/use-profile';
 import { useAllTestStats, type TestSlug } from '@/hooks/use-all-test-stats';
+import { usePersonalityTestStats } from '@/hooks/use-personality-test-stats';
 import TesterHubHero from './components/TesterHubHero';
 import TestStatsCard from './components/TestStatsCard';
 import EmptyTestsCallout from './components/EmptyTestsCallout';
 import TestCategorySection from './components/TestCategorySection';
 import TestCard, { type TestCardVariant } from './components/TestCard';
+import PersonalityTestCard from './components/PersonalityTestCard';
 
 interface TestDef {
   slug: TestSlug;
@@ -91,6 +93,7 @@ const NUMERICAL_TESTS: TestDef[] = [
 export default function TesterHubPage() {
   const { subscriptionTier, loading: profileLoading } = useProfile();
   const { perTest, aggregate, isLoading: statsLoading } = useAllTestStats();
+  const personalityStats = usePersonalityTestStats();
 
   const isPremium = subscriptionTier === 'premium';
 
@@ -189,6 +192,41 @@ export default function TesterHubPage() {
               index={i}
             />
           ))}
+        </TestCategorySection>
+
+        <TestCategorySection
+          kind="personality"
+          eyebrow="Personlighet"
+          title="Big Five-profil"
+          description="Lär känna dina personlighetsdrag — inget rätt eller fel, bara du."
+          index={3}
+        >
+          <PersonalityTestCard
+            slug="personlighet-grund"
+            variant="personality-grund"
+            title="Personlighetsprofil — grund"
+            description="50 frågor som visar din profil på fem personlighetsdimensioner."
+            questionCount={50}
+            timeLabel="~10"
+            extraLabel="5"
+            isPremiumLocked={false}
+            isUserPremium={isPremium}
+            stats={personalityStats.grund}
+            index={0}
+          />
+          <PersonalityTestCard
+            slug="personlighet-avancerad"
+            variant="personality-avancerad"
+            title="Personlighetsprofil — avancerad"
+            description="120 frågor med 30 facetter för en djupare bild av vem du är."
+            questionCount={120}
+            timeLabel="~25"
+            extraLabel="30"
+            isPremiumLocked={true}
+            isUserPremium={isPremium}
+            stats={personalityStats.avancerad}
+            index={1}
+          />
         </TestCategorySection>
       </div>
     </div>
