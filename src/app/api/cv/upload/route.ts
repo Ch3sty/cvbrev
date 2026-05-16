@@ -6,13 +6,22 @@ import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
-import { extractSkillsAndExperience } from '@/lib/letters/cv-anonymizer';
-
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 function escapeDatabasePlaceholder(text: string): string {
   return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+}
+
+function stripPii(text: string): string {
+  return text
+    .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '[EMAIL]')
+    .replace(/(\+46|0046|0)[\s-]?7[\s-]?\d{1}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '[TEL]')
+    .replace(/\+\d{1,3}[\s-]?\d{6,14}/g, '[TEL]')
+    .replace(/\b[A-ZÅÄÖ][a-zåäö]+(?:gatan|vägen|stigen|gränden|torget|platsen)\s+\d+[A-Za-z]?\b/g, '[ADRESS]')
+    .replace(/\b\d{3}\s?\d{2}\b/g, '[POSTNR]')
+    .replace(/\b\d{6}[-\s]?\d{4}\b/g, '[PERSNR]')
+    .replace(/https?:\/\/[^\s]+/g, '[URL]');
 }
 
 type SsePhase = 'uploading' | 'vision';
@@ -263,7 +272,7 @@ Alternativt: Ladda upp som .DOCX istället.`,
     }
 
     if (extractedText && !textExtractionFailed) {
-      extractedText = extractSkillsAndExperience(extractedText);
+      extractedText = stripPii(extractedText);
     }
 
     let textToSave = extractedText;
