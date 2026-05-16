@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: 'Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.',
     images: [
       {
-        url: 'https://www.jobbcoach.ai/og-image.png',
+        url: 'https://www.jobbcoach.ai/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Skapa ATS-anpassade CV:n, personliga brev och träna på rekryteringstester med Jobbcoach.ai',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     site: '@jobbcoach_ai',
     title: 'Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester',
     description: 'Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.',
-    images: ['https://www.jobbcoach.ai/og-image.png'],
+    images: ['https://www.jobbcoach.ai/opengraph-image'],
   },
   other: {
     'fb:app_id': '1234567890',
