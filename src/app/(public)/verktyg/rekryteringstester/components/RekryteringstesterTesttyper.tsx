@@ -190,7 +190,7 @@ export default function RekryteringstesterTesttyper() {
                   boxShadow: '0 12px 32px -10px rgba(220, 38, 38, 0.4)',
                 }}
               >
-                Starta personlighetsprofil
+                Testa din personlighet &amp; se vad rekryteraren ser
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" strokeWidth={2.5} />
               </Link>
             </div>
