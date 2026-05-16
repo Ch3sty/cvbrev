@@ -120,9 +120,21 @@ export default function CVAnalysisWizard({
 
   const [dynamicPotentialScore, setDynamicPotentialScore] = useState(0);
 
+  const [userProfile, setUserProfile] = useState<{ full_name: string; email: string; phone: string; location: string } | null>(null);
+
   // Steg 3: spårar vilka kategorier användaren har besökt och hur många som finns
   const [visitedSelectCategories, setVisitedSelectCategories] = useState<Set<string>>(new Set());
   const [visibleSelectCategories, setVisibleSelectCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from('profiles')
+      .select('full_name, email, phone, location')
+      .single()
+      .then(({ data }) => {
+        if (data) setUserProfile(data);
+      });
+  }, []);
 
   // Auto-välj första CV
   useEffect(() => {
@@ -191,13 +203,16 @@ export default function CVAnalysisWizard({
     if (!structured) return '';
     const sections: string[] = [];
 
-    if (structured.personalInfo) {
-      const p = structured.personalInfo;
+    {
       const lines: string[] = [];
-      if (p.fullName) lines.push(p.fullName);
-      if (p.address) lines.push(p.address);
-      if (p.phone) lines.push(p.phone);
-      if (p.email) lines.push(p.email);
+      const name = userProfile?.full_name || structured.personalInfo?.fullName || '';
+      const location = userProfile?.location || structured.personalInfo?.address || '';
+      const phone = userProfile?.phone || '';
+      const email = userProfile?.email || '';
+      if (name) lines.push(name);
+      if (location) lines.push(location);
+      if (phone) lines.push(phone);
+      if (email) lines.push(email);
       if (lines.length > 0) sections.push(lines.join('\n'));
     }
 
