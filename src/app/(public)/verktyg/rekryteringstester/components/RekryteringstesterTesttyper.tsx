@@ -7,6 +7,7 @@ import {
   IconMatrislogik,
   IconVerbal,
   IconNumerisk,
+  IconPersonlighet,
 } from './illustrations/RekryteringstesterIcons'
 
 const TYPER = [
@@ -34,6 +35,14 @@ const TYPER = [
     grund: { antal: '24 frågor', tid: '~20 min' },
     avancerad: { antal: '24 frågor', tid: '~25 min' },
   },
+  {
+    Icon: IconPersonlighet,
+    title: 'Personlighetsprofil',
+    body:
+      'Många arbetsgivare använder Big Five i rekryteringen. Här bygger du din egen profil och ser precis vilka egenskaper och mönster rekryteraren bedömer. Inga rätta svar, bara din profil.',
+    grund: { antal: '50 frågor', tid: '~10 min' },
+    avancerad: { antal: '120 frågor', tid: '~25 min' },
+  },
 ]
 
 export default function RekryteringstesterTesttyper() {
@@ -48,10 +57,10 @@ export default function RekryteringstesterTesttyper() {
           className="text-center mb-10 sm:mb-14"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-            Tre testtyper
+            Fyra testtyper
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Sex tester,{' '}
+            Kognitiva tester och{' '}
             <span
               style={{
                 background:
@@ -61,16 +70,15 @@ export default function RekryteringstesterTesttyper() {
                 backgroundClip: 'text',
               }}
             >
-              tre på gratisnivån
+              personlighetsprofil
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Varje testtyp har en grundnivå som är gratis och en avancerad
-            version med svårare frågor och längre tidspress.
+            Varje testtyp har en grundnivå som är gratis och en avancerad version med svårare frågor och längre tidspress.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {TYPER.map(({ Icon, title, body, grund, avancerad }, idx) => (
             <motion.article
               key={title}

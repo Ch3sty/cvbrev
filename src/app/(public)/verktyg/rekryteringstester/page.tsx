@@ -23,7 +23,7 @@ export default function RekryteringstesterSida() {
     name: 'Jobbcoach.ai Rekryteringstester',
     url: 'https://www.jobbcoach.ai/verktyg/rekryteringstester',
     description:
-      'Träna på rekryteringstester innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder.',
+      'Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighetsanalys.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -33,7 +33,7 @@ export default function RekryteringstesterSida() {
       description: '3 tester gratis utan kortuppgift',
     },
     featureList:
-      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök',
+      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',

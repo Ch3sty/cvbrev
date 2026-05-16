@@ -374,6 +374,40 @@ export function IconSnabbrakning({ className }: IllustrationProps) {
   )
 }
 
+// =============================================================
+// PERSONLIGHETSPROFIL-IKON (72x72)
+// =============================================================
+
+export function IconPersonlighet({ className }: IllustrationProps) {
+  const id = 'rt-pl'
+  return (
+    <svg className={className} viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="68" height="68" rx="16" fill={`url(#${id}-soft)`} />
+
+      {/* Siluett: huvud */}
+      <circle cx="36" cy="19" r="8" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.5" />
+      {/* Siluett: axlar */}
+      <path d="M 18 38 Q 18 28 36 28 Q 54 28 54 38 L 54 42 Q 54 44 52 44 L 20 44 Q 18 44 18 42 Z" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.5" />
+
+      {/* Big Five: 5 staplar */}
+      {/* Stapel 1 - kort */}
+      <rect x="11" y="56" width="7" height="8" rx="2" fill={`url(#${id}-warm)`} opacity="0.55" />
+      {/* Stapel 2 - hög */}
+      <rect x="20" y="49" width="7" height="15" rx="2" fill={`url(#${id}-warm)`} opacity="0.72" />
+      {/* Stapel 3 - medel-hög */}
+      <rect x="29" y="52" width="7" height="12" rx="2" fill={`url(#${id}-deep)`} opacity="0.88" />
+      {/* Stapel 4 - låg */}
+      <rect x="38" y="58" width="7" height="6" rx="2" fill={`url(#${id}-warm)`} opacity="0.65" />
+      {/* Stapel 5 - medel */}
+      <rect x="47" y="54" width="7" height="10" rx="2" fill={`url(#${id}-deep)`} />
+
+      {/* Baslinje */}
+      <line x1="10" y1="64.5" x2="55" y2="64.5" stroke="#FED7AA" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export function IconTabell({ className }: IllustrationProps) {
   const id = 'rt-tb'
   return (

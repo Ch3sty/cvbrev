@@ -12,7 +12,7 @@ export default async function Image() {
       <OgFrame
         eyebrow="Rekryteringstester"
         title="Träna inför provet"
-        subtitle="Matrislogik · Verbal · Numerisk"
+        subtitle="Matrislogik · Verbal · Numerisk · Personlighet"
         illustration={<OgRekryteringstesterIllustration />}
       />
     ),
