@@ -291,9 +291,14 @@ function EducationItem({ education }: { education: ParsedEducation }) {
   );
 }
 
-function SkillCloud({ skills }: { skills: string[] }) {
+function SkillCloud({ skills }: { skills: (string | { category?: string; skills?: string[] })[] }) {
   const cleaned = skills
-    .filter((s) => s && s.trim().length > 0)
+    .flatMap((s) => {
+      if (typeof s === 'string') return s;
+      if (s && typeof s === 'object' && Array.isArray(s.skills)) return s.skills;
+      return [];
+    })
+    .filter((s) => typeof s === 'string' && s.trim().length > 0)
     .map((s) => s.trim());
 
   return (
