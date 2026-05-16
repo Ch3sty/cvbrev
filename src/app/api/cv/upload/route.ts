@@ -6,6 +6,7 @@ import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
+import { extractSkillsAndExperience } from '@/lib/letters/cv-anonymizer';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -259,6 +260,10 @@ Alternativt: Ladda upp som .DOCX istället.`,
         status: 400,
       });
       return emitter.close();
+    }
+
+    if (extractedText && !textExtractionFailed) {
+      extractedText = extractSkillsAndExperience(extractedText);
     }
 
     let textToSave = extractedText;
