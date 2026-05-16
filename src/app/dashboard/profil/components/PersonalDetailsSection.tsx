@@ -199,8 +199,8 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             Din integritet är skyddad
           </h4>
           <p className="text-xs text-emerald-800 leading-relaxed">
-            Vi lagrar dina uppgifter säkert och anonymiserar dem innan de skickas
-            till AI-tjänster. Du har full kontroll över vad som syns i dina brev.
+            Dina personuppgifter skickas aldrig till någon AI-tjänst. Vi skickar
+            enbart anonym råtext och sätter in dina uppgifter på vår egen server efteråt.
           </p>
         </div>
       </div>
