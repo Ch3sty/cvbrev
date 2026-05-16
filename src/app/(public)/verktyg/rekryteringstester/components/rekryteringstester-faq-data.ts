@@ -40,6 +40,18 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Ja. Du får göra de tre grundtesterna helt gratis och utan att lämna kortuppgifter. Vill du tävla mot dig själv på de avancerade versionerna med svårare frågor och längre tid uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+    a: 'Ja. Du får göra de tre kognitiva grundtesterna och personlighetsprofilen (50 frågor) helt gratis och utan att lämna kortuppgifter. Vill du gå djupare med de avancerade versionerna och den utökade personlighetsprofilen med 120 frågor och 30 facetter uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+  },
+  {
+    q: 'Vad är ett personlighetstest i rekrytering?',
+    a: 'Många arbetsgivare, framför allt inom konsult, bank och offentlig sektor, låter kandidater göra ett personlighetstest som en del av urvalsprocessen. Testet mäter hur du fungerar i arbete, inte om du är en bra eller dålig person. Det finns inga rätta svar. Arbetsgivaren jämför din profil med vad rollen kräver och med andra kandidater.',
+  },
+  {
+    q: 'Vad är Big Five-modellen?',
+    a: 'Big Five är den psykologiska modell som ligger till grund för de flesta seriösa personlighetstester i rekrytering, bland annat de som SHL och Assessio använder. Modellen mäter fem dimensioner: Öppenhet (kreativitet och nyfikenhet), Noggrannhet (struktur och målmedvetenhet), Extraversion (social energi), Vänlighet (samarbete och empati) och Känslostabilitet (stresstålighet). Vår personlighetsprofil bygger på samma modell.',
+  },
+  {
+    q: 'Går det att manipulera ett personlighetstest?',
+    a: 'Delvis. Du kan svara på ett sätt som du tror att arbetsgivaren vill se, men moderna tester har inbyggda konsistenskontroller som fångar upp om du svarar orealistiskt positivt. Det vanligaste rådet från rekryterare är att svara ärligt. Det du faktiskt vill ta med dig från vår profil är förståelsen för vilka dimensioner du hamnar på, så att du kan prata om dem på ett genomtänkt sätt i intervjun.',
   },
 ]
