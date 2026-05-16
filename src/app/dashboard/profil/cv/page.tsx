@@ -338,6 +338,12 @@ export default function MinaCVPage() {
                     preview={getCleanPreview(cv.cv_text)}
                     formatDate={formatDate}
                     isLocked={isCvLocked(cv.id)}
+                    userContact={{
+                      full_name: profile?.full_name ?? '',
+                      email: profile?.email ?? '',
+                      phone: profile?.phone ?? '',
+                      location: profile?.location ?? '',
+                    }}
                   />
                 );
               })}

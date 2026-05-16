@@ -28,6 +28,7 @@ interface CvCardProps {
   onToggleExpand: () => void;
   onOpenInNewWindow: () => void;
   onDownload: () => void;
+  userContact?: { full_name?: string; email?: string; phone?: string; location?: string };
   onDelete: () => void;
   onStructured: (data: ParsedCV) => void;
   preview: string;
@@ -49,6 +50,7 @@ export default function CvCard({
   preview,
   formatDate,
   isLocked = false,
+  userContact,
 }: CvCardProps) {
   const ageDays = Math.floor(
     (Date.now() - new Date(cv.created_at).getTime()) / (1000 * 60 * 60 * 24)
@@ -259,6 +261,7 @@ export default function CvCard({
                   cvId={cv.id}
                   structuredData={cv.structured_data}
                   onStructured={onStructured}
+                  userContact={userContact}
                 />
 
                 <div className="flex justify-end">

@@ -22,23 +22,31 @@ import type {
 
 void _SparklesUnused;
 
+interface UserContact {
+  full_name?: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+}
+
 interface CvDetailViewProps {
   cvId: string;
   structuredData: ParsedCV | Record<string, any> | null;
   onStructured: (data: ParsedCV) => void;
+  userContact?: UserContact;
 }
 
-function normalizeToParsedCV(data: any): ParsedCV | null {
+function normalizeToParsedCV(data: any, userContact?: UserContact): ParsedCV | null {
   if (!data) return null;
   if (Array.isArray(data.roles)) return data as ParsedCV;
   if (data.experience || data.personalInfo) {
     return {
-      name: data.personalInfo?.fullName || '',
+      name: userContact?.full_name || data.personalInfo?.fullName || '',
       profile: data.summary || '',
       contact: {
-        email: data.personalInfo?.email || '',
-        phone: data.personalInfo?.phone || '',
-        address: data.personalInfo?.address || data.personalInfo?.location || '',
+        email: userContact?.email || '',
+        phone: userContact?.phone || '',
+        address: userContact?.location || '',
       },
       roles: (data.experience || []).map((exp: any) => ({
         title: exp.position || '',
@@ -66,8 +74,9 @@ export default function CvDetailView({
   cvId,
   structuredData,
   onStructured,
+  userContact,
 }: CvDetailViewProps) {
-  const normalized = normalizeToParsedCV(structuredData);
+  const normalized = normalizeToParsedCV(structuredData, userContact);
 
   if (!normalized) {
     return <UnstructuredPrompt cvId={cvId} onStructured={onStructured} />;
