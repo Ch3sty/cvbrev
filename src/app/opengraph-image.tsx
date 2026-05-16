@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import OgFrame from '@/components/og-preview/OgFrame';
 import { OgHomeIllustration } from '@/components/og-preview/OgIllustrations';
 
-export const alt = 'Jobbcoach.ai — bygg en ansökan som blir läst';
+export const alt = 'Jobbcoach.ai — ta dig förbi rekryteringssystemen';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -11,8 +11,8 @@ export default async function Image() {
     (
       <OgFrame
         eyebrow="Jobbcoach.ai"
-        title="Bygg en ansökan som blir läst"
-        subtitle="CV · Brev · Matchning · Rekryteringstester"
+        title="Ta dig förbi rekryteringssystemen"
+        subtitle="CV · Brev · LinkedIn · Matchning · Tester"
         illustration={<OgHomeIllustration />}
       />
     ),
