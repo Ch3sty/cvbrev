@@ -8,7 +8,6 @@ import Breadcrumb from '@/components/Breadcrumb'
 import OmOssHero from './components/OmOssHero'
 import OmOssBerattelse from './components/OmOssBerattelse'
 import OmOssPrinciper from './components/OmOssPrinciper'
-import OmOssTeam from './components/OmOssTeam'
 import OmOssSaHjalper from './components/OmOssSaHjalper'
 import OmOssForSverige from './components/OmOssForSverige'
 import OmOssKontakt from './components/OmOssKontakt'
@@ -98,7 +97,6 @@ export default function OmOssSida() {
         <OmOssHero />
         <OmOssBerattelse />
         <OmOssPrinciper />
-        <OmOssTeam />
         <OmOssSaHjalper />
         <OmOssForSverige />
         <OmOssKontakt />
