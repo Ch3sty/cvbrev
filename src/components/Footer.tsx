@@ -6,7 +6,6 @@ import {
   ArrowRight,
   Facebook,
   Instagram,
-  Linkedin,
   Mail,
   BookOpen,
 } from 'lucide-react'
@@ -301,11 +300,6 @@ function FooterColumn({
 
 function SocialIcons() {
   const items = [
-    {
-      label: 'LinkedIn',
-      href: 'https://linkedin.com/company/jobbcoach-ai',
-      Icon: Linkedin,
-    },
     {
       label: 'Facebook',
       href: 'https://www.facebook.com/jobbcoachai',
