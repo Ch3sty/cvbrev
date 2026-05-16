@@ -24,8 +24,42 @@ void _SparklesUnused;
 
 interface CvDetailViewProps {
   cvId: string;
-  structuredData: ParsedCV | null;
+  structuredData: ParsedCV | Record<string, any> | null;
   onStructured: (data: ParsedCV) => void;
+}
+
+function normalizeToParsedCV(data: any): ParsedCV | null {
+  if (!data) return null;
+  if (Array.isArray(data.roles)) return data as ParsedCV;
+  if (data.experience || data.personalInfo) {
+    return {
+      name: data.personalInfo?.fullName || '',
+      profile: data.summary || '',
+      contact: {
+        email: data.personalInfo?.email || '',
+        phone: data.personalInfo?.phone || '',
+        address: data.personalInfo?.address || data.personalInfo?.location || '',
+      },
+      roles: (data.experience || []).map((exp: any) => ({
+        title: exp.position || '',
+        company: exp.company || '',
+        period: [exp.startDate, exp.endDate || 'Nuvarande'].filter(Boolean).join(' – '),
+        description: Array.isArray(exp.description) ? exp.description.join(' ') : exp.description || '',
+        responsibilities: Array.isArray(exp.description) ? exp.description : [],
+        originalText: '',
+      })),
+      education: (data.education || []).map((edu: any) => ({
+        degree: edu.degree || '',
+        institution: edu.institution || '',
+        period: edu.graduationYear || '',
+        description: edu.description || '',
+      })),
+      skills: (data.skills || []).flatMap((s: any) =>
+        typeof s === 'string' ? s : Array.isArray(s.skills) ? s.skills : []
+      ),
+    };
+  }
+  return null;
 }
 
 export default function CvDetailView({
@@ -33,11 +67,13 @@ export default function CvDetailView({
   structuredData,
   onStructured,
 }: CvDetailViewProps) {
-  if (!structuredData) {
+  const normalized = normalizeToParsedCV(structuredData);
+
+  if (!normalized) {
     return <UnstructuredPrompt cvId={cvId} onStructured={onStructured} />;
   }
 
-  const { profile, roles, education, skills, contact } = structuredData;
+  const { profile, roles, education, skills, contact } = normalized;
   const hasRoles = Array.isArray(roles) && roles.length > 0;
   const hasEducation = Array.isArray(education) && education.length > 0;
   const hasSkills = Array.isArray(skills) && skills.length > 0;
