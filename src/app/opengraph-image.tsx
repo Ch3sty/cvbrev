@@ -12,7 +12,7 @@ export default async function Image() {
       <OgFrame
         eyebrow="Jobbcoach.ai"
         title="Bygg en ansökan som blir läst"
-        subtitle="CV · Brev · Matchning · Tester"
+        subtitle="CV · Brev · Matchning · Rekryteringstester"
         illustration={<OgHomeIllustration />}
       />
     ),
