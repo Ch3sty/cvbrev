@@ -43,6 +43,7 @@
     "node_modules",
     "supabase/**",
     "DEPLOYMENT_*.ts",
-    "DEPLOY_*.ts"
+    "DEPLOY_*.ts",
+    "scripts/**"
   ]
 }
