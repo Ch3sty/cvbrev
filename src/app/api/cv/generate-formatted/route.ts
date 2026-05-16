@@ -2188,7 +2188,7 @@ export async function POST(request: NextRequest) {
       if (user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('profile_photo_url, linkedin_url')
+          .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
           .eq('id', user.id)
           .single();
         
@@ -2236,6 +2236,11 @@ export async function POST(request: NextRequest) {
           extractedCVData.personalInfo.linkedin = userProfile.linkedin_url;
         }
       }
+      // Always override contact details with real profile values (cv_text may contain [EMAIL]/[TEL] placeholders)
+      if (userProfile.full_name) extractedCVData.personalInfo.fullName = userProfile.full_name;
+      if (userProfile.email) extractedCVData.personalInfo.email = userProfile.email;
+      if (userProfile.phone) extractedCVData.personalInfo.phone = userProfile.phone;
+      if (userProfile.location) extractedCVData.personalInfo.address = userProfile.location;
     }
     
     // Generera template-specifik HTML baserat på vald mall
