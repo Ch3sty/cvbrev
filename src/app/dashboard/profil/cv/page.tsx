@@ -24,6 +24,7 @@ export default function MinaCVPage() {
   const router = useRouter();
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
   const {
+    profile,
     subscriptionTier,
     uploadCV,
     setGdprConsent: setProfileGdprConsent,
