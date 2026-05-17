@@ -80,19 +80,23 @@ export async function POST(request: NextRequest) {
     // Berika med profile-data sa preview matchar PDF (foto + LinkedIn)
     const { data: userProfile } = await supabase
       .from('profiles')
-      .select('profile_photo_url, linkedin_url')
+      .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
       .eq('id', user.id)
       .single();
 
-    if (userProfile) {
-      if (userProfile.profile_photo_url && cvData.personalInfo) {
+    if (userProfile && cvData.personalInfo) {
+      if (userProfile.profile_photo_url) {
         cvData.personalInfo.profilePhotoUrl = userProfile.profile_photo_url;
       }
-      if (userProfile.linkedin_url && cvData.personalInfo) {
+      if (userProfile.linkedin_url) {
         if (!cvData.personalInfo.linkedIn && !(cvData.personalInfo as any).linkedin) {
           (cvData.personalInfo as any).linkedin = userProfile.linkedin_url;
         }
       }
+      if (userProfile.full_name) cvData.personalInfo.fullName = userProfile.full_name;
+      if (userProfile.email) cvData.personalInfo.email = userProfile.email;
+      if (userProfile.phone) cvData.personalInfo.phone = userProfile.phone;
+      if (userProfile.location) cvData.personalInfo.address = userProfile.location;
     }
 
     // Generera HTML med vald mall + options
