@@ -116,38 +116,6 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       return emitter.close();
     }
 
-    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
-      const { count: cvCount } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      if (cvCount !== null && cvCount >= 1) {
-        emitter.error({
-          error: 'Du måste verifiera din e-post för att ladda upp fler CV:n. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
-          code: 'EMAIL_NOT_VERIFIED',
-          status: 403,
-        });
-        return emitter.close();
-      }
-    }
-
-    if (profile.subscription_tier === 'free') {
-      const { count } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      if (count !== null && count >= 2) {
-        emitter.error({
-          error: 'Som gratisanvändare kan du bara ha 2 CV. Uppgradera till premium för att hantera flera CV:n.',
-          code: 'CV_LIMIT_REACHED',
-          status: 403,
-        });
-        return emitter.close();
-      }
-    }
-
     const userFolder = `users/${user.id}`;
     const originalFileName = file.name;
     const sanitizedFileName = sanitizeStorageKey(originalFileName);
@@ -328,6 +296,54 @@ Alternativt: Ladda upp som .DOCX istället.`,
       }
     } catch (storageError: any) {
       console.error(`❌ Oväntat fel vid getPublicUrl:`, storageError.message || storageError);
+    }
+
+    // Idempotency: om samma fil redan finns i DB (t.ex. SSE-anslutning bröts men insert gick igenom)
+    // returnera den befintliga posten istället för att skapa en dubblett
+    const { data: existingCv } = await supabase
+      .from('cv_texts')
+      .select()
+      .eq('user_id', user.id)
+      .eq('original_file_path', storageFilePath)
+      .maybeSingle();
+
+    if (existingCv) {
+      emitter.complete({ ...existingCv, publicUrl, textExtractionFailed, usedVisionFallback });
+      return emitter.close();
+    }
+
+    // Kvotkontroll sker här, efter storage upload och idempotency-check,
+    // så att en reconnect för en redan sparad fil aldrig blockeras av kvoten
+    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
+      const { count: cvCount } = await supabase
+        .from('cv_texts')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      if (cvCount !== null && cvCount >= 1) {
+        emitter.error({
+          error: 'Du måste verifiera din e-post för att ladda upp fler CV:n. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
+          code: 'EMAIL_NOT_VERIFIED',
+          status: 403,
+        });
+        return emitter.close();
+      }
+    }
+
+    if (profile.subscription_tier === 'free') {
+      const { count } = await supabase
+        .from('cv_texts')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      if (count !== null && count >= 2) {
+        emitter.error({
+          error: 'Som gratisanvändare kan du bara ha 2 CV. Uppgradera till premium för att hantera flera CV:n.',
+          code: 'CV_LIMIT_REACHED',
+          status: 403,
+        });
+        return emitter.close();
+      }
     }
 
     const { data: cvData, error: cvError } = await supabase
