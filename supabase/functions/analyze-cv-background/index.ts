@@ -1,36 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
-
-// Helper: Fetch with timeout and retry logic
-async function fetchWithRetry(url: string, options: any, maxRetries = 2, timeout = 30000) {
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-      const response = await fetch(url, {
-        ...options,
-        signal: controller.signal
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: { message: 'Unknown error' } }));
-        throw new Error(`OpenAI API error (${response.status}): ${errorData.error?.message || 'Unknown error'}`);
-      }
-
-      return response;
-    } catch (error) {
-      if (attempt === maxRetries) {
-        throw error;
-      }
-      console.log(`Retry ${attempt + 1}/${maxRetries} after error:`, error instanceof Error ? error.message : 'Unknown');
-      await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
-    }
-  }
-  throw new Error('Max retries exceeded');
-}
+import { geminiGenerate, geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
 
 // KRITISK FIX: Validera och normalisera roleImprovement-objekt
 function sanitizeRoleImprovement(role: any): any {
@@ -127,40 +97,22 @@ Deno.serve(async (req) => {
       })
       .eq('id', jobId);
 
-    const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
-
     // ALLA användare får nu fullständig premium-analys
     // Premium-användare får andra förmåner (fler analyser/vecka, fler mallar, etc)
     const useFullAnalysis = true;
 
     // 1. Parse CV into structured CVMetadata format (ONLY parsing needed)
     console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${cvText.length} chars)...`);
-    const structuredParsingResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          {
-            role: 'system',
-            content: 'Du är en CV-parser. Extrahera ALL information från CV:t och returnera som strukturerad JSON. Var EXTREMT noggrann med att bevara all text och formatering.'
-          },
-          {
-            role: 'user',
-            content: `Parsa detta CV till strukturerad JSON:\n\n${cvText}\n\nReturnera JSON med EXAKT detta format:\n{\n  "personalInfo": {\n    "fullName": string,\n    "email": string,\n    "phone": string,\n    "address": string,\n    "linkedin": string\n  },\n  "summary": string,\n  "experience": [{\n    "position": string,\n    "company": string,\n    "location": string,\n    "startDate": string,\n    "endDate": string (eller null om nuvarande),\n    "description": string[]\n  }],\n  "education": [{\n    "degree": string,\n    "institution": string,\n    "graduationYear": string,\n    "description": string\n  }],\n  "skills": [{\n    "category": string,\n    "skills": string[]\n  }],\n  "languages": [{\n    "language": string,\n    "proficiency": string\n  }],\n  "certifications": [{\n    "name": string,\n    "issuer": string,\n    "date": string\n  }],\n  "references": string\n}\n\nVIKTIGT: Bevara ALL originaltext. Description-fält ska vara arrays med meningar/punkter.`
-          }
-        ],
-        temperature: 0.2,
-        max_tokens: 3000,
-        response_format: { type: 'json_object' }
-      })
+    const structuredParsingResult = await geminiGenerateJSON({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en CV-parser. Extrahera ALL information från CV:t och returnera som strukturerad JSON. Var EXTREMT noggrann med att bevara all text och formatering.',
+      prompt: `Parsa detta CV till strukturerad JSON:\n\n${cvText}\n\nReturnera JSON med EXAKT detta format:\n{\n  "personalInfo": {\n    "fullName": string,\n    "email": string,\n    "phone": string,\n    "address": string,\n    "linkedin": string\n  },\n  "summary": string,\n  "experience": [{\n    "position": string,\n    "company": string,\n    "location": string,\n    "startDate": string,\n    "endDate": string (eller null om nuvarande),\n    "description": string[]\n  }],\n  "education": [{\n    "degree": string,\n    "institution": string,\n    "graduationYear": string,\n    "description": string\n  }],\n  "skills": [{\n    "category": string,\n    "skills": string[]\n  }],\n  "languages": [{\n    "language": string,\n    "proficiency": string\n  }],\n  "certifications": [{\n    "name": string,\n    "issuer": string,\n    "date": string\n  }],\n  "references": string\n}\n\nVIKTIGT: Bevara ALL originaltext. Description-fält ska vara arrays med meningar/punkter.`,
+      temperature: 0.2,
+      maxOutputTokens: 6000,
+      thinkingBudget: 0,
     });
 
-    const structuredData = await structuredParsingResponse.json();
-    const structuredCV = JSON.parse(structuredData.choices[0].message.content);
+    const structuredCV = structuredParsingResult.data;
 
     // FIX: Sortera experience i OMVÄND KRONOLOGI (senaste först, äldsta sist)
     if (structuredCV.experience && Array.isArray(structuredCV.experience)) {
@@ -198,32 +150,16 @@ Deno.serve(async (req) => {
       let profileSummaryImprovement = null;
 
       if (structuredCV.summary) {
-        const profileResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openaiApiKey}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: [
-              {
-                role: 'system',
-                content: 'Du är en CV-expert. Förbättra personbeskrivningen med kraftfulla nyckelord och tydligt värde. Skriv ALLTID i JAG-FORM (första person).'
-              },
-              {
-                role: 'user',
-                content: `Förbättra denna personbeskrivning:\n\n"${structuredCV.summary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
-              }
-            ],
-            temperature: 0.6,
-            max_tokens: 800,
-            response_format: { type: 'json_object' }
-          })
+        const profileResult = await geminiGenerateJSON({
+          model: GEMINI_MODELS.quality,
+          systemInstruction: 'Du är en CV-expert. Förbättra personbeskrivningen med kraftfulla nyckelord och tydligt värde. Skriv ALLTID i JAG-FORM (första person).',
+          prompt: `Förbättra denna personbeskrivning:\n\n"${structuredCV.summary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`,
+          temperature: 0.6,
+          maxOutputTokens: 1600,
+          thinkingBudget: 0,
         });
 
-        const profileData = await profileResponse.json();
-        const rawProfileData = JSON.parse(profileData.choices[0].message.content);
+        const rawProfileData = profileResult.data;
         // Use ONLY structuredCV as source of truth
         profileSummaryImprovement = {
           currentText: structuredCV.summary, // ENDAST från structured CV
@@ -236,22 +172,13 @@ Deno.serve(async (req) => {
 
       // 3. Extrahera färdigheter från roller (Premium)
       console.log(`[Job ${jobId}] Step 3/5: Extracting skills from role descriptions...`);
-      const skillsResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o',
-          messages: [
-            {
-              role: 'system',
-              content: 'Du är en ATS-optimeringskonsult för svenska arbetsmarknaden. Extrahera EXAKTA kompetenser som svenska jobbannonser söker efter för det här yrket.'
-            },
-            {
-              role: 'user',
-              content: `Analysera dessa yrkesroller och extrahera kompetenser som EXAKT matchar termer i svenska jobbannonser.
+      const skillsResult = await geminiGenerateJSON({
+        model: GEMINI_MODELS.quality,
+        temperature: 0.5,
+        maxOutputTokens: 3000,
+        thinkingBudget: 0,
+        systemInstruction: 'Du är en ATS-optimeringskonsult för svenska arbetsmarknaden. Extrahera EXAKTA kompetenser som svenska jobbannonser söker efter för det här yrket.',
+        prompt: `Analysera dessa yrkesroller och extrahera kompetenser som EXAKT matchar termer i svenska jobbannonser.
 
 Input: ${JSON.stringify(structuredCV.experience)}
 
@@ -305,17 +232,10 @@ VIKTIGT:
 - Tänk: "Vad söker ATS efter i jobbannonser för detta yrke?"
 - source: Exakt "position på company" från input
 - reasoning: Kort (1 mening) varför denna term är ATS-viktig
-- atsImpact: 5 = kritisk term, 1 = nice-to-have`
-            }
-          ],
-          temperature: 0.5,
-          max_tokens: 1500,
-          response_format: { type: 'json_object' }
-        })
+- atsImpact: 5 = kritisk term, 1 = nice-to-have`,
       });
 
-      const skillsData = await skillsResponse.json();
-      const skillSuggestions = JSON.parse(skillsData.choices[0].message.content).skillSuggestions || [];
+      const skillSuggestions = skillsResult.data.skillSuggestions || [];
       console.log(`[Job ${jobId}] Found ${skillSuggestions.length} skill suggestions`);
 
       // 4. Analysera roller med batch processing (Premium)
@@ -342,22 +262,13 @@ VIKTIGT:
         const batch = batches[i];
         console.log(`[Job ${jobId}] Step 4.${i + 1}: Analyzing batch ${i + 1}/${batches.length} (${batch.length} roles)...`);
 
-        const batchResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openaiApiKey}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: [
-              {
-                role: 'system',
-                content: 'Du är en expert CV-rådgivare OCH jobbmatchningsspecialist. Analysera arbetsroller, förbättra text ÄRLIGT och extrahera matchbara keywords för jobbsökning.'
-              },
-              {
-                role: 'user',
-                content: `Analysera dessa arbetsroller och förbättra dem med ÄKTHET och MATCHNINGSFOKUS.
+        const batchResult2 = await geminiGenerateJSON({
+          model: GEMINI_MODELS.quality,
+          temperature: 0.6,
+          maxOutputTokens: 5000,
+          thinkingBudget: 1024,
+          systemInstruction: 'Du är en expert CV-rådgivare OCH jobbmatchningsspecialist. Analysera arbetsroller, förbättra text ÄRLIGT och extrahera matchbara keywords för jobbsökning.',
+          prompt: `Analysera dessa arbetsroller och förbättra dem med ÄKTHET och MATCHNINGSFOKUS.
 
 Input: ${JSON.stringify(batch)}
 
@@ -440,17 +351,10 @@ atsImpact (1-5):
 1-2: Grammatik/formatering
 3: Action verbs, konkreta ansvarsområden, tydlig struktur
 4: Branschspecifika keywords, verktyg/teknologier, många matchKeywords
-5: ÄKTA kvantifiering (baserad på originaltext) + rika matchKeywords + struktur`
-              }
-            ],
-            temperature: 0.6,
-            max_tokens: 2500,
-            response_format: { type: 'json_object' }
-          })
+5: ÄKTA kvantifiering (baserad på originaltext) + rika matchKeywords + struktur`,
         });
 
-        const batchData = await batchResponse.json();
-        const batchResult = JSON.parse(batchData.choices[0].message.content);
+        const batchResult = batchResult2.data;
 
         // Mappa currentText DIREKT från structured CV (enda sanningskällan)
         const sanitizedBatch = (batchResult.roleBasedImprovements || []).map((role: any, index: number) => {
@@ -481,32 +385,16 @@ atsImpact (1-5):
 
       // 5. Allmän analys (Premium)
       console.log(`[Job ${jobId}] Step 5/5: Performing general analysis...`);
-      const generalResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o',
-          messages: [
-            {
-              role: 'system',
-              content: 'Du är en CV-expert. Ge konkreta allmänna förbättringsförslag för struktur, formatering, certifieringar och språk. Var ALLTID specifik och ge minst 3-5 förbättringsförslag.'
-            },
-            {
-              role: 'user',
-              content: `Ge allmänna förbättringsförslag för detta CV:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`
-            }
-          ],
-          temperature: 0.6,
-          max_tokens: 1500,
-          response_format: { type: 'json_object' }
-        })
+      const generalResponse = await geminiGenerateJSON({
+        model: GEMINI_MODELS.quality,
+        systemInstruction: 'Du är en CV-expert. Ge konkreta allmänna förbättringsförslag för struktur, formatering, certifieringar och språk. Var ALLTID specifik och ge minst 3-5 förbättringsförslag.',
+        prompt: `Ge allmänna förbättringsförslag för detta CV:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`,
+        temperature: 0.6,
+        maxOutputTokens: 3000,
+        thinkingBudget: 0,
       });
 
-      const generalData = await generalResponse.json();
-      const generalResult = JSON.parse(generalData.choices[0].message.content);
+      const generalResult = generalResponse.data;
 
       // Ensure generalImprovements is never empty
       if (!generalResult.generalImprovements || generalResult.generalImprovements.length === 0) {
@@ -529,7 +417,7 @@ atsImpact (1-5):
           feedback: `Ditt CV har en ATS-poäng på ${generalResult.atsScore || 0}/100`,
           missingKeywords: []
         },
-        model: 'gpt-4o',
+        model: GEMINI_MODELS.quality,
         tokens: { total: 0 }
       };
     }
@@ -547,31 +435,16 @@ atsImpact (1-5):
 
     // NEW: Generate formatted preview text from structured CV
     console.log(`[Job ${jobId}] Generating formatted preview text...`);
-    const previewResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: 'Du formaterar CV-data till läsbar text med tydliga sektioner och styckeindelningar.'
-          },
-          {
-            role: 'user',
-            content: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- VIKTIGT: Erfarenheter i OMVÄND KRONOLOGI (senaste/nuvarande först, äldsta sist)\n- VIKTIGT: Behåll EXAKT ordningen från experience-arrayen\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`
-          }
-        ],
-        temperature: 0.3,
-        max_tokens: 2000
-      })
+    const previewResult = await geminiGenerate({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du formaterar CV-data till läsbar text med tydliga sektioner och styckeindelningar.',
+      prompt: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- VIKTIGT: Erfarenheter i OMVÄND KRONOLOGI (senaste/nuvarande först, äldsta sist)\n- VIKTIGT: Behåll EXAKT ordningen från experience-arrayen\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`,
+      temperature: 0.3,
+      maxOutputTokens: 4000,
+      thinkingBudget: 0,
     });
 
-    const previewData = await previewResponse.json();
-    const formattedPreview = previewData.choices[0].message.content;
+    const formattedPreview = previewResult.text;
     analysisResult.formattedPreview = formattedPreview;
     console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
 

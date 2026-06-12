@@ -7,7 +7,7 @@ const MIN_TEXT_LENGTH = 50;
 
 /**
  * Renderar PDF-sidor till PNG-buffers via pdfjs-dist + @napi-rs/canvas
- * och skickar dem till gpt-4o-mini med vision för text-extraktion.
+ * och skickar dem till Gemini med vision för text-extraktion.
  *
  * Anropas BARA när pdf-parse misslyckats (image-baserad PDF eller text < 50 tecken).
  *
@@ -16,8 +16,8 @@ const MIN_TEXT_LENGTH = 50;
 export async function extractTextWithVision(
   pdfData: Uint8Array
 ): Promise<string | null> {
-  if (!process.env.OPENAI_API_KEY) {
-    console.error('[vision-fallback] OPENAI_API_KEY saknas');
+  if (!process.env.GOOGLE_AI_API_KEY) {
+    console.error('[vision-fallback] GOOGLE_AI_API_KEY saknas');
     return null;
   }
 
@@ -89,38 +89,19 @@ async function renderPdfPagesToPngs(pdfData: Uint8Array): Promise<Buffer[]> {
 }
 
 async function callVisionModel(pageImages: Buffer[]): Promise<string | null> {
-  const OpenAI = (await import('openai')).default;
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const { generateFromImages, GEMINI_MODELS } = await import('@/lib/gemini');
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    messages: [
-      {
-        role: 'system',
-        content:
-          'Du är en CV-textextraherare. Läs sidorna och returnera ALL synlig text exakt som den står. Inga sammanfattningar, ingen analys, ingen formattering. Bevara svenska tecken (åäö). Behåll naturliga radbrytningar mellan sektioner som Erfarenhet, Utbildning, Kompetenser. Returnera bara den extraherade texten, inget annat.',
-      },
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: 'Extrahera all text från följande CV-sidor:',
-          },
-          ...pageImages.map((png) => ({
-            type: 'image_url' as const,
-            image_url: {
-              url: `data:image/png;base64,${png.toString('base64')}`,
-              detail: 'high' as const,
-            },
-          })),
-        ],
-      },
-    ],
-    max_tokens: 4096,
+  const result = await generateFromImages({
+    model: GEMINI_MODELS.fast,
+    systemInstruction:
+      'Du är en CV-textextraherare. Läs sidorna och returnera ALL synlig text exakt som den står. Inga sammanfattningar, ingen analys, ingen formattering. Bevara svenska tecken (åäö). Behåll naturliga radbrytningar mellan sektioner som Erfarenhet, Utbildning, Kompetenser. Returnera bara den extraherade texten, inget annat.',
+    prompt: 'Extrahera all text från följande CV-sidor:',
+    pngBuffers: pageImages,
     temperature: 0,
+    maxOutputTokens: 8192,
+    thinkingBudget: 0,
   });
 
-  const text = response.choices[0]?.message?.content?.trim();
+  const text = result.text.trim();
   return text || null;
 }

@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -8,17 +9,13 @@ const corsHeaders = {
 };
 
 // Environment variables
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
-const OPENAI_PROJECT_ID = Deno.env.get('OPENAI_PROJECT_ID');
+const GOOGLE_AI_API_KEY = Deno.env.get('GOOGLE_AI_API_KEY');
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 // Validate environment variables
-if (!OPENAI_API_KEY) {
-  console.error('ERROR: OPENAI_API_KEY is not configured');
-}
-if (!OPENAI_PROJECT_ID) {
-  console.warn('WARNING: OPENAI_PROJECT_ID is not configured');
+if (!GOOGLE_AI_API_KEY) {
+  console.error('ERROR: GOOGLE_AI_API_KEY is not configured');
 }
 
 const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!);
@@ -200,36 +197,22 @@ function analyzeProfileContext(experienceText: string, aboutText: string): Profi
   };
 }
 
-// Call OpenAI API with proper headers
+// Call Gemini API (JSON mode). Behåller samma signatur som tidigare callOpenAI.
 async function callOpenAI(messages: any[], temperature = 0.7): Promise<any> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${OPENAI_API_KEY}`
-  };
+  const prompt = messages
+    .filter((m) => m.role === 'user')
+    .map((m) => m.content)
+    .join('\n\n');
 
-  if (OPENAI_PROJECT_ID) {
-    headers['OpenAI-Project'] = OPENAI_PROJECT_ID;
-  }
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      model: 'gpt-4o',
-      messages,
-      response_format: { type: 'json_object' },
-      temperature
-    })
+  const result = await geminiGenerateJSON({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error(`OpenAI API error (${response.status}):`, errorText);
-    throw new Error(`OpenAI API failed: ${response.status} - ${errorText}`);
-  }
-
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content || '{}');
+  return result.data;
 }
 
 // GPT-4o optimization for Headline

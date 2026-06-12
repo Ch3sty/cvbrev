@@ -1,14 +1,12 @@
 // src/app/api/admin/openai-usage/route.ts
+// Efter Gemini-migreringen finns ingen extern usage-API (AI Studio saknar motsvarighet
+// till OpenAI:s Admin Usage API). All kostnadsdata kommer från interna tabeller
+// (usage_log, letters, ai_usage_costs) som fylls per AI-anrop.
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import {
-  getCachedUsageData,
-  syncOpenAICostsToDatabase,
-  getAggregatedCosts
-} from '@/lib/openai/usage-api';
 
-// GET - Hämta OpenAI usage data
+// GET - Hämta AI usage data (interna estimat)
 export async function GET(request: NextRequest) {
   // Deklarera variabler utanför inner try-catch för att de ska vara tillgängliga i hela funktionen
   let totalEstimatedCost = 0;
@@ -176,64 +174,35 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    try {
-      // Hämta data (använd cache om möjligt)
-      const usageData = useCache
-        ? await getCachedUsageData(startDate, endDate)
-        : await getAggregatedCosts(startDate, endDate);
+    // Lägg även till kostnader från den enhetliga ai_usage_costs-tabellen
+    const { data: aiCostsData } = await supabase
+      .from('ai_usage_costs')
+      .select('cost_usd, prompt_tokens, completion_tokens')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
 
-      // Hämta synkad data från databasen
-      const { data: syncedData } = await supabase
-        .from('openai_usage_sync')
-        .select('*')
-        .gte('sync_date', startDate.toISOString().split('T')[0])
-        .lte('sync_date', endDate.toISOString().split('T')[0])
-        .order('sync_date', { ascending: false });
-
-      // Jämför faktiska vs estimerade kostnader
-      const comparison = {
-        actualCost: usageData.totalCost,
-        estimatedCost: totalEstimatedCost,
-        difference: usageData.totalCost - totalEstimatedCost,
-        differencePercent: totalEstimatedCost > 0
-          ? ((usageData.totalCost - totalEstimatedCost) / totalEstimatedCost) * 100
-          : 0,
-        actualCostSEK: usageData.totalCost * 10.5,
-        estimatedCostSEK: totalEstimatedCost * 10.5,
-        differenceSEK: (usageData.totalCost - totalEstimatedCost) * 10.5
-      };
-
-      return NextResponse.json({
-        success: true,
-        data: {
-          ...usageData,
-          comparison,
-          syncedData,
-          lastSyncedAt: syncedData?.[0]?.updated_at || null
-        },
-        period: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-          days
-        }
+    if (aiCostsData) {
+      aiCostsData.forEach(row => {
+        totalEstimatedCost += parseFloat(row.cost_usd?.toString() || '0');
+        totalEstimatedTokens += (row.prompt_tokens || 0) + (row.completion_tokens || 0);
       });
-
-    } catch (apiError: any) {
-      // Om OpenAI API misslyckas, returnera endast estimerad data
-      console.error('OpenAI API error:', apiError);
-
-      return NextResponse.json({
-        success: false,
-        error: 'Could not fetch actual usage data from OpenAI',
-        estimatedOnly: true,
-        data: {
-          totalCost: totalEstimatedCost,
-          totalTokens: totalEstimatedTokens,
-          totalCostSEK: totalEstimatedCost * 10.5,
-          message: 'Showing estimated costs only. Admin API key may be missing or invalid.'
-        }
-      }, { status: 200 }); // Returnera 200 även vid API-fel
     }
+
+    return NextResponse.json({
+      success: true,
+      estimatedOnly: true,
+      data: {
+        totalCost: totalEstimatedCost,
+        totalTokens: totalEstimatedTokens,
+        totalCostSEK: totalEstimatedCost * 10.5,
+        message: 'Interna kostnadsestimat (per-anrop-spårning). Extern usage-API finns inte för Gemini.'
+      },
+      period: {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        days
+      }
+    });
 
   } catch (error: any) {
     console.error('Error fetching OpenAI usage:', error);
@@ -244,80 +213,13 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Synkronisera OpenAI kostnader till databasen
-export async function POST(request: NextRequest) {
-  try {
-    const cookieStore = await cookies();
-    const supabase = createServerClient({ cookies: cookieStore });
-
-    // Kontrollera autentisering och admin-behörighet
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Kontrollera admin-status
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    // Hämta body
-    const body = await request.json();
-    const { days = 30 } = body;
-
-    // Beräkna datumintervall
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - days);
-
-    // Synkronisera data
-    const result = await syncOpenAICostsToDatabase(supabase, startDate, endDate);
-
-    if (!result.success) {
-      return NextResponse.json(
-        { error: 'Sync failed', details: result.error },
-        { status: 500 }
-      );
-    }
-
-    // Logga synkroniseringen (ignorera fel här så att sync inte misslyckas)
-    try {
-      await supabase.from('system_alerts').insert({
-        alert_type: 'info',
-        title: 'OpenAI Usage Sync',
-        message: `Successfully synced ${result.syncedRecords} records from OpenAI API`,
-        metadata: {
-          start_date: startDate.toISOString(),
-          end_date: endDate.toISOString(),
-          records_synced: result.syncedRecords
-        },
-        status: 'resolved'
-      });
-    } catch (alertError) {
-      console.log('Could not log sync to system_alerts:', alertError);
-    }
-
-    return NextResponse.json({
-      success: true,
-      syncedRecords: result.syncedRecords,
-      period: {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        days
-      }
-    });
-
-  } catch (error: any) {
-    console.error('Error syncing OpenAI usage:', error);
-    return NextResponse.json(
-      { error: 'Failed to sync usage data', details: error.message },
-      { status: 500 }
-    );
-  }
+// POST - Tidigare OpenAI-kostnadssynk. Borttagen efter Gemini-migreringen:
+// kostnader spåras nu per anrop direkt i ai_usage_costs, ingen extern synk behövs.
+export async function POST() {
+  return NextResponse.json(
+    {
+      error: 'OpenAI-synk är borttagen. Kostnader spåras internt per AI-anrop i ai_usage_costs.',
+    },
+    { status: 410 }
+  );
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import OpenAI from 'openai';
+import { generateText, GEMINI_MODELS, type GeminiUsage } from '@/lib/gemini';
 import {
   groupRelatedImprovements,
   filterStructuralImprovements,
@@ -12,10 +12,6 @@ import {
 import { validateAIResponse } from '@/lib/cv/role-based-improvements';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 // Global usage tracker for this request
 interface UsageTracker {
@@ -30,10 +26,10 @@ let requestUsageTracker: UsageTracker = {
   calls: []
 };
 
-function trackOpenAICall(model: string, usage: any) {
+function trackOpenAICall(model: string, usage: GeminiUsage | null) {
   if (usage) {
-    const promptTokens = usage.prompt_tokens || 0;
-    const completionTokens = usage.completion_tokens || 0;
+    const promptTokens = usage.prompt || 0;
+    const completionTokens = usage.completion || 0;
 
     requestUsageTracker.totalPromptTokens += promptTokens;
     requestUsageTracker.totalCompletionTokens += completionTokens;
@@ -386,26 +382,19 @@ INSTRUKTIONER:
 
 OUTPUT:`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'Du är en svensk språkexpert. Korrigera stavfel och grammatik men behåll betydelsen exakt.',
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
+    const response = await generateText({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en svensk språkexpert. Korrigera stavfel och grammatik men behåll betydelsen exakt.',
+      prompt,
       temperature: 0.1, // Låg temperatur för konsekvent korrigering
-      max_tokens: 150
+      maxOutputTokens: 300,
+      thinkingBudget: 0,
     });
 
     // Track usage
-    trackOpenAICall('gpt-4o-mini', response.usage);
+    trackOpenAICall(GEMINI_MODELS.fast, response.usage);
 
-    const corrected = response.choices[0].message.content?.trim();
+    const corrected = response.text.trim();
 
     // Validera att vi fick ett svar
     if (!corrected || corrected.length < 5) {
@@ -585,12 +574,9 @@ KRAV:
 RETURNERA: Endast CV-texten:`;
     }
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o', // UPPGRADERAD: Använd GPT-4 för högre kvalitet
-      messages: [
-        {
-          role: 'system',
-          content: `Du är en svensk CV-expert specialiserad på professionell, varierad copy.
+    const response = await generateText({
+      model: GEMINI_MODELS.quality, // Kvalitetsmodell för exempel-copy
+      systemInstruction: `Du är en svensk CV-expert specialiserad på professionell, varierad copy.
 
 KÄRNPRINCIPER:
 1. VARIATION - Använd olika meningsstrukturer (resultatfokus, projekt, ledarskap, utveckling, ansvar)
@@ -600,20 +586,16 @@ KÄRNPRINCIPER:
 5. VARIATION - Använd ALDRIG samma meningsbyggnad två gånger i rad
 
 Du skapar text som är värd att ha i ett riktigt CV. Texten ska vara övertygande, konkret och resultatfokuserad.`,
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
+      prompt,
       temperature: 0.7, // Högre temperatur för mer variation mellan anrop
-      max_tokens: 300 // Ökad gräns för fullständiga svar
+      maxOutputTokens: 600,
+      thinkingBudget: 0,
     });
 
     // Track usage
-    trackOpenAICall('gpt-4o', response.usage);
+    trackOpenAICall(GEMINI_MODELS.quality, response.usage);
 
-    const aiResponse = response.choices[0].message.content;
+    const aiResponse = response.text;
 
     // Validate the AI response with enhanced validation
     if (!aiResponse || !validateAIResponse(aiResponse)) {

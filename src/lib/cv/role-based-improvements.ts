@@ -4,12 +4,8 @@
  * Ensures each suggestion includes role context and valid AI examples
  */
 
-import OpenAI from 'openai';
+import { generateJSON, generateText, GEMINI_MODELS } from '@/lib/gemini';
 import { ParsedRole } from './cv-parser';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 export interface RoleBasedImprovement {
   id: string;
@@ -242,29 +238,14 @@ async function generateSingleImprovement(
   try {
     const prompt = buildImprovementPrompt(role, context, type);
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'Du är en svensk CV-expert som hjälper till att förbättra CV:n med konkreta, mätbara förbättringar.',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
+    const { data: result } = await generateJSON<any>({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en svensk CV-expert som hjälper till att förbättra CV:n med konkreta, mätbara förbättringar.',
+      prompt,
       temperature: 0.3, // OPTIMERING: Lägre temperatur för snabbare svar
-      max_tokens: 300, // OPTIMERING: Minskat för snabbare svar
-      response_format: { type: 'json_object' },
+      maxOutputTokens: 600,
+      thinkingBudget: 0,
     });
-
-    const content = response.choices[0].message.content;
-    if (!content) {
-      throw new Error('No response from AI');
-    }
-
-    const result = JSON.parse(content);
 
     // Validate the AI example
     if (!validateAIResponse(result.aiExample)) {
@@ -586,23 +567,16 @@ Returnera ENDAST förbättringsexemplet (minst 20 ord med konkreta siffror).
 Exempel: "Ledde team på 12 personer med budgetansvar på 5 MSEK, implementerade nya rutiner som ökade effektiviteten med 25%"
 `;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'Generera konkreta CV-förbättringar med siffror och mätbara resultat. Svara endast med förbättringsexemplet.',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
+    const response = await generateText({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Generera konkreta CV-förbättringar med siffror och mätbara resultat. Svara endast med förbättringsexemplet.',
+      prompt,
       temperature: 0.3, // OPTIMERING: Lägre temperatur för snabbare svar
-      max_tokens: 100, // OPTIMERING: Minskat för snabbare svar
+      maxOutputTokens: 200,
+      thinkingBudget: 0,
     });
 
-    const aiExample = response.choices[0].message.content?.trim();
+    const aiExample = response.text.trim();
 
     if (aiExample && validateAIResponse(aiExample)) {
       return aiExample;

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import OpenAI from 'openai';
+import { generateText, GEMINI_MODELS } from '@/lib/gemini';
 import {
   generateImprovementPrompt,
   generateSystemPrompt,
@@ -12,11 +12,6 @@ import type { Suggestion } from '@/components/cv/SuggestionSelector';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 import { logUserActivity } from '@/lib/activity-logger';
-
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 // Helper function to get original CV filename
 async function getOriginalFilename(supabase: any, userId: string, cvId: string): Promise<string | null> {
@@ -91,24 +86,18 @@ export async function POST(request: NextRequest) {
     const prompt = generateImprovementPrompt(improvementContext);
     const systemPrompt = generateSystemPrompt();
 
-    // Call OpenAI API with improved prompts
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
+    // Call Gemini with improved prompts
+    const modelToUse = GEMINI_MODELS.quality;
+    const completion = await generateText({
+      model: modelToUse,
+      systemInstruction: systemPrompt,
+      prompt,
       temperature: 0.4, // Slightly higher for more creative improvements
-      max_tokens: 3000, // Increased to handle longer, more detailed CVs
+      maxOutputTokens: 6000, // Inkluderar thinking-tokens; rymmer långa CV:n
+      thinkingBudget: 1024,
     });
 
-    const improvedContent = completion.choices[0]?.message?.content || '';
+    const improvedContent = completion.text;
 
     // Validate the improved CV
     const validation = validateImprovedCV(originalContent, improvedContent);
@@ -178,14 +167,14 @@ export async function POST(request: NextRequest) {
     // Track AI usage and costs with new unified system
     try {
       if (completion.usage) {
-        const promptTokens = completion.usage.prompt_tokens || 0;
-        const completionTokens = completion.usage.completion_tokens || 0;
+        const promptTokens = completion.usage.prompt || 0;
+        const completionTokens = completion.usage.completion || 0;
         const generationTimeMs = Date.now() - startTime;
 
         // Calculate cost using model pricing database
         const costUsd = await calculateCostFromDatabase(
           supabase,
-          'gpt-4-turbo-preview',
+          modelToUse,
           promptTokens,
           completionTokens
         );
@@ -196,7 +185,7 @@ export async function POST(request: NextRequest) {
           userId: user.id,
           featureName: AI_FEATURES.CV_IMPROVEMENT,
           endpoint: '/api/cv/generate-improved',
-          model: 'gpt-4-turbo-preview',
+          model: modelToUse,
           promptTokens,
           completionTokens,
           costUsd,

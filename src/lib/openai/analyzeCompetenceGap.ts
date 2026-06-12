@@ -1,6 +1,5 @@
 // src/lib/openai/analyzeCompetenceGap.ts
-import { openai } from './api';
-import { calculateOpenAICost } from './api';
+import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 
 // --- Typer för Kompetensanalys (Justerade) ---
 export interface IdentifiedSkill {
@@ -52,7 +51,7 @@ export async function analyzeCompetenceGap(
 
     const { mode, cvText } = input;
     const truncatedCV = cvText.substring(0, 8000); // Hela CV:t för fullständig analys
-    const modelToUse = "gpt-4o-mini"; // Använder GPT-4o-mini som fungerar tillförlitligt
+    const modelToUse = GEMINI_MODELS.quality; // Kvalitetsmodell för tillförlitlig gap-analys
 
     // --- Dynamisk Promptkonstruktion ---
     let targetInfoPrompt: string;
@@ -90,107 +89,87 @@ export async function analyzeCompetenceGap(
     try {
         console.log(`Starting competence analysis (Step 1) for target: ${targetDescriptionForOutput}`);
 
-        // Skapa en timeout promise (50 sekunder för att ge GPT-5 tid)
-        const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('OpenAI request timeout after 50s')), 50000)
+        // Skapa en timeout promise (50 sekunder)
+        const timeoutPromise = new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('Gemini request timeout after 50s')), 50000)
         );
 
-        // Kör OpenAI-anropet med timeout
-        const completionPromise = openai.chat.completions.create({
+        // Kör Gemini-anropet med timeout. Schemat saneras automatiskt
+        // (additionalProperties tas bort) av toGeminiSchema i generateJSON.
+        const completionPromise = generateJSON<any>({
             model: modelToUse,
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
-            ],
-            // GPT-4o-mini parametrar med Structured Outputs
+            systemInstruction: systemPrompt,
+            prompt: `Här är CV:t som ska analyseras:\n\n${truncatedCV}`,
             temperature: 0.4, // Låg temperatur för konsistenta svar
-            max_tokens: 2000, // GPT-4o-mini använder max_tokens
-            response_format: {
-                type: "json_schema",
-                json_schema: {
-                    strict: true,
-                    name: "competence_analysis",
-                    schema: {
-                        type: "object",
-                        properties: {
-                            matchScore: {
-                                type: "number",
-                                description: "Matchningspoäng mellan 0-100"
-                            },
-                            cvSummaryForTarget: {
-                                type: "string",
-                                description: "Sammanfattning av CV:t i relation till målet"
-                            },
-                            identifiedRelevantSkills: {
-                                type: "array",
-                                items: {
-                                    type: "object",
-                                    properties: {
-                                        skill: { type: "string" },
-                                        source_in_cv: { type: "string" },
-                                        relevance_to_target: {
-                                            type: "string",
-                                            enum: ["high", "medium", "low"]
-                                        }
-                                    },
-                                    required: ["skill", "source_in_cv", "relevance_to_target"],
-                                    additionalProperties: false
+            maxOutputTokens: 4000, // Inkluderar thinking-tokens
+            thinkingBudget: 1024,
+            schema: {
+                type: "object",
+                properties: {
+                    matchScore: {
+                        type: "number",
+                        description: "Matchningspoäng mellan 0-100"
+                    },
+                    cvSummaryForTarget: {
+                        type: "string",
+                        description: "Sammanfattning av CV:t i relation till målet"
+                    },
+                    identifiedRelevantSkills: {
+                        type: "array",
+                        items: {
+                            type: "object",
+                            properties: {
+                                skill: { type: "string" },
+                                source_in_cv: { type: "string" },
+                                relevance_to_target: {
+                                    type: "string",
+                                    enum: ["high", "medium", "low"]
                                 }
                             },
-                            identifiedSkillGaps: {
-                                type: "array",
-                                items: {
-                                    type: "object",
-                                    properties: {
-                                        skill: { type: "string" },
-                                        importance: {
-                                            type: "string",
-                                            enum: ["essential", "desirable", "unclear"]
-                                        },
-                                        reasoning: { type: "string" }
-                                    },
-                                    required: ["skill", "importance", "reasoning"],
-                                    additionalProperties: false
-                                }
-                            }
-                        },
-                        required: ["matchScore", "cvSummaryForTarget", "identifiedRelevantSkills", "identifiedSkillGaps"],
-                        additionalProperties: false
+                            required: ["skill", "source_in_cv", "relevance_to_target"]
+                        }
+                    },
+                    identifiedSkillGaps: {
+                        type: "array",
+                        items: {
+                            type: "object",
+                            properties: {
+                                skill: { type: "string" },
+                                importance: {
+                                    type: "string",
+                                    enum: ["essential", "desirable", "unclear"]
+                                },
+                                reasoning: { type: "string" }
+                            },
+                            required: ["skill", "importance", "reasoning"]
+                        }
                     }
-                }
+                },
+                required: ["matchScore", "cvSummaryForTarget", "identifiedRelevantSkills", "identifiedSkillGaps"]
             }
         });
 
         // Vänta på det som slutförs först - completion eller timeout
-        const completion = await Promise.race([
+        const result = await Promise.race([
             completionPromise,
             timeoutPromise
-        ]) as any;
+        ]);
 
-        content = completion.choices[0].message.content || '{}';
+        content = result.text;
+        console.log("Raw Gemini Response (Step 1):", content.substring(0, 500) + "...");
 
-        // Kontrollera om svaret är tomt
-        if (!content || content === '{}' || content.trim() === '') {
-            console.error("OpenAI returnerade ett tomt svar. Försöker igen med fallback.");
-            throw new Error("Tomt svar från OpenAI GPT-5");
-        }
-
-        console.log("Raw OpenAI Response (Step 1):", content.substring(0, 500) + "...");
-
-        const parsedResult = JSON.parse(content);
+        const parsedResult = result.data;
 
         // Kostnadsberäkning
-        const usage = completion.usage;
+        const usage = result.usage;
         let tokensInfo: CompetenceAnalysisResult['tokens'] = null;
         let calculatedCost: number | null = null;
         if (usage) {
-            const promptTokens = usage.prompt_tokens ?? 0;
-            const completionTokens = usage.completion_tokens ?? 0;
-            tokensInfo = { prompt: promptTokens, completion: completionTokens, total: usage.total_tokens ?? (promptTokens + completionTokens) };
-            calculatedCost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
-            console.log(`OpenAI Usage (Step 1): Prompt=${promptTokens}, Completion=${completionTokens}, Total=${tokensInfo.total}, Cost=${calculatedCost}`);
+            tokensInfo = { prompt: usage.prompt, completion: usage.completion, total: usage.total };
+            calculatedCost = result.cost;
+            console.log(`Gemini Usage (Step 1): Prompt=${usage.prompt}, Completion=${usage.completion}, Total=${usage.total}, Cost=${calculatedCost}`);
         } else {
-            console.warn("OpenAI response did not include usage data for analyzeCompetenceGap.");
+            console.warn("Gemini response did not include usage data for analyzeCompetenceGap.");
         }
 
         // --- UPPDATERAD: Skapa finalResult utan suggestedLearningPath ---

@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { geminiEmbed } from "../_shared/gemini.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -148,67 +149,52 @@ serve(async (req) => {
 
     console.log(`Created ${chunks.length} chunks`);
 
-    // Step 4: Create embeddings and insert chunks
-    const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
-    if (!OPENAI_API_KEY) {
-      throw new Error("OPENAI_API_KEY not configured");
+    // Step 4: Create embeddings (batched via Gemini) and insert chunks
+    if (!Deno.env.get("GOOGLE_AI_API_KEY")) {
+      throw new Error("GOOGLE_AI_API_KEY not configured");
     }
 
     let successCount = 0;
     let errorCount = 0;
+    const EMBED_BATCH_SIZE = 50;
 
-    for (let i = 0; i < chunks.length; i++) {
-      const chunk = chunks[i];
+    for (let batchStart = 0; batchStart < chunks.length; batchStart += EMBED_BATCH_SIZE) {
+      const batch = chunks.slice(batchStart, batchStart + EMBED_BATCH_SIZE);
 
       try {
-        // Create embedding using OpenAI
-        const embeddingResponse = await fetch(
-          "https://api.openai.com/v1/embeddings",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${OPENAI_API_KEY}`,
-            },
-            body: JSON.stringify({
-              model: "text-embedding-3-small",
-              input: chunk.text,
-            }),
-          }
+        // Embedda hela batchen i ett anrop (RETRIEVAL_DOCUMENT för dokumentsidan)
+        const embeddings = await geminiEmbed(
+          batch.map((c) => c.text),
+          "RETRIEVAL_DOCUMENT"
         );
 
-        if (!embeddingResponse.ok) {
-          const error = await embeddingResponse.text();
-          console.error(`Embedding error for chunk ${i}:`, error);
-          errorCount++;
-          continue;
-        }
+        for (let j = 0; j < batch.length; j++) {
+          const i = batchStart + j;
+          const chunk = batch[j];
 
-        const embeddingData = await embeddingResponse.json();
-        const embedding = embeddingData.data[0].embedding;
+          // Insert chunk with embedding
+          const { error: chunkError } = await supabaseClient
+            .from("ai_document_chunks")
+            .insert({
+              document_id: docId,
+              user_id: user.id,
+              chunk_index: i,
+              heading: chunk.heading,
+              content: chunk.text,
+              metadata: chunk.metadata,
+              embedding: embeddings[j],
+            });
 
-        // Insert chunk with embedding
-        const { error: chunkError } = await supabaseClient
-          .from("ai_document_chunks")
-          .insert({
-            document_id: docId,
-            user_id: user.id,
-            chunk_index: i,
-            heading: chunk.heading,
-            content: chunk.text,
-            metadata: chunk.metadata,
-            embedding,
-          });
-
-        if (chunkError) {
-          console.error(`Failed to insert chunk ${i}:`, chunkError);
-          errorCount++;
-        } else {
-          successCount++;
+          if (chunkError) {
+            console.error(`Failed to insert chunk ${i}:`, chunkError);
+            errorCount++;
+          } else {
+            successCount++;
+          }
         }
       } catch (error) {
-        console.error(`Error processing chunk ${i}:`, error);
-        errorCount++;
+        console.error(`Error processing chunk batch starting at ${batchStart}:`, error);
+        errorCount += batch.length;
       }
     }
 

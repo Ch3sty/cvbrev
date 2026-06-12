@@ -4,10 +4,10 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { Database } from '@/types/database.types';
 import { analyzeCompetenceGap, CompetenceAnalysisResult, MissingSkill } from '@/lib/openai/analyzeCompetenceGap';
-import { analyzeCompetenceGapGPT5, generateLearningSuggestionsGPT5 } from '@/lib/openai/analyzeCompetenceGapGPT5';
+import { analyzeCompetenceGapPro, generateLearningSuggestions } from '@/lib/gemini/competence-analysis';
+import { GEMINI_MODELS } from '@/lib/gemini/models';
 import { logUserActivity } from '@/lib/activity-logger';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { openai } from '@/lib/openai/api';
 
 // Set max duration for Vercel functions (in seconds)
 export const maxDuration = 60; // Vercel limit
@@ -180,192 +180,16 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
 }
 
 /**
- * Använder GPT-5 för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
+ * Använder Gemini med Google Search grounding för att hitta läranderesurser
+ * och direkta länkar för ett specifikt kompetensgap.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, targetRole: string = ''): Promise<LearningSuggestion[]> {
-    // Use GPT-5 for learning suggestions
     try {
-        const suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
+        const suggestions = await generateLearningSuggestions(gap, targetRole);
         return suggestions;
     } catch (error) {
-        console.error(`Failed to generate learning suggestions with GPT-5 for gap "${gap.skill}":`, error);
+        console.error(`Failed to generate learning suggestions for gap "${gap.skill}":`, error);
         return [];
-    }
-}
-
-/**
- * Fallback function using GPT-4 if GPT-5 fails
- */
-async function findLearningResourcesForGapOld(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-4o-mini"; // Använder GPT-4o-mini som fungerar tillförlitligt
-    const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
-
-    const systemPrompt = `
-        Du är expert på svenska arbetsmarknaden och yrkesutbildningar.
-        För varje kompetensgap, returnera MAX ${maxSuggestionsPerGap} KONKRETA kursförslag.
-
-        VIKTIGA REGLER:
-        1. Prioritera Arbetsförmedlingens kurser (ofta gratis)
-        2. För yrkescertifikat: Ange ALLTID branschorganisationen
-        3. För körkort: Hänvisa till lokala trafikskolor
-        4. Inkludera uppskattad tid och kostnad
-        5. Var SPECIFIK med kursnamn som faktiskt existerar
-
-        Vanliga svenska utbildningsanordnare:
-        - Arbetsförmedlingen (gratis kurser)
-        - Lernia (yrkesutbildningar)
-        - YH-skolor (yrkeshögskola)
-        - BYN (byggbranschens certifikat)
-        - Brandskyddsföreningen (säkerhetscertifikat)
-        - Transportfackens Yrkes- och Arbetsmiljönämnd (TYA)
-        - Komvux (grundläggande kurser)
-    `;
-
-    const userPrompt = `
-        Hitta MAX ${maxSuggestionsPerGap} konkreta kurser/certifieringar för: "${gap.skill}" (${gap.importance}).
-        ${gap.reasoning}
-
-        Ge EXAKTA kursnamn som finns hos svenska utbildningsanordnare.
-        Inkludera uppskattad tid, kostnad och om det är obligatoriskt för yrket.
-    `;
-
-    try {
-        console.log(`--- DEBUG findLearningResourcesForGap: Söker resurser/söktermer för gap: ${JSON.stringify(gap.skill)} (max ${maxSuggestionsPerGap})`);
-
-        // Timeout för varje kursförslag (15 sekunder för bättre kvalitet)
-        const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`Timeout för kursförslag: ${gap.skill}`)), 15000)
-        );
-
-        const completionPromise = openai.chat.completions.create({
-            model: modelToUse,
-            messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
-            // GPT-4o-mini med Structured Outputs
-            temperature: 0.5, // Balanserad temperatur
-            max_tokens: 800, // GPT-4o-mini använder max_tokens
-            response_format: {
-                type: "json_schema",
-                json_schema: {
-                    strict: true,
-                    name: "learning_suggestions",
-                    schema: {
-                        type: "object",
-                        properties: {
-                            suggestions: {
-                                type: "array",
-                                items: {
-                                    type: "object",
-                                    properties: {
-                                        type: {
-                                            type: "string",
-                                            enum: ["course", "certification", "self-study", "project"]
-                                        },
-                                        title: {
-                                            type: "string",
-                                            description: "Exakt kursnamn"
-                                        },
-                                        provider: {
-                                            type: ["string", "null"],
-                                            description: "Leverantör eller plattform"
-                                        },
-                                        relevance: {
-                                            type: "string",
-                                            description: "Förklaring av relevans"
-                                        },
-                                        search_keywords: {
-                                            type: "array",
-                                            items: { type: "string" },
-                                            description: "Söktermer för att hitta kursen"
-                                        },
-                                        direct_url: {
-                                            type: ["string", "null"],
-                                            description: "Direktlänk om känd"
-                                        },
-                                        duration: {
-                                            type: ["string", "null"],
-                                            description: "Kurslängd"
-                                        },
-                                        cost: {
-                                            type: ["string", "null"],
-                                            description: "Kostnad"
-                                        },
-                                        priority: {
-                                            type: "string",
-                                            enum: ["essential", "recommended", "optional"]
-                                        },
-                                        language: {
-                                            type: "string",
-                                            enum: ["sv", "en", "other"]
-                                        }
-                                    },
-                                    required: ["type", "title", "relevance", "search_keywords", "priority", "language"],
-                                    additionalProperties: false
-                                }
-                            }
-                        },
-                        required: ["suggestions"],
-                        additionalProperties: false
-                    }
-                }
-            }
-         });
-
-        // Vänta på det som slutförs först
-        const completion = await Promise.race([
-            completionPromise,
-            timeoutPromise
-        ]) as any;
-
-        const content = completion.choices[0].message.content;
-        console.log(`--- DEBUG findLearningResourcesForGap: Rått OpenAI-svar (förväntar söktermer) för gap "${gap.skill}": ${content ? content.substring(0, 150) + '...' : 'null'}`);
-
-        if (!content) {
-             console.warn(`--- DEBUG findLearningResourcesForGap: Inget innehåll från OpenAI för gap: "${gap.skill}"`);
-             return [];
-        }
-
-        let suggestions: LearningSuggestion[] = [];
-        try {
-            const parsedJson = JSON.parse(content);
-            console.log(`--- DEBUG findLearningResourcesForGap: Parsat JSON-svar för gap "${gap.skill}"`);
-
-             if (parsedJson && typeof parsedJson === 'object') {
-                if (Array.isArray(parsedJson.suggestions)) {
-                    suggestions = parsedJson.suggestions;
-                    // Map och validera fält
-                    suggestions = suggestions.map(s => ({
-                        type: s.type || 'course',
-                        title: s.title || '',
-                        provider: s.provider || undefined,
-                        relevance: s.relevance || '',
-                        search_keywords: Array.isArray(s.search_keywords) ? s.search_keywords : [],
-                        direct_url: s.direct_url || undefined,
-                        duration: s.duration || undefined,
-                        cost: s.cost || undefined,
-                        priority: s.priority || 'recommended',
-                        language: s.language || 'sv'
-                    }));
-                } else {
-                    console.warn(`--- DEBUG findLearningResourcesForGap: Oväntad JSON-struktur (saknar 'suggestions'-array) från OpenAI för gap "${gap.skill}".`);
-                }
-            } else {
-                 console.warn(`--- DEBUG findLearningResourcesForGap: Svaret var inte ett JSON-objekt för gap "${gap.skill}".`);
-             }
-
-            // Filtrera bort förslag som saknar nödvändiga fält
-            suggestions = suggestions.filter(s => s?.type && s?.title && s?.relevance);
-            console.log(`--- DEBUG findLearningResourcesForGap: Antal GILTIGA förslag efter filtrering för gap "${gap.skill}": ${suggestions.length}`);
-
-        } catch (parseError) {
-            console.error(`--- DEBUG findLearningResourcesForGap: Misslyckades parsa JSON för gap "${gap.skill}":`, parseError, "\nRått innehåll:", content);
-            return [];
-        }
-
-        return suggestions.slice(0, maxSuggestionsPerGap); // Returnerar max 2
-
-    } catch (error) {
-        console.error(`--- DEBUG findLearningResourcesForGap: OpenAI API-anrop misslyckades för gap "${gap.skill}":`, error);
-        return []; // Returnera tom array vid API-fel
     }
 }
 
@@ -462,12 +286,12 @@ export async function POST(request: NextRequest) {
         // --- 5. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
         console.log(`--- DEBUG POST (Step 1): Performing initial analysis for target: ${errorTargetDesc}`);
 
-        // Use GPT-5 for main analysis - IT'S BETTER!
+        // Använd Gemini Pro för huvudanalysen, med fallback till standardanalysen
         try {
-            initialAnalysisResult = await analyzeCompetenceGapGPT5(analysisInputForStep1);
-            console.log('--- DEBUG: Successfully used GPT-5 for analysis');
-        } catch (gpt5Error) {
-            console.error('--- DEBUG: GPT-5 failed, falling back to GPT-4:', gpt5Error);
+            initialAnalysisResult = await analyzeCompetenceGapPro(analysisInputForStep1);
+            console.log('--- DEBUG: Successfully used Gemini Pro for analysis');
+        } catch (proError) {
+            console.error('--- DEBUG: Gemini Pro failed, falling back to standard analysis:', proError);
             initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
         }
         console.log(`--- DEBUG POST (Step 1): Initial analysis successful. Score: ${initialAnalysisResult?.matchScore ?? 'N/A'}%`);
@@ -475,7 +299,7 @@ export async function POST(request: NextRequest) {
         // --- 6. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
         const allGeneratedSuggestions: LearningSuggestion[] = [];
         const gapsToProcess = initialAnalysisResult?.identifiedSkillGaps || [];
-        const modelToUseStep2 = "gpt-5-nano"; // Using GPT-5 nano for course suggestions
+        const modelToUseStep2 = GEMINI_MODELS.reasoning; // Grounded kurssökning med Gemini Pro
         const analysisStartTime = Date.now(); // Track start time for timeout check
 
         if (gapsToProcess.length > 0) {
@@ -504,25 +328,24 @@ export async function POST(request: NextRequest) {
             console.log(`--- DEBUG POST (Step 2): Processing SINGLE gap to ensure response within 60s`);
 
             // Process ONLY ONE gap to avoid timeout
-            // GPT-5 with web search can take 30-40 seconds
+            // Grounded search can take 20-40 seconds
             for (let i = 0; i < gapsToProcessLimited.length; i++) {
                 const gap = gapsToProcessLimited[i];
                 console.log(`--- DEBUG POST (Step 2): Processing gap ${i+1}/${gapsToProcessLimited.length}: "${gap.skill}"`);
 
                 try {
-                    // Use GPT-5 for better suggestions
                     let suggestions: LearningSuggestion[] = [];
 
-                    // Allow up to 40 seconds for single GPT-5 call with web search
+                    // Allow up to 40 seconds for single grounded search call
                     const startTime = Date.now();
 
                     try {
-                        suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
+                        suggestions = await generateLearningSuggestions(gap, targetRole);
                         const elapsed = Date.now() - startTime;
-                        console.log(`--- DEBUG: GPT-5 completed for gap "${gap.skill}" in ${elapsed}ms`);
-                    } catch (gpt5Err) {
+                        console.log(`--- DEBUG: Grounded search completed for gap "${gap.skill}" in ${elapsed}ms`);
+                    } catch (groundedErr) {
                         const elapsed = Date.now() - startTime;
-                        console.error(`--- DEBUG: GPT-5 failed for gap "${gap.skill}" after ${elapsed}ms:`, gpt5Err);
+                        console.error(`--- DEBUG: Grounded search failed for gap "${gap.skill}" after ${elapsed}ms:`, groundedErr);
                         // Skip fallback to save time
                         suggestions = [];
                     }

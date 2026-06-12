@@ -3,11 +3,7 @@
  * Uses AI to extract structured data from unstructured CV text
  */
 
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
+import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 
 // Interfaces for parsed CV structure
 export interface ParsedRole {
@@ -108,29 +104,14 @@ Exempel på KORREKT rollextraktion:
   "originalText": "Målare, Lingfjords Fasadtvätt AB Stockholm, Vårberg — 2014-2014..."
 }`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini', // UPPGRADERAD: Bättre modell för högre kvalitet
-      messages: [
-        {
-          role: 'system',
-          content: 'Du är en expert på att analysera och strukturera CV-information. Svara alltid med giltig JSON.',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
+    const { data: parsedData } = await generateJSON<ParsedCV>({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en expert på att analysera och strukturera CV-information. Svara alltid med giltig JSON.',
+      prompt,
       temperature: 0.1, // Låg temperatur för konsekvent parsning
-      max_tokens: 1200, // Optimerad för snabbare respons (sänkt från 1500)
-      response_format: { type: 'json_object' },
+      maxOutputTokens: 2400,
+      thinkingBudget: 0,
     });
-
-    const content = response.choices[0].message.content;
-    if (!content) {
-      throw new Error('No response from AI');
-    }
-
-    const parsedData = JSON.parse(content) as ParsedCV;
 
     // Validate and clean the parsed data
     parsedData.roles = (parsedData.roles || []).map(role => {

@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import OpenAI from 'openai'
+import { generateJSON, GEMINI_MODELS } from '@/lib/gemini'
 import { createServerClient } from '@/lib/supabase/server'
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync'
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker'
 import { logUserActivity } from '@/lib/activity-logger'
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-})
 
 // Quota limits
 const WEEKLY_LINKEDIN_LIMIT_FREE = 1
@@ -219,14 +215,15 @@ IMPORTANT:
 - Balance professionalism with personality
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.7
+  const response = await generateJSON<any>({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature: 0.7,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   })
 
-  const result = JSON.parse(response.choices[0].message.content || '{}')
+  const result = response.data
   // Attach usage data to result
   result._usage = response.usage
   return result
@@ -355,14 +352,15 @@ IMPORTANT:
 - Every word should serve the narrative toward ${targetRole || 'their goals'}
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.7
+  const response = await generateJSON<any>({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature: 0.7,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   })
 
-  const result = JSON.parse(response.choices[0].message.content || '{}')
+  const result = response.data
   // Attach usage data to result
   result._usage = response.usage
   return result
@@ -506,14 +504,15 @@ IMPORTANT:
 - Show career story that leads to ${targetRole || 'next opportunity'}
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.7
+  const response = await generateJSON<any>({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature: 0.7,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   })
 
-  const result = JSON.parse(response.choices[0].message.content || '{}')
+  const result = response.data
   // Attach usage data to result
   result._usage = response.usage
   return result
@@ -641,14 +640,15 @@ IMPORTANT:
 - Adapt detail level to experience: more for junior, less for senior
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.7
+  const response = await generateJSON<any>({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature: 0.7,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   })
 
-  const result = JSON.parse(response.choices[0].message.content || '{}')
+  const result = response.data
   // Attach usage data to result
   result._usage = response.usage
   return result
@@ -797,14 +797,15 @@ IMPORTANT:
 - Preserve all specialized/unique skills from original
 - Write ALL content in ${isSwedish ? 'Swedish' : 'English'}`
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.7
+  const response = await generateJSON<any>({
+    model: GEMINI_MODELS.quality,
+    prompt,
+    temperature: 0.7,
+    maxOutputTokens: 4000,
+    thinkingBudget: 1024,
   })
 
-  const result = JSON.parse(response.choices[0].message.content || '{}')
+  const result = response.data
   // Attach usage data to result
   result._usage = response.usage
   return result
@@ -996,14 +997,14 @@ export async function POST(req: NextRequest) {
         .map(result => (result as any)._usage)
 
       usageData.forEach((usage: any) => {
-        totalPromptTokens += usage.prompt_tokens || 0
-        totalCompletionTokens += usage.completion_tokens || 0
+        totalPromptTokens += usage.prompt || 0
+        totalCompletionTokens += usage.completion || 0
       })
 
       // Calculate cost using model pricing
       const costUsd = await calculateCostFromDatabase(
         supabase,
-        'gpt-4o',
+        GEMINI_MODELS.quality,
         totalPromptTokens,
         totalCompletionTokens
       )
@@ -1014,7 +1015,7 @@ export async function POST(req: NextRequest) {
         userId: user.id,
         featureName: AI_FEATURES.LINKEDIN_OPTIMIZATION,
         endpoint: '/api/linkedin/optimize',
-        model: 'gpt-4o',
+        model: GEMINI_MODELS.quality,
         promptTokens: totalPromptTokens,
         completionTokens: totalCompletionTokens,
         costUsd,

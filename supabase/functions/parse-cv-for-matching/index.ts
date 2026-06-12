@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -272,20 +273,13 @@ Deno.serve(async (req) => {
 
     console.log(`[Parse CV] Cache miss or expired, running AI parsing...`);
 
-    // AI Parsing with GPT-4o-mini
-    const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
-    const aiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: `Du är en CV-parser för jobbmatchning på den svenska arbetsmarknaden.
+    // AI Parsing with Gemini
+    const aiResult = await geminiGenerateJSON({
+      model: GEMINI_MODELS.fast,
+      temperature: 0.2,
+      maxOutputTokens: 4000,
+      thinkingBudget: 0,
+      systemInstruction: `Du är en CV-parser för jobbmatchning på den svenska arbetsmarknaden.
 
 UPPGIFT: Extrahera ALLA yrkesroller, kompetenser, utbildningar och plats.
 
@@ -306,11 +300,8 @@ EXEMPEL skills (specifika, svenska):
 ❌ ["God kommunikationsförmåga", "Teamwork"]  (för vaga)
 ❌ ["Leadership", "Sales"]  (engelska när svenska finns)
 
-Returnera ENDAST JSON, ingen annan text.`
-          },
-          {
-            role: 'user',
-            content: `Parsa detta CV för jobbmatchning:
+Returnera ENDAST JSON, ingen annan text.`,
+      prompt: `Parsa detta CV för jobbmatchning:
 
 ${cvText}
 
@@ -325,22 +316,10 @@ Returnera JSON:
     "year": string             // T.ex. "2015"
   }],
   "location": string           // Huvudsaklig plats (stad)
-}`
-          }
-        ],
-        temperature: 0.2,
-        max_tokens: 2000,
-        response_format: { type: 'json_object' }
-      })
+}`,
     });
 
-    if (!aiResponse.ok) {
-      const error = await aiResponse.json();
-      throw new Error(`OpenAI API error: ${error.error?.message}`);
-    }
-
-    const aiData = await aiResponse.json();
-    const parsed = JSON.parse(aiData.choices[0].message.content);
+    const parsed = aiResult.data;
 
     console.log(`[Parse CV] AI extracted:`, {
       occupations: parsed.occupations?.length || 0,
@@ -379,7 +358,7 @@ Returnera JSON:
         extracted_skills: parsed.skills || [],
         extracted_educations: parsed.educations || [],
         extracted_location: parsed.location || null,
-        parsing_model: 'gpt-4o-mini',
+        parsing_model: GEMINI_MODELS.fast,
         taxonomy_version: 'v1',
         cv_text_hash: cvHash,
         cache_expires_at: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days

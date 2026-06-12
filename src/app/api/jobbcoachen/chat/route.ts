@@ -1,10 +1,6 @@
 import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { embedQuery, generateStream, chatContents, GEMINI_MODELS } from '@/lib/gemini';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -151,32 +147,29 @@ export async function POST(req: NextRequest) {
       .eq('id', user.id)
       .single();
 
-    // Create embedding for user query
-    const embeddingResponse = await openai.embeddings.create({
-      model: 'text-embedding-3-small',
-      input: message,
-    });
+    // Create embedding for user query + perform RAG search
+    // (hoppas över om meddelandet är tomt, t.ex. enbart bifogade dokument)
+    let contextChunks: any[] = [];
+    if (message && message.trim().length > 0) {
+      const queryEmbedding = await embedQuery(message);
 
-    const queryEmbedding = embeddingResponse.data[0].embedding;
+      const { data: chunks, error: searchError } = await supabase.rpc(
+        'search_ai_chunks_hybrid',
+        {
+          query_embedding: queryEmbedding,
+          query_text: message,
+          match_count: 6,
+          for_user: user.id,
+          for_topic: null,
+        }
+      );
 
-    // Perform RAG search
-    const { data: chunks, error: searchError } = await supabase.rpc(
-      'search_ai_chunks_hybrid',
-      {
-        query_embedding: queryEmbedding,
-        query_text: message,
-        match_count: 6,
-        for_user: user.id,
-        for_topic: null,
+      if (searchError) {
+        console.error('Search error:', searchError);
       }
-    );
 
-    if (searchError) {
-      console.error('Search error:', searchError);
+      contextChunks = chunks || [];
     }
-
-    // Build context from retrieved chunks
-    const contextChunks = chunks || [];
     const context = contextChunks
       .map((chunk: any, idx: number) => {
         return `[Källa ${idx + 1}] ${chunk.title || chunk.heading || 'Utan rubrik'}
@@ -204,12 +197,8 @@ Bransch: ${profile.industry || 'Ej angivet'}`
       });
     }
 
-    // Prepare messages for OpenAI
-    const messages: any[] = [
-      {
-        role: 'system',
-        content: SYSTEM_PROMPT,
-      },
+    // Prepare conversation contents for Gemini (system prompt går via systemInstruction)
+    const contents = chatContents([
       ...historyToOpenAIMessages(history),
       {
         role: 'user',
@@ -224,15 +213,17 @@ ${message || '(Användaren har bifogat dokument för granskning)'}
 
 Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik + en följdfråga, inga rubriker, inga källor. Om användaren bifogat dokument: granska konkret det de delat. När du använder information från KUNSKAPSBASEN ovan: citera med (Källa N) direkt efter påståendet — detta är obligatoriskt så användaren kan verifiera. Korta uppföljningsfrågor inom samma ämne ska också citera relevanta källor.`,
       },
-    ];
+    ]);
 
-    // Stream response from OpenAI
-    const stream = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages,
+    // Stream response from Gemini
+    const chatModel = GEMINI_MODELS.fast;
+    const { stream, getUsage } = await generateStream({
+      model: chatModel,
+      systemInstruction: SYSTEM_PROMPT,
+      contents,
       temperature: 0.3,
-      stream: true,
-      max_tokens: 1500,
+      maxOutputTokens: 1500,
+      thinkingBudget: 0, // Låg latens för chatt
     });
 
     // Create streaming response
@@ -251,7 +242,7 @@ Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik
 
           // Stream text
           for await (const chunk of stream) {
-            const content = chunk.choices[0]?.delta?.content;
+            const content = chunk.text;
             if (content) {
               fullResponse += content;
               controller.enqueue(
@@ -332,8 +323,8 @@ Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik
               text: fullResponse,
               sources: sources // Save the sources from RAG chunks
             },
-            model: 'gpt-4o-mini',
-            tokens: Math.ceil(fullResponse.length / 4), // Rough estimate
+            model: chatModel,
+            tokens: getUsage()?.total ?? Math.ceil(fullResponse.length / 4), // Riktiga tokens om tillgängliga
           });
 
           // Send done signal

@@ -96,7 +96,7 @@ function normalizeModelName(modelName: string): { baseName: string; provider: st
 
 /**
  * Filters and transforms LiteLLM data to our format
- * Only includes OpenAI models (can extend to other providers later)
+ * Only includes Gemini models (migrated from OpenAI 2026-06)
  */
 export function transformLiteLLMToOurFormat(litellmData: LiteLLMPricingData): ModelPricing[] {
   const results: ModelPricing[] = [];
@@ -110,8 +110,8 @@ export function transformLiteLLMToOurFormat(litellmData: LiteLLMPricingData): Mo
 
     const { baseName, provider } = normalizeModelName(modelName);
 
-    // Only process OpenAI models for now
-    if (provider !== 'openai' && !modelName.startsWith('gpt-')) {
+    // Only process Gemini models (LiteLLM keys: "gemini/gemini-..." or "gemini-...")
+    if (provider !== 'gemini' && !baseName.startsWith('gemini-')) {
       continue;
     }
 
@@ -142,7 +142,7 @@ export function transformLiteLLMToOurFormat(litellmData: LiteLLMPricingData): Mo
 
     results.push({
       model_name: baseName,
-      provider: 'openai',
+      provider: 'gemini',
       input_cost_per_million: inputCostPerMillion,
       output_cost_per_million: outputCostPerMillion,
       cached_input_cost_per_million: cachedInputCostPerMillion,
@@ -366,9 +366,9 @@ export async function calculateCostFromDatabase(
     // Fallback to baseline prices
     console.warn(`[Cost Calculation] Model ${model} not found in database, using baseline pricing`);
 
-    // Import baseline calculation from api.ts
-    const { calculateOpenAICost } = await import('./api');
-    const baselineCost = calculateOpenAICost(model, promptTokens, completionTokens);
+    // Import baseline calculation from gemini pricing
+    const { calculateGeminiCost } = await import('@/lib/gemini/pricing');
+    const baselineCost = calculateGeminiCost(model, promptTokens, completionTokens);
 
     if (baselineCost !== null) {
       return baselineCost;
@@ -383,8 +383,8 @@ export async function calculateCostFromDatabase(
 
     // Fallback on error
     try {
-      const { calculateOpenAICost } = await import('./api');
-      const baselineCost = calculateOpenAICost(model, promptTokens, completionTokens);
+      const { calculateGeminiCost } = await import('@/lib/gemini/pricing');
+      const baselineCost = calculateGeminiCost(model, promptTokens, completionTokens);
       return baselineCost !== null ? baselineCost : 0;
     } catch {
       return 0;

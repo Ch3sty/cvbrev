@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { generateJSON, generateText, GEMINI_MODELS } from '@/lib/gemini';
 
 // Interface för AI-baserad textextraktion
 export interface TextExtractionResult {
@@ -26,16 +26,12 @@ export enum ConfidenceLevel {
 
 /**
  * AI-driven intelligent textmatchning för CV-förbättringar
- * Använder OpenAI för att matcha förbättringsförslag med originaltext i CV:t
+ * Använder Gemini för att matcha förbättringsförslag med originaltext i CV:t
  */
 export async function extractOriginalTextWithAI(
   context: ExtractionContext
 ): Promise<TextExtractionResult> {
   try {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
     // Skapa prompt för intelligent textmatchning
     const prompt = `
 Analysera följande CV-innehåll och förbättringsförslag för att hitta exakt vilken originaltext som ska förbättras.
@@ -89,29 +85,14 @@ EXEMPEL PÅ DÅLIGA SVAR (undvik dessa):
 - Text längre än 250 tecken
 `;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'Du är en expert på CV-analys och textmatchning. Svara endast med giltig JSON.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
+    const { data: result } = await generateJSON<any>({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en expert på CV-analys och textmatchning. Svara endast med giltig JSON.',
+      prompt,
       temperature: 0.1, // Låg temperatur för mer deterministiska resultat
-      max_tokens: 500,
+      maxOutputTokens: 1000,
+      thinkingBudget: 0,
     });
-
-    const content = response.choices[0]?.message?.content;
-    if (!content) {
-      throw new Error('Inget svar från OpenAI');
-    }
-
-    // Parse JSON response
-    const result = JSON.parse(content);
 
     // Validera resultat
     if (!result.originalText || !result.sourceSection) {
@@ -342,10 +323,6 @@ export async function generateContextSpecificSuggestion(
   improvementType: string
 ): Promise<string> {
   try {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
     const prompt = `
 Skapa en specifik, kvantifierad förbättring av följande CV-text:
 
@@ -372,23 +349,16 @@ EXEMPEL PÅ BRA KVANTIFIERINGAR:
 Svara ENDAST med den förbättrade texten, inga förklaringar eller extra text.
 `;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'Du är en professionell CV-skribent som specialiserar dig på att kvantifiera prestationer med realistiska siffror.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
+    const response = await generateText({
+      model: GEMINI_MODELS.fast,
+      systemInstruction: 'Du är en professionell CV-skribent som specialiserar dig på att kvantifiera prestationer med realistiska siffror.',
+      prompt,
       temperature: 0.3, // Lagom kreativitet för variation men ändå strukturerat
-      max_tokens: 200,
+      maxOutputTokens: 400,
+      thinkingBudget: 0,
     });
 
-    const suggestion = response.choices[0]?.message?.content?.trim();
+    const suggestion = response.text.trim();
 
     if (!suggestion) {
       throw new Error('Inget förslag från AI');

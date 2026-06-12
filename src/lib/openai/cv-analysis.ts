@@ -1,6 +1,5 @@
 // src/lib/openai/cv-analysis.ts
-import OpenAI from 'openai';
-import { openai, calculateOpenAICost } from './api'; // Importera både klient och kostnadskalkylator från api.ts
+import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 
 // --- Typer för Analysresultat ---
 interface Score {
@@ -76,7 +75,7 @@ interface PremiumAnalysisResult extends Omit<BasicAnalysisResult, 'analysisType'
 export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResult> {
     // ... (funktionens kod är oförändrad) ...
     const truncatedCV = cvText.substring(0, 6000);
-    const modelToUse = "gpt-4o";
+    const modelToUse = GEMINI_MODELS.fast; // Basic-analys: snabb modell räcker
     const systemPrompt = `
         Du är en AI-assistent som analyserar svenska CV:n för jobbsökande. Ge en kortfattad och konstruktiv analys baserat på innehållet. Fokusera på följande punkter och svara ALLTID i JSON-format med exakt denna struktur:
         {
@@ -92,19 +91,21 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
         Ge betyg (rating) från 1 (Svagt) till 5 (Utmärkt). Var ärlig men uppmuntrande i din feedback. Anpassa feedbacken specifikt till det inskickade CV-innehållet.
     `;
     try {
-        const completion = await openai.chat.completions.create({
+        const result = await generateJSON<any>({
             model: modelToUse,
-            messages: [ { role: "system", content: systemPrompt }, { role: "user", content: `Analysera följande CV:\n\n${truncatedCV}` } ],
-            temperature: 0.5, max_tokens: 800, response_format: { type: "json_object" }
+            systemInstruction: systemPrompt,
+            prompt: `Analysera följande CV:\n\n${truncatedCV}`,
+            temperature: 0.5,
+            maxOutputTokens: 1500,
+            thinkingBudget: 0,
         });
-        const content = completion.choices[0].message.content || '{}';
-        const parsedResult = JSON.parse(content);
+        const parsedResult = result.data;
 
         // Beräkna kostnad och tokens
-        const promptTokens = completion.usage?.prompt_tokens || 0;
-        const completionTokens = completion.usage?.completion_tokens || 0;
-        const totalTokens = completion.usage?.total_tokens || 0;
-        const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+        const promptTokens = result.usage?.prompt || 0;
+        const completionTokens = result.usage?.completion || 0;
+        const totalTokens = result.usage?.total || 0;
+        const cost = result.cost;
 
         // Säkerställ att alla obligatoriska basic-fält finns
         return {
@@ -180,22 +181,22 @@ Var konstruktiv och praktisk.`;
 
     const userPrompt = `Här är CV-kontexten:\n\n${truncatedCV}\n\n${rolesContext}\n\nGenerera förbättringsförslag för varje roll ovan.`;
 
-    const completion = await openai.chat.completions.create({
+    const result = await generateJSON<any>({
         model: modelToUse,
-        messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
+        systemInstruction: systemPrompt,
+        prompt: userPrompt,
         temperature: 0.6,
-        max_tokens: 2500, // Optimerad för 3 roller (sänkt från 4000)
-        response_format: { type: "json_object" }
+        maxOutputTokens: 4000, // Inkluderar thinking-tokens
+        thinkingBudget: 1024,
     });
 
-    const content = completion.choices[0].message.content || '{}';
-    const parsedResult = JSON.parse(content);
+    const parsedResult = result.data;
 
     // Beräkna kostnad och tokens
-    const promptTokens = completion.usage?.prompt_tokens || 0;
-    const completionTokens = completion.usage?.completion_tokens || 0;
-    const totalTokens = completion.usage?.total_tokens || 0;
-    const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+    const promptTokens = result.usage?.prompt || 0;
+    const completionTokens = result.usage?.completion || 0;
+    const totalTokens = result.usage?.total || 0;
+    const cost = result.cost;
 
     console.log(`[analyzeRoleBatch ${batchIndex}] Analyzed ${roles.length} roles: ${promptTokens} prompt + ${completionTokens} completion tokens ($${cost !== null ? cost.toFixed(4) : 'N/A'})`);
 
@@ -210,7 +211,7 @@ Var konstruktiv och praktisk.`;
 export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
     const startTime = Date.now();
     const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-4o"; // Byt från gpt-4.1 till gpt-4o för snabbare respons
+    const modelToUse = GEMINI_MODELS.quality; // Premium-analys: kvalitetsmodell
 
     // Batch-baserad roll-analys: Dela upp roller i grupper om 3
     const ROLES_PER_BATCH = 3;
@@ -276,24 +277,24 @@ Ge betyg 1-10. Var konstruktiv.`;
         const userPrompt = `Analysera följande CV övergripande:\n\n${truncatedCV}`;
 
         const aiStartTime = Date.now();
-        const completion = await openai.chat.completions.create({
+        const result = await generateJSON<any>({
             model: modelToUse,
-            messages: [ { role: "system", content: generalSystemPrompt }, { role: "user", content: userPrompt } ],
+            systemInstruction: generalSystemPrompt,
+            prompt: userPrompt,
             temperature: 0.6,
-            max_tokens: 1500, // Mindre eftersom vi inte behöver roll-detaljer
-            response_format: { type: "json_object" }
+            maxOutputTokens: 3000, // Inkluderar thinking-tokens
+            thinkingBudget: 1024,
         });
         const aiDuration = Date.now() - aiStartTime;
         console.log(`[analyzeCvPremium] General analysis finished in ${aiDuration}ms`);
 
-        const content = completion.choices[0].message.content || '{}';
-        const parsedResult = JSON.parse(content);
+        const parsedResult = result.data;
 
         // Beräkna kostnad och tokens (lägg till general analysis tokens)
-        const promptTokens = completion.usage?.prompt_tokens || 0;
-        const completionTokens = completion.usage?.completion_tokens || 0;
-        const totalTokens = completion.usage?.total_tokens || 0;
-        const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+        const promptTokens = result.usage?.prompt || 0;
+        const completionTokens = result.usage?.completion || 0;
+        const totalTokens = result.usage?.total || 0;
+        const cost = result.cost;
 
         totalPromptTokens += promptTokens;
         totalCompletionTokens += completionTokens;

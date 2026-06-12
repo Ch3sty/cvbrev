@@ -1,10 +1,10 @@
 // src/app/api/cv/parse/route.ts
-// Server-side CV parsing API för att säkert hantera OpenAI-anrop
+// Server-side CV parsing API för att säkert hantera AI-anrop
 
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import { openai, calculateOpenAICost } from '@/lib/openai/api';
+import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 import type { CVMetadata } from '@/lib/cv/cv-metadata';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
@@ -127,7 +127,7 @@ export async function parseCVWithAIServerSide(
   
   // Begränsa input för att hålla kostnader nere
   const truncatedCV = cvText.substring(0, 8000);
-  const modelToUse = "gpt-4o"; // Balans mellan kvalitet och kostnad
+  const modelToUse = GEMINI_MODELS.fast; // Extraktion: snabb och billig modell räcker
 
   const systemPrompt = `
 Du är en expert på CV-analys och dataextraktion. Din uppgift är att analysera svenska CV:n och extrahera strukturerad information med hög noggrannhet.
@@ -226,34 +226,31 @@ VIKTIGA INSTRUKTIONER:
 `;
 
   try {
-    const completion = await openai.chat.completions.create({
+    const result_ai = await generateJSON<EnhancedCVData>({
       model: modelToUse,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: `Analysera och extrahera strukturerad data från följande CV:\n\n${truncatedCV}` }
-      ],
+      systemInstruction: systemPrompt,
+      prompt: `Analysera och extrahera strukturerad data från följande CV:\n\n${truncatedCV}`,
       temperature: 0.3, // Låg temperatur för konsistent extraktion
-      max_tokens: 2000,
-      response_format: { type: "json_object" }
+      maxOutputTokens: 4000,
+      thinkingBudget: 0, // Ren extraktion - ingen thinking behövs
     });
 
-    const content = completion.choices[0].message.content || '{}';
-    const parsedData = JSON.parse(content) as EnhancedCVData;
+    const parsedData = result_ai.data;
 
     // Extrahera usage och beräkna kostnad
-    const usage = completion.usage;
+    const usage = result_ai.usage;
     let tokensInfo = null;
     let calculatedCost = null;
 
     if (usage) {
-      const promptTokens = usage.prompt_tokens ?? 0;
-      const completionTokens = usage.completion_tokens ?? 0;
+      const promptTokens = usage.prompt;
+      const completionTokens = usage.completion;
       tokensInfo = {
         prompt: promptTokens,
         completion: completionTokens,
-        total: usage.total_tokens ?? (promptTokens + completionTokens)
+        total: usage.total
       };
-      calculatedCost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+      calculatedCost = result_ai.cost;
 
       // Track AI usage if supabase and userId are provided
       if (supabase && userId) {
