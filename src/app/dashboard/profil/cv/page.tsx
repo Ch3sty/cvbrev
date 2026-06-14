@@ -9,6 +9,7 @@ import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import { useCvQuota } from '@/hooks/useCvQuota';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
+import QuickScoreReveal from '@/components/cv/QuickScoreReveal';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvHeroBanner from './components/CvHeroBanner';
@@ -37,6 +38,8 @@ export default function MinaCVPage() {
   const [gdprConsent, setGdprConsent] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
   const [expandedCvId, setExpandedCvId] = useState<string | null>(null);
+  // Aha-moment: CV-id för nyss uppladdat FÖRSTA CV (visar snabb-poäng inline).
+  const [quickScoreCvId, setQuickScoreCvId] = useState<string | null>(null);
   // Lokal overlay over store: nar /api/cv/structure returnerar
   // strukturerad data lagger vi den har sa CvDetailView ser den utan
   // att vi behover refetcha hela CV-listan.
@@ -101,10 +104,20 @@ export default function MinaCVPage() {
     onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
   ) => {
     setIsUploading(true);
+    // Är detta användarens första CV? (avgör om aha-momentet ska visas)
+    const isFirstCv = cvCount === 0;
     try {
       setProfileGdprConsent(gdprConsent);
       const title = file.name.split('.').slice(0, -1).join('.');
-      const success = await uploadCV(file, title, onPhaseChange);
+      const success = await uploadCV(
+        file,
+        title,
+        onPhaseChange,
+        (cv) => {
+          // Visa snabb-poäng bara för det allra första CV:t.
+          if (isFirstCv) setQuickScoreCvId(cv.id);
+        },
+      );
       if (success) {
         await fetchCVs();
         setGdprConsent(false);
@@ -286,6 +299,11 @@ export default function MinaCVPage() {
       {/* Populated state */}
       {cvCount > 0 && (
         <>
+          {/* Aha-moment: snabb-poäng direkt efter första uppladdningen */}
+          {quickScoreCvId && (
+            <QuickScoreReveal cvId={quickScoreCvId} />
+          )}
+
           <CvUnlocksFlow variant="compact" />
 
           {limitReached && (
