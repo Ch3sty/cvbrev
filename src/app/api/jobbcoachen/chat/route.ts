@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
     // Get user profile for context
     const { data: profile } = await supabase
       .from('profiles')
-      .select('city, goal_role, industry')
+      .select('location, goal_role, industry')
       .eq('id', user.id)
       .single();
 
@@ -184,7 +184,7 @@ ${chunk.content}
     // Build user context
     const userContext = profile
       ? `Användarens mål: ${profile.goal_role || 'Ej angivet'}
-Stad: ${profile.city || 'Ej angivet'}
+Stad: ${profile.location || 'Ej angivet'}
 Bransch: ${profile.industry || 'Ej angivet'}`
       : 'Ingen profilinformation tillgänglig';
 

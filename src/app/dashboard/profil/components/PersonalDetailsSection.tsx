@@ -11,6 +11,7 @@ import {
   MapPin,
   UserCircle,
   Target,
+  Briefcase,
 } from 'lucide-react';
 import { InlineProfilePhotoUpload } from './InlineProfilePhotoUpload';
 import { InlineLinkedInField } from './InlineLinkedInField';
@@ -27,6 +28,7 @@ interface PersonalDetailsSectionProps {
   phone: string;
   location: string;
   goalRole: string;
+  industry: string;
   includePhoneInLetters: boolean;
   includeLocationInLetters: boolean;
   subscriptionTier: 'free' | 'premium';
@@ -39,6 +41,7 @@ interface PersonalDetailsSectionProps {
   onPhoneChange: (value: string) => void;
   onLocationChange: (value: string) => void;
   onGoalRoleChange: (value: string) => void;
+  onIndustryChange: (value: string) => void;
   onIncludePhoneChange: (value: boolean) => void;
   onIncludeLocationChange: (value: boolean) => void;
   onError: (message: string) => void;
@@ -201,7 +204,26 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
           <FieldHint>
-            Vilket jobb siktar du på? Vi använder det för bättre råd och matchningar.
+            Vilket jobb siktar du på? Används för personligare svar i Jobbcoachen.
+          </FieldHint>
+        </FieldCard>
+
+        {/* Bransch */}
+        <FieldCard
+          icon={<Briefcase className="w-4 h-4" strokeWidth={2.25} />}
+          label="Bransch"
+        >
+          <input
+            type="text"
+            value={props.industry}
+            onChange={(e) => props.onIndustryChange(e.target.value)}
+            placeholder="t.ex. Vård, IT, Bygg, Handel"
+            disabled={props.isSaving}
+            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
+          />
+          <FieldHint>
+            Vilken bransch är du i eller siktar mot? Används för personligare svar i Jobbcoachen.
           </FieldHint>
         </FieldCard>
       </div>

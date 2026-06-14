@@ -4,7 +4,8 @@ export interface Profile {
   full_name?: string;
   phone?: string;
   location?: string; // Ort/plats för användaren
-  goal_role?: string; // Målroll/drömjobb - personaliserar chatt & jobbmatchning
+  goal_role?: string; // Målroll/drömjobb - personaliserar Jobbcoachen-chatten
+  industry?: string; // Bransch - personaliserar Jobbcoachen-chatten
   include_phone_in_letters?: boolean; // Inkludera telefon i personliga brev
   include_location_in_letters?: boolean; // Inkludera plats i personliga brev
   linkedin_url?: string | null; // LinkedIn profile URL
@@ -53,7 +54,8 @@ export interface ProfileUpdateParams {
   full_name?: string;
   phone?: string;
   location?: string; // Ort/plats
-  goal_role?: string; // Målroll/drömjobb - personaliserar chatt & jobbmatchning
+  goal_role?: string; // Målroll/drömjobb - personaliserar Jobbcoachen-chatten
+  industry?: string; // Bransch - personaliserar Jobbcoachen-chatten
   include_phone_in_letters?: boolean; // Inkludera telefon i brev
   include_location_in_letters?: boolean; // Inkludera plats i brev
   linkedin_url?: string | null; // LinkedIn profile URL
