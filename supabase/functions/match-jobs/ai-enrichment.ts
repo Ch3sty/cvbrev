@@ -3,19 +3,16 @@
  *
  * Använder Arbetsförmedlingens JobAd Enrichments API för att extrahera:
  * - Kompetenser (skills) med AI-precision
- * - SSYK-koder
  * - Erfarenhetskrav
  * - Utbildningsnivå
  * - Mjuka färdigheter
  *
  * API Docs: https://jobad-enrichments.api.jobtechdev.se
  */ const ENRICHMENTS_API = 'https://jobad-enrichments-api.jobtechdev.se';
-const TAXONOMY_API = 'https://taxonomy.api.jobtechdev.se/v1/taxonomy';
 
-// Timeouts för externa API-anrop (ms). Hindrar att ett hängande API fryser
+// Timeout för enrichment-API:t (ms). Hindrar att ett hängande API fryser
 // hela edge-funktionen mot 150s-timeouten.
 const ENRICHMENTS_FETCH_TIMEOUT = 20000;
-const TAXONOMY_FETCH_TIMEOUT = 5000;
 
 // fetch med hård timeout via AbortSignal.
 async function fetchWithTimeout(url, options, timeoutMs) {
@@ -34,7 +31,6 @@ async function fetchWithTimeout(url, options, timeoutMs) {
 
 export class AIEnrichmentService {
   supabase;
-  ssykCache = new Map();
   constructor(supabase){
     this.supabase = supabase;
   }
@@ -56,8 +52,6 @@ export class AIEnrichmentService {
       return cached;
     }
     console.log(`[AI Enrichment] Need to enrich ${uncachedJobs.length} jobs`);
-    // Förvärm SSYK-cachen från DB (persistent) så lookups slipper externt API.
-    await this.preloadSsykCache();
     // Steg 3: Berika i batches om 100 (API-limit)
     const BATCH_SIZE = 100;
     const newEnrichments = new Map();
@@ -71,7 +65,7 @@ export class AIEnrichmentService {
       console.log(`[AI Enrichment] Processing batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(uncachedJobs.length / BATCH_SIZE)}`);
       try {
         // Försök med API först
-        const batchEnrichments = await this.enrichBatchViaAPI(batch, deadlineMs);
+        const batchEnrichments = await this.enrichBatchViaAPI(batch);
         // Om API failar, använd fallback
         if (batchEnrichments.size === 0) {
           console.warn('[AI Enrichment] API failed, using local fallback');
@@ -105,7 +99,7 @@ export class AIEnrichmentService {
   }
   /**
    * Berika batch via JobAd Enrichments API
-   */ async enrichBatchViaAPI(batch, deadlineMs = Infinity) {
+   */ async enrichBatchViaAPI(batch) {
     const results = new Map();
     try {
       // Korrekt format enligt API-dokumentation: https://jobad-enrichments-api.jobtechdev.se/
@@ -117,7 +111,6 @@ export class AIEnrichmentService {
       // Använder /enrichtextdocuments istället för /binary för att få:
       // - ALLA terms med confidence scores (0.0-1.0)
       // - Mer flexibel filtrering (vi bestämmer threshold)
-      // - Bättre för SSYK-lookup (även låg-confidence terms)
       const response = await fetchWithTimeout(`${ENRICHMENTS_API}/enrichtextdocuments`, {
         method: 'POST',
         headers: {
@@ -134,103 +127,16 @@ export class AIEnrichmentService {
       }
       const data = await response.json();
       // API returnerar array av enriched documents direkt.
-      // Parsa parallellt (varje doc gör SSYK-lookups) i stället för sekventiellt
-      // - tidigare väntade 100 docs på varandra vilket var en stor tidstjuv.
       if (Array.isArray(data)) {
-        const parsed = await Promise.all(
-          data.map((enrichedDoc)=>this.parseAPIResponse(enrichedDoc.doc_id, enrichedDoc, deadlineMs))
-        );
-        parsed.forEach((enrichedData, idx)=>{
-          results.set(data[idx].doc_id, enrichedData);
-        });
+        for (const enrichedDoc of data){
+          results.set(enrichedDoc.doc_id, this.parseAPIResponse(enrichedDoc.doc_id, enrichedDoc));
+        }
       }
-      console.log(`[AI Enrichment] API enriched ${results.size}/${batch.length} jobs (with SSYK codes from Taxonomy API)`);
+      console.log(`[AI Enrichment] API enriched ${results.size}/${batch.length} jobs`);
     } catch (error) {
       console.error('[AI Enrichment] API error:', error);
     }
     return results;
-  }
-  /**
-   * Förvärm in-memory SSYK-cachen från persistent DB-cache (ssyk_code_cache).
-   * Gör att en kall edge-start slipper slå externt Taxonomy-API för termer
-   * som redan slagits upp någon gång globalt. Tyst no-op vid fel.
-   */ async preloadSsykCache() {
-    try {
-      const { data } = await this.supabase
-        .from('ssyk_code_cache')
-        .select('occupation_term, ssyk_code, found')
-        .limit(5000);
-      if (data) {
-        for (const row of data){
-          this.ssykCache.set(row.occupation_term, row.found ? row.ssyk_code : null);
-        }
-        console.log(`[AI Enrichment] Preloaded ${data.length} SSYK-koder från persistent cache`);
-      }
-    } catch (error) {
-      console.error('[AI Enrichment] SSYK preload error (non-blocking):', error);
-    }
-  }
-
-  /**
-   * Persistera ett SSYK-uppslag (även negativt) till DB-cachen.
-   */ async persistSsyk(term, ssykCode) {
-    try {
-      await this.supabase.from('ssyk_code_cache').upsert({
-        occupation_term: term,
-        ssyk_code: ssykCode,
-        found: ssykCode !== null,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'occupation_term'
-      });
-    } catch {
-    // Non-blocking - cache är en optimering, inte kritisk
-    }
-  }
-
-  /**
-   * Slå upp SSYK-kod för ett yrke via Taxonomy API (med persistent cache)
-   */ async lookupSSYKCode(occupationTerm) {
-    const key = occupationTerm.toLowerCase();
-    // Kolla in-memory cache först (inkl. förvärmd från DB)
-    if (this.ssykCache.has(key)) {
-      return this.ssykCache.get(key) || null;
-    }
-    try {
-      const url = `${TAXONOMY_API}/specific/concepts/ssyk?preferred-label=${encodeURIComponent(occupationTerm)}&limit=1`;
-      const response = await fetchWithTimeout(url, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      }, TAXONOMY_FETCH_TIMEOUT);
-      if (!response.ok) {
-        console.warn(`[AI Enrichment] Taxonomy API error for "${occupationTerm}": ${response.status}`);
-        this.ssykCache.set(key, null);
-        return null;
-      }
-      const data = await response.json();
-      // API returnerar array med concepts
-      if (Array.isArray(data) && data.length > 0) {
-        const concept = data[0];
-        const ssykCode = concept.ssyk_code_2012 || null;
-        if (ssykCode) {
-          console.log(`[AI Enrichment] ✅ Mapped "${occupationTerm}" → SSYK ${ssykCode}`);
-          this.ssykCache.set(key, ssykCode);
-          this.persistSsyk(key, ssykCode); // fire-and-forget
-          return ssykCode;
-        }
-      }
-      // Inget resultat (negativ cache, persisteras också)
-      console.warn(`[AI Enrichment] ⚠️ No SSYK code found for "${occupationTerm}"`);
-      this.ssykCache.set(key, null);
-      this.persistSsyk(key, null);
-      return null;
-    } catch (error) {
-      console.error(`[AI Enrichment] Error looking up SSYK for "${occupationTerm}":`, error);
-      // Cacha INTE i DB vid nätverksfel/timeout (kan vara övergående)
-      this.ssykCache.set(key, null);
-      return null;
-    }
   }
   /**
    * Parsa API-svar till vårt format
@@ -247,21 +153,17 @@ export class AIEnrichmentService {
    * }
    *
    * VIKTIGT: prediction är 0.0-1.0 (AI confidence score)
-   */ async parseAPIResponse(jobId, apiData, deadlineMs = Infinity) {
+   */ parseAPIResponse(jobId, apiData) {
     const enrichedCandidates = apiData.enriched_candidates || {};
-    // Occupations - slå upp SSYK-kod för varje yrke via Taxonomy API
+    // Occupations (term + AI-confidence). SSYK-lookup borttagen: Taxonomy-API:t
+    // exponerar ingen användbar väg från jobbtitel/yrkesgrupp till SSYK-kod
+    // (verifierat mot live-API - preferred-label/q= matchar aldrig), och
+    // scoringen använder concept_id från JobSearch i stället. Lookupen
+    // returnerade bara null och kostade 100 externa anrop per kall körning.
     const occupationsList = enrichedCandidates.occupations || [];
-    // Om tidsbudgeten är slut: hoppa över (kostsamma) SSYK-lookups och behåll
-    // bara term/weight. Enrichmenten blir lite grundare men funktionen svarar.
-    const skipSsyk = Date.now() >= deadlineMs;
-    // OPTIMERING: Gör ALLA SSYK-lookups parallellt istället för sekventiellt
-    const ssykCodes = skipSsyk
-      ? occupationsList.map(()=>null)
-      : await Promise.all(occupationsList.map((occ)=>this.lookupSSYKCode(occ.term)));
-    const occupations = occupationsList.map((occ, index)=>({
+    const occupations = occupationsList.map((occ)=>({
         term: occ.term,
-        weight: occ.prediction || 0.5,
-        ssyk_code: ssykCodes[index] // Nu hämtar vi RÄTT SSYK-kod från Taxonomy API
+        weight: occ.prediction || 0.5
       }));
     // Competencies (kompetenser/färdigheter)
     const competencies = (enrichedCandidates.competencies || []).map((comp)=>({

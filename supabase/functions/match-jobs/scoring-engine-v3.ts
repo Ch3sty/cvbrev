@@ -1372,7 +1372,30 @@ export class ScoringEngineV3 {
           }
         }
       }
-      // FALLBACK: Text-baserad matching
+      // PRIORITET 3: AI-enrichade skills/kompetenser (extraherade ur jobbtexten
+      // av JobTechs enrichment-API). Mer precist än rå text-matching nedan -
+      // tidigare oanvänt, nu inkopplat för bättre matchning.
+      const enrichedTerms = [
+        ...(input.enrichedJob?.skills || []),
+        ...(input.enrichedJob?.competencies || [])
+      ].map((s)=>(s?.term || '').toLowerCase()).filter((t)=>t.length > 0);
+      if (enrichedTerms.length > 0) {
+        let enrichedMatches = 0;
+        for (const cvSkill of input.cvSkills){
+          if (!matchedSkillNames.includes(cvSkill)) {
+            const lower = cvSkill.toLowerCase();
+            if (enrichedTerms.some((term)=>term.includes(lower) || lower.includes(term))) {
+              matchedSkills++;
+              enrichedMatches++;
+              matchedSkillNames.push(cvSkill);
+            }
+          }
+        }
+        if (enrichedMatches > 0) {
+          explanation.push(`🔎 ${enrichedMatches} skills via AI-enrichment`);
+        }
+      }
+      // FALLBACK: Text-baserad matching (endast om inget hittats ovan)
       if (matchedSkills === 0) {
         const jobText = `${input.job.headline || ''} ${input.job.description?.text || ''}`.toLowerCase();
         for (const skill of input.cvSkills){
