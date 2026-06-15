@@ -446,10 +446,12 @@ export const useProfile = () => {
         // --- SLUT PÅ NY HANTERING ---
 
 
-        // Hämta relaterad info
-        await fetchCvInfo();
-        fetchCvCount();
-        fetchSavedLettersCount();
+        // Hämta relaterad info parallellt (oberoende anrop).
+        await Promise.all([
+          fetchCvInfo(),
+          fetchCvCount(),
+          fetchSavedLettersCount(),
+        ]);
 
         console.log("useProfile: Profile fetch complete.");
         return data;
@@ -686,6 +688,7 @@ export const useProfile = () => {
     file: File,
     title?: string,
     onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
+    onComplete?: (cv: { id: string }) => void,
   ): Promise<boolean> => {
     console.log("useProfile: Attempting to upload CV:", file.name);
     if (calculateCvLimitReached(subscriptionTier, cvCount)) {
@@ -776,6 +779,11 @@ export const useProfile = () => {
 
       if (completePayload?.success) {
         console.log("useProfile: CV uploaded successfully. Refreshing counts and info.");
+        // completePayload.data är hela cv_texts-raden (se /api/cv/upload).
+        const uploadedCv = completePayload.data;
+        if (uploadedCv?.id && onComplete) {
+          onComplete({ id: uploadedCv.id });
+        }
         await fetchCvInfo();
         await fetchCvCount();
         setGdprConsent(false);

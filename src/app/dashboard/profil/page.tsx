@@ -25,6 +25,8 @@ interface ProfileFormState {
   preferred_tonality: TonalityValue;
   phone: string;
   location: string;
+  goal_role: string;
+  industry: string;
   include_phone_in_letters: boolean;
   include_location_in_letters: boolean;
 }
@@ -36,6 +38,8 @@ const EMPTY_FORM: ProfileFormState = {
   preferred_tonality: 'professional',
   phone: '',
   location: '',
+  goal_role: '',
+  industry: '',
   include_phone_in_letters: false,
   include_location_in_letters: false,
 };
@@ -71,6 +75,8 @@ export default function ProfilPage() {
         preferred_tonality: (profile.preferred_tonality || 'professional') as TonalityValue,
         phone: profile.phone || '',
         location: profile.location || '',
+        goal_role: (profile as any).goal_role || '',
+        industry: (profile as any).industry || '',
         include_phone_in_letters: profile.include_phone_in_letters || false,
         include_location_in_letters: profile.include_location_in_letters || false,
       };
@@ -262,6 +268,8 @@ export default function ProfilPage() {
           profilePhotoUrl={formData.profile_photo_url}
           phone={formData.phone}
           location={formData.location}
+          goalRole={formData.goal_role}
+          industry={formData.industry}
           includePhoneInLetters={formData.include_phone_in_letters}
           includeLocationInLetters={formData.include_location_in_letters}
           subscriptionTier={subscriptionTier}
@@ -272,6 +280,8 @@ export default function ProfilPage() {
           onPhotoRemove={() => setField('profile_photo_url', '')}
           onPhoneChange={(v) => setField('phone', v)}
           onLocationChange={(v) => setField('location', v)}
+          onGoalRoleChange={(v) => setField('goal_role', v)}
+          onIndustryChange={(v) => setField('industry', v)}
           onIncludePhoneChange={(v) => setField('include_phone_in_letters', v)}
           onIncludeLocationChange={(v) => setField('include_location_in_letters', v)}
           onError={(msg) =>

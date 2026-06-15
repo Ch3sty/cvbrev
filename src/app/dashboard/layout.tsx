@@ -1,6 +1,6 @@
 'use client';
 import { Suspense, useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
@@ -23,18 +23,15 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const { user, isLoading } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
-  // Redirect till login om ej autentiserad (efter initial load)
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login');
-    }
-  }, [isLoading, isAuthenticated, router]);
+  // OBS: server-side middleware (src/middleware.ts) garanterar redan att bara
+  // inloggade når /dashboard. Klient-redirecten + den blockerande spinnern är
+  // därför borttagna — vi väntar bara kort på att user-objektet hydrerar för
+  // UI som behöver user.id (header, achievements).
 
   // Check if user needs to set password (trial users)
   useEffect(() => {
@@ -48,20 +45,10 @@ export default function DashboardLayout({
     }
   }, [user]);
 
-  // Visa en laddningsskärm medan vi kontrollerar autentisering
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-b from-white to-slate-50/50">
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
-          <p className="text-slate-700">Laddar din dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Om användaren inte är inloggad, visa inget (redirect sker i useEffect)
-  if (!user) {
+  // Kort fönster innan user-objektet hydrerat på klienten. Middleware har redan
+  // verifierat inloggning server-side, så detta är millisekunder (ingen
+  // nätverksväntan som förut) — visa inget för att undvika en flash.
+  if (isLoading || !user) {
     return null;
   }
 

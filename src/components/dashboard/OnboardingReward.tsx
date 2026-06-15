@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, ArrowRight, Sparkles } from 'lucide-react'
 import { useOnboarding } from '@/contexts/OnboardingContext'
@@ -23,8 +23,12 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
   const [claiming, setClaiming] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  // Hindra dubbel-claim (auto + ev. klick). Idempotent route, men undvik race.
+  const claimAttempted = useRef(false)
 
-  const handleClaim = async () => {
+  const handleClaim = useCallback(async () => {
+    if (claimAttempted.current) return
+    claimAttempted.current = true
     setClaiming(true)
     setError(null)
 
@@ -47,10 +51,19 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
         window.location.reload()
       }, 2400)
     } catch (err) {
+      // Tillåt nytt försök via knappen om auto-claim fallerade.
+      claimAttempted.current = false
       setError(err instanceof Error ? err.message : 'Något gick fel')
       setClaiming(false)
     }
-  }
+  }, [markRewardClaimed])
+
+  // Auto-claim: belöningen ska kännas som ett firande, inte ännu en uppgift.
+  // Triggas en gång när komponenten visas (dvs. alla steg klara, ej claimat).
+  // Knappen finns kvar som fallback om detta fallerar.
+  useEffect(() => {
+    handleClaim()
+  }, [handleClaim])
 
   return (
     <motion.section
@@ -78,7 +91,7 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
             Du klarade alla tre stegen!
           </h2>
           <p className="text-sm sm:text-base text-white/95 leading-relaxed mb-5 max-w-xl">
-            Hämta din belöning: <span className="font-black">1 dag Premium gratis</span>.
+            Din belöning aktiveras nu: <span className="font-black">1 dag Premium gratis</span>.
             Det betyder följande under 24 timmar:
           </p>
 
@@ -95,7 +108,7 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
             ))}
           </ul>
 
-          {/* CTA */}
+          {/* Status. Belöningen auto-claimas; knappen visas bara som fallback vid fel. */}
           <AnimatePresence mode="wait">
             {success ? (
               <motion.div
@@ -108,9 +121,9 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
                 <Check className="w-5 h-5" strokeWidth={3} />
                 Premium aktivt — laddar om...
               </motion.div>
-            ) : (
+            ) : error ? (
               <motion.button
-                key="claim"
+                key="retry"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={handleClaim}
@@ -124,7 +137,7 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
                 {claiming ? (
                   <>
                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Hämtar...
+                    Försöker igen...
                   </>
                 ) : (
                   <>
@@ -136,6 +149,16 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
                   </>
                 )}
               </motion.button>
+            ) : (
+              <motion.div
+                key="claiming"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white/20 backdrop-blur-sm text-white font-black text-base min-h-[52px]"
+              >
+                <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                Aktiverar din belöning...
+              </motion.div>
             )}
           </AnimatePresence>
 

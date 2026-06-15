@@ -39,10 +39,10 @@ const NEXT_STEP_CONFIG = {
   },
   analyze_cv: {
     completedLabel: 'CV analyserat',
-    nextTitle: 'Hämta din belöning',
-    nextDescription: 'Du har klarat alla tre steg. Lås upp 1 dag Premium.',
-    ctaLabel: 'Hämta belöning',
-    ctaHref: '/dashboard/kom-igang',
+    nextTitle: 'Alla tre steg klara!',
+    nextDescription: 'Din belöning – 1 dag Premium – aktiveras automatiskt.',
+    ctaLabel: 'Till översikten',
+    ctaHref: '/dashboard',
   },
 }
 

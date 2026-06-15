@@ -16,7 +16,6 @@ import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAk
 import OnboardingHero from '@/components/dashboard/OnboardingHero';
 import OnboardingDag2 from '@/components/dashboard/OnboardingDag2';
 // Ovriga
-import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 
 interface DashboardStats {
   totalLetters: number;
@@ -71,71 +70,96 @@ export default function DashboardPage() {
 
         if (!user) return;
 
-        const { data: letters } = await supabase
-          .from('letters')
-          .select('id, user_id, title, company, job_title, created_at')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
-
-        const now = new Date();
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-        const monthlyLetters = letters?.filter(letter =>
-          new Date(letter.created_at) >= startOfMonth
-        ) || [];
-
-        const { count: cvCount } = await supabase
-          .from('cv_texts')
-          .select('*', { count: 'exact', head: true })
-          .eq('user_id', user.id);
-
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select(`
-            full_name,
-            subscription_tier,
-            premium_until,
-            premium_source,
-            weekly_letter_count,
-            weekly_letter_reset_at,
-            weekly_analysis_count,
-            weekly_analysis_reset_at,
-            weekly_linkedin_count,
-            weekly_linkedin_reset_at,
-            onboarding_completed,
-            onboarding_started_at,
-            onboarding_skipped,
-            created_at
-          `)
-          .eq('id', user.id)
-          .single();
-
-        const { data: gamStats } = await supabase
-          .from('global_user_stats')
-          .select('daily_streak, longest_streak')
-          .eq('user_id', user.id)
-          .maybeSingle();
-
+        // Datum-gränser beräknas före anropen så de kan köras parallellt.
         const todayStockholm = new Intl.DateTimeFormat('en-CA', {
           timeZone: 'Europe/Stockholm',
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
         }).format(new Date());
-        const { data: dailyXpToday } = await supabase
-          .from('user_daily_xp')
-          .select('daily_xp_earned')
-          .eq('user_id', user.id)
-          .eq('date', todayStockholm)
-          .maybeSingle();
 
         const twentyEightDaysAgo = new Date();
         twentyEightDaysAgo.setDate(twentyEightDaysAgo.getDate() - 27);
         twentyEightDaysAgo.setHours(0, 0, 0, 0);
-        const { data: xpRows } = await supabase
-          .from('xp_history')
-          .select('created_at, amount')
-          .eq('user_id', user.id)
-          .gte('created_at', twentyEightDaysAgo.toISOString());
+
+        // Alla anrop nedan är oberoende (filtrerar bara på user.id) → kör parallellt.
+        // Rewards-fetchen har egen felhantering och resolvar till fallback vid fel.
+        const fallbackRewards = { currentLevel: 1, levelTitle: 'Novis', availableRewards: 0 };
+        const [
+          { data: letters },
+          { count: cvCount },
+          { data: profile },
+          { data: gamStats },
+          { data: dailyXpToday },
+          { data: xpRows },
+          rewardsData,
+        ] = await Promise.all([
+          supabase
+            .from('letters')
+            .select('id, user_id, title, company, job_title, created_at')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false }),
+          supabase
+            .from('cv_texts')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', user.id),
+          supabase
+            .from('profiles')
+            .select(`
+              full_name,
+              subscription_tier,
+              premium_until,
+              premium_source,
+              weekly_letter_count,
+              weekly_letter_reset_at,
+              weekly_analysis_count,
+              weekly_analysis_reset_at,
+              weekly_linkedin_count,
+              weekly_linkedin_reset_at,
+              onboarding_completed,
+              onboarding_started_at,
+              onboarding_skipped,
+              created_at
+            `)
+            .eq('id', user.id)
+            .single(),
+          supabase
+            .from('global_user_stats')
+            .select('daily_streak, longest_streak')
+            .eq('user_id', user.id)
+            .maybeSingle(),
+          supabase
+            .from('user_daily_xp')
+            .select('daily_xp_earned')
+            .eq('user_id', user.id)
+            .eq('date', todayStockholm)
+            .maybeSingle(),
+          supabase
+            .from('xp_history')
+            .select('created_at, amount')
+            .eq('user_id', user.id)
+            .gte('created_at', twentyEightDaysAgo.toISOString()),
+          fetch('/api/rewards/status')
+            .then(async (res) => {
+              if (!res.ok) return fallbackRewards;
+              const rewards = await res.json();
+              return {
+                currentLevel: rewards.data.currentLevel || 1,
+                levelTitle: rewards.data.levelTitle || 'Novis',
+                availableRewards: rewards.data.availableRewards?.length || 0,
+              };
+            })
+            .catch((error) => {
+              console.error('Fel vid hämtning av rewards:', error);
+              return fallbackRewards;
+            }),
+        ]);
+
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const monthlyLetters = letters?.filter(letter =>
+          new Date(letter.created_at) >= startOfMonth
+        ) || [];
 
         const dailyXp: { date: string; xp: number }[] = [];
         for (let i = 27; i >= 0; i--) {
@@ -156,26 +180,6 @@ export default function DashboardPage() {
           });
         }
 
-
-        let rewardsData = {
-          currentLevel: 1,
-          levelTitle: 'Novis',
-          availableRewards: 0
-        };
-
-        try {
-          const rewardsResponse = await fetch('/api/rewards/status');
-          if (rewardsResponse.ok) {
-            const rewards = await rewardsResponse.json();
-            rewardsData = {
-              currentLevel: rewards.data.currentLevel || 1,
-              levelTitle: rewards.data.levelTitle || 'Novis',
-              availableRewards: rewards.data.availableRewards?.length || 0
-            };
-          }
-        } catch (error) {
-          console.error('Fel vid hämtning av rewards:', error);
-        }
 
         const isPremium = !!(
           profile?.subscription_tier === 'premium' ||
@@ -266,8 +270,6 @@ export default function DashboardPage() {
         }}
         aria-hidden="true"
       />
-
-      <LiveActivityIndicator className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40" showBadge={false} />
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}
