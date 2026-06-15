@@ -11,6 +11,27 @@
  * API Docs: https://jobad-enrichments.api.jobtechdev.se
  */ const ENRICHMENTS_API = 'https://jobad-enrichments-api.jobtechdev.se';
 const TAXONOMY_API = 'https://taxonomy.api.jobtechdev.se/v1/taxonomy';
+
+// Timeouts för externa API-anrop (ms). Hindrar att ett hängande API fryser
+// hela edge-funktionen mot 150s-timeouten.
+const ENRICHMENTS_FETCH_TIMEOUT = 20000;
+const TAXONOMY_FETCH_TIMEOUT = 5000;
+
+// fetch med hård timeout via AbortSignal.
+async function fetchWithTimeout(url, options, timeoutMs) {
+  try {
+    return await fetch(url, {
+      ...options,
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+  } catch (error) {
+    if (error?.name === 'TimeoutError' || error?.name === 'AbortError') {
+      console.warn(`[AI Enrichment] Fetch timeout (${timeoutMs}ms) for ${url}`);
+    }
+    throw error;
+  }
+}
+
 export class AIEnrichmentService {
   supabase;
   ssykCache = new Map();
@@ -18,10 +39,12 @@ export class AIEnrichmentService {
     this.supabase = supabase;
   }
   /**
-   * Berika flera jobb samtidigt (batch processing)
-   */ async enrichJobsBatch(jobs) {
+   * Berika flera jobb samtidigt (batch processing).
+   * deadlineMs = absolut tidsstämpel (Date.now()-bas) då enrichment MÅSTE
+   * avbrytas. När den passeras returnerar vi det vi hunnit + cache, så att
+   * edge-funktionen aldrig närmar sig 150s-timeouten (546-fel).
+   */ async enrichJobsBatch(jobs, deadlineMs = Infinity) {
     console.log(`[AI Enrichment] Processing ${jobs.length} jobs...`);
-    const results = new Map();
     // Steg 1: Kolla cache först
     const jobIds = jobs.map((j)=>j.id);
     const cached = await this.getCachedEnrichments(jobIds);
@@ -33,15 +56,22 @@ export class AIEnrichmentService {
       return cached;
     }
     console.log(`[AI Enrichment] Need to enrich ${uncachedJobs.length} jobs`);
+    // Förvärm SSYK-cachen från DB (persistent) så lookups slipper externt API.
+    await this.preloadSsykCache();
     // Steg 3: Berika i batches om 100 (API-limit)
     const BATCH_SIZE = 100;
     const newEnrichments = new Map();
     for(let i = 0; i < uncachedJobs.length; i += BATCH_SIZE){
+      // Tidsbudget: avbryt om vi passerat deadline, returnera det vi har.
+      if (Date.now() >= deadlineMs) {
+        console.warn(`[AI Enrichment] ⏱️ Deadline nådd - avbryter enrichment efter ${newEnrichments.size} jobb (resten får quick-score, förfinas vid nästa anrop)`);
+        break;
+      }
       const batch = uncachedJobs.slice(i, i + BATCH_SIZE);
       console.log(`[AI Enrichment] Processing batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(uncachedJobs.length / BATCH_SIZE)}`);
       try {
         // Försök med API först
-        const batchEnrichments = await this.enrichBatchViaAPI(batch);
+        const batchEnrichments = await this.enrichBatchViaAPI(batch, deadlineMs);
         // Om API failar, använd fallback
         if (batchEnrichments.size === 0) {
           console.warn('[AI Enrichment] API failed, using local fallback');
@@ -75,7 +105,7 @@ export class AIEnrichmentService {
   }
   /**
    * Berika batch via JobAd Enrichments API
-   */ async enrichBatchViaAPI(batch) {
+   */ async enrichBatchViaAPI(batch, deadlineMs = Infinity) {
     const results = new Map();
     try {
       // Korrekt format enligt API-dokumentation: https://jobad-enrichments-api.jobtechdev.se/
@@ -88,7 +118,7 @@ export class AIEnrichmentService {
       // - ALLA terms med confidence scores (0.0-1.0)
       // - Mer flexibel filtrering (vi bestämmer threshold)
       // - Bättre för SSYK-lookup (även låg-confidence terms)
-      const response = await fetch(`${ENRICHMENTS_API}/enrichtextdocuments`, {
+      const response = await fetchWithTimeout(`${ENRICHMENTS_API}/enrichtextdocuments`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -97,19 +127,22 @@ export class AIEnrichmentService {
         body: JSON.stringify({
           documents_input
         })
-      });
+      }, ENRICHMENTS_FETCH_TIMEOUT);
       if (!response.ok) {
         console.warn(`[AI Enrichment] API returned ${response.status}`);
         return results;
       }
       const data = await response.json();
-      // API returnerar array av enriched documents direkt
+      // API returnerar array av enriched documents direkt.
+      // Parsa parallellt (varje doc gör SSYK-lookups) i stället för sekventiellt
+      // - tidigare väntade 100 docs på varandra vilket var en stor tidstjuv.
       if (Array.isArray(data)) {
-        for (const enrichedDoc of data){
-          const jobId = enrichedDoc.doc_id;
-          const enrichedData = await this.parseAPIResponse(jobId, enrichedDoc);
-          results.set(jobId, enrichedData);
-        }
+        const parsed = await Promise.all(
+          data.map((enrichedDoc)=>this.parseAPIResponse(enrichedDoc.doc_id, enrichedDoc, deadlineMs))
+        );
+        parsed.forEach((enrichedData, idx)=>{
+          results.set(data[idx].doc_id, enrichedData);
+        });
       }
       console.log(`[AI Enrichment] API enriched ${results.size}/${batch.length} jobs (with SSYK codes from Taxonomy API)`);
     } catch (error) {
@@ -118,22 +151,61 @@ export class AIEnrichmentService {
     return results;
   }
   /**
-   * Slå upp SSYK-kod för ett yrke via Taxonomy API
+   * Förvärm in-memory SSYK-cachen från persistent DB-cache (ssyk_code_cache).
+   * Gör att en kall edge-start slipper slå externt Taxonomy-API för termer
+   * som redan slagits upp någon gång globalt. Tyst no-op vid fel.
+   */ async preloadSsykCache() {
+    try {
+      const { data } = await this.supabase
+        .from('ssyk_code_cache')
+        .select('occupation_term, ssyk_code, found')
+        .limit(5000);
+      if (data) {
+        for (const row of data){
+          this.ssykCache.set(row.occupation_term, row.found ? row.ssyk_code : null);
+        }
+        console.log(`[AI Enrichment] Preloaded ${data.length} SSYK-koder från persistent cache`);
+      }
+    } catch (error) {
+      console.error('[AI Enrichment] SSYK preload error (non-blocking):', error);
+    }
+  }
+
+  /**
+   * Persistera ett SSYK-uppslag (även negativt) till DB-cachen.
+   */ async persistSsyk(term, ssykCode) {
+    try {
+      await this.supabase.from('ssyk_code_cache').upsert({
+        occupation_term: term,
+        ssyk_code: ssykCode,
+        found: ssykCode !== null,
+        updated_at: new Date().toISOString()
+      }, {
+        onConflict: 'occupation_term'
+      });
+    } catch {
+    // Non-blocking - cache är en optimering, inte kritisk
+    }
+  }
+
+  /**
+   * Slå upp SSYK-kod för ett yrke via Taxonomy API (med persistent cache)
    */ async lookupSSYKCode(occupationTerm) {
-    // Kolla cache först
-    if (this.ssykCache.has(occupationTerm.toLowerCase())) {
-      return this.ssykCache.get(occupationTerm.toLowerCase()) || null;
+    const key = occupationTerm.toLowerCase();
+    // Kolla in-memory cache först (inkl. förvärmd från DB)
+    if (this.ssykCache.has(key)) {
+      return this.ssykCache.get(key) || null;
     }
     try {
       const url = `${TAXONOMY_API}/specific/concepts/ssyk?preferred-label=${encodeURIComponent(occupationTerm)}&limit=1`;
-      const response = await fetch(url, {
+      const response = await fetchWithTimeout(url, {
         headers: {
           'Accept': 'application/json'
         }
-      });
+      }, TAXONOMY_FETCH_TIMEOUT);
       if (!response.ok) {
         console.warn(`[AI Enrichment] Taxonomy API error for "${occupationTerm}": ${response.status}`);
-        this.ssykCache.set(occupationTerm.toLowerCase(), null);
+        this.ssykCache.set(key, null);
         return null;
       }
       const data = await response.json();
@@ -143,17 +215,20 @@ export class AIEnrichmentService {
         const ssykCode = concept.ssyk_code_2012 || null;
         if (ssykCode) {
           console.log(`[AI Enrichment] ✅ Mapped "${occupationTerm}" → SSYK ${ssykCode}`);
-          this.ssykCache.set(occupationTerm.toLowerCase(), ssykCode);
+          this.ssykCache.set(key, ssykCode);
+          this.persistSsyk(key, ssykCode); // fire-and-forget
           return ssykCode;
         }
       }
-      // Inget resultat
+      // Inget resultat (negativ cache, persisteras också)
       console.warn(`[AI Enrichment] ⚠️ No SSYK code found for "${occupationTerm}"`);
-      this.ssykCache.set(occupationTerm.toLowerCase(), null);
+      this.ssykCache.set(key, null);
+      this.persistSsyk(key, null);
       return null;
     } catch (error) {
       console.error(`[AI Enrichment] Error looking up SSYK for "${occupationTerm}":`, error);
-      this.ssykCache.set(occupationTerm.toLowerCase(), null);
+      // Cacha INTE i DB vid nätverksfel/timeout (kan vara övergående)
+      this.ssykCache.set(key, null);
       return null;
     }
   }
@@ -172,13 +247,17 @@ export class AIEnrichmentService {
    * }
    *
    * VIKTIGT: prediction är 0.0-1.0 (AI confidence score)
-   */ async parseAPIResponse(jobId, apiData) {
+   */ async parseAPIResponse(jobId, apiData, deadlineMs = Infinity) {
     const enrichedCandidates = apiData.enriched_candidates || {};
     // Occupations - slå upp SSYK-kod för varje yrke via Taxonomy API
     const occupationsList = enrichedCandidates.occupations || [];
+    // Om tidsbudgeten är slut: hoppa över (kostsamma) SSYK-lookups och behåll
+    // bara term/weight. Enrichmenten blir lite grundare men funktionen svarar.
+    const skipSsyk = Date.now() >= deadlineMs;
     // OPTIMERING: Gör ALLA SSYK-lookups parallellt istället för sekventiellt
-    const ssykPromises = occupationsList.map((occ)=>this.lookupSSYKCode(occ.term));
-    const ssykCodes = await Promise.all(ssykPromises);
+    const ssykCodes = skipSsyk
+      ? occupationsList.map(()=>null)
+      : await Promise.all(occupationsList.map((occ)=>this.lookupSSYKCode(occ.term)));
     const occupations = occupationsList.map((occ, index)=>({
         term: occ.term,
         weight: occ.prediction || 0.5,

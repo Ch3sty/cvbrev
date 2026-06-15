@@ -24,6 +24,15 @@ Deno.serve(async (req) => {
     headers: corsHeaders
   });
 
+  // Wall-clock-budget: edge-funktioner dödas vid ~150s (HTTP 546). Vi sätter
+  // interna deadlines med god marginal så funktionen ALLTID svarar i tid.
+  // Aggregering får max 60s, enrichment fram till 120s; resten (scoring + cache
+  // + svar) ryms väl inom kvarvarande ~30s. Det som inte hinns enrichas får
+  // quick-score och förfinas vid nästa anrop (varm cache).
+  const FUNCTION_START = Date.now();
+  const AGGREGATION_DEADLINE = FUNCTION_START + 60000;
+  const ENRICHMENT_DEADLINE = FUNCTION_START + 120000;
+
   try {
     const { userId, customQuery, skipCache, offset, limit } = await req.json();
 
@@ -183,7 +192,8 @@ Deno.serve(async (req) => {
       userLocation: cvLocation || '',
       customQuery: customQuery,
       maxJobsPerQuery: 1000,
-      maxTotalJobs: 2000
+      maxTotalJobs: 2000,
+      deadlineMs: AGGREGATION_DEADLINE
     });
 
     console.log(`[Match-Jobs-V2] Aggregated ${allJobs.length} total jobs from all sources`);
@@ -245,7 +255,8 @@ Deno.serve(async (req) => {
         id: job.id,
         headline: job.headline,
         text: job.description?.text || ''
-      }))
+      })),
+      ENRICHMENT_DEADLINE
     );
 
     console.log(`[Match-Jobs-V2] Successfully enriched ${enrichedJobsMap.size} jobs`);

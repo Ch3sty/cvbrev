@@ -7,11 +7,20 @@
  * - Stöd för occupation-name parameter (exakt concept_id matching)
  * - must_have och nice_to_have krav
  */ const JOBSEARCH_API = 'https://jobsearch.api.jobtechdev.se/search';
+
+// Timeout per JobSearch-anrop (ms) så ett hängande API inte fryser funktionen.
+const JOBSEARCH_FETCH_TIMEOUT = 10000;
+
 export class MultiSourceAggregator {
   hasLoggedDescription = false;
+  // Absolut deadline (Date.now()-bas) då aggregering ska sluta paginera.
+  aggregationDeadline = Infinity;
   /**
-   * Huvudfunktion: Aggregera jobb från alla källor
+   * Huvudfunktion: Aggregera jobb från alla källor.
+   * params.deadlineMs sätter en wall-clock-budget för aggregeringen så att
+   * den aldrig drar iväg mot edge-funktionens 150s-timeout.
    */ async aggregateJobs(params) {
+    this.aggregationDeadline = params.deadlineMs ?? Infinity;
     console.log('[Aggregator] Starting multi-source aggregation...');
     const allJobs = [];
     const seenIds = new Set();
@@ -154,6 +163,11 @@ export class MultiSourceAggregator {
         console.log(`[Aggregator] Reached max offset (2000) at page ${page + 1}`);
         break;
       }
+      // Tidsbudget: sluta paginera om aggregeringen passerat sin deadline.
+      if (Date.now() >= this.aggregationDeadline) {
+        console.warn(`[Aggregator] ⏱️ Deadline nådd - stoppar pagination vid sida ${page + 1} (${allJobs.length} jobb hittills)`);
+        break;
+      }
       try {
         const queryParams = new URLSearchParams();
         // JobSearch API parametrar
@@ -198,7 +212,8 @@ export class MultiSourceAggregator {
         const response = await fetch(url, {
           headers: {
             'Accept': 'application/json'
-          }
+          },
+          signal: AbortSignal.timeout(JOBSEARCH_FETCH_TIMEOUT)
         });
         if (!response.ok) {
           console.error(`[Aggregator] API error (${response.status}) at page ${page + 1}`);
