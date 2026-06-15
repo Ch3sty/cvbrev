@@ -191,23 +191,16 @@ export default function CVActivationCard({
           </div>
         )}
 
-      {/* 5. CTA-banner */}
+      {/* 5. Diskret länk till sökvyn (stora CTA-knappen borttagen — aktivering
+          öppnar redan sökvyn automatiskt; denna är för redan aktiva CV:n) */}
       {onSearchJobs && (
-        <motion.button
-          whileHover={{ y: -1 }}
-          whileTap={{ scale: 0.99 }}
+        <button
           onClick={onSearchJobs}
-          className="w-full py-4 rounded-2xl text-white font-semibold transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg text-base sm:text-lg"
-          style={{
-            background: 'linear-gradient(90deg, #F97316, #DC2626)',
-            boxShadow: '0 12px 24px -8px rgba(220, 38, 38, 0.4)',
-          }}
+          className="w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 hover:border-orange-300 touch-manipulation min-h-[44px]"
         >
-          <Search className="w-5 h-5 flex-shrink-0" strokeWidth={2.25} />
-          <span className="text-center leading-tight">
-            Hitta lediga tjänster som matchar ditt valda CV
-          </span>
-        </motion.button>
+          <Search className="w-4 h-4 flex-shrink-0" strokeWidth={2.25} />
+          Visa matchande jobb
+        </button>
       )}
 
       {/* Analyserad-datum */}
