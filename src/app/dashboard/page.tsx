@@ -16,7 +16,6 @@ import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAk
 import OnboardingHero from '@/components/dashboard/OnboardingHero';
 import OnboardingDag2 from '@/components/dashboard/OnboardingDag2';
 // Ovriga
-import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 
 interface DashboardStats {
   totalLetters: number;
@@ -271,8 +270,6 @@ export default function DashboardPage() {
         }}
         aria-hidden="true"
       />
-
-      <LiveActivityIndicator className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40" showBadge={false} />
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}

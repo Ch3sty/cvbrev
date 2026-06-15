@@ -50,14 +50,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
 
   useEffect(() => {
-    let userId: string | null = null;
+    // Kanaler skapas async (efter att userId hamtats) men maste stadas i en
+    // synkront korande cleanup. Hall dem i en array + en cancelled-flagga.
+    const channels: ReturnType<typeof supabase.channel>[] = [];
+    let cancelled = false;
 
     const loadProfile = async () => {
       try {
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         if (authError || !user?.id) return;
 
-        userId = user.id;
+        const userId = user.id;
 
         const { data: profile } = await supabase
           .from('profiles')
@@ -78,6 +81,32 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         setIsAdmin(!!adminData);
 
         await refreshCounts(userId);
+
+        // Om komponenten unmountats medan vi laddade: hoppa over realtime.
+        if (cancelled) return;
+
+        // Realtime: lyssna pa cv_texts + letters sa countarna uppdateras direkt
+        // efter att anvandaren laddar upp CV / sparar brev (utan ctrl+shift+r).
+        // Filtrerat pa den inloggade anvandaren — annars triggas refreshCounts
+        // av ALLA anvandares andringar (onodiga queries + integritetslackage).
+        channels.push(
+          supabase
+            .channel('sidebar_cv_texts_changes')
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'cv_texts', filter: `user_id=eq.${userId}` },
+              () => refreshCounts(userId)
+            )
+            .subscribe(),
+          supabase
+            .channel('sidebar_letters_changes')
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'letters', filter: `user_id=eq.${userId}` },
+              () => refreshCounts(userId)
+            )
+            .subscribe()
+        );
       } catch (error) {
         console.error('Sidebar: error loading profile', error);
       }
@@ -101,25 +130,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
     loadProfile();
 
-    // Realtime: lyssna pa cv_texts + letters sa countarna uppdateras direkt
-    // efter att anvandaren laddar upp CV / sparar brev (utan ctrl+shift+r).
-    const cvChannel = supabase
-      .channel('sidebar_cv_texts_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'cv_texts' }, () => {
-        if (userId) refreshCounts(userId);
-      })
-      .subscribe();
-
-    const letterChannel = supabase
-      .channel('sidebar_letters_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'letters' }, () => {
-        if (userId) refreshCounts(userId);
-      })
-      .subscribe();
-
     return () => {
-      supabase.removeChannel(cvChannel);
-      supabase.removeChannel(letterChannel);
+      cancelled = true;
+      channels.forEach((ch) => supabase.removeChannel(ch));
     };
   }, [supabase]);
 

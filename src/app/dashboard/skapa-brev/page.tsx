@@ -7,7 +7,6 @@ import { Info } from 'lucide-react';
 import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
-import { useCvQuota } from '@/hooks/useCvQuota';
 import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
 import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
@@ -31,11 +30,20 @@ type Language = 'sv' | 'en';
 
 export default function CreateLetterPage() {
   const router = useRouter();
-  const { fetchCVs, cvs } = useCVStore();
+  // CV-listan hämtas en gång via cv-store. cvCount/loading härleds härifrån i
+  // stället för ett separat useCvQuota-anrop (som dubblerade samma DB-queries).
+  const { fetchCVs, cvs, isLoading: cvLoading } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
-  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
   const { successWithMascotAndActivity } = useNotification();
+
+  // Har vi hämtat CV-listan minst en gång? (skiljer "laddar" från "tom lista").
+  // State, inte ref, så gating-effekten kör om när första fetch är klar.
+  const [hasFetchedCvs, setHasFetchedCvs] = useState(false);
+  const cvCount = cvs.length;
+  // Betrakta som laddande tills första fetch är klar, så gating nedan inte
+  // triggar en felaktig redirect innan datan finns.
+  const cvQuotaLoading = cvLoading || !hasFetchedCvs;
 
   // Synkron prefill-läsning – module-level cache klarar dubbel-mount.
   const [prefillData] = useState<CoverLetterPrefillData | null>(() =>
@@ -95,7 +103,9 @@ export default function CreateLetterPage() {
   }, [isPremium]);
 
   useEffect(() => {
-    fetchCVs();
+    fetchCVs().finally(() => {
+      setHasFetchedCvs(true);
+    });
   }, [fetchCVs]);
 
   // Auto-scroll till rätt sektion vid prefill
