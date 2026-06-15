@@ -446,10 +446,12 @@ export const useProfile = () => {
         // --- SLUT PÅ NY HANTERING ---
 
 
-        // Hämta relaterad info
-        await fetchCvInfo();
-        fetchCvCount();
-        fetchSavedLettersCount();
+        // Hämta relaterad info parallellt (oberoende anrop).
+        await Promise.all([
+          fetchCvInfo(),
+          fetchCvCount(),
+          fetchSavedLettersCount(),
+        ]);
 
         console.log("useProfile: Profile fetch complete.");
         return data;
