@@ -15,12 +15,18 @@ export class MultiSourceAggregator {
   hasLoggedDescription = false;
   // Absolut deadline (Date.now()-bas) då aggregering ska sluta paginera.
   aggregationDeadline = Infinity;
+  // Användarvalda filter som appliceras på ALLA sök-strategier (sätts i
+  // aggregateJobs, läses i fetchWithPagination). Tomt objekt = inga filter.
+  searchFilters = {};
   /**
    * Huvudfunktion: Aggregera jobb från alla källor.
    * params.deadlineMs sätter en wall-clock-budget för aggregeringen så att
    * den aldrig drar iväg mot edge-funktionens 150s-timeout.
+   * params.filters = { remote, worktimeExtent, noExperience,
+   *   publishedAfterMinutes, sort, position, positionRadius, municipality }
    */ async aggregateJobs(params) {
     this.aggregationDeadline = params.deadlineMs ?? Infinity;
+    this.searchFilters = params.filters || {};
     console.log('[Aggregator] Starting multi-source aggregation...');
     const allJobs = [];
     const seenIds = new Set();
@@ -206,6 +212,27 @@ export class MultiSourceAggregator {
         if (query.country) queryParams.append('country', query.country);
         // Fritext
         if (query.q) queryParams.append('q', query.q);
+        // ── Användarvalda filter (gäller alla sök-strategier) ──────────────
+        // Sätts i aggregateJobs från request.filters. Tomt objekt = inga filter.
+        const f = this.searchFilters || {};
+        if (f.remote === true) queryParams.append('remote', 'true');
+        if (f.noExperience === true) queryParams.append('experience', 'false');
+        if (f.worktimeExtent) queryParams.append('worktime-extent', f.worktimeExtent);
+        if (f.sort) queryParams.append('sort', f.sort);
+        if (Number.isFinite(f.publishedAfterMinutes) && f.publishedAfterMinutes > 0) {
+          queryParams.append('published-after', String(f.publishedAfterMinutes));
+        }
+        // Geo-radie: position "lat,lon" + radie i km. Endast om ingen explicit
+        // ort/kommun valts via query (occupation-search skickar inte position).
+        if (f.position && Number.isFinite(f.positionRadius) && f.positionRadius > 0) {
+          queryParams.append('position', f.position);
+          queryParams.append('position.radius', String(f.positionRadius));
+        }
+        // Användarvalda orter (concept_ids) – läggs till utöver query.municipality.
+        if (f.municipality) {
+          const fMunis = Array.isArray(f.municipality) ? f.municipality : [f.municipality];
+          fMunis.forEach((m)=>queryParams.append('municipality', m));
+        }
         queryParams.append('limit', LIMIT.toString());
         queryParams.append('offset', offset.toString());
         const url = `${JOBSEARCH_API}?${queryParams.toString()}`;
