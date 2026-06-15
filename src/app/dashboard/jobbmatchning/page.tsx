@@ -213,17 +213,21 @@ export default function JobbmatchningPage() {
         requestBody.customQuery = searchQuery;
       }
 
+      // Klient-timeout: hindra att UI:t fastnar på "Förbereder vy / 100%" om
+      // edge-funktionen mot förmodan inte svarar. Servern är tidsbudgeterad till
+      // ~150s, så 160s klient-timeout ger den marginal att svara först.
       const response = await fetch(functionUrl, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBody),
+        signal: AbortSignal.timeout(160000)
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || 'Kunde inte hämta jobbannonser');
       }
 
@@ -251,7 +255,12 @@ export default function JobbmatchningPage() {
       }
     } catch (err) {
       console.error('Error fetching jobs:', err);
-      setError(err instanceof Error ? err.message : 'Ett fel uppstod');
+      // Skilj timeout/abort från övriga fel för ett begripligt meddelande.
+      if (err instanceof DOMException && err.name === 'TimeoutError') {
+        setError('Sökningen tog längre tid än väntat. Försök igen — andra försöket går oftast snabbt.');
+      } else {
+        setError(err instanceof Error ? err.message : 'Ett fel uppstod. Försök igen.');
+      }
     } finally {
       setLoadingJobs(false);
     }
@@ -474,13 +483,19 @@ export default function JobbmatchningPage() {
               </form>
 
               {/* Error Message */}
-              {error && (
+              {error && !loadingJobs && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl p-3 sm:p-4"
+                  className="bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
                 >
                   <p className="text-sm sm:text-base text-red-600">{error}</p>
+                  <button
+                    onClick={() => fetchJobs(customSearch.trim() || undefined)}
+                    className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-lg transition-all touch-manipulation min-h-[40px]"
+                  >
+                    Försök igen
+                  </button>
                 </motion.div>
               )}
 
