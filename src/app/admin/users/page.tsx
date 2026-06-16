@@ -47,6 +47,9 @@ interface User {
   cv_templates_downloaded_count: number;
   job_matches_count: number;
   linkedin_optimizations_count: number;
+  coach_conversations_count: number;
+  logic_tests_count: number;
+  personality_tests_count: number;
 
   // Secondary metrics: Saved documents
   saved_letters_count: number;
@@ -132,6 +135,9 @@ export default function AdminUsersPage() {
                    sortField === 'cv_templates_downloaded_count' ? (a.cv_templates_downloaded_count || 0) :
                    sortField === 'job_matches_count' ? (a.job_matches_count || 0) :
                    sortField === 'linkedin_optimizations_count' ? (a.linkedin_optimizations_count || 0) :
+                   sortField === 'coach_conversations_count' ? (a.coach_conversations_count || 0) :
+                   sortField === 'logic_tests_count' ? (a.logic_tests_count || 0) :
+                   sortField === 'personality_tests_count' ? (a.personality_tests_count || 0) :
                    sortField === 'saved_letters_count' ? (a.saved_letters_count || 0) :
                    sortField === 'saved_cvs_count' ? (a.saved_cvs_count || 0) :
                    a[sortField as keyof User];
@@ -140,6 +146,9 @@ export default function AdminUsersPage() {
                    sortField === 'cv_templates_downloaded_count' ? (b.cv_templates_downloaded_count || 0) :
                    sortField === 'job_matches_count' ? (b.job_matches_count || 0) :
                    sortField === 'linkedin_optimizations_count' ? (b.linkedin_optimizations_count || 0) :
+                   sortField === 'coach_conversations_count' ? (b.coach_conversations_count || 0) :
+                   sortField === 'logic_tests_count' ? (b.logic_tests_count || 0) :
+                   sortField === 'personality_tests_count' ? (b.personality_tests_count || 0) :
                    sortField === 'saved_letters_count' ? (b.saved_letters_count || 0) :
                    sortField === 'saved_cvs_count' ? (b.saved_cvs_count || 0) :
                    b[sortField as keyof User];
@@ -191,6 +200,9 @@ export default function AdminUsersPage() {
             cv_templates_downloaded_count,
             job_matches_count,
             linkedin_optimizations_count,
+            coach_conversations_count,
+            logic_tests_count,
+            personality_tests_count,
             saved_letters_count,
             saved_cvs_count
           `)
@@ -234,6 +246,9 @@ export default function AdminUsersPage() {
             cv_templates_downloaded_count: user.cv_templates_downloaded_count || 0,
             job_matches_count: user.job_matches_count || 0,
             linkedin_optimizations_count: user.linkedin_optimizations_count || 0,
+            coach_conversations_count: user.coach_conversations_count || 0,
+            logic_tests_count: user.logic_tests_count || 0,
+            personality_tests_count: user.personality_tests_count || 0,
             saved_letters_count: user.saved_letters_count || 0,
             saved_cvs_count: user.saved_cvs_count || 0,
           };
@@ -704,6 +719,9 @@ export default function AdminUsersPage() {
     totalCVTemplates: users.reduce((sum, u) => sum + (u.cv_templates_downloaded_count || 0), 0),
     totalJobMatches: users.reduce((sum, u) => sum + (u.job_matches_count || 0), 0),
     totalLinkedInOpts: users.reduce((sum, u) => sum + (u.linkedin_optimizations_count || 0), 0),
+    totalCoachConversations: users.reduce((sum, u) => sum + (u.coach_conversations_count || 0), 0),
+    totalLogicTests: users.reduce((sum, u) => sum + (u.logic_tests_count || 0), 0),
+    totalPersonalityTests: users.reduce((sum, u) => sum + (u.personality_tests_count || 0), 0),
     totalSavedLetters: users.reduce((sum, u) => sum + (u.saved_letters_count || 0), 0),
     totalSavedCVs: users.reduce((sum, u) => sum + (u.saved_cvs_count || 0), 0),
     usersWithLetters: users.filter(u => (u.letters_generated_count || 0) > 0).length,
@@ -1064,6 +1082,39 @@ export default function AdminUsersPage() {
                         {getSortIcon('linkedin_optimizations_count')}
                       </div>
                     </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('coach_conversations_count')}
+                      title="Antal jobbcoach-chattar"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Jobbcoach</span>
+                        {getSortIcon('coach_conversations_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('logic_tests_count')}
+                      title="Antal logiktest-sessioner"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Logiktest</span>
+                        {getSortIcon('logic_tests_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('personality_tests_count')}
+                      title="Antal personlighetstest-sessioner"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Personlighetstest</span>
+                        {getSortIcon('personality_tests_count')}
+                      </div>
+                    </th>
                     {/* SECONDARY: Sparade dokument (retention) */}
                     <th
                       scope="col"
@@ -1199,6 +1250,21 @@ export default function AdminUsersPage() {
                         <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                           <span className={user.linkedin_optimizations_count > 0 ? 'font-medium text-cyan-600' : 'text-gray-400'}>
                             {user.linkedin_optimizations_count}
+                          </span>
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.coach_conversations_count > 0 ? 'font-medium text-teal-600' : 'text-gray-400'}>
+                            {user.coach_conversations_count}
+                          </span>
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.logic_tests_count > 0 ? 'font-medium text-indigo-600' : 'text-gray-400'}>
+                            {user.logic_tests_count}
+                          </span>
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.personality_tests_count > 0 ? 'font-medium text-rose-600' : 'text-gray-400'}>
+                            {user.personality_tests_count}
                           </span>
                         </td>
                         {/* SECONDARY: Sparade dokument */}
