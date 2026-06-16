@@ -359,11 +359,13 @@ Deno.serve(async (req) => {
     // Sortera efter relevans
     filteredJobs.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
 
-    // Ta top 300 för caching (användaren ser max 300 jobb)
-    const top300Jobs = filteredJobs.slice(0, 300);
+    // Ta top 600 för caching. Höjt från 300 så klientsidig filtrering (ort,
+    // omfattning, publicerat, sortering) och region→kommun-gruppering har en
+    // bredare bas att jobba mot — utan att behöva söka om mot servern.
+    const topJobs = filteredJobs.slice(0, 600);
 
-    console.log(`[Match-Jobs-V2] Top 300 jobs selected`);
-    console.log(`[Match-Jobs-V2] Score range: ${top300Jobs[0]?.relevance || 0} - ${top300Jobs[top300Jobs.length - 1]?.relevance || 0}`);
+    console.log(`[Match-Jobs-V2] Top ${topJobs.length} jobs selected`);
+    console.log(`[Match-Jobs-V2] Score range: ${topJobs[0]?.relevance || 0} - ${topJobs[topJobs.length - 1]?.relevance || 0}`);
 
     // ============================================================================
     // STEG 8: Cache resultat (1 timme) + Log Activity
@@ -374,14 +376,14 @@ Deno.serve(async (req) => {
           user_id: userId,
           cv_id: activeCV.cv_id,
           filter_hash: filterHash,
-          jobs: top300Jobs,
+          jobs: topJobs,
           search_params: {
             primaryOccupation: primaryOccupation.normalized,
             location: cvLocation,
             totalOccupations: cvOccupations.length,
             filters: activeFilters
           },
-          total_jobs_found: top300Jobs.length,
+          total_jobs_found: topJobs.length,
           expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString() // 1h
         }, {
           onConflict: 'user_id,cv_id,filter_hash'
@@ -394,12 +396,12 @@ Deno.serve(async (req) => {
           await supabase.from('user_activities').insert({
             user_id: userId,
             activity_type: 'job_match_searched',
-            description: `Jobbmatchning genomförd: ${top300Jobs.length} jobb hittades`,
+            description: `Jobbmatchning genomförd: ${topJobs.length} jobb hittades`,
             metadata: {
               cached: false,
               total_aggregated: allJobs.length,
               after_filtering: filteredJobs.length,
-              returned_jobs: top300Jobs.length,
+              returned_jobs: topJobs.length,
               primary_occupation: primaryOccupation.normalized,
               location: cvLocation || null,
               custom_query: customQuery || null
@@ -431,16 +433,21 @@ Deno.serve(async (req) => {
     // ============================================================================
     // STEG 9: Return top 50 initialt (snabb rendering)
     // ============================================================================
-    // TODO: Frontend kan senare hämta resterande jobb med offset parameter
-    const initialJobs = top300Jobs.slice(0, 50);
+    // Respektera offset/limit ÄVEN i det färska svaret (inte bara cache-grenen).
+    // Annars returnerar ett offset=50-anrop (progressive loading) samma top-50
+    // igen om cachen ännu inte hunnit skrivas → dubbletter med samma id i
+    // frontend-listan, vilket bryter Reacts key-baserade rendering.
+    const startIndex = offset || 0;
+    const endIndex = limit ? startIndex + limit : 50;
+    const initialJobs = topJobs.slice(startIndex, endIndex);
 
-    console.log(`[Match-Jobs-V2] Returning top ${initialJobs.length} jobs initially`);
+    console.log(`[Match-Jobs-V2] Returning jobs ${startIndex}-${endIndex} (${initialJobs.length} st)`);
 
     return new Response(JSON.stringify({
       success: true,
       jobs: initialJobs,
-      hasMore: top300Jobs.length > 50,
-      totalAvailable: top300Jobs.length,
+      hasMore: endIndex < topJobs.length,
+      totalAvailable: topJobs.length,
       activeCV: {
         cvId: activeCV.cv_id,
         parsedAt: activeCV.parsed_at,
@@ -459,7 +466,7 @@ Deno.serve(async (req) => {
         quickScored: quickScoredJobs.length,
         enrichedTop100: enrichedJobsMap.size,
         afterFiltering: filteredJobs.length,
-        top300: top300Jobs.length,
+        topCached: topJobs.length,
         returnedInitially: initialJobs.length
       },
       version: 'v2-jobsearch',
