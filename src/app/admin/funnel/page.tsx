@@ -2,16 +2,19 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import {
-  FunnelChart, Funnel, Tooltip, ResponsiveContainer, Cell, LabelList,
+  Tooltip, ResponsiveContainer,
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Legend
 } from 'recharts';
 import {
-  Users, FileText, Zap, RefreshCw, Crown, ArrowRight, TrendingDown
+  Users, FileText, Zap, RefreshCw, Crown, TrendingDown, Filter
 } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import SectionCard from '@/components/admin/ui/SectionCard';
+import PeriodSelector from '@/components/admin/ui/PeriodSelector';
+import ConversionFunnel from '@/components/admin/charts/ConversionFunnel';
 
 // === Types ===
 
@@ -67,18 +70,6 @@ const STAGE_NAMES = [
 ];
 
 // === Custom Tooltip ===
-
-function CustomFunnelTooltip({ active, payload }: any) {
-  if (!active || !payload?.length) return null;
-  const data = payload[0].payload;
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
-      <p className="font-medium text-gray-900">{data.name}</p>
-      <p className="text-gray-600">{data.value} användare</p>
-      <p className="text-gray-500 text-sm">{data.percentage.toFixed(1)}% av registrerade</p>
-    </div>
-  );
-}
 
 function CustomAreaTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
@@ -285,7 +276,7 @@ export default function FunnelPage() {
     return (
       <div className="text-center py-12">
         <p className="text-red-600">{error}</p>
-        <button onClick={fetchFunnelData} className="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700">
+        <button onClick={fetchFunnelData} className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
           Försök igen
         </button>
       </div>
@@ -300,104 +291,60 @@ export default function FunnelPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Konverteringstratt</h1>
-          <p className="text-gray-500 mt-1">Analysera användarresan från registrering till premium</p>
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
+            <Filter className="w-6 h-6" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Konverteringstratt</h1>
+            <p className="text-sm text-slate-500">Analysera användarresan från registrering till premium</p>
+          </div>
         </div>
 
-        {/* Date range selector */}
-        <div className="flex gap-2">
-          {DATE_RANGES.map(({ value, label }) => (
-            <motion.button
-              key={value}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setDateRange(value)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                dateRange === value
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              {label}
-            </motion.button>
-          ))}
-        </div>
+        <PeriodSelector value={dateRange} onChange={setDateRange} options={DATE_RANGES} />
       </div>
 
       {/* Funnel Stage Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {funnelData.map((stage, i) => (
-          <div key={stage.name} className="relative flex items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm flex-1"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-2 rounded-lg" style={{ backgroundColor: `${stage.fill}15` }}>
-                  <div style={{ color: stage.fill }}>{stage.icon}</div>
-                </div>
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Steg {i + 1}</span>
-              </div>
-              <p className="text-2xl font-bold text-gray-900">{stage.value}</p>
-              <p className="text-sm font-medium text-gray-700 mt-1">{stage.name}</p>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{
-                  backgroundColor: `${stage.fill}15`,
-                  color: stage.fill
-                }}>
-                  {stage.percentage.toFixed(1)}% av alla
-                </span>
-                {i > 0 && (
-                  <span className="text-xs text-gray-400">
-                    {stage.conversionFromPrev.toFixed(0)}% konv.
-                  </span>
-                )}
-              </div>
-            </motion.div>
-            {i < funnelData.length - 1 && (
-              <ArrowRight className="hidden sm:block w-4 h-4 text-gray-300 mx-1 flex-shrink-0" />
-            )}
+          <div
+            key={stage.name}
+            className="bg-white rounded-xl border border-slate-200/70 shadow-sm hover:shadow-md transition-shadow p-5"
+          >
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <span className="text-xs font-medium uppercase tracking-wide text-slate-500">Steg {i + 1}</span>
+              <span
+                className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ backgroundColor: `${stage.fill}1a`, color: stage.fill }}
+              >
+                {stage.icon}
+              </span>
+            </div>
+            <p className="text-3xl font-semibold tabular-nums text-slate-900">{stage.value}</p>
+            <p className="text-sm font-medium text-slate-600 mt-1">{stage.name}</p>
+            <div className="flex items-center gap-2 mt-2 text-xs">
+              <span className="font-medium tabular-nums" style={{ color: stage.fill }}>
+                {stage.percentage.toFixed(1)}% av alla
+              </span>
+              {i > 0 && (
+                <span className="text-slate-400 tabular-nums">{stage.conversionFromPrev.toFixed(0)}% konv.</span>
+              )}
+            </div>
           </div>
         ))}
       </div>
 
       {/* Main Funnel Visualization + Conversion Rates */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Funnel Chart */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Visuell konverteringstratt</h2>
-          <ResponsiveContainer width="100%" height={380}>
-            <FunnelChart>
-              <Tooltip content={<CustomFunnelTooltip />} />
-              <Funnel dataKey="value" data={funnelData} isAnimationActive>
-                <LabelList
-                  position="right"
-                  fill="#374151"
-                  stroke="none"
-                  dataKey="name"
-                  className="text-sm"
-                />
-                <LabelList
-                  position="center"
-                  fill="#ffffff"
-                  stroke="none"
-                  dataKey="value"
-                  className="text-sm font-bold"
-                />
-                {funnelData.map((entry, index) => (
-                  <Cell key={index} fill={FUNNEL_COLORS[index]} />
-                ))}
-              </Funnel>
-            </FunnelChart>
-          </ResponsiveContainer>
+        {/* Funnel — horisontella krympande staplar */}
+        <div className="lg:col-span-2">
+          <SectionCard title="Konverteringstratt" subtitle="Andel kvar i varje steg och avhopp däremellan">
+            <ConversionFunnel stages={funnelData} />
+          </SectionCard>
         </div>
 
         {/* Step-by-step Conversion Rates */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Konverteringsgrad</h2>
+        <SectionCard title="Konverteringsgrad" subtitle="Övergång mellan stegen">
           <div className="space-y-5">
             {funnelData.slice(1).map((stage, i) => {
               const prevStage = funnelData[i];
@@ -405,75 +352,70 @@ export default function FunnelPage() {
               return (
                 <div key={stage.name}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-gray-600">
-                      {prevStage.name} <span className="text-gray-400">→</span> {stage.name}
+                    <span className="text-sm text-slate-600">
+                      {prevStage.name} <span className="text-slate-400">→</span> {stage.name}
                     </span>
-                    <span className="text-sm font-semibold" style={{ color: stage.fill }}>
+                    <span className="text-sm font-semibold tabular-nums" style={{ color: stage.fill }}>
                       {rate.toFixed(1)}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-2.5">
+                  <div className="w-full bg-slate-100 rounded-full h-2">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(rate, 100)}%` }}
                       transition={{ duration: 0.8, delay: i * 0.15 }}
-                      className="h-2.5 rounded-full"
+                      className="h-2 rounded-full"
                       style={{ backgroundColor: stage.fill }}
                     />
                   </div>
-                  <div className="flex justify-between mt-1">
-                    <span className="text-xs text-gray-400">{prevStage.value} användare</span>
-                    <span className="text-xs text-gray-400">{stage.value} användare</span>
+                  <div className="flex justify-between mt-1 text-xs text-slate-400 tabular-nums">
+                    <span>{prevStage.value} användare</span>
+                    <span>{stage.value} användare</span>
                   </div>
                 </div>
               );
             })}
 
             {/* Total conversion */}
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-slate-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <TrendingDown className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm font-medium text-gray-700">Total konvertering</span>
+                  <TrendingDown className="w-4 h-4 text-slate-400" />
+                  <span className="text-sm font-medium text-slate-700">Total konvertering</span>
                 </div>
-                <span className="text-lg font-bold text-emerald-600">{overallConversion}%</span>
+                <span className="text-lg font-bold text-emerald-600 tabular-nums">{overallConversion}%</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-slate-400 mt-1 tabular-nums">
                 {totalRegistered} registrerade → {totalPremium} premium
               </p>
             </div>
           </div>
-        </div>
+        </SectionCard>
       </div>
 
       {/* Time Series Chart */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Utveckling över tid</h2>
+      <SectionCard title="Utveckling över tid" subtitle="Antal användare per steg över tid">
         {timeSeriesData.length > 0 ? (
           <ResponsiveContainer width="100%" height={350}>
             <AreaChart data={timeSeriesData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 11 }}
-                interval="preserveStartEnd"
-              />
-              <YAxis tick={{ fontSize: 11 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+              <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#94a3b8' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
+              <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomAreaTooltip />} />
-              <Legend />
-              <Area type="monotone" dataKey="registrerade" name="Registrerade" fill="#3b82f6" stroke="#3b82f6" fillOpacity={0.15} strokeWidth={2} />
-              <Area type="monotone" dataKey="cv_upload" name="CV-uppladdning" fill="#8b5cf6" stroke="#8b5cf6" fillOpacity={0.15} strokeWidth={2} />
-              <Area type="monotone" dataKey="verktyg" name="Använde verktyg" fill="#ec4899" stroke="#ec4899" fillOpacity={0.15} strokeWidth={2} />
-              <Area type="monotone" dataKey="aterkommande" name="Återkommande" fill="#f59e0b" stroke="#f59e0b" fillOpacity={0.15} strokeWidth={2} />
-              <Area type="monotone" dataKey="premium" name="Premium" fill="#10b981" stroke="#10b981" fillOpacity={0.15} strokeWidth={2} />
+              <Legend wrapperStyle={{ fontSize: '13px' }} />
+              <Area type="monotone" dataKey="registrerade" name="Registrerade" fill="#3b82f6" stroke="#3b82f6" fillOpacity={0.12} strokeWidth={2} />
+              <Area type="monotone" dataKey="cv_upload" name="CV-uppladdning" fill="#8b5cf6" stroke="#8b5cf6" fillOpacity={0.12} strokeWidth={2} />
+              <Area type="monotone" dataKey="verktyg" name="Använde verktyg" fill="#ec4899" stroke="#ec4899" fillOpacity={0.12} strokeWidth={2} />
+              <Area type="monotone" dataKey="aterkommande" name="Återkommande" fill="#f59e0b" stroke="#f59e0b" fillOpacity={0.12} strokeWidth={2} />
+              <Area type="monotone" dataKey="premium" name="Premium" fill="#10b981" stroke="#10b981" fillOpacity={0.12} strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-slate-400">
             <p>Ingen data tillgänglig för vald period</p>
           </div>
         )}
-      </div>
+      </SectionCard>
     </div>
   );
 }

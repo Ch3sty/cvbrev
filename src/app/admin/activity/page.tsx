@@ -162,7 +162,7 @@ export default function AdminActivityPage() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <PeriodSelector value={periodDays} onChange={setPeriodDays} />
+          <PeriodSelector value={periodDays} onChange={(v) => setPeriodDays(Number(v) as PeriodDays)} />
           <button
             onClick={fetchData}
             disabled={isLoading}
