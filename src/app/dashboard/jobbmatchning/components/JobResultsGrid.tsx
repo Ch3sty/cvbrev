@@ -68,7 +68,7 @@ export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, se
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {jobs.map((job, index) => (
           <JobCard
-            key={job.id}
+            key={`${job.id || 'job'}-${index}`}
             job={job}
             index={index}
             onSelect={onJobSelect}

@@ -388,7 +388,14 @@ export default function JobbmatchningPage() {
       const data = await response.json();
 
       if (data.success && data.jobs?.length > 0) {
-        setJobs(prev => [...prev, ...data.jobs]); // Lägg till nya jobb
+        // Dedup på id vid sammanslagning — skyddar mot dubbletter (t.ex. om en
+        // cache-race gör att samma jobb returneras igen). Dubblett-id:n bryter
+        // annars Reacts key-rendering så filtrering inte syns på korten.
+        setJobs(prev => {
+          const seen = new Set(prev.map(j => j.id));
+          const fresh = data.jobs.filter((j: any) => !seen.has(j.id));
+          return [...prev, ...fresh];
+        });
         setHasMore(data.hasMore || false);
       }
     } catch (err) {
