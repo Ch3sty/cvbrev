@@ -19,6 +19,45 @@ function getSupabaseClient() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
+// ── Filter: normalisering + hash ──────────────────────────────────────────
+// Plockar bara ut kända filterfält i en STABIL ordning så hashen blir
+// deterministisk oavsett vilken ordning klienten skickar nycklarna i.
+// Tomma/falska värden utelämnas → tomt filter ger tomt objekt → hash ''.
+function normalizeFilters(filters) {
+  if (!filters || typeof filters !== 'object') return {};
+  const out = {};
+  if (filters.remote === true) out.remote = true;
+  if (filters.noExperience === true) out.noExperience = true;
+  if (typeof filters.worktimeExtent === 'string' && filters.worktimeExtent) {
+    out.worktimeExtent = filters.worktimeExtent;
+  }
+  if (typeof filters.sort === 'string' && filters.sort) out.sort = filters.sort;
+  if (Number.isFinite(filters.publishedAfterMinutes) && filters.publishedAfterMinutes > 0) {
+    out.publishedAfterMinutes = filters.publishedAfterMinutes;
+  }
+  if (typeof filters.position === 'string' && filters.position &&
+      Number.isFinite(filters.positionRadius) && filters.positionRadius > 0) {
+    out.position = filters.position;
+    out.positionRadius = filters.positionRadius;
+  }
+  if (filters.municipality) {
+    const munis = (Array.isArray(filters.municipality) ? filters.municipality : [filters.municipality])
+      .filter((m)=> typeof m === 'string' && m).sort();
+    if (munis.length) out.municipality = munis;
+  }
+  return out;
+}
+
+// SHA-256 (hex) av de normaliserade filtren. Tomt objekt → '' (= standardcache).
+async function hashFilters(normalized) {
+  if (!normalized || Object.keys(normalized).length === 0) return '';
+  // Stabil JSON: sortera nycklar på toppnivå (arrayer redan sorterade ovan).
+  const stable = JSON.stringify(normalized, Object.keys(normalized).sort());
+  const bytes = new TextEncoder().encode(stable);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest)).map((b)=> b.toString(16).padStart(2, '0')).join('');
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', {
     headers: corsHeaders
@@ -34,7 +73,10 @@ Deno.serve(async (req) => {
   const ENRICHMENT_DEADLINE = FUNCTION_START + 120000;
 
   try {
-    const { userId, customQuery, skipCache, offset, limit } = await req.json();
+    const { userId, customQuery, skipCache, offset, limit, filters } = await req.json();
+    // Normalisera filter till ett stabilt objekt så cache-hashen blir deterministisk.
+    const activeFilters = normalizeFilters(filters);
+    const filterHash = await hashFilters(activeFilters);
 
     if (!userId) {
       return new Response(JSON.stringify({
@@ -52,12 +94,15 @@ Deno.serve(async (req) => {
     // STEG 0: Check cache (1 hour validity)
     // ============================================================================
     if (!skipCache && !customQuery) {
-      const { data: cachedMatching } = await supabase
+      const { data: cachedRows } = await supabase
         .from('job_matchings_cache')
         .select('*')
         .eq('user_id', userId)
+        .eq('filter_hash', filterHash)
         .gt('expires_at', new Date().toISOString())
-        .single();
+        .order('created_at', { ascending: false })
+        .limit(1);
+      const cachedMatching = cachedRows?.[0] || null;
 
       if (cachedMatching) {
         console.log(`[Match-Jobs-V2] ✅ Cache HIT - returning ${cachedMatching.jobs.length} cached jobs`);
@@ -193,7 +238,8 @@ Deno.serve(async (req) => {
       customQuery: customQuery,
       maxJobsPerQuery: 1000,
       maxTotalJobs: 2000,
-      deadlineMs: AGGREGATION_DEADLINE
+      deadlineMs: AGGREGATION_DEADLINE,
+      filters: activeFilters
     });
 
     console.log(`[Match-Jobs-V2] Aggregated ${allJobs.length} total jobs from all sources`);
@@ -294,9 +340,14 @@ Deno.serve(async (req) => {
     console.log('[Match-Jobs-V2] Filtering and sorting jobs...');
     console.log(`[Match-Jobs-V2] Jobs before filtering: ${jobsWithScores.length}`);
 
+    // Vid bred erfarenhet-fri sökning saknar jobben CV-yrkesmatch
+    // (occupationLevel/titleMatch ≈ 0), så de flesta hamnar under 15 och skulle
+    // gallras bort → tom lista. Då tar vi bort yrkesgränsen och låter
+    // geografi/skills-rankningen avgöra ORDNINGEN i stället. Övriga filter
+    // behåller den vanliga 15-poängströskeln.
+    const minRelevance = activeFilters.noExperience === true ? 0 : 15;
     const filteredJobs = jobsWithScores.filter((job) => {
-      // Minimum relevans: 15 poäng (sänkt från 20 för att få fler jobb)
-      return job.relevance >= 15;
+      return job.relevance >= minRelevance;
     });
 
     const filteredOutCount = jobsWithScores.length - filteredJobs.length;
@@ -322,16 +373,18 @@ Deno.serve(async (req) => {
         await supabase.from('job_matchings_cache').upsert({
           user_id: userId,
           cv_id: activeCV.cv_id,
+          filter_hash: filterHash,
           jobs: top300Jobs,
           search_params: {
             primaryOccupation: primaryOccupation.normalized,
             location: cvLocation,
-            totalOccupations: cvOccupations.length
+            totalOccupations: cvOccupations.length,
+            filters: activeFilters
           },
           total_jobs_found: top300Jobs.length,
           expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString() // 1h
         }, {
-          onConflict: 'user_id,cv_id'
+          onConflict: 'user_id,cv_id,filter_hash'
         });
 
         console.log('[Match-Jobs-V2] ✅ Cached matching for 1 hour');

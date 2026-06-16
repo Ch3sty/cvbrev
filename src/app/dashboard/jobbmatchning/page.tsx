@@ -24,6 +24,7 @@ import MatchingHowItWorks from './components/MatchingHowItWorks';
 import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
 import JobDetailModal from './components/JobDetailModal';
+import JobFilterPanel, { type JobFilters, DEFAULT_FILTERS, countActiveFilters } from './components/JobFilterPanel';
 
 interface CV {
   id: string;
@@ -74,6 +75,8 @@ export default function JobbmatchningPage() {
   const [showSearchView, setShowSearchView] = useState(false); // Visa sökning eller CV-val
   const [hasMore, setHasMore] = useState(false); // Flag för progressive loading
   const [loadingMore, setLoadingMore] = useState(false); // Loading state för bakgrundshämtning
+  const [filters, setFilters] = useState<JobFilters>(DEFAULT_FILTERS); // Server-side filter
+  const [totalResults, setTotalResults] = useState(0); // Totalt antal matchande jobb
 
   // Loading states
   const [loadingCVs, setLoadingCVs] = useState(true);
@@ -85,6 +88,19 @@ export default function JobbmatchningPage() {
 
   // Constants for free tier limits
   const FREE_TIER_JOB_LIMIT = 10;
+
+  // Plocka ut bara aktiva filter i edge-funktionens format. Tomma/falska
+  // värden utelämnas så att inget filter = standardsökning (stabil cache).
+  const buildActiveFilters = (f: JobFilters): Record<string, unknown> => {
+    const out: Record<string, unknown> = {};
+    if (f.remote) out.remote = true;
+    if (f.noExperience) out.noExperience = true;
+    if (f.worktimeExtent) out.worktimeExtent = f.worktimeExtent;
+    if (f.publishedAfterMinutes > 0) out.publishedAfterMinutes = f.publishedAfterMinutes;
+    if (f.sort) out.sort = f.sort;
+    if (f.municipality.length > 0) out.municipality = f.municipality;
+    return out;
+  };
 
   // Fetch CVs and active CV on mount
   useEffect(() => {
@@ -98,6 +114,18 @@ export default function JobbmatchningPage() {
       fetchMoreJobs(50, 250); // offset, limit
     }
   }, [hasMore, jobs.length]);
+
+  // Kör om sökningen när filtren ändras (server-side filtrering). Liten debounce
+  // så snabba klick på flera filter inte triggar flera anrop. Bara i sökvyn och
+  // bara med aktivt CV; fritextsökning får användaren trigga manuellt via Sök.
+  useEffect(() => {
+    if (!showSearchView || (!activeCVId && !activeCV)) return;
+    const t = setTimeout(() => {
+      fetchJobs(customSearch.trim() || undefined);
+    }, 400);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters]);
 
   const fetchCVs = async () => {
     setLoadingCVs(true);
@@ -179,7 +207,8 @@ export default function JobbmatchningPage() {
         // Update active CV state
         await fetchActiveCV();
 
-        // Automatically start job search after activation
+        // Aktivering öppnar sökvyn direkt (ersätter den tidigare stora CTA-knappen)
+        setShowSearchView(true);
         fetchJobs();
       }
     } catch (err) {
@@ -213,6 +242,13 @@ export default function JobbmatchningPage() {
         requestBody.customQuery = searchQuery;
       }
 
+      // Server-side filter → JobSearch-API:t. Skicka bara aktiva värden så
+      // edge-funktionens filter_hash blir stabilt (tomt filter = standardcache).
+      const activeFilters = buildActiveFilters(filters);
+      if (Object.keys(activeFilters).length > 0) {
+        requestBody.filters = activeFilters;
+      }
+
       // Klient-timeout: hindra att UI:t fastnar på "Förbereder vy / 100%" om
       // edge-funktionen mot förmodan inte svarar. Servern är tidsbudgeterad till
       // ~150s, så 160s klient-timeout ger den marginal att svara först.
@@ -236,6 +272,7 @@ export default function JobbmatchningPage() {
       if (data.success) {
         setJobs(data.jobs || []);
         setHasMore(data.hasMore || false); // Spara hasMore flag
+        setTotalResults(data.totalAvailable || data.totalResults || (data.jobs?.length ?? 0));
 
         // Show notification when jobs are found
         if (data.jobs && data.jobs.length > 0) {
@@ -284,10 +321,16 @@ export default function JobbmatchningPage() {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json'
         },
+        // Skicka MED filtren så vi träffar samma cache-rad (filter_hash) som
+        // fetchJobs. Utan detta blev filter_hash '' → ofiltrerad standardcache
+        // → ofiltrerade jobb fylldes på efter de första 50.
         body: JSON.stringify({
           userId: session.user.id,
           offset,
-          limit
+          limit,
+          ...(Object.keys(buildActiveFilters(filters)).length > 0
+            ? { filters: buildActiveFilters(filters) }
+            : {})
         })
       });
 
@@ -457,30 +500,42 @@ export default function JobbmatchningPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-              {/* Custom Search */}
-              <form onSubmit={handleSearch} className="mb-4 sm:mb-6">
-                <div className="relative">
-                  <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
-                  <input
-                    type="text"
-                    value={customSearch}
-                    onChange={(e) => setCustomSearch(e.target.value)}
-                    placeholder="Förfina sökningen, t.ex. 'JavaScript utvecklare'..."
-                    className="w-full pl-10 sm:pl-12 pr-20 sm:pr-28 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-gray-200 bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm sm:text-base"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loadingJobs}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 sm:px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 touch-manipulation min-h-[40px] text-sm sm:text-base font-medium"
-                  >
-                    {loadingJobs ? (
-                      <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
-                    ) : (
-                      'Sök'
-                    )}
-                  </button>
-                </div>
-              </form>
+              {/* Tydlig sökruta — egen rubrik, stor, alltid synlig överst */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+                <label htmlFor="job-search" className="block text-sm font-semibold text-slate-900 mb-2">
+                  Sök fritt eller förfina matchningen
+                </label>
+                <form onSubmit={handleSearch}>
+                  <div className="relative">
+                    <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-orange-500 w-5 h-5" />
+                    <input
+                      id="job-search"
+                      type="text"
+                      value={customSearch}
+                      onChange={(e) => setCustomSearch(e.target.value)}
+                      placeholder="T.ex. 'projektledare bygg' eller lämna tomt för CV-matchning"
+                      className="w-full pl-11 sm:pl-12 pr-24 sm:pr-28 py-3.5 sm:py-4 rounded-xl border-2 border-slate-200 bg-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all text-sm sm:text-base"
+                    />
+                    <button
+                      type="submit"
+                      disabled={loadingJobs}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 px-5 sm:px-6 py-2.5 text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50 touch-manipulation min-h-[40px] text-sm sm:text-base font-semibold"
+                      style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                    >
+                      {loadingJobs ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        'Sök'
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              {/* Mobil: filter-knapp (öppnar drawer). Desktop: i sidebar nedan. */}
+              <div className="lg:hidden">
+                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} />
+              </div>
 
               {/* Error Message */}
               {error && !loadingJobs && (
@@ -492,100 +547,122 @@ export default function JobbmatchningPage() {
                   <p className="text-sm sm:text-base text-red-600">{error}</p>
                   <button
                     onClick={() => fetchJobs(customSearch.trim() || undefined)}
-                    className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-lg transition-all touch-manipulation min-h-[40px]"
+                    className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium hover:shadow-lg transition-all touch-manipulation min-h-[40px]"
+                    style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
                   >
                     Försök igen
                   </button>
                 </motion.div>
               )}
 
-              {/* Distance Filter */}
-              {!loadingJobs && jobs.length > 0 && (() => {
-                const nearbyCount = jobs.filter(j => !j.distance || j.distance <= 100).length;
-                const distantCount = jobs.filter(j => j.distance && j.distance > 100).length;
-                return (
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 bg-white/50 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200">
-                    <label className="flex items-center gap-2 cursor-pointer group touch-manipulation">
-                      <input
-                        type="checkbox"
-                        checked={showDistantJobs}
-                        onChange={(e) => setShowDistantJobs(e.target.checked)}
-                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 touch-manipulation"
-                      />
-                      <span className="text-xs sm:text-sm text-gray-700 group-hover:text-indigo-600 transition-colors">
-                        Visa jobb &gt;100 km bort
-                      </span>
-                    </label>
-                    <div className="text-xs text-gray-500 ml-6 sm:ml-0">
-                      ({nearbyCount} nära, {distantCount} långt)
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Results Grid */}
-              {!loadingJobs && jobs.length > 0 && (() => {
-                const filteredJobs = showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100);
-                const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
-                const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
-
-                return (
-                  <>
-                    <JobResultsGrid
-                      jobs={displayedJobs}
-                      selectedAnalysis={null}
-                      onJobSelect={setSelectedJob}
-                      selectedAnalysisId={undefined}
-                      cvId={activeCVId || undefined}
-                    />
-
-                    {/* Premium Upgrade Banner för gratis-användare */}
-                    {hasMoreJobs && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-4 sm:mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl border-2 border-pink-200/40 p-6 sm:p-8 text-center"
-                      >
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3 sm:mb-4">
-                          <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-pink-600 flex-shrink-0" />
-                          <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                            {filteredJobs.length - FREE_TIER_JOB_LIMIT} fler jobb tillgängliga
-                          </h3>
-                        </div>
-                        <p className="text-sm sm:text-base text-slate-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
-                          Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
-                          Som gratis-användare kan du se de {FREE_TIER_JOB_LIMIT} bästa matchningarna.
-                          Uppgradera till Premium för att se alla resultat och få obegränsad tillgång till jobbmatchning.
-                        </p>
-                        <button
-                          onClick={() => router.push('/priser')}
-                          className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105 touch-manipulation min-h-[44px] text-sm sm:text-base"
-                        >
-                          <Crown className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                          <span className="truncate">Uppgradera för 149 SEK/månad</span>
-                        </button>
-                      </motion.div>
-                    )}
-                  </>
-                );
-              })()}
-
-              {/* No results message */}
-              {!loadingJobs && jobs.length === 0 && (
-                <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-8 sm:p-12 text-center">
-                  <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-3 sm:mb-4" />
-                  <p className="text-sm sm:text-base text-gray-600">Inga jobb hittades. Prova att söka igen.</p>
+              {/* Tvåkolumns-layout: filter-sidebar (desktop) + resultat */}
+              <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5 sm:gap-6">
+                {/* Desktop-sidebar */}
+                <div className="hidden lg:block">
+                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} />
                 </div>
-              )}
 
-              {/* Loading State */}
-              {loadingJobs && (
-                <JobSearchLoader
-                  isSearching={loadingJobs}
-                  jobsFound={loadingJobs ? null : (jobs.length > 0)}
-                  error={error}
-                />
-              )}
+                {/* Huvudkolumn: räknare + resultat */}
+                <div className="min-w-0 space-y-5">
+                  {/* Resultaträknare */}
+                  {!loadingJobs && jobs.length > 0 && (() => {
+                    const nearbyCount = jobs.filter(j => !j.distance || j.distance <= 100).length;
+                    const distantCount = jobs.filter(j => j.distance && j.distance > 100).length;
+                    return (
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 sm:p-4 border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                          <span className="font-bold text-slate-900">{totalResults || jobs.length}</span> matchande jobb
+                          {countActiveFilters(filters) > 0 && (
+                            <span className="text-orange-600 font-medium"> · {countActiveFilters(filters)} filter aktiva</span>
+                          )}
+                        </p>
+                        {distantCount > 0 && (
+                          <label className="flex items-center gap-2 cursor-pointer group touch-manipulation">
+                            <input
+                              type="checkbox"
+                              checked={showDistantJobs}
+                              onChange={(e) => setShowDistantJobs(e.target.checked)}
+                              className="w-4 h-4 accent-orange-500 border-gray-300 rounded touch-manipulation"
+                            />
+                            <span className="text-xs sm:text-sm text-slate-600 group-hover:text-orange-600 transition-colors">
+                              Visa {distantCount} jobb &gt;100 km bort
+                            </span>
+                          </label>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* Results Grid */}
+                  {!loadingJobs && jobs.length > 0 && (() => {
+                    const filteredJobs = showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100);
+                    const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
+                    const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
+
+                    return (
+                      <>
+                        <JobResultsGrid
+                          jobs={displayedJobs}
+                          selectedAnalysis={null}
+                          onJobSelect={setSelectedJob}
+                          selectedAnalysisId={undefined}
+                          cvId={activeCVId || undefined}
+                        />
+
+                        {/* Premium Upgrade Banner för gratis-användare */}
+                        {hasMoreJobs && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-4 sm:mt-6 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl sm:rounded-2xl border-2 border-orange-200/50 p-6 sm:p-8 text-center"
+                          >
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3 sm:mb-4">
+                              <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500 flex-shrink-0" />
+                              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                                {filteredJobs.length - FREE_TIER_JOB_LIMIT} fler jobb tillgängliga
+                              </h3>
+                            </div>
+                            <p className="text-sm sm:text-base text-slate-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
+                              Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
+                              Som gratis-användare kan du se de {FREE_TIER_JOB_LIMIT} bästa matchningarna.
+                              Uppgradera till Premium för att se alla resultat och få obegränsad tillgång till jobbmatchning.
+                            </p>
+                            <button
+                              onClick={() => router.push('/priser')}
+                              className="inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105 touch-manipulation min-h-[44px] text-sm sm:text-base"
+                              style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                            >
+                              <Crown className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                              <span className="truncate">Uppgradera för 149 SEK/månad</span>
+                            </button>
+                          </motion.div>
+                        )}
+                      </>
+                    );
+                  })()}
+
+                  {/* No results message */}
+                  {!loadingJobs && jobs.length === 0 && (
+                    <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-8 sm:p-12 text-center">
+                      <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                      <p className="text-sm sm:text-base text-slate-600">
+                        {countActiveFilters(filters) > 0
+                          ? 'Inga jobb matchar dina filter. Prova att rensa något filter.'
+                          : 'Inga jobb hittades. Prova att söka igen.'}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Loading State */}
+                  {loadingJobs && (
+                    <JobSearchLoader
+                      isSearching={loadingJobs}
+                      jobsFound={loadingJobs ? null : (jobs.length > 0)}
+                      error={error}
+                    />
+                  )}
+                </div>
+              </div>
           </motion.div>
         )}
       </div>

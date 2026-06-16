@@ -74,19 +74,19 @@ export default function MatchingHowItWorks() {
               <div className="space-y-3">
                 <Feature
                   icon={Target}
-                  iconBg="bg-indigo-100 text-indigo-600"
+                  iconBg="bg-orange-100 text-orange-600"
                   title="Hierarkisk matchning"
                   body="Matchar exakt titel, yrkesgrupp och yrkesområde – hittar både specifika och bredare roller."
                 />
                 <Feature
                   icon={Zap}
-                  iconBg="bg-purple-100 text-purple-600"
+                  iconBg="bg-amber-100 text-amber-600"
                   title="Kompetensbaserad analys"
                   body="Identifierar dina överförbara färdigheter och matchar mot kravprofiler."
                 />
                 <Feature
                   icon={TrendingUp}
-                  iconBg="bg-pink-100 text-pink-600"
+                  iconBg="bg-red-100 text-red-600"
                   title="Geografisk intelligens"
                   body="Prioriterar jobb i din närhet och identifierar distansarbeten automatiskt."
                 />
