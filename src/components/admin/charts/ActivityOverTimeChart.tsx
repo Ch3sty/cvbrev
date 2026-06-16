@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { format } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import { metaFor } from '@/app/admin/activity/functionMeta';
@@ -14,8 +14,26 @@ export interface DailyPivotRow {
 
 interface Props {
   data: DailyPivotRow[];
-  funktioner: string[]; // funktioner som faktiskt har data (i ritordning)
+  funktioner: string[]; // funktioner som faktiskt har data (ritordning)
   isLoading?: boolean;
+}
+
+// Custom tooltip: svensk talformat, döljer nollor, summerar dagen.
+function ChartTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  const rows = payload.filter((p: any) => p.value > 0);
+  const total = rows.reduce((s: number, p: any) => s + p.value, 0);
+  return (
+    <div className="bg-white rounded-lg border border-slate-200 shadow-md px-3 py-2 text-xs">
+      <p className="font-semibold text-slate-900 mb-1">{label} · {total} st</p>
+      {rows.map((p: any) => (
+        <p key={p.dataKey} className="flex items-center gap-1.5 text-slate-600">
+          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
+          {p.dataKey}: <span className="font-medium tabular-nums">{p.value}</span>
+        </p>
+      ))}
+    </div>
+  );
 }
 
 export default function ActivityOverTimeChart({ data, funktioner, isLoading }: Props) {
@@ -29,53 +47,46 @@ export default function ActivityOverTimeChart({ data, funktioner, isLoading }: P
   );
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6 animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
-        <div className="h-[320px] bg-gray-100 rounded"></div>
-      </div>
-    );
+    return <div className="h-[300px] bg-slate-50 rounded-lg animate-pulse" />;
+  }
+  if (chartData.length === 0) {
+    return <div className="h-[300px] flex items-center justify-center text-sm text-slate-400">Ingen aktivitet i perioden</div>;
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">Aktivitet över tid</h3>
-      <p className="text-xs text-gray-500 mb-4">Händelser per dag, senaste 30 dagar</p>
-      {chartData.length === 0 ? (
-        <div className="h-[320px] flex items-center justify-center text-gray-500">Ingen data</div>
-      ) : (
-        <ResponsiveContainer width="100%" height={320}>
-          <AreaChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-            <XAxis dataKey="dagFormatted" stroke="#6b7280" style={{ fontSize: '12px' }} />
-            <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} allowDecimals={false} />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: '#fff',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-              }}
+    <ResponsiveContainer width="100%" height={300}>
+      <AreaChart data={chartData} margin={{ top: 5, right: 12, left: -10, bottom: 0 }}>
+        <defs>
+          {funktioner.map((f) => {
+            const hex = metaFor(f).hex;
+            return (
+              <linearGradient key={f} id={`grad-${f}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={hex} stopOpacity={0.5} />
+                <stop offset="100%" stopColor={hex} stopOpacity={0.05} />
+              </linearGradient>
+            );
+          })}
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+        <XAxis dataKey="dagFormatted" stroke="#94a3b8" tickLine={false} axisLine={false} style={{ fontSize: '11px' }} minTickGap={24} />
+        <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} style={{ fontSize: '11px' }} allowDecimals={false} width={28} />
+        <Tooltip content={<ChartTooltip />} />
+        {funktioner.map((f) => {
+          const hex = metaFor(f).hex;
+          return (
+            <Area
+              key={f}
+              type="monotone"
+              dataKey={f}
+              stackId="1"
+              stroke={hex}
+              strokeWidth={1.5}
+              fill={`url(#grad-${f})`}
+              name={f}
             />
-            <Legend wrapperStyle={{ fontSize: '13px' }} />
-            {funktioner.map((f) => {
-              const hex = metaFor(f).hex;
-              return (
-                <Area
-                  key={f}
-                  type="monotone"
-                  dataKey={f}
-                  stackId="1"
-                  stroke={hex}
-                  fill={hex}
-                  fillOpacity={0.6}
-                  name={f}
-                />
-              );
-            })}
-          </AreaChart>
-        </ResponsiveContainer>
-      )}
-    </div>
+          );
+        })}
+      </AreaChart>
+    </ResponsiveContainer>
   );
 }
