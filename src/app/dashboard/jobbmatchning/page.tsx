@@ -25,6 +25,7 @@ import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
 import JobDetailModal from './components/JobDetailModal';
 import JobFilterPanel, { type JobFilters, DEFAULT_FILTERS, countActiveFilters } from './components/JobFilterPanel';
+import { applyClientFilters } from './data/job-filtering';
 
 interface CV {
   id: string;
@@ -89,17 +90,14 @@ export default function JobbmatchningPage() {
   // Constants for free tier limits
   const FREE_TIER_JOB_LIMIT = 10;
 
-  // Plocka ut bara aktiva filter i edge-funktionens format. Tomma/falska
-  // värden utelämnas så att inget filter = standardsökning (stabil cache).
-  const buildActiveFilters = (f: JobFilters): Record<string, unknown> => {
-    const out: Record<string, unknown> = {};
-    if (f.remote) out.remote = true;
-    if (f.noExperience) out.noExperience = true;
-    if (f.worktimeExtent) out.worktimeExtent = f.worktimeExtent;
-    if (f.publishedAfterMinutes > 0) out.publishedAfterMinutes = f.publishedAfterMinutes;
-    if (f.sort) out.sort = f.sort;
-    if (f.municipality.length > 0) out.municipality = f.municipality;
-    return out;
+  // Filter som FORTFARANDE behöver servern. Omfattning, publicerat, sortering
+  // och ort görs numera klientsidigt (applyClientFilters) och skickas INTE hit.
+  // remote/noExperience ändrar genuint vilka jobb som finns och hämtas separat
+  // via den globala cachen (se hämtning av remote/erfarenhet-fria jobb).
+  const buildActiveFilters = (_f: JobFilters): Record<string, unknown> => {
+    // Inga server-side filter på CV-grundsökningen längre — den ska vara bred
+    // och stabilt cachebar. remote/noExperience hanteras via global cache.
+    return {};
   };
 
   // Fetch CVs and active CV on mount
@@ -111,21 +109,13 @@ export default function JobbmatchningPage() {
   // Progressive loading: Ladda resterande 250 jobb i bakgrunden efter top 50
   useEffect(() => {
     if (hasMore && jobs.length === 50) {
-      fetchMoreJobs(50, 250); // offset, limit
+      fetchMoreJobs(50, 550); // offset, limit — hämtar resten upp till 600
     }
   }, [hasMore, jobs.length]);
 
-  // Kör om sökningen när filtren ändras (server-side filtrering). Liten debounce
-  // så snabba klick på flera filter inte triggar flera anrop. Bara i sökvyn och
-  // bara med aktivt CV; fritextsökning får användaren trigga manuellt via Sök.
-  useEffect(() => {
-    if (!showSearchView || (!activeCVId && !activeCV)) return;
-    const t = setTimeout(() => {
-      fetchJobs(customSearch.trim() || undefined);
-    }, 400);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]);
+  // Filterändringar görs KLIENTSIDIGT på redan hämtade jobb (se applyClientFilters)
+  // i stället för att söka om mot servern. Det undviker onödiga anrop och skyddar
+  // gratisanvändarnas sökkvot. Endast initial CV-sökning + fritext träffar servern.
 
   const fetchCVs = async () => {
     setLoadingCVs(true);
@@ -534,7 +524,7 @@ export default function JobbmatchningPage() {
 
               {/* Mobil: filter-knapp (öppnar drawer). Desktop: i sidebar nedan. */}
               <div className="lg:hidden">
-                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} />
+                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={jobs} />
               </div>
 
               {/* Error Message */}
@@ -559,48 +549,51 @@ export default function JobbmatchningPage() {
               <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5 sm:gap-6">
                 {/* Desktop-sidebar */}
                 <div className="hidden lg:block">
-                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} />
+                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={jobs} />
                 </div>
 
-                {/* Huvudkolumn: räknare + resultat */}
+                {/* Huvudkolumn: räknare + resultat. Klientsidig filtrering på
+                    redan hämtade jobb — ingen omsökning. */}
                 <div className="min-w-0 space-y-5">
-                  {/* Resultaträknare */}
                   {!loadingJobs && jobs.length > 0 && (() => {
-                    const nearbyCount = jobs.filter(j => !j.distance || j.distance <= 100).length;
+                    const filteredJobs = applyClientFilters(jobs, filters, showDistantJobs);
                     const distantCount = jobs.filter(j => j.distance && j.distance > 100).length;
-                    return (
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 sm:p-4 border border-slate-200">
-                        <p className="text-sm text-slate-700">
-                          <span className="font-bold text-slate-900">{totalResults || jobs.length}</span> matchande jobb
-                          {countActiveFilters(filters) > 0 && (
-                            <span className="text-orange-600 font-medium"> · {countActiveFilters(filters)} filter aktiva</span>
-                          )}
-                        </p>
-                        {distantCount > 0 && (
-                          <label className="flex items-center gap-2 cursor-pointer group touch-manipulation">
-                            <input
-                              type="checkbox"
-                              checked={showDistantJobs}
-                              onChange={(e) => setShowDistantJobs(e.target.checked)}
-                              className="w-4 h-4 accent-orange-500 border-gray-300 rounded touch-manipulation"
-                            />
-                            <span className="text-xs sm:text-sm text-slate-600 group-hover:text-orange-600 transition-colors">
-                              Visa {distantCount} jobb &gt;100 km bort
-                            </span>
-                          </label>
-                        )}
-                      </div>
-                    );
-                  })()}
-
-                  {/* Results Grid */}
-                  {!loadingJobs && jobs.length > 0 && (() => {
-                    const filteredJobs = showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100);
                     const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
                     const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
 
                     return (
                       <>
+                        {/* Resultaträknare */}
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 sm:p-4 border border-slate-200">
+                          <p className="text-sm text-slate-700">
+                            <span className="font-bold text-slate-900">{filteredJobs.length}</span> matchande jobb
+                            {countActiveFilters(filters) > 0 && (
+                              <span className="text-orange-600 font-medium"> · {countActiveFilters(filters)} filter aktiva</span>
+                            )}
+                          </p>
+                          {distantCount > 0 && (
+                            <label className="flex items-center gap-2 cursor-pointer group touch-manipulation">
+                              <input
+                                type="checkbox"
+                                checked={showDistantJobs}
+                                onChange={(e) => setShowDistantJobs(e.target.checked)}
+                                className="w-4 h-4 accent-orange-500 border-gray-300 rounded touch-manipulation"
+                              />
+                              <span className="text-xs sm:text-sm text-slate-600 group-hover:text-orange-600 transition-colors">
+                                Visa {distantCount} jobb &gt;100 km bort
+                              </span>
+                            </label>
+                          )}
+                        </div>
+
+                        {filteredJobs.length === 0 ? (
+                          <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-8 sm:p-12 text-center">
+                            <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                            <p className="text-sm sm:text-base text-slate-600">
+                              Inga jobb matchar dina filter. Prova att rensa något filter.
+                            </p>
+                          </div>
+                        ) : (
                         <JobResultsGrid
                           jobs={displayedJobs}
                           selectedAnalysis={null}
@@ -608,6 +601,7 @@ export default function JobbmatchningPage() {
                           selectedAnalysisId={undefined}
                           cvId={activeCVId || undefined}
                         />
+                        )}
 
                         {/* Premium Upgrade Banner för gratis-användare */}
                         {hasMoreJobs && (

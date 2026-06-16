@@ -2,11 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SlidersHorizontal, X, MapPin, Check } from 'lucide-react';
-import {
-  nearbyMunicipalities,
-  type SwedishMunicipality,
-} from '../data/swedish-municipalities';
+import { SlidersHorizontal, X, MapPin, Check, ChevronDown } from 'lucide-react';
+import { groupJobsByRegion, type RegionGroup } from '../data/job-filtering';
 
 /**
  * Filter-tillstånd som skickas till match-jobs edge-funktionen.
@@ -67,6 +64,7 @@ interface JobFilterPanelProps {
   filters: JobFilters;
   onChange: (next: JobFilters) => void;
   userLocation?: string | null;
+  jobs?: any[]; // hämtade jobb — för region→kommun-gruppering med antal
 }
 
 /**
@@ -75,24 +73,23 @@ interface JobFilterPanelProps {
  *   - desktop (lg+): alltid synlig som vänster-sidebar
  * All design i appens orange-DNA.
  */
-export default function JobFilterPanel({ filters, onChange, userLocation }: JobFilterPanelProps) {
+export default function JobFilterPanel({ filters, onChange, userLocation, jobs = [] }: JobFilterPanelProps) {
   const [open, setOpen] = useState(false);
+  const [expandedRegion, setExpandedRegion] = useState<string | null>(null);
   const activeCount = countActiveFilters(filters);
 
-  // Geografiskt anpassade ortsförslag: användarens ort + närmaste grannar.
-  const suggestedOrter = useMemo<SwedishMunicipality[]>(
-    () => nearbyMunicipalities(userLocation, 7),
-    [userLocation]
-  );
+  // Region→kommun-grupper med antal, härledda ur de hämtade jobben.
+  const regionGroups = useMemo<RegionGroup[]>(() => groupJobsByRegion(jobs), [jobs]);
 
   const set = (patch: Partial<JobFilters>) => onChange({ ...filters, ...patch });
 
-  const toggleMuni = (conceptId: string) => {
-    const has = filters.municipality.includes(conceptId);
+  // Ortsfiltret matchar nu på kommunkod (municipality_code) klientsidigt.
+  const toggleMuni = (code: string) => {
+    const has = filters.municipality.includes(code);
     set({
       municipality: has
-        ? filters.municipality.filter((m) => m !== conceptId)
-        : [...filters.municipality, conceptId],
+        ? filters.municipality.filter((m) => m !== code)
+        : [...filters.municipality, code],
     });
   };
 
@@ -137,32 +134,67 @@ export default function JobFilterPanel({ filters, onChange, userLocation }: JobF
         onSelect={(v) => set({ sort: v as string })}
       />
 
-      {/* Ortsfilter: geografiskt anpassat */}
-      {suggestedOrter.length > 0 && (
+      {/* Ortsfilter: region → kommun, antal ur faktisk jobbdata */}
+      {regionGroups.length > 0 && (
         <div>
           <div className="flex items-center gap-1.5 mb-2.5">
             <MapPin className="w-3.5 h-3.5 text-orange-500" />
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-              Orter nära dig
+              Var jobben finns
             </span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {suggestedOrter.map((m) => {
-              const selected = filters.municipality.includes(m.conceptId);
+          <div className="space-y-1.5">
+            {regionGroups.map((region) => {
+              const isExpanded = expandedRegion === region.code;
+              const selectedInRegion = region.municipalities.filter((m) =>
+                filters.municipality.includes(m.code)
+              ).length;
               return (
-                <button
-                  key={m.conceptId}
-                  type="button"
-                  onClick={() => toggleMuni(m.conceptId)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all touch-manipulation min-h-[40px] border ${
-                    selected
-                      ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white border-transparent shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200 hover:border-orange-300 hover:bg-orange-50/50'
-                  }`}
-                >
-                  {selected && <Check className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                  {m.name}
-                </button>
+                <div key={region.code} className="rounded-lg border border-slate-200 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setExpandedRegion(isExpanded ? null : region.code)}
+                    className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-left hover:bg-orange-50/50 transition-colors touch-manipulation min-h-[44px]"
+                  >
+                    <span className="flex items-center gap-2 min-w-0">
+                      <span className="text-sm font-medium text-slate-800 truncate">{region.name}</span>
+                      <span className="flex-shrink-0 text-xs text-slate-500 tabular-nums">({region.count})</span>
+                      {selectedInRegion > 0 && (
+                        <span className="flex-shrink-0 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-[10px] font-bold">
+                          {selectedInRegion}
+                        </span>
+                      )}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 flex-shrink-0 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  {isExpanded && (
+                    <div className="px-3 pb-3 pt-1 flex flex-wrap gap-2">
+                      {region.municipalities.map((m) => {
+                        const selected = filters.municipality.includes(m.code);
+                        return (
+                          <button
+                            key={m.code}
+                            type="button"
+                            onClick={() => toggleMuni(m.code)}
+                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all touch-manipulation min-h-[40px] border ${
+                              selected
+                                ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white border-transparent shadow-sm'
+                                : 'bg-white text-slate-700 border-slate-200 hover:border-orange-300 hover:bg-orange-50/50'
+                            }`}
+                          >
+                            {selected && <Check className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                            {m.name}
+                            <span className={`text-xs tabular-nums ${selected ? 'text-white/80' : 'text-slate-400'}`}>
+                              {m.count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
