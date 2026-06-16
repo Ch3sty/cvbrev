@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, LabelList } from 'recharts';
 import { metaFor } from '@/app/admin/activity/functionMeta';
 
 interface FunctionRow {
@@ -15,56 +15,48 @@ interface Props {
   isLoading?: boolean;
 }
 
+function BarTooltip({ active, payload }: any) {
+  if (!active || !payload?.length) return null;
+  const row = payload[0].payload as FunctionRow;
+  return (
+    <div className="bg-white rounded-lg border border-slate-200 shadow-md px-3 py-2 text-xs">
+      <p className="font-semibold text-slate-900">{row.funktion}</p>
+      <p className="text-slate-600 tabular-nums">{row.totalt} händelser · {row.unika_anv} unika</p>
+    </div>
+  );
+}
+
 export default function ActivityByFunctionChart({ data, isLoading }: Props) {
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6 animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
-        <div className="h-[320px] bg-gray-100 rounded"></div>
-      </div>
-    );
+    return <div className="h-[300px] bg-slate-50 rounded-lg animate-pulse" />;
+  }
+  const sorted = [...data].sort((a, b) => b.totalt - a.totalt);
+  if (sorted.length === 0) {
+    return <div className="h-[300px] flex items-center justify-center text-sm text-slate-400">Ingen data</div>;
   }
 
-  const sorted = [...data].sort((a, b) => b.totalt - a.totalt);
-
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">Användning per funktion</h3>
-      <p className="text-xs text-gray-500 mb-4">Totalt antal händelser, alla tider</p>
-      {sorted.length === 0 ? (
-        <div className="h-[320px] flex items-center justify-center text-gray-500">Ingen data</div>
-      ) : (
-        <ResponsiveContainer width="100%" height={320}>
-          <BarChart data={sorted} layout="vertical" margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
-            <XAxis type="number" stroke="#6b7280" style={{ fontSize: '12px' }} allowDecimals={false} />
-            <YAxis
-              type="category"
-              dataKey="funktion"
-              stroke="#6b7280"
-              style={{ fontSize: '12px' }}
-              width={110}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: '#fff',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-              }}
-              formatter={(value: number, _name, props: any) => {
-                const row = props?.payload as FunctionRow;
-                return [`${value} händelser · ${row?.unika_anv ?? 0} unika`, row?.funktion ?? ''];
-              }}
-            />
-            <Bar dataKey="totalt" radius={[0, 6, 6, 0]}>
-              {sorted.map((row) => (
-                <Cell key={row.funktion} fill={metaFor(row.funktion).hex} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      )}
-    </div>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={sorted} layout="vertical" margin={{ top: 0, right: 36, left: 8, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
+        <XAxis type="number" hide />
+        <YAxis
+          type="category"
+          dataKey="funktion"
+          stroke="#64748b"
+          tickLine={false}
+          axisLine={false}
+          style={{ fontSize: '12px' }}
+          width={108}
+        />
+        <Tooltip content={<BarTooltip />} cursor={{ fill: '#f8fafc' }} />
+        <Bar dataKey="totalt" radius={[0, 6, 6, 0]} barSize={22}>
+          {sorted.map((row) => (
+            <Cell key={row.funktion} fill={metaFor(row.funktion).hex} />
+          ))}
+          <LabelList dataKey="totalt" position="right" style={{ fontSize: '12px', fill: '#475569', fontWeight: 600 }} />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
