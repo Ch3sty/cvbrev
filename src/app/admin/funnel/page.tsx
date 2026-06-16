@@ -10,11 +10,10 @@ import {
 } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 import { sv } from 'date-fns/locale';
-import { motion } from 'framer-motion';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import SectionCard from '@/components/admin/ui/SectionCard';
 import PeriodSelector from '@/components/admin/ui/PeriodSelector';
-import ConversionFunnel from '@/components/admin/charts/ConversionFunnel';
+import ConversionSankey from '@/components/admin/charts/ConversionSankey';
 
 // === Types ===
 
@@ -334,64 +333,25 @@ export default function FunnelPage() {
         ))}
       </div>
 
-      {/* Main Funnel Visualization + Conversion Rates */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Funnel — horisontella krympande staplar */}
-        <div className="lg:col-span-2">
-          <SectionCard title="Konverteringstratt" subtitle="Andel kvar i varje steg och avhopp däremellan">
-            <ConversionFunnel stages={funnelData} />
-          </SectionCard>
-        </div>
-
-        {/* Step-by-step Conversion Rates */}
-        <SectionCard title="Konverteringsgrad" subtitle="Övergång mellan stegen">
-          <div className="space-y-5">
-            {funnelData.slice(1).map((stage, i) => {
-              const prevStage = funnelData[i];
-              const rate = prevStage.value > 0 ? (stage.value / prevStage.value) * 100 : 0;
-              return (
-                <div key={stage.name}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-slate-600">
-                      {prevStage.name} <span className="text-slate-400">→</span> {stage.name}
-                    </span>
-                    <span className="text-sm font-semibold tabular-nums" style={{ color: stage.fill }}>
-                      {rate.toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-100 rounded-full h-2">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.min(rate, 100)}%` }}
-                      transition={{ duration: 0.8, delay: i * 0.15 }}
-                      className="h-2 rounded-full"
-                      style={{ backgroundColor: stage.fill }}
-                    />
-                  </div>
-                  <div className="flex justify-between mt-1 text-xs text-slate-400 tabular-nums">
-                    <span>{prevStage.value} användare</span>
-                    <span>{stage.value} användare</span>
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Total conversion */}
-            <div className="pt-4 border-t border-slate-200">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <TrendingDown className="w-4 h-4 text-slate-400" />
-                  <span className="text-sm font-medium text-slate-700">Total konvertering</span>
-                </div>
-                <span className="text-lg font-bold text-emerald-600 tabular-nums">{overallConversion}%</span>
-              </div>
-              <p className="text-xs text-slate-400 mt-1 tabular-nums">
-                {totalRegistered} registrerade → {totalPremium} premium
-              </p>
+      {/* Användarresan som flöde (Sankey) — fullbredd */}
+      <SectionCard
+        title="Användarresan"
+        subtitle="Flöde från registrering till premium — avhopp grenar ut vid varje steg"
+        action={
+          <div className="text-right">
+            <div className="flex items-center justify-end gap-2">
+              <TrendingDown className="w-4 h-4 text-slate-400" />
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Total konvertering</span>
+              <span className="text-lg font-bold text-emerald-600 tabular-nums">{overallConversion}%</span>
             </div>
+            <p className="text-xs text-slate-400 mt-0.5 tabular-nums">
+              {totalRegistered} registrerade → {totalPremium} premium
+            </p>
           </div>
-        </SectionCard>
-      </div>
+        }
+      >
+        <ConversionSankey stages={funnelData} />
+      </SectionCard>
 
       {/* Time Series Chart */}
       <SectionCard title="Utveckling över tid" subtitle="Antal användare per steg över tid">
