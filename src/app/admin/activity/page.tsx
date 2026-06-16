@@ -1,21 +1,19 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
   Activity,
   RefreshCw,
   AlertTriangle,
-  Brain,
-  Sparkles,
-  MessageSquare,
-  FileText,
-  FileCheck2,
-  Linkedin,
   CheckCircle2,
   XCircle,
   Filter as FilterIcon,
 } from 'lucide-react';
+import StatsCard from '@/components/admin/StatsCard';
+import ActivityByFunctionChart from '@/components/admin/charts/ActivityByFunctionChart';
+import ActivityOverTimeChart, { type DailyPivotRow } from '@/components/admin/charts/ActivityOverTimeChart';
+import { metaFor, FUNKTIONER } from './functionMeta';
 
 interface TestStat {
   kategori: string;
@@ -36,18 +34,19 @@ interface FeedRow {
   tidpunkt: string | null;
 }
 
-// Ikon + färg per funktion i flödet.
-const FUNC_META: Record<string, { icon: React.ReactNode; color: string }> = {
-  Logiktest: { icon: <Brain className="w-4 h-4" />, color: 'text-indigo-600 bg-indigo-50' },
-  Personlighetstest: { icon: <Sparkles className="w-4 h-4" />, color: 'text-rose-600 bg-rose-50' },
-  Jobbcoach: { icon: <MessageSquare className="w-4 h-4" />, color: 'text-teal-600 bg-teal-50' },
-  'CV-analys': { icon: <FileCheck2 className="w-4 h-4" />, color: 'text-orange-600 bg-orange-50' },
-  Brev: { icon: <FileText className="w-4 h-4" />, color: 'text-blue-600 bg-blue-50' },
-  'CV-mall': { icon: <FileText className="w-4 h-4" />, color: 'text-purple-600 bg-purple-50' },
-  'LinkedIn-opt': { icon: <Linkedin className="w-4 h-4" />, color: 'text-sky-600 bg-sky-50' },
-};
+interface FunctionStat {
+  funktion: string;
+  totalt: number;
+  slutforda: number;
+  unika_anv: number;
+  senaste_7d: number;
+}
 
-const FUNKTIONER = Object.keys(FUNC_META);
+interface DailyRow {
+  dag: string;
+  funktion: string;
+  handelser: number;
+}
 
 function relativeTime(iso: string | null): string {
   if (!iso) return '—';
@@ -66,6 +65,8 @@ function relativeTime(iso: string | null): string {
 export default function AdminActivityPage() {
   const [testStats, setTestStats] = useState<TestStat[]>([]);
   const [feed, setFeed] = useState<FeedRow[]>([]);
+  const [funcStats, setFuncStats] = useState<FunctionStat[]>([]);
+  const [daily, setDaily] = useState<DailyRow[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [funcFilter, setFuncFilter] = useState<string>('alla');
@@ -76,18 +77,24 @@ export default function AdminActivityPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const [statsRes, feedRes] = await Promise.all([
+      const [statsRes, feedRes, funcRes, dailyRes] = await Promise.all([
         supabase.from('admin_test_stats').select('*').order('started', { ascending: false }),
         supabase
           .from('admin_activity_feed')
           .select('*')
           .order('tidpunkt', { ascending: false, nullsFirst: false })
           .limit(200),
+        supabase.from('admin_activity_by_function').select('*').order('totalt', { ascending: false }),
+        supabase.from('admin_activity_daily').select('*'),
       ]);
       if (statsRes.error) throw statsRes.error;
       if (feedRes.error) throw feedRes.error;
+      if (funcRes.error) throw funcRes.error;
+      if (dailyRes.error) throw dailyRes.error;
       setTestStats(statsRes.data || []);
       setFeed(feedRes.data || []);
+      setFuncStats(funcRes.data || []);
+      setDaily(dailyRes.data || []);
     } catch (err) {
       console.error('Activity fetch error:', err);
       setError(err instanceof Error ? err.message : 'Kunde inte hämta aktivitetsdata');
@@ -101,6 +108,29 @@ export default function AdminActivityPage() {
   }, [fetchData]);
 
   const visibleFeed = funcFilter === 'alla' ? feed : feed.filter((r) => r.funktion === funcFilter);
+
+  // Funktioner som faktiskt har data, störst först (för staplad area + KPI-ordning).
+  const aktivaFunktioner = useMemo(
+    () => funcStats.map((f) => f.funktion),
+    [funcStats]
+  );
+
+  // Pivotera dagsdatan: en rad/dag med en nyckel per funktion. Fyll i 0 för
+  // dagar/funktioner som saknas så area-grafen inte hoppar.
+  const dailyPivot = useMemo<DailyPivotRow[]>(() => {
+    if (daily.length === 0) return [];
+    const byDay = new Map<string, DailyPivotRow>();
+    for (const row of daily) {
+      const key = String(row.dag);
+      if (!byDay.has(key)) {
+        const base: DailyPivotRow = { dag: key };
+        aktivaFunktioner.forEach((f) => (base[f] = 0));
+        byDay.set(key, base);
+      }
+      byDay.get(key)![row.funktion] = row.handelser;
+    }
+    return Array.from(byDay.values()).sort((a, b) => String(a.dag).localeCompare(String(b.dag)));
+  }, [daily, aktivaFunktioner]);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -131,6 +161,32 @@ export default function AdminActivityPage() {
           {error}
         </div>
       )}
+
+      {/* KPI-kort per funktion */}
+      <section className="mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {funcStats.map((f) => {
+            const meta = metaFor(f.funktion);
+            return (
+              <StatsCard
+                key={f.funktion}
+                title={f.funktion}
+                value={f.totalt}
+                icon={meta.icon}
+                subtitle={`${f.unika_anv} unika · ${f.senaste_7d} senaste 7 dgr`}
+                iconBgColor={meta.iconBg}
+                iconColor={meta.iconColor}
+              />
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Grafer: funktionsfördelning + aktivitet över tid */}
+      <section className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ActivityByFunctionChart data={funcStats} isLoading={isLoading} />
+        <ActivityOverTimeChart data={dailyPivot} funktioner={aktivaFunktioner} isLoading={isLoading} />
+      </section>
 
       {/* Testtyp-statistik: påbörjade vs avslutade */}
       <section className="mb-8">
@@ -216,7 +272,7 @@ export default function AdminActivityPage() {
             <div className="px-5 py-8 text-center text-sm text-gray-400">Ingen aktivitet att visa</div>
           )}
           {visibleFeed.map((r, i) => {
-            const meta = FUNC_META[r.funktion] || { icon: <Activity className="w-4 h-4" />, color: 'text-gray-600 bg-gray-50' };
+            const meta = metaFor(r.funktion);
             return (
               <div key={`${r.user_id}-${r.funktion}-${r.tidpunkt}-${i}`} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50">
                 <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${meta.color}`}>
