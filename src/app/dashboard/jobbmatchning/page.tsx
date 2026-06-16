@@ -321,10 +321,16 @@ export default function JobbmatchningPage() {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json'
         },
+        // Skicka MED filtren så vi träffar samma cache-rad (filter_hash) som
+        // fetchJobs. Utan detta blev filter_hash '' → ofiltrerad standardcache
+        // → ofiltrerade jobb fylldes på efter de första 50.
         body: JSON.stringify({
           userId: session.user.id,
           offset,
-          limit
+          limit,
+          ...(Object.keys(buildActiveFilters(filters)).length > 0
+            ? { filters: buildActiveFilters(filters) }
+            : {})
         })
       });
 

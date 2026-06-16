@@ -44,6 +44,24 @@ export class MultiSourceAggregator {
       return allJobs.slice(0, params.maxTotalJobs);
     }
     // ============================================================================
+    // STRATEGI 1B: Bred erfarenhet-fri sökning (filtret "Utan krav på erfarenhet")
+    // ============================================================================
+    // När noExperience är aktivt SKA CV-yrket inte begränsa urvalet — då vill
+    // användaren se ALLA jobb utan erfarenhetskrav (säljare, receptionist,
+    // assistent ...), inte bara sitt eget yrke (som nästan alltid kräver
+    // erfarenhet → 0 träffar). Vi söker brett utan occupation-parametrar;
+    // fetchWithPagination lägger på experience=false + övriga filter ur
+    // searchFilters. Scoringen rankar sedan efter passform (geografi/skills).
+    if (this.searchFilters?.noExperience === true) {
+      console.log('[Aggregator] noExperience aktivt → bred erfarenhet-fri sökning (hoppar CV-yrkesstrategier)');
+      const broadJobs = await this.fetchWithPagination({
+        limit: 100
+      }, 10); // Max 1000 jobb (erfarenhet-fri pool är liten, ~350 i landet)
+      this.addUniqueJobs(allJobs, broadJobs, seenIds, 'no-experience-broad');
+      console.log(`[Aggregator] Bred erfarenhet-fri: ${broadJobs.length} jobb`);
+      return allJobs.slice(0, params.maxTotalJobs);
+    }
+    // ============================================================================
     // STRATEGI 2: Primär yrkessökning med occupation-name (concept_id)
     // ============================================================================
     // JobSearch API stödjer occupation-name parameter med concept_id från Taxonomy

@@ -340,9 +340,14 @@ Deno.serve(async (req) => {
     console.log('[Match-Jobs-V2] Filtering and sorting jobs...');
     console.log(`[Match-Jobs-V2] Jobs before filtering: ${jobsWithScores.length}`);
 
+    // Vid bred erfarenhet-fri sökning saknar jobben CV-yrkesmatch
+    // (occupationLevel/titleMatch ≈ 0), så de flesta hamnar under 15 och skulle
+    // gallras bort → tom lista. Då tar vi bort yrkesgränsen och låter
+    // geografi/skills-rankningen avgöra ORDNINGEN i stället. Övriga filter
+    // behåller den vanliga 15-poängströskeln.
+    const minRelevance = activeFilters.noExperience === true ? 0 : 15;
     const filteredJobs = jobsWithScores.filter((job) => {
-      // Minimum relevans: 15 poäng (sänkt från 20 för att få fler jobb)
-      return job.relevance >= 15;
+      return job.relevance >= minRelevance;
     });
 
     const filteredOutCount = jobsWithScores.length - filteredJobs.length;
