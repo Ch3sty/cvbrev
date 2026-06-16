@@ -25,7 +25,8 @@ import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
 import JobDetailModal from './components/JobDetailModal';
 import JobFilterPanel, { type JobFilters, DEFAULT_FILTERS, countActiveFilters } from './components/JobFilterPanel';
-import { applyClientFilters } from './data/job-filtering';
+import { applyClientFilters, rankGlobalJobs } from './data/job-filtering';
+import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
 
 interface CV {
   id: string;
@@ -76,8 +77,13 @@ export default function JobbmatchningPage() {
   const [showSearchView, setShowSearchView] = useState(false); // Visa sökning eller CV-val
   const [hasMore, setHasMore] = useState(false); // Flag för progressive loading
   const [loadingMore, setLoadingMore] = useState(false); // Loading state för bakgrundshämtning
-  const [filters, setFilters] = useState<JobFilters>(DEFAULT_FILTERS); // Server-side filter
+  const [filters, setFilters] = useState<JobFilters>(DEFAULT_FILTERS); // Filtertillstånd
   const [totalResults, setTotalResults] = useState(0); // Totalt antal matchande jobb
+  // Globala pooler (remote / erfarenhet-fria) från global_job_cache. Hämtas lazy
+  // första gången respektive filter slås på och rankas mot CV:t klientsidigt.
+  const [globalRemote, setGlobalRemote] = useState<any[] | null>(null);
+  const [globalNoExp, setGlobalNoExp] = useState<any[] | null>(null);
+  const [loadingGlobal, setLoadingGlobal] = useState(false);
 
   // Loading states
   const [loadingCVs, setLoadingCVs] = useState(true);
@@ -116,6 +122,59 @@ export default function JobbmatchningPage() {
   // Filterändringar görs KLIENTSIDIGT på redan hämtade jobb (se applyClientFilters)
   // i stället för att söka om mot servern. Det undviker onödiga anrop och skyddar
   // gratisanvändarnas sökkvot. Endast initial CV-sökning + fritext träffar servern.
+
+  // CV-kontext för att ranka globala jobb (ort → koordinat + skills).
+  const cvContext = () => {
+    const loc = activeCV?.extracted_location?.toLowerCase().trim();
+    const muni = loc
+      ? SWEDISH_MUNICIPALITIES.find(
+          (m) => m.name.toLowerCase() === loc || loc.includes(m.name.toLowerCase())
+        )
+      : undefined;
+    return {
+      skills: activeCV?.extracted_skills || [],
+      lat: muni?.lat ?? null,
+      lon: muni?.lon ?? null,
+    };
+  };
+
+  // Hämta en global pool ('remote' | 'no_experience') ur global_job_cache och
+  // ranka mot CV:t. Läses direkt via supabase-klienten (RLS tillåter SELECT för
+  // inloggade). Ingen server-omsökning, ingen påverkan på sökkvoten.
+  const loadGlobalPool = async (cacheKey: 'remote' | 'no_experience') => {
+    setLoadingGlobal(true);
+    try {
+      const { data, error } = await supabase
+        .from('global_job_cache')
+        .select('jobs')
+        .eq('cache_key', cacheKey)
+        .maybeSingle();
+      if (error || !data) return;
+      const ranked = rankGlobalJobs(data.jobs || [], cvContext());
+      if (cacheKey === 'remote') setGlobalRemote(ranked);
+      else setGlobalNoExp(ranked);
+    } catch (err) {
+      console.error(`Error loading global pool ${cacheKey}:`, err);
+    } finally {
+      setLoadingGlobal(false);
+    }
+  };
+
+  // Hämta global pool lazy första gången respektive filter slås på.
+  useEffect(() => {
+    if (filters.remote && globalRemote === null) loadGlobalPool('remote');
+    if (filters.noExperience && globalNoExp === null) loadGlobalPool('no_experience');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.remote, filters.noExperience]);
+
+  // Baslista som visas: noExperience (bredast) > remote > CV-jobb. remote/
+  // noExperience byter helt datakälla till respektive global pool.
+  const baseJobs: any[] = filters.noExperience
+    ? (globalNoExp || [])
+    : filters.remote
+    ? (globalRemote || [])
+    : jobs;
+  const usingGlobalPool = filters.noExperience || filters.remote;
 
   const fetchCVs = async () => {
     setLoadingCVs(true);
@@ -524,7 +583,7 @@ export default function JobbmatchningPage() {
 
               {/* Mobil: filter-knapp (öppnar drawer). Desktop: i sidebar nedan. */}
               <div className="lg:hidden">
-                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={jobs} />
+                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={baseJobs} />
               </div>
 
               {/* Error Message */}
@@ -549,15 +608,18 @@ export default function JobbmatchningPage() {
               <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5 sm:gap-6">
                 {/* Desktop-sidebar */}
                 <div className="hidden lg:block">
-                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={jobs} />
+                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={baseJobs} />
                 </div>
 
                 {/* Huvudkolumn: räknare + resultat. Klientsidig filtrering på
-                    redan hämtade jobb — ingen omsökning. */}
+                    redan hämtade jobb — ingen omsökning. remote/noExperience
+                    byter baslista till respektive global pool. */}
                 <div className="min-w-0 space-y-5">
-                  {!loadingJobs && jobs.length > 0 && (() => {
-                    const filteredJobs = applyClientFilters(jobs, filters, showDistantJobs);
-                    const distantCount = jobs.filter(j => j.distance && j.distance > 100).length;
+                  {(() => {
+                    const isLoading = loadingJobs || (usingGlobalPool && loadingGlobal);
+                    if (isLoading || baseJobs.length === 0) return null;
+                    const filteredJobs = applyClientFilters(baseJobs, filters, showDistantJobs);
+                    const distantCount = baseJobs.filter(j => j.distance && j.distance > 100).length;
                     const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
                     const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
 
@@ -635,8 +697,8 @@ export default function JobbmatchningPage() {
                     );
                   })()}
 
-                  {/* No results message */}
-                  {!loadingJobs && jobs.length === 0 && (
+                  {/* No results message — baslistan tom och inget laddas */}
+                  {!loadingJobs && !(usingGlobalPool && loadingGlobal) && baseJobs.length === 0 && (
                     <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-8 sm:p-12 text-center">
                       <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 mx-auto mb-3 sm:mb-4" />
                       <p className="text-sm sm:text-base text-slate-600">
@@ -647,11 +709,11 @@ export default function JobbmatchningPage() {
                     </div>
                   )}
 
-                  {/* Loading State */}
-                  {loadingJobs && (
+                  {/* Loading State — CV-sökning eller global pool */}
+                  {(loadingJobs || (usingGlobalPool && loadingGlobal)) && (
                     <JobSearchLoader
-                      isSearching={loadingJobs}
-                      jobsFound={loadingJobs ? null : (jobs.length > 0)}
+                      isSearching={true}
+                      jobsFound={null}
                       error={error}
                     />
                   )}

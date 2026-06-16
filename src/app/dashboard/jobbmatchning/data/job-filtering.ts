@@ -138,3 +138,72 @@ export function groupJobsByRegion(jobs: Job[]): RegionGroup[] {
 
   return groups;
 }
+
+// ── Globala pooler (remote / erfarenhet-fria): konvertera + ranka mot CV ───
+// De globala jobben är RÅA JobSearch-hits. Vi mappar dem till samma form som
+// CV-jobben (så JobCard funkar) och ger en lätt relevanspoäng mot användarens
+// ort + skills — utan att anropa servern. Detta ersätter den tidigare
+// server-omsökningen för "Distansjobb" och "Utan erfarenhet".
+
+// Haversine i km (samma formel som edge-scoring).
+function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+export interface CvContext {
+  skills?: string[];
+  lat?: number | null;
+  lon?: number | null;
+}
+
+/**
+ * Mappa råa JobSearch-hits (från global_job_cache) till samma jobbform som
+ * match-jobs returnerar, och ranka lätt mot CV-kontexten. Returnerar jobb
+ * sorterade efter relevans (bäst först).
+ */
+export function rankGlobalJobs(rawJobs: any[], cv: CvContext): Job[] {
+  const cvSkills = (cv.skills || []).map((s) => s.toLowerCase());
+
+  const mapped = rawJobs.map((job) => {
+    const coords = job.workplace_address?.coordinates; // [lon, lat] i JobSearch
+    let distance: number | undefined;
+    if (
+      coords && coords.length === 2 &&
+      Number.isFinite(cv.lat) && Number.isFinite(cv.lon)
+    ) {
+      // JobSearch ger [lon, lat]; vår distanceKm tar (lat, lon).
+      distance = distanceKm(cv.lat as number, cv.lon as number, coords[1], coords[0]);
+    }
+
+    // Lätt skills-överlapp mot jobbtext + must_have (0–15).
+    const haystack = `${job.headline || ''} ${job.description?.text || ''}`.toLowerCase();
+    const mustHave = (job.must_have?.skills || []).map((s: any) => (s.label || '').toLowerCase());
+    let skillHits = 0;
+    for (const s of cvSkills) {
+      if (!s) continue;
+      if (mustHave.some((m: string) => m.includes(s)) || haystack.includes(s)) skillHits++;
+    }
+    const skillScore = Math.min(15, skillHits * 3);
+
+    // Geografipoäng (0–10) — närmare = bättre; okänt avstånd ger neutral poäng.
+    let geoScore = 5;
+    if (distance !== undefined) {
+      geoScore = distance <= 10 ? 10 : distance <= 30 ? 8 : distance <= 50 ? 6 : distance <= 100 ? 3 : 1;
+    }
+
+    return {
+      ...job,
+      distance,
+      relevance: skillScore + geoScore, // 0–25; bara för ordning i denna vy
+    };
+  });
+
+  mapped.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
+  return mapped;
+}
