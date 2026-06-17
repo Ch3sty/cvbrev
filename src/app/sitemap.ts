@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next';
 import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data';
+import { getAllAuthorIds } from '@/lib/authors';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
@@ -166,6 +167,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: isNewArticle ? 0.8 : 0.7,
     };
   });
+
+  // Författarsidor (E-E-A-T)
+  const authorPages: MetadataRoute.Sitemap = getAllAuthorIds().map((id) => ({
+    url: `${baseUrl}/authors/${id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  }));
 
   // 4. Lägg till CV-exempel sidor
   const CV_EXEMPEL = [
@@ -370,6 +379,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...verktygPages,
     ...articlePages,
+    ...authorPages,
     ...cvExempelPages,
     ...brevExempelPages,
     ...cvKategoriPages,

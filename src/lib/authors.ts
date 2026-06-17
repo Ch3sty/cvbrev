@@ -179,6 +179,13 @@ export function getAuthorById(id: string): Author | undefined {
 }
 
 /**
+ * Alla författar-id (för generateStaticParams på /authors/[slug]).
+ */
+export function getAllAuthorIds(): string[] {
+  return AUTHORS.map(a => a.id);
+}
+
+/**
  * Genererar Schema.org Person markup för en författare
  */
 export function generateAuthorSchema(author: Author, articleUrl?: string) {

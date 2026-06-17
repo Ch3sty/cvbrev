@@ -21,6 +21,10 @@ export default function CompleteApplicationPackage({
 }: CompleteApplicationPackageProps) {
   const isCV = currentType === 'cv'
 
+  // Skydd mot trasiga interna länkar (t.ex. /personligt-brev-exempel/undefined).
+  // Utan giltig slug renderar vi inget — bättre än att länka till en 404.
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) return null
+
   return (
     <section className="space-y-5 sm:space-y-6">
       {/* Header */}

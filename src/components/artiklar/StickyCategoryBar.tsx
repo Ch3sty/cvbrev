@@ -96,7 +96,9 @@ export default function StickyCategoryBar({
                 tag=""
               />
 
-              {categories.map((cat) => (
+              {categories
+                .filter((cat) => cat.tag?.trim()) // hoppa tomma taggar → undviker /artiklar?tag=
+                .map((cat) => (
                 <CategoryPill
                   key={cat.tag}
                   href={`/artiklar?tag=${encodeURIComponent(cat.tag)}`}
