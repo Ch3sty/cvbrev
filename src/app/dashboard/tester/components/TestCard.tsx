@@ -66,7 +66,15 @@ export default function TestCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 + index * 0.04 }}
+      className="relative"
     >
+      {/* Best overall crown – ligger utanför Link (som har overflow-hidden) så den inte klipps av de rundade hörnen */}
+      {isBestOverall && hasProgress && (
+        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-md z-20 pointer-events-none">
+          <Crown className="w-4 h-4 text-white" strokeWidth={2.5} fill="white" />
+        </div>
+      )}
+
       <Link
         href={href}
         onClick={handleClick}
@@ -82,13 +90,6 @@ export default function TestCard({
               : 'linear-gradient(90deg, #CBD5E1, #94A3B8)',
           }}
         />
-
-        {/* Best overall crown */}
-        {isBestOverall && hasProgress && (
-          <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-md z-10">
-            <Crown className="w-4 h-4 text-white" strokeWidth={2.5} fill="white" />
-          </div>
-        )}
 
         <div className="p-3 sm:p-4">
           {/* Topp-rad: kategori + level + premium */}
