@@ -13,6 +13,7 @@ import {
   CvAnalysIcon,
   BrevIcon,
   JobbmatchningIcon,
+  RekryteringstestIcon,
   TrialCardIllustration,
 } from './illustrations/ArticleIcons';
 
@@ -28,6 +29,7 @@ const POPULAR_TOOLS = [
   { Icon: CvAnalysIcon, label: 'CV-analys', desc: 'Få konkret feedback', href: '/dashboard/cv-analys' },
   { Icon: BrevIcon, label: 'Personliga brev', desc: 'Matchande brev på 60 sek', href: '/dashboard/skapa-brev' },
   { Icon: JobbmatchningIcon, label: 'Jobbmatchning', desc: 'Hitta rätt jobb', href: '/dashboard/jobbmatchning' },
+  { Icon: RekryteringstestIcon, label: 'Rekryteringstester', desc: 'Träna inför testerna', href: '/dashboard/tester' },
 ];
 
 export default function ArticleSidebar({

@@ -58,6 +58,22 @@ export function JobbmatchningIcon({ className }: IconProps) {
   );
 }
 
+export function RekryteringstestIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Matrislogik-rutnät 2x2 */}
+      <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" stroke="currentColor" strokeWidth={SW} />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" stroke="currentColor" strokeWidth={SW} opacity="0.5" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" stroke="currentColor" strokeWidth={SW} opacity="0.5" />
+      {/* Sista rutan: rätt svar (check) */}
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" stroke="currentColor" strokeWidth={SW} fill="white" />
+      <path d="M15.2 17.3 L16.8 18.9 L19.3 15.8" stroke="currentColor" strokeWidth={SW * 0.9} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Prick i första rutan för "mönster" */}
+      <circle cx="6.75" cy="6.75" r="1.6" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function JobbcoachenIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
