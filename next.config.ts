@@ -90,6 +90,50 @@ const nextConfig: NextConfig = {
         destination: 'https://www.jobbcoach.ai/:path*',
         permanent: true,
       },
+      // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
+      // Åtgärdar "Not found (404)" i Search Console.
+      ...[
+        'byta-jobb-praktiska-tips',
+        'byta-karriar-jobbsokande-guide',
+        'hur-skriver-man-cv',
+        'cv-och-personligt-brev',
+        'referenser-cv',
+        'exempel-pa-cv-guide',
+        'cv-mall-gratis-guide',
+        'cv-mall-word-gratis',
+        'skillnad-cv-personligt-brev',
+        'vad-ar-ett-cv',
+        'bra-cv-guide',
+        'hur-ska-ett-cv-se-ut',
+        'vanliga-misstag-personligt-brev',
+        'hur-langt-ska-personligt-brev-vara',
+        'personligt-brev-innehall-checklista',
+        'personligt-brev-format-guide',
+      ].map((slug) => ({
+        source: `/${slug}`,
+        destination: `/artiklar/${slug}`,
+        permanent: true,
+      })),
+      // Gamla paths där slug bytt namn / flyttat till annan sektion.
+      {
+        source: '/hur-skriver-man-personligt-brev',
+        destination: '/artiklar/skriva-personligt-brev-guide',
+        permanent: true,
+      },
+      {
+        source: '/personligt-brev-exempel-roller',
+        destination: '/artiklar/personligt-brev-exempel-generella',
+        permanent: true,
+      },
+      {
+        source: '/personligt-brev-saljare',
+        destination: '/personligt-brev-exempel/saljare',
+        permanent: true,
+      },
+      // Gamla app-/verktygs-paths.
+      { source: '/skapa-brev', destination: '/verktyg/personligt-brev', permanent: true },
+      { source: '/skapa-cv', destination: '/verktyg/skapa-cv', permanent: true },
+      { source: '/analysera-cv', destination: '/verktyg/cv-analys', permanent: true },
       // Yrkesspecifika personliga brev exempel
       {
         source: '/artiklar/personligt-brev-underskoterska',
