@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+    <linearGradient id="strip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1.4" fill="white" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Bakgrund -->
+  <rect width="1536" height="1024" fill="url(#bg)"/>
+  <rect width="1536" height="1024" fill="url(#dots)"/>
+
+  <!-- Dekorativa cirklar -->
+  <circle cx="1360" cy="120" r="380" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="1460" cy="950" r="230" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="40" cy="880" r="240" fill="rgba(255,255,255,0.04)"/>
+
+  <!-- Etikett-pill -->
+  <rect x="110" y="120" width="232" height="48" rx="24" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <circle cx="140" cy="144" r="6" fill="#FCD34D"/>
+  <text x="160" y="151" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="white" letter-spacing="2">REKRYTERINGSTESTER</text>
+
+  <!-- Huvudrubrik -->
+  <text x="110" y="320" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="900" fill="white" letter-spacing="-3">Rekryterings-</text>
+  <text x="110" y="424" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="900" fill="white" letter-spacing="-3">tester</text>
+
+  <!-- Undertext -->
+  <text x="110" y="510" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="400" fill="rgba(255,255,255,0.88)">Så fungerar de, och så förbereder du dig</text>
+
+  <!-- Divider -->
+  <rect x="110" y="560" width="72" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Testtyper -->
+  <text x="110" y="612" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="rgba(255,255,255,0.72)" letter-spacing="1.4">LOGISKA  ·  NUMERISKA  ·  VERBALA  ·  PERSONLIGHET</text>
+
+  <!-- Illustration: matrislogik-test-kort höger -->
+  <g transform="translate(870 250)">
+    <!-- Bakre kort (lutat) -->
+    <g transform="rotate(-5 260 300)" opacity="0.6">
+      <rect x="30" y="30" width="460" height="540" rx="22" fill="white" stroke="#FED7AA" stroke-width="2"/>
+    </g>
+
+    <!-- Huvudkort: ett logiktest -->
+    <g transform="translate(70 0) rotate(4 230 300)">
+      <rect x="10" y="16" width="460" height="540" rx="22" fill="rgba(0,0,0,0.18)"/>
+      <rect x="0" y="0" width="460" height="540" rx="22" fill="white" stroke="#FED7AA" stroke-width="2"/>
+
+      <!-- Kort-header -->
+      <path d="M 0 0 L 460 0 L 460 70 L 0 70 Z" fill="url(#strip)"/>
+      <rect x="28" y="26" width="150" height="18" rx="5" fill="white"/>
+      <text x="380" y="46" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.9">02:30</text>
+
+      <!-- Fråga-text -->
+      <text x="28" y="120" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#1E293B">Vilken figur kommer härnäst?</text>
+
+      <!-- 3x3 matris-rutnät -->
+      <g transform="translate(28 150)">
+        <!-- rad 1 -->
+        <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <circle cx="60" cy="60" r="22" fill="#DC2626"/>
+        <rect x="135" y="0" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <circle cx="195" cy="60" r="22" fill="none" stroke="#DC2626" stroke-width="6"/>
+        <rect x="270" y="0" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <rect x="308" y="38" width="44" height="44" rx="6" fill="#DC2626"/>
+        <!-- rad 2 -->
+        <rect x="0" y="135" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <rect x="38" y="173" width="44" height="44" rx="6" fill="none" stroke="#DC2626" stroke-width="6"/>
+        <rect x="135" y="135" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <polygon points="195,150 219,200 171,200" fill="#DC2626"/>
+        <rect x="270" y="135" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <polygon points="330,150 354,200 306,200" fill="none" stroke="#DC2626" stroke-width="6"/>
+        <!-- rad 3 (sista = frågetecken) -->
+        <rect x="0" y="270" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <circle cx="60" cy="330" r="22" fill="#DC2626"/>
+        <rect x="135" y="270" width="120" height="120" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+        <rect x="173" y="308" width="44" height="44" rx="6" fill="#DC2626"/>
+        <rect x="270" y="270" width="120" height="120" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="330" y="352" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="900" fill="#DC2626" text-anchor="middle">?</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Jobbcoach-badge -->
+  <circle cx="110" cy="930" r="9" fill="#FCD34D"/>
+  <text x="134" y="939" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="white" opacity="0.95">jobbcoach.ai</text>
+</svg>
