@@ -158,5 +158,405 @@
       { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
     ],
     "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q9-vector-rotate-ccw",
+    "title": "Vektorn vrider sig moturs",
+    "rule": "Vektorn vrider sig 45° moturs för varje cell, läst rad för rad utan avbrott. Längd och pilspets är desamma genom hela mönstret.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "vector", "angle": 315, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 135, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 45, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, null]
+    ],
+    "options": [
+      { "kind": "vector", "angle": 315, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 45, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 270, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 315, "length": "short", "head": "filled" },
+      { "kind": "vector", "angle": 315, "length": "long", "head": "open" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q10-poly-fill-latin",
+    "title": "Fyllningen bildar latin square",
+    "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och varje kolumn innehåller exakt en ofylld, en grå och en svart. Ingen fyllning upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }],
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, null]
+    ],
+    "options": [
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 6, "rotation": 30, "fill": "gray" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q11-ring-fill-latin",
+    "title": "Ringfyllningen bildar latin square",
+    "rule": "Alla figurer har två koncentriska ringar. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart innerring. Yttre ringen är alltid ofylld.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "black"] }],
+      [{ "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none"] }],
+      [{ "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none"] }, null]
+    ],
+    "options": [
+      { "kind": "ring", "rings": ["none", "gray"] },
+      { "kind": "ring", "rings": ["none", "none"] },
+      { "kind": "ring", "rings": ["none", "black"] },
+      { "kind": "ring", "rings": ["gray", "gray"] },
+      { "kind": "ring", "rings": ["none", "none", "gray"] },
+      { "kind": "ring", "rings": ["black", "gray"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q12-tally-count-latin",
+    "title": "Antal pinnar bildar latin square",
+    "rule": "Pinnarna är alltid horisontella. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med en pinne, en med tre och en med fem. Inget antal upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "tally", "count": 1, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 5, "orientation": "horizontal" }],
+      [{ "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 5, "orientation": "horizontal" }, { "kind": "tally", "count": 1, "orientation": "horizontal" }],
+      [{ "kind": "tally", "count": 5, "orientation": "horizontal" }, { "kind": "tally", "count": 1, "orientation": "horizontal" }, null]
+    ],
+    "options": [
+      { "kind": "tally", "count": 3, "orientation": "horizontal" },
+      { "kind": "tally", "count": 1, "orientation": "horizontal" },
+      { "kind": "tally", "count": 5, "orientation": "horizontal" },
+      { "kind": "tally", "count": 3, "orientation": "vertical" },
+      { "kind": "tally", "count": 2, "orientation": "horizontal" },
+      { "kind": "tally", "count": 4, "orientation": "horizontal" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q13-orbital-walk-3",
+    "title": "Satelliten hoppar tre steg",
+    "rule": "Satelliten flyttar tre positioner medurs (135°) för varje cell, läst rad för rad utan avbrott. Mittpunkten är öppen i hela mönstret.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "orbital", "center": "open", "satellite": 0 }, { "kind": "orbital", "center": "open", "satellite": 3 }, { "kind": "orbital", "center": "open", "satellite": 6 }],
+      [{ "kind": "orbital", "center": "open", "satellite": 1 }, { "kind": "orbital", "center": "open", "satellite": 4 }, { "kind": "orbital", "center": "open", "satellite": 7 }],
+      [{ "kind": "orbital", "center": "open", "satellite": 2 }, { "kind": "orbital", "center": "open", "satellite": 5 }, null]
+    ],
+    "options": [
+      { "kind": "orbital", "center": "open", "satellite": 0 },
+      { "kind": "orbital", "center": "open", "satellite": 5 },
+      { "kind": "orbital", "center": "open", "satellite": 2 },
+      { "kind": "orbital", "center": "filled", "satellite": 0 },
+      { "kind": "orbital", "center": "open", "satellite": 1 },
+      { "kind": "orbital", "center": "open", "satellite": null }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q14-stack-base-latin",
+    "title": "Basformen bildar latin square",
+    "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en diamant. Ingen form upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, null]
+    ],
+    "options": [
+      { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "black" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q15-lattice-ccw",
+    "title": "Den fyllda rutan vandrar moturs",
+    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg moturs (TL → BL → BR → TR) för varje cell, läst rad för rad utan avbrott.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
+      [{ "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, null]
+    ],
+    "options": [
+      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] },
+      { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q16-ray-rotate-walk",
+    "title": "Strålparet vrider sig",
+    "rule": "Två motstående strålar vrider sig 45° medurs (en position) för varje cell, läst rad för rad utan avbrott.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [1, 5] }, { "kind": "ray", "rays": [2, 6] }],
+      [{ "kind": "ray", "rays": [3, 7] }, { "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [1, 5] }],
+      [{ "kind": "ray", "rays": [2, 6] }, { "kind": "ray", "rays": [3, 7] }, null]
+    ],
+    "options": [
+      { "kind": "ray", "rays": [0, 4] },
+      { "kind": "ray", "rays": [1, 5] },
+      { "kind": "ray", "rays": [2, 6] },
+      { "kind": "ray", "rays": [3, 7] },
+      { "kind": "ray", "rays": [0, 2, 4, 6] },
+      { "kind": "ray", "rays": [0] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q17-poly-sides-latin",
+    "title": "Antal sidor bildar latin square",
+    "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Inget antal sidor upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }, null]
+    ],
+    "options": [
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q18-vector-walk-half",
+    "title": "Vektorn vrider sig halvvarv per steg",
+    "rule": "Vektorn vrider sig 90° medurs (två positioner) för varje cell, läst rad för rad utan avbrott. Längd och pilspets är desamma.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, null]
+    ],
+    "options": [
+      { "kind": "vector", "angle": 0, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 90, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 180, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 270, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "short", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "long", "head": "open" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q19-ring-innerfill-latin",
+    "title": "Innersta ringens fyllning bildar latin square",
+    "rule": "Alla figurer har tre koncentriska ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring. Inget upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "ring", "rings": ["none", "none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
+      [{ "kind": "ring", "rings": ["none", "none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "black"] }, { "kind": "ring", "rings": ["none", "none", "none"] }],
+      [{ "kind": "ring", "rings": ["none", "none", "black"] }, { "kind": "ring", "rings": ["none", "none", "none"] }, null]
+    ],
+    "options": [
+      { "kind": "ring", "rings": ["none", "none", "gray"] },
+      { "kind": "ring", "rings": ["none", "none", "none"] },
+      { "kind": "ring", "rings": ["none", "none", "black"] },
+      { "kind": "ring", "rings": ["none", "gray", "gray"] },
+      { "kind": "ring", "rings": ["gray", "none", "gray"] },
+      { "kind": "ring", "rings": ["none", "black"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q20-lattice-graycell-walk",
+    "title": "Den grå rutan vandrar medurs",
+    "rule": "Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (TL → TR → BR → BL) för varje cell, läst rad för rad utan avbrott.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_gray"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "fill_gray", "empty"] }, { "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_gray"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_gray", "empty"] }, null]
+    ],
+    "options": [
+      { "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_gray"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "fill_gray", "empty"] },
+      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q21-orbital-ccw",
+    "title": "Satelliten vandrar moturs",
+    "rule": "Satelliten flyttar sig 45° moturs (en position) för varje cell, läst rad för rad utan avbrott. Mittpunkten är fylld.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "orbital", "center": "filled", "satellite": 7 }, { "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 4 }, { "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 2 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 1 }, { "kind": "orbital", "center": "filled", "satellite": 0 }, null]
+    ],
+    "options": [
+      { "kind": "orbital", "center": "filled", "satellite": 7 },
+      { "kind": "orbital", "center": "filled", "satellite": 0 },
+      { "kind": "orbital", "center": "filled", "satellite": 1 },
+      { "kind": "orbital", "center": "open", "satellite": 7 },
+      { "kind": "orbital", "center": "filled", "satellite": 6 },
+      { "kind": "orbital", "center": "filled", "satellite": null }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q22-stack-symbol-latin",
+    "title": "Symbolen bildar latin square",
+    "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen ovanpå följer en latin square: varje rad och varje kolumn innehåller exakt en med plus, en med minus och en med prick. Ingen symbol upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, null]
+    ],
+    "options": [
+      { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "black" },
+      { "kind": "stack", "base": "circle", "symbol": "ring", "baseFill": "none" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q23-tally-walk-count",
+    "title": "Pinnarna blir fler runt griden",
+    "rule": "Pinnarna är alltid vertikala. Antalet ökar med en för varje cell, läst rad för rad (1, 2, 3, 4, 5), och börjar sedan om på 1. Mönstret löper obrutet genom hela rutnätet.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
+      [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 5, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }],
+      [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, null]
+    ],
+    "options": [
+      { "kind": "tally", "count": 4, "orientation": "vertical" },
+      { "kind": "tally", "count": 3, "orientation": "vertical" },
+      { "kind": "tally", "count": 5, "orientation": "vertical" },
+      { "kind": "tally", "count": 1, "orientation": "vertical" },
+      { "kind": "tally", "count": 4, "orientation": "horizontal" },
+      { "kind": "tally", "count": 2, "orientation": "vertical" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q24-ray-add",
+    "title": "Strålarna slås samman",
+    "rule": "Strålarna i kolumn 3 är alla strålar från kolumn 1 och kolumn 2 tillsammans (union). En stråle som finns i någon av de två första kolumnerna visas i den tredje.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "ray", "rays": [0] }, { "kind": "ray", "rays": [4] }, { "kind": "ray", "rays": [0, 4] }],
+      [{ "kind": "ray", "rays": [2] }, { "kind": "ray", "rays": [6] }, { "kind": "ray", "rays": [2, 6] }],
+      [{ "kind": "ray", "rays": [0, 2] }, { "kind": "ray", "rays": [4] }, null]
+    ],
+    "options": [
+      { "kind": "ray", "rays": [0, 2, 4] },
+      { "kind": "ray", "rays": [0, 2] },
+      { "kind": "ray", "rays": [4] },
+      { "kind": "ray", "rays": [0, 4] },
+      { "kind": "ray", "rays": [0, 2, 4, 6] },
+      { "kind": "ray", "rays": [2, 4] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q25-poly-rotate-walk",
+    "title": "Femhörningen vrider sig stegvis",
+    "rule": "Den svarta femhörningen vrider sig 30° medurs för varje cell, läst rad för rad utan avbrott (0°, 30°, 60°, 90° ...). Antalet sidor är detsamma.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 60, "fill": "black" }],
+      [{ "kind": "poly", "sides": 5, "rotation": 90, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" }],
+      [{ "kind": "poly", "sides": 5, "rotation": 60, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 90, "fill": "black" }, null]
+    ],
+    "options": [
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 60, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 90, "fill": "black" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q26-orbital-fill-latin",
+    "title": "Satellitens position bildar latin square",
+    "rule": "Mittpunkten är fylld i alla. Satellitens position följer en latin square mellan tre lägen (toppen, nedre höger, nedre vänster): varje rad och kolumn har exakt en av varje. Ingen position upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 5 }, { "kind": "orbital", "center": "filled", "satellite": 0 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 5 }, { "kind": "orbital", "center": "filled", "satellite": 0 }, null]
+    ],
+    "options": [
+      { "kind": "orbital", "center": "filled", "satellite": 3 },
+      { "kind": "orbital", "center": "filled", "satellite": 0 },
+      { "kind": "orbital", "center": "filled", "satellite": 5 },
+      { "kind": "orbital", "center": "open", "satellite": 3 },
+      { "kind": "orbital", "center": "filled", "satellite": 2 },
+      { "kind": "orbital", "center": "filled", "satellite": null }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q27-lattice-fill-cycle",
+    "title": "Rutmönstret roterar ett kvarts varv",
+    "rule": "Mönstret i mini-rutnätet roterar ett kvarts varv medurs för varje cell, läst rad för rad utan avbrott. Antalet svarta rutor förändras aldrig.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "fill_black"] }],
+      [{ "kind": "lattice", "cells": ["fill_black", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "fill_black", "fill_black"] }, { "kind": "lattice", "cells": ["fill_black", "empty", "fill_black", "empty"] }, null]
+    ],
+    "options": [
+      { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "fill_black"] },
+      { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] },
+      { "kind": "lattice", "cells": ["fill_black", "empty", "fill_black", "empty"] },
+      { "kind": "lattice", "cells": ["fill_black", "fill_black", "fill_black", "fill_black"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q28-vector-len-walk",
+    "title": "Vektorn vrider sig och växlar längd",
+    "rule": "Vektorn vrider sig 45° medurs för varje cell, läst rad för rad utan avbrott. Längden växlar mellan lång och kort för varje cell, med start lång.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "short", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 135, "length": "short", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "short", "head": "filled" }],
+      [{ "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 315, "length": "short", "head": "filled" }, null]
+    ],
+    "options": [
+      { "kind": "vector", "angle": 0, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "short", "head": "filled" },
+      { "kind": "vector", "angle": 315, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 45, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "long", "head": "open" },
+      { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }
+    ],
+    "correctAnswer": 0
   }
 ]
