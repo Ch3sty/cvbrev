@@ -39,21 +39,21 @@ export default function TesterHubHero({
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white/20 backdrop-blur-sm mb-4">
             <Brain className="w-3.5 h-3.5" strokeWidth={2.5} />
-            Kognitiva test
+            Rekryteringstester
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-3">
             Träna inför rekryteringstester
           </h1>
           <p className="text-sm sm:text-base md:text-lg opacity-95 leading-relaxed mb-6 max-w-xl">
-            Ett komplett bibliotek med kognitiva test — designade för svensk arbetsmarknad,
-            med Mensa-nivå svårighet och premium-känsla.
+            Logik, verbalt och numeriskt resonemang plus personlighetstest. Riktiga
+            rekryteringsmoment, byggda för svensk arbetsmarknad.
           </p>
 
           {/* Stat-pills */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 border-t border-white/20">
-            <Stat icon={<Layers className="w-3.5 h-3.5" strokeWidth={2.5} />} label="6 test" />
+            <Stat icon={<Layers className="w-3.5 h-3.5" strokeWidth={2.5} />} label="Logik · verbalt · numeriskt" />
             <Divider />
-            <Stat icon={<BookOpen className="w-3.5 h-3.5" strokeWidth={2.5} />} label="3 kategorier" />
+            <Stat icon={<BookOpen className="w-3.5 h-3.5" strokeWidth={2.5} />} label="Personlighetstest" />
             <Divider />
             <Stat icon={<Target className="w-3.5 h-3.5" strokeWidth={2.5} />} label="Rekryteringsnivå" />
             {totalCompleted > 0 && (

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Target } from 'lucide-react';
 import { EmptyStateIllustration } from './illustrations/TesterHubIcons';
 
 export default function EmptyTestsCallout() {
@@ -26,15 +26,15 @@ export default function EmptyTestsCallout() {
 
         <div className="flex-1 text-center sm:text-left">
           <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            <Sparkles className="w-3 h-3" strokeWidth={2.5} />
+            <Target className="w-3 h-3" strokeWidth={2.5} />
             Kom igång
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 leading-tight">
             Börja din första utmaning
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed max-w-md mx-auto sm:mx-0">
-            Vi rekommenderar att börja med <span className="font-semibold">Matrislogik Grund</span> —
-            vår mest tillgängliga introduktion till mönsterigenkänning.
+            Vi rekommenderar att börja med <span className="font-semibold">Logiktest (Grund)</span>.
+            Det är den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning.
           </p>
           <Link
             href="/dashboard/tester/matrislogik-grund"

@@ -18,12 +18,21 @@ interface SessionRow {
   completed_at: string | null;
 }
 
+export interface TestAttempt {
+  score: number;
+  percentage: number;
+  timeSpent: number;
+  completedAt: string;
+}
+
 export interface PerTestStats {
   attempts: number;
   bestScore: number;
   bestPercentage: number;
   totalTimeSeconds: number;
   lastAttempt: string | null;
+  /** Slutförda försök, sorterade äldst→nyast (för trendgrafer). */
+  history: TestAttempt[];
 }
 
 export interface AllTestStats {
@@ -67,6 +76,7 @@ const EMPTY_STATS: PerTestStats = {
   bestPercentage: 0,
   totalTimeSeconds: 0,
   lastAttempt: null,
+  history: [],
 };
 
 function summarizeSessions(sessions: SessionRow[], totalQuestions: number): PerTestStats {
@@ -85,12 +95,28 @@ function summarizeSessions(sessions: SessionRow[], totalQuestions: number): PerT
     (a, b) => new Date(b.completed_at!).getTime() - new Date(a.completed_at!).getTime()
   );
 
+  // Äldst→nyast för trendgrafer
+  const history: TestAttempt[] = [...completed]
+    .sort(
+      (a, b) => new Date(a.completed_at!).getTime() - new Date(b.completed_at!).getTime()
+    )
+    .map((s) => {
+      const score = s.score ?? 0;
+      return {
+        score,
+        percentage: Math.max(0, Math.min(100, Math.round((score / totalQuestions) * 100))),
+        timeSpent: s.time_spent ?? 0,
+        completedAt: s.completed_at!,
+      };
+    });
+
   return {
     attempts: completed.length,
     bestScore,
     bestPercentage,
     totalTimeSeconds,
     lastAttempt: sortedByDate[0]?.completed_at ?? null,
+    history,
   };
 }
 

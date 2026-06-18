@@ -23,6 +23,8 @@ interface TestCardProps {
   slug: TestSlug;
   variant: TestCardVariant;
   title: string;
+  /** Metod/undertext, t.ex. "Mönsterigenkänning · matriser". */
+  method?: string;
   categoryLabel: TestCategoryLabel;
   levelLabel: TestLevelLabel;
   questionCount: number;
@@ -39,6 +41,7 @@ export default function TestCard({
   slug,
   variant,
   title,
+  method,
   categoryLabel,
   levelLabel,
   questionCount,
@@ -111,6 +114,11 @@ export default function TestCard({
               <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight truncate">
                 {title}
               </h3>
+              {method && (
+                <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight truncate">
+                  {method}
+                </p>
+              )}
               <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 tabular-nums">
                 {questionCount} frågor · {timeLabel} min
               </p>

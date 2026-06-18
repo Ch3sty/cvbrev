@@ -13,6 +13,8 @@ export interface PersonalityStat {
   hasProfile: boolean;
   lastCompletedAt: string | null;
   attempts: number;
+  /** Slutförda profil-datum, nyast först. */
+  completedDates: string[];
 }
 
 export interface PersonalityTestStats {
@@ -25,6 +27,7 @@ const EMPTY: PersonalityStat = {
   hasProfile: false,
   lastCompletedAt: null,
   attempts: 0,
+  completedDates: [],
 };
 
 function summarize(rows: SessionRow[], testType: PersonalityTestType): PersonalityStat {
@@ -39,6 +42,7 @@ function summarize(rows: SessionRow[], testType: PersonalityTestType): Personali
     hasProfile: true,
     lastCompletedAt: sorted[0].completed_at,
     attempts: completed.length,
+    completedDates: sorted.map((s) => s.completed_at!),
   };
 }
 
