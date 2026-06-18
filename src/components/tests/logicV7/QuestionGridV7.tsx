@@ -21,17 +21,23 @@ export function QuestionGridV7({ grid }: Props) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.04, duration: 0.25 }}
-            className="relative w-full aspect-square"
           >
+            {/* aspect-square sitter på innehållsdiven (inte på motion.div, som
+                bär framer-motions scale-transform). Fylld och tom cell delar
+                samma wrapper-struktur så de får alltid identisk höjd. */}
             {cell ? (
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white to-orange-50/40 border border-orange-100 flex items-center justify-center overflow-hidden">
-                <svg viewBox="0 0 100 100" className="w-full h-full p-1.5 sm:p-2" shapeRendering="geometricPrecision">
+              <div className="aspect-square rounded-xl bg-gradient-to-br from-white to-orange-50/40 border border-orange-100 flex items-center justify-center overflow-hidden">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="w-full h-full p-1.5 sm:p-2"
+                  shapeRendering="geometricPrecision"
+                >
                   <SvgLayeredCell cell={cell} />
                 </svg>
               </div>
             ) : (
               <div
-                className="absolute inset-0 rounded-xl flex items-center justify-center overflow-hidden"
+                className="aspect-square rounded-xl flex items-center justify-center relative overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(220, 38, 38, 0.08))',
                   border: '2px dashed rgba(249, 115, 22, 0.45)',
