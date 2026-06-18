@@ -37,28 +37,27 @@ export function QuestionGridV7({ grid }: Props) {
               </div>
             ) : (
               <div
-                className="aspect-square rounded-xl flex items-center justify-center relative overflow-hidden"
+                className="aspect-square rounded-xl flex items-center justify-center overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(220, 38, 38, 0.08))',
                   border: '2px dashed rgba(249, 115, 22, 0.45)',
                 }}
               >
-                <motion.div
-                  className="absolute inset-1 rounded-lg"
-                  style={{ border: '2px solid rgba(249, 115, 22, 0.5)' }}
-                  animate={{ opacity: [0.4, 0.85, 0.4], scale: [0.96, 1.0, 0.96] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <span
-                  className="text-3xl sm:text-4xl md:text-5xl font-black select-none relative z-10"
+                {/* Pulseringen ligger på själva ?-texten (ett innehållselement) i
+                    stället för ett absolut-positionerat syskon, så att cellens
+                    aspect-square-höjd inte kollapsar. */}
+                <motion.span
+                  className="text-3xl sm:text-4xl md:text-5xl font-black select-none"
                   style={{
                     background: 'linear-gradient(135deg, #F97316, #DC2626)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                   }}
+                  animate={{ opacity: [0.5, 1, 0.5], scale: [0.94, 1.0, 0.94] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 >
                   ?
-                </span>
+                </motion.span>
               </div>
             )}
           </motion.div>

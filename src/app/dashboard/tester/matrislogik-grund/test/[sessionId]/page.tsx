@@ -26,6 +26,7 @@ export default function TestSessionPage({ params }: PageProps) {
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
   const [isSaving, setIsSaving] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const { showHint, toggle: toggleHint } = useTestHintMode();
 
@@ -68,17 +69,21 @@ export default function TestSessionPage({ params }: PageProps) {
   );
 
   const handleSelectAnswer = useCallback(
-    async (index: number) => {
+    (index: number) => {
+      // Lås navigering direkt så man inte kan dubbel-hoppa (auto-advance + Nästa).
+      if (isNavigating) return;
       setIsSaving(true);
+      setIsNavigating(true);
 
       const newAnswers = [...answers];
       newAnswers[currentQuestion] = index;
       setAnswers(newAnswers);
 
-      await saveAnswer(currentQuestion, index);
-      setIsSaving(false);
+      // Spara i bakgrunden — auto-hoppet ska inte vänta på API-latens.
+      saveAnswer(currentQuestion, index).finally(() => setIsSaving(false));
 
-      // Auto-advance till nästa obesvarade
+      // Snabbt auto-hopp till nästa obesvarade. Konsekvent timing eftersom det
+      // inte längre blockeras av fetch:en ovan.
       setTimeout(() => {
         const nextUnanswered = newAnswers.findIndex(
           (ans, i) => i > currentQuestion && ans === null
@@ -90,9 +95,10 @@ export default function TestSessionPage({ params }: PageProps) {
           setCurrentQuestion(currentQuestion + 1);
           setQuestionStartTime(Date.now());
         }
-      }, 300);
+        setIsNavigating(false);
+      }, 150);
     },
-    [answers, currentQuestion, saveAnswer]
+    [answers, currentQuestion, saveAnswer, isNavigating, questions.length]
   );
 
   const handleNavigate = (index: number) => {
@@ -205,7 +211,7 @@ export default function TestSessionPage({ params }: PageProps) {
                   options={question.options}
                   selectedIndex={answers[currentQuestion]}
                   onSelect={handleSelectAnswer}
-                  disabled={isSaving}
+                  disabled={isSaving || isNavigating}
                 />
               </div>
             </motion.div>
@@ -215,7 +221,7 @@ export default function TestSessionPage({ params }: PageProps) {
           <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
             <button
               onClick={handlePrev}
-              disabled={currentQuestion === 0}
+              disabled={currentQuestion === 0 || isNavigating}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
@@ -232,7 +238,7 @@ export default function TestSessionPage({ params }: PageProps) {
 
             <button
               onClick={handleNext}
-              disabled={currentQuestion === questions.length - 1}
+              disabled={currentQuestion === questions.length - 1 || isNavigating}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
               style={{
                 background: 'linear-gradient(135deg, #F97316, #DC2626)',
