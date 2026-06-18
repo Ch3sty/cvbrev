@@ -1,0 +1,102 @@
+[
+  {
+    "id": "v7g-q1-poly-sides-fill",
+    "title": "Antal sidor per rad, fyllning per kolumn",
+    "rule": "Raden bestämmer polygonens antal sidor (fem, sex, åtta). Kolumnen bestämmer fyllningen: ofylld, grå, svart. Korsa de två reglerna för den saknade figuren.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" }, null]
+    ],
+    "options": [
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" },
+      { "kind": "poly", "sides": 8, "rotation": 30, "fill": "black" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q2-ring-count-fill",
+    "title": "Antal ringar per kolumn, innersta fyllning per rad",
+    "rule": "Antalet koncentriska ringar ökar med en per kolumn (en, två, tre). Raden bestämmer den innersta ringens fyllning: rad 1 svart, rad 2 grå, rad 3 ofylld. Yttre ringar är alltid ofyllda.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
+      [{ "kind": "ring", "rings": ["gray"] }, { "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "gray"] }],
+      [{ "kind": "ring", "rings": ["none"] }, { "kind": "ring", "rings": ["none", "none"] }, null]
+    ],
+    "options": [
+      { "kind": "ring", "rings": ["none", "none", "none"] },
+      { "kind": "ring", "rings": ["none", "none", "black"] },
+      { "kind": "ring", "rings": ["none", "none", "gray"] },
+      { "kind": "ring", "rings": ["none", "black"] },
+      { "kind": "ring", "rings": ["black", "black", "black"] },
+      { "kind": "ring", "rings": ["gray", "none", "none"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q3-vector-rotation",
+    "title": "Vektorn vrider sig",
+    "rule": "Vektorn vrider sig 45° medurs för varje cell, läst rad för rad utan avbrott. Längden och pilspetsen är desamma genom hela mönstret.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 135, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
+      [{ "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 315, "length": "long", "head": "filled" }, null]
+    ],
+    "options": [
+      { "kind": "vector", "angle": 0, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 45, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 315, "length": "long", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "short", "head": "filled" },
+      { "kind": "vector", "angle": 0, "length": "long", "head": "open" },
+      { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q4-stack-base-symbol",
+    "title": "Basform per rad, symbol per kolumn",
+    "rule": "Raden bestämmer basformen (cirkel, kvadrat, triangel). Kolumnen bestämmer symbolen ovanpå (plus, minus, prick). Basen är ofylld genomgående.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "minus", "baseFill": "none" }, null]
+    ],
+    "options": [
+      { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" },
+      { "kind": "stack", "base": "triangle", "symbol": "minus", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "black" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q5-tally-latin",
+    "title": "Räknepinnarnas antal bildar latin square",
+    "rule": "Pinnarna är alltid vertikala. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med två, en med tre och en med fyra pinnar. Inget antal upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
+      [{ "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
+      [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, null]
+    ],
+    "options": [
+      { "kind": "tally", "count": 3, "orientation": "vertical" },
+      { "kind": "tally", "count": 2, "orientation": "vertical" },
+      { "kind": "tally", "count": 4, "orientation": "vertical" },
+      { "kind": "tally", "count": 3, "orientation": "horizontal" },
+      { "kind": "tally", "count": 5, "orientation": "vertical" },
+      { "kind": "tally", "count": 1, "orientation": "vertical" }
+    ],
+    "correctAnswer": 0
+  }
+]
