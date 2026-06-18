@@ -122,6 +122,17 @@ export type SectorWheelCell = {
 };
 
 // =============================================================================
+// 12. DOTSORBIT — prickar i positioner runt en (osynlig) cirkelbana
+// =============================================================================
+// Positionerna 0–7 ligger runt en cirkel: 0 = överst (12), medurs i 45°-steg.
+// `dots` listar vilka positioner som har en prick. Ren, neutral form för
+// "prickar som rör sig"-mönster (som riktiga test). Ingen mittpunkt, inget spår.
+export type DotsOrbitCell = {
+  kind: 'dotsorbit';
+  dots: number[];
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -135,7 +146,8 @@ export type V7Cell =
   | VectorCell
   | PolyCell
   | TileCell
-  | SectorWheelCell;
+  | SectorWheelCell
+  | DotsOrbitCell;
 
 export type Question = {
   id: string;

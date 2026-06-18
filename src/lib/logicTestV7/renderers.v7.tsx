@@ -13,6 +13,7 @@ import type {
   PolyCell,
   TileCell,
   SectorWheelCell,
+  DotsOrbitCell,
   Quad,
 } from './types.v7';
 
@@ -68,6 +69,8 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <TileRenderer cell={cell} />;
     case 'sectorwheel':
       return <SectorWheelRenderer cell={cell} />;
+    case 'dotsorbit':
+      return <DotsOrbitRenderer cell={cell} />;
   }
 };
 
@@ -704,6 +707,32 @@ const SectorWheelRenderer: React.FC<{ cell: SectorWheelCell }> = ({ cell }) => {
             strokeWidth={SW_THIN}
           />
         );
+      })}
+    </>
+  );
+};
+
+// =============================================================================
+// 12. DOTSORBIT — prickar i positioner runt en osynlig cirkelbana
+// =============================================================================
+
+const DotsOrbitRenderer: React.FC<{ cell: DotsOrbitCell }> = ({ cell }) => {
+  const cx = 50;
+  const cy = 50;
+  const orbitR = 30;
+  const dotR = 6;
+
+  // Position 0 = överst (12), medurs i 45°-steg.
+  const pos = (i: number) => {
+    const a = ((i * 45 - 90) * Math.PI) / 180;
+    return [cx + orbitR * Math.cos(a), cy + orbitR * Math.sin(a)];
+  };
+
+  return (
+    <>
+      {cell.dots.map((i) => {
+        const [x, y] = pos(i);
+        return <circle key={i} cx={x.toFixed(2)} cy={y.toFixed(2)} r={dotR} fill={FILL_BLACK} />;
       })}
     </>
   );
