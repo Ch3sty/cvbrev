@@ -39,6 +39,19 @@ for (const q of bank) {
     if (q.grid[2][2] !== null) errors.push(`${tag} null-cellen ska vara sist (grid[2][2])`);
   }
 
+  // läsbarhet: vissa värden renderar otydligt i det lilla cellformatet och
+  // ska inte användas på grundnivå. Skanna både grid och options.
+  const allCells = [...q.grid.flat().filter(Boolean), ...(q.options ?? [])];
+  for (const cell of allCells) {
+    const prims = Array.isArray(cell) ? cell : [cell];
+    for (const p of prims) {
+      // tally=5 ritas som "buntat femtal" med diagonalstreck → svårläst litet
+      if (p.kind === 'tally' && p.count === 5) {
+        errors.push(`${tag} tally med 5 pinnar (buntat femtal) är svårläst — använd max 4`);
+      }
+    }
+  }
+
   // options = 6, unika, correctAnswer giltig
   if (!Array.isArray(q.options) || q.options.length !== 6) {
     errors.push(`${tag} options ska vara 6 (är ${q.options?.length})`);

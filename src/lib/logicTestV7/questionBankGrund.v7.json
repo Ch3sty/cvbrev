@@ -94,8 +94,8 @@
       { "kind": "tally", "count": 2, "orientation": "vertical" },
       { "kind": "tally", "count": 4, "orientation": "vertical" },
       { "kind": "tally", "count": 3, "orientation": "horizontal" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
-      { "kind": "tally", "count": 1, "orientation": "vertical" }
+      { "kind": "tally", "count": 1, "orientation": "vertical" },
+      { "kind": "tally", "count": 4, "orientation": "horizontal" }
     ],
     "correctAnswer": 0
   },
@@ -222,20 +222,20 @@
   {
     "id": "v7g-q12-tally-count-latin",
     "title": "Antal pinnar bildar latin square",
-    "rule": "Pinnarna är alltid horisontella. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med en pinne, en med tre och en med fem. Inget antal upprepas i samma rad eller kolumn.",
+    "rule": "Pinnarna är alltid horisontella. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med två, en med tre och en med fyra pinnar. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "tally", "count": 1, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 5, "orientation": "horizontal" }],
-      [{ "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 5, "orientation": "horizontal" }, { "kind": "tally", "count": 1, "orientation": "horizontal" }],
-      [{ "kind": "tally", "count": 5, "orientation": "horizontal" }, { "kind": "tally", "count": 1, "orientation": "horizontal" }, null]
+      [{ "kind": "tally", "count": 2, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 4, "orientation": "horizontal" }],
+      [{ "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 4, "orientation": "horizontal" }, { "kind": "tally", "count": 2, "orientation": "horizontal" }],
+      [{ "kind": "tally", "count": 4, "orientation": "horizontal" }, { "kind": "tally", "count": 2, "orientation": "horizontal" }, null]
     ],
     "options": [
       { "kind": "tally", "count": 3, "orientation": "horizontal" },
-      { "kind": "tally", "count": 1, "orientation": "horizontal" },
-      { "kind": "tally", "count": 5, "orientation": "horizontal" },
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
       { "kind": "tally", "count": 2, "orientation": "horizontal" },
-      { "kind": "tally", "count": 4, "orientation": "horizontal" }
+      { "kind": "tally", "count": 4, "orientation": "horizontal" },
+      { "kind": "tally", "count": 3, "orientation": "vertical" },
+      { "kind": "tally", "count": 1, "orientation": "horizontal" },
+      { "kind": "tally", "count": 2, "orientation": "vertical" }
     ],
     "correctAnswer": 0
   },
@@ -442,20 +442,20 @@
   {
     "id": "v7g-q23-tally-walk-count",
     "title": "Pinnarna blir fler runt griden",
-    "rule": "Pinnarna är alltid vertikala. Antalet ökar med en för varje cell, läst rad för rad (1, 2, 3, 4, 5), och börjar sedan om på 1. Mönstret löper obrutet genom hela rutnätet.",
+    "rule": "Pinnarna är alltid vertikala. Antalet ökar med en för varje cell, läst rad för rad (1, 2, 3, 4), och börjar sedan om på 1. Mönstret löper obrutet genom hela rutnätet.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 5, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, null]
+      [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
+      [{ "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }, null]
     ],
     "options": [
-      { "kind": "tally", "count": 4, "orientation": "vertical" },
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
       { "kind": "tally", "count": 1, "orientation": "vertical" },
+      { "kind": "tally", "count": 3, "orientation": "vertical" },
+      { "kind": "tally", "count": 2, "orientation": "vertical" },
+      { "kind": "tally", "count": 4, "orientation": "vertical" },
       { "kind": "tally", "count": 4, "orientation": "horizontal" },
-      { "kind": "tally", "count": 2, "orientation": "vertical" }
+      { "kind": "tally", "count": 2, "orientation": "horizontal" }
     ],
     "correctAnswer": 0
   },
