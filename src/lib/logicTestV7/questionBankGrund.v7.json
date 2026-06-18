@@ -98,5 +98,65 @@
       { "kind": "tally", "count": 1, "orientation": "vertical" }
     ],
     "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q6-orbital-walk",
+    "title": "Satelliten vandrar runt cirkeln",
+    "rule": "Satelliten flyttar sig 90° medurs (två positioner) för varje cell, läst rad för rad utan avbrott. Mittpunkten är fylld i hela mönstret.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 2 }, { "kind": "orbital", "center": "filled", "satellite": 4 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 2 }],
+      [{ "kind": "orbital", "center": "filled", "satellite": 4 }, { "kind": "orbital", "center": "filled", "satellite": 6 }, null]
+    ],
+    "options": [
+      { "kind": "orbital", "center": "filled", "satellite": 0 },
+      { "kind": "orbital", "center": "filled", "satellite": 2 },
+      { "kind": "orbital", "center": "filled", "satellite": 4 },
+      { "kind": "orbital", "center": "filled", "satellite": 6 },
+      { "kind": "orbital", "center": "open", "satellite": 0 },
+      { "kind": "orbital", "center": "filled", "satellite": null }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q7-ray-count-latin",
+    "title": "Antal strålar bildar latin square",
+    "rule": "Antalet strålar från centrum följer en latin square: varje rad och varje kolumn innehåller exakt en figur med två strålar, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
+    "grid": [
+      [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [0, 2, 4, 6] }],
+      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "ray", "rays": [0, 4] }],
+      [{ "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "ray", "rays": [0, 4] }, null]
+    ],
+    "options": [
+      { "kind": "ray", "rays": [0, 2, 4] },
+      { "kind": "ray", "rays": [0, 4] },
+      { "kind": "ray", "rays": [0, 2, 4, 6] },
+      { "kind": "ray", "rays": [2, 6] },
+      { "kind": "ray", "rays": [0, 1, 2, 3, 4] },
+      { "kind": "ray", "rays": [0] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7g-q8-lattice-rotate",
+    "title": "Den fyllda rutan vandrar i mini-rutnätet",
+    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg medurs (TL → TR → BR → BL) för varje cell, läst rad för rad utan avbrott.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }],
+      [{ "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, null]
+    ],
+    "options": [
+      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] },
+      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "fill_black"] },
+      { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
+    ],
+    "correctAnswer": 0
   }
 ]
