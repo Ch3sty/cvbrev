@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
@@ -9,10 +9,9 @@ import VerbalTestHeader from '@/components/tests/verbal-shared/VerbalTestHeader'
 import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
 import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
-import questionBank from '@/lib/verbalTestV1/questionBank.json';
-import type { Question, UserAnswer } from '@/lib/verbalTestV1/types.v1';
+import { selectPassagesForSession } from '@/lib/verbalTestV1/selectPassages.v1';
+import type { UserAnswer } from '@/lib/verbalTestV1/types.v1';
 
-const questions = questionBank as Question[];
 const TOTAL_TIME = 25 * 60;
 
 interface PageProps {
@@ -34,14 +33,22 @@ export default function VerbalTestPage({ params }: PageProps) {
     params.then((p) => setSessionId(p.sessionId));
   }, [params]);
 
-  // Initialize answers
+  // Seedat urval ur banken: samma sessionId → samma passager (stabilt mellan
+  // test- och resultatsida). Olika sessionId → nya frågor vid omspel.
+  const questions = useMemo(
+    () => (sessionId ? selectPassagesForSession(sessionId) : []),
+    [sessionId]
+  );
+
+  // Initialize answers (när urvalet är klart)
   useEffect(() => {
+    if (questions.length === 0) return;
     const initial: Record<string, UserAnswer[]> = {};
     questions.forEach((q) => {
       initial[q.id] = Array(q.statements.length).fill(null);
     });
     setAnswers(initial);
-  }, []);
+  }, [questions]);
 
   const currentPassage = questions[currentPassageIndex];
   const currentAnswers = answers[currentPassage?.id] || [];

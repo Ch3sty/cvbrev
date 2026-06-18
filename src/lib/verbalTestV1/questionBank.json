@@ -8,19 +8,23 @@
     "statements": [
       {
         "text": "Det är möjligt för studenter att utföra den ordinarie personalens arbete när de är på semester.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att ordinarie personal ofta tar semester på sommaren och att företag då behöver extra personal. Att studenterna täcker upp det ordinarie arbetet följer logiskt av detta."
       },
       {
         "text": "Studenter har samma rätt till betald semester som den ordinarie personalen när de sommarjobbar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten slår fast att studenterna betalas efter en fast skala 'utan de vanliga rättigheterna, såsom betald semester och sjuklön'. Påståendet motsägs alltså direkt."
       },
       {
         "text": "Studenterna måste följa företagets ordinarie rutiner för disciplin- och klagomålsärenden.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner ingenting om disciplin- eller klagomålsärenden. Vi kan varken bekräfta eller motsäga detta utifrån det som står."
       },
       {
         "text": "Vissa företag har större arbetsbelastning under sommaren när studenterna är lediga och kan sommarjobba.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att företag 'inte ovanligt' har toppar i arbetsbelastning under sommaren och därför behöver extra personal, vilket stödjer påståendet."
       }
     ]
   },
@@ -33,19 +37,23 @@
     "statements": [
       {
         "text": "Distansarbete har lett till minskad produktivitet i de flesta företag.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger tvärtom att produktiviteten inte påverkats negativt, och i vissa fall till och med ökat. Påståendet om minskad produktivitet motsägs alltså."
       },
       {
         "text": "Alla anställda föredrar att arbeta hemifrån framför att arbeta på kontoret.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Att vissa rapporterar högre arbetstillfredsställelse innebär inte att alla föredrar hemarbete. Texten säger inget om vad samtliga anställda föredrar, så det går inte att avgöra."
       },
       {
         "text": "Företag kan minska kostnader genom att reducera kontorslokaler.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att företag kan spara betydande kostnader på kontorshyra och faciliteter. Påståendet följer direkt."
       },
       {
         "text": "Hybridmodeller innebär att anställda arbetar på kontoret varje dag.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver hybridmodeller som arbete på kontoret 'två till tre dagar per vecka', inte varje dag. Påståendet motsägs."
       }
     ]
   },
@@ -58,19 +66,23 @@
     "statements": [
       {
         "text": "Företaget har sparat 50 000 kronor per år genom energibesparande åtgärder.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger en årlig besparing på ungefär 50 000 kronor från de energibesparande åtgärderna, vilket stämmer med påståendet."
       },
       {
         "text": "Solpanelerna står för den största delen av energibesparingen.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner solpaneler och LED som delar av initiativet men säger inget om vilken åtgärd som står för störst andel av besparingen. Det går inte att avgöra."
       },
       {
         "text": "Alla anställda är positiva till hållbarhetsinitiativet.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Enkäten visade att 85 procent är positiva, vilket betyder att inte alla är det. Påståendet motsägs av siffran."
       },
       {
         "text": "Företaget kommer att spara 200 000 kronor under de närmaste fyra åren.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten talar bara om besparingen för det senaste året och ger ingen prognos framåt. Att summan blir 200 000 på fyra år kan inte avgöras ur texten."
       }
     ]
   },
@@ -83,19 +95,23 @@
     "statements": [
       {
         "text": "Alternativa investeringar ger alltid bättre avkastning än traditionella investeringar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att alternativa investeringar presterat bättre 'det senaste decenniet' men betonar att det inte finns någon garanti för framtida resultat. Ordet 'alltid' motsägs alltså."
       },
       {
         "text": "Finansiella rådgivare rekommenderar att majoriteten av portföljen består av alternativa tillgångar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Rådgivare rekommenderar enligt texten 'högst 20 procent' i alternativa tillgångar, inte en majoritet. Påståendet motsägs direkt."
       },
       {
         "text": "Alternativa investeringar har presterat bättre än traditionella under det senaste decenniet.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att alternativa investeringar presterat bättre än traditionella med ungefär 60 procent under decenniet. Påståendet följer direkt."
       },
       {
         "text": "Konst och frimärken kommer att fortsätta öka i värde nästa år.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten gör inga förutsägelser om nästa års utveckling och påpekar att framtida resultat inte är garanterade. Det går inte att avgöra."
       }
     ]
   },
@@ -108,19 +124,23 @@
     "statements": [
       {
         "text": "Digitalisering har lett till snabbare ärendehantering i företag som implementerat det.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att företag som implementerat digitala lösningar rapporterar i genomsnitt 30 procent snabbare ärendehantering. Påståendet följer direkt."
       },
       {
         "text": "Alla digitala transformationsprojekt misslyckas på grund av tekniska problem.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 70 procent av projekten misslyckas på grund av bristande förändringshantering snarare än tekniska problem. 'Alla' och 'tekniska problem' motsägs."
       },
       {
         "text": "Medarbetarnas motstånd mot förändring är den största utmaningen i digital transformation.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten beskriver att den verkliga utmaningen ligger i att få medarbetare att ändra arbetssätt, och att bristande förändringshantering är vanligaste orsaken till misslyckande. Det stödjer påståendet."
       },
       {
         "text": "Företag som inte digitaliserar kommer att gå i konkurs inom fem år.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger inget om vad som händer med företag som inte digitaliserar, än mindre om konkurs inom fem år. Det går inte att avgöra."
       }
     ]
   },
@@ -133,19 +153,23 @@
     "statements": [
       {
         "text": "Det kostar mer att ersätta en medarbetare än deras årliga lön.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att kostnaden för att ersätta en medarbetare kan uppgå till 150 procent av årslönen, alltså mer än en årslön. Påståendet följer direkt."
       },
       {
         "text": "Högre lön är den mest effektiva metoden för att behålla personal.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att högre lön visat sig mindre effektivt än väntat och pekar istället på utveckling, meningsfullt arbete och ledarskap som avgörande. Påståendet motsägs."
       },
       {
         "text": "Alla medarbetare som känner sig förbisedda för befordran slutar inom två år.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 65 procent av dem som slutar gör det inom två år efter att ha känt sig förbisedda, inte alla. Ordet 'alla' motsägs av siffran."
       },
       {
         "text": "Företag med låg personalomsättning erbjuder alltid högre löner än konkurrenter.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att låg lön är en mindre vanlig orsak än dåligt ledarskap, men jämför inte lönenivåer mellan företag med olika omsättning. Det går inte att avgöra."
       }
     ]
   },
@@ -158,19 +182,23 @@
     "statements": [
       {
         "text": "Majoriteten av konsumenter använder flera kanaler när de handlar.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att 73 procent av konsumenter använder flera kanaler under köpresan, vilket är en majoritet. Påståendet följer direkt."
       },
       {
         "text": "Fysiska butiker har blivit onödiga på grund av e-handel.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten slår fast att fysiska butiker inte blivit obsoleta som många förutspådde, utan fått en ny roll som upplevelsecenter. Påståendet motsägs."
       },
       {
         "text": "Företag med omnichannel-strategi har högre kundlojalitet.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att företag som lyckas med omnichannel rapporterar 30 procent högre kundlojalitet. Påståendet följer direkt."
       },
       {
         "text": "Fler än hälften av alla returer från onlineköp sker i fysiska butiker.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten anger att 40 procent av returerna sker i fysisk butik, alltså mindre än hälften. 'Fler än hälften' motsägs av siffran."
       }
     ]
   },
@@ -183,19 +211,23 @@
     "statements": [
       {
         "text": "Majoriteten av företag som påstår sig ha innovationskultur uppfyller faktiskt kriterierna.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att endast 15 procent av företagen som påstår sig ha innovationskultur faktiskt uppfyller kriterierna, alltså en minoritet. 'Majoriteten' motsägs."
       },
       {
         "text": "Psykologisk trygghet är viktig för innovation enligt forskning.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten kopplar psykologisk trygghet till innovation och hänvisar till Googles Project Aristotle där trygga team var mest innovativa. Påståendet följer direkt."
       },
       {
         "text": "Googles mest innovativa team bestod alltid av de smartaste individerna.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger uttryckligen att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna. 'Alltid de smartaste' motsägs."
       },
       {
         "text": "Alla företag som använder \"fail fast\"-filosofi blir framgångsrika.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner att Amazon institutionaliserat 'fail fast' men säger inget om att alla företag som använder filosofin blir framgångsrika. Det går inte att avgöra."
       }
     ]
   },
@@ -208,19 +240,23 @@
     "statements": [
       {
         "text": "Företag fokuserar mer på resiliens än på kostnadsoptimering idag.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att företag som tidigare optimerade för kostnad nu istället fokuserar på resiliens och flexibilitet. Påståendet följer direkt."
       },
       {
         "text": "Regionaliserade leveranskedjor är alltid billigare än globala.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att regionalisering ofta är dyrare, inte billigare. Ordet 'alltid billigare' motsägs."
       },
       {
         "text": "90 procent av företagsledare har redan diversifierat sina leveranskedjor.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 90 procent av ledarna planerar att investera i mer diversifierade leveranskedjor de kommande tre åren, alltså inte att de redan gjort det. Påståendet motsägs."
       },
       {
         "text": "Teknologi kan eliminera alla störningar i leveranskedjan.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att teknik ger bättre realtidsinsyn och snabbare identifiering av störningar, men inte att den kan eliminera alla störningar. Det går inte att avgöra."
       }
     ]
   },
@@ -233,19 +269,23 @@
     "statements": [
       {
         "text": "Investeringar i medarbetarnas hälsa ger positiv ekonomisk avkastning.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att varje investerad krona ger tre till sex kronor tillbaka, alltså en positiv avkastning. Påståendet följer direkt."
       },
       {
         "text": "Alla företag erbjuder tillgång till psykologer som anställningsförmån.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 'många' företag erbjuder tillgång till psykologer, inte alla. Ordet 'alla' motsägs."
       },
       {
         "text": "Företag med hälsoprogram har lägre sjukfrånvaro än genomsnittet.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten hänvisar till en studie som visar 27 procent lägre sjukfrånvaro hos arbetsplatser med omfattande hälsoprogram. Påståendet följer direkt."
       },
       {
         "text": "Hälsoprogram garanterar att ingen anställd blir sjuk.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten talar om lägre sjukfrånvaro men säger inget om en garanti att ingen blir sjuk. Det går inte att avgöra."
       }
     ]
   },
@@ -258,19 +298,23 @@
     "statements": [
       {
         "text": "GDPR-böter kan uppgå till fyra procent av ett företags globala årsomsättning.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att böterna kan uppgå till fyra procent av global årsomsättning. Påståendet följer direkt."
       },
       {
         "text": "Majoriteten av konsumenter förstår sina rättigheter under GDPR.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att endast 40 procent av konsumenterna förstår sina rättigheter, alltså en minoritet. 'Majoriteten' motsägs av siffran."
       },
       {
         "text": "Alla företag ser dataskydd som en konkurrensfördel.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att 'vissa' företag ser dataskydd som en konkurrensfördel, inte alla. Vad övriga företag tycker går inte att avgöra ur texten."
       },
       {
         "text": "Privacy by design innebär att dataskydd integreras från början i systemutveckling.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten förklarar att privacy by design innebär att dataskydd integreras i utvecklingsprocessen från start istället för som efterhandskontroll. Påståendet följer direkt."
       }
     ]
   },
@@ -283,19 +327,197 @@
     "statements": [
       {
         "text": "Servant leadership ger högre teamprestation än command-and-control enligt forskning.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att ledare som utvecklar sina medarbetare uppnår 25 procent högre teamprestation än de med command-and-control-stilar. Påståendet följer direkt."
       },
       {
         "text": "Emotional intelligence har fem komponenter enligt Daniel Goleman.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten räknar upp Golemans fem komponenter: självmedvetenhet, självreglering, motivation, empati och social kompetens. Påståendet följer direkt."
       },
       {
         "text": "Traditionellt ledarskap är alltid sämre än moderna ledarskapsmetoder.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att traditionellt ledarskap fortfarande kan vara effektivt i krissituationer och att ingen ledarstil är universellt bäst. 'Alltid sämre' motsägs."
       },
       {
         "text": "Alla företag använder servant-leadership-modeller idag.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver ett skifte mot servant leadership men säger inget om att alla företag använder modellen idag. Det går inte att avgöra."
+      }
+    ]
+  },
+  {
+    "id": "v1-p13-onboarding-process",
+    "title": "PASSAGE 13 — Introduktion av nyanställda",
+    "difficulty": 1,
+    "topic": "HR Policy",
+    "text": "En väl genomtänkt introduktion av nyanställda är ofta avgörande för hur snabbt en medarbetare kommer in i sin roll. Många företag underskattar dock denna första period och låter nya medarbetare klara sig på egen hand efter någon enstaka introduktionsdag. Forskning visar att medarbetare som genomgår ett strukturerat introduktionsprogram stannar längre och blir produktiva snabbare. På ett verkstadsföretag i Mellansverige förkortades upplärningstiden från fyra månader till sex veckor efter att en fadderfunktion infördes. Varje nyanställd fick en erfaren kollega som följde upp arbetet veckovis under de första två månaderna. Företaget märkte också att antalet uppsägningar under provanställningen minskade tydligt. Att introducera någon kostar tid och resurser, men kostnaden för en misslyckad rekrytering är ofta betydligt högre. Cheferna på företaget ägnar numera de första dagarna åt att presentera både arbetsuppgifter och kollegor i lugn takt. Personalavdelningen följer upp varje introduktion med ett samtal efter tre månader för att fånga upp eventuella problem tidigt.",
+    "statements": [
+      {
+        "text": "Verkstadsföretaget kortade ner upplärningstiden efter att ha infört en fadderfunktion.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att upplärningstiden förkortades från fyra månader till sex veckor 'efter att en fadderfunktion infördes'. Påståendet följer direkt."
+      },
+      {
+        "text": "Alla företag prioriterar en strukturerad introduktion av nyanställda.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger tvärtom att 'många företag underskattar' introduktionsperioden och låter nyanställda klara sig själva. Påståendet motsägs alltså."
+      },
+      {
+        "text": "Faddern på verkstadsföretaget hade själv arbetat på företaget i minst fem år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver faddern som en 'erfaren kollega' men säger ingenting om hur många år. Det går inte att avgöra utifrån informationen."
+      },
+      {
+        "text": "Personalavdelningen följer upp varje introduktion med ett samtal efter tre månader.",
+        "correctAnswer": "true",
+        "explanation": "Det står ordagrant att personalavdelningen 'följer upp varje introduktion med ett samtal efter tre månader'. Påståendet stöds direkt av texten."
+      }
+    ]
+  },
+  {
+    "id": "v1-p14-pricing-strategy",
+    "title": "PASSAGE 14 — Prissättning",
+    "difficulty": 2,
+    "topic": "Market Analysis",
+    "text": "När ett företag ska sätta pris på en ny produkt finns flera strategier att välja mellan. Kostnadsbaserad prissättning utgår från tillverkningskostnaden plus en bestämd marginal, medan värdebaserad prissättning istället tar fasta på vad kunden är villig att betala. Den senare metoden kräver god kunskap om kundernas behov och betalningsvilja, men kan ge betydligt högre lönsamhet. Ett mjukvaruföretag som gick över från kostnadsbaserad till värdebaserad prissättning ökade sin genomsnittliga intäkt per kund med 35 procent under det första året. Övergången krävde dock omfattande kundintervjuer och analys av hur olika kundsegment använde produkten. Företaget upptäckte att större bolag värderade vissa funktioner mycket högre än mindre kunder och kunde därför införa differentierade prisnivåer. En risk med värdebaserad prissättning är att den uppfattas som orättvis om kunder med likartade behov betalar olika mycket. Företaget hanterade detta genom att göra prismodellen transparent och knyta priset till tydligt definierade funktionspaket.",
+    "statements": [
+      {
+        "text": "Värdebaserad prissättning utgår från tillverkningskostnaden plus en marginal.",
+        "correctAnswer": "false",
+        "explanation": "Texten kopplar den beskrivningen till kostnadsbaserad prissättning. Värdebaserad prissättning utgår istället från vad kunden är villig att betala, så påståendet är felaktigt."
+      },
+      {
+        "text": "Mjukvaruföretaget ökade intäkten per kund efter bytet av prisstrategi.",
+        "correctAnswer": "true",
+        "explanation": "Det står att företaget 'ökade sin genomsnittliga intäkt per kund med 35 procent' efter övergången till värdebaserad prissättning. Påståendet följer direkt."
+      },
+      {
+        "text": "Mjukvaruföretaget tappade kunder i samband med prishöjningen.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner ingenting om att kunder försvann i samband med övergången. Det går varken att bekräfta eller motsäga."
+      },
+      {
+        "text": "Större bolag värderade vissa funktioner högre än mindre kunder gjorde.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att företaget upptäckte att 'större bolag värderade vissa funktioner mycket högre än mindre kunder'. Påståendet stöds direkt."
+      }
+    ]
+  },
+  {
+    "id": "v1-p15-predictive-maintenance",
+    "title": "PASSAGE 15 — Förebyggande underhåll",
+    "difficulty": 2,
+    "topic": "Operations",
+    "text": "Inom tillverkningsindustrin har sensorbaserad övervakning av maskiner blivit ett kraftfullt verktyg för att minska oplanerade driftstopp. Genom att kontinuerligt mäta vibrationer, temperatur och ljud kan avvikelser upptäckas långt innan en maskin faktiskt går sönder. Detta kallas förebyggande underhåll och skiljer sig från det traditionella schemat där delar byts ut vid fasta intervall oavsett skick. En pappersfabrik som installerade sensorer på sina kritiska maskiner minskade antalet oplanerade stopp med ungefär hälften under två år. Underhållsteamet kunde planera reparationer till tidpunkter då produktionen ändå låg nere, vilket sparade både tid och pengar. Investeringen i sensorer och analysmjukvara var betydande, men fabriken bedömde att den betalade sig redan inom arton månader. En förutsättning för att lyckas är att underhållspersonalen får utbildning i att tolka den data som systemet genererar. Utan denna kompetens riskerar larmen att antingen ignoreras eller leda till onödiga ingrepp.",
+    "statements": [
+      {
+        "text": "Förebyggande underhåll innebär att delar byts ut vid fasta intervall oavsett skick.",
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver fasta intervall som det traditionella schemat och säger att förebyggande underhåll skiljer sig från detta genom att utgå från sensordata. Påståendet blandar ihop de två och är fel."
+      },
+      {
+        "text": "Pappersfabriken minskade antalet oplanerade stopp efter att sensorer installerats.",
+        "correctAnswer": "true",
+        "explanation": "Det står att fabriken 'minskade antalet oplanerade stopp med ungefär hälften under två år' efter installationen. Påståendet följer direkt av texten."
+      },
+      {
+        "text": "Att underhållspersonalen kan tolka data är en förutsättning för att systemet ska fungera väl.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att 'en förutsättning för att lyckas är att underhållspersonalen får utbildning i att tolka den data som systemet genererar'. Påståendet stöds direkt."
+      },
+      {
+        "text": "Pappersfabriken sa upp delar av underhållspersonalen efter att sensorerna installerades.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner ingenting om uppsägningar av personal. Det går inte att avgöra utifrån informationen som ges."
+      }
+    ]
+  },
+  {
+    "id": "v1-p16-interest-rates",
+    "title": "PASSAGE 16 — Räntor och företagslån",
+    "difficulty": 3,
+    "topic": "Finance",
+    "text": "När centralbanken höjer styrräntan blir det dyrare för företag att låna pengar, vilket påverkar deras investeringsbeslut. Många bolag som finansierat expansion med lån får högre räntekostnader när befintliga lån ska omsättas till nya villkor. Detta gäller särskilt företag med rörlig ränta, medan de som bundit räntan på längre löptider skyddas tills bindningstiden löper ut. Under den senaste höjningscykeln valde flera medelstora industribolag att skjuta upp planerade investeringar i ny utrustning. Samtidigt gynnades företag med stora kassareserver, eftersom de kunde få bättre avkastning på sina insättningar och dessutom förhandla från en starkare position. En företagsekonomisk undersökning visade att skuldsatta bolag i genomsnitt minskade sina investeringar mer än bolag med låg skuldsättning under perioden. Räntenivån är dock bara en av många faktorer som påverkar investeringsviljan. Förväntningar om framtida efterfrågan, tillgång till kompetent arbetskraft och politisk stabilitet spelar också in. Företagsledare måste väga alla dessa faktorer mot varandra när de planerar på lång sikt.",
+    "statements": [
+      {
+        "text": "Företag med rörlig ränta påverkas snabbare av en räntehöjning än de med bunden ränta.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att höjningen särskilt gäller företag med rörlig ränta, medan de med bunden ränta 'skyddas tills bindningstiden löper ut'. Det innebär att rörlig ränta slår igenom snabbare."
+      },
+      {
+        "text": "Räntenivån är den enda faktor som avgör företagens investeringsvilja.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger uttryckligen att räntan 'bara är en av många faktorer' och listar bland annat efterfrågan och arbetskraft. Påståendet motsägs direkt."
+      },
+      {
+        "text": "Skuldsatta bolag minskade i genomsnitt sina investeringar mer än bolag med låg skuldsättning under perioden.",
+        "correctAnswer": "true",
+        "explanation": "Undersökningen i texten visade just att 'skuldsatta bolag i genomsnitt minskade sina investeringar mer än bolag med låg skuldsättning'. Påståendet stöds direkt."
+      },
+      {
+        "text": "Centralbanken kommer att sänka styrräntan inom det närmaste året.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger ingenting om framtida räntebeslut, bara om effekterna av tidigare höjningar. Påståendet går inte att avgöra utifrån texten."
+      }
+    ]
+  },
+  {
+    "id": "v1-p17-cloud-migration",
+    "title": "PASSAGE 17 — Migrering till molnet",
+    "difficulty": 2,
+    "topic": "Technology",
+    "text": "Allt fler organisationer flyttar sina IT-system från egna serverhallar till molntjänster som drivs av externa leverantörer. Argumenten handlar ofta om flexibilitet och att kunna skala upp eller ner kapaciteten efter behov. Ett försäkringsbolag som genomförde en sådan migrering kunde stänga ner två fysiska serverhallar och minska sina IT-driftskostnader med 20 procent. Bolaget betonade dock att besparingen inte kom automatiskt. Under det första halvåret steg kostnaderna tillfälligt eftersom de gamla systemen kördes parallellt med de nya under övergången. Säkerhetsavdelningen genomförde en grundlig granskning innan känsliga kunddata flyttades, och vissa system med särskilt höga krav behölls medvetet på egna servrar. IT-chefen påpekade att molnet ger fördelar men också skapar ett beroende av leverantören som måste hanteras med tydliga avtal. Bolaget förhandlade därför in villkor som gjorde det möjligt att flytta data till en annan leverantör om samarbetet skulle avslutas. Personalen fick utbildning i de nya verktygen innan systemen togs i drift.",
+    "statements": [
+      {
+        "text": "Försäkringsbolaget flyttade samtliga sina system till molnet.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att vissa system med särskilt höga krav 'behölls medvetet på egna servrar'. Alltså flyttades inte samtliga system, och påståendet är fel."
+      },
+      {
+        "text": "Bolagets IT-kostnader steg tillfälligt under övergången till molnet.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att kostnaderna under första halvåret 'steg tillfälligt eftersom de gamla systemen kördes parallellt med de nya'. Påståendet följer direkt."
+      },
+      {
+        "text": "Molnleverantörens datacenter låg i samma land som försäkringsbolaget.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger ingenting om var leverantörens datacenter är placerade. Det går inte att avgöra utifrån informationen."
+      },
+      {
+        "text": "Bolaget säkrade i avtalet en möjlighet att byta leverantör i framtiden.",
+        "correctAnswer": "true",
+        "explanation": "Det står att bolaget 'förhandlade in villkor som gjorde det möjligt att flytta data till en annan leverantör'. Påståendet stöds direkt av texten."
+      }
+    ]
+  },
+  {
+    "id": "v1-p18-performance-reviews",
+    "title": "PASSAGE 18 — Utvecklingssamtal",
+    "difficulty": 3,
+    "topic": "HR Strategy",
+    "text": "Det årliga utvecklingssamtalet har länge varit en hörnsten i många företags personalarbete, men metoden ifrågasätts allt oftare. Kritiker menar att en bedömning en gång om året ger för lite och för sen återkoppling för att faktiskt påverka prestationen. Som svar på detta har vissa organisationer gått över till kontinuerlig feedback där chef och medarbetare har korta avstämningar varje månad. Ett konsultbolag som införde denna modell rapporterade att medarbetarna upplevde målen som tydligare och att missförstånd kunde redas ut tidigare. Samtidigt visade en intern utvärdering att en del chefer tyckte att de täta samtalen tog för mycket tid från det operativa arbetet. Bolaget löste detta delvis genom att korta ner samtalen och ge cheferna en enkel mall att utgå från. Forskning på området pekar på att kvaliteten i återkopplingen ofta betyder mer än hur ofta den ges. En illa genomförd feedback kan göra mer skada än nytta oavsett frekvens. Bolaget valde därför att utbilda alla chefer i att ge konkret och framåtsyftande feedback innan modellen rullades ut brett.",
+    "statements": [
+      {
+        "text": "Konsultbolagets medarbetare upplevde målen som tydligare efter övergången till kontinuerlig feedback.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att bolaget rapporterade att 'medarbetarna upplevde målen som tydligare' efter att modellen infördes. Påståendet följer direkt."
+      },
+      {
+        "text": "Samtliga chefer på konsultbolaget var positiva till de täta avstämningarna.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 'en del chefer tyckte att de täta samtalen tog för mycket tid'. Att alla skulle varit positiva motsägs alltså."
+      },
+      {
+        "text": "Enligt forskningen i texten betyder kvaliteten på återkopplingen ofta mer än hur ofta den ges.",
+        "correctAnswer": "true",
+        "explanation": "Det står ordagrant att forskningen pekar på att 'kvaliteten i återkopplingen ofta betyder mer än hur ofta den ges'. Påståendet stöds direkt."
+      },
+      {
+        "text": "Konsultbolaget kommer att återgå till årliga utvecklingssamtal nästa år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver bara att bolaget infört och utvecklat den nya modellen, inget om framtida planer på att återgå. Påståendet går inte att avgöra."
       }
     ]
   }

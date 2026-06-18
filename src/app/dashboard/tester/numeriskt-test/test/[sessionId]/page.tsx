@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Flag } from 'lucide-react';
 
-import { getAllPassages } from '@/lib/numericalTest/validator';
+import { selectPassagesForSession } from '@/lib/numericalTest/selectPassages';
 import type { Passage } from '@/lib/numericalTest/types';
 
 import TestProgress from '@/components/tests/numerical-shared/TestProgress';
@@ -19,7 +19,7 @@ interface PageProps {
 export default function NumericalTestPage({ params }: PageProps) {
   const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [passages] = useState<Passage[]>(getAllPassages());
+  const [passages, setPassages] = useState<Passage[]>([]);
   const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -29,7 +29,11 @@ export default function NumericalTestPage({ params }: PageProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    params.then((p) => setSessionId(p.sessionId));
+    params.then((p) => {
+      setSessionId(p.sessionId);
+      // Seedat urval: stabilt under sessionen, nya frågor vid omspel.
+      setPassages(selectPassagesForSession(p.sessionId));
+    });
   }, [params]);
 
   // Tids-räknare

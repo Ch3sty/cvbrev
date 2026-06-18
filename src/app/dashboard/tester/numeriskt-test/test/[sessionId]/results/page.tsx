@@ -8,15 +8,15 @@ import { ArrowLeft, RotateCw } from 'lucide-react';
 import {
   getScoreByDifficulty,
   getScoreByType,
-  getAllPassages,
 } from '@/lib/numericalTest/validator';
+import {
+  selectPassagesForSession,
+  TOTAL_QUESTIONS,
+} from '@/lib/numericalTest/selectPassages';
 import type { TestAnswer } from '@/lib/numericalTest/types';
 
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
-
-const passages = getAllPassages();
-const TOTAL_QUESTIONS = passages.reduce((sum, p) => sum + p.questions.length, 0);
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -96,6 +96,8 @@ export default function ResultsPage({ params }: PageProps) {
   }
 
   const answers: TestAnswer[] = session.answers || [];
+  // Samma seedade urval som test-sidan visade.
+  const passages = sessionId ? selectPassagesForSession(sessionId) : [];
   const score = session.score ?? 0;
   const percentage = TOTAL_QUESTIONS > 0 ? Math.round((score / TOTAL_QUESTIONS) * 100) : 0;
   const timeSpent = session.time_spent ?? 0;

@@ -6,6 +6,8 @@
 export type Statement = {
   text: string;
   correctAnswer: 'true' | 'false' | 'cannot_say';
+  /** Kort motivering till facit, visas i resultatvyn (togglas fram). */
+  explanation?: string;
 };
 
 /**

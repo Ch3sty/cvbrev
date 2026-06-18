@@ -30,7 +30,11 @@ export interface ResultsPassage {
   topic: string;
   difficulty: 1 | 2 | 3;
   text: string;
-  statements: { text: string; correctAnswer: 'true' | 'false' | 'cannot_say' }[];
+  statements: {
+    text: string;
+    correctAnswer: 'true' | 'false' | 'cannot_say';
+    explanation?: string;
+  }[];
 }
 
 interface VerbalResultsBodyProps {
@@ -255,6 +259,7 @@ function PassageReview({
                               index={sIdx}
                               text={st.text}
                               correctAnswer={st.correctAnswer}
+                              explanation={st.explanation}
                               userAnswer={userAnswer?.answer ?? null}
                               isCorrect={userAnswer?.isCorrect ?? false}
                             />
@@ -277,15 +282,18 @@ function StatementResult({
   index,
   text,
   correctAnswer,
+  explanation,
   userAnswer,
   isCorrect,
 }: {
   index: number;
   text: string;
   correctAnswer: 'true' | 'false' | 'cannot_say';
+  explanation?: string;
   userAnswer: 'true' | 'false' | 'cannot_say' | null;
   isCorrect: boolean;
 }) {
+  const [showExplanation, setShowExplanation] = useState(false);
   const wasAnswered = userAnswer !== null;
   const labelFor = (v: 'true' | 'false' | 'cannot_say' | null) => {
     if (v === 'true') return 'Sant';
@@ -340,6 +348,39 @@ function StatementResult({
               </span>
             )}
           </div>
+
+          {explanation && (
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={() => setShowExplanation((v) => !v)}
+                className="inline-flex items-center gap-1 text-[11px] font-bold text-orange-700 hover:text-orange-800 transition-colors touch-manipulation"
+                aria-expanded={showExplanation}
+              >
+                {showExplanation ? 'Dölj förklaring' : 'Visa förklaring'}
+                {showExplanation ? (
+                  <ChevronUp className="w-3 h-3" strokeWidth={2.5} />
+                ) : (
+                  <ChevronDown className="w-3 h-3" strokeWidth={2.5} />
+                )}
+              </button>
+              <AnimatePresence initial={false}>
+                {showExplanation && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="mt-1.5 text-[11px] sm:text-xs text-slate-700 leading-relaxed bg-orange-50/50 border border-orange-100 rounded-lg px-2.5 py-2">
+                      {explanation}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
         <div className="flex-shrink-0">
           {isCorrect ? (

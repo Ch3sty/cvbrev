@@ -1,6 +1,7 @@
 // src/lib/verbalTestV1/validator.v1.ts
 import type { Question, UserAnswer, TestAnswer } from './types.v1';
 import questionBank from './questionBank.json';
+import { TOTAL_STATEMENTS } from './selectPassages.v1';
 
 const questions = questionBank as Question[];
 
@@ -44,7 +45,9 @@ export function calculateScore(answers: TestAnswer[]): {
     unanswered: number;
   };
 } {
-  const totalQuestions = questions.reduce((sum, q) => sum + q.statements.length, 0);
+  // Konstant: varje session visar PASSAGES_PER_SESSION passager × 4 påståenden,
+  // oberoende av hur stor banken är. Annars skulle procenten sjunka när poolen växer.
+  const totalQuestions = TOTAL_STATEMENTS;
   let correct = 0;
   let incorrect = 0;
 

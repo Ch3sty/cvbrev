@@ -10,12 +10,30 @@
       "chartType": "bar",
       "title": "Omsättning per månad (MSEK)",
       "data": [
-        { "label": "Jan", "value": 12.5 },
-        { "label": "Feb", "value": 14.0 },
-        { "label": "Mar", "value": 15.8 },
-        { "label": "Apr", "value": 17.6 },
-        { "label": "Maj", "value": 19.5 },
-        { "label": "Jun", "value": 21.5 }
+        {
+          "label": "Jan",
+          "value": 12.5
+        },
+        {
+          "label": "Feb",
+          "value": 14
+        },
+        {
+          "label": "Mar",
+          "value": 15.8
+        },
+        {
+          "label": "Apr",
+          "value": 17.6
+        },
+        {
+          "label": "Maj",
+          "value": 19.5
+        },
+        {
+          "label": "Jun",
+          "value": 21.5
+        }
       ],
       "unit": " MSEK",
       "yAxisLabel": "MSEK"
@@ -27,10 +45,26 @@
         "questionNumber": 1,
         "questionText": "Vad är den genomsnittliga månatliga tillväxttakten i procent från januari till juni?",
         "options": [
-          { "id": "a", "text": "Cirka 8%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 11%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 14%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 18%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 8%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 11%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 14%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 18%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Tillväxtfaktor över 5 månader = 21.5/12.5 = 1.72. Månatlig takt = 1.72^(1/5) − 1 ≈ 0.1149 = 11.5%. Närmast är 11%.",
@@ -42,10 +76,26 @@
         "questionNumber": 2,
         "questionText": "Bolaget hävdar \"över 70% tillväxt sedan januari\". Är det korrekt?",
         "options": [
-          { "id": "a", "text": "Ja, exakt 72%", "isCorrect": true },
-          { "id": "b", "text": "Nej, bara 56%", "isCorrect": false },
-          { "id": "c", "text": "Ja, hela 95%", "isCorrect": false },
-          { "id": "d", "text": "Nej, 41%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Ja, exakt 72%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Nej, bara 56%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Ja, hela 95%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Nej, 41%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "a",
         "explanation": "Tillväxt = (21.5 − 12.5) / 12.5 × 100% = 9.0/12.5 × 100% = 72%. Påståendet stämmer precis.",
@@ -57,10 +107,26 @@
         "questionNumber": 3,
         "questionText": "Om tillväxttakten på 11% per månad fortsätter, vilken blir omsättningen i december (6 månader senare)?",
         "options": [
-          { "id": "a", "text": "Cirka 32 MSEK", "isCorrect": false },
-          { "id": "b", "text": "Cirka 36 MSEK", "isCorrect": false },
-          { "id": "c", "text": "Cirka 40 MSEK", "isCorrect": true },
-          { "id": "d", "text": "Cirka 48 MSEK", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 32 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 36 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 40 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 48 MSEK",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "21.5 × (1.11)^6 = 21.5 × 1.870 ≈ 40.2 MSEK.",
@@ -72,10 +138,26 @@
         "questionNumber": 4,
         "questionText": "Total omsättning första halvåret är 100.9 MSEK. Om varje månad i andra halvåret växer med 11%, vad blir total årsomsättning?",
         "options": [
-          { "id": "a", "text": "Cirka 215 MSEK", "isCorrect": false },
-          { "id": "b", "text": "Cirka 245 MSEK", "isCorrect": false },
-          { "id": "c", "text": "Cirka 290 MSEK", "isCorrect": true },
-          { "id": "d", "text": "Cirka 350 MSEK", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 215 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 245 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 290 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 350 MSEK",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "H2: jul=21.5×1.11=23.9, aug=26.5, sep=29.4, okt=32.7, nov=36.3, dec=40.3. Summa H2 ≈ 189.1. Totalt: 100.9 + 189.1 = 290 MSEK. Bolaget slår årsprognosen 250 MSEK med god marginal.",
@@ -94,11 +176,26 @@
       "chartType": "pie",
       "title": "Marknadsandelar 2024",
       "data": [
-        { "label": "Alpha AB", "value": 28 },
-        { "label": "Beta Corp", "value": 22 },
-        { "label": "Gamma Ltd", "value": 18 },
-        { "label": "Delta Inc", "value": 15 },
-        { "label": "Övriga", "value": 17 }
+        {
+          "label": "Alpha AB",
+          "value": 28
+        },
+        {
+          "label": "Beta Corp",
+          "value": 22
+        },
+        {
+          "label": "Gamma Ltd",
+          "value": 18
+        },
+        {
+          "label": "Delta Inc",
+          "value": 15
+        },
+        {
+          "label": "Övriga",
+          "value": 17
+        }
       ],
       "unit": "%",
       "centerLabel": "18.5 mdr"
@@ -110,10 +207,26 @@
         "questionNumber": 1,
         "questionText": "Hur stor omsättning har Alpha AB 2024 (i miljarder kronor)?",
         "options": [
-          { "id": "a", "text": "4.07 mdr", "isCorrect": false },
-          { "id": "b", "text": "4.62 mdr", "isCorrect": false },
-          { "id": "c", "text": "5.18 mdr", "isCorrect": true },
-          { "id": "d", "text": "5.92 mdr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "4.07 mdr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "4.62 mdr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "5.18 mdr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "5.92 mdr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "28% × 18.5 mdr = 0.28 × 18.5 = 5.18 mdr.",
@@ -125,10 +238,26 @@
         "questionNumber": 2,
         "questionText": "Vilken blir Beta Corps marknadsandel efter 2025-kampanjen?",
         "options": [
-          { "id": "a", "text": "25%", "isCorrect": false },
-          { "id": "b", "text": "27%", "isCorrect": true },
-          { "id": "c", "text": "29%", "isCorrect": false },
-          { "id": "d", "text": "32%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "25%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "27%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "29%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "32%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "22% + 5 procentenheter = 27%.",
@@ -140,10 +269,26 @@
         "questionNumber": 3,
         "questionText": "Med hur många procent ökar Beta Corps marknadsandel relativt sett (procentuellt)?",
         "options": [
-          { "id": "a", "text": "Cirka 18%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 23%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 28%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 35%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 18%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 23%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 28%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 35%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Förändring i procent = (27 − 22) / 22 × 100% = 5/22 × 100% ≈ 22.7% ≈ 23%. Skillnaden mellan procentenheter (5) och procent (23) är central.",
@@ -155,10 +300,26 @@
         "questionNumber": 4,
         "questionText": "Om totala marknaden växer med 6% under 2025, hur stor blir Beta Corps omsättning 2025 (i miljarder kronor)?",
         "options": [
-          { "id": "a", "text": "Cirka 4.45 mdr", "isCorrect": false },
-          { "id": "b", "text": "Cirka 4.85 mdr", "isCorrect": false },
-          { "id": "c", "text": "Cirka 5.30 mdr", "isCorrect": true },
-          { "id": "d", "text": "Cirka 5.95 mdr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 4.45 mdr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 4.85 mdr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 5.30 mdr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 5.95 mdr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Ny marknad: 18.5 × 1.06 = 19.61 mdr. Beta Corp har 27%. Omsättning: 19.61 × 0.27 ≈ 5.30 mdr.",
@@ -177,10 +338,22 @@
       "chartType": "line",
       "title": "Antal anställda per kvartal 2024",
       "data": [
-        { "x": "Q1", "y": 45 },
-        { "x": "Q2", "y": 52 },
-        { "x": "Q3", "y": 58 },
-        { "x": "Q4", "y": 65 }
+        {
+          "x": "Q1",
+          "y": 45
+        },
+        {
+          "x": "Q2",
+          "y": 52
+        },
+        {
+          "x": "Q3",
+          "y": 58
+        },
+        {
+          "x": "Q4",
+          "y": 65
+        }
       ],
       "xAxisLabel": "Kvartal",
       "yAxisLabel": "Antal anställda",
@@ -193,10 +366,26 @@
         "questionNumber": 1,
         "questionText": "Med hur stor procent har avdelningen vuxit från Q1 till Q4?",
         "options": [
-          { "id": "a", "text": "Cirka 35%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 44%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 52%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 60%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 35%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 44%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 52%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 60%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "(65 − 45) / 45 × 100% = 20/45 × 100% ≈ 44.4%.",
@@ -208,10 +397,26 @@
         "questionNumber": 2,
         "questionText": "Hur stor är avdelningens månadslön-kostnad i Q4 (i miljoner kronor)?",
         "options": [
-          { "id": "a", "text": "1.95 MSEK", "isCorrect": false },
-          { "id": "b", "text": "2.25 MSEK", "isCorrect": false },
-          { "id": "c", "text": "2.93 MSEK", "isCorrect": true },
-          { "id": "d", "text": "3.45 MSEK", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "1.95 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "2.25 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "2.93 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "3.45 MSEK",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "65 anställda × 45 000 kr = 2 925 000 kr = 2.93 MSEK per månad.",
@@ -223,10 +428,26 @@
         "questionNumber": 3,
         "questionText": "Vilken är den genomsnittliga kvartalsvisa nettoökningen i antal anställda?",
         "options": [
-          { "id": "a", "text": "Cirka 5 personer", "isCorrect": false },
-          { "id": "b", "text": "Cirka 7 personer", "isCorrect": true },
-          { "id": "c", "text": "Cirka 9 personer", "isCorrect": false },
-          { "id": "d", "text": "Cirka 12 personer", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 5 personer",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 7 personer",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 9 personer",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 12 personer",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Total ökning: 65 − 45 = 20 personer över 3 kvartal. Snitt: 20/3 ≈ 6.67 ≈ 7 personer per kvartal.",
@@ -238,10 +459,26 @@
         "questionNumber": 4,
         "questionText": "Om årstillväxten på 44% från Q1 till Q4 fortsätter, hur många anställda har avdelningen efter ytterligare 2 år?",
         "options": [
-          { "id": "a", "text": "Cirka 105", "isCorrect": false },
-          { "id": "b", "text": "Cirka 135", "isCorrect": true },
-          { "id": "c", "text": "Cirka 175", "isCorrect": false },
-          { "id": "d", "text": "Cirka 210", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 105",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 135",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 175",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 210",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "65 × (1.44)^2 = 65 × 2.0736 ≈ 134.8 ≈ 135 personer.",
@@ -263,10 +500,26 @@
         "questionNumber": 1,
         "questionText": "Hur mycket är fonden värd efter 5 år?",
         "options": [
-          { "id": "a", "text": "Cirka 152 000 kr", "isCorrect": false },
-          { "id": "b", "text": "Cirka 162 000 kr", "isCorrect": false },
-          { "id": "c", "text": "Cirka 176 000 kr", "isCorrect": true },
-          { "id": "d", "text": "Cirka 195 000 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 152 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 162 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 176 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 195 000 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "100 000 × (1.12)^5 = 100 000 × 1.7623 ≈ 176 234 kr.",
@@ -278,10 +531,26 @@
         "questionNumber": 2,
         "questionText": "Hur stor är skillnaden mellan fonden och sparkontot efter 8 år?",
         "options": [
-          { "id": "a", "text": "Cirka 75 000 kr", "isCorrect": false },
-          { "id": "b", "text": "Cirka 110 000 kr", "isCorrect": true },
-          { "id": "c", "text": "Cirka 145 000 kr", "isCorrect": false },
-          { "id": "d", "text": "Cirka 175 000 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 75 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 110 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 145 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 175 000 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Fond efter 8 år: 100 000 × (1.12)^8 ≈ 247 600 kr. Sparkonto: 100 000 × (1.04)^8 ≈ 136 900 kr. Skillnad ≈ 110 700 kr.",
@@ -293,10 +562,26 @@
         "questionNumber": 3,
         "questionText": "Vad är fondens reala avkastning per år (efter inflation)?",
         "options": [
-          { "id": "a", "text": "Cirka 7.0%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 8.5%", "isCorrect": false },
-          { "id": "c", "text": "Cirka 9.3%", "isCorrect": true },
-          { "id": "d", "text": "Cirka 11.2%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 7.0%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 8.5%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 9.3%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 11.2%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Real avkastning = (1 + nominell) / (1 + inflation) − 1 = 1.12 / 1.025 − 1 ≈ 0.0927 = 9.3%.",
@@ -308,10 +593,26 @@
         "questionNumber": 4,
         "questionText": "Hur många år tar det innan fondens värde har dubblats?",
         "options": [
-          { "id": "a", "text": "Cirka 5 år", "isCorrect": false },
-          { "id": "b", "text": "Cirka 6 år", "isCorrect": true },
-          { "id": "c", "text": "Cirka 8 år", "isCorrect": false },
-          { "id": "d", "text": "Cirka 10 år", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 5 år",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 6 år",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 8 år",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 10 år",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Lös (1.12)^n = 2 → n = ln(2) / ln(1.12) ≈ 0.693 / 0.1133 ≈ 6.12 år. Tumregeln '72/r' ger 72/12 = 6 år.",
@@ -333,10 +634,26 @@
         "questionNumber": 1,
         "questionText": "Vad betalar en företagskund efter rabatt och kampanj (exkl moms)?",
         "options": [
-          { "id": "a", "text": "3 040 kr", "isCorrect": false },
-          { "id": "b", "text": "3 230 kr", "isCorrect": true },
-          { "id": "c", "text": "3 400 kr", "isCorrect": false },
-          { "id": "d", "text": "3 600 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "3 040 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "3 230 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "3 400 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "3 600 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Pris efter företagsrabatt: 4 000 × (1 − 0.15) = 3 400 kr. Efter 5% kampanj: 3 400 × (1 − 0.05) = 3 230 kr.",
@@ -348,10 +665,26 @@
         "questionNumber": 2,
         "questionText": "Vad betalar en privatkund efter rabatt och kampanj (inkl moms)?",
         "options": [
-          { "id": "a", "text": "4 050 kr", "isCorrect": false },
-          { "id": "b", "text": "4 275 kr", "isCorrect": true },
-          { "id": "c", "text": "4 500 kr", "isCorrect": false },
-          { "id": "d", "text": "4 750 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "4 050 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "4 275 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "4 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "4 750 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Pris inkl moms: 4 000 × 1.25 = 5 000 kr. Efter privatkund-rabatt 10%: 5 000 × 0.90 = 4 500 kr. Efter 5% kampanj: 4 500 × 0.95 = 4 275 kr.",
@@ -363,10 +696,26 @@
         "questionNumber": 3,
         "questionText": "Vilken kund får mest värde (lägst totalt pris jämfört med ordinarie inkl-moms-pris på 5 000 kr)?",
         "options": [
-          { "id": "a", "text": "Företagskund — 19.25% rabatt", "isCorrect": true },
-          { "id": "b", "text": "Privatkund — 14.5% rabatt", "isCorrect": false },
-          { "id": "c", "text": "Båda får exakt samma rabatt", "isCorrect": false },
-          { "id": "d", "text": "Privatkund — 16% rabatt", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Företagskund — 19.25% rabatt",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Privatkund — 14.5% rabatt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Båda får exakt samma rabatt",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Privatkund — 16% rabatt",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "a",
         "explanation": "Företagskund: 3 230 kr exkl moms × 1.25 = 4 037.5 kr inkl moms. Rabatt: (5 000 − 4 037.5) / 5 000 = 19.25%. Privatkund: 4 275 kr. Rabatt: (5 000 − 4 275) / 5 000 = 14.5%. Företagskunden får större rabatt.",
@@ -378,10 +727,26 @@
         "questionNumber": 4,
         "questionText": "Med vilken sammanlagd procent har företagskundens pris exkl moms minskat jämfört med ordinarie?",
         "options": [
-          { "id": "a", "text": "20%", "isCorrect": false },
-          { "id": "b", "text": "19.25%", "isCorrect": true },
-          { "id": "c", "text": "15%", "isCorrect": false },
-          { "id": "d", "text": "21.5%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "20%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "19.25%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "15%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "21.5%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "(4 000 − 3 230) / 4 000 × 100% = 19.25%. Notera att 15% + 5% ≠ 20% när rabatter kedjas — de multipliceras: 1 − 0.85 × 0.95 = 1 − 0.8075 = 0.1925 = 19.25%.",
@@ -403,10 +768,26 @@
         "questionNumber": 1,
         "questionText": "Vilket är nästa tal: 1, 4, 9, 16, 25, 36, ?",
         "options": [
-          { "id": "a", "text": "42", "isCorrect": false },
-          { "id": "b", "text": "45", "isCorrect": false },
-          { "id": "c", "text": "49", "isCorrect": true },
-          { "id": "d", "text": "64", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "42",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "45",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "49",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "64",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Kvadrater: 1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36, 7²=49.",
@@ -418,10 +799,26 @@
         "questionNumber": 2,
         "questionText": "Vilket är nästa tal i serien: 2, 5, 11, 23, 47, ?",
         "options": [
-          { "id": "a", "text": "82", "isCorrect": false },
-          { "id": "b", "text": "94", "isCorrect": false },
-          { "id": "c", "text": "95", "isCorrect": true },
-          { "id": "d", "text": "108", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "82",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "94",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "95",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "108",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är ×2+1: 2×2+1=5, 5×2+1=11, 11×2+1=23, 23×2+1=47, 47×2+1=95.",
@@ -433,10 +830,26 @@
         "questionNumber": 3,
         "questionText": "Vilket är nästa tal: 1, 2, 4, 7, 11, 16, 22, ?",
         "options": [
-          { "id": "a", "text": "27", "isCorrect": false },
-          { "id": "b", "text": "29", "isCorrect": true },
-          { "id": "c", "text": "30", "isCorrect": false },
-          { "id": "d", "text": "33", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "27",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "29",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "30",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "33",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Differenserna är +1, +2, +3, +4, +5, +6 — alltså +7 nästa. 22 + 7 = 29.",
@@ -448,13 +861,485 @@
         "questionNumber": 4,
         "questionText": "Vilket är nästa tal i serien: 3, 7, 15, 31, 63, ?",
         "options": [
-          { "id": "a", "text": "95", "isCorrect": false },
-          { "id": "b", "text": "111", "isCorrect": false },
-          { "id": "c", "text": "127", "isCorrect": true },
-          { "id": "d", "text": "129", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "95",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "111",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "127",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "129",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är ×2+1: 3→7→15→31→63→127. Alternativt: 2^n − 1 (4, 8, 16, 32, 64, 128 minus 1).",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numv2-p07",
+    "title": "Skalfördelar i produktionen",
+    "type": "graph",
+    "topic": "Kostnadsanalys",
+    "difficulty": 3,
+    "contextText": "Stapeldiagrammet visar en fabriks producerade volym per kvartal under 2024 (antal enheter). Fabriken har en fast kostnad på 1,2 MSEK per kvartal oavsett volym, plus en rörlig kostnad på 95 kr per producerad enhet. Ledningen vill förstå hur styckkostnaden påverkas när volymen ökar och sätta ett pris för 2025.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Producerade enheter per kvartal 2024",
+      "data": [
+        {
+          "label": "Q1",
+          "value": 8200
+        },
+        {
+          "label": "Q2",
+          "value": 9100
+        },
+        {
+          "label": "Q3",
+          "value": 10400
+        },
+        {
+          "label": "Q4",
+          "value": 11800
+        }
+      ],
+      "unit": " st",
+      "yAxisLabel": "Antal enheter"
+    },
+    "questions": [
+      {
+        "id": "numv2-p07-q01",
+        "passageId": "numv2-p07",
+        "questionNumber": 1,
+        "questionText": "Med hur många procent ökade produktionsvolymen från Q1 till Q4?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 36%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 44%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 52%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 60%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "(11800 − 8200) / 8200 × 100% = 3600 / 8200 × 100% ≈ 43,9% ≈ 44%.",
+        "difficulty": 2
+      },
+      {
+        "id": "numv2-p07-q02",
+        "passageId": "numv2-p07",
+        "questionNumber": 2,
+        "questionText": "Vad är styckkostnaden (total kostnad per enhet) i Q1?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 95 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 146 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 241 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 295 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Total kostnad Q1 = 1 200 000 + 95 × 8200 = 1 200 000 + 779 000 = 1 979 000 kr. Per enhet: 1 979 000 / 8200 ≈ 241,3 kr. Distraktorn 146 kr är fasta kostnaden per enhet (1 200 000 / 8200 ≈ 146) utan rörlig kostnad.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p07-q03",
+        "passageId": "numv2-p07",
+        "questionNumber": 3,
+        "questionText": "Hur mycket lägre är styckkostnaden i Q4 jämfört med Q1?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 25 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 45 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 65 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 80 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Q4 total kostnad = 1 200 000 + 95 × 11800 = 1 200 000 + 1 121 000 = 2 321 000 kr. Per enhet: 2 321 000 / 11800 ≈ 196,7 kr. Skillnad mot Q1: 241,3 − 196,7 ≈ 44,6 kr ≈ 45 kr. Fasta kostnaden slås ut på fler enheter.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p07-q04",
+        "passageId": "numv2-p07",
+        "questionNumber": 4,
+        "questionText": "Om hela årets volym säljs till ett pris som ger 20% påslag på årets genomsnittliga styckkostnad, vilket blir priset per enhet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 236 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 260 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 217 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 290 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Total volym = 8200 + 9100 + 10400 + 11800 = 39 500 st. Total kostnad = 4 × 1 200 000 + 95 × 39 500 = 4 800 000 + 3 752 500 = 8 552 500 kr. Snittstyckkostnad: 8 552 500 / 39 500 ≈ 216,5 kr. Med 20% påslag: 216,5 × 1,20 ≈ 259,8 kr ≈ 260 kr. Distraktorn 236 kr räknar med fel påslag (cirka 9% istället för 20%: 216,5 × 1,09 ≈ 236). Distraktorn 217 kr är snittstyckkostnaden utan påslag.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numv2-p08",
+    "title": "Valutaexponering i internationell omsättning",
+    "type": "table",
+    "topic": "Valutaomräkning",
+    "difficulty": 3,
+    "contextText": "Tabellen visar ett exportbolags omsättning i fyra valutor under 2024 (i miljoner av respektive lokal valuta) samt växelkursen mot SEK vid årets slut. Bolaget redovisar koncernen i SEK och vill förstå hur känslig totalomsättningen är för kursrörelser.",
+    "dataTable": {
+      "caption": "Omsättning per valuta och växelkurs 2024",
+      "headers": [
+        "Valuta",
+        "Omsättning (lokal, miljoner)",
+        "Kurs mot SEK"
+      ],
+      "rows": [
+        [
+          "EUR",
+          "4,2",
+          "11,40"
+        ],
+        [
+          "USD",
+          "3,8",
+          "10,60"
+        ],
+        [
+          "GBP",
+          "1,5",
+          "13,20"
+        ],
+        [
+          "NOK",
+          "8,0",
+          "0,98"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numv2-p08-q01",
+        "passageId": "numv2-p08",
+        "questionNumber": 1,
+        "questionText": "Hur stor är USD-omsättningen omräknad till SEK (i miljoner kronor)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 36,3 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 40,3 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 44,5 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 47,9 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "3,8 miljoner USD × 10,60 = 40,28 MSEK. Distraktorn 47,9 är EUR-beloppet (4,2 × 11,40).",
+        "difficulty": 2
+      },
+      {
+        "id": "numv2-p08-q02",
+        "passageId": "numv2-p08",
+        "questionNumber": 2,
+        "questionText": "Hur stor är bolagets totala omsättning i SEK (i miljoner kronor)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 108,0 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 115,8 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 124,5 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 132,2 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "EUR: 4,2 × 11,40 = 47,88. USD: 3,8 × 10,60 = 40,28. GBP: 1,5 × 13,20 = 19,80. NOK: 8,0 × 0,98 = 7,84. Summa: 47,88 + 40,28 + 19,80 + 7,84 = 115,80 MSEK.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p08-q03",
+        "passageId": "numv2-p08",
+        "questionNumber": 3,
+        "questionText": "Hur stor andel av den totala SEK-omsättningen kommer från euroområdet (EUR)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 35%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 41%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 46%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 52%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "EUR i SEK: 47,88 MSEK. Andel: 47,88 / 115,80 × 100% ≈ 41,3%. Distraktorn 35% kommer av att felaktigt dela på en högre total.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p08-q04",
+        "passageId": "numv2-p08",
+        "questionNumber": 4,
+        "questionText": "Om euron stärks så att EUR-kursen stiger från 11,40 till 12,00 (allt annat lika), med hur många procent ökar den totala SEK-omsättningen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 1,3%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 2,2%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 5,3%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 9,0%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Ny EUR-omräkning: 4,2 × 12,00 = 50,40 MSEK, en ökning med 50,40 − 47,88 = 2,52 MSEK. Ny total: 115,80 + 2,52 = 118,32 MSEK. Förändring: 2,52 / 115,80 × 100% ≈ 2,2%. Distraktorn 5,3% är EUR-kursens egen ökning ((12,00 − 11,40)/11,40), inte effekten på totalen.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numv2-p09",
+    "title": "Beläggningsgrad och lönsamhet hos en konsultbyrå",
+    "type": "word_problem",
+    "topic": "Lönsamhetsanalys",
+    "difficulty": 3,
+    "contextText": "En konsultbyrå har två team. Team A består av 12 konsulter som debiterar 950 kr/timme. Team B består av 8 konsulter som debiterar 1 250 kr/timme. Vid full beläggning fakturerar varje konsult 130 timmar per månad. Varje konsult kostar byrån 62 000 kr per månad i lön och omkostnader.",
+    "questions": [
+      {
+        "id": "numv2-p09-q01",
+        "passageId": "numv2-p09",
+        "questionNumber": 1,
+        "questionText": "Vad är byråns totala fakturering per månad vid full beläggning (i miljoner kronor)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 2,48 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 2,78 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 3,12 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 3,40 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Team A: 12 × 950 × 130 = 1 482 000 kr. Team B: 8 × 1 250 × 130 = 1 300 000 kr. Totalt: 1 482 000 + 1 300 000 = 2 782 000 kr ≈ 2,78 MSEK.",
+        "difficulty": 2
+      },
+      {
+        "id": "numv2-p09-q02",
+        "passageId": "numv2-p09",
+        "questionNumber": 2,
+        "questionText": "Vad är den genomsnittliga debiterade timpriset över alla fakturerade timmar?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 1 070 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 1 100 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 1 125 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 1 150 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Totala timmar: (12 + 8) × 130 = 2 600 timmar. Snittpris = total fakturering / timmar = 2 782 000 / 2 600 ≈ 1 070 kr. Distraktorn 1 100 kr är det enkla medelvärdet av 950 och 1 250 (som ignorerar att team A har fler konsulter).",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p09-q03",
+        "passageId": "numv2-p09",
+        "questionNumber": 3,
+        "questionText": "Vad är byråns vinstmarginal vid full beläggning?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 45%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 50%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 55%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 62%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Total kostnad: 20 konsulter × 62 000 = 1 240 000 kr. Vinst: 2 782 000 − 1 240 000 = 1 542 000 kr. Marginal: 1 542 000 / 2 782 000 × 100% ≈ 55,4%.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p09-q04",
+        "passageId": "numv2-p09",
+        "questionNumber": 4,
+        "questionText": "Vid vilken beläggningsgrad (andel av de 130 timmarna som faktiskt faktureras) går byrån break-even, alltså täcker exakt sina kostnader?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 38%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 45%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 55%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 62%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Faktureringen är proportionell mot beläggningen. Break-even kräver fakturering = kostnad. Beläggning = 1 240 000 / 2 782 000 × 100% ≈ 44,6% ≈ 45%. Distraktorn 55% förväxlar break-even-nivån med vinstmarginalen vid full beläggning.",
         "difficulty": 3
       }
     ]

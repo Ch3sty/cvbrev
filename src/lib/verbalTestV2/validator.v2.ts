@@ -1,6 +1,7 @@
-// src/lib/verbalTestV2/validator.v1.ts
+// src/lib/verbalTestV2/validator.v2.ts
 import type { Question, UserAnswer, TestAnswer } from './types.v2';
 import questionBank from './questionBank.json';
+import { TOTAL_STATEMENTS } from './selectPassages.v2';
 
 const questions = questionBank as Question[];
 
@@ -44,7 +45,8 @@ export function calculateScore(answers: TestAnswer[]): {
     unanswered: number;
   };
 } {
-  const totalQuestions = questions.reduce((sum, q) => sum + q.statements.length, 0);
+  // Konstant per session (PASSAGES_PER_SESSION × 4), oberoende av bankstorlek.
+  const totalQuestions = TOTAL_STATEMENTS;
   let correct = 0;
   let incorrect = 0;
 

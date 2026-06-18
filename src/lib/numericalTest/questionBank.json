@@ -8,13 +8,55 @@
     "contextText": "Ett svenskt e-handelsföretag rapporterar kvartalsförsäljning för fyra produktkategorier under 2024. Alla värden anges i miljoner kronor (MSEK).",
     "dataTable": {
       "caption": "Försäljning 2024 per kategori (MSEK)",
-      "headers": ["Kategori", "Q1", "Q2", "Q3", "Q4", "Totalt"],
+      "headers": [
+        "Kategori",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Totalt"
+      ],
       "rows": [
-        ["Elektronik", "12.5", "15.2", "18.8", "22.1", "68.6"],
-        ["Hushåll", "8.2", "9.5", "9.8", "9.8", "37.3"],
-        ["Kläder", "6.8", "8.4", "8.9", "14.0", "38.1"],
-        ["Sport", "4.3", "4.5", "6.3", "10.9", "26.0"],
-        ["Totalt", "31.8", "37.6", "43.8", "56.8", "170.0"]
+        [
+          "Elektronik",
+          "12.5",
+          "15.2",
+          "18.8",
+          "22.1",
+          "68.6"
+        ],
+        [
+          "Hushåll",
+          "8.2",
+          "9.5",
+          "9.8",
+          "9.8",
+          "37.3"
+        ],
+        [
+          "Kläder",
+          "6.8",
+          "8.4",
+          "8.9",
+          "14.0",
+          "38.1"
+        ],
+        [
+          "Sport",
+          "4.3",
+          "4.5",
+          "6.3",
+          "10.9",
+          "26.0"
+        ],
+        [
+          "Totalt",
+          "31.8",
+          "37.6",
+          "43.8",
+          "56.8",
+          "170.0"
+        ]
       ],
       "highlightLastRow": true
     },
@@ -25,10 +67,26 @@
         "questionNumber": 1,
         "questionText": "Vilken kategori hade högst försäljning under hela 2024?",
         "options": [
-          { "id": "a", "text": "Elektronik", "isCorrect": true },
-          { "id": "b", "text": "Hushåll", "isCorrect": false },
-          { "id": "c", "text": "Kläder", "isCorrect": false },
-          { "id": "d", "text": "Sport", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Elektronik",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Hushåll",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Kläder",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Sport",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "a",
         "explanation": "Elektronik: 68.6 MSEK. Hushåll: 37.3 MSEK. Kläder: 38.1 MSEK. Sport: 26.0 MSEK. Elektronik leder klart.",
@@ -40,10 +98,26 @@
         "questionNumber": 2,
         "questionText": "Med ungefär hur många procent ökade Kläder mellan Q1 och Q4?",
         "options": [
-          { "id": "a", "text": "Cirka 75%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 90%", "isCorrect": false },
-          { "id": "c", "text": "Cirka 105%", "isCorrect": true },
-          { "id": "d", "text": "Cirka 130%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 75%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 90%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 105%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 130%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Tillväxt = (14.0 − 6.8) / 6.8 × 100% = 7.2 / 6.8 × 100% ≈ 105.9%. Närmast är 105%.",
@@ -55,10 +129,26 @@
         "questionNumber": 3,
         "questionText": "Vilket kvartal hade högst total försäljning?",
         "options": [
-          { "id": "a", "text": "Q1", "isCorrect": false },
-          { "id": "b", "text": "Q2", "isCorrect": false },
-          { "id": "c", "text": "Q3", "isCorrect": false },
-          { "id": "d", "text": "Q4", "isCorrect": true }
+          {
+            "id": "a",
+            "text": "Q1",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Q2",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Q3",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Q4",
+            "isCorrect": true
+          }
         ],
         "correctAnswerId": "d",
         "explanation": "Q1: 31.8. Q2: 37.6. Q3: 43.8. Q4: 56.8 MSEK. Q4 har högst total.",
@@ -70,10 +160,26 @@
         "questionNumber": 4,
         "questionText": "Hur stor andel utgjorde Sport av total årsförsäljning?",
         "options": [
-          { "id": "a", "text": "Cirka 12%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 15%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 18%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 22%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 12%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 15%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 18%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 22%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Sport: 26.0 MSEK av totalt 170.0 MSEK. Andel = 26.0 / 170.0 × 100% = 15.3% ≈ 15%.",
@@ -95,10 +201,26 @@
         "questionNumber": 1,
         "questionText": "Hur många av de anställda arbetar deltid?",
         "options": [
-          { "id": "a", "text": "30", "isCorrect": false },
-          { "id": "b", "text": "35", "isCorrect": true },
-          { "id": "c", "text": "40", "isCorrect": false },
-          { "id": "d", "text": "45", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "30",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "35",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "40",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "45",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Deltidsanställda = totalt − heltid = 80 − 45 = 35 personer.",
@@ -110,10 +232,26 @@
         "questionNumber": 2,
         "questionText": "Vad är en deltidsanställds månadslön?",
         "options": [
-          { "id": "a", "text": "21 000 kr", "isCorrect": false },
-          { "id": "b", "text": "25 200 kr", "isCorrect": true },
-          { "id": "c", "text": "28 000 kr", "isCorrect": false },
-          { "id": "d", "text": "33 600 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "21 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "25 200 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "28 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "33 600 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Deltidslön = 60% av heltidslön = 0.60 × 42 000 = 25 200 kr.",
@@ -125,10 +263,26 @@
         "questionNumber": 3,
         "questionText": "Vad är bolagets totala årliga lönekostnader (utan sociala avgifter)?",
         "options": [
-          { "id": "a", "text": "Cirka 23.3 miljoner kr", "isCorrect": false },
-          { "id": "b", "text": "Cirka 28.5 miljoner kr", "isCorrect": false },
-          { "id": "c", "text": "Cirka 33.3 miljoner kr", "isCorrect": true },
-          { "id": "d", "text": "Cirka 40.3 miljoner kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 23.3 miljoner kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 28.5 miljoner kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 33.3 miljoner kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 40.3 miljoner kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Heltid: 45 × 42 000 × 12 = 22 680 000 kr. Deltid: 35 × 25 200 × 12 = 10 584 000 kr. Totalt: 22 680 000 + 10 584 000 = 33 264 000 ≈ 33.3 miljoner kr.",
@@ -140,10 +294,26 @@
         "questionNumber": 4,
         "questionText": "Bolaget vill skära 15% av lönekostnaderna. Hur många miljoner kronor måste de spara?",
         "options": [
-          { "id": "a", "text": "Cirka 3.5 miljoner kr", "isCorrect": false },
-          { "id": "b", "text": "Cirka 5.0 miljoner kr", "isCorrect": true },
-          { "id": "c", "text": "Cirka 6.7 miljoner kr", "isCorrect": false },
-          { "id": "d", "text": "Cirka 8.3 miljoner kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 3.5 miljoner kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 5.0 miljoner kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 6.7 miljoner kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 8.3 miljoner kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "15% av 33.264 miljoner = 0.15 × 33.264 ≈ 4.99 miljoner ≈ 5.0 miljoner kr.",
@@ -165,10 +335,26 @@
         "questionNumber": 1,
         "questionText": "Vilket är nästa tal i serien: 2, 6, 12, 20, 30, ?",
         "options": [
-          { "id": "a", "text": "36", "isCorrect": false },
-          { "id": "b", "text": "40", "isCorrect": false },
-          { "id": "c", "text": "42", "isCorrect": true },
-          { "id": "d", "text": "45", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "36",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "40",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "42",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "45",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är n × (n+1): 1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30, 6×7=42. Differenserna är också 4, 6, 8, 10, 12 (ökar med 2 varje gång).",
@@ -180,10 +366,26 @@
         "questionNumber": 2,
         "questionText": "Vilket är nästa tal i serien: 3, 9, 27, 81, 243, ?",
         "options": [
-          { "id": "a", "text": "486", "isCorrect": false },
-          { "id": "b", "text": "729", "isCorrect": true },
-          { "id": "c", "text": "972", "isCorrect": false },
-          { "id": "d", "text": "1215", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "486",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "729",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "972",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1215",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Geometrisk serie där varje tal multipliceras med 3: 243 × 3 = 729.",
@@ -195,10 +397,26 @@
         "questionNumber": 3,
         "questionText": "Vilket är nästa tal i Fibonacci-serien: 1, 1, 2, 3, 5, 8, 13, ?",
         "options": [
-          { "id": "a", "text": "18", "isCorrect": false },
-          { "id": "b", "text": "20", "isCorrect": false },
-          { "id": "c", "text": "21", "isCorrect": true },
-          { "id": "d", "text": "26", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "18",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "20",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "21",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "26",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Fibonacci: varje tal är summan av de två föregående. 8 + 13 = 21.",
@@ -210,10 +428,26 @@
         "questionNumber": 4,
         "questionText": "Vilket är nästa tal i serien: 100, 95, 85, 70, 50, ?",
         "options": [
-          { "id": "a", "text": "20", "isCorrect": false },
-          { "id": "b", "text": "25", "isCorrect": true },
-          { "id": "c", "text": "30", "isCorrect": false },
-          { "id": "d", "text": "35", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "20",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "25",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "30",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "35",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Differenserna är −5, −10, −15, −20 (ökar med 5 i absolutbelopp). Nästa diff är −25, så 50 − 25 = 25.",
@@ -230,12 +464,37 @@
     "contextText": "Ett företag har tre produktlinjer och vill utvärdera lönsamheten. Tabellen visar intäkter och rörliga kostnader per linje. Företaget överväger om Bas-linjen ska läggas ned.",
     "dataTable": {
       "caption": "Lönsamhet per produktlinje (MSEK)",
-      "headers": ["Linje", "Intäkter", "Rörliga kostnader", "Täckningsbidrag"],
+      "headers": [
+        "Linje",
+        "Intäkter",
+        "Rörliga kostnader",
+        "Täckningsbidrag"
+      ],
       "rows": [
-        ["Premium", "85.5", "38.5", "47.0"],
-        ["Standard", "62.8", "32.4", "30.4"],
-        ["Bas", "41.2", "28.8", "12.4"],
-        ["Totalt", "189.5", "99.7", "89.8"]
+        [
+          "Premium",
+          "85.5",
+          "38.5",
+          "47.0"
+        ],
+        [
+          "Standard",
+          "62.8",
+          "32.4",
+          "30.4"
+        ],
+        [
+          "Bas",
+          "41.2",
+          "28.8",
+          "12.4"
+        ],
+        [
+          "Totalt",
+          "189.5",
+          "99.7",
+          "89.8"
+        ]
       ],
       "highlightLastRow": true
     },
@@ -246,10 +505,26 @@
         "questionNumber": 1,
         "questionText": "Vilken produktlinje har högst andel rörliga kostnader i förhållande till intäkter?",
         "options": [
-          { "id": "a", "text": "Premium", "isCorrect": false },
-          { "id": "b", "text": "Standard", "isCorrect": false },
-          { "id": "c", "text": "Bas", "isCorrect": true },
-          { "id": "d", "text": "Alla har samma andel", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Premium",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Standard",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Bas",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Alla har samma andel",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Premium: 38.5/85.5 ≈ 45%. Standard: 32.4/62.8 ≈ 52%. Bas: 28.8/41.2 ≈ 70%. Bas har klart högst kostnadsandel.",
@@ -261,10 +536,26 @@
         "questionNumber": 2,
         "questionText": "Vad är Standard-linjens täckningsbidragsmarginal i procent?",
         "options": [
-          { "id": "a", "text": "Cirka 38%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 48%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 55%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 62%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 38%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 48%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 55%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 62%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Täckningsbidragsmarginal = TB / intäkter = 30.4 / 62.8 × 100% ≈ 48.4%.",
@@ -276,10 +567,26 @@
         "questionNumber": 3,
         "questionText": "Hur skulle det totala täckningsbidraget påverkas om Bas-linjen läggs ned (förutsatt att inga andra effekter uppstår)?",
         "options": [
-          { "id": "a", "text": "Förbättras med 12.4 MSEK", "isCorrect": false },
-          { "id": "b", "text": "Försämras med 12.4 MSEK", "isCorrect": true },
-          { "id": "c", "text": "Förbättras med 28.8 MSEK", "isCorrect": false },
-          { "id": "d", "text": "Påverkas inte alls", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Förbättras med 12.4 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Försämras med 12.4 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Förbättras med 28.8 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Påverkas inte alls",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Bas-linjen ger ett täckningsbidrag på 12.4 MSEK (positivt). Lägger man ned linjen försvinner det bidraget, och totalt TB minskar med 12.4 MSEK. Även om Bas har låg marginal bidrar den ändå positivt till de fasta kostnaderna.",
@@ -291,10 +598,26 @@
         "questionNumber": 4,
         "questionText": "Vad är den genomsnittliga täckningsbidragsmarginalen för alla tre linjer tillsammans?",
         "options": [
-          { "id": "a", "text": "Cirka 38%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 42%", "isCorrect": false },
-          { "id": "c", "text": "Cirka 47%", "isCorrect": true },
-          { "id": "d", "text": "Cirka 53%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 38%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 42%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 47%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 53%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Total TB / Total intäkter = 89.8 / 189.5 × 100% ≈ 47.4%.",
@@ -313,12 +636,30 @@
       "chartType": "line",
       "title": "Aktiva kunder per månad",
       "data": [
-        { "x": "Jan", "y": 120 },
-        { "x": "Feb", "y": 130 },
-        { "x": "Mar", "y": 140 },
-        { "x": "Apr", "y": 151 },
-        { "x": "Maj", "y": 163 },
-        { "x": "Jun", "y": 176 }
+        {
+          "x": "Jan",
+          "y": 120
+        },
+        {
+          "x": "Feb",
+          "y": 130
+        },
+        {
+          "x": "Mar",
+          "y": 140
+        },
+        {
+          "x": "Apr",
+          "y": 151
+        },
+        {
+          "x": "Maj",
+          "y": 163
+        },
+        {
+          "x": "Jun",
+          "y": 176
+        }
       ],
       "xAxisLabel": "Månad 2024",
       "yAxisLabel": "Antal kunder",
@@ -331,10 +672,26 @@
         "questionNumber": 1,
         "questionText": "Hur många kunder hade bolaget i juni?",
         "options": [
-          { "id": "a", "text": "151", "isCorrect": false },
-          { "id": "b", "text": "163", "isCorrect": false },
-          { "id": "c", "text": "176", "isCorrect": true },
-          { "id": "d", "text": "190", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "151",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "163",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "176",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "190",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "Avläs grafen direkt: juni har 176 kunder.",
@@ -346,10 +703,26 @@
         "questionNumber": 2,
         "questionText": "Vilken är den ungefärliga månatliga tillväxttakten i procent?",
         "options": [
-          { "id": "a", "text": "Cirka 4%", "isCorrect": false },
-          { "id": "b", "text": "Cirka 8%", "isCorrect": true },
-          { "id": "c", "text": "Cirka 12%", "isCorrect": false },
-          { "id": "d", "text": "Cirka 15%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 4%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 8%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 12%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 15%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Från jan (120) till jun (176) över 5 månader: (176/120)^(1/5) − 1 ≈ 0.080 = 8.0%. Kontroll: 130/120 = 1.083, 140/130 = 1.077, 151/140 = 1.079 — konsekvent runt 8%.",
@@ -361,10 +734,26 @@
         "questionNumber": 3,
         "questionText": "Om tillväxttakten på 8% per månad fortsätter, ungefär hur många kunder har bolaget i december (6 månader senare)?",
         "options": [
-          { "id": "a", "text": "Cirka 220", "isCorrect": false },
-          { "id": "b", "text": "Cirka 250", "isCorrect": false },
-          { "id": "c", "text": "Cirka 280", "isCorrect": true },
-          { "id": "d", "text": "Cirka 320", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 220",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 250",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 280",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 320",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "c",
         "explanation": "176 × (1.08)^6 = 176 × 1.5869 ≈ 279.3 ≈ 280 kunder.",
@@ -376,10 +765,26 @@
         "questionNumber": 4,
         "questionText": "Med vilken faktor har kundbasen ökat från januari till juni?",
         "options": [
-          { "id": "a", "text": "1.32 gånger", "isCorrect": false },
-          { "id": "b", "text": "1.47 gånger", "isCorrect": true },
-          { "id": "c", "text": "1.65 gånger", "isCorrect": false },
-          { "id": "d", "text": "1.85 gånger", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "1.32 gånger",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1.47 gånger",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "1.65 gånger",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1.85 gånger",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Faktor = 176 / 120 ≈ 1.467 ≈ 1.47.",
@@ -401,10 +806,26 @@
         "questionNumber": 1,
         "questionText": "En vara kostar 800 kr exklusive moms. Vad blir priset inklusive 25% moms?",
         "options": [
-          { "id": "a", "text": "825 kr", "isCorrect": false },
-          { "id": "b", "text": "1 000 kr", "isCorrect": true },
-          { "id": "c", "text": "1 025 kr", "isCorrect": false },
-          { "id": "d", "text": "1 200 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "825 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "1 025 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1 200 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Pris inkl moms = 800 × 1.25 = 1 000 kr. Eller: 800 + (800 × 0.25) = 800 + 200 = 1 000 kr.",
@@ -416,10 +837,26 @@
         "questionNumber": 2,
         "questionText": "Du köper en vara för 2 500 kr inklusive 25% moms. Vad är priset exklusive moms?",
         "options": [
-          { "id": "a", "text": "1 875 kr", "isCorrect": false },
-          { "id": "b", "text": "2 000 kr", "isCorrect": true },
-          { "id": "c", "text": "2 250 kr", "isCorrect": false },
-          { "id": "d", "text": "2 100 kr", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "1 875 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "2 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "2 250 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "2 100 kr",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "Pris exkl moms = 2 500 / 1.25 = 2 000 kr. Vanligt fel är att räkna 2 500 × 0.75 = 1 875 — men det blir bara rätt om momsen vore 25% av slutpriset, vilket den inte är.",
@@ -431,10 +868,26 @@
         "questionNumber": 3,
         "questionText": "Räntan höjs från 3% till 4.5%. Hur stor är höjningen i procentenheter respektive procent?",
         "options": [
-          { "id": "a", "text": "1.5 procentenheter / 50%", "isCorrect": true },
-          { "id": "b", "text": "1.5 procentenheter / 33%", "isCorrect": false },
-          { "id": "c", "text": "4.5 procentenheter / 50%", "isCorrect": false },
-          { "id": "d", "text": "1.5 procentenheter / 150%", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "1.5 procentenheter / 50%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "1.5 procentenheter / 33%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "4.5 procentenheter / 50%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1.5 procentenheter / 150%",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "a",
         "explanation": "Procentenheter: 4.5 − 3 = 1.5 procentenheter. Procentuell ökning: (4.5 − 3) / 3 × 100% = 50%. Skillnaden mellan procentenheter och procent är viktig att förstå.",
@@ -446,14 +899,497 @@
         "questionNumber": 4,
         "questionText": "En anställd jobbar 7.5 timmar per dag, 22 dagar i månaden. Vad blir det per år (12 månader)?",
         "options": [
-          { "id": "a", "text": "Cirka 1 800 timmar", "isCorrect": false },
-          { "id": "b", "text": "Cirka 1 980 timmar", "isCorrect": true },
-          { "id": "c", "text": "Cirka 2 200 timmar", "isCorrect": false },
-          { "id": "d", "text": "Cirka 2 400 timmar", "isCorrect": false }
+          {
+            "id": "a",
+            "text": "Cirka 1 800 timmar",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 1 980 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 2 200 timmar",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 2 400 timmar",
+            "isCorrect": false
+          }
         ],
         "correctAnswerId": "b",
         "explanation": "7.5 × 22 × 12 = 165 × 12 = 1 980 timmar per år.",
         "difficulty": 2
+      }
+    ]
+  },
+  {
+    "id": "num-p07",
+    "title": "Leveranskostnader per distributionscentral",
+    "type": "table",
+    "topic": "Logistikanalys",
+    "difficulty": 2,
+    "contextText": "Ett svenskt logistikbolag driver fyra distributionscentraler. Tabellen visar antal leveranser och total leveranskostnad under en månad. Bolaget vill jämföra effektiviteten mellan centralerna.",
+    "dataTable": {
+      "caption": "Leveranser och kostnader per central (en månad)",
+      "headers": [
+        "Central",
+        "Antal leveranser",
+        "Total kostnad (kr)",
+        "Kostnad per leverans (kr)"
+      ],
+      "rows": [
+        [
+          "Stockholm",
+          "4 250",
+          "39 950",
+          "9.40"
+        ],
+        [
+          "Göteborg",
+          "3 180",
+          "28 938",
+          "9.10"
+        ],
+        [
+          "Malmö",
+          "2 640",
+          "25 344",
+          "9.60"
+        ],
+        [
+          "Uppsala",
+          "1 430",
+          "12 012",
+          "8.40"
+        ],
+        [
+          "Totalt",
+          "11 500",
+          "106 244",
+          "9.24"
+        ]
+      ],
+      "highlightLastRow": true
+    },
+    "questions": [
+      {
+        "id": "num-p07-q01",
+        "passageId": "num-p07",
+        "questionNumber": 1,
+        "questionText": "Vilken central hade flest leveranser under månaden?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Stockholm",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Göteborg",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Malmö",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Uppsala",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Stockholm: 4 250. Göteborg: 3 180. Malmö: 2 640. Uppsala: 1 430. Stockholm har flest leveranser.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p07-q02",
+        "passageId": "num-p07",
+        "questionNumber": 2,
+        "questionText": "Hur stor andel av samtliga leveranser stod Malmö för?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 18%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 20%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 23%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 27%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Malmö: 2 640 av 11 500 totalt. Andel = 2 640 / 11 500 × 100% ≈ 22.96% ≈ 23%.",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p07-q03",
+        "passageId": "num-p07",
+        "questionNumber": 3,
+        "questionText": "Hur mycket högre var Malmös kostnad per leverans jämfört med Uppsalas, uttryckt i procent?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 12%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 14%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 17%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 20%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Malmö: 9.60 kr. Uppsala: 8.40 kr. Skillnad = (9.60 − 8.40) / 8.40 × 100% = 1.20 / 8.40 × 100% ≈ 14.3% ≈ 14%.",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p07-q04",
+        "passageId": "num-p07",
+        "questionNumber": 4,
+        "questionText": "Om Uppsala ökade sina leveranser med 20% till samma kostnad per leverans, vad skulle dess totala kostnad bli?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 13 200 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 14 414 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 15 600 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 16 800 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Nya leveranser = 1 430 × 1.20 = 1 716. Total kostnad = 1 716 × 8.40 = 14 414.40 ≈ 14 414 kr. Alternativt: 12 012 × 1.20 = 14 414.40 kr.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "num-p08",
+    "title": "Marknadsandelar på elmarknaden",
+    "type": "graph",
+    "topic": "Marknadsandel",
+    "difficulty": 2,
+    "contextText": "Ett analysföretag kartlägger marknadsandelarna bland elhandelsbolag i en svensk region. Cirkeldiagrammet visar varje bolags andel av den totala försäljningen, som under perioden uppgick till 2 400 GWh.",
+    "chartData": {
+      "chartType": "pie",
+      "title": "Marknadsandelar elhandel (% av total)",
+      "data": [
+        {
+          "label": "Acme Energi",
+          "value": 34
+        },
+        {
+          "label": "Nordkraft",
+          "value": 28
+        },
+        {
+          "label": "Svensk Energi",
+          "value": 22
+        },
+        {
+          "label": "Övriga",
+          "value": 16
+        }
+      ],
+      "unit": "%"
+    },
+    "questions": [
+      {
+        "id": "num-p08-q01",
+        "passageId": "num-p08",
+        "questionNumber": 1,
+        "questionText": "Vilket bolag har näst störst marknadsandel?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Acme Energi",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Nordkraft",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Svensk Energi",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Övriga",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Acme: 34%. Nordkraft: 28%. Svensk Energi: 22%. Övriga: 16%. Nordkraft har näst störst andel efter Acme.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p08-q02",
+        "passageId": "num-p08",
+        "questionNumber": 2,
+        "questionText": "Hur många GWh sålde Acme Energi under perioden?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 672 GWh",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 720 GWh",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 816 GWh",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 864 GWh",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Acme har 34% av totalt 2 400 GWh. 0.34 × 2 400 = 816 GWh.",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p08-q03",
+        "passageId": "num-p08",
+        "questionNumber": 3,
+        "questionText": "Hur många procentenheter större är Acmes andel än Svensk Energis?",
+        "options": [
+          {
+            "id": "a",
+            "text": "12 procentenheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "22 procentenheter",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 55%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "6 procentenheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Acme: 34%. Svensk Energi: 22%. Skillnad = 34 − 22 = 12 procentenheter. (Notera: i procent är Acme cirka 55% större, men frågan gäller procentenheter.)",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p08-q04",
+        "passageId": "num-p08",
+        "questionNumber": 4,
+        "questionText": "Om Acme köper upp hela posten Övriga, hur många GWh skulle Acme då sälja totalt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 960 GWh",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 1 080 GWh",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 1 200 GWh",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 1 320 GWh",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Acme 34% + Övriga 16% = 50% av 2 400 GWh = 0.50 × 2 400 = 1 200 GWh.",
+        "difficulty": 2
+      }
+    ]
+  },
+  {
+    "id": "num-p09",
+    "title": "Kalkyl för kaférörelse",
+    "type": "word_problem",
+    "topic": "Resultatkalkyl",
+    "difficulty": 2,
+    "contextText": "Ett café säljer i snitt 320 koppar kaffe per dag till priset 35 kr styck. Råvarukostnaden per kopp är 8 kr. Caféet har öppet 26 dagar i månaden och fasta kostnader (hyra, löner, el) på 145 000 kr per månad.",
+    "questions": [
+      {
+        "id": "num-p09-q01",
+        "passageId": "num-p09",
+        "questionNumber": 1,
+        "questionText": "Hur stor är intäkten från kaffeförsäljningen per dag?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8 640 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "11 200 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "12 600 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "2 560 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Daglig intäkt = 320 koppar × 35 kr = 11 200 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p09-q02",
+        "passageId": "num-p09",
+        "questionNumber": 2,
+        "questionText": "Vad är täckningsbidraget per kopp kaffe?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "27 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "35 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "43 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Täckningsbidrag per kopp = pris − råvarukostnad = 35 − 8 = 27 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p09-q03",
+        "passageId": "num-p09",
+        "questionNumber": 3,
+        "questionText": "Vad blir caféets månadsresultat (efter fasta kostnader) från kaffeförsäljningen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 65 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 79 640 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 145 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 224 640 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Täckningsbidrag per dag = 320 × 27 = 8 640 kr. Per månad = 8 640 × 26 = 224 640 kr. Resultat = 224 640 − 145 000 = 79 640 kr. Alternativ d (224 640) är täckningsbidraget innan de fasta kostnaderna dragits av.",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p09-q04",
+        "passageId": "num-p09",
+        "questionNumber": 4,
+        "questionText": "Hur många koppar måste caféet sälja per dag för att precis täcka de fasta kostnaderna (nollresultat)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 160 koppar",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 207 koppar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 240 koppar",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 290 koppar",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Fasta kostnader per dag = 145 000 / 26 ≈ 5 576.9 kr. Nödvändiga koppar = 5 576.9 / 27 ≈ 206.6 ≈ 207 koppar per dag.",
+        "difficulty": 3
       }
     ]
   }

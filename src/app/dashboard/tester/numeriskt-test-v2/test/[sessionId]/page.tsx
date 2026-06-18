@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Flag } from 'lucide-react';
 
-import { getAllPassages } from '@/lib/numericalTestV2/validator';
+import { selectPassagesForSession } from '@/lib/numericalTestV2/selectPassages';
 import type { Passage as V1Passage } from '@/lib/numericalTest/types';
 
 import TestProgress from '@/components/tests/numerical-shared/TestProgress';
@@ -16,13 +16,11 @@ interface PageProps {
   params: Promise<{ sessionId: string }>;
 }
 
-// V2-passager har samma fält-struktur som V1 (vi byggde båda så) så casten är säker.
-const allPassages = getAllPassages() as unknown as V1Passage[];
-
 export default function NumericalTestV2Page({ params }: PageProps) {
   const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [passages] = useState<V1Passage[]>(allPassages);
+  // V2-passager har samma fält-struktur som V1 så casten är säker.
+  const [passages, setPassages] = useState<V1Passage[]>([]);
   const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -32,7 +30,10 @@ export default function NumericalTestV2Page({ params }: PageProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    params.then((p) => setSessionId(p.sessionId));
+    params.then((p) => {
+      setSessionId(p.sessionId);
+      setPassages(selectPassagesForSession(p.sessionId) as unknown as V1Passage[]);
+    });
   }, [params]);
 
   useEffect(() => {

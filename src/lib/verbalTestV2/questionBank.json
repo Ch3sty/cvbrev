@@ -8,19 +8,23 @@
     "statements": [
       {
         "text": "Elever som använder digitala verktyg presterar bättre på test än de som inte gör det.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten slår fast att elever som använder digitala verktyg i genomsnitt presterar 15 procent bättre på standardiserade test jämfört med traditionella metoder, vilket direkt stöder påståendet."
       },
       {
         "text": "Alla elever har tillgång till datorer hemma.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Påståendet motsägs av texten, som uttryckligen säger att inte alla elever har tillgång till datorer eller stabil internetuppkoppling hemma."
       },
       {
         "text": "Digitalt lärande kommer att helt ersätta traditionell undervisning inom fem år.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner inget om att digitalt lärande skulle ersätta traditionell undervisning, och beskriver tvärtom en hybridmodell. Tidsramen och totalersättningen går inte att avgöra ur texten."
       },
       {
         "text": "Hybridmodeller kombinerar digitala och fysiska inslag i undervisningen.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten beskriver direkt att många skolor använder en hybridmodell som kombinerar digitala och fysiska inslag, så påståendet följer av texten."
       }
     ]
   },
@@ -33,19 +37,23 @@
     "statements": [
       {
         "text": "Sjukskrivningar för psykisk ohälsa har ökat de senaste tio åren.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Enligt texten har antalet sjukskrivningar för psykisk ohälsa ökat med 70 procent de senaste tio åren, vilket bekräftar påståendet."
       },
       {
         "text": "Alla företag erbjuder tillgång till samtalsterapi för sina anställda.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner samtalsterapi som en möjlig åtgärd men säger inget om att alla företag faktiskt erbjuder det, så det går inte att avgöra."
       },
       {
         "text": "Företag som investerar i mental hälsa har lägre sjukfrånvaro.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att företag som investerar i mental hälsa i genomsnitt ser 30 procent lägre sjukfrånvaro, vilket direkt stöder påståendet."
       },
       {
         "text": "Majoriteten av anställda känner sig bekväma att prata om mental ohälsa utan att chefen tar upp det först.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att 65 procent skulle känna sig mer bekväma om chefen tog upp ämnet först, vilket motsäger att majoriteten redan känner sig bekväma utan det."
       }
     ]
   },
@@ -58,19 +66,23 @@
     "statements": [
       {
         "text": "Parisavtalet har som mål att begränsa uppvärmningen till under två grader.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att Parisavtalet satte som mål att begränsa uppvärmningen till under två grader Celsius, precis som påståendet säger."
       },
       {
         "text": "Transportsektorn står för mer än hälften av de globala utsläppen.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att transportsektorn står för ungefär 25 procent av utsläppen, alltså en fjärdedel och inte mer än hälften, så påståendet motsägs."
       },
       {
         "text": "Sverige har redan uppnått nettonollutsläpp.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver nettonollutsläpp som ett mål till år 2045, inte något Sverige redan uppnått, vilket motsäger påståendet."
       },
       {
         "text": "Förnybar energi är ofta billigare än fossila bränslen idag.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att förnybar energi nu ofta är billigare än fossila bränslen i många regioner, vilket direkt stöder påståendet."
       }
     ]
   },
@@ -83,19 +95,23 @@
     "statements": [
       {
         "text": "Mer än hälften av världens befolkning bor i städer idag.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten inleder med att över hälften av världens befolkning nu bor i städer, vilket bekräftar påståendet."
       },
       {
         "text": "Städer täcker mer än tio procent av jordens yta.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten anger att städer täcker mindre än två procent av jordens yta, alltså inte mer än tio procent, så påståendet motsägs."
       },
       {
         "text": "Alla växande städer har problem med luftföroreningar.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner luftföroreningar som ett vanligt problem i växande städer, men säger inget om att samtliga drabbas, så generaliseringen går inte att avgöra."
       },
       {
         "text": "Singapore anses vara ett exempel på hållbar stadsutveckling.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten pekar ut Singapore och Köpenhamn som ledande exempel på hållbar stadsutveckling, vilket stöder påståendet."
       }
     ]
   },
@@ -108,19 +124,23 @@
     "statements": [
       {
         "text": "AI-system kan identifiera vissa sjukdomar lika bra som erfarna läkare.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att AI-system inom diagnostik kan identifiera vissa sjukdomar lika bra som erfarna läkare, precis som påståendet."
       },
       {
         "text": "Alla experter är överens om att AI kommer leda till massarbetslöshet.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver delade uppfattningar: vissa varnar för massarbetslöshet medan andra menar att ny teknik historiskt skapat nya jobb, så enighet motsägs."
       },
       {
         "text": "EU har redan implementerat fullständig lagstiftning för AI.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att EU arbetar med lagstiftning, inte att den redan är fullt implementerad, vilket motsäger påståendet."
       },
       {
         "text": "Algoritmer kan förstärka samhälleliga fördomar.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger uttryckligen att algoritmer kan förstärka samhälleliga fördomar om träningsdata innehåller bias, vilket stöder påståendet."
       }
     ]
   },
@@ -133,19 +153,23 @@
     "statements": [
       {
         "text": "Streamingtjänster har över en miljard användare globalt.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att plattformar som Netflix och Spotify har över en miljard användare globalt, vilket bekräftar påståendet."
       },
       {
         "text": "Traditionell TV har ökat i popularitet bland unga.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att traditionell linjär TV tappat tittare dramatiskt, särskilt bland yngre, vilket är motsatsen till påståendet."
       },
       {
         "text": "Alla musikartister är nöjda med Spotifys ersättningsmodell.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att musikartister ofta kritiserar Spotifys låga ersättningar, vilket motsäger att alla skulle vara nöjda."
       },
       {
         "text": "Filter bubbles kan begränsa exponering för nytt innehåll.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten förklarar att filter bubbles gör att människor främst exponeras för innehåll som bekräftar befintliga preferenser, vilket stöder att exponeringen för nytt innehåll begränsas."
       }
     ]
   },
@@ -158,19 +182,23 @@
     "statements": [
       {
         "text": "Aktivt lärande är mer effektivt än passiv kunskapsöverföring enligt forskning.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten inleder med att pedagogisk forskning visar att aktivt lärande är mer effektivt än passiv kunskapsöverföring, precis som påståendet."
       },
       {
         "text": "Flipped classroom innebär att lektionstid ägnas åt teori och hemarbete åt tillämpning.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver flipped classroom tvärtom: teori studeras hemma och lektionstiden ägnas åt tillämpning, vilket motsäger påståendet."
       },
       {
         "text": "Socioekonomisk bakgrund påverkar inte längre skolresultat.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att socioekonomisk bakgrund fortfarande påverkar skolresultat mer än pedagogisk metod, vilket motsäger påståendet."
       },
       {
         "text": "Alla länder har råd med små klasser i sina skolsystem.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten konstaterar att små klasser är kostsamt för skolsystem men säger inget om vilka länder som har råd, så det går inte att avgöra."
       }
     ]
   },
@@ -183,19 +211,23 @@
     "statements": [
       {
         "text": "Prevention sparar mer i framtida sjukvårdskostnader än det kostar.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att varje krona i prevention sparar tre till fyra kronor i framtida sjukvårdskostnader, vilket stöder påståendet."
       },
       {
         "text": "Genetik har större påverkan på långsiktig hälsa än livsstilsfaktorer för de flesta sjukdomar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att livsstilsfaktorer har större påverkan än genetik för de flesta sjukdomar, alltså tvärtom mot påståendet."
       },
       {
         "text": "Majoriteten av sjukvårdsbudgetar går till preventiva insatser.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten anger att endast omkring fem procent av budgetarna går till prevention, vilket motsäger att majoriteten gör det."
       },
       {
         "text": "Alla länder subventionerar gym som en del av sjukförsäkringen.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att vissa länder har börjat subventionera gym, inte att alla gör det, vilket motsäger påståendet."
       }
     ]
   },
@@ -208,19 +240,23 @@
     "statements": [
       {
         "text": "Cirkulär ekonomi kan enligt uppskattningar generera biljoner dollar i ekonomiska fördelar.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger uppskattningen att övergången kan generera 4,5 biljoner dollar i ekonomiska fördelar, vilket stöder påståendet."
       },
       {
         "text": "Alla företag som säger sig arbeta med cirkulär ekonomi gör verkliga förändringar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att kritiker menar att begreppet används för greenwashing av företag som i praktiken inte förändrar sina affärsmodeller, vilket motsäger påståendet om verkliga förändringar."
       },
       {
         "text": "EU har infört lagstiftning som kräver att produkter ska vara mer reparerbara.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten nämner EU:s rätt-till-reparation-direktiv som tvingar tillverkare att göra produkter mer reparerbara, vilket stöder påståendet."
       },
       {
         "text": "Det finns inga tekniska utmaningar kring återvinning av elektronikprodukter.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten avslutar med att tekniska utmaningar kvarstår kring återvinning av komplex elektronik, vilket motsäger att inga utmaningar finns."
       }
     ]
   },
@@ -233,19 +269,23 @@
     "statements": [
       {
         "text": "Över en fjärdedel av Japans befolkning är över 65 år.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att över 28 procent av Japans befolkning är över 65 år, vilket är mer än en fjärdedel och stöder påståendet."
       },
       {
         "text": "Alla länder har höjt pensionsåldern som svar på demografiska utmaningar.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att vissa länder har höjt pensionsåldern, inte alla, vilket motsäger påståendet."
       },
       {
         "text": "Teknologi kan helt eliminera behovet av mänsklig vårdpersonal.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att teknik kan avlasta vårdpersonal men varnar samtidigt för social isolering, och tar aldrig ställning till om mänsklig personal helt kan ersättas, så det går inte att avgöra."
       },
       {
         "text": "Vissa forskare förespråkar fokus på healthspan över lifespan.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att vissa forskare argumenterar för fokus på healthspan snarare än lifespan, vilket direkt stöder påståendet."
       }
     ]
   },
@@ -258,19 +298,23 @@
     "statements": [
       {
         "text": "CRISPR-Cas9 belönades med Nobelpriset i kemi.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten anger att CRISPR-Cas9 belönades med Nobelpriset i kemi 2020, vilket bekräftar påståendet."
       },
       {
         "text": "Alla länder tillåter germline editing.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att de flesta länder har förbud mot germline editing, vilket motsäger att alla länder tillåter det."
       },
       {
         "text": "Vetenskapssamhället var positivt till de kinesiska genmodifierade bebisarna 2018.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att vetenskapssamhället var enigt kritiskt till de kinesiska genmodifierade bebisarna, alltså motsatsen till positivt."
       },
       {
         "text": "CRISPR kan användas för att skapa botemedel för alla genetiska sjukdomar.",
-        "correctAnswer": "cannot_say"
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner CRISPR som potentiellt botemedel för vissa genetiska sjukdomar men säger inget om alla sådana sjukdomar, så generaliseringen går inte att avgöra."
       }
     ]
   },
@@ -283,19 +327,197 @@
     "statements": [
       {
         "text": "Sociala medier har över fyra miljarder användare globalt.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten inleder med att sociala medier har över fyra miljarder användare världen över, vilket bekräftar påståendet."
       },
       {
         "text": "All användning av sociala medier leder till ångest och depression.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten kopplar överdriven användning till ångest och depression, inte all användning, vilket motsäger den absoluta generaliseringen."
       },
       {
         "text": "Algoritmer på sociala medier tenderar att främja kontroversiellt innehåll.",
-        "correctAnswer": "true"
+        "correctAnswer": "true",
+        "explanation": "Texten säger att algoritmer designade för engagemang tenderar att främja kontroversiellt och känsloladdat innehåll, vilket stöder påståendet."
       },
       {
         "text": "Alla länder har infört lagstiftning mot desinformation på sociala medier.",
-        "correctAnswer": "false"
+        "correctAnswer": "false",
+        "explanation": "Texten säger att vissa länder har infört lagstiftning, inte alla, vilket motsäger påståendet."
+      }
+    ]
+  },
+  {
+    "id": "v2-p13-lifelong-learning",
+    "title": "PASSAGE 13 — Livslångt lärande",
+    "difficulty": 2,
+    "topic": "Utbildning",
+    "text": "Begreppet livslångt lärande har gått från politisk slogan till konkret nödvändighet. När arbetsmarknaden förändras snabbare räcker en examen inte längre för ett helt yrkesliv. OECD beräknar att en betydande andel av dagens arbetsuppgifter kan automatiseras inom två decennier, vilket tvingar fram omställning. Många länder har därför byggt ut system för vuxenutbildning och kortare yrkesinriktade kurser. I Sverige erbjuder yrkeshögskolan utbildningar som tas fram i nära samarbete med arbetsgivare, vilket ger hög anställningsbarhet efter examen. Forskning pekar samtidigt på ett deltagandegap. De som redan har god utbildning fortbildar sig oftare än lågutbildade, vilket riskerar att förstärka befintliga klyftor snarare än att minska dem. Tid och ekonomi utgör hinder för många, särskilt för dem som kombinerar studier med arbete och familj. Vissa arbetsgivare bekostar kompetensutveckling eftersom det lönar sig att behålla erfaren personal. Digitala lärplattformar har sänkt tröskeln genom flexibla kurser som kan läsas när och var som helst. Trots tillgängligheten är slutförandegraden för fristående onlinekurser ofta låg.",
+    "statements": [
+      {
+        "text": "Yrkeshögskolans utbildningar tas fram i samarbete med arbetsgivare.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger uttryckligen att yrkeshögskolan erbjuder utbildningar 'som tas fram i nära samarbete med arbetsgivare'."
+      },
+      {
+        "text": "Lågutbildade fortbildar sig oftare än de som redan har god utbildning.",
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver tvärtom ett deltagandegap där de som redan har god utbildning fortbildar sig oftare än lågutbildade."
+      },
+      {
+        "text": "De flesta arbetsgivare bekostar kompetensutveckling för sin personal.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner bara att 'vissa arbetsgivare' bekostar fortbildning, men säger ingenting om hur stor andel det rör sig om."
+      },
+      {
+        "text": "Att en kurs är lättillgänglig garanterar inte att deltagarna slutför den.",
+        "correctAnswer": "true",
+        "explanation": "Trots att digitala plattformar sänkt tröskeln konstaterar texten att slutförandegraden för fristående onlinekurser ofta är låg."
+      }
+    ]
+  },
+  {
+    "id": "v2-p14-sleep-health",
+    "title": "PASSAGE 14 — Sömnens betydelse",
+    "difficulty": 2,
+    "topic": "Hälsa & Välbefinnande",
+    "text": "Sömn betraktades länge som en passiv vilofas, men modern forskning visar att hjärnan är högst aktiv under natten. Under djupsömnen befästs minnen och hjärnan rensar bort restprodukter som ansamlats under dagen. Vuxna rekommenderas i regel mellan sju och nio timmars sömn per natt, även om det individuella behovet varierar. Kronisk sömnbrist har kopplats till ökad risk för hjärt-kärlsjukdom, fetma och nedsatt immunförsvar. Trots detta sover en betydande del av befolkningen mindre än rekommenderat på vardagar. Skärmars blå ljus på kvällen kan störa produktionen av melatonin, hormonet som signalerar att det är dags att sova. Skiftarbete utmanar kroppens dygnsrytm och har i studier förknippats med fler hälsoproblem på lång sikt. Att sova ut på helgen kompenserar enligt forskare inte fullt ut för förlorad sömn under veckan. Sömnens kvalitet spelar lika stor roll som dess längd. Regelbundna sängtider och en sval, mörk sovmiljö gynnar djupsömnen. Sömnproblem behandlas i dag allt oftare med beteendeterapi snarare än enbart läkemedel.",
+    "statements": [
+      {
+        "text": "Hjärnan är aktiv under sömnen och bearbetar bland annat minnen.",
+        "correctAnswer": "true",
+        "explanation": "Texten slår fast att hjärnan är högst aktiv under natten och att minnen befästs under djupsömnen."
+      },
+      {
+        "text": "Alla vuxna behöver exakt åtta timmars sömn per natt.",
+        "correctAnswer": "false",
+        "explanation": "Texten anger ett intervall på sju till nio timmar och tillägger att det individuella behovet varierar, så ett exakt antal för alla motsägs."
+      },
+      {
+        "text": "Att sova ut på helgen väger fullt ut upp för sömnbrist under veckan.",
+        "correctAnswer": "false",
+        "explanation": "Enligt texten kompenserar helgsömn enligt forskare inte fullt ut för förlorad sömn under veckan."
+      },
+      {
+        "text": "Beteendeterapi är mer effektivt än läkemedel mot sömnproblem.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att beteendeterapi används allt oftare, men gör ingen jämförelse av effektiviteten mellan metoderna."
+      }
+    ]
+  },
+  {
+    "id": "v2-p15-biodiversity",
+    "title": "PASSAGE 15 — Biologisk mångfald",
+    "difficulty": 3,
+    "topic": "Miljö & Klimat",
+    "text": "Biologisk mångfald avser variationen av liv på jorden, från gener och arter till hela ekosystem. Denna mångfald utgör grunden för tjänster som människan är helt beroende av, exempelvis pollinering av grödor, rening av vatten och reglering av klimatet. Forskare talar nu om en pågående massutdöende där arter försvinner i en takt som vida överstiger den naturliga bakgrundsnivån. De främsta orsakerna är förlust av livsmiljöer, överexploatering, föroreningar, invasiva arter och klimatförändringar. Insekter, som spelar en nyckelroll i många näringskedjor, har minskat kraftigt i flera regioner. En art som försvinner kan utlösa kedjeeffekter eftersom ekosystem hänger samman på komplexa sätt. Skyddade områden är ett viktigt verktyg, men enbart avgränsning räcker sällan om områdena inte förvaltas aktivt. Ekonomiska intressen som jordbruk och gruvdrift står ofta i konflikt med bevarandemål. Internationella avtal har satt upp mål för att skydda en större andel av land- och havsytan. Restaurering av skadade naturmiljöer har samtidigt blivit ett växande forskningsfält. Att sätta ett ekonomiskt värde på naturtjänster är ett omdebatterat men allt vanligare grepp i beslutsunderlag.",
+    "statements": [
+      {
+        "text": "Pollinering av grödor är en av de tjänster som biologisk mångfald bidrar med.",
+        "correctAnswer": "true",
+        "explanation": "Texten räknar uttryckligen upp pollinering av grödor bland de tjänster som människan är beroende av."
+      },
+      {
+        "text": "Arter försvinner nu i samma takt som den naturliga bakgrundsnivån.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att arter försvinner i en takt som vida överstiger den naturliga bakgrundsnivån, inte i samma takt."
+      },
+      {
+        "text": "Att enbart avgränsa skyddade områden är tillräckligt för att bevara mångfalden.",
+        "correctAnswer": "false",
+        "explanation": "Texten påpekar att enbart avgränsning sällan räcker om områdena inte förvaltas aktivt."
+      },
+      {
+        "text": "De internationella avtalens mål kommer att uppnås inom tio år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner att avtal satt upp mål, men säger ingenting om huruvida eller när målen kommer att uppnås."
+      }
+    ]
+  },
+  {
+    "id": "v2-p16-gig-economy",
+    "title": "PASSAGE 16 — Gigekonomin",
+    "difficulty": 3,
+    "topic": "Samhälle & Demografi",
+    "text": "Gigekonomin bygger på korta, fristående uppdrag som förmedlas via digitala plattformar i stället för fasta anställningar. Modellen har vuxit snabbt inom transport, bud och olika digitala tjänster. För många erbjuder den flexibilitet och en möjlighet att själv styra sin arbetstid. Plattformsföretagen klassar ofta sina utförare som egenföretagare snarare än anställda, vilket innebär att utförarna sällan omfattas av sjuklön, semester eller pensionsavsättningar. Kritiker menar att detta flyttar risken från företag till individ. Inkomsterna kan dessutom variera kraftigt mellan veckor, vilket gör det svårt att planera ekonomin. Flera rättsfall i olika länder har prövat om plattformsarbetare i praktiken bör betraktas som anställda. Utfallen har gått åt olika håll beroende på lagstiftning och hur arbetet är organiserat. Fackföreningar har börjat organisera även denna grupp, trots att den traditionellt varit svår att samla. Förespråkare framhåller att gigarbete sänker trösklarna till arbetsmarknaden för personer som annars har svårt att få jobb. Hur modellen utvecklas beror i hög grad på framtida politiska och rättsliga beslut.",
+    "statements": [
+      {
+        "text": "Plattformsföretag klassar ofta sina utförare som egenföretagare.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att plattformsföretagen ofta klassar sina utförare som egenföretagare snarare än anställda."
+      },
+      {
+        "text": "Alla rättsfall har slagit fast att plattformsarbetare är anställda.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att utfallen i rättsfallen gått åt olika håll beroende på lagstiftning och organisering, alltså inte alla på samma sätt."
+      },
+      {
+        "text": "De flesta gigarbetare föredrar fast anställning framför fristående uppdrag.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver för- och nackdelar men säger inget om vad flertalet gigarbetare själva föredrar."
+      },
+      {
+        "text": "Gigarbetare omfattas vanligen inte av sjuklön och pensionsavsättningar.",
+        "correctAnswer": "true",
+        "explanation": "Eftersom utförarna ofta klassas som egenföretagare omfattas de enligt texten sällan av sjuklön, semester eller pensionsavsättningar."
+      }
+    ]
+  },
+  {
+    "id": "v2-p17-quantum-computing",
+    "title": "PASSAGE 17 — Kvantdatorer",
+    "difficulty": 3,
+    "topic": "Vetenskap & Forskning",
+    "text": "Kvantdatorer utnyttjar fenomen från kvantfysiken för att utföra vissa beräkningar på sätt som klassiska datorer inte klarar effektivt. Medan en vanlig dator hanterar bitar som antingen är ett eller noll, kan en kvantbit befinna sig i en kombination av båda tillstånden samtidigt. Detta ger i teorin möjlighet att utforska många lösningar parallellt. Tekniken är fortfarande på ett tidigt stadium och dagens system är känsliga för störningar, vilket leder till beräkningsfel. För att fungera måste många konstruktioner kylas ned till nära den absoluta nollpunkten. Forskare betonar att kvantdatorer inte kommer att ersätta vanliga datorer för vardagsuppgifter, utan snarare komplettera dem för specifika problem. Lovande tillämpningsområden inkluderar simulering av molekyler för läkemedelsutveckling och optimering av komplexa logistiksystem. Samtidigt finns en oro för att tillräckligt kraftfulla kvantdatorer i framtiden skulle kunna knäcka delar av dagens kryptering. Därför pågår redan utveckling av så kallad kvantsäker kryptografi. Stora teknikföretag och flera stater investerar betydande resurser i området, men experter är oense om när praktiskt användbara maskiner blir verklighet.",
+    "statements": [
+      {
+        "text": "En kvantbit kan befinna sig i en kombination av två tillstånd samtidigt.",
+        "correctAnswer": "true",
+        "explanation": "Texten förklarar att en kvantbit, till skillnad från en vanlig bit, kan befinna sig i en kombination av båda tillstånden samtidigt."
+      },
+      {
+        "text": "Kvantdatorer förväntas helt ersätta vanliga datorer för vardagsuppgifter.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger uttryckligen att kvantdatorer inte kommer att ersätta vanliga datorer för vardagsuppgifter utan snarare komplettera dem."
+      },
+      {
+        "text": "Praktiskt användbara kvantdatorer kommer att finnas inom fem år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten anger att experter är oense om när praktiskt användbara maskiner blir verklighet, så någon tidpunkt går inte att fastställa."
+      },
+      {
+        "text": "Dagens kvantsystem är känsliga för störningar som kan ge beräkningsfel.",
+        "correctAnswer": "true",
+        "explanation": "Texten konstaterar att dagens system är känsliga för störningar, vilket leder till beräkningsfel."
+      }
+    ]
+  },
+  {
+    "id": "v2-p18-public-libraries",
+    "title": "PASSAGE 18 — Folkbibliotekens roll",
+    "difficulty": 1,
+    "topic": "Kultur & Medier",
+    "text": "Folkbiblioteken har under lång tid betraktats som en hörnsten i det demokratiska samhället. De erbjuder fri tillgång till kunskap, litteratur och information oavsett besökarens bakgrund eller inkomst. På senare år har bibliotekens uppdrag breddats långt bortom utlåning av böcker. Många bibliotek fungerar nu som mötesplatser där människor kan delta i läscirklar, språkkaféer och föreläsningar. De har också blivit viktiga för digital delaktighet genom att tillhandahålla datorer och hjälp med samhällstjänster på nätet. För personer utan egen uppkoppling kan biblioteket vara den enda vägen in i det digitala samhället. Bibliotekarier vägleder dessutom besökare i att värdera källor, en färdighet som blivit allt viktigare när desinformation sprids snabbt. Trots sin betydelse har flera bibliotek drabbats av nedskärningar och minskade öppettider. Besöksantalet har på sina håll gått ned, samtidigt som efterfrågan på bibliotekens digitala tjänster ökat. Vissa kommuner har svarat med meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats. Bibliotekens framtida roll diskuteras flitigt bland politiker och kulturarbetare.",
+    "statements": [
+      {
+        "text": "Folkbiblioteken erbjuder tillgång till information oavsett besökarens inkomst.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att biblioteken erbjuder fri tillgång till kunskap och information oavsett besökarens bakgrund eller inkomst."
+      },
+      {
+        "text": "Bibliotekens uppdrag är begränsat till utlåning av böcker.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att uppdraget breddats långt bortom utlåning av böcker, med mötesplatser, digital delaktighet och källkritik."
+      },
+      {
+        "text": "Besöksantalet har minskat på alla bibliotek i landet.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att besöksantalet gått ned 'på sina håll', vilket inte ger underlag för att avgöra om det gäller samtliga bibliotek."
+      },
+      {
+        "text": "Meröppna bibliotek låter besökare komma in även utan personal på plats.",
+        "correctAnswer": "true",
+        "explanation": "Texten beskriver meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats."
       }
     ]
   }

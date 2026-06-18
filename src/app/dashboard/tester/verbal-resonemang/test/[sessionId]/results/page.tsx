@@ -9,10 +9,10 @@ import VerbalResultsBody, {
   type SavedAnswer,
   type ResultsPassage,
 } from '@/components/tests/verbal-shared/VerbalResultsBody';
-import questionBank from '@/lib/verbalTestV1/questionBank.json';
-
-const passages = questionBank as ResultsPassage[];
-const TOTAL_STATEMENTS = passages.reduce((sum, p) => sum + p.statements.length, 0);
+import {
+  selectPassagesForSession,
+  TOTAL_STATEMENTS,
+} from '@/lib/verbalTestV1/selectPassages.v1';
 
 interface SessionData {
   id: string;
@@ -85,6 +85,8 @@ export default function ResultsPage({ params }: PageProps) {
   const score = session.score ?? 0;
   const timeSpent = session.time_spent ?? 0;
   const percentage = Math.min(100, Math.round((score / TOTAL_STATEMENTS) * 100));
+  // Samma seedade urval som test-sidan visade.
+  const passages = (sessionId ? selectPassagesForSession(sessionId) : []) as ResultsPassage[];
   const completedDate = session.completed_at
     ? new Date(session.completed_at).toLocaleDateString('sv-SE', {
         day: 'numeric',
