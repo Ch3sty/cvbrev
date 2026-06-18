@@ -246,94 +246,6 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7-q6-orbital-rotation",
-    "title": "Satelliten rör sig medurs",
-    "rule": "Satelliten flyttar ett steg medurs per cell (45° per steg), läst rad för rad. Centerpunkten är alltid fylld.",
-    "difficulty": 3,
-    "grid": [
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 0
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 1
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 2
-        }
-      ],
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 3
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 4
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 5
-        }
-      ],
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 6
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 7
-        },
-        null
-      ]
-    ],
-    "options": [
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 7
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 1
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 0
-      },
-      {
-        "kind": "orbital",
-        "center": "open",
-        "satellite": 0
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 4
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": null
-      }
-    ],
-    "correctAnswer": 2
-  },
-  {
     "id": "v7-q8-stack-latin",
     "title": "Latin square — bas och symbol",
     "rule": "Varje rad och varje kolumn ska innehålla exakt en cirkel-bas, en kvadrat-bas och en triangel-bas — och exakt en plus-symbol, en ring-symbol och en prick-symbol.",
@@ -1135,108 +1047,6 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7-a-poly-rot",
-    "title": "Sexhörningen vrider sig",
-    "rule": "Sexhörningen vrider sig 30 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
-    "difficulty": 3,
-    "grid": [
-      [
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 0,
-          "fill": "black"
-        },
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 30,
-          "fill": "black"
-        },
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 60,
-          "fill": "black"
-        }
-      ],
-      [
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 90,
-          "fill": "black"
-        },
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 120,
-          "fill": "black"
-        },
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 150,
-          "fill": "black"
-        }
-      ],
-      [
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 180,
-          "fill": "black"
-        },
-        {
-          "kind": "poly",
-          "sides": 6,
-          "rotation": 210,
-          "fill": "black"
-        },
-        null
-      ]
-    ],
-    "options": [
-      {
-        "kind": "poly",
-        "sides": 6,
-        "rotation": 240,
-        "fill": "black"
-      },
-      {
-        "kind": "poly",
-        "sides": 6,
-        "rotation": 210,
-        "fill": "black"
-      },
-      {
-        "kind": "poly",
-        "sides": 6,
-        "rotation": 180,
-        "fill": "black"
-      },
-      {
-        "kind": "poly",
-        "sides": 6,
-        "rotation": 270,
-        "fill": "black"
-      },
-      {
-        "kind": "poly",
-        "sides": 5,
-        "rotation": 240,
-        "fill": "black"
-      },
-      {
-        "kind": "poly",
-        "sides": 6,
-        "rotation": 240,
-        "fill": "gray"
-      }
-    ],
-    "correctAnswer": 0
-  },
-  {
     "id": "v7-a-vector-ccw",
     "title": "Pilen vrider sig moturs",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
@@ -1339,94 +1149,6 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7-a-orbital-ccw",
-    "title": "Pricken vandrar moturs",
-    "rule": "Pricken flyttar ett steg moturs (45 grader) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mitten är fylld.",
-    "difficulty": 3,
-    "grid": [
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 0
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 7
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 6
-        }
-      ],
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 5
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 4
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 3
-        }
-      ],
-      [
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 2
-        },
-        {
-          "kind": "orbital",
-          "center": "filled",
-          "satellite": 1
-        },
-        null
-      ]
-    ],
-    "options": [
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 0
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 1
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 7
-      },
-      {
-        "kind": "orbital",
-        "center": "open",
-        "satellite": 0
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 2
-      },
-      {
-        "kind": "orbital",
-        "center": "filled",
-        "satellite": 6
-      }
-    ],
-    "correctAnswer": 0
-  },
-  {
     "id": "v7-a-stack-symbol",
     "title": "Symbolen i rader och kolumner",
     "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen följer en latin square: varje rad och kolumn har exakt en med plus, en med minus och en med prick.",
@@ -1524,6 +1246,1552 @@
         "base": "circle",
         "symbol": "minus",
         "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tile-L",
+    "title": "L-blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 304
+        },
+        {
+          "kind": "tile",
+          "pattern": 208
+        },
+        {
+          "kind": "tile",
+          "pattern": 25
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 22
+        },
+        {
+          "kind": "tile",
+          "pattern": 304
+        },
+        {
+          "kind": "tile",
+          "pattern": 208
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 25
+        },
+        {
+          "kind": "tile",
+          "pattern": 22
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 304
+      },
+      {
+        "kind": "tile",
+        "pattern": 22
+      },
+      {
+        "kind": "tile",
+        "pattern": 25
+      },
+      {
+        "kind": "tile",
+        "pattern": 288
+      },
+      {
+        "kind": "tile",
+        "pattern": 48
+      },
+      {
+        "kind": "tile",
+        "pattern": 305
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tile-T",
+    "title": "T-blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 184
+        },
+        {
+          "kind": "tile",
+          "pattern": 154
+        },
+        {
+          "kind": "tile",
+          "pattern": 58
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 178
+        },
+        {
+          "kind": "tile",
+          "pattern": 184
+        },
+        {
+          "kind": "tile",
+          "pattern": 154
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 58
+        },
+        {
+          "kind": "tile",
+          "pattern": 178
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 184
+      },
+      {
+        "kind": "tile",
+        "pattern": 178
+      },
+      {
+        "kind": "tile",
+        "pattern": 58
+      },
+      {
+        "kind": "tile",
+        "pattern": 168
+      },
+      {
+        "kind": "tile",
+        "pattern": 440
+      },
+      {
+        "kind": "tile",
+        "pattern": 185
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tile-Z-ccw",
+    "title": "Z-blocket roterar moturs",
+    "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 240
+        },
+        {
+          "kind": "tile",
+          "pattern": 306
+        },
+        {
+          "kind": "tile",
+          "pattern": 30
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 153
+        },
+        {
+          "kind": "tile",
+          "pattern": 240
+        },
+        {
+          "kind": "tile",
+          "pattern": 306
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 30
+        },
+        {
+          "kind": "tile",
+          "pattern": 153
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 240
+      },
+      {
+        "kind": "tile",
+        "pattern": 153
+      },
+      {
+        "kind": "tile",
+        "pattern": 30
+      },
+      {
+        "kind": "tile",
+        "pattern": 224
+      },
+      {
+        "kind": "tile",
+        "pattern": 496
+      },
+      {
+        "kind": "tile",
+        "pattern": 241
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tile-corner",
+    "title": "Hörn-blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 385
+        },
+        {
+          "kind": "tile",
+          "pattern": 76
+        },
+        {
+          "kind": "tile",
+          "pattern": 259
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 100
+        },
+        {
+          "kind": "tile",
+          "pattern": 385
+        },
+        {
+          "kind": "tile",
+          "pattern": 76
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 259
+        },
+        {
+          "kind": "tile",
+          "pattern": 100
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 385
+      },
+      {
+        "kind": "tile",
+        "pattern": 100
+      },
+      {
+        "kind": "tile",
+        "pattern": 259
+      },
+      {
+        "kind": "tile",
+        "pattern": 401
+      },
+      {
+        "kind": "tile",
+        "pattern": 129
+      },
+      {
+        "kind": "tile",
+        "pattern": 384
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-vector-90",
+    "title": "Pilen vrider sig",
+    "rule": "Pilen vrider sig 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-vector-cw45",
+    "title": "Pilen vrider sig",
+    "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-ring-latin2",
+    "title": "Ringfyllning i rader och kolumner",
+    "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "gray",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "gray",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-latin2",
+    "title": "Antal sidor i rader och kolumner",
+    "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 8,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "none"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-fill",
+    "title": "Fyllning i rader och kolumner",
+    "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "none"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "gray"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "gray"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "none"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 8,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 30,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-fill2",
+    "title": "Fyllning i rader och kolumner",
+    "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "gray"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "none"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "none"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "gray"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "none"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 8,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 30,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-stack-base",
+    "title": "Basformen i rader och kolumner",
+    "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och kolumn har exakt en cirkel, en kvadrat och en triangel.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-stack-base2",
+    "title": "Basformen i rader och kolumner",
+    "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och kolumn har exakt en cirkel, en kvadrat och en triangel.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-ring-latin3",
+    "title": "Ringfyllning i rader och kolumner",
+    "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "gray",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "gray",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-latin3",
+    "title": "Antal sidor i rader och kolumner",
+    "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 8,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "none"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-vector-ccw90",
+    "title": "Pilen vrider sig",
+    "rule": "Pilen vrider sig 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tile-vinkel",
+    "title": "Vinkeln roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 294
+        },
+        {
+          "kind": "tile",
+          "pattern": 480
+        },
+        {
+          "kind": "tile",
+          "pattern": 201
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 15
+        },
+        {
+          "kind": "tile",
+          "pattern": 294
+        },
+        {
+          "kind": "tile",
+          "pattern": 480
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 201
+        },
+        {
+          "kind": "tile",
+          "pattern": 15
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 294
+      },
+      {
+        "kind": "tile",
+        "pattern": 15
+      },
+      {
+        "kind": "tile",
+        "pattern": 201
+      },
+      {
+        "kind": "tile",
+        "pattern": 310
+      },
+      {
+        "kind": "tile",
+        "pattern": 38
+      },
+      {
+        "kind": "tile",
+        "pattern": 295
       }
     ],
     "correctAnswer": 0
