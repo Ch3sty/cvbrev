@@ -1,21 +1,21 @@
 [
   {
-    "id": "v7g-q1-poly-sides-fill",
-    "title": "Antal sidor per rad, fyllning per kolumn",
-    "rule": "Raden bestämmer polygonens antal sidor (fem, sex, åtta). Kolumnen bestämmer fyllningen: ofylld, grå, svart. Korsa de två reglerna för den saknade figuren.",
-    "difficulty": 2,
+    "id": "v7g-q1-poly-latin",
+    "title": "Polygon och fyllning som latin square",
+    "rule": "Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning — och exakt en ofylld, en grå och en svart. Inget antal sidor och ingen fyllning får upprepas i samma rad eller kolumn.",
+    "difficulty": 3,
     "grid": [
-      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
-      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" }, null]
+      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
+      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }],
+      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, null]
     ],
     "options": [
-      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" },
-      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" },
+      { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" },
       { "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" },
+      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" },
       { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
-      { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" },
-      { "kind": "poly", "sides": 8, "rotation": 30, "fill": "black" }
+      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" }
     ],
     "correctAnswer": 0
   },
@@ -60,22 +60,22 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7g-q4-stack-base-symbol",
-    "title": "Basform per rad, symbol per kolumn",
-    "rule": "Raden bestämmer basformen (cirkel, kvadrat, triangel). Kolumnen bestämmer symbolen ovanpå (plus, minus, prick). Basen är ofylld genomgående.",
-    "difficulty": 2,
+    "id": "v7g-q4-stack-latin",
+    "title": "Basform och symbol som latin square",
+    "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som bas — och exakt en med plus, en med minus och en med prick som symbol. Inget upprepas i samma rad eller kolumn. Basen är ofylld.",
+    "difficulty": 3,
     "grid": [
-      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
-      [{ "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }],
-      [{ "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "minus", "baseFill": "none" }, null]
+      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }],
+      [{ "kind": "stack", "base": "triangle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, null]
     ],
     "options": [
-      { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" },
-      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" },
-      { "kind": "stack", "base": "triangle", "symbol": "minus", "baseFill": "none" },
-      { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" },
       { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" },
-      { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "black" }
+      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" },
+      { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" },
+      { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "black" }
     ],
     "correctAnswer": 0
   },
