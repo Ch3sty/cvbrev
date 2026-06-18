@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
 import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 import grundQuestions from '@/lib/logicTestV7/questionBankGrund.v7.json';
+import avanceradQuestions from '@/lib/logicTestV7/questionBank.v7.json';
 import expertQuestions from '@/lib/logicTestV7/questionBankExpert.v7.json';
 
 const GRUND = grundQuestions as unknown as LayeredQuestion[];
+const AVANCERAD = avanceradQuestions as unknown as LayeredQuestion[];
 const EXPERT = expertQuestions as unknown as LayeredQuestion[];
 
 function CellSvg({ cell, highlight }: { cell: LayeredCell | null; highlight?: 'correct' }) {
@@ -32,8 +34,8 @@ function CellSvg({ cell, highlight }: { cell: LayeredCell | null; highlight?: 'c
 }
 
 export default function PreviewPage() {
-  const [tab, setTab] = useState<'grund' | 'expert'>('grund');
-  const list = tab === 'grund' ? GRUND : EXPERT;
+  const [tab, setTab] = useState<'grund' | 'avancerad' | 'expert'>('grund');
+  const list = tab === 'grund' ? GRUND : tab === 'avancerad' ? AVANCERAD : EXPERT;
 
   return (
     <div className="container mx-auto py-6 px-4 max-w-3xl">
@@ -53,8 +55,14 @@ export default function PreviewPage() {
             Grund ({GRUND.length})
           </button>
           <button
+            onClick={() => setTab('avancerad')}
+            className={`px-4 py-2 text-sm font-semibold border-l border-orange-200 ${tab === 'avancerad' ? 'bg-orange-600 text-white' : 'bg-white text-slate-700'}`}
+          >
+            Avancerad ({AVANCERAD.length})
+          </button>
+          <button
             onClick={() => setTab('expert')}
-            className={`px-4 py-2 text-sm font-semibold ${tab === 'expert' ? 'bg-orange-600 text-white' : 'bg-white text-slate-700'}`}
+            className={`px-4 py-2 text-sm font-semibold border-l border-orange-200 ${tab === 'expert' ? 'bg-orange-600 text-white' : 'bg-white text-slate-700'}`}
           >
             Expert ({EXPERT.length})
           </button>
