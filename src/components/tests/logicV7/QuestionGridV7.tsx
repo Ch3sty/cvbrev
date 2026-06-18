@@ -43,21 +43,24 @@ export function QuestionGridV7({ grid }: Props) {
                   border: '2px dashed rgba(249, 115, 22, 0.45)',
                 }}
               >
-                {/* Pulseringen ligger på själva ?-texten (ett innehållselement) i
-                    stället för ett absolut-positionerat syskon, så att cellens
-                    aspect-square-höjd inte kollapsar. */}
-                <motion.span
-                  className="text-3xl sm:text-4xl md:text-5xl font-black select-none"
-                  style={{
-                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                  animate={{ opacity: [0.5, 1, 0.5], scale: [0.94, 1.0, 0.94] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  ?
-                </motion.span>
+                {/* Samma höjd-mekanism som de fyllda cellerna: en w-full/h-full svg.
+                    Då kan tom och fylld cell omöjligt få olika storlek. */}
+                <svg viewBox="0 0 100 100" className="w-full h-full p-1.5 sm:p-2">
+                  <motion.text
+                    x="50"
+                    y="52"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="52"
+                    fontWeight="800"
+                    fill="#F97316"
+                    style={{ userSelect: 'none' }}
+                    animate={{ opacity: [0.55, 1, 0.55] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    ?
+                  </motion.text>
+                </svg>
               </div>
             )}
           </motion.div>
