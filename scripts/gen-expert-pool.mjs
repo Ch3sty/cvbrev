@@ -93,61 +93,92 @@ function balCell(sqPos, sqSide, ciPos, ciSide) {
     ],
   };
 }
-const balKey = (c) => JSON.stringify(c.items.map((it) => [it.posX, it.side, it.shape]).sort());
-// Tydliga, separata regler: kvadrat-position +1/cell (mod 3), cirkel-position -1/cell.
-// Sida: kvadraten alternerar above/below för varje cell (start sqS0); cirkeln
-// alternerar i motsatt fas (start ciS0). Allt deterministiskt och lätt att läsa.
-function balQ(id, title, sqP0, sqS0, ciP0, ciS0) {
-  // Kvadrat: position +1/cell, sida växlar varje cell.
-  // Cirkel: position -1/cell, sida växlar var ANNAN cell (ur fas) → längre period,
-  // bryter rad-repetition.
-  const at = (i) => balCell(
-    (sqP0 + i) % 3, (sqS0 + i) % 2 === 0,
-    ((ciP0 - i) % 3 + 3) % 3, (ciS0 + Math.floor(i / 2)) % 2 === 0
-  );
-  const cells = []; for (let i = 0; i < 9; i++) cells.push(at(i));
-  const correct = cells[8];
+const balKey = (c) => JSON.stringify(c.items.map((it) => [it.posX, it.side, it.shape, it.fill || 'none']).sort());
+const mod = (n, m) => ((n % m) + m) % m;
+
+// STRUKTUR: cellFor(r, c) ger cellens former. KOLUMNEN (c=0,1,2) driver rörelsen
+// inom raden; RADEN (r=0,1,2) förskjuter startläget så raderna skiljer sig (latin-
+// square-aktigt → ej parallellt, ej rad-repetition). Varje regel = en distinkt rörelse.
+const sq = (posX, side) => ({ posX, side: side ? 'above' : 'below', shape: 'square' });
+const ci = (posX, side) => ({ posX, side: side ? 'above' : 'below', shape: 'circle', fill: 'gray' });
+
+const RULES = [
+  {
+    text: 'Kvadraten flyttar ett steg åt höger och cirkeln ett steg åt vänster i varje ruta från vänster till höger. Båda växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), c % 2 === 0), ci(mod(r + 2 - c, 3), c % 2 !== 0)],
+  },
+  {
+    text: 'Kvadraten och cirkeln flyttar båda ett steg åt höger i varje ruta från vänster till höger och växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), c % 2 === 0), ci(mod(r + 1 + c, 3), c % 2 !== 0)],
+  },
+  {
+    text: 'Cirkeln står stilla. Kvadraten flyttar ett steg åt höger i varje ruta och växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), c % 2 === 0), ci(mod(r + 1, 3), false)],
+  },
+  {
+    text: 'Kvadraten och cirkeln rör sig spegelvänt: kvadraten åt höger, cirkeln åt vänster lika långt, båda på samma sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), true), ci(mod(r + 2 - c, 3), true)],
+  },
+  {
+    text: 'En enda kvadrat flyttar ett steg åt höger i varje ruta och växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), c % 2 === 0)],
+  },
+  {
+    text: 'En enda cirkel flyttar ett steg åt vänster i varje ruta och växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [ci(mod(r + 2 - c, 3), c % 2 === 0)],
+  },
+  {
+    text: 'Kvadraten och cirkeln står på samma plats och flyttar ett steg åt höger i varje ruta. De byter över- och underläge i varje ruta. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + c, 3), c % 2 === 0), ci(mod(r + c, 3), c % 2 !== 0)],
+  },
+  {
+    text: 'Kvadraten flyttar två steg åt höger och cirkeln ett steg åt höger i varje ruta. Båda växlar sida om linjen. Varje rad börjar i ett nytt läge.',
+    cell: (r, c) => [sq(mod(r + 2 * c, 3), c % 2 === 0), ci(mod(r + 1 + c, 3), c % 2 !== 0)],
+  },
+];
+
+function balRuleQ(id, rule) {
+  const grid3 = [];
+  for (let r = 0; r < 3; r++) {
+    const row = [];
+    for (let c = 0; c < 3; c++) row.push({ kind: 'balanceline', items: rule.cell(r, c) });
+    grid3.push(row);
+  }
+  const correct = grid3[2][2];
+  const f = correct.items;
+  const flip = (it) => ({ ...it, side: it.side === 'above' ? 'below' : 'above' });
+  const shiftPos = (it, d) => ({ ...it, posX: mod(it.posX + d, 3) });
   const cand = [
-    at(7), at(6),
-    balCell((sqP0 + 8 + 1) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
-    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 !== 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
-    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8 + 1) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
-    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 !== 0),
-    balCell((sqP0 + 6) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 6) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
+    grid3[2][1], grid3[1][2],
+    { kind: 'balanceline', items: f.map(flip) },
+    { kind: 'balanceline', items: f.map((it, j) => (j === 0 ? shiftPos(it, 1) : it)) },
+    { kind: 'balanceline', items: f.map((it, j) => (j === 0 ? flip(it) : it)) },
+    { kind: 'balanceline', items: f.map((it) => shiftPos(it, 1)) },
+    { kind: 'balanceline', items: f.map((it, j) => (j === f.length - 1 ? shiftPos(it, 2) : it)) },
   ].filter((c) => balKey(c) !== balKey(correct));
   return {
-    id, title,
-    rule: 'Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.',
+    id, title: 'Former över och under linjen',
+    rule: rule.text,
     difficulty: 4,
-    grid: [[cells[0], cells[1], cells[2]], [cells[3], cells[4], cells[5]], [cells[6], cells[7], null]],
+    grid: [grid3[0], grid3[1], [grid3[2][0], grid3[2][1], null]],
     options: [correct, ...pickDistractors(correct, cand)], correctAnswer: 0,
   };
 }
 
-// Väljer N startläges-kombinationer som ger icke-triviala balanslinje-frågor
-// (facit skiljer sig från cellen ovanför OCH till vänster om tomrummet).
-function buildBalanceQuestions(n) {
+// Bygg en fråga per regel; behåll bara icke-triviala (rader/kolumner unika,
+// facit≠granne, 6 unika options). Varje regel ger en distinkt rörelse.
+function buildBalanceQuestions() {
   const out = [];
-  let idx = 1;
-  for (let sqP = 0; sqP < 3 && out.length < n; sqP++)
-    for (let sqS = 0; sqS < 2 && out.length < n; sqS++)
-      for (let ciP = 0; ciP < 3 && out.length < n; ciP++)
-        for (let ciS = 0; ciS < 2 && out.length < n; ciS++) {
-          const q = balQ(`v7e-b${idx}`, 'Former över och under linjen', sqP, sqS, ciP, ciS);
-          const g = [...q.grid[0], ...q.grid[1], q.grid[2][0], q.grid[2][1], q.options[0]];
-          const k = g.map(balKey);
-          const facit = k[8], above = k[5], left = k[7];
-          // rad-repetition: rad1 (0,1,2) == rad3 (6,7,8)?  kol-repetition: kol1 vs kol3
-          const rows = [k.slice(0, 3).join('|'), k.slice(3, 6).join('|'), k.slice(6, 9).join('|')];
-          const cols = [0, 1, 2].map((c) => [k[c], k[c + 3], k[c + 6]].join('|'));
-          const rowDup = new Set(rows).size < 3;
-          const colDup = new Set(cols).size < 3;
-          if (q.options.length === 6 && facit !== above && facit !== left && !rowDup && !colDup) {
-            q.id = `v7e-b${out.length + 1}`;
-            out.push(q);
-          }
-          idx++;
-        }
+  for (const rule of RULES) {
+    const q = balRuleQ(`v7e-b${out.length + 1}`, rule);
+    const k = [...q.grid[0], ...q.grid[1], q.grid[2][0], q.grid[2][1], q.options[0]].map(balKey);
+    if (q.options.length !== 6) continue;
+    if (k[8] === k[5] || k[8] === k[7]) continue;
+    const rows = [k.slice(0, 3).join('|'), k.slice(3, 6).join('|'), k.slice(6, 9).join('|')];
+    const cols = [0, 1, 2].map((c) => [k[c], k[c + 3], k[c + 6]].join('|'));
+    if (new Set(rows).size < 3 || new Set(cols).size < 3) continue;
+    out.push(q);
+  }
   return out;
 }
 
@@ -162,7 +193,9 @@ const bank = [
   wheelQ('v7e-w7', 'Sektormönstret hoppar', [0, 1, 2, 5], 2, 'cw'),
   wheelQ('v7e-w8', 'Sektormönstret roterar moturs', [0, 2, 4], 1, 'ccw'),
   wheelQ('v7e-w9', 'Sektormönstret roterar', [0, 1, 2, 4], 1, 'cw'),
-  // 9 tile — olika block, riktning
+  wheelQ('v7e-w10', 'Sektormönstret roterar', [0, 1, 5], 1, 'cw'),
+  wheelQ('v7e-w11', 'Sektormönstret hoppar', [0, 2, 3], 2, 'cw'),
+  // 11 tile — olika block, riktning
   tileQ('v7e-t1', 'Blocket roterar', 0b000000111, 'cw'),
   tileQ('v7e-t2', 'L-blocket roterar', 0b100110000, 'cw'),
   tileQ('v7e-t3', 'T-blocket roterar', 0b010111000, 'cw'),
@@ -172,8 +205,10 @@ const bank = [
   tileQ('v7e-t7', 'Trappan roterar', 0b001011110, 'cw'),
   tileQ('v7e-t8', 'L-blocket roterar moturs', 0b100110000, 'ccw'),
   tileQ('v7e-t9', 'Vinkeln roterar', 0b100100110, 'cw'),
+  tileQ('v7e-t10', 'Kryss-blocket roterar', 0b110010001, 'cw'),
+  tileQ('v7e-t11', 'Trappan roterar moturs', 0b001011110, 'ccw'),
   // 10 balanslinje — startlägen väljs nedan (auto, garanterat icke-triviala)
-  ...buildBalanceQuestions(10),
+  ...buildBalanceQuestions(),
 ];
 
 // validering: 6 unika options, facit≠distraktor, + symmetri-koll för tile
