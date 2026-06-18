@@ -111,6 +111,17 @@ export type TileCell = {
 };
 
 // =============================================================================
+// 11. SECTORWHEEL — cirkel delad i 8 sektorer, vissa fyllda svart
+// =============================================================================
+// Sektor 0 = överst (12-positionen), sedan medurs i 45°-steg.
+// `filled` listar vilka sektorer (0–7) som är svartfyllda. Resten är vita.
+// Branschrealistiskt "tårtbits"-format för expert-nivå.
+export type SectorWheelCell = {
+  kind: 'sectorwheel';
+  filled: number[];
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -123,7 +134,8 @@ export type V7Cell =
   | RingCell
   | VectorCell
   | PolyCell
-  | TileCell;
+  | TileCell
+  | SectorWheelCell;
 
 export type Question = {
   id: string;

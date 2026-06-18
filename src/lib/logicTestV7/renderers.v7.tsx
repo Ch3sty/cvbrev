@@ -12,6 +12,7 @@ import type {
   VectorCell,
   PolyCell,
   TileCell,
+  SectorWheelCell,
   Quad,
 } from './types.v7';
 
@@ -65,6 +66,8 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <PolyRenderer cell={cell} />;
     case 'tile':
       return <TileRenderer cell={cell} />;
+    case 'sectorwheel':
+      return <SectorWheelRenderer cell={cell} />;
   }
 };
 
@@ -640,6 +643,63 @@ const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
             height={cellSize}
             rx="1.5"
             fill={isFilled ? FILL_BLACK : 'none'}
+            stroke={STROKE}
+            strokeWidth={SW_THIN}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+// =============================================================================
+// 11. SECTORWHEEL — cirkel delad i 8 sektorer, vissa fyllda svart
+// =============================================================================
+
+const SectorWheelRenderer: React.FC<{ cell: SectorWheelCell }> = ({ cell }) => {
+  const cx = 50;
+  const cy = 50;
+  const r = 32;
+
+  // Sektor i: börjar vid vinkel (i*45 - 90)° (sektor 0 överst), spänner 45°.
+  // Punkt på cirkeln för en given grad.
+  const pt = (deg: number) => {
+    const a = (deg * Math.PI) / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+
+  const sectorPath = (i: number) => {
+    const start = i * 45 - 90;
+    const end = start + 45;
+    const [x1, y1] = pt(start);
+    const [x2, y2] = pt(end);
+    // large-arc=0 (45° < 180°), sweep=1 (medurs)
+    return `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 0 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+  };
+
+  const filledSet = new Set(cell.filled);
+
+  return (
+    <>
+      {/* Fyllda sektorer först (bakom linjerna) */}
+      {Array.from({ length: 8 }).map((_, i) =>
+        filledSet.has(i) ? (
+          <path key={`f${i}`} d={sectorPath(i)} fill={FILL_BLACK} stroke="none" />
+        ) : null
+      )}
+      {/* Yttre cirkel */}
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={STROKE} strokeWidth={SW} />
+      {/* 8 sektorlinjer (4 diametrar) genom centrum */}
+      {Array.from({ length: 4 }).map((_, i) => {
+        const [x1, y1] = pt(i * 45 - 90);
+        const [x2, y2] = pt(i * 45 - 90 + 180);
+        return (
+          <line
+            key={`l${i}`}
+            x1={x1.toFixed(2)}
+            y1={y1.toFixed(2)}
+            x2={x2.toFixed(2)}
+            y2={y2.toFixed(2)}
             stroke={STROKE}
             strokeWidth={SW_THIN}
           />

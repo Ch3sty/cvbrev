@@ -1,101 +1,512 @@
 [
   {
-    "id": "v7e-q1-ring-glyph-latin",
-    "title": "Ring och symbol — två regler i lager",
-    "rule": "Varje cell har en yttre kontur-ring och en symbol i mitten. Symbolen följer en latin square (varje rad och kolumn har lambda, sigma, omega exakt en gång). Antalet ringar ökar per kolumn (en, två, tre).",
+    "id": "v7e-q1-wheel-rot1",
+    "title": "Sektormönstret roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "black" }]],
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }]],
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "omega", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }], null]
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            7
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "theta", "fill": "black" }]
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          7,
+          0
+        ]
+      }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q2-poly-tally",
-    "title": "Månghörning och streck i lager",
-    "rule": "Varje cell har en kontur-månghörning och ett antal streck i mitten. Månghörningens antal sidor följer en latin square (fem, sex, åtta per rad och kolumn). Antalet streck ökar per kolumn (ett, två, tre).",
+    "id": "v7e-q2-wheel-rot2",
+    "title": "Sektormönstret hoppar",
+    "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
-      [[{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 1, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }], [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }]],
-      [[{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 1, "orientation": "vertical" }], [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }], [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }]],
-      [[{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 1, "orientation": "vertical" }], [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }], null]
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 1, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }]
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          6
+        ]
+      }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q3-ray-orbital-walk",
-    "title": "Strålar och vandrande prick",
-    "rule": "Varje cell har strålar från mitten och en prick som rör sig runt en cirkel. Antalet strålar följer en latin square (två, tre, fyra per rad och kolumn). Pricken flyttar sig 90 grader medurs för varje cell, läst rad för rad.",
+    "id": "v7e-q3-wheel-three",
+    "title": "Tre sektorer roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
-      [[{ "kind": "ray", "rays": [0, 4] }, { "kind": "orbital", "center": "open", "satellite": 0 }], [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "open", "satellite": 2 }], [{ "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "orbital", "center": "open", "satellite": 4 }]],
-      [[{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "open", "satellite": 6 }], [{ "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "orbital", "center": "open", "satellite": 0 }], [{ "kind": "ray", "rays": [0, 4] }, { "kind": "orbital", "center": "open", "satellite": 2 }]],
-      [[{ "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "orbital", "center": "open", "satellite": 4 }], [{ "kind": "ray", "rays": [0, 4] }, { "kind": "orbital", "center": "open", "satellite": 6 }], null]
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            7
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "open", "satellite": 0 }],
-      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "open", "satellite": 4 }],
-      [{ "kind": "ray", "rays": [0, 4] }, { "kind": "orbital", "center": "open", "satellite": 0 }],
-      [{ "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "orbital", "center": "open", "satellite": 0 }],
-      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "filled", "satellite": 0 }],
-      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "orbital", "center": "open", "satellite": 2 }]
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          5,
+          6,
+          7
+        ]
+      }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q4-ring-glyph-fill",
-    "title": "Ring, symbol och fyllning — tre regler",
-    "rule": "Antalet ringar ökar per kolumn (en, två, tre). Symbolens form följer en latin square (lambda, sigma, omega per rad och kolumn). Symbolens fyllning följer också en latin square (ofylld, grå, svart per rad och kolumn).",
+    "id": "v7e-q4-tile-rot",
+    "title": "Block-mönstret roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "none" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "gray" }], [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "black" }]],
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "none" }], [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "gray" }]],
-      [[{ "kind": "ring", "rings": ["none"] }, { "kind": "glyph", "glyph": "omega", "fill": "gray" }], [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }], null]
+      [
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 292
+        },
+        {
+          "kind": "tile",
+          "pattern": 448
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 292
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 448
+        },
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        null
+      ]
     ],
     "options": [
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "none" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "omega", "fill": "none" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }],
-      [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "none" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "sigma", "fill": "gray" }],
-      [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "glyph", "glyph": "lambda", "fill": "none" }]
+      {
+        "kind": "tile",
+        "pattern": 7
+      },
+      {
+        "kind": "tile",
+        "pattern": 73
+      },
+      {
+        "kind": "tile",
+        "pattern": 448
+      },
+      {
+        "kind": "tile",
+        "pattern": 292
+      },
+      {
+        "kind": "tile",
+        "pattern": 56
+      },
+      {
+        "kind": "tile",
+        "pattern": 84
+      }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q5-poly-rotate-tally-latin",
-    "title": "Månghörning som vrider sig, streck som latin square",
-    "rule": "Alla månghörningar är sexhörningar i kontur. Månghörningen vrider sig 30 grader medurs per kolumn (0, 30, 60). Antalet streck i mitten följer en latin square (två, tre, fyra per rad och kolumn).",
+    "id": "v7e-q5-tile-corner",
+    "title": "Hörn-mönstret roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
-      [[{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 4, "orientation": "vertical" }]],
-      [[{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "tally", "count": 4, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }]],
-      [[{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 4, "orientation": "vertical" }], [{ "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }], null]
+      [
+        {
+          "kind": "tile",
+          "pattern": 5
+        },
+        {
+          "kind": "tile",
+          "pattern": 260
+        },
+        {
+          "kind": "tile",
+          "pattern": 320
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 65
+        },
+        {
+          "kind": "tile",
+          "pattern": 5
+        },
+        {
+          "kind": "tile",
+          "pattern": 260
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 320
+        },
+        {
+          "kind": "tile",
+          "pattern": 65
+        },
+        null
+      ]
     ],
     "options": [
-      [{ "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "poly", "sides": 5, "rotation": 60, "fill": "none" }, { "kind": "tally", "count": 3, "orientation": "vertical" }]
+      {
+        "kind": "tile",
+        "pattern": 5
+      },
+      {
+        "kind": "tile",
+        "pattern": 320
+      },
+      {
+        "kind": "tile",
+        "pattern": 68
+      },
+      {
+        "kind": "tile",
+        "pattern": 257
+      },
+      {
+        "kind": "tile",
+        "pattern": 130
+      },
+      {
+        "kind": "tile",
+        "pattern": 17
+      }
     ],
     "correctAnswer": 0
   }
