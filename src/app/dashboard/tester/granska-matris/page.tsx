@@ -4,11 +4,14 @@
 // som i det skarpa testet, med facit utpekat, för okulär granskning.
 // Ligger bakom inloggning. Ta bort efter granskning.
 
+import { useState } from 'react';
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
 import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 import grundQuestions from '@/lib/logicTestV7/questionBankGrund.v7.json';
+import expertQuestions from '@/lib/logicTestV7/questionBankExpert.v7.json';
 
 const GRUND = grundQuestions as unknown as LayeredQuestion[];
+const EXPERT = expertQuestions as unknown as LayeredQuestion[];
 
 function CellSvg({ cell, highlight }: { cell: LayeredCell | null; highlight?: 'correct' }) {
   return (
@@ -29,21 +32,37 @@ function CellSvg({ cell, highlight }: { cell: LayeredCell | null; highlight?: 'c
 }
 
 export default function PreviewPage() {
+  const [tab, setTab] = useState<'grund' | 'expert'>('grund');
+  const list = tab === 'grund' ? GRUND : EXPERT;
+
   return (
     <div className="container mx-auto py-6 px-4 max-w-3xl">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">
-          Matrislogik V7 grund — okulär granskning
+          Matrislogik V7 — okulär granskning
         </h1>
         <p className="text-sm text-slate-600 mt-1">
-          Förslag på ny grundnivå byggd på den snygga V7-grafiken (ersätter orange V5).
           Det gröna alternativet är facit. Kontrollera att mönstret leder dit, och att
-          figurerna ser rena och vuxna ut.
+          figurerna ser rena ut. Expert-frågorna staplar flera figurer i lager.
         </p>
+        <div className="mt-4 inline-flex rounded-xl border border-orange-200 overflow-hidden">
+          <button
+            onClick={() => setTab('grund')}
+            className={`px-4 py-2 text-sm font-semibold ${tab === 'grund' ? 'bg-orange-600 text-white' : 'bg-white text-slate-700'}`}
+          >
+            Grund ({GRUND.length})
+          </button>
+          <button
+            onClick={() => setTab('expert')}
+            className={`px-4 py-2 text-sm font-semibold ${tab === 'expert' ? 'bg-orange-600 text-white' : 'bg-white text-slate-700'}`}
+          >
+            Expert ({EXPERT.length})
+          </button>
+        </div>
       </div>
 
       <div className="space-y-10">
-        {GRUND.map((q, qi) => (
+        {list.map((q, qi) => (
           <div key={q.id} className="border border-slate-200 rounded-2xl p-4 sm:p-6 bg-white">
             <div className="flex items-baseline justify-between gap-3 mb-1">
               <h2 className="text-base font-bold text-slate-900">
