@@ -1,8 +1,8 @@
 [
   {
-    "id": "v7e-q1-wheel-135",
-    "title": "Sektormönstret roterar tre steg",
-    "rule": "Mönstret av svarta sektorer roterar 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-w1",
+    "title": "Sektormönstret roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
@@ -10,24 +10,21 @@
           "kind": "sectorwheel",
           "filled": [
             0,
+            1
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
             1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
             3
-          ]
-        },
-        {
-          "kind": "sectorwheel",
-          "filled": [
-            3,
-            4,
-            6
-          ]
-        },
-        {
-          "kind": "sectorwheel",
-          "filled": [
-            1,
-            6,
-            7
           ]
         }
       ],
@@ -35,8 +32,7 @@
         {
           "kind": "sectorwheel",
           "filled": [
-            1,
-            2,
+            3,
             4
           ]
         },
@@ -44,16 +40,14 @@
           "kind": "sectorwheel",
           "filled": [
             4,
-            5,
-            7
+            5
           ]
         },
         {
           "kind": "sectorwheel",
           "filled": [
-            0,
-            2,
-            7
+            5,
+            6
           ]
         }
       ],
@@ -61,17 +55,15 @@
         {
           "kind": "sectorwheel",
           "filled": [
-            2,
-            3,
-            5
+            6,
+            7
           ]
         },
         {
           "kind": "sectorwheel",
           "filled": [
             0,
-            5,
-            6
+            7
           ]
         },
         null
@@ -82,39 +74,20 @@
         "kind": "sectorwheel",
         "filled": [
           0,
-          1,
-          3
-        ]
-      },
-      {
-        "kind": "sectorwheel",
-        "filled": [
-          2,
-          3,
-          5
-        ]
-      },
-      {
-        "kind": "sectorwheel",
-        "filled": [
-          1,
-          4,
-          6
+          1
         ]
       },
       {
         "kind": "sectorwheel",
         "filled": [
           0,
-          3,
-          5
+          7
         ]
       },
       {
         "kind": "sectorwheel",
         "filled": [
-          4,
-          5,
+          6,
           7
         ]
       },
@@ -122,7 +95,20 @@
         "kind": "sectorwheel",
         "filled": [
           1,
-          3,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
           4
         ]
       }
@@ -130,8 +116,124 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q2-wheel-asym",
-    "title": "Sektormönstret hoppar två steg",
+    "id": "v7e-w2",
+    "title": "Sektormönstret roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w3",
+    "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
@@ -220,30 +322,6 @@
         "kind": "sectorwheel",
         "filled": [
           2,
-          3,
-          6
-        ]
-      },
-      {
-        "kind": "sectorwheel",
-        "filled": [
-          4,
-          5,
-          0
-        ]
-      },
-      {
-        "kind": "sectorwheel",
-        "filled": [
-          1,
-          4,
-          5
-        ]
-      },
-      {
-        "kind": "sectorwheel",
-        "filled": [
-          3,
           6,
           7
         ]
@@ -252,6 +330,288 @@
         "kind": "sectorwheel",
         "filled": [
           0,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w4",
+    "title": "Sektormönstret roterar tre steg",
+    "rule": "Mönstret av svarta sektorer roterar 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w5",
+    "title": "Sektormönstret roterar moturs",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            3
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
           2,
           4
         ]
@@ -260,7 +620,628 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q3-tile-L",
+    "id": "v7e-w6",
+    "title": "Sektormönstret roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w7",
+    "title": "Sektormönstret hoppar",
+    "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w8",
+    "title": "Sektormönstret roterar moturs",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-w9",
+    "title": "Sektormönstret roterar",
+    "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t1",
+    "title": "Blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 292
+        },
+        {
+          "kind": "tile",
+          "pattern": 448
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 292
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 448
+        },
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 7
+      },
+      {
+        "kind": "tile",
+        "pattern": 73
+      },
+      {
+        "kind": "tile",
+        "pattern": 448
+      },
+      {
+        "kind": "tile",
+        "pattern": 23
+      },
+      {
+        "kind": "tile",
+        "pattern": 263
+      },
+      {
+        "kind": "tile",
+        "pattern": 6
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t2",
     "title": "L-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -312,29 +1293,29 @@
       },
       {
         "kind": "tile",
-        "pattern": 88
-      },
-      {
-        "kind": "tile",
-        "pattern": 49
-      },
-      {
-        "kind": "tile",
-        "pattern": 178
-      },
-      {
-        "kind": "tile",
-        "pattern": 416
+        "pattern": 22
       },
       {
         "kind": "tile",
         "pattern": 25
+      },
+      {
+        "kind": "tile",
+        "pattern": 88
+      },
+      {
+        "kind": "tile",
+        "pattern": 288
+      },
+      {
+        "kind": "tile",
+        "pattern": 48
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q4-tile-T",
+    "id": "v7e-t3",
     "title": "T-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -386,7 +1367,7 @@
       },
       {
         "kind": "tile",
-        "pattern": 150
+        "pattern": 178
       },
       {
         "kind": "tile",
@@ -394,11 +1375,11 @@
       },
       {
         "kind": "tile",
-        "pattern": 210
+        "pattern": 168
       },
       {
         "kind": "tile",
-        "pattern": 402
+        "pattern": 440
       },
       {
         "kind": "tile",
@@ -408,7 +1389,451 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7e-q5-lattice-walk",
+    "id": "v7e-t4",
+    "title": "Blocket roterar moturs",
+    "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        {
+          "kind": "tile",
+          "pattern": 448
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 292
+        },
+        {
+          "kind": "tile",
+          "pattern": 7
+        },
+        {
+          "kind": "tile",
+          "pattern": 73
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 448
+        },
+        {
+          "kind": "tile",
+          "pattern": 292
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 7
+      },
+      {
+        "kind": "tile",
+        "pattern": 292
+      },
+      {
+        "kind": "tile",
+        "pattern": 448
+      },
+      {
+        "kind": "tile",
+        "pattern": 23
+      },
+      {
+        "kind": "tile",
+        "pattern": 263
+      },
+      {
+        "kind": "tile",
+        "pattern": 6
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t5",
+    "title": "Hörn-blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 385
+        },
+        {
+          "kind": "tile",
+          "pattern": 76
+        },
+        {
+          "kind": "tile",
+          "pattern": 259
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 100
+        },
+        {
+          "kind": "tile",
+          "pattern": 385
+        },
+        {
+          "kind": "tile",
+          "pattern": 76
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 259
+        },
+        {
+          "kind": "tile",
+          "pattern": 100
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 385
+      },
+      {
+        "kind": "tile",
+        "pattern": 100
+      },
+      {
+        "kind": "tile",
+        "pattern": 259
+      },
+      {
+        "kind": "tile",
+        "pattern": 196
+      },
+      {
+        "kind": "tile",
+        "pattern": 401
+      },
+      {
+        "kind": "tile",
+        "pattern": 129
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t6",
+    "title": "Z-blocket roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 240
+        },
+        {
+          "kind": "tile",
+          "pattern": 153
+        },
+        {
+          "kind": "tile",
+          "pattern": 30
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 306
+        },
+        {
+          "kind": "tile",
+          "pattern": 240
+        },
+        {
+          "kind": "tile",
+          "pattern": 153
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 30
+        },
+        {
+          "kind": "tile",
+          "pattern": 306
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 240
+      },
+      {
+        "kind": "tile",
+        "pattern": 306
+      },
+      {
+        "kind": "tile",
+        "pattern": 30
+      },
+      {
+        "kind": "tile",
+        "pattern": 408
+      },
+      {
+        "kind": "tile",
+        "pattern": 224
+      },
+      {
+        "kind": "tile",
+        "pattern": 496
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t7",
+    "title": "Trappan roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 94
+        },
+        {
+          "kind": "tile",
+          "pattern": 307
+        },
+        {
+          "kind": "tile",
+          "pattern": 244
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 409
+        },
+        {
+          "kind": "tile",
+          "pattern": 94
+        },
+        {
+          "kind": "tile",
+          "pattern": 307
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 244
+        },
+        {
+          "kind": "tile",
+          "pattern": 409
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 94
+      },
+      {
+        "kind": "tile",
+        "pattern": 409
+      },
+      {
+        "kind": "tile",
+        "pattern": 244
+      },
+      {
+        "kind": "tile",
+        "pattern": 307
+      },
+      {
+        "kind": "tile",
+        "pattern": 78
+      },
+      {
+        "kind": "tile",
+        "pattern": 350
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t8",
+    "title": "L-blocket roterar moturs",
+    "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 304
+        },
+        {
+          "kind": "tile",
+          "pattern": 22
+        },
+        {
+          "kind": "tile",
+          "pattern": 25
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 208
+        },
+        {
+          "kind": "tile",
+          "pattern": 304
+        },
+        {
+          "kind": "tile",
+          "pattern": 22
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 25
+        },
+        {
+          "kind": "tile",
+          "pattern": 208
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 304
+      },
+      {
+        "kind": "tile",
+        "pattern": 208
+      },
+      {
+        "kind": "tile",
+        "pattern": 25
+      },
+      {
+        "kind": "tile",
+        "pattern": 88
+      },
+      {
+        "kind": "tile",
+        "pattern": 288
+      },
+      {
+        "kind": "tile",
+        "pattern": 48
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-t9",
+    "title": "Vinkeln roterar",
+    "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 294
+        },
+        {
+          "kind": "tile",
+          "pattern": 480
+        },
+        {
+          "kind": "tile",
+          "pattern": 201
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 15
+        },
+        {
+          "kind": "tile",
+          "pattern": 294
+        },
+        {
+          "kind": "tile",
+          "pattern": 480
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 201
+        },
+        {
+          "kind": "tile",
+          "pattern": 15
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 294
+      },
+      {
+        "kind": "tile",
+        "pattern": 15
+      },
+      {
+        "kind": "tile",
+        "pattern": 201
+      },
+      {
+        "kind": "tile",
+        "pattern": 75
+      },
+      {
+        "kind": "tile",
+        "pattern": 310
+      },
+      {
+        "kind": "tile",
+        "pattern": 38
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l1",
     "title": "Svart ruta och prick vandrar åt olika håll",
     "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -506,6 +1931,303 @@
       {
         "kind": "lattice",
         "cells": [
+          "empty",
+          "dot",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "dot",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "dot",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l2",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "dot",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "dot",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l3",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "dot",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
           "fill_black",
           "empty",
           "empty",
@@ -515,15 +2237,6 @@
       {
         "kind": "lattice",
         "cells": [
-          "dot",
-          "empty",
-          "fill_black",
-          "empty"
-        ]
-      },
-      {
-        "kind": "lattice",
-        "cells": [
           "empty",
           "fill_black",
           "dot",
@@ -535,6 +2248,123 @@
         "cells": [
           "fill_black",
           "dot",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "empty"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l4",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "dot",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
           "empty",
           "empty"
         ]
@@ -546,6 +2376,897 @@
           "empty",
           "empty",
           "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l5",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "dot"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "dot"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l6",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "fill_black",
+          "empty"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l7",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "dot",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "dot",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l8",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "empty",
+            "fill_black",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "dot"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "dot",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l9",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "fill_black",
+            "dot"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "dot",
+            "empty",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "dot",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "dot",
+            "fill_black"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "dot",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "fill_black",
+          "empty"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7e-l10",
+    "title": "Svart ruta och prick vandrar åt olika håll",
+    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 4,
+    "grid": [
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "fill_black",
+            "empty"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "dot",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "dot",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "empty"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "dot",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "dot"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "dot",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "dot",
+          "fill_black",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "dot",
+          "fill_black",
+          "empty",
+          "empty"
         ]
       }
     ],
