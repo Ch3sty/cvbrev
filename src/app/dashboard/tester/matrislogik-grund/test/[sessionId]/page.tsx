@@ -8,6 +8,7 @@ import { QuestionGrid } from '@/components/tests/logicV4/QuestionGrid';
 import { AnswerOptions } from '@/components/tests/logicV4/AnswerOptions';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
+import { useTestHintMode } from '@/hooks/use-test-hint-mode';
 import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
 import type { Question } from '@/lib/logicTestV5/types.v5';
 
@@ -29,6 +30,7 @@ export default function TestSessionPage({ params }: PageProps) {
   const [sessionStartedAt] = useState(new Date());
   const [isSaving, setIsSaving] = useState(false);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+  const { showHint, toggle: toggleHint } = useTestHintMode();
 
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
@@ -175,13 +177,17 @@ export default function TestSessionPage({ params }: PageProps) {
               transition={{ duration: 0.25 }}
               className="space-y-5"
             >
-              {/* Frågetitel + regel */}
+              {/* Frågetitel + regel (visas bara i ledtråds-läge) */}
               <QuestionHeader
                 index={currentQuestion}
                 title={question.title}
                 rule={question.rule}
                 difficulty={question.difficulty}
+                showHint={showHint}
               />
+
+              {/* Ledtråd på/av */}
+              <HintToggle showHint={showHint} onToggle={toggleHint} />
 
               {/* 3×3 Matris */}
               <QuestionGrid grid={question.grid} />
@@ -324,11 +330,13 @@ function QuestionHeader({
   title,
   rule,
   difficulty,
+  showHint,
 }: {
   index: number;
   title: string;
   rule: string;
   difficulty: 1 | 2 | 3;
+  showHint: boolean;
 }) {
   // Strippa "FRÅGA X — " från title om det finns
   const cleanTitle = title.replace(/^FRÅGA\s+\d+\s*[—-]\s*/i, '');
@@ -338,37 +346,88 @@ function QuestionHeader({
       <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
         Fråga {index + 1}
       </div>
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
-        {cleanTitle}
-      </h2>
 
-      {/* Svårighetsindikator */}
-      <div className="inline-flex items-center gap-2 mb-3">
-        <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
-          Svårighet
-        </span>
-        <div className="flex items-center gap-1">
-          {[1, 2, 3].map((level) => (
-            <div
-              key={level}
-              className="w-2 h-2 rounded-full"
-              style={{
-                background:
-                  level <= difficulty
-                    ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                    : '#E2E8F0',
-              }}
-            />
-          ))}
+      {/* Titel + svårighet + regel visas bara i ledtråds-läge. I skarpt läge ser
+          testtagaren bara "Fråga N" + rutnätet, som ett riktigt rekryteringstest. */}
+      {showHint ? (
+        <>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+            {cleanTitle}
+          </h2>
+
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+              Svårighet
+            </span>
+            <div className="flex items-center gap-1">
+              {[1, 2, 3].map((level) => (
+                <div
+                  key={level}
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    background:
+                      level <= difficulty
+                        ? 'linear-gradient(135deg, #F97316, #DC2626)'
+                        : '#E2E8F0',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 sm:p-5 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-700 leading-relaxed text-left">
+              {rule}
+            </p>
+          </div>
+        </>
+      ) : (
+        <div className="inline-flex items-center gap-2 mb-1">
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+            Svårighet
+          </span>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3].map((level) => (
+              <div
+                key={level}
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background:
+                    level <= difficulty
+                      ? 'linear-gradient(135deg, #F97316, #DC2626)'
+                      : '#E2E8F0',
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+    </div>
+  );
+}
 
-      {/* Regel-text */}
-      <div className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 sm:p-5 max-w-xl mx-auto">
-        <p className="text-sm sm:text-base text-slate-700 leading-relaxed text-left">
-          {rule}
-        </p>
-      </div>
+function HintToggle({ showHint, onToggle }: { showHint: boolean; onToggle: () => void }) {
+  return (
+    <div className="flex justify-center">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={showHint}
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-slate-200 bg-white text-slate-600 hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
+      >
+        <span
+          className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${
+            showHint ? 'bg-orange-500' : 'bg-slate-300'
+          }`}
+        >
+          <span
+            className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+              showHint ? 'translate-x-3.5' : 'translate-x-0.5'
+            }`}
+          />
+        </span>
+        {showHint ? 'Ledtråd på' : 'Ledtråd av'}
+      </button>
     </div>
   );
 }
