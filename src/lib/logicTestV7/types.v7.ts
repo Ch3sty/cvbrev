@@ -133,6 +133,24 @@ export type DotsOrbitCell = {
 };
 
 // =============================================================================
+// 13. BALANCELINE — horisontell linje med former ovanför/under (branschstil)
+// =============================================================================
+// En vågrät linje delar cellen. Former placeras i 3 positioner längs linjen
+// (vänster/mitt/höger) och kan ligga ovanför eller under. Varje "item" har
+// position, sida och form. Tydlig referensram (linjen) → lättläst.
+export type BalanceShape = 'square' | 'circle';
+export type BalanceItem = {
+  posX: 0 | 1 | 2;          // 0=vänster, 1=mitt, 2=höger
+  side: 'above' | 'below';
+  shape: BalanceShape;
+  fill?: 'none' | 'gray';   // default 'none' (kontur); cirklar ofta grå
+};
+export type BalanceLineCell = {
+  kind: 'balanceline';
+  items: BalanceItem[];
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -147,7 +165,8 @@ export type V7Cell =
   | PolyCell
   | TileCell
   | SectorWheelCell
-  | DotsOrbitCell;
+  | DotsOrbitCell
+  | BalanceLineCell;
 
 export type Question = {
   id: string;

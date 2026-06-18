@@ -14,6 +14,7 @@ import type {
   TileCell,
   SectorWheelCell,
   DotsOrbitCell,
+  BalanceLineCell,
   Quad,
 } from './types.v7';
 
@@ -71,6 +72,8 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <SectorWheelRenderer cell={cell} />;
     case 'dotsorbit':
       return <DotsOrbitRenderer cell={cell} />;
+    case 'balanceline':
+      return <BalanceLineRenderer cell={cell} />;
   }
 };
 
@@ -734,6 +737,41 @@ const DotsOrbitRenderer: React.FC<{ cell: DotsOrbitCell }> = ({ cell }) => {
         const [x, y] = pos(i);
         return <circle key={i} cx={x.toFixed(2)} cy={y.toFixed(2)} r={dotR} fill={FILL_BLACK} />;
       })}
+    </>
+  );
+};
+
+// =============================================================================
+// 13. BALANCELINE — horisontell linje med former ovanför/under
+// =============================================================================
+
+const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
+  const lineY = 50;
+  const xs = [28, 50, 72];        // vänster, mitt, höger
+  const aboveY = 33;
+  const belowY = 67;
+  const s = 11;                    // form-storlek (halv-bredd)
+
+  const drawShape = (it: BalanceLineCell['items'][number], i: number) => {
+    const cx = xs[it.posX];
+    const cy = it.side === 'above' ? aboveY : belowY;
+    const fillVal = it.fill === 'gray' ? FILL_GRAY : 'none';
+    const strokeVal = STROKE;
+    if (it.shape === 'circle') {
+      return (
+        <circle key={i} cx={cx} cy={cy} r={s} fill={fillVal} stroke={strokeVal} strokeWidth={SW} />
+      );
+    }
+    return (
+      <rect key={i} x={cx - s} y={cy - s} width={s * 2} height={s * 2} fill={fillVal} stroke={strokeVal} strokeWidth={SW} />
+    );
+  };
+
+  return (
+    <>
+      {/* Vågrät baslinje */}
+      <line x1={12} y1={lineY} x2={88} y2={lineY} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" />
+      {cell.items.map(drawShape)}
     </>
   );
 };

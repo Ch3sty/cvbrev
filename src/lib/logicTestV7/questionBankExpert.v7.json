@@ -1833,86 +1833,142 @@
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l1",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b1",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -1920,143 +1976,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "dot",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l2",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b2",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2064,143 +2218,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "dot",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l3",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b3",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2208,143 +2460,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "dot",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l4",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b4",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2352,143 +2702,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "dot",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l5",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b5",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2496,143 +2944,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l6",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b6",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2640,143 +3186,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l7",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b7",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2784,143 +3428,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "dot",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l8",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b8",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "empty",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "empty",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -2928,143 +3670,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "dot",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "empty",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l9",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b9",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "fill_black",
-            "dot"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "dot",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "dot",
-            "fill_black",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "dot",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -3072,143 +3912,241 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "dot",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],
     "correctAnswer": 0
   },
   {
-    "id": "v7e-l10",
-    "title": "Svart ruta och prick vandrar åt olika håll",
-    "rule": "Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "id": "v7e-b10",
+    "title": "Former över och under linjen",
+    "rule": "Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "fill_black",
-            "dot",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "empty",
-            "empty",
-            "fill_black"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         }
       ],
       [
         {
-          "kind": "lattice",
-          "cells": [
-            "empty",
-            "dot",
-            "fill_black",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         {
-          "kind": "lattice",
-          "cells": [
-            "fill_black",
-            "empty",
-            "empty",
-            "empty"
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
           ]
         },
         null
@@ -3216,57 +4154,99 @@
     ],
     "options": [
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "dot",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "fill_black",
-          "empty",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "fill_black",
-          "empty",
-          "dot"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "empty",
-          "dot",
-          "fill_black"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "empty",
-          "dot",
-          "fill_black",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       },
       {
-        "kind": "lattice",
-        "cells": [
-          "dot",
-          "fill_black",
-          "empty",
-          "empty"
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
         ]
       }
     ],

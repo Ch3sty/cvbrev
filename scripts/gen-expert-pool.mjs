@@ -6,7 +6,13 @@ import { writeFileSync } from 'node:fs';
 // ============================================================================
 
 const rot8 = (arr, n) => arr.map((s) => (((s + n) % 8) + 8) % 8).sort((a, b) => a - b);
-const keyOf = (c) => JSON.stringify({ k: c.kind, f: (c.filled || c.cells || []).map(String), p: c.pattern });
+const keyOf = (c) => JSON.stringify({
+  k: c.kind,
+  f: (c.filled || c.cells || []).map(String),
+  p: c.pattern,
+  // balanceline: nyckla på items (sorterat) så distinkta lägen skiljs åt
+  it: c.items ? c.items.map((i) => `${i.shape}:${i.posX}:${i.side}:${i.fill || 'none'}`).sort() : undefined,
+});
 
 // Bygg 6 unika distraktorer-kandidater och välj 5 som skiljer sig från facit.
 function pickDistractors(correct, candidates) {
@@ -75,37 +81,74 @@ function tileQ(id, title, base, dir) {
   };
 }
 
-// ---------- LATTICE (2×2) ----------
-// index [TL=0, TR=1, BL=2, BR=3]. medurs-bana: TL->TR->BR->BL = 0,1,3,2
-const CW = [0, 1, 3, 2];
-const CCW = [0, 2, 3, 1];
-function latCell(black, dot, gray) {
-  const q = ['empty', 'empty', 'empty', 'empty'];
-  if (gray !== undefined && gray !== black) q[gray] = 'fill_gray';
-  if (dot !== undefined && dot !== black) q[dot] = 'dot';
-  q[black] = 'fill_black';
-  return { kind: 'lattice', cells: q };
+// ---------- BALANCELINE (former över/under en linje, branschstil) ----------
+// Kvadrat + cirkel. Position längs linjen (0/1/2) roterar, sida (above/below) växlar.
+// Två synliga oberoende dimensioner → expert-svårt men lättläst.
+function balCell(sqPos, sqSide, ciPos, ciSide) {
+  return {
+    kind: 'balanceline',
+    items: [
+      { posX: sqPos, side: sqSide ? 'above' : 'below', shape: 'square' },
+      { posX: ciPos, side: ciSide ? 'above' : 'below', shape: 'circle', fill: 'gray' },
+    ],
+  };
 }
-// svart vandrar medurs, prick moturs (oberoende dubbel-rörelse)
-function latQ(id, title, bStart, dStart) {
-  const cells = [];
-  for (let i = 0; i < 9; i++) cells.push(latCell(CW[(bStart + i) % 4], CCW[(dStart + i) % 4]));
+const balKey = (c) => JSON.stringify(c.items.map((it) => [it.posX, it.side, it.shape]).sort());
+// Tydliga, separata regler: kvadrat-position +1/cell (mod 3), cirkel-position -1/cell.
+// Sida: kvadraten alternerar above/below för varje cell (start sqS0); cirkeln
+// alternerar i motsatt fas (start ciS0). Allt deterministiskt och lätt att läsa.
+function balQ(id, title, sqP0, sqS0, ciP0, ciS0) {
+  // Kvadrat: position +1/cell, sida växlar varje cell.
+  // Cirkel: position -1/cell, sida växlar var ANNAN cell (ur fas) → längre period,
+  // bryter rad-repetition.
+  const at = (i) => balCell(
+    (sqP0 + i) % 3, (sqS0 + i) % 2 === 0,
+    ((ciP0 - i) % 3 + 3) % 3, (ciS0 + Math.floor(i / 2)) % 2 === 0
+  );
+  const cells = []; for (let i = 0; i < 9; i++) cells.push(at(i));
   const correct = cells[8];
   const cand = [
-    latCell(CW[(bStart + 7) % 4], CCW[(dStart + 7) % 4]),
-    latCell(CW[(bStart + 8) % 4], CCW[(dStart + 9) % 4]),
-    latCell(CW[(bStart + 9) % 4], CCW[(dStart + 8) % 4]),
-    latCell(CCW[(bStart + 8) % 4], CW[(dStart + 8) % 4]),
-    latCell(CW[(bStart + 8) % 4], CCW[(dStart + 7) % 4]),
-    latCell(CW[(bStart + 6) % 4], CCW[(dStart + 8) % 4]),
-  ];
+    at(7), at(6),
+    balCell((sqP0 + 8 + 1) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
+    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 !== 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
+    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8 + 1) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
+    balCell((sqP0 + 8) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 8) % 3 + 3) % 3, (ciS0 + 8) % 2 !== 0),
+    balCell((sqP0 + 6) % 3, (sqS0 + 8) % 2 === 0, ((ciP0 - 6) % 3 + 3) % 3, (ciS0 + 8) % 2 === 0),
+  ].filter((c) => balKey(c) !== balKey(correct));
   return {
     id, title,
-    rule: 'Den svarta rutan vandrar medurs och pricken vandrar moturs, ett steg per ruta. Läs rutorna som en lång rad, uppifrån och ner.',
+    rule: 'Kvadraten flyttar sig ett steg åt höger och cirkeln ett steg åt vänster för varje ruta. Båda växlar sida om linjen varje gång. Läs rutorna som en lång rad, uppifrån och ner.',
     difficulty: 4,
     grid: [[cells[0], cells[1], cells[2]], [cells[3], cells[4], cells[5]], [cells[6], cells[7], null]],
     options: [correct, ...pickDistractors(correct, cand)], correctAnswer: 0,
   };
+}
+
+// Väljer N startläges-kombinationer som ger icke-triviala balanslinje-frågor
+// (facit skiljer sig från cellen ovanför OCH till vänster om tomrummet).
+function buildBalanceQuestions(n) {
+  const out = [];
+  let idx = 1;
+  for (let sqP = 0; sqP < 3 && out.length < n; sqP++)
+    for (let sqS = 0; sqS < 2 && out.length < n; sqS++)
+      for (let ciP = 0; ciP < 3 && out.length < n; ciP++)
+        for (let ciS = 0; ciS < 2 && out.length < n; ciS++) {
+          const q = balQ(`v7e-b${idx}`, 'Former över och under linjen', sqP, sqS, ciP, ciS);
+          const g = [...q.grid[0], ...q.grid[1], q.grid[2][0], q.grid[2][1], q.options[0]];
+          const k = g.map(balKey);
+          const facit = k[8], above = k[5], left = k[7];
+          // rad-repetition: rad1 (0,1,2) == rad3 (6,7,8)?  kol-repetition: kol1 vs kol3
+          const rows = [k.slice(0, 3).join('|'), k.slice(3, 6).join('|'), k.slice(6, 9).join('|')];
+          const cols = [0, 1, 2].map((c) => [k[c], k[c + 3], k[c + 6]].join('|'));
+          const rowDup = new Set(rows).size < 3;
+          const colDup = new Set(cols).size < 3;
+          if (q.options.length === 6 && facit !== above && facit !== left && !rowDup && !colDup) {
+            q.id = `v7e-b${out.length + 1}`;
+            out.push(q);
+          }
+          idx++;
+        }
+  return out;
 }
 
 const bank = [
@@ -129,17 +172,8 @@ const bank = [
   tileQ('v7e-t7', 'Trappan roterar', 0b001011110, 'cw'),
   tileQ('v7e-t8', 'L-blocket roterar moturs', 0b100110000, 'ccw'),
   tileQ('v7e-t9', 'Vinkeln roterar', 0b100100110, 'cw'),
-  // 10 lattice — svart + prick åt olika håll, olika startlägen
-  latQ('v7e-l1', 'Svart ruta och prick vandrar åt olika håll', 0, 0),
-  latQ('v7e-l2', 'Svart ruta och prick vandrar åt olika håll', 1, 0),
-  latQ('v7e-l3', 'Svart ruta och prick vandrar åt olika håll', 0, 1),
-  latQ('v7e-l4', 'Svart ruta och prick vandrar åt olika håll', 2, 1),
-  latQ('v7e-l5', 'Svart ruta och prick vandrar åt olika håll', 1, 3),
-  latQ('v7e-l6', 'Svart ruta och prick vandrar åt olika håll', 3, 0),
-  latQ('v7e-l7', 'Svart ruta och prick vandrar åt olika håll', 0, 2),
-  latQ('v7e-l8', 'Svart ruta och prick vandrar åt olika håll', 2, 3),
-  latQ('v7e-l9', 'Svart ruta och prick vandrar åt olika håll', 3, 2),
-  latQ('v7e-l10', 'Svart ruta och prick vandrar åt olika håll', 1, 1),
+  // 10 balanslinje — startlägen väljs nedan (auto, garanterat icke-triviala)
+  ...buildBalanceQuestions(10),
 ];
 
 // validering: 6 unika options, facit≠distraktor, + symmetri-koll för tile

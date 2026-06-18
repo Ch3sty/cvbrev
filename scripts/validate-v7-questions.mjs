@@ -9,17 +9,15 @@ const path = process.argv[2];
 const bank = JSON.parse(readFileSync(path, 'utf8'));
 
 // Kanonisk nyckel för en cell (primitiv ELLER array av primitiver).
-const norm = (cell) => {
-  if (cell === null) return 'null';
-  const one = (c) =>
-    JSON.stringify(
-      Object.keys(c).sort().reduce((o, k) => {
-        o[k] = Array.isArray(c[k]) ? c[k].map(String) : c[k];
-        return o;
-      }, {})
-    );
-  return Array.isArray(cell) ? '[' + cell.map(one).join('|') + ']' : one(cell);
+// Stabil, djup serialisering (hanterar arrayer av objekt, t.ex. balanceline.items)
+const stable = (v) => {
+  if (Array.isArray(v)) return '[' + v.map(stable).join(',') + ']';
+  if (v && typeof v === 'object') {
+    return '{' + Object.keys(v).sort().map((k) => `${k}:${stable(v[k])}`).join(',') + '}';
+  }
+  return String(v);
 };
+const norm = (cell) => (cell === null ? 'null' : stable(cell));
 
 const errors = [];
 const seen = new Set();
