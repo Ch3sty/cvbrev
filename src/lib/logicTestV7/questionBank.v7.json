@@ -1,81 +1,103 @@
 [
   {
-    "id": "v7-q1-glyph-grid",
-    "title": "Glyf per rad, fyllning per kolumn",
-    "rule": "Raden bestämmer glyfens form (lambda, sigma, omega). Kolumnen bestämmer fyllningen — kolumn 1 = ofylld, kolumn 2 = grå, kolumn 3 = svart.",
-    "difficulty": 2,
-    "grid": [
-      [{ "kind": "glyph", "glyph": "lambda", "fill": "none" }, { "kind": "glyph", "glyph": "lambda", "fill": "gray" }, { "kind": "glyph", "glyph": "lambda", "fill": "black" }],
-      [{ "kind": "glyph", "glyph": "sigma", "fill": "none" }, { "kind": "glyph", "glyph": "sigma", "fill": "gray" }, { "kind": "glyph", "glyph": "sigma", "fill": "black" }],
-      [{ "kind": "glyph", "glyph": "omega", "fill": "none" }, { "kind": "glyph", "glyph": "omega", "fill": "gray" }, null]
-    ],
-    "options": [
-      { "kind": "glyph", "glyph": "omega", "fill": "none" },
-      { "kind": "glyph", "glyph": "omega", "fill": "gray" },
-      { "kind": "glyph", "glyph": "omega", "fill": "black" },
-      { "kind": "glyph", "glyph": "lambda", "fill": "black" },
-      { "kind": "glyph", "glyph": "sigma", "fill": "black" },
-      { "kind": "glyph", "glyph": "theta", "fill": "black" }
-    ],
-    "correctAnswer": 2
-  },
-  {
-    "id": "v7-q2-ring-progression",
-    "title": "Antalet ringar växer",
-    "rule": "Antalet koncentriska ringar växer med en per kolumn (1 → 2 → 3). Den innersta ringen är alltid svart, övriga ringar är ofyllda.",
-    "difficulty": 2,
-    "grid": [
-      [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
-      [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
-      [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, null]
-    ],
-    "options": [
-      { "kind": "ring", "rings": ["black"] },
-      { "kind": "ring", "rings": ["none", "black"] },
-      { "kind": "ring", "rings": ["none", "none", "black"] },
-      { "kind": "ring", "rings": ["black", "black", "black"] },
-      { "kind": "ring", "rings": ["none", "none", "none"] },
-      { "kind": "ring", "rings": ["gray", "gray", "black"] }
-    ],
-    "correctAnswer": 2
-  },
-  {
-    "id": "v7-q3-tally-orientation",
-    "title": "Räknepinnar — antal och riktning",
-    "rule": "Antalet räknepinnar ökar med 1 per kolumn (1 → 2 → 3). Raden bestämmer orienteringen — rad 1 och 3 = vertikala, rad 2 = horisontella.",
-    "difficulty": 2,
-    "grid": [
-      [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 1, "orientation": "horizontal" }, { "kind": "tally", "count": 2, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }],
-      [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, null]
-    ],
-    "options": [
-      { "kind": "tally", "count": 3, "orientation": "horizontal" },
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
-      { "kind": "tally", "count": 4, "orientation": "vertical" },
-      { "kind": "tally", "count": 2, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
-      { "kind": "tally", "count": 3, "orientation": "horizontal" }
-    ],
-    "correctAnswer": 1
-  },
-  {
     "id": "v7-q4-vector-rotation",
     "title": "Vektorn vrider sig medurs",
     "rule": "Vektorn vrider sig 45° medurs per cell, läst rad för rad. Pilhuvudet är alltid fyllt och vektorn alltid lång.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
-      [{ "kind": "vector", "angle": 135, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
-      [{ "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 315, "length": "long", "head": "filled" }, null]
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "vector", "angle": 0, "length": "long", "head": "filled" },
-      { "kind": "vector", "angle": 45, "length": "long", "head": "filled" },
-      { "kind": "vector", "angle": 90, "length": "long", "head": "filled" },
-      { "kind": "vector", "angle": 180, "length": "long", "head": "filled" },
-      { "kind": "vector", "angle": 270, "length": "long", "head": "filled" },
-      { "kind": "vector", "angle": 0, "length": "long", "head": "open" }
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      }
     ],
     "correctAnswer": 0
   },
@@ -86,28 +108,140 @@
     "difficulty": 3,
     "grid": [
       [
-        { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] },
-        { "kind": "lattice", "cells": ["empty", "fill_black", "fill_black", "empty"] },
-        { "kind": "lattice", "cells": ["fill_black", "fill_black", "fill_black", "empty"] }
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "fill_black",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "fill_black",
+            "fill_black",
+            "empty"
+          ]
+        }
       ],
       [
-        { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] },
-        { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "fill_black"] },
-        { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "empty",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "fill_black"
+          ]
+        }
       ],
       [
-        { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "fill_black"] },
-        { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] },
+        {
+          "kind": "lattice",
+          "cells": [
+            "fill_black",
+            "fill_black",
+            "empty",
+            "fill_black"
+          ]
+        },
+        {
+          "kind": "lattice",
+          "cells": [
+            "empty",
+            "fill_black",
+            "empty",
+            "empty"
+          ]
+        },
         null
       ]
     ],
     "options": [
-      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "fill_black"] },
-      { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] },
-      { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "fill_black"] },
-      { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] },
-      { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] },
-      { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "empty",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "fill_black",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "fill_black",
+          "empty",
+          "empty"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "empty",
+          "fill_black",
+          "empty",
+          "fill_black"
+        ]
+      },
+      {
+        "kind": "lattice",
+        "cells": [
+          "fill_black",
+          "empty",
+          "empty",
+          "empty"
+        ]
+      }
     ],
     "correctAnswer": 0
   },
@@ -117,37 +251,85 @@
     "rule": "Satelliten flyttar ett steg medurs per cell (45° per steg), läst rad för rad. Centerpunkten är alltid fylld.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 1 }, { "kind": "orbital", "center": "filled", "satellite": 2 }],
-      [{ "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 4 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
-      [{ "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 7 }, null]
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 2
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 7
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "orbital", "center": "filled", "satellite": 7 },
-      { "kind": "orbital", "center": "filled", "satellite": 1 },
-      { "kind": "orbital", "center": "filled", "satellite": 0 },
-      { "kind": "orbital", "center": "open", "satellite": 0 },
-      { "kind": "orbital", "center": "filled", "satellite": 4 },
-      { "kind": "orbital", "center": "filled", "satellite": null }
-    ],
-    "correctAnswer": 2
-  },
-  {
-    "id": "v7-q7-rays-to-tally",
-    "title": "Strålar blir räknepinnar",
-    "rule": "Antalet räknepinnar i kolumn 3 är lika med antalet strålar i kolumn 1 plus antalet strålar i kolumn 2.",
-    "difficulty": 3,
-    "grid": [
-      [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [2] }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "ray", "rays": [0] }, { "kind": "ray", "rays": [2, 6] }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [6] }, null]
-    ],
-    "options": [
-      { "kind": "tally", "count": 2, "orientation": "vertical" },
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
-      { "kind": "tally", "count": 4, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
-      { "kind": "tally", "count": 4, "orientation": "horizontal" },
-      { "kind": "tally", "count": 1, "orientation": "vertical" }
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 4
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": null
+      }
     ],
     "correctAnswer": 2
   },
@@ -157,59 +339,101 @@
     "rule": "Varje rad och varje kolumn ska innehålla exakt en cirkel-bas, en kvadrat-bas och en triangel-bas — och exakt en plus-symbol, en ring-symbol och en prick-symbol.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "ring", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" }],
-      [{ "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "ring", "baseFill": "none" }],
-      [{ "kind": "stack", "base": "triangle", "symbol": "ring", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, null]
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" },
-      { "kind": "stack", "base": "square", "symbol": "ring", "baseFill": "none" },
-      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" },
-      { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" },
-      { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" },
-      { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "ring",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      }
     ],
     "correctAnswer": 3
-  },
-  {
-    "id": "v7-q9-poly-progression",
-    "title": "Polygoner med fler sidor",
-    "rule": "Antalet sidor ökar per rad — rad 1 = pentagon (5), rad 2 = hexagon (6), rad 3 = oktagon (8). Kolumnen bestämmer rotationen — kolumn 1 = 0°, kolumn 2 = 30°, kolumn 3 = 60°.",
-    "difficulty": 3,
-    "grid": [
-      [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 60, "fill": "none" }],
-      [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 30, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" }],
-      [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 8, "rotation": 30, "fill": "none" }, null]
-    ],
-    "options": [
-      { "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" },
-      { "kind": "poly", "sides": 6, "rotation": 60, "fill": "none" },
-      { "kind": "poly", "sides": 8, "rotation": 60, "fill": "none" },
-      { "kind": "poly", "sides": 8, "rotation": 90, "fill": "none" },
-      { "kind": "poly", "sides": 5, "rotation": 60, "fill": "none" },
-      { "kind": "poly", "sides": 8, "rotation": 60, "fill": "black" }
-    ],
-    "correctAnswer": 2
-  },
-  {
-    "id": "v7-q10-fibonacci-tally",
-    "title": "Räknepinnar — kedjereaktion",
-    "rule": "I varje rad är antalet pinnar i kolumn 3 summan av kolumn 1 och kolumn 2. Dessutom: kolumn 1 i nästa rad har samma antal som kolumn 3 i föregående rad.",
-    "difficulty": 3,
-    "grid": [
-      [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }, null]
-    ],
-    "options": [
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
-      { "kind": "tally", "count": 4, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "horizontal" },
-      { "kind": "tally", "count": 2, "orientation": "vertical" },
-      { "kind": "tally", "count": 1, "orientation": "vertical" }
-    ],
-    "correctAnswer": 2
   },
   {
     "id": "v7-q11-ring-xor",
@@ -218,28 +442,126 @@
     "difficulty": 3,
     "grid": [
       [
-        { "kind": "ring", "rings": ["black", "none", "black"] },
-        { "kind": "ring", "rings": ["none", "black", "none"] },
-        { "kind": "ring", "rings": ["black", "black", "black"] }
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "black",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "black",
+            "black"
+          ]
+        }
       ],
       [
-        { "kind": "ring", "rings": ["black", "black", "none"] },
-        { "kind": "ring", "rings": ["none", "black", "black"] },
-        { "kind": "ring", "rings": ["black", "none", "black"] }
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "black",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "black",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "none",
+            "black"
+          ]
+        }
       ],
       [
-        { "kind": "ring", "rings": ["black", "none", "black"] },
-        { "kind": "ring", "rings": ["black", "black", "none"] },
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "black",
+            "black",
+            "none"
+          ]
+        },
         null
       ]
     ],
     "options": [
-      { "kind": "ring", "rings": ["none", "black", "black"] },
-      { "kind": "ring", "rings": ["black", "black", "black"] },
-      { "kind": "ring", "rings": ["none", "none", "none"] },
-      { "kind": "ring", "rings": ["black", "none", "none"] },
-      { "kind": "ring", "rings": ["none", "black", "none"] },
-      { "kind": "ring", "rings": ["black", "none", "black"] }
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "black",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "black",
+          "black",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "black",
+          "none",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "black",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "black",
+          "none",
+          "black"
+        ]
+      }
     ],
     "correctAnswer": 0
   },
@@ -249,17 +571,99 @@
     "rule": "Varje cell har tre attribut. Raden bestämmer basformen — rad 1 = cirkel, rad 2 = kvadrat, rad 3 = triangel. Kolumnen bestämmer fyllningen — kolumn 1 = ofylld, kolumn 2 = grå, kolumn 3 = svart. Symbolen är 'plus' på huvuddiagonalen (övre vänster till nedre höger), annars 'ring'.",
     "difficulty": 4,
     "grid": [
-      [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "ring", "baseFill": "gray" }, { "kind": "stack", "base": "circle", "symbol": "ring", "baseFill": "black" }],
-      [{ "kind": "stack", "base": "square", "symbol": "ring", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "gray" }, { "kind": "stack", "base": "square", "symbol": "ring", "baseFill": "black" }],
-      [{ "kind": "stack", "base": "triangle", "symbol": "ring", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "ring", "baseFill": "gray" }, null]
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "stack", "base": "triangle", "symbol": "ring", "baseFill": "black" },
-      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "black" },
-      { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "gray" },
-      { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "black" },
-      { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "black" },
-      { "kind": "stack", "base": "triangle", "symbol": "ring", "baseFill": "gray" }
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "ring",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "ring",
+        "baseFill": "gray"
+      }
     ],
     "correctAnswer": 1
   },
@@ -270,50 +674,72 @@
     "difficulty": 4,
     "grid": [
       [
-        { "kind": "tile", "pattern": 35 },
-        { "kind": "tile", "pattern": 14 },
-        { "kind": "tile", "pattern": 392 }
+        {
+          "kind": "tile",
+          "pattern": 35
+        },
+        {
+          "kind": "tile",
+          "pattern": 14
+        },
+        {
+          "kind": "tile",
+          "pattern": 392
+        }
       ],
       [
-        { "kind": "tile", "pattern": 25 },
-        { "kind": "tile", "pattern": 52 },
-        { "kind": "tile", "pattern": 304 }
+        {
+          "kind": "tile",
+          "pattern": 25
+        },
+        {
+          "kind": "tile",
+          "pattern": 52
+        },
+        {
+          "kind": "tile",
+          "pattern": 304
+        }
       ],
       [
-        { "kind": "tile", "pattern": 19 },
-        { "kind": "tile", "pattern": 22 },
+        {
+          "kind": "tile",
+          "pattern": 19
+        },
+        {
+          "kind": "tile",
+          "pattern": 22
+        },
         null
       ]
     ],
     "options": [
-      { "kind": "tile", "pattern": 304 },
-      { "kind": "tile", "pattern": 400 },
-      { "kind": "tile", "pattern": 19 },
-      { "kind": "tile", "pattern": 22 },
-      { "kind": "tile", "pattern": 56 },
-      { "kind": "tile", "pattern": 392 }
+      {
+        "kind": "tile",
+        "pattern": 304
+      },
+      {
+        "kind": "tile",
+        "pattern": 400
+      },
+      {
+        "kind": "tile",
+        "pattern": 19
+      },
+      {
+        "kind": "tile",
+        "pattern": 22
+      },
+      {
+        "kind": "tile",
+        "pattern": 56
+      },
+      {
+        "kind": "tile",
+        "pattern": 392
+      }
     ],
     "correctAnswer": 1
-  },
-  {
-    "id": "v7-q14-double-progression",
-    "title": "Tvådimensionell räkning",
-    "rule": "Antalet räknepinnar ökar med 1 per kolumn (vänster till höger). Pinnar i första kolumnen ökar också med 1 per rad (uppifrån och ned).",
-    "difficulty": 4,
-    "grid": [
-      [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
-      [{ "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }, null]
-    ],
-    "options": [
-      { "kind": "tally", "count": 3, "orientation": "vertical" },
-      { "kind": "tally", "count": 4, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "vertical" },
-      { "kind": "tally", "count": 5, "orientation": "horizontal" },
-      { "kind": "tally", "count": 4, "orientation": "horizontal" },
-      { "kind": "tally", "count": 2, "orientation": "vertical" }
-    ],
-    "correctAnswer": 2
   },
   {
     "id": "v7-q15-tile-xor",
@@ -322,28 +748,783 @@
     "difficulty": 4,
     "grid": [
       [
-        { "kind": "tile", "pattern": 17 },
-        { "kind": "tile", "pattern": 274 },
-        { "kind": "tile", "pattern": 259 }
+        {
+          "kind": "tile",
+          "pattern": 17
+        },
+        {
+          "kind": "tile",
+          "pattern": 274
+        },
+        {
+          "kind": "tile",
+          "pattern": 259
+        }
       ],
       [
-        { "kind": "tile", "pattern": 73 },
-        { "kind": "tile", "pattern": 146 },
-        { "kind": "tile", "pattern": 219 }
+        {
+          "kind": "tile",
+          "pattern": 73
+        },
+        {
+          "kind": "tile",
+          "pattern": 146
+        },
+        {
+          "kind": "tile",
+          "pattern": 219
+        }
       ],
       [
-        { "kind": "tile", "pattern": 84 },
-        { "kind": "tile", "pattern": 273 },
+        {
+          "kind": "tile",
+          "pattern": 84
+        },
+        {
+          "kind": "tile",
+          "pattern": 273
+        },
         null
       ]
     ],
     "options": [
-      { "kind": "tile", "pattern": 325 },
-      { "kind": "tile", "pattern": 100 },
-      { "kind": "tile", "pattern": 84 },
-      { "kind": "tile", "pattern": 273 },
-      { "kind": "tile", "pattern": 511 },
-      { "kind": "tile", "pattern": 0 }
+      {
+        "kind": "tile",
+        "pattern": 325
+      },
+      {
+        "kind": "tile",
+        "pattern": 100
+      },
+      {
+        "kind": "tile",
+        "pattern": 84
+      },
+      {
+        "kind": "tile",
+        "pattern": 273
+      },
+      {
+        "kind": "tile",
+        "pattern": 511
+      },
+      {
+        "kind": "tile",
+        "pattern": 0
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-ring-latin",
+    "title": "Ringfyllning i rader och kolumner",
+    "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "gray"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "black"
+          ]
+        },
+        {
+          "kind": "ring",
+          "rings": [
+            "none",
+            "none",
+            "none"
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "none"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "none",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "gray",
+          "black"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "gray",
+          "none",
+          "gray"
+        ]
+      },
+      {
+        "kind": "ring",
+        "rings": [
+          "none",
+          "black"
+        ]
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-tally-latin",
+    "title": "Antal streck i rader och kolumner",
+    "rule": "Strecken står alltid upprätt. Antalet följer en latin square: varje rad och kolumn har exakt en med två, en med tre och en med fyra streck.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "tally",
+          "count": 2,
+          "orientation": "vertical"
+        },
+        {
+          "kind": "tally",
+          "count": 3,
+          "orientation": "vertical"
+        },
+        {
+          "kind": "tally",
+          "count": 4,
+          "orientation": "vertical"
+        }
+      ],
+      [
+        {
+          "kind": "tally",
+          "count": 3,
+          "orientation": "vertical"
+        },
+        {
+          "kind": "tally",
+          "count": 4,
+          "orientation": "vertical"
+        },
+        {
+          "kind": "tally",
+          "count": 2,
+          "orientation": "vertical"
+        }
+      ],
+      [
+        {
+          "kind": "tally",
+          "count": 4,
+          "orientation": "vertical"
+        },
+        {
+          "kind": "tally",
+          "count": 2,
+          "orientation": "vertical"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tally",
+        "count": 3,
+        "orientation": "vertical"
+      },
+      {
+        "kind": "tally",
+        "count": 4,
+        "orientation": "vertical"
+      },
+      {
+        "kind": "tally",
+        "count": 2,
+        "orientation": "vertical"
+      },
+      {
+        "kind": "tally",
+        "count": 3,
+        "orientation": "horizontal"
+      },
+      {
+        "kind": "tally",
+        "count": 1,
+        "orientation": "vertical"
+      },
+      {
+        "kind": "tally",
+        "count": 2,
+        "orientation": "horizontal"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-latin",
+    "title": "Antal sidor i rader och kolumner",
+    "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 8,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 5,
+          "rotation": 0,
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 8,
+        "rotation": 0,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "gray"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 0,
+        "fill": "none"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 0,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-poly-rot",
+    "title": "Sexhörningen vrider sig",
+    "rule": "Sexhörningen vrider sig 30 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 0,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 30,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 60,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 90,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 120,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 150,
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 180,
+          "fill": "black"
+        },
+        {
+          "kind": "poly",
+          "sides": 6,
+          "rotation": 210,
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 240,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 210,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 180,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 270,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 5,
+        "rotation": 240,
+        "fill": "black"
+      },
+      {
+        "kind": "poly",
+        "sides": 6,
+        "rotation": 240,
+        "fill": "gray"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-vector-ccw",
+    "title": "Pilen vrider sig moturs",
+    "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-orbital-ccw",
+    "title": "Pricken vandrar moturs",
+    "rule": "Pricken flyttar ett steg moturs (45 grader) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mitten är fylld.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 7
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 3
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 2
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 2
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 6
+      }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v7-a-stack-symbol",
+    "title": "Symbolen i rader och kolumner",
+    "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen följer en latin square: varje rad och kolumn har exakt en med plus, en med minus och en med prick.",
+    "difficulty": 3,
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "ring",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "black"
+      }
     ],
     "correctAnswer": 0
   }
