@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,11 +15,9 @@ import {
   Trophy,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
-import type { Question } from '@/lib/logicTestV5/types.v5';
-import { SvgCellV5 } from '@/lib/logicTestV5/renderers.v5';
-
-const questions = questionBank as Question[];
+import { selectQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7';
+import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
+import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 
 interface SavedAnswer {
   q_id: string;
@@ -40,24 +38,14 @@ interface PageProps {
   params: Promise<{ sessionId: string }>;
 }
 
-// Kategorier för insights
-const QUESTION_CATEGORIES: Record<string, string> = {
-  'v5-q1-count-progression': 'Progressioner & sekvenser',
-  'v5-q2-shape-by-row': 'Mönster & attribut',
-  'v5-q3-size-progression': 'Progressioner & sekvenser',
-  'v5-q4-arrow-rotation': 'Rotation & spegling',
-  'v5-q5-checker-fill': 'Mönster & attribut',
-  'v5-q6-attribute-grid': 'Mönster & attribut',
-  'v5-q7-line-union': 'Set-operationer',
-  'v5-q8-rotation-fill': 'Rotation & spegling',
-  'v5-q9-addition': 'Progressioner & sekvenser',
-  'v5-q10-subtract': 'Set-operationer',
-  'v5-q11-mirror': 'Rotation & spegling',
-  'v5-q12-latin-square': 'Mönster & attribut',
-  'v5-q13-line-xor': 'Set-operationer',
-  'v5-q14-rotation-grid': 'Rotation & spegling',
-  'v5-q15-corner-walk': 'Progressioner & sekvenser',
-};
+// Kategori för insights — härleds från V7-frågans id-mönster.
+function categoryFor(id: string): string {
+  if (/latin/.test(id)) return 'Latin squares';
+  if (/walk|rotate|rotation|ccw|cycle/.test(id)) return 'Rörelse & rotation';
+  if (/add|union/.test(id)) return 'Set-operationer';
+  if (/progression|count|fill/.test(id)) return 'Progressioner & attribut';
+  return 'Övrigt';
+}
 
 export default function ResultsPage({ params }: PageProps) {
   const router = useRouter();
@@ -68,6 +56,12 @@ export default function ResultsPage({ params }: PageProps) {
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
   }, [params]);
+
+  // Samma seedade urval som test-sidan → identiska 15 frågor för denna session.
+  const questions = useMemo(
+    () => (sessionId ? selectQuestionsForSession(sessionId) : []),
+    [sessionId]
+  );
 
   useEffect(() => {
     if (!sessionId) return;
@@ -156,7 +150,7 @@ export default function ResultsPage({ params }: PageProps) {
   const categoryStats: Record<string, { correct: number; total: number }> = {};
   if (!isLegacySession) {
     questions.forEach((q) => {
-      const cat = QUESTION_CATEGORIES[q.id] || 'Övrigt';
+      const cat = categoryFor(q.id);
       if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, total: 0 };
       categoryStats[cat].total += 1;
       const ans = savedAnswers.find((a) => a.q_id === q.id);
@@ -201,7 +195,7 @@ export default function ResultsPage({ params }: PageProps) {
         )}
 
         {!isLegacySession && (
-          <QuestionReview answers={savedAnswers} formatTimeShort={formatTimeShort} />
+          <QuestionReview answers={savedAnswers} questions={questions} formatTimeShort={formatTimeShort} />
         )}
 
         {/* Action buttons */}
@@ -452,9 +446,11 @@ function InsightsCard({
 
 function QuestionReview({
   answers,
+  questions,
   formatTimeShort,
 }: {
   answers: SavedAnswer[];
+  questions: LayeredQuestion[];
   formatTimeShort: (s: number) => string;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -605,7 +601,7 @@ function ReviewOption({
 }: {
   label: string;
   letter: string;
-  cell: Question['options'][number];
+  cell: LayeredCell;
   color: 'emerald' | 'red';
 }) {
   const colorClasses = {
@@ -624,7 +620,7 @@ function ReviewOption({
       </div>
       <div className="aspect-square w-full max-w-[80px] mx-auto bg-white rounded-lg border border-white p-2">
         <svg viewBox="0 0 100 100" className="w-full h-full" shapeRendering="geometricPrecision">
-          <SvgCellV5 cell={cell} />
+          <SvgLayeredCell cell={cell} />
         </svg>
       </div>
     </div>

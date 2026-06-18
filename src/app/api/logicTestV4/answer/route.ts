@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
+import questionBankV7Grund from '@/lib/logicTestV7/questionBankGrund.v7.json';
+
+// Slå ihop bankerna så svar-API:t hittar både gamla V5-frågor (pågående sessioner)
+// och nya V7-grundfrågor. Endast id + correctAnswer behövs här.
+const allQuestions = [...questionBank, ...questionBankV7Grund] as Array<{
+  id: string;
+  correctAnswer: number;
+}>;
 
 export async function POST(request: Request) {
   try {
@@ -50,8 +58,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find question in questionBank
-    const question = questionBank.find((q: any) => q.id === questionId);
+    // Find question in combined bank (V5 + V7-grund)
+    const question = allQuestions.find((q) => q.id === questionId);
 
     if (!question) {
       return NextResponse.json(

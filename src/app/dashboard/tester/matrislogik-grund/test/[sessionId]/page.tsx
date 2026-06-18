@@ -1,18 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
-import { QuestionGrid } from '@/components/tests/logicV4/QuestionGrid';
-import { AnswerOptions } from '@/components/tests/logicV4/AnswerOptions';
+import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
+import { AnswerOptionsV7 } from '@/components/tests/logicV7/AnswerOptionsV7';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
 import { useTestHintMode } from '@/hooks/use-test-hint-mode';
-import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
-import type { Question } from '@/lib/logicTestV5/types.v5';
-
-const questions = questionBank as Question[];
+import { selectQuestionsForSession, QUESTIONS_PER_SESSION } from '@/lib/logicTestV7/selectQuestions.v7';
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -24,7 +21,7 @@ export default function TestSessionPage({ params }: PageProps) {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
-    Array(questions.length).fill(null)
+    Array(QUESTIONS_PER_SESSION).fill(null)
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
@@ -35,6 +32,13 @@ export default function TestSessionPage({ params }: PageProps) {
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
   }, [params]);
+
+  // Deterministiskt urval av 15 frågor ur poolen, seedat på sessionId.
+  // Samma sessionId → samma frågor (stabilt under sessionen och = resultat-sidan).
+  const questions = useMemo(
+    () => (sessionId ? selectQuestionsForSession(sessionId) : []),
+    [sessionId]
+  );
 
   const question = questions[currentQuestion];
   const answeredQuestions = new Set(
@@ -134,7 +138,7 @@ export default function TestSessionPage({ params }: PageProps) {
       if (e.key === 'ArrowRight') handleNext();
       const letterKeys = ['a', 'b', 'c', 'd', 'e', 'f'];
       const index = letterKeys.indexOf(e.key.toLowerCase());
-      if (index >= 0 && index < question.options.length) {
+      if (question && index >= 0 && index < question.options.length) {
         handleSelectAnswer(index);
       }
     };
@@ -190,14 +194,14 @@ export default function TestSessionPage({ params }: PageProps) {
               <HintToggle showHint={showHint} onToggle={toggleHint} />
 
               {/* 3×3 Matris */}
-              <QuestionGrid grid={question.grid} />
+              <QuestionGridV7 grid={question.grid} />
 
               {/* Svarsalternativ */}
               <div>
                 <p className="text-center text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-[0.18em] mb-3">
                   Välj rätt svar
                 </p>
-                <AnswerOptions
+                <AnswerOptionsV7
                   options={question.options}
                   selectedIndex={answers[currentQuestion]}
                   onSelect={handleSelectAnswer}
@@ -335,7 +339,7 @@ function QuestionHeader({
   index: number;
   title: string;
   rule: string;
-  difficulty: 1 | 2 | 3;
+  difficulty: number;
   showHint: boolean;
 }) {
   // Strippa "FRÅGA X — " från title om det finns
