@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,11 +15,9 @@ import {
   Trophy,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import questionBank from '@/lib/logicTestV7/questionBank.v7.json';
+import { selectAvanceradQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7';
 import type { Question } from '@/lib/logicTestV7/types.v7';
 import { SvgCellV7 } from '@/lib/logicTestV7/renderers.v7';
-
-const questions = questionBank as Question[];
 
 interface SavedAnswer {
   q_id: string;
@@ -63,6 +61,12 @@ export default function ResultsPage({ params }: PageProps) {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [session, setSession] = useState<SessionData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Samma seedade urval som test-sidan → identiska 15 frågor för denna session.
+  const questions = useMemo(
+    () => (sessionId ? (selectAvanceradQuestionsForSession(sessionId) as unknown as Question[]) : []),
+    [sessionId]
+  );
 
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
@@ -194,7 +198,7 @@ export default function ResultsPage({ params }: PageProps) {
         )}
 
         {!isLegacySession && (
-          <QuestionReview answers={savedAnswers} formatTimeShort={formatTimeShort} />
+          <QuestionReview answers={savedAnswers} questions={questions} formatTimeShort={formatTimeShort} />
         )}
 
         <ResultsActions
@@ -446,9 +450,11 @@ function InsightsCard({
 
 function QuestionReview({
   answers,
+  questions,
   formatTimeShort,
 }: {
   answers: SavedAnswer[];
+  questions: Question[];
   formatTimeShort: (s: number) => string;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

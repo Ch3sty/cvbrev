@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
@@ -9,10 +9,8 @@ import { AnswerOptions } from '@/components/tests/logicV6/AnswerOptions';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
 import { useTestHintMode } from '@/hooks/use-test-hint-mode';
-import questionBank from '@/lib/logicTestV7/questionBank.v7.json';
+import { selectAvanceradQuestionsForSession, QUESTIONS_PER_SESSION } from '@/lib/logicTestV7/selectQuestions.v7';
 import type { Question } from '@/lib/logicTestV7/types.v7';
-
-const questions = questionBank as Question[];
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -24,7 +22,7 @@ export default function TestSessionPage({ params }: PageProps) {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
-    Array(questions.length).fill(null)
+    Array(QUESTIONS_PER_SESSION).fill(null)
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
@@ -35,6 +33,12 @@ export default function TestSessionPage({ params }: PageProps) {
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
   }, [params]);
+
+  // Seedat urval av 15 frågor ur avancerad-poolen (samma slumpning som grund/expert).
+  const questions = useMemo(
+    () => (sessionId ? (selectAvanceradQuestionsForSession(sessionId) as unknown as Question[]) : []),
+    [sessionId]
+  );
 
   const question = questions[currentQuestion];
   const answeredQuestions = new Set(
@@ -132,7 +136,7 @@ export default function TestSessionPage({ params }: PageProps) {
       if (e.key === 'ArrowRight') handleNext();
       const letterKeys = ['a', 'b', 'c', 'd', 'e', 'f'];
       const index = letterKeys.indexOf(e.key.toLowerCase());
-      if (index >= 0 && index < question.options.length) {
+      if (question && index >= 0 && index < question.options.length) {
         handleSelectAnswer(index);
       }
     };

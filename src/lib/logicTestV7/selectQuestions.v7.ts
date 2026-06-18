@@ -7,10 +7,12 @@
 // =============================================================================
 
 import grundBank from './questionBankGrund.v7.json';
+import avanceradBank from './questionBank.v7.json';
 import expertBank from './questionBankExpert.v7.json';
 import type { LayeredQuestion } from './layered.v7';
 
 export const GRUND_POOL = grundBank as unknown as LayeredQuestion[];
+export const AVANCERAD_POOL = avanceradBank as unknown as LayeredQuestion[];
 export const EXPERT_POOL = expertBank as unknown as LayeredQuestion[];
 export const QUESTIONS_PER_SESSION = 15;
 
@@ -56,6 +58,14 @@ export function selectQuestionsForSession(
   count: number = QUESTIONS_PER_SESSION
 ): LayeredQuestion[] {
   return selectFromPool(GRUND_POOL, sessionId, count);
+}
+
+// Avancerad-testet: N frågor ur avancerad-poolen.
+export function selectAvanceradQuestionsForSession(
+  sessionId: string,
+  count: number = QUESTIONS_PER_SESSION
+): LayeredQuestion[] {
+  return selectFromPool(AVANCERAD_POOL, sessionId, count);
 }
 
 // Expert-testet: N frågor ur expertpoolen.
