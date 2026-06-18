@@ -61,7 +61,7 @@ export default function TestProgressCard({ def, stats, index }: Props) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
               <CategoryPill label={def.categoryLabel} />
-              <LevelPill label={def.levelLabel} />
+              {!def.levelInTitle && <LevelPill label={def.levelLabel} />}
             </div>
             <h3 className="text-base font-bold text-slate-900 leading-tight truncate">
               {def.title}

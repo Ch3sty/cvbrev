@@ -82,8 +82,8 @@ export async function GET(request: Request) {
     if (testType && testType !== 'grund') {
       query = query.eq('test_type', testType);
     } else {
-      // Grund: sessioner utan test_type (null). Exkludera expert/andra typer.
-      query = query.is('test_type', null);
+      // Grund lagras med kolumnens default 'matrislogik' (kolumnen är NOT NULL).
+      query = query.eq('test_type', 'matrislogik');
     }
 
     const { data: sessions, error: fetchError } = await query.order('created_at', {

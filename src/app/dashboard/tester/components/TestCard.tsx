@@ -27,6 +27,8 @@ interface TestCardProps {
   method?: string;
   categoryLabel: TestCategoryLabel;
   levelLabel: TestLevelLabel;
+  /** Dölj nivå-pillret (när nivån redan står i titeln). */
+  hideLevelPill?: boolean;
   questionCount: number;
   timeLabel: string;
   isPremiumLocked: boolean;
@@ -44,6 +46,7 @@ export default function TestCard({
   method,
   categoryLabel,
   levelLabel,
+  hideLevelPill,
   questionCount,
   timeLabel,
   isPremiumLocked,
@@ -99,7 +102,7 @@ export default function TestCard({
           {/* Topp-rad: kategori + level + premium */}
           <div className="flex items-center gap-1.5 mb-3 flex-wrap">
             <CategoryPill label={categoryLabel} />
-            <LevelPill label={levelLabel} />
+            {!hideLevelPill && <LevelPill label={levelLabel} />}
             <div className="flex-1" />
             {showLock && <PremiumPill />}
             {isRecommended && !showLock && !hasProgress && <RecommendedPill />}

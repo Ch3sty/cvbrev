@@ -42,7 +42,7 @@ export default function TesterHubPage() {
   // Loading state
   if (profileLoading || statsLoading) {
     return (
-      <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-4xl">
+      <div className="mx-auto py-4 sm:py-6 max-w-6xl">
         <div className="space-y-5 sm:space-y-6">
           <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
           <div className="rounded-3xl bg-orange-50/40 h-24 animate-pulse" />
@@ -53,7 +53,7 @@ export default function TesterHubPage() {
   }
 
   return (
-    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-4xl">
+    <div className="mx-auto py-4 sm:py-6 max-w-6xl">
       <div className="space-y-5 sm:space-y-6 lg:space-y-7">
         <TesterHubHero
           totalCompleted={aggregate.totalCompleted}

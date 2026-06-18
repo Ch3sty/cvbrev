@@ -21,6 +21,8 @@ export interface CognitiveTestDef {
   method: string;
   categoryLabel: TestCategoryLabel;
   levelLabel: TestLevelLabel;
+  /** Om true bakas nivån in i titeln och nivå-pillret döljs på kortet. */
+  levelInTitle?: boolean;
   questionCount: number;
   timeLabel: string;
   isPremiumLocked: boolean;
@@ -50,10 +52,11 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
   {
     slug: 'matrislogik-grund',
     variant: 'matrix-grund',
-    title: 'Logiktest',
+    title: 'Logiktest Grund',
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Grund',
+    levelInTitle: true,
     questionCount: 15,
     timeLabel: '20',
     isPremiumLocked: false,
@@ -61,10 +64,11 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
   {
     slug: 'matrislogik-avancerad',
     variant: 'matrix-avancerad',
-    title: 'Logiktest',
+    title: 'Logiktest Avancerad',
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Avancerad',
+    levelInTitle: true,
     questionCount: 15,
     timeLabel: '25',
     isPremiumLocked: true,
@@ -72,10 +76,11 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
   {
     slug: 'matrislogik-expert',
     variant: 'matrix-expert',
-    title: 'Logiktest',
+    title: 'Logiktest Expert',
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Expert',
+    levelInTitle: true,
     questionCount: 15,
     timeLabel: '30',
     isPremiumLocked: true,
@@ -90,7 +95,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     method: 'Läsförståelse · slutledning',
     categoryLabel: 'Språk',
     levelLabel: 'Grund',
-    questionCount: 15,
+    questionCount: 48,
     timeLabel: '20',
     isPremiumLocked: false,
   },
@@ -101,7 +106,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     method: 'Läsförståelse · slutledning',
     categoryLabel: 'Språk',
     levelLabel: 'Avancerad',
-    questionCount: 15,
+    questionCount: 48,
     timeLabel: '25',
     isPremiumLocked: true,
   },
@@ -115,7 +120,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Grund',
-    questionCount: 15,
+    questionCount: 24,
     timeLabel: '20',
     isPremiumLocked: false,
   },
@@ -126,7 +131,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Avancerad',
-    questionCount: 15,
+    questionCount: 24,
     timeLabel: '25',
     isPremiumLocked: true,
   },

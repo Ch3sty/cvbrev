@@ -40,7 +40,11 @@ export default function TestGroup({
         <p className="text-xs sm:text-sm text-slate-600 mt-0.5">{group.blurb}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 ${
+          group.cognitive.length === 3 ? 'lg:grid-cols-3' : ''
+        }`}
+      >
         {group.cognitive.map((test, i) => (
           <TestCard
             key={test.slug}
@@ -50,6 +54,7 @@ export default function TestGroup({
             method={test.method}
             categoryLabel={test.categoryLabel}
             levelLabel={test.levelLabel}
+            hideLevelPill={test.levelInTitle}
             questionCount={test.questionCount}
             timeLabel={test.timeLabel}
             isPremiumLocked={test.isPremiumLocked}
