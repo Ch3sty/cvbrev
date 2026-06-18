@@ -57,6 +57,16 @@ const COGNITIVE_TESTS: TestDef[] = [
     isPremiumLocked: true,
   },
   {
+    slug: 'matrislogik-expert',
+    variant: 'matrix-expert',
+    title: 'Matrislogik',
+    categoryLabel: 'Logik',
+    levelLabel: 'Expert',
+    questionCount: 15,
+    timeLabel: '30',
+    isPremiumLocked: true,
+  },
+  {
     slug: 'verbal-resonemang',
     variant: 'verbal-v1',
     title: 'Verbalt resonemang',

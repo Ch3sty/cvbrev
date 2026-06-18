@@ -10,13 +10,14 @@ import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 export type TestCardVariant =
   | 'matrix-grund'
   | 'matrix-avancerad'
+  | 'matrix-expert'
   | 'verbal-v1'
   | 'verbal-v2'
   | 'numerical-v1'
   | 'numerical-v2';
 
 export type TestCategoryLabel = 'Logik' | 'Språk' | 'Siffror' | 'Personlighet';
-export type TestLevelLabel = 'Grund' | 'Avancerad';
+export type TestLevelLabel = 'Grund' | 'Avancerad' | 'Expert';
 
 interface TestCardProps {
   slug: TestSlug;
@@ -188,14 +189,15 @@ export function CategoryPill({ label }: { label: TestCategoryLabel }) {
 }
 
 export function LevelPill({ label }: { label: TestLevelLabel }) {
-  const isAdvanced = label === 'Avancerad';
+  const cls =
+    label === 'Expert'
+      ? 'bg-rose-50 text-rose-700 border-rose-200'
+      : label === 'Avancerad'
+      ? 'bg-amber-50 text-amber-700 border-amber-200'
+      : 'bg-slate-50 text-slate-600 border-slate-200';
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] border ${
-        isAdvanced
-          ? 'bg-amber-50 text-amber-700 border-amber-200'
-          : 'bg-slate-50 text-slate-600 border-slate-200'
-      }`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] border ${cls}`}
     >
       {label}
     </span>

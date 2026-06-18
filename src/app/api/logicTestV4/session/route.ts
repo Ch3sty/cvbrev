@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -17,12 +17,22 @@ export async function POST() {
       );
     }
 
+    // test_type skiljer grund (null) från expert ('matrislogik-expert').
+    let testType: string | null = null;
+    try {
+      const body = await request.json();
+      if (body && typeof body.test_type === 'string') testType = body.test_type;
+    } catch {
+      /* ingen body = grund */
+    }
+
     // Create new session
     const { data: session, error: createError } = await supabase
       .from('logic_test_v4_sessions')
       .insert({
         user_id: user.id,
-        answers: []
+        answers: [],
+        ...(testType ? { test_type: testType } : {}),
       })
       .select()
       .single();
@@ -45,8 +55,9 @@ export async function POST() {
   }
 }
 
-// GET: Fetch user's sessions
-export async function GET() {
+// GET: Fetch user's sessions (filtrera på test_type: ?test_type=matrislogik-expert
+// ger expert-sessioner; utan param eller test_type=grund ger grund-sessioner (null)).
+export async function GET(request: Request) {
   try {
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -60,12 +71,24 @@ export async function GET() {
       );
     }
 
-    // Fetch all sessions for user, ordered by most recent
-    const { data: sessions, error: fetchError } = await supabase
+    const url = new URL(request.url);
+    const testType = url.searchParams.get('test_type');
+
+    let query = supabase
       .from('logic_test_v4_sessions')
       .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false });
+      .eq('user_id', user.id);
+
+    if (testType && testType !== 'grund') {
+      query = query.eq('test_type', testType);
+    } else {
+      // Grund: sessioner utan test_type (null). Exkludera expert/andra typer.
+      query = query.is('test_type', null);
+    }
+
+    const { data: sessions, error: fetchError } = await query.order('created_at', {
+      ascending: false,
+    });
 
     if (fetchError) {
       console.error('Error fetching sessions:', fetchError);

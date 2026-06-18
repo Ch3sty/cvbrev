@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export type TestSlug =
   | 'matrislogik-grund'
   | 'matrislogik-avancerad'
+  | 'matrislogik-expert'
   | 'verbal-resonemang'
   | 'verbal-resonemang-v2'
   | 'numeriskt-test'
@@ -40,6 +41,7 @@ export interface AllTestStats {
 const TEST_ENDPOINTS: Record<TestSlug, string> = {
   'matrislogik-grund': '/api/logicTestV4/session',
   'matrislogik-avancerad': '/api/logicTestV6/session',
+  'matrislogik-expert': '/api/logicTestV4/session?test_type=matrislogik-expert',
   'verbal-resonemang': '/api/verbalTestV1/session',
   'verbal-resonemang-v2': '/api/verbalTestV2/session',
   'numeriskt-test': '/api/numericalTest/session',
@@ -52,6 +54,7 @@ const TEST_ENDPOINTS: Record<TestSlug, string> = {
 const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
   'matrislogik-grund': 15,
   'matrislogik-avancerad': 15,
+  'matrislogik-expert': 15,
   'verbal-resonemang': 48,
   'verbal-resonemang-v2': 48,
   'numeriskt-test': 24,

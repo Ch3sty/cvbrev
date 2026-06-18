@@ -3,10 +3,11 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
 import questionBankV7Grund from '@/lib/logicTestV7/questionBankGrund.v7.json';
+import questionBankV7Expert from '@/lib/logicTestV7/questionBankExpert.v7.json';
 
-// Slå ihop bankerna så svar-API:t hittar både gamla V5-frågor (pågående sessioner)
-// och nya V7-grundfrågor. Endast id + correctAnswer behövs här.
-const allQuestions = [...questionBank, ...questionBankV7Grund] as Array<{
+// Slå ihop bankerna så svar-API:t hittar V5-frågor (pågående sessioner), V7-grund
+// och V7-expert. Endast id + correctAnswer behövs här.
+const allQuestions = [...questionBank, ...questionBankV7Grund, ...questionBankV7Expert] as Array<{
   id: string;
   correctAnswer: number;
 }>;

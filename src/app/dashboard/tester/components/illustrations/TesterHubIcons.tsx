@@ -263,6 +263,7 @@ export function TestCardThumbnail({
   variant?:
     | 'matrix-grund'
     | 'matrix-avancerad'
+    | 'matrix-expert'
     | 'verbal-v1'
     | 'verbal-v2'
     | 'numerical-v1'
@@ -303,7 +304,7 @@ export function TestCardThumbnail({
         </g>
       )}
 
-      {variant === 'matrix-avancerad' && (
+      {(variant === 'matrix-avancerad' || variant === 'matrix-expert') && (
         // Mer komplex 3×3 — koncentriska element
         <g>
           <circle cx="24" cy="24" r="14" fill="none" stroke="url(#hub-orange-red)" strokeWidth="2" />

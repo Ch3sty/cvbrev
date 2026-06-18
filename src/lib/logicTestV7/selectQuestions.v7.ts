@@ -7,9 +7,11 @@
 // =============================================================================
 
 import grundBank from './questionBankGrund.v7.json';
+import expertBank from './questionBankExpert.v7.json';
 import type { LayeredQuestion } from './layered.v7';
 
 export const GRUND_POOL = grundBank as unknown as LayeredQuestion[];
+export const EXPERT_POOL = expertBank as unknown as LayeredQuestion[];
 export const QUESTIONS_PER_SESSION = 15;
 
 // Enkel deterministisk hash (FNV-1a) av en sträng → 32-bitars heltal.
@@ -33,19 +35,33 @@ function mulberry32(seed: number) {
   };
 }
 
-// Returnerar N frågor ur poolen, deterministiskt valda + ordnade från sessionId.
+// Deterministiskt urval ur en given pool, seedat på sessionId.
+function selectFromPool(
+  pool: LayeredQuestion[],
+  sessionId: string,
+  count: number
+): LayeredQuestion[] {
+  const shuffled = [...pool];
+  const rng = mulberry32(hashString(sessionId));
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+}
+
+// Grund-testet: N frågor ur grundpoolen.
 export function selectQuestionsForSession(
   sessionId: string,
   count: number = QUESTIONS_PER_SESSION
 ): LayeredQuestion[] {
-  const pool = [...GRUND_POOL];
-  const rng = mulberry32(hashString(sessionId));
+  return selectFromPool(GRUND_POOL, sessionId, count);
+}
 
-  // Fisher–Yates med seedad rng
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-
-  return pool.slice(0, Math.min(count, pool.length));
+// Expert-testet: N frågor ur expertpoolen.
+export function selectExpertQuestionsForSession(
+  sessionId: string,
+  count: number = QUESTIONS_PER_SESSION
+): LayeredQuestion[] {
+  return selectFromPool(EXPERT_POOL, sessionId, count);
 }
