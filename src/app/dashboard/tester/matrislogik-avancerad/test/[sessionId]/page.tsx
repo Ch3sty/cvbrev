@@ -412,7 +412,7 @@ function HintToggle({ showHint, onToggle }: { showHint: boolean; onToggle: () =>
             }`}
           />
         </span>
-        {showHint ? 'Ledtråd på' : 'Ledtråd av'}
+        {showHint ? 'Förklarande text på' : 'Förklarande text av'}
       </button>
     </div>
   );

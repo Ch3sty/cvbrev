@@ -190,7 +190,7 @@ export default function TestSessionPage({ params }: PageProps) {
                 showHint={showHint}
               />
 
-              {/* Ledtråd på/av */}
+              {/* Förklarande text på/av */}
               <HintToggle showHint={showHint} onToggle={toggleHint} />
 
               {/* 3×3 Matris */}
@@ -430,7 +430,7 @@ function HintToggle({ showHint, onToggle }: { showHint: boolean; onToggle: () =>
             }`}
           />
         </span>
-        {showHint ? 'Ledtråd på' : 'Ledtråd av'}
+        {showHint ? 'Förklarande text på' : 'Förklarande text av'}
       </button>
     </div>
   );

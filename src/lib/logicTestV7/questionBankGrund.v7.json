@@ -1,8 +1,8 @@
 [
   {
     "id": "v7g-q1-poly-latin",
-    "title": "Polygon och fyllning som latin square",
-    "rule": "Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning — och exakt en ofylld, en grå och en svart. Inget antal sidor och ingen fyllning får upprepas i samma rad eller kolumn.",
+    "title": "Form och färg varierar i rader och kolumner",
+    "rule": "Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Varje rad och varje kolumn har också exakt en ofylld, en grå och en svart figur. Ingen form och ingen fyllning upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
@@ -21,8 +21,8 @@
   },
   {
     "id": "v7g-q2-ring-count-fill",
-    "title": "Antal ringar per kolumn, innersta fyllning per rad",
-    "rule": "Antalet koncentriska ringar ökar med en per kolumn (en, två, tre). Raden bestämmer den innersta ringens fyllning: rad 1 svart, rad 2 grå, rad 3 ofylld. Yttre ringar är alltid ofyllda.",
+    "title": "Antal ringar per kolumn, innersta färg per rad",
+    "rule": "Antalet ringar inuti varandra ökar med en för varje kolumn (en, två, tre). Raden bestämmer färgen på den innersta ringen: rad 1 svart, rad 2 grå, rad 3 ofylld. De yttre ringarna är alltid ofyllda.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
@@ -41,8 +41,8 @@
   },
   {
     "id": "v7g-q3-vector-rotation",
-    "title": "Vektorn vrider sig",
-    "rule": "Vektorn vrider sig 45° medurs för varje cell, läst rad för rad utan avbrott. Längden och pilspetsen är desamma genom hela mönstret.",
+    "title": "Pilen vrider sig",
+    "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
@@ -61,8 +61,8 @@
   },
   {
     "id": "v7g-q4-stack-latin",
-    "title": "Basform och symbol som latin square",
-    "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som bas — och exakt en med plus, en med minus och en med prick som symbol. Inget upprepas i samma rad eller kolumn. Basen är ofylld.",
+    "title": "Form och symbol varierar i rader och kolumner",
+    "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som grundform. Varje rad och varje kolumn har också exakt en med plus, en med minus och en med prick. Inget upprepas i samma rad eller kolumn. Formerna är ofyllda.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" }],
@@ -81,8 +81,8 @@
   },
   {
     "id": "v7g-q5-tally-latin",
-    "title": "Räknepinnarnas antal bildar latin square",
-    "rule": "Pinnarna är alltid vertikala. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med två, en med tre och en med fyra pinnar. Inget antal upprepas i samma rad eller kolumn.",
+    "title": "Antal streck varierar i rader och kolumner",
+    "rule": "Strecken står alltid upprätt. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
@@ -101,8 +101,8 @@
   },
   {
     "id": "v7g-q6-orbital-walk",
-    "title": "Satelliten vandrar runt cirkeln",
-    "rule": "Satelliten flyttar sig 90° medurs (två positioner) för varje cell, läst rad för rad utan avbrott. Mittpunkten är fylld i hela mönstret.",
+    "title": "Pricken vandrar runt cirkeln",
+    "rule": "Pricken flyttar sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 2 }, { "kind": "orbital", "center": "filled", "satellite": 4 }],
@@ -121,8 +121,8 @@
   },
   {
     "id": "v7g-q7-ray-count-latin",
-    "title": "Antal strålar bildar latin square",
-    "rule": "Antalet strålar från centrum följer en latin square: varje rad och varje kolumn innehåller exakt en figur med två strålar, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
+    "title": "Antal streck från mitten varierar",
+    "rule": "Strecken går ut från mitten. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [0, 2, 4, 6] }],
@@ -141,8 +141,8 @@
   },
   {
     "id": "v7g-q8-lattice-rotate",
-    "title": "Den fyllda rutan vandrar i mini-rutnätet",
-    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg medurs (TL → TR → BR → BL) för varje cell, läst rad för rad utan avbrott.",
+    "title": "Den svarta rutan vandrar runt",
+    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
@@ -161,8 +161,8 @@
   },
   {
     "id": "v7g-q9-vector-rotate-ccw",
-    "title": "Vektorn vrider sig moturs",
-    "rule": "Vektorn vrider sig 45° moturs för varje cell, läst rad för rad utan avbrott. Längd och pilspets är desamma genom hela mönstret.",
+    "title": "Pilen vrider sig moturs",
+    "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "vector", "angle": 315, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
@@ -181,8 +181,8 @@
   },
   {
     "id": "v7g-q10-poly-fill-latin",
-    "title": "Fyllningen bildar latin square",
-    "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och varje kolumn innehåller exakt en ofylld, en grå och en svart. Ingen fyllning upprepas i samma rad eller kolumn.",
+    "title": "Färgen varierar i rader och kolumner",
+    "rule": "Alla figurer är sexhörningar. Varje rad och varje kolumn innehåller exakt en ofylld, en grå och en svart figur. Ingen färg upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
@@ -201,8 +201,8 @@
   },
   {
     "id": "v7g-q11-ring-fill-latin",
-    "title": "Ringfyllningen bildar latin square",
-    "rule": "Alla figurer har två koncentriska ringar. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart innerring. Yttre ringen är alltid ofylld.",
+    "title": "Innersta ringens färg varierar",
+    "rule": "Alla figurer har två ringar inuti varandra. Varje rad och varje kolumn har exakt en ofylld, en grå och en svart innerring. Den yttre ringen är alltid ofylld.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "black"] }],
@@ -221,8 +221,8 @@
   },
   {
     "id": "v7g-q12-tally-count-latin",
-    "title": "Antal pinnar bildar latin square",
-    "rule": "Pinnarna är alltid horisontella. Antalet följer en latin square: varje rad och varje kolumn innehåller exakt en med två, en med tre och en med fyra pinnar. Inget antal upprepas i samma rad eller kolumn.",
+    "title": "Antal liggande streck varierar",
+    "rule": "Strecken ligger alltid på tvären. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "tally", "count": 2, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 4, "orientation": "horizontal" }],
@@ -241,8 +241,8 @@
   },
   {
     "id": "v7g-q13-orbital-walk-3",
-    "title": "Satelliten hoppar tre steg",
-    "rule": "Satelliten flyttar tre positioner medurs (135°) för varje cell, läst rad för rad utan avbrott. Mittpunkten är öppen i hela mönstret.",
+    "title": "Pricken hoppar tre steg",
+    "rule": "Pricken flyttar tre steg medurs (135 grader) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är ofylld hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "orbital", "center": "open", "satellite": 0 }, { "kind": "orbital", "center": "open", "satellite": 3 }, { "kind": "orbital", "center": "open", "satellite": 6 }],
@@ -261,8 +261,8 @@
   },
   {
     "id": "v7g-q14-stack-base-latin",
-    "title": "Basformen bildar latin square",
-    "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en diamant. Ingen form upprepas i samma rad eller kolumn.",
+    "title": "Grundformen varierar i rader och kolumner",
+    "rule": "Alla figurer är ofyllda och har en prick. Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en romb. Ingen form upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }],
@@ -281,8 +281,8 @@
   },
   {
     "id": "v7g-q15-lattice-ccw",
-    "title": "Den fyllda rutan vandrar moturs",
-    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg moturs (TL → BL → BR → TR) för varje cell, läst rad för rad utan avbrott.",
+    "title": "Den svarta rutan vandrar moturs",
+    "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg moturs (uppe vänster, nere vänster, nere höger, uppe höger) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
@@ -301,8 +301,8 @@
   },
   {
     "id": "v7g-q16-ray-rotate-walk",
-    "title": "Strålparet vrider sig",
-    "rule": "Två motstående strålar vrider sig 45° medurs (en position) för varje cell, läst rad för rad utan avbrott.",
+    "title": "Strecken vrider sig",
+    "rule": "Två streck som pekar åt motsatt håll vrider sig 45 grader medurs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [1, 5] }, { "kind": "ray", "rays": [2, 6] }],
@@ -321,8 +321,8 @@
   },
   {
     "id": "v7g-q17-poly-sides-latin",
-    "title": "Antal sidor bildar latin square",
-    "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Inget antal sidor upprepas i samma rad eller kolumn.",
+    "title": "Antal sidor varierar i rader och kolumner",
+    "rule": "Alla figurer är svarta. Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Ingen form upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
@@ -341,8 +341,8 @@
   },
   {
     "id": "v7g-q18-vector-walk-half",
-    "title": "Vektorn vrider sig halvvarv per steg",
-    "rule": "Vektorn vrider sig 90° medurs (två positioner) för varje cell, läst rad för rad utan avbrott. Längd och pilspets är desamma.",
+    "title": "Pilen vrider sig ett kvarts varv per steg",
+    "rule": "Pilen vrider sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }],
@@ -361,8 +361,8 @@
   },
   {
     "id": "v7g-q19-ring-innerfill-latin",
-    "title": "Innersta ringens fyllning bildar latin square",
-    "rule": "Alla figurer har tre koncentriska ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring. Inget upprepas i samma rad eller kolumn.",
+    "title": "Innersta ringens färg varierar",
+    "rule": "Alla figurer har tre ringar inuti varandra där de två yttre är ofyllda. Varje rad och varje kolumn har exakt en ofylld, en grå och en svart innerring. Ingen färg upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "ring", "rings": ["none", "none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
@@ -382,7 +382,7 @@
   {
     "id": "v7g-q20-lattice-graycell-walk",
     "title": "Den grå rutan vandrar medurs",
-    "rule": "Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (TL → TR → BR → BL) för varje cell, läst rad för rad utan avbrott.",
+    "rule": "Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_gray"] }],
@@ -401,8 +401,8 @@
   },
   {
     "id": "v7g-q21-orbital-ccw",
-    "title": "Satelliten vandrar moturs",
-    "rule": "Satelliten flyttar sig 45° moturs (en position) för varje cell, läst rad för rad utan avbrott. Mittpunkten är fylld.",
+    "title": "Pricken vandrar moturs",
+    "rule": "Pricken flyttar sig 45 grader moturs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 7 }, { "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
@@ -421,8 +421,8 @@
   },
   {
     "id": "v7g-q22-stack-symbol-latin",
-    "title": "Symbolen bildar latin square",
-    "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen ovanpå följer en latin square: varje rad och varje kolumn innehåller exakt en med plus, en med minus och en med prick. Ingen symbol upprepas i samma rad eller kolumn.",
+    "title": "Symbolen varierar i rader och kolumner",
+    "rule": "Alla figurer har en ofylld cirkel som grundform. Varje rad och varje kolumn innehåller exakt en med plus, en med minus och en med prick. Ingen symbol upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
@@ -441,8 +441,8 @@
   },
   {
     "id": "v7g-q23-tally-walk-count",
-    "title": "Pinnarna blir fler runt griden",
-    "rule": "Pinnarna är alltid vertikala. Antalet ökar med en för varje cell, läst rad för rad (1, 2, 3, 4), och börjar sedan om på 1. Mönstret löper obrutet genom hela rutnätet.",
+    "title": "Strecken blir fler ruta för ruta",
+    "rule": "Strecken står alltid upprätt. Antalet ökar med ett för varje ruta (1, 2, 3, 4) och börjar sedan om på 1. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
@@ -461,8 +461,8 @@
   },
   {
     "id": "v7g-q24-ray-add",
-    "title": "Strålarna slås samman",
-    "rule": "Strålarna i kolumn 3 är alla strålar från kolumn 1 och kolumn 2 tillsammans (union). En stråle som finns i någon av de två första kolumnerna visas i den tredje.",
+    "title": "Strecken slås samman",
+    "rule": "Strecken i kolumn 3 är alla streck från kolumn 1 och kolumn 2 tillsammans. Ett streck som finns i någon av de två första kolumnerna visas i den tredje.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "ray", "rays": [0] }, { "kind": "ray", "rays": [4] }, { "kind": "ray", "rays": [0, 4] }],
@@ -482,7 +482,7 @@
   {
     "id": "v7g-q25-poly-rotate-walk",
     "title": "Femhörningen vrider sig stegvis",
-    "rule": "Den svarta femhörningen vrider sig 30° medurs för varje cell, läst rad för rad utan avbrott (0°, 30°, 60°, 90° ...). Antalet sidor är detsamma.",
+    "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta (0, 30, 60, 90 grader och så vidare). Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
     "difficulty": 2,
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 60, "fill": "black" }],
@@ -501,8 +501,8 @@
   },
   {
     "id": "v7g-q26-orbital-fill-latin",
-    "title": "Satellitens position bildar latin square",
-    "rule": "Mittpunkten är fylld i alla. Satellitens position följer en latin square mellan tre lägen (toppen, nedre höger, nedre vänster): varje rad och kolumn har exakt en av varje. Ingen position upprepas i samma rad eller kolumn.",
+    "title": "Prickens läge varierar i rader och kolumner",
+    "rule": "Mittpunkten är fylld i alla. Pricken kan sitta på tre ställen (uppe, nere till höger, nere till vänster). Varje rad och varje kolumn har exakt ett av varje läge. Inget läge upprepas i samma rad eller kolumn.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
@@ -522,7 +522,7 @@
   {
     "id": "v7g-q27-lattice-fill-cycle",
     "title": "Rutmönstret roterar ett kvarts varv",
-    "rule": "Mönstret i mini-rutnätet roterar ett kvarts varv medurs för varje cell, läst rad för rad utan avbrott. Antalet svarta rutor förändras aldrig.",
+    "rule": "Mönstret i de fyra rutorna roterar ett kvarts varv medurs för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner. Antalet svarta rutor förändras aldrig.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "fill_black"] }],
@@ -541,8 +541,8 @@
   },
   {
     "id": "v7g-q28-vector-len-walk",
-    "title": "Vektorn vrider sig och växlar längd",
-    "rule": "Vektorn vrider sig 45° medurs för varje cell, läst rad för rad utan avbrott. Längden växlar mellan lång och kort för varje cell, med start lång.",
+    "title": "Pilen vrider sig och byter längd",
+    "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Längden växlar mellan lång och kort för varje ruta, och börjar med lång.",
     "difficulty": 3,
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "short", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
