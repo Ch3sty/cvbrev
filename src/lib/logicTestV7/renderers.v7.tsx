@@ -767,10 +767,27 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
     );
   };
 
+  // Avdelare mellan de tre platserna (x=28/50/72): korta lodräta streck som
+  // korsar linjen, så att de tre facken på vardera sida syns tydligt.
+  const dividerXs = [39, 61];
+
   return (
     <>
       {/* Vågrät baslinje */}
       <line x1={12} y1={lineY} x2={88} y2={lineY} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" />
+      {/* Lodräta avdelare (3 fack per sida) */}
+      {dividerXs.map((dx, i) => (
+        <line
+          key={`d${i}`}
+          x1={dx}
+          y1={lineY - 5}
+          x2={dx}
+          y2={lineY + 5}
+          stroke={STROKE}
+          strokeWidth={SW_THIN}
+          strokeLinecap="round"
+        />
+      ))}
       {cell.items.map(drawShape)}
     </>
   );
