@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Crown, Lock, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Lock, Play, CheckCircle2, FileText, Clock } from 'lucide-react';
 import { TestCardThumbnail } from './illustrations/TesterHubIcons';
-import { CategoryPill, LevelPill, type TestLevelLabel } from './TestCard';
+import LevelDots from './LevelDots';
+import type { TestLevelLabel } from './TestCard';
 
 export type PersonalityCardVariant = 'personality-grund' | 'personality-avancerad';
 
@@ -61,7 +62,7 @@ export default function PersonalityTestCard({
       <Link
         href={href}
         onClick={handleClick}
-        className="group relative block bg-white rounded-3xl border border-orange-100 overflow-hidden transition-all hover:-translate-y-0.5 hover:border-orange-200 touch-manipulation"
+        className="group relative flex flex-col h-full bg-white rounded-3xl border border-orange-100 overflow-hidden transition-all hover:-translate-y-0.5 hover:border-orange-200 touch-manipulation"
         style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
       >
         <div
@@ -73,85 +74,68 @@ export default function PersonalityTestCard({
           }}
         />
 
-        {hasProfile && (
-          <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-md z-10">
-            <Crown className="w-4 h-4 text-white" strokeWidth={2.5} fill="white" />
-          </div>
-        )}
-
-        <div className="p-3 sm:p-4">
-          {/* Topp-rad: kategori + level + premium */}
-          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
-            <CategoryPill label="Personlighet" />
-            <LevelPill label={levelLabel} />
-            <div className="flex-1" />
-            {showLock && (
+        <div className="p-4 flex flex-col h-full">
+          {/* Topprad: nivå-dots + status/premium */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <LevelDots level={levelLabel} showLabel />
+            {showLock ? (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-amber-100 text-amber-800 border border-amber-200">
                 <Lock className="w-2.5 h-2.5" strokeWidth={2.5} />
                 Premium
               </span>
-            )}
+            ) : hasProfile ? (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <CheckCircle2 className="w-2.5 h-2.5" strokeWidth={2.5} />
+                Klar
+              </span>
+            ) : null}
           </div>
 
-          {/* Header: ikon + titel */}
+          {/* Ikon + titel */}
           <div className="flex items-center gap-3 mb-3">
             <div className="flex-shrink-0">
-              <TestCardThumbnail className="w-11 h-11" variant={variant} />
+              <TestCardThumbnail className="w-12 h-12" variant={variant} />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight truncate">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight">
                 {title}
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight truncate">
-                Vad dina svar säger rekryteraren
-              </p>
-              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 tabular-nums">
-                {questionCount} frågor · {timeLabel} min
-              </p>
+              <div className="flex items-center gap-2.5 mt-1 text-[11px] text-slate-500 tabular-nums">
+                <span className="inline-flex items-center gap-1">
+                  <FileText className="w-3 h-3" strokeWidth={2.5} />
+                  {questionCount}
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="w-3 h-3" strokeWidth={2.5} />
+                  {timeLabel} min
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Personlig progress */}
-          {hasProfile && !showLock && stats.lastCompletedAt && (
-            <div
-              className="rounded-xl p-2.5 mb-3 border"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(254, 243, 199, 0.4), rgba(254, 215, 170, 0.3))',
-                borderColor: '#FED7AA',
-              }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
-                  <span className="text-xs font-bold text-slate-900">Profilen är klar</span>
-                </div>
-                <span className="text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
-                  {new Date(stats.lastCompletedAt).toLocaleDateString('sv-SE')}
-                </span>
-              </div>
-              {stats.attempts > 1 && (
-                <p className="text-[10px] text-slate-500 mt-1">
-                  {stats.attempts} försök
-                </p>
-              )}
+          {/* Status-rad om profil finns */}
+          {hasProfile && !showLock && stats.lastCompletedAt ? (
+            <div className="flex items-center justify-between gap-2 mb-3 rounded-xl bg-orange-50/50 border border-orange-100 px-3 py-2">
+              <span className="text-xs font-bold text-slate-900">Profilen är klar</span>
+              <span className="text-[10px] font-bold tabular-nums text-slate-500">
+                {new Date(stats.lastCompletedAt).toLocaleDateString('sv-SE')}
+              </span>
             </div>
+          ) : (
+            <div className="flex-1" />
           )}
 
           {/* CTA */}
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 mt-auto">
             {showLock ? (
               <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-700">
                 <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
                 Lås upp med Premium
               </span>
-            ) : hasProfile ? (
-              <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-700">
-                Gör om testet
-              </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-700">
-                Starta testet
+                <Play className="w-3.5 h-3.5" strokeWidth={2.5} fill="currentColor" />
+                {hasProfile ? 'Gör om testet' : 'Starta testet'}
               </span>
             )}
             <ArrowRight

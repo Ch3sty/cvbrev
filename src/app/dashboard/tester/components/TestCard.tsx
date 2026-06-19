@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Crown, Lock, CheckCircle2 } from 'lucide-react';
-import { TestCardThumbnail } from './illustrations/TesterHubIcons';
+import { ArrowRight, Lock, Play, CheckCircle2, Trophy, FileText, Clock } from 'lucide-react';
+import { TestCardThumbnail, type TestType } from './illustrations/TesterHubIcons';
+import LevelDots from './LevelDots';
+import Sparkline from './Sparkline';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 
 export type TestCardVariant =
@@ -22,18 +24,17 @@ export type TestLevelLabel = 'Grund' | 'Avancerad' | 'Expert';
 interface TestCardProps {
   slug: TestSlug;
   variant: TestCardVariant;
+  /** Testtyp för ikonen (en ikon per typ). Härleds från variant om utelämnad. */
+  type?: TestType;
   title: string;
-  /** Metod/undertext, t.ex. "Mönsterigenkänning · matriser". */
-  method?: string;
   categoryLabel: TestCategoryLabel;
   levelLabel: TestLevelLabel;
-  /** Dölj nivå-pillret (när nivån redan står i titeln). */
-  hideLevelPill?: boolean;
   questionCount: number;
   timeLabel: string;
   isPremiumLocked: boolean;
   isUserPremium: boolean;
   stats: PerTestStats;
+  /** Ditt bästa test totalt — får en subtil accent (ersätter kronan). */
   isBestOverall?: boolean;
   isRecommended?: boolean;
   index?: number;
@@ -42,11 +43,10 @@ interface TestCardProps {
 export default function TestCard({
   slug,
   variant,
+  type,
   title,
-  method,
   categoryLabel,
   levelLabel,
-  hideLevelPill,
   questionCount,
   timeLabel,
   isPremiumLocked,
@@ -60,6 +60,7 @@ export default function TestCard({
   const showLock = isPremiumLocked && !isUserPremium;
   const hasProgress = stats.attempts > 0;
   const href = showLock ? '/priser' : `/dashboard/tester/${slug}`;
+  const showBestAccent = isBestOverall && hasProgress;
 
   const handleClick = (e: React.MouseEvent) => {
     if (showLock) {
@@ -68,25 +69,27 @@ export default function TestCard({
     }
   };
 
+  const trend = stats.history.map((h) => h.percentage);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 + index * 0.04 }}
-      className="relative"
     >
-      {/* Best overall crown – ligger utanför Link (som har overflow-hidden) så den inte klipps av de rundade hörnen */}
-      {isBestOverall && hasProgress && (
-        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-md z-20 pointer-events-none">
-          <Crown className="w-4 h-4 text-white" strokeWidth={2.5} fill="white" />
-        </div>
-      )}
-
       <Link
         href={href}
         onClick={handleClick}
-        className="group relative block bg-white rounded-3xl border border-orange-100 overflow-hidden transition-all hover:-translate-y-0.5 hover:border-orange-200 touch-manipulation"
-        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
+        className={`group relative flex flex-col h-full bg-white rounded-3xl border overflow-hidden transition-all hover:-translate-y-0.5 touch-manipulation ${
+          showBestAccent
+            ? 'border-amber-300 hover:border-amber-400'
+            : 'border-orange-100 hover:border-orange-200'
+        }`}
+        style={{
+          boxShadow: showBestAccent
+            ? '0 6px 20px -8px rgba(245, 158, 11, 0.35)'
+            : '0 4px 16px -8px rgba(249, 115, 22, 0.18)',
+        }}
       >
         {/* Gradient-strip topp */}
         <div
@@ -98,86 +101,85 @@ export default function TestCard({
           }}
         />
 
-        <div className="p-3 sm:p-4">
-          {/* Topp-rad: kategori + level + premium */}
-          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
-            <CategoryPill label={categoryLabel} />
-            {!hideLevelPill && <LevelPill label={levelLabel} />}
-            <div className="flex-1" />
-            {showLock && <PremiumPill />}
-            {isRecommended && !showLock && !hasProgress && <RecommendedPill />}
+        <div className="p-4 flex flex-col h-full">
+          {/* Topprad: nivå-dots vänster, status/premium höger */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <LevelDots level={levelLabel} showLabel />
+            {showLock ? (
+              <PremiumPill />
+            ) : showBestAccent ? (
+              <BestBadge />
+            ) : hasProgress ? (
+              <DoneBadge />
+            ) : isRecommended ? (
+              <RecommendedPill />
+            ) : null}
           </div>
 
-          {/* Header: ikon + titel */}
+          {/* Ikon + titel */}
           <div className="flex items-center gap-3 mb-3">
             <div className="flex-shrink-0">
-              <TestCardThumbnail className="w-11 h-11" variant={variant} />
+              <TestCardThumbnail className="w-12 h-12" variant={variant} type={type} />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight truncate">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight">
                 {title}
               </h3>
-              {method && (
-                <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight truncate">
-                  {method}
-                </p>
-              )}
-              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 tabular-nums">
-                {questionCount} frågor · {timeLabel} min
-              </p>
+              <div className="flex items-center gap-2.5 mt-1 text-[11px] text-slate-500 tabular-nums">
+                <span className="inline-flex items-center gap-1">
+                  <FileText className="w-3 h-3" strokeWidth={2.5} />
+                  {questionCount}
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="w-3 h-3" strokeWidth={2.5} />
+                  {timeLabel} min
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Personlig progress (kompakt) */}
-          {hasProgress && !showLock && (
-            <div
-              className="rounded-xl p-2.5 mb-3 border"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(254, 243, 199, 0.4), rgba(254, 215, 170, 0.3))',
-                borderColor: '#FED7AA',
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
-                  <span className="text-xs">
-                    <span className="font-bold text-slate-900 tabular-nums">
-                      {stats.bestScore} / {questionCount}
-                    </span>
-                    <span className="text-slate-600"> bäst</span>
-                  </span>
-                </div>
-                <span className="text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+          {/* Status-zon: en rad. Bästa % + mini-sparkline om gjort. */}
+          {hasProgress && !showLock ? (
+            <div className="flex items-center gap-3 mb-3 rounded-xl bg-orange-50/50 border border-orange-100 px-3 py-2">
+              <div className="flex flex-col leading-none">
+                <span className="text-base font-bold text-slate-900 tabular-nums">
                   {stats.bestPercentage}%
                 </span>
+                <span className="text-[10px] text-slate-500 tabular-nums mt-0.5">
+                  {stats.bestScore}/{questionCount} bäst
+                </span>
               </div>
-              <div className="h-1 bg-white/60 rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all"
-                  style={{
-                    width: `${stats.bestPercentage}%`,
-                    background: 'linear-gradient(90deg, #F97316, #DC2626)',
-                  }}
-                />
+              <div className="flex-1 min-w-0">
+                {trend.length > 1 ? (
+                  <Sparkline values={trend} height={28} />
+                ) : (
+                  <div className="h-1.5 bg-white/70 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${stats.bestPercentage}%`,
+                        background: 'linear-gradient(90deg, #F97316, #DC2626)',
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
+          ) : (
+            <div className="flex-1" />
           )}
 
           {/* CTA */}
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 mt-auto">
             {showLock ? (
               <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-700">
                 <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
                 Lås upp med Premium
               </span>
-            ) : hasProgress ? (
-              <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-700">
-                Gör om testet
-              </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-700">
-                Starta testet
+                <Play className="w-3.5 h-3.5" strokeWidth={2.5} fill="currentColor" />
+                {hasProgress ? 'Gör om testet' : 'Starta testet'}
               </span>
             )}
             <ArrowRight
@@ -234,6 +236,26 @@ function RecommendedPill() {
       }}
     >
       Rekommenderas
+    </span>
+  );
+}
+
+/** Subtil markör för ditt bästa test (ersätter kronan). */
+function BestBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-amber-100 text-amber-800 border border-amber-200">
+      <Trophy className="w-2.5 h-2.5" strokeWidth={2.5} />
+      Ditt bästa
+    </span>
+  );
+}
+
+/** Visar att testet är avklarat. */
+function DoneBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <CheckCircle2 className="w-2.5 h-2.5" strokeWidth={2.5} />
+      Klar
     </span>
   );
 }

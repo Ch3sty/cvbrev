@@ -13,7 +13,8 @@ import {
   Minus,
 } from 'lucide-react';
 import { TestCardThumbnail } from './illustrations/TesterHubIcons';
-import { CategoryPill, LevelPill } from './TestCard';
+import { CategoryPill } from './TestCard';
+import LevelDots from './LevelDots';
 import Sparkline from './Sparkline';
 import type { CognitiveTestDef } from './testCatalog';
 import type { PerTestStats } from '@/hooks/use-all-test-stats';
@@ -59,9 +60,9 @@ export default function TestProgressCard({ def, stats, index }: Props) {
         <div className="flex items-center gap-3 mb-3">
           <TestCardThumbnail className="w-10 h-10 flex-shrink-0" variant={def.variant} />
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+            <div className="flex items-center gap-2 flex-wrap mb-0.5">
               <CategoryPill label={def.categoryLabel} />
-              {!def.levelInTitle && <LevelPill label={def.levelLabel} />}
+              <LevelDots level={def.levelLabel} showLabel />
             </div>
             <h3 className="text-base font-bold text-slate-900 leading-tight truncate">
               {def.title}

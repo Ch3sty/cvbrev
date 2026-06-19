@@ -89,10 +89,8 @@ export default function TestGroup({
             slug={test.slug}
             variant={test.variant}
             title={test.title}
-            method={test.method}
             categoryLabel={test.categoryLabel}
             levelLabel={test.levelLabel}
-            hideLevelPill={test.levelInTitle}
             questionCount={test.questionCount}
             timeLabel={test.timeLabel}
             isPremiumLocked={test.isPremiumLocked}

@@ -253,24 +253,41 @@ export function PersonalityCategoryIllustration({ className = 'w-10 h-10' }: Ico
   );
 }
 
+export type TestCardThumbnailVariant =
+  | 'matrix-grund'
+  | 'matrix-avancerad'
+  | 'matrix-expert'
+  | 'verbal-v1'
+  | 'verbal-v2'
+  | 'numerical-v1'
+  | 'numerical-v2'
+  | 'personality-grund'
+  | 'personality-avancerad';
+
+export type TestType = 'logik' | 'verbal' | 'numerisk' | 'personlighet';
+
+function variantToType(variant: TestCardThumbnailVariant): TestType {
+  if (variant.startsWith('matrix')) return 'logik';
+  if (variant.startsWith('verbal')) return 'verbal';
+  if (variant.startsWith('numerical')) return 'numerisk';
+  return 'personlighet';
+}
+
 /**
- * Liten test-specifik thumbnail per testkort. Olika ikon per test-slug.
+ * Thumbnail per testkort. EN konsekvent ikon per testTYP (logik/verbal/numerisk/
+ * personlighet) — inte per nivå. Nivå visas separat via LevelDots. Tar `type`
+ * direkt eller härleder den från det äldre `variant`-fältet.
  */
 export function TestCardThumbnail({
   className = 'w-12 h-12',
-  variant = 'matrix-grund',
+  variant,
+  type,
 }: IconProps & {
-  variant?:
-    | 'matrix-grund'
-    | 'matrix-avancerad'
-    | 'matrix-expert'
-    | 'verbal-v1'
-    | 'verbal-v2'
-    | 'numerical-v1'
-    | 'numerical-v2'
-    | 'personality-grund'
-    | 'personality-avancerad';
+  variant?: TestCardThumbnailVariant;
+  type?: TestType;
 }) {
+  const resolved: TestType = type ?? (variant ? variantToType(variant) : 'logik');
+
   return (
     <svg viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}
@@ -278,112 +295,59 @@ export function TestCardThumbnail({
       <circle cx="24" cy="24" r="22" fill="url(#hub-orange-pink)" opacity="0.12" />
       <circle cx="24" cy="24" r="18" fill="url(#hub-orange-pink)" opacity="0.18" />
 
-      {variant === 'matrix-grund' && (
-        // 3×3-grid (3 fyllda celler)
+      {resolved === 'logik' && (
+        // 3×3-matris med ett tydligt mönster (diagonalen fylld) — "hitta mönstret".
         <g transform="translate(12 12)">
           {Array.from({ length: 9 }).map((_, i) => {
             const row = Math.floor(i / 3);
             const col = i % 3;
-            const x = col * 9;
-            const y = row * 9;
             const isFilled = [0, 4, 8].includes(i);
             return (
               <rect
                 key={i}
-                x={x}
-                y={y}
+                x={col * 9}
+                y={row * 9}
                 width="7"
                 height="7"
-                rx="1"
+                rx="1.5"
                 fill={isFilled ? 'url(#hub-orange-red)' : 'none'}
-                stroke={isFilled ? 'none' : '#FB923C'}
-                strokeWidth="1"
+                stroke={isFilled ? 'none' : '#FDBA74'}
+                strokeWidth="1.2"
               />
             );
           })}
         </g>
       )}
 
-      {(variant === 'matrix-avancerad' || variant === 'matrix-expert') && (
-        // Mer komplex 3×3 — koncentriska element
+      {resolved === 'verbal' && (
+        // Textrader med en markerad rad — "läs och dra slutsatser".
         <g>
-          <circle cx="24" cy="24" r="14" fill="none" stroke="url(#hub-orange-red)" strokeWidth="2" />
-          <circle cx="24" cy="24" r="9" fill="none" stroke="url(#hub-orange-red)" strokeWidth="2" />
-          <circle cx="24" cy="24" r="4" fill="url(#hub-orange-red)" />
-          {/* Satellit */}
-          <circle cx="34" cy="14" r="2.5" fill="url(#hub-orange-red)" />
+          <rect x="12" y="15" width="24" height="3.2" rx="1.6" fill="url(#hub-orange-red)" />
+          <rect x="12" y="22.4" width="18" height="3.2" rx="1.6" fill="url(#hub-orange-red)" opacity="0.7" />
+          <rect x="12" y="29.8" width="21" height="3.2" rx="1.6" fill="url(#hub-orange-red)" opacity="0.55" />
         </g>
       )}
 
-      {variant === 'verbal-v1' && (
+      {resolved === 'numerisk' && (
+        // Stapeldiagram med axlar — "tolka tabeller och diagram".
         <g>
-          <text x="24" y="30" textAnchor="middle" fontSize="20" fontWeight="800" fill="url(#hub-orange-red)">Aa</text>
+          <line x1="13" y1="35" x2="36" y2="35" stroke="#FDBA74" strokeWidth="1.4" strokeLinecap="round" />
+          <line x1="13" y1="35" x2="13" y2="14" stroke="#FDBA74" strokeWidth="1.4" strokeLinecap="round" />
+          <rect x="16" y="27" width="4.5" height="8" rx="1" fill="url(#hub-orange-red)" opacity="0.75" />
+          <rect x="22.5" y="22" width="4.5" height="13" rx="1" fill="url(#hub-orange-red)" opacity="0.9" />
+          <rect x="29" y="17" width="4.5" height="18" rx="1" fill="url(#hub-orange-red)" />
         </g>
       )}
 
-      {variant === 'verbal-v2' && (
+      {resolved === 'personlighet' && (
+        // Persona + Big Five-orbit — "din profil".
         <g>
-          {/* 3 ord-bubblor */}
-          <rect x="8" y="14" width="14" height="6" rx="2" fill="url(#hub-orange-red)" />
-          <rect x="24" y="14" width="14" height="6" rx="2" fill="url(#hub-orange-red)" opacity="0.75" />
-          <rect x="14" y="24" width="20" height="6" rx="2" fill="url(#hub-orange-red)" opacity="0.85" />
-          <rect x="10" y="34" width="12" height="6" rx="2" fill="url(#hub-orange-red)" opacity="0.6" />
-        </g>
-      )}
-
-      {variant === 'numerical-v1' && (
-        <g>
-          {/* Mini-stapeldiagram för grundnivå */}
-          <line x1="9" y1="38" x2="39" y2="38" stroke="#FB923C" strokeWidth="1" />
-          <line x1="9" y1="38" x2="9" y2="14" stroke="#FB923C" strokeWidth="1" />
-          <rect x="13" y="28" width="5" height="10" rx="1" fill="url(#hub-orange-red)" />
-          <rect x="20" y="22" width="5" height="16" rx="1" fill="url(#hub-orange-red)" opacity="0.85" />
-          <rect x="27" y="18" width="5" height="20" rx="1" fill="url(#hub-orange-red)" opacity="0.95" />
-          <rect x="34" y="24" width="5" height="14" rx="1" fill="url(#hub-orange-red)" opacity="0.75" />
-        </g>
-      )}
-
-      {variant === 'personality-grund' && (
-        <g>
-          {/* 5 cirklar = Big Five */}
-          <circle cx="14" cy="24" r="3.5" fill="url(#hub-orange-red)" />
-          <circle cx="20" cy="17" r="3.5" fill="url(#hub-orange-red)" opacity="0.85" />
-          <circle cx="24" cy="28" r="3.5" fill="url(#hub-orange-red)" opacity="0.9" />
-          <circle cx="30" cy="18" r="3.5" fill="url(#hub-orange-red)" opacity="0.75" />
-          <circle cx="34" cy="26" r="3.5" fill="url(#hub-orange-red)" opacity="0.65" />
-          <path d="M 14 24 L 20 17 L 24 28 L 30 18 L 34 26" stroke="#FB923C" strokeWidth="1" fill="none" opacity="0.55" />
-        </g>
-      )}
-
-      {variant === 'personality-avancerad' && (
-        <g>
-          {/* Stiliserad människo-silhuett + cirkel-orbit */}
-          <circle cx="24" cy="20" r="6" fill="url(#hub-orange-pink)" />
-          <path d="M 14 36 Q 14 28 24 28 Q 34 28 34 36 Z" fill="url(#hub-orange-pink)" opacity="0.85" />
-          {/* Orbit */}
-          <circle cx="24" cy="24" r="16" fill="none" stroke="url(#hub-orange-pink)" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.6" />
-          <circle cx="40" cy="24" r="2" fill="#DC2626" />
-        </g>
-      )}
-
-      {variant === 'numerical-v2' && (
-        <g>
-          {/* Linjediagram för avancerad */}
-          <line x1="9" y1="38" x2="39" y2="38" stroke="#FB923C" strokeWidth="1" />
-          <line x1="9" y1="38" x2="9" y2="14" stroke="#FB923C" strokeWidth="1" />
-          <path
-            d="M 11 32 L 17 28 L 23 24 L 29 18 L 35 14"
-            stroke="url(#hub-orange-red)"
-            strokeWidth="1.8"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <circle cx="11" cy="32" r="1.5" fill="#DC2626" />
-          <circle cx="17" cy="28" r="1.5" fill="#DC2626" />
-          <circle cx="23" cy="24" r="1.5" fill="#DC2626" />
-          <circle cx="29" cy="18" r="1.5" fill="#DC2626" />
-          <circle cx="35" cy="14" r="1.5" fill="#DC2626" />
+          <circle cx="24" cy="21" r="5.5" fill="url(#hub-orange-pink)" />
+          <path d="M 15 35 Q 15 27 24 27 Q 33 27 33 35 Z" fill="url(#hub-orange-pink)" opacity="0.9" />
+          <circle cx="24" cy="24" r="15" fill="none" stroke="#FDBA74" strokeWidth="1.2" strokeDasharray="2.5 2.5" opacity="0.7" />
+          <circle cx="24" cy="9" r="1.8" fill="#F97316" />
+          <circle cx="39" cy="24" r="1.8" fill="#DC2626" />
+          <circle cx="9" cy="24" r="1.8" fill="#BE185D" />
         </g>
       )}
     </svg>
