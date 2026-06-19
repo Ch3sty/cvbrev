@@ -393,6 +393,38 @@ export function TestCardThumbnail({
 /**
  * Empty-state — illustration för "inga tester än".
  */
+/**
+ * Illustration för personlighets-resultatkortet: en persona-byst inramad av en
+ * Big Five-orbit. Används både i tom-state och som visuell signatur på kortet.
+ */
+export function PersonalityProfileIllustration({ className = 'w-20 h-20' }: IconProps) {
+  return (
+    <svg viewBox="0 0 80 80" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {SHARED_DEFS}
+      {/* Mjuk bakgrundscirkel */}
+      <circle cx="40" cy="40" r="34" fill="url(#hub-orange-pink)" opacity="0.08" />
+      {/* Persona: huvud + axlar */}
+      <circle cx="40" cy="33" r="11" fill="url(#hub-orange-red)" />
+      <path d="M 23 60 C 23 49 31 45 40 45 C 49 45 57 49 57 60 Z" fill="url(#hub-orange-red)" opacity="0.9" />
+      {/* Big Five-orbit: 5 punkter runt personan, sammanlänkade */}
+      <g opacity="0.7">
+        <circle cx="40" cy="9" r="3" fill="#FB923C" />
+        <circle cx="69" cy="30" r="3" fill="#DC2626" />
+        <circle cx="58" cy="68" r="3" fill="#BE185D" />
+        <circle cx="22" cy="68" r="3" fill="#DC2626" />
+        <circle cx="11" cy="30" r="3" fill="#FB923C" />
+        <path
+          d="M 40 9 L 69 30 L 58 68 L 22 68 L 11 30 Z"
+          stroke="#FDBA74"
+          strokeWidth="1"
+          fill="none"
+          opacity="0.6"
+        />
+      </g>
+    </svg>
+  );
+}
+
 export function EmptyStateIllustration({ className = 'w-32 h-32' }: IconProps) {
   return (
     <svg viewBox="0 0 120 120" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

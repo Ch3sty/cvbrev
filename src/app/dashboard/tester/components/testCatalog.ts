@@ -42,8 +42,10 @@ export interface TestGroup {
   key: TestGroupKey;
   /** Gruppens rubrik = den sökvänliga testtypen. */
   heading: string;
-  /** Kort mening om vad testtypen mäter. */
+  /** Kort, pedagogisk mening om vad testtypen är (för en oinsatt användare). */
   blurb: string;
+  /** Vad det också kallas / vad man söker efter. Visas som liten hjälptext. */
+  searchHint: string;
   cognitive: CognitiveTestDef[];
   personality: PersonalityTestDef[];
 }
@@ -162,28 +164,36 @@ export const TEST_GROUPS: TestGroup[] = [
   {
     key: 'logik',
     heading: 'Logiktest',
-    blurb: 'Hitta mönstret i matriser och figurserier. Det vanligaste momentet i begåvningstest.',
+    blurb:
+      'Du ser en serie figurer och ska lista ut vilken som kommer härnäst. Det vanligaste momentet i ett rekryteringstest, och det som mäter problemlösning.',
+    searchHint: 'Kallas även IQ-test, begåvningstest eller matrigma',
     cognitive: LOGIK_TESTS,
     personality: [],
   },
   {
     key: 'verbal',
-    heading: 'Verbalt resonemang',
-    blurb: 'Dra korrekta slutsatser ur texter. Mäter språklig analysförmåga.',
+    heading: 'Verbalt test',
+    blurb:
+      'Läs en kort text och avgör om olika påståenden stämmer. Mäter hur du tolkar och drar slutsatser ur skriven information, något nästan alla jobb kräver.',
+    searchHint: 'Kallas även verbalt resonemang eller läsförståelsetest',
     cognitive: VERBAL_TESTS,
     personality: [],
   },
   {
     key: 'numerisk',
     heading: 'Numeriskt test',
-    blurb: 'Tolka tabeller och diagram under tidspress. Mäter sifferförståelse.',
+    blurb:
+      'Tolka tabeller och diagram och räkna ut svaret under tidspress. Mäter sifferförståelse, vanligt för tjänster med budget, analys eller försäljning.',
+    searchHint: 'Kallas även numeriskt resonemang eller mattetest',
     cognitive: NUMERISK_TESTS,
     personality: [],
   },
   {
     key: 'personlighet',
     heading: 'Personlighetstest',
-    blurb: 'Se vad dina svar säger rekryteraren, och lär känna dig själv bättre.',
+    blurb:
+      'Svara ärligt på påståenden om hur du är. Du tävlar inte mot någon, utan får en profil som visar dina styrkor och hur en rekryterare läser dig.',
+    searchHint: 'Kallas även Big Five, personlighetsprofil eller självskattning',
     cognitive: [],
     personality: PERSONALITY_TESTS,
   },

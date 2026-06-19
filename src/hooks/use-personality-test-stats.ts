@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { PersonalityTestType } from '@/lib/personalityTest/types';
+import type { PersonalityTestType, BigFiveScores } from '@/lib/personalityTest/types';
 
 interface SessionRow {
   id: string;
   test_type: PersonalityTestType;
   completed_at: string | null;
+  scores: BigFiveScores | null;
 }
 
 export interface PersonalityStat {
@@ -15,6 +16,10 @@ export interface PersonalityStat {
   attempts: number;
   /** Slutförda profil-datum, nyast först. */
   completedDates: string[];
+  /** Senaste slutförda sessionens id (för länk till resultatsidan). */
+  latestSessionId: string | null;
+  /** Senaste slutförda sessionens Big Five-resultat. */
+  latestScores: BigFiveScores | null;
 }
 
 export interface PersonalityTestStats {
@@ -28,6 +33,8 @@ const EMPTY: PersonalityStat = {
   lastCompletedAt: null,
   attempts: 0,
   completedDates: [],
+  latestSessionId: null,
+  latestScores: null,
 };
 
 function summarize(rows: SessionRow[], testType: PersonalityTestType): PersonalityStat {
@@ -43,6 +50,8 @@ function summarize(rows: SessionRow[], testType: PersonalityTestType): Personali
     lastCompletedAt: sorted[0].completed_at,
     attempts: completed.length,
     completedDates: sorted.map((s) => s.completed_at!),
+    latestSessionId: sorted[0].id,
+    latestScores: sorted[0].scores ?? null,
   };
 }
 

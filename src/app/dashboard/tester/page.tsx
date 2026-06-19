@@ -34,10 +34,9 @@ export default function TesterHubPage() {
     personalityStats.grund.hasProfile ||
     personalityStats.avancerad.hasProfile;
 
-  // Personlighetsförsök räknas in i räknaren på utvecklingsfliken
-  const personalityAttempts =
-    personalityStats.grund.attempts + personalityStats.avancerad.attempts;
-  const completedCount = aggregate.totalCompleted + personalityAttempts;
+  // Räknaren på utvecklingsfliken speglar de kognitiva försöken (personlighet
+  // bor på Tester-fliken, inte i utvecklingsvyn).
+  const completedCount = aggregate.totalCompleted;
 
   // Loading state
   if (profileLoading || statsLoading) {
@@ -107,7 +106,7 @@ export default function TesterHubPage() {
             </div>
           </motion.div>
         ) : (
-          <DevelopmentView perTest={perTest} personality={personalityStats} />
+          <DevelopmentView perTest={perTest} />
         )}
       </div>
     </div>
