@@ -190,6 +190,12 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även verbalt resonemang eller läsförståelsetest',
     cognitive: VERBAL_TESTS,
     personality: [],
+    prov: {
+      href: '/dashboard/tester/verbal-resonemang-prov',
+      sessionEndpoint: '/api/verbalTestProv/session',
+      totalQuestions: 48,
+      minutes: 40,
+    },
   },
   {
     key: 'numerisk',
@@ -199,6 +205,12 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även numeriskt resonemang eller mattetest',
     cognitive: NUMERISK_TESTS,
     personality: [],
+    prov: {
+      href: '/dashboard/tester/numeriskt-test-prov',
+      sessionEndpoint: '/api/numericalTestProv/session',
+      totalQuestions: 24,
+      minutes: 30,
+    },
   },
   {
     key: 'personlighet',

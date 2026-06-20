@@ -44,6 +44,8 @@ interface VerbalResultsBodyProps {
   answers: SavedAnswer[];
   passages: ResultsPassage[];
   restartPath: string;
+  /** Prov-läge: förklaringar visas inaktiverade ("Ej tillgänglig under prov"). */
+  isProv?: boolean;
 }
 
 export default function VerbalResultsBody({
@@ -53,6 +55,7 @@ export default function VerbalResultsBody({
   answers,
   passages,
   restartPath,
+  isProv = false,
 }: VerbalResultsBodyProps) {
   const router = useRouter();
   const formatTime = (s: number) => {
@@ -93,7 +96,7 @@ export default function VerbalResultsBody({
       </motion.section>
 
       {/* Per-passage-genomgång */}
-      <PassageReview answers={answers} passages={passages} />
+      <PassageReview answers={answers} passages={passages} isProv={isProv} />
 
       {/* Action buttons */}
       <motion.section
@@ -148,9 +151,11 @@ function Stat({
 function PassageReview({
   answers,
   passages,
+  isProv,
 }: {
   answers: SavedAnswer[];
   passages: ResultsPassage[];
+  isProv?: boolean;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -260,6 +265,7 @@ function PassageReview({
                               text={st.text}
                               correctAnswer={st.correctAnswer}
                               explanation={st.explanation}
+                              isProv={isProv}
                               userAnswer={userAnswer?.answer ?? null}
                               isCorrect={userAnswer?.isCorrect ?? false}
                             />
@@ -283,6 +289,7 @@ function StatementResult({
   text,
   correctAnswer,
   explanation,
+  isProv,
   userAnswer,
   isCorrect,
 }: {
@@ -290,6 +297,7 @@ function StatementResult({
   text: string;
   correctAnswer: 'true' | 'false' | 'cannot_say';
   explanation?: string;
+  isProv?: boolean;
   userAnswer: 'true' | 'false' | 'cannot_say' | null;
   isCorrect: boolean;
 }) {
@@ -349,7 +357,19 @@ function StatementResult({
             )}
           </div>
 
-          {explanation && (
+          {explanation && isProv && (
+            <div className="mt-2">
+              <span
+                title="Ej tillgänglig under prov"
+                aria-disabled="true"
+                className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-400 cursor-not-allowed select-none"
+              >
+                Förklaring – ej tillgänglig under prov
+              </span>
+            </div>
+          )}
+
+          {explanation && !isProv && (
             <div className="mt-2">
               <button
                 type="button"

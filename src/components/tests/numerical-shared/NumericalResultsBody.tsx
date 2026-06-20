@@ -25,6 +25,8 @@ interface NumericalResultsBodyProps {
     difficulty3: { correct: number; total: number };
   };
   byType: { [key in QuestionType]: { correct: number; total: number } };
+  /** Prov-läge: förklaringar döljs, ersätts av en inaktiv markör. */
+  showExplanations?: boolean;
 }
 
 const TYPE_LABEL: Record<QuestionType, string> = {
@@ -48,6 +50,7 @@ export default function NumericalResultsBody({
   answers,
   byDifficulty,
   byType,
+  showExplanations = true,
 }: NumericalResultsBodyProps) {
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -55,7 +58,7 @@ export default function NumericalResultsBody({
       <BreakdownSection byDifficulty={byDifficulty} byType={byType} />
 
       {/* Answer key */}
-      <AnswerKey passages={passages} answers={answers} />
+      <AnswerKey passages={passages} answers={answers} showExplanations={showExplanations} />
     </div>
   );
 }
@@ -198,9 +201,11 @@ function DifficultyBar({
 function AnswerKey({
   passages,
   answers,
+  showExplanations,
 }: {
   passages: Passage[];
   answers: TestAnswer[];
+  showExplanations: boolean;
 }) {
   return (
     <section
@@ -229,7 +234,7 @@ function AnswerKey({
               Genomgång av frågor
             </h3>
             <p className="text-xs sm:text-sm text-slate-600">
-              Se rätt svar och förklaringar
+              {showExplanations ? 'Se rätt svar och förklaringar' : 'Se rätt svar'}
             </p>
           </div>
         </div>
@@ -246,6 +251,7 @@ function AnswerKey({
                   question={question}
                   answer={answer}
                   questionIndex={qIdx}
+                  showExplanations={showExplanations}
                 />
               );
             });
@@ -261,11 +267,13 @@ function AnswerKeyRow({
   question,
   answer,
   questionIndex,
+  showExplanations,
 }: {
   passage: Passage;
   question: Passage['questions'][number];
   answer?: TestAnswer;
   questionIndex: number;
+  showExplanations: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const isCorrect = answer?.isCorrect ?? false;
@@ -356,8 +364,8 @@ function AnswerKeyRow({
                 </div>
               )}
 
-              {/* Förklaring */}
-              {question.explanation && (
+              {/* Förklaring (döljs i prov-läge) */}
+              {question.explanation && showExplanations && (
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700 mb-1">
                     Förklaring
@@ -365,6 +373,11 @@ function AnswerKeyRow({
                   <div className="text-sm text-slate-700 leading-relaxed bg-orange-50/40 border border-orange-100 rounded-lg px-3 py-2.5">
                     {question.explanation}
                   </div>
+                </div>
+              )}
+              {question.explanation && !showExplanations && (
+                <div className="text-[11px] font-semibold text-slate-400">
+                  Förklaring – ej tillgänglig under prov
                 </div>
               )}
             </div>
