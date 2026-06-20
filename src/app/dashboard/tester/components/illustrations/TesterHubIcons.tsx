@@ -4,6 +4,133 @@ interface IconProps {
   className?: string;
 }
 
+/* =============================================================================
+ * Exempel-illustrationer per testtyp. Visar VAD ett test är i stället för att
+ * beskriva det i text. Liggande format (viewBox 120×56) för sektionsrubrikerna.
+ * ========================================================================== */
+
+const EX_DEFS = (
+  <defs>
+    <linearGradient id="ex-or" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#F97316" />
+      <stop offset="100%" stopColor="#DC2626" />
+    </linearGradient>
+    <linearGradient id="ex-pink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#F97316" />
+      <stop offset="50%" stopColor="#DC2626" />
+      <stop offset="100%" stopColor="#BE185D" />
+    </linearGradient>
+  </defs>
+);
+
+/** Logik: 3×3-matris där sista cellen är ett frågetecken. "Hitta mönstret." */
+export function ExampleLogik({ className = '' }: IconProps) {
+  const shapes = ['circle', 'square', 'tri', 'square', 'tri', 'circle', 'tri', 'circle', 'q'];
+  return (
+    <svg viewBox="0 0 120 56" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {EX_DEFS}
+      <g transform="translate(36 4)">
+        {shapes.map((s, i) => {
+          const x = (i % 3) * 17;
+          const y = Math.floor(i / 3) * 17;
+          const isQ = s === 'q';
+          return (
+            <g key={i}>
+              <rect x={x} y={y} width="14" height="14" rx="3"
+                fill={isQ ? 'url(#ex-or)' : '#FFF7ED'} stroke={isQ ? 'none' : '#FED7AA'} strokeWidth="1" />
+              {s === 'circle' && <circle cx={x + 7} cy={y + 7} r="3.2" fill="url(#ex-or)" />}
+              {s === 'square' && <rect x={x + 4} y={y + 4} width="6" height="6" rx="1" fill="url(#ex-or)" />}
+              {s === 'tri' && <path d={`M ${x + 7} ${y + 3.5} L ${x + 10.5} ${y + 10.5} L ${x + 3.5} ${y + 10.5} Z`} fill="url(#ex-or)" />}
+              {isQ && <text x={x + 7} y={y + 10.5} textAnchor="middle" fontSize="9" fontWeight="800" fill="white">?</text>}
+            </g>
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
+/** Verbal: textrader + en bedömd rad med sant/falskt-markör. "Läs och dra slutsats." */
+export function ExampleVerbal({ className = '' }: IconProps) {
+  return (
+    <svg viewBox="0 0 120 56" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {EX_DEFS}
+      {/* Textblock */}
+      <rect x="14" y="10" width="58" height="36" rx="5" fill="#FFF7ED" stroke="#FED7AA" strokeWidth="1" />
+      {[16, 21, 26, 31, 36].map((y, i) => (
+        <rect key={i} x="20" y={y} width={i === 2 ? 32 : i === 4 ? 28 : 46} height="2.4" rx="1.2"
+          fill="url(#ex-or)" opacity={0.35 + (i % 2) * 0.25} />
+      ))}
+      {/* Bedömnings-chips */}
+      <g transform="translate(82 14)">
+        <rect x="0" y="0" width="24" height="9" rx="4.5" fill="url(#ex-or)" />
+        <path d="M 5 4.5 L 7 6.5 L 11 2.5" stroke="white" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="16" y="6.5" textAnchor="middle" fontSize="5" fontWeight="800" fill="white">S</text>
+        <rect x="0" y="13" width="24" height="9" rx="4.5" fill="none" stroke="#FED7AA" strokeWidth="1" />
+        <rect x="0" y="26" width="24" height="9" rx="4.5" fill="none" stroke="#FED7AA" strokeWidth="1" />
+      </g>
+    </svg>
+  );
+}
+
+/** Numerisk: minitabell + stapeldiagram. "Tolka tabeller och diagram." */
+export function ExampleNumerisk({ className = '' }: IconProps) {
+  return (
+    <svg viewBox="0 0 120 56" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {EX_DEFS}
+      {/* Tabell */}
+      <rect x="14" y="11" width="46" height="34" rx="4" fill="#FFF7ED" stroke="#FED7AA" strokeWidth="1" />
+      <rect x="14" y="11" width="46" height="9" rx="4" fill="url(#ex-or)" opacity="0.85" />
+      {[24, 31, 38].map((y) => (
+        <g key={y}>
+          <rect x="19" y={y} width="14" height="2.4" rx="1.2" fill="#FB923C" opacity="0.6" />
+          <rect x="40" y={y} width="14" height="2.4" rx="1.2" fill="url(#ex-or)" />
+        </g>
+      ))}
+      {/* Stapeldiagram */}
+      <g transform="translate(72 12)">
+        <line x1="0" y1="33" x2="34" y2="33" stroke="#FED7AA" strokeWidth="1.2" strokeLinecap="round" />
+        <rect x="3" y="22" width="6" height="11" rx="1.5" fill="url(#ex-or)" opacity="0.7" />
+        <rect x="12" y="14" width="6" height="19" rx="1.5" fill="url(#ex-or)" opacity="0.9" />
+        <rect x="21" y="8" width="6" height="25" rx="1.5" fill="url(#ex-or)" />
+      </g>
+    </svg>
+  );
+}
+
+/** Personlighet: Big Five-radar (femkant). "Din profil." */
+export function ExamplePersonlighet({ className = '' }: IconProps) {
+  // Femhörning, värden 0-1 per axel.
+  const cx = 60, cy = 28, r = 21;
+  const vals = [0.85, 0.6, 0.9, 0.7, 0.5];
+  const labels = ['O', 'C', 'E', 'A', 'N'];
+  const pt = (i: number, rad: number) => {
+    const ang = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
+    return [cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad];
+  };
+  const outer = [0, 1, 2, 3, 4].map((i) => pt(i, r));
+  const inner = vals.map((v, i) => pt(i, r * v));
+  return (
+    <svg viewBox="0 0 120 56" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {EX_DEFS}
+      {/* Ram */}
+      <polygon points={outer.map((p) => p.join(',')).join(' ')} fill="none" stroke="#FED7AA" strokeWidth="1" />
+      <polygon points={inner.map((p) => p.join(',')).join(' ')} fill="url(#ex-pink)" fillOpacity="0.25" stroke="url(#ex-pink)" strokeWidth="1.5" />
+      {outer.map((p, i) => (
+        <g key={i}>
+          <line x1={cx} y1={cy} x2={p[0]} y2={p[1]} stroke="#FED7AA" strokeWidth="0.6" />
+          <text x={cx + (p[0] - cx) * 1.18} y={cy + (p[1] - cy) * 1.18 + 2} textAnchor="middle" fontSize="6" fontWeight="800" fill="#C2410C">
+            {labels[i]}
+          </text>
+        </g>
+      ))}
+      {inner.map((p, i) => (
+        <circle key={i} cx={p[0]} cy={p[1]} r="1.6" fill="#DC2626" />
+      ))}
+    </svg>
+  );
+}
+
 const SHARED_DEFS = (
   <defs>
     <linearGradient id="hub-orange-red" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">

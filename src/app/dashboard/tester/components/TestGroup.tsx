@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
 import TestCard from './TestCard';
 import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
@@ -11,6 +10,10 @@ import {
   VerbalCategoryIllustration,
   NumericalCategoryIllustration,
   PersonalityCategoryIllustration,
+  ExampleLogik,
+  ExampleVerbal,
+  ExampleNumerisk,
+  ExamplePersonlighet,
 } from './illustrations/TesterHubIcons';
 import type { TestGroup as TestGroupType, TestGroupKey } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
@@ -37,6 +40,17 @@ const GROUP_ILLUSTRATION: Record<
   personlighet: PersonalityCategoryIllustration,
 };
 
+// Liggande exempel-illustration som visar VAD testet är (ersätter beskrivande text).
+const GROUP_EXAMPLE: Record<
+  TestGroupKey,
+  (props: { className?: string }) => React.ReactElement
+> = {
+  logik: ExampleLogik,
+  verbal: ExampleVerbal,
+  numerisk: ExampleNumerisk,
+  personlighet: ExamplePersonlighet,
+};
+
 export default function TestGroup({
   group,
   startIndex,
@@ -47,11 +61,12 @@ export default function TestGroup({
   recommendSlug,
 }: Props) {
   const Illustration = GROUP_ILLUSTRATION[group.key];
+  const Example = GROUP_EXAMPLE[group.key];
   const isPersonality = group.key === 'personlighet';
-  // 3-kol på lg när det finns tre+ kort i raden (logik 3 träning + prov,
-  // verbal/numerisk 2 träning + prov, personlighet grund/avancerad/resultat).
-  const useThreeCols =
-    group.cognitive.length === 3 || isPersonality || !!group.prov;
+  // Träningskorten + ev. resultatkort. Provet ligger som balk under gridet, så
+  // raden består av 2-3 kort → 3-kol på lg ger jämn rytm utan att provet stör.
+  const cardCount = group.cognitive.length + group.personality.length + (isPersonality ? 1 : 0);
+  const useThreeCols = cardCount >= 3;
 
   return (
     <motion.section
@@ -59,25 +74,25 @@ export default function TestGroup({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 }}
     >
-      {/* Pedagogisk sektionsrubrik: ikon + vad det är + vad man söker efter */}
-      <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-5">
+      {/* Sektionsrubrik: ikon + namn + kort mening, med exempel-illustration till höger. */}
+      <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
         <div
-          className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center"
+          className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center"
           style={{ boxShadow: '0 4px 12px -6px rgba(249, 115, 22, 0.2)' }}
         >
-          <Illustration className="w-7 h-7 sm:w-8 sm:h-8" />
+          <Illustration className="w-6 h-6 sm:w-7 sm:h-7" />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-tight">
             {group.heading}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug truncate">
             {group.blurb}
           </p>
-          <p className="inline-flex items-center gap-1.5 text-[11px] text-slate-400 mt-1.5">
-            <Search className="w-3 h-3 flex-shrink-0" strokeWidth={2.5} />
-            {group.searchHint}
-          </p>
+        </div>
+        {/* Exempel: visar vad testet är, ersätter beskrivande text. */}
+        <div className="hidden sm:block flex-shrink-0 w-28 h-14 rounded-xl bg-orange-50/50 border border-orange-100 p-1">
+          <Example className="w-full h-full" />
         </div>
       </div>
 
@@ -130,17 +145,19 @@ export default function TestGroup({
             index={startIndex + group.personality.length}
           />
         )}
-        {/* Standout prov-kort (4:e/3:e kortet) för kognitiva testtyper. */}
-        {group.prov && (
+      </div>
+
+      {/* Standout prov-balk under träningskorten: "träna ovan, pröva här". */}
+      {group.prov && (
+        <div className="mt-3 sm:mt-4">
           <ProvCard
             href={group.prov.href}
             sessionEndpoint={group.prov.sessionEndpoint}
             totalQuestions={group.prov.totalQuestions}
             minutes={group.prov.minutes}
-            index={startIndex + group.cognitive.length}
           />
-        )}
-      </div>
+        </div>
+      )}
     </motion.section>
   );
 }

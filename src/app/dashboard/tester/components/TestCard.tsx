@@ -71,6 +71,14 @@ export default function TestCard({
 
   const trend = stats.history.map((h) => h.percentage);
 
+  // Topp-strip i nivåns färg (slate/amber/rose) — kommunicerar svårighet utan text.
+  const levelStrip =
+    levelLabel === 'Expert'
+      ? 'linear-gradient(90deg, #FB7185, #E11D48)'
+      : levelLabel === 'Avancerad'
+      ? 'linear-gradient(90deg, #FBBF24, #F59E0B)'
+      : 'linear-gradient(90deg, #CBD5E1, #94A3B8)';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -91,19 +99,12 @@ export default function TestCard({
             : '0 4px 16px -8px rgba(249, 115, 22, 0.18)',
         }}
       >
-        {/* Gradient-strip topp */}
-        <div
-          className="absolute top-0 inset-x-0 h-0.5"
-          style={{
-            background: hasProgress
-              ? 'linear-gradient(90deg, #FB923C, #DC2626)'
-              : 'linear-gradient(90deg, #CBD5E1, #94A3B8)',
-          }}
-        />
+        {/* Topp-strip i nivåns färg — visar svårighet utan text. */}
+        <div className="absolute top-0 inset-x-0 h-1" style={{ background: levelStrip }} />
 
-        <div className="p-4 flex flex-col h-full">
+        <div className="p-3 sm:p-4 flex flex-col h-full">
           {/* Topprad: nivå-dots vänster, status/premium höger */}
-          <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center justify-between gap-2 mb-2.5 sm:mb-3">
             <LevelDots level={levelLabel} showLabel />
             {showLock ? (
               <PremiumPill />
@@ -117,9 +118,9 @@ export default function TestCard({
           </div>
 
           {/* Ikon + titel */}
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center gap-3 mb-2.5 sm:mb-3">
             <div className="flex-shrink-0">
-              <TestCardThumbnail className="w-12 h-12" variant={variant} type={type} />
+              <TestCardThumbnail className="w-10 h-10 sm:w-12 sm:h-12" variant={variant} type={type} />
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight">
@@ -138,20 +139,28 @@ export default function TestCard({
             </div>
           </div>
 
-          {/* Status-zon: en rad. Bästa % + mini-sparkline om gjort. */}
+          {/* Status-zon: en rad. Stor bästa-% + mini-sparkline om gjort. */}
           {hasProgress && !showLock ? (
-            <div className="flex items-center gap-3 mb-3 rounded-xl bg-orange-50/50 border border-orange-100 px-3 py-2">
+            <div className="flex items-center gap-3 mb-2.5 sm:mb-3 rounded-xl bg-orange-50/50 border border-orange-100 px-3 py-1.5 sm:py-2">
               <div className="flex flex-col leading-none">
-                <span className="text-base font-bold text-slate-900 tabular-nums">
+                <span
+                  className="text-2xl font-black tabular-nums leading-none"
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #EA580C, #DC2626)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
                   {stats.bestPercentage}%
                 </span>
-                <span className="text-[10px] text-slate-500 tabular-nums mt-0.5">
+                <span className="text-[10px] text-slate-500 tabular-nums mt-1">
                   {stats.bestScore}/{questionCount} bäst
                 </span>
               </div>
               <div className="flex-1 min-w-0">
                 {trend.length > 1 ? (
-                  <Sparkline values={trend} height={28} />
+                  <Sparkline values={trend} height={24} />
                 ) : (
                   <div className="h-1.5 bg-white/70 rounded-full overflow-hidden">
                     <div
