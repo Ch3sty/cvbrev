@@ -6,7 +6,7 @@
 import { getAllPassages } from './validator';
 import type { Passage } from './types';
 
-export const PASSAGES_PER_SESSION = 6;
+export const PASSAGES_PER_SESSION = 8;
 export const QUESTIONS_PER_PASSAGE = 4;
 export const TOTAL_QUESTIONS = PASSAGES_PER_SESSION * QUESTIONS_PER_PASSAGE;
 

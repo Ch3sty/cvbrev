@@ -9,7 +9,8 @@ export type TestSlug =
   | 'verbal-resonemang'
   | 'verbal-resonemang-v2'
   | 'numeriskt-test'
-  | 'numeriskt-test-v2';
+  | 'numeriskt-test-v2'
+  | 'numeriskt-test-expert';
 
 interface SessionRow {
   id: string;
@@ -55,6 +56,7 @@ const TEST_ENDPOINTS: Record<TestSlug, string> = {
   'verbal-resonemang-v2': '/api/verbalTestV2/session',
   'numeriskt-test': '/api/numericalTest/session',
   'numeriskt-test-v2': '/api/numericalTestV2/session',
+  'numeriskt-test-expert': '/api/numericalTestExpert/session',
 };
 
 // Antalet poäng-bärande frågor per test (för procent-beräkning).
@@ -66,8 +68,9 @@ const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
   'matrislogik-expert': 15,
   'verbal-resonemang': 48,
   'verbal-resonemang-v2': 48,
-  'numeriskt-test': 24,
-  'numeriskt-test-v2': 24,
+  'numeriskt-test': 32,
+  'numeriskt-test-v2': 32,
+  'numeriskt-test-expert': 32,
 };
 
 const EMPTY_STATS: PerTestStats = {

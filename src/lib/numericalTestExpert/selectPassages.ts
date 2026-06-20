@@ -1,9 +1,9 @@
-// src/lib/numericalTestV2/selectPassages.ts
-// Deterministiskt urval av passager ur banken, seedat på sessionId.
-// Speglar numericalTest/selectPassages.ts. Se den för förklaring.
+// src/lib/numericalTestExpert/selectPassages.ts
+// Deterministiskt urval för numerisk Expert. Drar 8 passager ur 12-poolen, seedat
+// på sessionId. Speglar numericalTest/selectPassages.ts.
 
 import { getAllPassages } from './validator';
-import type { Passage } from './types';
+import type { Passage } from '@/lib/numericalTest/types';
 
 export const PASSAGES_PER_SESSION = 8;
 export const QUESTIONS_PER_PASSAGE = 4;

@@ -7,7 +7,7 @@ import { ArrowRight, Lock, BarChart3, Clock, ListChecks, AlertCircle } from 'luc
 import { useProfile } from '@/hooks/use-profile';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/numericalTestProv/selectProv';
 
-const PROV_MINUTES = 30;
+const PROV_MINUTES = 40;
 
 export default function NumericalProvStartPage() {
   const router = useRouter();

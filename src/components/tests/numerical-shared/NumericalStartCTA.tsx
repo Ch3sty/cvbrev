@@ -6,7 +6,7 @@ import { Play, ArrowRight, Calculator, Save } from 'lucide-react';
 interface NumericalStartCTAProps {
   onStart: () => void;
   isLoading: boolean;
-  variant: 'v1' | 'v2';
+  variant: 'v1' | 'v2' | 'expert';
 }
 
 export default function NumericalStartCTA({ onStart, isLoading, variant }: NumericalStartCTAProps) {
@@ -14,6 +14,8 @@ export default function NumericalStartCTA({ onStart, isLoading, variant }: Numer
     ? 'Startar testet...'
     : variant === 'v2'
     ? 'Starta avancerad'
+    : variant === 'expert'
+    ? 'Starta expert'
     : 'Starta testet';
 
   const timeLabel = variant === 'v1' ? '25 min' : '35 min';

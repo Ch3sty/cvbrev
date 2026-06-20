@@ -5,7 +5,7 @@ import { Calculator, Clock, Target, Layers } from 'lucide-react';
 import { NumericalHeroIllustration } from './illustrations/NumericalIcons';
 
 interface NumericalTestHeroProps {
-  variant: 'v1' | 'v2';
+  variant: 'v1' | 'v2' | 'expert';
   bestScore?: number;
   bestPercentage?: number;
   totalQuestions?: number;
@@ -18,17 +18,26 @@ export default function NumericalTestHero({
   totalQuestions = 24,
 }: NumericalTestHeroProps) {
   const eyebrowLabel =
-    variant === 'v1' ? 'Numerisk analys' : 'Numerisk analys — avancerad';
+    variant === 'v1'
+      ? 'Numerisk analys'
+      : variant === 'v2'
+      ? 'Numerisk analys — avancerad'
+      : 'Numerisk analys — expert';
   const title =
     variant === 'v1'
       ? 'Tolka siffror — utan att gissa'
-      : 'Avancerad sifferanalys på elit-nivå';
+      : variant === 'v2'
+      ? 'Avancerad sifferanalys på elit-nivå'
+      : 'Beslutsstödsmatte på expertnivå';
   const subtitle =
     variant === 'v1'
       ? 'Klassiskt rekryteringstest. Tolka tabeller, läs grafer, lös talserier och hantera procent och konvertering — det rekryterare faktiskt mäter.'
-      : 'Komplexa beräkningar med flera steg, sammansatta procentförändringar och avancerade dataset — för dig som vill nå topprocenten.';
-  const difficultyLabel = variant === 'v1' ? 'Grundnivå' : 'Avancerad';
-  const timeLabel = variant === 'v1' ? 'ca 25 min' : 'ca 35 min';
+      : variant === 'v2'
+      ? 'Komplexa beräkningar med flera steg, sammansatta procentförändringar och avancerade dataset — för dig som vill nå topprocenten.'
+      : 'Investeringskalkyl, optimering och känslighetsanalys. Flera datakällor och beslut under osäkerhet — den tuffaste numeriska nivån.';
+  const difficultyLabel =
+    variant === 'v1' ? 'Grundnivå' : variant === 'v2' ? 'Avancerad' : 'Expert';
+  const timeLabel = variant === 'v1' ? 'ca 25 min' : variant === 'v2' ? 'ca 35 min' : 'ca 35 min';
 
   return (
     <motion.section

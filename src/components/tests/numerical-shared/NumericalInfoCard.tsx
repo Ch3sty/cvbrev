@@ -10,7 +10,7 @@ import {
 } from './illustrations/NumericalIcons';
 
 interface NumericalInfoCardProps {
-  variant: 'v1' | 'v2';
+  variant: 'v1' | 'v2' | 'expert';
 }
 
 const TYPES = [
@@ -44,8 +44,10 @@ const TYPES = [
 export default function NumericalInfoCard({ variant }: NumericalInfoCardProps) {
   const description =
     variant === 'v1'
-      ? 'Du får 24 frågor över 6 passager. Allt från enkel tabelläsning till lite tuffare procentberäkningar. Ingen kalkylator behövs — räkna i huvudet eller på papper.'
-      : 'Avancerade scenarier med flera steg och sammansatta beräkningar. Det här är test för dig som siktar på topp 5%.';
+      ? 'Du får 32 frågor över 8 passager. Allt från enkel tabelläsning till lite tuffare procentberäkningar. Ingen kalkylator behövs — räkna i huvudet eller på papper.'
+      : variant === 'v2'
+      ? 'Avancerade scenarier med flera steg och sammansatta beräkningar. Det här är test för dig som siktar på topp 5%.'
+      : 'Beslutsstödsmatte: investeringskalkyl, optimering och känslighetsanalys. Flera datakällor och beslut under osäkerhet. Den tuffaste numeriska nivån.';
 
   return (
     <motion.div

@@ -5,15 +5,18 @@
 
 import bankV1 from '@/lib/numericalTest/questionBank.json';
 import bankV2 from '@/lib/numericalTestV2/questionBank.json';
+import bankExpert from '@/lib/numericalTestExpert/questionBank.json';
 import type { Passage } from '@/lib/numericalTest/types';
 
 export const POOL_V1 = bankV1 as unknown as Passage[];
 export const POOL_V2 = bankV2 as unknown as Passage[];
-export const PROV_MERGED_BANK: Passage[] = [...POOL_V1, ...POOL_V2];
+export const POOL_EXPERT = bankExpert as unknown as Passage[];
+export const PROV_MERGED_BANK: Passage[] = [...POOL_V1, ...POOL_V2, ...POOL_EXPERT];
 
+// Provet mixar alla tre nivåer: 3 grund + 3 avancerad + 3 expert = 9 passager (36 frågor).
 export const PROV_PER_LEVEL = 3;
 export const QUESTIONS_PER_PASSAGE = 4;
-export const PROV_PASSAGES = PROV_PER_LEVEL * 2;
+export const PROV_PASSAGES = PROV_PER_LEVEL * 3;
 export const PROV_TOTAL_QUESTIONS = PROV_PASSAGES * QUESTIONS_PER_PASSAGE;
 
 function hashString(str: string): number {
@@ -49,7 +52,7 @@ export function selectProvPassagesForSession(sessionId: string): Passage[] {
   const pick = (pool: Passage[]) =>
     shuffle(pool, pickRng).slice(0, Math.min(PROV_PER_LEVEL, pool.length));
 
-  const selected = [...pick(POOL_V1), ...pick(POOL_V2)];
+  const selected = [...pick(POOL_V1), ...pick(POOL_V2), ...pick(POOL_EXPERT)];
   const orderRng = mulberry32(hashString(sessionId + ':order'));
   return shuffle(selected, orderRng);
 }

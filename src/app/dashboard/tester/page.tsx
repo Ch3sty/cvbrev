@@ -72,7 +72,7 @@ export default function TesterHubPage() {
             {hasAnyData ? (
               <TestStatsCard
                 completedTestCount={aggregate.completedTestCount}
-                totalTestCount={8}
+                totalTestCount={9}
                 averageBestPercentage={aggregate.averageBestPercentage}
                 totalTimeSeconds={aggregate.totalTimeSeconds}
               />

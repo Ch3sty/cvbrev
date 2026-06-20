@@ -15,7 +15,7 @@ interface SessionResult {
 }
 
 interface NumericalPreviousResultsProps {
-  variant: 'v1' | 'v2';
+  variant: 'v1' | 'v2' | 'expert';
   sessions: SessionResult[];
   bestScore: number;
   totalQuestions: number;
@@ -84,7 +84,7 @@ function ResultRow({
   totalQuestions,
   index,
 }: {
-  variant: 'v1' | 'v2';
+  variant: 'v1' | 'v2' | 'expert';
   session: SessionResult;
   isBest: boolean;
   totalQuestions: number;
@@ -121,7 +121,7 @@ function ResultRow({
       )}
 
       <div className="flex-shrink-0">
-        <NumericalCardThumbnail variant={variant} className="w-10 h-7 sm:w-12 sm:h-9" />
+        <NumericalCardThumbnail variant={variant === 'expert' ? 'v2' : variant} className="w-10 h-7 sm:w-12 sm:h-9" />
       </div>
 
       <div className="flex-1 min-w-0">

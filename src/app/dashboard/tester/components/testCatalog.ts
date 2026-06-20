@@ -128,8 +128,8 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Grund',
-    questionCount: 24,
-    timeLabel: '20',
+    questionCount: 32,
+    timeLabel: '25',
     isPremiumLocked: false,
   },
   {
@@ -139,8 +139,19 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Avancerad',
-    questionCount: 24,
-    timeLabel: '25',
+    questionCount: 32,
+    timeLabel: '35',
+    isPremiumLocked: true,
+  },
+  {
+    slug: 'numeriskt-test-expert',
+    variant: 'numerical-v2',
+    title: 'Numeriskt test',
+    method: 'Investeringskalkyl · optimering',
+    categoryLabel: 'Siffror',
+    levelLabel: 'Expert',
+    questionCount: 32,
+    timeLabel: '35',
     isPremiumLocked: true,
   },
 ];
@@ -208,8 +219,8 @@ export const TEST_GROUPS: TestGroup[] = [
     prov: {
       href: '/dashboard/tester/numeriskt-test-prov',
       sessionEndpoint: '/api/numericalTestProv/session',
-      totalQuestions: 24,
-      minutes: 30,
+      totalQuestions: 36,
+      minutes: 40,
     },
   },
   {

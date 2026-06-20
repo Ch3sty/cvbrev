@@ -1343,5 +1343,483 @@
         "difficulty": 3
       }
     ]
+  },
+  {
+    "id": "numv2-p10",
+    "title": "Sammansatt avkastning i en investeringsportfölj",
+    "type": "graph",
+    "topic": "Sammansatt ränta",
+    "difficulty": 3,
+    "contextText": "Stapeldiagrammet visar marknadsvärdet på en investeringsportfölj vid utgången av varje år 2020-2024 (i tusen kronor). Förvaltaren vill förstå den årliga tillväxttakten och jämföra med en separat ränteplacering. Notera skillnaden mellan sammansatt (ränta-på-ränta) och enkel tillväxt, samt att den totala procentuella tillväxten inte är samma sak som den genomsnittliga årliga takten.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Portföljens marknadsvärde vid årets slut",
+      "data": [
+        {
+          "label": "2020",
+          "value": 500
+        },
+        {
+          "label": "2021",
+          "value": 560
+        },
+        {
+          "label": "2022",
+          "value": 610
+        },
+        {
+          "label": "2023",
+          "value": 702
+        },
+        {
+          "label": "2024",
+          "value": 800
+        }
+      ],
+      "unit": " kkr",
+      "yAxisLabel": "Marknadsvärde (tkr)"
+    },
+    "questions": [
+      {
+        "id": "numv2-p10-q01",
+        "passageId": "numv2-p10",
+        "questionNumber": 1,
+        "questionText": "Med hur många procent växte portföljen totalt från slutet av 2020 till slutet av 2024?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 50%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 60%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 38%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 75%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Total procentuell tillväxt mäts mot startvärdet: (800 − 500) / 500 × 100% = 300 / 500 × 100% = 60,0%. Distraktorn 38% kommer av att felaktigt dela ökningen på slutvärdet (300 / 800 ≈ 37,5%) i stället för på startvärdet. Distraktorn 50% kommer av att dela ökningen på ett avrundat genomsnittsvärde, och 75% av att dela slutvärdet på startvärdet utan att subtrahera (800 / 500 − 1 ger visserligen 60%, men 75% fås om man räknar 300 / 400). Rätt bas är alltid startvärdet 500.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p10-q02",
+        "passageId": "numv2-p10",
+        "questionNumber": 2,
+        "questionText": "Vilket enskilt år hade den högsta procentuella värdeökningen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2021 (cirka 12%)",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "2022 (cirka 9%)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "2023 (cirka 15%)",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "2024 (cirka 14%)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Den procentuella ökningen för ett år beräknas mot föregående års slutvärde. 2021: (560 − 500)/500 = 12,0%. 2022: (610 − 560)/560 ≈ 8,9% (cirka 9%). 2023: (702 − 610)/610 ≈ 15,1% (cirka 15%). 2024: (800 − 702)/702 ≈ 14,0%. Högst är alltså 2023 med cirka 15,1%, trots att 2023 inte är det år med störst ökning i absoluta kronor. En vanlig fälla är att välja 2024 eftersom värdet då växte mest i kronor (98 tkr), men i procent var 2023 högre eftersom basen var lägre.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p10-q03",
+        "passageId": "numv2-p10",
+        "questionNumber": 3,
+        "questionText": "Förvaltaren placerar separat 200 000 kr till 5% årlig ränta med ränta-på-ränta i 3 år. Hur mycket är placeringen värd efter 3 år?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 230 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 231 500 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 215 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 243 100 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Med ränta-på-ränta multipliceras kapitalet med 1,05 ett år i taget i tre år: 200 000 × 1,05^3 = 200 000 × 1,157625 = 231 525 kr, alltså cirka 231 500 kr. Distraktorn 230 000 kr använder enkel ränta (200 000 × 0,05 × 3 = 30 000 kr i ränta, alltså 230 000) och missar att räntan själv förräntas. Distraktorn 215 000 kr räknar bara ett och ett halvt års ränta eller använder 2,5% per år. Distraktorn 243 100 kr räknar fyra år i stället för tre (200 000 × 1,05^4 = 243 101).",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p10-q04",
+        "passageId": "numv2-p10",
+        "questionNumber": 4,
+        "questionText": "Vad var portföljens genomsnittliga årliga tillväxttakt (CAGR) mellan slutet av 2020 och slutet av 2024?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 12,5%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 15,0%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 10,0%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 16,0%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "CAGR räknas över fyra tillväxtår (2020 till 2024): CAGR = (800 / 500)^(1/4) − 1 = 1,6^0,25 − 1 ≈ 1,1247 − 1 ≈ 0,1247 = 12,5%. Distraktorn 15,0% är den vanliga fällan att dela den totala tillväxten på antalet år (60% / 4 = 15%), vilket ignorerar ränta-på-ränta-effekten och därför överskattar takten. Distraktorn 16,0% fås om man felaktigt delar på antalet datapunkter genom att räkna fem år i stället för fyra tillväxtperioder, och 10,0% av en grov underskattning.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numv2-p11",
+    "title": "Valutaomräkning i en inköpsbudget",
+    "type": "graph",
+    "topic": "Valutaomräkning",
+    "difficulty": 3,
+    "contextText": "Ett tillverkningsbolag köper komponenter från fyra leverantörer, var och en fakturerar i sin egen valuta. Stapeldiagrammet visar fakturabeloppet per leverantör i lokal valuta. Växelkurserna mot SEK är: EUR 11,40, USD 10,60, GBP 13,20 och PLN 2,65. Inköpschefen vill jämföra den verkliga kostnaden i kronor och bedöma hur känslig budgeten är för kursrörelser.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Fakturabelopp per leverantör (lokal valuta)",
+      "data": [
+        {
+          "label": "Leverantör 1 (EUR)",
+          "value": 120000
+        },
+        {
+          "label": "Leverantör 2 (USD)",
+          "value": 150000
+        },
+        {
+          "label": "Leverantör 3 (GBP)",
+          "value": 85000
+        },
+        {
+          "label": "Leverantör 4 (PLN)",
+          "value": 480000
+        }
+      ],
+      "unit": "",
+      "yAxisLabel": "Belopp (lokal valuta)"
+    },
+    "questions": [
+      {
+        "id": "numv2-p11-q01",
+        "passageId": "numv2-p11",
+        "questionNumber": 1,
+        "questionText": "Hur stor andel av den totala inköpskostnaden i SEK utgörs av USD-fakturan?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 29,7%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 25,0%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 25,6%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 37,5%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "USD i SEK: 150 000 × 10,60 = 1 590 000 kr. Total i SEK: EUR 1 368 000 + USD 1 590 000 + GBP 1 122 000 + PLN 1 272 000 = 5 352 000 kr. Andel: 1 590 000 / 5 352 000 × 100% ≈ 29,7%. Distraktorn 25,0% är andelen om man felaktigt antar att alla fyra poster är lika stora (1/4). 25,6% är USD-fakturans andel av summan i LOKALA belopp (150 000 / 585 000 = 25,6%), alltså utan omräkning till kronor. 37,5% är PLN-fakturans andel av summan i lokala belopp (480 000 / 585 000 ≈ 82% är fel; 37,5% fås om man tar USD-fakturan delad på PLN-fakturan, 150 000 / 400 000 — ett godtyckligt felval), och fungerar här som en hög distraktor för den som blandar ihop lokala och omräknade tal.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p11-q02",
+        "passageId": "numv2-p11",
+        "questionNumber": 2,
+        "questionText": "Vad blir den totala inköpskostnaden i SEK för alla fyra leverantörer?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 4,23 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 5,35 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 4,08 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 5,46 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "EUR: 120 000 × 11,40 = 1 368 000. USD: 150 000 × 10,60 = 1 590 000. GBP: 85 000 × 13,20 = 1 122 000. PLN: 480 000 × 2,65 = 1 272 000. Summa: 1 368 000 + 1 590 000 + 1 122 000 + 1 272 000 = 5 352 000 kr ≈ 5,35 MSEK. Distraktorn 4,23 MSEK glömmer GBP-leverantören (5,352 − 1,122 = 4,230). 4,08 MSEK glömmer PLN-leverantören (5,352 − 1,272 = 4,080). 5,46 MSEK fås om man av misstag använder PLN-kursen 2,65 men adderar PLN-beloppet som 600 000 i stället för 480 000 (600 000 × 2,65 = 1 590 000, vilket ger 5 670 000) — en vanlig avläsningsfälla; alternativt om man räknar EUR med kurs 11,90 i stället för 11,40 (120 000 × 11,90 = 1 428 000, total 5 412 000) hamnar man nära 5,46 MSEK. Båda är typiska fel vid felaktig avläsning eller kursförväxling.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p11-q03",
+        "passageId": "numv2-p11",
+        "questionNumber": 3,
+        "questionText": "Vilken leverantör är billigast räknat i kronor?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Leverantör 3 (GBP)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Leverantör 1 (EUR)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Leverantör 4 (PLN)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Leverantör 2 (USD)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "I SEK: EUR 1 368 000, USD 1 590 000, GBP 1 122 000, PLN 1 272 000. Lägst är GBP-leverantören med 1 122 000 kr. Fällan är att tro att den högsta växelkursen (GBP 13,20) ger den dyraste fakturan, men det lägsta lokala beloppet (85 000) väger tyngre. EUR (1 368 000) och PLN (1 272 000) är båda dyrare än GBP, och USD är dyrast av alla.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p11-q04",
+        "passageId": "numv2-p11",
+        "questionNumber": 4,
+        "questionText": "Om PLN försvagas så att kursen faller från 2,65 till 2,50 (allt annat lika), med hur många procent minskar den totala inköpskostnaden i SEK?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 1,3%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 5,7%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 2,4%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 0,6%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ny PLN-kostnad: 480 000 × 2,50 = 1 200 000 kr, en minskning med 1 272 000 − 1 200 000 = 72 000 kr. Som andel av totalen: 72 000 / 5 352 000 × 100% ≈ 1,35% ≈ 1,3%. Distraktorn 5,7% är PLN-kursens egen procentuella förändring ((2,65 − 2,50)/2,65 ≈ 5,66%), inte effekten på hela inköpsbudgeten. 2,4% fås om man räknar minskningen mot enbart PLN-postens omräknade värde med fel bas (72 000 / 3 000 000, dvs mot ett antaget delbelopp) eller dubblar den korrekta basandelen — ett typiskt fel där man blandar ihop PLN-postens vikt (1 272 000 / 5 352 000 ≈ 23,8%) med kursförändringen och tar 23,8% × 10% ≈ 2,4%. 0,6% fås om man delar minskningen 72 000 på en felaktig total om 12 000 000 kr (72 000 / 12 000 000), alltså en dubblerad eller felräknad budgetbas.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numv2-p12",
+    "title": "Staplade rabatter och marginal i en offert",
+    "type": "graph",
+    "topic": "Rabatt och marginal",
+    "difficulty": 3,
+    "contextText": "Stapeldiagrammet visar listpriset per produktlinje (kr exklusive moms). En storkund får två rabatter som beräknas i tur och ordning på det redan rabatterade priset: först 20% volymrabatt, sedan 10% lojalitetsrabatt. Tänk på skillnaden mellan multiplikativa rabatter och en enkel summering, samt mellan procent och procentenheter.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Listpris per produktlinje (exkl. moms)",
+      "data": [
+        {
+          "label": "Produkt A",
+          "value": 2000
+        },
+        {
+          "label": "Produkt B",
+          "value": 3500
+        },
+        {
+          "label": "Produkt C",
+          "value": 1200
+        },
+        {
+          "label": "Produkt D",
+          "value": 5000
+        }
+      ],
+      "unit": " kr",
+      "yAxisLabel": "Listpris (kr)"
+    },
+    "questions": [
+      {
+        "id": "numv2-p12-q01",
+        "passageId": "numv2-p12",
+        "questionNumber": 1,
+        "questionText": "Vad blir priset på Produkt A efter både volym- och lojalitetsrabatten?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1 400 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1 440 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "1 460 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1 600 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Multiplikativt: 2000 × 0,80 × 0,90 = 1600 × 0,90 = 1440 kr. Distraktorn 1 400 kr är fällan att summera rabatterna till 30% och ta 2000 × 0,70, vilket ger ett för lågt pris eftersom andra rabatten räknas på ett redan sänkt belopp.",
+        "difficulty": 2
+      },
+      {
+        "id": "numv2-p12-q02",
+        "passageId": "numv2-p12",
+        "questionNumber": 2,
+        "questionText": "Vad är den sammanlagda effektiva rabatten när 20% och 10% läggs på efter varandra?",
+        "options": [
+          {
+            "id": "a",
+            "text": "30%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "28%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "26%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "29%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Kvar betalas 0,80 × 0,90 = 0,72, alltså 72% av listpriset. Effektiv rabatt = 1 − 0,72 = 0,28 = 28%. Distraktorn 30% är den felaktiga summeringen av de två rabattsatserna, som missar att andra rabatten verkar på ett mindre belopp.",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p12-q03",
+        "passageId": "numv2-p12",
+        "questionNumber": 3,
+        "questionText": "På Produkt D höjer kunden senare bruttomarginalen från 40% till 46%. Hur stor är förändringen uttryckt i procentenheter respektive relativt i procent?",
+        "options": [
+          {
+            "id": "a",
+            "text": "6 procentenheter, vilket är en relativ ökning på cirka 15%",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "6 procentenheter, vilket är en relativ ökning på cirka 6%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "15 procentenheter, vilket är en relativ ökning på cirka 6%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "6 procent, vilket är en relativ ökning på cirka 13%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Skillnaden i marginal är 46 − 40 = 6 procentenheter. Relativt: 6 / 40 × 100% = 15%. Distraktorerna blandar ihop procentenheter (den absoluta skillnaden) med relativ procentuell förändring (förändringen delad på utgångsvärdet).",
+        "difficulty": 3
+      },
+      {
+        "id": "numv2-p12-q04",
+        "passageId": "numv2-p12",
+        "questionNumber": 4,
+        "questionText": "Vad blir det totala fakturabeloppet inklusive 25% moms om kunden köper en av varje produkt med båda rabatterna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 10 530 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 8 424 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 10 238 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 14 625 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Summa listpris: 2000 + 3500 + 1200 + 5000 = 11 700 kr. Efter rabatt: 11 700 × 0,80 × 0,90 = 11 700 × 0,72 = 8 424 kr. Med 25% moms: 8 424 × 1,25 = 10 530 kr. Distraktorn 8 424 kr glömmer momsen och 10 238 kr använder den felaktiga summerade rabatten på 30% (11 700 × 0,70 × 1,25).",
+        "difficulty": 3
+      }
+    ]
   }
 ]

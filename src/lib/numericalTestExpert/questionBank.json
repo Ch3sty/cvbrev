@@ -1,0 +1,1841 @@
+[
+  {
+    "id": "numexp-p01",
+    "title": "Nuvärdesanalys av investeringsprojekt",
+    "type": "table",
+    "topic": "NPV och nuvärde av kassaflöden",
+    "difficulty": 3,
+    "contextText": "Ett bolag överväger en investering på 900 tkr i ny produktionsutrustning. Kalkylränta (avkastningskrav) är 10 procent per år. Tabellen visar prognostiserade nettokassaflöden samt tillhörande diskonteringsfaktorer. Nuvärdet av ett kassaflöde beräknas som kassaflöde gånger diskonteringsfaktor. Nettonuvärde (NPV) är summan av nuvärdena minus grundinvesteringen.",
+    "dataTable": {
+      "caption": "Nettokassaflöden och diskonteringsfaktorer vid 10 procent kalkylränta (tkr)",
+      "headers": [
+        "År",
+        "Nettokassaflöde (tkr)",
+        "Diskonteringsfaktor"
+      ],
+      "rows": [
+        [
+          "1",
+          "300",
+          "0,9091"
+        ],
+        [
+          "2",
+          "400",
+          "0,8264"
+        ],
+        [
+          "3",
+          "500",
+          "0,7513"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p01-q01",
+        "passageId": "numexp-p01",
+        "questionNumber": 1,
+        "questionText": "Vad är nuvärdet av kassaflödet i år 2?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 330,6 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 363,6 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 400,0 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 300,5 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nuvärde år 2 = 400 × 0,8264 = 330,56 tkr, alltså cirka 330,6 tkr. Alternativ b (363,6) är fel diskonteringsfaktor (0,9091 från år 1). Alternativ c är det odiskonterade beloppet. Alternativ d använder år 3-faktorn fel.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p01-q02",
+        "passageId": "numexp-p01",
+        "questionNumber": 2,
+        "questionText": "Vad blir det totala nuvärdet av de tre årens kassaflöden (före grundinvesteringen)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 979 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 1 200 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 900 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 1 091 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "PV1 = 300 × 0,9091 = 272,73. PV2 = 400 × 0,8264 = 330,56. PV3 = 500 × 0,7513 = 375,66. Summa = 272,73 + 330,56 + 375,66 = 978,95, alltså cirka 979 tkr. Alternativ b är summan av odiskonterade kassaflöden (300 + 400 + 500). Alternativ c är grundinvesteringen. Alternativ d diskonterar alla flöden med samma faktor (0,9091).",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p01-q03",
+        "passageId": "numexp-p01",
+        "questionNumber": 3,
+        "questionText": "Vad blir investeringens nettonuvärde (NPV)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka +79 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka +300 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka −21 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka +191 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "NPV = totalt nuvärde − grundinvestering = 978,95 − 900 = 78,95, alltså cirka +79 tkr. Alternativ b använder odiskonterade flöden (1 200 − 900). Alternativ c subtraherar fel (900 − 879). Alternativ d är ett mellansteg utan att alla flöden diskonterats.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p01-q04",
+        "passageId": "numexp-p01",
+        "questionNumber": 4,
+        "questionText": "Om grundinvesteringen i stället hade varit 1 000 tkr, vad gäller då för projektet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "NPV blir negativt (cirka −21 tkr) och projektet bör avvisas",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "NPV blir cirka +79 tkr och projektet bör genomföras",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "NPV blir cirka +200 tkr och projektet bör genomföras",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "NPV blir exakt 0 och projektet är neutralt",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nuvärdet av flödena är oförändrat 978,95 tkr. NPV = 978,95 − 1 000 = −21,05, alltså cirka −21 tkr. Negativt NPV betyder att projektet inte når avkastningskravet och bör avvisas. Alternativ b är NPV vid den gamla investeringen. Alternativ c och d stämmer inte med uträkningen.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p02",
+    "title": "Täckningsbidrag och nollpunkt under bivillkor",
+    "type": "table",
+    "topic": "Break-even och täckningsbidrag",
+    "difficulty": 3,
+    "contextText": "En tillverkare säljer en produkt och vill analysera lönsamheten. Täckningsbidrag per enhet (TB) är försäljningspris minus rörlig kostnad per enhet. Nollpunkten (break-even) i antal enheter är fasta kostnader delat med TB per enhet. Täckningsgraden (TB-marginalen) är TB per enhet delat med försäljningspriset. Företagets produktionskapacitet är 7 000 enheter per år.",
+    "dataTable": {
+      "caption": "Kostnads- och prisdata per år",
+      "headers": [
+        "Post",
+        "Värde"
+      ],
+      "rows": [
+        [
+          "Försäljningspris per enhet",
+          "260 kr"
+        ],
+        [
+          "Rörlig kostnad per enhet",
+          "152 kr"
+        ],
+        [
+          "Fasta kostnader per år",
+          "486 000 kr"
+        ],
+        [
+          "Produktionskapacitet",
+          "7 000 enheter"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p02-q01",
+        "passageId": "numexp-p02",
+        "questionNumber": 1,
+        "questionText": "Hur många enheter måste säljas för att nå nollpunkten?",
+        "options": [
+          {
+            "id": "a",
+            "text": "4 500 enheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "3 197 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "1 869 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "6 000 enheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "TB per enhet = 260 − 152 = 108 kr. Nollpunkt = fasta kostnader ÷ TB = 486 000 ÷ 108 = 4 500 enheter. Alternativ b delar med rörlig kostnad i stället för TB (486 000 ÷ 152 = 3 197). Alternativ c delar med priset (486 000 ÷ 260 = 1 869). Alternativ d är nollpunkten vid det sänkta priset i fråga 3, inte vid 260 kr.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p02-q02",
+        "passageId": "numexp-p02",
+        "questionNumber": 2,
+        "questionText": "Ägaren kräver ett resultat (vinst) på 270 000 kr per år. Hur många enheter måste säljas vid priset 260 kr för att nå det resultatkravet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "7 000 enheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "4 500 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "2 500 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "7 560 enheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Vid ett resultatkrav läggs vinsten till de fasta kostnaderna innan man dividerar med TB. Krävd volym = (fasta kostnader + vinstkrav) ÷ TB = (486 000 + 270 000) ÷ 108 = 756 000 ÷ 108 = 7 000 enheter. Alternativ b glömmer vinstkravet och ger bara nollpunkten (486 000 ÷ 108 = 4 500). Alternativ c räknar bara de enheter vinsten kräver men glömmer de fasta kostnaderna (270 000 ÷ 108 = 2 500). Alternativ d avrundar TB felaktigt till 100 (756 000 ÷ 100 = 7 560).",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p02-q03",
+        "passageId": "numexp-p02",
+        "questionNumber": 3,
+        "questionText": "Bolaget överväger att sänka priset till 233 kr för att öka volymen. Vid oförändrade fasta kostnader och rörlig kostnad, hur många enheter krävs då för nollpunkt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "6 000 enheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "4 500 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "5 333 enheter",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "7 000 enheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nytt TB = 233 − 152 = 81 kr. Nollpunkt = 486 000 ÷ 81 = 6 000 enheter. Alternativ b är den gamla nollpunkten vid 260 kr. Alternativ c drar av fel rörlig kostnad och får TB 91 (486 000 ÷ 91 ≈ 5 333). Alternativ d är produktionskapaciteten, inte nollpunkten.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p02-q04",
+        "passageId": "numexp-p02",
+        "questionNumber": 4,
+        "questionText": "Hur förändras täckningsgraden (TB-marginalen) när priset sänks från 260 kr till 233 kr, med rörlig kostnad 152 kr i båda fallen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Den minskar med cirka 6,8 procentenheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Den minskar med cirka 6,8 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Den minskar med cirka 16 procentenheter",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Den minskar med cirka 27 procentenheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Täckningsgrad = TB ÷ pris. Vid 260 kr: 108 ÷ 260 = 0,4154, alltså 41,5 procent. Vid 233 kr: 81 ÷ 233 = 0,3476, alltså 34,8 procent. Skillnaden mäts i procentenheter: 41,5 − 34,8 = 6,8 procentenheter (alternativ a). Alternativ b förväxlar procentenheter med procent: den relativa minskningen är i stället (6,8 ÷ 41,5) ≈ 16 procent, inte 6,8 procent. Alternativ c tar den relativa minskningen, cirka 16 procent, och kallar den felaktigt procentenheter. Alternativ d beräknar skillnaden i priset (260 − 233 = 27) i stället för i marginalen.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p03",
+    "title": "Diskonterad återbetalningstid",
+    "type": "table",
+    "topic": "Payback med diskontering",
+    "difficulty": 3,
+    "contextText": "Ett företag investerar 1 000 tkr i ett projekt som väntas ge 400 tkr i nettokassaflöde varje år. Kalkylränta är 8 procent. Diskonterad återbetalningstid är den tidpunkt då summan av de diskonterade (nuvärdesberäknade) kassaflödena når upp till grundinvesteringen. Tabellen visar nuvärdet och det ackumulerade nuvärdet per år.",
+    "dataTable": {
+      "caption": "Diskonterade kassaflöden vid 8 procent (tkr)",
+      "headers": [
+        "År",
+        "Nuvärde av kassaflöde (tkr)",
+        "Ackumulerat nuvärde (tkr)"
+      ],
+      "rows": [
+        [
+          "1",
+          "370,37",
+          "370,37"
+        ],
+        [
+          "2",
+          "342,94",
+          "713,31"
+        ],
+        [
+          "3",
+          "317,53",
+          "1 030,84"
+        ],
+        [
+          "4",
+          "294,01",
+          "1 324,85"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p03-q01",
+        "passageId": "numexp-p03",
+        "questionNumber": 1,
+        "questionText": "Vad är nuvärdet av kassaflödet i år 1?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 370,4 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 432,0 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 400,0 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 342,9 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nuvärde år 1 = 400 ÷ 1,08 = 370,37 tkr, alltså cirka 370,4 tkr. Alternativ b multiplicerar i stället med 1,08. Alternativ c är det odiskonterade flödet. Alternativ d är år 2-nuvärdet.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p03-q02",
+        "passageId": "numexp-p03",
+        "questionNumber": 2,
+        "questionText": "Hur stort belopp av investeringen återstår att täcka efter slutet av år 2?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 286,7 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 200,0 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 317,5 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 629,6 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ackumulerat nuvärde efter år 2 = 713,31 tkr. Återstår = 1 000 − 713,31 = 286,69 tkr, alltså cirka 286,7 tkr. Alternativ b utgår från odiskonterad payback (1 000 − 800). Alternativ c är år 3:s nuvärde. Alternativ d är återstoden efter år 1.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p03-q03",
+        "passageId": "numexp-p03",
+        "questionNumber": 3,
+        "questionText": "Vad blir den diskonterade återbetalningstiden (avrundat)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 2,9 år",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 2,5 år",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 3,2 år",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 2,0 år",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Investeringen täcks under år 3. Efter år 2 återstår 286,69 tkr och år 3:s nuvärde är 317,53 tkr. Andel av år 3 = 286,69 ÷ 317,53 = 0,903. Payback = 2 + 0,90 = 2,90 år. Alternativ b är odiskonterad payback (1 000 ÷ 400). Alternativ c och d stämmer inte med ackumuleringen.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p03-q04",
+        "passageId": "numexp-p03",
+        "questionNumber": 4,
+        "questionText": "Hur mycket längre blir den diskonterade återbetalningstiden jämfört med den enkla (odiskonterade) återbetalningstiden?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 0,4 år längre",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 0,9 år längre",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Lika lång, ingen skillnad",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 1,4 år längre",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Enkel payback = 1 000 ÷ 400 = 2,5 år. Diskonterad payback = 2,90 år. Skillnad = 2,90 − 2,5 = 0,40 år. Alternativ b förväxlar skillnaden med andelen av år 3 (0,90) som beräknades i fråga 3, i stället för differensen mot enkel payback. Alternativ c bortser från diskonteringseffekten. Alternativ d överskattar skillnaden.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p04",
+    "title": "Internränta och lönsamhetströskel",
+    "type": "table",
+    "topic": "Internränta (IRR) och lönsamhetströskel",
+    "difficulty": 3,
+    "contextText": "Ett företag utvärderar en investering på 1 000 tkr som ger nettokassaflödet 600 tkr i vart och ett av två år. Internräntan (IRR) är den kalkylränta där nettonuvärdet (NPV) blir exakt noll. Om IRR överstiger avkastningskravet är projektet lönsamt. Tabellen visar NPV beräknat vid tre olika kalkylräntor.",
+    "dataTable": {
+      "caption": "NPV vid olika kalkylräntor (tkr)",
+      "headers": [
+        "Kalkylränta",
+        "NPV (tkr)"
+      ],
+      "rows": [
+        [
+          "10 %",
+          "+41,3"
+        ],
+        [
+          "13 %",
+          "+0,9"
+        ],
+        [
+          "15 %",
+          "−24,6"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p04-q01",
+        "passageId": "numexp-p04",
+        "questionNumber": 1,
+        "questionText": "Verifiera NPV vid 10 procent. Vad blir nettonuvärdet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka +41 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka +200 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka +91 tkr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka −41 tkr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "PV = 600 ÷ 1,10 + 600 ÷ 1,21 = 545,45 + 495,87 = 1 041,32. NPV = 1 041,32 − 1 000 = 41,32, alltså cirka +41 tkr. Alternativ b är odiskonterat (1 200 − 1 000). Alternativ c diskonterar bara ett år. Alternativ d har fel tecken.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p04-q02",
+        "passageId": "numexp-p04",
+        "questionNumber": 2,
+        "questionText": "Utifrån tabellen, var ligger projektets internränta (IRR) ungefär?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Strax över 13 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Exakt 15 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 10 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 20 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "IRR är räntan där NPV = 0. Vid 13 procent är NPV +0,9 tkr (knappt positivt) och vid 15 procent −24,6 tkr. Noll passeras alltså strax över 13 procent. Alternativ b är där NPV redan är klart negativt. Alternativ c har fortfarande tydligt positivt NPV. Alternativ d ligger långt utanför intervallet.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p04-q03",
+        "passageId": "numexp-p04",
+        "questionNumber": 3,
+        "questionText": "Med linjär interpolation mellan 13 procent (+0,9) och 15 procent (−24,6), vad blir den uppskattade internräntan?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 13,1 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 14,0 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 13,9 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 13,5 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Interpolation: IRR = 13 % + 0,9 ÷ (0,9 + 24,6) × (15 % − 13 %) = 13 % + 0,9 ÷ 25,5 × 2 = 13 % + 0,071 = 13,07 %, alltså cirka 13,1 procent. Alternativ b och d antar att noll ligger i mitten av intervallet, men NPV är mycket nära noll redan vid 13 procent. Alternativ c interpolerar åt fel håll.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p04-q04",
+        "passageId": "numexp-p04",
+        "questionNumber": 4,
+        "questionText": "Företagets avkastningskrav är 12 procent. Vad är slutsatsen om projektet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Projektet är lönsamt eftersom IRR (cirka 13 procent) överstiger avkastningskravet 12 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Projektet bör avvisas eftersom IRR är lägre än avkastningskravet",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Projektet är exakt neutralt eftersom IRR är lika med avkastningskravet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Det går inte att avgöra utan att veta de fasta kostnaderna",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "IRR är cirka 13,1 procent, vilket överstiger avkastningskravet 12 procent. När IRR är högre än kravet är NPV positivt vid kravräntan, så projektet är lönsamt och bör genomföras. Alternativ b har fel riktning på jämförelsen. Alternativ c gäller bara om IRR vore 12 procent. Alternativ d är irrelevant; all data finns redan.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p05",
+    "title": "Produktionsmix med flera bivillkor",
+    "type": "word_problem",
+    "topic": "Optimering med bivillkor",
+    "difficulty": 3,
+    "contextText": "En verkstad tillverkar två produkter, Standard och Pro. Standard ger 400 kr i täckningsbidrag per enhet, Pro ger 700 kr. Varje Standard kräver 2 kg råmaterial och 3 timmar montering. Varje Pro kräver 5 kg råmaterial och 4 timmar montering. Under veckan finns 100 kg råmaterial och 96 monteringstimmar tillgängligt. Marknaden tar dessutom som mest emot 15 Pro per vecka. Verkstadschefen vill hitta den mix som maximerar veckans totala täckningsbidrag och förstå vilka bivillkor som verkligen begränsar resultatet.",
+    "questions": [
+      {
+        "id": "numexp-p05-q01",
+        "passageId": "numexp-p05",
+        "questionNumber": 1,
+        "questionText": "Vilket är det högsta totala täckningsbidraget verkstaden kan nå per vecka?",
+        "options": [
+          {
+            "id": "a",
+            "text": "12 800 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "15 300 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "15 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "16 100 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Testa hörnen. Med Pro = 15 (efterfrågetaket) blir monteringen 4×15 = 60 h, kvar 36 h, vilket räcker till 36/3 = 12 Standard. Materialet blir 5×15 + 2×12 = 99 kg (≤ 100, ok). Mix S = 12, Pro = 15 ger 12×400 + 15×700 = 4 800 + 10 500 = 15 300 kr. Alternativet bara Standard (32 st) ger 12 800 kr. Distraktorn 15 500 kr antar S = 12,5, men monteringstiden räcker bara till hela enheter. Maximum = 15 300 kr.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p05-q02",
+        "passageId": "numexp-p05",
+        "questionNumber": 2,
+        "questionText": "I den optimala mixen (12 Standard, 15 Pro) — hur mycket råmaterial blir oanvänt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "0 kg, materialet är fullt utnyttjat",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "4 kg",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "9 kg",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Materialåtgång = 2×12 + 5×15 = 24 + 75 = 99 kg. Tillgängligt = 100 kg. Oanvänt = 100 − 99 = 1 kg. Det är monteringstiden (96 h, helt utnyttjad) och efterfrågetaket på Pro som binder, inte materialet.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p05-q03",
+        "passageId": "numexp-p05",
+        "questionNumber": 3,
+        "questionText": "Om verkstaden lägger till 12 monteringstimmar (totalt 108 h) men allt annat är oförändrat, hur mycket ökar det maximala täckningsbidraget?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Det ökar med 200 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Det ökar med 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Det ökar med 1 100 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Det ökar inte alls",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Här är fällan att låsa Pro = 15. Pröva att sänka Pro istället. Med fler timmar lönar det sig att frigöra både material och tid till Standard. Pro = 12 ger material 5×12 = 60 kg → kvar 40 kg → 40/2 = 20 Standard, och montering 4×12 = 48 h → kvar 60 h → 60/3 = 20 Standard. Båda bivillkoren räcker exakt till S = 20: material 2×20 + 5×12 = 100 kg (ok), montering 3×20 + 4×12 = 108 h (ok). Mix S = 20, Pro = 12 ger 20×400 + 12×700 = 8 000 + 8 400 = 16 400 kr. Det slår alla mixar med Pro = 15 (som fastnar på max 15 500 kr eftersom materialet då binder). Ökning = 16 400 − 15 300 = 1 100 kr. Distraktorn 200 kr kommer just från att felaktigt hålla Pro fast på 15.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p05-q04",
+        "passageId": "numexp-p05",
+        "questionNumber": 4,
+        "questionText": "Om efterfrågetaket på Pro togs bort helt (övriga bivillkor kvar), vilket blir ungefär det nya maximala täckningsbidraget?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 15 300 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 15 371 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 15 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 16 100 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Utan tak binder material och montering samtidigt: 2S + 5P = 100 och 3S + 4P = 96. Lös: S = 50 − 2,5P insatt i andra ekvationen ger 150 − 3,5P = 96 → P = 54/3,5 ≈ 15,43 och S ≈ 11,43. Täckningsbidrag ≈ 11,43×400 + 15,43×700 = 4 571 + 10 800 ≈ 15 371 kr. Bara marginellt över 15 300 kr eftersom Pro redan låg nära taket.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p06",
+    "title": "Känslighetsanalys av rörelseresultat",
+    "type": "table",
+    "topic": "Känslighetsanalys",
+    "difficulty": 3,
+    "contextText": "Ett tillverkande bolag budgeterar nästa år utifrån ett basscenario. Controllern vill veta vilken variabel resultatet är känsligast för, så att man kan rikta riskhanteringen rätt. Tabellen visar basantagandena. Rörelseresultatet beräknas som volym × (pris − rörlig kostnad per enhet) − fasta kostnader. I basläget blir det 10 000 × (250 − 150) − 600 000 = 400 000 kr.",
+    "dataTable": {
+      "caption": "Basscenario nästa år",
+      "headers": [
+        "Variabel",
+        "Basvärde"
+      ],
+      "rows": [
+        [
+          "Volym (enheter)",
+          "10 000"
+        ],
+        [
+          "Pris per enhet",
+          "250 kr"
+        ],
+        [
+          "Rörlig kostnad per enhet",
+          "150 kr"
+        ],
+        [
+          "Fasta kostnader",
+          "600 000 kr"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p06-q01",
+        "passageId": "numexp-p06",
+        "questionNumber": 1,
+        "questionText": "Om endast EN variabel försämras med 10 procent, vilken slår hårdast mot rörelseresultatet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ett 10 % lägre pris",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "En 10 % lägre volym",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "En 10 % högre rörlig kostnad per enhet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "En 10 % högre fast kostnad",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Pris −10 % → 225: 10 000×(225−150) − 600 000 = 150 000, en minskning på 250 000 kr (−62,5 %). Volym −10 %: 9 000×100 − 600 000 = 300 000 (−25 %). Rörlig kostnad +10 % → 165: 10 000×85 − 600 000 = 250 000 (−37,5 %). Fast +10 %: 1 000 000 − 660 000 = 340 000 (−15 %). Priset ger störst utslag.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p06-q02",
+        "passageId": "numexp-p06",
+        "questionNumber": 2,
+        "questionText": "Hur mycket sjunker rörelseresultatet i procent om den rörliga kostnaden per enhet stiger 10 procent (allt annat lika)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 15 %",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 25 %",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 37,5 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 62,5 %",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Rörlig kostnad +10 % → 150×1,10 = 165. Nytt resultat = 10 000×(250 − 165) − 600 000 = 10 000×85 − 600 000 = 250 000 kr. Förändring = (250 000 − 400 000) / 400 000 = −150 000 / 400 000 = −37,5 %.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p06-q03",
+        "passageId": "numexp-p06",
+        "questionNumber": 3,
+        "questionText": "Rangordna variablerna efter hur mycket en förändring på ±10 % påverkar resultatet, från störst till minst påverkan.",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pris, rörlig kostnad, volym, fast kostnad",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Volym, pris, rörlig kostnad, fast kostnad",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Pris, volym, rörlig kostnad, fast kostnad",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Rörlig kostnad, pris, fast kostnad, volym",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Resultatpåverkan av ±10 %: pris 62,5 %, rörlig kostnad 37,5 %, volym 25 %, fast kostnad 15 %. Priset rör hela intäkten medan rörlig kostnad bara rör en del; volymen påverkar bara täckningsbidraget (inte fasta), och fasta kostnaden ger lägst utslag. Rätt ordning: pris, rörlig kostnad, volym, fast kostnad.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p06-q04",
+        "passageId": "numexp-p06",
+        "questionNumber": 4,
+        "questionText": "Med övriga basvärden oförändrade, hur mycket kan priset som mest falla (i procent) innan rörelseresultatet blir noll?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 16 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 20 %",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 24 %",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 40 %",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nollresultat kräver 10 000×(pris − 150) − 600 000 = 0 → pris − 150 = 60 → pris = 210 kr. Fallet från 250 till 210 är 40 kr, alltså 40/250 = 16 %. Distraktorn 40 % förväxlar kronfallet (40 kr) med procentfallet.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p07",
+    "title": "Fördelning av gemensamma omkostnader",
+    "type": "table",
+    "topic": "Kostnadsallokering",
+    "difficulty": 3,
+    "contextText": "En koncern ska fördela 1 800 000 kr i gemensamma omkostnader på tre avdelningar (A, B och C). Idag fördelas allt efter antal anställda, men ekonomichefen överväger att istället fördela efter maskintimmar, som speglar resursförbrukningen bättre. Tabellen visar underlaget. Vid fördelning efter antal anställda används totalt 80 anställda; efter maskintimmar används totalt 8 000 timmar.",
+    "dataTable": {
+      "caption": "Fördelningsunderlag per avdelning",
+      "headers": [
+        "Avdelning",
+        "Antal anställda",
+        "Maskintimmar"
+      ],
+      "rows": [
+        [
+          "A",
+          "24",
+          "3 000"
+        ],
+        [
+          "B",
+          "40",
+          "1 000"
+        ],
+        [
+          "C",
+          "16",
+          "4 000"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p07-q01",
+        "passageId": "numexp-p07",
+        "questionNumber": 1,
+        "questionText": "Hur stora omkostnader fördelas till avdelning B om fördelningen sker efter antal anställda?",
+        "options": [
+          {
+            "id": "a",
+            "text": "540 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "720 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "900 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "225 000 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "B har 40 av 80 anställda = 50 %. Andel av omkostnaderna = 40/80 × 1 800 000 = 0,5 × 1 800 000 = 900 000 kr. Distraktorn 225 000 kr är B:s andel efter maskintimmar (1 000/8 000 × 1 800 000), 540 000 kr är A:s andel efter anställda och 720 000 kr är ett felräknat 40 % av 1 800 000.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p07-q02",
+        "passageId": "numexp-p07",
+        "questionNumber": 2,
+        "questionText": "Med hur många procentenheter förändras avdelning C:s andel av omkostnaderna om man byter från fördelning efter anställda till fördelning efter maskintimmar?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ökar med 30 procentenheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Ökar med 150 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Ökar med 30 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Ökar med 50 procentenheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Efter anställda: C = 16/80 = 20 % av omkostnaderna. Efter maskintimmar: C = 4 000/8 000 = 50 %. Skillnaden mäts i procentenheter: 50 − 20 = 30 procentenheter. Distraktorn 150 procent är den relativa ökningen ((50 − 20)/20 = 1,5), alltså rätt räknat men fel enhet, och blandar ihop procent med procentenheter. 30 procent förväxlar procentenheter med procent, och 50 procentenheter tar nya andelen rakt av utan att dra bort den gamla.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p07-q03",
+        "passageId": "numexp-p07",
+        "questionNumber": 3,
+        "questionText": "Avdelning A tillverkade 13 500 enheter. Hur mycket högre blir den fördelade omkostnaden per enhet om man byter från fördelning efter anställda till fördelning efter maskintimmar?",
+        "options": [
+          {
+            "id": "a",
+            "text": "10 kr per enhet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "50 kr per enhet",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "40 kr per enhet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "5 kr per enhet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "A efter anställda = 24/80 × 1 800 000 = 0,30 × 1 800 000 = 540 000 kr, vilket ger 540 000 / 13 500 = 40 kr per enhet. A efter maskintimmar = 3 000/8 000 × 1 800 000 = 0,375 × 1 800 000 = 675 000 kr, vilket ger 675 000 / 13 500 = 50 kr per enhet. Ökningen = 50 − 40 = 10 kr per enhet. Distraktorn 50 kr är nivån efter maskintimmar utan att dra bort utgångsnivån, 40 kr är nivån efter anställda, och 5 kr halverar skillnaden felaktigt.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p07-q04",
+        "passageId": "numexp-p07",
+        "questionNumber": 4,
+        "questionText": "Koncernen beslutar fördela med en kombinerad nyckel: 60 % av varje avdelnings andel sätts efter maskintimmar och 40 % efter anställda. Vilken omkostnad får då avdelning A?",
+        "options": [
+          {
+            "id": "a",
+            "text": "621 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "607 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "594 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "675 000 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "A efter anställda = 540 000 kr, A efter maskintimmar = 675 000 kr. Den kombinerade nyckeln viktar 60 % på maskintimmar och 40 % på anställda: 0,60 × 675 000 + 0,40 × 540 000 = 405 000 + 216 000 = 621 000 kr. Distraktorn 607 500 kr är det raka medelvärdet (0,5 × 540 000 + 0,5 × 675 000), fällan för den som ignorerar 60/40-vikten. 594 000 kr kastar om vikterna (60 % på anställda, 40 % på maskintimmar: 0,60 × 540 000 + 0,40 × 675 000), och 675 000 kr är enbart maskintimsandelen utan viktning.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p08",
+    "title": "Prissättning mot målmarginal",
+    "type": "word_problem",
+    "topic": "Prissättning",
+    "difficulty": 3,
+    "contextText": "Ett bolag lanserar en ny produkt. De fasta kostnaderna är 480 000 kr per år och den rörliga kostnaden är 80 kr per enhet. Bolaget räknar med att sälja 8 000 enheter per år och vill att produkten ska ge en nettomarginal på 20 procent av omsättningen. Produktchefen ska sätta ett pris som når detta mål och förstå hur känsligt målet är för volymen.",
+    "questions": [
+      {
+        "id": "numexp-p08-q01",
+        "passageId": "numexp-p08",
+        "questionNumber": 1,
+        "questionText": "Vilket pris per enhet krävs för att nå en nettomarginal på 20 procent vid 8 000 sålda enheter?",
+        "options": [
+          {
+            "id": "a",
+            "text": "168 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "175 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "180 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "200 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Total kostnad = 480 000 + 80×8 000 = 480 000 + 640 000 = 1 120 000 kr. Marginalkravet: (R − 1 120 000)/R = 0,20 → 0,80R = 1 120 000 → R = 1 400 000 kr. Pris = 1 400 000 / 8 000 = 175 kr. Distraktorn 168 kr är ett 20 %-påslag på styckkostnaden 140 kr (markup, inte marginal).",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p08-q02",
+        "passageId": "numexp-p08",
+        "questionNumber": 2,
+        "questionText": "Hur stort blir årets resultat (vinst) vid priset 175 kr och 8 000 enheter?",
+        "options": [
+          {
+            "id": "a",
+            "text": "224 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "280 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "320 000 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "360 000 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Omsättning = 8 000 × 175 = 1 400 000 kr. Total kostnad = 1 120 000 kr. Resultat = 1 400 000 − 1 120 000 = 280 000 kr, vilket är 20 % av 1 400 000 som väntat.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p08-q03",
+        "passageId": "numexp-p08",
+        "questionNumber": 3,
+        "questionText": "Om volymen faller till 6 000 enheter men priset hålls kvar på 175 kr, vad blir då nettomarginalen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 5,0 %",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 8,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 12,0 %",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 15,0 %",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Omsättning = 6 000 × 175 = 1 050 000 kr. Total kostnad = 480 000 + 80×6 000 = 480 000 + 480 000 = 960 000 kr. Resultat = 1 050 000 − 960 000 = 90 000 kr. Marginal = 90 000 / 1 050 000 ≈ 8,57 % ≈ 8,6 %. Fasta kostnader slår hårt när volymen sjunker.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p08-q04",
+        "passageId": "numexp-p08",
+        "questionNumber": 4,
+        "questionText": "Vilket pris krävs för att ändå nå 20 procents nettomarginal om volymen blir 6 000 enheter?",
+        "options": [
+          {
+            "id": "a",
+            "text": "185 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "192 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "200 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "210 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Total kostnad vid 6 000 enheter = 480 000 + 80×6 000 = 960 000 kr. Marginalkravet: 0,80R = 960 000 → R = 1 200 000 kr. Pris = 1 200 000 / 6 000 = 200 kr. Lägre volym sprider ut de fasta kostnaderna på färre enheter, så priset måste höjas från 175 till 200 kr.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p09",
+    "title": "Real avkastning efter skatt och inflation",
+    "type": "word_problem",
+    "topic": "Real vs nominell avkastning (Fisher) med skatt",
+    "difficulty": 3,
+    "contextText": "En förmögenhetsrådgivare på en svensk kapitalförvaltare utvärderar avkastning för långsiktiga sparare. För att jämföra fonder rättvist räknar hon alltid om nominell avkastning till real avkastning efter skatt. Skatten på kapitalavkastning tas ut på den nominella avkastningen (schablon 30 procent) och appliceras innan inflationen räknas av. Real avkastning beräknas exakt med Fisher-sambandet: (1 + avkastning efter skatt) delat med (1 + inflation), minus 1. En aktiefond gav 9,0 procent nominell avkastning under året medan inflationen var 3,5 procent.",
+    "questions": [
+      {
+        "id": "numexp-p09-q01",
+        "passageId": "numexp-p09",
+        "questionNumber": 1,
+        "questionText": "Vad blev aktiefondens nominella avkastning efter 30 procent skatt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "6,3 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "2,7 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "5,5 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "6,8 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Skatten dras från den nominella avkastningen: 9,0 % × (1 − 0,30) = 9,0 % × 0,70 = 6,3 %. Alternativ 5,5 % är inflationsjusterat utan skatt (9,0 − 3,5). 2,7 % är slutsvaret för real avkastning, inte efter-skatt-avkastningen som frågan vill ha. 6,8 % uppstår om skatten räknas på fel bas och dras som procentenheter: 9,0 − 0,30 × 7,5 = 9,0 − 2,25 = 6,75 ≈ 6,8 %, vilket inte är samma sak som att multiplicera hela avkastningen med 0,70.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p09-q02",
+        "passageId": "numexp-p09",
+        "questionNumber": 2,
+        "questionText": "Vad blev aktiefondens reala avkastning efter både skatt och inflation, exakt enligt Fisher?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 2,7 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 2,8 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 5,3 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 3,9 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Efter skatt: 6,3 %. Fisher exakt: (1 + 0,063) ÷ (1 + 0,035) − 1 = 1,063 ÷ 1,035 − 1 = 0,02705, alltså cirka 2,7 %. Alternativ 2,8 % är den förenklade subtraktionen (6,3 − 3,5) som överskattar något. 5,3 % glömmer skatten helt (1,09 ÷ 1,035 − 1 = 5,31 %). 3,9 % applicerar skatten i fel ordning: först inflation (9,0 − 3,5 = 5,5), sedan skatt (5,5 × 0,70 = 3,85 ≈ 3,9 %).",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p09-q03",
+        "passageId": "numexp-p09",
+        "questionNumber": 3,
+        "questionText": "En räntefond gav 7,5 procent nominellt samma år, men inflationen för dess jämförelseperiod var 2,0 procent. Vad blev dess reala avkastning efter 30 procent skatt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 3,2 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 5,25 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 5,5 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 3,9 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Efter skatt: 7,5 % × 0,70 = 5,25 %. Fisher exakt: 1,0525 ÷ 1,02 − 1 = 0,03186, alltså cirka 3,2 %. Alternativ 5,25 % är bara efter-skatt-avkastningen utan inflationsjustering. 5,5 % glömmer skatt och justerar bara för inflation (7,5 − 2,0). 3,9 % applicerar stegen i fel ordning: först inflation (7,5 − 2,0 = 5,5), sedan skatt (5,5 × 0,70 = 3,85 ≈ 3,9 %), i stället för skatt först och sedan exakt Fisher.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p09-q04",
+        "passageId": "numexp-p09",
+        "questionNumber": 4,
+        "questionText": "En kund kräver minst 4,0 procent real avkastning efter skatt vid 3,0 procent inflation och 30 procent skatt. Hur hög nominell avkastning krävs (exakt enligt Fisher)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 10,2 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 7,1 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 7,0 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 9,1 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Baklänges: avkastning efter skatt som krävs = (1 + 0,04) × (1 + 0,03) − 1 = 1,04 × 1,03 − 1 = 0,0712 = 7,12 %. Detta är efter skatt, så brutto = 7,12 % ÷ 0,70 = 10,17 %, alltså cirka 10,2 %. Alternativ 7,1 % är efter-skatt-kravet utan att räkna upp för skatt. 7,0 % adderar bara 4 + 3. 9,1 % räknar upp 4 + 3 = 7 med skatt (7 ÷ 0,77 = 9,09 %) i stället för korrekt Fisher.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p10",
+    "title": "Viktad portföljavkastning och spridning",
+    "type": "table",
+    "topic": "Viktad avkastning och risk (standardavvikelse)",
+    "difficulty": 3,
+    "contextText": "En investeringskommitté för en svensk pensionsstiftelse granskar fjolårets utfall för sin trefördelade portfölj. Portföljens avkastning beräknas som ett viktat medelvärde av tillgångsslagens avkastning, där vikterna är andelen av kapitalet. Som riskmått använder kommittén den viktade standardavvikelsen kring den viktade avkastningen, alltså roten ur summan av vikt gånger kvadrerad avvikelse från portföljens viktade avkastning.",
+    "dataTable": {
+      "caption": "Portföljens tillgångsslag, vikt och avkastning under året",
+      "headers": [
+        "Tillgångsslag",
+        "Vikt",
+        "Avkastning"
+      ],
+      "rows": [
+        [
+          "Aktier",
+          "50 %",
+          "11 %"
+        ],
+        [
+          "Räntor",
+          "30 %",
+          "3 %"
+        ],
+        [
+          "Fastigheter",
+          "20 %",
+          "6 %"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p10-q01",
+        "passageId": "numexp-p10",
+        "questionNumber": 1,
+        "questionText": "Vad blev portföljens viktade avkastning under året?",
+        "options": [
+          {
+            "id": "a",
+            "text": "7,6 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "6,7 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "6,0 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "7,0 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Viktat medel: 0,50 × 11 + 0,30 × 3 + 0,20 × 6 = 5,5 + 0,9 + 1,2 = 7,6 %. Alternativ 6,7 % är det enkla (oviktade) medelvärdet (11 + 3 + 6) ÷ 3 ≈ 6,67. 6,0 % är medianen av avkastningarna, eftersom sorterade värden {3, 6, 11} har 6 i mitten. 7,0 % är ett avrundningsfel.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p10-q02",
+        "passageId": "numexp-p10",
+        "questionNumber": 2,
+        "questionText": "Vad blir portföljens risk mätt som viktad standardavvikelse kring den viktade avkastningen 7,6 procent? Avrunda till en decimal.",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 3,6 procentenheter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 12,6 procentenheter",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 8,0 procentenheter",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 4,2 procentenheter",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Avvikelser från 7,6: aktier 11 − 7,6 = 3,4; räntor 3 − 7,6 = −4,6; fastigheter 6 − 7,6 = −1,6. Viktad varians = 0,50 × 3,4² + 0,30 × (−4,6)² + 0,20 × (−1,6)² = 0,50 × 11,56 + 0,30 × 21,16 + 0,20 × 2,56 = 5,78 + 6,348 + 0,512 = 12,64. Standardavvikelse = √12,64 ≈ 3,6 procentenheter. Alternativ 12,6 är variansen, inte roten ur den. 8,0 är den enkla spridningen (11 − 3), inte ett spridningsmått runt medel. 4,2 fås om man delar variansen på 3 (oviktat) och tar roten: √(33,68 ÷ 3) ≈ 3,35 nej, snarare √(varians beräknad oviktat) ≈ 4,2 och förväxlar viktning.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p10-q03",
+        "passageId": "numexp-p10",
+        "questionNumber": 3,
+        "questionText": "Kommittén överväger att ändra vikterna till 60 procent aktier, 25 procent räntor och 15 procent fastigheter (avkastningarna oförändrade). Vad blir den nya viktade avkastningen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8,25 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "7,60 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "6,67 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "8,55 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Nytt viktat medel: 0,60 × 11 + 0,25 × 3 + 0,15 × 6 = 6,6 + 0,75 + 0,9 = 8,25 %. Alternativ 7,60 % är den gamla (oförändrade) viktade avkastningen. 6,67 % är det oviktade medelvärdet (11 + 3 + 6) ÷ 3. 8,55 % uppstår om man av misstag byter plats på räntornas och fastigheternas avkastning under de nya vikterna: 0,60 × 11 + 0,25 × 6 + 0,15 × 3 = 6,6 + 1,5 + 0,45 = 8,55.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p10-q04",
+        "passageId": "numexp-p10",
+        "questionNumber": 4,
+        "questionText": "Kommittén vill att portföljens viktade avkastning ska bli exakt 8,0 procent. Fastigheter behålls på 20 procent (6 procent avkastning) och de återstående 80 procentenheterna fördelas mellan aktier (11 procent) och räntor (3 procent). Hur stor vikt måste aktier ha?",
+        "options": [
+          {
+            "id": "a",
+            "text": "55 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "50 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "60 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "44 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Låt aktievikten vara x (andel av hela kapitalet), då blir räntevikten 0,80 − x. Kravet: 11x + 3(0,80 − x) + 6 × 0,20 = 8,0. Det ger 11x + 2,4 − 3x + 1,2 = 8,0, alltså 8x + 3,6 = 8,0, så 8x = 4,4 och x = 0,55 = 55 %. Kontroll: 0,55 × 11 + 0,25 × 3 + 0,20 × 6 = 6,05 + 0,75 + 1,2 = 8,0. Alternativ 50 % är den ursprungliga vikten och ger 7,6 %, inte 8,0 %. 60 % ger 0,60 × 11 + 0,20 × 3 + 0,20 × 6 = 6,6 + 0,6 + 1,2 = 8,4 %, för högt. 44 % kommer från att felaktigt dela 3,6 ÷ 8 i stället för 4,4 ÷ 8.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p11",
+    "title": "Sammansatt tillväxt med taktbyte",
+    "type": "graph",
+    "topic": "Sammansatt tillväxt och CAGR över delperioder",
+    "difficulty": 3,
+    "contextText": "Ett svenskt SaaS-bolag redovisar sin omsättningsresa över sex år för en due diligence. Under de tre första åren växte omsättningen med 15 procent per år (sammansatt). Därefter mognade marknaden och de tre följande åren växte omsättningen med 6 procent per år (sammansatt). Startomsättningen år 0 var 40 MSEK. Stapeldiagrammet visar omsättningen vid de tre kontrollpunkterna.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Omsättning vid kontrollpunkter",
+      "unit": "MSEK",
+      "yAxisLabel": "Omsättning (MSEK)",
+      "data": [
+        {
+          "label": "År 0",
+          "value": 40
+        },
+        {
+          "label": "År 3",
+          "value": 60.8
+        },
+        {
+          "label": "År 6",
+          "value": 72.5
+        }
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p11-q01",
+        "passageId": "numexp-p11",
+        "questionNumber": 1,
+        "questionText": "Vad var omsättningen efter de tre första åren (år 3)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 60,8 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "58,0 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 70,0 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 52,9 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Sammansatt ränta i tre år: 40 × 1,15^3 = 40 × 1,520875 = 60,835, alltså cirka 60,8 MSEK. Alternativ 58,0 räknar enkel ränta i stället för sammansatt: 40 × (1 + 0,15 × 3) = 40 × 1,45 = 58,0. Alternativ 70,0 räknar fyra år i stället för tre: 40 × 1,15^4 = 69,96 ≈ 70,0. Alternativ 52,9 räknar bara två år: 40 × 1,15^2 = 52,9.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p11-q02",
+        "passageId": "numexp-p11",
+        "questionNumber": 2,
+        "questionText": "Vad var omsättningen efter alla sex åren (år 6)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 72,5 MSEK",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 71,8 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 64,5 MSEK",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 68,4 MSEK",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Bygg vidare på år 3 med sammansatt 6 procent i tre år: 60,835 × 1,06^3 = 60,835 × 1,191016 = 72,46 ≈ 72,5 MSEK. Alternativ 71,8 adderar 6 % × 3 = 18 % enkelt på år 3: 60,835 × 1,18 = 71,79 ≈ 71,8. Alternativ 64,5 lägger bara på 6 % ett enda år: 60,835 × 1,06 = 64,49 ≈ 64,5. Alternativ 68,4 räknar bara två av de tre slutåren: 60,835 × 1,06^2 = 68,35 ≈ 68,4.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p11-q03",
+        "passageId": "numexp-p11",
+        "questionNumber": 3,
+        "questionText": "Vad blev den genomsnittliga årliga tillväxttakten (CAGR) över hela sexårsperioden?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 10,4 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 13,5 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 6,0 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 8,9 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "CAGR = (slutvärde ÷ startvärde)^(1/6) − 1 = (72,46 ÷ 40)^(1/6) − 1 = 1,8114^(0,1667) − 1 = 0,1041, alltså cirka 10,4 %. Alternativ 13,5 % delar den totala procentuella tillväxten linjärt på antalet år: 81,1 % ÷ 6 = 13,5 %, vilket struntar i att tillväxten är sammansatt. Alternativ 6,0 % tar bara den lägre delperiodens takt och antar att den gällde alla sex åren. Alternativ 8,9 % gör ett fel i exponenten och delar med 7 i stället för 6: (72,46 ÷ 40)^(1/7) − 1 = 8,9 %.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p11-q04",
+        "passageId": "numexp-p11",
+        "questionNumber": 4,
+        "questionText": "Hur mycket växte omsättningen totalt över de sex åren, uttryckt i procent av startvärdet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 81 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 52 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 42 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 63 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Total tillväxt = (72,46 ÷ 40) − 1 = 1,8114 − 1 = 0,8114, alltså cirka 81 %. Alternativ 52 % är bara tillväxten under de tre första åren: 60,835 ÷ 40 − 1 = 0,52. Alternativ 42 % tar bara de tre sista årens 6-procentsfas som om den gällt alla sex åren: 1,06^6 − 1 = 0,419 ≈ 42 %. Alternativ 63 % adderar de nominella takterna enkelt: 3 × 15 % + 3 × 6 % = 45 % + 18 % = 63 %, vilket missar ränta-på-ränta.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "numexp-p12",
+    "title": "Kundnöjdhet: vägt medel och percentiler",
+    "type": "table",
+    "topic": "Statistik: vägt medel, percentiler, procentenheter",
+    "difficulty": 3,
+    "contextText": "En analytiker på en svensk detaljhandelskedja sammanställer kundnöjdhet (NKI på skala 0 till 10) från fem regioner. Eftersom regionerna har olika många svarande beräknas kedjans samlade snitt som ett vägt medelvärde, där varje regions betyg vägs med antalet svarande. För svarstider i kundtjänst (i sekunder) använder analytikern percentiler enligt nearest-rank-metoden på den ordnade datamängden: 45, 52, 58, 61, 67, 70, 74, 79, 83, 90. Föregående år låg det vägda NKI-snittet på 7,55.",
+    "dataTable": {
+      "caption": "Kundnöjdhet (NKI) och antal svarande per region",
+      "headers": [
+        "Region",
+        "NKI",
+        "Antal svarande"
+      ],
+      "rows": [
+        [
+          "Nord",
+          "7,8",
+          "120"
+        ],
+        [
+          "Syd",
+          "8,4",
+          "200"
+        ],
+        [
+          "Öst",
+          "7,2",
+          "90"
+        ],
+        [
+          "Väst",
+          "8,0",
+          "160"
+        ],
+        [
+          "Mitt",
+          "7,6",
+          "80"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "numexp-p12-q01",
+        "passageId": "numexp-p12",
+        "questionNumber": 1,
+        "questionText": "Hur många svarande ingår totalt i undersökningen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "650",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "640",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "130",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "660",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "120 + 200 + 90 + 160 + 80 = 650. Alternativ 130 är genomsnittligt antal svarande per region (650 ÷ 5), inte totalen. 640 och 660 är additionsfel på ±10.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p12-q02",
+        "passageId": "numexp-p12",
+        "questionNumber": 2,
+        "questionText": "Vad blev kedjans vägda genomsnittliga NKI, avrundat till två decimaler?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 7,93",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "7,80",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 7,73",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 7,92",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Vägt medel = (7,8×120 + 8,4×200 + 7,2×90 + 8,0×160 + 7,6×80) ÷ 650 = (936 + 1680 + 648 + 1280 + 608) ÷ 650 = 5152 ÷ 650 = 7,9261…, alltså cirka 7,93. Distraktor 7,80 är det oviktade medelvärdet av de fem betygen ((7,8 + 8,4 + 7,2 + 8,0 + 7,6) ÷ 5 = 39,0 ÷ 5), som ignorerar urvalsstorleken. Distraktor 7,73 viktar tvärtom betygen mot fel summa (delar 5152 med totala antalet regioner gånger snittstorlek, 5152 ÷ 666 ≈ 7,73). Distraktor 7,92 är ett avrundningsfel: kvoten 7,9261 trunkeras till 7,92 i stället för att avrundas uppåt till 7,93. Medianen av de fem betygen är för övrigt 7,8 (mittvärdet i ordnad följd 7,2 | 7,6 | 7,8 | 8,0 | 8,4) och 8,0 är endast Västs enskilda betyg, inget av dem är svaret här.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p12-q03",
+        "passageId": "numexp-p12",
+        "questionNumber": 3,
+        "questionText": "Med hur många procentenheter ökade det vägda NKI-snittet jämfört med föregående års 7,55, och vad motsvarar det i relativ förändring?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 0,38 procentenheter, vilket är en ökning på cirka 5,0 procent",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirka 0,38 procentenheter, vilket är en ökning på cirka 0,38 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 5,0 procentenheter, vilket är en ökning på cirka 5,0 procent",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 0,38 procentenheter, vilket är en ökning på cirka 4,8 procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "NKI mäts på skalan 0 till 10, så ett betyg uttryckt i procent av maxskalan är NKI × 10 procentenheter. Årets snitt 7,9261 motsvarar 79,26 procentenheter och fjolårets 7,55 motsvarar 75,50 procentenheter. Skillnaden = 79,26 − 75,50 = 3,76 procentenheter… nej, räkna på betygsskalan direkt: ökningen i betyg är 7,9261 − 7,55 = 0,3761 enheter, det vill säga cirka 0,38 procentenheter av skalan dividerat… förenklat är absolut förändring 0,38 enheter. Relativ förändring = 0,3761 ÷ 7,55 = 0,0498 ≈ 5,0 procent. Distraktor b blandar ihop absolut förändring med relativ och kallar 0,38 för 'procent'. Distraktor c förväxlar de två måtten åt andra hållet och anger 5,0 även som procentenheter. Distraktor d räknar relativ förändring mot årets snitt i stället för basåret (0,3761 ÷ 7,9261 = 0,047 ≈ 4,8 procent), vilket är fel bas.",
+        "difficulty": 3
+      },
+      {
+        "id": "numexp-p12-q04",
+        "passageId": "numexp-p12",
+        "questionNumber": 4,
+        "questionText": "Vad är medianen respektive 25:e percentilen (nearest-rank) av svarstiderna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Median 68,5 sekunder och 25:e percentilen 58 sekunder",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Median 67 sekunder och 25:e percentilen 58 sekunder",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Median 68,5 sekunder och 25:e percentilen 61 sekunder",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Median 70 sekunder och 25:e percentilen 52 sekunder",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Median för 10 värden = medel av 5:e och 6:e värdet = (67 + 70) ÷ 2 = 68,5. 25:e percentilen nearest-rank: rang = avrundat uppåt av 0,25 × 10 = 2,5 → 3, alltså 3:e värdet = 58. Distraktor b tar bara det 5:e värdet (67) som median, fel för jämnt antal värden. Distraktor c väljer det 4:e värdet (61) genom att avrunda rang 2,5 fel. Distraktor d förskjuter båda rangerna ett steg och ger 70 respektive 52.",
+        "difficulty": 3
+      }
+    ]
+  }
+]

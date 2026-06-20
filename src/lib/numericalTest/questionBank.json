@@ -1392,5 +1392,464 @@
         "difficulty": 3
       }
     ]
+  },
+  {
+    "id": "num-p10",
+    "title": "Veckoförsäljning för ett kafé",
+    "type": "table",
+    "topic": "Försäljningsanalys",
+    "difficulty": 1,
+    "contextText": "Ett kafé i centrala Göteborg följer upp sin försäljning dag för dag under en vanlig vecka. Alla värden anges i kronor (kr) och avser total dagsförsäljning.",
+    "dataTable": {
+      "caption": "Dagsförsäljning under en vecka (kr)",
+      "headers": [
+        "Dag",
+        "Försäljning"
+      ],
+      "rows": [
+        [
+          "Måndag",
+          "4200"
+        ],
+        [
+          "Tisdag",
+          "3800"
+        ],
+        [
+          "Onsdag",
+          "4500"
+        ],
+        [
+          "Torsdag",
+          "5100"
+        ],
+        [
+          "Fredag",
+          "7200"
+        ],
+        [
+          "Lördag",
+          "9600"
+        ]
+      ]
+    },
+    "questions": [
+      {
+        "id": "num-p10-q01",
+        "passageId": "num-p10",
+        "questionNumber": 1,
+        "questionText": "Vilken dag hade kaféet högst försäljning?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Torsdag",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Fredag",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Lördag",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Onsdag",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Lördag har 9600 kr, vilket är högst. Närmast ligger fredag med 7200 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p10-q02",
+        "passageId": "num-p10",
+        "questionNumber": 2,
+        "questionText": "Hur stor var kaféets totala försäljning under hela veckan?",
+        "options": [
+          {
+            "id": "a",
+            "text": "32 400 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "34 400 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "36 200 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "38 000 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Summa = 4200 + 3800 + 4500 + 5100 + 7200 + 9600 = 34 400 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p10-q03",
+        "passageId": "num-p10",
+        "questionNumber": 3,
+        "questionText": "Hur mycket mer sålde kaféet på lördagen jämfört med måndagen?",
+        "options": [
+          {
+            "id": "a",
+            "text": "4 500 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "5 400 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "5 800 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "6 200 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Skillnad = 9600 − 4200 = 5400 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p10-q04",
+        "passageId": "num-p10",
+        "questionNumber": 4,
+        "questionText": "Hur stor andel av veckans totala försäljning stod fredagen för?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 18%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 21%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 25%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 28%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Andel = 7200 / 34 400 × 100% = 20.9% ≈ 21%.",
+        "difficulty": 2
+      }
+    ]
+  },
+  {
+    "id": "num-p11",
+    "title": "Insamlat återvinningsmaterial",
+    "type": "graph",
+    "topic": "Hållbarhet",
+    "difficulty": 1,
+    "contextText": "En bostadsrättsförening mäter hur mycket återvinningsmaterial de boende lämnar in varje månad. Stapeldiagrammet visar insamlad mängd i kilogram (kg) under årets fyra första månader.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Insamlat återvinningsmaterial per månad",
+      "data": [
+        {
+          "label": "Jan",
+          "value": 320
+        },
+        {
+          "label": "Feb",
+          "value": 360
+        },
+        {
+          "label": "Mar",
+          "value": 400
+        },
+        {
+          "label": "Apr",
+          "value": 480
+        }
+      ],
+      "unit": " kg",
+      "yAxisLabel": "Kilogram"
+    },
+    "questions": [
+      {
+        "id": "num-p11-q01",
+        "passageId": "num-p11",
+        "questionNumber": 1,
+        "questionText": "Hur många kilogram samlades in i mars?",
+        "options": [
+          {
+            "id": "a",
+            "text": "360 kg",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "400 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "440 kg",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "480 kg",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Avläs stapeln för mars direkt: 400 kg.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p11-q02",
+        "passageId": "num-p11",
+        "questionNumber": 2,
+        "questionText": "Hur mycket samlades in totalt under de fyra månaderna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1 480 kg",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1 520 kg",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "1 560 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "1 600 kg",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Summa = 320 + 360 + 400 + 480 = 1560 kg.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p11-q03",
+        "passageId": "num-p11",
+        "questionNumber": 3,
+        "questionText": "Med hur många procent ökade insamlingen från januari till april?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 33%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 40%",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirka 50%",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Cirka 60%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Ökning = (480 − 320) / 320 × 100% = 160 / 320 × 100% = 50%.",
+        "difficulty": 2
+      },
+      {
+        "id": "num-p11-q04",
+        "passageId": "num-p11",
+        "questionNumber": 4,
+        "questionText": "Hur stor andel av den totala mängden stod aprilmånaden för?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cirka 26%",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cirka 31%",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Cirka 35%",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirka 40%",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Andel = 480 / 1560 × 100% = 30.8% ≈ 31%.",
+        "difficulty": 2
+      }
+    ]
+  },
+  {
+    "id": "num-p12",
+    "title": "Vardagsmatematik: moms, rabatt och enheter",
+    "type": "conversion",
+    "topic": "Konvertering",
+    "difficulty": 1,
+    "contextText": "Räkneuppgifter som dyker upp i vardagen och på jobbet: moms, rabatter, enkla andelar och enhetsomvandlingar. I Sverige är standardmomsen 25%.",
+    "questions": [
+      {
+        "id": "num-p12-q01",
+        "passageId": "num-p12",
+        "questionNumber": 1,
+        "questionText": "En vara kostar 800 kr exklusive moms. Vad blir priset inklusive 25% moms?",
+        "options": [
+          {
+            "id": "a",
+            "text": "900 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "1 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "1 025 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "1 200 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Pris inkl. moms = 800 × 1.25 = 1000 kr. Momsbeloppet är 800 × 0.25 = 200 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p12-q02",
+        "passageId": "num-p12",
+        "questionNumber": 2,
+        "questionText": "En sträcka är 2,5 km lång. Hur många meter motsvarar det?",
+        "options": [
+          {
+            "id": "a",
+            "text": "250 m",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "2 500 m",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "25 000 m",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "5 000 m",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "1 km = 1000 m, så 2.5 km = 2.5 × 1000 = 2500 m.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p12-q03",
+        "passageId": "num-p12",
+        "questionNumber": 3,
+        "questionText": "En tröja kostar 250 kr. Hur mycket kostar den efter 30% rabatt?",
+        "options": [
+          {
+            "id": "a",
+            "text": "150 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "175 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "195 kr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "220 kr",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Rabatt = 250 × 0.30 = 75 kr. Pris efter rabatt = 250 − 75 = 175 kr. Alternativt: 250 × 0.70 = 175 kr.",
+        "difficulty": 1
+      },
+      {
+        "id": "num-p12-q04",
+        "passageId": "num-p12",
+        "questionNumber": 4,
+        "questionText": "Hur mycket är tre fjärdedelar (3/4) av 60?",
+        "options": [
+          {
+            "id": "a",
+            "text": "40",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "45",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "48",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "50",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "3/4 av 60 = 60 / 4 × 3 = 15 × 3 = 45.",
+        "difficulty": 1
+      }
+    ]
   }
 ]
