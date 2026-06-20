@@ -13,7 +13,7 @@ export const POOL = questionBank as Question[];
 
 // Antal passager som dras per session. Hålls konstant så maxpoäng inte
 // varierar med bankens storlek (4 påståenden × PASSAGES_PER_SESSION).
-export const PASSAGES_PER_SESSION = 12;
+export const PASSAGES_PER_SESSION = 15;
 export const STATEMENTS_PER_PASSAGE = 4;
 export const TOTAL_STATEMENTS = PASSAGES_PER_SESSION * STATEMENTS_PER_PASSAGE;
 

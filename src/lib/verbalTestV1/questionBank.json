@@ -520,5 +520,179 @@
         "explanation": "Texten beskriver bara att bolaget infört och utvecklat den nya modellen, inget om framtida planer på att återgå. Påståendet går inte att avgöra."
       }
     ]
+  },
+  {
+    "id": "v1-p19",
+    "title": "PASSAGE 19 — Distansarbetets effekter",
+    "difficulty": 1,
+    "topic": "HR",
+    "text": "När pandemin tvingade fram distansarbete på bred front blev många arbetsgivare överraskade av att produktiviteten inte sjönk. Tvärtom rapporterade flera svenska bolag att medarbetarna fick mer gjort när pendlingstiden försvann och avbrotten på kontoret minskade. Samtidigt visade interna undersökningar att känslan av samhörighet försvagades. Nyanställda hade särskilt svårt att komma in i gemenskapen, eftersom de spontana samtalen i fikarummet aldrig ägde rum digitalt.\n\nFör att möta detta införde många organisationer en hybridmodell, där medarbetarna förväntades vara på plats två eller tre dagar i veckan. Tanken var att kombinera distansarbetets fokus med kontorets sociala fördelar. Cheferna fick samtidigt nya krav på sig. Att leda en grupp man sällan ser kräver mer tydlighet kring mål och förväntningar, och fler avstämningar än tidigare.\n\nLedningen på ett av bolagen betonade att hybridmodellen inte var en kompromiss utan ett medvetet val. De menade att framtidens arbetsplats måste utgå från uppgiften snarare än från en fast plats. Hur väl modellen fungerar på lång sikt återstår dock att se, och flera personalchefer efterlyste tydligare riktlinjer från ledningen.",
+    "statements": [
+      {
+        "text": "Produktiviteten i flera svenska bolag steg när pendlingstiden försvann.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att flera svenska bolag rapporterade att medarbetarna fick mer gjort när pendlingstiden försvann och avbrotten minskade."
+      },
+      {
+        "text": "Nyanställda hade lättare än andra att komma in i gemenskapen vid distansarbete.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger tvärtom att nyanställda hade särskilt svårt att komma in i gemenskapen."
+      },
+      {
+        "text": "Hybridmodellen kommer att bli den dominerande arbetsformen i Sverige inom fem år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver att modellen infördes och att det återstår att se hur den fungerar, men säger inget om någon framtida dominans eller tidsram."
+      },
+      {
+        "text": "Att leda en grupp på distans ställde enligt texten högre krav på tydlighet kring mål.",
+        "correctAnswer": "true",
+        "explanation": "Texten skriver att leda en grupp man sällan ser kräver mer tydlighet kring mål och förväntningar samt fler avstämningar."
+      }
+    ]
+  },
+  {
+    "id": "v1-p20",
+    "title": "PASSAGE 20 — Räntan och hushållen",
+    "difficulty": 2,
+    "topic": "ekonomi",
+    "text": "Under flera år hade hushållen vant sig vid mycket låga räntor. Många tog stora bolån i förvissning om att kostnaden för att låna skulle förbli låg. När inflationen tog fart höjde centralbanken styrräntan i flera steg, och de rörliga bolåneräntorna följde snabbt efter. För hushåll med små marginaler innebar detta en kännbar ökning av de månatliga utgifterna.\n\nEffekten blev ojämnt fördelad. Den som bundit sin ränta på flera år märkte inget förrän bindningstiden löpte ut, medan den med rörlig ränta drabbades omedelbart. Konsumtionen dämpades eftersom en större del av inkomsten gick till räntor. Detta var delvis avsikten. Genom att minska efterfrågan i ekonomin ville centralbanken pressa tillbaka inflationen mot målet.\n\nEkonomer var oeniga om hur länge de höga räntorna behövde ligga kvar. Vissa varnade för att alltför kraftiga höjningar kunde tippa ekonomin in i en lågkonjunktur med stigande arbetslöshet. Andra menade att risken med att agera för försiktigt var större, eftersom en inflation som biter sig fast är svårare att bekämpa senare. Centralbanken själv underströk att besluten skulle fattas möte för möte utifrån ny statistik.",
+    "statements": [
+      {
+        "text": "De rörliga bolåneräntorna steg snabbt efter att styrräntan höjdes.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att de rörliga bolåneräntorna följde snabbt efter när centralbanken höjde styrräntan."
+      },
+      {
+        "text": "Hushåll med bunden ränta drabbades omedelbart av höjningen.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att den som bundit räntan inte märkte något förrän bindningstiden löpte ut, alltså inte omedelbart."
+      },
+      {
+        "text": "Samtliga ekonomer var överens om att höjningarna borde fortsätta länge.",
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver att ekonomer var oeniga om hur länge de höga räntorna behövde ligga kvar."
+      },
+      {
+        "text": "Inflationen kommer att nå centralbankens mål inom ett år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner att centralbanken ville pressa tillbaka inflationen mot målet men säger inget om när målet skulle nås."
+      }
+    ]
+  },
+  {
+    "id": "v1-p21",
+    "title": "PASSAGE 21 — Automatisering i lagret",
+    "difficulty": 2,
+    "topic": "teknik",
+    "text": "Ett växande e-handelsbolag investerade i ett automatiserat lagersystem för att klara av de ökande volymerna. Robotar plockade nu varor från hyllorna och transporterade dem till packstationer, där personalen färdigställde paketen. Bolaget uppgav att antalet felplock minskade markant efter införandet, eftersom systemet läste av varje artikel med en streckkod innan den lämnade lagret.\n\nÖvergången var dock inte friktionsfri. Under de första månaderna stod robotarna stilla flera gånger på grund av mjukvarufel, vilket ledde till förseningar. Personalen fick utbildas i att övervaka systemet och åtgärda enklare stopp. De anställda som tidigare lyft tungt fick nu mer monotona uppgifter vid stationerna, något facket lyfte som en risk för förslitningsskador.\n\nLedningen betonade att syftet inte var att minska personalstyrkan utan att hantera tillväxten. Inga uppsägningar genomfördes i samband med införandet. Däremot förändrades arbetsuppgifterna, och bolaget räknade med att behöva rekrytera fler tekniker framöver för att underhålla systemen. Hur lönsam investeringen skulle bli på sikt berodde enligt ledningen på hur snabbt volymerna fortsatte att växa.",
+    "statements": [
+      {
+        "text": "Antalet felplock minskade markant efter att lagersystemet införts.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att bolaget uppgav att antalet felplock minskade markant efter införandet."
+      },
+      {
+        "text": "Bolaget sade upp personal i samband med att robotarna infördes.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger uttryckligen att inga uppsägningar genomfördes i samband med införandet."
+      },
+      {
+        "text": "Robotarna fungerade helt felfritt redan från första dagen.",
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver att robotarna stod stilla flera gånger på grund av mjukvarufel under de första månaderna."
+      },
+      {
+        "text": "Investeringen kommer att bli lönsam inom två år.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att lönsamheten berodde på hur volymerna växte men ger ingen uppgift om tidsram eller utfall."
+      }
+    ]
+  },
+  {
+    "id": "v1-p22",
+    "title": "PASSAGE 22 — Rekrytering utan personligt brev",
+    "difficulty": 1,
+    "topic": "HR",
+    "text": "Allt fler arbetsgivare har börjat ifrågasätta det personliga brevet i rekryteringen. Kritiker menar att brevet sällan säger något om kandidatens faktiska förmåga, och att det missgynnar dem som har svårt att uttrycka sig i skrift trots att de skulle göra ett utmärkt jobb. Istället har vissa företag infört arbetsprov, där sökande får lösa en uppgift som liknar det dagliga arbetet.\n\nFörespråkare för arbetsprov pekar på att metoden ger en mer rättvis bild. Två kandidater bedöms på samma uppgift, och resultatet kan jämföras direkt. Det minskar risken att den som skriver snyggt men presterar sämre går vidare. Samtidigt kräver arbetsprov mer tid av både kandidater och rekryterare, vilket kan avskräcka sökande som redan har ett jobb.\n\nEn personalchef som bytt metod berättade att antalet ansökningar minskade, men att kvaliteten på dem som faktiskt sökte upplevdes som högre. Hon menade att de som la ner tid på provet ofta var genuint intresserade. Företaget hade ännu inte mätt om de nyanställda stannade längre än tidigare, men planerade att följa upp detta.",
+    "statements": [
+      {
+        "text": "Vissa företag har ersatt det personliga brevet med arbetsprov.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att vissa företag infört arbetsprov där sökande får lösa en uppgift som liknar det dagliga arbetet."
+      },
+      {
+        "text": "Arbetsprov tar mindre tid för rekryterarna än det personliga brevet.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att arbetsprov kräver mer tid av både kandidater och rekryterare."
+      },
+      {
+        "text": "Hos personalchefens företag ökade antalet ansökningar efter bytet av metod.",
+        "correctAnswer": "false",
+        "explanation": "Texten anger att antalet ansökningar minskade men att kvaliteten upplevdes som högre."
+      },
+      {
+        "text": "Nyanställda som rekryterades via arbetsprov stannade längre på företaget.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att företaget ännu inte mätt detta utan bara planerade att följa upp det."
+      }
+    ]
+  },
+  {
+    "id": "v1-p23",
+    "title": "PASSAGE 23 — Småföretagens likviditet",
+    "difficulty": 2,
+    "topic": "ekonomi",
+    "text": "För många småföretag är likviditeten den största utmaningen, inte lönsamheten. Ett företag kan vara lönsamt på pappret men ändå hamna i kris om kunderna betalar sent och leverantörerna kräver betalning i förskott. Glappet mellan utgifter och intäkter måste täckas med egna medel eller lån, och här är marginalerna ofta små.\n\nEn vanlig lösning är att förhandla fram längre betalningsvillkor med leverantörer samtidigt som man kortar kundernas betalningstid. Vissa företag erbjuder rabatt till kunder som betalar snabbt, vilket kan förbättra kassaflödet även om det minskar marginalen något. Andra använder factoring, där en bank köper fakturorna och betalar ut pengarna direkt mot en avgift.\n\nRådgivare brukar betona att ett företag aldrig får blanda ihop vinst med kassa. Vinsten visar om verksamheten är hållbar över tid, men det är kassan som avgör om räkningarna kan betalas nästa månad. Just därför rekommenderas en likviditetsbudget vid sidan av resultatbudgeten. Hur stor buffert som är lagom varierar mellan branscher, och något generellt svar går inte att ge.",
+    "statements": [
+      {
+        "text": "Ett lönsamt företag kan ändå hamna i kris om kunderna betalar sent.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att ett företag kan vara lönsamt på pappret men ändå hamna i kris om kunderna betalar sent och leverantörerna kräver förskott."
+      },
+      {
+        "text": "Factoring innebär att företaget får vänta längre på sina pengar.",
+        "correctAnswer": "false",
+        "explanation": "Texten beskriver factoring som att en bank köper fakturorna och betalar ut pengarna direkt mot en avgift, alltså snabbare."
+      },
+      {
+        "text": "Det finns en generell bufferstorlek som passar alla branscher.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att hur stor buffert som är lagom varierar mellan branscher och att något generellt svar inte går att ge."
+      },
+      {
+        "text": "Factoring är den mest använda metoden bland svenska småföretag.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner factoring som en metod men säger inget om hur vanlig den är jämfört med andra."
+      }
+    ]
+  },
+  {
+    "id": "v1-p24",
+    "title": "PASSAGE 24 — Molntjänster och datasäkerhet",
+    "difficulty": 2,
+    "topic": "teknik",
+    "text": "När företag flyttar sina system till molnet uppstår ofta en oro för datasäkerheten. Tanken att känslig information lagras på servrar som någon annan äger känns för många som ett steg bort från kontroll. I praktiken är bilden mer nyanserad. De stora molnleverantörerna investerar betydligt mer i säkerhet än vad ett enskilt medelstort företag har råd med, och deras anläggningar bevakas dygnet runt.\n\nDe flesta intrång beror inte på brister hos leverantören utan på felkonfigurationer från kundens sida. En lagringsyta som av misstag lämnas öppen för allmänheten kan exponera tusentals filer utan att någon brutit sig in. Därför betonar experter att ansvaret är delat. Leverantören säkrar grundinfrastrukturen, men kunden ansvarar för hur tjänsterna ställs in och vem som får tillgång.\n\nFör att minska riskerna rekommenderas tvåfaktorsautentisering, kryptering av lagrad data och regelbundna genomgångar av behörigheter. Många incidenter hade kunnat undvikas om gamla konton stängts av i tid. Trots detta väljer en del organisationer att behålla sina mest känsliga system lokalt. Om den strategin är klokare än molnet beror på den enskilda verksamhetens behov.",
+    "statements": [
+      {
+        "text": "De stora molnleverantörerna investerar mer i säkerhet än ett enskilt medelstort företag har råd med.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger uttryckligen att de stora molnleverantörerna investerar betydligt mer i säkerhet än vad ett enskilt medelstort företag har råd med."
+      },
+      {
+        "text": "De flesta intrång beror på brister hos molnleverantören själv.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att de flesta intrång inte beror på brister hos leverantören utan på felkonfigurationer från kundens sida."
+      },
+      {
+        "text": "Att behålla känsliga system lokalt är alltid säkrare än att använda molnet.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att om den strategin är klokare beror på den enskilda verksamhetens behov och tar inte ställning generellt."
+      },
+      {
+        "text": "Kunden ansvarar enligt texten för hur molntjänsterna ställs in och vem som får tillgång.",
+        "correctAnswer": "true",
+        "explanation": "Texten skriver att ansvaret är delat och att kunden ansvarar för hur tjänsterna ställs in och vem som får tillgång."
+      }
+    ]
   }
 ]

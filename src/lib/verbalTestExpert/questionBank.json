@@ -1,0 +1,1610 @@
+[
+  {
+    "id": "verbexp-p01",
+    "title": "Distansarbetets effekt",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "Sedan företaget införde fullt distansarbete i januari har den totala försäljningen stigit med 14 procent. HR-chefen drar slutsatsen att distansarbetet är orsaken till försäljningslyftet och föreslår att modellen permanentas. Hon påpekar att uppgången sammanföll i tid med övergången och att medarbetarna uppger sig vara nöjdare. Under samma period lanserade dock säljavdelningen en ny produktlinje och en stor konkurrent lämnade marknaden. HR-chefen nämner inte dessa faktorer i sin rapport till ledningen.",
+    "questions": [
+      {
+        "id": "verbexp-p01-q01",
+        "passageId": "verbexp-p01",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår HR-chefens argument?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Korrelation tolkas som orsak",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Halmgubbe (förvränger motståndarens position)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Cirkelresonemang (petitio principii)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Att försäljningen steg samtidigt som distansarbetet infördes visar bara ett samband i tid, inte att det ena orsakade det andra; flera andra faktorer (ny produktlinje, bortfallen konkurrent) kan förklara lyftet. Det är inte en halmgubbe, eftersom ingen motståndarposition förvrängs."
+      },
+      {
+        "id": "verbexp-p01-q02",
+        "passageId": "verbexp-p01",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att HR-chefens slutsats ska hålla?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att inga andra betydande faktorer bidrog till försäljningsökningen under perioden",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att alla medarbetare föredrar distansarbete framför kontorsarbete",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att försäljningen kommer att fortsätta stiga nästa kvartal",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att konkurrenten lämnade marknaden på grund av distansarbetet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "För att distansarbetet ensamt ska kunna tillskrivas lyftet krävs att konkurrerande förklaringar är uteslutna. Att medarbetarna föredrar distans är irrelevant för orsakssambandet med försäljningen."
+      },
+      {
+        "id": "verbexp-p01-q03",
+        "passageId": "verbexp-p01",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest FÖRSVAGA HR-chefens argument?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att en intern analys visar att hela försäljningsökningen kan hänföras till den nya produktlinjen",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att medarbetarna rapporterar något kortare lunchpauser hemma",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att konkurrenten var verksam i ett angränsande land",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att distansarbete är vanligt i branschen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Om hela ökningen kan förklaras av produktlinjen försvinner grunden för att tillskriva distansarbetet effekten. De övriga alternativen påverkar inte orsaksanspråket nämnvärt."
+      },
+      {
+        "id": "verbexp-p01-q04",
+        "passageId": "verbexp-p01",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av de presenterade premisserna?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Försäljningen steg under samma period som distansarbetet infördes",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Distansarbetet orsakade försäljningsökningen",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Den nya produktlinjen hade ingen effekt på försäljningen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Medarbetarnas nöjdhet ökade försäljningen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Premisserna fastställer enbart ett samtidigt förlopp, vilket alternativ a uttrycker korrekt. Orsakspåståendena i b och d går utöver vad premisserna stöder."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p02",
+    "title": "Budgetnedskärningen",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "På styrelsemötet argumenterar finansdirektören mot förslaget att skära ned marknadsföringsbudgeten med tio procent. Han säger att den som vill minska marknadsföringen tydligen anser att företaget helt ska sluta synas och låta varumärket dö ut. Att överge kunderna på det sättet vore förödande och oansvarigt, fortsätter han. Förslagsställaren hade dock endast föreslagit en måttlig justering av en post, inte att marknadsföringen skulle avvecklas. Styrelsen applåderar finansdirektörens engagemang och avslår nedskärningen.",
+    "questions": [
+      {
+        "id": "verbexp-p02-q01",
+        "passageId": "verbexp-p02",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår finansdirektören?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Halmgubbe (förvränger motståndarens position)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Ad hominem (angriper personen)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Lutande planet (slippery slope)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Finansdirektören ersätter förslaget om en tioprocentig justering med en överdriven version (att helt sluta synas) och bemöter sedan den. Det är inte ett falskt dilemma, eftersom han inte påstår att det bara finns två alternativ utan vränger om vad motparten faktiskt sa."
+      },
+      {
+        "id": "verbexp-p02-q02",
+        "passageId": "verbexp-p02",
+        "questionNumber": 2,
+        "questionText": "Vad är det centrala problemet med hur finansdirektören bemöter förslaget?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Han bemöter en position som förslagsställaren aldrig framförde",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Han hänvisar till en auktoritet utan att ange källa",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Han bygger sitt argument på ett enstaka exempel",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Han antar att slutsatsen redan är sann i sin premiss",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Felet ligger i att den bemötta ståndpunkten (avveckla marknadsföringen) inte är den föreslagna (justera med tio procent). Inget i resonemanget rör auktoriteter eller enstaka exempel."
+      },
+      {
+        "id": "verbexp-p02-q03",
+        "passageId": "verbexp-p02",
+        "questionNumber": 3,
+        "questionText": "Vad skulle bäst AVSLÖJA svagheten i finansdirektörens argument?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att man jämför hans beskrivning med förslagets faktiska ordalydelse",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att man undersöker finansdirektörens personliga ekonomiska intressen",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att man frågar om branschexperter delar hans uppfattning",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att man räknar hur många kunder företaget skulle förlora",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Eftersom felet är att förslaget förvrängts, blottläggs det genom att ställa hans beskrivning mot den verkliga formuleringen. Att granska hans intressen vore i stället att riskera ett ad hominem."
+      },
+      {
+        "id": "verbexp-p02-q04",
+        "passageId": "verbexp-p02",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av premisserna?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att en tioprocentig nedskärning skulle leda till att varumärket dör ut",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att förslaget gällde en måttlig justering av en budgetpost",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att styrelsen avslog nedskärningsförslaget",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att finansdirektören motsatte sig nedskärningen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Inget i premisserna stöder att en måttlig justering skulle utplåna varumärket; det är finansdirektörens överdrift. De övriga påståendena anges direkt i texten."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p03",
+    "title": "Konsultens rekommendation",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "Ledningsgruppen ska välja affärssystem och lutar åt det dyrare alternativet. Som stöd anför projektledaren att en välkänd managementprofil i en podcast sagt att detta system är framtiden. Eftersom profilen är en av landets mest omtalade röster inom ledarskap, menar projektledaren att valet därmed är väl underbyggt. Någon teknisk utvärdering av systemets funktioner mot företagets behov har inte genomförts. Profilen har själv ingen dokumenterad bakgrund inom systemarkitektur eller upphandling.",
+    "questions": [
+      {
+        "id": "verbexp-p03-q01",
+        "passageId": "verbexp-p03",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår projektledaren?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Korrelation tolkas som orsak",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Generalisering från enstaka fall (hastig generalisering)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Vädjan till okunskap (frånvaro av bevis = bevis)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet vilar enbart på en känd persons uttalande, och personen saknar dessutom relevant sakkunskap, vilket är ett auktoritetsargument. Det är inte en hastig generalisering, eftersom slutsatsen inte dras från ett urval enskilda fall utan från en persons utsaga."
+      },
+      {
+        "id": "verbexp-p03-q02",
+        "passageId": "verbexp-p03",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att projektledarens slutsats ska hålla?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att managementprofilens uttalande är ett tillförlitligt tecken på vilket system som passar företaget",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att det dyrare systemet alltid är bättre än det billigare",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att podcasten har många lyssnare",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att företaget har råd med det dyrare alternativet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Slutsatsen kräver att profilens ord faktiskt är en pålitlig indikator för just detta beslut, vilket är tveksamt givet bristen på sakkunskap. Lyssnarsiffror och betalningsförmåga rör inte huruvida valet är väl underbyggt."
+      },
+      {
+        "id": "verbexp-p03-q03",
+        "passageId": "verbexp-p03",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest STÄRKA grunden för att välja det dyrare systemet?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "En teknisk utvärdering som visar att systemet täcker företagets behov bäst",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att ännu fler kända profiler nämner systemet positivt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att podcasten vunnit ett pris för bästa innehåll",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att managementprofilen upprepar sitt uttalande i en bok",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "En saklig utvärdering mot de egna behoven ger oberoende stöd som ersätter den svaga auktoritetshänvisningen. Fler kändisuttalanden upprepar bara samma typ av otillräckligt stöd."
+      },
+      {
+        "id": "verbexp-p03-q04",
+        "passageId": "verbexp-p03",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av premisserna?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "En känd profil utan relevant sakkunskap har uttalat sig positivt om systemet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Det dyrare systemet motsvarar företagets tekniska behov",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Det billigare systemet är olämpligt för företaget",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Managementprofilen har testat systemet i drift",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Premisserna fastställer endast att en känd men icke sakkunnig profil prisat systemet. Påståenden om teknisk lämplighet eller om det billigare alternativet saknar stöd i texten."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p04",
+    "title": "Flexibel arbetstid",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En avdelningschef avråder bestämt från att låta medarbetarna själva styra sina arbetstider. Han resonerar att om vi tillåter flexibel start på morgonen kommer folk snart att vilja välja sina egna dagar, sedan sina egna veckor, och till slut kommer ingen att dyka upp alls och hela avdelningen faller samman. Därför, menar han, måste fasta tider behållas till varje pris. Han presenterar inga belägg för att vart och ett av dessa steg faktiskt skulle följa av det föregående. Andra avdelningar i företaget har infört flexibel start utan att verksamheten brutit samman.",
+    "questions": [
+      {
+        "id": "verbexp-p04-q01",
+        "passageId": "verbexp-p04",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår avdelningschefen?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Lutande planet (slippery slope)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Vädjan till känslor/rädsla",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Efter detta alltså på grund av detta (post hoc)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet hävdar en kedja av allt allvarligare följder från ett första, måttligt steg utan att visa att varje led faktiskt leder till nästa, vilket är ett lutande plan. Det är inte ett falskt dilemma, eftersom felet ligger i den obevisade orsakskedjan, inte i att bara två alternativ ställs upp."
+      },
+      {
+        "id": "verbexp-p04-q02",
+        "passageId": "verbexp-p04",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att avdelningschefens slutsats ska hålla?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att varje steg i kedjan oundvikligen leder till nästa",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att medarbetarna ogillar fasta arbetstider",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att flexibel arbetstid är dyrare att administrera",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att andra avdelningar har sämre resultat",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Hela argumentet faller om kedjan kan brytas, så slutsatsen kräver att varje led tvunget följer av det föregående. Medarbetarnas preferenser och administrationskostnader är inte nödvändiga för slutsatsen."
+      },
+      {
+        "id": "verbexp-p04-q03",
+        "passageId": "verbexp-p04",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest FÖRSVAGA avdelningschefens argument?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att jämförbara avdelningar infört flexibel start utan att de befarade följderna inträffade",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att avdelningschefen själv föredrar att börja tidigt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att medarbetarna säger sig vilja ha flexibilitet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att fasta tider är vanliga i branschen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Verkliga fall där det första steget togs utan att kedjan utlöstes underminerar antagandet om oundvikliga följder. Att medarbetarna vill ha flexibilitet säger inget om huruvida sammanbrottet skulle inträffa."
+      },
+      {
+        "id": "verbexp-p04-q04",
+        "passageId": "verbexp-p04",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av premisserna?",
+        "difficulty": 3,
+        "options": [
+          {
+            "id": "a",
+            "text": "Att flexibel morgonstart oundvikligen leder till att ingen kommer till jobbet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att avdelningschefen förespråkar fasta arbetstider",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att andra avdelningar har infört flexibel start",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att chefen inte lägger fram belägg för stegen i sin kedja",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Den obevisade orsakskedjan ger inget stöd för att flexibel start tvunget slutar med total frånvaro. De övriga påståendena anges uttryckligen i texten."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p05",
+    "title": "Distansarbete och produktivitet",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En HR-chef sammanfattar bolagets ståndpunkt i en intern promemoria. Sedan vi införde fyra dagars obligatorisk närvaro på kontoret har den uppmätta produktiviteten per anställd stigit med elva procent. Samma kvartal som närvarokravet trädde i kraft noterade vi alltså en tydlig uppgång i levererat arbete. Vi drar därför slutsatsen att den fysiska närvaron på kontoret är det som driver upp produktiviteten. Ledningen rekommenderar att kravet permanentas och utvidgas till samtliga avdelningar.",
+    "questions": [
+      {
+        "id": "verbexp-p05-q01",
+        "passageId": "verbexp-p05",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Efter detta alltså på grund av detta (post hoc)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Halmgubbe (förvränger motståndarens position)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Ad hominem (angriper personen)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet antar att eftersom produktivitetsuppgången inträffade efter att närvarokravet infördes, så orsakades den av kravet, vilket är post hoc. Halmgubbe är fel eftersom ingen motståndares position citeras eller förvrängs.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p05-q02",
+        "passageId": "verbexp-p05",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att ingen annan faktor under samma kvartal kan förklara produktivitetsökningen",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att alla anställda föredrar att arbeta på kontoret",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att elva procent är en historiskt hög ökningstakt",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att kontoret har tillräckligt med arbetsplatser för alla",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Slutsatsen att närvaron driver produktiviteten håller bara om man kan utesluta konkurrerande orsaker som inföll samtidigt. Att anställda föredrar kontoret är irrelevant för om närvaron faktiskt orsakade ökningen.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p05-q03",
+        "passageId": "verbexp-p05",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Samma kvartal lanserades ett nytt provisionssystem som belönade högre leveranstakt",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "En konkurrent har också infört närvarokrav",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Vissa anställda klagade på pendlingstiden",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Produktivitet är svårt att mäta exakt",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "En alternativ orsak som inföll samma kvartal undergräver kopplingen mellan närvaro och produktivitet direkt. Att en konkurrent gjort samma sak säger inget om vad som orsakade just detta bolags ökning.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p05-q04",
+        "passageId": "verbexp-p05",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Kontorsnärvaro är den faktor som orsakade produktivitetsökningen",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Produktiviteten steg under det kvartal då närvarokravet infördes",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Närvarokravet och produktivitetsökningen sammanföll i tid",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Ledningen förespråkar att kravet permanentas",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Att de två sakerna sammanföll i tid (b och c) framgår av texten, men att närvaron orsakade ökningen följer inte logiskt eftersom samtidighet inte bevisar orsak. Alternativ d är en ren återgivning av vad ledningen säger.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p06",
+    "title": "Sänkt bolagsskatt och investeringar",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En näringslivsdebattör argumenterar i en ledarartikel för en sänkt bolagsskatt. Professor Ahlgren, en av landets mest meriterade nationalekonomer, har offentligt uttalat att en sänkning skulle stärka investeringsklimatet. Eftersom Ahlgren är en erkänd auktoritet på området bör vi betrakta saken som avgjord. Det finns följaktligen inga goda skäl att tveka inför en reform. Riksdagen uppmanas att rösta igenom sänkningen utan fördröjning.",
+    "questions": [
+      {
+        "id": "verbexp-p06-q01",
+        "passageId": "verbexp-p06",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Cirkelresonemang (petitio principii)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Lutande planet (slippery slope)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Korrelation tolkas som orsak",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet betraktar saken som avgjord enbart för att en erkänd expert uttalat sig, utan att redovisa sakargumenten bakom, vilket är ett auktoritetsargument. Cirkelresonemang är fel eftersom slutsatsen inte upprepas som premiss.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p06-q02",
+        "passageId": "verbexp-p06",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att en auktoritets uttalande är tillräckligt för att avgöra sakfrågan oberoende av underliggande bevis",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att Ahlgren är den ende experten på området",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att riksdagen normalt följer experters rekommendationer",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att en skattesänkning är politiskt populär",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet vilar på att en auktoritets ord i sig avgör frågan, utan att sakskälen behöver granskas. Att Ahlgren skulle vara den ende experten krävs inte och påstås heller inte.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p06-q03",
+        "passageId": "verbexp-p06",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En lika meriterad nationalekonom har lagt fram data som visar att sänkningen inte stärker investeringsklimatet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Ahlgren har tidigare uttalat sig om andra ämnen",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Skattesänkningar är ett återkommande debattämne",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Ahlgren saknar erfarenhet av att sitta i riksdagen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "En motsatt expertbedömning med data visar att en auktoritets ord inte avgör frågan och tvingar fram en granskning av sakskälen. Att Ahlgren saknar riksdagserfarenhet skulle vara ett ad hominem och berör inte sakargumentet.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p06-q04",
+        "passageId": "verbexp-p06",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ahlgren anser att en sänkt bolagsskatt skulle stärka investeringsklimatet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "En sänkt bolagsskatt kommer med säkerhet att stärka investeringsklimatet",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Alla nationalekonomer stödjer en sänkning",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Reformen saknar invändningar i sak",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Det enda som faktiskt framgår är att Ahlgren har uttalat denna uppfattning, vilket följer direkt av premissen. Att sänkningen säkert stärker klimatet följer inte, eftersom ett expertuttalande inte är ett bevis.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p07",
+    "title": "Förbud mot reklam för energidrycker",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En branschföreträdare bemöter ett förslag om att begränsa marknadsföring av energidrycker till barn. Förslagsställarna vill uppenbarligen förbjuda all försäljning av energidrycker och behandla varje vuxen konsument som ett omyndigt barn. En sådan förmyndarstat, där staten bestämmer vad medborgarna får dricka, är oacceptabel i ett fritt samhälle. Vi måste därför avvisa förslaget i sin helhet. Friheten att välja sina egna drycker får inte offras.",
+    "questions": [
+      {
+        "id": "verbexp-p07-q01",
+        "passageId": "verbexp-p07",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Halmgubbe (förvränger motståndarens position)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Vädjan till okunskap (frånvaro av bevis = bevis)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Generalisering från enstaka fall (hastig generalisering)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Förslaget gällde att begränsa marknadsföring till barn, men företrädaren tillskriver motparten en mycket mer extrem position (förbjuda all försäljning till vuxna) och angriper den, vilket är en halmgubbe. Vädjan till okunskap är fel eftersom argumentet inte hänvisar till frånvaro av bevis.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p07-q02",
+        "passageId": "verbexp-p07",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att argumentets resonemang ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att en begränsning av marknadsföring till barn är detsamma som ett förbud mot all försäljning till vuxna",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att energidrycker är skadliga för barn",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att vuxna konsumenter dricker mer energidryck än barn",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att branschen förlorar intäkter på begränsningen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Hela invändningen bygger på att likställa det faktiska förslaget med ett totalförbud riktat mot vuxna. Utan den likställningen faller resonemanget. Om barn skadas eller inte är irrelevant för själva felslutet.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p07-q03",
+        "passageId": "verbexp-p07",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Förslagets text visar att det enbart gäller riktad reklam mot barn och inte berör vuxnas möjlighet att köpa",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Energidrycker säljs i de flesta butiker",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Branschen är emot all form av reglering",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Många vuxna uppskattar energidrycker",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Att visa förslagets faktiska innehåll avslöjar att den position företrädaren attackerar är påhittad, vilket spräcker halmgubben. Att vuxna uppskattar dryckerna bemöter inte alls den förvrängning argumentet bygger på.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p07-q04",
+        "passageId": "verbexp-p07",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av det ursprungliga förslaget?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Vuxna skulle förbjudas att köpa energidrycker",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Marknadsföring riktad mot barn skulle begränsas",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Reklamutrymmet för energidrycker mot barn skulle minska",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Förslaget rör barn som målgrupp för reklam",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ett förbud mot vuxnas inköp följer inte av ett förslag som enbart gäller marknadsföring riktad mot barn. De övriga alternativen är direkta konsekvenser av det faktiska förslaget.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p08",
+    "title": "Lansering av en betaltjänst",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En produktchef motiverar varför bolaget bör skjuta upp lanseringen av en ny betaltjänst. Ingen i teamet har lyckats bevisa att tjänsten är fri från säkerhetshål. Så länge ingen kan visa att den är fullständigt säker måste vi utgå från att den är osäker. Att osäkerheten inte har motbevisats är i sig skäl nog att vänta. Vi bör därför pausa lanseringen på obestämd tid.",
+    "questions": [
+      {
+        "id": "verbexp-p08-q01",
+        "passageId": "verbexp-p08",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Vädjan till okunskap (frånvaro av bevis = bevis)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Efter detta alltså på grund av detta (post hoc)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Lutande planet (slippery slope)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet drar slutsatsen att tjänsten är osäker enbart för att dess säkerhet inte har bevisats, alltså behandlas frånvaron av bevis som ett bevis, vilket är vädjan till okunskap. Falskt dilemma är fel eftersom argumentet inte reducerar valet till två uteslutande alternativ.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p08-q02",
+        "passageId": "verbexp-p08",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att avsaknaden av ett bevis för säkerhet i sig utgör skäl att betrakta tjänsten som osäker",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att teamet är inkompetent",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att konkurrenterna redan har säkrare tjänster",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att betaltjänster generellt är riskfyllda",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Slutsatsen står och faller med att obevisad säkerhet likställs med påvisad osäkerhet. Att teamet skulle vara inkompetent är varken påstått eller nödvändigt för resonemangets struktur.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p08-q03",
+        "passageId": "verbexp-p08",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En oberoende säkerhetsrevision har testat tjänsten utan att finna några säkerhetshål",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Lanseringen är redan försenad av andra skäl",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Teamet är litet och har ont om tid",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Andra bolag har också haft säkerhetsproblem",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "En oberoende revision som inte hittar hål ger positivt stöd för säkerheten och underminerar antagandet att obevisad säkerhet betyder osäkerhet. Att andra bolag haft problem säger inget om just denna tjänst.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p08-q04",
+        "passageId": "verbexp-p08",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Det har hittills inte bevisats att tjänsten är fri från säkerhetshål",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Tjänsten innehåller säkerhetshål",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Tjänsten kommer aldrig att kunna göras säker",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Teamet har försökt sabotera lanseringen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Det enda som faktiskt följer är att säkerheten inte har bevisats, vilket är vad premissen säger. Att tjänsten faktiskt innehåller hål följer inte, eftersom utebliven bevisning inte fastställer förekomsten av hål.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p09",
+    "title": "Kontoret och produktiviteten",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En vd på ett konsultbolag motiverar beslutet att avskaffa allt distansarbete inför styrelsen. Hon konstaterar att bolagets omsättning steg med tolv procent under det kvartal då personalen återvände till kontoret på heltid. Tidigare, under perioden med hemarbete, hade omsättningen legat stilla. Vd:n drar slutsatsen att den fysiska närvaron på kontoret var orsaken till uppgången och att fortsatt kontorsnärvaro därför är nödvändig för lönsamheten. Styrelsen ombeds att fastställa en permanent närvaroplikt på den grunden.",
+    "questions": [
+      {
+        "id": "verbexp-p09-q01",
+        "passageId": "verbexp-p09",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Korrelation tolkas som orsak",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Halmgubbe (förvränger motståndarens position)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirkelresonemang (petitio principii)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet utgår från att två samvarierande händelser (kontorsnärvaro och högre omsättning) står i orsakssamband, utan att utesluta andra förklaringar som konjunktur eller nya uppdrag. Det är inte en halmgubbe, eftersom ingen motståndares position förvrängs, utan rent felaktig orsakstolkning av en korrelation.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p09-q02",
+        "passageId": "verbexp-p09",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att ingen annan faktor än kontorsnärvaron förklarar omsättningsökningen under kvartalet",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att personalen trivs bättre på kontoret än hemma",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att konkurrenterna också avskaffat distansarbete",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att omsättningen kommer att fortsätta stiga med tolv procent",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Slutsatsen att närvaron orsakade uppgången förutsätter att inga andra faktorer låg bakom; finns en sådan faller orsakssambandet. Trivsel är varken nödvändigt eller tillräckligt för slutsatsen och är därför fel.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p09-q03",
+        "passageId": "verbexp-p09",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att bolaget under samma kvartal vann en stor upphandling som ensam förklarar hela omsättningsökningen",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att några anställda föredrar att arbeta hemifrån",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att kontorslokalen nyligen renoverats",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att vd:n själv arbetar mest på kontoret",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "En alternativ orsak som ensam förklarar uppgången bryter det påstådda sambandet mellan närvaro och lönsamhet och underminerar hela slutsatsen. Att vissa föredrar hemarbete säger inget om orsaken till omsättningen och försvagar inte logiken.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p09-q04",
+        "passageId": "verbexp-p09",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Omsättningen var högre under kvartalet med full kontorsnärvaro än under perioden med hemarbete",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Kontorsnärvaro är en nödvändig förutsättning för lönsamhet",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Hemarbete sänker alltid omsättningen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Personalen är mer produktiv på kontoret",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Premisserna stöder enbart den beskrivande jämförelsen att omsättningen var högre under det ena kvartalet. Att närvaron är nödvändig för lönsamhet är just den orsaksslutsats premisserna inte kan bära och följer alltså inte logiskt.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p10",
+    "title": "Sänkt pris eller stängd butik",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En regionchef för en butikskedja presenterar läget för en vikande filial. Han förklarar att kedjan står inför ett vägval: antingen sänker filialen sina priser kraftigt för att locka tillbaka kunderna, eller så måste butiken läggas ned. Eftersom en nedläggning skulle innebära uppsägningar och dålig publicitet menar han att prissänkningen är det enda försvarbara alternativet. Han uppmanar därför ledningen att omedelbart besluta om sänkta priser. Inga andra åtgärder nämns i underlaget.",
+    "questions": [
+      {
+        "id": "verbexp-p10-q01",
+        "passageId": "verbexp-p10",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Lutande planet (slippery slope)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Ad hominem (angriper personen)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Vädjan till okunskap (frånvaro av bevis = bevis)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet ställer upp prissänkning och nedläggning som de enda två möjligheterna, trots att alternativ som marknadsföring, sortimentsbyte eller flytt finns. Det är inte en lutande planet, eftersom ingen kedja av eskalerande konsekvenser påstås, utan ett konstruerat tvåvalsläge.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p10-q02",
+        "passageId": "verbexp-p10",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att det inte finns någon tredje åtgärd som kan rädda filialen",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att kunderna alltid väljer den billigaste butiken",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att nedläggningar alltid ger dålig publicitet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att regionchefen har lång erfarenhet av branschen",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Slutsatsen att prissänkning är det enda försvarbara håller bara om de två uppställda alternativen verkligen uttömmer möjligheterna. Att kunder alltid väljer billigast är ett separat och osäkert påstående som slutsatsen inte vilar på.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p10-q03",
+        "passageId": "verbexp-p10",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att en närliggande filial vänt sin försäljning genom riktad marknadsföring utan att sänka priserna",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att prissänkningar generellt minskar marginalerna",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att regionchefen tidigare lagt ned en annan butik",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att kunderna uppskattar låga priser",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ett konkret exempel på en tredje framgångsrik väg visar att de två alternativen inte är uttömmande och rör därmed argumentets kärna. Att kunder uppskattar låga priser stöder snarare prissänkningen och försvagar inte resonemanget.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p10-q04",
+        "passageId": "verbexp-p10",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Det finns inga andra sätt än prissänkning att undvika nedläggning",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Filialens försäljning har minskat",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "En nedläggning skulle medföra uppsägningar",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Regionchefen förordar sänkta priser",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Att inga andra sätt finns är just det obevisade antagandet som argumentet vilar på och följer alltså inte av premisserna. De övriga påståendena framgår direkt av texten.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p11",
+    "title": "Experten och budgetnedskärningen",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "Under en budgetdebatt i en kommun föreslår en tjänsteman att anslaget till förebyggande ungdomsverksamhet ska skäras ned. En ledamot bemöter förslaget med att tjänstemannen saknar egna barn och därför omöjligt kan förstå vad ungdomar behöver. Ledamoten menar att förslaget av den anledningen bör avvisas utan vidare prövning. Hon går inte in på de siffror eller den utvärdering som tjänstemannen lagt fram. Kommunstyrelsen ombeds rösta nej med hänvisning till hennes inlägg.",
+    "questions": [
+      {
+        "id": "verbexp-p11-q01",
+        "passageId": "verbexp-p11",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ad hominem (angriper personen)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Auktoritetsargument (vädjar till auktoritet utan stöd)",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Falskt dilemma (bara två alternativ när fler finns)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Generalisering från enstaka fall (hastig generalisering)",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ledamoten avvisar förslaget genom att rikta in sig på tjänstemannens personliga förhållanden i stället för på sakargumenten. Det är inte ett auktoritetsargument, eftersom hon inte åberopar någon auktoritet utan tvärtom angriper personen bakom förslaget.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p11-q02",
+        "passageId": "verbexp-p11",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att ledamotens slutsats ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att förmågan att lägga ett hållbart budgetförslag förutsätter att man har egna barn",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att förebyggande verksamhet alltid är effektiv",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att kommunen har en ansträngd ekonomi",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att tjänstemannen vill spara pengar åt egen vinning",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "För att personens barnlöshet ska diskvalificera förslaget måste det antas att egna barn är en förutsättning för att kunna bedöma frågan, ett antagande som inte är belagt. Att verksamheten alltid är effektiv är en separat fråga som inte krävs för ledamotens slutledning.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p11-q03",
+        "passageId": "verbexp-p11",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest stärka ett sakligt bemötande av tjänstemannens förslag i stället?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En utvärdering som visar att nedskärningen leder till högre kostnader på sikt",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Uppgifter om att tjänstemannen är ny på sin post",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att flera ledamöter ogillar tjänstemannen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att tjänstemannen saknar egna barn",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ett sakligt bemötande riktar sig mot förslagets konsekvenser, och en utvärdering om högre framtida kostnader träffar just sakfrågan. De övriga alternativen handlar om personen och fortsätter samma ad hominem-spår.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p11-q04",
+        "passageId": "verbexp-p11",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ledamoten avvisar förslaget utan att pröva tjänstemannens siffror",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Tjänstemannens budgetförslag är felaktigt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Förebyggande ungdomsverksamhet bör få mer pengar",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Personer utan barn bör inte arbeta med ungdomsfrågor",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Texten anger uttryckligen att ledamoten inte går in på siffrorna utan avfärdar förslaget på personlig grund, vilket är vad alternativet beskriver. Att förslaget faktiskt är felaktigt följer inte, eftersom dess sakinnehåll aldrig prövats.",
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p12",
+    "title": "Pilotkundens omdöme",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "contextText": "En produktchef sammanfattar lanseringen av ett nytt affärssystem för ledningsgruppen. Han berättar att den första pilotkunden var mycket nöjd och beskrev systemet som intuitivt och snabbt. Utifrån detta enda omdöme hävdar han att samtliga framtida kunder kommer att uppleva systemet som lättanvänt. Han föreslår därför att bolaget skär ned på den planerade supportorganisationen, eftersom kunderna ändå inte lär behöva hjälp. Ledningsgruppen ombeds godkänna den minskade bemanningen på den grunden.",
+    "questions": [
+      {
+        "id": "verbexp-p12-q01",
+        "passageId": "verbexp-p12",
+        "questionNumber": 1,
+        "questionText": "Vilket logiskt felslut begår argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Generalisering från enstaka fall (hastig generalisering)",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Korrelation tolkas som orsak",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Cirkelresonemang (petitio principii)",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Vädjan till känslor/rädsla",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Produktchefen drar en slutsats om alla framtida kunder utifrån ett enda positivt omdöme, vilket är en hastig generalisering. Det är inte korrelation tolkad som orsak, eftersom ingen samvariation mellan två storheter förväxlas med orsakssamband; felet ligger i ett otillräckligt urval.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p12-q02",
+        "passageId": "verbexp-p12",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande MÅSTE vara sant för att slutsatsen ska hålla?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att pilotkunden är representativ för bolagets framtida kunder",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att supportorganisationen är dyr att driva",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att affärssystemet är billigare än konkurrenternas",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att pilotkunden har använt systemet länge",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "För att ett enda omdöme ska kunna säga något om alla kunder måste pilotkunden vara representativ för helheten. Att supporten är dyr berör motiveringen till besparingen men inte själva slutledningen från ett fall till alla.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p12-q03",
+        "passageId": "verbexp-p12",
+        "questionNumber": 3,
+        "questionText": "Vad skulle mest försvaga argumentet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att pilotkunden hade ovanligt teknikvana medarbetare medan flertalet framtida kunder är ovana användare",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att systemet fick beröm även för sin design",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att supportorganisationen nyligen utbildats",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att pilotkunden är ett välkänt företag",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Att pilotkunden skiljer sig systematiskt från de framtida kunderna visar att det enda fallet inte är representativt och underminerar generaliseringen. Ytterligare beröm från samma pilotkund stärker snarare än försvagar slutsatsen.",
+        "difficulty": 3
+      },
+      {
+        "id": "verbexp-p12-q04",
+        "passageId": "verbexp-p12",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats följer INTE logiskt av premisserna?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Alla framtida kunder kommer att uppleva systemet som lättanvänt",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Pilotkunden var nöjd med systemet",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Produktchefen vill minska supportorganisationen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Pilotkunden beskrev systemet som snabbt",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Ett enda nöjt omdöme kan inte garantera hur samtliga framtida kunder kommer att uppleva systemet, så den slutsatsen följer inte av premisserna. De övriga påståendena står uttryckligen i texten.",
+        "difficulty": 3
+      }
+    ]
+  }
+]

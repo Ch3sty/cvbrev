@@ -1,15 +1,12 @@
-// src/lib/verbalTestV2/selectPassages.v2.ts
-// Deterministiskt urval av passager ur banken, seedat på sessionId.
-// Speglar verbalTestV1/selectPassages.v1.ts. Se den för förklaring.
+// src/lib/verbalTestExpert/selectPassages.ts
+// Drar 8 argument-passager ur 12-poolen, seedat på sessionId.
 
-import questionBank from './questionBank.json';
-import type { Question } from './types.v2';
+import { getAllPassages } from './validator';
+import type { Passage } from '@/lib/numericalTest/types';
 
-export const POOL = questionBank as Question[];
-
-export const PASSAGES_PER_SESSION = 15;
-export const STATEMENTS_PER_PASSAGE = 4;
-export const TOTAL_STATEMENTS = PASSAGES_PER_SESSION * STATEMENTS_PER_PASSAGE;
+export const PASSAGES_PER_SESSION = 8;
+export const QUESTIONS_PER_PASSAGE = 4;
+export const TOTAL_QUESTIONS = PASSAGES_PER_SESSION * QUESTIONS_PER_PASSAGE;
 
 function hashString(str: string): number {
   let h = 0x811c9dc5;
@@ -33,8 +30,8 @@ function mulberry32(seed: number) {
 export function selectPassagesForSession(
   sessionId: string,
   count: number = PASSAGES_PER_SESSION
-): Question[] {
-  const shuffled = [...POOL];
+): Passage[] {
+  const shuffled = [...getAllPassages()];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

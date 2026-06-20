@@ -8,6 +8,7 @@ export type TestSlug =
   | 'matrislogik-expert'
   | 'verbal-resonemang'
   | 'verbal-resonemang-v2'
+  | 'verbal-resonemang-expert'
   | 'numeriskt-test'
   | 'numeriskt-test-v2'
   | 'numeriskt-test-expert';
@@ -54,6 +55,7 @@ const TEST_ENDPOINTS: Record<TestSlug, string> = {
   'matrislogik-expert': '/api/logicTestV4/session?test_type=matrislogik-expert',
   'verbal-resonemang': '/api/verbalTestV1/session',
   'verbal-resonemang-v2': '/api/verbalTestV2/session',
+  'verbal-resonemang-expert': '/api/verbalTestExpert/session',
   'numeriskt-test': '/api/numericalTest/session',
   'numeriskt-test-v2': '/api/numericalTestV2/session',
   'numeriskt-test-expert': '/api/numericalTestExpert/session',
@@ -66,8 +68,9 @@ const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
   'matrislogik-grund': 15,
   'matrislogik-avancerad': 15,
   'matrislogik-expert': 15,
-  'verbal-resonemang': 48,
-  'verbal-resonemang-v2': 48,
+  'verbal-resonemang': 60,
+  'verbal-resonemang-v2': 60,
+  'verbal-resonemang-expert': 32,
   'numeriskt-test': 32,
   'numeriskt-test-v2': 32,
   'numeriskt-test-expert': 32,

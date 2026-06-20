@@ -520,5 +520,179 @@
         "explanation": "Texten beskriver meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats."
       }
     ]
+  },
+  {
+    "id": "v2-p19",
+    "title": "PASSAGE 19 — Antibiotikaresistens",
+    "difficulty": 3,
+    "topic": "Hälsa & Välbefinnande",
+    "text": "Antibiotikaresistens räknas av Världshälsoorganisationen som ett av de allvarligaste hoten mot global hälsa. När bakterier utvecklar förmåga att stå emot läkemedel blir infektioner som tidigare var lätta att behandla på nytt farliga. Resistensen drivs på av överanvändning och felaktig användning av antibiotika, både inom sjukvården och i djurhållningen. I vissa länder säljs antibiotika receptfritt, vilket ytterligare försvårar kontrollen. Forskare varnar för att vanliga ingrepp som höftledsoperationer och cellgiftsbehandlingar vilar på att infektioner kan hållas i schack. Samtidigt har utvecklingen av nya antibiotika nästan avstannat, eftersom läkemedelsbolagen tjänar mer på mediciner som tas under lång tid än på kurer som bara används i några dagar. Sverige har länge haft en restriktiv förskrivning och hör till de länder i Europa där resistensen är lägst. Övervakning av antibiotikaförbrukning, bättre hygienrutiner och vaccin som förebygger infektioner pekas ut som viktiga motmedel. Eftersom bakterier inte respekterar landsgränser krävs internationell samordning mellan länder. Vissa forskare undersöker alternativ som bakteriofager, virus som angriper bakterier, men dessa metoder är ännu inte etablerade i bred klinisk användning. Frågan är ytterst en kapplöpning mellan mänsklig uppfinningsrikedom och bakteriernas snabba anpassningsförmåga. Utan gemensamma insatser riskerar effektiva behandlingar att gå förlorade.",
+    "statements": [
+      {
+        "text": "Sverige hör till de länder i Europa där antibiotikaresistensen är lägst.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att Sverige länge haft en restriktiv förskrivning och hör till de länder i Europa där resistensen är lägst, vilket direkt stöder påståendet."
+      },
+      {
+        "text": "Utvecklingen av nya antibiotika går i dag snabbare än tidigare.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger tvärtom att utvecklingen av nya antibiotika nästan har avstannat, vilket motsäger påståendet."
+      },
+      {
+        "text": "Antibiotika är receptbelagt i samtliga länder.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att antibiotika i vissa länder säljs receptfritt, vilket motsäger att det skulle vara receptbelagt överallt."
+      },
+      {
+        "text": "Bakteriofager kommer att ersätta antibiotika inom det närmaste decenniet.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner att bakteriofager undersöks men ännu inte är etablerade i bred klinisk användning, och säger inget om någon tidsram för att de ska ersätta antibiotika."
+      }
+    ]
+  },
+  {
+    "id": "v2-p20",
+    "title": "PASSAGE 20 — Mörka mönster i design",
+    "difficulty": 2,
+    "topic": "Samhälle & Demografi",
+    "text": "Mörka mönster är designgrepp i appar och på webbplatser som styr användare mot val de egentligen inte hade tänkt göra. Det kan handla om att knappen för att tacka ja lyser i klar färg medan alternativet att avstå göms i grå text längst ned. Ett vanligt exempel är prenumerationer som tar några sekunder att starta men kräver flera steg och telefonsamtal för att avsluta. Andra varianter spelar på tidspress genom nedräkningsklockor eller meddelanden om att bara ett fåtal varor finns kvar, ibland utan att uppgiften stämmer. Forskare inom beteendeekonomi påpekar att sådana grepp utnyttjar kända svagheter i mänskligt beslutsfattande. Konsumentverket och motsvarande myndigheter i flera länder har börjat granska fenomenet, och inom EU finns regler som förbjuder vilseledande gränssnitt. Samtidigt är gränsen mellan smart marknadsföring och otillåten manipulation inte alltid tydlig. Företag försvarar ofta sina lösningar med att de bara underlättar för kunden. Kritiker menar att förtroendet på sikt urholkas när användare känner sig lurade. Att kunna känna igen mörka mönster har därför blivit en del av modern digital kompetens. Vissa webbläsartillägg försöker varna användare när sådana mönster dyker upp.",
+    "statements": [
+      {
+        "text": "Inom EU finns regler som förbjuder vilseledande gränssnitt.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger uttryckligen att det inom EU finns regler som förbjuder vilseledande gränssnitt, vilket bekräftar påståendet."
+      },
+      {
+        "text": "Gränsen mellan smart marknadsföring och otillåten manipulation är alltid tydlig.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att gränsen mellan smart marknadsföring och otillåten manipulation inte alltid är tydlig, vilket motsäger påståendet."
+      },
+      {
+        "text": "Vissa webbläsartillägg försöker varna användare om mörka mönster.",
+        "correctAnswer": "true",
+        "explanation": "Texten avslutar med att vissa webbläsartillägg försöker varna användare när sådana mönster dyker upp, vilket stöder påståendet."
+      },
+      {
+        "text": "De flesta stora e-handelsföretag använder mörka mönster i sina gränssnitt.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver fenomenet och ger exempel, men säger inget om hur stor andel av e-handelsföretagen som faktiskt använder mörka mönster, så det går inte att avgöra."
+      }
+    ]
+  },
+  {
+    "id": "v2-p21",
+    "title": "PASSAGE 21 — Allmänningens tragedi",
+    "difficulty": 3,
+    "topic": "Samhälle & Demografi",
+    "text": "Allmänningens tragedi är ett begrepp som beskriver hur en gemensam resurs kan överutnyttjas när många enskilda agerar i eget intresse. Bilden som ofta används är en betesmark öppen för alla. Varje herde tjänar på att låta ytterligare ett djur beta, men om alla resonerar så slits marken ut och ingen får längre någon avkastning. Logiken har tillämpats på allt från överfiske och luftföroreningar till trängsel i städer. Den amerikanske ekologen Garrett Hardin populariserade idén i en uppmärksammad artikel 1968, och slutsatsen drogs ofta att enbart privat ägande eller statlig styrning kunde rädda gemensamma resurser. Senare forskning har dock nyanserat bilden. Statsvetaren Elinor Ostrom, som belönades med ekonomipriset till Alfred Nobels minne, visade att lokalsamhällen i många fall själva lyckats förvalta gemensamma tillgångar hållbart genom egna regler och förtroende. Avgörande är att de som använder resursen kan kommunicera, övervaka varandra och bestraffa den som fuskar. Hennes arbete utmanade tanken att tragedin är oundviklig. Exemplen sträcker sig från bevattningssystem till fiskevatten i olika delar av världen. Slutsatsen är att utfallet beror på hur samarbetet organiseras, inte enbart på resursens natur. Begreppet används än i dag i debatter om klimat och miljö.",
+    "statements": [
+      {
+        "text": "Elinor Ostrom belönades med ekonomipriset till Alfred Nobels minne.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att statsvetaren Elinor Ostrom belönades med ekonomipriset till Alfred Nobels minne, vilket bekräftar påståendet."
+      },
+      {
+        "text": "Enligt Ostroms forskning är möjligheten att övervaka varandra avgörande för hållbar förvaltning av en gemensam resurs.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att det är avgörande att användarna kan kommunicera, övervaka varandra och bestraffa den som fuskar, vilket stöder påståendet."
+      },
+      {
+        "text": "Hardin menade att lokalsamhällen själva alltid kan förvalta gemensamma resurser hållbart.",
+        "correctAnswer": "false",
+        "explanation": "Enligt texten drog Hardin slutsatsen att enbart privat ägande eller statlig styrning kunde rädda resurserna; det var Ostrom som visade att lokalsamhällen kan klara det själva, så påståendet motsäger texten."
+      },
+      {
+        "text": "Ostroms slutsatser har fått större genomslag än Hardins.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten redogör för båda forskarnas bidrag men jämför aldrig hur stort genomslag deras slutsatser fått, så det går inte att avgöra."
+      }
+    ]
+  },
+  {
+    "id": "v2-p22",
+    "title": "PASSAGE 22 — Planetära gränser",
+    "difficulty": 3,
+    "topic": "Miljö & Klimat",
+    "text": "Begreppet planetära gränser introducerades 2009 av en forskargrupp ledd av Johan Rockström vid Stockholm Resilience Centre. Tanken är att jorden har ett antal stabila system, exempelvis klimatet, sötvattnet och den biologiska mångfalden, som mänskligheten bör hålla sig inom för att undvika abrupta och svårhanterliga förändringar. Forskarna identifierade nio sådana gränser och bedömde att flera av dem redan har överskridits. Modellen har fått stort genomslag i internationell miljöpolitik och citeras ofta i diskussioner om hållbar utveckling. En av poängerna är att gränserna hänger samman. Påverkan på en gräns kan förstärka trycket på en annan, vilket gör systemet svårt att överblicka. Kritiker har invänt att vissa gränser är svåra att fastställa exakt och att en del värden bygger på osäkra uppskattningar. Förespråkarna menar att ramverket trots osäkerheterna ger en användbar helhetsbild som enskilda mätvärden saknar. Konceptet skiljer sig från äldre miljödebatt genom att betona tröskeleffekter snarare än gradvis försämring. När en gräns passeras kan förändringen bli plötslig och svår att vända. Ramverket säger däremot inte i sig hur ett samhälle bör fördela ansvaret för att hålla sig innanför gränserna. Den frågan lämnas åt politiken.",
+    "statements": [
+      {
+        "text": "Forskarna bedömde att flera av de nio gränserna redan har överskridits.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att forskarna identifierade nio gränser och bedömde att flera av dem redan har överskridits, vilket direkt stöder påståendet."
+      },
+      {
+        "text": "Påverkan på en planetär gräns kan förstärka trycket på en annan.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att gränserna hänger samman och att påverkan på en gräns kan förstärka trycket på en annan, vilket bekräftar påståendet."
+      },
+      {
+        "text": "Ramverket anger hur ansvaret för att hålla sig innanför gränserna bör fördelas mellan länder.",
+        "correctAnswer": "false",
+        "explanation": "Texten säger att ramverket inte i sig anger hur ansvaret bör fördelas och att frågan lämnas åt politiken, vilket motsäger påståendet."
+      },
+      {
+        "text": "Samtliga nio gränser kommer att överskridas inom de närmaste åren.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger att flera gränser redan överskridits men ger ingen prognos om att alla nio kommer att överskridas eller inom vilken tid, så det går inte att avgöra."
+      }
+    ]
+  },
+  {
+    "id": "v2-p23",
+    "title": "PASSAGE 23 — Restaurering av kulturmiljöer",
+    "difficulty": 3,
+    "topic": "Kultur & Medier",
+    "text": "Restaureringen av en förfallen kulturmiljö väcker ofta principiella frågor som sträcker sig långt bortom hantverket. När ett gammalt slott, en kyrka eller en stadskärna ska återställas tvingas de ansvariga ta ställning till hur långt ingreppen får gå. En linje, ofta kallad konserverande, vill bevara byggnaden i befintligt skick och endast hejda fortsatt förfall, så att spåren av tidens gång förblir synliga. En annan linje förespråkar att återskapa ett tidigare utseende, även om det innebär att lägga till delar som gått förlorade. Båda hållningarna har starka förespråkare. Kritiker mot återskapande varnar för att resultatet blir en kuliss som ger en falsk bild av historien. Förespråkarna menar att en helhet kan vara nödvändig för att en plats ska bli begriplig och meningsfull för besökaren. Internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet och vara möjliga att ta bort. I praktiken blir det ofta en kompromiss anpassad efter varje objekt. Ekonomiska ramar, tillgången på traditionella material och hänsyn till hur byggnaden ska användas påverkar också besluten. Det som en generation ser som en självklar förbättring kan en senare betrakta som ett övergrepp på kulturarvet. Därför dokumenteras numera varje åtgärd noggrant.",
+    "statements": [
+      {
+        "text": "Internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet.",
+        "correctAnswer": "true",
+        "explanation": "Texten anger att internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet och vara möjliga att ta bort, vilket stöder påståendet."
+      },
+      {
+        "text": "Den konserverande linjen vill återskapa byggnadens tidigare utseende.",
+        "correctAnswer": "false",
+        "explanation": "Enligt texten vill den konserverande linjen bevara byggnaden i befintligt skick och endast hejda förfall; det är den andra linjen som vill återskapa ett tidigare utseende, så påståendet motsägs."
+      },
+      {
+        "text": "Numera dokumenteras varje restaureringsåtgärd noggrant.",
+        "correctAnswer": "true",
+        "explanation": "Texten avslutar med att varje åtgärd numera dokumenteras noggrant, vilket bekräftar påståendet."
+      },
+      {
+        "text": "Den konserverande linjen är den vanligaste vid restaureringar i dag.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten beskriver båda linjerna och säger att resultatet ofta blir en kompromiss, men anger inte vilken linje som är vanligast, så det går inte att avgöra."
+      }
+    ]
+  },
+  {
+    "id": "v2-p24",
+    "title": "PASSAGE 24 — Placeboeffekten",
+    "difficulty": 2,
+    "topic": "Vetenskap & Forskning",
+    "text": "Placeboeffekten är ett av de mest fascinerande fenomenen inom medicinsk forskning. Den innebär att en patient kan uppleva förbättring efter en behandling utan verksam substans, exempelvis en sockerpiller, enbart för att personen förväntar sig en effekt. Fenomenet är väl dokumenterat, särskilt för symtom som smärta, illamående och nedstämdhet, där upplevelsen spelar stor roll. Just därför jämförs nya läkemedel i kliniska studier mot placebo, för att skilja en verklig effekt av preparatet från den förbättring som förväntan ensam kan ge. Forskning tyder på att även faktorer som vårdpersonalens bemötande och behandlingens omständigheter påverkar utfallet. En mindre känd motsvarighet är noceboeffekten, där negativa förväntningar i stället kan framkalla eller förvärra besvär. Mekanismerna bakom placebo är inte fullt kartlagda, men de tycks involvera både psykologiska och biologiska processer i hjärnan. Viktigt att betona är att placebo inte botar underliggande sjukdomar som infektioner eller tumörer, utan främst påverkar hur symtom upplevs. Etiska frågor uppstår kring om och när läkare får använda placebo i vården. Vissa studier antyder att en effekt kan kvarstå även när patienten vet att preparatet saknar verksam substans, något som utmanar gängse antaganden. Forskningen på området pågår alltjämt.",
+    "statements": [
+      {
+        "text": "Nya läkemedel jämförs i kliniska studier mot placebo.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att nya läkemedel jämförs mot placebo i kliniska studier för att skilja preparatets verkliga effekt från förväntans effekt, vilket stöder påståendet."
+      },
+      {
+        "text": "Placebo botar underliggande infektioner och tumörer.",
+        "correctAnswer": "false",
+        "explanation": "Texten betonar att placebo inte botar underliggande sjukdomar som infektioner eller tumörer utan främst påverkar hur symtom upplevs, vilket motsäger påståendet."
+      },
+      {
+        "text": "Vissa studier antyder att en placeboeffekt kan kvarstå även när patienten vet att preparatet saknar verksam substans.",
+        "correctAnswer": "true",
+        "explanation": "Texten säger att vissa studier antyder att en effekt kan kvarstå även när patienten vet att preparatet saknar verksam substans, vilket bekräftar påståendet."
+      },
+      {
+        "text": "Noceboeffekten är vanligare än placeboeffekten.",
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten nämner noceboeffekten som en motsvarighet men jämför aldrig hur vanliga de två effekterna är, så det går inte att avgöra."
+      }
+    ]
   }
 ]
