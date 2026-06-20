@@ -5,6 +5,7 @@ import { Search } from 'lucide-react';
 import TestCard from './TestCard';
 import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
+import ProvCard from './ProvCard';
 import {
   MatrixCategoryIllustration,
   VerbalCategoryIllustration,
@@ -47,8 +48,10 @@ export default function TestGroup({
 }: Props) {
   const Illustration = GROUP_ILLUSTRATION[group.key];
   const isPersonality = group.key === 'personlighet';
-  // Personlighetsraden får tre kort (Grund, Avancerad, Resultat) → 3-kol på lg.
-  const useThreeCols = group.cognitive.length === 3 || isPersonality;
+  // 3-kol på lg när det finns tre+ kort i raden (logik 3 träning + prov,
+  // verbal/numerisk 2 träning + prov, personlighet grund/avancerad/resultat).
+  const useThreeCols =
+    group.cognitive.length === 3 || isPersonality || !!group.prov;
 
   return (
     <motion.section
@@ -125,6 +128,16 @@ export default function TestGroup({
           <PersonalityResultCard
             personality={personality}
             index={startIndex + group.personality.length}
+          />
+        )}
+        {/* Standout prov-kort (4:e/3:e kortet) för kognitiva testtyper. */}
+        {group.prov && (
+          <ProvCard
+            href={group.prov.href}
+            sessionEndpoint={group.prov.sessionEndpoint}
+            totalQuestions={group.prov.totalQuestions}
+            minutes={group.prov.minutes}
+            index={startIndex + group.cognitive.length}
           />
         )}
       </div>

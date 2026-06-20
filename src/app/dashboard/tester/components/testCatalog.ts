@@ -36,6 +36,15 @@ export interface PersonalityTestDef {
   isPremiumLocked: boolean;
 }
 
+export interface ProvDef {
+  /** Startsidan för provet. */
+  href: string;
+  /** Session-API för senaste prov-resultat. */
+  sessionEndpoint: string;
+  totalQuestions: number;
+  minutes: number;
+}
+
 export interface TestGroup {
   key: TestGroupKey;
   /** Gruppens rubrik = den sökvänliga testtypen. */
@@ -46,6 +55,8 @@ export interface TestGroup {
   searchHint: string;
   cognitive: CognitiveTestDef[];
   personality: PersonalityTestDef[];
+  /** Prov-kort (4:e kortet) för kognitiva testtyper. Saknas för personlighet. */
+  prov?: ProvDef;
 }
 
 export const LOGIK_TESTS: CognitiveTestDef[] = [
@@ -164,6 +175,12 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även IQ-test, begåvningstest eller matrigma',
     cognitive: LOGIK_TESTS,
     personality: [],
+    prov: {
+      href: '/dashboard/tester/matrislogik-prov',
+      sessionEndpoint: '/api/logicTestProv/session',
+      totalQuestions: 18,
+      minutes: 25,
+    },
   },
   {
     key: 'verbal',

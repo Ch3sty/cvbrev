@@ -389,6 +389,31 @@ export function PersonalityProfileIllustration({ className = 'w-20 h-20' }: Icon
   );
 }
 
+/**
+ * Prov-ikon: en medalj/rosett som signalerar bedömning/benchmark. Ritas i VITT
+ * så den syns på provkortets fyllda gradient-bakgrund.
+ */
+export function ProvMedalIllustration({ className = 'w-12 h-12' }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Band */}
+      <path d="M 18 22 L 14 40 L 20 36 L 24 41 L 28 36 L 34 40 L 30 22 Z" fill="white" opacity="0.85" />
+      {/* Medalj */}
+      <circle cx="24" cy="18" r="13" fill="white" opacity="0.2" />
+      <circle cx="24" cy="18" r="10" fill="none" stroke="white" strokeWidth="2.5" />
+      {/* Bock i mitten */}
+      <path
+        d="M 19.5 18 L 22.5 21 L 28.5 14.5"
+        fill="none"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function EmptyStateIllustration({ className = 'w-32 h-32' }: IconProps) {
   return (
     <svg viewBox="0 0 120 120" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
