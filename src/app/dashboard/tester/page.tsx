@@ -72,7 +72,7 @@ export default function TesterHubPage() {
             {hasAnyData ? (
               <TestStatsCard
                 completedTestCount={aggregate.completedTestCount}
-                totalTestCount={10}
+                totalTestCount={9}
                 averageBestPercentage={aggregate.averageBestPercentage}
                 totalTimeSeconds={aggregate.totalTimeSeconds}
               />
@@ -80,7 +80,7 @@ export default function TesterHubPage() {
               <EmptyTestsCallout />
             )}
 
-            <div className="space-y-6 sm:space-y-7">
+            <div className="space-y-4 sm:space-y-5">
               {TEST_GROUPS.map((group, gi) => {
                 const startIndex = TEST_GROUPS.slice(0, gi).reduce(
                   (acc, g) => acc + g.cognitive.length + g.personality.length,

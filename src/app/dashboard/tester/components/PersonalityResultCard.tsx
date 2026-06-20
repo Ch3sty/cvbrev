@@ -57,13 +57,13 @@ export default function PersonalityResultCard({ personality, index = 0 }: Props)
               <PersonalityProfileIllustration className="w-11 h-11 flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
-                  Ditt resultat
+                  Resultat
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
-                  Din personlighetsprofil
+                  Ditt testresultat
                 </h3>
                 <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight">
-                  Så här ser en rekryterare dig
+                  Vad personlighetstestet visar
                 </p>
               </div>
             </div>
@@ -118,13 +118,13 @@ export default function PersonalityResultCard({ personality, index = 0 }: Props)
               <PersonalityProfileIllustration className="w-11 h-11 flex-shrink-0 opacity-70 grayscale" />
               <div className="flex-1 min-w-0">
                 <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-0.5">
-                  Ditt resultat
+                  Resultat
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
-                  Ingen profil än
+                  Inget resultat än
                 </h3>
                 <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight">
-                  Inget personlighetstest gjort
+                  Gör personlighetstestet
                 </p>
               </div>
             </div>

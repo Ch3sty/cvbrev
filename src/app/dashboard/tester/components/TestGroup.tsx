@@ -73,11 +73,12 @@ export default function TestGroup({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 }}
+      className="relative rounded-3xl border border-orange-100/80 bg-gradient-to-b from-orange-50/40 to-transparent p-4 sm:p-5"
     >
       {/* Sektionsrubrik: ikon + namn + kort mening, med exempel-illustration till höger. */}
       <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
         <div
-          className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center"
+          className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white border border-orange-100 flex items-center justify-center"
           style={{ boxShadow: '0 4px 12px -6px rgba(249, 115, 22, 0.2)' }}
         >
           <Illustration className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -91,7 +92,7 @@ export default function TestGroup({
           </p>
         </div>
         {/* Exempel: visar vad testet är, ersätter beskrivande text. */}
-        <div className="hidden sm:block flex-shrink-0 w-28 h-14 rounded-xl bg-orange-50/50 border border-orange-100 p-1">
+        <div className="hidden sm:block flex-shrink-0 w-28 h-14 rounded-xl bg-white border border-orange-100 p-1">
           <Example className="w-full h-full" />
         </div>
       </div>
