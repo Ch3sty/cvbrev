@@ -9,6 +9,20 @@ export type FaqItemData = {
   answer: string;
 };
 
+// Ett steg i en HowTo-guide. `text` är obligatoriskt; `name` (kort rubrik)
+// är valfritt och faller tillbaka på en avkortad text om det saknas.
+export type HowToStepData = {
+  name?: string;
+  text: string;
+};
+
+// HowTo-data för artiklar som innehåller en äkta stegguide.
+export type HowToData = {
+  name: string; // Vad guiden lär ut, t.ex. "Så skapar du ett CV i PDF"
+  description?: string;
+  steps: HowToStepData[];
+};
+
 export type Frontmatter = {
   title: string;
   seoTitle?: string; // Kortare titel för <title>-taggen (annars title + suffix)
@@ -18,6 +32,7 @@ export type Frontmatter = {
   tags?: string[];
   image?: string;
   faq?: FaqItemData[]; // <-- FAQ-fältet är nu inkluderat
+  howto?: HowToData; // <-- HowTo-schema för artiklar med stegguider
 };
 
 export type PostMeta = {

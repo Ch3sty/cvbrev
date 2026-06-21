@@ -1,6 +1,6 @@
 // Server Component - No 'use client' directive
 import { notFound } from 'next/navigation';
-import { getAllPostsMeta, getPostBySlug, Post, FaqItemData, PostMeta } from '@/lib/blog';
+import { getAllPostsMeta, getPostBySlug, Post, FaqItemData, HowToData, PostMeta } from '@/lib/blog';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Metadata, ResolvingMetadata } from 'next';
 import { format, parseISO } from 'date-fns';
@@ -199,6 +199,31 @@ function generateFaqSchema(data: FaqItemData[] | undefined): React.ReactNode | n
     } catch (error) { console.error("Error generating FAQ schema:", error); return null; }
 }
 
+function generateHowToSchema(data: HowToData | undefined, slug: string): React.ReactNode | null {
+    if (!data || typeof data.name !== 'string' || !Array.isArray(data.steps) || data.steps.length === 0) { return null; }
+    const canonicalUrl = `https://www.jobbcoach.ai/artiklar/${slug}`;
+    const cleanTextForSchema = (text: string): string => text.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1').replace(/<\/?[^>]+(>|$)/g, "").replace(/\*/g, '').replace(/•\s*/g, '').replace(/\n\s*[*|-]\s*/g, ' ').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    try {
+        const steps = data.steps
+            .filter(step => step && typeof step.text === 'string' && step.text.trim().length > 0)
+            .map((step, i) => {
+                const text = cleanTextForSchema(step.text);
+                // name faller tillbaka på en kort version av texten om det saknas
+                const name = (step.name && step.name.trim()) || (text.length > 60 ? text.slice(0, 57).trimEnd() + '…' : text);
+                return { "@type": "HowToStep", "position": i + 1, "name": name, "text": text };
+            });
+        if (steps.length === 0) { console.warn("No valid HowTo steps found after filtering."); return null; }
+        const schema: Record<string, any> = {
+            "@context": "https://schema.org", "@type": "HowTo",
+            "name": data.name.trim(),
+            "step": steps,
+        };
+        if (data.description && data.description.trim()) { schema.description = cleanTextForSchema(data.description); }
+        schema.mainEntityOfPage = { "@type": "WebPage", "@id": canonicalUrl };
+        return (<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }} key="howto-schema" />);
+    } catch (error) { console.error("Error generating HowTo schema:", error); return null; }
+}
+
 // Funktion för att injicera BroadConversionBanner i MDX-innehåll
 function injectBannerIntoContent(content: string): string {
     // Redan innehåller bannern? Hoppa över injection
@@ -382,6 +407,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     // Generera schema-skript med TOC-data för SEO
     const articleSchemaScript = generateEnhancedArticleSchema(post, slug, headings);
     const faqSchemaScript = generateFaqSchema(articleFaqData);
+    const howToSchemaScript = generateHowToSchema(post.frontmatter.howto, slug);
 
     // BreadcrumbList JSON-LD för SEO
     const breadcrumbSchema = {
@@ -434,6 +460,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {/* Schema markup */}
             {articleSchemaScript}
             {faqSchemaScript}
+            {howToSchemaScript}
             {breadcrumbSchemaScript}
         </>
     );
