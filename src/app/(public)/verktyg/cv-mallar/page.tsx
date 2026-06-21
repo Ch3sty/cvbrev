@@ -49,7 +49,9 @@ export default function CVMallarSida() {
         '@type': 'Product',
         name: tpl.name,
         description: tpl.description,
-        image: `https://www.jobbcoach.ai${tpl.imagePath}`,
+        // Google föredrar raster (webp/png) framför SVG för produktbilder.
+        // SVG:n används fortfarande i appens UI; här pekar vi på webp-versionen.
+        image: `https://www.jobbcoach.ai${tpl.imagePath.replace(/\.svg$/, '.webp')}`,
         category: tpl.category,
         // brand löser GSC-varningen "No global identifier" (Google accepterar
         // brand ELLER gtin; en digital CV-mall har ingen gtin). sku = stabil id.
