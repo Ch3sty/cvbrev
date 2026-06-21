@@ -11,6 +11,7 @@ export type FaqItemData = {
 
 export type Frontmatter = {
   title: string;
+  seoTitle?: string; // Kortare titel för <title>-taggen (annars title + suffix)
   date: string;
   description: string;
   author?: string;

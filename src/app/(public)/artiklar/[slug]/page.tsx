@@ -76,6 +76,9 @@ export async function generateMetadata(
     }
 
     const pageTitle = post.frontmatter.title;
+    // seoTitle styr <title>-taggen (kort, ≤60 tecken inkl. varumärke). Annars fallback
+    // till title + suffix. OpenGraph/Twitter använder den längre, beskrivande titeln.
+    const metaTitle = post.frontmatter.seoTitle || `${pageTitle} | jobbcoach.ai`;
     const publishedDate = post.frontmatter.date ? new Date(post.frontmatter.date).toISOString() : undefined;
 
     const siteBaseUrl = "https://www.jobbcoach.ai";
@@ -84,7 +87,7 @@ export async function generateMetadata(
         : undefined;
 
     return {
-        title: `${pageTitle} | jobbcoach.ai`,
+        title: metaTitle,
         description: post.frontmatter.description,
         alternates: { canonical: `${siteBaseUrl}/artiklar/${slug}` },
         openGraph: {
@@ -146,7 +149,7 @@ function generateEnhancedArticleSchema(post: Post, slug: string, headings: any[]
             "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
             "headline": post.frontmatter.title,
             "description": post.frontmatter.description || undefined,
-            "image": imageUrl ? { "@type": "ImageObject", "url": imageUrl, "width": 1200, "height": 630 } : undefined,
+            "image": imageUrl ? { "@type": "ImageObject", "url": imageUrl, "width": 1536, "height": 1024 } : undefined,
             "datePublished": new Date(post.frontmatter.date).toISOString(),
             "dateModified": new Date().toISOString(),
             "author": authorSchema,
