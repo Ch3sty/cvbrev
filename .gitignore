@@ -46,3 +46,9 @@ test-*.js
 test-*.html
 test-*.pdf
 nul
+
+# Supabase CLI temp-filer (lokal versionsstämpel, ej för repo)
+supabase/.temp/
+
+# Lokal Claude-inställning (innehåller dev-overrides som NODE_TLS_REJECT_UNAUTHORIZED)
+.claude/settings.json
