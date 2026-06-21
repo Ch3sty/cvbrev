@@ -51,11 +51,20 @@ export default function CVMallarSida() {
         description: tpl.description,
         image: `https://www.jobbcoach.ai${tpl.imagePath}`,
         category: tpl.category,
+        // brand löser GSC-varningen "No global identifier" (Google accepterar
+        // brand ELLER gtin; en digital CV-mall har ingen gtin). sku = stabil id.
+        brand: { '@type': 'Brand', name: 'Jobbcoach.ai' },
+        sku: tpl.id,
+        url: `https://www.jobbcoach.ai/cv-mallar#${tpl.id}`,
         offers: {
           '@type': 'Offer',
           price: tpl.tier === 'free' ? '0' : '149',
           priceCurrency: 'SEK',
           availability: 'https://schema.org/InStock',
+          url: 'https://www.jobbcoach.ai/cv-mallar',
+          // Merchant listings kräver pris > 0; gratismallar förblir giltiga
+          // product snippets. seller anges för komplett Offer-data.
+          seller: { '@type': 'Organization', name: 'Jobbcoach.ai' },
         },
       },
     })),
