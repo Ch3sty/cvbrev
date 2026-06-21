@@ -66,18 +66,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9, // Galleri-översikt
     },
     {
-      url: `${baseUrl}/skapa-brev`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/analysera-cv`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/om-oss`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
