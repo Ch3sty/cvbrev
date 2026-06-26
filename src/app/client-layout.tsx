@@ -276,6 +276,7 @@ export default function ClientLayout({
                 För att göra plattformen bättre.{" "}
                 <Link
                   href="/integritetspolicy#cookies"
+                  aria-label="Läs mer om hur vi använder cookies i vår integritetspolicy"
                   style={{
                     color: "#C2410C",
                     fontWeight: "700",
