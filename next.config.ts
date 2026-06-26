@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
 
+  // Tree-shaka tunga barrel-paket sa bara anvanda exporter hamnar i bundlen.
+  // Lucide importeras brett (manga ikoner per sida), framer-motion ar tungt.
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
+  },
+
   // Turbopack konfiguration för att undvika workspace root varningar
   turbopack: {
     resolveAlias: {

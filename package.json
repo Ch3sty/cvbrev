@@ -114,5 +114,9 @@
   },
   "optionalDependencies": {
     "puppeteer": "^24.18.0"
-  }
+  },
+  "browserslist": [
+    "supports es6-module",
+    "not dead"
+  ]
 }
