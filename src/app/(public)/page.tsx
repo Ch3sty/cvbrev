@@ -1,4 +1,3 @@
-import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import AuthRedirect from '@/components/landing/AuthRedirect';
 import LandingHero from '@/components/landing/LandingHero';
 import MatchingShowcaseSection from '@/components/landing/MatchingShowcaseSection';
@@ -15,25 +14,23 @@ import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
 export default function HomePage() {
   return (
-    <GlobalCountersProvider>
-      <div className="min-h-screen bg-white">
-        <AuthRedirect />
+    <div className="min-h-screen bg-white">
+      <AuthRedirect />
 
-        <main>
-          <LandingHero />
-          <MatchingShowcaseSection />
-          <MediaImpactSection />
-          <ToolsConstellation />
-          <JobbcoachenSpotlight />
-          <JobMatchingShowcase />
-          <ProductShowcase />
-          <TestsShowcase />
-          <DetailedPricingSection />
-          <TestimonialsRow />
-          <LandingFAQ />
-          <RichFinalCTA />
-        </main>
-      </div>
-    </GlobalCountersProvider>
+      <main>
+        <LandingHero />
+        <MatchingShowcaseSection />
+        <MediaImpactSection />
+        <ToolsConstellation />
+        <JobbcoachenSpotlight />
+        <JobMatchingShowcase />
+        <ProductShowcase />
+        <TestsShowcase />
+        <DetailedPricingSection />
+        <TestimonialsRow />
+        <LandingFAQ />
+        <RichFinalCTA />
+      </main>
+    </div>
   );
 }

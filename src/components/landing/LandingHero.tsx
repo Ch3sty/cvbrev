@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowRight, ShieldCheck, Star } from 'lucide-react';
 import DynamicCounters from './DynamicCounters';
 
@@ -18,11 +17,7 @@ export default function LandingHero() {
       />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-24 pb-8 sm:pb-12 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-        >
+        <div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
             <span
               className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"
@@ -109,7 +104,7 @@ export default function LandingHero() {
           <div className="max-w-md mx-auto pt-6 border-t border-orange-100">
             <DynamicCounters />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
