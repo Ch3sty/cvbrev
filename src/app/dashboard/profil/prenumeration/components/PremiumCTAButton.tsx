@@ -5,7 +5,15 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe
 import { loadStripe } from '@stripe/stripe-js';
 import { ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Lazy singleton: loadStripe() korr forst nar komponenten renderas, inte vid
+// modul-import — annars hamtas js.stripe.com pa sidor som bara prefetchar denna.
+let stripePromise: ReturnType<typeof loadStripe> | null = null;
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  }
+  return stripePromise;
+};
 
 interface PremiumCTAButtonProps {
   priceId: string;
@@ -79,7 +87,7 @@ export function PremiumCTAButton({
           className="bg-white rounded-3xl border border-orange-200/50 overflow-hidden p-4 sm:p-6"
           style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
         >
-          <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
+          <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret }}>
             <EmbeddedCheckout />
           </EmbeddedCheckoutProvider>
         </div>

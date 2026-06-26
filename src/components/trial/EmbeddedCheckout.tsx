@@ -25,7 +25,16 @@ interface EmbeddedCheckoutProps {
   onBack: () => void
 }
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+// Lazy singleton: loadStripe() anropas forst nar checkout faktiskt renderas,
+// inte vid modul-import. Annars hamtas js.stripe.com (3,6 MB) redan pa
+// startsidan nar Next prefetchar /trial-signup.
+let stripePromise: ReturnType<typeof loadStripe> | null = null
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+  }
+  return stripePromise
+}
 
 export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckoutProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
@@ -138,7 +147,7 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
       {clientSecret && !error && (
         <div className="rounded-2xl overflow-hidden border border-orange-100 bg-white">
           <EmbeddedCheckoutProvider
-            stripe={stripePromise}
+            stripe={getStripe()}
             options={{ clientSecret }}
           >
             <StripeEmbeddedCheckout />

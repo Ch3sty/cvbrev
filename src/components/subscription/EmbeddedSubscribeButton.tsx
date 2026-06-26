@@ -9,7 +9,15 @@ import { useState } from 'react'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+// Lazy singleton: loadStripe() korr forst nar komponenten renderas, inte vid
+// modul-import — annars hamtas js.stripe.com pa sidor som bara prefetchar denna.
+let stripePromise: ReturnType<typeof loadStripe> | null = null
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+  }
+  return stripePromise
+}
 
 interface EmbeddedSubscribeButtonProps {
   priceId: string
@@ -82,7 +90,7 @@ export function EmbeddedSubscribeButton({
         {/* Embedded Checkout with better styling */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden p-6">
           <EmbeddedCheckoutProvider
-            stripe={stripePromise}
+            stripe={getStripe()}
             options={{
               clientSecret
             }}

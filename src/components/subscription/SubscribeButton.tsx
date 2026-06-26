@@ -5,18 +5,17 @@
 'use client';
 
 import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 // Importera eventuella ikoner du vill använda, t.ex. Crown eller en laddningsikon
-// import { Crown } from 'lucide-react'; 
+// import { Crown } from 'lucide-react';
 
-// Läs in din publicerbara Stripe-nyckel
+// Läs in din publicerbara Stripe-nyckel.
+// Denna komponent skickar bara till backend och redirectar till Stripe Checkout —
+// den behover INTE ladda js.stripe.com (loadStripe). Vi kollar bara att nyckeln finns.
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
 if (!stripePublishableKey) {
   console.error("ERROR: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set in .env.local");
 }
-
-const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 interface SubscribeButtonProps {
   priceId: string;    // Stripe Price ID (t.ex. price_xxxxxxxxxxxx)
@@ -33,7 +32,7 @@ export function SubscribeButton({ priceId, planName, className = '', disabled = 
     setLoading(true);
     setError(null);
 
-    if (!stripePromise) {
+    if (!stripePublishableKey) {
         setError("Stripe could not be initialized. Check API key.");
         setLoading(false);
         return;
@@ -72,7 +71,7 @@ export function SubscribeButton({ priceId, planName, className = '', disabled = 
       {/* Standard HTML-knapp med Tailwind-klasser */}
       <button
         onClick={handleSubscribe}
-        disabled={loading || disabled || !stripePromise}
+        disabled={loading || disabled || !stripePublishableKey}
         // Tailwind-klasser - custom className överskrider defaults
         className={
           className ||
