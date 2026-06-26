@@ -1,7 +1,6 @@
 'use client';
 
 import './globals.css'
-import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import Script from 'next/script'
@@ -13,8 +12,6 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import ActivityTracker from '@/components/ActivityTracker';
 import PostHogIdentify from '@/components/PostHogProvider';
 import { usePathname } from 'next/navigation';
-
-const inter = Inter({ subsets: ['latin'] })
 
 const COOKIE_NAME = "cvBrevCookieConsent";
 const GTM_ID = 'GTM-5KLW66PJ';
