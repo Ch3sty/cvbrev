@@ -240,7 +240,7 @@ async function generateSingleImprovement(
 
     const { data: result } = await generateJSON<any>({
       model: GEMINI_MODELS.fast,
-      systemInstruction: 'Du är en svensk CV-expert som hjälper till att förbättra CV:n med konkreta, mätbara förbättringar.',
+      systemInstruction: 'Du är en svensk CV-expert som hjälper till att förbättra CV:n med konkreta, mätbara förbättringar. Skriv som en människa, inte som en AI: använd ALDRIG tankstreck/em-dash (—), stapla aldrig tomma adjektiv och undvik klyschor som "dokumenterad förmåga", "högpresterande team" eller "resultatinriktad". Varje förbättring ska vara specifik och bygga på siffror eller konkreta resultat.',
       prompt,
       temperature: 0.3, // OPTIMERING: Lägre temperatur för snabbare svar
       maxOutputTokens: 600,

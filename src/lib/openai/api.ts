@@ -270,7 +270,8 @@ ${premiumAutoInstructions}
     4. **Tonläge och språk:**
       - ${tonalityInstruction}.
       - Använd ett aktivt och tydligt språk. Undvik klichéer och generiska fraser.
-      - Variera meningsstrukturerna naturligt. Använd olika sätt att inleda meningar.
+      - ALDRIG tankstreck/em-dash (—) i texten. Det är det tydligaste tecknet på AI-genererad text. Använd punkt, komma eller kolon istället.
+      - Variera meningsstrukturerna naturligt. Använd olika sätt att inleda meningar. Blanda korta meningar med längre.
       - VIKTIGT: Låt varje brev vara unikt. Använd INTE samma fraser i varje brev.
       - Undvik dessa AI-markörer (KRITISKT - dessa avslöjar AI-genererad text):
         - "Jag blev mycket intresserad av..."
@@ -404,7 +405,8 @@ ${premiumAutoInstructions}
     4. **Tone and language:**
       - ${tonalityInstruction}.
       - Use active and clear language. Avoid clichés and generic phrases.
-      - Vary sentence structures naturally. Use different ways to begin sentences.
+      - NEVER use em-dash (—) in the text. It is the clearest sign of AI-generated writing. Use a period, comma or colon instead.
+      - Vary sentence structures naturally. Use different ways to begin sentences. Mix short sentences with longer ones.
       - IMPORTANT: Let each letter be unique. Do NOT use the same phrases in every letter.
       - Avoid these AI markers (CRITICAL - these reveal AI-generated text):
         - "I was very interested in..."
