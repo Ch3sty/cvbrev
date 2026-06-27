@@ -1,7 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import LiveAIShowcase from './LiveAIShowcase';
+import dynamic from 'next/dynamic';
+
+// Lazy-laddar den tunga, animerade demon. Den ligger en bit ner pa sidan, sa
+// dess JS (framer-motion + animationsloopar) behover inte ligga i den initiala
+// bundeln och konkurrera med hero-LCP. Platshallaren halller hojden -> CLS 0.
+const LiveAIShowcase = dynamic(() => import('./LiveAIShowcase'), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="w-full rounded-2xl border border-orange-100 bg-orange-50/30 animate-pulse"
+      style={{ minHeight: 520 }}
+      aria-hidden="true"
+    />
+  ),
+});
 
 export default function MatchingShowcaseSection() {
   return (

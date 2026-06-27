@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Briefcase, CheckCircle2, ArrowDown, Clock } from 'lucide-react';
 
@@ -88,18 +88,45 @@ export default function LiveAIShowcase() {
   const [typedLetter, setTypedLetter] = useState('');
   const [phase, setPhase] = useState<'idle' | 'matching' | 'writing' | 'done'>('idle');
 
+  // Animationen kör BARA när demon syns i viewporten. Annars pausar vi alla
+  // timers/intervall — en besökare som stannar overst pa sidan betalar noll
+  // CPU for demon, och looparna konkurrerar inte om main-thread under den
+  // kritiska hydreringsfasen (battre LCP/TBT pa mobil).
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    // Saknas IntersectionObserver (mycket gammal webblasare): kor alltid.
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsActive(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting),
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const scenario = SCENARIOS[scenarioIndex];
 
-  // Roterar scenario var 18:e sek
+  // Roterar scenario var 18:e sek (bara nar demon syns)
   useEffect(() => {
+    if (!isActive) return;
     const interval = setInterval(() => {
       setScenarioIndex((prev) => (prev + 1) % SCENARIOS.length);
     }, 18000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isActive]);
 
   // Reset + matchnings-fas
   useEffect(() => {
+    if (!isActive) return;
     setActiveMatches([]);
     setTypedLetter('');
     setPhase('idle');
@@ -122,11 +149,11 @@ export default function LiveAIShowcase() {
       clearTimeout(writeTimer);
       matchTimers.forEach(clearTimeout);
     };
-  }, [scenarioIndex, scenario.matches]);
+  }, [isActive, scenarioIndex, scenario.matches]);
 
-  // Skriver brevet tecken för tecken
+  // Skriver brevet tecken för tecken (bara nar demon syns)
   useEffect(() => {
-    if (phase !== 'writing') return;
+    if (!isActive || phase !== 'writing') return;
     let index = 0;
     const interval = setInterval(() => {
       index += 2;
@@ -139,7 +166,7 @@ export default function LiveAIShowcase() {
       }
     }, 20);
     return () => clearInterval(interval);
-  }, [phase, scenario.letter]);
+  }, [isActive, phase, scenario.letter]);
 
   // Vilka cv-rader och job-krav som matchats
   const matchedCvLines = new Set(
@@ -150,7 +177,7 @@ export default function LiveAIShowcase() {
   );
 
   return (
-    <div className="relative w-full">
+    <div ref={rootRef} className="relative w-full">
       {/* Kontroll-bar: scenario-prickar + status */}
       <div className="flex items-center justify-between mb-5 sm:mb-6">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200">
