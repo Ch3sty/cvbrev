@@ -193,7 +193,12 @@ export const useLetters = () => {
         
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'Kunde inte generera brevförhandsvisning');
+          // Bevara strukturerad felinfo (t.ex. code='quota_exceeded' + nextResetAt)
+          // så UI:t kan visa rätt spärrvy i stället för ett generiskt fel.
+          const error: any = new Error(errorData.message || errorData.error || 'Kunde inte generera brevförhandsvisning');
+          error.code = errorData.code;
+          error.payload = errorData;
+          throw error;
         }
         
         const data = await response.json();

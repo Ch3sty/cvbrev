@@ -51,6 +51,9 @@ export interface Letter {
   cv_path: string | null;
   created_at: string | null;
   updated_at: string | null;
+  /** Sätts av GET /api/letters: gratisanvändare har bara de 2 senast
+   *  sparade breven aktiva — resten är låsta tills Premium eller borttag. */
+  isLocked?: boolean;
 }
 
 interface LetterGenerationParams {

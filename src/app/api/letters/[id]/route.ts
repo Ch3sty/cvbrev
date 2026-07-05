@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { isLetterLocked, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
 
 // Hämta ett specifikt brev med ID
 export async function GET(
@@ -75,22 +76,50 @@ export async function PUT(
     // Verifiera att användaren äger brevet
     const { data: existingLetter, error: fetchError } = await supabase
       .from('letters')
-      .select('user_id')
+      .select('user_id, is_saved')
       .eq('id', id)
       .single();
-      
+
     if (fetchError || !existingLetter) {
       return NextResponse.json(
-        { error: 'Brevet hittades inte' }, 
+        { error: 'Brevet hittades inte' },
         { status: 404 }
       );
     }
-    
+
     if (existingLetter.user_id !== user.id) {
       return NextResponse.json(
-        { error: 'Du har inte behörighet att uppdatera detta brev' }, 
+        { error: 'Du har inte behörighet att uppdatera detta brev' },
         { status: 403 }
       );
+    }
+
+    // Lås-kontroll: gratisanvändare kan bara redigera sina 2 senast sparade
+    // brev (aktiva). Äldre sparade brev är låsta tills Premium eller borttag.
+    if (existingLetter.is_saved === true) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('subscription_tier')
+        .eq('id', user.id)
+        .single();
+
+      if (profile?.subscription_tier !== 'premium') {
+        const { data: savedLetters } = await supabase
+          .from('letters')
+          .select('id, updated_at, created_at')
+          .eq('user_id', user.id)
+          .eq('is_saved', true);
+
+        if (
+          Array.isArray(savedLetters) &&
+          isLetterLocked(id, savedLetters, FREE_ACTIVE_LETTER_LIMIT)
+        ) {
+          return NextResponse.json(
+            { error: 'letter_locked', code: 'letter_locked' },
+            { status: 403 }
+          );
+        }
+      }
     }
 
     // Uppdatera brevet i databasen

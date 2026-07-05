@@ -5,6 +5,13 @@ import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
+// Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
+import {
+  resolveDailyLetterCounter,
+  nextMidnightStockholm,
+  DAILY_LIMIT_LETTERS,
+  quotaExceededBody,
+} from '@/lib/quota/quotaService';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -12,53 +19,6 @@ const activeGenerations = new Map<string, { startTime: number, promise: Promise<
 
 // Tidsperioder
 const GENERATION_TIMEOUT_MS = 60000; // 60 sekunder max för en generering
-
-/**
- * Kontrollerar om veckogränsen behöver nollställas och beräknar nästa nollställningsdatum
- */
-function checkWeeklyReset(lastResetStr: string | null, currentCount: number): { 
-  shouldReset: boolean, 
-  newCount: number, 
-  nextResetDate: Date 
-} {
-  const now = new Date();
-  
-  // Om det inte finns något senaste återställningsdatum, behöver vi återställa
-  if (!lastResetStr) {
-    const nextReset = new Date(now);
-    nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning om 7 dagar
-    return { 
-      shouldReset: true, 
-      newCount: 1, // Börja med 1 eftersom vi håller på att generera ett brev
-      nextResetDate: nextReset
-    };
-  }
-  
-  const lastReset = new Date(lastResetStr);
-  // Beräkna tidsskillnaden i millisekunder
-  const timeDiff = now.getTime() - lastReset.getTime();
-  const daysDiff = timeDiff / (1000 * 3600 * 24);
-  
-  // Om det har gått 7 dagar eller mer sedan senaste återställning
-  if (daysDiff >= 7) {
-    const nextReset = new Date(now);
-    nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning om 7 dagar från idag
-    return { 
-      shouldReset: true, 
-      newCount: 1, // Börja med 1 för detta nya brev
-      nextResetDate: nextReset 
-    };
-  }
-  
-  // Ingen återställning behövs, öka bara räknaren
-  const nextReset = new Date(lastReset);
-  nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning är 7 dagar från senaste återställning
-  return { 
-    shouldReset: false, 
-    newCount: currentCount + 1,
-    nextResetDate: nextReset
-  };
-}
 
 // Hjälpfunktion för att rensa gamla cache-poster
 function cleanupCache() {
@@ -93,7 +53,7 @@ export async function POST(request: Request) {
     // Hämta användarprofil för att kontrollera prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, last_count_reset, next_reset_date')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at')
       .eq('id', user.id)
       .single();
 
@@ -102,19 +62,33 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
-    // Kontrollera om veckogränsen behöver nollställas med den nya hjälpfunktionen
-    const { shouldReset, newCount, nextResetDate } = checkWeeklyReset(
-      profile.last_count_reset,
-      profile.weekly_letter_count || 0
+    // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
+    // Samma räknarkolumner som /api/letters/generate så båda flödena delar kvot.
+    const now = new Date();
+    const { effectiveCount, windowIsStale } = resolveDailyLetterCounter(
+      profile.weekly_letter_count,
+      profile.weekly_letter_first_used_at,
+      now
     );
+    const nextResetDate = nextMidnightStockholm(now);
+    const newCount = effectiveCount + 1;
 
-    // Kontrollera om användaren har nått sin veckogräns (endast för gratisanvändare)
-    if (profile.subscription_tier === 'free' && !shouldReset && newCount > 5) {
-      return NextResponse.json({ 
-        error: 'Du har nått din veckogräns på 5 brev. Uppgradera till premium för obegränsad åtkomst.', 
-        code: 'WEEKLY_LIMIT_REACHED',
-        nextResetDate: nextResetDate.toISOString()
-      }, { status: 403 });
+    // Kontrollera om användaren har nått sin dagsgräns (endast för gratisanvändare)
+    if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+      return NextResponse.json(
+        quotaExceededBody(
+          'letter_generation',
+          {
+            allowed: false,
+            isPremium: false,
+            used: effectiveCount,
+            limit: DAILY_LIMIT_LETTERS,
+            nextResetAt: nextResetDate.toISOString(),
+          },
+          'Du har använt dagens två brev. Ny kvot i morgon, eller uppgradera för obegränsat.'
+        ),
+        { status: 429 }
+      );
     }
 
     // Hämta begäransdata (CV-ID, jobbannons, tonalitet, språk och mall)
@@ -327,29 +301,25 @@ export async function POST(request: Request) {
       promise: generationPromise
     });
     
-    // Öka brevräknaren och uppdatera senaste återställningstiden om det behövs för gratisanvändare
+    // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
+    // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
     if (profile.subscription_tier === 'free') {
-      // Definiera uppdateringsobjektet med tydlig typning för att lösa TypeScript-felet
-      const updates: {
-        weekly_letter_count: number;
-        next_reset_date: string;
-        last_count_reset?: string;
-      } = {
-        weekly_letter_count: newCount,
-        next_reset_date: nextResetDate.toISOString()
-      };
-      
-      // Om vi ska återställa räknaren, lägg till last_count_reset
-      if (shouldReset) {
-        updates.last_count_reset = new Date().toISOString();
-      }
-      
-      // Uppdatera räknaren
       const { error: updateError } = await supabase
         .from('profiles')
-        .update(updates)
+        .update(
+          windowIsStale
+            ? {
+                weekly_letter_count: 1,
+                weekly_letter_first_used_at: now.toISOString(),
+                weekly_letter_reset_at: nextResetDate.toISOString(),
+              }
+            : {
+                weekly_letter_count: newCount,
+                weekly_letter_reset_at: nextResetDate.toISOString(),
+              }
+        )
         .eq('id', user.id);
-      
+
       if (updateError) {
         console.error('Fel vid uppdatering av brevräknare:', updateError);
       }
@@ -362,13 +332,14 @@ export async function POST(request: Request) {
       // Ta bort från aktiva genereringar när den är klar
       activeGenerations.delete(requestKey);
       
-      // För gratisanvändare, returnera också antalet återstående brev för veckan
+      // För gratisanvändare, returnera också antalet återstående brev idag
       if (profile.subscription_tier === 'free') {
-        const remainingLetters = Math.max(0, 5 - newCount);
-        return NextResponse.json({ 
-          success: true, 
+        const remainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newCount);
+        return NextResponse.json({
+          success: true,
           data: letterData,
           remainingLetters: remainingLetters,
+          limit: DAILY_LIMIT_LETTERS,
           nextResetDate: nextResetDate.toISOString()
         });
       }

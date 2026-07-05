@@ -2,23 +2,30 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaService';
 
-// Konstanter för prenumerationsbegränsningar
+// Konstanter för prenumerationsbegränsningar.
+// Dagskvotmodellen (docs/plan-kvotmodell.md): brev är 2 per dag med
+// nollställning vid midnatt svensk tid. De "weekly"-namngivna fälten och
+// state-variablerna behålls som API mot resten av appen, men värdena är
+// numera DAGSVÄRDEN. "Analys" i denna hook avser kompetensanalysen
+// (kalendervecka, pausad funktion) — CV-analysens 72h-kvot hanteras av
+// analyze-API:ts svar, inte här.
 const SUBSCRIPTION_LIMITS = {
   free: {
     maxSavedLetters: 2,
-    dailyLetterLimit: 2,      // Nytt: 2 brev per dag (ersätter weeklyLetterLimit)
-    weeklyLetterLimit: 5,     // Behålls för bakåtkompatibilitet
+    dailyLetterLimit: 2,
+    weeklyLetterLimit: 2,     // = dailyLetterLimit; namnet behålls för konsumenter
     maxCVCount: 2,
-    weeklyAnalysisLimit: 1,   // Ändrat: 1 analys per vecka (från 2)
+    weeklyAnalysisLimit: 1,
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative'],
   },
   premium: {
     maxSavedLetters: Infinity,
-    dailyLetterLimit: Infinity,      // Nytt: obegränsade brev per dag
-    weeklyLetterLimit: Infinity,     // Behålls för bakåtkompatibilitet
+    dailyLetterLimit: Infinity,
+    weeklyLetterLimit: Infinity,
     maxCVCount: Infinity,
-    weeklyAnalysisLimit: Infinity,   // Obegränsade analyser för premium
+    weeklyAnalysisLimit: Infinity,
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative', 'auto'],
   }
 };
@@ -421,12 +428,21 @@ export const useProfile = () => {
         setPriceId(data.price_id || null);
         setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end) : null);
 
-        // Hantera brevräknare och återställning
-        const currentWeeklyCount = data.weekly_letter_count || 0;
+        // Hantera brevräknare och återställning (dagsfönster, midnatt svensk tid).
+        // Räknaren i weekly_letter_count gäller bara om fönstret startade idag
+        // (weekly_letter_first_used_at >= dagens midnatt) — annars är den
+        // logiskt 0 och servern nollställer kolumnerna vid nästa generering.
+        const letterFirstUsed = data.weekly_letter_first_used_at
+          ? new Date(data.weekly_letter_first_used_at)
+          : null;
+        const letterWindowIsToday =
+          letterFirstUsed !== null &&
+          letterFirstUsed.getTime() >= startOfTodayStockholm().getTime();
+        const currentWeeklyCount = letterWindowIsToday ? (data.weekly_letter_count || 0) : 0;
         setWeeklyLetterCount(currentWeeklyCount);
         setLastCountReset(data.last_count_reset || null);
         setRemainingWeeklyLetters(calculateRemainingLetters(dbTier, currentWeeklyCount));
-        const nextReset = calculateNextResetDate(data.last_count_reset || null);
+        const nextReset = nextMidnightStockholm();
         setNextResetDate(nextReset);
         setTimeUntilReset(formatTimeRemaining(nextReset));
         
@@ -614,11 +630,10 @@ export const useProfile = () => {
             setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end) : null);
         }
 
-        // Om relevanta datum ändrades, uppdatera timers
+        // Om relevanta datum ändrades, uppdatera timers.
+        // Brevkvoten nollställs alltid vid nästa midnatt svensk tid.
         if (profileData.last_count_reset || profileData.next_reset_date) {
-            const newResetDate = profileData.next_reset_date
-                ? new Date(profileData.next_reset_date)
-                : calculateNextResetDate(data.last_count_reset || null);
+            const newResetDate = nextMidnightStockholm();
             setNextResetDate(newResetDate);
             setTimeUntilReset(formatTimeRemaining(newResetDate));
         }

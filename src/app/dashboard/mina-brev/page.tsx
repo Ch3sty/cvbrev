@@ -176,17 +176,23 @@ export default function MinaBrevPage() {
                     <span className="font-bold text-slate-900">{stats.thisMonth}</span> denna
                     månad
                   </span>
-                  <span className="text-slate-300">·</span>
-                  <span>
-                    <span className="font-bold text-slate-900">
-                      {totalCount}/{limitDisplay}
-                    </span>{' '}
-                    utrymme
-                  </span>
-                  {hasReachedLetterLimit && (
+                  {maxSavedLetters !== Infinity && (
                     <>
                       <span className="text-slate-300">·</span>
-                      <span className="text-amber-700 font-semibold">Fullt</span>
+                      <span>
+                        <span className="font-bold text-slate-900">
+                          {Math.min(totalCount, maxSavedLetters)}/{limitDisplay}
+                        </span>{' '}
+                        aktiva
+                      </span>
+                      {hasReachedLetterLimit && totalCount > maxSavedLetters && (
+                        <>
+                          <span className="text-slate-300">·</span>
+                          <span className="text-amber-700 font-semibold">
+                            {totalCount - maxSavedLetters} låsta
+                          </span>
+                        </>
+                      )}
                     </>
                   )}
                 </div>

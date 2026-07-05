@@ -27,7 +27,8 @@ interface LetterFlowSummaryProps {
   canGenerate: boolean;
   isGenerating: boolean;
   onGenerate: () => void;
-  remainingWeeklyLetters?: number | null;
+  /** Antal brev kvar idag (dagskvot, 2/dag för gratisanvändare) */
+  remainingLetters?: number | null;
 }
 
 export default function LetterFlowSummary({
@@ -39,7 +40,7 @@ export default function LetterFlowSummary({
   canGenerate,
   isGenerating,
   onGenerate,
-  remainingWeeklyLetters,
+  remainingLetters,
 }: LetterFlowSummaryProps) {
   const template = DOCX_TEMPLATES[templateId as keyof typeof DOCX_TEMPLATES];
 
@@ -152,9 +153,9 @@ export default function LetterFlowSummary({
       </button>
       <div className="text-center text-xs text-slate-500 mt-3">
         Tar 10–15 sekunder.
-        {typeof remainingWeeklyLetters === 'number' && (
+        {typeof remainingLetters === 'number' && (
           <span className="ml-1">
-            Du har {remainingWeeklyLetters} brev kvar denna vecka.
+            Du har {remainingLetters} brev kvar idag.
           </span>
         )}
       </div>

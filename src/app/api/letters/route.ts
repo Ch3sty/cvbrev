@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { getActiveLetterIds, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
 
 // Hämta alla brev för inloggad användare
 export async function GET(request: Request) {
@@ -17,18 +18,18 @@ export async function GET(request: Request) {
 
     const url = new URL(request.url);
     const isSaved = url.searchParams.get('saved') === 'true';
-    
+
     // Filtrera efter sparade brev om parametern finns
     let query = supabase
       .from('letters')
       .select('*')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false });
-      
+
     if (isSaved !== null) {
       query = query.eq('is_saved', isSaved);
     }
-    
+
     const { data, error } = await query;
 
     if (error) {
@@ -36,7 +37,28 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, data });
+    // Lås-flagga per brev: gratisanvändare har bara de 2 senast sparade
+    // breven AKTIVA (updated_at DESC, fallback created_at). Resten är låsta.
+    // Premium: allt är aktivt.
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('subscription_tier')
+      .eq('id', user.id)
+      .single();
+
+    const letters = Array.isArray(data) ? data : [];
+    let payload = letters.map((letter) => ({ ...letter, isLocked: false }));
+
+    if (profile?.subscription_tier !== 'premium') {
+      const savedLetters = letters.filter((l) => l.is_saved === true);
+      const activeIds = getActiveLetterIds(savedLetters, FREE_ACTIVE_LETTER_LIMIT);
+      payload = letters.map((letter) => ({
+        ...letter,
+        isLocked: letter.is_saved === true && !activeIds.has(letter.id),
+      }));
+    }
+
+    return NextResponse.json({ success: true, data: payload });
   } catch (error: any) {
     console.error('Brevhämtning error:', error);
     return NextResponse.json(
@@ -115,32 +137,9 @@ export async function POST(request: Request) {
       }
     }
 
-    // För gratisanvändare: kontrollera om användaren har nått maxantalet sparade brev (2)
-    if (profile.subscription_tier === 'free') {
-      const { count, error: countError } = await supabase
-        .from('letters')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-        .eq('is_saved', true);
-
-      if (countError) {
-        console.error('Fel vid räkning av brev:', countError);
-        return NextResponse.json(
-          { error: 'Kunde inte verifiera antal brev' },
-          { status: 500 }
-        );
-      }
-
-      if (count !== null && count >= 2) {
-        return NextResponse.json(
-          {
-            error: 'Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.',
-            code: 'SAVED_LETTERS_LIMIT'
-          },
-          { status: 403 }
-        );
-      }
-    }
+    // Sparande är alltid tillåtet (ingen hård spargräns längre). För
+    // gratisanvändare är i stället bara de 2 senast sparade breven AKTIVA —
+    // äldre brev låses via isLocked i GET och spärras för redigering i PUT.
 
     // Extrahera AI-metadata från letterData eller ai_metadata objekt
     const aiModel = letterData.ai_model ||

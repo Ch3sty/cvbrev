@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Eye, Pencil, Trash2, Download, MoreHorizontal,
-  RefreshCw, FileType, FileText,
+  RefreshCw, FileType, FileText, Lock, ArrowRight,
 } from 'lucide-react';
 import * as Popover from '@radix-ui/react-popover';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
@@ -49,15 +50,25 @@ export default function LetterCard({
   const primary = letter.company || letter.job_title || letter.title || 'Ansökningsbrev';
   const secondary = letter.company && letter.job_title ? letter.job_title : null;
 
+  // Låst brev (gratisanvändare, äldre än de 2 senast sparade): gråad vy,
+  // Lock-badge och Premium-länk. Ta bort går fortfarande (frigör plats).
+  const isLocked = !!letter.isLocked;
+
   return (
     <>
       <motion.article
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -4 }}
+        whileHover={isLocked ? undefined : { y: -4 }}
         transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-        className="group relative bg-white rounded-2xl border border-orange-200/50 overflow-hidden cursor-pointer"
-        style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
+        className={`group relative bg-white rounded-2xl overflow-hidden cursor-pointer border ${
+          isLocked ? 'border-slate-200' : 'border-orange-200/50'
+        }`}
+        style={{
+          boxShadow: isLocked
+            ? '0 4px 16px -12px rgba(15, 23, 42, 0.15)'
+            : '0 8px 32px -16px rgba(249, 115, 22, 0.18)',
+        }}
       >
         {/* Hela kortet är klickbart → visa-sidan. Ligger under z-stacken så
             mer-meny och dess bottom sheet/popover fortfarande tar emot klick. */}
@@ -69,7 +80,13 @@ export default function LetterCard({
         />
 
         {/* TOP: thumbnail-yta med orange-tonad bakgrund och dot-pattern */}
-        <div className="relative aspect-[16/10] bg-gradient-to-br from-orange-50/80 via-white to-orange-100/40 overflow-hidden">
+        <div
+          className={`relative aspect-[16/10] overflow-hidden ${
+            isLocked
+              ? 'bg-gradient-to-br from-slate-50 via-white to-slate-100/60 grayscale'
+              : 'bg-gradient-to-br from-orange-50/80 via-white to-orange-100/40'
+          }`}
+        >
           {/* Subtila bakgrundsprickar */}
           <svg
             aria-hidden="true"
@@ -127,13 +144,18 @@ export default function LetterCard({
                   >
                     <button
                       type="button"
+                      disabled={isLocked}
                       onClick={() => {
                         onEdit(letter.id);
                         setPopoverOpen(false);
                       }}
-                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                     >
-                      <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                      {isLocked ? (
+                        <Lock className="w-4 h-4 text-slate-400" strokeWidth={2.25} />
+                      ) : (
+                        <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                      )}
                       Redigera
                     </button>
                     <button
@@ -196,23 +218,49 @@ export default function LetterCard({
 
           {/* Liten datum-badge i top-vänster */}
           <div className="absolute top-3 left-3 z-20 pointer-events-none">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700 border border-orange-200/80 shadow-sm">
+            <span
+              className={`inline-flex items-center px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-bold uppercase tracking-[0.14em] shadow-sm border ${
+                isLocked
+                  ? 'text-slate-500 border-slate-200/80'
+                  : 'text-orange-700 border-orange-200/80'
+              }`}
+            >
               {dateStr}
             </span>
           </div>
+
+          {/* Lås-badge mitt på thumbnailen */}
+          {isLocked && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-xs font-bold text-slate-700 border border-slate-200 shadow-md">
+                <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
+                Låst
+              </span>
+            </div>
+          )}
         </div>
 
         {/* BOTTOM: metadata */}
         <div className="relative p-4 sm:p-5 space-y-2">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight line-clamp-2">
+          <h3
+            className={`text-base sm:text-lg font-bold leading-tight line-clamp-2 ${
+              isLocked ? 'text-slate-500' : 'text-slate-900'
+            }`}
+          >
             {primary}
           </h3>
           {secondary && (
-            <p className="text-sm text-slate-600 line-clamp-1 -mt-1">{secondary}</p>
+            <p
+              className={`text-sm line-clamp-1 -mt-1 ${
+                isLocked ? 'text-slate-400' : 'text-slate-600'
+              }`}
+            >
+              {secondary}
+            </p>
           )}
 
           {/* Taggar */}
-          {(tonalityDisplay || templateName) && (
+          {!isLocked && (tonalityDisplay || templateName) && (
             <div className="flex flex-wrap gap-1.5 pt-1">
               {tonalityDisplay && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-[11px] font-semibold">
@@ -224,6 +272,21 @@ export default function LetterCard({
                   {templateName}
                 </span>
               )}
+            </div>
+          )}
+
+          {/* Låst: uppgraderingslänk (över den klickbara ytan) */}
+          {isLocked && (
+            <div className="relative z-20 pt-1">
+              <Link
+                href="/priser"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 text-[13px] font-bold text-orange-700 hover:text-orange-800 transition-colors"
+              >
+                <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
+                Lås upp med Premium
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+              </Link>
             </div>
           )}
         </div>
@@ -266,13 +329,18 @@ export default function LetterCard({
                 </button>
                 <button
                   type="button"
+                  disabled={isLocked}
                   onClick={() => {
                     onEdit(letter.id);
                     setShowMobileSheet(false);
                   }}
-                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
                 >
-                  <Pencil className="w-4 h-4" strokeWidth={2.5} />
+                  {isLocked ? (
+                    <Lock className="w-4 h-4" strokeWidth={2.5} />
+                  ) : (
+                    <Pencil className="w-4 h-4" strokeWidth={2.5} />
+                  )}
                   Redigera
                 </button>
                 <button

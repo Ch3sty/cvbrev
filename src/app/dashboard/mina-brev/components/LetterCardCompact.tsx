@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Eye, Pencil, Trash2, Download, MoreHorizontal,
-  RefreshCw, FileType, FileText,
+  RefreshCw, FileType, FileText, Lock,
 } from 'lucide-react';
 import * as Popover from '@radix-ui/react-popover';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
@@ -55,15 +56,27 @@ export default function LetterCardCompact({
   const primary = letter.company || letter.job_title || letter.title || 'Ansökningsbrev';
   const secondary = letter.company && letter.job_title ? letter.job_title : null;
 
+  // Låst brev (gratisanvändare, äldre än de 2 senast sparade): gråad rad,
+  // Lock-badge och Premium-länk. Ta bort går fortfarande (frigör plats).
+  const isLocked = !!letter.isLocked;
+
   return (
     <>
       <motion.div
         initial={{ opacity: 0, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ x: 2 }}
+        whileHover={isLocked ? undefined : { x: 2 }}
         transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-        className="group relative bg-white rounded-xl border border-orange-200/50 hover:border-orange-300 transition-colors"
-        style={{ boxShadow: '0 2px 8px -4px rgba(249, 115, 22, 0.08)' }}
+        className={`group relative bg-white rounded-xl border transition-colors ${
+          isLocked
+            ? 'border-slate-200'
+            : 'border-orange-200/50 hover:border-orange-300'
+        }`}
+        style={{
+          boxShadow: isLocked
+            ? '0 2px 8px -4px rgba(15, 23, 42, 0.08)'
+            : '0 2px 8px -4px rgba(249, 115, 22, 0.08)',
+        }}
       >
         {/* Hela raden klickbar → visa-sidan */}
         <button
@@ -75,7 +88,7 @@ export default function LetterCardCompact({
 
         <div className="relative flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3">
           {/* Mini-thumbnail */}
-          <div className="flex-shrink-0">
+          <div className={`flex-shrink-0 ${isLocked ? 'grayscale opacity-60' : ''}`}>
             <LetterPaperThumbnail
               seed={letter.id || primary}
               className="w-10 h-[52px] sm:w-11 sm:h-[58px]"
@@ -84,13 +97,41 @@ export default function LetterCardCompact({
 
           {/* Titel + tjänst */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 leading-tight truncate">
+            <h3
+              className={`text-sm sm:text-[15px] font-bold leading-tight truncate ${
+                isLocked ? 'text-slate-500' : 'text-slate-900'
+              }`}
+            >
               {primary}
             </h3>
             {secondary && (
-              <p className="text-xs sm:text-[13px] text-slate-600 truncate mt-0.5">{secondary}</p>
+              <p
+                className={`text-xs sm:text-[13px] truncate mt-0.5 ${
+                  isLocked ? 'text-slate-400' : 'text-slate-600'
+                }`}
+              >
+                {secondary}
+              </p>
+            )}
+            {isLocked && (
+              <Link
+                href="/priser"
+                onClick={(e) => e.stopPropagation()}
+                className="relative z-20 inline-flex items-center gap-1 mt-0.5 text-[11px] sm:text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
+              >
+                <Lock className="w-3 h-3" strokeWidth={2.5} />
+                Lås upp med Premium
+              </Link>
             )}
           </div>
+
+          {/* Lås-badge (desktop) */}
+          {isLocked && (
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200 text-[10px] font-semibold flex-shrink-0">
+              <Lock className="w-3 h-3" strokeWidth={2.5} />
+              Låst
+            </span>
+          )}
 
           {/* Datum + taggar (desktop) */}
           <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
@@ -135,13 +176,18 @@ export default function LetterCardCompact({
                 >
                   <button
                     type="button"
+                    disabled={isLocked}
                     onClick={() => {
                       onEdit(letter.id);
                       setPopoverOpen(false);
                     }}
-                    className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                   >
-                    <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                    {isLocked ? (
+                      <Lock className="w-4 h-4 text-slate-400" strokeWidth={2.25} />
+                    ) : (
+                      <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                    )}
                     Redigera
                   </button>
                   <button
@@ -240,13 +286,18 @@ export default function LetterCardCompact({
                 </button>
                 <button
                   type="button"
+                  disabled={isLocked}
                   onClick={() => {
                     onEdit(letter.id);
                     setShowMobileSheet(false);
                   }}
-                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
                 >
-                  <Pencil className="w-4 h-4" strokeWidth={2.5} />
+                  {isLocked ? (
+                    <Lock className="w-4 h-4" strokeWidth={2.5} />
+                  ) : (
+                    <Pencil className="w-4 h-4" strokeWidth={2.5} />
+                  )}
                   Redigera
                 </button>
                 <button

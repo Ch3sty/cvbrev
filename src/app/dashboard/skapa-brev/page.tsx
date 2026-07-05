@@ -7,7 +7,7 @@ import { Info } from 'lucide-react';
 import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
-import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -34,7 +34,7 @@ export default function CreateLetterPage() {
   // stället för ett separat useCvQuota-anrop (som dubblerade samma DB-queries).
   const { fetchCVs, cvs, isLoading: cvLoading } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
-  const { subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
+  const { subscriptionTier } = useProfile();
   const { successWithMascotAndActivity } = useNotification();
 
   // Har vi hämtat CV-listan minst en gång? (skiljer "laddar" från "tom lista").
@@ -73,6 +73,10 @@ export default function CreateLetterPage() {
   const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
   const [showExitWarning, setShowExitWarning] = useState(false);
   const [isRegeneratingTemplate, setIsRegeneratingTemplate] = useState(false);
+  // Dagskvoten slut (429 quota_exceeded från servern) → visa spärrvyn
+  const [quotaLock, setQuotaLock] = useState<{ nextResetAt: string } | null>(null);
+  // Antal brev kvar idag — uppdateras från serverns svar efter varje generering
+  const [remainingToday, setRemainingToday] = useState<number | null>(null);
 
   // Flow state — vilka sektioner är klara, vilken är aktiv
   const [activeSection, setActiveSection] = useState<FlowSection>('cv');
@@ -174,17 +178,25 @@ export default function CreateLetterPage() {
         setLetterData(result);
         setActiveSection('generate');
 
-        if (remainingWeeklyLetters !== null && result.remainingLetters !== undefined) {
-          updateRemainingLetters(result.remainingLetters);
+        if (typeof result.remainingLetters === 'number') {
+          setRemainingToday(result.remainingLetters);
         }
       } else {
         setError('Kunde inte generera brevet');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Letter generation error:', err);
+      // Dagskvoten slut → visa spärrvyn i stället för generiskt fel
+      if (err?.code === 'quota_exceeded' || err?.payload?.code === 'quota_exceeded') {
+        setShowPipeline(false);
+        setQuotaLock({
+          nextResetAt: err?.payload?.nextResetAt || err?.payload?.nextResetDate || new Date().toISOString(),
+        });
+        return;
+      }
       setError('Ett fel uppstod vid genereringen');
     }
-  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, remainingWeeklyLetters, updateRemainingLetters]);
+  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter]);
 
   // När brevet är klart: scrolla till preview + visa toast
   const didShowToast = useRef(false);
@@ -241,9 +253,17 @@ export default function CreateLetterPage() {
               setGeneratedLetter(letterContent);
               setLetterData(result);
             }
+            if (typeof result.remainingLetters === 'number') {
+              setRemainingToday(result.remainingLetters);
+            }
           }
-        } catch (err) {
+        } catch (err: any) {
           console.error('Failed to regenerate letter with new template:', err);
+          if (err?.code === 'quota_exceeded' || err?.payload?.code === 'quota_exceeded') {
+            setQuotaLock({
+              nextResetAt: err?.payload?.nextResetAt || err?.payload?.nextResetDate || new Date().toISOString(),
+            });
+          }
         } finally {
           setIsRegeneratingTemplate(false);
         }
@@ -366,21 +386,36 @@ export default function CreateLetterPage() {
   const canGenerate =
     !!selectedCV && jobDescription.length > 20 && !!templateId && !!tonality;
 
-  // Free-användare som använt sin veckokvot ser tom-state istället för flödet
-  const isFreeTier = subscriptionTier === 'free';
-  const hasReachedWeeklyLimit =
-    isFreeTier &&
-    remainingWeeklyLetters !== null &&
-    remainingWeeklyLetters !== undefined &&
-    remainingWeeklyLetters <= 0;
-
-  if (hasReachedWeeklyLimit) {
+  // Free-användare som använt dagens kvot (429 från servern) ser spärrvyn
+  // i stället för flödet. Ett redan genererat brev visas fortfarande under
+  // spärren så att det kan sparas/laddas ned.
+  if (quotaLock) {
     return (
-      <WeeklyLimitReached
-        title="Veckogräns nådd"
-        description="Du har använt alla dina personliga brev denna vecka."
-        resetHint="Din kvot återställs automatiskt nästa måndag."
-      />
+      <LetterFlowLayout>
+        <QuotaLockCard
+          feature="letter_generation"
+          title="Dagens brev är slut"
+          description="Som gratisanvändare skapar du två brev per dag."
+          nextResetAt={quotaLock.nextResetAt}
+        />
+        {generatedLetter && (
+          <PreviewStep
+            letterContent={generatedLetter}
+            templateId={templateId}
+            onEdit={handleEditLetter}
+            onDownload={handleDownloadLetter}
+            onSave={handleSaveLetter}
+            selectedFont={selectedFont}
+            onFontChange={setSelectedFont}
+            saveError={saveError}
+            isPremium={isPremium}
+            isRegeneratingTemplate={false}
+            registerRef={(el) => {
+              previewRef.current = el;
+            }}
+          />
+        )}
+      </LetterFlowLayout>
     );
   }
 
@@ -474,7 +509,7 @@ export default function CreateLetterPage() {
             canGenerate={canGenerate}
             isGenerating={isGenerating}
             onGenerate={handleGenerateLetter}
-            remainingWeeklyLetters={remainingWeeklyLetters}
+            remainingLetters={remainingToday}
           />
         </div>
 

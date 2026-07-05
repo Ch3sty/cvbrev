@@ -13,6 +13,13 @@ import { logUserActivity, ActivityType } from '@/lib/activity-logger';
 import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
 import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
+// Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
+import {
+  resolveDailyLetterCounter,
+  nextMidnightStockholm,
+  DAILY_LIMIT_LETTERS,
+  quotaExceededBody,
+} from '@/lib/quota/quotaService';
 // *****************************************
 
 // Cache-logik (oförändrad)...
@@ -68,59 +75,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
-    // Ny dynamisk 7-dagars kvotlogik
+    // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
+    // Kolumnerna weekly_letter_* återanvänds men tolkas som dagsräknare via
+    // resolveDailyLetterCounter — fönstret är självrensande, så vi skriver
+    // bara till databasen vid faktisk förbrukning.
     const now = new Date();
-    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-    const WEEKLY_LETTER_LIMIT = 7; // Ny gräns: 7 brev per vecka
+    const { effectiveCount, windowIsStale } = resolveDailyLetterCounter(
+      profile.weekly_letter_count,
+      profile.weekly_letter_first_used_at,
+      now
+    );
+    const resetAt = nextMidnightStockholm(now);
 
-    let weeklyCount = profile.weekly_letter_count || 0;
-    let firstUsedAt = profile.weekly_letter_first_used_at ? new Date(profile.weekly_letter_first_used_at) : null;
-    let resetAt = profile.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : null;
-    let shouldUpdateDatabase = false;
-
-    // Om användaren aldrig använt kvoten, initiera första gången
-    if (!firstUsedAt || !resetAt) {
-      firstUsedAt = now;
-      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
-      weeklyCount = 0;
-      shouldUpdateDatabase = true;
-      console.log(`Initierar veckokvot för användare ${user.id}: Återställs ${resetAt.toISOString()}`);
-    }
-    // Om återställningsdatumet har passerats, nollställ
-    else if (now.getTime() >= resetAt.getTime()) {
-      firstUsedAt = now;
-      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
-      weeklyCount = 0;
-      shouldUpdateDatabase = true;
-      console.log(`Återställer veckokvot för användare ${user.id}: Ny återställning ${resetAt.toISOString()}`);
-    }
-
-    // Uppdatera databas om nödvändigt
-    if (shouldUpdateDatabase) {
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .update({
-          weekly_letter_count: weeklyCount,
-          weekly_letter_first_used_at: firstUsedAt.toISOString(),
-          weekly_letter_reset_at: resetAt.toISOString()
-        })
-        .eq('id', user.id);
-
-      if (updateError) {
-        console.error('Fel vid uppdatering av veckokvot:', updateError);
-      }
-    }
-
-    // Kontroll av veckogräns för gratis-användare
-    if (profile.subscription_tier === 'free' && weeklyCount >= WEEKLY_LETTER_LIMIT) {
-      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men veckogräns nådd', { limit: WEEKLY_LETTER_LIMIT, current: weeklyCount });
-      return NextResponse.json({
-        error: `Du har nått din veckogräns på ${WEEKLY_LETTER_LIMIT} brev. Uppgradera till premium för obegränsade brev.`,
-        code: 'WEEKLY_LIMIT_REACHED',
-        nextResetDate: resetAt.toISOString(),
-        currentCount: weeklyCount,
-        limit: WEEKLY_LETTER_LIMIT
-      }, { status: 403 });
+    // Kontroll av dagsgräns för gratis-användare
+    if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men dagsgräns nådd', { limit: DAILY_LIMIT_LETTERS, current: effectiveCount });
+      return NextResponse.json(
+        quotaExceededBody(
+          'letter_generation',
+          {
+            allowed: false,
+            isPremium: false,
+            used: effectiveCount,
+            limit: DAILY_LIMIT_LETTERS,
+            nextResetAt: resetAt.toISOString(),
+          },
+          'Du har använt dagens två brev. Ny kvot i morgon, eller uppgradera för obegränsat.'
+        ),
+        { status: 429 }
+      );
     }
 
     // Hämta input och spara för ev. felloggning
@@ -132,18 +115,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'CV-ID och jobbannons krävs' }, { status: 400 });
     }
 
-    // Kontroll av sparade brev (oförändrad)...
-    if (save) {
-      const { count, error: countError } = await supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('is_saved', true);
-      if (countError) { /* ... felhantering ... */ }
-      if (profile.subscription_tier === 'free' && count !== null && count >= 2) {
-         logUserActivity(user.id, 'letter_generation_failed', 'Försökte spara brev men spargräns nådd (gratis)', { saved_count: count, limit: 2 });
-         return NextResponse.json({ error: 'Som gratisanvändare kan du spara max 2 brev.', code: 'SAVED_LETTERS_LIMIT' }, { status: 403 });
-      }
-      // Ingen gräns för premium
-    }
-    // --- Slut på kontroll av sparade brev ---
-
+    // Sparande är alltid tillåtet. För gratisanvändare är i stället bara de
+    // 2 senast sparade breven AKTIVA — äldre låses (se /api/letters GET/PUT).
 
     const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}`;
 
@@ -354,22 +327,33 @@ export async function POST(request: Request) {
     // Registrera pågående generering
     activeGenerations.set(requestKey, { startTime: Date.now(), promise: generationPromise });
 
-    // Öka veckoräknaren efter lyckad generering
+    // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
+    // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
     let finalRemainingLetters = null;
+    const newDailyCount = effectiveCount + 1;
     if (profile.subscription_tier === 'free') {
-      const currentWeeklyCount = weeklyCount + 1;
-      finalRemainingLetters = WEEKLY_LETTER_LIMIT - currentWeeklyCount;
-      finalRemainingLetters = finalRemainingLetters >= 0 ? finalRemainingLetters : 0;
+      finalRemainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newDailyCount);
 
       const { error: updateError } = await supabase
         .from('profiles')
-        .update({ weekly_letter_count: currentWeeklyCount })
+        .update(
+          windowIsStale
+            ? {
+                weekly_letter_count: 1,
+                weekly_letter_first_used_at: now.toISOString(),
+                weekly_letter_reset_at: resetAt.toISOString(),
+              }
+            : {
+                weekly_letter_count: newDailyCount,
+                weekly_letter_reset_at: resetAt.toISOString(),
+              }
+        )
         .eq('id', user.id);
 
       if (updateError) {
         console.error('Fel vid uppdatering av brevräknare:', updateError);
       } else {
-        console.log(`Uppdaterade veckokvot för användare ${user.id}: ${currentWeeklyCount}/${WEEKLY_LETTER_LIMIT}`);
+        console.log(`Uppdaterade dagskvot för användare ${user.id}: ${newDailyCount}/${DAILY_LIMIT_LETTERS}`);
       }
     }
 
@@ -385,12 +369,12 @@ export async function POST(request: Request) {
          is_saved: letterDataResult.is_saved // Skicka med flaggan
       };
 
-      // Lägg till kvotinformation för gratis-användare
+      // Lägg till kvotinformation för gratis-användare (dagsvärden)
       if (profile.subscription_tier === 'free') {
          responseData.remainingLetters = finalRemainingLetters;
          responseData.nextResetDate = resetAt.toISOString();
-         responseData.currentCount = weeklyCount + 1;
-         responseData.limit = WEEKLY_LETTER_LIMIT;
+         responseData.currentCount = newDailyCount;
+         responseData.limit = DAILY_LIMIT_LETTERS;
       }
 
       // Update onboarding progress - mark create_letter step as completed
