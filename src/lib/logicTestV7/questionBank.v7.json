@@ -1474,7 +1474,7 @@
   },
   {
     "id": "v7-a-tile-corner",
-    "title": "Hörn-blocket roterar",
+    "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
     "grid": [

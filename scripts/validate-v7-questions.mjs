@@ -19,6 +19,22 @@ const stable = (v) => {
 };
 const norm = (cell) => (cell === null ? 'null' : stable(cell));
 
+// Rotationssymmetri: en regelbunden n-hörning ser identisk ut efter rotation
+// med 360/n grader (hexagon 60°, oktagon 45°, pentagon 72°). Normalisera
+// poly-rotationen modulo symmetriperioden så att celler som ser likadana ut
+// trots olika rotationsvärden får samma nyckel.
+const normalizePoly = (p) => {
+  if (!p || p.kind !== 'poly' || typeof p.sides !== 'number') return p;
+  const period = 360 / p.sides;
+  const rotation = (((p.rotation ?? 0) % period) + period) % period;
+  return { ...p, rotation };
+};
+const symNorm = (cell) => {
+  if (cell === null) return 'null';
+  if (Array.isArray(cell)) return stable(cell.map(normalizePoly));
+  return stable(normalizePoly(cell));
+};
+
 const errors = [];
 const seen = new Set();
 
@@ -82,6 +98,47 @@ for (const q of bank) {
     }
     if (norm(g[2][2]) === norm(g[1][2])) errors.push(`${tag} facit = cellen ovanför (trivial)`);
     if (norm(g[2][2]) === norm(g[2][1])) errors.push(`${tag} facit = cellen till vänster (trivial)`);
+  }
+
+  // rotationssymmetri för polygoner: kör om dubblettkontrollerna med
+  // symmetri-normaliserade nycklar. Rapportera bara kollisioner som INTE
+  // redan fångats som exakta dubbletter ovan (norm-nycklarna skiljer sig,
+  // men cellerna ser identiska ut efter normalisering).
+  if (Array.isArray(q.options) && q.options.length === 6) {
+    const keys = q.options.map(norm);
+    const skeys = q.options.map(symNorm);
+    const symDupe = (a, b) => skeys[a] === skeys[b] && keys[a] !== keys[b];
+    for (let a = 0; a < 6; a++) for (let b = a + 1; b < 6; b++) {
+      if (symDupe(a, b)) {
+        errors.push(`${tag} alternativ ${a + 1} och ${b + 1} ser identiska ut efter rotationsnormalisering (polygon-symmetri)`);
+      }
+    }
+    if (typeof q.correctAnswer === 'number' && q.correctAnswer >= 0 && q.correctAnswer <= 5) {
+      for (let i = 0; i < 6; i++) {
+        if (i !== q.correctAnswer && symDupe(i, q.correctAnswer)) {
+          errors.push(`${tag} rätt svar ser identiskt ut som distraktor efter rotationsnormalisering → två rätta`);
+        }
+      }
+    }
+
+    if (Array.isArray(q.grid) && q.grid.length === 3 && !q.grid.some((r) => r.length !== 3)
+        && typeof q.correctAnswer === 'number' && q.correctAnswer >= 0 && q.correctAnswer <= 5) {
+      const g = q.grid.map((r) => r.slice());
+      g[2][2] = q.options[q.correctAnswer];
+      const isSym = /spegl|schack|symmetr|180|motsatt/i.test(q.rule);
+      const rk = g.map((r) => r.map(norm).join('¦'));
+      const ck = [0, 1, 2].map((c) => g.map((r) => norm(r[c])).join('¦'));
+      const srk = g.map((r) => r.map(symNorm).join('¦'));
+      const sck = [0, 1, 2].map((c) => g.map((r) => symNorm(r[c])).join('¦'));
+      if (!isSym) {
+        for (let a = 0; a < 3; a++) for (let b = a + 1; b < 3; b++) {
+          if (srk[a] === srk[b] && rk[a] !== rk[b]) errors.push(`${tag} rad ${a + 1} = rad ${b + 1} efter rotationsnormalisering (trivial)`);
+          if (sck[a] === sck[b] && ck[a] !== ck[b]) errors.push(`${tag} kolumn ${a + 1} = kolumn ${b + 1} efter rotationsnormalisering (trivial)`);
+        }
+      }
+      if (symNorm(g[2][2]) === symNorm(g[1][2]) && norm(g[2][2]) !== norm(g[1][2])) errors.push(`${tag} facit ser ut som cellen ovanför efter rotationsnormalisering (trivial)`);
+      if (symNorm(g[2][2]) === symNorm(g[2][1]) && norm(g[2][2]) !== norm(g[2][1])) errors.push(`${tag} facit ser ut som cellen till vänster efter rotationsnormalisering (trivial)`);
+    }
   }
 }
 

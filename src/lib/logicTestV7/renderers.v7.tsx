@@ -39,8 +39,11 @@ const SW_THIN = 2;
 const fillFor = (f: Fill): string =>
   f === 'black' ? FILL_BLACK : f === 'gray' ? FILL_GRAY : FILL_NONE;
 
+// Grå fyllning (#CBD5E1) har för låg kontrast mot vit bakgrund utan kontur
+// (WCAG 1.4.11 kräver 3:1). Därför får både ofyllda och grå former mörk
+// kontur — bara svarta former klarar sig utan.
 const strokeFor = (f: Fill): string =>
-  f === 'none' ? STROKE : 'none';
+  f === 'black' ? 'none' : STROKE;
 
 // =============================================================================
 // HUVUDRENDERARE
@@ -132,15 +135,16 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
           rx="22"
           ry="32"
           fill={fill}
-          stroke={cell.fill === 'none' ? stroke : 'none'}
+          stroke={strokeFor(cell.fill)}
           strokeWidth={sw}
         />
+        {/* Tvärstreck: vitt bara på svart fyllning, mörkt på grå/ofylld */}
         <line
           x1="32"
           y1="50"
           x2="68"
           y2="50"
-          stroke={cell.fill === 'none' ? stroke : 'white'}
+          stroke={cell.fill === 'black' ? 'white' : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
         />
@@ -157,15 +161,16 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
           rx="16"
           ry="18"
           fill={fill}
-          stroke={cell.fill === 'none' ? stroke : 'none'}
+          stroke={strokeFor(cell.fill)}
           strokeWidth={sw}
         />
+        {/* Stam: vit på svart fyllning så den inte försvinner, mörk annars */}
         <line
           x1="50"
           y1="18"
           x2="50"
           y2="82"
-          stroke={cell.fill === 'black' ? STROKE : stroke}
+          stroke={cell.fill === 'black' ? 'white' : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
         />
@@ -177,7 +182,7 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
     <path
       d={def.d}
       fill={fill}
-      stroke={cell.fill === 'none' ? stroke : 'none'}
+      stroke={strokeFor(cell.fill)}
       strokeWidth={sw}
       strokeLinejoin="round"
       strokeLinecap="round"
@@ -207,8 +212,8 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
         cy="50"
         r={orbitR}
         fill="none"
-        stroke="#E2E8F0"
-        strokeWidth="1.5"
+        stroke="#94A3B8"
+        strokeWidth="2"
         strokeDasharray="2 3"
       />
       {/* Centerpunkt */}
@@ -239,11 +244,11 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
 
 const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
   const baseFill = fillFor(cell.baseFill);
-  const baseStroke = cell.baseFill === 'none' ? STROKE : 'none';
+  const baseStroke = strokeFor(cell.baseFill);
 
-  // Symbolerna ritas i kontrast
-  const symbolColor = cell.baseFill === 'none' ? STROKE : 'white';
-  const symbolStrokeColor = cell.baseFill === 'none' ? STROKE : 'white';
+  // Symbolerna ritas i kontrast: vitt bara på svart bas, mörkt på grå/ofylld
+  const symbolColor = cell.baseFill === 'black' ? 'white' : STROKE;
+  const symbolStrokeColor = cell.baseFill === 'black' ? 'white' : STROKE;
 
   return (
     <>
@@ -457,9 +462,8 @@ const RayRenderer: React.FC<{ cell: RayCell }> = ({ cell }) => {
 
 const TallyRenderer: React.FC<{ cell: TallyCell }> = ({ cell }) => {
   const isVertical = cell.orientation === 'vertical';
-  // Använd lokala koordinater i en horizontal layout, rotera om vertical
-  // Horizontal layout: pinnarna går vertikalt (linje från top till bottom),
-  // staplade horisontellt
+  // Baslayouten ritar stående pinnar (vertikala linjer, staplade sida vid
+  // sida) — det är vertical-orienteringen. Vid horizontal roteras gruppen 90°.
   const lineLength = 44;
   const gap = 7;
 
@@ -597,7 +601,7 @@ const VectorRenderer: React.FC<{ cell: VectorCell }> = ({ cell }) => {
 
 const PolyRenderer: React.FC<{ cell: PolyCell }> = ({ cell }) => {
   const fill = fillFor(cell.fill);
-  const stroke = cell.fill === 'none' ? STROKE : 'none';
+  const stroke = strokeFor(cell.fill);
   const radius = 30;
 
   // Bygg polygon-punkter
@@ -627,10 +631,11 @@ const PolyRenderer: React.FC<{ cell: PolyCell }> = ({ cell }) => {
 // =============================================================================
 
 const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
+  // 3 tiles à 18 + 2 gap à 2 = 58 → start (100-58)/2 = 21 ger centrum (50,50)
   const cellSize = 18;
   const gap = 2;
-  const startX = 17;
-  const startY = 17;
+  const startX = 21;
+  const startY = 21;
 
   return (
     <>
@@ -792,6 +797,3 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
     </>
   );
 };
-
-// Workaround för oanvänd import
-void strokeFor;

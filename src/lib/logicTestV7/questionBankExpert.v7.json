@@ -1723,7 +1723,7 @@
   },
   {
     "id": "v7e-t5",
-    "title": "Hörn-blocket roterar",
+    "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
@@ -2093,7 +2093,7 @@
   },
   {
     "id": "v7e-t10",
-    "title": "Kryss-blocket roterar",
+    "title": "Diagonalblocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
     "grid": [
