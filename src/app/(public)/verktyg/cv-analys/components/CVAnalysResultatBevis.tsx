@@ -6,7 +6,7 @@ import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
   { value: '60 sek', label: 'för en analys', sub: 'Du behöver inte vänta vid skärmen' },
-  { value: '1', label: 'analys gratis varje vecka', sub: 'Ingen kortuppgift för att börja' },
+  { value: '1', label: 'analys gratis var tredje dag', sub: 'Ingen kortuppgift för att börja' },
   { value: '+27', label: 'poäng i snitt', sub: 'Vad våra användare ökar mellan första och andra analysen' },
 ]
 

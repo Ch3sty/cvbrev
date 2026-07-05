@@ -454,7 +454,7 @@ export class CohortAnalyzer {
         key_characteristics: [
           'Betalar 149 SEK/månad',
           'Tillgång till alla funktioner',
-          'Obegränsade brev per vecka'
+          'Obegränsade brev varje dag'
         ]
       });
     }
@@ -474,7 +474,7 @@ export class CohortAnalyzer {
         ltv: 0,
         conversion_rate: 0,
         key_characteristics: [
-          'Max 5 brev per vecka',
+          'Max 2 brev per dag',
           'Begränsad funktionalitet',
           'Potentiella uppgraderingskandidater'
         ]

@@ -40,7 +40,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Ja. Du får göra de tre kognitiva grundtesterna och personlighetsprofilen (50 frågor) helt gratis och utan att lämna kortuppgifter. Vill du gå djupare med de avancerade versionerna och den utökade personlighetsprofilen med 120 frågor och 30 facetter uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+    a: 'Ja. Du får göra de tre kognitiva grundtesterna och personlighetsprofilen (50 frågor) helt gratis och utan att lämna kortuppgifter, en gång per dag och testtyp. Vill du köra fler försök eller gå djupare med de avancerade versionerna och den utökade personlighetsprofilen med 120 frågor och 30 facetter uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

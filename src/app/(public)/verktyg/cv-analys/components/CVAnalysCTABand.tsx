@@ -65,7 +65,7 @@ export default function CVAnalysCTABand() {
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>1 analys gratis varje vecka</span>
+                <span>1 analys gratis var tredje dag</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Ingen kortuppgift</span>
                 <span className="hidden sm:inline text-white/40">·</span>

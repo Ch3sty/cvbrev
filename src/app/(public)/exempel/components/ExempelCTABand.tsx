@@ -38,7 +38,8 @@ export default function ExempelCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Använd exemplen som inspiration och bygg ditt eget med våra
-                verktyg. Fem brev och en CV-analys per vecka, helt gratis.
+                verktyg. Två brev per dag och en CV-analys var tredje dag,
+                helt gratis.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">

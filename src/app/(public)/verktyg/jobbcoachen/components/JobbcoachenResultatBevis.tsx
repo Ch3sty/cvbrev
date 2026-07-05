@@ -6,8 +6,8 @@ import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
   {
-    value: '5 frågor',
-    label: 'gratis varje konto',
+    value: '10 meddelanden',
+    label: 'gratis per dag',
     sub: 'Ingen kortuppgift, börja direkt',
   },
   {

@@ -10,14 +10,14 @@ import { ShieldCheck, Crown } from 'lucide-react'
 const FEATURES = [
   {
     title: 'Obegränsade personliga brev',
-    description: 'Skriv så många brev du behöver, utan veckogräns',
+    description: 'Skriv så många brev du behöver, utan daglig gräns',
   },
   {
     title: 'Obegränsade CV-analyser',
     description: 'ATS-poäng och förbättringsförslag på varje version',
   },
   {
-    title: 'Alla 8 CV-mallar',
+    title: 'Alla 42 CV-mallar',
     description: 'Från klassisk till executive, välj efter bransch',
   },
   {
@@ -25,8 +25,8 @@ const FEATURES = [
     description: 'Vi läser CV och annons och matchar tonen automatiskt',
   },
   {
-    title: 'Alla 6 rekryteringstester',
-    description: 'Träna inför skarpt läge på de vanligaste testtyperna',
+    title: 'Obegränsade rekryteringstester',
+    description: 'Träna inför skarpt läge på avancerad nivå, utan dagsgräns',
   },
   {
     title: 'Helt obegränsad jobbmatchning',

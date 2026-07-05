@@ -392,7 +392,7 @@ export function UnifiedSubscriptionCard() {
               <div className="flex items-center justify-between py-3 border-b border-gray-200">
                 <div className="flex items-center text-sm">
                   <PenTool className="w-4 h-4 mr-3 text-pink-600 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">Personliga brev (per vecka)</span>
+                  <span className="text-gray-700 font-medium">Personliga brev (per dag)</span>
                 </div>
                 <div className="text-sm font-semibold">
                   {isPremium ? (
@@ -402,9 +402,9 @@ export function UnifiedSubscriptionCard() {
                     </div>
                   ) : (
                     <div className="text-gray-900">
-                      <span className={(weeklyLetterCount ?? 0) >= 7 ? 'text-red-600 font-bold' : ''}>
+                      <span className={(weeklyLetterCount ?? 0) >= 2 ? 'text-red-600 font-bold' : ''}>
                         {weeklyLetterCount ?? 0}
-                      </span> / 7
+                      </span> / 2
                     </div>
                   )}
                 </div>
@@ -414,7 +414,7 @@ export function UnifiedSubscriptionCard() {
               <div className="flex items-center justify-between py-3 border-b border-gray-200">
                 <div className="flex items-center text-sm">
                   <Search className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">CV-analyser (per vecka)</span>
+                  <span className="text-gray-700 font-medium">CV-analyser (var tredje dag)</span>
                 </div>
                 <div className="text-sm font-semibold">
                   {isPremium ? (
@@ -500,12 +500,12 @@ export function UnifiedSubscriptionCard() {
                   {isPremium ? (
                     <div className="flex items-center text-sm text-green-600 font-semibold">
                       <CheckCircle className="w-4 h-4 mr-1" />
-                      <span>8 mallar</span>
+                      <span>42 mallar</span>
                     </div>
                   ) : (
                     <div className="flex items-center text-sm text-gray-500">
                       <Lock className="w-4 h-4 mr-1" />
-                      <span>2 gratis, 6 premium</span>
+                      <span>12 gratis, 30 premium</span>
                     </div>
                   )}
                 </div>
@@ -515,18 +515,18 @@ export function UnifiedSubscriptionCard() {
               <div className="flex items-center justify-between py-3 border-b border-gray-200">
                 <div className="flex items-center text-sm">
                   <Brain className="w-4 h-4 mr-3 text-orange-600 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">Kognitiva tester</span>
+                  <span className="text-gray-700 font-medium">Avancerade kognitiva tester</span>
                 </div>
                 <div className="flex items-center">
                   {isPremium ? (
                     <div className="flex items-center text-sm text-green-600 font-semibold">
                       <CheckCircle className="w-4 h-4 mr-1" />
-                      <span>3 tester</span>
+                      <span>Obegränsat</span>
                     </div>
                   ) : (
                     <div className="flex items-center text-sm text-gray-500">
                       <Lock className="w-4 h-4 mr-1" />
-                      <span>Endast Premium</span>
+                      <span>Grundnivå gratis, 1/dag</span>
                     </div>
                   )}
                 </div>

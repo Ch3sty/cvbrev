@@ -213,8 +213,8 @@ export class UserRecommender {
         user_id: user.id,
         type: 'upgrade_prompt',
         title: 'Uppgradera till Premium',
-        description: isHittingLimits 
-          ? 'Du närmar dig veckogränsen. Få obegränsade brev med Premium!'
+        description: isHittingLimits
+          ? 'Du närmar dig dagsgränsen. Få obegränsade brev med Premium!'
           : 'Lås upp alla funktioner och maximera dina jobbchanser',
         priority: 'high',
         expected_impact: {

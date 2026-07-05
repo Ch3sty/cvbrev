@@ -6,8 +6,8 @@ import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
   {
-    value: '3 tester',
-    label: 'gratis utan konto',
+    value: 'Alla tester',
+    label: 'gratis, 1 gång per dag',
     sub: 'Ingen kortuppgift, börja direkt',
   },
   {
@@ -16,8 +16,8 @@ const STATS = [
     sub: 'Score, tid och fråga-för-fråga',
   },
   {
-    value: 'Träna',
-    label: 'obegränsat',
+    value: 'Premium',
+    label: 'ger obegränsat',
     sub: 'Gör om varje test så ofta du vill',
   },
 ]

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, PenLine } from 'lucide-react'
 import BrevLiveDemo from './BrevLiveDemo'
 
 /**
@@ -96,8 +96,8 @@ export default function BrevHero() {
             {/* Trust micro-copy */}
             <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-xs text-slate-500">
               <span className="inline-flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-orange-500" strokeWidth={2.5} />
-                5 brev gratis varje vecka
+                <PenLine className="w-3.5 h-3.5 text-orange-500" strokeWidth={2.5} />
+                2 brev gratis varje dag
               </span>
               <span className="hidden sm:inline text-slate-300">·</span>
               <span>Ingen kortuppgift</span>

@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
 import JobbcoachenLiveDemo from './JobbcoachenLiveDemo'
 
-const TRUST = ['5 frågor gratis', 'Källa till varje svar', 'Svar på sekunder']
+const TRUST = ['10 meddelanden gratis per dag', 'Källa till varje svar', 'Svar på sekunder']
 
 export default function JobbcoachenHero() {
   return (

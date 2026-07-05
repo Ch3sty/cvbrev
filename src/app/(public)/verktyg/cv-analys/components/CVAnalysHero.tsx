@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
 import CVAnalysLiveDemo from './CVAnalysLiveDemo'
 
-const TRUST = ['1 analys gratis varje vecka', 'ATS-säkrad', 'Klar på 60 sekunder']
+const TRUST = ['1 analys gratis var tredje dag', 'ATS-säkrad', 'Klar på 60 sekunder']
 
 export default function CVAnalysHero() {
   return (

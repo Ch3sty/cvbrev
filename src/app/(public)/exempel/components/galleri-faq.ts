@@ -32,7 +32,7 @@ export const CV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är CV-exemplen gratis att använda?',
-    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg så registrerar du dig gratis och får en CV-analys per vecka utan att betala något.',
+    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg så registrerar du dig gratis och får en CV-analys var tredje dag utan att betala något.',
   },
 ]
 
@@ -59,6 +59,6 @@ export const BREV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är brev-exemplen gratis att använda?',
-    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan bygga ditt eget brev med våra verktyg får du fem brev per vecka helt gratis när du registrerat dig.',
+    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan bygga ditt eget brev med våra verktyg får du två brev per dag helt gratis när du registrerat dig.',
   },
 ]

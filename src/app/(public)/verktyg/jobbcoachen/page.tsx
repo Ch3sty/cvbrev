@@ -30,7 +30,7 @@ export default function JobbcoachenSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '5 frågor gratis utan kortuppgift',
+      description: '10 meddelanden gratis per dag, utan kortuppgift',
     },
     featureList:
       'Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev',

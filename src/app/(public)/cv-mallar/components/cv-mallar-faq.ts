@@ -8,7 +8,7 @@
 export const CV_MALLAR_FAQ = [
   {
     q: 'Är CV-mallarna gratis att ladda ner?',
-    a: 'Ja, vi har 6 gratis CV-mallar och 19 premium-mallar. Alla gratis-mallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. Premium-mallar har mer designfrihet (foto-stöd, gradient-paneler, specialiserade yrkesvarianter).',
+    a: 'Ja, vi har 12 gratis CV-mallar av totalt 42. De 30 premium-mallarna får du med Premium-prenumerationen. Alla gratis-mallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. Premium-mallar har mer designfrihet (foto-stöd, gradient-paneler, specialiserade yrkesvarianter).',
   },
   {
     q: 'Vilken CV-mall är bäst för svenska arbetsgivare 2026?',

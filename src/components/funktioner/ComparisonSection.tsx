@@ -11,11 +11,11 @@ type Row = {
 };
 
 const ROWS: Row[] = [
-  { label: 'Personliga brev', free: '5/vecka, 2/dag', premium: 'Obegränsat' },
-  { label: 'Sparade brev', free: '2 max', premium: 'Obegränsat' },
-  { label: 'CV-analyser', free: '1/vecka', premium: 'Obegränsat' },
+  { label: 'Personliga brev', free: '2/dag', premium: 'Obegränsat' },
+  { label: 'Sparade brev', free: '2 aktiva', premium: 'Obegränsat' },
+  { label: 'CV-analyser', free: '1/tredje dag', premium: 'Obegränsat' },
   { label: 'Uppladdade CV:n', free: '2', premium: '50' },
-  { label: 'CV-mallar', free: '2 av 8', premium: 'Alla 8' },
+  { label: 'CV-mallar', free: '12 av 42', premium: 'Alla 42' },
   { label: 'Tonaliteter', free: '5 manuella', premium: '6 (inkl Smart)' },
   {
     label: 'Smart-anpassad tonalitet',
@@ -30,10 +30,10 @@ const ROWS: Row[] = [
   { label: 'Jobbmatchning', free: '10 jobb', premium: 'Obegränsat' },
   {
     label: 'Rekryteringstester',
-    free: '3 grundnivå',
-    premium: '6 (inkl avancerade)',
+    free: 'Grundnivå, 1/dag',
+    premium: 'Obegränsat, inkl. avancerade',
   },
-  { label: 'LinkedIn-optimering', free: '1/månad', premium: 'Obegränsat' },
+  { label: 'LinkedIn-optimering', free: '1/vecka', premium: 'Obegränsat' },
   {
     label: 'Professionell export (Word/PDF)',
     free: true,

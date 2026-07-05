@@ -29,7 +29,7 @@ export default function PersonligtBrevSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '5 brev gratis varje vecka, ingen kortuppgift',
+      description: '2 brev gratis varje dag, ingen kortuppgift',
     },
     featureList:
       '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',

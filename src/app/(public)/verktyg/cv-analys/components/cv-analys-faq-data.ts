@@ -27,7 +27,7 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur många analyser får jag göra gratis?',
-    a: 'En CV-analys per vecka är gratis utan att du behöver ange kortuppgifter. Räkningen nollställs sju dagar efter första användningen. Behöver du fler analyser, till exempel för att jämföra olika versioner inför en specifik ansökan, ger Premium dig obegränsade analyser för 149 kr per månad.',
+    a: 'En CV-analys var tredje dag är gratis utan att du behöver ange kortuppgifter. Behöver du fler analyser, till exempel för att jämföra olika versioner inför en specifik ansökan, ger Premium dig obegränsade analyser för 149 kr per månad.',
   },
   {
     q: 'Kan jag jämföra olika versioner av mitt CV?',

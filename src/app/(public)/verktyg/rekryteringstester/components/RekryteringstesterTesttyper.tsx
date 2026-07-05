@@ -72,7 +72,7 @@ export default function RekryteringstesterTesttyper() {
               </span>
             </h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-              Grundnivån är alltid gratis. Vill du trycka på med svårare frågor och hårdare tidspress finns avancerad version i Premium.
+              Grundnivån är alltid gratis, en gång per dag och test. Vill du köra obegränsat och trycka på med svårare frågor finns avancerad version i Premium.
             </p>
           </motion.div>
 
@@ -99,7 +99,7 @@ export default function RekryteringstesterTesttyper() {
                   <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-100">
                     <div className="flex items-center gap-2 min-w-0">
                       <span className="text-[10px] font-black uppercase tracking-[0.14em] text-emerald-700 flex-shrink-0">
-                        Gratis
+                        Gratis, 1/dag
                       </span>
                       <span className="text-xs font-bold text-slate-700 truncate">
                         {grund.antal}

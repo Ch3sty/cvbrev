@@ -30,10 +30,10 @@ export default function RekryteringstesterSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '3 tester gratis utan kortuppgift',
+      description: 'Alla grundnivåtester gratis, en gång per dag, utan kortuppgift',
     },
     featureList:
-      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök',
+      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med Premium',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',

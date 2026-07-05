@@ -88,11 +88,11 @@ export default function SubscriptionInfo() {
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Användning och gränser:</h3>
       <div className="space-y-1">
 
-        {/* 1. Skapade personliga brev - 7/vecka gratis */}
+        {/* 1. Skapade personliga brev - 2/dag gratis */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <PenTool className="w-4 h-4 mr-3 text-pink-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Skapade personliga brev (per vecka)</span>
+            <span className="text-gray-700 font-medium">Skapade personliga brev (per dag)</span>
           </div>
           <div className="text-sm font-semibold">
             {subscriptionTier === 'premium' ? (
@@ -102,19 +102,19 @@ export default function SubscriptionInfo() {
               </div>
             ) : (
               <div className="text-gray-900">
-                <span className={(weeklyLetterCount ?? 0) >= 7 ? 'text-red-600 font-bold' : ''}>
+                <span className={(weeklyLetterCount ?? 0) >= 2 ? 'text-red-600 font-bold' : ''}>
                   {weeklyLetterCount ?? 0}
-                </span> / 7
+                </span> / 2
               </div>
             )}
           </div>
         </div>
 
-        {/* 2. CV-analyser - 1/vecka gratis */}
+        {/* 2. CV-analyser - 1 var tredje dag gratis */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Search className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">CV-analyser (per vecka)</span>
+            <span className="text-gray-700 font-medium">CV-analyser (var tredje dag)</span>
           </div>
           <div className="text-sm font-semibold">
             {subscriptionTier === 'premium' ? (
@@ -198,7 +198,7 @@ export default function SubscriptionInfo() {
           </div>
         </div>
 
-        {/* 7. Premium CV-mallar - 6st premium + 2 gratis */}
+        {/* 7. Premium CV-mallar - 30st premium + 12 gratis */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Palette className="w-4 h-4 mr-3 text-amber-600 flex-shrink-0" />
@@ -208,18 +208,18 @@ export default function SubscriptionInfo() {
             {subscriptionTier === 'premium' ? (
               <div className="flex items-center text-sm text-green-600 font-semibold">
                 <CheckCircle className="w-4 h-4 mr-1" />
-                <span>8 mallar tillgängliga</span>
+                <span>42 mallar tillgängliga</span>
               </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">
                 <Lock className="w-4 h-4 mr-1" />
-                <span>2 gratis, 6 premium</span>
+                <span>12 gratis, 30 premium</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* 8. Avancerade kognitiva tester - 3st premium */}
+        {/* 8. Avancerade kognitiva tester - obegransat med premium */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Brain className="w-4 h-4 mr-3 text-orange-600 flex-shrink-0" />
@@ -229,12 +229,12 @@ export default function SubscriptionInfo() {
             {subscriptionTier === 'premium' ? (
               <div className="flex items-center text-sm text-green-600 font-semibold">
                 <CheckCircle className="w-4 h-4 mr-1" />
-                <span>3 avancerade tester</span>
+                <span>Obegränsat</span>
               </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">
                 <Lock className="w-4 h-4 mr-1" />
-                <span>Endast Premium</span>
+                <span>Grundnivå gratis, 1/dag</span>
               </div>
             )}
           </div>

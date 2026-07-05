@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
-  CheckCircle, Lock, Sparkles, ArrowRight, Heart,
+  CheckCircle, Lock, ArrowRight, Heart,
   Zap, FileSearch, Palette, BrainCircuit, Save, Target
 } from 'lucide-react';
 
@@ -12,7 +12,7 @@ const premiumFeatures = [
   {
     icon: Zap,
     title: "Obegränsade personliga brev",
-    description: "Ansök till alla jobb du vill utan att vänta - ingen vecko-begränsning",
+    description: "Ansök till alla jobb du vill utan att vänta. Ingen daglig gräns.",
     gradient: "from-blue-500/20 to-indigo-500/20"
   },
   {
@@ -23,8 +23,8 @@ const premiumFeatures = [
   },
   {
     icon: Palette,
-    title: "Alla 8 professionella mallar",
-    description: "Från minimalistisk till executive-nivå - välj den som passar din bransch",
+    title: "Alla 42 professionella mallar",
+    description: "Från minimalistisk till executive-nivå. Välj den som passar din bransch.",
     gradient: "from-purple-500/20 to-pink-500/20"
   },
   {
@@ -42,7 +42,7 @@ const premiumFeatures = [
   {
     icon: Target,
     title: "Professionell export",
-    description: "Ladda ner färdiga dokument i Word eller PDF - redo att skicka",
+    description: "Ladda ner färdiga dokument i Word eller PDF, redo att skicka.",
     gradient: "from-orange-500/20 to-yellow-500/20"
   }
 ];
@@ -169,13 +169,13 @@ export default function PremiumPricingSection() {
 
                   <div className="space-y-3">
                     {[
-                      '7 personliga brev per vecka',
-                      '1 CV-analys per vecka',
+                      '2 personliga brev per dag',
+                      '1 CV-analys var tredje dag',
                       '2 uppladdade CV:n',
-                      '1 LinkedIn-optimering per månad',
-                      '3 rekryteringstester',
-                      'Begränsad jobbmatchning',
-                      '2 gratis CV-mallar'
+                      '1 LinkedIn-optimering per vecka',
+                      'Alla rekryteringstester på grundnivå',
+                      '10 jobbmatchningar',
+                      '12 gratis CV-mallar'
                     ].map((feature, idx) => (
                       <motion.div
                         key={idx}
@@ -201,9 +201,9 @@ export default function PremiumPricingSection() {
                       {[
                         'Obegränsade personliga brev (Premium)',
                         'Obegränsade CV-analyser (Premium)',
-                        'Alla 6 rekryteringstester (Premium)',
+                        'Avancerade rekryteringstester (Premium)',
                         'Helt obegränsad jobbmatchning (Premium)',
-                        'Alla premium CV-mallar (Premium)'
+                        'Alla 30 premium CV-mallar (Premium)'
                       ].map((feature, idx) => (
                         <motion.div
                           key={idx}
@@ -341,7 +341,7 @@ export default function PremiumPricingSection() {
                 </div>
 
                 <p className="text-slate-600 mb-6 leading-relaxed">
-                  Få tillgång till alla funktioner för 149 kr/mån - mindre än en arbetslunch kostar. Perfekt för seriös jobbsökning.
+                  Få tillgång till alla funktioner för 149 kr/mån, mindre än vad en arbetslunch kostar. Perfekt för seriös jobbsökning.
                 </p>
 
                 <div className="mb-8">

@@ -43,7 +43,7 @@ export default function BrevCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Skapa ditt första personliga brev nu. Gratis, utan
-                kortuppgift. Du har fem brev per vecka att leka med.
+                kortuppgift. Du har två brev per dag att leka med.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
@@ -65,7 +65,7 @@ export default function BrevCTABand() {
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>5 brev gratis · per vecka</span>
+                <span>2 brev gratis · per dag</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Ingen kortuppgift</span>
                 <span className="hidden sm:inline text-white/40">·</span>

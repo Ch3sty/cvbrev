@@ -17,21 +17,21 @@ import {
 } from 'lucide-react';
 
 const FREE_INCLUDED = [
-  '5 personliga brev per vecka',
-  '1 CV-analys per vecka',
+  '2 personliga brev per dag',
+  '1 CV-analys var tredje dag',
   '2 uppladdade CV:n',
-  '1 LinkedIn-optimering per månad',
-  '3 grundnivå rekryteringstester',
-  'Begränsad jobbmatchning',
-  '2 gratis CV-mallar',
+  '1 LinkedIn-optimering per vecka',
+  'Alla rekryteringstester på grundnivå',
+  '10 jobbmatchningar',
+  '12 gratis CV-mallar',
 ];
 
 const FREE_LOCKED = [
   'Obegränsade personliga brev',
   'Obegränsade CV-analyser',
-  'Alla 6 rekryteringstester',
+  'Avancerade rekryteringstester och utökad personlighetsprofil',
   'Helt obegränsad jobbmatchning',
-  'Alla 6 Premium CV-mallar',
+  'Alla 30 Premium CV-mallar',
 ];
 
 const PREMIUM_FEATURES = [
@@ -47,7 +47,7 @@ const PREMIUM_FEATURES = [
   },
   {
     icon: Palette,
-    title: 'Alla 8 professionella mallar',
+    title: 'Alla 42 professionella mallar',
     description: 'Från minimalistisk till executive-nivå. Välj den som passar din bransch.',
   },
   {
