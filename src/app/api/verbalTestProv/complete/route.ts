@@ -37,6 +37,10 @@ export async function POST(request: NextRequest) {
     }));
     const result = calculateScore(validated);
 
+    // Väggklocka är AVSIKTLIG här: verbal-provet körs mot en synlig
+    // 40-minuters nedräkningstimer som auto-lämnar in när tiden är slut.
+    // Provet är en tidsatt sittning, så förfluten tid sedan started_at är
+    // rätt mått — byt inte till summan av answers[].timeSpent.
     const timeSpent = Math.floor(
       (Date.now() - new Date(session.started_at).getTime()) / 1000
     );

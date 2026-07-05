@@ -28,9 +28,20 @@ export async function POST(request: NextRequest) {
     }
 
     const score = calculateScore(session.answers || []);
-    const timeSpent = Math.floor(
-      (Date.now() - new Date(session.started_at).getTime()) / 1000
+
+    // Aktiv tid = summan av tiden per besvarad fråga. Numeriska provet har
+    // ingen hård tidsgräns — UI:ts klocka räknar bara uppåt (och nollställs
+    // vid omladdning), så väggklocka sedan started_at räknar med pauser och
+    // blir missvisande — används bara som fallback utan tidsdata.
+    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const activeTime = answers.reduce(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (sum: number, a: any) => sum + (typeof a.timeSpent === 'number' ? a.timeSpent : 0),
+      0
     );
+    const timeSpent = activeTime > 0
+      ? activeTime
+      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     const { error: updateError } = await supabase
       .from('logic_test_v4_sessions')

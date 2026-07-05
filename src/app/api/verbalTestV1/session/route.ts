@@ -62,7 +62,7 @@ export async function POST() {
 }
 
 // GET: Fetch user's verbal test sessions
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -74,6 +74,28 @@ export async function GET() {
         { error: 'Unauthorized' },
         { status: 401 }
       );
+    }
+
+    const url = new URL(request.url);
+    const sessionId = url.searchParams.get('id');
+
+    // ?id=<uuid> hämtar en enskild session (för att återuppta pågående test).
+    if (sessionId) {
+      const { data: session, error: fetchError } = await supabase
+        .from('logic_test_v4_sessions')
+        .select('*')
+        .eq('id', sessionId)
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchError || !session) {
+        return NextResponse.json(
+          { error: 'Session not found' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({ session });
     }
 
     // Fetch all verbal test sessions for user, ordered by most recent

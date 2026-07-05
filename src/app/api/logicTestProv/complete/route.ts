@@ -40,9 +40,19 @@ export async function POST(request: Request) {
     const answers = Array.isArray(session.answers) ? session.answers : [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const score = answers.filter((a: any) => a.correct).length;
-    const timeSpent = Math.floor(
-      (Date.now() - new Date(session.started_at).getTime()) / 1000
+
+    // Aktiv tid = summan av tiden per besvarad fråga. Matrislogik-provet har
+    // ingen synlig timer eller hård tidsgräns i UI:t, så väggklocka sedan
+    // started_at räknar med pauser/omladdningar och gör tiden missvisande —
+    // används bara som fallback för sessioner utan tidsdata.
+    const activeTime = answers.reduce(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (sum: number, a: any) => sum + (typeof a.time_spent === 'number' ? a.time_spent : 0),
+      0
     );
+    const timeSpent = activeTime > 0
+      ? activeTime
+      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     const { error: updateError } = await supabase
       .from('logic_test_v4_sessions')

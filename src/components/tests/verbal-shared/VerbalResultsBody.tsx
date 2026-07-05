@@ -46,6 +46,10 @@ interface VerbalResultsBodyProps {
   restartPath: string;
   /** Prov-läge: förklaringar visas inaktiverade ("Ej tillgänglig under prov"). */
   isProv?: boolean;
+  /** Extra innehåll direkt efter stats-raden (t.ex. PercentileCard). */
+  afterStatsSlot?: React.ReactNode;
+  /** Extra innehåll före action-knapparna (t.ex. NextLevelCard). */
+  beforeActionsSlot?: React.ReactNode;
 }
 
 export default function VerbalResultsBody({
@@ -56,6 +60,8 @@ export default function VerbalResultsBody({
   passages,
   restartPath,
   isProv = false,
+  afterStatsSlot,
+  beforeActionsSlot,
 }: VerbalResultsBodyProps) {
   const router = useRouter();
   const formatTime = (s: number) => {
@@ -95,8 +101,14 @@ export default function VerbalResultsBody({
         </div>
       </motion.section>
 
+      {/* T.ex. jämförelse mot andra testtagare */}
+      {afterStatsSlot}
+
       {/* Per-passage-genomgång */}
       <PassageReview answers={answers} passages={passages} isProv={isProv} />
+
+      {/* T.ex. progressionspuff mot nästa nivå */}
+      {beforeActionsSlot}
 
       {/* Action buttons */}
       <motion.section

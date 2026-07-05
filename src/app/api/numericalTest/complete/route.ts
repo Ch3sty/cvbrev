@@ -35,10 +35,17 @@ export async function POST(request: NextRequest) {
 
     // Calculate score and time
     const score = calculateScore(session.answers || []);
-    const totalTimeSpent = (session.answers || []).reduce(
-      (sum: number, answer: any) => sum + (answer.timeSpent || 0),
+
+    // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan
+    // started_at räknar med pauser och gör per-fråga-statistiken
+    // missvisande — används bara som fallback för sessioner utan tidsdata.
+    const activeTime = (session.answers || []).reduce(
+      (sum: number, answer: any) => sum + (typeof answer.timeSpent === 'number' ? answer.timeSpent : 0),
       0
     );
+    const totalTimeSpent = activeTime > 0
+      ? activeTime
+      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     // Update session as completed
     const { error: updateError } = await supabase

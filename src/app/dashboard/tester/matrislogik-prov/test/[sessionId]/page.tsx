@@ -3,11 +3,14 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle, Lock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle, Lock } from 'lucide-react';
 import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
 import { AnswerOptionsV7 } from '@/components/tests/logicV7/AnswerOptionsV7';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
+import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
+import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
+import { fetchProvSession } from '@/components/tests/prov/provSession';
 import {
   selectProvQuestionsForSession,
   PROV_TOTAL_QUESTIONS,
@@ -29,7 +32,10 @@ export default function ProvSessionPage({ params }: PageProps) {
   const [sessionStartedAt] = useState(new Date());
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isHydrating, setIsHydrating] = useState(true);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+  const [isFinishing, setIsFinishing] = useState(false);
+  const [finishError, setFinishError] = useState<string | null>(null);
 
   useEffect(() => {
     params.then((p) => setSessionId(p.sessionId));
@@ -46,44 +52,113 @@ export default function ProvSessionPage({ params }: PageProps) {
     answers.map((ans, i) => (ans !== null ? i : null)).filter((i): i is number => i !== null)
   );
 
-  const handleFinishTest = useCallback(async () => {
-    if (!sessionId) return;
-    try {
-      const response = await fetch('/api/logicTestProv/complete', {
+  /* ------------------------- Rehydrering vid mount ------------------------- */
+
+  // Vid mount hämtas sessionen så redan sparade svar förifylls efter en
+  // omladdning, och avslutade sessioner skickas direkt till resultatsidan.
+  // Obs: matrislogik-provet har ingen hård tidsgräns — klockan i headern är
+  // bara en uppåträknare och rättningstiden räknas server-side per svar.
+  useEffect(() => {
+    if (!sessionId || questions.length === 0) return;
+    let cancelled = false;
+
+    const hydrate = async () => {
+      const session = await fetchProvSession('/api/logicTestProv/session', sessionId);
+      if (cancelled) return;
+      if (session?.completed_at) {
+        // Redan avslutat prov → direkt till resultatet. Behåll laddvyn tills
+        // navigeringen sker.
+        router.replace(`/dashboard/tester/matrislogik-prov/test/${sessionId}/results`);
+        return;
+      }
+      if (session && session.answers.length > 0) {
+        const saved = session.answers as Array<{ q_id?: string; selected?: number }>;
+        const restored = questions.map((q) => {
+          const hit = saved.find((a) => a && a.q_id === q.id);
+          return hit && typeof hit.selected === 'number' ? hit.selected : null;
+        });
+        setAnswers(restored);
+        const firstUnanswered = restored.findIndex((a) => a === null);
+        setCurrentQuestion(
+          firstUnanswered === -1 ? Math.max(questions.length - 1, 0) : firstUnanswered
+        );
+      }
+      setIsHydrating(false);
+      setQuestionStartTime(Date.now());
+    };
+
+    void hydrate();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId]);
+
+  /* --------------------------- Svarssparning --------------------------- */
+
+  const postAnswer = useCallback(
+    async (payload: { questionId: string; selectedIndex: number; timeSpent: number }) => {
+      const res = await fetch('/api/logicTestProv/answer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId }),
+        body: JSON.stringify({ sessionId, ...payload }),
       });
-      const data = await response.json();
-      if (data.success || data.message) {
-        router.push(`/dashboard/tester/matrislogik-prov/test/${sessionId}/results`);
+      if (!res.ok) {
+        throw new Error(`Failed to save answer (${res.status})`);
       }
-    } catch (error) {
-      console.error('Failed to finish prov:', error);
-    }
-  }, [sessionId, router]);
+    },
+    [sessionId]
+  );
+
+  const {
+    saveAnswer: robustSave,
+    flushPending,
+    hasPending,
+    failedCount,
+  } = useRobustAnswerSaving(postAnswer);
 
   const saveAnswer = useCallback(
     async (questionIndex: number, selectedIndex: number) => {
       if (!sessionId) return;
       const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
-      try {
-        await fetch('/api/logicTestProv/answer', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sessionId,
-            questionId: questions[questionIndex].id,
-            selectedIndex,
-            timeSpent,
-          }),
-        });
-      } catch (error) {
-        console.error('Failed to save answer:', error);
-      }
+      const questionId = questions[questionIndex].id;
+      await robustSave(questionId, { questionId, selectedIndex, timeSpent });
     },
-    [sessionId, questionStartTime, questions]
+    [sessionId, questionStartTime, questions, robustSave]
   );
+
+  const handleFinishTest = useCallback(async () => {
+    if (!sessionId || isFinishing) return;
+    setIsFinishing(true);
+    setFinishError(null);
+    try {
+      // Spara eventuella osparade svar innan provet rättas.
+      if (hasPending()) {
+        const allSaved = await flushPending(false);
+        if (!allSaved) {
+          setFinishError(
+            'Ett eller flera svar kunde inte sparas. Kontrollera din uppkoppling och försök igen.'
+          );
+          return;
+        }
+      }
+      const response = await fetch('/api/logicTestProv/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      });
+      const data = await response.json().catch(() => null);
+      if (response.ok && data && (data.success || data.message)) {
+        router.push(`/dashboard/tester/matrislogik-prov/test/${sessionId}/results`);
+      } else {
+        setFinishError('Provet kunde inte avslutas. Försök igen om en stund.');
+      }
+    } catch {
+      setFinishError('Provet kunde inte avslutas. Kontrollera din uppkoppling och försök igen.');
+    } finally {
+      setIsFinishing(false);
+    }
+  }, [sessionId, router, isFinishing, hasPending, flushPending]);
 
   const handleSelectAnswer = useCallback(
     (index: number) => {
@@ -109,25 +184,30 @@ export default function ProvSessionPage({ params }: PageProps) {
           setQuestionStartTime(Date.now());
         }
         setIsNavigating(false);
+        // Passa på att försöka om svar som fastnat som osparade.
+        void flushPending(true);
       }, 150);
     },
-    [answers, currentQuestion, saveAnswer, isNavigating, questions.length]
+    [answers, currentQuestion, saveAnswer, isNavigating, questions.length, flushPending]
   );
 
   const handleNavigate = (index: number) => {
     setCurrentQuestion(index);
     setQuestionStartTime(Date.now());
+    void flushPending(true);
   };
   const handlePrev = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setQuestionStartTime(Date.now());
+      void flushPending(true);
     }
   };
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setQuestionStartTime(Date.now());
+      void flushPending(true);
     }
   };
 
@@ -146,7 +226,9 @@ export default function ProvSessionPage({ params }: PageProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion, question, handleSelectAnswer]);
 
-  if (!sessionId) {
+  // Laddindikator tills rehydreringen är klar, så användaren inte hinner
+  // svara innan tidigare svar förifyllts.
+  if (!sessionId || isHydrating) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <motion.div
@@ -218,6 +300,10 @@ export default function ProvSessionPage({ params }: PageProps) {
               <QuestionGridV7 grid={question.grid} />
 
               <div>
+                {/* Diskret varning när något svar inte gått att spara trots omförsök */}
+                {failedCount > 0 && (
+                  <UnsavedAnswerBanner className="max-w-md sm:max-w-lg mx-auto mb-3" />
+                )}
                 <p className="text-center text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-[0.18em] mb-3">
                   Välj rätt svar
                 </p>
@@ -242,7 +328,10 @@ export default function ProvSessionPage({ params }: PageProps) {
             </button>
 
             <button
-              onClick={() => setShowFinishConfirm(true)}
+              onClick={() => {
+                setFinishError(null);
+                setShowFinishConfirm(true);
+              }}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation"
             >
               <Flag className="w-4 h-4" strokeWidth={2.5} />
@@ -317,6 +406,16 @@ export default function ProvSessionPage({ params }: PageProps) {
                   </div>
                 </div>
 
+                {finishError && (
+                  <div className="flex items-start gap-2 mb-4 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
+                    <AlertTriangle
+                      className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
+                      strokeWidth={2.25}
+                    />
+                    <p className="text-sm text-amber-800">{finishError}</p>
+                  </div>
+                )}
+
                 <div className="flex gap-2 sm:gap-3 mt-5">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
@@ -326,13 +425,14 @@ export default function ProvSessionPage({ params }: PageProps) {
                   </button>
                   <button
                     onClick={handleFinishTest}
-                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
+                    disabled={isFinishing}
+                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     style={{
                       background: 'linear-gradient(135deg, #F97316, #DC2626)',
                       boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
                     }}
                   >
-                    Avsluta och se resultat
+                    {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
                   </button>
                 </div>
               </div>

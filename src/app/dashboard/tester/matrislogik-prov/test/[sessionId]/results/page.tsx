@@ -16,6 +16,7 @@ import {
   Lock,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
 import {
   selectProvQuestionsForSession,
   PROV_TOTAL_QUESTIONS,
@@ -142,6 +143,9 @@ export default function ProvResultsPage({ params }: PageProps) {
           avgPerQuestion={avgPerQuestion}
           formatTime={formatTime}
         />
+
+        {/* Jämförelse mot andra provresultat (renderas bara vid nog stort underlag) */}
+        {sessionId && <PercentileCard sessionId={sessionId} />}
 
         <QuestionReview
           answers={savedAnswers}

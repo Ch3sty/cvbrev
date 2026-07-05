@@ -61,12 +61,24 @@ export async function POST(request: NextRequest) {
     // Calculate score
     const scoreResult = calculateScore(validatedAnswers);
 
+    // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan
+    // started_at räknar med pauser och gör per-fråga-statistiken
+    // missvisande — används bara som fallback för sessioner utan tidsdata.
+    const activeTime = answers.reduce(
+      (sum: number, a) => sum + (typeof a.timeSpent === 'number' ? a.timeSpent : 0),
+      0
+    );
+    const timeSpent = activeTime > 0
+      ? activeTime
+      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+
     // Update session with score and completion
     const { error: updateError } = await supabase
       .from('logic_test_v4_sessions')
       .update({
         answers: validatedAnswers,
         score: scoreResult.score,
+        time_spent: timeSpent,
         completed_at: new Date().toISOString()
       })
       .eq('id', sessionId);

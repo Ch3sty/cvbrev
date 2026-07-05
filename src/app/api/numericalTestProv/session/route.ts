@@ -41,7 +41,7 @@ export async function POST() {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -49,6 +49,25 @@ export async function GET() {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const url = new URL(request.url);
+    const sessionId = url.searchParams.get('id');
+
+    // ?id=<uuid> hämtar en enskild session (för att återuppta pågående test).
+    if (sessionId) {
+      const { data: session, error: fetchError } = await supabase
+        .from('logic_test_v4_sessions')
+        .select('*')
+        .eq('id', sessionId)
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchError || !session) {
+        return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+      }
+
+      return NextResponse.json({ session });
     }
 
     const { data: sessions, error: fetchError } = await supabase

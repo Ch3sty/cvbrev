@@ -17,6 +17,7 @@ import type { TestAnswer, Passage } from '@/lib/numericalTest/types';
 
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -109,6 +110,9 @@ export default function NumericalExpertResultsPage({ params }: PageProps) {
           completedDate={completedDate}
           timeSpent={timeSpent}
         />
+
+        {/* Jämförelse mot andra testtagare (renderas bara vid nog stort underlag) */}
+        {sessionId && <PercentileCard sessionId={sessionId} />}
 
         <NumericalResultsBody
           passages={passages}

@@ -17,6 +17,8 @@ import type { TestAnswer } from '@/lib/numericalTest/types';
 
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -129,11 +131,21 @@ export default function ResultsPage({ params }: PageProps) {
           timeSpent={timeSpent}
         />
 
+        {/* Jämförelse mot andra testtagare (renderas bara vid nog stort underlag) */}
+        {sessionId && <PercentileCard sessionId={sessionId} />}
+
         <NumericalResultsBody
           passages={passages}
           answers={answers}
           byDifficulty={byDifficulty}
           byType={byType}
+        />
+
+        {/* Progressionspuff mot nästa nivå */}
+        <NextLevelCard
+          percentage={percentage}
+          levelLabel="Avancerad nivå"
+          href="/dashboard/tester/numeriskt-test-v2"
         />
 
         {/* CTA-knappar */}

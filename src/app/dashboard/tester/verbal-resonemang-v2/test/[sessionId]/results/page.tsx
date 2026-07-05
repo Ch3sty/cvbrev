@@ -9,6 +9,8 @@ import VerbalResultsBody, {
   type SavedAnswer,
   type ResultsPassage,
 } from '@/components/tests/verbal-shared/VerbalResultsBody';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 import {
   selectPassagesForSession,
   TOTAL_STATEMENTS,
@@ -115,6 +117,18 @@ export default function ResultsV2Page({ params }: PageProps) {
           answers={answers}
           passages={passages}
           restartPath="/dashboard/tester/verbal-resonemang-v2"
+          afterStatsSlot={
+            // Jämförelse mot andra testtagare (renderas bara vid nog stort underlag)
+            sessionId ? <PercentileCard sessionId={sessionId} /> : undefined
+          }
+          beforeActionsSlot={
+            // Progressionspuff mot nästa nivå
+            <NextLevelCard
+              percentage={percentage}
+              levelLabel="Expertnivån"
+              href="/dashboard/tester/verbal-resonemang-expert"
+            />
+          }
         />
       </div>
     </div>

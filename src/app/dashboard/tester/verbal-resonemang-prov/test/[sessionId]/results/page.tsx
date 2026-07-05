@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 import VerbalResultsHero from '@/components/tests/verbal-shared/VerbalResultsHero';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
 import VerbalResultsBody, {
   type SavedAnswer,
   type ResultsPassage,
@@ -114,6 +115,10 @@ export default function VerbalProvResultsPage({ params }: PageProps) {
           passages={passages}
           restartPath="/dashboard/tester"
           isProv
+          afterStatsSlot={
+            /* Jämförelse mot andra provresultat (renderas bara vid nog stort underlag) */
+            sessionId ? <PercentileCard sessionId={sessionId} /> : undefined
+          }
         />
       </div>
     </div>
