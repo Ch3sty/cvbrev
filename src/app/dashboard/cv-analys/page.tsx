@@ -16,7 +16,7 @@ import { useCvQuota } from '@/hooks/useCvQuota';
 import CVAnalysisWizard from './components/CVAnalysisWizard';
 import CVAnalysisIntro from './components/CVAnalysisIntro';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
-import WeeklyLimitReached from '@/components/subscription/WeeklyLimitReached';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 // Utility Functions
 import { logUserActivity } from '@/lib/activity-logger';
@@ -28,7 +28,7 @@ export default function CVAnalysisPage() {
   const router = useRouter();
   const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore();
   const {
-    profile, subscriptionTier, remainingWeeklyAnalyses,
+    profile, subscriptionTier, remainingWeeklyAnalyses, nextAnalysisResetDate,
     updateRemainingAnalyses, updateNextAnalysisResetDate,
     refreshProfile,
     loading: profileLoading
@@ -39,10 +39,12 @@ export default function CVAnalysisPage() {
   const authCheckedRef = useRef(false);
   const refreshedOnMountRef = useRef(false);
   const [showIntro, setShowIntro] = useState(true);
+  // Satts nar servern svarar 429 (kvot slut) med exakt tid da kvoten oppnar igen
+  const [quotaLockResetAt, setQuotaLockResetAt] = useState<string | null>(null);
 
   // Refetch profile vid mount sa stale state (t.ex. fran tidigare misslyckad
-  // analys eller efter ekvota-reset i en annan flik) inte felaktigt blockerar
-  // anvandaren med "Veckograns nadd".
+  // analys eller efter kvot-reset i en annan flik) inte felaktigt blockerar
+  // anvandaren med en spärrvy.
   useEffect(() => {
     if (!refreshedOnMountRef.current && !profileLoading && profile) {
       refreshedOnMountRef.current = true;
@@ -119,6 +121,21 @@ export default function CVAnalysisPage() {
       const result = await response.json();
 
       if (!response.ok) {
+        // Kvoten slut (1 analys per rullande 72h for gratisanvandare):
+        // visa spärrvyn med exakt återkomsttid i stället för ett alert.
+        if (response.status === 429 && result.limitReached) {
+          const resetAt = result.nextResetAt || result.nextResetDate;
+          if (resetAt) {
+            setQuotaLockResetAt(resetAt);
+            updateNextAnalysisResetDate(new Date(resetAt));
+          }
+          updateRemainingAnalyses(0);
+          const quotaError = new Error(
+            result.message || 'Du har använt din CV-analys.'
+          ) as Error & { quotaExceeded?: boolean };
+          quotaError.quotaExceeded = true;
+          throw quotaError;
+        }
         throw new Error(result.message || 'Kunde inte starta analys');
       }
 
@@ -159,17 +176,28 @@ export default function CVAnalysisPage() {
     );
   }
 
-  // Check quota
+  // Check quota (serverns 429 via quotaLockResetAt, annars profilens räknare)
   const isFreeTier = subscriptionTier === 'free';
-  const hasReachedLimit = isFreeTier && remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0;
+  const hasReachedLimit =
+    isFreeTier &&
+    (quotaLockResetAt !== null ||
+      (remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0));
 
   if (hasReachedLimit) {
     return (
-      <WeeklyLimitReached
-        title="Veckogräns nådd"
-        description="Du har använt alla dina CV-analyser denna vecka."
-        resetHint="Din kvot återställs automatiskt nästa måndag."
-      />
+      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
+        <QuotaLockCard
+          feature="cv_analysis"
+          title="Din CV-analys är använd"
+          description="Som gratisanvändare analyserar du ett CV var tredje dygn."
+          nextResetAt={
+            quotaLockResetAt ??
+            nextAnalysisResetDate?.toISOString() ??
+            new Date().toISOString()
+          }
+          className="max-w-md w-full"
+        />
+      </div>
     );
   }
 

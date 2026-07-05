@@ -323,7 +323,10 @@ export default function CVAnalysisWizard({
     } catch (error) {
       console.error('Analysis error:', error);
       clearInterval(progressInterval);
-      alert('Ett fel uppstod vid analysen. Försök igen.');
+      // Kvotfel hanteras av sidan (QuotaLockCard visas) - ingen alert har.
+      if (!(error as Error & { quotaExceeded?: boolean })?.quotaExceeded) {
+        alert('Ett fel uppstod vid analysen. Försök igen.');
+      }
     } finally {
       setIsAnalyzing(false);
     }

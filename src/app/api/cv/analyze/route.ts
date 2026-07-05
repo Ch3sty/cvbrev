@@ -5,22 +5,19 @@ import { createServerClient } from '@/lib/supabase/server';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database.types';
 import { createBackgroundJob } from '@/lib/cv/background-jobs';
+import { checkCvAnalysisQuota, quotaExceededBody, CV_ANALYSIS_WINDOW_HOURS } from '@/lib/quota/quotaService';
 
 // Vercel maxDuration configuration
 export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
 
 // ============================================================================
-//  Constants & Configuration
-// ============================================================================
-
-const WEEKLY_ANALYSIS_LIMIT_FREE = 1; // 1 analys per vecka för gratisanvändare (matchar frontend use-profile.ts)
-
-// ============================================================================
 //  Helper Functions
 // ============================================================================
 
-// BORTTAGEN - Använder inte längre fast måndag-återställning
-// Ny dynamisk modell: Exakt 7 dagar från första användning
+// Kvoten (1 analys per rullande 72h för gratisanvändare) hanteras av
+// checkCvAnalysisQuota i src/lib/quota/quotaService.ts. Den räknar
+// cv_analysis_jobs med usage_counted=true — flaggan sätts vid jobbskapande
+// och rullas tillbaka vid failure av /api/cv/jobs/[jobId] (orörd logik).
 
 /**
  * Extracts general improvements from analysis result
@@ -76,96 +73,6 @@ function extractGeneralImprovementsFromAnalysis(analysisResult: any): any[] {
 }
 
 /**
- * Fetches user profile data relevant for analysis limits.
- * @param supabase - Initialized Supabase server client.
- * @param userId - The ID of the user.
- * @returns Profile data or throws an error.
- */
-async function getUserProfileData(supabase: SupabaseClient<Database>, userId: string) {
-     const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('subscription_tier, weekly_analysis_count, weekly_analysis_first_used_at, weekly_analysis_reset_at')
-        .eq('id', userId)
-        .single();
-    if (profileError) {
-        const errorMessage = profileError.code === 'PGRST116' ? 'Användarprofil kunde inte hittas.' : `Databasfel vid hämtning av profil: ${profileError.message}`;
-        console.error(`API analyzeCv: Error fetching profile for user ${userId}:`, profileError);
-        throw new Error(errorMessage);
-    }
-     if (!profileData) {
-        console.error(`API analyzeCv: Profile data is null for user ${userId} despite no error.`);
-        throw new Error('Användarprofil saknas.');
-    }
-    return {
-        subscriptionTier: ((profileData as any).subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
-        currentAnalysisCount: (profileData as any).weekly_analysis_count ?? 0,
-        firstUsedAt: (profileData as any).weekly_analysis_first_used_at ? new Date((profileData as any).weekly_analysis_first_used_at) : null,
-        resetAt: (profileData as any).weekly_analysis_reset_at ? new Date((profileData as any).weekly_analysis_reset_at) : null
-    };
-}
-
-/**
- * Manages dynamic 7-day quota cycle for CV analysis.
- * Initializes on first use or resets after 7 days.
- * @param supabase - Initialized Supabase server client.
- * @param userId - The ID of the user.
- * @param currentCount - Current analysis count.
- * @param firstUsedAt - When quota was first used (or null).
- * @param resetAt - When quota resets (or null).
- * @returns Object containing the count and reset date.
- */
-async function checkAndResetAnalysisCount(
-    supabase: SupabaseClient<Database>,
-    userId: string,
-    currentCount: number,
-    firstUsedAt: Date | null,
-    resetAt: Date | null
-): Promise<{ count: number; resetAt: Date }> {
-    const now = new Date();
-    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-
-    let count = currentCount;
-    let newFirstUsedAt = firstUsedAt;
-    let newResetAt = resetAt;
-    let shouldUpdate = false;
-
-    // Initialize on first use
-    if (!firstUsedAt || !resetAt) {
-        newFirstUsedAt = now;
-        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
-        count = 0;
-        shouldUpdate = true;
-        console.log(`API analyzeCv: User ${userId}: Initiating quota. Resets at ${newResetAt.toISOString()}`);
-    }
-    // Reset if 7 days have passed
-    else if (now.getTime() >= resetAt.getTime()) {
-        newFirstUsedAt = now;
-        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
-        count = 0;
-        shouldUpdate = true;
-        console.log(`API analyzeCv: User ${userId}: Resetting quota. New reset at ${newResetAt.toISOString()}`);
-    }
-
-    if (shouldUpdate && newFirstUsedAt && newResetAt) {
-        const { error: resetError } = await (supabase as any)
-            .from('profiles')
-            .update({
-                weekly_analysis_count: count,
-                weekly_analysis_first_used_at: newFirstUsedAt.toISOString(),
-                weekly_analysis_reset_at: newResetAt.toISOString()
-            })
-            .eq('id', userId);
-
-        if (resetError) {
-            console.error(`API analyzeCv: User ${userId}: Failed to update quota:`, resetError);
-        }
-    }
-
-    return { count, resetAt: newResetAt || resetAt || new Date() };
-}
-
-
-/**
  * Fetches the CV text for a given user and CV ID.
  * @param supabase - Initialized Supabase server client.
  * @param userId - The ID of the user.
@@ -200,26 +107,6 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
     return (cvData as any).cv_text;
 }
 
-/**
- * Updates the analysis count for a free user after a successful analysis.
- * @param supabase - Initialized Supabase server client.
- * @param userId - The ID of the user.
- * @param currentCount - The count *before* this analysis.
- * @returns The remaining analysis count after decrementing.
- */
-// Använd den importerade SupabaseClient-typen här
-async function decrementFreeUserCount(supabase: SupabaseClient<Database>, userId: string, currentCount: number): Promise<number> {
-     // ... (funktionens kod oförändrad) ...
-      const newCount = currentCount + 1;
-    const { error: updateError } = await (supabase as any)
-        .from('profiles')
-        .update({ weekly_analysis_count: newCount })
-        .eq('id', userId);
-    if (updateError) { console.error(`API analyzeCv: User ${userId}: Failed to update analysis count after successful analysis:`, updateError); }
-    return Math.max(0, WEEKLY_ANALYSIS_LIMIT_FREE - newCount);
-}
-
-
 // ============================================================================
 //  API Route Handler (POST)
 // ============================================================================
@@ -249,28 +136,20 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'Ogiltig förfrågan.' }, { status: 400 });
         }
 
-        // --- 3. Fetch Profile & Handle Limits/Resets ---
-        const profileData = await getUserProfileData(supabase, userId);
-        const resetInfo = await checkAndResetAnalysisCount(
-            supabase,
-            userId,
-            profileData.currentAnalysisCount,
-            profileData.firstUsedAt,
-            profileData.resetAt
-        );
+        // --- 3. Quota Check (1 analys per rullande 72h, premium passerar) ---
+        const quota = await checkCvAnalysisQuota(supabase, userId);
 
-        const currentRemainingAnalyses = WEEKLY_ANALYSIS_LIMIT_FREE - resetInfo.count;
-        const nextResetDate = resetInfo.resetAt;
-
-        if (profileData.subscriptionTier === 'free' && resetInfo.count >= WEEKLY_ANALYSIS_LIMIT_FREE) {
-            console.log(`API analyzeCv: User ${userId} (Free): Limit reached (${resetInfo.count}/${WEEKLY_ANALYSIS_LIMIT_FREE}).`);
+        if (!quota.allowed) {
+            console.log(`API analyzeCv: User ${userId} (Free): Quota exceeded (${quota.used}/${quota.limit}).`);
             return NextResponse.json({
-                message: `Du har nått din veckogräns på ${WEEKLY_ANALYSIS_LIMIT_FREE} CV-analys per vecka.`,
+                ...quotaExceededBody(
+                    'cv_analysis',
+                    quota,
+                    'Du har använt din CV-analys. En ny blir tillgänglig var tredje dygn, eller uppgradera för obegränsat.'
+                ),
+                // Bakåtkompatibla fält som klienten läser idag:
                 remainingAnalyses: 0,
-                limitReached: true,
-                nextResetDate: nextResetDate.toISOString(),
-                currentCount: resetInfo.count,
-                limit: WEEKLY_ANALYSIS_LIMIT_FREE
+                currentCount: quota.used,
             }, { status: 429 });
         }
 
@@ -278,7 +157,7 @@ export async function POST(request: NextRequest) {
         const cvText = await getCvText(supabase, userId, cvId);
 
         // --- 5. Create Background Job for AI Analysis (100% Async) ---
-        console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Creating background job for CV ${cvId}...`);
+        console.log(`API analyzeCv: User ${userId} (${quota.isPremium ? 'premium' : 'free'}): Creating background job for CV ${cvId}...`);
 
         const { jobId, error: jobError } = await createBackgroundJob(userId, cvId);
 
@@ -292,19 +171,17 @@ export async function POST(request: NextRequest) {
 
         console.log(`✅ Background job created: ${jobId}`);
 
-        // OBS: weekly_analysis_count okas INTE har. Det gors istallet i
-        // /api/cv/jobs/[jobId] nar jobbet faktiskt ar 'completed'. Den vagen
-        // anvander 'usage_counted'-flagga som idempotent-las och har
-        // rollback-logik vid failure. Att rakna har skulle ge dubbelrakning.
+        // OBS: Forbrukning raknas via usage_counted pa cv_analysis_jobs
+        // (satts vid jobbskapande, rullas tillbaka vid failure i
+        // /api/cv/jobs/[jobId]). Ingen raknare uppdateras har.
 
         // Onboarding-progress for analyze_cv markeras INTE har heller -
         // det gors i jobs/[jobId] vid 'completed' sa anvandaren inte
         // markeras klar pa ett misslyckat eller pagaende jobb.
 
-        // Return 202 Accepted immediately with job info
-        // remaining/currentCount ar oforandrade - inget ar konsumerat
-        // fore completion (annars skulle frontend visa fel siffra och
-        // kunna blockera anvandaren felaktigt).
+        // Return 202 Accepted immediately with job info.
+        // remainingAnalyses speglar laget EFTER att detta jobb startats
+        // (jobbet har redan usage_counted=true nar det skapas).
         return NextResponse.json(
             {
                 message: 'CV-analysen har startats och körs i bakgrunden.',
@@ -312,10 +189,14 @@ export async function POST(request: NextRequest) {
                 status: 'processing',
                 isBackgroundJob: true,
                 estimatedTime: '30-60 sekunder',
-                remainingAnalyses: profileData.subscriptionTier === 'free' ? currentRemainingAnalyses : null,
-                nextResetDate: nextResetDate.toISOString(),
-                currentCount: profileData.subscriptionTier === 'free' ? resetInfo.count : null,
-                limit: profileData.subscriptionTier === 'free' ? WEEKLY_ANALYSIS_LIMIT_FREE : null
+                remainingAnalyses: quota.isPremium ? null : Math.max(0, quota.limit - quota.used - 1),
+                // Fonstret oppnar igen 72h efter jobbet som nyss skapades
+                // (quota.nextResetAt fran pre-checken ar "nu" nar used=0).
+                nextResetDate: quota.isPremium
+                    ? quota.nextResetAt
+                    : new Date(Date.now() + CV_ANALYSIS_WINDOW_HOURS * 60 * 60 * 1000).toISOString(),
+                currentCount: quota.isPremium ? null : quota.used,
+                limit: quota.isPremium ? null : quota.limit
             },
             { status: 202 } // Accepted
         );

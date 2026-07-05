@@ -98,7 +98,8 @@ export default function CVAnalysisIntro({
                     <span className="font-bold text-orange-700">
                       {remainingAnalyses}
                     </span>{' '}
-                    {remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar denna vecka
+                    {remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar. Som
+                    gratisanvändare får du en ny var tredje dygn.
                   </>
                 )}
               </p>

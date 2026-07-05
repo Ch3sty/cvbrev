@@ -65,7 +65,7 @@ export default function CVExportOptions({
   const [isExporting, setIsExporting] = useState(false);
   const [saveToAccount, setSaveToAccount] = useState(!skipSaveByDefault);
   const [cvCount, setCvCount] = useState<number>(0);
-  const [maxCvCount, setMaxCvCount] = useState<number>(5); // Default for free users
+  const [maxCvCount, setMaxCvCount] = useState<number>(2); // Default for free users (2 sparade CV, samma gräns som resten av systemet)
   const [isLoadingQuota, setIsLoadingQuota] = useState(true);
   const { subscriptionTier } = useProfile();
   const supabase = createClient();
@@ -87,8 +87,8 @@ export default function CVExportOptions({
           setCvCount(count || 0);
         }
 
-        // Set max based on subscription tier
-        const max = subscriptionTier === 'premium' ? 50 : 5;
+        // Set max based on subscription tier (free = 2 sparade CV, samma som övriga systemet)
+        const max = subscriptionTier === 'premium' ? 50 : 2;
         setMaxCvCount(max);
 
         // If at max, disable saving by default
