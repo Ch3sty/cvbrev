@@ -5,6 +5,7 @@ import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 
 import JobbcoachenLayout from './components/JobbcoachenLayout';
@@ -20,6 +21,9 @@ export default function JobbcoachenPage() {
   const [cvCount, setCvCount] = useState(0);
   const [letterCount, setLetterCount] = useState(0);
   const [shouldOpenDocSelector, setShouldOpenDocSelector] = useState(0);
+  // Dagskvot: spärr när dagens meddelanden är slut + diskret räknare för fria konton
+  const [quotaLock, setQuotaLock] = useState<{ nextResetAt: string; message: string } | null>(null);
+  const [remainingToday, setRemainingToday] = useState<number | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const supabase = getSupabaseClient();
@@ -98,6 +102,22 @@ export default function JobbcoachenPage() {
         }),
       });
 
+      if (response.status === 429) {
+        // Dagskvoten är slut: visa spärrvyn och plocka bort det optimistiska
+        // meddelandet (det sparades aldrig på servern).
+        const body = await response.json().catch(() => null);
+        setQuotaLock({
+          nextResetAt: body?.nextResetAt || new Date().toISOString(),
+          message:
+            body?.message ||
+            'Du har använt dagens tio meddelanden. Chatten öppnar igen i morgon.',
+        });
+        setRemainingToday(0);
+        setMessages((prev) => prev.slice(0, -1));
+        setIsLoading(false);
+        return;
+      }
+
       if (!response.ok) {
         throw new Error('Kunde inte skicka meddelande');
       }
@@ -125,6 +145,11 @@ export default function JobbcoachenPage() {
                   const newConvId = data.conversationId;
                   setConversationId(newConvId);
                   localStorage.setItem('jobbcoachen_conversation_id', newConvId);
+                } else if (data.type === 'quota') {
+                  // Diskret räknare för gratisanvändare; premium får ingen.
+                  setRemainingToday(
+                    data.isPremium ? null : (typeof data.remaining === 'number' ? data.remaining : null)
+                  );
                 } else if (data.type === 'sources') {
                   sources = data.sources;
                 } else if (data.type === 'text') {
@@ -183,15 +208,36 @@ export default function JobbcoachenPage() {
   return (
     <JobbcoachenLayout
       inputArea={
-        <ChatInput
-          onSend={handleSendMessage}
-          disabled={isLoading}
-          placeholder="Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…"
-          conversationId={conversationId}
-          hasMessages={messages.length > 0}
-          externalOpenSignal={shouldOpenDocSelector}
-          suggestionChips={isWelcomeView ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
-        />
+        <div>
+          {quotaLock && (
+            <div className="px-3 pt-3 sm:px-4">
+              <QuotaLockCard
+                feature="chat_message"
+                title="Dagens meddelanden är slut"
+                description={quotaLock.message}
+                nextResetAt={quotaLock.nextResetAt}
+              />
+            </div>
+          )}
+          <ChatInput
+            onSend={handleSendMessage}
+            disabled={isLoading || !!quotaLock}
+            placeholder={
+              quotaLock
+                ? 'Chatten öppnar igen efter midnatt'
+                : 'Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…'
+            }
+            conversationId={conversationId}
+            hasMessages={messages.length > 0}
+            externalOpenSignal={shouldOpenDocSelector}
+            suggestionChips={isWelcomeView && !quotaLock ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
+          />
+          {!quotaLock && remainingToday !== null && (
+            <p className="pb-2 text-center text-xs text-slate-500">
+              {remainingToday} {remainingToday === 1 ? 'meddelande' : 'meddelanden'} kvar idag
+            </p>
+          )}
+        </div>
       }
     >
       {isWelcomeView ? (

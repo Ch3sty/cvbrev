@@ -7,6 +7,7 @@ import { getTemplateGenerator } from '@/lib/cv/templates';
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
 const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
@@ -2170,35 +2171,38 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Get user profile data for photo and LinkedIn
+    // Get user profile data for photo and LinkedIn.
+    // Användar-id hissas ut ur try-blocket så vi kan premium-validera mallen
+    // serverside nedan (klientens egen kontroll går att kringgå).
     let userProfile = null;
+    let authedUserId: string | null = null;
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        cookies: {
+          get: (name: string) => cookieStore.get(name)?.value,
+        },
+      }
+    );
     try {
-      const cookieStore = await cookies();
-      const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        {
-          cookies: {
-            get: (name: string) => cookieStore.get(name)?.value,
-          },
-        }
-      );
-
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        authedUserId = user.id;
         const { data: profile } = await supabase
           .from('profiles')
           .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
           .eq('id', user.id)
           .single();
-        
+
         userProfile = profile;
       }
     } catch (error) {
       console.log('Could not fetch user profile data:', error);
       // Continue without profile data - not critical for CV generation
     }
-    
+
     // Kontrollera att mallen finns
     const selectedTemplate = getTemplateById(template);
     if (!selectedTemplate) {
@@ -2207,7 +2211,25 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+
+    // Serverside-gating: premium-mallar får bara exporteras av konton med
+    // premium-åtkomst (manuell premium, Stripe-prenumeration eller admin).
+    if (selectedTemplate.tier === 'premium') {
+      if (!authedUserId) {
+        return NextResponse.json(
+          { error: 'Logga in för att exportera den här mallen.' },
+          { status: 401 }
+        );
+      }
+      const hasPremium = await userHasPremiumAccess(supabase, authedUserId);
+      if (!hasPremium) {
+        return NextResponse.json(
+          { error: 'Den här mallen ingår i Premium. Uppgradera för att exportera den.' },
+          { status: 403 }
+        );
+      }
+    }
+
     // Use structured data if available and valid, otherwise parse from text.
     // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
     // hanterar bada formaten och returnerar null om strukturen ar trasig.

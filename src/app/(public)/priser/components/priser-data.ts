@@ -12,21 +12,21 @@ export const TRIAL_DAYS = 7
 // === Pris-kort (kort-vy med 5-7 punkter per tier) ===
 
 export const FREE_HIGHLIGHTS = [
-  '5 personliga brev per vecka',
-  '1 CV-analys per vecka',
-  '2 sparade CV-versioner',
-  '1 LinkedIn-optimering per månad',
-  '3 grundnivå-rekryteringstester',
-  'Begränsad jobbmatchning',
-  '3 gratis CV-mallar',
+  '2 personliga brev per dag',
+  '1 CV-analys var tredje dag',
+  '1 LinkedIn-optimering per vecka',
+  '12 gratis CV-mallar',
+  'Alla tester, en gång per dag och nivå',
+  'Jobbcoachen: 10 meddelanden per dag',
+  'Jobbmatchning: de 10 bästa träffarna',
 ] as const
 
 export const PREMIUM_HIGHLIGHTS = [
-  'Obegränsade personliga brev',
-  'Obegränsade CV-analyser',
-  'Alla 8 professionella CV-mallar',
+  'Obegränsade brev och analyser',
+  'Alla 42 CV-mallar (30 exklusiva)',
+  'Obegränsat testande',
+  'Obegränsad jobbcoach-chatt',
   'Smart-anpassad ton (vi läser CV och annons)',
-  'Alla 6 rekryteringstester',
   'Helt obegränsad jobbmatchning',
   'Spara allt du skapar utan tak',
   'Professionell export i Word och PDF',
@@ -49,7 +49,7 @@ export const COMPARISON: ComparisonGroup[] = [
   {
     title: 'Personliga brev',
     rows: [
-      { label: 'Brev per vecka', free: '5 brev', premium: 'Obegränsat' },
+      { label: 'Brev per dag', free: '2 brev', premium: 'Obegränsat' },
       { label: 'Sparade brev åt gången', free: '2 brev', premium: 'Obegränsat' },
       { label: 'Brevmallar', free: '3 mallar', premium: 'Alla 7 mallar' },
       {
@@ -63,9 +63,9 @@ export const COMPARISON: ComparisonGroup[] = [
   {
     title: 'CV',
     rows: [
-      { label: 'CV-analyser per vecka', free: '1 analys', premium: 'Obegränsat' },
+      { label: 'CV-analys', free: '1 var tredje dag', premium: 'Obegränsat' },
       { label: 'Sparade CV-versioner', free: '2 CV', premium: 'Obegränsat' },
-      { label: 'CV-mallar', free: '3 mallar', premium: 'Alla 8 mallar' },
+      { label: 'CV-mallar', free: '12 mallar', premium: 'Alla 42 mallar' },
       {
         label: 'CV-byggare med live-förhandsvisning',
         free: 'Ja',
@@ -78,7 +78,7 @@ export const COMPARISON: ComparisonGroup[] = [
     rows: [
       {
         label: 'LinkedIn-optimering',
-        free: '1 per månad',
+        free: '1 per vecka',
         premium: 'Obegränsat',
       },
       {
@@ -93,15 +93,15 @@ export const COMPARISON: ComparisonGroup[] = [
     rows: [
       {
         label: 'Rekryteringstester',
-        free: '3 grundnivå',
-        premium: 'Alla 6 tester',
+        free: 'Alla tester, 1 gång per dag och nivå',
+        premium: 'Obegränsat testande',
       },
       {
         label: 'Jobbmatchning',
-        free: 'Begränsad',
+        free: 'De 10 bästa matchningarna',
         premium: 'Helt obegränsad',
       },
-      { label: 'Jobbcoachen', free: 'Ja', premium: 'Ja' },
+      { label: 'Jobbcoachen', free: '10 meddelanden per dag', premium: 'Obegränsat' },
     ],
   },
   {
@@ -119,7 +119,7 @@ export const COMPARISON: ComparisonGroup[] = [
 export const PRISER_FAQ_ITEMS = [
   {
     q: 'Vad ingår i Premium för 149 kr per månad?',
-    a: 'Allt vi har att erbjuda. Obegränsade personliga brev och CV-analyser, alla åtta CV-mallar, alla sju brevmallar, Smart-anpassad ton, alla sex rekryteringstester, helt obegränsad jobbmatchning och professionell export i både Word och PDF. Du sparar allt du skapar utan tak.',
+    a: 'Allt vi har att erbjuda. Obegränsade personliga brev och CV-analyser, alla 42 CV-mallar varav 30 exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och professionell export i både Word och PDF. Du sparar allt du skapar utan tak.',
   },
   {
     q: 'Hur fungerar de sju gratis dagarna?',
@@ -131,7 +131,7 @@ export const PRISER_FAQ_ITEMS = [
   },
   {
     q: 'Vad räcker gratisversionen till?',
-    a: 'Gratisversionen är generös. Fem personliga brev per vecka räcker för aktiv jobbsökning, plus en CV-analys, en LinkedIn-optimering per månad och tre grundnivå-tester. Många användare hittar jobb utan att någonsin betala. Premium är för dig som söker många jobb samtidigt eller vill ha alla mallar och Smart-anpassad ton.',
+    a: 'Gratisversionen har en dagsrytm som räcker långt. Två personliga brev om dagen, en CV-analys var tredje dag, en LinkedIn-optimering i veckan, 12 CV-mallar, alla tester en gång per dag och nivå samt tio meddelanden om dagen med Jobbcoachen. Många hittar jobb utan att någonsin betala. Premium är för dig som söker många jobb samtidigt eller vill ha alla mallar och Smart-anpassad ton.',
   },
   {
     q: 'Vad händer om jag avslutar Premium?',
@@ -168,7 +168,7 @@ export const VAD_INGAR: VadIngarItem[] = [
     iconKey: 'cv',
     title: 'CV-byggare',
     body:
-      'Steg-för-steg-flöde med live-förhandsvisning. Åtta professionella mallar i Premium.',
+      'Steg-för-steg-flöde med live-förhandsvisning. 12 mallar gratis, alla 42 i Premium.',
   },
   {
     iconKey: 'analys',
@@ -198,18 +198,18 @@ export const VAD_INGAR: VadIngarItem[] = [
     iconKey: 'tester',
     title: 'Rekryteringstester',
     body:
-      'Sex tester som speglar de vanligaste på svenska arbetsmarknaden. Tränar inför skarpt läge.',
+      'Tester som speglar de vanligaste på svenska arbetsmarknaden. Träna varje dag, obegränsat i Premium.',
   },
   {
     iconKey: 'coach',
     title: 'Jobbcoachen',
     body:
-      'Vår karriärcoach svarar på frågor om CV, brev, intervju och förhandling när du behöver hjälp.',
+      'Vår karriärcoach svarar på frågor om CV, brev, intervju och förhandling. Obegränsad chatt i Premium.',
   },
   {
     iconKey: 'mallar',
     title: 'Alla mallar',
     body:
-      'Åtta CV-mallar och sju brevmallar, från klassisk och minimalistisk till executive och kreativ.',
+      '42 CV-mallar och sju brevmallar, från klassisk och minimalistisk till executive och kreativ. 30 av mallarna är exklusiva för Premium.',
   },
 ]

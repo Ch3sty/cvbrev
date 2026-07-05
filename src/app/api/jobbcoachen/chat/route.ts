@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { embedQuery, generateStream, chatContents, GEMINI_MODELS } from '@/lib/gemini';
+import { checkChatQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -97,6 +98,23 @@ export async function POST(req: NextRequest) {
 
     if (userError || !user) {
       return new Response('Unauthorized', { status: 401 });
+    }
+
+    // Dagskvot: 10 användarmeddelanden per dag för gratisanvändare.
+    // Räknas mot ai_messages (role='user') sedan midnatt svensk tid — exakt
+    // de rader den här routen själv sparar nedan. Premium/admin passerar.
+    const quota = await checkChatQuota(supabase, user.id);
+    if (!quota.allowed) {
+      return new Response(
+        JSON.stringify(
+          quotaExceededBody(
+            'chat_message',
+            quota,
+            'Du har använt dagens tio meddelanden. Chatten öppnar igen i morgon, eller uppgradera för obegränsat.'
+          )
+        ),
+        { status: 429, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
     // Get or create conversation
@@ -237,6 +255,20 @@ Svara enligt instruktionerna. Om frågan är vag eller en hälsning: kort replik
             encoder.encode(`data: ${JSON.stringify({
               type: 'conversation_id',
               conversationId: convId
+            })}\n\n`)
+          );
+
+          // Kvotinfo: låt klienten visa "X meddelanden kvar idag" för
+          // gratisanvändare. quota.used räknades FÖRE detta meddelande
+          // sparades, därför used + 1.
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({
+              type: 'quota',
+              isPremium: quota.isPremium,
+              remaining: quota.isPremium
+                ? null
+                : Math.max(0, quota.limit - (quota.used + 1)),
+              limit: quota.limit,
             })}\n\n`)
           );
 

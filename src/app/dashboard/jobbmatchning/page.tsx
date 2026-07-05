@@ -682,13 +682,13 @@ export default function JobbmatchningPage() {
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3 sm:mb-4">
                               <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500 flex-shrink-0" />
                               <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                                {filteredJobs.length - FREE_TIER_JOB_LIMIT} fler jobb tillgängliga
+                                {filteredJobs.length - FREE_TIER_JOB_LIMIT} matchningar till väntar i Premium
                               </h3>
                             </div>
                             <p className="text-sm sm:text-base text-slate-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
                               Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
-                              Som gratis-användare kan du se de {FREE_TIER_JOB_LIMIT} bästa matchningarna.
-                              Uppgradera till Premium för att se alla resultat och få obegränsad tillgång till jobbmatchning.
+                              Just nu ser du de {FREE_TIER_JOB_LIMIT} bästa. Med Premium låser du upp hela listan
+                              och matchar obegränsat.
                             </p>
                             <button
                               onClick={() => router.push('/priser')}

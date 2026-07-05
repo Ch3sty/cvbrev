@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
         guest_email: guestEmail,
         invitation_code: invitationCode,
         status: 'pending',
-        trial_duration_days: 2,
+        trial_duration_days: 7,
         source: 'weekly_allowance',
         expires_at: expiresAt.toISOString()
       })
