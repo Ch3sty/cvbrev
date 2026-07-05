@@ -34,7 +34,7 @@ export function QuestionNavigation({
         </p>
       </div>
 
-      <div className="grid grid-cols-5 sm:grid-cols-[repeat(15,_minmax(0,_1fr))] gap-1.5 sm:gap-2">
+      <div className="grid grid-cols-5 sm:grid-cols-[repeat(15,_minmax(0,_1fr))] gap-2">
         {Array.from({ length: totalQuestions }).map((_, i) => {
           const isCurrent = currentQuestion === i;
           const isAnswered = answeredQuestions.has(i);
@@ -47,7 +47,7 @@ export function QuestionNavigation({
               whileTap={{ scale: 0.95 }}
               className={cn(
                 'relative aspect-square rounded-lg font-bold text-xs sm:text-sm transition-all',
-                'flex items-center justify-center min-h-[36px] sm:min-h-[40px] touch-manipulation',
+                'flex items-center justify-center min-h-[44px] sm:min-h-[40px] touch-manipulation',
                 isCurrent && !isAnswered && 'text-white',
                 isCurrent && isAnswered && 'text-white ring-2 ring-orange-300',
                 !isCurrent && isAnswered && 'text-white',

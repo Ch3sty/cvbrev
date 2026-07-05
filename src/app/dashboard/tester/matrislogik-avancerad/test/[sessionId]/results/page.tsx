@@ -15,9 +15,11 @@ import {
   Trophy,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 import { selectAvanceradQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7';
-import type { Question } from '@/lib/logicTestV7/types.v7';
-import { SvgCellV7 } from '@/lib/logicTestV7/renderers.v7';
+import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
+import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 
 interface SavedAnswer {
   q_id: string;
@@ -64,7 +66,7 @@ export default function ResultsPage({ params }: PageProps) {
 
   // Samma seedade urval som test-sidan → identiska 15 frågor för denna session.
   const questions = useMemo(
-    () => (sessionId ? (selectAvanceradQuestionsForSession(sessionId) as unknown as Question[]) : []),
+    () => (sessionId ? selectAvanceradQuestionsForSession(sessionId) : []),
     [sessionId]
   );
 
@@ -191,6 +193,8 @@ export default function ResultsPage({ params }: PageProps) {
           formatTime={formatTime}
         />
 
+        {sessionId && <PercentileCard sessionId={sessionId} />}
+
         {isLegacySession && <LegacySessionNotice />}
 
         {!isLegacySession && (strengths.length > 0 || weaknesses.length > 0) && (
@@ -200,6 +204,12 @@ export default function ResultsPage({ params }: PageProps) {
         {!isLegacySession && (
           <QuestionReview answers={savedAnswers} questions={questions} formatTimeShort={formatTimeShort} />
         )}
+
+        <NextLevelCard
+          percentage={percentage}
+          levelLabel="Expertnivån"
+          href="/dashboard/tester/matrislogik-expert"
+        />
 
         <ResultsActions
           onRestart={() => router.push('/dashboard/tester/matrislogik-avancerad')}
@@ -454,7 +464,7 @@ function QuestionReview({
   formatTimeShort,
 }: {
   answers: SavedAnswer[];
-  questions: Question[];
+  questions: LayeredQuestion[];
   formatTimeShort: (s: number) => string;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -600,7 +610,7 @@ function ReviewOption({
 }: {
   label: string;
   letter: string;
-  cell: Question['options'][number];
+  cell: LayeredCell;
   color: 'emerald' | 'red';
 }) {
   const colorClasses = {
@@ -619,7 +629,7 @@ function ReviewOption({
       </div>
       <div className="aspect-square w-full max-w-[80px] mx-auto bg-white rounded-lg border border-white p-2">
         <svg viewBox="0 0 100 100" className="w-full h-full" shapeRendering="geometricPrecision">
-          <SvgCellV7 cell={cell} />
+          <SvgLayeredCell cell={cell} />
         </svg>
       </div>
     </div>

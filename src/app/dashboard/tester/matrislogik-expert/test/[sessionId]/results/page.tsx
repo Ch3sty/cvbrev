@@ -15,6 +15,7 @@ import {
   Trophy,
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
 import { selectExpertQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7';
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
 import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
@@ -186,6 +187,9 @@ export default function ResultsPage({ params }: PageProps) {
           formatTime={formatTime}
         />
 
+        {/* Jämförelse mot andra testtagare (renderas bara vid nog stort underlag) */}
+        {sessionId && <PercentileCard sessionId={sessionId} />}
+
         {/* Legacy-banner */}
         {isLegacySession && <LegacySessionNotice />}
 
@@ -199,7 +203,7 @@ export default function ResultsPage({ params }: PageProps) {
         )}
 
         {/* Action buttons */}
-        <ResultsActions onRestart={() => router.push('/dashboard/tester/matrislogik-grund')} />
+        <ResultsActions onRestart={() => router.push('/dashboard/tester/matrislogik-expert')} />
       </div>
     </div>
   );

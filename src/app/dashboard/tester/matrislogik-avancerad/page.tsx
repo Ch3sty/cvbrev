@@ -7,6 +7,7 @@ import AvanceradTestHero from './components/AvanceradTestHero';
 import TestInfoCard from './components/TestInfoCard';
 import StartTestCTA from './components/StartTestCTA';
 import PreviousResultsCard from './components/PreviousResultsCard';
+import PremiumRequiredCard from '../components/PremiumRequiredCard';
 
 interface Session {
   id: string;
@@ -19,6 +20,7 @@ export default function MatrislogikAvanceradPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [premiumRequired, setPremiumRequired] = useState(false);
 
   useEffect(() => {
     fetch('/api/logicTestV6/session')
@@ -43,6 +45,11 @@ export default function MatrislogikAvanceradPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
+      if (response.status === 403) {
+        setPremiumRequired(true);
+        setIsLoading(false);
+        return;
+      }
       const data = await response.json();
       if (data.session) {
         router.push(`/dashboard/tester/matrislogik-avancerad/test/${data.session.id}`);
@@ -66,7 +73,11 @@ export default function MatrislogikAvanceradPage() {
       <div className="space-y-5 sm:space-y-6">
         <AvanceradTestHero bestScore={bestScore} bestPercentage={bestPercentage} />
         <TestInfoCard />
-        <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />
+        {premiumRequired ? (
+          <PremiumRequiredCard levelLabel="Avancerad nivå" />
+        ) : (
+          <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />
+        )}
         <PreviousResultsCard sessions={previousSessions} bestScore={bestScore} />
       </div>
     </div>

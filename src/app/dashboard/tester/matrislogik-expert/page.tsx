@@ -3,8 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import ExpertTestHero from './components/ExpertTestHero';
+import ExpertInfoCard from './components/ExpertInfoCard';
 import StartTestCTA from '../matrislogik-grund/components/StartTestCTA';
 import PreviousResultsCard from '../matrislogik-grund/components/PreviousResultsCard';
+import PremiumRequiredCard from '../components/PremiumRequiredCard';
 
 interface Session {
   id: string;
@@ -18,6 +21,7 @@ export default function MatrislogikExpertPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [premiumRequired, setPremiumRequired] = useState(false);
 
   useEffect(() => {
     fetch('/api/logicTestV4/session?test_type=matrislogik-expert')
@@ -43,6 +47,11 @@ export default function MatrislogikExpertPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ test_type: 'matrislogik-expert' }),
       });
+      if (response.status === 403) {
+        setPremiumRequired(true);
+        setIsLoading(false);
+        return;
+      }
       const data = await response.json();
       if (data.session) {
         router.push(`/dashboard/tester/matrislogik-expert/test/${data.session.id}`);
@@ -59,24 +68,18 @@ export default function MatrislogikExpertPage() {
     previousSessions.length > 0
       ? Math.max(...previousSessions.map((s) => s.score ?? 0))
       : 0;
+  const bestPercentage = bestScore > 0 ? Math.round((bestScore / 15) * 100) : 0;
 
   return (
     <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
       <div className="space-y-5 sm:space-y-6">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wide mb-3">
-            Expert
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Matrislogik – expertnivå
-          </h1>
-          <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-xl mx-auto">
-            Den svåraste nivån. Mönster som roterar och förflyttas i flera steg,
-            med tre olika figurtyper. 15 frågor, varje gång nya. Tänk noga – här
-            räcker det inte att gissa.
-          </p>
-        </div>
-        <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />
+        <ExpertTestHero bestScore={bestScore} bestPercentage={bestPercentage} />
+        <ExpertInfoCard />
+        {premiumRequired ? (
+          <PremiumRequiredCard levelLabel="Expertnivån" />
+        ) : (
+          <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />
+        )}
         <PreviousResultsCard sessions={previousSessions} bestScore={bestScore} />
       </div>
     </div>
