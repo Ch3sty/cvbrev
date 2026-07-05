@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 
 export async function POST() {
   try {
@@ -14,6 +15,16 @@ export async function POST() {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
+      );
+    }
+
+    // Avancerad är premium-låst (se testCatalog). Gaten måste sitta serverside —
+    // hubbens kort stoppar bara klick, inte direktnavigering till startsidan.
+    const hasPremium = await userHasPremiumAccess(supabase, user.id);
+    if (!hasPremium) {
+      return NextResponse.json(
+        { error: 'Premium membership required', code: 'premium_required' },
+        { status: 403 }
       );
     }
 
@@ -46,8 +57,8 @@ export async function POST() {
   }
 }
 
-// GET: Fetch user's v6 sessions
-export async function GET() {
+// GET: Fetch user's v6 sessions (?id=<uuid> hämtar en enskild session).
+export async function GET(request: Request) {
   try {
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -59,6 +70,25 @@ export async function GET() {
         { error: 'Unauthorized' },
         { status: 401 }
       );
+    }
+
+    const sessionId = new URL(request.url).searchParams.get('id');
+    if (sessionId) {
+      const { data: session, error: fetchError } = await supabase
+        .from('logic_test_v4_sessions')
+        .select('*')
+        .eq('id', sessionId)
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchError || !session) {
+        return NextResponse.json(
+          { error: 'Session not found' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({ session });
     }
 
     // Fetch all v6 sessions for user, ordered by most recent

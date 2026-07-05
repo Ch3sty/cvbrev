@@ -54,10 +54,15 @@ export async function POST(request: Request) {
     const answers = Array.isArray(session.answers) ? session.answers : [];
     const score = answers.filter((a: any) => a.correct).length;
 
-    // Calculate time spent
-    const timeSpent = Math.floor(
-      (Date.now() - new Date(session.started_at).getTime()) / 1000
+    // Aktiv tid = summan av tiden per besvarad fråga (väggklocka räknar med
+    // pauser och blir missvisande). Fallback för sessioner utan tidsdata.
+    const activeTime = answers.reduce(
+      (sum: number, a: any) => sum + (typeof a.time_spent === 'number' ? a.time_spent : 0),
+      0
     );
+    const timeSpent = activeTime > 0
+      ? activeTime
+      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     // Update session
     const { error: updateError } = await supabase

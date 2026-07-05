@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 
 export async function POST(request: Request) {
   try {
@@ -24,6 +25,18 @@ export async function POST(request: Request) {
       if (body && typeof body.test_type === 'string') testType = body.test_type;
     } catch {
       /* ingen body = grund */
+    }
+
+    // Expert är premium-låst. Gaten måste sitta serverside — hubbens kort
+    // stoppar bara klick, inte direktnavigering till /matrislogik-expert.
+    if (testType === 'matrislogik-expert') {
+      const hasPremium = await userHasPremiumAccess(supabase, user.id);
+      if (!hasPremium) {
+        return NextResponse.json(
+          { error: 'Premium membership required', code: 'premium_required' },
+          { status: 403 }
+        );
+      }
     }
 
     // Create new session
@@ -72,6 +85,27 @@ export async function GET(request: Request) {
     }
 
     const url = new URL(request.url);
+    const sessionId = url.searchParams.get('id');
+
+    // ?id=<uuid> hämtar en enskild session (för att återuppta pågående test).
+    if (sessionId) {
+      const { data: session, error: fetchError } = await supabase
+        .from('logic_test_v4_sessions')
+        .select('*')
+        .eq('id', sessionId)
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchError || !session) {
+        return NextResponse.json(
+          { error: 'Session not found' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({ session });
+    }
+
     const testType = url.searchParams.get('test_type');
 
     let query = supabase
