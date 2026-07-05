@@ -6,7 +6,7 @@ import { checkProvAllowance, PROV_TEST_TYPES } from '@/lib/prov/allowance';
 const TEST_TYPE = PROV_TEST_TYPES.logik;
 
 // POST: skapa ny prov-session. Gratisanvändare får 1 slutfört prov per
-// testtyp och rullande 7-dygnsperiod; premium är obegränsat.
+// testtyp och dag (nollställs vid midnatt svensk tid); premium är obegränsat.
 export async function POST() {
   try {
     const cookieStore = await cookies();

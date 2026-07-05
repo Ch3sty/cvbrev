@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+
+const TEST_TYPE = 'matrislogik-avancerad';
+const QUOTA_MESSAGE =
+  'Du har redan gjort det här testet idag. Ny chans i morgon, eller uppgradera för obegränsat.';
 
 export async function POST() {
   try {
@@ -18,13 +22,14 @@ export async function POST() {
       );
     }
 
-    // Avancerad är premium-låst (se testCatalog). Gaten måste sitta serverside —
-    // hubbens kort stoppar bara klick, inte direktnavigering till startsidan.
-    const hasPremium = await userHasPremiumAccess(supabase, user.id);
-    if (!hasPremium) {
+    // Dagskvot: gratisanvändare gör varje testtyp en gång per dag, premium är
+    // obegränsat. Spärren måste sitta serverside — hubbens kort stoppar bara
+    // klick, inte direktnavigering till startsidan.
+    const quota = await checkDailyTestQuota(supabase, user.id, TEST_TYPE);
+    if (!quota.allowed) {
       return NextResponse.json(
-        { error: 'Premium membership required', code: 'premium_required' },
-        { status: 403 }
+        quotaExceededBody(`test:${TEST_TYPE}`, quota, QUOTA_MESSAGE),
+        { status: 429 }
       );
     }
 
@@ -33,7 +38,7 @@ export async function POST() {
       .from('logic_test_v4_sessions')
       .insert({
         user_id: user.id,
-        test_type: 'matrislogik-avancerad',
+        test_type: TEST_TYPE,
         answers: []
       })
       .select()

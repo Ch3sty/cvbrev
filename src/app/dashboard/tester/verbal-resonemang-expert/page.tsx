@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Clock, ListChecks, Scale } from 'lucide-react';
 import { TOTAL_QUESTIONS } from '@/lib/verbalTestExpert/selectPassages';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 const EXPERT_MINUTES = 35;
 
@@ -14,10 +15,16 @@ interface Session {
   completed_at: string | null;
 }
 
+interface QuotaLock {
+  feature: string;
+  nextResetAt: string;
+}
+
 export default function VerbalExpertStartPage() {
   const router = useRouter();
   const [previous, setPrevious] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null);
 
   useEffect(() => {
     fetch('/api/verbalTestExpert/session')
@@ -33,8 +40,15 @@ export default function VerbalExpertStartPage() {
     setIsLoading(true);
     try {
       const res = await fetch('/api/verbalTestExpert/session', { method: 'POST' });
-      if (res.status === 403) {
-        router.push('/priser');
+      if (res.status === 429) {
+        const data = await res.json().catch(() => null);
+        if (data?.code === 'quota_exceeded') {
+          setQuotaLock({
+            feature: data.feature ?? 'test:verbal-resonemang-expert',
+            nextResetAt: data.nextResetAt ?? new Date().toISOString(),
+          });
+        }
+        setIsLoading(false);
         return;
       }
       const data = await res.json();
@@ -101,6 +115,14 @@ export default function VerbalExpertStartPage() {
           </div>
         </motion.section>
 
+        {quotaLock ? (
+          <QuotaLockCard
+            feature={quotaLock.feature}
+            title="Du har gjort dagens test"
+            description="Som gratisanvändare gör du varje test en gång per dag."
+            nextResetAt={quotaLock.nextResetAt}
+          />
+        ) : (
         <motion.section
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -113,7 +135,7 @@ export default function VerbalExpertStartPage() {
               Ditt bästa: <span className="font-bold text-slate-900">{best}/{TOTAL_QUESTIONS}</span> ({bestPct}%)
             </p>
           )}
-          <p className="text-sm text-slate-600 mb-4">Premiumnivå. Inga siffror, bara logik.</p>
+          <p className="text-sm text-slate-600 mb-4">Inga siffror, bara logik.</p>
           <button
             onClick={handleStart}
             disabled={isLoading}
@@ -127,6 +149,7 @@ export default function VerbalExpertStartPage() {
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </button>
         </motion.section>
+        )}
       </div>
     </div>
   );

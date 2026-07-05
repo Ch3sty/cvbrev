@@ -80,7 +80,7 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Avancerad',
     questionCount: 15,
     timeLabel: '25',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
   {
     slug: 'matrislogik-expert',
@@ -91,7 +91,7 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Expert',
     questionCount: 15,
     timeLabel: '30',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
 ];
 
@@ -116,7 +116,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Avancerad',
     questionCount: 60,
     timeLabel: '30',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
   {
     slug: 'verbal-resonemang-expert',
@@ -127,7 +127,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Expert',
     questionCount: 32,
     timeLabel: '35',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
 ];
 
@@ -152,7 +152,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Avancerad',
     questionCount: 32,
     timeLabel: '35',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
   {
     slug: 'numeriskt-test-expert',
@@ -163,7 +163,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     levelLabel: 'Expert',
     questionCount: 32,
     timeLabel: '35',
-    isPremiumLocked: true,
+    isPremiumLocked: false,
   },
 ];
 

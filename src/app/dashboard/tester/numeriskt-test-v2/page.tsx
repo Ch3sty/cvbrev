@@ -7,6 +7,7 @@ import NumericalTestHero from '@/components/tests/numerical-shared/NumericalTest
 import NumericalInfoCard from '@/components/tests/numerical-shared/NumericalInfoCard';
 import NumericalStartCTA from '@/components/tests/numerical-shared/NumericalStartCTA';
 import NumericalPreviousResults from '@/components/tests/numerical-shared/NumericalPreviousResults';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 interface Session {
   id: string;
@@ -15,12 +16,18 @@ interface Session {
   completed_at: string;
 }
 
+interface QuotaLock {
+  feature: string;
+  nextResetAt: string;
+}
+
 const TOTAL_QUESTIONS = 24;
 
 export default function NumericalTestV2LandingPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null);
 
   useEffect(() => {
     fetch('/api/numericalTestV2/session')
@@ -45,6 +52,17 @@ export default function NumericalTestV2LandingPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
+      if (response.status === 429) {
+        const data = await response.json().catch(() => null);
+        if (data?.code === 'quota_exceeded') {
+          setQuotaLock({
+            feature: data.feature ?? 'test:numerical-reasoning-v2',
+            nextResetAt: data.nextResetAt ?? new Date().toISOString(),
+          });
+        }
+        setIsLoading(false);
+        return;
+      }
       const data = await response.json();
       if (data.session) {
         router.push(`/dashboard/tester/numeriskt-test-v2/test/${data.session.id}`);
@@ -73,7 +91,16 @@ export default function NumericalTestV2LandingPage() {
           totalQuestions={TOTAL_QUESTIONS}
         />
         <NumericalInfoCard variant="v2" />
-        <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v2" />
+        {quotaLock ? (
+          <QuotaLockCard
+            feature={quotaLock.feature}
+            title="Du har gjort dagens test"
+            description="Som gratisanvändare gör du varje test en gång per dag."
+            nextResetAt={quotaLock.nextResetAt}
+          />
+        ) : (
+          <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v2" />
+        )}
         <NumericalPreviousResults
           variant="v2"
           sessions={previousSessions}

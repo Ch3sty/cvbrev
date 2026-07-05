@@ -8,6 +8,7 @@ import NumericalInfoCard from '@/components/tests/numerical-shared/NumericalInfo
 import NumericalStartCTA from '@/components/tests/numerical-shared/NumericalStartCTA';
 import NumericalPreviousResults from '@/components/tests/numerical-shared/NumericalPreviousResults';
 import { TOTAL_QUESTIONS } from '@/lib/numericalTestExpert/selectPassages';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 interface Session {
   id: string;
@@ -16,10 +17,16 @@ interface Session {
   completed_at: string;
 }
 
+interface QuotaLock {
+  feature: string;
+  nextResetAt: string;
+}
+
 export default function NumeriskExpertPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null);
 
   useEffect(() => {
     fetch('/api/numericalTestExpert/session')
@@ -44,8 +51,15 @@ export default function NumeriskExpertPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
-      if (response.status === 403) {
-        router.push('/priser');
+      if (response.status === 429) {
+        const data = await response.json().catch(() => null);
+        if (data?.code === 'quota_exceeded') {
+          setQuotaLock({
+            feature: data.feature ?? 'test:numerical-reasoning-expert',
+            nextResetAt: data.nextResetAt ?? new Date().toISOString(),
+          });
+        }
+        setIsLoading(false);
         return;
       }
       const data = await response.json();
@@ -76,7 +90,16 @@ export default function NumeriskExpertPage() {
           totalQuestions={TOTAL_QUESTIONS}
         />
         <NumericalInfoCard variant="expert" />
-        <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="expert" />
+        {quotaLock ? (
+          <QuotaLockCard
+            feature={quotaLock.feature}
+            title="Du har gjort dagens test"
+            description="Som gratisanvändare gör du varje test en gång per dag."
+            nextResetAt={quotaLock.nextResetAt}
+          />
+        ) : (
+          <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="expert" />
+        )}
         <NumericalPreviousResults
           variant="expert"
           sessions={previousSessions}

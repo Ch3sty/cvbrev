@@ -7,7 +7,7 @@ import AvanceradTestHero from './components/AvanceradTestHero';
 import TestInfoCard from './components/TestInfoCard';
 import StartTestCTA from './components/StartTestCTA';
 import PreviousResultsCard from './components/PreviousResultsCard';
-import PremiumRequiredCard from '../components/PremiumRequiredCard';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 interface Session {
   id: string;
@@ -16,11 +16,16 @@ interface Session {
   completed_at: string;
 }
 
+interface QuotaLock {
+  feature: string;
+  nextResetAt: string;
+}
+
 export default function MatrislogikAvanceradPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [premiumRequired, setPremiumRequired] = useState(false);
+  const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null);
 
   useEffect(() => {
     fetch('/api/logicTestV6/session')
@@ -45,8 +50,14 @@ export default function MatrislogikAvanceradPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
-      if (response.status === 403) {
-        setPremiumRequired(true);
+      if (response.status === 429) {
+        const data = await response.json().catch(() => null);
+        if (data?.code === 'quota_exceeded') {
+          setQuotaLock({
+            feature: data.feature ?? 'test:matrislogik-avancerad',
+            nextResetAt: data.nextResetAt ?? new Date().toISOString(),
+          });
+        }
         setIsLoading(false);
         return;
       }
@@ -73,8 +84,13 @@ export default function MatrislogikAvanceradPage() {
       <div className="space-y-5 sm:space-y-6">
         <AvanceradTestHero bestScore={bestScore} bestPercentage={bestPercentage} />
         <TestInfoCard />
-        {premiumRequired ? (
-          <PremiumRequiredCard levelLabel="Avancerad nivå" />
+        {quotaLock ? (
+          <QuotaLockCard
+            feature={quotaLock.feature}
+            title="Du har gjort dagens test"
+            description="Som gratisanvändare gör du varje test en gång per dag."
+            nextResetAt={quotaLock.nextResetAt}
+          />
         ) : (
           <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />
         )}

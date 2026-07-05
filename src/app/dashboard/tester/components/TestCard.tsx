@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Lock, Play, CheckCircle2, Trophy, FileText, Clock } from 'lucide-react';
+import { ArrowRight, Lock, Play, CheckCircle2, Trophy, FileText, Clock, CalendarDays } from 'lucide-react';
 import { TestCardThumbnail, type TestType } from './illustrations/TesterHubIcons';
 import LevelDots from './LevelDots';
 import Sparkline from './Sparkline';
@@ -135,6 +135,13 @@ export default function TestCard({
                   <Clock className="w-3 h-3" strokeWidth={2.5} />
                   {timeLabel} min
                 </span>
+                {/* Gratisrytmen: en slutförd session per test och dag. */}
+                {!isUserPremium && (
+                  <span className="inline-flex items-center gap-1">
+                    <CalendarDays className="w-3 h-3" strokeWidth={2.5} />
+                    1/dag
+                  </span>
+                )}
               </div>
             </div>
           </div>

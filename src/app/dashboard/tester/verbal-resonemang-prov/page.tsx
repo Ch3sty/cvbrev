@@ -3,35 +3,43 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Lock, BookOpen, Clock, ListChecks, AlertCircle } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, ListChecks } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { PROV_TOTAL_STATEMENTS } from '@/lib/verbalTestProv/selectProv';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 const PROV_MINUTES = 40;
+
+/** Nästa lokala midnatt (fallback när API:t inte skickar exakt återkomsttid). */
+function nextMidnightISO(): string {
+  const d = new Date();
+  d.setHours(24, 0, 0, 0);
+  return d.toISOString();
+}
 
 export default function VerbalProvStartPage() {
   const router = useRouter();
   const { subscriptionTier } = useProfile();
   const [isStarting, setIsStarting] = useState(false);
-  const [rateLimited, setRateLimited] = useState<{ nextAvailableAt: string | null } | null>(null);
+  const [rateLimited, setRateLimited] = useState<{ nextAvailableAt: string } | null>(null);
 
   const isPremium = subscriptionTier === 'premium';
 
+  // Kolla om provet redan är gjort idag (den skarpa spärren sker i API:t).
   useEffect(() => {
     if (isPremium) return;
     fetch('/api/verbalTestProv/session')
       .then((r) => (r.ok ? r.json() : { sessions: [] }))
       .then((data) => {
         const sessions = Array.isArray(data.sessions) ? data.sessions : [];
-        const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-        const recent = sessions
-          .filter((s: { completed_at: string | null }) => s.completed_at && new Date(s.completed_at).getTime() >= weekAgo)
-          .sort((a: { completed_at: string }, b: { completed_at: string }) =>
-            new Date(a.completed_at).getTime() - new Date(b.completed_at).getTime()
-          );
-        if (recent.length >= 1) {
-          const next = new Date(new Date(recent[0].completed_at).getTime() + 7 * 24 * 60 * 60 * 1000);
-          setRateLimited({ nextAvailableAt: next.toISOString() });
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const doneToday = sessions.some(
+          (s: { completed_at: string | null }) =>
+            s.completed_at && new Date(s.completed_at).getTime() >= todayStart.getTime()
+        );
+        if (doneToday) {
+          setRateLimited({ nextAvailableAt: nextMidnightISO() });
         }
       })
       .catch(() => {});
@@ -42,8 +50,8 @@ export default function VerbalProvStartPage() {
     try {
       const res = await fetch('/api/verbalTestProv/session', { method: 'POST' });
       if (res.status === 429) {
-        const data = await res.json();
-        setRateLimited({ nextAvailableAt: data.nextAvailableAt ?? null });
+        const data = await res.json().catch(() => null);
+        setRateLimited({ nextAvailableAt: data?.nextAvailableAt ?? nextMidnightISO() });
         setIsStarting(false);
         return;
       }
@@ -58,10 +66,6 @@ export default function VerbalProvStartPage() {
       setIsStarting(false);
     }
   };
-
-  const nextDate = rateLimited?.nextAvailableAt
-    ? new Date(rateLimited.nextAvailableAt).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' })
-    : null;
 
   return (
     <div className="mx-auto py-4 sm:py-6 max-w-3xl">
@@ -112,38 +116,12 @@ export default function VerbalProvStartPage() {
         </motion.section>
 
         {rateLimited && !isPremium ? (
-          <motion.section
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="bg-white rounded-3xl border border-amber-200/70 p-5 sm:p-6"
-            style={{ boxShadow: '0 4px 16px -8px rgba(245, 158, 11, 0.18)' }}
-          >
-            <div className="flex items-start gap-3">
-              <div
-                className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                style={{ background: 'linear-gradient(135deg, #F59E0B, #F97316)' }}
-              >
-                <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-bold text-slate-900">Du har redan gjort veckans prov</h3>
-                <p className="text-sm text-slate-600 mt-1 leading-relaxed">
-                  Gratisanvändare kan göra verbal-provet en gång per vecka.
-                  {nextDate && <> Nästa prov blir tillgängligt <span className="font-semibold">{nextDate}</span>.</>}{' '}
-                  Med Premium gör du provet obegränsat.
-                </p>
-                <button
-                  onClick={() => router.push('/priser')}
-                  className="inline-flex items-center gap-1.5 mt-3 px-4 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[44px]"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                >
-                  <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  Uppgradera för obegränsat
-                </button>
-              </div>
-            </div>
-          </motion.section>
+          <QuotaLockCard
+            feature="test:verbal-resonemang-prov"
+            title="Du har gjort dagens prov"
+            description="Som gratisanvändare gör du varje prov en gång per dag."
+            nextResetAt={rateLimited.nextAvailableAt}
+          />
         ) : (
           <motion.section
             initial={{ opacity: 0, y: 12 }}
@@ -155,7 +133,7 @@ export default function VerbalProvStartPage() {
             <p className="text-sm text-slate-600 mb-4">
               {isPremium
                 ? 'Du har obegränsade prov med Premium.'
-                : 'Som gratisanvändare kan du göra provet en gång per vecka.'}
+                : 'Som gratisanvändare gör du provet en gång per dag.'}
             </p>
             <button
               onClick={handleStart}

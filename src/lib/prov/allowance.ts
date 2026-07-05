@@ -1,12 +1,17 @@
 // src/lib/prov/allowance.ts
 // =============================================================================
-// Rate-limit för prov: gratisanvändare får 1 slutfört prov per testtyp och
-// rullande 7-dygnsperiod. Premium är obegränsat. Ingen separat tabell behövs —
-// vi räknar slutförda prov-sessioner i logic_test_v4_sessions direkt, vilket är
-// självrensande (rullande fönster) och konsekvent med var sessionerna lagras.
+// Rate-limit för prov: gratisanvändare får 1 slutfört prov per testtyp och dag,
+// samma dagsrytm som övriga tester (se docs/plan-kvotmodell.md). Premium är
+// obegränsat. Räkningen delegeras till checkDailyTestQuota, som räknar
+// slutförda sessioner i logic_test_v4_sessions sedan midnatt svensk tid —
+// prov-typerna bor i samma tabell som testerna.
+//
+// AllowanceResult-formen behålls så prov-routes och UI som läser
+// usedInWindow/nextAvailableAt fortsätter fungera oförändrat.
 // =============================================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { checkDailyTestQuota } from '@/lib/quota/quotaService';
 
 export const PROV_TEST_TYPES = {
   logik: 'matrislogik-prov',
@@ -16,14 +21,13 @@ export const PROV_TEST_TYPES = {
 
 export type ProvTestType = (typeof PROV_TEST_TYPES)[keyof typeof PROV_TEST_TYPES];
 
-/** Antal tillåtna prov per testtyp och 7-dygnsfönster för gratisanvändare. */
-export const FREE_PROV_PER_WEEK = 1;
-const WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+/** Antal tillåtna prov per testtyp och dag för gratisanvändare. */
+export const FREE_PROV_PER_DAY = 1;
 
 export interface AllowanceResult {
   allowed: boolean;
   isPremium: boolean;
-  /** Antal slutförda prov i fönstret (för gratisanvändare). */
+  /** Antal slutförda prov i dagens fönster (för gratisanvändare). */
   usedInWindow: number;
   /** När nästa prov blir tillgängligt (ISO) om spärrat, annars null. */
   nextAvailableAt: string | null;
@@ -31,7 +35,8 @@ export interface AllowanceResult {
 
 /**
  * Avgör om användaren får starta ett nytt prov av angiven typ just nu.
- * Premium: alltid. Gratis: max FREE_PROV_PER_WEEK slutförda prov per rullande vecka.
+ * Premium: alltid. Gratis: max FREE_PROV_PER_DAY slutförda prov per dag,
+ * med nollställning vid midnatt svensk tid.
  */
 export async function checkProvAllowance(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,38 +44,11 @@ export async function checkProvAllowance(
   userId: string,
   testType: ProvTestType
 ): Promise<AllowanceResult> {
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('subscription_tier')
-    .eq('id', userId)
-    .single();
-
-  const isPremium = profile?.subscription_tier === 'premium';
-  if (isPremium) {
-    return { allowed: true, isPremium: true, usedInWindow: 0, nextAvailableAt: null };
-  }
-
-  const since = new Date(Date.now() - WINDOW_MS).toISOString();
-  const { data: recent } = await supabase
-    .from('logic_test_v4_sessions')
-    .select('completed_at')
-    .eq('user_id', userId)
-    .eq('test_type', testType)
-    .not('completed_at', 'is', null)
-    .gte('completed_at', since)
-    .order('completed_at', { ascending: true });
-
-  const completed = Array.isArray(recent) ? recent : [];
-  const usedInWindow = completed.length;
-  const allowed = usedInWindow < FREE_PROV_PER_WEEK;
-
-  // Nästa tillgängliga = äldsta slutförda i fönstret + 7 dygn.
-  let nextAvailableAt: string | null = null;
-  if (!allowed && completed[0]?.completed_at) {
-    nextAvailableAt = new Date(
-      new Date(completed[0].completed_at).getTime() + WINDOW_MS
-    ).toISOString();
-  }
-
-  return { allowed, isPremium: false, usedInWindow, nextAvailableAt };
+  const quota = await checkDailyTestQuota(supabase, userId, testType);
+  return {
+    allowed: quota.allowed,
+    isPremium: quota.isPremium,
+    usedInWindow: quota.used,
+    nextAvailableAt: quota.allowed ? null : quota.nextResetAt,
+  };
 }

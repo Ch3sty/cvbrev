@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 
 const TEST_TYPE = 'numerical-reasoning-expert';
+const QUOTA_MESSAGE =
+  'Du har redan gjort det här testet idag. Ny chans i morgon, eller uppgradera för obegränsat.';
 
 export async function POST() {
   try {
@@ -14,14 +17,14 @@ export async function POST() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Expert är premium-låst.
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('subscription_tier')
-      .eq('id', user.id)
-      .single();
-    if (profile?.subscription_tier !== 'premium') {
-      return NextResponse.json({ error: 'Premium subscription required' }, { status: 403 });
+    // Dagskvot: gratisanvändare gör varje testtyp en gång per dag, premium är
+    // obegränsat. Spärren måste sitta serverside.
+    const quota = await checkDailyTestQuota(supabase, user.id, TEST_TYPE);
+    if (!quota.allowed) {
+      return NextResponse.json(
+        quotaExceededBody(`test:${TEST_TYPE}`, quota, QUOTA_MESSAGE),
+        { status: 429 }
+      );
     }
 
     const { data: session, error: createError } = await supabase

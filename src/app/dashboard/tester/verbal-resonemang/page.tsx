@@ -7,6 +7,7 @@ import VerbalTestHero from '@/components/tests/verbal-shared/VerbalTestHero';
 import VerbalInfoCard from '@/components/tests/verbal-shared/VerbalInfoCard';
 import VerbalStartCTA from '@/components/tests/verbal-shared/VerbalStartCTA';
 import VerbalPreviousResults from '@/components/tests/verbal-shared/VerbalPreviousResults';
+import QuotaLockCard from '@/components/quota/QuotaLockCard';
 
 const TOTAL_STATEMENTS = 48;
 
@@ -17,10 +18,16 @@ interface Session {
   completed_at: string;
 }
 
+interface QuotaLock {
+  feature: string;
+  nextResetAt: string;
+}
+
 export default function VerbalResonemangPage() {
   const router = useRouter();
   const [previousSessions, setPreviousSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null);
 
   useEffect(() => {
     fetch('/api/verbalTestV1/session')
@@ -44,6 +51,17 @@ export default function VerbalResonemangPage() {
       const response = await fetch('/api/verbalTestV1/session', {
         method: 'POST',
       });
+      if (response.status === 429) {
+        const data = await response.json().catch(() => null);
+        if (data?.code === 'quota_exceeded') {
+          setQuotaLock({
+            feature: data.feature ?? 'test:verbal-resonemang',
+            nextResetAt: data.nextResetAt ?? new Date().toISOString(),
+          });
+        }
+        setIsLoading(false);
+        return;
+      }
       if (!response.ok) throw new Error('Failed to create session');
       const data = await response.json();
       if (data.session) {
@@ -74,7 +92,16 @@ export default function VerbalResonemangPage() {
           totalStatements={TOTAL_STATEMENTS}
         />
         <VerbalInfoCard variant="v1" />
-        <VerbalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v1" />
+        {quotaLock ? (
+          <QuotaLockCard
+            feature={quotaLock.feature}
+            title="Du har gjort dagens test"
+            description="Som gratisanvändare gör du varje test en gång per dag."
+            nextResetAt={quotaLock.nextResetAt}
+          />
+        ) : (
+          <VerbalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v1" />
+        )}
         <VerbalPreviousResults
           sessions={previousSessions}
           bestScore={bestScore}

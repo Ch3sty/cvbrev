@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+
+const TEST_TYPE = 'verbal-resonemang';
+const QUOTA_MESSAGE =
+  'Du har redan gjort det här testet idag. Ny chans i morgon, eller uppgradera för obegränsat.';
 
 export async function POST() {
   try {
@@ -17,12 +22,22 @@ export async function POST() {
       );
     }
 
+    // Dagskvot: gratisanvändare gör varje testtyp en gång per dag, premium är
+    // obegränsat. Spärren måste sitta serverside.
+    const quota = await checkDailyTestQuota(supabase, user.id, TEST_TYPE);
+    if (!quota.allowed) {
+      return NextResponse.json(
+        quotaExceededBody(`test:${TEST_TYPE}`, quota, QUOTA_MESSAGE),
+        { status: 429 }
+      );
+    }
+
     // Create new session with test_type
     const { data: session, error: createError } = await supabase
       .from('logic_test_v4_sessions')
       .insert({
         user_id: user.id,
-        test_type: 'verbal-resonemang',
+        test_type: TEST_TYPE,
         answers: []
       })
       .select()

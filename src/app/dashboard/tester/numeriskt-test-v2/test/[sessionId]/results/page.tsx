@@ -58,6 +58,11 @@ export default function ResultsV2Page({ params }: PageProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
+      // Dagskvoten är slut: tillbaka till startsidan där spärrvyn förklarar läget.
+      if (response.status === 429) {
+        router.push('/dashboard/tester/numeriskt-test-v2');
+        return;
+      }
       const data = await response.json();
       if (data.session) {
         router.push(`/dashboard/tester/numeriskt-test-v2/test/${data.session.id}`);
