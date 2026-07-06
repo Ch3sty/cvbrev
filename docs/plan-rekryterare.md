@@ -87,6 +87,41 @@ prioriteras.
   betaanvändarnas beteende — inget pris på landningssidan i fas 1, bara
   "kontakta oss".
 
+## Fas 3.5: Profildjup som säljer (beslutad 2026-07-06 efter granskning)
+
+Problem: träffkorten svarar inte på rekryterarens första fråga (senioritet),
+och landningssidan visar aldrig detaljprofilens djup — värdet är osynligt
+där köpbeslutet fattas.
+
+**Del 1: Berika datat (kort + detaljprofil):**
+- `yearsOfExperience`: beräknas ur arbetshistorikens perioder i
+  structured_data (summerade anställningsperioder, avrundat till hela år).
+  Visas på träffkortet: "8 års erfarenhet".
+- `latestRole`: senaste titel + hur länge ("Senast: Redovisningsansvarig,
+  4 år") på kortet. Arbetsgivarnamn fortsatt maskerat.
+- `educationLevel`: högsta examen ur structured_data på kortet.
+- Språk ur structured_data i detaljprofilen.
+- Percentiltolkning i detaljprofilen: "Topp 10 % av N testade" + en
+  förklaringsrad om vad kognitiva test förutsäger.
+- **Kandidatens pitch**: nytt fält i candidate_profiles (max ~280 tecken)
+  som kandidaten skriver själv på Bli upptäckt-sidan. Visas överst i
+  detaljprofilen. VIKTIGT: vi använder INTE CV:ts summary rakt av — den
+  innehåller ofta namn/arbetsgivare som skulle läcka i anonymt läge.
+  Egenskriven pitch är säker, och dessutom en engagemangsyta.
+
+**Del 2: Landningssidan visar hela profilen:**
+- Ny sektion "Så ser hela profilen ut" med en statisk men verklighetstrogen
+  detaljprofil-mock: pitch, arbetshistorik-tidslinje med maskerade
+  arbetsgivare ("Visas efter accepterad kontakt"-chips som poäng, inte
+  brist), utbildning, testpanel med percentiltolkning, villkor.
+- Exempelträffkorten uppdateras med senioritet/utbildning.
+
+**Del 3: Portalen:** samma berikade fält i pool-korten, sortering på
+profilkomplett het/senioritet.
+
+Ordning: Del 1 (datat) → Del 3 (portalen) → Del 2 (landningssidan, så
+mocken speglar den riktiga profilen).
+
 ## Beroenden och ordning
 
 Fas 1 är oberoende och byggs direkt. Fas 2-4 väntar på kandidatvolym
