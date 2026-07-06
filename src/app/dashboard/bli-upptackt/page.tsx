@@ -17,6 +17,7 @@ import SectionCard from './components/SectionCard';
 import ProfileStrengthCard from './components/ProfileStrengthCard';
 import RecruiterPreviewCard from './components/RecruiterPreviewCard';
 import InterestsCard from './components/InterestsCard';
+import PendingInterestAlert from './components/PendingInterestAlert';
 import {
   EMPTY_PROFILE,
   type CandidateProfileState,
@@ -228,6 +229,9 @@ export default function BliUpptacktPage() {
           saving={saving}
           onToggle={handleMasterToggle}
         />
+
+        {/* Prioriterat larm: obesvarade intressen syns direkt, längst upp. */}
+        <PendingInterestAlert />
 
         <CvPickerCard cvs={cvOptions} selectedId={profile.cv_id} onSelect={handleSelectCv} />
 

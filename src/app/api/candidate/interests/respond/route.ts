@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { Resend } from 'resend';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { generateInterestResponseEmail } from '@/lib/email/interest-response';
 
 // POST /api/candidate/interests/respond
 // Body: { interestId: string, action: 'accept' | 'decline' }
@@ -11,9 +13,8 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 // admin-klienten efter att vi verifierat att intresset tillhör den inloggade
 // användaren som kandidat och fortfarande är 'pending'.
 //
-// OBS: Mail till rekryteraren när kandidaten svarar är MEDVETET utelämnat i
-// betan — rekryteraren ser statusändringen i sin portal. Läggs till när
-// rekryterarflödet lanseras skarpt.
+// Vid svar notifieras rekryteraren (in-app-notis + mail, best effort) så att
+// loopen sluts åt båda håll. Vid accept öppnas meddelandetråden.
 
 export async function POST(request: Request) {
   try {
@@ -90,6 +91,63 @@ export async function POST(request: Request) {
         .eq('user_id', interest.recruiter_user_id)
         .maybeSingle();
       companyName = recruiter?.company_name ?? null;
+    }
+
+    // --- Notifiera rekryteraren (best effort, får aldrig fälla anropet) -----
+    try {
+      const accepted = action === 'accept';
+      const { data: candidateProfile } = await (admin as any)
+        .from('profiles')
+        .select('full_name')
+        .eq('id', user.id)
+        .maybeSingle();
+      // Namnet delas bara vid accept (spegling av kontaktupplåsningen).
+      const candidateName = accepted
+        ? candidateProfile?.full_name || 'En kandidat'
+        : 'En kandidat';
+
+      await (admin as any).from('notifications').insert({
+        user_id: interest.recruiter_user_id,
+        type: 'interest_response',
+        title: accepted ? 'En kandidat tackade ja' : 'En kandidat tackade nej',
+        message: accepted
+          ? `${candidateName} accepterade er kontakt. Ni kan ta dialogen nu.`
+          : 'En kandidat avböjde er intresseförfrågan.',
+        action_url: '/rekryterare/inbox',
+        metadata: { interest_id: interestId, status: newStatus },
+      });
+
+      const { data: recruiterProfile } = await (admin as any)
+        .from('profiles')
+        .select('email, quota_emails_opt_out')
+        .eq('id', interest.recruiter_user_id)
+        .maybeSingle();
+
+      if (recruiterProfile?.email && !recruiterProfile.quota_emails_opt_out) {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const { subject, html } = generateInterestResponseEmail({
+          accepted,
+          candidateName,
+        });
+        const { data: sendData, error: sendError } = await resend.emails.send({
+          from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
+          to: [recruiterProfile.email],
+          subject,
+          html,
+          tags: [{ name: 'type', value: 'interest_response' }],
+        });
+        if (!sendError) {
+          await (admin as any).from('email_log').insert({
+            resend_id: sendData?.id ?? null,
+            user_id: interest.recruiter_user_id,
+            email_type: 'interest_response',
+            recipient: recruiterProfile.email,
+            subject,
+          });
+        }
+      }
+    } catch (sideEffectError) {
+      console.error('Interest respond: notis/mail till rekryteraren misslyckades', sideEffectError);
     }
 
     return NextResponse.json({

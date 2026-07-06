@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Inbox as InboxIcon } from 'lucide-react';
+import { ArrowRight, Inbox as InboxIcon, MessageSquare } from 'lucide-react';
+import InterestThread from '@/components/interests/InterestThread';
 import {
   CTA_GRADIENT,
   formatLongDate,
@@ -17,6 +18,7 @@ import {
 export default function InboxPage() {
   const [interests, setInterests] = useState<InterestItem[] | null>(null);
   const [error, setError] = useState(false);
+  const [openThread, setOpenThread] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -146,6 +148,24 @@ export default function InboxPage() {
                   </Link>
                 )}
               </div>
+
+              {/* Meddelandetråd: bara när kandidaten accepterat kontakten */}
+              {interest.status === 'accepted' && (
+                <div className="mt-3 pl-0 sm:pl-[52px]">
+                  {openThread === interest.interestId ? (
+                    <InterestThread interestId={interest.interestId} />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setOpenThread(interest.interestId)}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-orange-200 bg-white text-orange-700 text-[12.5px] font-bold hover:bg-orange-50 transition-colors"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" aria-hidden="true" />
+                      Öppna konversation
+                    </button>
+                  )}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

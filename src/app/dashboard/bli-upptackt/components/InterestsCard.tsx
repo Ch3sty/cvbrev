@@ -2,8 +2,18 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Building2, Check, X } from 'lucide-react';
+import { Building2, Check, X, Mail, Phone, Globe, MessageSquare } from 'lucide-react';
 import SectionCard from './SectionCard';
+import InterestThread from '@/components/interests/InterestThread';
+
+interface RecruiterContact {
+  companyName: string;
+  contactName: string | null;
+  contactRole: string | null;
+  email: string | null;
+  phone: string | null;
+  website: string | null;
+}
 
 interface Interest {
   id: string;
@@ -13,6 +23,8 @@ interface Interest {
   status: 'pending' | 'accepted' | 'declined';
   createdAt: string;
   respondedAt: string | null;
+  recruiterContact: RecruiterContact | null;
+  messageCount: number;
 }
 
 function formatDate(iso: string): string {
@@ -58,6 +70,7 @@ export default function InterestsCard() {
   const [interests, setInterests] = useState<Interest[] | null>(null);
   const [responding, setResponding] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [openThread, setOpenThread] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -118,6 +131,7 @@ export default function InterestsCard() {
 
   return (
     <SectionCard
+      id="intressen"
       title="Intresseanmälningar"
       sub="När en rekryterare vill komma i kontakt hamnar det här, och du får ett mail."
       delay={0.35}
@@ -236,10 +250,85 @@ export default function InterestsCard() {
                 )}
 
                 {isAccepted && (
-                  <p className="mt-3 text-[12px] text-emerald-700 leading-relaxed">
-                    Kontakt accepterad{interest.respondedAt ? ` ${formatDate(interest.respondedAt)}` : ''}.
-                    Ditt namn och din e-postadress har delats med {interest.companyName}.
-                  </p>
+                  <div className="mt-3 space-y-3">
+                    <p className="text-[12px] text-emerald-700 leading-relaxed">
+                      Kontakt accepterad{interest.respondedAt ? ` ${formatDate(interest.respondedAt)}` : ''}.
+                      Ni kan nu ta kontakt.
+                    </p>
+
+                    {/* Rekryterarens kontaktkort: speglar att de fått dina uppgifter */}
+                    {interest.recruiterContact && (
+                      <div className="rounded-xl border border-emerald-100 bg-white p-3">
+                        <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 mb-1.5">
+                          Din kontakt
+                        </p>
+                        <p className="text-[13px] font-bold text-slate-900">
+                          {interest.recruiterContact.contactName ?? interest.companyName}
+                        </p>
+                        <p className="text-[12px] text-slate-500">
+                          {[
+                            interest.recruiterContact.contactRole,
+                            interest.recruiterContact.contactName
+                              ? interest.recruiterContact.companyName
+                              : null,
+                          ]
+                            .filter(Boolean)
+                            .join(' · ')}
+                        </p>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-2">
+                          {interest.recruiterContact.email && (
+                            <a
+                              href={`mailto:${interest.recruiterContact.email}`}
+                              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-orange-700 hover:text-orange-800"
+                            >
+                              <Mail className="w-3.5 h-3.5" aria-hidden="true" />
+                              {interest.recruiterContact.email}
+                            </a>
+                          )}
+                          {interest.recruiterContact.phone && (
+                            <a
+                              href={`tel:${interest.recruiterContact.phone}`}
+                              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-600 hover:text-slate-800"
+                            >
+                              <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+                              {interest.recruiterContact.phone}
+                            </a>
+                          )}
+                          {interest.recruiterContact.website && (
+                            <a
+                              href={
+                                interest.recruiterContact.website.startsWith('http')
+                                  ? interest.recruiterContact.website
+                                  : `https://${interest.recruiterContact.website}`
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-600 hover:text-slate-800"
+                            >
+                              <Globe className="w-3.5 h-3.5" aria-hidden="true" />
+                              Webbplats
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Meddelandetråd i appen */}
+                    {openThread === interest.id ? (
+                      <InterestThread interestId={interest.id} />
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setOpenThread(interest.id)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-orange-200 bg-white text-orange-700 text-[13px] font-bold hover:bg-orange-50 transition-colors"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" aria-hidden="true" />
+                        {interest.messageCount > 0
+                          ? `Öppna konversation (${interest.messageCount})`
+                          : 'Skriv ett meddelande'}
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             );

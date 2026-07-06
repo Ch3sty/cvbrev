@@ -9,16 +9,19 @@ interface SectionCardProps {
   delay?: number;
   headerExtra?: ReactNode;
   children: ReactNode;
+  /** Ankar-id så notiser/mail kan djuplänka hit (t.ex. #intressen). */
+  id?: string;
 }
 
 /** Vitt sektionskort med orange accentlinje, samma mönster som tester-sidorna. */
-export default function SectionCard({ title, sub, delay = 0, headerExtra, children }: SectionCardProps) {
+export default function SectionCard({ title, sub, delay = 0, headerExtra, children, id }: SectionCardProps) {
   return (
     <motion.section
+      id={id}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay, ease: 'easeOut' }}
-      className="relative bg-white rounded-3xl border border-orange-100 p-4 sm:p-6 overflow-hidden"
+      className="relative bg-white rounded-3xl border border-orange-100 p-4 sm:p-6 overflow-hidden scroll-mt-24"
       style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
     >
       <div

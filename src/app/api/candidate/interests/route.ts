@@ -49,26 +49,49 @@ export async function GET() {
     }
 
     // Berika med rekryterarnas företag + kontaktperson (en batch-läsning).
+    // Kontaktuppgifterna (mejl/telefon/webb) lämnar servern ENDAST för intressen
+    // som kandidaten accepterat, symmetriskt med att rekryteraren då får
+    // kandidatens namn och e-post.
     const recruiterIds = Array.from(new Set(rows.map((r) => r.recruiter_user_id)));
     const admin = getSupabaseAdmin();
     const { data: recruiters, error: recruiterError } = await (admin as any)
       .from('recruiter_profiles')
-      .select('user_id, company_name, contact_name')
+      .select('user_id, company_name, contact_name, contact_role, contact_email, phone, website')
       .in('user_id', recruiterIds);
 
     if (recruiterError) {
       console.error('Error fetching recruiter profiles:', recruiterError);
     }
 
-    const recruiterMap = new Map<string, { company_name: string | null; contact_name: string | null }>(
-      (recruiters ?? []).map((r: { user_id: string; company_name: string | null; contact_name: string | null }) => [
-        r.user_id,
-        { company_name: r.company_name, contact_name: r.contact_name },
-      ])
+    interface RecruiterRow {
+      user_id: string;
+      company_name: string | null;
+      contact_name: string | null;
+      contact_role: string | null;
+      contact_email: string | null;
+      phone: string | null;
+      website: string | null;
+    }
+    const recruiterMap = new Map<string, RecruiterRow>(
+      ((recruiters ?? []) as RecruiterRow[]).map((r) => [r.user_id, r])
     );
+
+    // Trådens meddelandeantal per accepterat intresse, för "N meddelanden"-hint.
+    const acceptedIds = rows.filter((r) => r.status === 'accepted').map((r) => r.id);
+    const messageCounts = new Map<string, number>();
+    if (acceptedIds.length > 0) {
+      const { data: msgs } = await (admin as any)
+        .from('interest_messages')
+        .select('interest_id')
+        .in('interest_id', acceptedIds);
+      for (const m of (msgs ?? []) as Array<{ interest_id: string }>) {
+        messageCounts.set(m.interest_id, (messageCounts.get(m.interest_id) ?? 0) + 1);
+      }
+    }
 
     const interests = rows.map((row) => {
       const recruiter = recruiterMap.get(row.recruiter_user_id);
+      const accepted = row.status === 'accepted';
       return {
         id: row.id,
         companyName: recruiter?.company_name ?? 'Okänt företag',
@@ -77,6 +100,18 @@ export async function GET() {
         status: row.status,
         createdAt: row.created_at,
         respondedAt: row.responded_at,
+        // Kontaktkort + trådhint bara när kandidaten accepterat.
+        recruiterContact: accepted
+          ? {
+              companyName: recruiter?.company_name ?? 'Okänt företag',
+              contactName: recruiter?.contact_name ?? null,
+              contactRole: recruiter?.contact_role ?? null,
+              email: recruiter?.contact_email ?? null,
+              phone: recruiter?.phone ?? null,
+              website: recruiter?.website ?? null,
+            }
+          : null,
+        messageCount: accepted ? messageCounts.get(row.id) ?? 0 : 0,
       };
     });
 
