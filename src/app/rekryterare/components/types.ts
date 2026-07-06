@@ -276,6 +276,10 @@ export interface InterestItem {
   respondedAt: string | null;
   message: string | null;
   card: CandidateCard | null;
+  /** Antal meddelanden i tråden (accepterade intressen). */
+  messageCount?: number;
+  /** Olästa meddelanden från kandidaten. */
+  unreadCount?: number;
 }
 
 // ---------------------------------------------------------------------------

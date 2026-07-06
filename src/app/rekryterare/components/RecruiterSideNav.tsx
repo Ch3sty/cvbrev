@@ -28,8 +28,9 @@ const SAVED_ITEM: NavItem = {
 
 /**
  * Portalens navigering: ikonrail till vänster på desktop, bottom-tabs på
- * mobil. Inbox-badgen visar antal accepterade intressen (kandidater som
- * väntar på att vi hör av oss), utan persistens.
+ * mobil. Inbox-badgen visar antal olästa svar från kandidater, så den
+ * försvinner när man läst tråden i stället för att ligga kvar på alla
+ * accepterade intressen.
  */
 export default function RecruiterSideNav() {
   const pathname = usePathname();
@@ -41,10 +42,13 @@ export default function RecruiterSideNav() {
       try {
         const res = await fetch('/api/recruiter/interests');
         if (!res.ok) return;
-        const data = (await res.json()) as { interests?: Array<{ status: string }> };
+        const data = (await res.json()) as {
+          interests?: Array<{ status: string; unreadCount?: number }>;
+        };
         if (cancelled) return;
+        // Badgen visar olästa svar från kandidater, inte bara accepterade.
         setAcceptedCount(
-          (data.interests ?? []).filter((i) => i.status === 'accepted').length
+          (data.interests ?? []).reduce((sum, i) => sum + (i.unreadCount ?? 0), 0)
         );
       } catch {
         // Badgen är ren bekvämlighet: tyst vid fel.

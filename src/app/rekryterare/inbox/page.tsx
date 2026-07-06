@@ -157,11 +157,29 @@ export default function InboxPage() {
                   ) : (
                     <button
                       type="button"
-                      onClick={() => setOpenThread(interest.interestId)}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-orange-200 bg-white text-orange-700 text-[12.5px] font-bold hover:bg-orange-50 transition-colors"
+                      onClick={() => {
+                        setOpenThread(interest.interestId);
+                        // Öppnad = läst: nolla oläst-räknaren lokalt.
+                        setInterests((prev) =>
+                          (prev ?? []).map((it) =>
+                            it.interestId === interest.interestId
+                              ? { ...it, unreadCount: 0 }
+                              : it
+                          )
+                        );
+                      }}
+                      className={`relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-[12.5px] font-bold transition-colors ${
+                        (interest.unreadCount ?? 0) > 0
+                          ? 'border-orange-300 bg-orange-50 text-orange-800'
+                          : 'border-orange-200 bg-white text-orange-700 hover:bg-orange-50'
+                      }`}
                     >
                       <MessageSquare className="w-3.5 h-3.5" aria-hidden="true" />
-                      Öppna konversation
+                      {(interest.unreadCount ?? 0) > 0
+                        ? `Nytt svar från kandidaten (${interest.unreadCount})`
+                        : (interest.messageCount ?? 0) > 0
+                          ? `Öppna konversation (${interest.messageCount})`
+                          : 'Skriv ett meddelande'}
                     </button>
                   )}
                 </div>

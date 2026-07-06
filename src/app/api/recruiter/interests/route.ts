@@ -14,6 +14,7 @@ import {
   type CandidateCard,
   type CandidateProfileRow,
 } from '@/lib/recruiter/candidateData';
+import { unreadByInterest } from '@/lib/interests/threadUnread';
 
 export const dynamic = 'force-dynamic';
 
@@ -77,16 +78,25 @@ export async function GET() {
       })
     );
 
-    const result = interests.map((i) => ({
-      interestId: i.id,
-      candidateUserId: i.candidate_user_id,
-      status: i.status,
-      createdAt: i.created_at,
-      respondedAt: i.responded_at,
-      message: i.message,
-      // null när kandidaten stängt av synligheten sedan intresset skickades.
-      card: cardByCandidate.get(i.candidate_user_id) ?? null,
-    }));
+    // Trådstatistik (antal + olästa) för accepterade intressen.
+    const acceptedIds = interests.filter((i) => i.status === 'accepted').map((i) => i.id);
+    const threadStats = await unreadByInterest(admin, acceptedIds, user.id, 'recruiter');
+
+    const result = interests.map((i) => {
+      const stats = threadStats.get(i.id) ?? { total: 0, unread: 0 };
+      return {
+        interestId: i.id,
+        candidateUserId: i.candidate_user_id,
+        status: i.status,
+        createdAt: i.created_at,
+        respondedAt: i.responded_at,
+        message: i.message,
+        // null när kandidaten stängt av synligheten sedan intresset skickades.
+        card: cardByCandidate.get(i.candidate_user_id) ?? null,
+        messageCount: stats.total,
+        unreadCount: stats.unread,
+      };
+    });
 
     return NextResponse.json({ interests: result });
   } catch (error) {

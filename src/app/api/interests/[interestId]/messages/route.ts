@@ -87,6 +87,18 @@ export async function GET(
         mine: m.sender_role === participant.role,
       })
     );
+
+    // Att öppna tråden = allt läst. Stämpla läsmarkören (best effort).
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (admin as any).from('interest_thread_reads').upsert(
+        { interest_id: interestId, user_id: user.id, last_read_at: new Date().toISOString() },
+        { onConflict: 'interest_id,user_id' }
+      );
+    } catch (readError) {
+      console.error('Interest messages: läsmarkör misslyckades', readError);
+    }
+
     return NextResponse.json({ messages, role: participant.role });
   } catch (error) {
     console.error('Interest messages GET error:', error);

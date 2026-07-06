@@ -25,6 +25,7 @@ interface Interest {
   respondedAt: string | null;
   recruiterContact: RecruiterContact | null;
   messageCount: number;
+  unreadCount: number;
 }
 
 function formatDate(iso: string): string {
@@ -319,13 +320,26 @@ export default function InterestsCard() {
                     ) : (
                       <button
                         type="button"
-                        onClick={() => setOpenThread(interest.id)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-orange-200 bg-white text-orange-700 text-[13px] font-bold hover:bg-orange-50 transition-colors"
+                        onClick={() => {
+                          setOpenThread(interest.id);
+                          setInterests((prev) =>
+                            (prev ?? []).map((it) =>
+                              it.id === interest.id ? { ...it, unreadCount: 0 } : it
+                            )
+                          );
+                        }}
+                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-[13px] font-bold transition-colors ${
+                          interest.unreadCount > 0
+                            ? 'border-orange-300 bg-orange-50 text-orange-800'
+                            : 'border-orange-200 bg-white text-orange-700 hover:bg-orange-50'
+                        }`}
                       >
                         <MessageSquare className="w-3.5 h-3.5" aria-hidden="true" />
-                        {interest.messageCount > 0
-                          ? `Öppna konversation (${interest.messageCount})`
-                          : 'Skriv ett meddelande'}
+                        {interest.unreadCount > 0
+                          ? `Nytt svar (${interest.unreadCount})`
+                          : interest.messageCount > 0
+                            ? `Öppna konversation (${interest.messageCount})`
+                            : 'Skriv ett meddelande'}
                       </button>
                     )}
                   </div>

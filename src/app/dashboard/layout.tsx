@@ -101,8 +101,9 @@ export default function DashboardLayout({
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden relative z-10">
-          {/* Dashboard Header - med hamburger på mobil */}
-          <div className="relative z-15">
+          {/* Dashboard Header - med hamburger på mobil.
+              z-40 så notisdrawern lägger sig ovanför verifieringsbannern. */}
+          <div className="relative z-40">
             <DashboardHeader
               user={user}
               onMenuClick={() => setIsMobileMenuOpen(true)}

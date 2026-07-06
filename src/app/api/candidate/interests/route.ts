@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { unreadByInterest } from '@/lib/interests/threadUnread';
 
 // GET /api/candidate/interests
 //
@@ -76,18 +77,9 @@ export async function GET() {
       ((recruiters ?? []) as RecruiterRow[]).map((r) => [r.user_id, r])
     );
 
-    // Trådens meddelandeantal per accepterat intresse, för "N meddelanden"-hint.
+    // Trådstatistik (antal + olästa) per accepterat intresse.
     const acceptedIds = rows.filter((r) => r.status === 'accepted').map((r) => r.id);
-    const messageCounts = new Map<string, number>();
-    if (acceptedIds.length > 0) {
-      const { data: msgs } = await (admin as any)
-        .from('interest_messages')
-        .select('interest_id')
-        .in('interest_id', acceptedIds);
-      for (const m of (msgs ?? []) as Array<{ interest_id: string }>) {
-        messageCounts.set(m.interest_id, (messageCounts.get(m.interest_id) ?? 0) + 1);
-      }
-    }
+    const threadStats = await unreadByInterest(admin, acceptedIds, user.id, 'candidate');
 
     const interests = rows.map((row) => {
       const recruiter = recruiterMap.get(row.recruiter_user_id);
@@ -111,7 +103,8 @@ export async function GET() {
               website: recruiter?.website ?? null,
             }
           : null,
-        messageCount: accepted ? messageCounts.get(row.id) ?? 0 : 0,
+        messageCount: accepted ? threadStats.get(row.id)?.total ?? 0 : 0,
+        unreadCount: accepted ? threadStats.get(row.id)?.unread ?? 0 : 0,
       };
     });
 
