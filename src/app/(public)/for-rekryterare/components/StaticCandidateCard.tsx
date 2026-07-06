@@ -10,8 +10,10 @@
 export interface StaticCandidateData {
   role: string
   region: string
-  /** Seniorotetsraden, t.ex. "8 års erfarenhet · Senast: Redovisningsansvarig (4 år) · Civilekonom". */
-  seniority?: string
+  /** Seniorotetsfakta, första faktat betonas: ["8 års erfarenhet", "Senast: …", "Civilekonom"]. */
+  seniorityFacts?: string[]
+  /** Kandidatens egna ord, kursiv citatrad. */
+  pitch?: string
   testBadges: string[]
   strengths: string[]
   skills: string[]
@@ -23,7 +25,7 @@ export default function StaticCandidateCard({
 }: {
   candidate: StaticCandidateData
 }) {
-  const { role, region, seniority, testBadges, strengths, skills, conditions } =
+  const { role, region, seniorityFacts, pitch, testBadges, strengths, skills, conditions } =
     candidate
   const avatarInitial = role.charAt(0).toUpperCase()
 
@@ -53,15 +55,28 @@ export default function StaticCandidateCard({
         </div>
       </div>
 
-      {/* Senioritet: erfarenhet, senaste roll och examen — samma rad som portalens träffkort */}
-      {seniority && (
-        <p className="text-[12px] font-medium text-slate-600 leading-relaxed -mt-1 mb-3">
-          {seniority}
+      {/* Senioritet: första faktat (erfarenhetsåren) bär mest vikt */}
+      {seniorityFacts && seniorityFacts.length > 0 && (
+        <p className="text-[12px] text-slate-600 leading-relaxed -mt-1 mb-2.5">
+          <span className="font-bold text-slate-900">{seniorityFacts[0]}</span>
+          {seniorityFacts.slice(1).map((fact) => (
+            <span key={fact}>
+              {' · '}
+              {fact}
+            </span>
+          ))}
         </p>
       )}
 
-      {/* Badges */}
-      <div className="flex flex-wrap gap-1.5 mb-3">
+      {/* Pitch: kandidatens egna ord */}
+      {pitch && (
+        <p className="mb-2.5 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
+          &rdquo;{pitch}&rdquo;
+        </p>
+      )}
+
+      {/* Rad 1: verifierat (testresultat + styrkor) — det ingen annan kan visa */}
+      <div className="flex flex-wrap gap-1.5 mb-1.5">
         {testBadges.map((badge) => (
           <span
             key={badge}
@@ -86,6 +101,10 @@ export default function StaticCandidateCard({
             {chip}
           </span>
         ))}
+      </div>
+
+      {/* Rad 2: kompetenser ur CV:t, medvetet nedtonade */}
+      <div className="flex flex-wrap gap-1.5 mb-3">
         {skills.map((skill) => (
           <span
             key={skill}

@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     let query = (admin as any)
       .from('candidate_profiles')
       .select(
-        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license'
+        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch'
       )
       .neq('visibility', 'off')
       .order('updated_at', { ascending: false });

@@ -45,6 +45,8 @@ export interface PoolCandidate {
   latestRole: { title: string; years: number | null } | null;
   /** Högsta/senaste examen ur CV:t. */
   educationLevel: string | null;
+  /** Kandidatens egenskrivna pitch, visas även på träffkortet. */
+  pitch: string | null;
   interestStatus: InterestStatus;
 }
 
@@ -75,8 +77,6 @@ export interface CandidateDetail extends Omit<PoolCandidate, 'interestStatus'> {
   experience: ExperienceEntry[];
   education: EducationEntry[];
   testResults: TestResultEntry[];
-  /** Kandidatens egenskrivna pitch, aldrig CV:ts summary. */
-  pitch: string | null;
   /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
   languages: string[];
   fullName: string | null;

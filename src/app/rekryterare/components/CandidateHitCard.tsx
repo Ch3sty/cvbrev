@@ -74,33 +74,52 @@ export default function CandidateHitCard({
         </div>
       </div>
 
-      {/* Senioritet: erfarenhet, senaste roll och examen */}
+      {/* Senioritet: första faktat (erfarenhetsåren) bär mest vikt */}
       {seniority.length > 0 && (
-        <p className="text-[12px] font-medium text-slate-600 leading-relaxed -mt-1.5 mb-3">
-          {seniority.join(' · ')}
+        <p className="text-[12px] text-slate-600 leading-relaxed -mt-1.5 mb-2.5">
+          <span className="font-bold text-slate-900">{seniority[0]}</span>
+          {seniority.slice(1).map((fact) => (
+            <span key={fact}>
+              {' · '}
+              {fact}
+            </span>
+          ))}
         </p>
       )}
 
-      {/* Badges */}
+      {/* Pitch: kandidatens egna ord */}
+      {candidate.pitch && (
+        <p className="mb-2.5 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
+          &rdquo;{candidate.pitch}&rdquo;
+        </p>
+      )}
+
+      {/* Rad 1: verifierat (testresultat + styrkor) — det ingen annan kan visa */}
+      {(candidate.testBadges.length > 0 || candidate.personalityStrengths.length > 0) && (
+        <div className="flex flex-wrap gap-1.5 mb-1.5">
+          {candidate.testBadges.map((badge) => (
+            <span
+              key={badge.family}
+              className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-900"
+            >
+              <span className="w-1.5 h-1.5 rounded-sm bg-orange-500 rotate-45" aria-hidden="true" />
+              {badge.label}
+            </span>
+          ))}
+          {candidate.personalityStrengths.map((chip) => (
+            <span
+              key={chip}
+              className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
+              {chip}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Rad 2: kompetenser ur CV:t, medvetet nedtonade mot verifierat-raden */}
       <div className="flex flex-wrap gap-1.5 mb-3">
-        {candidate.testBadges.map((badge) => (
-          <span
-            key={badge.family}
-            className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-900"
-          >
-            <span className="w-1.5 h-1.5 rounded-sm bg-orange-500 rotate-45" aria-hidden="true" />
-            {badge.label}
-          </span>
-        ))}
-        {candidate.personalityStrengths.map((chip) => (
-          <span
-            key={chip}
-            className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
-            {chip}
-          </span>
-        ))}
         {skillChips.map((skill) => (
           <span
             key={skill}

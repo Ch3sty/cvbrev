@@ -49,6 +49,12 @@ export interface SummaryData {
   results: Record<FamilyKey, FamilyResult>;
   personality: { done: boolean; strengths: string[] };
   skills: { skills: string[]; occupation: string | null; location: string | null };
+  /** Senioritet härledd ur CV:ts arbetshistorik (fas 3.5). */
+  seniority?: {
+    yearsOfExperience: number | null;
+    latestRole: { title: string; years: number | null } | null;
+    educationLevel: string | null;
+  };
 }
 
 export interface CvOption {

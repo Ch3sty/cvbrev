@@ -63,6 +63,16 @@ export default function RecruiterPreviewCard({
 
   const skillChips = (summary?.skills?.skills ?? []).slice(0, 5);
 
+  // Senioritetsraden: samma tre fakta som rekryterarnas träffkort visar.
+  const sen = summary?.seniority;
+  const seniorityRow = [
+    sen?.yearsOfExperience ? `${sen.yearsOfExperience} års erfarenhet` : null,
+    sen?.latestRole
+      ? `Senast: ${sen.latestRole.title}${sen.latestRole.years ? ` (${sen.latestRole.years} år)` : ''}`
+      : null,
+    sen?.educationLevel ?? null,
+  ].filter(Boolean) as string[];
+
   const footParts = [
     labelFor(AVAILABILITY_OPTIONS, profile.availability),
     profile.workplace.length > 0
@@ -112,33 +122,52 @@ export default function RecruiterPreviewCard({
           </div>
         </div>
 
-        {/* Pitch: kandidatens egna ord, alltid överst i kortet */}
+        {/* Senioritet: samma rad som rekryterarnas träffkort */}
+        {seniorityRow.length > 0 && (
+          <p className="text-[12px] text-slate-600 leading-relaxed -mt-1 mb-2.5">
+            <span className="font-bold text-slate-900">{seniorityRow[0]}</span>
+            {seniorityRow.slice(1).map((fact) => (
+              <span key={fact}>
+                {' · '}
+                {fact}
+              </span>
+            ))}
+          </p>
+        )}
+
+        {/* Pitch: kandidatens egna ord */}
         {(profile.pitch ?? '').trim().length > 0 && (
-          <p className="mb-3 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
+          <p className="mb-2.5 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
             &rdquo;{profile.pitch!.trim()}&rdquo;
           </p>
         )}
 
-        {/* Badges */}
+        {/* Rad 1: verifierat (testresultat + styrkor) */}
+        {(testBadges.length > 0 || personalityChips.length > 0) && (
+          <div className="flex flex-wrap gap-1.5 mb-1.5">
+            {testBadges.map((badge) => (
+              <span
+                key={badge.key}
+                className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-900"
+              >
+                <span className="w-1.5 h-1.5 rounded-sm bg-orange-500 rotate-45" aria-hidden="true" />
+                {badge.label}
+              </span>
+            ))}
+            {personalityChips.map((chip) => (
+              <span
+                key={chip}
+                className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
+                {chip}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Rad 2: kompetenser ur CV:t */}
         <div className="flex flex-wrap gap-1.5 mb-3">
-          {testBadges.map((badge) => (
-            <span
-              key={badge.key}
-              className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-900"
-            >
-              <span className="w-1.5 h-1.5 rounded-sm bg-orange-500 rotate-45" aria-hidden="true" />
-              {badge.label}
-            </span>
-          ))}
-          {personalityChips.map((chip) => (
-            <span
-              key={chip}
-              className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
-              {chip}
-            </span>
-          ))}
           {skillChips.map((skill) => (
             <span
               key={skill}

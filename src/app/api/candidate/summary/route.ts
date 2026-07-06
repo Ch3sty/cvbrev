@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
 
 // GET /api/candidate/summary?cv_id=<uuid>
 //
@@ -216,14 +217,9 @@ export async function GET(request: Request) {
       location: skillsRow?.extracted_location ?? null,
     };
 
-    let structured: { skills: string[]; occupation: string | null; location: string | null } = {
-      skills: [],
-      occupation: null,
-      location: null,
-    };
-    if (!extracted.occupation || extracted.skills.length === 0) {
-      structured = await fetchStructuredFallback(supabase, user.id, cvId);
-    }
+    // Structured data hämtas alltid — senioritet/examen behöver den även när
+    // extraktionen täcker roll och kompetenser.
+    const structured = await fetchStructuredFallback(supabase, user.id, cvId);
 
     const skills = {
       skills: extracted.skills.length > 0 ? extracted.skills : structured.skills,
@@ -231,7 +227,14 @@ export async function GET(request: Request) {
       location: extracted.location ?? structured.location,
     };
 
-    return NextResponse.json({ results, personality, skills });
+    const seniorityData = deriveSeniority(structured.sd);
+    const seniority = {
+      yearsOfExperience: seniorityData.yearsOfExperience,
+      latestRole: seniorityData.latestRole,
+      educationLevel: deriveEducationLevel(structured.sd),
+    };
+
+    return NextResponse.json({ results, personality, skills, seniority });
   } catch (error) {
     console.error('Candidate summary error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -273,8 +276,14 @@ async function fetchStructuredFallback(
   supabase: ReturnType<typeof createServerClient>,
   userId: string,
   cvId: string | null
-): Promise<{ skills: string[]; occupation: string | null; location: string | null }> {
-  const empty = { skills: [] as string[], occupation: null, location: null };
+): Promise<{
+  skills: string[];
+  occupation: string | null;
+  location: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sd: any | null;
+}> {
+  const empty = { skills: [] as string[], occupation: null, location: null, sd: null };
 
   let query = (supabase as any)
     .from('cv_texts')
@@ -321,5 +330,5 @@ async function fetchStructuredFallback(
     (typeof sd?.personalInfo?.location === 'string' && sd.personalInfo.location) ||
     null;
 
-  return { skills: skills.slice(0, 8), occupation, location };
+  return { skills: skills.slice(0, 8), occupation, location, sd };
 }

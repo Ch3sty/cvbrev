@@ -111,6 +111,8 @@ export interface CandidateCard {
   latestRole: { title: string; years: number | null } | null;
   /** Högsta/senaste examen ur CV:t. */
   educationLevel: string | null;
+  /** Kandidatens egenskrivna pitch, visas även på träffkortet. */
+  pitch: string | null;
 }
 
 export interface ExperienceEntry {
@@ -142,8 +144,6 @@ export interface CandidateDetail extends CandidateCard {
   education: EducationEntry[];
   /** Samtliga slutförda familjer+nivåer, inte bara bästa per familj. */
   testResults: TestResultEntry[];
-  /** Kandidatens egenskrivna pitch (aldrig CV:ts summary — den läcker namn). */
-  pitch: string | null;
   /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
   languages: string[];
   /** Namn låses upp av contactUnlocked (accepterat intresse ELLER öppen profil). */
@@ -583,6 +583,7 @@ export async function buildCandidateCard(
     yearsOfExperience: seniority.yearsOfExperience,
     latestRole: seniority.latestRole,
     educationLevel: deriveEducationLevel(roleSkills.sd),
+    pitch: profileRow.pitch?.trim() || null,
   };
 }
 
@@ -757,8 +758,6 @@ export async function buildCandidateDetail(
     experience: sd ? mapExperience(sd, contactUnlocked) : [],
     education: sd ? mapEducation(sd) : [],
     testResults,
-    // Egenskriven pitch — aldrig CV:ts summary, den läcker namn/arbetsgivare.
-    pitch: profileRow.pitch?.trim() || null,
     languages: sd ? deriveLanguages(sd) : [],
     fullName,
     email,

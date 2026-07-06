@@ -15,7 +15,8 @@ import StaticCandidateCard, {
 const HERO_CANDIDATE: StaticCandidateData = {
   role: 'Redovisningsekonom',
   region: 'Stockholm',
-  seniority: '8 års erfarenhet · Senast: Redovisningsansvarig (4 år) · Civilekonom',
+  seniorityFacts: ['8 års erfarenhet', 'Senast: Redovisningsansvarig (4 år)', 'Civilekonom'],
+  pitch: 'Redovisningsekonom med åtta år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp.',
   testBadges: ['Matrislogik · topp 10 %', 'Numeriskt · topp 15 %'],
   strengths: ['Strukturerad', 'Analytisk'],
   skills: ['Bokslut', 'Koncernredovisning', 'Fortnox'],
