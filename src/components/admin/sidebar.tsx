@@ -19,7 +19,8 @@ import {
   DollarSign, // Ikon för modellpriser
   BookOpen, // Ikon för AI Documents
   Filter, // Ikon för Konvertering/Funnel
-  Activity // Ikon för Aktivitetsflöde
+  Activity, // Ikon för Aktivitetsflöde
+  Mail // Ikon för E-poststatistik
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -35,6 +36,7 @@ export default function AdminSidebar() {
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
     { path: '/admin/activity', label: 'Aktivitetsflöde', icon: <Activity className="w-5 h-5" /> },
     { path: '/admin/letters', label: 'Brev', icon: <FileText className="w-5 h-5" /> },
+    { path: '/admin/email', label: 'E-post', icon: <Mail className="w-5 h-5" /> },
     { path: '/admin/cvs', label: 'CV:n', icon: <File className="w-5 h-5" /> },
     { path: '/admin/ai-documents', label: 'AI Dokument', icon: <BookOpen className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },

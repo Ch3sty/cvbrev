@@ -210,17 +210,32 @@ export async function GET(request: NextRequest) {
             skipped++;
           } else {
             const { subject, html } = generateQuotaBackEmail(reminder.user_id, reminder.feature);
-            const { error: sendError } = await resend.emails.send({
+            // Taggar följer med till Resends webhook-events så statistiken
+            // kan grupperas per mailtyp/funktion (endast a-z0-9_- tillåts).
+            const featureTag = reminder.feature.replace(/[^a-zA-Z0-9_-]/g, '_');
+            const { data: sendData, error: sendError } = await resend.emails.send({
               from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
               to: [profile.email],
               subject,
-              html
+              html,
+              tags: [
+                { name: 'type', value: 'quota_back' },
+                { name: 'feature', value: featureTag }
+              ]
             });
             if (sendError) {
               console.error('[Quota Reminders] Send failed for', reminder.id, sendError);
               continue; // lämna osänd, försöks igen imorgon
             }
             sent++;
+            await supabaseAdmin.from('email_log').insert({
+              resend_id: sendData?.id ?? null,
+              user_id: reminder.user_id,
+              email_type: 'quota_back',
+              feature: reminder.feature,
+              recipient: profile.email,
+              subject
+            });
           }
 
           await supabaseAdmin
@@ -270,11 +285,13 @@ export async function GET(request: NextRequest) {
         for (const candidate of candidates ?? []) {
           if (!candidate.email) continue;
           const resumeUrl = `${baseUrl}/trial-signup?resume=${candidate.id}`;
-          const { error: sendError } = await resend.emails.send({
+          const trialSubject = 'Du är nästan klar – slutför din registrering';
+          const { data: sendData, error: sendError } = await resend.emails.send({
             from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
             to: [candidate.email],
-            subject: 'Du är nästan klar – slutför din registrering',
-            html: generateTrialReminderEmail(candidate.email, resumeUrl)
+            subject: trialSubject,
+            html: generateTrialReminderEmail(candidate.email, resumeUrl),
+            tags: [{ name: 'type', value: 'trial_reminder' }]
           });
           if (sendError) {
             console.error('[Trial Reminders] Send failed for', candidate.id, sendError);
@@ -285,6 +302,13 @@ export async function GET(request: NextRequest) {
             .from('profiles')
             .update({ trial_reminder_sent_at: now.toISOString() })
             .eq('id', candidate.id);
+          await supabaseAdmin.from('email_log').insert({
+            resend_id: sendData?.id ?? null,
+            user_id: candidate.id,
+            email_type: 'trial_reminder',
+            recipient: candidate.email,
+            subject: trialSubject
+          });
         }
 
         console.log(`[Trial Reminders] sent=${sent} candidates=${candidates?.length ?? 0}`);

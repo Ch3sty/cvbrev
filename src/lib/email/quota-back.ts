@@ -43,11 +43,11 @@ const FEATURE_COPY: Record<string, FeatureCopy> = {
 };
 
 const TEST_COPY: FeatureCopy = {
-  subject: 'Dagens test väntar på dig',
+  subject: 'Dagens rekryteringstester väntar på dig',
   preheader: 'Din dagliga testkvot har nollställts. Håll träningen igång.',
-  heading: 'Dags för dagens träningspass',
+  heading: 'Dagens rekryteringstester väntar',
   body: 'Din dagliga testkvot är nollställd. Regelbunden träning är det som gör skillnad på riktiga rekryteringstest, en omgång om dagen räcker långt.',
-  cta: 'Gör dagens test',
+  cta: 'Gör dagens rekryteringstester',
   path: '/dashboard/tester',
 };
 
