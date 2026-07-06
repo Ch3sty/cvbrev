@@ -18,6 +18,7 @@ import {
   Linkedin,
   Palette,
   FilePlus,
+  Building2,
   LayoutGrid,
   Tag,
   FileText,
@@ -41,6 +42,7 @@ const PRIMARY_LINKS: NavLink[] = [
   { label: 'Hem', href: '/' },
   { label: 'Funktioner', href: '/funktioner' },
   { label: 'Priser', href: '/priser' },
+  { label: 'För rekryterare', href: '/for-rekryterare' },
   { label: 'Inspiration', href: '/exempel' },
   { label: 'Artiklar', href: '/artiklar' },
 ];
@@ -100,6 +102,7 @@ const PRIMARY_ICONS: Record<string, React.ComponentType<{ className?: string; st
   Hem: LayoutGrid,
   Funktioner: LayoutGrid,
   Priser: Tag,
+  'För rekryterare': Building2,
   Inspiration: FileText,
   Artiklar: Newspaper,
   'Om oss': UserIcon,

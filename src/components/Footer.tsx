@@ -74,6 +74,7 @@ const FORETAG_LANKAR = [
   { label: 'Kontakt', href: '/kontakt' },
   { label: 'Funktioner', href: '/funktioner' },
   { label: 'Priser', href: '/priser' },
+  { label: 'För rekryterare', href: '/for-rekryterare' },
   { label: 'Hjälpcenter', href: '/hjalpcenter' },
 ]
 

@@ -20,7 +20,8 @@ import {
   BookOpen, // Ikon för AI Documents
   Filter, // Ikon för Konvertering/Funnel
   Activity, // Ikon för Aktivitetsflöde
-  Mail // Ikon för E-poststatistik
+  Mail, // Ikon för E-poststatistik
+  Briefcase // Ikon för Rekryterare
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -34,6 +35,7 @@ export default function AdminSidebar() {
     { path: '/admin', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
     { path: '/admin/funnel', label: 'Konvertering', icon: <Filter className="w-5 h-5" /> },
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
+    { path: '/admin/rekryterare', label: 'Rekryterare', icon: <Briefcase className="w-5 h-5" /> },
     { path: '/admin/activity', label: 'Aktivitetsflöde', icon: <Activity className="w-5 h-5" /> },
     { path: '/admin/letters', label: 'Brev', icon: <FileText className="w-5 h-5" /> },
     { path: '/admin/email', label: 'E-post', icon: <Mail className="w-5 h-5" /> },
