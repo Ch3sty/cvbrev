@@ -112,6 +112,13 @@ export default function RecruiterPreviewCard({
           </div>
         </div>
 
+        {/* Pitch: kandidatens egna ord, alltid överst i kortet */}
+        {(profile.pitch ?? '').trim().length > 0 && (
+          <p className="mb-3 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
+            &rdquo;{profile.pitch!.trim()}&rdquo;
+          </p>
+        )}
+
         {/* Badges */}
         <div className="flex flex-wrap gap-1.5 mb-3">
           {testBadges.map((badge) => (

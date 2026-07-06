@@ -7,6 +7,7 @@ import {
   WORKPLACE_OPTIONS,
   EXTENT_OPTIONS,
   labelFor,
+  seniorityFacts,
   type PoolCandidate,
 } from './types';
 
@@ -31,6 +32,7 @@ export default function CandidateHitCard({
   const avatarInitial = roleLabel.charAt(0).toUpperCase();
   const region = candidate.regions[0] ?? null;
   const skillChips = candidate.skills.slice(0, 5);
+  const seniority = seniorityFacts(candidate);
 
   const footParts = [
     labelFor(AVAILABILITY_OPTIONS, candidate.availability),
@@ -71,6 +73,13 @@ export default function CandidateHitCard({
           </div>
         </div>
       </div>
+
+      {/* Senioritet: erfarenhet, senaste roll och examen */}
+      {seniority.length > 0 && (
+        <p className="text-[12px] font-medium text-slate-600 leading-relaxed -mt-1.5 mb-3">
+          {seniority.join(' · ')}
+        </p>
+      )}
 
       {/* Badges */}
       <div className="flex flex-wrap gap-1.5 mb-3">

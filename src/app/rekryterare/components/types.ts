@@ -23,6 +23,8 @@ export interface TestBadge {
   level: Level | null;
   bestScore: number | null;
   percentile: number | null;
+  /** Antal testade i underlaget ("topp X % av N testade"). */
+  sampleSize: number | null;
 }
 
 export interface PoolCandidate {
@@ -37,6 +39,12 @@ export interface PoolCandidate {
   testBadges: TestBadge[];
   personalityStrengths: string[];
   visibility: 'anonymous' | 'open';
+  /** Total yrkeserfarenhet i hela år, härledd ur arbetshistoriken. */
+  yearsOfExperience: number | null;
+  /** Senaste rollen: titel + hur länge. */
+  latestRole: { title: string; years: number | null } | null;
+  /** Högsta/senaste examen ur CV:t. */
+  educationLevel: string | null;
   interestStatus: InterestStatus;
 }
 
@@ -58,6 +66,8 @@ export interface TestResultEntry {
   level: Level;
   bestScore: number;
   percentile: number | null;
+  /** Antal testade i underlaget ("topp X % av N testade"). */
+  sampleSize: number | null;
   completedAt: string | null;
 }
 
@@ -65,8 +75,34 @@ export interface CandidateDetail extends Omit<PoolCandidate, 'interestStatus'> {
   experience: ExperienceEntry[];
   education: EducationEntry[];
   testResults: TestResultEntry[];
+  /** Kandidatens egenskrivna pitch, aldrig CV:ts summary. */
+  pitch: string | null;
+  /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
+  languages: string[];
   fullName: string | null;
   email: string | null;
+}
+
+/**
+ * Seniorotetsraden: samma tre fakta på träffkortet och detaljsidan.
+ * Returnerar bara de fakta som faktiskt finns, t.ex.
+ * ["8 års erfarenhet", "Senast: Redovisningsansvarig (4 år)", "Civilekonom"].
+ */
+export function seniorityFacts(candidate: {
+  yearsOfExperience: number | null;
+  latestRole: { title: string; years: number | null } | null;
+  educationLevel: string | null;
+}): string[] {
+  const facts: string[] = [];
+  if (candidate.yearsOfExperience !== null) {
+    facts.push(`${candidate.yearsOfExperience} års erfarenhet`);
+  }
+  if (candidate.latestRole) {
+    const { title, years } = candidate.latestRole;
+    facts.push(years !== null ? `Senast: ${title} (${years} år)` : `Senast: ${title}`);
+  }
+  if (candidate.educationLevel) facts.push(candidate.educationLevel);
+  return facts;
 }
 
 /** Personlighetsstyrkorna som kan filtreras på (samma härledning som API:t). */

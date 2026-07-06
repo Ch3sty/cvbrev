@@ -13,6 +13,7 @@ const EXAMPLES: StaticCandidateData[] = [
   {
     role: 'Frontendutvecklare',
     region: 'Göteborg',
+    seniority: '6 års erfarenhet · Senast: Frontendutvecklare (3 år) · Högskoleingenjör',
     testBadges: ['Matrislogik · topp 5 %', 'Verbalt · topp 20 %'],
     strengths: ['Nyfiken', 'Samarbetsinriktad'],
     skills: ['React', 'TypeScript', 'Tillgänglighet'],
@@ -21,6 +22,7 @@ const EXAMPLES: StaticCandidateData[] = [
   {
     role: 'Kundtjänstchef',
     region: 'Malmö',
+    seniority: '11 års erfarenhet · Senast: Kundtjänstchef (4 år) · YH-utbildad',
     testBadges: ['Verbalt · topp 10 %', 'Numeriskt · topp 25 %'],
     strengths: ['Lugn under press', 'Coachande'],
     skills: ['Teamledning', 'Zendesk', 'NPS-arbete'],

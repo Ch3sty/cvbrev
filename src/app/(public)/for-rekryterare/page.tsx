@@ -1,7 +1,7 @@
 /**
  * /for-rekryterare — publik B2B-landningssida i orange/röd-DNA.
  * Sektioner: Hero (med exempelkort) → Värdeprops → Så funkar det →
- * Exempelkort → Trust (GDPR) → FAQ → Final CTA-band.
+ * Exempelkort → Hela profilen (detaljmock) → Trust (GDPR) → FAQ → Final CTA-band.
  * CTA leder till /rekryterare/registrera (beta utan betalning).
  */
 import Breadcrumb from '@/components/Breadcrumb'
@@ -9,6 +9,7 @@ import RekryterareHero from './components/RekryterareHero'
 import RekryterareVardeprops from './components/RekryterareVardeprops'
 import RekryterareSaFunkar from './components/RekryterareSaFunkar'
 import RekryterareExempel from './components/RekryterareExempel'
+import RekryterareProfilExempel from './components/RekryterareProfilExempel'
 import RekryterareTrust from './components/RekryterareTrust'
 import RekryterareFAQ from './components/RekryterareFAQ'
 import RekryterareCTABand from './components/RekryterareCTABand'
@@ -82,6 +83,7 @@ export default function ForRekryterareSida() {
         <RekryterareVardeprops />
         <RekryterareSaFunkar />
         <RekryterareExempel />
+        <RekryterareProfilExempel />
         <RekryterareTrust />
         <RekryterareFAQ />
         <RekryterareCTABand />

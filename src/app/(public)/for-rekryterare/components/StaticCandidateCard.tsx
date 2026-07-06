@@ -10,6 +10,8 @@
 export interface StaticCandidateData {
   role: string
   region: string
+  /** Seniorotetsraden, t.ex. "8 års erfarenhet · Senast: Redovisningsansvarig (4 år) · Civilekonom". */
+  seniority?: string
   testBadges: string[]
   strengths: string[]
   skills: string[]
@@ -21,7 +23,8 @@ export default function StaticCandidateCard({
 }: {
   candidate: StaticCandidateData
 }) {
-  const { role, region, testBadges, strengths, skills, conditions } = candidate
+  const { role, region, seniority, testBadges, strengths, skills, conditions } =
+    candidate
   const avatarInitial = role.charAt(0).toUpperCase()
 
   return (
@@ -49,6 +52,13 @@ export default function StaticCandidateCard({
           </div>
         </div>
       </div>
+
+      {/* Senioritet: erfarenhet, senaste roll och examen — samma rad som portalens träffkort */}
+      {seniority && (
+        <p className="text-[12px] font-medium text-slate-600 leading-relaxed -mt-1 mb-3">
+          {seniority}
+        </p>
+      )}
 
       {/* Badges */}
       <div className="flex flex-wrap gap-1.5 mb-3">

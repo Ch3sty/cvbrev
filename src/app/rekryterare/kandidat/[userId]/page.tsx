@@ -24,6 +24,7 @@ import {
   FAMILY_LABELS,
   LEVEL_LABELS,
   labelFor,
+  seniorityFacts,
   type CandidateDetail,
   type InterestStatus,
 } from '../../components/types';
@@ -137,6 +138,7 @@ export default function KandidatDetaljPage() {
   const displayName = candidate.fullName ?? roleLabel;
   const avatarInitial = displayName.charAt(0).toUpperCase();
   const region = candidate.regions[0] ?? null;
+  const seniority = seniorityFacts(candidate);
 
   const terms = [
     { label: 'Tillträde', value: labelFor(AVAILABILITY_OPTIONS, candidate.availability) },
@@ -202,6 +204,13 @@ export default function KandidatDetaljPage() {
           </div>
         </div>
 
+        {/* Senioritet: erfarenhet, senaste roll och examen */}
+        {seniority.length > 0 && (
+          <p className="text-[12px] font-medium text-slate-600 leading-relaxed -mt-2 mb-3">
+            {seniority.join(' · ')}
+          </p>
+        )}
+
         <div className="flex flex-wrap gap-1.5">
           {candidate.testBadges.map((badge) => (
             <span
@@ -231,6 +240,29 @@ export default function KandidatDetaljPage() {
           ))}
         </div>
       </motion.div>
+
+      {/* Kandidatens egna ord: pitchen skrivs av kandidaten på Bli upptäckt-sidan */}
+      {candidate.pitch && (
+        <motion.blockquote
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut', delay: 0.03 }}
+          className="relative rounded-3xl border border-orange-100 bg-orange-50/60 px-5 sm:px-6 py-4 sm:py-5"
+        >
+          <span
+            className="absolute top-2 left-4 text-4xl leading-none font-serif text-orange-300 select-none"
+            aria-hidden="true"
+          >
+            ”
+          </span>
+          <p className="pl-6 text-[14px] sm:text-[14.5px] text-slate-800 leading-relaxed italic">
+            {candidate.pitch}
+          </p>
+          <footer className="pl-6 mt-1.5 text-[11.5px] font-bold uppercase tracking-wide text-orange-700/70">
+            Kandidatens egna ord
+          </footer>
+        </motion.blockquote>
+      )}
 
       {/* Intressepanel */}
       <PortalCard title="Kontakt" delay={0.05}>
@@ -396,6 +428,22 @@ export default function KandidatDetaljPage() {
         </PortalCard>
       )}
 
+      {/* Språk */}
+      {candidate.languages.length > 0 && (
+        <PortalCard title="Språk" delay={0.18}>
+          <div className="flex flex-wrap gap-1.5">
+            {candidate.languages.map((language) => (
+              <span
+                key={language}
+                className="text-[12px] font-semibold rounded-full px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-600"
+              >
+                {language}
+              </span>
+            ))}
+          </div>
+        </PortalCard>
+      )}
+
       {/* Verifierade resultat */}
       {candidate.testResults.length > 0 && (
         <PortalCard
@@ -417,12 +465,18 @@ export default function KandidatDetaljPage() {
                 </div>
                 <span className="text-[12.5px] font-bold text-orange-800 flex-shrink-0">
                   {result.percentile !== null
-                    ? `Topp ${Math.max(1, 100 - result.percentile)} %`
+                    ? `Topp ${Math.max(1, 100 - result.percentile)} %${
+                        result.sampleSize ? ` av ${result.sampleSize} testade` : ''
+                      }`
                     : `${result.bestScore}% rätt`}
                 </span>
               </div>
             ))}
           </div>
+          <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
+            Percentilerna jämför kandidaten med alla som gjort samma test hos oss.
+            Kognitiv testförmåga är en av de starkaste förutsägelserna av arbetsprestation.
+          </p>
         </PortalCard>
       )}
 

@@ -99,7 +99,26 @@ export async function GET(request: NextRequest) {
       )
     );
 
-    const results = filtered
+    // Sortera efter kompletthet/senioritet INNAN trunkeringen till 50, så de
+    // rikaste profilerna alltid syns först. Poäng per kort:
+    //   antal testbadges × 3  (verifierade resultat väger tyngst)
+    //   + 2 om yrkeserfarenhet kunnat härledas
+    //   + 1 om personlighetsstyrkor visas
+    //   + 1 om kompetenser finns
+    // Fallande poäng; vid lika poäng vinner högst yearsOfExperience.
+    const completenessScore = (card: CandidateCard): number =>
+      card.testBadges.length * 3 +
+      (card.yearsOfExperience ? 2 : 0) +
+      (card.personalityStrengths.length ? 1 : 0) +
+      (card.skills.length ? 1 : 0);
+
+    const sorted = [...filtered].sort((a, b) => {
+      const scoreDiff = completenessScore(b) - completenessScore(a);
+      if (scoreDiff !== 0) return scoreDiff;
+      return (b.yearsOfExperience ?? 0) - (a.yearsOfExperience ?? 0);
+    });
+
+    const results = sorted
       .slice(0, MAX_RESULTS)
       .map((card: CandidateCard) => ({
         ...card,

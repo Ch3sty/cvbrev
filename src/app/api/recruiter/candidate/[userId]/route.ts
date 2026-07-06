@@ -36,7 +36,7 @@ export async function GET(
     const { data: profileRow, error } = await (admin as any)
       .from('candidate_profiles')
       .select(
-        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license'
+        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch'
       )
       .eq('user_id', userId)
       .neq('visibility', 'off')

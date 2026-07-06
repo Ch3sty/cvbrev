@@ -17,6 +17,7 @@ export interface CandidateProfileState {
   drivers_license: boolean;
   salary_min: number | null;
   salary_max: number | null;
+  pitch: string | null;
   consent_given_at: string | null;
 }
 
@@ -32,6 +33,7 @@ export const EMPTY_PROFILE: CandidateProfileState = {
   drivers_license: false,
   salary_min: null,
   salary_max: null,
+  pitch: null,
   consent_given_at: null,
 };
 

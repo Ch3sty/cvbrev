@@ -9,6 +9,7 @@ import ConsentModal from './components/ConsentModal';
 import CvPickerCard from './components/CvPickerCard';
 import VisibilityModeCard from './components/VisibilityModeCard';
 import TermsCard from './components/TermsCard';
+import PitchCard from './components/PitchCard';
 import VerifiedResultsCard from './components/VerifiedResultsCard';
 import ProfileStrengthCard from './components/ProfileStrengthCard';
 import RecruiterPreviewCard from './components/RecruiterPreviewCard';
@@ -115,6 +116,7 @@ export default function BliUpptacktPage() {
             drivers_license: Boolean(row.drivers_license),
             salary_min: (row.salary_min as number | null) ?? null,
             salary_max: (row.salary_max as number | null) ?? null,
+            pitch: (row.pitch as string | null) ?? null,
             consent_given_at: (row.consent_given_at as string | null) ?? null,
           };
           setProfile(loaded);
@@ -230,6 +232,10 @@ export default function BliUpptacktPage() {
 
         <div id="villkor" className="scroll-mt-24">
           <TermsCard profile={profile} onPatch={saveProfile} />
+        </div>
+
+        <div id="pitch" className="scroll-mt-24">
+          <PitchCard pitch={profile.pitch} onSave={(pitch) => saveProfile({ pitch })} />
         </div>
 
         <VerifiedResultsCard summary={summary} showPersonality={profile.show_personality} />

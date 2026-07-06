@@ -19,19 +19,20 @@ interface ChecklistItem {
 
 /**
  * Profilstyrka: 0-100 enligt formeln
- *   + 25  CV valt (cv_id satt)
+ *   + 20  CV valt (cv_id satt)
  *   + 10  samtycke gett (consent_given_at satt)
  *   + 15  villkor ifyllda (availability + minst en region + minst ett arbetsplatsval)
  *   + 10  kompetenser extraherade ur CV:t
  *   + 10  per klar kognitiv testfamilj (max 30)
- *   + 10  personlighetsprofil klar
+ *   +  5  personlighetsprofil klar
+ *   + 10  pitch skriven
  */
 export function computeProfileStrength(
   profile: CandidateProfileState,
   summary: SummaryData | null
 ): number {
   let score = 0;
-  if (profile.cv_id) score += 25;
+  if (profile.cv_id) score += 20;
   if (profile.consent_given_at) score += 10;
   const termsDone =
     !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
@@ -41,7 +42,8 @@ export function computeProfileStrength(
     ? (Object.keys(summary.results) as FamilyKey[]).filter((k) => summary.results[k].done).length
     : 0;
   score += Math.min(familiesDone, 3) * 10;
-  if (summary?.personality?.done) score += 10;
+  if (summary?.personality?.done) score += 5;
+  if ((profile.pitch ?? '').trim().length > 0) score += 10;
   return Math.min(score, 100);
 }
 
@@ -57,6 +59,7 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
   const skillCount = summary?.skills?.skills?.length ?? 0;
   const termsDone =
     !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
+  const pitchDone = (profile.pitch ?? '').trim().length > 0;
 
   const items: ChecklistItem[] = [
     profile.cv_id
@@ -68,6 +71,9 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
     termsDone
       ? { done: true, label: 'Villkor angivna: tillträde, arbetsplats och region', href: '#' }
       : { done: false, label: 'Ange tillträde, arbetsplats och minst en region under Dina villkor', href: '#villkor' },
+    pitchDone
+      ? { done: true, label: 'Pitch skriven, den visas överst hos rekryterare', href: '#' }
+      : { done: false, label: 'Skriv din pitch, den visas överst hos rekryterare', href: '#pitch' },
     profile.consent_given_at
       ? { done: true, label: 'Samtycke gett, profilen kan aktiveras', href: '#' }
       : { done: false, label: 'Slå på synligheten och ge ditt samtycke', href: '#' },
@@ -128,8 +134,15 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
             ) : (
               <>
                 <ArrowRight className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
-                {item.href.startsWith('#') ? (
+                {item.href === '#' ? (
                   <span className="font-semibold text-orange-900">{item.label}</span>
+                ) : item.href.startsWith('#') ? (
+                  <a
+                    href={item.href}
+                    className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
+                  >
+                    {item.label}
+                  </a>
                 ) : (
                   <Link
                     href={item.href}
