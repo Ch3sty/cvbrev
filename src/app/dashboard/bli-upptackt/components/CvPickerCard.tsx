@@ -24,8 +24,8 @@ function formatUpdated(cv: CvOption): string {
 export default function CvPickerCard({ cvs, selectedId, onSelect }: CvPickerCardProps) {
   return (
     <SectionCard
-      title="Vilket CV ska driva din profil?"
-      sub="Kompetenser, roll och erfarenhet hämtas från CV:t du väljer. Ett åt gången."
+      title="Vilket CV vill du visa för rekryterare?"
+      sub="Vi visar aldrig själva dokumentet. Kompetenser, roll och erfarenhet hämtas ur CV:t du väljer, ett åt gången."
       delay={0.05}
     >
       {cvs.length === 0 ? (
