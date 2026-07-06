@@ -66,6 +66,20 @@ function copyFor(feature: string): FeatureCopy {
   return DEFAULT_COPY;
 }
 
+// "Också tillbaka idag": påminn om de andra dagskvoterna, utan att upprepa
+// den funktion mailet redan handlar om.
+const DAILY_ITEMS: Array<{ key: string; label: string }> = [
+  { key: 'letter_generation', label: '2 personliga brev' },
+  { key: 'test', label: 'alla rekryteringstester, en per nivå' },
+  { key: 'chat_message', label: '10 meddelanden till jobbcoachen' },
+];
+
+function otherDailyItems(feature: string): string[] {
+  const heroKey =
+    feature.startsWith('test:') || feature.includes('prov') ? 'test' : feature;
+  return DAILY_ITEMS.filter((item) => item.key !== heroKey).map((item) => item.label);
+}
+
 export function generateQuotaBackEmail(userId: string, feature: string): {
   subject: string;
   html: string;
@@ -73,6 +87,11 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
   const copy = copyFor(feature);
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai';
   const ctaUrl = `${base}${copy.path}`;
+  const others = otherDailyItems(feature);
+  const othersText =
+    others.length > 1
+      ? `${others.slice(0, -1).join(', ')} och ${others[others.length - 1]}`
+      : others[0] ?? '';
 
   const html = `<!doctype html>
 <html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
@@ -92,11 +111,11 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
     <tr>
       <td align="center" style="padding:32px 16px;">
 
-        <!-- Logotyp -->
+        <!-- Logotyp (matchar src/components/Logo.tsx: varm gradient + slate .ai) -->
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
           <tr>
-            <td style="background-color:#F97316;border-radius:10px;width:36px;height:36px;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:800;color:#ffffff;line-height:36px;">J</td>
-            <td style="padding-left:10px;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:800;color:#0F172A;">Jobbcoach<span style="color:#F97316;">.ai</span></td>
+            <td style="background-color:#EA580C;background:linear-gradient(135deg,#F97316 0%,#DC2626 55%,#BE185D 100%);border-radius:9px;width:36px;height:36px;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:21px;font-weight:900;color:#ffffff;line-height:36px;">J</td>
+            <td style="padding-left:10px;font-family:Arial,Helvetica,sans-serif;font-size:19px;font-weight:900;letter-spacing:-0.3px;color:#0F172A;">Jobbcoach<span style="color:#94A3B8;">.ai</span></td>
           </tr>
         </table>
 
@@ -129,9 +148,22 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
               </table>
             </td>
           </tr>
+          <!-- Också tillbaka idag -->
+          <tr>
+            <td style="padding:22px 32px 0 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF7ED;border:1px solid #FFEDD5;border-radius:12px;">
+                <tr>
+                  <td style="padding:14px 18px;">
+                    <p style="margin:0 0 3px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#B45309;">Också tillbaka idag</p>
+                    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#78350F;">Din dagskvot gäller mer än så: ${othersText}.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
           <!-- Sekundär rad -->
           <tr>
-            <td style="padding:14px 32px 30px 32px;">
+            <td style="padding:16px 32px 30px 32px;">
               <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#94A3B8;">Vill du slippa vänta på kvoter? <a href="${base}/priser" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:none;">Premium ger dig obegränsad tillgång</a>, med 7 dagar gratis.</p>
             </td>
           </tr>
