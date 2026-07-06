@@ -64,6 +64,8 @@ interface CompanyFields {
   contactName: string
   contactRole: string
   recruitingRoles: string
+  phone: string
+  website: string
 }
 
 const EMPTY_FIELDS: CompanyFields = {
@@ -72,6 +74,8 @@ const EMPTY_FIELDS: CompanyFields = {
   contactName: '',
   contactRole: '',
   recruitingRoles: '',
+  phone: '',
+  website: '',
 }
 
 /** Normalisera "5566778899" → "556677-8899", trimma bort mellanslag. */
@@ -133,6 +137,8 @@ export default function RekryterareRegistreraSida() {
           contact_name: f.contactName.trim() || null,
           contact_role: f.contactRole.trim() || null,
           recruiting_roles: f.recruitingRoles.trim() || null,
+          phone: f.phone.trim() || null,
+          website: f.website.trim() || null,
         })
       return insertError
     },
@@ -518,6 +524,44 @@ export default function RekryterareRegistreraSida() {
                     className={`${inputClass} resize-y min-h-[80px]`}
                   />
                 </div>
+
+                {/* Kontaktvägar som delas med kandidaten först efter accept */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="phone" className={labelClass}>
+                      Telefon{' '}
+                      <span className="font-medium text-slate-400">(valfritt)</span>
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={fields.phone}
+                      onChange={(e) => setField('phone', e.target.value)}
+                      placeholder="070-123 45 67"
+                      autoComplete="tel"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="website" className={labelClass}>
+                      Webbplats{' '}
+                      <span className="font-medium text-slate-400">(valfritt)</span>
+                    </label>
+                    <input
+                      id="website"
+                      type="url"
+                      value={fields.website}
+                      onChange={(e) => setField('website', e.target.value)}
+                      placeholder="foretaget.se"
+                      autoComplete="url"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <p className="-mt-2 text-[12px] text-slate-400 leading-relaxed">
+                  Kontaktuppgifterna visas för kandidaten först när hen accepterat
+                  er kontakt. Din e-postadress används som standard.
+                </p>
 
                 {/* Kontouppgifter — bara för utloggade besökare */}
                 {view === 'guest-form' && (
