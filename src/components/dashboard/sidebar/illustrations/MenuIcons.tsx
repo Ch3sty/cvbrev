@@ -118,6 +118,19 @@ export function JobbmatchningIcon({ className }: IconProps) {
   );
 }
 
+// === BLI UPPTÄCKT — radar/signal som sänder ut ===
+export function UpptacktIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="12" cy="12" r="2" fill="currentColor" />
+      <path d="M8.8 15.2 Q7.5 13.9 7.5 12 Q7.5 10.1 8.8 8.8" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" />
+      <path d="M15.2 8.8 Q16.5 10.1 16.5 12 Q16.5 13.9 15.2 15.2" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" />
+      <path d="M6 18 Q3.5 15.5 3.5 12 Q3.5 8.5 6 6" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" opacity="0.6" />
+      <path d="M18 6 Q20.5 8.5 20.5 12 Q20.5 15.5 18 18" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" opacity="0.6" />
+    </svg>
+  );
+}
+
 // === JOBBCOACHEN — chat-bubbla med spark ===
 export function JobbcoachenIcon({ className }: IconProps) {
   return (

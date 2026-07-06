@@ -22,6 +22,7 @@ import {
   MallIcon,
   ForbattraIcon,
   JobbmatchningIcon,
+  UpptacktIcon,
   JobbcoachenIcon,
   LinkedinIcon,
   TesterIcon,
@@ -323,6 +324,21 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/jobbmatchning"
             label="Jobbmatchning"
             icon={JobbmatchningIcon}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/bli-upptackt"
+            label="Bli upptäckt"
+            icon={UpptacktIcon}
+            badge={
+              <span
+                className="text-[9px] font-bold uppercase tracking-[0.08em] text-white px-1.5 py-0.5 rounded-full"
+                style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
+              >
+                NY
+              </span>
+            }
             isMobile={isMobile}
             onClick={onClose}
           />
