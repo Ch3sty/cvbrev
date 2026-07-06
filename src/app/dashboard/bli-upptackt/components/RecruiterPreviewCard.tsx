@@ -38,15 +38,14 @@ export default function RecruiterPreviewCard({
   const mode = isOn ? profile.visibility : lastMode;
   const isOpen = mode === 'open';
 
-  const selectedCv = cvs.find((cv) => cv.id === profile.cv_id) ?? null;
-  const role =
-    summary?.skills?.occupation ||
-    (selectedCv ? selectedCv.file_name.replace(/\.(pdf|docx?|txt)$/i, '') : null) ||
-    'Din yrkesroll';
+  // OBS: falla ALDRIG tillbaka på CV:ts filnamn — det innehåller ofta
+  // användarens namn och skulle läcka identiteten i anonymt läge.
+  const role = summary?.skills?.occupation ?? null;
+  const roleLabel = role ?? 'Kandidat';
 
   const region = profile.regions[0] ?? summary?.skills?.location ?? null;
-  const displayName = isOpen && fullName ? fullName : role;
-  const avatarInitial = (isOpen && fullName ? fullName : role).charAt(0).toUpperCase();
+  const displayName = isOpen && fullName ? fullName : roleLabel;
+  const avatarInitial = (isOpen && fullName ? fullName : roleLabel).charAt(0).toUpperCase();
 
   const testBadges = FAMILY_ORDER.filter((key) => summary?.results?.[key]?.done).map((key) => {
     const result = summary!.results[key];
@@ -141,16 +140,22 @@ export default function RecruiterPreviewCard({
               {skill}
             </span>
           ))}
-          {testBadges.length === 0 && personalityChips.length === 0 && skillChips.length === 0 && (
+          {!role && (
             <span className="text-[12px] text-slate-400">
-              Välj ett analyserat CV och gör tester så fylls kortet på.
+              Din yrkesroll saknas ännu. Analysera ditt CV så hämtar vi roll och
+              kompetenser automatiskt.
+            </span>
+          )}
+          {role && testBadges.length === 0 && personalityChips.length === 0 && skillChips.length === 0 && (
+            <span className="text-[12px] text-slate-400">
+              Gör tester så fylls kortet på med verifierade resultat.
             </span>
           )}
         </div>
 
-        {/* Fot */}
-        <div className="flex items-center justify-between gap-3 pt-3 border-t border-orange-50">
-          <span className="text-[12px] text-slate-500 min-w-0 truncate">
+        {/* Fot: villkoren får radbrytas fritt, knappen ligger alltid längst ned till höger */}
+        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2 pt-3 border-t border-orange-50">
+          <span className="text-[12px] text-slate-500 leading-relaxed min-w-0 flex-1 basis-52">
             {footParts.length > 0 ? footParts.join(' · ') : 'Inga villkor angivna ännu'}
           </span>
           <button

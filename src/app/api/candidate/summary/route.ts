@@ -195,7 +195,12 @@ export async function GET(request: Request) {
       personality = { done: true, strengths };
     }
 
-    // --- Kompetenser ur CV-extraktionen ---
+    // --- Kompetenser: extraktion först, CV:ts structured_data som fallback ---
+    // active_cv_for_matching finns bara för CV:t som aktiverats i jobbmatchningen.
+    // För övriga CV:n läser vi cv_texts.structured_data (två format i produktion:
+    // CV-byggarens experience/position + parsade roles/title, och skills som
+    // strängar eller kategorigrupper). Filnamnet används ALDRIG — det läcker
+    // ofta användarens namn i anonymt läge.
     const skillsRow = skillsRes as {
       extracted_skills: string[] | null;
       extracted_occupations: Array<{ original: string; normalized: string }> | null;
@@ -203,12 +208,27 @@ export async function GET(request: Request) {
     } | null;
 
     const firstOccupation = skillsRow?.extracted_occupations?.[0];
-    const skills = {
+    const extracted = {
       skills: (skillsRow?.extracted_skills ?? []).slice(0, 8),
       occupation: firstOccupation
         ? firstOccupation.normalized || firstOccupation.original || null
         : null,
       location: skillsRow?.extracted_location ?? null,
+    };
+
+    let structured: { skills: string[]; occupation: string | null; location: string | null } = {
+      skills: [],
+      occupation: null,
+      location: null,
+    };
+    if (!extracted.occupation || extracted.skills.length === 0) {
+      structured = await fetchStructuredFallback(supabase, user.id, cvId);
+    }
+
+    const skills = {
+      skills: extracted.skills.length > 0 ? extracted.skills : structured.skills,
+      occupation: extracted.occupation ?? structured.occupation,
+      location: extracted.location ?? structured.location,
     };
 
     return NextResponse.json({ results, personality, skills });
@@ -242,4 +262,64 @@ async function fetchSkillsRow(
     return null;
   }
   return data;
+}
+
+/**
+ * Fallback när CV:t saknar rad i active_cv_for_matching: plocka roll och
+ * kompetenser direkt ur cv_texts.structured_data. Hanterar båda formaten
+ * som förekommer i produktion (CV-byggaren och den parsade varianten).
+ */
+async function fetchStructuredFallback(
+  supabase: ReturnType<typeof createServerClient>,
+  userId: string,
+  cvId: string | null
+): Promise<{ skills: string[]; occupation: string | null; location: string | null }> {
+  const empty = { skills: [] as string[], occupation: null, location: null };
+
+  let query = (supabase as any)
+    .from('cv_texts')
+    .select('structured_data')
+    .eq('user_id', userId)
+    .not('structured_data', 'is', null);
+  if (cvId) query = query.eq('id', cvId);
+
+  const { data, error } = await query
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error || !data?.structured_data) {
+    if (error) console.error('Error fetching cv_texts structured_data:', error);
+    return empty;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sd = data.structured_data as any;
+
+  // Roll: CV-byggaren har experience[].position, parsade CV:n har roles[].title.
+  const occupation: string | null =
+    (typeof sd?.experience?.[0]?.position === 'string' && sd.experience[0].position) ||
+    (typeof sd?.roles?.[0]?.title === 'string' && sd.roles[0].title) ||
+    null;
+
+  // Kompetenser: antingen array av strängar eller kategorigrupper { category, skills[] }.
+  let skills: string[] = [];
+  if (Array.isArray(sd?.skills)) {
+    if (typeof sd.skills[0] === 'string') {
+      skills = sd.skills.filter((s: unknown) => typeof s === 'string');
+    } else {
+      skills = sd.skills
+        .flatMap((group: { skills?: unknown }) =>
+          Array.isArray(group?.skills) ? group.skills : []
+        )
+        .filter((s: unknown) => typeof s === 'string');
+    }
+  }
+
+  const location: string | null =
+    (typeof sd?.personalInfo?.city === 'string' && sd.personalInfo.city) ||
+    (typeof sd?.personalInfo?.location === 'string' && sd.personalInfo.location) ||
+    null;
+
+  return { skills: skills.slice(0, 8), occupation, location };
 }
