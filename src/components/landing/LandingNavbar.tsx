@@ -38,11 +38,13 @@ type ToolItem = {
   description: string;
 };
 
+// OBS: håll listan kort — en länk till sprängde menyn till radbrytning.
+// B2B-länken "För rekryterare" ligger i Vad vi erbjuder-dropdownens fot,
+// mobilmenyn och footern i stället för på toppnivå.
 const PRIMARY_LINKS: NavLink[] = [
   { label: 'Hem', href: '/' },
   { label: 'Funktioner', href: '/funktioner' },
   { label: 'Priser', href: '/priser' },
-  { label: 'För rekryterare', href: '/for-rekryterare' },
   { label: 'Inspiration', href: '/exempel' },
   { label: 'Artiklar', href: '/artiklar' },
 ];
@@ -170,7 +172,7 @@ export default function LandingNavbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 text-sm font-bold rounded-lg transition-colors ${
+                  className={`px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
                     isActive(link.href)
                       ? 'text-orange-700 bg-orange-50'
                       : 'text-slate-700 hover:text-orange-700 hover:bg-orange-50/60'
@@ -189,7 +191,7 @@ export default function LandingNavbar() {
                 <button
                   onClick={() => setToolsOpen(!toolsOpen)}
                   aria-expanded={toolsOpen}
-                  className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-bold rounded-lg transition-colors ${
+                  className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
                     toolsOpen ||
                     pathname.startsWith('/verktyg')
                       ? 'text-orange-700 bg-orange-50'
@@ -245,8 +247,8 @@ export default function LandingNavbar() {
                         ))}
                       </div>
 
-                      {/* Footer-CTA i dropdown */}
-                      <div className="border-t border-orange-100 p-3 bg-orange-50/40">
+                      {/* Footer-CTA i dropdown: funktioner + B2B-länken */}
+                      <div className="border-t border-orange-100 p-3 bg-orange-50/40 flex items-center justify-between gap-3">
                         <Link
                           href="/funktioner"
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-700 hover:text-orange-800"
@@ -257,6 +259,13 @@ export default function LandingNavbar() {
                             strokeWidth={2.5}
                           />
                         </Link>
+                        <Link
+                          href="/for-rekryterare"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-orange-700"
+                        >
+                          <Building2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                          För rekryterare
+                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -265,7 +274,7 @@ export default function LandingNavbar() {
 
               <Link
                 href="/om-oss"
-                className={`px-3 py-2 text-sm font-bold rounded-lg transition-colors ${
+                className={`px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
                   isActive('/om-oss')
                     ? 'text-orange-700 bg-orange-50'
                     : 'text-slate-700 hover:text-orange-700 hover:bg-orange-50/60'
@@ -279,14 +288,14 @@ export default function LandingNavbar() {
             <div className="hidden lg:flex items-center gap-2">
               <Link
                 href="/login"
-                className="px-3 py-2 text-sm font-bold text-slate-700 hover:text-orange-700 transition-colors"
+                className="px-3 py-2 text-sm font-bold text-slate-700 hover:text-orange-700 whitespace-nowrap transition-colors"
               >
                 Logga in
               </Link>
               <Link
                 href="/register"
                 data-cta="navbar-signup"
-                className="group inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.02]"
+                className="group inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm whitespace-nowrap transition-all hover:scale-[1.02]"
                 style={{
                   background:
                     'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
@@ -381,6 +390,7 @@ export default function LandingNavbar() {
                 <ul className="space-y-1 px-1">
                   {[
                     ...PRIMARY_LINKS,
+                    { label: 'För rekryterare', href: '/for-rekryterare' },
                     { label: 'Om oss', href: '/om-oss' },
                   ].map((link) => {
                     const Icon = PRIMARY_ICONS[link.label] ?? LayoutGrid;
