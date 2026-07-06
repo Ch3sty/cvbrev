@@ -1,10 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ShieldCheck, EyeOff, Building2, FileX } from 'lucide-react'
+import { ShieldCheck, EyeOff, Building2, Eye, Scale, FileX } from 'lucide-react'
 
 /**
- * Trust-sektion: GDPR-designen som säljargument. Fyra punkter i vita kort
+ * Trust-sektion: GDPR-designen som säljargument. Punkter i vita kort
  * på en mjuk orange bakgrundsplatta.
  */
 const TRUST_POINTS = [
@@ -19,14 +19,24 @@ const TRUST_POINTS = [
     body: 'Namn, foto och kontaktuppgifter är dolda tills kandidaten accepterat er kontakt. Det skyddar kandidaten och ger dig svar från folk som faktiskt är intresserade.',
   },
   {
+    Icon: Eye,
+    title: 'Kandidaten ser samma som du',
+    body: 'Arbetsstilsrapporten kandidaten delar är exakt den du läser, inga dolda poäng. Den symmetrin gör att fler vågar visa upp sig, och att det du ser är något de själva står bakom.',
+  },
+  {
+    Icon: Scale,
+    title: 'Visning, aldrig filtrering',
+    body: 'Personlighetsdata visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Vi bygger medvetet inom ramarna för GDPR och EU:s AI-förordning.',
+  },
+  {
     Icon: Building2,
     title: 'Verifierade rekryterare',
     body: 'Vi godkänner varje rekryterarkonto manuellt mot organisationsnummer innan det får tillgång till poolen. Kandidaterna vet att bara riktiga företag ser dem.',
   },
   {
     Icon: FileX,
-    title: 'Inga rå-CV:n',
-    body: 'Vi delar aldrig råa dokument. Du ser strukturerade, verifierade uppgifter som kandidaten godkänt för visning, varken mer eller mindre.',
+    title: 'Inga rå-CV:n eller löneanspråk',
+    body: 'Vi delar aldrig råa dokument, och kandidatens lönespann lämnar aldrig servern. Du ser strukturerade uppgifter som kandidaten godkänt för visning, varken mer eller mindre.',
   },
 ]
 

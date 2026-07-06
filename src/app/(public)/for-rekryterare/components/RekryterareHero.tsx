@@ -17,9 +17,10 @@ const HERO_CANDIDATE: StaticCandidateData = {
   region: 'Stockholm',
   seniorityFacts: ['8 års erfarenhet', 'Senast: Redovisningsansvarig (4 år)', 'Civilekonom'],
   pitch: 'Redovisningsekonom med åtta år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp.',
-  testBadges: ['Matrislogik · topp 10 %', 'Numeriskt · topp 15 %'],
+  testBadges: ['Matrislogik · Expertnivå · topp 10 %', 'Numeriskt · topp 15 %'],
   strengths: ['Strukturerad', 'Analytisk'],
   skills: ['Bokslut', 'Koncernredovisning', 'Fortnox'],
+  contextTags: ['Analytiskt djuparbete'],
   conditions: ['Omgående', 'Hybrid/På plats', 'Heltid', 'B-körkort'],
 }
 
@@ -74,10 +75,10 @@ export default function RekryterareHero() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-              Varje kandidat i poolen har verifierade testresultat med
-              percentiler. Det kan inget CV visa, och ingen LinkedIn-profil
-              heller. Du ser vad personen faktiskt kan innan ni ens har
-              hälsat.
+              Sök på kravprofilen och få relevansrankade träffar med verifierade
+              testresultat per nivå och en arbetsstilsrapport ur 120 frågor.
+              Varje kandidat har själv valt att synas, så de som svarar är
+              faktiskt intresserade.
             </p>
 
             {/* CTA */}

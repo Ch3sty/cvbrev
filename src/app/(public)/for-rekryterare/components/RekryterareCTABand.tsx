@@ -66,7 +66,7 @@ export default function RekryterareCTABand() {
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
                 <span>Gratis under betan</span>
                 <span className="hidden sm:inline text-white/40">·</span>
-                <span>Manuell verifiering</span>
+                <span>Bevakning ingår</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Ingen bindningstid</span>
               </div>

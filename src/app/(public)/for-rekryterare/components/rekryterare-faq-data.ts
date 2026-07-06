@@ -23,4 +23,24 @@ export const REKRYTERARE_FAQ_ITEMS = [
     q: 'Vilka tester har kandidaterna gjort?',
     a: 'Kognitiva tester i matrislogik, verbal och numerisk förmåga, med percentiler räknade mot alla som gjort samma test hos oss. Dessutom en personlighetskartläggning som lyfter fram kandidatens styrkor. Resultaten kommer från våra egna tester gjorda i inloggat läge, inte från självskattningar.',
   },
+  {
+    q: 'Hur verifieras testresultaten?',
+    a: 'Vi räknar kandidatens första slutförda försök på varje nivå som det verifierade resultatet, aldrig det bästa av flera försök. Badgen visar alltid vilken nivå siffran gäller, och percentilen jämförs mot alla som gjort exakt samma test hos oss, med antalet testade utskrivet. Vi visar också när testet gjordes och flaggar resultat äldre än två år.',
+  },
+  {
+    q: 'Kan jag filtrera bort kandidater på personlighet?',
+    a: 'Nej, och det är ett medvetet val. Personlighetsdata beskriver hur någon arbetar, inte hur bra, och lämpar sig inte för att sålla bort människor. Arbetsstilsrapporten visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Det skyddar både dig och kandidaten, och håller oss på rätt sida av GDPR och EU:s AI-förordning.',
+  },
+  {
+    q: 'Vad låses upp när kandidaten tackar ja?',
+    a: 'Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en onboardingguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.',
+  },
+  {
+    q: 'Kan jag dela en profil med min chef?',
+    a: 'Ja. Du skapar en delningslänk som visar en maskerad, läsbar version av profilen och håller i fjorton dagar. Din hiring manager ser samma underlag som du, enligt samma maskeringsregler, utan att behöva eget konto. Det slår skärmdumpar som tappar bort anonymiteten.',
+  },
+  {
+    q: 'Hur får jag veta när nya kandidater dyker upp?',
+    a: 'Spara din sökning och slå på bevakning. Då mailar vi dig när nya kandidater som matchar din kravprofil har lagt till sig i poolen, som mest en gång per dag. I en pool som växer är det ofta smidigare än att söka om och om igen.',
+  },
 ]

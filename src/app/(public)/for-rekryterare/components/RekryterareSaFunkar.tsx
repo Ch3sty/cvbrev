@@ -2,30 +2,36 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Search, Send, Unlock } from 'lucide-react'
+import { ArrowRight, Search, FolderKanban, Send, Share2 } from 'lucide-react'
 
 /**
- * Tre steg: sök i poolen → visa intresse → kandidaten svarar och profilen
- * låses upp. Samma stegkortsstil som verktygssidornas "Så funkar det".
+ * Fyra steg = arbetsflödet, inte en engångssökning: sök → projekt/jämför →
+ * intresse → dela med hiring manager. Samma stegkortsstil som verktygssidorna.
  */
 const STEPS = [
   {
     num: 1,
     Icon: Search,
-    title: 'Sök i kandidatpoolen',
-    body: 'Filtrera på roll, region, villkor och percentilgolv. Träffkorten visar verifierade testresultat, styrkor och kompetenser, men aldrig identiteten.',
+    title: 'Sök på kravprofilen',
+    body: 'Skriv roll och nyckelkompetens, så rankar vi poolen efter relevans och visar varför varje kandidat matchar. Filtrera på senioritet, testresultat, budget och villkor.',
   },
   {
     num: 2,
-    Icon: Send,
-    title: 'Visa intresse',
-    body: 'Hittar du en match skickar du en intresseförfrågan direkt från kortet. Kandidaten får en notis om att ett företag vill komma i kontakt.',
+    Icon: FolderKanban,
+    title: 'Samla i projekt och jämför',
+    body: 'Spara de intressanta till ett projekt, sätt status och lägg egna anteckningar. Ställ två till fyra kandidater sida vid sida när du ska välja vilka du kontaktar först.',
   },
   {
     num: 3,
-    Icon: Unlock,
-    title: 'Kandidaten svarar, profilen låses upp',
-    body: 'Tackar kandidaten ja ser ni varandras namn och kontaktväg och tar dialogen direkt. Tackar hen nej förblir profilen anonym.',
+    Icon: Send,
+    title: 'Visa intresse, kandidaten svarar',
+    body: 'Skicka en intresseförfrågan direkt från kortet. Tackar kandidaten ja låses namn, kontaktväg, onboardingtips och en skräddarsydd intervjuguide upp. Tackar hen nej förblir profilen anonym.',
+  },
+  {
+    num: 4,
+    Icon: Share2,
+    title: 'Dela med din hiring manager',
+    body: 'Skicka en maskerad, läsbar profil via en länk som håller i fjorton dagar. Din chef ser samma underlag som du, utan skärmdumpar i en Slack-tråd.',
   },
 ]
 
@@ -45,7 +51,7 @@ export default function RekryterareSaFunkar() {
             Så funkar det
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Tre steg från sökning
+            Från sökning
             <br className="hidden sm:block" />
             <span
               style={{
@@ -56,7 +62,7 @@ export default function RekryterareSaFunkar() {
                 backgroundClip: 'text',
               }}
             >
-              till dialog
+              till anställning
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
@@ -66,7 +72,7 @@ export default function RekryterareSaFunkar() {
         </motion.div>
 
         {/* Steg-grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {STEPS.map(({ num, Icon, title, body }, idx) => (
             <motion.div
               key={num}

@@ -42,17 +42,22 @@ const EXPERIENCE = [
 ]
 
 const TEST_RESULTS = [
-  { label: 'Matrislogik · Expertnivå', value: 'Topp 10 % av 1 240 testade' },
-  { label: 'Numeriskt · Standardnivå', value: 'Topp 15 % av 890 testade' },
+  { label: 'Matrislogik · Expertnivå', value: 'Topp 10 % av 1 240 testade · 1 försök' },
+  { label: 'Numeriskt · Standardnivå', value: 'Topp 15 % av 890 testade · 1 försök' },
 ]
 
 const STRENGTHS = ['Strukturerad', 'Analytisk']
 
-const WORK_STYLE_STATEMENTS = [
-  'Håller deadlines utan påminnelser',
-  'Bygger struktur där den saknas',
-  'Tänker igenom beslut innan de fattas',
+const CONTEXT_TAGS = ['Analytiskt djuparbete', 'Noggrannhet och självständigt ansvar']
+
+// Bipolära spektra (band 1-5 → punktposition), samma som portalens rapport.
+const SPECTRA: Array<{ left: string; right: string; band: number }> = [
+  { left: 'Improviserar och anpassar', right: 'Planerar och strukturerar', band: 5 },
+  { left: 'Snabb till beslut', right: 'Grundlig före beslut', band: 4 },
+  { left: 'Får energi av eget fokusarbete', right: 'Får energi av samarbete i grupp', band: 2 },
 ]
+
+const BAND_POSITION: Record<number, number> = { 1: 10, 2: 30, 3: 50, 4: 70, 5: 90 }
 
 const TERMS = [
   { label: 'Tillträde', value: 'Omgående' },
@@ -365,9 +370,9 @@ export default function RekryterareProfilExempel() {
               </p>
             </MockCard>
 
-            {/* Arbetsstil: arketyp + beteendepunkter ur utökade testet */}
+            {/* Arbetsstil: fullständig rapport (arketyp + spektra + Trivs när) */}
             <MockCard title="Arbetsstil">
-              <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-4 py-3.5">
+              <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-4 py-3.5 mb-4">
                 <p className="text-[15px] font-extrabold text-indigo-900">
                   Strukturerad analytiker
                 </p>
@@ -377,40 +382,76 @@ export default function RekryterareProfilExempel() {
                 </p>
               </div>
 
-              <div className="mt-4">
-                <p className="text-[11.5px] font-bold uppercase tracking-wide text-slate-400 mb-2">
-                  I arbetet
-                </p>
-                <ul className="space-y-1.5">
-                  {WORK_STYLE_STATEMENTS.map((statement) => (
-                    <li
-                      key={statement}
-                      className="flex items-start gap-2 text-[13.5px] text-slate-700 leading-relaxed"
-                    >
-                      <span
-                        className="w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 mt-[7px]"
-                        aria-hidden="true"
-                      />
-                      {statement}
-                    </li>
-                  ))}
-                </ul>
+              {/* Spektra: punkt på linje, aldrig siffror */}
+              <div className="space-y-3.5 mb-4">
+                {SPECTRA.map((s) => {
+                  const pos = BAND_POSITION[s.band] ?? 50
+                  return (
+                    <div key={s.left}>
+                      <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                        <span className={`text-[12px] leading-snug ${s.band <= 2 ? 'font-bold text-indigo-900' : 'text-slate-500'}`}>
+                          {s.left}
+                        </span>
+                        <span className={`text-[12px] leading-snug text-right ${s.band >= 4 ? 'font-bold text-indigo-900' : 'text-slate-500'}`}>
+                          {s.right}
+                        </span>
+                      </div>
+                      <div className="relative h-4" aria-hidden="true">
+                        <div className="absolute top-1/2 -translate-y-1/2 inset-x-0 h-[3px] rounded-full bg-indigo-100" />
+                        <div
+                          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-indigo-500 border-indigo-500"
+                          style={{ left: `${pos}%` }}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
-              <div className="mt-4 pt-4 border-t border-indigo-50">
+              {/* Trivs när / Utmanas när */}
+              <div className="rounded-xl border border-indigo-100 bg-white p-3 mb-4">
+                <p className="text-[13px] text-slate-700 leading-relaxed">
+                  <span className="font-bold text-indigo-900">Trivs när</span> processer
+                  är tydliga och kvalitet hinner göras rätt.{' '}
+                  <span className="font-bold text-slate-700">Utmanas när</span> planer
+                  rivs upp dagligen utan förklaring.
+                </p>
+              </div>
+
+              {/* Låst onboarding + intervjuguide */}
+              <div className="pt-4 border-t border-indigo-50">
                 <p className="flex items-start gap-2 text-[12.5px] text-slate-500 leading-relaxed">
                   <Lock
                     className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400"
                     aria-hidden="true"
                   />
-                  Intervjuguide med 3 skräddarsydda frågor låses upp när
-                  kandidaten tackar ja.
+                  Onboardingguide och en intervjuguide byggd på kandidatens
+                  styrkor låses upp när kandidaten tackar ja.
                 </p>
               </div>
 
-              <p className="mt-3 text-[12.5px] text-slate-500 leading-relaxed">
-                Härledd ur det utökade personlighetstestet (120 frågor), delad
-                med kandidatens samtycke.
+              <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
+                Rapporten beskriver arbetssätt och trivsel, inte kompetens eller
+                förväntad prestation. Kandidaten ser exakt samma rapport som du.
+              </p>
+            </MockCard>
+
+            {/* Söker mig till: kandidatens självvalda kontexttaggar */}
+            <MockCard title="Söker mig till">
+              <div className="flex flex-wrap gap-2">
+                {CONTEXT_TAGS.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[12.5px] font-semibold rounded-full px-3 py-1.5 bg-white border border-indigo-200 text-indigo-800"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
+                Kandidatens egna ord om var hen trivs, byggda på personlighetstestet.
+                Beskriver trivsel och arbetssätt, aldrig lämplighet eller förväntad
+                prestation.
               </p>
             </MockCard>
 

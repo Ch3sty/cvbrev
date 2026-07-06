@@ -18,6 +18,8 @@ export interface StaticCandidateData {
   strengths: string[]
   skills: string[]
   conditions: string[]
+  /** Självvalda kontexttaggar ("Söker mig till"), visas som indigo-outline. */
+  contextTags?: string[]
 }
 
 export default function StaticCandidateCard({
@@ -25,7 +27,7 @@ export default function StaticCandidateCard({
 }: {
   candidate: StaticCandidateData
 }) {
-  const { role, region, seniorityFacts, pitch, testBadges, strengths, skills, conditions } =
+  const { role, region, seniorityFacts, pitch, testBadges, strengths, skills, conditions, contextTags } =
     candidate
   const avatarInitial = role.charAt(0).toUpperCase()
 
@@ -104,7 +106,7 @@ export default function StaticCandidateCard({
       </div>
 
       {/* Rad 2: kompetenser ur CV:t, medvetet nedtonade */}
-      <div className="flex flex-wrap gap-1.5 mb-3">
+      <div className="flex flex-wrap gap-1.5 mb-2.5">
         {skills.map((skill) => (
           <span
             key={skill}
@@ -114,6 +116,23 @@ export default function StaticCandidateCard({
           </span>
         ))}
       </div>
+
+      {/* Rad 3: "Söker mig till"-taggar, kandidatens självpresentation */}
+      {contextTags && contextTags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5 mb-3">
+          <span className="text-[10.5px] font-bold uppercase tracking-wide text-indigo-400">
+            Söker
+          </span>
+          {contextTags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[11.5px] font-semibold rounded-full px-2.5 py-1 bg-white border border-indigo-200 text-indigo-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Fot: villkor + knapp (dekorativ på den publika sidan) */}
       <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2 pt-3 border-t border-orange-50">

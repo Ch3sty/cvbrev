@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Hitta kandidater med verifierade testresultat | Jobbcoach.ai',
+  title: 'Rekryteringsverktyg med verifierade testresultat och arbetsstilsprofiler | Jobbcoach.ai',
   description:
-    'Sök i en kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten säger ja. Gratis under betan.',
+    'Sök på kravprofilen i en kandidatpool med verifierade testresultat per nivå och arbetsstilsprofiler ur 120 frågor. Bevakning, jämförelse och delning ingår. Anonymt tills kandidaten säger ja, gratis under betan.',
   keywords:
-    'rekrytera kandidater, kandidatpool, verifierade testresultat, kognitiva tester rekrytering, hitta kandidater, rekryteringsverktyg, headhunting verktyg',
+    'rekryteringsverktyg, kandidatpool, verifierade testresultat, arbetsstilsprofil, kognitiva tester rekrytering, hitta kandidater, kravprofil, headhunting verktyg',
   openGraph: {
     title: 'Kandidater med bevisade färdigheter | Jobbcoach.ai',
     description:

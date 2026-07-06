@@ -6,7 +6,9 @@
  */
 import Breadcrumb from '@/components/Breadcrumb'
 import RekryterareHero from './components/RekryterareHero'
+import ProductTour from './components/ProductTour'
 import RekryterareVardeprops from './components/RekryterareVardeprops'
+import RekryterareTestIntegritet from './components/RekryterareTestIntegritet'
 import RekryterareSaFunkar from './components/RekryterareSaFunkar'
 import RekryterareExempel from './components/RekryterareExempel'
 import RekryterareProfilExempel from './components/RekryterareProfilExempel'
@@ -80,7 +82,9 @@ export default function ForRekryterareSida() {
 
         {/* Sektioner */}
         <RekryterareHero />
+        <ProductTour />
         <RekryterareVardeprops />
+        <RekryterareTestIntegritet />
         <RekryterareSaFunkar />
         <RekryterareExempel />
         <RekryterareProfilExempel />

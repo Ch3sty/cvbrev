@@ -2,36 +2,37 @@
 
 import { motion } from 'framer-motion'
 import {
-  BadgeCheck,
   Users,
-  SlidersHorizontal,
-  MailCheck,
+  BadgeCheck,
+  Bell,
+  Wallet,
 } from 'lucide-react'
 
 /**
  * Fyra värdeprops i vita kort med orange kant — samma kortstil som
- * "Så funkar det"-korten på verktygssidorna.
+ * "Så funkar det"-korten på verktygssidorna. Skrivna kring de fyra riktiga
+ * differentiatorerna ur expertanalysen (portal v2).
  */
 const PROPS = [
   {
-    Icon: BadgeCheck,
-    title: 'Verifierade färdigheter',
-    body: 'Percentiler på kognitiva tester och kartlagda personlighetsstyrkor på varje kandidat. Du jämför bevisad förmåga, inte formuleringskonst i ett CV.',
-  },
-  {
     Icon: Users,
-    title: 'Aktiva kandidater',
-    body: 'Alla i poolen är arbetssökande som själva valt att synas. Inga passiva profiler som aldrig svarar, bara människor som letar nästa jobb just nu.',
+    title: 'Svarsvilliga kandidater',
+    body: 'Alla i poolen har själva valt att synas och sagt ja till att bli kontaktade. När du visar intresse landar det hos någon som väntar på det, inte i en full inkorg.',
   },
   {
-    Icon: SlidersHorizontal,
-    title: 'Träffsäkra filter',
-    body: 'Filtrera på tillträde, arbetsplats, region, körkort och percentilgolv. Du slipper mismatch-kontakterna redan innan du hör av dig.',
+    Icon: BadgeCheck,
+    title: 'Verifierat före första kontakt',
+    body: 'Percentiler på kognitiva tester per nivå, inte formuleringskonst i ett CV. Du ser vad kandidaten bevisat redan i sökögonblicket, innan ni ens hälsat.',
   },
   {
-    Icon: MailCheck,
-    title: 'Högre svarsfrekvens',
-    body: 'Anonym först: kandidaten har redan sagt ja till att bli kontaktad. När du visar intresse landar det hos någon som väntar på det, inte i en full inkorg.',
+    Icon: Bell,
+    title: 'Bevakning på kravprofilen',
+    body: 'Spara din sökning så mailar vi när nya kandidater matchar. Poolen växer varje vecka, och du behöver aldrig komma ihåg att söka igen.',
+  },
+  {
+    Icon: Wallet,
+    title: 'Budgetfilter utan löneexponering',
+    body: 'Sålla bort omöjliga löneanspråk innan du tar kontakt. Kandidatens spann visas aldrig för dig, vi filtrerar bara på det, så ni båda slipper dödsdömda processer.',
   },
 ]
 
