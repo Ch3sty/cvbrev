@@ -1,102 +1,218 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, SlidersHorizontal, Users } from 'lucide-react';
-import CandidateHitCard from './components/CandidateHitCard';
 import {
-  AVAILABILITY_OPTIONS,
-  WORKPLACE_OPTIONS,
-  PERCENTILE_FLOORS,
-  REGIONS,
-  STRENGTH_OPTIONS,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { PanelLeftClose, PanelLeftOpen, SlidersHorizontal, Users, X } from 'lucide-react';
+import CandidateHitCard from './components/CandidateHitCard';
+import CandidateTable from './components/CandidateTable';
+import CompareToolbar from './components/CompareToolbar';
+import FilterPanel from './components/FilterPanel';
+import PeekPanel from './components/PeekPanel';
+import {
+  EMPTY_POOL_FILTERS,
+  SORT_OPTIONS,
+  CTA_GRADIENT,
+  buildPoolParams,
+  countActiveFilters,
+  filterStateToSaved,
+  savedToFilterState,
+  tokenizePreview,
   type PoolCandidate,
+  type PoolFilterState,
+  type PoolSortKey,
+  type SavedSearch,
 } from './components/types';
 
-interface Filters {
-  q: string;
-  region: string;
-  availability: string;
-  workplace: string;
-  minPercentile: string;
-  strength: string;
-}
-
-const EMPTY_FILTERS: Filters = {
-  q: '',
-  region: '',
-  availability: '',
-  workplace: '',
-  minPercentile: '',
-  strength: '',
-};
-
 /**
- * Kandidatpoolen: sök och filtrera bland synliga kandidatprofiler, visa
- * intresse direkt på kortet eller öppna detaljprofilen. Layouten sköter
- * guarden — sidan renderas bara för godkända rekryterare.
+ * Sökvyn: filterpanel till vänster, resultattabell till höger på desktop,
+ * kortgrid + bottom-sheet-filter på mobil. Radklick öppnar peek-panelen.
+ * ?saved=<id> applicerar en sparad sökning vid mount (bevakningsmailen
+ * länkar hit).
  */
 export default function RekryterarePoolPage() {
-  const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
+  return (
+    <Suspense fallback={<PoolSkeleton />}>
+      <SearchView />
+    </Suspense>
+  );
+}
+
+function PoolSkeleton() {
+  return (
+    <div className="space-y-4" aria-hidden="true">
+      <div className="rounded-3xl bg-orange-50/60 h-14 animate-pulse" />
+      <div className="rounded-3xl bg-orange-50/60 h-64 animate-pulse" />
+    </div>
+  );
+}
+
+function SearchView() {
+  const searchParams = useSearchParams();
+  const savedIdFromUrl = searchParams?.get('saved') ?? null;
+
+  const [filters, setFilters] = useState<PoolFilterState>(EMPTY_POOL_FILTERS);
+  const [sort, setSort] = useState<PoolSortKey>('relevance');
   const [candidates, setCandidates] = useState<PoolCandidate[] | null>(null);
-  const [totalCount, setTotalCount] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [sendingId, setSendingId] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [sendingId, setSendingId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [peekCandidate, setPeekCandidate] = useState<PoolCandidate | null>(null);
+  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
+  const savedAppliedRef = useRef(false);
 
-  const fetchPool = useCallback(async (f: Filters) => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      if (f.q.trim()) params.set('role', f.q.trim());
-      if (f.region) params.set('region', f.region);
-      if (f.availability) params.set('availability', f.availability);
-      if (f.workplace) params.set('workplace', f.workplace);
-      if (f.minPercentile) params.set('minPercentile', f.minPercentile);
-      if (f.strength) params.set('strength', f.strength);
+  const fetchPool = useCallback(
+    async (f: PoolFilterState, s: PoolSortKey, p: number, append: boolean) => {
+      const requestId = ++requestIdRef.current;
+      if (append) setLoadingMore(true);
+      else setLoading(true);
+      try {
+        const params = buildPoolParams(f, s, p);
+        const res = await fetch(`/api/recruiter/pool?${params.toString()}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = (await res.json()) as {
+          candidates: PoolCandidate[];
+          total: number;
+        };
+        if (requestId !== requestIdRef.current) return;
+        setTotal(data.total);
+        setCandidates((prev) =>
+          append ? [...(prev ?? []), ...data.candidates] : data.candidates
+        );
+      } catch (error) {
+        console.error('Rekryterarpool: kunde inte hämta kandidater', error);
+        if (requestId !== requestIdRef.current) return;
+        if (!append) {
+          setCandidates([]);
+          setTotal(0);
+        }
+      } finally {
+        if (requestId === requestIdRef.current) {
+          setLoading(false);
+          setLoadingMore(false);
+        }
+      }
+    },
+    []
+  );
 
-      const res = await fetch(`/api/recruiter/pool?${params.toString()}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = (await res.json()) as {
-        candidates: PoolCandidate[];
-        totalCount: number;
-      };
-      setCandidates(data.candidates);
-      setTotalCount(data.totalCount);
-    } catch (error) {
-      console.error('Rekryterarpool: kunde inte hämta kandidater', error);
-      setCandidates([]);
-      setTotalCount(0);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  // Sökfältet debounceas, select-filtren slår igenom direkt.
+  // Sökfältet debounceas, övriga filter och sortering slår igenom direkt.
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => fetchPool(filters), 350);
+    debounceRef.current = setTimeout(() => {
+      setPage(1);
+      fetchPool(filters, sort, 1, false);
+    }, 300);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [filters, fetchPool]);
+  }, [filters, sort, fetchPool]);
 
-  const setFilter = (key: keyof Filters, value: string) =>
-    setFilters((prev) => ({ ...prev, [key]: value }));
+  // Sparade sökningar + ?saved=<id> vid mount.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/recruiter/saved-searches');
+        if (!res.ok) return;
+        const data = (await res.json()) as { searches: SavedSearch[] };
+        if (cancelled) return;
+        setSavedSearches(data.searches);
+        if (savedIdFromUrl && !savedAppliedRef.current) {
+          const match = data.searches.find((s) => s.id === savedIdFromUrl);
+          if (match) {
+            savedAppliedRef.current = true;
+            setFilters(savedToFilterState(match.filters));
+          }
+        }
+      } catch {
+        // Panelen fungerar utan sparade sökningar.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedIdFromUrl]);
 
+  const patchFilters = useCallback((patch: Partial<PoolFilterState>) => {
+    setFilters((prev) => ({ ...prev, ...patch }));
+  }, []);
+
+  const clearAll = useCallback(() => setFilters(EMPTY_POOL_FILTERS), []);
+
+  const saveSearch = useCallback(
+    async (name: string): Promise<boolean> => {
+      try {
+        const res = await fetch('/api/recruiter/saved-searches', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, filters: filterStateToSaved(filters) }),
+        });
+        const data = (await res.json().catch(() => null)) as {
+          search?: SavedSearch;
+          searches?: SavedSearch[];
+          error?: string;
+        } | null;
+        if (!res.ok) {
+          setNotice(data?.error ?? 'Kunde inte spara sökningen.');
+          return false;
+        }
+        // Hämta om listan så id:n och ordning stämmer.
+        const listRes = await fetch('/api/recruiter/saved-searches');
+        if (listRes.ok) {
+          const listData = (await listRes.json()) as { searches: SavedSearch[] };
+          setSavedSearches(listData.searches);
+        }
+        setNotice(`Sökningen "${name}" är sparad. Slå på bevakning under Sparade sökningar.`);
+        return true;
+      } catch {
+        setNotice('Kunde inte spara sökningen.');
+        return false;
+      }
+    },
+    [filters]
+  );
+
+  const applySaved = useCallback((search: SavedSearch) => {
+    setFilters(savedToFilterState(search.filters));
+    setSheetOpen(false);
+  }, []);
+
+  // Intresseflödet: optimistisk uppdatering med rollback (samma som tidigare).
   const handleInterest = useCallback(
     async (candidateUserId: string) => {
       setSendingId(candidateUserId);
       setNotice(null);
 
-      // Optimistisk uppdatering med snapshot för rollback.
       const snapshot = candidates;
-      setCandidates((prev) =>
-        (prev ?? []).map((c) =>
-          c.userId === candidateUserId ? { ...c, interestStatus: 'pending' } : c
-        )
-      );
+      const apply = (status: PoolCandidate['interestStatus']) => {
+        setCandidates((prev) =>
+          (prev ?? []).map((c) =>
+            c.userId === candidateUserId ? { ...c, interestStatus: status } : c
+          )
+        );
+        setPeekCandidate((prev) =>
+          prev && prev.userId === candidateUserId ? { ...prev, interestStatus: status } : prev
+        );
+      };
+      apply('pending');
 
       try {
         const res = await fetch('/api/recruiter/interest', {
@@ -107,19 +223,11 @@ export default function RekryterarePoolPage() {
         const data = await res.json().catch(() => null);
         if (res.status === 429) {
           setCandidates(snapshot);
-          setNotice(
-            data?.error ?? 'Du har nått gränsen på 10 intressen per dygn.'
-          );
+          setNotice(data?.error ?? 'Du har nått gränsen på 10 intressen per dygn.');
           return;
         }
         if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
-        // Befintligt intresse kan ha annan status än pending — synka in den.
-        const status = data?.interest?.status ?? 'pending';
-        setCandidates((prev) =>
-          (prev ?? []).map((c) =>
-            c.userId === candidateUserId ? { ...c, interestStatus: status } : c
-          )
-        );
+        apply(data?.interest?.status ?? 'pending');
       } catch (error) {
         console.error('Rekryterarpool: kunde inte skicka intresse', error);
         setCandidates(snapshot);
@@ -131,107 +239,55 @@ export default function RekryterarePoolPage() {
     [candidates]
   );
 
-  const hasActiveFilters = Object.values(filters).some((v) => v !== '');
+  const toggleSelect = useCallback((userId: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+    );
+  }, []);
+
+  const toggleSelectAll = useCallback(() => {
+    const visible = (candidates ?? []).map((c) => c.userId);
+    setSelectedIds((prev) => (visible.every((id) => prev.includes(id)) ? [] : visible));
+  }, [candidates]);
+
+  const activeCount = countActiveFilters(filters);
+  const hasQuery = filters.q.trim().length > 0;
+  const shown = candidates?.length ?? 0;
+  const hasMore = shown < total;
+
+  const nextBestActions = useMemo(
+    () => buildNextBestActions(filters, patchFilters, clearAll),
+    [filters, patchFilters, clearAll]
+  );
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* Rubrik */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="flex items-end justify-between gap-3 flex-wrap"
       >
-        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">Kandidatpoolen</h1>
-        <p className="text-[13.5px] text-slate-500 mt-1 leading-relaxed">
-          Aktiva kandidater med verifierade testresultat. Visa intresse så får
-          kandidaten frågan, och kontakten låses upp när den accepterar.
-        </p>
-      </motion.div>
-
-      {/* Sök och filter */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.05, ease: 'easeOut' }}
-        className="relative bg-white rounded-3xl border border-orange-100 p-4 sm:p-5 overflow-hidden"
-        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
-      >
-        <div
-          className="absolute top-0 inset-x-0 h-0.5"
-          style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
-          aria-hidden="true"
-        />
-
-        <label className="relative block">
-          <span className="sr-only">Sök på roll eller kompetens</span>
-          <Search
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-slate-400"
-            aria-hidden="true"
-          />
-          <input
-            type="search"
-            value={filters.q}
-            onChange={(e) => setFilter('q', e.target.value)}
-            placeholder="Sök på roll eller kompetens, t.ex. utvecklare eller redovisning"
-            className="w-full min-h-[44px] pl-10 pr-4 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-300"
-          />
-        </label>
-
-        <div className="mt-3 flex items-center gap-2 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 text-[12px] font-bold text-slate-500 mr-1">
-            <SlidersHorizontal className="w-3.5 h-3.5" aria-hidden="true" />
-            Filter
-          </span>
-
-          <FilterSelect
-            label="Län"
-            value={filters.region}
-            onChange={(v) => setFilter('region', v)}
-            options={REGIONS.map((r) => ({ value: r, label: r }))}
-            allLabel="Hela Sverige"
-          />
-          <FilterSelect
-            label="Tillträde"
-            value={filters.availability}
-            onChange={(v) => setFilter('availability', v)}
-            options={AVAILABILITY_OPTIONS}
-            allLabel="Alla tillträden"
-          />
-          <FilterSelect
-            label="Arbetsplats"
-            value={filters.workplace}
-            onChange={(v) => setFilter('workplace', v)}
-            options={WORKPLACE_OPTIONS}
-            allLabel="Alla arbetsplatser"
-          />
-          <FilterSelect
-            label="Testresultat"
-            value={filters.minPercentile}
-            onChange={(v) => setFilter('minPercentile', v)}
-            options={PERCENTILE_FLOORS.map((p) => ({
-              value: String(p),
-              label: `Topp ${100 - p} %`,
-            }))}
-            allLabel="Alla resultat"
-          />
-          <FilterSelect
-            label="Styrka"
-            value={filters.strength}
-            onChange={(v) => setFilter('strength', v)}
-            options={STRENGTH_OPTIONS.map((s) => ({ value: s, label: s }))}
-            allLabel="Alla styrkor"
-          />
-
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={() => setFilters(EMPTY_FILTERS)}
-              className="min-h-[36px] px-3 rounded-lg text-[12.5px] font-bold text-orange-600 hover:text-orange-700 hover:bg-orange-50 transition-colors"
-            >
-              Rensa
-            </button>
-          )}
+        <div>
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">Sök kandidater</h1>
+          <p className="text-[13.5px] text-slate-500 mt-1 leading-relaxed max-w-xl">
+            Aktiva kandidater med verifierade testresultat. Visa intresse så får
+            kandidaten frågan, och kontakten låses upp när den accepterar.
+          </p>
         </div>
+        <button
+          type="button"
+          onClick={() => setPanelOpen((v) => !v)}
+          className="hidden lg:inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-xl text-[12.5px] font-bold text-slate-500 border border-slate-200 bg-white hover:bg-slate-50 transition-colors"
+        >
+          {panelOpen ? (
+            <PanelLeftClose className="w-4 h-4" aria-hidden="true" />
+          ) : (
+            <PanelLeftOpen className="w-4 h-4" aria-hidden="true" />
+          )}
+          {panelOpen ? 'Dölj filter' : 'Visa filter'}
+        </button>
       </motion.div>
 
       {notice && (
@@ -243,103 +299,273 @@ export default function RekryterarePoolPage() {
         </p>
       )}
 
-      {/* Resultat */}
-      {loading && candidates === null ? (
-        <div className="grid gap-4 sm:grid-cols-2" aria-hidden="true">
-          {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="rounded-2xl bg-orange-50/60 h-48 animate-pulse" />
-          ))}
-        </div>
-      ) : (candidates?.length ?? 0) === 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="rounded-3xl border border-dashed border-orange-200 bg-white p-8 sm:p-12 text-center"
-        >
-          <div className="mx-auto mb-4 w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center">
-            <Users className="w-6 h-6 text-orange-600" aria-hidden="true" />
+      <div className="flex items-start gap-5">
+        {/* Filterpanel, desktop */}
+        {panelOpen && (
+          <aside className="hidden lg:block w-[280px] flex-shrink-0 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-2xl border border-orange-100 bg-white p-4">
+            <FilterPanel
+              filters={filters}
+              onChange={patchFilters}
+              onClearAll={clearAll}
+              onSaveSearch={saveSearch}
+              savedSearches={savedSearches}
+              onApplySaved={applySaved}
+            />
+          </aside>
+        )}
+
+        {/* Resultat */}
+        <div className="flex-1 min-w-0 space-y-3">
+          {/* Sorteringsrad */}
+          <div className="flex items-center gap-x-3 gap-y-1.5 flex-wrap">
+            <span className="text-[12.5px] font-bold text-slate-600">
+              {loading
+                ? 'Söker…'
+                : total === 1
+                  ? '1 kandidat'
+                  : `${total} kandidater`}
+            </span>
+            <span className="text-[12.5px] text-slate-400">·</span>
+            <span className="text-[12.5px] text-slate-400">Sorterat efter:</span>
+            <div className="flex items-center gap-1 flex-wrap">
+              {SORT_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setSort(opt.value)}
+                  className={`min-h-[30px] px-2.5 rounded-lg text-[12.5px] transition-colors ${
+                    sort === opt.value
+                      ? 'bg-orange-50 text-orange-800 font-bold'
+                      : 'text-slate-500 font-semibold hover:bg-slate-50'
+                  }`}
+                  aria-pressed={sort === opt.value}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <h2 className="text-base font-bold text-slate-900 mb-1.5">
-            {hasActiveFilters ? 'Inga kandidater matchar filtren' : 'Poolen fylls på'}
-          </h2>
-          <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-md mx-auto">
-            {hasActiveFilters
-              ? 'Prova att bredda sökningen, ta bort ett filter eller sänk percentilgolvet.'
-              : 'Nya kandidater aktiverar sina profiler löpande. Titta in igen inom kort, vi jobbar på att fylla poolen.'}
-          </p>
-          {hasActiveFilters && (
+
+          {/* Jämför-verktygsraden */}
+          {selectedIds.length > 0 && (
+            <CompareToolbar selectedIds={selectedIds} onClear={() => setSelectedIds([])} />
+          )}
+
+          {loading && candidates === null ? (
+            <div className="rounded-2xl bg-orange-50/60 h-72 animate-pulse" aria-hidden="true" />
+          ) : shown === 0 ? (
+            <EmptyState
+              hasFilters={activeCount > 0}
+              actions={nextBestActions}
+            />
+          ) : (
+            <>
+              {/* Tabell på desktop */}
+              <div className="hidden lg:block">
+                <CandidateTable
+                  candidates={candidates ?? []}
+                  selectedIds={selectedIds}
+                  onToggleSelect={toggleSelect}
+                  onToggleSelectAll={toggleSelectAll}
+                  onRowClick={setPeekCandidate}
+                  showMatchReasons={hasQuery}
+                  fromPath="/rekryterare"
+                />
+              </div>
+
+              {/* Kortgrid på mobil */}
+              <div className="grid gap-4 sm:grid-cols-2 lg:hidden">
+                {(candidates ?? []).map((candidate) => (
+                  <CandidateHitCard
+                    key={candidate.userId}
+                    candidate={candidate}
+                    sending={sendingId === candidate.userId}
+                    onInterest={handleInterest}
+                    onOpen={() => setPeekCandidate(candidate)}
+                    selected={selectedIds.includes(candidate.userId)}
+                    onToggleSelect={() => toggleSelect(candidate.userId)}
+                  />
+                ))}
+              </div>
+
+              {hasMore && (
+                <div className="flex justify-center pt-1">
+                  <button
+                    type="button"
+                    disabled={loadingMore}
+                    onClick={() => {
+                      const nextPage = page + 1;
+                      setPage(nextPage);
+                      fetchPool(filters, sort, nextPage, true);
+                    }}
+                    className="inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-[13.5px] font-bold text-orange-700 border border-orange-300 bg-white hover:bg-orange-50 transition-colors disabled:opacity-50"
+                  >
+                    {loadingMore ? 'Hämtar…' : 'Visa 50 fler'}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Flytande filterknapp, mobil */}
+      <button
+        type="button"
+        onClick={() => setSheetOpen(true)}
+        className="lg:hidden fixed bottom-20 right-4 z-30 inline-flex items-center gap-2 min-h-[46px] px-4 rounded-full text-white text-[13.5px] font-bold shadow-lg transition-opacity hover:opacity-90"
+        style={{ background: CTA_GRADIENT }}
+      >
+        <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
+        Filter{activeCount > 0 ? ` (${activeCount})` : ''}
+      </button>
+
+      {/* Bottom-sheet med filterpanelen, mobil */}
+      {sheetOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex flex-col bg-white">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-orange-100">
+            <h2 className="text-[15px] font-bold text-slate-900">
+              Filter{activeCount > 0 ? ` (${activeCount})` : ''}
+            </h2>
             <button
               type="button"
-              onClick={() => setFilters(EMPTY_FILTERS)}
-              className="mt-5 inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90"
-              style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
+              onClick={() => setSheetOpen(false)}
+              className="inline-flex items-center justify-center w-9 h-9 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-colors"
+              aria-label="Stäng filtren"
             >
-              Rensa alla filter
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
-          )}
-        </motion.div>
-      ) : (
-        <>
-          <p className="text-[12.5px] text-slate-500 font-semibold">
-            {totalCount === 1 ? '1 kandidat' : `${totalCount} kandidater`}
-            {(candidates?.length ?? 0) < totalCount
-              ? ` · visar de ${candidates?.length} första`
-              : ''}
-          </p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {(candidates ?? []).map((candidate) => (
-              <CandidateHitCard
-                key={candidate.userId}
-                candidate={candidate}
-                sending={sendingId === candidate.userId}
-                onInterest={handleInterest}
-              />
-            ))}
           </div>
-        </>
+          <div className="flex-1 overflow-y-auto px-4 py-4">
+            <FilterPanel
+              filters={filters}
+              onChange={patchFilters}
+              onClearAll={clearAll}
+              onSaveSearch={saveSearch}
+              savedSearches={savedSearches}
+              onApplySaved={applySaved}
+            />
+          </div>
+          <div className="px-4 py-3 border-t border-orange-100">
+            <button
+              type="button"
+              onClick={() => setSheetOpen(false)}
+              className="w-full inline-flex items-center justify-center min-h-[46px] rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90"
+              style={{ background: CTA_GRADIENT }}
+            >
+              Visa {total === 1 ? '1 kandidat' : `${total} kandidater`}
+            </button>
+          </div>
+        </div>
       )}
+
+      {/* Peek-panelen */}
+      <PeekPanel
+        candidate={peekCandidate}
+        onClose={() => setPeekCandidate(null)}
+        onInterest={handleInterest}
+        sendingInterest={sendingId !== null}
+        fromPath="/rekryterare"
+      />
     </div>
   );
 }
 
-function FilterSelect({
-  label,
-  value,
-  onChange,
-  options,
-  allLabel,
-}: {
+interface NextBestAction {
   label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: Array<{ value: string; label: string }>;
-  allLabel: string;
+  onClick: () => void;
+}
+
+/** Konkreta näst-bästa-åtgärder vid 0 träffar, som klickbara chips. */
+function buildNextBestActions(
+  filters: PoolFilterState,
+  patch: (p: Partial<PoolFilterState>) => void,
+  clearAll: () => void
+): NextBestAction[] {
+  const actions: NextBestAction[] = [];
+
+  if (filters.minPercentile === '90') {
+    actions.push({
+      label: 'Bredda till Topp 25 % i stället för Topp 10 %',
+      onClick: () => patch({ minPercentile: '75' }),
+    });
+  } else if (filters.minPercentile === '75') {
+    actions.push({
+      label: 'Bredda till Topp 50 % i stället för Topp 25 %',
+      onClick: () => patch({ minPercentile: '50' }),
+    });
+  } else if (filters.minPercentile === '50') {
+    actions.push({
+      label: 'Ta bort testresultatkravet',
+      onClick: () => patch({ minPercentile: '' }),
+    });
+  }
+
+  const tokens = tokenizePreview(filters.q);
+  if (tokens.length > 1) {
+    actions.push({
+      label: `Sök bara på "${tokens[0]}"`,
+      onClick: () => patch({ q: tokens[0] }),
+    });
+  }
+
+  if (filters.regions.length > 0) {
+    actions.push({
+      label: 'Sök i hela Sverige',
+      onClick: () => patch({ regions: [] }),
+    });
+  }
+
+  if (filters.seniority.length > 0) {
+    actions.push({
+      label: 'Ta bort senioritetskravet',
+      onClick: () => patch({ seniority: [] }),
+    });
+  }
+
+  actions.push({ label: 'Rensa alla filter', onClick: clearAll });
+  return actions.slice(0, 3);
+}
+
+function EmptyState({
+  hasFilters,
+  actions,
+}: {
+  hasFilters: boolean;
+  actions: NextBestAction[];
 }) {
-  const active = value !== '';
   return (
-    <label className="inline-flex">
-      <span className="sr-only">{label}</span>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`min-h-[36px] max-w-[180px] pl-3 pr-7 rounded-lg border text-[12.5px] font-bold appearance-none bg-no-repeat bg-[right_0.5rem_center] cursor-pointer transition-colors ${
-          active
-            ? 'bg-orange-50 border-orange-200 text-orange-800'
-            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-        }`}
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")",
-        }}
-      >
-        <option value="">{allLabel}</option>
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </label>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="rounded-3xl border border-dashed border-orange-200 bg-white p-8 sm:p-12 text-center"
+    >
+      <div className="mx-auto mb-4 w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center">
+        <Users className="w-6 h-6 text-orange-600" aria-hidden="true" />
+      </div>
+      <h2 className="text-base font-bold text-slate-900 mb-1.5">
+        {hasFilters ? 'Inga kandidater matchar' : 'Poolen fylls på'}
+      </h2>
+      <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-md mx-auto">
+        {hasFilters
+          ? 'Prova en av åtgärderna nedan så breddar vi sökningen ett steg i taget.'
+          : 'Nya kandidater aktiverar sina profiler löpande. Titta in igen inom kort, vi jobbar på att fylla poolen.'}
+      </p>
+      {hasFilters && (
+        <div className="mt-5 flex items-center justify-center gap-2 flex-wrap">
+          {actions.map((action) => (
+            <button
+              key={action.label}
+              type="button"
+              onClick={action.onClick}
+              className="min-h-[38px] px-4 rounded-full border border-orange-300 bg-orange-50 text-[12.5px] font-bold text-orange-800 hover:bg-orange-100 transition-colors"
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </motion.div>
   );
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Fingerprint } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
@@ -339,6 +339,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 NY
               </span>
             }
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/arbetsstil"
+            label="Din arbetsstil"
+            icon={Fingerprint}
             isMobile={isMobile}
             onClick={onClose}
           />

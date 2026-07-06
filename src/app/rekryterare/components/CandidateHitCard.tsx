@@ -15,6 +15,11 @@ interface CandidateHitCardProps {
   candidate: PoolCandidate;
   sending: boolean;
   onInterest: (userId: string) => void;
+  /** Om satt: kortet öppnar peek-panelen i stället för att navigera. */
+  onOpen?: () => void;
+  /** Markering för jämför/projekt (mobilens motsvarighet till tabellens checkbox). */
+  selected?: boolean;
+  onToggleSelect?: () => void;
 }
 
 /**
@@ -27,6 +32,9 @@ export default function CandidateHitCard({
   candidate,
   sending,
   onInterest,
+  onOpen,
+  selected,
+  onToggleSelect,
 }: CandidateHitCardProps) {
   const roleLabel = candidate.role ?? 'Kandidat';
   const avatarInitial = roleLabel.charAt(0).toUpperCase();
@@ -47,12 +55,26 @@ export default function CandidateHitCard({
 
   const status = candidate.interestStatus;
 
-  return (
-    <Link
-      href={`/rekryterare/kandidat/${candidate.userId}`}
-      className="block rounded-2xl border border-orange-100 bg-white p-4 sm:p-5 transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500"
-      style={{ boxShadow: '0 4px 14px -10px rgba(2, 6, 23, 0.18)' }}
-    >
+  const rootClass =
+    'relative block w-full text-left rounded-2xl border bg-white p-4 sm:p-5 transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500 ' +
+    (selected ? 'border-orange-300' : 'border-orange-100');
+  const rootStyle = { boxShadow: '0 4px 14px -10px rgba(2, 6, 23, 0.18)' };
+
+  const inner = (
+    <>
+      {/* Markering i hörnet (mobilens jämför/projekt-val) */}
+      {onToggleSelect && (
+        <span className="absolute top-3 right-3 z-10" onClick={(e) => e.stopPropagation()}>
+          <input
+            type="checkbox"
+            checked={Boolean(selected)}
+            onChange={onToggleSelect}
+            onClick={(e) => e.stopPropagation()}
+            aria-label="Markera kandidaten"
+            className="w-4 h-4 rounded accent-orange-600"
+          />
+        </span>
+      )}
       {/* Huvud */}
       <div className="flex items-center gap-3 mb-3">
         <div
@@ -175,6 +197,37 @@ export default function CandidateHitCard({
           </button>
         )}
       </div>
+    </>
+  );
+
+  // Med onOpen blir kortet en peek-öppnare, annars länk till detaljprofilen.
+  if (onOpen) {
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={onOpen}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onOpen();
+          }
+        }}
+        className={`${rootClass} cursor-pointer`}
+        style={rootStyle}
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={`/rekryterare/kandidat/${candidate.userId}`}
+      className={rootClass}
+      style={rootStyle}
+    >
+      {inner}
     </Link>
   );
 }

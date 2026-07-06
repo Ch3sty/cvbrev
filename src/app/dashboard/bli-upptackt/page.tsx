@@ -11,6 +11,9 @@ import VisibilityModeCard from './components/VisibilityModeCard';
 import TermsCard from './components/TermsCard';
 import PitchCard from './components/PitchCard';
 import VerifiedResultsCard from './components/VerifiedResultsCard';
+import ContextTagsCard from './components/ContextTagsCard';
+import LockedWorkStylePreview from './components/LockedWorkStylePreview';
+import SectionCard from './components/SectionCard';
 import ProfileStrengthCard from './components/ProfileStrengthCard';
 import RecruiterPreviewCard from './components/RecruiterPreviewCard';
 import InterestsCard from './components/InterestsCard';
@@ -108,6 +111,8 @@ export default function BliUpptacktPage() {
             cv_id: (row.cv_id as string | null) ?? null,
             visibility: (row.visibility as CandidateProfileState['visibility']) ?? 'off',
             show_personality: Boolean(row.show_personality),
+            show_full_workstyle: Boolean(row.show_full_workstyle),
+            context_tags: (row.context_tags as string[] | null) ?? [],
             availability: (row.availability as CandidateProfileState['availability']) ?? null,
             workplace: (row.workplace as string[] | null) ?? [],
             extent: (row.extent as string[] | null) ?? [],
@@ -173,10 +178,12 @@ export default function BliUpptacktPage() {
     }
   };
 
-  const handleConsentConfirm = async (showPersonality: boolean) => {
+  const handleConsentConfirm = async (showPersonality: boolean, showFullWorkstyle: boolean) => {
     await saveProfile({
       visibility: 'anonymous',
       show_personality: showPersonality,
+      // Nivå 2 utan nivå 1 är meningslöst — bind dem även vid skrivning.
+      show_full_workstyle: showPersonality && showFullWorkstyle,
       consent_given_at: new Date().toISOString(),
       consent_version: 'v1',
     });
@@ -238,7 +245,31 @@ export default function BliUpptacktPage() {
           <PitchCard pitch={profile.pitch} onSave={(pitch) => saveProfile({ pitch })} />
         </div>
 
-        <VerifiedResultsCard summary={summary} showPersonality={profile.show_personality} />
+        {/* Kontexttaggar: bara när kandidaten har kvalificerade förslag */}
+        {(summary?.personality?.contextTagOptions?.length ?? 0) > 0 && (
+          <div id="kontexttaggar" className="scroll-mt-24">
+            <ContextTagsCard
+              options={summary!.personality.contextTagOptions}
+              selected={profile.context_tags}
+              onChange={(context_tags) => saveProfile({ context_tags })}
+            />
+          </div>
+        )}
+
+        <div id="arbetsstilsrapport" className="scroll-mt-24">
+          <VerifiedResultsCard summary={summary} profile={profile} onPatch={saveProfile} />
+        </div>
+
+        {/* Grundtestare: låst förhandsvisning av rapporten som konverteringsyta */}
+        {summary && !summary.personality.hasAdvancedTest && (
+          <SectionCard
+            title="Din arbetsstilsrapport väntar"
+            sub="Det fördjupade testet bygger en rapport i ord om hur du arbetar, samarbetar och drivs. Du väljer själv om rekryterare får se den."
+            delay={0.22}
+          >
+            <LockedWorkStylePreview />
+          </SectionCard>
+        )}
 
         <ProfileStrengthCard profile={profile} summary={summary} />
 
@@ -256,6 +287,9 @@ export default function BliUpptacktPage() {
       <ConsentModal
         open={consentOpen}
         saving={saving}
+        hasAdvancedTest={Boolean(
+          summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport
+        )}
         onConfirm={handleConsentConfirm}
         onCancel={() => setConsentOpen(false)}
       />

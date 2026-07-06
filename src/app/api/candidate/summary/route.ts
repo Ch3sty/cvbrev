@@ -3,7 +3,15 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
-import { deriveWorkStyle, type WorkStyle } from '@/lib/recruiter/workStyle';
+import {
+  deriveWorkStyle,
+  deriveWorkStyleReport,
+  deriveCandidateOwnReport,
+  deriveContextTagOptions,
+  type WorkStyle,
+  type WorkStyleReport,
+  type CandidateOwnReport,
+} from '@/lib/recruiter/workStyle';
 
 // GET /api/candidate/summary?cv_id=<uuid>
 //
@@ -180,13 +188,28 @@ export async function GET(request: Request) {
 
     const results = Object.fromEntries(familyEntries) as Record<FamilyKey, FamilyResult>;
 
-    // --- Personlighet: de två högsta härledda styrkorna + arbetsstilen ---
-    // workStyle blir null för grundtestare (facet_scores saknas), då visas
-    // bara styrkorna som tidigare.
-    let personality: { done: boolean; strengths: string[]; workStyle: WorkStyle | null } = {
+    // --- Personlighet: styrkor, arbetsstil och v2-rapporterna ---
+    // Grundtestare (facet_scores saknas): workStyle/rapporter blir null och
+    // hasAdvancedTest false — UI visar upsell + låst förhandsvisning.
+    let personality: {
+      done: boolean;
+      strengths: string[];
+      workStyle: WorkStyle | null;
+      /** Rekryterarens fullrapport, för förhandsvisningen (nivå 2-samtycket). */
+      workStyleReport: WorkStyleReport | null;
+      /** Kandidatens privata rapport i du-form. Delas aldrig. */
+      ownReport: CandidateOwnReport | null;
+      /** Kontexttaggar kandidaten är kvalificerad att välja bland. */
+      contextTagOptions: string[];
+      hasAdvancedTest: boolean;
+    } = {
       done: false,
       strengths: [],
       workStyle: null,
+      workStyleReport: null,
+      ownReport: null,
+      contextTagOptions: [],
+      hasAdvancedTest: false,
     };
     const profileRow = personalityRes.data as
       | (Record<string, number> & { facet_scores: Record<string, number> | null })
@@ -200,17 +223,23 @@ export async function GET(request: Request) {
         .sort((a, b) => b.value - a.value)
         .slice(0, 2)
         .map((s) => s.label);
-      const workStyle = deriveWorkStyle(
-        {
-          openness: profileRow.openness ?? 50,
-          conscientiousness: profileRow.conscientiousness ?? 50,
-          extraversion: profileRow.extraversion ?? 50,
-          agreeableness: profileRow.agreeableness ?? 50,
-          neuroticism: profileRow.neuroticism ?? 50,
-        },
-        profileRow.facet_scores ?? null
-      );
-      personality = { done: true, strengths, workStyle };
+      const domains = {
+        openness: profileRow.openness ?? 50,
+        conscientiousness: profileRow.conscientiousness ?? 50,
+        extraversion: profileRow.extraversion ?? 50,
+        agreeableness: profileRow.agreeableness ?? 50,
+        neuroticism: profileRow.neuroticism ?? 50,
+      };
+      const facets = profileRow.facet_scores ?? null;
+      personality = {
+        done: true,
+        strengths,
+        workStyle: deriveWorkStyle(domains, facets),
+        workStyleReport: deriveWorkStyleReport(domains, facets),
+        ownReport: deriveCandidateOwnReport(domains, facets),
+        contextTagOptions: deriveContextTagOptions(facets),
+        hasAdvancedTest: facets !== null && Object.keys(facets).length > 0,
+      };
     }
 
     // --- Kompetenser: extraktion först, CV:ts structured_data som fallback ---

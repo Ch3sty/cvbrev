@@ -7,6 +7,8 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-sync';
 import { generateQuotaBackEmail } from '@/lib/email/quota-back';
 import { generateTrialReminderEmail } from '@/lib/email/trial-reminder';
+import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
+import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
 
 /**
  * Vercel Cron job endpoint
@@ -47,7 +49,8 @@ export async function GET(request: NextRequest) {
       premiumExpiration: null,
       pricingSync: null,
       quotaReminders: null,
-      trialReminders: null
+      trialReminders: null,
+      savedSearchAlerts: null
     };
 
     // ====================================
@@ -319,6 +322,109 @@ export async function GET(request: NextRequest) {
       }
     } else {
       results.trialReminders = { skipped: true, reason: 'Midnight slot' };
+    }
+
+    // ====================================
+    // 5. BEVAKNINGSMAIL FÖR SPARADE SÖKNINGAR (morgonslotten)
+    // ====================================
+    // Rekryterare med notify=true på en sparad sökning får mail när NYA
+    // kandidater (aktiva i poolen efter förra utskicket) matchar filtren.
+    // Sökningen körs genom samma runPoolSearch som portalen, så mailet och
+    // portalen aldrig ger olika svar. Max ett mail per sökning och dygn
+    // (morgonslotten körs en gång per dag + 20h-spärr som extra skydd).
+    if (isMorningSlot) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const nowISO = now.toISOString();
+        const minGapMs = 20 * 60 * 60 * 1000;
+
+        const { data: watches, error: watchError } = await supabaseAdmin
+          .from('recruiter_saved_searches')
+          .select('id, recruiter_user_id, name, filters, last_notified_at, created_at')
+          .eq('notify', true)
+          .limit(50);
+        if (watchError) throw watchError;
+
+        let sent = 0;
+        let checked = 0;
+        for (const watch of watches ?? []) {
+          const lastNotified = watch.last_notified_at ?? watch.created_at;
+          if (
+            watch.last_notified_at &&
+            now.getTime() - new Date(watch.last_notified_at).getTime() < minGapMs
+          ) {
+            continue;
+          }
+          checked++;
+
+          const { candidates } = await runPoolSearch(
+            supabaseAdmin,
+            (watch.filters ?? {}) as PoolFilters
+          );
+
+          // "Ny" = blev aktiv i poolen efter förra utskicket (eller sökningens
+          // skapande). activeSince = consent_given_at/created_at på profilen.
+          const cutoff = new Date(lastNotified).getTime();
+          const fresh = candidates.filter(
+            (c) => c.activeSince && new Date(c.activeSince).getTime() > cutoff
+          );
+          if (fresh.length === 0) continue;
+
+          const { data: recruiterProfile } = await supabaseAdmin
+            .from('profiles')
+            .select('email')
+            .eq('id', watch.recruiter_user_id)
+            .single();
+          if (!recruiterProfile?.email) continue;
+
+          const alertCandidates: AlertCandidate[] = fresh.slice(0, 3).map((c) => ({
+            role: c.role ?? 'Kandidat',
+            region: c.regions[0] ?? null,
+            years: c.yearsOfExperience,
+            // Badge-etiketten är redan färdigformaterad med nivå och percentil.
+            topBadge: c.testBadges[0]?.label ?? null,
+          }));
+
+          const { subject, html } = generateSavedSearchAlertEmail({
+            searchName: watch.name,
+            searchId: watch.id,
+            total: fresh.length,
+            candidates: alertCandidates,
+          });
+
+          const { data: sendData, error: sendError } = await resend.emails.send({
+            from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
+            to: [recruiterProfile.email],
+            subject,
+            html,
+            tags: [{ name: 'type', value: 'saved_search_alert' }]
+          });
+          if (sendError) {
+            console.error('[Saved Search Alerts] Send failed for', watch.id, sendError);
+            continue; // lämna orörd, försöks igen imorgon
+          }
+          sent++;
+          await supabaseAdmin.from('email_log').insert({
+            resend_id: sendData?.id ?? null,
+            user_id: watch.recruiter_user_id,
+            email_type: 'saved_search_alert',
+            recipient: recruiterProfile.email,
+            subject
+          });
+          await supabaseAdmin
+            .from('recruiter_saved_searches')
+            .update({ last_notified_at: nowISO })
+            .eq('id', watch.id);
+        }
+
+        console.log(`[Saved Search Alerts] sent=${sent} checked=${checked} watches=${watches?.length ?? 0}`);
+        results.savedSearchAlerts = { success: true, sent, checked };
+      } catch (error: any) {
+        console.error('[Saved Search Alerts] Error:', error);
+        results.savedSearchAlerts = { success: false, error: error.message };
+      }
+    } else {
+      results.savedSearchAlerts = { skipped: true, reason: 'Midnight slot' };
     }
 
     // Return combined results

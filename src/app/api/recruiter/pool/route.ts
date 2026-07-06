@@ -4,27 +4,52 @@
 // status verifierats. Endast träffkortens fält lämnar servern — aldrig
 // löneanspråk, namn eller andra identifierande uppgifter.
 //
-// Query-params:
-//   role          fritext, matchas case-insensitive mot roll och kompetenser
-//   region        exakt län (t.ex. "Stockholms län")
-//   availability  immediate | one_month | three_months | by_agreement
-//   workplace     onsite | hybrid | remote
-//   minPercentile någon kognitiv familj med percentil >= värdet
-//   strength      personlighetsstyrka (matchar bara profiler som visar dem)
+// Sök-/filter-/rankningslogiken bor i src/lib/recruiter/poolSearch.ts (delas
+// med bevakningscronen). Den här routen är ett tunt skal: auth, parse,
+// paginering och intressestatus.
+//
+// Query-params (listor är kommaseparerade):
+//   q               fritext, tokeniseras med AND-logik och relevansrankas
+//   seniority       junior | mid | senior | expert (flerval)
+//   regions         län (flerval)
+//   availability    immediate | one_month | three_months | by_agreement
+//   workplace       onsite | hybrid | remote (flerval)
+//   extent          full_time | part_time | hourly (flerval)
+//   employmentTypes permanent | temporary | consultant (flerval)
+//   minPercentile   percentilgolv (90 = topp 10 %)
+//   testFamilies    matrislogik | verbal | numerisk (golvet gäller valda)
+//   strengths       personlighetsstyrkor (flerval)
+//   archetypes      arbetsstils-arketyper (flerval)
+//   educationLevels Gymnasial | Eftergymnasial | Kandidat | Master | Forskarnivå
+//   budget          månadsbudget i kr (filtrerar, exponeras aldrig)
+//   driversLicense  true = kräver B-körkort
+//   sort            relevance | seniority | recent | testScore
+//   page            1-baserad, pageSize 50
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
 import {
-  buildCandidateCard,
-  createPercentileContext,
-  type CandidateCard,
-  type CandidateProfileRow,
-} from '@/lib/recruiter/candidateData';
+  runPoolSearch,
+  type PoolFilters,
+  type PoolSortKey,
+  type SeniorityBucket,
+} from '@/lib/recruiter/poolSearch';
+import type { EducationLevelBucket, FamilyKey } from '@/lib/recruiter/candidateData';
 
 export const dynamic = 'force-dynamic';
 
-const MAX_RESULTS = 50;
+const PAGE_SIZE = 50;
+const SORT_KEYS: PoolSortKey[] = ['relevance', 'seniority', 'recent', 'testScore'];
+
+function listParam(params: URLSearchParams, key: string): string[] {
+  const raw = params.get(key);
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map((v) => v.trim())
+    .filter(Boolean);
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -33,99 +58,71 @@ export async function GET(request: NextRequest) {
     const { user } = gate.ctx;
 
     const params = request.nextUrl.searchParams;
-    const role = params.get('role')?.trim().toLowerCase() || null;
-    const region = params.get('region')?.trim() || null;
-    const availability = params.get('availability')?.trim() || null;
-    const workplace = params.get('workplace')?.trim() || null;
+
     const minPercentileRaw = params.get('minPercentile');
     const minPercentile = minPercentileRaw ? Number.parseInt(minPercentileRaw, 10) : null;
-    const strength = params.get('strength')?.trim() || null;
+    const budgetRaw = params.get('budget');
+    const budget = budgetRaw ? Number.parseInt(budgetRaw, 10) : null;
+
+    const filters: PoolFilters = {
+      // "role" behålls som alias för äldre klienter.
+      q: params.get('q')?.trim() || params.get('role')?.trim() || null,
+      seniority: listParam(params, 'seniority') as SeniorityBucket[],
+      regions: listParam(params, 'regions').concat(
+        params.get('region')?.trim() ? [params.get('region')!.trim()] : []
+      ),
+      availability: params.get('availability')?.trim() || null,
+      workplace: listParam(params, 'workplace'),
+      extent: listParam(params, 'extent'),
+      employmentTypes: listParam(params, 'employmentTypes'),
+      minPercentile: Number.isFinite(minPercentile) ? minPercentile : null,
+      testFamilies: listParam(params, 'testFamilies') as FamilyKey[],
+      strengths: listParam(params, 'strengths').concat(
+        params.get('strength')?.trim() ? [params.get('strength')!.trim()] : []
+      ),
+      archetypes: listParam(params, 'archetypes'),
+      educationLevels: listParam(params, 'educationLevels') as EducationLevelBucket[],
+      budget: budget !== null && Number.isFinite(budget) && budget > 0 ? budget : null,
+      driversLicense: params.get('driversLicense') === 'true',
+    };
+
+    const sortRaw = params.get('sort') as PoolSortKey | null;
+    const sort: PoolSortKey = sortRaw && SORT_KEYS.includes(sortRaw) ? sortRaw : 'relevance';
+
+    const pageRaw = Number.parseInt(params.get('page') ?? '1', 10);
+    const page = Number.isFinite(pageRaw) && pageRaw >= 1 ? pageRaw : 1;
 
     const admin = getSupabaseAdmin();
-
-    // Strukturella filter trycks ned i frågan; fritext/percentil/styrka
-    // filtreras efter kortbygget eftersom de kräver härledd data.
-    let query = (admin as any)
-      .from('candidate_profiles')
-      .select(
-        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch'
-      )
-      .neq('visibility', 'off')
-      .order('updated_at', { ascending: false });
-
-    if (region) query = query.contains('regions', [region]);
-    if (availability) query = query.eq('availability', availability);
-    if (workplace) query = query.contains('workplace', [workplace]);
-
-    const { data: rows, error } = await query;
-    if (error) {
-      console.error('Recruiter pool: kunde inte läsa candidate_profiles', error);
-      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-    }
-
-    const profiles = (rows ?? []) as CandidateProfileRow[];
-
-    // Delad percentilkontext: aggregatfrågorna körs en gång per test_type,
-    // inte en gång per kandidat.
-    const ctx = createPercentileContext(admin);
-    const cards = await Promise.all(
-      profiles.map((row) => buildCandidateCard(admin, row, ctx))
-    );
-
-    const filtered = cards.filter((card) => {
-      if (role) {
-        const haystack = [card.role ?? '', ...card.skills].join(' ').toLowerCase();
-        if (!haystack.includes(role)) return false;
-      }
-      if (minPercentile !== null && Number.isFinite(minPercentile)) {
-        const hit = card.testBadges.some(
-          (b) => b.percentile !== null && b.percentile >= minPercentile
-        );
-        if (!hit) return false;
-      }
-      if (strength && !card.personalityStrengths.includes(strength)) return false;
-      return true;
-    });
+    const { candidates, total } = await runPoolSearch(admin, filters, sort);
 
     // Rekryterarens redan skickade intressen, för statusknappen på korten.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: interests } = await (admin as any)
       .from('candidate_interests')
       .select('candidate_user_id, status')
       .eq('recruiter_user_id', user.id);
 
     const interestByCandidate = new Map<string, string>(
-      ((interests ?? []) as Array<{ candidate_user_id: string; status: string }>).map(
-        (i) => [i.candidate_user_id, i.status]
-      )
+      ((interests ?? []) as Array<{ candidate_user_id: string; status: string }>).map((i) => [
+        i.candidate_user_id,
+        i.status,
+      ])
     );
 
-    // Sortera efter kompletthet/senioritet INNAN trunkeringen till 50, så de
-    // rikaste profilerna alltid syns först. Poäng per kort:
-    //   antal testbadges × 3  (verifierade resultat väger tyngst)
-    //   + 2 om yrkeserfarenhet kunnat härledas
-    //   + 1 om personlighetsstyrkor visas
-    //   + 1 om kompetenser finns
-    // Fallande poäng; vid lika poäng vinner högst yearsOfExperience.
-    const completenessScore = (card: CandidateCard): number =>
-      card.testBadges.length * 3 +
-      (card.yearsOfExperience ? 2 : 0) +
-      (card.personalityStrengths.length ? 1 : 0) +
-      (card.skills.length ? 1 : 0);
+    const start = (page - 1) * PAGE_SIZE;
+    const pageItems = candidates.slice(start, start + PAGE_SIZE).map((card) => ({
+      ...card,
+      interestStatus: interestByCandidate.get(card.userId) ?? null,
+    }));
 
-    const sorted = [...filtered].sort((a, b) => {
-      const scoreDiff = completenessScore(b) - completenessScore(a);
-      if (scoreDiff !== 0) return scoreDiff;
-      return (b.yearsOfExperience ?? 0) - (a.yearsOfExperience ?? 0);
+    return NextResponse.json({
+      candidates: pageItems,
+      total,
+      page,
+      pageSize: PAGE_SIZE,
+      // Bakåtkompatibelt alias tills alla klienter läser `total`.
+      totalCount: total,
     });
-
-    const results = sorted
-      .slice(0, MAX_RESULTS)
-      .map((card: CandidateCard) => ({
-        ...card,
-        interestStatus: interestByCandidate.get(card.userId) ?? null,
-      }));
-
-    return NextResponse.json({ candidates: results, totalCount: filtered.length });
   } catch (error) {
     console.error('Recruiter pool error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

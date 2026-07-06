@@ -7,7 +7,12 @@ import { Check, X, Radar, ShieldCheck } from 'lucide-react';
 interface ConsentModalProps {
   open: boolean;
   saving: boolean;
-  onConfirm: (showPersonality: boolean) => void;
+  /**
+   * Nivå 2-samtycket (fullständiga arbetsstilsrapporten) visas bara när
+   * användaren har gjort det fördjupade testet och en rapport finns.
+   */
+  hasAdvancedTest: boolean;
+  onConfirm: (showPersonality: boolean, showFullWorkstyle: boolean) => void;
   onCancel: () => void;
 }
 
@@ -30,11 +35,28 @@ const HIDDEN_ITEMS = [
 /**
  * Samtyckesmodal som öppnas första gången masterreglaget slås på
  * (consent_given_at saknas). Huvudsamtycket är obligatoriskt, det separata
- * personlighetssamtycket är valfritt och styr show_personality.
+ * personlighetssamtycket (nivå 1) styr show_personality och det fördjupade
+ * rapportsamtycket (nivå 2) styr show_full_workstyle. Nivå 2 utan nivå 1 är
+ * meningslöst, så nivåerna är bundna: stängs nivå 1 av stängs nivå 2 av.
  */
-export default function ConsentModal({ open, saving, onConfirm, onCancel }: ConsentModalProps) {
+export default function ConsentModal({
+  open,
+  saving,
+  hasAdvancedTest,
+  onConfirm,
+  onCancel,
+}: ConsentModalProps) {
   const [mainConsent, setMainConsent] = useState(false);
   const [personalityConsent, setPersonalityConsent] = useState(true);
+  const [fullWorkstyleConsent, setFullWorkstyleConsent] = useState(false);
+
+  const togglePersonality = () => {
+    setPersonalityConsent((v) => {
+      // Bind nivåerna: av på nivå 1 drar med sig nivå 2.
+      if (v) setFullWorkstyleConsent(false);
+      return !v;
+    });
+  };
 
   return (
     <AnimatePresence>
@@ -144,10 +166,10 @@ export default function ConsentModal({ open, saving, onConfirm, onCancel }: Cons
                 samtycket, då raderas profilen ur poolen omedelbart.
               </ConsentRow>
 
-              {/* Separat personlighetssamtycke (valfritt) */}
+              {/* Separat personlighetssamtycke (nivå 1, valfritt) */}
               <ConsentRow
                 checked={personalityConsent}
-                onToggle={() => setPersonalityConsent((v) => !v)}
+                onToggle={togglePersonality}
                 tone="indigo"
               >
                 Visa mina främsta styrkor och min arbetsstil från
@@ -156,6 +178,25 @@ export default function ConsentModal({ open, saving, onConfirm, onCancel }: Cons
                   Eget samtycke, kan bockas ur utan att synligheten påverkas.
                 </span>
               </ConsentRow>
+
+              {/* Fördjupat rapportsamtycke (nivå 2, endast avancerat test) */}
+              {hasAdvancedTest && (
+                <ConsentRow
+                  checked={fullWorkstyleConsent}
+                  onToggle={() => setFullWorkstyleConsent((v) => !v)}
+                  tone="indigo"
+                  disabled={!personalityConsent}
+                >
+                  Visa min fullständiga arbetsstilsrapport för rekryterare: hur
+                  jag arbetar, samarbetar och drivs, med spektrum i ord (aldrig
+                  siffror).{' '}
+                  <span className="text-slate-400 font-normal">
+                    Onboarding och intervjuguide låses upp för rekryteraren
+                    först när du tackar ja till kontakt.
+                    {!personalityConsent && ' Kräver att personlighetsstyrkor visas.'}
+                  </span>
+                </ConsentRow>
+              )}
 
               {/* Trygghetsrad */}
               <div className="flex items-center gap-2 mt-4 text-[12px] text-slate-400">
@@ -176,7 +217,9 @@ export default function ConsentModal({ open, saving, onConfirm, onCancel }: Cons
                 </button>
                 <button
                   type="button"
-                  onClick={() => onConfirm(personalityConsent)}
+                  onClick={() =>
+                    onConfirm(personalityConsent, personalityConsent && fullWorkstyleConsent)
+                  }
                   disabled={!mainConsent || saving}
                   className="min-h-[48px] px-6 rounded-xl text-sm font-bold text-white transition-all touch-manipulation enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed"
                   style={
@@ -205,12 +248,14 @@ function ConsentRow({
   onToggle,
   tone,
   required,
+  disabled,
   children,
 }: {
   checked: boolean;
   onToggle: () => void;
   tone: 'orange' | 'indigo';
   required?: boolean;
+  disabled?: boolean;
   children: React.ReactNode;
 }) {
   const toneStyles = {
@@ -232,8 +277,13 @@ function ConsentRow({
       role="checkbox"
       aria-checked={checked}
       onClick={onToggle}
+      disabled={disabled}
       className={`w-full text-left flex items-start gap-3 rounded-2xl border-[1.5px] p-3.5 mt-3 transition-colors touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${toneStyles.ring} ${
-        checked ? toneStyles.selected : 'border-slate-200 bg-white hover:border-slate-300'
+        disabled
+          ? 'border-slate-100 bg-slate-50/60 opacity-60 cursor-not-allowed'
+          : checked
+            ? toneStyles.selected
+            : 'border-slate-200 bg-white hover:border-slate-300'
       }`}
     >
       <span

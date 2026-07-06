@@ -19,24 +19,28 @@ interface ChecklistItem {
 
 /**
  * Profilstyrka: 0-100 enligt formeln
- *   + 20  CV valt (cv_id satt)
+ *   + 15  CV valt (cv_id satt) — var 20, 5 poäng flyttade till fullrapporten
  *   + 10  samtycke gett (consent_given_at satt)
- *   + 15  villkor ifyllda (availability + minst en region + minst ett arbetsplatsval)
+ *   + 10  villkor ifyllda (availability + minst en region + minst ett
+ *         arbetsplatsval) — var 15, 5 poäng flyttade till kontexttaggarna
  *   + 10  kompetenser extraherade ur CV:t
  *   + 10  per klar kognitiv testfamilj (max 30)
  *   +  5  personlighetsprofil klar
  *   + 10  pitch skriven
+ *   +  5  fullständig arbetsstilsrapport delad (nivå 2-samtycket)
+ *   +  5  minst en kontexttagg vald ("Söker mig till")
+ * Summan av alla poster är exakt 100.
  */
 export function computeProfileStrength(
   profile: CandidateProfileState,
   summary: SummaryData | null
 ): number {
   let score = 0;
-  if (profile.cv_id) score += 20;
+  if (profile.cv_id) score += 15;
   if (profile.consent_given_at) score += 10;
   const termsDone =
     !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
-  if (termsDone) score += 15;
+  if (termsDone) score += 10;
   if ((summary?.skills?.skills?.length ?? 0) > 0) score += 10;
   const familiesDone = summary
     ? (Object.keys(summary.results) as FamilyKey[]).filter((k) => summary.results[k].done).length
@@ -44,6 +48,8 @@ export function computeProfileStrength(
   score += Math.min(familiesDone, 3) * 10;
   if (summary?.personality?.done) score += 5;
   if ((profile.pitch ?? '').trim().length > 0) score += 10;
+  if (profile.show_full_workstyle && profile.show_personality) score += 5;
+  if (profile.context_tags.length > 0) score += 5;
   return Math.min(score, 100);
 }
 
@@ -100,6 +106,24 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
       ? { done: true, label: 'Personlighetsprofil klar', href: '#' }
       : { done: false, label: 'Gör personlighetstestet och visa dina två främsta styrkor', href: '/dashboard/tester' }
   );
+
+  // Fullrapporten: raden visas bara när en kvalificerad rapport finns att dela.
+  if (summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport) {
+    items.push(
+      profile.show_full_workstyle && profile.show_personality
+        ? { done: true, label: 'Fullständig arbetsstilsrapport delas med rekryterare', href: '#' }
+        : { done: false, label: 'Dela din fullständiga arbetsstilsrapport, den ger rekryteraren mest att gå på', href: '#arbetsstilsrapport' }
+    );
+  }
+
+  // Kontexttaggarna: raden visas bara när kandidaten har kvalificerade förslag.
+  if ((summary?.personality?.contextTagOptions?.length ?? 0) > 0) {
+    items.push(
+      profile.context_tags.length > 0
+        ? { done: true, label: `"Söker mig till" valt: ${profile.context_tags.join(', ')}`, href: '#' }
+        : { done: false, label: 'Välj upp till två "Söker mig till"-taggar som din självpresentation', href: '#kontexttaggar' }
+    );
+  }
 
   return (
     <SectionCard

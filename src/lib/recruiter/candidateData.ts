@@ -19,9 +19,16 @@ import type { Database } from '@/types/database.types';
 import {
   deriveWorkStyle,
   deriveInterviewGuide,
+  deriveWorkStyleReport,
+  WORKSTYLE_DISCLAIMER,
   type WorkStyle,
+  type WorkStyleReport,
   type DomainScores,
 } from './workStyle';
+
+/** Disclaimer som UI:t visar ovanför arbetsstilsrapporten, ordagrant. */
+export { WORKSTYLE_DISCLAIMER, CONTEXT_TAG_MICROCOPY } from './workStyle';
+export type { WorkStyleReport, InterviewQuestion, SpectrumView, ThrivesCard } from './workStyle';
 
 type Admin = SupabaseClient<Database>;
 
@@ -54,6 +61,15 @@ export const FAMILY_LABELS: Record<FamilyKey, string> = {
   numerisk: 'Numeriskt',
 };
 
+export const LEVEL_LABELS: Record<Level, string> = {
+  grund: 'Grundnivå',
+  avancerad: 'Avancerad nivå',
+  expert: 'Expertnivå',
+};
+
+/** Personlighetsresultat äldre än 24 månader flaggas som gamla. */
+const PERSONALITY_STALE_MONTHS = 24;
+
 // Big Five → styrkeetiketter, samma härledning som /api/candidate/summary.
 // Neuroticism inverteras: låg neuroticism är styrkan "Stresstålig".
 const STRENGTH_MAP: Array<{ column: string; label: string; invert: boolean }> = [
@@ -84,18 +100,35 @@ export interface CandidateProfileRow {
   drivers_license: boolean | null;
   /** Kandidatens egenskrivna pitch (max 300 tecken, fas 3.5). */
   pitch?: string | null;
+  /**
+   * Nivå 2-samtycke: fullständig arbetsstilsrapport. Kolumnen saknas i de
+   * genererade DB-typerna — hämtas kompletterande om anroparen inte valt den.
+   */
+  show_full_workstyle?: boolean | null;
+  /** Kandidatens självvalda kontexttaggar (max 2), valideras vid skrivning. */
+  context_tags?: string[] | null;
+  /** För färskhetssignalen "aktiv i poolen sedan ...". */
+  consent_given_at?: string | null;
+  created_at?: string | null;
   // salary_min/salary_max kan finnas på raden men läses aldrig här.
 }
 
 export interface TestBadge {
   family: FamilyKey;
-  /** Färdigformaterad etikett, t.ex. "Matrislogik · topp 12 %". */
+  /** Färdigformaterad etikett, t.ex. "Matrislogik · Expertnivå · topp 12 %". */
   label: string;
+  /** Nivån badgen avser = HÖGSTA slutförda nivån i familjen. */
   level: Level | null;
+  /**
+   * Verifierat resultat: score från FÖRSTA slutförda sessionen på nivån
+   * (aldrig best-of-N). Fältnamnet behålls för bakåtkompatibilitet.
+   */
   bestScore: number | null;
   percentile: number | null;
   /** Antal testade i underlaget ("topp 12 % av 340 testade"). */
   sampleSize: number | null;
+  /** När det verifierade resultatet slutfördes. */
+  testDate: string | null;
 }
 
 export interface CandidateCard {
@@ -117,8 +150,24 @@ export interface CandidateCard {
   latestRole: { title: string; years: number | null } | null;
   /** Högsta/senaste examen ur CV:t. */
   educationLevel: string | null;
+  /** Klassificerad utbildningsnivå för filtret, härledd ur educationLevel. */
+  educationLevelBucket: EducationLevelBucket | null;
   /** Kandidatens egenskrivna pitch, visas även på träffkortet. */
   pitch: string | null;
+  /**
+   * Samtliga rolltitlar ur arbetshistoriken (utan arbetsgivare). Driver
+   * fritextsökningen: "redovisningsekonom" ska träffa även tidigare roller.
+   */
+  historyTitles: string[];
+  /**
+   * Arketyp-titeln ur arbetsstilen (t.ex. "Drivande genomförare").
+   * ENDAST ifylld när kandidaten valt show_personality och har facetter.
+   */
+  workStyleArchetype: string | null;
+  /** Färskhetssignal: consent_given_at, annars created_at. */
+  activeSince: string | null;
+  /** Kandidatens självvalda kontexttaggar ("Söker mig till"), max 2. */
+  contextTags: string[];
 }
 
 export interface ExperienceEntry {
@@ -138,11 +187,17 @@ export interface EducationEntry {
 export interface TestResultEntry {
   family: FamilyKey;
   level: Level;
+  /**
+   * Verifierat resultat = FÖRSTA slutförda sessionen på nivån (aldrig
+   * best-of-N). Fältnamnet behålls för bakåtkompatibilitet.
+   */
   bestScore: number;
   percentile: number | null;
   /** Antal testade i underlaget ("topp X % av N testade"). */
   sampleSize: number | null;
   completedAt: string | null;
+  /** Totalt antal slutförda försök på nivån. */
+  attempts: number;
 }
 
 export interface CandidateDetail extends CandidateCard {
@@ -153,12 +208,24 @@ export interface CandidateDetail extends CandidateCard {
   /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
   languages: string[];
   /**
-   * Arbetsstilsprofil ur det avancerade personlighetstestets facetter.
-   * null för grundtestare. Kräver show_personality precis som styrkorna.
+   * Arbetsstilsprofil ur det avancerade personlighetstestets facetter
+   * (kompakta panelen, fallback). null för grundtestare. Kräver
+   * show_personality precis som styrkorna.
    */
   workStyle: WorkStyle | null;
-  /** Intervjuguide: 3 frågor, exponeras ENDAST vid upplåst kontakt. */
+  /** Kompakt intervjuguide (fallback): 3 frågor, ENDAST vid upplåst kontakt. */
   interviewGuide: string[];
+  /**
+   * Fullständig arbetsstilsrapport. Kräver show_personality OCH
+   * show_full_workstyle (nivå 2-samtycke) och att profilen kvalificerar i
+   * saliens-motorn. Sektionerna onboarding/interviewGuide är null tills
+   * kontakten är upplåst — UI visar dem som låsta rader.
+   */
+  workStyleReport: WorkStyleReport | null;
+  /** När personlighetstestet senast slutfördes (endast om show_personality). */
+  personalityTestedAt: string | null;
+  /** true när personlighetstestet är äldre än 24 månader. */
+  personalityStale: boolean;
   /** Namn låses upp av contactUnlocked (accepterat intresse ELLER öppen profil). */
   fullName: string | null;
   /** E-post låses ENBART upp vid accepterat intresse. */
@@ -260,13 +327,34 @@ async function fetchSessions(admin: Admin, userId: string): Promise<SessionRow[]
   return data ?? [];
 }
 
-function badgeLabel(family: FamilyKey, percentile: number | null, bestScore: number | null): string {
-  // Samma formatering som RecruiterPreviewCard på kandidatens Bli upptäckt-sida.
+function badgeLabel(
+  family: FamilyKey,
+  level: Level,
+  percentile: number | null,
+  score: number | null
+): string {
+  // Nivån ingår alltid i etiketten: "Matrislogik · Expertnivå · topp 8 %".
+  const base = `${FAMILY_LABELS[family]} · ${LEVEL_LABELS[level]}`;
   return percentile !== null
-    ? `${FAMILY_LABELS[family]} · topp ${Math.max(1, 100 - percentile)} %`
-    : `${FAMILY_LABELS[family]} · ${bestScore}% rätt`;
+    ? `${base} · topp ${Math.max(1, 100 - percentile)} %`
+    : `${base} · ${score}% rätt`;
 }
 
+/**
+ * Första slutförda sessionen (verifierat resultat — best-of-N på oövervakat
+ * test är psykometriskt värdelöst) inom en lista sessioner av samma test_type.
+ */
+function firstCompleted(sessions: SessionRow[]): SessionRow {
+  return [...sessions].sort(
+    (a, b) => new Date(a.completed_at ?? 0).getTime() - new Date(b.completed_at ?? 0).getTime()
+  )[0];
+}
+
+/**
+ * Nivåviktade badges: primär badge per familj = HÖGSTA slutförda nivån
+ * (expert > avancerad > grund), aldrig rå-score-jämförelse över nivåer.
+ * Resultatet på nivån = första slutförda sessionen, inte bästa av N.
+ */
 async function buildTestBadges(
   sessions: SessionRow[],
   ctx: PercentileContext
@@ -274,35 +362,31 @@ async function buildTestBadges(
   const badges = await Promise.all(
     FAMILY_ORDER.map(async (family) => {
       const { types } = FAMILIES[family];
-      const own = sessions.filter((s) => s.test_type && types.includes(s.test_type));
-      if (own.length === 0) return null;
 
-      // Bästa session över alla nivåer: högst score, vid lika högre nivå,
-      // därefter senast slutförd — samma sortering som summary-routen.
-      const best = [...own].sort((a, b) => {
-        const scoreDiff = (b.score ?? 0) - (a.score ?? 0);
-        if (scoreDiff !== 0) return scoreDiff;
-        const levelDiff =
-          types.indexOf(b.test_type as string) - types.indexOf(a.test_type as string);
-        if (levelDiff !== 0) return levelDiff;
-        return (
-          new Date(b.completed_at ?? 0).getTime() - new Date(a.completed_at ?? 0).getTime()
-        );
-      })[0];
+      // Högsta slutförda nivån i familjen.
+      let levelIndex = -1;
+      for (let i = types.length - 1; i >= 0; i--) {
+        if (sessions.some((s) => s.test_type === types[i])) {
+          levelIndex = i;
+          break;
+        }
+      }
+      if (levelIndex === -1) return null;
 
-      const level = LEVELS[types.indexOf(best.test_type as string)];
-      const { percentile, sampleSize } = await ctx.getStats(
-        best.test_type as string,
-        best.score ?? 0
-      );
+      const testType = types[levelIndex];
+      const level = LEVELS[levelIndex];
+      const verified = firstCompleted(sessions.filter((s) => s.test_type === testType));
+
+      const { percentile, sampleSize } = await ctx.getStats(testType, verified.score ?? 0);
 
       const badge: TestBadge = {
         family,
         level,
-        bestScore: best.score,
+        bestScore: verified.score,
         percentile,
         sampleSize,
-        label: badgeLabel(family, percentile, best.score),
+        testDate: verified.completed_at,
+        label: badgeLabel(family, level, percentile, verified.score),
       };
       return badge;
     })
@@ -317,10 +401,16 @@ async function buildTestBadges(
 async function fetchPersonalityFull(
   admin: Admin,
   userId: string
-): Promise<{ domains: DomainScores; facets: Record<string, number> | null } | null> {
+): Promise<{
+  domains: DomainScores;
+  facets: Record<string, number> | null;
+  testedAt: string | null;
+} | null> {
   const { data } = await (admin as any)
     .from('user_personality_profile')
-    .select('openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores')
+    .select(
+      'openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores, updated_at'
+    )
     .eq('user_id', userId)
     .maybeSingle();
   if (!data) return null;
@@ -333,17 +423,11 @@ async function fetchPersonalityFull(
       neuroticism: data.neuroticism ?? 50,
     },
     facets: (data.facet_scores as Record<string, number> | null) ?? null,
+    testedAt: (data.updated_at as string | null) ?? null,
   };
 }
 
-async function fetchPersonalityStrengths(admin: Admin, userId: string): Promise<string[]> {
-  const { data } = await (admin as any)
-    .from('user_personality_profile')
-    .select('openness, conscientiousness, extraversion, agreeableness, neuroticism')
-    .eq('user_id', userId)
-    .maybeSingle();
-  const row = data as Record<string, number> | null;
-  if (!row) return [];
+function strengthsFromDomains(row: Record<string, number | null>): string[] {
   return STRENGTH_MAP
     .map(({ column, label, invert }) => ({
       label,
@@ -352,6 +436,38 @@ async function fetchPersonalityStrengths(admin: Admin, userId: string): Promise<
     .sort((a, b) => b.value - a.value)
     .slice(0, 2)
     .map((s) => s.label);
+}
+
+/**
+ * Kortets personlighetsdata i EN fråga: styrkor + arketyp. Facetterna hämtas
+ * i samma query som styrkorna; arketypen exponeras bara när den kompakta
+ * panelen kvalificerar (samma härledning som detaljvyn — aldrig divergens).
+ */
+async function fetchPersonalityCardData(
+  admin: Admin,
+  userId: string
+): Promise<{ strengths: string[]; archetype: string | null }> {
+  const { data } = await (admin as any)
+    .from('user_personality_profile')
+    .select('openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (!data) return { strengths: [], archetype: null };
+  const row = data as Record<string, number | null> & {
+    facet_scores: Record<string, number> | null;
+  };
+  const domains: DomainScores = {
+    openness: row.openness ?? 50,
+    conscientiousness: row.conscientiousness ?? 50,
+    extraversion: row.extraversion ?? 50,
+    agreeableness: row.agreeableness ?? 50,
+    neuroticism: row.neuroticism ?? 50,
+  };
+  const workStyle = deriveWorkStyle(domains, row.facet_scores ?? null);
+  return {
+    strengths: strengthsFromDomains(row),
+    archetype: workStyle?.archetype.title ?? null,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -476,6 +592,51 @@ export function deriveEducationLevel(sd: any): string | null {
   return truncate(best.degree, 48);
 }
 
+export type EducationLevelBucket =
+  | 'Gymnasial'
+  | 'Eftergymnasial'
+  | 'Kandidat'
+  | 'Master'
+  | 'Forskarnivå';
+
+/**
+ * Klassificerar den fria examenssträngen (deriveEducationLevel) till en
+ * filtrerbar nivå. Nyckelordsbaserad, högsta nivån testas först.
+ */
+export function bucketEducationLevel(educationLevel: string | null): EducationLevelBucket | null {
+  if (!educationLevel) return null;
+  const t = educationLevel.toLowerCase();
+  if (/doktor|forskar/.test(t)) return 'Forskarnivå';
+  if (/master|civilingenjör|civilekonom|magister|läkare|jurist/.test(t)) return 'Master';
+  if (/kandidat|högskoleingenjör|bachelor/.test(t)) return 'Kandidat';
+  if (/(^|[^a-zåäö])yh([^a-zåäö]|$)|kvalificerad yrkes|högskoleexamen|eftergymnasial|folkhögskol/.test(t)) {
+    return 'Eftergymnasial';
+  }
+  if (/gymnasi/.test(t)) return 'Gymnasial';
+  return null;
+}
+
+/**
+ * Alla titlar i arbetshistoriken — sökningens haystack behöver hela banan,
+ * inte bara senaste rollen. Endast titlar, aldrig arbetsgivarnamn.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function deriveHistoryTitles(sd: any): string[] {
+  const rawList: unknown[] = Array.isArray(sd?.experience)
+    ? sd.experience
+    : Array.isArray(sd?.roles)
+      ? sd.roles
+      : [];
+  return rawList
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((raw: any): string | null =>
+      (typeof raw?.position === 'string' && raw.position.trim()) ||
+      (typeof raw?.title === 'string' && raw.title.trim()) ||
+      null
+    )
+    .filter((t): t is string => t !== null);
+}
+
 /** Språk ur CV:t: strängar eller { language, proficiency }. Max 5. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function deriveLanguages(sd: any): string[] {
@@ -584,6 +745,36 @@ async function fetchStructuredData(
 }
 
 /**
+ * Kompletterar en profilrad med v2-kolumnerna (show_full_workstyle,
+ * context_tags, consent_given_at/created_at) när anroparens select inte tagit
+ * med dem. Kolumnerna saknas i de genererade DB-typerna, därav casten.
+ */
+async function ensureProfileV2Columns(
+  admin: Admin,
+  row: CandidateProfileRow
+): Promise<CandidateProfileRow> {
+  if (
+    row.show_full_workstyle !== undefined &&
+    row.context_tags !== undefined &&
+    row.consent_given_at !== undefined
+  ) {
+    return row;
+  }
+  const { data } = await (admin as any)
+    .from('candidate_profiles')
+    .select('show_full_workstyle, context_tags, consent_given_at, created_at')
+    .eq('user_id', row.user_id)
+    .maybeSingle();
+  return {
+    ...row,
+    show_full_workstyle: row.show_full_workstyle ?? data?.show_full_workstyle ?? false,
+    context_tags: row.context_tags ?? data?.context_tags ?? [],
+    consent_given_at: row.consent_given_at ?? data?.consent_given_at ?? null,
+    created_at: row.created_at ?? data?.created_at ?? null,
+  };
+}
+
+/**
  * Träffkortet i poolen: kompakt sammanfattning utan identifierande fält.
  * `ctx` kan delas mellan flera anrop så percentil-aggregaten bara räknas en
  * gång per test_type i en pool-förfrågan.
@@ -594,35 +785,42 @@ export async function buildCandidateCard(
   ctx?: PercentileContext
 ): Promise<CandidateCard> {
   const percentileCtx = ctx ?? createPercentileContext(admin);
+  const row = await ensureProfileV2Columns(admin, profileRow);
 
-  const [roleSkills, sessions, personalityStrengths] = await Promise.all([
-    fetchRoleAndSkills(admin, profileRow.user_id, profileRow.cv_id),
-    fetchSessions(admin, profileRow.user_id),
-    profileRow.show_personality
-      ? fetchPersonalityStrengths(admin, profileRow.user_id)
-      : Promise.resolve([]),
+  const [roleSkills, sessions, personalityCard] = await Promise.all([
+    fetchRoleAndSkills(admin, row.user_id, row.cv_id),
+    fetchSessions(admin, row.user_id),
+    row.show_personality
+      ? fetchPersonalityCardData(admin, row.user_id)
+      : Promise.resolve({ strengths: [] as string[], archetype: null as string | null }),
   ]);
 
   const testBadges = await buildTestBadges(sessions, percentileCtx);
   const seniority = deriveSeniority(roleSkills.sd);
+  const educationLevel = deriveEducationLevel(roleSkills.sd);
 
   return {
-    userId: profileRow.user_id,
+    userId: row.user_id,
     role: roleSkills.occupation,
     skills: roleSkills.skills.slice(0, 6),
-    regions: profileRow.regions ?? [],
-    availability: profileRow.availability,
-    workplace: profileRow.workplace ?? [],
-    extent: profileRow.extent ?? [],
-    driversLicense: Boolean(profileRow.drivers_license),
+    regions: row.regions ?? [],
+    availability: row.availability,
+    workplace: row.workplace ?? [],
+    extent: row.extent ?? [],
+    driversLicense: Boolean(row.drivers_license),
     testBadges,
     // ENDAST om kandidaten själv valt att visa personlighet.
-    personalityStrengths,
-    visibility: profileRow.visibility,
+    personalityStrengths: personalityCard.strengths,
+    visibility: row.visibility,
     yearsOfExperience: seniority.yearsOfExperience,
     latestRole: seniority.latestRole,
-    educationLevel: deriveEducationLevel(roleSkills.sd),
-    pitch: profileRow.pitch?.trim() || null,
+    educationLevel,
+    educationLevelBucket: bucketEducationLevel(educationLevel),
+    pitch: row.pitch?.trim() || null,
+    historyTitles: deriveHistoryTitles(roleSkills.sd),
+    workStyleArchetype: personalityCard.archetype,
+    activeSince: row.consent_given_at ?? row.created_at ?? null,
+    contextTags: row.context_tags ?? [],
   };
 }
 
@@ -733,15 +931,17 @@ async function buildAllTestResults(
     types.forEach((testType, levelIndex) => {
       const own = sessions.filter((s) => s.test_type === testType);
       if (own.length === 0) return;
-      const best = [...own].sort((a, b) => (b.score ?? 0) - (a.score ?? 0))[0];
+      // Verifierat resultat = första slutförda försöket, aldrig best-of-N.
+      const verified = firstCompleted(own);
       entries.push(
-        ctx.getStats(testType, best.score ?? 0).then(({ percentile, sampleSize }) => ({
+        ctx.getStats(testType, verified.score ?? 0).then(({ percentile, sampleSize }) => ({
           family,
           level: LEVELS[levelIndex],
-          bestScore: best.score ?? 0,
+          bestScore: verified.score ?? 0,
           percentile,
           sampleSize,
-          completedAt: best.completed_at,
+          completedAt: verified.completed_at,
+          attempts: own.length,
         }))
       );
     });
@@ -770,14 +970,15 @@ export async function buildCandidateDetail(
 ): Promise<CandidateDetail> {
   const emailUnlocked = opts.emailUnlocked ?? false;
   const ctx = createPercentileContext(admin);
+  const row = await ensureProfileV2Columns(admin, profileRow);
 
   const [card, sessions, sd, personalityFull] = await Promise.all([
-    buildCandidateCard(admin, profileRow, ctx),
-    fetchSessions(admin, profileRow.user_id),
-    fetchStructuredData(admin, profileRow.user_id, profileRow.cv_id),
+    buildCandidateCard(admin, row, ctx),
+    fetchSessions(admin, row.user_id),
+    fetchStructuredData(admin, row.user_id, row.cv_id),
     // Arbetsstilen kräver kandidatens personlighetssamtycke, precis som styrkorna.
-    profileRow.show_personality
-      ? fetchPersonalityFull(admin, profileRow.user_id)
+    row.show_personality
+      ? fetchPersonalityFull(admin, row.user_id)
       : Promise.resolve(null),
   ]);
 
@@ -791,6 +992,21 @@ export async function buildCandidateDetail(
     workStyle && contactUnlocked && personalityFull
       ? deriveInterviewGuide(personalityFull.facets)
       : [];
+
+  // Fullrapporten kräver BÅDA samtyckena (nivå 1 + nivå 2). Onboarding och
+  // intervjuguide är en del av kontaktupplåsningen och nollas innan svar.
+  let workStyleReport =
+    personalityFull && row.show_full_workstyle
+      ? deriveWorkStyleReport(personalityFull.domains, personalityFull.facets)
+      : null;
+  if (workStyleReport && !contactUnlocked) {
+    workStyleReport = { ...workStyleReport, onboarding: null, interviewGuide: null };
+  }
+
+  const personalityTestedAt = personalityFull?.testedAt ?? null;
+  const personalityStale = personalityTestedAt
+    ? Date.now() - Date.parse(personalityTestedAt) > 2 * YEAR_MS
+    : false;
 
   let fullName: string | null = null;
   let email: string | null = null;
@@ -813,6 +1029,9 @@ export async function buildCandidateDetail(
     languages: sd ? deriveLanguages(sd) : [],
     workStyle,
     interviewGuide,
+    workStyleReport,
+    personalityTestedAt,
+    personalityStale,
     fullName,
     email,
   };

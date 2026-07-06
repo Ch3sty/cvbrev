@@ -145,6 +145,23 @@ export default function RecruiterPreviewCard({
           </p>
         )}
 
+        {/* Söker mig till: kandidatens egna kontexttaggar, självpresentation */}
+        {profile.context_tags.length > 0 && (
+          <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400">
+              Söker mig till
+            </span>
+            {profile.context_tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] font-semibold rounded-full px-2.5 py-0.5 border border-indigo-300 text-indigo-700 bg-white"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* Rad 1: verifierat (testresultat + styrkor) */}
         {(testBadges.length > 0 || personalityChips.length > 0) && (
           <div className="flex flex-wrap gap-1.5 mb-1.5">

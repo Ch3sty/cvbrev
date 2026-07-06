@@ -1,5 +1,10 @@
 // Delade typer och konstanter för "Bli upptäckt"-sidan.
 
+import type {
+  CandidateOwnReport,
+  WorkStyleReport,
+} from '@/lib/recruiter/workStyle';
+
 export type Visibility = 'off' | 'anonymous' | 'open';
 export type Availability = 'immediate' | 'one_month' | 'three_months' | 'by_agreement';
 export type Level = 'grund' | 'avancerad' | 'expert';
@@ -9,6 +14,10 @@ export interface CandidateProfileState {
   cv_id: string | null;
   visibility: Visibility;
   show_personality: boolean;
+  /** Nivå 2-samtycke: fullständig arbetsstilsrapport visas för rekryterare. */
+  show_full_workstyle: boolean;
+  /** Självvalda kontexttaggar ("Söker mig till"), max 2 ur kvalificerade. */
+  context_tags: string[];
   availability: Availability | null;
   workplace: string[];
   extent: string[];
@@ -25,6 +34,8 @@ export const EMPTY_PROFILE: CandidateProfileState = {
   cv_id: null,
   visibility: 'off',
   show_personality: false,
+  show_full_workstyle: false,
+  context_tags: [],
   availability: null,
   workplace: [],
   extent: [],
@@ -51,13 +62,24 @@ export interface SummaryData {
     done: boolean;
     strengths: string[];
     /**
-     * Arbetsstilsprofil ur det avancerade testets facetter (120 frågor).
-     * null/undefined för grundtestare.
+     * Kompakt arbetsstilsprofil ur det avancerade testets facetter
+     * (120 frågor). null för grundtestare.
      */
-    workStyle?: {
+    workStyle: {
       archetype: { title: string; description: string };
       statements: string[];
     } | null;
+    /**
+     * Rekryterarens fullständiga rapport, exakt som den renderas hos
+     * rekryteraren. Används för förhandsvisningen vid nivå 2-samtycket.
+     * null för grundtestare eller när profilen inte kvalificerar.
+     */
+    workStyleReport: WorkStyleReport | null;
+    /** Kandidatens privata rapport i du-form. Delas ALDRIG. */
+    ownReport: CandidateOwnReport | null;
+    /** Kontexttaggar kandidaten är kvalificerad att välja bland. */
+    contextTagOptions: string[];
+    hasAdvancedTest: boolean;
   };
   skills: { skills: string[]; occupation: string | null; location: string | null };
   /** Senioritet härledd ur CV:ts arbetshistorik (fas 3.5). */

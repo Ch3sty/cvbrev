@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Building2, Clock, LogIn, LogOut, XCircle } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import RecruiterSideNav from './components/RecruiterSideNav';
 
 // Rekryterarportalens skal: eget enkelt skal, INTE kandidat-dashboardens
 // sidebar. Guarden ligger här i layouten och styrs av /api/recruiter/status.
@@ -101,7 +102,7 @@ export default function RekryterareLayout({ children }: { children: ReactNode })
     <div className="min-h-screen bg-orange-50/30">
       {/* Topbar */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-orange-100">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+        <div className="max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 min-w-0">
             <Logo variant="compact" href="/rekryterare" height={30} />
             <span className="flex-shrink-0 text-[11px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-700">
@@ -127,7 +128,12 @@ export default function RekryterareLayout({ children }: { children: ReactNode })
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-5 sm:py-8">{children}</main>
+      {/* Sidnav (desktop-rail) + innehåll. Mobilen får bottom-tabs och
+          extra bottenluft så inget hamnar bakom dem. */}
+      <div className="max-w-[1440px] mx-auto flex items-start">
+        <RecruiterSideNav />
+        <main className="flex-1 min-w-0 px-4 py-5 sm:py-8 pb-24 lg:pb-8">{children}</main>
+      </div>
     </div>
   );
 }
