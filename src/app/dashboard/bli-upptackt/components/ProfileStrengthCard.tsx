@@ -18,39 +18,61 @@ interface ChecklistItem {
 }
 
 /**
- * Profilstyrka: 0-100 enligt formeln
- *   + 15  CV valt (cv_id satt) — var 20, 5 poäng flyttade till fullrapporten
- *   + 10  samtycke gett (consent_given_at satt)
- *   + 10  villkor ifyllda (availability + minst en region + minst ett
- *         arbetsplatsval) — var 15, 5 poäng flyttade till kontexttaggarna
- *   + 10  kompetenser extraherade ur CV:t
- *   + 10  per klar kognitiv testfamilj (max 30)
- *   +  5  personlighetsprofil klar
- *   + 10  pitch skriven
- *   +  5  fullständig arbetsstilsrapport delad (nivå 2-samtycket)
- *   +  5  minst en kontexttagg vald ("Söker mig till")
- * Summan av alla poster är exakt 100.
+ * Profilstyrka: 0-100, normaliserad mot det maximalt UPPNÅELIGA. Vikter:
+ *   15  CV valt (cv_id satt)
+ *   10  samtycke gett (consent_given_at satt)
+ *   10  villkor ifyllda (availability + minst en region + minst ett
+ *       arbetsplatsval)
+ *   10  kompetenser extraherade ur CV:t
+ *   10  per klar kognitiv testfamilj (max 30)
+ *    5  personlighetsprofil klar
+ *   10  pitch skriven
+ *    5  fullständig arbetsstilsrapport delad (nivå 2-samtycket)
+ *    5  minst en kontexttagg vald ("Söker mig till")
+ *
+ * Fullrapporten och kontexttaggarna räknas ENDAST in i nämnaren när de går
+ * att påverka (kvalificerad rapport finns resp. minst ett taggförslag) —
+ * annars blir 100 % omöjligt trots att checklistan saknar rader att åtgärda.
+ * Slutpoängen skalas till 0-100 mot det uppnåeliga maxet.
  */
 export function computeProfileStrength(
   profile: CandidateProfileState,
   summary: SummaryData | null
 ): number {
-  let score = 0;
-  if (profile.cv_id) score += 15;
-  if (profile.consent_given_at) score += 10;
+  let earned = 0;
+  let possible = 0;
+  const item = (points: number, done: boolean, applicable = true) => {
+    if (!applicable) return;
+    possible += points;
+    if (done) earned += points;
+  };
+
+  item(15, !!profile.cv_id);
+  item(10, !!profile.consent_given_at);
   const termsDone =
     !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
-  if (termsDone) score += 10;
-  if ((summary?.skills?.skills?.length ?? 0) > 0) score += 10;
+  item(10, termsDone);
+  item(10, (summary?.skills?.skills?.length ?? 0) > 0);
   const familiesDone = summary
     ? (Object.keys(summary.results) as FamilyKey[]).filter((k) => summary.results[k].done).length
     : 0;
-  score += Math.min(familiesDone, 3) * 10;
-  if (summary?.personality?.done) score += 5;
-  if ((profile.pitch ?? '').trim().length > 0) score += 10;
-  if (profile.show_full_workstyle && profile.show_personality) score += 5;
-  if (profile.context_tags.length > 0) score += 5;
-  return Math.min(score, 100);
+  possible += 30;
+  earned += Math.min(familiesDone, 3) * 10;
+  item(5, Boolean(summary?.personality?.done));
+  item(10, (profile.pitch ?? '').trim().length > 0);
+  item(
+    5,
+    profile.show_full_workstyle && profile.show_personality,
+    Boolean(summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport)
+  );
+  item(
+    5,
+    profile.context_tags.length > 0,
+    (summary?.personality?.contextTagOptions?.length ?? 0) > 0
+  );
+
+  if (possible === 0) return 0;
+  return Math.min(100, Math.round((100 * earned) / possible));
 }
 
 export default function ProfileStrengthCard({ profile, summary }: ProfileStrengthCardProps) {
