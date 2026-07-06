@@ -17,11 +17,11 @@ interface FeatureCopy {
 
 const FEATURE_COPY: Record<string, FeatureCopy> = {
   letter_generation: {
-    subject: 'Dagens brev är redo att skrivas',
-    preheader: 'Din brevkvot har nollställts. Två nya personliga brev väntar.',
-    heading: 'Två nya brev väntar på dig',
-    body: 'Du bad oss säga till när din brevkvot var tillbaka. Nu är den det. Skriv dagens ansökningar medan annonserna är färska, det tar bara ett par minuter per brev.',
-    cta: 'Skriv ditt nästa brev',
+    subject: 'Två nya personliga brev väntar på dig',
+    preheader: 'Din kvot har nollställts. Dags att skriva dagens ansökningar.',
+    heading: 'Två nya personliga brev väntar',
+    body: 'Du bad oss säga till när dina personliga brev var tillbaka. Nu är de det. Skriv dagens ansökningar medan annonserna är färska, det tar bara ett par minuter per brev.',
+    cta: 'Skriv ditt personliga brev',
     path: '/dashboard/skapa-brev',
   },
   cv_analysis: {
