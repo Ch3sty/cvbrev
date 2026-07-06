@@ -79,6 +79,16 @@ export interface CandidateDetail extends Omit<PoolCandidate, 'interestStatus'> {
   testResults: TestResultEntry[];
   /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
   languages: string[];
+  /**
+   * Arbetsstilsprofil ur det avancerade personlighetstestets facetter.
+   * null för grundtestare. Kräver kandidatens show_personality.
+   */
+  workStyle: {
+    archetype: { title: string; description: string };
+    statements: string[];
+  } | null;
+  /** Intervjuguide: 3 frågor, ifylld ENDAST vid upplåst kontakt. */
+  interviewGuide: string[];
   fullName: string | null;
   email: string | null;
 }

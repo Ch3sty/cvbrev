@@ -48,6 +48,12 @@ const TEST_RESULTS = [
 
 const STRENGTHS = ['Strukturerad', 'Analytisk']
 
+const WORK_STYLE_STATEMENTS = [
+  'Håller deadlines utan påminnelser',
+  'Bygger struktur där den saknas',
+  'Tänker igenom beslut innan de fattas',
+]
+
 const TERMS = [
   { label: 'Tillträde', value: 'Omgående' },
   { label: 'Arbetsplats', value: 'Hybrid' },
@@ -356,6 +362,55 @@ export default function RekryterareProfilExempel() {
                 Percentilerna jämför kandidaten med alla som gjort samma test
                 hos oss. Du behöver inte lita på CV-formuleringar, resultaten
                 kommer från riktiga test gjorda på vår plattform.
+              </p>
+            </MockCard>
+
+            {/* Arbetsstil: arketyp + beteendepunkter ur utökade testet */}
+            <MockCard title="Arbetsstil">
+              <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-4 py-3.5">
+                <p className="text-[15px] font-extrabold text-indigo-900">
+                  Strukturerad analytiker
+                </p>
+                <p className="mt-0.5 text-[13px] text-indigo-900/70 leading-relaxed">
+                  Metodisk problemlösare som gärna tänker nytt, men aldrig
+                  slarvigt.
+                </p>
+              </div>
+
+              <div className="mt-4">
+                <p className="text-[11.5px] font-bold uppercase tracking-wide text-slate-400 mb-2">
+                  I arbetet
+                </p>
+                <ul className="space-y-1.5">
+                  {WORK_STYLE_STATEMENTS.map((statement) => (
+                    <li
+                      key={statement}
+                      className="flex items-start gap-2 text-[13.5px] text-slate-700 leading-relaxed"
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 mt-[7px]"
+                        aria-hidden="true"
+                      />
+                      {statement}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-indigo-50">
+                <p className="flex items-start gap-2 text-[12.5px] text-slate-500 leading-relaxed">
+                  <Lock
+                    className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400"
+                    aria-hidden="true"
+                  />
+                  Intervjuguide med 3 skräddarsydda frågor låses upp när
+                  kandidaten tackar ja.
+                </p>
+              </div>
+
+              <p className="mt-3 text-[12.5px] text-slate-500 leading-relaxed">
+                Härledd ur det utökade personlighetstestet (120 frågor), delad
+                med kandidatens samtycke.
               </p>
             </MockCard>
 

@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
+import { deriveWorkStyle, type WorkStyle } from '@/lib/recruiter/workStyle';
 
 // GET /api/candidate/summary?cv_id=<uuid>
 //
@@ -99,10 +100,11 @@ export async function GET(request: Request) {
         .in('test_type', allTypes)
         .not('completed_at', 'is', null)
         .not('score', 'is', null),
-      // Personlighetsprofil (egna rader via RLS).
+      // Personlighetsprofil (egna rader via RLS). facet_scores finns bara
+      // för avancerad-testare och ger arbetsstilsprofilen.
       (supabase as any)
         .from('user_personality_profile')
-        .select('openness, conscientiousness, extraversion, agreeableness, neuroticism')
+        .select('openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores')
         .eq('user_id', user.id)
         .maybeSingle(),
       // CV-extraktion: matcha valt CV om cv_id angetts, annars senaste raden.
@@ -178,12 +180,17 @@ export async function GET(request: Request) {
 
     const results = Object.fromEntries(familyEntries) as Record<FamilyKey, FamilyResult>;
 
-    // --- Personlighet: de två högsta härledda styrkorna ---
-    let personality: { done: boolean; strengths: string[] } = {
+    // --- Personlighet: de två högsta härledda styrkorna + arbetsstilen ---
+    // workStyle blir null för grundtestare (facet_scores saknas), då visas
+    // bara styrkorna som tidigare.
+    let personality: { done: boolean; strengths: string[]; workStyle: WorkStyle | null } = {
       done: false,
       strengths: [],
+      workStyle: null,
     };
-    const profileRow = personalityRes.data as Record<string, number> | null;
+    const profileRow = personalityRes.data as
+      | (Record<string, number> & { facet_scores: Record<string, number> | null })
+      | null;
     if (profileRow) {
       const strengths = STRENGTH_MAP
         .map(({ column, label, invert }) => ({
@@ -193,7 +200,17 @@ export async function GET(request: Request) {
         .sort((a, b) => b.value - a.value)
         .slice(0, 2)
         .map((s) => s.label);
-      personality = { done: true, strengths };
+      const workStyle = deriveWorkStyle(
+        {
+          openness: profileRow.openness ?? 50,
+          conscientiousness: profileRow.conscientiousness ?? 50,
+          extraversion: profileRow.extraversion ?? 50,
+          agreeableness: profileRow.agreeableness ?? 50,
+          neuroticism: profileRow.neuroticism ?? 50,
+        },
+        profileRow.facet_scores ?? null
+      );
+      personality = { done: true, strengths, workStyle };
     }
 
     // --- Kompetenser: extraktion först, CV:ts structured_data som fallback ---

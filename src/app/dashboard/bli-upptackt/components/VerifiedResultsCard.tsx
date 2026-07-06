@@ -66,15 +66,19 @@ export default function VerifiedResultsCard({ summary, showPersonality }: Verifi
           );
         })}
 
-        {/* Personlighet */}
+        {/* Personlighet: avancerad-testare får arketypens titel, grundtestare styrkeorden */}
         {summary?.personality?.done ? (
           <ResultTile label="Personlighet">
             <div className="text-[15px] font-bold text-indigo-800 leading-snug">
-              {summary.personality.strengths.join(' · ')}
+              {summary.personality.workStyle
+                ? summary.personality.workStyle.archetype.title
+                : summary.personality.strengths.join(' · ')}
             </div>
             {showPersonality ? (
               <div className="text-[12px] text-slate-500 mt-0.5">
-                Dina två främsta styrkor visas
+                {summary.personality.workStyle
+                  ? 'Arbetsstil + styrkor delas med ditt samtycke'
+                  : 'Dina två främsta styrkor visas'}
               </div>
             ) : (
               <div className="inline-flex items-center gap-1 text-[12px] text-slate-400 mt-0.5">
@@ -96,6 +100,23 @@ export default function VerifiedResultsCard({ summary, showPersonality }: Verifi
           </ResultTile>
         )}
       </div>
+
+      {/* Upsell för grundtestare: utökade profilen ger arbetsstilen */}
+      {summary?.personality?.done && !summary.personality.workStyle && (
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5 rounded-xl border border-indigo-100 bg-indigo-50/50 px-3.5 py-2.5">
+          <p className="text-[12.5px] text-indigo-900/80 leading-relaxed min-w-0 flex-1 basis-64">
+            Gör den utökade profilen (120 frågor) så får rekryterare se din
+            arbetsstil, det lyfter din profil i poolen.
+          </p>
+          <Link
+            href="/dashboard/tester/personlighet-avancerad"
+            className="inline-flex items-center gap-1 text-[12.5px] font-bold text-indigo-700 hover:text-indigo-800 min-h-[24px] flex-shrink-0"
+          >
+            Gör utökade testet
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+          </Link>
+        </div>
+      )}
     </SectionCard>
   );
 }

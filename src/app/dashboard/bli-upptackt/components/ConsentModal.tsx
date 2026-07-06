@@ -15,7 +15,7 @@ const SHOWN_ITEMS = [
   'Yrkesroll och erfarenhetsnivå',
   'Kompetenser från ditt CV',
   'Verifierade testresultat med percentiler',
-  'Dina 2 främsta personlighetsstyrkor (valfritt)',
+  'Personlighetsstyrkor och arbetsstil (valfritt)',
   'Region och tillgänglighet',
 ];
 
@@ -150,8 +150,8 @@ export default function ConsentModal({ open, saving, onConfirm, onCancel }: Cons
                 onToggle={() => setPersonalityConsent((v) => !v)}
                 tone="indigo"
               >
-                Visa mina två främsta styrkor från personlighetstestet på
-                profilen.{' '}
+                Visa mina främsta styrkor och min arbetsstil från
+                personlighetstestet på profilen.{' '}
                 <span className="text-slate-400 font-normal">
                   Eget samtycke, kan bockas ur utan att synligheten påverkas.
                 </span>

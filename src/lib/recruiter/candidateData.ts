@@ -16,6 +16,12 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database.types';
+import {
+  deriveWorkStyle,
+  deriveInterviewGuide,
+  type WorkStyle,
+  type DomainScores,
+} from './workStyle';
 
 type Admin = SupabaseClient<Database>;
 
@@ -146,6 +152,13 @@ export interface CandidateDetail extends CandidateCard {
   testResults: TestResultEntry[];
   /** Språk ur CV:t, t.ex. "Svenska (modersmål)". */
   languages: string[];
+  /**
+   * Arbetsstilsprofil ur det avancerade personlighetstestets facetter.
+   * null för grundtestare. Kräver show_personality precis som styrkorna.
+   */
+  workStyle: WorkStyle | null;
+  /** Intervjuguide: 3 frågor, exponeras ENDAST vid upplåst kontakt. */
+  interviewGuide: string[];
   /** Namn låses upp av contactUnlocked (accepterat intresse ELLER öppen profil). */
   fullName: string | null;
   /** E-post låses ENBART upp vid accepterat intresse. */
@@ -295,6 +308,32 @@ async function buildTestBadges(
     })
   );
   return badges.filter((b): b is TestBadge => b !== null);
+}
+
+/**
+ * Full personlighetsläsning för detaljprofilen: domäner + facetter.
+ * Facetterna finns bara för det avancerade testet (120 frågor).
+ */
+async function fetchPersonalityFull(
+  admin: Admin,
+  userId: string
+): Promise<{ domains: DomainScores; facets: Record<string, number> | null } | null> {
+  const { data } = await (admin as any)
+    .from('user_personality_profile')
+    .select('openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (!data) return null;
+  return {
+    domains: {
+      openness: data.openness ?? 50,
+      conscientiousness: data.conscientiousness ?? 50,
+      extraversion: data.extraversion ?? 50,
+      agreeableness: data.agreeableness ?? 50,
+      neuroticism: data.neuroticism ?? 50,
+    },
+    facets: (data.facet_scores as Record<string, number> | null) ?? null,
+  };
 }
 
 async function fetchPersonalityStrengths(admin: Admin, userId: string): Promise<string[]> {
@@ -732,13 +771,26 @@ export async function buildCandidateDetail(
   const emailUnlocked = opts.emailUnlocked ?? false;
   const ctx = createPercentileContext(admin);
 
-  const [card, sessions, sd] = await Promise.all([
+  const [card, sessions, sd, personalityFull] = await Promise.all([
     buildCandidateCard(admin, profileRow, ctx),
     fetchSessions(admin, profileRow.user_id),
     fetchStructuredData(admin, profileRow.user_id, profileRow.cv_id),
+    // Arbetsstilen kräver kandidatens personlighetssamtycke, precis som styrkorna.
+    profileRow.show_personality
+      ? fetchPersonalityFull(admin, profileRow.user_id)
+      : Promise.resolve(null),
   ]);
 
   const testResults = await buildAllTestResults(sessions, ctx);
+
+  const workStyle = personalityFull
+    ? deriveWorkStyle(personalityFull.domains, personalityFull.facets)
+    : null;
+  // Intervjuguiden är en del av kontaktupplåsningen — aldrig före accept/öppen.
+  const interviewGuide =
+    workStyle && contactUnlocked && personalityFull
+      ? deriveInterviewGuide(personalityFull.facets)
+      : [];
 
   let fullName: string | null = null;
   let email: string | null = null;
@@ -759,6 +811,8 @@ export async function buildCandidateDetail(
     education: sd ? mapEducation(sd) : [],
     testResults,
     languages: sd ? deriveLanguages(sd) : [],
+    workStyle,
+    interviewGuide,
     fullName,
     email,
   };

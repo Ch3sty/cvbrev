@@ -47,7 +47,18 @@ export interface FamilyResult {
 
 export interface SummaryData {
   results: Record<FamilyKey, FamilyResult>;
-  personality: { done: boolean; strengths: string[] };
+  personality: {
+    done: boolean;
+    strengths: string[];
+    /**
+     * Arbetsstilsprofil ur det avancerade testets facetter (120 frågor).
+     * null/undefined för grundtestare.
+     */
+    workStyle?: {
+      archetype: { title: string; description: string };
+      statements: string[];
+    } | null;
+  };
   skills: { skills: string[]; occupation: string | null; location: string | null };
   /** Senioritet härledd ur CV:ts arbetshistorik (fas 3.5). */
   seniority?: {

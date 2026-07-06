@@ -480,6 +480,85 @@ export default function KandidatDetaljPage() {
         </PortalCard>
       )}
 
+      {/* Arbetsstil: arketyp + beteendepåståenden ur avancerade testet */}
+      {candidate.workStyle && (
+        <PortalCard title="Arbetsstil" delay={0.22}>
+          <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-4 py-3.5">
+            <p className="text-[15px] font-extrabold text-indigo-900">
+              {candidate.workStyle.archetype.title}
+            </p>
+            <p className="mt-0.5 text-[13px] text-indigo-900/70 leading-relaxed">
+              {candidate.workStyle.archetype.description}
+            </p>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-[11.5px] font-bold uppercase tracking-wide text-slate-400 mb-2">
+              I arbetet
+            </p>
+            <ul className="space-y-1.5">
+              {candidate.workStyle.statements.map((statement) => (
+                <li
+                  key={statement}
+                  className="flex items-start gap-2 text-[13.5px] text-slate-700 leading-relaxed"
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 mt-[7px]"
+                    aria-hidden="true"
+                  />
+                  {statement}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Intervjuguiden: fylls av API:t först vid upplåst kontakt
+              (accepterat intresse eller öppen profil) */}
+          {candidate.interviewGuide.length > 0 ? (
+            <div className="mt-4 pt-4 border-t border-indigo-50">
+              <p className="text-[11.5px] font-bold uppercase tracking-wide text-slate-400 mb-2">
+                Inför intervjun
+              </p>
+              <ol className="space-y-2">
+                {candidate.interviewGuide.map((question, i) => (
+                  <li
+                    key={question}
+                    className="flex items-start gap-2.5 text-[13.5px] text-slate-700 leading-relaxed"
+                  >
+                    <span
+                      className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold flex items-center justify-center mt-0.5"
+                      aria-hidden="true"
+                    >
+                      {i + 1}
+                    </span>
+                    {question}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : interestStatus !== 'accepted' && candidate.visibility !== 'open' ? (
+            <div className="mt-4 pt-4 border-t border-indigo-50">
+              <p className="text-[11.5px] font-bold uppercase tracking-wide text-slate-400 mb-1.5">
+                Låses upp med kontakten
+              </p>
+              <p className="flex items-start gap-2 text-[12.5px] text-slate-500 leading-relaxed">
+                <Lock
+                  className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400"
+                  aria-hidden="true"
+                />
+                Intervjuguide med 3 skräddarsydda frågor låses upp när kandidaten
+                tackar ja.
+              </p>
+            </div>
+          ) : null}
+
+          <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
+            Härledd ur det utökade personlighetstestet (120 frågor), delad med
+            kandidatens samtycke.
+          </p>
+        </PortalCard>
+      )}
+
       {/* Personlighetsstyrkor */}
       {candidate.personalityStrengths.length > 0 && (
         <PortalCard
