@@ -24,7 +24,7 @@ export function generateRecruiterInterestEmail(
   const preheader =
     'Din profil har fångat en rekryterares intresse. Svara när det passar dig.';
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai';
-  const ctaUrl = `${base}/dashboard/bli-upptackt`;
+  const ctaUrl = `${base}/dashboard/meddelanden`;
   const company = escapeHtml(companyName.trim() || 'Ett företag');
 
   const html = `<!doctype html>

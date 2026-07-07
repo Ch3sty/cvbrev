@@ -88,7 +88,21 @@ export async function GET(
       })
     );
 
-    // Att öppna tråden = allt läst. Stämpla läsmarkören (best effort).
+    // Motpartens läsmarkör så klienten kan visa "Läst" på mina meddelanden.
+    const otherUserId =
+      participant.role === 'candidate'
+        ? participant.interest.recruiter_user_id
+        : participant.interest.candidate_user_id;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: otherRead } = await (admin as any)
+      .from('interest_thread_reads')
+      .select('last_read_at')
+      .eq('interest_id', interestId)
+      .eq('user_id', otherUserId)
+      .maybeSingle();
+    const theirLastReadAt: string | null = otherRead?.last_read_at ?? null;
+
+    // Att öppna tråden = allt läst. Stämpla min egen läsmarkör (best effort).
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (admin as any).from('interest_thread_reads').upsert(
@@ -99,7 +113,7 @@ export async function GET(
       console.error('Interest messages: läsmarkör misslyckades', readError);
     }
 
-    return NextResponse.json({ messages, role: participant.role });
+    return NextResponse.json({ messages, role: participant.role, theirLastReadAt });
   } catch (error) {
     console.error('Interest messages GET error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -196,7 +210,7 @@ export async function POST(
 
       const actionUrl = recipientIsRecruiter
         ? '/rekryterare/inbox'
-        : '/dashboard/bli-upptackt#intressen';
+        : '/dashboard/meddelanden';
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (admin as any).from('notifications').insert({

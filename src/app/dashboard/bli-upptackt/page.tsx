@@ -16,8 +16,8 @@ import LockedWorkStylePreview from './components/LockedWorkStylePreview';
 import SectionCard from './components/SectionCard';
 import ProfileStrengthCard from './components/ProfileStrengthCard';
 import RecruiterPreviewCard from './components/RecruiterPreviewCard';
-import InterestsCard from './components/InterestsCard';
 import PendingInterestAlert from './components/PendingInterestAlert';
+import MessagesShortcut from './components/MessagesShortcut';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
 import type { CollapseProps } from './components/SectionCard';
 import {
@@ -232,8 +232,9 @@ export default function BliUpptacktPage() {
   }
 
   return (
-    <div className="mx-auto py-4 sm:py-6 max-w-5xl">
-      <div className="space-y-5 sm:space-y-6">
+    <div className="mx-auto py-4 sm:py-6 max-w-6xl">
+      {/* Full bredd överst: master, larm, genväg till meddelanden */}
+      <div className="space-y-4 sm:space-y-5">
         <MasterHeader
           visibility={profile.visibility}
           saving={saving}
@@ -243,74 +244,88 @@ export default function BliUpptacktPage() {
         {/* Prioriterat larm: obesvarade intressen syns direkt, längst upp. */}
         <PendingInterestAlert />
 
-        <CvPickerCard
-          cvs={cvOptions}
-          selectedId={profile.cv_id}
-          onSelect={handleSelectCv}
-          collapse={collapseFor('cv')}
-        />
+        {/* Meddelanden ligger högt upp, det är målet med hela sidan. */}
+        <MessagesShortcut />
+      </div>
 
-        <VisibilityModeCard
-          visibility={profile.visibility}
-          lastMode={lastMode}
-          onChange={handleModeChange}
-          collapse={collapseFor('synlighet')}
-        />
+      {/* Tvåkolumns: bygg profilen till vänster, se hur du syns till höger */}
+      <div className="mt-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_372px] gap-6 items-start">
+        {/* VÄNSTER: redigering */}
+        <div className="flex flex-col gap-4">
+          <ZoneLabel>Bygg din profil</ZoneLabel>
 
-        <div id="villkor" className="scroll-mt-24">
-          <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />
-        </div>
-
-        <div id="pitch" className="scroll-mt-24">
-          <PitchCard
-            pitch={profile.pitch}
-            onSave={(pitch) => saveProfile({ pitch })}
-            collapse={collapseFor('pitch')}
+          <CvPickerCard
+            cvs={cvOptions}
+            selectedId={profile.cv_id}
+            onSelect={handleSelectCv}
+            collapse={collapseFor('cv')}
           />
-        </div>
 
-        {/* Kontexttaggar: bara när kandidaten har kvalificerade förslag */}
-        {(summary?.personality?.contextTagOptions?.length ?? 0) > 0 && (
-          <div id="kontexttaggar" className="scroll-mt-24">
-            <ContextTagsCard
-              options={summary!.personality.contextTagOptions}
-              selected={profile.context_tags}
-              onChange={(context_tags) => saveProfile({ context_tags })}
+          <VisibilityModeCard
+            visibility={profile.visibility}
+            lastMode={lastMode}
+            onChange={handleModeChange}
+            collapse={collapseFor('synlighet')}
+          />
+
+          <div id="villkor" className="scroll-mt-24">
+            <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />
+          </div>
+
+          <div id="pitch" className="scroll-mt-24">
+            <PitchCard
+              pitch={profile.pitch}
+              onSave={(pitch) => saveProfile({ pitch })}
+              collapse={collapseFor('pitch')}
             />
           </div>
-        )}
 
-        <div id="arbetsstilsrapport" className="scroll-mt-24">
-          <VerifiedResultsCard
-            summary={summary}
-            profile={profile}
-            onPatch={saveProfile}
-            collapse={collapseFor('arbetsstil')}
-          />
+          {/* Kontexttaggar: bara när kandidaten har kvalificerade förslag */}
+          {(summary?.personality?.contextTagOptions?.length ?? 0) > 0 && (
+            <div id="kontexttaggar" className="scroll-mt-24">
+              <ContextTagsCard
+                options={summary!.personality.contextTagOptions}
+                selected={profile.context_tags}
+                onChange={(context_tags) => saveProfile({ context_tags })}
+              />
+            </div>
+          )}
+
+          <div id="arbetsstilsrapport" className="scroll-mt-24">
+            <VerifiedResultsCard
+              summary={summary}
+              profile={profile}
+              onPatch={saveProfile}
+              collapse={collapseFor('arbetsstil')}
+            />
+          </div>
+
+          {/* Grundtestare: låst förhandsvisning av rapporten som konverteringsyta */}
+          {summary && !summary.personality.hasAdvancedTest && (
+            <SectionCard
+              title="Din arbetsstilsrapport väntar"
+              sub="Det fördjupade testet bygger en rapport i ord om hur du arbetar, samarbetar och drivs. Du väljer själv om rekryterare får se den."
+              delay={0.22}
+            >
+              <LockedWorkStylePreview />
+            </SectionCard>
+          )}
         </div>
 
-        {/* Grundtestare: låst förhandsvisning av rapporten som konverteringsyta */}
-        {summary && !summary.personality.hasAdvancedTest && (
-          <SectionCard
-            title="Din arbetsstilsrapport väntar"
-            sub="Det fördjupade testet bygger en rapport i ord om hur du arbetar, samarbetar och drivs. Du väljer själv om rekryterare får se den."
-            delay={0.22}
-          >
-            <LockedWorkStylePreview />
-          </SectionCard>
-        )}
+        {/* HÖGER: spegel som följer med när du scrollar */}
+        <div className="flex flex-col gap-4 lg:sticky lg:top-6 self-start">
+          <ZoneLabel>Så syns du</ZoneLabel>
 
-        <ProfileStrengthCard profile={profile} summary={summary} />
+          <RecruiterPreviewCard
+            profile={profile}
+            summary={summary}
+            cvs={cvOptions}
+            fullName={fullName}
+            lastMode={lastMode}
+          />
 
-        <RecruiterPreviewCard
-          profile={profile}
-          summary={summary}
-          cvs={cvOptions}
-          fullName={fullName}
-          lastMode={lastMode}
-        />
-
-        <InterestsCard />
+          <ProfileStrengthCard profile={profile} summary={summary} />
+        </div>
       </div>
 
       <ConsentModal
@@ -322,6 +337,16 @@ export default function BliUpptacktPage() {
         onConfirm={handleConsentConfirm}
         onCancel={() => setConsentOpen(false)}
       />
+    </div>
+  );
+}
+
+/** Tunn zonrubrik som delar sidan i begripliga delar. */
+function ZoneLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 px-0.5 pt-1">
+      <h2 className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">{children}</h2>
+      <span className="flex-1 h-px bg-slate-200" aria-hidden="true" />
     </div>
   );
 }

@@ -67,6 +67,7 @@ export default function PitchCard({ pitch, onSave, collapse }: PitchCardProps) {
       title="Din pitch"
       sub="Två meningar om vem du är och vad du söker. Visas överst i din profil hos rekryterare."
       delay={0.18}
+      summary={(pitch ?? '').trim() ? (pitch ?? '').trim() : undefined}
       {...collapse}
       headerExtra={
         saved ? (

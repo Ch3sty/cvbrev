@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Check } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, Check, ChevronDown } from 'lucide-react';
 import SectionCard from './SectionCard';
 import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type SummaryData } from './types';
 
@@ -76,6 +77,7 @@ export function computeProfileStrength(
 }
 
 export default function ProfileStrengthCard({ profile, summary }: ProfileStrengthCardProps) {
+  const [showAll, setShowAll] = useState(false);
   const strength = computeProfileStrength(profile, summary);
 
   const familiesDone = summary
@@ -147,18 +149,33 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
     );
   }
 
+  // Nästa steg = första oklara posten (items är redan i prioordning). Allt
+  // klart → ingen next, då visas en bekräftelse i stället för tom lista.
+  const nextStep = items.find((i) => !i.done) ?? null;
+  const remaining = items.filter((i) => !i.done).length;
+
   return (
-    <SectionCard
-      title="Din profilstyrka"
-      delay={0.25}
-      headerExtra={
-        <span className="text-[12.5px] text-slate-500">
-          <b className="text-slate-900">{strength} %</b> · kompletta profiler visas först
-        </span>
-      }
-    >
+    <SectionCard title="Din profilstyrka" delay={0.25}>
       {/* Mätare */}
-      <div className="h-2 rounded-full bg-slate-100 overflow-hidden" role="progressbar" aria-valuenow={strength} aria-valuemin={0} aria-valuemax={100} aria-label="Profilstyrka">
+      <div className="flex items-baseline justify-between mb-2">
+        <div className="text-[26px] font-extrabold text-slate-900 tabular-nums leading-none">
+          {strength}
+          <span className="text-[14px] font-bold text-slate-500"> %</span>
+        </div>
+        <span className="text-[11.5px] text-slate-500 text-right leading-tight">
+          Kompletta profiler
+          <br />
+          visas först
+        </span>
+      </div>
+      <div
+        className="h-2 rounded-full bg-slate-100 overflow-hidden"
+        role="progressbar"
+        aria-valuenow={strength}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Profilstyrka"
+      >
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${strength}%` }}
@@ -168,40 +185,105 @@ export default function ProfileStrengthCard({ profile, summary }: ProfileStrengt
         />
       </div>
 
-      {/* Checklista */}
-      <ul className="mt-4 space-y-2">
-        {items.map((item) => (
-          <li key={item.label} className="flex items-start gap-2.5 text-[13px]">
-            {item.done ? (
-              <>
-                <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
-                <span className="text-slate-600">{item.label}</span>
-              </>
-            ) : (
-              <>
-                <ArrowRight className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
-                {item.href === '#' ? (
-                  <span className="font-semibold text-orange-900">{item.label}</span>
-                ) : item.href.startsWith('#') ? (
-                  <a
-                    href={item.href}
-                    className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </>
+      {nextStep ? (
+        <>
+          {/* Ett framträdande nästa steg i stället för hela listan */}
+          <NextStepLink item={nextStep} />
+          {remaining > 1 && (
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              aria-expanded={showAll}
+              className="mt-2.5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-500 hover:text-slate-700 min-h-[32px] touch-manipulation"
+            >
+              {showAll ? 'Dölj stegen' : `Visa alla steg (${remaining} kvar)`}
+              <ChevronDown
+                className={`w-3.5 h-3.5 transition-transform ${showAll ? 'rotate-180' : ''}`}
+                strokeWidth={2.5}
+              />
+            </button>
+          )}
+          <AnimatePresence initial={false}>
+            {showAll && (
+              <motion.ul
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
+                className="overflow-hidden mt-3 space-y-2"
+              >
+                {items.map((item) => (
+                  <ChecklistRow key={item.label} item={item} />
+                ))}
+              </motion.ul>
             )}
-          </li>
-        ))}
-      </ul>
+          </AnimatePresence>
+        </>
+      ) : (
+        <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50/60 px-3.5 py-3">
+          <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" strokeWidth={3} />
+          <p className="text-[13px] font-semibold text-emerald-900">
+            Din profil är komplett. Nu väntar vi bara på rekryterarna.
+          </p>
+        </div>
+      )}
     </SectionCard>
+  );
+}
+
+/* Framträdande nästa-steg-kort. */
+function NextStepLink({ item }: { item: ChecklistItem }) {
+  const inner = (
+    <div className="mt-4 flex items-center gap-3 rounded-xl border border-orange-100 bg-orange-50/50 px-3.5 py-3 transition-colors hover:bg-orange-50">
+      <span
+        className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
+        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+        aria-hidden="true"
+      >
+        <ArrowRight className="w-4 h-4" strokeWidth={2.75} />
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700">Nästa steg</div>
+        <div className="text-[13px] font-semibold text-slate-800 leading-snug">{item.label}</div>
+      </div>
+    </div>
+  );
+  if (item.href === '#') return inner;
+  if (item.href.startsWith('#')) return <a href={item.href}>{inner}</a>;
+  return <Link href={item.href}>{inner}</Link>;
+}
+
+/* Rad i den fullständiga listan (bakom "Visa alla steg"). */
+function ChecklistRow({ item }: { item: ChecklistItem }) {
+  return (
+    <li className="flex items-start gap-2.5 text-[13px]">
+      {item.done ? (
+        <>
+          <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
+          <span className="text-slate-600">{item.label}</span>
+        </>
+      ) : (
+        <>
+          <ArrowRight className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
+          {item.href === '#' ? (
+            <span className="font-semibold text-orange-900">{item.label}</span>
+          ) : item.href.startsWith('#') ? (
+            <a
+              href={item.href}
+              className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <Link
+              href={item.href}
+              className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
+            >
+              {item.label}
+            </Link>
+          )}
+        </>
+      )}
+    </li>
   );
 }

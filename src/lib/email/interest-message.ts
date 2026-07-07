@@ -23,7 +23,7 @@ export function generateInterestMessageEmail(params: {
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai';
   const ctaUrl = params.recipientIsRecruiter
     ? `${base}/rekryterare/inbox`
-    : `${base}/dashboard/bli-upptackt#intressen`;
+    : `${base}/dashboard/meddelanden`;
   const subject = `Nytt meddelande från ${params.senderLabel.trim() || 'en kontakt'}`;
   const preheader = 'Du har ett nytt svar i en av dina kontakter. Läs det i appen.';
 

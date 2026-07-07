@@ -35,7 +35,7 @@ export default function PendingInterestAlert() {
 
   return (
     <a
-      href="#intressen"
+      href="/dashboard/meddelanden"
       className="block rounded-2xl border border-orange-200 p-4 transition-transform hover:-translate-y-0.5"
       style={{
         background: 'linear-gradient(135deg, #FFF7ED, #FFEDD5)',

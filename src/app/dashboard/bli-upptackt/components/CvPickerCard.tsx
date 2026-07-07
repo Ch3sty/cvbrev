@@ -23,11 +23,13 @@ function formatUpdated(cv: CvOption): string {
  * gratisplanens 2 aktiva) visas som disabled med lås-ikon.
  */
 export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: CvPickerCardProps) {
+  const selectedCv = cvs.find((c) => c.id === selectedId);
   return (
     <SectionCard
       title="Vilket CV vill du visa för rekryterare?"
       sub="Vi visar aldrig själva dokumentet. Kompetenser, roll och erfarenhet hämtas ur CV:t du väljer, ett åt gången."
       delay={0.05}
+      summary={selectedCv ? selectedCv.file_name || 'Namnlöst CV' : undefined}
       {...collapse}
     >
       {cvs.length === 0 ? (

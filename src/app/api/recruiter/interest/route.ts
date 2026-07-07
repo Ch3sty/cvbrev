@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
           type: 'recruiter_interest',
           title: 'En rekryterare vill komma i kontakt',
           message: `${companyName} har visat intresse för din profil.`,
-          action_url: '/dashboard/bli-upptackt#intressen',
+          action_url: '/dashboard/meddelanden',
           metadata: { interest_id: inserted.id },
         });
       if (notifError) {

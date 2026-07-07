@@ -8,6 +8,7 @@ import {
   EXTENT_OPTIONS,
   REGIONS,
   WORKPLACE_OPTIONS,
+  labelFor,
   type Availability,
   type CandidateProfileState,
 } from './types';
@@ -27,11 +28,21 @@ export default function TermsCard({ profile, onPatch, collapse }: TermsCardProps
   const toggleIn = (list: string[], value: string) =>
     list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
+  // Sammanfattning för ihopfällt läge: de viktigaste valen på en rad.
+  const summaryParts = [
+    profile.regions[0] ?? null,
+    profile.workplace.map((w) => labelFor(WORKPLACE_OPTIONS, w)).filter(Boolean).join('/') || null,
+    profile.extent.map((e) => labelFor(EXTENT_OPTIONS, e)).filter(Boolean).join('/') || null,
+    labelFor(AVAILABILITY_OPTIONS, profile.availability),
+  ].filter(Boolean) as string[];
+  const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : undefined;
+
   return (
     <SectionCard
       title="Dina villkor"
       sub="Det här är vad rekryterare filtrerar på. Ju tydligare villkor, desto mer relevanta förfrågningar."
       delay={0.15}
+      summary={summary}
       {...collapse}
     >
       <div className="space-y-5">

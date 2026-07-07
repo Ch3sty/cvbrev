@@ -101,7 +101,7 @@ export default function RecruiterPreviewCard({
       }
     >
       <div
-        className={`max-w-md rounded-2xl border border-orange-100 bg-white p-4 sm:p-5 ${
+        className={`w-full rounded-2xl border border-orange-100 bg-white p-4 sm:p-5 ${
           !isOn ? 'opacity-70' : ''
         }`}
         style={{ boxShadow: '0 4px 14px -10px rgba(2, 6, 23, 0.18)' }}

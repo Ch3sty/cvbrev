@@ -11,6 +11,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
 import SidebarLink from './sidebar/SidebarLink';
+import MessagesSidebarLink from './sidebar/MessagesSidebarLink';
 import SidebarFooter from './sidebar/SidebarFooter';
 import FeatureSpotlight from './sidebar/FeatureSpotlight';
 import {
@@ -342,6 +343,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
+          <MessagesSidebarLink isMobile={isMobile} onClose={onClose} />
           <SidebarLink
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
