@@ -56,11 +56,11 @@ function HeroArt() {
       style={{ background: 'radial-gradient(circle at 50% 42%, #FFF1E6 0%, #FFE7D6 52%, #fff 100%)' }}
     >
       {/* flytande notis */}
-      <div className="bli-float absolute left-1/2 -translate-x-1/2 top-[14%] z-[3] flex items-center gap-2 bg-white border border-orange-100 rounded-xl px-3 py-2 text-xs font-bold whitespace-nowrap"
+      <div className="bli-float absolute left-1/2 -translate-x-1/2 top-[11%] z-[3] flex items-center gap-2 bg-white border border-orange-100 rounded-xl px-3 py-2 text-xs font-bold max-w-[220px]"
         style={{ boxShadow: '0 12px 28px -12px rgba(2,6,23,.25)' }}
       >
-        <span className="w-[7px] h-[7px] rounded-full bg-emerald-500" style={{ boxShadow: '0 0 0 3px #D1FAE5' }} />
-        Ny match i din bransch
+        <span className="w-[7px] h-[7px] rounded-full bg-emerald-500 flex-shrink-0" style={{ boxShadow: '0 0 0 3px #D1FAE5' }} />
+        <span className="leading-snug">3 företag har visat intresse för din profil</span>
       </div>
 
       <svg viewBox="0 0 480 480" className="absolute inset-0 w-full h-full" role="img" aria-label="Din profil hittas av rätt rekryterare">
