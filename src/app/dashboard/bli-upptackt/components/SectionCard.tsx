@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 /**
@@ -57,40 +57,30 @@ export default function SectionCard({
         style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
         aria-hidden="true"
       />
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        {collapsible ? (
-          <button
-            type="button"
-            onClick={onToggleCollapse}
-            aria-expanded={!isCollapsed}
-            className="group flex items-start gap-2 text-left min-w-0 flex-1 touch-manipulation -m-1 p-1 rounded-lg"
-          >
-            <span
-              className={`flex-shrink-0 mt-0.5 text-slate-400 transition-transform group-hover:text-orange-500 ${
-                isCollapsed ? '-rotate-90' : ''
-              }`}
-              aria-hidden="true"
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="text-[15px] sm:text-base font-bold text-slate-900">{title}</h2>
+          {sub && <p className="text-[13px] text-slate-500 mt-0.5 leading-relaxed">{sub}</p>}
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {headerExtra}
+          {collapsible && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              aria-expanded={!isCollapsed}
+              aria-label={isCollapsed ? `Visa ${title}` : `Dölj ${title}`}
+              title={isCollapsed ? 'Visa' : 'Dölj'}
+              className="flex-shrink-0 w-9 h-9 rounded-xl border border-orange-100 bg-orange-50/50 text-orange-600 flex items-center justify-center transition-colors hover:bg-orange-100 hover:border-orange-200 touch-manipulation"
             >
-              <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
-            </span>
-            <span className="min-w-0">
-              <span className="block text-[15px] sm:text-base font-bold text-slate-900">
-                {title}
-              </span>
-              {sub && (
-                <span className="block text-[13px] text-slate-500 mt-0.5 leading-relaxed">
-                  {sub}
-                </span>
+              {isCollapsed ? (
+                <ChevronsUpDown className="w-[18px] h-[18px]" strokeWidth={2.25} />
+              ) : (
+                <ChevronsDownUp className="w-[18px] h-[18px]" strokeWidth={2.25} />
               )}
-            </span>
-          </button>
-        ) : (
-          <div>
-            <h2 className="text-[15px] sm:text-base font-bold text-slate-900">{title}</h2>
-            {sub && <p className="text-[13px] text-slate-500 mt-0.5 leading-relaxed">{sub}</p>}
-          </div>
-        )}
-        {headerExtra}
+            </button>
+          )}
+        </div>
       </div>
 
       {collapsible ? (
