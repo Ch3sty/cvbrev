@@ -123,22 +123,37 @@ export default function MessageHub({
   }
 
   if (interests.length === 0) {
+    const STEPS = [
+      'Gör dig synlig i Bli upptäckt',
+      'En rekryterare hör av sig',
+      'Ni chattar direkt här',
+    ];
     return (
-      <div className="rounded-3xl border border-dashed border-orange-200 bg-white p-8 sm:p-12 text-center">
-        <div className="mx-auto mb-4 w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center">
-          <InboxIcon className="w-6 h-6 text-orange-600" aria-hidden="true" />
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center">
+        <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center">
+          <InboxIcon className="w-7 h-7 text-indigo-600" aria-hidden="true" />
         </div>
-        <h2 className="text-base font-bold text-slate-900 mb-1.5">Inga meddelanden ännu</h2>
-        <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-md mx-auto mb-5">
-          När en rekryterare vill komma i kontakt hamnar det här, och du får ett
-          mail. Profiler med verifierade testresultat får fler visningar.
+        <h2 className="text-[17px] font-bold text-slate-900 mb-2">Inga meddelanden än</h2>
+        <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-sm mx-auto mb-6">
+          Här landar dina samtal med rekryterare som visat intresse. Så här
+          kommer de igång:
         </p>
+        <ol className="max-w-xs mx-auto flex flex-col gap-2.5 text-left mb-7">
+          {STEPS.map((step, i) => (
+            <li key={step} className="flex items-center gap-3 text-[13px] text-slate-600">
+              <span className="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 font-bold text-[12px] flex items-center justify-center flex-shrink-0">
+                {i + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ol>
         <Link
           href="/dashboard/bli-upptackt"
           className="inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90"
           style={{ background: HUB_GRADIENT }}
         >
-          Stärk din profil
+          Gå till Bli upptäckt
         </Link>
       </div>
     );

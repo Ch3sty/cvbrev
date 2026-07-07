@@ -42,6 +42,7 @@ export default function BliUpptacktSidebarLink({
       href="/dashboard/bli-upptackt"
       label="Bli upptäckt"
       icon={UpptacktIcon}
+      highlight={loaded && pending > 0}
       sublabel={sublabel}
       badge={
         showNy ? (

@@ -15,6 +15,7 @@ import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAk
 // Onboarding
 import OnboardingHero from '@/components/dashboard/OnboardingHero';
 import OnboardingDag2 from '@/components/dashboard/OnboardingDag2';
+import DiscoverByRecruitersCard from '@/components/dashboard/DiscoverByRecruitersCard';
 // Ovriga
 
 interface DashboardStats {
@@ -286,6 +287,10 @@ export default function DashboardPage() {
         {/* OnboardingDag2 - utforska-mer-kort efter belogning ar hamtat.
             Renderas bara nar rewardClaimed === true och inte dismissed. */}
         <OnboardingDag2 />
+
+        {/* Introkort: lyfter Bli upptackt for den som inte gjort sig synlig an.
+            Self-villkorat och dismissbart, renderar null nar ej relevant. */}
+        <DiscoverByRecruitersCard />
 
         {/* StreakHero - innehaller nu streak-stats OCH veckokvotor i samma kort */}
         <StreakHero

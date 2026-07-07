@@ -46,7 +46,9 @@ export default function SidebarLink({
         } ${
           isActive
             ? 'bg-gradient-to-r from-orange-50 to-rose-50/60'
-            : 'hover:bg-orange-50/60'
+            : highlight
+              ? 'bg-orange-50/60 ring-1 ring-orange-300'
+              : 'hover:bg-orange-50/60'
         }`}
       >
         {/* Vänster gradient-strip när active */}
