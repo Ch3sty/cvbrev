@@ -135,23 +135,17 @@ export default function VerifiedResultsCard({ summary, profile, onPatch }: Verif
       {/* Delningsnivåerna: bara för avancerad-testare med kvalificerad rapport */}
       {personality?.done && canShareFullReport && (
         <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/40 p-4">
-          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1.5 mb-3">
-            <div className="min-w-0">
-              <h3 className="text-[13.5px] font-bold text-indigo-950">
-                Din arbetsstilsrapport
-              </h3>
-              <p className="text-[12px] text-indigo-900/70 leading-relaxed mt-0.5">
-                Du styr i två nivåer vad rekryterare får se. Din egen rapport
-                med energibudget och intervjuträning är alltid privat.
-              </p>
-            </div>
-            <Link
-              href="/dashboard/arbetsstil"
-              className="inline-flex items-center gap-1 text-[12.5px] font-bold text-indigo-700 hover:text-indigo-800 min-h-[24px] flex-shrink-0"
-            >
-              Öppna Din arbetsstil
-              <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-            </Link>
+          <div className="mb-3">
+            <h3 className="text-[13.5px] font-bold text-indigo-950">
+              Din arbetsstilsrapport
+            </h3>
+            <p className="text-[12.5px] text-indigo-900/75 leading-relaxed mt-1">
+              Det här är du, i klartext. Testet ringar in hur du faktiskt jobbar,
+              samarbetar och vad som får dig att växla upp, så du slipper hitta
+              orden själv. En rekryterare fattar direkt vad du går för, ingen
+              gissningslek. Och du bestämmer fortfarande exakt vad som syns, det
+              som är privat stannar privat.
+            </p>
           </div>
 
           <ToggleRow
@@ -218,24 +212,48 @@ export default function VerifiedResultsCard({ summary, profile, onPatch }: Verif
               </AnimatePresence>
             </div>
           )}
+
+          {/* Enda vägen in till hela arbetsstilssidan sedan sidebar-posten togs bort */}
+          <Link
+            href="/dashboard/arbetsstil"
+            className="mt-4 w-full inline-flex items-center justify-center gap-1.5 min-h-[46px] rounded-xl text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 touch-manipulation"
+            style={{
+              background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
+              boxShadow: '0 8px 18px -6px rgba(79, 70, 229, 0.45)',
+            }}
+          >
+            Öppna din arbetsstil
+            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+          </Link>
         </div>
       )}
 
-      {/* Upsell för grundtestare: utökade profilen ger arbetsstilen */}
+      {/* Grundtestare: väg in till arbetsstilssidan (som visar deras egen
+          förhandsvisning och lockar vidare till det fördjupade testet). */}
       {personality?.done && !personality.hasAdvancedTest && (
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5 rounded-xl border border-indigo-100 bg-indigo-50/50 px-3.5 py-2.5">
-          <p className="text-[12.5px] text-indigo-900/80 leading-relaxed min-w-0 flex-1 basis-64">
-            Gör den utökade profilen (120 frågor) så får rekryterare se din
-            arbetsstil, det lyfter din profil i poolen.
-          </p>
-          <Link
-            href="/dashboard/tester/personlighet-avancerad"
-            className="inline-flex items-center gap-1 text-[12.5px] font-bold text-indigo-700 hover:text-indigo-800 min-h-[24px] flex-shrink-0"
-          >
-            Gör utökade testet
-            <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-          </Link>
-        </div>
+        <Link
+          href="/dashboard/arbetsstil"
+          className="mt-3 block rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5 transition-colors hover:bg-indigo-50"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-[12.5px] text-indigo-900/85 leading-relaxed min-w-0">
+              120 frågor senare vet du lite mer om dig själv, hur du fungerar
+              bäst, vad som ger dig energi och hur du samarbetar med andra. Att
+              dela den bilden med en rekryterare betyder att du inte behöver
+              klämma in hela dig i ett CV, de ser vem du är innan ni ens pratats
+              vid. Du väljer själv vad som visas, och det som är just ditt får
+              vara kvar hos dig.
+            </p>
+            <ArrowRight
+              className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5"
+              strokeWidth={2.5}
+              aria-hidden="true"
+            />
+          </div>
+          <span className="inline-flex items-center gap-1 text-[12.5px] font-bold text-indigo-700 mt-2">
+            Se din arbetsstil och lås upp hela rapporten
+          </span>
+        </Link>
       )}
     </SectionCard>
   );
