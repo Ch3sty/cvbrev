@@ -52,8 +52,12 @@ const DOTS: [number, number, number][] = [
 
 function HeroArt() {
   return (
-    <div className="relative aspect-square rounded-[32px] overflow-hidden border border-orange-100"
-      style={{ background: 'radial-gradient(circle at 50% 42%, #FFF1E6 0%, #FFE7D6 52%, #fff 100%)' }}
+    <div className="relative w-full rounded-[32px] overflow-hidden border border-orange-100"
+      style={{
+        aspectRatio: '1 / 1',
+        minHeight: 320,
+        background: 'radial-gradient(circle at 50% 42%, #FFF1E6 0%, #FFE7D6 52%, #fff 100%)',
+      }}
     >
       {/* flytande notis */}
       <div className="bli-float absolute left-1/2 -translate-x-1/2 top-[11%] z-[3] flex items-center gap-2 bg-white border border-orange-100 rounded-xl px-3 py-2 text-xs font-bold max-w-[220px]"
@@ -159,14 +163,9 @@ export default function BliUpptacktHero() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
-            className="relative max-w-[420px] mx-auto w-full lg:max-w-none"
-          >
+          <div className="relative max-w-[420px] mx-auto w-full lg:max-w-none">
             <HeroArt />
-          </motion.div>
+          </div>
         </div>
       </div>
 
