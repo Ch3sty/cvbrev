@@ -23,6 +23,7 @@ import {
   Tag,
   FileText,
   Newspaper,
+  Eye,
   User as UserIcon,
 } from 'lucide-react';
 
@@ -97,6 +98,12 @@ const TOOLS: ToolItem[] = [
     href: '/verktyg/linkedin-optimering',
     icon: Linkedin,
     description: 'Profilen som rekryterare hittar',
+  },
+  {
+    label: 'Bli upptäckt',
+    href: '/verktyg/bli-upptackt',
+    icon: Eye,
+    description: 'Låt rekryterare hitta dig, anonymt',
   },
 ];
 
