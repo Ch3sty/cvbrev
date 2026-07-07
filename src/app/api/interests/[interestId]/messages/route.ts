@@ -208,19 +208,21 @@ export async function POST(
         senderLabel = pr?.full_name || 'Kandidaten';
       }
 
-      const actionUrl = recipientIsRecruiter
-        ? '/rekryterare/inbox'
-        : '/dashboard/meddelanden';
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (admin as any).from('notifications').insert({
-        user_id: recipientId,
-        type: 'interest_message',
-        title: 'Nytt meddelande',
-        message: `${senderLabel} har skickat ett meddelande.`,
-        action_url: actionUrl,
-        metadata: { interest_id: interestId },
-      });
+      // Notisklockan (kandidatsidan) sköter HÄNDELSER, inte pågående trådar.
+      // Nya meddelanden räknas i stället på meddelande-ikonen i headern, så vi
+      // undviker dubbla signaler för samma sak. Rekryteraren saknar klocka och
+      // förlitar sig på notisen till sin inbox, så den behålls åt det hållet.
+      if (recipientIsRecruiter) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (admin as any).from('notifications').insert({
+          user_id: recipientId,
+          type: 'interest_message',
+          title: 'Nytt meddelande',
+          message: `${senderLabel} har skickat ett meddelande.`,
+          action_url: '/rekryterare/inbox',
+          metadata: { interest_id: interestId },
+        });
+      }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data: recipientProfile } = await (admin as any)

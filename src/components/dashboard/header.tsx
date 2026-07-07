@@ -5,6 +5,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 import { IconEld } from './illustrations/DashboardIcons';
 import NotificationBell from './NotificationBell';
+import MessagesHeaderButton from './MessagesHeaderButton';
 
 interface DashboardHeaderProps {
   user: any;
@@ -127,8 +128,11 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         {/* Mobil: tom flex */}
         <div className="flex-1 lg:hidden" />
 
-        {/* Hoger: Notiser + Streak-pill + Profil */}
+        {/* Hoger: Meddelanden + Notiser + Streak-pill + Profil */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          {/* Meddelanden från rekryterare (indigo, skild från notisklockan) */}
+          <MessagesHeaderButton />
+
           {/* Notisklocka */}
           <NotificationBell />
 

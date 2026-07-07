@@ -11,7 +11,7 @@ interface SidebarLinkProps {
   icon: ComponentType<{ className?: string }>;
   count?: number | null;
   badge?: ReactNode;
-  sublabel?: string;
+  sublabel?: ReactNode;
   highlight?: boolean;
   isMobile?: boolean;
   onClick?: () => void;

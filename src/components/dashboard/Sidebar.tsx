@@ -11,7 +11,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
 import SidebarLink from './sidebar/SidebarLink';
-import MessagesSidebarLink from './sidebar/MessagesSidebarLink';
+import BliUpptacktSidebarLink from './sidebar/BliUpptacktSidebarLink';
 import SidebarFooter from './sidebar/SidebarFooter';
 import FeatureSpotlight from './sidebar/FeatureSpotlight';
 import {
@@ -23,7 +23,6 @@ import {
   MallIcon,
   ForbattraIcon,
   JobbmatchningIcon,
-  UpptacktIcon,
   JobbcoachenIcon,
   LinkedinIcon,
   TesterIcon,
@@ -328,22 +327,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-          <SidebarLink
-            href="/dashboard/bli-upptackt"
-            label="Bli upptäckt"
-            icon={UpptacktIcon}
-            badge={
-              <span
-                className="text-[9px] font-bold uppercase tracking-[0.08em] text-white px-1.5 py-0.5 rounded-full"
-                style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
-              >
-                NY
-              </span>
-            }
-            isMobile={isMobile}
-            onClick={onClose}
-          />
-          <MessagesSidebarLink isMobile={isMobile} onClose={onClose} />
+          <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
           <SidebarLink
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
