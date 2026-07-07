@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, EyeOff } from 'lucide-react';
 import { CONTEXT_TAG_MICROCOPY } from '@/lib/recruiter/workStyle';
-import SectionCard from './SectionCard';
+import SectionCard, { type CollapseProps } from './SectionCard';
 import WorkStyleReportView from './WorkStyleReportView';
 import {
   FAMILY_LABELS,
@@ -20,6 +20,7 @@ interface VerifiedResultsCardProps {
   profile: CandidateProfileState;
   /** Sparar patchen direkt mot candidate_profiles (samma som sidans upsert). */
   onPatch: (patch: Partial<CandidateProfileState>) => void;
+  collapse?: CollapseProps;
 }
 
 const FAMILY_ORDER: FamilyKey[] = ['matrislogik', 'verbal', 'numerisk'];
@@ -36,7 +37,7 @@ function formatDate(iso: string | null): string {
  * delningsnivåerna: nivå 1 (styrkor + arketyp) och nivå 2 (fullständiga
  * arbetsstilsrapporten) med exakt förhandsvisning av rekryterarens vy.
  */
-export default function VerifiedResultsCard({ summary, profile, onPatch }: VerifiedResultsCardProps) {
+export default function VerifiedResultsCard({ summary, profile, onPatch, collapse }: VerifiedResultsCardProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   const personality = summary?.personality;
@@ -64,6 +65,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch }: Verif
       title="Dina verifierade resultat"
       sub="Det här kan ingen annan plattform visa: resultat rekryteraren kan lita på. Varje test du gör stärker profilen, en omgång om dagen ingår gratis."
       delay={0.2}
+      {...collapse}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
         {FAMILY_ORDER.map((key) => {

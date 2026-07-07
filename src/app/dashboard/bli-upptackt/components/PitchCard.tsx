@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
-import SectionCard from './SectionCard';
+import SectionCard, { type CollapseProps } from './SectionCard';
 
 const MAX_LENGTH = 280;
 const DEBOUNCE_MS = 1200;
@@ -10,6 +10,7 @@ const DEBOUNCE_MS = 1200;
 interface PitchCardProps {
   pitch: string | null;
   onSave: (pitch: string | null) => void;
+  collapse?: CollapseProps;
 }
 
 /**
@@ -18,7 +19,7 @@ interface PitchCardProps {
  * skriver och direkt på blur. En diskret "Sparad"-check bekräftar att texten
  * ligger i databasen (tom text sparas som null).
  */
-export default function PitchCard({ pitch, onSave }: PitchCardProps) {
+export default function PitchCard({ pitch, onSave, collapse }: PitchCardProps) {
   const [value, setValue] = useState(pitch ?? '');
   const [saved, setSaved] = useState(false);
   // Senast sparade texten, så vi varken dubbelsparar eller skriver över
@@ -66,6 +67,7 @@ export default function PitchCard({ pitch, onSave }: PitchCardProps) {
       title="Din pitch"
       sub="Två meningar om vem du är och vad du söker. Visas överst i din profil hos rekryterare."
       delay={0.18}
+      {...collapse}
       headerExtra={
         saved ? (
           <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-emerald-600">

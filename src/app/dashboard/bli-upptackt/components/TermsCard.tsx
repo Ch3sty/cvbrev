@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import SectionCard from './SectionCard';
+import SectionCard, { type CollapseProps } from './SectionCard';
 import {
   AVAILABILITY_OPTIONS,
   EMPLOYMENT_OPTIONS,
@@ -15,6 +15,7 @@ import {
 interface TermsCardProps {
   profile: CandidateProfileState;
   onPatch: (patch: Partial<CandidateProfileState>) => void;
+  collapse?: CollapseProps;
 }
 
 /**
@@ -22,7 +23,7 @@ interface TermsCardProps {
  * anställning/region (flerval), körkorts-toggle och valfritt lönespann.
  * Varje ändring sparas direkt via onPatch.
  */
-export default function TermsCard({ profile, onPatch }: TermsCardProps) {
+export default function TermsCard({ profile, onPatch, collapse }: TermsCardProps) {
   const toggleIn = (list: string[], value: string) =>
     list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
@@ -31,6 +32,7 @@ export default function TermsCard({ profile, onPatch }: TermsCardProps) {
       title="Dina villkor"
       sub="Det här är vad rekryterare filtrerar på. Ju tydligare villkor, desto mer relevanta förfrågningar."
       delay={0.15}
+      {...collapse}
     >
       <div className="space-y-5">
         <TermRow label="Tillträde">

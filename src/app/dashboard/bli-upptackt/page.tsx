@@ -18,6 +18,8 @@ import ProfileStrengthCard from './components/ProfileStrengthCard';
 import RecruiterPreviewCard from './components/RecruiterPreviewCard';
 import InterestsCard from './components/InterestsCard';
 import PendingInterestAlert from './components/PendingInterestAlert';
+import { useCollapsedSections } from './hooks/useCollapsedSections';
+import type { CollapseProps } from './components/SectionCard';
 import {
   EMPTY_PROFILE,
   type CandidateProfileState,
@@ -39,6 +41,14 @@ type ProfilePatch = Partial<CandidateProfileState & { consent_version: string }>
 export default function BliUpptacktPage() {
   const supabase = getSupabaseClient();
   const { lockedCvIds } = useCvQuota();
+  const { isCollapsed, toggle } = useCollapsedSections();
+
+  // Hjälpare: bygg collapse-propsen för ett hopfällbart kort ur dess nyckel.
+  const collapseFor = (key: string): CollapseProps => ({
+    collapsible: true,
+    collapsed: isCollapsed(key),
+    onToggleCollapse: () => toggle(key),
+  });
 
   const [userId, setUserId] = useState<string | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
@@ -233,20 +243,30 @@ export default function BliUpptacktPage() {
         {/* Prioriterat larm: obesvarade intressen syns direkt, längst upp. */}
         <PendingInterestAlert />
 
-        <CvPickerCard cvs={cvOptions} selectedId={profile.cv_id} onSelect={handleSelectCv} />
+        <CvPickerCard
+          cvs={cvOptions}
+          selectedId={profile.cv_id}
+          onSelect={handleSelectCv}
+          collapse={collapseFor('cv')}
+        />
 
         <VisibilityModeCard
           visibility={profile.visibility}
           lastMode={lastMode}
           onChange={handleModeChange}
+          collapse={collapseFor('synlighet')}
         />
 
         <div id="villkor" className="scroll-mt-24">
-          <TermsCard profile={profile} onPatch={saveProfile} />
+          <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />
         </div>
 
         <div id="pitch" className="scroll-mt-24">
-          <PitchCard pitch={profile.pitch} onSave={(pitch) => saveProfile({ pitch })} />
+          <PitchCard
+            pitch={profile.pitch}
+            onSave={(pitch) => saveProfile({ pitch })}
+            collapse={collapseFor('pitch')}
+          />
         </div>
 
         {/* Kontexttaggar: bara när kandidaten har kvalificerade förslag */}
@@ -261,7 +281,12 @@ export default function BliUpptacktPage() {
         )}
 
         <div id="arbetsstilsrapport" className="scroll-mt-24">
-          <VerifiedResultsCard summary={summary} profile={profile} onPatch={saveProfile} />
+          <VerifiedResultsCard
+            summary={summary}
+            profile={profile}
+            onPatch={saveProfile}
+            collapse={collapseFor('arbetsstil')}
+          />
         </div>
 
         {/* Grundtestare: låst förhandsvisning av rapporten som konverteringsyta */}

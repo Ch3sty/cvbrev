@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { Lock, FileText, Upload } from 'lucide-react';
-import SectionCard from './SectionCard';
+import SectionCard, { type CollapseProps } from './SectionCard';
 import type { CvOption } from './types';
 
 interface CvPickerCardProps {
   cvs: CvOption[];
   selectedId: string | null;
   onSelect: (cvId: string) => void;
+  collapse?: CollapseProps;
 }
 
 function formatUpdated(cv: CvOption): string {
@@ -21,12 +22,13 @@ function formatUpdated(cv: CvOption): string {
  * CV-väljare: radiokort över användarens CV:n. Låsta CV (utanför
  * gratisplanens 2 aktiva) visas som disabled med lås-ikon.
  */
-export default function CvPickerCard({ cvs, selectedId, onSelect }: CvPickerCardProps) {
+export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: CvPickerCardProps) {
   return (
     <SectionCard
       title="Vilket CV vill du visa för rekryterare?"
       sub="Vi visar aldrig själva dokumentet. Kompetenser, roll och erfarenhet hämtas ur CV:t du väljer, ett åt gången."
       delay={0.05}
+      {...collapse}
     >
       {cvs.length === 0 ? (
         <Link

@@ -1,6 +1,6 @@
 'use client';
 
-import SectionCard from './SectionCard';
+import SectionCard, { type CollapseProps } from './SectionCard';
 import type { Visibility } from './types';
 
 interface VisibilityModeCardProps {
@@ -8,6 +8,7 @@ interface VisibilityModeCardProps {
   /** Läget som senast var aktivt, visas som markerat även när mastern är av. */
   lastMode: 'anonymous' | 'open';
   onChange: (mode: 'anonymous' | 'open') => void;
+  collapse?: CollapseProps;
 }
 
 /**
@@ -15,7 +16,7 @@ interface VisibilityModeCardProps {
  * Skriver visibility, men bara när mastern är på — i avstängt läge visas
  * korten dämpade.
  */
-export default function VisibilityModeCard({ visibility, lastMode, onChange }: VisibilityModeCardProps) {
+export default function VisibilityModeCard({ visibility, lastMode, onChange, collapse }: VisibilityModeCardProps) {
   const isOn = visibility !== 'off';
   const activeMode = isOn ? visibility : lastMode;
 
@@ -24,6 +25,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange }: V
       title="Synlighetsläge"
       sub="Anonym först är standard. Namn och foto visas aldrig förrän du själv godkänner en kontakt."
       delay={0.1}
+      {...collapse}
       headerExtra={
         !isOn ? (
           <span className="text-[11px] font-bold tracking-wide rounded-full px-2.5 py-1 bg-slate-100 text-slate-500">
