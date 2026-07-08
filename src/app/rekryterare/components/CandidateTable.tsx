@@ -1,16 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { Info, Trash2 } from 'lucide-react';
+import { ChevronRight, Info, Trash2 } from 'lucide-react';
 import PercentileDots from './PercentileDots';
 import {
-  AVAILABILITY_OPTIONS,
-  WORKPLACE_OPTIONS,
   PROJECT_STATUS_OPTIONS,
-  labelFor,
   relativeDays,
   type PoolCandidate,
 } from './types';
+
+/**
+ * Stabil färg per arbetsstils-arketyp (indigo-familjen), så prickarna i tabellen
+ * skiljer arketyper åt utan att lämna personlighetsfärgen. Deterministisk hash
+ * → en av några indigo-toner.
+ */
+const ARCHETYPE_COLORS = ['#4F46E5', '#6366F1', '#818CF8', '#7C3AED', '#4338CA'];
+function archetypeColor(title: string): string {
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) hash = (hash * 31 + title.charCodeAt(i)) | 0;
+  return ARCHETYPE_COLORS[Math.abs(hash) % ARCHETYPE_COLORS.length];
+}
 
 export interface ProjectTableMode {
   statusByCandidate: Record<string, string>;
@@ -52,7 +61,11 @@ export default function CandidateTable({
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-orange-100 bg-white">
-      <table className="w-full min-w-[980px] text-left border-collapse">
+      {/* Fem innehållskolumner (+ markering). Villkoren bor i peek-panelen och
+          filtret, senioriteten i Kandidat-cellen, status + åtgärd hopfällda.
+          Ingen min-width: Kandidat växer, övriga har max-bredd så breda skärmar
+          ger luft i stället för utsträckta celler. */}
+      <table className="w-full text-left border-collapse">
         <thead>
           <tr className="border-b border-orange-100">
             <Th className="w-8 pl-4">
@@ -64,16 +77,11 @@ export default function CandidateTable({
                 className="w-3.5 h-3.5 rounded accent-orange-600 align-middle"
               />
             </Th>
-            <Th>Kandidat</Th>
-            <Th className="w-[120px]">Senioritet</Th>
-            <Th className="w-[160px]">Testresultat</Th>
-            <Th className="w-[130px]">Arbetsstil</Th>
-            <Th className="w-[200px]">Kompetenser</Th>
-            <Th className="w-[140px]">Villkor</Th>
-            <Th className="w-[130px]">Status</Th>
-            <Th className="w-[110px] pr-4">
-              <span className="sr-only">Åtgärd</span>
-            </Th>
+            <Th className="min-w-[240px]">Kandidat</Th>
+            <Th className="w-[168px] min-w-[152px]">Testresultat</Th>
+            <Th className="w-[150px] max-w-[170px]">Arbetsstil</Th>
+            <Th className="w-[220px] max-w-[260px]">Kompetenser</Th>
+            <Th className="w-[132px] pr-4">Status</Th>
           </tr>
         </thead>
         <tbody>
@@ -126,16 +134,6 @@ function Row({
   const region = candidate.regions[0] ?? null;
   const skillChips = candidate.skills.slice(0, 3);
   const skillOverflow = candidate.skills.length - skillChips.length;
-
-  const terms = [
-    labelFor(AVAILABILITY_OPTIONS, candidate.availability),
-    candidate.workplace
-      .map((w) => labelFor(WORKPLACE_OPTIONS, w))
-      .filter(Boolean)
-      .join('/') || null,
-  ]
-    .filter(Boolean)
-    .join(' · ');
 
   const profileHref = `/rekryterare/kandidat/${candidate.userId}?from=${encodeURIComponent(fromPath)}`;
 
@@ -200,29 +198,25 @@ function Row({
                 </span>
               )}
             </div>
+            {/* Senioritet bakad in här: år · region · anonymitet, en rad. */}
             <div className="text-[12px] text-slate-500 truncate">
-              {[region, candidate.visibility === 'open' ? 'Öppen' : 'Anonym']
+              {[
+                candidate.yearsOfExperience !== null
+                  ? `${candidate.yearsOfExperience} år`
+                  : null,
+                region,
+                candidate.visibility === 'open' ? 'Öppen' : 'Anonym',
+              ]
                 .filter(Boolean)
                 .join(' · ')}
             </div>
+            {candidate.latestRole && (
+              <div className="text-[11px] text-slate-400 truncate">
+                Senast: {candidate.latestRole.title}
+              </div>
+            )}
           </div>
         </div>
-      </td>
-
-      {/* Senioritet */}
-      <td className="py-3 px-2 align-middle">
-        {candidate.yearsOfExperience !== null ? (
-          <span className="text-[13px] font-bold text-slate-900">
-            {candidate.yearsOfExperience} år
-          </span>
-        ) : (
-          <span className="text-[12px] text-slate-400">Okänd</span>
-        )}
-        {candidate.latestRole && (
-          <p className="text-[11px] text-slate-500 truncate max-w-[140px]">
-            Senast: {candidate.latestRole.title}
-          </p>
-        )}
       </td>
 
       {/* Testresultat */}
@@ -230,11 +224,18 @@ function Row({
         <PercentileDots badges={candidate.testBadges} />
       </td>
 
-      {/* Arbetsstil */}
+      {/* Arbetsstil: färgprick + arketyp, tar mindre plats än en full pill */}
       <td className="py-3 px-2 align-middle">
         {candidate.workStyleArchetype ? (
-          <span className="inline-flex max-w-[130px] text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800">
-            <span className="truncate">{candidate.workStyleArchetype}</span>
+          <span className="inline-flex items-center gap-2 min-w-0">
+            <span
+              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+              style={{ background: archetypeColor(candidate.workStyleArchetype) }}
+              aria-hidden="true"
+            />
+            <span className="text-[12px] font-bold text-indigo-800 truncate">
+              {candidate.workStyleArchetype}
+            </span>
           </span>
         ) : (
           <span className="text-[12px] text-slate-300">–</span>
@@ -243,11 +244,11 @@ function Row({
 
       {/* Kompetenser */}
       <td className="py-3 px-2 align-middle">
-        <div className="flex flex-wrap gap-1 max-w-[200px]">
+        <div className="flex flex-wrap gap-1">
           {skillChips.map((skill) => (
             <span
               key={skill}
-              className="text-[11px] font-semibold rounded-full px-2 py-0.5 bg-slate-50 border border-slate-200 text-slate-600 max-w-[110px] truncate"
+              className="text-[11px] font-semibold rounded-full px-2 py-0.5 bg-slate-50 border border-slate-200 text-slate-600 max-w-[120px] truncate"
             >
               {skill}
             </span>
@@ -260,44 +261,23 @@ function Row({
         </div>
       </td>
 
-      {/* Villkor */}
-      <td className="py-3 px-2 align-middle">
-        <span className="text-[12px] text-slate-600 whitespace-nowrap">{terms || '–'}</span>
-      </td>
-
-      {/* Status */}
-      <td className="py-3 px-2 align-middle" onClick={(e) => e.stopPropagation()}>
+      {/* Status + åtgärd hopfällda: badge (eller projektval) + chevron.
+          Hela raden öppnar profilen, chevronen är bara en visuell ledtråd. */}
+      <td className="py-3 px-2 pr-4 align-middle" onClick={(e) => e.stopPropagation()}>
         {projectMode ? (
-          <select
-            value={projectMode.statusByCandidate[candidate.userId] ?? 'ny'}
-            onChange={(e) => projectMode.onStatusChange(candidate.userId, e.target.value)}
-            className="min-h-[32px] pl-2 pr-6 rounded-lg border border-slate-200 bg-white text-[12px] font-bold text-slate-700 cursor-pointer"
-            aria-label="Kandidatstatus i projektet"
-          >
-            {PROJECT_STATUS_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <InterestStatusBadge
-            status={candidate.interestStatus}
-            sentAt={candidate.interestSentAt}
-          />
-        )}
-      </td>
-
-      {/* Åtgärd */}
-      <td className="py-3 px-2 pr-4 align-middle text-right" onClick={(e) => e.stopPropagation()}>
-        <div className="inline-flex items-center gap-1">
-          <Link
-            href={profileHref}
-            className="inline-flex items-center min-h-[32px] px-2.5 rounded-lg text-[12px] font-bold text-slate-500 hover:text-orange-700 hover:bg-orange-50 transition-colors whitespace-nowrap"
-          >
-            Öppna profil
-          </Link>
-          {projectMode && (
+          <div className="flex items-center gap-1">
+            <select
+              value={projectMode.statusByCandidate[candidate.userId] ?? 'ny'}
+              onChange={(e) => projectMode.onStatusChange(candidate.userId, e.target.value)}
+              className="min-h-[32px] pl-2 pr-6 rounded-lg border border-slate-200 bg-white text-[12px] font-bold text-slate-700 cursor-pointer"
+              aria-label="Kandidatstatus i projektet"
+            >
+              {PROJECT_STATUS_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
             <button
               type="button"
               onClick={() => projectMode.onRemove(candidate.userId)}
@@ -306,8 +286,23 @@ function Row({
             >
               <Trash2 className="w-4 h-4" aria-hidden="true" />
             </button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-1.5">
+            <InterestStatusBadge
+              status={candidate.interestStatus}
+              sentAt={candidate.interestSentAt}
+            />
+            <Link
+              href={profileHref}
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`Öppna ${roleLabel}`}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-slate-300 hover:text-orange-700 hover:bg-orange-50 transition-colors flex-shrink-0"
+            >
+              <ChevronRight className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+            </Link>
+          </div>
+        )}
       </td>
     </tr>
   );

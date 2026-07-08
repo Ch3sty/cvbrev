@@ -74,6 +74,22 @@ function SearchView() {
   // rekryteraren redan hanterat så poolen inte känns full av upprepningar.
   const [statusView, setStatusView] = useState<'all' | 'uncontacted' | 'hideDeclined'>('all');
   const [panelOpen, setPanelOpen] = useState(true);
+  // Minns filterpanelens läge mellan besök (bred skärm vill ofta ha den dold).
+  useEffect(() => {
+    const saved = window.localStorage.getItem('jc_recruiter_panel_open');
+    if (saved === '0') setPanelOpen(false);
+  }, []);
+  const togglePanel = useCallback(() => {
+    setPanelOpen((v) => {
+      const next = !v;
+      try {
+        window.localStorage.setItem('jc_recruiter_panel_open', next ? '1' : '0');
+      } catch {
+        /* strunta tyst */
+      }
+      return next;
+    });
+  }, []);
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -352,7 +368,7 @@ function SearchView() {
         </div>
         <button
           type="button"
-          onClick={() => setPanelOpen((v) => !v)}
+          onClick={togglePanel}
           className="hidden lg:inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-xl text-[12.5px] font-bold text-slate-500 border border-slate-200 bg-white hover:bg-slate-50 transition-colors"
         >
           {panelOpen ? (
