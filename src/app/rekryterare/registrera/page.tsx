@@ -757,10 +757,10 @@ export default function RekryterareRegistreraSida() {
                 Vi kunde tyvärr inte verifiera företaget den här gången. Tror
                 du att något blivit fel? Mejla{' '}
                 <a
-                  href="mailto:support@jobbcoach.ai"
+                  href="mailto:hej@jobbcoach.ai"
                   className="font-bold text-orange-700 hover:text-orange-800"
                 >
-                  support@jobbcoach.ai
+                  hej@jobbcoach.ai
                 </a>{' '}
                 så tittar vi på det tillsammans.
               </>

@@ -9,7 +9,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import { generateShareToken, shareLinkExpiry } from '@/lib/recruiter/shareLinks';
+import {
+  generateShareToken,
+  shareLinkExpiry,
+  revokeShareLink,
+} from '@/lib/recruiter/shareLinks';
 
 export const dynamic = 'force-dynamic';
 
@@ -83,6 +87,35 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Recruiter share error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+// DELETE /api/recruiter/share  { candidateUserId }
+// Återkallar rekryterarens aktiva delningslänkar för en kandidat i förväg.
+export async function DELETE(request: NextRequest) {
+  try {
+    const gate = await requireApprovedRecruiter();
+    if (!gate.ok) return gate.response;
+    const { user } = gate.ctx;
+
+    let body: { candidateUserId?: string };
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
+    }
+
+    const candidateUserId =
+      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
+    if (!candidateUserId) {
+      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    }
+
+    const revoked = await revokeShareLink(user.id, candidateUserId);
+    return NextResponse.json({ revoked });
+  } catch (error) {
+    console.error('Recruiter share revoke error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

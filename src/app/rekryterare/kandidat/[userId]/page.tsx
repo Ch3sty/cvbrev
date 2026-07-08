@@ -216,6 +216,15 @@ function DetailView() {
           )}
         </div>
 
+        {/* Efter skickat intresse: sätt förväntan så det inte känns som ett
+            svart hål. Kandidaten väljer själv, men rekryteraren får alltid besked. */}
+        {interestStatus === 'pending' && (
+          <p className="mt-2 text-[12.5px] text-slate-500 leading-relaxed">
+            Kandidaten har fått din förfrågan och väljer själv om ni går vidare.
+            Du får besked oavsett utfall, och vid ja låses namn och kontakt upp här.
+          </p>
+        )}
+
         {/* Meddelandeytan expanderar under action-baren */}
         {messageOpen && interestStatus === null && (
           <div className="mt-2 rounded-2xl border border-orange-100 bg-white p-4 shadow-sm">

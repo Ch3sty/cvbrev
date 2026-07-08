@@ -16,6 +16,8 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
   const [creating, setCreating] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [revoking, setRevoking] = useState(false);
+  const [revoked, setRevoked] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
     const next = !open;
     setOpen(next);
     setCopied(false);
+    if (next) setRevoked(false);
     if (next && !url && !creating) {
       setCreating(true);
       setError(null);
@@ -67,6 +70,30 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallet utan clipboard-behörighet: fältet är markerbart.
+    }
+  };
+
+  const revoke = async () => {
+    setRevoking(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/recruiter/share', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ candidateUserId }),
+      });
+      if (!res.ok) {
+        setError('Kunde inte återkalla länken.');
+        return;
+      }
+      // Länken är död: nolla så en ny kan skapas vid behov.
+      setUrl(null);
+      setExpiresAt(null);
+      setRevoked(true);
+    } catch {
+      setError('Kunde inte återkalla länken.');
+    } finally {
+      setRevoking(false);
     }
   };
 
@@ -125,12 +152,27 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
                   )}
                 </button>
               </div>
-              {expiresAt && (
-                <p className="mt-2 text-[11px] text-slate-400">
-                  Länken slutar gälla {formatLongDate(expiresAt) ?? 'om 14 dagar'}.
-                </p>
-              )}
+              <div className="mt-2 flex items-center justify-between gap-2">
+                {expiresAt && (
+                  <p className="text-[11px] text-slate-400">
+                    Slutar gälla {formatLongDate(expiresAt) ?? 'om 14 dagar'}.
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={revoke}
+                  disabled={revoking}
+                  className="flex-shrink-0 text-[11.5px] font-bold text-slate-500 hover:text-red-600 transition-colors disabled:opacity-50"
+                >
+                  {revoking ? 'Återkallar…' : 'Återkalla länken'}
+                </button>
+              </div>
             </>
+          ) : revoked ? (
+            <p className="text-[12px] text-slate-600 leading-relaxed">
+              Länken är återkallad och fungerar inte längre. Öppna panelen igen
+              för att skapa en ny.
+            </p>
           ) : null}
         </div>
       )}

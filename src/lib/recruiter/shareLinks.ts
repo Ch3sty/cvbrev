@@ -53,9 +53,10 @@ export async function getSharedCandidate(token: string): Promise<SharedCandidate
 
   const { data: link, error: linkError } = await (admin as any)
     .from('recruiter_share_links')
-    .select('token, recruiter_user_id, candidate_user_id, expires_at')
+    .select('token, recruiter_user_id, candidate_user_id, expires_at, revoked_at')
     .eq('token', trimmed)
     .gt('expires_at', new Date().toISOString())
+    .is('revoked_at', null)
     .maybeSingle();
 
   if (linkError) {
@@ -95,4 +96,28 @@ export async function getSharedCandidate(token: string): Promise<SharedCandidate
   });
 
   return { detail, expiresAt: link.expires_at };
+}
+
+/**
+ * Återkallar en delningslänk i förväg. Bara skaparen får återkalla sina egna
+ * länkar (recruiter_user_id måste matcha). Returnerar antalet återkallade rader.
+ */
+export async function revokeShareLink(
+  recruiterUserId: string,
+  candidateUserId: string
+): Promise<number> {
+  const admin = getSupabaseAdmin();
+  const { data, error } = await (admin as any)
+    .from('recruiter_share_links')
+    .update({ revoked_at: new Date().toISOString() })
+    .eq('recruiter_user_id', recruiterUserId)
+    .eq('candidate_user_id', candidateUserId)
+    .is('revoked_at', null)
+    .gt('expires_at', new Date().toISOString())
+    .select('token');
+  if (error) {
+    console.error('Share links: kunde inte återkalla', error);
+    throw error;
+  }
+  return (data ?? []).length;
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ShieldCheck, EyeOff, Building2, Eye, Scale, FileX } from 'lucide-react'
+import { ShieldCheck, EyeOff, Building2, Eye, Scale, FileX, Timer } from 'lucide-react'
 
 /**
  * Trust-sektion: GDPR-designen som säljargument. Punkter i vita kort
@@ -37,6 +37,11 @@ const TRUST_POINTS = [
     Icon: FileX,
     title: 'Inga rå-CV:n eller löneanspråk',
     body: 'Vi delar aldrig råa dokument, och kandidatens lönespann lämnar aldrig servern. Du ser strukturerade uppgifter som kandidaten godkänt för visning, varken mer eller mindre.',
+  },
+  {
+    Icon: Timer,
+    title: 'Tydlig datahantering',
+    body: 'En kandidat som stänger av sin synlighet försvinner direkt ur poolen, och drar hen tillbaka sitt konto raderas profilen. Som verifierat företag tecknar ni ett personuppgiftsbiträdesavtal med oss innan ni får tillgång.',
   },
 ]
 
