@@ -6,6 +6,13 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
 import AddToProjectMenu from '../../components/AddToProjectMenu';
 import { InterestStatusBadge } from '../../components/CandidateTable';
+import {
+  loadTemplates,
+  saveTemplate,
+  loadLastUsed,
+  saveLastUsed,
+  type MessageTemplate,
+} from '../../components/messageTemplates';
 import NotesPopover from '../../components/profile/NotesPopover';
 import ShareButton from '../../components/profile/ShareButton';
 import ProfileSections from '../../components/profile/ProfileSections';
@@ -76,6 +83,12 @@ function DetailView() {
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [templates, setTemplates] = useState<MessageTemplate[]>([]);
+
+  // Ladda mallar + senast använda meddelande (klientlagrat).
+  useEffect(() => {
+    setTemplates(loadTemplates());
+  }, []);
 
   const fetchDetail = useCallback(async () => {
     if (!userId) return;
@@ -123,6 +136,8 @@ function DetailView() {
       }
       if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
       setInterestStatus(data?.interest?.status ?? 'pending');
+      // Kom ihåg meddelandet för autofyll nästa gång.
+      saveLastUsed(message);
       setMessageOpen(false);
     } catch (error) {
       console.error('Kandidatprofil: kunde inte skicka intresse', error);
@@ -204,6 +219,29 @@ function DetailView() {
         {/* Meddelandeytan expanderar under action-baren */}
         {messageOpen && interestStatus === null && (
           <div className="mt-2 rounded-2xl border border-orange-100 bg-white p-4 shadow-sm">
+            {/* Mallar: infoga med ett klick, plus senast använda meddelande */}
+            <div className="flex items-center gap-1.5 flex-wrap mb-2.5">
+              <span className="text-[11.5px] font-bold text-slate-400 mr-0.5">Mall:</span>
+              {templates.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setMessage(t.body.slice(0, MESSAGE_MAX))}
+                  className="text-[12px] font-semibold rounded-full px-2.5 py-1 bg-slate-50 border border-slate-200 text-slate-600 hover:bg-orange-50 hover:border-orange-200 hover:text-orange-800 transition-colors"
+                >
+                  {t.title}
+                </button>
+              ))}
+              {loadLastUsed() && (
+                <button
+                  type="button"
+                  onClick={() => setMessage(loadLastUsed().slice(0, MESSAGE_MAX))}
+                  className="text-[12px] font-semibold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-800 hover:bg-orange-100 transition-colors"
+                >
+                  Senast använda
+                </button>
+              )}
+            </div>
             <label className="block">
               <span className="text-[13px] font-bold text-slate-700">
                 Meddelande till kandidaten
@@ -223,15 +261,32 @@ function DetailView() {
                 {message.length}/{MESSAGE_MAX} tecken · Kandidaten väljer själv om
                 kontakten accepteras. Först då delas namn och e-post.
               </span>
-              <button
-                type="button"
-                onClick={handleInterest}
-                disabled={sending}
-                className="inline-flex items-center justify-center min-h-[42px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
-                style={{ background: CTA_GRADIENT }}
-              >
-                {sending ? 'Skickar…' : 'Skicka intresse'}
-              </button>
+              <div className="flex items-center gap-2">
+                {message.trim().length > 15 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const title = window.prompt('Spara som mall. Ge mallen ett namn:');
+                      if (title && title.trim()) {
+                        saveTemplate(title.trim(), message);
+                        setTemplates(loadTemplates());
+                      }
+                    }}
+                    className="inline-flex items-center min-h-[42px] px-3 rounded-xl text-[12.5px] font-bold text-slate-500 hover:text-orange-700 hover:bg-orange-50 transition-colors"
+                  >
+                    Spara som mall
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleInterest}
+                  disabled={sending}
+                  className="inline-flex items-center justify-center min-h-[42px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
+                  style={{ background: CTA_GRADIENT }}
+                >
+                  {sending ? 'Skickar…' : 'Skicka intresse'}
+                </button>
+              </div>
             </div>
           </div>
         )}

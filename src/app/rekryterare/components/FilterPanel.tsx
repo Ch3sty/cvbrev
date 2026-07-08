@@ -89,6 +89,8 @@ export default function FilterPanel({
         </label>
       </div>
 
+      <ClusterHeader first>Vem</ClusterHeader>
+
       {/* 2. Senioritet */}
       <FilterGroup label="Senioritet">
         <ChipRow>
@@ -114,37 +116,17 @@ export default function FilterPanel({
         />
       </FilterGroup>
 
-      {/* 4. Tillträde */}
-      <FilterGroup label="Tillträde">
-        <ChipRow>
-          {AVAILABILITY_OPTIONS.map((opt) => (
-            <Chip
-              key={opt.value}
-              active={filters.availability === opt.value}
-              onClick={() =>
-                onChange({ availability: filters.availability === opt.value ? '' : opt.value })
-              }
-            >
-              {opt.label}
-            </Chip>
-          ))}
-        </ChipRow>
+      {/* 9. Utbildningsnivå (hör till Vem) */}
+      <FilterGroup label="Utbildningsnivå">
+        <MultiSelect
+          placeholder="Alla nivåer"
+          options={EDUCATION_LEVEL_OPTIONS.map((l) => ({ value: l, label: l }))}
+          selected={filters.educationLevels}
+          onToggle={(v) => toggleIn('educationLevels', v)}
+        />
       </FilterGroup>
 
-      {/* 5. Arbetsplats */}
-      <FilterGroup label="Arbetsplats">
-        <ChipRow>
-          {WORKPLACE_OPTIONS.map((opt) => (
-            <Chip
-              key={opt.value}
-              active={filters.workplace.includes(opt.value)}
-              onClick={() => toggleIn('workplace', opt.value)}
-            >
-              {opt.label}
-            </Chip>
-          ))}
-        </ChipRow>
-      </FilterGroup>
+      <ClusterHeader>Verifierat</ClusterHeader>
 
       {/* 6. Testresultat: radio-stege + familjer */}
       <FilterGroup label="Testresultat">
@@ -221,17 +203,41 @@ export default function FilterPanel({
         </ChipRow>
       </FilterGroup>
 
-      {/* 9. Utbildningsnivå */}
-      <FilterGroup label="Utbildningsnivå">
-        <MultiSelect
-          placeholder="Alla nivåer"
-          options={EDUCATION_LEVEL_OPTIONS.map((l) => ({ value: l, label: l }))}
-          selected={filters.educationLevels}
-          onToggle={(v) => toggleIn('educationLevels', v)}
-        />
+      <ClusterHeader>Villkor</ClusterHeader>
+
+      {/* Tillträde */}
+      <FilterGroup label="Tillträde">
+        <ChipRow>
+          {AVAILABILITY_OPTIONS.map((opt) => (
+            <Chip
+              key={opt.value}
+              active={filters.availability === opt.value}
+              onClick={() =>
+                onChange({ availability: filters.availability === opt.value ? '' : opt.value })
+              }
+            >
+              {opt.label}
+            </Chip>
+          ))}
+        </ChipRow>
       </FilterGroup>
 
-      {/* Villkor: omfattning + anställningsform + körkort */}
+      {/* Arbetsplats */}
+      <FilterGroup label="Arbetsplats">
+        <ChipRow>
+          {WORKPLACE_OPTIONS.map((opt) => (
+            <Chip
+              key={opt.value}
+              active={filters.workplace.includes(opt.value)}
+              onClick={() => toggleIn('workplace', opt.value)}
+            >
+              {opt.label}
+            </Chip>
+          ))}
+        </ChipRow>
+      </FilterGroup>
+
+      {/* Omfattning + anställningsform + körkort */}
       <FilterGroup label="Omfattning">
         <ChipRow>
           {EXTENT_OPTIONS.map((opt) => (
@@ -371,6 +377,17 @@ function FilterGroup({ label, children }: { label: string; children: ReactNode }
       </legend>
       {children}
     </fieldset>
+  );
+}
+
+/** Klusterrubrik som delar filtren i tre skanningsbara zoner. */
+function ClusterHeader({ children, first = false }: { children: ReactNode; first?: boolean }) {
+  return (
+    <div className={first ? '' : 'pt-2 mt-1 border-t border-slate-100'}>
+      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-orange-700">
+        {children}
+      </p>
+    </div>
   );
 }
 

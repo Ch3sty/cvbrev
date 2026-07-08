@@ -70,6 +70,9 @@ function SearchView() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [peekCandidate, setPeekCandidate] = useState<PoolCandidate | null>(null);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
+  // Klient-vy på intressestatus (påverkar inte serversökningen): dölj sådana
+  // rekryteraren redan hanterat så poolen inte känns full av upprepningar.
+  const [statusView, setStatusView] = useState<'all' | 'uncontacted' | 'hideDeclined'>('all');
   const [panelOpen, setPanelOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -312,7 +315,18 @@ function SearchView() {
 
   const activeCount = countActiveFilters(filters);
   const hasQuery = filters.q.trim().length > 0;
+
+  // Klient-vy på status: filtrera bort redan hanterade utan att röra sökningen.
+  const visibleCandidates = useMemo(() => {
+    const list = candidates ?? [];
+    if (statusView === 'uncontacted') return list.filter((c) => !c.interestStatus);
+    if (statusView === 'hideDeclined') return list.filter((c) => c.interestStatus !== 'declined');
+    return list;
+  }, [candidates, statusView]);
+
   const shown = candidates?.length ?? 0;
+  const shownVisible = visibleCandidates.length;
+  const hiddenByView = shown - shownVisible;
   const hasMore = shown < total;
 
   const nextBestActions = useMemo(
@@ -404,6 +418,35 @@ function SearchView() {
                 </button>
               ))}
             </div>
+
+            {/* Statusvy: dölj redan hanterade (klient-sida) */}
+            <div className="flex items-center gap-1 flex-wrap sm:ml-auto">
+              <span className="text-[12.5px] text-slate-400">Visa:</span>
+              {([
+                ['all', 'Alla'],
+                ['uncontacted', 'Ej kontaktade'],
+                ['hideDeclined', 'Dölj avböjda'],
+              ] as const).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setStatusView(value)}
+                  className={`min-h-[30px] px-2.5 rounded-lg text-[12.5px] transition-colors ${
+                    statusView === value
+                      ? 'bg-orange-50 text-orange-800 font-bold'
+                      : 'text-slate-500 font-semibold hover:bg-slate-50'
+                  }`}
+                  aria-pressed={statusView === value}
+                >
+                  {label}
+                </button>
+              ))}
+              {hiddenByView > 0 && (
+                <span className="text-[11.5px] text-slate-400">
+                  ({hiddenByView} dold{hiddenByView === 1 ? '' : 'a'})
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Jämför-verktygsraden */}
@@ -449,10 +492,26 @@ function SearchView() {
             />
           ) : (
             <>
+              {/* Alla i vyn dolda av statusfiltret */}
+              {shownVisible === 0 ? (
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 px-4 py-6 text-center">
+                  <p className="text-[13px] text-slate-500">
+                    Alla kandidater i den här sökningen är redan hanterade.{' '}
+                    <button
+                      type="button"
+                      onClick={() => setStatusView('all')}
+                      className="font-bold text-orange-700 underline underline-offset-2"
+                    >
+                      Visa alla ändå
+                    </button>
+                  </p>
+                </div>
+              ) : (
+              <>
               {/* Tabell på desktop */}
               <div className="hidden lg:block">
                 <CandidateTable
-                  candidates={candidates ?? []}
+                  candidates={visibleCandidates}
                   selectedIds={selectedIds}
                   onToggleSelect={toggleSelect}
                   onToggleSelectAll={toggleSelectAll}
@@ -464,7 +523,7 @@ function SearchView() {
 
               {/* Kortgrid på mobil */}
               <div className="grid gap-4 sm:grid-cols-2 lg:hidden">
-                {(candidates ?? []).map((candidate) => (
+                {visibleCandidates.map((candidate) => (
                   <CandidateHitCard
                     key={candidate.userId}
                     candidate={candidate}
@@ -492,6 +551,8 @@ function SearchView() {
                     {loadingMore ? 'Hämtar…' : 'Visa 50 fler'}
                   </button>
                 </div>
+              )}
+              </>
               )}
             </>
           )}
