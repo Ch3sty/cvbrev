@@ -1876,11 +1876,13 @@ async function createSwedishCVPDF(html: string, cvData: CVMetadata, templateId: 
   const swedishPDFOptions: SwedishCVPDFOptions = {
     template: templateId,
     format: 'A4',
+    // Noll marginal: mallarna är full-bleed helsideslayouter (210mm × 297mm)
+    // som äger sin egen inre marginal. Se swedish-cv-pdf-generator.ts.
     margins: {
-      top: '20mm',
-      right: '15mm', 
-      bottom: '20mm',
-      left: '15mm'
+      top: '0',
+      right: '0',
+      bottom: '0',
+      left: '0'
     },
     colorScheme: 'navy', // Default till navy färgschema
     swedishSettings: {
@@ -1947,12 +1949,9 @@ async function createBasicCVPDF(html: string): Promise<Buffer> {
       const pdfBuffer = await page.pdf({
         format: 'A4',
         printBackground: true,
-        margin: {
-          top: '20mm',
-          right: '15mm',
-          bottom: '20mm',
-          left: '15mm'
-        }
+        // Noll marginal, samma skäl som huvudgeneratorn: mallen är full-bleed.
+        margin: { top: '0', right: '0', bottom: '0', left: '0' },
+        preferCSSPageSize: true,
       });
       
       return Buffer.from(pdfBuffer);

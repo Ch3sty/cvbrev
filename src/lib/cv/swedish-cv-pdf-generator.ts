@@ -273,13 +273,28 @@ export class SwedishCVPDFGenerator {
         .avoid-break {
           page-break-inside: avoid;
         }
-        
+
         .page-break-before {
           page-break-before: always;
         }
-        
+
+        /* Mallarna är helsideslayouter (210mm × 297mm) som äger sin egen inre
+           marginal och går kant-till-kant (t.ex. gradient-headers). Därför MÅSTE
+           sidmarginalen vara 0, annars läggs en 210mm-behållare i en mindre
+           utskriftsyta och innehållet trycks till nästa sida (headern blev ensam
+           på sida 1). Skydda dessutom headern och toppsektionerna så en ev.
+           brytning alltid sker längre ned, aldrig direkt efter headern. */
+        header, .header, .photo-banner, .cv-header, .sidebar, .side-col {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        header, .header, .photo-banner, .cv-header {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+
         @page {
-          margin: ${options.margins?.top || '20mm'} ${options.margins?.right || '15mm'} ${options.margins?.bottom || '20mm'} ${options.margins?.left || '15mm'};
+          margin: 0;
           size: A4;
         }
         
@@ -344,12 +359,10 @@ export class SwedishCVPDFGenerator {
     return {
       format: 'A4' as const,
       printBackground: true,
-      margin: options.margins || {
-        top: '20mm',
-        right: '15mm',
-        bottom: '20mm', 
-        left: '15mm'
-      },
+      // Noll marginal: mallen är en full-bleed 210mm × 297mm-sida som äger sin
+      // egen inre marginal. En påtvingad sidmarginal krymper utskriftsytan och
+      // trycker innehållet till sida 2 (headern hamnade ensam på sida 1).
+      margin: { top: '0', right: '0', bottom: '0', left: '0' },
       displayHeaderFooter: false,
       preferCSSPageSize: true,
       // Svenska CV-specifika inställningar

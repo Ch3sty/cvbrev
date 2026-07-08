@@ -70,10 +70,10 @@ export default function SaveActionSegments({
     >
       <div className="px-4 sm:px-5 pt-4 pb-3">
         <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
-          Vad ska hända när du klickar?
+          Sista steget
         </div>
         <h4 className="text-sm sm:text-base font-bold text-slate-900">
-          Välj sparastrategi
+          Vad vill du göra med ditt CV?
         </h4>
       </div>
 
