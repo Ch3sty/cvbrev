@@ -11,6 +11,25 @@ import AuthCvPaper from './AuthCvPaper'
 import AuthInput from './AuthInput'
 import AuthSubmitButton from './AuthSubmitButton'
 
+/**
+ * Vart användaren ska efter inloggning. Godkända rekryterare skickas till
+ * /rekryterare, alla andra (kandidater, väntande/avslagna rekryterare) till
+ * kandidat-dashboarden. Fel eller timeout faller alltid tillbaka på /dashboard
+ * så en trasig statuskoll aldrig blockerar inloggningen.
+ */
+async function resolvePostLoginDestination(): Promise<string> {
+  try {
+    const res = await fetch('/api/recruiter/status', {
+      cache: 'no-store',
+    })
+    if (!res.ok) return '/dashboard'
+    const data = (await res.json()) as { status?: string }
+    return data?.status === 'approved' ? '/rekryterare' : '/dashboard'
+  } catch {
+    return '/dashboard'
+  }
+}
+
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -68,7 +87,10 @@ export default function LoginForm() {
         )
       }
 
-      router.push('/dashboard')
+      // Godkända rekryterare hör hemma i rekryterarportalen, inte i
+      // kandidat-dashboarden. Återanvänder guard-endpointen (svarar aldrig 403).
+      const destination = await resolvePostLoginDestination()
+      router.push(destination)
       router.refresh()
     } catch (err: any) {
       setError(err.message || 'Ett fel uppstod vid inloggning')
