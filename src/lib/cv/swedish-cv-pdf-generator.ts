@@ -293,6 +293,29 @@ export class SwedishCVPDFGenerator {
           page-break-after: avoid;
         }
 
+        /* KRITISKT: mallcontainern har min-height: 297mm för att fylla en A4 på
+           skärmen. I PDF tvingar det containern till minst en full sida, och med
+           den inre paddingen blir totalen ~300mm > 297mm. Body är dessutom ofta
+           en CSS-grid som Chromium inte kan dela, så hela body-blocket knuffas
+           till sida 2 och headern blir ensam kvar. Vid print nollställer vi
+           min-height och gör body-gridet delbart, så innehållet flödar direkt
+           under headern och en ev. brytning sker längst ned, aldrig i toppen. */
+        @media print {
+          .cv-container, .cv-wrapper, .resume, .page {
+            min-height: 0 !important;
+            height: auto !important;
+          }
+          .body-grid, .cv-body, .content, .main-content {
+            break-inside: auto !important;
+            page-break-inside: auto !important;
+            /* Trimma trailing-whitespace i botten. Mallarnas 26mm botten-padding
+               + full min-height tippade totalen strax över 297mm, vilket knuffade
+               hela (odelbara) body-gridet till sida 2. 12mm räcker gott och tar
+               bara bort tom yta längst ned, aldrig innehåll. */
+            padding-bottom: 12mm !important;
+          }
+        }
+
         @page {
           margin: 0;
           size: A4;
