@@ -45,7 +45,11 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname();
-  const isDashboard = pathname?.startsWith('/dashboard');
+  // Appytor (kandidatens dashboard + rekryterarportalen) ska INTE ha den
+  // publika konsument-footern (artikelguider, "skapa CV" m.m.) — den hör hemma
+  // på marknadsföringssidorna, inte inne i verktygen.
+  const isAppSurface =
+    pathname?.startsWith('/dashboard') || pathname?.startsWith('/rekryterare');
 
   // Körs EN gång när komponenten monteras
   useEffect(() => {
@@ -114,8 +118,8 @@ export default function ClientLayout({
               {children}
             </main>
 
-        {/* Footer - visas overallt utom pa dashboard */}
-        {!isDashboard && <Footer />}
+        {/* Footer - visas overallt utom pa appytorna (dashboard + rekryterarportal) */}
+        {!isAppSurface && <Footer />}
 
         {/* === COOKIE BANNER === */}
         <CookieConsent

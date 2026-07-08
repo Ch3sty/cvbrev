@@ -67,6 +67,12 @@ export async function GET(
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
+    // Tråden finns bara för accepterade intressen (spegling av POST och av
+    // kontaktupplåsningen). Innan accept finns ingen kontakt att läsa.
+    if (participant.interest.status !== 'accepted') {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data, error } = await (admin as any)
       .from('interest_messages')

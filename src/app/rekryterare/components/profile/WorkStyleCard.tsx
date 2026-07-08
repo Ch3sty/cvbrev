@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronDown, Compass, Lock } from 'lucide-react';
 import PortalCard from '../PortalCard';
 import WorkStyleSpectrum from '../WorkStyleSpectrum';
+import { WORKSTYLE_DISCLAIMER } from '@/lib/recruiter/workStyle';
 import type { CandidateDetail, SpectrumView } from '../types';
 
 interface WorkStyleCardProps {
@@ -47,10 +48,12 @@ export default function WorkStyleCard({ candidate, unlocked, delay = 0 }: WorkSt
   return (
     <div id="arbetsstil" className="scroll-mt-24">
       <PortalCard title="Arbetsstil" delay={delay}>
-        {/* Disclaimern ovanför rapporten, i liten stil */}
-        {report && (
-          <p className="mb-3 text-[12px] text-slate-400 leading-relaxed">{report.disclaimer}</p>
-        )}
+        {/* Disclaimern ovanför rapporten, i liten stil. Visas ALLTID, även i
+            den kompakta fallback-vyn: den innehåller regeln "använd för att
+            ställa bättre frågor, inte för att sortera" och får aldrig saknas. */}
+        <p className="mb-3 text-[12px] text-slate-400 leading-relaxed">
+          {report?.disclaimer ?? WORKSTYLE_DISCLAIMER}
+        </p>
 
         {candidate.personalityStale && (
           <p className="mb-3 text-[12.5px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
