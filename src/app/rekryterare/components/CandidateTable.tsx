@@ -8,6 +8,7 @@ import {
   WORKPLACE_OPTIONS,
   PROJECT_STATUS_OPTIONS,
   labelFor,
+  relativeDays,
   type PoolCandidate,
 } from './types';
 
@@ -141,7 +142,19 @@ function Row({
   return (
     <tr
       onClick={onClick}
-      className={`border-b border-orange-50 last:border-b-0 cursor-pointer transition-colors ${
+      onKeyDown={(e) => {
+        // Öppna peek-panelen med tangentbord. Ignorera när fokus ligger på en
+        // kontroll i raden (checkbox, länk, select) så deras egen Enter/Space gäller.
+        if (e.target !== e.currentTarget) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Öppna ${roleLabel}`}
+      className={`border-b border-orange-50 last:border-b-0 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-orange-500 ${
         selected ? 'bg-orange-50/50' : 'hover:bg-orange-50/30'
       }`}
     >
@@ -268,7 +281,10 @@ function Row({
             ))}
           </select>
         ) : (
-          <InterestStatusBadge status={candidate.interestStatus} />
+          <InterestStatusBadge
+            status={candidate.interestStatus}
+            sentAt={candidate.interestSentAt}
+          />
         )}
       </td>
 
@@ -297,11 +313,28 @@ function Row({
   );
 }
 
-export function InterestStatusBadge({ status }: { status: string | null }) {
+export function InterestStatusBadge({
+  status,
+  sentAt,
+}: {
+  status: string | null;
+  sentAt?: string | null;
+}) {
   if (status === 'pending') {
+    const age = relativeDays(sentAt);
+    // Väntar länge (parsad ålder i dagar > 3): amber i stället för orange.
+    const days = sentAt ? Math.floor((Date.now() - Date.parse(sentAt)) / 86_400_000) : 0;
+    const stale = Number.isFinite(days) && days > 3;
     return (
-      <span className="inline-flex text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-700 whitespace-nowrap">
+      <span
+        className={`inline-flex items-center gap-1 text-[11.5px] font-bold rounded-full px-2.5 py-1 whitespace-nowrap ${
+          stale
+            ? 'bg-amber-50 border border-amber-300 text-amber-800'
+            : 'bg-orange-50 border border-orange-200 text-orange-700'
+        }`}
+      >
         Skickat
+        {age && <span className="font-semibold opacity-70">· {age}</span>}
       </span>
     );
   }

@@ -239,6 +239,66 @@ function SearchView() {
     [candidates]
   );
 
+  // Bulk-intresse: skickar till markerade kandidater som saknar intressestatus.
+  // Sekventiellt så dygnsgränsen (10/dygn) respekteras, stannar vid 429.
+  const [bulkSending, setBulkSending] = useState(false);
+  const handleBulkInterest = useCallback(
+    async (userIds: string[]) => {
+      const pool = candidates ?? [];
+      // Bara de utan tidigare intresse (skickat/accepterat/avböjt hoppas över).
+      const targets = userIds.filter((id) =>
+        pool.some((c) => c.userId === id && !c.interestStatus)
+      );
+      if (targets.length === 0) {
+        setNotice('De markerade kandidaterna har redan fått en intresseförfrågan.');
+        return;
+      }
+
+      setBulkSending(true);
+      setNotice(null);
+      let sent = 0;
+      let stoppedByLimit = false;
+
+      for (const candidateUserId of targets) {
+        try {
+          const res = await fetch('/api/recruiter/interest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ candidateUserId }),
+          });
+          const data = await res.json().catch(() => null);
+          if (res.status === 429) {
+            stoppedByLimit = true;
+            break;
+          }
+          if (!res.ok) continue;
+          sent += 1;
+          const status = data?.interest?.status ?? 'pending';
+          setCandidates((prev) =>
+            (prev ?? []).map((c) =>
+              c.userId === candidateUserId ? { ...c, interestStatus: status } : c
+            )
+          );
+        } catch (error) {
+          console.error('Rekryterarpool: bulk-intresse misslyckades', error);
+        }
+      }
+
+      setBulkSending(false);
+      setSelectedIds([]);
+      if (stoppedByLimit) {
+        setNotice(
+          `${sent} intresse${sent === 1 ? '' : 'n'} skickade. Du nådde dygnsgränsen på 10, försök igen imorgon.`
+        );
+      } else if (sent > 0) {
+        setNotice(`${sent} intresse${sent === 1 ? '' : 'n'} skickade.`);
+      } else {
+        setNotice('Det gick inte att skicka intressena. Försök igen.');
+      }
+    },
+    [candidates]
+  );
+
   const toggleSelect = useCallback((userId: string) => {
     setSelectedIds((prev) =>
       prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
@@ -348,7 +408,36 @@ function SearchView() {
 
           {/* Jämför-verktygsraden */}
           {selectedIds.length > 0 && (
-            <CompareToolbar selectedIds={selectedIds} onClear={() => setSelectedIds([])} />
+            <CompareToolbar
+              selectedIds={selectedIds}
+              onClear={() => setSelectedIds([])}
+              onBulkInterest={handleBulkInterest}
+              bulkSending={bulkSending}
+            />
+          )}
+
+          {/* Tunn pool: få träffar ser lätt ut som ett fullständigt resultat.
+              Styr mot bevakning i stället för att låta rekryteraren studsa av. */}
+          {!loading && shown > 0 && total > 0 && total < 5 && (
+            <div className="flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3">
+              <Users className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <p className="text-[12.5px] text-amber-900 leading-relaxed">
+                Få kandidater matchar just nu. Poolen växer varje vecka, {' '}
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const name = window.prompt(
+                      'Spara den här sökningen och få mejl när fler kandidater matchar. Ge sökningen ett namn:'
+                    );
+                    if (name && name.trim()) await saveSearch(name.trim());
+                  }}
+                  className="font-bold text-amber-800 underline underline-offset-2 hover:text-amber-900"
+                >
+                  spara sökningen
+                </button>{' '}
+                så mejlar vi dig så fort det dyker upp nya som passar.
+              </p>
+            </div>
           )}
 
           {loading && candidates === null ? (

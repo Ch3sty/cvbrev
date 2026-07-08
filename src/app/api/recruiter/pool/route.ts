@@ -99,21 +99,26 @@ export async function GET(request: NextRequest) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: interests } = await (admin as any)
       .from('candidate_interests')
-      .select('candidate_user_id, status')
+      .select('candidate_user_id, status, created_at')
       .eq('recruiter_user_id', user.id);
 
-    const interestByCandidate = new Map<string, string>(
-      ((interests ?? []) as Array<{ candidate_user_id: string; status: string }>).map((i) => [
-        i.candidate_user_id,
-        i.status,
-      ])
+    const interestByCandidate = new Map<string, { status: string; createdAt: string | null }>(
+      ((interests ?? []) as Array<{
+        candidate_user_id: string;
+        status: string;
+        created_at: string | null;
+      }>).map((i) => [i.candidate_user_id, { status: i.status, createdAt: i.created_at }])
     );
 
     const start = (page - 1) * PAGE_SIZE;
-    const pageItems = candidates.slice(start, start + PAGE_SIZE).map((card) => ({
-      ...card,
-      interestStatus: interestByCandidate.get(card.userId) ?? null,
-    }));
+    const pageItems = candidates.slice(start, start + PAGE_SIZE).map((card) => {
+      const interest = interestByCandidate.get(card.userId);
+      return {
+        ...card,
+        interestStatus: interest?.status ?? null,
+        interestSentAt: interest?.createdAt ?? null,
+      };
+    });
 
     return NextResponse.json({
       candidates: pageItems,

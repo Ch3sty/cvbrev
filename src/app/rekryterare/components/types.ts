@@ -55,7 +55,20 @@ export type InterestStatus = 'pending' | 'accepted' | 'declined' | null;
 export type PoolCandidate = CandidateCard & {
   matchReasons: string[];
   interestStatus: InterestStatus;
+  /** När intresset skickades (för "väntar X dagar"-signalen). null = inget skickat. */
+  interestSentAt?: string | null;
 };
+
+/** "för 3 dagar sedan" / "idag" / "igår" ur en ISO-tid. null vid oparsbart. */
+export function relativeDays(iso: string | null | undefined): string | null {
+  if (!iso) return null;
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return null;
+  const days = Math.floor((Date.now() - then) / (24 * 60 * 60 * 1000));
+  if (days <= 0) return 'idag';
+  if (days === 1) return 'igår';
+  return `${days} dgr`;
+}
 
 export type PoolSortKey = 'relevance' | 'seniority' | 'recent' | 'testScore';
 
