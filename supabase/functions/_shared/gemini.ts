@@ -104,10 +104,37 @@ function extractText(data: any): string {
     .join('');
 }
 
+/** true när svaret kapades av maxOutputTokens (då blir JSON:en ofullständig). */
+function wasTruncated(data: any): boolean {
+  return data?.candidates?.[0]?.finishReason === 'MAX_TOKENS';
+}
+
+/**
+ * Bästa-möjliga-reparation av JSON som kapats mitt i (t.ex. av MAX_TOKENS):
+ * stäng en öppen sträng, släng ett hängande objekt/komma efter sista kompletta
+ * elementet, och balansera kvarvarande ] och }. Målet är att rädda de element
+ * som HANN bli kompletta i stället för att kasta hela svaret.
+ */
+function repairTruncatedJson(text: string): string {
+  let s = text.trim();
+  // Klipp bort ett ev. sista, ofullständigt objekt: backa till sista "}".
+  const lastClose = s.lastIndexOf('}');
+  if (lastClose !== -1) s = s.slice(0, lastClose + 1);
+  // Släng hängande komma ("...}, ").
+  s = s.replace(/,\s*$/, '');
+  // Balansera hakparenteser och klammer (fler öppningar än stängningar).
+  const open = (ch: string) => (s.match(new RegExp('\\' + ch, 'g')) || []).length;
+  const needBrackets = open('[') - open(']');
+  const needBraces = open('{') - open('}');
+  if (needBraces > 0) s += '}'.repeat(needBraces);
+  if (needBrackets > 0) s += ']'.repeat(needBrackets);
+  return s;
+}
+
 /** Textgenerering. Motsvarar tidigare chat/completions-anrop. */
 export async function geminiGenerate(
   opts: GeminiGenerateOptions
-): Promise<{ text: string; model: string; usage: GeminiUsage | null }> {
+): Promise<{ text: string; model: string; usage: GeminiUsage | null; truncated: boolean }> {
   const model = opts.model ?? GEMINI_MODELS.quality;
 
   const generationConfig: Record<string, unknown> = {};
@@ -131,7 +158,7 @@ export async function geminiGenerate(
   }
 
   const data = await geminiFetch(`${GEMINI_BASE_URL}/models/${model}:generateContent`, body);
-  return { text: extractText(data), model, usage: extractUsage(data) };
+  return { text: extractText(data), model, usage: extractUsage(data), truncated: wasTruncated(data) };
 }
 
 /** Tar bort ev. markdown-staket runt JSON-svar. */
@@ -149,11 +176,25 @@ export async function geminiGenerateJSON<T = any>(
   if (!result.text.trim()) {
     throw new Error('Gemini returned empty JSON response (check maxOutputTokens/thinkingBudget)');
   }
+  const cleaned = stripJsonFences(result.text);
   let parsed: T;
   try {
-    parsed = JSON.parse(stripJsonFences(result.text)) as T;
+    parsed = JSON.parse(cleaned) as T;
   } catch {
-    throw new Error(`Gemini returned invalid JSON: ${result.text.substring(0, 200)}`);
+    // Kapat svar (oftast MAX_TOKENS): försök rädda de kompletta elementen i
+    // stället för att kasta hela analysen. Ett trunkerat men reparerbart svar
+    // ger ändå användbara förslag.
+    try {
+      parsed = JSON.parse(repairTruncatedJson(cleaned)) as T;
+      console.warn(
+        `[gemini] JSON var trunkerad${result.truncated ? ' (MAX_TOKENS)' : ''}, reparerad och tolkad. Höj maxOutputTokens för fullständigt svar.`
+      );
+    } catch {
+      const hint = result.truncated
+        ? ' (svaret kapades av maxOutputTokens, höj gränsen)'
+        : '';
+      throw new Error(`Gemini returned invalid JSON${hint}: ${cleaned.substring(0, 200)}`);
+    }
   }
   return { data: parsed, text: result.text, model: result.model, usage: result.usage };
 }

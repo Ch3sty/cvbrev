@@ -175,8 +175,31 @@ Deno.serve(async (req) => {
       const skillsResult = await geminiGenerateJSON({
         model: GEMINI_MODELS.quality,
         temperature: 0.5,
-        maxOutputTokens: 3000,
+        maxOutputTokens: 6000,
         thinkingBudget: 0,
+        // Schema håller svaret kompakt och kapar långa reasoning-strängar som
+        // tidigare sprängde token-gränsen och trunkerade JSON:en.
+        schema: {
+          type: 'object',
+          properties: {
+            skillSuggestions: {
+              type: 'array',
+              maxItems: 24,
+              items: {
+                type: 'object',
+                properties: {
+                  skill: { type: 'string' },
+                  relevance: { type: 'string', enum: ['high', 'medium', 'low'] },
+                  source: { type: 'string' },
+                  reasoning: { type: 'string' },
+                  atsImpact: { type: 'number' },
+                },
+                required: ['skill', 'relevance', 'source', 'reasoning', 'atsImpact'],
+              },
+            },
+          },
+          required: ['skillSuggestions'],
+        },
         systemInstruction: 'Du är en ATS-optimeringskonsult för svenska arbetsmarknaden. Extrahera EXAKTA kompetenser som svenska jobbannonser söker efter för det här yrket.',
         prompt: `Analysera dessa yrkesroller och extrahera kompetenser som EXAKT matchar termer i svenska jobbannonser.
 
