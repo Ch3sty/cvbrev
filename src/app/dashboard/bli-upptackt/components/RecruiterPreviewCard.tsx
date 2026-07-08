@@ -1,6 +1,7 @@
 'use client';
 
 import SectionCard from './SectionCard';
+import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip';
 import {
   AVAILABILITY_OPTIONS,
   FAMILY_LABELS,
@@ -63,6 +64,10 @@ export default function RecruiterPreviewCard({
 
   // Arbetsstilen delas med samma samtycke som styrkorna (show_personality).
   const workStyle = profile.show_personality ? summary?.personality?.workStyle ?? null : null;
+  // Kortets två spektra + trivs-rad, exakt det rekryteraren ser.
+  const cardWorkStyle = profile.show_personality
+    ? summary?.personality?.cardWorkStyle ?? null
+    : null;
 
   const skillChips = (summary?.skills?.skills ?? []).slice(0, 5);
 
@@ -186,26 +191,32 @@ export default function RecruiterPreviewCard({
           </div>
         )}
 
-        {/* Arbetsstil: exakt det rekryteraren ser, arketyp + de två första punkterna */}
+        {/* Arbetsstil: exakt det rekryteraren ser, arketyp + två spektra + trivs-rad */}
         {workStyle && (
           <div className="mb-2.5 rounded-xl border border-indigo-100 bg-indigo-50/60 px-3 py-2.5">
             <p className="text-[12.5px] font-bold text-indigo-900">
               {workStyle.archetype.title}
             </p>
-            <ul className="mt-1 space-y-0.5">
-              {workStyle.statements.slice(0, 2).map((statement) => (
-                <li
-                  key={statement}
-                  className="flex items-start gap-1.5 text-[11.5px] text-indigo-900/70 leading-snug"
-                >
-                  <span
-                    className="w-1 h-1 rounded-full bg-indigo-400 flex-shrink-0 mt-[5px]"
-                    aria-hidden="true"
-                  />
-                  {statement}
-                </li>
-              ))}
-            </ul>
+            {cardWorkStyle ? (
+              <div className="mt-2">
+                <CardWorkStyleStrip data={cardWorkStyle} thrivesForm="candidate" />
+              </div>
+            ) : (
+              <ul className="mt-1 space-y-0.5">
+                {workStyle.statements.slice(0, 2).map((statement) => (
+                  <li
+                    key={statement}
+                    className="flex items-start gap-1.5 text-[11.5px] text-indigo-900/70 leading-snug"
+                  >
+                    <span
+                      className="w-1 h-1 rounded-full bg-indigo-400 flex-shrink-0 mt-[5px]"
+                      aria-hidden="true"
+                    />
+                    {statement}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
 

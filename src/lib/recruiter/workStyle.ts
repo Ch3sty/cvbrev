@@ -31,6 +31,20 @@ export interface WorkStyle {
   statements: string[];
 }
 
+/**
+ * Kompakt arbetsstil för kandidatKORTET (inte detaljprofilen). Alltid exakt två
+ * spektra (de mest avvikande) + den starkaste "trivs när"-frasen. Härleds ur
+ * samma motor som fullrapporten, så kandidatens preview och rekryterarens kort
+ * aldrig divergerar.
+ */
+export interface CardWorkStyle {
+  archetype: { title: string; description: string };
+  /** Exakt två spektra, mest avvikande först. Aldrig neutralt band när det går. */
+  spectra: SpectrumView[];
+  /** Kortaste, starkaste miljöpassningen ("processer är tydliga och ..."), eller null. */
+  thrivesWhen: string | null;
+}
+
 export interface DomainScores {
   openness: number;
   conscientiousness: number;
@@ -269,6 +283,19 @@ function spectrumView(s: Salience, facet: string): SpectrumView | null {
   if (band === null || !def) return null;
   return { key: facet, leftLabel: def.left, rightLabel: def.right, band };
 }
+
+/**
+ * Prioordning när flera spektra avviker lika mycket. Tempo och energikälla är
+ * mest beslutsrelevanta för en rekryterare (matchar roll och teamupplägg), så
+ * de vinner vid oavgjort. Sist: kommunikationsstil, känsligast att reducera.
+ */
+const SPECTRUM_CARD_PRIORITY: string[] = [
+  'e4_activity_level',
+  'e2_gregariousness',
+  'c2_orderliness',
+  'c6_cautiousness',
+  'e3_assertiveness',
+];
 
 // ---------------------------------------------------------------------------
 // Copybanker. Alla villkor och texter som data. `own` är samma innehåll i
@@ -891,6 +918,50 @@ export function deriveWorkStyleReport(
     needs: buildNeedsSection(s, false),
     onboarding: buildOnboardingSection(s),
     interviewGuide: buildInterviewGuideV2(s),
+  };
+}
+
+/**
+ * Kortets arbetsstil: exakt två spektra (mest avvikande från neutralt läge) och
+ * den starkaste "trivs när"-frasen. Kräver facetter (avancerat test). Neutralt
+ * band (3) väljs bara i sista hand om färre än två spektra avviker, så kortet
+ * alltid har två linjer att rita. Returnerar null utan facetter.
+ */
+export function deriveCardWorkStyle(
+  domains: DomainScores,
+  facets: Record<string, number> | null
+): CardWorkStyle | null {
+  if (!facets || Object.keys(facets).length === 0) return null;
+  const s = buildSalience(facets);
+  if (!s) return null;
+
+  // Alla fem spektra med sitt band, avvikelse = avstånd från neutralt band 3.
+  const ranked = Object.keys(SPECTRA)
+    .map((facet) => spectrumView(s, facet))
+    .filter((v): v is SpectrumView => v !== null)
+    .map((v) => ({
+      view: v,
+      deviation: Math.abs(v.band - 3),
+      priority: SPECTRUM_CARD_PRIORITY.indexOf(v.key),
+    }))
+    .sort((a, b) => {
+      // Avvikande före neutralt, sedan störst avvikelse, sedan prioordning.
+      if (b.deviation !== a.deviation) return b.deviation - a.deviation;
+      return a.priority - b.priority;
+    });
+
+  // Alltid två linjer på kortet (fyll med minst neutrala om det behövs).
+  const spectra = ranked.slice(0, 2).map((r) => r.view);
+  if (spectra.length < 2) return null;
+
+  // Starkaste miljöpassningen: första THRIVES-träffen (banken är redan
+  // ordnad efter relevans, samma härledning som fullrapporten).
+  const thrives = THRIVES_BANK.find((v) => v.when(s));
+
+  return {
+    archetype: archetypeFor(domains),
+    spectra,
+    thrivesWhen: thrives ? thrives.thrivesWhen : null,
   };
 }
 

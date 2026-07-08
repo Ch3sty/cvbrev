@@ -18,6 +18,13 @@ const EXAMPLES: StaticCandidateData[] = [
     testBadges: ['Matrislogik · topp 5 %', 'Verbalt · topp 20 %'],
     strengths: ['Nyfiken', 'Samarbetsinriktad'],
     skills: ['React', 'TypeScript', 'Tillgänglighet'],
+    workStyle: {
+      spectra: [
+        { key: 'e4_activity_level', leftLabel: 'Jämnt, uthålligt tempo', rightLabel: 'Högt tempo, många bollar', band: 4 },
+        { key: 'c2_orderliness', leftLabel: 'Improviserar och anpassar', rightLabel: 'Planerar och strukturerar', band: 2 },
+      ],
+      thrivesWhen: 'förutsättningar förändras och nya vägar behöver prövas',
+    },
     conditions: ['3 månader', 'Distans/Hybrid', 'Heltid'],
   },
   {
@@ -28,6 +35,13 @@ const EXAMPLES: StaticCandidateData[] = [
     testBadges: ['Verbalt · topp 10 %', 'Numeriskt · topp 25 %'],
     strengths: ['Lugn under press', 'Coachande'],
     skills: ['Teamledning', 'Zendesk', 'NPS-arbete'],
+    workStyle: {
+      spectra: [
+        { key: 'e2_gregariousness', leftLabel: 'Får energi av eget fokusarbete', rightLabel: 'Får energi av samarbete i grupp', band: 5 },
+        { key: 'e3_assertiveness', leftLabel: 'Påverkar genom lyssnande och underlag', rightLabel: 'Tar naturligt kommandot i rummet', band: 4 },
+      ],
+      thrivesWhen: 'arbetet sker nära kollegor och kunder',
+    },
     conditions: ['1 månad', 'På plats', 'Heltid', 'B-körkort'],
   },
 ]

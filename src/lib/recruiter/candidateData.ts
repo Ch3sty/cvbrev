@@ -18,17 +18,19 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database.types';
 import {
   deriveWorkStyle,
+  deriveCardWorkStyle,
   deriveInterviewGuide,
   deriveWorkStyleReport,
   WORKSTYLE_DISCLAIMER,
   type WorkStyle,
+  type CardWorkStyle,
   type WorkStyleReport,
   type DomainScores,
 } from './workStyle';
 
 /** Disclaimer som UI:t visar ovanför arbetsstilsrapporten, ordagrant. */
 export { WORKSTYLE_DISCLAIMER, CONTEXT_TAG_MICROCOPY } from './workStyle';
-export type { WorkStyleReport, InterviewQuestion, SpectrumView, ThrivesCard } from './workStyle';
+export type { WorkStyleReport, CardWorkStyle, InterviewQuestion, SpectrumView, ThrivesCard } from './workStyle';
 
 type Admin = SupabaseClient<Database>;
 
@@ -164,6 +166,11 @@ export interface CandidateCard {
    * ENDAST ifylld när kandidaten valt show_personality och har facetter.
    */
   workStyleArchetype: string | null;
+  /**
+   * Kortets kompakta arbetsstil: två mest avvikande spektra + trivs-fras.
+   * ENDAST ifylld när kandidaten valt show_personality och gjort avancerat test.
+   */
+  cardWorkStyle: CardWorkStyle | null;
   /** Färskhetssignal: consent_given_at, annars created_at. */
   activeSince: string | null;
   /** Kandidatens självvalda kontexttaggar ("Söker mig till"), max 2. */
@@ -446,13 +453,13 @@ function strengthsFromDomains(row: Record<string, number | null>): string[] {
 async function fetchPersonalityCardData(
   admin: Admin,
   userId: string
-): Promise<{ strengths: string[]; archetype: string | null }> {
+): Promise<{ strengths: string[]; archetype: string | null; cardWorkStyle: CardWorkStyle | null }> {
   const { data } = await (admin as any)
     .from('user_personality_profile')
     .select('openness, conscientiousness, extraversion, agreeableness, neuroticism, facet_scores')
     .eq('user_id', userId)
     .maybeSingle();
-  if (!data) return { strengths: [], archetype: null };
+  if (!data) return { strengths: [], archetype: null, cardWorkStyle: null };
   const row = data as Record<string, number | null> & {
     facet_scores: Record<string, number> | null;
   };
@@ -463,10 +470,13 @@ async function fetchPersonalityCardData(
     agreeableness: row.agreeableness ?? 50,
     neuroticism: row.neuroticism ?? 50,
   };
-  const workStyle = deriveWorkStyle(domains, row.facet_scores ?? null);
+  const facets = row.facet_scores ?? null;
+  const workStyle = deriveWorkStyle(domains, facets);
   return {
     strengths: strengthsFromDomains(row),
     archetype: workStyle?.archetype.title ?? null,
+    // Kortets två spektra + trivs-fras. null för grundtestare (inga facetter).
+    cardWorkStyle: deriveCardWorkStyle(domains, facets),
   };
 }
 
@@ -792,7 +802,11 @@ export async function buildCandidateCard(
     fetchSessions(admin, row.user_id),
     row.show_personality
       ? fetchPersonalityCardData(admin, row.user_id)
-      : Promise.resolve({ strengths: [] as string[], archetype: null as string | null }),
+      : Promise.resolve({
+          strengths: [] as string[],
+          archetype: null as string | null,
+          cardWorkStyle: null as CardWorkStyle | null,
+        }),
   ]);
 
   const testBadges = await buildTestBadges(sessions, percentileCtx);
@@ -819,6 +833,7 @@ export async function buildCandidateCard(
     pitch: row.pitch?.trim() || null,
     historyTitles: deriveHistoryTitles(roleSkills.sd),
     workStyleArchetype: personalityCard.archetype,
+    cardWorkStyle: personalityCard.cardWorkStyle,
     activeSince: row.consent_given_at ?? row.created_at ?? null,
     contextTags: row.context_tags ?? [],
   };

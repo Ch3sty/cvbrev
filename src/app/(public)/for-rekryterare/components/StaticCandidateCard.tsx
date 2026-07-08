@@ -7,6 +7,10 @@
  * ändra förlagan.
  */
 
+import CardWorkStyleStrip, {
+  type CardWorkStyleStripData,
+} from '@/components/candidate/CardWorkStyleStrip'
+
 export interface StaticCandidateData {
   role: string
   region: string
@@ -20,6 +24,8 @@ export interface StaticCandidateData {
   conditions: string[]
   /** Självvalda kontexttaggar ("Söker mig till"), visas som indigo-outline. */
   contextTags?: string[]
+  /** Arbetsstil: två spektra + trivs-rad (samma uttryck som riktiga kortet). */
+  workStyle?: CardWorkStyleStripData
 }
 
 export default function StaticCandidateCard({
@@ -27,7 +33,7 @@ export default function StaticCandidateCard({
 }: {
   candidate: StaticCandidateData
 }) {
-  const { role, region, seniorityFacts, pitch, testBadges, strengths, skills, conditions, contextTags } =
+  const { role, region, seniorityFacts, pitch, testBadges, strengths, skills, conditions, contextTags, workStyle } =
     candidate
   const avatarInitial = role.charAt(0).toUpperCase()
 
@@ -75,6 +81,13 @@ export default function StaticCandidateCard({
         <p className="mb-2.5 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
           &rdquo;{pitch}&rdquo;
         </p>
+      )}
+
+      {/* Arbetsstil: två spektra + trivs-rad */}
+      {workStyle && (
+        <div className="mb-2.5">
+          <CardWorkStyleStrip data={workStyle} />
+        </div>
       )}
 
       {/* Rad 1: verifierat (testresultat + styrkor) — det ingen annan kan visa */}

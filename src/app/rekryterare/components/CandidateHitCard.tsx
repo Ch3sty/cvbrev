@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Check, Clock, X } from 'lucide-react';
+import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip';
 import {
   AVAILABILITY_OPTIONS,
   WORKPLACE_OPTIONS,
@@ -114,6 +115,13 @@ export default function CandidateHitCard({
         <p className="mb-2.5 text-[12.5px] italic text-slate-600 leading-relaxed line-clamp-2">
           &rdquo;{candidate.pitch}&rdquo;
         </p>
+      )}
+
+      {/* Arbetsstil: två mest avvikande spektra + trivs-rad (avancerat test) */}
+      {candidate.cardWorkStyle && (
+        <div className="mb-2.5">
+          <CardWorkStyleStrip data={candidate.cardWorkStyle} />
+        </div>
       )}
 
       {/* Rad 1: verifierat (testresultat + styrkor) — det ingen annan kan visa */}

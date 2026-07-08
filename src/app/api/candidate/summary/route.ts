@@ -5,10 +5,12 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
 import {
   deriveWorkStyle,
+  deriveCardWorkStyle,
   deriveWorkStyleReport,
   deriveCandidateOwnReport,
   deriveContextTagOptions,
   type WorkStyle,
+  type CardWorkStyle,
   type WorkStyleReport,
   type CandidateOwnReport,
 } from '@/lib/recruiter/workStyle';
@@ -195,6 +197,8 @@ export async function GET(request: Request) {
       done: boolean;
       strengths: string[];
       workStyle: WorkStyle | null;
+      /** Kortets två spektra + trivs-fras, samma härledning som rekryterarkortet. */
+      cardWorkStyle: CardWorkStyle | null;
       /** Rekryterarens fullrapport, för förhandsvisningen (nivå 2-samtycket). */
       workStyleReport: WorkStyleReport | null;
       /** Kandidatens privata rapport i du-form. Delas aldrig. */
@@ -206,6 +210,7 @@ export async function GET(request: Request) {
       done: false,
       strengths: [],
       workStyle: null,
+      cardWorkStyle: null,
       workStyleReport: null,
       ownReport: null,
       contextTagOptions: [],
@@ -235,6 +240,7 @@ export async function GET(request: Request) {
         done: true,
         strengths,
         workStyle: deriveWorkStyle(domains, facets),
+        cardWorkStyle: deriveCardWorkStyle(domains, facets),
         workStyleReport: deriveWorkStyleReport(domains, facets),
         ownReport: deriveCandidateOwnReport(domains, facets),
         contextTagOptions: deriveContextTagOptions(facets),

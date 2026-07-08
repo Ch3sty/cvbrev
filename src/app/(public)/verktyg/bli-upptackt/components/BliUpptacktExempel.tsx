@@ -1,6 +1,15 @@
+import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip'
 import { GradText, GRAD_O, SectionHead } from './shared'
 
 const SKILLS = ['Bokslut', 'Koncernredovisning', 'Fortnox']
+
+const EXAMPLE_WORKSTYLE = {
+  spectra: [
+    { key: 'c2_orderliness', leftLabel: 'Improviserar och anpassar', rightLabel: 'Planerar och strukturerar', band: 5 as const },
+    { key: 'e2_gregariousness', leftLabel: 'Får energi av eget fokusarbete', rightLabel: 'Får energi av samarbete i grupp', band: 2 as const },
+  ],
+  thrivesWhen: 'processer är tydliga och kvalitet hinner göras rätt',
+}
 
 /**
  * Demonstrativ, avidentifierad exempelprofil: exakt vad en rekryterare ser,
@@ -40,6 +49,10 @@ export default function BliUpptacktExempel() {
           <p className="text-[12.5px] italic text-slate-600 leading-relaxed mb-2.5">
             &ldquo;Redovisningsekonom med åtta år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp.&rdquo;
           </p>
+
+          <div className="mb-2.5">
+            <CardWorkStyleStrip data={EXAMPLE_WORKSTYLE} />
+          </div>
 
           <div className="flex flex-wrap gap-1.5 mb-2">
             <span className="text-[11px] font-bold rounded-full px-2.5 py-1.5 bg-orange-50 border border-[#FBCFA0] text-orange-800">

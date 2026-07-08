@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
 import AddToProjectMenu from './AddToProjectMenu';
+import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip';
 import { InterestStatusBadge } from './CandidateTable';
 import {
   AVAILABILITY_OPTIONS,
@@ -237,14 +238,20 @@ function PeekContent({
                   {workStyle.archetype.description}
                 </p>
               )}
-              {workStyle?.statements[0] && (
-                <p className="mt-2 flex items-start gap-2 text-[12.5px] text-slate-700 leading-relaxed">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 mt-[6px]"
-                    aria-hidden="true"
-                  />
-                  {workStyle.statements[0]}
-                </p>
+              {candidate.cardWorkStyle ? (
+                <div className="mt-2.5">
+                  <CardWorkStyleStrip data={candidate.cardWorkStyle} />
+                </div>
+              ) : (
+                workStyle?.statements[0] && (
+                  <p className="mt-2 flex items-start gap-2 text-[12.5px] text-slate-700 leading-relaxed">
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 mt-[6px]"
+                      aria-hidden="true"
+                    />
+                    {workStyle.statements[0]}
+                  </p>
+                )
               )}
               <Link
                 href={`${profileHref}#arbetsstil`}

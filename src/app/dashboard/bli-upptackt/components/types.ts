@@ -2,6 +2,7 @@
 
 import type {
   CandidateOwnReport,
+  CardWorkStyle,
   WorkStyleReport,
 } from '@/lib/recruiter/workStyle';
 
@@ -69,6 +70,11 @@ export interface SummaryData {
       archetype: { title: string; description: string };
       statements: string[];
     } | null;
+    /**
+     * Kortets kompakta arbetsstil: två mest avvikande spektra + trivs-fras.
+     * Samma härledning som rekryterarkortet. null för grundtestare.
+     */
+    cardWorkStyle: CardWorkStyle | null;
     /**
      * Rekryterarens fullständiga rapport, exakt som den renderas hos
      * rekryteraren. Används för förhandsvisningen vid nivå 2-samtycket.

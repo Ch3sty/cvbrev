@@ -21,6 +21,13 @@ const HERO_CANDIDATE: StaticCandidateData = {
   strengths: ['Strukturerad', 'Analytisk'],
   skills: ['Bokslut', 'Koncernredovisning', 'Fortnox'],
   contextTags: ['Analytiskt djuparbete'],
+  workStyle: {
+    spectra: [
+      { key: 'c2_orderliness', leftLabel: 'Improviserar och anpassar', rightLabel: 'Planerar och strukturerar', band: 5 },
+      { key: 'e2_gregariousness', leftLabel: 'Får energi av eget fokusarbete', rightLabel: 'Får energi av samarbete i grupp', band: 2 },
+    ],
+    thrivesWhen: 'processer är tydliga och kvalitet hinner göras rätt',
+  },
   conditions: ['Omgående', 'Hybrid/På plats', 'Heltid', 'B-körkort'],
 }
 
