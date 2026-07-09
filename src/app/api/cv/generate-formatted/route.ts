@@ -1945,15 +1945,49 @@ async function createBasicCVPDF(html: string): Promise<Buffer> {
     try {
       await page.setViewport({ width: 794, height: 1123 }); // A4
       await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
-      
+      await page.evaluateHandle('document.fonts.ready').catch(() => {});
+
+      // Samma fragmenteringssäkring som huvudgeneratorn, så även reservvägen
+      // aldrig lämnar headern ensam på sida 1.
+      await page.addStyleTag({
+        content: `
+          @page { margin: 0; size: A4; }
+          @media print {
+            .cv-container, .cv-wrapper, .resume, .page { min-height: 0 !important; height: auto !important; }
+            .experience-item, .education-item, .cv-section, .section { break-inside: avoid; page-break-inside: avoid; }
+            header, .header, .photo-banner, .cv-header { break-after: avoid; page-break-after: avoid; }
+            * { -webkit-print-color-adjust: exact !important; }
+          }
+        `,
+      });
+
+      // Fit-to-page: skala ned om innehållet är marginellt för högt (samma
+      // logik som huvudgeneratorn), annars flera sidor med brytning i botten.
+      let scale = 1;
+      try {
+        const contentPx: number = await page.evaluate(() => {
+          let max = 0;
+          for (const sel of ['.cv-container', '.cv-wrapper', '.resume', '.page']) {
+            document.querySelectorAll(sel).forEach((el) => {
+              max = Math.max(max, (el as HTMLElement).offsetHeight);
+            });
+          }
+          return max || document.body.scrollHeight;
+        });
+        const ratio = contentPx / 1123;
+        if (ratio > 1 && ratio <= 1.18) scale = Math.max(0.85, (1 / ratio) * 0.995);
+      } catch { /* behåll scale 1 */ }
+
       const pdfBuffer = await page.pdf({
         format: 'A4',
         printBackground: true,
         // Noll marginal, samma skäl som huvudgeneratorn: mallen är full-bleed.
         margin: { top: '0', right: '0', bottom: '0', left: '0' },
-        preferCSSPageSize: true,
+        // preferCSSPageSize inte true: den skulle få Chromium att ignorera scale.
+        preferCSSPageSize: false,
+        scale,
       });
-      
+
       return Buffer.from(pdfBuffer);
     } finally {
       await page.close();

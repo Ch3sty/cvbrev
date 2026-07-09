@@ -148,10 +148,23 @@ export class SwedishCVPDFGenerator {
         
         // Konfigurera PDF-inställningar enligt svenska standarder
         const pdfOptions = this.getSwedishPDFOptions(options);
-        
+
+        // FIT-TO-PAGE: mallarna är designade som exakt en A4-sida, men riktigt
+        // innehåll kan tippa några mm över 297mm. Body är ofta en CSS-grid som
+        // Chromium inte kan dela, så hela blocket knuffas till sida 2 och headern
+        // blir ensam. Är innehållet BARA marginellt för högt skalar vi ned det så
+        // det ryms på en sida (löser buggen för alla mallar oavsett grid-struktur).
+        // Är CV:t genuint långt (flersidigt) lämnar vi scale=1 och låter de
+        // fragmenteringssäkra print-reglerna bryta i botten, aldrig efter headern.
+        const fitScale = await this.computeFitToPageScale(page);
+        if (fitScale < 1) {
+          (pdfOptions as any).scale = fitScale;
+          console.log(`CV skalas till ${Math.round(fitScale * 1000) / 10}% för att rymmas på en sida`);
+        }
+
         // Pre-flight validering för svenskt CV
         await this.validateSwedishCVLayout(page, options);
-        
+
         // Generera PDF
         const pdfBuffer = await page.pdf(pdfOptions);
         
@@ -301,18 +314,35 @@ export class SwedishCVPDFGenerator {
            min-height och gör body-gridet delbart, så innehållet flödar direkt
            under headern och en ev. brytning sker längst ned, aldrig i toppen. */
         @media print {
+          /* Låt containern krympa till innehållet, annars tvingar min-height:
+             297mm den till minst en full sida och headern + body tippar över. */
           .cv-container, .cv-wrapper, .resume, .page {
             min-height: 0 !important;
             height: auto !important;
           }
-          .body-grid, .cv-body, .content, .main-content {
-            break-inside: auto !important;
-            page-break-inside: auto !important;
-            /* Trimma trailing-whitespace i botten. Mallarnas 26mm botten-padding
-               + full min-height tippade totalen strax över 297mm, vilket knuffade
-               hela (odelbara) body-gridet till sida 2. 12mm räcker gott och tar
-               bara bort tom yta längst ned, aldrig innehåll. */
-            padding-bottom: 12mm !important;
+          /* En CSS-grid kan inte delas över sidor i Chromium, så ett tvåkolumns-
+             body-grid som är längre än en sida flyttas i sin helhet och headern
+             blir ensam (eller ett långt CV spricker till fyra sidor). Gör det
+             vanligaste body-mönstret (huvudkolumn + fast sidokolumn) till ett
+             fragmenterbart block-flöde med flytande sidokolumn i PRINT. Endast
+             kända, säkra klassnamn, aldrig inre sektions-grids. */
+          .body-grid { display: block !important; }
+          .body-grid > .side-col { float: right !important; width: 200px !important; margin-left: 24px !important; }
+          .body-grid > .main-col { display: block !important; width: auto !important; }
+          .body-grid::after { content: ""; display: block; clear: both; }
+          /* Sidokolumnen får inte bli längre än huvudkolumnen och skapa en
+             halvtom andra sida, håll den ihop. */
+          .body-grid > .side-col { break-inside: avoid; }
+
+          /* Håll ihop rubrik + innehåll, och lämna aldrig headern ensam: en ev.
+             sidbrytning skjuts nedåt förbi headern och första sektionen. */
+          .experience-item, .education-item, .cv-section, .section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+          header, .header, .photo-banner, .cv-header {
+            break-after: avoid;
+            page-break-after: avoid;
           }
         }
 
@@ -332,6 +362,45 @@ export class SwedishCVPDFGenerator {
     });
   }
   
+  /**
+   * Räknar ut en skalfaktor så ett CV som är marginellt för högt ryms på EN
+   * A4-sida. Mäter den högsta CV-containerns verkliga höjd (px vid 96dpi,
+   * A4 = 1123px hög). Skalar bara ned när innehållet är strax över en sida
+   * (upp till ~12%); är CV:t genuint flersidigt returneras 1 så det bryts
+   * normalt. Golv på 0.85 så texten aldrig blir oläsbart liten.
+   */
+  private async computeFitToPageScale(page: any): Promise<number> {
+    const A4_PX = 1123; // 297mm vid 96dpi
+    const MIN_SCALE = 0.82;
+    const MAX_OVERFLOW = 1.20; // skala bara om innehållet ryms inom golvet
+    try {
+      // Mät i PRINT-media så höjden speglar print-layouten (t.ex. body-gridet
+      // som blir block+float i print). Mäts det i screen-media blir skalan fel.
+      await page.emulateMediaType('print');
+      const contentPx: number = await page.evaluate(() => {
+        const sels = ['.cv-container', '.cv-wrapper', '.resume', '.page'];
+        let max = 0;
+        for (const sel of sels) {
+          document.querySelectorAll(sel).forEach((el) => {
+            max = Math.max(max, (el as HTMLElement).getBoundingClientRect().height);
+          });
+        }
+        return max || document.body.scrollHeight;
+      });
+      await page.emulateMediaType(null); // återställ
+      if (!contentPx || contentPx <= A4_PX) return 1;
+      const ratio = contentPx / A4_PX;
+      // Genuint flersidigt (mer än golvet klarar): låt det bli flera sidor och
+      // låt print-CSS:en bryta i botten (float-body fragmenterar rent).
+      if (ratio > MAX_OVERFLOW) return 1;
+      // Skala så det precis ryms, med en liten säkerhetsmarginal.
+      const scale = Math.max(MIN_SCALE, (1 / ratio) * 0.99);
+      return scale;
+    } catch {
+      return 1;
+    }
+  }
+
   /**
    * Hämtar svenska CV-färgschema
    */
@@ -387,7 +456,11 @@ export class SwedishCVPDFGenerator {
       // trycker innehållet till sida 2 (headern hamnade ensam på sida 1).
       margin: { top: '0', right: '0', bottom: '0', left: '0' },
       displayHeaderFooter: false,
-      preferCSSPageSize: true,
+      // OBS: preferCSSPageSize får INTE vara true här. Då ignorerar Chromium
+      // scale-parametern, och fit-to-page-skalningen (som räddar ett CV som är
+      // marginellt för högt) slutar fungera. format A4 + noll marginal ger ändå
+      // rätt sidstorlek eftersom mallarna redan är 210mm breda.
+      preferCSSPageSize: false,
       // Svenska CV-specifika inställningar
       tagged: true, // För accessibility
       outline: false,
