@@ -326,9 +326,47 @@ export class SwedishCVPDFGenerator {
              la sidokolumnen sist), men en tabell kan fragmenteras över sidor. Så
              ett kort CV ser identiskt ut, och ett långt bryts rent i botten utan
              att headern blir ensam. Endast kända, säkra klassnamn. */
-          .body-grid { display: table !important; width: 100% !important; border-collapse: collapse !important; }
-          .body-grid > .main-col { display: table-cell !important; vertical-align: top !important; }
-          .body-grid > .side-col { display: table-cell !important; vertical-align: top !important; width: 200px !important; padding-left: 24px !important; }
+          /* Padding på ett table-element respekteras opålitligt av renderers,
+             så body-gridets egen sido-padding (28mm) ignorerades och tabellen
+             gick kant-till-kant, innehållet klipptes vid sidkanten. Flytta in
+             sido-inramningen som padding på tabellens WRAPPER-cell i stället:
+             vi lägger den på cellerna (border-box) via en gemensam vänster/höger-
+             marginal, och nollar tabellens egen padding. */
+          .body-grid {
+            display: table !important;
+            table-layout: fixed !important;
+            width: 100% !important;
+            border-collapse: collapse !important;
+            box-sizing: border-box !important;
+            /* Behåll topp/botten men flytta sido-insetet till cellerna nedan. */
+            padding-top: 22px !important;
+            padding-bottom: 26px !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+          /* Cellerna bär sido-insetet (28mm) + mellanrummet (24px) via padding,
+             border-box så det ryms i deklarerad width. main tar resten (auto),
+             side är 200px innehåll + 24px gap + 28mm höger-inset. */
+          .body-grid > .main-col {
+            display: table-cell !important;
+            vertical-align: top !important;
+            width: auto !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            padding-left: 28mm !important;
+            overflow-wrap: anywhere;
+          }
+          .body-grid > .side-col {
+            display: table-cell !important;
+            vertical-align: top !important;
+            width: calc(200px + 24px + 28mm) !important;
+            padding-left: 24px !important;
+            padding-right: 28mm !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            overflow-wrap: anywhere;
+          }
+          .body-grid > .side-col * { max-width: 100% !important; }
 
           /* Håll ihop rubrik + innehåll, och lämna aldrig headern ensam: en ev.
              sidbrytning skjuts nedåt förbi headern och första sektionen. */
