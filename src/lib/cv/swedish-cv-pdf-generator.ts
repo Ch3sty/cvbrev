@@ -338,30 +338,29 @@ export class SwedishCVPDFGenerator {
             width: 100% !important;
             border-collapse: collapse !important;
             box-sizing: border-box !important;
-            /* Behåll topp/botten men flytta sido-insetet till cellerna nedan. */
-            padding-top: 22px !important;
-            padding-bottom: 26px !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            /* ALL padding nollas på tabellen: varken sido- eller topp/botten-
+               padding respekteras pålitligt på ett table-element (headern klistrade
+               upp mot innehållet). Insetet flyttas i sin helhet till cellerna. */
+            padding: 0 !important;
           }
-          /* Cellerna bär sido-insetet (28mm) + mellanrummet (24px) via padding,
-             border-box så det ryms i deklarerad width. main tar resten (auto),
-             side är 200px innehåll + 24px gap + 28mm höger-inset. */
+          /* Cellerna bär hela insetet (topp 22mm-motsvarande, sido 28mm, botten,
+             mellanrum 24px) via padding, border-box så sido-padding inte äter
+             utanför deklarerad bredd. main tar resten (auto), side är 200px
+             innehåll + 24px gap + 28mm höger-inset. */
           .body-grid > .main-col {
             display: table-cell !important;
             vertical-align: top !important;
             width: auto !important;
             min-width: 0 !important;
             box-sizing: border-box !important;
-            padding-left: 28mm !important;
+            padding: 22px 0 26px 28mm !important;
             overflow-wrap: anywhere;
           }
           .body-grid > .side-col {
             display: table-cell !important;
             vertical-align: top !important;
             width: calc(200px + 24px + 28mm) !important;
-            padding-left: 24px !important;
-            padding-right: 28mm !important;
+            padding: 22px 28mm 26px 24px !important;
             min-width: 0 !important;
             box-sizing: border-box !important;
             overflow-wrap: anywhere;
