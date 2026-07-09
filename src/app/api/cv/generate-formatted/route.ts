@@ -1961,6 +1961,38 @@ async function createBasicCVPDF(html: string): Promise<Buffer> {
         `,
       });
 
+      // Grid → table med varje malls faktiska geometri, så tvåkolumns-body:n
+      // blir fragmenterbar utan att designen ändras (samma som huvudgeneratorn).
+      await page.evaluate(() => {
+        document.querySelectorAll<HTMLElement>('.body-grid').forEach((grid) => {
+          const cs = getComputedStyle(grid);
+          if (cs.display !== 'grid') return;
+          const kids = Array.from(grid.children) as HTMLElement[];
+          if (kids.length !== 2) return;
+          const w = kids.map((c) => c.getBoundingClientRect().width);
+          const gap = parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0;
+          const pt = cs.paddingTop, pr = cs.paddingRight, pb = cs.paddingBottom, pl = cs.paddingLeft;
+          grid.style.setProperty('display', 'table', 'important');
+          grid.style.setProperty('table-layout', 'fixed', 'important');
+          grid.style.setProperty('width', '100%', 'important');
+          grid.style.setProperty('border-collapse', 'collapse', 'important');
+          grid.style.setProperty('box-sizing', 'border-box', 'important');
+          grid.style.setProperty('padding', '0', 'important');
+          grid.style.setProperty('gap', '0', 'important');
+          const total = w[0] + w[1] + gap;
+          kids.forEach((cell, i) => {
+            cell.style.setProperty('display', 'table-cell', 'important');
+            cell.style.setProperty('vertical-align', 'top', 'important');
+            cell.style.setProperty('box-sizing', 'border-box', 'important');
+            cell.style.setProperty('min-width', '0', 'important');
+            const pct = total > 0 ? (w[i] + gap / 2) / total * 100 : 50;
+            cell.style.setProperty('width', pct + '%', 'important');
+            const g = gap / 2 + 'px';
+            cell.style.setProperty('padding', i === 0 ? `${pt} ${g} ${pb} ${pl}` : `${pt} ${pr} ${pb} ${g}`, 'important');
+          });
+        });
+      }).catch(() => {});
+
       // Fit-to-page: skala ned om innehållet är marginellt för högt (samma
       // logik som huvudgeneratorn), annars flera sidor med brytning i botten.
       let scale = 1;

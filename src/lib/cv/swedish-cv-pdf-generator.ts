@@ -145,7 +145,11 @@ export class SwedishCVPDFGenerator {
         
         // Svenska CV-specifika CSS-justeringar
         await this.applySwedishCVStyling(page, options);
-        
+
+        // Gör tvåkolumns-body:n fragmenterbar (grid → table) med VARJE malls
+        // faktiska geometri. Måste ske efter applySwedishCVStyling men före mätning.
+        await this.convertGridsToTables(page);
+
         // Konfigurera PDF-inställningar enligt svenska standarder
         const pdfOptions = this.getSwedishPDFOptions(options);
 
@@ -320,51 +324,12 @@ export class SwedishCVPDFGenerator {
             min-height: 0 !important;
             height: auto !important;
           }
-          /* En CSS-grid kan inte delas över sidor i Chromium. Konvertera det
-             vanligaste tvåkolumns-body-mönstret till display:table i PRINT: det
-             BEHÅLLER kolumnordningen och layouten (till skillnad från float, som
-             la sidokolumnen sist), men en tabell kan fragmenteras över sidor. Så
-             ett kort CV ser identiskt ut, och ett långt bryts rent i botten utan
-             att headern blir ensam. Endast kända, säkra klassnamn. */
-          /* Padding på ett table-element respekteras opålitligt av renderers,
-             så body-gridets egen sido-padding (28mm) ignorerades och tabellen
-             gick kant-till-kant, innehållet klipptes vid sidkanten. Flytta in
-             sido-inramningen som padding på tabellens WRAPPER-cell i stället:
-             vi lägger den på cellerna (border-box) via en gemensam vänster/höger-
-             marginal, och nollar tabellens egen padding. */
-          .body-grid {
-            display: table !important;
-            table-layout: fixed !important;
-            width: 100% !important;
-            border-collapse: collapse !important;
-            box-sizing: border-box !important;
-            /* ALL padding nollas på tabellen: varken sido- eller topp/botten-
-               padding respekteras pålitligt på ett table-element (headern klistrade
-               upp mot innehållet). Insetet flyttas i sin helhet till cellerna. */
-            padding: 0 !important;
-          }
-          /* Cellerna bär hela insetet (topp 22mm-motsvarande, sido 28mm, botten,
-             mellanrum 24px) via padding, border-box så sido-padding inte äter
-             utanför deklarerad bredd. main tar resten (auto), side är 200px
-             innehåll + 24px gap + 28mm höger-inset. */
-          .body-grid > .main-col {
-            display: table-cell !important;
-            vertical-align: top !important;
-            width: auto !important;
-            min-width: 0 !important;
-            box-sizing: border-box !important;
-            padding: 22px 0 26px 28mm !important;
-            overflow-wrap: anywhere;
-          }
-          .body-grid > .side-col {
-            display: table-cell !important;
-            vertical-align: top !important;
-            width: calc(200px + 24px + 28mm) !important;
-            padding: 22px 28mm 26px 24px !important;
-            min-width: 0 !important;
-            box-sizing: border-box !important;
-            overflow-wrap: anywhere;
-          }
+          /* Grid → table-konverteringen görs i JS (convertGridsToTables) EFTER
+             att sidan mätts, eftersom varje mall har olika kolumnbredder, gap och
+             var insetet sitter (container vs grid). Hårdkodade mått fungerade bara
+             för en mall. Här lämnar vi bara säkerhetsregler som gäller alla:
+             oavbrutet innehåll får bryta så en cell aldrig tvingas bredare. */
+          .body-grid > .main-col, .body-grid > .side-col { min-width: 0 !important; overflow-wrap: anywhere; }
           .body-grid > .side-col * { max-width: 100% !important; }
 
           /* Håll ihop rubrik + innehåll, och lämna aldrig headern ensam: en ev.
@@ -403,6 +368,73 @@ export class SwedishCVPDFGenerator {
    * så texten aldrig blir oläsbart liten; är CV:t genuint längre än så (mer än
    * ~25% över en sida) returneras 1 och det får bli flersidigt.
    */
+  /**
+   * Gör tvåkolumns-body (CSS-grid, som Chromium inte kan dela över sidor) till
+   * en fragmenterbar tabell UTAN att ändra utseendet. Nyckeln: vi mäter varje
+   * grids FAKTISKA renderade kolumnbredder och gap medan den fortfarande är en
+   * grid, och applicerar exakt de måtten på table-cellerna. Så det fungerar för
+   * alla mallar oavsett kolumnproportioner, gap eller var insetet sitter
+   * (container-padding eller grid-padding), i stället för hårdkodade värden som
+   * bara passade en mall.
+   */
+  private async convertGridsToTables(page: any): Promise<void> {
+    try {
+      await page.evaluate(() => {
+        const grids = document.querySelectorAll<HTMLElement>('.body-grid');
+        grids.forEach((grid) => {
+          const cs = getComputedStyle(grid);
+          if (cs.display !== 'grid') return;
+          const children = Array.from(grid.children) as HTMLElement[];
+          // Bara enkla 2-kolumnsgrids (en rad) hanteras; annat lämnas orört.
+          if (children.length !== 2) return;
+
+          // Mät varje kolumns renderade bredd och grids egen padding/gap NU.
+          const widths = children.map((c) => c.getBoundingClientRect().width);
+          const colGap = parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0;
+          const padTop = cs.paddingTop;
+          const padRight = cs.paddingRight;
+          const padBottom = cs.paddingBottom;
+          const padLeft = cs.paddingLeft;
+
+          // Bygg om som fast tabell. Bredderna är exakt de uppmätta, så layouten
+          // ser identisk ut, men table-layout: fixed gör den fragmenterbar och
+          // växer aldrig förbi sidan.
+          grid.style.setProperty('display', 'table', 'important');
+          grid.style.setProperty('table-layout', 'fixed', 'important');
+          grid.style.setProperty('width', '100%', 'important');
+          grid.style.setProperty('border-collapse', 'collapse', 'important');
+          grid.style.setProperty('box-sizing', 'border-box', 'important');
+          // Grids padding flyttas till cellerna (padding på table-elementet
+          // respekteras opålitligt). Nolla här.
+          grid.style.setProperty('padding', '0', 'important');
+          grid.style.setProperty('gap', '0', 'important');
+
+          const totalContent = widths[0] + widths[1] + colGap;
+          children.forEach((cell, i) => {
+            cell.style.setProperty('display', 'table-cell', 'important');
+            cell.style.setProperty('vertical-align', 'top', 'important');
+            cell.style.setProperty('box-sizing', 'border-box', 'important');
+            cell.style.setProperty('min-width', '0', 'important');
+            // Andel av innehållsbredden som procent, plus halva gapet som
+            // padding mellan kolumnerna. Yttre padding = grids ursprungliga inset.
+            const pct = totalContent > 0 ? (widths[i] + colGap / 2) / totalContent * 100 : 50;
+            cell.style.setProperty('width', pct + '%', 'important');
+            const gapPad = colGap / 2 + 'px';
+            if (i === 0) {
+              // Vänster cell: grids vänster-inset + topp/botten, gap till höger.
+              cell.style.setProperty('padding', `${padTop} ${gapPad} ${padBottom} ${padLeft}`, 'important');
+            } else {
+              // Höger cell: gap till vänster, grids höger-inset + topp/botten.
+              cell.style.setProperty('padding', `${padTop} ${padRight} ${padBottom} ${gapPad}`, 'important');
+            }
+          });
+        });
+      });
+    } catch (err) {
+      console.warn('convertGridsToTables misslyckades (lämnar grid orört):', err);
+    }
+  }
+
   private async computeFitToPageScale(page: any): Promise<number> {
     const A4_PX = 1123; // 297mm vid 96dpi
     const MIN_SCALE = 0.80;
