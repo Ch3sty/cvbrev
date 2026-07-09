@@ -320,19 +320,15 @@ export class SwedishCVPDFGenerator {
             min-height: 0 !important;
             height: auto !important;
           }
-          /* En CSS-grid kan inte delas över sidor i Chromium, så ett tvåkolumns-
-             body-grid som är längre än en sida flyttas i sin helhet och headern
-             blir ensam (eller ett långt CV spricker till fyra sidor). Gör det
-             vanligaste body-mönstret (huvudkolumn + fast sidokolumn) till ett
-             fragmenterbart block-flöde med flytande sidokolumn i PRINT. Endast
-             kända, säkra klassnamn, aldrig inre sektions-grids. */
-          .body-grid { display: block !important; }
-          .body-grid > .side-col { float: right !important; width: 200px !important; margin-left: 24px !important; }
-          .body-grid > .main-col { display: block !important; width: auto !important; }
-          .body-grid::after { content: ""; display: block; clear: both; }
-          /* Sidokolumnen får inte bli längre än huvudkolumnen och skapa en
-             halvtom andra sida, håll den ihop. */
-          .body-grid > .side-col { break-inside: avoid; }
+          /* En CSS-grid kan inte delas över sidor i Chromium. Konvertera det
+             vanligaste tvåkolumns-body-mönstret till display:table i PRINT: det
+             BEHÅLLER kolumnordningen och layouten (till skillnad från float, som
+             la sidokolumnen sist), men en tabell kan fragmenteras över sidor. Så
+             ett kort CV ser identiskt ut, och ett långt bryts rent i botten utan
+             att headern blir ensam. Endast kända, säkra klassnamn. */
+          .body-grid { display: table !important; width: 100% !important; border-collapse: collapse !important; }
+          .body-grid > .main-col { display: table-cell !important; vertical-align: top !important; }
+          .body-grid > .side-col { display: table-cell !important; vertical-align: top !important; width: 200px !important; padding-left: 24px !important; }
 
           /* Håll ihop rubrik + innehåll, och lämna aldrig headern ensam: en ev.
              sidbrytning skjuts nedåt förbi headern och första sektionen. */
@@ -363,19 +359,21 @@ export class SwedishCVPDFGenerator {
   }
   
   /**
-   * Räknar ut en skalfaktor så ett CV som är marginellt för högt ryms på EN
-   * A4-sida. Mäter den högsta CV-containerns verkliga höjd (px vid 96dpi,
-   * A4 = 1123px hög). Skalar bara ned när innehållet är strax över en sida
-   * (upp till ~12%); är CV:t genuint flersidigt returneras 1 så det bryts
-   * normalt. Golv på 0.85 så texten aldrig blir oläsbart liten.
+   * Räknar ut en skalfaktor så ett CV som är för högt ryms på EN A4-sida.
+   * Mallarna har tvåkolumns-layouter (CSS-grid) som Chromium INTE kan dela över
+   * sidor, och att bryta isär gridet förstör designen. Därför bevarar vi gridet
+   * intakt och skalar i stället ned hela sidan så innehållet ryms. Golv på 0.80
+   * så texten aldrig blir oläsbart liten; är CV:t genuint längre än så (mer än
+   * ~25% över en sida) returneras 1 och det får bli flersidigt.
    */
   private async computeFitToPageScale(page: any): Promise<number> {
     const A4_PX = 1123; // 297mm vid 96dpi
-    const MIN_SCALE = 0.82;
-    const MAX_OVERFLOW = 1.20; // skala bara om innehållet ryms inom golvet
+    const MIN_SCALE = 0.80;
+    // Skala hela vägen ned till golvet innan vi ger upp, så designen bevaras och
+    // headern aldrig blir ensam. 1/0.80 ≈ 1.25.
+    const MAX_OVERFLOW = 1 / MIN_SCALE;
     try {
-      // Mät i PRINT-media så höjden speglar print-layouten (t.ex. body-gridet
-      // som blir block+float i print). Mäts det i screen-media blir skalan fel.
+      // Mät i PRINT-media så höjden speglar den faktiska print-layouten.
       await page.emulateMediaType('print');
       const contentPx: number = await page.evaluate(() => {
         const sels = ['.cv-container', '.cv-wrapper', '.resume', '.page'];
@@ -390,8 +388,7 @@ export class SwedishCVPDFGenerator {
       await page.emulateMediaType(null); // återställ
       if (!contentPx || contentPx <= A4_PX) return 1;
       const ratio = contentPx / A4_PX;
-      // Genuint flersidigt (mer än golvet klarar): låt det bli flera sidor och
-      // låt print-CSS:en bryta i botten (float-body fragmenterar rent).
+      // Genuint flersidigt (mer än golvet klarar): låt det bli flera sidor.
       if (ratio > MAX_OVERFLOW) return 1;
       // Skala så det precis ryms, med en liten säkerhetsmarginal.
       const scale = Math.max(MIN_SCALE, (1 / ratio) * 0.99);

@@ -1975,7 +1975,9 @@ async function createBasicCVPDF(html: string): Promise<Buffer> {
           return max || document.body.scrollHeight;
         });
         const ratio = contentPx / 1123;
-        if (ratio > 1 && ratio <= 1.18) scale = Math.max(0.85, (1 / ratio) * 0.995);
+        // Skala ned för att bevara tvåkolumns-designen (gridet kan inte delas),
+        // golv 0.80. Samma logik som huvudgeneratorns computeFitToPageScale.
+        if (ratio > 1 && ratio <= 1.25) scale = Math.max(0.80, (1 / ratio) * 0.99);
       } catch { /* behåll scale 1 */ }
 
       const pdfBuffer = await page.pdf({
