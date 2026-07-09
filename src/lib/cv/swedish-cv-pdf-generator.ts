@@ -332,11 +332,20 @@ export class SwedishCVPDFGenerator {
           .body-grid > .main-col, .body-grid > .side-col { min-width: 0 !important; overflow-wrap: anywhere; }
           .body-grid > .side-col * { max-width: 100% !important; }
 
-          /* Håll ihop rubrik + innehåll, och lämna aldrig headern ensam: en ev.
-             sidbrytning skjuts nedåt förbi headern och första sektionen. */
-          .experience-item, .education-item, .cv-section, .section {
+          /* Håll ihop SMÅ enheter (en enskild jobb-/utbildningspost), så en post
+             aldrig delas mitt itu. Men INTE hela .section/.cv-section: på vissa
+             mallar wrappar de en hel stor sektion (t.ex. all erfarenhet), och gör
+             man den odelbar hoppar hela blocket till nästa sida och lämnar halva
+             sidan tom. Stora sektioner MÅSTE kunna brytas i botten. */
+          .experience-item, .education-item, .job, .role, .entry, li {
             break-inside: avoid;
             page-break-inside: avoid;
+          }
+          /* En rubrik ska aldrig bli ensam kvar sist på en sida: bind den till
+             innehållet som följer. */
+          h2, h3, .section-heading, .section-title, .cv-heading {
+            break-after: avoid;
+            page-break-after: avoid;
           }
           header, .header, .photo-banner, .cv-header {
             break-after: avoid;
