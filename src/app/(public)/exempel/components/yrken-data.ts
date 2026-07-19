@@ -157,4 +157,8 @@ export const BREV_YRKEN: Record<string, string> = {
   hemtjanstpersonal: 'Hemtjänstpersonal',
   logistiker: 'Logistiker',
   servicemedarbetare: 'Servicemedarbetare',
+  vaktmastare: 'Vaktmästare',
+  socionom: 'Socionom',
+  stodpedagog: 'Stödpedagog',
+  chauffor: 'Chaufför',
 }

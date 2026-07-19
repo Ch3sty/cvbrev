@@ -907,5 +907,29 @@ export const BREV_GALLERI: GalleriYrke[] = [
     "namn": "Städare",
     "kategori": "service",
     "intro": "Personligt brev för städare med fokus på noggrannhet, kvalitet och hygienrutiner."
+  },
+  {
+    "slug": "vaktmastare",
+    "namn": "Vaktmästare",
+    "kategori": "service",
+    "intro": "Personligt brev för vaktmästare med fastighetsservice, felanmälningar och gott bemötande."
+  },
+  {
+    "slug": "socionom",
+    "namn": "Socionom",
+    "kategori": "offentlig-sektor",
+    "intro": "Personligt brev för socionom med myndighetsutövning, MI-samtal och samverkan."
+  },
+  {
+    "slug": "stodpedagog",
+    "namn": "Stödpedagog",
+    "kategori": "vard",
+    "intro": "Personligt brev för stödpedagog med tydliggörande pedagogik, AKK och lågaffektivt bemötande."
+  },
+  {
+    "slug": "chauffor",
+    "namn": "Chaufför",
+    "kategori": "service",
+    "intro": "Personligt brev för chaufför med C-körkort, YKB, leveransprecision och kundkontakt."
   }
 ]

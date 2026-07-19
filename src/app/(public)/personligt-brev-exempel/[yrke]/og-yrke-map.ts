@@ -83,4 +83,8 @@ export const SLUG_TO_YRKE: Record<string, string> = {
   kontorsassistent: 'Kontorsassistent',
   koksbitrade: 'Köksbiträde',
   vardbitrade: 'Vårdbiträde',
+  vaktmastare: 'Vaktmästare',
+  socionom: 'Socionom',
+  stodpedagog: 'Stödpedagog',
+  chauffor: 'Chaufför',
 }
