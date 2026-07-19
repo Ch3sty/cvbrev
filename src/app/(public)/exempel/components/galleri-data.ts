@@ -448,6 +448,30 @@ export const CV_GALLERI: GalleriYrke[] = [
     "namn": "Terminalarbetare",
     "kategori": "service",
     "intro": "CV för terminalarbetare med cross-docking, WMS/TMS-system och truckcertifikat för godshantering på terminal."
+  },
+  {
+    "slug": "vaktmastare",
+    "namn": "Vaktmästare",
+    "kategori": "service",
+    "intro": "CV för vaktmästare med fastighetsservice, felanmälningssystem och brandskyddsronderingar."
+  },
+  {
+    "slug": "socionom",
+    "namn": "Socionom",
+    "kategori": "offentlig-sektor",
+    "intro": "CV för socionom med myndighetsutövning, SoL/LVM, ASI, MI och samverkansansvar."
+  },
+  {
+    "slug": "stodpedagog",
+    "namn": "Stödpedagog",
+    "kategori": "vard",
+    "intro": "CV för stödpedagog med tydliggörande pedagogik, AKK, IBIC och handledning inom LSS."
+  },
+  {
+    "slug": "chauffor",
+    "namn": "Chaufför",
+    "kategori": "service",
+    "intro": "CV för chaufför med C-körkort, YKB, leveransprecision och skadefri körning."
   }
 ]
 
@@ -931,5 +955,41 @@ export const BREV_GALLERI: GalleriYrke[] = [
     "namn": "Chaufför",
     "kategori": "service",
     "intro": "Personligt brev för chaufför med C-körkort, YKB, leveransprecision och kundkontakt."
+  },
+  {
+    "slug": "it-tekniker",
+    "namn": "IT-tekniker",
+    "kategori": "teknik",
+    "intro": "Personligt brev för IT-tekniker med first line support, ServiceNow, Active Directory och servicekänsla."
+  },
+  {
+    "slug": "telefonforsaljare",
+    "namn": "Telefonförsäljare",
+    "kategori": "service",
+    "intro": "Personligt brev för telefonförsäljare med säljresultat, samtalsvolym och kundbemötande."
+  },
+  {
+    "slug": "diskare",
+    "namn": "Diskare",
+    "kategori": "service",
+    "intro": "Personligt brev för diskare med tempo, hygienrutiner och vägen in i restaurangbranschen."
+  },
+  {
+    "slug": "snickare",
+    "namn": "Snickare",
+    "kategori": "teknik",
+    "intro": "Personligt brev för snickare med yrkesbevis, ID06, säkerhetsutbildningar och byggserviceerfarenhet."
+  },
+  {
+    "slug": "elektriker",
+    "namn": "Elektriker",
+    "kategori": "teknik",
+    "intro": "Personligt brev för elektriker med ECY-certifikat, felsökning, laddboxar och kundbemötande."
+  },
+  {
+    "slug": "vaktare",
+    "namn": "Väktare",
+    "kategori": "service",
+    "intro": "Personligt brev för väktare med VU1/VU2, rondering, larmutryckning och rapportering."
   }
 ]

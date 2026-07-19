@@ -19979,6 +19979,939 @@ Använd det som inspiration för ditt eget CV terminalarbetare och anpassa det e
       { yrke: 'Lagerarbetare', slug: 'lagerarbetare' },
       { yrke: 'Truckförare', slug: 'truckforare' }
     ]
+  },
+
+  'vaktmastare': {
+    yrke: 'Vaktmästare',
+    slug: 'vaktmastare',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Vaktmästare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för vaktmästare med fastighetsservice, felanmälningssystem och brandskydd. ATS-optimerad mall för skolor, kommuner och fastighetsbolag.',
+
+    seoIntro: `Söker du jobb som vaktmästare och vill ha ett CV som visar hela din bredd? Det här exemplet visar hur du strukturerar ett CV som fungerar hos kommuner, skolor och fastighetsbolag, och som passerar automatiska urvalssystem.
+
+Du får se hur du lyfter felanmälningssystem som DeDU, praktisk kompetens inom snickeri, VVS och el, ansvar för passersystem och brandskyddsronderingar, samt kvantifierade resultat som yta, antal medarbetare du gett service till och kortade åtgärdstider. CV:t visar också det som skiljer en bra vaktmästare från en tekniker: bemötandet i vardagen.
+
+Använd exemplet som utgångspunkt för ditt eget CV som vaktmästare och anpassa det efter miljön du söker till, en skola, ett kontor och en vårdmiljö betonar olika delar av samma yrke.`,
+
+    viktigtAttTankaPa: [
+      'Kvantifiera ditt ansvar: yta i kvadratmeter, antal byggnader, antal anställda eller hyresgäster du gett service till',
+      'Nämn felanmälningssystem du arbetat i (DeDU, Vitec eller kommunens eget) och hur många ärenden du hanterat',
+      'Lista certifikat som Heta arbeten, liftkort, truckkort och HLR med årtal, och glöm inte B-körkortet som ofta är krav',
+      'Visa bemötande och rondering med konkreta rutiner, inte bara tekniska färdigheter'
+    ],
+
+    exempelCV: {
+      namn: 'Peter Lindqvist',
+      titel: 'Vaktmästare | Fastighetsservice och daglig drift',
+      kontakt: {
+        telefon: '070-412 38 65',
+        epost: 'peter.lindqvist@email.se',
+        plats: 'Malmö',
+        linkedin: 'linkedin.com/in/peterlindqvist'
+      },
+
+      profil: 'Vaktmästare med 8 års erfarenhet av fastighetsnära service, varav 4 år på grundskola med ansvar för daglig drift av 8 000 kvadratmeter. Hanterar felanmälningar i DeDU, utför reparationer inom snickeri, VVS och el samt ansvarar för passersystem, nyckelhantering och brandskyddsronderingar. Kortade genomsnittlig åtgärdstid för felanmälningar från fem dagar till två genom strukturerade morgonronder. Certifikat för Heta arbeten, liftkort och HLR. B-körkort.',
+
+      erfarenhet: [
+        {
+          titel: 'Vaktmästare',
+          arbetsgivare: 'Grundskola, Malmö stad',
+          period: '2022 - Pågående',
+          beskrivning: [
+            'Ansvarar för daglig drift av skollokaler på 8 000 kvm med service till 90 anställda och cirka 600 elever',
+            'Hanterar 25-35 felanmälningar per vecka i DeDU, från akuta åtgärder till planerat underhåll',
+            'Kortade genomsnittlig åtgärdstid från 5 dagar till 2 genom fast morgonrond där småfel åtgärdas direkt',
+            'Sköter passersystem och nyckelhantering, genomför månatliga brandskyddsronderingar och kontroll av utrymningsvägar',
+            'Kontaktperson mot entreprenörer vid ombyggnad av matsal, skolvardagen fungerade utan avbrott under hela byggtiden'
+          ]
+        },
+        {
+          titel: 'Fastighetsvärd',
+          arbetsgivare: 'Fastighetsbolag, Malmö',
+          period: '2018 - 2022',
+          beskrivning: [
+            'Daglig service och tillsyn av tre kontorsfastigheter med cirka 40 hyresgästföretag',
+            'Utförde reparationer inom snickeri, enklare VVS och belysning samt samordnade externa hantverkare',
+            'Ansvarade för iordningställande av konferensrum, posthantering och leveransmottagning',
+            'Skötte vinterväghållning, trädgårdsskötsel och yttre tillsyn enligt rullande schema'
+          ]
+        },
+        {
+          titel: 'Snickare',
+          arbetsgivare: 'Byggfirma, Skåne',
+          period: '2014 - 2018',
+          beskrivning: [
+            'Inredningssnickeri och renoveringsarbete i bostäder och kommersiella lokaler',
+            'Grundlade den verktygs- och materialvana som i dag används i det dagliga underhållsarbetet'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Bygg- och anläggningsprogrammet',
+          skola: 'Gymnasium, Malmö',
+          period: '2011 - 2014',
+          beskrivning: 'Inriktning husbyggnad med APL hos byggföretag.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Felanmälningssystem: DeDU (4 år, dagligt arbete)',
+          'Snickeri: dörrar, lås, beslag, inredning (10+ år)',
+          'VVS: enklare reparationer, packningar, avlopp',
+          'El: armaturer, lysrör, felsökning av enklare fel',
+          'Passersystem och nyckelhantering (ARX)',
+          'Brandskyddsronderingar och egenkontroller',
+          'Samordning av externa entreprenörer',
+          'AV-utrustning: projektorer, ljud, konferensteknik'
+        ],
+        personliga: [
+          'Serviceinriktad med dokumenterat gott bemötande i skolmiljö',
+          'Självgående: planerar och prioriterar egen arbetsdag',
+          'Lugn i akuta situationer (vattenläckage, strömavbrott)',
+          'Strukturerad: fasta ronder och dokumenterade egenkontroller',
+          'Prestigelös: hugger i där det behövs, från flytt till evenemang'
+        ]
+      },
+
+      certifieringar: [
+        'Heta arbeten (2023)',
+        'Liftkort - mobil arbetsplattform (2022)',
+        'HLR och Första hjälpen (förnyad 2025)',
+        'B-körkort (2013)',
+        'Grundläggande brandskyddsutbildning, SBA (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Ansvaret är kvantifierat i yta och människor',
+        text: `CV:t anger 8 000 kvadratmeter, 90 anställda, 600 elever, 40 hyresgästföretag och 25-35 felanmälningar per vecka. Varje roll har mätbar omfattning.
+
+**Varför detta fungerar:** "Ansvarade för fastighetsskötsel" säger ingenting om nivå. Siffrorna låter rekryteraren omedelbart jämföra med den egna fastigheten: är det här en person som klarar vår volym? För vaktmästartjänster, där arbetsledningen ofta är minimal, är bevisad förmåga att bära ett helt ansvarsområde själv det viktigaste urvalskriteriet.`
+      },
+      {
+        rubrik: 'Ett mätbart förbättringsresultat sticker ut',
+        text: `Åtgärdstiden för felanmälningar kortades från fem dagar till två genom en fast morgonrond, en konkret arbetsmetod med ett konkret resultat.
+
+**Varför detta fungerar:** De flesta vaktmästar-CV:n listar uppgifter, nästan inga visar förbättringar. Resultatet bevisar två saker på en gång: att Peter arbetar systematiskt och att verksamheten märker skillnaden. För en rekryterande rektor eller förvaltare översätts det direkt till färre klagomål från personal och hyresgäster.`
+      },
+      {
+        rubrik: 'DeDU och passersystem matchar ATS-sökningar',
+        text: `CV:t namnger felanmälningssystemet DeDU med antal år, passersystemet ARX, och rutinansvar som brandskyddsronderingar och egenkontroller.
+
+**Varför detta fungerar:** Kommunala arbetsgivare och fastighetsbolag söker ofta på exakt de här systemnamnen i sina urvalsverktyg. "Datorvana" ger ingen träff, "DeDU, 4 år, dagligt arbete" gör det. Att brandskyddet är namngivet med SBA-utbildning visar dessutom att Peter förstår det systematiska brandskyddsarbetet som är lagkrav i alla verksamheter.`
+      },
+      {
+        rubrik: 'Hantverksbakgrunden förklarar bredden',
+        text: `Erfarenheten som snickare ligger kvar i CV:t med en rad som kopplar den till nuvarande yrke: verktygs- och materialvanan används i dagens underhållsarbete.
+
+**Varför detta fungerar:** Vaktmästarens värde ligger i att lösa det mesta utan att kalla in hantverkare. En dokumenterad hantverksbakgrund är det starkaste beviset för den förmågan, och genom att uttryckligen koppla den till nuvarande arbete blir karriärvägen logisk i stället för spretig. Rekryteraren ser en medveten utveckling, inte slumpvisa byten.`
+      },
+      {
+        rubrik: 'Certifikaten är listade med årtal',
+        text: `Heta arbeten, liftkort, HLR med förnyelseår och B-körkort står i egen sektion med årtal, inte inbakade i löptext.
+
+**Varför detta fungerar:** Flera av certifikaten är tidsbegränsade, och en rekryterare som ser årtalen slipper fråga om giltighet. B-körkortet är ofta ett skallkrav som annars måste jagas fram. Att allt är samlat och daterat signalerar samma sak som ett välskött förråd: ordning, och det är exakt den egenskapen en vaktmästare säljer.`
+      },
+      {
+        rubrik: 'Profiltexten balanserar teknik och bemötande',
+        text: `Profilen nämner system och reparationer, men också morgonronden och skolmiljön. De personliga kompetenserna lyfter bemötande, lugn och prestigelöshet med konkreta sammanhang.
+
+**Varför detta fungerar:** Skolor och arbetsplatser anställer inte bara händer, de anställer en person som ska röra sig i verksamheten varje dag. En vaktmästare som förstår att rollen är hälften service och hälften teknik, och kan visa det redan i CV:t, matchar det rekryterande chefer faktiskt oroar sig för: kommer den här personen fungera hos oss?`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Ange yta, volym och antal du ansvarat för',
+        text: `Vaktmästartjänster jämförs i omfattning. Skriv alltid ut hur mycket du skött och åt hur många.
+
+**Exempel på före/efter:**
+❌ "Ansvarade för fastighetsskötsel och felanmälningar"
+✅ "Daglig drift av 8 000 kvm skollokaler med service till 90 anställda. Hanterade 25-35 felanmälningar per vecka i DeDU med genomsnittlig åtgärdstid på 2 dagar."`
+      },
+      {
+        rubrik: 'Namnge system och rutiner, inte bara uppgifter',
+        text: `Felanmälningssystem, passersystem och egenkontroller är sökbara nyckelord hos kommuner och fastighetsbolag.
+
+**Exempel på före/efter:**
+❌ "Van vid datorer och administrativa uppgifter"
+✅ "Arbetar dagligen i DeDU för felanmälningar och arbetsorder, sköter passersystem (ARX) och nyckelhantering för 90 anställda samt genomför månatliga brandskyddsronderingar enligt SBA."`
+      },
+      {
+        rubrik: 'Visa den praktiska bredden konkret',
+        text: `Skriv ut vilka typer av arbeten du utför själv, det är skillnaden mellan en vaktmästare och en beställare av hantverkare.
+
+**Exempel på före/efter:**
+❌ "Utför reparationer och underhåll"
+✅ "Utför löpande reparationer inom snickeri (dörrar, lås, beslag), enklare VVS (packningar, avlopp) och el (armaturer, lysrör), samt samordnar externa entreprenörer vid större åtgärder."`
+      },
+      {
+        rubrik: 'Anpassa CV:t efter miljön du söker till',
+        text: `En skolvaktmästare, en kontorsvaktmästare och en kyrkvaktmästare har olika vardag. Flytta upp det som matchar annonsen.
+
+**Exempel på före/efter:**
+❌ Samma CV till skola, kontor och vårdboende
+✅ Till skola: lyft trygghet, bemötande av elever och evenemang. Till kontor: konferensservice, hyresgästkontakt och teknik. Till vård: hygienrutiner, sekretess och känsla för verksamhetens rytm.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för vaktmästare innehålla?',
+        svar: 'Fyra delar bär CV:t: omfattningen av ditt ansvar (yta, antal byggnader, antal personer du gett service till), din praktiska bredd (snickeri, VVS, el, montering), system och rutiner (felanmälningssystem, passersystem, brandskyddsronderingar) samt certifikat med årtal (Heta arbeten, liftkort, HLR, B-körkort). Lägg till en profiltext som också visar bemötande och självständighet, det är ofta de egenskaperna som avgör mellan tekniskt likvärdiga kandidater.'
+      },
+      {
+        fraga: 'Behöver vaktmästare någon formell utbildning?',
+        svar: 'Oftast inte. De flesta arbetsgivare värderar praktisk erfarenhet, certifikat och körkort högre än utbildning. En hantverksbakgrund eller gymnasieutbildning inom bygg är meriterande men inget krav. Det som däremot ofta är skallkrav är B-körkort och ibland specifika certifikat som Heta arbeten eller liftkort, så lista dem tydligt med årtal i stället för att gömma dem i löptext.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt arbete som vaktmästare?',
+        svar: 'Räkna det du redan vet: hur många kvadratmeter eller byggnader du sköter, hur många anställda, elever eller hyresgäster som finns i verksamheten, hur många felanmälningar du hanterar per vecka och hur snabbt de åtgärdas. Har du förbättrat något, sätt siffror på det: "kortade åtgärdstiden från fem dagar till två". Siffrorna gör ditt CV jämförbart med tjänstens verkliga omfattning.'
+      },
+      {
+        fraga: 'Vilka certifikat är viktigast för en vaktmästare?',
+        svar: 'B-körkort är oftast grundkravet. Därefter väger Heta arbeten (krävs för många underhållsarbeten), liftkort för arbete på höjd, HLR och grundläggande brandskyddsutbildning (SBA) tyngst. Truckkort är meriterande i verksamheter med leveranser och förråd. Skriv alla certifikat med utfärdande- eller förnyelseår eftersom flera av dem är tidsbegränsade och rekryteraren annars måste fråga.'
+      },
+      {
+        fraga: 'Hur beskriver jag felanmälningsarbete i CV:t?',
+        svar: 'Namnge systemet och beskriv flödet: "Hanterar 25-35 felanmälningar per vecka i DeDU, från akut åtgärd till planerat underhåll, med genomsnittlig åtgärdstid på 2 dagar." Det visar systemvana, volym och tempo på en gång. Har du infört en rutin som förbättrat hanteringen, som en fast morgonrond, är det ett av de starkaste resultat en vaktmästare kan visa.'
+      },
+      {
+        fraga: 'Jag kommer från bygg eller industri, hur vinklar jag CV:t?',
+        svar: 'Lyft verktygs- och materialvanan, säkerhetstänket och självständigheten, och koppla dem uttryckligen till fastighetsservice: "10 års snickerierfarenhet som i dag används i löpande underhåll". Lägg sedan till det som skiljer vaktmästarrollen: service till människor, många små uppgifter parallellt och egen prioritering. En mening om varför du söker dig till en serviceroll gör karriärbytet begripligt för rekryteraren.'
+      },
+      {
+        fraga: 'Ska jag ta med brandskydd och egenkontroller i CV:t?',
+        svar: 'Ja, tydligt. Systematiskt brandskyddsarbete är lagkrav i alla verksamheter, och vaktmästaren är ofta den som utför ronderingar och kontroller i praktiken. Skriv konkret: "Genomför månatliga brandskyddsronderingar och kontroll av utrymningsvägar enligt SBA." Det visar att du kan ta ett dokumenterat ansvar, vilket många arbetsgivare aktivt letar efter i annonserna.'
+      },
+      {
+        fraga: 'Hur visar jag servicekänsla i ett vaktmästar-CV?',
+        svar: 'Genom sammanhang i stället för adjektiv. Skriv var du gett service och till vilka: "service till 90 anställda och 600 elever", "kontaktperson för 40 hyresgästföretag". Lägg gärna in en situation i personligt brev eller intervju: hur du löser en trasig projektor tio minuter före lektionsstart. I CV:t räcker det att sammanhangen visar att människor, inte bara fastigheter, är en del av ditt jobb.'
+      },
+      {
+        fraga: 'Vilka arbetsgivare anställer vaktmästare?',
+        svar: 'Kommuner (skolor, idrottsanläggningar, förvaltningar), regioner, fastighetsbolag, kontorshotell, kyrkogårdsförvaltningar, bostadsrättsföreningar och privata företag med egna lokaler. Kraven skiljer sig: kommunala tjänster betonar ofta rutiner och dokumentation medan mindre arbetsgivare betonar bredd och självständighet. Läs annonsen och spegla deras ordval i ditt CV.'
+      },
+      {
+        fraga: 'Vaktmästare eller fastighetsskötare, vad är skillnaden i CV:t?',
+        svar: 'Rollerna överlappar, men fastighetsskötaren arbetar oftare med själva fastighetens teknik (värme, ventilation, större underhåll) medan vaktmästaren oftare är verksamhetsnära med service, lokaler och daglig drift. Sök på båda titlarna och anpassa CV:ts betoning: mer teknik och system för fastighetsskötartjänster, mer service och verksamhetsstöd för vaktmästartjänster.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Fastighetsskötare', slug: 'fastighetsskotare' },
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' },
+      { yrke: 'Servicemedarbetare', slug: 'servicemedarbetare' }
+    ]
+  },
+
+  'socionom': {
+    yrke: 'Socionom',
+    slug: 'socionom',
+    kategori: 'offentlig-sektor',
+    metaTitle: 'CV Exempel Socionom 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för socionom med myndighetsutövning, SoL/LVM, MI och Treserva. ATS-optimerad mall för socialtjänst, kommun och behandlingsarbete.',
+
+    seoIntro: `Söker du tjänst som socionom och vill ha ett CV som visar både myndighetshantverket och det mänskliga arbetet? Det här exemplet visar hur du strukturerar ett CV för socialtjänst, kommun och behandlingsverksamhet.
+
+Du får se hur du lyfter lagstiftning du arbetat med (SoL, LVM, LVU), utredningsmetodik som ASI och BBIC, metodkompetens som MI, verksamhetssystem som Treserva och Lifecare samt kvantifierade uppgifter som ärendemängd och samverkansansvar. Allt sådant som en rekryterande enhetschef letar efter i första genomläsningen.
+
+Använd exemplet som grund för ditt eget CV som socionom och anpassa lagrum, metoder och målgrupp efter tjänsten du söker, en vuxenenhet, en barn- och familjeenhet och en kurativ roll kräver olika betoning.`,
+
+    viktigtAttTankaPa: [
+      'Skriv ut vilken lagstiftning du arbetat med (SoL, LVU, LVM, LSS) och med vilken målgrupp, det är det första en enhetschef letar efter',
+      'Ange ärendemängd du hanterat parallellt, det är socialtjänstens viktigaste volymmått',
+      'Namnge verksamhetssystem (Treserva, Lifecare, Procapita) och utredningsmetodik (ASI, BBIC, IBIC) med år',
+      'Beskriv samverkan konkret: SIP-möten, vårdplanering och vilka aktörer du samordnat'
+    ],
+
+    exempelCV: {
+      namn: 'Sara Holmgren',
+      titel: 'Socionom | Myndighetsutövning vuxen, missbruk och beroende',
+      kontakt: {
+        telefon: '073-528 91 44',
+        epost: 'sara.holmgren@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/saraholmgren'
+      },
+
+      profil: 'Socionom med 6 års erfarenhet av myndighetsutövning, varav 3 år inom missbruk och beroende på vuxenenhet. Utreder enligt SoL och LVM med pågående ärendeflöde på 15-20 ärenden, genomför ASI-intervjuer och arbetar med motiverande samtal (MI) som grund i klientarbetet. Van att samordna SIP-möten med beroendevård, psykiatri och Försäkringskassan. Dokumenterar i Treserva. Handleder socionomstudenter sedan 2024. Trygg i svåra samtal och noggrann i rättssäker dokumentation.',
+
+      erfarenhet: [
+        {
+          titel: 'Socialsekreterare, vuxenenheten',
+          arbetsgivare: 'Kommun i Västsverige',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Utreder ansökningar och anmälningar enligt SoL och LVM inom missbruk och beroende, med 15-20 pågående ärenden',
+            'Genomför ASI-intervjuer som grund för bedömning samt fattar beslut om öppenvård och placeringar på delegation',
+            'Samordnar SIP-möten med beroendemottagning, psykiatri och Försäkringskassan, cirka 4-6 möten per månad',
+            'Arbetar med motiverande samtal (MI) i klientkontakten; flera klienter har gått från upprepade LVM-anmälningar till frivillig behandling',
+            'Handleder en socionomstudent per termin under verksamhetsförlagd utbildning'
+          ]
+        },
+        {
+          titel: 'Socialsekreterare, barn och unga',
+          arbetsgivare: 'Kommun i Västsverige',
+          period: '2020 - 2023',
+          beskrivning: [
+            'Utredde barnavårdsärenden enligt SoL och BBIC med 12-15 pågående ärenden',
+            'Genomförde barnsamtal, föräldrasamtal och nätverksmöten samt upprättade vårdplaner vid placering',
+            'Deltog i beredskap för akuta ärenden utanför kontorstid enligt rullande schema',
+            'Föredrog ärenden i socialnämndens utskott och skrev yttranden till förvaltningsrätten'
+          ]
+        },
+        {
+          titel: 'Behandlingsassistent (deltid under studier)',
+          arbetsgivare: 'HVB-hem, Göteborg',
+          period: '2017 - 2020',
+          beskrivning: [
+            'Arbetade i ungdomsgrupp med strukturerat vardagsstöd, dokumentation och kontaktmannaskap',
+            'Grundlade praktisk erfarenhet av lågaffektivt bemötande och motivationsarbete'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet, 210 hp',
+          skola: 'Göteborgs universitet',
+          period: '2016 - 2020',
+          beskrivning: 'Verksamhetsförlagd utbildning inom myndighetsutövning barn och unga. Examensarbete om motivationsarbete i tvångsvårdens gränsland.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Lagstiftning: SoL, LVM, LVU, förvaltningslagen (6 år)',
+          'Utredningsmetodik: ASI (3 år), BBIC (3 år)',
+          'Motiverande samtal, MI (fördjupningsutbildning 2023)',
+          'Verksamhetssystem: Treserva (6 år, dagligt arbete)',
+          'SIP och samordnad vårdplanering',
+          'Myndighetsbeslut på delegation, öppenvård och placering',
+          'Yttranden och föredragning i nämnd och förvaltningsrätt',
+          'Rättssäker social dokumentation'
+        ],
+        personliga: [
+          'Trygg i svåra och laddade samtal',
+          'Behåller lugn och struktur i akuta lägen',
+          'Van att prioritera i högt ärendeflöde utan kvalitetstapp',
+          'Samarbetsorienterad över organisationsgränser',
+          'Reflekterande kring balansen myndighet och relation'
+        ]
+      },
+
+      certifieringar: [
+        'MI, motiverande samtal, fördjupningskurs (2023)',
+        'ASI-utbildning, grund och uppföljning (2023)',
+        'BBIC-utbildning (2020)',
+        'Handledarutbildning för VFU-studenter (2024)',
+        'B-körkort (2016)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Lagrum och målgrupp syns direkt',
+        text: `Redan i titelraden och profilen framgår inriktningen: myndighetsutövning, vuxen, missbruk och beroende, SoL och LVM. Varje anställning anger sedan sina lagrum.
+
+**Varför detta fungerar:** Socionomyrket är brett, och en enhetschef som rekryterar till en vuxenenhet sorterar först på inriktning. Ett CV där lagstiftning och målgrupp syns i första blicken hamnar i rätt hög direkt. Termerna är dessutom exakt det automatiska urvalsverktyg söker på när annonsen kräver erfarenhet av till exempel LVM-ärenden.`
+      },
+      {
+        rubrik: 'Ärendemängden gör erfarenheten jämförbar',
+        text: `CV:t anger 15-20 pågående ärenden på vuxenenheten och 12-15 inom barn och unga, plus 4-6 SIP-möten per månad.
+
+**Varför detta fungerar:** Ärendemängd är socialtjänstens viktigaste volymmått. Chefen vet exakt vad 15-20 ärenden inom missbruk innebär i belastning och kan direkt bedöma om Sara klarar enhetens flöde. Utan siffran är "stor erfarenhet av utredningsarbete" omöjlig att värdera, med siffran blir den ett kvitto på arbetskapacitet under normalt till högt tryck.`
+      },
+      {
+        rubrik: 'Metoder och system är namngivna med år',
+        text: `ASI, BBIC, MI och Treserva står med årtal och sammanhang: ASI-intervjuer som grund för bedömning, MI i klientkontakten, Treserva dagligen i sex år.
+
+**Varför detta fungerar:** Metodkompetens är skillnaden mellan att kunna börja arbeta direkt och att behöva ett halvårs upplärning. Att systemen och metoderna är kopplade till konkret användning, inte bara listade som ord, gör dem trovärdiga. En chef som ser "genomför ASI-intervjuer" vet att kompetensen är aktiv, inte en kurs från 2019.`
+      },
+      {
+        rubrik: 'Delegation och rättsprocess visar senioritet',
+        text: `CV:t nämner beslut på delegation, föredragning i nämndens utskott och yttranden till förvaltningsrätten.
+
+**Varför detta fungerar:** De tre uppgifterna är socialtjänstens tydligaste senioritetsmarkörer. De visar att arbetsgivare litat på Saras bedömningar nog att ge henne beslutsmandat, och att hon klarar den juridiska delen av yrket där många är osäkra. För tjänster med självständig myndighetsutövning är det ofta det som skiljer kandidater med samma antal år.`
+      },
+      {
+        rubrik: 'Ett resultat i klientarbetet, utan sekretessbrott',
+        text: `Formuleringen "flera klienter har gått från upprepade LVM-anmälningar till frivillig behandling" visar vad MI-arbetet leder till, beskrivet på mönsternivå utan detaljer om enskilda.
+
+**Varför detta fungerar:** Resultat är svåra att visa i socialt arbete, och de flesta CV:n avstår helt. Ett avidentifierat mönsterresultat bevisar både metodkompetens och att Sara ser förändring som målet med myndighetsutövningen. Att det är varsamt formulerat är i sig ett prov på sekretessförståelse, vilket rekryterare i sektorn läser som professionalitet.`
+      },
+      {
+        rubrik: 'Handledarskapet och HVB-bakgrunden breddar bilden',
+        text: `CV:t visar handledning av VFU-studenter sedan 2024 och en grund som behandlingsassistent på HVB under studierna.
+
+**Varför detta fungerar:** Handledarskap signalerar att arbetsgivaren ser Sara som ett föredöme, en informell kvalitetsstämpel. HVB-bakgrunden visar att hon känner vårdkedjans utförarled inifrån, vilket ger trovärdighet när hon som myndighetsperson beställer insatser därifrån. Tillsammans tecknar de en socionom som förstår hela systemet, inte bara sitt eget skrivbord.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Led med lagstiftning och målgrupp',
+        text: `Enhetschefer sorterar på inriktning före allt annat. Sätt lagrum och målgrupp i titelrad och profil.
+
+**Exempel på före/efter:**
+❌ "Socionom med bred erfarenhet av socialt arbete"
+✅ "Socionom med 6 års myndighetsutövning: SoL- och LVM-utredningar inom missbruk och beroende på vuxenenhet, tidigare barn och unga enligt BBIC"`
+      },
+      {
+        rubrik: 'Ange ärendemängd i varje myndighetsroll',
+        text: `Ärendeflödet är det volymmått chefer jämför med sin egen enhet.
+
+**Exempel på före/efter:**
+❌ "Ansvarade för utredningar och uppföljningar"
+✅ "Utredde enligt SoL och LVM med 15-20 pågående ärenden, fattade beslut om öppenvård och placeringar på delegation samt följde upp insatser"`
+      },
+      {
+        rubrik: 'Gör samverkan konkret med aktörer och format',
+        text: `Ordet samverkan finns i varje ansökan. Det som skiljer är vad du faktiskt gjort.
+
+**Exempel på före/efter:**
+❌ "God samverkansförmåga med olika aktörer"
+✅ "Samordnar 4-6 SIP-möten per månad med beroendemottagning, psykiatri och Försäkringskassan, med ansvar för att hålla ihop den gemensamma planen"`
+      },
+      {
+        rubrik: 'Visa resultat på mönsternivå, aldrig på individnivå',
+        text: `Du kan visa vad ditt arbete leder till utan att röja någon enskild.
+
+**Exempel på före/efter:**
+❌ "En klient med schizofrenidiagnos i Angered som jag..." (sekretessrisk)
+✅ "Flera klienter har efter längre serier MI-samtal gått från upprepade LVM-anmälningar till frivillig behandling i öppenvård"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för socionom innehålla?',
+        svar: 'Inriktning (lagstiftning och målgrupp), ärendemängd, utredningsmetodik (ASI, BBIC eller IBIC), metodkompetens som MI, verksamhetssystem som Treserva eller Lifecare, samverkansansvar som SIP-möten samt eventuell delegation och nämnd- eller domstolserfarenhet. Sätt inriktningen i titelraden så att en enhetschef ser på tre sekunder om du matchar enhetens område, och kvantifiera det som går: ärenden, möten, uppdrag.'
+      },
+      {
+        fraga: 'Hur skriver jag CV som nyexaminerad socionom?',
+        svar: 'Bygg på VFU:n och studierelaterat arbete. Beskriv praktikplatsens verksamhet, vilka arbetsuppgifter du faktiskt utförde och under vilken handledning: "deltog i BBIC-utredningar och genomförde stödsamtal under handledning". Lyft arbete som behandlingsassistent, boendestödjare eller personlig assistent, det räknas som verklig branscherfarenhet. Ange examensarbetets ämne om det är relevant för tjänsten.'
+      },
+      {
+        fraga: 'Ska jag skriva ut ärendemängd i CV:t?',
+        svar: 'Ja. Ärendemängd är socialtjänstens tydligaste kapacitetsmått och något varje rekryterande chef själv räknar i. "15-20 pågående ärenden inom missbruk" säger mer än en hel meningsbyggnad om ansvarstagande. Var ärlig med siffran, den kommer att diskuteras på intervjun, och ange gärna vilken typ av ärenden det rörde eftersom tyngden skiljer sig mellan områden.'
+      },
+      {
+        fraga: 'Vilka system och metoder bör synas i ett socionom-CV?',
+        svar: 'De som matchar tjänsten. Inom myndighetsutövning: Treserva, Lifecare eller Procapita samt BBIC (barn), ASI (missbruk) eller IBIC (funktionsstöd). Inom behandling och stöd: MI, lågaffektivt bemötande och relevanta samtalsmetoder. Skriv systemen med antal år och hur du använt dem. Kort MI-utbildning utan praktik väger lätt, "MI som grund i klientarbetet sedan 2022" väger tungt.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av tvångslagstiftning?',
+        svar: 'Konkret men sakligt: "utreder enligt LVM", "upprättade vårdplaner vid LVU-placeringar", "skrev yttranden till förvaltningsrätten". Har du företrätt nämnden i domstol eller deltagit i omedelbara omhändertaganden är det tunga meriter som bör synas. Beskriv processerfarenheten, inte enskilda fall, och håll tonen professionell, tvångsvård är ett hantverk i CV:t, inte dramatik.'
+      },
+      {
+        fraga: 'Hur hanterar jag sekretess när jag beskriver mitt arbete?',
+        svar: 'Beskriv processer, metoder och mönster, aldrig individer. Fel: detaljer om enskilda klienters situation. Rätt: "flera klienter har gått från upprepade anmälningar till frivillig behandling". Ange kommun eller stadsdel bara på den detaljnivå som inte pekar ut ärenden. Ett varsamt formulerat CV är dessutom i sig ett arbetsprov i sekretessförståelse som rekryterare noterar.'
+      },
+      {
+        fraga: 'Räknas arbete på HVB eller som boendestödjare som merit för socionomtjänster?',
+        svar: 'Ja, absolut. Utförarerfarenhet ger dig förståelse för de insatser du som myndighetsperson beställer och följer upp, och det stärker din trovärdighet i vårdplanering och uppföljning. Placera det som egen anställning i CV:t med konkreta uppgifter: kontaktmannaskap, dokumentation, strukturerat vardagsstöd. För nyexaminerade är det ofta den tyngsta praktiska meriten.'
+      },
+      {
+        fraga: 'Hur byter jag inriktning inom socionomyrket i CV:t?',
+        svar: 'Visa det överförbara: utredningsmetodik, dokumentationsvana, samtalskompetens och myndighetserfarenhet bär mellan enheter. Skriv en profil som pekar mot den nya inriktningen: "efter tre år inom barn och unga söker jag mig till vuxenenheten för att arbeta närmare motivationsarbete inom missbruk". Lyft relevanta beröringspunkter från nuvarande roll, nästan alla områden har dem.'
+      },
+      {
+        fraga: 'Vad väger tyngst i urvalet till socialtjänsten?',
+        svar: 'Utöver examen: rätt inriktningserfarenhet, dokumenterad ärendekapacitet, aktuell metodkompetens och tecken på stabilitet, eftersom personalomsättningen är sektorns största problem. En trovärdig rad om varför du söker just den enheten kan därför väga oväntat tungt. Delegation, nämndföredragning och handledaruppdrag är de tydligaste markörerna för senioritet.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Socialsekreterare', slug: 'socialsekreterare' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'LSS-handläggare', slug: 'lss-handlaggare' }
+    ]
+  },
+
+  'stodpedagog': {
+    yrke: 'Stödpedagog',
+    slug: 'stodpedagog',
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Stödpedagog 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för stödpedagog med tydliggörande pedagogik, AKK, IBIC och lågaffektivt bemötande. Mall anpassad för LSS-boende och daglig verksamhet.',
+
+    seoIntro: `Söker du tjänst som stödpedagog och vill ha ett CV som visar ditt metodansvar, inte bara din omsorgserfarenhet? Det här exemplet visar hur du strukturerar ett CV för LSS-boenden, daglig verksamhet och andra verksamheter inom funktionsstöd.
+
+Du får se hur du lyfter yrkeshögskoleutbildningen, metoder som tydliggörande pedagogik, AKK och lågaffektivt bemötande, ansvar för genomförandeplaner enligt IBIC, dokumentationssystem och handledning av kollegor. Alltså exakt det som skiljer stödpedagogens uppdrag från stödassistentens, och det som enhetschefer letar efter i urvalet.
+
+Använd exemplet som grund för ditt eget CV som stödpedagog och anpassa metoder och målgrupp efter verksamheten du söker till, en gruppbostad, en servicebostad och en daglig verksamhet betonar olika delar av kompetensen.`,
+
+    viktigtAttTankaPa: [
+      'Lyft YH-utbildningen till stödpedagog tydligt, den är ofta ett formellt krav som skiljer rollen från stödassistent',
+      'Visa metodansvaret konkret: genomförandeplaner enligt IBIC, arbetssätt du infört och kollegor du handlett',
+      'Namnge metoder (tydliggörande pedagogik, AKK, lågaffektivt bemötande) med exempel på praktisk användning',
+      'Beskriv resultat på mönsternivå utan att röja enskilda brukare, det visar både kompetens och sekretessförståelse'
+    ],
+
+    exempelCV: {
+      namn: 'Emma Nilsson',
+      titel: 'Stödpedagog | Tydliggörande pedagogik och metodutveckling inom LSS',
+      kontakt: {
+        telefon: '072-914 56 30',
+        epost: 'emma.nilsson@email.se',
+        plats: 'Örebro',
+        linkedin: 'linkedin.com/in/emmanilsson'
+      },
+
+      profil: 'Utbildad stödpedagog (YH, 200 poäng) med 8 års erfarenhet inom LSS, varav 3 år med särskilt ansvar för metodutveckling och dokumentation på gruppbostad. Upprättar och följer upp genomförandeplaner enligt IBIC, utvecklar bildstöd och andra former av AKK samt handleder kollegor i tydliggörande pedagogik och lågaffektivt bemötande. Dokumenterat resultat: minskade utåtagerande situationer vid morgonrutin från flera per vecka till enstaka per månad genom nytt visuellt schema och förändrat bemötande.',
+
+      erfarenhet: [
+        {
+          titel: 'Stödpedagog, gruppbostad LSS',
+          arbetsgivare: 'Kommunal funktionsstödsverksamhet, Örebro',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Metodansvar på gruppbostad med sex brukare inom autismspektrum och intellektuell funktionsnedsättning',
+            'Upprättar och följer upp genomförandeplaner enligt IBIC tillsammans med brukare och arbetslag',
+            'Utvecklar och inför AKK: bildstöd, visuella scheman och tecken som stöd, anpassat per brukare',
+            'Handleder 10 stödassistenter i tydliggörande pedagogik och lågaffektivt bemötande, håller månatliga reflektionsmöten',
+            'Minskade utåtagerande incidenter vid morgonrutinen från flera per vecka till enstaka per månad genom kartläggning, nytt visuellt schema och justerat bemötande'
+          ]
+        },
+        {
+          titel: 'Stödassistent, gruppbostad LSS',
+          arbetsgivare: 'Kommunal funktionsstödsverksamhet, Örebro',
+          period: '2018 - 2023',
+          beskrivning: [
+            'Vardagsnära stöd till brukare med stora behov av struktur och förutsägbarhet',
+            'Kontaktpersonal med ansvar för social dokumentation och kontakt med gode män och anhöriga',
+            'Arbetade schemalagt med dag, kväll, helg och sovande jour',
+            'Initierade bildstöd för två brukare, vilket ledde vidare till YH-studierna och nuvarande metodroll'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde, äldreomsorg (deltid)',
+          arbetsgivare: 'Hemtjänst, Örebro',
+          period: '2016 - 2018',
+          beskrivning: [
+            'Omvårdnadsarbete och dokumentation, grunden i bemötande och strukturerat omsorgsarbete'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Stödpedagog inom funktionshinderområdet, YH 200 p',
+          skola: 'Yrkeshögskola, Örebro',
+          period: '2021 - 2023',
+          beskrivning: 'Studier parallellt med arbete. LIA-praktik inom daglig verksamhet. Fördjupning i tydliggörande pedagogik, AKK och evidensbaserade arbetssätt.'
+        },
+        {
+          titel: 'Vård- och omsorgsprogrammet',
+          skola: 'Gymnasium, Örebro',
+          period: '2013 - 2016',
+          beskrivning: ''
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Tydliggörande pedagogik (8 år, handleder kollegor)',
+          'AKK: bildstöd, visuella scheman, tecken som stöd',
+          'Lågaffektivt bemötande (utbildad 2020, praktiserat dagligen)',
+          'Genomförandeplaner enligt IBIC, upprättande och uppföljning',
+          'Social dokumentation enligt LSS och SoL',
+          'Dokumentationssystem: Lifecare (4 år), Combine (2 år)',
+          'Kartläggning av utmanande beteenden',
+          'Handledning och metodintroduktion av arbetslag'
+        ],
+        personliga: [
+          'Lugn och uthållig i utmanande situationer',
+          'Pedagogisk: förändrar arbetssätt genom att visa och involvera',
+          'Strukturerad med dokumentation som kvalitetsverktyg',
+          'Relationsskapande med brukare, anhöriga och gode män',
+          'Trygg i att ge och ta emot återkoppling i arbetslag'
+        ]
+      },
+
+      certifieringar: [
+        'Lågaffektivt bemötande, grundutbildning (2020)',
+        'AKK och tecken som stöd, fördjupning (2022)',
+        'Delegering läkemedel (förnyad 2025)',
+        'HLR och Första hjälpen (förnyad 2025)',
+        'B-körkort (2017)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Metodansvaret skiljer stödpedagogen från stödassistenten',
+        text: `CV:t visar exakt det som definierar stödpedagogrollen: genomförandeplaner enligt IBIC, metodutveckling, AKK-ansvar och handledning av 10 stödassistenter.
+
+**Varför detta fungerar:** Enhetschefer som rekryterar stödpedagoger letar efter bevis på att kandidaten klarar rollens pedagogiska ledarskap, inte bara det brukarnära arbetet. Genom att metodansvaret dominerar den senaste anställningen ser chefen omedelbart att Emma redan bär uppdraget, i stället för att behöva gissa om en skicklig stödassistent klarar klivet.`
+      },
+      {
+        rubrik: 'Ett mätbart brukarresultat, varsamt formulerat',
+        text: `Incidenterna vid morgonrutinen minskade från flera per vecka till enstaka per månad, genom kartläggning, visuellt schema och justerat bemötande. Beskrivet på mönsternivå utan detaljer om någon enskild.
+
+**Varför detta fungerar:** Resultat är ovanliga i omsorgs-CV:n, och det här visar hela den pedagogiska arbetsgången: analys, insats, uppföljning, effekt. Att formuleringen samtidigt respekterar sekretessen är ett arbetsprov i sig, den som kan beskriva sitt arbete utan att röja brukare visar exakt den professionalitet LSS-verksamheter kräver.`
+      },
+      {
+        rubrik: 'YH-utbildningen är synlig och daterad',
+        text: `Utbildningen till stödpedagog (YH, 200 poäng) står i både titel, profil och utbildningssektion, med notering att den lästes parallellt med arbete.
+
+**Varför detta fungerar:** Många kommuner har YH-utbildningen som formellt krav för stödpedagogtjänster, och en rekryterare som inte hittar den sorterar bort ansökan oavsett erfarenhet. Att studierna genomfördes parallellt med heltidsarbete är dessutom ett tyst bevis på drivkraft och struktur som chefer noterar.`
+      },
+      {
+        rubrik: 'Metoderna är kopplade till praktik, inte bara kurser',
+        text: `Tydliggörande pedagogik, AKK och lågaffektivt bemötande listas med år och sammanhang: handleder kollegor, inför bildstöd per brukare, praktiserat dagligen.
+
+**Varför detta fungerar:** Metodorden finns i varje ansökan inom funktionsstöd. Det som skiljer kandidater är om metoderna är levande verktyg eller gamla kursintyg. Formuleringar som "handleder kollegor i" och "anpassat per brukare" bevisar aktiv kompetens, och matchar samtidigt de sökord verksamheterna använder i sina kravprofiler.`
+      },
+      {
+        rubrik: 'Resan assistent till pedagog gör karriären logisk',
+        text: `CV:t visar vägen: stödassistent som initierade bildstöd, YH-studier parallellt med arbetet, därefter metodansvar som stödpedagog i samma verksamhetstyp.
+
+**Varför detta fungerar:** Progressionen berättar att metodintresset kom ur praktiken, inte ur en kurskatalog. För enhetschefer är det den mest trovärdiga stödpedagogprofilen som finns: någon som kan golvet, valde att utbilda sig och kom tillbaka med verktyg. Det förebygger också den vanligaste tveksamheten mot nyutbildade stödpedagoger, att teorin saknar förankring.`
+      },
+      {
+        rubrik: 'Dokumentation framställs som kvalitet, inte börda',
+        text: `CV:t nämner social dokumentation enligt LSS och SoL, systemen Lifecare och Combine med år, och personliga kompetensen "strukturerad med dokumentation som kvalitetsverktyg".
+
+**Varför detta fungerar:** Dokumentationen är LSS-verksamheternas ständiga förbättringsområde vid tillsyn, och ofta det enhetschefer kämpar mest med i sina arbetslag. En stödpedagog som självmant lyfter dokumentation som kvalitetsfråga löser ett verkligt problem för verksamheten, och sticker ut mot sökande som mest ser den som ett nödvändigt ont.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Visa metodansvaret, inte bara omsorgsarbetet',
+        text: `Stödpedagogens CV ska bevisa pedagogiskt ledarskap: planer, arbetssätt och handledning.
+
+**Exempel på före/efter:**
+❌ "Arbetar med stöd och omsorg på gruppbostad enligt LSS"
+✅ "Metodansvar på gruppbostad med sex brukare: upprättar genomförandeplaner enligt IBIC, inför AKK och handleder 10 stödassistenter i tydliggörande pedagogik"`
+      },
+      {
+        rubrik: 'Beskriv resultat på mönsternivå',
+        text: `Du kan visa effekt utan att röja någon enskild, och formuleringen bevisar samtidigt din sekretessförståelse.
+
+**Exempel på före/efter:**
+❌ "Hjälpte en brukare med autism i hus 3 att klara morgonen" (röjande)
+✅ "Minskade utåtagerande incidenter vid morgonrutin från flera per vecka till enstaka per månad genom kartläggning, visuellt schema och justerat bemötande"`
+      },
+      {
+        rubrik: 'Namnge system och lagrum',
+        text: `IBIC, LSS, SoL och dokumentationssystemen är sökbara nyckelord i kommunernas urval.
+
+**Exempel på före/efter:**
+❌ "Van vid dokumentation och datorarbete"
+✅ "Social dokumentation enligt LSS och SoL i Lifecare (4 år) och Combine (2 år), med ansvar för att genomförandeplanerna hålls aktuella och uppföljningsbara"`
+      },
+      {
+        rubrik: 'Anpassa efter verksamhetsform',
+        text: `Gruppbostad, servicebostad, daglig verksamhet och skola har olika vardag, spegla den i ditt urval av exempel.
+
+**Exempel på före/efter:**
+❌ Samma CV till alla LSS-tjänster
+✅ Till gruppbostad: struktur, rutiner och utmanande beteenden. Till daglig verksamhet: aktiviteter, delaktighet och arbetsliknande moment. Till servicebostad: självständighetsträning och motiverande arbetssätt`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för stödpedagog innehålla?',
+        svar: 'Fyra bärande delar: YH-utbildningen till stödpedagog (ofta formellt krav), metodkompetensen med praktiska exempel (tydliggörande pedagogik, AKK, lågaffektivt bemötande), ansvaret för genomförandeplaner enligt IBIC och social dokumentation, samt handledning eller metodintroduktion av kollegor. Lägg till målgruppserfarenhet och gärna ett resultat på mönsternivå, till exempel minskade incidenter efter ett nytt arbetssätt.'
+      },
+      {
+        fraga: 'Vad skiljer ett stödpedagog-CV från ett stödassistent-CV?',
+        svar: 'Nivån på ansvaret. Stödassistentens CV visar det brukarnära arbetet: vardagsstöd, kontaktmannaskap, dokumentation. Stödpedagogens CV ska dessutom visa metod- och utvecklingsansvar: att du upprättar planer, inför arbetssätt, kvalitetssäkrar dokumentation och handleder kollegor. Söker du din första stödpedagogtjänst, lyft varje tillfälle du i praktiken tagit pedagogiskt ansvar som assistent.'
+      },
+      {
+        fraga: 'Krävs YH-utbildning för att jobba som stödpedagog?',
+        svar: 'Oftast ja. De flesta kommuner och privata utförare kräver yrkeshögskoleutbildning till stödpedagog, vanligen 200 eller 300 YH-poäng, eller motsvarande eftergymnasial utbildning inom funktionshinderområdet. Sätt utbildningen synligt i CV:ts topp. Saknar du den men har lång erfarenhet: sök ändå där annonsen skriver "eller motsvarande", och visa dokumenterad metodkompetens extra tydligt.'
+      },
+      {
+        fraga: 'Hur beskriver jag arbete med utmanande beteenden i CV:t?',
+        svar: 'Sakligt och metodiskt: beskriv förhållningssättet (förebyggande struktur, lågaffektivt bemötande i stunden, uppföljning efteråt) och gärna ett avidentifierat resultat. Undvik dramatiska formuleringar om ingripanden, de signalerar fel fokus. "Kartlade situationer tillsammans med arbetslaget och minskade incidenterna genom nytt visuellt schema" visar mer yrkesskicklighet än någon beskrivning av själva situationerna.'
+      },
+      {
+        fraga: 'Vilka metoder och begrepp bör finnas med?',
+        svar: 'De som matchar verksamheten, men kärnan är tydliggörande pedagogik, AKK (bildstöd, tecken som stöd), lågaffektivt bemötande, genomförandeplaner enligt IBIC och social dokumentation enligt LSS och SoL. Arbetar du med specifika målgrupper kan autismspecifik kompetens, MI eller ESL vara relevanta. Koppla varje begrepp till hur du använt det, en metodlista utan sammanhang läses som kursintyg.'
+      },
+      {
+        fraga: 'Hur visar jag handledarförmåga utan chefstitel?',
+        svar: 'Stödpedagogens ledarskap är informellt, så beskriv det som det ser ut: "handleder 10 stödassistenter i tydliggörande pedagogik", "håller månatliga reflektionsmöten", "introducerar nya arbetssätt genom att visa och involvera". Det svarar på enhetschefens tysta fråga: kan den här personen driva metodutveckling utan att skapa motstånd i arbetslaget? Konkreta format och antal gör svaret trovärdigt.'
+      },
+      {
+        fraga: 'Ska jag nämna schemaformer som sovande jour i CV:t?',
+        svar: 'Ja, kort. LSS-boenden bemannas dygnet runt, och en rad som "van vid schemalagt arbete med dag, kväll, helg och sovande jour" tar bort ett vanligt frågetecken redan i urvalet. Söker du daglig verksamhet med kontorstider är raden mindre viktig, men den skadar aldrig eftersom den visar att du känner verksamhetsformernas villkor.'
+      },
+      {
+        fraga: 'Hur räknas erfarenhet från äldreomsorg eller personlig assistans?',
+        svar: 'Som relevant grund, särskilt för bemötande, dokumentation och strukturerat omsorgsarbete. Ta med den, men låt LSS-erfarenheten och metodkompetensen dominera. En mening som kopplar ihop dem hjälper rekryteraren: "grunden i bemötande och strukturerat omsorgsarbete" räcker för att visa att erfarenheten byggt mot nuvarande yrke.'
+      },
+      {
+        fraga: 'Vilka system bör en stödpedagog kunna?',
+        svar: 'Vanligast i funktionsstödsverksamheter är Lifecare, Treserva och Combine för social dokumentation och genomförandeplaner. Namnge de system du arbetat i med antal år, och nämn gärna att du arbetat med IBIC-strukturen i planerna. Systemvana förkortar introduktionen, och för vikarietjänster som snabbt ska fungera i verksamheten kan den vara avgörande i urvalet.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Boendestöd', slug: 'boendestod' },
+      { yrke: 'Elevassistent', slug: 'elevassistent' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' }
+    ]
+  },
+
+  'chauffor': {
+    yrke: 'Chaufför',
+    slug: 'chauffor',
+    kategori: 'logistik',
+    metaTitle: 'CV Exempel Chaufför 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för chaufför med C-körkort, YKB, lastsäkring och leveransprecision. ATS-optimerad mall för distribution, åkeri och transport.',
+
+    seoIntro: `Söker du jobb som chaufför och vill ha ett CV som en trafikledare kan säga ja till på trettio sekunder? Det här exemplet visar hur du strukturerar ett CV för distribution, åkerier och transportföretag.
+
+Du får se hur du sätter behörigheterna först (körkortsklass, YKB med giltighetstid, förarkort), kvantifierar din körning med stopp per dag, leveransprecision och skadefri körning, samt lyfter lastsäkring, kör- och vilotider och kundmötet i leveransledet. Transportbranschen rekryterar snabbt, och CV:n som är lätta att bedöma vinner.
+
+Använd exemplet som grund för ditt eget CV som chaufför och anpassa detaljerna efter trafikslag: citydistribution, fjärrtrafik och budkörning betonar olika delar av samma yrke.`,
+
+    viktigtAttTankaPa: [
+      'Sätt behörigheterna överst och var exakt: körkortsklass, YKB med giltighetsår, digitalt förarkort och eventuellt ADR-intyg',
+      'Kvantifiera körningen: stopp per pass, leveransprecision i procent och antal år skadefri körning',
+      'Visa regelefterlevnad konkret: kör- och vilotider utan anmärkningar, lastsäkring och daglig tillsyn',
+      'Glöm inte kundledet, inom distribution är chauffören företagets ansikte utåt hos varumottagarna'
+    ],
+
+    exempelCV: {
+      namn: 'Marcus Öberg',
+      titel: 'Distributionschaufför | C-körkort, YKB, skadefri körning sedan 2020',
+      kontakt: {
+        telefon: '070-683 27 19',
+        epost: 'marcus.oberg@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/marcusoberg'
+      },
+
+      profil: 'Distributionschaufför med C-körkort, giltigt YKB (till 2028) och 9 års erfarenhet av citydistribution i Stockholmsområdet. Kör 40-60 stopp per pass med styckegods och tempererade livsmedel, leveransprecision över 98 procent de senaste tre åren och helt skadefri körning sedan 2020. Noggrann med lastsäkring, viktfördelning och kör- och vilotider. Sänkte bränsleförbrukningen med 8 procent efter utbildning i sparsam körning. Van vid bakgavellyft, pallyft och trånga lastzoner i innerstad.',
+
+      erfarenhet: [
+        {
+          titel: 'Distributionschaufför',
+          arbetsgivare: 'Medelstort åkeri, Stockholm',
+          period: '2020 - Pågående',
+          beskrivning: [
+            'Citydistribution med 40-60 stopp per pass: styckegods, pall och tempererade livsmedel till butik och restaurang',
+            'Leveransprecision över 98 procent tre år i rad, med digital leveransbekräftelse och ruttplanering i Optidev',
+            'Helt skadefri körning sedan 2020 och kör- och vilotider utan anmärkningar vid företagets kontroller',
+            'Sänkte egen bränsleförbrukning med 8 procent efter intern utbildning i sparsam körning (ecodriving)',
+            'Hanterar avvikelser direkt hos kund: returer, felleveranser och restnoteringar löses med trafikledningen samma dag'
+          ]
+        },
+        {
+          titel: 'Budbils- och lättlastbilsförare',
+          arbetsgivare: 'Distributionsföretag, Stockholm',
+          period: '2017 - 2020',
+          beskrivning: [
+            'Paket- och expressleveranser med lätt lastbil, 60-80 stopp per pass i innerstadsmiljö',
+            'Byggde lokalkännedom och rutin i lastzoner, miljözoner och leveransportar i centrala Stockholm',
+            'Tog C-körkort och YKB grundutbildning parallellt med arbetet'
+          ]
+        },
+        {
+          titel: 'Terminalarbetare (deltid)',
+          arbetsgivare: 'Logistikföretag, Stockholm',
+          period: '2016 - 2017',
+          beskrivning: [
+            'Lastning, lossning och scanning av gods, grunden i lastsäkring och godshantering'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'YKB Fortbildning, 35 timmar',
+          skola: 'Trafikutbildningsföretag, Stockholm',
+          period: '2023',
+          beskrivning: 'Yrkeskompetensbevis giltigt till 2028. Moduler inklusive sparsam körning, lastsäkring och kör- och vilotider.'
+        },
+        {
+          titel: 'Fordons- och transportprogrammet',
+          skola: 'Gymnasium, Stockholm',
+          period: '2013 - 2016',
+          beskrivning: 'Inriktning transport med APL hos åkeri.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'C-körkort (2018) och B-körkort (2014)',
+          'YKB, yrkeskompetensbevis giltigt till 2028',
+          'Digitalt förarkort och färdskrivare (Stoneridge, VDO)',
+          'Ruttplanering och leveransbekräftelse i Optidev',
+          'Lastsäkring och viktfördelning, styckegods och pall',
+          'Bakgavellyft, pallyft och tempererade transporter',
+          'Kör- och vilotidsregler i praktiken',
+          'Sparsam körning, ecodriving (utbildad 2022)'
+        ],
+        personliga: [
+          'Pålitlig: skadefri körning sedan 2020, punktlig varje pass',
+          'Serviceinriktad i kundledet, känt ansikte hos återkommande varumottagare',
+          'Lugn i stressig innerstadstrafik och trånga lastzoner',
+          'Löser avvikelser direkt i stället för att skjuta dem vidare',
+          'Flexibel med tidiga morgnar och skiftande scheman'
+        ]
+      },
+
+      certifieringar: [
+        'YKB Fortbildning 35 h (2023, giltigt till 2028)',
+        'C-körkort (2018)',
+        'ADR Grundkurs, styckegods (2024)',
+        'Truckkort A2 (2016)',
+        'HLR och Första hjälpen (2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Behörigheterna syns redan i titelraden',
+        text: `C-körkort, YKB och skadefri körning står i CV:ts titelrad, och certifikatsektionen anger giltighetstider: YKB till 2028, ADR 2024.
+
+**Varför detta fungerar:** Körkortsklass och giltigt YKB är skallkrav som avgör om resten av CV:t läses. En trafikledare som ser behörigheterna på första raden slipper leta, och giltighetsåren tar bort uppföljningsfrågan om YKB-fortbildningen. Det är samma logik som i annonserna: behörigheterna först, allt annat sedan.`
+      },
+      {
+        rubrik: 'Körningen är kvantifierad som branschen mäter den',
+        text: `40-60 stopp per pass, leveransprecision över 98 procent tre år i rad, skadefri körning sedan 2020 och 8 procent lägre bränsleförbrukning.
+
+**Varför detta fungerar:** Transportbranschen styr på exakt de här nyckeltalen: precision, skador och bränsle är åkeriets tre största kostnads- och kvalitetsposter. En chaufför som redovisar sina egna tal visar både nivå och att han följer upp sitt arbete. Det gör honom omedelbart jämförbar med tjänstens krav, och trovärdig på ett sätt adjektiv aldrig blir.`
+      },
+      {
+        rubrik: 'Regelefterlevnaden är dokumenterad, inte påstådd',
+        text: `Kör- och vilotider utan anmärkningar, noggrann lastsäkring och viktfördelning, digitalt förarkort med namngivna färdskrivarsystem.
+
+**Varför detta fungerar:** Överträdelser av kör- och vilotider ger åkeriet sanktionsavgifter, och slarvig lastsäkring ger skador och böter. En förare som självmant redovisar sin regelefterlevnad är ett lågriskval, och för trafikledaren är risk det som skiljer två annars likvärdiga kandidater. Färdskrivarnamnen visar dessutom praktisk vana, inte bara teoretisk kunskap.`
+      },
+      {
+        rubrik: 'Kundledet får en egen plats',
+        text: `CV:t beskriver avvikelsehantering direkt hos kund och lyfter i personliga kompetenser att Marcus är ett känt ansikte hos återkommande varumottagare.
+
+**Varför detta fungerar:** Inom distribution möter chauffören samma butiker och varumottagare vecka efter vecka, och åkeriets kundrelationer byggs i de mötena. Åkerier vet att en omtyckt chaufför är ett säljargument mot transportköparen. De flesta chaufförs-CV:n missar den dimensionen helt, vilket gör den till en enkel differentiering.`
+      },
+      {
+        rubrik: 'Progressionen bud till distribution är tydlig',
+        text: `Vägen går från terminalarbete via budbil till tyngre distribution, med C-körkort och YKB tagna parallellt med arbetet.
+
+**Varför detta fungerar:** Progressionen visar att Marcus byggt yrket metodiskt: godshantering från terminalgolvet, lokalkännedom från budåren, sedan tyngre behörigheter. För arbetsgivare signalerar det både ambition och realistisk självbild, och terminalbakgrunden förklarar varför hans lastsäkring håller måttet. Karriärvägen pekar dessutom naturligt mot CE och fjärrtrafik för den som vill vidare.`
+      },
+      {
+        rubrik: 'Ecodriving kopplar till åkeriets ekonomi och miljöprofil',
+        text: `Utbildningen i sparsam körning är daterad och kopplad till ett resultat: 8 procent lägre bränsleförbrukning.
+
+**Varför detta fungerar:** Bränsle är en av åkeriets största kostnader, och allt fler transportköpare ställer miljökrav i upphandlingar. En förare med dokumenterat sparsam körstil påverkar båda direkt. Siffran gör påståendet trovärdigt, och för åkerier med uttalad miljöprofil är det här exakt den rad som lyfter en ansökan ur högen.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Sätt behörigheterna där de syns först',
+        text: `Körkortsklass och YKB är skallkrav, låt dem aldrig gömma sig i löptext.
+
+**Exempel på före/efter:**
+❌ "Erfaren chaufför med rätt papper för yrket"
+✅ "Distributionschaufför | C-körkort, YKB giltigt till 2028, ADR styckegods. Digitalt förarkort, van vid Stoneridge och VDO"`
+      },
+      {
+        rubrik: 'Redovisa dina nyckeltal',
+        text: `Stopp, precision, skador och bränsle är språket trafikledare pratar.
+
+**Exempel på före/efter:**
+❌ "Hög arbetstakt med god kvalitet och säkerhet"
+✅ "40-60 stopp per pass med leveransprecision över 98 procent tre år i rad, helt skadefri körning sedan 2020 och 8 procent sänkt bränsleförbrukning efter ecodriving-utbildning"`
+      },
+      {
+        rubrik: 'Beskriv lastsäkring och kör- och vilotider konkret',
+        text: `Regelefterlevnad är riskminimering för åkeriet, visa att du tar den på allvar.
+
+**Exempel på före/efter:**
+❌ "Säkerhetsmedveten och noggrann"
+✅ "Ansvarar för lastsäkring och viktfördelning av styckegods och pall, genomför daglig tillsyn före avgång och håller kör- och vilotider utan anmärkningar"`
+      },
+      {
+        rubrik: 'Anpassa efter trafikslag',
+        text: `Distribution, fjärr och bud kräver olika vana, spegla tjänsten du söker.
+
+**Exempel på före/efter:**
+❌ Samma CV till citydistribution och fjärrtrafik
+✅ Till distribution: stopptäthet, kundmöten, trånga lastzoner. Till fjärr: kör- och vilotidsplanering, lastsäkring för långa transporter, självständighet. Till bud: tempo, lokalkännedom, leveransappar`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för chaufför innehålla?',
+        svar: 'Behörigheterna först: körkortsklass, YKB med giltighetsår, digitalt förarkort och eventuella tillägg som ADR eller truckkort. Därefter kvantifierad körning (stopp per pass, leveransprecision, skadefri körning), systemvana (ruttplanering, färdskrivare), lastsäkring och kör- och vilotider, samt kundmötet om du kör distribution. En trafikledare ska kunna bedöma hela din profil på trettio sekunder.'
+      },
+      {
+        fraga: 'Hur skriver jag YKB i CV:t?',
+        svar: 'Med giltighetstid: "YKB, yrkeskompetensbevis giltigt till 2028". YKB kräver fortbildning på 35 timmar vart femte år, och en arbetsgivare som ser slutåret vet direkt om du är körklar eller snart behöver fortbildning. Ange gärna även när du gick senaste fortbildningen. Ett YKB utan årtal tvingar rekryteraren att fråga, och i snabba rekryteringar hinner frågan ibland aldrig ställas.'
+      },
+      {
+        fraga: 'Hur visar jag skadefri körning på ett trovärdigt sätt?',
+        svar: 'Ange period, inte bara påståendet: "helt skadefri körning sedan 2020". Koppla gärna till hur: daglig tillsyn, marginaler i planeringen, lugn körstil. Skador är en av åkeriets största kostnader, så dokumenterad skadefrihet väger tungt. Har du haft en incident, ta inte upp den i CV:t men var beredd att svara ärligt på intervjun, branschen är liten och referenser tas.'
+      },
+      {
+        fraga: 'Vad är viktigast för en distributionschaufför jämfört med fjärrförare?',
+        svar: 'Distribution: stopptäthet och tempo (ange stopp per pass), leveransprecision, kundmötet hos återkommande varumottagare, trånga lastzoner och digital leveranshantering. Fjärrtrafik: självständighet, kör- och vilotidsplanering över långa sträckor, lastsäkring för längre transporter och vana vid ensamarbete. Läs annonsen och lyft den vana som matchar trafikslaget, det visar att du förstått tjänstens vardag.'
+      },
+      {
+        fraga: 'Ska jag ta med ecodriving och bränsleförbrukning i CV:t?',
+        svar: 'Ja, om du kan sätta en siffra på det: "sänkte bränsleförbrukningen med 8 procent efter utbildning i sparsam körning". Bränsle är en av åkeriets största kostnader och allt fler transportköpare ställer miljökrav, så en dokumenterat sparsam förare är ett ekonomiskt argument. Sparsam körning korrelerar dessutom med färre skador, vilket gör raden dubbelt värdefull.'
+      },
+      {
+        fraga: 'Hur skriver jag CV som ny chaufför utan lång körvana?',
+        svar: 'Lyft det du har: gymnasiets fordons- och transportprogram eller YKB-grundutbildning, körkortsklass med årtal, APL eller praktik, och närliggande erfarenhet som terminal- eller lagerarbete som gett godshantering och lastsäkring i ryggen. Var tydlig med inställningen: noggrann tillsyn, vilja att lära av erfarna kollegor. Förarbristen gör att många åkerier gärna formar nya förare med rätt attityd och giltiga behörigheter.'
+      },
+      {
+        fraga: 'Vilka system bör en chaufför nämna i CV:t?',
+        svar: 'Ruttplanerings- och leveranssystem du arbetat i (till exempel Optidev eller arbetsgivarens egna appar), färdskrivartyper (Stoneridge, VDO) och skanning eller handdatorvana. Systemvana förkortar upplärningen och visar att du hanterar den digitala delen av yrket: leveransbekräftelser, avvikelserapportering och förarkortets regelverk. För budtjänster väger apparna tyngst, för tyngre trafik färdskrivaren.'
+      },
+      {
+        fraga: 'Är ADR värt att skaffa och lyfta i CV:t?',
+        svar: 'Ja, om du vill bredda dig. ADR-intyg för styckegods öppnar transporter av farligt gods, vilket fler tjänster kräver än många tror, från byggvaror till kemprodukter. Har du intyget, skriv det med år och omfattning: "ADR Grundkurs, styckegods (2024)". Det signalerar dessutom att du investerar i yrket, vilket trafikledare läser som en stabil förare som tänker stanna i branschen.'
+      },
+      {
+        fraga: 'Hur hanterar jag kundkontakten i ett chaufförs-CV?',
+        svar: 'Ge den en egen rad, för inom distribution är den halva jobbet: "hanterar avvikelser direkt hos kund och löser returer och felleveranser med trafikledningen samma dag". Återkommande varumottagare som känner igen och litar på chauffören är ett affärsvärde för åkeriet. De flesta sökande skriver bara om körningen, så kundledet är ett enkelt sätt att skilja sig från högen.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Terminalarbetare', slug: 'terminalarbetare' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' }
+    ]
   }
 }
 

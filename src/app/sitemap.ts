@@ -241,6 +241,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'barista',
     'logistikassistent',
     'terminalarbetare',
+    'vaktmastare',
+    'socionom',
+    'stodpedagog',
+    'chauffor',
     // Lägg till fler CV-exempel här när de skapas
   ];
 
@@ -333,6 +337,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'socionom',
     'stodpedagog',
     'chauffor',
+    'it-tekniker',
+    'telefonforsaljare',
+    'diskare',
+    'snickare',
+    'elektriker',
+    'vaktare',
     // Lägg till fler personligt brev-exempel här när de skapas
   ];
 

@@ -79,6 +79,10 @@ export const CV_YRKEN: Record<string, string> = {
   barista: 'Barista',
   logistikassistent: 'Logistikassistent',
   terminalarbetare: 'Terminalarbetare',
+  vaktmastare: 'Vaktmästare',
+  socionom: 'Socionom',
+  stodpedagog: 'Stödpedagog',
+  chauffor: 'Chaufför',
 }
 
 export const BREV_YRKEN: Record<string, string> = {
@@ -161,4 +165,10 @@ export const BREV_YRKEN: Record<string, string> = {
   socionom: 'Socionom',
   stodpedagog: 'Stödpedagog',
   chauffor: 'Chaufför',
+  'it-tekniker': 'IT-tekniker',
+  telefonforsaljare: 'Telefonförsäljare',
+  diskare: 'Diskare',
+  snickare: 'Snickare',
+  elektriker: 'Elektriker',
+  vaktare: 'Väktare',
 }
