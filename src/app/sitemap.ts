@@ -245,6 +245,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'socionom',
     'stodpedagog',
     'chauffor',
+    'it-tekniker',
+    'telefonforsaljare',
+    'diskare',
+    'snickare',
+    'elektriker',
+    'vaktare',
+    'stadare',
     // Lägg till fler CV-exempel här när de skapas
   ];
 

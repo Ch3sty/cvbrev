@@ -472,6 +472,48 @@ export const CV_GALLERI: GalleriYrke[] = [
     "namn": "Chaufför",
     "kategori": "service",
     "intro": "CV för chaufför med C-körkort, YKB, leveransprecision och skadefri körning."
+  },
+  {
+    "slug": "it-tekniker",
+    "namn": "IT-tekniker",
+    "kategori": "teknik",
+    "intro": "CV för IT-tekniker med first line support, Active Directory, Intune och supportens nyckeltal."
+  },
+  {
+    "slug": "telefonforsaljare",
+    "namn": "Telefonförsäljare",
+    "kategori": "service",
+    "intro": "CV för telefonförsäljare med samtalsvolym, konvertering och CRM-vana."
+  },
+  {
+    "slug": "diskare",
+    "namn": "Diskare",
+    "kategori": "service",
+    "intro": "CV för diskare med maskinvana, hygienrutiner och tempo, även för första jobbet."
+  },
+  {
+    "slug": "snickare",
+    "namn": "Snickare",
+    "kategori": "teknik",
+    "intro": "CV för snickare med yrkesbevis, formsättning, stomresning och säkerhetsutbildningar."
+  },
+  {
+    "slug": "elektriker",
+    "namn": "Elektriker",
+    "kategori": "teknik",
+    "intro": "CV för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll."
+  },
+  {
+    "slug": "vaktare",
+    "namn": "Väktare",
+    "kategori": "service",
+    "intro": "CV för väktare med VU1/VU2, rondering, larmutryckning och rapportering."
+  },
+  {
+    "slug": "stadare",
+    "namn": "Städare",
+    "kategori": "service",
+    "intro": "CV för städare med städmetoder, maskinvana, kemikaliehantering och nyckelansvar."
   }
 ]
 

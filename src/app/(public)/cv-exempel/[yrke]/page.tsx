@@ -20912,6 +20912,1544 @@ Använd exemplet som grund för ditt eget CV som chaufför och anpassa detaljern
       { yrke: 'Terminalarbetare', slug: 'terminalarbetare' },
       { yrke: 'Lagerarbetare', slug: 'lagerarbetare' }
     ]
+  },
+
+  'it-tekniker': {
+    yrke: 'IT-tekniker',
+    slug: 'it-tekniker',
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel IT-tekniker 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för IT-tekniker med first line support, Active Directory, Intune och ärendesystem. ATS-optimerad mall för servicedesk och IT-support.',
+
+    seoIntro: `Söker du jobb som IT-tekniker och vill ha ett CV som tar sig igenom både ATS-filtret och den tekniska granskningen? Det här exemplet visar hur du strukturerar ett CV för servicedesk, first line support och onsite-roller.
+
+Du får se hur du lyfter ärendesystem som TOPdesk och ServiceNow, miljöer som Active Directory, Microsoft 365 och Intune, samt supportens egna nyckeltal: ärenden per dag, antal användare och lösningsgrad i första kontakten. CV:t balanserar det tekniska med det rekryterare i supportyrken väger lika tungt, servicekänslan.
+
+Använd exemplet som grund för ditt eget CV som IT-tekniker och anpassa systemnamn och nyckeltal efter miljön du söker till, en intern IT-avdelning, en kommun och ett konsultbolag betonar olika delar av samma kompetens.`,
+
+    viktigtAttTankaPa: [
+      'Namnge ärendesystem och miljöer exakt (TOPdesk, ServiceNow, Active Directory, Intune, Microsoft 365), det är orden ATS och tekniska chefer söker på',
+      'Kvantifiera supporten: ärenden per dag, antal användare du supporterat och lösningsgrad i första kontakten',
+      'Placera dig i supportkedjan: first line, second line eller onsite, och visa eskaleringsvana',
+      'Lyft certifieringar som ITIL, CompTIA eller Microsoft med årtal, och koppla dem till praktisk användning'
+    ],
+
+    exempelCV: {
+      namn: 'David Lindberg',
+      titel: 'IT-tekniker | First line support, Microsoft 365 och Intune',
+      kontakt: {
+        telefon: '070-528 41 77',
+        epost: 'david.lindberg@email.se',
+        plats: 'Gävle',
+        linkedin: 'linkedin.com/in/davidlindberg'
+      },
+
+      profil: 'IT-tekniker med 3 års erfarenhet av first line support i kommunal miljö med cirka 2 000 användare. Hanterar 25-35 ärenden per dag i TOPdesk med 70 procents lösningsgrad i första kontakten, administrerar konton och behörigheter i Active Directory och paketerar applikationer via Intune. Byggde självhjälpsguide som sänkte ärendeinflödet med 25 procent på de vanligaste ärendetyperna. ITIL-orienterat arbetssätt, van vid SLA-styrning och support i både Windows- och Mac-miljö.',
+
+      erfarenhet: [
+        {
+          titel: 'IT-tekniker, first line support',
+          arbetsgivare: 'Kommunal IT-avdelning, Gävleborg',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Hanterar 25-35 ärenden per dag i TOPdesk för cirka 2 000 användare, med 70 procents lösningsgrad i första kontakten',
+            'Administrerar konton, behörigheter och grupper i Active Directory samt hanterar lösenordsflöden och MFA',
+            'Paketerar och distribuerar applikationer via Microsoft Intune och hanterar klienter i både Windows- och Mac-miljö',
+            'Byggde självhjälpsguide för de tio vanligaste ärendetyperna, vilket sänkte inflödet i kategorierna med 25 procent',
+            'Onboardar nya medarbetare med konton, utrustning och introduktion samt dokumenterar lösningar i kunskapsdatabasen'
+          ]
+        },
+        {
+          titel: 'IT-supporttekniker (deltid under studier)',
+          arbetsgivare: 'IT-konsultbolag, Gävle',
+          period: '2021 - 2023',
+          beskrivning: [
+            'First line-support via telefon, chatt och mejl mot flera kundmiljöer med olika system och rutiner',
+            'Felsökte hårdvara, skrivare och nätverksanslutningar samt eskalerade enligt kundens SLA',
+            'Byggde grundvana i ServiceNow och i att dokumentera ärenden så att second line kan ta vid utan omtag'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'IT-supporttekniker, YH 400 p',
+          skola: 'Yrkeshögskola, Gävle',
+          period: '2021 - 2023',
+          beskrivning: 'LIA-praktik på kommunal IT-avdelning. Fördjupning i Windows Server, nätverk och ärendehantering enligt ITIL.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Ärendesystem: TOPdesk (3 år, dagligt arbete), ServiceNow (2 år)',
+          'Active Directory: konton, behörigheter, grupper, MFA',
+          'Microsoft Intune: paketering, distribution, klienthantering',
+          'Microsoft 365: Exchange, Teams, SharePoint, OneDrive',
+          'Klientsupport: Windows 10/11 och macOS',
+          'Nätverksgrunder: TCP/IP, DNS, DHCP, VPN, Wi-Fi',
+          'SLA-styrd ärendehantering och eskalering till second line',
+          'Kunskapsdatabas och självhjälpsmaterial'
+        ],
+        personliga: [
+          'Serviceinriktad: förklarar teknik utan att få användare att känna sig dumma',
+          'Strukturerad: dokumenterar varje lösning för teamets återanvändning',
+          'Lugn vid driftstörningar med många samtidiga ärenden',
+          'Pedagogisk vid onboarding och användarutbildning',
+          'Prestigelös lagspelare mellan first line, second line och drift'
+        ]
+      },
+
+      certifieringar: [
+        'ITIL 4 Foundation (2023)',
+        'Microsoft MD-102, Endpoint Administrator (2024)',
+        'CompTIA A+ (2022)',
+        'B-körkort (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Supportens nyckeltal gör kapaciteten mätbar',
+        text: `CV:t anger 25-35 ärenden per dag, 2 000 användare och 70 procents lösningsgrad i första kontakten, samt ett förbättringsresultat: 25 procent lägre inflöde efter självhjälpsguiden.
+
+**Varför detta fungerar:** Servicedeskar styrs på exakt de här måtten, och en servicedeskchef kan direkt jämföra Davids volym med den egna kön. First contact resolution är dessutom branschens viktigaste kvalitetsmått, att en sökande känner till och redovisar det signalerar att han förstår verksamheten, inte bara tekniken. Förbättringsresultatet visar att han minskar behovet av support, vilket är supportens egentliga mål.`
+      },
+      {
+        rubrik: 'Systemnamnen matchar annonsernas kravlistor',
+        text: `TOPdesk, ServiceNow, Active Directory, Intune, Microsoft 365, Windows och Mac nämns med sammanhang och antal år, inte som en kommaseparerad rad.
+
+**Varför detta fungerar:** IT-rekrytering filtreras hårt på systemnamn, både i ATS och av tekniska chefer som skummar. "Administrerar konton och behörigheter i Active Directory" ger träff på sökningen och bevisar samtidigt nivån: administration, inte bara användning. Att både TOPdesk och ServiceNow finns med breddar träffytan, eftersom olika arbetsgivare kör olika ärendesystem men söker samma grundkompetens.`
+      },
+      {
+        rubrik: 'Placeringen i supportkedjan är tydlig',
+        text: `CV:t anger first line uttryckligen, beskriver eskalering till second line enligt SLA och visar dokumentation som gör överlämningar rena.
+
+**Varför detta fungerar:** Supportorganisationer bemannar per nivå, och en rekryterare som söker first line vill se first line-vana: volym, bredd och bemötande. Att David dessutom beskriver hur han dokumenterar för second line visar att han förstår hela kedjan, vilket är det första tecknet på att någon är redo att så småningom ta steget upp. Otydlig nivåplacering är ett av de vanligaste skälen till att support-CV:n läggs åt sidan.`
+      },
+      {
+        rubrik: 'Servicekänslan är formulerad som kompetens',
+        text: `Bland personliga kompetenser står att David förklarar teknik utan att få användare att känna sig dumma, och att han är lugn vid driftstörningar.
+
+**Varför detta fungerar:** Supportyrkets svåraste rekryteringsfråga är inte teknisk, den är om kandidaten orkar vara vänlig i trettionde samtalet. En formulering som visar att David ser bemötandet som ett hantverk, inte en personlighet, svarar på den frågan. Det skiljer honom från tekniskt likvärdiga kandidater som bara listar system, och det är ofta exakt där valet står i slutet av en process.`
+      },
+      {
+        rubrik: 'Certifieringarna är färska och kopplade till miljön',
+        text: `ITIL 4 Foundation, Microsoft MD-102 och CompTIA A+ listas med årtal, och ITIL-arbetssättet återkommer i profiltexten och ärendehanteringen.
+
+**Varför detta fungerar:** ITIL är ramverket svenska servicedeskar bygger sina flöden på, och MD-102 matchar exakt Intune-arbetet CV:t beskriver, certifikat och praktik bekräftar varandra. Årtalen visar att kompetensen är aktuell i en bransch där tre år gamla certifikat kan vara föråldrade. För arbetsgivaren betyder det kortare introduktion och en tekniker som kan ta ärenden vecka ett.`
+      },
+      {
+        rubrik: 'Progressionen pekar naturligt uppåt',
+        text: `Vägen går från deltidssupport under YH-studierna till kommunal first line med eget utvecklingsansvar, och kompetenslistan visar redan second line-färdigheter som paketering och AD-administration.
+
+**Varför detta fungerar:** IT-support är ett genomgångsyrke där arbetsgivare räknar med utveckling, och de investerar hellre i någon med tydlig riktning än någon som verkar ha fastnat. Davids CV visar en tekniker på väg mot second line utan att överdriva nuvarande nivå. Den ärliga progressionen gör honom attraktiv både för tjänsten i dag och för organisationens behov om två år.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Redovisa supportens nyckeltal',
+        text: `Servicedeskar mäter volym, lösningsgrad och nöjdhet, så gör det du också.
+
+**Exempel på före/efter:**
+❌ "Van vid högt tempo i supportmiljö"
+✅ "Hanterar 25-35 ärenden per dag för 2 000 användare med 70 procents lösningsgrad i första kontakten, inom SLA"`
+      },
+      {
+        rubrik: 'Skriv systemen med sammanhang och nivå',
+        text: `Samma systemnamn kan betyda användare eller administratör, visa vilket.
+
+**Exempel på före/efter:**
+❌ "Kunskaper i Active Directory, Intune, Microsoft 365"
+✅ "Administrerar konton, behörigheter och MFA i Active Directory samt paketerar och distribuerar applikationer via Intune till Windows- och Mac-klienter"`
+      },
+      {
+        rubrik: 'Visa att du minskar supportbehovet',
+        text: `Bra support handlar om färre ärenden, inte fler stängda. Lyft dokumentation och självhjälp.
+
+**Exempel på före/efter:**
+❌ "Dokumenterar ärenden noggrant"
+✅ "Byggde självhjälpsguide för de tio vanligaste ärendetyperna vilket sänkte inflödet med 25 procent, och dokumenterar varje ny lösning i kunskapsdatabasen"`
+      },
+      {
+        rubrik: 'Matcha nivån i annonsen',
+        text: `First line, second line och onsite kräver olika betoning, läs annonsen och spegla den.
+
+**Exempel på före/efter:**
+❌ Samma CV till servicedesk och onsite-tjänst
+✅ Till first line: volym, bemötande, bredd. Till second line: felsökningsdjup, paketering, eskalerade ärenden du löst. Till onsite: självständighet, hårdvara och fysisk utrustning`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för IT-tekniker innehålla?',
+        svar: 'Fyra bärande delar: ärendesystem och miljöer med nivå (TOPdesk eller ServiceNow, Active Directory, Intune, Microsoft 365), supportens nyckeltal (ärenden per dag, antal användare, lösningsgrad), din plats i supportkedjan med eskaleringsvana, och certifieringar med årtal. Lägg till servicekänslan formulerad som kompetens, i supportyrken väger bemötandet lika tungt som tekniken i urvalet.'
+      },
+      {
+        fraga: 'Hur skriver jag CV för IT-support utan yrkeserfarenhet?',
+        svar: 'Bygg på det tekniska intresset med bevis: hemmalabb, datorer du byggt, certifieringar som CompTIA A+ eller Microsoft-grunder, och YH-utbildningens LIA-praktik om du gått den. Lyft all kundkontakt från andra jobb, butik och kundtjänst är utmärkta grunder eftersom bemötandet är halva yrket. Många servicedeskar rekryterar på inställning och lär ut miljöerna, så visa lärvilja och struktur snarare än att överdriva tekniken.'
+      },
+      {
+        fraga: 'Vilka certifieringar är mest värda för en IT-tekniker?',
+        svar: 'ITIL 4 Foundation väger tyngst brett eftersom svenska servicedeskar bygger sina flöden på ramverket. CompTIA A+ och Network+ är starka grundbevis, Microsoft MD-102 matchar klienthantering med Intune och AZ-900 ger molngrunderna. CCNA öppnar nätverksspåret. Ange årtal och koppla certifikatet till praktisk användning, ett certifikat utan sammanhang i erfarenheten läses som teori.'
+      },
+      {
+        fraga: 'Vad är first line, second line och onsite i ett CV?',
+        svar: 'First line är första kontakten: hög volym, bred felsökning och eskalering av det som inte löses direkt. Second line tar eskalerade ärenden med djupare felsökning, paketering och serveradministration. Onsite arbetar fysiskt med utrustning hos användare. Skriv ut vilken nivå du arbetat på och visa gärna kedjeförståelse: hur du dokumenterar för nästa led. Arbetsgivare bemannar per nivå och sorterar CV:n därefter.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag supportarbete i CV:t?',
+        svar: 'Använd måtten servicedesken redan mäter: ärenden per dag eller vecka, antal användare i miljön, lösningsgrad i första kontakten (first contact resolution), svarstider mot SLA och nöjdhetsbetyg om de mäts. Lägg till förbättringar: sänkt inflöde efter självhjälpsmaterial, kortad hanteringstid efter ny rutin. Siffrorna gör dig jämförbar med tjänsten och visar att du förstår verksamhetens mål.'
+      },
+      {
+        fraga: 'Ska jag ta med både Windows och Mac i CV:t?',
+        svar: 'Ja, om du har vanan, blandade miljöer blir allt vanligare och annonserna efterfrågar ofta båda. Skriv konkret: "supporterar Windows 10/11 och macOS inklusive klienthantering i Intune". Har du bara Windows-vana är det sällan diskvalificerande, men nämn då gärna privat Mac-erfarenhet eller vilja att lära i stället för att lämna frågan öppen, rekryteraren bockar av mot en kravlista.'
+      },
+      {
+        fraga: 'Hur visar jag servicekänsla i ett tekniskt CV?',
+        svar: 'Formulera bemötandet som hantverk med belägg: återkoppling du fått, nöjdhetsbetyg, användare som frågar efter dig. En rad som "förklarar teknik utan att få användare att känna sig dumma" säger mer än ordet serviceinriktad. Beskriv också hur du agerar vid driftstörningar: kommunicerar läget, prioriterar systematiskt, behåller tonen. Supportchefer rekryterar på den förmågan lika mycket som på tekniken.'
+      },
+      {
+        fraga: 'Vilka arbetsgivare anställer IT-tekniker?',
+        svar: 'Interna IT-avdelningar hos kommuner, regioner och företag, IT-driftbolag och konsultbolag som Atea, Advania och Iver, samt bemanningsbolag som hyr ut mot kundmiljöer. Miljöerna skiljer sig: intern IT ger djup i en miljö, konsult och drift ger bredd över många. Skriv i ansökan vilken vardag du söker och varför, det visar självkännedom och minskar risken för fel matchning.'
+      },
+      {
+        fraga: 'Hur tar jag steget från first line till second line?',
+        svar: 'Visa i CV:t att du redan gör delar av jobbet: paketering i Intune, AD-administration, komplexa ärenden du löst efter eskalering, dokumentation som second line berömt. Certifiera dig mot nästa nivå, MD-102 eller serverkurser, och be om eskalerade ärenden i nuvarande roll. I ansökan till second line-tjänster: led med felsökningsdjupet och de svåraste fallen, inte volymen, det är djupet som bedöms.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'IT-konsult', slug: 'it-konsult' },
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
+      { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanstmedarbetare' }
+    ]
+  },
+
+  'telefonforsaljare': {
+    yrke: 'Telefonförsäljare',
+    slug: 'telefonforsaljare',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Telefonförsäljare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för telefonförsäljare med samtalsvolym, konvertering och CRM-vana. ATS-optimerad mall för telemarketing, innesälj och mötesbokning.',
+
+    seoIntro: `Söker du jobb som telefonförsäljare och vill ha ett CV som säljer lika bra som du gör i luren? Det här exemplet visar hur du strukturerar ett CV för telemarketing, innesälj och mötesbokning.
+
+Du får se hur du leder med säljsiffrorna, samtalsvolym, konvertering mot teamsnitt och placeringar i säljtävlingar, hur du visar systemvana med dialer och CRM som Lime och Salesforce, och hur du lyfter regelefterlevnad kring skriftlighetskravet och NIX som ett kvalitetsbevis. Säljchefer läser CV:n som säljstatistik: snabbt och med blick för siffrorna.
+
+Använd exemplet som grund för ditt eget CV som telefonförsäljare och anpassa siffror och format efter tjänsten, B2C, B2B och mötesbokning mäts på olika tal.`,
+
+    viktigtAttTankaPa: [
+      'Led med säljsiffrorna i sammanhang: samtal per dag, konvertering mot teamsnittet, snittorder eller bokade möten',
+      'Namnge dialer och CRM du arbetat i (Lime, Salesforce, LeadDesk, Adversus), systemvana förkortar upplärningen',
+      'Visa regelefterlevnad: skriftlighetskravet, NIX och låg andel ångrade avtal är kvalitetsbevis hos seriösa arbetsgivare',
+      'Bevisa uthålligheten mot nej med något verkligt, det är säljchefens viktigaste urvalsfråga'
+    ],
+
+    exempelCV: {
+      namn: 'Felicia Ström',
+      titel: 'Telefonförsäljare B2C | Topp 3 i team, 8 % konvertering',
+      kontakt: {
+        telefon: '073-641 28 95',
+        epost: 'felicia.strom@email.se',
+        plats: 'Umeå',
+        linkedin: 'linkedin.com/in/feliciastrom'
+      },
+
+      profil: 'Telefonförsäljare med 3 års erfarenhet av B2C-försäljning i högt tempo. Ringer 120-150 samtal per dag i predictive dialer med en konvertering på 8 procent mot teamsnittet 5, topp tre i säljtävlingen sex av senaste åtta månaderna och teamets lägsta andel ångrade avtal. Arbetar strukturerat i Lime CRM med uppföljning av återkomster och korrekt hantering av skriftlighetskravet och NIX. Tävlingsmänniska med tio år av lagidrott bakom uthålligheten.',
+
+      erfarenhet: [
+        {
+          titel: 'Telefonförsäljare B2C',
+          arbetsgivare: 'Säljbyrå, Umeå',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Säljer elavtal B2C med 120-150 samtal per dag i predictive dialer och en konvertering på 8 procent mot teamsnittet 5',
+            'Topp tre i den månatliga säljtävlingen sex av de senaste åtta månaderna, i ett team om tolv säljare',
+            'Teamets lägsta andel ångrade avtal genom tydliga erbjudanden och korrekt hantering av skriftlighetskravet',
+            'Arbetar i Lime CRM med strukturerad uppföljning av återkomster, vilket står för cirka en fjärdedel av mina avslut',
+            'Agerar fadder för nya säljare under deras två första veckor med medlyssning och samtalscoachning'
+          ]
+        },
+        {
+          titel: 'Mötesbokare (deltid)',
+          arbetsgivare: 'Telemarketingbolag, Umeå',
+          period: '2022 - 2023',
+          beskrivning: [
+            'Bokade kundmöten åt B2B-säljare med i snitt 4-6 kvalificerade möten per pass',
+            'Byggde grunderna i samtalsstruktur, invändningshantering och att snabbt väcka intresse',
+            'Arbetade mot NIX-kontrollerade ringlistor med dokumentation av varje kontakt'
+          ]
+        },
+        {
+          titel: 'Kassabiträde (extrajobb under gymnasiet)',
+          arbetsgivare: 'Livsmedelsbutik, Umeå',
+          period: '2020 - 2022',
+          beskrivning: [
+            'Kassa och kundservice i högt tempo, första vanan vid att möta många människor per dag'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Ekonomiprogrammet',
+          skola: 'Gymnasium, Umeå',
+          period: '2019 - 2022',
+          beskrivning: 'Inriktning marknadsföring.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Dialer: predictive och power dialer (Adversus, 3 år)',
+          'CRM: Lime (3 år, dagligt arbete), grundvana i Salesforce',
+          'Skriftlighetskravet vid telefonförsäljning, korrekt avtalsflöde',
+          'NIX-kontroll och dokumentation av kundkontakter',
+          'Invändningshantering och behovsanalys i samtal',
+          'Uppföljningsstruktur för återkomster och callbacks',
+          'Medlyssning och samtalscoachning av nya säljare',
+          'B2C-försäljning och B2B-mötesbokning'
+        ],
+        personliga: [
+          'Uthållig mot nej: jämn volym oavsett gårdagens resultat',
+          'Tävlingsdriven med lagkänsla, firar andras avslut också',
+          'Strukturerad: återkomster följs alltid upp på utsatt tid',
+          'Tydlig och varm telefonröst, van vid medlyssning',
+          'Ärlig i erbjudanden, lägst andel ångrade avtal i teamet'
+        ]
+      },
+
+      certifieringar: [
+        'Intern säljutbildning, samtalsstruktur och avslutsteknik (2023)',
+        'GDPR-grundutbildning för kunddata (2024)',
+        'B-körkort (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Siffrorna står i sammanhang och går att verifiera',
+        text: `Konverteringen anges mot teamsnittet (8 mot 5 procent), tävlingsplaceringen mot teamets storlek (topp tre av tolv) och volymen i samtal per dag (120-150).
+
+**Varför detta fungerar:** Säljchefer litar inte på ensamma procentsatser, en hög siffra utan jämförelsepunkt kan betyda lätta listor. Relativa tal visar prestation mot samma förutsättningar som kollegorna, och de är exakt det referenser får frågan om. Att siffrorna är specifika men rimliga gör dem trovärdiga, och trovärdiga siffror är det snabbaste sättet att bli uppringd.`
+      },
+      {
+        rubrik: 'Regelefterlevnaden vänds till försäljningsargument',
+        text: `Teamets lägsta andel ångrade avtal, korrekt hantering av skriftlighetskravet och NIX-dokumentation lyfts som resultat, inte som formalia.
+
+**Varför detta fungerar:** Sedan skriftlighetskravet infördes lever seriösa telemarketingbolag på avtalskvalitet: ett ångrat avtal kostar mer än ett uteblivet. En säljare som säljer rent, och kan bevisa det med lägst andel ångrade avtal, är därför mer värd än en med högre bruttosiffror och sämre kvalitet. Det skiljer också Felicia från stereotypen som jagar avslut till varje pris, vilket är precis den oro säljchefer bär på.`
+      },
+      {
+        rubrik: 'Uthålligheten har belägg utanför påståendena',
+        text: `Personliga kompetenser beskriver jämn volym oavsett gårdagens resultat, och profilen förankrar tåligheten i tio års lagidrott.
+
+**Varför detta fungerar:** Telefonförsäljningens största personalproblem är att nejen sliter ut folk, och varje säljchef har anställt energiska personer som försvann efter tre veckor. Ett CV som visar var tåligheten kommer ifrån, och hur den ser ut i vardagen, besvarar den verkliga urvalsfrågan. Idrottsbakgrund är dessutom en av de meriter säljchefer öppet letar efter i unga kandidater.`
+      },
+      {
+        rubrik: 'Fadderrollen visar nästa nivå',
+        text: `Felicia agerar fadder för nya säljare med medlyssning och samtalscoachning, en informell ledarroll arbetsgivaren gett henne.
+
+**Varför detta fungerar:** Att få ansvar för nya kollegor är säljgolvets tydligaste kvalitetsstämpel: chefen litar både på hennes teknik och hennes sätt att representera kulturen. För rekryterande bolag signalerar det en möjlig framtida teamledare, och i en bransch med hög personalomsättning väger tecken på att någon vill växa internt ovanligt tungt.`
+      },
+      {
+        rubrik: 'Systemvanan täcker båda vanliga flödena',
+        text: `Predictive dialer med namngivet system, Lime CRM med daglig användning och strukturerad återkomsthantering som kopplas till en fjärdedel av avsluten.
+
+**Varför detta fungerar:** Dialer- och CRM-vana avgör hur snabbt en säljare producerar i nytt bolag, och återkomststrukturen visar något djupare: att Felicia förstår att telefonförsäljning är ett flöde, inte enskilda samtal. Kopplingen mellan uppföljningsdisciplin och andel avslut är den sortens insikt som får en säljchef att vilja höra mer.`
+      },
+      {
+        rubrik: 'Progressionen är snabb men logisk',
+        text: `Vägen går från kassajobb via mötesbokning till B2C-försäljning med topplaceringar, på tre år.
+
+**Varför detta fungerar:** Säljbranschen älskar snabb utveckling, men bara när den hänger ihop. Kassavanan gav mötestempot, mötesbokningen gav samtalsstrukturen, och försäljningen skördar båda. En rekryterare ser en person som medvetet byggt sitt hantverk steg för steg, och som rimligen fortsätter uppåt, mot större affärer, B2B eller teamledning, hos den arbetsgivare som ger utrymmet.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Sätt siffrorna i relation till teamet',
+        text: `En ensam procentsats säger inget, jämförelsen gör den till ett bevis.
+
+**Exempel på före/efter:**
+❌ "God konvertering och höga säljresultat"
+✅ "8 procents konvertering mot teamsnittet 5, topp tre i säljtävlingen sex av åtta månader i ett team om tolv"`
+      },
+      {
+        rubrik: 'Lyft avtalskvaliteten, inte bara avsluten',
+        text: `Seriösa bolag mäter ångrade avtal och klagomål lika noga som försäljning.
+
+**Exempel på före/efter:**
+❌ "Många avslut varje månad"
+✅ "Teamets lägsta andel ångrade avtal genom tydliga erbjudanden och korrekt hantering av skriftlighetskravet"`
+      },
+      {
+        rubrik: 'Namnge dialer och CRM',
+        text: `Systemvana är skillnaden mellan att producera vecka ett och vecka fyra.
+
+**Exempel på före/efter:**
+❌ "Datorvana och erfarenhet av säljsystem"
+✅ "3 års dagligt arbete i predictive dialer (Adversus) och Lime CRM med strukturerad återkomsthantering, grundvana i Salesforce"`
+      },
+      {
+        rubrik: 'Anpassa siffrorna efter säljformatet',
+        text: `B2C, B2B och mötesbokning mäts olika, led med rätt tal för tjänsten.
+
+**Exempel på före/efter:**
+❌ Samma CV till telemarketing och mötesbokning
+✅ Till B2C: samtalsvolym och konvertering. Till mötesbokning: bokade kvalificerade möten per pass. Till B2B och innesälj: pipeline, snittaffär och kundvård`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för telefonförsäljare innehålla?',
+        svar: 'Säljsiffror i sammanhang först: samtal per dag, konvertering mot teamsnitt, tävlingsplaceringar eller bokade möten. Därefter systemvana (dialer och CRM med namn), säljformat (B2C eller B2B, nykund eller befintlig kund), regelefterlevnad kring skriftlighetskravet och NIX, samt beviset på uthållighet mot nej. Håll CV:t till en sida, säljchefer läser det som säljstatistik: snabbt och siffror först.'
+      },
+      {
+        fraga: 'Hur skriver jag CV för telefonförsäljning utan erfarenhet?',
+        svar: 'Telefonförsäljning är ett klassiskt första jobb och bolagen har egna säljskolor, så de rekryterar råmaterial: energi, tävlingsinstinkt och tålighet. Visa dem med det du har: idrott, serviceyrken med högt kundtempo, resultat du kämpat dig till. Skriv rakt ut att du vill lära dig sälja och att du vet att jobbet innebär många nej. En ärlig rad om drivkraften slår varje uppblåst merit.'
+      },
+      {
+        fraga: 'Vilka siffror ska jag lyfta i ett sälj-CV?',
+        svar: 'De som tjänsten mäts på: samtalsvolym per dag, konvertering eller hit rate, snittordervärde, bokade kvalificerade möten, placering i teamet och andel ångrade avtal. Ange alltid jämförelsepunkten, teamsnitt eller teamstorlek, annars går siffran inte att värdera. Var ärlig: säljsiffror är det första referenserna får frågan om, och en avslöjad överdrift avslutar processen direkt.'
+      },
+      {
+        fraga: 'Vad är skriftlighetskravet och varför hör det hemma i CV:t?',
+        svar: 'Sedan september 2018 blir ett avtal vid telefonförsäljning till konsument giltigt först när kunden skriftligt accepterat anbudet efter samtalet. Att du hanterar kravet korrekt, och kan visa låg andel ångrade avtal, är ett kvalitetsbevis: du säljer affärer som står sig. Seriösa arbetsgivare, särskilt medlemmar i branschorganisationen Kontakta, väger det tungt i urvalet.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar många nej per dag?',
+        svar: 'Med belägg i stället för adjektiv: jämn samtalsvolym över tid, idrottsbakgrund med förlorade matcher och nästa träning, eller ett fysiskt krävande jobb du skött länge. Beskriv det som vana: "volymen är densamma dagen efter ett tufft pass". Uthålligheten är säljchefens viktigaste urvalsfråga eftersom utslitning är branschens största personalproblem, och den som besvarar frågan trovärdigt i CV:t har ett försprång.'
+      },
+      {
+        fraga: 'Ska jag ta med lönemodell och provision i CV:t?',
+        svar: 'Nej, lön hör hemma i intervjun och de flesta tjänster har garantilön plus provision som standard. Däremot kan du antyda att du drivs av modellen genom tävlingsresultaten, det är exakt den motivationen provisionen ska trigga. Kommer frågan om löneanspråk, utgå från garantinivån och din bevisade konvertering, en säljare med dokumenterade siffror förhandlar från styrka.'
+      },
+      {
+        fraga: 'Räknas mötesbokning som säljerfarenhet?',
+        svar: 'Ja, absolut. Mötesbokning tränar samtalets svåraste delar: öppningen, intresset och invändningarna, och mäts i kvalificerade möten per pass vilket är fullt jämförbara säljsiffror. Många B2B-säljare har börjat exakt där. Skriv volym och kvalitet: "4-6 kvalificerade möten per pass åt B2B-säljare", och lyft vad rollen lärde dig om struktur och research inför samtal.'
+      },
+      {
+        fraga: 'Hur ser karriärvägen ut från telefonförsäljare?',
+        svar: 'Vanliga steg är teamledare eller coach på säljgolvet, innesälj och account management med större affärer, B2B-försäljning med längre säljcykler, eller fältsälj. Visa riktningen i CV:t genom det du redan gör: fadderskap, medlyssning, toppresultat över tid. Bolag med intern utvecklingstrappa rekryterar gärna säljare som uttalat vill växa, det ökar chansen att de stannar.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Account Manager', slug: 'account-manager' }
+    ]
+  },
+
+  'diskare': {
+    yrke: 'Diskare',
+    slug: 'diskare',
+    kategori: 'restaurang',
+    metaTitle: 'CV Exempel Diskare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för diskare med tempo, hygienrutiner och maskinvana. Enkel mall som fungerar för restaurang, storkök och första jobbet.',
+
+    seoIntro: `Söker du jobb som diskare och undrar vad man ens skriver i CV:t? Mer än du tror. Det här exemplet visar hur du strukturerar ett CV som ger krögare och kökschefer exakt det de letar efter: pålitlighet, tempo och ordning.
+
+Du får se hur du beskriver diskarbetet med rätt termer, grovdisk och findisk, huvmaskin, ren och smutsig sida, hur du visar hygienförståelse kring egenkontroll, och hur du gör tillgängligheten till ditt starkaste kort. Exemplet passar också dig som söker ditt första jobb, då bygger du på skola, idrott och annat ansvar i stället.
+
+Använd exemplet som grund för ditt eget CV som diskare, och kom ihåg att disken är branschens klassiska ingång: många kockar började exakt här.`,
+
+    viktigtAttTankaPa: [
+      'Sätt tillgängligheten högt upp: kvällar, helger, lov och kort varsel är ofta det som avgör',
+      'Använd köksspråket även för kort erfarenhet: grovdisk, findisk, huvmaskin, stängningsrutiner',
+      'Visa hygienförståelse: diskens temperaturer och ordning är livsmedelssäkerhet, inte bara städning',
+      'Har du ambitioner mot köket, skriv det, engagerade diskare rekryteras ofta vidare internt'
+    ],
+
+    exempelCV: {
+      namn: 'Elias Öström',
+      titel: 'Diskare | Restaurangdisk, tempo och stängningsrutiner',
+      kontakt: {
+        telefon: '076-318 52 47',
+        epost: 'elias.ostrom@email.se',
+        plats: 'Malmö',
+        linkedin: ''
+      },
+
+      profil: 'Diskare med erfarenhet från lunchrestaurang i Malmö, van vid grovdisk och findisk i huvmaskin, sortering och tempo under lunchrusning. Sköter stängningsrutiner självständigt och håller ordning på ren och smutsig sida enligt kökets hygienrutiner. 18 år, går sista året på gymnasiet och kan arbeta kvällar, helger och hela loven, med möjlighet att hoppa in med kort varsel. Siktar på sikt mot köksbiträde och kock, och vet att den vägen börjar med att sköta disken bäst i köket.',
+
+      erfarenhet: [
+        {
+          titel: 'Diskare (extra)',
+          arbetsgivare: 'Lunchrestaurang, Malmö',
+          period: '2026 - Pågående',
+          beskrivning: [
+            'Diskar under lunchrusning med cirka 150-200 kuvert per dag: sortering, grovdisk och findisk i huvmaskin',
+            'Håller diskrummet flytande under service så att kök och matsal aldrig står utan kastruller eller porslin',
+            'Sköter stängningsrutinerna självständigt: maskinrengöring, golv, avfall och uppfyllnad inför nästa dag',
+            'Håller ren och smutsig sida separerade och kontrollerar maskinens disk- och sköljtemperaturer enligt egenkontrollen'
+          ]
+        },
+        {
+          titel: 'Merchandiseförsäljare (ideellt)',
+          arbetsgivare: 'Idrottsförening, Malmö',
+          period: '2024 - Pågående',
+          beskrivning: [
+            'Ansvarar för försäljning vid hemmamatcher: kassa, växel och service i högt tempo',
+            'Packar upp, ställer i ordning och redovisar försäljningen efter varje match'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Samhällsvetenskapsprogrammet (pågående)',
+          skola: 'Gymnasium, Malmö',
+          period: '2024 - 2027',
+          beskrivning: 'Hög närvaro. Examen våren 2027.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Huvmaskin: grovdisk och findisk, daglig maskinrengöring',
+          'Sortering och flöde: ren och smutsig sida',
+          'Stängningsrutiner: maskin, golv, avfall, uppfyllnad',
+          'Egenkontroll: temperaturkontroll och checklistor',
+          'Kassa och kontanthantering från föreningsförsäljning',
+          'Grundläggande livsmedelshygien'
+        ],
+        personliga: [
+          'Punktlig: inga missade pass sedan starten',
+          'Tempotålig: håller flödet under full lunchrusning',
+          'Ordningssam: ser diskrummet som kökets motor',
+          'Fysiskt uthållig: fotbollsträning sedan tio år',
+          'Prestigelös: gör det tråkigaste jobbet bäst'
+        ]
+      },
+
+      certifieringar: [
+        'Grundläggande hygiengenomgång via arbetsgivaren (2026)',
+        'HLR via idrottsföreningen (2025)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Tillgängligheten står där den syns',
+        text: `Kvällar, helger, hela loven och kort varsel står redan i profiltexten, tillsammans med åldern och skolsituationen som förklarar den.
+
+**Varför detta fungerar:** Diskare rekryteras för att täcka pass, ofta med dagars varsel, och krögarens första fråga är alltid när kan du jobba. Ett CV som besvarar den i profilen kan bli en anställning samma vecka. Att skolsituationen redovisas ärligt gör tillgängligheten trovärdig, krögaren ser exakt vilka pass som funkar och slipper obehagliga överraskningar efter två scheman.`
+      },
+      {
+        rubrik: 'Köksspråket gör kort erfarenhet trovärdig',
+        text: `Grovdisk och findisk, huvmaskin, ren och smutsig sida, stängningsrutiner och kuvertantal: termerna visar att Elias stått i ett riktigt diskrum.
+
+**Varför detta fungerar:** En kökschef läser orden som bevis på att upplärningen redan är gjord. Skillnaden mellan att ha diskat hemma och att ha hållit ett diskrum flytande under 200 kuverts lunchrusning är enorm, och terminologin är det snabbaste sättet att visa på vilken sida av den skillnaden man står. Även kort erfarenhet väger tungt när den beskrivs med rätt ord.`
+      },
+      {
+        rubrik: 'Hygienen behandlas som yrkeskunskap',
+        text: `CV:t nämner separering av ren och smutsig sida, temperaturkontroller och egenkontrollens checklistor, diskarens del av livsmedelssäkerheten.
+
+**Varför detta fungerar:** Restauranger och storkök arbetar under livsmedelslagstiftningens krav på egenkontroll, och disken är en kritisk punkt i kedjan. En diskare som förstår varför temperaturerna och ordningen spelar roll, inte bara att golvet ska moppas, minskar verksamhetens risk vid kontroller. Få sökande på nivån visar den förståelsen, vilket gör den till en enkel differentiering.`
+      },
+      {
+        rubrik: 'Diskens roll i köket är förstådd',
+        text: `Formuleringen att diskrummet är kökets motor, och att kök och matsal aldrig ska stå utan kastruller eller porslin, visar systemförståelse.
+
+**Varför detta fungerar:** När disken stannar stannar hela köket, det vet varje kökschef av bitter erfarenhet. En diskare som ser sitt jobb som en funktion i servicens flöde, snarare än som isolerat rengöringsarbete, prioriterar rätt när det smäller: kockarnas kastruller före glasen, det som behövs härnäst före det som står närmast. Den blicken går inte att lära ut på ett pass.`
+      },
+      {
+        rubrik: 'Föreningsansvaret bevisar pålitligheten',
+        text: `Merchandiseförsäljningen visar kassa, service och redovisning, och tio års fotboll backar upp både fysiken och punktligheten.
+
+**Varför detta fungerar:** För unga sökande är föreningslivet det starkaste tillgängliga beviset på det krögare oroar sig mest för: dyker personen upp? Den som skött matchförsäljning i två säsonger och tränat i tio år har dokumenterat att den håller åtaganden över tid. Raden om inga missade pass sedan starten förvandlar påståendet punktlig till ett verifierbart faktum.`
+      },
+      {
+        rubrik: 'Ambitionen mot köket gör honom mer anställningsbar',
+        text: `Profilen avslutas med siktet mot köksbiträde och kock, formulerat med rätt ödmjukhet: vägen börjar med att sköta disken bäst.
+
+**Varför detta fungerar:** Disken är branschens rekryteringsbas, och kökschefer anställer hellre en diskare med riktning än en som ser jobbet som en parkering. Ambitionen betyder engagemang i dag och en möjlig intern rekrytering när köket behöver folk, samtidigt som formuleringen visar att Elias inte tänker slarva sig förbi diskrummet på vägen.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Led med när du kan jobba',
+        text: `Bemanningen avgör diskrekryteringar, gör tillgängligheten omöjlig att missa.
+
+**Exempel på före/efter:**
+❌ "Flexibel och kan jobba olika tider"
+✅ "Kan arbeta vardagkvällar efter 16, alla helger och heltid under loven, och hoppa in med kort varsel"`
+      },
+      {
+        rubrik: 'Beskriv disken med kökets ord',
+        text: `Terminologin bevisar att du stått i ett riktigt diskrum.
+
+**Exempel på före/efter:**
+❌ "Erfarenhet av diskning och städning"
+✅ "Grovdisk och findisk i huvmaskin under lunchrusning med 150-200 kuvert, sortering, stängningsrutiner och separerad ren och smutsig sida"`
+      },
+      {
+        rubrik: 'Visa hygienförståelsen',
+        text: `Egenkontrollen är lagkrav, och diskaren är en del av den.
+
+**Exempel på före/efter:**
+❌ "Noggrann med renlighet"
+✅ "Kontrollerar maskinens disk- och sköljtemperaturer och håller ren och smutsig sida separerade enligt kökets egenkontroll"`
+      },
+      {
+        rubrik: 'Bygg första jobbets CV på annat ansvar',
+        text: `Utan arbetslivserfarenhet är skola, idrott och förening dina bevis.
+
+**Exempel på före/efter:**
+❌ "Saknar tidigare arbetslivserfarenhet"
+✅ "Hög närvaro i skolan, tio års fotboll med träning sex om morgonen och två säsongers ansvar för föreningens matchförsäljning med kassa och redovisning"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för diskare innehålla?',
+        svar: 'Tre saker bär det: tillgängligheten (dagar, tider, lov, kort varsel) högt upp, diskerfarenheten beskriven med kökets termer (grovdisk och findisk, huvmaskin, stängningsrutiner) eller motsvarande bevis på pålitlighet och tempo, samt en rad som visar hygienförståelse. Håll CV:t till en sida, gärna kortare, en krögare läser det mellan två serveringar och letar efter skäl att ringa, inte läsa.'
+      },
+      {
+        fraga: 'Kan jag skriva CV för diskarjobb helt utan erfarenhet?',
+        svar: 'Ja, disken är branschens vanligaste ingång och lärs ut på ett par pass. Bygg CV:t på det som bevisar pålitlighet och ork: skolnärvaro, idrott med regelbunden träning, föreningsansvar, barnpassning eller andra åtaganden du skött över tid. Skriv tillgängligheten tydligt och en rad om att du vet vad jobbet innebär fysiskt, den som söker med öppna ögon sorteras inte bort som naiv.'
+      },
+      {
+        fraga: 'Vilka termer ska jag använda om diskarbetet?',
+        svar: 'Grovdisk (kastruller, bleck) och findisk (porslin, glas, bestick), huvmaskin eller tunnelmaskin, sortering före maskin, ren och smutsig sida, stängningsrutiner och egenkontroll. Ange gärna volym: antal kuvert per service eller pass. Termerna visar att upplärningen redan är gjord, och de matchar orden i annonserna från större kök och måltidsföretag som Sodexo och Compass.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar tempot och fysiken?',
+        svar: 'Med belägg: att du hållit diskrummet flytande under fullsatt service, idrott du tränat länge, eller fysiska extrajobb. Diskpass är stående arbete i värme och fukt med lyft av backar och kantiner, och krögare har sett många sluta första veckan. Skriv något i stil med "van vid full lunchrusning" eller "tio års fotbollsträning", konkret uthållighet slår ordet stresstålig varje gång.'
+      },
+      {
+        fraga: 'Är hygienkunskap viktig för en diskare?',
+        svar: 'Ja, mer än många tror. Kök arbetar under livsmedelslagstiftningens egenkontroll, och disken är en kritisk punkt: rätt temperaturer i maskinen, separerad ren och smutsig sida och dokumenterade rutiner är livsmedelssäkerhet. En diskare som visar den förståelsen i CV:t minskar verksamhetens risk vid kontroller och sticker ut i högen, en enda mening räcker för att visa att du fattat allvaret.'
+      },
+      {
+        fraga: 'Leder diskarjobbet vidare i branschen?',
+        svar: 'Ja, vägen diskare, köksbiträde, kock är restaurangbranschens klassiska trappa, och många kökschefer började i disken. I diskrummet lär du dig kökets rytm, hygienens grunder och lagarbete under press. Har du den ambitionen, skriv den i CV:t med rätt ödmjukhet, engagerade diskare får ofta första chansen när köket behöver folk, och interna rekryteringar är branschens vanligaste karriärsteg.'
+      },
+      {
+        fraga: 'Restaurang eller storkök, ska CV:t se olika ut?',
+        svar: 'Grunden är densamma men betoningen skiljer. Restaurang: tempo under service, kvälls- och helgtillgänglighet, flexibilitet. Storkök och diskcentraler (skolor, sjukhus, måltidsföretag): volym, rutiner, dokumenterad egenkontroll och ofta dagtider, lyft noggrannhet och struktur. Läs annonsen och flytta upp det som matchar, samma erfarenhet kan berättas åt båda hållen.'
+      },
+      {
+        fraga: 'Ska jag ange löneanspråk eller ålder i CV:t?',
+        svar: 'Ålder kan vara relevant att ange som ung eftersom vissa uppgifter har åldersgränser och krögaren ändå behöver veta det för schemaläggningen. Löneanspråk hör inte hemma i CV:t, diskarlöner följer i regel kollektivavtalet (Hotell- och restaurangfacket), och det är bra att känna till avtalets nivåer inför anställningen så att du vet vad som gäller för din ålder och erfarenhet.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Köksbiträde', slug: 'koksbitrade' },
+      { yrke: 'Kock', slug: 'kock' },
+      { yrke: 'Servitris och restaurangbiträde', slug: 'servitris-restaurangbitrade' }
+    ]
+  },
+
+  'snickare': {
+    yrke: 'Snickare',
+    slug: 'snickare',
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel Snickare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för snickare och träarbetare med yrkesbevis, ID06 och säkerhetsutbildningar. Mall för byggföretag, byggservice och lärlingar.',
+
+    seoIntro: `Söker du jobb som snickare och vill ha ett CV som en platschef kan bemanna efter direkt? Det här exemplet visar hur du strukturerar ett CV för byggföretag, byggservice och renovering.
+
+Du får se hur du redovisar yrkesbevis via Byggbranschens Yrkesnämnd (BYN) eller din plats i kvalificeringstiden som lärling, hur du specificerar hantverket, formsättning, stomresning eller inredningssnickeri, och hur du listar säkerhetsutbildningar som Heta arbeten, ställningsbyggnad och Säkra lyft med giltighet. Bygget rekryterar mot konkreta moment i tidplanen, och CV:t ska gå att placera i den.
+
+Använd exemplet som grund för ditt eget CV som snickare eller träarbetare, och anpassa betoningen: produktion och byggservice är olika vardagar.`,
+
+    viktigtAttTankaPa: [
+      'Redovisa yrkesbevis via BYN, eller din plats i kvalificeringstiden om du är lärling, det är branschens kompetenskvitto',
+      'Specificera hantverket: formsättning, stomresning, kompletterings- eller inredningssnickeri, och ritningsläsning',
+      'Lista säkerhetsutbildningar med årtal: Heta arbeten (giltigt fem år), ställning, Säkra lyft, fallskydd och ID06',
+      'Nämn B-körkort och egen verktygsuppsättning, ofta krav respektive merit hos mindre firmor'
+    ],
+
+    exempelCV: {
+      namn: 'Viktor Åström',
+      titel: 'Snickare | Yrkesbevis, byggservice och nyproduktion',
+      kontakt: {
+        telefon: '070-742 19 63',
+        epost: 'viktor.astrom@email.se',
+        plats: 'Luleå',
+        linkedin: ''
+      },
+
+      profil: 'Utbildad träarbetare med yrkesbevis via BYN och 7 år i yrket: 4 år nyproduktion med stomresning och formsättning, dessförinnan 3 år byggservice och renovering med kundnära inredningssnickeri. Läser ritningar självständigt, sätter ut från måttkedjor och arbetar vant i lag om fyra till sex mot dagsplan. Giltiga utbildningar i Heta arbeten, ställningsbyggnad 2-9 meter och Säkra lyft, ID06 och noll tillbud under 7 år. B-körkort och egen grunduppsättning verktyg.',
+
+      erfarenhet: [
+        {
+          titel: 'Träarbetare, nyproduktion',
+          arbetsgivare: 'Större byggbolag, Norrbotten',
+          period: '2022 - Pågående',
+          beskrivning: [
+            'Stomresning och montering av prefabricerade väggelement på bostadsprojekt om 60-120 lägenheter',
+            'Formsättning inför gjutning samt kompletteringssnickeri efter stomskede',
+            'Sätter ut från måttkedjor och egenkontrollerar mot toleranskrav enligt projektets kontrollplan',
+            'Arbetar i lag om fyra till sex mot dagsplan, med samordning mot armerare och betongarbetare',
+            'Noll tillbud under anställningen, deltar aktivt i skyddsronder och riskbedömningar före nya moment'
+          ]
+        },
+        {
+          titel: 'Snickare, byggservice',
+          arbetsgivare: 'Byggfirma, Luleå',
+          period: '2019 - 2022',
+          beskrivning: [
+            'Renovering och inredningssnickeri i bostäder och butikslokaler: kök, fönsterbyten, dörrar, lister och platsbyggda lösningar',
+            'Ägde jobben från startmöte till slutstädning med direkt kundkontakt i kundens hem',
+            'Genererade återkommande uppdrag via nöjda kunder, firmans viktigaste försäljningskanal',
+            'Körde servicebil mellan två till fyra arbetsplatser per dag med eget materialansvar'
+          ]
+        },
+        {
+          titel: 'Lärling, träarbetare',
+          arbetsgivare: 'Byggfirma, Luleå',
+          period: '2017 - 2019',
+          beskrivning: [
+            'Genomförde kvalificeringstiden till yrkesbevis under handledning, med moment över hela träarbetaryrket'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Bygg- och anläggningsprogrammet, inriktning husbyggnad',
+          skola: 'Gymnasium, Luleå',
+          period: '2014 - 2017',
+          beskrivning: 'APL hos byggföretag. Yrkesbevis som träarbetare utfärdat via BYN 2019 efter genomförd kvalificeringstid.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Stomresning och montering av prefabelement',
+          'Formsättning inför betonggjutning',
+          'Inrednings- och kompletteringssnickeri: kök, dörrar, fönster, lister',
+          'Ritningsläsning och utsättning från måttkedjor',
+          'Egenkontroll mot toleranskrav och kontrollplan',
+          'Renovering och byggservice med kundkontakt',
+          'Verktygs- och maskinvana: kap- och gersåg, spikpistol, laser',
+          'Materialberäkning och beställning för egna jobb'
+        ],
+        personliga: [
+          'Säkerhetsmedveten: noll tillbud under 7 år',
+          'Noggrann: egenkontrollerar innan momentet lämnas',
+          'Kundtrygg: van att arbeta i människors hem',
+          'Lagspelare i produktionstempo, självgående i service',
+          'Punktlig: bygget börjar klockan sex, det gör jag också'
+        ]
+      },
+
+      certifieringar: [
+        'Yrkesbevis träarbetare, BYN (2019)',
+        'Heta arbeten (2024, giltigt till 2029)',
+        'Ställningsbyggnad 2-9 meter (2022)',
+        'Säkra lyft (2023)',
+        'ID06 (aktivt kort)',
+        'B-körkort (2017)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Yrkesbeviset och behörigheterna är verifierbara',
+        text: `Yrkesbevis via BYN med utfärdandeår, ID06 som aktivt kort och säkerhetsutbildningar med giltighetstider, Heta arbeten till och med med slutår.
+
+**Varför detta fungerar:** Yrkesbeviset registreras i ID06 kompetensdatabas och kan verifieras direkt av arbetsgivaren, så exakta uppgifter signalerar att allt stämmer. Flera av utbildningarna är dessutom tidsbegränsade, och en platschef som ser giltigheterna slipper administrationen av att fråga. I en bransch där oseriösa aktörer förekommer är verifierbarhet i sig ett förtroendetecken.`
+      },
+      {
+        rubrik: 'Hantverket är uppdelat i placerbara moment',
+        text: `Stomresning, prefabmontage, formsättning, kompletteringssnickeri och inredningsjobb redovisas separat, med ritningsläsning och utsättning som egna kompetenser.
+
+**Varför detta fungerar:** En platschef bemannar mot moment i en tidplan: vem kan ta formen, vem sätter stommen, vem klarar kompletteringen. Ett CV som redovisar hantverket i samma enheter går att placera direkt, medan "erfaren snickare" kräver en telefonintervju bara för att förstå vad personen kan. Bredden produktion plus service gör dessutom Viktor användbar i båda vardagarna.`
+      },
+      {
+        rubrik: 'Säkerhetsfacit i stället för säkerhetsfloskler',
+        text: `Noll tillbud under sju år, aktivt deltagande i skyddsronder och riskbedömningar före nya moment, plus daterade säkerhetsutbildningar.
+
+**Varför detta fungerar:** Arbetsmiljön är byggbranschens hårdaste krav och dyraste risk, och varje platschef har hanterat tillbud som kostat tid och pengar. Ett dokumenterat facit väger tyngre än ordet säkerhetsmedveten, och beskrivningen av hur Viktor arbetar förebyggande visar att facit inte är tur. För arbetsgivarens försäkringar och certifieringar är sådana medarbetare direkt värdefulla.`
+      },
+      {
+        rubrik: 'Kundsidan är dokumenterad för servicejobben',
+        text: `Byggserviceåren beskriver ägandeskap från startmöte till slutstädning, arbete i människors hem och återkommande uppdrag via nöjda kunder.
+
+**Varför detta fungerar:** Byggservicefirmor lever på sitt rykte, och hantverkarens bemötande är en del av leveransen. Att Viktors kunder kom tillbaka är det starkaste säljargument en servicesnickare kan ha, och formuleringen visar att han förstår affären: nöjda kunder är firmans försäljningskanal. Söker han produktionsjobb visar samma rader i stället självständighet och ansvar.`
+      },
+      {
+        rubrik: 'Lärlingstiden visar vägen in i yrket',
+        text: `Kvalificeringstiden redovisas som egen anställning med hänvisning till yrkesbeviset som utfärdades efter genomförd tid.
+
+**Varför detta fungerar:** Branschens utbildningssystem, gymnasieprogram, kvalificeringstid och yrkesbevis via BYN, är känt av varje seriös arbetsgivare, och ett CV som redovisar vägen korrekt visar ordning. För yngre läsare av exemplet visar det också hur lärlingsåren ska hanteras i CV:t: som riktig erfarenhet med riktiga moment, inte som en fotnot.`
+      },
+      {
+        rubrik: 'Detaljerna som gör anställningen enkel',
+        text: `B-körkort, egen grunduppsättning verktyg, vana vid servicebil och materialansvar, och raden om att bygget börjar klockan sex.
+
+**Varför detta fungerar:** Mindre firmor frågar alltid efter körkortet, ofta efter verktygen och alltid, tyst, om personen kommer i tid. Att CV:t besvarar alla tre utan att tillfrågas tar bort de sista praktiska hindren mellan läsning och anställning. Humorn i sextiden är dessutom kalibrerad för branschen: den visar självdistans utan att tumma på allvaret.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Redovisa yrkesbevis eller lärlingsstatus exakt',
+        text: `Branschens kompetenskvitto ska gå att verifiera i ID06 kompetensdatabas.
+
+**Exempel på före/efter:**
+❌ "Utbildad snickare med behörigheter"
+✅ "Yrkesbevis träarbetare via BYN (2019), ID06 aktivt. Som lärling: 20 av 36 månaders kvalificeringstid genomförd hos företag med kollektivavtal"`
+      },
+      {
+        rubrik: 'Dela upp hantverket i moment',
+        text: `Platschefen bemannar mot tidplanens moment, ge CV:t samma struktur.
+
+**Exempel på före/efter:**
+❌ "Bred erfarenhet av snickeriarbete"
+✅ "4 år stomresning och formsättning på nyproduktion, 3 år inrednings- och kompletteringssnickeri inom byggservice, ritningsläsning och utsättning från måttkedjor"`
+      },
+      {
+        rubrik: 'Datera säkerhetsutbildningarna',
+        text: `Flera är tidsbegränsade, giltigheten är halva informationen.
+
+**Exempel på före/efter:**
+❌ "Heta arbeten, ställning, säkra lyft"
+✅ "Heta arbeten (2024, giltigt till 2029), ställningsbyggnad 2-9 m (2022), Säkra lyft (2023), noll tillbud under 7 år"`
+      },
+      {
+        rubrik: 'Anpassa mellan produktion och service',
+        text: `Två vardagar, två olika CV-betoningar.
+
+**Exempel på före/efter:**
+❌ Samma CV till Peab och den lokala servicefirman
+✅ Till produktion: moment, tempo, lag och dagsplan. Till byggservice: kundkontakt, självständighet, B-körkort, återkommande kunder och helhetsansvar för egna jobb`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för snickare innehålla?',
+        svar: 'Fyra delar: yrkesbevis via BYN eller din plats i kvalificeringstiden, hantverket uppdelat i moment (formsättning, stomresning, inredning) med ritningsläsning, säkerhetsutbildningar med årtal och giltighet (Heta arbeten, ställning, Säkra lyft, ID06) samt det praktiska: B-körkort, verktyg och tillgänglighet. Kvantifiera där det går: projektstorlek, antal arbetsplatser per dag, tillbudsfacit.'
+      },
+      {
+        fraga: 'Hur skriver jag CV som snickarlärling?',
+        svar: 'Redovisa din status exakt: utbildningsväg (gymnasiets bygg- och anläggningsprogram, vuxenutbildning eller företagslärling), hur många av kvalificeringstidens 36 månader du genomfört och vilka moment du arbetat med under handledning. Företag med kollektivavtal kan ta emot dig och tillgodoräkna tiden, så din fråga till arbetsgivaren är tydlig. Lista de säkerhetsutbildningar du redan har, och lyft APL-referenser.'
+      },
+      {
+        fraga: 'Snickare eller träarbetare, vad skriver jag i CV:t?',
+        svar: 'Använd båda: träarbetare är den formella yrkestiteln som facket och Arbetsförmedlingen använder, snickare är vardagsordet och det annonserna oftast skriver. En titelrad som "Snickare (träarbetare med yrkesbevis)" täcker båda sökvägarna. Skilj däremot byggnadssnickare från möbel- och finsnickare, det är olika yrken, och var tydlig med vilket du söker inom.'
+      },
+      {
+        fraga: 'Vilka säkerhetsutbildningar behöver en snickare?',
+        svar: 'Grundpaketet: ID06-kort (i praktiken obligatoriskt på svenska byggen), Heta arbeten vid gnistbildande moment (giltigt fem år), ställningsbyggnad 2-9 meter för att bygga eller ändra ställning, Säkra lyft vid koppling av last och fallskydd vid höjdarbete. Liftkort tillkommer ofta. Lista alla med årtal, flera är tidsbegränsade och platschefen behöver se giltigheten utan att fråga.'
+      },
+      {
+        fraga: 'Hur visar jag kvalitet i hantverket?',
+        svar: 'Genom kontrollbegreppen: egenkontroll mot toleranskrav, arbete enligt kontrollplan, utsättning från måttkedjor. Det är byggets eget kvalitetsspråk och det visar att du lämnar moment färdiga, inte nästan färdiga. För byggservice är kundbevisen starkast: återkommande uppdrag, kunder som frågar efter dig. Erbjud gärna bilder på utförda arbeten till intervjun, inom finsnickeri och renovering väger de tungt.'
+      },
+      {
+        fraga: 'Behöver jag B-körkort som snickare?',
+        svar: 'För byggservice nästan alltid, du kör servicebil mellan arbetsplatser med verktyg och material. För produktionsjobb på fasta arbetsplatser är det mindre kritiskt men fortfarande en merit, inte minst för att ta sig till byggen utanför kollektivtrafiken klockan sex. Har du körkortet, skriv det med årtal. Har du det inte och söker service: nämn om du håller på att ta det.'
+      },
+      {
+        fraga: 'Stora byggbolag eller liten firma, hur påverkar det CV:t?',
+        svar: 'Stora bolag som Skanska, NCC och Peab rekryterar via portaler mot specifika projekt: betona moment, tempo, lagvana och dokumenterat säkerhetsarbete. Små firmor och byggservice anställer på helheten: kundbemötande, självständighet, körkort och det personliga intrycket, och där kan ett samtal direkt till ägaren vara rätt kanal. Anpassa både CV och kanal efter mottagaren.'
+      },
+      {
+        fraga: 'Hur räknas erfarenhet utan svenskt yrkesbevis?',
+        svar: 'Utländsk eller informell erfarenhet är fortfarande erfarenhet, beskriv momenten du behärskar konkret och var ärlig med att yrkesbevis saknas. BYN kan validera tidigare kunskap mot yrkesbeviset, och arbete på företag med kollektivavtal kan tillgodoräknas i kvalificeringstiden. Skriv i CV:t att du känner till vägen och är beredd att gå den, det gör dig anställningsbar som lärling eller på väg mot validering.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Elektriker', slug: 'elektriker' },
+      { yrke: 'Fastighetsskötare', slug: 'fastighetsskotare' },
+      { yrke: 'Vaktmästare', slug: 'vaktmastare' }
+    ]
+  },
+
+  'elektriker': {
+    yrke: 'Elektriker',
+    slug: 'elektriker',
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel Elektriker 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll. Mall för installationsföretag, service och lärlingar.',
+
+    seoIntro: `Söker du jobb som elektriker och vill ha ett CV som visar exakt vad ett elföretag kan sätta dig på? Det här exemplet visar hur du strukturerar ett CV för installationsföretag, serviceelektriker och lärlingsansökningar.
+
+Du får se hur du redovisar ECY-certifikatet eller dina lärlingstimmar, hur du skiljer det från Elsäkerhetsverkets auktorisation, och hur du specificerar inriktningen: nyinstallation, service och felsökning eller tillväxtområdena laddboxar och solceller. CV:t visar också arbetsordervolym, egenkontroll och kundmötet som är halva servicejobbet.
+
+Använd exemplet som grund för ditt eget CV som elektriker och anpassa efter tjänsten, projekt och service är olika vardagar med olika krav.`,
+
+    viktigtAttTankaPa: [
+      'Redovisa formell status exakt: ECY-certifikat med år, eller genomförda lärlingstimmar av de 1 600 som krävs',
+      'Blanda inte ihop ECY-certifikatet (branschens utbildningsbevis) med auktorisation (Elsäkerhetsverkets myndighetsbeslut)',
+      'Specificera inriktning och självständighet: arbetsordrar per dag för service, moment och tempo för projekt',
+      'Lyft tillväxtområdena laddboxar och solceller om du har erfarenheten, det är där företagen rekryterar'
+    ],
+
+    exempelCV: {
+      namn: 'Adam Sjögren',
+      titel: 'Serviceelektriker | ECY-certifikat, felsökning och laddinfrastruktur',
+      kontakt: {
+        telefon: '072-483 91 26',
+        epost: 'adam.sjogren@email.se',
+        plats: 'Eskilstuna',
+        linkedin: 'linkedin.com/in/adamsjogren'
+      },
+
+      profil: 'Installationselektriker med ECY-certifikat (2021) och 6 år i yrket, varav 2 år som serviceelektriker. Hanterar 4-6 arbetsordrar per dag självständigt, från felsökning till egenkontroll och digital dokumentation, inom företagets egenkontrollprogram enligt elsäkerhetslagen. Installerar laddboxar och arbetar med AC-sidan på solcellsanläggningar inklusive inkoppling av växelriktare. Bakgrund inom nyinstallation på bostadsprojekt: kanalisation, kabeldragning och centralmontage. Mål: AL-auktorisation. B-körkort och jourvana.',
+
+      erfarenhet: [
+        {
+          titel: 'Serviceelektriker',
+          arbetsgivare: 'Elfirma, Eskilstuna',
+          period: '2024 - Pågående',
+          beskrivning: [
+            'Hanterar 4-6 arbetsordrar per dag självständigt: felsökning, reparationer och mindre installationer i bostäder och butiker',
+            'Installerar laddboxar med lastbalansering samt drar AC-sida och kopplar in växelriktare på solcellsanläggningar',
+            'Byter och kompletterar centraler, utför elsäkerhetskontroller och dokumenterar egenkontroll digitalt per uppdrag',
+            'Arbetar inom företagets egenkontrollprogram enligt elsäkerhetslagen med spänningslöst arbete som rutin',
+            'Återkommande kunder som bokar om och frågar efter mig med namn, del av firmans förnyade serviceavtal'
+          ]
+        },
+        {
+          titel: 'Installationselektriker, nyproduktion',
+          arbetsgivare: 'Installationsföretag, Mälardalen',
+          period: '2020 - 2024',
+          beskrivning: [
+            'Nyinstallation på bostadsprojekt om 40-90 lägenheter: kanalisation, kabeldragning, centralmontage och slutmontage',
+            'Arbetade i montörslag om tre till fem mot projekttidplan med egenkontroll per moment',
+            'Genomförde ECY-certifikatets lärlingstimmar under handledning fram till certifikat 2021',
+            'Deltog i provningar och funktionskontroller inför besiktning och överlämning'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'El- och energiprogrammet, inriktning elteknik',
+          skola: 'Gymnasium, Eskilstuna',
+          period: '2017 - 2020',
+          beskrivning: 'APL hos installationsföretag. ECY-certifikat utfärdat 2021 efter genomförda 1 600 lärlingstimmar på företag med Installationsavtalet.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Felsökning i bostads-, butiks- och kontorsanläggningar',
+          'Laddboxar: installation och lastbalansering',
+          'Solceller: AC-sida och inkoppling av växelriktare',
+          'Centraler: byte, komplettering och montage',
+          'Nyinstallation: kanalisation, kabeldragning, slutmontage',
+          'Egenkontroll och digital dokumentation per uppdrag',
+          'Elscheman och ritningsläsning',
+          'Spänningslöst arbete och elsäkerhetsanvisningar (ESA)'
+        ],
+        personliga: [
+          'Självgående: äger arbetsordern från felanmälan till dokumentation',
+          'Systematisk felsökare: mäter och utesluter i rätt ordning',
+          'Kundtrygg: förklarar arbetet och lämnar rent efter mig',
+          'Noggrann med egenkontrollen, den är yrkets kvitto',
+          'Flexibel: van vid jourveckor och akuta utryckningar'
+        ]
+      },
+
+      certifieringar: [
+        'ECY-certifikat, installationselektriker (2021)',
+        'ESA, elsäkerhetsanvisningar (2023)',
+        'Heta arbeten (2023)',
+        'Liftkort, mobil arbetsplattform (2022)',
+        'B-körkort (2019)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Den formella statusen är exakt och korrekt',
+        text: `ECY-certifikat med årtal, lärlingstimmarna redovisade i erfarenheten, och arbete inom företagets egenkontrollprogram enligt elsäkerhetslagen, utan att blanda ihop certifikat med auktorisation.
+
+**Varför detta fungerar:** Elyrket är reglerat, och statusen avgör vad företaget kan sätta en montör på. Ett CV som redovisar systemet korrekt, certifikatet som branschens utbildningsbevis, egenkontrollprogrammet som ramen för arbetet, visar yrkesmognad och bespar rekryteraren hela den första avstämningen. Fel terminologi här är en varningsflagga som elföretag faktiskt reagerar på.`
+      },
+      {
+        rubrik: 'Servicevolymen visar självständigheten',
+        text: `4-6 arbetsordrar per dag, självständigt från felsökning till dokumentation, med jourvana och akuta utryckningar.
+
+**Varför detta fungerar:** Servicechefens avgörande fråga är om montören klarar sig själv ute hos kund, och arbetsordervolymen är det närmaste ett facit man kommer. Siffran visar tempo, självständighet och administrativ disciplin på en gång, en montör som hinner sex ordrar inklusive dokumentation har sitt flöde under kontroll. Det är skillnaden mellan att kunna debitera dag ett och att behöva följa med en kollega i en månad.`
+      },
+      {
+        rubrik: 'Laddboxar och solceller träffar rekryteringsbehovet',
+        text: `Laddboxinstallation med lastbalansering och solcellsarbete med AC-sida och växelriktare, beskrivet med teknisk precision.
+
+**Varför detta fungerar:** Laddinfrastruktur och solceller är installationsbranschens snabbast växande områden, och många företag rekryterar specifikt för dem. Detaljerna, lastbalansering, växelriktare, visar att erfarenheten är verklig och inte ett buzzword, och för företag med fulla orderböcker inom energiomställningen kan just de raderna vara hela anledningen till att Adam blir uppringd.`
+      },
+      {
+        rubrik: 'Felsökningen beskrivs som metod',
+        text: `Systematisk felsökare som mäter och utesluter i rätt ordning, med felsökning som första kompetens och återkommande inslag i arbetsordrarna.
+
+**Varför detta fungerar:** Att dra kabel kan många, att effektivt hitta fel i en anläggning byggd i omgångar är det som skiljer servicemontörer åt, och det är dyrbar tid hos kund. En beskriven metodik signalerar erfarenhet på ett sätt som ordet felsökning ensamt inte gör. Det ger också intervjun ett naturligt samtalsämne där Adam kan briljera med konkreta fall.`
+      },
+      {
+        rubrik: 'Kundledet är dokumenterat med det starkaste beviset',
+        text: `Återkommande kunder som bokar om och frågar efter honom med namn, kopplat till firmans förnyade serviceavtal.
+
+**Varför detta fungerar:** Elföretagens serviceaffär vilar på avtal som förnyas, och montören som kunderna gillar är avtalets bästa försäkring. Namnfrågande kunder är servicebranschens hårdaste valuta, det går inte att fejka och det säger allt om både bemötande och kvalitet. Att koppla det till avtalsförnyelse visar dessutom att Adam förstår sin roll i affären.`
+      },
+      {
+        rubrik: 'Ambitionen mot AL-auktorisation pekar rätt',
+        text: `Målet AL-auktorisation står i profilen, den auktorisationstyp som täcker allt elinstallationsarbete på lågspänning.
+
+**Varför detta fungerar:** En montör som siktar på auktorisation vill ta ansvar för regelefterlevnad, bli ledande montör eller mer, och det är exakt den utvecklingsresurs installationsföretag behöver internt. Ambitionen signalerar också att Adam tänker stanna i yrket och investera i det. För arbetsgivaren är det skillnaden mellan att anställa ett par händer och att anställa en framtida nyckelperson.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Skilj certifikat från auktorisation, och redovisa rätt',
+        text: `ECY-certifikatet är branschens utbildningsbevis, auktorisation är Elsäkerhetsverkets myndighetsbeslut. Som anställd arbetar du i företagets egenkontrollprogram.
+
+**Exempel på före/efter:**
+❌ "Behörig elektriker med alla papper"
+✅ "ECY-certifikat (2021) efter 1 600 lärlingstimmar, arbetar inom företagets egenkontrollprogram enligt elsäkerhetslagen, mål: AL-auktorisation"`
+      },
+      {
+        rubrik: 'Ange arbetsordervolym för servicetjänster',
+        text: `Självständigheten är servicechefens huvudfråga, siffran besvarar den.
+
+**Exempel på före/efter:**
+❌ "Van vid självständigt servicearbete"
+✅ "Hanterar 4-6 arbetsordrar per dag självständigt, från felsökning till egenkontroll och digital dokumentation, med jourveckor enligt schema"`
+      },
+      {
+        rubrik: 'Var teknisk om tillväxtområdena',
+        text: `Laddboxar och solceller är där företagen rekryterar, detaljerna gör erfarenheten trovärdig.
+
+**Exempel på före/efter:**
+❌ "Erfarenhet av laddboxar och solceller"
+✅ "Installerar laddboxar med lastbalansering samt drar AC-sida och kopplar in växelriktare på solcellsanläggningar, cirka 40 laddpunkter senaste året"`
+      },
+      {
+        rubrik: 'Anpassa mellan projekt och service',
+        text: `Montörslag mot tidplan och ensam servicebil är olika kompetenser.
+
+**Exempel på före/efter:**
+❌ Samma CV till projektfirma och servicetjänst
+✅ Till projekt: moment, lagstorlek, tempo och provningar. Till service: ordervolym, felsökningsmetod, kundbemötande och jourvana`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för elektriker innehålla?',
+        svar: 'Formell status först: ECY-certifikat med år eller genomförda lärlingstimmar av de 1 600. Därefter inriktning (nyinstallation, service, industri, laddboxar och solceller), självständighet med arbetsordervolym för service, egenkontroll och dokumentation, felsökningsmetod samt kundbemötandet. Komplettera med ESA, Heta arbeten och B-körkort med årtal, körkortet är i praktiken krav för servicetjänster.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan ECY-certifikat och auktorisation i CV:t?',
+        svar: 'ECY-certifikatet är elbranschens utbildningsbevis och det arbetsgivare frågar efter vid anställning: godkänd utbildning plus normalt 1 600 lärlingstimmar på företag med Installationsavtalet. Auktorisation (A, AL eller B) är Elsäkerhetsverkets myndighetsbeslut och krävs för rollen elinstallatör för regelefterlevnad eller egen firma. Som anställd arbetar du inom företagets egenkontrollprogram utan egen auktorisation, skriv det korrekt så visar du att du kan regelverket.'
+      },
+      {
+        fraga: 'Hur skriver jag CV som elektrikerlärling?',
+        svar: 'Redovisa utbildningsvägen (el- och energiprogrammet, vuxenutbildning eller ETG College) och exakt hur många av de 1 600 timmarna du genomfört, timmarna måste göras på företag med Installationsavtalet för att räknas. Beskriv momenten du arbetat med under handledning och de första 720 timmarnas prövotid om du är där. Lyft skötsamheten: punktlighet, frågor före chansningar, dokumentationsvana, det är den lärlingar rekryteras på.'
+      },
+      {
+        fraga: 'Hur visar jag felsökningskompetens i CV:t?',
+        svar: 'Beskriv metodiken och gärna ett resultat: "systematisk felsökning genom mätning och uteslutning i rätt ordning" plus ett konkret fall, som en återkommande jordfelsutlösning du spårade och löste. Felsökning är servicemontörens dyraste färdighet eftersom den är tid hos kund, och en beskriven metod skiljer dig från alla som bara listar ordet. Spara detaljerna till intervjun men visa i CV:t att metoden finns.'
+      },
+      {
+        fraga: 'Ska jag lyfta laddboxar och solceller i CV:t?',
+        svar: 'Ja, om du har erfarenheten, det är branschens snabbast växande rekryteringsområden. Var teknisk nog att vara trovärdig: fabrikat, lastbalansering, AC-sida, växelriktare, antal installationer. Saknar du erfarenheten men vill dit, skriv det som uttalat utvecklingsmål, företag med fulla orderböcker inom energiomställningen utbildar gärna montörer med rätt grund och uttalad vilja.'
+      },
+      {
+        fraga: 'Vad betyder egenkontroll i ett elektriker-CV?',
+        svar: 'Två saker som hänger ihop: företagets egenkontrollprogram enligt elsäkerhetslagen, ramen som allt elinstallationsarbete ska utföras inom, och din egen dokumentation per uppdrag: kontroller, mätvärden och utfört arbete. Skriv att du arbetar inom programmet och dokumenterar digitalt per order. Det visar att du förstår att elektrikerns jobb inte är klart när det fungerar, utan när det är kontrollerat och dokumenterat.'
+      },
+      {
+        fraga: 'Stora installationsbolag eller liten elfirma?',
+        svar: 'Bravida, Assemblin och Caverion ger volym, specialisering och interna utvecklingsvägar mot exempelvis ledande montör, med portalrekrytering och formella processer. Små firmor ger bredd, kundnärhet och snabba beslut, och nås ofta bäst med ett direkt samtal. CV:t är detsamma i grunden, men motiveringen bör matcha formatet, skriv varför just den miljön passar dig, det minskar risken för fel matchning åt båda håll.'
+      },
+      {
+        fraga: 'Vilka intyg utöver ECY-certifikatet är värda att ta med?',
+        svar: 'ESA (elsäkerhetsanvisningar) väger tungt och är ofta krav, Heta arbeten behövs vid många servicejobb, liftkort för arbete på höjd och B-körkort för servicebilen. Arbetar du mot industri kan ytterligare säkerhetsutbildningar krävas per anläggning. Lista allt med årtal, flera är tidsbegränsade, och komplettera med fabrikatspecifika utbildningar på laddboxar eller växelriktare om du har dem.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Snickare', slug: 'snickare' },
+      { yrke: 'Automationsingenjör', slug: 'automationsingenior' },
+      { yrke: 'Fastighetsskötare', slug: 'fastighetsskotare' }
+    ]
+  },
+
+  'vaktare': {
+    yrke: 'Väktare',
+    slug: 'vaktare',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Väktare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för väktare med VU1, VU2, rondering och rapportering. Mall för bevakningsföretag som Securitas, Avarn och CUBSEC.',
+
+    seoIntro: `Söker du jobb som väktare och vill ha ett CV som bevakningsföretagen kan godkänna snabbt? Det här exemplet visar hur du strukturerar ett CV för ronderande bevakning, stationära uppdrag och larmutryckning.
+
+Du får se hur du redovisar utbildningskedjan VU1, praktisk yrkesträning och VU2 via BYA, hur du hanterar länsstyrelsens godkännande och bakgrundskravet, och hur du beskriver uppdrag med volym: objekt per rond, larmutryckningar och rapportering. CV:t visar också det branschen sorterar hårdast på, omdöme inom befogenheterna i stället för tuffhet.
+
+Använd exemplet som grund för ditt eget CV som väktare och anpassa efter uppdragstyp, rondering, station och utryckning kräver olika betoning.`,
+
+    viktigtAttTankaPa: [
+      'Redovisa utbildningskedjan exakt: VU1, minst 160 timmars praktisk yrkesträning och VU2 via BYA',
+      'Skriv ut prickfri bakgrund eller befintligt länsstyrelsegodkännande, det är ett anställningsvillkor i branschen',
+      'Kvantifiera uppdragen: objekt per rond, typer av bevakning och larmutryckningar',
+      'Visa omdöme inom envarsbefogenheterna, bevakningsbolag sorterar aktivt bort actionsökare'
+    ],
+
+    exempelCV: {
+      namn: 'Daniel Berg',
+      titel: 'Väktare | VU1 och VU2, ronderande bevakning natt',
+      kontakt: {
+        telefon: '073-269 48 15',
+        epost: 'daniel.berg@email.se',
+        plats: 'Västerås',
+        linkedin: ''
+      },
+
+      profil: 'Utbildad väktare med godkänd VU1 och VU2 via BYA och 3 år i bevakningsbranschen, varav 2 år på ronderande nattjänst med 15-20 objekt per pass: butiker, kontorsfastigheter och industri. Hanterar larmutryckningar, tillsyn av brandskydd och avvikelser med skriftlig rapport per objekt. Godkänd av länsstyrelsen i nuvarande anställning, prickfri bakgrund. Agerar konsekvent inom envarsbefogenheterna: observera, rapportera, tillkalla rätt resurs. B-körkort, HLR och brandskyddsutbildad, van vid natt och helg.',
+
+      erfarenhet: [
+        {
+          titel: 'Ronderande väktare, natt',
+          arbetsgivare: 'Auktoriserat bevakningsföretag, Västerås',
+          period: '2024 - Pågående',
+          beskrivning: [
+            'Kör nattrond med 15-20 objekt per pass: yttre och inre rondering av butiker, kontorsfastigheter och industri',
+            'Hanterar larmutryckningar i samverkan med larmcentral, med dokumenterad åtgärd och rapport per händelse',
+            'Utför tillsyn av brandskydd, låsning och avvikelser samt skriftlig avvikelserapportering till kund per objekt',
+            'Agerade korrekt vid pågående inbrott: höll avstånd, dokumenterade och ledde polis rätt via larmcentralen, gripanden utan skador',
+            'Noll anmärkningar på rapportering vid interna kvalitetskontroller'
+          ]
+        },
+        {
+          titel: 'Stationär väktare',
+          arbetsgivare: 'Auktoriserat bevakningsföretag, Västerås',
+          period: '2023 - 2024',
+          beskrivning: [
+            'Stationär bevakning och tillträdeskontroll i kontorsfastighet med reception och besökshantering',
+            'Skötte passerkort, leveranskontroller och utrymningsrutiner i samverkan med fastighetsägaren',
+            'Genomförde praktisk yrkesträning (PYT) och därefter VU2 under anställningens första år'
+          ]
+        },
+        {
+          titel: 'Lagerarbetare',
+          arbetsgivare: 'Logistikföretag, Västerås',
+          period: '2021 - 2023',
+          beskrivning: [
+            'Ordinarie lagerarbete med ansvar för avvikelserapportering, grunden i noggrann dokumentation'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Väktargrundutbildning VU1 och VU2',
+          skola: 'BYA, Bevakningsbranschens Yrkes- och Arbetsmiljönämnd',
+          period: '2023',
+          beskrivning: 'VU1 (91 lektionstimmar) följd av minst 160 timmars praktisk yrkesträning och godkänd VU2 (49 lektionstimmar). Behörig att självständigt utföra bevakning i auktoriserat bevakningsföretag.'
+        },
+        {
+          titel: 'Samhällsvetenskapsprogrammet',
+          skola: 'Gymnasium, Västerås',
+          period: '2018 - 2021',
+          beskrivning: ''
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Rondering: yttre och inre, med elektronisk rondmarkering',
+          'Larmutryckning i samverkan med larmcentral',
+          'Tillträdeskontroll, reception och besökshantering',
+          'Avvikelse- och incidentrapportering, skriftlig per objekt',
+          'Brandskyddstillsyn vid rond',
+          'Konflikthantering och nedtrappning enligt BYA-utbildningen',
+          'Envarsbefogenheter i praktiken: gränser och dokumentation',
+          'Bevakningsjuridikens grunder'
+        ],
+        personliga: [
+          'Gott omdöme: observera, rapportera, tillkalla, aldrig trappa upp i onödan',
+          'Lugn under press, även vid larm och pågående brott',
+          'Noggrann rapportör: en odokumenterad rond är inte gjord',
+          'Trygg i ensamarbete nattetid',
+          'Serviceinriktad, väktaren är kundens ansikte utåt'
+        ]
+      },
+
+      certifieringar: [
+        'VU1, väktargrundutbildning del 1, BYA (2023)',
+        'VU2, väktargrundutbildning del 2, BYA (2023)',
+        'Godkänd av länsstyrelsen för bevakningsarbete (2023, nuvarande anställning)',
+        'HLR och Första hjälpen (förnyad 2025)',
+        'Grundläggande brandskyddsutbildning (2024)',
+        'B-körkort (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Utbildningskedjan är komplett och korrekt redovisad',
+        text: `VU1 med 91 lektionstimmar, minst 160 timmars praktisk yrkesträning och VU2 med 49 timmar, via BYA, plus notering om behörigheten det ger.
+
+**Varför detta fungerar:** Kedjan är branschens formella grundkrav, föreskriven av Polismyndigheten, och en rekryterare som ser den korrekt redovisad vet exakt vad Daniel får göra: självständig bevakning i auktoriserat företag. Att kunna sitt eget utbildningssystem är dessutom första provet på den regelordning yrket kräver, slarv här läses som slarv i tjänst.`
+      },
+      {
+        rubrik: 'Bakgrundskravet är avklarat i förväg',
+        text: `Godkänd av länsstyrelsen i nuvarande anställning och prickfri bakgrund står både i profil och certifikatlista.
+
+**Varför detta fungerar:** Länsstyrelsens prövning av laglydnad och lämplighet är ett anställningsvillkor, bolaget ansöker för varje anställd, och ett befintligt godkännande innebär att processen sannolikt går snabbt igen. Att lyfta det självmant tar bort rekryteringens största osäkerhetsmoment och visar att Daniel förstår att förtroende är branschens egentliga produkt.`
+      },
+      {
+        rubrik: 'Incidenten bevisar omdöme, inte mod',
+        text: `Inbrottet hanterades genom att hålla avstånd, dokumentera och leda polisen rätt via larmcentralen, med gripanden utan skador som resultat.
+
+**Varför detta fungerar:** Väktare har inga befogenheter utöver envars, och bolagen sorterar aktivt bort sökande som söker konfrontation. Daniels beskrivning följer yrkets exakta prioritering: egen säkerhet, dokumentation, rätt resurs. Det är den mognad som gör att ett bolag vågar sätta någon ensam i bil nattetid, och den går inte att visa med adjektiv.`
+      },
+      {
+        rubrik: 'Rapporteringen behandlas som kärnleverans',
+        text: `Skriftlig rapport per objekt, noll anmärkningar vid kvalitetskontroller och devisen att en odokumenterad rond inte är gjord.
+
+**Varför detta fungerar:** Kunden ser sällan väktaren men läser alltid rapporten, den är bevakningens synliga leverans. Skriftlig förmåga är därför ett uttalat urvalskriterium, väktarutbildningen kräver till och med godkänt betyg i svenska. Ett CV som lyfter rapporteringen med kvalitetsfacit träffar exakt det driftchefer letar efter och sällan hittar.`
+      },
+      {
+        rubrik: 'Volym och uppdragstyper gör erfarenheten placerbar',
+        text: `15-20 objekt per nattpass fördelade på butik, kontor och industri, plus stationär erfarenhet med reception och tillträdeskontroll.
+
+**Varför detta fungerar:** En driftchef bemannar ronder och stationer, och Daniels siffror går att lägga direkt i planeringen. Kombinationen ronderande och stationär bakgrund gör honom dessutom användbar över hela uppdragsfloran, medan natt- och helgvanan besvarar schemafrågan som annars alltid måste ställas. Allt en bemanningsplanerare behöver finns i CV:t.`
+      },
+      {
+        rubrik: 'Vägen in i yrket visar medvetet val',
+        text: `Från lagerarbete med avvikelserapportering, via stationär tjänst med PYT och VU2, till ronderande nattjänst med kvalitetsfacit.
+
+**Varför detta fungerar:** Progressionen visar att Daniel valde bevakningsyrket och byggde det stegvis, inte att han råkade hamna där. Att dokumentationsvanan spåras tillbaka till lagerjobbet ger en sammanhängande berättelse, och den stationära starten följd av rondering är branschens naturliga trappa. Nästa steg, gruppledare eller specialuppdrag, känns som en logisk fortsättning.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Redovisa VU-kedjan med rätt begrepp',
+        text: `Utbildningen är föreskriven och standardiserad, visa att du kan den.
+
+**Exempel på före/efter:**
+❌ "Utbildad väktare med alla behörigheter"
+✅ "Godkänd VU1 (91 h) och VU2 (49 h) via BYA med minst 160 timmars praktisk yrkesträning däremellan, behörig för självständig bevakning i auktoriserat bolag"`
+      },
+      {
+        rubrik: 'Lyft bakgrund och godkännande själv',
+        text: `Länsstyrelsens prövning är ett anställningsvillkor, besvara den i förväg.
+
+**Exempel på före/efter:**
+❌ (Inget nämnt om bakgrund)
+✅ "Prickfri bakgrund, godkänd av länsstyrelsen för bevakningsarbete i nuvarande anställning (2023)"`
+      },
+      {
+        rubrik: 'Beskriv incidenter enligt yrkets prioritering',
+        text: `Omdöme inom envarsbefogenheterna är det som rekryteras, inte tuffhet.
+
+**Exempel på före/efter:**
+❌ "Ryggar inte för konfrontation och har stoppat flera inbrott"
+✅ "Vid pågående inbrott: höll avstånd, dokumenterade och ledde polis rätt via larmcentralen, gripanden genomfördes utan att någon skadades"`
+      },
+      {
+        rubrik: 'Gör rapporteringen till en merit',
+        text: `Rapporten är kundens enda insyn i nattens arbete, visa att din håller.
+
+**Exempel på före/efter:**
+❌ "Noggrann med administration"
+✅ "Skriftlig avvikelserapport per objekt och händelse, noll anmärkningar vid interna kvalitetskontroller, princip: en odokumenterad rond är inte gjord"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för väktare innehålla?',
+        svar: 'Utbildningskedjan först: VU1, praktisk yrkesträning och VU2 via BYA med årtal. Därefter prickfri bakgrund eller befintligt länsstyrelsegodkännande, uppdragserfarenhet med volym (objekt per rond, uppdragstyper, larmutryckningar), rapporteringsförmåga med kvalitetsfacit och det praktiska: B-körkort, HLR, brandskydd, natt- och helgvana. Ett välskrivet CV är dessutom i sig ett prov på den skriftliga förmåga yrket kräver.'
+      },
+      {
+        fraga: 'Hur blir jag väktare och vad skriver jag innan jag är klar?',
+        svar: 'Vägen är VU1 (9 dagar, 91 lektionstimmar), minst 160 timmars praktisk yrkesträning hos ett auktoriserat bevakningsföretag inom fyra månader, och därefter VU2 (5 dagar, 49 timmar). Förkravet är godkänt betyg i Svenska 1 och en bakgrund som klarar länsstyrelsens prövning. Är du mitt i kedjan, skriv exakt var: "godkänd VU1, söker anställning för praktisk yrkesträning" är en tydlig och fullt gångbar ansökan, flera bolag utbildar och anställer i samma flöde.'
+      },
+      {
+        fraga: 'Måste jag skriva om min bakgrund i CV:t?',
+        svar: 'Du måste inte, men det är smart. Bevakningsföretaget ansöker om länsstyrelsens godkännande för varje anställd, med kontroll i belastnings- och misstankeregistret, och prövningen ställer högre krav på väktare än övrig personal. En rad om prickfri bakgrund, eller befintligt godkännande om du redan arbetar i branschen, tar bort rekryteringens största osäkerhet. Finns något i historiken kommer det fram i prövningen, så räkna med transparens.'
+      },
+      {
+        fraga: 'Hur beskriver jag skarpa lägen utan att verka actionsökande?',
+        svar: 'Följ yrkets egen logik i beskrivningen: vad du observerade, hur du bedömde risken, vad du gjorde inom envarsbefogenheterna och hur du rapporterade. Resultatmåttet är att ingen skadades och att rätt resurs tillkallades, inte att du ingrep hårdast. Bevakningsbolag sorterar aktivt bort sökande som romantiserar konfrontation, för de är en risk för både kollegor och kundrelationer. Lugnet är meriten.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan väktare, ordningsvakt och skyddsvakt i CV:t?',
+        svar: 'Tre olika roller med olika regelverk: väktaren bevakar kunds egendom med enbart envarsbefogenheter, ordningsvakten förordnas av Polismyndigheten för allmän ordning med rätt att avvisa och omhänderta, skyddsvakten bevakar skyddsobjekt med särskilda befogenheter. Har du flera behörigheter, redovisa dem separat med utbildningar och förordnanden. Att hålla isär rollerna korrekt är grundkunskap som rekryterare noterar direkt.'
+      },
+      {
+        fraga: 'Vilka uppdragstyper bör jag lyfta för olika tjänster?',
+        svar: 'Matcha annonsen: för ronderande tjänst lyft objektvolym, självständighet, körvana och brandskyddstillsyn. För stationära uppdrag och reception: tillträdeskontroll, besökshantering och service. För larmutryckning: samverkan med larmcentral, snabba korrekta beslut och åtgärdsrapportering. Butiksbevakning och handel betonar konflikthantering och nedtrappning. Bred erfarenhet är en styrka, men led alltid med den typ tjänsten gäller.'
+      },
+      {
+        fraga: 'Vilka arbetsgivare finns och skiljer sig ansökan?',
+        svar: 'De största auktoriserade bolagen är Securitas, Avarn Security och CUBSEC, plus regionala aktörer som Rapid Säkerhet och Tempest Security. Processerna liknar varandra: ansökan via portal, intervju, och länsstyrelsegodkännande via bolaget före tjänstgöring. Skillnaderna ligger i uppdragsfloran och schemamodellerna, så nämn i ansökan vilken typ av uppdrag du söker och din flexibilitet kring natt, helg och ort.'
+      },
+      {
+        fraga: 'Hur går jag vidare i karriären från väktare?',
+        svar: 'Vanliga steg är gruppledare eller arbetsledare, specialuppdrag som utryckning eller värdetransport, vidareutbildning till ordningsvakt eller skyddsvakt, samt roller inom larmcentral, säkerhetssamordning och drift. Visa riktningen i CV:t genom kvalitetsfacit, ansvar du redan tagit och relevanta tilläggsutbildningar. Bevakningsbolagen rekryterar gärna internt, dokumenterat gott omdöme över tid är den valuta som växlas uppåt.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Vaktmästare', slug: 'vaktmastare' },
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Servicemedarbetare', slug: 'servicemedarbetare' }
+    ]
+  },
+
+  'stadare': {
+    yrke: 'Städare',
+    slug: 'stadare',
+    kategori: 'service',
+    metaTitle: 'CV Exempel Städare 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för städare med städmetoder, kemikaliehantering och kvalitetsuppföljning. Mall för städföretag, kontorsstäd och institutionsstäd.',
+
+    seoIntro: `Söker du jobb som städare och vill ha ett CV som visar att städning är ett yrke med metoder, inte bara en syssla? Det här exemplet visar hur du strukturerar ett CV för städföretag, kontorsstäd, institutionsstäd och hemstäd.
+
+Du får se hur du kvantifierar arbetet med yta per dag och antal objekt, hur du visar metodkunskap kring moppsystem, färgkodning och kemikaliehantering, och hur du lyfter maskinvana med automatskurmaskin och annan utrustning. CV:t visar också självständigheten och pålitligheten som städbolag rekryterar hårdast på, städaren arbetar ofta ensam med nyckelansvar hos kund.
+
+Använd exemplet som grund för ditt eget CV som städare eller lokalvårdare och anpassa efter miljön: kontor, skola, vård och hem ställer olika krav.`,
+
+    viktigtAttTankaPa: [
+      'Kvantifiera arbetet: kvadratmeter per dag, antal objekt och typ av miljöer du städat',
+      'Visa metodkunskap: moppsystem, färgkodade dukar, kemikaliehantering och dosering',
+      'Lyft maskinvana med automatskurmaskin och annan utrustning, det skiljer yrkesstädare från tillfälliga',
+      'Betona självständighet och nyckelansvar, städbolagens största rekryteringsfråga är pålitlighet'
+    ],
+
+    exempelCV: {
+      namn: 'Maria Johansson',
+      titel: 'Städare | Kontors- och institutionsstäd, maskinvana och kvalitet',
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'maria.johansson@email.se',
+        plats: 'Göteborg',
+        linkedin: ''
+      },
+
+      profil: 'Städare med 5 års erfarenhet av kontorsstäd, institutionsstäd och hemstäd. Städar 800-1200 kvm kontorsyta per dag med moppsystem, färgkodade dukar och rätt kemikaliedosering, och kör automatskurmaskin, våtdammsugare och ångtvätt. Van vid egenkontroll med checklistor, nyckelansvar hos ett tiotal kunder och arbete med miljömärkta produkter (Svanen, EU Ecolabel). Arbetar med respekt för verksamheten i känsliga miljöer som äldreboende. Flexibel med dag-, kvälls- och helgpass, B-körkort och egen bil.',
+
+      erfarenhet: [
+        {
+          titel: 'Städare, kontors- och institutionsstäd',
+          arbetsgivare: 'Städserviceföretag, Göteborg',
+          period: '2021 - Pågående',
+          beskrivning: [
+            'Daglig underhållsstädning av 800-1200 kvm kontorsyta fördelad på tre till fem objekt per dag, enligt städplan och checklista',
+            'Institutionsstäd på skola och äldreboende med hänsyn till verksamhetens rutiner och de boendes integritet',
+            'Kör automatskurmaskin och våtdammsugare samt utför periodisk storstädning och golvvård',
+            'Hanterar kemikalier med korrekt dosering och val per golvtyp, upptäckte och åtgärdade felaktig kemanvändning på linoleumgolv',
+            'Nyckel- och larmansvar hos ett tiotal kundobjekt utan anmärkning under hela anställningen'
+          ]
+        },
+        {
+          titel: 'Städare, hemstäd',
+          arbetsgivare: 'Hemstädsföretag, Göteborg',
+          period: '2019 - 2021',
+          beskrivning: [
+            'Hemstäd hos återkommande privatkunder med eget schema om sex till åtta hem per dag',
+            'Byggde kundstock genom kvalitet: flera kunder följde med vid byte av arbetsgivare',
+            'Arbetade självständigt med egen bil, materialansvar och direktkontakt med kunderna'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Grundskola samt yrkesintroduktion städservice',
+          skola: 'Vuxenutbildning, Göteborg',
+          period: '2018 - 2019',
+          beskrivning: 'Utbildning i städmetoder, ergonomi, kemikaliehantering och service.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Moppsystem med förfuktade moppar och färgkodade dukar',
+          'Automatskurmaskin, våtdammsugare och ångtvätt',
+          'Kemikaliehantering: dosering, pH och val per material',
+          'Golvvård: linoleum, sten, trä och textil',
+          'Underhållsstädning och periodisk storstädning',
+          'Egenkontroll med checklistor och kvalitetsuppföljning',
+          'Miljömärkta produkter: Svanen och EU Ecolabel',
+          'Ergonomiska arbetssätt och rätt lyftteknik'
+        ],
+        personliga: [
+          'Pålitlig: nyckel- och larmansvar utan anmärkning i fem år',
+          'Självgående: planerar rutt och prioritering över dagens objekt',
+          'Noggrann: ser det andra missar, lampkupor, dörrkarmar, bakom möbler',
+          'Respektfull i känsliga miljöer, hälsar och tar hänsyn till boende',
+          'Flexibel: dag, kväll och helg efter verksamhetens behov'
+        ]
+      },
+
+      certifieringar: [
+        'Utbildning i kemikaliehantering och dosering (2021)',
+        'Ergonomi och lyftteknik (2020)',
+        'B-körkort och egen bil (2018)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Flytande' },
+        { sprak: 'Engelska', niva: 'God' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Ytan och objekten gör kapaciteten mätbar',
+        text: `800-1200 kvm per dag fördelat på tre till fem objekt, sex till åtta hem per dag under hemstädsåren, och tydliga miljötyper: kontor, skola, äldreboende, hem.
+
+**Varför detta fungerar:** Städbranschen kalkylerar allt i yta och tid, och en arbetsledare som ser Marias siffror kan direkt placera henne i sin objektsplanering. Kvantifieringen bevisar också tempo utan att påstå det, den som hinner 1200 kvm med bibehållen kvalitet har sitt arbetssätt under kontroll. Det skiljer yrkesstädaren från sökande som bara skriver städvana.`
+      },
+      {
+        rubrik: 'Metodkunskapen visar att städning är ett yrke',
+        text: `Moppsystem med förfuktade moppar, färgkodade dukar, kemikaliedosering per golvtyp och exemplet med linoleumgolvet som räddades från fel kem.
+
+**Varför detta fungerar:** Professionell städning bygger på metoder som skyddar både material, hygien och arbetsmiljö, och färgkodningen är branschens hygiengrund. Linoleumexemplet bevisar materialkunskap genom handling: fel kem på fel golv är ett dyrt och vanligt misstag, och en städare som upptäcker och åtgärdar det sparar kunden pengar. Sådan kunskap motiverar också högre kvalitet i upphandlade kontrakt.`
+      },
+      {
+        rubrik: 'Maskinvanan öppnar de större objekten',
+        text: `Automatskurmaskin, våtdammsugare och ångtvätt listas med sammanhang, tillsammans med periodisk storstädning och golvvård.
+
+**Varför detta fungerar:** Större kontors- och institutionsobjekt kräver maskinstädning, och maskinvana är ofta skillnaden mellan att kunna ta ett objekt själv och att behöva gå bredvid. Golvvården är dessutom städbranschens mest kvalificerade och bäst betalda moment. För arbetsgivaren betyder raderna att Maria kan sättas på hela objektsfloran utan upplärningskostnad.`
+      },
+      {
+        rubrik: 'Nyckelansvaret bevisar pålitligheten',
+        text: `Nyckel- och larmansvar hos ett tiotal kundobjekt utan anmärkning i fem år, och hemstädskunder som följde med vid arbetsgivarbyte.
+
+**Varför detta fungerar:** Städare arbetar ofta ensamma i kunders lokaler utanför kontorstid, och pålitligheten är därför branschens hårdaste urvalskriterium. Felfritt nyckelansvar över tid är det starkaste bevis som finns, och kunder som aktivt följer efter en städare är servicebranschens finaste betyg. Båda går att verifiera med referenser, vilket gör dem trovärdiga.`
+      },
+      {
+        rubrik: 'Känsliga miljöer hanteras med synlig respekt',
+        text: `Institutionsstädet beskrivs med hänsyn till verksamhetens rutiner och de boendes integritet, och bland personliga kompetenser står att Maria hälsar och tar hänsyn.
+
+**Varför detta fungerar:** Städning på äldreboenden, skolor och vårdmiljöer sker mitt i pågående verksamhet, och upphandlande kunder ställer uttryckliga krav på bemötande. En städare som förstår att hon är gäst i någons hem eller arbetsdag, och kan formulera det, matchar exakt det kvalitetskrav som skiljer kontrakt som förnyas från kontrakt som tappas.`
+      },
+      {
+        rubrik: 'Miljöprofilen matchar upphandlingarnas krav',
+        text: `Arbete med Svanen- och EU Ecolabel-märkta produkter nämns i profilen, tillsammans med rätt dosering som både miljö- och ekonomifråga.
+
+**Varför detta fungerar:** Offentliga upphandlingar och stora kontorskunder ställer rutinmässigt miljökrav på städleverantörer, och personal som redan arbetar med miljömärkta produkter och korrekt dosering är ett försäljningsargument i anbuden. Överdosering är dessutom en verklig kostnad, så doseringsdisciplin är ekonomi. Få städ-CV:n visar den kopplingen.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera med branschens mått',
+        text: `Yta, objekt och miljötyper är städbolagens planeringsspråk.
+
+**Exempel på före/efter:**
+❌ "Erfaren städare med högt tempo"
+✅ "Städar 800-1200 kvm kontorsyta per dag fördelat på tre till fem objekt, enligt städplan med egenkontroll och checklista"`
+      },
+      {
+        rubrik: 'Visa metoderna, inte bara viljan',
+        text: `Moppsystem, färgkodning och kemkunskap skiljer yrkesstädare från tillfälliga.
+
+**Exempel på före/efter:**
+❌ "Noggrann och van vid städning"
+✅ "Arbetar med moppsystem, färgkodade dukar och kemikaliedosering per golvtyp, upptäckte och åtgärdade felaktig kemanvändning på linoleumgolv"`
+      },
+      {
+        rubrik: 'Gör pålitligheten verifierbar',
+        text: `Nyckelansvar och kundlojalitet är branschens starkaste bevis.
+
+**Exempel på före/efter:**
+❌ "Pålitlig och ansvarstagande"
+✅ "Nyckel- och larmansvar hos ett tiotal kundobjekt utan anmärkning i fem år, flera hemstädskunder följde med vid arbetsgivarbyte"`
+      },
+      {
+        rubrik: 'Anpassa efter miljön du söker till',
+        text: `Kontor, vård, skola och hem ställer olika krav, spegla tjänsten.
+
+**Exempel på före/efter:**
+❌ Samma CV till kontorsstäd och äldreboende
+✅ Till kontor: yta, tempo, maskiner, kvällspass. Till vård och boende: hygienrutiner, integritet, bemötande. Till hemstäd: självständighet, kundrelationer, körkort`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska ett CV för städare innehålla?',
+        svar: 'Fyra bärande delar: kvantifierat arbete (kvadratmeter per dag, antal objekt, miljötyper), metodkunskap (moppsystem, färgkodade dukar, kemikaliedosering), maskinvana (automatskurmaskin och annan utrustning) samt bevisen på pålitlighet: nyckelansvar, referenser och år utan anmärkning. Lägg till flexibilitet kring arbetstider och B-körkort, många objekt städas utanför kontorstid och nås med bil.'
+      },
+      {
+        fraga: 'Hur skriver jag CV för städjobb utan erfarenhet?',
+        svar: 'Städning är en vanlig ingång på arbetsmarknaden och arbetsgivarna lär ut metoderna, det de rekryterar är pålitlighet och ork. Visa dem med det du har: hemansvar, andra fysiska jobb, skolnärvaro eller föreningsåtaganden. Skriv tillgängligheten tydligt, tidiga morgnar och kvällar är branschens vardag, och nämn körkort om du har det. En ärlig rad om att du vet att jobbet är fysiskt visar att du söker med öppna ögon.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan städare och lokalvårdare i CV:t?',
+        svar: 'Titlarna används i praktiken om samma yrke: lokalvårdare är vanligare i offentlig sektor och upphandlingar, städare i vardagsspråk och privata bolag. Sök på båda och använd annonsens ord i din ansökan. Innehållet i CV:t är detsamma: metoder, yta, maskiner och pålitlighet. Specialiseringar som golvvård, sanering eller flyttstäd är däremot värda att namnge separat, de efterfrågas specifikt.'
+      },
+      {
+        fraga: 'Vilken metodkunskap är värd att skriva ut?',
+        svar: 'Moppsystem med förfuktade moppar, färgkodade dukar per utrymme (branschens hygiengrund), kemikaliedosering och val per material, samt egenkontroll med checklistor. Arbetar du i upphandlade kontrakt kan kvalitetsuppföljning enligt beställarens krav vara värd att nämna. Metoderna visar att du städar systematiskt och materialsäkert, det är skillnaden mellan yrkesstädning och att bara torka ytor.'
+      },
+      {
+        fraga: 'Hur viktig är maskinvana för en städare?',
+        svar: 'Ofta avgörande för de större objekten: automatskurmaskin krävs på stora golvytor i kontor, skolor och gallerior, och golvvård (polish, oljning, textilrengöring) är branschens mest kvalificerade moment. Lista maskinerna du kört med sammanhang: "kör automatskurmaskin på kontorsobjekt om 1200 kvm". Har du bara manuell vana, skriv att du vill lära maskiner, arbetsgivare utbildar gärna pålitlig personal vidare.'
+      },
+      {
+        fraga: 'Hur visar jag pålitlighet i ett städ-CV?',
+        svar: 'Med verifierbara fakta: nyckel- och larmansvar med antal objekt och år utan anmärkning, kunder som begärt just dig eller följt med vid byte, och referenser från arbetsledare. Städare arbetar ensamma i kunders lokaler, ofta utanför kontorstid, så pålitligheten är branschens viktigaste urvalsfråga. En konkret rad slår alla adjektiv: fem års nyckelansvar utan anmärkning går att ringa och kontrollera.'
+      },
+      {
+        fraga: 'Ska jag nämna miljömärkta produkter och dosering?',
+        svar: 'Ja, särskilt mot större bolag och offentliga kontrakt. Upphandlingar ställer rutinmässigt miljökrav, och personal med vana vid Svanen- och EU Ecolabel-produkter samt korrekt dosering stärker arbetsgivarens anbud. Dosering är dessutom ekonomi: överdosering kostar kem och kan skada material. En mening om miljömedvetet arbetssätt med rätt dosering visar både ansvar och kostnadsmedvetenhet.'
+      },
+      {
+        fraga: 'Vilka arbetstider och krav ska jag vara beredd på?',
+        svar: 'Kontorsstäd sker ofta tidig morgon eller kväll när lokalerna är tomma, hemstäd på dagtid, och vård- och skolmiljöer mitt i verksamheten. Ange din flexibilitet tydligt i CV:t, den avgör ofta. B-körkort behövs för objektsrundor och hemstäd. Fysiskt är yrket krävande: stående arbete, rörelse hela passet och vikten av rätt ergonomi, nämn gärna att du arbetar med riktig lyftteknik, det signalerar hållbarhet över tid.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' },
+      { yrke: 'Hemtjänstpersonal', slug: 'hemtjanstpersonal' },
+      { yrke: 'Vaktmästare', slug: 'vaktmastare' }
+    ]
   }
 }
 
