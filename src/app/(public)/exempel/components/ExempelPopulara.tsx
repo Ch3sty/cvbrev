@@ -10,6 +10,7 @@ import {
   IconService,
   IconUtbildning,
   IconOffentlig,
+  IconHantverk,
 } from './illustrations/ExempelIcons'
 import { POPULARA_YRKEN, type PopulartYrke } from './exempel-data'
 
@@ -23,6 +24,7 @@ const ICON_MAP: Record<
   service: IconService,
   utbildning: IconUtbildning,
   offentlig: IconOffentlig,
+  hantverk: IconHantverk,
 }
 
 export default function ExempelPopulara() {

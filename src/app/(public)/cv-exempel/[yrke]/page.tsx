@@ -21567,7 +21567,7 @@ Använd exemplet som grund för ditt eget CV som diskare, och kom ihåg att disk
   'snickare': {
     yrke: 'Snickare',
     slug: 'snickare',
-    kategori: 'teknik',
+    kategori: 'hantverk',
     metaTitle: 'CV Exempel Snickare 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Professionellt CV-exempel för snickare och träarbetare med yrkesbevis, ID06 och säkerhetsutbildningar. Mall för byggföretag, byggservice och lärlingar.',
 
@@ -21793,7 +21793,7 @@ Använd exemplet som grund för ditt eget CV som snickare eller träarbetare, oc
   'elektriker': {
     yrke: 'Elektriker',
     slug: 'elektriker',
-    kategori: 'teknik',
+    kategori: 'hantverk',
     metaTitle: 'CV Exempel Elektriker 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Professionellt CV-exempel för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll. Mall för installationsföretag, service och lärlingar.',
 

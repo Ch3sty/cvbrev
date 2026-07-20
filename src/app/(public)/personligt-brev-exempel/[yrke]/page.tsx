@@ -11471,7 +11471,7 @@ Ta också med det logistiska som gör dig lätt att anställa: kan börja enligt
       }
     ],
 
-    kategori: 'teknik',
+    kategori: 'hantverk',
 
     relaterade: [
       { yrke: 'Elektriker', slug: 'elektriker' },
@@ -11603,7 +11603,7 @@ Lyft det som gör dig lätt att handleda: kommer i tid, frågar innan du chansar
       }
     ],
 
-    kategori: 'teknik',
+    kategori: 'hantverk',
 
     relaterade: [
       { yrke: 'Snickare', slug: 'snickare' },

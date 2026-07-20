@@ -29,7 +29,7 @@ export default function ExempelPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
-    description: `${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} exempel på personligt brev fördelade över sex branscher, plus 25 färdiga CV-mallar att välja design från. Allt gratis.`,
+    description: `${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} exempel på personligt brev fördelade över sju branscher, plus 25 färdiga CV-mallar att välja design från. Allt gratis.`,
     url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',

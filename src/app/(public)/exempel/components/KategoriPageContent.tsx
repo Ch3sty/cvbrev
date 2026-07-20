@@ -10,6 +10,7 @@ import {
   IconService,
   IconUtbildning,
   IconOffentlig,
+  IconHantverk,
 } from './illustrations/ExempelIcons'
 import { Kategori } from './exempel-data'
 
@@ -23,6 +24,7 @@ const ICON_MAP: Record<
   service: IconService,
   utbildning: IconUtbildning,
   offentlig: IconOffentlig,
+  hantverk: IconHantverk,
 }
 
 interface KategoriPageContentProps {

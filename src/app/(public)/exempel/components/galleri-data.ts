@@ -494,13 +494,13 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "snickare",
     "namn": "Snickare",
-    "kategori": "teknik",
+    "kategori": "hantverk",
     "intro": "CV för snickare med yrkesbevis, formsättning, stomresning och säkerhetsutbildningar."
   },
   {
     "slug": "elektriker",
     "namn": "Elektriker",
-    "kategori": "teknik",
+    "kategori": "hantverk",
     "intro": "CV för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll."
   },
   {
@@ -1019,13 +1019,13 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "snickare",
     "namn": "Snickare",
-    "kategori": "teknik",
+    "kategori": "hantverk",
     "intro": "Personligt brev för snickare med yrkesbevis, ID06, säkerhetsutbildningar och byggserviceerfarenhet."
   },
   {
     "slug": "elektriker",
     "namn": "Elektriker",
-    "kategori": "teknik",
+    "kategori": "hantverk",
     "intro": "Personligt brev för elektriker med ECY-certifikat, felsökning, laddboxar och kundbemötande."
   },
   {

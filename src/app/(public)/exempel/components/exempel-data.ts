@@ -3,8 +3,8 @@
  * Speglar yrkes-listan i /cv-exempel/[yrke] och /personligt-brev-exempel/[yrke].
  */
 
-export const TOTAL_CV_YRKEN = 75
-export const TOTAL_BREV_YRKEN = 75
+export const TOTAL_CV_YRKEN = 86
+export const TOTAL_BREV_YRKEN = 86
 export const TOTAL_EXEMPEL = TOTAL_CV_YRKEN + TOTAL_BREV_YRKEN
 
 // Kategori-konstanter
@@ -15,11 +15,12 @@ export type KategoriSlug =
   | 'service'
   | 'utbildning'
   | 'offentlig-sektor'
+  | 'hantverk'
 
 export interface Kategori {
   slug: KategoriSlug
   namn: string
-  iconKey: 'vard' | 'tech' | 'ekonomi' | 'service' | 'utbildning' | 'offentlig'
+  iconKey: 'vard' | 'tech' | 'ekonomi' | 'service' | 'utbildning' | 'offentlig' | 'hantverk'
   kortBeskrivning: string
   introIngress: string
   yrken: string[] // slugs som finns i båda gallerierna
@@ -53,6 +54,7 @@ export const KATEGORIER: Kategori[] = [
       'socialsekreterare',
       'lss-handlaggare',
       'barnskotare',
+      'stodpedagog',
     ],
   },
   {
@@ -72,6 +74,7 @@ export const KATEGORIER: Kategori[] = [
       'ingenjor',
       'automationsingenior',
       'konstruktor',
+      'it-tekniker',
     ],
   },
   {
@@ -115,6 +118,12 @@ export const KATEGORIER: Kategori[] = [
       'kundtjanstmedarbetare',
       'servicemedarbetare',
       'saljare',
+      'telefonforsaljare',
+      'diskare',
+      'stadare',
+      'vaktare',
+      'vaktmastare',
+      'chauffor',
     ],
   },
   {
@@ -160,6 +169,19 @@ export const KATEGORIER: Kategori[] = [
       'terminalarbetare',
       'fastighetsskotare',
       'lokalvardare',
+      'socionom',
+    ],
+  },
+  {
+    slug: 'hantverk',
+    namn: 'Hantverk och bygg',
+    iconKey: 'hantverk',
+    kortBeskrivning: 'Snickare, elektriker och andra yrken med yrkesbevis',
+    introIngress:
+      'Hantverks- och byggyrken rekryterar på yrkesbevis, säkerhetsutbildningar och dokumenterat hantverk. Här hittar du exempel på CV och personliga brev för snickare och elektriker, skrivna med branschens egna begrepp: yrkesbevis via BYN, ECY-certifikat, ID06 och säkerhetsutbildningar som Heta arbeten. Exemplen fungerar för både utbildade hantverkare, lärlingar och dig som söker till byggservice.',
+    yrken: [
+      'snickare',
+      'elektriker',
     ],
   },
 ]

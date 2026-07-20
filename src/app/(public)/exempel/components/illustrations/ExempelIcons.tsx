@@ -145,6 +145,28 @@ export function IconOffentlig({ className }: IllustrationProps) {
   )
 }
 
+export function IconHantverk({ className }: IllustrationProps) {
+  const id = 'k-hant'
+  return (
+    <svg className={className} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="52" height="52" rx="14" fill={`url(#${id}-soft)`} />
+      {/* Planka */}
+      <rect x="8" y="34" width="40" height="8" rx="2" fill="white" stroke="#FB923C" strokeWidth="1.5" />
+      <line x1="14" y1="38" x2="18" y2="38" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      <line x1="24" y1="38" x2="30" y2="38" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      <line x1="36" y1="38" x2="42" y2="38" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      {/* Hammarskaft */}
+      <rect x="25.5" y="16" width="5" height="18" rx="2" transform="rotate(35 28 25)" fill={`url(#${id}-warm)`} />
+      {/* Hammarhuvud */}
+      <rect x="16" y="10" width="16" height="8" rx="2.5" transform="rotate(35 24 14)" fill={`url(#${id}-deep)`} />
+      {/* Spik */}
+      <line x1="40" y1="26" x2="40" y2="34" stroke="#FB923C" strokeWidth="2" strokeLinecap="round" />
+      <line x1="37.5" y1="26" x2="42.5" y2="26" stroke="#FB923C" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 // =============================================================
 // STEP-IKONER (56x56) for "Sa anvander du exemplen"
 // =============================================================

@@ -13,7 +13,7 @@ const ANTAL_BREV = BREV_GALLERI.length
 export function generateMetadata(): Metadata {
   return {
     title: `Personligt brev-mallar: ${ANTAL_BREV} färdiga exempel för svenska jobb | Jobbcoach.ai`,
-    description: `${ANTAL_BREV} färdiga mallar för personligt brev inom vård, tech, ekonomi, service, utbildning och offentlig sektor. Skrivna för svenska rekryterare och gratis att använda som mall.`,
+    description: `${ANTAL_BREV} färdiga mallar för personligt brev inom vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk. Skrivna för svenska rekryterare och gratis att använda som mall.`,
     keywords:
       'personligt brev mall, personligt brev mall gratis, gratis personligt brev mall, mall personligt brev, ansökningsbrev mall, personligt brev exempel, personligt brev mall word, jobbansökan exempel',
     openGraph: {
@@ -41,7 +41,7 @@ export default function PersonligtBrevExempelGalleri() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Mallar för personligt brev till svenska yrken',
-    description: `Bibliotek med ${ANTAL_BREV} mallar för personligt brev inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    description: `Bibliotek med ${ANTAL_BREV} mallar för personligt brev inom vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk.`,
     numberOfItems: BREV_GALLERI.length,
     itemListElement: BREV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',

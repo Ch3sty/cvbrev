@@ -13,7 +13,7 @@ const ANTAL_CV = CV_GALLERI.length
 export function generateMetadata(): Metadata {
   return {
     title: `${ANTAL_CV} CV-exempel för svenska yrken 2026 — gratis och ATS-optimerade | Jobbcoach.ai`,
-    description: `Se färdiga CV-exempel för ${ANTAL_CV} svenska yrken — vård, tech, ekonomi, service, utbildning och offentlig sektor. Lärorika exempel för din egen jobbansökan.`,
+    description: `Se färdiga CV-exempel för ${ANTAL_CV} svenska yrken — vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk. Lärorika exempel för din egen jobbansökan.`,
     keywords:
       'cv exempel, exempel cv, bra cv exempel, cv exempel student, cv exempel säljare, cv exempel barnskötare, ats-optimerat cv, professionellt cv, svenska cv, jobbansökan',
     openGraph: {
@@ -41,7 +41,7 @@ export default function CVExempelGalleri() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'CV-exempel för svenska yrken',
-    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning och offentlig sektor.`,
+    description: `Bibliotek med professionella CV-exempel för ${ANTAL_CV} yrken inom vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk.`,
     numberOfItems: CV_GALLERI.length,
     itemListElement: CV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',
