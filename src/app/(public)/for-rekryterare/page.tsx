@@ -14,6 +14,7 @@ import RekryterareExempel from './components/RekryterareExempel'
 import RekryterareProfilExempel from './components/RekryterareProfilExempel'
 import RekryterareTrust from './components/RekryterareTrust'
 import RekryterareFAQ from './components/RekryterareFAQ'
+import RekryterareInsikter from './components/RekryterareInsikter'
 import RekryterareCTABand from './components/RekryterareCTABand'
 import { REKRYTERARE_FAQ_ITEMS } from './components/rekryterare-faq-data'
 
@@ -89,6 +90,7 @@ export default function ForRekryterareSida() {
         <RekryterareExempel />
         <RekryterareProfilExempel />
         <RekryterareTrust />
+        <RekryterareInsikter />
         <RekryterareFAQ />
         <RekryterareCTABand />
       </main>

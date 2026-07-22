@@ -163,3 +163,60 @@ export function getPostBySlug(slug: string): Post | null { // Uppdaterad returty
      return null;
   }
 }
+// --- INSIKTER FÖR REKRYTERARE (content/rekryterare) ---
+const insikterDirectory = path.join(process.cwd(), 'content/rekryterare');
+
+export function getAllInsikterMeta(): PostMeta[] {
+  try {
+    if (!fs.existsSync(insikterDirectory)) return [];
+    const fileNames = fs.readdirSync(insikterDirectory);
+    const all = fileNames
+      .filter((f) => f.endsWith('.mdx'))
+      .map((fileName) => {
+        try {
+          const slug = fileName.replace(/\.mdx$/, '');
+          const fileContents = fs.readFileSync(path.join(insikterDirectory, fileName), 'utf8');
+          const matterResult = matter(fileContents);
+          const frontmatter = matterResult.data as Frontmatter;
+          if (!frontmatter.title || !frontmatter.date) return null;
+          const wordCount = matterResult.content
+            .replace(/<[^>]*>/g, '')
+            .split(/\s+/)
+            .filter((w) => w.length > 0).length;
+          const meta: PostMeta = {
+            slug,
+            title: frontmatter.title,
+            seoTitle: frontmatter.seoTitle,
+            date: frontmatter.date,
+            description: frontmatter.description || '',
+            author: frontmatter.author,
+            tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+            image: frontmatter.image,
+            faq: Array.isArray(frontmatter.faq) ? frontmatter.faq : [],
+            wordCount,
+          };
+          return meta;
+        } catch {
+          return null;
+        }
+      })
+      .filter((p): p is PostMeta => p !== null);
+    return all.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('Error reading insikter metadata:', error);
+    return [];
+  }
+}
+
+export function getInsiktBySlug(slug: string): Post | null {
+  try {
+    const fullPath = path.join(insikterDirectory, `${slug}.mdx`);
+    if (!fs.existsSync(fullPath)) return null;
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const matterResult = matter(fileContents);
+    return { slug, frontmatter: matterResult.data as Frontmatter, content: matterResult.content };
+  } catch (error) {
+    console.error(`Error reading insikt "${slug}":`, error);
+    return null;
+  }
+}

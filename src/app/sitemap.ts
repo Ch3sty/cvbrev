@@ -1,6 +1,6 @@
 // src/app/sitemap.ts
 import { MetadataRoute } from 'next';
-import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
+import { getAllPostsMeta, getAllInsikterMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data';
 import { getAllAuthorIds } from '@/lib/authors';
@@ -64,6 +64,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9, // Galleri-översikt
+    },
+    {
+      url: `${baseUrl}/for-rekryterare`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/for-rekryterare/insikter`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/om-oss`,
@@ -389,7 +401,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // 8. Kombinera alla sidor
+  // 8. Insikter för rekryterare (/for-rekryterare/insikter/[slug])
+  const insikterPages: MetadataRoute.Sitemap = getAllInsikterMeta().map((post) => ({
+    url: `${baseUrl}/for-rekryterare/insikter/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly',
+    priority: 0.75,
+  }));
+
+  // 9. Kombinera alla sidor
   return [
     ...staticPages,
     ...verktygPages,
@@ -400,5 +420,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cvKategoriPages,
     ...brevKategoriPages,
     ...yrkesmallPages,
+    ...insikterPages,
   ];
 }
