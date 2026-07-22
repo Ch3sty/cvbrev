@@ -1,7 +1,7 @@
 export const REKRYTERARE_FAQ_ITEMS = [
   {
-    q: 'Vad kostar det under betan?',
-    a: 'Ingenting. Under tidig åtkomst är kandidatpoolen gratis för verifierade rekryterare. Vi bygger produkten tillsammans med de första användarna och vill ha er feedback, inte era fakturor. Innan betan tar slut får ni besked i god tid, och ni binder er aldrig till något genom att ansöka.',
+    q: 'Vad kostar det?',
+    a: 'Ingenting just nu. Under lanseringsperioden är kandidatpoolen kostnadsfri för verifierade rekryterare. Vi bygger tjänsten tillsammans med de första användarna och vill ha er feedback, inte era fakturor. Om prissättningen förändras får ni besked i god tid, och ni binder er aldrig till något genom att skapa konto.',
   },
   {
     q: 'Hur verifieras vårt företag?',

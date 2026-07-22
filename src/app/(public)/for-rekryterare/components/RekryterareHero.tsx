@@ -120,7 +120,7 @@ export default function RekryterareHero() {
                   className="w-3.5 h-3.5 text-orange-500"
                   strokeWidth={2.5}
                 />
-                Gratis under betan
+                Kostnadsfritt under lanseringen
               </span>
               <span className="hidden sm:inline text-slate-300">·</span>
               <span className="inline-flex items-center gap-1.5">

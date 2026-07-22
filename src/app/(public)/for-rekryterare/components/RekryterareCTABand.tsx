@@ -42,8 +42,8 @@ export default function RekryterareCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Skapa ett rekryterarkonto, så verifierar vi ert företag och
-                släpper in er i betan. Gratis under tidig åtkomst, utan
-                bindningstid.
+                öppnar kandidatpoolen. Kostnadsfritt under lanseringsperioden,
+                utan bindningstid.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
@@ -64,7 +64,7 @@ export default function RekryterareCTABand() {
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>Gratis under betan</span>
+                <span>Kostnadsfritt under lanseringsperioden</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Bevakning ingår</span>
                 <span className="hidden sm:inline text-white/40">·</span>

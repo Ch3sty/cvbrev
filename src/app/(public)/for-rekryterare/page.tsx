@@ -25,7 +25,7 @@ export default function ForRekryterareSida() {
     name: 'Jobbcoach.ai kandidatpool för rekryterare',
     url: 'https://www.jobbcoach.ai/for-rekryterare',
     description:
-      'Kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten accepterar kontakt. Gratis för verifierade rekryterare under betan.',
+      'Kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten accepterar kontakt. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.',
     serviceType: 'Rekryteringstjänst',
     areaServed: {
       '@type': 'Country',
@@ -40,7 +40,7 @@ export default function ForRekryterareSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Gratis under tidig åtkomst för verifierade rekryterare',
+      description: 'Kostnadsfritt under lanseringsperioden för verifierade rekryterare',
     },
   }
 
