@@ -15,9 +15,9 @@ import Breadcrumb from '@/components/Breadcrumb'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 
 export const metadata: Metadata = {
-  title: 'CV-mallar — verktyg och funktion | Jobbcoach.ai',
+  title: 'CV-mallar: välj design, fyll i och ladda ner som PDF | Jobbcoach.ai',
   description:
-    'Funktionsdemo för Jobbcoach.ai:s CV-mallverktyg. Se hur du väljer mall, fyller i uppgifter och laddar ner färdig PDF.',
+    'Välj bland professionella CV-mallar, fyll i dina uppgifter och ladda ner som PDF. Gratis att börja, ATS-säkra och byggda för svenska arbetsgivare.',
   alternates: {
     canonical: 'https://www.jobbcoach.ai/cv-mallar',
   },
