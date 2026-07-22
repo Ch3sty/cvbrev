@@ -167,6 +167,74 @@ export function IconHantverk({ className }: IllustrationProps) {
   )
 }
 
+export function IconIndustri({ className }: IllustrationProps) {
+  const id = 'k-industri'
+  return (
+    <svg className={className} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="52" height="52" rx="14" fill={`url(#${id}-soft)`} />
+      {/* Kugghjul */}
+      <circle cx="28" cy="28" r="11" fill="white" stroke="#FB923C" strokeWidth="1.5" />
+      <circle cx="28" cy="28" r="4.5" fill={`url(#${id}-warm)`} />
+      {/* Kuggar */}
+      <rect x="26" y="11" width="4" height="6" rx="1.5" fill={`url(#${id}-deep)`} />
+      <rect x="26" y="39" width="4" height="6" rx="1.5" fill={`url(#${id}-deep)`} />
+      <rect x="11" y="26" width="6" height="4" rx="1.5" fill={`url(#${id}-deep)`} />
+      <rect x="39" y="26" width="6" height="4" rx="1.5" fill={`url(#${id}-deep)`} />
+      <rect x="15.5" y="14" width="4" height="6" rx="1.5" transform="rotate(-45 17.5 17)" fill={`url(#${id}-warm)`} />
+      <rect x="36.5" y="36" width="4" height="6" rx="1.5" transform="rotate(-45 38.5 39)" fill={`url(#${id}-warm)`} />
+      <rect x="36.5" y="14" width="4" height="6" rx="1.5" transform="rotate(45 38.5 17)" fill={`url(#${id}-warm)`} />
+      <rect x="15.5" y="36" width="4" height="6" rx="1.5" transform="rotate(45 17.5 39)" fill={`url(#${id}-warm)`} />
+      {/* Skiftnyckel-antydan */}
+      <line x1="21" y1="28" x2="25" y2="28" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      <line x1="31" y1="28" x2="35" y2="28" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function IconLogistik({ className }: IllustrationProps) {
+  const id = 'k-logistik'
+  return (
+    <svg className={className} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="52" height="52" rx="14" fill={`url(#${id}-soft)`} />
+      {/* Pallar/lådor */}
+      <rect x="10" y="30" width="14" height="12" rx="2" fill="white" stroke="#FB923C" strokeWidth="1.5" />
+      <rect x="26" y="30" width="14" height="12" rx="2" fill={`url(#${id}-warm)`} />
+      <rect x="18" y="17" width="14" height="12" rx="2" fill={`url(#${id}-deep)`} />
+      {/* Tejplinjer */}
+      <line x1="17" y1="30" x2="17" y2="42" stroke="#FED7AA" strokeWidth="2" />
+      <line x1="25" y1="17" x2="25" y2="29" stroke="white" strokeWidth="2" opacity="0.7" />
+      {/* Leveranspil */}
+      <path d="M42 22 L48 28 L42 34" stroke={`url(#${id}-warm)`} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="40" y1="28" x2="47" y2="28" stroke={`url(#${id}-warm)`} strokeWidth="2.5" strokeLinecap="round" />
+      {/* Golvlinje */}
+      <line x1="8" y1="44" x2="42" y2="44" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function IconStudent({ className }: IllustrationProps) {
+  const id = 'k-student'
+  return (
+    <svg className={className} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="52" height="52" rx="14" fill={`url(#${id}-soft)`} />
+      {/* Bok */}
+      <path d="M12 36 C 18 33 24 33 28 36 C 32 33 38 33 44 36 L 44 20 C 38 17 32 17 28 20 C 24 17 18 17 12 20 Z" fill="white" stroke="#FB923C" strokeWidth="1.5" />
+      <line x1="28" y1="20" x2="28" y2="36" stroke="#FED7AA" strokeWidth="2" />
+      {/* Textrader */}
+      <line x1="16" y1="24" x2="24" y2="23" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      <line x1="16" y1="28" x2="24" y2="27" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      <line x1="32" y1="23" x2="40" y2="24" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+      {/* Uppåtpil = första steget i karriären */}
+      <line x1="40" y1="20" x2="40" y2="10" stroke={`url(#${id}-warm)`} strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M36.5 13.5 L40 10 L43.5 13.5" stroke={`url(#${id}-warm)`} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="12" y1="42" x2="30" y2="42" stroke="#FED7AA" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 // =============================================================
 // STEP-IKONER (56x56) for "Sa anvander du exemplen"
 // =============================================================

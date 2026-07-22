@@ -14,13 +14,13 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "civilingenjor",
     "namn": "Civilingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Lyfter civilingenjörsexamen, CAD-konstruktion och kvantifierade projektresultat för tekniska utvecklingsroller."
   },
   {
     "slug": "gymnasieelev",
     "namn": "Gymnasieelev",
-    "kategori": "service",
+    "kategori": "student",
     "intro": "Visar hur prao, föreningsansvar och tydlig tillgänglighet fyller ett CV för extrajobb under gymnasiet."
   },
   {
@@ -32,7 +32,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "ingenjor",
     "namn": "Ingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Ett professionellt CV som lyfter teknisk expertis, projektledning och problemlösning i komplexa ingenjörssystem."
   },
   {
@@ -50,7 +50,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "lagerarbetare",
     "namn": "Lagerarbetare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Framhäver logistisk noggrannhet, truckvana och säkerhetsmedvetenhet för lageromgivning."
   },
   {
@@ -104,7 +104,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "student",
     "namn": "Student",
-    "kategori": "utbildning",
+    "kategori": "student",
     "intro": "CV-exempel för dig som student eller söker ditt första jobb. Framhäv din potential och lärvilja."
   },
   {
@@ -146,7 +146,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "sommarjobb",
     "namn": "Sommarjobb",
-    "kategori": "service",
+    "kategori": "student",
     "intro": "CV för sommarjobb – visa din energi, flexibilitet och vilja att bidra under sommaren."
   },
   {
@@ -182,7 +182,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "lss-handlaggare",
     "namn": "LSS-handläggare",
-    "kategori": "offentlig-sektor",
+    "kategori": "vard",
     "intro": "CV-exempel för LSS-handläggare med biståndsbedömning, IBIC-utredningar och myndighetsutövning inom funktionshindersområdet."
   },
   {
@@ -242,7 +242,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "kundradgivare",
     "namn": "Kundrådgivare",
-    "kategori": "service",
+    "kategori": "ekonomi",
     "intro": "CV-exempel för kundrådgivare med SwedSec-licens, kreditbedömning och finansiell rådgivning inom bank och privat banking."
   },
   {
@@ -296,37 +296,37 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "automationsingenior",
     "namn": "Automationsingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "CV för automationsingenjör med fokus på PLC-programmering, SCADA och robotautomation med kvantifierade resultat."
   },
   {
     "slug": "konstruktor",
     "namn": "Konstruktör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "CV för konstruktör med fokus på CAD-kompetens, FEM-analyser och DFM-arbete med kvantifierade affärsresultat."
   },
   {
     "slug": "truckforare",
     "namn": "Truckförare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för truckförare med fokus på truckkort, WMS-system och kvantifierade säkerhetsresultat inom logistik."
   },
   {
     "slug": "logistiker",
     "namn": "Logistiker",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för logistiker med fokus på ERP-system, supply chain-optimering och kvantifierade kostnadsbesparingar."
   },
   {
     "slug": "lagerchef",
     "namn": "Lagerchef",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för lagerchef med fokus på personalledning, budgetansvar och operativa KPI:er inom lager och logistik."
   },
   {
     "slug": "fastighetsskotare",
     "namn": "Fastighetsskötare",
-    "kategori": "service",
+    "kategori": "hantverk",
     "intro": "CV för fastighetsskötare med fokus på teknisk bredd, certifieringar och kvantifierade resultat inom fastighetsförvaltning."
   },
   {
@@ -464,19 +464,19 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "logistikassistent",
     "namn": "Logistikassistent",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för logistikassistent med WMS-system, truckcertifikat och kvantifierbara resultat inom godshantering och lagerlogistik."
   },
   {
     "slug": "terminalarbetare",
     "namn": "Terminalarbetare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för terminalarbetare med cross-docking, WMS/TMS-system och truckcertifikat för godshantering på terminal."
   },
   {
     "slug": "vaktmastare",
     "namn": "Vaktmästare",
-    "kategori": "service",
+    "kategori": "hantverk",
     "intro": "CV för vaktmästare med fastighetsservice, felanmälningssystem och brandskyddsronderingar."
   },
   {
@@ -494,7 +494,7 @@ export const CV_GALLERI: GalleriYrke[] = [
   {
     "slug": "chauffor",
     "namn": "Chaufför",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "CV för chaufför med C-körkort, YKB, leveransprecision och skadefri körning."
   },
   {
@@ -551,13 +551,13 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "civilingenjor",
     "namn": "Civilingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Ett personligt brev för civilingenjörer som kopplar tekniska projektresultat till rollen som söks."
   },
   {
     "slug": "gymnasieelev",
     "namn": "Gymnasieelev",
-    "kategori": "service",
+    "kategori": "student",
     "intro": "Ett personligt brev för extrajobb under gymnasiet, byggt på förening, prao och tydlig tillgänglighet."
   },
   {
@@ -569,7 +569,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "student",
     "namn": "Student/Första jobbet",
-    "kategori": "övrigt",
+    "kategori": "student",
     "intro": "Perfekt för dig som söker ditt första jobb eller extrajobb vid sidan av studierna. Framhäv din potential och lärvilja."
   },
   {
@@ -599,7 +599,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "sommarjobb",
     "namn": "Sommarjobb",
-    "kategori": "övrigt",
+    "kategori": "student",
     "intro": "Ett entusiastiskt brev för sommarjobb. Visa din energi, flexibilitet och vilja att bidra under sommaren."
   },
   {
@@ -641,7 +641,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "ingenjor",
     "namn": "Ingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Demonstrerar teknisk expertis, projektledningsförmåga och problemlösning i komplexa system."
   },
   {
@@ -659,13 +659,13 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "lagerarbetare",
     "namn": "Lagerarbetare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Framhäver logistisk noggrannhet, truckvana och säkerhetsmedvetenhet i lageromgivning."
   },
   {
     "slug": "fastighetsskotare",
     "namn": "Fastighetsskötare",
-    "kategori": "service",
+    "kategori": "hantverk",
     "intro": "Visa din tekniska kompetens inom VVS, el och underhåll samt ditt servicemindset mot hyresgäster."
   },
   {
@@ -773,7 +773,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "hr-specialist",
     "namn": "HR-specialist",
-    "kategori": "offentlig-sektor",
+    "kategori": "ekonomi",
     "intro": "Betonar HR-processer, rekrytering och organisationsutveckling."
   },
   {
@@ -821,13 +821,13 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "truckforare",
     "namn": "Truckförare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Framhäver truckvana, lagersäkerhet och materialhantering."
   },
   {
     "slug": "lagerchef",
     "namn": "Lagerchef",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Demonstrera logistikledning, lageroptimering och personalansvar."
   },
   {
@@ -851,7 +851,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "teamledare",
     "namn": "Teamledare",
-    "kategori": "offentlig-sektor",
+    "kategori": "service",
     "intro": "Visa din förmåga att leda team, coacha medarbetare och driva resultat."
   },
   {
@@ -863,7 +863,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "produktchef",
     "namn": "Produktchef",
-    "kategori": "service",
+    "kategori": "teknik",
     "intro": "Visa din produktstrategi, roadmap-planering och marknadskännedom."
   },
   {
@@ -887,25 +887,25 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "logistikassistent",
     "namn": "Logistikassistent",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Lyfter logistikadministration, orderhantering och systemvana."
   },
   {
     "slug": "logistiker",
     "namn": "Logistiker",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Visa din expertis inom supply chain management, lageroptimering och transportplanering med kvantifierade resultat."
   },
   {
     "slug": "lss-handlaggare",
     "namn": "LSS-handläggare",
-    "kategori": "offentlig-sektor",
+    "kategori": "vard",
     "intro": "Betonar LSS-lagstiftning, utredning och personcentrerad handläggning."
   },
   {
     "slug": "kundradgivare",
     "namn": "Kundrådgivare",
-    "kategori": "service",
+    "kategori": "ekonomi",
     "intro": "Betonar rådgivning, kundrelationer och produktkunskap."
   },
   {
@@ -935,13 +935,13 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "terminalarbetare",
     "namn": "Terminalarbetare",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Betonar godshantering, truckkort och terminalarbete i högt tempo."
   },
   {
     "slug": "administrativ-assistent",
     "namn": "Administrativ assistent",
-    "kategori": "offentlig-sektor",
+    "kategori": "ekonomi",
     "intro": "Visa koordinationsförmåga, dokumenthantering och administrativ precision."
   },
   {
@@ -965,7 +965,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "automationsingenior",
     "namn": "Automationsingenjör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Personligt brev för automationsingenjör med fokus på PLC-programmering, SCADA och robotautomation."
   },
   {
@@ -995,7 +995,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "konstruktor",
     "namn": "Konstruktör",
-    "kategori": "teknik",
+    "kategori": "industri",
     "intro": "Personligt brev för konstruktör med CAD-kompetens, FEM-analyser och produktutveckling."
   },
   {
@@ -1019,7 +1019,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "vaktmastare",
     "namn": "Vaktmästare",
-    "kategori": "service",
+    "kategori": "hantverk",
     "intro": "Personligt brev för vaktmästare med fastighetsservice, felanmälningar och gott bemötande."
   },
   {
@@ -1037,7 +1037,7 @@ export const BREV_GALLERI: GalleriYrke[] = [
   {
     "slug": "chauffor",
     "namn": "Chaufför",
-    "kategori": "service",
+    "kategori": "logistik",
     "intro": "Personligt brev för chaufför med C-körkort, YKB, leveransprecision och kundkontakt."
   },
   {

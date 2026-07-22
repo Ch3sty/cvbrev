@@ -20,6 +20,9 @@ import {
   IconUtbildning,
   IconOffentlig,
   IconHantverk,
+  IconIndustri,
+  IconLogistik,
+  IconStudent,
   ExempelHeroIcon,
 } from './illustrations/ExempelIcons'
 import { Kategori, KATEGORIER } from './exempel-data'
@@ -37,6 +40,9 @@ const ICON_MAP: Record<
   utbildning: IconUtbildning,
   offentlig: IconOffentlig,
   hantverk: IconHantverk,
+  industri: IconIndustri,
+  logistik: IconLogistik,
+  student: IconStudent,
 }
 
 /**
@@ -205,14 +211,20 @@ export default function GalleriPageContent({
 
       {/* Kategori-pills */}
       <section className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-y border-orange-100 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Mobil: fade i högerkanten som visar att pill-raden går att scrolla */}
+          <div
+            aria-hidden="true"
+            className="sm:hidden pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white/95 to-transparent z-10"
+          />
           <div
             role="tablist"
             aria-label="Filtrera efter bransch"
             className="
               flex gap-2 overflow-x-auto snap-x snap-mandatory
-              -mx-4 px-4 sm:mx-0 sm:px-0
+              -mx-4 px-4
               pb-1 scrollbar-hide
+              sm:flex-wrap sm:overflow-visible sm:snap-none sm:mx-0 sm:px-0
             "
             style={{ scrollbarWidth: 'none' }}
           >

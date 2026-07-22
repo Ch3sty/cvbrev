@@ -11,6 +11,9 @@ import {
   IconUtbildning,
   IconOffentlig,
   IconHantverk,
+  IconIndustri,
+  IconLogistik,
+  IconStudent,
 } from './illustrations/ExempelIcons'
 import { Kategori } from './exempel-data'
 
@@ -25,6 +28,9 @@ const ICON_MAP: Record<
   utbildning: IconUtbildning,
   offentlig: IconOffentlig,
   hantverk: IconHantverk,
+  industri: IconIndustri,
+  logistik: IconLogistik,
+  student: IconStudent,
 }
 
 interface KategoriPageContentProps {

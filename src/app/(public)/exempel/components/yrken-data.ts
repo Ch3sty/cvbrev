@@ -1,5 +1,5 @@
 /**
- * Slug -> namn for alla 75 CV-exempel och 75 brev-exempel.
+ * Slug -> namn for alla 89 CV-exempel och 89 brev-exempel.
  * Genererad fran scripts/extract-yrken.mjs.
  */
 
@@ -90,6 +90,9 @@ export const CV_YRKEN: Record<string, string> = {
   elektriker: 'Elektriker',
   vaktare: 'Väktare',
   stadare: 'Städare',
+  aldreboende: 'Äldreboende',
+  civilingenjor: 'Civilingenjör',
+  gymnasieelev: 'Gymnasieelev',
 }
 
 export const BREV_YRKEN: Record<string, string> = {
@@ -178,4 +181,8 @@ export const BREV_YRKEN: Record<string, string> = {
   snickare: 'Snickare',
   elektriker: 'Elektriker',
   vaktare: 'Väktare',
+  aldreboende: 'Äldreboende',
+  civilingenjor: 'Civilingenjör',
+  gymnasieelev: 'Gymnasieelev',
+  automationsingenior: 'Automationsingenjör',
 }

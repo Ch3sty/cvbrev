@@ -16,6 +16,10 @@ import {
   IconService,
   IconUtbildning,
   IconOffentlig,
+  IconHantverk,
+  IconIndustri,
+  IconLogistik,
+  IconStudent,
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 
@@ -26,6 +30,10 @@ const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?:
   'teknik': IconTech,
   'ekonomi': IconEkonomi,
   'offentlig-sektor': IconOffentlig,
+  'hantverk': IconHantverk,
+  'industri': IconIndustri,
+  'logistik': IconLogistik,
+  'student': IconStudent,
 }
 
 type FilterType = 'all' | 'free' | 'premium' | 'yrkesmallar' | 'modern' | 'traditional' | 'creative'
@@ -37,6 +45,10 @@ const KATEGORI_LABEL: Record<Yrkesmall['kategori'], string> = {
   'teknik': 'Tech',
   'ekonomi': 'Ekonomi',
   'offentlig-sektor': 'Offentlig sektor',
+  'hantverk': 'Hantverk',
+  'industri': 'Teknik',
+  'logistik': 'Logistik',
+  'student': 'Student',
 }
 
 interface CvMallarPageContentProps {

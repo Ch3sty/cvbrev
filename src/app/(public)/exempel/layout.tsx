@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     'CV-exempel, brev-exempel och CV-mallar för svenska yrken | Jobbcoach.ai',
   description:
-    'Vi har 75 CV-exempel, 75 exempel på personligt brev och 25 färdiga CV-mallar. Hitta ett exempel som passar ditt yrke eller välj en mall-design som matchar din bransch.',
+    'Vi har 89 CV-exempel, 89 exempel på personligt brev och 25 färdiga CV-mallar. Hitta ett exempel som passar ditt yrke eller välj en mall-design som matchar din bransch.',
   keywords:
     'cv exempel, exempel cv, bra cv exempel, personligt brev exempel, exempel på personligt brev, spontanansökan exempel, cv mall, cv mallar, jobbansökan',
   openGraph: {

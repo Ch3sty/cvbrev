@@ -17,7 +17,17 @@ export interface Yrkesmall {
   /** Visningsnamn i bestamd form for naturligt sprak ("CV-mall fOr lakare") */
   namnBestamd: string
   /** Kategori (vard, utbildning, service, teknik, ekonomi, offentlig-sektor) */
-  kategori: 'vard' | 'utbildning' | 'service' | 'teknik' | 'ekonomi' | 'offentlig-sektor'
+  kategori:
+    | 'vard'
+    | 'utbildning'
+    | 'service'
+    | 'teknik'
+    | 'industri'
+    | 'ekonomi'
+    | 'logistik'
+    | 'offentlig-sektor'
+    | 'hantverk'
+    | 'student'
   intro: string
   /** Hero-ingress (60-80 ord) for sidans h1-paragraf - unik per yrke */
   heroIngress?: string

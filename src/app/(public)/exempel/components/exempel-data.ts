@@ -11,16 +11,29 @@ export const TOTAL_EXEMPEL = TOTAL_CV_YRKEN + TOTAL_BREV_YRKEN
 export type KategoriSlug =
   | 'vard'
   | 'tech'
+  | 'industri'
   | 'ekonomi'
   | 'service'
+  | 'logistik'
   | 'utbildning'
   | 'offentlig-sektor'
   | 'hantverk'
+  | 'student'
 
 export interface Kategori {
   slug: KategoriSlug
   namn: string
-  iconKey: 'vard' | 'tech' | 'ekonomi' | 'service' | 'utbildning' | 'offentlig' | 'hantverk'
+  iconKey:
+    | 'vard'
+    | 'tech'
+    | 'industri'
+    | 'ekonomi'
+    | 'service'
+    | 'logistik'
+    | 'utbildning'
+    | 'offentlig'
+    | 'hantverk'
+    | 'student'
   kortBeskrivning: string
   introIngress: string
   yrken: string[] // slugs som finns i båda gallerierna
@@ -52,19 +65,17 @@ export const KATEGORIER: Kategori[] = [
       'aldreboende',
       'vardadministrator',
       'boendestod',
-      'socialsekreterare',
       'lss-handlaggare',
-      'barnskotare',
       'stodpedagog',
     ],
   },
   {
     slug: 'tech',
-    namn: 'Tech och IT',
+    namn: 'IT och utveckling',
     iconKey: 'tech',
-    kortBeskrivning: 'Mjukvara, devops, ingenjörsroller och digital produkt',
+    kortBeskrivning: 'Utvecklare, IT-drift, produkt och agila roller',
     introIngress:
-      'Tech-branschen är där lönerna stiger snabbast och konkurrensen om talangerna är som hårdast. Här hittar du exempel på CV och personliga brev för utvecklare, ingenjörer, projektledare och produktansvariga. Vi har tagit hänsyn till hur både ATS-system och tekniska rekryterare läser ansökningar. Nyckelord, mätbara resultat och tekniska stackar är på plats.',
+      'IT-branschen är där lönerna stiger snabbast och konkurrensen om talangerna är som hårdast. Här hittar du exempel på CV och personliga brev för utvecklare, IT-tekniker, agila roller och produktansvariga. Vi har tagit hänsyn till hur både ATS-system och tekniska rekryterare läser ansökningar. Nyckelord, mätbara resultat och tekniska stackar är på plats.',
     yrken: [
       'systemutvecklare',
       'devops-engineer',
@@ -72,18 +83,23 @@ export const KATEGORIER: Kategori[] = [
       'projektledare-it',
       'it-konsult',
       'produktchef',
-      'ingenjor',
-      'civilingenjor',
-      'automationsingenior',
-      'konstruktor',
       'it-tekniker',
     ],
   },
   {
+    slug: 'industri',
+    namn: 'Teknik och industri',
+    iconKey: 'industri',
+    kortBeskrivning: 'Civilingenjörer, konstruktion och automation',
+    introIngress:
+      'Ingenjörsyrkena kräver ansökningar som visar både tekniskt djup och förmåga att driva projekt i tvärfunktionella team. Här hittar du exempel för civilingenjörer, konstruktörer och automationsingenjörer, med CAD-system, beräkningsmetoder och kvantifierade projektresultat skrivna som svenska teknikrekryterare vill läsa dem.',
+    yrken: ['civilingenjor', 'ingenjor', 'automationsingenior', 'konstruktor'],
+  },
+  {
     slug: 'ekonomi',
-    namn: 'Ekonomi och finans',
+    namn: 'Ekonomi och HR',
     iconKey: 'ekonomi',
-    kortBeskrivning: 'Redovisning, controlling, lön och rådgivning',
+    kortBeskrivning: 'Redovisning, controlling, lön, HR och rådgivning',
     introIngress:
       'Ekonomiroller kräver tydliga ansökningar där siffror och resultat står i centrum. Vi har samlat exempel på CV och personliga brev för redovisningsekonomer, controllers, ekonomiassistenter, löneadministratörer och kundrådgivare. Varje exempel visar hur du presenterar både den tekniska kompetensen och affärsförståelsen som rekryterare letar efter.',
     yrken: [
@@ -93,22 +109,21 @@ export const KATEGORIER: Kategori[] = [
       'ekonomiassistent',
       'loneadministrator',
       'kundradgivare',
-      'account-manager',
+      'administrativ-assistent',
+      'hr-specialist',
     ],
   },
   {
     slug: 'service',
-    namn: 'Handel och service',
+    namn: 'Butik, restaurang och service',
     iconKey: 'service',
-    kortBeskrivning: 'Butik, restaurang, hotell, kundtjänst och servicemedarbetare',
+    kortBeskrivning: 'Butik, restaurang, hotell, kundtjänst och säkerhet',
     introIngress:
       'Service- och handelsyrken handlar om människor, och det ska din ansökan visa. Våra exempel för butikssäljare, kundtjänstmedarbetare, servitriser, kockar, baristas och receptionister visar hur du lyfter fram social kompetens, försäljningsförmåga och servicekänsla på ett sätt som rekryterare uppskattar. Många av exemplen passar både för dig som söker första jobbet och för dig med flera års erfarenhet.',
     yrken: [
       'butikssaljare',
       'butiksbitrade',
       'butikschef',
-      'sommarjobb',
-      'gymnasieelev',
       'kassorska',
       'servitris-restaurangbitrade',
       'kock',
@@ -123,10 +138,28 @@ export const KATEGORIER: Kategori[] = [
       'servicemedarbetare',
       'saljare',
       'telefonforsaljare',
+      'account-manager',
+      'teamledare',
       'diskare',
       'stadare',
+      'lokalvardare',
       'vaktare',
-      'vaktmastare',
+    ],
+  },
+  {
+    slug: 'logistik',
+    namn: 'Lager, logistik och transport',
+    iconKey: 'logistik',
+    kortBeskrivning: 'Lager, truck, terminal, transport och flödesansvar',
+    introIngress:
+      'Lager- och logistikyrkena bemannar en av Sveriges snabbast växande sektorer, och ansökningarna vinner på exakthet: truckkort med klass, system du plockat i, volymer du hanterat och leveransprecision du hållit. Här hittar du exempel för lagerarbetare, truckförare, terminalarbetare, chaufförer och logistikroller med samordningsansvar.',
+    yrken: [
+      'lagerarbetare',
+      'truckforare',
+      'terminalarbetare',
+      'lagerchef',
+      'logistiker',
+      'logistikassistent',
       'chauffor',
     ],
   },
@@ -146,48 +179,48 @@ export const KATEGORIER: Kategori[] = [
       'fritidsledare',
       'elevassistent',
       'barnskotare',
-      'student',
     ],
   },
   {
     slug: 'offentlig-sektor',
     namn: 'Administration och offentlig sektor',
     iconKey: 'offentlig',
-    kortBeskrivning: 'Handläggare, assistent, HR och chefspositioner',
+    kortBeskrivning: 'Handläggare, chefer, socialt arbete och administration',
     introIngress:
-      'Offentlig sektor och administrativa roller kräver ansökningar med tydlig struktur, formell ton och konkreta exempel på handlingskraft. Vi har samlat exempel för handläggare, administrativa assistenter, HR-specialister, chefer, projektledare och kontorsassistenter. Mallarna är anpassade för både stat, kommun, region och privata bolag.',
+      'Offentlig sektor och administrativa roller kräver ansökningar med tydlig struktur, formell ton och konkreta exempel på handlingskraft. Vi har samlat exempel för handläggare, administratörer, socialsekreterare, chefer, projektledare och kontorsassistenter. Mallarna är anpassade för både stat, kommun, region och privata bolag.',
     yrken: [
       'handlaggare',
       'administrator',
-      'administrativ-assistent',
       'kontorsassistent',
-      'hr-specialist',
       'chef',
       'enhetschef',
-      'lagerchef',
-      'teamledare',
       'projektledare',
-      'logistiker',
-      'logistikassistent',
-      'lagerarbetare',
-      'truckforare',
-      'terminalarbetare',
-      'fastighetsskotare',
-      'lokalvardare',
+      'socialsekreterare',
       'socionom',
     ],
   },
   {
     slug: 'hantverk',
-    namn: 'Hantverk och bygg',
+    namn: 'Hantverk, bygg och fastighet',
     iconKey: 'hantverk',
-    kortBeskrivning: 'Snickare, elektriker och andra yrken med yrkesbevis',
+    kortBeskrivning: 'Snickare, elektriker, fastighetsskötsel och vaktmästeri',
     introIngress:
-      'Hantverks- och byggyrken rekryterar på yrkesbevis, säkerhetsutbildningar och dokumenterat hantverk. Här hittar du exempel på CV och personliga brev för snickare och elektriker, skrivna med branschens egna begrepp: yrkesbevis via BYN, ECY-certifikat, ID06 och säkerhetsutbildningar som Heta arbeten. Exemplen fungerar för både utbildade hantverkare, lärlingar och dig som söker till byggservice.',
+      'Hantverks-, bygg- och fastighetsyrken rekryterar på yrkesbevis, säkerhetsutbildningar och dokumenterat hantverk. Här hittar du exempel på CV och personliga brev för snickare, elektriker, fastighetsskötare och vaktmästare, skrivna med branschens egna begrepp: yrkesbevis via BYN, ECY-certifikat, ID06 och säkerhetsutbildningar som Heta arbeten. Exemplen fungerar för både utbildade hantverkare, lärlingar och dig som arbetar med drift och skötsel av fastigheter.',
     yrken: [
       'snickare',
       'elektriker',
+      'fastighetsskotare',
+      'vaktmastare',
     ],
+  },
+  {
+    slug: 'student',
+    namn: 'Student och första jobbet',
+    iconKey: 'student',
+    kortBeskrivning: 'Sommarjobb, extrajobb och det första riktiga CV:t',
+    introIngress:
+      'Utan lång arbetslivserfarenhet skrivs ansökan på det du faktiskt har: studier, föreningsliv, prao och tydlig tillgänglighet. Här hittar du exempel för studenter, gymnasieelever och dig som söker sommarjobb, byggda för att visa ansvar och arbetsvilja i stället för att be om ursäkt för en kort meritlista.',
+    yrken: ['student', 'gymnasieelev', 'sommarjobb'],
   },
 ]
 
@@ -216,20 +249,20 @@ export const POPULARA_YRKEN: PopulartYrke[] = [
   { slug: 'larare', namn: 'Lärare', kategoriSlug: 'utbildning', kategoriNamn: 'Utbildning', iconKey: 'utbildning', hasCV: true, hasBrev: true },
   { slug: 'forskollarare', namn: 'Förskollärare', kategoriSlug: 'utbildning', kategoriNamn: 'Utbildning', iconKey: 'utbildning', hasCV: true, hasBrev: true },
   { slug: 'systemutvecklare', namn: 'Systemutvecklare', kategoriSlug: 'tech', kategoriNamn: 'Tech', iconKey: 'tech', hasCV: true, hasBrev: true },
-  { slug: 'ingenjor', namn: 'Ingenjör', kategoriSlug: 'tech', kategoriNamn: 'Tech', iconKey: 'tech', hasCV: true, hasBrev: true },
+  { slug: 'ingenjor', namn: 'Ingenjör', kategoriSlug: 'industri', kategoriNamn: 'Teknik', iconKey: 'industri', hasCV: true, hasBrev: true },
   { slug: 'ekonomiassistent', namn: 'Ekonomiassistent', kategoriSlug: 'ekonomi', kategoriNamn: 'Ekonomi', iconKey: 'ekonomi', hasCV: true, hasBrev: true },
   { slug: 'redovisningsekonom', namn: 'Redovisningsekonom', kategoriSlug: 'ekonomi', kategoriNamn: 'Ekonomi', iconKey: 'ekonomi', hasCV: true, hasBrev: true },
   { slug: 'butikssaljare', namn: 'Butikssäljare', kategoriSlug: 'service', kategoriNamn: 'Service', iconKey: 'service', hasCV: true, hasBrev: true },
   { slug: 'receptionist', namn: 'Receptionist', kategoriSlug: 'service', kategoriNamn: 'Service', iconKey: 'service', hasCV: true, hasBrev: true },
   { slug: 'projektledare', namn: 'Projektledare', kategoriSlug: 'offentlig-sektor', kategoriNamn: 'Administration', iconKey: 'offentlig', hasCV: true, hasBrev: true },
-  { slug: 'hr-specialist', namn: 'HR-specialist', kategoriSlug: 'offentlig-sektor', kategoriNamn: 'Administration', iconKey: 'offentlig', hasCV: true, hasBrev: true },
+  { slug: 'hr-specialist', namn: 'HR-specialist', kategoriSlug: 'ekonomi', kategoriNamn: 'Ekonomi och HR', iconKey: 'ekonomi', hasCV: true, hasBrev: true },
 ]
 
 // FAQ for hub-sidan
 export const EXEMPEL_FAQ_ITEMS = [
   {
     q: 'Hur många yrkes-exempel har ni?',
-    a: 'Vi har 75 CV-exempel och 75 personliga brev-exempel, totalt 150 yrkes-specifika mallar fördelade över sex stora kategorier. Mallarna täcker allt från vård och omsorg till tech, ekonomi, handel, utbildning och offentlig sektor. Varje yrke har dessutom egen tips-lista och vanliga frågor som hjälper dig att skräddarsy din egen ansökan.',
+    a: 'Vi har 89 CV-exempel och 89 personliga brev-exempel, totalt 178 yrkesspecifika mallar fördelade över tio kategorier. Mallarna täcker allt från vård, IT och teknik till ekonomi, butik och restaurang, logistik, utbildning, offentlig sektor, hantverk och student. Varje yrke har dessutom egen tips-lista och vanliga frågor som hjälper dig att skräddarsy din egen ansökan.',
   },
   {
     q: 'Är exemplen gratis att använda?',
