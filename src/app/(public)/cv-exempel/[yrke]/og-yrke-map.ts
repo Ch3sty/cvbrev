@@ -94,4 +94,7 @@ export const SLUG_TO_YRKE: Record<string, string> = {
   elektriker: 'Elektriker',
   vaktare: 'Väktare',
   stadare: 'Städare',
+  aldreboende: 'Äldreboende',
+  civilingenjor: 'Civilingenjör',
+  gymnasieelev: 'Gymnasieelev',
 }

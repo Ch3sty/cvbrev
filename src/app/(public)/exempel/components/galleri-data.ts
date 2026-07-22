@@ -6,6 +6,24 @@ import { GalleriYrke } from './GalleriPageContent'
 
 export const CV_GALLERI: GalleriYrke[] = [
   {
+    "slug": "aldreboende",
+    "namn": "Äldreboende",
+    "kategori": "vard",
+    "intro": "CV riktat mot äldreboende med kontaktmannaskap, demenskompetens och dokumentation i Lifecare som bärande meriter."
+  },
+  {
+    "slug": "civilingenjor",
+    "namn": "Civilingenjör",
+    "kategori": "teknik",
+    "intro": "Lyfter civilingenjörsexamen, CAD-konstruktion och kvantifierade projektresultat för tekniska utvecklingsroller."
+  },
+  {
+    "slug": "gymnasieelev",
+    "namn": "Gymnasieelev",
+    "kategori": "service",
+    "intro": "Visar hur prao, föreningsansvar och tydlig tillgänglighet fyller ett CV för extrajobb under gymnasiet."
+  },
+  {
     "slug": "ingenjor",
     "namn": "Ingenjör",
     "kategori": "teknik",
@@ -518,6 +536,24 @@ export const CV_GALLERI: GalleriYrke[] = [
 ]
 
 export const BREV_GALLERI: GalleriYrke[] = [
+  {
+    "slug": "aldreboende",
+    "namn": "Äldreboende",
+    "kategori": "vard",
+    "intro": "Ett personligt brev till äldreboende som visar kontaktmannaskap, demenskompetens och konkreta resultat från BPSD-arbete."
+  },
+  {
+    "slug": "civilingenjor",
+    "namn": "Civilingenjör",
+    "kategori": "teknik",
+    "intro": "Ett personligt brev för civilingenjörer som kopplar tekniska projektresultat till rollen som söks."
+  },
+  {
+    "slug": "gymnasieelev",
+    "namn": "Gymnasieelev",
+    "kategori": "service",
+    "intro": "Ett personligt brev för extrajobb under gymnasiet, byggt på förening, prao och tydlig tillgänglighet."
+  },
   {
     "slug": "underskoterska",
     "namn": "Undersköterska",

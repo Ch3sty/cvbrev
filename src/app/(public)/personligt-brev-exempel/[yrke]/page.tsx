@@ -4,6 +4,407 @@ import PersonligtBrevExempelPage from './PersonligtBrevExempelPage'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
+  'aldreboende': {
+    yrke: 'Äldreboende',
+    sokvolym: 400,
+    metaTitle: 'Personligt Brev Exempel Äldreboende - Undersköterska & Vårdbiträde | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett exempel på personligt brev äldreboende för undersköterska och vårdbiträde. Visar kontaktmannaskap, demenskompetens och konkreta resultat.',
+
+    seoIntro: `Ska du skriva ett personligt brev äldreboende och vill se hur det kan se ut i praktiken? Det här exemplet visar ett brev för en undersköterska som söker en tillsvidaretjänst på en demensavdelning, och fungerar lika bra som utgångspunkt om du söker som vårdbiträde eller till ett boende med somatisk inriktning.
+
+Brevet visar hur du väver in kontaktmannaskap, dokumentation i system som Lifecare och konkret demenskompetens utan att det blir en lista av ord. Du får se hur en verklig insats, som initiativet till musikstunder som minskade oro enligt BPSD-registret, kan beskrivas så att en rekryterare förstår vad du faktiskt bidrar med på en avdelning. Brevet nämner också delegering för läkemedel och erfarenhet av vård och omsorg enligt SoL och HSL, sådant som väger tungt när ett äldreboende ska anställa.
+
+Använd brevet som mall för din egen ansökan och byt ut namn, arbetsgivare och exempel mot dina egna erfarenheter från hemtjänst, demensboende eller korttidsvård. Vill du se fler exempel finns även personligt brev för undersköterska och hemtjänst att jämföra med, samt tips längre ner på sidan för hur du anpassar brevet efter just den avdelning du söker till.`,
+
+    intro: 'Ett personligt brev för en undersköterska som söker tillsvidaretjänst på en demensavdelning, med fokus på kontaktmannaskap, dokumentation och konkret demenskompetens.',
+
+    exempelBrev: {
+      namn: 'Amira Hassan',
+      adress: 'Änggatan 8, 703 54 Örebro',
+      telefon: '072-XXX XX XX',
+      epost: 'amira.hassan@email.se',
+      arbetsgivare: 'Vardaga Ekbackens äldreboende',
+      roll: 'Undersköterska, demensavdelning',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Vardaga Ekbackens äldreboende söker en undersköterska till demensavdelningen, och rollen stämmer väl överens med det arbete jag redan gör. Efter tre år på en demensavdelning och tre år inom hemtjänsten vet jag vad som krävs för att skapa trygghet hos personer med demenssjukdom, både i vardagen och när oron tar överhanden. Er inriktning mot demensvård gjorde att jag ville söka just hos er.
+
+På min nuvarande arbetsplats är jag kontaktman för sex boende med demenssjukdom, med ansvar för genomförandeplaner, uppföljning och löpande kontakt med anhöriga. Jag dokumenterar dagligen i Lifecare och har delegering för läkemedel till boende på avdelningen. För ett år sedan märkte jag att flera boende blev oroliga under sena eftermiddagar, så jag tog initiativ till regelbundna musikstunder tillsammans med kollegorna på avdelningen. Uppföljningen i BPSD-registret visade en tydlig minskning av oro under den perioden, och musikstunderna är nu en del av avdelningens rutin. Erfarenheten från tre år inom hemtjänsten innan dess gav mig vana av att arbeta självständigt och agera snabbt när något förändras hos en boende. Jag har även gått Demens ABC och handleder nya kollegor och elever som kommer till avdelningen.
+
+Det som lockar mig mest med Vardaga Ekbackens äldreboende är att ni renodlat er verksamhet mot demensvård, istället för att blanda flera vårdformer på samma avdelning. Det gör det möjligt att bygga rutiner och kompetens som verkligen passar boende med demenssjukdom, snarare än att kompromissa mellan olika behov. Jag har läst att ni arbetar aktivt med kontaktmannaskap och individuella genomförandeplaner, vilket är precis det arbetssätt jag redan är van vid och tror starkt på. Ett team som prioriterar den här typen av strukturerad, personcentrerad vård är där jag vill fortsätta utvecklas.
+
+Jag kan bidra med sex års erfarenhet av personcentrerad omvårdnad, vana av dokumentation och delegering, samt ett arbetssätt som redan visat resultat i att minska oro hos personer med demenssjukdom. Jag ser gärna att mitt intresse för aktiviteter, som musikstunderna på min nuvarande arbetsplats, kan bli en del av vardagen även hos er. Jag vill fortsätta utvecklas inom demensvård och bidra till ett tryggt boende för både brukare och anhöriga.
+
+Jag ser fram emot att berätta mer om hur jag kan bidra till er demensavdelning och till era boende. Ni når mig på 072-XXX XX XX eller amira.hassan@email.se, och jag kommer gärna på ett samtal när det passar er bäst.
+
+Med vänliga hälsningar,
+Amira Hassan`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret resultat istället för allmänt påstående',
+        beskrivning: 'Brevet beskriver hur ett initiativ till musikstunder ledde till en mätbar minskning av oro enligt BPSD-registret. Det är starkare än att skriva "jag är bra på att skapa lugn", eftersom det visar ett faktiskt agerande och ett resultat som gick att följa upp. Rekryteraren ser direkt att kandidaten inte bara pratar om demensvård, utan har erfarenhet av att omsätta det i praktiskt arbete med boende.'
+      },
+      {
+        titel: 'Kontaktmannaskap med tydligt ansvarsomfång',
+        beskrivning: 'Genom att skriva "kontaktman för sex boende" med ansvar för genomförandeplaner och anhörigkontakt visar brevet exakt vad rollen innebar. Det är mer trovärdigt än att bara nämna kontaktmannaskap i förbifarten. En rekryterare på ett äldreboende vet att kontaktmannaskap kräver självständighet och struktur, och konkretionen bygger förtroende redan i det första intrycket.'
+      },
+      {
+        titel: 'Företagsspecifik koppling till Vardagas demensinriktning',
+        beskrivning: 'Brevet nämner specifikt att Vardaga Ekbackens äldreboende är renodlat mot demensvård, och kopplar det till kandidatens egna erfarenhet av kontaktmannaskap och genomförandeplaner. Det visar att ansökan är skriven för just den här tjänsten, inte skickad till tio olika arbetsgivare. Den typen av research ökar chansen att hela brevet läses klart.'
+      },
+      {
+        titel: 'Branschtermer som matchar ATS och rekryterare',
+        beskrivning: 'Ord som Lifecare, delegering, genomförandeplan och BPSD-registret är exakt den terminologi som används i annonser inom äldreomsorgen. När de vävs in naturligt i löpande text, istället för att staplas i en lista, matchar brevet både automatiska filtreringssystem och en mänsklig läsare som snabbt känner igen en kollega med rätt erfarenhet.'
+      },
+      {
+        titel: 'Hemtjänsterfarenheten stärker snarare än stör',
+        beskrivning: 'Istället för att gömma undan tre år inom hemtjänst nämns erfarenheten kort som grund för självständighet och snabba beslut. Det visar en tydlig utveckling i karriären, från hemtjänst till demensavdelning, och förklarar varför kandidaten är redo för en mer specialiserad roll utan att det känns som ett stort osäkert steg.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Beskriv en konkret insats, inte bara ett ansvarsområde',
+        text: `Många brev inom vård och omsorg stannar vid att lista ansvarsområden: "ansvarig för omvårdnad", "arbetar med dokumentation". Lyft istället fram en specifik situation där du gjorde skillnad för en boende eller för avdelningen, gärna med ett resultat som går att följa upp.
+
+Skriv till exempel hur du agerade när en boende blev orolig, hur du löste ett problem i samarbetet med anhöriga, eller hur en förändring du initierade påverkade avdelningen. Ett konkret exempel väger tyngre än flera rader med allmänna beskrivningar, eftersom det visar hur du faktiskt arbetar i praktiken, inte bara vad du säger att du kan.`
+      },
+      {
+        rubrik: 'Namnge dokumentationssystem och delegeringar du har',
+        text: `Skriv exakt vilket system du dokumenterat i, till exempel Lifecare, Procapita eller Cosmic, och vilka delegeringar du har, till exempel läkemedel eller sondmatning.
+
+Om du är osäker på vilket system den nya arbetsgivaren använder, skriv ändå ut ditt eget system. Det visar att du redan är van vid strukturerad dokumentation, vilket gör det enklare att lära sig ett nytt system. Delegeringar bör alltid nämnas med vad de gäller, eftersom det ofta är avgörande för vilka arbetsuppgifter du kan ta över direkt efter anställning.`
+      },
+      {
+        rubrik: 'Referera till något specifikt hos arbetsgivaren',
+        text: `Läs jobbannonsen och arbetsgivarens webbplats innan du skriver brevet, och plocka upp något konkret, till exempel en inriktning mot demensvård, en särskild arbetsmetod eller ett värdeord som återkommer.
+
+Skriv sedan hur just den detaljen kopplar till din egen erfarenhet. Om boendet är renodlat mot demensvård, som i exemplet ovan, förklara varför det tilltalar dig och vad din erfarenhet av kontaktmannaskap eller BPSD-arbete tillför. Ett brev som visar att du gjort research läses helt enkelt oftare klart än ett brev som lika gärna kunde skickats till vilken arbetsgivare som helst.`
+      },
+      {
+        rubrik: 'Väv in demenskompetens naturligt i löptexten',
+        text: `Undvik att lista utbildningar och kompetenser på rad utan sammanhang. Väv istället in dem i berättelsen om vad du faktiskt gjort.
+
+Istället för att skriva "Demens ABC, BPSD-registret, kontaktmannaskap" som en lös uppräkning, beskriv en situation där kunskaperna användes: hur du bemötte en orolig boende, hur du använde BPSD-registret för uppföljning, eller hur kontaktmannaskapet gav dig helhetsbilden av en persons behov. Det gör kompetensen trovärdig och lätt att komma ihåg för den som läser brevet.`
+      },
+      {
+        rubrik: 'Håll tonen lugn och professionell genom hela brevet',
+        text: `Vårdyrket, och särskilt demensvård, kräver ett lugnt och empatiskt förhållningssätt. Låt tonen i brevet spegla det. Undvik överord och skriv istället sakligt om vad du gjort och varför det spelar roll.
+
+En mening som "jag tar mig tid att lyssna på en orolig boende" säger mer om din empati än vaga försäkringar om engagemang. Läs brevet högt innan du skickar det. Om det låter lugnt, konkret och genuint, är tonen rätt för yrket.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur skriver jag personligt brev till äldreboende utan erfarenhet av demensvård?',
+        a: 'Fokusera på överförbar erfarenhet från annan vård och omsorg, till exempel hemtjänst, sjukvård eller omsorg om anhöriga. Beskriv konkret hur du hanterat oro, kommunikation eller självständigt ansvar, och nämn att du är motiverad att lära dig mer om demensvård. Har du gått en introduktionskurs eller är på väg att göra det, ta med det. Arbetsgivare inom äldreomsorgen introducerar ofta ny personal i demensarbete, så bristande specifik erfarenhet behöver inte stoppa en ansökan.'
+      },
+      {
+        q: 'Ska jag nämna delegering för läkemedel i det personliga brevet?',
+        a: 'Ja, om du har det. Skriv konkret vad delegeringen gäller, till exempel läkemedel eller sondmatning, och när du fick den. Saknar du delegering, skriv istället att du är motiverad att genomgå den, det visar vilja utan att du överdriver din erfarenhet.'
+      },
+      {
+        q: 'Hur långt bör ett personligt brev till äldreboende vara?',
+        a: 'Sikta på 350-450 ord fördelat på fyra till fem stycken, vilket motsvarar ungefär tre fjärdedelar av en A4-sida. Äldreboenden har ofta hög arbetsbelastning i rekryteringen, så ett koncist brev som går rakt på sak läses oftare klart än ett långt brev fullt av allmänna fraser.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar av att arbeta med personer med demenssjukdom?',
+        a: 'Beskriv en konkret situation där du bemött oro, konfusion eller ett beteendemässigt symtom, gärna kopplat till ett resultat, precis som exemplet med musikstunderna och BPSD-registret ovan. Nämn också relevant utbildning, som Demens ABC, om du gått den. Konkreta exempel är alltid mer övertygande än att bara skriva att du "har erfarenhet av demensvård".'
+      },
+      {
+        q: 'Bör jag skriva om jag söker till en specifik avdelning, som demens eller somatik?',
+        a: 'Ja, om jobbannonsen anger en specifik avdelning, anpassa brevet efter den. Nämn avdelningens inriktning och koppla den till din egen erfarenhet, precis som referensen till Vardagas demensinriktning i exemplet. Ett generellt brev som passar vilken avdelning som helst känns ofta mindre genomtänkt.'
+      },
+      {
+        q: 'Hur nämner jag flerspråkighet i det personliga brevet till äldreboende?',
+        a: 'Det räcker ofta att nämna det kort i erfarenhetsstycket eller avslutningen, till exempel att din bakgrund gör att du också kan kommunicera med boende och anhöriga på ett annat språk. Du behöver inte ägna ett helt stycke åt det, men ta gärna med det eftersom språkkunskaper är en konkret tillgång inom äldreomsorgen, särskilt vid demenssjukdom där kommunikation på modersmål kan skapa trygghet.'
+      },
+      {
+        q: 'Ska jag skriva om varför jag lämnar min nuvarande arbetsplats?',
+        a: 'Det är inte nödvändigt, och du behöver inte förklara ett byte i det personliga brevet. Fokusera istället på varför just den nya tjänsten och arbetsgivaren intresserar dig. Om du ändå vill nämna det, håll det kort och positivt, till exempel att du söker en renodlad demensinriktning eller vill utvecklas vidare inom området.'
+      }
+    ],
+
+    kategori: 'vard',
+
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Hemtjänst', slug: 'hemtjanst' },
+      { yrke: 'Hemtjänstpersonal', slug: 'hemtjanstpersonal' }
+    ]
+  },
+  'civilingenjor': {
+    yrke: 'Civilingenjör',
+    sokvolym: 250,
+    metaTitle: 'Personligt Brev Exempel Civilingenjör - Mall & Tips | Jobbcoach.ai',
+    metaDescription: 'Personligt brev civilingenjör med konkreta resultat från konstruktion, toleransanalyser och DFM-arbete i fordonsindustrin. ATS-optimerad mall för teknikföretag.',
+
+    seoIntro: `Ett personligt brev civilingenjör som ska övertyga behöver visa mer än en lista över CAD-program. Rekryterare och tekniska chefer vill se att du kan koppla din konstruktionserfarenhet till verkliga resultat, till exempel viktoptimering som klarat kundens krocktester, eller DFM-arbete som gjort en komponent enklare att tillverka i stor skala. De vill också förstå hur du samarbetar med produktion, inköp och andra ingenjörer, särskilt om nästa steg i karriären är en roll med mer projektansvar.
+
+I det här exemplet söker en civilingenjör i maskinteknik en tjänst som teknisk projektledare, och brevet visar hur fem års erfarenhet av konstruktion i Catia, toleransanalyser och DFM-genomgångar med internationell produktion kan paketeras för en delvis ny roll. Du ser hur erfarenheten kvantifieras med procentsiffror och konkreta projekt, och hur brevet kopplas till det sökta företagets egna produkter och utmaningar istället för att bli en generisk beskrivning av CAD-kunskaper.
+
+Använd exemplet som utgångspunkt för ditt eget personligt brev civilingenjör och byt ut företagsnamn, projekt och resultat mot dina egna. Nedan hittar du också konkreta tips på hur du väljer rätt tekniska nyckelord, hur du kvantifierar konstruktionsresultat och hur du visar att du är redo för nästa steg, oavsett om det är en djupare teknisk roll eller projektledning.`,
+
+    intro: 'Ett exempel på personligt brev för civilingenjör som söker sig från en renodlad konstruktörsroll mot teknisk projektledning, med konkreta resultat från konstruktion, toleransanalyser och DFM-arbete i fordonsindustrin.',
+
+    exempelBrev: {
+      namn: 'Johan Lindqvist',
+      adress: 'Storgatan 24, 582 23 Linköping',
+      telefon: '073-512 84 09',
+      epost: 'johan.lindqvist@email.se',
+      arbetsgivare: 'Epiroc Örebro',
+      roll: 'Teknisk projektledare',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Att kombinera fem års konstruktionserfarenhet med ansvar för ett helt utvecklingsprojekt är precis den övergång jag vill göra, och tjänsten som teknisk projektledare hos Epiroc i Örebro känns som ett naturligt nästa steg. Som civilingenjör i maskinteknik har jag byggt min karriär inom fordonsindustrins säkerhetssystem, där jag lärt mig att både konstruera komponenter och driva dem genom hela utvecklingskedjan, från tidiga koncept till godkända krocktester.
+
+På Autoliv har jag under fem år arbetat som utvecklingsingenjör och konstruerar säkerhetskritiska komponenter i Catia. Jag ledde ett delprojekt för viktoptimering av en komponentfamilj i bältessystem, vilket gav 12 procents viktminskning och godkänt resultat i kundens krocktester. Jag ansvarar för toleransanalyser genom hela konstruktionsprocessen, hanterar ritningar och ändringar i PLM-systemet Teamcenter och driver återkommande DFM-genomgångar med vårt produktionsteam i Polen, där engelska är arbetsspråket. Utöver det handleder jag examensarbetare och har lärt mig hur viktigt det är att förklara tekniska beslut tydligt för kollegor med olika bakgrund och erfarenhet, något jag ser som en självklar grund i en roll som teknisk projektledare.
+
+Epirocs arbete med gruv- och anläggningsutrustning som ska hålla i decennier under tuffa förhållanden, samtidigt som ni driver på elektrifiering och minskad miljöpåverkan, är precis den typen av tekniska utmaningar jag vill fortsätta arbeta med. Jag har följt hur ni utvecklar batteridrivna maskiner för underjordsbrytning och ser stora likheter med arbetet kring viktoptimering, materialval och hållfasthet som jag gjort med säkerhetskritiska komponenter i fordonsindustrin. Att få kombinera den erfarenheten med ett bredare projektansvar hos ett företag med global räckvidd och lång erfarenhet av tung utrustning känns motiverande.
+
+Jag kan bidra med en gedigen konstruktionsbakgrund, vana vid toleransanalyser och FEM-beräkningar samt erfarenhet av att koordinera konstruktion, produktion och inköp över landsgränser och tidszoner. I rollen som teknisk projektledare vill jag använda den erfarenheten till att hålla ihop tekniska beslut, tidsplaner och budget i era utvecklingsprojekt, samtidigt som jag fortsätter växa som ledare för tekniska team och stöttar yngre ingenjörer på samma sätt som jag själv fått göra.
+
+Jag ser gärna fram emot att berätta mer om hur min bakgrund inom konstruktion, DFM-arbete och projektstyrning kan bidra till era utvecklingsprojekt. Hör gärna av dig om du vill diskutera min ansökan vidare, jag finns tillgänglig för ett samtal med kort varsel.
+
+Med vänliga hälsningar,
+Johan Lindqvist`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Tydlig motivering för karriärsteget',
+        beskrivning: 'Brevet förklarar redan i första stycket varför övergången från konstruktion till teknisk projektledning är logisk, inte bara önskvärd. Genom att koppla fem års konkret erfarenhet till den nya rollens krav slipper läsaren gissa sig till motivet. Det gör att Epiroc direkt förstår varför Johan söker just den här tjänsten, istället för att behöva läsa mellan raderna.'
+      },
+      {
+        titel: 'Kvantifierade resultat väcker förtroende',
+        beskrivning: 'Istället för att skriva att han är "duktig på konstruktion" visar Johan konkreta siffror: 12 procents viktminskning och godkända krocktester. Det gör påståendena verifierbara och mycket mer övertygande än allmänna omdömen. Rekryterare inom teknikbranschen läser dagligen brev fyllda av vaga superlativ, siffror med sammanhang sticker ut direkt.'
+      },
+      {
+        titel: 'Teknisk trovärdighet genom precisa termer',
+        beskrivning: 'Brevet använder etablerade begrepp som Catia, toleransanalys, DFM och PLM-systemet Teamcenter på ett naturligt sätt, utan att bli en teknisk ordlista. Det signalerar att Johan verkligen behärskar arbetet, inte bara känner till orden. Samtidigt hålls språket tillräckligt tillgängligt för att även en HR-läsare ska förstå värdet.'
+      },
+      {
+        titel: 'Konkret koppling till Epirocs verksamhet',
+        beskrivning: 'Genom att nämna Epirocs batteridrivna maskiner för underjordsbrytning visar Johan att han faktiskt researchat företaget, inte bara skickat samma brev till flera arbetsgivare. Kopplingen mellan hans erfarenhet av viktoptimering och Epirocs elektrifieringsarbete gör brevet specifikt och relevant istället för generiskt.'
+      },
+      {
+        titel: 'Balans mellan djup och ledarskap',
+        beskrivning: 'Brevet visar att Johan både kan det tekniska djupet, som toleransanalyser och FEM-beräkningar, och har erfarenhet av att koordinera människor över landsgränser genom DFM-arbetet i Polen. Den kombinationen är precis vad en teknisk projektledare behöver, och brevet bevisar båda delarna med konkreta exempel snarare än påståenden.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Specificera CAD- och PLM-system du behärskar',
+        text: `Skriv inte "van vid tekniska system" utan namnge exakt vilka verktyg du använder dagligen. Är det Catia, SolidWorks eller Creo? Vilket PLM-system hanterar du ritningar i, Teamcenter, Windchill eller något annat? ATS-system och tekniska chefer letar efter dessa specifika termer när de läser ansökningar till konstruktörs- och utvecklingsroller.
+
+Om jobbannonsen nämner ett särskilt system, se till att det syns tydligt i ditt brev om du behärskar det. Komplettera gärna med analysverktyg som ANSYS för FEM-beräkningar, det visar att du förstår hela vägen från konstruktion till verifiering, inte bara ritandet.`
+      },
+      {
+        rubrik: 'Kvantifiera dina konstruktionsresultat',
+        text: `Beskriv inte bara vad du gjorde, utan vad det ledde till. "Arbetade med viktoptimering" säger mindre än "Ledde viktoptimering som gav 12 procents viktminskning och godkänt resultat i kundens krocktester".
+
+Fundera på vad dina projekt faktiskt förändrade: Blev produkten lättare? Billigare att tillverka? Snabbare att montera? Höll den kvalitetskraven? Ange gärna både förbättringen och sammanhanget, en procentsats blir mycket mer trovärdig när läsaren förstår vad den innebar i praktiken, till exempel ett godkänt krocktest eller en kortare ledtid i produktionen.`
+      },
+      {
+        rubrik: 'Visa DFM- och tillverkningsförståelse',
+        text: `Att förstå Design for Manufacturing är vad som skiljer en civilingenjör som bara ritar i CAD från en som förstår hela utvecklingskedjan. Nämn konkreta exempel där du samarbetat med produktion för att göra en konstruktion enklare eller billigare att tillverka, till exempel färre konstruktionsändringar efter produktionsstart eller kortare ledtid genom bättre toleranssättning.
+
+Beskriv gärna samarbetet med kollegor i andra länder eller funktioner, det visar att du är van vid att förklara tekniska beslut för personer med olika bakgrund, en viktig färdighet i en roll med mer projektansvar.`
+      },
+      {
+        rubrik: 'Koppla erfarenheten till rollens nya ansvar',
+        text: `Söker du en roll med mer ansvar än din nuvarande, som teknisk projektledare, behöver brevet visa varför du redan är på väg dit. Lyft fram exempel på när du koordinerat andra, till exempel handledning av examensarbetare eller ansvar för att driva genomgångar med ett produktionsteam i ett annat land.
+
+Förklara kort vad du vill använda den erfarenheten till i den nya rollen, som att hålla ihop tekniska beslut, tidsplaner och budget. Det gör övergången trovärdig istället för att bara verka som en önskan om högre titel.`
+      },
+      {
+        rubrik: 'Anpassa brevet till företagets produkter och fokus',
+        text: `Researcha företaget och hitta konkreta kopplingar mellan din erfarenhet och deras verksamhet. Söker du till ett företag inom tung utrustning eller gruvindustri? Nämn din erfarenhet av hållbarhet, elektrifiering eller strukturell hållfasthet om den finns. Är det ett företag som satsar på nya material eller lättviktskonstruktion? Lyft fram just den delen av din bakgrund.
+
+Denna typ av anpassning tar tio minuter men gör enorm skillnad, den visar att du faktiskt är intresserad av just den här arbetsgivaren och inte bara skickar samma brev till flera företag samtidigt.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur skriver jag personligt brev civilingenjör utan lång arbetslivserfarenhet?',
+        a: 'Fokusera på examensarbete och relevanta studentprojekt där du faktiskt konstruerat eller analyserat något konkret. Beskriv uppdragsgivare, metod, verktyg och resultat, till exempel: "I mitt examensarbete med Väderstad genomförde jag en FEM-analys i ANSYS som visade en möjlig materialbesparing på 8 procent." Nämn även sommarpraktik eller studentprojekt där ni byggt eller testat prototyper. Var ödmjuk men konkret, arbetsgivare som anställer nyexaminerade civilingenjörer söker ofta potential och grundläggande metodik snarare än färdiga experter. Visa att du redan tänker som ingenjör, inte bara följer instruktioner.'
+      },
+      {
+        q: 'Ska jag nämna alla CAD-system jag kan i brevet?',
+        a: 'Nej, prioritera de system du faktiskt använder dagligen och som är relevanta för tjänsten. Om jobbannonsen nämner ett specifikt system, som Catia eller SolidWorks, lyft fram det tydligt om du behärskar det. Att lista fem eller sex system du bara testat kortfattat gör brevet svagare, inte starkare. Bättre att skriva "fem års daglig användning av Catia" än att räkna upp en lång lista utan sammanhang. Vill du visa bredd kan du nämna ett eller två ytterligare system kort, men lägg tyngdpunkten på det du faktiskt behärskar väl.'
+      },
+      {
+        q: 'Hur visar jag att jag är redo för projektledning utan formell titel?',
+        a: 'Lyft fram situationer där du redan koordinerat andra, även om titeln inte innehåller ordet "ledare". Handledning av examensarbetare, ansvar för delprojekt, eller att driva genomgångar med ett produktionsteam räknas som ledarskap i praktiken. Beskriv omfattningen, hur många personer, vilka funktioner, och vad resultatet blev. Koppla sedan tydligt till varför den erfarenheten gör dig redo för mer formellt projektansvar. Rekryterare förstår att titlar sällan fångar hela verkligheten, det är vad du faktiskt gjort och vilket ansvar du tagit som avgör om du är redo för nästa steg.'
+      },
+      {
+        q: 'Hur mycket teknisk detalj är lagom i ett personligt brev?',
+        a: 'Nämn typ av konstruktion, vilken analys du gjorde och vilket resultat det gav, men undvik att fördjupa dig i exakta materialspecifikationer eller beräkningsmetoder. Kom ihåg att första läsaren ofta är HR eller en rekryterare utan djup teknisk bakgrund, de behöver förstå att du är kompetent utan att förstå varje detalj. Spara de riktigt tekniska djupdykningarna till en eventuell intervju, där du kan rita på tavlan eller visa exempel. I brevet räcker det att visa att du behärskar metodiken och kan koppla den till ett konkret resultat.'
+      },
+      {
+        q: 'Ska jag skriva civilingenjör eller ange 300 hp i brevet?',
+        a: 'Det räcker att skriva civilingenjör i löptexten, men det kan vara värt att nämna 300 hp om du vill vara extra tydlig, särskilt om du söker en roll där examensnivån är ett formellt krav. En rimlig formulering är "Som civilingenjör i maskinteknik, 300 hp, från Linköpings universitet...". Du behöver inte upprepa det flera gånger i brevet, en gång räcker för att positionera din utbildningsnivå tydligt gentemot högskoleingenjörer och andra tekniska examina.'
+      },
+      {
+        q: 'Hur kopplar jag mitt brev till ett specifikt företag som Epiroc?',
+        a: 'Researcha företagets produkter, aktuella satsningar och utmaningar innan du skriver. Nämn något konkret, till exempel en produktlinje, ett hållbarhetsmål eller en teknisk utveckling du följt, och koppla det till din egen erfarenhet. För Epiroc kan det handla om batteridrivna maskiner eller tunga produkter som ska hålla i decennier. Undvik generiska formuleringar som "ert spännande företag", visa istället att du förstår vad de faktiskt gör och varför just den kunskapen gör dig relevant för rollen.'
+      },
+      {
+        q: 'Hur hanterar jag att jag byter bransch, till exempel från fordon till gruv- och anläggningsindustri?',
+        a: 'Fokusera på överförbara kompetenser: konstruktionsmetodik, toleransanalys, FEM-beräkningar och DFM-arbete är relevanta oavsett bransch. Förklara kort varför du vill byta, till exempel att du söker större eller mer komplexa system, eller vill fortsätta arbeta med hållbarhet och elektrifiering i en ny kontext. Var ärlig om att du har nya saker att lära dig om branschen, men visa att grunden, teknisk metodik och konstruktionsförståelse, är solid och byggd för att fungera i flera sammanhang.'
+      }
+    ],
+
+    kategori: 'teknik',
+    relaterade: [
+      { yrke: 'Ingenjör', slug: 'ingenjor' },
+      { yrke: 'Konstruktör', slug: 'konstruktor' },
+      { yrke: 'Automationsingenjör', slug: 'automationsingenior' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
+  },
+  'gymnasieelev': {
+    yrke: 'Gymnasieelev',
+    sokvolym: 300,
+    metaTitle: 'Personligt Brev Exempel Gymnasieelev - Extrajobb & Första Jobbet | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett exempel på personligt brev för gymnasieelev som söker extrajobb. Konkreta tips på hur du visar ansvar, prao och tillgänglighet i ansökan.',
+
+    seoIntro: `Söker du extrajobb under gymnasiet och vet inte hur du skriver ett personligt brev gymnasieelev utan tidigare anställning? Det här exemplet visar hur en 17-årig elev i årskurs två skriver ett personligt brev ungdom som får en butik att se förbi den korta arbetslivserfarenheten. Istället för att be om ursäkt för vad som saknas lyfter brevet fram det som faktiskt finns: kioskansvar på basketklubbens hemmamatcher, prao på en livsmedelsbutik och regelbunden barnvaktning, allt beskrivet med konkreta uppgifter och tydliga siffror.
+
+Du får se exakt hur du gör tillgänglighet till en styrka istället för en brist, genom att skriva ut precis vilka kvällar och helger du kan jobba redan i avslutningen. Brevet visar också hur du översätter ansvar från förening och prao till samma sorts kompetens som arbetsgivare letar efter hos vuxna sökande: pålitlighet, snabb inlärning och förmåga att hantera kunder och kassa under press. Du slipper gissa dig till formuleringar och kan istället utgå från ett exempel som redan bevisat att det fungerar för extrajobb i butik.
+
+Följ tipsen om hur du kvantifierar även små uppgifter och håller brevet kort, och komplettera gärna med vårt cv gymnasieelev-exempel för att få en helhet som fungerar redan från din första ansökan. Söker du istället sommarjobb eller är på väg in på högskolan finns liknande exempel för sommarjobb och student att jämföra med.`,
+
+    intro: 'Ett personligt brev för gymnasieelever som söker extrajobb, byggt på riktig erfarenhet från förening, prao och ansvar hemma istället för en traditionell anställning.',
+
+    exempelBrev: {
+      namn: 'Elsa Nyberg',
+      adress: 'Kopparbergsvägen 12, 722 13 Västerås',
+      telefon: '073-812 45 67',
+      epost: 'elsa.nyberg@email.se',
+      arbetsgivare: 'Hemköp City Västerås',
+      roll: 'Butiksmedarbetare extra',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag går andra året på samhällsvetenskapsprogrammet i Västerås och söker extrajobb som butiksmedarbetare hos er på Hemköp City. Jag är van vid att ta ansvar i snabbt tempo, bland annat genom att sköta kassa och försäljning på min basketklubbs hemmamatcher. Er butik ligger nära skolan och jag vet att ni ofta behöver extra händer på kvällar och helger, vilket passar precis den tid jag har lediga.
+
+Jag ansvarar för kioskförsäljningen på mitt basketlags hemmamatcher, där jag sköter kassan, räknar växel och tar emot betalningar via Swish. Inför varje match gör jag en inköpslista utifrån vad som sålde bra förra gången, så vi varken får slut på fika eller köper in för mycket. Under min prao på ICA i två veckor jobbade jag med varuplock, fyllde på hyllor och svarade på kundernas frågor om var varor stod. Min handledare berömde mig för att jag frågade när jag var osäker istället för att gissa, och att jag tog egna initiativ när det var mycket att göra. Jag barnvaktar också regelbundet för två familjer i grannskapet, vilket har lärt mig att hålla tider och ta ansvar även när ingen vuxen håller koll.
+
+Jag har handlat på Hemköp City sedan jag var liten och gillar att butiken känns lokal trots att ni är en stor kedja. Personalen där känner igen stamkunder och tar sig tid att hjälpa till, vilket är precis den sortens service jag själv vill ge. Jag tränar basket fyra kvällar i veckan och är van vid att samarbeta med ett lag där alla har olika roller, vilket jag tror passar bra i en butik där man hoppar in där det behövs, från kassa till påfyllning.
+
+Jag kan bidra med en positiv inställning, snabb inlärning och vana av att hantera kassa och kunder under press. Jag lär mig gärna era rutiner så snabbt som möjligt och frågar hellre en gång för mycket än en gång för lite. Målet är att bli någon ni kan lita på redan efter första passen och som gärna tar fler pass när det behövs, till exempel under lov.
+
+Jag är tillgänglig vardagkvällar efter 16.30, helger och alla lov, och kan börja så snart ni vill ha in mig i schemat. Hör gärna av er om ni vill boka in ett kort möte eller har fler frågor om min tillgänglighet. Jag nås enklast på telefon eller mejl.
+
+Med vänliga hälsningar,
+Elsa Nyberg`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Kioskansvaret beskrivs som riktig erfarenhet',
+        beskrivning: 'Brevet nämner inte bara att Elsa spelar basket, utan beskriver kioskansvaret med konkreta uppgifter: kassa, växel, Swish och inköpslistor inför varje match. Det gör föreningsuppdraget lika trovärdigt som ett kort extrajobb och visar att hon redan hanterat samma typ av uppgifter som butiksrollen kräver, istället för att bara lista basket som ett fritidsintresse.'
+      },
+      {
+        titel: 'Prao omvandlas till konkret kompetens',
+        beskrivning: 'Istället för att skriva "jag har varit på prao" beskriver brevet exakt vad Elsa gjorde: varuplock, kundfrågor och ett kassaprov, samt att handledaren berömde hennes initiativförmåga. Det gör två veckors prao till ett konkret bevis på att hon kan följa rutiner och ta ansvar, vilket väger tungt för en arbetsgivare som anställer sin första tonåring.'
+      },
+      {
+        titel: 'Tillgängligheten står tydligt i avslutningen',
+        beskrivning: 'Brevet anger exakt när Elsa kan jobba: vardagkvällar efter 16.30, helger och lov. Det är precis den information en butikschef behöver för att veta om schemat passar, och genom att skriva det tydligt slipper arbetsgivaren gissa eller fråga i efterhand, vilket ökar chansen att ansökan faktiskt går vidare till intervju.'
+      },
+      {
+        titel: 'Konkret exempel istället för vaga påståenden om ansvar',
+        beskrivning: 'Barnvaktningen beskrivs med detaljer om regelbundenhet och att hålla tider utan vuxen tillsyn, istället för att bara skriva "jag är ansvarsfull". Det konkreta exemplet gör påståendet trovärdigt och visar att Elsa redan är van vid situationer där hon måste lösa saker själv, precis som i en butik under en ensam kvällsöppning.'
+      },
+      {
+        titel: 'Kort brev utan utfyllnad',
+        beskrivning: 'Brevet håller sig till fem tydliga stycken utan att fylla ut med fraser om att "brinna för" handeln eller att "alltid ha velat" jobba i butik. Varje mening tillför något konkret, vilket gör brevet snabbläst för en rekryterare som ofta får många liknande ansökningar från gymnasieelever under samma vecka.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Beskriv föreningsuppdrag som en riktig roll',
+        text: `Om du har ett konkret ansvar i en förening, klubb eller elevkår, skriv om det på samma sätt som du skulle beskriva ett jobb. Nämn vad uppdraget innebär i praktiken, hur ofta du gör det och vilka verktyg eller system du använder.
+
+För Elsa betyder det att kioskansvaret beskrivs med kassa, växel och Swish istället för att bara nämnas som "spelar basket". Ju mer konkret du är, desto lättare blir det för arbetsgivaren att se att du redan klarar liknande uppgifter som butiksrollen kräver, trots att du saknar en traditionell anställning bakom dig.`
+      },
+      {
+        rubrik: 'Kvantifiera även små ansvarsuppgifter',
+        text: `Du behöver inte ha sålt för stora summor för att använda siffror i brevet. Antal matcher per säsong, antal kunder du hjälpt under prao eller hur många kvällar i veckan du barnvaktar gör erfarenheten mer konkret och lättare att lita på.
+
+Skriv till exempel "kioskansvarig på 15-20 hemmamatcher per säsong" istället för "hjälper till på matcher ibland". Siffror visar omfattning även när erfarenheten är kort, och de hjälper arbetsgivaren att förstå hur mycket ansvar du faktiskt haft, även om det inte var en formell anställning.`
+      },
+      {
+        rubrik: 'Var exakt med din tillgänglighet',
+        text: `Arbetsgivare som anställer gymnasieelever vill snabbt veta om schemat passar, så var precis istället för vag. Skriv exakta klockslag och dagar, till exempel "vardagkvällar efter 16.30, helger och samtliga lov" istället för "flexibel och kan jobba extra vid behov".
+
+Nämn också om du har återkommande hinder, som träningar en specifik kväll i veckan, så att arbetsgivaren slipper upptäcka det efter att du fått jobbet. Tydlig tillgänglighet är ofta det som avgör om en arbetsgivare kallar en gymnasieelev till intervju framför en annan sökande med liknande bakgrund.`
+      },
+      {
+        rubrik: 'Lyft fram prao som meriterande erfarenhet',
+        text: `Prao är praktisk arbetslivserfarenhet, inte bara en skoluppgift, och ska beskrivas som sådan i brevet. Berätta vad du faktiskt gjorde, till exempel varuplock, kundservice eller kassaprov, och nämn gärna om du fick positiv feedback från din handledare.
+
+En detalj som "fick beröm för att jag frågade innan jag gissade" säger mer om din arbetsmoral än en generell mening om att du är "ansvarsfull". Två veckors prao kan aldrig ersätta ett års anställning, men rätt beskrivet visar det att du redan klarat en riktig arbetsmiljö.`
+      },
+      {
+        rubrik: 'Håll brevet kort och konkret',
+        text: `Ett personligt brev för extrajobb behöver inte fyllas ut för att kännas seriöst. 350-450 ord räcker gott om varje stycke har ett tydligt syfte: inledning, erfarenhet, koppling till företaget, bidrag och avslutning med tillgänglighet.
+
+Undvik allmänna fraser om att du "alltid velat jobba i butik", det säger ingenting konkret. Fokusera istället på verkliga exempel, även små sådana, och låt dem tala för din pålitlighet. Ett kort och konkret brev signalerar att du respekterar arbetsgivarens tid, vilket är precis den inställning en butik vill se hos en ny tonårsanställd.`
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur skriver jag personligt brev till extrajobb utan tidigare anställning?',
+        a: 'Fokusera på det du faktiskt gjort istället för det du saknar. Beskriv föreningsuppdrag, prao, barnvaktning eller andra ansvarsuppgifter med konkreta detaljer, precis som du skulle beskriva ett jobb. Koppla gärna dina erfarenheter till det arbetsgivaren efterfrågar, till exempel kundkontakt eller kassahantering. Avsluta med tydlig tillgänglighet, eftersom det ofta väger tyngre än tidigare anställning för arbetsgivare som specifikt söker gymnasieelever till kvälls- och helgpass.'
+      },
+      {
+        q: 'Ska jag nämna att jag går i gymnasiet i brevet?',
+        a: 'Ja, nämn gärna vilket program och vilket år du går, det ger sammanhang åt din situation och förklarar varför du söker extrajobb snarare än heltid. Skriv det kort i inledningen, till exempel "andra året på samhällsvetenskapsprogrammet", och lägg fokus på erfarenheten och tillgängligheten i resten av brevet. Arbetsgivare som anställer gymnasieelever förväntar sig och uppskattar denna information, det gör det lättare för dem att planera schemat kring skoltider och lov.'
+      },
+      {
+        q: 'Hur långt ska ett personligt brev för gymnasieelev vara?',
+        a: 'Sikta på 350-450 ord, ungefär en dryg halv A4-sida. Med begränsad arbetslivserfarenhet finns sällan anledning till ett längre brev, och att fylla ut med allmänna fraser gör snarare intrycket sämre. Dela upp brevet i fem korta stycken: inledning, erfarenhet, koppling till företaget, vad du kan bidra med och avslutning med tydlig tillgänglighet. Ett kort och konkret brev är lättare för en rekryterare att läsa mellan andra sysslor.'
+      },
+      {
+        q: 'Räknas prao och föreningsuppdrag som erfarenhet i brevet?',
+        a: 'Ja, absolut. Prao är praktisk arbetslivserfarenhet och föreningsuppdrag som kioskansvar, materialansvar eller ledaruppdrag för yngre lag visar samma sorts kompetens som ett jobb: pålitlighet, samarbete och förmåga att följa rutiner. Beskriv dem konkret med vad du faktiskt gjorde, hur ofta och gärna med en siffra eller ett exempel. Arbetsgivare som anställer sin första tonåring förväntar sig sällan traditionell anställning, utan letar efter tecken på ansvar oavsett var det kommer ifrån.'
+      },
+      {
+        q: 'Hur visar jag att jag kan kombinera extrajobb med skolan?',
+        a: 'Nämn kort att du redan hanterar flera åtaganden parallellt, till exempel skola, träning och föreningsuppdrag, och visa det genom hög närvaro eller att du klarat ett återkommande ansvar under en längre period. Du behöver inte skriva en hel utredning om tidsplanering, en mening räcker om den är konkret: "trots träningar fyra kvällar i veckan har jag inte missat ett enda kiosktillfälle". Det visar arbetsgivaren att du redan är van vid att strukturera din tid.'
+      },
+      {
+        q: 'Vad ska jag skriva om tillgänglighet som gymnasieelev?',
+        a: 'Var så specifik som möjligt. Skriv exakta tider, som "vardagkvällar efter 16.30, helger och samtliga lov", istället för vaga formuleringar som "flexibel vid behov". Nämn också om du har fasta hinder, som en träningskväll i veckan, så att arbetsgivaren vet vad som gäller redan från början. Tydlig tillgänglighet är ofta avgörande för arbetsgivare som söker extrapersonal, eftersom den visar att du förstått vad tjänsten faktiskt innebär i praktiken.'
+      },
+      {
+        q: 'Behöver jag ha referenser med i brevet som 17-åring?',
+        a: 'Nej, referenser behöver sällan finnas med i själva brevet. Om du har en handledare från prao eller en tränare som kan intyga ditt ansvarstagande kan du nämna att referenser finns tillgängliga på begäran. Det viktigaste är att brevet självt visar konkreta exempel på ansvar, snarare än att luta sig mot vad andra säger om dig. Spara kontaktuppgifter till referenser till en eventuell intervju eller anställningsprocess istället.'
+      }
+    ],
+
+    kategori: 'service',
+
+    relaterade: [
+      { yrke: 'Sommarjobb', slug: 'sommarjobb' },
+      { yrke: 'Student', slug: 'student' },
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Kassörska', slug: 'kassorska' }
+    ]
+  },
   'underskoterska': {
     yrke: 'Undersköterska',
     sokvolym: 750,

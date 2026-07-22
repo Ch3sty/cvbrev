@@ -166,6 +166,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 4. Lägg till CV-exempel sidor
   const CV_EXEMPEL = [
+    'aldreboende',
+    'civilingenjor',
+    'gymnasieelev',
     'underskoterska',
     'vardadministrator',
     'vardbitrade',
@@ -264,6 +267,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 5. Lägg till personligt brev exempel-sidor
   const PERSONLIGT_BREV_EXEMPEL = [
+    'aldreboende',
+    'civilingenjor',
+    'gymnasieelev',
     'underskoterska',
     'student',
     'larare',

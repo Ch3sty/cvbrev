@@ -3,8 +3,8 @@
  * Speglar yrkes-listan i /cv-exempel/[yrke] och /personligt-brev-exempel/[yrke].
  */
 
-export const TOTAL_CV_YRKEN = 86
-export const TOTAL_BREV_YRKEN = 86
+export const TOTAL_CV_YRKEN = 89
+export const TOTAL_BREV_YRKEN = 89
 export const TOTAL_EXEMPEL = TOTAL_CV_YRKEN + TOTAL_BREV_YRKEN
 
 // Kategori-konstanter
@@ -49,6 +49,7 @@ export const KATEGORIER: Kategori[] = [
       'hemtjanst',
       'hemtjanstpersonal',
       'vardbitrade',
+      'aldreboende',
       'vardadministrator',
       'boendestod',
       'socialsekreterare',
@@ -72,6 +73,7 @@ export const KATEGORIER: Kategori[] = [
       'it-konsult',
       'produktchef',
       'ingenjor',
+      'civilingenjor',
       'automationsingenior',
       'konstruktor',
       'it-tekniker',
@@ -105,6 +107,8 @@ export const KATEGORIER: Kategori[] = [
       'butikssaljare',
       'butiksbitrade',
       'butikschef',
+      'sommarjobb',
+      'gymnasieelev',
       'kassorska',
       'servitris-restaurangbitrade',
       'kock',
@@ -142,6 +146,7 @@ export const KATEGORIER: Kategori[] = [
       'fritidsledare',
       'elevassistent',
       'barnskotare',
+      'student',
     ],
   },
   {

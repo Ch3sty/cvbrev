@@ -6,6 +6,802 @@ import { getTemplateGenerator } from '@/lib/cv/templates'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
+  'aldreboende': {
+    yrke: 'Äldreboende',
+    slug: 'aldreboende',
+    sokvolym: 260,
+    kategori: 'vard',
+    metaTitle: 'CV Exempel Äldreboende 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för äldreboende med kontaktmannaskap, demenskompetens och dokumentation i Lifecare. ATS-optimerat, med tips och nyckelord.',
+
+    intro: 'Ett professionellt CV-exempel för äldreboende som visar kontaktmannaskap, demenskompetens och dokumentation i praktiken. Detta exempel är optimerat för svenska äldreboenden och ATS-system.',
+
+    seoIntro: `Ska du söka jobb på äldreboende och undrar hur ett vinnande cv äldreboende-exempel ser ut? Det här CV:t visar precis vad rekryterare inom äldreomsorgen letar efter, oavsett om du arbetar som undersköterska eller vårdbiträde och oavsett om tjänsten gäller demensvård eller somatisk vård.
+
+Du får se hur du lyfter fram kontaktmannaskap, demenskompetens och dokumentation i system som Lifecare och Senior alert, tre saker som väger tyngre på äldreboende än i många andra vårdmiljöer. CV:t visar också hur delegering för läkemedel, genomförandeplaner och arbete enligt BPSD-registret kan beskrivas konkret, med resultat som går att följa upp, inte bara ansvarsområden som räknas upp. Det gör skillnad för dig som söker, eftersom rekryterare inom äldreomsorgen ofta läser många liknande ansökningar på kort tid och skummar CV:n snabbt. Du ser även hur flerspråkighet och utbildningar som Demens ABC placeras så att de faktiskt syns.
+
+Använd exemplet som utgångspunkt för ditt eget cv äldreboende och anpassa det efter den specifika avdelningen du söker till, demens, somatik eller korttidsboende. Vill du se fler exempel från vården finns även cv-exempel för undersköterska och vårdbiträde som du kan jämföra med.`,
+
+    viktigtAttTankaPa: [
+      'Kontaktmannaskap och demenskompetens väger tyngre på äldreboende än generell vårderfarenhet, lyft fram det tidigt i CV:t',
+      'Ange vilket dokumentationssystem du använt, till exempel Lifecare eller Procapita, så matchar CV:t den specifika arbetsplatsen',
+      'Flerspråkighet är en konkret merit inom äldreomsorgen, ta med de språk du behärskar även om det känns självklart för dig',
+      'Skriv ut delegeringar och utbildningar med årtal, till exempel Demens ABC eller läkemedelsdelegering, så ser arbetsgivaren att kompetensen är aktuell'
+    ],
+
+    exempelCV: {
+      namn: 'Amira Hassan',
+      titel: 'Undersköterska med demensinriktning',
+      kontakt: {
+        telefon: '072-XXX XX XX',
+        epost: 'amira.hassan@email.se',
+        plats: 'Örebro',
+        linkedin: 'linkedin.com/in/amirahassan'
+      },
+
+      profil: 'Undersköterska med sex års erfarenhet från hemtjänst och demensvård på äldreboende, med särskilt fokus på kontaktmannaskap och personcentrerad omvårdnad. Van vid dokumentation i Lifecare, delegering för läkemedel och arbete enligt BPSD-registret för att förebygga oro hos personer med demenssjukdom. Har gått Demens ABC och handleder nya kollegor och elever på avdelningen. Flerspråkig i svenska, arabiska och engelska, vilket underlättar kommunikationen med boende och anhöriga med olika bakgrund.',
+
+      erfarenhet: [
+        {
+          titel: 'Undersköterska, demensavdelning',
+          arbetsgivare: 'Björkgården äldreboende, Örebro',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Kontaktman för sex boende med demenssjukdom, ansvarig för genomförandeplaner, uppföljning och kontakt med anhöriga',
+            'Dokumenterar dagligen i Lifecare och arbetar strukturerat med Senior alert för att förebygga fall, undernäring och trycksår',
+            'Delegering för läkemedel, ansvarig för läkemedelshantering hos 15-18 boende per arbetspass',
+            'Initierade regelbundna musikstunder på avdelningen, vilket bidrog till lägre oro enligt uppföljning i BPSD-registret',
+            'Handleder nya kollegor och elever från vård- och omsorgsprogrammet under introduktion'
+          ]
+        },
+        {
+          titel: 'Undersköterska, hemtjänst',
+          arbetsgivare: 'Örebro kommun, Hemtjänsten',
+          period: '2020 - 2023',
+          beskrivning: [
+            'Självständiga hembesök hos 10-14 brukare dagligen med ADL-stöd, läkemedelshantering och matlagning',
+            'Byggde långsiktiga relationer med brukare och anhöriga genom kontinuitet och tydlig kommunikation',
+            'Dokumenterade vårdinsatser enligt SoL och HSL och rapporterade avvikelser till ansvarig sjuksköterska',
+            'Deltog i introduktion av nyanställda kollegor inom distriktet'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Vård- och omsorgsprogrammet, Undersköterska',
+          skola: 'Komvux Örebro',
+          period: '2018 - 2020',
+          beskrivning: 'VFU inom hemtjänst och särskilt boende'
+        },
+        {
+          titel: 'Demens ABC',
+          skola: 'Svenskt Demenscentrum',
+          period: '2023',
+          beskrivning: 'Fördjupad utbildning i bemötande, BPSD och personcentrerad omvårdnad vid demenssjukdom'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Dokumentationssystem: Lifecare (Avancerad, 3+ år daglig användning)',
+          'Senior alert och riskbedömning för fall, undernäring och trycksår',
+          'BPSD-registret och bemötande vid beteendemässiga och psykiska symtom vid demens',
+          'Delegering för läkemedel',
+          'Basala hygienrutiner',
+          'Kontaktmannaskap och genomförandeplaner enligt SoL och HSL',
+          'ADL-stöd och personcentrerad omvårdnad'
+        ],
+        personliga: [
+          'Lugn och trygg i mötet med oroliga boende',
+          'Empati och relationsskapande med boende och anhöriga',
+          'Strukturerad dokumentation och uppföljning',
+          'Handledarskap för nya kollegor och elever',
+          'Flerspråkig kommunikation'
+        ]
+      },
+
+      certifieringar: [
+        'Demens ABC - Svenskt Demenscentrum (2023)',
+        'Delegering för läkemedel (2023, förnyad årligen)',
+        'HLR-certifiering (förnyad 2025)',
+        'Förflyttningsteknik / Akta Ryggen (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Arabiska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kontaktmannaskap visas med konkret ansvar',
+        text: `CV:t nämner att Amira är kontaktman för sex boende med demenssjukdom, med ansvar för genomförandeplaner och anhörigkontakt.
+
+**Varför detta fungerar:** Kontaktmannaskap är ett av de tyngsta orden på ett äldreboende, eftersom det signalerar förtroende från chefen och förmåga att ta helhetsansvar för en boendes vård. Genom att skriva "kontaktman för sex boende" istället för bara "kontaktmannaskap" visar Amira omfattning, inte bara en rubrik på ett CV. Rekryterare vet direkt att hon klarar självständigt ansvar.`
+      },
+      {
+        rubrik: 'Namngivna system matchar ATS-sökningar',
+        text: `CV:t nämner Lifecare, Senior alert och BPSD-registret, tre system och verktyg som är vanliga specifikt inom äldreboende och demensvård.
+
+**Varför detta fungerar:** ATS-system söker ordagrant på systemnamn. Skriver du "dokumentationssystem" utan att namnge vilket missar du matchningen mot annonser som efterfrågar just Lifecare eller Procapita. Genom att skriva exakt vilka verktyg hon använt dagligen visar Amira att hon kan börja arbeta utan lång upplärning, vilket väger tungt när bemanningen är pressad.`
+      },
+      {
+        rubrik: 'BPSD-resultatet bevisar demenskompetens',
+        text: `Erfarenheten beskriver hur musikstunder Amira initierade bidrog till lägre oro enligt uppföljning i BPSD-registret.
+
+**Varför detta fungerar:** Många skriver "bra bemötande vid demens" utan att visa vad det innebär i praktiken. Genom att koppla en konkret insats (musikstunder) till ett mätbart resultat (lägre oro i BPSD-registret) bevisar Amira att hon förstår demensvård på ett sätt som går att följa upp. Det skiljer henne från kandidater som bara listar demensvård som ett kompetensord.`
+      },
+      {
+        rubrik: 'Flerspråkighet lyfts fram som en tillgång',
+        text: `CV:t listar arabiska och engelska som separata språk med tydlig nivå, inte bara "flerspråkig" i en bisats.
+
+**Varför detta fungerar:** På äldreboende möter personalen boende och anhöriga med olika bakgrund, och språkkunskaper kan avgöra om ett CV går vidare, särskilt vid demensvård där kommunikation på modersmål kan lugna en orolig person. Genom att specificera "arabiska, modersmål" visar Amira konkret värde istället för att gömma kompetensen som en fotnot.`
+      },
+      {
+        rubrik: 'Hemtjänsterfarenheten visar överförbar kompetens',
+        text: `De tre åren inom hemtjänst beskrivs med självständigt ansvar för 10-14 brukare dagligen och dokumentation enligt SoL och HSL.
+
+**Varför detta fungerar:** Rekryterare på äldreboende undrar ofta om hemtjänsterfarenhet räcker. Genom att visa att Amira klarat självständiga hembesök, läkemedelshantering och dokumentation bevisar CV:t att hon redan behärskar kärnan i yrket, bara i en annan miljö. Övergången till äldreboende blir därför logisk snarare än ett stort steg.`
+      },
+      {
+        rubrik: 'Handledarskap visar att arbetsgivaren litar på henne',
+        text: `CV:t nämner att Amira handleder nya kollegor och elever från vård- och omsorgsprogrammet under introduktion.
+
+**Varför detta fungerar:** Att få ansvar för att lära upp andra är ett tydligt kvitto på förtroende från arbetsgivaren. Det visar också pedagogisk förmåga och stabilitet, egenskaper som är svåra att bevisa på annat sätt i ett CV. En rekryterare läser detta som "den här personen kan vi lita på direkt", vilket ökar chansen till intervju.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Namnge dokumentationssystemet du använt',
+        text: `Skriv aldrig bara "dokumentation" i CV:t. Ange exakt vilket system du arbetat i, till exempel Lifecare, Procapita eller Cosmic.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för dokumentation"
+
+✅ "Dokumenterar dagligen i Lifecare och arbetar strukturerat med Senior alert för riskbedömning av fall och undernäring"
+
+Många äldreboenden efterfrågar erfarenhet av ett specifikt system i sina annonser, och ATS-system matchar ofta ordagrant. Om du bytt system under din karriär, nämn båda.`
+      },
+      {
+        rubrik: 'Lyft fram kontaktmannaskap med omfattning',
+        text: `Kontaktmannaskap väger tungt på äldreboende, men bara om du visar vad det innebär i praktiken.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av kontaktmannaskap"
+
+✅ "Kontaktman för sex boende med demenssjukdom, ansvarig för genomförandeplaner, uppföljning och kontakt med anhöriga"
+
+Nämn antal boende du varit kontaktman för, vilka arbetsuppgifter det innebar och om du haft ansvar för anhörigkontakt. Det visar att du klarar självständigt ansvar.`
+      },
+      {
+        rubrik: 'Visa demenskompetens med konkreta exempel',
+        text: `Skriv inte bara "erfarenhet av demensvård", utan visa vad du faktiskt gjort och vilket resultat det gav.
+
+**Exempel på före/efter**:
+
+❌ "God erfarenhet av demensvård"
+
+✅ "Initierade musikstunder på avdelningen som bidrog till lägre oro enligt uppföljning i BPSD-registret"
+
+Om du gått Demens ABC, Silviacertifiering eller liknande utbildning, nämn det med årtal. Det signalerar att du har strukturerad kunskap, inte bara praktisk erfarenhet.`
+      },
+      {
+        rubrik: 'Ta med flerspråkighet som en konkret merit',
+        text: `Om du talar mer än svenska, lista språken med nivå istället för att nämna det i förbifarten.
+
+**Exempel på före/efter**:
+
+❌ "Talar flera språk"
+
+✅ "Arabiska (modersmål), Engelska (goda kunskaper)"
+
+Inom äldreomsorgen kan språkkunskaper vara avgörande för att skapa trygghet hos boende och anhöriga med annat modersmål än svenska, särskilt inom demensvård. Skriv ut det tydligt istället för att gömma det längst ner.`
+      },
+      {
+        rubrik: 'Beskriv delegeringar och utbildningar med årtal',
+        text: `En delegering utan datum säger ingenting om hur aktuell den är. Skriv alltid ut när du fick den och om den förnyats.
+
+**Exempel på före/efter**:
+
+❌ "Delegering för läkemedel"
+
+✅ "Delegering för läkemedel (2023, förnyad årligen), HLR-certifiering (förnyad 2025)"
+
+Arbetsgivare vill snabbt kunna se om de behöver skicka dig på uppdaterande kurser innan du kan börja jobba. Årtal gör det lätt för dem att bedöma.`
+      },
+      {
+        rubrik: 'Koppla hemtjänsterfarenhet till äldreboende',
+        text: `Om du kommer från hemtjänst och söker till äldreboende, förklara varför erfarenheten är relevant istället för att bara lista den.
+
+**Exempel på före/efter**:
+
+❌ "Undersköterska, hemtjänst, 2020-2023"
+
+✅ "Självständiga hembesök hos 10-14 brukare dagligen med ADL-stöd, läkemedelshantering och dokumentation enligt SoL och HSL"
+
+Betona självständighet, ansvar för läkemedel och dokumentation, allt sådant som direkt går att applicera på en tjänst inom särskilt boende.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV vara när jag söker jobb på äldreboende?',
+        svar: 'För 0-5 års erfarenhet räcker en sida. Med 5-10 år, som Amira i exemplet, håll dig till max en till två sidor. Prioritera relevant erfarenhet från vård och omsorg framför äldre eller ovidkommande jobb, och lägg hellre krut på att beskriva kontaktmannaskap och demenskompetens i detalj än att lista varje kort vikariat.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på CV:t?',
+        svar: 'Det är vanligt men inget krav i Sverige. Inom äldreomsorgen kan en vänlig, professionell bild upplevas positivt eftersom den signalerar tillgänglighet. Använd i så fall en bild med neutral bakgrund. Är du osäker går det lika bra att skicka in CV:t utan bild.'
+      },
+      {
+        fraga: 'Hur mycket personlig information behöver jag skriva?',
+        svar: 'Håll det kort: namn, telefon, e-post, ort och gärna LinkedIn om du har ett. Ålder, civilstånd och personnummer behövs inte. Fokusera utrymmet på erfarenhet, dokumentationssystem och delegeringar, det är det arbetsgivaren faktiskt vill veta.'
+      },
+      {
+        fraga: 'Vad ska jag skriva i CV när jag söker till demensboende?',
+        svar: 'Lyft fram konkret demenskompetens: utbildningar som Demens ABC eller Silviacertifiering, erfarenhet av BPSD-registret och exempel på hur du bemött oro eller konfusion hos boende. Beskriv gärna en insats som gav resultat, till exempel en aktivitet som minskade oro på avdelningen, precis som i exemplet ovan.'
+      },
+      {
+        fraga: 'Räknas hemtjänsterfarenhet när jag söker till äldreboende?',
+        svar: 'Ja, definitivt. Hemtjänst ger dig erfarenhet av självständigt ansvar, ADL-stöd och läkemedelshantering, kompetenser som är direkt överförbara till äldreboende. Beskriv arbetet konkret med antal brukare och arbetsuppgifter, så ser rekryteraren att grunden redan finns.'
+      },
+      {
+        fraga: 'Hur visar jag demenskompetens i CV:t utan att bara skriva "erfarenhet av demens"?',
+        svar: 'Koppla kompetensen till en handling och gärna ett resultat. Skriv till exempel hur du hanterat oro eller BPSD-symtom, vilken utbildning du gått och när. Ett konkret exempel, som en aktivitet du initierat som minskade oro enligt uppföljning i BPSD-registret, väger betydligt tyngre än ett löst påstående.'
+      },
+      {
+        fraga: 'Vilket dokumentationssystem bör jag nämna om jag inte vet vilket den nya arbetsgivaren använder?',
+        svar: 'Nämn de system du faktiskt har erfarenhet av, till exempel Lifecare, Procapita eller Cosmic. De flesta system inom äldreomsorgen liknar varandra i grunden, så erfarenhet av ett system visar att du snabbt lär dig ett annat. Skriv gärna "van vid dokumentationssystem inom vård och omsorg" som komplement.'
+      },
+      {
+        fraga: 'Hur beskriver jag kontaktmannaskap om jag aldrig haft den rollen formellt?',
+        svar: 'Beskriv istället de delar av rollen du utfört informellt, till exempel att du haft återkommande kontakt med anhöriga, följt upp genomförandeplaner eller varit en trygg punkt för specifika boende. Skriv "erfarenhet av uppgifter som liknar kontaktmannaskap" om du inte haft den formella titeln.'
+      },
+      {
+        fraga: 'Behöver jag ha delegering för läkemedel för att söka jobb på äldreboende?',
+        svar: 'Nej, det är ofta inte ett krav utan något du kan få efter anställning. Har du redan delegering, lyft fram det tydligt med årtal. Saknar du den, skriv istället att du är motiverad att genomgå delegering, det visar vilja utan att du behöver överdriva erfarenhet du inte har.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram flerspråkighet om jag är osäker på om det är relevant?',
+        svar: 'Det är nästan alltid relevant inom äldreomsorgen. Skriv ut varje språk med nivå i en egen sektion, till exempel "Arabiska, modersmål". Många äldreboenden har boende och anhöriga med annat modersmål än svenska, och språkkunskap kan vara avgörande för tryggheten i vardagen, särskilt vid demenssjukdom.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Hemtjänst', slug: 'hemtjanst' }
+    ]
+  },
+  'gymnasieelev': {
+    yrke: 'Gymnasieelev',
+    slug: 'gymnasieelev',
+    sokvolym: 200,
+    kategori: 'service',
+    metaTitle: 'CV Exempel Gymnasieelev 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett cv-exempel för gymnasieelev som söker extrajobb. Visar hur du fyller CV:t utan arbetslivserfarenhet med prao, förening och ansvar hemma.',
+
+    intro: 'Ett CV-exempel för gymnasieelever som söker extrajobb, där prao, föreningsansvar och tydlig tillgänglighet gör jobbet i stället för tidigare anställningar.',
+
+    seoIntro: `Söker du extrajobb och behöver ett cv gymnasieelev-exempel som visar hur du fyller CV:t utan traditionell arbetslivserfarenhet? Det här exemplet visar hur en 17-årig gymnasieelev i Västerås bygger ett cv utan arbetslivserfarenhet genom att lyfta fram föreningsuppdrag, prao och ansvar hemifrån på ett sätt som butiker, kaféer och andra arbetsgivare som anställer ungdomar faktiskt bryr sig om, även när det är ditt första jobb.
+
+Du får se hur kioskansvaret på basketklubbens hemmamatcher, två veckors prao på en livsmedelsbutik och regelbunden barnvaktning skrivs fram som riktiga meriter, med kassahantering, Swish, varuplock och inköpslistor som konkreta exempel. CV:t visar också hur du placerar din tillgänglighet, till exempel vardagkvällar efter skolan och helger, redan i profiltexten så att den som läser direkt ser att schemat passar. Du ser dessutom hur en enda sida räcker när varje rad visar riktigt ansvar istället för att fyllas ut med tomma formuleringar.
+
+Använd exemplet som mall för ditt eget cv gymnasieelev-exempel och anpassa erfarenheterna efter det du faktiskt gjort, oavsett om det är fritidsjobb, förening, barnvaktning eller läxhjälp. Söker du istället ett tidsbegränsat sommarjobb eller är på väg att börja studera vidare på högskolan hittar du liknande exempel för sommarjobb och student längre ner på sidan, samt fler CV-exempel inom service.`,
+
+    viktigtAttTankaPa: [
+      'Ange tydligt när du kan jobba, till exempel vardagkvällar efter 16.30 och helger, så arbetsgivaren ser direkt att schemat passar',
+      'Räkna prao, föreningsuppdrag och kioskansvar som riktig erfarenhet, även om det inte var en anställning',
+      'Håll CV:t på en sida. Med kort arbetslivserfarenhet blir ett längre CV bara tunt utspätt',
+      'Kontrollera arbetstidsreglerna för din ålder (till exempel hur sent du får jobba som 16-17-åring), så du kan svara tryggt om arbetsgivaren frågar'
+    ],
+
+    exempelCV: {
+      namn: 'Elsa Nyberg',
+      titel: 'Gymnasieelev söker extrajobb som butiksmedarbetare',
+
+      kontakt: {
+        telefon: '073-812 45 67',
+        epost: 'elsa.nyberg@email.se',
+        plats: 'Västerås'
+      },
+
+      profil: 'Engagerad gymnasieelev på samhällsvetenskapsprogrammet i Västerås som söker extrajobb som butiksmedarbetare vid sidan av skolan. Van vid ansvar genom kioskförsäljningen på basketklubbens hemmamatcher, där jag hanterar kassa, växel och Swish i högt tempo. Prao på ICA gav praktisk erfarenhet av varuplock och kundkontakt, och min handledare berömde mitt initiativ. Tillgänglig vardagkvällar efter 16.30, helger och lov, och lär mig nya rutiner snabbt.',
+
+      erfarenhet: [
+        {
+          titel: 'Kioskansvarig, hemmamatcher',
+          arbetsgivare: 'Västerås Basketbollklubb',
+          period: '2024 - Pågående',
+          beskrivning: [
+            'Ansvarar för kioskförsäljning på 15-20 hemmamatcher per säsong, inklusive kassahantering, växelhantering och betalningar via Swish',
+            'Gör inköpslistor inför varje match utifrån tidigare försäljning för att undvika svinn och slut i lager',
+            'Samarbetar med 3-4 lagkamrater i kiosken och fördelar uppgifter under högt tempo vid halvtid',
+            'Har inte missat ett enda kiosktillfälle sedan uppdraget startade, trots parallella träningar och tävlingar'
+          ]
+        },
+        {
+          titel: 'Prao, varuhandel',
+          arbetsgivare: 'ICA Nära, Västerås',
+          period: 'Mars 2025 (2 veckor)',
+          beskrivning: [
+            'Genomförde varuplock och påfyllning av hyllor inom flera avdelningar under handledning av butikspersonal',
+            'Svarade på kundernas frågor om varors placering och hjälpte till att hålla ordning i butiken',
+            'Fick återkommande beröm av handledaren för att ta egna initiativ och fråga innan misstag uppstod',
+            'Provade att arbeta i kassan under en eftermiddag och hanterade kontant- och kortbetalning självständigt'
+          ]
+        },
+        {
+          titel: 'Barnvakt',
+          arbetsgivare: 'Privata familjer, Västerås',
+          period: '2023 - Pågående',
+          beskrivning: [
+            'Barnvaktar regelbundet för två familjer, en till två kvällar i veckan, med ansvar för läggning och matlagning',
+            'Håller överenskomna tider och hör av sig till föräldrarna direkt vid avvikelser från planen',
+            'Har haft samma uppdrag i över ett år, vilket familjerna själva lyft fram som ett tecken på pålitlighet'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Samhällsvetenskapsprogrammet',
+          skola: 'Rudbeckianska gymnasiet, Västerås',
+          period: '2024 - 2027 (pågående)',
+          beskrivning: 'Inriktning samhällskunskap och engelska. Hög närvaro och van vid att hålla deadlines för inlämningsuppgifter.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Kassahantering och växelhantering',
+          'Swish och kortbetalning',
+          'Varuplock och påfyllning i butik',
+          'Microsoft Office (Word, Excel, PowerPoint)',
+          'Sociala medier (Instagram, TikTok)',
+          'Grundläggande lagerhantering och inköpslistor'
+        ],
+        personliga: [
+          'Punktlig',
+          'Lär sig snabbt',
+          'Serviceinriktad',
+          'Lagspelare',
+          'Ansvarstagande',
+          'Vågar fråga vid osäkerhet'
+        ]
+      },
+
+      certifieringar: [
+        'HLR - hjärt-lungräddning, skolans hälsoutbildning (2025)',
+        'Ungdomsdomarkurs, Västerås Basketbollklubb (2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Mycket goda kunskaper' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Kioskansvaret beskrivs som en riktig roll, inte ett fritidsintresse',
+        text: `CV:t beskriver kioskansvaret med samma struktur som en anställning: rubrik, arbetsgivare, period och konkreta punkter om kassa, växel, Swish och inköpslistor.
+
+**Varför detta fungerar:** Många gymnasieelever skriver bara "spelar basket" i CV:t och missar att kioskansvaret faktiskt innehåller samma uppgifter som en butiksroll. Genom att strukturera det som en egen post med tydliga arbetsuppgifter visar Elsa att hon redan hanterat kassa, betalningar och lager, vilket gör steget till ett riktigt extrajobb kortare för arbetsgivaren att ta.`
+      },
+      {
+        rubrik: 'Prao omvandlas till bevisad kompetens, inte bara "varit på ICA"',
+        text: `Praoperioden beskrivs med konkreta arbetsuppgifter (varuplock, kundfrågor, kassaprov) och ett specifikt omdöme från handledaren om initiativförmåga.
+
+**Varför detta fungerar:** En rad som "prao på ICA" säger nästan ingenting om vad som faktiskt gjordes. När CV:t istället visar vad Elsa gjorde, och att handledaren berömde henne för att fråga innan hon gissade, blir de två veckorna lika trovärdiga som en kort anställning. Det är exakt den typ av bevis en butikschef vill se hos en sökande utan tidigare jobb.`
+      },
+      {
+        rubrik: 'Tillgänglighet syns redan i profiltexten',
+        text: `Redan i de första raderna anges att Elsa är tillgänglig vardagkvällar efter 16.30, helger och lov, innan rekryteraren ens hunnit läsa erfarenhetsdelen.
+
+**Varför detta fungerar:** Butiker som anställer gymnasieelever söker ofta specifikt efter kvälls- och helgpersonal. Om schemat inte framgår tydligt riskerar CV:t att sorteras bort även om personen är kvalificerad. Genom att lägga tillgängligheten högt upp slipper rekryteraren leta, och Elsa visar samtidigt att hon förstår vad rollen faktiskt kräver.`
+      },
+      {
+        rubrik: 'Certifieringarna är få men relevanta för åldern',
+        text: `CV:t listar bara två certifieringar, HLR-utbildning och en ungdomsdomarkurs från basketklubben, istället för att fylla ut med kurser som saknar koppling till jobbet.
+
+**Varför detta fungerar:** En lång lista med irrelevanta kurser ser ofta ut som utfyllnad snarare än meriter. Genom att hålla sig till certifieringar som faktiskt visar ansvar och trygghet i pressade situationer signalerar Elsa mognad utan att överdriva. Det är bättre att visa två äkta meriter än fem tveksamma.`
+      },
+      {
+        rubrik: 'Profiltexten säger vem hon är på fyra rader',
+        text: `Profiltexten kombinerar utbildning, konkret erfarenhet från kiosken, resultat från praot och tillgänglighet på bara fyra korta meningar.
+
+**Varför detta fungerar:** Rekryterare som anställer extrapersonal läser sällan hela CV:t i detalj. En profiltext som täcker vem sökanden är, vad hon redan kan och när hon kan jobba gör att även en snabb skumläsning ger hela bilden. Det ökar chansen att CV:t går vidare till nästa steg trots att det bara är en sida.`
+      },
+      {
+        rubrik: 'Hela CV:t ryms på en sida utan att kännas tunt',
+        text: `Trots att Elsa saknar traditionell anställning fylls sidan med tre konkreta erfarenheter, utbildning, kompetenser och certifieringar utan att kännas utspädd.
+
+**Varför detta fungerar:** Ett CV som sträcker sig till två sidor för att kompensera för kort erfarenhet signalerar ofta osäkerhet snarare än gedigen bakgrund. När varje rad istället beskriver ett verkligt ansvar blir en sida fullt tillräcklig, och rekryteraren kan snabbt bedöma om Elsa passar för tjänsten.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Skriv ut din tillgänglighet redan i profiltexten',
+        text: `Arbetsgivare som söker extrapersonal vill snabbt veta om schemat passar. Skriv exakt vilka tider du kan jobba istället för att vänta till intervjun.
+
+**Exempel på före/efter:**
+
+❌ "Flexibel och kan jobba extra vid behov"
+
+✅ "Tillgänglig vardagkvällar efter 16.30, helger och samtliga skollov"`
+      },
+      {
+        rubrik: 'Beskriv föreningsuppdrag som en riktig roll',
+        text: `Om du har ett ansvar i en förening, klubb eller elevkår, skriv det som en egen post i erfarenhetsdelen med rubrik, arbetsgivare och period, precis som en anställning.
+
+**Exempel på före/efter:**
+
+❌ "Spelar basket på fritiden"
+
+✅ "Kioskansvarig, Västerås Basketbollklubb, 2024 - Pågående: hanterar kassa, växel och Swish på hemmamatcher"`
+      },
+      {
+        rubrik: 'Kvantifiera även små uppgifter',
+        text: `Du behöver inte ha sålt för miljoner för att använda siffror. Antal matcher, veckor eller kunder gör erfarenheten konkret och lättare att lita på.
+
+**Exempel på före/efter:**
+
+❌ "Hjälpte till i kiosken på matcher"
+
+✅ "Ansvarade för kiosken på 15-20 hemmamatcher per säsong, inklusive kassa och inköpslistor"`
+      },
+      {
+        rubrik: 'Lyft fram prao som meriterande erfarenhet',
+        text: `Prao räknas som praktisk erfarenhet, inte bara en skoluppgift. Beskriv vad du faktiskt gjorde och om du fick beröm för något specifikt.
+
+**Exempel på före/efter:**
+
+❌ "Var på prao på ICA i två veckor"
+
+✅ "Prao på ICA: varuplock, kundservice och kassaprov. Fick beröm för att jag frågade innan jag gissade"`
+      },
+      {
+        rubrik: 'Håll CV:t på en sida',
+        text: `Med kort arbetslivserfarenhet blir ett längre CV bara tunt utspätt. En tydlig sida med riktiga exempel gör starkare intryck än två sidor med utfyllnad.
+
+**Exempel på före/efter:**
+
+❌ Två sidor med långa beskrivningar av skolämnen och intressen
+
+✅ En sida med tre konkreta erfarenheter, utbildning, kompetenser och certifieringar`
+      },
+      {
+        rubrik: 'Nämn pålitlighet och närvaro konkret',
+        text: `Arbetsgivare som anställer unga vill framför allt veta att du dyker upp när du sagt att du ska. Visa det med exempel istället för att bara skriva "pålitlig".
+
+**Exempel på före/efter:**
+
+❌ "Jag är ansvarsfull och pålitlig"
+
+✅ "Har inte missat ett enda kiosktillfälle sedan uppdraget startade, trots parallella träningar och tävlingar"`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska jag ha med i mitt CV om jag inte har jobbat förut?',
+        svar: 'Fokusera på det du faktiskt gjort: prao, föreningsuppdrag, barnvaktning, läxhjälp eller ideellt arbete. Beskriv dem som riktiga roller med konkreta uppgifter, till exempel kassahantering i en kiosk eller varuplock under prao. Lägg till utbildning, kompetenser och eventuella certifieringar som HLR eller ledarkurser. Avsluta med tydlig tillgänglighet, eftersom det ofta väger tyngre än erfarenhet för arbetsgivare som anställer extrapersonal.'
+      },
+      {
+        fraga: 'Hur långt ska ett CV vara?',
+        svar: 'En sida räcker nästan alltid, särskilt om du precis börjat söka jobb. Ett längre CV riskerar att kännas utspätt när erfarenheten är begränsad. Prioritera det som är mest relevant för tjänsten du söker och ta bort information som inte tillför något, som detaljerade beskrivningar av skolämnen. Rekryterare som anställer extrapersonal lägger ofta bara några sekunder på varje CV, så en tydlig och kompakt sida gör störst skillnad.'
+      },
+      {
+        fraga: 'Ska jag ha med foto på CV:t?',
+        svar: 'Det är valfritt i Sverige och varken krävs eller förväntas. Ett foto kan göra CV:t mer personligt, men det viktigaste är att bilden är professionell, väl belyst och tagen mot en neutral bakgrund, inte en semesterbild. Om du är osäker kan du lämna bort fotot helt och istället lägga tid på att göra profiltexten och erfarenhetsdelen tydligare. Innehållet väger alltid tyngre än bilden.'
+      },
+      {
+        fraga: 'Vad ska en 16-åring skriva i CV utan erfarenhet?',
+        svar: 'Lyft det som faktiskt finns: skolgång med hög närvaro, föreningsengagemang, idrott med regelbunden träning, barnvaktning eller läxhjälp till yngre syskon. Beskriv varje sak konkret, till exempel hur många timmar i veckan du tränar eller hur länge du barnvaktat samma familj. Nämn också personliga egenskaper med bevis, som att du alltid kommer i tid till träningar. Arbetsgivare som anställer 16-åringar förväntar sig inte tidigare anställning, utan letar efter tecken på ansvar och pålitlighet.'
+      },
+      {
+        fraga: 'Hur lång ska ett CV för gymnasieelev vara?',
+        svar: 'En sida är standarden och nästan alltid tillräcklig. Med begränsad arbetslivserfarenhet blir ett CV på två sidor lätt tunt och fyllt med information som inte tillför något. Fokusera istället på att göra varje rad konkret: rätt siffror, rätt exempel och tydlig tillgänglighet. En kompakt sida som visar riktigt ansvar gör starkare intryck än en lång sida som mest listar skolämnen och allmänna intressen.'
+      },
+      {
+        fraga: 'Får man jobba i kassa som 17-åring?',
+        svar: 'Ja, från 16 år får man i regel arbeta i butik och kassa, men vissa uppgifter och arbetstider styrs av Arbetsmiljöverkets regler för minderåriga, bland annat hur sent på kvällen man får jobba och hur många timmar per vecka under skoltid. Reglerna skiljer sig något beroende på ålder och om det är skoldag eller lov. Fråga gärna arbetsgivaren direkt vilka regler som gäller för din ålder, det visar att du är påläst och tar anställningen på allvar.'
+      },
+      {
+        fraga: 'Räknas prao som arbetslivserfarenhet på CV:t?',
+        svar: 'Ja, prao är praktisk erfarenhet och bör tas med som en egen post i erfarenhetsdelen, precis som en kort anställning. Skriv vilken typ av uppgifter du utförde, till exempel varuplock, kundservice eller enklare administration, och nämn gärna om handledaren gav dig positiv feedback. Två veckors prao väger mindre än ett halvårs jobb, men det visar ändå att du kan följa rutiner, samarbeta med vuxna och ta instruktioner, vilket är precis vad en ny arbetsgivare vill veta.'
+      },
+      {
+        fraga: 'Hur skriver jag om basket eller andra fritidsintressen i CV:t?',
+        svar: 'Skriv om fritidsintressen på två sätt. Om du har ett konkret ansvar, som kioskförsäljning, materialansvar eller att träna yngre lag, beskriv det som en egen post i erfarenhetsdelen med samma struktur som ett jobb. Om det bara handlar om att du tränar regelbundet kan det istället nämnas kort under kompetenser eller i profiltexten, till exempel att träningsdisciplin gjort dig van vid schema och lagarbete. Undvik att bara skriva "spelar basket" utan att visa vad det faktiskt gett dig.'
+      },
+      {
+        fraga: 'Vilka arbetstidsregler gäller för gymnasieelever som extrajobbar?',
+        svar: 'Reglerna styrs av Arbetsmiljöverket och skiljer sig mellan skoldagar och lov, samt beroende på om du är under eller över 18 år. Generellt gäller kortare arbetspass och tidigare sluttid på kvällen under skoltid än under lov, samt begränsningar för nattarbete. Arbetsgivaren ansvarar för att känna till och följa reglerna, men det är bra att själv ha koll så att du kan vara tydlig med din tillgänglighet redan i CV:t och det personliga brevet.'
+      },
+      {
+        fraga: 'Ska jag skriva mitt personnummer eller bara födelseår i CV:t?',
+        svar: 'Det räcker med ålder eller födelseår, du behöver inte skriva fullständigt personnummer i ett CV. Många utelämnar även ålder helt och låter erfarenhet och tillgänglighet tala för sig själva. Om tjänsten har en åldersgräns, till exempel att du måste vara 16 år för att jobba i kassa, kan det vara bra att nämna åldern kort så att arbetsgivaren direkt ser att du uppfyller kravet. Spara känsligare personuppgifter till en eventuell anställningsprocess istället.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Sommarjobb', slug: 'sommarjobb' },
+      { yrke: 'Student', slug: 'student' },
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' }
+    ]
+  },
+  'civilingenjor': {
+    yrke: 'Civilingenjör',
+    slug: 'civilingenjor',
+    sokvolym: 320,
+    kategori: 'teknik',
+    metaTitle: 'CV Exempel Civilingenjör 2026 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett cv civilingenjör-exempel med Catia, FEM-beräkningar, toleransanalyser och kvantifierade resultat från fordonsindustrin. ATS-optimerat för teknikföretag.',
+
+    intro: 'Ett professionellt CV-exempel för civilingenjör som visar teknisk djupkunskap, konstruktionsarbete och tydliga steg mot mer projektansvar. Detta exempel är optimerat för svenska teknikföretag och ATS-system.',
+
+    seoIntro: `Letar du efter ett civilingenjör cv som visar både djup teknisk kompetens och förmåga att leda utvecklingsarbete? Det här exemplet utgår från en civilingenjör i maskinteknik med fem års erfarenhet av konstruktion och produktutveckling inom fordonsindustrin. Du ser exakt hur ett civilingenjör cv som rekryterare faktiskt läser klart struktureras, från profiltext och arbetslivserfarenhet till utbildning och tekniska verktyg som Catia, PLM-system och FEM-beräkningar. Strukturen är byggd för att passera ATS-system hos svenska teknikföretag samtidigt som den håller kvar rekryterarens intresse.
+
+CV:t visar hur du kombinerar hårda tekniska meriter, som toleransanalyser, DFM-arbete, FEM-beräkningar och viktoptimering, med samarbetsförmåga i tvärfunktionella team, agila arbetssätt och internationell produktion. Erfarenheten kvantifieras genomgående: viktminskning i procent, godkända krocktester, minskad ledtid och antal handledda examensarbetare. Samma struktur passar oavsett om du söker en renodlad konstruktörsroll, en roll med fokus på hållbarhetskrav och LCA, eller, som i exemplet, tar steget mot teknisk projektledning.
+
+Skriver du CV som nyexaminerad eller redan yrkesverksam civilingenjör är det viktigt att skriva ut hela examenstiteln, civilingenjörsexamen om 300 högskolepoäng, eftersom den skiljer sig från en högskoleingenjörsexamen på 180 hp både i innehåll, fördjupning och vilka roller du är behörig för. Många rekryterare skummar CV:t på några sekunder, så låt examen, huvudverktyg och ett kvantifierat resultat synas direkt i profiltexten. Vill du se ett bredare exempel för fler ingenjörsinriktningar kan du också läsa vårt cv-exempel för ingenjör.`,
+
+    viktigtAttTankaPa: [
+      'Skriv ut hela examenstiteln, civilingenjörsexamen i maskinteknik om 300 hp, samt lärosäte och inriktning eftersom det skiljer dig från högskoleingenjörer redan i rubriken',
+      'Namnge de CAD- och PLM-system du faktiskt använder, till exempel Catia, SolidWorks eller Teamcenter, istället för att bara skriva "CAD-kompetens"',
+      'Kvantifiera dina tekniska resultat med procent, ledtid eller godkända tester, till exempel viktminskning eller ett godkänt krocktest, så rekryteraren ser effekten av ditt arbete',
+      'Visa både tekniskt djup och förmåga att driva projekt och samarbeta tvärfunktionellt, särskilt om du siktar på en roll som teknisk projektledare'
+    ],
+
+    exempelCV: {
+      namn: 'Johan Lindqvist',
+      titel: 'Civilingenjör maskinteknik | Utvecklingsingenjör',
+      kontakt: {
+        telefon: '073-512 84 09',
+        epost: 'johan.lindqvist@email.se',
+        plats: 'Linköping',
+        linkedin: 'linkedin.com/in/johanlindqvist'
+      },
+
+      profil: 'Civilingenjör i maskinteknik med fem års erfarenhet av konstruktion och produktutveckling inom fordonsindustrins säkerhetssystem. Arbetar dagligen i Catia med ansvar för toleransanalyser och viktoptimering, och har lett ett delprojekt som gav 12 procents viktminskning och godkänt resultat i kundens krocktester. Van att driva DFM-genomgångar med produktion i Polen och handleda examensarbetare genom hela projektcykeln. Söker nu en roll som teknisk projektledare där konstruktionskunnande kombineras med ansvar för hela utvecklingsprojekt.',
+
+      erfarenhet: [
+        {
+          titel: 'Utvecklingsingenjör',
+          arbetsgivare: 'Autoliv AB',
+          period: '2019 - Pågående',
+          beskrivning: [
+            'Ledde delprojekt för viktoptimering av en komponentfamilj i bältessystem, vilket gav 12 procents viktminskning och godkänt resultat i kundens krocktester',
+            'Konstruerar säkerhetskritiska komponenter i Catia och ansvarar för toleransanalyser från koncept till produktionsfärdig ritning',
+            'Driver DFM-genomgångar tillsammans med produktionsteamet i Polen på engelska, vilket minskat antalet konstruktionsändringar efter produktionsstart',
+            'Handleder två examensarbetare per år inom hållfasthetsberäkning och CAD-modellering',
+            'Hanterar ritningar och ändringsstyrning i PLM-systemet Teamcenter tillsammans med inköp, kvalitet och produktion'
+          ]
+        },
+        {
+          titel: 'Examensarbetare, Konstruktion',
+          arbetsgivare: 'Väderstad AB',
+          period: 'Jan - Jun 2019',
+          beskrivning: [
+            'Genomförde examensarbete om viktoptimering av en strukturkomponent i lantbruksmaskin, med FEM-analys i ANSYS och konstruktion i SolidWorks',
+            'Resultatet visade en möjlig materialbesparing på 8 procent utan att äventyra hållfastheten, presenterat för konstruktionsavdelningen',
+            'Genomförde toleransanalys av en monteringskedja med tre komponenter tillsammans med produktionstekniker'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Civilingenjörsexamen Maskinteknik, 300 hp',
+          skola: 'Linköpings universitet',
+          period: '2014 - 2019',
+          beskrivning: 'Inriktning mot fasta materialets mekanik och konstruktion. Examensarbete i samarbete med Väderstad AB om viktoptimering av strukturkomponenter, med FEM-analys och materialval som huvudfokus.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Catia (Expert, 5+ år)',
+          'SolidWorks (Avancerad)',
+          'PLM-system (Teamcenter)',
+          'FEM-beräkningar (ANSYS)',
+          'Toleransanalys och GD&T',
+          'DFM (Design for Manufacturing)',
+          'Six Sigma-metodik',
+          'Excel/VBA för beräkningsstöd'
+        ],
+        personliga: [
+          'Projektledning av delprojekt med tvärfunktionella team',
+          'Tydlig teknisk kommunikation på svenska och engelska',
+          'Mentorskap och handledning av examensarbetare',
+          'Problemlösning under produktionsdrift',
+          'Samarbete med internationell produktion'
+        ]
+      },
+
+      certifieringar: [
+        'Lean Six Sigma Green Belt (2022)',
+        'Fördjupningskurs GD&T och toleransanalys (2021)',
+        'Catia V5 Certified Associate (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande, arbetsspråk i internationella projekt' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Teknisk stack som matchar rekryteringssystemet',
+        text: `CV:t listar Catia, PLM-systemet Teamcenter och FEM-beräkningar i ANSYS redan i kompetensavsnittet, tillsammans med toleransanalys och DFM som återkommande teman genom hela erfarenhetsdelen.
+
+**Varför detta fungerar:** ATS-system som används av svenska teknikföretag letar efter exakta verktygsnamn i de första sektionerna av CV:t. Genom att placera Catia och Teamcenter högt upp, tillsammans med FEM-beräkningar, ökar sannolikheten att CV:t passerar automatisk screening innan en rekryterare ens öppnat det.`
+      },
+      {
+        rubrik: 'Kvantifierade konstruktionsresultat',
+        text: `Varje position redovisar konkreta siffror: 12 procents viktminskning i bältessystemet, godkänt resultat i kundens krocktester och 8 procents möjlig materialbesparing redan i examensarbetet.
+
+**Varför detta fungerar:** Rekryterare inom fordonsindustrin vill se att en civilingenjör kan koppla tekniskt arbete till mätbara resultat, inte bara beskriva arbetsuppgifter. Att viktminskningen dessutom godkändes i krocktester visar att resultatet höll även under verkliga säkerhetskrav, vilket ger extra trovärdighet.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk höjd och projektledning',
+        text: `CV:t visar både djup konstruktionskompetens i Catia och toleransanalys, och erfarenhet av att driva DFM-genomgångar med internationell produktion samt handleda examensarbetare.
+
+**Varför detta fungerar:** Roller som teknisk projektledare kräver mer än ren konstruktionsförmåga. Genom att visa att kandidaten redan koordinerar produktion i Polen och handleder yngre ingenjörer, signalerar CV:t att steget mot ett bredare projektansvar är naturligt snarare än ett stort risktagande för arbetsgivaren.`
+      },
+      {
+        rubrik: 'Certifieringar med branschrelevans',
+        text: `Lean Six Sigma Green Belt kompletterar konstruktionskompetensen, medan fördjupningskursen i GD&T och toleransanalys samt Catia-certifieringen är direkt kopplade till det dagliga arbetet.
+
+**Varför detta fungerar:** För civilingenjörer inom fordonsindustri och tillverkning ger Lean Six Sigma en signal om systematiskt förbättringsarbete, medan GD&T-kursen validerar den tekniska djupkunskap som krävs för säkerhetskritisk konstruktion. Tillsammans ger certifieringarna både ATS-nyckelord och konkret trovärdighet.`
+      },
+      {
+        rubrik: 'Profiltext som positionerar rätt examen',
+        text: `Inledningen etablerar civilingenjörsexamen i maskinteknik, fem års erfarenhet inom fordonsindustrins säkerhetssystem och kärnverktyget Catia redan i första meningen.
+
+**Varför detta fungerar:** Rekryterare läser profiltexten först och skummar ofta bara de första raderna. Genom att direkt nämna civilingenjör, specialiseringen och Catia matchar CV:t de tyngsta sökorden i en typisk jobbannons för konstruktörs- eller utvecklingsroller, samtidigt som examenstiteln skiljer kandidaten tydligt från högskoleingenjörer.`
+      },
+      {
+        rubrik: 'Tydlig progression mot ledande roller',
+        text: `Erfarenheten visar en tydlig linje: från examensarbete med FEM-analys och materialbesparing, till utvecklingsingenjör med eget delprojektansvar, DFM-genomgångar och handledning av examensarbetare.
+
+**Varför detta fungerar:** Att visa hur ansvaret vuxit stegvis, från att analysera en komponent till att leda ett delprojekt och koordinera produktion i ett annat land, gör det trovärdigt att kandidaten är redo för nästa steg mot teknisk projektledning. Progressionen bevisar ambition utan att behöva skriva ut den explicit.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Skriv ut hela examenstiteln, inte bara "ingenjör"',
+        text: `Rekryterare och ATS-system skiljer på civilingenjör och högskoleingenjör, så var tydlig med både examen och högskolepoäng redan i rubriken och profiltexten.
+
+**Exempel på före/efter**:
+
+❌ "Ingenjör med erfarenhet av produktutveckling"
+
+✅ "Civilingenjör Maskinteknik (300 hp), Linköpings universitet, med fem års erfarenhet av konstruktion inom fordonsindustrin"
+
+Skriver du bara "ingenjör" riskerar du att hamna i fel sökfilter hos rekryterare som specifikt söker civilingenjörer till kvalificerade konstruktörs- eller projektledarroller.`
+      },
+      {
+        rubrik: 'Namnge dina CAD- och PLM-system exakt',
+        text: `ATS-system matchar ofta ordagrant mot de system som står i jobbannonsen. Skriv exakt vilka verktyg du använder, inte bara "CAD-kompetens".
+
+**Exempel på före/efter**:
+
+❌ "God erfarenhet av CAD och tekniska system"
+
+✅ "Catia (Expert, 5+ år) för konstruktion av säkerhetskritiska komponenter, PLM-systemet Teamcenter för ritnings- och ändringshantering"
+
+Om jobbannonsen nämner Catia, SolidWorks eller ett specifikt PLM-system, använd exakt den termen i ditt CV.`
+      },
+      {
+        rubrik: 'Kvantifiera tekniska resultat med procent och kontext',
+        text: `Siffror utan sammanhang säger lite. Koppla alltid resultatet till vad det betydde i praktiken.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade med viktoptimering av komponenter"
+
+✅ "Ledde delprojekt för viktoptimering av en komponentfamilj, vilket gav 12 procents viktminskning och godkänt resultat i kundens krocktester"
+
+Ange gärna både förbättringen (12 procent) och konsekvensen (godkänt krocktest) så rekryteraren förstår varför resultatet var viktigt.`
+      },
+      {
+        rubrik: 'Visa DFM- och tillverkningsförståelse, inte bara CAD-ritande',
+        text: `Många civilingenjörer listar konstruktionsuppgifter utan att visa att de förstår tillverkning. DFM-arbete (Design for Manufacturing) skiljer ut kandidater som förstår hela kedjan.
+
+**Exempel på före/efter**:
+
+❌ "Konstruerade komponenter i Catia"
+
+✅ "Driver DFM-genomgångar med produktionsteamet i Polen, vilket minskat antalet konstruktionsändringar efter produktionsstart"
+
+Nämn konkret hur du samarbetat med produktion, inköp eller kvalitet, det visar att dina konstruktioner faktiskt går att tillverka kostnadseffektivt.`
+      },
+      {
+        rubrik: 'Lyft fram projektledning och handledaransvar',
+        text: `Söker du roller med mer ansvar, som teknisk projektledare, behöver CV:t visa att du redan tagit steg mot ledarskap, även inom en konstruktörsroll.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för tekniska frågor i teamet"
+
+✅ "Ledde delprojekt med tvärfunktionellt team inom konstruktion, produktion och inköp, och handleder två examensarbetare per år"
+
+Beskriv omfattningen (antal personer, funktioner) så rekryteraren kan bedöma vilken nivå av ansvar du faktiskt haft.`
+      },
+      {
+        rubrik: 'Balansera teknisk kompetens med tvärfunktionellt samarbete',
+        text: `Rena tekniska meriter räcker sällan för seniora roller. Visa att du kan kommunicera tekniska beslut till kollegor med andra funktioner och bakgrunder.
+
+**Exempel på före/efter**:
+
+❌ "God samarbetsförmåga och kommunikativ"
+
+✅ "Förklarar tekniska beslut för produktionsteam i Polen på engelska, och samordnar toleransanalyser med inköp och kvalitet"
+
+Koppla alltid den mjuka kompetensen till en konkret situation, annars blir den bara ett påstående bland många andra.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV vara som civilingenjör?',
+        svar: 'I Sverige rekommenderas 1-2 sidor. Med fem års erfarenhet, som i det här exemplet, räcker oftast en sida om du är selektiv med vilka projekt du beskriver. Nyexaminerade civilingenjörer klarar sig ofta på en sida där examensarbete och eventuell praktik väger tyngre. Seniora civilingenjörer med lång erfarenhet, flera arbetsgivare eller publikationer kan behöva två sidor. Fokusera alltid på relevans framför fullständighet, du behöver inte lista varje kurs eller studentprojekt.'
+      },
+      {
+        fraga: 'Ska jag ha en profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild vanligt men inget krav, och för tekniska roller väger kompetensen betydligt tyngre än bilden. Väljer du att ha en bild, använd en neutral och professionell bild. Är du osäker är det aldrig fel att välja en CV-mall utan bild, rekryterare inom teknik lägger fokus på verktyg, resultat och examen snarare än utseende.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV?',
+        svar: 'Kortare uppehåll, under sex månader, behöver du sällan förklara i CV:t. Vid längre uppehåll kan du nämna vad du gjorde, till exempel vidareutbildning, konsultuppdrag eller föräldraledighet. För civilingenjörer kan även perioder av fördjupning i ett verktyg eller en certifiering, som Six Sigma, vara relevanta att lyfta fram. Rekryterare förstår att livet innehåller uppehåll, det viktiga är att du kan förklara dem kort och sakligt om det kommer upp i intervjun.'
+      },
+      {
+        fraga: 'Ska jag skriva civilingenjör eller M.Sc. i CV:t?',
+        svar: 'Skriv civilingenjör som huvudtitel eftersom det är den svenska benämningen som svenska rekryterare och ATS-system känner igen bäst. Vill du rikta dig mot internationella eller engelskspråkiga arbetsgivare kan du lägga till "M.Sc. in Mechanical Engineering" som en parentes eller i en engelsk version av CV:t. Undvik att bara skriva M.Sc. i ett svenskt CV, då riskerar du att missa sökningar där rekryteraren specifikt letar efter "civilingenjör".'
+      },
+      {
+        fraga: 'Hur skriver en nyexaminerad civilingenjör CV utan lång arbetslivserfarenhet?',
+        svar: 'Lyft fram examensarbetet som om det vore ett riktigt projekt, med uppdragsgivare, metod, verktyg och resultat. Exempel: "Examensarbete med Väderstad: viktoptimering av strukturkomponent med FEM-analys i ANSYS, visade 8 procents möjlig materialbesparing." Komplettera med relevanta studentprojekt, sommarpraktik eller extraarbete under studietiden. Placera utbildningen högre upp i CV:t om du saknar längre yrkeserfarenhet, och var tydlig med vilka verktyg du faktiskt använt praktiskt, inte bara läst om.'
+      },
+      {
+        fraga: 'Vilka CAD-system ska stå i CV:t?',
+        svar: 'Lista de system du faktiskt arbetat med regelbundet, med kompetensnivå och gärna antal år. Exempel: "Catia (Expert, 5+ år)", "SolidWorks (Avancerad)". Om jobbannonsen nämner ett specifikt system, som Catia eller Creo, se till att det syns tydligt om du kan det. Komplettera gärna med PLM-system (Teamcenter, Windchill) och analysverktyg (ANSYS för FEM-beräkningar), eftersom dessa ofta är egna sökkriterier i ATS-system för konstruktörs- och utvecklingsroller.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan civilingenjör och högskoleingenjör i CV:t?',
+        svar: 'Civilingenjörsexamen omfattar 300 högskolepoäng och ger en djupare teoretisk grund, medan högskoleingenjörsexamen omfattar 180 hp med mer praktisk inriktning. I CV:t räcker det att skriva ut examen korrekt, till exempel "Civilingenjörsexamen Maskinteknik, 300 hp" respektive "Högskoleingenjörsexamen, 180 hp". Båda examina är fullt meriterande, men eftersom vissa roller specifikt efterfrågar civilingenjörer är det viktigt att titeln är korrekt så att du inte sorteras bort i ett ATS-filter som söker på exakt examensnamn.'
+      },
+      {
+        fraga: 'Hur visar jag PLM- och FEM-kompetens i CV:t?',
+        svar: 'Skapa en tydlig sektion för tekniska kompetenser och gruppera efter typ, till exempel CAD (Catia, SolidWorks), PLM (Teamcenter) och beräkning (FEM-analys i ANSYS). Beskriv sedan i erfarenhetssektionen hur du faktiskt använt dem: "Hanterar ritningar och ändringsstyrning i Teamcenter" eller "Genomförde FEM-analys i ANSYS som visade 8 procents möjlig materialbesparing." Det räcker inte att bara lista verktygen, visa gärna vad de faktiskt användes till och vilket resultat det gav.'
+      },
+      {
+        fraga: 'Ska jag ange antal högskolepoäng, 300 hp, i utbildningssektionen?',
+        svar: 'Ja, det är rekommenderat eftersom det gör examen entydig för rekryterare, HR-system och eventuella valideringar av utländska arbetsgivare. Skriv till exempel "Civilingenjörsexamen Maskinteknik, 300 hp, Linköpings universitet, 2014-2019". Det tar bara några ord men gör att din utbildningsnivå går att jämföra direkt mot både svenska och internationella examenskrav, vilket är extra värdefullt om du söker roller hos globala teknikföretag.'
+      },
+      {
+        fraga: 'Hur beskriver jag toleransanalyser och DFM-arbete på ett sätt rekryterare förstår?',
+        svar: 'Förklara kort vad analysen ledde till, inte bara att du gjorde den. Exempel: "Ansvarar för toleransanalyser på säkerhetskritiska komponenter, från koncept till produktionsfärdig ritning" eller "Driver DFM-genomgångar med produktionsteamet, vilket minskat antalet konstruktionsändringar efter produktionsstart." Genom att koppla den tekniska metoden till ett konkret resultat, som färre ändringar eller kortare ledtid, blir det begripligt även för rekryterare utan djup teknisk bakgrund, samtidigt som tekniska chefer ser att du behärskar metodiken.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Ingenjör', slug: 'ingenjor' },
+      { yrke: 'Konstruktör', slug: 'konstruktor' },
+      { yrke: 'Projektledare', slug: 'projektledare' }
+    ]
+  },
   'underskoterska': {
     yrke: 'Undersköterska',
     sokvolym: 750,

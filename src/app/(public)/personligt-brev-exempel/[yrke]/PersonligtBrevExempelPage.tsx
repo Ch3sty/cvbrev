@@ -126,10 +126,22 @@ export default function PersonligtBrevExempelPage({
           ]}
         />
 
-        {/* Live preview */}
+        {/* Live preview. Vissa poster använder stad/foretag i stället för adress/arbetsgivare */}
         <section id="preview" className="scroll-mt-6">
           <BrevPreviewShell yrke={data.yrke}>
-            <InteractiveLetterPreview exempelBrev={data.exempelBrev} />
+            <InteractiveLetterPreview
+              exempelBrev={{
+                ...data.exempelBrev,
+                adress:
+                  data.exempelBrev.adress ??
+                  (data.exempelBrev as Record<string, string>).stad ??
+                  '',
+                arbetsgivare:
+                  data.exempelBrev.arbetsgivare ??
+                  (data.exempelBrev as Record<string, string>).foretag ??
+                  '',
+              }}
+            />
           </BrevPreviewShell>
         </section>
 
