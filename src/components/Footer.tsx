@@ -65,8 +65,9 @@ const VERKTYG_LANKAR = [
 const INSPIRATION_LANKAR = [
   { label: 'CV-exempel', href: '/cv-exempel' },
   { label: 'Personligt brev-exempel', href: '/personligt-brev-exempel' },
+  { label: 'CV-mallar för olika yrken', href: '/cv-mallar' },
   { label: 'Alla artiklar', href: '/artiklar' },
-  { label: 'Inspirationsgalleri', href: '/exempel' },
+  { label: 'Alla exempel och mallar', href: '/exempel' },
 ]
 
 const FORETAG_LANKAR = [
@@ -236,7 +237,7 @@ function NavigationGrid() {
           </div>
           <p className="text-sm text-slate-600 leading-relaxed max-w-sm mb-6">
             Vi hjälper jobbsökare i Sverige att skriva CV, personliga brev och
-            hitta rätt nästa steg — med riktiga exempel och AI som faktiskt
+            hitta rätt nästa steg, med riktiga exempel och AI som faktiskt
             förstår svensk arbetsmarknad.
           </p>
           <SocialIcons />
