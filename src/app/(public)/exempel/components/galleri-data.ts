@@ -24,6 +24,12 @@ export const CV_GALLERI: GalleriYrke[] = [
     "intro": "Visar hur prao, föreningsansvar och tydlig tillgänglighet fyller ett CV för extrajobb under gymnasiet."
   },
   {
+    "slug": "loneadministrator",
+    "namn": "Löneadministratör",
+    "kategori": "ekonomi",
+    "intro": "CV som visar lönekörningar, kollektivavtalstolkning och systemvana i Hogia eller Agda för löneroller."
+  },
+  {
     "slug": "ingenjor",
     "namn": "Ingenjör",
     "kategori": "teknik",
