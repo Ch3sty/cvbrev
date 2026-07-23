@@ -119,6 +119,40 @@ Runt pillaren behövs också:
 - Uppföljning: GSC-filter på /for-rekryterare/insikter/ efter ~3 veckor; ekrarna 4-5
   skrivs bara om klustret visar impressions eller registreringar kommer.
 
+## P2-klustret runt "Vad urvalsforskningen faktiskt visar" (planerat 2026-07-23)
+
+Pillaren är live (kognitiva-tester-rekrytering-forskning). Hemmaplanspelaren:
+här ligger produktdifferentieringen (verifierade resultat, första försöket räknas).
+Ekrarna i prioritetsordning, varje äger EN sökintention:
+
+1. **Strukturerad intervju + test: kombinationen som höjer träffsäkerheten** —
+   intentionen "strukturerad intervju". Vad struktur konkret betyder (samma frågor,
+   ankarskalor, flera bedömare), varför kombinationen med test slår båda delarna
+   ensamma (Sackett-kompositer), praktisk mall. Skrivs FÖRST, störst sökvolym.
+2. **Percentiler och normgrupper: läs testresultat rätt** — "percentil test"/
+   "normgrupp"/"stanine". Vad percentilen faktiskt jämför mot, mätfel och
+   likvärdighetsspann, fällan med hårfina rangordningar. Interaktiv
+   PERCENTILUTFORSKARE (normalfördelningskurva, reglage, staninefärgning,
+   mätfelsband) direkt i artikeln.
+3. **Därför ska första testförsöket räknas** — "testresultat omtag"/"göra om
+   test rekrytering". Omtagsforskningen (Hausknecht 2007, Scharfen 2018: en
+   tredjedels SD upp vid andra försöket) + verifieringsvinkeln. UNIK — ingen
+   konkurrent kan skriva den, direkt produktbrygga.
+4. **Personlighet i urval: vad den får och inte får användas till** —
+   "personlighetstest rekrytering". Validitetsläget (0,19-0,25, kontextualisering),
+   fakingproblemet, juridiska räcken (DO, AI-förordningen), vår designprincip:
+   aldrig råpoäng, aldrig sorteringsfilter.
+
+Runt pillaren behövs också:
+- **Träffsäkerhetssimulatorn** (interaktiv komponent på pillarsidan): välj
+  urvalsmetod(er) → se förväntad andel lyckade rekryteringar, Taylor-Russell-logik
+  på Sackett-siffrorna, personprickar som visualisering. Länkmagnet i klass med
+  felrekryteringskalkylatorn.
+- Interlinking: pillaren blir hubb (länkar alla ekrar i löptext), varje eker länkar
+  pillaren + närmaste syskon + InsiktCTA. Second opinion-ekern och
+  "testresultat kandidaten kan se" väntar till nästa våg.
+- Uppföljning: samma GSC-filter, ekrarna utvärderas med P1-klustret.
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
