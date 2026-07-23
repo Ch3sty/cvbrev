@@ -10,6 +10,7 @@ import CustomImage from '@/components/mdx/Image'
 import FAQContainer from '@/components/mdx/FAQContainer'
 import FAQItem from '@/components/mdx/FAQItem'
 import InsiktCTA from '@/components/mdx/InsiktCTA'
+import FelrekryteringsKalkylator from '@/components/mdx/FelrekryteringsKalkylator'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const components = { CustomImage, FAQContainer, FAQItem, InsiktCTA }
+const components = { CustomImage, FAQContainer, FAQItem, InsiktCTA, FelrekryteringsKalkylator }
 
 export default async function InsiktPage({ params }: Props) {
   const { slug } = await params
