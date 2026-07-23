@@ -90,6 +90,35 @@ Exempel på skärning:
 - Mät efter varje våg i GSC (sektionen får eget filter) + registreringar som KPI.
   Skala det som drar, precis som kandidatsidan.
 
+## P1-klustret runt "Vad kostar en felrekrytering?" (planerat 2026-07-23)
+
+Pillaren är live. Skärningen för ekrarna, i prioritetsordning (varje äger EN sökintention):
+
+1. **Vad kostar en rekrytering? Byrå, annons eller egen sourcing** — intentionen
+   "vad kostar en rekrytering"/"rekryteringskostnad". Jämför de tre vägarna med
+   verkliga prisspann (byråarvode i procent av årslön, annonspaket, intern tid).
+   Konverteringsvinkel: kandidatpool som lägsta kostnad per anställning. Skrivs FÖRST,
+   närmast pengaintentionen.
+2. **Vakanskostnaden: så räknar ni på en tom stol** — "vakanskostnad"/"kostnad
+   obesatt tjänst". Kalkylmodell per rollnivå: produktionsbortfall, övertid, kvalitet.
+   Länkar time-to-hire-ekern och pillaren.
+3. **Time-to-hire: mät rätt och korta den** — "time to hire"/"rekryteringstid".
+   Definitioner (time-to-fill vs time-to-hire), var tiden faktiskt försvinner
+   (screeningen), hur strukturerat urval + färdig pool kortar den.
+4. **Provanställning: vad den löser och inte löser** — "provanställning regler
+   arbetsgivare". Riskhanteringsvinkeln på felrekrytering (LAS sex månader), och
+   varför provanställning inte ersätter bra urval (kostnaderna har redan uppstått).
+5. **Rekryteringsbudget för bolag som växer** — skrivs sist, smalast publik.
+
+Runt pillaren behövs också:
+- **Felrekryteringskalkylatorn** (interaktiv komponent på pillarsidan: ange månadslön
+  → få kostnadsuppskattning per post). Länkmagnet + GEO-utdrag; byggs när ekrarna 1-2
+  är ute så klustret har massa. Använder samma antaganden som pillarens räkneexempel.
+- Interlinking: pillaren blir hubb (länkar alla ekrar i löptext), varje eker länkar
+  pillaren + närmaste syskon + InsiktCTA. Inga länkar till kandidatverktyg.
+- Uppföljning: GSC-filter på /for-rekryterare/insikter/ efter ~3 veckor; ekrarna 4-5
+  skrivs bara om klustret visar impressions eller registreringar kommer.
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
