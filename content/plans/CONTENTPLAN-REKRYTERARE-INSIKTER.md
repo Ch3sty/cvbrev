@@ -153,6 +153,52 @@ Runt pillaren behövs också:
   "testresultat kandidaten kan se" väntar till nästa våg.
 - Uppföljning: samma GSC-filter, ekrarna utvärderas med P1-klustret.
 
+## P3-klustret runt "Kompetensbaserad rekrytering" (planerat 2026-07-24)
+
+Pillaren är live (kompetensbaserad-rekrytering). Metodpelaren: säljer anonym-först-
+designen utan att sälja. Källäget researchat och verifierat 2026-07-24. Ekrarna i
+prioritetsordning, varje äger EN sökintention:
+
+1. **Kravprofilen: så skrivs en som styr hela processen** — intentionen
+   "kravprofil". Skallkrav/kärnkompetenser/meriterande, beteendedefinitioner,
+   drömkandidat-fällan, onödiga krav som indirekt diskriminering (DO-vinkeln:
+   körkort, "flytande svenska"). Checklista/mall som JSX-tabell. Skrivs FÖRST,
+   störst kommersiell sökvolym och styr resten av kedjan.
+2. **Anonymiserad rekrytering: vad forskningen visar, och var den slutar verka** —
+   "anonym rekrytering"/"avidentifierade ansökningar". Källbelagt: Carlsson &
+   Rooth 2007 (svenskklingande namn ~50-55 % fler callbacks), Åslund & Nordström
+   Skans/IFAU (Göteborgsförsöket: fler intervjuer för kvinnor + utomvästlig
+   bakgrund, MEN effekten kan ätas upp i intervjusteget), Delmi 2024:14.
+   Ärlighetsvinkeln är vårt vapen mot TNG: anonymisering är steg 1, inte
+   lösningen, därför måste hela kedjan vara strukturerad. Produktbrygga:
+   anonym-först-poolen.
+3. **Annonsspråk som breddar kandidatfältet** — "skriva jobbannons"/"inkluderande
+   jobbannons". Gaucher/Friesen/Kay 2011 (könskodade ord, JPSP), kravlistor som
+   avskräcker selektivt, före/efter-exempel. Interaktiv ANNONSGRANSKARE i
+   artikeln: klistra in annonstext → flaggar könskodade ord (svensk ordlista ur
+   Gaucher-appendixet) + räknar krav + varnar för exkluderare.
+4. **Bias-fällorna i urvalet, och strukturen som stänger dem** — "bias
+   rekrytering"/"omedveten fördom rekrytering". Halo, likhetsbias, konfirmering,
+   kontrast; varför bias-utbildning ensam inte räcker; varje fälla mappad mot
+   strukturen som stänger den (kravprofil, anonymisering, strukturerad intervju,
+   oberoende bedömning). Knyter ihop hela klustret.
+
+Runt pillaren behövs också:
+- **Processkollen** (interaktiv komponent på pillarsidan): 8-10 ja/nej-frågor om
+  den egna processen → poäng + var läckorna sitter, mappat mot pillarens steg.
+  Lead-magnet i samma klass som simulatorn och kalkylatorn.
+- Interlinking: pillaren hubb (länkar alla ekrar i löptext), ekrarna länkar
+  pillaren + närmaste syskon + P2-klustret där naturligt (strukturerad intervju,
+  percentiler). Aldrig kandidatverktyg.
+- Konkurrenslägen: TNG äger "fördomsfri rekrytering" brett men säljer tjänst och
+  Tengai-AI, tunt på namngiven forskning per påstående och utan gör-själv-djup.
+  Vi vinner på: namngivna svenska källor (IFAU, Carlsson & Rooth, Delmi, DO),
+  ärliga nyanser (Göteborgsförsökets gränser), interaktiva verktyg, smalare
+  skärning. Teamtailor har bredd utan djup.
+- Kvar i P3-kön till senare våg: en-artikel-per-stor-bias vid behov,
+  kompetensbaserad intervjuteknik (delvis täckt av P2:s strukturerad-intervju-
+  och-test, skrivs bara med tydligt skild skärning).
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
