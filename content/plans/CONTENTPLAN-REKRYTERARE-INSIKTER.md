@@ -199,6 +199,48 @@ Runt pillaren behövs också:
   kompetensbaserad intervjuteknik (delvis täckt av P2:s strukturerad-intervju-
   och-test, skrivs bara med tydligt skild skärning).
 
+## P4-klustret runt "Hitta kandidater/sourcing" (planerat 2026-07-24)
+
+Pillaren är live (hitta-kandidater-sourcing). Närmast produkten, konverterar
+direkt. Källäget researchat och verifierat 2026-07-24. Pillaren äger redan
+passiva kandidater-matematiken och kanalrangordningen, ekrarna skär per
+sökintention utan att kannibalisera:
+
+1. **Kandidatdatabas: så väljer och använder ni en utan att slösa tid** —
+   intentionen "kandidatdatabas"/"cv-databas". Kommersiell intent, närmast
+   konvertering, skrivs FÖRST. Utvärderingsfrågorna (verifierat innehåll,
+   villkorsfilter, kandidatens eget samtycke), sökteknik (kompetens före titel),
+   IMY-kraven på rekryteringssystem/kompetensdatabaser. Direkt produktbrygga.
+2. **Uppsökande rekrytering: meddelanden som får svar** — "uppsökande
+   rekrytering"/"kontakta kandidater". Hantverket på djupet med LinkedIns egna
+   data (under 400 tecken ger ~22 % bättre svarsfrekvens, individuellt skickade
+   ~15 % högre, benchmarks 10-25 %), meddelandestruktur, kadens, före/efter-
+   exempel. Interaktiv MEDDELANDEGRANSKARE (syskon till Annonsgranskaren):
+   klistra in utkast → längd, personaliseringssignaler, substanskoll
+   (villkor/uppgifter/nästa steg), spamfraser ("spännande möjlighet").
+3. **Bygga egen kandidatpool: från avslagna slutkandidater till pipeline** —
+   "kandidatpool"/"talent pool". Bygga kontra köpa, IMY-reglerna källbelagda
+   (2 års lagring pga diskrimineringslagen, aktivt samtycke för framtida
+   rekryteringar), återkontaktskadens, varför de flesta kombinerar egen pool
+   med extern under uppbyggnaden.
+4. **Medarbetartips: strukturen som gör kanalen träffsäker** — "medarbetartips"/
+   "referral rekrytering". Burks m.fl. (QJE 2015, 9 företag): tipsade
+   medarbetare 10-30 % lägre avhopp, oftare anställda och accepterar oftare.
+   Svenskt Näringslivs rekryteringsvägsdata (informella kontakter mest använda,
+   84 % nöjda). Homofili-varningen (tipsnätverk speglar befintlig personal),
+   programdesign: snabb återkoppling slår bonusstorlek.
+
+Runt pillaren behövs också:
+- **Sourcingtratten** (interaktiv komponent på pillarsidan): ange antal
+  anställningar att göra + kanalkvalitet → förväntat antal kontakter, svar,
+  intervjuer som krävs, med svarsfrekvensspann ur benchmarkdatan. Vänder också
+  åt andra hållet: "en anställning kräver ~N riktade kontakter".
+- Interlinking: pillaren hubb, ekrarna länkar pillaren + syskon + P5:s
+  gdpr-rekrytering (samtyckesfrågorna) + P3:s kompetensbaserad (urvalet efter
+  sourcingen). Aldrig kandidatverktyg.
+- Bristyrkes-ekrarna (vård, logistik, teknik) väntar enligt plan tills poolen
+  har volym att matcha mot.
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
