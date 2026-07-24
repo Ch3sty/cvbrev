@@ -13,6 +13,8 @@ import InsiktCTA from '@/components/mdx/InsiktCTA'
 import FelrekryteringsKalkylator from '@/components/mdx/FelrekryteringsKalkylator'
 import TraffsakerhetsSimulator from '@/components/mdx/TraffsakerhetsSimulator'
 import PercentilUtforskare from '@/components/mdx/PercentilUtforskare'
+import AnnonsGranskare from '@/components/mdx/AnnonsGranskare'
+import Processkollen from '@/components/mdx/Processkollen'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -52,6 +54,8 @@ const components = {
   FelrekryteringsKalkylator,
   TraffsakerhetsSimulator,
   PercentilUtforskare,
+  AnnonsGranskare,
+  Processkollen,
 }
 
 export default async function InsiktPage({ params }: Props) {
