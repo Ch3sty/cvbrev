@@ -241,6 +241,63 @@ Runt pillaren behövs också:
 - Bristyrkes-ekrarna (vård, logistik, teknik) väntar enligt plan tills poolen
   har volym att matcha mot.
 
+## P5-klustret runt "GDPR i rekryteringen" (planerat 2026-07-24)
+
+Pillaren är live (gdpr-rekrytering). Förtroendepelaren: låg sökvolym, hög
+auktoritet, evergreen, citeras och länkas. Källäget researchat och verifierat
+2026-07-24, med två färska krokar: AI-förordningens högriskkrav börjar gälla
+2 AUGUSTI 2026 (om drygt en vecka!) och lagen om utökade registerkontroller i
+kommuner trädde i kraft 1 mars 2026. Ekrarna i prioritetsordning:
+
+1. **EU:s AI-förordning för rekryterare: kraven som gäller nu** — intentionen
+   "ai-förordningen rekrytering"/"ai act rekrytering". Skrivs FÖRST, deadline-
+   kroken 2 aug 2026 ger både nyhetsvärde och evergreen. Innehåll källbelagt:
+   rekrytering = högrisk (bilaga III), deployer-skyldigheterna i art 26
+   (mänsklig kontroll med kompetens, loggar, övervakning, informera anställda
+   och kandidater), förbuden sedan feb 2025 (känsloanalys av kandidater,
+   social scoring) + AI-kunskapskravet. Vinkel: checklista per skyldighet,
+   och frågorna att ställa sin leverantör. Vår produktdesign som exempel på
+   följsamhet (människa äger beslut, personlighet aldrig filter).
+2. **Bakgrundskontroller: vad som faktiskt är tillåtet 2026** —
+   "bakgrundskontroll anställning"/"belastningsregister arbetsgivare".
+   Rättsläget är i rörelse och ingen konkurrent är aktuell: huvudregeln
+   (registerutdrag bara med lagstöd; visa upp eget begränsat utdrag, endast
+   anteckna att det visats, max 6 månader gammalt), lagreglerade områden,
+   NYTT: utökade registerkontroller i kommuner (i kraft 1 mars 2026) och
+   skolväsendet, bred statlig utredning presenteras 2027, kreditupplysning
+   bara vid ekonomiskt ansvar. Interaktiv BAKGRUNDSKOLLEN i artikeln: välj
+   kontrolltyp (registerutdrag, kreditupplysning, sociala medier, drogtest,
+   hälsofrågor, misstankeregister) → tillåtet/gråzon/otillåtet + motivering.
+3. **Referenstagning: rätt, fel och gråzon** — "referenstagning"/
+   "referenstagning frågor". Strukturvinkeln (samma kompetensförankrade
+   frågor till alla referenser, ankarskala även här, länk P2) + juridiken
+   (berättigat intresse, kandidaten ska veta vilka som kontaktas,
+   referenssvar är personuppgifter, dokumentation och gallring) + gråzonerna
+   (bakvägsreferenser utanför kandidatens lista, känsliga uppgifter som
+   framkommer, gamla chefer med agenda).
+4. **Diskrimineringslagen i urvalet: vad som prövas när någon frågar** —
+   "diskriminering rekrytering". Delad bevisbörda (6 kap 3 §), kandidatens
+   rätt till skriftlig meritsammanställning (2 kap 4 §), aktiva åtgärder
+   (3 kap), DO:s årsrapporter: rekrytering bland vanligaste anmälnings-
+   områdena. Vinkeln: dokumenterad struktur är försvaret, knyter P2+P3
+   (ankarskalor, kravprofil, anonymisering) till juridiken. Klustrets
+   sammanbindare.
+
+Runt pillaren behövs också:
+- **Gallringskollen** (interaktiv komponent på pillarsidan): välj uppgiftstyp
+  (ansökan, intervjuanteckningar, testresultat, referensanteckningar,
+  poolprofil med samtycke, registerutdrag) → hur länge den får sparas, på
+  vilken grund, och vad som gäller vid gallring. IMY-belagd, praktisk,
+  citerbar.
+- Interlinking: pillaren hubb, ekrarna länkar pillaren + syskon + P2/P3 där
+  strukturen är försvaret. AI-ekern länkar personlighet-i-urval och
+  kognitiva-tester-pillaren (högrisk-resonemangen finns redan där).
+- Ton-vakt: juridiskt innehåll ska vara exakt utan att bli juristprosa,
+  varje regel med praktisk konsekvens. Källor: riksdagen/lagtext, IMY, DO,
+  advokatbyråernas analyser (Delphi, Lindahl, Fondia) som sekundärstöd.
+- Kvar i P5-kön till senare våg: arbetsrättsliga gråzoner vid provanställning
+  (delvis P1), visselblåsarlagen i rekryteringskontext vid behov.
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
