@@ -15,6 +15,8 @@ import TraffsakerhetsSimulator from '@/components/mdx/TraffsakerhetsSimulator'
 import PercentilUtforskare from '@/components/mdx/PercentilUtforskare'
 import AnnonsGranskare from '@/components/mdx/AnnonsGranskare'
 import Processkollen from '@/components/mdx/Processkollen'
+import SourcingTratt from '@/components/mdx/SourcingTratt'
+import MeddelandeGranskare from '@/components/mdx/MeddelandeGranskare'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -56,6 +58,8 @@ const components = {
   PercentilUtforskare,
   AnnonsGranskare,
   Processkollen,
+  SourcingTratt,
+  MeddelandeGranskare,
 }
 
 export default async function InsiktPage({ params }: Props) {
