@@ -298,6 +298,82 @@ Runt pillaren behövs också:
 - Kvar i P5-kön till senare våg: arbetsrättsliga gråzoner vid provanställning
   (delvis P1), visselblåsarlagen i rekryteringskontext vid behov.
 
+## P6-klustret runt "Lönetransparensdirektivet" (planerat 2026-07-25)
+
+Pillaren är live (lonetransparensdirektivet-rekrytering). Datapelaren, men det här
+delklustret kräver INGEN egen pooldata: det är regelverks- och forskningsekrar som
+går att källbelägga nu. Datastudierna (logiktestprestanda, villkorsdata, årsrapport)
+väntar fortsatt på poolvolym enligt vågplanen. Källäget researchat och verifierat
+2026-07-25: direktivartiklarna direkt mot EUR-Lex (2023/970), DO:s sidor om
+lönekartläggning och de kommande reglerna, Jobblands undersökningar, HBR/Cornell
+feb 2026, Sinha 2022. Konkurrentläget: HR-systembloggarna (Azets, Agda, EY, SRF)
+skrev "gäller 1 juli 2026"-guider som blev fel efter stoppet i mars — hela klustret
+ärver pillarens aktualitetsförsprång. Ekrarna i prioritetsordning:
+
+1. **Lönespann i jobbannonsen: vad som händer med ansökningarna** — intentionen
+   "lön i jobbannons"/"lönespann annons". Skrivs FÖRST, störst volym och närmast
+   rekryterarens vardagsbeslut. Källbelagt: Jobblands Arbetsliv-enkät 2022
+   (n=1006: 57 % vill se lönen i annonsen, 65 % mer benägna att söka, kvinnor
+   63 % mot knappt hälften av männen) mot Nationell rekryteringsundersökning
+   2023 (n=1010: bara 31 % av rekryterare vill ange spann) — gapet är kroken.
+   HBR feb 2026 (Lee/Chang, Cornell + Park, Sungkyunkwan): BREDA spann
+   avskräcker särskilt kvinnor, kontextmening om hur lönen sätts mildrar;
+   USA-utvecklingen (Indeed: ~60 % av annonserna har löneinfo, från 18 % 2020).
+   Direktivets art 5.1 (info i god tid, "såsom i en offentliggjord
+   platsannons"). Praktik: så sätts ett försvarbart spann (lönestruktur +
+   kartläggningen), spannbreddsregeln, invändningarna ärligt bemötta (interna
+   löner, förhandlingsläge). Länk till P3:s skriva-jobbannons + P4:s
+   uppsokande-rekrytering (löneinfo höjer svarsfrekvens).
+2. **Lönerapporteringen: trösklarna, datumen och 5-procentsregeln** —
+   "lönetransparensdirektivet rapportering"/"lönerapport anställda".
+   Källbelagt mot direktivtexten: art 9 (250+ årligen från 7 juni 2027,
+   150-249 vart tredje år från 2027, 100-149 vart tredje år från 2031),
+   art 10 (gemensam lönebedömning vid ≥5 % oförklarad skillnad som inte
+   åtgärdats inom sex månader), samverkan med arbetstagarorganisationer.
+   Svenska läget: vad trösklarna betyder när nationell lag saknas,
+   riskresonemanget från pillaren i kortform. Rekryteringsvinkeln:
+   rapporteringen gör osakliga ingångslöner till en synlig siffra —
+   varje rekrytering är en rad i nästa rapport.
+3. **Lönekartläggning: kravet som redan gäller, och vad rekryteringen får
+   gratis** — "lönekartläggning"/"lönekartläggning krav". DO-källbelagt:
+   alla arbetsgivare årligen, analysen (lika arbete, likvärdigt arbete
+   utifrån kunskap/färdigheter/ansvar/ansträngning, kvinnodominerade
+   grupper >60 %), dokumentationskrav från 10 anställda, DO:s uppdrag att
+   stärka kartläggningsarbetet efter stoppet. VÅR skärning mot
+   HR-systembloggarnas processguider: rekryteringsnyttan — en levande
+   kartläggning gör spannsättning per roll trivial och är försvaret i
+   likalönetvister. Aktiva åtgärder-koppling till P5:s
+   diskrimineringslagen-eker.
+4. **Lönehistorikfrågan: förbudet som kommer, och vad ni frågar i stället** —
+   "fråga om lön intervju"/"lönehistorik"/"löneanspråk". Art 5.2 källbelagd,
+   forskningen: Sinha 2022 (amerikanska delstatsförbuden minskade
+   könslönegapet ~2 procentenheter, drivet av kvinnors löner; strategisk
+   upplysning som mekanism), cementeringslogiken. Praktik: ersättningsfrågorna
+   (rollens värde enligt strukturen + kandidatens förväntan), hur svaret
+   hanteras GDPR-mässigt (länk P5). Produktbrygga: poolens löneförväntningar
+   som matchningsfilter som aldrig exponeras — transparensens rätta form.
+
+Runt pillaren behövs också:
+- **Transparenskollen** (interaktiv komponent på pillarsidan): välj
+  arbetsgivartyp (offentlig/privat) + storlek (under 100, 100-149, 150-249,
+  250+) → tre block: vad som bör behandlas som gällande redan nu (direkt
+  effekt-varningen för offentlig sektor, direktivkonform tolkning för alla),
+  var man hamnar i rapporteringstrappan när lagen kommer (datum + intervall
+  ur art 9), och att göra-listan (pillarens fyra råd). Verdikt-mekanik i
+  samma stil som Bakgrundskollen/Gallringskollen. Ingen konkurrent har ett
+  verktyg som är aktuellt efter stoppet.
+- Interlinking: pillaren hubb (länkar alla ekrar i löptext), ekrarna länkar
+  pillaren + närmaste syskon + InsiktCTA. Annons-ekern länkar P3/P4 enligt
+  ovan, kartläggnings-ekern P5:s diskrimineringslag, historik-ekern P5:s
+  gdpr. Aldrig kandidatverktyg.
+- Ärlighetsräcken: inga egna lönesiffror eller påhittad statistik (ingen
+  pooldata förrän P6-datastudierna), spannkalkylator struken av samma skäl.
+  Juridiken hålls exakt: direktivkrav är inte svensk lag ännu, skriv aldrig
+  som om de gällde.
+- Revideringsvakt: när Sverige återupptar genomförandet (proposition) ska
+  hela klustret + Transparenskollen uppdateras samma vecka — bevaka
+  regeringen.se via GSC-rutinen.
+
 ## Produktionsstandard (ärver kandidatstandarden, med avvikelser)
 
 - Samma tekniska standard: seoTitle ≤60, description 110-158, FAQ med schema,
