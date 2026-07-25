@@ -19,6 +19,7 @@ import SourcingTratt from '@/components/mdx/SourcingTratt'
 import MeddelandeGranskare from '@/components/mdx/MeddelandeGranskare'
 import GallringsKollen from '@/components/mdx/GallringsKollen'
 import BakgrundsKollen from '@/components/mdx/BakgrundsKollen'
+import Transparenskollen from '@/components/mdx/Transparenskollen'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -64,6 +65,7 @@ const components = {
   MeddelandeGranskare,
   GallringsKollen,
   BakgrundsKollen,
+  Transparenskollen,
 }
 
 export default async function InsiktPage({ params }: Props) {
