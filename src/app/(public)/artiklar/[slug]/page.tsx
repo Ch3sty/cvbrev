@@ -13,6 +13,8 @@ import { extractHeadingsFromContent, filterH2Headings } from '@/lib/extractHeadi
 import CustomImage from '@/components/mdx/Image';
 import FAQContainer from '@/components/mdx/FAQContainer';
 import FAQItem from '@/components/mdx/FAQItem';
+import UppsagningstidRaknare from '@/components/rakna/UppsagningstidRaknare';
+import LoneforhandlingsKalkylator from '@/components/rakna/LoneforhandlingsKalkylator';
 import PersonligtBrevExample from '@/components/mdx/PersonligtBrevExample';
 import PersonligtBrevExampleLarare from '@/components/mdx/PersonligtBrevExampleLarare';
 import PersonligtBrevExampleBarnskotare from '@/components/mdx/PersonligtBrevExampleBarnskotare';
@@ -322,6 +324,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         FAQItem: FAQItem,
         CustomImage: CustomImage,
         Link: Link,
+        UppsagningstidRaknare: UppsagningstidRaknare,
+        LoneforhandlingsKalkylator: LoneforhandlingsKalkylator,
         // Lägg till konverteringskomponenter som kan användas i MDX
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,

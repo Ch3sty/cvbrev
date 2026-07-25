@@ -78,6 +78,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/rakna-ut`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    ...[
+      'lon-efter-skatt',
+      'uppsagningstid',
+      'semesterersattning',
+      'timlon-till-manadslon',
+      'loneforhandling',
+      'vad-kostar-en-anstalld',
+      'felrekrytering',
+      'sourcing',
+      'traffsakerhet',
+    ].map((slug) => ({
+      url: `${baseUrl}/rakna-ut/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    {
       url: `${baseUrl}/om-oss`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
