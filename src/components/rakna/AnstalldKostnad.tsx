@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { DelaRad, byggUrl, lasQuery, useQuerySynk } from './dela'
 
 /**
  * Vad kostar en anställd 2026. Arbetsgivaravgift 31,42 % (20,81 % på lönedelar
@@ -30,6 +31,16 @@ export default function AnstalldKostnad() {
   const [avtal, setAvtal] = useState(true)
   const [dagar, setDagar] = useState('25')
 
+  useEffect(() => {
+    const q = lasQuery()
+    const qLon = q.get('lon')
+    if (qLon && /^\d+$/.test(qLon)) setLon(qLon)
+    const qDagar = q.get('dagar')
+    if (qDagar && /^\d+$/.test(qDagar)) setDagar(qDagar)
+    if (q.get('ung') === '1') setUng(true)
+    if (q.get('avtal') === '0') setAvtal(false)
+  }, [])
+
   const lonNum = Math.max(0, parseInt(lon.replace(/\s/g, ''), 10) || 0)
   const dagarNum = Math.max(0, parseInt(dagar, 10) || 0)
 
@@ -45,6 +56,17 @@ export default function AnstalldKostnad() {
   const forsakringar = avtal ? lonNum * FORSAKRINGAR : 0
 
   const total = lonebas + aga + pension + slp + forsakringar
+
+  const delParams = {
+    lon: String(lonNum),
+    dagar: dagarNum !== 25 ? String(dagarNum) : null,
+    ung: ung ? '1' : null,
+    avtal: avtal ? null : '0',
+  }
+  useQuerySynk(delParams)
+  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld', delParams)
+  const resultatText = `En anställd med ${fmt.format(lonNum)} kr/mån kostar totalt ${fmt.format(total)} kr/mån (${fmt.format(total * 12)} kr/år) 2026, inklusive arbetsgivaravgift${avtal ? ', ITP1 och särskild löneskatt' : ''}. Räkna själv: ${delUrl}`
+
   const rader: [string, number][] = [
     ['Bruttolön', lonNum],
     ['Semestertillägg (utslaget per månad)', semestertillagg],
@@ -128,6 +150,8 @@ export default function AnstalldKostnad() {
           </div>
         </div>
       </div>
+
+      <DelaRad delUrl={delUrl} resultatText={resultatText} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Direkta lönekostnader. Utrustning, lokalyta, utbildning och

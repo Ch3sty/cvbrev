@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { DelaRad, byggUrl, lasQuery, useQuerySynk } from './dela'
 
 /**
  * Vad en löneförhandling är värd över tid. Jämför löneutvecklingen med och
@@ -27,6 +28,16 @@ export default function LoneforhandlingsKalkylator() {
   const [hojning, setHojning] = useState('2000')
   const [revision, setRevision] = useState('2,5')
 
+  useEffect(() => {
+    const q = lasQuery()
+    const qLon = q.get('lon')
+    if (qLon && /^\d+$/.test(qLon)) setLon(qLon)
+    const qHojning = q.get('hojning')
+    if (qHojning && /^\d+$/.test(qHojning)) setHojning(qHojning)
+    const qRev = q.get('rev')
+    if (qRev && /^[\d,.]+$/.test(qRev)) setRevision(qRev)
+  }, [])
+
   const lonNum = Math.max(0, parseInt(lon.replace(/\s/g, ''), 10) || 0)
   const hojningNum = Math.max(0, parseInt(hojning.replace(/\s/g, ''), 10) || 0)
   const revisionNum = Math.max(0, parseFloat(revision.replace(',', '.')) || 0) / 100
@@ -35,6 +46,15 @@ export default function LoneforhandlingsKalkylator() {
     `Efter ${ar} år`,
     ackumulerat(lonNum, hojningNum, revisionNum, ar),
   ])
+
+  const delParams = {
+    lon: String(lonNum),
+    hojning: String(hojningNum),
+    rev: revision !== '2,5' ? revision : null,
+  }
+  useQuerySynk(delParams)
+  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/loneforhandling', delParams)
+  const resultatText = `${fmt.format(hojningNum)} kr mer i månaden i löneförhandlingen är värt +${fmt.format(perioder[1][1])} kr över tio år, när varje revision räknas på den högre lönen. Räkna själv: ${delUrl}`
 
   return (
     <div className="not-prose my-8 rounded-2xl border border-orange-200 bg-gradient-to-b from-orange-50/70 to-white p-6 sm:p-8">
@@ -99,6 +119,8 @@ export default function LoneforhandlingsKalkylator() {
           lön i dag är också en högre pensionsinbetalning varje månad framåt.
         </p>
       </div>
+
+      <DelaRad delUrl={delUrl} resultatText={resultatText} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Beloppen är före skatt och bygger på dina egna antaganden om revision.

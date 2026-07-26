@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import kommunerData from '@/data/kommunalskatt-2026.json'
 import tabellerData from '@/data/skattetabeller-2026.json'
+import { DelaRad, byggUrl, lasQuery, useQuerySynk } from './dela'
 
 /**
  * Lön efter skatt 2026. Bygger på Skatteverkets skattetabeller för månadslön
@@ -73,6 +74,23 @@ export default function LonEfterSkatt() {
   const [lon2, setLon2] = useState('38000')
   const [kommunIdx2, setKommunIdx2] = useState(() => KOMMUNER.findIndex((k) => k.namn === 'Stockholm'))
 
+  useEffect(() => {
+    const q = lasQuery()
+    const hittaKommun = (namn: string | null) =>
+      namn ? KOMMUNER.findIndex((k) => k.namn.toLowerCase() === namn.toLowerCase()) : -1
+    const qLon = q.get('lon')
+    if (qLon && /^\d+$/.test(qLon)) setLon(qLon)
+    const ki = hittaKommun(q.get('kommun'))
+    if (ki >= 0) setKommunIdx(ki)
+    if (q.get('kyrka') === '1') setMedlem(true)
+    if (q.get('a66') === '1') setOver66(true)
+    const qLon2 = q.get('jlon')
+    const ki2 = hittaKommun(q.get('jkommun'))
+    if (qLon2 || ki2 >= 0) setJamfor(true)
+    if (qLon2 && /^\d+$/.test(qLon2)) setLon2(qLon2)
+    if (ki2 >= 0) setKommunIdx2(ki2)
+  }, [])
+
   const lonNum = Math.max(0, parseInt(lon.replace(/\s/g, ''), 10) || 0)
   const kommun = KOMMUNER[kommunIdx]
   const tab = tabellNr(kommun, medlem)
@@ -84,6 +102,21 @@ export default function LonEfterSkatt() {
   const tab2 = tabellNr(kommun2, medlem)
   const skatt2 = raknaSkatt(lon2Num, tab2, over66)
   const netto2 = lon2Num - skatt2
+
+  const delParams = {
+    lon: String(lonNum),
+    kommun: kommun.namn,
+    kyrka: medlem ? '1' : null,
+    a66: over66 ? '1' : null,
+    jlon: jamfor ? String(lon2Num) : null,
+    jkommun: jamfor ? kommun2.namn : null,
+  }
+  useQuerySynk(delParams)
+  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt', delParams)
+  const diff = netto2 - netto
+  const resultatText = jamfor
+    ? `${fmt.format(lonNum)} kr/mån i ${kommun.namn} ger ${fmt.format(netto)} kr efter skatt, ${fmt.format(lon2Num)} kr i ${kommun2.namn} ger ${fmt.format(netto2)} kr. Skillnad: ${diff >= 0 ? '+' : ''}${fmt.format(diff)} kr/mån. Räknat med Skatteverkets skattetabeller 2026: ${delUrl}`
+    : `${fmt.format(lonNum)} kr/mån i ${kommun.namn} ger ${fmt.format(netto)} kr efter skatt (skattetabell ${tab}, 2026). Räkna själv: ${delUrl}`
 
   return (
     <div className="not-prose my-8 rounded-2xl border border-orange-200 bg-gradient-to-b from-orange-50/70 to-white p-6 sm:p-8">
@@ -192,6 +225,8 @@ export default function LonEfterSkatt() {
           </div>
         </div>
       )}
+
+      <DelaRad delUrl={delUrl} resultatText={resultatText} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Preliminärskatt enligt Skatteverkets skattetabeller för månadslön 2026.

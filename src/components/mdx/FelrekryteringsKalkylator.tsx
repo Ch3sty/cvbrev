@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { DelaRad, byggUrl, lasQuery, useQuerySynk } from '@/components/rakna/dela'
 
 /**
  * Interaktiv felrekryteringskalkylator för insikten "Vad kostar en
@@ -23,6 +24,14 @@ export default function FelrekryteringsKalkylator() {
   const [manadslon, setManadslon] = useState(40_000)
   const [manader, setManader] = useState(10)
 
+  useEffect(() => {
+    const q = lasQuery()
+    const qLon = parseInt(q.get('lon') ?? '', 10)
+    if (qLon >= 25_000 && qLon <= 90_000) setManadslon(qLon)
+    const qMan = parseInt(q.get('man') ?? '', 10)
+    if (qMan >= 4 && qMan <= 18) setManader(qMan)
+  }, [])
+
   const lonefaktor = manadslon / BAS_LON
   const arbetsgivarkostnad = manadslon * ARBETSGIVARFAKTOR
 
@@ -30,6 +39,11 @@ export default function FelrekryteringsKalkylator() {
   const produktionsbortfall = BAS_PRODUKTIONSBORTFALL * lonefaktor * (manader / 10)
   const omrekrytering = BAS_OMREKRYTERING * lonefaktor
   const total = DIREKTA_KOSTNADER + improduktivLon + produktionsbortfall + omrekrytering
+
+  const delParams = { lon: String(manadslon), man: String(manader) }
+  useQuerySynk(delParams)
+  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/felrekrytering', delParams)
+  const resultatText = `En felrekrytering på ${kr(manadslon)} i månadslön som avslutas efter ${manader} månader kostar uppskattningsvis ${kr(total)}. Räkna på er egen: ${delUrl}`
 
   const poster = [
     { label: 'Direkta kostnader (annons, tester, intern tid)', varde: DIREKTA_KOSTNADER },
@@ -124,6 +138,8 @@ export default function FelrekryteringsKalkylator() {
           {kr(total)}
         </span>
       </div>
+
+      <DelaRad delUrl={delUrl} resultatText={resultatText} />
 
       <p className="text-xs text-slate-500 mt-4 mb-0">
         Modellen är en förenkling: arbetsgivarkostnad ca 1,42 gånger bruttolönen,
