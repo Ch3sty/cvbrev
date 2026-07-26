@@ -68,6 +68,7 @@ const INSPIRATION_LANKAR = [
   { label: 'CV-mallar för olika yrken', href: '/cv-mallar' },
   { label: 'Alla artiklar', href: '/artiklar' },
   { label: 'Alla exempel och mallar', href: '/exempel' },
+  { label: 'Räkna ut: gratis kalkylatorer', href: '/rakna-ut' },
 ]
 
 const FORETAG_LANKAR = [
