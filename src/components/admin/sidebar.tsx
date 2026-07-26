@@ -14,8 +14,6 @@ import {
   ChevronLeft,
   LogOut,
   Database, // Ikon för underhåll
-  Search, // Ny ikon för SEO
-  TrendingUp, // Ytterligare ikon för analytics
   DollarSign, // Ikon för modellpriser
   BookOpen, // Ikon för AI Documents
   Filter, // Ikon för Konvertering/Funnel
@@ -44,8 +42,6 @@ export default function AdminSidebar() {
     { path: '/admin/cvs', label: 'CV:n', icon: <File className="w-5 h-5" /> },
     { path: '/admin/ai-documents', label: 'AI Dokument', icon: <BookOpen className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
-    { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> },
-    { path: '/admin/analytics', label: 'Analytics', icon: <TrendingUp className="w-5 h-5" /> },
     { path: '/admin/pricing', label: 'Modellpriser', icon: <DollarSign className="w-5 h-5" /> },
     { path: '/admin/maintenance', label: 'Underhåll', icon: <Database className="w-5 h-5" /> },
   ];
@@ -66,13 +62,13 @@ export default function AdminSidebar() {
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!collapsed && (
           <div className="text-xl font-bold">
-            <span className="text-gray-900">Jobb</span>
-            <span className="text-pink-600">coach</span>
-            <span className="ml-2 px-2 py-0.5 bg-pink-600 text-white text-xs rounded font-semibold">ADMIN</span>
+            <span className="text-slate-900">Jobb</span>
+            <span className="text-orange-600">coach</span>
+            <span className="ml-2 px-2 py-0.5 bg-orange-600 text-white text-xs rounded font-semibold">ADMIN</span>
           </div>
         )}
 
-        {collapsed && <span className="text-pink-600 text-2xl font-bold mx-auto">A</span>}
+        {collapsed && <span className="text-orange-600 text-2xl font-bold mx-auto">A</span>}
 
         <button
           onClick={() => setCollapsed(!collapsed)}
@@ -92,8 +88,8 @@ export default function AdminSidebar() {
                 className={`
                   flex items-center px-3 py-2.5 rounded-lg transition-colors
                   ${pathname === item.path
-                    ? 'bg-pink-50 text-pink-600 font-medium'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-orange-50 text-orange-700 font-medium'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                   }
                   ${collapsed ? 'justify-center' : ''}
                 `}

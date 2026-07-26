@@ -221,14 +221,16 @@ export default function AdminUsersPage() {
             saved_cvs_count,
             bli_upptackt_status
           `)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .limit(5000);
 
         if (usersError) throw usersError;
 
         // Fetch additional data not in view (stripe info + email verification)
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, stripe_customer_id, subscription_status, email_verified_at');
+          .select('id, stripe_customer_id, subscription_status, email_verified_at')
+          .limit(5000);
 
         if (profilesError) throw profilesError;
 
@@ -306,8 +308,8 @@ export default function AdminUsersPage() {
     if (field !== sortField) return <ChevronDown className="w-4 h-4 text-gray-400 opacity-50" />;
 
     return sortDirection === 'asc'
-      ? <ChevronUp className="w-4 h-4 text-pink-600" />
-      : <ChevronDown className="w-4 h-4 text-pink-600" />;
+      ? <ChevronUp className="w-4 h-4 text-orange-600" />
+      : <ChevronDown className="w-4 h-4 text-orange-600" />;
   };
 
   const getPremiumSourceBadge = (user: User) => {
@@ -784,7 +786,7 @@ export default function AdminUsersPage() {
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
-          <FileText className="absolute right-2 top-2 w-8 h-8 text-pink-300" />
+          <FileText className="absolute right-2 top-2 w-8 h-8 text-orange-300" />
           <div className="text-2xl font-bold text-gray-900">{totalStats.totalLettersGenerated}</div>
           <div className="text-sm text-gray-600">Genererade brev</div>
           <div className="text-xs text-gray-500 mt-1">
@@ -843,14 +845,14 @@ export default function AdminUsersPage() {
               placeholder="Sök namn/e-post..."
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
           </div>
 
           <select
             value={subscriptionFilter || ''}
             onChange={(e) => { setSubscriptionFilter(e.target.value || null); setCurrentPage(1); }}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           >
             <option value="">Alla typer</option>
             <option value="free">Gratis</option>
@@ -864,7 +866,7 @@ export default function AdminUsersPage() {
           <select
             value={poolFilter || ''}
             onChange={(e) => { setPoolFilter(e.target.value || null); setCurrentPage(1); }}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           >
             <option value="">Bli upptäckt: alla</option>
             <option value="aktiv">Aktiv i poolen (anonym + öppen)</option>
@@ -875,6 +877,13 @@ export default function AdminUsersPage() {
           </select>
         </div>
       </div>
+
+      {users.length >= 5000 && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-lg px-4 py-3">
+          Visar de 5 000 senaste användarna. Sök och filter gäller bara dessa,
+          dags att flytta pagineringen till servern.
+        </div>
+      )}
 
       {error && !showActionModal && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r" role="alert">
@@ -888,7 +897,7 @@ export default function AdminUsersPage() {
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
+              <div className="w-12 h-12 border-t-2 border-b-2 border-orange-500 rounded-full animate-spin mb-4"></div>
               <p className="text-gray-600">Laddar användare...</p>
             </div>
           </div>
@@ -896,7 +905,7 @@ export default function AdminUsersPage() {
           <>
             {/* BULK ACTION-BAR */}
             {selectedUserIds.size > 0 && (
-              <div className="mb-3 sticky top-0 z-20 bg-white border border-pink-200 rounded-lg shadow-md overflow-hidden">
+              <div className="mb-3 sticky top-0 z-20 bg-white border border-orange-200 rounded-lg shadow-md overflow-hidden">
                 {/* Status-rad */}
                 {bulkMessage && (
                   <div
@@ -913,7 +922,7 @@ export default function AdminUsersPage() {
                 <div className="px-4 py-3 flex flex-col lg:flex-row lg:items-center gap-3">
                   {/* Vänster: antal valda */}
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className="px-3 py-1 rounded-full bg-pink-100 text-pink-800 text-sm font-bold tabular-nums">
+                    <div className="px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-sm font-bold tabular-nums">
                       {selectedUserIds.size} valda
                     </div>
                     <button
@@ -1038,7 +1047,7 @@ export default function AdminUsersPage() {
                     >
                       <input
                         type="checkbox"
-                        className="rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+                        className="rounded border-gray-300 text-orange-600 focus:ring-orange-500 cursor-pointer"
                         checked={
                           getCurrentPageUsers().length > 0 &&
                           getCurrentPageUsers().every(u => selectedUserIds.has(u.id))
@@ -1248,13 +1257,13 @@ export default function AdminUsersPage() {
                       <tr
                         key={user.id}
                         className={`hover:bg-gray-50 transition-colors group ${
-                          selectedUserIds.has(user.id) ? 'bg-pink-50/40' : ''
+                          selectedUserIds.has(user.id) ? 'bg-orange-50/40' : ''
                         }`}
                       >
                         <td className="px-3 py-4 whitespace-nowrap text-center">
                           <input
                             type="checkbox"
-                            className="rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+                            className="rounded border-gray-300 text-orange-600 focus:ring-orange-500 cursor-pointer"
                             checked={selectedUserIds.has(user.id)}
                             onChange={() => toggleUserSelection(user.id)}
                           />
@@ -1293,7 +1302,7 @@ export default function AdminUsersPage() {
                         </td>
                         {/* PRIMARY: Användningsstatistik */}
                         <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                          <span className={user.letters_generated_count > 0 ? 'font-medium text-pink-600' : 'text-gray-400'}>
+                          <span className={user.letters_generated_count > 0 ? 'font-medium text-orange-600' : 'text-gray-400'}>
                             {user.letters_generated_count}
                           </span>
                         </td>
@@ -1353,7 +1362,7 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
                             onClick={() => showUserActions(user)}
-                            className="text-gray-400 hover:text-pink-600 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors"
+                            className="text-gray-400 hover:text-orange-600 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
                           >
                             <MoreHorizontal className="w-5 h-5" />
                           </button>
@@ -1472,7 +1481,7 @@ export default function AdminUsersPage() {
 
                 <div className="text-gray-600 font-medium">Genererade brev:</div>
                 <div className="text-gray-900">
-                  <span className={selectedUser.letters_generated_count > 0 ? 'font-medium text-pink-600' : ''}>
+                  <span className={selectedUser.letters_generated_count > 0 ? 'font-medium text-orange-600' : ''}>
                     {selectedUser.letters_generated_count}
                   </span>
                 </div>

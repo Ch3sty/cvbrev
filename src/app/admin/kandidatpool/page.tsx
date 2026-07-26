@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { Radar, Users, Handshake, MapPin, AlertCircle } from 'lucide-react';
+import { Users, Handshake, MapPin, AlertCircle } from 'lucide-react';
 
 /**
  * Adminvy över kandidatpoolen (Bli upptäckt): KPI:er, intresseflödet och
@@ -90,20 +90,21 @@ export default function AdminKandidatpoolPage() {
       setIsLoading(true);
       setError(null);
       try {
-        const { data: poolData, error: poolError } = await supabase
-          .from('admin_candidate_pool')
-          .select('*')
-          .order('updated_at', { ascending: false });
-        if (poolError) throw poolError;
-        setProfiler(poolData || []);
-
-        const { data: intresseData, error: intresseError } = await supabase
-          .from('admin_candidate_interests')
-          .select('id, created_at, responded_at, status, rekryterare_foretag, rekryterare_namn, kandidat_epost, kandidat_lage')
-          .order('created_at', { ascending: false })
-          .limit(100);
-        if (intresseError) throw intresseError;
-        setIntressen(intresseData || []);
+        const [poolRes, intresseRes] = await Promise.all([
+          supabase
+            .from('admin_candidate_pool')
+            .select('*')
+            .order('updated_at', { ascending: false }),
+          supabase
+            .from('admin_candidate_interests')
+            .select('id, created_at, responded_at, status, rekryterare_foretag, rekryterare_namn, kandidat_epost, kandidat_lage')
+            .order('created_at', { ascending: false })
+            .limit(100),
+        ]);
+        if (poolRes.error) throw poolRes.error;
+        if (intresseRes.error) throw intresseRes.error;
+        setProfiler(poolRes.data || []);
+        setIntressen(intresseRes.data || []);
       } catch (err: unknown) {
         console.error('Fel vid hämtning av kandidatpoolen:', err);
         setError(err instanceof Error ? err.message : 'Ett fel uppstod vid hämtning');
@@ -121,10 +122,12 @@ export default function AdminKandidatpoolPage() {
     const nya7 = profiler.filter((p) => nu - new Date(p.created_at).getTime() <= 7 * dag).length;
     const nya30 = profiler.filter((p) => nu - new Date(p.created_at).getTime() <= 30 * dag).length;
 
-    const skickade = intressen.length;
-    const accepterade = intressen.filter((i) => i.status === 'accepted').length;
-    const avbojda = intressen.filter((i) => i.status === 'declined').length;
-    const vantande = intressen.filter((i) => i.status === 'pending').length;
+    // Totalerna summeras från poolvyns exakta räknare per kandidat,
+    // inte från det 100-begränsade flödet (som annars underskattar).
+    const skickade = profiler.reduce((sum, p) => sum + p.intressen_totalt, 0);
+    const accepterade = profiler.reduce((sum, p) => sum + p.intressen_accepterade, 0);
+    const avbojda = profiler.reduce((sum, p) => sum + p.intressen_avbojda, 0);
+    const vantande = profiler.reduce((sum, p) => sum + p.intressen_vantande, 0);
 
     const svarstider = intressen
       .filter((i) => i.responded_at)
@@ -162,23 +165,17 @@ export default function AdminKandidatpoolPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin" />
+        <div className="w-12 h-12 border-t-2 border-b-2 border-orange-500 rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <Radar className="w-6 h-6 text-indigo-500" />
-          Kandidatpoolen (Bli upptäckt)
-        </h1>
-        <p className="text-gray-600 mt-1">
-          Utbudssidan av marknadsplatsen: vilka som gjort sig synliga, deras villkor
-          och hur intresseflödet mot rekryterarna rör sig.
-        </p>
-      </div>
+      <p className="text-sm text-slate-500">
+        Utbudssidan av marknadsplatsen: vilka som gjort sig synliga, deras villkor
+        och hur intresseflödet mot rekryterarna rör sig.
+      </p>
 
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r flex items-start gap-2" role="alert">
@@ -204,7 +201,7 @@ export default function AdminKandidatpoolPage() {
           rubrik="Intressen"
           varde={String(stats.skickade)}
           detalj={`${stats.accepterade} accepterade · ${stats.vantande} väntar · ${stats.avbojda} avböjda${
-            stats.medianSvarstid !== null ? ` · svarstid ~${stats.medianSvarstid.toFixed(1)} dgr` : ''
+            stats.medianSvarstid !== null ? ` · svarstid ~${stats.medianSvarstid.toFixed(1)} dgr (senaste 100)` : ''
           }`}
         />
       </div>
@@ -236,7 +233,7 @@ export default function AdminKandidatpoolPage() {
                 {profiler.map((p) => (
                   <tr key={p.user_id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <Link href={`/admin/users/${p.user_id}`} className="text-pink-600 hover:text-pink-700 font-medium">
+                      <Link href={`/admin/users/${p.user_id}`} className="text-orange-600 hover:text-orange-700 font-medium">
                         {p.full_name || p.email}
                       </Link>
                       {p.full_name && <div className="text-xs text-gray-500">{p.email}</div>}
@@ -356,7 +353,7 @@ export default function AdminKandidatpoolPage() {
                   <span className="w-40 shrink-0 text-sm text-gray-700 truncate">{typ}</span>
                   <div className="flex-1 h-2 rounded bg-gray-100 overflow-hidden">
                     <div
-                      className="h-full bg-pink-400"
+                      className="h-full bg-orange-400"
                       style={{ width: `${(antal / Math.max(1, stats.aktiva)) * 100}%` }}
                     />
                   </div>

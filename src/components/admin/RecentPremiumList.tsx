@@ -93,7 +93,7 @@ export default function RecentPremiumList({ users, isLoading }: RecentPremiumLis
         <h3 className="text-lg font-semibold text-gray-900">Senaste premium-konverteringar</h3>
         <Link
           href="/admin/users?filter=premium"
-          className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-1"
+          className="text-sm text-orange-600 hover:text-orange-700 flex items-center gap-1"
         >
           Visa alla
           <ChevronRight className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function RecentPremiumList({ users, isLoading }: RecentPremiumLis
             href={`/admin/users/${user.id}`}
             className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors group"
           >
-            <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-700 font-medium flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-medium flex-shrink-0">
               {user.full_name
                 ? user.full_name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
                 : user.email.charAt(0).toUpperCase()}

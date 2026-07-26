@@ -180,13 +180,13 @@ SELECT cron.schedule(
 
 
   return (
-    <div className="p-6 space-y-8 bg-gray-900 min-h-screen text-gray-100">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Databasunderhåll</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Databasunderhåll</h1>
         <button
           onClick={() => fetchDatabaseStats()} // Anropa fetch funktionen direkt
           disabled={statsLoading}
-          className={`flex items-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md transition-colors duration-150 ${statsLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`flex items-center bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-md transition-colors duration-150 ${statsLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${statsLoading ? 'animate-spin' : ''}`} />
           {statsLoading ? 'Laddar...' : 'Uppdatera statistik'}
@@ -226,15 +226,15 @@ SELECT cron.schedule(
           const Icon = icons[key];
 
           return (
-             <div key={key} className="bg-gray-800 rounded-lg p-4 border border-gray-700 shadow-md">
+             <div key={key} className="bg-white rounded-lg p-4 border border-slate-200 shadow-md">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-gray-400 text-sm">{labels[key]}</h3>
+                <h3 className="text-slate-500 text-sm">{labels[key]}</h3>
                 <Icon className={`${colors[key]} w-5 h-5`} />
               </div>
               {statsLoading ? (
-                <div className="animate-pulse h-8 bg-gray-700 rounded w-16"></div>
+                <div className="animate-pulse h-8 bg-white rounded w-16"></div>
               ) : (
-                <p className="text-2xl font-bold text-white">{stats ? stats[key] ?? '?' : '?'}</p>
+                <p className="text-2xl font-bold text-slate-900">{stats ? stats[key] ?? '?' : '?'}</p>
               )}
             </div>
           );
@@ -242,22 +242,22 @@ SELECT cron.schedule(
       </div>
 
       {/* Rensa aktiviteter */}
-      <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 shadow-md">
-        <h2 className="text-lg font-semibold mb-4 flex items-center text-white">
+      <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-md">
+        <h2 className="text-lg font-semibold mb-4 flex items-center text-slate-900">
           <Trash className="mr-2 text-pink-500" />
           Rensa gamla aktivitetsloggar
         </h2>
 
         <div className="mb-6 space-y-4">
-          <p className="text-gray-300">
+          <p className="text-slate-600">
             Denna funktion raderar permanenta aktivitetsloggar äldre än det angivna antalet dagar via en säker API-endpoint.
             Aktivitetsloggar används för att spåra användarinteraktioner och felsökning, men kan bli
             väldigt stora över tid. Rensning bör göras med försiktighet.
           </p>
 
           <div className="flex items-center flex-wrap gap-2">
-            <Clock className="text-gray-400 mr-1" />
-            <label htmlFor="days-input" className="mr-2 text-white">Radera data äldre än:</label>
+            <Clock className="text-slate-500 mr-1" />
+            <label htmlFor="days-input" className="mr-2 text-slate-700">Radera data äldre än:</label>
             <input
               id="days-input"
               type="number"
@@ -266,10 +266,10 @@ SELECT cron.schedule(
               value={days === 0 ? '' : days} // Visa tom sträng om 0
               onChange={handleDaysChange}
               onBlur={handleDaysBlur} // Hantera återställning vid blur
-              className="bg-gray-700 border border-gray-600 rounded px-3 py-1 w-20 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="bg-white border border-slate-300 rounded px-3 py-1 w-20 text-slate-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none"
               aria-describedby="days-description"
             />
-            <span className="text-white" id="days-description">dagar</span>
+            <span className="text-slate-700" id="days-description">dagar</span>
           </div>
 
           <div className="flex items-start space-x-2 bg-yellow-900/20 border-l-4 border-yellow-500 p-3 rounded-r">
@@ -282,7 +282,7 @@ SELECT cron.schedule(
                 All aktivitetsdata äldre än {days || '?'} dagar kommer att raderas permanent från databasen.
                 Detta går inte att ångra. Säkerställ att du valt rätt antal dagar.
               </p>
-              <p className="text-gray-400 text-sm mt-1">
+              <p className="text-slate-500 text-sm mt-1">
                 Detta påverkar inte sparade brev eller CV:n, endast aktivitetsloggar (`user_activities`).
               </p>
             </div>
@@ -290,9 +290,9 @@ SELECT cron.schedule(
 
           {/* Visar info eller varning baserat på antal gamla aktiviteter */}
            {statsLoading ? (
-             <div className="animate-pulse h-10 bg-gray-700 rounded w-full"></div>
+             <div className="animate-pulse h-10 bg-white rounded w-full"></div>
            ) : stats && stats.oldActivities > 0 ? (
-              <div className="flex items-start space-x-2 bg-blue-900/20 border-l-4 border-blue-500 p-3 rounded-r">
+              <div className="flex items-start space-x-2 bg-orange-50 border-l-4 border-orange-500 p-3 rounded-r">
                 <InfoIcon className="text-blue-400 mr-2 mt-1 flex-shrink-0" />
                 <p className="text-blue-200 text-sm">
                   {stats.oldActivities} {stats.oldActivities === 1 ? 'aktivitet' : 'aktiviteter'} äldre än {days || '?'} dagar kommer att rensas.
@@ -314,7 +314,7 @@ SELECT cron.schedule(
             disabled={isLoading || statsLoading || !stats || stats.oldActivities === 0 || days < 1} // Ytterligare disable-villkor
             className={`flex items-center px-4 py-2 rounded-md font-medium transition-colors duration-150 ${
               isLoading || statsLoading || !stats || stats.oldActivities === 0 || days < 1
-                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                ? 'bg-gray-600 text-slate-500 cursor-not-allowed'
                 : 'bg-red-600 hover:bg-red-700 text-white'
             }`}
           >
@@ -333,7 +333,7 @@ SELECT cron.schedule(
 
           <button
             onClick={() => setResult(null)}
-            className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-white text-slate-600 rounded-md hover:bg-gray-600 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={!result}
           >
             Rensa meddelande
@@ -353,26 +353,26 @@ SELECT cron.schedule(
       </div>
 
       {/* Automatisk rensning info */}
-      <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 shadow-md">
-        <h2 className="text-lg font-semibold mb-4 flex items-center text-white">
-          <Database className="mr-2 text-blue-500" />
+      <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-md">
+        <h2 className="text-lg font-semibold mb-4 flex items-center text-slate-900">
+          <Database className="mr-2 text-orange-500" />
           Automatisk rensning (via Supabase Cron)
         </h2>
 
-        <p className="text-gray-300 mb-4">
+        <p className="text-slate-600 mb-4">
           För att undvika manuell rensning rekommenderas det att konfigurera ett automatiskt Cron-jobb direkt i Supabase
           som periodiskt raderar gamla aktivitetsloggar. Detta säkerställer att databasen inte växer okontrollerat.
         </p>
 
-        <div className="bg-gray-900 p-4 rounded-md border border-gray-700">
-          <h3 className="text-white font-medium mb-2 flex items-center">
+        <div className="bg-slate-50 p-4 rounded-md border border-slate-200">
+          <h3 className="text-slate-900 font-medium mb-2 flex items-center">
             <FileText className="w-4 h-4 mr-2 text-pink-400" />
             Exempel SQL för Cron Jobb (via Supabase SQL Editor):
           </h3>
-          <pre className="bg-black/50 p-3 rounded text-gray-300 text-sm overflow-x-auto custom-scrollbar">
+          <pre className="bg-black/50 p-3 rounded text-slate-600 text-sm overflow-x-auto custom-scrollbar">
             {sqlExample}
           </pre>
-          <p className="text-gray-400 mt-3 text-xs">
+          <p className="text-slate-500 mt-3 text-xs">
             Kör detta SQL-skript i Supabase SQL-editor (under Database -&gt; SQL Editor). Anpassa `retention_days` (antal dagar att behålla) i `cron.schedule`-anropet efter behov. Säkerställ att `pg_cron` är aktiverat.
           </p>
         </div>

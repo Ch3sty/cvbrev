@@ -53,7 +53,7 @@ export default function RecentUsersList({ users, isLoading }: RecentUsersListPro
         <h3 className="text-lg font-semibold text-gray-900">Senaste registrerade användare</h3>
         <Link
           href="/admin/users"
-          className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-1"
+          className="text-sm text-orange-600 hover:text-orange-700 flex items-center gap-1"
         >
           Visa alla
           <ChevronRight className="w-4 h-4" />

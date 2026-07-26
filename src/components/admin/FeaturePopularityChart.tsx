@@ -19,7 +19,7 @@ interface FeaturePopularityChartProps {
 const COLORS: Record<string, string> = {
   'letter_generation': '#3b82f6', // blue-500
   'cv_parsing': '#8b5cf6', // violet-500
-  'cv_improvement': '#ec4899', // pink-500
+  'cv_improvement': '#f97316', // orange-500
   'linkedin_optimization': '#f59e0b', // amber-500
   'group_improvements': '#10b981', // emerald-500
   'cv_analysis': '#6366f1', // indigo-500

@@ -277,7 +277,7 @@ export default function AIDocumentsPage() {
           </div>
           <button
             onClick={() => setShowUploadForm(!showUploadForm)}
-            className="px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 flex items-center gap-2 transition-colors"
+            className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 flex items-center gap-2 transition-colors"
           >
             <Upload className="w-5 h-5" />
             Ladda upp dokument
@@ -329,7 +329,7 @@ export default function AIDocumentsPage() {
                     type="text"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="T.ex. Guide till den svenska arbetsmarknaden"
                     required
                   />
@@ -343,7 +343,7 @@ export default function AIDocumentsPage() {
                     type="text"
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="T.ex. arbetsmarknad, CV-tips, intervju"
                   />
                 </div>
@@ -358,7 +358,7 @@ export default function AIDocumentsPage() {
                     type="date"
                     value={formData.publishedAt}
                     onChange={(e) => setFormData({ ...formData, publishedAt: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -369,7 +369,7 @@ export default function AIDocumentsPage() {
                   id="isPublic"
                   checked={formData.isPublic}
                   onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
-                  className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
+                  className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
                 />
                 <label htmlFor="isPublic" className="text-sm text-gray-700">
                   Publikt dokument (tillgängligt för alla användare)
@@ -396,7 +396,7 @@ export default function AIDocumentsPage() {
                 <textarea
                   value={formData.fileContent}
                   onChange={(e) => setFormData({ ...formData, fileContent: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent font-mono text-sm"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent font-mono text-sm"
                   rows={12}
                   placeholder="Klistra in textinnehållet från ditt dokument här..."
                   required
@@ -410,7 +410,7 @@ export default function AIDocumentsPage() {
                 <button
                   type="submit"
                   disabled={uploadStatus?.status === 'processing'}
-                  className="px-6 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {uploadStatus?.status === 'processing' ? (
                     <>
@@ -488,7 +488,7 @@ export default function AIDocumentsPage() {
                               href={doc.source_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-pink-600 hover:underline"
+                              className="text-orange-600 hover:underline"
                             >
                               {doc.source_url}
                             </a>

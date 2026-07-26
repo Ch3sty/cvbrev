@@ -116,7 +116,7 @@ export default function AdminPricingPage() {
     return (
       <div className="p-8">
         <div className="flex items-center justify-center py-12">
-          <RefreshCw className="w-6 h-6 animate-spin text-blue-500" />
+          <RefreshCw className="w-6 h-6 animate-spin text-orange-500" />
           <span className="ml-2 text-gray-600">Laddar priser...</span>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default function AdminPricingPage() {
                 {syncStatus?.modelCounts.total || 0}
               </h3>
             </div>
-            <Database className="w-8 h-8 text-blue-500" />
+            <Database className="w-8 h-8 text-orange-500" />
           </div>
         </div>
 
@@ -219,7 +219,7 @@ export default function AdminPricingPage() {
           className={`flex items-center px-4 py-2 rounded-md font-medium transition-colors ${
             isSyncing
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-blue-500 text-white hover:bg-blue-600'
+              : 'bg-orange-500 text-white hover:bg-orange-600'
           }`}
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${isSyncing ? 'animate-spin' : ''}`} />
@@ -311,7 +311,7 @@ export default function AdminPricingPage() {
       </div>
 
       {/* Info Box */}
-      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="mt-6 bg-orange-50 border border-blue-200 rounded-lg p-4">
         <h4 className="text-sm font-semibold text-blue-900 mb-2">Om automatisk prissättning</h4>
         <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
           <li>Priser synkas automatiskt från LiteLLM varje 24h</li>

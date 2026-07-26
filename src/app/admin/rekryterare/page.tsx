@@ -212,7 +212,7 @@ export default function AdminRecruitersPage() {
                             <button
                               onClick={() => handleAction(r.userId, 'approve')}
                               disabled={busy}
-                              className="px-3 py-1.5 rounded-lg bg-pink-600 text-white text-xs font-medium hover:bg-pink-700 transition-colors disabled:opacity-50"
+                              className="px-3 py-1.5 rounded-lg bg-orange-600 text-white text-xs font-medium hover:bg-orange-700 transition-colors disabled:opacity-50"
                             >
                               Godkänn
                             </button>

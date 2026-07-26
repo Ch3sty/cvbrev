@@ -22,39 +22,24 @@ export default function AdminLayout({
         const { data: { user } } = await supabase.auth.getUser();
         
         if (!user) {
-          console.log("Ingen användare hittad, omdirigerar till login");
           router.push('/login');
           return;
         }
-        
-        // Mer detaljerad loggning
-        console.log("Användarens ID:", user.id);
-        console.log("Fullständig admin-sökning:", {
-          from: 'admin_users',
-          select: 'role',
-          eq: ['id', user.id],
-          eq2: ['role', 'super_admin']
-        });
-        
-        // Kontrollera om användaren är admin
+
+        // Kontrollera om användaren är admin (super_admin krävs för /admin)
         const { data, error } = await supabase
           .from('admin_users')
           .select('role')
           .eq('id', user.id)
           .eq('role', 'super_admin')
           .single();
-          
-        // Logga resultatet av spörjningen
-        console.log("Admin-kontroll resultat:", { data, error: error?.message, errorCode: error?.code });
-        
+
         if (error || !data) {
-          console.log("Användaren är inte admin, omdirigerar till startsidan");
           setIsAdmin(false);
           router.push('/');
           return;
         }
-        
-        console.log("Användaren är admin, visar admin-gränssnittet");
+
         setIsAdmin(true);
       } catch (error) {
         console.error("Fel vid admin-kontroll:", error);
@@ -71,7 +56,7 @@ export default function AdminLayout({
     return (
       <div className="flex h-screen items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
+          <div className="w-12 h-12 border-t-2 border-b-2 border-orange-500 rounded-full animate-spin mb-4"></div>
           <p className="text-gray-700">Kontrollerar behörighet...</p>
         </div>
       </div>

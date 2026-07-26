@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback, type JSX } from 'react';
+import { USD_TO_SEK } from '@/lib/admin/currency';
+import { useState, useEffect, type JSX } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
-  FileText, Clock, Search, ChevronDown, Eye, MoreHorizontal, Filter,
-  RefreshCw, CreditCard, AlertTriangle, Check, Bot, Scale, Building2,
-  Sparkles, Lightbulb, Trophy, TrendingUp, DollarSign
+  FileText, Clock, Search, ChevronDown, ChevronLeft, ChevronRight, Eye,
+  MoreHorizontal, RefreshCw, CreditCard, AlertTriangle, Check, Bot, Scale,
+  Building2, Sparkles, Lightbulb, Trophy
 } from 'lucide-react';
 import LetterGenerationChart from '@/components/admin/charts/LetterGenerationChart';
 import LetterCostChart from '@/components/admin/charts/LetterCostChart';
@@ -23,22 +24,18 @@ interface Letter {
   is_saved: boolean;
   tonality: string;
   language: string;
-  content: string;
   ai_model?: string | null;
   ai_tokens?: number | null;
   ai_cost?: number | null;
   generation_time_ms?: number | null;
-  metadata?: {
-    cost?: number | null;
-    model?: string;
-    tokens?: number;
-  } | null;
 }
+
+const PAGE_SIZE = 25;
 
 const TonalityIcon = ({ tonality }: { tonality: string }) => {
   const icons: { [key: string]: JSX.Element } = {
     professional: <Building2 className="w-4 h-4 text-blue-500" />,
-    enthusiastic: <Sparkles className="w-4 h-4 text-pink-500" />,
+    enthusiastic: <Sparkles className="w-4 h-4 text-orange-500" />,
     creative: <Lightbulb className="w-4 h-4 text-yellow-500" />,
     confident: <Trophy className="w-4 h-4 text-amber-500" />,
     balanced: <Scale className="w-4 h-4 text-emerald-500" />,
@@ -49,14 +46,16 @@ const TonalityIcon = ({ tonality }: { tonality: string }) => {
 
 const formatCost = (cost: number | null | undefined): string => {
   if (cost === null || cost === undefined) return '-';
-  const costInSEK = cost * 10.5;
+  const costInSEK = cost * USD_TO_SEK;
   return costInSEK.toFixed(2) + ' kr';
 };
 
 export default function AdminLettersPage() {
   const [letters, setLetters] = useState<Letter[]>([]);
-  const [filteredLetters, setFilteredLetters] = useState<Letter[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<string>('created_at');
@@ -70,6 +69,8 @@ export default function AdminLettersPage() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewContent, setPreviewContent] = useState<string | null>(null);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const [letterGrowthData, setLetterGrowthData] = useState<any[]>([]);
   const [costData, setCostData] = useState<any[]>([]);
   const [openAICosts, setOpenAICosts] = useState<any>(null);
@@ -80,19 +81,28 @@ export default function AdminLettersPage() {
     totalCost: 0,
     averageCost: 0,
     svLetters: 0,
-    enLetters: 0,
-    actualCost: 0
+    enLetters: 0
   });
 
   const supabase = getSupabaseClient();
 
-  const calculateGraphData = (lettersData: Letter[]) => {
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+
+  const getCutoffISO = (days: number): string | null => {
+    if (days === 9999) return null;
+    const d = new Date();
+    d.setDate(d.getDate() - days);
+    d.setHours(0, 0, 0, 0);
+    return d.toISOString();
+  };
+
+  // Bygger grafunderlag från lätta rader (endast created_at + ai_cost)
+  const calculateGraphData = (rows: { created_at: string; ai_cost: number | null }[]) => {
     const now = new Date();
     const startDate = new Date();
     if (dateRange === 9999) {
-      if (lettersData.length > 0) {
-        const oldestDate = new Date(lettersData[lettersData.length - 1].created_at);
-        startDate.setTime(oldestDate.getTime());
+      if (rows.length > 0) {
+        startDate.setTime(new Date(rows[0].created_at).getTime());
       } else {
         startDate.setDate(now.getDate() - 30);
       }
@@ -113,22 +123,20 @@ export default function AdminLettersPage() {
       });
     }
 
-    let totalCount = 0;
-    let cumulativeCost = 0;
-
-    lettersData.forEach(letter => {
-      const letterDate = new Date(letter.created_at);
-      if (letterDate >= startDate) {
-        const dateStr = letterDate.toISOString().split('T')[0];
+    rows.forEach(row => {
+      const rowDate = new Date(row.created_at);
+      if (rowDate >= startDate) {
+        const dateStr = rowDate.toISOString().split('T')[0];
         const data = dataMap.get(dateStr);
         if (data) {
           data.new_letters++;
-          const cost = letter.ai_cost || letter.metadata?.cost || 0;
-          data.daily_cost_usd += cost;
+          data.daily_cost_usd += row.ai_cost || 0;
         }
       }
     });
 
+    let totalCount = 0;
+    let cumulativeCost = 0;
     const sortedDates = Array.from(dataMap.keys()).sort();
     sortedDates.forEach(dateStr => {
       const data = dataMap.get(dateStr)!;
@@ -149,9 +157,9 @@ export default function AdminLettersPage() {
       return {
         date,
         daily_cost_usd: data.daily_cost_usd,
-        daily_cost_sek: data.daily_cost_usd * 10.5,
+        daily_cost_sek: data.daily_cost_usd * USD_TO_SEK,
         cumulative_cost_usd: data.cumulative_cost_usd,
-        cumulative_cost_sek: data.cumulative_cost_usd * 10.5
+        cumulative_cost_sek: data.cumulative_cost_usd * USD_TO_SEK
       };
     });
 
@@ -159,17 +167,44 @@ export default function AdminLettersPage() {
     setCostData(costChartData);
   };
 
+  // Hämtar en sida med brev, utan brevens innehållstext
   const fetchLetters = async () => {
     setIsLoading(true);
+    setError(null);
     try {
-      const { data: lettersData, error: lettersError } = await supabase
+      const from = (currentPage - 1) * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+
+      let query = supabase
         .from('letters')
-        .select(`*, profiles!fk_letters_user_id (id, email, full_name)`)
-        .order('created_at', { ascending: false });
+        .select(
+          'id, user_id, title, company, job_title, created_at, updated_at, is_saved, tonality, language, ai_model, ai_tokens, ai_cost, generation_time_ms, profiles!fk_letters_user_id (id, email, full_name)',
+          { count: 'exact' }
+        );
+
+      if (filters.saved !== 'all') {
+        query = query.eq('is_saved', filters.saved === 'saved');
+      }
+      if (filters.language !== 'all') {
+        query = query.eq('language', filters.language);
+      }
+      if (filters.tonality !== 'all') {
+        query = query.eq('tonality', filters.tonality);
+      }
+
+      // full_name ligger i joinad tabell och kan inte sorteras serversidigt,
+      // den sorteringen görs på den hämtade sidan nedan
+      const orderColumn = sortField === 'cost'
+        ? 'ai_cost'
+        : (sortField === 'title' || sortField === 'created_at' ? sortField : 'created_at');
+
+      const { data: lettersData, error: lettersError, count } = await query
+        .order(orderColumn, { ascending: sortDirection === 'asc' })
+        .range(from, to);
 
       if (lettersError) throw new Error('Kunde inte hämta brevdata');
 
-      const transformedData = (lettersData || []).map((letter: any) => ({
+      let transformedData: Letter[] = (lettersData || []).map((letter: any) => ({
         id: letter.id,
         user_id: letter.user_id,
         email: letter.profiles?.email || 'Okänd e-post',
@@ -182,23 +217,75 @@ export default function AdminLettersPage() {
         is_saved: letter.is_saved || false,
         tonality: letter.tonality || 'balanced',
         language: letter.language || 'sv',
-        content: letter.content || '',
         ai_model: letter.ai_model || null,
         ai_tokens: letter.ai_tokens || null,
         ai_cost: letter.ai_cost || null,
-        generation_time_ms: letter.generation_time_ms || null,
-        metadata: {
-          cost: letter.ai_cost || null,
-          model: letter.ai_model || 'unknown',
-          tokens: letter.ai_tokens || null
-        }
+        generation_time_ms: letter.generation_time_ms || null
       }));
 
+      if (sortField === 'full_name') {
+        transformedData = [...transformedData].sort((a, b) => {
+          const nameA = a.full_name || '';
+          const nameB = b.full_name || '';
+          return sortDirection === 'asc'
+            ? nameA.localeCompare(nameB, 'sv')
+            : nameB.localeCompare(nameA, 'sv');
+        });
+      }
+
       setLetters(transformedData);
-      setFilteredLetters(transformedData);
-      calculateStats(transformedData);
-      calculateGraphData(transformedData);
+      setTotalCount(count || 0);
       setLastUpdated(new Date());
+    } catch (err: any) {
+      console.error('Fel vid hämtning av brev:', err);
+      setError(err.message || 'Ett fel uppstod vid hämtning av brev');
+    } finally {
+      setIsLoading(false);
+      setIsInitialLoad(false);
+    }
+  };
+
+  // Statistik och grafer via avgränsade queries, aldrig hela tabellen i minnet
+  const fetchStatsAndGraphs = async () => {
+    try {
+      const cutoff = getCutoffISO(dateRange);
+
+      let graphQuery = supabase
+        .from('letters')
+        .select('created_at, ai_cost')
+        .order('created_at', { ascending: true });
+      if (cutoff) {
+        graphQuery = graphQuery.gte('created_at', cutoff);
+      }
+
+      const [graphRes, totalRes, savedRes, svRes, enRes] = await Promise.all([
+        graphQuery,
+        supabase.from('letters').select('id', { count: 'exact', head: true }),
+        supabase.from('letters').select('id', { count: 'exact', head: true }).eq('is_saved', true),
+        supabase.from('letters').select('id', { count: 'exact', head: true }).eq('language', 'sv'),
+        supabase.from('letters').select('id', { count: 'exact', head: true }).eq('language', 'en')
+      ]);
+
+      const graphRows = (graphRes.data || []) as { created_at: string; ai_cost: number | null }[];
+      calculateGraphData(graphRows);
+
+      let totalCost = 0;
+      let lettersWithCost = 0;
+      graphRows.forEach(row => {
+        if (row.ai_cost !== null && row.ai_cost !== undefined) {
+          totalCost += row.ai_cost;
+          lettersWithCost++;
+        }
+      });
+
+      setStats({
+        totalLetters: totalRes.count || 0,
+        savedLetters: savedRes.count || 0,
+        svLetters: svRes.count || 0,
+        enLetters: enRes.count || 0,
+        totalCost,
+        averageCost: lettersWithCost > 0 ? totalCost / lettersWithCost : 0
+      });
 
       try {
         const response = await fetch(`/api/admin/openai-usage?days=${dateRange}&source=letters`);
@@ -209,75 +296,36 @@ export default function AdminLettersPage() {
       } catch (err) {
         console.error('Could not fetch OpenAI costs:', err);
       }
+    } catch (err) {
+      console.error('Fel vid hämtning av statistik:', err);
+    }
+  };
 
-    } catch (err: any) {
-      console.error('Fel vid hämtning av brev:', err);
-      setError(err.message || 'Ett fel uppstod vid hämtning av brev');
+  // Hämtar brevets text först när förhandsvisningen öppnas
+  const openPreview = async (letter: Letter) => {
+    setSelectedLetter(letter);
+    setIsPreviewOpen(true);
+    setPreviewContent(null);
+    setIsPreviewLoading(true);
+    try {
+      const { data, error: contentError } = await supabase
+        .from('letters')
+        .select('content')
+        .eq('id', letter.id)
+        .single();
+      if (contentError) throw contentError;
+      setPreviewContent(data?.content || '');
+    } catch (err) {
+      console.error('Kunde inte hämta brevinnehåll:', err);
+      setPreviewContent('');
     } finally {
-      setIsLoading(false);
+      setIsPreviewLoading(false);
     }
   };
 
-  const calculateStats = (data: Letter[]) => {
-    if (!data.length) {
-      setStats({
-        totalLetters: 0, savedLetters: 0, totalCost: 0, averageCost: 0,
-        svLetters: 0, enLetters: 0, actualCost: 0
-      });
-      return;
-    }
-
-    const savedLetters = data.filter(letter => letter.is_saved).length;
-    let totalCost = 0;
-    let lettersWithCost = 0;
-
-    data.forEach(letter => {
-      const cost = letter.ai_cost !== null && letter.ai_cost !== undefined
-        ? letter.ai_cost : letter.metadata?.cost;
-      if (cost !== null && cost !== undefined) {
-        totalCost += cost;
-        lettersWithCost++;
-      }
-    });
-
-    const averageCost = lettersWithCost > 0 ? totalCost / lettersWithCost : 0;
-    const actualCost = openAICosts?.data?.totalCost || 0;
-
-    setStats({
-      totalLetters: data.length,
-      savedLetters,
-      totalCost,
-      averageCost,
-      svLetters: data.filter(letter => letter.language === 'sv').length,
-      enLetters: data.filter(letter => letter.language === 'en').length,
-      actualCost
-    });
-  };
-
-  const sortData = (data: Letter[], field: string, direction: 'asc' | 'desc'): Letter[] => {
-    return [...data].sort((a, b) => {
-      if (field === 'cost') {
-        const costA = a.ai_cost ?? a.metadata?.cost ?? 0;
-        const costB = b.ai_cost ?? b.metadata?.cost ?? 0;
-        return direction === 'asc' ? costA - costB : costB - costA;
-      }
-
-      let valA = a[field as keyof Letter];
-      let valB = b[field as keyof Letter];
-
-      if (valA === null || valA === undefined) valA = '';
-      if (valB === null || valB === undefined) valB = '';
-
-      if (field === 'created_at' || field === 'updated_at') {
-        return direction === 'asc'
-          ? new Date(valA as string).getTime() - new Date(valB as string).getTime()
-          : new Date(valB as string).getTime() - new Date(valA as string).getTime();
-      }
-
-      if (valA < valB) return direction === 'asc' ? -1 : 1;
-      if (valA > valB) return direction === 'asc' ? 1 : -1;
-      return 0;
-    });
+  const refreshAll = () => {
+    fetchLetters();
+    fetchStatsAndGraphs();
   };
 
   const updateSorting = (field: string) => {
@@ -287,47 +335,30 @@ export default function AdminLettersPage() {
       setSortField(field);
       setSortDirection('desc');
     }
-  };
-
-  const filterLetters = () => {
-    let result = [...letters];
-
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      result = result.filter(letter =>
-        (letter.title && letter.title.toLowerCase().includes(searchLower)) ||
-        (letter.company && letter.company.toLowerCase().includes(searchLower)) ||
-        (letter.job_title && letter.job_title.toLowerCase().includes(searchLower)) ||
-        (letter.email && letter.email.toLowerCase().includes(searchLower)) ||
-        (letter.full_name && letter.full_name.toLowerCase().includes(searchLower))
-      );
-    }
-
-    if (filters.saved !== 'all') {
-      const isSaved = filters.saved === 'saved';
-      result = result.filter(letter => letter.is_saved === isSaved);
-    }
-
-    if (filters.language !== 'all') {
-      result = result.filter(letter => letter.language === filters.language);
-    }
-
-    if (filters.tonality !== 'all') {
-      result = result.filter(letter => letter.tonality === filters.tonality);
-    }
-
-    return sortData(result, sortField, sortDirection);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
     fetchLetters();
-  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentPage, filters, sortField, sortDirection]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const filtered = filterLetters();
-    setFilteredLetters(filtered);
-    calculateStats(filtered);
-  }, [searchTerm, filters, sortField, sortDirection, letters, openAICosts]); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchStatsAndGraphs();
+  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Sök gäller den hämtade sidan
+  const displayedLetters = searchTerm
+    ? letters.filter(letter => {
+        const searchLower = searchTerm.toLowerCase();
+        return (
+          (letter.title && letter.title.toLowerCase().includes(searchLower)) ||
+          (letter.company && letter.company.toLowerCase().includes(searchLower)) ||
+          (letter.job_title && letter.job_title.toLowerCase().includes(searchLower)) ||
+          (letter.email && letter.email.toLowerCase().includes(searchLower)) ||
+          (letter.full_name && letter.full_name.toLowerCase().includes(searchLower))
+        );
+      })
+    : letters;
 
   const formatTimeAgo = (dateStr: string): string => {
     const date = new Date(dateStr);
@@ -362,11 +393,11 @@ export default function AdminLettersPage() {
     return map[tonality] || tonality;
   };
 
-  if (isLoading) {
+  if (isLoading && isInitialLoad) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-10rem)]">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
+          <div className="w-12 h-12 border-t-2 border-b-2 border-orange-500 rounded-full animate-spin mb-4"></div>
           <p className="text-gray-600">Laddar brev...</p>
         </div>
       </div>
@@ -379,8 +410,8 @@ export default function AdminLettersPage() {
         <h2 className="text-lg font-semibold text-red-900 mb-2">Ett fel uppstod</h2>
         <p className="text-red-700">{error}</p>
         <button
-          onClick={fetchLetters}
-          className="mt-4 px-4 py-2 bg-pink-600 rounded-md text-white hover:bg-pink-700"
+          onClick={refreshAll}
+          className="mt-4 px-4 py-2 bg-orange-600 rounded-md text-white hover:bg-orange-700"
         >
           Försök igen
         </button>
@@ -401,7 +432,7 @@ export default function AdminLettersPage() {
           <select
             value={dateRange}
             onChange={(e) => setDateRange(Number(e.target.value))}
-            className="bg-white border border-gray-200 text-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="bg-white border border-gray-200 text-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             <option value={30}>30 dagar</option>
             <option value={90}>3 månader</option>
@@ -416,8 +447,8 @@ export default function AdminLettersPage() {
               {lastUpdated ? lastUpdated.toLocaleTimeString('sv-SE') : '...'}
             </span>
             <button
-              onClick={fetchLetters}
-              className="ml-2 text-pink-500 hover:text-pink-600"
+              onClick={refreshAll}
+              className="ml-2 text-orange-500 hover:text-orange-600"
               aria-label="Uppdatera data"
             >
               <RefreshCw className="w-4 h-4" />
@@ -454,7 +485,7 @@ export default function AdminLettersPage() {
         </div>
         <div className="bg-white rounded-lg p-4 border border-gray-200">
           <p className="text-xs text-gray-600">Total kostnad (Letters)</p>
-          <h3 className="text-xl font-bold text-gray-900 mt-1">{formatCost(stats.actualCost)}</h3>
+          <h3 className="text-xl font-bold text-gray-900 mt-1">{formatCost(openAICosts?.data?.totalCost || 0)}</h3>
         </div>
         <div className="bg-white rounded-lg p-4 border border-gray-200">
           <p className="text-xs text-gray-600">Tokens totalt</p>
@@ -477,8 +508,8 @@ export default function AdminLettersPage() {
             </div>
             <input
               type="text"
-              placeholder="Sök efter titel, företag eller användare..."
-              className="bg-gray-50 border border-gray-200 text-gray-900 px-10 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-pink-500"
+              placeholder="Sök på denna sida (titel, företag, användare)..."
+              className="bg-gray-50 border border-gray-200 text-gray-900 px-10 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-orange-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -488,7 +519,7 @@ export default function AdminLettersPage() {
             <select
               className="bg-gray-50 border border-gray-200 text-gray-900 px-3 py-2 rounded-md"
               value={filters.saved}
-              onChange={(e) => setFilters({...filters, saved: e.target.value})}
+              onChange={(e) => { setFilters({...filters, saved: e.target.value}); setCurrentPage(1); }}
             >
               <option value="all">Alla brev</option>
               <option value="saved">Sparade brev</option>
@@ -498,7 +529,7 @@ export default function AdminLettersPage() {
             <select
               className="bg-gray-50 border border-gray-200 text-gray-900 px-3 py-2 rounded-md"
               value={filters.language}
-              onChange={(e) => setFilters({...filters, language: e.target.value})}
+              onChange={(e) => { setFilters({...filters, language: e.target.value}); setCurrentPage(1); }}
             >
               <option value="all">Alla språk</option>
               <option value="sv">Svenska</option>
@@ -508,7 +539,7 @@ export default function AdminLettersPage() {
             <select
               className="bg-gray-50 border border-gray-200 text-gray-900 px-3 py-2 rounded-md"
               value={filters.tonality}
-              onChange={(e) => setFilters({...filters, tonality: e.target.value})}
+              onChange={(e) => { setFilters({...filters, tonality: e.target.value}); setCurrentPage(1); }}
             >
               <option value="all">Alla tonaliteter</option>
               <option value="professional">Professionell</option>
@@ -587,7 +618,7 @@ export default function AdminLettersPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredLetters.length === 0 ? (
+              {displayedLetters.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-6 py-10 text-center text-gray-500">
                     <FileText className="w-10 h-10 mx-auto mb-3 text-gray-400" />
@@ -596,12 +627,12 @@ export default function AdminLettersPage() {
                   </td>
                 </tr>
               ) : (
-                filteredLetters.map((letter) => (
+                displayedLetters.map((letter) => (
                   <tr key={letter.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-pink-50">
-                          <FileText className="h-5 w-5 text-pink-500" />
+                        <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-orange-50">
+                          <FileText className="h-5 w-5 text-orange-500" />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{letter.title}</div>
@@ -639,14 +670,14 @@ export default function AdminLettersPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <CreditCard className="h-4 w-4 text-pink-500 mr-1.5" />
+                        <CreditCard className="h-4 w-4 text-orange-500 mr-1.5" />
                         <span className="text-sm text-gray-900">
-                          {letter.ai_cost ? formatCost(letter.ai_cost) : (letter.metadata?.cost ? formatCost(letter.metadata.cost) : '-')}
+                          {letter.ai_cost ? formatCost(letter.ai_cost) : '-'}
                         </span>
                       </div>
-                      {(letter.ai_model || letter.metadata?.model) && (
+                      {letter.ai_model && (
                         <div className="text-xs text-gray-500 mt-1">
-                          {letter.ai_model || letter.metadata?.model} {letter.ai_tokens || letter.metadata?.tokens ? `(${letter.ai_tokens || letter.metadata?.tokens} tokens)` : ''}
+                          {letter.ai_model} {letter.ai_tokens ? `(${letter.ai_tokens} tokens)` : ''}
                         </div>
                       )}
                     </td>
@@ -665,10 +696,7 @@ export default function AdminLettersPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <button
-                        onClick={() => {
-                          setSelectedLetter(letter);
-                          setIsPreviewOpen(true);
-                        }}
+                        onClick={() => openPreview(letter)}
                         className="text-blue-500 hover:text-blue-700 mr-3"
                       >
                         <Eye className="h-5 w-5" />
@@ -683,11 +711,67 @@ export default function AdminLettersPage() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="px-4 py-3 sm:px-6 flex flex-col md:flex-row items-center justify-between border-t border-gray-200 gap-4">
+            <div className="text-sm text-gray-600">
+              Visar <span className="font-medium text-gray-900">{totalCount === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1}</span>
+              {' '}till{' '}
+              <span className="font-medium text-gray-900">{Math.min(currentPage * PAGE_SIZE, totalCount)}</span>
+              {' '}av{' '}
+              <span className="font-medium text-gray-900">{totalCount}</span> brev
+            </div>
+
+            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+                aria-label="Föregående sida"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNum = i + 1;
+                const showPage = pageNum === 1 || pageNum === totalPages || pageNum === currentPage || Math.abs(pageNum - currentPage) <= 1;
+
+                if (showPage) {
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      aria-current={currentPage === pageNum ? 'page' : undefined}
+                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 ${
+                        currentPage === pageNum
+                          ? 'z-10 bg-orange-600 text-white border-orange-500'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                }
+                return null;
+              })}
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+                aria-label="Nästa sida"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </nav>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          Visar {filteredLetters.length} av {letters.length} brev
+          Visar {displayedLetters.length} av {totalCount} brev
         </div>
       </div>
 
@@ -758,8 +842,10 @@ export default function AdminLettersPage() {
 
               <h4 className="text-sm font-medium text-gray-700 mb-2">Brevinnehåll</h4>
               <div className="bg-gray-50 text-gray-800 rounded-md p-6 overflow-auto prose max-w-none">
-                {selectedLetter.content ? (
-                  <div dangerouslySetInnerHTML={{ __html: selectedLetter.content.replace(/\n/g, '<br />') }} />
+                {isPreviewLoading ? (
+                  <p className="text-gray-500 italic">Hämtar innehåll...</p>
+                ) : previewContent ? (
+                  <div dangerouslySetInnerHTML={{ __html: previewContent.replace(/\n/g, '<br />') }} />
                 ) : (
                   <p className="text-gray-500 italic">Innehåll inte tillgängligt</p>
                 )}

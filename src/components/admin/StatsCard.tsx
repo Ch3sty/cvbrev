@@ -22,8 +22,8 @@ export default function StatsCard({
   icon,
   trend,
   subtitle,
-  iconBgColor = 'bg-pink-100',
-  iconColor = 'text-pink-600'
+  iconBgColor = 'bg-orange-100',
+  iconColor = 'text-orange-600'
 }: StatsCardProps) {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">

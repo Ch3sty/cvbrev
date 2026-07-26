@@ -35,15 +35,24 @@ interface TimePoint {
   premium: number;
 }
 
+interface RetentionRad {
+  kohortmanad: string;
+  kohortstorlek: number;
+  manad_offset: number;
+  aktiva: number;
+}
+
 // === Constants ===
 
 const FUNNEL_COLORS = [
   '#3b82f6', // blue-500
   '#8b5cf6', // violet-500
-  '#ec4899', // pink-500
+  '#f97316', // orange-500
   '#f59e0b', // amber-500
   '#10b981', // emerald-500
 ];
+
+const HAMTGRANS = 50000;
 
 const DATE_RANGES = [
   { value: '7', label: '7 dagar' },
@@ -89,6 +98,8 @@ function CustomAreaTooltip({ active, payload, label }: any) {
 export default function FunnelPage() {
   const [funnelData, setFunnelData] = useState<FunnelStage[]>([]);
   const [timeSeriesData, setTimeSeriesData] = useState<TimePoint[]>([]);
+  const [retention, setRetention] = useState<RetentionRad[]>([]);
+  const [trunkerad, setTrunkerad] = useState(false);
   const [dateRange, setDateRange] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -107,12 +118,13 @@ export default function FunnelPage() {
       else if (dateRange === '90') dateFrom = subDays(now, 90);
 
       // Build queries
-      let profilesQuery = supabase.from('profiles').select('id, subscription_tier, created_at').limit(10000);
-      let cvTextsQuery = supabase.from('cv_texts').select('user_id, created_at').limit(10000);
-      let activitiesQuery = supabase.from('user_activities').select('user_id, activity_type, created_at').limit(10000);
-      let lettersQuery = supabase.from('letters').select('user_id, created_at').limit(10000);
-      let downloadsQuery = supabase.from('formatted_cv_downloads').select('user_id, created_at').limit(10000);
-      let analysisJobsQuery = supabase.from('cv_analysis_jobs').select('user_id, created_at, status').eq('status', 'completed').limit(10000);
+      let profilesQuery = supabase.from('profiles').select('id, subscription_tier, created_at').limit(HAMTGRANS);
+      let cvTextsQuery = supabase.from('cv_texts').select('user_id, created_at').limit(HAMTGRANS);
+      let activitiesQuery = supabase.from('user_activities').select('user_id, activity_type, created_at').limit(HAMTGRANS);
+      let lettersQuery = supabase.from('letters').select('user_id, created_at').limit(HAMTGRANS);
+      let downloadsQuery = supabase.from('formatted_cv_downloads').select('user_id, created_at').limit(HAMTGRANS);
+      let analysisJobsQuery = supabase.from('cv_analysis_jobs').select('user_id, created_at, status').eq('status', 'completed').limit(HAMTGRANS);
+      const retentionQuery = supabase.from('admin_retention_cohorts').select('*').order('kohortmanad', { ascending: false });
 
       // Date filter on profiles (who registered in this period)
       if (dateFrom) {
@@ -126,11 +138,19 @@ export default function FunnelPage() {
         { data: activities },
         { data: letters },
         { data: downloads },
-        { data: analysisJobs }
+        { data: analysisJobs },
+        { data: retentionData }
       ] = await Promise.all([
         profilesQuery, cvTextsQuery, activitiesQuery,
-        lettersQuery, downloadsQuery, analysisJobsQuery
+        lettersQuery, downloadsQuery, analysisJobsQuery,
+        retentionQuery
       ]);
+
+      setRetention((retentionData as RetentionRad[]) || []);
+      setTrunkerad(
+        [profiles, cvTexts, activities, letters, downloads, analysisJobs]
+          .some((rader) => (rader?.length || 0) >= HAMTGRANS)
+      );
 
       // Stage 1: Registrerade
       const registeredUsers = new Set(profiles?.map(p => p.id) || []);
@@ -266,7 +286,7 @@ export default function FunnelPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-600" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600" />
       </div>
     );
   }
@@ -288,20 +308,18 @@ export default function FunnelPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
-            <Filter className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">Konverteringstratt</h1>
-            <p className="text-sm text-slate-500">Analysera användarresan från registrering till premium</p>
-          </div>
-        </div>
-
+      {/* Periodval (sidtiteln visas i headern) */}
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-sm text-slate-500">Användarresan från registrering till premium</p>
         <PeriodSelector value={dateRange} onChange={setDateRange} options={DATE_RANGES} />
       </div>
+
+      {trunkerad && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-lg px-4 py-3">
+          Datamängden har nått hämtgränsen ({HAMTGRANS.toLocaleString('sv-SE')} rader per tabell),
+          siffrorna nedan kan vara underskattade. Dags att flytta trattberäkningen till en databasvy.
+        </div>
+      )}
 
       {/* Funnel Stage Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -336,7 +354,7 @@ export default function FunnelPage() {
       {/* Användarresan som flöde (Sankey) — fullbredd */}
       <SectionCard
         title="Användarresan"
-        subtitle="Flöde från registrering till premium — avhopp grenar ut vid varje steg"
+        subtitle="Flöde från registrering till premium, avhopp grenar ut vid varje steg"
         action={
           <div className="text-right">
             <div className="flex items-center justify-end gap-2">
@@ -365,7 +383,7 @@ export default function FunnelPage() {
               <Legend wrapperStyle={{ fontSize: '13px' }} />
               <Area type="monotone" dataKey="registrerade" name="Registrerade" fill="#3b82f6" stroke="#3b82f6" fillOpacity={0.12} strokeWidth={2} />
               <Area type="monotone" dataKey="cv_upload" name="CV-uppladdning" fill="#8b5cf6" stroke="#8b5cf6" fillOpacity={0.12} strokeWidth={2} />
-              <Area type="monotone" dataKey="verktyg" name="Använde verktyg" fill="#ec4899" stroke="#ec4899" fillOpacity={0.12} strokeWidth={2} />
+              <Area type="monotone" dataKey="verktyg" name="Använde verktyg" fill="#f97316" stroke="#f97316" fillOpacity={0.12} strokeWidth={2} />
               <Area type="monotone" dataKey="aterkommande" name="Återkommande" fill="#f59e0b" stroke="#f59e0b" fillOpacity={0.12} strokeWidth={2} />
               <Area type="monotone" dataKey="premium" name="Premium" fill="#10b981" stroke="#10b981" fillOpacity={0.12} strokeWidth={2} />
             </AreaChart>
@@ -375,6 +393,80 @@ export default function FunnelPage() {
             <p>Ingen data tillgänglig för vald period</p>
           </div>
         )}
+      </SectionCard>
+
+      {/* Kohortretention */}
+      <SectionCard
+        title="Kohortretention"
+        subtitle="Andel av varje registreringsmånads användare som varit aktiva månad 0-5 efter registrering"
+        padded={false}
+      >
+        {(() => {
+          const kohorter = [...new Set(retention.map((r) => r.kohortmanad))]
+            .sort((a, b) => (a < b ? 1 : -1))
+            .slice(0, 6);
+          if (kohorter.length === 0) {
+            return <p className="px-5 pb-5 text-sm text-slate-400">Ingen retentiondata än.</p>;
+          }
+          const maxOffset = 5;
+          const cell = (kohort: string, offset: number) => {
+            const rad = retention.find((r) => r.kohortmanad === kohort && r.manad_offset === offset);
+            const storlek = retention.find((r) => r.kohortmanad === kohort)?.kohortstorlek || 0;
+            if (!rad || storlek === 0) return null;
+            return Math.round((rad.aktiva / storlek) * 100);
+          };
+          return (
+            <div className="overflow-x-auto px-5 pb-5">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="text-xs text-slate-500 uppercase">
+                    <th className="text-left py-2 pr-4 font-medium">Kohort</th>
+                    <th className="text-right py-2 pr-4 font-medium">Storlek</th>
+                    {Array.from({ length: maxOffset + 1 }, (_, i) => (
+                      <th key={i} className="text-center py-2 px-2 font-medium">Mån {i}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {kohorter.map((kohort) => {
+                    const storlek = retention.find((r) => r.kohortmanad === kohort)?.kohortstorlek || 0;
+                    return (
+                      <tr key={kohort} className="border-t border-slate-100">
+                        <td className="py-2 pr-4 font-medium text-slate-900 whitespace-nowrap">
+                          {format(new Date(kohort), 'MMM yyyy', { locale: sv })}
+                        </td>
+                        <td className="py-2 pr-4 text-right tabular-nums text-slate-500">{storlek}</td>
+                        {Array.from({ length: maxOffset + 1 }, (_, offset) => {
+                          const pct = cell(kohort, offset);
+                          return (
+                            <td key={offset} className="py-1.5 px-2 text-center">
+                              {pct === null ? (
+                                <span className="text-slate-300">–</span>
+                              ) : (
+                                <span
+                                  className="inline-block min-w-[44px] rounded-md px-2 py-1 text-xs font-semibold tabular-nums"
+                                  style={{
+                                    backgroundColor: `rgba(249, 115, 22, ${Math.max(0.08, (pct / 100) * 0.85)})`,
+                                    color: pct > 45 ? '#ffffff' : '#9a3412',
+                                  }}
+                                >
+                                  {pct}%
+                                </span>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <p className="mt-3 text-xs text-slate-400">
+                Aktiv = minst en registrerad aktivitet den månaden. Mån 0 är registreringsmånaden.
+              </p>
+            </div>
+          );
+        })()}
       </SectionCard>
     </div>
   );

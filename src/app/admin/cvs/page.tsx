@@ -1,25 +1,20 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { 
-  FileText, 
-  Search, 
-  Filter,
-  ChevronDown, 
+import {
+  FileText,
+  Search,
+  ChevronDown,
   ChevronUp,
   ChevronLeft,
   ChevronRight,
   MoreHorizontal,
   Eye,
-  Download,
-  Trash,
-  Calendar,
   User,
   File,
   Clock,
-  RefreshCw,
-  AlertTriangle
+  RefreshCw
 } from 'lucide-react';
 import Link from 'next/link';
 import CVGenerationChart from '@/components/admin/charts/CVGenerationChart';
@@ -30,7 +25,6 @@ interface CVText {
   user_id: string;
   file_name: string;
   original_file_path: string | null;
-  cv_text: string;
   created_at: string;
   updated_at: string;
   email?: string;
@@ -39,43 +33,44 @@ interface CVText {
 
 interface CVStats {
   totalCVs: number;
-  averageLength: number;
   todaysCVs: number;
   thisWeekCVs: number;
+  thisMonthCVs: number;
 }
 
 export default function AdminCVsPage() {
-  // State för CV-listan och filtrering
+  // State för CV-listan (aktuell sida från servern)
   const [cvs, setCVs] = useState<CVText[]>([]);
-  const [filteredCVs, setFilteredCVs] = useState<CVText[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // State för paginering
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  
+  const [pageSize, setPageSize] = useState(25);
+
   // State för sortering
   const [sortField, setSortField] = useState<string>('created_at');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  
+
   // State för filtrering
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState<string>('all'); // 'all', 'today', 'week', 'month'
-  
+
   // State för modal
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [selectedCV, setSelectedCV] = useState<CVText | null>(null);
-  
+  const [previewText, setPreviewText] = useState<string | null>(null);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+
   // State för statistik
   const [stats, setStats] = useState<CVStats>({
     totalCVs: 0,
-    averageLength: 0,
     todaysCVs: 0,
-    thisWeekCVs: 0
+    thisWeekCVs: 0,
+    thisMonthCVs: 0
   });
-  
+
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   // State för graf
@@ -84,90 +79,34 @@ export default function AdminCVsPage() {
 
   const supabase = getSupabaseClient();
 
-  // Funktion för att få filtrerade och sorterade CV:n
-  const getFilteredAndSortedCVs = useCallback((cvList = cvs) => {
-    let result = [...cvList];
-    
-    // Applicera sökning
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      result = result.filter(cv => 
-        (cv.file_name && cv.file_name.toLowerCase().includes(searchLower)) ||
-        (cv.email && cv.email.toLowerCase().includes(searchLower)) ||
-        (cv.full_name && cv.full_name.toLowerCase().includes(searchLower)) ||
-        (cv.cv_text && cv.cv_text.toLowerCase().includes(searchLower))
-      );
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+
+  // Cutoff för datumfilter i tabellen
+  const getDateFilterCutoff = (filter: string): string | null => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    switch (filter) {
+      case 'today':
+        return today.toISOString();
+      case 'week':
+        return new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      case 'month':
+        return new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      default:
+        return null;
     }
-    
-    // Applicera datumfilter
-    if (dateFilter !== 'all') {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  };
 
-      result = result.filter(cv => {
-        const cvDate = new Date(cv.created_at);
-        switch (dateFilter) {
-          case 'today':
-            return cvDate >= today;
-          case 'week':
-            return cvDate >= weekAgo;
-          case 'month':
-            return cvDate >= monthAgo;
-          default:
-            return true;
-        }
-      });
-    }
-    
-    // Applicera sortering
-    result.sort((a, b) => {
-      const valA = sortField === 'cv_length' ? a.cv_text.length :
-                   sortField === 'file_size' ? a.cv_text.length :
-                   a[sortField as keyof CVText];
-      const valB = sortField === 'cv_length' ? b.cv_text.length :
-                   sortField === 'file_size' ? b.cv_text.length :
-                   b[sortField as keyof CVText];
-
-      // Hantera null/undefined-värden
-      if (valA == null && valB == null) return 0;
-      if (valA == null) return sortDirection === 'asc' ? -1 : 1;
-      if (valB == null) return sortDirection === 'asc' ? 1 : -1;
-
-      // Sortera datum
-      if (sortField === 'created_at' || sortField === 'updated_at') {
-         const dateA = new Date(valA as string).getTime();
-         const dateB = new Date(valB as string).getTime();
-         return sortDirection === 'asc' ? dateA - dateB : dateB - dateA;
-      }
-
-      // Sortera strängar och nummer
-      if (typeof valA === 'string' && typeof valB === 'string') {
-        return sortDirection === 'asc' 
-          ? valA.localeCompare(valB)
-          : valB.localeCompare(valA);
-      }
-      
-      return sortDirection === 'asc'
-        ? (valA as number) - (valB as number)
-        : (valB as number) - (valA as number);
-    });
-    
-    return result;
-  }, [cvs, searchTerm, dateFilter, sortField, sortDirection]);
-
-  // Funktion för att beräkna graf-data
-  const calculateGraphData = useCallback((cvsData: CVText[]) => {
+  // Funktion för att beräkna graf-data från lätta rader (endast created_at)
+  const calculateGraphData = (rows: { created_at: string }[]) => {
     const now = new Date();
     const startDate = new Date();
 
     // Bestäm startdatum baserat på dateRange
     if (dateRange === 9999) {
-      // "Från början" - använd äldsta CV:ts datum
-      if (cvsData.length > 0) {
-        const oldestDate = new Date(cvsData[cvsData.length - 1].created_at);
-        startDate.setTime(oldestDate.getTime());
+      // "Från början" - använd äldsta CV:ts datum (raderna hämtas stigande)
+      if (rows.length > 0) {
+        startDate.setTime(new Date(rows[0].created_at).getTime());
       } else {
         startDate.setDate(now.getDate() - 30);
       }
@@ -188,8 +127,8 @@ export default function AdminCVsPage() {
     }
 
     // Räkna nya CV:n per dag
-    cvsData.forEach(cv => {
-      const cvDate = new Date(cv.created_at);
+    rows.forEach(row => {
+      const cvDate = new Date(row.created_at);
       if (cvDate >= startDate) {
         const dateStr = cvDate.toISOString().split('T')[0];
         const data = dataMap.get(dateStr);
@@ -200,13 +139,13 @@ export default function AdminCVsPage() {
     });
 
     // Beräkna kumulativ summa
-    let totalCount = 0;
+    let totalRunning = 0;
     const sortedDates = Array.from(dataMap.keys()).sort();
 
     sortedDates.forEach(dateStr => {
       const data = dataMap.get(dateStr)!;
-      totalCount += data.new_cvs;
-      data.total_cvs = totalCount;
+      totalRunning += data.new_cvs;
+      data.total_cvs = totalRunning;
     });
 
     // Skapa graf-data
@@ -217,52 +156,71 @@ export default function AdminCVsPage() {
     }));
 
     setCvGrowthData(growthData);
-  }, [dateRange]);
+  };
 
-  // Hämta CV:n från databasen
+  // Hämta en sida med CV:n, utan cv_text
   useEffect(() => {
     async function fetchCVs() {
       setIsLoading(true);
       setError(null);
-      
+
       try {
-        // Hämta CV:n med användarprofiler
-        const { data: cvsData, error: cvsError } = await supabase
+        const from = (currentPage - 1) * pageSize;
+        const to = from + pageSize - 1;
+
+        let query = supabase
           .from('cv_texts')
-          .select(`
-            *,
-            profiles!fk_cv_texts_user_id (
-              id,
-              email,
-              full_name
-            )
-          `)
-          .order('created_at', { ascending: false });
+          .select(
+            'id, user_id, file_name, original_file_path, created_at, updated_at, profiles!fk_cv_texts_user_id (id, email, full_name)',
+            { count: 'exact' }
+          );
+
+        const cutoff = getDateFilterCutoff(dateFilter);
+        if (cutoff) {
+          query = query.gte('created_at', cutoff);
+        }
+
+        // full_name ligger i joinad tabell och sorteras på den hämtade sidan nedan
+        const orderColumn = sortField === 'file_name' || sortField === 'created_at'
+          ? sortField
+          : 'created_at';
+
+        const { data: cvsData, error: cvsError, count } = await query
+          .order(orderColumn, { ascending: sortDirection === 'asc' })
+          .range(from, to);
 
         if (cvsError) {
           throw cvsError;
         }
 
         // Transformera data
-        const transformedData = (cvsData || []).map((cv: any) => {
+        let transformedData: CVText[] = (cvsData || []).map((cv: any) => {
           const profile = cv.profiles || {};
-          
+
           return {
             id: cv.id,
             user_id: cv.user_id,
             file_name: cv.file_name || 'Namnlös fil',
             original_file_path: cv.original_file_path,
-            cv_text: cv.cv_text || '',
             created_at: cv.created_at,
             updated_at: cv.updated_at,
             email: profile.email || 'Okänd e-post',
             full_name: profile.full_name || null
           };
         });
-        
+
+        if (sortField === 'full_name') {
+          transformedData = [...transformedData].sort((a, b) => {
+            const nameA = a.full_name || '';
+            const nameB = b.full_name || '';
+            return sortDirection === 'asc'
+              ? nameA.localeCompare(nameB, 'sv')
+              : nameB.localeCompare(nameA, 'sv');
+          });
+        }
+
         setCVs(transformedData);
-        calculateStats(transformedData);
-        calculateGraphData(transformedData);
+        setTotalCount(count || 0);
         setLastUpdated(new Date());
 
       } catch (err: any) {
@@ -272,59 +230,67 @@ export default function AdminCVsPage() {
         setIsLoading(false);
       }
     }
-    
+
     fetchCVs();
+  }, [supabase, currentPage, pageSize, sortField, sortDirection, dateFilter]);
+
+  // Statistik via counts (head: true), aldrig hela tabellen i minnet
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const now = new Date();
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const weekStart = new Date(todayStart.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const monthStart = new Date(todayStart.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+        const [totalRes, todayRes, weekRes, monthRes] = await Promise.all([
+          supabase.from('cv_texts').select('id', { count: 'exact', head: true }),
+          supabase.from('cv_texts').select('id', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
+          supabase.from('cv_texts').select('id', { count: 'exact', head: true }).gte('created_at', weekStart.toISOString()),
+          supabase.from('cv_texts').select('id', { count: 'exact', head: true }).gte('created_at', monthStart.toISOString())
+        ]);
+
+        setStats({
+          totalCVs: totalRes.count || 0,
+          todaysCVs: todayRes.count || 0,
+          thisWeekCVs: weekRes.count || 0,
+          thisMonthCVs: monthRes.count || 0
+        });
+      } catch (err) {
+        console.error('Fel vid hämtning av CV-statistik:', err);
+      }
+    }
+
+    fetchStats();
   }, [supabase]);
 
-  // Uppdatera graf när dateRange ändras
+  // Grafunderlag via avgränsad query (endast created_at)
   useEffect(() => {
-    if (cvs.length > 0) {
-      calculateGraphData(cvs);
+    async function fetchGraphData() {
+      try {
+        let query = supabase
+          .from('cv_texts')
+          .select('created_at')
+          .order('created_at', { ascending: true });
+
+        if (dateRange !== 9999) {
+          const cutoff = new Date();
+          cutoff.setDate(cutoff.getDate() - dateRange);
+          cutoff.setHours(0, 0, 0, 0);
+          query = query.gte('created_at', cutoff.toISOString());
+        }
+
+        const { data, error: graphError } = await query;
+        if (graphError) throw graphError;
+
+        calculateGraphData((data || []) as { created_at: string }[]);
+      } catch (err) {
+        console.error('Fel vid hämtning av grafdata:', err);
+      }
     }
-  }, [dateRange, cvs, calculateGraphData]);
 
-  // Beräkna statistik
-  const calculateStats = (data: CVText[]) => {
-    if (!data.length) {
-      setStats({
-        totalCVs: 0,
-        averageLength: 0,
-        todaysCVs: 0,
-        thisWeekCVs: 0
-      });
-      return;
-    }
-
-    const today = new Date();
-    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const weekStart = new Date(todayStart.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-    const todaysCVs = data.filter(cv => new Date(cv.created_at) >= todayStart).length;
-    const thisWeekCVs = data.filter(cv => new Date(cv.created_at) >= weekStart).length;
-    
-    const totalLength = data.reduce((sum, cv) => sum + cv.cv_text.length, 0);
-    const averageLength = data.length > 0 ? Math.round(totalLength / data.length) : 0;
-
-    setStats({
-      totalCVs: data.length,
-      averageLength,
-      todaysCVs,
-      thisWeekCVs
-    });
-  };
-
-  // Uppdatera filtrerade CV:n
-  useEffect(() => {
-    const filteredResults = getFilteredAndSortedCVs();
-    setFilteredCVs(filteredResults);
-    
-    // Beräkna totalt antal sidor
-    const newTotalPages = Math.max(1, Math.ceil(filteredResults.length / pageSize));
-    setTotalPages(newTotalPages);
-    
-    // Justera currentPage om den är utanför giltigt intervall
-    setCurrentPage(prev => Math.max(1, Math.min(prev, newTotalPages)));
-  }, [getFilteredAndSortedCVs, pageSize]);
+    fetchGraphData();
+  }, [supabase, dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Hantera sortering
   const handleSort = (field: string) => {
@@ -340,30 +306,52 @@ export default function AdminCVsPage() {
   // Få sorteringsikon för kolumn
   const getSortIcon = (field: string) => {
     if (field !== sortField) return <ChevronDown className="w-4 h-4 text-gray-500 opacity-50" />;
-    
-    return sortDirection === 'asc' 
-      ? <ChevronUp className="w-4 h-4 text-pink-400" /> 
-      : <ChevronDown className="w-4 h-4 text-pink-400" />;
+
+    return sortDirection === 'asc'
+      ? <ChevronUp className="w-4 h-4 text-orange-400" />
+      : <ChevronDown className="w-4 h-4 text-orange-400" />;
   };
 
-  // Visa CV-förhandsvisning
-  const showCVPreview = (cv: CVText) => {
+  // Visa CV-förhandsvisning, texten hämtas först här
+  const showCVPreview = async (cv: CVText) => {
     setSelectedCV(cv);
     setShowPreviewModal(true);
+    setPreviewText(null);
+    setIsPreviewLoading(true);
+    try {
+      const { data, error: textError } = await supabase
+        .from('cv_texts')
+        .select('cv_text')
+        .eq('id', cv.id)
+        .single();
+      if (textError) throw textError;
+      setPreviewText(data?.cv_text || '');
+    } catch (err) {
+      console.error('Kunde inte hämta CV-text:', err);
+      setPreviewText('');
+    } finally {
+      setIsPreviewLoading(false);
+    }
   };
 
   // Stäng modal
   const closePreviewModal = () => {
     setShowPreviewModal(false);
     setSelectedCV(null);
+    setPreviewText(null);
   };
 
-  // Få de aktuella CV:na för den visade sidan
-  const getCurrentPageCVs = () => {
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    return filteredCVs.slice(startIndex, endIndex);
-  };
+  // Sök gäller den hämtade sidan
+  const displayedCVs = searchTerm
+    ? cvs.filter(cv => {
+        const searchLower = searchTerm.toLowerCase();
+        return (
+          (cv.file_name && cv.file_name.toLowerCase().includes(searchLower)) ||
+          (cv.email && cv.email.toLowerCase().includes(searchLower)) ||
+          (cv.full_name && cv.full_name.toLowerCase().includes(searchLower))
+        );
+      })
+    : cvs;
 
   // Formatera datum
   const formatDate = (dateStr: string | null | undefined): string => {
@@ -389,12 +377,6 @@ export default function AdminCVsPage() {
     return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
   };
 
-  // Förkorta text för förhandsvisning
-  const truncateText = (text: string, maxLength: number = 100): string => {
-    if (!text) return 'Inget innehåll';
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-  };
-
   // Hantera ändring av sidstorlek
   const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPageSize(Number(event.target.value));
@@ -408,7 +390,7 @@ export default function AdminCVsPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Hantera CV:n</h1>
           <p className="text-gray-600">
-            {filteredCVs.length} CV:n matchar filter
+            {totalCount} CV:n matchar filter
           </p>
         </div>
 
@@ -416,7 +398,7 @@ export default function AdminCVsPage() {
           <select
             value={dateRange}
             onChange={(e) => setDateRange(Number(e.target.value))}
-            className="bg-white border border-gray-200 text-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="bg-white border border-gray-200 text-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             <option value={30}>30 dagar</option>
             <option value={90}>3 månader</option>
@@ -433,7 +415,7 @@ export default function AdminCVsPage() {
 
             <button
               onClick={() => window.location.reload()}
-              className="ml-2 text-pink-600 hover:text-pink-700"
+              className="ml-2 text-orange-600 hover:text-orange-700"
               aria-label="Uppdatera data"
             >
               <RefreshCw className="w-4 h-4" />
@@ -450,11 +432,6 @@ export default function AdminCVsPage() {
         </div>
 
         <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
-          <p className="text-xs text-gray-600">Genomsnittlig längd</p>
-          <h3 className="text-xl font-bold text-gray-900 mt-1">{stats.averageLength.toLocaleString()} tecken</h3>
-        </div>
-
-        <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
           <p className="text-xs text-gray-600">Idag</p>
           <h3 className="text-xl font-bold text-gray-900 mt-1">{stats.todaysCVs}</h3>
         </div>
@@ -462,6 +439,11 @@ export default function AdminCVsPage() {
         <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
           <p className="text-xs text-gray-600">Denna vecka</p>
           <h3 className="text-xl font-bold text-gray-900 mt-1">{stats.thisWeekCVs}</h3>
+        </div>
+
+        <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+          <p className="text-xs text-gray-600">Senaste 30 dagarna</p>
+          <h3 className="text-xl font-bold text-gray-900 mt-1">{stats.thisMonthCVs}</h3>
         </div>
       </div>
 
@@ -475,17 +457,17 @@ export default function AdminCVsPage() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
             <input
               type="text"
-              placeholder="Sök filnamn, användare eller innehåll..."
+              placeholder="Sök på denna sida (filnamn eller användare)..."
               value={searchTerm}
-              onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-              className="w-full pl-10 pr-4 py-2 h-full bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 h-full bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 shadow-sm"
             />
           </div>
 
           <select
             value={dateFilter}
             onChange={(e) => { setDateFilter(e.target.value); setCurrentPage(1); }}
-            className="px-3 py-2 h-full bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm"
+            className="px-3 py-2 h-full bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 shadow-sm"
           >
             <option value="all">Alla datum</option>
             <option value="today">Idag</option>
@@ -502,13 +484,13 @@ export default function AdminCVsPage() {
           <p className="text-red-700">{error}</p>
         </div>
       )}
-      
+
       {/* CV-tabell */}
       <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm">
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
+              <div className="w-12 h-12 border-t-2 border-b-2 border-orange-500 rounded-full animate-spin mb-4"></div>
               <p className="text-gray-600">Laddar CV:n...</p>
             </div>
           </div>
@@ -540,22 +522,6 @@ export default function AdminCVsPage() {
                     </th>
                     <th
                       scope="col"
-                      className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                      onClick={() => handleSort('cv_length')}
-                    >
-                      <div className="flex items-center gap-1">
-                        <span>Storlek</span>
-                        {getSortIcon('cv_length')}
-                      </div>
-                    </th>
-                    <th
-                      scope="col"
-                      className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider"
-                    >
-                      <span>Förhandsvisning</span>
-                    </th>
-                    <th
-                      scope="col"
                       className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                       onClick={() => handleSort('created_at')}
                     >
@@ -570,9 +536,9 @@ export default function AdminCVsPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredCVs.length === 0 ? (
+                  {displayedCVs.length === 0 ? (
                      <tr>
-                       <td colSpan={6} className="px-6 py-12 text-center">
+                       <td colSpan={4} className="px-6 py-12 text-center">
                          <div className="flex flex-col items-center">
                           <FileText className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga CV:n hittades</h3>
@@ -585,19 +551,19 @@ export default function AdminCVsPage() {
                        </td>
                      </tr>
                   ) : (
-                    getCurrentPageCVs().map((cv) => (
+                    displayedCVs.map((cv) => (
                       <tr key={cv.id} className="hover:bg-gray-50 transition-colors group">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 rounded-full bg-pink-50 flex items-center justify-center ring-1 ring-pink-200">
-                              <File className="w-5 h-5 text-pink-600" />
+                            <div className="flex-shrink-0 h-10 w-10 rounded-full bg-orange-50 flex items-center justify-center ring-1 ring-orange-200">
+                              <File className="w-5 h-5 text-orange-600" />
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900 truncate max-w-[200px]" title={cv.file_name}>
                                 {cv.file_name}
                               </div>
-                              <div className="text-xs text-gray-600">
-                                {formatFileSize(cv.cv_text)}
+                              <div className="text-xs text-gray-600 lg:hidden">
+                                {formatDate(cv.created_at)}
                               </div>
                             </div>
                           </div>
@@ -619,14 +585,6 @@ export default function AdminCVsPage() {
                             </div>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {cv.cv_text.length.toLocaleString()} tecken
-                        </td>
-                        <td className="hidden lg:table-cell px-6 py-4">
-                          <div className="text-xs text-gray-600 max-w-xs">
-                            {truncateText(cv.cv_text, 80)}
-                          </div>
-                        </td>
                         <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                           {formatDate(cv.created_at)}
                         </td>
@@ -640,7 +598,7 @@ export default function AdminCVsPage() {
                               <Eye className="w-4 h-4" />
                             </button>
                             <button
-                              className="text-gray-500 hover:text-pink-600 opacity-50 group-hover:opacity-100 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-white transition-opacity"
+                              className="text-gray-500 hover:text-orange-600 opacity-50 group-hover:opacity-100 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-white transition-opacity"
                               aria-label={`Åtgärder för ${cv.file_name}`}
                             >
                               <MoreHorizontal className="w-4 h-4" />
@@ -653,7 +611,7 @@ export default function AdminCVsPage() {
                 </tbody>
               </table>
             </div>
-            
+
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="px-4 py-3 sm:px-6 flex flex-col md:flex-row items-center justify-between border-t border-gray-200 gap-4">
@@ -663,7 +621,7 @@ export default function AdminCVsPage() {
                      id="pageSize"
                      value={pageSize}
                      onChange={handlePageSizeChange}
-                     className="px-2 py-1 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
+                     className="px-2 py-1 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                    >
                      <option value={10}>10</option>
                      <option value={25}>25</option>
@@ -699,11 +657,11 @@ export default function AdminCVsPage() {
                    <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between md:justify-end">
                      <div>
                       <p className="text-sm text-gray-600">
-                        Visar <span className="font-medium text-gray-900">{(currentPage - 1) * pageSize + 1}</span>
+                        Visar <span className="font-medium text-gray-900">{totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1}</span>
                         {' '}till{' '}
-                        <span className="font-medium text-gray-900">{Math.min(currentPage * pageSize, filteredCVs.length)}</span>
+                        <span className="font-medium text-gray-900">{Math.min(currentPage * pageSize, totalCount)}</span>
                         {' '}av{' '}
-                        <span className="font-medium text-gray-900">{filteredCVs.length}</span> resultat
+                        <span className="font-medium text-gray-900">{totalCount}</span> resultat
                       </p>
                     </div>
                     <div className="ml-4">
@@ -711,7 +669,7 @@ export default function AdminCVsPage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                           disabled={currentPage === 1}
-                          className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
+                          className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                           aria-label="Föregående sida"
                         >
                           <ChevronLeft className="h-5 w-5" />
@@ -727,9 +685,9 @@ export default function AdminCVsPage() {
                                  key={pageNum}
                                  onClick={() => setCurrentPage(pageNum)}
                                  aria-current={currentPage === pageNum ? 'page' : undefined}
-                                 className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 ${
+                                 className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 ${
                                    currentPage === pageNum
-                                     ? 'z-10 bg-pink-600 text-white border-pink-500'
+                                     ? 'z-10 bg-orange-600 text-white border-orange-500'
                                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                  }`}
                                >
@@ -743,7 +701,7 @@ export default function AdminCVsPage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                           disabled={currentPage === totalPages}
-                          className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
+                          className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:z-10 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                           aria-label="Nästa sida"
                         >
                           <ChevronRight className="h-5 w-5" />
@@ -757,7 +715,7 @@ export default function AdminCVsPage() {
           </>
         )}
       </div>
-      
+
       {/* CV Förhandsvisnings Modal */}
       {showPreviewModal && selectedCV && (
         <div
@@ -795,11 +753,15 @@ export default function AdminCVsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                   <div>
                     <span className="text-gray-600">Storlek:</span>
-                    <span className="ml-2 text-gray-900 font-medium">{formatFileSize(selectedCV.cv_text)}</span>
+                    <span className="ml-2 text-gray-900 font-medium">
+                      {previewText !== null ? formatFileSize(previewText) : '...'}
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Tecken:</span>
-                    <span className="ml-2 text-gray-900 font-medium">{selectedCV.cv_text.length.toLocaleString()}</span>
+                    <span className="ml-2 text-gray-900 font-medium">
+                      {previewText !== null ? previewText.length.toLocaleString() : '...'}
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Skapad:</span>
@@ -811,9 +773,11 @@ export default function AdminCVsPage() {
               {/* CV Content */}
               <div className="p-6">
                 <div className="bg-gray-50 text-gray-800 rounded-md p-6 overflow-auto prose max-w-none border border-gray-200" style={{ maxHeight: '400px' }}>
-                  {selectedCV.cv_text ? (
+                  {isPreviewLoading ? (
+                    <p className="text-gray-500 italic">Hämtar innehåll...</p>
+                  ) : previewText ? (
                     <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">
-                      {selectedCV.cv_text}
+                      {previewText}
                     </pre>
                   ) : (
                     <p className="text-gray-500 italic">Innehåll inte tillgängligt</p>

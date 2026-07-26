@@ -174,7 +174,7 @@ export default function AdminEmailPage() {
             id="dateRange"
             value={dateRange}
             onChange={(e) => setDateRange(Number(e.target.value))}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             <option value={7}>7 dagar</option>
             <option value={30}>30 dagar</option>
@@ -190,8 +190,8 @@ export default function AdminEmailPage() {
           value={stats?.reminders.pendingTotal ?? 0}
           icon={<Bell className="w-6 h-6" />}
           subtitle={`${stats?.reminders.uniqueUsers ?? 0} unika användare totalt`}
-          iconBgColor="bg-pink-100"
-          iconColor="text-pink-600"
+          iconBgColor="bg-orange-100"
+          iconColor="text-orange-600"
         />
 
         <StatsCard
@@ -470,7 +470,7 @@ export default function AdminEmailPage() {
                     <td className="py-2.5 pr-4 text-gray-700 whitespace-nowrap">
                       <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
                         row.email_type === 'quota_back'
-                          ? 'bg-pink-50 text-pink-700'
+                          ? 'bg-orange-50 text-orange-700'
                           : 'bg-violet-50 text-violet-700'
                       }`}>
                         {emailTypeLabel(row.email_type)}

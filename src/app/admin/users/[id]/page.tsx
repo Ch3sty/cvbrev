@@ -108,46 +108,35 @@ export default function AdminUserDetailsPage({ params }: AdminUserDetailsPagePro
       setError(null);
 
       try {
-        // Hämta profil
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', userId)
-          .single();
+        // Alla grundqueries parallellt, en rundtur i stället för fyra i serie
+        const [profileRes, cvRes, letterRes, poolRes] = await Promise.all([
+          supabase.from('profiles').select('*').eq('id', userId).single(),
+          supabase
+            .from('cv_texts')
+            .select('id, file_name, created_at')
+            .eq('user_id', userId)
+            .order('created_at', { ascending: false }),
+          supabase
+            .from('letters')
+            .select('id, title, company, job_title, created_at, is_saved')
+            .eq('user_id', userId)
+            .order('created_at', { ascending: false }),
+          supabase
+            .from('admin_candidate_pool')
+            .select('visibility, show_personality, show_full_workstyle, availability, regions, extent, employment_types, salary_min, salary_max, consent_given_at, updated_at, intressen_totalt, intressen_accepterade, intressen_avbojda, intressen_vantande')
+            .eq('user_id', userId)
+            .maybeSingle(),
+        ]);
 
-        if (profileError) throw profileError;
+        if (profileRes.error) throw profileRes.error;
+        if (cvRes.error) throw cvRes.error;
+        if (letterRes.error) throw letterRes.error;
 
-        setProfile(profileData);
+        setProfile(profileRes.data);
+        setCvs(cvRes.data || []);
+        setLetters(letterRes.data || []);
 
-        // Hämta användarens CV
-        const { data: cvData, error: cvError } = await supabase
-          .from('cv_texts')
-          .select('id, file_name, created_at')
-          .eq('user_id', userId)
-          .order('created_at', { ascending: false });
-
-        if (cvError) throw cvError;
-
-        setCvs(cvData || []);
-
-        // Hämta användarens brev
-        const { data: letterData, error: letterError } = await supabase
-          .from('letters')
-          .select('id, title, company, job_title, created_at, is_saved')
-          .eq('user_id', userId)
-          .order('created_at', { ascending: false });
-
-        if (letterError) throw letterError;
-
-        setLetters(letterData || []);
-
-        // Bli upptäckt: poolprofil + intressehistorik (tomt om aldrig aktiverad)
-        const { data: poolData } = await supabase
-          .from('admin_candidate_pool')
-          .select('visibility, show_personality, show_full_workstyle, availability, regions, extent, employment_types, salary_min, salary_max, consent_given_at, updated_at, intressen_totalt, intressen_accepterade, intressen_avbojda, intressen_vantande')
-          .eq('user_id', userId)
-          .maybeSingle();
-
+        const poolData = poolRes.data;
         setPoolProfil(poolData || null);
 
         if (poolData) {
