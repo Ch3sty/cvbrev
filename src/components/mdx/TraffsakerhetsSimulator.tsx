@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { DelaRad } from '@/components/rakna/dela'
 
 /**
  * Interaktiv träffsäkerhetssimulator för insikten om urvalsforskningen.
@@ -203,6 +204,8 @@ export default function TraffsakerhetsSimulator() {
           </div>
         ))}
       </div>
+
+      <DelaRad badda={{ slug: 'traffsakerhet', titel: 'Träffsäkerhetssimulatorn' }} />
 
       <p className="text-xs text-slate-500 mb-0">
         Modellen är en förenkling enligt Taylor-Russell: validiteter ur Sackett

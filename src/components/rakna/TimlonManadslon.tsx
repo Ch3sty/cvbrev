@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { DelaRad } from './dela'
 
 /**
  * Konvertering timlön <-> månadslön med schablonen 174 timmar per månad
@@ -89,6 +90,8 @@ export default function TimlonManadslon() {
           </div>
         </div>
       </div>
+
+      <DelaRad badda={{ slug: 'timlon-till-manadslon', titel: 'Räkna om timlön till månadslön' }} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Schablonen 174 timmar motsvarar heltid med 40-timmarsvecka. Semesterlön

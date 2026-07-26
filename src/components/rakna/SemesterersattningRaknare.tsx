@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { DelaRad } from './dela'
 
 /**
  * Semesterersättning och semesterlön enligt semesterlagen (1977:480).
@@ -131,6 +132,8 @@ export default function SemesterersattningRaknare() {
           </div>
         </>
       )}
+
+      <DelaRad badda={{ slug: 'semesterersattning', titel: 'Räkna ut semesterersättning' }} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Beräkningarna följer semesterlagens regler. Kollektivavtal kan ha andra

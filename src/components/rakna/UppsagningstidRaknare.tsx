@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { DelaRad } from './dela'
 
 /**
  * Uppsägningstid enligt LAS (1982:80). 11 §: minst en månads uppsägningstid
@@ -132,6 +133,8 @@ export default function UppsagningstidRaknare() {
           <p className="mb-0 text-sm text-slate-600">Ange giltiga datum, uppsägningsdatumet måste vara efter startdatumet.</p>
         )}
       </div>
+
+      <DelaRad badda={{ slug: 'uppsagningstid', titel: 'Räkna ut din uppsägningstid' }} />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Beräkningen följer lagen om anställningsskydd. Kollektivavtal och enskilda

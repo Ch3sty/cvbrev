@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { DelaRad } from '@/components/rakna/dela'
 
 /**
  * Sourcingtratten: interaktiv kalkyl på sourcingpillaren. Räknar hur många
@@ -162,6 +163,8 @@ export default function SourcingTratt() {
           ~{Math.ceil(kontakterKravs / anstallningar)}
         </span>
       </div>
+
+      <DelaRad badda={{ slug: 'sourcing', titel: 'Sourcingtratten' }} />
 
       <p className="text-xs text-slate-500 mb-0">
         Svarsfrekvenserna är schabloner i nivå med publicerade benchmarks

@@ -151,7 +151,11 @@ export default function AnstalldKostnad() {
         </div>
       </div>
 
-      <DelaRad delUrl={delUrl} resultatText={resultatText} />
+      <DelaRad
+        delUrl={delUrl}
+        resultatText={resultatText}
+        badda={{ slug: 'vad-kostar-en-anstalld', titel: 'Vad kostar en anställd?' }}
+      />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Direkta lönekostnader. Utrustning, lokalyta, utbildning och

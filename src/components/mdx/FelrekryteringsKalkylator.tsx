@@ -139,7 +139,11 @@ export default function FelrekryteringsKalkylator() {
         </span>
       </div>
 
-      <DelaRad delUrl={delUrl} resultatText={resultatText} />
+      <DelaRad
+        delUrl={delUrl}
+        resultatText={resultatText}
+        badda={{ slug: 'felrekrytering', titel: 'Räkna ut vad en felrekrytering kostar' }}
+      />
 
       <p className="text-xs text-slate-500 mt-4 mb-0">
         Modellen är en förenkling: arbetsgivarkostnad ca 1,42 gånger bruttolönen,

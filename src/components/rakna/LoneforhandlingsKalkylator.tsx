@@ -120,7 +120,11 @@ export default function LoneforhandlingsKalkylator() {
         </p>
       </div>
 
-      <DelaRad delUrl={delUrl} resultatText={resultatText} />
+      <DelaRad
+        delUrl={delUrl}
+        resultatText={resultatText}
+        badda={{ slug: 'loneforhandling', titel: 'Vad är en löneförhandling värd?' }}
+      />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Beloppen är före skatt och bygger på dina egna antaganden om revision.

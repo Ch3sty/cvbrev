@@ -226,7 +226,11 @@ export default function LonEfterSkatt() {
         </div>
       )}
 
-      <DelaRad delUrl={delUrl} resultatText={resultatText} />
+      <DelaRad
+        delUrl={delUrl}
+        resultatText={resultatText}
+        badda={{ slug: 'lon-efter-skatt', titel: 'Räkna ut lön efter skatt 2026' }}
+      />
 
       <p className="mb-0 mt-4 text-xs text-slate-500">
         Preliminärskatt enligt Skatteverkets skattetabeller för månadslön 2026.

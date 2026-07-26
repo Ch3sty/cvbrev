@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
-import BaddaIn from '@/components/rakna/BaddaIn'
 
 /**
  * Delad sidlayout för verktygssidorna under /rakna-ut: breadcrumb, rubrik,
@@ -91,8 +90,6 @@ export default function RaknaUtSida({ slug, titel, intro, children, metod, faq, 
             ))}
           </div>
         </section>
-
-        <BaddaIn slug={slug} titel={titel} />
 
         <section className="mt-10">
           <h2 className="text-lg font-bold text-slate-900 mb-2">Läs mer</h2>
