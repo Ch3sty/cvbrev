@@ -14,7 +14,8 @@ import {
   Settings,
   Calendar,
   Check,
-  X
+  X,
+  Radar
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -49,6 +50,33 @@ interface UserLetter {
   is_saved: boolean;
 }
 
+interface PoolProfil {
+  visibility: string;
+  show_personality: boolean;
+  show_full_workstyle: boolean;
+  availability: string | null;
+  regions: string[] | null;
+  extent: string[] | null;
+  employment_types: string[] | null;
+  salary_min: number | null;
+  salary_max: number | null;
+  consent_given_at: string | null;
+  updated_at: string | null;
+  intressen_totalt: number;
+  intressen_accepterade: number;
+  intressen_avbojda: number;
+  intressen_vantande: number;
+}
+
+interface PoolIntresse {
+  id: string;
+  created_at: string;
+  responded_at: string | null;
+  status: string;
+  rekryterare_foretag: string | null;
+  rekryterare_namn: string | null;
+}
+
 // *** ÄNDRING 1: Byt namn på interfacet för att undvika namnkollision ***
 interface AdminUserDetailsPageProps { // Tidigare: PageProps
   params: Promise<{ id: string }>;
@@ -60,6 +88,8 @@ export default function AdminUserDetailsPage({ params }: AdminUserDetailsPagePro
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [cvs, setCvs] = useState<UserCV[]>([]);
   const [letters, setLetters] = useState<UserLetter[]>([]);
+  const [poolProfil, setPoolProfil] = useState<PoolProfil | null>(null);
+  const [poolIntressen, setPoolIntressen] = useState<PoolIntresse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -110,6 +140,25 @@ export default function AdminUserDetailsPage({ params }: AdminUserDetailsPagePro
         if (letterError) throw letterError;
 
         setLetters(letterData || []);
+
+        // Bli upptäckt: poolprofil + intressehistorik (tomt om aldrig aktiverad)
+        const { data: poolData } = await supabase
+          .from('admin_candidate_pool')
+          .select('visibility, show_personality, show_full_workstyle, availability, regions, extent, employment_types, salary_min, salary_max, consent_given_at, updated_at, intressen_totalt, intressen_accepterade, intressen_avbojda, intressen_vantande')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        setPoolProfil(poolData || null);
+
+        if (poolData) {
+          const { data: intresseData } = await supabase
+            .from('admin_candidate_interests')
+            .select('id, created_at, responded_at, status, rekryterare_foretag, rekryterare_namn')
+            .eq('candidate_user_id', userId)
+            .order('created_at', { ascending: false })
+            .limit(10);
+          setPoolIntressen(intresseData || []);
+        }
 
       } catch (err: any) {
         console.error('Fel vid hämtning av användardata:', err);
@@ -433,6 +482,87 @@ export default function AdminUserDetailsPage({ params }: AdminUserDetailsPagePro
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Bli upptäckt (kandidatpoolen) */}
+          <div className="mt-4 bg-white rounded-lg p-6 border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <Radar className="w-5 h-5 mr-2 text-indigo-500" />
+              Bli upptäckt
+            </h3>
+            {!poolProfil ? (
+              <p className="text-gray-500 text-sm">Har aldrig aktiverat Bli upptäckt.</p>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase mb-1">Läge</div>
+                    <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      poolProfil.visibility === 'open' ? 'bg-green-100 text-green-800'
+                        : poolProfil.visibility === 'anonymous' ? 'bg-blue-100 text-blue-800'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {poolProfil.visibility === 'open' ? 'Öppen' : poolProfil.visibility === 'anonymous' ? 'Anonym' : 'Avstängd'}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase mb-1">Samtycken</div>
+                    <div className="text-sm text-gray-900">
+                      Personlighet: {poolProfil.show_personality ? 'Ja' : 'Nej'}<br />
+                      Arbetsstil: {poolProfil.show_full_workstyle ? 'Ja' : 'Nej'}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase mb-1">Villkor</div>
+                    <div className="text-sm text-gray-900">
+                      {poolProfil.regions && poolProfil.regions.length > 0 ? poolProfil.regions.join(', ') : 'Inga län angivna'}<br />
+                      {poolProfil.salary_min && poolProfil.salary_max
+                        ? `${poolProfil.salary_min.toLocaleString('sv-SE')} till ${poolProfil.salary_max.toLocaleString('sv-SE')} kr`
+                        : 'Inget lönespann'}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase mb-1">Intressen</div>
+                    <div className="text-sm text-gray-900">
+                      {poolProfil.intressen_totalt} totalt · {poolProfil.intressen_accepterade} accepterade<br />
+                      {poolProfil.intressen_vantande} väntande · {poolProfil.intressen_avbojda} avböjda
+                    </div>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500 mb-3">
+                  Samtycke: {poolProfil.consent_given_at ? formatDate(poolProfil.consent_given_at) : 'saknas'} ·
+                  Senast uppdaterad: {poolProfil.updated_at ? formatDate(poolProfil.updated_at) : 'okänt'}
+                </div>
+                {poolIntressen.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-600 uppercase mb-2">Senaste intressen</h4>
+                    <ul className="space-y-2">
+                      {poolIntressen.map((i) => (
+                        <li key={i.id} className="p-3 bg-gray-50 rounded-md border border-gray-100 flex items-center justify-between gap-3">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">
+                              {i.rekryterare_foretag || 'Okänt företag'}
+                              {i.rekryterare_namn ? ` (${i.rekryterare_namn})` : ''}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Skickat: {formatDate(i.created_at)}
+                              {i.responded_at ? ` · Besvarat: ${formatDate(i.responded_at)}` : ''}
+                            </div>
+                          </div>
+                          <span className={`shrink-0 px-2 py-0.5 rounded-full text-xs font-semibold ${
+                            i.status === 'accepted' ? 'bg-green-100 text-green-800'
+                              : i.status === 'declined' ? 'bg-red-100 text-red-700'
+                              : 'bg-amber-100 text-amber-800'
+                          }`}>
+                            {i.status === 'accepted' ? 'Accepterat' : i.status === 'declined' ? 'Avböjt' : 'Väntar'}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           {/* Weekly letter usage for free users */}

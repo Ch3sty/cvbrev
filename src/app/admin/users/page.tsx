@@ -54,6 +54,9 @@ interface User {
   // Secondary metrics: Saved documents
   saved_letters_count: number;
   saved_cvs_count: number;
+
+  // Bli upptäckt (kandidatpoolen): null = aldrig aktiverad
+  bli_upptackt_status: string | null;
 }
 
 export default function AdminUsersPage() {
@@ -71,6 +74,7 @@ export default function AdminUsersPage() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [subscriptionFilter, setSubscriptionFilter] = useState<string | null>(null);
+  const [poolFilter, setPoolFilter] = useState<string | null>(null);
 
   const [showActionModal, setShowActionModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -129,6 +133,16 @@ export default function AdminUsersPage() {
       }
     }
 
+    if (poolFilter) {
+      if (poolFilter === 'aktiv') {
+        result = result.filter(user => user.bli_upptackt_status === 'anonymous' || user.bli_upptackt_status === 'open');
+      } else if (poolFilter === 'aldrig') {
+        result = result.filter(user => !user.bli_upptackt_status);
+      } else {
+        result = result.filter(user => user.bli_upptackt_status === poolFilter);
+      }
+    }
+
     result.sort((a, b) => {
       const valA = sortField === 'letters_generated_count' ? (a.letters_generated_count || 0) :
                    sortField === 'cv_analyses_count' ? (a.cv_analyses_count || 0) :
@@ -175,7 +189,7 @@ export default function AdminUsersPage() {
     });
 
     return result;
-  }, [users, searchTerm, subscriptionFilter, sortField, sortDirection]);
+  }, [users, searchTerm, subscriptionFilter, poolFilter, sortField, sortDirection]);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -204,7 +218,8 @@ export default function AdminUsersPage() {
             logic_tests_count,
             personality_tests_count,
             saved_letters_count,
-            saved_cvs_count
+            saved_cvs_count,
+            bli_upptackt_status
           `)
           .order('created_at', { ascending: false });
 
@@ -251,6 +266,7 @@ export default function AdminUsersPage() {
             personality_tests_count: user.personality_tests_count || 0,
             saved_letters_count: user.saved_letters_count || 0,
             saved_cvs_count: user.saved_cvs_count || 0,
+            bli_upptackt_status: user.bli_upptackt_status || null,
           };
         }) || [];
 
@@ -694,6 +710,31 @@ export default function AdminUsersPage() {
     }
   };
 
+  const getBliUpptacktBadge = (status: string | null) => {
+    if (!status) {
+      return <span className="text-gray-300">–</span>;
+    }
+    if (status === 'open') {
+      return (
+        <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+          Öppen
+        </span>
+      );
+    }
+    if (status === 'anonymous') {
+      return (
+        <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+          Anonym
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
+        Av
+      </span>
+    );
+  };
+
   const getSubscriptionBadge = (tier: string | null) => {
     if (tier === 'premium') {
       return (
@@ -818,6 +859,19 @@ export default function AdminUsersPage() {
             <option value="trial">Premium - Trial (Prova på)</option>
             <option value="admin">Premium - Admin</option>
             <option value="guest">Premium - Gästinbjudan</option>
+          </select>
+
+          <select
+            value={poolFilter || ''}
+            onChange={(e) => { setPoolFilter(e.target.value || null); setCurrentPage(1); }}
+            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+          >
+            <option value="">Bli upptäckt: alla</option>
+            <option value="aktiv">Aktiv i poolen (anonym + öppen)</option>
+            <option value="anonymous">Anonym</option>
+            <option value="open">Öppen</option>
+            <option value="off">Avstängd</option>
+            <option value="aldrig">Aldrig aktiverad</option>
           </select>
         </div>
       </div>
@@ -1115,6 +1169,17 @@ export default function AdminUsersPage() {
                         {getSortIcon('personality_tests_count')}
                       </div>
                     </th>
+                    <th
+                      scope="col"
+                      className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('bli_upptackt_status')}
+                      title="Status i kandidatpoolen (Bli upptäckt)"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Bli upptäckt</span>
+                        {getSortIcon('bli_upptackt_status')}
+                      </div>
+                    </th>
                     {/* SECONDARY: Sparade dokument (retention) */}
                     <th
                       scope="col"
@@ -1166,7 +1231,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={15} className="px-6 py-12 text-center">
+                      <td colSpan={16} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -1266,6 +1331,9 @@ export default function AdminUsersPage() {
                           <span className={user.personality_tests_count > 0 ? 'font-medium text-rose-600' : 'text-gray-400'}>
                             {user.personality_tests_count}
                           </span>
+                        </td>
+                        <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-center">
+                          {getBliUpptacktBadge(user.bli_upptackt_status)}
                         </td>
                         {/* SECONDARY: Sparade dokument */}
                         <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
