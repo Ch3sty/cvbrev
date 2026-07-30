@@ -248,6 +248,97 @@ export function RadarChip({ className }: IllustrationProps) {
 }
 
 // =============================================================
+// MIKROSCEN: CV:T SOM DRIVER TRE VERKTYG (240x100)
+// Anvands i InfoPopover pa "Dina CV"-raden. Dekorativ: texten i
+// panelen bar informationen, scenen forstarker den.
+// =============================================================
+export function MiniScenCvVerktyg({ className }: IllustrationProps) {
+  const id = 'db-scen-cv'
+  return (
+    <svg className={className} viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      {/* CV-kortet till vanster */}
+      <rect x="14" y="20" width="46" height="60" rx="6" fill="#FFFFFF" stroke={`url(#${id}-warm)`} strokeWidth="1.75" />
+      <rect x="21" y="28" width="22" height="4.5" rx="2.25" fill={`url(#${id}-warm)`} />
+      <rect x="21" y="38" width="32" height="3" rx="1.5" fill="#FED7AA" />
+      <rect x="21" y="45" width="26" height="3" rx="1.5" fill="#FFEDD5" />
+      <rect x="21" y="52" width="30" height="3" rx="1.5" fill="#FFEDD5" />
+      <rect x="21" y="63" width="16" height="6" rx="3" fill="#FED7AA" />
+      <rect x="40" y="63" width="13" height="6" rx="3" fill="#FFEDD5" />
+
+      {/* Streckade grenar ut till verktygen */}
+      <path d="M 62 38 C 100 26, 130 24, 158 24" stroke={`url(#${id}-warm)`} strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" opacity="0.7" />
+      <path d="M 62 50 C 100 50, 130 50, 158 50" stroke={`url(#${id}-warm)`} strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" opacity="0.55" />
+      <path d="M 62 62 C 100 74, 130 76, 158 76" stroke={`url(#${id}-warm)`} strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" opacity="0.4" />
+
+      {/* Brev */}
+      <rect x="164" y="12" width="24" height="24" rx="7" fill={`url(#${id}-soft)`} />
+      <rect x="169" y="18" width="14" height="11" rx="2" stroke={`url(#${id}-warm)`} strokeWidth="1.4" fill="#FFFFFF" />
+      <path d="M 169 20 L 176 25 L 183 20" stroke={`url(#${id}-warm)`} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="196" y="28" fontSize="9" fontWeight="700" fill="#9A3412">Brev</text>
+
+      {/* Analys */}
+      <rect x="164" y="38" width="24" height="24" rx="7" fill={`url(#${id}-soft)`} />
+      <circle cx="176" cy="50" r="6.5" stroke={`url(#${id}-warm)`} strokeWidth="1.6" fill="#FFFFFF" />
+      <path d="M 176 50 L 176 45.5 A 4.5 4.5 0 0 1 180 52" fill={`url(#${id}-warm)`} opacity="0.85" />
+      <text x="196" y="54" fontSize="9" fontWeight="700" fill="#9A3412">Analys</text>
+
+      {/* Matchning */}
+      <rect x="164" y="64" width="24" height="24" rx="7" fill={`url(#${id}-soft)`} />
+      <circle cx="176" cy="76" r="6.5" stroke={`url(#${id}-deep)`} strokeWidth="1.4" fill="#FFFFFF" />
+      <circle cx="176" cy="76" r="3.2" stroke={`url(#${id}-deep)`} strokeWidth="1.2" />
+      <circle cx="176" cy="76" r="1.1" fill={`url(#${id}-deep)`} />
+      <text x="196" y="80" fontSize="9" fontWeight="700" fill="#9A3412">Match</text>
+    </svg>
+  )
+}
+
+// =============================================================
+// MIKROSCEN: BLI UPPTÄCKT-FLÖDET (240x80)
+// Anonym profil -> rekryterare soker (indigo, ENDA indigo-beatet)
+// -> du godkanner (emerald). Anvands i InfoPopover pa Bli upptackt-raden.
+// =============================================================
+export function MiniScenBliUpptackt({ className }: IllustrationProps) {
+  const id = 'db-scen-bu'
+  return (
+    <svg className={className} viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Beat 1: anonym profil (neutral slate, avidentifierad) */}
+      <rect x="16" y="16" width="40" height="48" rx="7" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.6" />
+      <circle cx="36" cy="30" r="6" fill="#E2E8F0" />
+      <rect x="26" y="42" width="20" height="3" rx="1.5" fill="#E2E8F0" />
+      <rect x="26" y="49" width="14" height="3" rx="1.5" fill="#EDF2F7" />
+      <rect x="26" y="56" width="17" height="3" rx="1.5" fill="#EDF2F7" />
+
+      {/* Pil 1 */}
+      <path d="M 62 40 L 90 40" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
+      <path d="M 87 36.5 L 91 40 L 87 43.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+
+      {/* Beat 2: rekryterare soker (indigo radar) */}
+      <circle cx="120" cy="40" r="22" stroke="#4F46E5" strokeWidth="1" opacity="0.2" />
+      <circle cx="120" cy="40" r="14" stroke="#4F46E5" strokeWidth="1" opacity="0.35" />
+      <circle cx="120" cy="40" r="6.5" fill="#4F46E5" />
+      <circle cx="120" cy="37.5" r="1.9" fill="#FFFFFF" />
+      <path d="M 116.8 43.5 a 3.2 2.4 0 0 1 6.4 0z" fill="#FFFFFF" />
+      <circle cx="104" cy="26" r="2" fill="#FB923C" />
+      <circle cx="137" cy="30" r="1.7" fill="#FB923C" />
+      <circle cx="133" cy="55" r="1.8" fill="#FB923C" />
+
+      {/* Pil 2 */}
+      <path d="M 150 40 L 178 40" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
+      <path d="M 175 36.5 L 179 40 L 175 43.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+
+      {/* Beat 3: du godkanner (emerald = din handling) */}
+      <rect x="184" y="16" width="40" height="48" rx="7" fill="#FFFFFF" stroke="#6EE7B7" strokeWidth="1.6" />
+      <circle cx="204" cy="30" r="6" fill="#D1FAE5" stroke="#34D399" strokeWidth="1.2" />
+      <rect x="194" y="42" width="20" height="3" rx="1.5" fill="#A7F3D0" />
+      <rect x="194" y="49" width="14" height="3" rx="1.5" fill="#D1FAE5" />
+      <circle cx="218" cy="22" r="7" fill="#ECFDF5" stroke="#6EE7B7" strokeWidth="1.4" />
+      <path d="M 214.8 22 l 2.2 2.2 L 221.2 19.6" stroke="#059669" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  )
+}
+
+// =============================================================
 // AKTIVITETSIKON: SÖKT TJÄNST (32x32)
 // =============================================================
 export function IconAktAnsokan({ className }: IllustrationProps) {

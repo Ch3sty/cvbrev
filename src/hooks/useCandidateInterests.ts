@@ -18,6 +18,8 @@ export interface CandidateInterestsState {
   total: number;
   /** true när profilen är synlig i poolen (visibility <> 'off'). */
   isVisible: boolean;
+  /** Synlighetsläget: 'anonymous' | 'open' | 'off' (null innan laddning). */
+  visibility: 'anonymous' | 'open' | 'off' | null;
   loaded: boolean;
 }
 
@@ -29,6 +31,7 @@ export function useCandidateInterests(): CandidateInterestsState {
     unread: 0,
     total: 0,
     isVisible: false,
+    visibility: null,
     loaded: false,
   });
 
@@ -64,10 +67,12 @@ export function useCandidateInterests(): CandidateInterestsState {
           pending = interests.filter((i) => i.status === 'pending').length;
           unread = interests.reduce((s, i) => s + (i.unreadCount ?? 0), 0);
         }
-        const isVisible =
-          !!profileRes?.data?.visibility && profileRes.data.visibility !== 'off';
+        const visibility =
+          (profileRes?.data?.visibility as 'anonymous' | 'open' | 'off' | undefined) ?? null;
+        const isVisible = !!visibility && visibility !== 'off';
 
-        if (!cancelled) setState({ pending, unread, total, isVisible, loaded: true });
+        if (!cancelled)
+          setState({ pending, unread, total, isVisible, visibility, loaded: true });
       } catch {
         if (!cancelled) setState((s) => ({ ...s, loaded: true }));
       }

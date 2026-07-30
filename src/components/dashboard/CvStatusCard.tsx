@@ -13,7 +13,8 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { IconVarning, IconCheckmark } from './illustrations/DashboardIcons';
+import { IconVarning, IconCheckmark, MiniScenCvVerktyg } from './illustrations/DashboardIcons';
+import InfoPopover from '@/components/ui/InfoPopover';
 
 interface CvStatusCardProps {
   cvCount: number;
@@ -109,11 +110,28 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
       <IconCheckmark className="w-11 h-11 flex-shrink-0" />
 
       <div className="flex-1 min-w-0">
-        <div className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
-          Aktivt CV
+        <div className="flex items-center text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
+          <span>Dina CV</span>
+          {/* "Aktivt CV" finns inte som globalt begrepp: man väljer CV per
+              verktyg. Popovern förklarar exakt det. */}
+          <InfoPopover
+            title="Dina CV"
+            illustration={<MiniScenCvVerktyg className="w-full h-auto" />}
+          >
+            <p>
+              Här ser du ditt senast uppdaterade CV. När du skapar brev, kör en
+              analys eller matchar mot jobb väljer du själv vilket av dina CV
+              vi ska utgå från.
+            </p>
+            <p>Du hanterar alla dina CV under Mina CV.</p>
+          </InfoPopover>
         </div>
         <div className="font-black text-slate-900 truncate text-base">
           {activeCvName || `${cvCount} ${cvCount === 1 ? 'sparat CV' : 'sparade CV'}`}
+        </div>
+        <div className="text-[12px] text-slate-500 truncate">
+          {activeCvName ? 'Senast uppdaterat. ' : ''}
+          Du väljer vilket CV du använder i varje verktyg.
         </div>
       </div>
 
