@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
+import InfoPopover from '@/components/ui/InfoPopover'
 import {
   IconAktBrev,
   IconAktAnalys,
@@ -84,9 +85,18 @@ export default function DashboardSenasteAktivitet() {
   return (
     <section className="bg-white rounded-3xl border border-orange-100 p-5 sm:p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg sm:text-xl font-black text-slate-900">
-          Senaste aktivitet
-        </h2>
+        <div className="flex items-center">
+          <h2 className="text-lg sm:text-xl font-black text-slate-900">
+            Senaste aktivitet
+          </h2>
+          <InfoPopover title="Senaste aktivitet">
+            <p>
+              Här samlas det du gjort: brev, loggade ansökningar, CV-analyser,
+              nedladdningar och tester. Gör du samma sak flera gånger samma dag
+              visar vi det som en rad med antal.
+            </p>
+          </InfoPopover>
+        </div>
       </div>
 
       {loading && <SkeletonList />}

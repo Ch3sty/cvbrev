@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Crown, Check, ArrowRight } from 'lucide-react';
 import { IconEld, IconEldMilstolpe, LevelCrest } from './illustrations/DashboardIcons';
+import InfoPopover from '@/components/ui/InfoPopover';
 
 const FREE_LIMITS = { letters: 7, analyses: 1, linkedin: 1 };
 const CELEBRATE_FROM = 7;
@@ -100,6 +101,14 @@ function StreakStrip({
               <span className="text-sm font-bold text-slate-600">
                 {dailyStreak === 1 ? 'dag i rad' : 'dagar i rad'}
               </span>
+              <InfoPopover title="Din streak">
+                <p>
+                  Gör något hos oss under en dag så växer din streak med en dag.
+                  XP samlar du genom att använda verktygen, och din level visar
+                  den samlade aktiviteten över tid.
+                </p>
+                <p>Rutorna nedanför visar vilka av veckans dagar du varit igång.</p>
+              </InfoPopover>
             </div>
             <div className="text-[11.5px] text-slate-500 mt-0.5">
               {dailyStreak === 0
@@ -281,8 +290,22 @@ function DinStatusWidget({
       style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
     >
       <div className="flex items-center justify-between gap-2 mb-3">
-        <div className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
-          Din status
+        <div className="flex items-center text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
+          <span>Din status</span>
+          <InfoPopover title="Din status">
+            {isPremium ? (
+              <p>
+                Med Premium har du obegränsad tillgång till personliga brev,
+                CV-analys och LinkedIn-optimering. Här ser du när perioden
+                förnyas eller löper ut.
+              </p>
+            ) : (
+              <p>
+                Så mycket har du kvar av veckans gratiskvot. Den nollställs
+                varje vecka, och med Premium slipper du taket helt.
+              </p>
+            )}
+          </InfoPopover>
         </div>
         {isPremium && (
           <span className="inline-flex items-center gap-1 text-[11px] font-black text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import type { ComponentType } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
+import InfoPopover from '@/components/ui/InfoPopover';
 import type { NextBestAction } from '@/hooks/useNextBestAction';
 import { TrackerOrb } from '@/app/dashboard/sokta-tjanster/components/TrackerIllustrations';
 
@@ -102,7 +103,14 @@ export default function NastaSteg({ action, onDismiss }: NastaStegProps) {
                 style={{ background: 'var(--jc-gradient-warm)' }}
                 aria-hidden="true"
               />
-              {content.eyebrow}
+              <span>{content.eyebrow}</span>
+              <InfoPopover title="Nästa steg">
+                <p>
+                  Vi visar ett förslag i taget, utifrån var du är i din
+                  jobbsökning just nu. Passar det inte stänger du det med
+                  krysset, så ligger det nere ett tag.
+                </p>
+              </InfoPopover>
             </div>
             <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-tight pr-8 md:pr-0">
               {content.title}

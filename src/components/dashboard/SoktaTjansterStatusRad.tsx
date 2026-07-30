@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { IconSnabbSokta } from './illustrations/DashboardIcons';
+import InfoPopover from '@/components/ui/InfoPopover';
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 
 export default function SoktaTjansterStatusRad({ summary }: { summary: ApplicationsSummary }) {
@@ -28,8 +29,19 @@ export default function SoktaTjansterStatusRad({ summary }: { summary: Applicati
       <IconSnabbUpptacktWrapper />
 
       <div className="flex-1 min-w-0">
-        <div className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
-          Dina ansökningar
+        <div className="flex items-center text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
+          <span>Dina ansökningar</span>
+          <InfoPopover title="Dina ansökningar">
+            <p>
+              Siffrorna kommer från jobben du loggat under Sökta tjänster:
+              hur många du sökt, hur många som väntar på svar och var du är i
+              intervjuprocess.
+            </p>
+            <p>
+              Öppna för att se detaljer, statistik och månadsöversikten till
+              Arbetsförmedlingen.
+            </p>
+          </InfoPopover>
         </div>
         <div className="font-black text-slate-900 text-base truncate">{parts.join(' · ')}</div>
         {summary.followUpCount > 0 && (
