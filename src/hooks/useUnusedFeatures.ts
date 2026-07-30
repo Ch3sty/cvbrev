@@ -5,10 +5,10 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 export interface FeatureSlug {
   slug:
+    | 'bli-upptackt'
     | 'cv-analys'
     | 'jobbmatchning'
     | 'jobbcoachen'
-    | 'linkedin-optimizer'
     | 'tester'
     | 'rewards';
 }
@@ -31,6 +31,15 @@ export interface FeatureSpotlightItem {
  */
 const FEATURES: FeatureSpotlightItem[] = [
   {
+    slug: 'bli-upptackt',
+    href: '/dashboard/bli-upptackt',
+    eyebrow: 'Bli upptäckt',
+    title: 'Låt rekryterare hitta dig',
+    description:
+      'Gör dig tillgänglig i vår kandidatpool. Anonym tills du själv väljer att visa vem du är.',
+    cta: 'Gör dig tillgänglig',
+  },
+  {
     slug: 'jobbmatchning',
     href: '/dashboard/jobbmatchning',
     eyebrow: 'Prova nu',
@@ -47,15 +56,6 @@ const FEATURES: FeatureSpotlightItem[] = [
     description:
       'Vi pekar ut vad som saknas och ger konkreta förbättringsförslag på sekunder.',
     cta: 'Analysera CV',
-  },
-  {
-    slug: 'linkedin-optimizer',
-    href: '/dashboard/linkedin-optimizer',
-    eyebrow: 'Prova nu',
-    title: 'Optimera din LinkedIn',
-    description:
-      'Vi skriver en headline och About-text som syns i sökningar och fångar rekryterare.',
-    cta: 'Optimera nu',
   },
   {
     slug: 'jobbcoachen',
@@ -86,12 +86,14 @@ const FEATURES: FeatureSpotlightItem[] = [
   },
 ];
 
-// Activity-typer som indikerar att användaren har provat respektive feature
+// Activity-typer som indikerar att användaren har provat respektive feature.
+// bli-upptackt avgörs inte via aktivitetsloggen utan via att en rad finns i
+// candidate_profiles (se isUsed nedan).
 const FEATURE_ACTIVITY_TYPES: Record<FeatureSlug['slug'], string[]> = {
+  'bli-upptackt': [],
   'cv-analys': ['cv_analysis_completed', 'cv_analysis_started', 'cv_improvement_started'],
   jobbmatchning: ['jobs_searched'],
   jobbcoachen: ['feature_explored', 'cta_clicked'],
-  'linkedin-optimizer': ['linkedin_optimization_started', 'linkedin_optimization_completed'],
   tester: ['feature_explored'],
   rewards: ['feature_explored'],
 };
@@ -125,11 +127,20 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
           return;
         }
 
-        // Hämta alla activity-typer användaren har
-        const { data: activities } = await supabase
-          .from('user_activities')
-          .select('activity_type, metadata')
-          .eq('user_id', userId);
+        // Hämta alla activity-typer användaren har, plus om en
+        // Bli upptäckt-profil redan finns (RLS släpper bara igenom egen rad).
+        const [{ data: activities }, { data: candidateProfile }] = await Promise.all([
+          supabase
+            .from('user_activities')
+            .select('activity_type, metadata')
+            .eq('user_id', userId),
+          (supabase as any)
+            .from('candidate_profiles')
+            .select('user_id')
+            .eq('user_id', userId)
+            .maybeSingle(),
+        ]);
+        const hasCandidateProfile = Boolean(candidateProfile);
 
         const usedTypes = new Set<string>();
         const usedTargets = new Set<string>();
@@ -153,6 +164,8 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
         };
 
         const isUsed = (slug: FeatureSlug['slug']): boolean => {
+          // Bli upptäckt räknas som provad när kandidatprofilen finns
+          if (slug === 'bli-upptackt') return hasCandidateProfile;
           // För jobbcoachen/tester/rewards kollar vi om target i metadata matchar route
           if (slug === 'jobbcoachen') return usedTargets.has('jobbcoachen');
           if (slug === 'tester') return usedTargets.has('tester');
