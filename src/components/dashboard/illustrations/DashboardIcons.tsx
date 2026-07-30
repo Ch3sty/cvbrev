@@ -174,6 +174,32 @@ export function IconSnabbTester({ className }: IllustrationProps) {
   )
 }
 
+export function IconSnabbSokta({ className }: IllustrationProps) {
+  const id = 'db-sok'
+  return (
+    <svg className={className} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="44" height="44" rx="12" fill={`url(#${id}-soft)`} />
+      {/* Checklista pa kort */}
+      <rect x="10" y="9" width="28" height="30" rx="4" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.5" />
+      {/* Rad 1: klar */}
+      <circle cx="16" cy="16.5" r="2.6" fill={`url(#${id}-warm)`} />
+      <path d="M 14.9 16.5 L 15.7 17.3 L 17.2 15.7" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="21" y1="16.5" x2="33" y2="16.5" stroke="#FDBA74" strokeWidth="1.6" strokeLinecap="round" />
+      {/* Rad 2: klar */}
+      <circle cx="16" cy="24" r="2.6" fill={`url(#${id}-deep)`} />
+      <path d="M 14.9 24 L 15.7 24.8 L 17.2 23.2" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="21" y1="24" x2="30" y2="24" stroke="#FDBA74" strokeWidth="1.6" strokeLinecap="round" />
+      {/* Rad 3: pagaende */}
+      <circle cx="16" cy="31.5" r="2.6" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.4" />
+      <line x1="21" y1="31.5" x2="27" y2="31.5" stroke="#FED7AA" strokeWidth="1.6" strokeLinecap="round" />
+      {/* Trendpil upp i hornet */}
+      <path d="M 29 34 L 33 30 L 36 33 L 40 27" stroke={`url(#${id}-deep)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M 37.2 26.8 L 40 27 L 40.2 29.8" stroke={`url(#${id}-deep)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  )
+}
+
 // =============================================================
 // AKTIVITET-IKONER (32x32)
 // =============================================================

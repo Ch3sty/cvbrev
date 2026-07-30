@@ -268,6 +268,129 @@ export interface Database {
         ]
       }
       // --- Slut login_tokens ---
+
+      // --- Definition för job_applications (Sökta tjänster) ---
+      job_applications: {
+        Row: {
+          id: string // uuid
+          user_id: string // uuid
+          job_title: string // text
+          company: string // text
+          location: string | null // text
+          application_channel: string // 'ad' | 'unsolicited' | 'network'
+          job_ad_url: string | null // text
+          letter_id: string | null // uuid -> letters
+          cv_id: string | null // uuid -> cv_texts
+          notes: string | null // text
+          applied_at: string // date
+          current_status: string | null // cache av senaste event_type
+          status_updated_at: string | null // timestamptz
+          created_at: string // timestamptz
+          updated_at: string // timestamptz
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          job_title: string
+          company: string
+          location?: string | null
+          application_channel?: string
+          job_ad_url?: string | null
+          letter_id?: string | null
+          cv_id?: string | null
+          notes?: string | null
+          applied_at?: string
+          current_status?: string | null
+          status_updated_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          job_title?: string
+          company?: string
+          location?: string | null
+          application_channel?: string
+          job_ad_url?: string | null
+          letter_id?: string | null
+          cv_id?: string | null
+          notes?: string | null
+          applied_at?: string
+          current_status?: string | null
+          status_updated_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      job_application_events: {
+        Row: {
+          id: string // uuid
+          application_id: string // uuid -> job_applications
+          event_type: string // text (statusvärde)
+          interview_round: number | null // smallint
+          note: string | null // text
+          occurred_at: string // date
+          created_at: string // timestamptz
+        }
+        Insert: {
+          id?: string
+          application_id: string
+          event_type: string
+          interview_round?: number | null
+          note?: string | null
+          occurred_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          application_id?: string
+          event_type?: string
+          interview_round?: number | null
+          note?: string | null
+          occurred_at?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      job_application_share_links: {
+        Row: {
+          token: string // text PK
+          user_id: string // uuid
+          show_company_names: boolean
+          show_channel_breakdown: boolean
+          show_monthly_trend: boolean
+          show_notes: boolean
+          expires_at: string // timestamptz
+          created_at: string // timestamptz
+          revoked_at: string | null // timestamptz
+        }
+        Insert: {
+          token: string
+          user_id: string
+          show_company_names?: boolean
+          show_channel_breakdown?: boolean
+          show_monthly_trend?: boolean
+          show_notes?: boolean
+          expires_at: string
+          created_at?: string
+          revoked_at?: string | null
+        }
+        Update: {
+          token?: string
+          user_id?: string
+          show_company_names?: boolean
+          show_channel_breakdown?: boolean
+          show_monthly_trend?: boolean
+          show_notes?: boolean
+          expires_at?: string
+          created_at?: string
+          revoked_at?: string | null
+        }
+        Relationships: []
+      }
+      // --- Slut Sökta tjänster ---
     } // Slut Tables
     Views: { // --- Definition för system_statistics ---
       system_statistics: {

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { ComponentType } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Lock } from 'lucide-react'
 import {
@@ -8,19 +9,37 @@ import {
   IconSnabbMatch,
   IconSnabbAnalys,
   IconSnabbTester,
+  IconSnabbSokta,
 } from './illustrations/DashboardIcons'
 
 interface DashboardSnabbAtgarderProps {
   cvCount: number
 }
 
-const ACTIONS = [
+interface SnabbAtgard {
+  Icon: ComponentType<{ className?: string }>
+  title: string
+  body: string
+  href: string
+  requiresCV: boolean
+  isNew?: boolean
+}
+
+const ACTIONS: SnabbAtgard[] = [
   {
     Icon: IconSnabbBrev,
     title: 'Skapa nytt brev',
     body: 'Personligt brev anpassat efter rollen',
     href: '/dashboard/skapa-brev',
     requiresCV: true,
+  },
+  {
+    Icon: IconSnabbSokta,
+    title: 'Logga sökta tjänster',
+    body: 'Följ dina ansökningar och se din statistik',
+    href: '/dashboard/sokta-tjanster',
+    requiresCV: false,
+    isNew: true,
   },
   {
     Icon: IconSnabbMatch,
@@ -60,7 +79,7 @@ export default function DashboardSnabbAtgarder({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {ACTIONS.map(({ Icon, title, body, href, requiresCV }, idx) => {
+        {ACTIONS.map(({ Icon, title, body, href, requiresCV, isNew }, idx) => {
           const locked = requiresCV && hasNoCV
           const targetHref = locked ? '/dashboard/profil/cv' : href
 
@@ -82,6 +101,11 @@ export default function DashboardSnabbAtgarder({
                   <div className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-[9px] font-black uppercase tracking-[0.12em] text-orange-700">
                     <Lock className="w-2.5 h-2.5" strokeWidth={3} />
                     CV krävs
+                  </div>
+                )}
+                {!locked && isNew && (
+                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white bg-gradient-to-r from-orange-500 to-red-600">
+                    Nyhet
                   </div>
                 )}
 

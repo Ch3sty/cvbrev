@@ -46,7 +46,10 @@ export type ActivityType =
   | 'page_viewed'                   // Användaren besökte en sida
   | 'cta_clicked'                   // Användaren klickade på en CTA-knapp
   | 'feature_explored'              // Användaren utforskade en funktion/feature
-  | 'pricing_viewed';               // Användaren tittade på prissidan
+  | 'pricing_viewed'                // Användaren tittade på prissidan
+  | 'application_logged'            // Loggade en sökt tjänst
+  | 'application_event_added'       // La till en händelse på en ansökan
+  | 'application_shared';           // Skapade delningslänk för sökstatistiken
 
 /**
  * Loggar en användaraktivitet i databasen

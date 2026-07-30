@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Edit3, Copy, Check, FileText, Save, Info, Loader2 } from 'lucide-react';
+import { Download, Edit3, Copy, Check, FileText, Save, Info, Loader2, BookmarkCheck } from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { extractEditableContent, isTemplateHTML as checkIsTemplateHTML } from '@/lib/letters/extract-editable-content';
 import FontSelector, { type FontId, FONTS } from '../FontSelector';
@@ -14,6 +14,9 @@ interface PreviewStepProps {
   onEdit: (content: string) => void;
   onDownload: (format: 'pdf' | 'docx') => void;
   onSave?: () => void;
+  /** Loggar brevet som en sökt tjänst; returnerar ansökans id (för ångra). */
+  onMarkAsApplied?: () => Promise<string>;
+  onUndoMarkAsApplied?: (applicationId: string) => Promise<void>;
   selectedFont: FontId;
   onFontChange: (fontId: FontId) => void;
   saveError?: string | null;
@@ -28,6 +31,8 @@ export default function PreviewStep({
   onEdit,
   onDownload,
   onSave,
+  onMarkAsApplied,
+  onUndoMarkAsApplied,
   selectedFont,
   onFontChange,
   saveError,
@@ -43,6 +48,9 @@ export default function PreviewStep({
   const [isDocxGenerating, setIsDocxGenerating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
+  const [isMarkingApplied, setIsMarkingApplied] = useState(false);
+  const [appliedId, setAppliedId] = useState<string | null>(null);
+  const [showAppliedBanner, setShowAppliedBanner] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const selectedFontData = FONTS[selectedFont];
@@ -95,6 +103,32 @@ export default function PreviewStep({
       } finally {
         setIsSaving(false);
       }
+    }
+  };
+
+  const handleMarkAsApplied = async () => {
+    if (!onMarkAsApplied || isMarkingApplied || appliedId) return;
+    setIsMarkingApplied(true);
+    try {
+      const applicationId = await onMarkAsApplied();
+      setAppliedId(applicationId);
+      setShowAppliedBanner(true);
+      setTimeout(() => setShowAppliedBanner(false), 8000);
+    } catch (error) {
+      console.error('Kunde inte markera som sökt:', error);
+    } finally {
+      setIsMarkingApplied(false);
+    }
+  };
+
+  const handleUndoApplied = async () => {
+    if (!appliedId || !onUndoMarkAsApplied) return;
+    try {
+      await onUndoMarkAsApplied(appliedId);
+      setAppliedId(null);
+      setShowAppliedBanner(false);
+    } catch (error) {
+      console.error('Kunde inte ångra:', error);
     }
   };
 
@@ -197,6 +231,40 @@ export default function PreviewStep({
         </motion.div>
       )}
 
+      {/* Markerad som sökt-banner med ångra-fönster */}
+      {showAppliedBanner && appliedId && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-orange-50 border border-orange-200 rounded-xl p-4"
+        >
+          <div className="flex items-start gap-3">
+            <BookmarkCheck className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-orange-900">Ansökan loggad i Sökta tjänster.</p>
+              <p className="text-sm text-orange-700">
+                <a href="/dashboard/sokta-tjanster" className="underline hover:text-orange-800 font-medium">
+                  Visa dina sökta tjänster
+                </a>
+                {onUndoMarkAsApplied && (
+                  <>
+                    {' '}eller{' '}
+                    <button
+                      type="button"
+                      onClick={handleUndoApplied}
+                      className="underline hover:text-orange-800 font-medium"
+                    >
+                      ångra
+                    </button>
+                    .
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* Error Banner */}
       {saveError && (
         <motion.div
@@ -275,6 +343,38 @@ export default function PreviewStep({
                   <>
                     <Save className="w-4 h-4 flex-shrink-0" />
                     <span className="text-sm">Spara</span>
+                  </>
+                )}
+              </motion.button>
+            )}
+
+            {/* Markera som sökt - loggar brevet i Sökta tjänster med ett tryck */}
+            {onMarkAsApplied && (
+              <motion.button
+                onClick={handleMarkAsApplied}
+                disabled={isMarkingApplied || Boolean(appliedId)}
+                className="relative flex items-center justify-center gap-2 px-4 py-2.5 text-orange-700 bg-white border-2 border-orange-300 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-all font-medium flex-1 sm:flex-initial disabled:cursor-not-allowed"
+                whileHover={isMarkingApplied || appliedId ? {} : { scale: 1.02 }}
+                whileTap={isMarkingApplied || appliedId ? {} : { scale: 0.98 }}
+                title="Logga tjänsten som sökt i Sökta tjänster"
+              >
+                {isMarkingApplied ? (
+                  <>
+                    <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
+                    <span className="text-sm">Loggar...</span>
+                  </>
+                ) : appliedId ? (
+                  <>
+                    <Check className="w-4 h-4 flex-shrink-0 text-emerald-600" />
+                    <span className="text-sm">Loggad som sökt</span>
+                  </>
+                ) : (
+                  <>
+                    <BookmarkCheck className="w-4 h-4 flex-shrink-0" />
+                    <span className="text-sm">Markera som sökt</span>
+                    <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                      Nyhet
+                    </span>
                   </>
                 )}
               </motion.button>

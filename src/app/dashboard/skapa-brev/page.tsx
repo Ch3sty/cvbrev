@@ -35,7 +35,7 @@ export default function CreateLetterPage() {
   const { fetchCVs, cvs, isLoading: cvLoading } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { subscriptionTier } = useProfile();
-  const { successWithMascotAndActivity } = useNotification();
+  const { successWithMascotAndActivity, logActivity } = useNotification();
 
   // Har vi hämtat CV-listan minst en gång? (skiljer "laddar" från "tom lista").
   // State, inte ref, så gating-effekten kör om när första fetch är klar.
@@ -315,6 +315,39 @@ export default function CreateLetterPage() {
     }
   };
 
+  // "Markera som sökt": loggar brevet som en ansökan i Sökta tjänster.
+  // Preview-raden i letters finns alltid när knappen visas, så letter_id
+  // kan kopplas direkt. Idempotent i API:t: dubbeltryck ger samma ansökan.
+  const handleMarkAsApplied = useCallback(async (): Promise<string> => {
+    if (!letterData?.id) throw new Error('Brevet saknar id');
+    const res = await fetch('/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        job_title: letterData.job_title || letterData.title || 'Okänd tjänst',
+        company: letterData.company || 'Okänd arbetsgivare',
+        application_channel: 'ad',
+        letter_id: letterData.id,
+        cv_id: selectedCV || null,
+        job_ad_url: prefillData?.jobAdUrl || null,
+      }),
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.error || 'Kunde inte logga ansökan');
+    }
+    logActivity(
+      'application_logged',
+      `Markerade brevet som sökt: ${json.data.job_title} hos ${json.data.company}`,
+      { applicationId: json.data.id, letterId: letterData.id, source: 'letter_preview' }
+    );
+    return json.data.id as string;
+  }, [letterData, selectedCV, logActivity, prefillData]);
+
+  const handleUndoMarkApplied = useCallback(async (applicationId: string) => {
+    await fetch(`/api/applications/${applicationId}`, { method: 'DELETE' });
+  }, []);
+
   const handleDownloadLetter = async (format: 'pdf' | 'docx' = 'pdf') => {
     if (!generatedLetter) return;
     try {
@@ -405,6 +438,8 @@ export default function CreateLetterPage() {
             onEdit={handleEditLetter}
             onDownload={handleDownloadLetter}
             onSave={handleSaveLetter}
+            onMarkAsApplied={handleMarkAsApplied}
+            onUndoMarkAsApplied={handleUndoMarkApplied}
             selectedFont={selectedFont}
             onFontChange={setSelectedFont}
             saveError={saveError}
@@ -530,6 +565,8 @@ export default function CreateLetterPage() {
             onEdit={handleEditLetter}
             onDownload={handleDownloadLetter}
             onSave={handleSaveLetter}
+            onMarkAsApplied={handleMarkAsApplied}
+            onUndoMarkAsApplied={handleUndoMarkApplied}
             selectedFont={selectedFont}
             onFontChange={setSelectedFont}
             saveError={saveError}

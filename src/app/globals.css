@@ -138,6 +138,27 @@ body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  /* Sökta tjänster: månadsrapporten är det enda som skrivs ut.
+     All app-chrome (nav, flikar, knappar) döljs; rapporten flödar från
+     sidans topp som ett rent dokument. */
+  body.printing-tracker-report * {
+    visibility: hidden;
+  }
+  body.printing-tracker-report .tracker-report,
+  body.printing-tracker-report .tracker-report * {
+    visibility: visible;
+  }
+  body.printing-tracker-report .tracker-report {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: white;
+    border: none !important;
+    box-shadow: none !important;
+  }
 }
 
 /* Classic Template - Traditional Swedish format */

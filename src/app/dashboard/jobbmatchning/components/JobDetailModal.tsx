@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
@@ -17,6 +18,9 @@ import {
   Phone,
   ExternalLink,
   FileText,
+  BookmarkCheck,
+  Check,
+  Loader2,
 } from 'lucide-react';
 import { coverLetterPrefill } from '@/store/cover-letter-store';
 
@@ -50,8 +54,40 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
       jobTitle: job.headline,
       company: job.employer?.name || '',
       jobDescription: buildJobDescription(job),
+      jobAdUrl: applicationUrl || undefined,
     });
     router.push('/dashboard/skapa-brev');
+  };
+
+  // "Markera som sökt" direkt från annonsen, för jobb man söker utan brev.
+  const [markState, setMarkState] = useState<'idle' | 'saving' | 'done'>('idle');
+  useEffect(() => {
+    setMarkState('idle');
+  }, [job?.id]);
+
+  const handleMarkApplied = async () => {
+    if (!job || markState !== 'idle') return;
+    setMarkState('saving');
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: job.headline || 'Okänd tjänst',
+          company: job.employer?.name || 'Okänd arbetsgivare',
+          location: job.workplace_address?.municipality || null,
+          application_channel: 'ad',
+          job_ad_url: applicationUrl || null,
+          cv_id: cvId || null,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error);
+      setMarkState('done');
+    } catch (error) {
+      console.error('Kunde inte markera som sökt:', error);
+      setMarkState('idle');
+    }
   };
 
   return (
@@ -339,7 +375,8 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               Pa mobil maste vi lyfta baren over MobileBottomNav (~80px hojd
               + safe-area). Pa desktop ar nav-baren gomd (lg:hidden) sa
               standard-padding racker. */}
-          {(cvId || applicationUrl) && (
+          {/* "Markera som sökt" finns alltid, så baren renderas ovillkorligt. */}
+          {(
             <div
               className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-t border-slate-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1] mb-[calc(env(safe-area-inset-bottom)+88px)] lg:mb-0"
             >
@@ -352,6 +389,26 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                   <span>Skapa personligt brev</span>
                 </button>
               )}
+              <button
+                onClick={handleMarkApplied}
+                disabled={markState !== 'idle'}
+                className="relative flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-slate-200 text-slate-700 bg-white rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors touch-manipulation min-h-[48px] disabled:cursor-default"
+                title="Logga jobbet i Sökta tjänster"
+              >
+                {markState === 'saving' ? (
+                  <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
+                ) : markState === 'done' ? (
+                  <Check className="w-4 h-4 shrink-0 text-emerald-600" />
+                ) : (
+                  <BookmarkCheck className="w-4 h-4 shrink-0 text-orange-600" />
+                )}
+                <span>{markState === 'done' ? 'Loggad som sökt' : 'Markera som sökt'}</span>
+                {markState === 'idle' && (
+                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                    Nyhet
+                  </span>
+                )}
+              </button>
               {applicationUrl && (
                 <a
                   href={applicationUrl}

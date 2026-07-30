@@ -18,6 +18,7 @@ import {
   OversiktIcon,
   CvIcon,
   BrevIcon,
+  SoktaTjansterIcon,
   NyttCvIcon,
   NyttBrevIcon,
   MallIcon,
@@ -46,6 +47,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [claimingReward, setClaimingReward] = useState(false);
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
+  const [applicationCount, setApplicationCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
 
   const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
@@ -106,6 +108,14 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
               { event: '*', schema: 'public', table: 'letters', filter: `user_id=eq.${userId}` },
               () => refreshCounts(userId)
             )
+            .subscribe(),
+          supabase
+            .channel('sidebar_job_applications_changes')
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'job_applications', filter: `user_id=eq.${userId}` },
+              () => refreshCounts(userId)
+            )
             .subscribe()
         );
       } catch (error) {
@@ -114,7 +124,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     };
 
     const refreshCounts = async (uid: string) => {
-      const [{ count: cvCountResult }, { count: letterCountResult }] = await Promise.all([
+      const [{ count: cvCountResult }, { count: letterCountResult }, { count: applicationCountResult }] = await Promise.all([
         supabase
           .from('cv_texts')
           .select('id', { count: 'exact', head: true })
@@ -124,9 +134,14 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           .select('id', { count: 'exact', head: true })
           .eq('user_id', uid)
           .eq('is_saved', true),
+        supabase
+          .from('job_applications')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', uid),
       ]);
       setCvCount(cvCountResult ?? 0);
       setLetterCount(letterCountResult ?? 0);
+      setApplicationCount(applicationCountResult ?? 0);
     };
 
     loadProfile();
@@ -280,6 +295,19 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Sparade brev"
             icon={BrevIcon}
             count={letterCount}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/sokta-tjanster"
+            label="Sökta tjänster"
+            icon={SoktaTjansterIcon}
+            count={applicationCount}
+            badge={
+              <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                Nyhet
+              </span>
+            }
             isMobile={isMobile}
             onClick={onClose}
           />

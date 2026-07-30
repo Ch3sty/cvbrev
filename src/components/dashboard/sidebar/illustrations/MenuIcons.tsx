@@ -53,6 +53,27 @@ export function BrevIcon({ className }: IconProps) {
   );
 }
 
+// === SÖKTA TJÄNSTER — bokmärkt dokument med bock ===
+export function SoktaTjansterIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path
+        d="M6 4.5 A 1.5 1.5 0 0 1 7.5 3 H 16.5 A 1.5 1.5 0 0 1 18 4.5 V 20 L 12 16.5 L 6 20 Z"
+        stroke="currentColor"
+        strokeWidth={SW}
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.5 10 L 11.5 12 L 15 8.5"
+        stroke="currentColor"
+        strokeWidth={SW}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 // === NYTT CV — papper med plus ===
 export function NyttCvIcon({ className }: IconProps) {
   return (

@@ -12,6 +12,8 @@ export interface CoverLetterPrefillData {
   jobDescription: string;
   jobTitle: string;
   company: string;
+  /** Länk till annonsen, följer med till "Markera som sökt". */
+  jobAdUrl?: string;
 }
 
 export const coverLetterPrefill = {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Eye, Pencil, Trash2, Download, MoreHorizontal,
-  RefreshCw, FileType, FileText, Lock,
+  RefreshCw, FileType, FileText, Lock, BookmarkCheck,
 } from 'lucide-react';
 import * as Popover from '@radix-ui/react-popover';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
@@ -17,6 +17,8 @@ interface LetterCardCompactProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   onDownload: (id: string, format: 'pdf' | 'docx') => void;
+  /** Loggar brevet som en sökt tjänst i Sökta tjänster. */
+  onMarkApplied?: (id: string) => void;
   isDeleting: boolean;
 }
 
@@ -33,6 +35,7 @@ export default function LetterCardCompact({
   onEdit,
   onDelete,
   onDownload,
+  onMarkApplied,
   isDeleting,
 }: LetterCardCompactProps) {
   const [showMobileSheet, setShowMobileSheet] = useState(false);
@@ -212,6 +215,22 @@ export default function LetterCardCompact({
                     <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
                     Ladda ned Word
                   </button>
+                  {onMarkApplied && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onMarkApplied(letter.id);
+                        setPopoverOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    >
+                      <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
+                      Markera som sökt
+                      <span className="ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                        Nyhet
+                      </span>
+                    </button>
+                  )}
                   <div className="h-px bg-slate-100 my-1" />
                   <button
                     type="button"
@@ -322,6 +341,22 @@ export default function LetterCardCompact({
                   <Download className="w-4 h-4 text-blue-600" strokeWidth={2.5} />
                   Ladda ned Word
                 </button>
+                {onMarkApplied && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onMarkApplied(letter.id);
+                      setShowMobileSheet(false);
+                    }}
+                    className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                  >
+                    <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
+                    Markera som sökt
+                    <span className="ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                      Nyhet
+                    </span>
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => {

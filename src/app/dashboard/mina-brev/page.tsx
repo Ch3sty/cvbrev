@@ -125,6 +125,39 @@ export default function MinaBrevPage() {
     router.push(`/dashboard/mina-brev/${letterId}`);
   };
 
+  // Retroaktiv loggning: markera ett redan skapat brev som sökt tjänst.
+  // API:t är idempotent på letter_id, så dubbelklick skapar ingen dubblett.
+  const handleMarkApplied = async (letterId: string) => {
+    const letter = letters?.find((l) => l.id === letterId);
+    if (!letter) return;
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: letter.job_title || letter.title || 'Okänd tjänst',
+          company: letter.company || 'Okänd arbetsgivare',
+          application_channel: 'ad',
+          letter_id: letter.id,
+          applied_at: letter.created_at ? String(letter.created_at).slice(0, 10) : undefined,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error);
+      if (json.alreadyExists) {
+        successWithMascot('Brevet är redan loggat i Sökta tjänster.', 'letter-created', 3000, false);
+      } else {
+        successWithMascot('Loggad i Sökta tjänster.', 'letter-created', 3500, false);
+      }
+    } catch (error) {
+      setNotification({
+        message: 'Kunde inte markera som sökt',
+        type: 'error',
+        isVisible: true,
+      });
+    }
+  };
+
   if (!profile) return null;
 
   const limitDisplay = maxSavedLetters === Infinity ? '∞' : String(maxSavedLetters);
@@ -341,6 +374,7 @@ export default function MinaBrevPage() {
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   onDownload={handleDownload}
+                  onMarkApplied={handleMarkApplied}
                   isDeleting={deletingId === letter.id}
                 />
               </motion.div>
@@ -361,6 +395,7 @@ export default function MinaBrevPage() {
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   onDownload={handleDownload}
+                  onMarkApplied={handleMarkApplied}
                   isDeleting={deletingId === letter.id}
                 />
               </motion.div>
