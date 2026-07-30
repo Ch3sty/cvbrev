@@ -9,6 +9,9 @@ import {
   UserX,
   Clock,
   AlertTriangle,
+  Megaphone,
+  Loader2,
+  CheckCircle2,
 } from 'lucide-react';
 import {
   BarChart,
@@ -58,7 +61,7 @@ interface EmailStats {
     total: number;
     byType: Record<string, number>;
     byFeature: { feature: string; count: number }[];
-    perDay: { date: string; quota_back: number; trial_reminder: number }[];
+    perDay: { date: string; quota_back: number; trial_reminder: number; campaign: number }[];
     recent: {
       sent_at: string;
       email_type: string;
@@ -94,7 +97,16 @@ function featureLabel(feature: string): string {
 function emailTypeLabel(emailType: string): string {
   if (emailType === 'quota_back') return 'Kvotpåminnelse';
   if (emailType === 'trial_reminder') return 'Trial-påminnelse';
+  if (emailType === 'campaign:sokta-tjanster') return 'Kampanj - Ny funktion';
+  if (emailType === 'campaign_test') return 'Kampanjtest';
   return emailType;
+}
+
+interface CampaignStatus {
+  eligibleCount: number;
+  sentCount: number;
+  remainingCount: number;
+  lastTest: { sent_at: string; recipient: string } | null;
 }
 
 // Grupperar features med samma svenska etikett (t.ex. alla test:-nycklar)
@@ -118,6 +130,72 @@ export default function AdminEmailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [dateRange, setDateRange] = useState<number>(30);
+
+  // Kampanjen "Ny funktion: Sökta tjänster"
+  const [campaign, setCampaign] = useState<CampaignStatus | null>(null);
+  const [campaignBusy, setCampaignBusy] = useState<'test' | 'send' | null>(null);
+  const [campaignMessage, setCampaignMessage] = useState<string | null>(null);
+
+  const fetchCampaign = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/email/campaign');
+      const json = await res.json();
+      if (res.ok && json.success) setCampaign(json.data as CampaignStatus);
+    } catch (err) {
+      console.error('Kunde inte hämta kampanjstatus:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCampaign();
+  }, [fetchCampaign]);
+
+  const handleCampaignTest = async () => {
+    setCampaignBusy('test');
+    setCampaignMessage(null);
+    try {
+      const res = await fetch('/api/admin/email/campaign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'test' }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error || 'Testutskicket misslyckades');
+      setCampaignMessage(`Testmail skickat till ${json.recipient}. Kolla inkorgen och godkänn innan du skickar till alla.`);
+      await fetchCampaign();
+    } catch (err: any) {
+      setCampaignMessage(err.message || 'Testutskicket misslyckades');
+    } finally {
+      setCampaignBusy(null);
+    }
+  };
+
+  const handleCampaignSend = async () => {
+    if (!campaign) return;
+    const ok = confirm(
+      `Skicka kampanjen till ${campaign.remainingCount} användare? Detta går inte att ångra.`
+    );
+    if (!ok) return;
+    setCampaignBusy('send');
+    setCampaignMessage(null);
+    try {
+      const res = await fetch('/api/admin/email/campaign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'send', confirm: true }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error || 'Utskicket misslyckades');
+      setCampaignMessage(
+        `Klart! ${json.sent} mail skickade${json.failed ? `, ${json.failed} misslyckades (kör igen för att försöka på nytt)` : ''}.`
+      );
+      await Promise.all([fetchCampaign(), fetchStats()]);
+    } catch (err: any) {
+      setCampaignMessage(err.message || 'Utskicket misslyckades');
+    } finally {
+      setCampaignBusy(null);
+    }
+  };
 
   const fetchStats = useCallback(async () => {
     setIsLoading(true);
@@ -181,6 +259,73 @@ export default function AdminEmailPage() {
             <option value={90}>90 dagar</option>
           </select>
         </div>
+      </div>
+
+      {/* Kampanj: Ny funktion (Sökta tjänster) */}
+      <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0">
+              <Megaphone className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Kampanj - Ny funktion</h3>
+              <p className="text-sm text-gray-600 mt-0.5">
+                Utskick om Sökta tjänster till alla användare. Skicka testet till dig själv och
+                godkänn mailet innan du skickar till alla.
+              </p>
+              {campaign && (
+                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
+                  <span>
+                    <span className="font-semibold text-gray-900">{campaign.remainingCount}</span> mottagare kvar
+                  </span>
+                  <span className="text-gray-300">·</span>
+                  <span>
+                    <span className="font-semibold text-gray-900">{campaign.sentCount}</span> skickade
+                  </span>
+                  {campaign.lastTest && (
+                    <>
+                      <span className="text-gray-300">·</span>
+                      <span className="inline-flex items-center gap-1 text-emerald-700">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        Test skickat {format(new Date(campaign.lastTest.sent_at), 'd MMM HH:mm', { locale: sv })}
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <button
+              type="button"
+              onClick={handleCampaignTest}
+              disabled={campaignBusy !== null}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-semibold text-gray-700 hover:border-gray-400 transition-all disabled:opacity-50"
+            >
+              {campaignBusy === 'test' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+              Skicka test till mig
+            </button>
+            <button
+              type="button"
+              onClick={handleCampaignSend}
+              disabled={campaignBusy !== null || !campaign || !campaign.lastTest || campaign.remainingCount === 0}
+              title={!campaign?.lastTest ? 'Skicka och godkänn ett testmail först' : undefined}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all disabled:opacity-50"
+              style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+            >
+              {campaignBusy === 'send' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Megaphone className="w-4 h-4" />}
+              Skicka till alla{campaign ? ` (${campaign.remainingCount})` : ''}
+            </button>
+          </div>
+        </div>
+
+        {campaignMessage && (
+          <div className="mt-4 text-sm text-gray-700 bg-orange-50 border border-orange-200 rounded-lg px-3.5 py-2.5">
+            {campaignMessage}
+          </div>
+        )}
       </div>
 
       {/* Stats Cards */}
@@ -361,6 +506,13 @@ export default function AdminEmailPage() {
                   name="Trial-påminnelser"
                   stackId="sends"
                   fill="#8b5cf6"
+                  radius={[0, 0, 0, 0]}
+                />
+                <Bar
+                  dataKey="campaign"
+                  name="Kampanjer"
+                  stackId="sends"
+                  fill="#f97316"
                   radius={[4, 4, 0, 0]}
                 />
               </BarChart>

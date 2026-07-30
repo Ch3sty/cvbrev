@@ -153,8 +153,8 @@ export async function GET(request: NextRequest) {
     // d. Utskick från email_log inom perioden
     const byType: Record<string, number> = {};
     const byFeature = new Map<string, number>();
-    const perDayMap = new Map<string, { quota_back: number; trial_reminder: number }>(
-      buildDateRange(days).map((d) => [d, { quota_back: 0, trial_reminder: 0 }])
+    const perDayMap = new Map<string, { quota_back: number; trial_reminder: number; campaign: number }>(
+      buildDateRange(days).map((d) => [d, { quota_back: 0, trial_reminder: 0, campaign: 0 }])
     );
 
     for (const log of logs) {
@@ -167,6 +167,7 @@ export async function GET(request: NextRequest) {
       if (day) {
         if (log.email_type === 'quota_back') day.quota_back += 1;
         else if (log.email_type === 'trial_reminder') day.trial_reminder += 1;
+        else if (log.email_type.startsWith('campaign:')) day.campaign += 1;
       }
     }
 
