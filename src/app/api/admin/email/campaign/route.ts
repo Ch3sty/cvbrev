@@ -23,8 +23,11 @@ import {
 } from '@/lib/email/campaign-sokta-tjanster';
 
 export const dynamic = 'force-dynamic';
-// Fullt utskick sker i batchar om 100 med paus emellan; ge routen gott om tid.
-export const maxDuration = 300;
+// 60 s är planens tak (samma som vercel.json). Räcker gott: utskicket går i
+// batchar om 100 via Resends batch-API (~250 mottagare = 3 anrop på ett par
+// sekunder), och skulle routen ändå avbrytas är den omkörningsbar utan
+// dubbletter eftersom redan loggade mottagare hoppas över.
+export const maxDuration = 60;
 
 const FROM = 'Jobbcoach.ai <noreply@jobbcoach.ai>';
 const BATCH_SIZE = 100;
