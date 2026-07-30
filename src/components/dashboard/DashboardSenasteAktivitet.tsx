@@ -11,6 +11,8 @@ import {
   IconAktLinkedin,
   IconAktNedladdning,
   IconAktTest,
+  IconAktAnsokan,
+  EmptyActivityIllustration,
 } from './illustrations/DashboardIcons'
 
 type ActivityType =
@@ -20,6 +22,7 @@ type ActivityType =
   | 'linkedin'
   | 'nedladdning'
   | 'test'
+  | 'ansokan'
 
 interface ActivityItem {
   id: string
@@ -28,6 +31,8 @@ interface ActivityItem {
   subtitle?: string
   href?: string
   createdAt: string
+  count?: number
+  templateId?: string
 }
 
 const ICONS: Record<ActivityType, (props: { className?: string }) => React.JSX.Element> = {
@@ -37,6 +42,18 @@ const ICONS: Record<ActivityType, (props: { className?: string }) => React.JSX.E
   linkedin: IconAktLinkedin,
   nedladdning: IconAktNedladdning,
   test: IconAktTest,
+  ansokan: IconAktAnsokan,
+}
+
+// Mall-swatch: en stabil husfärg per CV-mall, så en lista med flera
+// nedladdningar går att skanna utan att läsa varje titel.
+const SWATCH_COLORS = ['#F97316', '#DC2626', '#BE185D', '#FB923C', '#F59E0B', '#E11D48']
+function templateSwatchColor(templateId: string): string {
+  let hash = 0
+  for (let i = 0; i < templateId.length; i++) {
+    hash = (hash * 31 + templateId.charCodeAt(i)) >>> 0
+  }
+  return SWATCH_COLORS[hash % SWATCH_COLORS.length]
 }
 
 export default function DashboardSenasteAktivitet() {
@@ -81,13 +98,33 @@ export default function DashboardSenasteAktivitet() {
       {!loading && items && items.length > 0 && (
         <ul className="space-y-2.5">
           {items.map((item, idx) => {
-            const Icon = ICONS[item.type]
+            const Icon = ICONS[item.type] ?? IconAktBrev
             const content = (
-              <div className="flex items-center gap-3 p-3 rounded-2xl border border-orange-100 hover:border-orange-200 hover:bg-orange-50/40 transition-colors">
+              <div
+                className={`flex items-center gap-3 p-3 rounded-2xl border border-orange-100 transition-all duration-200 ${
+                  item.href
+                    ? 'hover:border-orange-200 hover:bg-orange-50/40 hover:-translate-y-0.5'
+                    : ''
+                }`}
+              >
                 <Icon className="w-9 h-9 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-bold text-slate-900 truncate">
-                    {item.title}
+                  <div className="flex items-center gap-2 min-w-0">
+                    {item.templateId && (
+                      <span
+                        className="w-2.5 h-2.5 rounded-[4px] flex-shrink-0"
+                        style={{ backgroundColor: templateSwatchColor(item.templateId) }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className="text-sm font-bold text-slate-900 truncate">
+                      {item.title}
+                    </span>
+                    {item.count && item.count > 1 && (
+                      <span className="flex-shrink-0 text-[10.5px] font-black text-orange-700 bg-orange-50 border border-orange-200 rounded-full px-1.5 py-px tabular-nums">
+                        × {item.count}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     {item.subtitle && (
@@ -147,28 +184,20 @@ function SkeletonList() {
 function EmptyState() {
   return (
     <div className="text-center py-8 px-4">
-      <div
-        className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3"
-        style={{
-          background:
-            'linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)',
-        }}
-      >
-        <IconAktBrev className="w-10 h-10" />
+      <div className="flex justify-center mb-4">
+        <EmptyActivityIllustration className="w-32 h-32" />
       </div>
       <h3 className="text-sm font-bold text-slate-900 mb-1.5">
         Här dyker dina genomförda aktiviteter upp
       </h3>
       <p className="text-xs text-slate-500 mb-4 max-w-xs mx-auto leading-relaxed">
-        När du skapar ett brev, kör en CV-analys eller tränar på ett test
+        När du skapar ett brev, loggar en ansökan eller kör en CV-analys
         ser du det här.
       </p>
       <Link
         href="/dashboard/skapa-brev"
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold"
-        style={{
-          background: 'linear-gradient(135deg, #F97316, #DC2626)',
-        }}
+        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold transition-all duration-200 hover:-translate-y-0.5"
+        style={{ background: 'var(--jc-gradient-warm)' }}
       >
         Skapa ditt första brev
         <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />

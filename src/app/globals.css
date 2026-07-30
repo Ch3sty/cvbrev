@@ -101,6 +101,18 @@ body {
 }
 
 /* ========================================
+   VARUMÄRKESGRADIENTER
+   En källa till sanning för husets gradient, i stället för hex-stopp
+   hårdkodade per komponent. --jc-gradient-hero är reserverad för EN
+   primär handling per vy; allt annat använder warm/soft eller platta toner.
+   ======================================== */
+:root {
+  --jc-gradient-hero: linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%);
+  --jc-gradient-warm: linear-gradient(135deg, #F97316, #DC2626);
+  --jc-gradient-soft: linear-gradient(135deg, #FFEDD5, #FED7AA);
+}
+
+/* ========================================
    COVER LETTER TEMPLATE STYLES
    ======================================== */
 

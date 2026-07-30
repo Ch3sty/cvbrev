@@ -125,8 +125,15 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           </div>
         </div>
 
-        {/* Mobil: tom flex */}
-        <div className="flex-1 lg:hidden" />
+        {/* Mobil: kompakt hälsning, mobilanvändaren ska också mötas av sitt namn */}
+        <div className="flex-1 min-w-0 lg:hidden">
+          <div className="text-sm font-black text-slate-900 truncate leading-tight">
+            {getGreeting()}, {getFirstName()}
+          </div>
+          <div className="text-[10.5px] text-slate-500 capitalize truncate hidden min-[380px]:block">
+            {getTodayLabel()}
+          </div>
+        </div>
 
         {/* Hoger: Meddelanden + Notiser + Streak-pill + Profil */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">

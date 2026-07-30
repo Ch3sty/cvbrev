@@ -1,5 +1,10 @@
 'use client'
 
+// Snabbåtgärder: sidans mest handlingsbara sektion.
+// Sex kort i ett jämnt 3-kolumnsgrid (2 kolumner på tablet), med ett
+// valfritt "Rekommenderas nu"-kort som får extra visuell vikt utifrån
+// vad användaren ännu inte provat. Gemensamt hover-kontrakt på hela kortet.
+
 import Link from 'next/link'
 import type { ComponentType } from 'react'
 import { motion } from 'framer-motion'
@@ -10,13 +15,17 @@ import {
   IconSnabbAnalys,
   IconSnabbTester,
   IconSnabbSokta,
+  IconSnabbUpptackt,
 } from './illustrations/DashboardIcons'
 
 interface DashboardSnabbAtgarderProps {
   cvCount: number
+  /** Slug från useNextBestAction: matchande kort markeras "Rekommenderas nu". */
+  recommendedSlug?: string | null
 }
 
 interface SnabbAtgard {
+  slug: string
   Icon: ComponentType<{ className?: string }>
   title: string
   body: string
@@ -27,6 +36,7 @@ interface SnabbAtgard {
 
 const ACTIONS: SnabbAtgard[] = [
   {
+    slug: 'skapa-brev',
     Icon: IconSnabbBrev,
     title: 'Skapa nytt brev',
     body: 'Personligt brev anpassat efter rollen',
@@ -34,6 +44,7 @@ const ACTIONS: SnabbAtgard[] = [
     requiresCV: true,
   },
   {
+    slug: 'sokta-tjanster',
     Icon: IconSnabbSokta,
     title: 'Logga sökta tjänster',
     body: 'Följ dina ansökningar och se din statistik',
@@ -42,6 +53,7 @@ const ACTIONS: SnabbAtgard[] = [
     isNew: true,
   },
   {
+    slug: 'jobbmatchning',
     Icon: IconSnabbMatch,
     title: 'Hitta matchande jobb',
     body: 'Tusentals lediga tjänster i Sverige',
@@ -49,6 +61,7 @@ const ACTIONS: SnabbAtgard[] = [
     requiresCV: true,
   },
   {
+    slug: 'cv-analys',
     Icon: IconSnabbAnalys,
     title: 'Analysera ditt CV',
     body: 'Score och förbättringar direkt',
@@ -56,16 +69,26 @@ const ACTIONS: SnabbAtgard[] = [
     requiresCV: true,
   },
   {
+    slug: 'tester',
     Icon: IconSnabbTester,
     title: 'Träna på tester',
     body: 'Matrislogik, verbalt och numeriskt',
     href: '/dashboard/tester',
     requiresCV: false,
   },
+  {
+    slug: 'bli-upptackt',
+    Icon: IconSnabbUpptackt,
+    title: 'Bli upptäckt',
+    body: 'Låt rekryterare hitta din profil',
+    href: '/dashboard/bli-upptackt',
+    requiresCV: false,
+  },
 ]
 
 export default function DashboardSnabbAtgarder({
   cvCount,
+  recommendedSlug,
 }: DashboardSnabbAtgarderProps) {
   const hasNoCV = cvCount === 0
 
@@ -78,10 +101,11 @@ export default function DashboardSnabbAtgarder({
         <p className="text-sm text-slate-500">Vad vill du göra härnäst?</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {ACTIONS.map(({ Icon, title, body, href, requiresCV, isNew }, idx) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        {ACTIONS.map(({ slug, Icon, title, body, href, requiresCV, isNew }, idx) => {
           const locked = requiresCV && hasNoCV
           const targetHref = locked ? '/dashboard/profil/cv' : href
+          const recommended = !locked && recommendedSlug === slug
 
           return (
             <motion.div
@@ -92,9 +116,15 @@ export default function DashboardSnabbAtgarder({
             >
               <Link
                 href={targetHref}
-                className="group block bg-white rounded-3xl border border-orange-100 p-5 hover:border-orange-200 hover:shadow-lg transition-all relative overflow-hidden"
+                className={`group block rounded-3xl p-5 relative overflow-hidden transition-all duration-200 hover:-translate-y-0.5 ${
+                  recommended
+                    ? 'bg-orange-50/60 border-2 border-orange-300 hover:border-orange-400'
+                    : 'bg-white border border-orange-100 hover:border-orange-200'
+                }`}
                 style={{
-                  boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)',
+                  boxShadow: recommended
+                    ? '0 8px 24px -8px rgba(249, 115, 22, 0.25)'
+                    : '0 4px 16px -8px rgba(249, 115, 22, 0.12)',
                 }}
               >
                 {locked && (
@@ -103,8 +133,19 @@ export default function DashboardSnabbAtgarder({
                     CV krävs
                   </div>
                 )}
-                {!locked && isNew && (
-                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white bg-gradient-to-r from-orange-500 to-red-600">
+                {recommended && (
+                  <div
+                    className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white"
+                    style={{ background: 'var(--jc-gradient-warm)' }}
+                  >
+                    Rekommenderas nu
+                  </div>
+                )}
+                {!locked && !recommended && isNew && (
+                  <div
+                    className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white"
+                    style={{ background: 'var(--jc-gradient-warm)' }}
+                  >
                     Nyhet
                   </div>
                 )}

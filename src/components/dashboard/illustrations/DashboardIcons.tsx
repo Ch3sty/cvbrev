@@ -74,6 +74,207 @@ export function IconEld({ className }: IllustrationProps) {
 }
 
 // =============================================================
+// STREAK-ELD, MILSTOLPE-VARIANT (120x120)
+// Samma flamgeometri som IconEld men med glodring och gnistor.
+// Anvands vid streak-milstolpar (dag 7/30) och som bakgrundsdekoration
+// i det firande streak-kortet.
+// =============================================================
+export function IconEldMilstolpe({ className }: IllustrationProps) {
+  const id = 'db-eld-mil'
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={`${id}-flame`} x1="0.5" y1="1" x2="0.5" y2="0">
+          <stop offset="0" stopColor="#BE185D" />
+          <stop offset="0.4" stopColor="#DC2626" />
+          <stop offset="0.85" stopColor="#F97316" />
+          <stop offset="1" stopColor="#FCD34D" />
+        </linearGradient>
+        <linearGradient id={`${id}-inner`} x1="0.5" y1="1" x2="0.5" y2="0">
+          <stop offset="0" stopColor="#DC2626" />
+          <stop offset="0.6" stopColor="#F97316" />
+          <stop offset="1" stopColor="#FBBF24" />
+        </linearGradient>
+      </defs>
+
+      {/* Glodring */}
+      <circle cx="60" cy="60" r="54" stroke={`url(#${id}-flame)`} strokeWidth="2.5" opacity="0.35" />
+      <circle cx="60" cy="60" r="46" stroke="#FCD34D" strokeWidth="1.5" opacity="0.4" strokeDasharray="2 7" strokeLinecap="round" />
+
+      {/* Gnistor runt flamman */}
+      <circle cx="22" cy="34" r="2.5" fill="#FBBF24" />
+      <circle cx="100" cy="42" r="2" fill="#F97316" />
+      <circle cx="94" cy="90" r="2.5" fill="#FB923C" />
+      <circle cx="18" cy="78" r="1.8" fill="#FCD34D" />
+
+      {/* Flamman (IconElds geometri, förskjuten till mitten) */}
+      <g transform="translate(12, 12)">
+        <path
+          d="M 48 88 C 26 88 14 72 14 56 C 14 42 26 36 28 26 C 32 32 36 36 38 32 C 42 22 38 14 44 8 C 48 18 56 24 60 36 C 62 32 66 30 68 26 C 70 36 78 42 80 56 C 82 72 70 88 48 88 Z"
+          fill={`url(#${id}-flame)`}
+        />
+        <path
+          d="M 48 80 C 34 80 26 70 26 60 C 26 52 32 48 34 42 C 38 46 40 48 42 46 C 44 38 44 32 48 28 C 52 36 56 42 58 48 C 60 46 62 44 64 42 C 66 50 70 54 70 62 C 70 72 62 80 48 80 Z"
+          fill={`url(#${id}-inner)`}
+        />
+        <path
+          d="M 48 72 C 42 72 38 66 38 60 C 38 56 42 54 44 50 C 46 54 48 56 50 54 C 52 56 56 60 56 64 C 56 68 54 72 48 72 Z"
+          fill="#FCD34D"
+          opacity="0.9"
+        />
+      </g>
+    </svg>
+  )
+}
+
+// =============================================================
+// LEVEL-CREST (40x40) - Skoldmärke med ädelsten for level-pillen.
+// Ger levelsystemet en egen form istallet for en generisk trendpil.
+// =============================================================
+export function LevelCrest({ className }: IllustrationProps) {
+  const id = 'db-crest'
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <Defs id={id} />
+      <path
+        d="M20 3 L34 10 L34 21 Q34 32 20 37 Q6 32 6 21 L6 10 Z"
+        fill={`url(#${id}-warm)`}
+      />
+      <path
+        d="M20 6.5 L31 12 L31 21 Q31 29.5 20 33.5 Q9 29.5 9 21 L9 12 Z"
+        fill="none"
+        stroke="#FFFFFF"
+        strokeWidth="1.4"
+        opacity="0.45"
+      />
+      {/* Ädelsten */}
+      <path d="M20 13 L26 19 L20 27 L14 19 Z" fill="#FCD34D" />
+      <path d="M20 13 L26 19 L14 19 Z" fill="#FDE68A" />
+    </svg>
+  )
+}
+
+// =============================================================
+// TOMLAGE: SENASTE AKTIVITET (140x140)
+// Solfjader av tomma aktivitetskort + pulsprick. Samma ribba som
+// EmptyLetterIllustration/EmptyTrackerIllustration.
+// =============================================================
+export function EmptyActivityIllustration({ className }: IllustrationProps) {
+  const id = 'db-empty-act'
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 140 140"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <Defs id={id} />
+      <ellipse cx="70" cy="118" rx="52" ry="10" fill={`url(#${id}-soft)`} />
+
+      {/* Bakre kort, roterade som en solfjader */}
+      <g transform="rotate(-8 70 70)">
+        <rect x="30" y="34" width="80" height="26" rx="9" fill="#FFF7ED" stroke="#FED7AA" strokeWidth="1.5" />
+        <circle cx="45" cy="47" r="6.5" fill="#FFE1C4" />
+        <rect x="57" y="42" width="34" height="4" rx="2" fill="#FFE1C4" />
+        <rect x="57" y="50" width="22" height="3.5" rx="1.75" fill="#FFEDD5" />
+      </g>
+      <g transform="rotate(4 70 82)">
+        <rect x="28" y="62" width="84" height="26" rx="9" fill="#FFFFFF" stroke="#FDBA74" strokeWidth="1.5" />
+        <circle cx="44" cy="75" r="6.5" fill={`url(#${id}-soft)`} />
+        <rect x="56" y="70" width="38" height="4" rx="2" fill="#FDBA74" />
+        <rect x="56" y="78" width="26" height="3.5" rx="1.75" fill="#FFE1C4" />
+      </g>
+      {/* Framsta kortet med pulsprick: har landar nasta handelse */}
+      <g>
+        <rect x="26" y="92" width="88" height="26" rx="9" fill="#FFFFFF" stroke="#FB923C" strokeWidth="1.75" />
+        <circle cx="42" cy="105" r="6.5" fill={`url(#${id}-warm)`} />
+        <rect x="54" y="100" width="42" height="4" rx="2" fill="#FDBA74" />
+        <rect x="54" y="108" width="30" height="3.5" rx="1.75" fill="#FFE1C4" />
+        <circle cx="106" cy="105" r="4" fill={`url(#${id}-warm)`}>
+          <animate attributeName="opacity" values="1;0.35;1" dur="2.4s" repeatCount="indefinite" />
+        </circle>
+      </g>
+    </svg>
+  )
+}
+
+// =============================================================
+// RADAR-CHIP (32x32) - Mikroformat av RecruiterRadar, indigo.
+// Indigo anvands uteslutande for rekryterarytan (Bli upptackt,
+// meddelanden), aldrig nagon annanstans.
+// =============================================================
+export function RadarChip({ className }: IllustrationProps) {
+  const id = 'db-radar-chip'
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <radialGradient id={`${id}-bg`} cx="0.5" cy="0.42" r="0.75">
+          <stop offset="0" stopColor="#4F46E5" />
+          <stop offset="1" stopColor="#3730A3" />
+        </radialGradient>
+      </defs>
+      <rect x="1" y="1" width="30" height="30" rx="9" fill={`url(#${id}-bg)`} />
+      <circle cx="16" cy="16" r="11" stroke="#FFFFFF" strokeWidth="1" opacity="0.15" />
+      <circle cx="16" cy="16" r="7" stroke="#FFFFFF" strokeWidth="1" opacity="0.25" />
+      {/* Rekryterarprickar */}
+      <circle cx="8" cy="9" r="1.8" fill="#FB923C" />
+      <circle cx="25" cy="12" r="1.5" fill="#FB923C" />
+      <circle cx="23" cy="24" r="1.6" fill="#FB923C" />
+      {/* Profilkapsel i mitten */}
+      <rect x="12" y="11.5" width="8" height="10" rx="2.5" fill="#FFFFFF" />
+      <circle cx="16" cy="15" r="1.6" fill="#4F46E5" />
+      <rect x="13.5" y="18" width="5" height="1.4" rx="0.7" fill="#C7D2FE" />
+    </svg>
+  )
+}
+
+// =============================================================
+// AKTIVITETSIKON: SÖKT TJÄNST (32x32)
+// =============================================================
+export function IconAktAnsokan({ className }: IllustrationProps) {
+  const id = 'db-akt-ans'
+  return (
+    <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="1" y="1" width="30" height="30" rx="8" fill={`url(#${id}-soft)`} />
+      <path
+        d="M10 6.5 A 1.5 1.5 0 0 1 11.5 5 H 20.5 A 1.5 1.5 0 0 1 22 6.5 V 25 L 16 21.5 L 10 25 Z"
+        fill="#FFFFFF"
+        stroke={`url(#${id}-warm)`}
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13 12.5 L 15 14.5 L 19 10.5"
+        stroke={`url(#${id}-warm)`}
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+// =============================================================
 // SNABB-IKONER (48x48) - Snabbatgarder
 // =============================================================
 
@@ -196,6 +397,28 @@ export function IconSnabbSokta({ className }: IllustrationProps) {
       {/* Trendpil upp i hornet */}
       <path d="M 29 34 L 33 30 L 36 33 L 40 27" stroke={`url(#${id}-deep)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       <path d="M 37.2 26.8 L 40 27 L 40.2 29.8" stroke={`url(#${id}-deep)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  )
+}
+
+export function IconSnabbUpptackt({ className }: IllustrationProps) {
+  const id = 'db-su'
+  return (
+    <svg className={className} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <Defs id={id} />
+      <rect x="2" y="2" width="44" height="44" rx="12" fill={`url(#${id}-soft)`} />
+      {/* Radarringar (indigo: rekryterarytans signaturfarg) */}
+      <circle cx="24" cy="24" r="16" stroke="#4F46E5" strokeWidth="1" opacity="0.18" />
+      <circle cx="24" cy="24" r="10.5" stroke="#4F46E5" strokeWidth="1" opacity="0.28" />
+      {/* Rekryterarprickar som dras mot profilen */}
+      <circle cx="11" cy="13" r="2.2" fill={`url(#${id}-warm)`} />
+      <circle cx="38" cy="17" r="1.9" fill={`url(#${id}-warm)`} />
+      <circle cx="35" cy="37" r="2" fill={`url(#${id}-deep)`} />
+      {/* Profilkapsel i mitten */}
+      <rect x="18" y="16" width="12" height="16" rx="3.5" fill="#FFFFFF" stroke="#4F46E5" strokeWidth="1.4" />
+      <circle cx="24" cy="21.5" r="2.4" fill="#4F46E5" />
+      <rect x="20.5" y="26" width="7" height="1.8" rx="0.9" fill="#C7D2FE" />
+      <rect x="20.5" y="29" width="5" height="1.6" rx="0.8" fill="#E0E7FF" />
     </svg>
   )
 }

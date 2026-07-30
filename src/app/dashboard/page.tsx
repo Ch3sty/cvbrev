@@ -6,17 +6,19 @@ import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-// Streak-fokuserade komponenter
-import StreakHero from '@/components/dashboard/StreakHero';
+// Streak + status
+import StreakOchStatus from '@/components/dashboard/StreakOchStatus';
 import CvStatusCard from '@/components/dashboard/CvStatusCard';
-// Nya redesignade komponenter (orange/rod-DNA)
+// Handlingsytor
 import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
-// Onboarding
+import SoktaTjansterStatusRad from '@/components/dashboard/SoktaTjansterStatusRad';
+import BliUpptacktStatusRad from '@/components/dashboard/BliUpptacktStatusRad';
+// Onboarding + rekommendation
 import OnboardingHero from '@/components/dashboard/OnboardingHero';
-import OnboardingDag2 from '@/components/dashboard/OnboardingDag2';
-import DiscoverByRecruitersCard from '@/components/dashboard/DiscoverByRecruitersCard';
-// Ovriga
+import NastaSteg from '@/components/dashboard/NastaSteg';
+import { useApplicationsSummary } from '@/hooks/useApplicationsSummary';
+import { useNextBestAction } from '@/hooks/useNextBestAction';
 
 interface DashboardStats {
   totalLetters: number;
@@ -43,12 +45,20 @@ interface DashboardStats {
   dailyXpEarned?: number;
   dailyXp?: { date: string; xp: number }[];
   firstName?: string;
+  activeCvName?: string;
 }
 
 export default function DashboardPage() {
   const searchParams = useSearchParams();
   const { successWithMascotAndActivity } = useNotification();
   const { completedSteps, rewardClaimed } = useOnboarding();
+
+  // Rekommendationskedjan: tidskänsliga nudgar renderas i NastaSteg,
+  // funktionsrekommendationer markerar motsvarande snabbåtgärdskort.
+  const appSummary = useApplicationsSummary();
+  const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary);
+  const recommendedSlug =
+    rewardClaimed && nextAction?.kind === 'feature' ? nextAction.feature.slug : null;
 
   const [stats, setStats] = useState<DashboardStats>({
     totalLetters: 0,
@@ -89,6 +99,7 @@ export default function DashboardPage() {
         const [
           { data: letters },
           { count: cvCount },
+          { data: latestCv },
           { data: profile },
           { data: gamStats },
           { data: dailyXpToday },
@@ -104,6 +115,13 @@ export default function DashboardPage() {
             .from('cv_texts')
             .select('*', { count: 'exact', head: true })
             .eq('user_id', user.id),
+          supabase
+            .from('cv_texts')
+            .select('file_name')
+            .eq('user_id', user.id)
+            .order('updated_at', { ascending: false, nullsFirst: false })
+            .limit(1)
+            .maybeSingle(),
           supabase
             .from('profiles')
             .select(`
@@ -217,6 +235,7 @@ export default function DashboardPage() {
           dailyXpEarned: dailyXpToday?.daily_xp_earned || 0,
           dailyXp,
           firstName: profile?.full_name?.split(' ')[0] || undefined,
+          activeCvName: latestCv?.file_name || undefined,
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -247,13 +266,26 @@ export default function DashboardPage() {
     }
   }, [searchParams, stats.subscriptionTier, successWithMascotAndActivity]);
 
+  // Sektionsskeleton i stället för blockerande spinner: layouten står still
+  // och fylls i, ingen "tom skärm tills långsammaste anropet är klart".
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-slate-600">Laddar dashboard...</p>
+      <div className="space-y-5 sm:space-y-6 animate-pulse" aria-busy="true" aria-label="Laddar dashboard">
+        <div className="rounded-3xl bg-orange-50/70 h-32" />
+        <div>
+          <div className="h-6 w-40 bg-orange-100/70 rounded-lg mb-4" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="rounded-3xl bg-white border border-orange-100 h-40" />
+            ))}
+          </div>
         </div>
+        <div className="rounded-3xl bg-white border border-orange-100 h-16" />
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4">
+          <div className="rounded-3xl bg-white border border-orange-100 h-32" />
+          <div className="rounded-3xl bg-white border border-orange-100 h-32" />
+        </div>
+        <div className="rounded-3xl bg-white border border-orange-100 h-64" />
       </div>
     );
   }
@@ -278,29 +310,33 @@ export default function DashboardPage() {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="space-y-5 sm:space-y-6 relative z-10"
       >
-        {/* OnboardingHero - hanterar in_progress + ready_to_claim states.
-            Inkluderar redan steg 1 (ladda upp CV) sa vi behover ingen
-            separat "Du behover CV"-banner overst.
-            Doljer sig sjalv nar rewardClaimed === true. */}
+        {/* OnboardingHero äger flödet fram till hämtad belöning.
+            Döljer sig själv när rewardClaimed === true. */}
         <OnboardingHero />
 
-        {/* OnboardingDag2 - utforska-mer-kort efter belogning ar hamtat.
-            Renderas bara nar rewardClaimed === true och inte dismissed. */}
-        <OnboardingDag2 />
+        {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport).
+            Funktionsrekommendationer visas i stället som markering i
+            Snabbåtgärder, så samma förslag aldrig dubbleras. */}
+        {rewardClaimed && <NastaSteg action={nextAction} onDismiss={dismissNextAction} />}
 
-        {/* Introkort: lyfter Bli upptackt for den som inte gjort sig synlig an.
-            Self-villkorat och dismissbart, renderar null nar ej relevant. */}
-        <DiscoverByRecruitersCard />
+        {/* Snabbåtgärder: sidans mest handlingsbara sektion, nu först. */}
+        <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
 
-        {/* StreakHero - innehaller nu streak-stats OCH veckokvotor i samma kort */}
-        <StreakHero
-          firstName={stats.firstName}
+        {/* Statusrader: korta faktabekräftelser, inte säljytor. */}
+        {(cvCount > 0 || rewardClaimed) && (
+          <CvStatusCard cvCount={cvCount} activeCvName={stats.activeCvName} />
+        )}
+        <SoktaTjansterStatusRad summary={appSummary} />
+        <BliUpptacktStatusRad />
+
+        {/* Streak (kompakt som standard, firande vid 7+) + Din status */}
+        <StreakOchStatus
           dailyStreak={stats.dailyStreak || 0}
           longestStreak={stats.longestStreak || 0}
           dailyXpEarned={stats.dailyXpEarned || 0}
-          dailyCap={isPremium ? Infinity : 100}
           currentLevel={stats.currentLevel || 1}
           levelTitle={stats.levelTitle || 'Novis'}
+          dailyXp={stats.dailyXp || []}
           isPremium={isPremium}
           weeklyLetterCount={stats.weeklyLetterCount || 0}
           weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
@@ -309,12 +345,6 @@ export default function DashboardPage() {
           premiumUntil={stats.premiumUntil}
           premiumSource={stats.premiumSource}
         />
-
-        {/* CvStatusCard - status-rad nar CV finns (under streak-kortet, fran email-bannern) */}
-        {cvCount > 0 && <CvStatusCard cvCount={cvCount} />}
-
-        {/* Snabbatgarder - full bredd */}
-        <DashboardSnabbAtgarder cvCount={cvCount} />
 
         {/* Senaste aktivitet - full bredd */}
         <DashboardSenasteAktivitet />

@@ -15,6 +15,7 @@ export type RecentActivityType =
   | 'linkedin'
   | 'nedladdning'
   | 'test'
+  | 'ansokan'
 
 export interface RecentActivityItem {
   id: string
@@ -23,6 +24,10 @@ export interface RecentActivityItem {
   subtitle?: string
   href?: string
   createdAt: string
+  /** > 1 när identiska händelser samma dag grupperats till en rad. */
+  count?: number
+  /** Mall-id för nedladdningar: driver färgswatchen i listraden. */
+  templateId?: string
 }
 
 export async function GET() {
@@ -41,7 +46,7 @@ export async function GET() {
 
     const userId = user.id
 
-    // Sex parallella queries mot konkreta produkttabeller
+    // Sju parallella queries mot konkreta produkttabeller
     const [
       lettersRes,
       cvAnalysisRes,
@@ -49,6 +54,7 @@ export async function GET() {
       linkedinRes,
       downloadsRes,
       testsRes,
+      applicationsRes,
     ] = await Promise.all([
       supabase
         .from('letters')
@@ -88,6 +94,12 @@ export async function GET() {
         .not('completed_at', 'is', null)
         .order('completed_at', { ascending: false })
         .limit(5),
+      supabase
+        .from('job_applications')
+        .select('id, job_title, company, created_at')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(5),
     ])
 
     const items: RecentActivityItem[] = []
@@ -103,7 +115,20 @@ export async function GET() {
         type: 'brev',
         title: titleText,
         subtitle: row.job_title && row.company ? row.job_title : undefined,
-        href: '/dashboard/skapa-brev',
+        // Deep link till det faktiska brevet, inte generatorstarten.
+        href: `/dashboard/mina-brev/${row.id}`,
+        createdAt: row.created_at,
+      })
+    }
+
+    // Loggade ansökningar (Sökta tjänster)
+    for (const row of applicationsRes.data || []) {
+      items.push({
+        id: `application-${row.id}`,
+        type: 'ansokan',
+        title: `Sökte ${row.job_title}`,
+        subtitle: row.company || undefined,
+        href: `/dashboard/sokta-tjanster/${row.id}`,
         createdAt: row.created_at,
       })
     }
@@ -181,6 +206,7 @@ export async function GET() {
           : 'CV nedladdat',
         href: '/dashboard/cv-mallar',
         createdAt: row.downloaded_at || row.created_at || new Date().toISOString(),
+        templateId: row.template_id || undefined,
       })
     }
 
@@ -199,13 +225,30 @@ export async function GET() {
       })
     }
 
-    // Slå ihop, sortera desc, returnera top 5
+    // Slå ihop, sortera desc, GRUPPERA identiska händelser samma dag
+    // (fem "CV nedladdat: galleri"-rader blir en rad med antal), topp 6.
     items.sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
 
-    return NextResponse.json({ items: items.slice(0, 5) })
+    const grouped: RecentActivityItem[] = []
+    const byKey = new Map<string, RecentActivityItem>()
+    for (const item of items) {
+      const key = `${item.type}|${item.title}|${item.createdAt.slice(0, 10)}`
+      const existing = byKey.get(key)
+      if (existing) {
+        existing.count = (existing.count ?? 1) + 1
+        // Grupperade rader kan inte deep-linka till en enskild resurs.
+        if (existing.href?.match(/\/[0-9a-f-]{20,}$/)) existing.href = undefined
+      } else {
+        const copy = { ...item }
+        byKey.set(key, copy)
+        grouped.push(copy)
+      }
+    }
+
+    return NextResponse.json({ items: grouped.slice(0, 6) })
   } catch (error) {
     console.error('Error fetching recent activity:', error)
     return NextResponse.json({ items: [] }, { status: 500 })

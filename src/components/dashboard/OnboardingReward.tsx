@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ArrowRight, Sparkles } from 'lucide-react'
+import { Check, ArrowRight, Trophy } from 'lucide-react'
 import { useOnboarding } from '@/contexts/OnboardingContext'
 import { OnboardingTrofe } from './illustrations/OnboardingIcons'
 
@@ -44,12 +44,9 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
       }
 
       setSuccess(true)
+      // markRewardClaimed uppdaterar OnboardingContext; dashboarden lyssnar på
+      // snapshotet och refetchar (inkl. ny premium-status) utan hård omladdning.
       markRewardClaimed()
-
-      // Refresh sa dashboard speglar nya premium-status
-      setTimeout(() => {
-        window.location.reload()
-      }, 2400)
     } catch (err) {
       // Tillåt nytt försök via knappen om auto-claim fallerade.
       claimAttempted.current = false
@@ -83,7 +80,7 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
       <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] mb-3">
-            <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
+            <Trophy className="w-3.5 h-3.5" strokeWidth={2.5} />
             3/3 klara
           </div>
 
@@ -119,7 +116,7 @@ export default function OnboardingReward({ compact = false }: OnboardingRewardPr
                 style={{ boxShadow: '0 8px 24px -10px rgba(0, 0, 0, 0.3)' }}
               >
                 <Check className="w-5 h-5" strokeWidth={3} />
-                Premium aktivt — laddar om...
+                Premium aktivt. Allt är upplåst.
               </motion.div>
             ) : error ? (
               <motion.button

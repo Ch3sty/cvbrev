@@ -28,16 +28,13 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
 
   const fetchOnboardingStatus = useCallback(async () => {
     try {
-      console.log('[OnboardingContext] 🔄 Fetching onboarding status...');
 
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        console.log('[OnboardingContext] ❌ No user found');
         setIsLoading(false);
         return;
       }
 
-      console.log('[OnboardingContext] 👤 User ID:', user.id);
 
       // Fetch profile data with proper error handling
       const { data: profile, error: profileError } = await supabase
@@ -60,17 +57,13 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         }
 
         // If PGRST116 (no rows), profile doesn't exist yet
-        console.log('[OnboardingContext] Profile not found (PGRST116) - this is OK for new users');
       }
 
       if (!profile) {
-        console.log('[OnboardingContext] ❌ No profile data available');
         setIsLoading(false);
         return;
       }
 
-      console.log('[OnboardingContext] ✅ Profile found successfully');
-      console.log('[OnboardingContext] 📋 Profile onboarding_steps_completed:', profile.onboarding_steps_completed);
 
       // Fetch actual counts from feature tables for hybrid validation
       const [
@@ -89,14 +82,6 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         supabase.from('job_matchings_cache').select('*', { count: 'exact', head: true }).eq('user_id', user.id)
       ]);
 
-      console.log('[OnboardingContext] 📊 Feature table counts:', {
-        cvCount,
-        letterCount,
-        analysisCount,
-        linkedinCount,
-        templateDownloadCount,
-        jobMatchCount
-      });
 
       // Hybrid validation: Check both onboarding_steps_completed array AND actual feature usage
       const completedStepsArray = profile.onboarding_steps_completed || [];
@@ -136,8 +121,6 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
       const requiredCompleted = REQUIRED_STEPS.filter(s => validatedSteps.includes(s)).length;
 
-      console.log('[OnboardingContext] Validated steps:', validatedSteps);
-      console.log('[OnboardingContext] Required completed:', requiredCompleted, '/ 3');
 
       // Update state with validated steps
       setCompletedSteps(validatedSteps);
