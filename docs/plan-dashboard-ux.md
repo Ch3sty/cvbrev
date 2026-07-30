@@ -1,6 +1,8 @@
 # Rapport: Dashboard-omgörning för aktivering och orientering
 
-*Framtagen 2026-07-30 med tre parallella agenter: kodkartläggning, mobile-first UX-audit och designgranskning med SVG-program. Designväktarens fullständiga visuella rapport: https://claude.ai/code/artifact/800e3794-2952-4cf6-8af3-d2031ef2f4c8. Inget är implementerat ännu.*
+*Framtagen 2026-07-30 med tre parallella agenter: kodkartläggning, mobile-first UX-audit och designgranskning med SVG-program. Designväktarens fullständiga visuella rapport: https://claude.ai/code/artifact/800e3794-2952-4cf6-8af3-d2031ef2f4c8.*
+
+**Status: implementerad 2026-07-30** (commit `d86c9d40`). Genomfört: P0, NastaSteg-systemet (nudgar i modulen, funktionsförslag som markering i Snabbåtgärder i stället för eget kort), streak-nedtrappning med milstolpeläge, Din status-widget, statusrader, aktivitetsgruppering, städning samt SVG 1-4+6-7. Kvarvarande: SVG 5 (premium-mikrobadge, chippen hittades inte i dashboard-headern), asymmetriskt större rekommenderat-kort (blev badge + förstärkt kant), konsolidering av dubbla CV-count-källor.
 
 Syfte: alla användare ska direkt förstå var de är, vad de kan göra och vad nästa steg är. Mobile-first, utmärkt på desktop, i husets stil med custom SVG:er.
 
