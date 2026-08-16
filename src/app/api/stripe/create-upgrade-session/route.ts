@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { stripe } from '@/lib/stripe/server'
+import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription'
 
 export async function POST(request: NextRequest) {
   try {
@@ -79,6 +80,13 @@ export async function POST(request: NextRequest) {
         .eq('id', user.id)
 
       console.log(`[CREATE UPGRADE SESSION] Created Stripe customer: ${customerId}`)
+    }
+
+    // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
+    const existing = await findLiveSubscription(customerId)
+    if (existing) {
+      console.warn(`[CREATE UPGRADE SESSION] Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
+      return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
     }
 
     // Base URL for return

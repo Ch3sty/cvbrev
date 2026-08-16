@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { randomUUID } from 'crypto'
+import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +21,14 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`[CREATE TRIAL SESSION] Creating for customer: ${stripeCustomerId}`)
+
+    // Spärr: skyddar den som avbryter och återupptar sin registrering från
+    // att få två abonnemang på samma Stripe-kund.
+    const existing = await findLiveSubscription(stripeCustomerId)
+    if (existing) {
+      console.warn(`[CREATE TRIAL SESSION] Kund ${stripeCustomerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
+      return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
+    }
 
     // Get price ID from environment
     const priceId = process.env.STRIPE_TRIAL_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_PRICE_ID

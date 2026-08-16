@@ -55,6 +55,14 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
         })
 
         const data = await response.json()
+        if (response.status === 409 && data.alreadySubscribed) {
+          // Kontot har redan ett abonnemang, t.ex. om registreringen avbrutits
+          // och aterupptagits. Skicka till inloggning i stallet for att skapa
+          // en dubblett.
+          throw new Error(
+            'Du har redan en aktiv prenumeration pa det har kontot. Logga in for att komma igang.'
+          )
+        }
         if (!response.ok) {
           throw new Error(data.error || 'Kunde inte skapa checkout-session')
         }

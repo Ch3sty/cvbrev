@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server'; 
 import { stripe } from '@/lib/stripe/server';
 import { getURL } from '@/utils/helpers';
+import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription';
 
 export async function POST(request: Request) {
   try {
@@ -84,6 +85,13 @@ export async function POST(request: Request) {
       }
     } else {
         console.log(`Checkout Info: Found existing Stripe customer ${customerId} for user ${user.id}`);
+    }
+
+    // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
+    const existing = await findLiveSubscription(customerId);
+    if (existing) {
+        console.warn(`Checkout Info: Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`);
+        return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 });
     }
 
     try {

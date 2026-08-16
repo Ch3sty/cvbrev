@@ -39,12 +39,14 @@ export function PremiumCTAButton({
 }: PremiumCTAButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [manageUrl, setManageUrl] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   const handleUpgrade = async () => {
     setLoading(true);
     setError(null);
+    setManageUrl(null);
 
     try {
       const response = await fetch(apiEndpoint, {
@@ -54,6 +56,13 @@ export function PremiumCTAButton({
       });
 
       const data = await response.json();
+
+      // Kunden prenumererar redan — visa vägen till portalen i stället för
+      // att låta dem teckna ett andra abonnemang.
+      if (response.status === 409 && data.alreadySubscribed) {
+        setManageUrl(data.manageUrl || '/api/stripe/create-portal-session');
+        throw new Error(data.error);
+      }
 
       if (!response.ok || !data.clientSecret) {
         throw new Error(data.error || 'Kunde inte starta checkout. Försök igen.');
@@ -140,7 +149,18 @@ export function PremiumCTAButton({
       {error && (
         <div className="mt-3 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2">
           <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-red-700 leading-snug">{error}</p>
+          <div className="flex-1">
+            <p className="text-sm text-red-700 leading-snug">{error}</p>
+            {manageUrl && (
+              <a
+                href={manageUrl}
+                className="inline-flex items-center gap-1.5 mt-2 text-sm font-bold text-red-800 underline hover:text-red-900"
+              >
+                Öppna prenumerationsportalen
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+              </a>
+            )}
+          </div>
         </div>
       )}
     </div>
