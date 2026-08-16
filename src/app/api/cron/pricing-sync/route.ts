@@ -61,12 +61,15 @@ export async function GET(request: NextRequest) {
     try {
       const nowISO = now.toISOString();
 
+      // Samma skydd som i expire-premiums: det gamla OR-filtret slapp igenom
+      // betalande kunder eftersom 'active' matchade villkoret "<> trialing".
+      // Se kommentaren i src/app/api/cron/expire-premiums/route.ts.
       const { data: expiredUsers, error: fetchError } = await supabaseAdmin
         .from('profiles')
         .select('id, email, premium_until, premium_source, subscription_status, subscription_tier')
         .eq('subscription_tier', 'premium')
         .lt('premium_until', nowISO)
-        .or('subscription_status.is.null,subscription_status.neq.active,subscription_status.neq.trialing');
+        .or('subscription_status.is.null,subscription_status.not.in.(active,trialing)');
 
       if (fetchError) {
         console.error('[Premium Expiration] Error fetching expired users:', fetchError);

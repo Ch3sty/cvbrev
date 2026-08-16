@@ -19,14 +19,24 @@ export async function GET(request: NextRequest) {
 
     console.log('[EXPIRE PREMIUMS] Running at:', now)
 
-    // Find all users with expired premium_until dates
-    // BUT only those without active Stripe subscriptions (subscription_status = null or not 'active'/'trialing')
+    // Hitta alla med utgången premium_until, men skydda betalande kunder.
+    //
+    // Det tidigare filtret var OR-kopplat:
+    //   status is null OR status <> 'active' OR status <> 'trialing'
+    // En rad med status 'active' matchade da villkoret "<> trialing" och
+    // slapptes igenom anda. Skyddet fanns alltsa bara i teorin: en betalande
+    // kund som ocksa hade ett premium_until-datum kunde nedgraderas mitt i
+    // sin betalda period. Kombinationen ar precis vad en uppgraderad
+    // onboarding-anvandare har.
+    //
+    // NOT IN ger den avsedda innebörden. Notera att NOT IN i SQL aldrig ar
+    // sant for NULL, sa raden med status null maste tillatas explicit.
     const { data: expiredUsers, error: fetchError } = await supabaseAdmin
       .from('profiles')
       .select('id, email, premium_until, premium_source, subscription_status, subscription_tier')
       .eq('subscription_tier', 'premium')
       .lt('premium_until', now)
-      .or('subscription_status.is.null,subscription_status.neq.active,subscription_status.neq.trialing')
+      .or('subscription_status.is.null,subscription_status.not.in.(active,trialing)')
 
     if (fetchError) {
       console.error('[EXPIRE PREMIUMS] Error fetching expired users:', fetchError)
