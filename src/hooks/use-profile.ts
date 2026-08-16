@@ -873,6 +873,16 @@ export const useProfile = () => {
   const isAdminGranted = premiumSource === 'admin';
   const hasActiveTrialOrPremium = premiumUntil ? premiumUntil > new Date() : false;
 
+  // Har användaren en riktig, betalande Stripe-prenumeration?
+  // Detta avgör om Stripe-portalen (och därmed uppsägning) ska visas.
+  // Vi litar på Stripe-fälten, inte på premium_source: en användare som först
+  // fick gratispremie via onboarding och sedan tecknade abonnemang behåller sin
+  // gamla premium_source, och får annars aldrig se någon avsluta-knapp.
+  const hasStripeSubscription =
+    Boolean(subscriptionId) &&
+    !String(subscriptionId).startsWith('sub_test') &&
+    ['active', 'trialing', 'past_due', 'unpaid'].includes(subscriptionStatus || '');
+
   return {
     // Grundläggande profildata
     profile,
@@ -896,6 +906,7 @@ export const useProfile = () => {
     isTrialUser,
     isAdminGranted,
     hasActiveTrialOrPremium,
+    hasStripeSubscription,
 
     // Gränser och antal
     cvCount,

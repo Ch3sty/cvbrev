@@ -27,6 +27,7 @@ export default function PrenumerationPage() {
     premiumSource,
     isTrialUser,
     isAdminGranted,
+    hasStripeSubscription,
     weeklyLetterCount,
     cvCount,
     savedLettersCount,
@@ -49,8 +50,12 @@ export default function PrenumerationPage() {
   const isPremium = subscriptionTier === 'premium';
   const isOnboardingReward = premiumSource === 'onboarding_completion';
   const isGuestInvitation = premiumSource === 'guest_invitation';
-  const isTemporaryPremium = isTrialUser || isOnboardingReward || isGuestInvitation;
-  const isPaidPremium = isPremium && !isTemporaryPremium && !isAdminGranted;
+  // En riktig Stripe-prenumeration slår alltid ut gratispremie-märkningen.
+  // Annars fastnar den som uppgraderat efter onboarding i "temporär premium"
+  // och ser varken portal eller uppsägning.
+  const isTemporaryPremium =
+    !hasStripeSubscription && (isTrialUser || isOnboardingReward || isGuestInvitation);
+  const isPaidPremium = hasStripeSubscription || (isPremium && !isTemporaryPremium && !isAdminGranted);
 
   const scrollToPricing = () => {
     pricingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -132,8 +137,13 @@ export default function PrenumerationPage() {
           </>
         )}
 
+        {/* Betalar men saknar premium-tier — visa alltid vägen till uppsägning.
+            Utan detta blir den som debiteras men ligger kvar som 'free' helt
+            utelåst från Stripe-portalen. */}
+        {!isPremium && hasStripeSubscription && <ManageSubscriptionCard />}
+
         {/* Free-läge — full konverteringssida */}
-        {!isPremium && (
+        {!isPremium && !hasStripeSubscription && (
           <>
             <div ref={pricingRef}>
               <PricingCard

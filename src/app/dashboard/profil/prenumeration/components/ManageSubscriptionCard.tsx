@@ -2,8 +2,27 @@
 
 import { motion } from 'framer-motion';
 import { CreditCard, ArrowRight, ExternalLink } from 'lucide-react';
+import { useProfile } from '@/hooks/use-profile';
+
+const STATUS_TEXT: Record<string, string> = {
+  active: 'Aktiv',
+  trialing: 'Provperiod',
+  past_due: 'Betalning misslyckades',
+  unpaid: 'Obetald',
+  canceled: 'Avslutad',
+};
 
 export default function ManageSubscriptionCard() {
+  const { subscriptionStatus, currentPeriodEnd } = useProfile();
+
+  const statusLabel = subscriptionStatus
+    ? STATUS_TEXT[subscriptionStatus] || subscriptionStatus
+    : 'Hanteras via Stripe';
+
+  const renewalLabel = currentPeriodEnd
+    ? new Date(currentPeriodEnd).toLocaleDateString('sv-SE')
+    : null;
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 12 }}
@@ -41,7 +60,8 @@ export default function ManageSubscriptionCard() {
         <div className="space-y-2.5 mb-5 text-sm">
           <Row label="Plan" value="Premium Månad" />
           <Row label="Pris" value="149 kr/mån" />
-          <Row label="Betalning" value="Hanteras via Stripe" />
+          <Row label="Status" value={statusLabel} />
+          {renewalLabel && <Row label="Nästa betalning" value={renewalLabel} />}
         </div>
 
         <a

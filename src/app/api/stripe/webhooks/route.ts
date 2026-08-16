@@ -16,10 +16,10 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
     const supabaseAdmin = getSupabaseAdmin() as any; 
     console.log(`Webhook: Looking for profile with stripe_customer_id: ${customerId}`);
     const { data: profile, error: profileError } = await supabaseAdmin
-        .from('profiles') 
-        .select('id') 
+        .from('profiles')
+        .select('id, premium_source')
         .eq('stripe_customer_id', customerId)
-        .single(); 
+        .single();
 
     if (profileError && profileError.code !== 'PGRST116') { 
          console.error(`Webhook DB Error: Error fetching profile for customer ${customerId}. Code: ${profileError.code}`, profileError.message);
@@ -31,6 +31,7 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
     }
 
     const userId = (profile as any).id;
+    const existingPremiumSource = (profile as any).premium_source as string | null;
     console.log(`Webhook: Found profile for user ${userId}. Preparing update data.`);
 
     // ***** NY LOGIK: Bestäm subscription_tier baserat på Stripe status *****
@@ -55,12 +56,21 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
         subscription_tier: newSubscriptionTier
     };
 
-    // Om subscription är canceled/incomplete/unpaid, rensa premium_until och premium_source
-    // Detta förhindrar att gamla onboarding/trial-premiums kolliderar med Stripe-status
-    if (!isActiveOrTrialing) {
+    // Rensa premium_until och premium_source oavsett riktning.
+    //
+    // Vid canceled/incomplete/unpaid: hindrar gamla onboarding/trial-premiums
+    // från att kollidera med Stripe-status.
+    //
+    // Vid active/trialing: en betald prenumeration ersätter all gratispremie.
+    // Utan detta ligger t.ex. premium_source = 'onboarding_completion' kvar
+    // efter uppgraderingen, och användaren räknas för alltid som "temporär
+    // premium" i gränssnittet — vilket döljer Stripe-portalen och gör det
+    // omöjligt att säga upp sig. Undantaget är admin-tilldelad premium, som
+    // sätts manuellt och inte får skrivas över av en webhook.
+    if (existingPremiumSource !== 'admin') {
         subscriptionData.premium_until = null;
         subscriptionData.premium_source = null;
-        console.log(`Webhook: Clearing premium_until/premium_source for canceled/inactive subscription`);
+        console.log(`Webhook: Clearing premium_until/premium_source (Stripe status: ${subscription.status})`);
     }
 
      console.log(`Webhook: Updating profile for user ${userId} with data:`, JSON.stringify(subscriptionData));
