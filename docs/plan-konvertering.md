@@ -55,7 +55,7 @@ skapa, betalt att ta ut**. Skärmen är gratis, filen kostar.
 | Jobbcoach Premium Dagspass | 49 SEK | one_time, metadata grant_days=1 | | `STRIPE_PRICE_DAYPASS` |
 | Jobbcoach Premium Jobbsökarveckan | 99 SEK | one_time, metadata grant_days=7 | | `STRIPE_PRICE_WEEK` |
 | Jobbcoach Premium Månad | 149 SEK | recurring | month | `NEXT_PUBLIC_STRIPE_PRICE_ID` (finns) |
-| Jobbcoach Premium Kvartal | 299 SEK | recurring | every 3 months | `STRIPE_PRICE_QUARTER` och `NEXT_PUBLIC_STRIPE_PRICE_QUARTER` |
+| Jobbcoach Premium Kvartal | 299 SEK | recurring | every 3 months | `STRIPE_PRICE_QUARTER` |
 | Kupong `retention_49_2m` | 100 kr rabatt (amount_off 10000 SEK) | repeating, 2 månader | | används i cancel-flow |
 
 Webhook-events som måste vara aktiverade i Stripe: `checkout.session.completed`,
