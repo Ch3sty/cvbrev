@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
-import CVAnalysLiveDemo from './CVAnalysLiveDemo'
+import CVAnalysMini from './CVAnalysMini'
 
 const TRUST = ['1 analys gratis var tredje dag', 'ATS-säkrad', 'Klar på 60 sekunder']
 
@@ -62,7 +62,7 @@ export default function CVAnalysHero() {
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
               <Link
-                href="/dashboard/cv-analys"
+                href="#mini-analys"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base shadow-lg w-full sm:w-auto min-h-[52px] hover:shadow-xl active:scale-[0.98] transition-all"
                 style={{
                   background:
@@ -104,7 +104,7 @@ export default function CVAnalysHero() {
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
             className="relative"
           >
-            <CVAnalysLiveDemo />
+            <CVAnalysMini />
           </motion.div>
         </div>
       </div>

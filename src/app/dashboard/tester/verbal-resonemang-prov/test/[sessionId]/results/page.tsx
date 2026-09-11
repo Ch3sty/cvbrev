@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 
 import VerbalResultsHero from '@/components/tests/verbal-shared/VerbalResultsHero';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import VerbalResultsBody, {
   type SavedAnswer,
   type ResultsPassage,
@@ -117,7 +118,11 @@ export default function VerbalProvResultsPage({ params }: PageProps) {
           isProv
           afterStatsSlot={
             /* Jämförelse mot andra provresultat (renderas bara vid nog stort underlag) */
-            sessionId ? <PercentileCard sessionId={sessionId} /> : undefined
+            <>
+              {sessionId ? <PercentileCard sessionId={sessionId} /> : null}
+              {/* Vidare från testet: CV eller brev (B6) */}
+              <TestResultBridgeContainer testSlug={"verbal-resonemang-prov"} quotaFeature={"test:verbal-resonemang-prov"} />
+            </>
           }
         />
       </div>

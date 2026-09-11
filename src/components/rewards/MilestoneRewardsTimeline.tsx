@@ -13,7 +13,6 @@ import {
   Target,
   Lock,
   CheckCircle2,
-  Sparkles,
   Users,
   Calendar,
   Percent,

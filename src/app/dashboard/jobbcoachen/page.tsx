@@ -5,7 +5,7 @@ import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 
 import JobbcoachenLayout from './components/JobbcoachenLayout';
@@ -211,11 +211,9 @@ export default function JobbcoachenPage() {
         <div>
           {quotaLock && (
             <div className="px-3 pt-3 sm:px-4">
-              <QuotaLockCard
-                feature="chat_message"
-                title="Dagens meddelanden är slut"
-                description={quotaLock.message}
-                nextResetAt={quotaLock.nextResetAt}
+              <PaywallCard
+                variant="kvot"
+                quota={{ feature: 'chat_message', nextResetAt: quotaLock.nextResetAt }}
               />
             </div>
           )}

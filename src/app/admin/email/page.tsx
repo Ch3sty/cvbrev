@@ -45,6 +45,9 @@ interface EngagementRow {
   openRate: number;
   clickRate: number;
   hasEvents: boolean;
+  /** Blev mottagaren betalande inom 7 dagar efter utskicket (spår D7). */
+  converted: number;
+  conversionRate: number;
 }
 
 interface EmailStats {
@@ -79,6 +82,7 @@ interface EmailStats {
       uniqueClicked: number;
       openRate: number;
       clickRate: number;
+      converted: number;
     };
     topLinks: { link_url: string; clicks: number }[];
   };
@@ -99,6 +103,28 @@ function emailTypeLabel(emailType: string): string {
   if (emailType === 'trial_reminder') return 'Trial-påminnelse';
   if (emailType === 'campaign:sokta-tjanster') return 'Kampanj - Ny funktion';
   if (emailType === 'campaign_test') return 'Kampanjtest';
+  // Livscykelmailen (spår D)
+  const LIFECYCLE: Record<string, string> = {
+    rt_day0: 'Reverse trial dag 0',
+    rt_day1: 'Reverse trial dag 1',
+    rt_day3: 'Reverse trial dag 3',
+    rt_day4: 'Reverse trial dag 4',
+    rt_day6: 'Reverse trial dag 6',
+    rt_day10: 'Reverse trial dag 10',
+    winback_14: 'Win-back 14 dagar',
+    winback_30: 'Win-back 30 dagar',
+    trial_day3: 'Trial dag 3',
+    trial_day5: 'Trial, förvarning',
+    trial_day7: 'Trial, sista dagen',
+    trial_welcome_moz: 'Trial, välkomst',
+    payment_failed: 'Betalning misslyckades',
+    cancel_immediate: 'Uppsägning bekräftad',
+    cancel_followup: 'Uppsägning, uppföljning',
+    onetime_expired: 'Engångsköp slut',
+    campaign_gratisniva_andras: 'Kampanj - Gratisnivån ändras',
+  };
+  if (LIFECYCLE[emailType]) return LIFECYCLE[emailType];
+  if (emailType.startsWith('quota_wall')) return 'Kvotvägg';
   return emailType;
 }
 
@@ -543,7 +569,9 @@ export default function AdminEmailPage() {
                   <th className="py-2 pr-4 font-medium text-right">Klickade</th>
                   <th className="py-2 pr-4 font-medium text-right">Studsade</th>
                   <th className="py-2 pr-4 font-medium text-right">Öppning %</th>
-                  <th className="py-2 font-medium text-right">Klick %</th>
+                  <th className="py-2 pr-4 font-medium text-right">Klick %</th>
+                  <th className="py-2 pr-4 font-medium text-right">Konverterade</th>
+                  <th className="py-2 font-medium text-right">Konv. %</th>
                 </tr>
               </thead>
               <tbody>
@@ -556,7 +584,11 @@ export default function AdminEmailPage() {
                     <td className="py-2.5 pr-4 text-right text-gray-700">{row.hasEvents ? row.uniqueClicked : '–'}</td>
                     <td className="py-2.5 pr-4 text-right text-gray-700">{row.hasEvents ? row.bounced : '–'}</td>
                     <td className="py-2.5 pr-4 text-right text-gray-900 font-medium">{row.hasEvents ? `${row.openRate}%` : '–'}</td>
-                    <td className="py-2.5 text-right text-gray-900 font-medium">{row.hasEvents ? `${row.clickRate}%` : '–'}</td>
+                    <td className="py-2.5 pr-4 text-right text-gray-900 font-medium">{row.hasEvents ? `${row.clickRate}%` : '–'}</td>
+                    {/* Konvertering kommer från email_log + profiles, inte från
+                        Resend-events, och visas därför även utan webhook. */}
+                    <td className="py-2.5 pr-4 text-right text-gray-700 tabular-nums">{row.converted}</td>
+                    <td className="py-2.5 text-right text-gray-900 font-medium tabular-nums">{row.conversionRate}%</td>
                   </tr>
                 ))}
               </tbody>

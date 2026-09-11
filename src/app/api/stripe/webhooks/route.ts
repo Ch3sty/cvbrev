@@ -9,7 +9,25 @@ import Stripe from 'stripe';
 import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import type { Database } from '@/types/database.types'; 
+import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays';
+import type { Database } from '@/types/database.types';
+import {
+  onTrialStarted,
+  onTrialWillEnd,
+  onPaymentFailed,
+  onSubscriptionDeleted,
+} from '@/lib/email/lifecycle/hooks';
+
+// Slår upp user_id från Stripe-kunden, för livscykelmailen (spår D5).
+const userIdForCustomer = async (customerId: string): Promise<string | null> => {
+    const supabaseAdmin = getSupabaseAdmin() as any;
+    const { data } = await supabaseAdmin
+        .from('profiles')
+        .select('id')
+        .eq('stripe_customer_id', customerId)
+        .maybeSingle();
+    return data?.id ?? null;
+};
 
 // Funktion för att uppdatera användarprofilen i Supabase (inklusive subscription_tier)
 const updateUserSubscription = async (customerId: string, subscription: Stripe.Subscription) => {
@@ -303,6 +321,12 @@ export async function POST(request: Request) {
 
                  // Check if this is a referral conversion
                  await handleReferralConversion(customerId);
+
+                 // Spår D: kortkrävande trial ersätter reverse trial-sekvensen.
+                 if (fullSubscription.status === 'trialing') {
+                     const userId = await userIdForCustomer(customerId);
+                     if (userId) await onTrialStarted(getSupabaseAdmin() as any, userId);
+                 }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'customer.subscription.updated':
@@ -312,6 +336,20 @@ export async function POST(request: Request) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
                  await updateUserSubscription(customerId, fullSubscription);
+
+                 // Spår D: uppsägningsmail direkt + uppföljning om tre dagar.
+                 if (event.type === 'customer.subscription.deleted') {
+                     const userId = await userIdForCustomer(customerId);
+                     if (userId) await onSubscriptionDeleted(getSupabaseAdmin() as any, userId);
+                 }
+             } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
+             break;
+        case 'customer.subscription.trial_will_end':
+             // Spår D: ärlig förvarning om debiteringen (trial_day5).
+             console.log(`Handling subscription event: ${event.type}`);
+             if (customerId) {
+                 const userId = await userIdForCustomer(customerId);
+                 if (userId) await onTrialWillEnd(getSupabaseAdmin() as any, userId);
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'invoice.payment_succeeded':
@@ -327,11 +365,45 @@ export async function POST(request: Request) {
              if (customerId && relevantSubscriptionId) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
-                 await updateUserSubscription(customerId, fullSubscription); 
+                 await updateUserSubscription(customerId, fullSubscription);
+
+                 // Spår D: transaktionellt mail, ignorerar opt-out.
+                 const userId = await userIdForCustomer(customerId);
+                 if (userId) await onPaymentFailed(getSupabaseAdmin() as any, userId);
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'checkout.session.completed':
              console.log(`Checkout session completed: ${eventData.id}. Mode: ${eventData.mode}`);
+
+             // === SPÅR A (A5): engångsköp, dagspass och jobbsökarveckan ===
+             // Måste ligga före de befintliga grenarna: engångsköp skapar
+             // ingen prenumeration, så prenumerationslogiken nedan gäller inte.
+             // Idempotensen sitter i grantPremiumDays (premium_grants).
+             if (eventData.mode === 'payment' && eventData.payment_status === 'paid') {
+               const onetimeUserId = eventData.metadata?.supabaseUUID || eventData.metadata?.userId;
+               const onetimeDays = parseInt(eventData.metadata?.grantDays ?? '0', 10);
+
+               if (onetimeUserId && Number.isFinite(onetimeDays) && onetimeDays > 0) {
+                 try {
+                   const admin = getSupabaseAdmin() as any;
+                   const result = await grantPremiumDays(admin, {
+                     userId: onetimeUserId,
+                     days: onetimeDays,
+                     stripeEventId: event.id,
+                     source: `onetime_${onetimeDays}d`,
+                   });
+                   console.log(
+                     `[ONETIME WEBHOOK] ${onetimeUserId}: ${onetimeDays} dagar, granted=${result.granted}${result.reason ? ` (${result.reason})` : ''}`
+                   );
+                 } catch (error) {
+                   console.error('[ONETIME WEBHOOK] Kunde inte ge premium-dagar:', error);
+                 }
+               } else {
+                 console.warn(`[ONETIME WEBHOOK] Saknar metadata på session ${eventData.id}.`);
+               }
+               break;
+             }
+             // === SLUT SPÅR A ===
 
              // Hantera ny Moz-stil signup flow
              if (eventData.metadata?.signupFlow === 'moz-style' && eventData.metadata?.isNewUser === 'true') {

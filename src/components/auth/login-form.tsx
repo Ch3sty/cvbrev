@@ -10,6 +10,7 @@ import Link from 'next/link'
 import AuthCvPaper from './AuthCvPaper'
 import AuthInput from './AuthInput'
 import AuthSubmitButton from './AuthSubmitButton'
+import GoogleSignInButton, { AuthDivider } from './GoogleSignInButton'
 
 /**
  * Vart användaren ska efter inloggning. Godkända rekryterare skickas till
@@ -131,6 +132,11 @@ export default function LoginForm() {
           <p className="text-sm text-red-800">{error}</p>
         </div>
       )}
+
+      <div className="mb-5 space-y-4">
+        <GoogleSignInButton next={searchParams.get('redirect') || '/dashboard'} label="Logga in med Google" />
+        <AuthDivider />
+      </div>
 
       <form onSubmit={handleLogin} className="space-y-5">
         <AuthInput

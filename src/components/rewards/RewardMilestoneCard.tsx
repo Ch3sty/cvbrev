@@ -10,7 +10,6 @@ import {
   Gift,
   Lock,
   CheckCircle2,
-  Sparkles,
   Target
 } from 'lucide-react';
 
@@ -194,7 +193,6 @@ export default function RewardMilestoneCard({
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="flex items-center gap-1 text-xs font-semibold text-pink-600"
               >
-                <Sparkles className="w-3 h-3" />
                 <span>Ny!</span>
               </motion.div>
             )}

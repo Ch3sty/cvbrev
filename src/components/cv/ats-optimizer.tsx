@@ -14,8 +14,7 @@ import {
   Lightbulb,
   Eye,
   Award,
-  FileSearch,
-  Sparkles
+  FileSearch
 } from 'lucide-react';
 
 interface ATSOptimizerProps {
@@ -359,7 +358,7 @@ export default function ATSOptimizer({
               <div key={index} className="p-4 bg-navy-600 rounded-lg">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center space-x-2">
-                    <Sparkles className="w-4 h-4 text-pink-400" />
+                    <Lightbulb className="w-4 h-4 text-pink-400" />
                     <h4 className="text-white font-medium">{suggestion.title}</h4>
                   </div>
                   <div className="flex items-center space-x-2">

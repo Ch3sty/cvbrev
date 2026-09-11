@@ -3,28 +3,19 @@
 /**
  * StreakOchStatus
  * ---------------
- * Ersätter gamla StreakHero. Två lager efter vikt:
+ * Kvot- och premiumöversikt: faktainfo, inte en säljyta.
  *
- * 1. Streak: en KOMPAKT remsa som standard (flamma, tal, momentum-remsa,
- *    level-crest). Den stora firande gradientvarianten renderas bara när
- *    streaken faktiskt är värd att fira (7+ dagar), med IconEldMilstolpe
- *    som bakgrund i stället för en generisk Lucide-ikon.
- * 2. Din status: kvoter/premium i en egen ljus widget, faktainfo skild
- *    från gamification. Premium-CTA:n är outline, inte gradient
- *    (hero-gradienten är reserverad för vyns primära handling).
- *
- * Streaksiffran kvitterar förändringar: key-baserad remount med kort
- * scale-anim när talet ändras.
+ * Streaken flyttade till DashboardStatusRow som en siffra bland de andra
+ * (docs/plan-konvertering.md, B4), och den firande helskärmsvarianten är
+ * borttagen. Kvar står bara den ljusa statuswidgeten.
  */
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Crown, Check, ArrowRight } from 'lucide-react';
-import { IconEld, IconEldMilstolpe, LevelCrest } from './illustrations/DashboardIcons';
 import InfoPopover from '@/components/ui/InfoPopover';
 
 const FREE_LIMITS = { letters: 7, analyses: 1, linkedin: 1 };
-const CELEBRATE_FROM = 7;
 
 interface StreakOchStatusProps {
   dailyStreak: number;
@@ -43,216 +34,12 @@ interface StreakOchStatusProps {
   premiumSource?: string | null;
 }
 
+/**
+ * Streaken bor numera som en siffra i DashboardStatusRow (B4). Den firande
+ * helskärmsvarianten är borttagen. Kvar står kvot- och premiumöversikten.
+ */
 export default function StreakOchStatus(props: StreakOchStatusProps) {
-  const celebrate = props.dailyStreak >= CELEBRATE_FROM;
-
-  if (celebrate) {
-    return (
-      <div className="space-y-4">
-        <StreakCelebration {...props} />
-        <DinStatusWidget {...props} />
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4 items-stretch">
-      <StreakStrip {...props} />
-      <DinStatusWidget {...props} />
-    </div>
-  );
-}
-
-// =============================================================
-// Kompakt streakremsa (standardläget)
-// =============================================================
-
-function StreakStrip({
-  dailyStreak,
-  longestStreak,
-  dailyXpEarned,
-  currentLevel,
-  levelTitle,
-  dailyXp,
-}: StreakOchStatusProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5 flex flex-col justify-between gap-4"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
-    >
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <IconEld className="w-9 h-9 flex-shrink-0" />
-          <div className="min-w-0">
-            <div className="flex items-baseline gap-1.5">
-              {/* key-remount kvitterar en ändrad streak med en kort skalning */}
-              <motion.span
-                key={dailyStreak}
-                initial={{ scale: 1.15 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 16 }}
-                className="text-2xl font-black text-slate-900 tabular-nums leading-none"
-              >
-                {dailyStreak}
-              </motion.span>
-              <span className="text-sm font-bold text-slate-600">
-                {dailyStreak === 1 ? 'dag i rad' : 'dagar i rad'}
-              </span>
-              <InfoPopover title="Din streak">
-                <p>
-                  Gör något hos oss under en dag så växer din streak med en dag.
-                  XP samlar du genom att använda verktygen, och din level visar
-                  den samlade aktiviteten över tid.
-                </p>
-                <p>Rutorna nedanför visar vilka av veckans dagar du varit igång.</p>
-              </InfoPopover>
-            </div>
-            <div className="text-[11.5px] text-slate-500 mt-0.5">
-              {dailyStreak === 0
-                ? 'Gör en sak idag så börjar räkningen.'
-                : longestStreak > dailyStreak
-                  ? `Bästa: ${longestStreak} dagar · ${dailyXpEarned} XP idag`
-                  : `Nytt rekord på gång · ${dailyXpEarned} XP idag`}
-            </div>
-          </div>
-        </div>
-
-        <span className="inline-flex items-center gap-1.5 pl-1 pr-3 py-1 rounded-full text-xs font-bold text-orange-800 bg-orange-50 border border-orange-200 flex-shrink-0">
-          <LevelCrest className="w-6 h-6" />
-          <span className="tabular-nums">Level {currentLevel}</span>
-          <span className="hidden sm:inline text-orange-600/70 font-semibold">{levelTitle}</span>
-        </span>
-      </div>
-
-      <MomentumRemsa dailyXp={dailyXp} />
-    </motion.div>
-  );
-}
-
-/** Veckans momentum: sju dagrutor, fyllda när dagen gav XP. */
-function MomentumRemsa({ dailyXp }: { dailyXp: { date: string; xp: number }[] }) {
-  const lastSeven = dailyXp.slice(-7);
-  if (lastSeven.length < 7) return null;
-
-  return (
-    <div className="flex items-center gap-1.5" aria-label="Aktivitet senaste sju dagarna">
-      {lastSeven.map((day, i) => {
-        const active = day.xp > 0;
-        const weekday = new Intl.DateTimeFormat('sv-SE', { weekday: 'narrow' }).format(
-          new Date(day.date)
-        );
-        const isToday = i === lastSeven.length - 1;
-        return (
-          <div key={day.date} className="flex-1 flex flex-col items-center gap-1">
-            <div
-              className={`w-full h-5 rounded-md ${active ? '' : 'bg-orange-50 border border-orange-100'} ${isToday && !active ? 'border-dashed border-orange-300' : ''}`}
-              style={active ? { background: 'var(--jc-gradient-warm)' } : undefined}
-              title={`${day.date}: ${day.xp} XP`}
-            />
-            <span className="text-[9px] font-bold uppercase text-slate-400">{weekday}</span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// =============================================================
-// Firande varianten (7+ dagars streak)
-// =============================================================
-
-function StreakCelebration({
-  dailyStreak,
-  longestStreak,
-  dailyXpEarned,
-  currentLevel,
-  levelTitle,
-  dailyXp,
-}: StreakOchStatusProps) {
-  const isMilestoneDay = [7, 14, 30, 50, 100].includes(dailyStreak);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl p-6 sm:p-7 text-white"
-      style={{
-        background: 'var(--jc-gradient-hero)',
-        boxShadow: '0 20px 40px -12px rgba(220, 38, 38, 0.35)',
-      }}
-    >
-      {/* Husets handritade eld som bakgrund, inte en stock-ikon */}
-      <div className="absolute -right-8 -bottom-10 opacity-15 pointer-events-none">
-        <IconEldMilstolpe className="w-56 h-56 sm:w-64 sm:h-64" />
-      </div>
-
-      <div className="relative">
-        <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-85 mb-2">
-          {isMilestoneDay ? 'Milstolpe nådd' : 'Din streak lever'}
-        </div>
-        <div className="flex items-end gap-3">
-          <motion.div
-            key={dailyStreak}
-            initial={{ scale: 1.12 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 15 }}
-            className="text-6xl sm:text-7xl font-black leading-none tabular-nums"
-          >
-            {dailyStreak}
-          </motion.div>
-          <div className="pb-1.5 text-base sm:text-lg font-bold opacity-95">dagar i rad</div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-          <span className="font-bold tabular-nums">
-            <span className="opacity-70 uppercase text-[10.5px] tracking-wider mr-1.5">Bästa</span>
-            {Math.max(longestStreak, dailyStreak)} dagar
-          </span>
-          <span className="font-bold tabular-nums">
-            <span className="opacity-70 uppercase text-[10.5px] tracking-wider mr-1.5">Idag</span>
-            {dailyXpEarned} XP
-          </span>
-          <span className="inline-flex items-center gap-1.5 font-bold">
-            <LevelCrest className="w-5 h-5" />
-            Level {currentLevel} · {levelTitle}
-          </span>
-        </div>
-
-        <div className="mt-5 max-w-sm [&_span]:text-white/60">
-          <MomentumRemsaLjus dailyXp={dailyXp} />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/** Momentum-remsan på mörk gradientbakgrund. */
-function MomentumRemsaLjus({ dailyXp }: { dailyXp: { date: string; xp: number }[] }) {
-  const lastSeven = dailyXp.slice(-7);
-  if (lastSeven.length < 7) return null;
-  return (
-    <div className="flex items-center gap-1.5" aria-label="Aktivitet senaste sju dagarna">
-      {lastSeven.map((day) => {
-        const active = day.xp > 0;
-        const weekday = new Intl.DateTimeFormat('sv-SE', { weekday: 'narrow' }).format(
-          new Date(day.date)
-        );
-        return (
-          <div key={day.date} className="flex-1 flex flex-col items-center gap-1">
-            <div
-              className={`w-full h-5 rounded-md ${active ? 'bg-white' : 'bg-white/20'}`}
-              title={`${day.date}: ${day.xp} XP`}
-            />
-            <span className="text-[9px] font-bold uppercase">{weekday}</span>
-          </div>
-        );
-      })}
-    </div>
-  );
+  return <DinStatusWidget {...props} />;
 }
 
 // =============================================================

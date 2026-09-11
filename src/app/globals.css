@@ -6,6 +6,15 @@
   /* Ljust tema (hela applikationen) */
   --foreground-rgb: 17, 24, 39; /* gray-900 */
   --background-rgb: 255, 255, 255; /* white */
+
+  /* Illustrationssystemets färgroller (docs/plan-konvertering.md, spår E).
+     Konturer tar currentColor; dessa är fyllningar. */
+  --illu-fill: #FFFFFF;
+  --illu-accent: #F97316;
+  --illu-soft: #FFEDD5;
+  --illu-muted: #A3A3A3;
+  /* Knockout ovanpå accentytan (bock, pil). Aldrig hårdkodat vitt i SVG. */
+  --illu-on-accent: #FFFFFF;
 }
 
 body {

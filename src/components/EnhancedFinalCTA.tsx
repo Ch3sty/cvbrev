@@ -250,7 +250,7 @@ export default function EnhancedFinalCTA() {
                     transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
                   />
 
-                  {/* Sparkle effects on hover */}
+                  {/* Små ljuspunkter som pulserar vid hover */}
                   <div className="absolute inset-0 pointer-events-none">
                     {[...Array(3)].map((_, i) => (
                       <motion.div

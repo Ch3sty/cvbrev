@@ -1,89 +1,124 @@
 'use client'
 
+/**
+ * Avslutande CTA på prissidan (A7 i docs/plan-konvertering.md).
+ *
+ * Designsystemet: ingen gradientyta, inga gradientcirklar, rounded-xl,
+ * font-semibold som tyngst, border i stället för skugga. Sektionen har
+ * exakt en fylld orange yta, och det är primärknappen.
+ *
+ * Inloggad öppnar produktvalet direkt (månad först här, till skillnad från
+ * betalväggarna). Utloggad går till registreringen, där fem dagar Premium
+ * ingår ändå, så vi skickar ingen till en betalning hon inte kan slutföra.
+ */
+
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { PremiumCrown } from './illustrations/PriserIcons'
-import { TRIAL_DAYS } from './priser-data'
+import UpgradeSheet from '@/components/paywall/UpgradeSheet'
+import { useProfile } from '@/hooks/use-profile'
+import { IlluManad } from '@/components/illustrations/PriserIllustrations'
+import { SIGNUP_TRIAL_DAYS } from './priser-data'
+
+const TRUST = ['Ingen bindningstid', 'Avsluta när du vill', 'GDPR, data i EU']
 
 export default function PriserCTABand() {
+  const { profile, loading } = useProfile()
+  const [sheetOpen, setSheetOpen] = useState(false)
+
+  const isLoggedIn = Boolean(profile)
+
   return (
-    <section className="relative py-16 sm:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-[32px] p-8 sm:p-12 lg:p-16 text-white"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="bg-white rounded-xl border border-neutral-200 p-6 sm:p-8"
         >
-          <div
-            aria-hidden="true"
-            className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-32 -left-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none"
-          />
-
-          <div className="relative grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 items-center">
-            <div className="text-center lg:text-left">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-4">
-                Testa Premium i {TRIAL_DAYS} dagar.
-                <br className="hidden sm:block" />{' '}
-                Helt utan kostnad.
+          <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
+                Redo att börja?
               </h2>
-              <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Vill du fortsätta? Då kostar det 149 kr per månad. Avsluta
-                innan trialen är slut och du betalar aldrig något. Inga
-                avgifter, ingen bindningstid.
+              <p className="text-sm text-neutral-600 leading-relaxed mt-2 max-w-xl">
+                {isLoggedIn
+                  ? 'Välj hur länge du vill ha Premium. Engångsköpen tar slut av sig själva, prenumerationerna säger du upp med ett klick.'
+                  : `Skapa konto så får du ${SIGNUP_TRIAL_DAYS} dagar Premium direkt, utan kort. Sedan går kontot över till gratisnivån av sig självt.`}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
+              <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    onClick={() => setSheetOpen(true)}
+                    disabled={loading}
+                    className="inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors disabled:opacity-60 w-full sm:w-auto"
+                  >
+                    Välj Premium
+                  </button>
+                ) : (
+                  <Link
+                    href="/register"
+                    className="inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto"
+                  >
+                    Skapa konto gratis
+                  </Link>
+                )}
+
                 <Link
-                  href="/trial-signup"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-orange-50 active:scale-[0.98] transition-all"
-                  style={{
-                    color: '#DC2626',
-                    boxShadow: '0 12px 32px -10px rgba(0, 0, 0, 0.25)',
-                  }}
+                  href="/verktyg/personligt-brev"
+                  className="text-sm font-medium text-neutral-600 hover:text-neutral-900 underline-offset-4 hover:underline"
                 >
-                  Starta gratis trial
-                  <ArrowRight
-                    className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
-                    strokeWidth={2.8}
-                  />
-                </Link>
-                <Link
-                  href="/register"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl border-2 border-white/40 text-white font-bold text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:border-white/70 transition-colors"
-                >
-                  Fortsätt på gratis
+                  Se hur verktyget fungerar
                 </Link>
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>Avsluta innan dag åtta</span>
-                <span className="hidden sm:inline text-white/40">·</span>
-                <span>Ingen bindningstid</span>
-                <span className="hidden sm:inline text-white/40">·</span>
-                <span>GDPR, data i EU</span>
-              </div>
+              <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                {TRUST.map((t) => (
+                  <li
+                    key={t}
+                    className="inline-flex items-center gap-1.5 text-xs text-neutral-500"
+                  >
+                    <svg
+                      viewBox="0 0 16 16"
+                      width="13"
+                      height="13"
+                      className="text-orange-600 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M3.5 8.5l3 3 6-6" />
+                    </svg>
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Krona-decoration */}
-            <div className="hidden lg:flex items-center justify-center">
-              <div className="bg-white/15 backdrop-blur-sm rounded-3xl p-10 border border-white/25">
-                <PremiumCrown className="w-32 h-32" />
-              </div>
+            {/* Kalenderarket säger vad produkten är. Ingen krona, ingen blob. */}
+            <div
+              className="hidden sm:flex shrink-0 items-center justify-center text-neutral-900"
+              aria-hidden="true"
+            >
+              <IlluManad size={96} />
             </div>
           </div>
         </motion.div>
       </div>
+
+      <UpgradeSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        order="month-first"
+        source="priser:cta-band"
+      />
     </section>
   )
 }

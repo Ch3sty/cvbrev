@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { analyzeCvBasic } from '@/lib/openai/cv-analysis';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
+import { markFirstMilestone } from '@/lib/activation-tracking';
 
 export const maxDuration = 30;
 
@@ -70,6 +71,9 @@ export async function POST(request: NextRequest) {
         console.error('[quick-score] Kostnadsspårning misslyckades:', trackErr);
       }
     }
+
+    // B7: första analysen. Först vinner, så en senare fullanalys skriver inte över.
+    await markFirstMilestone(user.id, 'first_cv_analyzed_at');
 
     return NextResponse.json({
       success: true,

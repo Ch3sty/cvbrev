@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Calendar, TrendingUp, Sparkles, ArrowRight, CheckCircle2, Trash2, Eye, X, FileText } from 'lucide-react';
+import { Brain, Calendar, TrendingUp, Star, ArrowRight, CheckCircle2, Trash2, Eye, X, FileText } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
@@ -264,7 +264,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                 {topSkills.length > 0 && (
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="w-4 h-4 text-purple-500" />
+                      <Star className="w-4 h-4 text-purple-500" />
                       <span className="text-sm text-gray-600">Toppkompetenser</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -443,7 +443,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               {detailAnalysis.result.skillSuggestions && detailAnalysis.result.skillSuggestions.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-purple-500" />
+                    <Star className="w-5 h-5 text-purple-500" />
                     Kompetenser
                   </h3>
                   <div className="grid grid-cols-2 gap-3">

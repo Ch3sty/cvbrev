@@ -13,8 +13,11 @@ import JobbcoachenResultatBevis from './components/JobbcoachenResultatBevis'
 import JobbcoachenFAQ from './components/JobbcoachenFAQ'
 import JobbcoachenCTABand from './components/JobbcoachenCTABand'
 import { JOBBCOACHEN_FAQ_ITEMS } from './components/jobbcoachen-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function JobbcoachenSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -34,13 +37,6 @@ export default function JobbcoachenSida() {
     },
     featureList:
       'Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      reviewCount: '890',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -102,6 +98,7 @@ export default function JobbcoachenSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/jobbcoachen" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

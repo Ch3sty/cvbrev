@@ -331,10 +331,10 @@ function PipelineNode({
 /**
  * Custom illustration: ett brev som skrivs.
  * Pulserande ringar bakom, dokument framme, penna som rör sig + skann-linje,
- * och sparkles som flyger ut nar brevet "matas".
+ * och accenter som flyger ut nar brevet "matas".
  */
 function WritingIllustration({ stage }: { stage: number }) {
-  const visibleSparkles = Math.min(stage + 1, 3);
+  const visibleAccents = Math.min(stage + 1, 3);
 
   return (
     <div className="relative w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] md:w-[220px] md:h-[220px]">
@@ -433,11 +433,11 @@ function WritingIllustration({ stage }: { stage: number }) {
         </svg>
       </motion.div>
 
-      {/* Sparkles som flyger ut */}
+      {/* Dekorativa accenter som flyger ut */}
       <AnimatePresence>
-        {[0, 1, 2].slice(0, visibleSparkles).map((i) => (
+        {[0, 1, 2].slice(0, visibleAccents).map((i) => (
           <motion.div
-            key={`sparkle-${i}`}
+            key={`accent-${i}`}
             className="absolute pointer-events-none"
             style={{
               top: `${15 + i * 22}%`,
@@ -461,10 +461,10 @@ function WritingIllustration({ stage }: { stage: number }) {
             <svg viewBox="0 0 14 14" fill="none">
               <path
                 d="M7 0 L8.5 5 L13 6.5 L8.5 8 L7 13 L5.5 8 L1 6.5 L5.5 5 Z"
-                fill="url(#sparkle-grad)"
+                fill="url(#accent-grad)"
               />
               <defs>
-                <linearGradient id="sparkle-grad" x1="0" y1="0" x2="14" y2="14">
+                <linearGradient id="accent-grad" x1="0" y1="0" x2="14" y2="14">
                   <stop offset="0%" stopColor="#F97316" />
                   <stop offset="100%" stopColor="#BE185D" />
                 </linearGradient>

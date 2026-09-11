@@ -32,7 +32,7 @@ interface TabItem {
 
 const LEFT_TABS: TabItem[] = [
   { id: 'home',  label: 'Hem',   href: '/dashboard',           icon: Home,      matchPaths: ['/dashboard'] },
-  { id: 'brev',  label: 'Brev',  href: '/dashboard/mina-brev', icon: PenTool,   matchPaths: ['/dashboard/mina-brev', '/dashboard/skapa-brev', '/dashboard/my-letters'] },
+  { id: 'brev',  label: 'Brev',  href: '/dashboard/mina-brev', icon: PenTool,   matchPaths: ['/dashboard/mina-brev', '/dashboard/skapa-brev'] },
 ];
 const RIGHT_TABS: TabItem[] = [
   { id: 'jobs',    label: 'Jobb',    href: '/dashboard/jobbmatchning', icon: Briefcase, matchPaths: ['/dashboard/jobbmatchning', '/dashboard/jobbcoachen'] },

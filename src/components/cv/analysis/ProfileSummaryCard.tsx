@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { User, ChevronDown, ChevronUp, TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -55,7 +55,7 @@ export default function ProfileSummaryCard({
             <User className="w-5 h-5 text-pink-600" />
             <h4 className="font-semibold text-gray-900">Personbeskrivning</h4>
             <Badge className="bg-pink-100 text-pink-700 border-pink-200">
-              <Sparkles className="w-3 h-3 mr-1" />
+              <TrendingUp className="w-3 h-3 mr-1" />
               +{atsImpact} ATS-poäng
             </Badge>
           </div>

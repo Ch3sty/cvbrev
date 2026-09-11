@@ -1,18 +1,31 @@
 /**
  * Priser-data: server-safe konstanter for /priser-sidan.
- * Speglar SUBSCRIPTION_LIMITS i src/hooks/use-profile.ts.
- * Driver pris-kort, jamforelsetabell, FAQ och vad-ingar-sektionen.
+ * Prisstegen bor i src/lib/plans/plans.ts och speglas av kortraden här.
+ * Driver gratisrad, jamforelsetabell, FAQ och vad-ingar-sektionen.
  */
 
 export const PREMIUM_PRICE = 149
 export const PREMIUM_CURRENCY = 'SEK'
 export const PREMIUM_STRIPE_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00'
 export const TRIAL_DAYS = 7
+/** Dagar full Premium varje nytt konto får vid registrering, utan kort. */
+export const SIGNUP_TRIAL_DAYS = 5
 
-// === Pris-kort (kort-vy med 5-7 punkter per tier) ===
+// === Hero ===
+
+export const PRISER_HERO_TITLE = 'Betala för veckan du söker. Inte för året.'
+export const PRISER_HERO_INGRESS =
+  'De flesta söker jobb intensivt i några veckor och slutar sedan. Därför säljer vi både korta pass och månadsplan. Välj det som matchar din situation.'
+
+// === Gratisnivån, en textrad under korten ===
+
+export const GRATIS_RAD =
+  'Du kan använda Jobbcoach gratis med ett brev om dagen, en CV-analys var tredje dag, alla tester och 12 CV-mallar. Nedladdning och full CV-analys ingår i Premium.'
+
+// === Pris-kort (behålls för vad-ingår-sektionen) ===
 
 export const FREE_HIGHLIGHTS = [
-  '2 personliga brev per dag',
+  '1 personligt brev per dag',
   '1 CV-analys var tredje dag',
   '1 LinkedIn-optimering per vecka',
   '12 gratis CV-mallar',
@@ -34,6 +47,9 @@ export const PREMIUM_HIGHLIGHTS = [
 
 // === Jamforelsetabell (full feature-matris) ===
 
+export const COMPARISON_INTRO =
+  'Alla fyra alternativen ger samma funktioner. Skillnaden är hur länge.'
+
 export interface ComparisonRow {
   label: string
   free: string
@@ -49,7 +65,7 @@ export const COMPARISON: ComparisonGroup[] = [
   {
     title: 'Personliga brev',
     rows: [
-      { label: 'Brev per dag', free: '2 brev', premium: 'Obegränsat' },
+      { label: 'Brev per dag', free: '1 brev', premium: 'Obegränsat' },
       { label: 'Sparade brev åt gången', free: '2 brev', premium: 'Obegränsat' },
       { label: 'Brevmallar', free: '3 mallar', premium: 'Alla 7 mallar' },
       {
@@ -57,15 +73,21 @@ export const COMPARISON: ComparisonGroup[] = [
         free: '5 toner',
         premium: '6 toner inkl. Smart-anpassad',
       },
-      { label: 'Export PDF + Word', free: 'Ja', premium: 'Ja' },
+      { label: 'Ladda ner brev som PDF och Word', free: 'Nej', premium: 'Ja' },
     ],
   },
   {
     title: 'CV',
     rows: [
       { label: 'CV-analys', free: '1 var tredje dag', premium: 'Obegränsat' },
+      {
+        label: 'CV-analys, alla förbättringsförslag',
+        free: 'De tre största',
+        premium: 'Alla',
+      },
       { label: 'Sparade CV-versioner', free: '2 CV', premium: 'Obegränsat' },
       { label: 'CV-mallar', free: '12 mallar', premium: 'Alla 42 mallar' },
+      { label: 'Export PDF + Word', free: 'Ett CV, sedan Premium', premium: 'Obegränsat' },
       {
         label: 'CV-byggare med live-förhandsvisning',
         free: 'Ja',
@@ -109,7 +131,11 @@ export const COMPARISON: ComparisonGroup[] = [
     rows: [
       { label: 'Svenska arbetsmarknaden', free: 'Ja', premium: 'Ja' },
       { label: 'GDPR-säker, data i EU', free: 'Ja', premium: 'Ja' },
-      { label: 'Sju dagar gratis trial', free: 'Inte tillämpligt', premium: 'Ja' },
+      {
+        label: 'Fem dagar Premium vid registrering',
+        free: 'Ingår i alla nya konton',
+        premium: 'Ja',
+      },
     ],
   },
 ]
@@ -118,24 +144,28 @@ export const COMPARISON: ComparisonGroup[] = [
 
 export const PRISER_FAQ_ITEMS = [
   {
-    q: 'Vad ingår i Premium för 149 kr per månad?',
-    a: 'Allt vi har att erbjuda. Obegränsade personliga brev och CV-analyser, alla 42 CV-mallar varav 30 exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och professionell export i både Word och PDF. Du sparar allt du skapar utan tak.',
+    q: 'Vad ingår i Premium?',
+    a: 'Allt vi har att erbjuda, oavsett vilket av de fyra alternativen du väljer. Obegränsade personliga brev och CV-analyser, alla 42 CV-mallar varav 30 exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och nedladdning i både Word och PDF. Skillnaden mellan alternativen är bara hur länge du har tillgången.',
   },
   {
-    q: 'Hur fungerar de sju gratis dagarna?',
-    a: 'Du får full tillgång till Premium i sju dagar utan att betala något. Vi tar dina kortuppgifter när du startar trialen, men debiterar 0 kr fram till dag åtta. Avsluta innan dess och du betalar aldrig något. Avslutar du senare debiteras 149 kr för en månad framåt och kontot går tillbaka till gratisnivån när månaden är slut.',
+    q: 'Vad är skillnaden mellan dagspass och prenumeration?',
+    a: 'Dagspass och jobbsökarveckan är engångsköp. Du betalar en gång, får full tillgång i 24 timmar respektive sju dagar, och sedan går kontot tillbaka till gratisnivån av sig självt. Inget dras automatiskt. Månads- och kvartalsplanen förnyas tills du säger upp dem.',
+  },
+  {
+    q: 'Får jag testa Premium innan jag betalar?',
+    a: 'Ja. Alla nya konton får fem dagar med Premium direkt vid registreringen, utan kort. Efter fem dagar går kontot över till gratisnivån automatiskt. Vill du hellre prova med kort i sju dagar finns det <a href="/trial-signup">här</a>.',
   },
   {
     q: 'Finns det bindningstid eller uppsägningstid?',
-    a: 'Nej. Du säger upp när som helst med ett klick i ditt konto. Premium löper då till slutet av den månad du redan betalat för, sedan rullar kontot tillbaka till gratisnivån utan att vi tar mer betalt.',
+    a: 'Nej. Engångsköpen tar slut av sig själva. Prenumerationerna säger du upp när som helst med ett klick i ditt konto. Premium löper då till slutet av perioden du redan betalat för, sedan rullar kontot tillbaka till gratisnivån.',
   },
   {
     q: 'Vad räcker gratisversionen till?',
-    a: 'Gratisversionen har en dagsrytm som räcker långt. Två personliga brev om dagen, en CV-analys var tredje dag, en LinkedIn-optimering i veckan, 12 CV-mallar, alla tester en gång per dag och nivå samt tio meddelanden om dagen med Jobbcoachen. Många hittar jobb utan att någonsin betala. Premium är för dig som söker många jobb samtidigt eller vill ha alla mallar och Smart-anpassad ton.',
+    a: 'Gratisnivån räcker för att testa verktygen och skicka en ansökan om dagen. Du kan bygga och spara CV, se din ATS-poäng och träna på testerna. Söker du flera jobb i veckan tar kvoterna slut, och då är Premium det som gör skillnad.',
   },
   {
     q: 'Vad händer om jag avslutar Premium?',
-    a: 'Inget dramatiskt. Brev och CV du redan skapat finns kvar. Du kan hantera två sparade brev och två CV på gratisnivå. Nya skapanden begränsas till gratis-kvoterna. Du kan när som helst aktivera Premium igen.',
+    a: 'Inget dramatiskt. Brev och CV du redan skapat finns kvar. Du kan hantera två sparade brev och två CV på gratisnivå. Nya skapanden begränsas till gratis-kvoterna. Du kan när som helst aktivera Premium igen, eller köpa ett dagspass när du behöver ladda ner något.',
   },
   {
     q: 'Är det säkert att lämna mina personliga uppgifter?',

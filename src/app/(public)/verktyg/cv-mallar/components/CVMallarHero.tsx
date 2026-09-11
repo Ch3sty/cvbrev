@@ -62,7 +62,7 @@ export default function CVMallarHero() {
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
               <Link
-                href="/dashboard/skapa-cv"
+                href="/register"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base shadow-lg w-full sm:w-auto min-h-[52px] hover:shadow-xl active:scale-[0.98] transition-all"
                 style={{
                   background:

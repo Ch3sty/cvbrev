@@ -15,8 +15,8 @@ import {
   PRISER_FAQ_ITEMS,
   PREMIUM_PRICE,
   PREMIUM_CURRENCY,
-  TRIAL_DAYS,
 } from './components/priser-data'
+import { PLANS } from '@/lib/plans/plans'
 
 export default function PriserSida() {
   // === Schema.org markup ===
@@ -48,29 +48,29 @@ export default function PriserSida() {
         name: 'Jobbcoach.ai',
       },
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '1400',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
+  // A7: fyra produkter, inte en. Prisstegen kommer från PLANS så schemat
+  // aldrig glider isär från korten.
   const offerSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Offer',
-    name: `Jobbcoach.ai Premium ${TRIAL_DAYS} dagar gratis trial`,
-    description: `Prova Premium gratis i ${TRIAL_DAYS} dagar utan att lämna kortuppgifter. Därefter ${PREMIUM_PRICE} kr per månad. Avsluta när som helst.`,
-    price: PREMIUM_PRICE,
+    '@type': 'AggregateOffer',
+    name: 'Jobbcoach.ai Premium',
+    url: 'https://www.jobbcoach.ai/priser',
     priceCurrency: PREMIUM_CURRENCY,
-    url: 'https://www.jobbcoach.ai/trial-signup',
+    lowPrice: Math.min(...PLANS.map((p) => p.amount)),
+    highPrice: Math.max(...PLANS.map((p) => p.amount)),
+    offerCount: PLANS.length,
     availability: 'https://schema.org/InStock',
-    eligibleDuration: {
-      '@type': 'QuantitativeValue',
-      value: TRIAL_DAYS,
-      unitCode: 'DAY',
-    },
+    offers: PLANS.map((plan) => ({
+      '@type': 'Offer',
+      name: `Jobbcoach.ai Premium ${plan.name}`,
+      description: plan.body,
+      price: plan.amount,
+      priceCurrency: PREMIUM_CURRENCY,
+      url: 'https://www.jobbcoach.ai/priser',
+      availability: 'https://schema.org/InStock',
+    })),
   }
 
   const faqSchema = {
@@ -81,7 +81,8 @@ export default function PriserSida() {
       name: item.q,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: item.a,
+        // Ett par svar innehåller en länk i copyn. Schemat vill ha ren text.
+        text: item.a.replace(/<[^>]+>/g, ''),
       },
     })),
   }

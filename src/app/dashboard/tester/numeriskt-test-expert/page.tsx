@@ -8,7 +8,7 @@ import NumericalInfoCard from '@/components/tests/numerical-shared/NumericalInfo
 import NumericalStartCTA from '@/components/tests/numerical-shared/NumericalStartCTA';
 import NumericalPreviousResults from '@/components/tests/numerical-shared/NumericalPreviousResults';
 import { TOTAL_QUESTIONS } from '@/lib/numericalTestExpert/selectPassages';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 interface Session {
   id: string;
@@ -91,11 +91,9 @@ export default function NumeriskExpertPage() {
         />
         <NumericalInfoCard variant="expert" />
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
           <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="expert" />

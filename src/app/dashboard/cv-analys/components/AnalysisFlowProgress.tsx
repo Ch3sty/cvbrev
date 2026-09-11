@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Check, FileText, ScanSearch, BarChart3, ListChecks, Eye, Layout, Sparkles } from 'lucide-react';
+import { Check, FileText, ScanSearch, BarChart3, ListChecks, Eye, Layout, CheckCircle2 } from 'lucide-react';
 
 export interface AnalysisStep {
   id: number;
@@ -17,7 +17,7 @@ export const ANALYSIS_STEPS: AnalysisStep[] = [
   { id: 3, label: 'Förbättringar', shortLabel: 'Välj', icon: ListChecks },
   { id: 4, label: 'Granska', shortLabel: 'Granska', icon: Eye },
   { id: 5, label: 'Mall & spara', shortLabel: 'Mall', icon: Layout },
-  { id: 6, label: 'Klar', shortLabel: 'Klar', icon: Sparkles },
+  { id: 6, label: 'Klar', shortLabel: 'Klar', icon: CheckCircle2 },
 ];
 
 interface AnalysisFlowProgressProps {

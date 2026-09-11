@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, Sparkles, ArrowRight, Eye } from 'lucide-react';
+import { FileText, Crown, ArrowRight, Eye } from 'lucide-react';
 
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import {
@@ -447,7 +447,7 @@ function GenerateButton({
           boxShadow: '0 12px 32px -10px rgba(220, 38, 38, 0.45)',
         }}
       >
-        <Sparkles className="w-5 h-5" strokeWidth={2.5} />
+        <Crown className="w-5 h-5" strokeWidth={2.5} />
         Lås upp Premium för {templateName || 'denna mall'}
       </button>
     );
@@ -472,7 +472,7 @@ function GenerateButton({
         </>
       ) : (
         <>
-          <Sparkles className="w-5 h-5" strokeWidth={2.5} />
+          <FileText className="w-5 h-5" strokeWidth={2.5} />
           Skapa CV-PDF
           <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
         </>

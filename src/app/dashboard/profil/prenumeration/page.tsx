@@ -7,14 +7,14 @@ import { motion } from 'framer-motion';
 import { XCircle } from 'lucide-react';
 
 import PrenumerationHero from './components/PrenumerationHero';
-import PricingCard from './components/PricingCard';
 import PremiumFeaturesGrid from './components/PremiumFeaturesGrid';
 import UsageStats from './components/UsageStats';
 import ManageSubscriptionCard from './components/ManageSubscriptionCard';
 import AdminGrantedCard from './components/AdminGrantedCard';
 import TrialCTACard from './components/TrialCTACard';
+import TidsbegransadPremiumCard from './components/TidsbegransadPremiumCard';
+import PlanCards from '@/components/pricing/PlanCards';
 import PrenumerationFAQ from './components/PrenumerationFAQ';
-import { PremiumCTAButton } from './components/PremiumCTAButton';
 
 const PREMIUM_MONTHLY_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00';
 const PRICING_ANCHOR_ID = 'pricing';
@@ -122,8 +122,17 @@ export default function PrenumerationPage() {
               savedLettersCount={savedLettersCount}
             />
 
-            {/* Trial/reward/guest — uppmuntra till uppgradering */}
-            {isTemporaryPremium && (
+            {/* A8, tillstånd två: tidsbegränsad premium utan prenumeration.
+                Dagar kvar, "Förläng" och historik från premium_grants. */}
+            {isTemporaryPremium && premiumUntil && (
+              <TidsbegransadPremiumCard
+                premiumUntil={premiumUntil}
+                premiumSource={premiumSource}
+              />
+            )}
+            {/* Kvarvarande fall: temporär premium utan slutdatum (äldre
+                belöningar). Den gamla CTA:n duger där. */}
+            {isTemporaryPremium && !premiumUntil && (
               <TrialCTACard priceId={PREMIUM_MONTHLY_PRICE_ID} />
             )}
 
@@ -145,65 +154,23 @@ export default function PrenumerationPage() {
         {/* Free-läge — full konverteringssida */}
         {!isPremium && !hasStripeSubscription && (
           <>
-            <div ref={pricingRef}>
-              <PricingCard
-                priceId={PREMIUM_MONTHLY_PRICE_ID}
-                scrollAnchorId={PRICING_ANCHOR_ID}
-              />
+            {/* A8, tillstånd tre: kvotöversikt och de fyra produktkorten. */}
+            <UsageStats
+              cvCount={cvCount}
+              weeklyLetterCount={weeklyLetterCount}
+              savedLettersCount={savedLettersCount}
+            />
+
+            <div ref={pricingRef} id={PRICING_ANCHOR_ID}>
+              <PlanCards className="py-0" />
             </div>
 
             <PremiumFeaturesGrid isPremium={false} />
 
             <PrenumerationFAQ />
-
-            {/* Sista konverterings-belt */}
-            <FinalCTA priceId={PREMIUM_MONTHLY_PRICE_ID} />
           </>
         )}
       </div>
     </div>
-  );
-}
-
-/* --------- final CTA-belt för free-läge --------- */
-
-function FinalCTA({ priceId }: { priceId: string }) {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-3xl text-white"
-      style={{
-        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-        boxShadow: '0 20px 50px -16px rgba(220, 38, 38, 0.5)',
-      }}
-    >
-      <svg className="absolute inset-0 w-full h-full opacity-15 pointer-events-none" aria-hidden="true">
-        <pattern id="final-cta-dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
-          <circle cx="11" cy="11" r="0.8" fill="white" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#final-cta-dots)" />
-      </svg>
-
-      <div className="relative p-6 sm:p-8 md:p-10 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-2">
-          Redo att börja?
-        </h2>
-        <p className="text-sm sm:text-base opacity-95 mb-6 max-w-md mx-auto">
-          7 dagar gratis. Ingen bindningstid. Avsluta när du vill.
-        </p>
-
-        <div className="max-w-sm mx-auto">
-          <PremiumCTAButton
-            priceId={priceId}
-            apiEndpoint="/api/stripe/create-trial-upgrade-session"
-            buttonText="Prova gratis i 7 dagar"
-            variant="inverse"
-          />
-        </div>
-      </div>
-    </motion.section>
   );
 }

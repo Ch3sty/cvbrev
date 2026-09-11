@@ -3,27 +3,48 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { MailCheck, ArrowRight, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 export default function VerifyEmailPage() {
   const supabase = createClient();
+  const router = useRouter();
   const [user, setUser] = useState<{ id: string; email: string; fullName: string } | null>(null);
   const [resending, setResending] = useState(false);
   const [resent, setResent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Sidan är landningen för länken i mejlet. Vi pollar tills Supabase säger
+  // att adressen är bekräftad och skickar då användaren vidare till appen.
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
-        setUser({
-          id: data.user.id,
-          email: data.user.email || '',
-          fullName: (data.user.user_metadata?.full_name as string) || 'Användare',
-        });
+    let cancelled = false;
+
+    const check = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (cancelled || !data.user) return;
+
+      setUser({
+        id: data.user.id,
+        email: data.user.email || '',
+        fullName: (data.user.user_metadata?.full_name as string) || 'Användare',
+      });
+
+      if (data.user.email_confirmed_at) {
+        clearInterval(timer);
+        router.push('/dashboard?verified=1');
+        router.refresh();
       }
-    });
-  }, [supabase]);
+    };
+
+    check();
+    const timer = setInterval(check, 4000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [supabase, router]);
 
   const handleResend = async () => {
     if (!user) return;

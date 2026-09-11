@@ -21,7 +21,6 @@ import {
   Calendar,
   Briefcase,
   Tag,
-  Sparkles,
   Target
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';

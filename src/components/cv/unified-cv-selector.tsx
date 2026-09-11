@@ -52,7 +52,7 @@ export default function UnifiedCVSelector({
     if (showInlineUpload) {
       return (
         <InlineCVUpload
-          onSuccess={handleUploadSuccess}
+          onComplete={(cv) => handleUploadSuccess(cv.id)}
           onCancel={() => setShowInlineUpload(false)}
           showCancel={true}
         />

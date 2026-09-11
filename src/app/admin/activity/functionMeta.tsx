@@ -1,6 +1,6 @@
 import {
   Brain,
-  Sparkles,
+  UserSearch,
   MessageSquare,
   FileText,
   FileCheck2,
@@ -26,7 +26,7 @@ export const FUNC_META: Record<string, FuncMeta> = {
   'CV-analys': { icon: <FileCheck2 className="w-4 h-4" />, color: 'text-amber-600 bg-amber-50', iconBg: 'bg-amber-100', iconColor: 'text-amber-600', hex: '#f59e0b' },
   'LinkedIn-opt': { icon: <Linkedin className="w-4 h-4" />, color: 'text-sky-600 bg-sky-50', iconBg: 'bg-sky-100', iconColor: 'text-sky-600', hex: '#0ea5e9' },
   Jobbcoach: { icon: <MessageSquare className="w-4 h-4" />, color: 'text-teal-600 bg-teal-50', iconBg: 'bg-teal-100', iconColor: 'text-teal-600', hex: '#14b8a6' },
-  Personlighetstest: { icon: <Sparkles className="w-4 h-4" />, color: 'text-rose-600 bg-rose-50', iconBg: 'bg-rose-100', iconColor: 'text-rose-600', hex: '#f43f5e' },
+  Personlighetstest: { icon: <UserSearch className="w-4 h-4" />, color: 'text-rose-600 bg-rose-50', iconBg: 'bg-rose-100', iconColor: 'text-rose-600', hex: '#f43f5e' },
 };
 
 // Funktioner i en stabil ordning (störst → minst typiskt). Används för

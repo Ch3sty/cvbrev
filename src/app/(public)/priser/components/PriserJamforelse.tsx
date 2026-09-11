@@ -1,155 +1,158 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { COMPARISON } from './priser-data'
-
-type Tab = 'free' | 'premium'
-
 /**
- * Desktop: full tabell med tre kolumner (Feature, Free, Premium).
- * Mobile: tabs Free/Premium ovanst, en kolumn synlig at gangen.
+ * Jämförelsetabell Gratis | Premium (A7 i docs/plan-konvertering.md).
+ *
+ * Designsystemet: ingen gradient, font-semibold som tyngst, rounded-xl,
+ * border i stället för skugga, ingen fylld orange yta. Tabellen är en tabell
+ * och inget annat, så den går att läsa av snabbt.
+ *
+ * Mobil: hela tabellen scrollar i sidled i sin egen behållare, med första
+ * kolumnen sticky så raden alltid går att identifiera.
  */
-export default function PriserJamforelse() {
-  const [tab, setTab] = useState<Tab>('premium')
+
+import { motion } from 'framer-motion'
+import { COMPARISON, COMPARISON_INTRO } from './priser-data'
+
+/** Ja och Nej får ikon i stället för ord, resten står som text. */
+function Value({ value, emphasis }: { value: string; emphasis?: boolean }) {
+  if (value === 'Ja') {
+    return (
+      <>
+        <svg
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+          className="text-orange-600 inline-block align-[-2px]"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3.5 8.5l3 3 6-6" />
+        </svg>
+        <span className="sr-only">Ja</span>
+      </>
+    )
+  }
+
+  if (value === 'Nej') {
+    return (
+      <>
+        <svg
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+          className="text-neutral-400 inline-block align-[-2px]"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 4l8 8M12 4l-8 8" />
+        </svg>
+        <span className="sr-only">Nej</span>
+      </>
+    )
+  }
 
   return (
-    <section className="relative py-16 sm:py-24 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span
+      className={
+        emphasis
+          ? 'text-sm font-medium text-neutral-900'
+          : 'text-sm text-neutral-600'
+      }
+    >
+      {value}
+    </span>
+  )
+}
+
+export default function PriserJamforelse() {
+  return (
+    <section className="py-12 sm:py-16 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-10 sm:mb-14"
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="mb-8"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-            Jämförelse
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
-            Vad får du på{' '}
-            <span
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              varje plan?
-            </span>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 mb-2">
+            Gratis och Premium, sida vid sida
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            Alla funktioner sida vid sida. Ingen finstil, inga dolda
-            begränsningar.
+          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
+            {COMPARISON_INTRO}
           </p>
         </motion.div>
 
-        {/* Mobile tabs */}
-        <div
-          role="tablist"
-          aria-label="Välj plan att visa"
-          className="lg:hidden grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl bg-orange-50/50 border border-orange-100 mb-5"
-        >
-          <button
-            role="tab"
-            aria-selected={tab === 'free'}
-            onClick={() => setTab('free')}
-            className={`min-h-[44px] rounded-xl text-sm font-bold transition-all ${
-              tab === 'free'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-500'
-            }`}
-          >
-            Gratis
-          </button>
-          <button
-            role="tab"
-            aria-selected={tab === 'premium'}
-            onClick={() => setTab('premium')}
-            className={`min-h-[44px] rounded-xl text-sm font-bold transition-all ${
-              tab === 'premium'
-                ? 'text-white shadow-md'
-                : 'text-slate-500'
-            }`}
-            style={
-              tab === 'premium'
-                ? {
-                    background:
-                      'linear-gradient(135deg, #F97316, #DC2626)',
-                  }
-                : undefined
-            }
-          >
-            Premium
-          </button>
-        </div>
-
-        {/* Tabell-container */}
-        <div className="rounded-3xl bg-white border border-orange-100 overflow-hidden">
-          {COMPARISON.map((group, gIdx) => (
-            <div key={group.title}>
-              {/* Group header */}
-              <div
-                className={`px-5 sm:px-7 py-3 bg-orange-50/40 border-y border-orange-100 ${
-                  gIdx === 0 ? 'border-t-0' : ''
-                }`}
-              >
-                <h3 className="text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] text-orange-700">
-                  {group.title}
-                </h3>
-              </div>
-
-              {/* Rows */}
-              {group.rows.map((row) => (
-                <div
-                  key={row.label}
-                  className="
-                    grid lg:grid-cols-[1.6fr_1fr_1fr] grid-cols-[1.4fr_1fr]
-                    items-center px-5 sm:px-7 py-3.5 border-b border-orange-100/60 last:border-b-0
-                    hover:bg-orange-50/30 transition-colors
-                  "
+        {/* Egen scrollbehållare: tabellen får aldrig skjuta ut body på mobil. */}
+        <div className="rounded-xl border border-neutral-200 overflow-x-auto">
+          <table className="w-full min-w-[520px] border-collapse text-left">
+            <caption className="sr-only">
+              Jämförelse mellan gratisnivån och Premium
+            </caption>
+            <thead>
+              <tr className="border-b border-neutral-200">
+                <th
+                  scope="col"
+                  className="sticky left-0 z-10 bg-white px-4 sm:px-5 py-3 text-xs font-medium uppercase tracking-wide text-neutral-500"
                 >
-                  <div className="text-sm sm:text-[15px] font-medium text-slate-700">
-                    {row.label}
-                  </div>
+                  Funktion
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 sm:px-5 py-3 text-xs font-medium uppercase tracking-wide text-neutral-500 whitespace-nowrap"
+                >
+                  Gratis
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 sm:px-5 py-3 text-xs font-medium uppercase tracking-wide text-orange-700 whitespace-nowrap"
+                >
+                  Premium
+                </th>
+              </tr>
+            </thead>
 
-                  {/* Free-kolumn (alltid pa desktop, conditionally pa mobile) */}
-                  <div
-                    className={`text-sm sm:text-[15px] text-slate-600 text-right lg:text-center ${
-                      tab !== 'free' ? 'hidden lg:block' : ''
-                    }`}
+            {COMPARISON.map((group) => (
+              <tbody key={group.title}>
+                <tr>
+                  <th
+                    scope="colgroup"
+                    colSpan={3}
+                    className="bg-neutral-50 border-y border-neutral-200 px-4 sm:px-5 py-2 text-xs font-semibold text-neutral-700"
                   >
-                    {row.free}
-                  </div>
-
-                  {/* Premium-kolumn */}
-                  <div
-                    className={`text-sm sm:text-[15px] font-bold text-right lg:text-center ${
-                      tab !== 'premium' ? 'hidden lg:block' : ''
-                    }`}
-                    style={{
-                      background:
-                        'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}
+                    {group.title}
+                  </th>
+                </tr>
+                {group.rows.map((row) => (
+                  <tr
+                    key={row.label}
+                    className="border-b border-neutral-200 last:border-b-0"
                   >
-                    {row.premium}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Tabell-headers (desktop only, sticky-look efter container) */}
-        <div className="hidden lg:grid lg:grid-cols-[1.6fr_1fr_1fr] gap-0 px-5 sm:px-7 mt-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-          <div></div>
-          <div className="text-center">Gratis</div>
-          <div className="text-center text-orange-700">Premium</div>
+                    <th
+                      scope="row"
+                      className="sticky left-0 z-10 bg-white px-4 sm:px-5 py-3 text-sm font-normal text-neutral-700 align-top"
+                    >
+                      {row.label}
+                    </th>
+                    <td className="px-4 sm:px-5 py-3 align-top">
+                      <Value value={row.free} />
+                    </td>
+                    <td className="px-4 sm:px-5 py-3 align-top">
+                      <Value value={row.premium} emphasis />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
         </div>
       </div>
     </section>

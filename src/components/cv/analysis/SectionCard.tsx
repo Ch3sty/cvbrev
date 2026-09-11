@@ -10,7 +10,7 @@ import {
   Key,
   Type,
   AlertTriangle,
-  Sparkles,
+  ShieldCheck,
   Check,
   Edit3,
   Save
@@ -173,7 +173,7 @@ export default function SectionCard({
           )}
           {improvements && improvements.atsOptimization && (
             <Badge className="bg-green-50 text-green-700 border border-green-300 text-xs">
-              <Sparkles className="w-3 h-3 mr-1" />
+              <ShieldCheck className="w-3 h-3 mr-1" />
               ATS-optimering
             </Badge>
           )}

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, Key } from 'lucide-react';
+import { Pencil, TrendingUp, Key } from 'lucide-react';
 import CVThumbnailIllustration from './CVThumbnailIllustration';
 
 interface ReviewHeaderProps {
@@ -80,7 +80,7 @@ export default function ReviewHeader({
             {/* Stats-rad */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3">
               <Stat
-                icon={<Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                icon={<Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />}
                 value={changeCount}
                 label={changeCount === 1 ? 'ändring' : 'ändringar'}
               />

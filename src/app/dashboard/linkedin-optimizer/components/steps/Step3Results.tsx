@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   ArrowLeft,
-  Sparkles,
+  Type,
   User,
   Briefcase,
   GraduationCap,
@@ -59,7 +59,7 @@ const SECTION_META: Array<{
   icon: LucideIcon
   optional?: boolean
 }> = [
-  { key: 'headline', title: 'Rubrik', icon: Sparkles },
+  { key: 'headline', title: 'Rubrik', icon: Type },
   { key: 'about', title: 'Om mig', icon: User },
   { key: 'experience', title: 'Erfarenhet', icon: Briefcase },
   { key: 'education', title: 'Utbildning', icon: GraduationCap, optional: true },

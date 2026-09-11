@@ -80,7 +80,7 @@ export default function ArticleTemplateShowcase() {
             return (
               <Link
                 key={template.name}
-                href="/dashboard/cv-mallar"
+                href="/verktyg/cv-mallar"
                 className="group relative block touch-manipulation"
               >
                 {/* Badge */}
@@ -123,7 +123,7 @@ export default function ArticleTemplateShowcase() {
             <span>Alla branscher</span>
           </div>
           <Link
-            href="/dashboard/cv-mallar"
+            href="/verktyg/cv-mallar"
             className="inline-flex items-center gap-1 text-orange-700 hover:text-orange-800 font-bold text-xs group"
           >
             Se alla mallar

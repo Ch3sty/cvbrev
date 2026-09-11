@@ -11,11 +11,12 @@ interface FinalCTAProps {
 }
 
 export default function FinalCTA({ variant, yrke, ctaHref }: FinalCTAProps) {
-  const what = variant === 'letter' ? 'personligt brev' : 'CV';
+  // Yrket i knappen gör målet konkret: besökaren ser sitt eget nästa steg,
+  // inte en generisk produktknapp (docs/plan-konvertering.md, C6 och C7).
   const ctaLabel =
     variant === 'letter'
-      ? 'Skapa mitt personliga brev'
-      : 'Skapa mitt CV';
+      ? `Skapa mitt brev som ${yrke.toLowerCase()}`
+      : `Använd denna mall som ${yrke.toLowerCase()}`;
 
   return (
     <motion.section

@@ -22,7 +22,7 @@ import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
 
-export const DAILY_LIMIT_LETTERS = 2;
+export const DAILY_LIMIT_LETTERS = 1;
 export const DAILY_LIMIT_CHAT_MESSAGES = 10;
 export const DAILY_LIMIT_TEST_SESSIONS = 1; // per test_type (nivå räknas som egen typ)
 export const CV_ANALYSIS_WINDOW_HOURS = 72;

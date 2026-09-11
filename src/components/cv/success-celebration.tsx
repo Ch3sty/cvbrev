@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { 
   CheckCircle, 
   Download, 
-  Sparkles, 
   Trophy, 
   Target, 
   TrendingUp,
@@ -272,7 +271,7 @@ export default function SuccessCelebration({
                 className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-4 border border-pink-500/30 mb-6"
               >
                 <div className="flex items-center mb-2">
-                  <Sparkles className="w-4 h-4 text-pink-400 mr-2" />
+                  <Star className="w-4 h-4 text-pink-400 mr-2" />
                   <span className="text-pink-400 font-medium text-sm">Premium Kvalitet</span>
                 </div>
                 <p className="text-gray-300 text-sm">

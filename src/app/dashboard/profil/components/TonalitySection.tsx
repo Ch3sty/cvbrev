@@ -9,7 +9,7 @@ import {
   Palette,
   Trophy,
   Scale,
-  Sparkle,
+  Wand2,
   Mail,
 } from 'lucide-react';
 import ProfileSection from './ProfileSection';
@@ -71,7 +71,7 @@ export const TONALITIES: TonalityOption[] = [
     shortDescription: 'Vi väljer ton automatiskt baserat på varje annons.',
     example:
       'Vi läser varje annons och anpassar tonen så att brevet matchar arbetsgivarens stil.',
-    icon: <Sparkle className="w-5 h-5" strokeWidth={2} />,
+    icon: <Wand2 className="w-5 h-5" strokeWidth={2} />,
     premium: true,
   },
 ];

@@ -17,7 +17,6 @@ import {
   ArrowRight,
   Mail,
   ChevronRight,
-  Sparkles,
   Target,
   TrendingUp,
   Shield

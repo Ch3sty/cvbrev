@@ -7,8 +7,7 @@ import {
   Key,
   Award,
   CheckCircle2,
-  ArrowUp,
-  Sparkles
+  ArrowUp
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
@@ -169,22 +168,6 @@ export default function ImprovementMetrics({
                   </div>
                 </div>
 
-                {/* Sparkle Animation */}
-                <motion.div
-                  className="absolute top-2 right-2"
-                  animate={{
-                    rotate: [0, 360],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    delay: index * 0.2
-                  }}
-                >
-                  <Sparkles className={`h-4 w-4 ${metric.textColor} opacity-30`} />
-                </motion.div>
               </Card>
             </motion.div>
           );

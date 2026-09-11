@@ -13,7 +13,6 @@ import {
   Target,
   Lock,
   CheckCircle2,
-  Sparkles,
   Users,
   Calendar,
   Percent,
@@ -86,7 +85,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
   // Get icon with improved type differentiation
   const getRewardIcon = (type: string, isSpecial?: boolean) => {
     if (isSpecial) {
-      return <Sparkles className="w-6 h-6 md:w-7 md:h-7" />;
+      return <Star className="w-6 h-6 md:w-7 md:h-7" />;
     }
 
     const iconMap = {
@@ -380,7 +379,6 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                         {/* Status Indicators */}
                         {status === 'unlocked' && (
                           <div className="flex items-center gap-1 text-xs font-semibold text-orange-600 animate-pulse">
-                            <Sparkles className="w-3 h-3" />
                             <span>Ny!</span>
                           </div>
                         )}

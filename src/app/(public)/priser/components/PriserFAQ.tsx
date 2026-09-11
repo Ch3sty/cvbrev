@@ -2,34 +2,30 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, HelpCircle } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { PRISER_FAQ_ITEMS } from './priser-data'
 
 export default function PriserFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="relative py-16 sm:py-24 bg-white">
+    <section className="relative py-12 sm:py-16 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-10 sm:mb-12"
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="mb-8"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-            <HelpCircle className="w-3.5 h-3.5" strokeWidth={2.5} />
-            Vanliga frågor
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 mb-2">
             Allt du undrar om priset
           </h2>
-          <p className="text-base sm:text-lg text-slate-600">
+          <p className="text-sm sm:text-base text-neutral-600">
             Hittar du inte svaret?{' '}
             <a
               href="mailto:support@jobbcoach.ai"
-              className="text-orange-700 hover:text-orange-800 font-bold"
+              className="text-orange-700 hover:text-orange-800 font-medium underline underline-offset-4"
             >
               Hör av dig
             </a>
@@ -37,41 +33,30 @@ export default function PriserFAQ() {
           </p>
         </motion.div>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           {PRISER_FAQ_ITEMS.map((item, idx) => {
             const isOpen = openIndex === idx
             return (
               <motion.div
                 key={item.q}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: idx * 0.04 }}
-                className={`bg-white rounded-2xl border overflow-hidden transition-colors ${
-                  isOpen ? 'border-orange-300' : 'border-orange-100'
+                transition={{ duration: 0.2, ease: 'easeOut', delay: idx * 0.03 }}
+                className={`bg-white rounded-xl border overflow-hidden transition-colors ${
+                  isOpen ? 'border-neutral-300' : 'border-neutral-200'
                 }`}
-                style={
-                  isOpen
-                    ? {
-                        boxShadow:
-                          '0 8px 24px -12px rgba(249, 115, 22, 0.18)',
-                      }
-                    : {
-                        boxShadow:
-                          '0 2px 8px -4px rgba(249, 115, 22, 0.08)',
-                      }
-                }
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full min-h-[56px] flex items-center justify-between gap-4 px-5 sm:px-6 py-4 text-left hover:bg-orange-50/40 transition-colors touch-manipulation"
+                  className="w-full min-h-[56px] flex items-center justify-between gap-4 px-5 sm:px-6 py-4 text-left hover:bg-neutral-50 transition-colors touch-manipulation"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-bold text-slate-900 text-sm sm:text-base leading-snug">
+                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug">
                     {item.q}
                   </span>
                   <ChevronDown
-                    className={`flex-shrink-0 w-5 h-5 text-orange-600 transition-transform duration-300 ${
+                    className={`flex-shrink-0 w-5 h-5 text-neutral-500 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                     strokeWidth={2.5}
@@ -87,9 +72,13 @@ export default function PriserFAQ() {
                       transition={{ duration: 0.25, ease: 'easeOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 sm:px-6 pb-5 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-orange-100 pt-4">
-                        {item.a}
-                      </div>
+                      {/* Svaren är vår egen statiska copy, inte användardata.
+                          Ett par av dem innehåller en länk (t.ex. till
+                          /trial-signup), därför HTML i stället för text. */}
+                      <div
+                        className="px-5 sm:px-6 pb-5 text-sm text-neutral-600 leading-relaxed border-t border-neutral-200 pt-4 [&_a]:text-orange-700 [&_a]:font-semibold [&_a:hover]:text-orange-800 [&_a]:underline [&_a]:underline-offset-2"
+                        dangerouslySetInnerHTML={{ __html: item.a }}
+                      />
                     </motion.div>
                   )}
                 </AnimatePresence>

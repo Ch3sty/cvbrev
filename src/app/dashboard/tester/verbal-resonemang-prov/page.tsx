@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Clock, ListChecks } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { PROV_TOTAL_STATEMENTS } from '@/lib/verbalTestProv/selectProv';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const PROV_MINUTES = 40;
 
@@ -116,11 +116,9 @@ export default function VerbalProvStartPage() {
         </motion.section>
 
         {rateLimited && !isPremium ? (
-          <QuotaLockCard
-            feature="test:verbal-resonemang-prov"
-            title="Du har gjort dagens prov"
-            description="Som gratisanvändare gör du varje prov en gång per dag."
-            nextResetAt={rateLimited.nextAvailableAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: "test:verbal-resonemang-prov", nextResetAt: rateLimited.nextAvailableAt }}
           />
         ) : (
           <motion.section

@@ -45,15 +45,16 @@ import CVExample from '@/components/mdx/CVExample';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
-import ArticleToolBanner from '@/components/artiklar/ArticleToolBanner';
 import ArticleTemplateShowcase from '@/components/artiklar/ArticleTemplateShowcase';
-import ArticleFinalCTA from '@/components/artiklar/ArticleFinalCTA';
+import ArticleClusterCTA, { ClusterFinalCTA } from '@/components/artiklar/ArticleClusterCTA';
+import { getCtaVariantForTags, type CtaCluster } from '@/lib/cta/clusters';
 import PersonligtBrevTemplateShowcase from '@/components/artiklar/PersonligtBrevTemplateShowcase';
 import InteractiveCVShowcase from '@/components/artiklar/InteractiveCVShowcase';
 import InteractiveLetterShowcase from '@/components/artiklar/InteractiveLetterShowcase';
 
 // Backwards compat - äldre artiklar refererar till dessa namn i MDX
-const BroadConversionBanner = ArticleToolBanner;
+// BroadConversionBanner är MDX-aliaset för inline-CTA:n. Klustret binds in
+// per artikel i ArticlePage, så aliaset sätts där och inte här.
 const CVTemplateShowcase = ArticleTemplateShowcase;
 
 // Importera författarsystem
@@ -226,8 +227,13 @@ function generateHowToSchema(data: HowToData | undefined, slug: string): React.R
     } catch (error) { console.error("Error generating HowTo schema:", error); return null; }
 }
 
-// Funktion för att injicera BroadConversionBanner i MDX-innehåll
-function injectBannerIntoContent(content: string): string {
+// Injicerar klustrets inline-CTA i MDX-innehållet (docs/plan-konvertering.md, C4).
+// Karriärartiklar hoppas över: de har ingen produkt att föreslå mitt i texten.
+function injectClusterCta(content: string, cluster: CtaCluster): string {
+    if (cluster === 'career') {
+        return content;
+    }
+
     // Redan innehåller bannern? Hoppa över injection
     if (content.includes('<BroadConversionBanner') || content.includes('BroadConversionBanner')) {
         return content;
@@ -309,9 +315,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     // Extract headings for SEO-optimized TOC
     const headings = filterH2Headings(extractHeadingsFromContent(post.content));
 
-    // Injicera båda komponenter i innehållet - UTAN att modifiera headings
-    const contentWithBanner = injectBannerIntoContent(post.content);
-    const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner, post.frontmatter.tags);
+    // Klustret styr vilken CTA artikeln får (docs/plan-konvertering.md, C4).
+    const cluster: CtaCluster = getCtaVariantForTags(post.frontmatter.tags);
+
+    // Injicera båda komponenter i innehållet - UTAN att modifiera headings.
+    // CV-showcasen bara för cv-klustret, inte för alla cv-taggade artiklar.
+    const contentWithBanner = injectClusterCta(post.content, cluster);
+    const contentWithBannerAndCV =
+        cluster === 'cv'
+            ? injectCVTemplateShowcase(contentWithBanner, post.frontmatter.tags)
+            : contentWithBanner;
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
 
     // Calculate reading time
@@ -327,7 +340,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         UppsagningstidRaknare: UppsagningstidRaknare,
         LoneforhandlingsKalkylator: LoneforhandlingsKalkylator,
         // Lägg till konverteringskomponenter som kan användas i MDX
-        BroadConversionBanner: BroadConversionBanner,
+        // Aliaset bevaras för äldre MDX som skriver ut komponenten själv.
+        BroadConversionBanner: () => <ArticleClusterCTA cluster={cluster} slug={slug} position="inline" />,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevTemplateShowcase: PersonligtBrevTemplateShowcase,
         InteractiveCVShowcase: InteractiveCVShowcase,
@@ -454,11 +468,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 allPostsMeta={allPostsMeta}
                 readingTime={readingTime}
                 headings={headings}
+                cluster={cluster}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* Final CTA */}
-                <ArticleFinalCTA />
+                {/* Final CTA, klusterstyrd */}
+                <ClusterFinalCTA cluster={cluster} slug={slug} />
             </ArticleClientWrapper>
 
             {/* Schema markup */}

@@ -59,6 +59,6 @@ export const BREV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är brev-exemplen gratis att använda?',
-    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan bygga ditt eget brev med våra verktyg får du två brev per dag helt gratis när du registrerat dig.',
+    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan bygga ditt eget brev med våra verktyg får du ett brev om dagen helt gratis när du registrerat dig.',
   },
 ]

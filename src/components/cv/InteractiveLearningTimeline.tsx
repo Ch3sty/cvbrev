@@ -4,7 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import {
   BookOpen, Bookmark, BookmarkCheck, ChevronRight,
-  Clock, Target, TrendingUp, Award, Sparkles, MapPin,
+  Clock, Target, TrendingUp, Award, MapPin,
   CheckCircle2, Lock, Info, Zap, Calendar, ArrowRight
 } from 'lucide-react';
 import { groupCourses, shouldDisplayAsGroup, getGroupDisplayText, getCourseVariants } from '@/lib/learning/course-grouping';
@@ -247,7 +247,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
       <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl p-8">
         <div className="mb-6">
           <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 mb-2">
-            <Sparkles className="w-6 h-6 text-blue-600" />
+            <MapPin className="w-6 h-6 text-blue-600" />
             Din utvecklingsväg mot {targetRole}
           </h3>
           <p className="text-sm text-gray-600">
@@ -734,7 +734,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
       {/* CTA: Activate Plan */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200/50 shadow-xl text-center">
         <h4 className="text-2xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
-          <Sparkles className="w-6 h-6 text-blue-600" />
+          <TrendingUp className="w-6 h-6 text-blue-600" />
           {totalSelectedCourses > 0
             ? `Spara din utvecklingsplan`
             : 'Börja bygga din utvecklingsplan'}
@@ -753,7 +753,6 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
-          <Sparkles className="w-6 h-6" />
           {totalSelectedCourses > 0
             ? 'Spara min utvecklingsplan'
             : 'Välj utbildningar först'}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Tag, X, TrendingUp, Filter, Sparkles, ScanSearch, ArrowRight, BrainCircuit, Search } from 'lucide-react';
+import { Tag, X, TrendingUp, Filter, PenLine, ScanSearch, ArrowRight, BrainCircuit, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -144,7 +144,7 @@ const ModernCategorySidebar: React.FC<ModernCategorySidebarProps> = ({ categorie
           className="group block p-4 bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl border border-pink-100 hover:border-pink-200 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
         >
           <div className="flex items-start space-x-3">
-            <Sparkles className="flex-shrink-0 w-5 h-5 text-pink-600 mt-0.5 transition-all duration-300 group-hover:scale-110" />
+            <PenLine className="flex-shrink-0 w-5 h-5 text-pink-600 mt-0.5 transition-all duration-300 group-hover:scale-110" />
             <div className="flex-1">
               <h4 className="font-semibold text-gray-900 mb-1">
                 Skapa personligt brev
@@ -159,7 +159,7 @@ const ModernCategorySidebar: React.FC<ModernCategorySidebarProps> = ({ categorie
 
         {/* CTA Card 2: Analysera CV */}
         <Link
-          href="/dashboard/cv-analys"
+          href="/verktyg/cv-analys"
           className="group block p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
         >
           <div className="flex items-start space-x-3">

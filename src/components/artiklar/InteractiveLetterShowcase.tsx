@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, Type, Eye, Sparkles, Crown, ChevronDown, Check } from 'lucide-react'
+import { Palette, Type, Eye, Crown, ChevronDown, Check } from 'lucide-react'
 
 // Inbyggd exempeldata för personligt brev
 const SHOWCASE_LETTER = {
@@ -211,7 +211,7 @@ export default function InteractiveLetterShowcase() {
       {/* Controls */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-100">
         <div className="flex items-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-blue-600" />
+          <Palette className="w-5 h-5 text-blue-600" />
           <h4 className="font-bold text-slate-900">Anpassa förhandsvisningen</h4>
         </div>
         <p className="text-sm text-slate-600 mb-6">
@@ -766,10 +766,9 @@ export default function InteractiveLetterShowcase() {
               <p className="text-sm text-blue-100">Vi matchar ditt CV med jobbannonsen och skapar brevet åt dig på mindre än 60 sekunder</p>
             </div>
             <a
-              href="/dashboard/skapa-brev"
+              href="/skapa-brev/start"
               className="px-6 py-3 bg-white text-blue-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
             >
-              <Sparkles className="w-5 h-5" />
               Skapa mitt brev
             </a>
           </div>

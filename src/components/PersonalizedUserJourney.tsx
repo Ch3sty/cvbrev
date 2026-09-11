@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useAnimation } from 'framer-motion'
 import {
   GraduationCap, RefreshCw, Briefcase, Search,
-  TrendingUp, Target, Sparkles, ChevronRight,
+  TrendingUp, Target, ChevronRight,
   BookOpen, Trophy, Rocket, Brain, Zap,
   CheckCircle, ArrowRight, Star
 } from 'lucide-react'
@@ -192,7 +192,6 @@ export default function PersonalizedUserJourney() {
                   transition={{ duration: 1, repeat: showAutoDemo ? Infinity : 0 }}
                 >
                   <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" />
                     Prova mig!
                   </div>
                 </motion.div>
@@ -324,7 +323,7 @@ export default function PersonalizedUserJourney() {
 
                 <div>
                   <h4 className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-green-500" />
+                    <Zap className="w-5 h-5 text-green-500" />
                     Våra verktyg
                   </h4>
                   <div className="space-y-3">

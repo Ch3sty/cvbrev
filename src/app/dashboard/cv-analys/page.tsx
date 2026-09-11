@@ -16,7 +16,7 @@ import { useCvQuota } from '@/hooks/useCvQuota';
 import CVAnalysisWizard from './components/CVAnalysisWizard';
 import CVAnalysisIntro from './components/CVAnalysisIntro';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 // Utility Functions
 import { logUserActivity } from '@/lib/activity-logger';
@@ -186,15 +186,15 @@ export default function CVAnalysisPage() {
   if (hasReachedLimit) {
     return (
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
-        <QuotaLockCard
-          feature="cv_analysis"
-          title="Din CV-analys är använd"
-          description="Som gratisanvändare analyserar du ett CV var tredje dygn."
-          nextResetAt={
-            quotaLockResetAt ??
-            nextAnalysisResetDate?.toISOString() ??
-            new Date().toISOString()
-          }
+        <PaywallCard
+          variant="kvot"
+          quota={{
+            feature: 'cv_analysis',
+            nextResetAt:
+              quotaLockResetAt ??
+              nextAnalysisResetDate?.toISOString() ??
+              new Date().toISOString(),
+          }}
           className="max-w-md w-full"
         />
       </div>

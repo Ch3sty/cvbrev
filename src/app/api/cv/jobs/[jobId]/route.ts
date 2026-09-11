@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getJobStatus } from '@/lib/cv/background-jobs';
+import { markFirstMilestone, logActivityServer } from '@/lib/activation-tracking';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -73,6 +76,16 @@ export async function GET(
       if (jobUpdateError) {
         console.error('Failed to mark job as usage_counted:', jobUpdateError);
       }
+
+      // B7: analysen räknas som klar här, en gång per jobb tack vare
+      // usage_counted-flaggan ovan. Först vinner på first_cv_analyzed_at.
+      await markFirstMilestone(user.id, 'first_cv_analyzed_at');
+      await logActivityServer(
+        user.id,
+        'cv_analysis_completed',
+        'CV-analysen slutfördes',
+        { jobId }
+      );
 
       // Onboarding: markera analyze_cv som klart NU nar jobbet faktiskt
       // ar slutfort (inte vid jobbskapande som tidigare)
@@ -146,11 +159,17 @@ export async function GET(
       }
     }
 
+    // A9: gratisnivån ser poäng, sammanfattning och de tre viktigaste fynden.
+    // Resten filtreras bort här, aldrig på klienten. Premium, admin och
+    // reverse trial passerar userHasPremiumAccess och får allt.
+    const hasPremium = await userHasPremiumAccess(supabase, user.id);
+    const gatedResult = gateAnalysisResult(job.result, hasPremium);
+
     // Returnera status
     return NextResponse.json({
       id: job.id,
       status: job.status,
-      result: job.result,
+      result: gatedResult,
       error: job.error,
       created_at: job.created_at,
       completed_at: job.completed_at

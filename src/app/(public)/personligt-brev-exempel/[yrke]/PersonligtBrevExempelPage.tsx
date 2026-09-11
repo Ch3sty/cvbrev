@@ -15,6 +15,7 @@ import TipsSection from '@/components/exempel-shared/TipsSection'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
 import FinalCTA from '@/components/exempel-shared/FinalCTA'
+import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
 import BrevPreviewShell from '@/components/brev-exempel-shared/BrevPreviewShell'
 
 // SEO: Lazy-load InteractiveLetterPreview för bättre Page Speed
@@ -106,7 +107,7 @@ export default function PersonligtBrevExempelPage({
           variant="letter"
           yrke={data.yrke}
           intro={data.intro}
-          primaryCtaHref="/dashboard/skapa-brev"
+          primaryCtaHref={`/skapa-brev/start?yrke=${slug}`}
           primaryCtaLabel="Skapa mitt personliga brev"
           secondaryCtaTargetId="preview"
           secondaryCtaLabel="Se exemplet"
@@ -298,9 +299,16 @@ export default function PersonligtBrevExempelPage({
         <FinalCTA
           variant="letter"
           yrke={data.yrke}
-          ctaHref="/dashboard/skapa-brev"
+          ctaHref={`/skapa-brev/start?yrke=${slug}`}
         />
       </main>
+
+      <StickyMobileCTA
+        cluster="letter"
+        slug={slug}
+        label={`Skapa mitt brev som ${data.yrke.toLowerCase()}`}
+        href={`/skapa-brev/start?yrke=${slug}`}
+      />
     </div>
   )
 }

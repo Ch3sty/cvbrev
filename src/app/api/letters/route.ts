@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { markFirstMilestone } from '@/lib/activation-tracking';
 import { createServerClient } from '@/lib/supabase/server';
 import { getActiveLetterIds, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
 
@@ -225,6 +226,9 @@ export async function POST(request: Request) {
       console.error('Fel vid skapande av brev:', error);
       return NextResponse.json({ error: error?.message || 'Kunde inte skapa brev' }, { status: 500 });
     }
+
+    // B7: första brevet. Coalesce via service role, tyst vid fel.
+    await markFirstMilestone(user.id, 'first_letter_created_at');
 
     // Update onboarding progress - mark create_letter step as completed
     const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {

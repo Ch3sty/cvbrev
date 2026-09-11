@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 
 import DownloadButton from '@/components/letters/download-button';
+import PaywallCard from '@/components/paywall/PaywallCard';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 
 export default function ViewLetterPage({ params }: { params: Promise<{ id: string }> }) {
@@ -19,6 +20,9 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   const { getLetter, currentLetter, isLoading, error, removeLetter, isDeleting } = useLetters();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [copied, setCopied] = useState(false);
+  // A1: servern svarade 402 på nedladdningen. Brevet står kvar i sin helhet,
+  // betalväggen läggs under det.
+  const [downloadGate, setDownloadGate] = useState(false);
   const [zoom, setZoom] = useState(1.0);
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -260,6 +264,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[40px] !rounded-lg"
                 showTemplateSelector={false}
                 showPreview={false}
+                onPremiumRequired={() => setDownloadGate(true)}
               />
               <DownloadButton
                 format="docx"
@@ -272,6 +277,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[40px] !rounded-lg"
                 showTemplateSelector={false}
                 showPreview={false}
+                onPremiumRequired={() => setDownloadGate(true)}
               />
               <button
                 onClick={handleDeleteRequest}
@@ -323,6 +329,18 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             )}
           </div>
         </motion.div>
+
+        {/* A1: betalvägg under det fullt synliga brevet */}
+        {downloadGate && (
+          <PaywallCard
+            variant="nedladdning"
+            onCopy={() => {
+              navigator.clipboard?.writeText(currentLetter.content || '');
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+          />
+        )}
 
         {/* Metainfo */}
         <motion.div

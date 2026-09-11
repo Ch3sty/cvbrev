@@ -11,7 +11,7 @@ import AnalysisFlowLayout from './AnalysisFlowLayout';
 import AnalysisFlowHero from './AnalysisFlowHero';
 import AnalysisFlowProgress, { ANALYSIS_STEPS } from './AnalysisFlowProgress';
 import AnalysisFlowStepHeader from './AnalysisFlowStepHeader';
-import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -323,7 +323,7 @@ export default function CVAnalysisWizard({
     } catch (error) {
       console.error('Analysis error:', error);
       clearInterval(progressInterval);
-      // Kvotfel hanteras av sidan (QuotaLockCard visas) - ingen alert har.
+      // Kvotfel hanteras av sidan (PaywallCard visas) - ingen alert har.
       if (!(error as Error & { quotaExceeded?: boolean })?.quotaExceeded) {
         alert('Ett fel uppstod vid analysen. Försök igen.');
       }
@@ -909,6 +909,7 @@ export default function CVAnalysisWizard({
             roleBasedImprovements={analysisResult.roleBasedImprovements}
             skillSuggestions={analysisResult.skillSuggestions}
             generalImprovements={analysisResult.generalImprovements}
+            gated={analysisResult.gated}
             selectedProfile={selectedProfile}
             selectedRoles={selectedRoles}
             selectedSkills={selectedSkills}
@@ -1131,7 +1132,7 @@ export default function CVAnalysisWizard({
           {/* Kvotgräns nådd */}
           {quotaError && (
             <div className="mb-4">
-              <QuotaExceededBanner message={quotaError} />
+              <PaywallCard variant="cv-antal" />
             </div>
           )}
 

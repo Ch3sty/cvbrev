@@ -1,9 +1,14 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, ReactNode, useCallback } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-
-const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
+import { useNotification } from '@/context/notificationcontext';
+import {
+  REQUIRED_STEPS,
+  countRequiredCompleted,
+  isOnboardingComplete,
+  isEligibleForAutoClaim,
+} from '@/lib/onboarding/steps';
 
 interface OnboardingContextType {
   completedSteps: string[];
@@ -25,6 +30,11 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [rewardClaimed, setRewardClaimed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const supabase = getSupabaseClient();
+  const { success } = useNotification();
+
+  // Auto-claim: en gång per session, bara för konton skapade efter utrullningen.
+  const autoClaimAttempted = useRef(false);
+  const autoClaimEligible = useRef(false);
 
   const fetchOnboardingStatus = useCallback(async () => {
     try {
@@ -117,15 +127,13 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         validatedSteps.push('match_jobs');
       }
 
-      // The 3 required steps for onboarding completion
-      const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
-      const requiredCompleted = REQUIRED_STEPS.filter(s => validatedSteps.includes(s)).length;
+      // Ett enda obligatoriskt steg sedan B5: CV uppladdat.
+      const completed = isOnboardingComplete(validatedSteps);
 
-
-      // Update state with validated steps
       setCompletedSteps(validatedSteps);
-      setOnboardingCompleted(requiredCompleted >= 3);
+      setOnboardingCompleted(completed);
       setRewardClaimed(profile.onboarding_reward_claimed || false);
+      autoClaimEligible.current = isEligibleForAutoClaim(profile.created_at);
     } catch (error) {
       console.error('[OnboardingContext] ❌ CRITICAL ERROR in fetchOnboardingStatus:', error);
 
@@ -275,9 +283,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setCompletedSteps(prev => {
       if (prev.includes(stepName)) return prev;
       const newSteps = [...prev, stepName];
-      const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
-      const requiredCompleted = REQUIRED_STEPS.filter(s => newSteps.includes(s)).length;
-      if (requiredCompleted >= 3) {
+      if (isOnboardingComplete(newSteps)) {
         setOnboardingCompleted(true);
       }
       return newSteps;
@@ -289,12 +295,37 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setRewardClaimed(true);
   }, []);
 
+  // Auto-claim (B5): när det enda steget är klart hämtas belöningen åt
+  // användaren. Ref-vakten skyddar mot dubbelanrop när realtime triggar en
+  // ny hämtning mitt i, och routen är dessutom idempotent (400 vid dubbel).
+  useEffect(() => {
+    if (isLoading || rewardClaimed || !onboardingCompleted) return;
+    if (!autoClaimEligible.current || autoClaimAttempted.current) return;
+
+    autoClaimAttempted.current = true;
+
+    (async () => {
+      try {
+        const res = await fetch('/api/onboarding/claim-reward', { method: 'POST' });
+        if (!res.ok) {
+          // 400 betyder oftast redan hämtad. Synka state och gå vidare.
+          if (res.status === 400) setRewardClaimed(true);
+          return;
+        }
+        setRewardClaimed(true);
+        success('Din belöning är upplåst');
+      } catch (error) {
+        console.warn('[OnboardingContext] Auto-claim misslyckades:', error);
+      }
+    })();
+  }, [isLoading, rewardClaimed, onboardingCompleted, success]);
+
   return (
     <OnboardingContext.Provider
       value={{
         completedSteps,
         completedCount: completedSteps.length,
-        requiredCompletedCount: completedSteps.filter(s => REQUIRED_STEPS.includes(s)).length,
+        requiredCompletedCount: countRequiredCompleted(completedSteps),
         onboardingCompleted,
         rewardClaimed,
         isLoading,

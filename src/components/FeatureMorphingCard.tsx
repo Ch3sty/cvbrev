@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, ArrowRight, CheckCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
 
 interface Feature {
   id: string
@@ -158,7 +158,7 @@ export default function FeatureMorphingCard({ feature, delay = 0, onInteract }: 
         </div>
       </motion.div>
 
-      {/* Corner sparkle on hover */}
+      {/* Corner accent on hover */}
       <motion.div
         className="absolute -top-2 -right-2"
         animate={{

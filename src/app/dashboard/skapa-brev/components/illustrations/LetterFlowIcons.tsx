@@ -149,7 +149,7 @@ export function HeroLetterIcon({ className = 'w-20 h-20' }: IconProps) {
   );
 }
 
-export function PrefillSparkleIcon({ className = 'w-12 h-12' }: IconProps) {
+export function PrefillIcon({ className = 'w-12 h-12' }: IconProps) {
   return (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {SHARED_DEFS}

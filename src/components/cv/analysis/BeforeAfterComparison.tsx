@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Sparkles, BarChart3, Key } from 'lucide-react';
+import { ArrowDown, Check, BarChart3, Key } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 // ============================================================================
@@ -164,7 +164,7 @@ export default function BeforeAfterComparison({
           <span className="text-xs font-semibold text-gray-600 uppercase">
             Vårt förslag
           </span>
-          <Sparkles className="w-3 h-3 text-green-600" />
+          <Check className="w-3 h-3 text-green-600" />
         </div>
         <p className="text-sm text-gray-900 leading-relaxed font-medium">
           {highlightText(afterText, keywords)}

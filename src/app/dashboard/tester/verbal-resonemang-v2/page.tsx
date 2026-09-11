@@ -7,7 +7,7 @@ import VerbalTestHero from '@/components/tests/verbal-shared/VerbalTestHero';
 import VerbalInfoCard from '@/components/tests/verbal-shared/VerbalInfoCard';
 import VerbalStartCTA from '@/components/tests/verbal-shared/VerbalStartCTA';
 import VerbalPreviousResults from '@/components/tests/verbal-shared/VerbalPreviousResults';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const TOTAL_STATEMENTS = 48;
 
@@ -93,11 +93,9 @@ export default function VerbalResonemangV2Page() {
         />
         <VerbalInfoCard variant="v2" />
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
           <VerbalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v2" />

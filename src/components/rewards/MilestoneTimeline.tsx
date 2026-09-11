@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, Sparkles, Trophy } from 'lucide-react';
+import { CheckCircle2, Circle, Gift, Trophy } from 'lucide-react';
 
 interface Milestone {
   level: number;
@@ -112,7 +112,7 @@ export default function MilestoneTimeline({
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                     >
-                      <Sparkles className="w-4 h-4 text-white" />
+                      <Gift className="w-4 h-4 text-white" />
                     </motion.div>
                   ) : (
                     <Circle className="w-4 h-4 text-slate-400" />

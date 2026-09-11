@@ -18,6 +18,7 @@ import type { Passage as V1Passage } from '@/lib/numericalTest/types';
 
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
 
 interface PageProps {
@@ -114,6 +115,9 @@ export default function NumericalProvResultsPage({ params }: PageProps) {
 
         {/* Jämförelse mot andra provresultat (renderas bara vid nog stort underlag) */}
         {sessionId && <PercentileCard sessionId={sessionId} />}
+
+        {/* Vidare från testet: CV eller brev (B6) */}
+        <TestResultBridgeContainer testSlug={"numeriskt-test-prov"} quotaFeature={"test:numerical-reasoning-prov"} />
 
         <NumericalResultsBody
           passages={passages}

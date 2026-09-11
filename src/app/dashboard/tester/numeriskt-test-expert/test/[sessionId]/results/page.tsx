@@ -18,6 +18,7 @@ import type { TestAnswer, Passage } from '@/lib/numericalTest/types';
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -113,6 +114,9 @@ export default function NumericalExpertResultsPage({ params }: PageProps) {
 
         {/* Jämförelse mot andra testtagare (renderas bara vid nog stort underlag) */}
         {sessionId && <PercentileCard sessionId={sessionId} />}
+
+        {/* Vidare från testet: CV eller brev (B6) */}
+        <TestResultBridgeContainer testSlug={"numeriskt-test-expert"} quotaFeature={"test:numerical-reasoning-expert"} />
 
         <NumericalResultsBody
           passages={passages}

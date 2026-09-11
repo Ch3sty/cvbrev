@@ -14,8 +14,11 @@ import SkapaCvResultatBevis from './components/SkapaCvResultatBevis'
 import SkapaCvFAQ from './components/SkapaCvFAQ'
 import SkapaCvCTABand from './components/SkapaCvCTABand'
 import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function SkapaCvSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -35,13 +38,6 @@ export default function SkapaCvSida() {
     },
     featureList:
       'Sju-stegs CV-byggare, live-preview, ATS-säkra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '1250',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -103,6 +99,7 @@ export default function SkapaCvSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/skapa-cv" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

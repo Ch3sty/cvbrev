@@ -14,8 +14,11 @@ import LinkedinOptimeringResultatBevis from './components/LinkedinOptimeringResu
 import LinkedinOptimeringFAQ from './components/LinkedinOptimeringFAQ'
 import LinkedinOptimeringCTABand from './components/LinkedinOptimeringCTABand'
 import { LINKEDIN_OPTIMERING_FAQ_ITEMS } from './components/linkedin-optimering-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function LinkedinOptimeringSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -35,13 +38,6 @@ export default function LinkedinOptimeringSida() {
     },
     featureList:
       'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      reviewCount: '1200',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -110,6 +106,7 @@ export default function LinkedinOptimeringSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/linkedin-optimizer" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

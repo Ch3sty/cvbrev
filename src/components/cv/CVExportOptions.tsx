@@ -9,7 +9,7 @@ import {
   Calendar,
   Briefcase,
   Target,
-  Sparkles,
+  Wand2,
   ChevronRight,
   CheckCircle2,
   Palette,
@@ -26,6 +26,8 @@ import { Badge } from '@/components/ui/badge';
 import SimpleTemplateGallery from './simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { useProfile } from '@/hooks/use-profile';
+import PaywallCard from '@/components/paywall/PaywallCard';
+import EmailNotVerifiedNotice from '@/components/shared/EmailNotVerifiedNotice';
 import { createClient } from '@/lib/supabase/client';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -67,7 +69,12 @@ export default function CVExportOptions({
   const [cvCount, setCvCount] = useState<number>(0);
   const [maxCvCount, setMaxCvCount] = useState<number>(2); // Default for free users (2 sparade CV, samma gräns som resten av systemet)
   const [isLoadingQuota, setIsLoadingQuota] = useState(true);
-  const { subscriptionTier } = useProfile();
+  // A2: sant när servern svarat 402 på exporten.
+  const [exportGate, setExportGate] = useState(false);
+  // B1: servern svarade 403 email_not_verified.
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null | undefined>(undefined);
+  const { subscriptionTier, freeCvExportsUsed } = useProfile();
+  const isPremium = subscriptionTier === 'premium';
   const supabase = createClient();
 
   // Check CV quota on mount
@@ -113,7 +120,7 @@ export default function CVExportOptions({
       id: 'optimized' as NamingOption,
       label: 'Optimerat CV',
       description: 'Smart namngivning baserat på förbättringar',
-      icon: Sparkles,
+      icon: Wand2,
       example: 'Optimerat CV - 2024-01-15'
     },
     {
@@ -257,6 +264,22 @@ export default function CVExportOptions({
           skipSave: !saveToAccount // Pass whether to skip saving
         })
       });
+
+      // A2: gratisnivån har en nedladdning per konto. 402 betyder att den är
+      // använd, då visas betalväggen i stället för ett felmeddelande.
+      if (response.status === 402) {
+        setExportGate(true);
+        return;
+      }
+
+      // B1: e-posten är inte bekräftad ännu.
+      if (response.status === 403) {
+        const data = await response.json().catch(() => ({}));
+        if (data?.error === 'email_not_verified') {
+          setUnverifiedEmail(data?.email ?? null);
+          return;
+        }
+      }
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -672,6 +695,16 @@ export default function CVExportOptions({
               <CheckCircle2 className="w-4 h-4" />
               <span>Förbättrat CV redo för nedladdning ({improvedCV?.length || 0} tecken)</span>
             </div>
+            {/* A2: en gratis nedladdning per konto. */}
+            {!isPremium && !exportGate && freeCvExportsUsed === 0 && (
+              <p className="text-sm text-neutral-600">Din första nedladdning är gratis.</p>
+            )}
+            {unverifiedEmail !== undefined && (
+              <EmailNotVerifiedNotice email={unverifiedEmail} className="w-full" />
+            )}
+            {!isPremium && (exportGate || freeCvExportsUsed >= 1) && (
+              <PaywallCard variant="cv-export" className="w-full" />
+            )}
             <Button
                 onClick={handleExport}
                 disabled={isSaving || isExporting || !selectedTemplate}

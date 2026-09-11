@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Sparkles, BookOpen, Layers } from 'lucide-react'
+import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Star, BookOpen, Layers } from 'lucide-react'
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
@@ -193,7 +193,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 <div className="font-black text-sm text-slate-900">{data.freeMallNamn}</div>
                 <div className="text-[11px] text-slate-600 mb-2">ATS-säker · ren design</div>
                 <Link
-                  href="/dashboard/cv-mallar"
+                  href="/verktyg/cv-mallar"
                   className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors"
                 >
                   Använd gratis
@@ -222,7 +222,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 <div className="font-black text-sm text-slate-900">{data.premiumMallNamn}</div>
                 <div className="text-[11px] text-slate-600 mb-2">Foto + LinkedIn · visuellt rikare</div>
                 <Link
-                  href="/dashboard/cv-mallar"
+                  href="/verktyg/cv-mallar"
                   className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full text-white font-bold text-xs transition-all hover:shadow-lg"
                   style={{
                     background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
@@ -433,7 +433,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
           </div>
           <div className="bg-white rounded-2xl border border-slate-200 p-5">
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-4 h-4 text-emerald-700" strokeWidth={2.5} />
+              <Star className="w-4 h-4 text-emerald-700" strokeWidth={2.5} />
               <h3 className="text-base font-black text-slate-900 uppercase tracking-wide text-sm">Personliga egenskaper</h3>
             </div>
             <ul className="space-y-2">
@@ -614,7 +614,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Använd någon av våra mallar direkt i appen. Gratis att börja, ingen kortuppgift krävs.
           </p>
           <Link
-            href="/dashboard/cv-mallar"
+            href="/verktyg/cv-mallar"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-slate-900 font-bold text-base hover:bg-slate-50 transition-colors"
           >
             Skapa CV nu

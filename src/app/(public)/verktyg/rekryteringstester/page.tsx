@@ -13,8 +13,11 @@ import RekryteringstesterResultatBevis from './components/RekryteringstesterResu
 import RekryteringstesterFAQ from './components/RekryteringstesterFAQ'
 import RekryteringstesterCTABand from './components/RekryteringstesterCTABand'
 import { REKRYTERINGSTESTER_FAQ_ITEMS } from './components/rekryteringstester-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function RekryteringstesterSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -34,13 +37,6 @@ export default function RekryteringstesterSida() {
     },
     featureList:
       'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med Premium',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      reviewCount: '890',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -102,6 +98,7 @@ export default function RekryteringstesterSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/tester" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

@@ -149,7 +149,7 @@ export default function LinkedinOptimeringResultatBevis() {
             ))}
 
             <Link
-              href="/dashboard/linkedin-optimizer"
+              href="/register"
               className="group mt-4 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base w-full min-h-[52px]"
               style={{
                 background:

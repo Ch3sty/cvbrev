@@ -218,7 +218,7 @@ export function IconKompetens({ className }: IllustrationProps) {
         strokeWidth="1"
         strokeLinejoin="round"
       />
-      {/* Sparkles */}
+      {/* Små dekorprickar */}
       <circle cx="44" cy="14" r="1.5" fill={`url(#${id}-deep)`} />
       <circle cx="12" cy="42" r="1.5" fill={`url(#${id}-deep)`} />
     </svg>

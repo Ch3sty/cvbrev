@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Sparkle } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import { PostMeta } from '@/lib/blog';
@@ -25,11 +25,11 @@ interface ArticleSidebarProps {
 }
 
 const POPULAR_TOOLS = [
-  { Icon: CvMallarIcon, label: 'CV-mallar', desc: '8+ professionella mallar', href: '/dashboard/cv-mallar' },
-  { Icon: CvAnalysIcon, label: 'CV-analys', desc: 'Få konkret feedback', href: '/dashboard/cv-analys' },
-  { Icon: BrevIcon, label: 'Personliga brev', desc: 'Matchande brev på 60 sek', href: '/dashboard/skapa-brev' },
-  { Icon: JobbmatchningIcon, label: 'Jobbmatchning', desc: 'Hitta rätt jobb', href: '/dashboard/jobbmatchning' },
-  { Icon: RekryteringstestIcon, label: 'Rekryteringstester', desc: 'Träna inför testerna', href: '/dashboard/tester' },
+  { Icon: CvMallarIcon, label: 'CV-mallar', desc: '8+ professionella mallar', href: '/verktyg/cv-mallar' },
+  { Icon: CvAnalysIcon, label: 'CV-analys', desc: 'Få konkret feedback', href: '/verktyg/cv-analys' },
+  { Icon: BrevIcon, label: 'Personliga brev', desc: 'Matchande brev på 60 sek', href: '/skapa-brev/start' },
+  { Icon: JobbmatchningIcon, label: 'Jobbmatchning', desc: 'Hitta rätt jobb', href: '/verktyg/jobbmatchning' },
+  { Icon: RekryteringstestIcon, label: 'Rekryteringstester', desc: 'Träna inför testerna', href: '/verktyg/rekryteringstester' },
 ];
 
 export default function ArticleSidebar({
@@ -175,7 +175,6 @@ export default function ArticleSidebar({
           <div className="relative">
             <TrialCardIllustration className="w-full h-auto mb-3 max-w-[140px]" />
             <div className="text-[11px] font-bold uppercase tracking-[0.18em] mb-1 opacity-90 inline-flex items-center gap-1.5">
-              <Sparkle className="w-3 h-3" strokeWidth={2.5} />
               Premium
             </div>
             <h3 className="text-lg font-black leading-tight mb-1.5">
@@ -185,7 +184,7 @@ export default function ArticleSidebar({
               Avsluta kostnadsfritt innan provperioden går ut. Inga bindningstider.
             </p>
             <Link
-              href="/login?signup=true"
+              href="/register"
               className="block w-full text-center px-4 py-2.5 rounded-xl bg-white text-orange-700 font-bold text-sm hover:bg-orange-50 hover:scale-[1.02] transition-all touch-manipulation"
             >
               Testa gratis nu

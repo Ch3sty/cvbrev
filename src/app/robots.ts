@@ -10,9 +10,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*', // Gäller för alla robotar
         allow: '/', // Tillåt genomsökning av allt som standard
-        // disallow: '/admin/', // Exempel: Blockera en admin-sektion
-        // disallow: '/dashboard/my-letters/', // Exempel: Blockera sidor bakom inloggning
-		// disallow: '/profile/', // Exempel: Blockera sidor bakom inloggning
+        // Konverteringsflödena är ingångar till produkten, inte innehåll att
+        // ranka på. De pekar canonical till exempel- respektive mallsidan.
+        disallow: ['/skapa-brev/start', '/cv-mallar/start'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`, // Peka på din sitemap

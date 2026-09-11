@@ -1,21 +1,36 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+/**
+ * Dashboarden i tre tillstånd (docs/plan-konvertering.md, B4).
+ *
+ *   A  inget CV        → bara heron med uppladdningen och två textlänkar
+ *   B  CV men inget brev → heron pekar mot första brevet, tre kompakta kort
+ *   C  aktiv            → statusrad, aktivitet och snabbåtgärder
+ *
+ * TrialStatusRow och DowngradedNotice (spår A) ligger överst i alla lägen.
+ */
+
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { logUserActivity } from '@/lib/activity-logger';
 
-// Streak + status
+// Trial och nedgradering (spår A)
+import TrialStatusRow from '@/components/dashboard/TrialStatusRow';
+import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
+// Tillstånden
+import DashboardHero, { deriveDashboardState } from '@/components/dashboard/DashboardHero';
+import DashboardStatusRow from '@/components/dashboard/DashboardStatusRow';
+// Status och handlingsytor
 import StreakOchStatus from '@/components/dashboard/StreakOchStatus';
 import CvStatusCard from '@/components/dashboard/CvStatusCard';
-// Handlingsytor
 import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
 import SoktaTjansterStatusRad from '@/components/dashboard/SoktaTjansterStatusRad';
 import BliUpptacktStatusRad from '@/components/dashboard/BliUpptacktStatusRad';
-// Onboarding + rekommendation
-import OnboardingHero from '@/components/dashboard/OnboardingHero';
 import NastaSteg from '@/components/dashboard/NastaSteg';
 import { useApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
@@ -46,6 +61,7 @@ interface DashboardStats {
   dailyXp?: { date: string; xp: number }[];
   firstName?: string;
   activeCvName?: string;
+  userId?: string;
 }
 
 export default function DashboardPage() {
@@ -67,6 +83,7 @@ export default function DashboardPage() {
     recentLetters: []
   });
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Refetch dashboard-data nar onboarding-state andras (efter att t.ex.
   // CV-analys completas pollar OnboardingContext via realtime och uppdaterar
@@ -236,6 +253,7 @@ export default function DashboardPage() {
           dailyXp,
           firstName: profile?.full_name?.split(' ')[0] || undefined,
           activeCvName: latestCv?.file_name || undefined,
+          userId: user.id,
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -246,7 +264,7 @@ export default function DashboardPage() {
 
     fetchDashboardData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onboardingSnapshot]);
+  }, [onboardingSnapshot, refreshKey]);
 
   useEffect(() => {
     const premiumActivated = searchParams.get('premium_activated');
@@ -266,89 +284,103 @@ export default function DashboardPage() {
     }
   }, [searchParams, stats.subscriptionTier, successWithMascotAndActivity]);
 
+  const cvCount = stats.cvCount || 0;
+  const totalLetters = stats.totalLetters || 0;
+  const isPremium = stats.isPremium || false;
+  const state = deriveDashboardState(cvCount, totalLetters);
+
+  // B7: vilket tillstånd användaren faktiskt mötte. En gång per session.
+  const loggedState = useRef<string | null>(null);
+  useEffect(() => {
+    if (loading || !stats.userId) return;
+    if (loggedState.current === state) return;
+    loggedState.current = state;
+    void logUserActivity(stats.userId, 'activation_state', `Dashboard i tillstånd ${state}`, {
+      state,
+      cvCount,
+      totalLetters,
+    });
+  }, [loading, stats.userId, state, cvCount, totalLetters]);
+
+  const handleCvUploaded = useCallback(() => {
+    setRefreshKey((k) => k + 1);
+  }, []);
+
   // Sektionsskeleton i stället för blockerande spinner: layouten står still
   // och fylls i, ingen "tom skärm tills långsammaste anropet är klart".
   if (loading) {
     return (
-      <div className="space-y-5 sm:space-y-6 animate-pulse" aria-busy="true" aria-label="Laddar dashboard">
-        <div className="rounded-3xl bg-orange-50/70 h-32" />
-        <div>
-          <div className="h-6 w-40 bg-orange-100/70 rounded-lg mb-4" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="rounded-3xl bg-white border border-orange-100 h-40" />
-            ))}
-          </div>
-        </div>
-        <div className="rounded-3xl bg-white border border-orange-100 h-16" />
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4">
-          <div className="rounded-3xl bg-white border border-orange-100 h-32" />
-          <div className="rounded-3xl bg-white border border-orange-100 h-32" />
-        </div>
-        <div className="rounded-3xl bg-white border border-orange-100 h-64" />
+      <div className="space-y-6 animate-pulse" aria-busy="true" aria-label="Laddar dashboard">
+        <div className="rounded-lg bg-neutral-100 h-10" />
+        <div className="rounded-xl bg-white border border-neutral-200 h-64" />
+        <div className="rounded-xl bg-white border border-neutral-200 h-32" />
       </div>
     );
   }
 
-  const cvCount = stats.cvCount || 0;
-  const isPremium = stats.isPremium || false;
+  // Svar = ansökningar som fått någon form av respons.
+  const replies = Math.max(0, appSummary.total - appSummary.waitingCount);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div
-        className="fixed inset-x-0 top-0 h-[50vh] pointer-events-none z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="space-y-6"
+    >
+      {/* Trial och nedgradering ligger alltid överst. */}
+      <TrialStatusRow />
+      <DowngradedNotice />
+
+      <DashboardHero
+        state={state}
+        userId={stats.userId}
+        firstName={stats.firstName}
+        onCvUploaded={handleCvUploaded}
       />
 
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="space-y-5 sm:space-y-6 relative z-10"
-      >
-        {/* OnboardingHero äger flödet fram till hämtad belöning.
-            Döljer sig själv när rewardClaimed === true. */}
-        <OnboardingHero />
-
-        {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport).
-            Funktionsrekommendationer visas i stället som markering i
-            Snabbåtgärder, så samma förslag aldrig dubbleras. */}
-        {rewardClaimed && <NastaSteg action={nextAction} onDismiss={dismissNextAction} />}
-
-        {/* Snabbåtgärder: sidans mest handlingsbara sektion, nu först. */}
+      {state === 'B' && (
         <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+      )}
 
-        {/* Statusrader: korta faktabekräftelser, inte säljytor. */}
-        {(cvCount > 0 || rewardClaimed) && (
+      {state === 'C' && (
+        <>
+          <DashboardStatusRow
+            letters={totalLetters}
+            applications={appSummary.total}
+            replies={replies}
+            streakDays={stats.dailyStreak || 0}
+          />
+
+          {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport). */}
+          {rewardClaimed && <NastaSteg action={nextAction} onDismiss={dismissNextAction} />}
+
+          {/* Döljer sig själv vid noll rader. */}
+          <DashboardSenasteAktivitet />
+
+          <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+
           <CvStatusCard cvCount={cvCount} activeCvName={stats.activeCvName} />
-        )}
-        <SoktaTjansterStatusRad summary={appSummary} />
-        <BliUpptacktStatusRad />
+          <SoktaTjansterStatusRad summary={appSummary} />
+          <BliUpptacktStatusRad />
 
-        {/* Streak (kompakt som standard, firande vid 7+) + Din status */}
-        <StreakOchStatus
-          dailyStreak={stats.dailyStreak || 0}
-          longestStreak={stats.longestStreak || 0}
-          dailyXpEarned={stats.dailyXpEarned || 0}
-          currentLevel={stats.currentLevel || 1}
-          levelTitle={stats.levelTitle || 'Novis'}
-          dailyXp={stats.dailyXp || []}
-          isPremium={isPremium}
-          weeklyLetterCount={stats.weeklyLetterCount || 0}
-          weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
-          weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
-          letterResetDate={stats.letterResetDate}
-          premiumUntil={stats.premiumUntil}
-          premiumSource={stats.premiumSource}
-        />
-
-        {/* Senaste aktivitet - full bredd */}
-        <DashboardSenasteAktivitet />
-      </motion.div>
-    </div>
+          <StreakOchStatus
+            dailyStreak={stats.dailyStreak || 0}
+            longestStreak={stats.longestStreak || 0}
+            dailyXpEarned={stats.dailyXpEarned || 0}
+            currentLevel={stats.currentLevel || 1}
+            levelTitle={stats.levelTitle || 'Novis'}
+            dailyXp={stats.dailyXp || []}
+            isPremium={isPremium}
+            weeklyLetterCount={stats.weeklyLetterCount || 0}
+            weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
+            weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
+            letterResetDate={stats.letterResetDate}
+            premiumUntil={stats.premiumUntil}
+            premiumSource={stats.premiumSource}
+          />
+        </>
+      )}
+    </motion.div>
   );
 }

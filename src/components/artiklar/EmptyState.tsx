@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Sparkle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { ArticlesEmptyIllustration } from './illustrations/ArticlesListIcons';
 
 interface EmptyStateProps {
@@ -44,7 +44,6 @@ export default function EmptyState({ tagFilter, popularTags = [] }: EmptyStatePr
       {popularTags.length > 0 && (
         <div className="mb-6">
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2 inline-flex items-center gap-1.5">
-            <Sparkle className="w-3 h-3" strokeWidth={2.5} />
             Populära ämnen
           </div>
           <div className="flex flex-wrap justify-center gap-2">

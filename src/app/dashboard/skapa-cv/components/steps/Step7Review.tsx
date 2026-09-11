@@ -6,7 +6,7 @@ import {
   Eye, Download, Save, Check, User, FileText,
   Briefcase, GraduationCap, Wrench, Languages, Pencil,
   Loader2, Lock, Crown, ChevronLeft, ChevronRight,
-  Sparkles, FolderOpen, ArrowRight, Plus
+  FolderOpen, ArrowRight, Plus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
 import { getTemplateGenerator } from '@/lib/cv/templates';
-import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner';
+import PaywallCard from '@/components/paywall/PaywallCard';
 import type { CVDraft } from '../CVCreatorWizard';
 import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
 
@@ -133,7 +133,6 @@ function ConfirmationView({
           onClick={onGoToATS}
           className="w-full min-h-[56px] md:min-h-[52px] text-white text-base font-semibold shadow-lg shadow-pink-500/25"
         >
-          <Sparkles className="w-5 h-5 mr-2" />
           Optimera för ATS-system
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
@@ -367,7 +366,7 @@ export default function Step7Review({
 
       {/* Kvotgräns nådd */}
       {quotaError && (
-        <QuotaExceededBanner message={quotaError} />
+        <PaywallCard variant="cv-antal" />
       )}
 
       {/* Template Selection - Horizontal Carousel */}

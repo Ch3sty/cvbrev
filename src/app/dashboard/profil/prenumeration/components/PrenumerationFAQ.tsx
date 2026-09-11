@@ -11,7 +11,7 @@ const FAQS = [
   },
   {
     q: 'Kan jag avsluta när jag vill?',
-    a: 'Ja. Du loggar in på Stripe-portalen från den här sidan och klickar avsluta. Klart. Inga frågor, inga uppsägningstider.',
+    a: 'Ja. Du loggar in på Stripe-portalen från den här sidan och klickar avsluta. Premium löper till slutet av perioden du redan betalat för, sedan går kontot tillbaka till gratisnivån. Ingen uppsägningstid.',
   },
   {
     q: 'Behöver jag ange kortuppgifter för provperioden?',

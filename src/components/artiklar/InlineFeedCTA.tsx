@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { FeedCTAIllustration } from './illustrations/ArticlesListIcons';
 
 /**
@@ -52,7 +52,6 @@ export default function InlineFeedCTA() {
       {/* Innehåll */}
       <div className="relative flex flex-col flex-1 p-5 sm:p-6">
         <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-2 opacity-90">
-          <Sparkle className="w-3 h-3" strokeWidth={2.5} />
           Komplett verktyg
         </div>
 

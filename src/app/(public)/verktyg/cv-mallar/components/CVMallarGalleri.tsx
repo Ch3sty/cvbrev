@@ -150,7 +150,7 @@ export default function CVMallarGalleri() {
               }}
             >
               <Link
-                href="/dashboard/skapa-cv"
+                href="/register"
                 className="group block bg-white rounded-3xl border border-orange-100 overflow-hidden hover:border-orange-200 transition-all"
                 style={{
                   boxShadow:

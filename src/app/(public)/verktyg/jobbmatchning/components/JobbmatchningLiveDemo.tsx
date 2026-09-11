@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileText, Check, Sparkles, MapPin } from 'lucide-react'
+import { FileText, Check, Search, MapPin } from 'lucide-react'
 
 /**
  * Live-demo som speglar /dashboard/jobbmatchning-flodet:
@@ -235,7 +235,7 @@ export default function JobbmatchningLiveDemo() {
           className="mb-4"
         >
           <div className="flex items-center gap-2 mb-2">
-            <Sparkles
+            <Search
               className="w-4 h-4 text-orange-600 animate-pulse"
               strokeWidth={2.5}
             />

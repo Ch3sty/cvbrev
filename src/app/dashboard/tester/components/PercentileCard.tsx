@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users } from 'lucide-react';
+import { IlluPercentil } from '@/components/illustrations/TestIllustrations';
 
 interface PercentileCardProps {
   sessionId: string;
@@ -42,24 +42,17 @@ export default function PercentileCard({ sessionId }: PercentileCardProps) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5"
     >
       <div className="flex items-center gap-3">
-        <div
-          className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-white"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-            boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.3)',
-          }}
-        >
-          <Users className="w-4 h-4" strokeWidth={2.5} />
-        </div>
+        <span className="shrink-0 text-neutral-900" aria-hidden="true">
+          <IlluPercentil size={48} />
+        </span>
         <div>
-          <p className="text-sm font-bold text-slate-900">
-            Bättre än {percentile} % av alla resultat
+          <p className="text-sm font-semibold text-neutral-900">
+            Bättre än <span className="tabular-nums">{percentile}</span> % av alla resultat
           </p>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-sm text-neutral-600 mt-0.5">
             Jämfört med {sampleSize.toLocaleString('sv-SE')} slutförda test på samma nivå
           </p>
         </div>

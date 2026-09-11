@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   ArrowLeft,
-  Sparkles,
+  Type,
   User,
   Briefcase,
   GraduationCap,
@@ -41,7 +41,7 @@ const SECTION_CONFIG = [
   {
     key: 'headline' as const,
     title: 'Rubrik',
-    icon: Sparkles,
+    icon: Type,
     placeholder: 'Exempel: "Senior Projektledare | CI/CD-expert | Bygger team som levererar"',
     rows: 2,
     required: false,

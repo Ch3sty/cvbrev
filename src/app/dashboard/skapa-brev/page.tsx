@@ -7,7 +7,7 @@ import { Info } from 'lucide-react';
 import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-letter-store';
 import { useNotification } from '@/context/notificationcontext';
 
@@ -34,7 +34,21 @@ export default function CreateLetterPage() {
   // stället för ett separat useCvQuota-anrop (som dubblerade samma DB-queries).
   const { fetchCVs, cvs, isLoading: cvLoading } = useCVStore();
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
-  const { subscriptionTier } = useProfile();
+  const { subscriptionTier, profile, updateProfile } = useProfile();
+
+  // B3: brevhuvudets kontaktuppgifter. Samlas in här i stället för vid
+  // registrering, där de bara var friktion. Båda är valfria.
+  const [headerPhone, setHeaderPhone] = useState('');
+  const [headerLocation, setHeaderLocation] = useState('');
+  // Förifyll när profilen laddats, men skriv aldrig över något användaren
+  // redan hunnit ändra i fältet.
+  const prefilledContactRef = useRef(false);
+  useEffect(() => {
+    if (prefilledContactRef.current || !profile) return;
+    prefilledContactRef.current = true;
+    setHeaderPhone(profile.phone || '');
+    setHeaderLocation(profile.location || '');
+  }, [profile]);
   const { successWithMascotAndActivity, logActivity } = useNotification();
 
   // Har vi hämtat CV-listan minst en gång? (skiljer "laddar" från "tom lista").
@@ -71,6 +85,9 @@ export default function CreateLetterPage() {
   const [error, setError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
+  // A1: sant när nedladdningen svarat 402. Brevet visas fortfarande, men
+  // betalväggen läggs under det.
+  const [downloadGate, setDownloadGate] = useState(false);
   const [showExitWarning, setShowExitWarning] = useState(false);
   const [isRegeneratingTemplate, setIsRegeneratingTemplate] = useState(false);
   // Dagskvoten slut (429 quota_exceeded från servern) → visa spärrvyn
@@ -153,6 +170,21 @@ export default function CreateLetterPage() {
     setError(null);
     setShowPipeline(true);
 
+    // B3: spara brevhuvudets kontaktuppgifter om användaren ändrat dem.
+    // Fire-and-forget: en misslyckad profilsparning får aldrig stoppa brevet.
+    const trimmedPhone = headerPhone.trim();
+    const trimmedLocation = headerLocation.trim();
+    if (
+      trimmedPhone !== (profile?.phone || '') ||
+      trimmedLocation !== (profile?.location || '')
+    ) {
+      void Promise.resolve(
+        updateProfile({ phone: trimmedPhone, location: trimmedLocation })
+      ).catch((err) => {
+        console.error('Kunde inte spara kontaktuppgifter:', err);
+      });
+    }
+
     // Scroll till pipeline
     requestAnimationFrame(() => {
       pipelineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -196,7 +228,7 @@ export default function CreateLetterPage() {
       }
       setError('Ett fel uppstod vid genereringen');
     }
-  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter]);
+  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile]);
 
   // När brevet är klart: scrolla till preview + visa toast
   const didShowToast = useRef(false);
@@ -380,6 +412,13 @@ export default function CreateLetterPage() {
         }),
       });
 
+      // A1: 402 betyder att filen kräver Premium. Brevet syns fortfarande i
+      // sin helhet, betalväggen läggs under det.
+      if (response.status === 402) {
+        setDownloadGate(true);
+        return;
+      }
+
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
@@ -425,11 +464,9 @@ export default function CreateLetterPage() {
   if (quotaLock) {
     return (
       <LetterFlowLayout>
-        <QuotaLockCard
-          feature="letter_generation"
-          title="Dagens brev är slut"
-          description="Som gratisanvändare skapar du två brev per dag."
-          nextResetAt={quotaLock.nextResetAt}
+        <PaywallCard
+          variant="kvot"
+          quota={{ feature: 'letter_generation', nextResetAt: quotaLock.nextResetAt }}
         />
         {generatedLetter && (
           <PreviewStep
@@ -448,6 +485,13 @@ export default function CreateLetterPage() {
             registerRef={(el) => {
               previewRef.current = el;
             }}
+          />
+        )}
+        {downloadGate && generatedLetter && (
+          <PaywallCard
+            variant="nedladdning"
+            isPremium={isPremium}
+            onCopy={() => navigator.clipboard?.writeText(generatedLetter)}
           />
         )}
       </LetterFlowLayout>
@@ -545,6 +589,10 @@ export default function CreateLetterPage() {
             isGenerating={isGenerating}
             onGenerate={handleGenerateLetter}
             remainingLetters={remainingToday}
+            phone={headerPhone}
+            location={headerLocation}
+            onPhoneChange={setHeaderPhone}
+            onLocationChange={setHeaderLocation}
           />
         </div>
 
@@ -575,6 +623,13 @@ export default function CreateLetterPage() {
             registerRef={(el) => {
               previewRef.current = el;
             }}
+          />
+        )}
+        {downloadGate && generatedLetter && (
+          <PaywallCard
+            variant="nedladdning"
+            isPremium={isPremium}
+            onCopy={() => navigator.clipboard?.writeText(generatedLetter)}
           />
         )}
       </LetterFlowLayout>

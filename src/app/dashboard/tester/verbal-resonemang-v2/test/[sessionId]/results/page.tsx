@@ -10,6 +10,7 @@ import VerbalResultsBody, {
   type ResultsPassage,
 } from '@/components/tests/verbal-shared/VerbalResultsBody';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 import {
   selectPassagesForSession,
@@ -118,8 +119,12 @@ export default function ResultsV2Page({ params }: PageProps) {
           passages={passages}
           restartPath="/dashboard/tester/verbal-resonemang-v2"
           afterStatsSlot={
-            // Jämförelse mot andra testtagare (renderas bara vid nog stort underlag)
-            sessionId ? <PercentileCard sessionId={sessionId} /> : undefined
+            <>
+              {/* Jämförelse mot andra testtagare (bara vid nog stort underlag) */}
+              {sessionId ? <PercentileCard sessionId={sessionId} /> : null}
+              {/* Vidare från testet: CV eller brev (B6) */}
+              <TestResultBridgeContainer testSlug="verbal-resonemang-v2" quotaFeature="test:verbal-resonemang-v2" />
+            </>
           }
           beforeActionsSlot={
             // Progressionspuff mot nästa nivå

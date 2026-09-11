@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ChevronRight, Search, ShieldCheck, Crown, FileText, Sparkles, ArrowRight } from 'lucide-react'
+import { ChevronRight, Search, ShieldCheck, Crown, FileText, ArrowRight } from 'lucide-react'
 import { useState, useMemo } from 'react'
 
 import Breadcrumb from '@/components/Breadcrumb'
@@ -111,7 +111,6 @@ export default function CvMallarPageContent({
       <section className="container mx-auto px-3 sm:px-4 pt-6 pb-12 sm:pt-10 sm:pb-16 max-w-6xl">
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
-            <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
             {SIMPLE_TEMPLATES.length} CV-mallar
           </div>
 

@@ -9,8 +9,11 @@ import ArticleSidebar from '@/components/artiklar/ArticleSidebar';
 import ArticleHero from '@/components/artiklar/ArticleHero';
 import ArticleAuthorCard from '@/components/artiklar/ArticleAuthorCard';
 import ArticleBackButton from '@/components/artiklar/ArticleBackButton';
+import StickyMobileCTA from '@/components/shared/StickyMobileCTA';
 import { Heading } from '@/lib/extractHeadings';
 import { getAuthorForArticle } from '@/lib/authors';
+import type { CtaCluster } from '@/lib/cta/clusters';
+import { capture } from '@/lib/analytics/events';
 
 interface ArticleClientWrapperProps {
   children: React.ReactNode;
@@ -27,6 +30,7 @@ interface ArticleClientWrapperProps {
   allPostsMeta: PostMeta[];
   readingTime: number;
   headings: Heading[];
+  cluster: CtaCluster;
 }
 
 export default function ArticleClientWrapper({
@@ -36,6 +40,7 @@ export default function ArticleClientWrapper({
   allPostsMeta,
   readingTime,
   headings,
+  cluster,
 }: ArticleClientWrapperProps) {
   const author = getAuthorForArticle(slug, post.frontmatter.tags || [], post.frontmatter.title);
   const shareUrl = `https://www.jobbcoach.ai/artiklar/${slug}`;
@@ -53,6 +58,10 @@ export default function ArticleClientWrapper({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    capture('article_viewed', { slug, cluster });
+  }, [slug, cluster]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/20">
@@ -74,7 +83,8 @@ export default function ArticleClientWrapper({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 p-3 sm:p-3.5 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 touch-manipulation"
+            /* Bara på desktop: på mobil äger StickyMobileCTA den ytan. */
+            className="hidden lg:block fixed bottom-8 right-8 z-40 p-3.5 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 touch-manipulation"
             style={{
               background:
                 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
@@ -147,6 +157,8 @@ export default function ArticleClientWrapper({
           </div>
         </div>
       </div>
+
+      <StickyMobileCTA cluster={cluster} slug={slug} />
     </div>
   );
 }

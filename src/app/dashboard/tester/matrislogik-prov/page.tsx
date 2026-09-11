@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Layers, Clock, ListChecks } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/selectProv.v7';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const PROV_MINUTES = 25;
 
@@ -119,11 +119,9 @@ export default function LogikProvPage() {
 
         {/* Start / dagskvot */}
         {rateLimited && !isPremium ? (
-          <QuotaLockCard
-            feature="test:matrislogik-prov"
-            title="Du har gjort dagens prov"
-            description="Som gratisanvändare gör du varje prov en gång per dag."
-            nextResetAt={rateLimited.nextAvailableAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: "test:matrislogik-prov", nextResetAt: rateLimited.nextAvailableAt }}
           />
         ) : (
           <motion.section

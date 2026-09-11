@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, Layout, Sparkles, Loader2, Crown, ImageIcon, Linkedin } from 'lucide-react';
+import { FileText, Layout, Loader2, Crown, ImageIcon, Linkedin } from 'lucide-react';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 
 interface CvMallarSummaryProps {
@@ -130,7 +130,7 @@ export default function CvMallarSummary({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" strokeWidth={2.5} />
+              <FileText className="w-5 h-5" strokeWidth={2.5} />
               Skapa CV-PDF
             </>
           )}

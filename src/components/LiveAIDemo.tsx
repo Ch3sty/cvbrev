@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 import {
-  Upload, FileText, CheckCircle, Sparkles,
+  Upload, FileText, CheckCircle,
   BrainCircuit, TrendingUp, Clock, Target
 } from 'lucide-react'
 
@@ -134,7 +134,7 @@ export default function LiveAIDemo() {
             className="bg-gradient-to-br from-slate-50 to-white rounded-xl p-6 border border-slate-200"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-yellow-500" />
+              <FileText className="w-5 h-5 text-yellow-500" />
               <h4 className="font-semibold text-slate-900">Ditt färdiga brev</h4>
             </div>
 

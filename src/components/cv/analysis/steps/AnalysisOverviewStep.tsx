@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
   CheckCircle2,
   TrendingUp,
-  Sparkles,
+  User,
   Target,
   Briefcase,
   Award
@@ -49,7 +49,7 @@ export default function AnalysisOverviewStep({
       description: 'Saknade kompetenser identifierade'
     },
     {
-      icon: Sparkles,
+      icon: User,
       title: 'Personbeskrivning',
       count: profileImproved ? 1 : 0,
       color: 'from-pink-600 to-rose-600',

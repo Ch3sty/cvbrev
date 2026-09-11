@@ -20,7 +20,6 @@ import {
   Palette,
   Menu,
   X,
-  Sparkles,
   User as UserIcon,
   LogOut,
   LogIn,

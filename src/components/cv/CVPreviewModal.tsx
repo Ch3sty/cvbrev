@@ -13,7 +13,7 @@ import {
   Download,
   Maximize2,
   GitCompare,
-  Sparkles
+  TrendingUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -240,7 +240,7 @@ export default function CVPreviewModal({
                 {metrics && (
                   <div className="flex items-center gap-3">
                     <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      <Sparkles className="h-3 w-3 mr-1" />
+                      <TrendingUp className="h-3 w-3 mr-1" />
                       +{metrics.overallImprovement}% förbättring
                     </Badge>
                     <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">

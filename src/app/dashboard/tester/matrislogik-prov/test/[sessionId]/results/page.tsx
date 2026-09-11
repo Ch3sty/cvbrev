@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import {
   selectProvQuestionsForSession,
   PROV_TOTAL_QUESTIONS,
@@ -146,6 +147,9 @@ export default function ProvResultsPage({ params }: PageProps) {
 
         {/* Jämförelse mot andra provresultat (renderas bara vid nog stort underlag) */}
         {sessionId && <PercentileCard sessionId={sessionId} />}
+
+        {/* Vidare från testet: CV eller brev (B6) */}
+        <TestResultBridgeContainer testSlug={"matrislogik-prov"} quotaFeature={"test:matrislogik-prov"} />
 
         <QuestionReview
           answers={savedAnswers}

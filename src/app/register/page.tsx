@@ -23,8 +23,6 @@ const REGISTER_STATS = [
 interface FormState {
   fullName: string
   email: string
-  phone: string
-  location: string
   score: number
 }
 
@@ -32,8 +30,6 @@ export default function RegisterPage() {
   const [formState, setFormState] = useState<FormState>({
     fullName: '',
     email: '',
-    phone: '',
-    location: '',
     score: 0,
   })
 
@@ -42,10 +38,7 @@ export default function RegisterPage() {
   }, [])
 
   const hasContent =
-    formState.fullName.trim().length > 0 ||
-    formState.email.trim().length > 0 ||
-    formState.phone.trim().length > 0 ||
-    formState.location.trim().length > 0
+    formState.fullName.trim().length > 0 || formState.email.trim().length > 0
 
   return (
     <AuthShell
@@ -60,8 +53,6 @@ export default function RegisterPage() {
           <RegisterCvPreview
             fullName={formState.fullName}
             email={formState.email}
-            phone={formState.phone}
-            location={formState.location}
             variant="desktop"
           />
         ) : null

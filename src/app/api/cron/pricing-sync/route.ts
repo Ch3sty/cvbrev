@@ -9,6 +9,10 @@ import { generateQuotaBackEmail } from '@/lib/email/quota-back';
 import { generateTrialReminderEmail } from '@/lib/email/trial-reminder';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
+import { runLifecycleEmails, scheduleWinbacks } from '@/lib/email/lifecycle/runner';
+import { onOnetimeExpired } from '@/lib/email/lifecycle/hooks';
+import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
+import { cleanupExpiredAnonSessions } from '@/lib/tests/anon-session';
 
 /**
  * Vercel Cron job endpoint
@@ -50,7 +54,10 @@ export async function GET(request: NextRequest) {
       pricingSync: null,
       quotaReminders: null,
       trialReminders: null,
-      savedSearchAlerts: null
+      savedSearchAlerts: null,
+      lifecycleEmails: null,
+      winbacks: null,
+      draftCleanup: null
     };
 
     // ====================================
@@ -90,10 +97,22 @@ export async function GET(request: NextRequest) {
           console.error('[Premium Expiration] Error updating users:', updateError);
           results.premiumExpiration = { success: false, error: updateError.message };
         } else {
+          let onetimeMails = 0;
           for (const user of expiredUsers) {
             console.log(`[Premium Expiration] Downgraded ${user.email} - Source: ${user.premium_source}, Expired: ${user.premium_until}`);
+
+            // Spår D3: engångsköp som löpt ut får ett kort "vill du förlänga".
+            // Reverse trial (signup_trial) har rt_day6 och ska INTE få det här.
+            if (typeof user.premium_source === 'string' && user.premium_source.startsWith('onetime_')) {
+              try {
+                await onOnetimeExpired(supabaseAdmin, user.id);
+                onetimeMails++;
+              } catch (hookError: any) {
+                console.error('[Premium Expiration] onOnetimeExpired misslyckades:', hookError?.message);
+              }
+            }
           }
-          results.premiumExpiration = { success: true, expired: expiredUsers.length };
+          results.premiumExpiration = { success: true, expired: expiredUsers.length, onetimeMails };
         }
       }
     } catch (error: any) {
@@ -428,6 +447,40 @@ export async function GET(request: NextRequest) {
       }
     } else {
       results.savedSearchAlerts = { skipped: true, reason: 'Midnight slot' };
+    }
+
+    // ====================================
+    // 6. LIVSCYKELMAIL + UNDERHÅLL (morgonslotten)
+    // ====================================
+    // Runnern skickar förfallna mail ur email_schedule, win-back-sidojobbet
+    // schemalägger nya, och utgångna publika utkast städas bort.
+    if (isMorningSlot) {
+      try {
+        results.lifecycleEmails = await runLifecycleEmails(supabaseAdmin);
+      } catch (error: any) {
+        console.error('[Lifecycle] Runner-fel:', error);
+        results.lifecycleEmails = { success: false, error: error.message };
+      }
+
+      try {
+        results.winbacks = await scheduleWinbacks(supabaseAdmin);
+      } catch (error: any) {
+        console.error('[Lifecycle] Win-back-fel:', error);
+        results.winbacks = { success: false, error: error.message };
+      }
+
+      try {
+        const deleted = await cleanupExpiredPublicDrafts(supabaseAdmin);
+        const deletedTests = await cleanupExpiredAnonSessions(supabaseAdmin);
+        results.draftCleanup = { success: true, deleted, deletedTests };
+      } catch (error: any) {
+        console.error('[Lifecycle] Rensning av publika utkast misslyckades:', error);
+        results.draftCleanup = { success: false, error: error.message };
+      }
+    } else {
+      results.lifecycleEmails = { skipped: true, reason: 'Midnight slot' };
+      results.winbacks = { skipped: true, reason: 'Midnight slot' };
+      results.draftCleanup = { skipped: true, reason: 'Midnight slot' };
     }
 
     // Return combined results
