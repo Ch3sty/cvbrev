@@ -39,6 +39,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const pathname = usePathname();
   const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
+  // Kort status bredvid Premium-raden: "5 dagar kvar" / "Aktiv" / "Gratis".
+  const [premiumLabel, setPremiumLabel] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
@@ -61,13 +63,34 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         const { data: profile } = await supabase
           .from('profiles')
-          .select('premium_until, subscription_tier')
+          .select('premium_until, subscription_tier, subscription_status, subscription_id')
           .eq('id', userId)
           .single();
 
         const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
         const hasPremiumTier = profile?.subscription_tier === 'premium';
         setIsPremium(hasPremiumUntil || hasPremiumTier);
+
+        // En levande Stripe-prenumeration förnyas, så den visar "Aktiv"
+        // i stället för en nedräkning.
+        const liveSub =
+          !!profile?.subscription_id &&
+          !String(profile.subscription_id).startsWith('sub_test') &&
+          ['active', 'trialing', 'past_due', 'unpaid'].includes(profile?.subscription_status ?? '');
+
+        if (liveSub) {
+          setPremiumLabel('Aktiv');
+        } else if (hasPremiumTier && hasPremiumUntil) {
+          const daysLeft = Math.max(
+            1,
+            Math.ceil((new Date(profile!.premium_until as string).getTime() - Date.now()) / 86400000)
+          );
+          setPremiumLabel(`${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`);
+        } else if (hasPremiumTier) {
+          setPremiumLabel('Aktiv');
+        } else {
+          setPremiumLabel('Gratis');
+        }
 
         const { data: adminData } = await supabase
           .from('admin_users')
@@ -292,6 +315,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         {/* KONTO */}
         <SidebarSection eyebrow="Konto">
+          {/* Alltid synlig ingång till Premium. Lågmäld: en rad som alla
+              andra, med status i sublabel. Den som vill köpa proaktivt ska
+              inte behöva slå i en betalvägg först. */}
+          <SidebarLink
+            href="/dashboard/profil/prenumeration"
+            label="Premium"
+            icon={KronaIcon}
+            sublabel={premiumLabel ?? undefined}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
           <li>
             <Link
               href="/dashboard/profil"

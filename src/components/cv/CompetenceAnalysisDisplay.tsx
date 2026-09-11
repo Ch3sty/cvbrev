@@ -107,7 +107,7 @@ LearningIcon.displayName = 'LearningIcon';
 /**
  * Visar uppgraderingsmeddelandet.
  */
-const UpgradeMessage: React.FC<{ hiddenCount: number; itemType: string }> = React.memo(({ hiddenCount, itemType }) => { /* ... (samma som tidigare) ... */ if (hiddenCount <= 0) return null; return ( <div className={upgradeMessageClasses}> <div className="flex items-center flex-shrink-0"> <Lock className="w-5 h-5 text-purple-400" /> </div> <div className="flex-grow"> <span className="font-medium">Se {hiddenCount} till {itemType}?</span> <p className="text-xs text-purple-300/80">Uppgradera för att se allt.</p> </div> <Link href="/priser" target="_blank" rel="noopener noreferrer" className={upgradeLinkClasses}> Uppgradera nu <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5" /> </Link> </div> ); });
+const UpgradeMessage: React.FC<{ hiddenCount: number; itemType: string }> = React.memo(({ hiddenCount, itemType }) => { /* ... (samma som tidigare) ... */ if (hiddenCount <= 0) return null; return ( <div className={upgradeMessageClasses}> <div className="flex items-center flex-shrink-0"> <Lock className="w-5 h-5 text-purple-400" /> </div> <div className="flex-grow"> <span className="font-medium">Se {hiddenCount} till {itemType}?</span> <p className="text-xs text-purple-300/80">Uppgradera för att se allt.</p> </div> <Link href="/dashboard/profil/prenumeration" className={upgradeLinkClasses}> Uppgradera nu <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5" /> </Link> </div> ); });
 UpgradeMessage.displayName = 'UpgradeMessage';
 
 /**

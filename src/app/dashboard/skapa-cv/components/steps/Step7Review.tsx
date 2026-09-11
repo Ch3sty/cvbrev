@@ -482,7 +482,7 @@ export default function Step7Review({
             </div>
             <Button
               size="sm"
-              onClick={() => router.push('/priser')}
+              onClick={() => router.push('/dashboard/profil/prenumeration')}
               className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
             >
               Uppgradera

@@ -298,7 +298,7 @@ export default function LetterCard({
           {isLocked && (
             <div className="relative z-20 pt-1">
               <Link
-                href="/priser"
+                href="/dashboard/profil/prenumeration"
                 onClick={(e) => e.stopPropagation()}
                 className="inline-flex items-center gap-1.5 text-[13px] font-bold text-orange-700 hover:text-orange-800 transition-colors"
               >

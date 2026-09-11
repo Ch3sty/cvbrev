@@ -21,6 +21,8 @@ import { logUserActivity } from '@/lib/activity-logger';
 // Trial och nedgradering (spår A)
 import TrialStatusRow from '@/components/dashboard/TrialStatusRow';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
+import PurchaseConfirmation from '@/components/dashboard/PurchaseConfirmation';
+import QuotaNudgeRow from '@/components/dashboard/QuotaNudgeRow';
 // Tillstånden
 import DashboardHero, { deriveDashboardState } from '@/components/dashboard/DashboardHero';
 import DashboardStatusRow from '@/components/dashboard/DashboardStatusRow';
@@ -54,6 +56,7 @@ interface DashboardStats {
   linkedInResetDate?: Date;
   premiumUntil?: string | null;
   premiumSource?: string | null;
+  currentPeriodEnd?: string | null;
   onboardingCompleted?: boolean;
   dailyStreak?: number;
   longestStreak?: number;
@@ -146,6 +149,7 @@ export default function DashboardPage() {
               subscription_tier,
               premium_until,
               premium_source,
+              current_period_end,
               weekly_letter_count,
               weekly_letter_reset_at,
               weekly_analysis_count,
@@ -246,6 +250,7 @@ export default function DashboardPage() {
           monthlyLetters: monthlyLetters.length,
           premiumUntil: profile?.premium_until || null,
           premiumSource: profile?.premium_source || null,
+          currentPeriodEnd: profile?.current_period_end || null,
           onboardingCompleted: profile?.onboarding_completed || false,
           dailyStreak: gamStats?.daily_streak || 0,
           longestStreak: gamStats?.longest_streak || 0,
@@ -266,23 +271,40 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onboardingSnapshot, refreshKey]);
 
+  // Kvitto efter köp. Kortet visar produkt och slutdatum, så det räcker med
+  // att logga aktiviteten här i stället för att också visa en toast.
+  const [purchasedPlan, setPurchasedPlan] = useState<string | null>(null);
+  const loggedPurchase = useRef(false);
+
   useEffect(() => {
     const premiumActivated = searchParams.get('premium_activated');
-    if (premiumActivated === 'true' && stats.subscriptionTier === 'premium') {
-      successWithMascotAndActivity(
-        'Välkommen till Premium. Nu har du allt upplåst.',
-        'premium-activated',
-        'premium_activated',
-        'aktiverade Premium-prenumeration',
-        { tier: 'premium' },
-        6000
-      );
+    if (premiumActivated !== 'true' || stats.subscriptionTier !== 'premium') return;
+    if (loggedPurchase.current) return;
+    loggedPurchase.current = true;
 
-      const url = new URL(window.location.href);
-      url.searchParams.delete('premium_activated');
-      window.history.replaceState({}, '', url.toString());
+    setPurchasedPlan(searchParams.get('plan'));
+
+    if (stats.userId) {
+      void logUserActivity(
+        stats.userId,
+        'premium_activated',
+        'aktiverade Premium',
+        { tier: 'premium', plan: searchParams.get('plan') ?? undefined }
+      );
     }
-  }, [searchParams, stats.subscriptionTier, successWithMascotAndActivity]);
+  }, [searchParams, stats.subscriptionTier, stats.userId]);
+
+  // Stripe-webhooken kan ligga några sekunder efter att användaren landar
+  // tillbaka. Hämta om profilen ett par gånger tills premium syns, annars
+  // visas inget kvitto trots lyckat köp.
+  const purchasePolls = useRef(0);
+  useEffect(() => {
+    if (searchParams.get('premium_activated') !== 'true') return;
+    if (loading || stats.subscriptionTier === 'premium' || purchasePolls.current >= 4) return;
+    purchasePolls.current += 1;
+    const t = setTimeout(() => setRefreshKey((k) => k + 1), 2500);
+    return () => clearTimeout(t);
+  }, [searchParams, loading, stats.subscriptionTier]);
 
   const cvCount = stats.cvCount || 0;
   const totalLetters = stats.totalLetters || 0;
@@ -328,7 +350,15 @@ export default function DashboardPage() {
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className="space-y-6"
     >
-      {/* Trial och nedgradering ligger alltid överst. */}
+      {/* Kvitto efter köp, sedan trial och nedgradering. */}
+      {purchasedPlan !== null && (
+        <PurchaseConfirmation
+          plan={purchasedPlan}
+          premiumUntil={stats.premiumUntil}
+          currentPeriodEnd={stats.currentPeriodEnd}
+          onDismiss={() => setPurchasedPlan(null)}
+        />
+      )}
       <TrialStatusRow />
       <DowngradedNotice />
 
@@ -350,6 +380,12 @@ export default function DashboardPage() {
             applications={appSummary.total}
             replies={replies}
             streakDays={stats.dailyStreak || 0}
+          />
+
+          {/* Visas bara när dagens brevkvot är slut. */}
+          <QuotaNudgeRow
+            isPremium={isPremium}
+            lettersToday={stats.weeklyLetterCount || 0}
           />
 
           {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport). */}

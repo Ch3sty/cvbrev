@@ -145,7 +145,7 @@ function PremiumGate() {
           AI-genererade karriärinsikter och tips inför intervjuer.
         </p>
         <Link
-          href="/priser"
+          href="/dashboard/profil/prenumeration"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 min-h-[48px]"
           style={{
             background: 'linear-gradient(135deg, #F59E0B, #EA580C, #DC2626)',

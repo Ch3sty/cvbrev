@@ -118,7 +118,7 @@ export default function LetterCardCompact({
             )}
             {isLocked && (
               <Link
-                href="/priser"
+                href="/dashboard/profil/prenumeration"
                 onClick={(e) => e.stopPropagation()}
                 className="relative z-20 inline-flex items-center gap-1 mt-0.5 text-[11px] sm:text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
               >

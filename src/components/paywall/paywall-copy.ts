@@ -59,7 +59,7 @@ export function getPaywallCopy(
         title: 'Din gratis nedladdning är använd',
         body: 'Du har laddat ner ett CV. Fler nedladdningar, alla 42 mallar och obegränsade analyser ingår i Premium.',
         primary: 'Lås upp nedladdning',
-        secondary: 'Se alla priser',
+        secondary: 'Se vad Premium kostar',
       }
     case 'kvot': {
       const perFeature =

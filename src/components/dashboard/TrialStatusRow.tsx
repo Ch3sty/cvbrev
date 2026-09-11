@@ -10,6 +10,8 @@
  */
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
 import UpgradeSheet from '@/components/paywall/UpgradeSheet'
 
@@ -66,13 +68,12 @@ export default function TrialStatusRow({ className }: { className?: string }) {
             Behåll Premium
           </button>
         ) : (
-          <button
-            type="button"
-            onClick={() => setSheetOpen(true)}
+          <Link
+            href={PREMIUM_HREF}
             className="text-sm font-medium text-neutral-600 hover:text-neutral-900 underline-offset-4 hover:underline shrink-0"
           >
             Vad ingår
-          </button>
+          </Link>
         )}
       </div>
       <UpgradeSheet

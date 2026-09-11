@@ -691,7 +691,7 @@ export default function JobbmatchningPage() {
                               och matchar obegränsat.
                             </p>
                             <button
-                              onClick={() => router.push('/priser')}
+                              onClick={() => router.push('/dashboard/profil/prenumeration')}
                               className="inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105 touch-manipulation min-h-[44px] text-sm sm:text-base"
                               style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
                             >

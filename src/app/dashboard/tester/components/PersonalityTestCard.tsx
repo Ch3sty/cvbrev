@@ -44,12 +44,12 @@ export default function PersonalityTestCard({
   const router = useRouter();
   const showLock = isPremiumLocked && !isUserPremium;
   const hasProfile = stats.hasProfile;
-  const href = showLock ? '/priser' : `/dashboard/tester/${slug}`;
+  const href = showLock ? '/dashboard/profil/prenumeration' : `/dashboard/tester/${slug}`;
 
   const handleClick = (e: React.MouseEvent) => {
     if (showLock) {
       e.preventDefault();
-      router.push('/priser');
+      router.push('/dashboard/profil/prenumeration');
     }
   };
 

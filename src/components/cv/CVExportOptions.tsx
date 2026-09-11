@@ -325,7 +325,7 @@ export default function CVExportOptions({
   };
 
   const handleUpgradeClick = () => {
-    window.open('/priser', '_blank');
+    window.location.href = '/dashboard/profil/prenumeration';
   };
 
   const goToNextStep = () => {

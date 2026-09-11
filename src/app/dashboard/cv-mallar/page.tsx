@@ -66,7 +66,7 @@ function CVMallarContent() {
   }, [cvs, selectedCV, selectCV, cvIdFromUrl]);
 
   const handleUpgradeClick = () => {
-    router.push('/priser');
+    router.push('/dashboard/profil/prenumeration');
   };
 
   const handleGenerateCV = async (params: {

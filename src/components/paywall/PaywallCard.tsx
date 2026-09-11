@@ -11,6 +11,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { getPaywallCopy, type PaywallVariant } from './paywall-copy'
+import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
 import {
   IlluBrevKlart,
@@ -35,7 +36,7 @@ export interface PaywallCardProps {
   onDismiss?: () => void
   /**
    * Generisk sekundär handling. Ersätter standardlänken i de varianter som
-   * annars pekar på /priser, och driver "Ta bort ett gammalt CV" i cv-antal.
+   * annars pekar på prenumerationssidan, och driver "Ta bort ett gammalt CV".
    */
   onSecondary?: () => void
   /** Ordning i produktvalet. Betalväggar: dagspass först. */
@@ -107,7 +108,7 @@ export default function PaywallCard({
         )
       case 'kvot':
       case 'test-tak':
-        if (!quota) return <Link href="/priser" className={cls}>Se alla priser</Link>
+        if (!quota) return <Link href={PREMIUM_HREF} className={cls}>Se vad Premium kostar</Link>
         if (reminder === 'saved')
           return (
             <span className="text-sm font-medium text-neutral-700 inline-flex items-center gap-1.5">
@@ -138,7 +139,7 @@ export default function PaywallCard({
               {copy.secondary}
             </button>
           )
-        return <Link href="/priser" className={cls}>{copy.secondary}</Link>
+        return <Link href={PREMIUM_HREF} className={cls}>{copy.secondary}</Link>
     }
   })()
 

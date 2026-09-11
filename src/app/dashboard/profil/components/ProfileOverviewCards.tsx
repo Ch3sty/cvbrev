@@ -45,7 +45,7 @@ export default function ProfileOverviewCards({
       eyebrow: 'Plan & konto',
       title: isPremium ? 'Premium aktiv' : 'Gratisplan',
       hint: isPremium ? 'Alla funktioner upplåsta' : 'Lås upp Premium',
-      anchor: '#account',
+      anchor: '/dashboard/profil/prenumeration',
       tone: isPremium ? ('emerald' as const) : ('orange' as const),
     },
   ];

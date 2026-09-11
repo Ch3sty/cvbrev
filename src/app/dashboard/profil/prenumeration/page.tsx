@@ -15,6 +15,7 @@ import TrialCTACard from './components/TrialCTACard';
 import TidsbegransadPremiumCard from './components/TidsbegransadPremiumCard';
 import PlanCards from '@/components/pricing/PlanCards';
 import PrenumerationFAQ from './components/PrenumerationFAQ';
+import GratisMotPremium from './components/GratisMotPremium';
 
 const PREMIUM_MONTHLY_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00';
 const PRICING_ANCHOR_ID = 'pricing';
@@ -138,6 +139,10 @@ export default function PrenumerationPage() {
 
             <PremiumFeaturesGrid isPremium={true} />
 
+            {/* Tidsbegränsad premium: visa vad gratisnivån ger, så det är
+                tydligt vad som försvinner när perioden tar slut. */}
+            {isTemporaryPremium && <GratisMotPremium />}
+
             {/* Hantera prenumeration — endast för betalande */}
             {isPaidPremium && <ManageSubscriptionCard />}
 
@@ -164,6 +169,8 @@ export default function PrenumerationPage() {
             <div ref={pricingRef} id={PRICING_ANCHOR_ID}>
               <PlanCards className="py-0" />
             </div>
+
+            <GratisMotPremium />
 
             <PremiumFeaturesGrid isPremium={false} />
 

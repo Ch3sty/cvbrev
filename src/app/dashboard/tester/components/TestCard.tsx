@@ -59,13 +59,13 @@ export default function TestCard({
   const router = useRouter();
   const showLock = isPremiumLocked && !isUserPremium;
   const hasProgress = stats.attempts > 0;
-  const href = showLock ? '/priser' : `/dashboard/tester/${slug}`;
+  const href = showLock ? '/dashboard/profil/prenumeration' : `/dashboard/tester/${slug}`;
   const showBestAccent = isBestOverall && hasProgress;
 
   const handleClick = (e: React.MouseEvent) => {
     if (showLock) {
       e.preventDefault();
-      router.push('/priser');
+      router.push('/dashboard/profil/prenumeration');
     }
   };
 
