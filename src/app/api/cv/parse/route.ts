@@ -9,6 +9,7 @@ import type { CVMetadata } from '@/lib/cv/cv-metadata';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 import { logUserActivity } from '@/lib/activity-logger';
+import { backfillProfileContact } from '@/lib/profile/backfillContact';
 
 // Interface för AI-parsning resultat med metadata (samma som cv-parser-ai.ts)
 export interface AIParseResult {
@@ -85,7 +86,14 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    return NextResponse.json(result);
+    // Punkt 2: fyll tomma profilfält med det parsern redan hittat.
+    // Blockerar aldrig svaret, och skriver aldrig över befintliga värden.
+    const backfilled = await backfillProfileContact(
+      session.user.id,
+      (result.cvData as { personalInfo?: { phone?: unknown; address?: unknown } })?.personalInfo
+    );
+
+    return NextResponse.json({ ...result, backfilledContact: backfilled });
 
   } catch (error: any) {
     console.error('CV parsing API error:', error);

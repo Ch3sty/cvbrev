@@ -1,7 +1,24 @@
 'use client';
 
+/**
+ * Översikt av profilen (docs/plan-inloggat-saljflode.md, punkt 9).
+ *
+ * Omgjord enligt designsystemet: rounded-xl, border i stället för skugga,
+ * font-semibold som tyngst, inga gradientytor och inga gradientcirklar bakom
+ * ikoner. Illustrationerna kommer från primitives-systemet, aldrig lucide i
+ * en gradientruta.
+ *
+ * Korten är navigation, inte säljytor. Plankortet pekar på prenumerationen
+ * men fylls aldrig orange: en fylld yta per skärm, och den hör hemma i den
+ * primära handlingen.
+ */
+
 import { motion } from 'framer-motion';
-import { ArrowRight, Check, UserCircle, Mail, Crown } from 'lucide-react';
+import {
+  IlluProfilUppgifter,
+  IlluSkrivton,
+  IlluPlan,
+} from '@/components/illustrations/ProfileIllustrations';
 
 interface ProfileOverviewCardsProps {
   /** Hur många personliga uppgifter som är ifyllda */
@@ -22,128 +39,76 @@ export default function ProfileOverviewCards({
   hasActiveTrialOrPremium,
 }: ProfileOverviewCardsProps) {
   const isPremium = subscriptionTier === 'premium' || !!hasActiveTrialOrPremium;
+  const allFilled = filledFields === totalFields;
 
   const cards = [
     {
-      icon: <UserCircle className="w-5 h-5" strokeWidth={2} />,
+      Illu: IlluProfilUppgifter,
       eyebrow: 'Personliga uppgifter',
       title: `${filledFields} av ${totalFields} ifyllda`,
-      hint: filledFields === totalFields ? 'Allt på plats' : 'Komplettera nedan',
-      anchor: '#personal-details',
-      tone: 'orange' as const,
+      hint: allFilled ? 'Allt på plats' : 'Komplettera nedan',
+      href: '#personal-details',
+      tabularTitle: true,
     },
     {
-      icon: <Mail className="w-5 h-5" strokeWidth={2} />,
+      Illu: IlluSkrivton,
       eyebrow: 'Skrivton i brev',
       title: tonalityLabel,
       hint: 'Används i dina personliga brev',
-      anchor: '#tonality',
-      tone: 'orange' as const,
+      href: '#tonality',
+      tabularTitle: false,
     },
     {
-      icon: <Crown className="w-5 h-5" strokeWidth={2} />,
-      eyebrow: 'Plan & konto',
+      Illu: IlluPlan,
+      eyebrow: 'Plan och konto',
       title: isPremium ? 'Premium aktiv' : 'Gratisplan',
-      hint: isPremium ? 'Alla funktioner upplåsta' : 'Lås upp Premium',
-      anchor: '/dashboard/profil/prenumeration',
-      tone: isPremium ? ('emerald' as const) : ('orange' as const),
+      hint: isPremium ? 'Alla funktioner upplåsta' : 'Se vad Premium ger',
+      href: '/dashboard/profil/prenumeration',
+      tabularTitle: false,
     },
   ];
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl bg-white p-5 sm:p-6"
-      style={{
-        border: '1px solid rgba(249, 115, 22, 0.18)',
-        boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)',
-      }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       aria-label="Översikt av din profil"
     >
-      {/* Subtilt prick-pattern */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
-        aria-hidden="true"
-      >
-        <pattern
-          id="overview-dots"
-          x="0"
-          y="0"
-          width="24"
-          height="24"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="12" cy="12" r="1" fill="#FB923C" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#overview-dots)" />
-      </svg>
+      <h2 className="text-lg font-semibold text-neutral-900 tracking-tight mb-4">
+        Din profil i ett ögonkast
+      </h2>
 
-      <div className="relative">
-        <div className="mb-4 sm:mb-5">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700">
-            Översikt
-          </div>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
-            Din profil i ett ögonkast
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-          {cards.map((card) => (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {cards.map((card) => {
+          const { Illu } = card;
+          return (
             <a
               key={card.eyebrow}
-              href={card.anchor}
-              className="group relative rounded-2xl p-4 transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(249, 115, 22, 0.05) 0%, rgba(220, 38, 38, 0.03) 100%)',
-                border: '1px solid rgba(249, 115, 22, 0.2)',
-              }}
+              href={card.href}
+              className="group bg-white rounded-xl border border-neutral-200 p-4 transition-colors hover:border-neutral-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
             >
               <div className="flex items-start gap-3">
-                <div
-                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-                  style={{
-                    background:
-                      card.tone === 'emerald'
-                        ? 'linear-gradient(135deg, #10B981, #059669)'
-                        : 'linear-gradient(135deg, #F97316, #DC2626)',
-                    boxShadow:
-                      card.tone === 'emerald'
-                        ? '0 6px 14px -6px rgba(16, 185, 129, 0.4)'
-                        : '0 6px 14px -6px rgba(220, 38, 38, 0.4)',
-                  }}
-                >
-                  {card.icon}
-                </div>
+                <span className="shrink-0 text-neutral-900" aria-hidden="true">
+                  <Illu size={40} />
+                </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-0.5">
-                    {card.eyebrow}
-                  </div>
-                  <div className="text-sm font-bold text-slate-900 leading-tight mb-1 truncate">
-                    {card.title}
-                  </div>
+                  <div className="text-xs text-neutral-500 mb-0.5">{card.eyebrow}</div>
                   <div
-                    className={`flex items-center gap-1 text-xs ${
-                      card.tone === 'emerald' ? 'text-emerald-700' : 'text-slate-600'
+                    className={`text-sm font-semibold text-neutral-900 leading-snug truncate ${
+                      card.tabularTitle ? 'tabular-nums' : ''
                     }`}
                   >
-                    {card.tone === 'emerald' ? (
-                      <Check className="w-3 h-3 flex-shrink-0" strokeWidth={3} />
-                    ) : null}
-                    <span className="truncate">{card.hint}</span>
+                    {card.title}
+                  </div>
+                  <div className="text-xs text-neutral-600 truncate mt-0.5">
+                    {card.hint}
                   </div>
                 </div>
-                <ArrowRight
-                  className="w-4 h-4 text-orange-500 flex-shrink-0 mt-1 transition-transform group-hover:translate-x-0.5"
-                  strokeWidth={2.25}
-                />
               </div>
             </a>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </motion.section>
   );

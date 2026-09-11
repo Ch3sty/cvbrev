@@ -71,7 +71,10 @@ export async function GET(request: NextRequest) {
     (typeof meta.name === 'string' && meta.name) ||
     user.email?.split('@')[0] ||
     'Användare'
-  const avatarUrl = typeof meta.avatar_url === 'string' ? meta.avatar_url : null
+  const avatarUrl =
+    (typeof meta.avatar_url === 'string' && meta.avatar_url) ||
+    (typeof meta.picture === 'string' && meta.picture) ||
+    null
 
   // Attribution ligger i jc_attr-cookien (SameSite=Lax, så den överlever
   // Googles redirect). Vi skickar den vidare till post-signup som acquisition.
@@ -90,7 +93,7 @@ export async function GET(request: NextRequest) {
 
     const { data: profile } = await (admin as any)
       .from('profiles')
-      .select('id, created_at, full_name')
+      .select('id, created_at, full_name, email, profile_photo_url')
       .eq('id', user.id)
       .maybeSingle()
 
@@ -102,7 +105,7 @@ export async function GET(request: NextRequest) {
         email: user.email,
         full_name: fullName,
       }
-      if (avatarUrl) insert.avatar_url = avatarUrl
+      if (avatarUrl) insert.profile_photo_url = avatarUrl
       const { error: insertError } = await (admin as any).from('profiles').insert(insert)
       if (insertError && insertError.code !== '23505') {
         console.error('[auth/callback] Kunde inte skapa profilrad:', insertError)
@@ -111,9 +114,14 @@ export async function GET(request: NextRequest) {
       const createdAt = profile.created_at ? new Date(profile.created_at).getTime() : 0
       isNewAccount = createdAt > 0 && Date.now() - createdAt < NEW_ACCOUNT_WINDOW_MS
 
-      // Fyll i namnet om triggern missade det.
-      if (!profile.full_name && fullName) {
-        await (admin as any).from('profiles').update({ full_name: fullName }).eq('id', user.id)
+      // Fyll luckor som triggern kan ha missat. E-posten kopieras alltid
+      // från auth: den är sanningen och profilraden ska aldrig avvika.
+      const patch: Record<string, unknown> = {}
+      if (!profile.full_name && fullName) patch.full_name = fullName
+      if (!profile.email && user.email) patch.email = user.email
+      if (!profile.profile_photo_url && avatarUrl) patch.profile_photo_url = avatarUrl
+      if (Object.keys(patch).length > 0) {
+        await (admin as any).from('profiles').update(patch).eq('id', user.id)
       }
     }
   } catch (profileError) {

@@ -5,6 +5,7 @@ import { getJobStatus } from '@/lib/cv/background-jobs';
 import { markFirstMilestone, logActivityServer } from '@/lib/activation-tracking';
 import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
+import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -164,6 +165,11 @@ export async function GET(
     // reverse trial passerar userHasPremiumAccess och får allt.
     const hasPremium = await userHasPremiumAccess(supabase, user.id);
     const gatedResult = gateAnalysisResult(job.result, hasPremium);
+
+    // Punkt 12: att faktiskt se hela analysen är premiumanvändning.
+    if (hasPremium && job.status === 'completed') {
+      logPremiumUsage(user.id, 'cv_analysis_full', { jobId });
+    }
 
     // Returnera status
     return NextResponse.json({

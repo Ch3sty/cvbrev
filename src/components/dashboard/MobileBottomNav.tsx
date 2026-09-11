@@ -10,13 +10,14 @@
  * container i layout.tsx så att den bara visas på mobil.
  *
  * Datakontrakt:
- *   cvCount  — om 0 redirectas FAB-knappen till /dashboard/profil/cv
+ *   cvCount  - om 0 redirectas FAB-knappen till /dashboard/profil/cv
  *              istället för /dashboard/skapa-brev (gating).
  */
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, PenTool, Briefcase, User, Plus, Lock } from 'lucide-react';
+import { useProfile } from '@/hooks/use-profile';
 
 interface MobileBottomNavProps {
   cvCount: number;
@@ -30,6 +31,9 @@ interface TabItem {
   matchPaths: string[];
 }
 
+/** Dygn kvar då Profil-sloten börjar bära prick. */
+const DOT_THRESHOLD_DAYS = 2;
+
 const LEFT_TABS: TabItem[] = [
   { id: 'home',  label: 'Hem',   href: '/dashboard',           icon: Home,      matchPaths: ['/dashboard'] },
   { id: 'brev',  label: 'Brev',  href: '/dashboard/mina-brev', icon: PenTool,   matchPaths: ['/dashboard/mina-brev', '/dashboard/skapa-brev'] },
@@ -41,8 +45,21 @@ const RIGHT_TABS: TabItem[] = [
 
 export default function MobileBottomNav({ cvCount }: MobileBottomNavProps) {
   const pathname = usePathname() ?? '/dashboard';
+  const { premiumUntil, subscriptionTier, subscriptionStatus } = useProfile();
   const hasCv = cvCount > 0;
   const fabHref = hasCv ? '/dashboard/skapa-brev' : '/dashboard/profil/cv';
+
+  // Pricken är en notis om något som faktiskt händer, inte en permanent
+  // säljknapp. Den tänds när premium tar slut inom kort eller när en
+  // betalning behöver åtgärdas.
+  const paymentNeedsAction = ['past_due', 'unpaid'].includes(subscriptionStatus ?? '');
+  const daysLeft =
+    premiumUntil && subscriptionTier === 'premium'
+      ? Math.ceil((premiumUntil.getTime() - Date.now()) / 86400000)
+      : null;
+  const showPremiumDot =
+    paymentNeedsAction ||
+    (daysLeft !== null && daysLeft >= 0 && daysLeft <= DOT_THRESHOLD_DAYS);
 
   const isActive = (item: TabItem) => {
     if (item.id === 'home') return pathname === '/dashboard';
@@ -65,7 +82,7 @@ export default function MobileBottomNav({ cvCount }: MobileBottomNavProps) {
         <Link
           href={fabHref}
           aria-label={hasCv ? 'Skapa nytt brev' : 'Lägg till CV'}
-          className="absolute left-1/2 -translate-x-1/2 -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white touch-manipulation"
+          className="absolute left-1/2 -translate-x-1/2 -top-5 w-14 h-14 rounded-xl flex items-center justify-center text-white touch-manipulation"
           style={{
             background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
             boxShadow: '0 10px 24px -6px rgba(220, 38, 38, 0.5), 0 0 0 4px white',
@@ -76,7 +93,12 @@ export default function MobileBottomNav({ cvCount }: MobileBottomNavProps) {
 
         <div className="flex items-center flex-1 justify-around pl-12">
           {RIGHT_TABS.map((tab) => (
-            <NavTab key={tab.id} tab={tab} active={isActive(tab)} />
+            <NavTab
+              key={tab.id}
+              tab={tab}
+              active={isActive(tab)}
+              dot={tab.id === 'profil' && showPremiumDot}
+            />
           ))}
         </div>
       </div>
@@ -84,7 +106,15 @@ export default function MobileBottomNav({ cvCount }: MobileBottomNavProps) {
   );
 }
 
-function NavTab({ tab, active }: { tab: TabItem; active: boolean }) {
+function NavTab({
+  tab,
+  active,
+  dot,
+}: {
+  tab: TabItem;
+  active: boolean;
+  dot?: boolean;
+}) {
   const Icon = tab.icon;
   return (
     <Link
@@ -93,7 +123,15 @@ function NavTab({ tab, active }: { tab: TabItem; active: boolean }) {
         active ? 'text-orange-600' : 'text-slate-400'
       }`}
     >
-      <Icon className="w-5 h-5" strokeWidth={active ? 2.25 : 1.75} />
+      <span className="relative">
+        <Icon className="w-5 h-5" strokeWidth={active ? 2.25 : 1.75} />
+        {dot && (
+          <span
+            aria-hidden="true"
+            className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+          />
+        )}
+      </span>
       <span className={`text-[10px] ${active ? 'font-bold' : 'font-semibold'}`}>{tab.label}</span>
     </Link>
   );

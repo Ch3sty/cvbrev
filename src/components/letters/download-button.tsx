@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { FileText, Download, Loader, Eye, X, ChevronDown } from 'lucide-react';
 import { TemplateType } from '@/lib/pdf/letter-templates';
 import EmailNotVerifiedNotice from '@/components/shared/EmailNotVerifiedNotice';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 
 interface DownloadButtonProps {
   format: 'pdf' | 'docx';
@@ -48,6 +49,8 @@ export default function DownloadButton({
   // B1: servern svarade 403 email_not_verified. Hanteras internt, sa alla
   // vyer som anvander knappen far meddelandet utan egen kod.
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null | undefined>(undefined);
+  // Punkt 13: sant när servern svarat 422 name_required.
+  const [needsName, setNeedsName] = useState(false);
 
   const templateOptions = [
     { value: 'formal' as TemplateType, label: 'Formell', description: 'Klassisk formell brevmall enligt svenska standarder' },
@@ -86,6 +89,7 @@ export default function DownloadButton({
         onLoadingChange?.(false);
         onPremiumRequired?.();
         return;
+      }
 
       // B1: e-posten är inte bekräftad ännu. Visa raden med "Skicka igen".
       if (response.status === 403) {
@@ -96,6 +100,16 @@ export default function DownloadButton({
           return;
         }
       }
+
+      // Punkt 13: namnet saknas. Fältet visas inline och nedladdningen
+      // görs om automatiskt när det sparats.
+      if (response.status === 422) {
+        const data = await response.json().catch(() => ({}));
+        if (data?.error === 'name_required') {
+          onLoadingChange?.(false);
+          setNeedsName(true);
+          return;
+        }
       }
 
       if (!response.ok) {
@@ -333,6 +347,15 @@ export default function DownloadButton({
       
       {unverifiedEmail !== undefined && (
         <EmailNotVerifiedNotice email={unverifiedEmail} />
+      )}
+
+      {needsName && (
+        <NameRequiredNotice
+          onSaved={() => {
+            setNeedsName(false);
+            void handleDownload();
+          }}
+        />
       )}
 
       {/* Error message */}

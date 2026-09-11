@@ -40,8 +40,8 @@ const EMPTY_FORM: ProfileFormState = {
   location: '',
   goal_role: '',
   industry: '',
-  include_phone_in_letters: false,
-  include_location_in_letters: false,
+  include_phone_in_letters: true,
+  include_location_in_letters: true,
 };
 
 export default function ProfilPage() {
@@ -77,8 +77,8 @@ export default function ProfilPage() {
         location: profile.location || '',
         goal_role: (profile as any).goal_role || '',
         industry: (profile as any).industry || '',
-        include_phone_in_letters: profile.include_phone_in_letters || false,
-        include_location_in_letters: profile.include_location_in_letters || false,
+        include_phone_in_letters: profile.include_phone_in_letters ?? true,
+        include_location_in_letters: profile.include_location_in_letters ?? true,
       };
       setFormData(next);
       setSavedSnapshot(next);

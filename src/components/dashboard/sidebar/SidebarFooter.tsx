@@ -1,18 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { BuggIcon, KontaktIcon, LoggaUtIcon, ShieldIcon } from './illustrations/MenuIcons';
+import { BuggIcon, KontaktIcon, ShieldIcon } from './illustrations/MenuIcons';
 
 interface SidebarFooterProps {
   isAdmin: boolean;
-  onLogout: () => void;
   isMobile?: boolean;
   onLinkClick?: () => void;
 }
 
 export default function SidebarFooter({
   isAdmin,
-  onLogout,
   isMobile,
   onLinkClick,
 }: SidebarFooterProps) {
@@ -58,14 +56,8 @@ export default function SidebarFooter({
         </Link>
       </div>
 
-      {/* Logga ut */}
-      <button
-        onClick={onLogout}
-        className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50/60 transition-colors text-xs font-semibold"
-      >
-        <LoggaUtIcon className="w-3.5 h-3.5 flex-shrink-0" />
-        <span>Logga ut</span>
-      </button>
+      {/* Utloggningen bor numera i headerns profilmeny, sa kontoatgarderna
+          har en enda plats (punkt 9). */}
     </div>
   );
 }

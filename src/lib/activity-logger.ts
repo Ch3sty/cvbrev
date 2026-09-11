@@ -27,6 +27,7 @@ export type ActivityType =
   | 'password_changed'          // Lösenord ändrat
   | 'upgrade_clicked'           // Klickade på uppgraderingsknapp
   | 'premium_feature_attempt'   // Försökte använda premium-funktion (som gratis)
+  | 'premium_feature_used'      // Använde en premium-gatad funktion (punkt 12)
   | 'setting_changed'          // Ändrade inställning (t.ex. språk, tonalitet)
   | 'competence_analysis_started'   // Kompetensanalys startades
   | 'competence_analysis_completed' // Kompetensanalys slutfördes

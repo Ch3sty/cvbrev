@@ -143,10 +143,10 @@ export default function DashboardSnabbAtgarder({
   return (
     <section>
       <div className="mb-4">
-        <h2 className="text-lg sm:text-xl font-black text-slate-900 mb-1">
+        <h2 className="text-lg font-semibold text-neutral-900 tracking-tight mb-1">
           Snabbåtgärder
         </h2>
-        <p className="text-sm text-slate-500">Vad vill du göra härnäst?</p>
+        <p className="text-sm text-neutral-600">Vad vill du göra härnäst?</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
@@ -161,46 +161,35 @@ export default function DashboardSnabbAtgarder({
               key={title}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              transition={{ duration: 0.2, ease: 'easeOut', delay: idx * 0.03 }}
             >
               <div
-                className={`group relative rounded-3xl p-5 transition-all duration-200 hover:-translate-y-0.5 ${
+                className={`group relative rounded-xl p-4 sm:p-5 bg-white border transition-colors ${
                   recommended
-                    ? 'bg-orange-50/60 border-2 border-orange-300 hover:border-orange-400'
-                    : 'bg-white border border-orange-100 hover:border-orange-200'
+                    ? 'border-orange-600 ring-4 ring-orange-50'
+                    : 'border-neutral-200 hover:border-neutral-300'
                 }`}
-                style={{
-                  boxShadow: recommended
-                    ? '0 8px 24px -8px rgba(249, 115, 22, 0.25)'
-                    : '0 4px 16px -8px rgba(249, 115, 22, 0.12)',
-                }}
               >
                 {/* Länköverdraget bär hela kortets klick; z-10 under popovern */}
                 <Link
                   href={targetHref}
                   aria-label={locked ? `${title} (kräver CV)` : title}
-                  className="absolute inset-0 z-10 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300"
+                  className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
                 />
 
                 {locked && (
-                  <div className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-[9px] font-black uppercase tracking-[0.12em] text-orange-700 pointer-events-none">
-                    <Lock className="w-2.5 h-2.5" strokeWidth={3} />
+                  <div className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white border border-neutral-200 text-[11px] font-medium text-neutral-600 pointer-events-none">
+                    <Lock className="w-3 h-3" strokeWidth={2} />
                     CV krävs
                   </div>
                 )}
                 {recommended && (
-                  <div
-                    className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white pointer-events-none"
-                    style={{ background: 'var(--jc-gradient-warm)' }}
-                  >
+                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-orange-50 border border-orange-200 text-[11px] font-medium text-orange-700 pointer-events-none">
                     Rekommenderas nu
                   </div>
                 )}
                 {!locked && !recommended && isNew && (
-                  <div
-                    className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-[0.12em] text-white pointer-events-none"
-                    style={{ background: 'var(--jc-gradient-warm)' }}
-                  >
+                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-white border border-neutral-200 text-[11px] font-medium text-neutral-600 pointer-events-none">
                     Nyhet
                   </div>
                 )}
@@ -208,7 +197,7 @@ export default function DashboardSnabbAtgarder({
                 <Icon className="w-12 h-12 mb-4" />
 
                 <div className="flex items-center mb-1">
-                  <h3 className="text-base font-black text-slate-900 leading-tight">
+                  <h3 className="text-base font-semibold text-neutral-900 leading-snug">
                     {title}
                   </h3>
                   <span className="relative z-20 inline-flex">
@@ -217,11 +206,11 @@ export default function DashboardSnabbAtgarder({
                     </InfoPopover>
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 leading-relaxed mb-3">
+                <p className="text-sm text-neutral-600 leading-relaxed mb-3">
                   {body}
                 </p>
 
-                <div className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 group-hover:text-orange-800">
+                <div className="inline-flex items-center gap-1 text-sm font-medium text-orange-700 group-hover:text-orange-800">
                   {locked ? 'Ladda upp CV' : 'Öppna'}
                   <ArrowRight
                     className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"

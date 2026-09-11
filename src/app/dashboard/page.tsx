@@ -23,6 +23,7 @@ import TrialStatusRow from '@/components/dashboard/TrialStatusRow';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
 import PurchaseConfirmation from '@/components/dashboard/PurchaseConfirmation';
 import QuotaNudgeRow from '@/components/dashboard/QuotaNudgeRow';
+import ProfilKomplettering from '@/components/dashboard/ProfilKomplettering';
 // Tillstånden
 import DashboardHero, { deriveDashboardState } from '@/components/dashboard/DashboardHero';
 import DashboardStatusRow from '@/components/dashboard/DashboardStatusRow';
@@ -370,7 +371,10 @@ export default function DashboardPage() {
       />
 
       {state === 'B' && (
-        <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+        <>
+          <ProfilKomplettering />
+          <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+        </>
       )}
 
       {state === 'C' && (
@@ -382,11 +386,11 @@ export default function DashboardPage() {
             streakDays={stats.dailyStreak || 0}
           />
 
-          {/* Visas bara när dagens brevkvot är slut. */}
-          <QuotaNudgeRow
-            isPremium={isPremium}
-            lettersToday={stats.weeklyLetterCount || 0}
-          />
+          {/* Alla gratiskvoter som en rad, alltid synlig (punkt 7). */}
+          <QuotaNudgeRow isPremium={isPremium} />
+
+          {/* Saknade kontaktuppgifter, bara när något faktiskt saknas. */}
+          <ProfilKomplettering />
 
           {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport). */}
           {rewardClaimed && <NastaSteg action={nextAction} onDismiss={dismissNextAction} />}

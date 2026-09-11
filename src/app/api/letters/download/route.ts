@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
@@ -309,12 +310,19 @@ export async function POST(request: Request) {
       .eq('id', user.id)
       .single();
 
+    // Punkt 13: exportera aldrig med e-postens lokaldel som avsändarnamn.
+    // Klienten visar ett inline-fält och gör om anropet, så det här är en
+    // fråga och inte ett fel.
+    if (!profileData?.full_name || !profileData.full_name.trim()) {
+      return NextResponse.json({ error: 'name_required' }, { status: 422 });
+    }
+
     // Förbered metadata med användarens information
     const enhancedMetadata: LetterMetadata = {
       title: title || 'Ansökningsbrev',
       company: company || '',
       position: position || '',
-      author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
+      author: profileData.full_name,
       email: user.email || '',
       phone: profileData?.phone || '',
       location: profileData?.location || '',
@@ -344,6 +352,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
     }
     
+    // Punkt 12: logga först när filen faktiskt finns. Premiumanvändning
+    // under trial driver copyn i UpgradeSheet på dag 4 till 5.
+    logPremiumUsage(user.id, 'letter_download', { format });
+
     // Returnera filen som en nedladdningsbar blob
     const response = new NextResponse(fileData);
     response.headers.set('Content-Type', fileType);

@@ -1,9 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 import SidebarLogo from './sidebar/SidebarLogo';
@@ -11,21 +9,17 @@ import SidebarSection from './sidebar/SidebarSection';
 import SidebarLink from './sidebar/SidebarLink';
 import BliUpptacktSidebarLink from './sidebar/BliUpptacktSidebarLink';
 import SidebarFooter from './sidebar/SidebarFooter';
-import FeatureSpotlight from './sidebar/FeatureSpotlight';
 import {
   OversiktIcon,
   CvIcon,
   BrevIcon,
   SoktaTjansterIcon,
-  NyttCvIcon,
-  NyttBrevIcon,
   MallIcon,
   ForbattraIcon,
   JobbmatchningIcon,
   JobbcoachenIcon,
   LinkedinIcon,
   TesterIcon,
-  BeloningarIcon,
   ProfilIcon,
   KronaIcon,
 } from './sidebar/illustrations/MenuIcons';
@@ -36,11 +30,11 @@ interface DashboardSidebarProps {
 }
 
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
-  const pathname = usePathname();
-  const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
   // Kort status bredvid Premium-raden: "5 dagar kvar" / "Aktiv" / "Gratis".
   const [premiumLabel, setPremiumLabel] = useState<string | null>(null);
+  // Ramen tänds bara när Premium betyder något: gratis, eller snart slut.
+  const [premiumNeedsAttention, setPremiumNeedsAttention] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
@@ -80,16 +74,20 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         if (liveSub) {
           setPremiumLabel('Aktiv');
+          setPremiumNeedsAttention(false);
         } else if (hasPremiumTier && hasPremiumUntil) {
           const daysLeft = Math.max(
             1,
             Math.ceil((new Date(profile!.premium_until as string).getTime() - Date.now()) / 86400000)
           );
           setPremiumLabel(`${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`);
+          setPremiumNeedsAttention(daysLeft <= 2);
         } else if (hasPremiumTier) {
           setPremiumLabel('Aktiv');
+          setPremiumNeedsAttention(false);
         } else {
           setPremiumLabel('Gratis');
+          setPremiumNeedsAttention(true);
         }
 
         const { data: adminData } = await supabase
@@ -107,7 +105,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         // Realtime: lyssna pa cv_texts + letters sa countarna uppdateras direkt
         // efter att anvandaren laddar upp CV / sparar brev (utan ctrl+shift+r).
-        // Filtrerat pa den inloggade anvandaren — annars triggas refreshCounts
+        // Filtrerat pa den inloggade anvandaren, annars triggas refreshCounts
         // av ALLA anvandares andringar (onodiga queries + integritetslackage).
         channels.push(
           supabase
@@ -169,13 +167,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     };
   }, [supabase]);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/';
-  };
-
   const hasNoCv = cvCount !== null && cvCount === 0;
-  const isProfilActive = pathname === '/dashboard/profil' || pathname.startsWith('/dashboard/profil/');
 
   return (
     <div
@@ -191,7 +183,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         className="flex-1 px-2 py-4 space-y-5 overflow-y-auto"
         style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
       >
-        {/* HUVUDMENY */}
+        {/* KÄRNFLÖDE: det som används dagligen, utan rubrik */}
         <SidebarSection>
           <SidebarLink
             href="/dashboard"
@@ -200,13 +192,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-        </SidebarSection>
-
-        {/* MINA DOKUMENT */}
-        <SidebarSection eyebrow="Mina dokument">
           <SidebarLink
             href="/dashboard/profil/cv"
-            label="Mina CV:n"
+            label="CV"
             icon={CvIcon}
             count={cvCount}
             sublabel={hasNoCv ? 'Ladda upp ditt första CV' : undefined}
@@ -216,9 +204,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
           <SidebarLink
             href="/dashboard/mina-brev"
-            label="Sparade brev"
+            label="Brev"
             icon={BrevIcon}
             count={letterCount}
+            sublabel={hasNoCv ? 'Ladda upp CV först' : undefined}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -227,30 +216,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Sökta tjänster"
             icon={SoktaTjansterIcon}
             count={applicationCount}
-            badge={
-              <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
-                Nyhet
-              </span>
-            }
             isMobile={isMobile}
             onClick={onClose}
           />
         </SidebarSection>
 
-        {/* SKAPA NYTT */}
-        <SidebarSection eyebrow="Skapa nytt">
+        {/* VERKTYG: värdefullt men inte dagligt */}
+        <SidebarSection eyebrow="Verktyg">
           <SidebarLink
-            href="/dashboard/skapa-cv"
-            label="Nytt CV"
-            icon={NyttCvIcon}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
-          <SidebarLink
-            href="/dashboard/skapa-brev"
-            label="Nytt personligt brev"
-            icon={NyttBrevIcon}
-            sublabel={hasNoCv ? 'Ladda upp CV först' : undefined}
+            href="/dashboard/cv-analys"
+            label="Förbättra CV"
+            icon={ForbattraIcon}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -261,17 +237,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-        </SidebarSection>
-
-        {/* UPPTÄCK */}
-        <SidebarSection eyebrow="Upptäck">
-          <SidebarLink
-            href="/dashboard/cv-analys"
-            label="Förbättra CV"
-            icon={ForbattraIcon}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
           <SidebarLink
             href="/dashboard/jobbmatchning"
             label="Jobbmatchning"
@@ -279,7 +244,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-          <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
           <SidebarLink
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
@@ -289,7 +253,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
           <SidebarLink
             href="/dashboard/linkedin-optimizer"
-            label="Förbättra LinkedIn-profil"
+            label="LinkedIn"
             icon={LinkedinIcon}
             isMobile={isMobile}
             onClick={onClose}
@@ -301,111 +265,37 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-          <SidebarLink
-            href="/dashboard/rewards"
-            label="Belöningar"
-            icon={BeloningarIcon}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
+          <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
         </SidebarSection>
 
-        {/* Feature spotlight */}
-        <FeatureSpotlight isMobile={isMobile} onLinkClick={onClose} />
-
-        {/* KONTO */}
+        {/* KONTO: Premium först, sedan profilen */}
         <SidebarSection eyebrow="Konto">
-          {/* Alltid synlig ingång till Premium. Lågmäld: en rad som alla
-              andra, med status i sublabel. Den som vill köpa proaktivt ska
-              inte behöva slå i en betalvägg först. */}
+          {/* Premium-raden är en rad som alla andra. Den får en tunn
+              orange ram bara när kontot är gratis eller nära slutet, så
+              att den syns när den betyder något. Aldrig fylld orange yta:
+              den primära handlingen ligger i innehållet, inte i menyn. */}
           <SidebarLink
             href="/dashboard/profil/prenumeration"
             label="Premium"
             icon={KronaIcon}
             sublabel={premiumLabel ?? undefined}
+            highlight={premiumNeedsAttention}
             isMobile={isMobile}
             onClick={onClose}
           />
-          <li>
-            <Link
-              href="/dashboard/profil"
-              prefetch={true}
-              onClick={() => isMobile && onClose?.()}
-              className={`group relative flex items-center gap-3 rounded-xl px-2.5 py-2 transition-all duration-200 ${
-                isMobile ? 'min-h-[56px]' : 'min-h-[44px]'
-              } ${
-                isProfilActive
-                  ? 'bg-gradient-to-r from-orange-50 to-rose-50/60'
-                  : 'hover:bg-orange-50/60'
-              }`}
-            >
-              {isProfilActive && (
-                <span
-                  aria-hidden="true"
-                  className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full"
-                  style={{
-                    background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                  }}
-                />
-              )}
-
-              <motion.div
-                whileHover={{ scale: 1.06 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-                className={`relative flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center ${
-                  isProfilActive ? 'text-white' : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
-                }`}
-                style={
-                  isProfilActive
-                    ? {
-                        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                        boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
-                      }
-                    : undefined
-                }
-              >
-                <ProfilIcon className="w-[18px] h-[18px]" />
-                {isPremium && (
-                  <span
-                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
-                    style={{
-                      background: 'linear-gradient(135deg, #FBBF24, #F59E0B)',
-                      boxShadow: '0 2px 6px rgba(245, 158, 11, 0.5)',
-                    }}
-                  >
-                    <KronaIcon className="w-2.5 h-2.5 text-white" />
-                  </span>
-                )}
-              </motion.div>
-
-              <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
-                <span
-                  className={`text-sm font-semibold leading-tight truncate ${
-                    isProfilActive ? 'text-orange-900' : 'text-slate-700'
-                  }`}
-                >
-                  Profil & prenumeration
-                </span>
-                {isPremium && (
-                  <span
-                    className="flex-shrink-0 text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded text-amber-900"
-                    style={{
-                      background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)',
-                    }}
-                  >
-                    Pro
-                  </span>
-                )}
-              </div>
-            </Link>
-          </li>
+          <SidebarLink
+            href="/dashboard/profil"
+            label="Profil"
+            icon={ProfilIcon}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
         </SidebarSection>
       </nav>
 
       {/* Footer */}
       <SidebarFooter
         isAdmin={isAdmin}
-        onLogout={handleLogout}
         isMobile={isMobile}
         onLinkClick={onClose}
       />

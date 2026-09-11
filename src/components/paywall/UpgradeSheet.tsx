@@ -10,6 +10,7 @@
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { PLANS, type PlanKey } from '@/lib/plans/plans'
+import type { PremiumLossItem } from '@/app/api/premium/usage-summary/route'
 import { IlluDagspass, IlluVecka, IlluManad, IlluKvartal } from '@/components/illustrations/PriserIllustrations'
 
 export type PlanOrder = 'daypass-first' | 'month-first'
@@ -20,6 +21,12 @@ interface UpgradeSheetProps {
   order?: PlanOrder
   /** Varifrån sheeten öppnades, loggas som metadata på checkout-sessionen */
   source?: string
+  /**
+   * Punkt 11: visa "det här förlorar du" ovanför produkterna. Sätts av
+   * statusraden dag 4 till 5 och vid engångsköp som håller på att ta slut.
+   * Raderna sorteras efter vad användaren faktiskt hunnit använda.
+   */
+  showLossSummary?: boolean
 }
 
 const ICONS: Record<PlanKey, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -29,9 +36,27 @@ const ICONS: Record<PlanKey, React.ComponentType<{ size?: number; className?: st
   quarter: IlluKvartal,
 }
 
-export default function UpgradeSheet({ open, onClose, order = 'daypass-first', source }: UpgradeSheetProps) {
+export default function UpgradeSheet({ open, onClose, order = 'daypass-first', source, showLossSummary }: UpgradeSheetProps) {
   const [loading, setLoading] = useState<PlanKey | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [losses, setLosses] = useState<PremiumLossItem[] | null>(null)
+
+  // Hämtas först när sheeten öppnas: ingen anledning att fråga i förväg.
+  useEffect(() => {
+    if (!open || !showLossSummary || losses) return
+    let cancelled = false
+    fetch('/api/premium/usage-summary')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.losses) setLosses(data.losses as PremiumLossItem[])
+      })
+      .catch(() => {
+        /* utan svar visar vi bara produkterna */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [open, showLossSummary, losses])
 
   useEffect(() => {
     if (!open) return
@@ -104,6 +129,21 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
+
+        {/* Punkt 11: vad gratisnivån ger, sorterat efter vad hon använt. */}
+        {showLossSummary && losses && losses.length > 0 ? (
+          <div className="mb-4 rounded-lg border border-neutral-200 p-3">
+            <p className="text-sm font-semibold text-neutral-900">Utan Premium gäller det här</p>
+            <ul className="mt-2 space-y-1.5">
+              {losses.map((loss) => (
+                <li key={loss.label} className="flex items-baseline justify-between gap-3 text-sm">
+                  <span className="text-neutral-600 min-w-0">{loss.label}</span>
+                  <span className="text-neutral-900 font-medium whitespace-nowrap">{loss.free}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <ul className="space-y-2">
           {plans.map((plan, i) => {

@@ -29,9 +29,6 @@ export default function PrenumerationPage() {
     isTrialUser,
     isAdminGranted,
     hasStripeSubscription,
-    weeklyLetterCount,
-    cvCount,
-    savedLettersCount,
   } = useProfile();
 
   const searchParams = useSearchParams();
@@ -117,11 +114,7 @@ export default function PrenumerationPage() {
         {/* Premium-läge */}
         {isPremium && (
           <>
-            <UsageStats
-              cvCount={cvCount}
-              weeklyLetterCount={weeklyLetterCount}
-              savedLettersCount={savedLettersCount}
-            />
+            <UsageStats isPremium={isPremium} />
 
             {/* A8, tillstånd två: tidsbegränsad premium utan prenumeration.
                 Dagar kvar, "Förläng" och historik från premium_grants. */}
@@ -160,19 +153,13 @@ export default function PrenumerationPage() {
         {!isPremium && !hasStripeSubscription && (
           <>
             {/* A8, tillstånd tre: kvotöversikt och de fyra produktkorten. */}
-            <UsageStats
-              cvCount={cvCount}
-              weeklyLetterCount={weeklyLetterCount}
-              savedLettersCount={savedLettersCount}
-            />
+            <UsageStats isPremium={isPremium} />
 
             <div ref={pricingRef} id={PRICING_ANCHOR_ID}>
               <PlanCards className="py-0" />
             </div>
 
             <GratisMotPremium />
-
-            <PremiumFeaturesGrid isPremium={false} />
 
             <PrenumerationFAQ />
           </>

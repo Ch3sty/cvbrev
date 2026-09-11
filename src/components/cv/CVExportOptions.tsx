@@ -28,6 +28,7 @@ import { getTemplateById } from '@/lib/cv/simple-templates';
 import { useProfile } from '@/hooks/use-profile';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import EmailNotVerifiedNotice from '@/components/shared/EmailNotVerifiedNotice';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 import { createClient } from '@/lib/supabase/client';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -73,6 +74,8 @@ export default function CVExportOptions({
   const [exportGate, setExportGate] = useState(false);
   // B1: servern svarade 403 email_not_verified.
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null | undefined>(undefined);
+  // Punkt 13: sant när servern svarat 422 name_required.
+  const [needsName, setNeedsName] = useState(false);
   const { subscriptionTier, freeCvExportsUsed } = useProfile();
   const isPremium = subscriptionTier === 'premium';
   const supabase = createClient();
@@ -277,6 +280,15 @@ export default function CVExportOptions({
         const data = await response.json().catch(() => ({}));
         if (data?.error === 'email_not_verified') {
           setUnverifiedEmail(data?.email ?? null);
+          return;
+        }
+      }
+
+      // Punkt 13: namnet saknas. Fältet visas inline, exporten görs om.
+      if (response.status === 422) {
+        const data = await response.json().catch(() => ({}));
+        if (data?.error === 'name_required') {
+          setNeedsName(true);
           return;
         }
       }
@@ -701,6 +713,15 @@ export default function CVExportOptions({
             )}
             {unverifiedEmail !== undefined && (
               <EmailNotVerifiedNotice email={unverifiedEmail} className="w-full" />
+            )}
+            {needsName && (
+              <NameRequiredNotice
+                className="w-full"
+                onSaved={() => {
+                  setNeedsName(false);
+                  void handleExport();
+                }}
+              />
             )}
             {!isPremium && (exportGate || freeCvExportsUsed >= 1) && (
               <PaywallCard variant="cv-export" className="w-full" />

@@ -1,98 +1,93 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FileText, PenLine, Mail, Infinity as InfinityIcon } from 'lucide-react';
+/**
+ * Kvotöversikt på prenumerationssidan (punkt 1 i
+ * docs/plan-inloggat-saljflode.md).
+ *
+ * Komponenten sa tidigare "Inga gränser" och "Obegränsat" till
+ * gratisanvändare som har ett brev per dygn. Det var felaktig information på
+ * den enda sida där vi ber om pengar.
+ *
+ * Siffrorna kommer från /api/quota/summary, samma källa som dashboardens
+ * kvotrad. Räknas de på två ställen glider de isär.
+ */
+
+import { useEffect, useState } from 'react';
+import type { QuotaSummary } from '@/app/api/quota/summary/route';
 
 interface UsageStatsProps {
-  cvCount: number;
-  weeklyLetterCount: number;
-  savedLettersCount: number;
+  /** Sant för premium: då visas använt utan tak. */
+  isPremium: boolean;
 }
 
-export default function UsageStats({
-  cvCount,
-  weeklyLetterCount,
-  savedLettersCount,
-}: UsageStatsProps) {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.05 }}
-      className="bg-white rounded-3xl border border-orange-100 p-5 sm:p-6"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
-    >
-      <div className="flex items-center gap-3 mb-4 sm:mb-5">
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-white flex-shrink-0"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-            boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-          }}
-        >
-          <InfinityIcon className="w-5 h-5" strokeWidth={2.5} />
-        </div>
-        <div>
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
-            Din användning
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600">
-            Inga gränser — bara översikt över vad du gjort.
-          </p>
-        </div>
-      </div>
+export default function UsageStats({ isPremium }: UsageStatsProps) {
+  const [summary, setSummary] = useState<QuotaSummary | null>(null);
+  const [failed, setFailed] = useState(false);
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-        <StatItem
-          icon={<FileText className="w-4 h-4" strokeWidth={2.25} />}
-          label="Sparade CV"
-          value={`${cvCount}`}
-          sub={`av 50`}
-        />
-        <StatItem
-          icon={<PenLine className="w-4 h-4" strokeWidth={2.25} />}
-          label="Personliga brev denna vecka"
-          value={`${weeklyLetterCount}`}
-          sub="Obegränsat"
-        />
-        <StatItem
-          icon={<Mail className="w-4 h-4" strokeWidth={2.25} />}
-          label="Sparade personliga brev"
-          value={`${savedLettersCount}`}
-          sub="Obegränsat"
-        />
-      </div>
-    </motion.section>
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/quota/summary')
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('kvotfel'))))
+      .then((data: QuotaSummary) => {
+        if (!cancelled) setSummary(data);
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Hellre ingen sektion än fel siffror.
+  if (failed) return null;
+
+  return (
+    <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-6">
+      <h2 className="text-lg font-semibold text-neutral-900 tracking-tight">Din användning</h2>
+      <p className="text-sm text-neutral-600 mt-1">
+        {isPremium
+          ? 'Så mycket har du använt. Inga gränser på din plan.'
+          : 'Så mycket har du kvar idag. Kvoterna nollställs vid midnatt.'}
+      </p>
+
+      <dl className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {(summary?.items ?? PLACEHOLDERS).map((item) => {
+          const isLoading = !summary;
+          const isSpent = !isLoading && item.limit !== null && item.used >= item.limit;
+          return (
+            <div key={item.key}>
+              <dd
+                className={`text-lg tabular-nums leading-tight ${
+                  isSpent ? 'font-semibold text-neutral-900' : 'font-medium text-neutral-900'
+                }`}
+              >
+                {isLoading ? (
+                  <span className="inline-block h-5 w-12 rounded bg-neutral-100" aria-hidden="true" />
+                ) : item.limit === null ? (
+                  item.used
+                ) : (
+                  `${item.used} av ${item.limit}`
+                )}
+              </dd>
+              <dt className="text-sm text-neutral-600 mt-0.5">
+                {item.label}
+                {item.key === 'analysis' && item.limit !== null ? (
+                  <span className="text-neutral-500"> (72 h)</span>
+                ) : null}
+              </dt>
+            </div>
+          );
+        })}
+      </dl>
+    </section>
   );
 }
 
-function StatItem({
-  icon,
-  label,
-  value,
-  sub,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  sub: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-orange-50/60 border border-orange-100/80">
-      <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-white border border-orange-200 flex items-center justify-center text-orange-600">
-        {icon}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 mb-0.5">
-          {label}
-        </div>
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-xl sm:text-2xl font-bold text-slate-900 tabular-nums leading-none">
-            {value}
-          </span>
-          <span className="text-xs text-slate-500 truncate">{sub}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+/** Skelettrader medan svaret hämtas, i rätt ordning så inget hoppar. */
+const PLACEHOLDERS: QuotaSummary['items'] = [
+  { key: 'letters', label: 'Brev', used: 0, limit: 0 },
+  { key: 'analysis', label: 'Analys', used: 0, limit: 0 },
+  { key: 'chat', label: 'Chatt', used: 0, limit: 0 },
+  { key: 'tests', label: 'Tester', used: 0, limit: 0 },
+];

@@ -8,6 +8,7 @@ import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
 const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
@@ -2349,6 +2350,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Punkt 13: ett CV med e-postadressen som rubrik är värre än att fråga.
+    // Klienten visar fältet inline och gör om anropet automatiskt.
+    if (authedUserId && !userProfile?.full_name?.trim()) {
+      return NextResponse.json({ error: 'name_required' }, { status: 422 });
+    }
+
     // Use structured data if available and valid, otherwise parse from text.
     // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
     // hanterar bada formaten och returnerar null om strukturen ar trasig.
@@ -2451,6 +2458,9 @@ export async function POST(request: NextRequest) {
     // A2: räkna upp gratisexporten först när filen faktiskt finns. Villkoret
     // `.eq('free_cv_exports_used', 0)` gör uppräkningen atomisk, så två
     // parallella exporter aldrig ger två gratisfiler.
+    // Punkt 12: premiumanvändning under trial.
+    logPremiumUsage(authedUserId, 'cv_export', { template });
+
     if (shouldCountFreeExport && authedUserId) {
       try {
         await supabase

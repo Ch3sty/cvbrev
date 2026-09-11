@@ -7,6 +7,7 @@ import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
+import { backfillProfileContact } from '@/lib/profile/backfillContact';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
@@ -261,6 +262,19 @@ Alternativt: Ladda upp som .DOCX istället.`,
         );
       } catch (err) {
         console.warn('[upload] structured parsing failed, saving without:', err);
+      }
+    }
+
+    // Punkt 2: fyll tomma profilfält med kontaktuppgifter ur CV:t.
+    // Non-blocking, skriver aldrig över värden användaren själv angett.
+    if (structuredData?.contact) {
+      try {
+        await backfillProfileContact(user.id, {
+          phone: structuredData.contact.phone,
+          address: structuredData.contact.address,
+        });
+      } catch (backfillError) {
+        console.warn('[upload] profil-backfill misslyckades:', backfillError);
       }
     }
 
