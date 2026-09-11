@@ -75,7 +75,7 @@ export default function PlanCards({ heading, className }: PlanCardsProps) {
       // Utloggad går till registrering med produkten i frågesträngen, så
       // hon kan köpa direkt efter att kontot skapats.
       if (res.status === 401) {
-        router.push(`/register?plan=${plan}`)
+        router.push(`/register?redirect=${encodeURIComponent(`/kassa?plan=${plan}`)}`)
         return
       }
       const data = await res.json().catch(() => ({}))

@@ -48,6 +48,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('redirect') || '/dashboard'
+  const loginHref = redirectTo === '/dashboard' ? '/login' : `/login?redirect=${encodeURIComponent(redirectTo)}`
   const supabase = createClient()
 
   // Tre fält, tre lika stora delar av poängen.
@@ -170,7 +171,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
         errorMessage = (
           <>
             Det finns redan ett konto med den adressen.{' '}
-            <Link href="/login" className="font-semibold underline hover:text-red-900">
+            <Link href={loginHref} className="font-semibold underline hover:text-red-900">
               Logga in i stället
             </Link>
           </>
@@ -267,7 +268,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
           <p className="text-sm text-slate-600">
             Har du redan ett konto?{' '}
             <Link
-              href="/login"
+              href={loginHref}
               className="font-semibold text-orange-700 hover:text-orange-800 transition-colors"
             >
               Logga in

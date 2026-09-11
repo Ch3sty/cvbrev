@@ -90,7 +90,12 @@ export default function LoginForm() {
 
       // Godkända rekryterare hör hemma i rekryterarportalen, inte i
       // kandidat-dashboarden. Återanvänder guard-endpointen (svarar aldrig 403).
-      const destination = await resolvePostLoginDestination()
+      const resolved = await resolvePostLoginDestination()
+      // Respektera ?redirect= (t.ex. /kassa?plan=daypass från prissidan), men
+      // bara relativa sökvägar och aldrig för rekryterare.
+      const wanted = searchParams.get('redirect')
+      const safeRedirect = wanted && wanted.startsWith('/') && !wanted.startsWith('//') ? wanted : null
+      const destination = resolved === '/dashboard' && safeRedirect ? safeRedirect : resolved
       router.push(destination)
       router.refresh()
     } catch (err: any) {

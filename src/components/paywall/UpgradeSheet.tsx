@@ -63,7 +63,7 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
       })
       const data = await res.json().catch(() => ({}))
       if (res.status === 401) {
-        window.location.href = `/login?redirect=${encodeURIComponent('/priser')}`
+        window.location.href = `/login?redirect=${encodeURIComponent(`/kassa?plan=${plan}`)}`
         return
       }
       if (!res.ok || !data?.url) throw new Error(data?.error || 'Kunde inte starta betalningen.')
