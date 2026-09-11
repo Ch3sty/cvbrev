@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Target, CheckCircle2 } from 'lucide-react';
+import { ScanSearch, Zap, Target, CheckCircle2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface AnalysisProgressStepProps {
@@ -12,7 +12,7 @@ interface AnalysisProgressStepProps {
 }
 
 const activities = [
-  { icon: Sparkles, text: 'Analyserar ditt CV', color: 'from-pink-600 to-purple-600' },
+  { icon: ScanSearch, text: 'Analyserar ditt CV', color: 'from-pink-600 to-purple-600' },
   { icon: Target, text: 'Identifierar förbättringsmöjligheter', color: 'from-purple-600 to-blue-600' },
   { icon: Zap, text: 'Optimerar för ATS-system', color: 'from-blue-600 to-cyan-600' },
   { icon: CheckCircle2, text: 'Förbereder rekommendationer', color: 'from-cyan-600 to-teal-600' }

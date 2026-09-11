@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ChevronRight } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
@@ -30,8 +28,6 @@ import {
   BeloningarIcon,
   ProfilIcon,
   KronaIcon,
-  TargetIcon,
-  GiftIcon,
 } from './sidebar/illustrations/MenuIcons';
 
 interface DashboardSidebarProps {
@@ -44,13 +40,11 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [claimingReward, setClaimingReward] = useState(false);
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
   const [applicationCount, setApplicationCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
 
-  const { requiredCompletedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
 
   useEffect(() => {
     // Kanaler skapas async (efter att userId hamtats) men maste stadas i en
@@ -152,27 +146,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     };
   }, [supabase]);
 
-  const handleClaimReward = async () => {
-    setClaimingReward(true);
-    try {
-      const response = await fetch('/api/onboarding/claim-reward', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to claim reward');
-      }
-      markRewardClaimed();
-      router.push('/dashboard');
-    } catch (error) {
-      console.error('Error claiming reward:', error);
-      alert('Ett fel uppstod vid hämtning av belöning. Försök igen.');
-    } finally {
-      setClaimingReward(false);
-    }
-  };
-
   const handleLogout = async () => {
     await supabase.auth.signOut();
     window.location.href = '/';
@@ -195,78 +168,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         className="flex-1 px-2 py-4 space-y-5 overflow-y-auto"
         style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
       >
-        {/* Onboarding-block (Kom igång / Hämta belöning) */}
-        {!isLoading && !rewardClaimed && (
-          <div className="px-1">
-            {!onboardingCompleted && (
-              <Link
-                href="/dashboard/kom-igang"
-                onClick={() => isMobile && onClose?.()}
-                className={`relative overflow-hidden flex items-center justify-between gap-3 p-3 rounded-2xl text-white shadow-lg hover:shadow-2xl transition-all group ${
-                  isMobile ? 'min-h-[56px]' : 'min-h-[52px]'
-                }`}
-                style={{
-                  background:
-                    pathname === '/dashboard/kom-igang'
-                      ? 'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)'
-                      : 'linear-gradient(135deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
-                  boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                {/* Pulserande prick */}
-                <span className="absolute top-2 right-2 flex items-center justify-center pointer-events-none">
-                  <span className="absolute w-2.5 h-2.5 rounded-full bg-yellow-300 opacity-70 animate-ping" />
-                  <span className="relative w-1.5 h-1.5 rounded-full bg-yellow-300" />
-                </span>
-
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <TargetIcon className="w-5 h-5 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-sm leading-tight">Kom igång</div>
-                    <div className="text-[11px] opacity-90 mt-0.5">
-                      3 steg till 1 dag premium
-                    </div>
-                  </div>
-                </div>
-                <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-[11px] font-bold flex-shrink-0">
-                  {requiredCompletedCount}/3
-                </span>
-              </Link>
-            )}
-
-            {onboardingCompleted && !rewardClaimed && (
-              <button
-                onClick={handleClaimReward}
-                disabled={claimingReward}
-                className={`relative overflow-hidden w-full flex items-center justify-between gap-3 p-3 rounded-2xl text-white shadow-lg hover:shadow-2xl transition-all group ${
-                  isMobile ? 'min-h-[56px]' : 'min-h-[52px]'
-                } ${claimingReward ? 'cursor-not-allowed opacity-90' : ''}`}
-                style={{
-                  background: 'linear-gradient(135deg, #10B981 0%, #14B8A6 100%)',
-                  boxShadow: '0 8px 20px -6px rgba(16, 185, 129, 0.4)',
-                }}
-              >
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <GiftIcon className="w-5 h-5 flex-shrink-0" />
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="font-bold text-sm leading-tight">
-                      {claimingReward ? 'Hämtar...' : 'Hämta 1 dag premium'}
-                    </div>
-                    <div className="text-[11px] opacity-90 mt-0.5">
-                      {claimingReward ? 'Vänligen vänta' : 'Du har slutfört guiden'}
-                    </div>
-                  </div>
-                </div>
-                {claimingReward ? (
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin flex-shrink-0" />
-                ) : (
-                  <ChevronRight className="w-4 h-4 flex-shrink-0 opacity-80 group-hover:translate-x-0.5 transition-transform" />
-                )}
-              </button>
-            )}
-          </div>
-        )}
-
         {/* HUVUDMENY */}
         <SidebarSection>
           <SidebarLink

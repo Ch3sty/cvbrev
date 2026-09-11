@@ -7,11 +7,11 @@ import {
   Users,
   UserPlus,
   Gift,
-  Sparkles,
   Copy,
   Check,
   Mail,
-  Heart
+  Heart,
+  Star
 } from 'lucide-react';
 
 interface GuestInvitationButtonProps {
@@ -71,7 +71,6 @@ const GuestInvitationButton: React.FC<GuestInvitationButtonProps> = ({
             <div className="flex-1">
               <div className="flex items-center space-x-2">
                 <span className="font-semibold text-white">Bjud in vänner</span>
-                <Sparkles className="w-4 h-4 text-yellow-400" />
               </div>
               <p className="text-sm text-gray-400">
                 Dela premium-upplevelsen
@@ -166,7 +165,7 @@ const GuestInvitationButton: React.FC<GuestInvitationButtonProps> = ({
       {/* Special milestone indicator */}
       {availableInvitations >= 5 && (
         <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center animate-bounce">
-          <Sparkles className="w-3 h-3 text-navy-900" />
+          <Star className="w-3 h-3 text-navy-900" />
         </div>
       )}
     </div>

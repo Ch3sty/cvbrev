@@ -7,7 +7,7 @@ import AvanceradTestHero from './components/AvanceradTestHero';
 import TestInfoCard from './components/TestInfoCard';
 import StartTestCTA from './components/StartTestCTA';
 import PreviousResultsCard from './components/PreviousResultsCard';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 interface Session {
   id: string;
@@ -85,11 +85,9 @@ export default function MatrislogikAvanceradPage() {
         <AvanceradTestHero bestScore={bestScore} bestPercentage={bestPercentage} />
         <TestInfoCard />
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
           <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />

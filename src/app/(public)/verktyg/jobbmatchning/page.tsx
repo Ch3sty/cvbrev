@@ -13,8 +13,11 @@ import JobbmatchningResultatBevis from './components/JobbmatchningResultatBevis'
 import JobbmatchningFAQ from './components/JobbmatchningFAQ'
 import JobbmatchningCTABand from './components/JobbmatchningCTABand'
 import { JOBBMATCHNING_FAQ_ITEMS } from './components/jobbmatchning-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function JobbmatchningSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -34,13 +37,6 @@ export default function JobbmatchningSida() {
     },
     featureList:
       'Tusentals lediga jobb från Arbetsförmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      reviewCount: '342',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -102,6 +98,7 @@ export default function JobbmatchningSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/jobbmatchning" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

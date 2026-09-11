@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Upload, BrainCircuit, FileText, CheckCircle,
-  FileCheck, Sparkles, ArrowRight, Download,
+  FileCheck, ArrowRight, Download,
   Zap, Code, Database, Eye
 } from 'lucide-react'
 
@@ -182,7 +182,6 @@ export default function InteractiveSteps() {
                           <step.icon className="w-5 h-5 text-white" />
                         </motion.div>
                         <span className="text-xs font-bold text-green-500 flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" />
                           Live Demo
                         </span>
                       </div>

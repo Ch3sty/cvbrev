@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, ArrowRight, ExternalLink } from 'lucide-react';
+import { CreditCard, ArrowRight } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
+import CancelFlowModal from './CancelFlowModal';
 
 const STATUS_TEXT: Record<string, string> = {
   active: 'Aktiv',
@@ -14,6 +16,8 @@ const STATUS_TEXT: Record<string, string> = {
 
 export default function ManageSubscriptionCard() {
   const { subscriptionStatus, currentPeriodEnd } = useProfile();
+  // Spår D6: uppsägning går genom enkät + erbjudande innan Stripe-portalen.
+  const [cancelOpen, setCancelOpen] = useState(false);
 
   const statusLabel = subscriptionStatus
     ? STATUS_TEXT[subscriptionStatus] || subscriptionStatus
@@ -76,20 +80,19 @@ export default function ManageSubscriptionCard() {
           <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
         </a>
 
-        {/* Avsluta — synlig sekundär-länk */}
+        {/* Avsluta — öppnar uppsägningsflödet (D6) i stället för portalen direkt */}
         <div className="mt-3 pt-3 border-t border-orange-100/80 text-center">
-          <a
-            href="/api/stripe/create-portal-session"
+          <button
+            type="button"
+            onClick={() => setCancelOpen(true)}
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors min-h-[44px]"
           >
             Avsluta prenumerationen
-            <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.25} />
-          </a>
-          <p className="text-[11px] text-slate-400 mt-1">
-            Du kommer åt avsluts-funktionen i Stripe-portalen.
-          </p>
+          </button>
         </div>
       </div>
+
+      <CancelFlowModal open={cancelOpen} onClose={() => setCancelOpen(false)} />
     </motion.section>
   );
 }

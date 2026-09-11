@@ -27,8 +27,13 @@ interface LetterFlowSummaryProps {
   canGenerate: boolean;
   isGenerating: boolean;
   onGenerate: () => void;
-  /** Antal brev kvar idag (dagskvot, 2/dag för gratisanvändare) */
+  /** Antal brev kvar idag (dagskvot, 1/dag för gratisanvändare) */
   remainingLetters?: number | null;
+  /** B3: brevhuvudets kontaktuppgifter, förifyllda från profilen */
+  phone: string;
+  location: string;
+  onPhoneChange: (value: string) => void;
+  onLocationChange: (value: string) => void;
 }
 
 export default function LetterFlowSummary({
@@ -41,6 +46,10 @@ export default function LetterFlowSummary({
   isGenerating,
   onGenerate,
   remainingLetters,
+  phone,
+  location,
+  onPhoneChange,
+  onLocationChange,
 }: LetterFlowSummaryProps) {
   const template = DOCX_TEMPLATES[templateId as keyof typeof DOCX_TEMPLATES];
 
@@ -122,6 +131,55 @@ export default function LetterFlowSummary({
           );
         })}
       </ul>
+
+      {/* B3: telefon och ort samlas in här i stället för vid registrering.
+          Båda är valfria. Brevhuvudet ser proffsigare ut med dem, men inget
+          hindrar den som vill hoppa över. */}
+      <div className="border-t border-neutral-200 pt-4 mb-6">
+        <h4 className="text-base font-semibold text-neutral-900">
+          Kontaktuppgifter till brevhuvudet
+        </h4>
+        <p className="text-sm text-neutral-600 mt-1 mb-4">
+          Valfritt. Vi sparar dem på din profil så du slipper fylla i dem nästa gång.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label
+              htmlFor="letter-phone"
+              className="block text-sm text-neutral-600 mb-1"
+            >
+              Telefon
+            </label>
+            <input
+              id="letter-phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              value={phone}
+              onChange={(e) => onPhoneChange(e.target.value)}
+              placeholder="070 123 45 67"
+              className="w-full h-11 px-3 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="letter-location"
+              className="block text-sm text-neutral-600 mb-1"
+            >
+              Ort
+            </label>
+            <input
+              id="letter-location"
+              type="text"
+              autoComplete="address-level2"
+              value={location}
+              onChange={(e) => onLocationChange(e.target.value)}
+              placeholder="Stockholm"
+              className="w-full h-11 px-3 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400"
+            />
+          </div>
+        </div>
+      </div>
 
       <button
         type="button"

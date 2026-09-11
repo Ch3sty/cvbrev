@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronRight,
   CheckCircle2,
-  Sparkles,
+  BarChart3,
+  ListChecks,
   FileText,
   Download,
   Wand2,
@@ -798,7 +799,7 @@ export default function CVImprovementWorkflow({
   const getStepIcon = (step: WorkflowStep) => {
     switch (step) {
       case 'select': return <Target className="h-5 w-5" />;
-      case 'quantify': return <Sparkles className="h-5 w-5" />;
+      case 'quantify': return <BarChart3 className="h-5 w-5" />;
       case 'generate': return <Wand2 className="h-5 w-5" />;
       case 'preview': return <FileText className="h-5 w-5" />;
       case 'export': return <Download className="h-5 w-5" />;
@@ -888,7 +889,7 @@ export default function CVImprovementWorkflow({
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-gradient-to-r from-pink-600/10 to-purple-600/10">
-                    <Sparkles className="h-6 w-6 text-pink-600" />
+                    <ListChecks className="h-6 w-6 text-pink-600" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">

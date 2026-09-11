@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FileText, Download, Loader, Eye, X, ChevronDown } from 'lucide-react';
 import { TemplateType } from '@/lib/pdf/letter-templates';
+import EmailNotVerifiedNotice from '@/components/shared/EmailNotVerifiedNotice';
 
 interface DownloadButtonProps {
   format: 'pdf' | 'docx';
@@ -19,6 +20,12 @@ interface DownloadButtonProps {
   showTemplateSelector?: boolean;
   showPreview?: boolean;
   onLoadingChange?: (isLoading: boolean, message?: string) => void; // Ny prop för loading-feedback
+  /**
+   * A1 (docs/plan-konvertering.md): servern svarade 402, alltså kräver filen
+   * Premium. Föräldern visar betalväggen under brevet. Utan callback visas
+   * inget fel alls, brevet står kvar som det är.
+   */
+  onPremiumRequired?: () => void;
 }
 
 export default function DownloadButton({
@@ -28,7 +35,8 @@ export default function DownloadButton({
   className = '',
   showTemplateSelector = true,
   showPreview = true,
-  onLoadingChange
+  onLoadingChange,
+  onPremiumRequired
 }: DownloadButtonProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +45,9 @@ export default function DownloadButton({
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
+  // B1: servern svarade 403 email_not_verified. Hanteras internt, sa alla
+  // vyer som anvander knappen far meddelandet utan egen kod.
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null | undefined>(undefined);
 
   const templateOptions = [
     { value: 'formal' as TemplateType, label: 'Formell', description: 'Klassisk formell brevmall enligt svenska standarder' },
@@ -69,6 +80,23 @@ export default function DownloadButton({
           template: selectedTemplate  // Använd template för både PDF och DOCX
         }),
       });
+
+      // A1: filen kräver Premium. Ingen rå felruta, föräldern tar över.
+      if (response.status === 402) {
+        onLoadingChange?.(false);
+        onPremiumRequired?.();
+        return;
+
+      // B1: e-posten är inte bekräftad ännu. Visa raden med "Skicka igen".
+      if (response.status === 403) {
+        const data = await response.json().catch(() => ({}));
+        if (data?.error === 'email_not_verified') {
+          onLoadingChange?.(false);
+          setUnverifiedEmail(data?.email ?? null);
+          return;
+        }
+      }
+      }
 
       if (!response.ok) {
         console.error(`Download failed with status: ${response.status}`);
@@ -303,6 +331,10 @@ export default function DownloadButton({
         </button>
       </div>
       
+      {unverifiedEmail !== undefined && (
+        <EmailNotVerifiedNotice email={unverifiedEmail} />
+      )}
+
       {/* Error message */}
       {error && (
         <div className="mt-2 text-sm text-red-500">

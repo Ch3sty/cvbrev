@@ -3,17 +3,20 @@
 /**
  * QuickScoreReveal
  * ----------------
- * Aha-moment direkt efter första CV-uppladdningen. Hämtar en snabb basanalys
- * (/api/cv/quick-score) och visar en animerad poängmätare + topp-styrkor och
- * förbättringar, med en tydlig CTA vidare till första brevet.
+ * Aha-momentet direkt efter första CV-uppladdningen. Hämtar en snabb
+ * basanalys (/api/cv/quick-score) och visar poängen plus det viktigaste,
+ * med en tydlig väg vidare till första brevet.
  *
- * Visas BARA för förstagångsuppladdning (styrs av föräldern).
+ * Designen följer docs/plan-konvertering.md: border i stället för skugga,
+ * rounded-xl, font-semibold som tyngst, en orange yta.
  */
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Check, TrendingUp, Lightbulb } from 'lucide-react'
+import { Check } from 'lucide-react'
+import { logUserActivity } from '@/lib/activity-logger'
+import { IlluCvPoang } from '@/components/illustrations/DashboardIllustrations'
 
 interface QuickScore {
   score: number
@@ -25,6 +28,8 @@ interface QuickScore {
 
 interface QuickScoreRevealProps {
   cvId: string
+  /** Används för aktivitetsloggning (B7). */
+  userId?: string
   /** CTA-mål efter aha-momentet. Default: skapa första brevet. */
   nextHref?: string
   nextLabel?: string
@@ -32,6 +37,7 @@ interface QuickScoreRevealProps {
 
 export default function QuickScoreReveal({
   cvId,
+  userId,
   nextHref = '/dashboard/skapa-brev',
   nextLabel = 'Skapa ditt första brev',
 }: QuickScoreRevealProps) {
@@ -39,6 +45,7 @@ export default function QuickScoreReveal({
   const [data, setData] = useState<QuickScore | null>(null)
   const [displayScore, setDisplayScore] = useState(0)
   const [failed, setFailed] = useState(false)
+  const logged = useRef(false)
 
   useEffect(() => {
     let cancelled = false
@@ -70,7 +77,17 @@ export default function QuickScoreReveal({
     }
   }, [cvId])
 
-  // Animera poängen från 0 upp till målvärdet
+  // B7: poängen räknas som visad när den faktiskt står på skärmen.
+  useEffect(() => {
+    if (!data || !userId || logged.current) return
+    logged.current = true
+    void logUserActivity(userId, 'quick_score_shown', 'Snabb CV-poäng visades', {
+      cvId,
+      score: data.score,
+    })
+  }, [data, userId, cvId])
+
+  // Animera poängen upp till målvärdet
   useEffect(() => {
     if (!data) return
     const target = data.score
@@ -80,7 +97,7 @@ export default function QuickScoreReveal({
 
     const tick = (now: number) => {
       const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3) // easeOutCubic
+      const eased = 1 - Math.pow(1 - progress, 3)
       setDisplayScore(Math.round(eased * target))
       if (progress < 1) frame = requestAnimationFrame(tick)
     }
@@ -88,178 +105,88 @@ export default function QuickScoreReveal({
     return () => cancelAnimationFrame(frame)
   }, [data])
 
-  // Om snabb-analysen fallerar: visa inget alls (uppladdningen lyckades ändå,
-  // och OnboardingNextStep tar över som vanligt).
-  if (failed) return null
+  // Fallback när snabbanalysen inte går igenom: uppladdningen lyckades ändå,
+  // så vi bekräftar det och pekar vidare i stället för att visa ingenting.
+  if (failed) {
+    return (
+      <section className="bg-white rounded-xl border border-neutral-200 p-5">
+        <h2 className="text-base font-semibold text-neutral-900">Ditt CV är inläst</h2>
+        <p className="text-sm text-neutral-600 mt-1">
+          Vi hann inte räkna fram poängen den här gången. Du kan gå vidare ändå.
+        </p>
+        <Link
+          href={nextHref}
+          className="mt-4 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors"
+        >
+          {nextLabel}
+        </Link>
+      </section>
+    )
+  }
+
+  if (loading) {
+    return (
+      <section className="bg-white rounded-xl border border-neutral-200 p-5" aria-busy="true">
+        <div className="flex items-center gap-5">
+          <div className="w-24 h-24 rounded-full bg-neutral-100 animate-pulse shrink-0" />
+          <div className="flex-1 space-y-2.5">
+            <div className="h-5 w-2/3 rounded bg-neutral-100 animate-pulse" />
+            <div className="h-4 w-full rounded bg-neutral-100 animate-pulse" />
+            <p className="text-sm text-neutral-500 pt-1">Vi läser igenom ditt CV…</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (!data) return null
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl bg-white border border-orange-100 p-5 sm:p-6 lg:p-7"
-      style={{ boxShadow: '0 12px 40px -16px rgba(249, 115, 22, 0.22)' }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6"
     >
-      <div className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-orange-700 mb-4">
-        <span
-          className="w-1.5 h-1.5 rounded-full"
-          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-          aria-hidden="true"
-        />
-        Ditt CV är inläst
-      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-5 sm:gap-6 items-start">
+        <div className="relative flex items-center justify-center w-24 h-24 mx-auto sm:mx-0 text-neutral-900">
+          <IlluCvPoang size={96} />
+          <span className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-xl font-semibold text-neutral-900 tabular-nums leading-none">
+              {displayScore}
+            </span>
+            <span className="text-[10px] text-neutral-500 mt-0.5">av 100</span>
+          </span>
+        </div>
 
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <LoadingState key="loading" />
-        ) : data ? (
-          <motion.div
-            key="result"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-8 items-center"
-          >
-            {/* Poängmätare */}
-            <ScoreMeter score={displayScore} />
+        <div className="min-w-0">
+          <h2 className="text-lg font-semibold text-neutral-900 tracking-tight">
+            Så här ser ditt CV ut för en rekryterare
+          </h2>
+          <p className="text-sm text-neutral-600 mt-1 leading-relaxed">{data.summary}</p>
 
-            <div>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight mb-1.5">
-                Här är din första snabb-koll
-              </h2>
-              <p className="text-sm text-slate-600 mb-4 leading-relaxed">
-                {data.summary}
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-3 mb-5">
-                {data.strengths.length > 0 && (
-                  <InsightList
-                    icon={<TrendingUp className="w-4 h-4" strokeWidth={2.5} />}
-                    title="Styrkor"
-                    items={data.strengths}
-                    tone="emerald"
-                  />
-                )}
-                {data.improvements.length > 0 && (
-                  <InsightList
-                    icon={<Lightbulb className="w-4 h-4" strokeWidth={2.5} />}
-                    title="Förbättra"
-                    items={data.improvements}
-                    tone="orange"
-                  />
-                )}
-              </div>
-
-              <Link
-                href={nextHref}
-                className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-6 py-3.5 rounded-2xl text-white font-black text-sm sm:text-base min-h-[52px] active:scale-[0.98] transition-all"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
-                  boxShadow: '0 12px 32px -10px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                {nextLabel}
-                <ArrowRight
-                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform"
-                  strokeWidth={2.8}
-                />
-              </Link>
+          {data.improvements.length > 0 && (
+            <div className="mt-4">
+              <p className="text-sm font-semibold text-neutral-900 mb-2">Tre saker att fixa</p>
+              <ul className="space-y-1.5">
+                {data.improvements.slice(0, 3).map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-neutral-600 leading-snug">
+                    <Check className="w-4 h-4 shrink-0 mt-0.5 text-neutral-400" strokeWidth={2} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+          )}
+
+          <Link
+            href={nextHref}
+            className="mt-5 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto"
+          >
+            {nextLabel}
+          </Link>
+        </div>
+      </div>
     </motion.section>
-  )
-}
-
-function ScoreMeter({ score }: { score: number }) {
-  const radius = 52
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference - (score / 100) * circumference
-
-  return (
-    <div className="relative flex items-center justify-center mx-auto lg:mx-0 w-[140px] h-[140px]">
-      <svg width="140" height="140" className="-rotate-90">
-        <circle
-          cx="70" cy="70" r={radius}
-          fill="none" stroke="#fed7aa" strokeWidth="11"
-        />
-        <circle
-          cx="70" cy="70" r={radius}
-          fill="none" stroke="url(#scoreGradient)" strokeWidth="11"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          style={{ transition: 'stroke-dashoffset 0.1s linear' }}
-        />
-        <defs>
-          <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F97316" />
-            <stop offset="60%" stopColor="#DC2626" />
-            <stop offset="100%" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-3xl font-black text-slate-900 tabular-nums leading-none">
-          {score}
-        </span>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
-          av 100
-        </span>
-      </div>
-    </div>
-  )
-}
-
-function InsightList({
-  icon,
-  title,
-  items,
-  tone,
-}: {
-  icon: React.ReactNode
-  title: string
-  items: string[]
-  tone: 'emerald' | 'orange'
-}) {
-  const toneClasses =
-    tone === 'emerald'
-      ? 'text-emerald-700 bg-emerald-50 border-emerald-100'
-      : 'text-orange-700 bg-orange-50 border-orange-100'
-  return (
-    <div className={`rounded-2xl border p-3.5 ${toneClasses}`}>
-      <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider mb-2">
-        {icon}
-        {title}
-      </div>
-      <ul className="space-y-1.5">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-start gap-1.5 text-[13px] text-slate-700 leading-snug">
-            <Check className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 opacity-70" strokeWidth={2.5} />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function LoadingState() {
-  return (
-    <motion.div
-      key="loading"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="flex items-center gap-4 py-2"
-    >
-      <div className="w-[140px] h-[140px] rounded-full bg-orange-50 animate-pulse flex-shrink-0" />
-      <div className="flex-1 space-y-2.5">
-        <div className="h-5 w-3/4 rounded-lg bg-slate-100 animate-pulse" />
-        <div className="h-4 w-full rounded-lg bg-slate-100 animate-pulse" />
-        <div className="h-4 w-5/6 rounded-lg bg-slate-100 animate-pulse" />
-        <p className="text-sm text-slate-500 pt-1">Vi läser igenom ditt CV...</p>
-      </div>
-    </motion.div>
   )
 }

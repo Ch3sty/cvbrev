@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Linkedin, Check, ArrowRight, Sparkles,
+  Linkedin, Check, ArrowRight, Wand2,
   FileText, Target, Award, TrendingUp
 } from 'lucide-react'
 
@@ -33,7 +33,7 @@ const DEMO_STEPS = [
   {
     id: 3,
     title: 'Genererar optimerad version',
-    icon: Sparkles,
+    icon: Wand2,
     color: 'from-green-500 to-emerald-500',
     content: {
       after: 'Projektledare | Agil transformation & digitalisering | Stakeholder management inom fintech',
@@ -288,7 +288,7 @@ export default function LinkedInOptimizationDemo() {
         }}
       >
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4" />
+          <Check className="w-4 h-4" />
           Optimerad
         </div>
       </motion.div>

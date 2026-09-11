@@ -7,7 +7,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext'
 import { OnboardingTrofe } from './illustrations/OnboardingIcons'
 
 interface OnboardingRewardProps {
-  /** Om true visas komponenten i kompakt format (kom-igang-sidan). Annars stort dashboard-format. */
+  /** Om true visas komponenten i kompakt format. Annars stort dashboard-format. */
   compact?: boolean
 }
 

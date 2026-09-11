@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
   GraduationCap,
-  Sparkles as _SparklesUnused,
   User as UserIcon,
   Mail,
   Phone,
@@ -19,8 +18,6 @@ import type {
   ParsedRole,
   ParsedEducation,
 } from '@/lib/cv/cv-parser';
-
-void _SparklesUnused;
 
 interface UserContact {
   full_name?: string;

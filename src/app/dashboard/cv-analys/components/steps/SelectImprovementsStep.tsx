@@ -9,6 +9,8 @@ import ProfileImprovementCard from '../select/ProfileImprovementCard';
 import ImprovementCard from '../select/ImprovementCard';
 import SkillImprovementCard from '../select/SkillImprovementCard';
 import AutoApplyPanel from '../select/AutoApplyPanel';
+import AnalysisLockedFindings from '@/components/cv/AnalysisLockedFindings';
+import type { LockedFinding } from '@/lib/cv/gateAnalysisResult';
 
 interface SelectImprovementsStepProps {
   profileSummary?: {
@@ -20,6 +22,11 @@ interface SelectImprovementsStepProps {
   roleBasedImprovements?: any[];
   skillSuggestions?: any[];
   generalImprovements?: any[];
+  /**
+   * A9: sätts av servern för konton utan premium. Innehåller antalet fynd
+   * totalt och de låsta raderna (kategori och severity, ingen text).
+   */
+  gated?: { findingsTotal: number; lockedFindings: LockedFinding[] };
   selectedProfile: boolean;
   selectedRoles: Set<number>;
   selectedSkills: Set<number>;
@@ -117,6 +124,7 @@ const CATEGORY_META: Record<
 
 export default function SelectImprovementsStep(props: SelectImprovementsStepProps) {
   const {
+    gated,
     profileSummary,
     selectedProfile,
     selectedRoles,
@@ -353,6 +361,15 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
           )}
         </motion.div>
       </AnimatePresence>
+
+      {/* A9: de fynd gratisnivån inte ser. Texten finns inte på klienten. */}
+      {gated && gated.lockedFindings.length > 0 && (
+        <AnalysisLockedFindings
+          findings={gated.lockedFindings}
+          findingsTotal={gated.findingsTotal}
+          className="pt-2"
+        />
+      )}
 
       {totalSelected === 0 && (
         <p className="text-center text-sm text-slate-600 pt-2">

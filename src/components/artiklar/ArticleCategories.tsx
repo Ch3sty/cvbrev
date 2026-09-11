@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 // Importera alla nödvändiga ikoner
-import { Tag, X, TrendingUp, Filter, Sparkles, ScanSearch, ArrowRight, BrainCircuit } from 'lucide-react';
+import { Tag, X, TrendingUp, Filter, PenLine, ScanSearch, ArrowRight, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 
 interface CategoryProps {
@@ -150,7 +150,7 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
          <Link href="/skapa-brev" className={ctaLinkClasses} >
             <div className="flex items-start space-x-3">
               {/* Ikon: Lite subtil glow på hover */}
-              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
+              <PenLine className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
               <div>
                 <h4 className="font-semibold text-white mb-1">
                   Skapa personligt brev
@@ -164,7 +164,7 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
           </Link>
 
           {/* Box 2: Analysera CV */}
-          <Link href="/dashboard/cv-analys" className={ctaLinkClasses} >
+          <Link href="/verktyg/cv-analys" className={ctaLinkClasses} >
             <div className="flex items-start space-x-3">
               {/* Ikon: Lite subtil glow på hover */}
               <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />

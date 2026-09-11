@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Loader2, Check, AlertTriangle, Clock, Target, BookOpen, X,
-  Zap, Search, Brain, Sparkles, TrendingUp, Database, Cpu, Network
+  Zap, Search, Brain, TrendingUp, Database, Cpu, Network
 } from 'lucide-react';
 import CircularProgress from '@/components/ui/CircularProgress';
 import AnimatedParticles from '@/components/ui/AnimatedParticles';

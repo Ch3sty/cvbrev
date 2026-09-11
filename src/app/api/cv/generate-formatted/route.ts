@@ -2297,6 +2297,58 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // A2 (docs/plan-konvertering.md): en gratis nedladdning per konto.
+    // Premiumkontrollen går först, så admin och premium rör aldrig räknaren.
+    let shouldCountFreeExport = false;
+    if (authedUserId) {
+      const hasPremiumAccess = await userHasPremiumAccess(supabase, authedUserId);
+      if (!hasPremiumAccess) {
+        const { data: exportProfile } = await supabase
+          .from('profiles')
+          .select('free_cv_exports_used')
+          .eq('id', authedUserId)
+          .single();
+
+        const used = (exportProfile as { free_cv_exports_used?: number } | null)?.free_cv_exports_used ?? 0;
+        if (used >= 1) {
+          return NextResponse.json(
+            { error: 'premium_required', feature: 'cv_export' },
+            { status: 402 }
+          );
+        }
+        shouldCountFreeExport = true;
+      }
+    }
+
+    // B1: bekräftad e-post krävs för export och permanent lagring. Admin
+    // undantas. Ligger efter premium- och räknarkontrollen, så ordningen
+    // användaren möter spärrarna i är densamma som för brevnedladdningen.
+    if (authedUserId) {
+      const { data: cvAdminRow } = await supabase
+        .from('admin_users')
+        .select('role')
+        .eq('id', authedUserId)
+        .maybeSingle();
+      const isAdminUser =
+        cvAdminRow?.role === 'admin' || cvAdminRow?.role === 'super_admin';
+
+      if (!isAdminUser) {
+        const { data: verifyProfile } = await supabase
+          .from('profiles')
+          .select('email_verified_at')
+          .eq('id', authedUserId)
+          .single();
+
+        if (!(verifyProfile as { email_verified_at?: string | null } | null)?.email_verified_at) {
+          const { data: { user: authedUser } } = await supabase.auth.getUser();
+          return NextResponse.json(
+            { error: 'email_not_verified', email: authedUser?.email ?? null },
+            { status: 403 }
+          );
+        }
+      }
+    }
+
     // Use structured data if available and valid, otherwise parse from text.
     // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
     // hanterar bada formaten och returnerar null om strukturen ar trasig.
@@ -2394,6 +2446,21 @@ export async function POST(request: NextRequest) {
     } catch (trackingError) {
       console.error('Failed to track download/onboarding:', trackingError);
       // Don't fail the CV generation if tracking fails
+    }
+
+    // A2: räkna upp gratisexporten först när filen faktiskt finns. Villkoret
+    // `.eq('free_cv_exports_used', 0)` gör uppräkningen atomisk, så två
+    // parallella exporter aldrig ger två gratisfiler.
+    if (shouldCountFreeExport && authedUserId) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ free_cv_exports_used: 1 })
+          .eq('id', authedUserId)
+          .eq('free_cv_exports_used', 0);
+      } catch (counterError) {
+        console.error('Kunde inte räkna upp free_cv_exports_used:', counterError);
+      }
     }
 
     return new NextResponse(pdfBuffer, {

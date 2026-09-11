@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, Crown, ChevronDown, Check, Sparkles, Type, Palette } from 'lucide-react'
+import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/templates'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
@@ -210,7 +210,7 @@ export default function InteractiveCVShowcase() {
       {/* Controls */}
       <div className="bg-gradient-to-r from-cyan-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-cyan-100 mb-8">
         <div className="flex items-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-cyan-600" />
+          <Palette className="w-5 h-5 text-cyan-600" />
           <h4 className="font-bold text-slate-900">Anpassa förhandsvisningen</h4>
         </div>
         <p className="text-sm text-slate-600 mb-6">
@@ -560,10 +560,9 @@ export default function InteractiveCVShowcase() {
               <p className="text-sm text-cyan-100">Ladda upp ditt CV eller börja från början – vi hjälper dig hela vägen.</p>
             </div>
             <a
-              href="/dashboard/cv-mallar"
+              href="/verktyg/cv-mallar"
               className="px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
             >
-              <Sparkles className="w-5 h-5" />
               Kom igång gratis
             </a>
           </div>

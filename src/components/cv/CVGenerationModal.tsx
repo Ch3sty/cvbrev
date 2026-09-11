@@ -14,7 +14,6 @@ import {
   CheckCircle,
   ArrowRight,
   ArrowLeft,
-  Sparkles,
   Crown,
   User,
   Linkedin
@@ -249,7 +248,7 @@ export default function CVGenerationModal({
               </div>
             ) : (
               <div className="text-center py-8">
-                <Sparkles className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                <Settings className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="font-semibold text-gray-900 mb-2">Ingen anpassning tillgänglig</h3>
                 <p className="text-gray-600">
                   Denna mall har en fast design som är optimerad för professionell användning.

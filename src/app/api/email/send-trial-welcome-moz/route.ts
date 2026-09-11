@@ -5,6 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { generateTrialWelcomeEmailMoz } from '@/lib/email/trial-welcome-moz'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -24,11 +25,18 @@ export async function POST(request: NextRequest) {
     const htmlContent = generateTrialWelcomeEmailMoz(email)
 
     // Send email via Resend
+    const subject = '🎉 Välkommen till Jobbcoach.ai Premium!'
+
     const { data, error } = await resend.emails.send({
       from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
       to: [email],
-      subject: '🎉 Välkommen till Jobbcoach.ai Premium!',
-      html: htmlContent
+      subject,
+      html: htmlContent,
+      // Spår D5: samma tags som livscykelmailen så statistiken kan gruppera.
+      tags: [
+        { name: 'type', value: 'trial_welcome_moz' },
+        { name: 'seq', value: 'lifecycle' }
+      ]
     })
 
     if (error) {
@@ -39,6 +47,20 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`[SEND TRIAL WELCOME MOZ] Email sent successfully:`, data)
+
+    // Spår D5: loggas i email_log så mailet syns i admin-statistiken.
+    try {
+      await (getSupabaseAdmin() as any).from('email_log').insert({
+        resend_id: data?.id ?? null,
+        user_id: userId,
+        email_type: 'trial_welcome_moz',
+        feature: 'lifecycle',
+        recipient: email,
+        subject
+      })
+    } catch (logError) {
+      console.error('[SEND TRIAL WELCOME MOZ] Kunde inte logga i email_log:', logError)
+    }
 
     return NextResponse.json({
       success: true,

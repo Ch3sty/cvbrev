@@ -169,7 +169,7 @@ export default function PremiumPricingSection() {
 
                   <div className="space-y-3">
                     {[
-                      '2 personliga brev per dag',
+                      '1 personligt brev per dag',
                       '1 CV-analys var tredje dag',
                       '2 uppladdade CV:n',
                       '1 LinkedIn-optimering per vecka',

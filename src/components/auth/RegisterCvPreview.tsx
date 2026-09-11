@@ -1,20 +1,16 @@
 'use client'
 
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Mail } from 'lucide-react'
 
 interface RegisterCvPreviewProps {
   fullName: string
   email: string
-  phone: string
-  location: string
   variant?: 'desktop' | 'mobile'
 }
 
 export default function RegisterCvPreview({
   fullName,
   email,
-  phone,
-  location,
   variant = 'desktop',
 }: RegisterCvPreviewProps) {
   const isMobile = variant === 'mobile'
@@ -84,24 +80,6 @@ export default function RegisterCvPreview({
             <span className="truncate max-w-[160px]">
               {email.trim() || 'din.email@example.com'}
             </span>
-          </span>
-          {!isMobile && (
-            <span
-              className={`inline-flex items-center gap-1 ${
-                phone.trim() ? 'text-slate-600' : 'text-slate-300'
-              }`}
-            >
-              <Phone className="w-3 h-3" strokeWidth={2} />
-              <span>{phone.trim() || '+46 70 123 45 67'}</span>
-            </span>
-          )}
-          <span
-            className={`inline-flex items-center gap-1 ${
-              location.trim() ? 'text-slate-600' : 'text-slate-300'
-            }`}
-          >
-            <MapPin className="w-3 h-3" strokeWidth={2} />
-            <span>{location.trim() || 'Stockholm'}</span>
           </span>
         </div>
 

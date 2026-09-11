@@ -7,7 +7,7 @@ import ExpertTestHero from './components/ExpertTestHero';
 import ExpertInfoCard from './components/ExpertInfoCard';
 import StartTestCTA from '../matrislogik-grund/components/StartTestCTA';
 import PreviousResultsCard from '../matrislogik-grund/components/PreviousResultsCard';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 interface Session {
   id: string;
@@ -87,11 +87,9 @@ export default function MatrislogikExpertPage() {
         <ExpertTestHero bestScore={bestScore} bestPercentage={bestPercentage} />
         <ExpertInfoCard />
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
           <StartTestCTA onStart={handleStartTest} isLoading={isLoading} />

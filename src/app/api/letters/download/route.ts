@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
@@ -243,7 +244,42 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
-    
+
+    // A1 (docs/plan-konvertering.md): filen kräver Premium. Visning och
+    // kopiering av brevtexten är fortsatt gratis.
+    const hasPremium = await userHasPremiumAccess(supabase, user.id);
+    if (!hasPremium) {
+      return NextResponse.json(
+        { error: 'premium_required', feature: 'letter_download' },
+        { status: 402 }
+      );
+    }
+
+    // B1: bekräftad e-post krävs för export och permanent lagring. Admin
+    // undantas. Premiumkontrollen har redan passerat här, så den som saknar
+    // Premium ser betalväggen först och verifieringen därefter.
+    const { data: adminRow } = await supabase
+      .from('admin_users')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+    const isAdminUser = adminRow?.role === 'admin' || adminRow?.role === 'super_admin';
+
+    if (!isAdminUser) {
+      const { data: verifyProfile } = await supabase
+        .from('profiles')
+        .select('email_verified_at')
+        .eq('id', user.id)
+        .single();
+
+      if (!verifyProfile?.email_verified_at) {
+        return NextResponse.json(
+          { error: 'email_not_verified', email: user.email ?? null },
+          { status: 403 }
+        );
+      }
+    }
+
     // Läs begäransdata
     const body = await request.text();
     let parsedBody;

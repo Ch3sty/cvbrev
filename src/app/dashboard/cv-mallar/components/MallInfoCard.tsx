@@ -1,6 +1,6 @@
 'use client';
 
-import { ShieldCheck, Image as ImageIcon, Linkedin, Sparkles, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from 'lucide-react';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface MallInfoCardProps {
@@ -52,7 +52,7 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
         )}
 
         {template.tier === 'premium' && (
-          <Badge variant="premium" icon={<Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge variant="premium" icon={<Crown className="w-3.5 h-3.5" strokeWidth={2.5} />}>
             Premium
           </Badge>
         )}

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Copy, Check, Gift, Calendar, Sparkles, ExternalLink } from 'lucide-react';
+import { X, Copy, Check, Gift, Calendar, Crown, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 interface ActivationModalProps {
@@ -60,7 +60,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             transition={{ type: 'spring', duration: 0.5 }}
             className="mx-auto w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6"
           >
-            <Sparkles className="w-10 h-10 text-white" />
+            <Crown className="w-10 h-10 text-white" />
           </motion.div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -322,7 +322,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             transition={{ type: 'spring', duration: 0.5 }}
             className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mb-6"
           >
-            <Sparkles className="w-10 h-10 text-white" />
+            <Calendar className="w-10 h-10 text-white" />
           </motion.div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-2">

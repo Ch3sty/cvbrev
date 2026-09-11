@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 import { selectAvanceradQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7';
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
@@ -194,6 +195,11 @@ export default function ResultsPage({ params }: PageProps) {
         />
 
         {sessionId && <PercentileCard sessionId={sessionId} />}
+
+
+        {/* Vidare från testet: CV eller brev (B6) */}
+
+        <TestResultBridgeContainer testSlug={"matrislogik-avancerad"} quotaFeature={"test:matrislogik-avancerad"} />
 
         {isLegacySession && <LegacySessionNotice />}
 

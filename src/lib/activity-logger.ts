@@ -49,7 +49,14 @@ export type ActivityType =
   | 'pricing_viewed'                // Användaren tittade på prissidan
   | 'application_logged'            // Loggade en sökt tjänst
   | 'application_event_added'       // La till en händelse på en ansökan
-  | 'application_shared';           // Skapade delningslänk för sökstatistiken
+  | 'application_shared'            // Skapade delningslänk för sökstatistiken
+  // Aktiveringstratten (docs/plan-konvertering.md, B7)
+  | 'quick_score_shown'             // Snabb-poängen visades efter uppladdning
+  | 'test_completed'                // Testresultatsida visades
+  | 'bridge_clicked'                // Klick i TestResultBridge
+  | 'signup_method'                 // Hur kontot skapades (password/google)
+  | 'activation_state'              // Vilket dashboardtillstånd som visades (A/B/C)
+  | 'quota_wall_hit';               // Slog i en kvotgräns (räknas av lifecycle/hooks)
 
 /**
  * Loggar en användaraktivitet i databasen

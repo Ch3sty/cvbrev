@@ -47,7 +47,7 @@ export function UserPortraitIcon({ className = 'w-20 h-20' }: IconProps) {
         <rect x="50" y="33" width="16" height="2.5" rx="1.25" fill="#FED7AA" />
       </g>
 
-      {/* Liten sparkle */}
+      {/* Liten accent */}
       <circle cx="62" cy="48" r="2" fill="#FB923C" opacity="0.6" />
       <circle cx="68" cy="44" r="1.5" fill="#FB923C" opacity="0.4" />
 
@@ -179,7 +179,7 @@ export function AutoMagicIcon({ className = 'w-20 h-20' }: IconProps) {
       {/* Center check */}
       <path d="M35 40 L38 43 L45 36" stroke="url(#cat-emerald)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
 
-      {/* Sparkles runtom */}
+      {/* Prickar runtom */}
       <g opacity="0.7">
         <circle cx="64" cy="22" r="1.5" fill="#10B981" />
         <circle cx="18" cy="18" r="1" fill="#10B981" />

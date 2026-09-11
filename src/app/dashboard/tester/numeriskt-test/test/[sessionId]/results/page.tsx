@@ -18,6 +18,7 @@ import type { TestAnswer } from '@/lib/numericalTest/types';
 import NumericalResultsHero from '@/components/tests/numerical-shared/NumericalResultsHero';
 import NumericalResultsBody from '@/components/tests/numerical-shared/NumericalResultsBody';
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard';
+import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer';
 import NextLevelCard from '@/app/dashboard/tester/components/NextLevelCard';
 
 interface PageProps {
@@ -133,6 +134,9 @@ export default function ResultsPage({ params }: PageProps) {
 
         {/* Jämförelse mot andra testtagare (renderas bara vid nog stort underlag) */}
         {sessionId && <PercentileCard sessionId={sessionId} />}
+
+        {/* Vidare från testet: CV eller brev (B6) */}
+        <TestResultBridgeContainer testSlug={"numeriskt-test"} quotaFeature={"test:numerical-reasoning"} />
 
         <NumericalResultsBody
           passages={passages}

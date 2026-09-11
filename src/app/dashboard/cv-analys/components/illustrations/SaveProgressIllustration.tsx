@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { Save, FileDown, Sparkles } from 'lucide-react';
+import { Save, FileDown, Check } from 'lucide-react';
 
 interface SaveProgressIllustrationProps {
   progress: number; // 0-100
@@ -180,7 +180,7 @@ export default function SaveProgressIllustration({
           >
             {stage === 0 && <Save className="w-5 h-5" strokeWidth={2.5} />}
             {stage === 1 && <FileDown className="w-5 h-5" strokeWidth={2.5} />}
-            {stage === 2 && <Sparkles className="w-5 h-5" strokeWidth={2.5} />}
+            {stage === 2 && <Check className="w-5 h-5" strokeWidth={2.5} />}
 
             {/* Pulserande halo */}
             {!reduceMotion && stage < 2 && (

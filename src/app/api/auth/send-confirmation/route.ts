@@ -18,6 +18,35 @@ const getServiceSupabase = () => {
   return createClient(supabaseUrl, supabaseServiceKey)
 }
 
+// Rate-limit: 3 utskick per userId och timme (docs/plan-konvertering.md, B1).
+// Minnesbaserad och alltså per instans. Det räcker mot en otålig användare som
+// spammar knappen, vilket är hotbilden här.
+const RATE_LIMIT_MAX = 3
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000
+const sendLog = new Map<string, number[]>()
+
+function isRateLimited(userId: string): boolean {
+  const now = Date.now()
+  const recent = (sendLog.get(userId) || []).filter((ts) => now - ts < RATE_LIMIT_WINDOW_MS)
+
+  if (recent.length >= RATE_LIMIT_MAX) {
+    sendLog.set(userId, recent)
+    return true
+  }
+
+  recent.push(now)
+  sendLog.set(userId, recent)
+
+  // Städa bort inaktuella nycklar så kartan inte växer obegränsat.
+  if (sendLog.size > 5000) {
+    for (const [key, stamps] of sendLog) {
+      if (stamps.every((ts) => now - ts >= RATE_LIMIT_WINDOW_MS)) sendLog.delete(key)
+    }
+  }
+
+  return false
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -27,6 +56,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         error: 'Email, fullName, and userId are required'
       }, { status: 400 })
+    }
+
+    if (isRateLimited(userId)) {
+      return NextResponse.json({
+        error: 'Du har begärt flera mejl den senaste timmen. Vänta en stund och försök igen.'
+      }, { status: 429 })
     }
 
     // Generate confirmation token

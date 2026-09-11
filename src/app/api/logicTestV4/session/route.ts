@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 const QUOTA_MESSAGE =
   'Du har redan gjort det här testet idag. Ny chans i morgon, eller uppgradera för obegränsat.';
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
     const quotaType = testType ?? 'matrislogik';
     const quota = await checkDailyTestQuota(supabase, user.id, quotaType);
     if (!quota.allowed) {
+      signalQuotaWall(user.id, `test:${quotaType}`);
       return NextResponse.json(
         quotaExceededBody(`test:${quotaType}`, quota, QUOTA_MESSAGE),
         { status: 429 }

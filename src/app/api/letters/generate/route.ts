@@ -13,6 +13,7 @@ import { logUserActivity, ActivityType } from '@/lib/activity-logger';
 import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
 import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
+import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
@@ -89,6 +90,7 @@ export async function POST(request: Request) {
 
     // Kontroll av dagsgräns för gratis-användare
     if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+      signalQuotaWall(user.id, 'letter_generation');
       logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men dagsgräns nådd', { limit: DAILY_LIMIT_LETTERS, current: effectiveCount });
       return NextResponse.json(
         quotaExceededBody(

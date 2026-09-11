@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Download, FolderOpen, RotateCcw, Sparkles } from 'lucide-react';
+import { CheckCircle2, Download, FolderOpen, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -33,35 +33,6 @@ export default function CompletionStep({
       >
         <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center relative">
           <CheckCircle2 className="w-16 h-16 text-white" />
-
-          {/* Sparkle effects */}
-          <motion.div
-            className="absolute top-0 right-0"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity
-            }}
-          >
-            <Sparkles className="w-8 h-8 text-yellow-400" />
-          </motion.div>
-          <motion.div
-            className="absolute bottom-0 left-0"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: 1
-            }}
-          >
-            <Sparkles className="w-6 h-6 text-yellow-400" />
-          </motion.div>
         </div>
 
         <h3 className="text-3xl font-bold text-gray-900 mb-3">

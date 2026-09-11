@@ -5,7 +5,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaService';
 
 // Konstanter för prenumerationsbegränsningar.
-// Dagskvotmodellen (docs/plan-kvotmodell.md): brev är 2 per dag med
+// Dagskvotmodellen (docs/plan-kvotmodell.md): brev är 1 per dag med
 // nollställning vid midnatt svensk tid. De "weekly"-namngivna fälten och
 // state-variablerna behålls som API mot resten av appen, men värdena är
 // numera DAGSVÄRDEN. "Analys" i denna hook avser kompetensanalysen
@@ -14,8 +14,8 @@ import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaS
 const SUBSCRIPTION_LIMITS = {
   free: {
     maxSavedLetters: 2,
-    dailyLetterLimit: 2,
-    weeklyLetterLimit: 2,     // = dailyLetterLimit; namnet behålls för konsumenter
+    dailyLetterLimit: 1,
+    weeklyLetterLimit: 1,     // = dailyLetterLimit; namnet behålls för konsumenter
     maxCVCount: 2,
     weeklyAnalysisLimit: 1,
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative'],
@@ -903,6 +903,8 @@ export const useProfile = () => {
     // Premium source data (NEW)
     premiumUntil,
     premiumSource,
+    // A2: hur många gratis CV-exporter kontot har använt (0 eller 1).
+    freeCvExportsUsed: (profile as unknown as { free_cv_exports_used?: number } | null)?.free_cv_exports_used ?? 0,
     isTrialUser,
     isAdminGranted,
     hasActiveTrialOrPremium,

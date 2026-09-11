@@ -6,15 +6,19 @@ import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
 
 interface InlineCVUploadProps {
-  onSuccess: (cvId: string) => void;
+  /** Anropas med det uppladdade CV:t så fort servern bekräftat det. */
+  onComplete: (cv: { id: string }) => void;
   onCancel?: () => void;
   showCancel?: boolean;
+  /** Dölj kortets egen rubrik när föräldern redan satt en. */
+  hideHeader?: boolean;
 }
 
 export default function InlineCVUpload({
-  onSuccess,
+  onComplete,
   onCancel,
-  showCancel = true
+  showCancel = true,
+  hideHeader = false
 }: InlineCVUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,20 +63,13 @@ export default function InlineCVUpload({
     setError(null);
 
     try {
-      await uploadCV(selectedFile);
-      setSuccess(true);
-
-      // Hämta CV-id (senaste uppladdade)
-      const response = await fetch('/api/cv/list');
-      const data = await response.json();
-
-      if (data.success && data.cvs && data.cvs.length > 0) {
-        const latestCv = data.cvs[0];
-
-        setTimeout(() => {
-          onSuccess(latestCv.id);
-        }, 1000);
-      }
+      // onComplete-callbacken ger oss raden direkt från uppladdningen, så vi
+      // slipper gissa vilket CV som är det nyss uppladdade.
+      const title = selectedFile.name.split('.').slice(0, -1).join('.');
+      await uploadCV(selectedFile, title, undefined, (cv) => {
+        setSuccess(true);
+        onComplete(cv);
+      });
     } catch (err: any) {
       setError(err.message || 'Ett oväntat fel uppstod vid uppladdning');
       setUploading(false);
@@ -87,15 +84,19 @@ export default function InlineCVUpload({
       className="bg-white rounded-xl border-2 border-slate-200 p-6"
     >
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div>
-          <h3 className="text-lg font-bold text-slate-900 mb-1">
-            Ladda upp ditt CV
-          </h3>
-          <p className="text-sm text-slate-600">
-            För att skapa personliga brev behöver vi ditt CV
-          </p>
-        </div>
+      <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-6'}`}>
+        {hideHeader ? (
+          <span />
+        ) : (
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900 mb-1">
+              Ladda upp ditt CV
+            </h3>
+            <p className="text-sm text-slate-600">
+              För att skapa personliga brev behöver vi ditt CV
+            </p>
+          </div>
+        )}
         {showCancel && onCancel && (
           <button
             onClick={onCancel}
@@ -120,10 +121,10 @@ export default function InlineCVUpload({
               <CheckCircle className="w-8 h-8 text-emerald-500" />
             </div>
             <h4 className="text-lg font-semibold text-slate-900 mb-2">
-              CV uppladdat! 🎉
+              CV:t är inläst
             </h4>
             <p className="text-sm text-slate-600">
-              Återvänder till guiden...
+              Vi tittar igenom det åt dig.
             </p>
           </motion.div>
         ) : (

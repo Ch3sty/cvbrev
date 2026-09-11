@@ -13,8 +13,11 @@ import BrevSkrivtips from './components/BrevSkrivtips'
 import BrevFAQ from './components/BrevFAQ'
 import { BREV_FAQ_ITEMS } from './components/brev-faq-data'
 import BrevCTABand from './components/BrevCTABand'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function PersonligtBrevSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
   const webAppSchema = {
     '@context': 'https://schema.org',
@@ -33,13 +36,6 @@ export default function PersonligtBrevSida() {
     },
     featureList:
       '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '1400',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -101,6 +97,7 @@ export default function PersonligtBrevSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/skapa-brev" />
       {/* Strukturerad data */}
       <script
         type="application/ld+json"

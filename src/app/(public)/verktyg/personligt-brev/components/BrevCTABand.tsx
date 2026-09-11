@@ -43,12 +43,12 @@ export default function BrevCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Skapa ditt första personliga brev nu. Gratis, utan
-                kortuppgift. Du har två brev per dag att leka med.
+                kortuppgift. Du har ett brev om dagen att leka med.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
                 <Link
-                  href="/dashboard/skapa-brev"
+                  href="/register"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-orange-50 active:scale-[0.98] transition-all"
                   style={{
                     color: '#DC2626',

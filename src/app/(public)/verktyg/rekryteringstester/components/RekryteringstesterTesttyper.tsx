@@ -126,7 +126,7 @@ export default function RekryteringstesterTesttyper() {
                 </div>
 
                 <Link
-                  href="/dashboard/tester"
+                  href="/register"
                   className="group inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-orange-700 font-bold text-sm border border-orange-200 hover:bg-orange-50 transition-colors"
                 >
                   Träna på {title.toLowerCase()}
@@ -183,7 +183,7 @@ export default function RekryteringstesterTesttyper() {
               </div>
 
               <Link
-                href="/dashboard/tester"
+                href="/register"
                 className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base shadow-lg hover:shadow-xl active:scale-[0.98] transition-all"
                 style={{
                   background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',

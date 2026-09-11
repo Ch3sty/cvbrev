@@ -13,8 +13,11 @@ import CVAnalysSkrivtips from './components/CVAnalysSkrivtips'
 import CVAnalysFAQ from './components/CVAnalysFAQ'
 import CVAnalysCTABand from './components/CVAnalysCTABand'
 import { CV_ANALYS_FAQ_ITEMS } from './components/cv-analys-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function CVAnalysSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const webAppSchema = {
@@ -34,13 +37,6 @@ export default function CVAnalysSida() {
     },
     featureList:
       'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), before/after-text, konkreta förbättringsförslag, svenska och engelska CV',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '1400',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const howToSchema = {
@@ -102,6 +98,7 @@ export default function CVAnalysSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/cv-analys" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}

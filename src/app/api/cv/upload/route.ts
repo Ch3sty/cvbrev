@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { markFirstMilestone } from '@/lib/activation-tracking';
 import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
@@ -372,6 +373,9 @@ Alternativt: Ladda upp som .DOCX istället.`,
     if (onboardingError) {
       console.error('Failed to update onboarding progress:', onboardingError.message);
     }
+
+    // B7: första CV-uppladdningen. Coalesce via service role, tyst vid fel.
+    await markFirstMilestone(user.id, 'first_cv_uploaded_at');
 
     emitter.complete({
       ...cvData,

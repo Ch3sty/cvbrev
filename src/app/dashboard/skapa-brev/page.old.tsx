@@ -16,7 +16,7 @@ import Notification from '@/components/ui/notification'
 
 // --- Icon Imports (Lucide React) ---
 import {
-  FileText, Upload, MessageSquare, ChevronDown, Info, Building2, Sparkles,
+  FileText, Upload, MessageSquare, ChevronDown, Info, Building2, Zap,
   Lightbulb, Trophy, Scale, Bot, Pencil, Save, Check, AlertTriangle,
   Crown, Clock, ExternalLink, Languages, SlidersHorizontal, Eye,
   Loader2, ChevronRight
@@ -37,7 +37,7 @@ interface TonalityInfo {
 // --- Constants ---
 const tonalityInfo: Record<Tonality, TonalityInfo> = {
   'professional': { label: 'Professionell', description: 'Formell och saklig ton.', icon: <Building2 className="w-5 h-5 text-blue-400" />, recommendedFor: 'Traditionella branscher.', premiumOnly: false },
-  'enthusiastic': { label: 'Entusiastisk', description: 'Energisk och passionerad.', icon: <Sparkles className="w-5 h-5 text-pink-400" />, recommendedFor: 'Kreativa yrken, startups.', premiumOnly: false },
+  'enthusiastic': { label: 'Entusiastisk', description: 'Energisk och passionerad.', icon: <Zap className="w-5 h-5 text-pink-400" />, recommendedFor: 'Kreativa yrken, startups.', premiumOnly: false },
   'creative': { label: 'Kreativ', description: 'Innovativ och nytänkande.', icon: <Lightbulb className="w-5 h-5 text-yellow-400" />, recommendedFor: 'Design, marknadsföring.', premiumOnly: false },
   'confident': { label: 'Självsäker', description: 'Betonar prestationer och resultat.', icon: <Trophy className="w-5 h-5 text-amber-400" />, recommendedFor: 'Chefsroller, sälj.', premiumOnly: false },
   'balanced': { label: 'Balanserad', description: 'Blandning av professionalitet & personlighet.', icon: <Scale className="w-5 h-5 text-emerald-400" />, recommendedFor: 'De flesta tjänster.', premiumOnly: false },
@@ -668,7 +668,7 @@ export default function CreateLetterPage() {
                               {/* Knapp-innehåll (oförändrat från förra versionen) */}
                               {!isGenerateButtonDisabled && ( <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)] opacity-20 group-hover:opacity-30 transition-opacity duration-300"></span> )}
                               <span className="relative z-10 flex items-center">
-                                  {isSubmitting ? ( <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Genererar...</> ) : ( <><Sparkles className="w-5 h-5 mr-2 opacity-90 group-hover:scale-110 transition-transform" />Skapa Personligt Brev</> )}
+                                  {isSubmitting ? ( <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Genererar...</> ) : ( <>Skapa Personligt Brev</> )}
                               </span>
                           </button>
                            {subscriptionTier === 'free' && remainingWeeklyLetters <= 0 && !isSubmitting && (

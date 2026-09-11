@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Upload, BrainCircuit, FileText, Download,
-  CheckCircle, ArrowRight, Play, Sparkles
+  CheckCircle, ArrowRight, Play
 } from 'lucide-react'
 
 interface Step {
@@ -253,21 +253,6 @@ export default function InteractiveFunctionExplorer() {
                 {activeStep === 3 && <DownloadVisualization />}
               </motion.div>
 
-              {/* Sparkle decorations */}
-              <motion.div
-                className="absolute -top-2 -right-2"
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                }}
-              >
-                <Sparkles className="w-6 h-6 text-yellow-400" />
-              </motion.div>
             </div>
           </div>
 

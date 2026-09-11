@@ -8,7 +8,7 @@ import CompetenceProgressTrackerEnhanced from './CompetenceProgressTrackerEnhanc
 import LearningPathVisualization from './LearningPathVisualization';
 import Notification from '@/components/ui/notification';
 import {
-  Briefcase, FileText, Sparkles, Loader2, AlertTriangle,
+  Briefcase, FileText, Info, Loader2, AlertTriangle,
   Lock, Target, PlayCircle, RefreshCw
 } from 'lucide-react';
 
@@ -346,7 +346,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           {/* Info Box */}
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <div className="flex items-start">
-              <Sparkles className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
+              <Info className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
               <div className="space-y-3">
                 <div>
                   <p className="text-sm text-gray-900 font-semibold mb-2">

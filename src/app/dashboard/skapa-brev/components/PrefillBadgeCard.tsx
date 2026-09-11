@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Building2, Briefcase, Check } from 'lucide-react';
-import { PrefillSparkleIcon } from './illustrations/LetterFlowIcons';
+import { PrefillIcon } from './illustrations/LetterFlowIcons';
 
 interface PrefillBadgeCardProps {
   company: string;
@@ -49,7 +49,7 @@ export default function PrefillBadgeCard({
 
       <div className="relative flex items-start gap-4 sm:gap-5">
         <div className="flex-shrink-0">
-          <PrefillSparkleIcon className="w-12 h-12 sm:w-14 sm:h-14" />
+          <PrefillIcon className="w-12 h-12 sm:w-14 sm:h-14" />
         </div>
 
         <div className="flex-1 min-w-0">

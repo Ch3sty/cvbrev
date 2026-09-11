@@ -1,6 +1,6 @@
 'use client'
 
-import { Briefcase, Heart, Sparkles } from 'lucide-react'
+import { Briefcase, Heart, Lightbulb } from 'lucide-react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
@@ -57,7 +57,7 @@ export default function KarriärPage() {
             className="grid md:grid-cols-2 gap-6 mb-10"
           >
             <div className="bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 p-6 shadow-sm">
-              <Sparkles className="w-8 h-8 text-pink-600 mb-3" />
+              <Lightbulb className="w-8 h-8 text-pink-600 mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Innovation</h3>
               <p className="text-gray-600 text-sm">Arbeta med cutting-edge AI-teknologi för karriärutveckling</p>
             </div>

@@ -112,7 +112,7 @@ export default function ArticlesFinalCTA() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
-            href="/login?signup=true"
+            href="/register"
             className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white text-orange-700 font-bold text-base sm:text-lg hover:bg-orange-50 hover:scale-[1.02] transition-all w-full sm:w-auto group min-h-[52px] touch-manipulation"
           >
             Starta gratis
@@ -122,7 +122,7 @@ export default function ArticlesFinalCTA() {
             />
           </Link>
           <Link
-            href="/dashboard"
+            href="/verktyg/cv-mallar"
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white font-bold text-base sm:text-lg hover:bg-white/20 transition-colors w-full sm:w-auto min-h-[52px] touch-manipulation"
           >
             Se alla verktyg

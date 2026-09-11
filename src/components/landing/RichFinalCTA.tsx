@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  ShieldCheck,
   PenLine,
   FileSearch,
   Compass,
@@ -110,60 +109,23 @@ export default function RichFinalCTA() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-7">
+            <div className="flex items-center justify-center mb-4">
               <Link
-                href="/trial-signup"
+                href="/register"
                 data-cta="rich-final-primary"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white text-orange-700 font-bold text-base sm:text-lg hover:bg-orange-50 hover:scale-[1.02] active:scale-[0.99] transition-all touch-manipulation min-w-[260px] sm:min-w-0"
-                style={{ boxShadow: '0 12px 28px -10px rgba(0,0,0,0.25)' }}
+                className="group inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-white px-7 text-base font-semibold text-orange-700 hover:bg-orange-50 transition-colors touch-manipulation min-w-[260px] sm:min-w-0"
               >
-                Prova Premium gratis i 7 dagar
+                Skapa konto och få 5 dagar Premium
                 <ArrowRight
-                  className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
-                  strokeWidth={2.5}
+                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                  strokeWidth={2}
                 />
-              </Link>
-
-              <Link
-                href="/login?signup=true"
-                data-cta="rich-final-secondary"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white/10 backdrop-blur-sm text-white font-bold text-base sm:text-lg border border-white/30 hover:bg-white/15 transition-all touch-manipulation min-w-[260px] sm:min-w-0"
-              >
-                Eller starta gratis
               </Link>
             </div>
 
-            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm opacity-95 mb-8">
-              <li className="inline-flex items-center gap-1.5">
-                <ShieldCheck
-                  className="w-3.5 h-3.5 text-orange-200"
-                  strokeWidth={2.5}
-                />
-                Inget kreditkort krävs
-              </li>
-              <li
-                className="hidden sm:inline-block w-px h-3 bg-white/30"
-                aria-hidden="true"
-              />
-              <li className="inline-flex items-center gap-1.5">
-                <ShieldCheck
-                  className="w-3.5 h-3.5 text-orange-200"
-                  strokeWidth={2.5}
-                />
-                Avsluta när du vill
-              </li>
-              <li
-                className="hidden sm:inline-block w-px h-3 bg-white/30"
-                aria-hidden="true"
-              />
-              <li className="inline-flex items-center gap-1.5">
-                <ShieldCheck
-                  className="w-3.5 h-3.5 text-orange-200"
-                  strokeWidth={2.5}
-                />
-                Svensk support
-              </li>
-            </ul>
+            <p className="text-sm opacity-95 mb-8">
+              Inget kreditkort · Avsluta när du vill · Bekräftat av SVT, SR, DN
+            </p>
 
             {/* Dynamiska räknare på vit-tonad bg-stripe */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 p-4 sm:p-5 max-w-md mx-auto">

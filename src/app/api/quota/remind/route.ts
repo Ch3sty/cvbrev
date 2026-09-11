@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { recordQuotaWall } from '@/lib/email/lifecycle/hooks';
 
 // POST /api/quota/remind
 // "Påminn mig när kvoten är tillbaka." Body: { feature, remindAfter (ISO) }.
@@ -38,6 +40,15 @@ export async function POST(request: Request) {
     if (insertError && insertError.code !== '23505') {
       console.error('quota/remind insert error:', insertError);
       return NextResponse.json({ error: 'Failed to save reminder' }, { status: 500 });
+    }
+
+    // "Påminn mig" betyder att användaren slog i taket. Räknas mot
+    // quota_wall-tröskeln (tre träffar på 7 dagar). Fire-and-forget:
+    // påminnelsen är sparad oavsett vad livscykelspåret gör.
+    try {
+      await recordQuotaWall(getSupabaseAdmin() as any, user.id, feature.slice(0, 64));
+    } catch (hookError) {
+      console.error('quota/remind recordQuotaWall error:', hookError);
     }
 
     return NextResponse.json({ success: true });

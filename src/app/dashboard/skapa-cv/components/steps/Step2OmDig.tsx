@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sparkles } from 'lucide-react'
+import { Lightbulb } from 'lucide-react'
 import type { CVDraft } from '../CVCreatorWizard'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
 import SkapaCvTextarea from '../inputs/SkapaCvTextarea'
@@ -61,7 +61,7 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
         {/* Tips-kort */}
         <div className="rounded-xl border border-orange-100 bg-orange-50/40 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Sparkles
+            <Lightbulb
               className="w-4 h-4 text-orange-700"
               strokeWidth={2.4}
             />

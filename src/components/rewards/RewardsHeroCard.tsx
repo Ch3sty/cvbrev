@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Trophy, Star, Gift, ArrowRight, Sparkles } from 'lucide-react';
+import { Trophy, Star, Gift, ArrowRight } from 'lucide-react';
 
 interface RewardsHeroCardProps {
   currentLevel: number;
@@ -75,7 +75,6 @@ export default function RewardsHeroCard({
             >
               <Gift className="w-4 h-4 text-amber-600" />
               <span className="text-sm font-medium text-amber-800">Du har en belöning att hämta!</span>
-              <Sparkles className="w-4 h-4 text-amber-500" />
             </motion.div>
           )}
         </div>

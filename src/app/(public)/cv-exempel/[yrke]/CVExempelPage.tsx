@@ -14,6 +14,7 @@ import TipsSection from '@/components/exempel-shared/TipsSection'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
 import FinalCTA from '@/components/exempel-shared/FinalCTA'
+import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
 import CvPreviewShell from '@/components/cv-exempel-shared/CvPreviewShell'
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data'
 
@@ -101,7 +102,7 @@ export default function CVExempelPage({
           variant="cv"
           yrke={data.yrke}
           intro={data.intro}
-          primaryCtaHref="/dashboard/skapa-cv"
+          primaryCtaHref={`/cv-mallar/start?yrke=${slug}`}
           primaryCtaLabel="Skapa mitt CV"
           secondaryCtaTargetId="preview"
           secondaryCtaLabel="Se exemplet"
@@ -218,8 +219,15 @@ export default function CVExempelPage({
         />
 
         {/* Final CTA */}
-        <FinalCTA variant="cv" yrke={data.yrke} ctaHref="/dashboard/skapa-cv" />
+        <FinalCTA variant="cv" yrke={data.yrke} ctaHref={`/cv-mallar/start?yrke=${slug}`} />
       </main>
+
+      <StickyMobileCTA
+        cluster="cv"
+        slug={slug}
+        label={`Använd denna mall som ${data.yrke.toLowerCase()}`}
+        href={`/cv-mallar/start?yrke=${slug}`}
+      />
     </div>
   )
 }

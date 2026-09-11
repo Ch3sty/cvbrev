@@ -8,6 +8,7 @@ import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { stripe } from '@/lib/stripe/server'
 import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription'
+import { getSubscriptionPriceAllowlist } from '@/lib/stripe/planPrices'
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,6 +31,16 @@ export async function POST(request: NextRequest) {
     if (!priceId) {
       return NextResponse.json({
         error: 'Saknar price ID'
+      }, { status: 400 })
+    }
+
+    // A6: bara månad och kvartal får tecknas här. Klienten har aldrig fria
+    // händer med price id.
+    const allowedPriceIds = getSubscriptionPriceAllowlist()
+    if (!allowedPriceIds.includes(priceId)) {
+      console.warn(`[CREATE UPGRADE SESSION] Blockerade price id utanför allowlist: ${priceId}`)
+      return NextResponse.json({
+        error: 'Ogiltigt produktval'
       }, { status: 400 })
     }
 

@@ -2,7 +2,7 @@
 // EN källa till sanning för "vad ska dashboarden rekommendera härnäst".
 // Ersätter de tidigare parallella systemen (OnboardingDag2:s statiska tre kort
 // och DiscoverByRecruitersCard) med en rankad kedja. Körs EFTER onboarding
-// (OnboardingHero äger flödet fram till hämtad belöning).
+// (DashboardHero äger flödet fram till första CV och brev).
 //
 // Rankning:
 //   1. Uppföljningsnudge: pågående ansökningar med 14+ dagars tystnad

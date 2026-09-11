@@ -6,6 +6,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database.types';
 import { createBackgroundJob } from '@/lib/cv/background-jobs';
 import { checkCvAnalysisQuota, quotaExceededBody, CV_ANALYSIS_WINDOW_HOURS } from '@/lib/quota/quotaService';
+import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 // Vercel maxDuration configuration
 export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
@@ -140,6 +141,7 @@ export async function POST(request: NextRequest) {
         const quota = await checkCvAnalysisQuota(supabase, userId);
 
         if (!quota.allowed) {
+            signalQuotaWall(userId, 'cv_analysis');
             console.log(`API analyzeCv: User ${userId} (Free): Quota exceeded (${quota.used}/${quota.limit}).`);
             return NextResponse.json({
                 ...quotaExceededBody(

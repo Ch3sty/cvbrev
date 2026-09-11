@@ -10,11 +10,11 @@ import {
   Zap,
   Gift,
   Users,
-  Sparkles,
   Target,
   TrendingUp,
   Award,
-  Gem
+  Gem,
+  Medal
 } from 'lucide-react';
 
 interface MilestoneLevel {
@@ -172,7 +172,7 @@ const MilestoneProgressIndicator: React.FC<MilestoneProgressIndicatorProps> = ({
       bronze: <Award className="w-5 h-5" />,
       silver: <Trophy className="w-5 h-5" />,
       gold: <Star className="w-5 h-5" />,
-      platinum: <Sparkles className="w-5 h-5" />,
+      platinum: <Medal className="w-5 h-5" />,
       diamond: <Gem className="w-5 h-5" />
     };
     return icons[theme as keyof typeof icons] || icons.bronze;
@@ -185,7 +185,7 @@ const MilestoneProgressIndicator: React.FC<MilestoneProgressIndicatorProps> = ({
       premium_time: <Crown className="w-4 h-4" />,
       guest_invitations: <Users className="w-4 h-4" />,
       status: <Trophy className="w-4 h-4" />,
-      special: <Sparkles className="w-4 h-4" />
+      special: <Star className="w-4 h-4" />
     };
     return icons[type as keyof typeof icons] || icons.special;
   };

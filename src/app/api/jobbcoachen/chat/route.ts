@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { embedQuery, generateStream, chatContents, GEMINI_MODELS } from '@/lib/gemini';
 import { checkChatQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -105,6 +106,7 @@ export async function POST(req: NextRequest) {
     // de rader den här routen själv sparar nedan. Premium/admin passerar.
     const quota = await checkChatQuota(supabase, user.id);
     if (!quota.allowed) {
+      signalQuotaWall(user.id, 'chat_message');
       return new Response(
         JSON.stringify(
           quotaExceededBody(

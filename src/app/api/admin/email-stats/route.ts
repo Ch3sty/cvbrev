@@ -15,6 +15,7 @@ interface EmailLogRow {
   recipient: string;
   subject: string;
   sent_at: string;
+  user_id?: string | null;
 }
 
 interface EmailEventRow {
@@ -103,7 +104,7 @@ export async function GET(request: NextRequest) {
         .not('trial_reminder_sent_at', 'is', null),
       admin
         .from('email_log')
-        .select('resend_id, email_type, feature, recipient, subject, sent_at')
+        .select('resend_id, email_type, feature, recipient, subject, sent_at, user_id')
         .gte('sent_at', sinceIso)
         .order('sent_at', { ascending: false }),
       admin
@@ -238,7 +239,22 @@ export async function GET(request: NextRequest) {
       new Set([...Object.keys(byType), ...engagementByType.keys()])
     );
 
-    const engagementRows = emailTypes.map((emailType) => {
+    interface EngagementRowOut {
+      email_type: string;
+      sentCount: number;
+      delivered: number;
+      uniqueOpened: number;
+      uniqueClicked: number;
+      bounced: number;
+      complained: number;
+      openRate: number;
+      clickRate: number;
+      hasEvents: boolean;
+      converted: number;
+      conversionRate: number;
+    }
+
+    const engagementRows: EngagementRowOut[] = emailTypes.map((emailType) => {
       const sentCount = byType[emailType] ?? 0;
       const entry = engagementByType.get(emailType) ?? emptyEngagement();
       const delivered = entry.delivered.size;
@@ -256,8 +272,63 @@ export async function GET(request: NextRequest) {
         openRate: rate(uniqueOpened, openBase),
         clickRate: rate(uniqueClicked, openBase),
         hasEvents: entry.eventCount > 0,
+        // Fylls i av konverteringsblocket nedan.
+        converted: 0,
+        conversionRate: 0,
       };
     });
+
+    // f. Konvertering per email_type (spår D7): blev mottagaren betalande
+    // inom 7 dagar efter sent_at?
+    //
+    // Konverteringstidpunkten är current_period_end minus periodens längd är
+    // inte tillgänglig här, så vi använder updated_at på profilen som proxy
+    // och kräver att kontot faktiskt är betalande nu. premium_source
+    // 'signup_trial' räknas ALDRIG som betalande (planens riskavsnitt).
+    const recipientIds = Array.from(
+      new Set(logs.map((log) => log.user_id).filter((id): id is string => !!id))
+    );
+
+    const conversionByType = new Map<string, Set<string>>();
+
+    if (recipientIds.length > 0) {
+      const { data: payingRows } = await admin
+        .from('profiles')
+        .select('id, subscription_status, premium_source, updated_at')
+        .in('id', recipientIds)
+        .or('subscription_status.in.(active,trialing),premium_source.like.onetime_%');
+
+      const paidAtByUser = new Map<string, number>();
+      for (const row of payingRows ?? []) {
+        const isRealPayer =
+          ['active', 'trialing'].includes(row.subscription_status ?? '') ||
+          (typeof row.premium_source === 'string' && row.premium_source.startsWith('onetime_'));
+        if (!isRealPayer) continue;
+        if (row.premium_source === 'signup_trial' || row.premium_source === 'oauth_signup_trial') {
+          continue;
+        }
+        if (row.updated_at) paidAtByUser.set(row.id, new Date(row.updated_at).getTime());
+      }
+
+      const windowMs = 7 * 24 * 60 * 60 * 1000;
+      for (const log of logs) {
+        if (!log.user_id) continue;
+        const paidAt = paidAtByUser.get(log.user_id);
+        if (paidAt === undefined) continue;
+        const sentAt = new Date(log.sent_at).getTime();
+        if (paidAt >= sentAt && paidAt - sentAt <= windowMs) {
+          const set = conversionByType.get(log.email_type) ?? new Set<string>();
+          set.add(log.user_id);
+          conversionByType.set(log.email_type, set);
+        }
+      }
+    }
+
+    for (const row of engagementRows) {
+      const converted = conversionByType.get(row.email_type)?.size ?? 0;
+      row.converted = converted;
+      row.conversionRate = rate(converted, row.sentCount);
+    }
 
     // Totaler för stat-korten
     const totalSent = logs.length;
@@ -275,6 +346,7 @@ export async function GET(request: NextRequest) {
         uniqueClicked: totalClicked,
         openRate: rate(totalOpened, totalOpenBase),
         clickRate: rate(totalClicked, totalOpenBase),
+        converted: engagementRows.reduce((sum, r) => sum + r.converted, 0),
       },
       topLinks: Array.from(linkClicks.entries())
         .map(([link_url, clicks]) => ({ link_url, clicks }))

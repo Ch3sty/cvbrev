@@ -10,7 +10,6 @@ import {
   Download,
   FileType,
   ShieldCheck,
-  Sparkles,
 } from 'lucide-react'
 
 /**
@@ -34,7 +33,6 @@ export default function MallarHubGuideSection() {
         {/* Eyebrow + intro */}
         <div className="text-center mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-            <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
             Guide till mallarna
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.1] tracking-tight mb-3">

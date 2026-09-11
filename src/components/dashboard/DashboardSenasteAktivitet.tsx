@@ -82,6 +82,10 @@ export default function DashboardSenasteAktivitet() {
     }
   }, [])
 
+  // Tom aktivitetslista säger ingenting. Den döljs helt (B4), i stället för
+  // att lägga en tom yta mellan användaren och nästa handling.
+  if (!loading && items && items.length === 0) return null
+
   return (
     <section className="bg-white rounded-3xl border border-orange-100 p-5 sm:p-6">
       <div className="flex items-center justify-between mb-4">

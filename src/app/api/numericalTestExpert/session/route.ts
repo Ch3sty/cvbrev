@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 const TEST_TYPE = 'numerical-reasoning-expert';
 const QUOTA_MESSAGE =
@@ -21,6 +22,7 @@ export async function POST() {
     // obegränsat. Spärren måste sitta serverside.
     const quota = await checkDailyTestQuota(supabase, user.id, TEST_TYPE);
     if (!quota.allowed) {
+      signalQuotaWall(user.id, `test:${TEST_TYPE}`);
       return NextResponse.json(
         quotaExceededBody(`test:${TEST_TYPE}`, quota, QUOTA_MESSAGE),
         { status: 429 }

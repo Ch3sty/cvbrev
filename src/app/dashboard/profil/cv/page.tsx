@@ -17,7 +17,7 @@ import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 import CvUploadIllustration from './components/CvUploadIllustration';
 import CvUnlocksFlow from './components/CvUnlocksFlow';
 import CvCard from './components/CvCard';
-import CvLimitBanner from './components/CvLimitBanner';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const FREE_LIMIT = 2;
 
@@ -301,17 +301,16 @@ export default function MinaCVPage() {
         <>
           {/* Aha-moment: snabb-poäng direkt efter första uppladdningen */}
           {quickScoreCvId && (
-            <QuickScoreReveal cvId={quickScoreCvId} />
+            <QuickScoreReveal cvId={quickScoreCvId} userId={profile?.id} />
           )}
 
           <CvUnlocksFlow variant="compact" />
 
           {limitReached && (
-            <CvLimitBanner
-              cvCount={cvCount}
-              cvLimit={FREE_LIMIT}
+            <PaywallCard
+              variant="cv-antal"
               isPremium={isPremium}
-              onScrollToList={scrollToList}
+              onSecondary={scrollToList}
             />
           )}
 

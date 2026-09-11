@@ -16,7 +16,7 @@ import {
 import { toast } from 'react-toastify'
 import { createCVFromLinkedIn } from '@/lib/linkedin/linkedin-to-cv-converter'
 import { createClient } from '@/lib/supabase/client'
-import QuotaExceededBanner from '@/components/cv/QuotaExceededBanner'
+import PaywallCard from '@/components/paywall/PaywallCard'
 import LinkedInProfileMockup, {
   type ProfileMockupData,
 } from '../LinkedInProfileMockup'
@@ -220,7 +220,7 @@ export default function Step4Done({
 
         {saveError && quotaExceeded && (
           <div className="mb-3">
-            <QuotaExceededBanner message={saveError} />
+            <PaywallCard variant="cv-antal" />
           </div>
         )}
 

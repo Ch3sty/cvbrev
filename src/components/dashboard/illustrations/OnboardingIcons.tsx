@@ -180,7 +180,7 @@ export function OnboardingStep3Analys({ className }: IllustrationProps) {
       />
       <text x="60" y="60" textAnchor="middle" fontSize="13" fontWeight="900" fill="#DC2626">87</text>
 
-      {/* Sparkles */}
+      {/* Dekorativa prickar */}
       <circle cx="76" cy="34" r="2" fill={`url(#${id}-deep)`} />
       <circle cx="82" cy="40" r="1.5" fill={`url(#${id}-warm)`} opacity="0.7" />
     </svg>
@@ -230,7 +230,7 @@ export function OnboardingTrofe({ className }: IllustrationProps) {
       <rect x="40" y="84" width="40" height="8" rx="2" fill={`url(#${id}-deep)`} />
       <rect x="36" y="90" width="48" height="6" rx="2" fill={`url(#${id}-warm)`} />
 
-      {/* Sparkles */}
+      {/* Dekorativa stjärnor */}
       <path d="M 24 24 L 26 28 L 30 30 L 26 32 L 24 36 L 22 32 L 18 30 L 22 28 Z" fill={`url(#${id}-warm)`} opacity="0.8" />
       <path d="M 96 22 L 98 26 L 102 28 L 98 30 L 96 34 L 94 30 L 90 28 L 94 26 Z" fill={`url(#${id}-deep)`} opacity="0.8" />
       <circle cx="20" cy="60" r="2" fill={`url(#${id}-warm)`} />

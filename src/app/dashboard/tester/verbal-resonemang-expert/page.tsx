@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Clock, ListChecks, Scale } from 'lucide-react';
 import { TOTAL_QUESTIONS } from '@/lib/verbalTestExpert/selectPassages';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const EXPERT_MINUTES = 35;
 
@@ -116,11 +116,9 @@ export default function VerbalExpertStartPage() {
         </motion.section>
 
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
         <motion.section

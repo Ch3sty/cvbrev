@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, Crown } from 'lucide-react'
 
 /**
  * Custom SVG-illustration för "vecko-gräns nådd"-state.
@@ -181,7 +181,7 @@ function WeeklyLimitIllustration({ className }: { className?: string }) {
         />
       </g>
 
-      {/* Sparkles-prick i hörnet (premium-hint) */}
+      {/* Liten stjärnprick i hörnet (premium-hint) */}
       <g transform="translate(96 24)">
         <circle cx="0" cy="0" r="9" fill="url(#wl-deep)" />
         <path
@@ -273,7 +273,7 @@ export default function WeeklyLimitReached({
           {/* Premium-värde */}
           <div className="rounded-xl border border-orange-100 bg-orange-50/40 p-4 mb-5 text-left">
             <div className="flex items-start gap-2.5">
-              <Sparkles
+              <Crown
                 className="w-4 h-4 text-orange-700 flex-shrink-0 mt-0.5"
                 strokeWidth={2.4}
               />

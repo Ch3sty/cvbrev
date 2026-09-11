@@ -11,7 +11,7 @@ import Notification from '@/components/ui/notification';
 
 // --- Icons ---
 import { 
-  Briefcase, FileText, Percent, Sparkles, Loader2, AlertTriangle, 
+  Briefcase, FileText, Percent, Loader2, AlertTriangle, 
   Check, Lock 
 } from 'lucide-react';
 
@@ -339,7 +339,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
                     ) : hasReachedLimit ? (
                         <><Lock className="w-5 h-5 mr-2" />Veckogräns Nådd</>
                     ) : ( 
-                        <><Sparkles className="w-5 h-5 mr-2 opacity-90" />Analysera Kompetens</> 
+                        <>Analysera Kompetens</> 
                     )}
                 </button>
                 

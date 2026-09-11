@@ -14,8 +14,7 @@ import {
   CheckCircle,
   Star,
   Target,
-  TrendingUp,
-  Sparkles
+  TrendingUp
 } from 'lucide-react';
 
 // Types for the rewards dashboard
@@ -231,7 +230,7 @@ const RewardsDashboard: React.FC<RewardsDashboardProps> = ({
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center space-x-2">
-              <Sparkles className="w-5 h-5 text-pink-500" />
+              <Gift className="w-5 h-5 text-pink-500" />
               <span>Belöningar</span>
             </CardTitle>
 

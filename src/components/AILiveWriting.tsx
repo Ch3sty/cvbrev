@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, BrainCircuit, FileText, Target } from 'lucide-react'
+import { Loader2, BrainCircuit, FileText, Target } from 'lucide-react'
 
 const scenarios = [
   {
@@ -171,7 +171,7 @@ export default function AILiveWriting() {
                   animate={{ rotate: 360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 >
-                  <Sparkles className="w-4 h-4" />
+                  <Loader2 className="w-4 h-4" />
                 </motion.div>
                 <span>Matchar dina kompetenser mot tjänsten</span>
               </motion.div>

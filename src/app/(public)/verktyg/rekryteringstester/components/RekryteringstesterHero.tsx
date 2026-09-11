@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
-import RekryteringstesterLiveDemo from './RekryteringstesterLiveDemo'
+import RekryteringstesterProvaKort from './RekryteringstesterProvaKort'
 
 const TRUST = ['3 tester gratis', 'Detaljerad rapport', 'Samma format som SHL']
 
@@ -62,7 +62,7 @@ export default function RekryteringstesterHero() {
 
             <div className="flex flex-col sm:flex-row items-center gap-3 lg:justify-start justify-center">
               <Link
-                href="/dashboard/tester"
+                href="/register"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base shadow-lg w-full sm:w-auto min-h-[52px] hover:shadow-xl active:scale-[0.98] transition-all"
                 style={{
                   background:
@@ -103,7 +103,7 @@ export default function RekryteringstesterHero() {
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
             className="relative"
           >
-            <RekryteringstesterLiveDemo />
+            <RekryteringstesterProvaKort />
           </motion.div>
         </div>
       </div>

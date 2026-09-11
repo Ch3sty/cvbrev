@@ -7,7 +7,7 @@ import NumericalTestHero from '@/components/tests/numerical-shared/NumericalTest
 import NumericalInfoCard from '@/components/tests/numerical-shared/NumericalInfoCard';
 import NumericalStartCTA from '@/components/tests/numerical-shared/NumericalStartCTA';
 import NumericalPreviousResults from '@/components/tests/numerical-shared/NumericalPreviousResults';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 interface Session {
   id: string;
@@ -92,11 +92,9 @@ export default function NumericalTestV2LandingPage() {
         />
         <NumericalInfoCard variant="v2" />
         {quotaLock ? (
-          <QuotaLockCard
-            feature={quotaLock.feature}
-            title="Du har gjort dagens test"
-            description="Som gratisanvändare gör du varje test en gång per dag."
-            nextResetAt={quotaLock.nextResetAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : (
           <NumericalStartCTA onStart={handleStartTest} isLoading={isLoading} variant="v2" />

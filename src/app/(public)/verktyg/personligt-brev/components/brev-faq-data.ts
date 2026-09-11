@@ -13,7 +13,7 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Hur många brev kan jag skapa gratis?',
-    a: 'Två brev per dag på gratisnivån, räkningen nollställs varje natt. Du kan spara hur många brev du vill, men bara de två senaste är aktiva och redigerbara samtidigt, äldre brev låses tills du uppgraderar (de raderas aldrig). Premium tar bort alla begränsningar, då kan du skriva och redigera hur många brev du vill.',
+    a: 'Ett brev om dagen på gratisnivån, räkningen nollställs varje natt. Du kan spara hur många brev du vill, men bara det senaste är aktivt och redigerbart, äldre brev låses tills du uppgraderar (de raderas aldrig). Premium tar bort alla begränsningar, då kan du skriva och redigera hur många brev du vill.',
   },
   {
     q: 'Kommer brevet att kännas som något vi alla skickat in?',

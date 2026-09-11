@@ -6,7 +6,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
   FileText, Clock, Search, ChevronDown, ChevronLeft, ChevronRight, Eye,
   MoreHorizontal, RefreshCw, CreditCard, AlertTriangle, Check, Bot, Scale,
-  Building2, Sparkles, Lightbulb, Trophy
+  Building2, Flame, Lightbulb, Trophy
 } from 'lucide-react';
 import LetterGenerationChart from '@/components/admin/charts/LetterGenerationChart';
 import LetterCostChart from '@/components/admin/charts/LetterCostChart';
@@ -35,7 +35,7 @@ const PAGE_SIZE = 25;
 const TonalityIcon = ({ tonality }: { tonality: string }) => {
   const icons: { [key: string]: JSX.Element } = {
     professional: <Building2 className="w-4 h-4 text-blue-500" />,
-    enthusiastic: <Sparkles className="w-4 h-4 text-orange-500" />,
+    enthusiastic: <Flame className="w-4 h-4 text-orange-500" />,
     creative: <Lightbulb className="w-4 h-4 text-yellow-500" />,
     confident: <Trophy className="w-4 h-4 text-amber-500" />,
     balanced: <Scale className="w-4 h-4 text-emerald-500" />,

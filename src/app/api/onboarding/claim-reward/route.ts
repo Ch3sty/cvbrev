@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
+import { REQUIRED_STEPS } from '@/lib/onboarding/steps';
+
+/** Belöningen är XP, inte premium-dagar (docs/plan-konvertering.md, B5). */
+const XP_REWARD = 100;
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,39 +43,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hybrid validation: Check the 3 required steps via both DB array AND actual feature tables
-    const REQUIRED_STEPS = ['upload_cv', 'create_letter', 'analyze_cv'];
-
-    const [
-      { count: cvCount },
-      { count: letterCount },
-      { count: analysisCount }
-    ] = await Promise.all([
-      supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
-      supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
-      supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed')
-    ]);
+    // Ett enda obligatoriskt steg sedan B5: CV uppladdat. Hybridvalidering mot
+    // både steg-arrayen och den faktiska tabellen.
+    const { count: cvCount } = await supabase
+      .from('cv_texts')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id);
 
     const completedStepsArray = profile.onboarding_steps_completed || [];
-    const validatedRequiredSteps: string[] = [];
+    const validatedRequiredSteps = REQUIRED_STEPS.filter((step) => {
+      if (completedStepsArray.includes(step)) return true;
+      if (step === 'upload_cv') return (cvCount || 0) > 0;
+      return false;
+    });
 
-    if (completedStepsArray.includes('upload_cv') || (cvCount || 0) > 0) {
-      validatedRequiredSteps.push('upload_cv');
-    }
-    if (completedStepsArray.includes('create_letter') || (letterCount || 0) > 0) {
-      validatedRequiredSteps.push('create_letter');
-    }
-    if (completedStepsArray.includes('analyze_cv') || (analysisCount || 0) > 0) {
-      validatedRequiredSteps.push('analyze_cv');
-    }
-
-    console.log('[claim-reward] Validated required steps:', validatedRequiredSteps);
-    console.log('[claim-reward] Completed:', validatedRequiredSteps.length, '/ 3');
-
-    // Validate all 3 required steps are completed
-    if (validatedRequiredSteps.length < 3) {
+    if (validatedRequiredSteps.length < REQUIRED_STEPS.length) {
       return NextResponse.json(
-        { error: `Alla 3 kärnsteg måste vara slutförda (${validatedRequiredSteps.length}/3)` },
+        { error: 'Ladda upp ditt CV först, sedan låser vi upp belöningen.' },
         { status: 400 }
       );
     }
@@ -89,42 +77,31 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Calculate premium end date (1 day from now or extend existing premium)
-    const currentPremiumUntil = profile.premium_until ? new Date(profile.premium_until) : null;
-    const startDate = currentPremiumUntil && currentPremiumUntil > new Date()
-      ? currentPremiumUntil // Stack on existing premium
-      : new Date(); // Start from now
-
-    const premiumEndDate = new Date(startDate);
-    premiumEndDate.setDate(premiumEndDate.getDate() + 1); // Add 1 day
-
-    // Grant premium and mark reward as claimed
+    // Belöningen är XP, inte premium-dagar (B5). Reverse trial ger redan
+    // alla nya konton fem dagar Premium, så vi rör aldrig premium-fälten här.
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({
-        premium_until: premiumEndDate.toISOString(),
-        premium_source: 'onboarding_completion',
-        subscription_tier: 'premium',
-        onboarding_reward_claimed: true
-      })
+      .update({ onboarding_reward_claimed: true })
       .eq('id', user.id);
 
     if (updateError) {
-      console.error('Error granting premium:', updateError);
+      console.error('Error marking reward as claimed:', updateError);
       return NextResponse.json(
-        { error: 'Failed to grant premium reward' },
+        { error: 'Kunde inte spara belöningen' },
         { status: 500 }
       );
     }
 
-    // Award XP (non-blocking, don't fail if this errors)
+    // XP är själva belöningen, men ett fel här ska inte fälla anropet.
+    let xpAwarded = 0;
     try {
       await supabase.rpc('add_xp_with_cap_check', {
         user_id_param: user.id,
-        xp_amount: 100,
+        xp_amount: XP_REWARD,
         source_param: 'onboarding_completion',
-        description_param: 'Slutförde alla onboarding-steg och hämtade belöning'
+        description_param: 'Laddade upp sitt CV och låste upp belöningen'
       });
+      xpAwarded = XP_REWARD;
     } catch (xpError) {
       console.warn('XP award failed (non-critical):', xpError);
     }
@@ -132,8 +109,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        premiumUntil: premiumEndDate.toISOString(),
-        message: `1 dag Premium aktiverat! Giltig till ${premiumEndDate.toLocaleDateString('sv-SE')}.`
+        xp: xpAwarded,
+        message: 'Din belöning är upplåst'
       }
     });
 

@@ -38,13 +38,13 @@ export default function ExempelCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Använd exemplen som inspiration och bygg ditt eget med våra
-                verktyg. Två brev per dag och en CV-analys var tredje dag,
+                verktyg. Ett brev om dagen och en CV-analys var tredje dag,
                 helt gratis.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
                 <Link
-                  href="/dashboard/skapa-cv"
+                  href="/register"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-orange-50 active:scale-[0.98] transition-all"
                   style={{
                     color: '#DC2626',
@@ -59,7 +59,7 @@ export default function ExempelCTABand() {
                   />
                 </Link>
                 <Link
-                  href="/dashboard/skapa-brev"
+                  href="/register"
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl border-2 border-white/40 text-white font-bold text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:border-white/70 transition-colors"
                 >
                   <Mail className="w-5 h-5" strokeWidth={2.5} />

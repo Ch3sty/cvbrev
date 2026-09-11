@@ -1,76 +1,54 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { CheckPriser } from './illustrations/PriserIcons'
+/**
+ * Prissidans hero (A7 i docs/plan-konvertering.md). Copy ordagrant enligt
+ * planen. Ingen gradientrubrik, ingen radial blob: orange är accent här,
+ * inte yta.
+ */
 
-const TRUST = [
-  'Ingen bindningstid',
-  '7 dagar gratis',
-  'Avsluta när som helst',
-]
+import { motion } from 'framer-motion'
+import { PRISER_HERO_TITLE, PRISER_HERO_INGRESS } from './priser-data'
+
+const TRUST = ['Ingen bindningstid', 'Fem dagar Premium när du skapar konto', 'Avsluta när du vill']
 
 export default function PriserHero() {
   return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 55% at 50% 0%, rgba(249, 115, 22, 0.12) 0%, transparent 65%)',
-        }}
-      />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10 sm:pt-16 sm:pb-14 text-center">
+    <section className="relative">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 sm:pt-16 sm:pb-12 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-            />
-            Priser
-          </div>
-
-          {/* Rubrik */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-            En enda plan.{' '}
-            <span
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Allt du behöver.
-            </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-neutral-900 leading-tight tracking-tight mb-4">
+            {PRISER_HERO_TITLE}
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-7 max-w-2xl mx-auto">
-            149 kr per månad för obegränsad tillgång till hela plattformen.
-            Sju dagar gratis och ingen bindningstid. Avsluta innan trialen
-            är slut och du betalar aldrig något.
+          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+            {PRISER_HERO_INGRESS}
           </p>
 
-          {/* Trust-pillar */}
-          <div className="inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-2 px-5 py-3 rounded-full bg-white border border-orange-100 shadow-sm">
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {TRUST.map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-700"
-              >
-                <CheckPriser className="w-4 h-4" />
+              <li key={t} className="inline-flex items-center gap-1.5 text-sm text-neutral-600">
+                <svg
+                  viewBox="0 0 16 16"
+                  width="14"
+                  height="14"
+                  className="text-orange-600 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3.5 8.5l3 3 6-6" />
+                </svg>
                 {t}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </motion.div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { X, Check, ChevronRight, Clock, Target, Sparkles, BookOpen, Calendar } from 'lucide-react';
+import { X, Check, ChevronRight, Clock, Target, BookOpen, Calendar } from 'lucide-react';
 
 interface LearningPlanCreatorProps {
   isOpen: boolean;
@@ -117,7 +117,7 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-blue-600" />
+                <Target className="w-6 h-6 text-blue-600" />
                 Skapa din utvecklingsplan
               </h2>
               <p className="text-sm text-gray-600 mt-1">

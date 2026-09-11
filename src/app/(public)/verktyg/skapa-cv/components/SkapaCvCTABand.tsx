@@ -43,7 +43,7 @@ export default function SkapaCvCTABand() {
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
                 <Link
-                  href="/dashboard/skapa-cv"
+                  href="/register"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-orange-50 active:scale-[0.98] transition-all"
                   style={{
                     color: '#DC2626',

@@ -16,8 +16,7 @@ import {
   Calendar,
   Clock,
   Percent,
-  Users,
-  Sparkles
+  Users
 } from 'lucide-react';
 
 // Types for the reward claim modal
@@ -345,7 +344,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
             {/* Features */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                <Sparkles className="w-4 h-4 mr-2 text-pink-500" />
+                <Star className="w-4 h-4 mr-2 text-pink-500" />
                 {details.title}
               </h3>
               <div className="space-y-2">

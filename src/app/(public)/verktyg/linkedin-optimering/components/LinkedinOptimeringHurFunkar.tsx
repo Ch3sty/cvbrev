@@ -115,7 +115,7 @@ export default function LinkedinOptimeringHurFunkar() {
 
         <div className="text-center mt-12 sm:mt-14">
           <Link
-            href="/dashboard/linkedin-optimizer"
+            href="/register"
             className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base min-h-[52px]"
             style={{
               background:

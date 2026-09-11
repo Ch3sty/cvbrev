@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, Sparkles } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 /**
  * Live-demo som speglar /dashboard/skapa-cv-flodet.
@@ -271,7 +271,7 @@ export default function SkapaCvLiveDemo() {
               </div>
 
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-100">
-                <Sparkles className="w-3 h-3 text-emerald-600" strokeWidth={2.5} />
+                <Check className="w-3 h-3 text-emerald-600" strokeWidth={2.5} />
                 <span className="text-[10px] font-bold text-emerald-700">
                   Auto-saved
                 </span>

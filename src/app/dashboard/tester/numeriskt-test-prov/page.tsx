@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, Clock, ListChecks } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/numericalTestProv/selectProv';
-import QuotaLockCard from '@/components/quota/QuotaLockCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 const PROV_MINUTES = 40;
 
@@ -116,11 +116,9 @@ export default function NumericalProvStartPage() {
         </motion.section>
 
         {rateLimited && !isPremium ? (
-          <QuotaLockCard
-            feature="test:numerical-reasoning-prov"
-            title="Du har gjort dagens prov"
-            description="Som gratisanvändare gör du varje prov en gång per dag."
-            nextResetAt={rateLimited.nextAvailableAt}
+          <PaywallCard
+            variant="test-tak"
+            quota={{ feature: "test:numerical-reasoning-prov", nextResetAt: rateLimited.nextAvailableAt }}
           />
         ) : (
           <motion.section

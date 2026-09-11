@@ -31,8 +31,11 @@ import CVMallarResultatBevis from './components/CVMallarResultatBevis'
 import CVMallarFAQ from './components/CVMallarFAQ'
 import CVMallarCTABand from './components/CVMallarCTABand'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 export default function CVMallarSida() {
+  // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
+
   // === Schema.org markup ===
 
   const itemListSchema = {
@@ -130,6 +133,7 @@ export default function CVMallarSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/cv-mallar" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
