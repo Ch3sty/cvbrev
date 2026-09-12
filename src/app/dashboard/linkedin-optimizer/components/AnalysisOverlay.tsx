@@ -51,61 +51,19 @@ export default function AnalysisOverlay({ onCancel }: AnalysisOverlayProps) {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="relative max-w-md w-full"
       >
-        {/* Glow */}
-        <div
-          className="absolute -inset-4 rounded-xl opacity-30 blur-2xl pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-          aria-hidden="true"
-        />
-
-        <div
-          className="relative bg-white rounded-xl border border-orange-100 px-6 py-8 sm:px-8 sm:py-10"
-          style={{
-            boxShadow: '0 30px 60px -20px rgba(220, 38, 38, 0.35)',
-          }}
-        >
+        <div className="relative bg-white rounded-xl border border-orange-100 px-6 py-8 sm:px-8 sm:py-10 shadow-xl">
           {/* Animerad cirkel */}
           <div className="flex justify-center mb-6">
             <div className="relative w-20 h-20">
-              {/* Pulserande ring 1 */}
+              {/* Pulserande ring */}
               <motion.div
                 animate={{ scale: [1, 1.6], opacity: [0.5, 0] }}
                 transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316, #DC2626)',
-                }}
-                aria-hidden="true"
-              />
-              {/* Pulserande ring 2 (försenad) */}
-              <motion.div
-                animate={{ scale: [1, 1.6], opacity: [0.5, 0] }}
-                transition={{
-                  duration: 1.8,
-                  repeat: Infinity,
-                  ease: 'easeOut',
-                  delay: 0.6,
-                }}
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #DC2626, #BE185D)',
-                }}
+                className="absolute inset-0 rounded-full bg-orange-600"
                 aria-hidden="true"
               />
               {/* Solid mittenboll */}
-              <div
-                className="relative w-20 h-20 rounded-full flex items-center justify-center"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                  boxShadow: '0 12px 28px -8px rgba(220, 38, 38, 0.5)',
-                }}
-              >
+              <div className="relative w-20 h-20 rounded-full flex items-center justify-center bg-orange-600">
                 <svg
                   className="w-8 h-8 text-white animate-spin"
                   style={{ animationDuration: '1.6s' }}

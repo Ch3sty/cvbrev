@@ -22,11 +22,9 @@ export default function DashboardKontaktPage() {
         className="mb-6 sm:mb-8"
       >
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="p-3 sm:p-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl sm:rounded-xl flex-shrink-0">
-            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-          </div>
+          <Mail className="w-8 h-8 sm:w-9 sm:h-9 text-neutral-700 flex-shrink-0" />
           <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent truncate">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 truncate">
               Kontakta oss
             </h1>
             <p className="text-sm sm:text-base text-neutral-600 mt-1 font-medium">

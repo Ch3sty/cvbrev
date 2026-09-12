@@ -37,7 +37,7 @@ export default function LinkedInProgress({
   return (
     <>
       {/* Desktop progress */}
-      <div className="hidden md:block sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pt-3 pb-4 bg-gradient-to-b from-white via-white to-white/85 backdrop-blur-sm border-b border-orange-50">
+      <div className="hidden md:block sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pt-3 pb-4 bg-white border-b border-orange-50">
         <div className="max-w-3xl mx-auto">
           <div
             className="grid items-start gap-2"
@@ -69,33 +69,18 @@ export default function LinkedInProgress({
                           repeat: Infinity,
                           ease: 'easeOut',
                         }}
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background:
-                            'linear-gradient(135deg, #F97316, #DC2626)',
-                        }}
+                        className="absolute inset-0 rounded-full bg-orange-600"
                         aria-hidden="true"
                       />
                     )}
                     <div
-                      className="relative w-9 h-9 rounded-full flex items-center justify-center transition-all"
-                      style={
+                      className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                         isDone
-                          ? {
-                              background:
-                                'linear-gradient(135deg, #10B981, #059669)',
-                              boxShadow:
-                                '0 4px 10px -3px rgba(16, 185, 129, 0.4)',
-                            }
+                          ? 'bg-emerald-600'
                           : isActive
-                          ? {
-                              background:
-                                'linear-gradient(135deg, #F97316, #DC2626)',
-                              boxShadow:
-                                '0 4px 12px -2px rgba(220, 38, 38, 0.45)',
-                            }
-                          : { background: '#F1F5F9' }
-                      }
+                          ? 'bg-orange-600'
+                          : 'bg-neutral-100'
+                      }`}
                     >
                       {isDone ? (
                         <Check className="w-4 h-4 text-white" strokeWidth={3} />
@@ -130,10 +115,7 @@ export default function LinkedInProgress({
             <motion.div
               animate={{ width: `${progressPercent}%` }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="h-full rounded-full"
-              style={{
-                background: 'linear-gradient(90deg, #F97316, #DC2626)',
-              }}
+              className="h-full rounded-full bg-orange-600"
             />
           </div>
         </div>
@@ -142,13 +124,7 @@ export default function LinkedInProgress({
       {/* Mobile progress */}
       <div className="md:hidden sticky top-0 z-30 -mx-4 px-4 py-3 bg-white/95 backdrop-blur-md border-b border-orange-50">
         <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.4)',
-            }}
-          >
+          <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-orange-600">
             <span className="text-sm font-semibold text-white">
               {currentStep + 1}
             </span>
@@ -166,10 +142,7 @@ export default function LinkedInProgress({
           <motion.div
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{
-              background: 'linear-gradient(90deg, #F97316, #DC2626)',
-            }}
+            className="h-full rounded-full bg-orange-600"
           />
         </div>
       </div>

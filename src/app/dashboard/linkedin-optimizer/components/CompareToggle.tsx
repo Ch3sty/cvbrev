@@ -30,22 +30,14 @@ export default function CompareToggle({ value, onChange }: Props) {
             onClick={() => onChange(opt.id)}
             role="tab"
             aria-selected={active}
-            className="relative px-5 py-2 text-sm font-bold transition-colors min-w-[90px]"
+            className="relative px-5 py-2 text-sm font-bold transition-colors min-w-[90px] min-h-[44px]"
           >
             {active && (
               <motion.span
                 layoutId="compare-toggle-bg"
-                className="absolute inset-0 rounded-lg"
-                style={
-                  opt.id === 'after'
-                    ? {
-                        background:
-                          'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                        boxShadow:
-                          '0 4px 10px -3px rgba(220, 38, 38, 0.4)',
-                      }
-                    : { background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }
-                }
+                className={`absolute inset-0 rounded-lg shadow-sm ${
+                  opt.id === 'after' ? 'bg-orange-600' : 'bg-white'
+                }`}
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               />
             )}

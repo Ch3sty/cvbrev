@@ -209,10 +209,7 @@ function SectionWrapper({
     >
       {isActive && (
         <span
-          className="absolute left-0 top-2 bottom-2 w-1 rounded-full"
-          style={{
-            background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-          }}
+          className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-orange-600"
           aria-hidden="true"
         />
       )}
@@ -254,40 +251,19 @@ export default function LinkedInProfileMockup({
 
   return (
     <div className={`relative w-full ${className}`}>
-      {/* Glow bakom (desktop) */}
-      {showGlow && (
-        <div
-          className="hidden lg:block absolute -inset-3 rounded-xl opacity-20 blur-2xl pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-          aria-hidden="true"
-        />
-      )}
-
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
-        style={{
-          boxShadow: showGlow
-            ? '0 20px 40px -16px rgba(249, 115, 22, 0.18)'
-            : '0 8px 20px -10px rgba(249, 115, 22, 0.15)',
-        }}
       >
         {/* Badge ovanpå (Före/Efter) */}
         {badge && (
           <div className="absolute top-3 right-3 z-10">
             <span
-              className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-[0.16em] text-white"
-              style={{
-                background: isOptimized
-                  ? 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-                  : 'rgba(15, 23, 42, 0.85)',
-                boxShadow: '0 4px 10px -3px rgba(0, 0, 0, 0.25)',
-              }}
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-[0.16em] text-white ${
+                isOptimized ? 'bg-emerald-600' : 'bg-neutral-900/85'
+              }`}
             >
               {badge}
             </span>
@@ -296,12 +272,9 @@ export default function LinkedInProfileMockup({
 
         {/* Banner */}
         <div
-          className="h-20 sm:h-24 relative overflow-hidden"
-          style={{
-            background: isSkeleton
-              ? 'linear-gradient(135deg, #FED7AA 0%, #FCA5A5 50%, #F9A8D4 100%)'
-              : 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
+          className={`h-20 sm:h-24 relative overflow-hidden ${
+            isSkeleton ? 'bg-orange-200' : 'bg-orange-600'
+          }`}
         >
           {!isSkeleton && (
             <svg
@@ -337,19 +310,11 @@ export default function LinkedInProfileMockup({
 
         {/* Avatar */}
         <div className="relative px-5 sm:px-6">
-          <div
-            className="absolute -top-9 left-5 sm:left-6 w-[68px] h-[68px] rounded-full bg-white border-4 border-white flex items-center justify-center overflow-hidden"
-            style={{
-              boxShadow: '0 8px 20px -6px rgba(0, 0, 0, 0.22)',
-            }}
-          >
+          <div className="absolute -top-9 left-5 sm:left-6 w-[68px] h-[68px] rounded-full bg-white border-4 border-white flex items-center justify-center overflow-hidden shadow-sm">
             <span
-              className="absolute inset-1 rounded-full flex items-center justify-center"
-              style={{
-                background: hasName
-                  ? 'linear-gradient(135deg, #FED7AA 0%, #FECACA 100%)'
-                  : '#F1F5F9',
-              }}
+              className={`absolute inset-1 rounded-full flex items-center justify-center ${
+                hasName ? 'bg-orange-100' : 'bg-neutral-100'
+              }`}
             >
               <span
                 className={`font-semibold text-lg ${
@@ -400,14 +365,7 @@ export default function LinkedInProfileMockup({
         {/* About */}
         <div className="px-5 sm:px-6 pb-4">
           <div className="flex items-center gap-2 mb-2">
-            <span
-              className="w-1 h-3 rounded-sm"
-              style={{
-                background:
-                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-              }}
-              aria-hidden="true"
-            />
+            <span className="w-1 h-3 rounded-sm bg-orange-600" aria-hidden="true" />
             <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Om mig
             </span>
@@ -445,13 +403,9 @@ export default function LinkedInProfileMockup({
                 {experiences.map((exp, i) => (
                   <div key={i} className="flex gap-3">
                     <div
-                      className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white"
-                      style={{
-                        background:
-                          i % 2 === 0
-                            ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                            : 'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)',
-                      }}
+                      className={`flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white ${
+                        i % 2 === 0 ? 'bg-orange-600' : 'bg-red-600'
+                      }`}
                     >
                       {(exp.meta || exp.title).slice(0, 2).toUpperCase()}
                     </div>
@@ -534,14 +488,7 @@ export default function LinkedInProfileMockup({
         {/* Kompetenser */}
         <div className="px-5 sm:px-6 pb-5 border-t border-orange-50 pt-4">
           <div className="flex items-center gap-2 mb-3">
-            <span
-              className="w-1 h-3 rounded-sm"
-              style={{
-                background:
-                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-              }}
-              aria-hidden="true"
-            />
+            <span className="w-1 h-3 rounded-sm bg-orange-600" aria-hidden="true" />
             <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Kompetenser
             </span>

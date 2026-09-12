@@ -99,7 +99,7 @@ export default function DashboardLayout({
         <NavigationProgress />
       </Suspense>
 
-      <div className="min-h-screen bg-gradient-to-br from-white via-neutral-50/30 to-neutral-100/20">
+      <div className="min-h-screen bg-white">
         <div className="flex h-screen flex-col lg:flex-row">
         {/* Dashboard Sidebar - Desktop (alltid synlig) */}
         <div className="hidden lg:block lg:relative lg:z-20">
@@ -166,7 +166,7 @@ export default function DashboardLayout({
           {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
               --bottom-nav-h. Ingen pb-klass här: två sanningar om samma
               avstånd var precis det som gjorde att något alltid låg fel. */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-neutral-50/30 to-neutral-100/10">
+          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-white">
             <div className="max-w-7xl mx-auto relative">
               {/* Page Transition Animation */}
               <AnimatePresence mode="wait">

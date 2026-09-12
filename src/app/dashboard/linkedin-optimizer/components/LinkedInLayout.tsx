@@ -19,23 +19,7 @@ export default function LinkedInLayout({
   children,
 }: Props) {
   return (
-    <div
-      className="relative min-h-screen overflow-hidden"
-      style={{
-        background:
-          'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 237, 213, 0.35) 50%, #FFFFFF 100%)',
-      }}
-    >
-      {/* Mjuk orange radial-glow uppe */}
-      <div
-        className="absolute inset-x-0 top-0 h-[40vh] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.10) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
+    <div className="relative min-h-screen overflow-hidden bg-white">
       <div className="relative px-4 sm:px-6 lg:px-8 pb-12">
         <div className="max-w-6xl mx-auto">
           {/* Topbar med tillbaka-länk */}
@@ -49,14 +33,7 @@ export default function LinkedInLayout({
               <span className="sm:hidden">Tillbaka</span>
             </Link>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-              <span
-                className="w-1 h-3 rounded-sm"
-                style={{
-                  background:
-                    'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                }}
-                aria-hidden="true"
-              />
+              <span className="w-1 h-3 rounded-sm bg-orange-600" aria-hidden="true" />
               Förbättra LinkedIn-profil
             </div>
           </div>

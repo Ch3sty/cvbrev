@@ -175,25 +175,11 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
                   ? 'bg-white border-2 border-orange-300'
                   : 'bg-white border border-neutral-200 hover:border-orange-200'
             }`}
-            style={
-              locked
-                ? { boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }
-                : isSelected
-                  ? {
-                      boxShadow:
-                        '0 8px 20px -8px rgba(249, 115, 22, 0.30)',
-                    }
-                  : { boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }
-            }
           >
             {/* Orange topplist när vald */}
             {isSelected && !locked && (
               <div
-                className="absolute top-0 inset-x-0 h-0.5"
-                style={{
-                  background:
-                    'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                }}
+                className="absolute top-0 inset-x-0 h-0.5 bg-orange-600"
                 aria-hidden="true"
               />
             )}
@@ -233,13 +219,7 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
 
               {/* Vald-indikator */}
               {isSelected && !locked && (
-                <span
-                  className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white flex-shrink-0"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  }}
-                >
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white flex-shrink-0 bg-orange-600">
                   Vald
                 </span>
               )}
