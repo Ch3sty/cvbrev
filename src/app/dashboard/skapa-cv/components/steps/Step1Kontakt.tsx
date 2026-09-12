@@ -22,8 +22,8 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="space-y-5"
     >

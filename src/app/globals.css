@@ -601,3 +601,12 @@ html {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Ren intoning utan förflyttning. slideUp och fadeIn rör båda transform,
+   vilket webbläsaren räknar som layoutskifte när elementet kommer in sent.
+   För sektioner som redan står på sin plats vill vi bara tona in dem.
+   Se docs/rapporter/perf-inloggat-2026-09-12.md. */
+@keyframes fadeInPlace {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

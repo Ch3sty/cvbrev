@@ -33,7 +33,10 @@ export function useUiFlag(key: string): [boolean, () => void] {
     let cancelled = false;
     (async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        // getSession() läser den lokala sessionen. getUser() gick över nätet
+        // och låg seriellt före den egentliga frågan. RLS skyddar raderna.
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user;
         if (cancelled || !user) return;
         userIdRef.current = user.id;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

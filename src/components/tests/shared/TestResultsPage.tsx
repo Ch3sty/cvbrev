@@ -1,22 +1,44 @@
 'use client'
 
 /**
- * TestResultsPage: hämtar sessionen och renderar resultatet.
+ * TestResultsPage: renderar resultatet för en session.
  *
  * Skalet runt omkring är gemensamt (TestResultsShell). Det som skiljer testen
  * åt är genomgången per fråga, och den väljs här utifrån testtyp. Frågeurvalet
  * seedas på sessionId, precis som testvyn gjorde, så genomgången visar exakt
  * de frågor användaren fick.
+ *
+ * Sessionen, percentilen och bryggans underlag kommer numera färdiga från
+ * servern (getResultsData.ts). Gick den läsningen inte igenom faller sidan
+ * tillbaka på den gamla klienthämtningen, så resultatet alltid går att visa.
  */
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { TestConfig } from '@/app/dashboard/tester/testConfig'
+import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
-import NumericalReview from './reviews/NumericalReview'
-import VerbalReview from './reviews/VerbalReview'
+
+/*
+  Genomgången per fråga ligger långt under första vyn: poängkortet,
+  percentilen och bryggan kommer före den. Den laddas därför först när den
+  behövs, i stället för att ligga i paketet som målar toppen av sidan.
+  Varje genomgång reserverar sin höjd medan den laddar, så ingenting under
+  den hoppar när den landar.
+*/
+const ReviewFallback = () => (
+  <div className="h-64 rounded-xl border border-neutral-200 bg-neutral-50" />
+)
+
+const NumericalReview = dynamic(() => import('./reviews/NumericalReview'), {
+  loading: ReviewFallback,
+})
+const VerbalReview = dynamic(() => import('./reviews/VerbalReview'), {
+  loading: ReviewFallback,
+})
 
 interface SessionData {
   id: string
@@ -41,14 +63,34 @@ const READS_SUPABASE = new Set([
 export default function TestResultsPage({
   config,
   sessionId,
+  resultsData,
 }: {
   config: TestConfig
   sessionId: string
+  /** Serverhämtat resultat. Saknas det hämtar sidan själv, som förut. */
+  resultsData?: ResultsData
 }) {
-  const [session, setSession] = useState<SessionData | null>(null)
-  const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
+  const fromServer = resultsData?.resolved ? resultsData : null
+
+  const [session, setSession] = useState<SessionData | null>(() =>
+    fromServer?.session
+      ? {
+          id: fromServer.session.id,
+          score: fromServer.session.score,
+          time_spent: fromServer.session.timeSpent,
+          completed_at: fromServer.session.completedAt,
+          answers: fromServer.session.answers,
+        }
+      : null
+  )
+  const [state, setState] = useState<'loading' | 'ready' | 'missing'>(() =>
+    fromServer?.session ? 'ready' : 'loading'
+  )
 
   useEffect(() => {
+    // Servern har redan läst sessionen. Ingen hämtning behövs.
+    if (fromServer?.session) return
+
     let cancelled = false
 
     const load = async () => {
@@ -90,7 +132,7 @@ export default function TestResultsPage({
     return () => {
       cancelled = true
     }
-  }, [config.api, config.sessionQuery, config.slug, sessionId])
+  }, [config.api, config.sessionQuery, config.slug, sessionId, fromServer])
 
   if (state === 'loading') {
     return (
@@ -135,6 +177,9 @@ export default function TestResultsPage({
       completedAt={session.completed_at}
       // Percentilen jämför mot samma testtyp. Proven har eget underlag.
       showPercentile={config.level !== 'prov'}
+      percentile={fromServer?.percentile ?? null}
+      bridge={fromServer?.bridge ?? null}
+      serverResolved={!!fromServer}
     >
       {config.kind === 'matris' ? (
         <MatrixQuestionReview

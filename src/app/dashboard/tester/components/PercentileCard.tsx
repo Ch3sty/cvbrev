@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { IlluPercentil } from '@/components/illustrations/TestIllustrations';
 
 interface PercentileCardProps {
   sessionId: string;
+  /**
+   * Färdigräknad percentil från servern (getResultsData.ts). Finns den görs
+   * ingen hämtning alls, och kortet står rätt från första målningen.
+   * Utan den hämtar kortet själv, precis som förut.
+   */
+  data?: { percentile: number; sampleSize: number } | null;
 }
 
 // Hämtar och visar "bättre än X %" för en slutförd session. Renderar ingenting
@@ -13,11 +18,16 @@ interface PercentileCardProps {
 // att siffran aldrig blir missvisande.
 const MIN_SAMPLE_SIZE = 25;
 
-export default function PercentileCard({ sessionId }: PercentileCardProps) {
-  const [percentile, setPercentile] = useState<number | null>(null);
-  const [sampleSize, setSampleSize] = useState(0);
+export default function PercentileCard({ sessionId, data }: PercentileCardProps) {
+  const [percentile, setPercentile] = useState<number | null>(
+    data?.percentile ?? null
+  );
+  const [sampleSize, setSampleSize] = useState(data?.sampleSize ?? 0);
 
   useEffect(() => {
+    // Serverräknad: ingen fetch.
+    if (data) return;
+
     let cancelled = false;
     fetch(`/api/logicTestV4/percentile?sessionId=${sessionId}`)
       .then((res) => (res.ok ? res.json() : null))
@@ -33,17 +43,15 @@ export default function PercentileCard({ sessionId }: PercentileCardProps) {
     return () => {
       cancelled = true;
     };
-  }, [sessionId]);
+  }, [sessionId, data]);
 
   if (percentile === null || sampleSize < MIN_SAMPLE_SIZE) return null;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-      className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5"
-    >
+    // Kortet tonar in på plats. Förut kom det in med y: 8 → 0 efter att
+    // percentilen hämtats, mitt i resultatsidan, och sköt ner allt under sig.
+    // Ren opacity flyttar ingenting.
+    <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5 [animation:fadeInPlace_0.35s_ease-out]">
       <div className="flex items-center gap-3">
         <span className="shrink-0 text-neutral-900" aria-hidden="true">
           <IlluPercentil size={48} />
@@ -57,6 +65,6 @@ export default function PercentileCard({ sessionId }: PercentileCardProps) {
           </p>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

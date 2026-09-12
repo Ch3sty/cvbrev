@@ -20,6 +20,13 @@ interface TestResultBridgeContainerProps {
    * sessioner mot matrislogikens endpoint oavsett vilket test som kördes.
    */
   sessionEndpoint?: string
+  /**
+   * Färdigt underlag från servern (getResultsData.ts). Finns det görs ingen
+   * hämtning alls: förut kostade det här kortet ett auth.getUser() över nätet
+   * plus tre parallella frågor, allt efter hydrering. Utan det hämtar
+   * komponenten själv, precis som förut.
+   */
+  data?: BridgeData | null
 }
 
 interface BridgeData {
@@ -34,10 +41,14 @@ export default function TestResultBridgeContainer({
   testSlug,
   quotaFeature,
   sessionEndpoint = '/api/logicTestV4/session',
+  data: serverData,
 }: TestResultBridgeContainerProps) {
-  const [data, setData] = useState<BridgeData | null>(null)
+  const [data, setData] = useState<BridgeData | null>(serverData ?? null)
 
   useEffect(() => {
+    // Serverläst: ingen fetch, inget auth-anrop.
+    if (serverData) return
+
     let cancelled = false
 
     const load = async () => {
@@ -103,7 +114,7 @@ export default function TestResultBridgeContainer({
     return () => {
       cancelled = true
     }
-  }, [sessionEndpoint])
+  }, [sessionEndpoint, serverData])
 
   if (!data) return null
 

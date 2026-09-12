@@ -11,7 +11,7 @@ const FEATURES = [
 
 export default function CvMallarHero() {
   return (
-    <section className="space-y-4 motion-safe:animate-[slideUp_400ms_ease-out_both]">
+    <section className="space-y-4 motion-safe:animate-[fadeInPlace_300ms_ease-out_both]">
       <div className="flex items-start gap-4 sm:gap-5">
         <div className="flex-shrink-0 mt-1">
           <CvDesignSwapIcon className="w-16 h-16 sm:w-20 sm:h-20" />

@@ -96,11 +96,14 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     return (
       <>
         {PageBackground}
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="flex flex-col items-center gap-3">
-            <Loader2 className="w-8 h-8 text-orange-600 animate-spin" />
-            <p className="text-sm text-neutral-600">Laddar brev…</p>
-          </div>
+        {/* Skelett i stället för en centrerad spinner. Spinnern satt mitt i
+            en 60vh-yta och byttes mot innehåll av annan höjd, vilket mätte
+            0,089 i CLS. Skelettet har brevkortets form, så bytet flyttar
+            ingenting. */}
+        <div className="space-y-4 animate-pulse" aria-busy="true" aria-label="Laddar brev">
+          <div className="h-10 w-48 rounded-lg bg-neutral-100" />
+          <div className="rounded-xl border border-neutral-200 bg-white h-[520px]" />
+          <div className="h-11 w-full sm:w-64 rounded-xl bg-neutral-100" />
         </div>
       </>
     );

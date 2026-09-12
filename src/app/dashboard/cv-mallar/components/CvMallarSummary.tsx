@@ -34,7 +34,7 @@ export default function CvMallarSummary({
   const canGenerate = !!cvName && !!template && !isLockedPremium;
 
   return (
-    <section className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 motion-safe:animate-[slideUp_400ms_ease-out_both]">
+    <section className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 motion-safe:animate-[fadeInPlace_300ms_ease-out_both]">
       <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
         Dina val
       </div>

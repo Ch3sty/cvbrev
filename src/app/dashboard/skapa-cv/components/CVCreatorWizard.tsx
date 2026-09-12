@@ -6,7 +6,6 @@ import { Bug, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
-import { createClient } from '@/lib/supabase/client';
 import type {
   CVMetadata,
   CVPersonalInfo,
@@ -143,11 +142,15 @@ function previewSectionForStep(step: number): PreviewSection | undefined {
   }
 }
 
-export default function CVCreatorWizard() {
+export default function CVCreatorWizard({
+  initialIsAdmin = false,
+}: {
+  /** Server-läst adminflagga. Styr enbart knappen "Fyll i testdata". */
+  initialIsAdmin?: boolean;
+}) {
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const { profile } = useProfile();
-  const supabase = createClient();
 
   /* Steget ligger i URL:en (?steg=N, ettbaserat) i stället för i useState.
      Tidigare lämnade bakåtgesten på mobil hela wizarden i stället för att
@@ -178,8 +181,10 @@ export default function CVCreatorWizard() {
   // Saving state
   const [isSaving, setIsSaving] = useState(false);
 
-  // Admin state for test data button
-  const [isAdmin, setIsAdmin] = useState(false);
+  // Adminflaggan kommer server-läst. Tidigare gjordes den här på klienten med
+  // getUser() följt av en fråga mot admin_users, alltså två rundturer efter
+  // hydrering för att avgöra om en testknapp skulle synas.
+  const isAdmin = initialIsAdmin;
 
   // Mobile preview drawer
   const [mobilePreviewOpen, setMobilePreviewOpen] = useState(false);
@@ -238,31 +243,6 @@ export default function CVCreatorWizard() {
     setPendingCvDraft(null);
     setCurrentStep(0);
   }, [clearDraft, setCurrentStep]);
-
-  // Check admin status on mount
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (user) {
-          const { data: adminData } = await supabase
-            .from('admin_users')
-            .select('role')
-            .eq('id', user.id)
-            .eq('role', 'super_admin')
-            .maybeSingle();
-
-          setIsAdmin(!!adminData);
-        }
-      } catch (error) {
-        console.error('Error checking admin status:', error);
-      }
-    };
-
-    checkAdminStatus();
-  }, [supabase]);
 
   const fillTestData = useCallback(() => {
     setCVData(TEST_CV_DATA);
@@ -686,11 +666,14 @@ export default function CVCreatorWizard() {
 
                 {/* Step content */}
                 <AnimatePresence mode="wait">
+                  {/* Ren intoning. y: 12 flyttade in stegkortet underifrån
+                      varje gång det byttes, och eftersom kortet kommer in sent
+                      räknade webbläsaren rörelsen som ett layoutskifte. */}
                   <motion.div
                     key={currentStep}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     transition={{ duration: 0.25 }}
                   >
                     <Suspense fallback={<StepSkeleton />}>
@@ -720,11 +703,13 @@ export default function CVCreatorWizard() {
           ) : (
             // Granska-steget, full bredd, ingen sidor-preview (Step7 har egen)
             <AnimatePresence mode="wait">
+              {/* Samma sak för granskningssteget, som är det tyngsta av dem
+                  och därför det som syns mest om det flyttar när det landar. */}
               <motion.div
                 key={currentStep}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
               >
                 <Suspense fallback={<StepSkeleton />}>

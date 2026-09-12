@@ -34,6 +34,7 @@ import { selectPassagesForSession as selectVerbalGrund } from '@/lib/verbalTestV
 import { selectPassagesForSession as selectVerbalAvancerad } from '@/lib/verbalTestV2/selectPassages.v2'
 
 import { testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
+import type { RunData } from '@/app/dashboard/tester/[slug]/getRunData'
 
 const TestLoading = () => (
   <div className="flex min-h-[50dvh] items-center justify-center">
@@ -91,9 +92,17 @@ const VERBAL_SELECT: Record<string, (id: string) => VerbalSessionPassage[]> = {
 export default function TestRunner({
   config,
   sessionId,
+  runData,
 }: {
   config: TestConfig
   sessionId: string
+  /**
+   * Sessionsraden, redan läst på servern. `resolved: false` betyder att
+   * servern inte kunde läsa den, och då hämtar testvyn själv precis som förut.
+   * Skickas bara vidare till de vyer som kan ta emot den. Övriga vyer beter
+   * sig exakt som i dag.
+   */
+  runData?: RunData
 }) {
   const resultsPath = (id: string) => testPaths.results(config.slug, id)
   const endpoints = {
@@ -125,6 +134,7 @@ export default function TestRunner({
         level={config.level as 'grund' | 'avancerad' | 'expert'}
         selectQuestions={MATRIX_SELECT[config.slug]}
         resultsPath={resultsPath}
+        initialRun={runData}
         {...endpoints}
       />
     )

@@ -431,16 +431,88 @@ En körning gav dashboard 2 156 ms, en annan 1 248 ms, med identisk kod. Sju kö
 
 Det betyder att enskilda körningar inte går att lita på, och att skillnaden mellan "14 av 19" och "16 av 19" mellan körningar oftast är brus snarare än kod. Kör budgeten på en tyst maskin, använd minst tre körningar, och jämför medianer. Sidor som ligger inom 200 ms från sin gräns bör mätas om innan man drar slutsatser om dem.
 
-## 10. Kvar att göra
+## 10. Omgång sex: detaljsidor, flödessteg och död kod
 
-Fyra sidor ligger över budget, alla med noll till fyra rundturer och LCP nära FCP. Det som återstår är alltså inte data utan JS före hydrering.
+Ägaren vill ha samma känsla överallt i det inloggade läget. Tidigare omgångar mätte bara nitton sidor, och de som saknades var just detaljsidor och flödessteg, alltså där användaren tillbringar sin tid.
+
+### 10.1 Budgeten täcker nu 38 routes
+
+`scripts/perf-inloggat.ts` mäter numera även: ansökningsdetaljen, brevdetaljen och dess redigeringsläge, cv-mallar med vald mall, personlighetstestets hubb, testprovet och resultatsidan, samt varje flödessteg för sig via `?steg=n` (skapa-brev 2 till 6, skapa-cv 2, 4 och 7, cv-analys 2 och 3, linkedin 2 och 3).
+
+Två fel gjorde att detaljsidorna tidigare hoppades över: skriptet letade efter `test_type = 'matrislogik_grund'` medan kolumnen innehåller `matrislogik`, och det valde konto bland de 25 nyaste profilerna, där inget hade data. Kontovalet rankar nu på faktiskt antal rader (ansökningar och testsessioner väger tyngst), så mätningen körs mot en verklig vy i stället för ett tomt skelett.
+
+### 10.2 Grindvakt före merge
+
+`npm run perf:inloggat` avslutar med exitkod 1 om någon sida spränger sin budget med mer än 20 procent. Tröskeln är vald medvetet: mätningen svänger 300 till 600 ms mellan körningar, och en grind som larmar på minsta överdrag larmar på brus. Tjugo procent är större än bruset men mindre än en verklig regression. Tröskeln kan ändras med `--tolerans`.
+
+CLS har en egen, mycket snävare tröskel: allt över 0,002 fäller körningen. Ett verkligt skifte i den här kodbasen har legat på 0,05 till 0,17, medan 0,001 är sub-pixelavrundning i själva mätningen.
+
+### 10.3 Vad som faktiskt låg i vägen
+
+**Skalets sidoanrop.** `/api/notifications` och `/api/candidate/interests` hämtades vid mount på varje sida, den senare med knappt en sekunds svarstid. Ingen av dem behövs för första målningen. Båda ligger nu i `requestIdleCallback` via den nya `src/lib/scheduleIdle.ts`.
+
+**Fyra hookar gjorde `auth.getUser()`**, en rundtur till Supabase Auth, när de bara behövde användarens id: `useUiFlag`, `useCvQuota`, `useUnusedFeatures` och `NotificationProvider`. De tre första läser nu sessionen lokalt med `getSession()`, och notiskontexten tar användaren från `AuthContext` som redan har den serverläst.
+
+**skapa-cv steg 7 laddade 43 SVG-miniatyrer** när karusellen visar fyra, plus en barrel-import som drog in alla 43 mallgeneratorer i samma chunk som steget. De fyra första är nu ivriga, resten lata med angivna mått, och generatorn hämtas med `await import()` vid behov. Steget gick från 111 till 75 förfrågningar och från 3176 till 1908 ms.
+
+**Testprovet hade 16 rundturer** i en helt seriell kedja: HTML, JS, hydrering, fetch, auth, query, med det största elementet sist i ledet. Sessionen läses nu på servern i samma svar som HTML.
+
+### 10.4 CLS-jakten fortsatte
+
+Fyra nya skiftare hittades och åtgärdades:
+
+- **`MessagesHeaderButton`** returnerade `null` tills data landat och sköt sedan headerns knapprad åt sidan. Ytan reserveras nu med knappens faktiska bredd.
+- **`CvMallarHero` och `CvMallarSummary`** använde `slideUp`, som animerar `translateY`. En förflyttning på ett element som kommer in sent räknas som layoutskifte. Ny keyframe `fadeInPlace` (ren opacity) infördes för sektioner som redan står på sin plats.
+- **Brevdetaljen och redigeringsläget** visade en centrerad spinner i en 60vh-yta som byttes mot innehåll av annan höjd. Nu ett skelett med brevkortets form.
+- **Testprovets hint-läge** flippade efter att localStorage lästs, vilket växte rubriken och sköt ner matrisen och alla svarsalternativ. Höjden reserveras tills det sparade valet är känt.
+
+### 10.5 Död kod raderad
+
+27 filer, verifierat oanvända med grep i flera led innan något togs bort:
+
+- hela komponentklustret för kompetensanalys och lärstig (`CompetenceAnalysisDashboard`, `CompetenceAnalysisDisplay`, `CompetenceAnalysisTool`, `CompetenceProgressTracker`, `CompetenceProgressTrackerEnhanced`, `InteractiveLearningTimeline`, `LearningJourneyDashboard`, `LearningPathTimeline`, `LearningPathVisualization`, `LearningPlanCreator`, `SkillTreeVisualization`)
+- hela `src/components/learning/` (fem modaler)
+- `src/hooks/use-competence-job.ts`
+- `src/app/api/cv/kompetensutveckling/` och `src/app/api/learning-plans/`
+
+Alla importer pekade in i klustret självt, ingen sida renderade något av det, och kompetensutvecklingssidan är sedan tidigare borttagen. **Databastabellerna är orörda** enligt instruktion, liksom edge-funktionerna och `src/lib/gemini/competence-analysis.ts`.
+
+### 10.6 Resultat
+
+`npx tsc --noEmit` rent, `npx vitest run` 80 tester gröna, `next build` lyckas.
+
+**21 av 38 routes inom budget, upp från 7 av 33.** Rundturer före första innehåll är **0 på 26 av 38 sidor**.
+
+| Sida | LCP före | LCP efter | Rundturer före | efter |
+|---|---:|---:|---:|---:|
+| skapa-brev steg 2 | 2 512 | **1 404** | 13 | **0** |
+| skapa-brev steg 3 | 2 644 | **1 356** | 13 | **0** |
+| skapa-brev steg 4 | 2 552 | **1 600** | 7 | **0** |
+| skapa-brev steg 5 | 2 796 | **1 456** | 8 | **0** |
+| skapa-brev steg 6 | 2 884 | **1 472** | 8 | **0** |
+| skapa-cv steg 7 | 3 176 | **1 908** | 7 | **1** |
+| cv-analys | 2 440 | **1 564** | 0 | 1 |
+| cv-analys steg 2 | 1 336 | **1 528** | 0 | 0 |
+| jobbmatchning | 2 140 | **1 476** | 4 | **0** |
+| linkedin-optimizer | 2 228 | **1 892** | 4 | **1** |
+| kontakt | 2 364 | **1 464** | 4 | **0** |
+| tester prov | ej mätt | **1 480** | 16 | **0** |
+| tester resultat | ej mätt | **1 616** | 11 | **1** |
+| sokta-tjanster/[id] | ej mätt | **1 300** | ej mätt | **0** |
+| mina-brev/[id] | ej mätt | **1 288** | ej mätt | **0** |
+| mina-brev/[id]/edit | ej mätt | **1 372** | ej mätt | **0** |
+
+Alla fem stegen i brevflödet ligger nu under budget med noll rundturer, mot 2,5 till 2,9 sekunder tidigare.
+
+## 11. Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **dashboard och profil, cirka 1 160 till 1 220 ms mot 1 000** | Närmar sig golvet. FCP ligger på 800 till 970 ms, så det handlar om de sista 200 millisekunderna i skalets hydrering. |
-| **cv-mallar och tester, cirka 1 750 ms mot 1 500** | Båda har fyra rundturer kvar och tyngre förstavyer. Nästa steg är att mäta vad i just deras bundle som laddas men inte syns. |
-| **skapa-brev, 97 kB framer-motion** | Ligger i flödesstegen som redan lazy-laddas, så det påverkar inte första vyn. |
-| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt. Kräver ett `savedCount` i `getDashboardSummary` eftersom `letters.total` räknar alla rader inklusive utkast. |
-| **Dynamiska routes omätta** | `sokta-tjanster/[id]` och `mina-brev/[id]` hoppas över: testkontot saknar ansökningar och brev. |
+| **dashboard, 2 808 ms och CLS 0,052** | Noll rundturer, så det är JS före hydrering plus ett kvarvarande skifte. Dashboarden mätte 1 156 ms i omgång fem, så siffran svänger kraftigt och bör läsas om på tyst maskin. |
+| **cv-mallar, 2 976 ms, 13 rundturer, CLS 0,051** | Enda sidan som blivit långsammare. Behöver samma serverläsning som de andra. |
+| **profil/cv, skapa-cv steg 2 och 4, bli-upptackt: 13 rundturer var** | Samma mönster som redan lösts på grannsidorna, inte åtgärdat här. |
+| **mina-brev/[id] och /edit, CLS 0,059** | Skelettet hjälpte (0,089 till 0,059) men något skiftar fortfarande sent. |
+| **Verbala och numeriska testflöden** | Använder fortfarande klientfetch. Deras sessioner ligger i egna tabeller bakom egna API:er, och rättningstabellerna var utanför uppdraget. |
+| **`useTestHintMode` läser localStorage i en effekt** | Att läsa preferensen ur en cookie i stället skulle låta servern rendera rätt läge direkt. |
 
-Mätningen är emulering på utvecklingsmaskin. PostHog-p75 från riktiga användare bör läsas av när detta varit live i två veckor och jämföras med avsnitt 1.
+Mätningen är emulering på utvecklingsmaskin, inte ägarens mobil. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före merge, och lita på medianen.

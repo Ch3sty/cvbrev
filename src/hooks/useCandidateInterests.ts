@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { scheduleIdle } from '@/lib/scheduleIdle';
 
 /**
  * Delad datakälla för kandidatens rekryteringsläge, så meddelande-ikonen i
@@ -110,13 +111,18 @@ export function useCandidateInterests(): CandidateInterestsState {
   useEffect(() => {
     subscribers.add(setState);
     // Redan hämtat i den här sessionen: visa direkt, hämta inte om.
-    if (!sharedState.loaded) void loadShared();
+    // Siffrorna i headern och sidomenyn behövs inte för första målningen.
+    // Routen tar knappt en sekund att svara, så med ett kort tak hann den
+    // ändå före LCP på tyngre sidor och blev det enda som stod i vägen.
+    let avbrytIdle: (() => void) | null = null;
+    if (!sharedState.loaded) avbrytIdle = scheduleIdle(() => void loadShared(), 4000);
     else setState(sharedState);
 
     // En enda timer för alla prenumeranter.
     if (!pollTimer) pollTimer = setInterval(() => void loadShared(), POLL_MS);
 
     return () => {
+      avbrytIdle?.();
       subscribers.delete(setState);
       if (subscribers.size === 0 && pollTimer) {
         clearInterval(pollTimer);

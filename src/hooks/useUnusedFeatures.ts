@@ -105,8 +105,9 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
     async function findUnusedFeature() {
       try {
         const supabase = getSupabaseClient();
-        const { data: authData } = await supabase.auth.getUser();
-        const userId = authData?.user?.id;
+        // getSession() läser lokalt, getUser() var en rundtur över nätet.
+        const { data: authData } = await supabase.auth.getSession();
+        const userId = authData?.session?.user?.id;
 
         if (!userId) {
           if (!cancelled) {

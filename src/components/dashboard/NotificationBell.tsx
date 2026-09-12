@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { scheduleIdle } from '@/lib/scheduleIdle';
 import Link from 'next/link';
 import { Bell, Check } from 'lucide-react';
 import { IlluTomNotiser } from '@/components/illustrations/EmptyStateIllustrations';
@@ -53,7 +54,9 @@ export default function NotificationBell() {
   }, []);
 
   useEffect(() => {
-    load();
+    // Notiserna behövs inte för första målningen. Att hämta dem vid mount
+    // lade en rundtur i den kritiska vägen på varje inloggad sidladdning.
+    const avbryt = scheduleIdle(() => load());
 
     // Notiser skapas av cronen en gång per dygn och av rekryterarintressen
     // sällan. Att fråga varje minut var alltså 60 anrop i timmen för data som

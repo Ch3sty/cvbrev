@@ -19,6 +19,10 @@ import PageHeader from '@/components/shell/PageHeader'
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard'
 import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer'
 import { getTestConfig, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
+import type {
+  BridgeData,
+  PercentileData,
+} from '@/app/dashboard/tester/[slug]/getResultsData'
 import TestLevelBadge from './TestLevelBadge'
 import TestNextLevelRow from './TestNextLevelRow'
 
@@ -35,6 +39,16 @@ interface Props {
   insights?: ReactNode
   /** Visa percentilen. Prov och personlighet har inget jämförbart underlag. */
   showPercentile?: boolean
+  /** Serverräknad percentil. null betyder för litet underlag eller ej aktuell. */
+  percentile?: PercentileData | null
+  /** Serverläst underlag till bryggan. null betyder att det inte gick att läsa. */
+  bridge?: BridgeData | null
+  /**
+   * true när servern läst klart. Då vet vi att null betyder "ska inte visas"
+   * och inte "har inte hämtats än", så de korten kan hoppas över helt i
+   * stället för att monteras och hämta själva.
+   */
+  serverResolved?: boolean
 }
 
 function formatDuration(seconds: number): string {
@@ -52,6 +66,9 @@ export default function TestResultsShell({
   children,
   insights,
   showPercentile = true,
+  percentile = null,
+  bridge = null,
+  serverResolved = false,
 }: Props) {
   const total = config.totalQuestions
   const percentage = Math.min(100, Math.round((score / total) * 100))
@@ -122,13 +139,38 @@ export default function TestResultsShell({
           </dl>
         </section>
 
-        {showPercentile ? <PercentileCard sessionId={sessionId} /> : null}
+        {/*
+          Percentilen och bryggan kommer färdiga från servern. Är läsningen
+          `serverResolved` monteras korten med sitt data direkt, utan egen
+          hämtning, och ett null betyder att kortet inte ska visas alls. Utan
+          serverdata faller de tillbaka på att hämta själva, som förut.
+        */}
+        {showPercentile ? (
+          serverResolved ? (
+            percentile ? (
+              <PercentileCard sessionId={sessionId} data={percentile} />
+            ) : null
+          ) : (
+            <PercentileCard sessionId={sessionId} />
+          )
+        ) : null}
 
-        <TestResultBridgeContainer
-          testSlug={config.slug}
-          quotaFeature={config.quotaFeature}
-          sessionEndpoint={`${config.api}/session`}
-        />
+        {serverResolved ? (
+          bridge ? (
+            <TestResultBridgeContainer
+              testSlug={config.slug}
+              quotaFeature={config.quotaFeature}
+              sessionEndpoint={`${config.api}/session`}
+              data={bridge}
+            />
+          ) : null
+        ) : (
+          <TestResultBridgeContainer
+            testSlug={config.slug}
+            quotaFeature={config.quotaFeature}
+            sessionEndpoint={`${config.api}/session`}
+          />
+        )}
 
         {insights}
 

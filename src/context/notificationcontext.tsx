@@ -1,6 +1,7 @@
 'use client'
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
+import { useAuth } from '@/contexts/AuthContext'
 import Notification from '@/components/ui/notification'
 import Toast from '@/components/ui/toast/Toast'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
@@ -109,19 +110,18 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   // State för maskot-notifikationer (NYA)
   const [mascotImage, setMascotImage] = useState<string | undefined>(undefined)
   const [showConfetti, setShowConfetti] = useState(true)
+  const { user: authUser } = useAuth()
   
   // Hämta och lyssna på användarändringar
   useEffect(() => {
     const supabase = getSupabaseClient()
     
-    // Hämta aktuell användare
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setCurrentUser(user)
-    }
-    
-    getUser()
-    
+    // Användaren kommer från AuthContext, som ligger ovanför den här
+    // providern i trädet och redan har den serverläst från rot-layouten.
+    // Det egna auth.getUser() här var en extra rundtur över nätet på varje
+    // sidladdning, för ett värde vi redan hade.
+    setCurrentUser(authUser ?? null)
+
     // Lyssna på auth-ändringar
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
@@ -132,7 +132,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     return () => {
       authListener.subscription.unsubscribe()
     }
-  }, [])
+  }, [authUser])
   
   // Visa notifikation utan aktivitetsloggning
   const showNotification = (

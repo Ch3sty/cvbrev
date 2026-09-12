@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Clock, CheckCircle2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -42,23 +41,15 @@ export function TestHeader({
         {/* Top row */}
         <div className="flex items-center justify-between gap-3 mb-2.5">
           {/* Timer */}
-          <motion.div
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-orange-50 rounded-full border border-orange-200/60"
-          >
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-orange-50 rounded-full border border-orange-200/60 [animation:fadeInPlace_0.3s_ease-out]">
             <Clock className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
             <span className="text-xs sm:text-sm font-mono font-bold text-orange-700 tabular-nums">
               {elapsedTime}
             </span>
-          </motion.div>
+          </div>
 
           {/* Question number (center) */}
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
+          <div className="text-center [animation:fadeInPlace_0.3s_ease-out]">
             <p className="text-xs uppercase tracking-wider text-neutral-500 font-semibold leading-none mb-0.5">
               Fråga
             </p>
@@ -66,29 +57,28 @@ export function TestHeader({
               {currentQuestion + 1}
               <span className="text-neutral-400 font-medium"> / {totalQuestions}</span>
             </p>
-          </motion.div>
+          </div>
 
           {/* Answered count */}
-          <motion.div
-            initial={{ opacity: 0, x: 8 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 rounded-full border border-emerald-200/60"
-          >
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 rounded-full border border-emerald-200/60 [animation:fadeInPlace_0.3s_ease-out]">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" strokeWidth={2.5} />
             <span className="text-xs sm:text-sm font-bold text-emerald-700 tabular-nums">
               {answeredCount}
               <span className="hidden sm:inline"> / {totalQuestions}</span>
             </span>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Progress bar */}
+        {/*
+          Progressraden. Spåret har alltid sin fulla höjd och bredd, så den
+          reserverar sin plats från första målningen. Fyllningen skalas med
+          transform i stället för att animera `width`: en width-animation
+          räknas om i layouten varje bildruta, en transform gör det inte.
+        */}
         <div className="h-1 bg-neutral-100 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="h-full rounded-full bg-orange-600"
+          <div
+            className="h-full w-full origin-left rounded-full bg-orange-600 transition-transform duration-300 ease-out"
+            style={{ transform: `scaleX(${progressPercent / 100})` }}
           />
         </div>
       </div>

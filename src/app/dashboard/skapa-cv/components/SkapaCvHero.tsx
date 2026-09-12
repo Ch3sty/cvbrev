@@ -6,8 +6,8 @@ import { HeroSkapaCvIcon } from './illustrations/SkapaCvIcons'
 export default function SkapaCvHero() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="flex items-center gap-4 sm:gap-5"
     >

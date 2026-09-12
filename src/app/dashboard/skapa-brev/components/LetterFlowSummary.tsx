@@ -89,8 +89,8 @@ export default function LetterFlowSummary({
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
     >

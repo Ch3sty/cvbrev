@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
-import { getTemplateGenerator } from '@/lib/cv/templates';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import type { CVDraft } from '../CVCreatorWizard';
 import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
@@ -194,26 +193,38 @@ export default function Step7Review({
   const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [quotaError, setQuotaError] = useState<string | null>(null);
 
-  // Generate HTML preview when template or data changes
+  /* Mallgeneratorerna ligger i en barrel som drar in samtliga 43 mallar.
+     Statiskt importerad hamnade hela den vikten i samma chunk som granskningen
+     själv, alltså före första innehåll, trots att bara en enda mall används.
+     Nu hämtas den efter att steget ritats. Förhandsvisningsrutan har redan sin
+     höjd reserverad, så den sena inladdningen flyttar ingenting. */
   useEffect(() => {
+    let avbruten = false;
+
     const generatePreview = async () => {
       setIsGeneratingPreview(true);
       try {
         const metadata = buildCVMetadata();
+        const { getTemplateGenerator } = await import('@/lib/cv/templates');
+        if (avbruten) return;
         const generator = getTemplateGenerator(selectedTemplate as CVTemplateType);
 
         if (generator) {
           const html = generator.generate(metadata, {});
-          setPreviewHTML(html);
+          if (!avbruten) setPreviewHTML(html);
         }
       } catch (error) {
         console.error('Error generating preview:', error);
       } finally {
-        setIsGeneratingPreview(false);
+        if (!avbruten) setIsGeneratingPreview(false);
       }
     };
 
     generatePreview();
+
+    return () => {
+      avbruten = true;
+    };
   }, [selectedTemplate, buildCVMetadata]);
 
   // Build summary of each section
@@ -402,7 +413,7 @@ export default function Step7Review({
               animate={{ x: -templateScrollIndex * (140 + 12) }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
-              {SIMPLE_TEMPLATES.map((template) => {
+              {SIMPLE_TEMPLATES.map((template, templateIndex) => {
                 const isLocked = template.tier === 'premium' && !isPremium;
                 const isSelected = selectedTemplate === template.id;
 
@@ -417,11 +428,23 @@ export default function Step7Review({
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    {/* Template preview image */}
+                    {/* Mallens förhandsbild.
+
+                        Alla 43 mallbilder hämtades tidigare direkt vid
+                        rendering, trots att karusellen bara visar fyra åt
+                        gången. Det var fyrtio förfrågningar som konkurrerade
+                        med det användaren faktiskt tittade på. De fyra första
+                        laddas ivrigt eftersom de syns direkt, resten när de
+                        scrollas fram. Rutan har fast proportion och bilderna
+                        bär width/height, så inget hoppar när de landar. */}
                     <div className="aspect-[3/4] bg-gray-100 relative">
                       <img
                         src={template.imagePath}
                         alt={template.name}
+                        width={140}
+                        height={187}
+                        loading={templateIndex < templatesPerView ? 'eager' : 'lazy'}
+                        decoding="async"
                         className="w-full h-full object-cover object-top"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
@@ -570,7 +593,14 @@ export default function Step7Review({
                 omöjlig att läsa. Nu skalar vi med CSS-variabeln --cv-zoom som
                 sätts per brytpunkt, och wrappern får höjden via aspect-ratio
                 i stället för en gissad maxhöjd. */}
-            <div className="relative overflow-auto" style={{ maxHeight: '70dvh' }}>
+            {/* Höjden reserveras, inte bara begränsas. Mallgeneratorn hämtas
+                numera först efter att steget ritats, så utan ett minsta mått
+                hade rutan varit hoptryckt en stund och sedan vuxit när HTML:en
+                landade. Samma mått i alla tre lägena: laddning, klart, tomt. */}
+            <div
+              className="relative overflow-auto"
+              style={{ minHeight: 240, maxHeight: '70dvh' }}
+            >
               {isGeneratingPreview ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
                   <div className="flex flex-col items-center gap-2">

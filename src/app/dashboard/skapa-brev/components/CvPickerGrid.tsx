@@ -133,8 +133,8 @@ function CvPickerCard({
           ? 'CV:t är låst, uppgradera till Premium för att kunna använda det'
           : undefined
       }
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: isLocked ? 0.6 : 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isLocked ? 0.6 : 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 24 }}
       whileHover={isLocked ? undefined : { y: -3 }}
       whileTap={isLocked ? undefined : { scale: 0.98 }}

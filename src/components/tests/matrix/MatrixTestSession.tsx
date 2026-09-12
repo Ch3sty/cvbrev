@@ -23,6 +23,7 @@ import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigatio
 import { TestHeader } from '@/components/tests/logicV4/TestHeader';
 import { useTestHintMode } from '@/hooks/use-test-hint-mode';
 import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
+import type { RunData, SavedAnswer } from '@/app/dashboard/tester/[slug]/getRunData';
 
 export type MatrixTestLevel = 'grund' | 'avancerad' | 'expert';
 
@@ -34,6 +35,41 @@ interface MatrixTestSessionProps {
   completeEndpoint: string;
   sessionEndpoint: string;
   resultsPath: (sessionId: string) => string;
+  /**
+   * Sessionsraden, redan läst på servern av getRunData. Är den `resolved`
+   * behöver vi inte hämta den igen, och testet kan målas direkt i stället
+   * för att stå bakom en spinner tills ett fetch svarat.
+   *
+   * Saknas den, eller är den inte `resolved`, körs rehydreringen via fetch
+   * precis som förut. Beteendet är detsamma i båda fallen: samma sparade
+   * svar förifylls, samma avslutade session skickas till resultatet.
+   */
+  initialRun?: RunData;
+}
+
+/**
+ * Bygger upp svarslistan ur sessionens sparade svar.
+ *
+ * Exakt samma mappning som rehydreringen gjorde tidigare: varje fråga letar
+ * upp sitt eget sparade svar på q_id, allt annat blir null. Ordningen på
+ * `questions` kommer från selectQuestions och rörs inte.
+ */
+function restoreAnswers(
+  questions: LayeredQuestion[],
+  saved: SavedAnswer[]
+): { answers: (number | null)[]; firstUnanswered: number } | null {
+  if (saved.length === 0) return null;
+
+  const answers = questions.map((q) => {
+    const hit = saved.find((a) => a && a.q_id === q.id);
+    return hit && typeof hit.selected === 'number' ? hit.selected : null;
+  });
+
+  const idx = answers.findIndex((a) => a === null);
+  return {
+    answers,
+    firstUnanswered: idx === -1 ? Math.max(questions.length - 1, 0) : idx,
+  };
 }
 
 // Svar som ännu inte bekräftats sparat på servern. `failed` sätts först när
@@ -57,6 +93,7 @@ export function MatrixTestSession({
   completeEndpoint,
   sessionEndpoint,
   resultsPath,
+  initialRun,
 }: MatrixTestSessionProps) {
   const router = useRouter();
 
@@ -67,19 +104,42 @@ export function MatrixTestSession({
     [selectQuestions, sessionId]
   );
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  // Servern har redan läst raden: då är rehydreringen klar innan vi monterat.
+  // En redan avslutad session behåller laddvyn tills navigeringen skett, precis
+  // som fetch-vägen gjorde.
+  const serverSession = initialRun?.resolved ? initialRun.session : null;
+  const serverCompleted = serverSession?.completedAt != null;
+  const serverRestored = useMemo(
+    () =>
+      serverSession && !serverCompleted
+        ? restoreAnswers(questions, serverSession.answers)
+        : null,
+    [serverSession, serverCompleted, questions]
+  );
+
+  const [currentQuestion, setCurrentQuestion] = useState(
+    () => serverRestored?.firstUnanswered ?? 0
+  );
   const [answers, setAnswers] = useState<(number | null)[]>(
-    () => Array(questions.length).fill(null)
+    () => serverRestored?.answers ?? Array(questions.length).fill(null)
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
-  const [isHydrating, setIsHydrating] = useState(true);
+  // Serverläst och inte avslutad: ingen väntan, testet målas direkt.
+  const [isHydrating, setIsHydrating] = useState(
+    () => !(serverSession != null && !serverCompleted)
+  );
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
-  const { showHint, toggle: toggleHint } = useTestHintMode();
+  // `hintReady` är false tills det sparade valet lästs ur localStorage.
+  // Ledtrådsläget lägger till titel, svårighetsrad och en regelruta ovanför
+  // rutnätet, så om vi målar skarpt läge först och sedan slår om växer
+  // huvudet och skjuter ner hela matrisen. Det var den andra halvan av
+  // CLS 0,111. Nu reserveras höjden tills vi vet vilket läge som gäller.
+  const { showHint, toggle: toggleHint, hydrated: hintReady } = useTestHintMode();
 
   // Osparade svar per frågeindex. Ref för logiken (stabila referenser i
   // asynkrona kedjor), state-räknaren driver bannern.
@@ -107,6 +167,15 @@ export function MatrixTestSession({
   useEffect(() => {
     let cancelled = false;
 
+    // Servern läste raden redan. Ingen fetch, ingen andra rundtur.
+    if (serverSession) {
+      if (serverCompleted) {
+        // Redan avslutad session → direkt till resultatet, som förut.
+        router.replace(resultsPath(sessionId));
+      }
+      return;
+    }
+
     const hydrate = async () => {
       let redirected = false;
       try {
@@ -127,16 +196,10 @@ export function MatrixTestSession({
             )
               ? session.answers
               : [];
-            if (saved.length > 0) {
-              const restored = questions.map((q) => {
-                const hit = saved.find((a) => a && a.q_id === q.id);
-                return hit && typeof hit.selected === 'number' ? hit.selected : null;
-              });
-              setAnswers(restored);
-              const firstUnanswered = restored.findIndex((a) => a === null);
-              setCurrentQuestion(
-                firstUnanswered === -1 ? Math.max(questions.length - 1, 0) : firstUnanswered
-              );
+            const restored = restoreAnswers(questions, saved);
+            if (restored) {
+              setAnswers(restored.answers);
+              setCurrentQuestion(restored.firstUnanswered);
             }
           }
         }
@@ -156,7 +219,7 @@ export function MatrixTestSession({
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId, sessionEndpoint]);
+  }, [sessionId, sessionEndpoint, serverSession, serverCompleted]);
 
   /* --------------------------- Svarssparning --------------------------- */
 
@@ -386,12 +449,18 @@ export function MatrixTestSession({
       {/* Main Content */}
       <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
         <div className="space-y-5 sm:space-y-6">
+          {/*
+            Frågan tonar in på plats. Förut sköts den in med x: 12 → 0, och
+            eftersom rutnätet och svarsalternativen är sidans största element
+            räknades varje sådan inskjutning som ett layoutskifte. Det var en
+            av två källor till CLS 0,111 här. Ren opacity flyttar ingenting.
+          */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="space-y-5"
             >
@@ -403,6 +472,7 @@ export function MatrixTestSession({
                 difficulty={question.difficulty}
                 maxDifficulty={maxDifficulty}
                 showHint={showHint}
+                ready={hintReady}
               />
 
               {/* Förklarande text på/av */}
@@ -413,18 +483,29 @@ export function MatrixTestSession({
 
               {/* Svarsalternativ */}
               <div>
-                {/* Diskret varning när något svar inte gått att spara trots omförsök */}
-                {failedCount > 0 && (
-                  <div className="flex items-center gap-2 max-w-md sm:max-w-lg mx-auto mb-3 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-                    <AlertTriangle
-                      className="w-4 h-4 text-amber-600 flex-shrink-0"
-                      strokeWidth={2.25}
-                    />
-                    <p className="text-sm text-amber-800">
-                      Ett svar kunde inte sparas. Vi försöker igen automatiskt.
-                    </p>
-                  </div>
-                )}
+                {/*
+                  Diskret varning när något svar inte gått att spara trots
+                  omförsök. Bannern dyker upp mitt i provet, ovanför
+                  svarsalternativen, och sköt förut ner dem med sin fulla höjd.
+                  Nu ligger den i en ruta vars höjd är reserverad från början,
+                  så ingenting under den rör sig när den kommer eller går.
+                */}
+                <div
+                  aria-live="polite"
+                  className="mb-3 min-h-[44px]"
+                >
+                  {failedCount > 0 && (
+                    <div className="flex items-center gap-2 max-w-md sm:max-w-lg mx-auto h-[44px] px-3.5 rounded-xl border border-amber-200 bg-amber-50 [animation:fadeInPlace_0.2s_ease-out]">
+                      <AlertTriangle
+                        className="w-4 h-4 text-amber-600 flex-shrink-0"
+                        strokeWidth={2.25}
+                      />
+                      <p className="text-sm text-amber-800">
+                        Ett svar kunde inte sparas. Vi försöker igen automatiskt.
+                      </p>
+                    </div>
+                  )}
+                </div>
                 <p className="text-center text-xs sm:text-sm font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-3">
                   Välj rätt svar
                 </p>
@@ -554,6 +635,7 @@ function QuestionHeader({
   difficulty,
   maxDifficulty,
   showHint,
+  ready,
 }: {
   index: number;
   title: string;
@@ -561,6 +643,8 @@ function QuestionHeader({
   difficulty: number;
   maxDifficulty: number;
   showHint: boolean;
+  /** false tills det sparade ledtrådsvalet lästs. Då målas ingen av lägena. */
+  ready: boolean;
 }) {
   // Strippa "FRÅGA X, " från title om det finns
   const cleanTitle = title.replace(/^FRÅGA\s+\d+\s*[--]\s*/i, '');
@@ -574,7 +658,11 @@ function QuestionHeader({
 
       {/* Titel + svårighet + regel visas bara i ledtråds-läge. I skarpt läge ser
           testtagaren bara "Fråga N" + rutnätet, som ett riktigt rekryteringstest. */}
-      {showHint ? (
+      {!ready ? (
+        // Höjden på skarpt läge, reserverad. Vet vi ännu inte vilket läge som
+        // gäller målar vi ingetdera, i stället för att måla fel och byta.
+        <div className="h-[18px] mb-1" aria-hidden="true" />
+      ) : showHint ? (
         <>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
             {cleanTitle}

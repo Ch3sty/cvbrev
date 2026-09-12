@@ -38,6 +38,13 @@ const CHROME_KANDIDATER = [
 
 type Budget = 'kritisk' | 'lista' | 'flode';
 
+/**
+ * CLS under detta värde är sub-pixelavrundning i mätningen, inte ett skifte
+ * någon kan se. Ett verkligt skifte i den här kodbasen har legat på 0,05 till
+ * 0,17. Googles egen gräns är 0,1, så 0,002 är med bred marginal brus.
+ */
+const CLS_BRUS = 0.002;
+
 const BUDGET_MS: Record<Budget, number> = {
   kritisk: 1000,
   lista: 1500,
@@ -49,30 +56,54 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult';
 }
 
 const ROUTES: RouteDef[] = [
+  // Kritiska: det första användaren möter.
   { path: '/dashboard', namn: 'dashboard', budget: 'kritisk' },
   { path: '/dashboard/profil', namn: 'profil', budget: 'kritisk' },
+
+  // Listor och hubbar.
   { path: '/dashboard/profil/cv', namn: 'profil/cv', budget: 'lista' },
   { path: '/dashboard/profil/prenumeration', namn: 'prenumeration', budget: 'lista' },
   { path: '/dashboard/sokta-tjanster', namn: 'sokta-tjanster', budget: 'lista' },
   { path: '/dashboard/sokta-tjanster/ID', namn: 'sokta-tjanster/[id]', budget: 'lista', dynamisk: 'application' },
   { path: '/dashboard/mina-brev', namn: 'mina-brev', budget: 'lista' },
   { path: '/dashboard/mina-brev/ID', namn: 'mina-brev/[id]', budget: 'lista', dynamisk: 'letter' },
+  { path: '/dashboard/mina-brev/ID/edit', namn: 'mina-brev/[id]/edit', budget: 'lista', dynamisk: 'letter' },
   { path: '/dashboard/cv-mallar', namn: 'cv-mallar', budget: 'lista' },
+  { path: '/dashboard/cv-mallar?mall=modern', namn: 'cv-mallar (vald mall)', budget: 'lista' },
   { path: '/dashboard/tester', namn: 'tester', budget: 'lista' },
   { path: '/dashboard/tester/matrislogik-grund', namn: 'tester/[slug]', budget: 'lista' },
+  { path: '/dashboard/tester/personlighet-grund', namn: 'tester/personlighet', budget: 'lista' },
   { path: '/dashboard/bli-upptackt', namn: 'bli-upptackt', budget: 'lista' },
   { path: '/dashboard/meddelanden', namn: 'meddelanden', budget: 'lista' },
   { path: '/dashboard/kontakt', namn: 'kontakt', budget: 'lista' },
+
+  // Testflödet: själva provet och resultatsidan.
+  { path: '/dashboard/tester/matrislogik-grund/test/ID', namn: 'tester prov', budget: 'flode', dynamisk: 'testSession' },
+  { path: '/dashboard/tester/matrislogik-grund/test/ID/results', namn: 'tester resultat', budget: 'flode', dynamisk: 'testResult' },
+
+  // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
+  { path: '/dashboard/skapa-brev?steg=2', namn: 'skapa-brev steg 2', budget: 'flode' },
+  { path: '/dashboard/skapa-brev?steg=3', namn: 'skapa-brev steg 3', budget: 'flode' },
+  { path: '/dashboard/skapa-brev?steg=4', namn: 'skapa-brev steg 4', budget: 'flode' },
+  { path: '/dashboard/skapa-brev?steg=5', namn: 'skapa-brev steg 5', budget: 'flode' },
+  { path: '/dashboard/skapa-brev?steg=6', namn: 'skapa-brev steg 6', budget: 'flode' },
   { path: '/dashboard/skapa-cv', namn: 'skapa-cv', budget: 'flode' },
+  { path: '/dashboard/skapa-cv?steg=2', namn: 'skapa-cv steg 2', budget: 'flode' },
+  { path: '/dashboard/skapa-cv?steg=4', namn: 'skapa-cv steg 4', budget: 'flode' },
+  { path: '/dashboard/skapa-cv?steg=7', namn: 'skapa-cv steg 7', budget: 'flode' },
   { path: '/dashboard/cv-analys', namn: 'cv-analys', budget: 'flode' },
+  { path: '/dashboard/cv-analys?steg=2', namn: 'cv-analys steg 2', budget: 'flode' },
+  { path: '/dashboard/cv-analys?steg=3', namn: 'cv-analys steg 3', budget: 'flode' },
   { path: '/dashboard/jobbmatchning', namn: 'jobbmatchning', budget: 'flode' },
   { path: '/dashboard/jobbcoachen', namn: 'jobbcoachen', budget: 'flode' },
   { path: '/dashboard/linkedin-optimizer', namn: 'linkedin-optimizer', budget: 'flode' },
+  { path: '/dashboard/linkedin-optimizer?steg=2', namn: 'linkedin steg 2', budget: 'flode' },
+  { path: '/dashboard/linkedin-optimizer?steg=3', namn: 'linkedin steg 3', budget: 'flode' },
   { path: '/dashboard/arbetsstil', namn: 'arbetsstil', budget: 'flode' },
 ];
 
@@ -116,34 +147,68 @@ async function main() {
 
   const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
-  // Ett konto med data, så mätningen speglar en verklig vy och inte tomma listor.
-  const { data: profiler } = await sb
-    .from('profiles')
-    .select('id')
-    .order('created_at', { ascending: false })
-    .limit(25);
+  // Kontot med MEST data. Ett tomt konto ger tomma listor, och då mäter vi
+  // ett skelett i stället för en verklig vy. Vi kan inte sortera profiles på
+  // relaterade räkningar direkt, så vi hämtar ägarna till de rader som finns
+  // och räknar förekomster: den som äger flest rader vinner.
+  const [{ data: appRader }, { data: sessRader }, { data: brevRader }] = await Promise.all([
+    sb.from('job_applications').select('user_id').limit(4000),
+    sb.from('logic_test_v4_sessions').select('user_id').limit(4000),
+    sb.from('letters').select('user_id').limit(4000),
+  ]);
+
+  const poang = new Map<string, number>();
+  const rakna = (rader: Array<{ user_id: string | null }> | null, vikt: number) => {
+    for (const r of rader ?? []) {
+      if (!r.user_id) continue;
+      poang.set(r.user_id, (poang.get(r.user_id) ?? 0) + vikt);
+    }
+  };
+  // Ansökningar och testsessioner väger tyngst: de öppnar flest detaljsidor.
+  rakna(appRader, 3);
+  rakna(sessRader, 3);
+  rakna(brevRader, 1);
+
+  const rankade = [...poang.entries()].sort((x, y) => y[1] - x[1]);
 
   let epost: string | null = null;
   let userId: string | null = null;
-  for (const p of profiler ?? []) {
-    const { data } = await sb.auth.admin.getUserById(p.id);
-    if (data?.user?.email) {
-      epost = data.user.email;
-      userId = p.id;
-      break;
-    }
+  for (const [id] of rankade.slice(0, 10)) {
+    const { data } = await sb.auth.admin.getUserById(id);
+    if (!data?.user?.email) continue;
+    epost = data.user.email;
+    userId = id;
+    break;
   }
+
   if (!epost || !userId) throw new Error('Hittade inget konto att mäta med.');
 
-  // Slå upp riktiga id:n för de dynamiska routerna.
-  const [{ data: brev }, { data: ansokningar }] = await Promise.all([
-    sb.from('letters').select('id').eq('user_id', userId).limit(1),
-    sb.from('job_applications').select('id').eq('user_id', userId).limit(1),
-  ]);
+  // Slå upp riktiga id:n för de dynamiska routerna. En avslutad testsession
+  // krävs för resultatsidan, en pågående (eller vilken som helst) för provet.
+  const [{ data: brev }, { data: ansokningar }, { data: session }, { data: klarSession }] =
+    await Promise.all([
+      sb.from('letters').select('id').eq('user_id', userId).limit(1),
+      sb.from('job_applications').select('id').eq('user_id', userId).limit(1),
+      sb
+        .from('logic_test_v4_sessions')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('test_type', 'matrislogik')
+        .limit(1),
+      sb
+        .from('logic_test_v4_sessions')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('test_type', 'matrislogik')
+        .not('completed_at', 'is', null)
+        .limit(1),
+    ]);
+
   const idPerTyp: Record<string, string | null> = {
     letter: brev?.[0]?.id ?? null,
     application: ansokningar?.[0]?.id ?? null,
-    testSession: null,
+    testSession: session?.[0]?.id ?? null,
+    testResult: klarSession?.[0]?.id ?? null,
   };
 
   // Skapa en session och plantera cookien direkt. Magic link-redirect pekar
@@ -289,7 +354,7 @@ async function main() {
     resultat.push({ namn: route.namn, budget: route.budget, m });
 
     const tak = BUDGET_MS[route.budget];
-    const status = m.lcp <= tak && m.cls === 0 ? 'OK ' : 'ÖVER';
+    const status = m.lcp <= tak && m.cls <= CLS_BRUS ? 'OK ' : 'ÖVER';
     console.log(
       `${status} ${route.namn.padEnd(24)} LCP ${String(m.lcp).padStart(5)} ms (budget ${tak})` +
         `  CLS ${String(m.cls).padStart(5)}  rundturer ${String(m.rundturer).padStart(2)}  text ${m.textLangd}`
@@ -308,7 +373,7 @@ async function main() {
       continue;
     }
     const tak = BUDGET_MS[r.budget];
-    const klar = r.m.lcp <= tak && r.m.cls === 0;
+    const klar = r.m.lcp <= tak && r.m.cls <= CLS_BRUS;
     if (!klar) over++;
     console.log(
       r.namn.padEnd(24) +
@@ -328,6 +393,41 @@ async function main() {
   if (jsonUt) {
     fs.writeFileSync(jsonUt, JSON.stringify({ tid: new Date().toISOString(), bas, korningar, resultat }, null, 2));
     console.log(`Sparat till ${jsonUt}`);
+  }
+
+  // Grindvakt för CI och för körning före merge.
+  //
+  // Att fälla bygget på minsta överdrag vore fel: mätningen svänger 300 till
+  // 600 ms mellan körningar beroende på maskinens belastning, och då skulle
+  // grinden larma om brus. Tröskeln ligger därför på 20 procent över budget,
+  // vilket är större än bruset men mindre än en verklig regression.
+  const TOLERANS = Number(arg('tolerans', '20')) / 100;
+  const spruckna = resultat.filter(
+    (r) => r.m && r.m.lcp > BUDGET_MS[r.budget] * (1 + TOLERANS)
+  );
+
+  if (spruckna.length > 0) {
+    console.log('');
+    console.log(`FEL: ${spruckna.length} sida(or) over budget med mer an ${Math.round(TOLERANS * 100)} procent:`);
+    for (const r of spruckna) {
+      const tak = BUDGET_MS[r.budget];
+      const overPct = Math.round(((r.m!.lcp - tak) / tak) * 100);
+      console.log(`  ${r.namn.padEnd(26)} ${r.m!.lcp} ms mot budget ${tak} (plus ${overPct} procent)`);
+    }
+    console.log('');
+    console.log('Kor om pa en tyst maskin innan du drar slutsatser. Enskilda');
+    console.log('korningar svanger, medianen av minst tre ar det som raknas.');
+    process.exitCode = 1;
+    return;
+  }
+
+  // CLS har ingen tolerans. Ett layoutskifte ar alltid en bugg, aldrig brus.
+  const skiftande = resultat.filter((r) => r.m && r.m.cls > CLS_BRUS);
+  if (skiftande.length > 0) {
+    console.log('');
+    console.log(`FEL: ${skiftande.length} sida(or) med layoutskifte (CLS ska vara 0):`);
+    for (const r of skiftande) console.log(`  ${r.namn.padEnd(26)} CLS ${r.m!.cls}`);
+    process.exitCode = 1;
   }
 }
 

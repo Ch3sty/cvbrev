@@ -44,9 +44,11 @@ export function useCvQuota(): CvQuota {
       const supabase = createClient()
 
       const {
-        data: { user },
+        data: { session },
         error: userError,
-      } = await supabase.auth.getUser()
+      } = await supabase.auth.getSession()
+      // getSession() läser lokalt, getUser() var en rundtur över nätet.
+      const user = session?.user
 
       if (userError || !user) {
         setError('Kunde inte hämta användarinformation')

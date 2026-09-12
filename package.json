@@ -11,7 +11,8 @@
     "validate:questions": "tsx scripts/validateQuestionBank.ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "perf:inloggat": "tsx scripts/perf-inloggat.ts"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.0",

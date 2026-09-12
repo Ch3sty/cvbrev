@@ -22,7 +22,13 @@ export default function MessagesHeaderButton() {
   const [popoverSeen, markPopoverSeen] = useUiFlag('header_messages_popover');
   const [popoverClosed, setPopoverClosed] = useState(false);
 
-  if (!loaded) return null;
+  // Båda grenarna nedan renderar en 44 px hög knapp i headerns flexrad. Att
+  // returnera null tills data landat gjorde att raden växte när knappen kom,
+  // vilket mättes som ett layoutskifte på varje dashboard-sida. Ytan
+  // reserveras i stället, med samma mått som den smalaste grenen.
+  if (!loaded) {
+    return <div aria-hidden="true" className="hidden sm:block w-[168px] h-11" />;
+  }
 
   // --- INTE synlig: inbjudan att göra sig synlig -----------------------------
   if (!isVisible) {

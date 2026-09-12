@@ -102,8 +102,8 @@ export default function SkapaCvPreview({
   return (
     <div className={`relative w-full ${className}`}>
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
       >
