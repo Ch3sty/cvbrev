@@ -11,7 +11,6 @@
 
 import Link from 'next/link'
 import type { ComponentType, ReactNode } from 'react'
-import { motion } from 'framer-motion'
 import { ArrowRight, Lock } from 'lucide-react'
 import InfoPopover from '@/components/ui/InfoPopover'
 import {
@@ -157,11 +156,10 @@ export default function DashboardSnabbAtgarder({
           const recommended = !locked && recommendedSlug === slug
 
           return (
-            <motion.div
+            <div
               key={title}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut', delay: idx * 0.03 }}
+              className="motion-safe:animate-[slideUp_200ms_ease-out_both]"
+              style={{ animationDelay: `${idx * 30}ms` }}
             >
               <div
                 className={`group relative rounded-xl p-4 sm:p-5 bg-white border transition-colors ${
@@ -218,7 +216,7 @@ export default function DashboardSnabbAtgarder({
                   />
                 </div>
               </div>
-            </motion.div>
+            </div>
           )
         })}
       </div>

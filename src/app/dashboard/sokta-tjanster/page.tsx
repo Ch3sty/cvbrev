@@ -10,6 +10,7 @@
 // sidan ska se vad hon ska göra, inte vad hon senast gjorde.
 
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { useNotification } from '@/context/notificationcontext';
@@ -30,10 +31,98 @@ import {
   IlluImporteraBrev,
 } from '@/components/illustrations/ApplicationIllustrations';
 import ApplicationCard from './components/ApplicationCard';
-import QuickLogSheet from './components/QuickLogSheet';
 import BackfillBanner from './components/BackfillBanner';
-import StatsTab from './components/StatsTab';
-import ShareTab from './components/ShareTab';
+/**
+ * Statistikfliken drar in recharts, ett av de tyngsta paketen i bundlen, men
+ * syns bara när fliken faktiskt är vald. Den laddas därför först vid behov.
+ *
+ * Platshållaren har samma yttermått som StatsTab:s eget laddningsläge: fyra
+ * KPI-kort på 6 rem och en diagramruta på 14 rem. Då hoppar ingenting när
+ * paketet landar, utan kortet byter bara innehåll.
+ */
+const StatsTabPlaceholder = () => (
+  <div className="space-y-4" role="status" aria-busy="true" aria-live="polite">
+    <span className="sr-only">Läser in statistiken</span>
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div
+          key={i}
+          className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-white p-4"
+        />
+      ))}
+    </div>
+    <div className="h-56 animate-pulse rounded-xl border border-neutral-200 bg-white p-6" />
+  </div>
+);
+
+const StatsTab = dynamic(() => import('./components/StatsTab'), {
+  ssr: false,
+  loading: StatsTabPlaceholder,
+});
+
+/**
+ * Rapportfliken drar in Sankey-diagrammet och hela utskriftsvyn, och syns
+ * bara när fliken är vald. Samma behandling som statistiken.
+ *
+ * Platshållaren följer ShareTab:s översta mått: statusraden på 44 px,
+ * månadsväljaren på 44 px och rapportkortet. Kortet får ShareTab:s egen
+ * orangebrutna ram, så ramen ligger still medan innehållet byts.
+ */
+const ShareTabPlaceholder = () => (
+  <div className="space-y-4" role="status" aria-busy="true" aria-live="polite">
+    <span className="sr-only">Läser in rapporten</span>
+    <div className="h-11 animate-pulse rounded-lg border border-neutral-200 bg-white" />
+    <div className="flex items-center justify-center gap-2">
+      <div className="h-11 w-11 animate-pulse rounded-xl border border-neutral-200 bg-white" />
+      <div className="h-11 min-w-[160px] animate-pulse rounded-lg bg-neutral-100" />
+      <div className="h-11 w-11 animate-pulse rounded-xl border border-neutral-200 bg-white" />
+    </div>
+    <div className="rounded-xl border border-orange-200/50 bg-white p-5 sm:p-8">
+      <div className="mb-5 animate-pulse border-b border-neutral-200 pb-4">
+        <div className="h-3 w-40 rounded bg-neutral-100" />
+        <div className="mt-2 h-6 w-1/2 rounded bg-neutral-100" />
+        <div className="mt-2 h-3 w-2/3 rounded bg-neutral-100" />
+      </div>
+      <div className="animate-pulse space-y-3">
+        <div className="h-4 w-1/3 rounded bg-neutral-100" />
+        <div className="h-3 w-2/3 rounded bg-neutral-100" />
+        <div className="h-3 w-1/2 rounded bg-neutral-100" />
+      </div>
+    </div>
+  </div>
+);
+
+const ShareTab = dynamic(() => import('./components/ShareTab'), {
+  ssr: false,
+  loading: ShareTabPlaceholder,
+});
+
+/**
+ * Snabbloggen och händelsearket öppnas först efter en tryckning, så de
+ * behöver varken finnas i bundlen eller i DOM:en vid sidladdning.
+ *
+ * SheetShell har sin egen AnimatePresence, men den hinner aldrig spela
+ * utgången om föräldern river arket i samma ögonblick som open blir false.
+ * Därför håller den här kroken arket monterat lite till: den speglar open
+ * direkt vid öppning och släpper först när utgången är klar.
+ */
+function useDeferredUnmount(open: boolean, exitMs = 300): boolean {
+  const [mounted, setMounted] = useState(open);
+
+  useEffect(() => {
+    if (open) {
+      setMounted(true);
+      return;
+    }
+    if (!mounted) return;
+    const timer = setTimeout(() => setMounted(false), exitMs);
+    return () => clearTimeout(timer);
+  }, [open, mounted, exitMs]);
+
+  return mounted;
+}
+
+const QuickLogSheet = dynamic(() => import('./components/QuickLogSheet'), { ssr: false });
 
 type TabId = 'ansokningar' | 'statistik' | 'rapport';
 type FilterId = 'alla' | 'vantar' | 'intervju' | 'erbjudande' | 'avslutade';
@@ -114,6 +203,7 @@ export default function SoktaTjansterPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showQuickLog, setShowQuickLog] = useState(false);
   const [letterCandidates, setLetterCandidates] = useState<number | null>(null);
+  const quickLogMounted = useDeferredUnmount(showQuickLog);
 
   // Djuplänkar: ?tab=statistik, ?tab=rapport, ?logga=1
   useEffect(() => {
@@ -331,7 +421,9 @@ export default function SoktaTjansterPage() {
 
       {activeTab === 'rapport' && <ShareTab applications={applications ?? []} />}
 
-      <QuickLogSheet open={showQuickLog} onClose={() => setShowQuickLog(false)} onSubmit={handleCreate} />
+      {quickLogMounted && (
+        <QuickLogSheet open={showQuickLog} onClose={() => setShowQuickLog(false)} onSubmit={handleCreate} />
+      )}
     </div>
   );
 }

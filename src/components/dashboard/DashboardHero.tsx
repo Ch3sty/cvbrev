@@ -14,7 +14,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import InlineCVUpload from '@/components/cv/InlineCVUpload'
 import QuickScoreReveal from '@/components/cv/QuickScoreReveal'
 import { IlluLaddaUppCv, IlluCvPoang } from '@/components/illustrations/DashboardIllustrations'
@@ -48,12 +47,7 @@ export default function DashboardHero({
 
   if (state === 'B') {
     return (
-      <motion.section
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
-        className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6"
-      >
+      <section className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6 motion-safe:animate-[slideUp_200ms_ease-out]">
         <div className="flex items-start gap-5">
           <span className="hidden sm:block shrink-0 text-neutral-900" aria-hidden="true">
             <IlluCvPoang size={96} />
@@ -81,18 +75,13 @@ export default function DashboardHero({
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
     )
   }
 
   // Tillstånd A: allt handlar om att få in CV:t.
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-5 motion-safe:animate-[slideUp_200ms_ease-out]">
       {uploadedCvId ? (
         // Samma yta byter innehåll: poängen ersätter uppladdningen.
         <QuickScoreReveal
@@ -156,6 +145,6 @@ export default function DashboardHero({
           Logga sökta tjänster
         </Link>
       </div>
-    </motion.section>
+    </section>
   )
 }

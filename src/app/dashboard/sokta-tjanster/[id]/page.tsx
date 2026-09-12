@@ -5,6 +5,7 @@
 // aktuell status räknas alltid om av databasen.
 
 import { useCallback, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -29,11 +30,34 @@ import {
   type JobApplicationEvent,
 } from '@/lib/applications/status';
 import { StatusPill, formatDateLong, formatDateShort, daysSince } from '../components/StatusBits';
-import AddEventSheet from '../components/AddEventSheet';
-import QuickLogSheet from '../components/QuickLogSheet';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
+
+// Båda arken öppnas först efter en tryckning, så de hämtas vid behov.
+const AddEventSheet = dynamic(() => import('../components/AddEventSheet'), { ssr: false });
+const QuickLogSheet = dynamic(() => import('../components/QuickLogSheet'), { ssr: false });
+
+/**
+ * SheetShell animerar ut via AnimatePresence, men bara om arket får vara kvar
+ * medan utgången spelar. Den här kroken håller det monterat tills animationen
+ * hunnit klart, så stängningen ser likadan ut som före lazy-laddningen.
+ */
+function useDeferredUnmount(open: boolean, exitMs = 300): boolean {
+  const [mounted, setMounted] = useState(open);
+
+  useEffect(() => {
+    if (open) {
+      setMounted(true);
+      return;
+    }
+    if (!mounted) return;
+    const timer = setTimeout(() => setMounted(false), exitMs);
+    return () => clearTimeout(timer);
+  }, [open, mounted, exitMs]);
+
+  return mounted;
+}
 
 interface ApplicationDetail extends JobApplication {
   events: JobApplicationEvent[];
@@ -54,6 +78,8 @@ export default function ApplicationDetailPage() {
   // ConfirmDialog bär bekräftelserna i stället, en per handling.
   const [eventToDelete, setEventToDelete] = useState<string | null>(null);
   const [confirmDeleteApplication, setConfirmDeleteApplication] = useState(false);
+  const addEventMounted = useDeferredUnmount(showAddEvent);
+  const editMounted = useDeferredUnmount(showEdit);
 
   const applicationId = params?.id;
 
@@ -349,18 +375,22 @@ export default function ApplicationDetailPage() {
         </motion.section>
       </div>
 
-      <AddEventSheet
-        open={showAddEvent}
-        onClose={() => setShowAddEvent(false)}
-        onSubmit={handleAddEvent}
-        completedInterviews={completedInterviews}
-      />
-      <QuickLogSheet
-        open={showEdit}
-        onClose={() => setShowEdit(false)}
-        onSubmit={handleEdit}
-        initial={detail}
-      />
+      {addEventMounted && (
+        <AddEventSheet
+          open={showAddEvent}
+          onClose={() => setShowAddEvent(false)}
+          onSubmit={handleAddEvent}
+          completedInterviews={completedInterviews}
+        />
+      )}
+      {editMounted && (
+        <QuickLogSheet
+          open={showEdit}
+          onClose={() => setShowEdit(false)}
+          onSubmit={handleEdit}
+          initial={detail}
+        />
+      )}
 
       <ConfirmDialog
         open={eventToDelete !== null}

@@ -8,7 +8,6 @@
  */
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 
 interface DashboardStatusRowProps {
   letters: number
@@ -35,11 +34,8 @@ export default function DashboardStatusRow({
   ]
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-neutral-200 p-4"
+    <section
+      className="bg-white rounded-xl border border-neutral-200 p-4 motion-safe:animate-[slideUp_200ms_ease-out_both]"
       aria-label="Din översikt"
     >
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
@@ -61,6 +57,6 @@ export default function DashboardStatusRow({
           {ctaLabel}
         </Link>
       </div>
-    </motion.section>
+    </section>
   )
 }

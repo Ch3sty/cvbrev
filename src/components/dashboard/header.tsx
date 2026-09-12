@@ -9,9 +9,8 @@
  * har en samlad plats och dubbletten mot sidebar och mobilnav försvinner.
  */
 
-import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import NotificationBell from './NotificationBell';
 import MessagesHeaderButton from './MessagesHeaderButton';
 import ProfileMenu from './ProfileMenu';
@@ -19,12 +18,6 @@ import ProfileMenu from './ProfileMenu';
 interface DashboardHeaderProps {
   user: any;
   onMenuClick?: () => void;
-}
-
-interface ProfileInfo {
-  full_name: string | null;
-  profile_photo_url: string | null;
-  premiumLabel: string | null;
 }
 
 /** Triggerns gamla platshållare räknas som saknat namn. */
@@ -35,68 +28,56 @@ function isMissingName(value: string | null | undefined): boolean {
 }
 
 export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
-  const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
-    full_name: null,
-    profile_photo_url: null,
-    premiumLabel: null,
-  });
+  // Tidigare gjorde headern en egen profilhämtning här: ett auth-anrop och en
+  // select mot profiles. Exakt samma fält ligger i den delade summaryn, så
+  // raden kostar numera inget eget nätverksanrop.
+  const { summary } = useDashboardData();
+  const data = (summary?.profile ?? null) as {
+    full_name?: string | null;
+    profile_photo_url?: string | null;
+    premium_until?: string | null;
+    subscription_tier?: string | null;
+    subscription_status?: string | null;
+    subscription_id?: string | null;
+  } | null;
 
-  useEffect(() => {
-    if (!user?.id) return;
+  // Samma härledning som sidebaren, så statusen aldrig säger emot sig själv.
+  // Innan summaryn landat är etiketten null, precis som det tomma
+  // starttillståndet var förut. Ingen ny layoutförskjutning.
+  let premiumLabel: string | null = null;
+  if (data) {
+    const hasPremiumUntil =
+      Boolean(data.premium_until) && new Date(data.premium_until as string) > new Date();
+    const hasPremiumTier = data.subscription_tier === 'premium';
+    const liveSub =
+      Boolean(data.subscription_id) &&
+      !String(data.subscription_id).startsWith('sub_test') &&
+      ['active', 'trialing', 'past_due', 'unpaid'].includes(
+        data.subscription_status ?? ''
+      );
 
-    const fetchProfile = async () => {
-      try {
-        const supabase = getSupabaseClient();
-        const { data } = await supabase
-          .from('profiles')
-          .select(
-            'full_name, profile_photo_url, premium_until, subscription_tier, subscription_status, subscription_id'
-          )
-          .eq('id', user.id)
-          .single();
+    if (liveSub) {
+      premiumLabel = 'Aktiv';
+    } else if (hasPremiumTier && hasPremiumUntil) {
+      const daysLeft = Math.max(
+        1,
+        Math.ceil(
+          (new Date(data.premium_until as string).getTime() - Date.now()) / 86400000
+        )
+      );
+      premiumLabel = `${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`;
+    } else if (hasPremiumTier) {
+      premiumLabel = 'Aktiv';
+    } else {
+      premiumLabel = 'Gratis';
+    }
+  }
 
-        if (!data) return;
-
-        // Samma härledning som sidebaren, så statusen aldrig säger emot sig själv.
-        const hasPremiumUntil =
-          data.premium_until && new Date(data.premium_until) > new Date();
-        const hasPremiumTier = data.subscription_tier === 'premium';
-        const liveSub =
-          Boolean(data.subscription_id) &&
-          !String(data.subscription_id).startsWith('sub_test') &&
-          ['active', 'trialing', 'past_due', 'unpaid'].includes(
-            data.subscription_status ?? ''
-          );
-
-        let premiumLabel: string;
-        if (liveSub) {
-          premiumLabel = 'Aktiv';
-        } else if (hasPremiumTier && hasPremiumUntil) {
-          const daysLeft = Math.max(
-            1,
-            Math.ceil(
-              (new Date(data.premium_until as string).getTime() - Date.now()) / 86400000
-            )
-          );
-          premiumLabel = `${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`;
-        } else if (hasPremiumTier) {
-          premiumLabel = 'Aktiv';
-        } else {
-          premiumLabel = 'Gratis';
-        }
-
-        setProfileInfo({
-          full_name: data.full_name || null,
-          profile_photo_url: data.profile_photo_url || null,
-          premiumLabel,
-        });
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id]);
+  const profileInfo = {
+    full_name: data?.full_name || null,
+    profile_photo_url: data?.profile_photo_url || null,
+    premiumLabel,
+  };
 
   const getUserName = () => {
     if (!isMissingName(profileInfo.full_name)) return profileInfo.full_name as string;

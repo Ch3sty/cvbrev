@@ -6,7 +6,6 @@
 // tillhör uteslutande rekryterarytan.
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { RadarChip, MiniScenBliUpptackt } from './illustrations/DashboardIcons';
 import InfoPopover from '@/components/ui/InfoPopover';
@@ -35,11 +34,8 @@ export default function BliUpptacktStatusRad() {
           : 'Rekryterare ser dig anonymt, du väljer om de får veta mer';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className={`rounded-xl bg-white border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 ${
+    <div
+      className={`rounded-xl bg-white border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 motion-safe:animate-[slideUp_400ms_ease-out_both] ${
         hasNews ? 'border-indigo-200' : 'border-neutral-100'
       }`}
       >
@@ -101,6 +97,6 @@ export default function BliUpptacktStatusRad() {
           strokeWidth={2.5}
         />
       </Link>
-    </motion.div>
+    </div>
   );
 }

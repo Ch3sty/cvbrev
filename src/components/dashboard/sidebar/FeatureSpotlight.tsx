@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
 import { useUnusedFeatures } from '@/hooks/useUnusedFeatures';
 
@@ -22,15 +21,10 @@ export default function FeatureSpotlight({ isMobile, onLinkClick }: FeatureSpotl
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={feature.slug}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.3 }}
-        className="relative overflow-hidden rounded-xl text-white mx-2 bg-orange-600"
-      >
+    <div
+      key={feature.slug}
+      className="relative overflow-hidden rounded-xl text-white mx-2 bg-orange-600 motion-safe:animate-[slideUp_300ms_ease-out_both]"
+    >
         {/* Prick-pattern */}
         <svg
           className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
@@ -85,7 +79,6 @@ export default function FeatureSpotlight({ isMobile, onLinkClick }: FeatureSpotl
             />
           </div>
         </Link>
-      </motion.div>
-    </AnimatePresence>
+    </div>
   );
 }

@@ -1,8 +1,10 @@
 // src/hooks/use-profile.ts
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaService';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 
 // Konstanter för prenumerationsbegränsningar.
 // Dagskvotmodellen (docs/plan-kvotmodell.md): brev är 1 per dag med
@@ -30,11 +32,40 @@ const SUBSCRIPTION_LIMITS = {
   }
 };
 
+/**
+ * Finns DashboardDataProvider över oss?
+ *
+ * Contextens defaultvärde har summary: null och isLoading: true, vilket ser
+ * exakt likadant ut som "provider finns men laddar". Så länge contexten saknar
+ * en explicit markör avgör vi det på route i stället: providern monteras i
+ * src/app/dashboard/layout.tsx och täcker hela /dashboard-trädet.
+ *
+ * Om DashboardDataContext senare får ett hasProvider-fält (default false,
+ * providern sätter true) plockas det upp automatiskt av raden nedan, och
+ * route-kontrollen blir bara en fallback.
+ */
+function useHasDashboardProvider(ctx: unknown): boolean {
+  const pathname = usePathname();
+
+  const flagged = (ctx as { hasProvider?: boolean }).hasProvider;
+  if (typeof flagged === 'boolean') return flagged;
+
+  return pathname === '/dashboard' || (pathname?.startsWith('/dashboard/') ?? false);
+}
+
 export const useProfile = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [cv, setCv] = useState<CV | null>(null);
   const [gdprConsent, setGdprConsent] = useState<boolean>(false);
+
+  // Delad data från dashboardens layout. Utanför dashboarden är summary null
+  // och hasProvider false, och hooken kör sin egen hämtningskedja som förut.
+  const dashboardData = useDashboardData();
+  const { summary, refresh: refreshDashboardData } = dashboardData;
+  const hasProvider = useHasDashboardProvider(dashboardData);
+  /** Sant när vi faktiskt har delad data att läsa ur. */
+  const usingSharedData = hasProvider && summary !== null;
 
   // Prenumerationsrelaterad state
   const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free');
@@ -69,7 +100,7 @@ export const useProfile = () => {
   const [hasReachedLetterLimit, setHasReachedLetterLimit] = useState(false);
   const [maxSavedLetters, setMaxSavedLetters] = useState(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
 
-  // --- NY STATE FÖR CV-ANALYS ---
+  // --- STATE FÖR CV-ANALYS ---
   const [weeklyAnalysisCount, setWeeklyAnalysisCount] = useState<number>(0);
   const [weeklyAnalysisLimit, setWeeklyAnalysisLimit] = useState<number>(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
   const [lastAnalysisReset, setLastAnalysisReset] = useState<string | null>(null);
@@ -77,7 +108,7 @@ export const useProfile = () => {
   const [nextAnalysisResetDate, setNextAnalysisResetDate] = useState<Date | null>(null);
   const [timeUntilAnalysisReset, setTimeUntilAnalysisReset] = useState<string>('');
   const analysisTimerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  // --- SLUT PÅ NY STATE ---
+  // --- SLUT PÅ STATE FÖR CV-ANALYS ---
 
 
   // Supabase-klient
@@ -115,14 +146,11 @@ export const useProfile = () => {
     return Math.max(0, limit - count);
   }, []);
 
-  // --- NY HJÄLPFUNKTION FÖR ANALYS ---
   const calculateRemainingAnalyses = useCallback((tier: 'free' | 'premium', count: number) => {
     const limit = SUBSCRIPTION_LIMITS[tier].weeklyAnalysisLimit;
     if (!isFinite(limit)) return Infinity;
     return Math.max(0, limit - count);
   }, []);
-  // --- SLUT PÅ NY HJÄLPFUNKTION ---
-
 
   const calculateLetterLimitReached = useCallback((tier: 'free' | 'premium', count: number) => {
     const limit = SUBSCRIPTION_LIMITS[tier].maxSavedLetters;
@@ -151,6 +179,16 @@ export const useProfile = () => {
     }
 
     return nextReset;
+  }, []);
+
+  /**
+   * Avgör nivån på exakt samma sätt som förut: premium gäller bara om
+   * premium_until ligger i framtiden, eller saknas helt (Stripe-abonnemang).
+   */
+  const resolveTier = useCallback((data: Record<string, any> | null): 'free' | 'premium' => {
+    if (!data || data.subscription_tier !== 'premium') return 'free';
+    if (!data.premium_until) return 'premium';
+    return new Date(data.premium_until) > new Date() ? 'premium' : 'free';
   }, []);
 
   // Funktioner för att hämta data
@@ -233,7 +271,6 @@ export const useProfile = () => {
         clearInterval(interval);
         timerIntervalRef.current = null;
         if (fetchProfileRef.current) {
-            console.log("useProfile: Letter reset date reached, refreshing profile...");
             fetchProfileRef.current();
         }
       } else {
@@ -243,7 +280,6 @@ export const useProfile = () => {
     timerIntervalRef.current = interval;
   }, [nextResetDate, formatTimeRemaining, weeklyLetterLimit]);
 
-  // --- NY TIMER-FUNKTION FÖR ANALYS ---
   const startAnalysisResetTimer = useCallback(() => {
     if (!nextAnalysisResetDate) return;
     // Skippa timer för premium-användare med infinity limits
@@ -258,7 +294,6 @@ export const useProfile = () => {
         clearInterval(interval);
         analysisTimerIntervalRef.current = null;
         if (fetchProfileRef.current) {
-            console.log("useProfile: Analysis reset date reached, refreshing profile...");
             fetchProfileRef.current();
         }
       } else {
@@ -267,14 +302,12 @@ export const useProfile = () => {
     }, 60000); // Uppdatera varje minut
     analysisTimerIntervalRef.current = interval;
   }, [nextAnalysisResetDate, formatTimeRemaining, weeklyAnalysisLimit]);
-  // --- SLUT PÅ NY TIMER-FUNKTION ---
 
   const updateNextResetDate = useCallback((newResetDate: Date) => {
     setNextResetDate(newResetDate);
     startResetTimer();
   }, [startResetTimer]);
 
-  // --- NYA UPPDATERINGSFUNKTIONER FÖR ANALYS ---
   const updateNextAnalysisResetDate = useCallback((newResetDate: Date) => {
     setNextAnalysisResetDate(newResetDate);
     startAnalysisResetTimer();
@@ -284,14 +317,13 @@ export const useProfile = () => {
     const limit = SUBSCRIPTION_LIMITS[subscriptionTier].weeklyAnalysisLimit;
     if (!isFinite(limit)) {
       setRemainingWeeklyAnalyses(Infinity);
-      setWeeklyAnalysisCount(0); 
+      setWeeklyAnalysisCount(0);
     } else {
       setRemainingWeeklyAnalyses(Math.max(0, newRemainingCount));
       const newCount = Math.max(0, limit - Math.max(0, newRemainingCount));
       setWeeklyAnalysisCount(newCount);
     }
   }, [subscriptionTier]);
-  // --- SLUT PÅ NYA UPPDATERINGSFUNKTIONER ---
 
   const updateRemainingLetters = useCallback((newRemainingCount: number) => {
     const limit = SUBSCRIPTION_LIMITS[subscriptionTier].weeklyLetterLimit;
@@ -305,52 +337,53 @@ export const useProfile = () => {
     }
   }, [subscriptionTier]);
 
-  // Hämta profil
+  /**
+   * Nollställ allt till gratis-grundläge (utloggad, eller ingen profilrad).
+   * Identisk med den nollställning som tidigare låg inlinad två gånger i
+   * fetchProfile.
+   */
+  const resetToFreeDefaults = useCallback(() => {
+    setSubscriptionTier('free');
+    setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
+    setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
+    setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+    setWeeklyLetterCount(0); setLastCountReset(null);
+    setRemainingWeeklyLetters(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+
+    setStripeCustomerId(null); setSubscriptionId(null);
+    setSubscriptionStatus(null); setPriceId(null); setCurrentPeriodEnd(null);
+
+    const defaultReset = calculateNextResetDate(null);
+    setNextResetDate(defaultReset);
+    setTimeUntilReset(formatTimeRemaining(defaultReset));
+
+    setCvCount(0); setHasReachedCvLimit(false);
+    setSavedLettersCount(0); setHasReachedLetterLimit(false);
+
+    setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
+    setWeeklyAnalysisCount(0);
+    setLastAnalysisReset(null);
+    setRemainingWeeklyAnalyses(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
+    setNextAnalysisResetDate(defaultReset);
+    setTimeUntilAnalysisReset(formatTimeRemaining(defaultReset));
+  }, [calculateNextResetDate, formatTimeRemaining]);
+
+  // Hämta profil. Fallback-vägen: körs utanför dashboarden, och som
+  // omhämtning efter skrivningar när ingen provider finns.
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
-    console.log("useProfile: Fetching profile data...");
     try {
       setLoading(true);
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
       if (sessionError || !session) {
-        console.error('useProfile: User not logged in or session error:', sessionError);
         setLoading(false);
         // Återställ till default gratis-state
         setProfile(null); setCv(null); setGdprConsent(false);
-        setSubscriptionTier('free');
-        setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
-        setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
-        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-        setWeeklyLetterCount(0); setLastCountReset(null);
-        setRemainingWeeklyLetters(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-        
-        // Återställ Stripe-states
-        setStripeCustomerId(null); setSubscriptionId(null);
-        setSubscriptionStatus(null); setPriceId(null); setCurrentPeriodEnd(null);
-        
-        // Återställ reset-timers
-        const defaultReset = calculateNextResetDate(null);
-        setNextResetDate(defaultReset); 
-        setTimeUntilReset(formatTimeRemaining(defaultReset));
-        
-        // Återställ CV och brev counts
-        setCvCount(0); setHasReachedCvLimit(false);
-        setSavedLettersCount(0); setHasReachedLetterLimit(false);
-        
-        // --- NY RESET FÖR ANALYS STATE ---
-        setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
-        setWeeklyAnalysisCount(0);
-        setLastAnalysisReset(null);
-        setRemainingWeeklyAnalyses(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
-        setNextAnalysisResetDate(defaultReset);
-        setTimeUntilAnalysisReset(formatTimeRemaining(defaultReset));
-        // --- SLUT PÅ NY RESET ---
-        
+        resetToFreeDefaults();
         return null;
       }
-      console.log("useProfile: Session found for user:", session.user.id);
 
-      // Hämta profildata med de nya analys-fälten - ÄNDRAT KOLUMNNAMN HÄR
+      // Hämta profildata med de nya analys-fälten
       const { data, error: profileError } = await supabase
         .from('profiles')
         .select(`
@@ -375,52 +408,17 @@ export const useProfile = () => {
       }
 
       if (data) {
-        console.log("useProfile: Profile data received from DB:", data);
         setProfile(data);
 
-        // Hantera prenumerations- och Stripe-data
-        // VIKTIGT: Validera premium_until för att säkerställa att utgångna premiums blir 'free'
-        let dbTier: 'free' | 'premium' = 'free';
-
-        if (data.subscription_tier === 'premium') {
-          // Om användaren har premium_until, validera att det inte löpt ut
-          if (data.premium_until) {
-            const premiumUntilDate = new Date(data.premium_until);
-            const now = new Date();
-
-            if (premiumUntilDate > now) {
-              // Premium är fortfarande aktivt
-              dbTier = 'premium';
-              console.log("useProfile: Premium active until:", premiumUntilDate.toISOString());
-            } else {
-              // Premium har löpt ut - downgrade till free
-              dbTier = 'free';
-              console.warn("useProfile: Premium expired at:", premiumUntilDate.toISOString(), "- Downgrading to free");
-            }
-          } else {
-            // Ingen premium_until - antingen Stripe subscription eller äldre system
-            // Lita på subscription_tier från DB (webhook hanterar Stripe-status)
-            dbTier = 'premium';
-            console.log("useProfile: Premium without expiry (Stripe subscription)");
-          }
-        }
-
-        console.log("useProfile: Final determined tier:", dbTier);
+        // Hantera prenumerations- och Stripe-data.
+        // VIKTIGT: premium_until valideras så att utgångna premiums blir 'free'.
+        const dbTier = resolveTier(data);
         setSubscriptionTier(dbTier);
 
         setMaxCvCount(SUBSCRIPTION_LIMITS[dbTier].maxCVCount);
         setMaxSavedLetters(SUBSCRIPTION_LIMITS[dbTier].maxSavedLetters);
         setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[dbTier].weeklyLetterLimit);
-        // --- NY LIMIT FÖR ANALYS ---
         setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS[dbTier].weeklyAnalysisLimit);
-        // --- SLUT PÅ NY LIMIT ---
-        
-        console.log("useProfile: Set limits based on tier:", { 
-          maxCv: SUBSCRIPTION_LIMITS[dbTier].maxCVCount, 
-          maxLetters: SUBSCRIPTION_LIMITS[dbTier].maxSavedLetters, 
-          weeklyLimit: SUBSCRIPTION_LIMITS[dbTier].weeklyLetterLimit,
-          weeklyAnalysisLimit: SUBSCRIPTION_LIMITS[dbTier].weeklyAnalysisLimit // Logga analys limit
-        });
 
         setStripeCustomerId(data.stripe_customer_id || null);
         setSubscriptionId(data.subscription_id || null);
@@ -445,8 +443,8 @@ export const useProfile = () => {
         const nextReset = nextMidnightStockholm();
         setNextResetDate(nextReset);
         setTimeUntilReset(formatTimeRemaining(nextReset));
-        
-        // --- NY HANTERING FÖR ANALYS RÄKNARE - ÄNDRAT KOLUMNNAMN HÄR ---
+
+        // Kompetensanalysens räknare (kalendervecka).
         const currentAnalysisCount = data.weekly_competence_analysis_count || 0;
         setWeeklyAnalysisCount(currentAnalysisCount);
         setLastAnalysisReset(data.last_competence_analysis_reset || null);
@@ -454,13 +452,6 @@ export const useProfile = () => {
         const nextAnalysisReset = calculateNextResetDate(data.last_competence_analysis_reset || null);
         setNextAnalysisResetDate(nextAnalysisReset);
         setTimeUntilAnalysisReset(formatTimeRemaining(nextAnalysisReset));
-        console.log("useProfile: Set analysis count & reset:", {
-          count: currentAnalysisCount,
-          remaining: calculateRemainingAnalyses(dbTier, currentAnalysisCount),
-          nextReset: nextAnalysisReset
-        });
-        // --- SLUT PÅ NY HANTERING ---
-
 
         // Hämta relaterad info parallellt (oberoende anrop).
         await Promise.all([
@@ -469,36 +460,12 @@ export const useProfile = () => {
           fetchSavedLettersCount(),
         ]);
 
-        console.log("useProfile: Profile fetch complete.");
         return data;
       } else {
         // Ingen profil hittad i DB för inloggad användare
-        console.warn("useProfile: No profile found in DB for user:", session.user.id, "- Treating as new free user.");
+        console.warn('useProfile: No profile found in DB for user:', session.user.id, '- Treating as new free user.');
         setProfile(null);
-        // Återställ till default gratis-state (med analys)
-        setSubscriptionTier('free');
-        setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
-        setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
-        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-        setWeeklyLetterCount(0); setLastCountReset(null);
-        setRemainingWeeklyLetters(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-        setStripeCustomerId(null); setSubscriptionId(null);
-        setSubscriptionStatus(null); setPriceId(null); setCurrentPeriodEnd(null);
-        const defaultReset = calculateNextResetDate(null);
-        setNextResetDate(defaultReset); 
-        setTimeUntilReset(formatTimeRemaining(defaultReset));
-        setCvCount(0); setHasReachedCvLimit(false);
-        setSavedLettersCount(0); setHasReachedLetterLimit(false);
-        
-        // --- NYA DEFAULT VÄRDEN FÖR ANALYS ---
-        setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
-        setWeeklyAnalysisCount(0);
-        setLastAnalysisReset(null);
-        setRemainingWeeklyAnalyses(SUBSCRIPTION_LIMITS.free.weeklyAnalysisLimit);
-        setNextAnalysisResetDate(defaultReset);
-        setTimeUntilAnalysisReset(formatTimeRemaining(defaultReset));
-        // --- SLUT PÅ NYA DEFAULT VÄRDEN ---
-        
+        resetToFreeDefaults();
         await fetchCvInfo();
         return null;
       }
@@ -510,7 +477,6 @@ export const useProfile = () => {
       return null;
     } finally {
       setLoading(false);
-      console.log("useProfile: fetchProfile finished, loading set to false.");
     }
   }, [
     supabase,
@@ -521,6 +487,8 @@ export const useProfile = () => {
     fetchCvCount,
     fetchSavedLettersCount,
     calculateRemainingAnalyses,
+    resetToFreeDefaults,
+    resolveTier,
     profile, // Add profile dependency
   ]);
 
@@ -540,8 +508,7 @@ export const useProfile = () => {
     }
     return () => { if (timerIntervalRef.current) { clearInterval(timerIntervalRef.current); } };
   }, [nextResetDate, startResetTimer, weeklyLetterLimit]);
-  
-  // --- NY EFFEKT FÖR ANALYS TIMER ---
+
   useEffect(() => {
     if (nextAnalysisResetDate && isFinite(weeklyAnalysisLimit)) {
       startAnalysisResetTimer();
@@ -552,27 +519,167 @@ export const useProfile = () => {
     }
     return () => { if (analysisTimerIntervalRef.current) { clearInterval(analysisTimerIntervalRef.current); } };
   }, [nextAnalysisResetDate, startAnalysisResetTimer, weeklyAnalysisLimit]);
-  // --- SLUT PÅ NY EFFEKT ---
 
-  // Hämta profil vid mount
+  // ==========================================================================
+  // DELAT LÄGE
+  //
+  // Här läser hooken ur DashboardDataContext i stället för att göra egna
+  // nätverksanrop. Beräkningarna nedan speglar fetchProfile rad för rad, fast
+  // på summary.profile: samma SUBSCRIPTION_LIMITS, samma premium_until-
+  // validering, samma dagsfönster för brevräknaren och samma veckoberäkning
+  // för kompetensanalysen. Kvotlogiken är alltså oförändrad.
+  // ==========================================================================
   useEffect(() => {
-    console.log("useProfile: Component mounted, initiating initial fetchProfile.");
+    if (!usingSharedData || !summary) return;
+
+    const data = summary.profile as Record<string, any> | null;
+
+    if (!data) {
+      setProfile(null);
+      resetToFreeDefaults();
+      setLoading(false);
+      return;
+    }
+
+    setProfile(data as unknown as Profile);
+
+    const tier = resolveTier(data);
+    setSubscriptionTier(tier);
+
+    setMaxCvCount(SUBSCRIPTION_LIMITS[tier].maxCVCount);
+    setMaxSavedLetters(SUBSCRIPTION_LIMITS[tier].maxSavedLetters);
+    setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[tier].weeklyLetterLimit);
+    setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS[tier].weeklyAnalysisLimit);
+
+    setStripeCustomerId((data.stripe_customer_id as string) || null);
+    setSubscriptionId((data.subscription_id as string) || null);
+    setSubscriptionStatus((data.subscription_status as string) || null);
+    setPriceId((data.price_id as string) || null);
+    setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end as string) : null);
+
+    // Brevräknare: identiskt dagsfönster som i fetchProfile.
+    const letterFirstUsed = data.weekly_letter_first_used_at
+      ? new Date(data.weekly_letter_first_used_at as string)
+      : null;
+    const letterWindowIsToday =
+      letterFirstUsed !== null &&
+      letterFirstUsed.getTime() >= startOfTodayStockholm().getTime();
+    const currentWeeklyCount = letterWindowIsToday ? ((data.weekly_letter_count as number) || 0) : 0;
+    setWeeklyLetterCount(currentWeeklyCount);
+    setLastCountReset((data.last_count_reset as string) || null);
+    setRemainingWeeklyLetters(calculateRemainingLetters(tier, currentWeeklyCount));
+    const nextReset = nextMidnightStockholm();
+    setNextResetDate(nextReset);
+    setTimeUntilReset(formatTimeRemaining(nextReset));
+
+    // Kompetensanalys: identisk veckoberäkning som i fetchProfile.
+    const currentAnalysisCount = (data.weekly_competence_analysis_count as number) || 0;
+    const lastAnalysisResetValue = (data.last_competence_analysis_reset as string) || null;
+    setWeeklyAnalysisCount(currentAnalysisCount);
+    setLastAnalysisReset(lastAnalysisResetValue);
+    setRemainingWeeklyAnalyses(calculateRemainingAnalyses(tier, currentAnalysisCount));
+    const nextAnalysisReset = calculateNextResetDate(lastAnalysisResetValue);
+    setNextAnalysisResetDate(nextAnalysisReset);
+    setTimeUntilAnalysisReset(formatTimeRemaining(nextAnalysisReset));
+
+    // CV: summary.cv.count är samma räkning som fetchCvCount gjorde, alltså
+    // antalet rader i cv_texts för användaren.
+    const sharedCvCount = summary.cv.count;
+    setCvCount(sharedCvCount);
+    setHasReachedCvLimit(calculateCvLimitReached(tier, sharedCvCount));
+    // cv-objektet: summary bär namnet på det senast uppdaterade CV:t men
+    // varken publicUrl eller tidsstämpel. Ingen konsument läser cv.url eller
+    // cv.lastUpdated, så namnet räcker och /api/cv behöver inte anropas.
+    setCv(
+      summary.cv.activeName
+        ? { name: summary.cv.activeName, url: null, lastUpdated: null }
+        : null
+    );
+
+    setLoading(false);
+  }, [
+    usingSharedData,
+    summary,
+    resolveTier,
+    resetToFreeDefaults,
+    calculateRemainingLetters,
+    calculateRemainingAnalyses,
+    calculateCvLimitReached,
+    calculateNextResetDate,
+    formatTimeRemaining,
+  ]);
+
+  // Initial hämtning. I delat läge gör hooken inga egna anrop alls: den väntar
+  // på att providern levererar summary. Utan provider körs gamla kedjan.
+  const didInitialFetchRef = useRef(false);
+  useEffect(() => {
+    if (hasProvider) return;
+    if (didInitialFetchRef.current) return;
+    didInitialFetchRef.current = true;
     fetchProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasProvider]);
 
-  // Effekt för att hämta om räknare när tier ändras
+  // Sparade brev räknas fortfarande separat. summary.letters.total räknar ALLA
+  // brevrader, även previews med is_saved = false, medan maxSavedLetters gäller
+  // sparade brev. Att byta källa här skulle ändra hasReachedLetterLimit för
+  // gratisanvändare, så frågan behålls tills summary levererar en savedCount.
+  // Den körs en gång per hook i stället för en gång per hämtningskedja.
   useEffect(() => {
+    if (!usingSharedData) return;
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session || cancelled) return;
+
+        const { count, error } = await supabase
+          .from('letters')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', session.user.id)
+          .eq('is_saved', true);
+
+        if (error) { console.error('fetchSavedLettersCount Error:', error); return; }
+        if (cancelled) return;
+
+        const currentCount = count || 0;
+        setSavedLettersCount(currentCount);
+        setHasReachedLetterLimit(calculateLetterLimitReached(subscriptionTier, currentCount));
+      } catch (error) {
+        console.error('fetchSavedLettersCount Exception:', error);
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, [usingSharedData, subscriptionTier, supabase, calculateLetterLimitReached]);
+
+  // Effekt för att hämta om räknare när tier ändras. I delat läge kommer
+  // CV-antalet ur summary och brevräkningen ur effekten ovan, så den här
+  // omhämtningen ska inte köras då.
+  useEffect(() => {
+    if (usingSharedData) return;
     if (!loading) {
-      console.log("useProfile: subscriptionTier changed to", subscriptionTier, "- refetching counts.");
       fetchCvCount();
       fetchSavedLettersCount();
     }
-  }, [subscriptionTier, loading, fetchCvCount, fetchSavedLettersCount]);
+  }, [usingSharedData, subscriptionTier, loading, fetchCvCount, fetchSavedLettersCount]);
+
+  /**
+   * Efter en lyckad skrivning: uppdatera den delade datan när providern finns,
+   * annars hämta om lokalt. Så ser alla konsumenter samma nya värden.
+   * Detta är även implementationen bakom det publika refreshProfile.
+   */
+  const refreshAfterWrite = useCallback(async (): Promise<Profile | null> => {
+    if (hasProvider) {
+      await refreshDashboardData();
+      return profile;
+    }
+    return fetchProfile();
+  }, [hasProvider, refreshDashboardData, fetchProfile, profile]);
 
   // Uppdatera profil
   const updateProfile = useCallback(async (profileData: ProfileUpdateParams): Promise<boolean> => {
-    console.log("useProfile: Attempting to update profile with data:", profileData);
     try {
       if (profileData.full_name !== undefined && profileData.full_name.trim() === '') {
         console.warn('useProfile update: Full name cannot be empty.');
@@ -606,23 +713,20 @@ export const useProfile = () => {
       }
 
       if (data) {
-        console.log("useProfile update: Profile updated successfully in DB. New data:", data);
         setProfile(data);
 
         // Om tier ändrades
         const updatedTier = (data.subscription_tier === 'premium' ? 'premium' : 'free');
         if (updatedTier !== subscriptionTier) {
-            console.warn("useProfile update: subscription_tier was changed directly via updateProfile. Webhook should normally handle this.");
+            console.warn('useProfile update: subscription_tier was changed directly via updateProfile. Webhook should normally handle this.');
             setSubscriptionTier(updatedTier);
             setMaxCvCount(SUBSCRIPTION_LIMITS[updatedTier].maxCVCount);
             setMaxSavedLetters(SUBSCRIPTION_LIMITS[updatedTier].maxSavedLetters);
             setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[updatedTier].weeklyLetterLimit);
-            setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS[updatedTier].weeklyAnalysisLimit); // Ny uppdatering
+            setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS[updatedTier].weeklyAnalysisLimit);
             setRemainingWeeklyLetters(calculateRemainingLetters(updatedTier, weeklyLetterCount));
-            // --- NY BERÄKNING FÖR ANALYS ---
             setRemainingWeeklyAnalyses(calculateRemainingAnalyses(updatedTier, weeklyAnalysisCount));
-            // --- SLUT PÅ NY BERÄKNING ---
-            
+
             setStripeCustomerId(data.stripe_customer_id || null);
             setSubscriptionId(data.subscription_id || null);
             setSubscriptionStatus(data.subscription_status || null);
@@ -637,9 +741,7 @@ export const useProfile = () => {
             setNextResetDate(newResetDate);
             setTimeUntilReset(formatTimeRemaining(newResetDate));
         }
-        
-        
-        // --- NYA UPPDATERINGAR FÖR ANALYSDATUM - ÄNDRAT KOLUMNNAMN HÄR ---
+
         if (profileData.last_competence_analysis_reset || profileData.next_analysis_reset_date) {
             const newAnalysisResetDate = profileData.next_analysis_reset_date
                 ? new Date(profileData.next_analysis_reset_date)
@@ -647,25 +749,32 @@ export const useProfile = () => {
             setNextAnalysisResetDate(newAnalysisResetDate);
             setTimeUntilAnalysisReset(formatTimeRemaining(newAnalysisResetDate));
         }
-        // --- SLUT PÅ NYA UPPDATERINGAR ---
+
+        // Låt den delade datan följa med skrivningen så att alla andra
+        // konsumenter ser samma nya profil.
+        if (hasProvider) {
+          void refreshDashboardData();
+        }
 
         return true;
       }
-      console.warn("useProfile update: DB update seemed successful but no data returned.");
+      console.warn('useProfile update: DB update seemed successful but no data returned.');
       return false;
     } catch (error: any) {
       console.error('useProfile update: Exception during updateProfile:', error);
       return false;
     }
   }, [
-    supabase, 
-    subscriptionTier, 
-    weeklyLetterCount, 
+    supabase,
+    subscriptionTier,
+    weeklyLetterCount,
     weeklyAnalysisCount,
-    calculateRemainingLetters, 
+    calculateRemainingLetters,
     calculateRemainingAnalyses,
-    calculateNextResetDate, 
-    formatTimeRemaining
+    calculateNextResetDate,
+    formatTimeRemaining,
+    hasProvider,
+    refreshDashboardData,
   ]);
 
   // GDPR
@@ -673,7 +782,7 @@ export const useProfile = () => {
 
   // Simuleringsfunktioner
   const upgradeSubscription = useCallback(async (newTier: 'premium'): Promise<boolean> => {
-    console.warn("useProfile: Running SIMULATED upgradeSubscription. Real status depends on Stripe webhook. Use Stripe checkout flow instead.");
+    console.warn('useProfile: Running SIMULATED upgradeSubscription. Real status depends on Stripe webhook. Use Stripe checkout flow instead.');
     setIsUpgrading(true);
     try {
       // Simulerar bara en lokal ändring och anrop till updateProfile
@@ -688,7 +797,7 @@ export const useProfile = () => {
   }, [updateProfile]);
 
   const downgradeSubscription = useCallback(async (): Promise<boolean> => {
-    console.warn("useProfile: Running SIMULATED downgradeSubscription. Real status depends on Stripe webhook. Use Stripe Customer Portal instead.");
+    console.warn('useProfile: Running SIMULATED downgradeSubscription. Real status depends on Stripe webhook. Use Stripe Customer Portal instead.');
     try {
       const success = await updateProfile({ subscription_tier: 'free' });
       return success;
@@ -705,25 +814,24 @@ export const useProfile = () => {
     onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
     onComplete?: (cv: { id: string }) => void,
   ): Promise<boolean> => {
-    console.log("useProfile: Attempting to upload CV:", file.name);
     if (calculateCvLimitReached(subscriptionTier, cvCount)) {
        const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
        const message = subscriptionTier === 'free'
            ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium för obegränsade CV:n.`
            : `Du har nått maxgränsen på ${formatLimit(limit)} CV. Ta bort ett befintligt CV först.`;
-       console.error("uploadCV Error: Limit reached.");
+       console.error('uploadCV Error: Limit reached.');
        throw new Error(message);
     }
 
     const validTypes = ['.pdf', '.docx', '.txt'];
     const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
     if (!validTypes.some(type => fileExt.endsWith(type))) {
-       console.error("uploadCV Error: Invalid file type.");
+       console.error('uploadCV Error: Invalid file type.');
        throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
     }
 
     if (file.size > 5 * 1024 * 1024) {
-       console.error("uploadCV Error: File too large.");
+       console.error('uploadCV Error: File too large.');
        throw new Error('Filen är för stor. Maximal storlek är 5MB.');
     }
 
@@ -793,14 +901,18 @@ export const useProfile = () => {
       }
 
       if (completePayload?.success) {
-        console.log("useProfile: CV uploaded successfully. Refreshing counts and info.");
         // completePayload.data är hela cv_texts-raden (se /api/cv/upload).
         const uploadedCv = completePayload.data;
         if (uploadedCv?.id && onComplete) {
           onComplete({ id: uploadedCv.id });
         }
-        await fetchCvInfo();
-        await fetchCvCount();
+        // Uppdatera den delade datan i stället för två egna anrop.
+        if (hasProvider) {
+          await refreshDashboardData();
+        } else {
+          await fetchCvInfo();
+          await fetchCvCount();
+        }
         setGdprConsent(false);
         return true;
       }
@@ -810,35 +922,46 @@ export const useProfile = () => {
       console.error('uploadCV Exception:', error);
       throw error;
     }
-  }, [subscriptionTier, cvCount, gdprConsent, fetchCvInfo, fetchCvCount, calculateCvLimitReached, formatLimit]);
+  }, [
+    subscriptionTier,
+    cvCount,
+    gdprConsent,
+    fetchCvInfo,
+    fetchCvCount,
+    calculateCvLimitReached,
+    formatLimit,
+    hasProvider,
+    refreshDashboardData,
+  ]);
 
   const deleteCV = useCallback(async (): Promise<boolean> => {
-    console.log("useProfile: Attempting to delete primary CV (legacy function).");
     try {
       const response = await fetch('/api/cv', { method: 'DELETE' });
       if (!response.ok) {
           const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid borttagning' }));
-          console.error("deleteCV Error: Server responded with error:", response.status, errorData);
+          console.error('deleteCV Error: Server responded with error:', response.status, errorData);
           throw new Error(errorData.error || `Serverfel (${response.status})`);
       }
       const data = await response.json();
       if (data.success) {
-        console.log("useProfile: Primary CV deleted successfully. Resetting state and counts.");
         setCv(null);
-        await fetchCvCount();
+        if (hasProvider) {
+          await refreshDashboardData();
+        } else {
+          await fetchCvCount();
+        }
         return true;
       } else {
-         console.error("deleteCV Error: Server responded success=false.", data);
-         throw new Error(data.error || "Okänt fel från servern vid borttagning.");
+         console.error('deleteCV Error: Server responded success=false.', data);
+         throw new Error(data.error || 'Okänt fel från servern vid borttagning.');
       }
     } catch (error: any) {
       console.error('deleteCV Exception:', error);
       throw error;
     }
-  }, [fetchCvCount]);
+  }, [fetchCvCount, hasProvider, refreshDashboardData]);
 
   const deleteCVById = useCallback(async (id: string): Promise<boolean> => {
-    console.log("useProfile: Attempting to delete CV with ID:", id);
     try {
       const response = await fetch('/api/cv/delete', {
         method: 'DELETE',
@@ -847,24 +970,27 @@ export const useProfile = () => {
       });
       if (!response.ok) {
          const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid borttagning av CV' }));
-         console.error("deleteCVById Error: Server responded with error:", response.status, errorData);
+         console.error('deleteCVById Error: Server responded with error:', response.status, errorData);
          throw new Error(errorData.error || `Serverfel (${response.status})`);
       }
       const data = await response.json();
       if (data.success) {
-        console.log("useProfile: CV", id, "deleted successfully. Refreshing counts and info.");
-        await fetchCvCount();
-        await fetchCvInfo();
+        if (hasProvider) {
+          await refreshDashboardData();
+        } else {
+          await fetchCvCount();
+          await fetchCvInfo();
+        }
         return true;
       } else {
-         console.error("deleteCVById Error: Server responded success=false.", data);
-         throw new Error(data.error || "Okänt fel från servern vid borttagning av CV.");
+         console.error('deleteCVById Error: Server responded success=false.', data);
+         throw new Error(data.error || 'Okänt fel från servern vid borttagning av CV.');
       }
     } catch (error: any) {
       console.error('deleteCVById Exception:', error);
       throw error;
     }
-  }, [fetchCvCount, fetchCvInfo]);
+  }, [fetchCvCount, fetchCvInfo, hasProvider, refreshDashboardData]);
 
   // Helper functions for premium source detection
   const premiumUntil = profile?.premium_until ? new Date(profile.premium_until) : null;
@@ -932,8 +1058,8 @@ export const useProfile = () => {
     subscriptionStatus,
     priceId,
     currentPeriodEnd,
-    
-    // === NYA CV-ANALYS VÄRDEN ===
+
+    // === CV-ANALYS VÄRDEN ===
     weeklyAnalysisCount,
     weeklyAnalysisLimit,
     remainingWeeklyAnalyses,
@@ -946,14 +1072,14 @@ export const useProfile = () => {
     deleteCV,
     deleteCVById,
     setGdprConsent: setGdprConsentValue,
-    refreshProfile: fetchProfile,
+    refreshProfile: refreshAfterWrite,
     updateNextResetDate,
     updateRemainingLetters,
-    
-    // === NYA FUNKTIONER FÖR CV-ANALYS ===
+
+    // === FUNKTIONER FÖR CV-ANALYS ===
     updateNextAnalysisResetDate,
     updateRemainingAnalyses,
-    
+
     // Simuleringsfunktioner
     upgradeSubscription,
     downgradeSubscription,

@@ -12,7 +12,6 @@
 import { useEffect, useState } from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { X } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { IlluEmailBekrafta } from '@/components/illustrations/AuthIllustrations';
 
 const DISMISS_KEY = 'jc_email_banner_dismissed_at';
@@ -87,12 +86,7 @@ export default function EmailVerificationBanner() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="relative z-20 bg-white border-b border-neutral-200"
-    >
+    <div className="relative z-20 bg-white border-b border-neutral-200 motion-safe:animate-[slideUp_200ms_ease-out_both]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
@@ -137,6 +131,6 @@ export default function EmailVerificationBanner() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

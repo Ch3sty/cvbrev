@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import type { ReactNode, ComponentType } from 'react';
 
 interface SidebarLinkProps {
@@ -60,15 +59,13 @@ export default function SidebarLink({
         )}
 
         {/* Ikon-bubbla */}
-        <motion.div
-          whileHover={{ scale: 1.06 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-          className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-colors duration-200 ${
+        <div
+          className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition duration-200 ease-out motion-safe:group-hover:scale-[1.06] motion-safe:group-active:scale-100 ${
             isActive ? 'text-orange-700 bg-orange-100' : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
           }`}
         >
           <Icon className="w-[18px] h-[18px]" />
-        </motion.div>
+        </div>
 
         {/* Label + sublabel */}
         <div className="flex-1 min-w-0">

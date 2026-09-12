@@ -14,8 +14,9 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
+import { useAuth } from '@/contexts/AuthContext'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { IlluProfilKomplettering } from '@/components/illustrations/ProfileIllustrations'
 
 const SNOOZE_KEY = 'jc_profil_komplettering_snoozed_at'
@@ -95,29 +96,36 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
    */
   const [downgradedPending, setDowngradedPending] = useState(false)
 
+  // full_name, premium_source, premium_until och subscription_tier kommer ur
+  // den delade summaryn. phone och location finns inte där, så de hämtas i en
+  // egen smal select. Det egna auth.getUser() är borta: användaren finns redan
+  // i AuthContext.
+  const { user } = useAuth()
+  const userId = user?.id ?? null
+  const { summary } = useDashboardData()
+  const summaryProfile = summary?.profile ?? null
+
   useEffect(() => {
     if (dismissed) return
+    if (!userId || !summaryProfile) return
     let cancelled = false
 
     const load = async () => {
       try {
         const supabase = getSupabaseClient()
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-        if (!user) return
 
         const { data } = await supabase
           .from('profiles')
-          .select(
-            'full_name, phone, location, premium_source, premium_until, subscription_tier'
-          )
-          .eq('id', user.id)
+          .select('phone, location')
+          .eq('id', userId)
           .single()
 
         if (cancelled || !data) return
 
-        const row = data as Record<string, unknown>
+        const row = {
+          ...(summaryProfile as Record<string, unknown>),
+          ...(data as Record<string, unknown>),
+        } as Record<string, unknown>
 
         // Samma villkor som DowngradedNotice. Kan den visas går den först.
         let noticeCouldShow = false
@@ -150,7 +158,7 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
     return () => {
       cancelled = true
     }
-  }, [dismissed])
+  }, [dismissed, userId, summaryProfile])
 
   const snooze = () => {
     try {
@@ -204,11 +212,8 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
         : 'Tre uppgifter saknas i brevhuvudet'
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className={`bg-white rounded-xl border border-neutral-200 p-4 sm:p-5 ${className ?? ''}`}
+    <section
+      className={`bg-white rounded-xl border border-neutral-200 p-4 sm:p-5 motion-safe:animate-[slideUp_200ms_ease-out] ${className ?? ''}`}
       aria-label={heading}
     >
       <div className="flex items-start gap-4">
@@ -282,6 +287,6 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

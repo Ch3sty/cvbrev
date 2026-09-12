@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
@@ -30,11 +32,56 @@ interface DashboardSidebarProps {
 }
 
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
-  const [isPremium, setIsPremium] = useState(false);
+  // Profilen kommer ur den delade summaryn. Tidigare gjorde sidebaren ett eget
+  // auth.getUser() plus en select mot profiles för exakt samma fält.
+  const { summary } = useDashboardData();
+  const profile = (summary?.profile ?? null) as {
+    premium_until?: string | null;
+    subscription_tier?: string | null;
+    subscription_status?: string | null;
+    subscription_id?: string | null;
+  } | null;
+
   // Kort status bredvid Premium-raden: "5 dagar kvar" / "Aktiv" / "Gratis".
-  const [premiumLabel, setPremiumLabel] = useState<string | null>(null);
   // Ramen tänds bara när Premium betyder något: gratis, eller snart slut.
-  const [premiumNeedsAttention, setPremiumNeedsAttention] = useState(false);
+  // Härledningen är ordagrant densamma som förut, bara datakällan är flyttad,
+  // och den speglar headern så statusen aldrig säger emot sig själv.
+  let premiumLabel: string | null = null;
+  let premiumNeedsAttention = false;
+  if (profile) {
+    const hasPremiumUntil =
+      Boolean(profile.premium_until) && new Date(profile.premium_until as string) > new Date();
+    const hasPremiumTier = profile.subscription_tier === 'premium';
+
+    // En levande Stripe-prenumeration förnyas, så den visar "Aktiv"
+    // i stället för en nedräkning.
+    const liveSub =
+      !!profile.subscription_id &&
+      !String(profile.subscription_id).startsWith('sub_test') &&
+      ['active', 'trialing', 'past_due', 'unpaid'].includes(profile.subscription_status ?? '');
+
+    if (liveSub) {
+      premiumLabel = 'Aktiv';
+      premiumNeedsAttention = false;
+    } else if (hasPremiumTier && hasPremiumUntil) {
+      const daysLeft = Math.max(
+        1,
+        Math.ceil((new Date(profile.premium_until as string).getTime() - Date.now()) / 86400000)
+      );
+      premiumLabel = `${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`;
+      premiumNeedsAttention = daysLeft <= 2;
+    } else if (hasPremiumTier) {
+      premiumLabel = 'Aktiv';
+      premiumNeedsAttention = false;
+    } else {
+      premiumLabel = 'Gratis';
+      premiumNeedsAttention = true;
+    }
+  }
+
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [cvCount, setCvCount] = useState<number | null>(null);
   const [letterCount, setLetterCount] = useState<number | null>(null);
@@ -43,62 +90,27 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
 
   useEffect(() => {
+    if (!userId) return;
+    const uid: string = userId;
+
     // Kanaler skapas async (efter att userId hamtats) men maste stadas i en
     // synkront korande cleanup. Hall dem i en array + en cancelled-flagga.
     const channels: ReturnType<typeof supabase.channel>[] = [];
     let cancelled = false;
 
-    const loadProfile = async () => {
+    // userId kommer från AuthContext, som redan har hämtat användaren. Det egna
+    // auth.getUser() här var en extra rundtur för ett värde vi redan hade.
+    const loadAdminAndCounts = async () => {
       try {
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-        if (authError || !user?.id) return;
-
-        const userId = user.id;
-
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('premium_until, subscription_tier, subscription_status, subscription_id')
-          .eq('id', userId)
-          .single();
-
-        const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
-        const hasPremiumTier = profile?.subscription_tier === 'premium';
-        setIsPremium(hasPremiumUntil || hasPremiumTier);
-
-        // En levande Stripe-prenumeration förnyas, så den visar "Aktiv"
-        // i stället för en nedräkning.
-        const liveSub =
-          !!profile?.subscription_id &&
-          !String(profile.subscription_id).startsWith('sub_test') &&
-          ['active', 'trialing', 'past_due', 'unpaid'].includes(profile?.subscription_status ?? '');
-
-        if (liveSub) {
-          setPremiumLabel('Aktiv');
-          setPremiumNeedsAttention(false);
-        } else if (hasPremiumTier && hasPremiumUntil) {
-          const daysLeft = Math.max(
-            1,
-            Math.ceil((new Date(profile!.premium_until as string).getTime() - Date.now()) / 86400000)
-          );
-          setPremiumLabel(`${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar`);
-          setPremiumNeedsAttention(daysLeft <= 2);
-        } else if (hasPremiumTier) {
-          setPremiumLabel('Aktiv');
-          setPremiumNeedsAttention(false);
-        } else {
-          setPremiumLabel('Gratis');
-          setPremiumNeedsAttention(true);
-        }
-
         const { data: adminData } = await supabase
           .from('admin_users')
           .select('role')
-          .eq('id', userId)
+          .eq('id', uid)
           .eq('role', 'super_admin')
           .maybeSingle();
         setIsAdmin(!!adminData);
 
-        await refreshCounts(userId);
+        await refreshCounts(uid);
 
         // Om komponenten unmountats medan vi laddade: hoppa over realtime.
         if (cancelled) return;
@@ -112,29 +124,29 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             .channel('sidebar_cv_texts_changes')
             .on(
               'postgres_changes',
-              { event: '*', schema: 'public', table: 'cv_texts', filter: `user_id=eq.${userId}` },
-              () => refreshCounts(userId)
+              { event: '*', schema: 'public', table: 'cv_texts', filter: `user_id=eq.${uid}` },
+              () => refreshCounts(uid)
             )
             .subscribe(),
           supabase
             .channel('sidebar_letters_changes')
             .on(
               'postgres_changes',
-              { event: '*', schema: 'public', table: 'letters', filter: `user_id=eq.${userId}` },
-              () => refreshCounts(userId)
+              { event: '*', schema: 'public', table: 'letters', filter: `user_id=eq.${uid}` },
+              () => refreshCounts(uid)
             )
             .subscribe(),
           supabase
             .channel('sidebar_job_applications_changes')
             .on(
               'postgres_changes',
-              { event: '*', schema: 'public', table: 'job_applications', filter: `user_id=eq.${userId}` },
-              () => refreshCounts(userId)
+              { event: '*', schema: 'public', table: 'job_applications', filter: `user_id=eq.${uid}` },
+              () => refreshCounts(uid)
             )
             .subscribe()
         );
       } catch (error) {
-        console.error('Sidebar: error loading profile', error);
+        console.error('Sidebar: error loading admin and counts', error);
       }
     };
 
@@ -159,13 +171,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       setApplicationCount(applicationCountResult ?? 0);
     };
 
-    loadProfile();
+    loadAdminAndCounts();
 
     return () => {
       cancelled = true;
       channels.forEach((ch) => supabase.removeChannel(ch));
     };
-  }, [supabase]);
+  }, [supabase, userId]);
 
   const hasNoCv = cvCount !== null && cvCount === 0;
 

@@ -152,6 +152,8 @@ function NavTab({
     <li className="flex-1">
       <Link
         href={tab.href}
+        // Explicit prefetch: nav-malen ska kannas omedelbara.
+        prefetch
         aria-current={active ? 'page' : undefined}
         className={`w-full min-h-[48px] flex flex-col items-center justify-center gap-1 rounded-lg touch-manipulation transition-colors ${
           active ? 'text-orange-600' : 'text-neutral-500'

@@ -5,7 +5,6 @@
 // levande på dashboarden efter första klicket.
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { IconSnabbSokta } from './illustrations/DashboardIcons';
 import InfoPopover from '@/components/ui/InfoPopover';
@@ -19,11 +18,8 @@ export default function SoktaTjansterStatusRad({ summary }: { summary: Applicati
   if (summary.interviewCount > 0) parts.push(`${summary.interviewCount} i intervjuprocess`);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="rounded-xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+    <div
+      className="rounded-xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 motion-safe:animate-[slideUp_400ms_ease-out_both]"
       >
       <IconSnabbUpptacktWrapper />
 
@@ -65,7 +61,7 @@ export default function SoktaTjansterStatusRad({ summary }: { summary: Applicati
           strokeWidth={2.5}
         />
       </Link>
-    </motion.div>
+    </div>
   );
 }
 

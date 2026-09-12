@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import InfoPopover from '@/components/ui/InfoPopover'
 import {
@@ -160,14 +159,13 @@ export default function DashboardSenasteAktivitet() {
             )
 
             return (
-              <motion.li
+              <li
                 key={item.id}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, delay: idx * 0.04 }}
+                className="motion-safe:animate-[slideUp_250ms_ease-out_both]"
+                style={{ animationDelay: `${idx * 40}ms` }}
               >
                 {item.href ? <Link href={item.href}>{content}</Link> : content}
-              </motion.li>
+              </li>
             )
           })}
         </ul>

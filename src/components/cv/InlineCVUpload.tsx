@@ -1,6 +1,5 @@
 'use client';
 import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, FileText, CheckCircle, AlertCircle, X, Loader2 } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
@@ -77,12 +76,7 @@ export default function InlineCVUpload({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className="bg-white rounded-xl border-2 border-neutral-200 p-6"
-    >
+    <div className="bg-white rounded-xl border-2 border-neutral-200 p-6 motion-safe:animate-[fadeIn_200ms_ease-out_both]">
       {/* Header */}
       <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-6'}`}>
         {hideHeader ? (
@@ -108,14 +102,10 @@ export default function InlineCVUpload({
         )}
       </div>
 
-      <AnimatePresence mode="wait">
-        {success ? (
-          <motion.div
+      {success ? (
+          <div
             key="success"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="text-center py-8"
+            className="text-center py-8 motion-safe:animate-[slideUp_200ms_ease-out_both]"
           >
             <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-emerald-500" />
@@ -126,14 +116,9 @@ export default function InlineCVUpload({
             <p className="text-sm text-neutral-600">
               Vi tittar igenom det åt dig.
             </p>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            key="upload"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <div key="upload" className="motion-safe:animate-[fadeIn_150ms_ease-out_both]">
             {/* Dropzone */}
             {!selectedFile ? (
               <div
@@ -219,19 +204,12 @@ export default function InlineCVUpload({
                 </label>
 
                 {/* Error message */}
-                <AnimatePresence>
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-200"
-                    >
-                      <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-red-700 flex-1">{error}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {error && (
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-200 motion-safe:animate-[slideUp_180ms_ease-out_both]">
+                    <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-red-700 flex-1">{error}</p>
+                  </div>
+                )}
 
                 {/* Upload button */}
                 <button
@@ -259,9 +237,8 @@ export default function InlineCVUpload({
                 )}
               </div>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }

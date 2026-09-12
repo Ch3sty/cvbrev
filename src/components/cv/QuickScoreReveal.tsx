@@ -12,7 +12,6 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
 import { logUserActivity } from '@/lib/activity-logger'
@@ -142,12 +141,7 @@ export default function QuickScoreReveal({
   if (!data) return null
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6"
-    >
+    <section className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6 motion-safe:animate-[slideUp_200ms_ease-out_both]">
       <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-5 sm:gap-6 items-start">
         <div className="relative flex items-center justify-center w-24 h-24 mx-auto sm:mx-0 text-neutral-900">
           <IlluCvPoang size={96} />
@@ -187,6 +181,6 @@ export default function QuickScoreReveal({
           </Link>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

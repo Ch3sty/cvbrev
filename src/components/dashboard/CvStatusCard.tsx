@@ -11,7 +11,6 @@
  */
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { IconVarning, IconCheckmark, MiniScenCvVerktyg } from './illustrations/DashboardIcons';
 import InfoPopover from '@/components/ui/InfoPopover';
@@ -27,12 +26,7 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
   // Variant A: Ingen CV
   if (!hasCv) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="rounded-xl border-2 border-dashed border-orange-300 bg-orange-50/40 p-5 sm:p-6"
-      >
+      <div className="rounded-xl border-2 border-dashed border-orange-300 bg-orange-50/40 p-5 sm:p-6 motion-safe:animate-[slideUp_400ms_ease-out_both]">
         <div className="flex flex-col sm:flex-row sm:items-start gap-4">
           <IconVarning className="w-12 h-12 flex-shrink-0" />
 
@@ -91,17 +85,14 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   // Variant B: Aktivt CV
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="rounded-xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+    <div
+      className="rounded-xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 motion-safe:animate-[slideUp_400ms_ease-out_both]"
       >
       <IconCheckmark className="w-11 h-11 flex-shrink-0" />
 
@@ -153,6 +144,6 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
           />
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }

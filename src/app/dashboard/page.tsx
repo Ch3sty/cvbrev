@@ -13,10 +13,12 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { nextAfReportDeadline } from '@/lib/applications/afReport';
+import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { logUserActivity } from '@/lib/activity-logger';
 
 // Trial och nedgradering (spår A)
@@ -33,7 +35,6 @@ import JobbsokOversikt from '@/components/dashboard/JobbsokOversikt';
 import PagarNu from '@/components/dashboard/PagarNu';
 import NastaHandling from '@/components/dashboard/NastaHandling';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
-import { useApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 
 interface DashboardStats {
@@ -63,131 +64,92 @@ export default function DashboardPage() {
   const searchParams = useSearchParams();
   const { successWithMascotAndActivity } = useNotification();
   const { completedSteps, rewardClaimed } = useOnboarding();
+  const { user } = useAuth();
 
   // Rekommendationskedjan: tidskänsliga nudgar renderas i NastaSteg,
   // funktionsrekommendationer markerar motsvarande snabbåtgärdskort.
-  const appSummary = useApplicationsSummary();
+  // All data kommer från en enda serverhämtning (/api/dashboard/summary) via
+  // DashboardDataContext. Tidigare gjorde den här sidan tio egna rundturer och
+  // useApplicationsSummary hämtade dessutom hela ansökningslistan för att räkna
+  // i klienten. Se docs/rapporter/perf-inloggat-2026-09-12.md.
+  const { summary, isLoading, refresh } = useDashboardData();
+
+  // Ansökningssiffrorna räknas numera på servern. Formen hålls identisk med
+  // det konsumenterna redan förväntar sig.
+  const appSummary = {
+    ...(summary?.applications ?? {
+      waitingCount: 0,
+      interviewCount: 0,
+      followUpCount: 0,
+      prevMonthCount: 0,
+      weekCount: 0,
+      replyCount: 0,
+      pipeline: [],
+    }),
+    total:
+      (summary?.applications.waitingCount ?? 0) +
+      (summary?.applications.interviewCount ?? 0),
+    loaded: summary !== null,
+    // Svarsfrekvensen hör hemma på ansökningssidan, inte på hemskärmen.
+    replyRate: null,
+    // Ren klientberäkning ur dagens datum, ingen rundtur.
+    afReport: nextAfReportDeadline(),
+    // Hela listan används bara av CV-jämförelsen, som hämtar den själv.
+    applications: [],
+    pipeline: (summary?.applications.pipeline ?? []) as ApplicationsSummary['pipeline'],
+  } satisfies ApplicationsSummary;
+
   const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary);
   const recommendedSlug =
     rewardClaimed && nextAction?.kind === 'feature' ? nextAction.feature.slug : null;
 
-  const [stats, setStats] = useState<DashboardStats>({
-    totalLetters: 0,
-    totalAnalyses: 0,
-    subscriptionTier: 'free',
-    recentLetters: []
-  });
-  const [loading, setLoading] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const profile = summary?.profile as Record<string, any> | null | undefined;
 
-  // Refetch dashboard-data nar onboarding-state andras (efter att t.ex.
-  // CV-analys completas pollar OnboardingContext via realtime och uppdaterar
-  // completedSteps - vi vill da spegla det i streak-stats m.m.)
+  const isPremiumComputed = !!(
+    profile?.subscription_tier === 'premium' ||
+    (profile?.premium_until && new Date(profile.premium_until) > new Date()) ||
+    profile?.premium_source
+  );
+
+  const stats: DashboardStats = {
+    totalLetters: summary?.letters.total ?? 0,
+    totalAnalyses: profile?.weekly_analysis_count ?? 0,
+    subscriptionTier: profile?.subscription_tier ?? 'free',
+    recentLetters: (summary?.letters.recent ?? []).map((letter) => ({
+      ...letter,
+      company_name: letter.company,
+      position: letter.job_title,
+    })),
+    weeklyLetterCount: profile?.weekly_letter_count ?? 0,
+    weeklyAnalysisCount: profile?.weekly_analysis_count ?? 0,
+    weeklyLinkedInCount: profile?.weekly_linkedin_count ?? 0,
+    cvCount: summary?.cv.count ?? 0,
+    letterResetDate: profile?.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : undefined,
+    analysisResetDate: profile?.weekly_analysis_reset_at ? new Date(profile.weekly_analysis_reset_at) : undefined,
+    linkedInResetDate: profile?.weekly_linkedin_reset_at ? new Date(profile.weekly_linkedin_reset_at) : undefined,
+    isPremium: isPremiumComputed,
+    monthlyLetters: summary?.letters.monthly ?? 0,
+    premiumUntil: (profile?.premium_until as string) ?? null,
+    premiumSource: (profile?.premium_source as string) ?? null,
+    currentPeriodEnd: (profile?.current_period_end as string) ?? null,
+    onboardingCompleted: profile?.onboarding_completed ?? false,
+    firstName: (profile?.full_name as string | undefined)?.split(' ')[0] || undefined,
+    activeCvName: summary?.cv.activeName || undefined,
+    userId: user?.id,
+  };
+
+  const loading = isLoading;
+
+  // Onboarding-status som strang: andras den har nagot blivit klart.
   const onboardingSnapshot = `${completedSteps.length}-${rewardClaimed}`;
 
+  // Onboarding-ändringar (t.ex. att en CV-analys blir klar) ska spegla sig i
+  // siffrorna. Contexten hämtar om i stället för att sidan gör en egen runda.
   useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        const supabase = getSupabaseClient();
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) return;
-
-        // Alla anrop nedan är oberoende (filtrerar bara på user.id) → kör parallellt.
-        const [
-          { data: letters },
-          { count: cvCount },
-          { data: latestCv },
-          { data: profile },
-        ] = await Promise.all([
-          supabase
-            .from('letters')
-            .select('id, user_id, title, company, job_title, created_at')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false }),
-          supabase
-            .from('cv_texts')
-            .select('*', { count: 'exact', head: true })
-            .eq('user_id', user.id),
-          supabase
-            .from('cv_texts')
-            .select('file_name')
-            .eq('user_id', user.id)
-            .order('updated_at', { ascending: false, nullsFirst: false })
-            .limit(1)
-            .maybeSingle(),
-          supabase
-            .from('profiles')
-            .select(`
-              full_name,
-              subscription_tier,
-              premium_until,
-              premium_source,
-              current_period_end,
-              weekly_letter_count,
-              weekly_letter_reset_at,
-              weekly_analysis_count,
-              weekly_analysis_reset_at,
-              weekly_linkedin_count,
-              weekly_linkedin_reset_at,
-              onboarding_completed,
-              onboarding_started_at,
-              onboarding_skipped,
-              created_at
-            `)
-            .eq('id', user.id)
-            .single(),
-        ]);
-
-        const now = new Date();
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-        const monthlyLetters = letters?.filter(letter =>
-          new Date(letter.created_at) >= startOfMonth
-        ) || [];
-
-
-        const isPremium = !!(
-          profile?.subscription_tier === 'premium' ||
-          (profile?.premium_until && new Date(profile.premium_until) > new Date()) ||
-          profile?.premium_source
-        );
-
-        setStats({
-          totalLetters: letters?.length || 0,
-          totalAnalyses: profile?.weekly_analysis_count || 0,
-          subscriptionTier: profile?.subscription_tier || 'free',
-          recentLetters: letters?.slice(0, 3).map(letter => ({
-            ...letter,
-            company_name: letter.company,
-            position: letter.job_title
-          })) || [],
-          weeklyLetterCount: profile?.weekly_letter_count || 0,
-          weeklyAnalysisCount: profile?.weekly_analysis_count || 0,
-          weeklyLinkedInCount: profile?.weekly_linkedin_count || 0,
-          cvCount: cvCount || 0,
-          letterResetDate: profile?.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : undefined,
-          analysisResetDate: profile?.weekly_analysis_reset_at ? new Date(profile.weekly_analysis_reset_at) : undefined,
-          linkedInResetDate: profile?.weekly_linkedin_reset_at ? new Date(profile.weekly_linkedin_reset_at) : undefined,
-          isPremium,
-          monthlyLetters: monthlyLetters.length,
-          premiumUntil: profile?.premium_until || null,
-          premiumSource: profile?.premium_source || null,
-          currentPeriodEnd: profile?.current_period_end || null,
-          onboardingCompleted: profile?.onboarding_completed || false,
-          firstName: profile?.full_name?.split(' ')[0] || undefined,
-          activeCvName: latestCv?.file_name || undefined,
-          userId: user.id,
-        });
-      } catch (error) {
-        console.error('Fel vid hämtning av dashboard-data:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchDashboardData();
+    if (!summary) return;
+    void refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onboardingSnapshot, refreshKey]);
+  }, [onboardingSnapshot]);
 
   // Kvitto efter köp. Kortet visar produkt och slutdatum, så det räcker med
   // att logga aktiviteten här i stället för att också visa en toast.
@@ -220,7 +182,7 @@ export default function DashboardPage() {
     if (searchParams.get('premium_activated') !== 'true') return;
     if (loading || stats.subscriptionTier === 'premium' || purchasePolls.current >= 4) return;
     purchasePolls.current += 1;
-    const t = setTimeout(() => setRefreshKey((k) => k + 1), 2500);
+    const t = setTimeout(() => { void refresh(); }, 2500);
     return () => clearTimeout(t);
   }, [searchParams, loading, stats.subscriptionTier]);
 
@@ -243,8 +205,8 @@ export default function DashboardPage() {
   }, [loading, stats.userId, state, cvCount, totalLetters]);
 
   const handleCvUploaded = useCallback(() => {
-    setRefreshKey((k) => k + 1);
-  }, []);
+    void refresh();
+  }, [refresh]);
 
   // Sektionsskeleton i stället för blockerande spinner: layouten står still
   // och fylls i, ingen "tom skärm tills långsammaste anropet är klart".
@@ -259,12 +221,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="space-y-6"
-    >
+    <div className="space-y-6 motion-safe:animate-[slideUp_200ms_ease-out]">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
         <PurchaseConfirmation
@@ -317,6 +274,6 @@ export default function DashboardPage() {
           <ProfilKomplettering />
         </>
       )}
-    </motion.div>
+    </div>
   );
 }

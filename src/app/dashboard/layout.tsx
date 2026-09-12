@@ -1,7 +1,6 @@
 'use client';
 import { Suspense, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
@@ -9,50 +8,23 @@ import EmailVerificationBanner from '@/components/dashboard/email-verification-b
 import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { DashboardDataProvider, useDashboardData } from '@/contexts/DashboardDataContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProfile } from '@/hooks/use-profile';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 function MobileBottomNavWrapper() {
-  const { cvCount } = useProfile();
-  const [applicationCount, setApplicationCount] = useState(0);
-
-  // Skapa-arkets radordning behöver bara veta om det finns någon ansökan alls,
-  // så vi tar en head-count i stället för useApplicationsSummary som hämtar
-  // hela listan. Navet ligger på varje dashboardsida och ska vara billigt.
-  useEffect(() => {
-    let cancelled = false;
-
-    const load = async () => {
-      try {
-        const supabase = getSupabaseClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user?.id) return;
-
-        const { count } = await supabase
-          .from('job_applications')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', user.id);
-
-        if (!cancelled) setApplicationCount(count ?? 0);
-      } catch {
-        // Räknaren styr bara radordning i Skapa-arket. Faller den bort
-        // visas standardordningen, vilket är ett fullgott tillstånd.
-      }
-    };
-
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // Tidigare gjorde den här komponenten två egna rundturer: auth.getUser()
+  // följt av en count(*) mot job_applications. Båda värdena finns redan i den
+  // delade summaryn, så navet kostar numera ingenting extra.
+  const { summary } = useDashboardData();
 
   return (
     <MobileBottomNav
-      cvCount={cvCount || 0}
-      applicationCount={applicationCount}
+      cvCount={summary?.cv.count ?? 0}
+      applicationCount={
+        summary
+          ? summary.applications.waitingCount + summary.applications.interviewCount
+          : 0
+      }
     />
   );
 }
@@ -93,7 +65,8 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <OnboardingProvider>
+    <DashboardDataProvider>
+      <OnboardingProvider>
       {/* Navigation Progress Bar - visas vid sidbyten */}
       <Suspense fallback={null}>
         <NavigationProgress />
@@ -110,30 +83,16 @@ export default function DashboardLayout({
         </div>
 
         {/* Dashboard Sidebar - Mobile (full-screen overlay) */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 lg:hidden bg-orange-50/30 backdrop-blur-md"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 12, scale: 0.98 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="h-full"
-              >
-                <DashboardSidebar
-                  onClose={() => setIsMobileMenuOpen(false)}
-                  isMobile={true}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden bg-orange-50/30 backdrop-blur-md motion-safe:animate-[fadeIn_200ms_ease-out]">
+            <div className="h-full motion-safe:animate-[sidebarIn_250ms_ease-out]">
+              <DashboardSidebar
+                onClose={() => setIsMobileMenuOpen(false)}
+                isMobile={true}
+              />
+            </div>
+          </div>
+        )}
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden relative z-10">
@@ -169,17 +128,9 @@ export default function DashboardLayout({
           <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-white">
             <div className="max-w-7xl mx-auto relative">
               {/* Page Transition Animation */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={pathname}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15, ease: 'easeOut' }}
-                >
-                  {children}
-                </motion.div>
-              </AnimatePresence>
+              <div key={pathname} className="motion-safe:animate-[fadeIn_150ms_ease-out]">
+                {children}
+              </div>
             </div>
           </main>
         </div>
@@ -188,6 +139,7 @@ export default function DashboardLayout({
       {/* Mobil bottennavigation - bara på mobil (lg:hidden inuti komponenten) */}
       <MobileBottomNavWrapper />
       </div>
-    </OnboardingProvider>
+      </OnboardingProvider>
+    </DashboardDataProvider>
   );
 }

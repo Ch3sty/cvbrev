@@ -594,3 +594,10 @@ html {
   max-width: 100%;
   height: auto;
 }
+
+/* Mobilsidebarens entré. Ersätter en framer-motion-animation i
+   dashboardens layout, se docs/rapporter/perf-inloggat-2026-09-12.md. */
+@keyframes sidebarIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
