@@ -22,7 +22,12 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useProfile } from '@/hooks/use-profile'
-import CreateSheet from './CreateSheet'
+import dynamic from 'next/dynamic'
+
+// Arket öppnas först vid tryck på plusknappen. Statiskt importerat drog det
+// in framer-motion i varje inloggad sidladdning, för en yta ingen ser förrän
+// den efterfrågas.
+const CreateSheet = dynamic(() => import('./CreateSheet'), { ssr: false })
 import {
   NavHemIllu,
   NavAnsokningarIllu,
@@ -77,6 +82,14 @@ export default function MobileBottomNav({
   const pathname = usePathname() ?? '/dashboard'
   const { premiumUntil, subscriptionTier, subscriptionStatus } = useProfile()
   const [sheetOpen, setSheetOpen] = useState(false)
+  // Arket laddas först vid första öppningen och avmonteras inte igen, så att
+  // stängningsanimationen hinner spela klart och nästa öppning går direkt.
+  const [sheetMounted, setSheetMounted] = useState(false)
+
+  const openSheet = () => {
+    setSheetMounted(true)
+    setSheetOpen(true)
+  }
 
   // Pricken är en notis om något som faktiskt händer, inte en permanent
   // säljknapp. Den tänds när premium tar slut inom kort eller när en
@@ -112,7 +125,7 @@ export default function MobileBottomNav({
           <li className="flex-1">
             <button
               type="button"
-              onClick={() => setSheetOpen(true)}
+              onClick={() => openSheet()}
               aria-haspopup="dialog"
               aria-expanded={sheetOpen}
               className={`w-full min-h-[48px] flex flex-col items-center justify-center gap-1 rounded-lg touch-manipulation transition-colors ${

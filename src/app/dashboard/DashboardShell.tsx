@@ -18,7 +18,14 @@ import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
-import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
+import dynamic from 'next/dynamic';
+
+// Visas bara för konton som saknar lösenord, alltså en minoritet, och först
+// efter att user-objektet lästs. Ingen anledning att ladda den med skalet.
+const SetPasswordPrompt = dynamic(
+  () => import('@/components/dashboard/SetPasswordPrompt'),
+  { ssr: false }
+);
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {

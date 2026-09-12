@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, LayoutGrid, List, ShieldCheck, Crown, Lock } from 'lucide-react';
 import { SIMPLE_TEMPLATES, getTemplateById, type SimpleTemplate } from '@/lib/cv/simple-templates';
 import {
@@ -187,15 +186,10 @@ export default function TemplateSelector({
       </div>
 
       {/* Dropdown-lista */}
-      <AnimatePresence>
-        {view === 'dropdown' && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[440px] overflow-y-auto"
-            >
+      {view === 'dropdown' && (
+        <div
+          className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[440px] overflow-y-auto motion-safe:animate-[dropdownIn_150ms_ease-out_both]"
+        >
             <div className="sticky top-0 bg-white border-b border-orange-100 px-3 pt-3 pb-2 z-10">
               <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
                 {TEMPLATE_CATEGORIES.map(cat => (
@@ -219,20 +213,18 @@ export default function TemplateSelector({
                 />
               ))}
             </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
 
-      {/* Galleri-vy (inline, expanderar nedat) */}
-      <AnimatePresence>
-        {view === 'gallery' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="overflow-hidden"
-          >
+      {/* Galleri-vy (inline, expanderar nedåt).
+          Höjden animeras med grid-template-rows i stället för height: auto,
+          som framer-motion använde. Skillnaden spelar roll för oss: grid-raden
+          går från 0fr till 1fr utan att webbläsaren behöver mäta om innehållet,
+          och expansionen sker bara på användarens klick, aldrig vid inladdning.
+          CLS på sidan ska förbli 0. */}
+      {view === 'gallery' && (
+        <div className="grid grid-rows-[0fr] opacity-0 motion-safe:animate-[galleryIn_250ms_ease-out_forwards] motion-reduce:grid-rows-[1fr] motion-reduce:opacity-100">
+          <div className="overflow-hidden">
             <div className="mt-3 p-4 rounded-xl bg-white border border-orange-100"
               >
               {/* Kategori-pillar */}
@@ -260,9 +252,24 @@ export default function TemplateSelector({
                 ))}
               </ul>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes dropdownIn {
+              from { opacity: 0; transform: translateY(-8px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes galleryIn {
+              from { grid-template-rows: 0fr; opacity: 0; }
+              to   { grid-template-rows: 1fr; opacity: 1; }
+            }
+          `,
+        }}
+      />
     </div>
   );
 }

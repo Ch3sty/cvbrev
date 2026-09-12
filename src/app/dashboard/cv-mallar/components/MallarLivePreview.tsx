@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Crown, ArrowRight, Eye } from 'lucide-react';
 
 import { getTemplateById } from '@/lib/cv/simple-templates';
@@ -300,17 +299,17 @@ function PreviewContainer({
         {!hasCV && <PreviewEmptyState />}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={previewHTML.slice(0, 100)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ScaledPreview html={previewHTML} />
-            </motion.div>
-          </AnimatePresence>
+          /* Nyckeln byts nar previewn andras, sa React monterar om noden och
+             in-tonningen kor pa nytt. AnimatePresence "wait" tonade forst ut
+             den gamla; med bara en in-tonning byts innehallet direkt och tonas
+             in, vilket ser likadant ut men utan bibliotek. Enbart opacity, sa
+             ingen layoutforskjutning. */
+          <div
+            key={previewHTML.slice(0, 100)}
+            className="motion-safe:animate-[fadeIn_200ms_ease-out_both]"
+          >
+            <ScaledPreview html={previewHTML} />
+          </div>
         )}
         {hasCV && !previewError && !previewHTML && isLoading && <PreviewLoading />}
       </div>

@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, ChevronDown, Check, Plus } from 'lucide-react';
 import { formatCVDate } from '@/lib/utils/date-formatter';
+
+/** Maste matcha langden pa cvPickerOut nedan. */
+const PICKER_EXIT_MS = 150;
 
 export interface PickerCv {
   id: string;
@@ -29,6 +31,30 @@ interface CompactCvPickerProps {
 export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: CompactCvPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Listan maste ligga kvar i DOM:en medan ut-animationen kor, annars finns
+  // inget att animera. `leaving` valjer keyframe och en timer pa exakt samma
+  // langd plockar bort den efterat, sa ingen lista kan fastna oppen.
+  const [mounted, setMounted] = useState(false);
+  const [leaving, setLeaving] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setLeaving(false);
+      setMounted(true);
+      return;
+    }
+    if (!mounted) return;
+    setLeaving(true);
+    const timer = setTimeout(() => {
+      setMounted(false);
+      setLeaving(false);
+    }, PICKER_EXIT_MS);
+    return () => clearTimeout(timer);
+    // `mounted` las bara for att hoppa over forsta renderingen; den ska inte
+    // trigga om timern.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -109,15 +135,31 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
         />
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[360px] overflow-y-auto"
-            >
+      {mounted && (
+        <>
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
+        @media (prefers-reduced-motion: no-preference) {
+          .cv-picker-enter { animation: cvPickerIn ${PICKER_EXIT_MS}ms ease-out both; }
+          .cv-picker-leave { animation: cvPickerOut ${PICKER_EXIT_MS}ms ease-in both; }
+          @keyframes cvPickerIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes cvPickerOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-8px); }
+          }
+        }
+      `,
+            }}
+          />
+          <div
+            className={`absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[360px] overflow-y-auto ${
+              leaving ? 'cv-picker-leave' : 'cv-picker-enter'
+            }`}
+          >
             <ul>
               {cvs.map(cv => {
                 const isSelected = cv.id === selectedCV;
@@ -169,9 +211,9 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
                 <span className="text-sm">Ladda upp ett nytt CV</span>
               </Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </>
+      )}
     </div>
   );
 }

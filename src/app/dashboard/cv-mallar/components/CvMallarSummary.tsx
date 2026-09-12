@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { FileText, Layout, Loader2, Crown, ImageIcon, Linkedin } from 'lucide-react';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 
@@ -35,12 +34,7 @@ export default function CvMallarSummary({
   const canGenerate = !!cvName && !!template && !isLockedPremium;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
-      >
+    <section className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 motion-safe:animate-[slideUp_400ms_ease-out_both]">
       <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
         Dina val
       </div>
@@ -135,7 +129,7 @@ export default function CvMallarSummary({
           ? 'Premium krävs för denna mall.'
           : 'Genereras direkt och laddas ner till din enhet.'}
       </div>
-    </motion.section>
+    </section>
   );
 }
 

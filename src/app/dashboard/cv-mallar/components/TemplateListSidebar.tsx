@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Lock, ShieldCheck, Crown, ChevronRight } from 'lucide-react';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 
@@ -172,11 +171,13 @@ export function TemplateRow({
             : undefined
         }
       >
-        {/* Vald-indikator, animerad puls */}
+        {/* Vald-indikator. Tidigare en layoutId-delad stapel som gled mellan
+            raderna; CSS kan inte flytta ett element mellan tva foraldrar, sa
+            den tonas in pa den nya raden i stallet. Absolut positionerad, sa
+            layouten star still. */}
         {isSelected && (
-          <motion.div
-            layoutId="selectedDot"
-            className="absolute left-0 top-0 bottom-0 w-1"
+          <div
+            className="absolute left-0 top-0 bottom-0 w-1 motion-safe:animate-[fadeIn_180ms_ease-out_both]"
             style={{
               background: '#EA580C',
             }}

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import {
   Crown,
   Lock,
@@ -13,6 +12,23 @@ import {
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 
 type Category = SimpleTemplate['category'] | 'all';
+
+/**
+ * Check-badgen poppar in nar en mall valjs. Fjadern fran framer-motion
+ * ersatts av en overshoot-kurva. Badgen ar absolut positionerad, sa varken
+ * scale eller rotate kan flytta nagot annat.
+ */
+const CHECK_POP_CSS = `
+@media (prefers-reduced-motion: no-preference) {
+  .template-check-pop {
+    animation: templateCheckPop 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  @keyframes templateCheckPop {
+    from { transform: scale(0) rotate(-90deg); }
+    to { transform: scale(1) rotate(0deg); }
+  }
+}
+`;
 
 interface TemplateGalleryGridProps {
   selectedTemplate: string | null;
@@ -210,12 +226,15 @@ function TemplateCard({
   };
 
   return (
-    <motion.button
+    <button
       type="button"
       onClick={handleClick}
-      whileHover={!isLocked ? { y: -3 } : {}}
-      whileTap={!isLocked ? { scale: 0.98 } : {}}
       className={`group relative w-full text-left bg-white rounded-xl border-2 transition-all overflow-hidden focus:outline-none ${
+        // Lyft och tryck-respons: transform, inte layout, sa CLS star kvar pa 0.
+        !isLocked
+          ? 'motion-safe:hover:-translate-y-[3px] motion-safe:active:scale-[0.98] motion-safe:active:translate-y-0'
+          : ''
+      } ${
         isSelected
           ? 'border-emerald-500'
           : isLocked
@@ -264,17 +283,17 @@ function TemplateCard({
 
       {/* Vald check-badge */}
       {isSelected && (
-        <motion.div
-          initial={{ scale: 0, rotate: -90 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-20"
-          style={{
-            background: '#059669',
-          }}
-        >
-          <Check className="w-4 h-4 text-white" strokeWidth={3} />
-        </motion.div>
+        <>
+          <style dangerouslySetInnerHTML={{ __html: CHECK_POP_CSS }} />
+          <div
+            className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-20 template-check-pop"
+            style={{
+              background: '#059669',
+            }}
+          >
+            <Check className="w-4 h-4 text-white" strokeWidth={3} />
+          </div>
+        </>
       )}
 
       {/* Preview */}
@@ -322,7 +341,7 @@ function TemplateCard({
           )}
         </div>
       </div>
-    </motion.button>
+    </button>
   );
 }
 

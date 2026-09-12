@@ -18,7 +18,10 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
-import UpgradeSheet from '@/components/paywall/UpgradeSheet'
+import dynamic from 'next/dynamic'
+
+// Köparket öppnas bara när användaren trycker på uppgradera.
+const UpgradeSheet = dynamic(() => import('@/components/paywall/UpgradeSheet'), { ssr: false })
 
 const TRIAL_SOURCES = ['signup_trial', 'oauth_signup_trial']
 /** Engångsköpen sätter premium_source till onetime_1d respektive onetime_7d. */

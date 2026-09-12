@@ -346,17 +346,101 @@ Pixel 7, 3x CPU-strypning, LTE, median av tre körningar mot produktionsbygget.
 
 Ingen sida ligger längre över två sekunder. Före omgång fyra gjorde nio av nitton det.
 
-## 9. Kvar att göra
+## 9. Omgång fem: en sanning i koden och skalets JS
 
-Tre sidor ligger strax över budget: dashboard (1 296 mot 1 000), cv-mallar (1 620 mot 1 500) och tester (1 564 mot 1 500).
+Två uppföljningar efter omgång fyra: dubbletterna som uppstod när logik kopierades från API-routes in i server-funktioner, och den JS som körs i skalet före första målning.
+
+### 9.1 Dubbletterna borta, beteendet låst med tester
+
+När sidorna serverrenderades kopierades logik ur tre API-routes så att server components kunde köra den direkt i stället för att fetcha vår egen HTTP-route. Kopiorna är nu borta. Routerna importerar samma funktion som sidorna.
+
+| Route | Delad funktion | Routens storlek |
+|---|---|---|
+| `/api/candidate/interests` | `src/lib/interests/getCandidateInterests.ts` | 116 till 35 rader |
+| `/api/quota/summary` | `src/lib/quota/getQuotaSummary.ts` | 103 till 34 rader |
+| `/api/candidate/summary` | `src/lib/candidate/getCandidateSummary.ts` (ny) | 386 till 45 rader |
+
+`getPageData.ts` för Bli upptäckt gick från 523 till 231 rader. En genomgång rad för rad visade **inga beteendeskillnader** mellan kopiorna, bara tre kosmetiska: routen hämtade structured_data-fallbacken seriellt efter första `Promise.all` medan sidan körde den parallellt (samma resultat, en rundtur snabbare, den parallella behölls), en mellanvariabel för `skills.location`, och loggtexter på olika språk.
+
+**En tredje kopia hittades på köpet:** `src/lib/recruiter/candidateData.ts` hade egna `MIN_PERCENTILE_SAMPLE` och `STRENGTH_MAP`. Två kopior av de reglerna glider isär, och då säger rekryterarsidan och kandidatsidan olika saker om samma person. Konstanterna bor nu i `src/lib/candidate/strengthConstants.ts`, en modul utan beroenden. Den fick brytas ut separat: att låta rekryterarfilen importera direkt från `getCandidateSummary.ts` gav en cirkulär import, eftersom den i sin tur importerar `deriveSeniority` från rekryterarfilen. Bygget fångade det med "Cannot access 'o' before initialization".
+
+**40 nya vitest-tester** låser beteendet, totalt 80 gröna. De kör utan databas och utan nätverk via en mock som härmar `.from().select().eq()`-kedjan. Tre av dem vaktar projektets regler för Bli upptäckt direkt:
+
+- kontaktuppgifter följer med **bara** för `status: 'accepted'`, verifierat genom att serialisera hela svaret och hävda att uppgifterna inte finns någonstans för `pending` och `declined`
+- styrkor kommer ut som etiketter och Big Five-råpoängen går inte att hitta i svaret
+- percentilen är `null` under `MIN_PERCENTILE_SAMPLE` och visas exakt på gränsen
+
+Övriga låser kvotlogiken: premium ger `limit: null` på alla fyra poster, gratis ger de faktiska taken ur `quotaService`, och `resolveDailyLetterCounter` respekteras i alla tre lägen (fönster från i dag räknas, fönster från i går nollas, saknat fönster nollas).
+
+### 9.2 Skalets JS
+
+Tre komponenter laddades med varje inloggad sidladdning men visas bara efter interaktion, och `CreateSheet` drog dessutom in framer-motion i skalet:
+
+- `CreateSheet` (mobilnavets plusknapp) laddas nu vid första öppningen och stannar monterad, så stängningsanimationen hinner spela klart
+- `UpgradeSheet` (köparket i TrialStatusRow) laddas vid tryck på uppgradera
+- `SetPasswordPrompt` laddas bara för konton som saknar lösenord, en minoritet
+
+Därtill konverterades åtta komponenter på cv-mallar från framer-motion till CSS, inklusive `TemplateSelector` som animerade `height: 0 → auto`. Den använder nu `grid-template-rows: 0fr → 1fr`, som animerar utan att webbläsaren behöver mäta om innehållet. Båda expansionerna sker enbart på användarens klick, aldrig vid inladdning, så CLS påverkas inte.
+
+**Lucide-importerna kontrollerades och behövde ingen åtgärd:** inga wildcard-importer finns, alla 547 filer använder namngivna importer, och `optimizePackageImports` är redan konfigurerat för `lucide-react`, `framer-motion` och `@heroicons/react` i `next.config`.
+
+### 9.3 Resultat
+
+Bundle per route, summan av alla klientchunkar routen refererar:
+
+| Route | Efter omg. 4 | **Efter omg. 5** | framer-motion kvar |
+|---|---:|---:|---:|
+| dashboard | 726 kB | **715 kB** | **0 kB** |
+| profil | 545 kB | **506 kB** | **0 kB** |
+| cv-mallar | 554 kB | **552 kB** | **0 kB** |
+| tester | 524 kB | 524 kB | **0 kB** |
+| sokta-tjanster | 508 kB | **492 kB** | **0 kB** |
+| skapa-brev | 994 kB | **924 kB** | 97 kB |
+
+framer-motion är nu helt borta ur fem av sex huvudsidor. Det som är kvar på skapa-brev ligger i flödesstegen, som lazy-laddas.
+
+Budgetkörning, Pixel 7, 3x CPU, LTE, median av tre:
+
+| Sida | Budget | LCP | CLS | Rundturer | Status |
+|---|---|---:|---:|---:|---|
+| dashboard | 1000 | 1 156 | 0 | 1 | över |
+| profil | 1000 | 1 216 | 0 | 0 | över |
+| profil/cv | 1500 | 1 096 | 0 | 1 | OK |
+| prenumeration | 1500 | 1 312 | 0 | 2 | OK |
+| sokta-tjanster | 1500 | 1 108 | 0 | 1 | OK |
+| mina-brev | 1500 | 1 048 | 0 | 0 | OK |
+| cv-mallar | 1500 | 1 772 | 0 | 4 | över |
+| tester | 1500 | 1 744 | 0 | 4 | över |
+| tester/[slug] | 1500 | 1 076 | 0 | 0 | OK |
+| bli-upptackt | 1500 | 1 292 | 0 | 2 | OK |
+| meddelanden | 1500 | 1 144 | 0 | 1 | OK |
+| kontakt | 1500 | 1 100 | 0 | 1 | OK |
+| skapa-brev | 2000 | 1 272 | 0 | 1 | OK |
+| skapa-cv | 2000 | 1 724 | 0 | 4 | OK |
+| cv-analys | 2000 | 1 228 | 0 | 2 | OK |
+| jobbmatchning | 2000 | 1 444 | 0 | 3 | OK |
+| jobbcoachen | 2000 | 1 472 | 0 | 3 | OK |
+| linkedin-optimizer | 2000 | 1 640 | 0 | 3 | OK |
+| arbetsstil | 2000 | 1 780 | 0 | 5 | OK |
+
+**15 av 19 inom budget. CLS är 0 på samtliga nitton sidor.**
+
+### 9.4 Om mätbruset
+
+En körning gav dashboard 2 156 ms, en annan 1 248 ms, med identisk kod. Sju körningar i rad på en tyst maskin gav 1 088, 1 148, 1 156, 1 156, 1 180, 1 672 och 1 864 ms: **median 1 156 ms**, men med två avvikare uppåt när maskinen råkade vara upptagen.
+
+Det betyder att enskilda körningar inte går att lita på, och att skillnaden mellan "14 av 19" och "16 av 19" mellan körningar oftast är brus snarare än kod. Kör budgeten på en tyst maskin, använd minst tre körningar, och jämför medianer. Sidor som ligger inom 200 ms från sin gräns bör mätas om innan man drar slutsatser om dem.
+
+## 10. Kvar att göra
+
+Fyra sidor ligger över budget, alla med noll till fyra rundturer och LCP nära FCP. Det som återstår är alltså inte data utan JS före hydrering.
 
 | Post | Vad som krävs |
 |---|---|
-| **De sista 100 till 300 millisekunderna** | Rundturerna är nere på 0 till 4 och LCP ligger nära FCP på alla sidor. Det som återstår är skalets JS före hydrering, inte data. Nästa steg är bundeln per route, inte fler serverhämtningar. |
-| **Mätbrus** | LCP svänger 300 till 600 ms mellan körningar beroende på maskinens belastning. En sida som mäter 1 620 ms i en körning kan mäta 1 292 ms i nästa. Kör budgeten på en tyst maskin och lita på medianen av minst tre. |
-| **Dubblerad logik mot API-routerna** | `getCandidateInterests`, `getQuotaSummary` och kandidatunderlaget i `bli-upptackt/getPageData.ts` speglar nu kod som också finns i `src/app/api/**`. Routerna bör importera lib-funktionerna i stället, annars glider de isär. |
-| **Döda hookar** | `use-all-test-stats.ts` och `use-personality-test-stats.ts` har inga anropare kvar. |
-| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt. Kräver ett `savedCount` i `getDashboardSummary`. |
-| **Dynamiska routes omätta** | `sokta-tjanster/[id]` och `mina-brev/[id]` hoppades över: testkontot saknar ansökningar och brev. Skapa testdata för att få med dem i budgeten. |
+| **dashboard och profil, cirka 1 160 till 1 220 ms mot 1 000** | Närmar sig golvet. FCP ligger på 800 till 970 ms, så det handlar om de sista 200 millisekunderna i skalets hydrering. |
+| **cv-mallar och tester, cirka 1 750 ms mot 1 500** | Båda har fyra rundturer kvar och tyngre förstavyer. Nästa steg är att mäta vad i just deras bundle som laddas men inte syns. |
+| **skapa-brev, 97 kB framer-motion** | Ligger i flödesstegen som redan lazy-laddas, så det påverkar inte första vyn. |
+| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt. Kräver ett `savedCount` i `getDashboardSummary` eftersom `letters.total` räknar alla rader inklusive utkast. |
+| **Dynamiska routes omätta** | `sokta-tjanster/[id]` och `mina-brev/[id]` hoppas över: testkontot saknar ansökningar och brev. |
 
 Mätningen är emulering på utvecklingsmaskin. PostHog-p75 från riktiga användare bör läsas av när detta varit live i två veckor och jämföras med avsnitt 1.

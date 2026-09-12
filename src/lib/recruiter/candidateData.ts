@@ -17,6 +17,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database.types';
 import {
+  MIN_PERCENTILE_SAMPLE,
+  STRENGTH_MAP,
+} from '@/lib/candidate/strengthConstants';
+import {
   deriveWorkStyle,
   deriveCardWorkStyle,
   deriveInterviewGuide,
@@ -37,7 +41,10 @@ type Admin = SupabaseClient<Database>;
 export type Level = 'grund' | 'avancerad' | 'expert';
 export type FamilyKey = 'matrislogik' | 'verbal' | 'numerisk';
 
-const MIN_PERCENTILE_SAMPLE = 25;
+// Percentilgränsen och styrkekartan delas med kandidatens egen vy. Två
+// kopior av samma regler glider isär, och då säger rekryterarsidan och
+// kandidatsidan olika saker om samma person.
+// Se src/lib/candidate/getCandidateSummary.ts.
 
 // Samma familje-/test_type-mappning som /api/candidate/summary — exakta
 // test_type-värden verifierade mot session-routes. Prov-typerna ingår
@@ -74,13 +81,6 @@ const PERSONALITY_STALE_MONTHS = 24;
 
 // Big Five → styrkeetiketter, samma härledning som /api/candidate/summary.
 // Neuroticism inverteras: låg neuroticism är styrkan "Stresstålig".
-const STRENGTH_MAP: Array<{ column: string; label: string; invert: boolean }> = [
-  { column: 'conscientiousness', label: 'Strukturerad', invert: false },
-  { column: 'agreeableness', label: 'Samarbetsvillig', invert: false },
-  { column: 'extraversion', label: 'Utåtriktad', invert: false },
-  { column: 'openness', label: 'Nyfiken', invert: false },
-  { column: 'neuroticism', label: 'Stresstålig', invert: true },
-];
 
 export const STRENGTH_LABELS = STRENGTH_MAP.map((s) => s.label);
 

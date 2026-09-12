@@ -1,10 +1,47 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from 'lucide-react';
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
+
+/** Maste matcha langden pa ut-keyframsen i FONT_MENU_CSS. */
+const FONT_EXIT_MS = 220;
+
+/**
+ * Bade desktop-dropdownen och mobilens bottom sheet oppnas av samma
+ * `isFontOpen`, sa de delar in- och ut-animationer. Sheetens fjader ersatts av
+ * en cubic-bezier med samma karaktar; ingen av keyframsen ror hojd, sa CLS
+ * paverkas inte.
+ */
+const FONT_MENU_CSS = `
+@media (prefers-reduced-motion: no-preference) {
+  .font-menu-enter { animation: fontMenuIn 150ms ease-out both; }
+  .font-menu-leave { animation: fontMenuOut 150ms ease-in both; }
+  .font-scrim-enter { animation: fontScrimIn 150ms ease-out both; }
+  .font-scrim-leave { animation: fontScrimOut ${FONT_EXIT_MS}ms ease-in both; }
+  .font-sheet-enter { animation: fontSheetIn 320ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .font-sheet-leave { animation: fontSheetOut ${FONT_EXIT_MS}ms cubic-bezier(0.4, 0, 1, 1) both; }
+  @keyframes fontMenuIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fontMenuOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+  @keyframes fontScrimIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fontScrimOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes fontSheetIn {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes fontSheetOut {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+  }
+}
+`;
 
 interface MallToolbarProps {
   template: SimpleTemplate | undefined;
@@ -40,6 +77,29 @@ export default function MallToolbar({
   const [isMobile, setIsMobile] = useState(false);
   const fontDropdownRef = useRef<HTMLDivElement>(null);
 
+  // Menyn maste ligga kvar i DOM:en medan ut-animationen kor. `leaving` valjer
+  // keyframe och en timer pa samma langd plockar bort den efterat, sa varken
+  // dropdown eller sheet kan fastna oppen.
+  const [fontMounted, setFontMounted] = useState(false);
+  const [fontLeaving, setFontLeaving] = useState(false);
+
+  useEffect(() => {
+    if (isFontOpen) {
+      setFontLeaving(false);
+      setFontMounted(true);
+      return;
+    }
+    if (!fontMounted) return;
+    setFontLeaving(true);
+    const timer = setTimeout(() => {
+      setFontMounted(false);
+      setFontLeaving(false);
+    }, FONT_EXIT_MS);
+    return () => clearTimeout(timer);
+    // `fontMounted` las bara for att hoppa over forsta renderingen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFontOpen]);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -68,6 +128,7 @@ export default function MallToolbar({
     <div
       className="flex items-center gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 rounded-xl bg-white border border-orange-100"
       >
+      {fontMounted && <style dangerouslySetInnerHTML={{ __html: FONT_MENU_CSS }} />}
       {/* Typsnitt-dropdown */}
       <div ref={fontDropdownRef} className="relative">
         <button
@@ -84,16 +145,12 @@ export default function MallToolbar({
         </button>
 
         {/* Desktop dropdown */}
-        {!isMobile && (
-          <AnimatePresence>
-            {isFontOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.15 }}
-                className="absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-xl border border-orange-100 z-50"
-                >
+        {!isMobile && fontMounted && (
+          <div
+            className={`absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-xl border border-orange-100 z-50 ${
+              fontLeaving ? 'font-menu-leave' : 'font-menu-enter'
+            }`}
+          >
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2 first:pt-3 last:pb-3">
                     <div className="px-4 pb-1.5 text-xs font-bold uppercase tracking-[0.14em] text-orange-700">
@@ -113,9 +170,7 @@ export default function MallToolbar({
                     ))}
                   </div>
                 ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </div>
         )}
       </div>
 
@@ -140,22 +195,18 @@ export default function MallToolbar({
       )}
 
       {/* Mobile bottom sheet for font */}
-      <AnimatePresence>
-        {isFontOpen && isMobile && (
+      {fontMounted && isMobile && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+            <div
               onClick={() => setIsFontOpen(false)}
-              className="fixed inset-0 bg-black/40 z-50"
+              className={`fixed inset-0 bg-black/40 z-50 ${
+                fontLeaving ? 'font-scrim-leave' : 'font-scrim-enter'
+              }`}
             />
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] overflow-y-auto"
+            <div
+              className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] overflow-y-auto ${
+                fontLeaving ? 'font-sheet-leave' : 'font-sheet-enter'
+              }`}
             >
               <div className="sticky top-0 bg-white border-b border-orange-100 px-5 py-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-neutral-900">Välj typsnitt</h3>
@@ -188,10 +239,9 @@ export default function MallToolbar({
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
     </div>
   );
 }
