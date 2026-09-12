@@ -86,18 +86,12 @@ export default function SavedDiscountsAccordion() {
   // Filtrera bort utgångna koder
   const activeDiscounts = discounts.filter(d => !isExpired(d.expires_at));
 
+  // Ingen skelettruta medan koderna hämtas. De allra flesta har inga koder
+  // alls, och då målades ett kort som strax därefter försvann och drog upp
+  // allt under sig. En sektion som oftast inte ska finnas ska inte reservera
+  // plats innan vi vet om den behövs.
   if (loading) {
-    return (
-      <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 p-4 shadow-lg">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-slate-100 animate-pulse" />
-          <div className="flex-1">
-            <div className="h-4 w-32 bg-slate-100 rounded animate-pulse mb-1" />
-            <div className="h-3 w-24 bg-slate-100 rounded animate-pulse" />
-          </div>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (activeDiscounts.length === 0) {

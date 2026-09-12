@@ -1,36 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Radar, ArrowRight } from 'lucide-react';
 
 /**
  * Prioriterat larm högst upp på Bli upptäckt när det finns obesvarade
- * intressen. Self-fetchande så page.tsx slipper tråda state. Länkar till
- * #intressen där kandidaten svarar. Renderar ingenting när allt är besvarat.
+ * intressen. Länkar till meddelandehubben där kandidaten svarar. Renderar
+ * ingenting när allt är besvarat.
+ *
+ * Kortet fetchade förut /api/candidate/interests vid mount, och
+ * MessagesShortcut strax intill hämtade samma svar en gång till. Siffran
+ * räknas nu på servern i getPageData.ts och kommer hit som prop.
  */
-export default function PendingInterestAlert() {
-  const [pending, setPending] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch('/api/candidate/interests');
-        if (!res.ok) return;
-        const data = await res.json();
-        const count = (data.interests ?? []).filter(
-          (i: { status: string }) => i.status === 'pending'
-        ).length;
-        if (!cancelled) setPending(count);
-      } catch {
-        // Tyst: icke-kritiskt.
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+export default function PendingInterestAlert({ pending }: { pending: number }) {
   if (pending === 0) return null;
 
   return (

@@ -1,20 +1,35 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useCVStore } from '@/store/cv-store'
 import LinkedInLayout from './LinkedInLayout'
-import AnalysisOverlay from './AnalysisOverlay'
 import Step1Mode, {
   type Language,
   type OptimizationMode,
   type SourceMode,
 } from './steps/Step1Mode'
 import Step2Profile, { type LinkedInSections } from './steps/Step2Profile'
-import Step3Results, { type OptimizationResults } from './steps/Step3Results'
-import Step4Done from './steps/Step4Done'
+import { type OptimizationResults } from './steps/Step3Results'
+import type { LinkedInPageData } from '../getLinkedInData'
+
+/**
+ * Steg 3 och 4 kan aldrig vara första vyn: dit kommer man först efter att en
+ * optimering körts. Båda drar in hela LinkedIn-mockupen och jämförelsevyerna,
+ * och overlayen syns bara medan ett AI-anrop pågår. De laddas därför när de
+ * behövs i stället för i sidans första paket. Höjden reserveras så inget
+ * hoppar när de landar.
+ */
+const Step3Results = dynamic(() => import('./steps/Step3Results'), {
+  loading: () => <div className="min-h-[480px]" aria-hidden="true" />,
+})
+const Step4Done = dynamic(() => import('./steps/Step4Done'), {
+  loading: () => <div className="min-h-[480px]" aria-hidden="true" />,
+})
+const AnalysisOverlay = dynamic(() => import('./AnalysisOverlay'), { ssr: false })
 import { cvToLinkedIn } from '../lib/cvToLinkedIn'
 import FlowShell from '@/components/shell/FlowShell'
 import FlowError from '@/components/shell/FlowError'
@@ -50,8 +65,38 @@ interface LinkedInDraftData {
   sections: LinkedInSections
 }
 
-export default function LinkedInOptimizer() {
+/**
+ * Serverns CV-lista läggs i cv-store innan första render, så CvSelectorList
+ * och allt annat som läser storen ser den utan att någon behöver fetcha. Det
+ * körs i modulens render-fas, alltså före paint, och bara när storen
+ * fortfarande är tom eller bär en äldre lista. Ingen extra render triggas.
+ */
+function seedCvStore(cvs: LinkedInPageData['cvs']) {
+  const state = useCVStore.getState()
+  if (state.isLoading === false && state.cvs.length === cvs.length) return
+  useCVStore.setState({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    cvs: cvs as any,
+    isLoading: false,
+    error: null,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    selectedCV: state.selectedCV ?? ((cvs[0] ?? null) as any),
+  })
+}
+
+export default function LinkedInOptimizer({
+  initialData,
+}: {
+  initialData: LinkedInPageData
+}) {
   const router = useRouter()
+
+  // Före första render, inte i en effekt: listan ska finnas när steg 1 målas.
+  const [seeded] = useState(() => {
+    seedCvStore(initialData.cvs)
+    return true
+  })
+  void seeded
 
   /* Steget i URL:en (?steg=N, ettbaserat). Internt räknas 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
@@ -66,12 +111,14 @@ export default function LinkedInOptimizer() {
   const [targetRole, setTargetRole] = useState('')
   const [language, setLanguage] = useState<Language>('sv')
 
-  // Source-mode: bygg från CV eller manuell inmatning
-  const [sourceMode, setSourceMode] = useState<SourceMode>('manual')
+  // Source-mode: bygg från CV eller manuell inmatning. Har användaren CV
+  // börjar vi i CV-läget. Listan är känd redan vid första render eftersom
+  // servern skickat med den, så valet sätts direkt i stället för efter att en
+  // hämtning svarat. Sedan respekterar vi alltid användarens aktiva val.
+  const [sourceMode, setSourceMode] = useState<SourceMode>(
+    initialData.cvs.length > 0 ? 'cv' : 'manual'
+  )
   const [selectedCvId, setSelectedCvId] = useState<string | null>(null)
-  // Flagga som visar att användaren gjort ett aktivt val, vi auto-sätter
-  // sourceMode bara EN gång, vid första gången CV-listan laddats.
-  const [sourceModeInitialized, setSourceModeInitialized] = useState(false)
 
   const [sections, setSections] = useState<LinkedInSections>(EMPTY_SECTIONS)
 
@@ -87,34 +134,18 @@ export default function LinkedInOptimizer() {
     useState<FlowDraft<LinkedInDraftData> | null>(null)
   const draftChecked = useRef(false)
 
-  const [fullName, setFullName] = useState<string | undefined>(undefined)
+  // Namnet till mockupen kommer server-läst. Förut kostade det ett eget
+  // auth.getUser() över nätet efter hydrering.
+  const fullName = initialData.fullName ?? undefined
 
-  // Hämta CV-listan via store
-  const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore()
+  // CV-listan läses ur storen, som redan är seedad med serverns rader ovan.
+  const { cvs } = useCVStore()
 
-  // Initial fetch + sätt default sourceMode baserat på om användaren har CV
-  useEffect(() => {
-    fetchCVs()
-  }, [fetchCVs])
-
-  useEffect(() => {
-    // Kör bara EN gång efter att CV-listan laddats första gången.
-    // Sedan respekterar vi alltid användarens aktiva val.
-    if (cvsLoading || sourceModeInitialized) return
-    if (cvs.length > 0) {
-      setSourceMode('cv')
-    }
-    setSourceModeInitialized(true)
-  }, [cvsLoading, cvs.length, sourceModeInitialized])
-
-  // Hämta användarens namn för mockup
-  useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      const name = user?.user_metadata?.full_name as string | undefined
-      if (name) setFullName(name)
-    })
-  }, [])
+  // Låsen räknades på servern med samma getActiveCvIds som useCvQuota använde.
+  const lockedCvIds = useMemo(
+    () => new Set(initialData.lockedCvIds),
+    [initialData.lockedCvIds]
+  )
 
   const selectedCv = useMemo(
     () => cvs.find((c) => c.id === selectedCvId) ?? null,
@@ -183,7 +214,6 @@ export default function LinkedInOptimizer() {
     setSourceMode(d.sourceMode)
     setSelectedCvId(d.selectedCvId)
     setSections(d.sections)
-    setSourceModeInitialized(true)
     setPendingDraft(null)
     setCurrentStep(pendingDraft.step - 1)
   }, [pendingDraft, setCurrentStep])
@@ -398,6 +428,7 @@ export default function LinkedInOptimizer() {
               sourceMode={sourceMode}
               selectedCvId={selectedCvId}
               hasCvs={cvs.length > 0}
+              lockedCvIds={lockedCvIds}
               onModeChange={setMode}
               onTargetRoleChange={setTargetRole}
               onLanguageChange={setLanguage}

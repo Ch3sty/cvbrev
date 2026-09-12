@@ -1,228 +1,61 @@
 /**
- * CV Analysis Page - Premium Wizard Experience
- * Direct wizard integration with fast loading and wow-factor design
+ * CV-analysen är en server component, enligt samma mönster som
+ * dashboard/tester och dashboard/sokta-tjanster.
+ *
+ * Förut var hela sidan 'use client' och visade en spinner tills tre kedjor
+ * gått i mål efter hydrering: useCvQuota (auth.getUser över nätet, sedan
+ * profiles, sedan cv_texts), cv-store fetchCVs (getSession, sedan cv_texts en
+ * gång till) och en refreshProfile vid mount som hämtade om hela
+ * dashboard-summaryn. CVSelectionStep körde dessutom ett eget useCvQuota när
+ * wizarden öppnades. Mätningen landade på 8 rundturer och 2588 ms LCP på Pixel
+ * 7 över LTE.
+ *
+ * Nu läses sessionen här och allt hämtas i en parallell omgång vid
+ * request-tid. Omhämtningen vid mount behövs inte längre, serverns siffror är
+ * färska per definition.
+ *
+ * KVOTEN ÄR ORÖRD, och det är den viktiga raden i den här filen. Spärren
+ * ligger kvar i POST /api/cv/analyze, som svarar 429 med limitReached och
+ * exakt återkomsttid oavsett vad klienten tror sig veta. Det vi läser här är
+ * samma kolumner som useProfile redan läste, bara tidigare. De tre gratisfynd
+ * analysen visar ligger kvar i wizarden och i analyssvaret och rörs inte.
+ *
+ * Den hårda grinden är också oförändrad: utan CV går det inte att analysera,
+ * och användaren skickas till CV-uppladdningen. Skillnaden är att det nu sker
+ * innan sidan målats i stället för genom en router.push efter hydrering.
  */
-'use client'
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import { getCvAnalysData, emptyCvAnalysData } from './getCvAnalysData';
+import CvAnalysClient from './CvAnalysClient';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+export default async function CVAnalysisPage() {
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-// State Management & Hooks
-import { useCVStore } from '@/store/cv-store';
-import { useProfile } from '@/hooks/use-profile';
-import { useCvQuota } from '@/hooks/useCvQuota';
-
-// Components
-import CVAnalysisWizard from './components/CVAnalysisWizard';
-import CVAnalysisIntro from './components/CVAnalysisIntro';
-import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
-import PaywallCard from '@/components/paywall/PaywallCard';
-
-// Utility Functions
-import { logUserActivity } from '@/lib/activity-logger';
-
-// Constants
-const API_ANALYZE_ROUTE = '/api/cv/analyze';
-
-export default function CVAnalysisPage() {
-  const router = useRouter();
-  const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore();
   const {
-    profile, subscriptionTier, remainingWeeklyAnalyses, nextAnalysisResetDate,
-    updateRemainingAnalyses, updateNextAnalysisResetDate,
-    refreshProfile,
-    loading: profileLoading
-  } = useProfile();
-  const { cvCount, loading: cvQuotaLoading } = useCvQuota();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const initialLoadRef = useRef(false);
-  const authCheckedRef = useRef(false);
-  const refreshedOnMountRef = useRef(false);
-  const [showIntro, setShowIntro] = useState(true);
-  // Satts nar servern svarar 429 (kvot slut) med exakt tid da kvoten oppnar igen
-  const [quotaLockResetAt, setQuotaLockResetAt] = useState<string | null>(null);
-
-  // Refetch profile vid mount sa stale state (t.ex. fran tidigare misslyckad
-  // analys eller efter kvot-reset i en annan flik) inte felaktigt blockerar
-  // anvandaren med en spärrvy.
-  useEffect(() => {
-    if (!refreshedOnMountRef.current && !profileLoading && profile) {
-      refreshedOnMountRef.current = true;
-      refreshProfile();
-    }
-  }, [profile, profileLoading, refreshProfile]);
-
-  // Hård gating: utan CV → tillbaka till CV-uppladdning
-  useEffect(() => {
-    if (!cvQuotaLoading && cvCount === 0) {
-      router.push('/dashboard/profil/cv?reason=cv-required');
-    }
-  }, [cvCount, cvQuotaLoading, router]);
-
-  // Authentication Check
-  useEffect(() => {
-    if (!authCheckedRef.current && !profileLoading) {
-      authCheckedRef.current = true;
-      if (!profile) {
-        router.push('/login');
-      }
-    }
-  }, [profile, profileLoading, router]);
-
-  // Fetch CVs AFTER profile is loaded (avoid "Ej autentiserad" error)
-  useEffect(() => {
-    if (!initialLoadRef.current && profile && !profileLoading) {
-      initialLoadRef.current = true;
-      fetchCVs();
-    }
-  }, [profile, profileLoading, fetchCVs]);
-
-  // Poll for background job result
-  const pollForJobResult = useCallback(async (jobId: string): Promise<any> => {
-    const MAX_POLLS = 60;
-    const POLL_INTERVAL_MS = 2000;
-
-    for (let i = 0; i < MAX_POLLS; i++) {
-      await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
-
-      const pollResponse = await fetch(`/api/cv/jobs/${jobId}`);
-      const jobData = await pollResponse.json();
-
-      if (!pollResponse.ok) {
-        throw new Error(jobData.message || 'Failed to fetch job status');
-      }
-
-      if (jobData.status === 'completed') {
-        return {
-          id: jobData.id,
-          display_name: jobData.display_name,
-          ...jobData.result
-        };
-      } else if (jobData.status === 'failed') {
-        throw new Error(jobData.error || 'Analysis failed');
-      }
-    }
-
-    throw new Error('Analysen tog för lång tid. Försök igen eller kontakta support.');
-  }, []);
-
-  const handleAnalysisStart = useCallback(async (selectedCV: string) => {
-    if (!selectedCV) {
-      throw new Error('Inget CV valt');
-    }
-
-    try {
-      const response = await fetch(API_ANALYZE_ROUTE, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cvId: selectedCV })
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        // Kvoten slut (1 analys per rullande 72h for gratisanvandare):
-        // visa spärrvyn med exakt återkomsttid i stället för ett alert.
-        if (response.status === 429 && result.limitReached) {
-          const resetAt = result.nextResetAt || result.nextResetDate;
-          if (resetAt) {
-            setQuotaLockResetAt(resetAt);
-            updateNextAnalysisResetDate(new Date(resetAt));
-          }
-          updateRemainingAnalyses(0);
-          const quotaError = new Error(
-            result.message || 'Du har använt din CV-analys.'
-          ) as Error & { quotaExceeded?: boolean };
-          quotaError.quotaExceeded = true;
-          throw quotaError;
-        }
-        throw new Error(result.message || 'Kunde inte starta analys');
-      }
-
-      if (result.remainingAnalyses !== undefined) {
-        updateRemainingAnalyses(result.remainingAnalyses);
-      }
-      if (result.nextResetDate) {
-        updateNextAnalysisResetDate(new Date(result.nextResetDate));
-      }
-
-      if (profile?.id) {
-        const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || 'Unknown CV';
-        await logUserActivity(
-          profile.id,
-          'cv_analysis_started',
-          `Started CV analysis for: ${cvFileName}`,
-          { cv_id: selectedCV, job_id: result.jobId }
-        );
-      }
-
-      return result.jobId;
-    } catch (error: any) {
-      throw error;
-    }
-  }, [updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs]);
-
-  const handleWizardComplete = useCallback(() => {
-    // Navigate back or refresh
-    router.push('/dashboard');
-  }, [router]);
-
-  // Show loading state
-  if (profileLoading || !profile || cvsLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-pink-600 border-t-transparent rounded-full" />
-      </div>
-    );
+  if (!user) {
+    redirect('/login');
   }
 
-  // Check quota (serverns 429 via quotaLockResetAt, annars profilens räknare)
-  const isFreeTier = subscriptionTier === 'free';
-  const hasReachedLimit =
-    isFreeTier &&
-    (quotaLockResetAt !== null ||
-      (remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0));
-
-  if (hasReachedLimit) {
-    return (
-      <div className="min-h-[calc(100dvh-200px)] flex items-center justify-center px-4 py-12">
-        <PaywallCard
-          variant="kvot"
-          quota={{
-            feature: 'cv_analysis',
-            nextResetAt:
-              quotaLockResetAt ??
-              nextAnalysisResetDate?.toISOString() ??
-              new Date().toISOString(),
-          }}
-          className="max-w-md w-full"
-        />
-      </div>
-    );
+  let data: Awaited<ReturnType<typeof getCvAnalysData>> | null = null;
+  try {
+    data = await getCvAnalysData(supabase, user.id);
+  } catch (error) {
+    console.error('CV-analys: kunde inte hämta sidans data', error);
   }
 
-  // Show intro or wizard
-  if (showIntro) {
-    return (
-      <CVAnalysisIntro
-        onStartAnalysis={() => setShowIntro(false)}
-        remainingAnalyses={remainingWeeklyAnalyses}
-        isPremium={subscriptionTier === 'premium'}
-      />
-    );
+  // Hård grind: utan CV finns ingenting att analysera. Samma destination och
+  // samma reason-parameter som router.push gjorde förut. Grinden gäller bara
+  // när vi faktiskt läst listan: ett läsfel betyder inte att användaren saknar
+  // CV, och ska inte skicka iväg henne till uppladdningen.
+  if (data && data.cvCount === 0) {
+    redirect('/dashboard/profil/cv?reason=cv-required');
   }
 
-  return (
-    <div className="space-y-4">
-      {/* Onboarding-prompt: pekar mot belogning om analys nyss korts */}
-      <OnboardingNextStep stepCompleted="analyze_cv" />
-
-      <CVAnalysisWizard
-        cvs={cvs}
-        onAnalysisStart={handleAnalysisStart}
-        onPollJob={pollForJobResult}
-        onComplete={handleWizardComplete}
-      />
-    </div>
-  );
+  return <CvAnalysClient data={data ?? emptyCvAnalysData(user.id)} />;
 }

@@ -25,6 +25,8 @@ interface Props {
   sourceMode: SourceMode
   selectedCvId: string | null
   hasCvs: boolean
+  /** Låsta CV enligt CV-kvoten, uträknade på servern. Regeln är oförändrad. */
+  lockedCvIds: Set<string>
   onModeChange: (mode: OptimizationMode) => void
   onTargetRoleChange: (role: string) => void
   onLanguageChange: (lang: Language) => void
@@ -90,6 +92,7 @@ export default function Step1Mode({
   sourceMode,
   selectedCvId,
   hasCvs,
+  lockedCvIds,
   onModeChange,
   onTargetRoleChange,
   onLanguageChange,
@@ -211,6 +214,7 @@ export default function Step1Mode({
                 <CvSelectorList
                   selectedCvId={selectedCvId}
                   onSelect={onCvSelect}
+                  lockedCvIds={lockedCvIds}
                 />
               </div>
             </motion.div>

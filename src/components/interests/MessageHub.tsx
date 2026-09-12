@@ -9,27 +9,72 @@ import PendingRequestPanel from './PendingRequestPanel';
 import { HUB_GRADIENT, type CandidateInterest } from './hubTypes';
 
 /**
- * Kandidatens meddelande-hub. Självhämtande mot /api/candidate/interests.
+ * Vilken tråd som ska vara vald från början: ?interest= om den finns i
+ * listan, annars första pending, annars första aktiva, annars första i
+ * listan. Oförändrad regel, bara lyft ut så den kan köras både som
+ * state-initiering och i effekten.
+ */
+function pickInitialInterestId(
+  interests: CandidateInterest[],
+  deepLinkId: string | null
+): string | null {
+  if (deepLinkId && interests.some((i) => i.id === deepLinkId)) {
+    return deepLinkId;
+  }
+  const pending = interests.find((i) => i.status === 'pending');
+  const active = interests.find((i) => i.status === 'accepted');
+  return pending?.id ?? active?.id ?? interests[0]?.id ?? null;
+}
+
+/**
+ * Kandidatens meddelande-hub.
+ *
+ * Listan kommer serverrenderad från /dashboard/meddelanden. Hämtar bara själv
+ * när den saknar initialdata, alltså när den monteras utanför den sidan.
+ *
  * Desktop: tvåpanel (lista vänster, tråd/pending-panel höger). Mobil: lista
  * som växlar till tråd i fullskärm via state (ingen route-ändring).
  */
 export default function MessageHub({
   userId,
   deepLinkId,
+  initialInterests = null,
+  initialLoadFailed = false,
 }: {
   userId: string | null;
   deepLinkId: string | null;
+  /** Redan hämtad lista. Är den satt fetchar huben ingenting vid montering. */
+  initialInterests?: CandidateInterest[] | null;
+  initialLoadFailed?: boolean;
 }) {
-  const [interests, setInterests] = useState<CandidateInterest[] | null>(null);
-  const [error, setError] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [interests, setInterests] = useState<CandidateInterest[] | null>(
+    initialInterests
+  );
+  const [error, setError] = useState(initialLoadFailed);
+  // Med serverdata väljs tråden redan i första render. Att låta effekten
+  // nedan göra valet hade betytt att första målningen saknade vald tråd och
+  // att högerpanelen bytte innehåll direkt efteråt.
+  const [selectedId, setSelectedId] = useState<string | null>(() =>
+    initialInterests ? pickInitialInterestId(initialInterests, deepLinkId) : null
+  );
   const [responding, setResponding] = useState<string | null>(null);
   const [respondError, setRespondError] = useState<string | null>(null);
   // Mobil: 'list' eller 'thread'. Desktop struntar i detta (visar båda).
-  const [mobileView, setMobileView] = useState<'list' | 'thread'>('list');
-  const [initialised, setInitialised] = useState(false);
+  const [mobileView, setMobileView] = useState<'list' | 'thread'>(() =>
+    initialInterests &&
+    deepLinkId &&
+    pickInitialInterestId(initialInterests, deepLinkId) === deepLinkId
+      ? 'thread'
+      : 'list'
+  );
+  const [initialised, setInitialised] = useState(initialInterests !== null);
+
+  // Kom listan från servern är den redan färsk. Då hämtar vi inte om den,
+  // för just den hämtningen var sidans långsammaste steg.
+  const hasInitialData = initialInterests !== null;
 
   useEffect(() => {
+    if (hasInitialData) return;
     let cancelled = false;
     (async () => {
       try {
@@ -47,20 +92,13 @@ export default function MessageHub({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [hasInitialData]);
 
   // Init selectedId: ?interest= om giltigt, annars första pending, annars
   // första aktiva, annars första i listan. Körs en gång när datat landat.
   useEffect(() => {
     if (initialised || interests === null) return;
-    let next: string | null = null;
-    if (deepLinkId && interests.some((i) => i.id === deepLinkId)) {
-      next = deepLinkId;
-    } else {
-      const pending = interests.find((i) => i.status === 'pending');
-      const active = interests.find((i) => i.status === 'accepted');
-      next = pending?.id ?? active?.id ?? interests[0]?.id ?? null;
-    }
+    const next = pickInitialInterestId(interests, deepLinkId);
     setSelectedId(next);
     if (next && deepLinkId === next) setMobileView('thread');
     setInitialised(true);

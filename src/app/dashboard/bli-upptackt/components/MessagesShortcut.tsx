@@ -1,43 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MessageSquare, ArrowRight } from 'lucide-react';
 
+interface Props {
+  /** Obesvarade intressen. */
+  pending: number;
+  /** Olästa meddelanden över accepterade trådar. */
+  unread: number;
+  /** Antal intressen totalt. Är det noll visas ingen genväg. */
+  total: number;
+}
+
 /**
  * Genväg till meddelande-hubben, högt upp på Bli upptäckt. När du väntar på
- * svar är det första du vill åt. Self-fetchar antal väntande + olästa så texten
- * stämmer. Renderar ingenting när det inte finns några intressen alls.
+ * svar är det första du vill åt. Renderar ingenting när det inte finns några
+ * intressen alls.
+ *
+ * Siffrorna fetchades förut från /api/candidate/interests vid mount, samma
+ * svar som PendingInterestAlert precis ovanför hämtade en gång till. De räknas
+ * nu på servern i getPageData.ts och kommer hit som props.
  */
-export default function MessagesShortcut() {
-  const [pending, setPending] = useState(0);
-  const [unread, setUnread] = useState(0);
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch('/api/candidate/interests');
-        if (!res.ok) return;
-        const data = await res.json();
-        const interests = (data.interests ?? []) as Array<{
-          status: string;
-          unreadCount?: number;
-        }>;
-        if (cancelled) return;
-        setTotal(interests.length);
-        setPending(interests.filter((i) => i.status === 'pending').length);
-        setUnread(interests.reduce((s, i) => s + (i.unreadCount ?? 0), 0));
-      } catch {
-        // Icke-kritiskt.
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+export default function MessagesShortcut({ pending, unread, total }: Props) {
   if (total === 0) return null;
 
   const badge = pending + unread;

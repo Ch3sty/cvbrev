@@ -4,10 +4,17 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, ChevronDown, Check, Plus } from 'lucide-react';
-import { useCVStore } from '@/store/cv-store';
 import { formatCVDate } from '@/lib/utils/date-formatter';
 
+export interface PickerCv {
+  id: string;
+  file_name: string;
+  created_at: string;
+}
+
 interface CompactCvPickerProps {
+  /** CV-listan, redan hämtad på servern. Väljaren hämtar ingenting själv. */
+  cvs: PickerCv[];
   selectedCV: string | null;
   onCVSelect: (cvId: string) => void;
 }
@@ -19,8 +26,7 @@ interface CompactCvPickerProps {
  * en stor grid - tar mycket mindre plats sa fokus ligger pa preview.
  * Visar valt CV med fil-namn + datum, och dropdown for att byta.
  */
-export default function CompactCvPicker({ selectedCV, onCVSelect }: CompactCvPickerProps) {
-  const { cvs, isLoading } = useCVStore();
+export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: CompactCvPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,14 +41,9 @@ export default function CompactCvPicker({ selectedCV, onCVSelect }: CompactCvPic
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-3 p-4 rounded-xl bg-orange-50/40 border border-orange-100">
-        <div className="w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm text-neutral-600">Laddar CV:n...</span>
-      </div>
-    );
-  }
+  // Inget laddningsläge längre. Listan kommer serverrenderad, så väljaren har
+  // sin slutliga höjd i första målningen. Laddningsrutan var lägre än kortet
+  // den byttes mot, och just det bytet var sidans layoutförskjutning.
 
   if (cvs.length === 0) {
     return (

@@ -16,8 +16,24 @@ import Link from 'next/link'
 import { useCandidateInterests } from '@/hooks/useCandidateInterests'
 import { SectionUpptacktIcon } from './illustrations/SectionIcons'
 
-export default function BliUpptacktSection() {
-  const { isVisible, loaded } = useCandidateInterests()
+interface BliUpptacktSectionProps {
+  /**
+   * Synligheten, läst på servern ur candidate_profiles. Förut stod raden och
+   * sa "Hämtar din status" tills useCandidateInterests hunnit göra sitt
+   * getSession och sina två anrop, alltså först en bit efter hydrering. Nu är
+   * rätt text med i första HTML. Hooken får fortfarande rätta läget om det
+   * hunnit ändras i en annan flik, men den blockerar inte första målningen.
+   */
+  initialVisible: boolean
+}
+
+export default function BliUpptacktSection({
+  initialVisible,
+}: BliUpptacktSectionProps) {
+  const { isVisible: hookVisible, loaded } = useCandidateInterests()
+
+  // Serverns värde gäller tills hooken har läst klart.
+  const isVisible = loaded ? hookVisible : initialVisible
 
   return (
     <section
@@ -41,19 +57,13 @@ export default function BliUpptacktSection() {
           <span
             aria-hidden="true"
             className={`h-2 w-2 shrink-0 rounded-full ${
-              !loaded
-                ? 'bg-neutral-300'
-                : isVisible
-                  ? 'bg-emerald-600'
-                  : 'bg-neutral-400'
+              isVisible ? 'bg-emerald-600' : 'bg-neutral-400'
             }`}
           />
           <p className="text-sm text-neutral-900">
-            {!loaded
-              ? 'Hämtar din status.'
-              : isVisible
-                ? 'Din profil är sökbar för rekryterare.'
-                : 'Rekryterare kan inte hitta dig än. Du bestämmer själv vad som syns.'}
+            {isVisible
+              ? 'Din profil är sökbar för rekryterare.'
+              : 'Rekryterare kan inte hitta dig än. Du bestämmer själv vad som syns.'}
           </p>
         </div>
 

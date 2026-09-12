@@ -8,39 +8,24 @@
  * gratisanvändare som har ett brev per dygn. Det var felaktig information på
  * den enda sida där vi ber om pengar.
  *
- * Siffrorna kommer från /api/quota/summary, samma källa som dashboardens
- * kvotrad. Räknas de på två ställen glider de isär.
+ * Siffrorna kommer från samma uträkning som /api/quota/summary, numera hämtad
+ * på servern och skickad hit som prop. Räknas de på två ställen glider de
+ * isär. Förut fetchade komponenten själv efter hydrering, vilket både kostade
+ * en rundtur och flyttade sidan när skelettsiffrorna byttes mot riktiga.
  */
 
-import { useEffect, useState } from 'react';
-import type { QuotaSummary } from '@/app/api/quota/summary/route';
+import type { QuotaSummary } from '@/lib/quota/getQuotaSummary';
 
 interface UsageStatsProps {
   /** Sant för premium: då visas använt utan tak. */
   isPremium: boolean;
+  /** Kvoterna, hämtade på servern. null betyder att hämtningen gick fel. */
+  summary: QuotaSummary | null;
 }
 
-export default function UsageStats({ isPremium }: UsageStatsProps) {
-  const [summary, setSummary] = useState<QuotaSummary | null>(null);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/quota/summary')
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('kvotfel'))))
-      .then((data: QuotaSummary) => {
-        if (!cancelled) setSummary(data);
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+export default function UsageStats({ isPremium, summary }: UsageStatsProps) {
   // Hellre ingen sektion än fel siffror.
-  if (failed) return null;
+  if (!summary) return null;
 
   return (
     <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-6">
@@ -52,9 +37,8 @@ export default function UsageStats({ isPremium }: UsageStatsProps) {
       </p>
 
       <dl className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {(summary?.items ?? PLACEHOLDERS).map((item) => {
-          const isLoading = !summary;
-          const isSpent = !isLoading && item.limit !== null && item.used >= item.limit;
+        {summary.items.map((item) => {
+          const isSpent = item.limit !== null && item.used >= item.limit;
           return (
             <div key={item.key}>
               <dd
@@ -62,13 +46,7 @@ export default function UsageStats({ isPremium }: UsageStatsProps) {
                   isSpent ? 'font-semibold text-neutral-900' : 'font-medium text-neutral-900'
                 }`}
               >
-                {isLoading ? (
-                  <span className="inline-block h-5 w-12 rounded bg-neutral-100" aria-hidden="true" />
-                ) : item.limit === null ? (
-                  item.used
-                ) : (
-                  `${item.used} av ${item.limit}`
-                )}
+                {item.limit === null ? item.used : `${item.used} av ${item.limit}`}
               </dd>
               <dt className="text-sm text-neutral-600 mt-0.5">
                 {item.label}
@@ -83,11 +61,3 @@ export default function UsageStats({ isPremium }: UsageStatsProps) {
     </section>
   );
 }
-
-/** Skelettrader medan svaret hämtas, i rätt ordning så inget hoppar. */
-const PLACEHOLDERS: QuotaSummary['items'] = [
-  { key: 'letters', label: 'Brev', used: 0, limit: 0 },
-  { key: 'analysis', label: 'Analys', used: 0, limit: 0 },
-  { key: 'chat', label: 'Chatt', used: 0, limit: 0 },
-  { key: 'tests', label: 'Tester', used: 0, limit: 0 },
-];

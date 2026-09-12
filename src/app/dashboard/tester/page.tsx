@@ -1,125 +1,68 @@
-'use client';
-
 /**
- * Hubben för rekryteringstester.
+ * Testhubben är en server component, enligt samma mönster som
+ * dashboard/sokta-tjanster och dashboard/skapa-brev.
  *
- * Sidhuvud enligt sidmallen i stället för TesterHubHero (avsnitt 5, "Tester").
- * Korten öppnar alltid testet, aldrig prenumerationssidan (våg 1 punkt 6).
+ * Förut var hela sidan 'use client' och gjorde hela sitt arbete efter
+ * hydrering. useAllTestStats fetchade nio session-endpoints, ett per kognitivt
+ * test. Varje ProvCard fetchade sin egen, tre till. usePersonalityTestStats en
+ * till. Och varje sådan route gjorde ett auth.getUser() innan den ens fick
+ * fråga efter raderna. Tretton anrop, tjugosex rundturer, allt seriellt efter
+ * att JS laddat. Mätningen landade på 28 rundturer och 5424 ms LCP.
+ *
+ * Nu läses sessionen här och all statistik hämtas i en parallell omgång med
+ * två frågor (de tolv kognitiva anropen läser samma tabell och skiljer sig
+ * bara på test_type). Första HTML innehåller korten färdiga.
+ *
+ * Premiumgraden läses bara för att avgöra om gratisraden ska visas och vilka
+ * kort som markeras låsta. Kvoter och betalväggar ligger kvar där de låg: i
+ * quotaService och serverside bakom att starta ett test.
  */
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import { getTesterHubData, emptyHubData, type TesterHubData } from './getHubData';
+import TesterHubClient from './TesterHubClient';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import PageHeader from '@/components/shell/PageHeader';
-import StatusRow from '@/components/shell/StatusRow';
-import { useProfile } from '@/hooks/use-profile';
-import { useAllTestStats, type TestSlug } from '@/hooks/use-all-test-stats';
-import { usePersonalityTestStats } from '@/hooks/use-personality-test-stats';
-import TestStatsCard from './components/TestStatsCard';
-import EmptyTestsCallout from './components/EmptyTestsCallout';
-import TesterTabs, { type TesterTab } from './components/TesterTabs';
-import TestGroup from './components/TestGroup';
-import DevelopmentView from './components/DevelopmentView';
-import { TEST_GROUPS } from './components/testCatalog';
+export default async function TesterHubPage() {
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-export default function TesterHubPage() {
-  const { subscriptionTier, loading: profileLoading } = useProfile();
-  const { perTest, aggregate, isLoading: statsLoading } = useAllTestStats();
-  const personalityStats = usePersonalityTestStats();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const [tab, setTab] = useState<TesterTab>('tester');
-
-  const isPremium = subscriptionTier === 'premium';
-
-  const bestTest = Object.entries(perTest)
-    .filter(([, s]) => s.attempts > 0)
-    .sort((a, b) => b[1].bestPercentage - a[1].bestPercentage)[0]?.[0] as
-    | TestSlug
-    | undefined;
-
-  const hasAnyData =
-    aggregate.hasAnyData ||
-    personalityStats.grund.hasProfile ||
-    personalityStats.avancerad.hasProfile;
-
-  const completedCount = aggregate.totalCompleted;
-
-  if (profileLoading || statsLoading) {
-    return (
-      <div className="mx-auto max-w-6xl py-6">
-        <div className="space-y-6">
-          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-neutral-100" />
-          <div className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
-          <div className="h-64 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
-        </div>
-      </div>
-    );
+  if (!user) {
+    redirect('/login');
   }
 
-  return (
-    <div className="mx-auto max-w-6xl py-6">
-      <div className="space-y-6">
-        <PageHeader
-          title="Rekryteringstester"
-          description="Träna på de moment rekryterare faktiskt använder: logik, verbalt resonemang, siffror och personlighet."
-        >
-          <TesterTabs active={tab} onChange={setTab} completedCount={completedCount} />
-        </PageHeader>
+  let data: TesterHubData;
 
-        {/* Gratisrytmen sägs en gång, som rad, inte i varje kort. */}
-        {!isPremium ? (
-          <StatusRow tone="neutral">
-            Du gör varje test en gång per dag på gratisnivån.
-          </StatusRow>
-        ) : null}
+  try {
+    // Premiumgraden påverkar bara presentationen, inte vilka rader vi läser,
+    // så profilen hämtas i samma omgång som statistiken i stället för före.
+    const [profileRes, hubData] = await Promise.all([
+      supabase
+        .from('profiles')
+        .select('subscription_tier, premium_until')
+        .eq('id', user.id)
+        .maybeSingle(),
+      getTesterHubData(supabase, user.id, false),
+    ]);
 
-        {tab === 'tester' ? (
-          <motion.div
-            key="tester"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="space-y-6"
-          >
-            {hasAnyData ? (
-              <TestStatsCard
-                completedTestCount={aggregate.completedTestCount}
-                totalTestCount={9}
-                averageBestPercentage={aggregate.averageBestPercentage}
-                totalTimeSeconds={aggregate.totalTimeSeconds}
-              />
-            ) : (
-              <EmptyTestsCallout />
-            )}
+    // Samma validering som useProfile: 'premium' i tabellen räknas som
+    // premium, premium_until läses bara som säkerhetsnät mot en utgången rad.
+    const row = profileRes.data as
+      | { subscription_tier?: string | null; premium_until?: string | null }
+      | null;
+    const untilOk = !row?.premium_until || new Date(row.premium_until).getTime() > Date.now();
 
-            <div className="space-y-6">
-              {TEST_GROUPS.map((group, gi) => {
-                const startIndex = TEST_GROUPS.slice(0, gi).reduce(
-                  (acc, g) => acc + g.cognitive.length + g.personality.length,
-                  0
-                );
-                return (
-                  <TestGroup
-                    key={group.key}
-                    group={group}
-                    startIndex={startIndex}
-                    isPremium={isPremium}
-                    perTest={perTest}
-                    personality={personalityStats}
-                    bestTest={bestTest}
-                    recommendSlug={
-                      !hasAnyData && group.key === 'logik'
-                        ? 'matrislogik-grund'
-                        : undefined
-                    }
-                  />
-                );
-              })}
-            </div>
-          </motion.div>
-        ) : (
-          <DevelopmentView perTest={perTest} />
-        )}
-      </div>
-    </div>
-  );
+    data = { ...hubData, isPremium: row?.subscription_tier === 'premium' && untilOk };
+  } catch (error) {
+    // Går läsningen fel ska hubben ändå gå att öppna och starta test ifrån.
+    // Korten visar då noll försök, precis som för en ny användare.
+    console.error('Testhubben: kunde inte hämta statistiken', error);
+    data = emptyHubData(false);
+  }
+
+  return <TesterHubClient data={data} />;
 }

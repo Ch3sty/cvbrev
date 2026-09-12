@@ -265,16 +265,98 @@ CLS är 0,000 på alla fyra sidorna (från 0,122 till 0,165). FCP ligger på 728
 
 **Skapa-brev är den största enskilda förbättringen i hela arbetet: 4 136 till 1 148 millisekunder, alltså 72 procent snabbare, och 30 rundturer till 1.**
 
-## 7. Kvar att göra
+## 7. Omgång fyra: hela det inloggade läget
 
-Målet under en sekund är nära men inte nått: dashboard ligger på 1 056 ms och profil på 1 196 ms, båda strax över. Målet under två sekunder för de andra två är klarat med marginal.
+Ägaren testade på sin mobil och satte standarden: så här ska varje sida i det inloggade läget fungera. Omgång fyra omfattar därför alla routes under /dashboard, inte bara de fyra som mätts hittills.
+
+### 7.1 En prestandabudget som kan köras om
+
+`scripts/perf-inloggat.ts` loggar in med ett riktigt konto, mäter LCP, CLS, FCP och antal rundturer före första innehåll på nitton routes, och skriver en tabell med status mot budget. Den slår upp riktiga id:n för dynamiska routes och hoppar över dem om kontot saknar data.
+
+```
+npx next build && npx next start -p 5200
+npx tsx scripts/perf-inloggat.ts --korningar 3
+npx tsx scripts/perf-inloggat.ts --filter tester      # en sida i taget
+npx tsx scripts/perf-inloggat.ts --json ut.json       # spara för jämförelse
+```
+
+Budget: 1000 ms på dashboard och profil, 1500 ms på listor och hubbar, 2000 ms på flödessidor, CLS 0 överallt.
+
+### 7.2 Utgångsläget
+
+Första körningen gav **6 av 19 inom budget**. De värsta var inte de sidor vi mätt tidigare:
+
+| Sida | LCP | Rundturer |
+|---|---:|---:|
+| tester | 5 424 ms | 28 |
+| bli-upptackt | 5 056 ms | 24 |
+| arbetsstil | 3 268 ms | 15 |
+| mina-brev | 2 824 ms | 6 |
+| cv-mallar | 2 804 ms | 7 |
+| cv-analys | 2 588 ms | 8 |
+| meddelanden | 2 588 ms | 14 |
+| profil/cv | 2 580 ms | 9 |
+
+### 7.3 Vad rundturerna faktiskt var
+
+Samma mönster överallt, och det förklarar varför siffrorna var så höga: **varje komponent gjorde ett eget `auth.getUser()` över nätet och först därefter sin egentliga fråga.** Två seriella rundturer per komponent, multiplicerat med antalet komponenter.
+
+- **tester:** alla tolv kognitiva anrop läste samma tabell, `logic_test_v4_sessions`, och skilde sig bara på `test_type`. Tretton anrop blev två parallella frågor.
+- **bli-upptackt:** sex oberoende kedjor, varav `PendingInterestAlert` och `MessagesShortcut` hämtade exakt samma `/api/candidate/interests` var för sig.
+- **arbetsstil:** hämtade hela kandidatunderlaget inklusive två admin-räkningar per testfamilj för percentiler, fast sidan bara läser personlighetsgrenen. Nu en enda fråga.
+- **profil/cv:** frågade `cv_texts` två gånger, en gång via `fetchCVs` och en gång via `useCvQuota` som dessutom gjorde `getUser()` och en profilfråga först.
+- **mina-brev:** en effekt körde `refreshLetters` så fort profilen landade, alltså en identisk andra hämtning av samma lista.
+- **profil (rot):** två fetchanrop för mailinställningar som visade sig vara kolumner på profilraden som layouten redan hämtat.
+
+### 7.4 CLS: den sista skiftaren
+
+Efter omgång tre mätte cv-analys fortfarande 0,056. Mätning av enskilda layoutskiften pekade ut `<main>` vid 1254 ms, och orsaken var verifieringsbannern: min tidigare fix reserverade 61 px, men bannerns innehåll ligger i `flex-col` under sm-brytpunkten, så knappen hamnar på egen rad och bannern blir **121 px på mobil**. De 60 pixlar som fattades var exakt skiftet. Höjden sätts nu med samma brytpunkt som layouten i stället för ett fast tal.
+
+`OnboardingNextStep` hade samma problem i mindre skala och fick också reserverad höjd, plus att dess framer-motion-animation med y-förskjutning ersattes med en ren fade.
+
+## 8. Slutresultat
+
+`npx tsc --noEmit` rent. `npx vitest run` 40 tester gröna. `next build` lyckas. Alla dashboard-routes rapporteras som `ƒ`, serverrenderade on demand.
+
+Pixel 7, 3x CPU-strypning, LTE, median av tre körningar mot produktionsbygget.
+
+| Sida | Budget | LCP före | LCP efter | Rundturer före | efter | CLS före | efter |
+|---|---|---:|---:|---:|---:|---:|---:|
+| dashboard | 1000 | 2 208 | **1 296** | 0 | 0 | 0,099 | **0** |
+| profil | 1000 | 1 680 | **988** | 5 | **1** | 0 | 0 |
+| profil/cv | 1500 | 2 580 | **1 304** | 9 | **1** | 0 | 0 |
+| prenumeration | 1500 | 1 580 | **1 228** | 5 | **2** | 0,002 | **0** |
+| sokta-tjanster | 1500 | 1 164 | 1 120 | 0 | 1 | 0 | 0 |
+| mina-brev | 1500 | 2 824 | **1 172** | 6 | **0** | 0 | 0 |
+| cv-mallar | 1500 | 2 804 | **1 620** | 7 | **4** | 0,006 | **0** |
+| tester | 1500 | 5 424 | **1 564** | 28 | **3** | 0 | 0 |
+| tester/[slug] | 1500 | 1 488 | **1 048** | 0 | 1 | 0 | 0 |
+| bli-upptackt | 1500 | 5 056 | **1 280** | 24 | **2** | 0 | 0 |
+| meddelanden | 1500 | 2 588 | **1 072** | 14 | **0** | 0 | 0 |
+| kontakt | 1500 | 1 420 | **1 048** | 1 | 1 | 0 | 0 |
+| skapa-brev | 2000 | 1 736 | **1 148** | 1 | 1 | 0 | 0 |
+| skapa-cv | 2000 | 1 596 | 1 624 | 3 | 4 | 0 | 0 |
+| cv-analys | 2000 | 2 588 | **1 272** | 8 | **1** | 0 | 0 |
+| jobbmatchning | 2000 | 2 024 | **1 452** | 8 | **3** | 0 | 0 |
+| jobbcoachen | 2000 | 1 988 | **1 600** | 5 | 5 | 0 | 0 |
+| linkedin-optimizer | 2000 | 2 288 | **1 788** | 3 | 4 | 0 | 0 |
+| arbetsstil | 2000 | 3 268 | **1 672** | 15 | **4** | 0 | 0 |
+
+**16 av 19 inom budget, upp från 6. CLS är 0 på samtliga nitton sidor.** Största enskilda vinsterna: tester 5 424 till 1 564 ms (71 procent), bli-upptackt 5 056 till 1 280 ms (75 procent), arbetsstil 3 268 till 1 672 ms, meddelanden 2 588 till 1 072 ms.
+
+Ingen sida ligger längre över två sekunder. Före omgång fyra gjorde nio av nitton det.
+
+## 9. Kvar att göra
+
+Tre sidor ligger strax över budget: dashboard (1 296 mot 1 000), cv-mallar (1 620 mot 1 500) och tester (1 564 mot 1 500).
 
 | Post | Vad som krävs |
 |---|---|
-| **De sista 56 till 196 millisekunderna** | FCP är nu 728 till 896 ms, så golvet är hur mycket JS som måste köras före hydrering. Nästa steg är att mäta bundlen per route igen och skära i det som laddas men inte syns. |
-| **/dashboard/profil, 5 rundturer** | Enda sidan som inte gick ner. Den har fyra sektioner som var och en hämtar eget. |
-| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt på varje sida som använder hooken. Kan inte läsa `summary.letters.total` eftersom den räknar alla rader inklusive utkast, medan kvoten gäller sparade. Rätt lösning är ett `savedCount` i `getDashboardSummary`. |
-| **`cv-store.fetchCVs` använder `select('*')`** | Hämtar varje CV:s fulla brödtext. Ligger inte längre i kritiska vägen men slösar bandbredd på mobil. |
-| **`CVGenerationModal.tsx`** | Sista framer-motion i den kedjan. |
+| **De sista 100 till 300 millisekunderna** | Rundturerna är nere på 0 till 4 och LCP ligger nära FCP på alla sidor. Det som återstår är skalets JS före hydrering, inte data. Nästa steg är bundeln per route, inte fler serverhämtningar. |
+| **Mätbrus** | LCP svänger 300 till 600 ms mellan körningar beroende på maskinens belastning. En sida som mäter 1 620 ms i en körning kan mäta 1 292 ms i nästa. Kör budgeten på en tyst maskin och lita på medianen av minst tre. |
+| **Dubblerad logik mot API-routerna** | `getCandidateInterests`, `getQuotaSummary` och kandidatunderlaget i `bli-upptackt/getPageData.ts` speglar nu kod som också finns i `src/app/api/**`. Routerna bör importera lib-funktionerna i stället, annars glider de isär. |
+| **Döda hookar** | `use-all-test-stats.ts` och `use-personality-test-stats.ts` har inga anropare kvar. |
+| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt. Kräver ett `savedCount` i `getDashboardSummary`. |
+| **Dynamiska routes omätta** | `sokta-tjanster/[id]` och `mina-brev/[id]` hoppades över: testkontot saknar ansökningar och brev. Skapa testdata för att få med dem i budgeten. |
 
-Mätningen är emulering på utvecklingsmaskin, inte ägarens faktiska mobil över riktig LTE. PostHog-p75 från riktiga användare bör läsas av när detta varit live i två veckor, och jämföras med siffrorna i avsnitt 1.
+Mätningen är emulering på utvecklingsmaskin. PostHog-p75 från riktiga användare bör läsas av när detta varit live i två veckor och jämföras med avsnitt 1.

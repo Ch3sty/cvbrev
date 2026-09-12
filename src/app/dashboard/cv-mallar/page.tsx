@@ -1,225 +1,96 @@
-'use client';
+/**
+ * CV-mallar är en server component.
+ *
+ * Förut var hela sidan 'use client' och returnerade null tills useProfile
+ * hade laddat. Först efter hydrering kördes fetchCVs, som i sin tur läste
+ * sessionen och sedan frågade cv_texts. Under tiden visade CompactCvPicker
+ * en spinnarruta som sedan byttes mot ett högre kort, vilket var hela
+ * layoutförskjutningen på 0,006.
+ *
+ * Nu läses sessionen, CV-listan och prenumerationsgraden här på servern i en
+ * parallell omgång och skickas som props. Första HTML innehåller det valda
+ * CV:t och rätt mallvy, så väljaren har sin slutliga höjd direkt.
+ *
+ * Ingen affärslogik har flyttat hit. Premiumgraden används bara för att
+ * markera låsta mallar, precis som förut. Spärren mot att faktiskt generera
+ * en premiummall ligger kvar i klienten och på servern bakom
+ * /api/cv/generate-formatted.
+ */
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import CvMallarClient, { type InitialCv } from './CvMallarClient';
 
-import { useState, useEffect, Suspense, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { useCVStore } from '@/store/cv-store';
-import { useProfile } from '@/hooks/use-profile';
-import { useNotification } from '@/context/notificationcontext';
-import { getTemplateById } from '@/lib/cv/simple-templates';
+export default async function CVMallarPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cv?: string | string[] }>;
+}) {
+  // ?cv= läses här i stället för med useSearchParams på klienten. Då behövs
+  // ingen Suspense-gräns, och det valda CV:t är redan valt i första HTML.
+  const params = await searchParams;
+  const cvParam = params?.cv;
+  const cvIdFromUrl = Array.isArray(cvParam) ? (cvParam[0] ?? null) : (cvParam ?? null);
 
-import CvMallarLayout from './components/CvMallarLayout';
-import CvMallarHero from './components/CvMallarHero';
-import MallarLivePreview from './components/MallarLivePreview';
-import CvGenerationOverlay from './components/CvGenerationOverlay';
-import CompactCvPicker from './components/CompactCvPicker';
-import StepHeader from './components/StepHeader';
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-function CVMallarContent() {
-  const searchParams = useSearchParams();
-  const cvIdFromUrl = searchParams.get('cv');
-  const hasSelectedFromUrl = useRef(false);
-  const router = useRouter();
   const {
-    cvs,
-    fetchCVs,
-    selectedCV,
-    selectCV,
-  } = useCVStore();
-  const { profile, loading: profileLoading, subscriptionTier } = useProfile();
-  const { successWithMascotAndActivity } = useNotification();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generationError, setGenerationError] = useState<string | null>(null);
-
-  const isPremium = subscriptionTier === 'premium';
-
-  useEffect(() => {
-    if (profileLoading) return;
-    if (!profile) {
-      router.push('/login');
-      return;
-    }
-    fetchCVs();
-  }, [profile, profileLoading, router, fetchCVs]);
-
-  // Auto-vAlj CV frán URL eller senaste
-  useEffect(() => {
-    if (cvs.length === 0) return;
-
-    if (cvIdFromUrl && !hasSelectedFromUrl.current) {
-      const cvFromUrl = cvs.find((cv) => cv.id === cvIdFromUrl);
-      if (cvFromUrl) {
-        selectCV(cvFromUrl.id);
-        hasSelectedFromUrl.current = true;
-        return;
-      } else {
-        selectCV(cvs[0].id);
-        hasSelectedFromUrl.current = true;
-        return;
-      }
-    }
-
-    if (!selectedCV && !cvIdFromUrl) {
-      selectCV(cvs[0].id);
-    }
-  }, [cvs, selectedCV, selectCV, cvIdFromUrl]);
-
-  const handleUpgradeClick = () => {
-    router.push('/dashboard/profil/prenumeration');
-  };
-
-  const handleGenerateCV = async (params: {
-    templateId: string;
-    fontFamily: string;
-    fontId: string;
-    includePhoto: boolean;
-    includeLinkedIn: boolean;
-  }) => {
-    if (!selectedCV) return;
-
-    const template = getTemplateById(params.templateId);
-    if (template?.tier === 'premium' && subscriptionTier !== 'premium') {
-      handleUpgradeClick();
-      return;
-    }
-
-    setGenerationError(null);
-    setIsGenerating(true);
-
-    try {
-      const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
-
-      // Anvand features fran mall-registret for att avgora vilka toggles som
-      // ska skickas. Mallar utan stOd far inte options-falt sa generators
-      // anvander default-beteende.
-      const supportsPhoto = template?.features?.supportsPhoto === true;
-      const supportsLinkedIn = template?.features?.supportsLinkedIn === true;
-
-      const templateOptions: { includePhoto?: boolean; includeLinkedIn?: boolean } = {};
-      if (supportsPhoto) templateOptions.includePhoto = params.includePhoto;
-      if (supportsLinkedIn) templateOptions.includeLinkedIn = params.includeLinkedIn;
-
-      const response = await fetch('/api/cv/generate-formatted', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          template: params.templateId,
-          // Skicka pre-parsed structured_data om finns (matchar preview exakt)
-          structuredData: (selectedCV as any).structured_data || undefined,
-          cvText: selectedCV.cv_text,
-          format: 'pdf',
-          templateOptions,
-          fontFamily: params.fontFamily,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Kunde inte generera CV');
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-
-      setIsGenerating(false);
-
-      successWithMascotAndActivity(
-        'Vi har gjort en PDF av ditt CV. Den är nedladdad till din enhet.',
-        'cv-template-generated',
-        'cv_generated',
-        'skapade ett professionellt CV',
-        {
-          template: params.templateId,
-          font: params.fontId,
-          cv_id: selectedCV.id,
-          file_name: fileName,
-        },
-        5000
-      );
-    } catch (error: any) {
-      console.error('Fel vid CV-skapande:', error);
-      setGenerationError(error?.message || 'Något gick fel. Försök igen.');
-      // LAmnar isGenerating=true sa error-vyn syns; stangs av onClose
-    }
-  };
-
-  if (profileLoading || !profile) {
-    return null;
+  if (!user) {
+    redirect('/login');
   }
 
+  let cvRows: InitialCv[] = [];
+  let isPremium = false;
+
+  try {
+    const [cvRes, profileRes] = await Promise.all([
+      supabase
+        .from('cv_texts')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('profiles')
+        .select('subscription_tier, premium_until')
+        .eq('id', user.id)
+        .maybeSingle(),
+    ]);
+
+    if (cvRes.error) {
+      console.error('Fel vid server-hämtning av CV-listan:', cvRes.error);
+    }
+
+    cvRows = (cvRes.data ?? []) as InitialCv[];
+
+    const profile = profileRes.data as
+      | { subscription_tier?: string | null; premium_until?: string | null }
+      | null;
+    // Samma validering som skapa-brev: 'premium' i tabellen räknas som
+    // premium, premium_until läses som säkerhetsnät mot en utgången rad.
+    const untilOk =
+      !profile?.premium_until || new Date(profile.premium_until).getTime() > Date.now();
+    isPremium = profile?.subscription_tier === 'premium' && untilOk;
+  } catch (error) {
+    // Går hämtningen fel ska sidan ändå gå att öppna. Klienten hämtar om.
+    console.error('Fel vid server-hämtning av CV-mallar:', error);
+  }
+
+  // Samma val som effekten gjorde på klienten: CV:t från URL:en om det finns,
+  // annars det senaste.
+  const initialSelectedCvId =
+    (cvIdFromUrl && cvRows.some((cv) => cv.id === cvIdFromUrl) ? cvIdFromUrl : null) ??
+    cvRows[0]?.id ??
+    null;
+
   return (
-    <CvMallarLayout>
-      <CvMallarHero />
-
-      {/* Steg 1: Valj CV */}
-      <motion.section
-        data-flow-section="cv"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
-        <StepHeader
-          number={1}
-          title="Välj vilket CV du vill använda"
-          description="Vi använder innehållet från CV:t i mallen du väljer i nästa steg."
-        />
-        <CompactCvPicker
-          selectedCV={selectedCV?.id || null}
-          onCVSelect={(cvId) => selectCV(cvId)}
-        />
-      </motion.section>
-
-      {/* Live-preview-vy med mall-lista, toolbar, info, CTA */}
-      <motion.section
-        data-flow-section="template"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.05 }}
-      >
-        <MallarLivePreview
-          selectedCV={selectedCV}
-          isPremium={isPremium}
-          isGenerating={isGenerating}
-          onGenerate={handleGenerateCV}
-          onUpgrade={handleUpgradeClick}
-        />
-      </motion.section>
-
-      {/* Generation overlay */}
-      <CvGenerationOverlay
-        isOpen={isGenerating}
-        isError={!!generationError}
-        errorMessage={generationError || undefined}
-        onClose={() => {
-          setIsGenerating(false);
-          setGenerationError(null);
-        }}
-      />
-    </CvMallarLayout>
-  );
-}
-
-export default function CVMallarPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mb-4"></div>
-            <p className="text-neutral-600 font-medium">Laddar CV-mallar…</p>
-          </div>
-        </div>
-      }
-    >
-      <CVMallarContent />
-    </Suspense>
+    <CvMallarClient
+      initialCvs={cvRows}
+      initialIsPremium={isPremium}
+      initialSelectedCvId={initialSelectedCvId}
+    />
   );
 }

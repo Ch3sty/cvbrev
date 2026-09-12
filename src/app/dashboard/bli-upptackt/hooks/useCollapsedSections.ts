@@ -42,14 +42,35 @@ export interface CollapsedSectionsApi {
   toggle: (id: string) => void;
 }
 
-export function useCollapsedSections(): CollapsedSectionsApi {
-  // Synkron initiering ur localStorage = inget hopp vid första renderingen.
-  const [collapsed, setCollapsed] = useState<Set<string>>(() => new Set(readLocal()));
+/**
+ * initialSections: DB-läget, läst på servern i getPageData.ts. null betyder
+ * att raden saknas, och då gäller localStorage som förut.
+ *
+ * Hooken gjorde tidigare ett eget auth.getUser() följt av en fråga mot
+ * user_ui_preferences efter mount, alltså två seriella rundturer bara för att
+ * veta vilka kort som skulle vara hopfällda. Serverdatan gör den kedjan
+ * överflödig, och eftersom värdet finns redan vid första render fälls korten
+ * rätt direkt i stället för att hoppa när svaret kom.
+ */
+export function useCollapsedSections(
+  initialSections: string[] | null = null
+): CollapsedSectionsApi {
+  // DB vinner om den finns, annars det synkront lästa localStorage. Båda
+  // avgörs före första render, så ingenting hoppar.
+  const [collapsed, setCollapsed] = useState<Set<string>>(
+    () => new Set(initialSections ?? readLocal())
+  );
   const supabase = getSupabaseClient();
   const userIdRef = useRef<string | null>(null);
 
-  // Hämta DB-läget en gång och låt det ta över (viktigt på ny enhet där
-  // localStorage är tomt men användaren fällt ihop kort tidigare).
+  // Serverläget skrivs till localStorage så nästa besök renderar likadant
+  // även innan serverdatan hunnit fram.
+  useEffect(() => {
+    if (initialSections) writeLocal(initialSections);
+  }, [initialSections]);
+
+  // Skrivningarna behöver användarens id. Det hämtas en gång, men blockerar
+  // ingenting: det behövs först när kandidaten faktiskt fäller ihop ett kort.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -57,25 +78,6 @@ export function useCollapsedSections(): CollapsedSectionsApi {
         const { data: { user } } = await supabase.auth.getUser();
         if (cancelled || !user) return;
         userIdRef.current = user.id;
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data } = await (supabase as any)
-          .from('user_ui_preferences')
-          .select('value')
-          .eq('user_id', user.id)
-          .eq('key', PREF_KEY)
-          .maybeSingle();
-        if (cancelled) return;
-
-        const dbSections: string[] = Array.isArray(data?.value?.sections)
-          ? data.value.sections.filter((s: unknown): s is string => typeof s === 'string')
-          : [];
-
-        // DB vinner om den finns; annars behåll det synkront lästa localStorage.
-        if (data) {
-          setCollapsed(new Set(dbSections));
-          writeLocal(dbSections);
-        }
       } catch {
         // Preferensen är ren bekvämlighet: tyst vid fel.
       }

@@ -21,7 +21,6 @@
  * många rekryterare som sett profilen.
  */
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import SectionCard from './SectionCard';
 import { IlluProfilvisningar, IlluNastaSteg } from '@/components/illustrations/BliUpptacktIllustrations';
@@ -30,6 +29,13 @@ import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type Summary
 interface ProfileStrengthCardProps {
   profile: CandidateProfileState;
   summary: SummaryData | null;
+  /**
+   * Profilvisningar, hämtade på servern. null när profilen inte är synlig
+   * eller när siffran inte gick att läsa. Kortet fetchade förut
+   * /api/candidate/views vid mount, vilket blev ett eget auth.getUser()
+   * plus en fråga efter att sidan redan renderat.
+   */
+  views: ViewStats | null;
 }
 
 interface Step {
@@ -114,32 +120,17 @@ function remainingSteps(profile: CandidateProfileState, summary: SummaryData | n
   return steps;
 }
 
-export default function ProfileStrengthCard({ profile, summary }: ProfileStrengthCardProps) {
-  const [views, setViews] = useState<ViewStats | null>(null);
+export default function ProfileStrengthCard({
+  profile,
+  summary,
+  views,
+}: ProfileStrengthCardProps) {
   const steps = remainingSteps(profile, summary);
   const next = steps[0] ?? null;
-  const isVisible = profile.visibility !== 'off';
-
-  // Visningar hämtas bara när profilen är synlig. Att visa "0 visningar" för
+  // Visningar visas bara när profilen är synlig. Att visa "0 visningar" för
   // någon som inte slagit på synligheten vore att rapportera ett utfall av
-  // något hon inte gjort.
-  useEffect(() => {
-    if (!isVisible) return;
-    let cancelled = false;
-
-    fetch('/api/candidate/views')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!cancelled && data) setViews({ lastWeek: data.lastWeek ?? 0, total: data.total ?? 0 });
-      })
-      .catch(() => {
-        // Siffran är återkoppling, inte funktion. Vid fel visas inget.
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [isVisible]);
+  // något hon inte gjort. Servern hämtar dem bara i det läget.
+  const isVisible = profile.visibility !== 'off';
 
   return (
     <SectionCard title="Din profil" delay={0.25}>

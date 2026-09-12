@@ -16,10 +16,14 @@ import { IlluEmailBekrafta } from '@/components/illustrations/AuthIllustrations'
 
 const DISMISS_KEY = 'jc_email_banner_dismissed_at';
 const DISMISS_HOURS = 24;
-/* Bannerns höjd i ett svep: 36 px illustration plus py-3 uppe och nere plus
-   kanten. Samma värde används både till platshållaren och till bannern själv,
-   så att bytet mellan dem inte flyttar en enda pixel. */
-const BANNER_HEIGHT = 61;
+/* Bannerns höjd skiljer sig mellan mobil och desktop: innehållet ligger i
+   flex-col under sm-brytpunkten, så knappen hamnar på egen rad och bannern
+   blir 121 px i stället för 61. Platshållaren reserverade tidigare 61 px
+   överallt, och de 60 pixlarna som fattades på mobil var precis det skifte
+   som mätte 0,056 i CLS. Höjden sätts därför med samma brytpunkt som
+   layouten, inte med ett fast tal. */
+const BANNER_HEIGHT_CLASS = 'h-[121px] sm:h-[61px]';
+const BANNER_MIN_HEIGHT_CLASS = 'min-h-[121px] sm:min-h-[61px]';
 
 export default function EmailVerificationBanner() {
   const { profile, isEmailVerified, loading } = useProfile();
@@ -67,7 +71,7 @@ export default function EmailVerificationBanner() {
   const answerPending = !dismissChecked || (loading && !isDismissed);
 
   if (answerPending) {
-    return <div aria-hidden="true" style={{ height: BANNER_HEIGHT }} />;
+    return <div aria-hidden="true" className={BANNER_HEIGHT_CLASS} />;
   }
 
   if (!profile || isEmailVerified || isDismissed) {
@@ -108,8 +112,7 @@ export default function EmailVerificationBanner() {
     // slideUp är borttagen: den animerade in bannerns höjd och räknades som
     // ett layoutskifte i sig. Ytan är redan reserverad, bannern ska bara finnas.
     <div
-      className="relative z-20 bg-white border-b border-neutral-200"
-      style={{ minHeight: BANNER_HEIGHT }}
+      className={`relative z-20 bg-white border-b border-neutral-200 ${BANNER_MIN_HEIGHT_CLASS}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">

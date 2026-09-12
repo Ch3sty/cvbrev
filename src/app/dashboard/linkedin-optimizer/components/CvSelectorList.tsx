@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Clock, Plus, Lock } from 'lucide-react'
 import { useCVStore } from '@/store/cv-store'
-import { useCvQuota } from '@/hooks/useCvQuota'
+
 import { formatCVDate } from '@/lib/utils/date-formatter'
 
 /**
@@ -120,11 +120,21 @@ function CvDocIcon({ className }: { className?: string }) {
 interface Props {
   selectedCvId: string | null
   onSelect: (cvId: string) => void
+  /**
+   * Id på CV som är låsta av CV-kvoten. Förut räknade listan ut det själv med
+   * useCvQuota, alltså ett auth.getUser() över nätet följt av två frågor, mitt
+   * i första vyn. Kvotregeln är oförändrad, den räknas nu på servern i
+   * getLinkedInData och skickas hit.
+   */
+  lockedCvIds: Set<string>
 }
 
-export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
+export default function CvSelectorList({
+  selectedCvId,
+  onSelect,
+  lockedCvIds,
+}: Props) {
   const { cvs, isLoading } = useCVStore()
-  const { isLocked } = useCvQuota()
 
   if (isLoading) {
     return (
@@ -147,7 +157,7 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
     <div className="space-y-2">
       {cvs.map((cv, i) => {
         const isSelected = selectedCvId === cv.id
-        const locked = isLocked(cv.id)
+        const locked = lockedCvIds.has(cv.id)
         const ageLabel = formatCVDate(cv.created_at)
 
         return (

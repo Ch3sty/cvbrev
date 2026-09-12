@@ -13,7 +13,7 @@
  * ingen tror att växlarna stänger av kvittot på en dragning.
  */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SectionKontoIcon } from './illustrations/SectionIcons';
 
 interface MailRowConfig {
@@ -41,7 +41,27 @@ const ROWS: MailRowConfig[] = [
   },
 ];
 
-export default function NotisInstallningar() {
+interface NotisInstallningarProps {
+  /**
+   * Lägena, lästa på servern ur profiles.weekly_digest_opt_out respektive
+   * profiles.quota_emails_opt_out. Förut hämtade varje rad sitt eget läge med
+   * ett fetch efter hydrering, och båda routerna gjorde ett auth.getUser()
+   * före sin enda kolumnfråga. Kolumnerna sitter på samma profilrad som
+   * dashboard-layouten redan läst, så de kostar ingenting att skicka hit.
+   */
+  initialDigestOptOut: boolean;
+  initialQuotaOptOut: boolean;
+}
+
+export default function NotisInstallningar({
+  initialDigestOptOut,
+  initialQuotaOptOut,
+}: NotisInstallningarProps) {
+  const initialByKey: Record<string, boolean> = {
+    digest: initialDigestOptOut,
+    quota: initialQuotaOptOut,
+  };
+
   return (
     <section
       id="konto"
@@ -59,40 +79,33 @@ export default function NotisInstallningar() {
 
       <div className="mt-4 space-y-3">
         {ROWS.map((row) => (
-          <MailRow key={row.key} config={row} />
+          <MailRow
+            key={row.key}
+            config={row}
+            initialOptOut={initialByKey[row.key] ?? false}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function MailRow({ config }: { config: MailRowConfig }) {
-  // null = inte läst än. Vi renderar inte växeln förrän vi vet läget, annars
-  // hoppar den från på till av framför ögonen på användaren.
-  const [optOut, setOptOut] = useState<boolean | null>(null);
+function MailRow({
+  config,
+  initialOptOut,
+}: {
+  config: MailRowConfig;
+  initialOptOut: boolean;
+}) {
+  // Läget kommer server-läst som prop. Växeln renderas därför färdig redan i
+  // första HTML i stället för att dyka upp när ett fetch svarat, och raden
+  // har samma höjd före som efter.
+  const [optOut, setOptOut] = useState<boolean>(initialOptOut);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    fetch(config.endpoint)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!cancelled && data) setOptOut(data.optOut === true);
-      })
-      .catch(() => {
-        // Inställningen är inte kritisk. Utan svar visar vi ingen växel alls
-        // hellre än en växel som ljuger om sitt läge.
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [config.endpoint]);
-
   const toggle = async () => {
-    if (optOut === null || saving) return;
+    if (saving) return;
     const next = !optOut;
 
     // Optimistiskt: växeln ska kännas direkt. Vid fel backar vi och säger till.
@@ -115,7 +128,7 @@ function MailRow({ config }: { config: MailRowConfig }) {
     }
   };
 
-  const enabled = optOut === false;
+  const enabled = !optOut;
 
   return (
     <div className="rounded-lg border border-neutral-200 p-4">
@@ -127,25 +140,23 @@ function MailRow({ config }: { config: MailRowConfig }) {
           </p>
         </div>
 
-        {optOut !== null && (
-          <button
-            type="button"
-            role="switch"
-            aria-checked={enabled}
-            aria-label={config.ariaLabel}
-            onClick={toggle}
-            disabled={saving}
-            className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:opacity-60 ${
-              enabled ? 'bg-orange-600' : 'bg-neutral-300'
+        <button
+          type="button"
+          role="switch"
+          aria-checked={enabled}
+          aria-label={config.ariaLabel}
+          onClick={toggle}
+          disabled={saving}
+          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:opacity-60 ${
+            enabled ? 'bg-orange-600' : 'bg-neutral-300'
+          }`}
+        >
+          <span
+            className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+              enabled ? 'translate-x-6' : 'translate-x-1'
             }`}
-          >
-            <span
-              className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
-                enabled ? 'translate-x-6' : 'translate-x-1'
-              }`}
-            />
-          </button>
-        )}
+          />
+        </button>
       </div>
 
       {error && <p className="mt-2 text-sm text-red-700">{error}</p>}

@@ -13,7 +13,6 @@
  */
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import { useOnboarding } from '@/contexts/OnboardingContext'
 
@@ -58,7 +57,12 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
   const { completedSteps, rewardClaimed, isLoading } = useOnboarding()
 
   // Visa inget om laddar, om belogning redan hamtats, eller om steget INTE ar slutfort
-  if (isLoading || rewardClaimed) return null
+  // Under laddning vet vi ännu inte om kortet ska visas. Att returnera null
+  // och sedan montera ett kort ovanför sidans innehåll sköt ner allt, vilket
+  // mätte 0,056 i CLS på cv-analys. Ytan reserveras i stället tills svaret är
+  // känt, och faller ihop först när vi vet att kortet inte behövs.
+  if (isLoading) return <div className="h-[92px]" aria-hidden="true" />
+  if (rewardClaimed) return null
   if (!completedSteps.includes(stepCompleted)) return null
 
   // Visa inget om nasta steg redan ar klart - prompten ar redundant
@@ -68,11 +72,8 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
   const config = NEXT_STEP_CONFIG[stepCompleted]
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+    <div
+      className="rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 motion-safe:animate-[fadeIn_400ms_ease-out_both]"
       style={{
         background:
           'transparent',
@@ -111,6 +112,6 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
           strokeWidth={2.5}
         />
       </Link>
-    </motion.div>
+    </div>
   )
 }

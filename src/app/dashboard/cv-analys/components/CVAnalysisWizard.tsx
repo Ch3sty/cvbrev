@@ -28,6 +28,8 @@ const CompletionStep = lazy(() => import('./steps/CompletionStep'));
 
 interface CVAnalysisWizardProps {
   cvs: any[];
+  /** Låsta CV enligt CV-kvoten, uträknade på servern. Regeln är oförändrad. */
+  lockedCvIds: Set<string>;
   onAnalysisStart: (cvId: string) => Promise<string>;
   onPollJob: (jobId: string) => Promise<any>;
   onComplete?: () => void;
@@ -87,6 +89,7 @@ const StepSkeleton = () => (
 
 export default function CVAnalysisWizard({
   cvs,
+  lockedCvIds,
   onAnalysisStart,
   onPollJob,
   onComplete,
@@ -867,7 +870,12 @@ export default function CVAnalysisWizard({
     switch (currentStep) {
       case 0:
         return (
-          <CVSelectionStep cvs={cvs} selectedCV={selectedCV} onSelectCV={setSelectedCV} />
+          <CVSelectionStep
+            cvs={cvs}
+            selectedCV={selectedCV}
+            onSelectCV={setSelectedCV}
+            lockedCvIds={lockedCvIds}
+          />
         );
 
       case 1:

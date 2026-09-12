@@ -11,7 +11,7 @@
  */
 
 import Image from 'next/image'
-import { InlineProfilePhotoUpload } from './InlineProfilePhotoUpload'
+import dynamic from 'next/dynamic'
 import {
   ProfileCard,
   ProfileTextField,
@@ -22,6 +22,18 @@ import ProfilePhotoPlaceholder from './illustrations/ProfilePhotoPlaceholder'
 import BrevhuvudPreview from './illustrations/BrevhuvudPreview'
 import { SectionPresentationIcon } from './illustrations/SectionIcons'
 import type { FieldSaveState } from './useFieldSave'
+
+/**
+ * Fotouppladdningen ligger långt ner i kortet, under namn, e-post, telefon och
+ * ort, alltså utanför första vyn på en telefon. Den bär hela filvalet med
+ * beskärning och felhantering, så den laddas när den scrollas fram i stället
+ * för i sidans första paket. Höjden reserveras så raderna under står stilla.
+ */
+const InlineProfilePhotoUpload = dynamic(
+  () =>
+    import('./InlineProfilePhotoUpload').then((m) => m.InlineProfilePhotoUpload),
+  { loading: () => <div className="min-h-[96px]" aria-hidden="true" /> }
+)
 
 export interface PresentationSectionProps {
   email: string

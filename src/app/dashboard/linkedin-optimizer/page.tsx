@@ -1,37 +1,50 @@
 /**
- * Förbättra LinkedIn-profil, Dashboard Page
- * Live LinkedIn-makeover wizard med orange/röd-DNA.
+ * Förbättra LinkedIn-profil är en server component, enligt samma mönster som
+ * dashboard/tester och dashboard/skapa-brev.
+ *
+ * Förut låg hela wizarden bakom ett Suspense-skelett som 'use client'. Efter
+ * hydrering hämtade den CV-listan genom cv-store (getSession följt av frågan
+ * mot cv_texts) och gjorde dessutom ett auth.getUser() över nätet bara för att
+ * få namnet till LinkedIn-mockupen. Mätningen landade på 3 rundturer och 2288
+ * ms LCP på Pixel 7 över LTE.
+ *
+ * Nu läses sessionen här och båda hämtas i en parallell omgång på servern.
+ * Första HTML innehåller steg 1 med CV-listan färdig.
+ *
+ * Kvoten är orörd: den avgörs fortfarande av edge-funktionen
+ * optimize-linkedin när användaren startar en optimering, aldrig av något
+ * sidan läser.
  */
-'use client'
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import { getLinkedInData, EMPTY_LINKEDIN_DATA } from './getLinkedInData';
+import LinkedInOptimizerClient from './LinkedInOptimizerClient';
 
-import { Suspense } from 'react'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import LinkedInOptimizer from './components/LinkedInOptimizer'
+export default async function LinkedInOptimizerPage() {
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-const PageSkeleton = () => (
-  <div className="min-h-screen bg-white">
-    <div className="animate-pulse p-8 max-w-6xl mx-auto">
-      <div className="h-12 w-3/4 rounded-full bg-orange-100/50 mb-8" />
-      <div className="h-64 rounded-xl bg-orange-100/30" />
-    </div>
-  </div>
-)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export default function LinkedInOptimizerPage() {
-  return (
-    <>
-      <Suspense fallback={<PageSkeleton />}>
-        <LinkedInOptimizer />
-      </Suspense>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2200}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        theme="light"
-      />
-    </>
-  )
+  if (!user) {
+    redirect('/login');
+  }
+
+  const metadataFullName =
+    (user.user_metadata?.full_name as string | undefined) ?? null;
+
+  // Går läsningen fel ska wizarden ändå gå att använda. Utan CV-lista öppnar
+  // den i manuellt läge, vilket är exakt läget för den som inte laddat upp
+  // något CV.
+  const data = await getLinkedInData(supabase, user.id, metadataFullName).catch(
+    (error) => {
+      console.error('LinkedIn: kunde inte hämta sidans data', error);
+      return { ...EMPTY_LINKEDIN_DATA, fullName: metadataFullName };
+    }
+  );
+
+  return <LinkedInOptimizerClient initialData={data} />;
 }

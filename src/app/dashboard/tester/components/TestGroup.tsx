@@ -24,6 +24,8 @@ interface Props {
   perTest: Record<TestSlug, PerTestStats>;
   personality: PersonalityTestStats;
   bestTest?: TestSlug;
+  /** Bästa provresultat i procent för gruppens prov, null om inget gjorts. */
+  provBestPercent?: number | null;
   recommendSlug?: TestSlug;
 }
 
@@ -45,6 +47,7 @@ export default function TestGroup({
   perTest,
   personality,
   bestTest,
+  provBestPercent = null,
   recommendSlug,
 }: Props) {
   const Illustration = GROUP_ILLUSTRATION[group.key];
@@ -129,9 +132,9 @@ export default function TestGroup({
         <div>
           <ProvCard
             href={group.prov.href}
-            sessionEndpoint={group.prov.sessionEndpoint}
             totalQuestions={group.prov.totalQuestions}
             minutes={group.prov.minutes}
+            bestPercent={provBestPercent}
           />
         </div>
       )}

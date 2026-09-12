@@ -4,12 +4,18 @@ import { motion } from 'framer-motion';
 import { FileText, Calendar, Check, ArrowRight, Upload, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { formatCVDate } from '@/lib/utils/date-formatter';
-import { useCvQuota } from '@/hooks/useCvQuota';
 
 interface CVSelectionStepProps {
   cvs: any[];
   selectedCV: string | null;
   onSelectCV: (cvId: string) => void;
+  /**
+   * Id på CV som är låsta av CV-kvoten. Förut räknade steget ut det själv med
+   * useCvQuota, alltså ett auth.getUser() över nätet följt av två frågor,
+   * efter att wizarden redan monterat. Kvotregeln är oförändrad, den räknas nu
+   * på servern i getCvAnalysData och skickas hit.
+   */
+  lockedCvIds: Set<string>;
 }
 
 /**
@@ -17,9 +23,12 @@ interface CVSelectionStepProps {
  * Använder samma CV-picker-DNA som skapa-brev (orange/röd topp-linje,
  * emerald done-state, dokument-mönster i bakgrunden).
  */
-export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelectionStepProps) {
-  const { isLocked } = useCvQuota();
-
+export default function CVSelectionStep({
+  cvs,
+  selectedCV,
+  onSelectCV,
+  lockedCvIds,
+}: CVSelectionStepProps) {
   if (!cvs || cvs.length === 0) {
     return (
       <div className="rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-8 text-center">
@@ -44,7 +53,7 @@ export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelec
     <div className="space-y-4">
       <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
         {cvs.map((cv) => {
-          const locked = isLocked(cv.id);
+          const locked = lockedCvIds.has(cv.id);
           return (
             <CvPickerCard
               key={cv.id}

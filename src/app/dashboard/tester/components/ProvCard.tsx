@@ -8,7 +8,6 @@
  * enda per vy är reserverad för sidans primära handling.
  */
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -17,44 +16,22 @@ import { IlluProv } from '@/components/illustrations/TestIllustrations';
 interface Props {
   /** Startsidan för provet, till exempel /dashboard/tester/matrislogik-prov. */
   href: string;
-  /** Session-API för senaste provresultat. */
-  sessionEndpoint: string;
   totalQuestions: number;
   minutes: number;
+  /**
+   * Bästa provresultat i procent, eller null när provet aldrig gjorts.
+   *
+   * Kortet fetchade förut sin egen session-endpoint vid mount, vilket blev tre
+   * extra anrop per sidladdning ovanpå hubbens nio, vart och ett med ett eget
+   * auth.getUser() före frågan. Siffran räknas nu på servern i getHubData.ts,
+   * ur samma rader och med samma formel som förut.
+   */
+  bestPercent: number | null;
 }
 
-interface ProvSession {
-  score: number | null;
-  completed_at: string | null;
-}
-
-export default function ProvCard({
-  href,
-  sessionEndpoint,
-  totalQuestions,
-  minutes,
-}: Props) {
-  const [best, setBest] = useState<{ score: number } | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(sessionEndpoint)
-      .then((r) => (r.ok ? r.json() : { sessions: [] }))
-      .then((data) => {
-        if (cancelled) return;
-        const sessions: ProvSession[] = Array.isArray(data.sessions) ? data.sessions : [];
-        const completed = sessions.filter((s) => s.completed_at && s.score != null);
-        if (completed.length === 0) return;
-        const top = completed.reduce((a, b) => ((b.score ?? 0) > (a.score ?? 0) ? b : a));
-        setBest({ score: top.score ?? 0 });
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, [sessionEndpoint]);
-
-  const pct = best ? Math.round((best.score / totalQuestions) * 100) : null;
+export default function ProvCard({ href, totalQuestions, minutes, bestPercent }: Props) {
+  const pct = bestPercent;
+  const best = pct != null;
 
   return (
     <motion.div
