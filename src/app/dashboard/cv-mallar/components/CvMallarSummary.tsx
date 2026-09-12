@@ -61,6 +61,11 @@ export default function CvMallarSummary({
       </ul>
 
       {/* Customization-toggles om mallen stödjer det och inte är låst */}
+      {/* Anpassningsblocket finns bara för mallar som stödjer foto eller
+          LinkedIn, och vilken mall det är vet vi först när valet landat.
+          Att montera det sent sköt upp allt ovanför och mätte 0,050 i CLS,
+          så ytan reserveras tills vi vet om blocket behövs. */}
+      {!templateId && <div aria-hidden="true" className="h-14 mb-5" />}
       {supportsCustomization && !isLockedPremium && (
         <div className="space-y-2 mb-5">
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">

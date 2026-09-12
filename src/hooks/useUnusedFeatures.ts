@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { scheduleIdle } from '@/lib/scheduleIdle';
 
 export interface FeatureSlug {
   slug:
@@ -179,7 +180,10 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
       }
     }
 
-    findUnusedFeature();
+    // Rekommendationen driver FeatureSpotlight i sidomenyn och NastaHandling
+    // langre ner pa dashboarden. Ingendera syns i forsta vyn, sa de tva
+    // fragorna behover inte ligga i den kritiska vagen.
+    const avbrytIdle = scheduleIdle(() => findUnusedFeature(), 3000);
 
     return () => {
       cancelled = true;

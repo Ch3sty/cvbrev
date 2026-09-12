@@ -504,15 +504,96 @@ Alla importer pekade in i klustret självt, ingen sida renderade något av det, 
 
 Alla fem stegen i brevflödet ligger nu under budget med noll rundturer, mot 2,5 till 2,9 sekunder tidigare.
 
-## 11. Kvar att göra
+## 11. Omgång sju: skalets sista rundturer
+
+Fem sidor låg kvar på 13 rundturer före första innehåll: cv-mallar (som dessutom blivit långsammare), profil/cv, skapa-cv steg 2 och 4, samt bli-upptackt.
+
+### 11.1 Rundturerna kom inte från sidorna
+
+En mätning av vilka anrop som faktiskt sker före LCP visade att de tretton var **samma tretton på alla fem sidorna**, och att de kom från det gemensamma skalet, inte från sidorna själva:
+
+| Anrop | Källa |
+|---|---|
+| `user_activities` plus `candidate_profiles` | `useUnusedFeatures`, driver FeatureSpotlight i sidomenyn |
+| `admin_users` plus tre räknare (`cv_texts`, `letters`, `job_applications`) | Sidebars `refreshCounts`, plus tre realtidskanaler |
+| `user_ui_preferences` | `useUiFlag` |
+| `/api/notifications` | `NotificationBell` |
+| `/api/candidate/interests` | `useCandidateInterests` |
+
+Ingen av dem behövs för första målningen. Sidomenyns siffror ligger bakom hamburgaren på mobil och under vikningen på desktop. `useUnusedFeatures` och Sidebars hela block ligger nu i `scheduleIdle` med tre sekunders tak, som tidigare gjorts för notiser och intressen.
+
+Det betyder att sidorna som "låg på 13 rundturer" aldrig hade något eget att åtgärda. Serverläsningen var redan på plats; det var skalet som betalades om på varje sidladdning.
+
+### 11.2 cv-mallar
+
+Sidan hade utöver skalet ett eget anrop till `/api/cv/preview-html` som tog 950 ms, och ett layoutskifte på 0,050.
+
+`MallarLivePreview` satte `height: contentHeight > 0 ? scaledHeight : 'auto'`. Kommentaren ovanför påstod att containern reserverade rätt utrymme, men `'auto'` reserverar ingenting: rutan var hopfälld tills förhandsvisningen hämtats och mätts, och växte sedan till full sidhöjd. En A4-sida har känd proportion (794 x 1123 px vid 96 dpi), så höjden räknas nu fram direkt och byts mot den uppmätta när den finns. Laddnings- och feltillstånden hade dessutom `min-h-[400px]` mot en färdig förhandsvisning på drygt 1100 px, vilket också rättades.
+
+Ett andra skifte kom från `CvMallarSummary`, där anpassningsblocket (foto- och LinkedIn-reglagen) bara finns för vissa mallar och monterades när mallvalet landat. Ytan reserveras nu tills vi vet om blocket behövs.
+
+**Trots detta ligger CLS kvar på 0,051 och LCP på 2 832 ms.** Mätningen visar att heron krymper från 206 till 149 px samtidigt som mittsektionen växer från 953 till 1758 px vid hydrering, alltså en omflyttning av hela kolumnlayouten snarare än en enskild komponent som dyker upp. Det är sannolikt `MallToolbar`, som startar med `isMobile: false` och rättar sig efter att ha mätt fönstret. Den kräver att brytpunkten avgörs på servern, och det är en större ändring än vad den här omgången rymde.
+
+### 11.3 Resultat
+
+`npx tsc --noEmit` rent, `npx vitest run` 80 tester gröna, `next build` lyckas.
+
+**26 av 38 routes inom budget, upp från 21.** Median av tre körningar, Pixel 7, 3x CPU, LTE.
+
+| Sida | Budget | LCP | CLS | Rundturer | Status |
+|---|---|---:|---:|---:|---|
+| dashboard | 1000 | 1 268 | 0,052 | 0 | över |
+| profil | 1000 | 1 184 | 0,001 | 0 | över |
+| profil/cv | 1500 | 2 540 | 0,001 | 13 | över |
+| prenumeration | 1500 | 1 300 | 0,001 | 0 | OK |
+| sokta-tjanster | 1500 | 1 216 | 0,001 | 0 | OK |
+| sokta-tjanster/[id] | 1500 | 1 132 | 0,001 | 0 | OK |
+| mina-brev | 1500 | 1 372 | 0,001 | 0 | OK |
+| mina-brev/[id] | 1500 | 1 284 | 0,059 | 0 | över (CLS) |
+| mina-brev/[id]/edit | 1500 | 1 308 | 0,059 | 0 | över (CLS) |
+| cv-mallar | 1500 | 2 832 | 0,051 | 13 | över |
+| cv-mallar (vald mall) | 1500 | 2 760 | 0,051 | 13 | över |
+| tester | 1500 | 1 772 | 0,001 | 1 | över |
+| tester/[slug] | 1500 | 1 104 | 0,023 | 0 | över (CLS) |
+| tester/personlighet | 1500 | 1 284 | 0,001 | 1 | OK |
+| bli-upptackt | 1500 | 2 632 | 0,001 | 4 | över |
+| meddelanden | 1500 | 1 260 | 0,001 | 0 | OK |
+| kontakt | 1500 | 1 348 | 0,001 | 0 | OK |
+| tester prov | 2000 | 1 372 | 0,005 | 0 | över (CLS) |
+| tester resultat | 2000 | 1 352 | 0,001 | 0 | OK |
+| skapa-brev | 2000 | 1 332 | 0,001 | 0 | OK |
+| skapa-brev steg 2 | 2000 | 1 216 | 0,001 | 0 | OK |
+| skapa-brev steg 3 | 2000 | 1 352 | 0,001 | 0 | OK |
+| skapa-brev steg 4 | 2000 | 1 240 | 0,001 | 0 | OK |
+| skapa-brev steg 5 | 2000 | 1 192 | 0,001 | 0 | OK |
+| skapa-brev steg 6 | 2000 | 1 264 | 0,001 | 0 | OK |
+| skapa-cv | 2000 | 1 376 | 0,001 | 0 | OK |
+| skapa-cv steg 2 | 2000 | 1 816 | 0,001 | 10 | OK |
+| skapa-cv steg 4 | 2000 | 1 700 | 0,001 | 10 | OK |
+| skapa-cv steg 7 | 2000 | 1 416 | 0,006 | 0 | över (CLS) |
+| cv-analys | 2000 | 1 856 | 0,001 | 9 | OK |
+| cv-analys steg 2 | 2000 | 1 780 | 0,001 | 9 | OK |
+| cv-analys steg 3 | 2000 | 1 360 | 0,001 | 0 | OK |
+| jobbmatchning | 2000 | 1 348 | 0,001 | 0 | OK |
+| jobbcoachen | 2000 | 1 872 | 0,001 | 4 | OK |
+| linkedin-optimizer | 2000 | 2 132 | 0,001 | 1 | över |
+| linkedin steg 2 | 2000 | 1 952 | 0,001 | 2 | OK |
+| linkedin steg 3 | 2000 | 1 408 | 0,001 | 0 | OK |
+| arbetsstil | 2000 | 1 488 | 0,001 | 0 | OK |
+
+Hela brevflödet ligger nu mellan 1 192 och 1 352 ms med noll rundturer. Tjugosex av trettioåtta sidor har noll eller en rundtur före första innehåll.
+
+Fem av de tolv som ligger över gör det enbart på CLS, inte på tid: mina-brev-detaljerna (0,059), tester/[slug] (0,023), testprovet (0,005) och skapa-cv steg 7 (0,006). Alla fyra ligger under Googles gräns på 0,1, men över vår egen nollregel.
+
+## 12. Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **dashboard, 2 808 ms och CLS 0,052** | Noll rundturer, så det är JS före hydrering plus ett kvarvarande skifte. Dashboarden mätte 1 156 ms i omgång fem, så siffran svänger kraftigt och bör läsas om på tyst maskin. |
-| **cv-mallar, 2 976 ms, 13 rundturer, CLS 0,051** | Enda sidan som blivit långsammare. Behöver samma serverläsning som de andra. |
-| **profil/cv, skapa-cv steg 2 och 4, bli-upptackt: 13 rundturer var** | Samma mönster som redan lösts på grannsidorna, inte åtgärdat här. |
-| **mina-brev/[id] och /edit, CLS 0,059** | Skelettet hjälpte (0,089 till 0,059) men något skiftar fortfarande sent. |
-| **Verbala och numeriska testflöden** | Använder fortfarande klientfetch. Deras sessioner ligger i egna tabeller bakom egna API:er, och rättningstabellerna var utanför uppdraget. |
-| **`useTestHintMode` läser localStorage i en effekt** | Att läsa preferensen ur en cookie i stället skulle låta servern rendera rätt läge direkt. |
+| **cv-mallar, 2 832 ms och CLS 0,051** | Kolumnlayouten flyttas om vid hydrering eftersom `MallToolbar` gissar `isMobile: false` och rättar sig efter mätning. Brytpunkten behöver avgöras på servern. |
+| **profil/cv, 2 540 ms och 13 rundturer** | Skalets idle-ändringar hjälpte inte här, så sidan har troligen en egen kedja kvar. |
+| **bli-upptackt, 2 632 ms** | Fyra rundturer kvar. |
+| **dashboard, CLS 0,052** | Enda kritiska sidan med skifte kvar. |
+| **mina-brev/[id] och /edit, CLS 0,059** | Skelettet tog 0,089 till 0,059, men något skiftar fortfarande sent. |
+| **Verbala och numeriska testflöden** | Använder fortfarande klientfetch, deras sessioner ligger i egna tabeller. |
 
-Mätningen är emulering på utvecklingsmaskin, inte ägarens mobil. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före merge, och lita på medianen.
+Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före merge och lita på medianen. Enskilda körningar svänger 300 till 600 ms.

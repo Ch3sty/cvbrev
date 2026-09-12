@@ -322,6 +322,8 @@ function PreviewContainer({
 /* -------------------------------------------------------------------------- */
 
 const A4_WIDTH_PX = 794; // 210mm @ 96dpi
+/** 297mm @ 96dpi. En A4-sida har känd proportion även innan innehållet mätts. */
+const A4_HEIGHT_PX = 1123;
 const HORIZONTAL_PADDING = 24; // 12px var sida
 
 function ScaledPreview({ html }: { html: string }) {
@@ -365,7 +367,12 @@ function ScaledPreview({ html }: { html: string }) {
       <div
         style={{
           width: `${A4_WIDTH_PX * scale}px`,
-          height: contentHeight > 0 ? `${scaledHeight}px` : 'auto',
+          // 'auto' reserverade ingenting: containern var hopfälld tills
+          // förhandsvisningen hade hämtats och mätts, och växte sedan till
+          // full sidhöjd. Det sköt ner allt under och mätte 0,050 i CLS.
+          // En A4-sida har känd proportion, så vi reserverar den direkt och
+          // byter till uppmätt höjd när den finns.
+          height: `${contentHeight > 0 ? scaledHeight : A4_HEIGHT_PX * scale}px`,
           flexShrink: 0,
         }}
       >
@@ -386,7 +393,7 @@ function ScaledPreview({ html }: { html: string }) {
 
 function PreviewEmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
+    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
       <div className="w-14 h-14 rounded-xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4">
         <FileText className="w-7 h-7" strokeWidth={2} />
       </div>
@@ -400,7 +407,7 @@ function PreviewEmptyState() {
 
 function PreviewLoading() {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
+    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
       <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4" />
       <p className="text-sm text-neutral-600">Förbereder förhandsvisning...</p>
     </div>
@@ -409,7 +416,7 @@ function PreviewLoading() {
 
 function PreviewError({ message }: { message: string }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
+    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
       <p className="text-sm text-neutral-600 mb-2">{message}</p>
       <p className="text-xs text-neutral-500">Försök välja en annan mall eller ladda om sidan.</p>
     </div>

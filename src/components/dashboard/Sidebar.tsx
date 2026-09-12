@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { scheduleIdle } from '@/lib/scheduleIdle';
 import { useAuth } from '@/contexts/AuthContext';
 
 import SidebarLogo from './sidebar/SidebarLogo';
@@ -171,7 +172,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       setApplicationCount(applicationCountResult ?? 0);
     };
 
-    loadAdminAndCounts();
+    // Adminflaggan, de tre raknarna och realtidskanalerna ror sidomenyns
+    // siffror. Pa mobil ligger menyn bakom hamburgaren och pa desktop under
+    // vikningen, sa ingenting av det behovs for forsta malningen. Fore den
+    // har andringen var det fyra fragor plus tre websockets i den kritiska
+    // vagen pa varje inloggad sidladdning.
+    const avbrytIdle = scheduleIdle(() => loadAdminAndCounts(), 3000);
 
     return () => {
       cancelled = true;
