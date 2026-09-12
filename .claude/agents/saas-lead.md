@@ -45,6 +45,7 @@ Bedöm aldrig en funktion som är yngre än sitt mätfönster. Ange alltid i ana
 | 2026-09-12 10:20 | Omdesign av hela inloggade läget (Mitt jobbsök): ny hemskärm, ansökningssidan som centrum med AF-rapport och betalvägg på uttag, nytt mobilnav utan FAB, flödesskal med URL-steg och autospara, testområdet som dynamisk route, gamification och streak borttagna, veckomail `weekly_digest` (söndag 08:00), uppföljningsnotiser, Bli upptäckt som förberedelseflöde med profilvisningar, designsvep. |
 | 2026-09-12 11:53 | Profilsidan i fyra sektioner med autospara; personuppgifter maskas innan all AI-behandling (`src/lib/privacy/pii.ts`, edge-funktionen v35). |
 | 2026-09-12 18:30 | Prestanda i inloggat läge, omgång 1 och 2: dashboard-layouten serverrenderad med sessionen läst på servern, en aggregerad summary i stället för 38 rundturer, OnboardingContext utan realtidskanaler, CLS noll via reserverad bannerhöjd, recharts och ark lazy-laddade. LCP i emulering: dashboard 2,1 till 1,3 s, profil 3,7 till 1,5 s. Web vitals i PostHog före detta datum gäller den långsamma versionen. |
+| 2026-09-12 21:00 | Prestanda omgång 3: alla 19 dashboard-routes serverrenderade med initial data, 16 av 19 inom budget, CLS 0 överallt, ingen sida över 2 s (tidigare 9). Mätskript scripts/perf-inloggat.ts. |
 
 Innan dessa datum fanns ingen av funktionerna. Tomma tabeller (`premium_grants`, `cancel_intents`, `email_schedule`) och null i `first_*_at` eller `acquisition_source` för äldre konton betyder inte att något är trasigt, det betyder att kontot är äldre än funktionen.
 
