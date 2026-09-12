@@ -206,16 +206,75 @@ Dashboarden gick från 38 rundturer till 2. Profilen är 41 procent snabbare och
 
 framer-motion är nu borta ur `dialog.tsx` och `progress.tsx`, som löste sina exit-animationer med ett `leaving`-state och städad timer, samma mönster som Toast.
 
-## 5. Kvar att göra
+## 5. Omgång tre: resten av sidorna och JS-golvet
 
-**Målet under en sekund är inte nått.** Dashboarden ligger på 1,29 sekunder, profilen på 1,49. Det som återstår:
+Efter omgång två låg dashboarden på 1,29 sekunder men skapa-brev på 3,27 och sokta-tjanster på 2,24, båda med hela sin kedja kvar före första innehåll. Dessutom satte hydreringen ett FCP-golv kring en sekund.
+
+### 5.1 skapa-brev serverrenderas
+
+Sidan hade 27 rundturer före LCP, alla på klienten och alla bakom nedladdad JS plus hydrering. Värst var att `useCVStore.fetchCVs()` körde `getSession()` följt av `cv_texts`, medan `useCvQuota` inne i CV-väljaren körde sin egen kedja på tre steg ovanpå. `cv_texts` hämtades två gånger med `select('*')`, alltså varje CV:s fulla brödtext över LTE, för en väljare som bara visar filnamn och datum.
+
+`page.tsx` är nu en server component som läser sessionen, hämtar CV-listan och prenumerationsnivån parallellt och skickar ner dem som props. Flödet ligger i `CreateLetterClient.tsx`.
+
+**En riktig bugg föll ut på köpet:** `useProfile` initierar `subscriptionTier` till `'free'`, så en betalande kund såg premium-lås på mall- och tonalitetsstegen så länge profilen laddade. `isPremium` är nu `profileLoading ? initialIsPremium : subscriptionTier === 'premium'`, där serverns nivåkontroll speglar `resolveTier` rad för rad inklusive `premium_until`-validering. `useProfile` är fortfarande auktoriteten så fort den svarat.
+
+### 5.2 sokta-tjanster serverrenderas
+
+Sidan gjorde tre klientfetchar som var och en kostade två seriella rundturer (`auth.getUser()` innan queryn fick köras), och inget av det startade förrän bundlen hydrerat. Backfill-sonden kördes dessutom två gånger.
+
+`page.tsx` är nu en server component som gör ett `getUser()` och sedan två parallella frågor (`job_applications` + `letters`) i samma `Promise.all`. Första HTML innehåller hela ansökningslistan, statusraden och rätt tomt tillstånd. Backfill-routen slapp en fråga helt: kandidaterna filtreras mot listan vi redan har.
+
+En detalj blev bättre på köpet: i tomt tillstånd visste sidan förut inte vilken rubrik som var rätt förrän sonden svarat, så rubriken kunde byta under användaren. Nu avgörs den vid första render.
+
+### 5.3 initialUser genom hela kedjan
+
+Rot-layouten (`src/app/layout.tsx`) läser nu sessionen server-side och skickar användaren via `client-layout.tsx` till `AuthProvider`, som tar emot `initialUser`. `isLoading` är därmed false direkt och klienten slipper ett `auth.getUser()` per sidladdning. `onAuthStateChange` är orörd, så in- och utloggning fungerar som förut, och publika sidor utan session faller tillbaka på den gamla hämtningen.
+
+### 5.4 JS-golvet
+
+Två poster låg i rotens klientlager och betalades av varje sidladdning, inloggad som utloggad:
+
+- **`GlobalCountersContext`** anropade `/api/public-stats` (mätt till 597 ms) och startade en timer var åttonde sekund. Alla fyra konsumenter är publika landningsytor. Hämtningen är nu behovsstyrd: den startar först när en komponent faktiskt läser räknarna, via `useGlobalCounters`.
+- **PostHog** initierades synkront i `instrumentation-client.ts`, alltså före hydrering, och konkurrerade om huvudtråden precis när den behövs som mest. Init:en ligger nu i `requestIdleCallback` med två sekunders tak. Autocapture och pageviews fungerar som förut.
+
+## 6. Verifiering
+
+`npx tsc --noEmit` rent. `npx vitest run` 40 tester gröna. `next build` lyckas, och alla fyra sidorna rapporteras nu som `ƒ` (serverrenderade on demand).
+
+Chrome mot lokal produktionsbuild, inloggad med riktigt konto, Pixel 7-emulering, 3x CPU-strypning, LTE (70 ms latens). Median av tre körningar. Utgångsläget är `main` före allt arbete.
+
+| Sida | LCP före | Efter omg. 2 | **Efter omg. 3** | Mål |
+|---|---:|---:|---:|---|
+| /dashboard | 2 116 ms | 1 288 ms | **1 056 ms** | under 1 000 |
+| /dashboard/profil | 3 712 ms | 1 488 ms | **1 196 ms** | under 1 000 |
+| /dashboard/sokta-tjanster | 2 248 ms | 2 236 ms | **1 044 ms** | under 2 000, klarat |
+| /dashboard/skapa-brev | 4 136 ms | 3 272 ms | **1 148 ms** | under 2 000, klarat |
+
+### Rundturer före första innehåll
+
+| Sida | Före | Efter omg. 2 | **Efter omg. 3** |
+|---|---:|---:|---:|
+| /dashboard | 38 | 2 | **1** |
+| /dashboard/skapa-brev | 30 | 27 | **1** |
+| /dashboard/sokta-tjanster | 31 | 9 | **2** |
+| /dashboard/profil | 33 | 4 | **5** |
+
+### Övriga mått
+
+CLS är 0,000 på alla fyra sidorna (från 0,122 till 0,165). FCP ligger på 728 till 896 ms, från cirka 1 000 till 1 100 ms efter omgång två. Antalet förfrågningar totalt: dashboard 127 till 76, sokta-tjanster 94 till 62, profil 101 till 65, skapa-brev 121 till 71.
+
+**Skapa-brev är den största enskilda förbättringen i hela arbetet: 4 136 till 1 148 millisekunder, alltså 72 procent snabbare, och 30 rundturer till 1.**
+
+## 7. Kvar att göra
+
+Målet under en sekund är nära men inte nått: dashboard ligger på 1 056 ms och profil på 1 196 ms, båda strax över. Målet under två sekunder för de andra två är klarat med marginal.
 
 | Post | Vad som krävs |
 |---|---|
-| **skapa-brev, 3,27 s och 27 rundturer före LCP** | Sidan har fortfarande hela sin kedja före första innehåll. Den behöver samma behandling som dashboarden fick: serverrenderat första steg med data som props. |
-| **sokta-tjanster, 2,24 s och 9 rundturer** | Förbättrades minst. Egen kedja kvar. |
-| **FCP cirka 1,0 till 1,1 s på alla sidor** | Golvet ligger nu i hur mycket JS som måste köras innan hydrering. Bundlen per route är i stort oförändrad, koden flyttade mellan chunkar. |
-| **`AuthProvider` gör ett eget `getUser()` vid mount** | Kan ta emot `initialUser` från serverlayouten. Tar bort en sista rundtur för headern. |
-| **`CVGenerationModal.tsx`** | Enda kvarvarande framer-motion i den kedjan. |
+| **De sista 56 till 196 millisekunderna** | FCP är nu 728 till 896 ms, så golvet är hur mycket JS som måste köras före hydrering. Nästa steg är att mäta bundlen per route igen och skära i det som laddas men inte syns. |
+| **/dashboard/profil, 5 rundturer** | Enda sidan som inte gick ner. Den har fyra sektioner som var och en hämtar eget. |
+| **`useProfile` savedLettersCount** | Gör fortfarande `getSession()` + `letters` count seriellt på varje sida som använder hooken. Kan inte läsa `summary.letters.total` eftersom den räknar alla rader inklusive utkast, medan kvoten gäller sparade. Rätt lösning är ett `savedCount` i `getDashboardSummary`. |
+| **`cv-store.fetchCVs` använder `select('*')`** | Hämtar varje CV:s fulla brödtext. Ligger inte längre i kritiska vägen men slösar bandbredd på mobil. |
+| **`CVGenerationModal.tsx`** | Sista framer-motion i den kedjan. |
 
-Mätningen är gjord i emulering på en utvecklingsmaskin, inte på ägarens faktiska mobil över riktig LTE. PostHog-siffrorna i avsnitt 1 är p75 från riktiga användare och ska läsas av på nytt när ändringarna varit live i två veckor.
+Mätningen är emulering på utvecklingsmaskin, inte ägarens faktiska mobil över riktig LTE. PostHog-p75 från riktiga användare bör läsas av när detta varit live i två veckor, och jämföras med siffrorna i avsnitt 1.

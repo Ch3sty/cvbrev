@@ -3,12 +3,16 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, FileText } from 'lucide-react';
-import CvPickerGrid from '../CvPickerGrid';
-import { useCVStore } from '@/store/cv-store';
+import CvPickerGrid, { type PickerCv } from '../CvPickerGrid';
 import LetterFlowStepHeader from '../LetterFlowStepHeader';
 import { CvDocumentIcon } from '../illustrations/LetterFlowIcons';
 
 interface CVSelectionStepProps {
+  /* CV-listan kommer server-hämtad från page.tsx. Förut läste steget den ur
+     cv-store, som inte hade något innan klienten hunnit fråga Supabase. */
+  cvs: PickerCv[];
+  /** ID:n för CV som ligger utanför gratisgränsen och därför är låsta. */
+  lockedCvIds: Set<string>;
   selectedCV: string | null;
   onCVSelect: (cvId: string) => void;
   isActive: boolean;
@@ -18,6 +22,8 @@ interface CVSelectionStepProps {
 }
 
 export default function CVSelectionStep({
+  cvs,
+  lockedCvIds,
   selectedCV,
   onCVSelect,
   isActive,
@@ -25,7 +31,6 @@ export default function CVSelectionStep({
   onComplete,
   registerRef,
 }: CVSelectionStepProps) {
-  const { cvs } = useCVStore();
   const [collapsed, setCollapsed] = useState(startCollapsed);
 
   useEffect(() => {
@@ -101,6 +106,8 @@ export default function CVSelectionStep({
             exit={{ opacity: 0 }}
           >
             <CvPickerGrid
+              cvs={cvs}
+              lockedCvIds={lockedCvIds}
               selectedCV={selectedCV}
               onCVSelect={handleSelect}
             />

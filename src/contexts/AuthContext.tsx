@@ -28,11 +28,17 @@ export function useAuth() {
 
 interface AuthProviderProps {
   children: ReactNode;
+  /**
+   * Användaren läst på servern. Finns den slipper klienten en rundtur till
+   * Supabase Auth vid varje sidladdning, och isLoading är false direkt så
+   * inget behöver vänta på hydrering.
+   */
+  initialUser?: User | null;
 }
 
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export function AuthProvider({ children, initialUser = null }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(initialUser);
+  const [isLoading, setIsLoading] = useState(!initialUser);
 
   const refreshUser = useCallback(async () => {
     try {
@@ -50,6 +56,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Initial auth check
     const initAuth = async () => {
+      // Servern har redan verifierat sessionen och skickat ner användaren.
+      // onAuthStateChange nedan fångar ändå in- och utloggning.
+      if (initialUser) {
+        setIsLoading(false);
+        return;
+      }
       try {
         const { data: { user } } = await supabase.auth.getUser();
         setUser(user);
@@ -77,7 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [initialUser]);
 
   return (
     <AuthContext.Provider

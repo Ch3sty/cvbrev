@@ -52,6 +52,10 @@ Innan dessa datum fanns ingen av funktionerna. Tomma tabeller (`premium_grants`,
 
 Följ mallen i `docs/rapporter/analys-gsc-posthog-2026-09-12.html`: fristående HTML med inbäddad CSS, A4, renderad till PDF med puppeteer-core mot systemets Chrome, plus markdown-sammanfattning. Avsnitt: sammanfattning med fem slutsatser, utveckling över perioden, bra, dåligt, mest att tjäna (rangordnat med effekt), konvertering och intäkt, åtgärder fyra veckor, datakvalitet, behöver ägarens beslut. Tabeller och SVG-diagram med riktiga siffror. Ange alltid när det mätta gick live.
 
+## Prestandabudget för inloggat läge (ägarens krav 2026-09-12)
+
+Inloggade vyn ska kännas omedelbar på mobil. Budget mätt med Pixel 7-emulering, 3x CPU, LTE, median av tre: LCP under 1,0 s på dashboard och profil, under 1,5 s på listor och hubbar, under 2,0 s på flödessidor, CLS 0 överallt, högst en handfull rundturer före första innehåll. Mönstret: server components som läser sessionen och sidans data på servern (delade funktioner som src/lib/dashboard/getSummary.ts) och skickar initial data till klientkontexterna; inga kontexter som returnerar null tills de hydrerat; inga realtidskanaler eller count-frågor i kritiska vägen; lazy-laddning av allt utanför första vyn; reserverade höjder för sena element. Kör scripts/perf-inloggat.ts före merge av större ändringar i inloggat läge och stoppa ändringar som spränger budgeten.
+
 ## Datakällor och hur du läser dem
 
 Alla nycklar ligger i `.env.local` (aldrig committad). Skripten körs med `npx tsx`.

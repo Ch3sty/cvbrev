@@ -41,8 +41,11 @@ function gtag(...args: any[]) {
 
 export default function ClientLayout({
   children,
+  initialUser = null,
 }: {
   children: React.ReactNode
+  /** Läst på servern i rot-layouten, så AuthProvider slipper en rundtur. */
+  initialUser?: import('@supabase/supabase-js').User | null
 }) {
   const pathname = usePathname();
   // Appytor (kandidatens dashboard + rekryterarportalen) ska INTE ha den
@@ -109,7 +112,7 @@ export default function ClientLayout({
       </noscript>
       {/* === GTM BODY SNIPPET (NOSCRIPT) SLUT === */}
 
-      <AuthProvider>
+      <AuthProvider initialUser={initialUser}>
         <PostHogIdentify />
         <ActivityTracker />
         <GlobalCountersProvider>

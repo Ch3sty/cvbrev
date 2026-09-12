@@ -5,6 +5,8 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
+import { cookies } from 'next/headers'
+import { createServerClient } from '@/lib/supabase/server'
 
 const inter = Inter({ subsets: ['latin'] })
 

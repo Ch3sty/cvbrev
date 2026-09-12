@@ -3,11 +3,23 @@
 import { motion } from 'framer-motion';
 import { FileText, Calendar, Check, ArrowRight, Upload, Lock } from 'lucide-react';
 import Link from 'next/link';
-import { useCVStore } from '@/store/cv-store';
-import { useCvQuota } from '@/hooks/useCvQuota';
 import { formatCVDate } from '@/lib/utils/date-formatter';
 
+/** Raden väljaren behöver. cv_text hämtas inte: den visas aldrig här. */
+export interface PickerCv {
+  id: string;
+  file_name: string;
+  created_at: string;
+}
+
 interface CvPickerGridProps {
+  /* CV och låsstatus kommer utifrån, server-hämtade i page.tsx. Förut läste
+     komponenten cv-store och körde dessutom useCvQuota, som i sin tur gjorde
+     auth.getUser, en profilfråga och ännu en CV-fråga i tur och ordning. Tre
+     seriella rundturer för att kunna rita kort som servern redan kände till. */
+  cvs: PickerCv[];
+  /** ID:n som ligger utanför gratisgränsen och därför är låsta. */
+  lockedCvIds: Set<string>;
   selectedCV: string | null;
   onCVSelect: (cvId: string) => void;
 }
@@ -25,22 +37,13 @@ interface CvPickerGridProps {
  * - Tunn orange topp-linje på varje kort
  * - 1 kolumn på mobil, 2 kolumner från md
  */
-export default function CvPickerGrid({ selectedCV, onCVSelect }: CvPickerGridProps) {
-  const { cvs, isLoading } = useCVStore();
-  const { isLocked } = useCvQuota();
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <motion.div
-          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        />
-      </div>
-    );
-  }
-
+export default function CvPickerGrid({
+  cvs,
+  lockedCvIds,
+  selectedCV,
+  onCVSelect,
+}: CvPickerGridProps) {
+  // Ingen laddningssnurra längre: listan finns i första HTML från servern.
   if (cvs.length === 0) {
     return (
       <div className="rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-8 text-center">
@@ -65,7 +68,7 @@ export default function CvPickerGrid({ selectedCV, onCVSelect }: CvPickerGridPro
     <div className="space-y-4">
       <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
         {cvs.map((cv) => {
-          const locked = isLocked(cv.id)
+          const locked = lockedCvIds.has(cv.id)
           return (
             <CvPickerCard
               key={cv.id}

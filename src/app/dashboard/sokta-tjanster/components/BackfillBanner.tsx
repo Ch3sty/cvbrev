@@ -1,8 +1,12 @@
 'use client';
 
-// Backfill-erbjudande: hittar sparade brev som ännu inte är loggade som
-// ansökningar och erbjuder att importera dem med ett klick. Avfärdas
-// permanent via localStorage.
+// Backfill-erbjudande: sparade brev som ännu inte är loggade som ansökningar,
+// med import i ett klick. Avfärdas i 30 dagar via localStorage.
+//
+// Kandidaterna hämtas inte längre här. Sidans server component har redan
+// listan och skickar in den som prop, så bannern kostar noll rundturer vid
+// sidladdning. Importen sker fortfarande mot samma API-route, med samma
+// behörighetskontroll.
 
 import { useEffect, useState } from 'react';
 import { FileText, X } from 'lucide-react';
@@ -30,7 +34,7 @@ function snooze(): void {
   localStorage.setItem(DISMISS_KEY, until.toISOString());
 }
 
-interface BackfillCandidate {
+export interface BackfillCandidate {
   id: string;
   title: string | null;
   company: string | null;
@@ -39,6 +43,8 @@ interface BackfillCandidate {
 }
 
 interface BackfillBannerProps {
+  /** Sparade brev utan kopplad ansökan, hämtade på servern. */
+  candidates: BackfillCandidate[];
   onImported: (count: number) => void;
   /**
    * I tomt tillstånd är importen sidans primära handling och ska aldrig gå
@@ -46,16 +52,15 @@ interface BackfillBannerProps {
    * knappen och låter EmptyState bära rubrik och illustration.
    */
   variant?: 'banner' | 'inline';
-  /** Anropas när antalet kandidater är känt, så sidan kan välja tomt tillstånd. */
-  onCandidateCount?: (count: number) => void;
 }
 
 export default function BackfillBanner({
+  candidates,
   onImported,
   variant = 'banner',
-  onCandidateCount,
 }: BackfillBannerProps) {
-  const [candidates, setCandidates] = useState<BackfillCandidate[] | null>(null);
+  // Snoozen läses först efter montering. localStorage finns inte på servern,
+  // och att läsa den under render hade gett olika markup på server och klient.
   const [dismissed, setDismissed] = useState(true);
   const [isImporting, setIsImporting] = useState(false);
 
@@ -63,18 +68,6 @@ export default function BackfillBanner({
     // Inline-varianten är en primär handling och respekterar ingen snooze.
     if (variant === 'banner' && isSnoozed()) return;
     setDismissed(false);
-    fetch('/api/applications/backfill')
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success) {
-          const list = json.data as BackfillCandidate[];
-          setCandidates(list);
-          onCandidateCount?.(list.length);
-        }
-      })
-      .catch(() => undefined);
-    // onCandidateCount hålls stabil av anroparen; vi vill bara hämta en gång.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant]);
 
   const handleDismiss = () => {
@@ -83,7 +76,7 @@ export default function BackfillBanner({
   };
 
   const handleImport = async () => {
-    if (!candidates || isImporting) return;
+    if (candidates.length === 0 || isImporting) return;
     setIsImporting(true);
     try {
       const res = await fetch('/api/applications/backfill', {
@@ -104,7 +97,7 @@ export default function BackfillBanner({
     }
   };
 
-  if (!candidates || candidates.length === 0) return null;
+  if (candidates.length === 0) return null;
   if (variant === 'banner' && dismissed) return null;
 
   const label =
