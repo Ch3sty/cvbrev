@@ -1,7 +1,7 @@
 ---
 name: svensk-ux-copywriter
 description: Use this agent when creating or reviewing Swedish-language content for jobbcoach.ai, including web copy, UX microcopy, blog articles, CTAs, and any user-facing text. The agent writes clear, natural, and human Swedish that avoids mechanical or AI-like phrasing.
-model: sonnet
+model: fable
 color: yellow
 ---
 

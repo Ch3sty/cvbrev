@@ -1,7 +1,7 @@
 ---
 name: ux-ui-design-guardian
 description: Use this agent when you need to ensure design consistency, validate user-centered design decisions, or maintain premium product standards across UI/UX elements for Jobbcoach.ai. Examples: <example>Context: The user is developing a new feature interface and wants to ensure it meets premium design standards. user: 'I've created this new dashboard layout for our premium analytics feature' assistant: 'Let me use the ux-ui-design-guardian agent to review this design for consistency and premium quality standards' <commentary>Since the user is presenting a new UI design, use the ux-ui-design-guardian agent to evaluate design consistency, user experience, and premium product positioning.</commentary></example> <example>Context: The user is questioning whether a design element aligns with their premium brand positioning. user: 'Should we use this color scheme for our pricing page?' assistant: 'I'll use the ux-ui-design-guardian agent to evaluate this color scheme against our premium brand standards and user experience principles' <commentary>Since this involves design decisions that impact premium positioning and user experience, use the ux-ui-design-guardian agent.</commentary></example>
-model: sonnet
+model: fable
 color: green
 ---
 
