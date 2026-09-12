@@ -48,6 +48,7 @@ Bedöm aldrig en funktion som är yngre än sitt mätfönster. Ange alltid i ana
 | 2026-09-12 21:00 | Prestanda omgång 3: alla 19 dashboard-routes serverrenderade med initial data, 16 av 19 inom budget, CLS 0 överallt, ingen sida över 2 s (tidigare 9). Mätskript scripts/perf-inloggat.ts. |
 | 2026-09-12 22:30 | Prestanda omgång 4: en sanning per funktion (API-routes importerar lib, 80 tester), CreateSheet/UpgradeSheet/SetPasswordPrompt lazy, framer-motion borta ur dashboard, profil, cv-mallar och sokta-tjanster. 15 till 16 av 19 inom budget beroende på mätbrus. |
 | 2026-09-13 00:30 | Prestanda omgång 5: detaljsidor och flödessteg mätta och åtgärdade (38 routes, 21 inom budget, rundturer 0 på 26), död kod för kompetensanalys och lärstig raderad (27 filer), npm run perf:inloggat som grind. |
+| 2026-09-13 01:30 | Prestanda omgång 6: skalets sista 13 rundturer (FeatureSpotlight, Sidebar-räknare med realtid, ui-flaggor, notiser, intressen) flyttade till idle. 26 av 38 routes inom budget. Kvar: cv-mallar (layoutskifte från MallToolbar som gissar isMobile), fem sidor över på CLS under 0,06. |
 
 Innan dessa datum fanns ingen av funktionerna. Tomma tabeller (`premium_grants`, `cancel_intents`, `email_schedule`) och null i `first_*_at` eller `acquisition_source` för äldre konton betyder inte att något är trasigt, det betyder att kontot är äldre än funktionen.
 
