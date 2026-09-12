@@ -79,12 +79,17 @@ export const useCVStore = create<CVStore>()(
     try {
       const supabase = getSupabaseClient()
       
-      const { data: { user } } = await supabase.auth.getUser()
-      
+      // getSession() läser den lokala sessionen, getUser() gick till Supabase
+      // Auth över nätet och låg seriellt före CV-frågan på sex sidor. RLS
+      // skyddar raderna oavsett, så user_id-filtret är en avgränsning och
+      // inte säkerhetskontrollen.
+      const { data: { session } } = await supabase.auth.getSession()
+      const user = session?.user
+
       if (!user) {
         throw new Error('Ej autentiserad')
       }
-      
+
       const { data, error } = await supabase
         .from('cv_texts')
         .select('*')

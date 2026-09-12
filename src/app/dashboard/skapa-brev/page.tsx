@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { Info } from 'lucide-react';
 
@@ -26,11 +27,43 @@ import {
 } from '@/lib/flow/draft';
 import PrefillBadgeCard from './components/PrefillBadgeCard';
 import CVSelectionStep from './components/steps/CVSelectionStep';
-import JobDescriptionStep from './components/steps/JobDescriptionStep';
-import TemplateStep from './components/steps/TemplateStep';
-import TonalityLanguageStep from './components/steps/TonalityLanguageStep';
-import PreviewStep from './components/steps/PreviewStep';
-import LetterPipelineLoader from './components/illustrations/LetterPipelineLoader';
+
+/* Platshållaren håller samma yta som ett riktigt stegkort medan chunken
+   hämtas, så att bytet inte putter något. Samma ram, samma rundning. */
+function StepSkeleton() {
+  return (
+    <div
+      className="rounded-xl border border-orange-200/50 bg-white p-5 sm:p-7"
+      style={{ minHeight: 320 }}
+      aria-hidden="true"
+    />
+  );
+}
+
+/* Bara steg 1 finns i första vyn. Resten av flödet laddas när användaren
+   faktiskt kommer dit, i stället för att ligga i samma paket som det hon ser
+   direkt. Ingen ssr: allt här är klientinteraktion, och en serverrendering av
+   steg hon ännu inte nått hade bara kostat tid. */
+const JobDescriptionStep = dynamic(() => import('./components/steps/JobDescriptionStep'), {
+  ssr: false,
+  loading: () => <StepSkeleton />,
+});
+const TemplateStep = dynamic(() => import('./components/steps/TemplateStep'), {
+  ssr: false,
+  loading: () => <StepSkeleton />,
+});
+const TonalityLanguageStep = dynamic(() => import('./components/steps/TonalityLanguageStep'), {
+  ssr: false,
+  loading: () => <StepSkeleton />,
+});
+const PreviewStep = dynamic(() => import('./components/steps/PreviewStep'), {
+  ssr: false,
+  loading: () => <StepSkeleton />,
+});
+const LetterPipelineLoader = dynamic(
+  () => import('./components/illustrations/LetterPipelineLoader'),
+  { ssr: false }
+);
 import { type FontId } from './components/FontSelector';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 
@@ -59,7 +92,13 @@ export default function CreateLetterPage() {
   // CV-listan hämtas en gång via cv-store. cvCount/loading härleds härifrån i
   // stället för ett separat useCvQuota-anrop (som dubblerade samma DB-queries).
   const { fetchCVs, cvs, isLoading: cvLoading } = useCVStore();
-  const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
+  /* skipInitialFetch: flödet visar aldrig brevlistan, det skapar ett nytt
+     brev. Hämtningen låg ändå på den kritiska vägen vid sidladdning.
+     refreshLetters anropas fortfarande efter en sparning, så listan är
+     uppdaterad när användaren går vidare till Mina brev. */
+  const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters({
+    skipInitialFetch: true,
+  });
   const { subscriptionTier, profile, updateProfile } = useProfile();
 
   // B3: brevhuvudets kontaktuppgifter. Samlas in här i stället för vid

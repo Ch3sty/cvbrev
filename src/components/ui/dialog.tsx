@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -70,48 +69,94 @@ interface DialogContentProps {
   children: React.ReactNode;
 }
 
+/** Maste matcha langden pa dialogOut/backdropOut nedan. */
+const EXIT_MS = 180;
+
 export function DialogContent({ className, children }: DialogContentProps) {
   const { open, onOpenChange } = useDialog();
 
-  return (
-    <AnimatePresence>
-      {open && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => onOpenChange(false)}
-          />
+  // Dialogen maste ligga kvar i DOM:en medan ut-animationen kor, annars finns
+  // inget att animera. `leaving` valjer keyframe och en timer pa exakt samma
+  // langd avmonterar efterat, sa ingen dialog kan fastna pa skarmen.
+  const [mounted, setMounted] = useState(open);
+  const [leaving, setLeaving] = useState(false);
+  const mountedRef = React.useRef(open);
 
-          {/* Dialog Content */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div
-              className={cn(
-                "relative w-full max-w-lg bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/80",
-                "max-h-[90vh] overflow-hidden flex flex-col",
-                className
-              )}
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-                duration: 0.3
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {children}
-            </motion.div>
-          </div>
-        </>
-      )}
-    </AnimatePresence>
+  useEffect(() => {
+    if (open) {
+      mountedRef.current = true;
+      setLeaving(false);
+      setMounted(true);
+      return;
+    }
+    // Ingen ut-animation behovs om den aldrig var monterad.
+    if (!mountedRef.current) return;
+    setLeaving(true);
+    const timer = setTimeout(() => {
+      mountedRef.current = false;
+      setMounted(false);
+      setLeaving(false);
+    }, EXIT_MS);
+    return () => clearTimeout(timer);
+  }, [open]);
+
+  if (!mounted) return null;
+
+  return (
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @media (prefers-reduced-motion: no-preference) {
+          .dialog-backdrop-enter { animation: dialogBackdropIn 200ms ease-out both; }
+          .dialog-backdrop-leave { animation: dialogBackdropOut ${EXIT_MS}ms ease-in both; }
+          .dialog-panel-enter { animation: dialogIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+          .dialog-panel-leave { animation: dialogOut ${EXIT_MS}ms ease-in both; }
+          @keyframes dialogBackdropIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes dialogBackdropOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+          }
+          @keyframes dialogIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+          }
+          @keyframes dialogOut {
+            from { opacity: 1; transform: translateY(0) scale(1); }
+            to { opacity: 0; transform: translateY(20px) scale(0.95); }
+          }
+        }
+      `,
+        }}
+      />
+
+      {/* Backdrop */}
+      <div
+        className={cn(
+          'fixed inset-0 z-50 bg-black/20 backdrop-blur-sm',
+          leaving ? 'dialog-backdrop-leave' : 'dialog-backdrop-enter'
+        )}
+        onClick={() => onOpenChange(false)}
+      />
+
+      {/* Dialog Content */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <div
+          className={cn(
+            'pointer-events-auto relative w-full max-w-lg bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/80',
+            'max-h-[90vh] overflow-hidden flex flex-col',
+            leaving ? 'dialog-panel-leave' : 'dialog-panel-enter',
+            className
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
+      </div>
+    </>
   );
 }
 

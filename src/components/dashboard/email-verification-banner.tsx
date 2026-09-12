@@ -16,16 +16,24 @@ import { IlluEmailBekrafta } from '@/components/illustrations/AuthIllustrations'
 
 const DISMISS_KEY = 'jc_email_banner_dismissed_at';
 const DISMISS_HOURS = 24;
+/* Bannerns höjd i ett svep: 36 px illustration plus py-3 uppe och nere plus
+   kanten. Samma värde används både till platshållaren och till bannern själv,
+   så att bytet mellan dem inte flyttar en enda pixel. */
+const BANNER_HEIGHT = 61;
 
 export default function EmailVerificationBanner() {
-  const { profile, isEmailVerified } = useProfile();
+  const { profile, isEmailVerified, loading } = useProfile();
+  /* Avfärdandet gäller ett dygn och lever i localStorage. Läsningen måste
+     ligga i en effekt, localStorage finns inte på servern, så vi håller reda
+     på om den hunnit köra. Innan dess vet vi ingenting och reserverar ytan.
+     Startvärdet är fortfarande "avfärdad", så bannern blinkar aldrig förbi. */
   const [isDismissed, setIsDismissed] = useState(true);
+  const [dismissChecked, setDismissChecked] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
 
-  // Avfärdandet gäller ett dygn och lever i localStorage. Vi startar dolt och
-  // visar först när vi vet, så bannern aldrig blinkar förbi vid laddning.
   useEffect(() => {
+    setDismissChecked(true);
     try {
       const raw = window.localStorage.getItem(DISMISS_KEY);
       if (!raw) {
@@ -50,6 +58,17 @@ export default function EmailVerificationBanner() {
       /* privat läge: bannern kommer tillbaka vid nästa besök */
     }
   };
+
+  /* CLS: bannern låg tidigare som null tills profilen landat och sköt sedan
+     ner hela sidan med sin egen höjd, på varje dashboard-sida. Nu reserveras
+     ytan medan svaret är okänt, och faller ihop först när vi vet att bannern
+     inte behövs. En redan avfärdad banner reserverar ingenting: det vet vi
+     av localStorage redan vid första målningen. */
+  const answerPending = !dismissChecked || (loading && !isDismissed);
+
+  if (answerPending) {
+    return <div aria-hidden="true" style={{ height: BANNER_HEIGHT }} />;
+  }
 
   if (!profile || isEmailVerified || isDismissed) {
     return null;
@@ -86,7 +105,12 @@ export default function EmailVerificationBanner() {
   };
 
   return (
-    <div className="relative z-20 bg-white border-b border-neutral-200 motion-safe:animate-[slideUp_200ms_ease-out_both]">
+    // slideUp är borttagen: den animerade in bannerns höjd och räknades som
+    // ett layoutskifte i sig. Ytan är redan reserverad, bannern ska bara finnas.
+    <div
+      className="relative z-20 bg-white border-b border-neutral-200"
+      style={{ minHeight: BANNER_HEIGHT }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">

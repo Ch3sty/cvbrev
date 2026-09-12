@@ -1,145 +1,55 @@
-'use client';
-import { Suspense, useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import DashboardSidebar from '@/components/dashboard/Sidebar';
-import DashboardHeader from '@/components/dashboard/header';
-import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
-import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
-import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
-import NavigationProgress from '@/components/ui/NavigationProgress';
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import { DashboardDataProvider, useDashboardData } from '@/contexts/DashboardDataContext';
-import { useAuth } from '@/contexts/AuthContext';
+/**
+ * Dashboard-layouten är en server component.
+ *
+ * Förut var den 'use client' och returnerade null tills AuthContext hade
+ * hydrerat och hunnit fråga Supabase vem användaren var. På riktig mobil blev
+ * det flera sekunder grå skärm innan något ens kunde målas. Middleware
+ * (src/middleware.ts) har redan verifierat inloggningen server-side, så den
+ * väntan var onödig.
+ *
+ * Nu läser layouten sessionen och dashboard-summaryn här på servern och
+ * skickar ner dem som props. Första HTML som når mobilen innehåller därför
+ * sidomeny, header, bottennav och riktiga siffror, inte ett tomt skal.
+ *
+ * Summaryn hämtas via den delade getDashboardSummary, inte genom att fetcha
+ * vår egen /api/dashboard/summary. Ett HTTP-anrop till oss själva hade lagt
+ * till en hel extra rundtur per sidladdning.
+ */
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import { getDashboardSummary } from '@/lib/dashboard/getSummary';
+import type { DashboardSummary } from '@/contexts/DashboardDataContext';
+import DashboardShell from './DashboardShell';
 
-function MobileBottomNavWrapper() {
-  // Tidigare gjorde den här komponenten två egna rundturer: auth.getUser()
-  // följt av en count(*) mot job_applications. Båda värdena finns redan i den
-  // delade summaryn, så navet kostar numera ingenting extra.
-  const { summary } = useDashboardData();
-
-  return (
-    <MobileBottomNav
-      cvCount={summary?.cv.count ?? 0}
-      applicationCount={
-        summary
-          ? summary.applications.waitingCount + summary.applications.interviewCount
-          : 0
-      }
-    />
-  );
-}
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const { user, isLoading } = useAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-  // OBS: server-side middleware (src/middleware.ts) garanterar redan att bara
-  // inloggade når /dashboard. Klient-redirecten + den blockerande spinnern är
-  // därför borttagna, vi väntar bara kort på att user-objektet hydrerar för
-  // UI som behöver user.id (header, achievements).
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // Check if user needs to set password (trial users)
-  useEffect(() => {
-    if (user) {
-      const passwordSet = user.user_metadata?.password_set;
-      const dismissedThisSession = localStorage.getItem('password_prompt_dismissed') === 'true';
-
-      if (passwordSet === false && !dismissedThisSession) {
-        setShowPasswordPrompt(true);
-      }
-    }
-  }, [user]);
-
-  // Kort fönster innan user-objektet hydrerat på klienten. Middleware har redan
-  // verifierat inloggning server-side, så detta är millisekunder (ingen
-  // nätverksväntan som förut), visa inget för att undvika en flash.
-  if (isLoading || !user) {
-    return null;
+  if (!user) {
+    redirect('/login');
   }
 
-  // Om användaren är inloggad, visa dashboard-gränssnittet
+  // Går summaryn fel ska det inte ta ner hela det inloggade läget. Skalet
+  // renderas ändå och DashboardDataProvider hämtar om på klienten.
+  let initialSummary: DashboardSummary | null = null;
+  try {
+    initialSummary = (await getDashboardSummary(supabase, user.id)) as DashboardSummary;
+  } catch (error) {
+    console.error('Fel vid server-hämtning av dashboard-summary:', error);
+  }
+
   return (
-    <DashboardDataProvider>
-      <OnboardingProvider>
-      {/* Navigation Progress Bar - visas vid sidbyten */}
-      <Suspense fallback={null}>
-        <NavigationProgress />
-      </Suspense>
-
-      <div className="min-h-screen bg-white">
-        <div className="flex h-screen flex-col lg:flex-row">
-        {/* Dashboard Sidebar - Desktop (alltid synlig) */}
-        <div className="hidden lg:block lg:relative lg:z-20">
-          <DashboardSidebar
-            onClose={() => setIsMobileMenuOpen(false)}
-            isMobile={false}
-          />
-        </div>
-
-        {/* Dashboard Sidebar - Mobile (full-screen overlay) */}
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden bg-orange-50/30 backdrop-blur-md motion-safe:animate-[fadeIn_200ms_ease-out]">
-            <div className="h-full motion-safe:animate-[sidebarIn_250ms_ease-out]">
-              <DashboardSidebar
-                onClose={() => setIsMobileMenuOpen(false)}
-                isMobile={true}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden relative z-10">
-          {/* Dashboard Header - med hamburger på mobil.
-              z-40 så notisdrawern lägger sig ovanför verifieringsbannern. */}
-          <div className="relative z-40">
-            <DashboardHeader
-              user={user}
-              onMenuClick={() => setIsMobileMenuOpen(true)}
-            />
-          </div>
-
-          {/* Email Verification Banner */}
-          <EmailVerificationBanner />
-
-          {/* Set Password Prompt for trial users */}
-          {showPasswordPrompt && user && (
-            <div className="px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6">
-              <div className="max-w-7xl mx-auto">
-                <SetPasswordPrompt
-                  userId={user.id}
-                  onDismiss={() => setShowPasswordPrompt(false)}
-                  onPasswordSet={() => setShowPasswordPrompt(false)}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Main Content Area - responsiv padding */}
-          {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
-              --bottom-nav-h. Ingen pb-klass här: två sanningar om samma
-              avstånd var precis det som gjorde att något alltid låg fel. */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-white">
-            <div className="max-w-7xl mx-auto relative">
-              {/* Page Transition Animation */}
-              <div key={pathname} className="motion-safe:animate-[fadeIn_150ms_ease-out]">
-                {children}
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-
-      {/* Mobil bottennavigation - bara på mobil (lg:hidden inuti komponenten) */}
-      <MobileBottomNavWrapper />
-      </div>
-      </OnboardingProvider>
-    </DashboardDataProvider>
+    <DashboardShell user={user} initialSummary={initialSummary}>
+      {children}
+    </DashboardShell>
   );
 }

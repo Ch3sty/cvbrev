@@ -86,11 +86,20 @@ export default function TemplateStep({
     template,
     isSelected,
     isLocked,
+    showPreview,
   }: {
     id: string;
     template: typeof DOCX_TEMPLATES[keyof typeof DOCX_TEMPLATES];
     isSelected: boolean;
     isLocked: boolean;
+    /**
+     * Ska mallens iframe monteras alls? Varje iframe är ett eget dokument som
+     * konkurrerar om nätverket och CPU:n. Sex av dem samtidigt på en telefon
+     * var en stor del av laddningstiden, så vi monterar bara den aktiva
+     * mallen och dess grannar. Resten får en tom platshållare med exakt
+     * samma höjd, så att karusellen inte hoppar när de tillkommer.
+     */
+    showPreview: boolean;
   }) => (
     <motion.button
       type="button"
@@ -143,17 +152,27 @@ export default function TemplateStep({
           setPreviewTemplateId(id);
         }}
       >
-        <iframe
-          src={`/images/templates/${id}-preview.html`}
-          className="w-full h-full pointer-events-none"
-          style={{
-            transform: 'scale(0.25)',
-            transformOrigin: 'top left',
-            width: '400%',
-            height: '400%',
-          }}
-          title={`Preview av ${template.name}`}
-        />
+        {showPreview ? (
+          <iframe
+            src={`/images/templates/${id}-preview.html`}
+            loading="lazy"
+            className="w-full h-full pointer-events-none"
+            style={{
+              transform: 'scale(0.25)',
+              transformOrigin: 'top left',
+              width: '400%',
+              height: '400%',
+            }}
+            title={`Preview av ${template.name}`}
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center bg-neutral-50"
+            aria-hidden="true"
+          >
+            <FileText className="h-6 w-6 text-neutral-300" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
           <div className="bg-white rounded-full p-2.5 border border-neutral-200">
@@ -240,9 +259,12 @@ export default function TemplateStep({
             style={{ scrollSnapType: 'x mandatory' }}
             onScroll={handleScroll}
           >
-            {templates.map(([id, template]) => {
+            {templates.map(([id, template], index) => {
               const isSelected = templateId === id;
               const isLocked = template.tier === 'premium' && !isPremium;
+              // Aktiv mall plus en granne åt varje håll: nästa kort hinner
+              // ladda medan användaren swajpar, utan att alla sex tävlar.
+              const showPreview = Math.abs(index - currentMobileIndex) <= 1;
               return (
                 <div key={id} className="flex-shrink-0 w-full snap-center">
                   <TemplateCard
@@ -250,6 +272,7 @@ export default function TemplateStep({
                     template={template}
                     isSelected={isSelected}
                     isLocked={isLocked}
+                    showPreview={showPreview}
                   />
                 </div>
               );
@@ -287,6 +310,8 @@ export default function TemplateStep({
         {templates.map(([id, template]) => {
           const isSelected = templateId === id;
           const isLocked = template.tier === 'premium' && !isPremium;
+          // Desktop visar hela rutnätet, så alla monteras. loading="lazy"
+          // sköter de kort som ligger under vikningen.
           return (
             <TemplateCard
               key={id}
@@ -294,6 +319,7 @@ export default function TemplateStep({
               template={template}
               isSelected={isSelected}
               isLocked={isLocked}
+              showPreview
             />
           );
         })}

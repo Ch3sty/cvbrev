@@ -69,7 +69,20 @@ function createCachedFetcher<T, P extends any[]>(
   };
 }
 
-export const useLetters = () => {
+interface UseLettersOptions {
+  /**
+   * Hoppa över den automatiska hämtningen av brevlistan vid montering.
+   *
+   * Skapa-brev-flödet läser aldrig `letters`, det behöver bara createLetter
+   * och saveLetter. Ändå låg ett GET /api/letters på den sidans kritiska väg
+   * och konkurrerade om nätverket med det användaren faktiskt väntar på.
+   * Default är oförändrat, så mina-brev-sidorna hämtar som förut.
+   */
+  skipInitialFetch?: boolean;
+}
+
+export const useLetters = (options: UseLettersOptions = {}) => {
+  const { skipInitialFetch = false } = options;
   const {
     letters,
     currentLetter,
@@ -344,16 +357,18 @@ export const useLetters = () => {
   
 // Ladda brev automatiskt första gången hooken används
   useEffect(() => {
+    if (skipInitialFetch) return;
+
     // Undvik att ladda brev flera gånger vid initialt läge
     if (!initialLoadingDoneRef.current) {
       initialLoadingDoneRef.current = true;
-      
+
       // Tvinga en förnyad laddning direkt när komponenten monteras
       memoizedFetchLetters(true, false);
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [skipInitialFetch]);
   
   // Rensa referenser när komponenten avmonteras
   useEffect(() => {

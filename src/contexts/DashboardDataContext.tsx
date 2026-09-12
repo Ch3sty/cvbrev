@@ -60,6 +60,15 @@ export interface DashboardSummary {
     replyCount: number;
     pipeline: DashboardSummaryPipelineItem[];
   };
+  /**
+   * Onboarding-stegen, validerade på servern. Valfri eftersom ett äldre svar
+   * i sessionStorage-cachen kan sakna fältet.
+   */
+  onboarding?: {
+    completedSteps: string[];
+    rewardClaimed: boolean;
+    createdAt: string | null;
+  };
 }
 
 interface DashboardDataContextValue {
@@ -117,13 +126,34 @@ function writeCache(userId: string, summary: DashboardSummary): void {
   }
 }
 
-export function DashboardDataProvider({ children }: { children: ReactNode }) {
+export function DashboardDataProvider({
+  children,
+  initialSummary = null,
+}: {
+  children: ReactNode;
+  /**
+   * Summary som dashboard-layouten redan har hämtat på servern. Finns den är
+   * isLoading false vid allra första render, och vi hoppar över den
+   * omedelbara hämtningen. Revalidering sker i bakgrunden, aldrig blockerande.
+   */
+  initialSummary?: DashboardSummary | null;
+}) {
   const { user } = useAuth();
   const userId = user?.id ?? null;
 
-  const [summary, setSummary] = useState<DashboardSummary | null>(null);
+  const [summary, setSummary] = useState<DashboardSummary | null>(initialSummary);
   const [isRevalidating, setIsRevalidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Serverdatan är färsk vid första render. Vi hämtar alltså inte om direkt,
+  // bara vid klientnavigering eller kontobyte. Ref i stället för state: det
+  // här ska inte trigga en extra render.
+  const hasServerData = useRef(initialSummary !== null);
+
+  // Håller serverdatan utanför effektens beroenden. Layouten skickar ett nytt
+  // objekt vid varje render, och den identiteten får inte ensam trigga om
+  // hämtningen.
+  const initialSummaryRef = useRef(initialSummary);
 
   // Hindrar att ett svar för en tidigare användare skriver över state efter
   // ett kontobyte.
@@ -158,9 +188,23 @@ export function DashboardDataProvider({ children }: { children: ReactNode }) {
   // Visa cachat innehåll direkt, hämta färskt i bakgrunden.
   useEffect(() => {
     if (!userId) {
-      setSummary(null);
+      // Har vi serverdata är userId bara null för att AuthContext ännu inte
+      // hydrerat. Att nolla summaryn då hade gett exakt den tomma skärm som
+      // serverrenderingen finns till för att ta bort.
+      if (!hasServerData.current) setSummary(null);
       return;
     }
+
+    // Första varvet med serverdata: den är redan färsk, hämta inte om. Vi
+    // lägger den bara i sessionStorage så klientnavigering har den kvar.
+    if (hasServerData.current) {
+      hasServerData.current = false;
+      activeUserRef.current = userId;
+      const fromServer = initialSummaryRef.current;
+      if (fromServer) writeCache(userId, fromServer);
+      return;
+    }
+
     const cached = readCache(userId);
     if (cached) setSummary(cached);
     void load();

@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface ProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
@@ -22,6 +21,20 @@ const Progress = React.forwardRef<
 
   return (
     <div className="relative">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @media (prefers-reduced-motion: no-preference) {
+          .progress-shimmer { animation: progressShimmer 3s linear infinite; }
+          @keyframes progressShimmer {
+            0% { transform: translateX(-100%); }
+            66.6667% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+          }
+        }
+      `,
+        }}
+      />
       <ProgressPrimitive.Root
         ref={ref}
         className={cn(
@@ -44,16 +57,8 @@ const Progress = React.forwardRef<
 
         {/* Animated overlay for premium effect */}
         {animated && clampedValue > 0 && (
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full"
-            initial={{ x: '-100%' }}
-            animate={{ x: '100%' }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear",
-              repeatDelay: 1
-            }}
+          <div
+            className="progress-shimmer absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full"
             style={{
               width: `${clampedValue}%`
             }}
@@ -63,14 +68,9 @@ const Progress = React.forwardRef<
 
       {/* Optional value display */}
       {showValue && (
-        <motion.div
-          className="absolute -top-8 right-0 text-xs font-medium text-gray-600"
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
+        <div className="absolute -top-8 right-0 text-xs font-medium text-gray-600 motion-safe:animate-[slideUp_300ms_ease-out_200ms_both]">
           {Math.round(clampedValue)}%
-        </motion.div>
+        </div>
       )}
     </div>
   );
