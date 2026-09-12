@@ -73,9 +73,27 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 <li><strong>Trafiken har sexdubblats på tre månader och accelerationen är äkta.</strong> Från 2,9 klick per dag i juni till 17,6 i september. Både position (31,3 till 22,1) och CTR (0,38 till 1,36 procent) förbättras samtidigt, vilket betyder att det är rankingarbetet som bär, inte en enskild artikel som råkade träffa.</li>
 <li><strong>Vi rankar på fel del av resultatsidan.</strong> Sextio procent av våra visningar ligger på position 21 eller sämre och ger sju klick tillsammans. Under hela kvartalet kom bara 87 visningar från position 1 till 3. Vi har bredd och nästan ingen topp.</li>
 <li><strong>En enda fråga läcker uppemot 40 klick i månaden.</strong> "cover letter svenska" gav 1 649 visningar på snittposition 8,7 och exakt ett klick. Det är 1,9 procent av alla våra visningar under kvartalet, med en CTR på 0,06 procent. Vi svarar på fel avsikt.</li>
-<li><strong>Trafiken blir konton men inga kunder.</strong> Av 2 090 svenska innehållssessioner nådde 23 registreringssidan, 1,1 procent. Av kvartalets 80 nya konton har noll blivit betalande. Intäkten för perioden är 1 639 kronor på elva betalningar, alla månadsprenumerationer, noll engångsköp.</li>
-<li><strong>Det inloggade läget är långsamt precis där det kostar mest.</strong> LCP p75 är 5,7 sekunder på brevskaparen och 4,9 på CV-profilen, mot 1,5 till 1,9 på artiklarna, och rage clicks samlas på /dashboard/skapa-cv. Det är de sidorna där aktivering och betalning avgörs.</li>
+<li><strong>Trafiken blir konton men inga kunder.</strong> Av 2 090 svenska innehållssessioner nådde 23 registreringssidan, 1,1 procent. Av kvartalets 80 nya konton har noll blivit betalande. Men läs den siffran mot rutan nedan: hela säljmaskineriet gick live 11 september klockan 22:08, så kvartalet mätte en produkt utan reverse trial, utan blur-gate och med en enda prisplan.</li>
+<li><strong>Det inloggade läget var långsamt precis där det kostar mest.</strong> LCP p75 låg på 5,7 sekunder i brevskaparen och 4,9 på CV-profilen, mot 1,5 till 1,9 på artiklarna, och rage clicks samlades på /dashboard/skapa-cv. Hela det inloggade läget skrevs om i dag klockan 10:20, så siffrorna beskriver den gamla versionen och ska mätas om vid kontrollpunkten 26 september.</li>
 </ol>
+
+<div class="box acc">
+<h4>Läs det här först: det här ändrades igår kväll och i dag</h4>
+<p>Kvartalets siffror beskriver produkten som den var, inte som den är. Allt som handlar om betalning, trial och konvertering i den här rapporten mätte en produkt där ingen av funktionerna fanns. Trafik- och SEO-analysen påverkas inte, den mäter innehåll som legat ute hela perioden.</p>
+</div>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad</th><th>Konsekvens för rapporten</th></tr></thead>
+<tbody>
+<tr><td>11 sep 22:08</td><td><strong>Konverteringsomgången (PR #2).</strong> Reverse trial fem dagar utan kort, prisstegen dagspass 49, vecka 99 och kvartal 299 som helt nya produkter, blur-gate och publika smakprov, brevnedladdning och CV-export bakom Premium, cancel-flow (cancel_intents), attribution (acquisition_source), aktiveringskolumnerna first_*_at, livscykelmail, PostHog-events, Google-login.</td><td>Allt i avsnitt 6 mäter tiden före detta</td></tr>
+<tr><td>11 sep 22:22</td><td>/kassa?plan= så vald produkt följer med genom registrering och inloggning.</td><td>Ingen köpdata ännu</td></tr>
+<tr><td>12 sep 00:30</td><td>Inloggat säljflöde: Premium i sidebaren, prenumerationssidan som inloggad prissida, köpkvitto, kvotrad.</td><td>Förklarar varför /priser nästan inte besöktes</td></tr>
+<tr><td>12 sep 08:00</td><td>Profildata: parsad telefon och ort till profilen, kompletteringskort, telefon i brevhuvud som standard.</td><td>Efter mätperioden</td></tr>
+<tr><td>12 sep 10:20</td><td><strong>Omdesign av hela inloggade läget (Mitt jobbsök).</strong> Ny hemskärm, ansökningssidan som centrum, nytt mobilnav, flödesskal med autospara, gamification borttagen, veckomail.</td><td>Web vitals och rage clicks i avsnitt 4 gäller den gamla versionen</td></tr>
+<tr><td>12 sep 11:53</td><td>Profilsidan i fyra sektioner med autospara, personuppgifter maskas före all AI-behandling.</td><td>Efter mätperioden</td></tr>
+</tbody>
+</table>
+<p class="lead">Källa: tidslinjen över driftsättningar. Regeln jag arbetar efter är att aldrig bedöma en funktion som är yngre än sitt mätfönster. Konvertering och trial kräver minst två veckor, intäkt minst en full faktureringsmånad.</p>
 
 <h2><span class="num">2</span>Trafikens utveckling</h2>
 
@@ -198,7 +216,7 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 <tr><td>/ (start)</td><td class="n">135</td><td class="n">1 136 ms</td><td class="n">0,002</td><td class="n">48 ms</td><td class="up">Bra</td></tr>
 </tbody>
 </table>
-<p class="lead">75:e percentilen sedan 1 augusti, sidor med fler än 20 mätningar. Googles gränser är LCP under 2 500 ms, CLS under 0,1 och INP under 200 ms.</p>
+<p class="lead">75:e percentilen sedan 1 augusti, sidor med fler än 20 mätningar. Googles gränser är LCP under 2 500 ms, CLS under 0,1 och INP under 200 ms. Observera att hela det inloggade läget skrevs om 12 september klockan 10:20, så dashboard-raderna beskriver den gamla versionen. De ska mätas om efter två veckor.</p>
 
 <p>De publika sidorna är snabba, och det skyddar rankingen. Problemet sitter där användaren faktiskt ska göra något. Brevskaparen har 5,7 sekunder till största innehållet och 0,25 i layoutförskjutning, CV-profilen 4,9 sekunder. Rage clicks bekräftar bilden: tolv av trettiosju ligger på /dashboard/skapa-cv och tre på /dashboard/skapa-brev. Någon klickar upprepade gånger på något som inte svarar. Det kostar oss aktivering direkt, och aktivering är det enda som kan bli betalning.</p>
 
@@ -258,13 +276,17 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 </tbody>
 </table>
 
-<p>Elva betalningar, alla på 149 kronor. Noll engångsköp av dagspass eller veckopass under hela kvartalet, tabellen premium_grants är tom. Vi har tre aktiva prenumerationer plus en kortkrävande trial, och sju prenumerationer sades upp under perioden. Ingen av uppsägningarna har en registrerad orsak, eftersom cancel_intents också är tom.</p>
+<p>Elva betalningar, alla på 149 kronor, och det är väntat: under hela kvartalet fanns bara en enda produkt att köpa. Månadsplanen på 149 kronor med kortkrävande trial var hela sortimentet. Dagspass 49, Jobbsökarveckan 99 och Kvartal 299 lanserades 11 september klockan 22:08 och har alltså funnits i mindre än ett dygn när den här rapporten skrivs.</p>
+
+<p>Att premium_grants är tom betyder därför inte att ingen vill köpa ett dagspass. Det betyder att ingen har kunnat köpa ett dagspass. Samma sak med cancel_intents: cancel-flowet gick live i samma release, så de sju uppsägningarna under kvartalet skedde innan det fanns någon plats att registrera en orsak. Ingen av de tomma tabellerna är ett tecken på ett fel, de är tomma för att funktionen är yngre än datan.</p>
+
+<p>Det som däremot är en riktig signal: elva betalningar på tre månader med en enda prisplan och ingen reverse trial. Vi hade inget att erbjuda den som inte ville binda sig till 149 kronor i månaden. Det är precis det som prisstegen och trialen är byggda för att lösa, och det är därför de siffrorna först kan bedömas i oktober.</p>
 
 <div class="box acc">
 <h4>Var läckan är störst, i tur och ordning</h4>
 <ul>
 <li><strong>Innehåll till registrering, 1,1 procent.</strong> Nästan 2 100 svenska sessioner läser en artikel och 23 av dem kommer vidare till registreringen. Här förloras mest pengar, och det är precis vad blur-gaten i plan-konvertering är byggd för att lösa. Den gick live 11 september och har ännu inte hunnit mätas.</li>
-<li><strong>Konto till betalning, noll av 80.</strong> Reverse trial finns i koden, men bara ett enda av 80 konton har premium_source satt till trial. Antingen når funktionen inte nya konton, eller så började den gälla efter kvartalet. Det måste verifieras innan vi drar några slutsatser om priset.</li>
+<li><strong>Konto till betalning, noll av 80.</strong> Under kvartalet fanns bara månadsplanen på 149 kronor och ingen reverse trial. Att 80 konton valde bort den enda produkten säger att tröskeln var för hög, inte att produkten är fel prissatt. Reverse trial verifierat fungerande: kontot som skapades 21:04 den 11 september, före releasen, saknar premium_source, medan kontot 22:18 samma kväll fick oauth_signup_trial med premium till 17 september. Den tekniska kedjan håller, det som saknas är volym.</li>
 <li><strong>Prissidan ses av nästan ingen.</strong> Mellan en och tio sessioner i veckan. Målet i planen är att alla ska exponeras för Premium. Vi ligger på några få procent.</li>
 <li><strong>Mitt jobbsök används inte.</strong> Ett enda konto av 80 har lagt in en ansökan, trots att ansökningarna enligt plan-inloggat-omdesign är centrum i det inloggade läget. Antingen hittar ingen dit, eller så framgår det inte vad funktionen är till för.</li>
 </ul>
@@ -277,13 +299,13 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 <tbody>
 <tr><td class="n">38</td><td><strong>Skriv om cover-letter-sverige mot exempel och mall.</strong> Titel, beskrivning och ingress. Samma pass tar snippet på timlon-till-manadslon och personligt-brev-avslutning-exempel. Texten går till svensk-ux-copywriter, jag sätter avsikt och krav.</td><td><span class="tag s">S</span></td><td>25 till 45 klick i månaden, synligt inom tre veckor när Google hämtar om</td></tr>
 <tr><td class="n">38</td><td><strong>Interna länkar</strong> från STAR-artikeln, startsidan och logiska-tester till de tio starkaste sida-två-kandidaterna. Rätt kluster-CTA enligt src/lib/cta/clusters.ts kontrolleras i samma svep.</td><td><span class="tag s">S</span></td><td>10 till 25 klick i månaden och bättre CTA-täckning</td></tr>
-<tr><td class="n">38</td><td><strong>Verifiera att reverse trial faktiskt sätts.</strong> Ett av 80 konton har premium_source satt. Läs signup-flödet och OAuth-callbacken mot koden och mät på nästa tio konton.</td><td><span class="tag s">S</span></td><td>Avgör om prisstegen ens testas i dag</td></tr>
+<tr><td class="n">38</td><td><strong>Lämna säljflödet orört.</strong> Hela konverteringsomgången gick live 11 september 22:08 och måste ligga stilla för att kunna mätas. Enda undantaget är rena fel. Trafikarbetet ovan rör inte det som mäts.</td><td><span class="tag s">S</span></td><td>Ren avläsning möjlig 26 september</td></tr>
 <tr><td class="n">39</td><td><strong>LCP och CLS i /dashboard/skapa-brev och /dashboard/profil/cv.</strong> Från 5,7 respektive 4,9 sekunder ned mot under tre. Börja med det som orsakar 0,25 i CLS, det är oftast en bild eller ett block utan reserverad höjd.</td><td><span class="tag m">M</span></td><td>Aktivering upp, rage clicks ned på /dashboard/skapa-cv</td></tr>
 <tr><td class="n">39</td><td><strong>Snippet-genomgång av resterande nio sidor</strong> på position 4 till 15 med CTR under 1,2 procent.</td><td><span class="tag m">M</span></td><td>30 till 50 klick i månaden</td></tr>
 <tr><td class="n">40</td><td><strong>Lyft styrkor-svagheter-intervju.</strong> 3 492 visningar på position 18,5. Utöka mot de delfrågor vi redan får visningar på men inte svarar tillräckligt bra på: negativa egenskaper lista, utvecklingsbara sidor, dåliga egenskaper. Rubrikstrukturen i det som redan rankar lämnas orörd.</td><td><span class="tag m">M</span></td><td>Cirka 55 klick i månaden vid position 8</td></tr>
-<tr><td class="n">40</td><td><strong>Mät blur-gaten.</strong> Två veckors data efter 11 september. signup_gate_shown till signup_completed mot målet 15 procent.</td><td><span class="tag s">S</span></td><td>Första riktiga siffran på konverteringsplanens kärna</td></tr>
+<tr><td class="n">40</td><td><strong>Kontrollpunkt trial, blur-gate och prisstege.</strong> Två veckor efter releasen. Andel nya konton som får reverse trial, signup_gate_shown till signup_completed mot målet 15 procent, och vad som händer vid nedgraderingen dag sex för de första trialkontona.</td><td><span class="tag s">S</span></td><td>Första riktiga siffran på konverteringsplanen</td></tr>
 <tr><td class="n">41</td><td><strong>Testklustret.</strong> Lyft /verktyg/rekryteringstester från position 43,6 och lägg till de två eller tre testtyper som saknas.</td><td><span class="tag m">M</span></td><td>30 till 50 klick i månaden med hög andel vidare in i inloggat läge</td></tr>
-<tr><td class="n">41</td><td><strong>Uppsägningsorsaker.</strong> cancel_intents är tom trots sju uppsägningar i Stripe. Kontrollera att flödet skriver till tabellen.</td><td><span class="tag s">S</span></td><td>Målet är alla uppsägningar med känd orsak, vi ligger på noll</td></tr>
+<tr><td class="n">41</td><td><strong>Läs av cancel-flowet vid första uppsägningen efter releasen.</strong> cancel_intents är tom eftersom flödet är yngre än alla sju uppsägningar. Kontrollen görs när en uppsägning faktiskt passerar det nya flödet, inte tidigare.</td><td><span class="tag s">S</span></td><td>Bekräftar att orsak fångas, mål är alla</td></tr>
 </tbody>
 </table>
 
@@ -292,7 +314,7 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 <div class="box">
 <h4>Behöver ditt beslut</h4>
 <ul>
-<li><strong>Om reverse trial inte sätts i dag:</strong> ska vi rätta det i produktion den här veckan, eller vänta tills blur-gaten har mätts så att vi ändrar en sak i taget? Min rekommendation är att rätta direkt. En trasig trial gör all prisdata meningslös, och vi har ingen prisdata att förlora.</li>
+<li><strong>Frysfönster till 26 september.</strong> Konverteringsomgången behöver två veckor orörd för att gå att mäta. Jag föreslår att vi håller säljflödet, prissättningen och blur-gaten stilla till dess och bara rör rena fel, medan allt trafikarbete i tabellen ovan fortsätter som vanligt. Säg till om något behöver gå före.</li>
 <li><strong>Innehållstakten.</strong> Visningarna planade ut i september. För att hålla tillväxten efter oktober behöver vi sex till tio nya sidor i månaden. Det är en resursfråga, inte en prioriteringsfråga.</li>
 </ul>
 </div>
@@ -302,10 +324,12 @@ footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-siz
 <table>
 <thead><tr><th>Vad vi inte ser</th><th>Varför</th><th>Vad som krävs</th></tr></thead>
 <tbody>
-<tr><td>Hela tratten från artikel till betalning</td><td>De egna eventen började logga 11 september. Totalt 25 händelser finns. article_viewed har åtta, article_cta_shown tolv, sample_started en. pricing_viewed, trial_started, subscription_paid och draft_claimed har ännu inte utlösts en enda gång.</td><td>Två till tre veckors normal trafik. Första användbara mätningen omkring 2 oktober.</td></tr>
-<tr><td>Aktivering per konto i profiles</td><td>first_cv_uploaded_at, first_letter_created_at och first_cv_analyzed_at är null för samtliga 80 konton i perioden. Kolumnerna började fyllas 12 september.</td><td>Aktiveringen i den här rapporten är i stället räknad mot cv_texts, letters, job_applications, cv_analysis_jobs och logic_test_v4_sessions. Överväg en engångsbackfill så att båda vägarna ger samma svar.</td></tr>
-<tr><td>Attribution från landningssida till konto</td><td>profiles.acquisition_source finns som kolumn men är inte ifylld för kontona som skapades under perioden.</td><td>Verifiera att landing_path och landing_cluster skrivs vid registrering. Utan det kan vi inte säga vilket kluster som ger betalande kunder, bara vilket som ger klick.</td></tr>
-<tr><td>Varför folk säger upp</td><td>cancel_intents är tom trots sju uppsägningar i Stripe under perioden.</td><td>Kontrollera att uppsägningsflödet skriver till tabellen.</td></tr>
+<tr><td>Hela tratten från artikel till betalning</td><td>Live 11 sep 22:08. Totalt 25 händelser finns: article_viewed åtta, article_cta_shown tolv, sample_started en. pricing_viewed, trial_started, subscription_paid och draft_claimed har ännu inte utlösts.</td><td>Två till tre veckors normal trafik. Första användbara avläsning omkring 2 oktober.</td></tr>
+<tr><td>Aktivering per konto i profiles</td><td>Live 11 sep 22:08. first_cv_uploaded_at, first_letter_created_at och first_cv_analyzed_at är null för samtliga 80 konton i perioden, eftersom kontona är äldre än kolumnerna.</td><td>Aktiveringen i den här rapporten är i stället räknad mot cv_texts, letters, job_applications, cv_analysis_jobs och logic_test_v4_sessions. Överväg en engångsbackfill så att båda vägarna ger samma svar.</td></tr>
+<tr><td>Attribution från landningssida till konto</td><td>Live 11 sep 22:08. acquisition_source är tom för periodens konton, som alla skapades innan kolumnen fanns.</td><td>Läs av på de första femtio konton som registreras efter releasen. Först då kan vi säga vilket kluster som ger betalande kunder, inte bara vilket som ger klick.</td></tr>
+<tr><td>Varför folk säger upp</td><td>Live 11 sep 22:08. cancel_intents är tom eftersom samtliga sju uppsägningar i Stripe skedde innan flödet fanns. Väntat, inte ett fel.</td><td>Första avläsning vid nästa uppsägning som passerar det nya flödet.</td></tr>
+<tr><td>Engångsköp och prisstege</td><td>Live 11 sep 22:08. Dagspass 49, Jobbsökarveckan 99 och Kvartal 299 är helt nya produkter. premium_grants är tom eftersom ingen har kunnat köpa dem ännu. Kvartalets elva betalningar är alla månadsplanen 149 kr, som var hela sortimentet.</td><td>En full faktureringsmånad. Första bedömning av prisstegen omkring 12 oktober.</td></tr>
+<tr><td>Reverse trial</td><td>Live 11 sep 22:08 och verifierad fungerande: kontot 21:04 (före) saknar premium_source, kontot 22:18 (efter, Google) fick oauth_signup_trial med premium till 17 september.</td><td>Två veckor för volym. Andel nya konton med trial samt utfall vid nedgradering dag sex läses av omkring 26 september.</td></tr>
 <tr><td>Ren beteendedata i PostHog</td><td>Tjugotre procent av de identifierade personerna kommer från Singapore och Kina och är bottar.</td><td>Filtrera bort i insikterna, eller lägg ett landsfilter på projektets standarddashboards. Alla siffror här är filtrerade på Sverige där det spelar roll.</td></tr>
 <tr><td>Retention på identifierade användare</td><td>Bara 81 personer har $identify under perioden, och de flesta kohorter är under tio konton. Statistiskt för litet för en retentionkurva.</td><td>Volym. Vid 50 nya konton i veckan blir veckokohorter meningsfulla, det ligger några månader bort.</td></tr>
 <tr><td>Web vitals på lågtrafiksidor</td><td>Bara sidor med fler än tjugo mätningar är tillförlitliga, vilket utesluter större delen av yrkesexemplen.</td><td>Inget att göra, volymen löser det.</td></tr>
