@@ -178,18 +178,18 @@ export default function DashboardSnabbAtgarder({
                 />
 
                 {locked && (
-                  <div className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white border border-neutral-200 text-[11px] font-medium text-neutral-600 pointer-events-none">
+                  <div className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white border border-neutral-200 text-xs font-medium text-neutral-600 pointer-events-none">
                     <Lock className="w-3 h-3" strokeWidth={2} />
                     CV krävs
                   </div>
                 )}
                 {recommended && (
-                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-orange-50 border border-orange-200 text-[11px] font-medium text-orange-700 pointer-events-none">
+                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-orange-50 border border-orange-200 text-xs font-medium text-orange-700 pointer-events-none">
                     Rekommenderas nu
                   </div>
                 )}
                 {!locked && !recommended && isNew && (
-                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-white border border-neutral-200 text-[11px] font-medium text-neutral-600 pointer-events-none">
+                  <div className="absolute top-3 right-3 inline-flex items-center px-2 py-1 rounded-full bg-white border border-neutral-200 text-xs font-medium text-neutral-600 pointer-events-none">
                     Nyhet
                   </div>
                 )}

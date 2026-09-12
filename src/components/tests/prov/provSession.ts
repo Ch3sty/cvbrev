@@ -1,7 +1,7 @@
 // Hämtar en enskild prov-session via GET <endpoint>?id=<uuid>.
 // Kontrakt (samma som logicTestV4/session): { session } med answers[],
 // started_at och completed_at (null tills provet rättats).
-// Returnerar null vid nätverksfel/404 — rehydreringen ska aldrig blockera
+// Returnerar null vid nätverksfel/404, rehydreringen ska aldrig blockera
 // provet, då fortsätter sidan med tomt state precis som tidigare.
 
 export interface ProvSessionSnapshot {

@@ -1,7 +1,7 @@
 'use client';
 
 // =============================================================================
-// useRobustAnswerSaving — delad, robust svarssparning för PROV-flödena.
+// useRobustAnswerSaving, delad, robust svarssparning för PROV-flödena.
 // Samma mönster som matrislogik-träningsflödet (MatrixTestSession):
 // - Misslyckade sparningar körs om upp till 3 gånger med backoff.
 // - Svar som ändå inte gått att spara flaggas (failedCount driver amber-bannern)
@@ -64,7 +64,7 @@ export function useRobustAnswerSaving<T>(postAnswer: (payload: T) => Promise<voi
     [postAnswer, updateFailedCount]
   );
 
-  // Sparar ett svar. Väntar bara in första försöket — omförsöken körs i
+  // Sparar ett svar. Väntar bara in första försöket, omförsöken körs i
   // bakgrunden så UI:t inte blockeras.
   const saveAnswer = useCallback(
     async (key: string, payload: T) => {

@@ -10,7 +10,7 @@ interface CardItem {
   title: string
   /** Visas som underrubrik (företag, period, etc) */
   subtitle?: string
-  /** Det redigerbara innehållet — formulärfält */
+  /** Det redigerbara innehållet, formulärfält */
   content: ReactNode
 }
 
@@ -59,19 +59,11 @@ export default function SkapaCvCardList({
               className="overflow-hidden"
             >
               <div
-                className={`rounded-2xl border bg-white transition-all ${
+                className={`rounded-xl border bg-white transition-all ${
                   isExpanded
                     ? 'border-orange-300'
-                    : 'border-slate-200 hover:border-orange-200'
+                    : 'border-neutral-200 hover:border-orange-200'
                 }`}
-                style={
-                  isExpanded
-                    ? {
-                        boxShadow:
-                          '0 8px 24px -10px rgba(249, 115, 22, 0.25)',
-                      }
-                    : { boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)' }
-                }
               >
                 {/* Header */}
                 <div className="flex items-center gap-3 px-4 py-3">
@@ -82,13 +74,13 @@ export default function SkapaCvCardList({
                   >
                     <p
                       className={`text-sm font-bold truncate ${
-                        item.title ? 'text-slate-900' : 'text-slate-400'
+                        item.title ? 'text-neutral-900' : 'text-neutral-400'
                       }`}
                     >
                       {item.title || 'Ny post'}
                     </p>
                     {item.subtitle && (
-                      <p className="text-xs text-slate-500 truncate mt-0.5">
+                      <p className="text-xs text-neutral-500 truncate mt-0.5">
                         {item.subtitle}
                       </p>
                     )}
@@ -96,7 +88,7 @@ export default function SkapaCvCardList({
                   <button
                     type="button"
                     onClick={() => onRemove(item.id)}
-                    className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    className="flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center text-neutral-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                     aria-label="Ta bort"
                   >
                     <Trash2 className="w-4 h-4" strokeWidth={2.2} />
@@ -127,9 +119,9 @@ export default function SkapaCvCardList({
 
       {/* Tom-state */}
       {items.length === 0 && (
-        <div className="rounded-2xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-6 text-center">
-          <p className="text-sm font-bold text-slate-900 mb-1">{emptyTitle}</p>
-          <p className="text-xs text-slate-600">{emptyDescription}</p>
+        <div className="rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-6 text-center">
+          <p className="text-sm font-bold text-neutral-900 mb-1">{emptyTitle}</p>
+          <p className="text-xs text-neutral-600">{emptyDescription}</p>
         </div>
       )}
 

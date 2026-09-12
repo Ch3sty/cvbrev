@@ -46,7 +46,7 @@ export default function AccountSection({
       <div className="space-y-4">
         {/* Logga ut */}
         <div
-          className="rounded-2xl p-4 flex items-center gap-4"
+          className="rounded-xl p-4 flex items-center gap-4"
           style={{
             background: 'rgba(255, 247, 237, 0.6)',
             border: '1px solid rgba(249, 115, 22, 0.18)',
@@ -55,14 +55,14 @@ export default function AccountSection({
           <div
             className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              background: '#EA580C',
             }}
           >
             <LogOut className="w-5 h-5" strokeWidth={2.25} />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-sm font-bold text-slate-900">Logga ut</div>
-            <p className="text-xs text-slate-600 mt-0.5">
+            <div className="text-sm font-bold text-neutral-900">Logga ut</div>
+            <p className="text-xs text-neutral-600 mt-0.5">
               Avsluta sessionen på den här enheten.
             </p>
           </div>
@@ -81,10 +81,10 @@ export default function AccountSection({
 
         {/* Radera konto */}
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-xl overflow-hidden"
           style={{
             background:
-              'linear-gradient(135deg, rgba(244, 63, 94, 0.06) 0%, rgba(225, 29, 72, 0.04) 100%)',
+              'transparent',
             border: '1px solid rgba(244, 63, 94, 0.25)',
           }}
         >
@@ -97,14 +97,14 @@ export default function AccountSection({
             <div
               className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
               style={{
-                background: 'linear-gradient(135deg, #F43F5E, #E11D48)',
+                background: '#E11D48',
               }}
             >
               <Trash2 className="w-5 h-5" strokeWidth={2.25} />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="text-sm font-bold text-slate-900">Radera mitt konto</div>
-              <p className="text-xs text-slate-600 mt-0.5">
+              <div className="text-sm font-bold text-neutral-900">Radera mitt konto</div>
+              <p className="text-xs text-neutral-600 mt-0.5">
                 Permanent borttagning av all data. Kan inte ångras.
               </p>
             </div>
@@ -171,9 +171,9 @@ export default function AccountSection({
 
                   {/* Bekräftelse-input */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-semibold text-neutral-700 mb-1.5">
                       Skriv{' '}
-                      <span className="font-bold text-slate-900">
+                      <span className="font-bold text-neutral-900">
                         radera mitt konto
                       </span>{' '}
                       för att bekräfta:
@@ -182,9 +182,15 @@ export default function AccountSection({
                       type="text"
                       value={confirmText}
                       onChange={(e) => setConfirmText(e.target.value)}
+
+                      enterKeyHint="done"
+
+                      inputMode="text"
+
+                      autoComplete="off"
                       placeholder="radera mitt konto"
                       disabled={isDeleting}
-                      className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-colors"
                       style={{ border: '1px solid rgba(244, 63, 94, 0.3)' }}
                     />
                   </div>
@@ -213,7 +219,7 @@ export default function AccountSection({
                         setDeleteError('');
                       }}
                       disabled={isDeleting}
-                      className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors min-h-[44px]"
+                      className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-700 text-sm font-semibold hover:bg-neutral-50 transition-colors min-h-[44px]"
                     >
                       <X className="w-4 h-4" strokeWidth={2.5} />
                       Avbryt
@@ -226,14 +232,10 @@ export default function AccountSection({
                       style={{
                         background:
                           canConfirmDelete && !isDeleting
-                            ? 'linear-gradient(135deg, #F43F5E, #E11D48)'
-                            : '#E2E8F0',
-                        boxShadow:
-                          canConfirmDelete && !isDeleting
-                            ? '0 8px 20px -6px rgba(225, 29, 72, 0.45)'
-                            : 'none',
+                            ? '#E11D48'
+                            : '#E5E5E5',
                         color:
-                          canConfirmDelete && !isDeleting ? 'white' : '#94A3B8',
+                          canConfirmDelete && !isDeleting ? 'white' : '#A3A3A3',
                       }}
                     >
                       {isDeleting ? (

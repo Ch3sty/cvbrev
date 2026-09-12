@@ -15,6 +15,22 @@
   --illu-muted: #A3A3A3;
   /* Knockout ovanpå accentytan (bock, pil). Aldrig hårdkodat vitt i SVG. */
   --illu-on-accent: #FFFFFF;
+
+  /* Bottennavets höjd, en enda sanning (plan-inloggat-omdesign, våg 1 punkt 8).
+     Tidigare gissade sex olika filer 64, 70, 76, 88, 96 px och 5.5rem var för
+     sig, så något låg alltid fel. Allt sticky på mobil räknar mot den här.
+
+     Navraden är 48 px + 8 px toppadding + safe-area under. Utanför mobilen
+     finns inget nav, så värdet nollställs på lg och i flerstegsflöden som
+     döljer navet (då sätts --bottom-nav-h: 0px på flödets rot). */
+  --bottom-nav-h: calc(56px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Desktop har ingen bottennavigation. */
+@media (min-width: 1024px) {
+  :root {
+    --bottom-nav-h: 0px;
+  }
 }
 
 body {
@@ -392,15 +408,10 @@ html {
   }
 }
 
-/* Bottom padding for dashboard scrollable area - clears mobile browser chrome */
+/* Innehållet ska sluta ovanför bottennavet, inte bakom det. Räknas mot
+   --bottom-nav-h så höjden bara finns definierad på ett ställe. */
 .dashboard-main-content {
-  padding-bottom: 5rem;
-}
-
-@supports (padding: max(0px)) {
-  .dashboard-main-content {
-    padding-bottom: max(5rem, calc(1.5rem + env(safe-area-inset-bottom)));
-  }
+  padding-bottom: calc(var(--bottom-nav-h) + 1.5rem);
 }
 
 /* On desktop (lg+), restore normal padding */
@@ -462,7 +473,9 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid rgba(236, 72, 153, 0.6);
+  /* Orange accent, aldrig rosa. Fokusringen syntes tidigare i rosa på varje
+     tangentbordsfokus och motsade därmed accentfärgen. */
+  outline: 2px solid rgba(249, 115, 22, 0.7);
   outline-offset: 2px;
 }
 
@@ -487,14 +500,14 @@ button:active,
 /* Prevent layout shift on orientation change */
 @media screen and (orientation: portrait) {
   body {
-    min-height: 100vh;
+    min-height: 100dvh;
     min-height: -webkit-fill-available;
   }
 }
 
 @media screen and (orientation: landscape) {
   body {
-    min-height: 100vh;
+    min-height: 100dvh;
     min-height: -webkit-fill-available;
   }
 }
@@ -516,3 +529,68 @@ html {
   transition: transform 0.1s ease;
 }
 
+
+/* ---------------------------------------------------------------------------
+   Förhandsvisning av CV och brevmallar
+   (docs/plan-inloggat-omdesign.md, avsnitt 6).
+
+   Mallarnas HTML är skriven för A4-bredd (cirka 794 px). Tidigare skalades
+   den med transform: scale() plus en uppblåst width i procent. Det gav två
+   fel: transform påverkar inte layouthöjden, så scrollytan blev flera hundra
+   pixlar för hög, och på 375 px blev texten oläslig.
+
+   Här skalas den i stället med en variabel som följer brytpunkten, och
+   wrappern krymper tillbaka höjden med samma faktor så att scrollen stämmer.
+   --------------------------------------------------------------------------- */
+.cv-preview-zoom {
+  --cv-page-width: 794px;
+  /* 375 px innehållsyta minus padding delat med A4-bredden. */
+  --cv-zoom: 0.42;
+  width: var(--cv-page-width);
+  transform: scale(var(--cv-zoom));
+  transform-origin: top left;
+  /* Transform påverkar inte layouten, så bredden dras tillbaka manuellt.
+     Höjden löser zoom-egenskapen nedan där den stöds; i övriga fall räcker
+     containerns egen scroll. */
+  margin-right: calc(var(--cv-page-width) * (var(--cv-zoom) - 1));
+}
+
+/* Där `zoom` stöds (Safari, Chrome, Edge, Firefox 126+) skalar den både
+   layout och rendering, så varken marginalhack eller fel scrollhöjd behövs. */
+@supports (zoom: 0.5) {
+  .cv-preview-zoom {
+    width: var(--cv-page-width);
+    transform: none;
+    margin-right: 0;
+    zoom: var(--cv-zoom);
+  }
+}
+
+@media (min-width: 480px) {
+  .cv-preview-zoom {
+    --cv-zoom: 0.55;
+  }
+}
+
+@media (min-width: 768px) {
+  .cv-preview-zoom {
+    --cv-zoom: 0.7;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cv-preview-zoom {
+    --cv-zoom: 0.85;
+  }
+}
+
+/* Mallen får aldrig spilla ut ur sin ruta. */
+.cv-preview-container {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.cv-preview-container img {
+  max-width: 100%;
+  height: auto;
+}

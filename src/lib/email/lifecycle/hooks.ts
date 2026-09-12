@@ -11,7 +11,7 @@ import type { LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
 import { LIFECYCLE_EMAILS } from './registry';
 import { LIFECYCLE_FROM } from './runner';
-import { scheduleEmail, scheduleMany, cancelScheduled, sendAfterStockholm } from './schedule';
+import { scheduleEmail, scheduleMany, cancelScheduled, sendAfterStockholm, isoWeekKey } from './schedule';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -163,18 +163,6 @@ export async function onOnetimeExpired(admin: AnySupabase, userId: string): Prom
   } catch (error: any) {
     console.error('[lifecycle] onOnetimeExpired misslyckades:', error?.message);
   }
-}
-
-/** ISO-vecka, för att ge quota_wall ett suffix som byts varje måndag. */
-function isoWeekKey(date: Date = new Date()): string {
-  const target = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-  const dayNumber = (target.getUTCDay() + 6) % 7; // måndag = 0
-  target.setUTCDate(target.getUTCDate() - dayNumber + 3); // torsdagen i veckan
-  const firstThursday = new Date(Date.UTC(target.getUTCFullYear(), 0, 4));
-  const firstDayNumber = (firstThursday.getUTCDay() + 6) % 7;
-  firstThursday.setUTCDate(firstThursday.getUTCDate() - firstDayNumber + 3);
-  const week = 1 + Math.round((target.getTime() - firstThursday.getTime()) / (7 * 24 * 60 * 60 * 1000));
-  return `${target.getUTCFullYear()}w${week}`;
 }
 
 /**

@@ -37,12 +37,11 @@ export default function CategorySegments({
     >
       <div className="max-w-3xl mx-auto">
         <div
-          className="grid gap-1 p-1 rounded-2xl"
+          className="grid gap-1 p-1 rounded-xl"
           style={{
             gridTemplateColumns: `repeat(${categories.length}, minmax(0, 1fr))`,
             background: 'rgba(255, 247, 237, 0.7)',
             border: '1px solid rgba(249, 115, 22, 0.18)',
-            boxShadow: '0 4px 14px -8px rgba(249, 115, 22, 0.18)',
           }}
         >
           {categories.map((cat) => {
@@ -62,10 +61,8 @@ export default function CategorySegments({
                 style={
                   isActive
                     ? {
-                        background:
-                          'linear-gradient(135deg, #F97316, #DC2626)',
+                        background: '#EA580C',
                         color: 'white',
-                        boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.45)',
                       }
                     : {
                         color: '#9A3412',
@@ -77,11 +74,7 @@ export default function CategorySegments({
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center"
-                    style={{
-                      background:
-                        'linear-gradient(135deg, #10B981, #059669)',
-                    }}
+                    className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center bg-emerald-600"
                   >
                     <Check className="w-2 h-2 text-white" strokeWidth={3.5} />
                   </motion.span>
@@ -95,15 +88,15 @@ export default function CategorySegments({
                     }`}
                   />
                   <span
-                    className={`text-[10px] sm:text-[11px] font-semibold leading-none ${
-                      isActive ? 'text-white' : 'text-slate-700'
+                    className={`text-xs sm:text-xs font-semibold leading-none ${
+                      isActive ? 'text-white' : 'text-neutral-700'
                     }`}
                   >
                     {cat.label}
                   </span>
                   <span
-                    className={`text-[9px] sm:text-[10px] tabular-nums leading-none ${
-                      isActive ? 'text-white/80' : 'text-slate-500'
+                    className={`text-xs sm:text-xs tabular-nums leading-none ${
+                      isActive ? 'text-white/80' : 'text-neutral-500'
                     }`}
                   >
                     {cat.isAuto

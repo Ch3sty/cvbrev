@@ -25,7 +25,7 @@ interface TemplateListSidebarProps {
 /**
  * Kompakt vertikal mall-lista (desktop) eller horisontell carousel (mobile).
  *
- * Skiljer sig fran TemplateGalleryGrid genom att vara mycket kompaktare —
+ * Skiljer sig fran TemplateGalleryGrid genom att vara mycket kompaktare 
  * ~6-8 mallar ryms synliga utan scroll. Live-preview visar mallen i sin
  * helhet hoger om listan.
  */
@@ -46,7 +46,7 @@ export default function TemplateListSidebar({
     <div className="flex flex-col h-full">
       {/* Header med kategori-filter */}
       <div className="flex-shrink-0 mb-4">
-        <h2 className="text-base font-black text-slate-900 mb-3">
+        <h2 className="text-base font-semibold text-neutral-900 mb-3">
           {filteredTemplates.length} mallar
         </h2>
         <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
@@ -61,7 +61,7 @@ export default function TemplateListSidebar({
         </div>
       </div>
 
-      {/* Mall-lista — desktop vertikal, mobile horisontell carousel */}
+      {/* Mall-lista, desktop vertikal, mobile horisontell carousel */}
       <div className="flex-1 lg:overflow-y-auto lg:pb-4">
         {/* Desktop: vertikal lista */}
         <ul className="hidden lg:flex flex-col gap-2">
@@ -121,16 +121,15 @@ export function CategoryPill({
   return (
     <button
       onClick={onClick}
-      className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all min-h-[32px] ${
+      className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all min-h-[44px] ${
         active
-          ? 'text-white shadow-md'
-          : 'bg-white border border-orange-100 text-slate-700 hover:border-orange-200'
+          ? 'text-white'
+          : 'bg-white border border-orange-100 text-neutral-700 hover:border-orange-200'
       }`}
       style={
         active
           ? {
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
+              background: '#EA580C',
             }
           : undefined
       }
@@ -162,30 +161,30 @@ export function TemplateRow({
     <li>
       <button
         onClick={onSelect}
-        className={`group w-full text-left p-3 rounded-2xl border transition-all flex items-center gap-3 relative overflow-hidden ${
+        className={`group w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 relative overflow-hidden ${
           isSelected
             ? 'border-orange-300 bg-orange-50/50'
-            : 'border-slate-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
+            : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
         }`}
         style={
           isSelected
-            ? { boxShadow: '0 4px 14px -4px rgba(249, 115, 22, 0.25)' }
+            ? { }
             : undefined
         }
       >
-        {/* Vald-indikator — animerad puls */}
+        {/* Vald-indikator, animerad puls */}
         {isSelected && (
           <motion.div
             layoutId="selectedDot"
             className="absolute left-0 top-0 bottom-0 w-1"
             style={{
-              background: 'linear-gradient(180deg, #F97316, #DC2626)',
+              background: '#EA580C',
             }}
           />
         )}
 
         {/* Thumbnail */}
-        <div className="flex-shrink-0 w-12 h-16 rounded-lg overflow-hidden bg-slate-50 border border-slate-200 relative">
+        <div className="flex-shrink-0 w-12 h-16 rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 relative">
           <Image
             src={template.imagePath}
             alt={template.name}
@@ -194,7 +193,7 @@ export function TemplateRow({
             sizes="48px"
           />
           {isLocked && (
-            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
               <Lock className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
             </div>
           )}
@@ -203,7 +202,7 @@ export function TemplateRow({
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 mb-0.5">
-            <span className={`font-bold text-sm truncate ${isSelected ? 'text-slate-900' : 'text-slate-800'}`}>
+            <span className={`font-bold text-sm truncate ${isSelected ? 'text-neutral-900' : 'text-neutral-800'}`}>
               {template.name}
             </span>
             {template.tier === 'premium' && (
@@ -216,18 +215,18 @@ export function TemplateRow({
           </div>
           <div className="flex items-center gap-1.5 flex-wrap">
             {isAtsSafe && (
-              <span className="inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+              <span className="inline-flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
                 <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
                 ATS
               </span>
             )}
-            <span className="text-[10px] uppercase tracking-wide text-slate-500 font-semibold">
+            <span className="text-xs uppercase tracking-wide text-neutral-500 font-semibold">
               {template.category === 'modern' && 'Modern'}
               {template.category === 'traditional' && 'Traditionell'}
               {template.category === 'creative' && 'Kreativ'}
             </span>
             {template.tier === 'free' && (
-              <span className="text-[10px] uppercase tracking-wide text-emerald-700 font-semibold">
+              <span className="text-xs uppercase tracking-wide text-emerald-700 font-semibold">
                 · Gratis
               </span>
             )}
@@ -237,7 +236,7 @@ export function TemplateRow({
         {/* Pil */}
         <ChevronRight
           className={`flex-shrink-0 w-4 h-4 transition-transform ${
-            isSelected ? 'text-orange-600 translate-x-0.5' : 'text-slate-400 group-hover:text-orange-500'
+            isSelected ? 'text-orange-600 translate-x-0.5' : 'text-neutral-400 group-hover:text-orange-500'
           }`}
           strokeWidth={2.5}
         />
@@ -268,13 +267,13 @@ export function TemplateCardMobile({
     <li className="flex-shrink-0 snap-start" style={{ width: '160px' }}>
       <button
         onClick={onSelect}
-        className={`w-full text-left p-2 rounded-2xl border transition-all relative ${
+        className={`w-full text-left p-2 rounded-xl border transition-all relative ${
           isSelected
             ? 'border-orange-300 bg-orange-50/50'
-            : 'border-slate-200 bg-white'
+            : 'border-neutral-200 bg-white'
         }`}
       >
-        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-slate-50 border border-slate-200 mb-2">
+        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 mb-2">
           <Image
             src={template.imagePath}
             alt={template.name}
@@ -283,7 +282,7 @@ export function TemplateCardMobile({
             sizes="160px"
           />
           {isLocked && (
-            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
               <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
           )}
@@ -297,13 +296,13 @@ export function TemplateCardMobile({
         </div>
         <div className="px-1">
           <div className="flex items-center gap-1 mb-0.5">
-            <span className="font-bold text-sm text-slate-900 truncate flex-1">{template.name}</span>
+            <span className="font-bold text-sm text-neutral-900 truncate flex-1">{template.name}</span>
             {template.tier === 'premium' && (
               <Crown className="w-3 h-3 text-orange-600 flex-shrink-0" strokeWidth={2.5} fill="rgb(234 88 12)" />
             )}
           </div>
           {isAtsSafe && (
-            <div className="flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+            <div className="flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
               <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
               ATS-säker
             </div>

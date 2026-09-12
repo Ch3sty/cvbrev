@@ -9,8 +9,9 @@ import { generateQuotaBackEmail } from '@/lib/email/quota-back';
 import { generateTrialReminderEmail } from '@/lib/email/trial-reminder';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
-import { runLifecycleEmails, scheduleWinbacks } from '@/lib/email/lifecycle/runner';
+import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests } from '@/lib/email/lifecycle/runner';
 import { onOnetimeExpired } from '@/lib/email/lifecycle/hooks';
+import { createFollowUpNotifications } from '@/lib/notifications/followUp';
 import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
 import { cleanupExpiredAnonSessions } from '@/lib/tests/anon-session';
 
@@ -57,6 +58,8 @@ export async function GET(request: NextRequest) {
       savedSearchAlerts: null,
       lifecycleEmails: null,
       winbacks: null,
+      weeklyDigest: null,
+      followUpNotifications: null,
       draftCleanup: null
     };
 
@@ -469,6 +472,46 @@ export async function GET(request: NextRequest) {
         results.winbacks = { success: false, error: error.message };
       }
 
+      // Veckosammanfattningen, bara på söndagar (plan avsnitt 8).
+      //
+      // AVVIKELSE FRÅN PLANEN: planen säger "söndag kväll". Hobby-planen
+      // tillåter bara två cron-jobb (00:00 och 06:00 UTC) och båda pekar hit,
+      // så någon kvällsslot finns inte att lägga den i. Mailet skickas därför
+      // söndag morgon, 06:00 UTC alltså 08:00 svensk tid. Det är dessutom
+      // rimligare för mottagaren: en sammanfattning av veckan som gått läses
+      // hellre över söndagsfrukosten än sent på kvällen.
+      //
+      // Urvalet schemalägger till just den här körningen, men runnern ovan har
+      // redan passerat. Raderna skickas alltså i nästa morgonkörning, alltså
+      // måndag morgon. För att slippa den förskjutningen körs runnern en gång
+      // till direkt efter urvalet, bara för de nyss skapade raderna.
+      const isSunday =
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Europe/Stockholm',
+          weekday: 'short',
+        }).format(now) === 'Sun';
+
+      if (isSunday) {
+        try {
+          results.weeklyDigest = await scheduleWeeklyDigests(supabaseAdmin, now);
+          results.weeklyDigestRun = await runLifecycleEmails(supabaseAdmin);
+        } catch (error: any) {
+          console.error('[Lifecycle] Veckosammanfattning-fel:', error);
+          results.weeklyDigest = { success: false, error: error.message };
+        }
+      } else {
+        results.weeklyDigest = { skipped: true, reason: 'Not Sunday' };
+      }
+
+      // Uppföljningsnotiser (våg 2 punkt 20): ger notisklockan innehåll för
+      // alla som loggar ansökningar, inte bara de som får rekryterarintresse.
+      try {
+        results.followUpNotifications = await createFollowUpNotifications(supabaseAdmin, now);
+      } catch (error: any) {
+        console.error('[Notiser] Uppföljningsfel:', error);
+        results.followUpNotifications = { success: false, error: error.message };
+      }
+
       try {
         const deleted = await cleanupExpiredPublicDrafts(supabaseAdmin);
         const deletedTests = await cleanupExpiredAnonSessions(supabaseAdmin);
@@ -480,6 +523,8 @@ export async function GET(request: NextRequest) {
     } else {
       results.lifecycleEmails = { skipped: true, reason: 'Midnight slot' };
       results.winbacks = { skipped: true, reason: 'Midnight slot' };
+      results.weeklyDigest = { skipped: true, reason: 'Midnight slot' };
+      results.followUpNotifications = { skipped: true, reason: 'Midnight slot' };
       results.draftCleanup = { skipped: true, reason: 'Midnight slot' };
     }
 

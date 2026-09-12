@@ -20,21 +20,12 @@ interface NumericalTableProps {
 export default function NumericalTable({ data }: NumericalTableProps) {
   return (
     <div
-      className="relative overflow-hidden rounded-2xl border border-orange-200/60 bg-white"
-      style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.15)' }}
+      className="relative overflow-hidden rounded-xl border border-orange-200/60 bg-white"
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-1"
-        style={{
-          background:
-            'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
-        }}
-      />
-
       <div className="overflow-x-auto p-3 sm:p-4">
         <table className="w-full border-collapse text-sm">
           {data.caption && (
-            <caption className="text-left text-sm font-bold text-slate-900 mb-3 caption-top">
+            <caption className="text-left text-sm font-bold text-neutral-900 mb-3 caption-top">
               {data.caption}
             </caption>
           )}
@@ -44,9 +35,9 @@ export default function NumericalTable({ data }: NumericalTableProps) {
                 <th
                   key={i}
                   scope="col"
-                  className={`px-3 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider border-b-2 border-orange-200 ${
+                  className={`px-3 sm:px-4 py-2.5 text-xs sm:text-xs font-bold uppercase tracking-wider border-b-2 border-orange-200 ${
                     i === 0
-                      ? 'text-left text-slate-700'
+                      ? 'text-left text-neutral-700'
                       : 'text-right text-orange-700'
                   }`}
                 >
@@ -75,8 +66,8 @@ export default function NumericalTable({ data }: NumericalTableProps) {
                       key={ci}
                       className={`px-3 sm:px-4 py-2.5 ${
                         ci === 0
-                          ? 'text-left text-slate-900 font-semibold'
-                          : 'text-right tabular-nums text-slate-700'
+                          ? 'text-left text-neutral-900 font-semibold'
+                          : 'text-right tabular-nums text-neutral-700'
                       } ${
                         isHighlighted ? 'text-orange-900' : ''
                       }`}

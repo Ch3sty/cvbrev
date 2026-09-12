@@ -178,7 +178,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
 
           <div className="flex gap-3 justify-center">
             <Link
-              href="/dashboard/rewards"
+              href="/dashboard/profil/prenumeration"
               className="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200"
             >
               Visa Mina Rabatter

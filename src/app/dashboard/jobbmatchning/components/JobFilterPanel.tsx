@@ -64,7 +64,7 @@ interface JobFilterPanelProps {
   filters: JobFilters;
   onChange: (next: JobFilters) => void;
   userLocation?: string | null;
-  jobs?: any[]; // hämtade jobb — för region→kommun-gruppering med antal
+  jobs?: any[]; // hämtade jobb, för region→kommun-gruppering med antal
 }
 
 /**
@@ -139,7 +139,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
         <div>
           <div className="flex items-center gap-1.5 mb-2.5">
             <MapPin className="w-3.5 h-3.5 text-orange-500" />
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
               Var jobben finns
             </span>
           </div>
@@ -150,23 +150,23 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                 filters.municipality.includes(m.code)
               ).length;
               return (
-                <div key={region.code} className="rounded-lg border border-slate-200 overflow-hidden">
+                <div key={region.code} className="rounded-lg border border-neutral-200 overflow-hidden">
                   <button
                     type="button"
                     onClick={() => setExpandedRegion(isExpanded ? null : region.code)}
                     className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-left hover:bg-orange-50/50 transition-colors touch-manipulation min-h-[44px]"
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      <span className="text-sm font-medium text-slate-800 truncate">{region.name}</span>
-                      <span className="flex-shrink-0 text-xs text-slate-500 tabular-nums">({region.count})</span>
+                      <span className="text-sm font-medium text-neutral-800 truncate">{region.name}</span>
+                      <span className="flex-shrink-0 text-xs text-neutral-500 tabular-nums">({region.count})</span>
                       {selectedInRegion > 0 && (
-                        <span className="flex-shrink-0 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-[10px] font-bold">
+                        <span className="flex-shrink-0 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-orange-600 text-white text-xs font-bold">
                           {selectedInRegion}
                         </span>
                       )}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 flex-shrink-0 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                      className={`w-4 h-4 flex-shrink-0 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                     />
                   </button>
                   {isExpanded && (
@@ -178,15 +178,15 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                             key={m.code}
                             type="button"
                             onClick={() => toggleMuni(m.code)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all touch-manipulation min-h-[40px] border ${
+                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all touch-manipulation min-h-[44px] border ${
                               selected
-                                ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white border-transparent shadow-sm'
-                                : 'bg-white text-slate-700 border-slate-200 hover:border-orange-300 hover:bg-orange-50/50'
+                                ? 'bg-orange-600 text-white border-transparent'
+                                : 'bg-white text-neutral-700 border-neutral-200 hover:border-orange-300 hover:bg-orange-50/50'
                             }`}
                           >
                             {selected && <Check className="w-3.5 h-3.5" strokeWidth={2.5} />}
                             {m.name}
-                            <span className={`text-xs tabular-nums ${selected ? 'text-white/80' : 'text-slate-400'}`}>
+                            <span className={`text-xs tabular-nums ${selected ? 'text-white/80' : 'text-neutral-400'}`}>
                               {m.count}
                             </span>
                           </button>
@@ -205,7 +205,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
         <button
           type="button"
           onClick={reset}
-          className="text-sm font-medium text-slate-500 hover:text-orange-600 transition-colors touch-manipulation"
+          className="text-sm font-medium text-neutral-500 hover:text-orange-600 transition-colors touch-manipulation"
         >
           Rensa alla filter ({activeCount})
         </button>
@@ -219,12 +219,12 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="lg:hidden inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-orange-300 text-sm font-semibold text-slate-700 transition-all touch-manipulation min-h-[44px]"
+        className="lg:hidden inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-neutral-200 hover:border-orange-300 text-sm font-semibold text-neutral-700 transition-all touch-manipulation min-h-[44px]"
       >
         <SlidersHorizontal className="w-4 h-4 text-orange-500" />
         Filter
         {activeCount > 0 && (
-          <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-[11px] font-bold">
+          <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-orange-600 text-white text-xs font-bold">
             {activeCount}
           </span>
         )}
@@ -232,10 +232,10 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
 
       {/* DESKTOP: alltid synlig sidebar */}
       <aside className="hidden lg:block w-full">
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-5 sticky top-6">
+        <div className="bg-white rounded-xl border border-neutral-200 p-5 sticky top-6">
           <div className="flex items-center gap-2 mb-5">
             <SlidersHorizontal className="w-4 h-4 text-orange-500" />
-            <h3 className="text-sm font-bold text-slate-900">Filter</h3>
+            <h3 className="text-sm font-bold text-neutral-900">Filter</h3>
           </div>
           {body}
         </div>
@@ -250,36 +250,35 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="lg:hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-neutral-900/40 backdrop-blur-sm z-40"
             />
             <motion.div
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="lg:hidden fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto"
+              className="lg:hidden fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-xl max-h-[85vh] overflow-y-auto"
             >
-              <div className="sticky top-0 bg-white flex items-center justify-between px-5 py-4 border-b border-slate-100">
+              <div className="sticky top-0 bg-white flex items-center justify-between px-5 py-4 border-b border-neutral-100">
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4 text-orange-500" />
-                  <h3 className="text-base font-bold text-slate-900">Filter</h3>
+                  <h3 className="text-base font-bold text-neutral-900">Filter</h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 touch-manipulation"
+                  className="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 touch-manipulation"
                   aria-label="Stäng filter"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
               <div className="px-5 py-5 pb-8">{body}</div>
-              <div className="sticky bottom-0 bg-white px-5 py-4 border-t border-slate-100">
+              <div className="sticky bottom-0 bg-white px-5 py-4 border-t border-neutral-100">
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="w-full py-3 rounded-xl text-white font-semibold touch-manipulation min-h-[48px]"
-                  style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                  className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold touch-manipulation min-h-[48px]"
                 >
                   Visa resultat
                 </button>
@@ -310,12 +309,12 @@ function ToggleRow({
       className="w-full flex items-center justify-between gap-3 text-left touch-manipulation min-h-[44px]"
     >
       <span className="min-w-0">
-        <span className="block text-sm font-medium text-slate-800">{label}</span>
-        <span className="block text-xs text-slate-500 mt-0.5">{hint}</span>
+        <span className="block text-sm font-medium text-neutral-800">{label}</span>
+        <span className="block text-xs text-neutral-500 mt-0.5">{hint}</span>
       </span>
       <span
         className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors ${
-          checked ? 'bg-gradient-to-r from-orange-500 to-red-600' : 'bg-slate-200'
+          checked ? 'bg-orange-600' : 'bg-neutral-200'
         }`}
       >
         <span
@@ -341,7 +340,7 @@ function Segment<T extends string | number>({
 }) {
   return (
     <div>
-      <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
+      <span className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-2">
         {title}
       </span>
       <div className="flex flex-wrap gap-2">
@@ -352,10 +351,10 @@ function Segment<T extends string | number>({
               key={String(opt.value)}
               type="button"
               onClick={() => onSelect(opt.value)}
-              className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all touch-manipulation min-h-[40px] border ${
+              className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all touch-manipulation min-h-[44px] border ${
                 active
-                  ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white border-transparent shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-orange-300 hover:bg-orange-50/50'
+                  ? 'bg-orange-600 text-white border-transparent'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-orange-300 hover:bg-orange-50/50'
               }`}
             >
               {opt.label}

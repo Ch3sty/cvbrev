@@ -29,14 +29,14 @@ export default function DevelopmentView({ perTest }: Props) {
       className="space-y-5 sm:space-y-6"
     >
       <div>
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
           <LineChart className="w-3.5 h-3.5" strokeWidth={2.5} />
           Din utveckling
         </div>
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900 tracking-tight">
           Så har du förbättrats
         </h2>
-        <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+        <p className="text-xs sm:text-sm text-neutral-600 mt-0.5">
           Varje stapel är ett försök. Linjen visar hur dina resultat rör sig över tid.
         </p>
       </div>
@@ -56,25 +56,20 @@ function DevelopmentEmpty() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white rounded-3xl border border-orange-200/60 p-6 sm:p-8 text-center"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.12)' }}
+      className="bg-white rounded-xl border border-orange-200/60 p-6 sm:p-8 text-center"
     >
       <div className="flex justify-center mb-3">
         <EmptyStateIllustration className="w-24 h-24 sm:w-28 sm:h-28" />
       </div>
-      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">
+      <h3 className="text-base sm:text-lg font-bold text-neutral-900 mb-1">
         Din utveckling visas här
       </h3>
-      <p className="text-xs sm:text-sm text-slate-600 max-w-sm mx-auto mb-4">
+      <p className="text-xs sm:text-sm text-neutral-600 max-w-sm mx-auto mb-4">
         Gör ett test så börjar vi rita upp hur dina resultat förbättras över tid, test för test.
       </p>
       <Link
         href="/dashboard/tester/matrislogik-grund"
-        className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[44px] touch-manipulation"
-        style={{
-          background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.4)',
-        }}
+        className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[44px] touch-manipulation bg-orange-600 hover:bg-orange-700"
       >
         Gör ditt första test
         <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

@@ -13,7 +13,7 @@ interface VisibilityModeCardProps {
 
 /**
  * Synlighetsläge: två valkort (Anonym först rekommenderas / Öppen profil).
- * Skriver visibility, men bara när mastern är på — i avstängt läge visas
+ * Skriver visibility, men bara när mastern är på, i avstängt läge visas
  * korten dämpade.
  */
 export default function VisibilityModeCard({ visibility, lastMode, onChange, collapse }: VisibilityModeCardProps) {
@@ -28,7 +28,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
       {...collapse}
       headerExtra={
         !isOn ? (
-          <span className="text-[11px] font-bold tracking-wide rounded-full px-2.5 py-1 bg-slate-100 text-slate-500">
+          <span className="text-xs font-bold tracking-wide rounded-full px-2.5 py-1 bg-neutral-100 text-neutral-500">
             Ej synlig
           </span>
         ) : undefined
@@ -52,7 +52,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
         />
       </div>
       {!isOn && (
-        <p className="text-[12px] text-slate-400 mt-2.5">
+        <p className="text-xs text-neutral-400 mt-2.5">
           Slå på synligheten uppe till höger för att välja läge.
         </p>
       )}
@@ -82,22 +82,21 @@ function ModeOption({
       aria-checked={selected}
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-2xl border-[1.5px] p-4 min-h-[72px] text-left transition-all touch-manipulation ${
+      className={`rounded-xl border-[1.5px] p-4 min-h-[72px] text-left transition-all touch-manipulation ${
         selected
           ? 'border-orange-500 bg-orange-50/60'
-          : 'border-slate-200 bg-white hover:border-orange-300'
+          : 'border-neutral-200 bg-white hover:border-orange-300'
       } ${disabled ? 'cursor-not-allowed' : ''}`}
-      style={selected ? { boxShadow: '0 4px 12px -6px rgba(234, 88, 12, 0.3)' } : undefined}
     >
       <span className="flex items-center gap-2 flex-wrap">
-        <span className="text-sm font-bold text-slate-900">{title}</span>
+        <span className="text-sm font-bold text-neutral-900">{title}</span>
         {recommended && (
-          <span className="text-[10px] font-bold tracking-wide rounded-full px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span className="text-xs font-bold tracking-wide rounded-full px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200">
             Rekommenderas
           </span>
         )}
       </span>
-      <span className="block text-[12.5px] text-slate-500 mt-1 leading-relaxed">{description}</span>
+      <span className="block text-xs text-neutral-500 mt-1 leading-relaxed">{description}</span>
     </button>
   );
 }

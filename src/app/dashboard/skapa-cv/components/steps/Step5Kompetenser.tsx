@@ -43,7 +43,7 @@ function ChipsInput({ values, onChange }: ChipsInputProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-1.5 px-3 py-2.5 bg-white border border-slate-200 rounded-xl min-h-[44px] focus-within:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 transition-all">
+      <div className="flex flex-wrap items-center gap-1.5 px-3 py-2.5 bg-white border border-neutral-200 rounded-xl min-h-[44px] focus-within:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 transition-all">
         {values.map((skill, i) => (
           <span
             key={`${skill}-${i}`}
@@ -77,11 +77,14 @@ function ChipsInput({ values, onChange }: ChipsInputProps) {
             }
           }}
           onBlur={addFromDraft}
+          enterKeyHint="done"
+          inputMode="text"
+          autoComplete="off"
           placeholder={values.length === 0 ? 'Skriv en kompetens och tryck Enter' : 'Lägg till...'}
-          className="flex-1 min-w-[120px] bg-transparent text-sm text-slate-900 placeholder-slate-400 focus:outline-none"
+          className="flex-1 min-w-[120px] bg-transparent text-base text-neutral-900 placeholder-neutral-400 focus:outline-none"
         />
       </div>
-      <p className="mt-1.5 text-xs text-slate-500">
+      <p className="mt-1.5 text-xs text-neutral-500">
         Tryck Enter eller komma för att lägga till. Backspace för att ta bort sista.
       </p>
     </div>
@@ -153,7 +156,7 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
             hint="Hjälper rekryteraren snabbt skanna dina styrkor."
           />
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5">
               Kompetenser
             </label>
             <ChipsInput
@@ -181,10 +184,7 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
       />
 
       <div
-        className="rounded-3xl bg-white border border-orange-100 p-5 sm:p-7"
-        style={{
-          boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)',
-        }}
+        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
       >
         <SkapaCvCardList
           items={items}

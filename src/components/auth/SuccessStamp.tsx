@@ -27,7 +27,7 @@ export default function SuccessStamp({
       aria-hidden="true"
     >
       <span
-        className="px-4 py-1.5 rounded border-[3px] font-black tracking-[0.18em] uppercase text-base sm:text-lg"
+        className="px-4 py-1.5 rounded border-[3px] font-semibold tracking-[0.18em] uppercase text-base sm:text-lg"
         style={{
           color: '#DC2626',
           borderColor: '#DC2626',

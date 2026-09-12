@@ -72,8 +72,8 @@ export default function AnalysisOverviewStep({
         animate={{ opacity: 1, scale: 1 }}
         className="text-center"
       >
-        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-          <CheckCircle2 className="w-10 h-10 text-white" />
+        <div className="mb-4 flex items-center justify-center">
+          <CheckCircle2 className="w-10 h-10 text-green-600" />
         </div>
         <h3 className="text-3xl font-bold text-gray-900 mb-2">
           Din analys är klar!
@@ -84,7 +84,7 @@ export default function AnalysisOverviewStep({
       </motion.div>
 
       {/* ATS Score Card */}
-      <Card className="bg-gradient-to-br from-white via-purple-50/30 to-white border border-slate-200 shadow-lg p-6">
+      <Card className="bg-white border border-neutral-200 p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h4 className="text-lg font-semibold text-gray-900">ATS-Optimering</h4>
@@ -102,7 +102,7 @@ export default function AnalysisOverviewStep({
 
           {/* Arrow */}
           <div className="flex-1 flex items-center gap-2">
-            <div className="flex-1 h-1 bg-gradient-to-r from-gray-400 to-green-500 rounded-full" />
+            <div className="flex-1 h-1 bg-green-500 rounded-full" />
             <span className="text-2xl">→</span>
           </div>
 
@@ -130,11 +130,9 @@ export default function AnalysisOverviewStep({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="bg-white border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <Card className="bg-white border-neutral-200 p-6 transition-shadow">
               <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
-                  <category.icon className="w-6 h-6 text-white" />
-                </div>
+                <category.icon className="w-6 h-6 text-neutral-700 flex-shrink-0" />
                 <div className="flex-1">
                   <h5 className="font-semibold text-gray-900 mb-1">
                     {category.title}
@@ -142,7 +140,7 @@ export default function AnalysisOverviewStep({
                   <p className="text-sm text-gray-600 mb-2">
                     {category.description}
                   </p>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <div className="text-2xl font-bold text-neutral-900">
                     {category.count}
                   </div>
                 </div>

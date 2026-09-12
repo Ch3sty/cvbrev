@@ -104,6 +104,11 @@ export async function PUT(
     if (body.notes !== undefined) {
       updates.notes = typeof body.notes === 'string' ? body.notes.trim().slice(0, 4000) || null : null;
     }
+    // Utan detta gick cv_id aldrig att rätta i efterhand, och CV-jämförelsen
+    // fastnade på det värde ansökan råkade få när den skapades.
+    if (body.cv_id !== undefined) {
+      updates.cv_id = typeof body.cv_id === 'string' && body.cv_id ? body.cv_id : null;
+    }
     if (typeof body.applied_at === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.applied_at)) {
       updates.applied_at = body.applied_at;
     }

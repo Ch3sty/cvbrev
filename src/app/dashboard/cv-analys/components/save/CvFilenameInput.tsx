@@ -21,26 +21,20 @@ export default function CvFilenameInput({
 
   return (
     <div
-      className="rounded-2xl bg-white p-4 sm:p-5"
+      className="rounded-xl bg-white p-4 sm:p-5"
       style={{
         border: '1px solid rgba(249, 115, 22, 0.22)',
-        boxShadow: '0 4px 14px -8px rgba(249, 115, 22, 0.18)',
       }}
     >
       <div className="flex items-start gap-3 mb-3">
-        <div
-          className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          }}
-        >
-          <FileText className="w-4 h-4" strokeWidth={2.25} />
+        <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+          <FileText className="w-4 h-4 text-neutral-700" strokeWidth={2.25} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
             Ge ditt CV ett namn
           </div>
-          <div className="text-sm font-semibold text-slate-900">
+          <div className="text-sm font-semibold text-neutral-900">
             Hjälper dig hitta rätt CV senare
           </div>
         </div>
@@ -48,10 +42,16 @@ export default function CvFilenameInput({
 
       <input
         type="text"
+
+        enterKeyHint="done"
+
+        inputMode="text"
+
+        autoComplete="off"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-4 py-3 text-base bg-white border-2 border-orange-200/60 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-orange-500 min-h-[48px] transition-colors"
+        className="w-full px-4 py-3 text-base bg-white border-2 border-orange-200/60 rounded-xl text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-orange-500 min-h-[48px] transition-colors"
       />
 
       <button
@@ -82,10 +82,9 @@ export default function CvFilenameInput({
                     onChange(suggestion);
                     setShowSuggestions(false);
                   }}
-                  className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[32px]"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[44px]"
                   style={{
-                    background:
-                      'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.05) 100%)',
+                    background: 'rgba(249, 115, 22, 0.07)',
                     border: '1px solid rgba(249, 115, 22, 0.25)',
                     color: '#9A3412',
                   }}
@@ -96,10 +95,9 @@ export default function CvFilenameInput({
             </div>
 
             <div
-              className="mt-3 rounded-xl p-3 text-[11px] text-slate-700 leading-relaxed"
+              className="mt-3 rounded-xl p-3 text-xs text-neutral-700 leading-relaxed"
               style={{
-                background:
-                  'linear-gradient(135deg, rgba(249, 115, 22, 0.05) 0%, rgba(220, 38, 38, 0.03) 100%)',
+                background: 'rgba(249, 115, 22, 0.04)',
                 border: '1px solid rgba(249, 115, 22, 0.15)',
               }}
             >

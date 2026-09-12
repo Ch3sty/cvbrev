@@ -54,7 +54,7 @@ export default function SaveAndTemplateStep({
     return (
       <div className="text-center py-12">
         <div className="inline-block w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-slate-600 mt-3 text-sm">Laddar...</p>
+        <p className="text-neutral-600 mt-3 text-sm">Laddar...</p>
       </div>
     );
   }
@@ -62,13 +62,7 @@ export default function SaveAndTemplateStep({
   return (
     <div className="space-y-5">
       {/* MALL ÖVERST - huvudfokus */}
-      <div
-        className="rounded-3xl bg-white overflow-hidden p-4 sm:p-5"
-        style={{
-          border: '1px solid rgba(249, 115, 22, 0.2)',
-          boxShadow: '0 8px 28px -16px rgba(249, 115, 22, 0.18)',
-        }}
-      >
+      <div className="rounded-xl bg-white overflow-hidden p-4 sm:p-5 border border-orange-200">
         <TemplateSelector
           selectedTemplateId={selectedTemplate}
           onSelectTemplate={onTemplateChange}
@@ -80,10 +74,10 @@ export default function SaveAndTemplateStep({
           <div className="mt-4 pt-4 border-t border-orange-200/40">
             <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
               <div className="min-w-0">
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700">
+                <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
                   Vald mall
                 </div>
-                <div className="text-base font-bold text-slate-900 truncate">
+                <div className="text-base font-bold text-neutral-900 truncate">
                   {selectedTemplateData.name}
                 </div>
               </div>

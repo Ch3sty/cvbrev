@@ -27,20 +27,20 @@ export default function SkapaCvStepHeader({
       className="mb-1"
     >
       <div className="flex items-center gap-2 mb-1.5">
-        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700">
+        <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
           Steg {stepNumber} av 7
         </div>
         {isOptional && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-neutral-100 text-neutral-600">
             Valfritt
           </span>
         )}
       </div>
-      <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight tracking-tight">
+      <h2 className="text-xl sm:text-2xl font-semibold text-neutral-900 leading-tight tracking-tight">
         {title}
       </h2>
       {description && (
-        <p className="text-sm sm:text-base text-slate-600 mt-1.5 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
           {description}
         </p>
       )}

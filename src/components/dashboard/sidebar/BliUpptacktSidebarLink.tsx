@@ -46,10 +46,7 @@ export default function BliUpptacktSidebarLink({
       sublabel={sublabel}
       badge={
         showNy ? (
-          <span
-            className="text-[9px] font-bold uppercase tracking-[0.08em] text-white px-1.5 py-0.5 rounded-full"
-            style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
-          >
+          <span className="text-xs font-bold uppercase tracking-[0.08em] text-white px-1.5 py-0.5 rounded-full bg-orange-600">
             Ny
           </span>
         ) : undefined

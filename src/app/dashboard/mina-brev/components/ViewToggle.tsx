@@ -29,13 +29,12 @@ export default function ViewToggle({ value, onChange }: ViewToggleProps) {
         className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all ${
           value === 'grid'
             ? 'text-white shadow-sm'
-            : 'text-slate-500 hover:text-slate-700 hover:bg-orange-50/40'
+            : 'text-neutral-500 hover:text-neutral-700 hover:bg-orange-50/40'
         }`}
         style={
           value === 'grid'
             ? {
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 2px 6px -2px rgba(220, 38, 38, 0.4)',
+                background: '#EA580C',
               }
             : undefined
         }
@@ -51,13 +50,12 @@ export default function ViewToggle({ value, onChange }: ViewToggleProps) {
         className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all ${
           value === 'list'
             ? 'text-white shadow-sm'
-            : 'text-slate-500 hover:text-slate-700 hover:bg-orange-50/40'
+            : 'text-neutral-500 hover:text-neutral-700 hover:bg-orange-50/40'
         }`}
         style={
           value === 'list'
             ? {
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 2px 6px -2px rgba(220, 38, 38, 0.4)',
+                background: '#EA580C',
               }
             : undefined
         }

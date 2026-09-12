@@ -27,14 +27,13 @@ export default function PassageNavigation({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.4 }}
-      className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-orange-100 p-4 sm:p-5"
     >
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700">
           Navigera mellan passager
         </p>
-        <p className="text-xs text-slate-500 tabular-nums">
+        <p className="text-xs text-neutral-500 tabular-nums">
           {totalAnswered} / {totalStatements} besvarade
         </p>
       </div>
@@ -82,27 +81,27 @@ function PassageButton({
   onClick: () => void;
 }) {
   // Bestäm bakgrund
-  let bg: string | undefined;
+  let bgClass: string | undefined;
   let textColor: string;
-  let borderClass = 'border border-slate-200';
+  let borderClass = 'border border-neutral-200';
 
   if (isCurrent && isComplete) {
-    bg = 'linear-gradient(135deg, #F97316, #DC2626)';
+    bgClass = 'bg-orange-600';
     textColor = 'text-white';
     borderClass = 'ring-2 ring-emerald-400';
   } else if (isCurrent) {
-    bg = 'linear-gradient(135deg, #F97316, #DC2626)';
+    bgClass = 'bg-orange-600';
     textColor = 'text-white';
   } else if (isComplete) {
-    bg = 'linear-gradient(135deg, #10B981, #059669)';
+    bgClass = 'bg-emerald-600';
     textColor = 'text-white';
     borderClass = '';
   } else if (hasProgress) {
-    bg = 'linear-gradient(135deg, #FBBF24, #F59E0B)';
+    bgClass = 'bg-amber-500';
     textColor = 'text-white';
     borderClass = '';
   } else {
-    textColor = 'text-slate-600 hover:text-orange-700';
+    textColor = 'text-neutral-600 hover:text-orange-700';
   }
 
   return (
@@ -112,22 +111,10 @@ function PassageButton({
       whileTap={{ scale: 0.95 }}
       className={`
         relative aspect-square rounded-lg font-bold text-xs sm:text-sm transition-all
-        flex items-center justify-center min-h-[36px] sm:min-h-[40px] touch-manipulation
+        flex items-center justify-center min-h-[44px] touch-manipulation
         ${textColor}
-        ${!bg ? `bg-white ${borderClass} hover:border-orange-300` : borderClass}
+        ${bgClass ? `${bgClass} ${borderClass}` : `bg-white ${borderClass} hover:border-orange-300`}
       `}
-      style={
-        bg
-          ? {
-              background: bg,
-              boxShadow: isCurrent
-                ? '0 4px 10px -2px rgba(220, 38, 38, 0.45)'
-                : isComplete
-                ? '0 2px 6px -2px rgba(16, 185, 129, 0.4)'
-                : '0 2px 6px -2px rgba(245, 158, 11, 0.4)',
-            }
-          : undefined
-      }
       aria-label={`Gå till passage ${index + 1}${isComplete ? ' (klar)' : hasProgress ? ` (${answered}/${total} besvarade)` : ''}${isCurrent ? ' (aktuell)' : ''}`}
       aria-current={isCurrent ? 'step' : undefined}
     >

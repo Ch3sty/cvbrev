@@ -125,7 +125,7 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
           {/* Beskrivning som bullet-points */}
           <div>
             <label
-              className="block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1.5"
+              className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
             >
               Beskriv vad du gjorde (en punkt per rad)
             </label>
@@ -139,10 +139,13 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
                 )
               }
               rows={5}
+              enterKeyHint="enter"
+              inputMode="text"
+              autoComplete="off"
               placeholder={`Ledde ett team på 12 personer i utvecklingen av ny e-handelsplattform\nÖkade leveranshastigheten med 40% genom Scrum-implementering\nAnsvarade för budget på 15 MSEK`}
-              className="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 resize-y"
+              className="block w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 resize-y"
             />
-            <p className="mt-1.5 text-xs text-slate-500">
+            <p className="mt-1.5 text-xs text-neutral-500">
               En punkt per rad. Börja gärna med ett aktivt verb och inkludera
               siffror där det går.
             </p>
@@ -167,10 +170,7 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
       />
 
       <div
-        className="rounded-3xl bg-white border border-orange-100 p-5 sm:p-7"
-        style={{
-          boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)',
-        }}
+        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
       >
         <SkapaCvCardList
           items={items}

@@ -155,7 +155,7 @@ export default function QuickScoreReveal({
             <span className="text-xl font-semibold text-neutral-900 tabular-nums leading-none">
               {displayScore}
             </span>
-            <span className="text-[10px] text-neutral-500 mt-0.5">av 100</span>
+            <span className="text-xs text-neutral-500 mt-0.5">av 100</span>
           </span>
         </div>
 

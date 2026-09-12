@@ -25,21 +25,21 @@ export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, se
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm"
+          className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm"
         >
           <span className="flex items-baseline gap-1.5">
-            <span className="text-base font-bold text-slate-900 tabular-nums">{jobs.length}</span>
-            <span className="text-slate-500">jobb totalt</span>
+            <span className="text-base font-bold text-neutral-900 tabular-nums">{jobs.length}</span>
+            <span className="text-neutral-500">jobb totalt</span>
           </span>
-          <span className="text-slate-300">·</span>
+          <span className="text-neutral-300">·</span>
           <span className="flex items-baseline gap-1.5">
             <span className="text-base font-bold text-emerald-600 tabular-nums">{highMatches}</span>
-            <span className="text-slate-500">höga matchningar (&gt;70%)</span>
+            <span className="text-neutral-500">höga matchningar (&gt;70%)</span>
           </span>
-          <span className="text-slate-300">·</span>
+          <span className="text-neutral-300">·</span>
           <span className="flex items-baseline gap-1.5">
             <span className="text-base font-bold text-orange-600 tabular-nums">{avgRelevance}%</span>
-            <span className="text-slate-500">snittrelevans</span>
+            <span className="text-neutral-500">snittrelevans</span>
           </span>
         </motion.div>
       )}
@@ -51,13 +51,13 @@ export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, se
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 rounded-xl bg-orange-50 border border-orange-200 text-sm"
         >
-          <div className="flex items-center gap-2 text-slate-700">
-            <span className="text-slate-500">Matchning baserad på:</span>
-            <span className="font-semibold text-slate-900">{selectedAnalysis.displayName}</span>
+          <div className="flex items-center gap-2 text-neutral-700">
+            <span className="text-neutral-500">Matchning baserad på:</span>
+            <span className="font-semibold text-neutral-900">{selectedAnalysis.displayName}</span>
           </div>
           {selectedAnalysis.atsScore !== undefined && (
             <div className="flex items-baseline gap-1.5">
-              <span className="text-slate-500">ATS-poäng:</span>
+              <span className="text-neutral-500">ATS-poäng:</span>
               <span className="font-bold text-orange-600 tabular-nums">{selectedAnalysis.atsScore}/100</span>
             </div>
           )}
@@ -85,11 +85,11 @@ export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, se
           animate={{ opacity: 1 }}
           className="text-center py-20"
         >
-          <Target className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-slate-600 mb-2">
+          <Target className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-neutral-600 mb-2">
             Inga jobb hittades
           </h3>
-          <p className="text-slate-500">
+          <p className="text-neutral-500">
             Prova att ändra dina sökkriterier eller välj en annan CV-analys
           </p>
         </motion.div>

@@ -43,7 +43,7 @@ export default function PotentialBar({
       <div
         className="sm:hidden fixed left-0 right-0 z-20 px-3"
         style={{
-          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 138px)',
+          bottom: 'calc(var(--bottom-nav-h) + 74px)',
         }}
       >
         <Bar
@@ -76,10 +76,9 @@ function Bar({
 }) {
   return (
     <div
-      className={`rounded-2xl text-white ${compact ? 'p-3' : 'p-4 sm:p-5'}`}
+      className={`rounded-xl text-white ${compact ? 'p-3' : 'p-4 sm:p-5'}`}
       style={{
-        background:
-          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+        background: '#EA580C',
         boxShadow: '0 12px 28px -12px rgba(220, 38, 38, 0.55)',
       }}
     >
@@ -93,7 +92,7 @@ function Bar({
             <TrendingUp className={compact ? 'w-4 h-4' : 'w-5 h-5'} strokeWidth={2.25} />
           </div>
           <div className="min-w-0">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] opacity-80">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] opacity-80">
               Potential med dina val
             </div>
             <div className="text-xs opacity-80 mt-0.5">
@@ -119,7 +118,7 @@ function Bar({
               {Math.round(dynamicPotentialScore)}
             </span>
           </div>
-          <div className="text-[11px] mt-0.5">
+          <div className="text-xs mt-0.5">
             {atsIncrease > 0 ? (
               <span className="font-semibold text-emerald-200">
                 +{atsIncrease} poäng

@@ -22,8 +22,21 @@ export interface PremiumLossItem {
 export interface PremiumUsageSummary {
   /** Antal gånger per funktion sedan premium började gälla. */
   counts: Partial<Record<PremiumFeature, number>>
+  /** Antal exporter som använde en mall som ingår i Premium. */
+  premiumTemplateExports: number
   /** Tre rader, viktigast först. */
   losses: PremiumLossItem[]
+}
+
+/**
+ * Mallraden är inte en egen `PremiumFeature`, den härleds ur metadatan på
+ * `cv_export`. Har hon exporterat med en låst mall är det den konkreta saken
+ * hon förlorar, och då ska den stå före den generella exporträkningen.
+ */
+const PREMIUM_TEMPLATE_ITEM: PremiumLossItem = {
+  label: 'CV-mallar som ingår i Premium',
+  free: 'Låsta',
+  premium: 'Alla',
 }
 
 /** Raderna vi kan visa, i fallande prioritet när inget använts. */
@@ -87,10 +100,16 @@ export async function GET() {
       .limit(500)
 
     const counts: Partial<Record<PremiumFeature, number>> = {}
-    for (const row of (data ?? []) as Array<{ metadata?: { feature?: string } | null }>) {
+    let premiumTemplateExports = 0
+    for (const row of (data ?? []) as Array<{
+      metadata?: { feature?: string; premiumTemplate?: boolean } | null
+    }>) {
       const feature = row.metadata?.feature as PremiumFeature | undefined
       if (!feature) continue
       counts[feature] = (counts[feature] ?? 0) + 1
+      if (feature === 'cv_export' && row.metadata?.premiumTemplate === true) {
+        premiumTemplateExports += 1
+      }
     }
 
     const used = DEFAULT_ORDER.filter((entry) => (counts[entry.feature] ?? 0) > 0).sort(
@@ -104,7 +123,18 @@ export async function GET() {
         ? [...used, ...unused].map((e) => e.item)
         : [LETTER_QUOTA_ITEM, ...unused.map((e) => e.item)]
 
-    const summary: PremiumUsageSummary = { counts, losses: ordered.slice(0, 3) }
+    // En låst mall är det mest konkreta hon förlorar, så den går före allt
+    // annat när hon faktiskt exporterat med en.
+    const losses =
+      premiumTemplateExports > 0
+        ? [PREMIUM_TEMPLATE_ITEM, ...ordered.filter((i) => i.label !== PREMIUM_TEMPLATE_ITEM.label)]
+        : ordered
+
+    const summary: PremiumUsageSummary = {
+      counts,
+      premiumTemplateExports,
+      losses: losses.slice(0, 3),
+    }
     return NextResponse.json(summary)
   } catch (error) {
     console.error('[premium/usage-summary] Error:', error)

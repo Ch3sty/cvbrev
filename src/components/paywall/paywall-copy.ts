@@ -11,6 +11,8 @@ export type PaywallVariant =
   | 'test-tak'
   | 'nedgraderad'
   | 'cv-antal'
+  | 'jobbtraffar'
+  | 'af-rapport'
 
 export interface PaywallCopy {
   title: string
@@ -44,7 +46,7 @@ export const KVOT_COPY_BY_FEATURE: Record<string, Pick<PaywallCopy, 'title' | 'b
 
 export function getPaywallCopy(
   variant: PaywallVariant,
-  opts?: { findingsTotal?: number; quotaFeature?: string }
+  opts?: { findingsTotal?: number; quotaFeature?: string; hiddenCount?: number }
 ): PaywallCopy {
   switch (variant) {
     case 'nedladdning':
@@ -89,6 +91,30 @@ export function getPaywallCopy(
         body: 'Gratisnivån sparar två CV åt gången. Med Premium sparar du hur många du vill.',
         primary: 'Spara fler med Premium',
         secondary: 'Ta bort ett gammalt CV',
+      }
+    case 'jobbtraffar': {
+      // Siffran är sann: den kommer från serverns egen räkning av vad som
+      // suddats, inte från en påhittad "matchningar väntar".
+      const n = opts?.hiddenCount ?? 0
+      return {
+        title:
+          n === 1
+            ? 'En träff till matchar ditt CV'
+            : `${n} träffar till matchar ditt CV`,
+        body: 'Du ser de tio bästa i klartext. Med Premium öppnas resten av listan, med titel, arbetsgivare och ort.',
+        primary: 'Se alla träffar',
+        secondary: 'Se vad Premium kostar',
+      }
+    }
+    case 'af-rapport':
+      // Loggningen är och förblir gratis: den bygger användarens historik.
+      // Det är uttaget av den färdigställda sammanställningen som kostar,
+      // enligt principen gratis att skapa, betalt att ta ut.
+      return {
+        title: 'Din rapport är sammanställd',
+        body: 'Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina ansökningar är gratis för alltid. Att hämta ut den färdiga rapporten som text, utskrift eller fil ingår i Premium.',
+        primary: 'Hämta rapporten',
+        secondary: 'Se vad Premium kostar',
       }
     case 'nedgraderad':
       return {

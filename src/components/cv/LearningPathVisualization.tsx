@@ -235,7 +235,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* Match Score and Summary */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
         <div className="flex items-start justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -257,13 +257,13 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-2 border border-gray-200/50 shadow-xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-2 border border-gray-200/50">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('journey')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'journey'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                ? 'bg-orange-600 text-white'
                 : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -274,7 +274,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             onClick={() => setActiveTab('skills')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'skills'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                ? 'bg-orange-600 text-white'
                 : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -285,7 +285,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             onClick={() => setActiveTab('courses')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'courses'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                ? 'bg-orange-600 text-white'
                 : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -319,7 +319,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
           {/* Overview Stats */}
           {learningSuggestions.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
             <div className="flex items-center justify-between">
               <Target className="w-5 h-5 text-blue-600" />
               <span className="text-2xl font-bold text-gray-900">{skillGaps.length}</span>
@@ -327,7 +327,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             <p className="text-sm text-gray-600 mt-2">Utvecklingsområden</p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
             <div className="flex items-center justify-between">
               <BookOpen className="w-5 h-5 text-green-600" />
               <span className="text-2xl font-bold text-gray-900">
@@ -337,7 +337,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             <p className="text-sm text-gray-600 mt-2">Kurser funna</p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
             <div className="flex items-center justify-between">
               <Clock className="w-5 h-5 text-yellow-600" />
               <span className="text-2xl font-bold text-gray-900">~{totalWeeks}v</span>
@@ -345,7 +345,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             <p className="text-sm text-gray-600 mt-2">Total studietid</p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
             <div className="flex items-center justify-between">
               <DollarSign className="w-5 h-5 text-indigo-600" />
               <span className="text-2xl font-bold text-gray-900">
@@ -399,7 +399,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             {filteredSuggestions.map((gap, index) => (
               <div
                 key={index}
-                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden"
+                className="bg-white/80 backdrop-blur-xl rounded-xl border border-gray-200/50 overflow-hidden"
               >
                 {/* Gap Header */}
                 <button
@@ -466,7 +466,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                             href={suggestion.direct_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
+                            className="flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-medium transition-all"
                           >
                             Gå till kurs
                             <ExternalLink className="w-4 h-4" />

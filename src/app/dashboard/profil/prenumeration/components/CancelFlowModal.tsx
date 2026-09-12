@@ -191,10 +191,16 @@ export default function CancelFlowModal({ open, onClose }: Props) {
                     <textarea
                       value={freeText}
                       onChange={(event) => setFreeText(event.target.value.slice(0, 300))}
+
+                      enterKeyHint="enter"
+
+                      inputMode="text"
+
+                      autoComplete="off"
                       rows={3}
                       maxLength={300}
                       placeholder="Vad saknade du?"
-                      className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 focus:outline-none focus:border-orange-400 resize-none"
+                      className="w-full px-3 py-2 text-base rounded-lg border border-neutral-200 focus:outline-none focus:border-orange-400 resize-none"
                     />
                     <p className="text-xs text-neutral-400 mt-1 tabular-nums">
                       {freeText.length} / 300

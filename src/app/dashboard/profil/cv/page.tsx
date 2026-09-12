@@ -1,9 +1,17 @@
 'use client';
 
+/**
+ * Mina CV (docs/plan-inloggat-omdesign.md, punkt 18).
+ *
+ * På sidmallen: PageHeader, valfri statusrad, innehåll. Ingen gradienthero,
+ * inget "du har låst upp fyra funktioner"-diagram, inga gradientknappar.
+ * Borttagning bekräftas med ConfirmDialog, aldrig native confirm.
+ */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, FileText, Trash2, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { CheckCircle2 } from 'lucide-react';
 
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
@@ -12,12 +20,15 @@ import CVUploadZone from '@/components/cv/cv-upload-zone';
 import QuickScoreReveal from '@/components/cv/QuickScoreReveal';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
-import CvHeroBanner from './components/CvHeroBanner';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
-import CvUploadIllustration from './components/CvUploadIllustration';
-import CvUnlocksFlow from './components/CvUnlocksFlow';
 import CvCard from './components/CvCard';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import PageHeader from '@/components/shell/PageHeader';
+import EmptyState from '@/components/shell/EmptyState';
+import StatusRow from '@/components/shell/StatusRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
 
 const FREE_LIMIT = 2;
 
@@ -183,25 +194,24 @@ export default function MinaCVPage() {
               body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
                 padding: 0; margin: 0; line-height: 1.7;
-                background: linear-gradient(135deg, #fff7ed 0%, #fee2e2 100%);
-                color: #1f2937; min-height: 100vh;
+                background: #FAFAFA;
+                color: #171717; min-height: 100dvh;
               }
               .header {
-                background: linear-gradient(135deg, #F97316 0%, #DC2626 60%, #BE185D 100%);
-                color: white; padding: 24px 40px;
-                box-shadow: 0 12px 28px -8px rgba(220, 38, 38, 0.35);
+                background: #FFFFFF; border-bottom: 1px solid #E5E5E5;
+                color: #171717; padding: 24px 40px;
               }
-              .header h1 { margin: 0 0 8px 0; font-size: 24px; font-weight: 700; }
-              .header .meta { opacity: 0.9; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+              .header h1 { margin: 0 0 8px 0; font-size: 20px; font-weight: 600; }
+              .header .meta { color: #525252; font-size: 14px; display: flex; align-items: center; gap: 8px; }
               .content { max-width: 850px; margin: 32px auto; padding: 0 24px; }
               .cv-container {
-                background: white; padding: 48px; border-radius: 20px;
-                box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+                background: white; padding: 48px; border-radius: 12px;
+                border: 1px solid #E5E5E5;
                 white-space: pre-line; font-size: 15px;
               }
               .cv-container p { margin: 0 0 16px 0; }
               .footer { text-align: center; padding: 24px; color: #6b7280; font-size: 13px; }
-              .footer a { color: #DC2626; text-decoration: none; font-weight: 500; }
+              .footer a { color: #C2410C; text-decoration: none; font-weight: 500; }
               .footer a:hover { text-decoration: underline; }
               @media print {
                 .header, .footer { display: none; }
@@ -255,31 +265,55 @@ export default function MinaCVPage() {
 
   if (initialLoading) {
     return (
-      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-5 sm:space-y-6">
-        <HeroSkeleton />
-        <BodySkeleton />
+      <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+        <LoadingSkeleton variant="text" count={2} label="Laddar dina CV" />
+        <LoadingSkeleton variant="list" count={2} />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-5 sm:space-y-6">
-      <CvHeroBanner
-        mode={isEmpty ? 'empty' : 'populated'}
-        cvCount={cvCount}
-        isPremium={isPremium}
-        latestUploadedAt={latestUploadedAt}
-        cvLimit={FREE_LIMIT}
+    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+      <PageHeader
+        title="Mina CV"
+        description="Ladda upp ditt CV en gång, använd det i brev, analys och mallar."
+        action={
+          !limitReached ? (
+            <a
+              href="#upload-zone"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+            >
+              Ladda upp CV
+            </a>
+          ) : undefined
+        }
       />
 
-      {/* Onboarding-prompt: pekar mot nasta steg om CV nyss laddats upp */}
-      <OnboardingNextStep stepCompleted="upload_cv" />
+      {/* Statusrad: antal av kvoten. Aldrig oandlighetstecken. */}
+      {cvCount > 0 && (
+        <StatusRow label="Antal CV">
+          {isPremium
+            ? `${cvCount} sparade CV. Premium, inga gränser.`
+            : `${cvCount} av ${FREE_LIMIT} CV använda.`}
+        </StatusRow>
+      )}
 
-      {/* Empty state body */}
+      {/* Tomt tillstand enligt sidmallen */}
       {isEmpty && (
         <>
-          <CvUploadIllustration />
-          <CvUnlocksFlow variant="full" />
+          <EmptyState
+            illustration={IlluTomCv}
+            title="Inget CV än"
+            description="Vi läser det och visar vad en rekryterare ser. Tar 30 sekunder."
+            action={
+              <a
+                href="#upload-zone"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+              >
+                Ladda upp CV
+              </a>
+            }
+          />
 
           <div id="upload-zone" className="scroll-mt-6">
             <UploadCard>
@@ -296,15 +330,13 @@ export default function MinaCVPage() {
         </>
       )}
 
-      {/* Populated state */}
+      {/* Med CV */}
       {cvCount > 0 && (
         <>
-          {/* Aha-moment: snabb-poäng direkt efter första uppladdningen */}
+          {/* Aha-moment: snabb-poang direkt efter forsta uppladdningen */}
           {quickScoreCvId && (
             <QuickScoreReveal cvId={quickScoreCvId} userId={profile?.id} />
           )}
-
-          <CvUnlocksFlow variant="compact" />
 
           {limitReached && (
             <PaywallCard
@@ -314,20 +346,12 @@ export default function MinaCVPage() {
             />
           )}
 
-          <section
-            id="cv-list"
-            className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6"
-          >
-            <div className="flex items-center justify-between mb-4 sm:mb-5 gap-3">
-              <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2 min-w-0">
-                <span className="truncate">Dina CV</span>
-                <span className="flex-shrink-0 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-xs font-bold text-orange-700 tabular-nums">
-                  {cvCount} / {isPremium ? '∞' : FREE_LIMIT}
-                </span>
-              </h2>
-            </div>
+          <section id="cv-list" className="scroll-mt-6">
+            <h2 className="mb-4 text-lg font-semibold tracking-tight text-neutral-900">
+              Dina CV
+            </h2>
 
-            <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {cvs.map((cv, i) => {
                 const structured =
                   structuredOverrides[cv.id] ?? cv.structured_data ?? null;
@@ -383,12 +407,16 @@ export default function MinaCVPage() {
         </>
       )}
 
-      <DeleteConfirmModal
+      <ConfirmDialog
         open={showDeleteConfirm}
-        fileName={cvs.find((cv) => cv.id === deleteId)?.file_name || 'CV'}
-        isDeleting={isDeleting}
         onCancel={() => setShowDeleteConfirm(false)}
         onConfirm={confirmDeleteCV}
+        title="Ta bort CV"
+        description={`${
+          cvs.find((cv) => cv.id === deleteId)?.file_name || 'CV:t'
+        } raderas permanent och kan inte återställas.`}
+        confirmLabel="Ta bort"
+        destructive
       />
     </div>
   );
@@ -403,51 +431,19 @@ function UploadCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.2 }}
-      className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6"
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-5"
     >
-      <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900">
-          {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV nu'}
+      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 className="text-base font-semibold tracking-tight text-neutral-900">
+          {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV'}
         </h2>
-        <span
-          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-          style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
-        >
-          30 sek
-        </span>
+        <span className="text-sm text-neutral-500">Tar 30 sekunder</span>
       </div>
       {children}
     </motion.div>
-  );
-}
-
-function HeroSkeleton() {
-  return (
-    <div
-      className="rounded-3xl bg-gradient-to-br from-orange-100 via-orange-50 to-rose-50 animate-pulse"
-      style={{ height: 320 }}
-      aria-hidden="true"
-    />
-  );
-}
-
-function BodySkeleton() {
-  return (
-    <div className="space-y-4 sm:space-y-5">
-      <div
-        className="rounded-3xl bg-white border border-slate-200/70 animate-pulse"
-        style={{ height: 280 }}
-        aria-hidden="true"
-      />
-      <div
-        className="rounded-3xl bg-white border border-slate-200/70 animate-pulse"
-        style={{ height: 220 }}
-        aria-hidden="true"
-      />
-    </div>
   );
 }
 
@@ -458,7 +454,7 @@ function TrustChips() {
     'Krypterat och privat',
   ];
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-slate-500 pt-1">
+    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-1 text-sm text-neutral-500">
       {items.map((label) => (
         <span key={label} className="inline-flex items-center gap-1.5">
           <CheckCircle2
@@ -472,113 +468,3 @@ function TrustChips() {
   );
 }
 
-function DeleteConfirmModal({
-  open,
-  fileName,
-  isDeleting,
-  onCancel,
-  onConfirm,
-}: {
-  open: boolean;
-  fileName: string;
-  isDeleting: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
-}) {
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4"
-          onClick={onCancel}
-        >
-          <motion.div
-            initial={{ scale: 0.92, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.92, opacity: 0 }}
-            className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="h-1"
-              style={{
-                background: 'linear-gradient(90deg, #F97316, #DC2626)',
-              }}
-            />
-            <div className="p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center text-red-600 flex-shrink-0">
-                  <AlertTriangle className="w-5 h-5" strokeWidth={2.25} />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">
-                  Bekräfta borttagning
-                </h3>
-              </div>
-
-              <p className="text-sm text-slate-700 mb-3">
-                Är du säker på att du vill ta bort detta CV?
-              </p>
-              <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 mb-4 flex items-center gap-2.5 min-w-0">
-                <FileText className="w-4 h-4 text-orange-600 flex-shrink-0" />
-                <span className="text-sm font-medium text-slate-900 truncate">
-                  {fileName}
-                </span>
-              </div>
-              <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-3 flex items-start gap-2 mb-5">
-                <AlertTriangle
-                  className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-                  strokeWidth={2.25}
-                />
-                <p className="text-xs sm:text-sm text-amber-800 leading-snug">
-                  Detta kan inte ångras och all data raderas permanent.
-                </p>
-              </div>
-
-              <div className="flex justify-end gap-2">
-                <button
-                  onClick={onCancel}
-                  disabled={isDeleting}
-                  className="px-4 py-2.5 bg-white text-slate-700 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors font-semibold text-sm touch-manipulation min-h-[44px]"
-                >
-                  Avbryt
-                </button>
-                <button
-                  onClick={onConfirm}
-                  disabled={isDeleting}
-                  className="px-4 py-2.5 text-white rounded-xl flex items-center gap-2 font-semibold text-sm touch-manipulation min-h-[44px] disabled:opacity-60"
-                  style={{
-                    background: 'linear-gradient(90deg, #DC2626, #BE185D)',
-                    boxShadow: '0 8px 18px -6px rgba(220, 38, 38, 0.4)',
-                  }}
-                >
-                  {isDeleting ? (
-                    <>
-                      <motion.div
-                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 1,
-                          repeat: Infinity,
-                          ease: 'linear',
-                        }}
-                      />
-                      <span>Tar bort...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Trash2 className="w-4 h-4" strokeWidth={2.25} />
-                      <span>Ta bort CV</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}

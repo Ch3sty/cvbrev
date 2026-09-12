@@ -34,19 +34,17 @@ export function PassageDisplay({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border-2 border-green-200 p-6 lg:p-8 h-full flex flex-col"
+      className="bg-white rounded-xl border-2 border-green-200 p-6 lg:p-8 h-full flex flex-col"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl">
-            <BookOpen className="w-5 h-5 text-white" />
-          </div>
+          <BookOpen className="w-5 h-5 text-neutral-700" />
           <div>
-            <h3 className="text-sm font-semibold text-slate-600">
+            <h3 className="text-sm font-semibold text-neutral-600">
               Passage {passageNumber} av {totalPassages}
             </h3>
-            <p className="text-xs text-slate-500">{topic}</p>
+            <p className="text-xs text-neutral-500">{topic}</p>
           </div>
         </div>
 
@@ -58,13 +56,13 @@ export function PassageDisplay({
       </div>
 
       {/* Title */}
-      <h2 className="text-xl font-bold text-slate-900 mb-4">
+      <h2 className="text-xl font-bold text-neutral-900 mb-4">
         {title}
       </h2>
 
       {/* Passage Text */}
-      <div className="flex-1 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-slate-200 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-green-500 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-emerald-600">
-        <p className="text-base leading-relaxed text-slate-700 whitespace-pre-wrap">
+      <div className="flex-1 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-neutral-200 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-green-500 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-emerald-600">
+        <p className="text-base leading-relaxed text-neutral-700 whitespace-pre-wrap">
           {text}
         </p>
       </div>

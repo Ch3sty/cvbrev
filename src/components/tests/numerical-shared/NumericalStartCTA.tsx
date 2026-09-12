@@ -31,14 +31,10 @@ export default function NumericalStartCTA({ onStart, isLoading, variant }: Numer
         onClick={onStart}
         disabled={isLoading}
         className="inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl
-                   font-bold text-base sm:text-lg text-white min-h-[60px]
-                   transition-all hover:-translate-y-0.5 active:translate-y-0
+                   font-bold text-base sm:text-lg text-white min-h-[60px] bg-orange-600 hover:bg-orange-700
+                   transition-colors
                    disabled:opacity-60 disabled:cursor-not-allowed
                    touch-manipulation"
-        style={{
-          background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          boxShadow: '0 12px 36px -8px rgba(220, 38, 38, 0.5)',
-        }}
       >
         {isLoading ? (
           <>
@@ -61,7 +57,7 @@ export default function NumericalStartCTA({ onStart, isLoading, variant }: Numer
         )}
       </button>
 
-      <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-600">
+      <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs sm:text-sm text-neutral-600">
         <span className="inline-flex items-center gap-1.5">
           <Calculator className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
           {timeLabel} tidsgräns

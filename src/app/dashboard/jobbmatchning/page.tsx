@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
 import {
@@ -8,11 +8,10 @@ import {
   Loader2,
   ArrowLeft,
   Briefcase,
-  Crown,
 } from 'lucide-react';
-import { useProfile } from '@/hooks/use-profile';
+
 import { useCvQuota } from '@/hooks/useCvQuota';
-import { useRouter } from 'next/navigation';
+
 import { useNotification } from '@/context/notificationcontext';
 
 // Components
@@ -25,6 +24,9 @@ import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
 import JobDetailModal from './components/JobDetailModal';
 import JobFilterPanel, { type JobFilters, DEFAULT_FILTERS, countActiveFilters } from './components/JobFilterPanel';
+import RedactedJobCard from './components/RedactedJobCard';
+import PaywallCard from '@/components/paywall/PaywallCard';
+import type { JobRedactionResult } from '@/app/api/jobs/redact/route';
 import { applyClientFilters, rankGlobalJobs } from './data/job-filtering';
 import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
 
@@ -56,11 +58,10 @@ interface ActiveCVData {
 
 export default function JobbmatchningPage() {
   // Hooks
-  const { subscriptionTier } = useProfile();
   const { isLocked: isCvLocked } = useCvQuota();
-  const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
-  const isPremium = subscriptionTier === 'premium';
+  // Premium avgörs inte längre i klienten: /api/jobs/redact bestämmer vad som
+  // får visas, så en manipulerad klientflagga kan inte låsa upp träffarna.
 
   // Mjuk gate: utan CV visar vi <JobMatchingOnboarding /> istallet for att
   // redirecta. Anvandaren ska forsta vad funktionen ar innan vi skickar dem
@@ -101,7 +102,7 @@ export default function JobbmatchningPage() {
   // remote/noExperience ändrar genuint vilka jobb som finns och hämtas separat
   // via den globala cachen (se hämtning av remote/erfarenhet-fria jobb).
   const buildActiveFilters = (_f: JobFilters): Record<string, unknown> => {
-    // Inga server-side filter på CV-grundsökningen längre — den ska vara bred
+    // Inga server-side filter på CV-grundsökningen längre, den ska vara bred
     // och stabilt cachebar. remote/noExperience hanteras via global cache.
     return {};
   };
@@ -115,7 +116,7 @@ export default function JobbmatchningPage() {
   // Progressive loading: Ladda resterande 250 jobb i bakgrunden efter top 50
   useEffect(() => {
     if (hasMore && jobs.length === 50) {
-      fetchMoreJobs(50, 550); // offset, limit — hämtar resten upp till 600
+      fetchMoreJobs(50, 550); // offset, limit, hämtar resten upp till 600
     }
   }, [hasMore, jobs.length]);
 
@@ -175,6 +176,45 @@ export default function JobbmatchningPage() {
     ? (globalRemote || [])
     : jobs;
   const usingGlobalPool = filters.noExperience || filters.remote;
+
+  // Den lista användaren faktiskt ser, lyft ur JSX så suddningen kan fråga
+  // servern om exakt den ordningen.
+  const filteredJobs = useMemo(
+    () => applyClientFilters(baseJobs, filters, showDistantJobs),
+    [baseJobs, filters, showDistantJobs]
+  );
+
+  // Våg 1 punkt 5: servern avgör vad gratisnivån får se. Vi skickar id och
+  // relevans i visningsordning och får tillbaka vilka som visas i klartext
+  // plus avidentifierade platshållare. Texten i de suddade lämnar aldrig
+  // servern, så en blur i CSS räcker inte och behövs inte.
+  const [redaction, setRedaction] = useState<JobRedactionResult | null>(null);
+
+  useEffect(() => {
+    if (filteredJobs.length === 0) {
+      setRedaction(null);
+      return;
+    }
+    let cancelled = false;
+    const payload = filteredJobs.map((j: any) => ({ id: j.id, relevance: j.relevance }));
+
+    fetch('/api/jobs/redact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jobs: payload }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: JobRedactionResult | null) => {
+        if (!cancelled && data) setRedaction(data);
+      })
+      .catch(() => {
+        /* utan svar visar vi inget suddat, aldrig mer än vi får */
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [filteredJobs]);
 
   const fetchCVs = async () => {
     setLoadingCVs(true);
@@ -343,7 +383,7 @@ export default function JobbmatchningPage() {
       console.error('Error fetching jobs:', err);
       // Skilj timeout/abort från övriga fel för ett begripligt meddelande.
       if (err instanceof DOMException && err.name === 'TimeoutError') {
-        setError('Sökningen tog längre tid än väntat. Försök igen — andra försöket går oftast snabbt.');
+        setError('Sökningen tog längre tid än väntat. Försök igen, andra försöket går oftast snabbt.');
       } else {
         setError(err instanceof Error ? err.message : 'Ett fel uppstod. Försök igen.');
       }
@@ -388,7 +428,7 @@ export default function JobbmatchningPage() {
       const data = await response.json();
 
       if (data.success && data.jobs?.length > 0) {
-        // Dedup på id vid sammanslagning — skyddar mot dubbletter (t.ex. om en
+        // Dedup på id vid sammanslagning, skyddar mot dubbletter (t.ex. om en
         // cache-race gör att samma jobb returneras igen). Dubblett-id:n bryter
         // annars Reacts key-rendering så filtrering inte syns på korten.
         setJobs(prev => {
@@ -427,16 +467,6 @@ export default function JobbmatchningPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Subtil orange radial-glow uppe — matchar (public)/auth-DNA */}
-      <div
-        className="fixed inset-x-0 top-0 h-[50vh] pointer-events-none z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto p-6 pb-20">
         {/* Header */}
@@ -447,24 +477,16 @@ export default function JobbmatchningPage() {
         >
           <div className="flex items-center justify-between mb-6 gap-3">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
-              <div
-                className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                <Briefcase className="w-6 h-6 sm:w-7 sm:h-7 text-white" strokeWidth={2.25} />
-              </div>
+              <Briefcase className="w-8 h-8 sm:w-9 sm:h-9 text-neutral-700 flex-shrink-0" strokeWidth={2.25} />
               <div className="min-w-0 flex-1">
-                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight">
                   Jobbmatchning
                 </h1>
-                <p className="text-sm sm:text-base text-slate-600 mt-0.5 truncate">
+                <p className="text-sm sm:text-base text-neutral-600 mt-0.5 truncate">
                   {showSearchView
                     ? 'Matchade jobb baserat på ditt CV'
                     : activeCV
-                    ? 'Aktivt CV — redo att söka jobb'
+                    ? 'Aktivt CV, redo att söka jobb'
                     : 'Välj ett CV nedan för att börja'}
                 </p>
               </div>
@@ -476,7 +498,7 @@ export default function JobbmatchningPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={handleBackToCVs}
-                className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 bg-white rounded-xl border border-slate-200 hover:border-orange-300 hover:bg-orange-50/50 transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm font-medium text-slate-700"
+                className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 bg-white rounded-xl border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/50 transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm font-medium text-neutral-700"
               >
                 <ArrowLeft className="w-4 h-4 flex-shrink-0" />
                 <span className="hidden sm:inline">Tillbaka</span>
@@ -501,7 +523,7 @@ export default function JobbmatchningPage() {
               <JobMatchingOnboarding />
             ) : (
               <>
-                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Dina CV:n</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 mb-3 sm:mb-4">Dina CV:n</h2>
               <div className="space-y-4 sm:space-y-6">
                 {/* 3-stegs-instruktion + info-popover */}
                 <MatchingHowItWorks />
@@ -519,13 +541,13 @@ export default function JobbmatchningPage() {
                   />
                 )}
 
-                {/* Inget aktivt CV — illustrerat onboarding-prompt */}
+                {/* Inget aktivt CV, illustrerat onboarding-prompt */}
                 {!activeCVId && <EmptyStatePrompt />}
 
                 {/* Inactive CV Cards Grid - Below */}
                 {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
                   <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg font-semibold text-neutral-900 mb-3 sm:mb-4">
                       {activeCVId ? 'Andra CV:n' : 'Välj ett CV att aktivera'}
                     </h3>
                     <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -556,9 +578,9 @@ export default function JobbmatchningPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-              {/* Tydlig sökruta — egen rubrik, stor, alltid synlig överst */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
-                <label htmlFor="job-search" className="block text-sm font-semibold text-slate-900 mb-2">
+              {/* Tydlig sökruta, egen rubrik, stor, alltid synlig överst */}
+              <div className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5">
+                <label htmlFor="job-search" className="block text-sm font-semibold text-neutral-900 mb-2">
                   Sök fritt eller förfina matchningen
                 </label>
                 <form onSubmit={handleSearch}>
@@ -569,14 +591,19 @@ export default function JobbmatchningPage() {
                       type="text"
                       value={customSearch}
                       onChange={(e) => setCustomSearch(e.target.value)}
+
+                      enterKeyHint="search"
+
+                      inputMode="search"
+
+                      autoComplete="off"
                       placeholder="T.ex. 'projektledare bygg' eller lämna tomt för CV-matchning"
-                      className="w-full pl-11 sm:pl-12 pr-24 sm:pr-28 py-3.5 sm:py-4 rounded-xl border-2 border-slate-200 bg-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all text-sm sm:text-base"
+                      className="w-full pl-11 sm:pl-12 pr-24 sm:pr-28 py-3.5 sm:py-4 rounded-xl border-2 border-neutral-200 bg-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all text-base"
                     />
                     <button
                       type="submit"
                       disabled={loadingJobs}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 px-5 sm:px-6 py-2.5 text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50 touch-manipulation min-h-[40px] text-sm sm:text-base font-semibold"
-                      style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 px-5 sm:px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-all disabled:opacity-50 touch-manipulation min-h-[44px] text-sm sm:text-base font-semibold"
                     >
                       {loadingJobs ? (
                         <Loader2 className="w-5 h-5 animate-spin" />
@@ -598,13 +625,12 @@ export default function JobbmatchningPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                  className="bg-red-50 border border-red-200 rounded-xl sm:rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
                 >
                   <p className="text-sm sm:text-base text-red-600">{error}</p>
                   <button
                     onClick={() => fetchJobs(customSearch.trim() || undefined)}
-                    className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium hover:shadow-lg transition-all touch-manipulation min-h-[40px]"
-                    style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                    className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-white text-sm font-medium transition-all touch-manipulation min-h-[44px]"
                   >
                     Försök igen
                   </button>
@@ -619,23 +645,34 @@ export default function JobbmatchningPage() {
                 </div>
 
                 {/* Huvudkolumn: räknare + resultat. Klientsidig filtrering på
-                    redan hämtade jobb — ingen omsökning. remote/noExperience
+                    redan hämtade jobb, ingen omsökning. remote/noExperience
                     byter baslista till respektive global pool. */}
                 <div className="min-w-0 space-y-5">
                   {(() => {
                     const isLoading = loadingJobs || (usingGlobalPool && loadingGlobal);
                     if (isLoading || baseJobs.length === 0) return null;
-                    const filteredJobs = applyClientFilters(baseJobs, filters, showDistantJobs);
                     const distantCount = baseJobs.filter(j => j.distance && j.distance > 100).length;
-                    const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
-                    const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
+
+                    // Serverns svar styr. Innan det kommit visar vi bara det
+                    // gratisnivån säkert får se, aldrig hela listan.
+                    const visibleIds = redaction
+                      ? new Set(redaction.visibleIds)
+                      : new Set(
+                          filteredJobs
+                            .slice(0, FREE_TIER_JOB_LIMIT)
+                            .map((j: any) => String(j.id))
+                        );
+                    const displayedJobs = redaction?.isPremium
+                      ? filteredJobs
+                      : filteredJobs.filter((j: any) => visibleIds.has(String(j.id)));
+                    const redactedJobs = redaction?.redacted ?? [];
 
                     return (
                       <>
                         {/* Resultaträknare */}
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 sm:p-4 border border-slate-200">
-                          <p className="text-sm text-slate-700">
-                            <span className="font-bold text-slate-900">{filteredJobs.length}</span> matchande jobb
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 sm:p-4 border border-neutral-200">
+                          <p className="text-sm text-neutral-700">
+                            <span className="font-bold text-neutral-900">{filteredJobs.length}</span> matchande jobb
                             {countActiveFilters(filters) > 0 && (
                               <span className="text-orange-600 font-medium"> · {countActiveFilters(filters)} filter aktiva</span>
                             )}
@@ -648,7 +685,7 @@ export default function JobbmatchningPage() {
                                 onChange={(e) => setShowDistantJobs(e.target.checked)}
                                 className="w-4 h-4 accent-orange-500 border-gray-300 rounded touch-manipulation"
                               />
-                              <span className="text-xs sm:text-sm text-slate-600 group-hover:text-orange-600 transition-colors">
+                              <span className="text-xs sm:text-sm text-neutral-600 group-hover:text-orange-600 transition-colors">
                                 Visa {distantCount} jobb &gt;100 km bort
                               </span>
                             </label>
@@ -656,59 +693,52 @@ export default function JobbmatchningPage() {
                         </div>
 
                         {filteredJobs.length === 0 ? (
-                          <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-8 sm:p-12 text-center">
-                            <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 mx-auto mb-3 sm:mb-4" />
-                            <p className="text-sm sm:text-base text-slate-600">
+                          <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-xl border border-neutral-200 p-8 sm:p-12 text-center">
+                            <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-300 mx-auto mb-3 sm:mb-4" />
+                            <p className="text-sm sm:text-base text-neutral-600">
                               Inga jobb matchar dina filter. Prova att rensa något filter.
                             </p>
                           </div>
                         ) : (
-                        <JobResultsGrid
-                          jobs={displayedJobs}
-                          selectedAnalysis={null}
-                          onJobSelect={setSelectedJob}
-                          selectedAnalysisId={undefined}
-                          cvId={activeCVId || undefined}
-                        />
+                        <>
+                          <JobResultsGrid
+                            jobs={displayedJobs}
+                            selectedAnalysis={null}
+                            onJobSelect={setSelectedJob}
+                            selectedAnalysisId={undefined}
+                            cvId={activeCVId || undefined}
+                          />
+
+                          {/* Resten av träffarna finns kvar i listan, men
+                              suddade. Servern har redan tagit bort texten. */}
+                          {redactedJobs.length > 0 && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                              {redactedJobs.map((job) => (
+                                <RedactedJobCard key={job.placeholderId} job={job} />
+                              ))}
+                            </div>
+                          )}
+                        </>
                         )}
 
-                        {/* Premium Upgrade Banner för gratis-användare */}
-                        {hasMoreJobs && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-4 sm:mt-6 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl sm:rounded-2xl border-2 border-orange-200/50 p-6 sm:p-8 text-center"
-                          >
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3 sm:mb-4">
-                              <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500 flex-shrink-0" />
-                              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                                {filteredJobs.length - FREE_TIER_JOB_LIMIT} matchningar till väntar i Premium
-                              </h3>
-                            </div>
-                            <p className="text-sm sm:text-base text-slate-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
-                              Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
-                              Just nu ser du de {FREE_TIER_JOB_LIMIT} bästa. Med Premium låser du upp hela listan
-                              och matchar obegränsat.
-                            </p>
-                            <button
-                              onClick={() => router.push('/dashboard/profil/prenumeration')}
-                              className="inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105 touch-manipulation min-h-[44px] text-sm sm:text-base"
-                              style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
-                            >
-                              <Crown className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                              <span className="truncate">Uppgradera för 149 SEK/månad</span>
-                            </button>
-                          </motion.div>
+                        {/* Betalväggen ligger under listan, inte i stället för
+                            den. Värdet syns först, spärren sedan. */}
+                        {redactedJobs.length > 0 && (
+                          <PaywallCard
+                            variant="jobbtraffar"
+                            hiddenCount={redactedJobs.length}
+                            className="mt-2"
+                          />
                         )}
                       </>
                     );
                   })()}
 
-                  {/* No results message — baslistan tom och inget laddas */}
+                  {/* No results message, baslistan tom och inget laddas */}
                   {!loadingJobs && !(usingGlobalPool && loadingGlobal) && baseJobs.length === 0 && (
-                    <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-8 sm:p-12 text-center">
-                      <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 mx-auto mb-3 sm:mb-4" />
-                      <p className="text-sm sm:text-base text-slate-600">
+                    <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-xl border border-neutral-200 p-8 sm:p-12 text-center">
+                      <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-300 mx-auto mb-3 sm:mb-4" />
+                      <p className="text-sm sm:text-base text-neutral-600">
                         {countActiveFilters(filters) > 0
                           ? 'Inga jobb matchar dina filter. Prova att rensa något filter.'
                           : 'Inga jobb hittades. Prova att söka igen.'}
@@ -716,7 +746,7 @@ export default function JobbmatchningPage() {
                     </div>
                   )}
 
-                  {/* Loading State — CV-sökning eller global pool */}
+                  {/* Loading State, CV-sökning eller global pool */}
                   {(loadingJobs || (usingGlobalPool && loadingGlobal)) && (
                     <JobSearchLoader
                       isSearching={true}
@@ -730,7 +760,7 @@ export default function JobbmatchningPage() {
         )}
       </div>
 
-      {/* Job Detail Modal — full-screen pa mobil + sticky bottom-bar */}
+      {/* Job Detail Modal, full-screen pa mobil + sticky bottom-bar */}
       <JobDetailModal
         job={selectedJob}
         cvId={activeCVId || undefined}

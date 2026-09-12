@@ -15,7 +15,12 @@ const TIPS = [
   'Lägger sista handen vid resultatet...',
 ]
 
-export default function AnalysisOverlay() {
+interface AnalysisOverlayProps {
+  /** Avbryter optimeringen. Utan väg ut är en fullskärmsoverlay en fälla. */
+  onCancel?: () => void
+}
+
+export default function AnalysisOverlay({ onCancel }: AnalysisOverlayProps) {
   const [tipIndex, setTipIndex] = useState(0)
 
   useEffect(() => {
@@ -48,7 +53,7 @@ export default function AnalysisOverlay() {
       >
         {/* Glow */}
         <div
-          className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl pointer-events-none"
+          className="absolute -inset-4 rounded-xl opacity-30 blur-2xl pointer-events-none"
           style={{
             background:
               'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
@@ -57,7 +62,7 @@ export default function AnalysisOverlay() {
         />
 
         <div
-          className="relative bg-white rounded-3xl border border-orange-100 px-6 py-8 sm:px-8 sm:py-10"
+          className="relative bg-white rounded-xl border border-orange-100 px-6 py-8 sm:px-8 sm:py-10"
           style={{
             boxShadow: '0 30px 60px -20px rgba(220, 38, 38, 0.35)',
           }}
@@ -127,12 +132,12 @@ export default function AnalysisOverlay() {
           </div>
 
           {/* Eyebrow */}
-          <div className="text-center text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
+          <div className="text-center text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
             AI optimerar
           </div>
 
           {/* Rubrik */}
-          <h2 className="text-center text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight mb-3">
+          <h2 className="text-center text-2xl sm:text-3xl font-semibold text-neutral-900 leading-tight tracking-tight mb-3">
             Vi förbättrar din profil
           </h2>
 
@@ -145,7 +150,7 @@ export default function AnalysisOverlay() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.4 }}
-                className="text-sm text-slate-600 text-center leading-relaxed"
+                className="text-sm text-neutral-600 text-center leading-relaxed"
               >
                 {TIPS[tipIndex]}
               </motion.p>
@@ -153,9 +158,21 @@ export default function AnalysisOverlay() {
           </div>
 
           {/* Estimat */}
-          <p className="text-center text-[11px] text-slate-400 mt-4">
-            Tar oftast 15-30 sekunder. Stäng inte fliken.
+          <p className="text-center text-sm text-neutral-500 mt-4">
+            Tar oftast 15 till 30 sekunder. Stäng inte fliken.
           </p>
+
+          {onCancel && (
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={onCancel}
+                className="inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+              >
+                Avbryt
+              </button>
+            </div>
+          )}
         </div>
       </motion.div>
     </motion.div>

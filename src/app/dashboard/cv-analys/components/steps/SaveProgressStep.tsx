@@ -16,7 +16,7 @@ const STAGES = [
 
 /**
  * Steg 5b: Visas medan vi sparar och genererar PDF.
- * Ingen maskot — custom illustration av papper som byggs upp.
+ * Ingen maskot, custom illustration av papper som byggs upp.
  */
 export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
   const [stageIndex, setStageIndex] = useState<0 | 1 | 2>(0);
@@ -34,13 +34,12 @@ export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7 md:p-10"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+      className="relative overflow-hidden bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 md:p-10"
     >
       <div className="relative flex flex-col items-center text-center">
         <SaveProgressIllustration progress={progress} stage={stageIndex} />
 
-        <div className="mt-6 mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600">
+        <div className="mt-6 mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-orange-600">
           {stageIndex === 2 ? 'Slutför' : 'Pågår'}
         </div>
 
@@ -51,7 +50,7 @@ export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.35 }}
-            className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2"
+            className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-2"
           >
             {currentStage.text}
           </motion.h3>
@@ -64,7 +63,7 @@ export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-sm text-slate-600 max-w-md leading-relaxed"
+            className="text-sm text-neutral-600 max-w-md leading-relaxed"
           >
             {currentStage.body}
           </motion.p>
@@ -72,19 +71,18 @@ export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
 
         {/* Progress-bar */}
         <div className="w-full max-w-md mt-7">
-          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden">
             <motion.div
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+              className="h-full rounded-full bg-orange-600"
             />
           </div>
           <div className="flex items-center justify-between mt-2.5 text-xs">
             <span className="tabular-nums font-semibold text-orange-700">
               {Math.round(progress)}%
             </span>
-            <span className="text-slate-500">Tar 5–10 sekunder</span>
+            <span className="text-neutral-500">Tar 5–10 sekunder</span>
           </div>
         </div>
 
@@ -98,19 +96,13 @@ export default function SaveProgressStep({ progress }: SaveProgressStepProps) {
                 opacity: index <= stageIndex ? 1 : 0.4,
               }}
               transition={{ duration: 0.3 }}
-              className="h-1.5 w-10 rounded-full"
-              style={{
-                background:
-                  index < stageIndex
-                    ? 'linear-gradient(90deg, #10B981, #059669)'
-                    : index === stageIndex
-                    ? 'linear-gradient(90deg, #F97316, #DC2626)'
-                    : '#E2E8F0',
-                boxShadow:
-                  index === stageIndex
-                    ? '0 2px 8px -2px rgba(220, 38, 38, 0.5)'
-                    : 'none',
-              }}
+              className={`h-1.5 w-10 rounded-full ${
+                index < stageIndex
+                  ? 'bg-emerald-600'
+                  : index === stageIndex
+                    ? 'bg-orange-600'
+                    : 'bg-neutral-200'
+              }`}
             />
           ))}
         </div>

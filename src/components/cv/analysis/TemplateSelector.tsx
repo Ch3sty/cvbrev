@@ -93,7 +93,7 @@ export default function TemplateSelector({
                     {/* Premium Badge */}
                     {template.tier === 'premium' && (
                       <div className="absolute top-2 left-2">
-                        <Badge className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white border-0">
+                        <Badge className="bg-amber-500 text-white border-0">
                           <Crown className="w-3 h-3 mr-1" />
                           Premium
                         </Badge>

@@ -32,7 +32,7 @@ export function StatusPill({ status }: { status: ApplicationEventType | null }) 
   const meta = STATUS_META[status ?? 'applied'];
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11.5px] font-semibold whitespace-nowrap ${meta.pillClass}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${meta.pillClass}`}
     >
       {status === null ? 'Sökt' : meta.label}
     </span>
@@ -49,10 +49,10 @@ export function ProgressDots({ status }: { status: ApplicationEventType | null }
       {PROGRESS_LABELS.map((label, i) => (
         <div key={label} className="flex items-center">
           {i > 0 && (
-            <div className={`h-0.5 w-4 sm:w-6 ${i <= step ? 'bg-orange-400' : 'bg-slate-200'}`} />
+            <div className={`h-0.5 w-4 sm:w-6 ${i <= step ? 'bg-orange-400' : 'bg-neutral-200'}`} />
           )}
           <div
-            className={`w-2 h-2 rounded-full ${i <= step ? 'bg-orange-500' : 'bg-slate-200'}`}
+            className={`w-2 h-2 rounded-full ${i <= step ? 'bg-orange-500' : 'bg-neutral-200'}`}
             title={label}
           />
         </div>

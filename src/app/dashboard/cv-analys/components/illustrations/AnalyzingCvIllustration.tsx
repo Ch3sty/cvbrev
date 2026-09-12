@@ -73,10 +73,8 @@ export default function AnalyzingCvIllustration({ progress }: AnalyzingCvIllustr
       {/* Bakgrund-glow */}
       {!reduceMotion && (
         <motion.div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full bg-orange-500/10"
           style={{
-            background:
-              'radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(220, 38, 38, 0.08) 40%, transparent 70%)',
             filter: 'blur(28px)',
           }}
           animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
@@ -142,15 +140,6 @@ export default function AnalyzingCvIllustration({ progress }: AnalyzingCvIllustr
             '0 24px 48px -16px rgba(220, 38, 38, 0.28), 0 8px 20px -8px rgba(15, 23, 42, 0.12)',
         }}
       >
-        {/* Topp-band med gradient */}
-        <div
-          className="absolute top-0 left-0 right-0 h-2"
-          style={{
-            background:
-              'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-        />
-
         {/* SVG-content med pappers-rader */}
         <svg
           width={PAPER_WIDTH}
@@ -203,21 +192,14 @@ export default function AnalyzingCvIllustration({ progress }: AnalyzingCvIllustr
           >
             {/* Glow-lager */}
             <div
-              className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-6"
+              className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-6 bg-orange-500/20"
               style={{
-                background:
-                  'linear-gradient(180deg, transparent 0%, rgba(249, 115, 22, 0.18) 50%, transparent 100%)',
                 filter: 'blur(2px)',
               }}
             />
             {/* Skarp linje */}
             <div
-              className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px]"
-              style={{
-                background:
-                  'linear-gradient(90deg, transparent 0%, rgba(249, 115, 22, 0.4) 10%, rgba(220, 38, 38, 1) 50%, rgba(249, 115, 22, 0.4) 90%, transparent 100%)',
-                boxShadow: '0 0 12px rgba(220, 38, 38, 0.7)',
-              }}
+              className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-orange-600"
             />
           </motion.div>
         )}
@@ -226,25 +208,18 @@ export default function AnalyzingCvIllustration({ progress }: AnalyzingCvIllustr
       {/* Liten orb i hörnet (data-target) */}
       {!reduceMotion && (
         <motion.div
-          className="absolute rounded-full flex items-center justify-center"
+          className="absolute rounded-full flex items-center justify-center bg-orange-600"
           style={{
             top: 0,
             right: 0,
             width: 36,
             height: 36,
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 8px 20px -4px rgba(220, 38, 38, 0.5)',
           }}
           animate={{ scale: [1, 1.12, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         >
           <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background:
-                'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            }}
+            className="absolute inset-0 rounded-full bg-orange-600"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
           />

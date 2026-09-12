@@ -24,11 +24,11 @@ export default function SkillCloud({ skills, initialCount = 8 }: SkillCloudProps
     <section>
       <header className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <Wrench className="w-3.5 h-3.5 text-slate-500" strokeWidth={2.25} />
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <Wrench className="w-3.5 h-3.5 text-neutral-500" strokeWidth={2.25} />
+          <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
             Kompetenser
           </span>
-          <span className="px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold tabular-nums">
+          <span className="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-xs font-bold tabular-nums">
             {skills.length}
           </span>
         </div>
@@ -96,8 +96,8 @@ function computeIntensity(index: number, _total: number) {
     };
   }
   return {
-    bg: '#F1F5F9', // slate-100
-    text: '#475569', // slate-600
-    border: '#E2E8F0', // slate-200
+    bg: '#F1F5F9', // neutral-100
+    text: '#475569', // neutral-600
+    border: '#E2E8F0', // neutral-200
   };
 }

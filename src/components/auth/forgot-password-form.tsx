@@ -46,44 +46,36 @@ export default function ForgotPasswordForm() {
     return (
       <AuthCvPaper
         title="Återställ lösenord"
-        subtitle="Klart — kolla din inkorg"
+        subtitle="Klart, kolla din inkorg"
         sectionLabel="Bekräftelse"
       >
         <div className="space-y-5">
           {/* Stämpel + ikon */}
           <div className="flex items-center justify-between gap-3 rounded-xl border border-orange-100 bg-orange-50/40 px-4 py-3.5">
             <div className="flex items-center gap-3 min-w-0">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                }}
-              >
-                <Mail className="w-5 h-5 text-white" strokeWidth={2.2} />
-              </div>
+              <Mail className="w-5 h-5 text-neutral-700 flex-shrink-0" strokeWidth={2.2} />
               <div className="min-w-0">
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-sm font-bold text-neutral-900">
                   Mejl skickat
                 </p>
-                <p className="text-xs text-slate-600 truncate">
-                  Till: <span className="font-semibold text-slate-900">{email}</span>
+                <p className="text-xs text-neutral-600 truncate">
+                  Till: <span className="font-semibold text-neutral-900">{email}</span>
                 </p>
               </div>
             </div>
             <SuccessStamp text="Mottaget" rotation={-6} />
           </div>
 
-          <p className="text-sm text-slate-700 leading-relaxed">
+          <p className="text-sm text-neutral-700 leading-relaxed">
             Vi har skickat instruktioner för att återställa ditt lösenord.
             Klicka på länken i mejlet för att välja ett nytt.
           </p>
 
           <div className="rounded-xl border border-orange-100 bg-white px-4 py-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-1">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-orange-700 mb-1">
               Tips
             </p>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-neutral-600 leading-relaxed">
               Kolla skräppost-mappen om mejlet inte dykt upp inom några
               minuter.
             </p>
@@ -139,7 +131,7 @@ export default function ForgotPasswordForm() {
       </form>
 
       <div className="mt-6 pt-5 border-t border-orange-50 text-center">
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-neutral-600">
           Kom du ihåg ditt lösenord?{' '}
           <Link
             href="/login"

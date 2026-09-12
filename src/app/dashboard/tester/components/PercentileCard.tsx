@@ -28,7 +28,7 @@ export default function PercentileCard({ sessionId }: PercentileCardProps) {
         }
       })
       .catch(() => {
-        /* percentilen är ett tillägg — fel här ska aldrig störa resultatsidan */
+        /* percentilen är ett tillägg, fel här ska aldrig störa resultatsidan */
       });
     return () => {
       cancelled = true;

@@ -110,17 +110,10 @@ export async function POST(request: NextRequest) {
       // Don't fail the request - reward is already activated
     }
 
-    // Award XP for activation
-    try {
-      await supabase.rpc('add_xp_with_cap_check', {
-        user_id_param: user.id,
-        xp_amount: 25,
-        source_param: 'reward_activation',
-        description_param: `Aktiverade: ${reward.name}`
-      });
-    } catch (xpError) {
-      console.warn('[rewards/activate] XP award failed (non-critical):', xpError);
-    }
+    // XP för att aktivera sin egen belöning togs bort i omdesignen
+    // (docs/plan-inloggat-omdesign.md, våg 2 punkt 21). Att ge poäng för att
+    // klicka på belöningen man fått av sina poäng var en av anledningarna
+    // till att hela systemet ströks. Förmånen är belöningen.
 
     return NextResponse.json({
       success: true,

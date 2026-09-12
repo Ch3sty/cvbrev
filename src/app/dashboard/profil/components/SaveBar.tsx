@@ -23,7 +23,7 @@ export default function SaveBar({ hasChanges, isSaving, onSave }: SaveBarProps) 
             <span
               className="inline-block w-2 h-2 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                background: '#EA580C',
               }}
             />
             Du har osparade ändringar
@@ -32,7 +32,7 @@ export default function SaveBar({ hasChanges, isSaving, onSave }: SaveBarProps) 
         <SaveButton hasChanges={hasChanges} isSaving={isSaving} onSave={onSave} />
       </div>
 
-      {/* Mobil — fixed botten ovanför nav. Visas bara när det finns ändringar. */}
+      {/* Mobil, fixed botten ovanför nav. Visas bara när det finns ändringar. */}
       <AnimatePresence>
         {hasChanges && (
           <motion.div
@@ -42,11 +42,11 @@ export default function SaveBar({ hasChanges, isSaving, onSave }: SaveBarProps) 
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             className="sm:hidden fixed left-0 right-0 z-30 px-3"
             style={{
-              bottom: 'calc(env(safe-area-inset-bottom, 0px) + 76px)',
+              bottom: 'var(--bottom-nav-h)',
             }}
           >
             <div
-              className="rounded-2xl bg-white p-2.5 flex items-center gap-3"
+              className="rounded-xl bg-white p-2.5 flex items-center gap-3"
               style={{
                 border: '1px solid rgba(249, 115, 22, 0.22)',
                 boxShadow: '0 12px 32px -8px rgba(15, 23, 42, 0.18)',
@@ -56,7 +56,7 @@ export default function SaveBar({ hasChanges, isSaving, onSave }: SaveBarProps) 
                 <span
                   className="inline-block w-2 h-2 rounded-full flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                    background: '#EA580C',
                   }}
                 />
                 Osparade ändringar
@@ -99,12 +99,9 @@ function SaveButton({
       }`}
       style={{
         background: disabled
-          ? '#E2E8F0'
-          : 'linear-gradient(135deg, #F97316, #DC2626)',
-        boxShadow: disabled
-          ? 'none'
-          : '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-        color: disabled ? '#94A3B8' : 'white',
+          ? '#E5E5E5'
+          : '#EA580C',
+        color: disabled ? '#A3A3A3' : 'white',
       }}
     >
       {isSaving ? (

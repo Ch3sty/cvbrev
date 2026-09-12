@@ -112,7 +112,7 @@ export default function Step3Results({
         const r = results.sections[s.key as keyof typeof results.sections]
         if (r) {
           text += `=== ${s.title.toUpperCase()} ===\n\n`
-          // Skills returneras som JSON-objekt — formatera till läsbar text
+          // Skills returneras som JSON-objekt, formatera till läsbar text
           if (s.key === 'skills') {
             text += formatSkillsForCopy(r.optimized, language) + '\n\n'
           } else {
@@ -151,14 +151,14 @@ export default function Step3Results({
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 mb-3">
           <Check className="w-3.5 h-3.5 text-emerald-700" strokeWidth={2.6} />
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
             Klart
           </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight mb-1.5">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight mb-1.5">
           Din profil är mycket starkare
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-600 mb-6 leading-relaxed">
           Klicka på en sektion i mockupen för att se exakt vad vi ändrade.
         </p>
         <ScoreHero
@@ -172,12 +172,7 @@ export default function Step3Results({
         <button
           type="button"
           onClick={handleCopyAll}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.02] active:scale-[0.99]"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-          }}
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-orange-600 text-white font-bold text-sm transition-all hover:bg-orange-700 hover:scale-[1.02] active:scale-[0.99]"
         >
           {copiedAll ? (
             <>
@@ -242,21 +237,11 @@ export default function Step3Results({
               key={s.key}
               type="button"
               onClick={() => setActiveSection(s.key)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold transition-all min-h-[44px] ${
                 active
-                  ? 'text-white'
-                  : 'text-slate-600 bg-white border border-slate-200 hover:border-orange-200 hover:bg-orange-50/40'
+                  ? 'bg-orange-600 text-white'
+                  : 'text-neutral-600 bg-white border border-neutral-200 hover:border-orange-200 hover:bg-orange-50/40'
               }`}
-              style={
-                active
-                  ? {
-                      background:
-                        'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                      boxShadow:
-                        '0 4px 10px -3px rgba(220, 38, 38, 0.4)',
-                    }
-                  : undefined
-              }
             >
               <Icon className="w-3.5 h-3.5" strokeWidth={2.4} />
               {s.title}
@@ -293,7 +278,7 @@ export default function Step3Results({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-slate-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
+          className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-neutral-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
         >
           <ArrowLeft className="w-4 h-4" strokeWidth={2.4} />
           Tillbaka
@@ -302,12 +287,7 @@ export default function Step3Results({
         <button
           type="button"
           onClick={onNext}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base transition-all hover:scale-[1.01] active:scale-[0.99]"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-          }}
+          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99]"
         >
           <span>Fortsätt till export</span>
           <ArrowRight className="w-5 h-5" strokeWidth={2.4} />

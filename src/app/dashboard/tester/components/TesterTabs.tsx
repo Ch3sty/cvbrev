@@ -13,7 +13,7 @@ interface Props {
 
 export default function TesterTabs({ active, onChange, completedCount }: Props) {
   return (
-    <div className="flex items-center gap-1 p-1 rounded-2xl bg-orange-50/70 border border-orange-100 w-full sm:w-fit">
+    <div className="flex items-center gap-1 p-1 rounded-xl bg-orange-50/70 border border-orange-100 w-full sm:w-fit">
       <TabButton
         label="Tester"
         icon={<Layers className="w-4 h-4" strokeWidth={2.5} />}
@@ -49,21 +49,18 @@ function TabButton({
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] touch-manipulation ${
+      className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 min-h-[44px] rounded-xl text-xs sm:text-sm font-bold transition-all touch-manipulation ${
         isActive
           ? 'bg-white text-orange-700 shadow-sm'
-          : 'text-slate-500 hover:text-slate-700'
+          : 'text-neutral-500 hover:text-neutral-700'
       }`}
-      style={
-        isActive ? { boxShadow: '0 2px 8px -3px rgba(249, 115, 22, 0.3)' } : undefined
-      }
     >
-      <span className={isActive ? 'text-orange-600' : 'text-slate-400'}>{icon}</span>
+      <span className={isActive ? 'text-orange-600' : 'text-neutral-400'}>{icon}</span>
       {label}
       {badge !== undefined && (
         <span
-          className={`inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold tabular-nums ${
-            isActive ? 'bg-orange-100 text-orange-700' : 'bg-slate-200 text-slate-600'
+          className={`inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-xs font-bold tabular-nums ${
+            isActive ? 'bg-orange-100 text-orange-700' : 'bg-neutral-200 text-neutral-600'
           }`}
         >
           {badge}

@@ -26,7 +26,7 @@ export default function LockedWorkStylePreview() {
         {LOCKED_SECTIONS.map((section) => (
           <div
             key={section.title}
-            className="relative rounded-2xl border border-indigo-100 bg-indigo-50/30 p-3.5 overflow-hidden"
+            className="relative rounded-xl border border-indigo-100 bg-indigo-50/30 p-3.5 overflow-hidden"
           >
             <div className="flex items-center justify-between gap-2 mb-2.5">
               <h4 className="text-[13px] font-bold text-indigo-950">{section.title}</h4>
@@ -45,7 +45,7 @@ export default function LockedWorkStylePreview() {
         ))}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-2xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5">
         <p className="text-[13px] text-indigo-950/80 leading-relaxed min-w-0 flex-1 basis-64">
           Det fördjupade testet låser upp hela din arbetsstilsrapport: hur du
           arbetar, samarbetar och drivs, din privata energibudget och
@@ -53,11 +53,7 @@ export default function LockedWorkStylePreview() {
         </p>
         <Link
           href="/dashboard/tester/personlighet-avancerad"
-          className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white flex-shrink-0 transition-transform hover:-translate-y-0.5 touch-manipulation"
-          style={{
-            background: 'linear-gradient(135deg, #6366F1, #4F46E5)',
-            boxShadow: '0 8px 18px -6px rgba(79, 70, 229, 0.45)',
-          }}
+          className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 flex-shrink-0 transition-colors touch-manipulation"
         >
           Gör det fördjupade testet (120 frågor)
           <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

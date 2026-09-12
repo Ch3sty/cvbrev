@@ -104,3 +104,21 @@ export async function cancelScheduled(
   }
   return canceled;
 }
+
+/**
+ * ISO-vecka, t.ex. "2026w37". Ger quota_wall och weekly_digest ett suffix i
+ * email_type som byts varje måndag, så unique-indexet på
+ * (user_id, email_type) blir dubblettspärr inom veckan men släpper igenom
+ * nästa. Bor här, i tidsmodulen, eftersom både hooks och runner behöver den
+ * och en import mellan dem hade blivit cirkulär.
+ */
+export function isoWeekKey(date: Date = new Date()): string {
+  const target = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const dayNumber = (target.getUTCDay() + 6) % 7; // måndag = 0
+  target.setUTCDate(target.getUTCDate() - dayNumber + 3); // torsdagen i veckan
+  const firstThursday = new Date(Date.UTC(target.getUTCFullYear(), 0, 4));
+  const firstDayNumber = (firstThursday.getUTCDay() + 6) % 7;
+  firstThursday.setUTCDate(firstThursday.getUTCDate() - firstDayNumber + 3);
+  const week = 1 + Math.round((target.getTime() - firstThursday.getTime()) / (7 * 24 * 60 * 60 * 1000));
+  return `${target.getUTCFullYear()}w${week}`;
+}

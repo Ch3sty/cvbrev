@@ -6,15 +6,12 @@ import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
 import ProvCard from './ProvCard';
 import {
-  MatrixCategoryIllustration,
-  VerbalCategoryIllustration,
-  NumericalCategoryIllustration,
-  PersonalityCategoryIllustration,
-  ExampleLogik,
-  ExampleVerbal,
-  ExampleNumerisk,
-  ExamplePersonlighet,
-} from './illustrations/TesterHubIcons';
+  IlluMatris,
+  IlluVerbal,
+  IlluNumerisk,
+  IlluPersonlighet,
+} from '@/components/illustrations/TestIllustrations';
+import type { IlluProps } from '@/components/illustrations/primitives';
 import type { TestGroup as TestGroupType, TestGroupKey } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import type { PersonalityTestStats } from '@/hooks/use-personality-test-stats';
@@ -30,25 +27,15 @@ interface Props {
   recommendSlug?: TestSlug;
 }
 
+/** En illustration per testtyp, 48 px bredvid gruppens rubrik. */
 const GROUP_ILLUSTRATION: Record<
   TestGroupKey,
-  (props: { className?: string }) => React.ReactElement
+  (props: IlluProps) => React.ReactElement
 > = {
-  logik: MatrixCategoryIllustration,
-  verbal: VerbalCategoryIllustration,
-  numerisk: NumericalCategoryIllustration,
-  personlighet: PersonalityCategoryIllustration,
-};
-
-// Liggande exempel-illustration som visar VAD testet är (ersätter beskrivande text).
-const GROUP_EXAMPLE: Record<
-  TestGroupKey,
-  (props: { className?: string }) => React.ReactElement
-> = {
-  logik: ExampleLogik,
-  verbal: ExampleVerbal,
-  numerisk: ExampleNumerisk,
-  personlighet: ExamplePersonlighet,
+  logik: IlluMatris,
+  verbal: IlluVerbal,
+  numerisk: IlluNumerisk,
+  personlighet: IlluPersonlighet,
 };
 
 export default function TestGroup({
@@ -61,7 +48,6 @@ export default function TestGroup({
   recommendSlug,
 }: Props) {
   const Illustration = GROUP_ILLUSTRATION[group.key];
-  const Example = GROUP_EXAMPLE[group.key];
   const isPersonality = group.key === 'personlighet';
   // Träningskorten + ev. resultatkort. Provet ligger som balk under gridet, så
   // raden består av 2-3 kort → 3-kol på lg ger jämn rytm utan att provet stör.
@@ -70,35 +56,25 @@ export default function TestGroup({
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.05 }}
-      className="relative rounded-3xl border border-orange-100/80 bg-gradient-to-b from-orange-50/40 to-transparent p-4 sm:p-5"
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="space-y-4"
     >
-      {/* Sektionsrubrik: ikon + namn + kort mening, med exempel-illustration till höger. */}
-      <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-        <div
-          className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white border border-orange-100 flex items-center justify-center"
-          style={{ boxShadow: '0 4px 12px -6px rgba(249, 115, 22, 0.2)' }}
-        >
-          <Illustration className="w-6 h-6 sm:w-7 sm:h-7" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-tight">
-            {group.heading}
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug truncate">
-            {group.blurb}
-          </p>
-        </div>
-        {/* Exempel: visar vad testet är, ersätter beskrivande text. */}
-        <div className="hidden sm:block flex-shrink-0 w-28 h-14 rounded-xl bg-white border border-orange-100 p-1">
-          <Example className="w-full h-full" />
+      {/* Sektionsrubrik: testtypens ikon, namn och en mening om vad den mäter. */}
+      <div className="flex items-start gap-3">
+        <span aria-hidden="true" className="shrink-0 text-neutral-900">
+          <Illustration size={48} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-lg font-semibold text-neutral-900">{group.heading}</h2>
+          <p className="mt-1 text-sm leading-relaxed text-neutral-600">{group.blurb}</p>
+          <p className="mt-1 text-xs text-neutral-500">{group.searchHint}</p>
         </div>
       </div>
 
       <div
-        className={`grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 ${
+        className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${
           useThreeCols ? 'lg:grid-cols-3' : ''
         }`}
       >
@@ -150,7 +126,7 @@ export default function TestGroup({
 
       {/* Standout prov-balk under träningskorten: "träna ovan, pröva här". */}
       {group.prov && (
-        <div className="mt-3 sm:mt-4">
+        <div>
           <ProvCard
             href={group.prov.href}
             sessionEndpoint={group.prov.sessionEndpoint}

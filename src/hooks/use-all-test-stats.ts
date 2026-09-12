@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { TEST_CONFIGS, getTestConfig } from '@/app/dashboard/tester/testConfig';
 
 export type TestSlug =
   | 'matrislogik-grund'
@@ -49,32 +50,28 @@ export interface AllTestStats {
   isLoading: boolean;
 }
 
-const TEST_ENDPOINTS: Record<TestSlug, string> = {
-  'matrislogik-grund': '/api/logicTestV4/session',
-  'matrislogik-avancerad': '/api/logicTestV6/session',
-  'matrislogik-expert': '/api/logicTestV4/session?test_type=matrislogik-expert',
-  'verbal-resonemang': '/api/verbalTestV1/session',
-  'verbal-resonemang-v2': '/api/verbalTestV2/session',
-  'verbal-resonemang-expert': '/api/verbalTestExpert/session',
-  'numeriskt-test': '/api/numericalTest/session',
-  'numeriskt-test-v2': '/api/numericalTestV2/session',
-  'numeriskt-test-expert': '/api/numericalTestExpert/session',
-};
+/**
+ * Endpoints och frågeantal härleds ur testConfig, som är enda sanningen
+ * (docs/plan-inloggat-omdesign.md, våg 3 punkt 22). Tidigare fanns egna
+ * konstanter här, och de hade glidit isär från testsidorna: verbalen räknades
+ * på 60 i stället för 48 och numeriskt grund/avancerad på 32 i stället för 24,
+ * så hubbens kort visade en annan procent än testet för samma session.
+ */
+const COGNITIVE_TESTS = TEST_CONFIGS.filter(
+  (c) => c.kind !== 'personlighet' && c.level !== 'prov'
+);
 
-// Antalet poäng-bärande frågor per test (för procent-beräkning).
-// Verbalen har 12 passages × 4 statements = 48. Numeriska har 5 frågor.
-// Matrislogik har 15 frågor.
-const TEST_TOTAL_QUESTIONS: Record<TestSlug, number> = {
-  'matrislogik-grund': 15,
-  'matrislogik-avancerad': 15,
-  'matrislogik-expert': 15,
-  'verbal-resonemang': 60,
-  'verbal-resonemang-v2': 60,
-  'verbal-resonemang-expert': 32,
-  'numeriskt-test': 32,
-  'numeriskt-test-v2': 32,
-  'numeriskt-test-expert': 32,
-};
+const TEST_ENDPOINTS: Record<TestSlug, string> = Object.fromEntries(
+  COGNITIVE_TESTS.map((c) => [
+    c.slug,
+    c.sessionQuery ? `${c.api}/session?${c.sessionQuery}` : `${c.api}/session`,
+  ])
+) as Record<TestSlug, string>;
+
+/** Antalet poängbärande frågor per test, för procentberäkningen. */
+export function totalQuestionsFor(slug: TestSlug): number {
+  return getTestConfig(slug)?.totalQuestions ?? 0;
+}
 
 const EMPTY_STATS: PerTestStats = {
   attempts: 0,
@@ -165,7 +162,7 @@ export function useAllTestStats(): AllTestStats {
       if (cancelled) return;
 
       const perTest = slugs.reduce((acc, slug, i) => {
-        acc[slug] = summarizeSessions(results[i], TEST_TOTAL_QUESTIONS[slug]);
+        acc[slug] = summarizeSessions(results[i], totalQuestionsFor(slug));
         return acc;
       }, {} as Record<TestSlug, PerTestStats>);
 

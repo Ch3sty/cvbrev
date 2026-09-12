@@ -85,7 +85,7 @@ export function CreativeToneIcon({ className = 'w-20 h-20' }: IconProps) {
 
       {/* Pensel */}
       <g transform="rotate(-30 60 22)">
-        <rect x="56" y="6" width="3" height="22" rx="1.5" fill="#1E293B" />
+        <rect x="56" y="6" width="3" height="22" rx="1.5" fill="#262626" />
         <rect x="55.5" y="2" width="4" height="6" rx="1" fill="#FB923C" />
         <path d="M54 28 L61 28 L60 34 L55 34 Z" fill="url(#tn-orange-pink)" />
       </g>
@@ -131,8 +131,8 @@ export function ConfidentToneIcon({ className = 'w-20 h-20' }: IconProps) {
       <rect x="36" y="44" width="8" height="6" fill="url(#tn-orange-red)" />
 
       {/* Bas */}
-      <rect x="28" y="50" width="24" height="6" rx="1" fill="#1E293B" />
-      <rect x="28" y="56" width="24" height="2" fill="#0F172A" />
+      <rect x="28" y="50" width="24" height="6" rx="1" fill="#262626" />
+      <rect x="28" y="56" width="24" height="2" fill="#171717" />
 
       {/* Stjärna i mitten */}
       <path
@@ -154,24 +154,24 @@ export function BalancedToneIcon({ className = 'w-20 h-20' }: IconProps) {
       <circle cx="40" cy="40" r="36" fill="white" stroke="url(#tn-orange-red)" strokeWidth="1.75" />
 
       {/* Mittstolpe */}
-      <rect x="38" y="20" width="4" height="38" fill="#1E293B" />
-      <circle cx="40" cy="20" r="3" fill="#1E293B" />
+      <rect x="38" y="20" width="4" height="38" fill="#262626" />
+      <circle cx="40" cy="20" r="3" fill="#262626" />
 
       {/* Bjälke */}
-      <rect x="14" y="22" width="52" height="3" rx="1.5" fill="#1E293B" />
+      <rect x="14" y="22" width="52" height="3" rx="1.5" fill="#262626" />
 
       {/* Vänster kedja + skål */}
-      <line x1="22" y1="25" x2="22" y2="38" stroke="#94A3B8" strokeWidth="1" strokeDasharray="2,1.5" />
+      <line x1="22" y1="25" x2="22" y2="38" stroke="#A3A3A3" strokeWidth="1" strokeDasharray="2,1.5" />
       <path d="M14 38 L30 38 L26 48 L18 48 Z" fill="url(#tn-orange-red)" />
       <ellipse cx="22" cy="38" rx="8" ry="1.5" fill="#FED7AA" />
 
       {/* Höger kedja + skål */}
-      <line x1="58" y1="25" x2="58" y2="38" stroke="#94A3B8" strokeWidth="1" strokeDasharray="2,1.5" />
+      <line x1="58" y1="25" x2="58" y2="38" stroke="#A3A3A3" strokeWidth="1" strokeDasharray="2,1.5" />
       <path d="M50 38 L66 38 L62 48 L54 48 Z" fill="url(#tn-emerald)" />
       <ellipse cx="58" cy="38" rx="8" ry="1.5" fill="#A7F3D0" />
 
       {/* Bas */}
-      <rect x="28" y="58" width="24" height="6" rx="1" fill="#1E293B" />
+      <rect x="28" y="58" width="24" height="6" rx="1" fill="#262626" />
     </svg>
   );
 }

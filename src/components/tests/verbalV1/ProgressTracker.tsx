@@ -19,9 +19,9 @@ export function ProgressTracker({
           {answeredQuestions === totalQuestions ? (
             <CheckCircle2 className="w-5 h-5 text-green-600" />
           ) : (
-            <Circle className="w-5 h-5 text-slate-400" />
+            <Circle className="w-5 h-5 text-neutral-400" />
           )}
-          <span className="text-sm font-semibold text-slate-700">
+          <span className="text-sm font-semibold text-neutral-700">
             Framsteg
           </span>
         </div>
@@ -31,16 +31,16 @@ export function ProgressTracker({
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+      <div className="w-full h-3 bg-neutral-200 rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full"
+          className="h-full bg-emerald-600 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         />
       </div>
 
-      <p className="text-xs text-slate-500 mt-2 text-center">
+      <p className="text-xs text-neutral-500 mt-2 text-center">
         {percentage}% besvarade
       </p>
     </div>

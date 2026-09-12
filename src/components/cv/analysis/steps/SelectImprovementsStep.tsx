@@ -213,7 +213,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
   return (
     <div className="space-y-6">
       {/* Header with total */}
-      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-xl p-6">
+      <div className="bg-white border border-pink-200 rounded-xl p-6">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
           Välj förbättringar
         </h3>
@@ -221,7 +221,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
           Granska och välj vilka förbättringar du vill implementera i ditt CV
         </p>
         <div className="flex items-center gap-2">
-          <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          <div className="text-3xl font-bold text-neutral-900">
             {totalSelected}
           </div>
           <div className="text-gray-600">
@@ -245,9 +245,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                 onClick={() => toggleCategory(category.id)}
                 className="w-full p-6 flex items-center gap-4 hover:bg-gray-50 transition-colors"
               >
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
-                  <category.icon className="w-6 h-6 text-white" />
-                </div>
+                <category.icon className="w-6 h-6 text-neutral-700 flex-shrink-0" />
 
                 <div className="flex-1 text-left">
                   <h4 className="font-semibold text-gray-900 mb-1">

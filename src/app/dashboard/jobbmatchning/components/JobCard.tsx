@@ -25,9 +25,8 @@ interface JobCardProps {
 const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
   <motion.div
     className={`
-      relative bg-white rounded-2xl border border-slate-200
-      shadow-sm hover:border-orange-300
-      hover:shadow-[0_12px_28px_-10px_rgba(249,115,22,0.25)]
+      relative bg-white rounded-xl border border-neutral-200
+      hover:border-orange-300
       transition-all duration-200
       overflow-hidden group cursor-pointer
       ${className}
@@ -49,7 +48,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
     if (relevance >= 80) return 'bg-emerald-50 border-emerald-200 text-emerald-700';
     if (relevance >= 60) return 'bg-blue-50 border-blue-200 text-blue-700';
     if (relevance >= 40) return 'bg-amber-50 border-amber-200 text-amber-700';
-    return 'bg-slate-50 border-slate-200 text-slate-700';
+    return 'bg-neutral-50 border-neutral-200 text-neutral-700';
   };
 
   return (
@@ -60,7 +59,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
     >
       <BentoCard onClick={() => onSelect(job)}>
         <div className="p-5">
-          {/* Matchning %-rad ovanför titel — tydlig och okuponerbar */}
+          {/* Matchning %-rad ovanför titel, tydlig och okuponerbar */}
           {job.relevance !== undefined && (
             <div className="flex items-center justify-between mb-3">
               <div
@@ -68,7 +67,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                 title="Hur väl jobbet matchar ditt CV"
               >
                 <span className="text-xs font-bold tabular-nums">{job.relevance}%</span>
-                <span className="text-[11px] font-medium">matchar ditt CV</span>
+                <span className="text-xs font-medium">matchar ditt CV</span>
               </div>
             </div>
           )}
@@ -81,36 +80,36 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                 <img
                   src={job.logo_url}
                   alt={job.employer?.name || 'Företag'}
-                  className="w-12 h-12 rounded-lg object-cover bg-slate-100"
+                  className="w-12 h-12 rounded-lg object-cover bg-neutral-100"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.nextElementSibling?.classList.remove('hidden');
                   }}
                 />
               ) : null}
-              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold text-base ${job.logo_url ? 'hidden' : ''}`}>
+              <div className={`w-12 h-12 rounded-lg bg-orange-600 flex items-center justify-center text-white font-bold text-base ${job.logo_url ? 'hidden' : ''}`}>
                 {(job.employer?.name || 'U').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()}
               </div>
             </div>
 
             {/* Title & Company + Location */}
             <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-1 group-hover:text-orange-600 transition-colors leading-snug break-words">
+              <h3 className="text-base sm:text-lg font-semibold text-neutral-900 mb-1 group-hover:text-orange-600 transition-colors leading-snug break-words">
                 {job.headline}
               </h3>
-              <div className="flex items-center gap-1.5 text-sm text-slate-600 flex-wrap min-w-0">
+              <div className="flex items-center gap-1.5 text-sm text-neutral-600 flex-wrap min-w-0">
                 <Building2 className="w-3.5 h-3.5 shrink-0" />
                 <span className="font-medium break-words min-w-0">{job.employer?.name || 'Okänt företag'}</span>
 
                 {job.workplace_address && (
                   <>
-                    <span className="text-slate-400">·</span>
+                    <span className="text-neutral-400">·</span>
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
                     <span className="break-words min-w-0">
                       {job.workplace_address.municipality || job.workplace_address.region}
                     </span>
                     {job.distance !== null && job.distance !== undefined && job.distance <= 100 && (
-                      <span className="text-slate-500 text-xs">({Math.round(job.distance)} km)</span>
+                      <span className="text-neutral-500 text-xs">({Math.round(job.distance)} km)</span>
                     )}
                   </>
                 )}
@@ -122,7 +121,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
           <div className="space-y-3 mb-4">
             {/* Employment Type & Scope - Compact Row */}
             {(job.employment_type || job.scope_of_work) && (
-              <div className="flex items-center gap-2 text-sm text-slate-600">
+              <div className="flex items-center gap-2 text-sm text-neutral-600">
                 {job.employment_type && (
                   <div className="flex items-center gap-1.5">
                     <Briefcase className="w-3.5 h-3.5 shrink-0" />
@@ -131,7 +130,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                 )}
                 {job.scope_of_work && (job.scope_of_work.min || job.scope_of_work.max) && (
                   <>
-                    <span className="text-slate-400">·</span>
+                    <span className="text-neutral-400">·</span>
                     <span className="px-2 py-0.5 bg-blue-50 border border-blue-200 text-blue-700 rounded text-xs font-medium">
                       {job.scope_of_work.min === job.scope_of_work.max
                         ? `${job.scope_of_work.min}%`
@@ -170,13 +169,13 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                 {job.must_have.skills.slice(0, 5).map((skill: any, i: number) => (
                   <span
                     key={i}
-                    className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 rounded text-xs font-medium"
+                    className="px-2 py-0.5 bg-neutral-100 border border-neutral-200 text-neutral-700 rounded text-xs font-medium"
                   >
                     {skill.label}
                   </span>
                 ))}
                 {job.must_have.skills.length > 5 && (
-                  <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs">
+                  <span className="px-2 py-0.5 bg-neutral-100 text-neutral-600 rounded text-xs">
                     +{job.must_have.skills.length - 5} till
                   </span>
                 )}
@@ -184,16 +183,16 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
             )}
 
             {/* Description Preview (3 lines) */}
-            <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
+            <p className="text-neutral-600 text-sm line-clamp-3 leading-relaxed">
               {job.description?.text || job.description?.needs || 'Ingen beskrivning tillgänglig'}
             </p>
           </div>
 
           {/* Footer Section - Date, Deadline, Buttons */}
-          <div className="pt-3 border-t border-slate-100 space-y-3">
+          <div className="pt-3 border-t border-neutral-100 space-y-3">
             {/* Publication Date and Deadline - Compact Row */}
             <div className="flex items-center justify-between text-xs flex-wrap gap-y-1">
-              <div className="flex items-center gap-1.5 text-slate-500 min-w-0">
+              <div className="flex items-center gap-1.5 text-neutral-500 min-w-0">
                 <Clock className="w-3 h-3 shrink-0" />
                 <span className="truncate">
                   {job.publication_date
@@ -212,7 +211,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                   <div className={`flex items-center gap-1.5 font-medium ${
                     isExpired ? 'text-red-600' :
                     isUrgent ? 'text-orange-600 animate-pulse' :
-                    'text-slate-600'
+                    'text-neutral-600'
                   }`}>
                     <Clock className="w-3 h-3 shrink-0" />
                     <span>
@@ -242,7 +241,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                     });
                     router.push('/dashboard/skapa-brev');
                   }}
-                  className="col-span-2 py-2.5 px-3 border-2 border-orange-200 text-orange-700 bg-white text-center rounded-xl text-sm font-medium transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 flex items-center justify-center gap-1.5"
+                  className="col-span-2 py-2.5 px-3 border-2 border-orange-200 text-orange-700 bg-white text-center rounded-xl text-sm font-medium transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 flex items-center justify-center gap-1.5 min-h-[44px]"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Skapa brev</span>
@@ -262,8 +261,7 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className={`${cvId ? 'col-span-3' : 'col-span-5'} py-2.5 px-3 text-white text-center rounded-xl text-sm font-medium transition-all duration-200 hover:shadow-md flex items-center justify-center gap-1.5`}
-                    style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                    className={`${cvId ? 'col-span-3' : 'col-span-5'} py-2.5 px-3 bg-orange-600 hover:bg-orange-700 text-white text-center rounded-xl text-sm font-medium transition-all duration-200 flex items-center justify-center gap-1.5 min-h-[44px]`}
                   >
                     <span className="truncate">{buttonText}</span>
                     <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -272,8 +270,8 @@ export default function JobCard({ job, index, onSelect, cvId }: JobCardProps) {
               })()}
             </div>
 
-            {/* Tydlig "Visa detaljer"-affordance — gör hela kortet uppenbart klickbart */}
-            <div className="flex items-center justify-center gap-1 text-xs font-medium text-slate-500 group-hover:text-orange-600 transition-colors pt-1">
+            {/* Tydlig "Visa detaljer"-affordance, gör hela kortet uppenbart klickbart */}
+            <div className="flex items-center justify-center gap-1 text-xs font-medium text-neutral-500 group-hover:text-orange-600 transition-colors pt-1">
               <span>Tryck för att läsa mer om tjänsten</span>
               <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
             </div>

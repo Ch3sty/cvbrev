@@ -61,18 +61,17 @@ export default function SaveActionSegments({
 
   return (
     <div
-      className="rounded-2xl overflow-hidden"
+      className="rounded-xl overflow-hidden"
       style={{
         background: 'white',
         border: '1px solid rgba(249, 115, 22, 0.22)',
-        boxShadow: '0 4px 14px -8px rgba(249, 115, 22, 0.18)',
       }}
     >
       <div className="px-4 sm:px-5 pt-4 pb-3">
-        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
+        <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
           Sista steget
         </div>
-        <h4 className="text-sm sm:text-base font-bold text-slate-900">
+        <h4 className="text-sm sm:text-base font-bold text-neutral-900">
           Vad vill du göra med ditt CV?
         </h4>
       </div>
@@ -100,10 +99,8 @@ export default function SaveActionSegments({
                 style={
                   isActive
                     ? {
-                        background:
-                          'linear-gradient(135deg, #F97316, #DC2626)',
+                        background: '#EA580C',
                         color: 'white',
-                        boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.45)',
                       }
                     : {
                         color: isDisabled ? '#94A3B8' : '#9A3412',
@@ -127,8 +124,8 @@ export default function SaveActionSegments({
                     <Icon className="w-7 h-7" />
                   </div>
                   <span
-                    className={`text-[10px] sm:text-[11px] font-bold leading-tight ${
-                      isActive ? 'text-white' : 'text-slate-700'
+                    className={`text-xs sm:text-xs font-bold leading-tight ${
+                      isActive ? 'text-white' : 'text-neutral-700'
                     }`}
                   >
                     {choice.shortLabel}
@@ -154,22 +151,16 @@ export default function SaveActionSegments({
             <div
               className="rounded-xl p-3 flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed"
               style={{
-                background:
-                  'linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(220, 38, 38, 0.04) 100%)',
+                background: 'rgba(249, 115, 22, 0.05)',
                 border: '1px solid rgba(249, 115, 22, 0.18)',
                 color: '#7C2D12',
               }}
             >
-              <span
-                className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                }}
-              />
+              <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-orange-600" />
               <div className="flex-1 min-w-0">
                 <p>{activeChoice.description}</p>
                 {activeChoice.needsQuota && (
-                  <p className="mt-1 text-[11px] font-semibold text-emerald-700">
+                  <p className="mt-1 text-xs font-semibold text-emerald-700">
                     {cvCount}/{maxCvs} platser använda
                   </p>
                 )}

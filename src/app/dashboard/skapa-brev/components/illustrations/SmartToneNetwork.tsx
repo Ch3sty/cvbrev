@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 
 /**
  * Subtilt nätverk: tre noder (CV, Annons, Brev) kopplade med kurvor.
- * Visualiserar vad Smart-anpassad gör — analyserar tre datakällor
+ * Visualiserar vad Smart-anpassad gör, analyserar tre datakällor
  * och knyter ihop dem.
  *
  * Layout: noderna är CSS-positionerade med procent så de följer
  * bannerns dimensioner exakt på alla skärmstorlekar (cirklar förblir
- * runda — slipper SVG aspect-ratio-problem). Kurvorna ritas i en
+ * runda, slipper SVG aspect-ratio-problem). Kurvorna ritas i en
  * separat SVG som sträcks med preserveAspectRatio="none" eftersom
  * dash-strokes tål stretching utan att se konstiga ut.
  *

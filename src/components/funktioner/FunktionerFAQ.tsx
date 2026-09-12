@@ -22,8 +22,8 @@ const FAQ_ITEMS = [
     a: 'Inget dramatiskt. Ditt konto rullar tillbaka till gratisnivån. Brev och CV:n du redan skapat finns kvar (du kan hantera 2 sparade brev och 2 CV:n på gratis), men nya skapanden begränsas till gratis-quotorna. Du kan när som helst aktivera Premium igen.',
   },
   {
-    q: 'Hur fungerar 7 dagars trial?',
-    a: 'Du behöver inte ange kreditkort innan trial-perioden. Du får full tillgång till Premium i sju dagar. Vill du fortsätta uppgraderar du med ett klick. Vill du inte fortsätta gör du absolut ingenting och kontot fortsätter på gratisnivå.',
+    q: 'Hur kommer jag igång gratis?',
+    a: 'Skapa konto så får du fem dagar med full Premium direkt, utan kort. Efter de fem dagarna fortsätter kontot på gratisnivån med ett brev om dagen. Vill du ha tillbaka Premium väljer du mellan dagspass, vecka, månad och kvartal.',
   },
 ];
 

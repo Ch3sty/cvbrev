@@ -5,7 +5,7 @@ export default function SkapaBrevLoading() {
   return (
     <SkeletonPage>
       <SkeletonHero />
-      <SkeletonBlock height={64} rounded="rounded-2xl" />
+      <SkeletonBlock height={64} rounded="rounded-xl" />
       <SkeletonBlock height={360} />
     </SkeletonPage>
   )

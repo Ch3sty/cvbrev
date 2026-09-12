@@ -171,7 +171,7 @@ export default function ATSOptimizer({
             <div className="flex items-center">
               <ShieldCheck className="w-5 h-5 mr-2 text-blue-400" />
               ATS-Optimering
-              <Badge className="ml-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">
+              <Badge className="ml-2 bg-pink-600 text-white text-xs">
                 Svenska Marknaden
               </Badge>
             </div>
@@ -230,7 +230,7 @@ export default function ATSOptimizer({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all ${
+              className={`flex items-center px-3 min-h-[44px] rounded-md text-sm font-medium transition-all ${
                 activeTab === tab.id
                   ? 'bg-pink-500 text-white'
                   : 'text-gray-400 hover:text-white hover:bg-navy-700'
@@ -393,7 +393,7 @@ export default function ATSOptimizer({
           </CardHeader>
           <CardContent className="space-y-4">
             {optimization.swedishMarketInsights.map((insight, index) => (
-              <div key={index} className="p-4 bg-gradient-to-r from-navy-600 to-navy-500 rounded-lg border border-yellow-500/20">
+              <div key={index} className="p-4 bg-navy-600 rounded-lg border border-yellow-500/20">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-yellow-400 font-medium">{insight.title}</h4>
                   <div className="text-yellow-400 text-sm font-medium">

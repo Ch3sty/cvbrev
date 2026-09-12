@@ -10,7 +10,7 @@
 export function SkeletonBlock({
   height,
   className = '',
-  rounded = 'rounded-3xl',
+  rounded = 'rounded-xl',
 }: {
   height: number
   className?: string
@@ -19,7 +19,7 @@ export function SkeletonBlock({
   return (
     <div
       aria-hidden="true"
-      className={`${rounded} animate-pulse bg-white border border-slate-200/70 ${className}`}
+      className={`${rounded} animate-pulse bg-white border border-neutral-200/70 ${className}`}
       style={{ height }}
     />
   )
@@ -29,7 +29,7 @@ export function SkeletonHero() {
   return (
     <div
       aria-hidden="true"
-      className="rounded-3xl bg-gradient-to-br from-orange-100 via-orange-50 to-rose-50 animate-pulse"
+      className="rounded-xl bg-orange-600 animate-pulse"
       style={{ height: 200 }}
     />
   )

@@ -38,6 +38,12 @@ export interface LayoutOptions {
   footNote?: string;
   /** Transaktionella mail visar ingen avregistreringsrad i brödtexten. */
   transactional?: boolean;
+  /**
+   * Egen avregistreringslänk i footern, för mail som har en snävare
+   * avregistrering än den globala. Veckosammanfattningen stänger bara sig
+   * själv och lämnar kvotpåminnelserna orörda.
+   */
+  unsubscribe?: { url: string; label: string; consentLine?: string };
 }
 
 export function paragraph(text: string): string {
@@ -96,9 +102,14 @@ export function renderLayout(options: LayoutOptions): string {
 
   // Transaktionella mail (betalning, uppsägning) har inget opt-out-löfte att
   // ge, men behåller länken eftersom mottagaren ska kunna stänga av resten.
-  const consentLine = options.transactional
-    ? 'Det här mailet rör ditt konto och din betalning.'
-    : 'Du får det här mailet för att du har ett konto på jobbcoach.ai.';
+  const consentLine =
+    options.unsubscribe?.consentLine ??
+    (options.transactional
+      ? 'Det här mailet rör ditt konto och din betalning.'
+      : 'Du får det här mailet för att du har ett konto på jobbcoach.ai.');
+
+  const unsubscribeHref = options.unsubscribe?.url ?? unsubscribeUrl(options.userId);
+  const unsubscribeLabel = options.unsubscribe?.label ?? 'Avregistrera dig';
 
   return `<!doctype html>
 <html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
@@ -140,7 +151,7 @@ export function renderLayout(options: LayoutOptions): string {
             <td style="padding:20px 24px 8px 24px;text-align:center;">
               <p style="margin:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#94A3B8;">${consentLine}</p>
               <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#94A3B8;">
-                <a href="${unsubscribeUrl(options.userId)}" target="_blank" style="color:#94A3B8;text-decoration:underline;">Avregistrera dig</a>
+                <a href="${unsubscribeHref}" target="_blank" style="color:#94A3B8;text-decoration:underline;">${unsubscribeLabel}</a>
                 &nbsp;&middot;&nbsp;
                 <a href="${withUtm('/', options.type)}" target="_blank" style="color:#94A3B8;text-decoration:underline;">jobbcoach.ai</a>
               </p>

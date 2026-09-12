@@ -131,7 +131,7 @@ export default function RecruiterSideNav() {
       <nav
         aria-label="Portalnavigering"
         className="hidden lg:flex sticky top-16 self-start flex-col items-center gap-1 w-[76px] flex-shrink-0 px-2 py-4"
-        style={{ height: 'calc(100vh - 4rem)' }}
+        style={{ height: 'calc(100dvh - 4rem)' }}
       >
         {MAIN_ITEMS.map((item) => renderItem(item, 'rail'))}
         <div className="w-8 border-t border-orange-100 my-2" aria-hidden="true" />

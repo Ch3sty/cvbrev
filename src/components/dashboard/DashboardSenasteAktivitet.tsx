@@ -87,10 +87,10 @@ export default function DashboardSenasteAktivitet() {
   if (!loading && items && items.length === 0) return null
 
   return (
-    <section className="bg-white rounded-3xl border border-orange-100 p-5 sm:p-6">
+    <section className="bg-white rounded-xl border border-orange-100 p-5 sm:p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          <h2 className="text-lg sm:text-xl font-black text-slate-900">
+          <h2 className="text-lg sm:text-xl font-semibold text-neutral-900">
             Senaste aktivitet
           </h2>
           <InfoPopover title="Senaste aktivitet">
@@ -115,7 +115,7 @@ export default function DashboardSenasteAktivitet() {
             const Icon = ICONS[item.type] ?? IconAktBrev
             const content = (
               <div
-                className={`flex items-center gap-3 p-3 rounded-2xl border border-orange-100 transition-all duration-200 ${
+                className={`flex items-center gap-3 p-3 rounded-xl border border-orange-100 transition-all duration-200 ${
                   item.href
                     ? 'hover:border-orange-200 hover:bg-orange-50/40 hover:-translate-y-0.5'
                     : ''
@@ -131,16 +131,16 @@ export default function DashboardSenasteAktivitet() {
                         aria-hidden="true"
                       />
                     )}
-                    <span className="text-sm font-bold text-slate-900 truncate">
+                    <span className="text-sm font-bold text-neutral-900 truncate">
                       {item.title}
                     </span>
                     {item.count && item.count > 1 && (
-                      <span className="flex-shrink-0 text-[10.5px] font-black text-orange-700 bg-orange-50 border border-orange-200 rounded-full px-1.5 py-px tabular-nums">
+                      <span className="flex-shrink-0 text-xs font-semibold text-orange-700 bg-orange-50 border border-orange-200 rounded-full px-1.5 py-px tabular-nums">
                         × {item.count}
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                  <div className="flex items-center gap-1.5 text-xs text-neutral-500">
                     {item.subtitle && (
                       <>
                         <span className="truncate">{item.subtitle}</span>
@@ -182,7 +182,7 @@ function SkeletonList() {
       {[0, 1, 2].map((i) => (
         <li
           key={i}
-          className="flex items-center gap-3 p-3 rounded-2xl border border-orange-100"
+          className="flex items-center gap-3 p-3 rounded-xl border border-orange-100"
         >
           <div className="w-9 h-9 rounded-xl bg-orange-50 animate-pulse flex-shrink-0" />
           <div className="flex-1 space-y-2">
@@ -201,10 +201,10 @@ function EmptyState() {
       <div className="flex justify-center mb-4">
         <EmptyActivityIllustration className="w-32 h-32" />
       </div>
-      <h3 className="text-sm font-bold text-slate-900 mb-1.5">
+      <h3 className="text-sm font-bold text-neutral-900 mb-1.5">
         Här dyker dina genomförda aktiviteter upp
       </h3>
-      <p className="text-xs text-slate-500 mb-4 max-w-xs mx-auto leading-relaxed">
+      <p className="text-xs text-neutral-500 mb-4 max-w-xs mx-auto leading-relaxed">
         När du skapar ett brev, loggar en ansökan eller kör en CV-analys
         ser du det här.
       </p>

@@ -72,7 +72,7 @@ export default function ConsentModal({
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-neutral-900/50 backdrop-blur-sm"
             onClick={saving ? undefined : onCancel}
             aria-hidden="true"
           />
@@ -82,35 +82,23 @@ export default function ConsentModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="relative w-full sm:max-w-xl bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden max-h-[92vh] overflow-y-auto"
+            className="relative w-full sm:max-w-xl bg-white rounded-t-xl sm:rounded-xl overflow-hidden max-h-[92vh] overflow-y-auto"
             style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
           >
-            {/* Gradient-strip */}
-            <div
-              className="absolute top-0 inset-x-0 h-1"
-              style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }}
-            />
-
             <div className="p-5 sm:p-7">
               {/* Ikonhuvud */}
               <div className="flex items-start gap-4 mb-5">
-                <div
-                  className="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white"
-                  style={{
-                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                    boxShadow: '0 8px 18px -6px rgba(220, 38, 38, 0.45)',
-                  }}
-                >
-                  <Radar className="w-6 h-6" strokeWidth={2.25} />
+                <div className="flex-shrink-0 flex items-center justify-center">
+                  <Radar className="w-5 h-5 text-neutral-700" strokeWidth={2.25} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
                     Bli upptäckt
                   </div>
-                  <h2 id="consent-title" className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 leading-tight">
+                  <h2 id="consent-title" className="text-lg sm:text-xl font-bold tracking-tight text-neutral-900 leading-tight">
                     Bli synlig för rekryterare?
                   </h2>
-                  <p className="text-sm text-slate-600 leading-relaxed mt-1.5">
+                  <p className="text-sm text-neutral-600 leading-relaxed mt-1.5">
                     Vi skapar en kandidatprofil av ditt valda CV. Du ser exakt vad
                     som visas, och du kan stänga av när som helst, då försvinner
                     profilen direkt.
@@ -120,8 +108,8 @@ export default function ConsentModal({
 
               {/* Visas / visas aldrig */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
-                <div className="rounded-2xl bg-emerald-50/70 border border-emerald-200/80 p-4">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 mb-3">
+                <div className="rounded-xl bg-emerald-50/70 border border-emerald-200/80 p-4">
+                  <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-emerald-700 mb-3">
                     <span className="w-4 h-4 rounded-md bg-emerald-600 text-white flex items-center justify-center">
                       <Check className="w-3 h-3" strokeWidth={3.5} />
                     </span>
@@ -129,15 +117,15 @@ export default function ConsentModal({
                   </div>
                   <ul className="space-y-2">
                     {SHOWN_ITEMS.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-[13px] text-slate-700 leading-snug">
+                      <li key={item} className="flex items-start gap-2 text-[13px] text-neutral-700 leading-snug">
                         <Check className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-2xl bg-rose-50/70 border border-rose-200/80 p-4">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-rose-700 mb-3">
+                <div className="rounded-xl bg-rose-50/70 border border-rose-200/80 p-4">
+                  <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-rose-700 mb-3">
                     <span className="w-4 h-4 rounded-md bg-rose-600 text-white flex items-center justify-center">
                       <X className="w-3 h-3" strokeWidth={3.5} />
                     </span>
@@ -145,7 +133,7 @@ export default function ConsentModal({
                   </div>
                   <ul className="space-y-2">
                     {HIDDEN_ITEMS.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-[13px] text-slate-700 leading-snug">
+                      <li key={item} className="flex items-start gap-2 text-[13px] text-neutral-700 leading-snug">
                         <X className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" strokeWidth={3} />
                         {item}
                       </li>
@@ -174,7 +162,7 @@ export default function ConsentModal({
               >
                 Visa mina främsta styrkor och min arbetsstil från
                 personlighetstestet på profilen.{' '}
-                <span className="text-slate-400 font-normal">
+                <span className="text-neutral-400 font-normal">
                   Eget samtycke, kan bockas ur utan att synligheten påverkas.
                 </span>
               </ConsentRow>
@@ -190,7 +178,7 @@ export default function ConsentModal({
                   Visa min fullständiga arbetsstilsrapport för rekryterare: hur
                   jag arbetar, samarbetar och drivs, med spektrum i ord (aldrig
                   siffror).{' '}
-                  <span className="text-slate-400 font-normal">
+                  <span className="text-neutral-400 font-normal">
                     Onboarding och intervjuguide låses upp för rekryteraren
                     först när du tackar ja till kontakt.
                     {!personalityConsent && ' Kräver att personlighetsstyrkor visas.'}
@@ -199,8 +187,8 @@ export default function ConsentModal({
               )}
 
               {/* Trygghetsrad */}
-              <div className="flex items-center gap-2 mt-4 text-[12px] text-slate-400">
-                <ShieldCheck className="w-4 h-4 flex-shrink-0 text-slate-300" strokeWidth={2.25} />
+              <div className="flex items-center gap-2 mt-4 text-xs text-neutral-400">
+                <ShieldCheck className="w-4 h-4 flex-shrink-0 text-neutral-300" strokeWidth={2.25} />
                 Samtycket sparas med tidpunkt och version. Rekryterare verifieras
                 innan de får se kandidatpoolen.
               </div>
@@ -211,7 +199,7 @@ export default function ConsentModal({
                   type="button"
                   onClick={onCancel}
                   disabled={saving}
-                  className="min-h-[48px] px-5 rounded-xl text-sm font-semibold text-slate-600 border border-slate-200 bg-white hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
+                  className="min-h-[48px] px-5 rounded-xl text-sm font-semibold text-neutral-600 border border-neutral-200 bg-white hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
                 >
                   Avbryt
                 </button>
@@ -221,15 +209,11 @@ export default function ConsentModal({
                     onConfirm(personalityConsent, personalityConsent && fullWorkstyleConsent)
                   }
                   disabled={!mainConsent || saving}
-                  className="min-h-[48px] px-6 rounded-xl text-sm font-bold text-white transition-all touch-manipulation enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed"
-                  style={
+                  className={`min-h-[48px] px-6 rounded-xl text-sm font-bold text-white transition-colors touch-manipulation disabled:cursor-not-allowed ${
                     !mainConsent || saving
-                      ? { background: '#CBD5E1' }
-                      : {
-                          background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                          boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-                        }
-                  }
+                      ? 'bg-neutral-300'
+                      : 'bg-orange-600 hover:bg-orange-700'
+                  }`}
                 >
                   {saving ? 'Aktiverar…' : 'Aktivera synlighet'}
                 </button>
@@ -261,12 +245,12 @@ function ConsentRow({
   const toneStyles = {
     orange: {
       selected: 'border-orange-300 bg-orange-50/60',
-      box: 'linear-gradient(135deg, #F97316, #DC2626)',
+      box: '#EA580C',
       ring: 'focus-visible:outline-orange-400',
     },
     indigo: {
       selected: 'border-indigo-300 bg-indigo-50/60',
-      box: 'linear-gradient(135deg, #6366F1, #4F46E5)',
+      box: '#4F46E5',
       ring: 'focus-visible:outline-indigo-400',
     },
   }[tone];
@@ -278,12 +262,12 @@ function ConsentRow({
       aria-checked={checked}
       onClick={onToggle}
       disabled={disabled}
-      className={`w-full text-left flex items-start gap-3 rounded-2xl border-[1.5px] p-3.5 mt-3 transition-colors touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${toneStyles.ring} ${
+      className={`w-full text-left flex items-start gap-3 rounded-xl border-[1.5px] p-3.5 mt-3 transition-colors touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${toneStyles.ring} ${
         disabled
-          ? 'border-slate-100 bg-slate-50/60 opacity-60 cursor-not-allowed'
+          ? 'border-neutral-100 bg-neutral-50/60 opacity-60 cursor-not-allowed'
           : checked
             ? toneStyles.selected
-            : 'border-slate-200 bg-white hover:border-slate-300'
+            : 'border-neutral-200 bg-white hover:border-neutral-300'
       }`}
     >
       <span
@@ -297,10 +281,10 @@ function ConsentRow({
       >
         {checked && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3.5} />}
       </span>
-      <span className="text-[13px] text-slate-700 leading-relaxed font-medium">
+      <span className="text-[13px] text-neutral-700 leading-relaxed font-medium">
         {children}
         {required && !checked && (
-          <span className="block text-[11.5px] text-orange-700 font-semibold mt-1">
+          <span className="block text-xs text-orange-700 font-semibold mt-1">
             Krävs för att aktivera synligheten
           </span>
         )}

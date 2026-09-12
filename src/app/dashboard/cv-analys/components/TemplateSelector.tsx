@@ -71,7 +71,7 @@ export default function TemplateSelector({
             variant="outline"
             size="sm"
             onClick={scrollPrev}
-            className="h-9 w-9 rounded-full p-0"
+            className="h-11 w-11 rounded-full p-0"
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
@@ -79,7 +79,7 @@ export default function TemplateSelector({
             variant="outline"
             size="sm"
             onClick={scrollNext}
-            className="h-9 w-9 rounded-full p-0"
+            className="h-11 w-11 rounded-full p-0"
           >
             <ChevronRight className="w-4 h-4" />
           </Button>
@@ -106,11 +106,11 @@ export default function TemplateSelector({
                   >
                     <Card className={`overflow-hidden border-2 transition-all ${
                       isSelected
-                        ? 'border-pink-500 shadow-xl shadow-pink-200/50 ring-2 ring-pink-200'
-                        : 'border-gray-200 hover:border-pink-300 hover:shadow-lg'
+                        ? 'border-pink-500 ring-2 ring-pink-200'
+                        : 'border-gray-200 hover:border-pink-300'
                     }`}>
                       {/* Template Preview */}
-                      <div className="relative aspect-[1/1.4] bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+                      <div className="relative aspect-[1/1.4] bg-gray-50 p-4">
                         {template.imagePath ? (
                           <Image
                             src={template.imagePath}
@@ -126,7 +126,7 @@ export default function TemplateSelector({
 
                         {/* Selected Indicator */}
                         {isSelected && (
-                          <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-pink-600 shadow-lg flex items-center justify-center animate-in zoom-in">
+                          <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center animate-in zoom-in">
                             <Check className="w-6 h-6 text-white" />
                           </div>
                         )}
@@ -134,7 +134,7 @@ export default function TemplateSelector({
                         {/* Premium Badge */}
                         {template.tier === 'premium' && (
                           <div className="absolute top-3 left-3">
-                            <Badge className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white border-0 shadow-md">
+                            <Badge className="bg-amber-500 text-white border-0">
                               <Crown className="w-3 h-3 mr-1" />
                               Premium
                             </Badge>

@@ -20,7 +20,7 @@ export default function MiniSuggestionChips({ onPick }: MiniSuggestionChipsProps
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className="flex flex-wrap items-center gap-2 -mx-1 px-1 pb-1"
     >
-      <span className="self-center text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 mr-1">
+      <span className="self-center text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 mr-1">
         Förslag
       </span>
       {SUGGESTIONS.map((s) => (
@@ -28,7 +28,7 @@ export default function MiniSuggestionChips({ onPick }: MiniSuggestionChipsProps
           key={s}
           type="button"
           onClick={() => onPick(s)}
-          className="px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 text-xs font-medium text-slate-700 transition-colors min-h-[32px]"
+          className="px-3 py-1.5 rounded-full bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-xs font-medium text-neutral-700 transition-colors min-h-[44px]"
         >
           {s}
         </button>

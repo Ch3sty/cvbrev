@@ -155,7 +155,7 @@ export default function QuantificationCustomizer({
       {/* Progress bar */}
       <div className="w-full bg-gray-200 rounded-full h-2">
         <motion.div
-          className="bg-gradient-to-r from-pink-600 to-purple-600 h-2 rounded-full"
+          className="bg-orange-600 h-2 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${((currentIndex + 1) / items.length) * 100}%` }}
           transition={{ duration: 0.3 }}
@@ -167,7 +167,7 @@ export default function QuantificationCustomizer({
         <div className="space-y-4">
           {/* Enhanced display for grouped improvements */}
           {currentItem.groupedImprovements && (
-            <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200 mb-4">
+            <div className="bg-white rounded-lg p-4 border border-pink-200 mb-4">
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp className="h-5 w-5 text-pink-600" />
                 <span className="text-sm font-semibold text-gray-900">
@@ -456,7 +456,7 @@ export default function QuantificationCustomizer({
               key={idx}
               className={`h-2 w-2 rounded-full transition-all ${
                 idx === currentIndex
-                  ? 'w-8 bg-gradient-to-r from-pink-600 to-purple-600'
+                  ? 'w-8 bg-orange-600'
                   : idx < currentIndex
                   ? 'bg-purple-600'
                   : 'bg-gray-300'
@@ -468,7 +468,7 @@ export default function QuantificationCustomizer({
         <Button
           onClick={handleNext}
           disabled={!isCurrentItemValid()}
-          className="bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-700 hover:to-purple-700"
+          className="bg-orange-600 text-white hover:bg-orange-700"
         >
           {currentIndex === items.length - 1 ? (
             <>

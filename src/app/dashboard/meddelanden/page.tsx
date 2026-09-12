@@ -38,7 +38,7 @@ function MeddelandenInner() {
 
   if (!ready) {
     return (
-      <div className="h-[640px] rounded-3xl bg-white/60 border border-slate-100 animate-pulse" aria-hidden="true" />
+      <div className="h-[640px] rounded-xl bg-white/60 border border-neutral-100 animate-pulse" aria-hidden="true" />
     );
   }
 
@@ -49,7 +49,7 @@ export default function MeddelandenPage() {
   return (
     <Suspense
       fallback={
-        <div className="h-[640px] rounded-3xl bg-white/60 border border-slate-100 animate-pulse" aria-hidden="true" />
+        <div className="h-[640px] rounded-xl bg-white/60 border border-neutral-100 animate-pulse" aria-hidden="true" />
       }
     >
       <MeddelandenInner />

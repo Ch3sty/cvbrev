@@ -15,11 +15,14 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import type { ApplicationStats } from '@/lib/applications/status';
-import FunnelBars from './FunnelBars';
+import type { ApplicationStats, JobApplication } from '@/lib/applications/status';
+import CvComparisonCard from './CvComparisonCard';
 
 interface StatsTabProps {
   totalCount: number;
+  /** Hela listan: CV-jämförelsen räknar svar per använt CV. */
+  applications: JobApplication[];
+  isLoading?: boolean;
 }
 
 type Granularity = 'week' | 'month';
@@ -29,22 +32,24 @@ function pct(numerator: number, denominator: number): string {
   return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
+/**
+ * Fast höjd och fast radhöjd: kortet ska ha samma mått med "–" som med "100 %",
+ * annars hoppar rutnätet när siffrorna landar.
+ */
 function KpiCard({ value, label }: { value: string; label: string }) {
   return (
-    <div className="bg-white rounded-2xl border border-orange-200/50 p-4 sm:p-5">
-      <div className="text-2xl sm:text-3xl font-semibold text-slate-900 tabular-nums leading-none">
-        {value}
-      </div>
-      <div className="text-[12.5px] text-slate-500 mt-1.5">{label}</div>
+    <div className="min-h-[6rem] rounded-xl border border-neutral-200 bg-white p-4">
+      <div className="text-2xl font-semibold leading-8 tabular-nums text-neutral-900">{value}</div>
+      <div className="mt-1 text-sm leading-5 text-neutral-600">{label}</div>
     </div>
   );
 }
 
 function SectionBox({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-orange-200/50 p-4 sm:p-6">
+    <div className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
       <div className="flex items-center justify-between gap-3 mb-4">
-        <h3 className="text-[14.5px] font-bold text-slate-900">{title}</h3>
+        <h3 className="text-base font-semibold tracking-tight text-neutral-900">{title}</h3>
         {action}
       </div>
       {children}
@@ -52,7 +57,7 @@ function SectionBox({ title, action, children }: { title: string; action?: React
   );
 }
 
-export default function StatsTab({ totalCount }: StatsTabProps) {
+export default function StatsTab({ totalCount, applications, isLoading }: StatsTabProps) {
   const [stats, setStats] = useState<ApplicationStats | null>(null);
   const [granularity, setGranularity] = useState<Granularity>('week');
 
@@ -70,15 +75,13 @@ export default function StatsTab({ totalCount }: StatsTabProps) {
       <div className="space-y-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-orange-200/50 p-5 animate-pulse h-24" />
+            <div key={i} className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-white p-4" />
           ))}
         </div>
-        <div className="bg-white rounded-2xl border border-orange-200/50 p-6 animate-pulse h-56" />
+        <div className="h-56 animate-pulse rounded-xl border border-neutral-200 bg-white p-6" />
       </div>
     );
   }
-
-  const tooThin = stats.totalApplications < 3;
 
   const activityData = (granularity === 'week' ? stats.byWeek : stats.byMonth).map((row) => {
     const iso = granularity === 'week' ? (row as { week: string }).week : (row as { month: string }).month;
@@ -107,14 +110,14 @@ export default function StatsTab({ totalCount }: StatsTabProps) {
       <SectionBox
         title="Aktivitet över tid"
         action={
-          <div className="flex items-center gap-0.5 bg-slate-100 rounded-lg p-0.5">
+          <div className="flex items-center gap-0.5 bg-neutral-100 rounded-lg p-0.5">
             {(['week', 'month'] as Granularity[]).map((g) => (
               <button
                 key={g}
                 type="button"
                 onClick={() => setGranularity(g)}
-                className={`px-3 py-1.5 rounded-md text-[12px] font-semibold transition-all ${
-                  granularity === g ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
+                className={`px-3 py-1.5 min-h-[44px] rounded-md text-xs font-medium transition-colors ${
+                  granularity === g ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500'
                 }`}
               >
                 {g === 'week' ? 'Vecka' : 'Månad'}
@@ -124,7 +127,7 @@ export default function StatsTab({ totalCount }: StatsTabProps) {
         }
       >
         {activityData.length === 0 ? (
-          <div className="h-48 flex items-center justify-center text-[13px] text-slate-400">
+          <div className="flex h-48 items-center justify-center text-sm text-neutral-500">
             Ingen aktivitet att visa ännu.
           </div>
         ) : (
@@ -162,14 +165,9 @@ export default function StatsTab({ totalCount }: StatsTabProps) {
         )}
       </SectionBox>
 
-      <SectionBox title="Din process">
-        <FunnelBars stats={stats} ghost={tooThin} />
-        {tooThin && (
-          <p className="mt-3 text-[13px] text-slate-500 text-center">
-            Logga fler ansökningar så tar din statistik form. Så här kan den se ut.
-          </p>
-        )}
-      </SectionBox>
+      {/* Svar per CV. Den enda insikten i produkten som kräver vår egen
+          historik, och därför den ingen konkurrent kan kopiera. */}
+      <CvComparisonCard applications={applications} isLoading={isLoading} />
     </motion.div>
   );
 }

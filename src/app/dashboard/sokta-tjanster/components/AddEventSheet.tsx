@@ -95,16 +95,13 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
                 className={`flex items-center gap-2.5 px-3 py-3 rounded-xl border text-left text-[13px] font-semibold transition-all min-h-[52px] ${
                   isActive
                     ? 'bg-orange-50 border-orange-400 text-orange-700'
-                    : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                    : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
                 }`}
               >
-                <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
-                    isActive ? 'bg-orange-100 text-orange-600' : 'bg-slate-50 text-slate-500'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" strokeWidth={2.25} />
-                </span>
+                <Icon
+                  className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-orange-600' : 'text-neutral-500'}`}
+                  strokeWidth={2.25}
+                />
                 {chipLabel(type)}
               </button>
             );
@@ -112,7 +109,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
         </div>
 
         <div>
-          <label htmlFor="ev-date" className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+          <label htmlFor="ev-date" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
             Datum
           </label>
           <input
@@ -121,14 +118,16 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
             value={occurredAt}
             max={todayIso()}
             onChange={(e) => setOccurredAt(e.target.value)}
-            className="w-full px-3.5 py-3 bg-white border border-slate-200 rounded-xl text-[15px] text-slate-900 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
+
+            enterKeyHint="next"
+            className="w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
           />
         </div>
 
         <button
           type="button"
           onClick={() => setShowNote((v) => !v)}
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 hover:text-slate-700 transition-colors"
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-neutral-700 transition-colors"
         >
           {showNote ? (
             <ChevronUp className="w-4 h-4" strokeWidth={2.5} />
@@ -142,10 +141,16 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
+
+            enterKeyHint="enter"
+
+            inputMode="text"
+
+            autoComplete="off"
             placeholder="T.ex. vem du träffade eller vad som sades..."
             maxLength={2000}
             rows={3}
-            className="w-full px-3.5 py-3 bg-white border border-slate-200 rounded-xl text-[15px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all resize-none"
+            className="w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all resize-none"
           />
         )}
 
@@ -159,11 +164,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
           type="button"
           onClick={handleSubmit}
           disabled={!selected || isSaving}
-          className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-[15px] font-bold shadow-md hover:shadow-lg transition-all min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-            boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-          }}
+          className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-[15px] font-bold transition-all min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
         >
           {isSaving ? 'Sparar…' : 'Spara händelse'}
         </button>

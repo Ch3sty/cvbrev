@@ -5,17 +5,56 @@ import { motion, AnimatePresence } from 'framer-motion';
 import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
-import AchievementManager from '@/components/gamification/AchievementManager';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
 import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/use-profile';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 function MobileBottomNavWrapper() {
   const { cvCount } = useProfile();
-  return <MobileBottomNav cvCount={cvCount || 0} />;
+  const [applicationCount, setApplicationCount] = useState(0);
+
+  // Skapa-arkets radordning behöver bara veta om det finns någon ansökan alls,
+  // så vi tar en head-count i stället för useApplicationsSummary som hämtar
+  // hela listan. Navet ligger på varje dashboardsida och ska vara billigt.
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      try {
+        const supabase = getSupabaseClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user?.id) return;
+
+        const { count } = await supabase
+          .from('job_applications')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (!cancelled) setApplicationCount(count ?? 0);
+      } catch {
+        // Räknaren styr bara radordning i Skapa-arket. Faller den bort
+        // visas standardordningen, vilket är ett fullgott tillstånd.
+      }
+    };
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <MobileBottomNav
+      cvCount={cvCount || 0}
+      applicationCount={applicationCount}
+    />
+  );
 }
 
 export default function DashboardLayout({
@@ -30,7 +69,7 @@ export default function DashboardLayout({
 
   // OBS: server-side middleware (src/middleware.ts) garanterar redan att bara
   // inloggade når /dashboard. Klient-redirecten + den blockerande spinnern är
-  // därför borttagna — vi väntar bara kort på att user-objektet hydrerar för
+  // därför borttagna, vi väntar bara kort på att user-objektet hydrerar för
   // UI som behöver user.id (header, achievements).
 
   // Check if user needs to set password (trial users)
@@ -47,7 +86,7 @@ export default function DashboardLayout({
 
   // Kort fönster innan user-objektet hydrerat på klienten. Middleware har redan
   // verifierat inloggning server-side, så detta är millisekunder (ingen
-  // nätverksväntan som förut) — visa inget för att undvika en flash.
+  // nätverksväntan som förut), visa inget för att undvika en flash.
   if (isLoading || !user) {
     return null;
   }
@@ -60,11 +99,8 @@ export default function DashboardLayout({
         <NavigationProgress />
       </Suspense>
 
-      <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-slate-100/20">
+      <div className="min-h-screen bg-gradient-to-br from-white via-neutral-50/30 to-neutral-100/20">
         <div className="flex h-screen flex-col lg:flex-row">
-          {/* Achievement Notifications */}
-          {user && <AchievementManager userId={user.id} />}
-
         {/* Dashboard Sidebar - Desktop (alltid synlig) */}
         <div className="hidden lg:block lg:relative lg:z-20">
           <DashboardSidebar
@@ -127,7 +163,10 @@ export default function DashboardLayout({
           )}
 
           {/* Main Content Area - responsiv padding */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pb-24 lg:pb-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
+          {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
+              --bottom-nav-h. Ingen pb-klass här: två sanningar om samma
+              avstånd var precis det som gjorde att något alltid låg fel. */}
+          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-gradient-to-br from-white/50 via-neutral-50/30 to-neutral-100/10">
             <div className="max-w-7xl mx-auto relative">
               {/* Page Transition Animation */}
               <AnimatePresence mode="wait">

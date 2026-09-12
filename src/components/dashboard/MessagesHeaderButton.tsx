@@ -29,22 +29,21 @@ export default function MessagesHeaderButton() {
     return (
       <Link
         href="/dashboard/bli-upptackt"
-        className="group hidden sm:inline-flex items-center gap-2.5 rounded-2xl border border-orange-100 bg-white pl-1.5 pr-3.5 py-1.5 transition-all hover:-translate-y-0.5 hover:border-orange-200"
-        style={{ boxShadow: '0 4px 14px -8px rgba(249, 115, 22, 0.3)' }}
+        className="group hidden sm:inline-flex items-center gap-2.5 rounded-xl border border-orange-100 bg-white pl-1.5 pr-3.5 py-1.5 min-h-[44px] transition-all hover:-translate-y-0.5 hover:border-orange-200"
         title="Bli hittad av rekryterare"
       >
         <span
           className="w-8 h-8 rounded-xl flex items-center justify-center text-white flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+          style={{ background: '#EA580C' }}
           aria-hidden="true"
         >
           <Search className="w-4 h-4" strokeWidth={2.5} />
         </span>
         <span className="text-left leading-tight">
-          <span className="block text-[12.5px] font-extrabold text-slate-900">
+          <span className="block text-xs font-semibold text-neutral-900">
             Bli hittad av rekryterare
           </span>
-          <span className="block text-[10.5px] font-bold text-orange-600">
+          <span className="block text-xs font-bold text-orange-600">
             Låt jobben komma till dig
           </span>
         </span>
@@ -62,7 +61,7 @@ export default function MessagesHeaderButton() {
       {/* Statusmarkör, ren och diskret. Dold på mycket smala skärmar. */}
       <span
         className={`hidden md:inline-flex items-center gap-2 ${
-          waiting ? 'text-red-700' : 'text-slate-500'
+          waiting ? 'text-red-700' : 'text-neutral-500'
         }`}
       >
         <span
@@ -72,7 +71,7 @@ export default function MessagesHeaderButton() {
           }}
           aria-hidden="true"
         />
-        <span className="text-[12px] font-bold whitespace-nowrap">
+        <span className="text-xs font-bold whitespace-nowrap">
           {waiting
             ? `${pending} rekryterare väntar`
             : 'Synlig för rekryterare'}
@@ -88,13 +87,13 @@ export default function MessagesHeaderButton() {
             : 'Meddelanden från rekryterare'
         }
         title="Meddelanden från rekryterare"
-        className="relative touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-2xl border border-indigo-100 bg-indigo-50/60 text-indigo-600 hover:bg-indigo-100 hover:border-indigo-200 transition-all"
+        className="relative touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50/60 text-indigo-600 hover:bg-indigo-100 hover:border-indigo-200 transition-all"
       >
         <MessageSquare className="w-[18px] h-[18px]" strokeWidth={2.25} />
         {badge > 0 && (
           <span
-            className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full text-white text-[10px] font-black flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #6366F1, #4F46E5)' }}
+            className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full text-white text-xs font-semibold flex items-center justify-center"
+            style={{ background: '#4F46E5' }}
           >
             {badge > 9 ? '9+' : badge}
           </span>
@@ -104,8 +103,7 @@ export default function MessagesHeaderButton() {
       {/* Engångspopover första gången man blivit synlig */}
       {showPopover && (
         <div
-          className="absolute top-[52px] right-0 z-50 w-[264px] bg-white rounded-2xl border border-indigo-100 p-4"
-          style={{ boxShadow: '0 18px 40px -16px rgba(79,70,229,0.4)' }}
+          className="absolute top-[52px] right-0 z-50 w-[264px] bg-white rounded-xl border border-indigo-100 p-4"
           role="dialog"
           aria-label="Om meddelanden"
         >
@@ -121,17 +119,17 @@ export default function MessagesHeaderButton() {
               markPopoverSeen();
             }}
             aria-label="Stäng"
-            className="absolute top-2.5 right-2.5 text-slate-300 hover:text-slate-500"
+            className="absolute top-2.5 right-2.5 text-neutral-300 hover:text-neutral-500"
           >
             <X className="w-3.5 h-3.5" strokeWidth={2.5} />
           </button>
-          <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-indigo-600 mb-1">
+          <div className="text-xs font-bold uppercase tracking-[0.12em] text-indigo-600 mb-1">
             Nyhet
           </div>
-          <p className="text-[14px] font-bold text-slate-900 leading-snug">
+          <p className="text-[14px] font-bold text-neutral-900 leading-snug">
             Här dyker rekryterare upp
           </p>
-          <p className="text-[12.5px] text-slate-500 leading-relaxed mt-1.5">
+          <p className="text-xs text-neutral-500 leading-relaxed mt-1.5">
             Du är nu synlig. När en rekryterare vill komma i kontakt hamnar
             meddelandet här.
           </p>
@@ -142,15 +140,15 @@ export default function MessagesHeaderButton() {
                 setPopoverClosed(true);
                 markPopoverSeen();
               }}
-              className="text-[12px] text-slate-400 hover:text-slate-600"
+              className="text-xs text-neutral-400 hover:text-neutral-600 min-h-[44px] flex items-center"
             >
               Uppfattat
             </button>
             <Link
               href="/dashboard/meddelanden"
               onClick={markPopoverSeen}
-              className="text-[12.5px] font-bold text-white rounded-lg px-3.5 py-1.5"
-              style={{ background: 'linear-gradient(135deg, #6366F1, #4F46E5)' }}
+              className="text-xs font-bold text-white rounded-lg px-3.5 min-h-[44px] flex items-center"
+              style={{ background: '#4F46E5' }}
             >
               Visa mig
             </Link>

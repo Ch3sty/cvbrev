@@ -30,11 +30,11 @@ export default function StatementList({
       className="space-y-3 sm:space-y-4"
     >
       <div className="text-center px-2">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
           Bedöm påståendena
         </div>
-        <p className="text-xs sm:text-sm text-slate-600">
-          Endast utifrån texten ovan — inte din egen kunskap.
+        <p className="text-xs sm:text-sm text-neutral-600">
+          Endast utifrån texten ovan, inte din egen kunskap.
         </p>
       </div>
 
@@ -72,27 +72,19 @@ function StatementCard({
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
-      className="bg-white rounded-2xl border border-orange-100 overflow-hidden"
-      style={{
-        boxShadow: isAnswered
-          ? '0 4px 16px -8px rgba(249, 115, 22, 0.18)'
-          : '0 4px 12px -6px rgba(249, 115, 22, 0.12)',
-      }}
+      className="bg-white rounded-xl border border-orange-100 overflow-hidden"
     >
       <div className="p-4 sm:p-5">
         {/* Statement-text med nummer */}
         <div className="flex items-start gap-3 mb-3">
           <div
-            className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold tabular-nums"
-            style={{
-              background: isAnswered
-                ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                : '#CBD5E1',
-            }}
+            className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold tabular-nums ${
+              isAnswered ? 'bg-orange-600' : 'bg-neutral-300'
+            }`}
           >
             {index + 1}
           </div>
-          <p className="flex-1 text-sm sm:text-base text-slate-800 leading-relaxed">
+          <p className="flex-1 text-sm sm:text-base text-neutral-800 leading-relaxed">
             {text}
           </p>
         </div>
@@ -139,8 +131,7 @@ function AnswerButton({
       label: 'Sant',
       icon: Check,
       strokeWidth: 3,
-      activeBg: 'linear-gradient(135deg, #10B981, #059669)',
-      activeShadow: '0 6px 14px -4px rgba(16, 185, 129, 0.45)',
+      activeBg: 'bg-emerald-600',
       activeRing: 'ring-emerald-400',
       hoverBorder: 'hover:border-emerald-400',
       hoverText: 'hover:text-emerald-700',
@@ -149,8 +140,7 @@ function AnswerButton({
       label: 'Falskt',
       icon: X,
       strokeWidth: 3,
-      activeBg: 'linear-gradient(135deg, #F87171, #DC2626)',
-      activeShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.45)',
+      activeBg: 'bg-rose-600',
       activeRing: 'ring-red-400',
       hoverBorder: 'hover:border-red-400',
       hoverText: 'hover:text-red-700',
@@ -159,11 +149,10 @@ function AnswerButton({
       label: 'Kan ej avgöras',
       icon: HelpCircle,
       strokeWidth: 2.5,
-      activeBg: 'linear-gradient(135deg, #94A3B8, #64748B)',
-      activeShadow: '0 6px 14px -4px rgba(100, 116, 139, 0.45)',
-      activeRing: 'ring-slate-400',
-      hoverBorder: 'hover:border-slate-400',
-      hoverText: 'hover:text-slate-700',
+      activeBg: 'bg-neutral-500',
+      activeRing: 'ring-neutral-400',
+      hoverBorder: 'hover:border-neutral-400',
+      hoverText: 'hover:text-neutral-700',
     },
   }[value];
 
@@ -179,26 +168,18 @@ function AnswerButton({
         min-h-[64px] sm:min-h-[68px]
         ${
           selected
-            ? `text-white border-transparent shadow-md ring-2 ${config.activeRing}`
-            : `bg-white text-slate-700 border-orange-100 ${config.hoverBorder} ${config.hoverText} hover:-translate-y-0.5`
+            ? `text-white border-transparent ring-2 ${config.activeBg} ${config.activeRing}`
+            : `bg-white text-neutral-700 border-orange-100 ${config.hoverBorder} ${config.hoverText} hover:-translate-y-0.5`
         }
         ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
       `}
-      style={
-        selected
-          ? {
-              background: config.activeBg,
-              boxShadow: config.activeShadow,
-            }
-          : undefined
-      }
       aria-pressed={selected}
     >
       <Icon
         className="w-4 h-4 sm:w-5 sm:h-5"
         strokeWidth={config.strokeWidth}
       />
-      <span className="text-[10px] sm:text-xs font-bold leading-tight text-center">
+      <span className="text-xs sm:text-xs font-bold leading-tight text-center">
         {config.label}
       </span>
     </button>

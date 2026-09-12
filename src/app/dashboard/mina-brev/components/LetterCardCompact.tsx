@@ -72,15 +72,10 @@ export default function LetterCardCompact({
         transition={{ type: 'spring', stiffness: 400, damping: 28 }}
         className={`group relative bg-white rounded-xl border transition-colors ${
           isLocked
-            ? 'border-slate-200'
+            ? 'border-neutral-200'
             : 'border-orange-200/50 hover:border-orange-300'
         }`}
-        style={{
-          boxShadow: isLocked
-            ? '0 2px 8px -4px rgba(15, 23, 42, 0.08)'
-            : '0 2px 8px -4px rgba(249, 115, 22, 0.08)',
-        }}
-      >
+        >
         {/* Hela raden klickbar → visa-sidan */}
         <button
           type="button"
@@ -102,7 +97,7 @@ export default function LetterCardCompact({
           <div className="flex-1 min-w-0">
             <h3
               className={`text-sm sm:text-[15px] font-bold leading-tight truncate ${
-                isLocked ? 'text-slate-500' : 'text-slate-900'
+                isLocked ? 'text-neutral-500' : 'text-neutral-900'
               }`}
             >
               {primary}
@@ -110,7 +105,7 @@ export default function LetterCardCompact({
             {secondary && (
               <p
                 className={`text-xs sm:text-[13px] truncate mt-0.5 ${
-                  isLocked ? 'text-slate-400' : 'text-slate-600'
+                  isLocked ? 'text-neutral-400' : 'text-neutral-600'
                 }`}
               >
                 {secondary}
@@ -120,7 +115,7 @@ export default function LetterCardCompact({
               <Link
                 href="/dashboard/profil/prenumeration"
                 onClick={(e) => e.stopPropagation()}
-                className="relative z-20 inline-flex items-center gap-1 mt-0.5 text-[11px] sm:text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
+                className="relative z-20 inline-flex items-center gap-1 mt-0.5 text-xs sm:text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
               >
                 <Lock className="w-3 h-3" strokeWidth={2.5} />
                 Lås upp med Premium
@@ -130,7 +125,7 @@ export default function LetterCardCompact({
 
           {/* Lås-badge (desktop) */}
           {isLocked && (
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200 text-[10px] font-semibold flex-shrink-0">
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-600 border border-neutral-200 text-xs font-semibold flex-shrink-0">
               <Lock className="w-3 h-3" strokeWidth={2.5} />
               Låst
             </span>
@@ -139,33 +134,33 @@ export default function LetterCardCompact({
           {/* Datum + taggar (desktop) */}
           <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
             {tonalityDisplay && (
-              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-[10px] font-semibold">
+              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
                 {tonalityDisplay}
               </span>
             )}
             {templateName && (
-              <span className="hidden lg:inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200 text-[10px] font-semibold">
+              <span className="hidden lg:inline-flex items-center px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-600 border border-neutral-200 text-xs font-semibold">
                 {templateName}
               </span>
             )}
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-[0.06em] tabular-nums">
+            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.06em] tabular-nums">
               {dateStr}
             </span>
           </div>
 
           {/* Mobile: bara datum (kompakt) */}
-          <span className="sm:hidden text-[11px] font-semibold text-slate-500 uppercase tabular-nums flex-shrink-0">
+          <span className="sm:hidden text-xs font-semibold text-neutral-500 uppercase tabular-nums flex-shrink-0">
             {dateStr}
           </span>
 
-          {/* Mer-meny — desktop popover */}
+          {/* Mer-meny, desktop popover */}
           <div className="hidden lg:block flex-shrink-0 z-20">
             <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
               <Popover.Trigger asChild>
                 <button
                   type="button"
                   onClick={(e) => e.stopPropagation()}
-                  className="w-8 h-8 inline-flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-900 hover:bg-orange-50/40 transition-colors pointer-events-auto"
+                  className="w-8 h-8 inline-flex items-center justify-center rounded-lg text-neutral-500 hover:text-neutral-900 hover:bg-orange-50/40 transition-colors pointer-events-auto"
                   aria-label="Fler alternativ"
                 >
                   <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
@@ -175,7 +170,7 @@ export default function LetterCardCompact({
                 <Popover.Content
                   align="end"
                   sideOffset={8}
-                  className="z-50 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
+                  className="z-50 bg-white rounded-xl border border-neutral-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
                 >
                   <button
                     type="button"
@@ -184,10 +179,10 @@ export default function LetterCardCompact({
                       onEdit(letter.id);
                       setPopoverOpen(false);
                     }}
-                    className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                   >
                     {isLocked ? (
-                      <Lock className="w-4 h-4 text-slate-400" strokeWidth={2.25} />
+                      <Lock className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
                     ) : (
                       <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
                     )}
@@ -199,7 +194,7 @@ export default function LetterCardCompact({
                       onDownload(letter.id, 'pdf');
                       setPopoverOpen(false);
                     }}
-                    className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
                   >
                     <FileType className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
                     Ladda ned PDF
@@ -210,7 +205,7 @@ export default function LetterCardCompact({
                       onDownload(letter.id, 'docx');
                       setPopoverOpen(false);
                     }}
-                    className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
                   >
                     <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
                     Ladda ned Word
@@ -222,16 +217,16 @@ export default function LetterCardCompact({
                         onMarkApplied(letter.id);
                         setPopoverOpen(false);
                       }}
-                      className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
+                      className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
                     >
                       <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
                       Markera som sökt
-                      <span className="ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                      <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
                         Nyhet
                       </span>
                     </button>
                   )}
-                  <div className="h-px bg-slate-100 my-1" />
+                  <div className="h-px bg-neutral-100 my-1" />
                   <button
                     type="button"
                     onClick={() => {
@@ -253,14 +248,14 @@ export default function LetterCardCompact({
             </Popover.Root>
           </div>
 
-          {/* Mer-meny — mobil bottom sheet trigger */}
+          {/* Mer-meny, mobil bottom sheet trigger */}
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               setShowMobileSheet(true);
             }}
-            className="lg:hidden flex-shrink-0 w-8 h-8 inline-flex items-center justify-center rounded-lg text-slate-500 hover:bg-orange-50/40 z-20 pointer-events-auto"
+            className="lg:hidden flex-shrink-0 w-8 h-8 inline-flex items-center justify-center rounded-lg text-neutral-500 hover:bg-orange-50/40 z-20 pointer-events-auto"
             aria-label="Fler alternativ"
           >
             <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
@@ -284,11 +279,11 @@ export default function LetterCardCompact({
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl"
+              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-center pt-3 pb-2">
-                <div className="w-10 h-1 bg-slate-300 rounded-full" />
+                <div className="w-10 h-1 bg-neutral-300 rounded-full" />
               </div>
               <div className="px-4 pb-8 pt-2 space-y-2">
                 <button
@@ -298,7 +293,7 @@ export default function LetterCardCompact({
                     setShowMobileSheet(false);
                   }}
                   className="w-full px-4 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center gap-3"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                  style={{ background: '#EA580C' }}
                 >
                   <Eye className="w-4 h-4" strokeWidth={2.5} />
                   Visa brev
@@ -310,7 +305,7 @@ export default function LetterCardCompact({
                     onEdit(letter.id);
                     setShowMobileSheet(false);
                   }}
-                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
+                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
                 >
                   {isLocked ? (
                     <Lock className="w-4 h-4" strokeWidth={2.5} />
@@ -325,7 +320,7 @@ export default function LetterCardCompact({
                     onDownload(letter.id, 'pdf');
                     setShowMobileSheet(false);
                   }}
-                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
                 >
                   <Download className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
                   Ladda ned PDF
@@ -336,7 +331,7 @@ export default function LetterCardCompact({
                     onDownload(letter.id, 'docx');
                     setShowMobileSheet(false);
                   }}
-                  className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
                 >
                   <Download className="w-4 h-4 text-blue-600" strokeWidth={2.5} />
                   Ladda ned Word
@@ -348,11 +343,11 @@ export default function LetterCardCompact({
                       onMarkApplied(letter.id);
                       setShowMobileSheet(false);
                     }}
-                    className="w-full px-4 py-3.5 rounded-xl text-slate-800 bg-white border border-slate-200 font-semibold text-sm flex items-center gap-3"
+                    className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
                   >
                     <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
                     Markera som sökt
-                    <span className="ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                    <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
                       Nyhet
                     </span>
                   </button>
@@ -376,7 +371,7 @@ export default function LetterCardCompact({
                 <button
                   type="button"
                   onClick={() => setShowMobileSheet(false)}
-                  className="w-full px-4 py-3 mt-2 rounded-xl text-slate-600 bg-slate-50 text-sm"
+                  className="w-full px-4 py-3 mt-2 rounded-xl text-neutral-600 bg-neutral-50 text-sm"
                 >
                   Avbryt
                 </button>

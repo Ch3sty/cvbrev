@@ -133,15 +133,15 @@ export default function Step2Profile({
         transition={{ duration: 0.4 }}
       >
         <div className="mb-5">
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
             Steg 2 av 4
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
             {isFromCv ? 'Granska och redigera' : 'Klistra in din nuvarande profil'}
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
             {isFromCv
-              ? 'Vi har förslag baserat på ditt CV. Redigera fritt — det du ser här är vad vi optimerar.'
+              ? 'Vi har förslag baserat på ditt CV. Redigera fritt, det du ser här är vad vi optimerar.'
               : 'Kopiera direkt från LinkedIn. Du ser din profil byggas upp till höger medan du fyller i.'}
           </p>
         </div>
@@ -149,30 +149,24 @@ export default function Step2Profile({
         {/* CV-banner */}
         {isFromCv && (
           <div className="mb-5 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5 flex items-start gap-3">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-              }}
-            >
+            <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
               <FileText
-                className="w-4 h-4 text-white"
+                className="w-5 h-5 text-neutral-700"
                 strokeWidth={2.4}
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-slate-900 leading-tight">
+              <p className="text-sm font-bold text-neutral-900 leading-tight">
                 Förslag baserat på ditt CV
                 {cvFileName && (
-                  <span className="font-medium text-slate-600">
+                  <span className="font-medium text-neutral-600">
                     {' · '}
                     {cvFileName}
                   </span>
                 )}
               </p>
-              <p className="text-xs text-slate-600 leading-snug mt-0.5">
-                Redigera fritt — det du ser här är det som skickas till AI:n.
+              <p className="text-xs text-neutral-600 leading-snug mt-0.5">
+                Redigera fritt, det du ser här är det som skickas till AI:n.
                 Vi hittar inte på något utöver det du har i fälten.
               </p>
             </div>
@@ -189,17 +183,13 @@ export default function Step2Profile({
           >
             <div className="flex items-center gap-2.5 min-w-0">
               <span
-                className="w-1 h-3 rounded-sm flex-shrink-0"
-                style={{
-                  background:
-                    'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                }}
+                className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
                 aria-hidden="true"
               />
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
                 {previewOpen ? 'Dölj förhandsvisning' : 'Visa förhandsvisning'}
               </span>
-              <span className="text-[10px] font-bold text-slate-500">
+              <span className="text-xs font-bold text-neutral-500">
                 {completed}/{SECTION_CONFIG.length}
               </span>
             </div>
@@ -235,7 +225,7 @@ export default function Step2Profile({
           </div>
         )}
 
-        {/* Inputs — alla synliga, scroll igenom */}
+        {/* Inputs, alla synliga, scroll igenom */}
         <div className="space-y-5">
           {SECTION_CONFIG.map((cfg) => (
             <SectionInput
@@ -262,7 +252,7 @@ export default function Step2Profile({
               className="w-4 h-4 text-orange-700 flex-shrink-0 mt-0.5"
               strokeWidth={2.4}
             />
-            <div className="text-xs text-slate-700 leading-relaxed">
+            <div className="text-xs text-neutral-700 leading-relaxed">
               <strong className="text-orange-700">"Om mig" och "Erfarenhet"</strong>{' '}
               behövs för att vi ska kunna optimera din profil. Resten är
               valfritt men ger bättre resultat.
@@ -288,7 +278,7 @@ export default function Step2Profile({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-slate-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-neutral-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
           >
             <ArrowLeft className="w-4 h-4" strokeWidth={2.4} />
             Tillbaka
@@ -298,12 +288,7 @@ export default function Step2Profile({
             type="button"
             onClick={onSubmit}
             disabled={!canSubmit}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            style={{
-              background:
-                'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-              boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-            }}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             <span>Starta optimering</span>
             <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
@@ -316,18 +301,14 @@ export default function Step2Profile({
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span
-              className="w-1 h-3 rounded-sm"
-              style={{
-                background:
-                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-              }}
+              className="w-1 h-3 rounded-sm bg-orange-600"
               aria-hidden="true"
             />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Live · uppdateras medan du skriver
             </span>
           </div>
-          <span className="text-[10px] font-bold text-slate-500">
+          <span className="text-xs font-bold text-neutral-500">
             {completed}/{SECTION_CONFIG.length} sektioner
           </span>
         </div>

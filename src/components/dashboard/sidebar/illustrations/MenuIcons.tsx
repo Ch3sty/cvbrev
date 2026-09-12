@@ -14,7 +14,7 @@ interface IconProps {
 
 const SW = 2;
 
-// === ÖVERSIKT — dashboard med 4 rutor + glimt ===
+// === ÖVERSIKT, dashboard med 4 rutor + glimt ===
 export function OversiktIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -27,7 +27,7 @@ export function OversiktIcon({ className }: IconProps) {
   );
 }
 
-// === MINA CV:N — papper med rader och avatar ===
+// === MINA CV:N, papper med rader och avatar ===
 export function CvIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -42,7 +42,7 @@ export function CvIcon({ className }: IconProps) {
   );
 }
 
-// === SPARADE BREV — kuvert med skuggning ===
+// === SPARADE BREV, kuvert med skuggning ===
 export function BrevIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -53,7 +53,7 @@ export function BrevIcon({ className }: IconProps) {
   );
 }
 
-// === SÖKTA TJÄNSTER — bokmärkt dokument med bock ===
+// === SÖKTA TJÄNSTER, bokmärkt dokument med bock ===
 export function SoktaTjansterIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -74,7 +74,7 @@ export function SoktaTjansterIcon({ className }: IconProps) {
   );
 }
 
-// === NYTT CV — papper med plus ===
+// === NYTT CV, papper med plus ===
 export function NyttCvIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -88,7 +88,7 @@ export function NyttCvIcon({ className }: IconProps) {
   );
 }
 
-// === NYTT BREV — penna som skriver ===
+// === NYTT BREV, penna som skriver ===
 export function NyttBrevIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -99,7 +99,7 @@ export function NyttBrevIcon({ className }: IconProps) {
   );
 }
 
-// === CV-MALLAR — staplade lager ===
+// === CV-MALLAR, staplade lager ===
 export function MallIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -112,7 +112,7 @@ export function MallIcon({ className }: IconProps) {
   );
 }
 
-// === FÖRBÄTTRA CV — förstoringsglas över rader ===
+// === FÖRBÄTTRA CV, förstoringsglas över rader ===
 export function ForbattraIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -125,7 +125,7 @@ export function ForbattraIcon({ className }: IconProps) {
   );
 }
 
-// === JOBBMATCHNING — pussel-bitar som möts ===
+// === JOBBMATCHNING, pussel-bitar som möts ===
 export function JobbmatchningIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -139,7 +139,7 @@ export function JobbmatchningIcon({ className }: IconProps) {
   );
 }
 
-// === BLI UPPTÄCKT — radar/signal som sänder ut ===
+// === BLI UPPTÄCKT, radar/signal som sänder ut ===
 export function UpptacktIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -152,7 +152,7 @@ export function UpptacktIcon({ className }: IconProps) {
   );
 }
 
-// === JOBBCOACHEN — chat-bubbla med spark ===
+// === JOBBCOACHEN, chat-bubbla med spark ===
 export function JobbcoachenIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -169,7 +169,7 @@ export function JobbcoachenIcon({ className }: IconProps) {
   );
 }
 
-// === LINKEDIN — i-bokstav i ruta (vår tolkning, ej officiell blå) ===
+// === LINKEDIN, i-bokstav i ruta (vår tolkning, ej officiell blå) ===
 export function LinkedinIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -187,7 +187,7 @@ export function LinkedinIcon({ className }: IconProps) {
   );
 }
 
-// === REKRYTERINGSTESTER — checkbox-rader ===
+// === REKRYTERINGSTESTER, checkbox-rader ===
 export function TesterIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -202,7 +202,7 @@ export function TesterIcon({ className }: IconProps) {
   );
 }
 
-// === BELÖNINGAR — krona-trofé ===
+// === BELÖNINGAR, krona-trofé ===
 export function BeloningarIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -221,7 +221,7 @@ export function BeloningarIcon({ className }: IconProps) {
   );
 }
 
-// === PROFIL — siluett (krona-overlay för premium läggs i ProfilLink) ===
+// === PROFIL, siluett (krona-overlay för premium läggs i ProfilLink) ===
 export function ProfilIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -237,7 +237,7 @@ export function ProfilIcon({ className }: IconProps) {
   );
 }
 
-// === KRONA — premium-marker ===
+// === KRONA, premium-marker ===
 export function KronaIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -252,7 +252,7 @@ export function KronaIcon({ className }: IconProps) {
   );
 }
 
-// === LOGGA UT — pil ut ===
+// === LOGGA UT, pil ut ===
 export function LoggaUtIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -269,7 +269,7 @@ export function LoggaUtIcon({ className }: IconProps) {
   );
 }
 
-// === BUGG — bug-illustration ===
+// === BUGG, bug-illustration ===
 export function BuggIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -293,7 +293,7 @@ export function BuggIcon({ className }: IconProps) {
   );
 }
 
-// === KONTAKT — kuvert med spark ===
+// === KONTAKT, kuvert med spark ===
 export function KontaktIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -307,7 +307,7 @@ export function KontaktIcon({ className }: IconProps) {
   );
 }
 
-// === SHIELD — admin-panel ===
+// === SHIELD, admin-panel ===
 export function ShieldIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -322,7 +322,7 @@ export function ShieldIcon({ className }: IconProps) {
   );
 }
 
-// === GIFT — onboarding-belöning ===
+// === GIFT, onboarding-belöning ===
 export function GiftIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -339,7 +339,7 @@ export function GiftIcon({ className }: IconProps) {
   );
 }
 
-// === TARGET — onboarding kom-igång ===
+// === TARGET, onboarding kom-igång ===
 export function TargetIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

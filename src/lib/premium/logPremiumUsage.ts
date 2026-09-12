@@ -16,6 +16,7 @@ export type PremiumFeature =
   | 'cv_analysis_full'
   | 'test_session'
   | 'chat_message'
+  | 'af_report'
 
 const LABEL: Record<PremiumFeature, string> = {
   letter_download: 'laddade ner ett brev',
@@ -23,6 +24,7 @@ const LABEL: Record<PremiumFeature, string> = {
   cv_analysis_full: 'såg hela CV-analysen',
   test_session: 'gjorde ett test',
   chat_message: 'chattade med jobbcoachen',
+  af_report: 'hämtade ut aktivitetsrapporten',
 }
 
 export function logPremiumUsage(

@@ -75,6 +75,23 @@ export function useAutoSave(cvData: CVDraft) {
     return loadDraftFromStorage();
   }, []);
 
+  /**
+   * När utkastet senast sparades, i millisekunder. Återkomstvalet behöver
+   * kunna säga "i går" eller "20 minuter sedan": ett utkast utan ålder är
+   * svårt att ta ställning till.
+   */
+  const loadDraftSavedAt = useCallback((): number | null => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return null;
+      const storedDraft: StoredDraft = JSON.parse(stored);
+      if (storedDraft.expiresAt < Date.now()) return null;
+      return storedDraft.timestamp ?? null;
+    } catch {
+      return null;
+    }
+  }, []);
+
   // Clear draft from localStorage
   const clearDraft = useCallback(() => {
     try {
@@ -131,6 +148,7 @@ export function useAutoSave(cvData: CVDraft) {
     isSavingDraft,
     saveDraft,
     loadDraft,
+    loadDraftSavedAt,
     clearDraft,
     hasDraft,
   };

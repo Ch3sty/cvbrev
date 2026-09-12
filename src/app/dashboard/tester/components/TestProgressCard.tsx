@@ -13,8 +13,8 @@ import {
   Minus,
 } from 'lucide-react';
 import { TestCardThumbnail } from './illustrations/TesterHubIcons';
-import { CategoryPill } from './TestCard';
-import LevelDots from './LevelDots';
+import TestLevelBadge from '@/components/tests/shared/TestLevelBadge';
+import { getTestConfig } from '../testConfig';
 import Sparkline from './Sparkline';
 import type { CognitiveTestDef } from './testCatalog';
 import type { PerTestStats } from '@/hooks/use-all-test-stats';
@@ -35,6 +35,7 @@ function trend(history: PerTestStats['history']): { delta: number; kind: 'up' | 
 }
 
 export default function TestProgressCard({ def, stats, index }: Props) {
+  const cfg = getTestConfig(def.slug);
   const [expanded, setExpanded] = useState(false);
 
   const latest = stats.history[stats.history.length - 1];
@@ -47,24 +48,17 @@ export default function TestProgressCard({ def, stats, index }: Props) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 + index * 0.05 }}
-      className="relative bg-white rounded-3xl border border-orange-100 overflow-hidden"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      className="relative bg-white rounded-xl border border-orange-100 overflow-hidden"
     >
-      <div
-        className="absolute top-0 inset-x-0 h-0.5"
-        style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
-      />
-
       <div className="p-4 sm:p-5">
         {/* Rubrik-rad */}
         <div className="flex items-center gap-3 mb-3">
           <TestCardThumbnail className="w-10 h-10 flex-shrink-0" variant={def.variant} />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-0.5">
-              <CategoryPill label={def.categoryLabel} />
-              <LevelDots level={def.levelLabel} showLabel />
+              {cfg ? <TestLevelBadge kind={cfg.kind} level={cfg.level} /> : null}
             </div>
-            <h3 className="text-base font-bold text-slate-900 leading-tight truncate">
+            <h3 className="text-base font-bold text-neutral-900 leading-tight truncate">
               {def.title}
             </h3>
           </div>
@@ -86,14 +80,14 @@ export default function TestProgressCard({ def, stats, index }: Props) {
           <Metric
             label="Försök"
             value={`${stats.attempts}`}
-            sub={totalMinutes > 0 ? `${totalMinutes} min` : '—'}
+            sub={totalMinutes > 0 ? `${totalMinutes} min` : '0 min'}
           />
         </div>
 
         {/* Sparkline + trend */}
-        <div className="rounded-2xl border border-orange-100/80 bg-orange-50/30 p-3 mb-3">
+        <div className="rounded-xl border border-orange-100/80 bg-orange-50/30 p-3 mb-3">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
               Utveckling
             </span>
             <TrendBadge delta={delta} kind={kind} singleAttempt={stats.attempts < 2} />
@@ -105,7 +99,7 @@ export default function TestProgressCard({ def, stats, index }: Props) {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="w-full flex items-center justify-between gap-2 text-xs font-bold text-orange-700 py-1 touch-manipulation"
+          className="w-full flex items-center justify-between gap-2 text-xs font-bold text-orange-700 min-h-[44px] touch-manipulation"
         >
           {expanded ? 'Dölj försök' : `Visa alla ${stats.attempts} försök`}
           <ChevronDown
@@ -166,16 +160,16 @@ function Metric({
   return (
     <div
       className={`rounded-xl p-2 text-center border ${
-        highlight ? 'bg-emerald-50/70 border-emerald-200' : 'bg-slate-50/70 border-slate-100'
+        highlight ? 'bg-emerald-50/70 border-emerald-200' : 'bg-neutral-50/70 border-neutral-100'
       }`}
     >
-      <div className="text-[9px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
+      <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-0.5">
         {label}
       </div>
-      <div className="text-sm font-bold text-slate-900 tabular-nums leading-none">{value}</div>
+      <div className="text-sm font-bold text-neutral-900 tabular-nums leading-none">{value}</div>
       <div
-        className={`text-[10px] font-bold tabular-nums mt-0.5 ${
-          highlight ? 'text-emerald-700' : 'text-slate-500'
+        className={`text-xs font-bold tabular-nums mt-0.5 ${
+          highlight ? 'text-emerald-700' : 'text-neutral-500'
         }`}
       >
         {sub}
@@ -194,16 +188,16 @@ function TrendBadge({
   singleAttempt: boolean;
 }) {
   if (singleAttempt) {
-    return <span className="text-[10px] font-medium text-slate-400">Första försöket</span>;
+    return <span className="text-xs font-medium text-neutral-400">Första försöket</span>;
   }
   const cfg = {
     up: { cls: 'bg-emerald-100 text-emerald-700 border-emerald-200', Icon: TrendingUp, sign: '+' },
-    down: { cls: 'bg-slate-100 text-slate-600 border-slate-200', Icon: TrendingDown, sign: '' },
-    flat: { cls: 'bg-slate-100 text-slate-500 border-slate-200', Icon: Minus, sign: '' },
+    down: { cls: 'bg-neutral-100 text-neutral-600 border-neutral-200', Icon: TrendingDown, sign: '' },
+    flat: { cls: 'bg-neutral-100 text-neutral-500 border-neutral-200', Icon: Minus, sign: '' },
   }[kind];
   return (
     <span
-      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold tabular-nums border ${cfg.cls}`}
+      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-xs font-bold tabular-nums border ${cfg.cls}`}
     >
       <cfg.Icon className="w-3 h-3" strokeWidth={2.5} />
       {kind === 'flat' ? 'Jämnt' : `${cfg.sign}${delta} p.e.`}
@@ -228,31 +222,31 @@ function HistoryRow({
       ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
       : attempt.percentage >= 60
       ? 'bg-orange-100 text-orange-700 border-orange-200'
-      : 'bg-slate-100 text-slate-600 border-slate-200';
+      : 'bg-neutral-100 text-neutral-600 border-neutral-200';
 
   return (
     <div
       className={`relative flex items-center justify-between gap-2 px-3 py-2 rounded-xl border ${
-        isBest ? 'bg-amber-50/70 border-amber-200' : 'bg-slate-50/60 border-slate-100'
+        isBest ? 'bg-amber-50/70 border-amber-200' : 'bg-neutral-50/60 border-neutral-100'
       }`}
     >
       <div className="flex items-center gap-2 min-w-0">
         {isBest && <Crown className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" strokeWidth={2.5} fill="currentColor" />}
-        <span className="text-sm font-bold text-slate-900 tabular-nums">
+        <span className="text-sm font-bold text-neutral-900 tabular-nums">
           {attempt.score}/{questionCount}
         </span>
-        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border tabular-nums ${pctColor}`}>
+        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full border tabular-nums ${pctColor}`}>
           {attempt.percentage}%
         </span>
       </div>
-      <div className="flex items-center gap-2 text-[11px] text-slate-500 flex-shrink-0">
+      <div className="flex items-center gap-2 text-xs text-neutral-500 flex-shrink-0">
         <span>
           {new Date(attempt.completedAt).toLocaleDateString('sv-SE', {
             day: 'numeric',
             month: 'short',
           })}
         </span>
-        <span className="text-slate-300">·</span>
+        <span className="text-neutral-300">·</span>
         <span className="inline-flex items-center gap-1 tabular-nums">
           <Clock className="w-3 h-3" strokeWidth={2.5} />
           {timeLabel}

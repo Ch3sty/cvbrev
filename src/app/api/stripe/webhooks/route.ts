@@ -151,13 +151,8 @@ const handleReferralConversion = async (customerId: string) => {
             })
             .eq('id', invitation.id);
 
-        // Grant 500 XP to the inviter
-        await supabaseAdmin.rpc('add_xp_with_cap_check', {
-            user_id_param: invitation.inviter_id,
-            xp_amount: 500,
-            source_param: 'referral_conversion',
-            description_param: 'Vän blev Premium-medlem'
-        });
+        // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2
+        // punkt 21). Premiumdagarna nedan är hela referral-belöningen.
 
         // Grant 7 days premium to inviter by extending their Stripe trial
         const { data: inviterProfile, error: inviterError } = await supabaseAdmin

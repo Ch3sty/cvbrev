@@ -54,14 +54,11 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
     <motion.div
       id={`changelog-${id}`}
       layout="position"
-      className="rounded-2xl bg-white overflow-hidden"
+      className="rounded-xl bg-white overflow-hidden"
       style={{
         border: isAuto
           ? '1px solid rgba(16, 185, 129, 0.22)'
           : '1px solid rgba(249, 115, 22, 0.25)',
-        boxShadow: isOpen
-          ? '0 12px 28px -12px rgba(249, 115, 22, 0.22)'
-          : '0 2px 8px -4px rgba(15, 23, 42, 0.06)',
       }}
     >
       <button
@@ -70,26 +67,16 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
         className="w-full text-left p-4 sm:p-5 flex items-start gap-3 sm:gap-4 hover:bg-orange-50/30 transition-colors"
         aria-expanded={isOpen}
       >
-        <div
-          className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-          style={{
-            background: isAuto
-              ? 'linear-gradient(135deg, #10B981, #059669)'
-              : 'linear-gradient(135deg, #F97316, #DC2626)',
-            boxShadow: isAuto
-              ? '0 4px 12px -3px rgba(16, 185, 129, 0.4)'
-              : '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
-          }}
-        >
-          <Icon className="w-5 h-5" strokeWidth={2.25} />
+        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center">
+          <Icon className={`w-5 h-5 ${isAuto ? 'text-emerald-600' : 'text-neutral-700'}`} strokeWidth={2.25} />
         </div>
 
         <div className="flex-1 min-w-0">
-          <h4 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
+          <h4 className="font-bold text-neutral-900 text-sm sm:text-base leading-tight">
             {title}
           </h4>
           {subtitle && (
-            <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+            <p className="text-xs sm:text-sm text-neutral-600 mt-1 leading-relaxed">
               {subtitle}
             </p>
           )}
@@ -104,9 +91,9 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
 
         <div className="flex-shrink-0 self-center">
           {isOpen ? (
-            <ChevronUp className="w-5 h-5 text-slate-400" strokeWidth={2.25} />
+            <ChevronUp className="w-5 h-5 text-neutral-400" strokeWidth={2.25} />
           ) : (
-            <ChevronDown className="w-5 h-5 text-slate-400" strokeWidth={2.25} />
+            <ChevronDown className="w-5 h-5 text-neutral-400" strokeWidth={2.25} />
           )}
         </div>
       </button>
@@ -143,15 +130,9 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
                   {props.bullets.map((b, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-sm text-slate-700 leading-relaxed"
+                      className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed"
                     >
-                      <span
-                        className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
-                        style={{
-                          background:
-                            'linear-gradient(135deg, #10B981, #059669)',
-                        }}
-                      />
+                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-emerald-600" />
                       <span>{b}</span>
                     </li>
                   ))}
@@ -169,21 +150,19 @@ function Tag({ label, tone }: { label: string; tone: 'emerald' | 'orange' }) {
   const styles =
     tone === 'emerald'
       ? {
-          background:
-            'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%)',
+          background: 'rgba(16, 185, 129, 0.1)',
           border: '1px solid rgba(16, 185, 129, 0.35)',
           color: '#047857',
         }
       : {
-          background:
-            'linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(220, 38, 38, 0.06) 100%)',
+          background: 'rgba(249, 115, 22, 0.08)',
           border: '1px solid rgba(249, 115, 22, 0.3)',
           color: '#9A3412',
         };
 
   return (
     <span
-      className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
       style={styles}
     >
       {label}
@@ -201,15 +180,13 @@ function SkillChip({
   const styles =
     relevance === 'high'
       ? {
-          background:
-            'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%)',
+          background: 'rgba(16, 185, 129, 0.1)',
           border: '1px solid rgba(16, 185, 129, 0.4)',
           color: '#047857',
         }
       : relevance === 'medium'
       ? {
-          background:
-            'linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%)',
+          background: 'rgba(251, 146, 60, 0.1)',
           border: '1px solid rgba(251, 146, 60, 0.4)',
           color: '#C2410C',
         }

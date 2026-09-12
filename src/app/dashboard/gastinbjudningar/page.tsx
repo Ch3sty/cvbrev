@@ -49,7 +49,7 @@ export default function GastinbjudningarPage() {
     try {
       const [invitationsRes, statusRes] = await Promise.all([
         fetch('/api/invitations'),
-        fetch('/api/rewards/status')
+        fetch('/api/guest/allowance')
       ]);
 
       if (invitationsRes.ok) {
@@ -59,7 +59,7 @@ export default function GastinbjudningarPage() {
 
       if (statusRes.ok) {
         const statusData = await statusRes.json();
-        setRewardStatus(statusData.data);
+        setRewardStatus(statusData);
       }
     } catch (error) {
       console.error('Error loading data:', error);

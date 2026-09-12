@@ -24,10 +24,8 @@ export default function SaveProgressIllustration({
       {/* Glow-bakgrund */}
       {!reduceMotion && (
         <motion.div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full bg-orange-500/10"
           style={{
-            background:
-              'radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, transparent 65%)',
             filter: 'blur(28px)',
           }}
           animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
@@ -81,25 +79,16 @@ export default function SaveProgressIllustration({
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Topp-band */}
-            <div
-              className="h-1.5 w-full"
-              style={{
-                background:
-                  'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-              }}
-            />
-
             {/* Innehåll som "byggs upp" baserat på progress */}
             <div className="p-3 space-y-1.5">
               <motion.div
-                className="h-2 w-3/4 rounded-full bg-slate-300"
+                className="h-2 w-3/4 rounded-full bg-neutral-300"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 5 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-1/2 rounded-full bg-slate-200"
+                className="h-1 w-1/2 rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 12 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
@@ -113,13 +102,13 @@ export default function SaveProgressIllustration({
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-full rounded-full bg-slate-200"
+                className="h-1 w-full rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 35 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-5/6 rounded-full bg-slate-200"
+                className="h-1 w-5/6 rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 45 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
@@ -133,19 +122,19 @@ export default function SaveProgressIllustration({
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-full rounded-full bg-slate-200"
+                className="h-1 w-full rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 65 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-3/4 rounded-full bg-slate-200"
+                className="h-1 w-3/4 rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 75 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
               />
               <motion.div
-                className="h-1 w-5/6 rounded-full bg-slate-200"
+                className="h-1 w-5/6 rounded-full bg-neutral-200"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: progress > 85 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
@@ -159,14 +148,7 @@ export default function SaveProgressIllustration({
             style={{
               right: -10,
               bottom: -10,
-              background:
-                stage === 2
-                  ? 'linear-gradient(135deg, #10B981, #059669)'
-                  : 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow:
-                stage === 2
-                  ? '0 8px 20px -4px rgba(16, 185, 129, 0.5)'
-                  : '0 8px 20px -4px rgba(220, 38, 38, 0.5)',
+              background: stage === 2 ? '#059669' : '#EA580C',
             }}
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -185,11 +167,7 @@ export default function SaveProgressIllustration({
             {/* Pulserande halo */}
             {!reduceMotion && stage < 2 && (
               <motion.div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316, #DC2626)',
-                }}
+                className="absolute inset-0 rounded-full bg-orange-600"
                 animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
                 transition={{ duration: 1.6, repeat: Infinity }}
               />

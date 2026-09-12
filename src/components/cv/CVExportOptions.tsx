@@ -387,17 +387,12 @@ export default function CVExportOptions({
                       className={`
                         cursor-pointer p-4 transition-all duration-200
                         ${isSelected
-                          ? 'bg-gradient-to-r from-pink-50 to-purple-50 border-pink-300 shadow-md'
+                          ? 'bg-white border-orange-600'
                           : 'bg-white hover:bg-gray-50 border-gray-200'}
                       `}
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`
-                          p-2 rounded-lg
-                          ${isSelected ? 'bg-white shadow-sm' : 'bg-gray-100'}
-                        `}>
-                          <Icon className={`h-5 w-5 ${isSelected ? 'text-pink-600' : 'text-gray-600'}`} />
-                        </div>
+                        <Icon className={`h-5 w-5 ${isSelected ? 'text-orange-600' : 'text-gray-600'}`} />
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
                             <span className={`font-medium ${isSelected ? 'text-gray-900' : 'text-gray-700'}`}>
@@ -419,7 +414,7 @@ export default function CVExportOptions({
                             animate={{ scale: 1 }}
                             transition={{ type: "spring", stiffness: 300 }}
                           >
-                            <CheckCircle2 className="h-5 w-5 text-pink-600" />
+                            <CheckCircle2 className="h-5 w-5 text-orange-600" />
                           </motion.div>
                         )}
                       </div>
@@ -486,17 +481,12 @@ export default function CVExportOptions({
                       className={`
                         cursor-pointer p-3 transition-all duration-200
                         ${isSelected
-                          ? 'bg-gradient-to-r from-pink-50 to-purple-50 border-pink-300'
+                          ? 'bg-white border-orange-600'
                           : 'bg-white hover:bg-gray-50 border-gray-200'}
                       `}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`
-                          p-1.5 rounded-lg
-                          ${isSelected ? 'bg-white shadow-sm' : 'bg-gray-100'}
-                        `}>
-                          <Icon className={`h-4 w-4 ${isSelected ? 'text-pink-600' : 'text-gray-600'}`} />
-                        </div>
+                        <Icon className={`h-4 w-4 ${isSelected ? 'text-orange-600' : 'text-gray-600'}`} />
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
                             <div>
@@ -508,7 +498,7 @@ export default function CVExportOptions({
                               </p>
                             </div>
                             {isSelected && (
-                              <CheckCircle2 className="h-4 w-4 text-pink-600" />
+                              <CheckCircle2 className="h-4 w-4 text-orange-600" />
                             )}
                           </div>
                         </div>
@@ -527,7 +517,7 @@ export default function CVExportOptions({
                             value={customName}
                             onChange={(e) => setCustomName(e.target.value)}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                           />
                         </motion.div>
                       )}
@@ -549,7 +539,7 @@ export default function CVExportOptions({
             </div>
 
             {/* Filename Preview */}
-            <Card className="bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200 p-4 mt-4">
+            <Card className="bg-white border-gray-200 p-4 mt-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h5 className="text-sm font-medium text-gray-700 mb-1">
@@ -683,7 +673,7 @@ export default function CVExportOptions({
         {currentStep === 'format' && (
           <Button
             onClick={goToNextStep}
-            className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+            className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
           >
             Välj mall
             <ChevronRight className="w-4 h-4" />
@@ -694,7 +684,7 @@ export default function CVExportOptions({
           <Button
             onClick={goToNextStep}
             disabled={!selectedTemplate}
-            className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Nästa
             <ChevronRight className="w-4 h-4" />
@@ -729,7 +719,7 @@ export default function CVExportOptions({
             <Button
                 onClick={handleExport}
                 disabled={isSaving || isExporting || !selectedTemplate}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isExporting ? (
                   <>

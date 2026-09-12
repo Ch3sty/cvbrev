@@ -252,7 +252,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
             />
 
             {/* === Input Section === */}
-            <div className="p-6 bg-navy-800/50 border border-navy-700 rounded-xl shadow-lg">
+            <div className="p-6 bg-navy-800/50 border border-navy-700 rounded-xl">
                 <h2 className="text-xl font-semibold text-white mb-5">Starta Kompetensanalys</h2>
                 
                 {!selectedCvId && (
@@ -262,23 +262,23 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
                 )}
                 
                 <div className="mb-5 flex p-1 bg-navy-900/60 border border-navy-600 rounded-lg">
-                    <button 
-                        onClick={() => setAnalysisMode('role')} 
-                        disabled={isLoading || hasReachedLimit} 
-                        className={`flex-1 px-3 py-2 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${ 
-                            analysisMode === 'role' ? 'bg-pink-600 text-white shadow-sm scale-[1.03]' : 'text-gray-300 hover:bg-navy-700/50' 
+                    <button
+                        onClick={() => setAnalysisMode('role')}
+                        disabled={isLoading || hasReachedLimit}
+                        className={`flex-1 h-11 px-3 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${
+                            analysisMode === 'role' ? 'bg-pink-600 text-white shadow-sm scale-[1.03]' : 'text-gray-300 hover:bg-navy-700/50'
                         } ${(isLoading || hasReachedLimit) ? 'opacity-60 cursor-not-allowed' : ''}`}
-                    > 
-                        <Briefcase className="w-4 h-4 mr-1.5" /> Analysera mot Yrkesroll 
+                    >
+                        <Briefcase className="w-4 h-4 mr-1.5" /> Analysera mot Yrkesroll
                     </button>
-                    <button 
-                        onClick={() => setAnalysisMode('jobAd')} 
-                        disabled={isLoading || hasReachedLimit} 
-                        className={`flex-1 px-3 py-2 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${ 
-                            analysisMode === 'jobAd' ? 'bg-pink-600 text-white shadow-sm scale-[1.03]' : 'text-gray-300 hover:bg-navy-700/50' 
+                    <button
+                        onClick={() => setAnalysisMode('jobAd')}
+                        disabled={isLoading || hasReachedLimit}
+                        className={`flex-1 h-11 px-3 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${
+                            analysisMode === 'jobAd' ? 'bg-pink-600 text-white shadow-sm scale-[1.03]' : 'text-gray-300 hover:bg-navy-700/50'
                         } ${(isLoading || hasReachedLimit) ? 'opacity-60 cursor-not-allowed' : ''}`}
-                    > 
-                        <FileText className="w-4 h-4 mr-1.5" /> Analysera mot Jobbannons 
+                    >
+                        <FileText className="w-4 h-4 mr-1.5" /> Analysera mot Jobbannons
                     </button>
                 </div>
                 
@@ -321,10 +321,10 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
                 <button 
                     onClick={handleAnalyzeCompetence} 
                     disabled={isAnalyzeButtonDisabled} 
-                    className={`w-full py-3 px-6 font-semibold text-base text-white rounded-lg shadow-md transition-all duration-300 flex items-center justify-center relative overflow-hidden ${ 
-                        isAnalyzeButtonDisabled 
-                            ? 'bg-gray-600 cursor-not-allowed opacity-70' 
-                            : 'bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 hover:shadow-xl hover:scale-[1.02]' 
+                    className={`w-full py-3 px-6 font-semibold text-base text-white rounded-lg transition-all duration-300 flex items-center justify-center relative overflow-hidden ${
+                        isAnalyzeButtonDisabled
+                            ? 'bg-gray-600 cursor-not-allowed opacity-70'
+                            : 'bg-orange-600 hover:bg-orange-700'
                     }`}
                     aria-label={
                         isLoading 
@@ -355,7 +355,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
             <div className="mt-8">
                 {/* Match Score Display */}
                 {!isLoading && analysisResult && matchScore !== null && (
-                    <div className="mb-6 p-5 bg-gradient-to-r from-blue-900/50 to-purple-900/40 border border-blue-700/50 rounded-xl shadow-lg flex items-center justify-center text-center animate-fadeIn">
+                    <div className="mb-6 p-5 bg-navy-900/50 border border-blue-700/50 rounded-xl flex items-center justify-center text-center animate-fadeIn">
                         <Percent className="w-7 h-7 mr-3 text-blue-300 flex-shrink-0" />
                         <div>
                             <p className="text-sm font-medium text-blue-200 mb-0.5">Beräknad Matchning</p>

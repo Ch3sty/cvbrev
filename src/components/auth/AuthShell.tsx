@@ -26,23 +26,9 @@ export default function AuthShell({
 }: AuthShellProps) {
   return (
     <div
-      className="relative min-h-screen overflow-hidden"
-      style={{
-        background:
-          'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 237, 213, 0.35) 50%, #FFFFFF 100%)',
-      }}
+      className="relative min-h-screen overflow-hidden bg-white"
     >
-      {/* Subtil orange radial-glow uppe */}
-      <div
-        className="absolute inset-x-0 top-0 h-[60vh] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.10) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Mobile hero-banner — bara <lg */}
+      {/* Mobile hero-banner, bara <lg */}
       <div className="lg:hidden relative px-4 pt-6 pb-4">
         <motion.div
           initial={{ opacity: 0, y: -12 }}
@@ -61,7 +47,7 @@ export default function AuthShell({
       <div className="relative px-4 sm:px-6 lg:px-8 pb-12 lg:py-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-8 lg:gap-10 xl:gap-14 items-stretch">
-            {/* Desktop vänsterpanel — bara lg+ */}
+            {/* Desktop vänsterpanel, bara lg+ */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}

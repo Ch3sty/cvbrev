@@ -25,17 +25,17 @@ export default function CvMallarLayout({ children }: CvMallarLayoutProps) {
       <div className="flex items-center justify-between pt-2 pb-3">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-orange-700 transition-colors"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-600 hover:text-orange-700 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" strokeWidth={2.4} />
           <span className="hidden sm:inline">Tillbaka till Dashboard</span>
           <span className="sm:hidden">Tillbaka</span>
         </Link>
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
           <span
             className="w-1 h-3 rounded-sm"
             style={{
-              background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
+              background: '#EA580C',
             }}
             aria-hidden="true"
           />

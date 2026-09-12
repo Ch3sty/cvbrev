@@ -259,7 +259,7 @@ export function TesterHubIllustration({ className = '' }: IconProps) {
 }
 
 /**
- * Premium-version av Brain — gradient-fylld neuralt nätverk för hero-eyebrow.
+ * Premium-version av Brain, gradient-fylld neuralt nätverk för hero-eyebrow.
  */
 export function BrainOrbIcon({ className = 'w-12 h-12' }: IconProps) {
   return (
@@ -362,7 +362,7 @@ export function NumericalCategoryIllustration({ className = 'w-10 h-10' }: IconP
 }
 
 /**
- * Liten kategori-ikon för personlighetstest — fem cirklar i Big Five-anda.
+ * Liten kategori-ikon för personlighetstest, fem cirklar i Big Five-anda.
  */
 export function PersonalityCategoryIllustration({ className = 'w-10 h-10' }: IconProps) {
   return (
@@ -402,7 +402,7 @@ function variantToType(variant: TestCardThumbnailVariant): TestType {
 
 /**
  * Thumbnail per testkort. EN konsekvent ikon per testTYP (logik/verbal/numerisk/
- * personlighet) — inte per nivå. Nivå visas separat via LevelDots. Tar `type`
+ * personlighet), inte per nivå. Nivå visas separat via LevelDots. Tar `type`
  * direkt eller härleder den från det äldre `variant`-fältet.
  */
 export function TestCardThumbnail({
@@ -423,7 +423,7 @@ export function TestCardThumbnail({
       <circle cx="24" cy="24" r="18" fill="url(#hub-orange-pink)" opacity="0.18" />
 
       {resolved === 'logik' && (
-        // 3×3-matris med ett tydligt mönster (diagonalen fylld) — "hitta mönstret".
+        // 3×3-matris med ett tydligt mönster (diagonalen fylld), "hitta mönstret".
         <g transform="translate(12 12)">
           {Array.from({ length: 9 }).map((_, i) => {
             const row = Math.floor(i / 3);
@@ -447,7 +447,7 @@ export function TestCardThumbnail({
       )}
 
       {resolved === 'verbal' && (
-        // Textrader med en markerad rad — "läs och dra slutsatser".
+        // Textrader med en markerad rad, "läs och dra slutsatser".
         <g>
           <rect x="12" y="15" width="24" height="3.2" rx="1.6" fill="url(#hub-orange-red)" />
           <rect x="12" y="22.4" width="18" height="3.2" rx="1.6" fill="url(#hub-orange-red)" opacity="0.7" />
@@ -456,7 +456,7 @@ export function TestCardThumbnail({
       )}
 
       {resolved === 'numerisk' && (
-        // Stapeldiagram med axlar — "tolka tabeller och diagram".
+        // Stapeldiagram med axlar, "tolka tabeller och diagram".
         <g>
           <line x1="13" y1="35" x2="36" y2="35" stroke="#FDBA74" strokeWidth="1.4" strokeLinecap="round" />
           <line x1="13" y1="35" x2="13" y2="14" stroke="#FDBA74" strokeWidth="1.4" strokeLinecap="round" />
@@ -467,7 +467,7 @@ export function TestCardThumbnail({
       )}
 
       {resolved === 'personlighet' && (
-        // Persona + Big Five-orbit — "din profil".
+        // Persona + Big Five-orbit, "din profil".
         <g>
           <circle cx="24" cy="21" r="5.5" fill="url(#hub-orange-pink)" />
           <path d="M 15 35 Q 15 27 24 27 Q 33 27 33 35 Z" fill="url(#hub-orange-pink)" opacity="0.9" />
@@ -482,7 +482,7 @@ export function TestCardThumbnail({
 }
 
 /**
- * Empty-state — illustration för "inga tester än".
+ * Empty-state, illustration för "inga tester än".
  */
 /**
  * Illustration för personlighets-resultatkortet: en persona-byst inramad av en

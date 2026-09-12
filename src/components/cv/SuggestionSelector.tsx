@@ -184,7 +184,7 @@ export default function SuggestionSelector({
                         className={`
                           relative cursor-pointer transition-all duration-300 p-4
                           ${suggestion.selected
-                            ? 'bg-gradient-to-r from-pink-50 to-purple-50 border-pink-300 shadow-lg shadow-pink-500/10'
+                            ? 'bg-white border-pink-300'
                             : 'bg-white/80 hover:bg-gray-50 border-gray-200 hover:border-gray-300'}
                         `}
                       >
@@ -201,7 +201,7 @@ export default function SuggestionSelector({
                               className={`
                                 w-6 h-6 rounded-md border-2 flex items-center justify-center
                                 ${suggestion.selected
-                                  ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-pink-600'
+                                  ? 'bg-pink-600 border-pink-600'
                                   : 'bg-white border-gray-300'}
                               `}
                             >
@@ -257,7 +257,6 @@ export default function SuggestionSelector({
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <div className="absolute inset-0 bg-gradient-to-r from-pink-600/5 to-purple-600/5 rounded-lg" />
                           </motion.div>
                         )}
                       </Card>

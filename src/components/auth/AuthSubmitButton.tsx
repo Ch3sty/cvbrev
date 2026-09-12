@@ -20,12 +20,7 @@ export default function AuthSubmitButton({
     <button
       type="submit"
       disabled={loading || disabled}
-      className={`group relative w-full min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 ${className}`}
-      style={{
-        background:
-          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-        boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-      }}
+      className={`group relative w-full min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 ${className}`}
       {...rest}
     >
       {loading && (

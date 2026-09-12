@@ -78,15 +78,12 @@ export default function OnboardingDag2() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative bg-white border border-orange-100 rounded-3xl p-5 sm:p-6 lg:p-7"
-      style={{
-        boxShadow: '0 12px 40px -16px rgba(249, 115, 22, 0.18)',
-      }}
-    >
+      className="relative bg-white border border-orange-100 rounded-xl p-5 sm:p-6 lg:p-7"
+      >
       {/* Stang-knapp */}
       <button
         onClick={handleDismiss}
-        className="absolute top-4 right-4 p-1.5 hover:bg-orange-50 rounded-lg transition-colors text-slate-400 hover:text-orange-700"
+        className="absolute top-4 right-4 p-1.5 hover:bg-orange-50 rounded-lg transition-colors text-neutral-400 hover:text-orange-700"
         aria-label="Stäng"
       >
         <X className="w-4 h-4" strokeWidth={2.5} />
@@ -94,22 +91,22 @@ export default function OnboardingDag2() {
 
       {/* Header */}
       <div className="mb-5 sm:mb-6 pr-8">
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
           <span
             className="w-1.5 h-1.5 rounded-full"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              background: '#EA580C',
             }}
             aria-hidden="true"
           />
-          Du är igång — utforska resten
+          Du är igång, utforska resten
         </div>
-        <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
+        <h2 className="text-xl sm:text-2xl font-semibold text-neutral-900 leading-tight">
           Tre verktyg som tar dig{' '}
           <span
             style={{
               background:
-                'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                '#EA580C',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -118,7 +115,7 @@ export default function OnboardingDag2() {
             ett steg till
           </span>
         </h2>
-        <p className="text-sm text-slate-600 mt-1">
+        <p className="text-sm text-neutral-600 mt-1">
           Du har grunderna. Det här är vad vi rekommenderar att utforska härnäst.
         </p>
       </div>
@@ -131,19 +128,19 @@ export default function OnboardingDag2() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: idx * 0.06 }}
-            className="bg-orange-50/40 border border-orange-100 rounded-2xl p-4 sm:p-5 flex flex-col"
+            className="bg-orange-50/40 border border-orange-100 rounded-xl p-4 sm:p-5 flex flex-col"
           >
             <Icon className="w-14 h-14 sm:w-16 sm:h-16 mb-3" />
 
-            <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight mb-2">
+            <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-tight mb-2">
               {title}
             </h3>
 
-            <p className="text-sm text-slate-600 leading-relaxed mb-3 flex-1">
+            <p className="text-sm text-neutral-600 leading-relaxed mb-3 flex-1">
               {description}
             </p>
 
-            <div className="text-[11px] text-orange-800 leading-relaxed mb-4 italic border-l-2 border-orange-300 pl-2.5">
+            <div className="text-xs text-orange-800 leading-relaxed mb-4 italic border-l-2 border-orange-300 pl-2.5">
               {why}
             </div>
 
@@ -152,8 +149,7 @@ export default function OnboardingDag2() {
               className="group inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-xl text-white font-bold text-sm min-h-[44px]"
               style={{
                 background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.35)',
+                  '#EA580C',
               }}
             >
               {ctaLabel}

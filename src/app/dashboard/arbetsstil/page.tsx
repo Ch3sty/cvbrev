@@ -45,9 +45,9 @@ export default function ArbetsstilPage() {
     return (
       <div className="mx-auto py-4 sm:py-6 max-w-3xl">
         <div className="space-y-5 sm:space-y-6">
-          <div className="rounded-3xl bg-indigo-50/60 h-40 animate-pulse" />
-          <div className="rounded-3xl bg-indigo-50/40 h-56 animate-pulse" />
-          <div className="rounded-3xl bg-indigo-50/40 h-56 animate-pulse" />
+          <div className="rounded-xl bg-indigo-50/60 h-40 animate-pulse" />
+          <div className="rounded-xl bg-indigo-50/40 h-56 animate-pulse" />
+          <div className="rounded-xl bg-indigo-50/40 h-56 animate-pulse" />
         </div>
       </div>
     );
@@ -64,39 +64,35 @@ export default function ArbetsstilPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="relative overflow-hidden rounded-3xl p-5 sm:p-7 text-white"
-          style={{
-            background: 'linear-gradient(135deg, #4338CA 0%, #4F46E5 55%, #6366F1 100%)',
-            boxShadow: '0 16px 40px -14px rgba(67, 56, 202, 0.5)',
-          }}
+          className="relative overflow-hidden rounded-xl p-5 sm:p-7 bg-white border border-neutral-200"
         >
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-indigo-200 mb-1">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600 mb-1">
             Din arbetsstil
           </p>
           {ownReport ? (
             <>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight text-neutral-900">
                 {ownReport.archetype.title}
               </h1>
-              <p className="text-[13.5px] text-indigo-100 leading-relaxed mt-2 max-w-xl">
+              <p className="text-[13.5px] text-neutral-600 leading-relaxed mt-2 max-w-xl">
                 {ownReport.archetype.description}
               </p>
             </>
           ) : (
             <>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight text-neutral-900">
                 Din rapport i ord, byggd på dig
               </h1>
-              <p className="text-[13.5px] text-indigo-100 leading-relaxed mt-2 max-w-xl">
+              <p className="text-[13.5px] text-neutral-600 leading-relaxed mt-2 max-w-xl">
                 Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i
                 siffror, och den privata delen är bara din.
               </p>
             </>
           )}
-          <p className="text-[12px] text-indigo-200/90 leading-relaxed mt-3">
+          <p className="text-xs text-neutral-500 leading-relaxed mt-3">
             Det här är din egen rapport i du-form. Vad rekryterare får se styr
             du själv under{' '}
-            <Link href="/dashboard/bli-upptackt" className="font-bold underline underline-offset-2 hover:text-white">
+            <Link href="/dashboard/bli-upptackt" className="font-bold underline underline-offset-2 text-indigo-600 hover:text-indigo-700">
               Bli upptäckt
             </Link>
             .
@@ -105,17 +101,13 @@ export default function ArbetsstilPage() {
 
         {!personality?.done && (
           <SectionCard title="Gör personlighetstestet först" delay={0.1}>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+            <p className="text-[13px] text-neutral-600 leading-relaxed mb-3">
               Din arbetsstilsrapport byggs på ditt personlighetstest. Börja med
               dagens test, det tar bara några minuter.
             </p>
             <Link
               href="/dashboard/tester"
-              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 touch-manipulation"
-              style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                boxShadow: '0 8px 18px -6px rgba(220, 38, 38, 0.45)',
-              }}
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 transition-colors touch-manipulation"
             >
               Gör dagens test
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -137,13 +129,13 @@ export default function ArbetsstilPage() {
         {/* Avancerad-testare med jämn profil: kompakt fallback */}
         {personality?.done && !ownReport && personality.hasAdvancedTest && (
           <SectionCard title="Din arbetsstil i kompakt form" delay={0.1}>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+            <p className="text-[13px] text-neutral-600 leading-relaxed mb-3">
               Din profil är jämn över mätvärdena, då blir fullrapporten mer
               gissning än beskrivning. Vi visar den kompakta arbetsstilen i
               stället, den är ärligare.
             </p>
             {personality.workStyle && (
-              <div className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+              <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
                 <p className="text-[14px] font-bold text-indigo-950">
                   {personality.workStyle.archetype.title}
                 </p>
@@ -154,7 +146,7 @@ export default function ArbetsstilPage() {
                   {personality.workStyle.statements.map((statement) => (
                     <li
                       key={statement}
-                      className="flex items-start gap-2 text-[13px] text-slate-700 leading-relaxed"
+                      className="flex items-start gap-2 text-[13px] text-neutral-700 leading-relaxed"
                     >
                       <span
                         className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 mt-[7px]"
@@ -179,7 +171,7 @@ export default function ArbetsstilPage() {
                 ))}
               </div>
               {ownReport.work.summary && (
-                <p className="text-[13.5px] text-slate-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
                   {ownReport.work.summary}
                 </p>
               )}
@@ -203,13 +195,13 @@ export default function ArbetsstilPage() {
                 <WorkStyleSpectrum spectrum={ownReport.drive.spectrum} />
               )}
               {ownReport.drive.summary && (
-                <p className="text-[13.5px] text-slate-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
                   {ownReport.drive.summary}
                 </p>
               )}
               {ownReport.drive.motivatedBy.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400 mb-1.5">
+                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-400 mb-1.5">
                     Du motiveras av
                   </p>
                   <ul className="space-y-1.5">
@@ -229,13 +221,13 @@ export default function ArbetsstilPage() {
                       key={card.thrivesWhen}
                       className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-3.5"
                     >
-                      <p className="text-[13px] text-slate-800 leading-relaxed">
+                      <p className="text-[13px] text-neutral-800 leading-relaxed">
                         <span className="font-bold text-indigo-800">Du trivs när</span>{' '}
                         {card.thrivesWhen}
                       </p>
                       {card.challengedWhen && (
-                        <p className="text-[13px] text-slate-600 leading-relaxed mt-1.5">
-                          <span className="font-bold text-slate-500">Du utmanas när</span>{' '}
+                        <p className="text-[13px] text-neutral-600 leading-relaxed mt-1.5">
+                          <span className="font-bold text-neutral-500">Du utmanas när</span>{' '}
                           {card.challengedWhen}
                         </p>
                       )}
@@ -261,7 +253,7 @@ export default function ArbetsstilPage() {
                 title="Din energibudget"
                 delay={0.28}
                 headerExtra={
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold rounded-full px-2.5 py-1 bg-indigo-600 text-white">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold rounded-full px-2.5 py-1 bg-indigo-600 text-white">
                     <Lock className="w-3 h-3" strokeWidth={2.5} />
                     Bara för dig, delas aldrig
                   </span>
@@ -288,7 +280,7 @@ export default function ArbetsstilPage() {
                 sub="Det här är exakt frågorna en rekryterare får som intervjuguide för din profil. Öva med STAR-mallen så äger du samtalet innan det börjar."
                 delay={0.32}
                 headerExtra={
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700">
                     <Ear className="w-3 h-3" strokeWidth={2.5} />
                     Med facit
                   </span>
@@ -306,7 +298,7 @@ export default function ArbetsstilPage() {
 
 function Bullet({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-2 text-[13.5px] text-slate-700 leading-relaxed">
+    <li className="flex items-start gap-2 text-[13.5px] text-neutral-700 leading-relaxed">
       <span
         className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 mt-[7px]"
         aria-hidden="true"

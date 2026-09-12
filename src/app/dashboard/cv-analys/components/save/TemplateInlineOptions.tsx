@@ -62,7 +62,7 @@ export default function TemplateInlineOptions({
       className="space-y-2"
     >
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">
+        <span className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">
           Anpassa
         </span>
 
@@ -121,14 +121,13 @@ function OptionChip({
       onClick={onToggle}
       disabled={!available}
       aria-pressed={isActive}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[32px] disabled:cursor-not-allowed"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[44px] disabled:cursor-not-allowed"
       style={
         isActive
           ? {
-              background: 'linear-gradient(135deg, #10B981, #059669)',
+              background: '#059669',
               border: '1px solid transparent',
               color: 'white',
-              boxShadow: '0 4px 10px -3px rgba(16, 185, 129, 0.4)',
             }
           : !available
           ? {
@@ -150,7 +149,7 @@ function OptionChip({
       )}
       <span>{label}</span>
       {!available && (
-        <span className="ml-1 text-[10px] opacity-70">(saknas)</span>
+        <span className="ml-1 text-xs opacity-70">(saknas)</span>
       )}
     </button>
   );

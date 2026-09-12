@@ -71,9 +71,10 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
         >
           <input
             type="email"
+            autoComplete="email"
             value={props.email}
             disabled
-            className="w-full px-4 py-3 rounded-xl bg-slate-50 text-slate-600 border border-slate-200 cursor-not-allowed text-sm min-h-[48px]"
+            className="w-full px-4 py-3 rounded-xl bg-neutral-50 text-neutral-600 border border-neutral-200 cursor-not-allowed text-base min-h-[48px]"
           />
           <FieldHint>Din e-postadress kan inte ändras.</FieldHint>
         </FieldCard>
@@ -88,10 +89,16 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             type="text"
             value={props.fullName}
             onChange={(e) => props.onFullNameChange(e.target.value)}
+
+            enterKeyHint="next"
+
+            inputMode="text"
+
+            autoComplete="name"
             placeholder="Anna Andersson"
             disabled={props.isSaving}
             minLength={2}
-            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
         </FieldCard>
@@ -150,9 +157,15 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             type="tel"
             value={props.phone}
             onChange={(e) => props.onPhoneChange(e.target.value)}
+
+            enterKeyHint="next"
+
+            inputMode="tel"
+
+            autoComplete="tel"
             placeholder="+46 70 123 45 67"
             disabled={props.isSaving}
-            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
           <FieldFooterToggle>
@@ -174,9 +187,15 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             type="text"
             value={props.location}
             onChange={(e) => props.onLocationChange(e.target.value)}
+
+            enterKeyHint="next"
+
+            inputMode="text"
+
+            autoComplete="address-level2"
             placeholder="Stockholm"
             disabled={props.isSaving}
-            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
           <FieldFooterToggle>
@@ -198,9 +217,15 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             type="text"
             value={props.goalRole}
             onChange={(e) => props.onGoalRoleChange(e.target.value)}
+
+            enterKeyHint="next"
+
+            inputMode="text"
+
+            autoComplete="organization-title"
             placeholder="t.ex. Projektledare, Sjuksköterska, Utvecklare"
             disabled={props.isSaving}
-            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
           <FieldHint>
@@ -217,9 +242,15 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
             type="text"
             value={props.industry}
             onChange={(e) => props.onIndustryChange(e.target.value)}
+
+            enterKeyHint="done"
+
+            inputMode="text"
+
+            autoComplete="organization"
             placeholder="t.ex. Vård, IT, Bygg, Handel"
             disabled={props.isSaving}
-            className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors"
             style={{ border: '1px solid rgba(249, 115, 22, 0.25)' }}
           />
           <FieldHint>
@@ -230,10 +261,10 @@ export default function PersonalDetailsSection(props: PersonalDetailsSectionProp
 
       {/* Integritets-info */}
       <div
-        className="mt-5 sm:mt-6 rounded-2xl p-4 flex items-start gap-3"
+        className="mt-5 sm:mt-6 rounded-xl p-4 flex items-start gap-3"
         style={{
           background:
-            'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.04) 100%)',
+            'transparent',
           border: '1px solid rgba(16, 185, 129, 0.22)',
         }}
       >
@@ -271,7 +302,7 @@ function FieldCard({
     <div className="flex flex-col">
       <div className="flex items-center gap-2 mb-2">
         <div className="flex-shrink-0 text-orange-500">{icon}</div>
-        <label className="text-sm font-semibold text-slate-900 leading-tight">
+        <label className="text-sm font-semibold text-neutral-900 leading-tight">
           {label}
           {required && (
             <span className="text-orange-600 ml-0.5" aria-hidden="true">
@@ -281,8 +312,8 @@ function FieldCard({
         </label>
         {premium && (
           <span
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-            style={{ background: 'linear-gradient(135deg, #FCD34D, #F59E0B)' }}
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider text-white"
+            style={{ background: '#F59E0B' }}
           >
             <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
             Premium
@@ -295,7 +326,7 @@ function FieldCard({
 }
 
 function FieldHint({ children }: { children: React.ReactNode }) {
-  return <p className="text-xs text-slate-500 mt-2">{children}</p>;
+  return <p className="text-xs text-neutral-500 mt-2">{children}</p>;
 }
 
 function FieldFooterToggle({ children }: { children: React.ReactNode }) {
@@ -315,33 +346,32 @@ function PremiumLockedField({
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left rounded-2xl p-4 transition-all hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+      className="w-full text-left rounded-xl p-4 transition-all hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
       style={{
         background:
-          'linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(220, 38, 38, 0.04) 100%)',
+          'transparent',
         border: '2px dashed rgba(249, 115, 22, 0.4)',
       }}
     >
       <div className="flex items-center gap-3">
         <div
           className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white relative"
-          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+          style={{ background: '#EA580C' }}
         >
           <Lock className="w-4 h-4" strokeWidth={2.5} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-bold text-slate-900 leading-tight">
+          <div className="text-sm font-bold text-neutral-900 leading-tight">
             {title}
           </div>
-          <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+          <p className="text-xs text-neutral-600 mt-0.5 leading-relaxed">
             {description}
           </p>
         </div>
         <span
-          className="flex-shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
+          className="flex-shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white"
           style={{
-            background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
-            boxShadow: '0 3px 8px -2px rgba(245, 158, 11, 0.4)',
+            background: '#F59E0B',
           }}
         >
           Lås upp

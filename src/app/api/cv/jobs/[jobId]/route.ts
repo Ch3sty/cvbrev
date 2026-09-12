@@ -98,29 +98,8 @@ export async function GET(
         console.error('Failed to update onboarding progress (analyze_cv):', onboardingError.message);
       }
 
-      // Award XP for CV analysis
-      try {
-        const origin = request.headers.get('origin') || 'https://www.jobbcoach.ai';
-        const xpResponse = await fetch(`${origin}/api/gamification/award-xp`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': request.headers.get('cookie') || ''
-          },
-          body: JSON.stringify({
-            amount: 40,
-            source: 'cv_analyzed',
-            sourceId: job.cv_id,
-            description: 'Genomförde CV-analys'
-          })
-        });
-
-        if (!xpResponse.ok) {
-          console.error('Failed to award XP for CV analysis');
-        }
-      } catch (xpError) {
-        console.error('Error awarding XP:', xpError);
-      }
+      // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2
+      // punkt 21). Analysresultatet är återkopplingen, inte en poängsumma.
     }
 
     // Om jobbet misslyckades, rulla tillbaka räknaren för gratisanvändare

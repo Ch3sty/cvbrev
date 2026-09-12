@@ -70,24 +70,24 @@ export default function CVActivationCard({
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl border border-slate-200 hover:border-orange-300 hover:shadow-md transition-all p-4 sm:p-5"
+        className="bg-white rounded-xl border border-neutral-200 hover:border-orange-300 transition-all p-4 sm:p-5"
       >
         <div className="flex items-start gap-3 mb-4">
-          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-neutral-100 text-neutral-500 flex items-center justify-center">
             <FileText className="w-5 h-5" strokeWidth={2.25} />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
-                <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">
+                <h3 className="text-sm sm:text-base font-semibold text-neutral-900 truncate">
                   {cv.file_name}
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5">
+                <p className="text-xs text-neutral-500 mt-0.5 flex items-center gap-1.5">
                   <Calendar className="w-3 h-3" />
                   Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
                 </p>
               </div>
-              <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-xs font-medium">
+              <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-500 text-xs font-medium">
                 <Lock className="w-3 h-3" />
                 Inaktivt
               </span>
@@ -98,13 +98,12 @@ export default function CVActivationCard({
         <button
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
-          className="w-full py-3 rounded-xl text-white font-semibold transition-all flex items-center justify-center gap-2 relative overflow-hidden shadow-sm hover:shadow-md disabled:cursor-wait"
-          style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+          className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold transition-all flex items-center justify-center gap-2 relative overflow-hidden disabled:cursor-wait"
         >
           {isActivating ? (
             <>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                className="absolute inset-0 bg-white/20"
                 animate={{ x: ['-100%', '200%'] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -143,13 +142,13 @@ export default function CVActivationCard({
 
       {/* 2. Yrkesroller - horisontell grid */}
       {activeData && activeData.extracted_occupations.length > 0 && (
-        <section className="bg-white rounded-2xl border border-slate-200 p-5">
+        <section className="bg-white rounded-xl border border-neutral-200 p-5">
           <header className="flex items-center justify-between gap-2 mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
                 Yrkesroller som matchar
               </span>
-              <span className="px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold tabular-nums">
+              <span className="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-xs font-bold tabular-nums">
                 {activeData.extracted_occupations.length}
               </span>
             </div>
@@ -177,21 +176,21 @@ export default function CVActivationCard({
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
             {/* Kompetenser - bredare kolumn */}
             {activeData.extracted_skills.length > 0 && (
-              <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200 p-5">
+              <div className="lg:col-span-3 bg-white rounded-xl border border-neutral-200 p-5">
                 <SkillCloud skills={activeData.extracted_skills} />
               </div>
             )}
 
             {/* Utbildnings-tidslinje - smalare kolumn */}
             {activeData.extracted_educations.length > 0 && (
-              <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5">
+              <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 p-5">
                 <EducationTimeline educations={activeData.extracted_educations} />
               </div>
             )}
           </div>
         )}
 
-      {/* 5. Diskret länk till sökvyn (stora CTA-knappen borttagen — aktivering
+      {/* 5. Diskret länk till sökvyn (stora CTA-knappen borttagen, aktivering
           öppnar redan sökvyn automatiskt; denna är för redan aktiva CV:n) */}
       {onSearchJobs && (
         <button
@@ -205,7 +204,7 @@ export default function CVActivationCard({
 
       {/* Analyserad-datum */}
       {activeData && (
-        <p className="text-xs text-slate-500 flex items-center gap-1.5 justify-center">
+        <p className="text-xs text-neutral-500 flex items-center gap-1.5 justify-center">
           <Calendar className="w-3 h-3" />
           Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
         </p>

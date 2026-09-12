@@ -87,7 +87,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-10"
       style={{
-        background: 'linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 40%, #FFFFFF 100%)',
+        background: '#FFFFFF',
       }}
     />
   );
@@ -99,7 +99,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
         <div className="min-h-[60vh] flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-8 h-8 text-orange-600 animate-spin" />
-            <p className="text-sm text-slate-600">Laddar brev…</p>
+            <p className="text-sm text-neutral-600">Laddar brev…</p>
           </div>
         </div>
       </>
@@ -111,20 +111,20 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       <>
         {PageBackground}
         <div className="max-w-lg mx-auto px-4 py-8">
-          <div className="bg-white rounded-2xl border border-red-200 p-6">
+          <div className="bg-white rounded-xl border border-red-200 p-6">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-slate-900 mb-1">Brevet kunde inte hittas</h4>
-                <p className="text-slate-600 text-sm mb-4">
+                <h4 className="font-semibold text-neutral-900 mb-1">Brevet kunde inte hittas</h4>
+                <p className="text-neutral-600 text-sm mb-4">
                   {error || 'Brevet finns inte eller har tagits bort.'}
                 </p>
                 <Link
                   href="/dashboard/mina-brev"
                   className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-xl"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                  style={{ background: '#EA580C' }}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Tillbaka till mina brev
@@ -159,17 +159,17 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
         >
           <Link
             href="/dashboard/mina-brev"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-orange-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-orange-700 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
             <span className="uppercase tracking-[0.14em]">Mina brev</span>
           </Link>
 
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
               Personligt brev
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight">
               {currentLetter.title || 'Ansökningsbrev'}
             </h1>
           </div>
@@ -189,7 +189,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               </span>
             )}
             {templateName && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-50 text-neutral-700 border border-neutral-200 text-xs font-semibold">
                 <Palette className="w-3 h-3" strokeWidth={2.5} />
                 {templateName}
               </span>
@@ -202,25 +202,24 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.05 }}
-          className="bg-white rounded-2xl border border-orange-200/50 p-3 sm:p-4"
-          style={{ boxShadow: '0 6px 24px -16px rgba(249, 115, 22, 0.18)' }}
-        >
+          className="bg-white rounded-xl border border-orange-200/50 p-3 sm:p-4"
+          >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             {/* Zoom */}
             <div className="flex items-center gap-1 self-center sm:self-auto">
               <button
                 onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-                className="p-2 text-slate-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
+                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Zooma ut"
               >
                 <ZoomOut className="w-4 h-4" strokeWidth={2.5} />
               </button>
-              <span className="text-sm font-semibold text-slate-700 min-w-[52px] text-center">
+              <span className="text-sm font-semibold text-neutral-700 min-w-[52px] text-center">
                 {Math.round(zoom * 100)}%
               </span>
               <button
                 onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-                className="p-2 text-slate-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
+                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Zooma in"
               >
                 <ZoomIn className="w-4 h-4" strokeWidth={2.5} />
@@ -231,15 +230,15 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={handleEdit}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white text-sm font-semibold shadow-sm hover:shadow-md transition-shadow min-h-[40px]"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white text-sm font-semibold shadow-sm transition-shadow min-h-[44px]"
+                style={{ background: '#EA580C' }}
               >
                 <Edit className="w-4 h-4" strokeWidth={2.5} />
                 Redigera
               </button>
               <button
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[40px]"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-neutral-700 bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[44px]"
               >
                 {copied ? (
                   <>
@@ -261,7 +260,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                   company: currentLetter.company || undefined,
                   position: currentLetter.job_title || undefined,
                 }}
-                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[40px] !rounded-lg"
+                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[44px] !rounded-lg"
                 showTemplateSelector={false}
                 showPreview={false}
                 onPremiumRequired={() => setDownloadGate(true)}
@@ -274,7 +273,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                   company: currentLetter.company || undefined,
                   position: currentLetter.job_title || undefined,
                 }}
-                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[40px] !rounded-lg"
+                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[44px] !rounded-lg"
                 showTemplateSelector={false}
                 showPreview={false}
                 onPremiumRequired={() => setDownloadGate(true)}
@@ -282,7 +281,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               <button
                 onClick={handleDeleteRequest}
                 disabled={isDeleting}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 text-sm font-semibold transition-colors min-h-[40px] disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 text-sm font-semibold transition-colors min-h-[44px] disabled:opacity-50"
               >
                 {isDeleting ? (
                   <Loader2 className="w-4 h-4 animate-spin" strokeWidth={2.5} />
@@ -300,9 +299,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-white rounded-2xl border border-orange-200/50 overflow-hidden"
-          style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
-        >
+          className="bg-white rounded-xl border border-orange-200/50 overflow-hidden"
+          >
           <div
             ref={previewRef}
             className="w-full"
@@ -347,13 +345,13 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
-          className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500 px-1"
+          className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-neutral-500 px-1"
         >
           <div className="inline-flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5 text-orange-500" strokeWidth={2.5} />
             <span>
               Skapad{' '}
-              <span className="text-slate-700 font-semibold">
+              <span className="text-neutral-700 font-semibold">
                 {currentLetter.created_at
                   ? new Date(currentLetter.created_at).toLocaleDateString('sv-SE', {
                       year: 'numeric',
@@ -371,7 +369,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 <Clock className="w-3.5 h-3.5 text-emerald-500" strokeWidth={2.5} />
                 <span>
                   Uppdaterad{' '}
-                  <span className="text-slate-700 font-semibold">
+                  <span className="text-neutral-700 font-semibold">
                     {new Date(currentLetter.updated_at).toLocaleDateString('sv-SE', {
                       year: 'numeric',
                       month: 'long',
@@ -390,7 +388,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl max-w-md w-full shadow-2xl"
+            className="bg-white rounded-xl max-w-md w-full"
           >
             <div className="p-6">
               <div className="flex items-start gap-4 mb-4">
@@ -398,8 +396,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                   <AlertTriangle className="w-5 h-5 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">Ta bort brevet?</h3>
-                  <p className="text-slate-600 text-sm">
+                  <h3 className="text-lg font-bold text-neutral-900 mb-1">Ta bort brevet?</h3>
+                  <p className="text-neutral-600 text-sm">
                     Brevet "{currentLetter?.title || 'Namnlöst'}" kommer att raderas permanent och
                     kan inte återställas.
                   </p>
@@ -410,7 +408,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               <button
                 onClick={cancelDeleteAction}
                 disabled={isDeleting}
-                className="px-4 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-sm font-semibold disabled:opacity-50"
+                className="px-4 py-2 text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors text-sm font-semibold disabled:opacity-50"
               >
                 Avbryt
               </button>

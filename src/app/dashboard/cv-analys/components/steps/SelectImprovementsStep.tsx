@@ -372,7 +372,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       )}
 
       {totalSelected === 0 && (
-        <p className="text-center text-sm text-slate-600 pt-2">
+        <p className="text-center text-sm text-neutral-600 pt-2">
           Välj minst en förbättring för att fortsätta
         </p>
       )}

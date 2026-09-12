@@ -57,7 +57,7 @@ export default function SimpleTemplateGallery({
           onClick={() => setSelectedCategory('all')}
           className={`text-sm ${
             selectedCategory === 'all'
-              ? 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white border-0 shadow-lg'
+              ? 'bg-orange-600 hover:bg-orange-700 text-white border-0'
               : 'bg-white/80 border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300'
           }`}
         >
@@ -71,7 +71,7 @@ export default function SimpleTemplateGallery({
             onClick={() => setSelectedCategory(category as SimpleTemplate['category'])}
             className={`text-sm ${
               selectedCategory === category
-                ? 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white border-0 shadow-lg'
+                ? 'bg-orange-600 hover:bg-orange-700 text-white border-0'
                 : 'bg-white/80 border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300'
             }`}
           >
@@ -108,10 +108,10 @@ export default function SimpleTemplateGallery({
               <Card
                 className={`cursor-pointer transition-all duration-300 border relative transform-gpu ${
                   isSelected
-                    ? 'ring-2 ring-pink-500 shadow-2xl bg-white border-pink-500 shadow-pink-500/30 glow-pink'
+                    ? 'ring-2 ring-pink-500  bg-white border-pink-500 shadow-pink-500/30 glow-pink'
                     : isLocked
                     ? 'bg-gray-50/80 border-gray-200 opacity-75 hover:opacity-90'
-                    : 'hover:shadow-2xl bg-white border-gray-200 hover:border-gray-300 hover:shadow-xl hover:shadow-purple-500/10'
+                    : 'hover: bg-white border-gray-200 hover:border-gray-300 hover: hover:shadow-purple-500/10'
                 }`}
                 onClick={handleClick}
               >
@@ -123,7 +123,7 @@ export default function SimpleTemplateGallery({
                     <p className="text-sm text-gray-700 font-medium mb-2">Premium Mall</p>
                     <Button
                       size="sm"
-                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs"
+                      className="bg-orange-600 hover:bg-orange-700 text-white text-xs"
                       onClick={(e) => {
                         e.stopPropagation();
                         onUpgradeClick?.();

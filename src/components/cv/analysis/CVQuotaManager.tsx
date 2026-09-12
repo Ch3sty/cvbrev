@@ -97,9 +97,7 @@ export default function CVQuotaManager({
     >
       <Card className="bg-amber-50 border-2 border-amber-300 p-6">
         <div className="flex items-start gap-4 mb-4">
-          <div className="w-12 h-12 rounded-lg bg-amber-500 flex items-center justify-center flex-shrink-0">
-            <AlertTriangle className="w-6 h-6 text-white" />
-          </div>
+          <AlertTriangle className="w-5 h-5 text-neutral-700 flex-shrink-0" />
           <div className="flex-1">
             <h4 className="font-semibold text-amber-900 mb-1">
               CV-gräns nådd ({cvCount}/{maxCvs})
@@ -120,7 +118,7 @@ export default function CVQuotaManager({
             {subscriptionTier === 'free' && (
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white mb-4"
+                className="bg-orange-600 hover:bg-orange-700 text-white mb-4"
                 onClick={() => window.location.href = '/profile?tab=subscription'}
               >
                 <Crown className="w-4 h-4 mr-2" />

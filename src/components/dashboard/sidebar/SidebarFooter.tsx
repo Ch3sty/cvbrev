@@ -20,39 +20,38 @@ export default function SidebarFooter({
 
   return (
     <div className="border-t border-orange-100 px-3 pt-3 pb-3 space-y-2 bg-white/60 backdrop-blur-sm">
-      {/* Admin Panel - bara om admin */}
+      {/* Admin, bara om admin. En navigationsrad som alla andra, inte en
+          säljyta: den röd-rosa gradienten och skalningen på hover är borta,
+          ingen fylld orange yta i menyn. */}
       {isAdmin && (
         <Link
           href="/admin"
           onClick={handleLink}
-          className="relative overflow-hidden flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-white font-bold text-sm transition-all hover:shadow-xl hover:scale-[1.02] group"
-          style={{
-            background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-          }}
+          className="flex items-center gap-2 min-h-[44px] px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
         >
           <ShieldIcon className="w-4 h-4 flex-shrink-0" />
-          <span>Admin Panel</span>
+          <span>Admin</span>
         </Link>
       )}
 
-      {/* Sekundära länkar - två i rad */}
-      <div className="grid grid-cols-2 gap-1.5">
-        <Link
-          href="/dashboard/bugg-feedback"
-          onClick={handleLink}
-          className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-600 hover:text-orange-700 hover:bg-orange-50/60 transition-colors text-xs font-medium"
-        >
-          <BuggIcon className="w-3.5 h-3.5 flex-shrink-0" />
-          <span className="truncate">Buggar</span>
-        </Link>
+      {/* Sekundära länkar. Två i rad gav 34 px höga träffytor på 12 px text;
+          nu en per rad med 44 px höjd och minst 12 px etikett. */}
+      <div className="space-y-1">
         <Link
           href="/dashboard/kontakt"
           onClick={handleLink}
-          className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-600 hover:text-orange-700 hover:bg-orange-50/60 transition-colors text-xs font-medium"
+          className="flex items-center gap-2 min-h-[44px] px-3 py-2 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 transition-colors"
         >
-          <KontaktIcon className="w-3.5 h-3.5 flex-shrink-0" />
-          <span className="truncate">Kontakt</span>
+          <KontaktIcon className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">Hjälp och kontakt</span>
+        </Link>
+        <Link
+          href="/dashboard/bugg-feedback"
+          onClick={handleLink}
+          className="flex items-center gap-2 min-h-[44px] px-3 py-2 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 transition-colors"
+        >
+          <BuggIcon className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">Rapportera ett fel</span>
         </Link>
       </div>
 

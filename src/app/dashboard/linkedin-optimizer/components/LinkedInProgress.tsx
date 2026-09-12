@@ -102,7 +102,7 @@ export default function LinkedInProgress({
                       ) : (
                         <Icon
                           className={`w-4 h-4 ${
-                            isActive ? 'text-white' : 'text-slate-400'
+                            isActive ? 'text-white' : 'text-neutral-400'
                           }`}
                           strokeWidth={2.4}
                         />
@@ -110,12 +110,12 @@ export default function LinkedInProgress({
                     </div>
                   </div>
                   <span
-                    className={`mt-1.5 text-[11px] font-bold leading-none truncate w-full ${
+                    className={`mt-1.5 text-xs font-bold leading-none truncate w-full ${
                       isDone
                         ? 'text-emerald-700'
                         : isActive
                         ? 'text-orange-700'
-                        : 'text-slate-400'
+                        : 'text-neutral-400'
                     }`}
                   >
                     {step.shortLabel}
@@ -126,7 +126,7 @@ export default function LinkedInProgress({
           </div>
 
           {/* Progress bar under */}
-          <div className="mt-3 h-1 rounded-full bg-slate-100 overflow-hidden">
+          <div className="mt-3 h-1 rounded-full bg-neutral-100 overflow-hidden">
             <motion.div
               animate={{ width: `${progressPercent}%` }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -149,20 +149,20 @@ export default function LinkedInProgress({
               boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.4)',
             }}
           >
-            <span className="text-sm font-black text-white">
+            <span className="text-sm font-semibold text-white">
               {currentStep + 1}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 leading-none">
+            <div className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 leading-none">
               Steg {currentStep + 1} av {totalSteps}
             </div>
-            <div className="text-sm font-black text-slate-900 truncate mt-0.5">
+            <div className="text-sm font-semibold text-neutral-900 truncate mt-0.5">
               {LINKEDIN_STEPS[currentStep]?.label}
             </div>
           </div>
         </div>
-        <div className="mt-2.5 h-1 rounded-full bg-slate-100 overflow-hidden">
+        <div className="mt-2.5 h-1 rounded-full bg-neutral-100 overflow-hidden">
           <motion.div
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.5, ease: 'easeOut' }}

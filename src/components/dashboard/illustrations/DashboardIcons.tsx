@@ -303,15 +303,15 @@ export function MiniScenBliUpptackt({ className }: IllustrationProps) {
   return (
     <svg className={className} viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {/* Beat 1: anonym profil (neutral slate, avidentifierad) */}
-      <rect x="16" y="16" width="40" height="48" rx="7" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.6" />
-      <circle cx="36" cy="30" r="6" fill="#E2E8F0" />
-      <rect x="26" y="42" width="20" height="3" rx="1.5" fill="#E2E8F0" />
+      <rect x="16" y="16" width="40" height="48" rx="7" fill="#FFFFFF" stroke="#D4D4D4" strokeWidth="1.6" />
+      <circle cx="36" cy="30" r="6" fill="#E5E5E5" />
+      <rect x="26" y="42" width="20" height="3" rx="1.5" fill="#E5E5E5" />
       <rect x="26" y="49" width="14" height="3" rx="1.5" fill="#EDF2F7" />
       <rect x="26" y="56" width="17" height="3" rx="1.5" fill="#EDF2F7" />
 
       {/* Pil 1 */}
-      <path d="M 62 40 L 90 40" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
-      <path d="M 87 36.5 L 91 40 L 87 43.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M 62 40 L 90 40" stroke="#A3A3A3" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
+      <path d="M 87 36.5 L 91 40 L 87 43.5" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
 
       {/* Beat 2: rekryterare soker (indigo radar) */}
       <circle cx="120" cy="40" r="22" stroke="#4F46E5" strokeWidth="1" opacity="0.2" />
@@ -324,8 +324,8 @@ export function MiniScenBliUpptackt({ className }: IllustrationProps) {
       <circle cx="133" cy="55" r="1.8" fill="#FB923C" />
 
       {/* Pil 2 */}
-      <path d="M 150 40 L 178 40" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
-      <path d="M 175 36.5 L 179 40 L 175 43.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M 150 40 L 178 40" stroke="#A3A3A3" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
+      <path d="M 175 36.5 L 179 40 L 175 43.5" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
 
       {/* Beat 3: du godkanner (emerald = din handling) */}
       <rect x="184" y="16" width="40" height="48" rx="7" fill="#FFFFFF" stroke="#6EE7B7" strokeWidth="1.6" />
@@ -377,13 +377,13 @@ export function IconSnabbBrev({ className }: IllustrationProps) {
       <rect x="2" y="2" width="44" height="44" rx="12" fill={`url(#${id}-soft)`} />
       <rect x="11" y="9" width="22" height="30" rx="3" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.6" />
       <rect x="11" y="9" width="22" height="5" fill={`url(#${id}-warm)`} />
-      <line x1="14" y1="19" x2="30" y2="19" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="14" y1="23" x2="28" y2="23" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="14" y1="27" x2="30" y2="27" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="14" y1="31" x2="26" y2="31" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="14" y1="19" x2="30" y2="19" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="14" y1="23" x2="28" y2="23" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="14" y1="27" x2="30" y2="27" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="14" y1="31" x2="26" y2="31" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
       {/* Penna */}
       <path d="M 30 32 L 36 38 L 40 36 L 36 30 L 32 28 Z" fill={`url(#${id}-deep)`} />
-      <path d="M 36 38 L 40 36 L 38 40 Z" fill="#1E293B" />
+      <path d="M 36 38 L 40 36 L 38 40 Z" fill="#262626" />
     </svg>
   )
 }
@@ -397,20 +397,20 @@ export function IconSnabbMatch({ className }: IllustrationProps) {
       {/* 3 jobb-kort */}
       <rect x="9" y="11" width="30" height="7" rx="1.5" fill="white" stroke="#FB923C" strokeWidth="1.3" />
       <circle cx="13" cy="14.5" r="1.8" fill={`url(#${id}-warm)`} />
-      <line x1="17" y1="13.5" x2="28" y2="13.5" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="17" y1="16" x2="24" y2="16" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="17" y1="13.5" x2="28" y2="13.5" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="17" y1="16" x2="24" y2="16" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
 
       <rect x="9" y="20.5" width="30" height="7" rx="1.5" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.6" />
       <circle cx="13" cy="24" r="1.8" fill={`url(#${id}-deep)`} />
       <line x1="17" y1="23" x2="28" y2="23" stroke={`url(#${id}-warm)`} strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="17" y1="25.5" x2="24" y2="25.5" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="17" y1="25.5" x2="24" y2="25.5" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
       <circle cx="35" cy="24" r="2.5" fill={`url(#${id}-deep)`} />
       <text x="35" y="25.5" textAnchor="middle" fontSize="3" fontWeight="900" fill="white">94</text>
 
       <rect x="9" y="30" width="30" height="7" rx="1.5" fill="white" stroke="#FB923C" strokeWidth="1.3" />
       <circle cx="13" cy="33.5" r="1.8" fill={`url(#${id}-warm)`} />
-      <line x1="17" y1="32.5" x2="26" y2="32.5" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="17" y1="35" x2="22" y2="35" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="17" y1="32.5" x2="26" y2="32.5" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="17" y1="35" x2="22" y2="35" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }
@@ -526,10 +526,10 @@ export function IconAktBrev({ className }: IllustrationProps) {
       <rect x="2" y="2" width="28" height="28" rx="8" fill={`url(#${id}-soft)`} />
       <rect x="8" y="6" width="14" height="20" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.4" />
       <rect x="8" y="6" width="14" height="3" fill={`url(#${id}-warm)`} />
-      <line x1="10" y1="13" x2="20" y2="13" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="10" y1="16" x2="18" y2="16" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="10" y1="19" x2="20" y2="19" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="10" y1="22" x2="16" y2="22" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="13" x2="20" y2="13" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="16" x2="18" y2="16" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="19" x2="20" y2="19" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="22" x2="16" y2="22" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }
@@ -567,10 +567,10 @@ export function IconAktCV({ className }: IllustrationProps) {
       <rect x="8" y="6" width="16" height="20" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.4" />
       <rect x="8" y="6" width="16" height="3" fill={`url(#${id}-warm)`} />
       <circle cx="12" cy="13.5" r="2" fill={`url(#${id}-warm)`} opacity="0.6" />
-      <line x1="15" y1="13" x2="22" y2="13" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="15" y1="15" x2="20" y2="15" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="10" y1="19" x2="22" y2="19" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="10" y1="22" x2="20" y2="22" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="15" y1="13" x2="22" y2="13" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="15" y1="15" x2="20" y2="15" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="19" x2="22" y2="19" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="10" y1="22" x2="20" y2="22" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }
@@ -585,10 +585,10 @@ export function IconAktLinkedin({ className }: IllustrationProps) {
       <rect x="6" y="8" width="20" height="16" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.4" />
       <rect x="6" y="8" width="20" height="4" fill={`url(#${id}-warm)`} />
       <circle cx="11" cy="15" r="2.5" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="1.2" />
-      <line x1="15" y1="15" x2="24" y2="15" stroke="#1E293B" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="15" y1="17.5" x2="22" y2="17.5" stroke="#94A3B8" strokeWidth="1" strokeLinecap="round" />
-      <line x1="8" y1="20" x2="22" y2="20" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="8" y1="22.5" x2="18" y2="22.5" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="15" y1="15" x2="24" y2="15" stroke="#262626" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="15" y1="17.5" x2="22" y2="17.5" stroke="#A3A3A3" strokeWidth="1" strokeLinecap="round" />
+      <line x1="8" y1="20" x2="22" y2="20" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="8" y1="22.5" x2="18" y2="22.5" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }
@@ -600,9 +600,9 @@ export function IconAktNedladdning({ className }: IllustrationProps) {
       <Defs id={id} />
       <rect x="2" y="2" width="28" height="28" rx="8" fill={`url(#${id}-soft)`} />
       <rect x="9" y="6" width="14" height="16" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.4" />
-      <line x1="11" y1="11" x2="21" y2="11" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="11" y1="14" x2="19" y2="14" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-      <line x1="11" y1="17" x2="21" y2="17" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+      <line x1="11" y1="11" x2="21" y2="11" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="11" y1="14" x2="19" y2="14" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+      <line x1="11" y1="17" x2="21" y2="17" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
       {/* Nedladdnings-pil */}
       <line x1="16" y1="20" x2="16" y2="27" stroke={`url(#${id}-deep)`} strokeWidth="2" strokeLinecap="round" />
       <path d="M 13 24 L 16 27 L 19 24" stroke={`url(#${id}-deep)`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -645,9 +645,9 @@ export function IconKvotBrev({ className }: IllustrationProps) {
       <Defs id={id} />
       <rect x="5" y="3" width="14" height="18" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.5" />
       <rect x="5" y="3" width="14" height="3" fill={`url(#${id}-warm)`} />
-      <line x1="8" y1="10" x2="16" y2="10" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="8" y1="13" x2="14" y2="13" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="8" y1="16" x2="16" y2="16" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="8" y1="10" x2="16" y2="10" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="8" y1="13" x2="14" y2="13" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="8" y1="16" x2="16" y2="16" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
     </svg>
   )
 }
@@ -683,8 +683,8 @@ export function IconKvotLinkedin({ className }: IllustrationProps) {
       <rect x="3" y="5" width="18" height="14" rx="2" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="1.5" />
       <rect x="3" y="5" width="18" height="3.5" fill={`url(#${id}-warm)`} />
       <circle cx="8" cy="13" r="2" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="1.2" />
-      <line x1="11" y1="13" x2="19" y2="13" stroke="#1E293B" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="11" y1="16" x2="17" y2="16" stroke="#94A3B8" strokeWidth="1" strokeLinecap="round" />
+      <line x1="11" y1="13" x2="19" y2="13" stroke="#262626" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="11" y1="16" x2="17" y2="16" stroke="#A3A3A3" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }

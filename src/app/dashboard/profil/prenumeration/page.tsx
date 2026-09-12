@@ -1,13 +1,21 @@
 'use client';
 
+/**
+ * Prenumeration (docs/plan-inloggat-omdesign.md, punkt 17 och avsnitt 5).
+ *
+ * På sidmallen: sidhuvud i stället för gradienthero, en statusrad som säger
+ * exakt vilket läge kontot är i, sedan innehåll per läge.
+ *
+ * Borttagna: PrenumerationHero (röd-rosa gradient) och PremiumFeaturesGrid
+ * (sex kort med lucide i gradientrutor som upprepar jämförelsetabellen).
+ */
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { XCircle } from 'lucide-react';
 
-import PrenumerationHero from './components/PrenumerationHero';
-import PremiumFeaturesGrid from './components/PremiumFeaturesGrid';
 import UsageStats from './components/UsageStats';
 import ManageSubscriptionCard from './components/ManageSubscriptionCard';
 import AdminGrantedCard from './components/AdminGrantedCard';
@@ -16,6 +24,10 @@ import TidsbegransadPremiumCard from './components/TidsbegransadPremiumCard';
 import PlanCards from '@/components/pricing/PlanCards';
 import PrenumerationFAQ from './components/PrenumerationFAQ';
 import GratisMotPremium from './components/GratisMotPremium';
+import SavedDiscountsAccordion from '@/components/rewards/SavedDiscountsAccordion';
+import PageHeader from '@/components/shell/PageHeader';
+import StatusRow from '@/components/shell/StatusRow';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 
 const PREMIUM_MONTHLY_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00';
 const PRICING_ANCHOR_ID = 'pricing';
@@ -61,110 +73,125 @@ export default function PrenumerationPage() {
 
   if (profileLoading) {
     return (
-      <div className="container mx-auto py-6 px-3 sm:px-4 max-w-6xl">
-        <div className="flex justify-center items-center p-8 bg-white rounded-3xl border border-orange-100">
-          <motion.div
-            className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
+      <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+        <LoadingSkeleton variant="text" count={2} label="Laddar din prenumeration" />
+        <LoadingSkeleton variant="card" />
       </div>
     );
   }
 
+  // Statusraden säger exakt vilket läge kontot är i. En rad, aldrig ett kort.
+  const status = (() => {
+    if (isPaidPremium) {
+      return { tone: 'positive' as const, text: 'Premium aktivt. Prenumerationen förnyas automatiskt.' };
+    }
+    if (isAdminGranted) {
+      return { tone: 'positive' as const, text: 'Premium aktivt via administratör.' };
+    }
+    if (isPremium && premiumUntil) {
+      const days = Math.max(
+        0,
+        Math.ceil((premiumUntil.getTime() - Date.now()) / 86400000)
+      );
+      return {
+        tone: days <= 2 ? ('warm' as const) : ('neutral' as const),
+        text:
+          days === 0
+            ? 'Premium tar slut ikväll.'
+            : `Premium aktivt, ${days} ${days === 1 ? 'dag' : 'dagar'} kvar.`,
+      };
+    }
+    if (isPremium) {
+      return { tone: 'positive' as const, text: 'Premium aktivt.' };
+    }
+    return { tone: 'neutral' as const, text: 'Du använder gratisnivån.' };
+  })();
+
   return (
-    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-6xl">
-      <div className="space-y-5 sm:space-y-6 lg:space-y-7">
-        {/* Felmeddelande */}
-        {errorMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3"
-          >
-            <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-red-800">{errorMessage}</p>
-              <p className="text-xs text-red-600 mt-1">
+    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
+      <PageHeader
+        title="Prenumeration"
+        description={
+          isPremium
+            ? 'Din plan, din användning och hur du hanterar den.'
+            : 'Välj hur länge du vill ha Premium. Alla alternativ ger samma funktioner.'
+        }
+      />
+
+      {/* Felmeddelande */}
+      {errorMessage && (
+        <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+          <div className="flex items-start gap-3">
+            <p className="flex-1 text-sm text-red-800">
+              {errorMessage}
+              <span className="mt-1 block text-red-700">
                 Kontakta support@jobbcoach.ai om problemet kvarstår.
-              </p>
-            </div>
+              </span>
+            </p>
             <button
               onClick={() => setErrorMessage(null)}
-              className="text-red-400 hover:text-red-600 transition-colors"
               aria-label="Stäng meddelande"
+              className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-red-400 transition-colors hover:bg-red-100 hover:text-red-700"
             >
-              <XCircle className="w-4 h-4" />
+              <XCircle className="h-4 w-4" aria-hidden="true" />
             </button>
-          </motion.div>
-        )}
+          </div>
+        </div>
+      )}
 
-        {/* Hero */}
-        <PrenumerationHero
-          isPremium={isPremium}
-          isTrialUser={isTrialUser}
-          isAdminGranted={isAdminGranted}
-          isOnboardingReward={isOnboardingReward}
-          isGuestInvitation={isGuestInvitation}
-          premiumUntil={premiumUntil}
-          onScrollToPricing={scrollToPricing}
-        />
+      <StatusRow tone={status.tone} showDot label="Din plan">
+        {status.text}
+      </StatusRow>
 
-        {/* Premium-läge */}
-        {isPremium && (
-          <>
-            <UsageStats isPremium={isPremium} />
+      {/* Premium-läge */}
+      {isPremium && (
+        <>
+          <UsageStats isPremium={isPremium} />
 
-            {/* A8, tillstånd två: tidsbegränsad premium utan prenumeration.
-                Dagar kvar, "Förläng" och historik från premium_grants. */}
-            {isTemporaryPremium && premiumUntil && (
-              <TidsbegransadPremiumCard
-                premiumUntil={premiumUntil}
-                premiumSource={premiumSource}
-              />
-            )}
-            {/* Kvarvarande fall: temporär premium utan slutdatum (äldre
-                belöningar). Den gamla CTA:n duger där. */}
-            {isTemporaryPremium && !premiumUntil && (
-              <TrialCTACard priceId={PREMIUM_MONTHLY_PRICE_ID} />
-            )}
+          {/* Tidsbegränsad premium utan prenumeration: dagar kvar och förläng. */}
+          {isTemporaryPremium && premiumUntil && (
+            <TidsbegransadPremiumCard
+              premiumUntil={premiumUntil}
+              premiumSource={premiumSource}
+            />
+          )}
+          {isTemporaryPremium && !premiumUntil && (
+            <TrialCTACard priceId={PREMIUM_MONTHLY_PRICE_ID} />
+          )}
 
-            <PremiumFeaturesGrid isPremium={true} />
+          {/* Tidsbegränsad premium: visa vad gratisnivån ger, så det är
+              tydligt vad som försvinner när perioden tar slut. */}
+          {isTemporaryPremium && <GratisMotPremium />}
 
-            {/* Tidsbegränsad premium: visa vad gratisnivån ger, så det är
-                tydligt vad som försvinner när perioden tar slut. */}
-            {isTemporaryPremium && <GratisMotPremium />}
+          {isPaidPremium && <ManageSubscriptionCard />}
 
-            {/* Hantera prenumeration — endast för betalande */}
-            {isPaidPremium && <ManageSubscriptionCard />}
+          {isAdminGranted && <AdminGrantedCard />}
+        </>
+      )}
 
-            {/* Admin-granted info */}
-            {isAdminGranted && <AdminGrantedCard />}
-          </>
-        )}
+      {/* Betalar men saknar premium-tier: vägen till uppsägning måste finnas. */}
+      {!isPremium && hasStripeSubscription && <ManageSubscriptionCard />}
 
-        {/* Betalar men saknar premium-tier — visa alltid vägen till uppsägning.
-            Utan detta blir den som debiteras men ligger kvar som 'free' helt
-            utelåst från Stripe-portalen. */}
-        {!isPremium && hasStripeSubscription && <ManageSubscriptionCard />}
+      {/* Gratisläge */}
+      {!isPremium && !hasStripeSubscription && (
+        <>
+          <UsageStats isPremium={isPremium} />
 
-        {/* Free-läge — full konverteringssida */}
-        {!isPremium && !hasStripeSubscription && (
-          <>
-            {/* A8, tillstånd tre: kvotöversikt och de fyra produktkorten. */}
-            <UsageStats isPremium={isPremium} />
+          <div ref={pricingRef} id={PRICING_ANCHOR_ID}>
+            <PlanCards className="py-0" />
+          </div>
 
-            <div ref={pricingRef} id={PRICING_ANCHOR_ID}>
-              <PlanCards className="py-0" />
-            </div>
+          <GratisMotPremium />
 
-            <GratisMotPremium />
+          {/* Sparade rabattkoder. Belöningssidan togs bort i våg 2 punkt 21,
+              men redan utfärdade koder ska fortsätta gå att lösa in, så
+              listan flyttade hit där den faktiskt används. Komponenten
+              renderar ingenting när användaren saknar koder. */}
+          <SavedDiscountsAccordion />
 
-            <PrenumerationFAQ />
-          </>
-        )}
-      </div>
+          <PrenumerationFAQ />
+        </>
+      )}
     </div>
   );
 }

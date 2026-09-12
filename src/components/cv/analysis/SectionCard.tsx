@@ -121,11 +121,11 @@ export default function SectionCard({
     <Card
       className={`
         bg-white/95 border-2 transition-all duration-300
-        ${isExpanded ? 'shadow-xl ' + config.borderColor : 'border-gray-200 hover:border-gray-300 hover:shadow-md'}
+        ${isExpanded ? ' ' + config.borderColor : 'border-gray-200 hover:border-gray-300'}
       `}
     >
       {/* Header */}
-      <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-white to-gray-50/30">
+      <div className="p-5 border-b border-gray-100 bg-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 flex-1">
             {/* Priority Indicator */}

@@ -30,33 +30,18 @@ export function AnswerOptionsV7({ options, selectedIndex, onSelect, disabled = f
             whileHover={!disabled ? { y: -2 } : {}}
             whileTap={!disabled ? { scale: 0.98 } : {}}
             className={cn(
-              'relative aspect-square rounded-2xl bg-white transition-all touch-manipulation min-h-[80px]',
-              !disabled && 'cursor-pointer hover:shadow-lg',
+              'relative aspect-square rounded-xl bg-white transition-all touch-manipulation min-h-[80px]',
               disabled && 'cursor-not-allowed opacity-60',
-              isSelected ? 'border-2' : 'border border-orange-100 hover:border-orange-300'
+              isSelected ? 'border-2 border-orange-600' : 'border border-orange-100 hover:border-orange-300'
             )}
-            style={{
-              boxShadow: isSelected
-                ? '0 12px 30px -8px rgba(220, 38, 38, 0.35), 0 0 0 4px rgba(249, 115, 22, 0.18)'
-                : '0 4px 12px -6px rgba(249, 115, 22, 0.15)',
-              borderColor: isSelected ? '#DC2626' : undefined,
-            }}
             aria-label={`Svarsalternativ ${letter}`}
             aria-pressed={isSelected}
           >
             <div
               className={cn(
-                'absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shadow-sm z-10 transition-colors',
-                isSelected ? 'text-white' : 'bg-white text-slate-600 border border-orange-200'
+                'absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs z-10 transition-colors',
+                isSelected ? 'bg-orange-600 text-white' : 'bg-white text-neutral-600 border border-orange-200'
               )}
-              style={
-                isSelected
-                  ? {
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.45)',
-                    }
-                  : undefined
-              }
             >
               {letter}
             </div>
@@ -66,15 +51,6 @@ export function AnswerOptionsV7({ options, selectedIndex, onSelect, disabled = f
                 <SvgLayeredCell cell={option} />
               </svg>
             </div>
-
-            {isSelected && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.06 }}
-                className="absolute inset-0 rounded-2xl pointer-events-none"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)' }}
-              />
-            )}
           </motion.button>
         );
       })}

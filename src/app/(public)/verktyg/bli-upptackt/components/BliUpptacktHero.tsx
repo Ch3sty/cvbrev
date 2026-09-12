@@ -64,7 +64,10 @@ function HeroArt() {
         style={{ boxShadow: '0 12px 28px -12px rgba(2,6,23,.25)' }}
       >
         <span className="w-[7px] h-[7px] rounded-full bg-emerald-500 flex-shrink-0" style={{ boxShadow: '0 0 0 3px #D1FAE5' }} />
-        <span className="leading-snug">3 företag har visat intresse för din profil</span>
+        {/* Illustrativ notis, inte en siffra ur produkten. Formulerad som vad
+            som händer när någon hör av sig, inte som ett påstående om hur
+            många som redan gjort det: vi säger ingenting koden inte backar. */}
+        <span className="leading-snug">Så här ser det ut när en rekryterare hör av sig</span>
       </div>
 
       <svg viewBox="0 0 480 480" className="absolute inset-0 w-full h-full" role="img" aria-label="Din profil hittas av rätt rekryterare">

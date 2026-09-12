@@ -75,14 +75,13 @@ export default function TemplateSelector({
     <div ref={containerRef} className="relative">
       {/* Topp-knapp + galleri-toggle */}
       <div
-        className="flex items-stretch gap-2 p-2 rounded-2xl bg-orange-50/40 border border-orange-200"
-        style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
-      >
+        className="flex items-stretch gap-2 p-2 rounded-xl bg-orange-50/40 border border-orange-200"
+        >
         {/* Aktiv-pip (vänster kant) */}
         <span
           aria-hidden
           className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full"
-          style={{ background: 'linear-gradient(180deg, #F97316, #DC2626)' }}
+          style={{ background: '#EA580C' }}
         />
 
         {/* Vänster: vald mall, klick = dropdown */}
@@ -104,7 +103,7 @@ export default function TemplateSelector({
               />
             )}
             {isLocked && (
-              <span className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+              <span className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
                 <Lock className="w-3 h-3 text-white" strokeWidth={2.5} />
               </span>
             )}
@@ -112,11 +111,11 @@ export default function TemplateSelector({
 
           {/* Info */}
           <span className="flex-1 min-w-0">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
+            <span className="block text-xs font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
               Aktiv mall
             </span>
             <span className="flex items-center gap-1.5 mb-0.5">
-              <span className="text-sm font-bold text-slate-900 truncate">
+              <span className="text-sm font-bold text-neutral-900 truncate">
                 {current?.name || 'Välj mall...'}
               </span>
               {current?.tier === 'premium' && (
@@ -129,18 +128,18 @@ export default function TemplateSelector({
             </span>
             <span className="flex items-center gap-1.5 flex-wrap">
               {isAtsSafe && (
-                <span className="inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+                <span className="inline-flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
                   <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
                   ATS
                 </span>
               )}
-              <span className="text-[10px] uppercase tracking-wide text-slate-500 font-semibold">
+              <span className="text-xs uppercase tracking-wide text-neutral-500 font-semibold">
                 {current?.category === 'modern' && 'Modern'}
                 {current?.category === 'traditional' && 'Traditionell'}
                 {current?.category === 'creative' && 'Kreativ'}
               </span>
               {current?.tier === 'free' && (
-                <span className="text-[10px] uppercase tracking-wide text-emerald-700 font-semibold">
+                <span className="text-xs uppercase tracking-wide text-emerald-700 font-semibold">
                   · Gratis
                 </span>
               )}
@@ -148,7 +147,7 @@ export default function TemplateSelector({
           </span>
 
           <ChevronDown
-            className={`flex-shrink-0 w-5 h-5 text-slate-500 transition-transform ${
+            className={`flex-shrink-0 w-5 h-5 text-neutral-500 transition-transform ${
               view === 'dropdown' ? 'rotate-180' : ''
             }`}
             strokeWidth={2.5}
@@ -160,14 +159,13 @@ export default function TemplateSelector({
           onClick={() => setView(v => (v === 'gallery' ? 'closed' : 'gallery'))}
           className={`flex-shrink-0 flex items-center gap-1.5 px-3 sm:px-4 rounded-xl border font-semibold text-xs uppercase tracking-wide transition-all min-h-[44px] ${
             view === 'gallery'
-              ? 'text-white border-transparent shadow-md'
-              : 'bg-white border-orange-100 text-slate-700 hover:border-orange-200'
+              ? 'text-white border-transparent'
+              : 'bg-white border-orange-100 text-neutral-700 hover:border-orange-200'
           }`}
           style={
             view === 'gallery'
               ? {
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                  boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
+                  background: '#EA580C',
                 }
               : undefined
           }
@@ -196,9 +194,8 @@ export default function TemplateSelector({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-orange-100 z-30 max-h-[440px] overflow-y-auto"
-            style={{ boxShadow: '0 16px 40px -12px rgba(249, 115, 22, 0.2)' }}
-          >
+            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[440px] overflow-y-auto"
+            >
             <div className="sticky top-0 bg-white border-b border-orange-100 px-3 pt-3 pb-2 z-10">
               <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
                 {TEMPLATE_CATEGORIES.map(cat => (
@@ -236,9 +233,8 @@ export default function TemplateSelector({
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <div className="mt-3 p-4 rounded-2xl bg-white border border-orange-100"
-              style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.15)' }}
-            >
+            <div className="mt-3 p-4 rounded-xl bg-white border border-orange-100"
+              >
               {/* Kategori-pillar */}
               <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-3 mb-3 border-b border-orange-100/70">
                 {TEMPLATE_CATEGORIES.map(cat => (
@@ -293,18 +289,18 @@ function GalleryCard({
     <li>
       <button
         onClick={onSelect}
-        className={`group w-full text-left p-2 rounded-2xl border transition-all ${
+        className={`group w-full text-left p-2 rounded-xl border transition-all ${
           isSelected
             ? 'border-orange-300 bg-orange-50/50'
-            : 'border-slate-200 bg-white hover:border-orange-200'
+            : 'border-neutral-200 bg-white hover:border-orange-200'
         }`}
         style={
           isSelected
-            ? { boxShadow: '0 4px 14px -4px rgba(249, 115, 22, 0.25)' }
+            ? { }
             : undefined
         }
       >
-        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-slate-50 border border-slate-200 mb-2">
+        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 mb-2">
           <Image
             src={template.imagePath}
             alt={template.name}
@@ -313,13 +309,13 @@ function GalleryCard({
             sizes="(min-width: 1024px) 200px, (min-width: 640px) 220px, 160px"
           />
           {isLocked && (
-            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
               <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
           )}
           {isSelected && (
             <div className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+              style={{ background: '#EA580C' }}
             >
               <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
@@ -329,13 +325,13 @@ function GalleryCard({
         </div>
         <div className="px-1">
           <div className="flex items-center gap-1 mb-0.5">
-            <span className="font-bold text-sm text-slate-900 truncate flex-1">{template.name}</span>
+            <span className="font-bold text-sm text-neutral-900 truncate flex-1">{template.name}</span>
             {template.tier === 'premium' && (
               <Crown className="w-3 h-3 text-orange-600 flex-shrink-0" strokeWidth={2.5} fill="rgb(234 88 12)" />
             )}
           </div>
           {isAtsSafe && (
-            <div className="flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+            <div className="flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
               <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
               ATS-säker
             </div>

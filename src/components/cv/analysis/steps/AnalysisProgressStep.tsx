@@ -48,9 +48,9 @@ export default function AnalysisProgressStep({
           repeat: Infinity,
           ease: 'easeInOut'
         }}
-        className={`w-24 h-24 rounded-full bg-gradient-to-br ${activity.color} flex items-center justify-center mb-8 shadow-lg`}
+        className="flex items-center justify-center mb-8"
       >
-        <activity.icon className="w-12 h-12 text-white" />
+        <activity.icon className="w-12 h-12 text-neutral-700" />
       </motion.div>
 
       {/* Activity Text */}
@@ -74,7 +74,7 @@ export default function AnalysisProgressStep({
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5 }}
-            className="h-full bg-gradient-to-r from-pink-600 to-purple-600 rounded-full"
+            className="h-full bg-orange-600 rounded-full"
           />
         </div>
       </div>
@@ -98,7 +98,7 @@ export default function AnalysisProgressStep({
             key={index}
             className={`h-1.5 w-12 rounded-full transition-colors duration-300 ${
               index <= activityIndex
-                ? 'bg-gradient-to-r from-pink-600 to-purple-600'
+                ? 'bg-orange-600'
                 : 'bg-gray-200'
             }`}
           />

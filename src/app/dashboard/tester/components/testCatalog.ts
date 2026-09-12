@@ -1,4 +1,5 @@
 import type { TestSlug } from '@/hooks/use-all-test-stats';
+import { getTestConfig } from '../testConfig';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -11,6 +12,26 @@ import type {
  */
 
 export type TestGroupKey = 'logik' | 'verbal' | 'numerisk' | 'personlighet';
+
+/**
+ * Frågeantal och tid kommer ur testConfig, som är enda sanningen. Katalogen
+ * hade egna siffror (60 för verbalen, 32 för numeriskt grund) som inte
+ * stämde med testsidorna, så hubbens kort visade "29 av 60" bredvid en
+ * procent räknad på 48.
+ */
+/** Provets frågeantal och tid, också ur testConfig. */
+function provCounts(slug: string): { totalQuestions: number; minutes: number } {
+  const c = getTestConfig(slug);
+  return { totalQuestions: c?.totalQuestions ?? 0, minutes: c?.minutes ?? 0 };
+}
+
+function counts(slug: string): { questionCount: number; timeLabel: string } {
+  const c = getTestConfig(slug);
+  return {
+    questionCount: c?.totalQuestions ?? 0,
+    timeLabel: String(c?.minutes ?? 0),
+  };
+}
 
 export interface CognitiveTestDef {
   slug: TestSlug;
@@ -67,8 +88,7 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Grund',
-    questionCount: 15,
-    timeLabel: '20',
+    ...counts('matrislogik-grund'),
     isPremiumLocked: false,
   },
   {
@@ -78,8 +98,7 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Avancerad',
-    questionCount: 15,
-    timeLabel: '25',
+    ...counts('matrislogik-avancerad'),
     isPremiumLocked: false,
   },
   {
@@ -89,8 +108,7 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     method: 'Mönsterigenkänning · matriser',
     categoryLabel: 'Logik',
     levelLabel: 'Expert',
-    questionCount: 15,
-    timeLabel: '30',
+    ...counts('matrislogik-expert'),
     isPremiumLocked: false,
   },
 ];
@@ -103,8 +121,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     method: 'Läsförståelse · slutledning',
     categoryLabel: 'Språk',
     levelLabel: 'Grund',
-    questionCount: 60,
-    timeLabel: '25',
+    ...counts('verbal-resonemang'),
     isPremiumLocked: false,
   },
   {
@@ -114,8 +131,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     method: 'Läsförståelse · slutledning',
     categoryLabel: 'Språk',
     levelLabel: 'Avancerad',
-    questionCount: 60,
-    timeLabel: '30',
+    ...counts('verbal-resonemang-v2'),
     isPremiumLocked: false,
   },
   {
@@ -125,8 +141,7 @@ export const VERBAL_TESTS: CognitiveTestDef[] = [
     method: 'Argumentationsanalys · felslut',
     categoryLabel: 'Språk',
     levelLabel: 'Expert',
-    questionCount: 32,
-    timeLabel: '35',
+    ...counts('verbal-resonemang-expert'),
     isPremiumLocked: false,
   },
 ];
@@ -139,8 +154,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Grund',
-    questionCount: 32,
-    timeLabel: '25',
+    ...counts('numeriskt-test'),
     isPremiumLocked: false,
   },
   {
@@ -150,8 +164,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Tabeller · diagram · andelar',
     categoryLabel: 'Siffror',
     levelLabel: 'Avancerad',
-    questionCount: 32,
-    timeLabel: '35',
+    ...counts('numeriskt-test-v2'),
     isPremiumLocked: false,
   },
   {
@@ -161,8 +174,7 @@ export const NUMERISK_TESTS: CognitiveTestDef[] = [
     method: 'Investeringskalkyl · optimering',
     categoryLabel: 'Siffror',
     levelLabel: 'Expert',
-    questionCount: 32,
-    timeLabel: '35',
+    ...counts('numeriskt-test-expert'),
     isPremiumLocked: false,
   },
 ];
@@ -173,8 +185,7 @@ export const PERSONALITY_TESTS: PersonalityTestDef[] = [
     variant: 'personality-grund',
     title: 'Personlighetstest',
     levelLabel: 'Grund',
-    questionCount: 50,
-    timeLabel: '10',
+    ...counts('personlighet-grund'),
     isPremiumLocked: false,
   },
   {
@@ -182,8 +193,7 @@ export const PERSONALITY_TESTS: PersonalityTestDef[] = [
     variant: 'personality-avancerad',
     title: 'Personlighetstest',
     levelLabel: 'Avancerad',
-    questionCount: 120,
-    timeLabel: '25',
+    ...counts('personlighet-avancerad'),
     isPremiumLocked: true,
   },
 ];
@@ -200,8 +210,7 @@ export const TEST_GROUPS: TestGroup[] = [
     prov: {
       href: '/dashboard/tester/matrislogik-prov',
       sessionEndpoint: '/api/logicTestProv/session',
-      totalQuestions: 18,
-      minutes: 25,
+      ...provCounts('matrislogik-prov'),
     },
   },
   {
@@ -215,8 +224,7 @@ export const TEST_GROUPS: TestGroup[] = [
     prov: {
       href: '/dashboard/tester/verbal-resonemang-prov',
       sessionEndpoint: '/api/verbalTestProv/session',
-      totalQuestions: 48,
-      minutes: 40,
+      ...provCounts('verbal-resonemang-prov'),
     },
   },
   {
@@ -230,8 +238,7 @@ export const TEST_GROUPS: TestGroup[] = [
     prov: {
       href: '/dashboard/tester/numeriskt-test-prov',
       sessionEndpoint: '/api/numericalTestProv/session',
-      totalQuestions: 36,
-      minutes: 40,
+      ...provCounts('numeriskt-test-prov'),
     },
   },
   {

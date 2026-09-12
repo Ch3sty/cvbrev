@@ -35,7 +35,7 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
       {cvs.length === 0 ? (
         <Link
           href="/dashboard/profil/cv"
-          className="flex items-center gap-3 rounded-2xl border border-dashed border-orange-200 bg-orange-50/40 p-4 min-h-[56px] text-sm font-semibold text-orange-800 hover:bg-orange-50 transition-colors touch-manipulation"
+          className="flex items-center gap-3 rounded-xl border border-dashed border-orange-200 bg-orange-50/40 p-4 min-h-[56px] text-sm font-semibold text-orange-800 hover:bg-orange-50 transition-colors touch-manipulation"
         >
           <Upload className="w-4 h-4 text-orange-600 flex-shrink-0" strokeWidth={2.5} />
           Du har inget CV ännu. Ladda upp ett för att komma igång.
@@ -52,19 +52,18 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
                 aria-checked={selected}
                 disabled={cv.isLocked}
                 onClick={() => onSelect(cv.id)}
-                className={`flex items-center gap-3 rounded-2xl border-[1.5px] p-3.5 min-h-[56px] text-left transition-all touch-manipulation ${
+                className={`flex items-center gap-3 rounded-xl border-[1.5px] p-3.5 min-h-[56px] text-left transition-all touch-manipulation ${
                   selected
                     ? 'border-orange-500 bg-orange-50/60'
                     : cv.isLocked
-                      ? 'border-slate-200 bg-slate-50 opacity-60 cursor-not-allowed'
-                      : 'border-slate-200 bg-white hover:border-orange-300'
+                      ? 'border-neutral-200 bg-neutral-50 opacity-60 cursor-not-allowed'
+                      : 'border-neutral-200 bg-white hover:border-orange-300'
                 }`}
-                style={selected ? { boxShadow: '0 4px 12px -6px rgba(234, 88, 12, 0.3)' } : undefined}
               >
                 {/* Radio-prick */}
                 <span
                   className={`flex-shrink-0 w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                    selected ? 'border-orange-600' : 'border-slate-300'
+                    selected ? 'border-orange-600' : 'border-neutral-300'
                   }`}
                   aria-hidden="true"
                 >
@@ -72,19 +71,19 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
                 </span>
 
                 <span className="flex-1 min-w-0">
-                  <span className="block text-sm font-bold text-slate-900 truncate">
+                  <span className="block text-sm font-bold text-neutral-900 truncate">
                     {cv.file_name || 'Namnlöst CV'}
                   </span>
-                  <span className="block text-[12px] text-slate-500 mt-0.5">
+                  <span className="block text-xs text-neutral-500 mt-0.5">
                     {cv.isLocked ? 'Låst på gratisplanen' : `Uppdaterat ${formatUpdated(cv)}`}
                   </span>
                 </span>
 
                 {cv.isLocked ? (
-                  <Lock className="w-4 h-4 text-slate-400 flex-shrink-0" strokeWidth={2.5} />
+                  <Lock className="w-4 h-4 text-neutral-400 flex-shrink-0" strokeWidth={2.5} />
                 ) : (
                   <FileText
-                    className={`w-4 h-4 flex-shrink-0 ${selected ? 'text-orange-600' : 'text-slate-300'}`}
+                    className={`w-4 h-4 flex-shrink-0 ${selected ? 'text-orange-600' : 'text-neutral-300'}`}
                     strokeWidth={2.5}
                   />
                 )}

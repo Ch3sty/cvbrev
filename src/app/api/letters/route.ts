@@ -239,28 +239,9 @@ export async function POST(request: Request) {
       console.error('Failed to update onboarding progress:', onboardingError.message);
     }
 
-    // Award XP for creating a letter
-    try {
-      const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cookie': request.headers.get('cookie') || ''
-        },
-        body: JSON.stringify({
-          amount: 25,
-          source: 'letter_created',
-          sourceId: data[0].id,
-          description: 'Skapade ett personligt brev'
-        })
-      });
-
-      if (!xpResponse.ok) {
-        console.error('Failed to award XP for letter creation');
-      }
-    } catch (xpError) {
-      console.error('Error awarding XP:', xpError);
-    }
+    // XP och nivåer togs bort i omdesignen (docs/plan-inloggat-omdesign.md,
+    // våg 2 punkt 21). Brevet är belöningen, inte poängen för att ha skrivit
+    // det. Onboarding-flaggan ovan står kvar, den styr fortfarande flödet.
 
     return NextResponse.json({
       success: true,

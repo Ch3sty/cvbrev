@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
+import { FileText } from 'lucide-react'
 import TypewriterQuote from './TypewriterQuote'
 
 interface StatPill {
@@ -27,18 +28,11 @@ export default function AuthLeftPanel({
 
   return (
     <div
-      className={`relative overflow-hidden ${
+      className={`relative overflow-hidden bg-white border border-neutral-200 ${
         isMobile
-          ? 'rounded-2xl px-5 py-6'
-          : 'rounded-3xl p-10 xl:p-12 h-full min-h-[640px] flex flex-col'
+          ? 'rounded-xl px-5 py-6'
+          : 'rounded-xl p-10 xl:p-12 h-full min-h-[640px] flex flex-col'
       }`}
-      style={{
-        background:
-          'linear-gradient(135deg, #7C2D12 0%, #BE185D 55%, #831843 100%)',
-        boxShadow: isMobile
-          ? '0 8px 24px -10px rgba(190, 24, 93, 0.35)'
-          : '0 30px 60px -20px rgba(190, 24, 93, 0.45)',
-      }}
     >
       {/* Dot-pattern overlay */}
       <svg
@@ -54,7 +48,7 @@ export default function AuthLeftPanel({
             height="32"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="16" cy="16" r="1.4" fill="#FED7AA" opacity="0.6" />
+            <circle cx="16" cy="16" r="1.4" fill="#E5E5E5" opacity="0.6" />
           </pattern>
         </defs>
         <rect
@@ -64,16 +58,6 @@ export default function AuthLeftPanel({
         />
       </svg>
 
-      {/* Mjuk glow uppe i hörnet */}
-      <div
-        className="absolute -top-10 -right-10 w-48 h-48 rounded-full blur-3xl opacity-50 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(249, 115, 22, 0.6) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
       <div
         className={`relative z-10 ${
           isMobile
@@ -81,38 +65,12 @@ export default function AuthLeftPanel({
             : 'flex flex-col h-full gap-8'
         }`}
       >
-        {/* Logo/Wordmark — bara desktop */}
+        {/* Logo/Wordmark, bara desktop */}
         {!isMobile && (
           <div className="flex items-center gap-2">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg"
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-              }}
-            >
-              <svg
-                viewBox="0 0 20 20"
-                className="w-5 h-5 text-white"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M5 3h7l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 3v3h3"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <span className="text-white font-black text-lg tracking-tight">
-              jobbcoach<span className="text-orange-300">.ai</span>
+            <FileText className="w-5 h-5 text-neutral-700" strokeWidth={2} />
+            <span className="text-neutral-900 font-semibold text-lg tracking-tight">
+              jobbcoach<span className="text-orange-600">.ai</span>
             </span>
           </div>
         )}
@@ -149,18 +107,18 @@ export default function AuthLeftPanel({
           <div className="mt-2">{customSlot}</div>
         )}
 
-        {/* Stats — bara desktop */}
+        {/* Stats, bara desktop */}
         {!isMobile && stats && stats.length > 0 && (
           <div className="grid grid-cols-2 gap-3 mt-auto">
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 px-3 py-3"
+                className="rounded-xl bg-neutral-50 border border-neutral-200 px-3 py-3"
               >
-                <p className="text-white font-black text-lg leading-tight">
+                <p className="text-neutral-900 font-semibold text-lg leading-tight">
                   {stat.value}
                 </p>
-                <p className="text-white/70 text-[11px] font-medium leading-tight mt-0.5">
+                <p className="text-neutral-500 text-xs font-medium leading-tight mt-0.5">
                   {stat.label}
                 </p>
               </div>

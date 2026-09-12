@@ -129,22 +129,10 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
-    console.log('[TRIAL API] Trial activated successfully - awarding XP')
+    console.log('[TRIAL API] Trial activated successfully')
 
-    // Award bonus XP for starting trial (non-blocking)
-    const { error: xpError } = await supabase.rpc('add_xp_with_cap_check', {
-      user_id_param: userId,
-      xp_amount: 50,
-      source_param: 'trial_activation',
-      description_param: 'Aktiverade 7-dagars Premium trial'
-    })
-
-    if (xpError) {
-      console.warn('[TRIAL API] XP award failed (non-critical):', xpError)
-      // Non-critical, continue
-    } else {
-      console.log('[TRIAL API] XP awarded successfully')
-    }
+    // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2 punkt
+    // 21). Trialen i sig är belöningen.
 
     console.log('[TRIAL API] Creating notification')
 

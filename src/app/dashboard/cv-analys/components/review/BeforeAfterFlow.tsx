@@ -26,15 +26,13 @@ export default function BeforeAfterFlow({
 
   return (
     <div
-      className="rounded-xl p-3.5 sm:p-4 border-2"
+      className="rounded-xl p-3.5 sm:p-4 border-2 bg-white"
       style={{
-        background:
-          'linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 100%)',
         borderColor: 'rgba(16, 185, 129, 0.25)',
       }}
     >
       <div className="flex items-center justify-between mb-2.5 gap-2">
-        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-800">
+        <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
           {showOriginal ? 'Nuvarande text' : 'Förbättrad version'}
         </span>
         <button
@@ -66,7 +64,7 @@ export default function BeforeAfterFlow({
           transition={{ duration: 0.2 }}
         >
           {showOriginal ? (
-            <p className="text-sm text-slate-600 italic leading-relaxed whitespace-pre-wrap">
+            <p className="text-sm text-neutral-600 italic leading-relaxed whitespace-pre-wrap">
               {currentText || 'Ingen tidigare text.'}
             </p>
           ) : (

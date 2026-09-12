@@ -251,7 +251,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* Header with Progress */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
@@ -271,7 +271,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
         {/* Progress Bar */}
         <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-700"
+            className="h-full bg-orange-600 transition-all duration-700"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -297,7 +297,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
       <div className="space-y-6">
         {/* Foundation Level */}
         {skillsByLevel.foundation.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
             <div className="flex items-center justify-between mb-4">
               <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                 <Star className="w-5 h-5 text-blue-600" />
@@ -338,7 +338,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
         {/* Intermediate Level */}
         {skillsByLevel.intermediate.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
             <div className="flex items-center justify-between mb-4">
               <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-indigo-600" />
@@ -388,7 +388,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
         {/* Advanced Level */}
         {skillsByLevel.advanced.length > 0 && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
             <div className="flex items-center justify-between mb-4">
               <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                 <Star className="w-5 h-5 text-purple-600" />
@@ -438,7 +438,7 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
       {/* Recommended Next Steps */}
       {skillTree.filter(s => s.status === 'available').length > 0 && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50 shadow-xl">
+        <div className="bg-white rounded-xl p-6 border border-blue-200/50">
           <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
             <Zap className="w-5 h-5 text-yellow-600" />
             Rekommenderat nästa steg

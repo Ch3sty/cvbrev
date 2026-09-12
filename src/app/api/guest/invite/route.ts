@@ -234,13 +234,7 @@ export async function POST(request: NextRequest) {
       // Don't fail the request if email fails
     }
 
-    // Award XP to inviter
-    await supabase.rpc('add_xp_with_cap_check', {
-      user_id_param: user.id,
-      xp_amount: 25,
-      source_param: 'guest_invitation',
-      description_param: 'Skickade gästinbjudan'
-    })
+    // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2 punkt 21).
 
     // Calculate remaining invitations for response
     let remainingInvitations = 999 // Unlimited for admin

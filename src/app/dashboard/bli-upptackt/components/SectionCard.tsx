@@ -65,20 +65,12 @@ export default function SectionCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay, ease: 'easeOut' }}
-      className={`relative rounded-3xl overflow-hidden scroll-mt-24 ${
+      className={`relative rounded-xl overflow-hidden scroll-mt-24 ${
         subtle
-          ? 'bg-white/70 border border-slate-200 p-3.5 sm:p-4'
+          ? 'bg-white/70 border border-neutral-200 p-3.5 sm:p-4'
           : 'bg-white border border-orange-100 p-4 sm:p-6'
       }`}
-      style={subtle ? undefined : { boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
     >
-      {!subtle && (
-        <div
-          className="absolute top-0 inset-x-0 h-0.5"
-          style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
-          aria-hidden="true"
-        />
-      )}
       <div className="flex items-start justify-between gap-3">
         {showSummary ? (
           <div className="flex items-center gap-3 min-w-0">
@@ -89,14 +81,14 @@ export default function SectionCard({
               <Check className="w-3.5 h-3.5" strokeWidth={3} />
             </span>
             <div className="min-w-0">
-              <div className="text-[13.5px] font-bold text-slate-900 leading-tight">{title}</div>
-              <div className="text-[12.5px] text-slate-500 truncate">{summary}</div>
+              <div className="text-[13.5px] font-bold text-neutral-900 leading-tight">{title}</div>
+              <div className="text-xs text-neutral-500 truncate">{summary}</div>
             </div>
           </div>
         ) : (
           <div className="min-w-0">
-            <h2 className="text-[15px] sm:text-base font-bold text-slate-900">{title}</h2>
-            {sub && <p className="text-[13px] text-slate-500 mt-0.5 leading-relaxed">{sub}</p>}
+            <h2 className="text-[15px] sm:text-base font-bold text-neutral-900">{title}</h2>
+            {sub && <p className="text-[13px] text-neutral-500 mt-0.5 leading-relaxed">{sub}</p>}
           </div>
         )}
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -108,9 +100,9 @@ export default function SectionCard({
               aria-expanded={!isCollapsed}
               aria-label={isCollapsed ? `Visa ${title}` : `Dölj ${title}`}
               title={isCollapsed ? 'Visa' : 'Dölj'}
-              className={`flex-shrink-0 w-9 h-9 rounded-xl border flex items-center justify-center transition-colors touch-manipulation ${
+              className={`flex-shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center transition-colors touch-manipulation ${
                 subtle
-                  ? 'border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100'
+                  ? 'border-neutral-200 bg-neutral-50 text-neutral-500 hover:bg-neutral-100'
                   : 'border-orange-100 bg-orange-50/50 text-orange-600 hover:bg-orange-100 hover:border-orange-200'
               }`}
             >

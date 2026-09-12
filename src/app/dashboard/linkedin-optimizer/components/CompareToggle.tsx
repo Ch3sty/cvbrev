@@ -17,7 +17,7 @@ const OPTIONS: { id: CompareSide; label: string }[] = [
 export default function CompareToggle({ value, onChange }: Props) {
   return (
     <div
-      className="inline-flex bg-slate-100 rounded-xl p-1 relative"
+      className="inline-flex bg-neutral-100 rounded-xl p-1 relative"
       role="tablist"
       aria-label="Jämför profil före och efter"
     >
@@ -54,8 +54,8 @@ export default function CompareToggle({ value, onChange }: Props) {
                 active
                   ? opt.id === 'after'
                     ? 'text-white'
-                    : 'text-slate-900'
-                  : 'text-slate-500'
+                    : 'text-neutral-900'
+                  : 'text-neutral-500'
               }`}
             >
               {opt.label}

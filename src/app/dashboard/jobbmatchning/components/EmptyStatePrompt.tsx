@@ -8,8 +8,7 @@ import { Briefcase, FileText, Search, Target, ChevronDown } from 'lucide-react';
  * Forklarar varfor man ska aktivera ett CV och vad som hander dafter.
  *
  * Matchar sidans orange/rod-DNA: vit bakgrund med subtil orange tonad border,
- * gradient ikon-cirkel med pulserande ring, tre numrerade steg, animerad pil
- * nedat som pekar pa CV-listan.
+ * ikon i cirkel, tre numrerade steg, animerad pil nedat som pekar pa CV-listan.
  */
 export default function EmptyStatePrompt() {
   return (
@@ -17,61 +16,28 @@ export default function EmptyStatePrompt() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-6 sm:p-8"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="relative overflow-hidden bg-white rounded-xl border border-orange-200/50 p-6 sm:p-8"
     >
-      {/* Subtila bakgrundsdots inspirerade av CvHeroStrip */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
-        aria-hidden="true"
-      >
-        <pattern
-          id="empty-state-dots"
-          x="0"
-          y="0"
-          width="32"
-          height="32"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="16" cy="16" r="1" fill="#FB923C" />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#empty-state-dots)" opacity="0.4" />
-      </svg>
-
       <div className="relative">
         {/* Header: gradient-ikon med pulserande ring */}
         <div className="flex flex-col items-center text-center mb-6">
           <div className="relative mb-4">
-            {/* Yttre pulserande ring */}
+            {/* Pulserande ring */}
             <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+              className="absolute inset-0 rounded-full bg-orange-600"
               animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
             />
-            {/* Mellanring */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-              animate={{ scale: [1, 1.2, 1], opacity: [0.6, 0.2, 0.6] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut', delay: 0.4 }}
-            />
             {/* Sjalva ikon-cirkeln */}
-            <div
-              className="relative w-20 h-20 rounded-full flex items-center justify-center text-white"
-              style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                boxShadow: '0 12px 28px -6px rgba(220, 38, 38, 0.45)',
-              }}
-            >
+            <div className="relative w-20 h-20 rounded-full flex items-center justify-center bg-orange-600 text-white">
               <Briefcase className="w-9 h-9" strokeWidth={2} />
             </div>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-1">
+          <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-1">
             Aktivera ett CV för att matcha jobb
           </h3>
-          <p className="text-sm sm:text-base text-slate-600 max-w-md">
+          <p className="text-sm sm:text-base text-neutral-600 max-w-md">
             Välj vilket av dina CV:n vi ska använda när vi söker jobb åt dig
           </p>
         </div>
@@ -87,8 +53,8 @@ export default function EmptyStatePrompt() {
           <Step
             n={2}
             icon={Search}
-            title="Vi matchar mot tusentals jobb i realtid"
-            body="Inte bara senaste titeln — också närliggande roller och dolda möjligheter."
+            title="Vi matchar ditt CV mot tusentals jobb"
+            body="Inte bara senaste titeln, också närliggande roller och dolda möjligheter."
           />
           <Step
             n={3}
@@ -129,21 +95,15 @@ function Step({
 }) {
   return (
     <div className="flex items-start gap-3 p-3 sm:p-4 rounded-xl bg-orange-50/40 border border-orange-100">
-      <div
-        className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
-        style={{
-          background: 'linear-gradient(135deg, #FB923C 0%, #DC2626 100%)',
-          boxShadow: '0 2px 6px -1px rgba(220, 38, 38, 0.35)',
-        }}
-      >
+      <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-orange-600 text-white text-xs font-bold">
         {n}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <Icon className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
-          <h4 className="text-sm font-semibold text-slate-900 leading-tight">{title}</h4>
+          <h4 className="text-sm font-semibold text-neutral-900 leading-tight">{title}</h4>
         </div>
-        <p className="text-xs sm:text-sm text-slate-600 leading-snug">{body}</p>
+        <p className="text-xs sm:text-sm text-neutral-600 leading-snug">{body}</p>
       </div>
     </div>
   );

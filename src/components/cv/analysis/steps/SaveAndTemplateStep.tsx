@@ -55,8 +55,8 @@ export default function SaveAndTemplateStep({
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-          <Download className="w-8 h-8 text-white" />
+        <div className="mb-4 flex items-center justify-center">
+          <Download className="w-8 h-8 text-neutral-700" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
           Välj CV-mall
@@ -74,7 +74,7 @@ export default function SaveAndTemplateStep({
       />
 
       {/* Save to Library Section - IMPROVED */}
-      <Card className="p-6 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50">
+      <Card className="p-6 border-2 border-blue-200 bg-white">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -170,7 +170,7 @@ export default function SaveAndTemplateStep({
         <Button
           onClick={handleSave}
           disabled={!selectedTemplate || isSaving || (saveToLibrary && !canSave && !customName)}
-          className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white h-12"
+          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white h-12"
         >
           {isSaving ? (
             <>Bearbetar...</>

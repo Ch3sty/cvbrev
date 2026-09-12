@@ -36,21 +36,21 @@ const SkapaCvTextarea = forwardRef<HTMLTextAreaElement, Props>(
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor={id}
-            className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500"
+            className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500"
           >
             {label}
             {optional && (
-              <span className="ml-1.5 text-slate-400 normal-case font-medium tracking-normal">
+              <span className="ml-1.5 text-neutral-400 normal-case font-medium tracking-normal">
                 (valfritt)
               </span>
             )}
           </label>
           {showCount && maxCount && (
             <span
-              className={`text-[11px] font-medium tabular-nums ${
+              className={`text-xs font-medium tabular-nums ${
                 currentLength > maxCount
                   ? 'text-red-600'
-                  : 'text-slate-400'
+                  : 'text-neutral-400'
               }`}
             >
               {currentLength}/{maxCount}
@@ -60,11 +60,14 @@ const SkapaCvTextarea = forwardRef<HTMLTextAreaElement, Props>(
         <textarea
           ref={ref}
           id={id}
+          enterKeyHint="enter"
+          inputMode="text"
+          autoComplete="off"
           value={value}
-          className={`block w-full min-h-[120px] px-4 py-3 bg-white border rounded-xl text-base text-slate-900 placeholder-slate-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:ring-2 resize-y disabled:bg-slate-50 disabled:cursor-not-allowed ${
+          className={`block w-full min-h-[120px] px-4 py-3 bg-white border rounded-xl text-base text-neutral-900 placeholder-neutral-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:ring-2 resize-y disabled:bg-neutral-50 disabled:cursor-not-allowed ${
             error
               ? 'border-red-300 focus:border-red-400 focus:ring-red-100'
-              : 'border-slate-200 focus:border-orange-300 focus:ring-orange-100'
+              : 'border-neutral-200 focus:border-orange-300 focus:ring-orange-100'
           } ${className}`}
           {...rest}
         />
@@ -72,7 +75,7 @@ const SkapaCvTextarea = forwardRef<HTMLTextAreaElement, Props>(
           <p className="mt-1.5 text-xs font-semibold text-red-600">{error}</p>
         )}
         {!error && hint && (
-          <p className="mt-1.5 text-xs text-slate-500">{hint}</p>
+          <p className="mt-1.5 text-xs text-neutral-500">{hint}</p>
         )}
       </div>
     )

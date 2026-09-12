@@ -3,8 +3,6 @@ import { createServerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { REQUIRED_STEPS } from '@/lib/onboarding/steps';
 
-/** Belöningen är XP, inte premium-dagar (docs/plan-konvertering.md, B5). */
-const XP_REWARD = 100;
 
 export async function POST(request: NextRequest) {
   try {
@@ -77,40 +75,28 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Belöningen är XP, inte premium-dagar (B5). Reverse trial ger redan
-    // alla nya konton fem dagar Premium, så vi rör aldrig premium-fälten här.
+    // Flaggan är hela belöningen sedan omdesignen
+    // (docs/plan-inloggat-omdesign.md, våg 2 punkt 21). XP och nivåer är
+    // borttagna, och reverse trial ger redan alla nya konton fem dagar
+    // Premium, så vi rör aldrig premium-fälten här heller. Det som återstår
+    // är att markera steget klart så gränssnittet kan bekräfta det.
     const { error: updateError } = await supabase
       .from('profiles')
       .update({ onboarding_reward_claimed: true })
       .eq('id', user.id);
 
     if (updateError) {
-      console.error('Error marking reward as claimed:', updateError);
+      console.error('Error marking onboarding as complete:', updateError);
       return NextResponse.json(
-        { error: 'Kunde inte spara belöningen' },
+        { error: 'Kunde inte spara att steget är klart' },
         { status: 500 }
       );
-    }
-
-    // XP är själva belöningen, men ett fel här ska inte fälla anropet.
-    let xpAwarded = 0;
-    try {
-      await supabase.rpc('add_xp_with_cap_check', {
-        user_id_param: user.id,
-        xp_amount: XP_REWARD,
-        source_param: 'onboarding_completion',
-        description_param: 'Laddade upp sitt CV och låste upp belöningen'
-      });
-      xpAwarded = XP_REWARD;
-    } catch (xpError) {
-      console.warn('XP award failed (non-critical):', xpError);
     }
 
     return NextResponse.json({
       success: true,
       data: {
-        xp: xpAwarded,
-        message: 'Din belöning är upplåst'
+        message: 'Ditt CV är på plats'
       }
     });
 

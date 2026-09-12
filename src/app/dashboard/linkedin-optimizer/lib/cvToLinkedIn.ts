@@ -36,13 +36,13 @@ function safeStr(value: unknown): string {
 /**
  * Mappar parsad CV-data till LinkedIn-sektioner som autofyll.
  *
- * - headline lämnas tom (CV har ingen LinkedIn-headline — låter LLM föreslå)
+ * - headline lämnas tom (CV har ingen LinkedIn-headline, låter LLM föreslå)
  * - about hämtas från profile-sammanfattningen om den finns
  * - experience formateras som blocks: titel / företag · period / beskrivning / bullets
  * - education formateras som examen · institution · period
  * - skills komma-separeras
  *
- * Pure function — inga side-effects, lätt att unit-testa.
+ * Pure function, inga side-effects, lätt att unit-testa.
  * Defensiv mot non-string-fält i parsed CV (vanligt i äldre AI-output).
  */
 export function cvToLinkedIn(

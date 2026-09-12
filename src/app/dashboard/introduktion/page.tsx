@@ -26,8 +26,6 @@ const features = [
       'Sparar kontaktuppgifter för framtida brev',
       'Premium: Ladda upp obegränsat antal CV:n'
     ],
-    color: 'from-blue-500 to-indigo-600',
-    lightBg: 'from-blue-50 to-indigo-50',
     href: '/dashboard/profil/cv',
     cta: 'Ladda upp CV'
   },
@@ -42,8 +40,6 @@ const features = [
       'ATS-kompatibilitet för rekryteringssystem',
       'Exempel: "Ökade försäljningen med 35%" istället för "Ansvarade för försäljning"'
     ],
-    color: 'from-purple-500 to-pink-600',
-    lightBg: 'from-purple-50 to-pink-50',
     href: '/dashboard/cv-analys',
     cta: 'Analysera CV'
   },
@@ -58,8 +54,6 @@ const features = [
       'Sex olika stilar – från professionell till kreativ',
       'ATS-optimerat så du kommer igenom första screeningen'
     ],
-    color: 'from-pink-500 to-rose-600',
-    lightBg: 'from-pink-50 to-rose-50',
     href: '/dashboard/skapa-brev',
     cta: 'Skapa brev'
   },
@@ -74,8 +68,6 @@ const features = [
       'Optimering för LinkedIn:s algoritm',
       'Gratis: 1 optimering/vecka • Premium: Obegränsat'
     ],
-    color: 'from-blue-600 to-cyan-600',
-    lightBg: 'from-blue-50 to-cyan-50',
     href: '/dashboard/linkedin-optimizer',
     cta: 'Optimera LinkedIn'
   },
@@ -90,8 +82,6 @@ const features = [
       'Rankas 0-100% baserat på din profil',
       'Klicka på ett jobb för att skapa personligt brev direkt'
     ],
-    color: 'from-emerald-500 to-teal-600',
-    lightBg: 'from-emerald-50 to-teal-50',
     href: '/dashboard/jobbmatchning',
     cta: 'Sök jobb'
   },
@@ -106,8 +96,6 @@ const features = [
       'Premium-mallar: Platinum Executive, Nordic Professional, Creative Edge',
       'Olika mallar för olika typer av roller'
     ],
-    color: 'from-indigo-500 to-purple-600',
-    lightBg: 'from-indigo-50 to-purple-50',
     href: '/dashboard/cv-mallar',
     cta: 'Välj mall'
   }
@@ -123,15 +111,15 @@ export default function IntroduktionPage() {
         transition={{ duration: 0.6 }}
         className="mb-12 text-center max-w-3xl mx-auto"
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
           Så fungerar Jobbcoach.ai
         </h1>
 
-        <p className="text-lg md:text-xl text-slate-600 mb-3">
+        <p className="text-lg md:text-xl text-neutral-600 mb-3">
           Allt du behöver för att sticka ut i din jobbsökning.
         </p>
 
-        <p className="text-base text-slate-500">
+        <p className="text-base text-neutral-500">
           Sex verktyg som hjälper dig skapa bättre ansökningar, snabbare.
         </p>
       </motion.div>
@@ -152,7 +140,7 @@ export default function IntroduktionPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
-        className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 rounded-2xl border border-purple-200/50 p-8 md:p-12 text-center shadow-xl"
+        className="bg-white rounded-xl border border-neutral-200 p-8 md:p-12 text-center"
       >
         <div className="max-w-2xl mx-auto">
           <motion.div
@@ -167,14 +155,14 @@ export default function IntroduktionPage() {
             }}
             className="inline-block mb-6"
           >
-            <Zap className="w-16 h-16 text-purple-600" />
+            <Zap className="w-10 h-10 text-orange-600" />
           </motion.div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
             Redo att komma igång?
           </h2>
 
-          <p className="text-lg text-slate-600 mb-8">
+          <p className="text-lg text-neutral-600 mb-8">
             Börja med att ladda upp ditt CV. Sen tar vi det därifrån.
           </p>
 
@@ -183,7 +171,7 @@ export default function IntroduktionPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-lg"
+                className="px-8 py-4 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-700 transition-all duration-300 flex items-center gap-2 text-lg"
               >
                 Ladda upp CV
                 <ArrowRight className="w-5 h-5" />
@@ -194,7 +182,7 @@ export default function IntroduktionPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-slate-700 rounded-xl font-semibold border-2 border-slate-200 hover:border-purple-300 transition-all duration-300"
+                className="px-8 py-4 bg-white text-neutral-700 rounded-xl font-semibold border-2 border-neutral-200 hover:border-orange-300 transition-all duration-300"
               >
                 Tillbaka till dashboard
               </motion.button>
@@ -227,22 +215,22 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
       whileHover={{ y: -8 }}
       className="group"
     >
-      <div className="h-full bg-white rounded-2xl border border-slate-200 hover:border-purple-300 shadow-lg hover:shadow-2xl hover:shadow-purple-200/30 transition-all duration-300 overflow-hidden">
-        {/* Gradient Header with Icon */}
-        <div className={`bg-gradient-to-br ${feature.lightBg} p-6 border-b border-slate-100`}>
+      <div className="h-full bg-white rounded-xl border border-neutral-200 hover:border-orange-300 transition-all duration-300 overflow-hidden">
+        {/* Header with Icon */}
+        <div className="p-6 border-b border-neutral-100">
           <motion.div
             whileHover={{ rotate: 5, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl shadow-lg mb-4`}
+            className="inline-flex items-center justify-center mb-4"
           >
-            <Icon className="w-7 h-7 text-white" />
+            <Icon className="w-7 h-7 text-neutral-700" />
           </motion.div>
 
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-xl font-bold text-neutral-900 mb-2">
             {feature.title}
           </h3>
 
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-neutral-600 leading-relaxed">
             {feature.description}
           </p>
         </div>
@@ -258,7 +246,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
               className="flex items-start gap-3 group/item"
             >
               <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
-              <span className="text-sm text-slate-700 leading-relaxed">
+              <span className="text-sm text-neutral-700 leading-relaxed">
                 {benefit}
               </span>
             </motion.div>
@@ -271,7 +259,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
             <motion.button
               whileHover={{ scale: 1.02, x: 4 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full px-6 py-3 bg-gradient-to-r ${feature.color} text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2`}
+              className="w-full px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2"
             >
               {feature.cta}
               <motion.div

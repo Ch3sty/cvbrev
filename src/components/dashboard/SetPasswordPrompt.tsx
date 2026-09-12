@@ -85,7 +85,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
 
   if (success) {
     return (
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 mb-6 shadow-lg">
+      <div className="bg-white border-2 border-green-200 rounded-xl p-4 mb-6">
         <div className="flex items-center gap-3">
           <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
           <div className="flex-1">
@@ -98,7 +98,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
   }
 
   return (
-    <div className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200 rounded-xl p-4 mb-6 shadow-lg">
+    <div className="bg-white border-2 border-pink-200 rounded-xl p-4 mb-6">
       <div className="flex items-start gap-3">
         <Lock className="w-6 h-6 text-pink-600 mt-1 flex-shrink-0" />
         <div className="flex-1">
@@ -121,7 +121,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
           {!isExpanded ? (
             <button
               onClick={() => setIsExpanded(true)}
-              className="mt-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all text-sm"
+              className="mt-3 bg-orange-600 text-white font-semibold py-2 px-4 min-h-[44px] rounded-lg hover:bg-orange-700 transition-all text-sm"
             >
               Skapa lösenord nu
             </button>
@@ -178,14 +178,14 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-orange-600 text-white font-semibold py-2 px-4 min-h-[44px] rounded-lg hover:bg-orange-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Sparar...' : 'Spara lösenord'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsExpanded(false)}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+                  className="px-4 py-2 min-h-[44px] text-gray-600 hover:text-gray-800 font-medium"
                 >
                   Avbryt
                 </button>

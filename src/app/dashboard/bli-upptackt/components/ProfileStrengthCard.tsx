@@ -1,10 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+/**
+ * Profilstatus (docs/plan-inloggat-omdesign.md, avsnitt 5 och 9, våg 3 punkt 24).
+ *
+ * Kortet hette tidigare profilstyrka och var en underkännandelista: en stor
+ * nolla i procent, "Visa alla steg (9 kvar)" och meningen "Kompletta profiler
+ * visas först". Två problem med det.
+ *
+ * Det första är sanning. Rankningslöftena ("kompletta profiler visas först",
+ * "fler verifierade resultat lyfter dig i sökresultaten") hade inget stöd i
+ * koden: computeProfileStrength räknades i klienten och sparades aldrig, och
+ * rekryterarsökningen (src/lib/recruiter/poolSearch.ts) sorterar på relevans
+ * med kompletthet enbart som tiebreak. Pitch, villkor och samtycke påverkar
+ * sorteringen inte alls. Vi drev alltså testtagande med ett påstående vi inte
+ * kunde hålla. Båda meningarna är strukna.
+ *
+ * Det andra är ton. Den som är arbetslös ska inte mötas av ett betyg på sig
+ * själv. Därför: ett nästa steg i taget, inget procenttal, och i stället för
+ * en mätare en siffra som faktiskt betyder något för kandidaten, nämligen hur
+ * många rekryterare som sett profilen.
+ */
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, Check, ChevronDown } from 'lucide-react';
 import SectionCard from './SectionCard';
+import { IlluProfilvisningar, IlluNastaSteg } from '@/components/illustrations/BliUpptacktIllustrations';
 import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type SummaryData } from './types';
 
 interface ProfileStrengthCardProps {
@@ -12,278 +32,203 @@ interface ProfileStrengthCardProps {
   summary: SummaryData | null;
 }
 
-interface ChecklistItem {
-  done: boolean;
+interface Step {
   label: string;
   href: string;
 }
 
-/**
- * Profilstyrka: 0-100, normaliserad mot det maximalt UPPNÅELIGA. Vikter:
- *   15  CV valt (cv_id satt)
- *   10  samtycke gett (consent_given_at satt)
- *   10  villkor ifyllda (availability + minst en region + minst ett
- *       arbetsplatsval)
- *   10  kompetenser extraherade ur CV:t
- *   10  per klar kognitiv testfamilj (max 30)
- *    5  personlighetsprofil klar
- *   10  pitch skriven
- *    5  fullständig arbetsstilsrapport delad (nivå 2-samtycket)
- *    5  minst en kontexttagg vald ("Söker mig till")
- *
- * Fullrapporten och kontexttaggarna räknas ENDAST in i nämnaren när de går
- * att påverka (kvalificerad rapport finns resp. minst ett taggförslag) —
- * annars blir 100 % omöjligt trots att checklistan saknar rader att åtgärda.
- * Slutpoängen skalas till 0-100 mot det uppnåeliga maxet.
- */
-export function computeProfileStrength(
-  profile: CandidateProfileState,
-  summary: SummaryData | null
-): number {
-  let earned = 0;
-  let possible = 0;
-  const item = (points: number, done: boolean, applicable = true) => {
-    if (!applicable) return;
-    possible += points;
-    if (done) earned += points;
-  };
-
-  item(15, !!profile.cv_id);
-  item(10, !!profile.consent_given_at);
-  const termsDone =
-    !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
-  item(10, termsDone);
-  item(10, (summary?.skills?.skills?.length ?? 0) > 0);
-  const familiesDone = summary
-    ? (Object.keys(summary.results) as FamilyKey[]).filter((k) => summary.results[k].done).length
-    : 0;
-  possible += 30;
-  earned += Math.min(familiesDone, 3) * 10;
-  item(5, Boolean(summary?.personality?.done));
-  item(10, (profile.pitch ?? '').trim().length > 0);
-  item(
-    5,
-    profile.show_full_workstyle && profile.show_personality,
-    Boolean(summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport)
-  );
-  item(
-    5,
-    profile.context_tags.length > 0,
-    (summary?.personality?.contextTagOptions?.length ?? 0) > 0
-  );
-
-  if (possible === 0) return 0;
-  return Math.min(100, Math.round((100 * earned) / possible));
+interface ViewStats {
+  lastWeek: number;
+  total: number;
 }
 
-export default function ProfileStrengthCard({ profile, summary }: ProfileStrengthCardProps) {
-  const [showAll, setShowAll] = useState(false);
-  const strength = computeProfileStrength(profile, summary);
+/**
+ * Stegen i den ordning de faktiskt hjälper kandidaten, inte i poängordning.
+ * Returnerar bara det som återstår: klara steg är inte information, de är
+ * bara rader att scrolla förbi.
+ */
+function remainingSteps(profile: CandidateProfileState, summary: SummaryData | null): Step[] {
+  const steps: Step[] = [];
 
-  const familiesDone = summary
-    ? (Object.keys(FAMILY_LABELS) as FamilyKey[]).filter((k) => summary.results[k]?.done)
-    : [];
-  const familiesTodo = (Object.keys(FAMILY_LABELS) as FamilyKey[]).filter(
-    (k) => !familiesDone.includes(k)
-  );
-  const skillCount = summary?.skills?.skills?.length ?? 0;
-  const termsDone =
-    !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
-  const pitchDone = (profile.pitch ?? '').trim().length > 0;
+  if (!profile.cv_id) {
+    steps.push({ label: 'Välj vilket CV som ska driva profilen', href: '/dashboard/profil/cv' });
+  }
 
-  const items: ChecklistItem[] = [
-    profile.cv_id
-      ? { done: true, label: 'CV valt som driver profilen', href: '#' }
-      : { done: false, label: 'Välj vilket CV som ska driva profilen', href: '/dashboard/profil/cv' },
-    skillCount > 0
-      ? { done: true, label: `CV analyserat, ${skillCount} kompetenser extraherade`, href: '#' }
-      : { done: false, label: 'Analysera ditt CV så vi kan hämta dina kompetenser', href: '/dashboard/jobbmatchning' },
-    termsDone
-      ? { done: true, label: 'Villkor angivna: tillträde, arbetsplats och region', href: '#' }
-      : { done: false, label: 'Ange tillträde, arbetsplats och minst en region under Dina villkor', href: '#villkor' },
-    pitchDone
-      ? { done: true, label: 'Pitch skriven, den visas överst hos rekryterare', href: '#' }
-      : { done: false, label: 'Skriv din pitch, den visas överst hos rekryterare', href: '#pitch' },
-    profile.consent_given_at
-      ? { done: true, label: 'Samtycke gett, profilen kan aktiveras', href: '#' }
-      : { done: false, label: 'Slå på synligheten och ge ditt samtycke', href: '#' },
-  ];
-
-  if (familiesDone.length > 0) {
-    items.push({
-      done: true,
-      label: `${familiesDone.map((k) => FAMILY_LABELS[k]).join(', ')} verifierade`,
-      href: '#',
+  if ((summary?.skills?.skills?.length ?? 0) === 0) {
+    steps.push({
+      label: 'Analysera ditt CV så vi kan hämta dina kompetenser',
+      href: '/dashboard/jobbmatchning',
     });
   }
+
+  const termsDone =
+    !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
+  if (!termsDone) {
+    steps.push({ label: 'Ange tillträde, arbetsplats och minst en region', href: '#villkor' });
+  }
+
+  if ((profile.pitch ?? '').trim().length === 0) {
+    steps.push({ label: 'Skriv din pitch, den visas överst hos rekryterare', href: '#pitch' });
+  }
+
+  if (!profile.consent_given_at) {
+    steps.push({ label: 'Slå på synligheten och ge ditt samtycke', href: '#' });
+  }
+
+  // Testerna beskrivs som det de är: underlag rekryteraren kan lita på. Inte
+  // som en placering i en lista vi inte sorterar på.
+  const familiesTodo = summary
+    ? (Object.keys(FAMILY_LABELS) as FamilyKey[]).filter((k) => !summary.results[k]?.done)
+    : [];
   if (familiesTodo.length > 0) {
-    items.push({
-      done: false,
-      label: `Gör ${familiesTodo
-        .map((k) => FAMILY_LABELS[k].toLowerCase())
-        .join(' och ')}${familiesTodo.length > 1 ? '-testerna' : '-testet'}, fler verifierade resultat lyfter dig i sökresultaten`,
+    const names = familiesTodo.map((k) => FAMILY_LABELS[k].toLowerCase()).join(' och ');
+    steps.push({
+      label: `Gör ${names}${familiesTodo.length > 1 ? '-testerna' : '-testet'}, resultaten visas som bevis på profilen`,
       href: '/dashboard/tester',
     });
   }
-  items.push(
-    summary?.personality?.done
-      ? { done: true, label: 'Personlighetsprofil klar', href: '#' }
-      : { done: false, label: 'Gör personlighetstestet och visa dina två främsta styrkor', href: '/dashboard/tester' }
-  );
 
-  // Fullrapporten: raden visas bara när en kvalificerad rapport finns att dela.
+  if (!summary?.personality?.done) {
+    steps.push({
+      label: 'Gör personlighetstestet och visa dina två främsta styrkor',
+      href: '/dashboard/tester',
+    });
+  }
+
   if (summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport) {
-    items.push(
-      profile.show_full_workstyle && profile.show_personality
-        ? { done: true, label: 'Fullständig arbetsstilsrapport delas med rekryterare', href: '#' }
-        : { done: false, label: 'Dela din fullständiga arbetsstilsrapport, den ger rekryteraren mest att gå på', href: '#arbetsstilsrapport' }
-    );
+    if (!(profile.show_full_workstyle && profile.show_personality)) {
+      steps.push({
+        label: 'Dela din arbetsstilsrapport, den ger rekryteraren mest att gå på',
+        href: '#arbetsstilsrapport',
+      });
+    }
   }
 
-  // Kontexttaggarna: raden visas bara när kandidaten har kvalificerade förslag.
-  if ((summary?.personality?.contextTagOptions?.length ?? 0) > 0) {
-    items.push(
-      profile.context_tags.length > 0
-        ? { done: true, label: `"Söker mig till" valt: ${profile.context_tags.join(', ')}`, href: '#' }
-        : { done: false, label: 'Välj upp till två "Söker mig till"-taggar som din självpresentation', href: '#kontexttaggar' }
-    );
+  if ((summary?.personality?.contextTagOptions?.length ?? 0) > 0 && profile.context_tags.length === 0) {
+    steps.push({
+      label: 'Välj upp till två "Söker mig till"-taggar',
+      href: '#kontexttaggar',
+    });
   }
 
-  // Nästa steg = första oklara posten (items är redan i prioordning). Allt
-  // klart → ingen next, då visas en bekräftelse i stället för tom lista.
-  const nextStep = items.find((i) => !i.done) ?? null;
-  const remaining = items.filter((i) => !i.done).length;
+  return steps;
+}
+
+export default function ProfileStrengthCard({ profile, summary }: ProfileStrengthCardProps) {
+  const [views, setViews] = useState<ViewStats | null>(null);
+  const steps = remainingSteps(profile, summary);
+  const next = steps[0] ?? null;
+  const isVisible = profile.visibility !== 'off';
+
+  // Visningar hämtas bara när profilen är synlig. Att visa "0 visningar" för
+  // någon som inte slagit på synligheten vore att rapportera ett utfall av
+  // något hon inte gjort.
+  useEffect(() => {
+    if (!isVisible) return;
+    let cancelled = false;
+
+    fetch('/api/candidate/views')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data) setViews({ lastWeek: data.lastWeek ?? 0, total: data.total ?? 0 });
+      })
+      .catch(() => {
+        // Siffran är återkoppling, inte funktion. Vid fel visas inget.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isVisible]);
 
   return (
-    <SectionCard title="Din profilstyrka" delay={0.25}>
-      {/* Mätare */}
-      <div className="flex items-baseline justify-between mb-2">
-        <div className="text-[26px] font-extrabold text-slate-900 tabular-nums leading-none">
-          {strength}
-          <span className="text-[14px] font-bold text-slate-500"> %</span>
-        </div>
-        <span className="text-[11.5px] text-slate-500 text-right leading-tight">
-          Kompletta profiler
-          <br />
-          visas först
-        </span>
-      </div>
-      <div
-        className="h-2 rounded-full bg-slate-100 overflow-hidden"
-        role="progressbar"
-        aria-valuenow={strength}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label="Profilstyrka"
-      >
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${strength}%` }}
-          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
-          className="h-full rounded-full"
-          style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
-        />
-      </div>
+    <SectionCard title="Din profil" delay={0.25}>
+      {isVisible && <ViewsRow views={views} />}
 
-      {nextStep ? (
+      {next ? (
         <>
-          {/* Ett framträdande nästa steg i stället för hela listan */}
-          <NextStepLink item={nextStep} />
-          {remaining > 1 && (
-            <button
-              type="button"
-              onClick={() => setShowAll((v) => !v)}
-              aria-expanded={showAll}
-              className="mt-2.5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-500 hover:text-slate-700 min-h-[32px] touch-manipulation"
-            >
-              {showAll ? 'Dölj stegen' : `Visa alla steg (${remaining} kvar)`}
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform ${showAll ? 'rotate-180' : ''}`}
-                strokeWidth={2.5}
-              />
-            </button>
+          <NextStep step={next} />
+          {steps.length > 1 && (
+            <p className="mt-3 text-sm text-neutral-500">
+              {steps.length === 2
+                ? 'Ett steg till efter det.'
+                : `${steps.length - 1} steg till efter det.`}
+            </p>
           )}
-          <AnimatePresence initial={false}>
-            {showAll && (
-              <motion.ul
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.22, ease: 'easeOut' }}
-                className="overflow-hidden mt-3 space-y-2"
-              >
-                {items.map((item) => (
-                  <ChecklistRow key={item.label} item={item} />
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
         </>
       ) : (
-        <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50/60 px-3.5 py-3">
-          <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" strokeWidth={3} />
-          <p className="text-[13px] font-semibold text-emerald-900">
-            Din profil är komplett. Nu väntar vi bara på rekryterarna.
-          </p>
-        </div>
+        <p className="mt-4 text-sm text-neutral-600 leading-relaxed">
+          Profilen är klar. Du behöver inte göra något mer, och du kan ändra
+          vad som helst när du vill.
+        </p>
       )}
     </SectionCard>
   );
 }
 
-/* Framträdande nästa-steg-kort. */
-function NextStepLink({ item }: { item: ChecklistItem }) {
-  const inner = (
-    <div className="mt-4 flex items-center gap-3 rounded-xl border border-orange-100 bg-orange-50/50 px-3.5 py-3 transition-colors hover:bg-orange-50">
-      <span
-        className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
-        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-        aria-hidden="true"
-      >
-        <ArrowRight className="w-4 h-4" strokeWidth={2.75} />
+/**
+ * Visningsraden. Riktig data ur candidate_profile_views, loggad serverside när
+ * en godkänd rekryterare öppnar profilen. Kandidaten ser antal, aldrig vem.
+ */
+function ViewsRow({ views }: { views: ViewStats | null }) {
+  if (!views) return null;
+
+  // Noll visningar är inte ett underkännande, det är ett tidsbesked. Vi säger
+  // vad som gäller i stället för att skriva ut en nolla utan sammanhang.
+  if (views.total === 0) {
+    return (
+      <div className="flex items-start gap-3 rounded-lg border border-neutral-200 p-4">
+        <span className="shrink-0 text-neutral-900" aria-hidden="true">
+          <IlluProfilvisningar size={48} />
+        </span>
+        <p className="text-sm text-neutral-600 leading-relaxed">
+          Din profil är sökbar. Rekryterare söker i poolen i omgångar, så det
+          kan dröja innan någon tittar. Vi säger till här när det händer.
+        </p>
+      </div>
+    );
+  }
+
+  // Veckan först när det hänt något den här veckan, annars totalen. Vi vill
+  // aldrig skriva "0 den här veckan" till någon som faktiskt har visningar.
+  // "Rekryterare" böjs inte i plural, så ingen räkneordslogik behövs.
+  const label =
+    views.lastWeek > 0
+      ? `${views.lastWeek} rekryterare har sett din profil den här veckan`
+      : `${views.total} rekryterare har sett din profil`;
+
+  return (
+    <div className="flex items-start gap-3 rounded-lg border border-neutral-200 p-4">
+      <span className="shrink-0 text-neutral-900" aria-hidden="true">
+        <IlluProfilvisningar size={48} />
       </span>
-      <div className="min-w-0 flex-1">
-        <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700">Nästa steg</div>
-        <div className="text-[13px] font-semibold text-slate-800 leading-snug">{item.label}</div>
+      <div className="min-w-0">
+        <p className="text-base font-semibold text-neutral-900">{label}</p>
+        <p className="text-sm text-neutral-600 leading-relaxed mt-1">
+          Du ser antalet, aldrig vem. De hör av sig om de vill gå vidare.
+        </p>
       </div>
     </div>
   );
-  if (item.href === '#') return inner;
-  if (item.href.startsWith('#')) return <a href={item.href}>{inner}</a>;
-  return <Link href={item.href}>{inner}</Link>;
 }
 
-/* Rad i den fullständiga listan (bakom "Visa alla steg"). */
-function ChecklistRow({ item }: { item: ChecklistItem }) {
-  return (
-    <li className="flex items-start gap-2.5 text-[13px]">
-      {item.done ? (
-        <>
-          <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
-          <span className="text-slate-600">{item.label}</span>
-        </>
-      ) : (
-        <>
-          <ArrowRight className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" strokeWidth={3} />
-          {item.href === '#' ? (
-            <span className="font-semibold text-orange-900">{item.label}</span>
-          ) : item.href.startsWith('#') ? (
-            <a
-              href={item.href}
-              className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
-            >
-              {item.label}
-            </a>
-          ) : (
-            <Link
-              href={item.href}
-              className="font-semibold text-orange-900 underline decoration-orange-300 underline-offset-2 hover:text-orange-700"
-            >
-              {item.label}
-            </Link>
-          )}
-        </>
-      )}
-    </li>
+/** Ett steg i taget. Ingen lista, ingen räknare över allt som saknas. */
+function NextStep({ step }: { step: Step }) {
+  const inner = (
+    <div className="mt-4 flex items-start gap-3 rounded-lg border border-neutral-200 p-4 transition-colors hover:border-neutral-300">
+      <span className="shrink-0 text-neutral-900" aria-hidden="true">
+        <IlluNastaSteg size={48} />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs text-neutral-500">Nästa steg</p>
+        <p className="text-base font-semibold text-neutral-900 leading-snug mt-0.5">
+          {step.label}
+        </p>
+      </div>
+    </div>
   );
+
+  if (step.href === '#') return inner;
+  if (step.href.startsWith('#')) return <a href={step.href}>{inner}</a>;
+  return <Link href={step.href}>{inner}</Link>;
 }

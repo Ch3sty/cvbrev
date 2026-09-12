@@ -15,14 +15,10 @@ export default function AtsScoreMeter({ score }: AtsScoreMeterProps) {
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <span
-            className="w-1 h-3 rounded-sm"
-            style={{
-              background:
-                'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-            }}
+            className="w-1 h-3 rounded-sm bg-orange-600"
             aria-hidden="true"
           />
-          <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
             CV-poäng
           </span>
         </div>
@@ -31,7 +27,7 @@ export default function AtsScoreMeter({ score }: AtsScoreMeterProps) {
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="text-sm font-black text-slate-900 tabular-nums"
+          className="text-sm font-semibold text-neutral-900 tabular-nums"
         >
           {clamped}%
         </motion.span>
@@ -42,20 +38,16 @@ export default function AtsScoreMeter({ score }: AtsScoreMeterProps) {
           initial={{ width: 0 }}
           animate={{ width: `${clamped}%` }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="h-full rounded-full"
-          style={{
-            background:
-              'linear-gradient(90deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
-          }}
+          className="h-full rounded-full bg-orange-600"
         />
       </div>
 
-      <p className="mt-1.5 text-[11px] text-slate-500">
+      <p className="mt-1.5 text-xs text-neutral-500">
         {clamped < 40
           ? 'Fyll i fler fält för att stärka ditt CV'
           : clamped < 80
-          ? 'På väg uppåt — fortsätt fylla i'
-          : 'Stark profil — du är redo att börja söka'}
+          ? 'På väg uppåt, fortsätt fylla i'
+          : 'Stark profil, du är redo att börja söka'}
       </p>
     </div>
   )

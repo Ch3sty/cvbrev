@@ -389,7 +389,7 @@ export default function FontSelector({
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                className="bg-white rounded-t-2xl w-full max-h-[85vh] overflow-hidden flex flex-col"
+                className="bg-white rounded-t-xl w-full max-h-[85vh] overflow-hidden flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white sticky top-0 z-10">

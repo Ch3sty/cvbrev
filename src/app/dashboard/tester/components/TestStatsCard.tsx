@@ -27,14 +27,8 @@ export default function TestStatsCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 }}
-      className="relative bg-white rounded-3xl border border-orange-100 p-4 sm:p-5 overflow-hidden"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      className="relative bg-white rounded-xl border border-orange-100 p-4 sm:p-5 overflow-hidden"
     >
-      <div
-        className="absolute top-0 inset-x-0 h-0.5"
-        style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
-      />
-
       <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-orange-100">
         <Stat
           icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />}
@@ -67,11 +61,11 @@ function Stat({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-2 sm:px-3 text-center">
-      <div className="flex items-center gap-1.5 mb-1 text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+      <div className="flex items-center gap-1.5 mb-1 text-xs uppercase tracking-wider font-semibold text-neutral-500">
         {icon}
         {label}
       </div>
-      <div className="text-sm sm:text-lg font-bold text-slate-900 tabular-nums">{value}</div>
+      <div className="text-sm sm:text-lg font-bold text-neutral-900 tabular-nums">{value}</div>
     </div>
   );
 }

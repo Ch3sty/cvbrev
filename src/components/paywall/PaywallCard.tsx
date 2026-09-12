@@ -21,6 +21,8 @@ import {
   IlluTestTak,
   IlluNedgraderad,
 } from '@/components/illustrations/PaywallIllustrations'
+import { IlluDoldTraff } from '@/components/illustrations/JobbmatchningIllustrations'
+import { IlluAfRapport } from '@/components/illustrations/ApplicationIllustrations'
 
 export interface PaywallCardProps {
   variant: PaywallVariant
@@ -28,6 +30,8 @@ export interface PaywallCardProps {
   isPremium?: boolean
   /** Antal fynd totalt, variant analys */
   findingsTotal?: number
+  /** Antal suddade träffar, variant jobbtraffar */
+  hiddenCount?: number
   /** Kvotnyckel + återställningstid, variant kvot och test-tak (för "påminn mig") */
   quota?: { feature: string; nextResetAt: string }
   /** Variant nedladdning: sekundär handling kopierar texten */
@@ -52,12 +56,15 @@ const ILLU: Record<PaywallVariant, React.ComponentType<{ size?: number; classNam
   'test-tak': IlluTestTak,
   nedgraderad: IlluNedgraderad,
   'cv-antal': IlluCvStack,
+  jobbtraffar: IlluDoldTraff,
+  'af-rapport': IlluAfRapport,
 }
 
 export default function PaywallCard({
   variant,
   isPremium,
   findingsTotal,
+  hiddenCount,
   quota,
   onCopy,
   onDismiss,
@@ -71,7 +78,11 @@ export default function PaywallCard({
 
   if (isPremium) return null
 
-  const copy = getPaywallCopy(variant, { findingsTotal, quotaFeature: quota?.feature })
+  const copy = getPaywallCopy(variant, {
+    findingsTotal,
+    hiddenCount,
+    quotaFeature: quota?.feature,
+  })
   const Illu = ILLU[variant]
 
   const remind = async () => {

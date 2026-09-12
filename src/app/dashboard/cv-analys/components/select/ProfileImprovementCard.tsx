@@ -40,24 +40,10 @@ export default function ProfileImprovementCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25 }}
-      className={`relative rounded-2xl bg-white overflow-hidden transition-all ${
+      className={`relative rounded-xl bg-white overflow-hidden transition-all ${
         selected ? 'border-2 border-emerald-500' : 'border-2 border-orange-200/60'
       }`}
-      style={{
-        boxShadow: selected
-          ? '0 0 0 4px rgba(16, 185, 129, 0.12), 0 8px 20px -8px rgba(16, 185, 129, 0.25)'
-          : '0 2px 8px -4px rgba(15, 23, 42, 0.06)',
-      }}
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-[3px]"
-        style={{
-          background: selected
-            ? 'linear-gradient(90deg, #10B981, #059669)'
-            : 'linear-gradient(90deg, #F97316, #DC2626)',
-        }}
-      />
-
       <div className="p-4 sm:p-5 pt-5">
         <div className="flex items-start gap-3 mb-4">
           <RoundCheckbox
@@ -68,29 +54,19 @@ export default function ProfileImprovementCard({
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <div
-                className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-white"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                }}
-              >
-                <User className="w-3.5 h-3.5" strokeWidth={2.25} />
+              <div className="flex-shrink-0 w-7 h-7 flex items-center justify-center">
+                <User className="w-4 h-4 text-neutral-700" strokeWidth={2.25} />
               </div>
-              <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+              <h4 className="font-bold text-neutral-900 text-sm sm:text-base">
                 Personbeskrivning
               </h4>
               {atsImpact > 0 && (
-                <span
-                  className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-                  style={{
-                    background: 'linear-gradient(135deg, #10B981, #059669)',
-                  }}
-                >
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-emerald-600">
                   +{atsImpact} ATS
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-600 mt-1.5">
+            <p className="text-xs text-neutral-600 mt-1.5">
               Vi har formulerat din inledning för starkare första intryck.
             </p>
           </div>
@@ -99,15 +75,13 @@ export default function ProfileImprovementCard({
         {/* Flödes-vy */}
         {!isEditing ? (
           <div
-            className="rounded-xl p-3.5 sm:p-4 border-2"
+            className="rounded-xl p-3.5 sm:p-4 border-2 bg-white"
             style={{
-              background:
-                'linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 100%)',
               borderColor: 'rgba(16, 185, 129, 0.25)',
             }}
           >
             <div className="flex items-center justify-between mb-2.5 gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-800">
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
                 {showOriginal ? 'Nuvarande text' : 'Vårt förslag'}
               </span>
               <div className="flex items-center gap-1">
@@ -151,13 +125,13 @@ export default function ProfileImprovementCard({
                 transition={{ duration: 0.2 }}
               >
                 {showOriginal ? (
-                  <p className="text-sm text-slate-600 italic leading-relaxed whitespace-pre-wrap">
+                  <p className="text-sm text-neutral-600 italic leading-relaxed whitespace-pre-wrap">
                     {currentText || 'Ingen tidigare text.'}
                   </p>
                 ) : improvedText ? (
                   <HighlightedText text={editedText} keywords={[]} detectNumbers />
                 ) : (
-                  <p className="text-sm text-slate-600 italic leading-relaxed">
+                  <p className="text-sm text-neutral-600 italic leading-relaxed">
                     Din personbeskrivning är redan optimerad.
                   </p>
                 )}
@@ -167,22 +141,16 @@ export default function ProfileImprovementCard({
             {/* Changes-meta */}
             {!showOriginal && safeChanges.length > 0 && (
               <div className="mt-3 pt-3 border-t border-emerald-200/60">
-                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
                   Vad vi har ändrat
                 </span>
                 <ul className="space-y-1">
                   {safeChanges.map((change, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-xs text-slate-700 leading-relaxed"
+                      className="flex items-start gap-2 text-xs text-neutral-700 leading-relaxed"
                     >
-                      <span
-                        className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
-                        style={{
-                          background:
-                            'linear-gradient(135deg, #F97316, #DC2626)',
-                        }}
-                      />
+                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-orange-600" />
                       <span>{change}</span>
                     </li>
                   ))}
@@ -193,14 +161,20 @@ export default function ProfileImprovementCard({
         ) : (
           <div className="space-y-2.5">
             <label className="block">
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
                 Redigera förslaget
               </span>
               <textarea
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="w-full min-h-[140px] p-3 text-sm bg-white border-2 border-orange-200 rounded-xl text-slate-900 focus:outline-none focus:border-orange-500 resize-y"
+                className="w-full min-h-[140px] p-3 text-base bg-white border-2 border-orange-200 rounded-xl text-neutral-900 focus:outline-none focus:border-orange-500 resize-y"
                 rows={6}
+
+                enterKeyHint="enter"
+
+                inputMode="text"
+
+                autoComplete="off"
               />
             </label>
             <div className="flex gap-2 justify-end">
@@ -210,7 +184,7 @@ export default function ProfileImprovementCard({
                   setEditedText(improvedText);
                   setIsEditing(false);
                 }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
               >
                 <X className="w-3 h-3" />
                 Avbryt
@@ -218,10 +192,7 @@ export default function ProfileImprovementCard({
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg text-white"
-                style={{
-                  background: 'linear-gradient(135deg, #10B981, #059669)',
-                }}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition-colors min-h-[44px]"
               >
                 <Check className="w-3 h-3" strokeWidth={3} />
                 Spara

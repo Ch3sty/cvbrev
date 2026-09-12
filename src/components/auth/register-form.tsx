@@ -265,7 +265,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
         </form>
 
         <div className="mt-6 pt-5 border-t border-orange-50 text-center">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-neutral-600">
             Har du redan ett konto?{' '}
             <Link
               href={loginHref}

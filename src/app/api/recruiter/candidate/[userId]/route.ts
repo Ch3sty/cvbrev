@@ -14,6 +14,7 @@ import {
   buildCandidateDetail,
   type CandidateProfileRow,
 } from '@/lib/recruiter/candidateData';
+import { logProfileView } from '@/lib/recruiter/profileViews';
 
 export const dynamic = 'force-dynamic';
 
@@ -66,6 +67,13 @@ export async function GET(
     const detail = await buildCandidateDetail(admin, row, contactUnlocked, {
       emailUnlocked: accepted,
     });
+
+    // Profilen har bevisligen lämnats ut till en godkänd rekryterare: logga
+    // visningen så kandidaten kan se att profilen faktiskt ses. Avdubblas per
+    // dygn och rekryterare inne i logProfileView. Awaitas inte, eftersom en
+    // tappad loggrad är ett mindre fel än en långsammare eller trasig
+    // profilhämtning.
+    void logProfileView(admin, userId, user.id);
 
     return NextResponse.json({
       candidate: detail,

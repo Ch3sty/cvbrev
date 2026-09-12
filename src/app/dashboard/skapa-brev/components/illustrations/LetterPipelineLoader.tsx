@@ -76,10 +76,10 @@ export default function LetterPipelineLoader({
           <AlertCircle className="w-6 h-6" strokeWidth={2.25} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">
+          <h3 className="text-base sm:text-lg font-bold text-neutral-900 mb-1">
             Något gick fel
           </h3>
-          <p className="text-sm text-slate-600 leading-relaxed">{error}</p>
+          <p className="text-sm text-neutral-600 leading-relaxed">{error}</p>
         </div>
       </div>
     );
@@ -95,7 +95,6 @@ export default function LetterPipelineLoader({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
       className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7 md:p-8"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
     >
       <DotPatternBg />
 
@@ -108,10 +107,10 @@ export default function LetterPipelineLoader({
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1.5">
             Vi skriver åt dig
           </div>
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight mb-1">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900 tracking-tight mb-1">
             {STAGES[stage].label}
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-5">
+          <p className="text-sm text-neutral-600 leading-relaxed mb-5">
             {STAGES[stage].body}
           </p>
 
@@ -124,18 +123,15 @@ export default function LetterPipelineLoader({
           </div>
 
           <div className="mt-5">
-            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="h-full rounded-full"
-                style={{
-                  background: 'linear-gradient(90deg, #F97316, #DC2626)',
-                }}
+                className="h-full rounded-full bg-orange-600"
               />
             </div>
-            <div className="flex items-center justify-between mt-2 text-xs text-slate-500">
+            <div className="flex items-center justify-between mt-2 text-xs text-neutral-500">
               <span className="tabular-nums font-semibold text-orange-700">
                 {progressPercent}%
               </span>
@@ -183,37 +179,26 @@ function PipelineVertical({ currentStage }: { currentStage: number }) {
             <div className="relative flex-shrink-0">
               {state === 'active' && (
                 <motion.div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                  }}
+                  className="absolute inset-0 rounded-full bg-orange-600"
                   animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
                   transition={{ duration: 1.6, repeat: Infinity }}
                 />
               )}
               <div
-                className="relative w-8 h-8 rounded-full flex items-center justify-center"
-                style={
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center ${
                   state === 'done'
-                    ? {
-                        background:
-                          'linear-gradient(135deg, #10B981, #059669)',
-                      }
+                    ? 'bg-emerald-600'
                     : state === 'active'
-                    ? {
-                        background:
-                          'linear-gradient(135deg, #F97316, #DC2626)',
-                        boxShadow: '0 4px 12px -2px rgba(220, 38, 38, 0.45)',
-                      }
-                    : { background: '#F1F5F9' }
-                }
+                    ? 'bg-orange-600'
+                    : 'bg-neutral-100'
+                }`}
               >
                 {state === 'done' ? (
                   <CheckCircle2 className="w-4 h-4 text-white" strokeWidth={2.5} />
                 ) : (
                   <Icon
                     className={`w-4 h-4 ${
-                      state === 'active' ? 'text-white' : 'text-slate-400'
+                      state === 'active' ? 'text-white' : 'text-neutral-400'
                     }`}
                     strokeWidth={2.25}
                   />
@@ -223,10 +208,10 @@ function PipelineVertical({ currentStage }: { currentStage: number }) {
             <span
               className={`text-sm ${
                 state === 'pending'
-                  ? 'text-slate-400'
+                  ? 'text-neutral-400'
                   : state === 'active'
-                  ? 'font-semibold text-slate-900'
-                  : 'text-slate-700'
+                  ? 'font-semibold text-neutral-900'
+                  : 'text-neutral-700'
               }`}
             >
               {stageDef.label}
@@ -258,37 +243,26 @@ function PipelineNode({
       <div className="relative">
         {state === 'active' && (
           <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-            }}
+            className="absolute inset-0 rounded-full bg-orange-600"
             animate={{ scale: [1, 1.5, 1], opacity: [0.45, 0, 0.45] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
           />
         )}
         <div
-          className="relative w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-          style={
+          className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
             state === 'done'
-              ? {
-                  background:
-                    'linear-gradient(135deg, #10B981, #059669)',
-                }
+              ? 'bg-emerald-600'
               : state === 'active'
-              ? {
-                  background:
-                    'linear-gradient(135deg, #F97316, #DC2626)',
-                  boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.5)',
-                }
-              : { background: '#F1F5F9' }
-          }
+              ? 'bg-orange-600'
+              : 'bg-neutral-100'
+          }`}
         >
           {state === 'done' ? (
             <CheckCircle2 className="w-5 h-5 text-white" strokeWidth={2.5} />
           ) : (
             <Icon
               className={`w-5 h-5 ${
-                state === 'active' ? 'text-white' : 'text-slate-400'
+                state === 'active' ? 'text-white' : 'text-neutral-400'
               }`}
               strokeWidth={2.25}
             />
@@ -298,10 +272,10 @@ function PipelineNode({
       <p
         className={`mt-2 text-[11px] leading-tight max-w-[80px] ${
           state === 'pending'
-            ? 'text-slate-400'
+            ? 'text-neutral-400'
             : state === 'active'
-            ? 'font-semibold text-slate-900'
-            : 'text-slate-600'
+            ? 'font-semibold text-neutral-900'
+            : 'text-neutral-600'
         }`}
       >
         {label}
@@ -314,13 +288,9 @@ function PipelineNode({
           aria-hidden="true"
         >
           <div
-            className="h-0.5 w-full rounded-full transition-colors"
-            style={{
-              background:
-                index < activeStageIndex
-                  ? 'linear-gradient(90deg, #10B981, #059669)'
-                  : '#E2E8F0',
-            }}
+            className={`h-0.5 w-full rounded-full transition-colors ${
+              index < activeStageIndex ? 'bg-emerald-600' : 'bg-neutral-200'
+            }`}
           />
         </div>
       )}
@@ -355,7 +325,7 @@ function WritingIllustration({ stage }: { stage: number }) {
 
       <div className="absolute inset-0 flex items-center justify-center">
         <div
-          className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden"
+          className="relative bg-white rounded-2xl border border-neutral-200 overflow-hidden"
           style={{
             width: 118,
             height: 152,
@@ -363,22 +333,16 @@ function WritingIllustration({ stage }: { stage: number }) {
               '0 18px 36px -12px rgba(220, 38, 38, 0.25), 0 4px 12px -4px rgba(15, 23, 42, 0.08)',
           }}
         >
-          <div
-            className="h-1.5 w-full"
-            style={{
-              background:
-                'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            }}
-          />
+          <div className="h-1.5 w-full bg-orange-600" />
           <div className="px-3 pt-3 pb-2 flex flex-col gap-1.5">
-            <div className="h-2 w-2/3 rounded-full bg-slate-300" />
+            <div className="h-2 w-2/3 rounded-full bg-neutral-300" />
           </div>
           <div className="px-3 mt-1 flex flex-col gap-1.5">
             {['w-full', 'w-5/6', 'w-full', 'w-2/3', 'w-5/6', 'w-3/4', 'w-full'].map(
               (w, i) => (
                 <motion.div
                   key={i}
-                  className={`h-1 ${w} rounded-full bg-slate-200`}
+                  className={`h-1 ${w} rounded-full bg-neutral-200`}
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={{
                     scaleX: i <= stage + 2 ? 1 : 0.3,
@@ -420,16 +384,10 @@ function WritingIllustration({ stage }: { stage: number }) {
       >
         <svg viewBox="0 0 32 32" fill="none">
           <g transform="rotate(35 16 16)">
-            <rect x="14.5" y="2" width="3" height="20" rx="1.5" fill="url(#pen-grad)" />
+            <rect x="14.5" y="2" width="3" height="20" rx="1.5" fill="#F97316" />
             <polygon points="13.5,22 16,28 18.5,22" fill="#1E293B" />
             <rect x="14.5" y="-1" width="3" height="3" fill="#FB923C" />
           </g>
-          <defs>
-            <linearGradient id="pen-grad" x1="0" y1="0" x2="32" y2="32">
-              <stop offset="0%" stopColor="#F97316" />
-              <stop offset="100%" stopColor="#DC2626" />
-            </linearGradient>
-          </defs>
         </svg>
       </motion.div>
 
@@ -461,14 +419,8 @@ function WritingIllustration({ stage }: { stage: number }) {
             <svg viewBox="0 0 14 14" fill="none">
               <path
                 d="M7 0 L8.5 5 L13 6.5 L8.5 8 L7 13 L5.5 8 L1 6.5 L5.5 5 Z"
-                fill="url(#accent-grad)"
+                fill="#F97316"
               />
-              <defs>
-                <linearGradient id="accent-grad" x1="0" y1="0" x2="14" y2="14">
-                  <stop offset="0%" stopColor="#F97316" />
-                  <stop offset="100%" stopColor="#BE185D" />
-                </linearGradient>
-              </defs>
             </svg>
           </motion.div>
         ))}

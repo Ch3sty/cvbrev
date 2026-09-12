@@ -116,7 +116,7 @@ export default function LearningPathTimeline({
             <div key={index} className="relative flex gap-4">
               {/* Timeline dot */}
               <div className={`
-                relative z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg
+                relative z-10 w-12 h-12 rounded-full flex items-center justify-center 
                 ${course.priority === 'essential'
                   ? 'bg-pink-600 text-white'
                   : 'bg-navy-800 text-cyan-400 border-2 border-cyan-500'}
@@ -203,10 +203,10 @@ export default function LearningPathTimeline({
 
           {/* Final goal */}
           <div className="relative flex gap-4">
-            <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-teal-500 text-white flex items-center justify-center shadow-lg">
+            <div className="relative z-10 w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center">
               <Target className="w-5 h-5" />
             </div>
-            <div className="flex-1 bg-gradient-to-r from-green-900/20 to-teal-900/20 rounded-lg p-5 border border-green-700/50">
+            <div className="flex-1 bg-green-900/20 rounded-lg p-5 border border-green-700/50">
               <h4 className="font-bold text-lg text-white mb-2">
                 🎯 Mål uppnått: {targetRole}
               </h4>

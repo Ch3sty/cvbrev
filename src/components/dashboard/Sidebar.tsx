@@ -171,7 +171,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
   return (
     <div
-      className={`bg-gradient-to-b from-orange-50/40 via-white to-orange-50/30 h-full ${
+      className={`bg-white h-full ${
         isMobile ? 'w-full' : 'w-72'
       } border-r border-orange-100 flex flex-col relative z-10`}
     >
@@ -183,12 +183,23 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         className="flex-1 px-2 py-4 space-y-5 overflow-y-auto"
         style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
       >
-        {/* KÄRNFLÖDE: det som används dagligen, utan rubrik */}
+        {/* MITT JOBBSÖK: det som används dagligen, utan rubrik.
+            Ansökningar ligger först efter Översikt eftersom de är den nya
+            kärnan: det är det enda som förändras utan att användaren gör
+            något, och därmed den enda naturliga dagliga rytmen vi har. */}
         <SidebarSection>
           <SidebarLink
             href="/dashboard"
             label="Översikt"
             icon={OversiktIcon}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/sokta-tjanster"
+            label="Ansökningar"
+            icon={SoktaTjansterIcon}
+            count={applicationCount}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -211,29 +222,22 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
-          <SidebarLink
-            href="/dashboard/sokta-tjanster"
-            label="Sökta tjänster"
-            icon={SoktaTjansterIcon}
-            count={applicationCount}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
         </SidebarSection>
 
-        {/* VERKTYG: värdefullt men inte dagligt */}
+        {/* VERKTYG: värdefullt men inte dagligt. Ordningen följer planen:
+            de två som leder till en färdig handling först. */}
         <SidebarSection eyebrow="Verktyg">
           <SidebarLink
-            href="/dashboard/cv-analys"
-            label="Förbättra CV"
-            icon={ForbattraIcon}
+            href="/dashboard/skapa-brev"
+            label="Skriv brev"
+            icon={BrevIcon}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
-            href="/dashboard/cv-mallar"
-            label="CV-mallar"
-            icon={MallIcon}
+            href="/dashboard/cv-analys"
+            label="Analysera CV"
+            icon={ForbattraIcon}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -245,9 +249,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             onClick={onClose}
           />
           <SidebarLink
-            href="/dashboard/jobbcoachen"
-            label="Jobbcoachen"
-            icon={JobbcoachenIcon}
+            href="/dashboard/cv-mallar"
+            label="CV-mallar"
+            icon={MallIcon}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/tester"
+            label="Rekryteringstester"
+            icon={TesterIcon}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -259,9 +270,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             onClick={onClose}
           />
           <SidebarLink
-            href="/dashboard/tester"
-            label="Rekryteringstester"
-            icon={TesterIcon}
+            href="/dashboard/jobbcoachen"
+            label="Jobbcoachen"
+            icon={JobbcoachenIcon}
             isMobile={isMobile}
             onClick={onClose}
           />

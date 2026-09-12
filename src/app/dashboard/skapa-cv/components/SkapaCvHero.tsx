@@ -15,13 +15,13 @@ export default function SkapaCvHero() {
         <HeroSkapaCvIcon className="w-16 h-16 sm:w-20 sm:h-20" />
       </div>
       <div className="min-w-0">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
           Skapa CV
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight leading-tight">
           Bygg ditt CV steg för steg
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 mt-1.5 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
           Vi hjälper dig fylla i rätt information på rätt plats. Din
           förhandsvisning uppdateras live medan du skriver.
         </p>

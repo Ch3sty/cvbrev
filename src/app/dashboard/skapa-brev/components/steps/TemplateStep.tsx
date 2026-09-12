@@ -97,37 +97,24 @@ export default function TemplateStep({
       onClick={() => !isLocked && onTemplateChange(id as DocxTemplateId)}
       disabled={isLocked}
       className={`
-        relative p-3 rounded-2xl border-2 transition-all w-full text-left bg-white
+        relative p-3 rounded-xl border-2 transition-all w-full text-left bg-white
         ${
           isSelected
             ? 'border-orange-400'
             : isLocked
-            ? 'border-slate-200 opacity-60 cursor-not-allowed'
-            : 'border-slate-200 hover:border-orange-300'
+            ? 'border-neutral-200 opacity-60 cursor-not-allowed'
+            : 'border-neutral-200 hover:border-orange-300'
         }
       `}
-      style={
-        isSelected
-          ? { boxShadow: '0 12px 28px -8px rgba(249, 115, 22, 0.35)' }
-          : undefined
-      }
       whileHover={!isLocked ? { y: -2 } : {}}
       whileTap={!isLocked ? { scale: 0.98 } : {}}
     >
       {template.tier === 'premium' && (
         <div className="absolute top-2.5 right-2.5 z-10">
           <div
-            className={`text-white text-[10px] font-semibold px-2 py-1 rounded-full flex items-center gap-1 ${
-              isLocked ? 'bg-slate-700' : ''
+            className={`text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1 ${
+              isLocked ? 'bg-neutral-700' : 'bg-purple-600'
             }`}
-            style={
-              isLocked
-                ? undefined
-                : {
-                    background:
-                      'linear-gradient(135deg, #D946EF, #9333EA, #DB2777)',
-                  }
-            }
           >
             {isLocked ? (
               <Lock className="w-3 h-3" />
@@ -143,18 +130,14 @@ export default function TemplateStep({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-10"
-          style={{
-            background: 'linear-gradient(135deg, #10B981, #059669)',
-            boxShadow: '0 4px 10px -2px rgba(16, 185, 129, 0.5)',
-          }}
+          className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-10 bg-emerald-600"
         >
           <Check className="w-4 h-4 text-white" strokeWidth={3} />
         </motion.div>
       )}
 
       <div
-        className="relative w-full h-44 mb-3 bg-slate-50 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group"
+        className="relative w-full h-44 mb-3 bg-neutral-50 rounded-xl overflow-hidden border border-neutral-200 cursor-pointer group"
         onClick={(e) => {
           e.stopPropagation();
           setPreviewTemplateId(id);
@@ -173,35 +156,35 @@ export default function TemplateStep({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <div className="bg-white rounded-full p-2.5 shadow-lg">
-            <Maximize2 className="w-5 h-5 text-slate-700" />
+          <div className="bg-white rounded-full p-2.5 border border-neutral-200">
+            <Maximize2 className="w-5 h-5 text-neutral-700" />
           </div>
         </div>
       </div>
 
       <div>
-        <h4 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
+        <h4 className="font-bold text-neutral-900 flex items-center gap-2 text-sm">
           {template.name}
           {template.tier === 'free' && (
-            <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-semibold">
+            <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-semibold">
               Gratis
             </span>
           )}
         </h4>
-        <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+        <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
           {template.description}
         </p>
         <div className="mt-2 flex flex-wrap gap-1">
           {template.industries.slice(0, 2).map((industry, idx) => (
             <span
               key={idx}
-              className="text-[10px] bg-slate-50 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded-full font-medium"
+              className="text-xs bg-neutral-50 text-neutral-600 border border-neutral-200 px-1.5 py-0.5 rounded-full font-medium"
             >
               {industry}
             </span>
           ))}
           {template.industries.length > 2 && (
-            <span className="text-[10px] text-slate-500">
+            <span className="text-xs text-neutral-500">
               +{template.industries.length - 2}
             </span>
           )}
@@ -217,8 +200,7 @@ export default function TemplateStep({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
     >
       <LetterFlowStepHeader
         stepNumber={3}
@@ -235,20 +217,20 @@ export default function TemplateStep({
             <button
               type="button"
               onClick={() => scrollToIndex(currentMobileIndex - 1)}
-              className="absolute left-1 top-24 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              className="absolute left-1 top-24 -translate-y-1/2 z-10 w-11 h-11 bg-white/95 backdrop-blur rounded-full shadow-sm flex items-center justify-center border border-neutral-200"
               aria-label="Föregående mall"
             >
-              <ChevronLeft className="w-5 h-5 text-slate-700" />
+              <ChevronLeft className="w-5 h-5 text-neutral-700" />
             </button>
           )}
           {currentMobileIndex < templates.length - 1 && (
             <button
               type="button"
               onClick={() => scrollToIndex(currentMobileIndex + 1)}
-              className="absolute right-1 top-24 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              className="absolute right-1 top-24 -translate-y-1/2 z-10 w-11 h-11 bg-white/95 backdrop-blur rounded-full shadow-sm flex items-center justify-center border border-neutral-200"
               aria-label="Nästa mall"
             >
-              <ChevronRight className="w-5 h-5 text-slate-700" />
+              <ChevronRight className="w-5 h-5 text-neutral-700" />
             </button>
           )}
 
@@ -285,15 +267,12 @@ export default function TemplateStep({
                   ${
                     index === currentMobileIndex
                       ? 'w-6'
-                      : 'w-2 bg-slate-300 hover:bg-slate-400'
+                      : 'w-2 bg-neutral-300 hover:bg-neutral-400'
                   }
                 `}
                 style={
                   index === currentMobileIndex
-                    ? {
-                        background:
-                          'linear-gradient(90deg, #F97316, #DC2626)',
-                      }
+                    ? { background: '#EA580C' }
                     : undefined
                 }
                 aria-label={`Gå till mall ${index + 1}`}
@@ -334,17 +313,17 @@ export default function TemplateStep({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-gradient-to-r from-orange-50/50 to-white">
+              <div className="flex items-center justify-between p-4 border-b border-neutral-200 bg-orange-50/40">
                 <div className="flex items-center gap-3 min-w-0">
                   <FileText className="w-5 h-5 text-orange-600 flex-shrink-0" />
                   <div className="min-w-0">
-                    <h3 className="font-bold text-slate-900 truncate">
+                    <h3 className="font-bold text-neutral-900 truncate">
                       {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}
                     </h3>
-                    <p className="text-sm text-slate-600 truncate">
+                    <p className="text-sm text-neutral-600 truncate">
                       {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.description}
                     </p>
                   </div>
@@ -352,33 +331,36 @@ export default function TemplateStep({
                 <button
                   type="button"
                   onClick={() => setPreviewTemplateId(null)}
-                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors flex-shrink-0"
+                  className="p-2 hover:bg-neutral-100 rounded-lg transition-colors flex-shrink-0"
                   aria-label="Stäng förhandsvisning"
                 >
-                  <X className="w-5 h-5 text-slate-600" />
+                  <X className="w-5 h-5 text-neutral-600" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-auto bg-slate-50 p-4 md:p-8">
-                <div className="max-w-[21cm] mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+              {/* A4-proportionen via aspect-ratio i stället för en fast
+                  842 px höjd. Den fasta höjden tillsammans med max-w-[21cm]
+                  tvingade fram horisontell scroll på 375 px. */}
+              <div className="flex-1 overflow-auto bg-neutral-50 p-4 md:p-8">
+                <div className="mx-auto w-full max-w-[21cm] overflow-hidden rounded-lg bg-white shadow-xl">
                   <iframe
                     src={`/images/templates/${previewTemplateId}-preview.html`}
                     className="w-full border-0"
-                    style={{ height: '842px', minHeight: '842px' }}
+                    style={{ aspectRatio: '210 / 297' }}
                     title={`Full preview av ${DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}`}
                   />
                 </div>
               </div>
 
-              <div className="p-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p className="text-xs text-slate-600 hidden sm:block">
+              <div className="p-4 border-t border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p className="text-xs text-neutral-600 hidden sm:block">
                   Klicka utanför eller tryck ESC för att stänga
                 </p>
                 <div className="flex items-center gap-2 w-full sm:w-auto">
                   <button
                     type="button"
                     onClick={() => setPreviewTemplateId(null)}
-                    className="flex-1 sm:flex-none px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors min-h-[44px]"
+                    className="flex-1 sm:flex-none px-4 py-2.5 text-neutral-700 bg-white border border-neutral-300 rounded-xl hover:bg-neutral-50 transition-colors min-h-[44px]"
                   >
                     Stäng
                   </button>
@@ -389,11 +371,7 @@ export default function TemplateStep({
                         onTemplateChange(previewTemplateId);
                         setPreviewTemplateId(null);
                       }}
-                      className="flex-1 sm:flex-none px-5 py-2.5 text-white rounded-xl font-bold transition-all min-h-[44px] shadow-lg"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #F97316, #DC2626)',
-                      }}
+                      className="flex-1 sm:flex-none px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold transition-all min-h-[44px]"
                     >
                       Välj denna mall
                     </button>
@@ -401,7 +379,7 @@ export default function TemplateStep({
                     <button
                       type="button"
                       disabled
-                      className="flex-1 sm:flex-none px-5 py-2.5 text-white bg-slate-400 rounded-xl cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px]"
+                      className="flex-1 sm:flex-none px-5 py-2.5 text-white bg-neutral-400 rounded-xl cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px]"
                     >
                       <Lock className="w-4 h-4" />
                       Premium krävs

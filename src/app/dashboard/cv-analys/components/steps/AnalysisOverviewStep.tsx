@@ -118,18 +118,17 @@ export default function AnalysisOverviewStep({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative overflow-hidden bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-          style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+          className="relative overflow-hidden bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
         >
           <div className="flex items-start justify-between gap-3 mb-5">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight">
                   ATS-optimering
                 </h3>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Info className="w-4 h-4 text-slate-400 hover:text-slate-600" />
+                    <Info className="w-4 h-4 text-neutral-400 hover:text-neutral-600" />
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     <p className="text-sm">
@@ -138,17 +137,9 @@ export default function AnalysisOverviewStep({
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <p className="text-sm text-slate-600 mt-0.5">Hur väl ditt CV passerar urvalssystem.</p>
+              <p className="text-sm text-neutral-600 mt-0.5">Hur väl ditt CV passerar urvalssystem.</p>
             </div>
-            <div
-              className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-              style={{
-                background: 'linear-gradient(135deg, #10B981, #059669)',
-                boxShadow: '0 4px 12px -2px rgba(16, 185, 129, 0.4)',
-              }}
-            >
-              <TrendingUp className="w-5 h-5" strokeWidth={2.25} />
-            </div>
+            <TrendingUp className="w-5 h-5 text-neutral-700 flex-shrink-0" strokeWidth={2.25} />
           </div>
 
           <div className="grid grid-cols-[1fr,auto,1fr] gap-3 sm:gap-5 items-center">
@@ -160,14 +151,8 @@ export default function AnalysisOverviewStep({
             />
 
             <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center"
-                   style={{
-                     background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                     boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.45)',
-                   }}>
-                <ArrowRight className="w-4 h-4 text-white" strokeWidth={3} />
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-600 hidden sm:inline">
+              <ArrowRight className="w-5 h-5 text-orange-600" strokeWidth={3} />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 hidden sm:inline">
                 Med vår hjälp
               </span>
             </div>
@@ -181,11 +166,8 @@ export default function AnalysisOverviewStep({
             />
           </div>
 
-          <div className="mt-5 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100">
-            <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm tabular-nums"
-                 style={{
-                   background: 'linear-gradient(135deg, #10B981, #059669)',
-                 }}>
+          <div className="mt-5 flex items-start gap-3 p-4 rounded-xl bg-emerald-50/70 border border-emerald-100">
+            <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-emerald-600 text-white font-bold text-sm tabular-nums">
               +{improvement}
             </div>
             <div className="min-w-0">
@@ -201,25 +183,13 @@ export default function AnalysisOverviewStep({
         </motion.div>
 
         {/* Resultat-summary */}
-        <div
-          className="rounded-2xl p-5 text-center"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(220, 38, 38, 0.06) 100%)',
-            border: '1px solid rgba(249, 115, 22, 0.15)',
-          }}
-        >
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+        <div className="rounded-xl p-5 text-center bg-white border border-neutral-200">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
             Resultat
           </div>
-          <p className="text-base sm:text-lg font-semibold text-slate-900">
+          <p className="text-base sm:text-lg font-semibold text-neutral-900">
             Vi hittade{' '}
-            <span
-              className="text-transparent bg-clip-text font-bold"
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
-              }}
-            >
+            <span className="font-bold">
               {totalImprovements} förbättringar
             </span>{' '}
             för ditt CV
@@ -232,40 +202,24 @@ export default function AnalysisOverviewStep({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="rounded-3xl p-5 sm:p-6"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(251, 146, 60, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%)',
-              border: '1px solid rgba(249, 115, 22, 0.25)',
-            }}
+            className="rounded-xl p-5 sm:p-6 bg-white border border-orange-200"
           >
             <div className="flex items-start gap-4">
-              <div
-                className="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white"
-                style={{
-                  background: 'linear-gradient(135deg, #FB923C, #F59E0B)',
-                  boxShadow: '0 6px 14px -4px rgba(245, 158, 11, 0.45)',
-                }}
-              >
-                <Zap className="w-6 h-6" strokeWidth={2.25} />
-              </div>
+              <Zap className="w-6 h-6 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
               <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
                   Snabba vinster
                 </div>
-                <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
+                <h4 className="text-base sm:text-lg font-bold text-neutral-900 mb-2">
                   Här ger förbättringarna störst effekt
                 </h4>
                 <ul className="space-y-1.5">
                   {quickWins.map((win) => (
-                    <li key={win.id} className="flex items-center gap-2 text-sm text-slate-700">
-                      <span
-                        className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
-                        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                      />
+                    <li key={win.id} className="flex items-center gap-2 text-sm text-neutral-700">
+                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-600" />
                       <span className="font-semibold">{win.title}</span>
-                      <span className="text-slate-500">·</span>
-                      <span className="text-slate-600">
+                      <span className="text-neutral-500">·</span>
+                      <span className="text-neutral-600">
                         {win.count} {win.count === 1 ? 'punkt' : 'punkter'}
                       </span>
                     </li>
@@ -292,45 +246,26 @@ export default function AnalysisOverviewStep({
                 transition={{ delay: 0.1 + index * 0.05 }}
                 whileHover={{ y: -2 }}
                 onClick={() => setExpandedCategory(isExpanded ? null : category.id)}
-                className="text-left bg-white rounded-2xl border border-slate-200 hover:border-orange-300 transition-all overflow-hidden p-5"
-                style={
-                  isPriority
-                    ? {
-                        boxShadow:
-                          '0 0 0 1px rgba(249, 115, 22, 0.4), 0 8px 24px -12px rgba(249, 115, 22, 0.25)',
-                      }
-                    : undefined
-                }
+                className={`text-left bg-white rounded-xl border transition-all overflow-hidden p-5 ${
+                  isPriority ? 'border-orange-300' : 'border-neutral-200 hover:border-orange-300'
+                }`}
               >
                 <div className="flex items-start gap-3">
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.35)',
-                    }}
-                  >
-                    <category.icon className="w-5 h-5" strokeWidth={2.25} />
-                  </div>
+                  <category.icon className="w-5 h-5 text-neutral-700 flex-shrink-0" strokeWidth={2.25} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h5 className="font-bold text-slate-900 text-sm">{category.title}</h5>
+                      <h5 className="font-bold text-neutral-900 text-sm">{category.title}</h5>
                       {isPriority && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                        <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
                           Prioritet
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
                       {category.description}
                     </p>
                     <div className="flex items-center justify-between mt-3">
-                      <span
-                        className="text-2xl font-bold tabular-nums text-transparent bg-clip-text"
-                        style={{
-                          backgroundImage: 'linear-gradient(135deg, #F97316, #DC2626)',
-                        }}
-                      >
+                      <span className="text-2xl font-bold tabular-nums text-orange-600">
                         {category.count}
                       </span>
                       <span className="flex items-center gap-1 text-xs text-orange-700 font-semibold">
@@ -352,7 +287,7 @@ export default function AnalysisOverviewStep({
                     exit={{ opacity: 0, height: 0 }}
                     className="mt-4 pt-4 border-t border-orange-100"
                   >
-                    <p className="text-sm text-slate-700 leading-relaxed">
+                    <p className="text-sm text-neutral-700 leading-relaxed">
                       {category.detail}
                     </p>
                   </motion.div>
@@ -368,15 +303,15 @@ export default function AnalysisOverviewStep({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6"
+            className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6"
           >
             <div className="flex items-start gap-3 mb-4">
               <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center">
                 <Lightbulb className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
               </div>
               <div className="min-w-0">
-                <h4 className="text-base font-bold text-slate-900">Så beräknar vi din potential</h4>
-                <p className="text-xs text-slate-600 mt-0.5">
+                <h4 className="text-base font-bold text-neutral-900">Så beräknar vi din potential</h4>
+                <p className="text-xs text-neutral-600 mt-0.5">
                   Vi viktar dina fem starkaste roller för rättvis poängsättning.
                 </p>
               </div>
@@ -389,14 +324,9 @@ export default function AnalysisOverviewStep({
               <PointRow label="Allmänna förbättringar" value={Math.round(totalImpactBreakdown.general)} />
             </div>
 
-            <div className="border-t border-slate-200 mt-4 pt-4 flex items-center justify-between">
-              <span className="font-bold text-slate-900">Total möjlig ökning</span>
-              <span
-                className="text-xl font-bold tabular-nums text-transparent bg-clip-text"
-                style={{
-                  backgroundImage: 'linear-gradient(135deg, #10B981, #059669)',
-                }}
-              >
+            <div className="border-t border-neutral-200 mt-4 pt-4 flex items-center justify-between">
+              <span className="font-bold text-neutral-900">Total möjlig ökning</span>
+              <span className="text-xl font-bold tabular-nums text-emerald-700">
                 +{totalImpactBreakdown.total} poäng
               </span>
             </div>
@@ -429,18 +359,11 @@ function ScoreBadge({
     <div className="flex flex-col items-center text-center">
       <div
         className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center ring-2 ${tone.ring} ${tone.bg} mb-2`}
-        style={
-          highlight
-            ? {
-                boxShadow: '0 8px 24px -8px rgba(16, 185, 129, 0.4)',
-              }
-            : undefined
-        }
       >
         <span className={`text-2xl sm:text-3xl font-bold ${tone.text}`}>{grade}</span>
       </div>
-      <div className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums">{score}</div>
-      <div className="text-xs text-slate-600 mt-0.5 font-medium">{label}</div>
+      <div className="text-2xl sm:text-3xl font-bold text-neutral-900 tabular-nums">{score}</div>
+      <div className="text-xs text-neutral-600 mt-0.5 font-medium">{label}</div>
     </div>
   );
 }
@@ -448,8 +371,8 @@ function ScoreBadge({
 function PointRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-slate-600">{label}</span>
-      <span className="font-semibold text-slate-900 tabular-nums">+{value} poäng</span>
+      <span className="text-neutral-600">{label}</span>
+      <span className="font-semibold text-neutral-900 tabular-nums">+{value} poäng</span>
     </div>
   );
 }

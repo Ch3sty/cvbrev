@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
 
 // Lazy singleton: loadStripe() korr forst nar komponenten renderas, inte vid
-// modul-import — annars hamtas js.stripe.com pa sidor som bara prefetchar denna.
+// modul-import, annars hamtas js.stripe.com pa sidor som bara prefetchar denna.
 let stripePromise: ReturnType<typeof loadStripe> | null = null;
 const getStripe = () => {
   if (!stripePromise) {
@@ -27,8 +27,8 @@ interface PremiumCTAButtonProps {
  * CTA-knapp för premium-uppgradering. Använder Stripe Embedded Checkout
  * men med vår egen orange/röd-DNA istället för pink/purple.
  *
- * - variant="primary" — orange/röd-gradient, för vita kort och allmänna ytor
- * - variant="inverse" — vit knapp med röd text, för användning på röd hero
+ * - variant="primary", orange/röd-gradient, för vita kort och allmänna ytor
+ * - variant="inverse", vit knapp med röd text, för användning på röd hero
  */
 export function PremiumCTAButton({
   priceId,
@@ -57,7 +57,7 @@ export function PremiumCTAButton({
 
       const data = await response.json();
 
-      // Kunden prenumererar redan — visa vägen till portalen i stället för
+      // Kunden prenumererar redan, visa vägen till portalen i stället för
       // att låta dem teckna ett andra abonnemang.
       if (response.status === 409 && data.alreadySubscribed) {
         setManageUrl(data.manageUrl || '/api/stripe/create-portal-session');
@@ -86,16 +86,13 @@ export function PremiumCTAButton({
             setClientSecret(null);
             setLoading(false);
           }}
-          className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors min-h-[44px]"
+          className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors min-h-[44px]"
         >
           <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
           Tillbaka
         </button>
 
-        <div
-          className="bg-white rounded-3xl border border-orange-200/50 overflow-hidden p-4 sm:p-6"
-          style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
-        >
+        <div className="bg-white rounded-xl border border-orange-200/50 overflow-hidden p-4 sm:p-6">
           <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret }}>
             <EmbeddedCheckout />
           </EmbeddedCheckoutProvider>
@@ -105,9 +102,9 @@ export function PremiumCTAButton({
   }
 
   const primaryStyles =
-    'text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0';
+    'bg-orange-600 hover:bg-orange-700 text-white hover:-translate-y-0.5 active:translate-y-0';
   const inverseStyles =
-    'bg-white text-orange-700 hover:bg-orange-50 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0';
+    'bg-white text-orange-700 hover:bg-orange-50 hover:-translate-y-0.5 active:translate-y-0';
 
   return (
     <div className="w-full">
@@ -123,15 +120,6 @@ export function PremiumCTAButton({
           ${variant === 'primary' ? primaryStyles : inverseStyles}
           ${className}
         `}
-        style={
-          variant === 'primary'
-            ? {
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                boxShadow: '0 10px 30px -8px rgba(220, 38, 38, 0.45)',
-              }
-            : undefined
-        }
       >
         {loading ? (
           <>

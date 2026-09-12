@@ -35,10 +35,9 @@ export default function ProfileSection({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut', delay }}
-      className="relative overflow-hidden rounded-3xl bg-white p-5 sm:p-7"
+      className="relative overflow-hidden rounded-xl bg-white p-5 sm:p-7"
       style={{
         border: '1px solid rgba(249, 115, 22, 0.18)',
-        boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)',
       }}
     >
       {/* Subtilt prick-pattern */}
@@ -58,8 +57,7 @@ export default function ProfileSection({
           <div
             className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 6px 16px -6px rgba(220, 38, 38, 0.45)',
+              background: '#EA580C',
             }}
           >
             {icon}
@@ -67,14 +65,14 @@ export default function ProfileSection({
         )}
         <div className="min-w-0 flex-1">
           {eyebrow && (
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
               {eyebrow}
             </div>
           )}
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight leading-tight">
             {title}
           </h2>
-          <p className="text-sm text-slate-600 mt-1.5 leading-relaxed">
+          <p className="text-sm text-neutral-600 mt-1.5 leading-relaxed">
             {description}
           </p>
         </div>

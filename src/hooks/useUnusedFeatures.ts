@@ -9,8 +9,7 @@ export interface FeatureSlug {
     | 'cv-analys'
     | 'jobbmatchning'
     | 'jobbcoachen'
-    | 'tester'
-    | 'rewards';
+    | 'tester';
 }
 
 export interface FeatureSpotlightItem {
@@ -75,15 +74,6 @@ const FEATURES: FeatureSpotlightItem[] = [
       'Logiktest, verbal förmåga, numerisk analys — allt du möter på riktiga tester.',
     cta: 'Börja träna',
   },
-  {
-    slug: 'rewards',
-    href: '/dashboard/rewards',
-    eyebrow: 'Prova nu',
-    title: 'Samla belöningar',
-    description:
-      'Tjäna XP genom att använda verktygen. Lås upp premiumdagar och badges.',
-    cta: 'Se belöningar',
-  },
 ];
 
 // Activity-typer som indikerar att användaren har provat respektive feature.
@@ -95,7 +85,6 @@ const FEATURE_ACTIVITY_TYPES: Record<FeatureSlug['slug'], string[]> = {
   jobbmatchning: ['jobs_searched'],
   jobbcoachen: ['feature_explored', 'cta_clicked'],
   tester: ['feature_explored'],
-  rewards: ['feature_explored'],
 };
 
 const DISMISS_PREFIX = 'feature-spotlight-dismissed-';
@@ -166,10 +155,9 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
         const isUsed = (slug: FeatureSlug['slug']): boolean => {
           // Bli upptäckt räknas som provad när kandidatprofilen finns
           if (slug === 'bli-upptackt') return hasCandidateProfile;
-          // För jobbcoachen/tester/rewards kollar vi om target i metadata matchar route
+          // För jobbcoachen och tester kollar vi om target i metadata matchar route
           if (slug === 'jobbcoachen') return usedTargets.has('jobbcoachen');
           if (slug === 'tester') return usedTargets.has('tester');
-          if (slug === 'rewards') return usedTargets.has('rewards');
 
           const activityTypes = FEATURE_ACTIVITY_TYPES[slug];
           return activityTypes.some((t) => usedTypes.has(t));

@@ -27,81 +27,9 @@ const SHARED_DEFS = (
 );
 
 /**
- * Bakgrundsstack för hero — tre dokument med en krona ovanpå mittenbladet.
+ * Bakgrundsstack för hero, tre dokument med en krona ovanpå mittenbladet.
  * Återanvänder samma DNA som ProfileFormStackBg/BackgroundDocStack men med
  * krona som tydligt premium-element.
- */
-export function PrenumerationHeroStack({ className = '' }: IconProps) {
-  return (
-    <svg
-      className={className}
-      width="340"
-      height="340"
-      viewBox="0 0 320 320"
-      fill="none"
-      aria-hidden="true"
-    >
-      {/* Bakre kort, roterat */}
-      <g transform="rotate(-8 150 170)">
-        <rect x="80" y="80" width="140" height="180" rx="14" stroke="white" strokeWidth="2" opacity="0.5" />
-        <line x1="98" y1="105" x2="190" y2="105" stroke="white" strokeWidth="2" opacity="0.35" />
-        <line x1="98" y1="120" x2="170" y2="120" stroke="white" strokeWidth="1.5" opacity="0.3" />
-        <line x1="98" y1="145" x2="180" y2="145" stroke="white" strokeWidth="1.5" opacity="0.25" />
-      </g>
-
-      {/* Mitten-kort */}
-      <g transform="rotate(4 170 160)">
-        <rect x="100" y="70" width="140" height="180" rx="14" fill="white" fillOpacity="0.05" stroke="white" strokeWidth="2" opacity="0.7" />
-        <line x1="118" y1="100" x2="220" y2="100" stroke="white" strokeWidth="2" opacity="0.45" />
-        <line x1="118" y1="115" x2="200" y2="115" stroke="white" strokeWidth="1.5" opacity="0.4" />
-        <line x1="118" y1="135" x2="215" y2="135" stroke="white" strokeWidth="1.5" opacity="0.35" />
-        <line x1="118" y1="155" x2="190" y2="155" stroke="white" strokeWidth="1.5" opacity="0.3" />
-      </g>
-
-      {/* Främre kort med krona */}
-      <g>
-        <rect x="120" y="60" width="140" height="180" rx="14" fill="white" fillOpacity="0.1" stroke="white" strokeWidth="2" opacity="0.95" />
-
-        {/* Krona ovanpå kortet */}
-        <g transform="translate(170 75)">
-          <path
-            d="M0 12 L4 4 L10 8 L20 0 L30 8 L36 4 L40 12 L40 18 L0 18 Z"
-            fill="white"
-            fillOpacity="0.35"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-          <circle cx="4" cy="4" r="1.75" fill="white" />
-          <circle cx="20" cy="0" r="2" fill="white" />
-          <circle cx="36" cy="4" r="1.75" fill="white" />
-          <line x1="4" y1="22" x2="36" y2="22" stroke="white" strokeWidth="2" opacity="0.8" />
-        </g>
-
-        {/* Innehållsrader */}
-        <line x1="138" y1="120" x2="240" y2="120" stroke="white" strokeWidth="2" opacity="0.45" />
-        <line x1="138" y1="135" x2="220" y2="135" stroke="white" strokeWidth="1.5" opacity="0.35" />
-        <line x1="138" y1="155" x2="240" y2="155" stroke="white" strokeWidth="1.5" opacity="0.3" />
-        <line x1="138" y1="170" x2="200" y2="170" stroke="white" strokeWidth="1.5" opacity="0.25" />
-
-        {/* Pris-rad */}
-        <rect x="138" y="195" width="40" height="14" rx="3" fill="white" fillOpacity="0.25" />
-        <line x1="186" y1="201" x2="240" y2="201" stroke="white" strokeWidth="2" opacity="0.4" />
-        <line x1="186" y1="208" x2="220" y2="208" stroke="white" strokeWidth="1.5" opacity="0.3" />
-      </g>
-
-      {/* Subtila prickar */}
-      <circle cx="50" cy="240" r="3" fill="white" opacity="0.3" />
-      <circle cx="65" cy="265" r="2" fill="white" opacity="0.25" />
-      <circle cx="38" cy="215" r="2" fill="white" opacity="0.2" />
-      <circle cx="280" cy="50" r="2.5" fill="white" opacity="0.25" />
-      <circle cx="295" cy="80" r="1.5" fill="white" opacity="0.2" />
-    </svg>
-  );
-}
-
-/**
- * Krona med karaktär — gradient-fylld, för hero-badge-användning.
  */
 export function CrownBadgeIcon({ className = 'w-12 h-12' }: IconProps) {
   return (

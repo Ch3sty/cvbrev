@@ -69,7 +69,7 @@ export default function ImprovementMetrics({
         transition={{ duration: 0.5 }}
         className="mb-6"
       >
-        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 p-4">
+        <Card className="bg-white border-green-200 p-4">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-full bg-white shadow-sm">
               <CheckCircle2 className="h-6 w-6 text-green-600" />
@@ -100,12 +100,6 @@ export default function ImprovementMetrics({
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <Card className={`relative overflow-hidden border ${metric.borderColor} ${metric.bgColor} p-6`}>
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-gradient-to-br from-gray-900 to-transparent" />
-                  <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-gradient-to-tr from-gray-900 to-transparent" />
-                </div>
-
                 {/* Content */}
                 <div className="relative space-y-4">
                   <div className="flex items-start justify-between">
@@ -156,7 +150,7 @@ export default function ImprovementMetrics({
                   {/* Progress Bar */}
                   <div className="w-full bg-white/50 rounded-full h-2 overflow-hidden">
                     <motion.div
-                      className={`h-full bg-gradient-to-r ${metric.color}`}
+                      className="h-full bg-orange-600"
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(metric.value, 100)}%` }}
                       transition={{
@@ -181,7 +175,7 @@ export default function ImprovementMetrics({
         transition={{ duration: 0.5, delay: 0.5 }}
         className="mt-6"
       >
-        <Card className="bg-gradient-to-r from-pink-50 to-purple-50 border-pink-200 p-4">
+        <Card className="bg-white border-pink-200 p-4">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-white shadow-sm">
               <Award className="h-5 w-5 text-pink-600" />

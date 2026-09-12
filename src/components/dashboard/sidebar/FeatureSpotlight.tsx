@@ -29,11 +29,7 @@ export default function FeatureSpotlight({ isMobile, onLinkClick }: FeatureSpotl
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.3 }}
-        className="relative overflow-hidden rounded-2xl text-white mx-2"
-        style={{
-          background: 'linear-gradient(135deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
-          boxShadow: '0 10px 30px -10px rgba(220, 38, 38, 0.45)',
-        }}
+        className="relative overflow-hidden rounded-xl text-white mx-2 bg-orange-600"
       >
         {/* Prick-pattern */}
         <svg
@@ -56,7 +52,7 @@ export default function FeatureSpotlight({ isMobile, onLinkClick }: FeatureSpotl
         {/* Skip-knapp */}
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors backdrop-blur-sm z-10"
+          className="absolute top-2 right-2 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors backdrop-blur-sm z-10"
           aria-label="Dölj förslag"
         >
           <X className="w-3 h-3" strokeWidth={2.5} />
@@ -68,7 +64,7 @@ export default function FeatureSpotlight({ isMobile, onLinkClick }: FeatureSpotl
           onClick={() => isMobile && onLinkClick?.()}
           className="block relative p-4 group"
         >
-          <div className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5 opacity-90 flex items-center gap-1.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] mb-1.5 opacity-90 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-300" aria-hidden="true" />
             {feature.eyebrow}
           </div>

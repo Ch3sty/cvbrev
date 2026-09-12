@@ -21,11 +21,11 @@ const CVCounter: React.FC<CVCounterProps> = ({ current, max }) => {
 
   // Bestäm färg baserat på antalet CV
   const getColorClass = () => {
-    if (isInfinite) return "from-green-500 to-emerald-600"; // Alltid gott om plats vid oändligt
-    if (current >= max) return "from-red-500 to-red-600"; // Full
-    if (current >= max * 0.8) return "from-yellow-500 to-orange-500"; // Nästan full
-    if (current >= max * 0.5) return "from-blue-500 to-purple-500"; // Halvfull
-    return "from-green-500 to-emerald-600"; // Gott om plats
+    if (isInfinite) return "bg-green-600"; // Alltid gott om plats vid oändligt
+    if (current >= max) return "bg-red-600"; // Full
+    if (current >= max * 0.8) return "bg-orange-500"; // Nästan full
+    if (current >= max * 0.5) return "bg-blue-600"; // Halvfull
+    return "bg-green-600"; // Gott om plats
   };
 
   // Bestäm ikon och meddelande baserat på antalet CV
@@ -69,7 +69,7 @@ const CVCounter: React.FC<CVCounterProps> = ({ current, max }) => {
     : `${max - current} ${max - current === 1 ? 'plats' : 'platser'}`; // Text med antal annars
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+    <div className="bg-white rounded-xl p-4 border border-gray-200">
       <div className="flex items-center justify-between mb-3 text-sm">
         <div className="flex items-center text-gray-700 font-medium">
           <FileText className="w-4 h-4 mr-2 text-pink-600" />
@@ -110,7 +110,7 @@ const CVCounter: React.FC<CVCounterProps> = ({ current, max }) => {
          <>
           <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-1">
              <div
-               className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out`}
+               className={`h-full ${getColorClass()} transition-all duration-500 ease-out`}
                style={{ width: `${percentage}%` }}
              />
            </div>

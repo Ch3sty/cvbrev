@@ -63,8 +63,8 @@ function DefaultErrorFallback({ error, resetError }: FallbackProps) {
   const isPreviewError = error.message.includes('preview') || error.message.includes('template');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-navy-950 to-navy-900 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-navy-800 rounded-xl shadow-xl border border-navy-700 p-8 text-center">
+    <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-navy-800 rounded-xl border border-navy-700 p-8 text-center">
         <div className="mb-6">
           <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-8 h-8 text-red-400" />
@@ -95,7 +95,7 @@ function DefaultErrorFallback({ error, resetError }: FallbackProps) {
         <div className="space-y-3">
           <Button
             onClick={resetError}
-            className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Försök igen

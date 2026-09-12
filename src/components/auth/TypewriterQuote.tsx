@@ -56,7 +56,7 @@ export default function TypewriterQuote({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-white/95 font-black leading-tight"
+          className="text-neutral-900 font-semibold leading-tight"
         >
           {typed}
           {isTyping && (

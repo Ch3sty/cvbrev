@@ -238,13 +238,13 @@ export default function DownloadButton({
   };
 
   const getButtonStyle = () => {
-    const baseStyle = "px-3 py-2 text-sm font-medium text-white rounded-md flex items-center justify-center transition-shadow border-0 shadow-sm hover:shadow-md";
+    const baseStyle = "px-3 py-2 min-h-[44px] text-sm font-medium text-white rounded-md flex items-center justify-center transition-shadow border-0 shadow-sm";
 
     if (format === 'pdf') {
       // Orange/röd-DNA matchar resten av appen
       return `${baseStyle} ${className}`;
     } else if (format === 'docx') {
-      // Blå-gradient — Word-konvention med modern DNA
+      // Blå-gradient, Word-konvention med modern DNA
       return `${baseStyle} ${className}`;
     }
 
@@ -254,13 +254,11 @@ export default function DownloadButton({
   const getButtonInlineStyle = () => {
     if (format === 'pdf') {
       return {
-        background: 'linear-gradient(135deg, #F97316, #DC2626)',
-        boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
+        background: '#EA580C',
       };
     } else if (format === 'docx') {
       return {
-        background: 'linear-gradient(135deg, #2563EB, #1E40AF)',
-        boxShadow: '0 4px 12px -4px rgba(30, 64, 175, 0.4)',
+        background: '#1D4ED8',
       };
     }
     return undefined;
@@ -277,14 +275,14 @@ export default function DownloadButton({
           <div className="relative">
             <button
               onClick={() => setShowTemplateDropdown(!showTemplateDropdown)}
-              className="w-full px-3 py-2 text-left bg-navy-700 border border-gray-600 rounded-md text-white hover:bg-navy-600 transition-colors flex items-center justify-between"
+              className="w-full px-3 py-2 min-h-[44px] text-left bg-navy-700 border border-gray-600 rounded-md text-white hover:bg-navy-600 transition-colors flex items-center justify-between"
             >
               <span>{templateOptions.find(t => t.value === selectedTemplate)?.label}</span>
               <ChevronDown className={`w-4 h-4 transition-transform ${showTemplateDropdown ? 'rotate-180' : ''}`} />
             </button>
             
             {showTemplateDropdown && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-navy-800 border border-gray-600 rounded-md shadow-lg z-10">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-navy-800 border border-gray-600 rounded-md z-10">
                 {templateOptions.map((template) => (
                   <button
                     key={template.value}
@@ -292,7 +290,7 @@ export default function DownloadButton({
                       setSelectedTemplate(template.value);
                       setShowTemplateDropdown(false);
                     }}
-                    className={`w-full px-3 py-2 text-left hover:bg-navy-700 transition-colors ${
+                    className={`w-full px-3 py-2 min-h-[44px] text-left hover:bg-navy-700 transition-colors ${
                       selectedTemplate === template.value ? 'bg-navy-700' : ''
                     }`}
                   >
@@ -313,7 +311,7 @@ export default function DownloadButton({
           <button
             onClick={handlePreview}
             disabled={isGeneratingPreview}
-            className="px-3 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md border border-gray-500 hover:border-gray-400 transition-colors flex items-center justify-center shadow-sm"
+            className="px-3 py-2 min-h-[44px] min-w-[44px] text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md border border-gray-500 hover:border-gray-400 transition-colors flex items-center justify-center shadow-sm"
             title="Förhandsgranska PDF"
           >
             {isGeneratingPreview ? (
@@ -368,7 +366,7 @@ export default function DownloadButton({
       {/* Preview Modal - Förbättrad modal med bättre design */}
       {showPreviewModal && previewImage && typeof document !== 'undefined' && createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-navy-900/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-navy-800 rounded-lg max-w-5xl max-h-[95vh] overflow-hidden shadow-2xl border border-gray-700 mx-4">
+          <div className="bg-navy-800 rounded-lg max-w-5xl max-h-[95vh] overflow-hidden border border-gray-700 mx-4">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-5 border-b border-gray-700">
               <h3 className="text-xl font-semibold text-white flex items-center">
@@ -377,7 +375,7 @@ export default function DownloadButton({
               </h3>
               <button
                 onClick={closePreview}
-                className="text-gray-400 hover:text-white transition-colors p-1 rounded-md hover:bg-navy-700"
+                className="text-gray-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md hover:bg-navy-700"
                 title="Stäng förhandsvisning"
               >
                 <X className="w-6 h-6" />
@@ -404,7 +402,7 @@ export default function DownloadButton({
               <div className="flex gap-3 flex-shrink-0">
                 <button
                   onClick={closePreview}
-                  className="px-4 py-2 bg-navy-700 text-white rounded-md hover:bg-navy-600 transition-colors border border-gray-600"
+                  className="px-4 py-2 min-h-[44px] bg-navy-700 text-white rounded-md hover:bg-navy-600 transition-colors border border-gray-600"
                 >
                   Stäng
                 </button>
@@ -413,7 +411,7 @@ export default function DownloadButton({
                     closePreview();
                     handleDownload();
                   }}
-                  className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors flex items-center border border-pink-700"
+                  className="px-4 py-2 min-h-[44px] bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors flex items-center border border-pink-700"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Ladda ned PDF

@@ -36,27 +36,22 @@ export default function PendingInterestAlert() {
   return (
     <a
       href="/dashboard/meddelanden"
-      className="block rounded-2xl border border-orange-200 p-4 transition-transform hover:-translate-y-0.5"
-      style={{
-        background: 'linear-gradient(135deg, #FFF7ED, #FFEDD5)',
-        boxShadow: '0 8px 24px -12px rgba(220, 38, 38, 0.3)',
-      }}
+      className="block rounded-xl border border-orange-200 bg-white p-4 transition-transform hover:-translate-y-0.5"
     >
       <div className="flex items-center gap-3">
         <span
-          className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+          className="flex-shrink-0 w-10 h-10 flex items-center justify-center"
           aria-hidden="true"
         >
-          <Radar className="w-5 h-5" strokeWidth={2.25} />
+          <Radar className="w-5 h-5 text-neutral-700" strokeWidth={2.25} />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[14px] font-bold text-slate-900">
+          <p className="text-[14px] font-bold text-neutral-900">
             {pending === 1
               ? 'En rekryterare vill komma i kontakt'
               : `${pending} rekryterare vill komma i kontakt`}
           </p>
-          <p className="text-[12.5px] text-slate-600">
+          <p className="text-xs text-neutral-600">
             Svara nedan, ditt namn delas först om du accepterar.
           </p>
         </div>

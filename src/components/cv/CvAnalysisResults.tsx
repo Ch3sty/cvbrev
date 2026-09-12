@@ -155,11 +155,11 @@ const isStructuralSuggestion = (suggestion: string | PremiumImprovement): boolea
 // ============================================================================
 //  Styling Constants - Premium Light Theme
 // ============================================================================
-const sectionBaseClasses = "bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-6 transition-all hover:border-gray-300 hover:shadow-md";
+const sectionBaseClasses = "bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-6 transition-all hover:border-gray-300";
 const sectionTitleClasses = "text-lg font-semibold text-gray-900 flex items-center mb-4";
 const sectionIconClasses = "w-5 h-5 mr-2 text-pink-600 flex-shrink-0";
 const listClasses = "list-disc pl-5 space-y-2 text-sm text-gray-700";
-const premiumTeaserClasses = "bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 rounded-xl p-6 text-center";
+const premiumTeaserClasses = "bg-white border border-pink-200 rounded-xl p-6 text-center";
 const fallbackTextClasses = "text-gray-500 italic text-sm";
 
 // ============================================================================
@@ -227,7 +227,7 @@ const ScoreCard: React.FC<{ title: string; score?: Score; maxRating?: number; ic
     const visualRatingOutOf5 = maxRating > 0 ? Math.round((rating / maxRating) * 5) : 0;
 
     return (
-        <div className="bg-gradient-to-br from-white to-gray-50/50 p-5 rounded-xl border border-gray-200 flex-1 min-w-[200px] flex flex-col shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="bg-white p-5 rounded-xl border border-gray-200 flex-1 min-w-[200px] flex flex-col transition-all duration-300">
             <h4 className="text-base font-semibold text-gray-900 flex items-center mb-3">
                 <Icon className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" aria-hidden="true" />
                 {title}
@@ -312,7 +312,7 @@ const ScoresSection: React.FC<{
                         <h4 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">
                             ATS-Vänlighet (Applicant Tracking System)
                         </h4>
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                        <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                             <div className="flex items-center justify-between mb-4">
                                 <div>
                                     <div className="text-sm text-gray-600 mb-1">Nuvarande poäng</div>
@@ -471,7 +471,7 @@ const AutomaticImprovementsSection: React.FC<{ improvements: string[] }> = React
 
     return (
         <AnalysisSection title="Automatiska förbättringar" icon={CheckCircle}>
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200">
+            <div className="bg-green-50 rounded-lg p-4 border border-green-200">
                 <div className="flex items-center gap-2 mb-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <h4 className="font-medium text-green-900">
@@ -501,16 +501,14 @@ AutomaticImprovementsSection.displayName = 'AutomaticImprovementsSection';
  */
 const PremiumTeaserSection: React.FC = React.memo(() => (
     <section className={premiumTeaserClasses}>
-        <div className="bg-gradient-to-r from-pink-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Crown className="w-8 h-8 text-white" aria-hidden="true" />
-        </div>
+        <Crown className="w-8 h-8 text-neutral-700 mx-auto mb-4" aria-hidden="true" />
         <h3 className="text-xl font-semibold text-gray-900 mb-3">Lås upp djupare insikter med Premium!</h3>
         <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
             Få detaljerade exempel, ATS-analys, kvantifieringsförslag och mer avancerad poängsättning för att verkligen optimera ditt CV.
         </p>
         <Link
             href="/dashboard/profil/prenumeration"
-            className="inline-flex items-center px-6 py-3 text-sm font-medium text-white transition-all bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+            className="inline-flex items-center h-11 px-6 text-sm font-medium text-white transition-all bg-orange-600 hover:bg-orange-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
             Uppgradera till Premium
             <ChevronRight className="w-4 h-4 ml-2" />
@@ -794,7 +792,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8"
+                        className="bg-white rounded-xl max-w-md w-full p-8"
                     >
                         <div className="text-center">
                             {/* Success Icon */}
@@ -816,7 +814,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                             <div className="space-y-3">
                                 <Link
                                     href="/dashboard/profil/cv"
-                                    className="block w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all shadow-lg"
+                                    className="block w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg transition-all"
                                 >
                                     <div className="flex items-center justify-center gap-2">
                                         <ClipboardList className="w-5 h-5" />
@@ -849,7 +847,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             {/* Processing Overlay */}
             {isProcessing && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-xl shadow-2xl p-8 max-w-sm">
+                    <div className="bg-white rounded-xl p-8 max-w-sm">
                         <div className="flex flex-col items-center">
                             <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4" />
                             <p className="text-lg font-semibold text-gray-900">

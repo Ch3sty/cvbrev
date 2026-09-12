@@ -45,20 +45,17 @@ export default function SidebarLink({
           isMobile ? 'min-h-[56px]' : 'min-h-[44px]'
         } ${
           isActive
-            ? 'bg-gradient-to-r from-orange-50 to-rose-50/60'
+            ? 'bg-orange-50'
             : highlight
               ? 'bg-orange-50/60 ring-1 ring-orange-300'
               : 'hover:bg-orange-50/60'
         }`}
       >
-        {/* Vänster gradient-strip när active */}
+        {/* Vänster strip när active */}
         {isActive && (
           <span
             aria-hidden="true"
-            className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full"
-            style={{
-              background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-            }}
+            className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-orange-600"
           />
         )}
 
@@ -67,16 +64,8 @@ export default function SidebarLink({
           whileHover={{ scale: 1.06 }}
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
           className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-colors duration-200 ${
-            isActive ? 'text-white' : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
+            isActive ? 'text-orange-700 bg-orange-100' : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
           }`}
-          style={
-            isActive
-              ? {
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
-                }
-              : undefined
-          }
         >
           <Icon className="w-[18px] h-[18px]" />
         </motion.div>
@@ -86,14 +75,14 @@ export default function SidebarLink({
           <div className="flex items-center justify-between gap-2">
             <span
               className={`text-sm font-semibold leading-tight truncate ${
-                isActive ? 'text-orange-900' : highlight ? 'text-orange-700' : 'text-slate-700'
+                isActive ? 'text-orange-900' : highlight ? 'text-orange-700' : 'text-neutral-700'
               }`}
             >
               {label}
             </span>
             {typeof count === 'number' && count > 0 && (
               <span
-                className={`flex-shrink-0 text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                className={`flex-shrink-0 text-xs font-bold px-2 py-0.5 rounded-full ${
                   isActive
                     ? 'bg-orange-200/70 text-orange-900'
                     : 'bg-orange-100 text-orange-800'
@@ -105,7 +94,7 @@ export default function SidebarLink({
             {badge && !count && <span className="flex-shrink-0">{badge}</span>}
           </div>
           {sublabel && (
-            <div className="text-[11px] text-slate-500 mt-0.5 truncate">{sublabel}</div>
+            <div className="text-xs text-neutral-500 mt-0.5 truncate">{sublabel}</div>
           )}
         </div>
       </Link>

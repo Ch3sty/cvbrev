@@ -14,7 +14,7 @@ export type PreviewSection =
 
 interface Props {
   data: CVDraft
-  /** Vilken sektion som är "aktiv" (highlightad) — baserat på currentStep */
+  /** Vilken sektion som är "aktiv" (highlightad), baserat på currentStep */
   activeSection?: PreviewSection
   /** Visa glow bakom papperet (default: true) */
   showGlow?: boolean
@@ -48,10 +48,7 @@ function SectionWrapper({
     >
       {isActive && (
         <span
-          className="absolute left-0 top-2 bottom-2 w-1 rounded-full"
-          style={{
-            background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-          }}
+          className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-orange-600"
           aria-hidden="true"
         />
       )}
@@ -64,13 +61,10 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-2">
       <span
-        className="w-1 h-3 rounded-sm"
-        style={{
-          background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-        }}
+        className="w-1 h-3 rounded-sm bg-orange-600"
         aria-hidden="true"
       />
-      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+      <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
         {children}
       </span>
     </div>
@@ -107,70 +101,37 @@ export default function SkapaCvPreview({
 
   return (
     <div className={`relative w-full ${className}`}>
-      {/* Glow bakom (desktop) */}
-      {showGlow && (
-        <div
-          className="hidden lg:block absolute -inset-3 rounded-3xl opacity-20 blur-2xl pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-          aria-hidden="true"
-        />
-      )}
-
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="relative bg-white rounded-2xl lg:rounded-3xl border border-orange-100 overflow-hidden"
-        style={{
-          boxShadow: showGlow
-            ? '0 20px 40px -16px rgba(249, 115, 22, 0.18)'
-            : '0 8px 20px -10px rgba(249, 115, 22, 0.15)',
-        }}
+        className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
       >
-        {/* Orange topplist */}
-        <div
-          className="h-2"
-          style={{
-            background:
-              'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-          aria-hidden="true"
-        />
-
         <div className="px-5 sm:px-6 py-5 sm:py-6">
           {/* HEADER: Avatar + namn + kontakt */}
           <SectionWrapper isActive={activeSection === 'kontakt'}>
             <div className="flex items-start gap-4 mb-3">
               {/* Avatar */}
               <div
-                className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-black text-white text-lg"
-                style={{
-                  background: hasName
-                    ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                    : '#F1F5F9',
-                  boxShadow: hasName
-                    ? '0 6px 14px -4px rgba(220, 38, 38, 0.35)'
-                    : undefined,
-                }}
+                className={`flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-semibold text-lg ${
+                  hasName ? 'bg-orange-600' : 'bg-neutral-100'
+                }`}
               >
-                <span className={hasName ? 'text-white' : 'text-slate-300'}>
+                <span className={hasName ? 'text-white' : 'text-neutral-300'}>
                   {initials}
                 </span>
               </div>
 
               <div className="flex-1 min-w-0">
                 <p
-                  className={`text-lg font-black leading-tight tracking-tight ${
-                    hasName ? 'text-slate-900' : 'text-slate-300'
+                  className={`text-lg font-semibold leading-tight tracking-tight ${
+                    hasName ? 'text-neutral-900' : 'text-neutral-300'
                   }`}
                 >
                   {fullName || PLACEHOLDER_NAME}
                 </p>
                 {data.personalInfo.title?.trim() ? (
-                  <p className="text-sm font-semibold text-slate-700 leading-snug mt-0.5">
+                  <p className="text-sm font-semibold text-neutral-700 leading-snug mt-0.5">
                     {data.personalInfo.title}
                   </p>
                 ) : null}
@@ -179,7 +140,7 @@ export default function SkapaCvPreview({
 
             {/* Kontaktrad */}
             {(email || phone || address || linkedIn) && (
-              <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] text-slate-600 mb-1">
+              <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-neutral-600 mb-1">
                 {email && (
                   <span className="inline-flex items-center gap-1">
                     <Mail className="w-3 h-3" strokeWidth={2.2} />
@@ -214,7 +175,7 @@ export default function SkapaCvPreview({
             <SectionWrapper isActive={activeSection === 'om-dig'}>
               <p
                 className={`text-xs leading-relaxed line-clamp-5 whitespace-pre-line ${
-                  summary ? 'text-slate-700' : 'text-slate-300 italic'
+                  summary ? 'text-neutral-700' : 'text-neutral-300 italic'
                 }`}
               >
                 {summary || PLACEHOLDER_SUMMARY}
@@ -235,29 +196,23 @@ export default function SkapaCvPreview({
                     return (
                       <div key={i} className="flex gap-3">
                         <div
-                          className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-[10px] font-black text-white"
-                          style={{
-                            background:
-                              i % 2 === 0
-                                ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                                : 'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)',
-                          }}
+                          className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white bg-orange-600"
                         >
                           {(exp.company ?? exp.position ?? 'XX')
                             .slice(0, 2)
                             .toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-slate-900 truncate">
+                          <p className="text-xs font-bold text-neutral-900 truncate">
                             {exp.position || 'Roll'}
                           </p>
-                          <p className="text-[11px] text-slate-500 truncate">
+                          <p className="text-xs text-neutral-500 truncate">
                             {[exp.company, period].filter(Boolean).join(' · ')}
                           </p>
                           {exp.description &&
                             exp.description.length > 0 &&
                             exp.description[0] && (
-                              <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 mt-0.5">
+                              <p className="text-xs text-neutral-600 leading-snug line-clamp-2 mt-0.5">
                                 {exp.description[0]}
                               </p>
                             )}
@@ -270,14 +225,14 @@ export default function SkapaCvPreview({
                 <div className="space-y-2">
                   {[1, 2].map((i) => (
                     <div key={i} className="flex gap-3 opacity-50">
-                      <div className="flex-shrink-0 w-9 h-9 rounded-md bg-slate-100" />
+                      <div className="flex-shrink-0 w-9 h-9 rounded-md bg-neutral-100" />
                       <div className="flex-1 space-y-1.5 pt-1">
-                        <div className="h-2 w-2/3 rounded-full bg-slate-100" />
-                        <div className="h-1.5 w-1/2 rounded-full bg-slate-100" />
+                        <div className="h-2 w-2/3 rounded-full bg-neutral-100" />
+                        <div className="h-1.5 w-1/2 rounded-full bg-neutral-100" />
                       </div>
                     </div>
                   ))}
-                  <p className="text-[11px] text-slate-300 italic mt-1.5">
+                  <p className="text-xs text-neutral-300 italic mt-1.5">
                     Din erfarenhet visas här
                   </p>
                 </div>
@@ -293,10 +248,10 @@ export default function SkapaCvPreview({
                 <div className="space-y-2">
                   {educations.slice(0, 3).map((edu, i) => (
                     <div key={i}>
-                      <p className="text-xs font-bold text-slate-900 leading-snug">
+                      <p className="text-xs font-bold text-neutral-900 leading-snug">
                         {edu.degree || 'Examen'}
                       </p>
-                      <p className="text-[11px] text-slate-500 leading-snug">
+                      <p className="text-xs text-neutral-500 leading-snug">
                         {[edu.institution, edu.graduationYear ?? edu.endDate]
                           .filter(Boolean)
                           .join(' · ')}
@@ -305,7 +260,7 @@ export default function SkapaCvPreview({
                   ))}
                 </div>
               ) : (
-                <p className="text-[11px] text-slate-300 italic">
+                <p className="text-xs text-neutral-300 italic">
                   Din utbildning visas här
                 </p>
               )}
@@ -321,7 +276,7 @@ export default function SkapaCvPreview({
                   {skills.slice(0, 4).map((skill, i) => (
                     <div key={i}>
                       {skill.category && (
-                        <p className="text-[10px] font-bold text-slate-700 mb-1">
+                        <p className="text-xs font-bold text-neutral-700 mb-1">
                           {skill.category}
                         </p>
                       )}
@@ -329,7 +284,7 @@ export default function SkapaCvPreview({
                         {(skill.skills ?? []).slice(0, 8).map((s, j) => (
                           <span
                             key={`${i}-${j}`}
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-white border border-orange-200 text-slate-700"
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-white border border-orange-200 text-neutral-700"
                           >
                             {s}
                           </span>
@@ -343,7 +298,7 @@ export default function SkapaCvPreview({
                   {[1, 2, 3].map((i) => (
                     <span
                       key={i}
-                      className="inline-flex h-6 w-16 rounded-full bg-slate-100 opacity-50"
+                      className="inline-flex h-6 w-16 rounded-full bg-neutral-100 opacity-50"
                     />
                   ))}
                 </div>
@@ -359,17 +314,17 @@ export default function SkapaCvPreview({
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                   {languages.map((lang, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-900">
+                      <span className="text-xs font-bold text-neutral-900">
                         {lang.language}
                       </span>
-                      <span className="text-[10px] text-slate-500">
+                      <span className="text-xs text-neutral-500">
                         {lang.proficiency}
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-[11px] text-slate-300 italic">
+                <p className="text-xs text-neutral-300 italic">
                   Dina språk visas här
                 </p>
               )}

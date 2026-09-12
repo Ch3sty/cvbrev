@@ -194,7 +194,7 @@ export default function CVAnalysisModal({
     if (structured.experience && structured.experience.length > 0) {
       const expLines = ['ERFARENHETER'];
       structured.experience.forEach((exp: any) => {
-        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''} — ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''}, ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
         if (Array.isArray(exp.description)) {
           exp.description.forEach((desc: string) => {
             if (desc && desc.trim()) expLines.push(desc);
@@ -295,7 +295,7 @@ export default function CVAnalysisModal({
     if (structured.experience && structured.experience.length > 0) {
       const expLines: string[] = ['ERFARENHETER'];
       structured.experience.forEach((exp: any) => {
-        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''} — ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''}, ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
         if (Array.isArray(exp.description)) {
           exp.description.forEach((desc: string) => {
             if (desc && desc.trim()) expLines.push(desc);
@@ -702,10 +702,10 @@ export default function CVAnalysisModal({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+          className="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50">
+          <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200 bg-white">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
                 CV-Analys & Förbättring
@@ -770,7 +770,7 @@ export default function CVAnalysisModal({
                 <Button
                   onClick={handleNext}
                   disabled={!canNavigateNext() || isSaving}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+                  className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
                 >
                   Nästa
                   <ChevronRight className="w-4 h-4" />

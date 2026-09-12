@@ -107,13 +107,13 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
           exit={{ y: '100%', opacity: 0 }}
           transition={{ type: 'spring', damping: 30, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white w-full h-full sm:h-auto sm:max-w-3xl sm:max-h-[90vh] sm:rounded-3xl overflow-hidden flex flex-col"
+          className="bg-white w-full h-full sm:h-auto sm:max-w-3xl sm:max-h-[90vh] sm:rounded-xl overflow-hidden flex flex-col"
         >
-          {/* Header — sticky pa toppen */}
-          <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 bg-white">
+          {/* Header, sticky pa toppen */}
+          <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-neutral-200 bg-white">
             <button
               onClick={onClose}
-              className="flex items-center gap-2 text-slate-700 hover:text-slate-900 -ml-2 px-2 py-2 rounded-lg hover:bg-slate-100 transition-colors touch-manipulation min-h-[44px]"
+              className="flex items-center gap-2 text-neutral-700 hover:text-neutral-900 -ml-2 px-2 py-2 rounded-lg hover:bg-neutral-100 transition-colors touch-manipulation min-h-[44px]"
               aria-label="Stäng jobbdetaljer"
             >
               <ArrowLeft className="w-5 h-5 sm:hidden" />
@@ -128,7 +128,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                     ? 'bg-emerald-100 text-emerald-700'
                     : job.relevance >= 40
                     ? 'bg-amber-100 text-amber-700'
-                    : 'bg-slate-100 text-slate-600'
+                    : 'bg-neutral-100 text-neutral-600'
                 }`}
                 title="Hur väl jobbet matchar ditt CV"
               >
@@ -148,10 +148,10 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 <img
                   src={job.logo_url}
                   alt={job.employer?.name || 'Företag'}
-                  className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover bg-slate-100"
+                  className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover bg-neutral-100"
                 />
               ) : (
-                <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold text-xl sm:text-2xl">
+                <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-orange-600 flex items-center justify-center text-white font-bold text-xl sm:text-2xl">
                   {(job.employer?.name || 'U')
                     .split(' ')
                     .map((w: string) => w[0])
@@ -161,10 +161,10 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 leading-tight mb-2 break-words">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 leading-tight mb-2 break-words">
                   {job.headline}
                 </h2>
-                <div className="flex items-center gap-2 text-slate-700">
+                <div className="flex items-center gap-2 text-neutral-700">
                   <Building2 className="w-4 h-4 shrink-0" />
                   <span className="font-semibold break-words">{job.employer?.name}</span>
                 </div>
@@ -174,7 +174,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
             {/* Meta-info */}
             <div className="space-y-2 mb-6 text-sm">
               {job.workplace_address && (
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-neutral-600">
                   <MapPin className="w-4 h-4 shrink-0" />
                   <span className="break-words">
                     {[
@@ -188,13 +188,13 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 </div>
               )}
               {job.employment_type && (
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-neutral-600">
                   <Briefcase className="w-4 h-4 shrink-0" />
                   <span>{job.employment_type.label}</span>
                 </div>
               )}
               {job.publication_date && (
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-neutral-600">
                   <Calendar className="w-4 h-4 shrink-0" />
                   <span>
                     Publicerad {new Date(job.publication_date).toLocaleDateString('sv-SE')}
@@ -202,7 +202,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 </div>
               )}
               {job.application_deadline && (
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-neutral-600">
                   <Clock className="w-4 h-4 shrink-0" />
                   <span>
                     Sista ansökningsdag{' '}
@@ -217,7 +217,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               job.driving_license_required ||
               (job.driving_license && job.driving_license.length > 0) ||
               job.access_to_own_car) && (
-              <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl">
+              <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
                 <div className="flex items-center gap-2 mb-3">
                   <AlertCircle className="w-5 h-5 text-amber-600" />
                   <h3 className="text-base font-bold text-amber-900">Viktiga krav</h3>
@@ -265,7 +265,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               {job.description?.needs && (
                 <Section icon={Search} title="Vi söker">
                   <div
-                    className="text-slate-700 prose max-w-none prose-sm"
+                    className="text-neutral-700 prose max-w-none prose-sm"
                     dangerouslySetInnerHTML={{ __html: job.description.needs }}
                   />
                 </Section>
@@ -274,7 +274,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               {job.description?.company_information && (
                 <Section icon={Building2} title="Om företaget">
                   <div
-                    className="text-slate-700 prose max-w-none prose-sm"
+                    className="text-neutral-700 prose max-w-none prose-sm"
                     dangerouslySetInnerHTML={{ __html: job.description.company_information }}
                   />
                 </Section>
@@ -283,7 +283,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               {job.description?.text && (
                 <Section icon={Briefcase} title="Arbetsuppgifter">
                   <div
-                    className="text-slate-700 prose max-w-none prose-sm whitespace-pre-wrap"
+                    className="text-neutral-700 prose max-w-none prose-sm whitespace-pre-wrap"
                     dangerouslySetInnerHTML={{
                       __html: job.description.text_formatted || job.description.text,
                     }}
@@ -298,7 +298,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               {job.description?.conditions && (
                 <Section title="Vi erbjuder">
                   <div
-                    className="text-slate-700 prose max-w-none prose-sm"
+                    className="text-neutral-700 prose max-w-none prose-sm"
                     dangerouslySetInnerHTML={{ __html: job.description.conditions }}
                   />
                 </Section>
@@ -306,15 +306,15 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
 
               {/* Salary & Benefits */}
               {(job.salary_description || job.access) && (
-                <div className="p-4 bg-blue-50 rounded-2xl">
-                  <h3 className="text-base font-bold text-slate-900 mb-2">Villkor</h3>
+                <div className="p-4 bg-blue-50 rounded-xl">
+                  <h3 className="text-base font-bold text-neutral-900 mb-2">Villkor</h3>
                   {job.salary_description && (
-                    <p className="text-sm text-slate-700 mb-1">
+                    <p className="text-sm text-neutral-700 mb-1">
                       <strong>Lön:</strong> {job.salary_description}
                     </p>
                   )}
                   {job.access && (
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-neutral-700">
                       <strong>Tillträde:</strong> {job.access}
                     </p>
                   )}
@@ -326,22 +326,22 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 (job.application_contacts.name ||
                   job.application_contacts.email ||
                   job.application_contacts.telephone) && (
-                  <div className="p-4 bg-orange-50 border border-orange-200 rounded-2xl">
+                  <div className="p-4 bg-orange-50 border border-orange-200 rounded-xl">
                     <div className="flex items-center gap-2 mb-3">
                       <Phone className="w-5 h-5 text-orange-600" />
                       <h3 className="text-base font-bold text-orange-900">Kontaktperson</h3>
                     </div>
                     <div className="space-y-1.5 text-sm">
                       {job.application_contacts.name && (
-                        <p className="text-slate-800">
+                        <p className="text-neutral-800">
                           <strong>Namn:</strong> {job.application_contacts.name}
                         </p>
                       )}
                       {job.application_contacts.description && (
-                        <p className="text-slate-700">{job.application_contacts.description}</p>
+                        <p className="text-neutral-700">{job.application_contacts.description}</p>
                       )}
                       {job.application_contacts.email && (
-                        <p className="text-slate-800">
+                        <p className="text-neutral-800">
                           <strong>E-post:</strong>{' '}
                           <a
                             href={`mailto:${job.application_contacts.email}`}
@@ -352,7 +352,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                         </p>
                       )}
                       {job.application_contacts.telephone && (
-                        <p className="text-slate-800">
+                        <p className="text-neutral-800">
                           <strong>Telefon:</strong>{' '}
                           <a
                             href={`tel:${job.application_contacts.telephone}`}
@@ -378,7 +378,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
           {/* "Markera som sökt" finns alltid, så baren renderas ovillkorligt. */}
           {(
             <div
-              className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-t border-slate-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1] mb-[calc(env(safe-area-inset-bottom)+88px)] lg:mb-0"
+              className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-t border-neutral-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1] mb-[calc(var(--bottom-nav-h)+32px)] lg:mb-0"
             >
               {cvId && (
                 <button
@@ -392,7 +392,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
               <button
                 onClick={handleMarkApplied}
                 disabled={markState !== 'idle'}
-                className="relative flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-slate-200 text-slate-700 bg-white rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors touch-manipulation min-h-[48px] disabled:cursor-default"
+                className="relative flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-neutral-200 text-neutral-700 bg-white rounded-xl text-sm font-semibold hover:bg-neutral-50 hover:border-neutral-300 transition-colors touch-manipulation min-h-[48px] disabled:cursor-default"
                 title="Logga jobbet i Sökta tjänster"
               >
                 {markState === 'saving' ? (
@@ -404,7 +404,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                 )}
                 <span>{markState === 'done' ? 'Loggad som sökt' : 'Markera som sökt'}</span>
                 {markState === 'idle' && (
-                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
                     Nyhet
                   </span>
                 )}
@@ -414,8 +414,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
                   href={applicationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 sm:flex-[2] flex items-center justify-center gap-1.5 px-3 py-3 text-white rounded-xl text-sm font-semibold shadow-sm hover:shadow-md transition-all touch-manipulation min-h-[48px] text-center break-words"
-                  style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+                  className="flex-1 sm:flex-[2] flex items-center justify-center gap-1.5 px-3 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-sm font-semibold transition-all touch-manipulation min-h-[48px] text-center break-words"
                 >
                   <span className="break-words">{applyButtonText}</span>
                   <ExternalLink className="w-4 h-4 shrink-0" />
@@ -547,7 +546,7 @@ function Section({
 }) {
   return (
     <div>
-      <h3 className="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+      <h3 className="text-base font-bold text-neutral-900 mb-2 flex items-center gap-2">
         {Icon && <Icon className="w-5 h-5 text-orange-600" />}
         {title}
       </h3>
@@ -577,7 +576,7 @@ function RequirementsBlock({ job }: { job: any }) {
 
   return (
     <div
-      className={`gap-6 p-4 sm:p-5 bg-slate-50 rounded-2xl border border-slate-200 ${
+      className={`gap-6 p-4 sm:p-5 bg-neutral-50 rounded-xl border border-neutral-200 ${
         hasMustHave && hasNiceToHave ? 'grid sm:grid-cols-2' : ''
       }`}
     >
@@ -635,7 +634,7 @@ function ReqColumn({
         )}
         {data.work_experiences && data.work_experiences.length > 0 && (
           <ReqGroup label="Arbetserfarenhet">
-            <ul className="text-sm text-slate-600 space-y-1">
+            <ul className="text-sm text-neutral-600 space-y-1">
               {data.work_experiences.map((exp: any, i: number) => (
                 <li key={i}>• {exp.label}</li>
               ))}
@@ -644,7 +643,7 @@ function ReqColumn({
         )}
         {data.education && data.education.length > 0 && (
           <ReqGroup label="Utbildning">
-            <ul className="text-sm text-slate-600 space-y-1">
+            <ul className="text-sm text-neutral-600 space-y-1">
               {data.education.map((edu: any, i: number) => (
                 <li key={i}>• {edu.label}</li>
               ))}
@@ -653,7 +652,7 @@ function ReqColumn({
         )}
         {data.education_level && data.education_level.length > 0 && (
           <ReqGroup label="Utbildningsnivå">
-            <ul className="text-sm text-slate-600 space-y-1">
+            <ul className="text-sm text-neutral-600 space-y-1">
               {data.education_level.map((level: any, i: number) => (
                 <li key={i}>• {level.label}</li>
               ))}
@@ -668,7 +667,7 @@ function ReqColumn({
 function ReqGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+      <p className="text-xs font-semibold text-neutral-700 mb-1.5 uppercase tracking-wider">
         {label}
       </p>
       {children}

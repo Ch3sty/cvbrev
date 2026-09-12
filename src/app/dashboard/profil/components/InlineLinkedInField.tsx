@@ -91,9 +91,15 @@ export function InlineLinkedInField({
           value={inputValue}
           onChange={handleChange}
           onBlur={handleBlur}
+
+          enterKeyHint="done"
+
+          inputMode="url"
+
+          autoComplete="url"
           placeholder="linkedin.com/in/ditt-namn"
           disabled={disabled}
-          className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-sm min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors disabled:opacity-50 disabled:bg-slate-50"
+          className="w-full px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-400 text-base min-h-[48px] focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-colors disabled:opacity-50 disabled:bg-neutral-50"
           style={{ border: borderStyle }}
         />
       </div>
@@ -104,7 +110,7 @@ export function InlineLinkedInField({
           {displayError}
         </p>
       ) : (
-        <p className="text-xs text-slate-500 mt-2">
+        <p className="text-xs text-neutral-500 mt-2">
           Du väljer själv när du skapar varje CV om länken ska vara med.
         </p>
       )}

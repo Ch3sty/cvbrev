@@ -182,20 +182,8 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', invitation.inviter_id)
 
-    // Award XP to both inviter and guest
-    await supabase.rpc('add_xp_with_cap_check', {
-      user_id_param: user.id,
-      xp_amount: 100,
-      source_param: 'invitation_accepted',
-      description_param: 'Accepterade Premium-inbjudan'
-    })
-
-    await supabase.rpc('add_xp_with_cap_check', {
-      user_id_param: invitation.inviter_id,
-      xp_amount: 50,
-      source_param: 'invitation_accepted',
-      description_param: 'Din gäst accepterade inbjudan'
-    })
+    // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2 punkt
+    // 21). Premiumtiden ovan är hela belöningen för både inbjudare och gäst.
 
     // Create notification for inviter
     await supabase

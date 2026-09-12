@@ -26,8 +26,8 @@ export default function PreviewComparisonStep({
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-          <Eye className="w-8 h-8 text-white" />
+        <div className="mb-4 flex items-center justify-center">
+          <Eye className="w-8 h-8 text-neutral-700" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
           Förhandsgranskning
@@ -39,11 +39,9 @@ export default function PreviewComparisonStep({
 
       {/* Stats Cards */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-green-600 flex items-center justify-center">
-              <CheckCircle2 className="w-6 h-6 text-white" />
-            </div>
+            <CheckCircle2 className="w-6 h-6 text-green-600" />
             <div>
               <div className="text-2xl font-bold text-gray-900">
                 {improvementsCount}
@@ -55,11 +53,9 @@ export default function PreviewComparisonStep({
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 rounded-lg p-4">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
-            </div>
+            <TrendingUp className="w-6 h-6 text-blue-600" />
             <div>
               <div className="text-2xl font-bold text-gray-900">
                 +{atsImprovement}

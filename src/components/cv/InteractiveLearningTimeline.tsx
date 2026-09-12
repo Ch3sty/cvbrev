@@ -244,7 +244,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
   return (
     <div className="w-full space-y-8">
       {/* Journey Timeline Visualization */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl p-8">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-gray-200/50 p-8">
         <div className="mb-6">
           <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 mb-2">
             <MapPin className="w-6 h-6 text-blue-600" />
@@ -263,7 +263,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                  style={{ marginLeft: '10%', marginRight: '10%' }}
             />
             {/* Progress Line Foreground */}
-            <div className="absolute top-12 left-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-700"
+            <div className="absolute top-12 left-0 h-1 bg-orange-600 rounded-full transition-all duration-700"
                  style={{
                    marginLeft: '10%',
                    width: `${progressPercentage * 0.8}%`
@@ -273,9 +273,9 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
             <div className="flex items-start justify-between relative">
               {/* Start Node: Current Position */}
               <div className="flex flex-col items-center w-1/5">
-                <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl p-4 border-2 border-gray-300 shadow-lg mb-3 relative z-10">
+                <div className="bg-white rounded-xl p-4 border-2 border-gray-300 mb-3 relative z-10">
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2 shadow">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2 border border-neutral-200">
                       <MapPin className="w-6 h-6 text-gray-700" />
                     </div>
                     <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Idag</p>
@@ -299,13 +299,13 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                     <button
                       onClick={() => !isLocked && setActiveStep(step.id)}
                       disabled={isLocked}
-                      className={`rounded-xl p-4 border-2 shadow-lg mb-3 relative z-10 transition-all ${
+                      className={`rounded-xl p-4 border-2  mb-3 relative z-10 transition-all ${
                         isLocked
                           ? 'bg-gray-100 border-gray-300 cursor-not-allowed opacity-60'
                           : isActive
-                            ? `bg-gradient-to-br ${step.color} border-blue-500 ring-2 ring-blue-300`
+                            ? 'bg-orange-600 border-orange-600 ring-2 ring-orange-300'
                             : selectedCount > 0
-                              ? 'bg-gradient-to-br from-green-50 to-green-100 border-green-400 hover:border-green-500'
+                              ? 'bg-green-50 border-green-400 hover:border-green-500'
                               : 'bg-white border-gray-300 hover:border-blue-400'
                       }`}
                     >
@@ -314,7 +314,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                           isLocked
                             ? 'bg-gray-200'
                             : isActive || selectedCount > 0
-                              ? 'bg-white shadow'
+                              ? 'bg-white border border-neutral-200'
                               : 'bg-gray-50'
                         }`}>
                           {isLocked ? (
@@ -359,9 +359,9 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
 
               {/* Goal Node */}
               <div className="flex flex-col items-center w-1/5">
-                <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-4 border-2 border-green-400 shadow-lg mb-3 relative z-10">
+                <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-3 relative z-10">
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2 shadow">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2 border border-neutral-200">
                       <Target className="w-6 h-6 text-green-600" />
                     </div>
                     <p className="text-xs font-semibold text-green-700 uppercase tracking-wide">Målet</p>
@@ -381,7 +381,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         <div className="lg:hidden space-y-4">
           {/* Start Node */}
           <div className="flex items-center gap-4">
-            <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-3 border-2 border-gray-300 shadow flex-shrink-0">
+            <div className="bg-white rounded-lg p-3 border-2 border-gray-300 flex-shrink-0">
               <MapPin className="w-5 h-5 text-gray-700" />
             </div>
             <div>
@@ -406,11 +406,11 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                   disabled={isLocked}
                   className={`flex items-center gap-4 w-full text-left ${isLocked ? 'opacity-60' : ''}`}
                 >
-                  <div className={`rounded-lg p-3 border-2 shadow flex-shrink-0 ${
+                  <div className={`rounded-lg p-3 border-2 flex-shrink-0 ${
                     isLocked
                       ? 'bg-gray-100 border-gray-300'
                       : isActive
-                        ? 'bg-gradient-to-br from-blue-500 to-blue-600 border-blue-500'
+                        ? 'bg-orange-600 border-orange-600'
                         : selectedCount > 0
                           ? 'bg-green-50 border-green-400'
                           : 'bg-white border-gray-300'
@@ -437,7 +437,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
 
           {/* Goal Node */}
           <div className="flex items-center gap-4">
-            <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg p-3 border-2 border-green-400 shadow flex-shrink-0">
+            <div className="bg-white rounded-lg p-3 border-2 border-green-400 flex-shrink-0">
               <Target className="w-5 h-5 text-green-600" />
             </div>
             <div>
@@ -508,15 +508,15 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
           <div
             key={step.id}
             id={`step-${step.id}`}
-            className={`bg-white/80 backdrop-blur-xl rounded-2xl border-2 shadow-xl overflow-hidden transition-all ${
+            className={`bg-white/80 backdrop-blur-xl rounded-xl border-2  overflow-hidden transition-all ${
               isActive ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200/50'
             }`}
           >
             {/* Step Header */}
-            <div className={`p-6 ${isLocked ? 'bg-gray-100' : `bg-gradient-to-r ${step.color}`}`}>
+            <div className={`p-6 ${isLocked ? 'bg-gray-100' : 'bg-orange-600'}`}>
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
-                  <div className={`p-3 rounded-xl ${isLocked ? 'bg-gray-300' : 'bg-white shadow-lg'}`}>
+                  <div className={`p-3 rounded-xl ${isLocked ? 'bg-gray-300' : 'bg-white '}`}>
                     {isLocked ? (
                       <Lock className="w-6 h-6 text-gray-600" />
                     ) : (
@@ -544,7 +544,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                 </div>
 
                 {selectedCount > 0 && !isLocked && (
-                  <div className="bg-white rounded-lg px-4 py-2 shadow-lg">
+                  <div className="bg-white rounded-lg px-4 py-2">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-green-600" />
                       <span className="text-sm font-bold text-gray-900">{selectedCount} vald{selectedCount !== 1 ? 'a' : ''}</span>
@@ -587,7 +587,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                       return (
                         <div
                           key={courseId}
-                          className={`bg-white rounded-lg border-2 p-4 transition-all hover:shadow-md ${
+                          className={`bg-white rounded-lg border-2 p-4 transition-all ${
                             isSelected
                               ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
                               : 'border-gray-200 hover:border-blue-300'
@@ -732,7 +732,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
       })}
 
       {/* CTA: Activate Plan */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200/50 shadow-xl text-center">
+      <div className="bg-white rounded-xl p-8 border border-blue-200/50 text-center">
         <h4 className="text-2xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
           <TrendingUp className="w-6 h-6 text-blue-600" />
           {totalSelectedCourses > 0
@@ -747,9 +747,9 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         <button
           onClick={handleSaveRoadmap}
           disabled={!jobId || totalSelectedCourses === 0}
-          className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg ${
+          className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg transition-all  ${
             jobId && totalSelectedCourses > 0
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:scale-105'
+              ? 'bg-orange-600 text-white hover:bg-orange-700'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >

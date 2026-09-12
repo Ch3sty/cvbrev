@@ -38,11 +38,11 @@ export default function FunnelBars({ stats, ghost = false }: FunnelBarsProps) {
         const pctOfPrev = prev && prev > 0 ? Math.round((step.value / prev) * 100) : null;
         return (
           <div key={step.label} className="flex items-center gap-3">
-            <div className="w-20 sm:w-24 flex-shrink-0 text-[12.5px] font-semibold text-slate-600 text-right">
+            <div className="w-20 sm:w-24 flex-shrink-0 text-xs font-semibold text-neutral-600 text-right">
               {step.label}
             </div>
             <div className="flex-1 flex items-center gap-2 min-w-0">
-              <div className="flex-1 h-6 bg-slate-100/70 rounded-md overflow-hidden">
+              <div className="flex-1 h-6 bg-neutral-100/70 rounded-md overflow-hidden">
                 {step.value > 0 && (
                   <div
                     className="h-full rounded-md transition-all duration-500"
@@ -50,9 +50,9 @@ export default function FunnelBars({ stats, ghost = false }: FunnelBarsProps) {
                   />
                 )}
               </div>
-              <div className="flex-shrink-0 text-[12.5px] text-slate-700 tabular-nums whitespace-nowrap w-16">
+              <div className="flex-shrink-0 text-xs text-neutral-700 tabular-nums whitespace-nowrap w-16">
                 <span className="font-bold">{step.value}</span>
-                {pctOfPrev !== null && <span className="text-slate-400"> ({pctOfPrev}%)</span>}
+                {pctOfPrev !== null && <span className="text-neutral-400"> ({pctOfPrev}%)</span>}
               </div>
             </div>
           </div>

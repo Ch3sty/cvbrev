@@ -150,12 +150,9 @@ export default function SuccessCelebration({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            className={`bg-navy-800 border border-navy-700 rounded-2xl p-8 max-w-md w-full relative overflow-hidden ${className}`}
+            className={`bg-navy-800 border border-navy-700 rounded-xl p-8 max-w-md w-full relative overflow-hidden ${className}`}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-blue-500/10 pointer-events-none" />
-            
             {/* Content */}
             <div className="relative z-10">
               {/* Success Icon */}
@@ -165,8 +162,8 @@ export default function SuccessCelebration({
                 transition={{ delay: 0.2, type: "spring", damping: 15, stiffness: 300 }}
                 className="text-center mb-6"
               >
-                <div className="bg-gradient-to-r from-green-400 to-emerald-500 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <CheckCircle className="w-10 h-10 text-white" />
+                <div className="mb-4 flex items-center justify-center">
+                  <CheckCircle className="w-10 h-10 text-green-400" />
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-2">
                   Fantastiskt! 🎉
@@ -199,7 +196,7 @@ export default function SuccessCelebration({
                     onClick={copyToClipboard}
                     size="sm"
                     variant="ghost"
-                    className="flex-shrink-0 h-7 w-7 p-0 hover:bg-navy-600"
+                    className="flex-shrink-0 h-11 w-11 p-0 hover:bg-navy-600"
                   >
                     {copiedLink ? (
                       <CheckCircle className="w-3 h-3 text-green-400" />
@@ -246,14 +243,14 @@ export default function SuccessCelebration({
                   className="grid grid-cols-2 gap-4 mb-6"
                 >
                   {atsScore && (
-                    <div className="text-center p-3 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg border border-green-500/30">
+                    <div className="text-center p-3 bg-green-500/20 rounded-lg border border-green-500/30">
                       <div className="text-2xl font-bold text-green-400 mb-1">{atsScore}</div>
                       <div className="text-xs text-gray-400">ATS-Poäng</div>
                     </div>
                   )}
                   
                   {generationTime && (
-                    <div className="text-center p-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-500/30">
+                    <div className="text-center p-3 bg-purple-500/20 rounded-lg border border-purple-500/30">
                       <div className="text-2xl font-bold text-purple-400 mb-1">
                         {(generationTime / 1000).toFixed(1)}s
                       </div>
@@ -268,7 +265,7 @@ export default function SuccessCelebration({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0 }}
-                className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-4 border border-pink-500/30 mb-6"
+                className="bg-pink-500/20 rounded-lg p-4 border border-pink-500/30 mb-6"
               >
                 <div className="flex items-center mb-2">
                   <Star className="w-4 h-4 text-pink-400 mr-2" />
@@ -290,7 +287,7 @@ export default function SuccessCelebration({
                 <Button
                   onClick={handleDownload}
                   disabled={!downloadUrl}
-                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Ladda ner CV-PDF

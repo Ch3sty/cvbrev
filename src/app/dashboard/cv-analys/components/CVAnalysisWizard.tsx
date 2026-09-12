@@ -1,21 +1,24 @@
 'use client';
 
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useNotification } from '@/context/notificationcontext';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 
 import AnalysisFlowLayout from './AnalysisFlowLayout';
 import AnalysisFlowHero from './AnalysisFlowHero';
-import AnalysisFlowProgress, { ANALYSIS_STEPS } from './AnalysisFlowProgress';
+import { ANALYSIS_STEPS } from './steps.config';
 import AnalysisFlowStepHeader from './AnalysisFlowStepHeader';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import FlowShell from '@/components/shell/FlowShell';
+import FlowProgress from '@/components/shell/FlowProgress';
+import FlowError from '@/components/shell/FlowError';
+import { useFlowStep } from '@/lib/flow/useFlowStep';
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
-const AnalysisProgressStep = lazy(() => import('./steps/AnalysisProgressStep'));
 const AnalysisOverviewStep = lazy(() => import('./steps/AnalysisOverviewStep'));
 const SelectImprovementsStep = lazy(() => import('./steps/SelectImprovementsStep'));
 const PreviewComparisonStep = lazy(() => import('./steps/PreviewComparisonStep'));
@@ -64,12 +67,21 @@ const STEP_META: Record<
   },
 };
 
+/** Etapperna under analysen. Samma text som tidigare AnalysisProgressStep. */
+const ANALYSIS_STAGES = [
+  { threshold: 0, text: 'Läser ditt CV', body: 'Vi går igenom struktur, sektioner och innehåll.' },
+  { threshold: 20, text: 'Identifierar nyckelord', body: 'Vi plockar ut de viktigaste begreppen från din erfarenhet.' },
+  { threshold: 45, text: 'Analyserar mot ATS-kriterier', body: 'Vi jämför mot mönster som rekryteringssystem letar efter.' },
+  { threshold: 70, text: 'Genererar förbättringar', body: 'Vi formulerar konkreta förslag för varje sektion.' },
+  { threshold: 90, text: 'Slutför analysen', body: 'Vi sätter ihop allt till en komplett rapport.' },
+];
+
 const StepSkeleton = () => (
   <div className="animate-pulse space-y-4">
-    <div className="h-8 bg-slate-200/70 rounded-xl w-3/4" />
-    <div className="h-4 bg-slate-200/60 rounded w-full" />
-    <div className="h-4 bg-slate-200/60 rounded w-5/6" />
-    <div className="h-64 bg-slate-200/50 rounded-2xl" />
+    <div className="h-8 bg-neutral-200/70 rounded-xl w-3/4" />
+    <div className="h-4 bg-neutral-200/60 rounded w-full" />
+    <div className="h-4 bg-neutral-200/60 rounded w-5/6" />
+    <div className="h-64 bg-neutral-200/50 rounded-xl" />
   </div>
 );
 
@@ -79,11 +91,24 @@ export default function CVAnalysisWizard({
   onPollJob,
   onComplete,
 }: CVAnalysisWizardProps) {
+  const router = useRouter();
   const supabase = createClient();
   const { successWithMascotAndActivity } = useNotification();
 
-  const [currentStep, setCurrentStep] = useState(0);
+  /* Steget ligger i URL:en (?steg=N, ettbaserat) i stället för i useState,
+     så bakåtgesten backar ett steg i stället för att lämna hela analysen.
+     Internt räknar wizarden fortfarande 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const flow = useFlowStep({ totalSteps: ANALYSIS_STEPS.length });
+  const currentStep = flow.step - 1;
+  const setCurrentStep = useCallback(
+    (updater: number | ((prev: number) => number)) => {
+      const target =
+        typeof updater === 'function' ? updater(flow.step - 1) : updater;
+      flow.goToStep(target + 1);
+    },
+    [flow]
+  );
 
   const [selectedCV, setSelectedCV] = useState<string | null>(null);
 
@@ -92,6 +117,10 @@ export default function CVAnalysisWizard({
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [currentAnalysisId, setCurrentAnalysisId] = useState<string | null>(null);
   const [estimatedTimeRemaining, setEstimatedTimeRemaining] = useState(50);
+  /** Fel i flödet, visas i vyn i stället för som alert. */
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
+  /** Låter användaren avbryta ett pågående AI-anrop. */
+  const analysisAbortRef = useRef<AbortController | null>(null);
 
   const [selectedProfile, setSelectedProfile] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState<Set<number>>(new Set());
@@ -152,7 +181,7 @@ export default function CVAnalysisWizard({
     if (!raw || typeof raw !== 'string') return [];
     // Splitta på separatorer som ofta klumpar ihop skills i CV:n
     const parts = raw
-      .split(/\s*[-–—•|/;,]\s*|\s+(?:och|samt)\s+/i)
+      .split(/\s*[-–-•|/;,]\s*|\s+(?:och|samt)\s+/i)
       .map((s) => s.trim())
       // Ta bort betygs-suffix typ "3/5", "4/5 5/5", "(grund)"
       .map((s) => s.replace(/\s*\d+\/\d+(\s*\d+\/\d+)*\s*$/g, '').trim())
@@ -283,8 +312,14 @@ export default function CVAnalysisWizard({
 
   const startAnalysis = async () => {
     setIsAnalyzing(true);
+    setAnalysisError(null);
     setProgress(0);
     setEstimatedTimeRemaining(50);
+
+    // Ett AI-anrop ska alltid gå att avbryta. Utan det sitter den som tryckte
+    // fel fast i upp till två minuters väntan utan väg ut.
+    const controller = new AbortController();
+    analysisAbortRef.current = controller;
 
     const startTime = Date.now();
     const ESTIMATED_DURATION = 50000;
@@ -301,7 +336,9 @@ export default function CVAnalysisWizard({
       if (!selectedCV) throw new Error('Inget CV valt');
 
       const jobId = await onAnalysisStart(selectedCV);
+      if (controller.signal.aborted) throw new DOMException('Avbruten', 'AbortError');
       const result = await onPollJob(jobId);
+      if (controller.signal.aborted) throw new DOMException('Avbruten', 'AbortError');
 
       clearInterval(progressInterval);
 
@@ -321,16 +358,37 @@ export default function CVAnalysisWizard({
 
       setTimeout(() => handleNext(), 1500);
     } catch (error) {
-      console.error('Analysis error:', error);
       clearInterval(progressInterval);
-      // Kvotfel hanteras av sidan (PaywallCard visas) - ingen alert har.
+
+      // Avbrutet av användaren: tillbaka till CV-valet med datan kvar,
+      // inget felmeddelande. Hon vet redan varför det stannade.
+      if ((error as Error)?.name === 'AbortError') {
+        setProgress(0);
+        setEstimatedTimeRemaining(0);
+        setCurrentStep(0);
+        return;
+      }
+
+      console.error('Analysis error:', error);
+      // Kvotfel hanteras av sidan (PaywallCard visas) och ska inte dubbleras.
       if (!(error as Error & { quotaExceeded?: boolean })?.quotaExceeded) {
-        alert('Ett fel uppstod vid analysen. Försök igen.');
+        // Felet visas i flödet, aldrig som alert eller toast: en ruta man
+        // klickar bort lämnar användaren utan att veta hur hon går vidare.
+        setAnalysisError(
+          'Analysen kunde inte slutföras. Det kan bero på tillfällig belastning hos oss.'
+        );
+        setCurrentStep(0);
       }
     } finally {
+      analysisAbortRef.current = null;
       setIsAnalyzing(false);
     }
   };
+
+  /** Avbryter en pågående analys och går tillbaka med valet kvar. */
+  const cancelAnalysis = useCallback(() => {
+    analysisAbortRef.current?.abort();
+  }, []);
 
   const calculateSelectedImpact = () => {
     if (!analysisResult) return 0;
@@ -813,11 +871,16 @@ export default function CVAnalysisWizard({
         );
 
       case 1:
+        /* FlowProgress ersätter AnalysisProgressStep: samma etapper, samma
+           procent och nedräkning, men med en avbryt-knapp. Att sitta fast i
+           upp till två minuter utan väg ut var flödets sämsta läge. */
         return (
-          <AnalysisProgressStep
+          <FlowProgress
             progress={progress}
-            currentActivity="Analyserar..."
             estimatedTimeRemaining={estimatedTimeRemaining}
+            stages={ANALYSIS_STAGES}
+            onCancel={cancelAnalysis}
+            cancelLabel="Avbryt analysen"
           />
         );
 
@@ -1118,17 +1181,48 @@ export default function CVAnalysisWizard({
   const showStepHeader = currentStep !== 1 && currentStep !== 6;
   const showStepHeaderForFinishing = currentStep === 6 ? false : showStepHeader;
 
-  return (
-    <div className="relative">
-      {/* Innehåll - ärver bakgrunden från dashboard-layouten */}
-      <div className="relative z-10 px-4 sm:px-6 lg:px-8">
-        <AnalysisFlowLayout>
-          <AnalysisFlowProgress
-            currentStep={currentStep}
-            completedSteps={completedSteps}
-            onStepClick={goToStep}
-          />
+  /* Vad som saknas just nu, så en spärrad knapp aldrig är tyst. */
+  const analysisBlockedReason = !canNavigateNext()
+    ? currentStep === 0
+      ? 'Välj ett CV för att gå vidare.'
+      : currentStep === 3
+        ? 'Välj minst en förbättring och titta igenom alla kategorier.'
+        : currentStep === 5
+          ? 'Välj vad som ska hända och vilken mall du vill ha.'
+          : undefined
+    : undefined;
 
+  const hideFooter = currentStep === 1 || currentStep === 6 || showSaveProgress;
+
+  return (
+    <FlowShell
+      title="Förbättra ditt CV"
+      step={currentStep + 1}
+      totalSteps={ANALYSIS_STEPS.length}
+      onBack={currentStep > 0 && !isSaving && !isAnalyzing ? handlePrevious : undefined}
+      onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
+      exitLabel="Tillbaka till översikten"
+      primaryLabel={
+        hideFooter ? undefined : currentStep === 5 ? 'Spara mitt CV' : 'Nästa'
+      }
+      onPrimary={hideFooter ? undefined : handleNext}
+      primaryDisabled={!canNavigateNext() || isSaving}
+      primaryBlockedReason={analysisBlockedReason}
+      primaryBusy={isSaving}
+      busyLabel="Sparar"
+      banner={
+        analysisError ? (
+          <FlowError
+            message={analysisError}
+            onRetry={() => {
+              setAnalysisError(null);
+              setCurrentStep(1);
+            }}
+          />
+        ) : undefined
+      }
+    >
+      <AnalysisFlowLayout>
           {/* Kvotgräns nådd */}
           {quotaError && (
             <div className="mb-4">
@@ -1162,114 +1256,7 @@ export default function CVAnalysisWizard({
               <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
             </motion.div>
           </AnimatePresence>
-
-          {/* Navigation-knappar (dolda på Steg 1, 6 och under SaveProgress) */}
-          {currentStep !== 1 && currentStep !== 6 && !showSaveProgress && (() => {
-            const canNext = canNavigateNext();
-
-            // Steg 3-specifik logik
-            const totalVisible = visibleSelectCategories.length;
-            const totalVisited = visibleSelectCategories.filter((c) =>
-              visitedSelectCategories.has(c)
-            ).length;
-            const totalSelectedStep3 =
-              (selectedProfile ? 1 : 0) +
-              selectedRoles.size +
-              selectedSkills.size +
-              selectedGeneral.size;
-            const isStep3 = currentStep === 3;
-            const allVisited = isStep3 && totalVisible > 0 && totalVisited === totalVisible;
-            const remainingCategories = isStep3
-              ? Math.max(0, totalVisible - totalVisited)
-              : 0;
-
-            // Visa "Färdig, gå vidare"-läge när alla kategorier besökts + minst en vald
-            const finishedMode = isStep3 && allVisited && totalSelectedStep3 > 0;
-
-            // Hjälptext under knappen
-            let helperText: string | null = null;
-            if (isStep3 && !canNext && !isSaving) {
-              if (totalSelectedStep3 === 0) {
-                helperText = 'Välj minst en förbättring';
-              } else if (remainingCategories > 0) {
-                helperText = `Kolla resten först (${remainingCategories} av ${totalVisible} ${
-                  remainingCategories === 1 ? 'kategori kvar' : 'kategorier kvar'
-                })`;
-              }
-            }
-
-            const buttonLabel =
-              currentStep === 5
-                ? 'Spara mitt CV'
-                : finishedMode
-                ? 'Färdig, gå vidare'
-                : 'Nästa';
-
-            return (
-              <div className="pt-2">
-                <div className="flex items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={handlePrevious}
-                    disabled={currentStep === 0 || isSaving}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed hover:border-orange-300 hover:bg-orange-50/40 transition-colors"
-                  >
-                    <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
-                    Tillbaka
-                  </button>
-
-                  <motion.button
-                    type="button"
-                    onClick={handleNext}
-                    disabled={!canNext || isSaving}
-                    className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                    style={{
-                      background:
-                        canNext && !isSaving
-                          ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                          : '#E2E8F0',
-                      boxShadow:
-                        canNext && !isSaving
-                          ? '0 8px 20px -6px rgba(220, 38, 38, 0.45)'
-                          : 'none',
-                      color: canNext && !isSaving ? 'white' : '#94A3B8',
-                    }}
-                    animate={
-                      finishedMode && !isSaving
-                        ? { scale: [1, 1.04, 1] }
-                        : { scale: 1 }
-                    }
-                    transition={
-                      finishedMode && !isSaving
-                        ? {
-                            duration: 1.6,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                          }
-                        : { duration: 0.2 }
-                    }
-                  >
-                    {buttonLabel}
-                    <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-                  </motion.button>
-                </div>
-
-                {helperText && (
-                  <motion.p
-                    key={helperText}
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-right text-xs text-slate-500 mt-2 sm:mt-2.5 px-1"
-                  >
-                    {helperText}
-                  </motion.p>
-                )}
-              </div>
-            );
-          })()}
-        </AnalysisFlowLayout>
-      </div>
-    </div>
+      </AnalysisFlowLayout>
+    </FlowShell>
   );
 }

@@ -123,7 +123,7 @@ export default function Step4Done({
         (err as Error & { quotaExceeded?: boolean }).quotaExceeded === true
       setSaveError(msg)
       setQuotaExceeded(isQuota)
-      // Toast bara för icke-kvot-fel — kvot visas tydligt i UI:t
+      // Toast bara för icke-kvot-fel, kvot visas tydligt i UI:t
       if (!isQuota) {
         toast.error(msg, { position: 'bottom-center' })
       }
@@ -141,13 +141,13 @@ export default function Step4Done({
         transition={{ duration: 0.4 }}
       >
         <div className="mb-6">
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
             Steg 4 av 4
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
             Du är redo
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
             Din profil är optimerad. Välj hur du vill ta nästa steg.
           </p>
         </div>
@@ -156,19 +156,14 @@ export default function Step4Done({
         <button
           type="button"
           onClick={handleOpenLinkedIn}
-          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-2xl text-white font-bold transition-all hover:scale-[1.01] active:scale-[0.99] mb-3"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 16px 32px -10px rgba(220, 38, 38, 0.5)',
-          }}
+          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-xl bg-orange-600 text-white font-bold transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] mb-3"
         >
           <span className="flex items-center gap-3 min-w-0">
             <span className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
               <Linkedin className="w-5 h-5 text-white" strokeWidth={2.2} />
             </span>
             <span className="text-left min-w-0">
-              <span className="block text-base font-black">
+              <span className="block text-base font-semibold">
                 Öppna LinkedIn
               </span>
               <span className="block text-xs font-medium text-white/85">
@@ -184,36 +179,30 @@ export default function Step4Done({
           type="button"
           onClick={handleSaveAsCV}
           disabled={isSavingCV}
-          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-2xl bg-white border-2 border-orange-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-3"
+          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-xl bg-white border-2 border-orange-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-3"
         >
           <span className="flex items-center gap-3 min-w-0">
-            <span
-              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-              }}
-            >
+            <span className="w-10 h-10 flex items-center justify-center flex-shrink-0">
               {isSavingCV ? (
                 <Loader2
-                  className="w-5 h-5 text-white animate-spin"
+                  className="w-5 h-5 text-orange-600 animate-spin"
                   strokeWidth={2.4}
                 />
               ) : (
-                <FileText className="w-5 h-5 text-white" strokeWidth={2.2} />
+                <FileText className="w-5 h-5 text-neutral-700" strokeWidth={2.2} />
               )}
             </span>
             <span className="text-left min-w-0">
-              <span className="block text-base font-black text-slate-900">
+              <span className="block text-base font-semibold text-neutral-900">
                 {isSavingCV ? 'Sparar...' : 'Spara som CV i Jobbcoach.ai'}
               </span>
-              <span className="block text-xs font-medium text-slate-500">
+              <span className="block text-xs font-medium text-neutral-500">
                 Använd optimerad text till ditt CV
               </span>
             </span>
           </span>
           <ArrowRight
-            className="w-5 h-5 text-slate-400 flex-shrink-0"
+            className="w-5 h-5 text-neutral-400 flex-shrink-0"
             strokeWidth={2.4}
           />
         </button>
@@ -241,24 +230,20 @@ export default function Step4Done({
         <button
           type="button"
           onClick={onStartOver}
-          className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-bold text-slate-600 hover:text-orange-700 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-bold text-neutral-600 hover:text-orange-700 transition-colors min-h-[44px]"
         >
           <RotateCcw className="w-3.5 h-3.5" strokeWidth={2.4} />
           Optimera en till profil
         </button>
 
         {/* Så uppdaterar du på LinkedIn */}
-        <div className="mt-8 rounded-2xl border border-orange-100 bg-orange-50/40 p-5">
+        <div className="mt-8 rounded-xl border border-orange-100 bg-orange-50/40 p-5">
           <div className="flex items-center gap-2 mb-3">
             <span
-              className="w-1 h-3 rounded-sm"
-              style={{
-                background:
-                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-              }}
+              className="w-1 h-3 rounded-sm bg-orange-600"
               aria-hidden="true"
             />
-            <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Så uppdaterar du på LinkedIn
             </span>
           </div>
@@ -270,26 +255,16 @@ export default function Step4Done({
                   key={s.title}
                   className="flex flex-col items-center text-center gap-1.5"
                 >
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{
-                      background:
-                        i === 0
-                          ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                          : i === 1
-                          ? 'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)'
-                          : 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                    }}
-                  >
+                  <div className="w-9 h-9 flex items-center justify-center">
                     <Icon
-                      className="w-4 h-4 text-white"
+                      className="w-5 h-5 text-neutral-700"
                       strokeWidth={2.4}
                     />
                   </div>
-                  <p className="text-[11px] font-bold text-slate-900 leading-tight">
+                  <p className="text-xs font-bold text-neutral-900 leading-tight">
                     {i + 1}. {s.title}
                   </p>
-                  <p className="text-[10px] text-slate-500 leading-tight">
+                  <p className="text-xs text-neutral-500 leading-tight">
                     {s.desc}
                   </p>
                 </div>
@@ -299,7 +274,7 @@ export default function Step4Done({
         </div>
 
         {/* Tack-rad */}
-        <p className="mt-6 text-center text-xs text-slate-500">
+        <p className="mt-6 text-center text-xs text-neutral-500">
           Tack för att du använder Jobbcoach.ai
         </p>
       </motion.div>

@@ -58,15 +58,15 @@ export default function PremiumPricingSection() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Transparent prissättning - <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">äkta värde</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            Transparent prissättning - <span className="text-neutral-900">äkta värde</span>
           </h2>
-          <p className="text-xl text-slate-600 mb-4">
+          <p className="text-xl text-neutral-600 mb-4">
             Testa gratis först, sedan bestäm om du vill ha obegränsad tillgång till alla verktyg.
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-semibold rounded-full border border-green-200 shadow-sm"
+            className="inline-flex items-center px-6 py-3 bg-green-100 text-green-700 text-sm font-semibold rounded-full border border-green-200 shadow-sm"
           >
             <CheckCircle className="w-4 h-4 mr-2" />
             Ingen bindningstid • Transparenta priser • Spara 15-20 timmar per månad
@@ -116,56 +116,34 @@ export default function PremiumPricingSection() {
               }}
             />
 
-            <div className="flex flex-col h-full bg-white/90 backdrop-blur-lg border border-gray-200/60 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-white via-green-50/20 to-blue-50/20 pointer-events-none" />
-
-              {/* Animated border glow */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: 'linear-gradient(45deg, #10B981, #3B82F6, #10B981)',
-                  backgroundSize: '200% 200%',
-                  padding: '2px',
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'exclude'
-                }}
-                animate={{
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-
+            <div className="flex flex-col h-full bg-white border border-gray-200/60 rounded-xl overflow-hidden relative">
               <div className="p-8 flex-grow relative z-10">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900">Gratis</h3>
+                  <h3 className="text-2xl font-bold text-neutral-900">Gratis</h3>
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="px-4 py-2 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-bold rounded-full border border-green-200 shadow-sm"
+                    className="px-4 py-2 bg-green-100 text-green-700 text-sm font-bold rounded-full border border-green-200 shadow-sm"
                   >
                     För att testa
                   </motion.div>
                 </div>
 
-                <p className="text-slate-600 mb-6 leading-relaxed">
+                <p className="text-neutral-600 mb-6 leading-relaxed">
                   Perfekt för att uppleva våra smarta verktyg och testa grundfunktionerna
                 </p>
 
                 <div className="mb-8">
                   <motion.span
                     whileHover={{ scale: 1.05 }}
-                    className="text-5xl font-bold text-slate-900 inline-block"
+                    className="text-5xl font-bold text-neutral-900 inline-block"
                   >
                     0 kr
                   </motion.span>
-                  <span className="text-slate-600 ml-2">/ för alltid</span>
+                  <span className="text-neutral-600 ml-2">/ för alltid</span>
                 </div>
 
                 <div className="space-y-4">
-                  <p className="font-semibold text-slate-900 mb-4">Detta ingår:</p>
+                  <p className="font-semibold text-neutral-900 mb-4">Detta ingår:</p>
 
                   <div className="space-y-3">
                     {[
@@ -192,7 +170,7 @@ export default function PremiumPricingSection() {
                         >
                           <CheckCircle className="w-6 h-6 sm:w-5 sm:h-5 text-green-500 mr-3 flex-shrink-0" />
                         </motion.div>
-                        <span className="text-sm sm:text-base text-slate-700 group-hover/item:text-slate-900 transition-colors">{feature}</span>
+                        <span className="text-sm sm:text-base text-neutral-700 group-hover/item:text-neutral-900 transition-colors">{feature}</span>
                       </motion.div>
                     ))}
 
@@ -219,7 +197,7 @@ export default function PremiumPricingSection() {
                           >
                             <Lock className="w-6 h-6 sm:w-5 sm:h-5 text-gray-400 mr-3 flex-shrink-0" />
                           </motion.div>
-                          <span className="text-sm sm:text-base text-slate-500 group-hover/locked:text-slate-600 transition-colors">{feature}</span>
+                          <span className="text-sm sm:text-base text-neutral-500 group-hover/locked:text-neutral-600 transition-colors">{feature}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -231,13 +209,8 @@ export default function PremiumPricingSection() {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href="/register"
-                    className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 py-4 font-semibold text-slate-700 bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 rounded-2xl transition-all duration-300 group border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md relative overflow-hidden"
+                    className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 py-4 font-semibold text-neutral-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-all duration-300 group border border-gray-200 hover:border-gray-300 shadow-sm relative overflow-hidden"
                   >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"
-                      whileHover={{ x: ['100%', '200%'] }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                    />
                     Starta gratis
                     <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -267,7 +240,7 @@ export default function PremiumPricingSection() {
           >
             {/* Floating particles */}
             <motion.div
-              className="absolute -top-3 -left-3 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full"
+              className="absolute -top-3 -left-3 w-6 h-6 bg-pink-400 rounded-full"
               animate={{
                 y: [-8, -20, -8],
                 rotate: [0, 360, 720],
@@ -291,7 +264,7 @@ export default function PremiumPricingSection() {
               className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30"
             >
               <div className="relative">
-                <div className="px-6 py-3 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white text-sm font-bold rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
+                <div className="px-6 py-3 bg-pink-600 text-white text-sm font-bold rounded-xl shadow-2xl border border-white/20 backdrop-blur-sm">
                   <motion.div
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -301,46 +274,27 @@ export default function PremiumPricingSection() {
                   </motion.div>
                   Mest populär
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-2xl opacity-30 blur-md -z-10" />
               </div>
             </motion.div>
 
-            <div className="flex flex-col h-full bg-white/95 backdrop-blur-xl border-2 border-pink-200/60 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden relative transform-gpu">
-              {/* Dynamic background */}
-              <motion.div
-                className="absolute inset-0 opacity-60 pointer-events-none"
-                animate={{
-                  background: [
-                    'linear-gradient(45deg, rgba(219,39,119,0.1) 0%, rgba(147,51,234,0.1) 100%)',
-                    'linear-gradient(90deg, rgba(147,51,234,0.1) 0%, rgba(59,130,246,0.1) 100%)',
-                    'linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(219,39,119,0.1) 100%)',
-                    'linear-gradient(45deg, rgba(219,39,119,0.1) 0%, rgba(147,51,234,0.1) 100%)'
-                  ]
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-
+            <div className="flex flex-col h-full bg-white border-2 border-pink-200/60 rounded-xl overflow-hidden relative transform-gpu">
               <div className="p-8 flex-grow relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <motion.h3
                     whileHover={{ scale: 1.05 }}
-                    className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600"
+                    className="text-3xl font-bold text-neutral-900"
                   >
                     Premium
                   </motion.h3>
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 10 }}
-                    className="px-4 py-2 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 text-purple-700 text-sm font-bold rounded-full border border-purple-200 shadow-sm"
+                    className="px-4 py-2 bg-purple-100 text-purple-700 text-sm font-bold rounded-full border border-purple-200 shadow-sm"
                   >
                     Obegränsat
                   </motion.div>
                 </div>
 
-                <p className="text-slate-600 mb-6 leading-relaxed">
+                <p className="text-neutral-600 mb-6 leading-relaxed">
                   Få tillgång till alla funktioner för 149 kr/mån, mindre än vad en arbetslunch kostar. Perfekt för seriös jobbsökning.
                 </p>
 
@@ -349,16 +303,16 @@ export default function PremiumPricingSection() {
                     whileHover={{ scale: 1.05 }}
                     className="inline-block"
                   >
-                    <span className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900">
+                    <span className="text-6xl font-bold text-neutral-900">
                       149 kr
                     </span>
                   </motion.div>
-                  <span className="text-slate-600 ml-3 text-lg">/ månad</span>
+                  <span className="text-neutral-600 ml-3 text-lg">/ månad</span>
                   <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="text-sm text-slate-500 mt-2 flex items-center gap-1"
+                    className="text-sm text-neutral-500 mt-2 flex items-center gap-1"
                   >
                     <Heart className="w-3 h-3 text-pink-500" />
                     Ingen bindningstid • Avsluta när som helst
@@ -366,7 +320,7 @@ export default function PremiumPricingSection() {
                 </div>
 
                 <div className="space-y-4">
-                  <p className="font-semibold text-slate-900 mb-4">Allt i Gratis, plus:</p>
+                  <p className="font-semibold text-neutral-900 mb-4">Allt i Gratis, plus:</p>
 
                   <div className="space-y-3">
                     {premiumFeatures.map((feature, index) => {
@@ -391,13 +345,13 @@ export default function PremiumPricingSection() {
                               rotate: 360,
                               transition: { duration: 0.5 }
                             }}
-                            className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mr-4 flex-shrink-0 shadow-sm group-hover/feature:shadow-md transition-shadow`}
+                            className="flex items-center justify-center mr-4 flex-shrink-0"
                           >
                             <IconComponent className="w-5 h-5 text-purple-600 group-hover/feature:text-purple-700" />
                           </motion.div>
                           <div className="flex-grow">
-                            <div className="font-semibold text-slate-900 group-hover/feature:text-purple-900 transition-colors">{feature.title}</div>
-                            <div className="text-sm text-slate-600 group-hover/feature:text-slate-700 transition-colors">{feature.description}</div>
+                            <div className="font-semibold text-neutral-900 group-hover/feature:text-purple-900 transition-colors">{feature.title}</div>
+                            <div className="text-sm text-neutral-600 group-hover/feature:text-neutral-700 transition-colors">{feature.description}</div>
                           </div>
                         </motion.div>
                       )
@@ -414,21 +368,12 @@ export default function PremiumPricingSection() {
                 >
                   <Link
                     href="/trial-signup"
-                    className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 sm:px-8 py-5 font-bold text-sm sm:text-base text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
+                    className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 sm:px-8 py-5 font-bold text-sm sm:text-base text-white bg-orange-600 hover:bg-orange-700 rounded-xl transition-all duration-300 group relative overflow-hidden border border-white/20"
                   >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full"
-                      whileHover={{
-                        x: ['100%', '200%'],
-                        transition: { duration: 0.8, ease: "easeInOut" }
-                      }}
-                    />
                     <span className="hidden sm:inline">Prova Premium gratis i 7 dagar</span>
                     <span className="sm:hidden">Prova Premium i 7 dagar</span>
                     <ArrowRight className="w-5 h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-2" />
                   </Link>
-
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-300 -z-10" />
                 </motion.div>
               </div>
             </div>
@@ -440,7 +385,7 @@ export default function PremiumPricingSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="mt-12 text-center text-slate-500"
+          className="mt-12 text-center text-neutral-500"
         >
           Alla priser inkluderar moms. Säkra betalningar via Stripe. Ingen bindningstid.
         </motion.p>

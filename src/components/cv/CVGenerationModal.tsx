@@ -195,7 +195,7 @@ export default function CVGenerationModal({
             className="space-y-6"
           >
             {canCustomize ? (
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+              <div className="bg-white rounded-xl p-6 border border-neutral-200">
                 <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <Settings className="w-5 h-5 text-purple-600" />
                   Anpassningsalternativ
@@ -440,7 +440,7 @@ export default function CVGenerationModal({
             {currentStep === GENERATION_STEPS.length - 1 ? (
               <Button
                 onClick={handleClose}
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white flex items-center gap-2"
+                className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
               >
                 <CheckCircle className="w-4 h-4" />
                 Klar
@@ -449,7 +449,7 @@ export default function CVGenerationModal({
               <Button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+                className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
               >
                 {isGenerating ? (
                   <>
@@ -470,7 +470,7 @@ export default function CVGenerationModal({
             ) : (
               <Button
                 onClick={handleNext}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+                className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
               >
                 Nästa
                 <ArrowRight className="w-4 h-4" />

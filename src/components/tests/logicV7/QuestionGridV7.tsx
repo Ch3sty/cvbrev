@@ -10,10 +10,7 @@ interface Props {
 
 export function QuestionGridV7({ grid }: Props) {
   return (
-    <div
-      className="bg-white rounded-3xl border border-orange-200/60 p-3 sm:p-5 max-w-md mx-auto"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
-    >
+    <div className="bg-white rounded-xl border border-orange-200/60 p-3 sm:p-5 max-w-md mx-auto">
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {grid.flat().map((cell, i) => (
           <motion.div
@@ -26,7 +23,7 @@ export function QuestionGridV7({ grid }: Props) {
                 bär framer-motions scale-transform). Fylld och tom cell delar
                 samma wrapper-struktur så de får alltid identisk höjd. */}
             {cell ? (
-              <div className="w-full aspect-square rounded-xl bg-gradient-to-br from-white to-orange-50/40 border border-orange-100 flex items-center justify-center overflow-hidden">
+              <div className="w-full aspect-square rounded-xl bg-white border border-orange-100 flex items-center justify-center overflow-hidden">
                 <svg
                   viewBox="0 0 100 100"
                   className="w-full h-full p-1.5 sm:p-2"
@@ -37,9 +34,8 @@ export function QuestionGridV7({ grid }: Props) {
               </div>
             ) : (
               <div
-                className="w-full aspect-square rounded-xl flex items-center justify-center overflow-hidden"
+                className="w-full aspect-square rounded-xl bg-orange-50 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(220, 38, 38, 0.08))',
                   border: '2px dashed rgba(249, 115, 22, 0.45)',
                 }}
               >

@@ -34,10 +34,7 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
       />
 
       <div
-        className="rounded-3xl bg-white border border-orange-100 p-5 sm:p-7 space-y-4"
-        style={{
-          boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)',
-        }}
+        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7 space-y-4"
       >
         <SkapaCvInput
           id="fullName"
@@ -58,6 +55,8 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
             value={cvData.personalInfo.email ?? ''}
             onChange={(e) => updatePersonalInfo('email', e.target.value)}
             autoComplete="email"
+
+            inputMode="email"
             required
           />
           <SkapaCvInput
@@ -68,6 +67,8 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
             value={cvData.personalInfo.phone ?? ''}
             onChange={(e) => updatePersonalInfo('phone', e.target.value)}
             autoComplete="tel"
+
+            inputMode="tel"
             required
           />
         </div>
@@ -87,6 +88,10 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
             id="linkedIn"
             label="LinkedIn"
             placeholder="linkedin.com/in/dittnamn"
+
+            inputMode="url"
+
+            autoComplete="url"
             value={cvData.personalInfo.linkedIn ?? ''}
             onChange={(e) => updatePersonalInfo('linkedIn', e.target.value)}
             optional
@@ -99,6 +104,10 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
           placeholder="t.ex. Senior Projektledare"
           value={cvData.personalInfo.title ?? ''}
           onChange={(e) => updatePersonalInfo('title', e.target.value)}
+
+          enterKeyHint="done"
+
+          autoComplete="organization-title"
           optional
           hint="Visas direkt under ditt namn på CV:t."
         />

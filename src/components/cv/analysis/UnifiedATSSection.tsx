@@ -46,7 +46,7 @@ export function UnifiedATSSection({
   const improvement = potentialScore - currentScore;
 
   return (
-    <Card className="bg-gradient-to-br from-white via-purple-50/30 to-white border border-slate-200 shadow-lg">
+    <Card className="bg-white border border-neutral-200">
       <div className="p-6">
         {/* Header: Score Circle + Stats Grid */}
         <div className="flex items-center gap-8 mb-6">
@@ -57,7 +57,7 @@ export function UnifiedATSSection({
                 cx="40"
                 cy="40"
                 r="35"
-                className="stroke-slate-200"
+                className="stroke-neutral-200"
                 strokeWidth="6"
                 fill="none"
               />
@@ -76,25 +76,25 @@ export function UnifiedATSSection({
               <span className={`text-2xl font-bold ${getScoreColor(atsScore)}`}>
                 {atsScore}
               </span>
-              <span className="text-xs text-slate-600">av 100</span>
+              <span className="text-xs text-neutral-600">av 100</span>
             </div>
           </div>
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-6 flex-1">
             <div>
-              <div className="text-3xl font-bold text-slate-900">
+              <div className="text-3xl font-bold text-neutral-900">
                 {totalImprovements}
               </div>
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-neutral-600">
                 förbättringar identifierade
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-slate-900">
+              <div className="text-3xl font-bold text-neutral-900">
                 {sectionsToImprove}
               </div>
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-neutral-600">
                 sektioner att förbättra
               </div>
             </div>
@@ -104,22 +104,22 @@ export function UnifiedATSSection({
         {/* Progression Bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-slate-700">
+            <span className="text-sm font-medium text-neutral-700">
               Nuvarande: {currentScore}
             </span>
             <span className="text-sm font-bold text-green-600">
               Potential: {potentialScore} (+{improvement})
             </span>
           </div>
-          <div className="relative h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div className="relative h-3 bg-neutral-200 rounded-full overflow-hidden">
             {/* Current score background */}
             <div
-              className="absolute h-full bg-slate-400 rounded-full transition-all duration-500"
+              className="absolute h-full bg-neutral-400 rounded-full transition-all duration-500"
               style={{ width: `${currentPercentage}%` }}
             />
             {/* Potential score gradient */}
             <div
-              className="absolute h-full bg-gradient-to-r from-pink-500 to-purple-600 rounded-full transition-all duration-500"
+              className="absolute h-full bg-orange-600 rounded-full transition-all duration-500"
               style={{ width: `${progressPercentage}%` }}
             />
           </div>
@@ -127,7 +127,7 @@ export function UnifiedATSSection({
 
         {/* Feedback */}
         {feedback && (
-          <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+          <p className="text-sm text-neutral-700 mb-4 leading-relaxed">
             {feedback}
           </p>
         )}
@@ -138,7 +138,7 @@ export function UnifiedATSSection({
             {valueInsights.map((insight, i) => (
               <div key={i} className="flex items-start gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-slate-700">{insight}</span>
+                <span className="text-neutral-700">{insight}</span>
               </div>
             ))}
           </div>

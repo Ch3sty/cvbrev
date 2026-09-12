@@ -74,26 +74,11 @@ function BreakdownSection({
     <div className="grid md:grid-cols-2 gap-4 sm:gap-5">
       {/* Difficulty breakdown */}
       <div
-        className="relative bg-white rounded-3xl border border-orange-200/60 overflow-hidden p-5 sm:p-6"
-        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+        className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden p-5 sm:p-6"
       >
-        <div
-          className="absolute top-0 left-0 right-0 h-1"
-          style={{
-            background: 'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-        />
         <div className="flex items-center gap-3 mb-4">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-white"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-            }}
-          >
-            <BarChart3 className="w-4 h-4" strokeWidth={2.5} />
-          </div>
-          <h3 className="font-bold text-slate-900 text-base sm:text-lg">Per svårighetsnivå</h3>
+          <BarChart3 className="w-5 h-5 text-neutral-700" strokeWidth={2.5} />
+          <h3 className="font-bold text-neutral-900 text-base sm:text-lg">Per svårighetsnivå</h3>
         </div>
         <div className="space-y-3">
           <DifficultyBar label="Lätt" data={byDifficulty.difficulty1} colorIdx={0} />
@@ -104,26 +89,11 @@ function BreakdownSection({
 
       {/* Type breakdown */}
       <div
-        className="relative bg-white rounded-3xl border border-orange-200/60 overflow-hidden p-5 sm:p-6"
-        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+        className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden p-5 sm:p-6"
       >
-        <div
-          className="absolute top-0 left-0 right-0 h-1"
-          style={{
-            background: 'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
-          }}
-        />
         <div className="flex items-center gap-3 mb-4">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-white"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-            }}
-          >
-            <BarChart3 className="w-4 h-4" strokeWidth={2.5} />
-          </div>
-          <h3 className="font-bold text-slate-900 text-base sm:text-lg">Per fråge-typ</h3>
+          <BarChart3 className="w-5 h-5 text-neutral-700" strokeWidth={2.5} />
+          <h3 className="font-bold text-neutral-900 text-base sm:text-lg">Per fråge-typ</h3>
         </div>
         <div className="space-y-2.5">
           {(Object.entries(byType) as [QuestionType, { correct: number; total: number }][])
@@ -136,19 +106,12 @@ function BreakdownSection({
                   key={type}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-orange-50/40 border border-orange-100"
                 >
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white flex-shrink-0"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                    }}
-                  >
-                    <Icon className="w-[16px] h-[16px]" />
-                  </div>
+                  <Icon className="w-5 h-5 text-neutral-700 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-semibold text-slate-900 leading-tight">
+                    <div className="text-sm font-semibold text-neutral-900 leading-tight">
                       {TYPE_LABEL[type]}
                     </div>
-                    <div className="text-xs text-slate-500 tabular-nums">
+                    <div className="text-xs text-neutral-500 tabular-nums">
                       {data.correct} / {data.total} rätt
                     </div>
                   </div>
@@ -172,23 +135,19 @@ function DifficultyBar({
   colorIdx: number;
 }) {
   const pct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
-  const colors = [
-    'from-emerald-500 to-emerald-600',
-    'from-amber-500 to-orange-500',
-    'from-rose-500 to-pink-600',
-  ];
+  const colors = ['bg-emerald-600', 'bg-orange-600', 'bg-rose-600'];
 
   return (
     <div>
       <div className="flex items-center justify-between gap-2 mb-1.5">
-        <span className="text-sm font-semibold text-slate-700">{label}</span>
-        <span className="text-xs text-slate-500 tabular-nums">
+        <span className="text-sm font-semibold text-neutral-700">{label}</span>
+        <span className="text-xs text-neutral-500 tabular-nums">
           {data.correct} / {data.total} ({pct}%)
         </span>
       </div>
       <div className="h-2.5 rounded-full bg-orange-50 overflow-hidden">
         <motion.div
-          className={`h-full rounded-full bg-gradient-to-r ${colors[colorIdx]}`}
+          className={`h-full rounded-full ${colors[colorIdx]}`}
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
@@ -209,31 +168,16 @@ function AnswerKey({
 }) {
   return (
     <section
-      className="relative bg-white rounded-3xl border border-orange-200/60 overflow-hidden"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden"
     >
-      <div
-        className="absolute top-0 left-0 right-0 h-1"
-        style={{
-          background: 'linear-gradient(90deg, #FB923C 0%, #DC2626 50%, #BE185D 100%)',
-        }}
-      />
       <div className="p-5 sm:p-6 md:p-7">
         <div className="flex items-center gap-3 mb-4 sm:mb-5">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-white"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-            }}
-          >
-            <CheckCircle2 className="w-4 h-4" strokeWidth={2.5} />
-          </div>
+          <CheckCircle2 className="w-5 h-5 text-neutral-700" strokeWidth={2.5} />
           <div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
+            <h3 className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
               Genomgång av frågor
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-neutral-600">
               {showExplanations ? 'Se rätt svar och förklaringar' : 'Se rätt svar'}
             </p>
           </div>
@@ -284,7 +228,7 @@ function AnswerKeyRow({
 
   return (
     <div
-      className={`rounded-2xl border overflow-hidden transition-colors ${
+      className={`rounded-xl border overflow-hidden transition-colors ${
         isCorrect
           ? 'border-emerald-100 bg-emerald-50/40'
           : 'border-rose-100 bg-rose-50/40'
@@ -308,16 +252,16 @@ function AnswerKeyRow({
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
             {passage.topic} · Fråga {questionIndex + 1}
           </div>
-          <div className="text-sm font-semibold text-slate-900 leading-snug truncate">
+          <div className="text-sm font-semibold text-neutral-900 leading-snug truncate">
             {question.questionText}
           </div>
         </div>
 
         <ChevronDown
-          className={`w-4 h-4 text-slate-500 flex-shrink-0 transition-transform ${
+          className={`w-4 h-4 text-neutral-500 flex-shrink-0 transition-transform ${
             open ? 'rotate-180' : ''
           }`}
           strokeWidth={2.5}
@@ -337,7 +281,7 @@ function AnswerKeyRow({
               {/* Ditt svar */}
               {selectedOption && (
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wide text-slate-500 mb-1">
+                  <div className="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-1">
                     Ditt svar
                   </div>
                   <div
@@ -355,7 +299,7 @@ function AnswerKeyRow({
               {/* Rätt svar */}
               {!isCorrect && correctOption && (
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 mb-1">
+                  <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 mb-1">
                     Rätt svar
                   </div>
                   <div className="text-sm rounded-lg px-3 py-2 bg-emerald-100/60 text-emerald-900 border border-emerald-200">
@@ -367,16 +311,16 @@ function AnswerKeyRow({
               {/* Förklaring (döljs i prov-läge) */}
               {question.explanation && showExplanations && (
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wide text-orange-700 mb-1">
+                  <div className="text-xs font-bold uppercase tracking-wide text-orange-700 mb-1">
                     Förklaring
                   </div>
-                  <div className="text-sm text-slate-700 leading-relaxed bg-orange-50/40 border border-orange-100 rounded-lg px-3 py-2.5">
+                  <div className="text-sm text-neutral-700 leading-relaxed bg-orange-50/40 border border-orange-100 rounded-lg px-3 py-2.5">
                     {question.explanation}
                   </div>
                 </div>
               )}
               {question.explanation && !showExplanations && (
-                <div className="text-[11px] font-semibold text-slate-400">
+                <div className="text-xs font-semibold text-neutral-400">
                   Förklaring – ej tillgänglig under prov
                 </div>
               )}

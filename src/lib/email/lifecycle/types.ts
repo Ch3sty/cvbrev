@@ -17,6 +17,8 @@ export interface LifecycleProfile {
   premium_until: string | null;
   premium_source: string | null;
   quota_emails_opt_out: boolean | null;
+  /** Avregistrering som bara gäller weekly_digest. */
+  weekly_digest_opt_out: boolean | null;
   last_active: string | null;
   created_at: string | null;
 }

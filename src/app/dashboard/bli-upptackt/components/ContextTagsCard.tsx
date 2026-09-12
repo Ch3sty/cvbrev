@@ -15,7 +15,7 @@ const MAX_TAGS = 2;
 
 /**
  * "Söker mig till": kandidaten väljer själv upp till 2 kontexttaggar ur sina
- * kvalificerade förslag. Kandidatens EGEN självpresentation — visas hos
+ * kvalificerade förslag. Kandidatens EGEN självpresentation, visas hos
  * rekryterare som pitch, aldrig som filter på testdata.
  */
 export default function ContextTagsCard({ options, selected, onChange }: ContextTagsCardProps) {
@@ -33,8 +33,8 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
       sub="Taggarna är dina egna ord om var du trivs, byggda på ditt personlighetstest. Rekryterare ser dem som din självpresentation."
       delay={0.22}
       headerExtra={
-        <span className="text-[12.5px] text-slate-500">
-          <b className="text-slate-900">{selected.length}</b> av {MAX_TAGS} valda
+        <span className="text-xs text-neutral-500">
+          <b className="text-neutral-900">{selected.length}</b> av {MAX_TAGS} valda
         </span>
       }
     >
@@ -54,8 +54,8 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
                 isSelected
                   ? 'border-indigo-400 bg-indigo-50 text-indigo-900'
                   : isDisabled
-                    ? 'border-slate-100 bg-slate-50 text-slate-300 cursor-not-allowed'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-indigo-300 hover:text-indigo-800'
+                    ? 'border-neutral-100 bg-neutral-50 text-neutral-300 cursor-not-allowed'
+                    : 'border-neutral-200 bg-white text-neutral-600 hover:border-indigo-300 hover:text-indigo-800'
               }`}
             >
               {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600" strokeWidth={3} />}
@@ -64,7 +64,7 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
           );
         })}
       </div>
-      <p className="text-[12px] text-slate-400 leading-relaxed mt-3">
+      <p className="text-xs text-neutral-400 leading-relaxed mt-3">
         Förslagen bygger på din profil, du väljer själv vilka som får stå för
         dig. Rekryterare kan aldrig filtrera på taggarna, de läser dem som din
         egen beskrivning.

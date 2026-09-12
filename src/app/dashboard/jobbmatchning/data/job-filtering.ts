@@ -5,7 +5,7 @@
 // slipper vi söka om mot servern vid varje filterändring (vilket annars brände
 // gratisanvändarnas sökkvot och gav onödig latens).
 //
-// OBS: `remote` (distansjobb) och `noExperience` hanteras INTE här — de finns
+// OBS: `remote` (distansjobb) och `noExperience` hanteras INTE här, de finns
 // inte som tillförlitliga fält på jobben utan kommer från den globala cachen.
 import type { JobFilters } from '../components/JobFilterPanel';
 
@@ -142,7 +142,7 @@ export function groupJobsByRegion(jobs: Job[]): RegionGroup[] {
 // ── Globala pooler (remote / erfarenhet-fria): konvertera + ranka mot CV ───
 // De globala jobben är RÅA JobSearch-hits. Vi mappar dem till samma form som
 // CV-jobben (så JobCard funkar) och ger en lätt relevanspoäng mot användarens
-// ort + skills — utan att anropa servern. Detta ersätter den tidigare
+// ort + skills, utan att anropa servern. Detta ersätter den tidigare
 // server-omsökningen för "Distansjobb" och "Utan erfarenhet".
 
 // Haversine i km (samma formel som edge-scoring).
@@ -191,7 +191,7 @@ export function rankGlobalJobs(rawJobs: any[], cv: CvContext): Job[] {
     }
     const skillScore = Math.min(15, skillHits * 3);
 
-    // Geografipoäng (0–10) — närmare = bättre; okänt avstånd ger neutral poäng.
+    // Geografipoäng (0–10), närmare = bättre; okänt avstånd ger neutral poäng.
     let geoScore = 5;
     if (distance !== undefined) {
       geoScore = distance <= 10 ? 10 : distance <= 30 ? 8 : distance <= 50 ? 6 : distance <= 100 ? 3 : 1;

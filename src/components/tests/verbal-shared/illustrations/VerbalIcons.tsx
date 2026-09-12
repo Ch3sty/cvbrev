@@ -159,7 +159,7 @@ export function VerbalCardThumbnail({ className = 'w-10 h-10', seed = 0 }: IconP
 }
 
 /**
- * Empty-state — illustration för "inga försök än".
+ * Empty-state, illustration för "inga försök än".
  */
 export function VerbalEmptyIllustration({ className = 'w-32 h-32' }: IconProps) {
   return (

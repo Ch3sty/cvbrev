@@ -71,7 +71,7 @@ function ConfirmationView({
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
-        className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30 mb-6"
+        className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-green-600 flex items-center justify-center mb-6"
       >
         <Check className="w-10 h-10 md:w-12 md:h-12 text-white stroke-[3]" />
       </motion.div>
@@ -131,7 +131,7 @@ function ConfirmationView({
         {/* Primary CTA: ATS-optimering */}
         <Button
           onClick={onGoToATS}
-          className="w-full min-h-[56px] md:min-h-[52px] text-white text-base font-semibold shadow-lg shadow-pink-500/25"
+          className="w-full min-h-[56px] md:min-h-[52px] text-white text-base font-semibold"
         >
           Optimera för ATS-system
           <ArrowRight className="w-4 h-4 ml-2" />
@@ -381,7 +381,7 @@ export default function Step7Review({
           {templateScrollIndex > 0 && (
             <button
               onClick={() => setTemplateScrollIndex(Math.max(0, templateScrollIndex - 1))}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -389,7 +389,7 @@ export default function Step7Review({
           {templateScrollIndex < maxScrollIndex && (
             <button
               onClick={() => setTemplateScrollIndex(Math.min(maxScrollIndex, templateScrollIndex + 1))}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -438,24 +438,16 @@ export default function Step7Review({
 
                       {/* Selected checkmark */}
                       {isSelected && !isLocked && (
-                        <div
-                          className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"
-                          style={{
-                            background:
-                              'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                            boxShadow:
-                              '0 4px 10px -2px rgba(220, 38, 38, 0.4)',
-                          }}
-                        >
+                        <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-orange-600 flex items-center justify-center">
                           <Check className="w-4 h-4 text-white" strokeWidth={2.8} />
                         </div>
                       )}
 
                       {/* Premium badge */}
                       {template.tier === 'premium' && (
-                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center gap-1">
+                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-orange-600 rounded-full flex items-center gap-1">
                           <Crown className="w-3 h-3 text-white" />
-                          <span className="text-[10px] font-medium text-white">PRO</span>
+                          <span className="text-xs font-medium text-white">PRO</span>
                         </div>
                       )}
                     </div>
@@ -473,7 +465,7 @@ export default function Step7Review({
 
         {/* Upgrade prompt if premium template selected */}
         {isTemplateLocked && (
-          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+          <div className="flex items-center justify-between p-3 bg-white border border-amber-200 rounded-xl">
             <div className="flex items-center gap-2">
               <Crown className="w-5 h-5 text-amber-600" />
               <span className="text-sm text-amber-800">
@@ -483,7 +475,7 @@ export default function Step7Review({
             <Button
               size="sm"
               onClick={() => router.push('/dashboard/profil/prenumeration')}
-              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+              className="bg-orange-600 hover:bg-orange-700"
             >
               Uppgradera
             </Button>
@@ -559,7 +551,7 @@ export default function Step7Review({
             Förhandsvisning
           </h2>
 
-          <div className="bg-white border-2 border-gray-200 rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden">
             {/* Preview header */}
             <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700">
@@ -570,31 +562,34 @@ export default function Step7Review({
               </span>
             </div>
 
-            {/* Preview content */}
-            <div
-              className="relative"
-              style={{ minHeight: '500px', maxHeight: '600px', overflowY: 'auto' }}
-            >
+            {/* Preview content.
+
+                Tidigare låg här transform: scale(0.5) med width: 200%. Två
+                problem: transform påverkar inte layouthöjden, så scrollytan
+                blev dubbelt så hög som innehållet, och på 375 px blev texten
+                omöjlig att läsa. Nu skalar vi med CSS-variabeln --cv-zoom som
+                sätts per brytpunkt, och wrappern får höjden via aspect-ratio
+                i stället för en gissad maxhöjd. */}
+            <div className="relative overflow-auto" style={{ maxHeight: '70dvh' }}>
               {isGeneratingPreview ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
                   <div className="flex flex-col items-center gap-2">
                     <Loader2 className="w-8 h-8 animate-spin text-orange-600" />
-                    <span className="text-sm text-gray-500">Genererar förhandsvisning...</span>
+                    <span className="text-sm text-neutral-600">
+                      Genererar förhandsvisning
+                    </span>
                   </div>
                 </div>
               ) : previewHTML ? (
-                <div
-                  className="cv-preview-container"
-                  style={{
-                    transform: 'scale(0.5)',
-                    transformOrigin: 'top left',
-                    width: '200%',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: previewHTML }}
-                />
+                <div className="cv-preview-zoom">
+                  <div
+                    className="cv-preview-container"
+                    dangerouslySetInnerHTML={{ __html: previewHTML }}
+                  />
+                </div>
               ) : (
-                <div className="flex items-center justify-center h-full text-gray-400">
-                  Fyll i dina uppgifter för att se förhandsvisning
+                <div className="flex min-h-[240px] items-center justify-center p-6 text-center text-sm text-neutral-500">
+                  Fyll i dina uppgifter så visas ditt CV här.
                 </div>
               )}
             </div>
@@ -621,12 +616,7 @@ export default function Step7Review({
         <Button
           onClick={() => handleAction('both')}
           disabled={!isValid || isSaving || isTemplateLocked}
-          className="min-h-[48px] px-8 text-white font-bold rounded-xl border-0 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:hover:scale-100"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-          }}
+          className="min-h-[48px] px-8 text-white font-bold rounded-xl border-0 transition-all bg-orange-600 hover:bg-orange-700"
         >
           {isSaving ? (
             <>

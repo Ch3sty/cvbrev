@@ -19,6 +19,7 @@ import RecruiterPreviewCard from './components/RecruiterPreviewCard';
 import PendingInterestAlert from './components/PendingInterestAlert';
 import MessagesShortcut from './components/MessagesShortcut';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
+import { IlluBliUpptackt } from '@/components/illustrations/BliUpptacktIllustrations';
 import type { CollapseProps } from './components/SectionCard';
 import {
   EMPTY_PROFILE,
@@ -35,7 +36,7 @@ type ProfilePatch = Partial<CandidateProfileState & { consent_version: string }>
  * Bli upptäckt: kandidatprofil-sidan i dashboarden. Användaren väljer vilket
  * CV som driver profilen, styr synlighet och anonymitet, anger villkor,
  * samlar verifierade testresultat och förhandsgranskar exakt vad rekryterare
- * ser. Sidan är alltid redigerbar — även när mastern är av kan användaren
+ * ser. Sidan är alltid redigerbar, även när mastern är av kan användaren
  * förbereda profilen inför aktivering.
  */
 export default function BliUpptacktPage() {
@@ -193,7 +194,7 @@ export default function BliUpptacktPage() {
     await saveProfile({
       visibility: 'anonymous',
       show_personality: showPersonality,
-      // Nivå 2 utan nivå 1 är meningslöst — bind dem även vid skrivning.
+      // Nivå 2 utan nivå 1 är meningslöst, bind dem även vid skrivning.
       show_full_workstyle: showPersonality && showFullWorkstyle,
       consent_given_at: new Date().toISOString(),
       consent_version: 'v1',
@@ -219,14 +220,62 @@ export default function BliUpptacktPage() {
   }));
 
   if (loading) {
+    // Samma maxbredd som den riktiga sidan, annars hoppar layouten när
+    // skelettet byts mot innehåll.
     return (
-      <div className="mx-auto py-4 sm:py-6 max-w-5xl">
-        <div className="space-y-5 sm:space-y-6">
-          <div className="rounded-3xl bg-orange-50/40 h-32 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-40 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-64 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-40 animate-pulse" />
+      <div className="mx-auto py-4 sm:py-6 max-w-6xl">
+        <div className="space-y-6">
+          <div className="rounded-xl bg-neutral-100 h-32 animate-pulse" />
+          <div className="rounded-xl bg-neutral-100 h-40 animate-pulse" />
+          <div className="rounded-xl bg-neutral-100 h-64 animate-pulse" />
         </div>
+      </div>
+    );
+  }
+
+  // Tomt tillstånd (plan avsnitt 5): den som aldrig aktiverat profilen mötte
+  // tidigare hela redigeringsvyn på en gång, alltså ett tjugotal "Inte gjort",
+  // "Ej synlig", hänglås och en nolla i procent innan hon ens sagt ja till
+  // något. Nu: en illustration, en mening, en knapp. Resten av sidan finns
+  // kvar och öppnas i samma ögonblick som samtycket är givet.
+  if (!profile.consent_given_at) {
+    return (
+      <div className="mx-auto py-4 sm:py-6 max-w-3xl">
+        <section className="bg-white rounded-xl border border-neutral-200 p-6 sm:p-8 text-center">
+          <span className="inline-block text-neutral-900" aria-hidden="true">
+            <IlluBliUpptackt size={96} />
+          </span>
+          <h1 className="text-2xl font-semibold text-neutral-900 tracking-tight mt-4">
+            Låt jobben hitta dig
+          </h1>
+          <p className="text-sm text-neutral-600 leading-relaxed mt-2 max-w-prose mx-auto">
+            Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen.
+            Du är anonym tills du själv godkänner en kontakt, och du stänger av
+            synligheten när du vill.
+          </p>
+          <button
+            type="button"
+            onClick={handleMasterToggle}
+            disabled={saving}
+            className="mt-6 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto disabled:opacity-60"
+          >
+            Kom igång
+          </button>
+          <p className="text-xs text-neutral-500 mt-3">
+            Nästa steg är att läsa igenom vad som delas. Inget syns förrän du
+            godkänt det.
+          </p>
+        </section>
+
+        <ConsentModal
+          open={consentOpen}
+          saving={saving}
+          hasAdvancedTest={Boolean(
+            summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport
+          )}
+          onConfirm={handleConsentConfirm}
+          onCancel={() => setConsentOpen(false)}
+        />
       </div>
     );
   }
@@ -345,8 +394,8 @@ export default function BliUpptacktPage() {
 function ZoneLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 px-0.5 pt-1">
-      <h2 className="text-[12px] font-bold uppercase tracking-[0.14em] text-slate-500">{children}</h2>
-      <span className="flex-1 h-px bg-slate-200" aria-hidden="true" />
+      <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500">{children}</h2>
+      <span className="flex-1 h-px bg-neutral-200" aria-hidden="true" />
     </div>
   );
 }

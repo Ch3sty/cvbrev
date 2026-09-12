@@ -59,8 +59,8 @@ export function JobbcoachenChatOrb({ className = 'w-20 h-20' }: IconProps) {
       <g transform="translate(4 8)">
         <rect x="0" y="0" width="9" height="11" rx="1.5" fill="white" stroke="url(#jc-orange-red)" strokeWidth="1" />
         <line x1="2" y1="3" x2="7" y2="3" stroke="#FB923C" strokeWidth="0.8" />
-        <line x1="2" y1="5.5" x2="6" y2="5.5" stroke="#E2E8F0" strokeWidth="0.7" />
-        <line x1="2" y1="8" x2="7" y2="8" stroke="#E2E8F0" strokeWidth="0.7" />
+        <line x1="2" y1="5.5" x2="6" y2="5.5" stroke="#E5E5E5" strokeWidth="0.7" />
+        <line x1="2" y1="8" x2="7" y2="8" stroke="#E5E5E5" strokeWidth="0.7" />
       </g>
 
       {/* Annons, övre höger */}
@@ -102,14 +102,14 @@ export function DocumentShareIcon({ className = 'w-20 h-20' }: IconProps) {
         <rect x="0" y="0" width="28" height="4" rx="3" fill="url(#jc-orange-pink)" />
         {/* Profilrad */}
         <circle cx="6" cy="11" r="2.5" fill="#FED7AA" />
-        <rect x="11" y="9" width="11" height="1.5" rx="0.75" fill="#CBD5E1" />
-        <rect x="11" y="12" width="8" height="1" rx="0.5" fill="#E2E8F0" />
+        <rect x="11" y="9" width="11" height="1.5" rx="0.75" fill="#D4D4D4" />
+        <rect x="11" y="12" width="8" height="1" rx="0.5" fill="#E5E5E5" />
         {/* Innehållsrader */}
         <rect x="3" y="18" width="22" height="1.25" rx="0.625" fill="#FB923C" opacity="0.6" />
-        <rect x="3" y="22" width="20" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="3" y="25" width="22" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="3" y="28" width="18" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="3" y="32" width="20" height="1" rx="0.5" fill="#E2E8F0" />
+        <rect x="3" y="22" width="20" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="3" y="25" width="22" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="3" y="28" width="18" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="3" y="32" width="20" height="1" rx="0.5" fill="#E5E5E5" />
       </g>
 
       {/* Chat-bubbla som kommer ut ur dokumentet (höger sida) */}

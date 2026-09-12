@@ -59,7 +59,7 @@ const sectionIconClasses = "w-5 h-5 mr-2 text-pink-400 flex-shrink-0";
 const sectionContentClasses = "p-5";
 const fallbackTextClasses = "text-gray-500 italic text-sm";
 const listSeparatorClasses = "border-l-2 pl-3 text-sm"; // För listor
-const upgradeMessageClasses = "mt-4 p-3 bg-gradient-to-r from-purple-900/30 to-indigo-900/30 border border-purple-700/40 rounded-lg text-sm text-purple-200 flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-inner";
+const upgradeMessageClasses = "mt-4 p-3 bg-navy-900/50 border border-purple-700/40 rounded-lg text-sm text-purple-200 flex flex-col sm:flex-row items-start sm:items-center gap-3";
 const upgradeLinkClasses = "ml-auto sm:ml-2 mt-1 sm:mt-0 whitespace-nowrap inline-flex items-center text-sm font-medium text-pink-400 hover:text-pink-300 hover:underline transition-colors duration-200 group";
 const searchKeywordSpanClasses = "inline-block text-xs bg-navy-700/70 text-gray-300 border border-navy-600 px-2 py-0.5 rounded cursor-default";
 

@@ -37,7 +37,7 @@ export function TestHeader({
   const progressPercent = (answeredCount / totalQuestions) * 100;
 
   return (
-    <div className="bg-white/95 backdrop-blur-md border-b border-orange-100 sticky top-0 z-40">
+    <div className="bg-white/95 backdrop-blur-md border-b border-orange-100 sticky top-0 z-30">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3">
         {/* Top row */}
         <div className="flex items-center justify-between gap-3 mb-2.5">
@@ -59,12 +59,12 @@ export function TestHeader({
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <p className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold leading-none mb-0.5">
+            <p className="text-xs uppercase tracking-wider text-neutral-500 font-semibold leading-none mb-0.5">
               Fråga
             </p>
-            <p className="text-base sm:text-lg font-bold text-slate-900 tabular-nums leading-none">
+            <p className="text-base sm:text-lg font-bold text-neutral-900 tabular-nums leading-none">
               {currentQuestion + 1}
-              <span className="text-slate-400 font-medium"> / {totalQuestions}</span>
+              <span className="text-neutral-400 font-medium"> / {totalQuestions}</span>
             </p>
           </motion.div>
 
@@ -83,13 +83,12 @@ export function TestHeader({
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1 bg-neutral-100 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #F97316, #DC2626, #BE185D)' }}
+            className="h-full rounded-full bg-orange-600"
           />
         </div>
       </div>

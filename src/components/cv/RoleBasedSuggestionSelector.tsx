@@ -213,9 +213,7 @@ export default function RoleBasedSuggestionSelector({
       {/* Header with Progress */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-gradient-to-r from-pink-600/10 to-purple-600/10">
-            <Briefcase className="h-6 w-6 text-pink-600" />
-          </div>
+          <Briefcase className="h-5 w-5 text-neutral-700" />
           <div>
             <h3 className="text-lg font-semibold text-gray-900">
               Roll-baserade förbättringar
@@ -262,8 +260,8 @@ export default function RoleBasedSuggestionSelector({
               <Card className={`
                 transition-all duration-300 overflow-hidden
                 ${roleImprovement.selected
-                  ? 'bg-gradient-to-r from-pink-50 to-purple-50 border-pink-300 shadow-lg shadow-pink-500/10'
-                  : 'bg-white/95 border-gray-200 hover:border-gray-300 hover:shadow-md'}
+                  ? 'bg-white border-pink-300'
+                  : 'bg-white/95 border-gray-200 hover:border-gray-300'}
               `}>
                 {/* Role Header */}
                 <div className="p-4">
@@ -281,7 +279,7 @@ export default function RoleBasedSuggestionSelector({
                         className={`
                           w-6 h-6 rounded-md border-2 flex items-center justify-center cursor-pointer
                           ${roleImprovement.selected
-                            ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-pink-600'
+                            ? 'bg-pink-600 border-pink-600'
                             : 'bg-white border-gray-300 hover:border-gray-400'}
                         `}
                       >
@@ -352,7 +350,7 @@ export default function RoleBasedSuggestionSelector({
                         variant="ghost"
                         size="sm"
                         onClick={() => toggleRoleExpansion(roleImprovement.role)}
-                        className="w-full justify-center bg-gray-50/80 hover:bg-gray-100 h-8 mt-2"
+                        className="w-full justify-center bg-gray-50/80 hover:bg-gray-100 min-h-[44px] mt-2"
                       >
                         {isExpanded ? (
                           <>
@@ -380,7 +378,7 @@ export default function RoleBasedSuggestionSelector({
                       transition={{ duration: 0.3 }}
                       className="border-t border-gray-200/60"
                     >
-                      <div className="p-4 space-y-4 bg-gradient-to-b from-gray-50/50 to-white/80">
+                      <div className="p-4 space-y-4 bg-white">
                         {/* Original Text */}
                         <div>
                           <div className="flex items-center gap-2 mb-2">
@@ -400,7 +398,7 @@ export default function RoleBasedSuggestionSelector({
                         <div>
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
+                              <div className="w-1 h-4 bg-green-600 rounded-full"></div>
                               <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                                 Förbättrat förslag
                               </h5>
@@ -417,7 +415,7 @@ export default function RoleBasedSuggestionSelector({
                               </Button>
                             )}
                           </div>
-                          <div className="p-4 bg-gradient-to-br from-green-50 via-emerald-50/50 to-green-50 rounded-lg border border-green-300/60 shadow-sm">
+                          <div className="p-4 bg-green-50 rounded-lg border border-green-300/60 shadow-sm">
                             {editingRole === roleImprovement.role ? (
                               <div className="space-y-3">
                                 <textarea
@@ -431,14 +429,14 @@ export default function RoleBasedSuggestionSelector({
                                     variant="outline"
                                     size="sm"
                                     onClick={() => setEditingRole(null)}
-                                    className="h-8 text-xs"
+                                    className="min-h-[44px] text-xs"
                                   >
                                     Avbryt
                                   </Button>
                                   <Button
                                     size="sm"
                                     onClick={() => handleSaveEdit(roleImprovement.role)}
-                                    className="h-8 text-xs bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                                    className="min-h-[44px] text-xs bg-orange-600 hover:bg-orange-700"
                                   >
                                     Spara ändringar
                                   </Button>
@@ -510,9 +508,7 @@ export default function RoleBasedSuggestionSelector({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-gradient-to-r from-indigo-600/10 to-blue-600/10">
-                <Star className="h-5 w-5 text-indigo-600" />
-              </div>
+              <Star className="h-5 w-5 text-neutral-700" />
               <div>
                 <h4 className="font-semibold text-gray-900">Allmänna förbättringar</h4>
                 <p className="text-sm text-gray-600">
@@ -560,7 +556,7 @@ export default function RoleBasedSuggestionSelector({
                         className={`
                           cursor-pointer transition-all duration-300 p-3
                           ${improvement.selected
-                            ? 'bg-gradient-to-r from-indigo-50 to-blue-50 border-indigo-300 shadow-md'
+                            ? 'bg-white border-indigo-300'
                             : 'bg-white/80 hover:bg-gray-50 border-gray-200 hover:border-gray-300'}
                         `}
                       >
@@ -574,7 +570,7 @@ export default function RoleBasedSuggestionSelector({
                             className={`
                               w-5 h-5 rounded border-2 flex items-center justify-center
                               ${improvement.selected
-                                ? 'bg-gradient-to-r from-indigo-600 to-blue-600 border-indigo-600'
+                                ? 'bg-indigo-600 border-indigo-600'
                                 : 'bg-white border-gray-300'}
                             `}
                           >

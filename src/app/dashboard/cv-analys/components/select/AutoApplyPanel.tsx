@@ -20,27 +20,19 @@ export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
   return (
     <div className="space-y-3">
       <div
-        className="rounded-2xl p-4 sm:p-5 flex items-start gap-3"
+        className="rounded-xl p-4 sm:p-5 flex items-start gap-3 bg-white"
         style={{
-          background:
-            'linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 100%)',
           border: '1px solid rgba(16, 185, 129, 0.22)',
         }}
       >
-        <div
-          className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white"
-          style={{
-            background: 'linear-gradient(135deg, #10B981, #059669)',
-            boxShadow: '0 4px 12px -3px rgba(16, 185, 129, 0.4)',
-          }}
-        >
-          <CheckCircle2 className="w-5 h-5" strokeWidth={2.25} />
+        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600" strokeWidth={2.25} />
         </div>
         <div className="min-w-0 flex-1">
-          <h4 className="font-bold text-slate-900 text-sm sm:text-base mb-0.5">
+          <h4 className="font-bold text-neutral-900 text-sm sm:text-base mb-0.5">
             Vi tar hand om resten åt dig
           </h4>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
             Dessa förbättringar är allmänna och tillämpas automatiskt när du går vidare. Du
             behöver inte välja något här.
           </p>
@@ -56,34 +48,28 @@ export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
             transition={{ delay: index * 0.04, duration: 0.2 }}
             className="rounded-xl bg-white border border-emerald-200/60 p-3.5 flex items-start gap-3"
           >
-            <div
-              className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-white mt-0.5"
-              style={{
-                background: 'linear-gradient(135deg, #10B981, #059669)',
-              }}
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+            <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-0.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
             </div>
             <div className="min-w-0 flex-1">
-              <h6 className="font-semibold text-slate-900 text-sm leading-tight">
+              <h6 className="font-semibold text-neutral-900 text-sm leading-tight">
                 {improvement.area || improvement.title || 'Förbättring'}
               </h6>
               {(improvement.suggestion || improvement.description) && (
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
                   {improvement.suggestion || improvement.description}
                 </p>
               )}
               {improvement.example && (
-                <p className="text-xs text-slate-500 italic mt-1">
+                <p className="text-xs text-neutral-500 italic mt-1">
                   Exempel: {improvement.example}
                 </p>
               )}
               {improvement.category && !improvement.example && (
                 <span
-                  className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
+                  className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider"
                   style={{
-                    background:
-                      'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%)',
+                    background: 'rgba(16, 185, 129, 0.1)',
                     color: '#047857',
                   }}
                 >

@@ -127,7 +127,7 @@ export default function TermsCard({ profile, onPatch, collapse }: TermsCardProps
 function TermRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[130px_1fr] gap-2 sm:gap-3 items-start">
-      <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-400 sm:pt-3">
+      <div className="text-xs font-bold uppercase tracking-[0.08em] text-neutral-400 sm:pt-3">
         {label}
       </div>
       <div className="flex flex-wrap gap-2">{children}</div>
@@ -152,11 +152,11 @@ function Chip({
       aria-pressed={selected}
       onClick={onClick}
       className={`min-h-[44px] rounded-full border-[1.5px] font-semibold transition-all touch-manipulation ${
-        small ? 'px-3.5 text-[12px]' : 'px-4 text-[13px]'
+        small ? 'px-3.5 text-xs' : 'px-4 text-[13px]'
       } ${
         selected
           ? 'border-orange-500 bg-orange-50 text-orange-900'
-          : 'border-slate-200 bg-white text-slate-600 hover:border-orange-300'
+          : 'border-neutral-200 bg-white text-neutral-600 hover:border-orange-300'
       }`}
     >
       {label}
@@ -199,11 +199,13 @@ function SalaryInputs({
           placeholder="Lägst, kr/mån"
           value={minValue}
           onChange={(e) => setMinValue(e.target.value)}
+          enterKeyHint="next"
+          autoComplete="off"
           onBlur={save}
           aria-label="Lägsta månadslön"
-          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-slate-200 px-3.5 text-[13px] font-semibold text-slate-700 placeholder:font-normal placeholder:text-slate-400 focus:border-orange-400 focus:outline-none transition-colors"
+          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-neutral-200 px-3.5 text-base font-semibold text-neutral-700 placeholder:font-normal placeholder:text-neutral-400 focus:border-orange-400 focus:outline-none transition-colors"
         />
-        <span className="text-slate-400 text-sm" aria-hidden="true">
+        <span className="text-neutral-400 text-sm" aria-hidden="true">
           till
         </span>
         <input
@@ -213,12 +215,14 @@ function SalaryInputs({
           placeholder="Högst, kr/mån"
           value={maxValue}
           onChange={(e) => setMaxValue(e.target.value)}
+          enterKeyHint="done"
+          autoComplete="off"
           onBlur={save}
           aria-label="Högsta månadslön"
-          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-slate-200 px-3.5 text-[13px] font-semibold text-slate-700 placeholder:font-normal placeholder:text-slate-400 focus:border-orange-400 focus:outline-none transition-colors"
+          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-neutral-200 px-3.5 text-base font-semibold text-neutral-700 placeholder:font-normal placeholder:text-neutral-400 focus:border-orange-400 focus:outline-none transition-colors"
         />
       </div>
-      <p className="text-[12px] text-slate-400 mt-2">
+      <p className="text-xs text-neutral-400 mt-2">
         Visas aldrig på profilen, används bara för att filtrera bort fel förfrågningar.
       </p>
     </div>

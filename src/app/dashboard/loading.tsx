@@ -8,19 +8,19 @@ export default function DashboardLoading() {
     <SkeletonPage>
       <SkeletonHero />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
-        <SkeletonBlock height={160} rounded="rounded-3xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
+        <SkeletonBlock height={160} rounded="rounded-xl" />
       </div>
-      <SkeletonBlock height={64} rounded="rounded-3xl" />
+      <SkeletonBlock height={64} rounded="rounded-xl" />
       <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4">
-        <SkeletonBlock height={128} rounded="rounded-3xl" />
-        <SkeletonBlock height={128} rounded="rounded-3xl" />
+        <SkeletonBlock height={128} rounded="rounded-xl" />
+        <SkeletonBlock height={128} rounded="rounded-xl" />
       </div>
-      <SkeletonBlock height={240} rounded="rounded-3xl" />
+      <SkeletonBlock height={240} rounded="rounded-xl" />
     </SkeletonPage>
   )
 }

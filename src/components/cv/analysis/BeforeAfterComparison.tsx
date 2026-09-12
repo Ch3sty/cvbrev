@@ -146,7 +146,7 @@ export default function BeforeAfterComparison({
           animate={{ scale: 1 }}
           style={{ willChange: 'transform' }}
           transition={{ delay: 0.2, type: "spring" as const, stiffness: 200 }}
-          className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-full p-2"
+          className="bg-green-600 rounded-full p-2"
         >
           <ArrowDown className="w-4 h-4 text-white" />
         </motion.div>
@@ -157,10 +157,10 @@ export default function BeforeAfterComparison({
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-        className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border-2 border-green-300"
+        className="p-4 bg-green-50 rounded-lg border-2 border-green-300"
       >
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full" />
+          <div className="w-1 h-4 bg-green-600 rounded-full" />
           <span className="text-xs font-semibold text-gray-600 uppercase">
             Vårt förslag
           </span>

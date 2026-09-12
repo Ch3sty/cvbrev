@@ -77,17 +77,16 @@ export default function TemplateGalleryGrid({
               key={pill.id}
               type="button"
               onClick={() => setCategory(pill.id)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all min-h-[36px] ${
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all min-h-[44px] ${
                 isActive
-                  ? 'text-white shadow-md'
-                  : 'bg-white text-slate-700 border border-slate-200 hover:border-orange-300'
+                  ? 'text-white'
+                  : 'bg-white text-neutral-700 border border-neutral-200 hover:border-orange-300'
               }`}
               style={
                 isActive
                   ? {
                       background:
-                        'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 4px 12px -2px rgba(220, 38, 38, 0.35)',
+                        '#EA580C',
                     }
                   : undefined
               }
@@ -105,20 +104,20 @@ export default function TemplateGalleryGrid({
             <button
               type="button"
               onClick={() => scrollToIndex(mobileIndex - 1)}
-              className="absolute left-1 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              className="absolute left-1 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white/95 backdrop-blur rounded-full flex items-center justify-center border border-neutral-200"
               aria-label="Föregående mall"
             >
-              <ChevronLeft className="w-5 h-5 text-slate-700" />
+              <ChevronLeft className="w-5 h-5 text-neutral-700" />
             </button>
           )}
           {mobileIndex < filtered.length - 1 && (
             <button
               type="button"
               onClick={() => scrollToIndex(mobileIndex + 1)}
-              className="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur rounded-full shadow-lg flex items-center justify-center border border-slate-200"
+              className="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white/95 backdrop-blur rounded-full flex items-center justify-center border border-neutral-200"
               aria-label="Nästa mall"
             >
-              <ChevronRight className="w-5 h-5 text-slate-700" />
+              <ChevronRight className="w-5 h-5 text-neutral-700" />
             </button>
           )}
 
@@ -151,16 +150,15 @@ export default function TemplateGalleryGrid({
                 key={t.id}
                 type="button"
                 onClick={() => scrollToIndex(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === mobileIndex ? 'w-6' : 'w-2 bg-slate-300 hover:bg-slate-400'
-                }`}
-                style={
-                  i === mobileIndex
-                    ? { background: 'linear-gradient(90deg, #F97316, #DC2626)' }
-                    : undefined
-                }
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label={`Gå till mall ${i + 1}`}
-              />
+              >
+                <span
+                  className={`block h-2 rounded-full transition-all duration-300 ${
+                    i === mobileIndex ? 'w-6 bg-orange-600' : 'w-2 bg-neutral-300 hover:bg-neutral-400'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -185,7 +183,7 @@ export default function TemplateGalleryGrid({
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-8 text-slate-500 text-sm">
+        <div className="text-center py-8 text-neutral-500 text-sm">
           Inga mallar hittades i denna kategori.
         </div>
       )}
@@ -217,20 +215,18 @@ function TemplateCard({
       onClick={handleClick}
       whileHover={!isLocked ? { y: -3 } : {}}
       whileTap={!isLocked ? { scale: 0.98 } : {}}
-      className={`group relative w-full text-left bg-white rounded-2xl border-2 transition-all overflow-hidden focus:outline-none ${
+      className={`group relative w-full text-left bg-white rounded-xl border-2 transition-all overflow-hidden focus:outline-none ${
         isSelected
           ? 'border-emerald-500'
           : isLocked
-          ? 'border-slate-200 cursor-pointer'
-          : 'border-slate-200 hover:border-orange-300'
+          ? 'border-neutral-200 cursor-pointer'
+          : 'border-neutral-200 hover:border-orange-300'
       }`}
       style={
         isSelected
           ? {
-              boxShadow:
-                '0 0 0 4px rgba(16, 185, 129, 0.15), 0 12px 28px -8px rgba(16, 185, 129, 0.3)',
             }
-          : { boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)' }
+          : { }
       }
       aria-pressed={isSelected}
     >
@@ -239,8 +235,8 @@ function TemplateCard({
         className="absolute top-0 left-0 right-0 h-[3px] z-10"
         style={{
           background: isSelected
-            ? 'linear-gradient(90deg, #10B981, #059669)'
-            : 'linear-gradient(90deg, #F97316, #DC2626)',
+            ? '#059669'
+            : '#EA580C',
         }}
       />
 
@@ -248,15 +244,15 @@ function TemplateCard({
       {template.tier === 'premium' && (
         <div className="absolute top-2.5 right-2.5 z-20">
           <div
-            className={`text-white text-[10px] font-semibold px-2 py-1 rounded-full flex items-center gap-1 ${
-              isLocked ? 'bg-slate-700' : ''
+            className={`text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1 ${
+              isLocked ? 'bg-neutral-700' : ''
             }`}
             style={
               isLocked
                 ? undefined
                 : {
                     background:
-                      'linear-gradient(135deg, #D946EF, #9333EA, #DB2777)',
+                      '#EA580C',
                   }
             }
           >
@@ -274,8 +270,7 @@ function TemplateCard({
           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center z-20"
           style={{
-            background: 'linear-gradient(135deg, #10B981, #059669)',
-            boxShadow: '0 4px 10px -2px rgba(16, 185, 129, 0.5)',
+            background: '#059669',
           }}
         >
           <Check className="w-4 h-4 text-white" strokeWidth={3} />
@@ -283,7 +278,7 @@ function TemplateCard({
       )}
 
       {/* Preview */}
-      <div className="relative bg-slate-50 aspect-[3/4] overflow-hidden border-b border-slate-100">
+      <div className="relative bg-neutral-50 aspect-[3/4] overflow-hidden border-b border-neutral-100">
         <Image
           src={template.imagePath}
           alt={`${template.name} CV-mall`}
@@ -295,12 +290,12 @@ function TemplateCard({
         {/* Lock overlay för premium-låsta */}
         {isLocked && (
           <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px] flex items-center justify-center">
-            <div className="bg-white rounded-2xl px-4 py-3 shadow-lg border border-slate-200 text-center">
-              <Lock className="w-5 h-5 text-slate-700 mx-auto mb-1.5" strokeWidth={2.25} />
-              <div className="text-xs font-bold text-slate-900 mb-2">Premium-mall</div>
+            <div className="bg-white rounded-xl px-4 py-3 border border-neutral-200 text-center">
+              <Lock className="w-5 h-5 text-neutral-700 mx-auto mb-1.5" strokeWidth={2.25} />
+              <div className="text-xs font-bold text-neutral-900 mb-2">Premium-mall</div>
               <span
-                className="inline-flex items-center gap-1 text-[11px] font-semibold text-white px-3 py-1.5 rounded-lg"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                className="inline-flex items-center gap-1 text-xs font-semibold text-white px-3 py-1.5 rounded-lg"
+                style={{ background: '#EA580C' }}
               >
                 <Crown className="w-3 h-3" />
                 Lås upp
@@ -312,16 +307,16 @@ function TemplateCard({
 
       {/* Info */}
       <div className="p-4">
-        <h4 className="text-sm font-bold text-slate-900 leading-tight">
+        <h4 className="text-sm font-bold text-neutral-900 leading-tight">
           {template.name}
         </h4>
-        <p className="text-xs text-slate-600 mt-1 leading-relaxed line-clamp-2">
+        <p className="text-xs text-neutral-600 mt-1 leading-relaxed line-clamp-2">
           {template.description}
         </p>
         <div className="mt-2.5 flex items-center gap-1.5">
           <CategoryBadge category={template.category} />
           {template.tier === 'free' && (
-            <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-semibold">
+            <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-semibold">
               Gratis
             </span>
           )}
@@ -338,7 +333,7 @@ function CategoryBadge({ category }: { category: SimpleTemplate['category'] }) {
     creative: 'Kreativ',
   };
   return (
-    <span className="text-[10px] bg-slate-50 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded-full font-medium">
+    <span className="text-xs bg-neutral-50 text-neutral-600 border border-neutral-200 px-1.5 py-0.5 rounded-full font-medium">
       {labels[category]}
     </span>
   );

@@ -12,9 +12,18 @@ import { coverLetterPrefill, type CoverLetterPrefillData } from '@/store/cover-l
 import { useNotification } from '@/context/notificationcontext';
 
 import LetterFlowLayout from './components/LetterFlowLayout';
-import LetterFlowHero from './components/LetterFlowHero';
-import LetterFlowProgress, { type FlowSection } from './components/LetterFlowProgress';
 import LetterFlowSummary from './components/LetterFlowSummary';
+import FlowShell from '@/components/shell/FlowShell';
+import FlowError from '@/components/shell/FlowError';
+import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
+import { useFlowStep } from '@/lib/flow/useFlowStep';
+import {
+  loadDraft,
+  saveDraft,
+  clearDraft,
+  purgeExpiredDrafts,
+  type FlowDraft,
+} from '@/lib/flow/draft';
 import PrefillBadgeCard from './components/PrefillBadgeCard';
 import CVSelectionStep from './components/steps/CVSelectionStep';
 import JobDescriptionStep from './components/steps/JobDescriptionStep';
@@ -27,6 +36,23 @@ import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
+
+/** Steg 1 CV, 2 annons, 3 mall, 4 ton, 5 granska och skapa, 6 resultat. */
+const LETTER_FLOW_TOTAL_STEPS = 6;
+const LETTER_FLOW_NAME = 'skapa-brev';
+/** Höjs när formen nedan ändras, då kastas gamla utkast i stället för att krocka. */
+const LETTER_FLOW_VERSION = 1;
+
+interface LetterDraftData {
+  selectedCV: string | null;
+  jobDescription: string;
+  tonality: Tonality;
+  language: Language;
+  templateId: string;
+  selectedFont: FontId;
+  headerPhone: string;
+  headerLocation: string;
+}
 
 export default function CreateLetterPage() {
   const router = useRouter();
@@ -73,7 +99,7 @@ export default function CreateLetterPage() {
 
   const isPremium = subscriptionTier === 'premium';
 
-  // Form state — bevarat från originalet
+  // Form state, bevarat från originalet
   const [selectedCV, setSelectedCV] = useState<string | null>(prefillData?.cvId || null);
   const [jobDescription, setJobDescription] = useState(prefillData?.jobDescription || '');
   const [tonality, setTonality] = useState<Tonality>('balanced');
@@ -92,29 +118,111 @@ export default function CreateLetterPage() {
   const [isRegeneratingTemplate, setIsRegeneratingTemplate] = useState(false);
   // Dagskvoten slut (429 quota_exceeded från servern) → visa spärrvyn
   const [quotaLock, setQuotaLock] = useState<{ nextResetAt: string } | null>(null);
-  // Antal brev kvar idag — uppdateras från serverns svar efter varje generering
+  // Antal brev kvar idag, uppdateras från serverns svar efter varje generering
   const [remainingToday, setRemainingToday] = useState<number | null>(null);
 
-  // Flow state — vilka sektioner är klara, vilken är aktiv
-  const [activeSection, setActiveSection] = useState<FlowSection>('cv');
   const [showPipeline, setShowPipeline] = useState(false);
 
-  // Section refs för scroll
-  const cvRef = useRef<HTMLElement | null>(null);
-  const jobRef = useRef<HTMLElement | null>(null);
-  const templateRef = useRef<HTMLElement | null>(null);
-  const toneRef = useRef<HTMLElement | null>(null);
-  const summaryRef = useRef<HTMLElement | null>(null);
+  // Refs behålls för preview och pipeline. Sektionsscrollen är borta:
+  // FlowShell visar ett steg i taget, så det finns inget att scrolla till.
   const pipelineRef = useRef<HTMLDivElement | null>(null);
   const previewRef = useRef<HTMLElement | null>(null);
 
-  const completedSections: Record<FlowSection, boolean> = {
-    cv: !!selectedCV,
-    job: jobDescription.length > 20,
-    template: !!templateId,
-    tone: !!tonality,
-    generate: !!generatedLetter,
-  };
+  /* Flödessteg i URL:en (?steg=N). Tidigare låg steget i useState, så
+     bakåtgesten på mobil lämnade hela flödet i stället för att backa ett
+     steg, och en omladdning började om från noll. */
+  const cvDone = !!selectedCV;
+  const jobDone = jobDescription.length > 20;
+
+  // Spärr mot handskrivna ?steg=5: man når bara så långt datan räcker.
+  const maxReachableStep = !cvDone ? 1 : !jobDone ? 2 : generatedLetter ? 6 : 5;
+
+  const { step, goToStep, next, back } = useFlowStep({
+    totalSteps: LETTER_FLOW_TOTAL_STEPS,
+    maxReachableStep,
+  });
+
+  /* Utkast. Flödet tappade tidigare allt vid minsta avbrott eftersom hela
+     state bara låg i minnet. Ett inkommande samtal räckte. */
+  const [pendingDraft, setPendingDraft] = useState<FlowDraft<LetterDraftData> | null>(null);
+  const draftChecked = useRef(false);
+
+  useEffect(() => {
+    if (draftChecked.current) return;
+    draftChecked.current = true;
+    purgeExpiredDrafts();
+
+    // Prefill från en annons väger tyngre än ett gammalt utkast: användaren
+    // kom hit med ett tydligt ärende just nu.
+    if (prefillData?.cvId || prefillData?.jobDescription) return;
+
+    const found = loadDraft<LetterDraftData>(LETTER_FLOW_NAME, LETTER_FLOW_VERSION);
+    if (found) setPendingDraft(found);
+  }, [prefillData]);
+
+  const currentDraftData = useCallback(
+    (): LetterDraftData => ({
+      selectedCV,
+      jobDescription,
+      tonality,
+      language,
+      templateId,
+      selectedFont,
+      headerPhone,
+      headerLocation,
+    }),
+    [
+      selectedCV,
+      jobDescription,
+      tonality,
+      language,
+      templateId,
+      selectedFont,
+      headerPhone,
+      headerLocation,
+    ]
+  );
+
+  // Sparas vid stegbyte och när fliken göms, aldrig på varje tangenttryck:
+  // en skrivning per keystroke gör inmatningen hackig på svagare telefoner.
+  useEffect(() => {
+    if (pendingDraft || generatedLetter) return;
+    if (!selectedCV && !jobDescription) return;
+    saveDraft(LETTER_FLOW_NAME, LETTER_FLOW_VERSION, step, currentDraftData());
+  }, [step, pendingDraft, generatedLetter, selectedCV, jobDescription, currentDraftData]);
+
+  useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState !== 'hidden') return;
+      if (generatedLetter) return;
+      if (!selectedCV && !jobDescription) return;
+      saveDraft(LETTER_FLOW_NAME, LETTER_FLOW_VERSION, step, currentDraftData());
+    };
+    document.addEventListener('visibilitychange', onHide);
+    return () => document.removeEventListener('visibilitychange', onHide);
+  }, [step, generatedLetter, selectedCV, jobDescription, currentDraftData]);
+
+  const resumeDraft = useCallback(() => {
+    if (!pendingDraft) return;
+    const d = pendingDraft.data;
+    setSelectedCV(d.selectedCV);
+    setJobDescription(d.jobDescription);
+    setTonality(d.tonality);
+    setLanguage(d.language);
+    setTemplateId(d.templateId);
+    setSelectedFont(d.selectedFont);
+    setHeaderPhone(d.headerPhone);
+    setHeaderLocation(d.headerLocation);
+    prefilledContactRef.current = true;
+    setPendingDraft(null);
+    goToStep(pendingDraft.step);
+  }, [pendingDraft, goToStep]);
+
+  const restartDraft = useCallback(() => {
+    clearDraft(LETTER_FLOW_NAME, LETTER_FLOW_VERSION);
+    setPendingDraft(null);
+    goToStep(1);
+  }, [goToStep]);
 
   // Set default tonality to 'auto' for premium users
   useEffect(() => {
@@ -129,37 +237,18 @@ export default function CreateLetterPage() {
     });
   }, [fetchCVs]);
 
-  // Auto-scroll till rätt sektion vid prefill
-  const didInitialScroll = useRef(false);
+  /* Kommer användaren från en annons har hon redan gjort de första valen.
+     Hoppa fram till första steget som faktiskt saknar något, i stället för
+     att låta henne klicka förbi det hon just fyllt i. */
+  const didInitialJump = useRef(false);
   useEffect(() => {
-    if (didInitialScroll.current || !prefillData) return;
+    if (didInitialJump.current || !prefillData) return;
     if (cvCount === 0) return; // vänta tills CV-listan finns
+    didInitialJump.current = true;
 
-    didInitialScroll.current = true;
-
-    // Vänta in nästa frame så refs är satta
-    requestAnimationFrame(() => {
-      if (prefillData.cvId && prefillData.jobDescription) {
-        templateRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveSection('template');
-      } else if (prefillData.cvId) {
-        jobRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveSection('job');
-      }
-    });
-  }, [prefillData, cvCount]);
-
-  const scrollToSection = useCallback((section: FlowSection) => {
-    setActiveSection(section);
-    const refMap: Record<FlowSection, React.RefObject<HTMLElement | null>> = {
-      cv: cvRef,
-      job: jobRef,
-      template: templateRef,
-      tone: toneRef,
-      generate: summaryRef,
-    };
-    refMap[section].current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, []);
+    if (prefillData.cvId && prefillData.jobDescription) goToStep(3);
+    else if (prefillData.cvId) goToStep(2);
+  }, [prefillData, cvCount, goToStep]);
 
   const handleGenerateLetter = useCallback(async () => {
     if (!selectedCV || !jobDescription) {
@@ -208,7 +297,9 @@ export default function CreateLetterPage() {
         }
         setGeneratedLetter(letterContent);
         setLetterData(result);
-        setActiveSection('generate');
+        // Brevet finns, flödet är klart: utkastet behövs inte längre.
+        clearDraft(LETTER_FLOW_NAME, LETTER_FLOW_VERSION);
+        goToStep(6);
 
         if (typeof result.remainingLetters === 'number') {
           setRemainingToday(result.remainingLetters);
@@ -228,7 +319,7 @@ export default function CreateLetterPage() {
       }
       setError('Ett fel uppstod vid genereringen');
     }
-  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile]);
+  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile, goToStep]);
 
   // När brevet är klart: scrolla till preview + visa toast
   const didShowToast = useRef(false);
@@ -498,87 +589,144 @@ export default function CreateLetterPage() {
     );
   }
 
+  /* Ett steg i taget i FlowShell. Tidigare låg alla fem korten på samma
+     långa sida, med primärknappen sist: på 375 px betydde det att man
+     scrollade genom hela flödet för att hitta knappen. */
+
+  // Vad som saknas just nu, så en spärrad knapp aldrig är tyst.
+  const blockedReason =
+    step === 1 && !cvDone
+      ? 'Välj vilket CV brevet ska utgå från.'
+      : step === 2 && !jobDone
+        ? 'Klistra in annonsen, minst ett par meningar.'
+        : step === 5 && !canGenerate
+          ? 'Något saknas i dina val. Gå tillbaka och fyll i det som fattas.'
+          : undefined;
+
+  const stepTitles = ['Välj CV', 'Annonsen', 'Mall', 'Ton och språk', 'Granska', 'Ditt brev'];
+
+  const primaryFor = (): { label: string; onClick: () => void; disabled: boolean } | null => {
+    if (step === 1) return { label: 'Fortsätt', onClick: next, disabled: !cvDone };
+    if (step === 2) return { label: 'Fortsätt', onClick: next, disabled: !jobDone };
+    if (step === 3) return { label: 'Fortsätt', onClick: next, disabled: false };
+    if (step === 4) return { label: 'Fortsätt', onClick: next, disabled: false };
+    if (step === 5)
+      return {
+        label: 'Skapa mitt brev',
+        onClick: handleGenerateLetter,
+        disabled: !canGenerate,
+      };
+    return null; // Steg 6 har sina egna handlingar i PreviewStep.
+  };
+
+  const primary = primaryFor();
+
+  // Återkomstvalet tar över hela steget: det är ett vägval, inte en banner
+  // att scrolla förbi.
+  if (pendingDraft) {
+    return (
+      <FlowShell
+        title="Personligt brev"
+        step={pendingDraft.step}
+        totalSteps={LETTER_FLOW_TOTAL_STEPS}
+        onExit={() => router.push('/dashboard')}
+        exitLabel="Tillbaka till översikten"
+      >
+        <FlowResumeBanner
+          savedAt={pendingDraft.savedAt}
+          step={pendingDraft.step}
+          totalSteps={LETTER_FLOW_TOTAL_STEPS}
+          onResume={resumeDraft}
+          onRestart={restartDraft}
+        />
+      </FlowShell>
+    );
+  }
+
   return (
-    <>
-      <LetterFlowLayout>
-        <LetterFlowProgress
-          activeSection={activeSection}
-          completedSections={completedSections}
-          onSectionClick={scrollToSection}
-        />
-
-        <LetterFlowHero />
-
-        {/* Onboarding-prompt: pekar mot nasta steg om brev nyss skapats */}
-        <OnboardingNextStep stepCompleted="create_letter" />
-
-        {prefillData && (prefillData.cvId || prefillData.jobDescription) && (
-          <PrefillBadgeCard
-            company={prefillData.company}
-            jobTitle={prefillData.jobTitle}
-            hasCv={!!prefillData.cvId}
-            hasJobDescription={!!prefillData.jobDescription}
-            onJumpToTemplate={() => scrollToSection('template')}
+    <FlowShell
+      title="Personligt brev"
+      step={step}
+      totalSteps={LETTER_FLOW_TOTAL_STEPS}
+      onBack={step > 1 && !isGenerating ? back : undefined}
+      onExit={step === 1 ? () => router.push('/dashboard') : undefined}
+      exitLabel="Tillbaka till översikten"
+      primaryLabel={primary?.label}
+      onPrimary={primary?.onClick}
+      primaryDisabled={primary?.disabled}
+      primaryBlockedReason={blockedReason}
+      primaryBusy={step === 5 && isGenerating}
+      busyLabel="Skriver brevet"
+      banner={
+        error ? (
+          <FlowError
+            message={error}
+            onRetry={() => {
+              setError(null);
+              if (step === 5) void handleGenerateLetter();
+            }}
           />
-        )}
+        ) : undefined
+      }
+    >
+      <h2 className="sr-only">{stepTitles[step - 1]}</h2>
 
-        <CVSelectionStep
-          selectedCV={selectedCV}
-          onCVSelect={(id) => {
-            setSelectedCV(id);
-            if (activeSection === 'cv') {
-              setActiveSection('job');
-              setTimeout(() => jobRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-            }
-          }}
-          isActive={activeSection === 'cv'}
-          startCollapsed={!!prefillData?.cvId}
-          onComplete={() => {
-            if (activeSection === 'cv') setActiveSection('job');
-          }}
-          registerRef={(el) => {
-            cvRef.current = el;
-          }}
-        />
+      {step === 1 && (
+        <>
+          <OnboardingNextStep stepCompleted="create_letter" />
+          {prefillData && (prefillData.cvId || prefillData.jobDescription) && (
+            <PrefillBadgeCard
+              company={prefillData.company}
+              jobTitle={prefillData.jobTitle}
+              hasCv={!!prefillData.cvId}
+              hasJobDescription={!!prefillData.jobDescription}
+              onJumpToTemplate={() => goToStep(3)}
+            />
+          )}
+          <CVSelectionStep
+            selectedCV={selectedCV}
+            onCVSelect={setSelectedCV}
+            isActive
+            startCollapsed={false}
+            onComplete={() => {}}
+          />
+        </>
+      )}
 
+      {step === 2 && (
         <JobDescriptionStep
           jobDescription={jobDescription}
           onJobDescriptionChange={setJobDescription}
-          isActive={activeSection === 'job'}
-          startCollapsed={!!prefillData?.jobDescription}
-          onComplete={() => {
-            if (activeSection === 'job') setActiveSection('template');
-          }}
-          registerRef={(el) => {
-            jobRef.current = el;
-          }}
+          isActive
+          startCollapsed={false}
+          onComplete={() => {}}
           prefillCompany={prefillData?.company}
           prefillJobTitle={prefillData?.jobTitle}
         />
+      )}
 
+      {step === 3 && (
         <TemplateStep
           templateId={templateId}
           onTemplateChange={handleTemplateChange}
           isPremium={isPremium}
-          isActive={activeSection === 'template'}
-          registerRef={(el) => {
-            templateRef.current = el;
-          }}
+          isActive
         />
+      )}
 
+      {step === 4 && (
         <TonalityLanguageStep
           tonality={tonality}
           language={language}
           onTonalityChange={setTonality}
           onLanguageChange={setLanguage}
           isPremium={isPremium}
-          isActive={activeSection === 'tone'}
-          registerRef={(el) => {
-            toneRef.current = el;
-          }}
+          isActive
         />
+      )}
 
-        <div ref={(el) => { summaryRef.current = el; }}>
+      {step === 5 && (
+        <>
           <LetterFlowSummary
             cvName={cvName}
             jobDescriptionPreview={jobPreview}
@@ -593,20 +741,22 @@ export default function CreateLetterPage() {
             location={headerLocation}
             onPhoneChange={setHeaderPhone}
             onLocationChange={setHeaderLocation}
+            hidePrimaryAction
           />
-        </div>
+          {(showPipeline || isGenerating) && (
+            <div ref={pipelineRef} className="mt-4">
+              <LetterPipelineLoader
+                isGenerating={isGenerating}
+                isDone={!!generatedLetter && !isGenerating}
+                error={error}
+              />
+            </div>
+          )}
+        </>
+      )}
 
-        {(showPipeline || generatedLetter) && (
-          <div ref={pipelineRef}>
-            <LetterPipelineLoader
-              isGenerating={isGenerating}
-              isDone={!!generatedLetter && !isGenerating}
-              error={error}
-            />
-          </div>
-        )}
-
-        {generatedLetter && (
+      {step === 6 && generatedLetter && (
+        <>
           <PreviewStep
             letterContent={generatedLetter}
             templateId={templateId}
@@ -624,65 +774,17 @@ export default function CreateLetterPage() {
               previewRef.current = el;
             }}
           />
-        )}
-        {downloadGate && generatedLetter && (
-          <PaywallCard
-            variant="nedladdning"
-            isPremium={isPremium}
-            onCopy={() => navigator.clipboard?.writeText(generatedLetter)}
-          />
-        )}
-      </LetterFlowLayout>
-
-      {/* Exit Warning Modal */}
-      {showExitWarning && (
-        <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setShowExitWarning(false)}
-        >
-          <div
-            className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-          >
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <Info className="w-5 h-5 text-orange-600" />
-              </div>
-              <div>
-                <h3 id="modal-title" className="text-lg font-bold text-slate-900 mb-2">
-                  Vill du spara eller ladda ner först?
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Brevet är klart. Om du går vidare utan att spara eller ladda ner kan du inte komma åt det senare.
-                </p>
-              </div>
+          {downloadGate && (
+            <div className="mt-4">
+              <PaywallCard
+                variant="nedladdning"
+                isPremium={isPremium}
+                onCopy={() => navigator.clipboard?.writeText(generatedLetter)}
+              />
             </div>
-
-            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
-              <button
-                onClick={() => {
-                  setShowExitWarning(false);
-                  router.push('/dashboard/mina-brev');
-                }}
-                className="flex-1 px-4 py-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl font-semibold transition-colors min-h-[44px]"
-              >
-                Nej, avsluta ändå
-              </button>
-              <button
-                onClick={() => setShowExitWarning(false)}
-                className="flex-1 px-4 py-3 text-white rounded-xl font-bold transition-colors min-h-[44px] shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-              >
-                Ja, gå tillbaka
-              </button>
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
-    </>
+    </FlowShell>
   );
 }
-

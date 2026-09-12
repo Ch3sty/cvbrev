@@ -31,6 +31,8 @@ import {
 import { StatusPill, formatDateLong, formatDateShort, daysSince } from '../components/StatusBits';
 import AddEventSheet from '../components/AddEventSheet';
 import QuickLogSheet from '../components/QuickLogSheet';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
 
 interface ApplicationDetail extends JobApplication {
@@ -48,6 +50,10 @@ export default function ApplicationDetailPage() {
   const [showAddEvent, setShowAddEvent] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [deletingEventId, setDeletingEventId] = useState<string | null>(null);
+  // Native confirm blockerar tråden och ser ut som ett webbläsarfel.
+  // ConfirmDialog bär bekräftelserna i stället, en per handling.
+  const [eventToDelete, setEventToDelete] = useState<string | null>(null);
+  const [confirmDeleteApplication, setConfirmDeleteApplication] = useState(false);
 
   const applicationId = params?.id;
 
@@ -101,7 +107,6 @@ export default function ApplicationDetailPage() {
   };
 
   const handleDeleteEvent = async (eventId: string) => {
-    if (!confirm('Ta bort händelsen? Statusen räknas om från de som är kvar.')) return;
     setDeletingEventId(eventId);
     try {
       const res = await fetch(`/api/applications/${applicationId}/events/${eventId}`, {
@@ -114,6 +119,7 @@ export default function ApplicationDetailPage() {
       }
     } finally {
       setDeletingEventId(null);
+      setEventToDelete(null);
     }
   };
 
@@ -132,7 +138,6 @@ export default function ApplicationDetailPage() {
   };
 
   const handleDeleteApplication = async () => {
-    if (!confirm('Ta bort hela ansökan och dess historik? Detta går inte att ångra.')) return;
     const res = await fetch(`/api/applications/${applicationId}`, { method: 'DELETE' });
     const json = await res.json();
     if (res.ok && json.success) {
@@ -142,12 +147,9 @@ export default function ApplicationDetailPage() {
 
   if (isLoading || !detail) {
     return (
-      <div className="max-w-3xl mx-auto space-y-4">
-        <div className="bg-white rounded-3xl border border-orange-200/50 p-6 animate-pulse space-y-3">
-          <div className="h-5 bg-orange-100/60 rounded w-2/3" />
-          <div className="h-4 bg-orange-100/40 rounded w-1/3" />
-        </div>
-        <div className="bg-white rounded-3xl border border-orange-200/50 p-6 animate-pulse h-48" />
+      <div className="mx-auto max-w-3xl space-y-4">
+        <LoadingSkeleton variant="card" label="Läser in ansökan" />
+        <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
       </div>
     );
   }
@@ -163,16 +165,10 @@ export default function ApplicationDetailPage() {
 
   return (
     <div className="relative">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{ background: 'linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 40%, #FFFFFF 100%)' }}
-      />
-
       <div className="max-w-3xl mx-auto pb-16 space-y-4 sm:space-y-5">
         <Link
           href="/dashboard/sokta-tjanster"
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 hover:text-slate-700 transition-colors"
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-neutral-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
           Sökta tjänster
@@ -183,22 +179,21 @@ export default function ApplicationDetailPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-          style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+          className="rounded-xl border border-neutral-200 bg-white p-5 sm:p-6"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold text-neutral-900 leading-tight">
                 {detail.job_title}
               </h1>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-slate-600">
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-neutral-600">
                 <span className="inline-flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4 text-slate-400" strokeWidth={2.25} />
+                  <Building2 className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
                   {detail.company}
                 </span>
                 {detail.location && (
-                  <span className="inline-flex items-center gap-1.5 text-slate-500">
-                    <MapPin className="w-4 h-4 text-slate-400" strokeWidth={2.25} />
+                  <span className="inline-flex items-center gap-1.5 text-neutral-500">
+                    <MapPin className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
                     {detail.location}
                   </span>
                 )}
@@ -207,15 +202,15 @@ export default function ApplicationDetailPage() {
             <StatusPill status={detail.current_status} />
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] text-slate-600 border-t border-slate-100 pt-4">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] text-neutral-600 border-t border-neutral-100 pt-4">
             <span>
-              Sökt <span className="font-semibold text-slate-900">{formatDateLong(detail.applied_at)}</span>
+              Sökt <span className="font-semibold text-neutral-900">{formatDateLong(detail.applied_at)}</span>
             </span>
-            <span className="text-slate-300">·</span>
+            <span className="text-neutral-300">·</span>
             <span>{CHANNEL_META[detail.application_channel]?.label}</span>
             {detail.letter && (
               <>
-                <span className="text-slate-300">·</span>
+                <span className="text-neutral-300">·</span>
                 <Link
                   href={`/dashboard/mina-brev/${detail.letter.id}`}
                   className="inline-flex items-center gap-1 text-orange-700 hover:text-orange-800 font-semibold"
@@ -227,7 +222,7 @@ export default function ApplicationDetailPage() {
             )}
             {detail.job_ad_url && (
               <>
-                <span className="text-slate-300">·</span>
+                <span className="text-neutral-300">·</span>
                 <a
                   href={detail.job_ad_url}
                   target="_blank"
@@ -242,7 +237,7 @@ export default function ApplicationDetailPage() {
           </div>
 
           {detail.notes && (
-            <div className="mt-3 text-[13.5px] text-slate-600 bg-slate-50 border border-slate-200/70 rounded-xl px-3.5 py-2.5 whitespace-pre-wrap">
+            <div className="mt-3 text-[13.5px] text-neutral-600 bg-neutral-50 border border-neutral-200/70 rounded-xl px-3.5 py-2.5 whitespace-pre-wrap">
               {detail.notes}
             </div>
           )}
@@ -251,17 +246,17 @@ export default function ApplicationDetailPage() {
             <button
               type="button"
               onClick={() => setShowEdit(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-[13px] font-semibold text-slate-700 hover:border-slate-300 transition-all min-h-[44px]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-[13px] font-semibold text-neutral-700 hover:border-neutral-300 transition-all min-h-[44px]"
             >
               <Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />
               Redigera
             </button>
             <button
               type="button"
-              onClick={handleDeleteApplication}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-[13px] font-semibold text-slate-500 hover:text-red-600 hover:border-red-200 transition-all min-h-[44px]"
+              onClick={() => setConfirmDeleteApplication(true)}
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400"
             >
-              <Trash2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <Trash2 className="h-4 w-4" strokeWidth={2} />
               Ta bort
             </button>
           </div>
@@ -272,10 +267,9 @@ export default function ApplicationDetailPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05, ease: 'easeOut' }}
-          className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-          style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+          className="rounded-xl border border-neutral-200 bg-white p-5 sm:p-6"
         >
-          <h2 className="text-base font-bold text-slate-900 mb-4">Händelser</h2>
+          <h2 className="text-base font-bold text-neutral-900 mb-4">Händelser</h2>
 
           <ol className="relative space-y-0">
             {sortedEvents.map((event, index) => {
@@ -289,29 +283,32 @@ export default function ApplicationDetailPage() {
                 <li key={event.id} className="relative flex gap-3.5 group">
                   <div className="flex flex-col items-center">
                     <span className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${meta.dotClass}`} />
-                    {!isLast && <span className="w-px flex-1 bg-slate-200 my-1" />}
+                    {!isLast && <span className="w-px flex-1 bg-neutral-200 my-1" />}
                   </div>
                   <div className={`min-w-0 flex-1 ${isLast ? '' : 'pb-5'}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="text-[14px] font-semibold text-slate-900 leading-snug">{label}</div>
-                        <div className="text-[12.5px] text-slate-500 mt-0.5">
+                        <div className="text-[14px] font-semibold text-neutral-900 leading-snug">{label}</div>
+                        <div className="text-xs text-neutral-500 mt-0.5">
                           {formatDateShort(event.occurred_at)}
                         </div>
                         {event.note && (
-                          <div className="mt-1.5 text-[13px] text-slate-600 bg-slate-50 border border-slate-200/70 rounded-lg px-3 py-2 whitespace-pre-wrap">
+                          <div className="mt-1.5 text-[13px] text-neutral-600 bg-neutral-50 border border-neutral-200/70 rounded-lg px-3 py-2 whitespace-pre-wrap">
                             {event.note}
                           </div>
                         )}
                       </div>
+                      {/* Alltid synlig och 44 px: en handling som bara finns
+                          vid hover existerar inte på en pekskärm, och halva
+                          trafiken är mobil. */}
                       <button
                         type="button"
-                        onClick={() => handleDeleteEvent(event.id)}
+                        onClick={() => setEventToDelete(event.id)}
                         disabled={deletingEventId === event.id}
-                        aria-label="Ta bort händelsen"
-                        className="opacity-0 group-hover:opacity-100 focus:opacity-100 w-8 h-8 rounded-lg flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 transition-all flex-shrink-0"
+                        aria-label={`Ta bort händelsen ${label}`}
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 disabled:opacity-60"
                       >
-                        <X className="w-4 h-4" strokeWidth={2.5} />
+                        <X className="h-4 w-4" strokeWidth={2} />
                       </button>
                     </div>
                   </div>
@@ -323,10 +320,10 @@ export default function ApplicationDetailPage() {
             {showNudge && silentDays !== null && (
               <li className="relative flex gap-3.5">
                 <div className="flex flex-col items-center">
-                  <span className="mt-1 w-3 h-3 rounded-full border-2 border-slate-300 bg-white flex-shrink-0" />
+                  <span className="mt-1 w-3 h-3 rounded-full border-2 border-neutral-300 bg-white flex-shrink-0" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[13.5px] text-slate-500">
+                  <div className="text-[13.5px] text-neutral-500">
                     Inget hört på {silentDays} dagar. Vill du uppdatera status?
                   </div>
                   <button
@@ -363,6 +360,26 @@ export default function ApplicationDetailPage() {
         onClose={() => setShowEdit(false)}
         onSubmit={handleEdit}
         initial={detail}
+      />
+
+      <ConfirmDialog
+        open={eventToDelete !== null}
+        onCancel={() => setEventToDelete(null)}
+        onConfirm={() => (eventToDelete ? handleDeleteEvent(eventToDelete) : undefined)}
+        title="Ta bort händelsen?"
+        description="Statusen räknas om från de händelser som är kvar. Själva ansökan ligger kvar."
+        confirmLabel="Ta bort händelsen"
+        destructive
+      />
+
+      <ConfirmDialog
+        open={confirmDeleteApplication}
+        onCancel={() => setConfirmDeleteApplication(false)}
+        onConfirm={handleDeleteApplication}
+        title="Ta bort hela ansökan?"
+        description="Ansökan och hela dess historik försvinner, och den räknas inte längre med i din statistik eller i aktivitetsrapporten. Det går inte att ångra."
+        confirmLabel="Ta bort ansökan"
+        destructive
       />
     </div>
   );

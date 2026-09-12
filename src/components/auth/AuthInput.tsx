@@ -17,11 +17,11 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(function AuthInpu
     <div>
       <label
         htmlFor={id}
-        className="block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1.5"
+        className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
       >
         {label}
         {optional && (
-          <span className="ml-1.5 text-slate-400 normal-case font-medium tracking-normal">
+          <span className="ml-1.5 text-neutral-400 normal-case font-medium tracking-normal">
             (valfritt)
           </span>
         )}
@@ -32,7 +32,7 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(function AuthInpu
           id={id}
           className={`block w-full min-h-[44px] px-4 py-3 ${
             rightSlot ? 'pr-11' : ''
-          } bg-white border border-slate-200 rounded-xl text-base text-slate-900 placeholder-slate-400 transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 disabled:bg-slate-50 disabled:cursor-not-allowed ${className}`}
+          } bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 disabled:bg-neutral-50 disabled:cursor-not-allowed ${className}`}
           {...rest}
         />
         {rightSlot && (
@@ -42,7 +42,7 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(function AuthInpu
         )}
       </div>
       {hint && (
-        <p className="mt-1.5 text-xs text-slate-500 flex items-start gap-1.5">
+        <p className="mt-1.5 text-xs text-neutral-500 flex items-start gap-1.5">
           {hint}
         </p>
       )}

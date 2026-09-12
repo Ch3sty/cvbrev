@@ -1,11 +1,19 @@
 'use client';
 
+/**
+ * Hubben för rekryteringstester.
+ *
+ * Sidhuvud enligt sidmallen i stället för TesterHubHero (avsnitt 5, "Tester").
+ * Korten öppnar alltid testet, aldrig prenumerationssidan (våg 1 punkt 6).
+ */
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import PageHeader from '@/components/shell/PageHeader';
+import StatusRow from '@/components/shell/StatusRow';
 import { useProfile } from '@/hooks/use-profile';
 import { useAllTestStats, type TestSlug } from '@/hooks/use-all-test-stats';
 import { usePersonalityTestStats } from '@/hooks/use-personality-test-stats';
-import TesterHubHero from './components/TesterHubHero';
 import TestStatsCard from './components/TestStatsCard';
 import EmptyTestsCallout from './components/EmptyTestsCallout';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
@@ -22,7 +30,6 @@ export default function TesterHubPage() {
 
   const isPremium = subscriptionTier === 'premium';
 
-  // Hitta vilket test som har högst best-percentage (för crown)
   const bestTest = Object.entries(perTest)
     .filter(([, s]) => s.attempts > 0)
     .sort((a, b) => b[1].bestPercentage - a[1].bestPercentage)[0]?.[0] as
@@ -34,40 +41,44 @@ export default function TesterHubPage() {
     personalityStats.grund.hasProfile ||
     personalityStats.avancerad.hasProfile;
 
-  // Räknaren på utvecklingsfliken speglar de kognitiva försöken (personlighet
-  // bor på Tester-fliken, inte i utvecklingsvyn).
   const completedCount = aggregate.totalCompleted;
 
-  // Loading state
   if (profileLoading || statsLoading) {
     return (
-      <div className="mx-auto py-4 sm:py-6 max-w-6xl">
-        <div className="space-y-5 sm:space-y-6">
-          <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-24 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-32 animate-pulse" />
+      <div className="mx-auto max-w-6xl py-6">
+        <div className="space-y-6">
+          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-neutral-100" />
+          <div className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
+          <div className="h-64 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto py-4 sm:py-6 max-w-6xl">
-      <div className="space-y-5 sm:space-y-6 lg:space-y-7">
-        <TesterHubHero
-          totalCompleted={aggregate.totalCompleted}
-          averageBestPercentage={aggregate.averageBestPercentage}
-        />
+    <div className="mx-auto max-w-6xl py-6">
+      <div className="space-y-6">
+        <PageHeader
+          title="Rekryteringstester"
+          description="Träna på de moment rekryterare faktiskt använder: logik, verbalt resonemang, siffror och personlighet."
+        >
+          <TesterTabs active={tab} onChange={setTab} completedCount={completedCount} />
+        </PageHeader>
 
-        <TesterTabs active={tab} onChange={setTab} completedCount={completedCount} />
+        {/* Gratisrytmen sägs en gång, som rad, inte i varje kort. */}
+        {!isPremium ? (
+          <StatusRow tone="neutral">
+            Du gör varje test en gång per dag på gratisnivån.
+          </StatusRow>
+        ) : null}
 
         {tab === 'tester' ? (
           <motion.div
             key="tester"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-5 sm:space-y-6 lg:space-y-7"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="space-y-6"
           >
             {hasAnyData ? (
               <TestStatsCard
@@ -80,7 +91,7 @@ export default function TesterHubPage() {
               <EmptyTestsCallout />
             )}
 
-            <div className="space-y-4 sm:space-y-5">
+            <div className="space-y-6">
               {TEST_GROUPS.map((group, gi) => {
                 const startIndex = TEST_GROUPS.slice(0, gi).reduce(
                   (acc, g) => acc + g.cognitive.length + g.personality.length,

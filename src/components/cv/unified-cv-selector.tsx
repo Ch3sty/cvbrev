@@ -63,11 +63,11 @@ export default function UnifiedCVSelector({
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="border-2 border-dashed border-gray-300 rounded-2xl p-12 bg-gray-50"
+        className="border-2 border-dashed border-gray-300 rounded-xl p-12 bg-gray-50"
       >
         <div className="flex flex-col items-center justify-center text-gray-600">
           <motion.div
-            className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center mb-4"
+            className="mb-4 flex items-center justify-center"
             animate={{ y: [-5, 5, -5] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
@@ -78,7 +78,7 @@ export default function UnifiedCVSelector({
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => setShowInlineUpload(true)}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+              className="inline-flex items-center px-6 py-3 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition-all font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Ladda upp här
@@ -116,8 +116,8 @@ export default function UnifiedCVSelector({
               className={`
                 w-full text-left p-3 rounded-lg border transition-all duration-300 relative
                 ${isSelected
-                  ? 'bg-pink-50/80 border-pink-500 ring-2 ring-pink-400/30 shadow-lg'
-                  : 'bg-white/60 border-gray-200 hover:bg-gray-50/80 hover:border-gray-300 hover:shadow-md'
+                  ? 'bg-pink-50/80 border-pink-500 ring-2 ring-pink-400/30 '
+                  : 'bg-white/60 border-gray-200 hover:bg-gray-50/80 hover:border-gray-300'
                 }
               `}
             >
@@ -184,10 +184,10 @@ export default function UnifiedCVSelector({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.98 }}
               className={`
-                group relative bg-white border-2 rounded-2xl overflow-hidden transition-all text-left
+                group relative bg-white border-2 rounded-xl overflow-hidden transition-all text-left
                 ${isSelected
-                  ? 'border-pink-400 shadow-2xl ring-4 ring-pink-400/20'
-                  : 'border-gray-200 hover:border-pink-400 hover:shadow-2xl'
+                  ? 'border-pink-400  ring-4 ring-pink-400/20'
+                  : 'border-gray-200 hover:border-pink-400 hover:'
                 }
               `}
             >
@@ -197,21 +197,21 @@ export default function UnifiedCVSelector({
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute top-3 right-3 w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center z-10"
                 >
                   <Check className="w-5 h-5 text-white" />
                 </motion.div>
               )}
 
               {/* CV Icon Header */}
-              <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-b border-gray-200">
+              <div className="p-6 bg-white border-b border-gray-200">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <motion.div
-                      className="p-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex-shrink-0"
+                      className="flex-shrink-0"
                       whileHover={{ rotate: 5, scale: 1.1 }}
                     >
-                      <FileText className="w-6 h-6 text-white" />
+                      <FileText className="w-6 h-6 text-pink-600" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold text-gray-900 text-lg truncate mb-1">
@@ -234,16 +234,10 @@ export default function UnifiedCVSelector({
                       ? cv.cv_text.slice(0, 200) + '...'
                       : cv.cv_text || 'Ingen förhandsgranskning tillgänglig'}
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
                 </div>
               </div>
 
               {/* Hover Indicator */}
-              {!isSelected && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                />
-              )}
             </motion.button>
           );
         })}

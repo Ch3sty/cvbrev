@@ -2458,8 +2458,13 @@ export async function POST(request: NextRequest) {
     // A2: räkna upp gratisexporten först när filen faktiskt finns. Villkoret
     // `.eq('free_cv_exports_used', 0)` gör uppräkningen atomisk, så två
     // parallella exporter aldrig ger två gratisfiler.
-    // Punkt 12: premiumanvändning under trial.
-    logPremiumUsage(authedUserId, 'cv_export', { template });
+    // Punkt 12: premiumanvändning under trial. `premiumTemplate` skiljer en
+    // export med en låst mall från en vanlig export, så UpgradeSheet kan
+    // rangordna mallåtkomsten först för den som faktiskt använt den.
+    logPremiumUsage(authedUserId, 'cv_export', {
+      template,
+      premiumTemplate: selectedTemplate.tier === 'premium',
+    });
 
     if (shouldCountFreeExport && authedUserId) {
       try {

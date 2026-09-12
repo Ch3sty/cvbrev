@@ -30,11 +30,9 @@ export default function IncludeInLettersToggle({
         className="relative flex-shrink-0 w-11 h-6 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 mt-0.5"
         style={{
           background: checked
-            ? 'linear-gradient(135deg, #F97316, #DC2626)'
-            : '#E2E8F0',
-          boxShadow: checked
-            ? '0 4px 10px -2px rgba(220, 38, 38, 0.4)'
-            : 'inset 0 1px 2px rgba(15, 23, 42, 0.06)',
+            ? '#EA580C'
+            : '#E5E5E5',
+          boxShadow: checked ? 'none' : 'inset 0 1px 2px rgba(23, 23, 23, 0.06)',
         }}
       >
         <motion.span
@@ -45,11 +43,11 @@ export default function IncludeInLettersToggle({
       </button>
 
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-semibold text-slate-900 leading-tight">
+        <div className="text-sm font-semibold text-neutral-900 leading-tight">
           {label}
         </div>
         {description && (
-          <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+          <p className="text-xs text-neutral-500 mt-0.5 leading-relaxed">
             {description}
           </p>
         )}

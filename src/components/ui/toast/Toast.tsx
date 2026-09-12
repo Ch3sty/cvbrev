@@ -49,7 +49,7 @@ export default function Toast({
           className="
             fixed z-[70] pointer-events-auto
             left-4 right-4 lg:left-auto lg:right-5 lg:top-5
-            bottom-[calc(env(safe-area-inset-bottom)+96px)] lg:bottom-auto
+            bottom-[calc(var(--bottom-nav-h)+16px)] lg:bottom-auto
             lg:max-w-[420px]
           "
           role="status"

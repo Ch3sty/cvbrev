@@ -13,7 +13,7 @@ interface CvGenerationOverlayProps {
 
 /**
  * Minimal generation-modal som visas under PDF-skapande.
- * Centrerad rounded-3xl-card med pulserande dokument-illustration,
+ * Centrerad rounded-xl-card med pulserande dokument-illustration,
  * progress-bar (visuell, animeras 0->90% under 5s, 90->100% nar isOpen=false).
  */
 export default function CvGenerationOverlay({
@@ -55,7 +55,7 @@ export default function CvGenerationOverlay({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={isError && onClose ? onClose : undefined}
         >
           <motion.div
@@ -63,8 +63,7 @@ export default function CvGenerationOverlay({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="bg-white rounded-3xl border border-orange-200/50 p-6 sm:p-8 max-w-md w-full"
-            style={{ boxShadow: '0 24px 48px -12px rgba(220, 38, 38, 0.25)' }}
+            className="bg-white rounded-xl border border-orange-200/50 p-6 sm:p-8 max-w-md w-full shadow-xl"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
@@ -86,23 +85,23 @@ function ProgressContent({ progress }: { progress: number }) {
     <div className="flex flex-col items-center text-center">
       <DocumentIllustration />
 
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mt-5 mb-1.5">
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mt-5 mb-1.5">
         Skapar din CV-PDF
       </div>
-      <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mb-1">
+      <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight mb-1">
         Vi formaterar ditt innehåll
       </h3>
-      <p className="text-sm text-slate-600 mb-5">
+      <p className="text-sm text-neutral-600 mb-5">
         Tar 5–10 sekunder.
       </p>
 
       <div className="w-full">
-        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden">
           <motion.div
             animate={{ width: `${Math.round(progress)}%` }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #F97316, #DC2626)' }}
+            style={{ background: '#EA580C' }}
           />
         </div>
         <div className="mt-2 text-xs font-semibold text-orange-700 tabular-nums text-right">
@@ -122,20 +121,19 @@ function ErrorContent({
 }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
+      <div className="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
         <AlertCircle className="w-7 h-7" strokeWidth={2.25} />
       </div>
-      <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mb-1">
+      <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight mb-1">
         Något gick fel
       </h3>
-      <p className="text-sm text-slate-600 mb-5">
+      <p className="text-sm text-neutral-600 mb-5">
         {message || 'Vi kunde inte skapa din PDF. Försök igen.'}
       </p>
       <button
         type="button"
         onClick={onClose}
-        className="w-full px-5 py-3 rounded-xl text-white font-bold min-h-[44px] shadow-md"
-        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+        className="w-full px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold min-h-[44px]"
       >
         OK
       </button>
@@ -149,49 +147,28 @@ function ErrorContent({
 function DocumentIllustration() {
   return (
     <div className="relative w-[110px] h-[140px]">
-      {/* Pulserande halo */}
-      <motion.div
-        className="absolute inset-[-20%] rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(249, 115, 22, 0.18), transparent 65%)',
-        }}
-        animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.3, 0.6] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
       {/* Dokument */}
-      <div
-        className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden w-full h-full"
-        style={{
-          boxShadow:
-            '0 18px 36px -12px rgba(220, 38, 38, 0.25), 0 4px 12px -4px rgba(15, 23, 42, 0.08)',
-        }}
-      >
+      <div className="relative bg-white rounded-xl border border-neutral-200 overflow-hidden w-full h-full">
+
         <div
           className="h-1.5 w-full"
           style={{
-            background: 'linear-gradient(90deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+            background: '#EA580C',
           }}
         />
         <div className="px-3 pt-3 pb-2 flex flex-col gap-1.5">
-          <div className="h-2 w-3/4 rounded-full bg-slate-300" />
-          <div className="h-1.5 w-1/2 rounded-full bg-slate-200" />
+          <div className="h-2 w-3/4 rounded-full bg-neutral-300" />
+          <div className="h-1.5 w-1/2 rounded-full bg-neutral-200" />
         </div>
         <div className="px-3 mt-1 flex flex-col gap-1">
           {['w-full', 'w-5/6', 'w-full', 'w-2/3', 'w-5/6', 'w-3/4'].map((w, i) => (
-            <div key={i} className={`h-1 ${w} rounded-full bg-slate-100`} />
+            <div key={i} className={`h-1 ${w} rounded-full bg-neutral-100`} />
           ))}
         </div>
 
         {/* Skann-linje */}
         <motion.div
-          className="absolute left-0 right-0 h-[2px] pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(90deg, transparent 0%, rgba(249, 115, 22, 0.85) 50%, transparent 100%)',
-            boxShadow: '0 0 10px rgba(249, 115, 22, 0.7)',
-          }}
+          className="absolute left-0 right-0 h-[2px] bg-orange-500/70 pointer-events-none"
           animate={{ top: ['12%', '88%', '12%'] }}
           transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
         />

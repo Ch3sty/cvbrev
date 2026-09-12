@@ -842,7 +842,7 @@ export default function CVImprovementWorkflow({
                   w-12 h-12 rounded-full flex items-center justify-center
                   transition-all duration-300 border-2
                   ${isActive
-                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white border-pink-600'
+                    ? 'bg-orange-600 text-white border-orange-600'
                     : 'bg-white/80 text-gray-400 border-gray-300'}
                 `}>
                   {isComplete ? (
@@ -862,7 +862,7 @@ export default function CVImprovementWorkflow({
               {index < steps.length - 1 && (
                 <div className="flex-1 h-0.5 mx-2">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-pink-600 to-purple-600"
+                    className="h-full bg-orange-600"
                     initial={{ width: 0 }}
                     animate={{ width: isComplete ? '100%' : '0%' }}
                     transition={{ duration: 0.5, delay: 0.2 }}
@@ -885,12 +885,10 @@ export default function CVImprovementWorkflow({
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="bg-white/95 backdrop-blur-xl border-gray-200/80 shadow-xl p-6">
+            <Card className="bg-white/95 backdrop-blur-xl border-gray-200/80 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-r from-pink-600/10 to-purple-600/10">
-                    <ListChecks className="h-6 w-6 text-pink-600" />
-                  </div>
+                  <ListChecks className="h-5 w-5 text-neutral-700" />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">
                       Välj förbättringar
@@ -952,7 +950,7 @@ export default function CVImprovementWorkflow({
                 <Button
                   onClick={handleProceedToQuantify}
                   disabled={selectedCount === 0 || isPreparingQuantification}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  className="bg-orange-600 hover:bg-orange-700 text-white"
                 >
                   {isPreparingQuantification ? (
                     <>
@@ -1003,17 +1001,13 @@ export default function CVImprovementWorkflow({
             transition={{ duration: 0.3 }}
             className="text-center py-12"
           >
-            <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-xl border-gray-200/80 shadow-xl p-8">
+            <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-xl border-gray-200/80 p-8">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="w-16 h-16 mx-auto mb-4"
+                className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
               >
-                <div className="w-full h-full rounded-full bg-gradient-to-r from-pink-600 to-purple-600 p-0.5">
-                  <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                    <Wand2 className="h-8 w-8 text-pink-600" />
-                  </div>
-                </div>
+                <Wand2 className="h-8 w-8 text-neutral-700" />
               </motion.div>
 
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -1025,7 +1019,7 @@ export default function CVImprovementWorkflow({
 
               <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-pink-600 to-purple-600"
+                  className="h-full bg-orange-600"
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
                   transition={{ duration: 3, ease: "easeInOut" }}
@@ -1043,12 +1037,10 @@ export default function CVImprovementWorkflow({
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="bg-white/95 backdrop-blur-xl border-gray-200/80 shadow-xl p-6">
+            <Card className="bg-white/95 backdrop-blur-xl border-gray-200/80 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-r from-pink-600/10 to-purple-600/10">
-                    <Zap className="h-6 w-6 text-pink-600" />
-                  </div>
+                  <Zap className="h-5 w-5 text-neutral-700" />
                   <h3 className="text-lg font-semibold text-gray-900">
                     Förbättrad version klar!
                   </h3>
@@ -1056,7 +1048,7 @@ export default function CVImprovementWorkflow({
 
                 <Button
                   onClick={() => setShowPreview(true)}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  className="bg-orange-600 hover:bg-orange-700 text-white"
                 >
                   <FileText className="mr-2 h-4 w-4" />
                   Visa jämförelse
@@ -1066,9 +1058,9 @@ export default function CVImprovementWorkflow({
               <ImprovementMetrics metrics={metrics} />
 
               <div className="mt-6">
-                <div className="mb-4 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-200">
+                <div className="mb-4 p-4 bg-white rounded-lg border border-neutral-200">
                   <div className="flex items-center gap-2 mb-2">
-                    <Download className="h-4 w-4 text-pink-600" />
+                    <Download className="h-4 w-4 text-neutral-700" />
                     <h4 className="font-medium text-gray-900">Ladda ned ditt förbättrade CV</h4>
                   </div>
                   <p className="text-sm text-gray-600">
@@ -1107,15 +1099,15 @@ export default function CVImprovementWorkflow({
             transition={{ duration: 0.3 }}
             className="text-center py-12"
           >
-            <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-xl border-gray-200/80 shadow-xl p-8">
+            <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-xl border-gray-200/80 p-8">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 style={{ willChange: 'transform' }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center"
+                className="mb-4 flex items-center justify-center"
               >
-                <CheckCircle2 className="h-10 w-10 text-white" />
+                <CheckCircle2 className="h-10 w-10 text-emerald-700" />
               </motion.div>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -1135,7 +1127,7 @@ export default function CVImprovementWorkflow({
                 </Button>
                 <Button
                   onClick={() => window.location.href = '/dashboard/cv-mallar'}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  className="bg-orange-600 hover:bg-orange-700 text-white"
                 >
                   Applicera mall
                   <ChevronRight className="ml-2 h-4 w-4" />

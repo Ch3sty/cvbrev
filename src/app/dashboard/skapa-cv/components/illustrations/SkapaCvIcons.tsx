@@ -215,7 +215,7 @@ export function HeroSkapaCvIcon({ className }: IconProps) {
         />
       </g>
 
-      {/* "+"-cirkel uppe i hörnet — signalerar "skapa nytt" */}
+      {/* "+"-cirkel uppe i hörnet, signalerar "skapa nytt" */}
       <g transform="translate(62 14)">
         <circle
           cx="0"

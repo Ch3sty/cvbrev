@@ -39,30 +39,29 @@ export default function CvMallarSummary({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
-    >
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
+      >
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
         Dina val
       </div>
-      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-1">
+      <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-1">
         Klart att skapa
       </h3>
-      <p className="text-sm text-slate-600 mb-5">
+      <p className="text-sm text-neutral-600 mb-5">
         Vi formaterar ditt innehåll med vald design och laddar ner en PDF.
       </p>
 
-      <ul className="divide-y divide-slate-100 mb-5">
+      <ul className="divide-y divide-neutral-100 mb-5">
         <SummaryRow
           icon={FileText}
           label="CV"
-          value={cvName || '—'}
+          value={cvName || 'Inget valt'}
           ok={!!cvName}
         />
         <SummaryRow
           icon={Layout}
           label="Mall"
-          value={template?.name || '—'}
+          value={template?.name || 'Inget valt'}
           ok={!!template}
         />
       </ul>
@@ -70,7 +69,7 @@ export default function CvMallarSummary({
       {/* Customization-toggles om mallen stödjer det och inte är låst */}
       {supportsCustomization && !isLockedPremium && (
         <div className="space-y-2 mb-5">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
             Anpassa
           </div>
           {template?.features?.supportsPhoto && (
@@ -97,10 +96,9 @@ export default function CvMallarSummary({
         <button
           type="button"
           onClick={onUpgrade}
-          className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-bold text-white text-base shadow-lg transition-all min-h-[56px]"
+          className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold text-white text-base transition-all min-h-[56px]"
           style={{
-            background: 'linear-gradient(135deg, #D946EF 0%, #9333EA 50%, #DB2777 100%)',
-            boxShadow: '0 12px 28px -8px rgba(168, 85, 247, 0.45)',
+            background: '#EA580C',
           }}
         >
           <Crown className="w-5 h-5" strokeWidth={2.5} />
@@ -111,16 +109,12 @@ export default function CvMallarSummary({
           type="button"
           onClick={onGenerate}
           disabled={!canGenerate || isGenerating}
-          className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-bold text-white text-base shadow-lg transition-all min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold text-white text-base transition-all min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background:
               !canGenerate || isGenerating
-                ? '#94A3B8'
-                : 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            boxShadow:
-              !canGenerate || isGenerating
-                ? 'none'
-                : '0 12px 28px -8px rgba(220, 38, 38, 0.45)',
+                ? '#A3A3A3'
+                : '#EA580C',
           }}
         >
           {isGenerating ? (
@@ -136,7 +130,7 @@ export default function CvMallarSummary({
           )}
         </button>
       )}
-      <div className="text-center text-xs text-slate-500 mt-3">
+      <div className="text-center text-xs text-neutral-500 mt-3">
         {isLockedPremium
           ? 'Premium krävs för denna mall.'
           : 'Genereras direkt och laddas ner till din enhet.'}
@@ -162,18 +156,18 @@ function SummaryRow({
         className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
           ok
             ? 'bg-orange-50 text-orange-600'
-            : 'bg-slate-100 text-slate-400'
+            : 'bg-neutral-100 text-neutral-400'
         }`}
       >
         <Icon className="w-4 h-4" strokeWidth={2.25} />
       </div>
       <div className="min-w-0 flex-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
           {label}
         </div>
         <div
           className={`truncate font-medium ${
-            ok ? 'text-slate-900' : 'text-slate-400'
+            ok ? 'text-neutral-900' : 'text-neutral-400'
           }`}
         >
           {value}
@@ -201,34 +195,34 @@ function ToggleRow({
       className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all min-h-[52px] text-left ${
         checked
           ? 'border-orange-300 bg-orange-50/50'
-          : 'border-slate-200 bg-white hover:border-slate-300'
+          : 'border-neutral-200 bg-white hover:border-neutral-300'
       }`}
       role="switch"
       aria-checked={checked}
     >
       <div
         className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-          checked ? 'text-white' : 'bg-slate-100 text-slate-500'
+          checked ? 'text-white' : 'bg-neutral-100 text-neutral-500'
         }`}
         style={
           checked
-            ? { background: 'linear-gradient(135deg, #F97316, #DC2626)' }
+            ? { background: '#EA580C' }
             : undefined
         }
       >
         <Icon className="w-4 h-4" strokeWidth={2.25} />
       </div>
-      <span className="flex-1 text-sm font-semibold text-slate-900">
+      <span className="flex-1 text-sm font-semibold text-neutral-900">
         {label}
       </span>
       {/* Toggle switch */}
       <span
         className={`relative inline-flex h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-          checked ? '' : 'bg-slate-300'
+          checked ? '' : 'bg-neutral-300'
         }`}
         style={
           checked
-            ? { background: 'linear-gradient(135deg, #F97316, #DC2626)' }
+            ? { background: '#EA580C' }
             : undefined
         }
         aria-hidden="true"

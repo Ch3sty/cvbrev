@@ -69,7 +69,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
 
   if (!hasAny) {
     return (
-      <p className="text-sm text-slate-500 italic">
+      <p className="text-sm text-neutral-500 italic">
         Vi kunde inte tolka skills-svaret. Kopiera direkt från resultaten istället.
       </p>
     )
@@ -80,13 +80,13 @@ export default function SkillsMakeover({ rawJson }: Props) {
       {/* Behåll */}
       <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-3.5">
         <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0">
-            <Check className="w-3.5 h-3.5 text-white" strokeWidth={2.8} />
+          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+            <Check className="w-5 h-5 text-emerald-600" strokeWidth={2.8} />
           </div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
             Behåll
           </span>
-          <span className="ml-auto text-[10px] font-bold text-emerald-700 tabular-nums">
+          <span className="ml-auto text-xs font-bold text-emerald-700 tabular-nums">
             {data.strong_skills?.length ?? 0}
           </span>
         </div>
@@ -95,33 +95,27 @@ export default function SkillsMakeover({ rawJson }: Props) {
             {data.strong_skills.map((skill) => (
               <span
                 key={skill}
-                className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-white border border-emerald-200 text-emerald-800"
+                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white border border-emerald-200 text-emerald-800"
               >
                 {skill}
               </span>
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-slate-500 italic">Inga starka skills hittade.</p>
+          <p className="text-xs text-neutral-500 italic">Inga starka skills hittade.</p>
         )}
       </div>
 
       {/* Byt ut */}
       <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-3.5">
         <div className="flex items-center gap-2 mb-2.5">
-          <div
-            className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0"
-            style={{
-              background:
-                'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            }}
-          >
-            <X className="w-3.5 h-3.5 text-white" strokeWidth={2.8} />
+          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+            <X className="w-5 h-5 text-neutral-700" strokeWidth={2.8} />
           </div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
             Byt ut
           </span>
-          <span className="ml-auto text-[10px] font-bold text-orange-700 tabular-nums">
+          <span className="ml-auto text-xs font-bold text-orange-700 tabular-nums">
             {data.weak_skills?.length ?? 0}
           </span>
         </div>
@@ -133,7 +127,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
                 className="rounded-lg bg-white border border-orange-100 px-2.5 py-2"
               >
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-[11px] font-bold text-orange-900 line-through opacity-70">
+                  <span className="text-xs font-bold text-orange-900 line-through opacity-70">
                     {s.skill}
                   </span>
                   {s.replace_with && (
@@ -142,14 +136,14 @@ export default function SkillsMakeover({ rawJson }: Props) {
                         className="w-3 h-3 text-orange-600"
                         strokeWidth={2.6}
                       />
-                      <span className="text-[11px] font-bold text-orange-800">
+                      <span className="text-xs font-bold text-orange-800">
                         {s.replace_with}
                       </span>
                     </>
                   )}
                 </div>
                 {s.reason && (
-                  <p className="text-[10px] text-slate-500 leading-snug mt-1">
+                  <p className="text-xs text-neutral-500 leading-snug mt-1">
                     {s.reason}
                   </p>
                 )}
@@ -157,7 +151,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-slate-500 italic">
+          <p className="text-xs text-neutral-500 italic">
             Inga svaga skills hittade. Bra jobbat!
           </p>
         )}
@@ -166,19 +160,13 @@ export default function SkillsMakeover({ rawJson }: Props) {
       {/* Lägg till */}
       <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-3.5">
         <div className="flex items-center gap-2 mb-2.5">
-          <div
-            className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0"
-            style={{
-              background:
-                'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)',
-            }}
-          >
-            <Plus className="w-3.5 h-3.5 text-white" strokeWidth={2.8} />
+          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+            <Plus className="w-5 h-5 text-neutral-700" strokeWidth={2.8} />
           </div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
             Lägg till
           </span>
-          <span className="ml-auto text-[10px] font-bold text-orange-700 tabular-nums">
+          <span className="ml-auto text-xs font-bold text-orange-700 tabular-nums">
             {data.suggested_skills?.length ?? 0}
           </span>
         </div>
@@ -194,12 +182,12 @@ export default function SkillsMakeover({ rawJson }: Props) {
                     className="w-3 h-3 text-orange-600 flex-shrink-0"
                     strokeWidth={2.8}
                   />
-                  <span className="text-[11px] font-bold text-slate-900">
+                  <span className="text-xs font-bold text-neutral-900">
                     {s.skill}
                   </span>
                 </div>
                 {s.reason && (
-                  <p className="text-[10px] text-slate-500 leading-snug mt-1 ml-4">
+                  <p className="text-xs text-neutral-500 leading-snug mt-1 ml-4">
                     {s.reason}
                   </p>
                 )}
@@ -207,7 +195,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-slate-500 italic">
+          <p className="text-xs text-neutral-500 italic">
             Inga ytterligare förslag.
           </p>
         )}

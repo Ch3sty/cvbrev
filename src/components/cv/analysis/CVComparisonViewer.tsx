@@ -102,7 +102,7 @@ export default function CVComparisonViewer({
 
             {/* Arrow */}
             <div className="flex justify-center">
-              <div className="w-8 h-8 bg-gradient-to-r from-red-400 to-green-400 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs">→</span>
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function CVComparisonViewer({
 
         {/* Improved CV */}
         <div className="border border-green-200 rounded-lg overflow-hidden">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200 px-4 py-3">
+          <div className="bg-green-50 border-b border-green-200 px-4 py-3">
             <h4 className="font-semibold text-gray-900">Förbättrat CV</h4>
             <p className="text-xs text-gray-600 mt-1">
               {highlightChanges ? 'Grönt = nytt, Rött = borttaget' : 'Markeringar dolda'}
@@ -231,9 +231,6 @@ export default function CVComparisonViewer({
             className="p-6 bg-white overflow-auto max-h-[600px] relative"
             style={{ fontSize: `${zoomLevel}%` }}
           >
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-green-50/30 to-emerald-50/30" />
-
             {highlightChanges && blockDiff ? (
               <div className="font-sans text-gray-900 relative z-10">
                 {renderBlockDiff(blockDiff)}

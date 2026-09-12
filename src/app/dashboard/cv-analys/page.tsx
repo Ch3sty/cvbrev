@@ -185,7 +185,7 @@ export default function CVAnalysisPage() {
 
   if (hasReachedLimit) {
     return (
-      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
+      <div className="min-h-[calc(100dvh-200px)] flex items-center justify-center px-4 py-12">
         <PaywallCard
           variant="kvot"
           quota={{

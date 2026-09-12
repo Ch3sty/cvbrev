@@ -295,9 +295,10 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setRewardClaimed(true);
   }, []);
 
-  // Auto-claim (B5): när det enda steget är klart hämtas belöningen åt
-  // användaren. Ref-vakten skyddar mot dubbelanrop när realtime triggar en
-  // ny hämtning mitt i, och routen är dessutom idempotent (400 vid dubbel).
+  // Auto-claim: när CV:t är uppladdat markeras steget klart åt användaren.
+  // Sedan våg 2 punkt 21 finns ingen belöning att hämta, bara en flagga och
+  // en bekräftelse. Ref-vakten skyddar mot dubbelanrop när realtime triggar
+  // en ny hämtning mitt i, och routen är dessutom idempotent (400 vid dubbel).
   useEffect(() => {
     if (isLoading || rewardClaimed || !onboardingCompleted) return;
     if (!autoClaimEligible.current || autoClaimAttempted.current) return;
@@ -313,7 +314,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
           return;
         }
         setRewardClaimed(true);
-        success('Din belöning är upplåst');
+        success('Ditt CV är på plats');
       } catch (error) {
         console.warn('[OnboardingContext] Auto-claim misslyckades:', error);
       }

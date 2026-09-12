@@ -72,10 +72,10 @@ export default function ScoreHero({ scoreBefore, scoreAfter }: Props) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-black text-slate-500 tabular-nums">
+            <span className="text-2xl font-semibold text-neutral-500 tabular-nums">
               {scoreBefore}
             </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
               Före
             </span>
           </div>
@@ -88,12 +88,7 @@ export default function ScoreHero({ scoreBefore, scoreAfter }: Props) {
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.8, type: 'spring', stiffness: 380 }}
-          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-white font-black text-base"
-          style={{
-            background:
-              'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-            boxShadow: '0 8px 18px -6px rgba(16, 185, 129, 0.5)',
-          }}
+          className="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-emerald-600 text-white font-semibold text-base"
         >
           <TrendingUp className="w-4 h-4" strokeWidth={3} />
           <span>+{delta}</span>
@@ -146,10 +141,10 @@ export default function ScoreHero({ scoreBefore, scoreAfter }: Props) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <motion.span className="text-4xl font-black text-slate-900 tabular-nums">
+            <motion.span className="text-4xl font-semibold text-neutral-900 tabular-nums">
               {display}
             </motion.span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Efter
             </span>
           </div>

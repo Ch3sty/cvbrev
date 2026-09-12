@@ -7,6 +7,8 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 export const dynamic = 'force-dynamic';
 
@@ -80,19 +82,44 @@ export async function GET(request: Request) {
       };
     });
 
+    const totals = {
+      applications: list.length,
+      advertised: advertised.length,
+      unsolicited: unsolicited.length,
+      interviews: interviews.length,
+    };
+
+    // Betalväggen ligger på uttaget, aldrig på loggningen. Antalen är alltid
+    // fria: de driver påminnelsen om deadline, och den som loggat sina jobb
+    // ska alltid få veta att hon gjort det. Det är den sammanställda listan
+    // som är arbetet vi tar betalt för, och därför utelämnas den serverside.
+    // En blur i klienten hade lämnat kvar texten i svaret.
+    const isPremium = await userHasPremiumAccess(supabase, user.id);
+    if (!isPremium) {
+      return NextResponse.json({
+        success: true,
+        locked: true,
+        data: {
+          month: `${year}-${String(month).padStart(2, '0')}`,
+          advertised: [],
+          unsolicited: [],
+          interviews: [],
+          totals,
+        },
+      });
+    }
+
+    logPremiumUsage(user.id, 'af_report', { month: `${year}-${String(month).padStart(2, '0')}` });
+
     return NextResponse.json({
       success: true,
+      locked: false,
       data: {
         month: `${year}-${String(month).padStart(2, '0')}`,
         advertised,
         unsolicited,
         interviews,
-        totals: {
-          applications: list.length,
-          advertised: advertised.length,
-          unsolicited: unsolicited.length,
-          interviews: interviews.length,
-        },
+        totals,
       },
     });
   } catch (error) {

@@ -1,7 +1,7 @@
 'use client';
 
 // =============================================================================
-// MatrixTestSession — delad testvy för matrislogik grund/avancerad/expert.
+// MatrixTestSession, delad testvy för matrislogik grund/avancerad/expert.
 // Sidorna under /dashboard/tester/matrislogik-*/test/[sessionId] är tunna
 // wrappers som bara skickar in rätt frågeurval, endpoints och resultat-path.
 //
@@ -264,7 +264,7 @@ export function MatrixTestSession({
       newAnswers[currentQuestion] = index;
       setAnswers(newAnswers);
 
-      // Spara i bakgrunden — auto-hoppet ska inte vänta på API-latens.
+      // Spara i bakgrunden, auto-hoppet ska inte vänta på API-latens.
       saveAnswer(currentQuestion, index).finally(() => setIsSaving(false));
 
       // Snabbt auto-hopp till nästa obesvarade. Konsekvent timing eftersom det
@@ -425,7 +425,7 @@ export function MatrixTestSession({
                     </p>
                   </div>
                 )}
-                <p className="text-center text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-[0.18em] mb-3">
+                <p className="text-center text-xs sm:text-sm font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-3">
                   Välj rätt svar
                 </p>
                 <AnswerOptionsV7
@@ -443,7 +443,7 @@ export function MatrixTestSession({
             <button
               onClick={handlePrev}
               disabled={currentQuestion === 0 || isNavigating}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-neutral-200 bg-white text-neutral-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
               Föregående
@@ -463,11 +463,7 @@ export function MatrixTestSession({
             <button
               onClick={handleNext}
               disabled={currentQuestion === questions.length - 1 || isNavigating}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-              }}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-orange-600 hover:bg-orange-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               Nästa
               <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
@@ -491,7 +487,7 @@ export function MatrixTestSession({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
             onClick={() => setShowFinishConfirm(false)}
           >
             <motion.div
@@ -499,33 +495,18 @@ export function MatrixTestSession({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
-              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
+              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
             >
-              <div
-                className="absolute top-0 inset-x-0 h-1"
-                style={{
-                  background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
-                }}
-              />
               <div className="p-5 sm:p-6">
                 <div className="flex items-start gap-3 mb-4">
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
-                    style={{
-                      background: 'linear-gradient(135deg, #F59E0B, #F97316)',
-                      boxShadow: '0 6px 14px -4px rgba(249, 115, 22, 0.4)',
-                    }}
-                  >
-                    <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
-                  </div>
+                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
                   <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
                       Avsluta testet?
                     </h3>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Du har besvarat <span className="font-bold text-slate-900">{answeredQuestions.size}</span> av{' '}
-                      <span className="font-bold text-slate-900">{questions.length}</span> frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
+                    <p className="text-sm text-neutral-600 mt-1">
+                      Du har besvarat <span className="font-bold text-neutral-900">{answeredQuestions.size}</span> av{' '}
+                      <span className="font-bold text-neutral-900">{questions.length}</span> frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
                     </p>
                   </div>
                 </div>
@@ -543,18 +524,14 @@ export function MatrixTestSession({
                 <div className="flex gap-2 sm:gap-3 mt-5">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
+                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
                   >
                     Tillbaka
                   </button>
                   <button
                     onClick={handleFinishTest}
                     disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-                    }}
+                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
                   </button>
@@ -585,13 +562,13 @@ function QuestionHeader({
   maxDifficulty: number;
   showHint: boolean;
 }) {
-  // Strippa "FRÅGA X — " från title om det finns
-  const cleanTitle = title.replace(/^FRÅGA\s+\d+\s*[—-]\s*/i, '');
+  // Strippa "FRÅGA X, " från title om det finns
+  const cleanTitle = title.replace(/^FRÅGA\s+\d+\s*[--]\s*/i, '');
   const levels = Array.from({ length: maxDifficulty }, (_, i) => i + 1);
 
   return (
     <div className="text-center">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
         Fråga {index + 1}
       </div>
 
@@ -599,52 +576,40 @@ function QuestionHeader({
           testtagaren bara "Fråga N" + rutnätet, som ett riktigt rekryteringstest. */}
       {showHint ? (
         <>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
             {cleanTitle}
           </h2>
 
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+            <span className="text-xs uppercase tracking-wider font-semibold text-neutral-500">
               Svårighet
             </span>
             <div className="flex items-center gap-1">
               {levels.map((level) => (
                 <div
                   key={level}
-                  className="w-2 h-2 rounded-full"
-                  style={{
-                    background:
-                      level <= difficulty
-                        ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                        : '#E2E8F0',
-                  }}
+                  className={`w-2 h-2 rounded-full ${level <= difficulty ? 'bg-orange-600' : 'bg-neutral-200'}`}
                 />
               ))}
             </div>
           </div>
 
-          <div className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 sm:p-5 max-w-xl mx-auto">
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed text-left">
+          <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-4 sm:p-5 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-neutral-700 leading-relaxed text-left">
               {rule}
             </p>
           </div>
         </>
       ) : (
         <div className="inline-flex items-center gap-2 mb-1">
-          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+          <span className="text-xs uppercase tracking-wider font-semibold text-neutral-400">
             Svårighet
           </span>
           <div className="flex items-center gap-1">
             {levels.map((level) => (
               <div
                 key={level}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{
-                  background:
-                    level <= difficulty
-                      ? 'linear-gradient(135deg, #F97316, #DC2626)'
-                      : '#E2E8F0',
-                }}
+                className={`w-1.5 h-1.5 rounded-full ${level <= difficulty ? 'bg-orange-600' : 'bg-neutral-200'}`}
               />
             ))}
           </div>
@@ -661,11 +626,11 @@ function HintToggle({ showHint, onToggle }: { showHint: boolean; onToggle: () =>
         type="button"
         onClick={onToggle}
         aria-pressed={showHint}
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-slate-200 bg-white text-slate-600 hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
+        className="inline-flex items-center gap-2 px-3 py-1.5 min-h-[44px] rounded-full text-xs font-semibold border border-neutral-200 bg-white text-neutral-600 hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
       >
         <span
           className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${
-            showHint ? 'bg-orange-500' : 'bg-slate-300'
+            showHint ? 'bg-orange-500' : 'bg-neutral-300'
           }`}
         >
           <span

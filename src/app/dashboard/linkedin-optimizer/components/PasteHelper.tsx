@@ -40,14 +40,10 @@ export default function PasteHelper() {
       >
         <div className="flex items-center gap-2.5 min-w-0">
           <span
-            className="w-1 h-3 rounded-sm flex-shrink-0"
-            style={{
-              background:
-                'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-            }}
+            className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
             aria-hidden="true"
           />
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
             Så kopierar du från LinkedIn
           </span>
         </div>
@@ -77,26 +73,16 @@ export default function PasteHelper() {
                       key={step.title}
                       className="flex flex-col items-center text-center gap-1.5 p-2"
                     >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{
-                          background:
-                            i % 2 === 0
-                              ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                              : 'linear-gradient(135deg, #DC2626 0%, #BE185D 100%)',
-                          boxShadow:
-                            '0 4px 10px -3px rgba(220, 38, 38, 0.35)',
-                        }}
-                      >
+                      <div className="w-10 h-10 flex items-center justify-center">
                         <Icon
-                          className="w-5 h-5 text-white"
+                          className="w-5 h-5 text-neutral-700"
                           strokeWidth={2.2}
                         />
                       </div>
-                      <p className="text-[11px] font-bold text-slate-900 leading-tight">
+                      <p className="text-xs font-bold text-neutral-900 leading-tight">
                         {i + 1}. {step.title}
                       </p>
-                      <p className="text-[10px] text-slate-500 leading-tight">
+                      <p className="text-xs text-neutral-500 leading-tight">
                         {step.desc}
                       </p>
                     </div>

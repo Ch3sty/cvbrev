@@ -231,7 +231,7 @@ export default function JobbcoachenPage() {
             suggestionChips={isWelcomeView && !quotaLock ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
           />
           {!quotaLock && remainingToday !== null && (
-            <p className="pb-2 text-center text-xs text-slate-500">
+            <p className="pb-2 text-center text-xs text-neutral-500">
               {remainingToday} {remainingToday === 1 ? 'meddelande' : 'meddelanden'} kvar idag
             </p>
           )}
@@ -269,7 +269,7 @@ export default function JobbcoachenPage() {
                 <TypingIndicator />
               )}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700">
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
                 {error}
               </div>
             )}

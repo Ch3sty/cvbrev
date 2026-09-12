@@ -83,9 +83,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* Hero Section - Your Learning Journey */}
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 border border-blue-200/50 relative overflow-hidden shadow-xl">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5" />
-
+      <div className="bg-white rounded-xl p-8 border border-blue-200/50 relative overflow-hidden">
         <div className="relative">
           <div className="flex items-start justify-between mb-6">
             <div>
@@ -135,12 +133,12 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
             </div>
             <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full transition-all duration-700"
+                className="absolute inset-y-0 left-0 bg-orange-600 rounded-full transition-all duration-700"
                 style={{ width: `${matchScore}%` }}
               />
               <div className="absolute inset-y-0 left-0 w-full flex items-center justify-between px-2">
-                <div className="text-[10px] text-white font-bold">{matchScore}%</div>
-                <div className="text-[10px] text-gray-500">85%</div>
+                <div className="text-xs text-white font-bold">{matchScore}%</div>
+                <div className="text-xs text-gray-500">85%</div>
               </div>
             </div>
             <div className="flex justify-between text-xs text-gray-600 mt-2">
@@ -153,7 +151,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
       </div>
 
       {/* Automatic Strategy Display */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50 shadow-xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
         <div className="flex items-start gap-4 mb-4">
           <div className="text-4xl">{strategyConfig.emoji}</div>
           <div className="flex-1">
@@ -188,7 +186,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
       </div>
 
       {/* Smart Course Recommendations */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50 shadow-xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50">
         <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <Brain className="w-5 h-5 text-blue-600" />
           Smarta kursrekommendationer
@@ -210,7 +208,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-start gap-3">
-                    <div className="bg-gradient-to-br from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+                    <div className="bg-green-600 text-white text-xs font-bold rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
                       {course.efficiency}x
                     </div>
                     <div className="flex-1">
@@ -262,7 +260,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
           ))}
         </div>
 
-        <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+        <div className="mt-4 p-4 bg-white rounded-lg border border-blue-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900 mb-1">
@@ -281,7 +279,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
       </div>
 
       {/* Next Steps Call-to-Action */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-xl">
+      <div className="bg-orange-600 rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xl font-bold mb-2">Redo att börja din resa?</h3>
@@ -292,7 +290,7 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
           </div>
           <button
             onClick={() => setShowPlanCreator(true)}
-            className="px-6 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+            className="px-6 py-3 bg-white text-orange-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
             Aktivera min plan →
           </button>

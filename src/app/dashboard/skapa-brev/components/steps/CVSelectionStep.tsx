@@ -51,8 +51,7 @@ export default function CVSelectionStep({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
     >
       <LetterFlowStepHeader
         stepNumber={1}
@@ -65,7 +64,7 @@ export default function CVSelectionStep({
             <button
               type="button"
               onClick={() => setCollapsed(false)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors min-h-[36px]"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors min-h-[44px]"
             >
               <Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />
               Ändra
@@ -81,14 +80,14 @@ export default function CVSelectionStep({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-orange-50/60 border border-orange-100"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-50/60 border border-orange-100"
           >
             <CvDocumentIcon className="w-10 h-10 flex-shrink-0" />
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-orange-600">
+              <div className="text-xs font-semibold uppercase tracking-wider text-orange-600">
                 Valt CV
               </div>
-              <div className="text-sm font-semibold text-slate-900 truncate">
+              <div className="text-sm font-semibold text-neutral-900 truncate">
                 {cvDisplayName}
               </div>
             </div>

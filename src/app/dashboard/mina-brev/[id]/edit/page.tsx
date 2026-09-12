@@ -148,7 +148,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-10"
       style={{
-        background: 'linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 40%, #FFFFFF 100%)',
+        background: '#FFFFFF',
       }}
     />
   );
@@ -160,7 +160,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         <div className="min-h-[60vh] flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-8 h-8 text-orange-600 animate-spin" />
-            <p className="text-sm text-slate-600">Laddar brev…</p>
+            <p className="text-sm text-neutral-600">Laddar brev…</p>
           </div>
         </div>
       </>
@@ -172,20 +172,20 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
       <>
         {PageBackground}
         <div className="max-w-lg mx-auto px-4 py-8">
-          <div className="bg-white rounded-2xl border border-red-200 p-6">
+          <div className="bg-white rounded-xl border border-red-200 p-6">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-slate-900 mb-1">Brevet kunde inte hittas</h4>
-                <p className="text-slate-600 text-sm mb-4">
+                <h4 className="font-semibold text-neutral-900 mb-1">Brevet kunde inte hittas</h4>
+                <p className="text-neutral-600 text-sm mb-4">
                   {error || 'Brevet finns inte eller har tagits bort.'}
                 </p>
                 <Link
                   href="/dashboard/mina-brev"
                   className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-xl"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                  style={{ background: '#EA580C' }}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Tillbaka till mina brev
@@ -218,17 +218,17 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         >
           <Link
             href={`/dashboard/mina-brev/${id}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-orange-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-orange-700 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
             <span className="uppercase tracking-[0.14em]">Tillbaka till brevet</span>
           </Link>
 
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
               Redigera
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight">
               {currentLetter.title || 'Ansökningsbrev'}
             </h1>
           </div>
@@ -247,7 +247,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               </span>
             )}
             {templateName && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-50 text-neutral-700 border border-neutral-200 text-xs font-semibold">
                 <Palette className="w-3 h-3" strokeWidth={2.5} />
                 {templateName}
               </span>
@@ -260,7 +260,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3"
+            className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3"
           >
             <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
@@ -269,7 +269,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             </div>
             <button
               onClick={() => setSaveError(null)}
-              className="text-red-600 hover:text-red-800 min-h-[36px] min-w-[36px] flex items-center justify-center"
+              className="text-red-600 hover:text-red-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
@@ -281,16 +281,15 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.05 }}
-          className="bg-white rounded-2xl border border-orange-200/50 p-5"
-          style={{ boxShadow: '0 6px 24px -16px rgba(249, 115, 22, 0.15)' }}
-        >
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-3 flex items-center gap-1.5">
+          className="bg-white rounded-xl border border-orange-200/50 p-5"
+          >
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-3 flex items-center gap-1.5">
             <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
             Brevinfo
           </div>
           <div className="space-y-4">
             <div>
-              <label htmlFor="title" className="block text-xs font-semibold text-slate-600 mb-1.5">
+              <label htmlFor="title" className="block text-xs font-semibold text-neutral-600 mb-1.5">
                 Titel
               </label>
               <input
@@ -299,14 +298,14 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 text-sm text-slate-900 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
+                className="w-full px-3.5 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
                 placeholder="Ansökningsbrev"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="company" className="block text-xs font-semibold text-slate-600 mb-1.5">
+                <label htmlFor="company" className="block text-xs font-semibold text-neutral-600 mb-1.5">
                   Företag
                 </label>
                 <input
@@ -315,14 +314,14 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 text-sm text-slate-900 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
+                  className="w-full px-3.5 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
                   placeholder="Företagsnamn"
                 />
               </div>
               <div>
                 <label
                   htmlFor="job_title"
-                  className="block text-xs font-semibold text-slate-600 mb-1.5"
+                  className="block text-xs font-semibold text-neutral-600 mb-1.5"
                 >
                   Tjänstetitel
                 </label>
@@ -332,7 +331,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   name="job_title"
                   value={formData.job_title}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 text-sm text-slate-900 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
+                  className="w-full px-3.5 py-2.5 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
                   placeholder="Jobbtitel"
                 />
               </div>
@@ -345,25 +344,24 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-white rounded-2xl border border-orange-200/50 p-3 sm:p-4"
-          style={{ boxShadow: '0 6px 24px -16px rgba(249, 115, 22, 0.18)' }}
-        >
+          className="bg-white rounded-xl border border-orange-200/50 p-3 sm:p-4"
+          >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             {/* Zoom */}
             <div className="flex items-center gap-1 self-center sm:self-auto">
               <button
                 onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-                className="p-2 text-slate-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
+                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Zooma ut"
               >
                 <ZoomOut className="w-4 h-4" strokeWidth={2.5} />
               </button>
-              <span className="text-sm font-semibold text-slate-700 min-w-[52px] text-center">
+              <span className="text-sm font-semibold text-neutral-700 min-w-[52px] text-center">
                 {Math.round(zoom * 100)}%
               </span>
               <button
                 onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-                className="p-2 text-slate-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
+                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Zooma in"
               >
                 <ZoomIn className="w-4 h-4" strokeWidth={2.5} />
@@ -373,7 +371,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[40px]"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-neutral-700 bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[44px]"
               >
                 {copied ? (
                   <>
@@ -389,7 +387,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               </button>
               <button
                 onClick={isEditing ? handleCancelEdit : handleStartEdit}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-slate-700 bg-white border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[40px]"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-neutral-700 bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[44px]"
               >
                 <Edit3 className="w-4 h-4" strokeWidth={2.5} />
                 {isEditing ? 'Avbryt redigering' : 'Redigera text'}
@@ -397,8 +395,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white text-sm font-semibold shadow-sm hover:shadow-md transition-shadow min-h-[40px] disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white text-sm font-semibold shadow-sm transition-shadow min-h-[44px] disabled:opacity-50"
+                style={{ background: '#EA580C' }}
               >
                 {isSaving ? (
                   <>
@@ -420,7 +418,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                   company: formData.company || undefined,
                   position: formData.job_title || undefined,
                 }}
-                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[40px] !rounded-lg"
+                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[44px] !rounded-lg"
                 showTemplateSelector={false}
                 showPreview={false}
               />
@@ -433,29 +431,28 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
-          className="bg-white rounded-2xl border border-orange-200/50 overflow-hidden"
-          style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
-        >
+          className="bg-white rounded-xl border border-orange-200/50 overflow-hidden"
+          >
           {isEditing ? (
             <div className="p-5">
               <textarea
                 value={editableText}
                 onChange={(e) => setEditableText(e.target.value)}
-                className="w-full min-h-[500px] p-5 bg-white border border-slate-200 rounded-xl text-slate-900 text-base resize-none focus:outline-none focus:ring-2 focus:ring-orange-200/40 focus:border-orange-400 transition-all"
+                className="w-full min-h-[500px] p-5 bg-white border border-neutral-200 rounded-xl text-neutral-900 text-base resize-none focus:outline-none focus:ring-2 focus:ring-orange-200/40 focus:border-orange-400 transition-all"
                 style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
                 placeholder="Skriv ditt brev här…"
               />
               <div className="flex justify-end gap-2 mt-4">
                 <button
                   onClick={handleCancelEdit}
-                  className="px-4 py-2 text-slate-700 bg-white border border-slate-200 hover:border-slate-300 rounded-xl transition-colors text-sm font-semibold min-h-[40px]"
+                  className="px-4 py-2 text-neutral-700 bg-white border border-neutral-200 hover:border-neutral-300 rounded-xl transition-colors text-sm font-semibold min-h-[44px]"
                 >
                   Avbryt
                 </button>
                 <button
                   onClick={handleSaveEdit}
-                  className="px-4 py-2 rounded-xl text-white text-sm font-semibold shadow-sm hover:shadow-md transition-shadow min-h-[40px]"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                  className="px-4 py-2 rounded-xl text-white text-sm font-semibold shadow-sm transition-shadow min-h-[44px]"
+                  style={{ background: '#EA580C' }}
                 >
                   Spara ändringar
                 </button>

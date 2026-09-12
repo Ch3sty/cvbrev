@@ -72,10 +72,10 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+      className="rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
       style={{
         background:
-          'linear-gradient(135deg, rgba(255, 237, 213, 0.7) 0%, rgba(254, 215, 170, 0.5) 100%)',
+          'transparent',
         border: '1px solid #FED7AA',
       }}
     >
@@ -85,13 +85,13 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
           <Check className="w-5 h-5 text-emerald-700" strokeWidth={3} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[11px] font-black uppercase tracking-[0.14em] text-emerald-700 mb-0.5">
+          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700 mb-0.5">
             {config.completedLabel} · Onboarding
           </div>
-          <div className="text-sm sm:text-base font-black text-slate-900 leading-tight">
+          <div className="text-sm sm:text-base font-semibold text-neutral-900 leading-tight">
             Nästa: {config.nextTitle}
           </div>
-          <div className="text-xs text-slate-600 mt-0.5">
+          <div className="text-xs text-neutral-600 mt-0.5">
             {config.nextDescription}
           </div>
         </div>
@@ -102,8 +102,7 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
         className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-5 py-2.5 rounded-xl text-white font-bold text-sm min-h-[44px] flex-shrink-0"
         style={{
           background:
-            'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-          boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.35)',
+            '#EA580C',
         }}
       >
         {config.ctaLabel}

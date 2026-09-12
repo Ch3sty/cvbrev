@@ -13,35 +13,35 @@ export default function MatchExplanation() {
       title: 'Geografisk matchning',
       points: 25,
       description: 'Beräknad distans: 0-15 km (25p), 15-50 km (20p), 50-100 km (12p), 100-200 km (5p), 200-350 km (2p), >350 km (0p). Distansjobb får full poäng.',
-      color: 'from-blue-500 to-cyan-500'
+      color: 'bg-blue-500'
     },
     {
       icon: Briefcase,
       title: 'Yrkestitelmatchning',
       points: 20,
       description: 'Exakta roller + närliggande yrken (t.ex. butikschef → restaurangchef)',
-      color: 'from-purple-500 to-pink-500'
+      color: 'bg-purple-500'
     },
     {
       icon: FileCheck,
       title: 'Erfarenhetsbaserad matchning',
       points: 20,
       description: 'Nyckelord från dina rollbeskrivningar (ledarskap, budgetansvar etc.)',
-      color: 'from-green-500 to-emerald-500'
+      color: 'bg-emerald-500'
     },
     {
       icon: Brain,
       title: 'Matchade kompetenser',
       points: 15,
       description: 'Kompetenser från CV-analysen',
-      color: 'from-orange-500 to-red-500'
+      color: 'bg-orange-500'
     },
     {
       icon: Key,
       title: 'Keywords & ATS-termer',
       points: 20,
       description: 'Nyckelord och branschspecifika termer från analysen',
-      color: 'from-indigo-500 to-purple-500'
+      color: 'bg-indigo-500'
     }
   ];
 
@@ -49,17 +49,15 @@ export default function MatchExplanation() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 overflow-hidden"
+      className="bg-white rounded-xl border border-gray-200 overflow-hidden"
     >
       {/* Header - Always visible */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 flex items-center justify-between hover:bg-gray-50/50 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
-            <Info className="w-5 h-5 text-white" />
-          </div>
+          <Info className="w-5 h-5 text-neutral-700 flex-shrink-0" />
           <div className="text-left">
             <h3 className="font-semibold text-gray-900">Så fungerar matchningen</h3>
             <p className="text-sm text-gray-600">Klicka för att se hur vi beräknar relevansen</p>
@@ -83,7 +81,7 @@ export default function MatchExplanation() {
             transition={{ duration: 0.3 }}
           >
             <div className="px-4 pb-4">
-              <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 mb-4">
+              <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-4 mb-4">
                 <p className="text-sm text-gray-700 leading-relaxed">
                   Vi jämför ditt CV med jobbannonsen och lyfter fram det som matchar bäst.
                   Varje jobb får en relevanspoäng (0-100) baserad på 5 viktade faktorer:
@@ -97,11 +95,9 @@ export default function MatchExplanation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50/50 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                   >
-                    <div className={`p-2 bg-gradient-to-br ${factor.color} rounded-lg shrink-0`}>
-                      <factor.icon className="w-5 h-5 text-white" />
-                    </div>
+                    <factor.icon className="w-5 h-5 text-neutral-700 shrink-0 mt-0.5" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <h4 className="font-medium text-gray-900 text-sm">{factor.title}</h4>
@@ -114,7 +110,7 @@ export default function MatchExplanation() {
                           initial={{ width: 0 }}
                           animate={{ width: `${factor.points}%` }}
                           transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-                          className={`h-full bg-gradient-to-r ${factor.color}`}
+                          className={`h-full ${factor.color}`}
                         />
                       </div>
                     </div>

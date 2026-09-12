@@ -9,7 +9,7 @@ type SkillSuggestion = {
  * och formaterar till svensk eller engelsk läsbar text.
  *
  * Edge functionen returnerar ett objekt med strong_skills/weak_skills/suggested_skills.
- * Naiv string-konkatenering ger "[object Object]" — denna helper formaterar det
+ * Naiv string-konkatenering ger "[object Object]", denna helper formaterar det
  * till en läsbar lista istället.
  */
 export function formatSkillsForCopy(
@@ -24,7 +24,7 @@ export function formatSkillsForCopy(
     try {
       data = JSON.parse(trimmed)
     } catch {
-      // Inte JSON — använd strängen som den är
+      // Inte JSON, använd strängen som den är
       return trimmed
     }
   }

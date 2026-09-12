@@ -136,3 +136,83 @@ ovanför kortet. Premium får `null`.
 
 Produktvalet är `UpgradeSheet` (dagspass först i betalväggar, månad först på
 prissidan). Produkterna definieras i `src/lib/plans/plans.ts`.
+
+## Sidmall och delade komponenter
+
+Alla dashboardsidor följer samma skelett (`docs/plan-inloggat-omdesign.md`,
+avsnitt 3). Inga egna hjältar per sida, ingen gradienthero.
+
+```
++--------------------------------------------------------------+
+| SIDHUVUD   h1 + en rad + primär handling                     |
++--------------------------------------------------------------+
+| STATUS     valfri, en rad, aldrig ett kort                   |
++--------------------------------------------------------------+
+| INNEHÅLL   kort: bg-white rounded-xl border border-neutral-200|
++--------------------------------------------------------------+
+```
+
+Exakt ett `h1` per sida, alltid synligt. Exakt en fylld orange yta per skärm,
+och det är den primära handlingen. Sidhuvudets underrad säger vad sidan gör,
+inte vad den heter.
+
+Komponenterna ligger i `src/components/shell/` och byggs aldrig om per sida:
+
+| Komponent | Roll |
+|---|---|
+| `PageHeader` | Sidhuvud med titel, beskrivning och primär handling |
+| `EmptyState` | Tomt tillstånd: illustration 96, rubrik, en mening, en knapp |
+| `StatusRow` | Status som rad, toner `neutral`, `warm`, `positive` |
+| `Sheet` | Bottenark på mobil, centrerad dialog på desktop |
+| `ConfirmDialog` | Ersätter `window.confirm`, bygger på `Sheet` |
+| `LoadingSkeleton` | Laddning i samma former som innehållet som kommer |
+
+Ett skelett får aldrig ligga kvar: vid fel visas ett felmeddelande, vid noll
+rader visas `EmptyState`.
+
+## Illustrationsroller
+
+| Storlek | Roll |
+|---|---|
+| 24 px | Inline i en rad |
+| 48 px | Bredvid en rubrik i ett kort |
+| 96 px | Tomt tillstånd (`EmptyStateIllustrations`) |
+| 240 px | Hero, bara i dashboardens tillstånd A |
+
+En illustration per vy, aldrig två. Illustrationen visar vad funktionen gör,
+aldrig ett mönster eller en bakgrundscirkel.
+
+## Z-index-skala
+
+Inga andra värden används.
+
+| Lager | z-index |
+|---|---|
+| Innehåll | 0 |
+| Sticky element | 30 |
+| Navigation | 40 |
+| Sheet och bottenark | 50 |
+| Modal och dialog | 60 |
+| Toast | 70 |
+
+## Textminimum
+
+Minsta textstorlek är 12 px (`text-xs`). `text-[10px]` och `text-[11px]`
+används inte. Etiketter i navigation är minst 12 px.
+
+## Touch
+
+Minsta träffyta är 44 px, och 48 px i navigation. Det gäller även
+stängknappar, ikonknappar och filterpiller. En knapp på `py-2` blir cirka
+34 px och är därmed för liten.
+
+## Safe areas
+
+Allt sticky respekterar `env(safe-area-inset-bottom)`. Bottennavets höjd är en
+sanning, CSS-variabeln `--bottom-nav-h`, som alla sticky element och
+`.dashboard-main-content` räknar mot. Hårdkodade offsets används inte.
+
+Flerstegsflöden sätter `--bottom-nav-h: 0` medan flödet är öppet, och deras
+fot använder `position: sticky` i en `100dvh`-kolumn, aldrig `position: fixed`,
+eftersom iOS lägger tangentbordet över fixed-element. Använd `100dvh`, aldrig
+`100vh`.

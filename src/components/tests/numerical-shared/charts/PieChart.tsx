@@ -79,11 +79,11 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
   return (
     <figure className="w-full">
       {title && (
-        <figcaption className="text-sm font-bold text-slate-900 mb-2 text-center">
+        <figcaption className="text-sm font-bold text-neutral-900 mb-2 text-center">
           {title}
         </figcaption>
       )}
-      <div className="relative w-full overflow-hidden rounded-2xl border border-orange-100 bg-orange-50/30 p-3 sm:p-4">
+      <div className="relative w-full overflow-hidden rounded-xl border border-orange-100 bg-orange-50/30 p-3 sm:p-4">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"

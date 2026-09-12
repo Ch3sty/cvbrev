@@ -10,8 +10,8 @@ import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import type { AnySupabase, LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
-import { resolveLifecycleEmail } from './registry';
-import { scheduleEmail, sendAfterStockholm } from './schedule';
+import { resolveLifecycleEmail, WEEKLY_DIGEST_TYPE } from './registry';
+import { scheduleEmail, sendAfterStockholm, isoWeekKey } from './schedule';
 
 /** Avsändaren som redan är verifierad för domänen i Resend. */
 export const LIFECYCLE_FROM = 'Jobbcoach.ai <noreply@jobbcoach.ai>';
@@ -21,8 +21,11 @@ const MAX_ATTEMPTS = 3;
 const CHUNK_SIZE = 10;
 const TIME_BUDGET_MS = 40_000;
 
+/** Dagar utan inloggning då veckosammanfattningen slutar skickas av sig själv. */
+const DIGEST_INACTIVE_DAYS = 28;
+
 const PROFILE_COLUMNS =
-  'id, email, full_name, subscription_tier, subscription_status, current_period_end, premium_until, premium_source, quota_emails_opt_out, last_active, created_at';
+  'id, email, full_name, subscription_tier, subscription_status, current_period_end, premium_until, premium_source, quota_emails_opt_out, weekly_digest_opt_out, last_active, created_at';
 
 export interface RunnerResult {
   due: number;
@@ -256,4 +259,77 @@ export async function scheduleWinbacks(adminClient?: AnySupabase): Promise<{
 
   console.log(`[lifecycle] win-back schemalagt: 14d=${counts.winback_14} 30d=${counts.winback_30}`);
   return counts;
+}
+
+/**
+ * Veckosammanfattningen (plan avsnitt 8, våg 1 punkt 11).
+ *
+ * Urvalet körs söndag morgon och schemalägger mailet till samma dags körning
+ * hos dem som faktiskt har ansökningar igång. Tre spärrar, i den ordning de
+ * kostar minst att kontrollera:
+ *
+ *   1. weekly_digest_opt_out: den egna avregistreringen, som bara stänger
+ *      det här mailet och lämnar kvotpåminnelserna orörda.
+ *   2. quota_emails_opt_out: den globala avregistreringen. Runnern fångar den
+ *      också, men då har vi redan skrivit en rad i onödan.
+ *   3. Fyra veckor utan inloggning: den som slutat komma tillbaka ska inte få
+ *      ett veckobrev i all evighet. Win-back-spåret äger det fallet i stället.
+ *
+ * Veckosuffixet i email_type (weekly_digest_2026w37) gör unique-indexet på
+ * (user_id, email_type) till dubblettspärr: samma vecka går aldrig två gånger,
+ * nästa vecka släpps igenom.
+ */
+export async function scheduleWeeklyDigests(
+  adminClient?: AnySupabase,
+  now: Date = new Date()
+): Promise<{ scheduled: number; skipped: number }> {
+  const admin = (adminClient ?? getSupabaseAdmin()) as AnySupabase;
+  const result = { scheduled: 0, skipped: 0 };
+
+  const emailType = `${WEEKLY_DIGEST_TYPE}_${isoWeekKey(now)}`;
+  const inactiveCutoff = new Date(now.getTime() - DIGEST_INACTIVE_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
+  // Bara konton med minst en ansökan är intressanta. Vi läser distinkta
+  // user_id ur job_applications i stället för att gå igenom alla profiler.
+  const { data: appRows, error: appError } = await (admin as any)
+    .from('job_applications')
+    .select('user_id')
+    .limit(5000);
+
+  if (appError) {
+    console.error('[weekly_digest] kunde inte läsa ansökningar:', appError.message);
+    return result;
+  }
+
+  const userIds = Array.from(new Set((appRows ?? []).map((row: any) => row.user_id as string)));
+  if (userIds.length === 0) return result;
+
+  const { data: profileRows, error: profileError } = await (admin as any)
+    .from('profiles')
+    .select('id, email, last_active, quota_emails_opt_out, weekly_digest_opt_out')
+    .in('id', userIds);
+
+  if (profileError) {
+    console.error('[weekly_digest] kunde inte läsa profiler:', profileError.message);
+    return result;
+  }
+
+  for (const profile of profileRows ?? []) {
+    if (!profile.email) { result.skipped += 1; continue; }
+    if (profile.weekly_digest_opt_out === true) { result.skipped += 1; continue; }
+    if (profile.quota_emails_opt_out === true) { result.skipped += 1; continue; }
+    // Saknad last_active räknas som inaktiv: vi vet inte att hon är kvar.
+    if (!profile.last_active || profile.last_active < inactiveCutoff) {
+      result.skipped += 1;
+      continue;
+    }
+
+    // Skickas i samma morgonkörning. shouldSend avgör sedan om veckan har
+    // något att berätta, så vi aldrig skickar ett brev om ingenting.
+    await scheduleEmail(admin, profile.id, emailType, now);
+    result.scheduled += 1;
+  }
+
+  console.log(`[weekly_digest] ${emailType}: schemalagt=${result.scheduled} hoppade=${result.skipped}`);
+  return result;
 }

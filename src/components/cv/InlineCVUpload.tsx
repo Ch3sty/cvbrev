@@ -81,7 +81,7 @@ export default function InlineCVUpload({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="bg-white rounded-xl border-2 border-slate-200 p-6"
+      className="bg-white rounded-xl border-2 border-neutral-200 p-6"
     >
       {/* Header */}
       <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-6'}`}>
@@ -89,10 +89,10 @@ export default function InlineCVUpload({
           <span />
         ) : (
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 mb-1">
+            <h3 className="text-lg font-semibold text-neutral-900 mb-1">
               Ladda upp ditt CV
             </h3>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-neutral-600">
               För att skapa personliga brev behöver vi ditt CV
             </p>
           </div>
@@ -100,10 +100,10 @@ export default function InlineCVUpload({
         {showCancel && onCancel && (
           <button
             onClick={onCancel}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
             disabled={uploading}
           >
-            <X className="w-5 h-5 text-slate-400" />
+            <X className="w-5 h-5 text-neutral-400" />
           </button>
         )}
       </div>
@@ -120,10 +120,10 @@ export default function InlineCVUpload({
             <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-emerald-500" />
             </div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-2">
+            <h4 className="text-lg font-semibold text-neutral-900 mb-2">
               CV:t är inläst
             </h4>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-neutral-600">
               Vi tittar igenom det åt dig.
             </p>
           </motion.div>
@@ -141,7 +141,7 @@ export default function InlineCVUpload({
                 className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
                   isDragActive
                     ? 'border-blue-500 bg-blue-50'
-                    : 'border-slate-300 hover:border-slate-400 hover:bg-slate-50'
+                    : 'border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
                 }`}
               >
                 <input {...getInputProps()} />
@@ -149,26 +149,26 @@ export default function InlineCVUpload({
                   <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
                     <Upload className="w-8 h-8 text-blue-500" />
                   </div>
-                  <p className="text-sm font-medium text-slate-900 mb-1">
+                  <p className="text-sm font-medium text-neutral-900 mb-1">
                     {isDragActive
                       ? 'Släpp filen här...'
                       : 'Dra och släpp ditt CV här'}
                   </p>
-                  <p className="text-xs text-slate-500 mb-4">
+                  <p className="text-xs text-neutral-500 mb-4">
                     eller klicka för att välja fil
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-600">
+                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
                       PDF
                     </span>
-                    <span className="px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-600">
+                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
                       Word
                     </span>
-                    <span className="px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-600">
+                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
                       Text
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-2">Max 5MB</p>
+                  <p className="text-xs text-neutral-400 mt-2">Max 5MB</p>
                 </div>
               </div>
             ) : (
@@ -177,10 +177,10 @@ export default function InlineCVUpload({
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-blue-50 border border-blue-200">
                   <FileText className="w-10 h-10 text-blue-500 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-slate-900 truncate">
+                    <p className="font-medium text-neutral-900 truncate">
                       {selectedFile.name}
                     </p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral-600">
                       {(selectedFile.size / 1024).toFixed(1)} KB
                     </p>
                   </div>
@@ -189,21 +189,21 @@ export default function InlineCVUpload({
                       onClick={() => setSelectedFile(null)}
                       className="p-2 hover:bg-blue-100 rounded-lg transition-colors flex-shrink-0"
                     >
-                      <X className="w-4 h-4 text-slate-600" />
+                      <X className="w-4 h-4 text-neutral-600" />
                     </button>
                   )}
                 </div>
 
                 {/* GDPR Consent */}
-                <label className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors">
+                <label className="flex items-start gap-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition-colors">
                   <input
                     type="checkbox"
                     checked={gdprAccepted}
                     onChange={(e) => setGdprAccepted(e.target.checked)}
-                    className="mt-1 w-4 h-4 text-blue-500 border-slate-300 rounded focus:ring-blue-500"
+                    className="mt-1 w-4 h-4 text-blue-500 border-neutral-300 rounded focus:ring-blue-500"
                     disabled={uploading}
                   />
-                  <span className="text-sm text-slate-700 flex-1">
+                  <span className="text-sm text-neutral-700 flex-1">
                     Jag samtycker till att mitt CV behandlas enligt{' '}
                     <a
                       href="/gdpr"
@@ -237,7 +237,7 @@ export default function InlineCVUpload({
                 <button
                   onClick={handleUpload}
                   disabled={!gdprAccepted || uploading}
-                  className="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-medium hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 px-6 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
                 >
                   {uploading ? (
                     <>
@@ -253,7 +253,7 @@ export default function InlineCVUpload({
                 </button>
 
                 {subscriptionTier === 'free' && (
-                  <p className="text-xs text-center text-slate-500">
+                  <p className="text-xs text-center text-neutral-500">
                     Som gratisanvändare kan du ladda upp upp till 2 CV. Uppgradera till Premium för obegränsade CV:n.
                   </p>
                 )}

@@ -23,7 +23,7 @@ export default function ConfidenceMeter({
   const colorByLevel: Record<typeof confidence, string> = {
     high: '#10B981', // emerald-500
     medium: '#F59E0B', // amber-500
-    low: '#94A3B8', // slate-400
+    low: '#94A3B8', // neutral-400
   };
   const fillColor = colorByLevel[confidence];
 
@@ -53,7 +53,7 @@ export default function ConfidenceMeter({
         })}
       </div>
       <div
-        className="text-[10px] font-bold uppercase tracking-wider tabular-nums"
+        className="text-xs font-bold uppercase tracking-wider tabular-nums"
         style={{ color: fillColor }}
       >
         {labelByLevel[confidence]}

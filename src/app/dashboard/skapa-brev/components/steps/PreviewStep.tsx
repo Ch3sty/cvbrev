@@ -197,8 +197,7 @@ export default function PreviewStep({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7 space-y-6"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 space-y-6"
     >
       <LetterFlowStepHeader
         stepNumber={6}
@@ -283,7 +282,7 @@ export default function PreviewStep({
       )}
 
       {/* Action Bar */}
-      <div className="bg-orange-50/40 rounded-2xl border border-orange-200/60 p-3 sm:p-4">
+      <div className="bg-orange-50/40 rounded-xl border border-orange-200/60 p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Sekundära actions - Left side */}
           <div className="flex items-center gap-2 justify-center sm:justify-start">
@@ -329,7 +328,7 @@ export default function PreviewStep({
               <motion.button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={isSaving ? {} : { scale: 1.02 }}
                 whileTap={isSaving ? {} : { scale: 0.98 }}
                 title="Spara brevet"
@@ -372,7 +371,7 @@ export default function PreviewStep({
                   <>
                     <BookmarkCheck className="w-4 h-4 flex-shrink-0" />
                     <span className="text-sm">Markera som sökt</span>
-                    <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-orange-500 to-red-600">
+                    <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
                       Nyhet
                     </span>
                   </>
@@ -384,7 +383,7 @@ export default function PreviewStep({
             <motion.button
               onClick={handleDownloadPdf}
               disabled={isPdfGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-orange-500 to-red-600 rounded-lg hover:from-orange-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-all font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={isPdfGenerating ? {} : { scale: 1.02 }}
               whileTap={isPdfGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som PDF"
@@ -406,7 +405,7 @@ export default function PreviewStep({
             <motion.button
               onClick={handleDownloadDocx}
               disabled={isDocxGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-slate-900 bg-white border-2 border-slate-300 hover:border-slate-400 rounded-lg transition-all shadow-sm hover:shadow-md font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-neutral-900 bg-white border-2 border-neutral-300 hover:border-neutral-400 rounded-lg transition-all shadow-sm font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={isDocxGenerating ? {} : { scale: 1.02 }}
               whileTap={isDocxGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som DOCX"
@@ -435,20 +434,20 @@ export default function PreviewStep({
       />
 
       {/* Document Preview */}
-      <div className={`bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
+      <div className={`bg-white rounded-xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
         {/* Loading Overlay for Template Regeneration */}
         {isRegeneratingTemplate && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-white/90 backdrop-blur-sm rounded-2xl z-10 flex items-center justify-center"
+            className="absolute inset-0 bg-white/90 backdrop-blur-sm rounded-xl z-10 flex items-center justify-center"
           >
             <div className="flex flex-col items-center gap-4">
               <Loader2 className="w-12 h-12 text-orange-600 animate-spin" />
               <div className="text-center">
-                <p className="text-lg font-medium text-slate-900">Uppdaterar brevmall…</p>
-                <p className="text-sm text-slate-600 mt-1">Vi skriver om brevet med den nya designen.</p>
+                <p className="text-lg font-medium text-neutral-900">Uppdaterar brevmall…</p>
+                <p className="text-sm text-neutral-600 mt-1">Vi skriver om brevet med den nya designen.</p>
               </div>
             </div>
           </motion.div>
@@ -463,21 +462,20 @@ export default function PreviewStep({
             <textarea
               value={editableText}
               onChange={(e) => setEditableText(e.target.value)}
-              className="w-full h-[600px] p-8 bg-white border border-slate-200 rounded-2xl text-slate-900 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+              className="w-full h-[600px] p-8 bg-white border border-neutral-200 rounded-xl text-neutral-900 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
               style={{ fontFamily: selectedFontData.fallback }}
               placeholder="Skriv ditt brev här..."
             />
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={handleCancelEdit}
-                className="px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 min-h-[44px]"
+                className="px-4 py-2.5 text-neutral-700 bg-white border border-neutral-300 rounded-xl hover:bg-neutral-50 min-h-[44px]"
               >
                 Avbryt
               </button>
               <button
                 onClick={handleSaveEdit}
-                className="px-5 py-2.5 text-white rounded-xl font-bold min-h-[44px] shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+                className="px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold min-h-[44px]"
               >
                 Spara ändringar
               </button>
@@ -489,15 +487,14 @@ export default function PreviewStep({
             className={
               isTemplateHTML(editedContent)
                 ? 'w-full mx-auto' // Template HTML: full width, let parent control constraints
-                : 'bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
+                : 'bg-white border border-neutral-200 rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
             }
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={isTemplateHTML(editedContent) ? {} : { boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
           >
             {/* Page Header - Only for plain text (legacy) */}
             {!isTemplateHTML(editedContent) && (
-              <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
+              <div className="border-b border-gray-100 px-8 py-4 bg-gray-50">
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-gray-400" />
                   <span className="text-sm text-gray-600">Personligt brev</span>

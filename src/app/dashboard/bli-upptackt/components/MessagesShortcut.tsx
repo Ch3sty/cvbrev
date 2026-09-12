@@ -49,24 +49,22 @@ export default function MessagesShortcut() {
   return (
     <Link
       href="/dashboard/meddelanden"
-      className="flex items-center gap-3.5 rounded-2xl border border-orange-100 bg-white p-4 transition-transform hover:-translate-y-0.5"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
+      className="flex items-center gap-3.5 rounded-xl border border-orange-100 bg-white p-4 transition-transform hover:-translate-y-0.5"
     >
       <span
-        className="relative flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
-        style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
+        className="relative flex-shrink-0 w-11 h-11 flex items-center justify-center"
         aria-hidden="true"
       >
-        <MessageSquare className="w-5 h-5" strokeWidth={2.25} />
+        <MessageSquare className="w-5 h-5 text-neutral-700" strokeWidth={2.25} />
         {badge > 0 && (
-          <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-white text-red-600 border-2 border-white text-[11px] font-black flex items-center justify-center shadow">
+          <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-white text-red-600 border-2 border-white text-xs font-semibold flex items-center justify-center shadow">
             {badge > 9 ? '9+' : badge}
           </span>
         )}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="text-[14.5px] font-bold text-slate-900">Dina meddelanden</div>
-        <p className="text-[12.5px] text-slate-500 truncate">{line}</p>
+        <div className="text-[14.5px] font-bold text-neutral-900">Dina meddelanden</div>
+        <p className="text-xs text-neutral-500 truncate">{line}</p>
       </div>
       <ArrowRight className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.5} aria-hidden="true" />
     </Link>

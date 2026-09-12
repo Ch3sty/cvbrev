@@ -63,7 +63,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
   return (
     <SectionCard
       title="Dina verifierade resultat"
-      sub="Det här kan ingen annan plattform visa: resultat rekryteraren kan lita på. Varje test du gör stärker profilen, en omgång om dagen ingår gratis."
+      sub="Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. En omgång om dagen ingår gratis."
       delay={0.2}
       {...collapse}
     >
@@ -78,7 +78,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
                     ? `Topp ${Math.max(1, 100 - result.percentile)} %`
                     : `${result.bestScore}% rätt`}
                 </div>
-                <div className="text-[12px] text-slate-500 mt-0.5">
+                <div className="text-xs text-neutral-500 mt-0.5">
                   {result.level ? LEVEL_LABELS[result.level] : ''}
                   {result.completedAt ? ` · verifierad ${formatDate(result.completedAt)}` : ''}
                 </div>
@@ -87,10 +87,10 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
           }
           return (
             <ResultTile key={key} label={FAMILY_LABELS[key]} todo>
-              <div className="text-[15px] font-bold text-slate-400">Inte gjort</div>
+              <div className="text-[15px] font-bold text-neutral-400">Inte gjort</div>
               <Link
                 href="/dashboard/tester"
-                className="inline-flex items-center gap-1 text-[12.5px] font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
+                className="inline-flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
               >
                 Gör dagens test
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -108,13 +108,13 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
                 : personality.strengths.join(' · ')}
             </div>
             {showPersonality ? (
-              <div className="text-[12px] text-slate-500 mt-0.5">
+              <div className="text-xs text-neutral-500 mt-0.5">
                 {personality.workStyle
                   ? 'Arbetsstil + styrkor delas med ditt samtycke'
                   : 'Dina två främsta styrkor visas'}
               </div>
             ) : (
-              <div className="inline-flex items-center gap-1 text-[12px] text-slate-400 mt-0.5">
+              <div className="inline-flex items-center gap-1 text-xs text-neutral-400 mt-0.5">
                 <EyeOff className="w-3 h-3" strokeWidth={2.5} />
                 Döljs på profilen
               </div>
@@ -122,10 +122,10 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
           </ResultTile>
         ) : (
           <ResultTile label="Personlighet" todo>
-            <div className="text-[15px] font-bold text-slate-400">Inte gjort</div>
+            <div className="text-[15px] font-bold text-neutral-400">Inte gjort</div>
             <Link
               href="/dashboard/tester"
-              className="inline-flex items-center gap-1 text-[12.5px] font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
+              className="inline-flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
             >
               Gör dagens test
               <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -136,12 +136,12 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
 
       {/* Delningsnivåerna: bara för avancerad-testare med kvalificerad rapport */}
       {personality?.done && canShareFullReport && (
-        <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/40 p-4">
+        <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4">
           <div className="mb-3">
             <h3 className="text-[13.5px] font-bold text-indigo-950">
               Din arbetsstilsrapport
             </h3>
-            <p className="text-[12.5px] text-indigo-900/75 leading-relaxed mt-1">
+            <p className="text-xs text-indigo-900/75 leading-relaxed mt-1">
               Det här är du, i klartext. Testet ringar in hur du faktiskt jobbar,
               samarbetar och vad som får dig att växla upp, så du slipper hitta
               orden själv. En rekryterare fattar direkt vad du går för, ingen
@@ -197,11 +197,11 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
                     className="overflow-hidden"
                   >
                     <div className="pt-3">
-                      <p className="text-[12px] text-indigo-900/70 leading-relaxed mb-3">
+                      <p className="text-xs text-indigo-900/70 leading-relaxed mb-3">
                         Det här är exakt rapporten rekryteraren ser, byggd ur
                         samma härledning. Inget mer, inget annat.
                       </p>
-                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                      <div className="rounded-xl border border-neutral-200 bg-white p-4">
                         <WorkStyleReportView
                           report={workStyleReport}
                           contextTags={profile.context_tags}
@@ -218,11 +218,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
           {/* Enda vägen in till hela arbetsstilssidan sedan sidebar-posten togs bort */}
           <Link
             href="/dashboard/arbetsstil"
-            className="mt-4 w-full inline-flex items-center justify-center gap-1.5 min-h-[46px] rounded-xl text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 touch-manipulation"
-            style={{
-              background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
-              boxShadow: '0 8px 18px -6px rgba(79, 70, 229, 0.45)',
-            }}
+            className="mt-4 w-full inline-flex items-center justify-center gap-1.5 min-h-[46px] rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 transition-colors touch-manipulation"
           >
             Öppna din arbetsstil
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -238,7 +234,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
           className="mt-3 block rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5 transition-colors hover:bg-indigo-50"
         >
           <div className="flex items-start justify-between gap-3">
-            <p className="text-[12.5px] text-indigo-900/85 leading-relaxed min-w-0">
+            <p className="text-xs text-indigo-900/85 leading-relaxed min-w-0">
               120 frågor senare vet du lite mer om dig själv, hur du fungerar
               bäst, vad som ger dig energi och hur du samarbetar med andra. Att
               dela den bilden med en rekryterare betyder att du inte behöver
@@ -252,7 +248,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
               aria-hidden="true"
             />
           </div>
-          <span className="inline-flex items-center gap-1 text-[12.5px] font-bold text-indigo-700 mt-2">
+          <span className="inline-flex items-center gap-1 text-xs font-bold text-indigo-700 mt-2">
             Se din arbetsstil och lås upp hela rapporten
           </span>
         </Link>
@@ -287,14 +283,13 @@ function ToggleRow({
       }`}
     >
       <span className="min-w-0">
-        <span className="block text-[13px] font-semibold text-slate-800">{label}</span>
-        <span className="block text-[12px] text-slate-500 leading-relaxed mt-0.5">{sub}</span>
+        <span className="block text-[13px] font-semibold text-neutral-800">{label}</span>
+        <span className="block text-xs text-neutral-500 leading-relaxed mt-0.5">{sub}</span>
       </span>
       <span
         className={`flex-shrink-0 mt-0.5 w-10 h-6 rounded-full p-0.5 transition-colors ${
-          checked ? '' : 'bg-slate-200'
+          checked ? 'bg-indigo-600' : 'bg-neutral-200'
         }`}
-        style={checked ? { background: 'linear-gradient(135deg, #6366F1, #4F46E5)' } : undefined}
         aria-hidden="true"
       >
         <span
@@ -318,11 +313,11 @@ function ResultTile({
 }) {
   return (
     <div
-      className={`rounded-2xl p-3.5 border ${
+      className={`rounded-xl p-3.5 border ${
         todo ? 'border-dashed border-orange-200 bg-orange-50/30' : 'border-orange-100 bg-white'
       }`}
     >
-      <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-slate-400 mb-1">
+      <div className="text-xs font-bold uppercase tracking-[0.1em] text-neutral-400 mb-1">
         {label}
       </div>
       {children}

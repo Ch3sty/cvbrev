@@ -31,27 +31,27 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="rounded-3xl border-2 border-dashed border-orange-300 bg-orange-50/40 p-5 sm:p-6"
+        className="rounded-xl border-2 border-dashed border-orange-300 bg-orange-50/40 p-5 sm:p-6"
       >
         <div className="flex flex-col sm:flex-row sm:items-start gap-4">
           <IconVarning className="w-12 h-12 flex-shrink-0" />
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <h3 className="font-black text-slate-900 text-base sm:text-lg leading-tight">
+              <h3 className="font-semibold text-neutral-900 text-base sm:text-lg leading-tight">
                 Du behöver ett CV för att börja
               </h3>
               <span
-                className="text-[10px] font-black uppercase tracking-[0.14em] px-2 py-0.5 rounded-full text-white"
+                className="text-xs font-semibold uppercase tracking-[0.14em] px-2 py-0.5 rounded-full text-white"
                 style={{
                   background:
-                    'linear-gradient(135deg, #F97316, #DC2626)',
+                    '#EA580C',
                 }}
               >
                 Krävs
               </span>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed mb-4">
+            <p className="text-sm text-neutral-600 leading-relaxed mb-4">
               Personliga brev, CV-analys och jobbmatchning kräver att du
               först laddar upp eller skapar ett CV. Det tar ca 30 sekunder.
             </p>
@@ -62,8 +62,7 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
                 className="group inline-flex items-center justify-center gap-1.5 text-sm font-bold px-5 py-2.5 rounded-xl text-white min-h-[44px]"
                 style={{
                   background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                  boxShadow: '0 8px 20px -8px rgba(220, 38, 38, 0.4)',
+                    '#EA580C',
                 }}
               >
                 Ladda upp CV
@@ -84,7 +83,7 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
               <span
                 className="w-1.5 h-1.5 rounded-full"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                  background: '#EA580C',
                 }}
                 aria-hidden="true"
               />
@@ -102,15 +101,12 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="rounded-3xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
-      style={{
-        boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)',
-      }}
-    >
+      className="rounded-xl bg-white border border-orange-100 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+      >
       <IconCheckmark className="w-11 h-11 flex-shrink-0" />
 
       <div className="flex-1 min-w-0">
-        <div className="flex items-center text-[10px] font-black uppercase tracking-[0.18em] text-orange-700">
+        <div className="flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-orange-700">
           <span>Dina CV</span>
           {/* "Aktivt CV" finns inte som globalt begrepp: man väljer CV per
               verktyg. Popovern förklarar exakt det. */}
@@ -126,10 +122,10 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
             <p>Du hanterar alla dina CV under Mina CV.</p>
           </InfoPopover>
         </div>
-        <div className="font-black text-slate-900 truncate text-base">
+        <div className="font-semibold text-neutral-900 truncate text-base">
           {activeCvName || `${cvCount} ${cvCount === 1 ? 'sparat CV' : 'sparade CV'}`}
         </div>
-        <div className="text-[12px] text-slate-500 truncate">
+        <div className="text-xs text-neutral-500 truncate">
           {activeCvName ? 'Senast uppdaterat. ' : ''}
           Du väljer vilket CV du använder i varje verktyg.
         </div>
@@ -144,11 +140,10 @@ export default function CvStatusCard({ cvCount, activeCvName }: CvStatusCardProp
         </Link>
         <Link
           href="/dashboard/profil/cv"
-          className="group inline-flex items-center gap-1.5 text-xs font-black px-3.5 py-2 rounded-xl text-white"
+          className="group inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl text-white"
           style={{
             background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.35)',
+              '#EA580C',
           }}
         >
           Mina CV ({cvCount})

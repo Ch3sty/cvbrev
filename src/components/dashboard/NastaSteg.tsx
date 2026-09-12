@@ -77,9 +77,8 @@ export default function NastaSteg({ action, onDismiss }: NastaStegProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.3 }}
-        className="relative bg-white rounded-3xl border border-orange-100 overflow-hidden"
-        style={{ boxShadow: '0 8px 32px -16px rgba(249, 115, 22, 0.18)' }}
-      >
+        className="relative bg-white rounded-xl border border-orange-100 overflow-hidden"
+        >
         <div
           className="absolute top-0 inset-x-0 h-0.5"
           style={{ background: 'var(--jc-gradient-warm)' }}
@@ -90,14 +89,14 @@ export default function NastaSteg({ action, onDismiss }: NastaStegProps) {
           type="button"
           onClick={dismiss}
           aria-label="Avfärda förslaget"
-          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-xl flex items-center justify-center text-slate-300 hover:text-slate-500 hover:bg-slate-50 transition-colors"
+          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-xl flex items-center justify-center text-neutral-300 hover:text-neutral-500 hover:bg-neutral-50 transition-colors"
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-4 p-5 sm:p-6">
           <div className="min-w-0">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
               <span
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ background: 'var(--jc-gradient-warm)' }}
@@ -112,18 +111,17 @@ export default function NastaSteg({ action, onDismiss }: NastaStegProps) {
                 </p>
               </InfoPopover>
             </div>
-            <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-tight pr-8 md:pr-0">
+            <h2 className="text-lg sm:text-xl font-semibold text-neutral-900 leading-tight pr-8 md:pr-0">
               {content.title}
             </h2>
-            <p className="mt-1.5 text-sm text-slate-600 leading-relaxed max-w-[56ch]">
+            <p className="mt-1.5 text-sm text-neutral-600 leading-relaxed max-w-[56ch]">
               {content.description}
             </p>
             <Link
               href={content.href}
-              className="group mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-black transition-all duration-200 hover:-translate-y-0.5 min-h-[44px]"
+              className="group mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 min-h-[44px]"
               style={{
                 background: 'var(--jc-gradient-hero)',
-                boxShadow: '0 8px 20px -8px rgba(220, 38, 38, 0.4)',
               }}
             >
               {content.cta}

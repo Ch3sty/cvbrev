@@ -88,7 +88,7 @@ export default function CVPreviewModal({
           <div
             className="absolute inset-0 pointer-events-none rounded-lg"
             style={{
-              background: 'linear-gradient(135deg, rgba(219, 39, 119, 0.03), rgba(147, 51, 234, 0.03))'
+              background: 'transparent'
             }}
           />
         )}
@@ -124,11 +124,9 @@ export default function CVPreviewModal({
           >
             <div className="w-full h-full bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/80 flex flex-col overflow-hidden">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
                 <div className="flex items-center gap-4">
-                  <div className="p-2 rounded-lg bg-white shadow-sm">
-                    <GitCompare className="h-5 w-5 text-pink-600" />
-                  </div>
+                  <GitCompare className="h-5 w-5 text-neutral-700" />
                   <div>
                     <h2 className="text-lg font-semibold text-gray-900">
                       CV-jämförelse
@@ -144,9 +142,9 @@ export default function CVPreviewModal({
                   <div className="flex bg-white rounded-lg border border-gray-200 p-1">
                     <button
                       onClick={() => setViewMode('split')}
-                      className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                      className={`h-11 px-3 rounded-lg text-sm font-medium transition-colors ${
                         viewMode === 'split'
-                          ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+                          ? 'bg-orange-600 text-white'
                           : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
@@ -154,9 +152,9 @@ export default function CVPreviewModal({
                     </button>
                     <button
                       onClick={() => setViewMode('original')}
-                      className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                      className={`h-11 px-3 rounded-lg text-sm font-medium transition-colors ${
                         viewMode === 'original'
-                          ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+                          ? 'bg-orange-600 text-white'
                           : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
@@ -164,9 +162,9 @@ export default function CVPreviewModal({
                     </button>
                     <button
                       onClick={() => setViewMode('improved')}
-                      className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${
+                      className={`h-11 px-3 rounded-lg text-sm font-medium transition-colors ${
                         viewMode === 'improved'
-                          ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+                          ? 'bg-orange-600 text-white'
                           : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
@@ -176,7 +174,7 @@ export default function CVPreviewModal({
 
                   <button
                     onClick={onClose}
-                    className="ml-2 p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+                    className="ml-2 h-11 w-11 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
                     aria-label="Stäng"
                   >
                     <X className="h-5 w-5" />
@@ -191,20 +189,20 @@ export default function CVPreviewModal({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleZoomOut}
-                      className="p-1.5 rounded hover:bg-gray-200 transition-colors duration-200"
+                      className="h-11 w-11 flex items-center justify-center rounded hover:bg-gray-200 transition-colors duration-200"
                       aria-label="Zooma ut"
                     >
                       <ZoomOut className="h-4 w-4 text-gray-600" />
                     </button>
                     <button
                       onClick={handleResetZoom}
-                      className="px-2 py-1 text-sm text-gray-600 hover:bg-gray-200 rounded transition-colors duration-200"
+                      className="h-11 px-2 text-sm text-gray-600 hover:bg-gray-200 rounded transition-colors duration-200"
                     >
                       {zoomLevel}%
                     </button>
                     <button
                       onClick={handleZoomIn}
-                      className="p-1.5 rounded hover:bg-gray-200 transition-colors duration-200"
+                      className="h-11 w-11 flex items-center justify-center rounded hover:bg-gray-200 transition-colors duration-200"
                       aria-label="Zooma in"
                     >
                       <ZoomIn className="h-4 w-4 text-gray-600" />
@@ -270,7 +268,7 @@ export default function CVPreviewModal({
 
                       {/* Improved CV */}
                       <div className="flex-1 overflow-auto">
-                        <div className="sticky top-0 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-3 border-b border-gray-100">
+                        <div className="sticky top-0 bg-white px-6 py-3 border-b border-gray-100">
                           <h3 className="font-medium text-gray-900">
                             Förbättrad version
                           </h3>
@@ -293,7 +291,7 @@ export default function CVPreviewModal({
 
                   {viewMode === 'improved' && (
                     <div className="flex-1 overflow-auto">
-                      <div className="sticky top-0 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-3 border-b border-gray-100">
+                      <div className="sticky top-0 bg-white px-6 py-3 border-b border-gray-100">
                         <h3 className="font-medium text-gray-900">
                           Förbättrad version
                         </h3>
@@ -319,7 +317,7 @@ export default function CVPreviewModal({
                   </Button>
                   <Button
                     onClick={onClose}
-                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                    className="bg-orange-600 hover:bg-orange-700 text-white"
                   >
                     <Download className="mr-2 h-4 w-4" />
                     Fortsätt till nedladdning

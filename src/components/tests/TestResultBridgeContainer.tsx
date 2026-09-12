@@ -15,6 +15,11 @@ interface TestResultBridgeContainerProps {
   testSlug: string
   /** Kvotnyckel för variant 2b, matchar testsidans quota_exceeded-svar. */
   quotaFeature?: string
+  /**
+   * Session-API för det test resultatet gäller. Utan den räknade vi dagens
+   * sessioner mot matrislogikens endpoint oavsett vilket test som kördes.
+   */
+  sessionEndpoint?: string
 }
 
 interface BridgeData {
@@ -28,6 +33,7 @@ interface BridgeData {
 export default function TestResultBridgeContainer({
   testSlug,
   quotaFeature,
+  sessionEndpoint = '/api/logicTestV4/session',
 }: TestResultBridgeContainerProps) {
   const [data, setData] = useState<BridgeData | null>(null)
 
@@ -57,7 +63,7 @@ export default function TestResultBridgeContainer({
             .select('subscription_tier, premium_until, premium_source')
             .eq('id', user.id)
             .maybeSingle(),
-          fetch('/api/logicTestV4/session')
+          fetch(sessionEndpoint)
             .then((res) => (res.ok ? res.json() : null))
             .catch(() => null),
         ])
@@ -97,7 +103,7 @@ export default function TestResultBridgeContainer({
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [sessionEndpoint])
 
   if (!data) return null
 

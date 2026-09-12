@@ -5,7 +5,8 @@
  *
  *   A  inget CV        → bara heron med uppladdningen och två textlänkar
  *   B  CV men inget brev → heron pekar mot första brevet, tre kompakta kort
- *   C  aktiv            → statusrad, aktivitet och snabbåtgärder
+ *   C  aktiv            → jobbsöksöversikt, nästa handling, pipeline,
+ *                          kvotrad och senaste aktivitet (fem sektioner)
  *
  * TrialStatusRow och DowngradedNotice (spår A) ligger överst i alla lägen.
  */
@@ -26,15 +27,12 @@ import QuotaNudgeRow from '@/components/dashboard/QuotaNudgeRow';
 import ProfilKomplettering from '@/components/dashboard/ProfilKomplettering';
 // Tillstånden
 import DashboardHero, { deriveDashboardState } from '@/components/dashboard/DashboardHero';
-import DashboardStatusRow from '@/components/dashboard/DashboardStatusRow';
 // Status och handlingsytor
-import StreakOchStatus from '@/components/dashboard/StreakOchStatus';
-import CvStatusCard from '@/components/dashboard/CvStatusCard';
 import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
+import JobbsokOversikt from '@/components/dashboard/JobbsokOversikt';
+import PagarNu from '@/components/dashboard/PagarNu';
+import NastaHandling from '@/components/dashboard/NastaHandling';
 import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
-import SoktaTjansterStatusRad from '@/components/dashboard/SoktaTjansterStatusRad';
-import BliUpptacktStatusRad from '@/components/dashboard/BliUpptacktStatusRad';
-import NastaSteg from '@/components/dashboard/NastaSteg';
 import { useApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 
@@ -43,9 +41,6 @@ interface DashboardStats {
   totalAnalyses: number;
   subscriptionTier: string;
   recentLetters: any[];
-  currentLevel?: number;
-  levelTitle?: string;
-  availableRewards?: number;
   isPremium?: boolean;
   monthlyLetters?: number;
   weeklyLetterCount?: number;
@@ -59,10 +54,6 @@ interface DashboardStats {
   premiumSource?: string | null;
   currentPeriodEnd?: string | null;
   onboardingCompleted?: boolean;
-  dailyStreak?: number;
-  longestStreak?: number;
-  dailyXpEarned?: number;
-  dailyXp?: { date: string; xp: number }[];
   firstName?: string;
   activeCvName?: string;
   userId?: string;
@@ -102,30 +93,12 @@ export default function DashboardPage() {
 
         if (!user) return;
 
-        // Datum-gränser beräknas före anropen så de kan köras parallellt.
-        const todayStockholm = new Intl.DateTimeFormat('en-CA', {
-          timeZone: 'Europe/Stockholm',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }).format(new Date());
-
-        const twentyEightDaysAgo = new Date();
-        twentyEightDaysAgo.setDate(twentyEightDaysAgo.getDate() - 27);
-        twentyEightDaysAgo.setHours(0, 0, 0, 0);
-
         // Alla anrop nedan är oberoende (filtrerar bara på user.id) → kör parallellt.
-        // Rewards-fetchen har egen felhantering och resolvar till fallback vid fel.
-        const fallbackRewards = { currentLevel: 1, levelTitle: 'Novis', availableRewards: 0 };
         const [
           { data: letters },
           { count: cvCount },
           { data: latestCv },
           { data: profile },
-          { data: gamStats },
-          { data: dailyXpToday },
-          { data: xpRows },
-          rewardsData,
         ] = await Promise.all([
           supabase
             .from('letters')
@@ -164,36 +137,6 @@ export default function DashboardPage() {
             `)
             .eq('id', user.id)
             .single(),
-          supabase
-            .from('global_user_stats')
-            .select('daily_streak, longest_streak')
-            .eq('user_id', user.id)
-            .maybeSingle(),
-          supabase
-            .from('user_daily_xp')
-            .select('daily_xp_earned')
-            .eq('user_id', user.id)
-            .eq('date', todayStockholm)
-            .maybeSingle(),
-          supabase
-            .from('xp_history')
-            .select('created_at, amount')
-            .eq('user_id', user.id)
-            .gte('created_at', twentyEightDaysAgo.toISOString()),
-          fetch('/api/rewards/status')
-            .then(async (res) => {
-              if (!res.ok) return fallbackRewards;
-              const rewards = await res.json();
-              return {
-                currentLevel: rewards.data.currentLevel || 1,
-                levelTitle: rewards.data.levelTitle || 'Novis',
-                availableRewards: rewards.data.availableRewards?.length || 0,
-              };
-            })
-            .catch((error) => {
-              console.error('Fel vid hämtning av rewards:', error);
-              return fallbackRewards;
-            }),
         ]);
 
         const now = new Date();
@@ -201,25 +144,6 @@ export default function DashboardPage() {
         const monthlyLetters = letters?.filter(letter =>
           new Date(letter.created_at) >= startOfMonth
         ) || [];
-
-        const dailyXp: { date: string; xp: number }[] = [];
-        for (let i = 27; i >= 0; i--) {
-          const day = new Date();
-          day.setDate(day.getDate() - i);
-          day.setHours(0, 0, 0, 0);
-          const next = new Date(day);
-          next.setDate(next.getDate() + 1);
-          const xp = (xpRows || [])
-            .filter(r => {
-              const d = new Date(r.created_at);
-              return d >= day && d < next;
-            })
-            .reduce((sum, r) => sum + (r.amount ?? 0), 0);
-          dailyXp.push({
-            date: day.toISOString().slice(0, 10),
-            xp,
-          });
-        }
 
 
         const isPremium = !!(
@@ -244,19 +168,12 @@ export default function DashboardPage() {
           letterResetDate: profile?.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : undefined,
           analysisResetDate: profile?.weekly_analysis_reset_at ? new Date(profile.weekly_analysis_reset_at) : undefined,
           linkedInResetDate: profile?.weekly_linkedin_reset_at ? new Date(profile.weekly_linkedin_reset_at) : undefined,
-          currentLevel: rewardsData.currentLevel,
-          levelTitle: rewardsData.levelTitle,
-          availableRewards: rewardsData.availableRewards,
           isPremium,
           monthlyLetters: monthlyLetters.length,
           premiumUntil: profile?.premium_until || null,
           premiumSource: profile?.premium_source || null,
           currentPeriodEnd: profile?.current_period_end || null,
           onboardingCompleted: profile?.onboarding_completed || false,
-          dailyStreak: gamStats?.daily_streak || 0,
-          longestStreak: gamStats?.longest_streak || 0,
-          dailyXpEarned: dailyXpToday?.daily_xp_earned || 0,
-          dailyXp,
           firstName: profile?.full_name?.split(' ')[0] || undefined,
           activeCvName: latestCv?.file_name || undefined,
           userId: user.id,
@@ -341,9 +258,6 @@ export default function DashboardPage() {
     );
   }
 
-  // Svar = ansökningar som fått någon form av respons.
-  const replies = Math.max(0, appSummary.total - appSummary.waitingCount);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -379,46 +293,28 @@ export default function DashboardPage() {
 
       {state === 'C' && (
         <>
-          <DashboardStatusRow
-            letters={totalLetters}
-            applications={appSummary.total}
-            replies={replies}
-            streakDays={stats.dailyStreak || 0}
+          {/* 1. Jobbsöket: fyra beskrivande antal och vyns enda orange knapp. */}
+          <JobbsokOversikt summary={appSummary} />
+
+          {/* 2. En rankad handling: uppföljning, AF-fönstret eller en oprövad
+                 funktion. Aldrig fler än en åt gången. */}
+          <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
+
+          {/* 3. De tre mest tidskänsliga ansökningarna. */}
+          <PagarNu
+            items={appSummary.pipeline}
+            total={appSummary.total}
+            letterCount={totalLetters}
           />
 
-          {/* Alla gratiskvoter som en rad, alltid synlig (punkt 7). */}
+          {/* 4. Kvoterna som en rad. Premium får null. */}
           <QuotaNudgeRow isPremium={isPremium} />
 
-          {/* Saknade kontaktuppgifter, bara när något faktiskt saknas. */}
-          <ProfilKomplettering />
-
-          {/* NastaSteg: EN tidskänslig nudge (uppföljning / AF-rapport). */}
-          {rewardClaimed && <NastaSteg action={nextAction} onDismiss={dismissNextAction} />}
-
-          {/* Döljer sig själv vid noll rader. */}
+          {/* 5. Senaste aktivitet. Döljer sig själv vid noll rader. */}
           <DashboardSenasteAktivitet />
 
-          <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
-
-          <CvStatusCard cvCount={cvCount} activeCvName={stats.activeCvName} />
-          <SoktaTjansterStatusRad summary={appSummary} />
-          <BliUpptacktStatusRad />
-
-          <StreakOchStatus
-            dailyStreak={stats.dailyStreak || 0}
-            longestStreak={stats.longestStreak || 0}
-            dailyXpEarned={stats.dailyXpEarned || 0}
-            currentLevel={stats.currentLevel || 1}
-            levelTitle={stats.levelTitle || 'Novis'}
-            dailyXp={stats.dailyXp || []}
-            isPremium={isPremium}
-            weeklyLetterCount={stats.weeklyLetterCount || 0}
-            weeklyAnalysisCount={stats.weeklyAnalysisCount || 0}
-            weeklyLinkedInCount={stats.weeklyLinkedInCount || 0}
-            letterResetDate={stats.letterResetDate}
-            premiumUntil={stats.premiumUntil}
-            premiumSource={stats.premiumSource}
-          />
+          {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
+          <ProfilKomplettering />
         </>
       )}
     </motion.div>

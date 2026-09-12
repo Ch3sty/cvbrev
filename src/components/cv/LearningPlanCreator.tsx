@@ -111,7 +111,7 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white/80 backdrop-blur-xl rounded-xl border border-gray-200/50 overflow-hidden">
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 px-6 py-4">
           <div className="flex items-center justify-between">
@@ -250,7 +250,7 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
               className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
                 isCreating || totalSelectedCourses === 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg'
+                  : 'bg-orange-600 text-white hover:bg-orange-700'
               }`}
             >
               {isCreating ? (

@@ -149,10 +149,7 @@ export default function Step4Utbildning({ cvData, updateCVData }: Props) {
       />
 
       <div
-        className="rounded-3xl bg-white border border-orange-100 p-5 sm:p-7"
-        style={{
-          boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)',
-        }}
+        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
       >
         <SkapaCvCardList
           items={items}

@@ -266,26 +266,25 @@ function PreviewContainer({
 }) {
   return (
     <div
-      className="rounded-2xl bg-white border border-orange-100 overflow-hidden"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
-    >
+      className="rounded-xl bg-white border border-orange-100 overflow-hidden"
+      >
       {/* Topp-rad: Live-preview-rubrik */}
       <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-orange-100/70 bg-orange-50/40">
         <div className="flex items-center gap-2">
           <span
             className="w-7 h-7 rounded-lg flex items-center justify-center text-white"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
+              background: '#EA580C',
             }}
           >
             <Eye className="w-3.5 h-3.5" strokeWidth={2.5} />
           </span>
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
               Live förhandsvisning
             </div>
             {templateName && (
-              <div className="text-sm font-bold text-slate-900 leading-tight">
+              <div className="text-sm font-bold text-neutral-900 leading-tight">
                 {templateName}
               </div>
             )}
@@ -297,7 +296,7 @@ function PreviewContainer({
       </div>
 
       {/* Preview-area: skala A4-bredden till tillgangligt utrymme pa mobil */}
-      <div className="relative bg-slate-100 max-h-[850px] overflow-y-auto overflow-x-hidden">
+      <div className="relative bg-neutral-100 max-h-[850px] overflow-y-auto overflow-x-hidden">
         {!hasCV && <PreviewEmptyState />}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
@@ -373,7 +372,7 @@ function ScaledPreview({ html }: { html: string }) {
       >
         <div
           ref={contentRef}
-          className="bg-white shadow-lg"
+          className="bg-white"
           style={{
             width: `${A4_WIDTH_PX}px`,
             transform: scale < 1 ? `scale(${scale})` : undefined,
@@ -389,11 +388,11 @@ function ScaledPreview({ html }: { html: string }) {
 function PreviewEmptyState() {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
-      <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4">
+      <div className="w-14 h-14 rounded-xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4">
         <FileText className="w-7 h-7" strokeWidth={2} />
       </div>
-      <h3 className="text-base font-bold text-slate-900 mb-1">Välj ett CV först</h3>
-      <p className="text-sm text-slate-600 max-w-sm">
+      <h3 className="text-base font-bold text-neutral-900 mb-1">Välj ett CV först</h3>
+      <p className="text-sm text-neutral-600 max-w-sm">
         När du valt ett CV ovanför ser du hur det ser ut i den valda mallen direkt här.
       </p>
     </div>
@@ -404,7 +403,7 @@ function PreviewLoading() {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
       <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4" />
-      <p className="text-sm text-slate-600">Förbereder förhandsvisning...</p>
+      <p className="text-sm text-neutral-600">Förbereder förhandsvisning...</p>
     </div>
   );
 }
@@ -412,8 +411,8 @@ function PreviewLoading() {
 function PreviewError({ message }: { message: string }) {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[400px]">
-      <p className="text-sm text-slate-600 mb-2">{message}</p>
-      <p className="text-xs text-slate-500">Försök välja en annan mall eller ladda om sidan.</p>
+      <p className="text-sm text-neutral-600 mb-2">{message}</p>
+      <p className="text-xs text-neutral-500">Försök välja en annan mall eller ladda om sidan.</p>
     </div>
   );
 }
@@ -441,10 +440,9 @@ function GenerateButton({
     return (
       <button
         onClick={onUpgrade}
-        className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl text-white font-black text-base min-h-[56px] transition-all hover:shadow-xl active:scale-[0.99]"
+        className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold text-base min-h-[56px] transition-all hover: active:scale-[0.99]"
         style={{
-          background: 'linear-gradient(135deg, #8B5CF6 0%, #DC2626 50%, #BE185D 100%)',
-          boxShadow: '0 12px 32px -10px rgba(220, 38, 38, 0.45)',
+          background: '#EA580C',
         }}
       >
         <Crown className="w-5 h-5" strokeWidth={2.5} />
@@ -457,12 +455,11 @@ function GenerateButton({
     <button
       onClick={onGenerate}
       disabled={!canGenerate}
-      className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl text-white font-black text-base min-h-[56px] transition-all ${
-        canGenerate ? 'hover:shadow-xl active:scale-[0.99]' : 'opacity-50 cursor-not-allowed'
+      className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold text-base min-h-[56px] transition-all ${
+        canGenerate ? 'hover: active:scale-[0.99]' : 'opacity-50 cursor-not-allowed'
       }`}
       style={{
-        background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-        boxShadow: canGenerate ? '0 12px 32px -10px rgba(220, 38, 38, 0.45)' : 'none',
+        background: '#EA580C',
       }}
     >
       {isGenerating ? (

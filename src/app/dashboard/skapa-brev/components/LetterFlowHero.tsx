@@ -15,13 +15,13 @@ export default function LetterFlowHero() {
         <HeroLetterIcon className="w-16 h-16 sm:w-20 sm:h-20" />
       </div>
       <div className="min-w-0">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
           Personligt brev
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight">
           Vi skriver ditt brev
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 mt-1.5 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
           Smart matchat mot annonsen. Optimerat för ATS. Klart på en kvart.
         </p>
       </div>

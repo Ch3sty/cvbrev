@@ -45,24 +45,19 @@ export default function PersonalityResultCard({ personality, index = 0 }: Props)
       {hasProfile && resultsHref ? (
         <Link
           href={resultsHref}
-          className="group relative block bg-white rounded-3xl border border-orange-100 overflow-hidden transition-all hover:-translate-y-0.5 hover:border-orange-200 touch-manipulation h-full"
-          style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.18)' }}
+          className="group relative block bg-white rounded-xl border border-orange-100 overflow-hidden transition-all hover:-translate-y-0.5 hover:border-orange-200 touch-manipulation h-full"
         >
-          <div
-            className="absolute top-0 inset-x-0 h-0.5"
-            style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }}
-          />
           <div className="p-3 sm:p-4">
             <div className="flex items-center gap-3 mb-3">
               <PersonalityProfileIllustration className="w-11 h-11 flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
+                <div className="text-xs font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
                   Resultat
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
+                <h3 className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
                   Ditt testresultat
                 </h3>
-                <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight">
+                <p className="text-xs sm:text-xs text-neutral-400 leading-tight">
                   Vad personlighetstestet visar
                 </p>
               </div>
@@ -74,19 +69,16 @@ export default function PersonalityResultCard({ personality, index = 0 }: Props)
                 const score = stat.latestScores?.[dim] ?? 0;
                 return (
                   <div key={dim} className="flex items-center gap-2">
-                    <span className="text-[10px] text-slate-500 w-20 flex-shrink-0 truncate">
+                    <span className="text-xs text-neutral-500 w-20 flex-shrink-0 truncate">
                       {DIMENSION_META[dim].name}
                     </span>
-                    <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: `${score}%`,
-                          background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
-                        }}
+                        className="h-full rounded-full bg-orange-600"
+                        style={{ width: `${score}%` }}
                       />
                     </div>
-                    <span className="text-[10px] font-bold text-slate-700 tabular-nums w-6 text-right">
+                    <span className="text-xs font-bold text-neutral-700 tabular-nums w-6 text-right">
                       {score}
                     </span>
                   </div>
@@ -107,40 +99,32 @@ export default function PersonalityResultCard({ personality, index = 0 }: Props)
         </Link>
       ) : (
         <div
-          className="relative bg-white rounded-3xl border border-dashed border-slate-200 overflow-hidden h-full"
+          className="relative bg-white rounded-xl border border-dashed border-neutral-200 overflow-hidden h-full"
         >
-          <div
-            className="absolute top-0 inset-x-0 h-0.5"
-            style={{ background: 'linear-gradient(90deg, #CBD5E1, #94A3B8)' }}
-          />
           <div className="p-3 sm:p-4 flex flex-col h-full">
             <div className="flex items-center gap-3 mb-3">
               <PersonalityProfileIllustration className="w-11 h-11 flex-shrink-0 opacity-70 grayscale" />
               <div className="flex-1 min-w-0">
-                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-0.5">
+                <div className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-400 mb-0.5">
                   Resultat
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
+                <h3 className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
                   Inget resultat än
                 </h3>
-                <p className="text-[10px] sm:text-[11px] text-slate-400 leading-tight">
+                <p className="text-xs sm:text-xs text-neutral-400 leading-tight">
                   Gör personlighetstestet
                 </p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed mb-3 flex-1">
+            <p className="text-xs text-neutral-600 leading-relaxed mb-3 flex-1">
               Gör personlighetstestet så ritar vi upp din profil och visar vad dina svar
               berättar för en rekryterare, och vad du själv kan lyfta i intervjun.
             </p>
 
             <Link
               href="/dashboard/tester/personlighet-grund"
-              className="inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-white font-bold text-xs sm:text-sm transition-all hover:-translate-y-0.5 min-h-[44px] touch-manipulation"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.4)',
-              }}
+              className="inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-white font-bold text-xs sm:text-sm transition-all hover:-translate-y-0.5 min-h-[44px] touch-manipulation bg-orange-600 hover:bg-orange-700"
             >
               Skapa din profil
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

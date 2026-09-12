@@ -213,7 +213,7 @@ export default function WeeklyLimitReached({
   resetHint,
 }: Props) {
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100dvh-200px)] flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

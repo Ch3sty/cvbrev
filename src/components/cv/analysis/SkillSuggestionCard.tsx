@@ -47,7 +47,7 @@ export default function SkillSuggestionCard({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <Card className={`p-4 transition-all hover:shadow-md ${
+      <Card className={`p-4 transition-all ${
         selected ? 'border-2 border-purple-600 bg-purple-50/30' : 'border-gray-200'
       }`}>
         <div className="flex items-start gap-3">

@@ -66,20 +66,19 @@ export default function MallToolbar({
 
   return (
     <div
-      className="flex items-center gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 rounded-2xl bg-white border border-orange-100"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
-    >
+      className="flex items-center gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 rounded-xl bg-white border border-orange-100"
+      >
       {/* Typsnitt-dropdown */}
       <div ref={fontDropdownRef} className="relative">
         <button
           onClick={() => setIsFontOpen(!isFontOpen)}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-slate-800 font-semibold text-sm hover:border-orange-200 transition-colors min-h-[40px]"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-neutral-800 font-semibold text-sm hover:border-orange-200 transition-colors min-h-[40px]"
         >
           <Type className="w-4 h-4 text-orange-700" strokeWidth={2.5} />
           <span className="hidden sm:inline">Typsnitt:</span>
           <span style={{ fontFamily: currentFont.family }}>{currentFont.name}</span>
           <ChevronDown
-            className={`w-4 h-4 text-slate-500 transition-transform ${isFontOpen ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-neutral-500 transition-transform ${isFontOpen ? 'rotate-180' : ''}`}
             strokeWidth={2.5}
           />
         </button>
@@ -93,12 +92,11 @@ export default function MallToolbar({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.15 }}
-                className="absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-2xl border border-orange-100 z-50"
-                style={{ boxShadow: '0 16px 40px -12px rgba(249, 115, 22, 0.2)' }}
-              >
+                className="absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-xl border border-orange-100 z-50"
+                >
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2 first:pt-3 last:pb-3">
-                    <div className="px-4 pb-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700">
+                    <div className="px-4 pb-1.5 text-xs font-bold uppercase tracking-[0.14em] text-orange-700">
                       {category}
                     </div>
                     {fonts.map(font => (
@@ -157,22 +155,22 @@ export default function MallToolbar({
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 max-h-[80vh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] overflow-y-auto"
             >
               <div className="sticky top-0 bg-white border-b border-orange-100 px-5 py-4 flex items-center justify-between">
-                <h3 className="text-lg font-black text-slate-900">Välj typsnitt</h3>
+                <h3 className="text-lg font-semibold text-neutral-900">Välj typsnitt</h3>
                 <button
                   onClick={() => setIsFontOpen(false)}
-                  className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center"
+                  className="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center"
                   aria-label="Stäng"
                 >
-                  <X className="w-5 h-5 text-slate-700" strokeWidth={2.5} />
+                  <X className="w-5 h-5 text-neutral-700" strokeWidth={2.5} />
                 </button>
               </div>
               <div className="pb-4">
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2">
-                    <div className="px-5 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700">
+                    <div className="px-5 pb-1.5 pt-2 text-xs font-bold uppercase tracking-[0.14em] text-orange-700">
                       {category}
                     </div>
                     {fonts.map(font => (
@@ -224,13 +222,13 @@ function FontOptionRow({
     >
       <div className="flex items-center gap-3 min-w-0">
         <span
-          className="text-base text-slate-900 truncate"
+          className="text-base text-neutral-900 truncate"
           style={{ fontFamily: font.family }}
         >
           {font.name}
         </span>
         {font.tier === 'premium' && (
-          <span className="text-[10px] font-bold uppercase tracking-wider text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 flex-shrink-0">
+          <span className="text-xs font-bold uppercase tracking-wider text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 flex-shrink-0">
             Premium
           </span>
         )}
@@ -262,19 +260,19 @@ function ToggleChip({
       onClick={onClick}
       className={`flex items-center gap-2.5 pl-3 pr-2.5 py-2 rounded-xl border font-semibold text-sm transition-all min-h-[40px] ${
         checked
-          ? 'bg-white border-orange-200 text-slate-800'
-          : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
+          ? 'bg-white border-orange-200 text-neutral-800'
+          : 'bg-white border-neutral-200 text-neutral-500 hover:border-neutral-300'
       }`}
       aria-pressed={checked}
     >
-      <span className={`transition-colors ${checked ? 'text-orange-600' : 'text-slate-400'}`}>{icon}</span>
+      <span className={`transition-colors ${checked ? 'text-orange-600' : 'text-neutral-400'}`}>{icon}</span>
       <span>{label}</span>
       <span
         className="relative w-8 h-[18px] rounded-full transition-colors flex-shrink-0"
         style={{
           background: checked
-            ? 'linear-gradient(135deg, #F97316, #DC2626)'
-            : '#cbd5e1',
+            ? '#EA580C'
+            : '#D4D4D4',
         }}
       >
         <span

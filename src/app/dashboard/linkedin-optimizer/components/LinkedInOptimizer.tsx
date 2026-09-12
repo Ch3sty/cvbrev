@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useCVStore } from '@/store/cv-store'
 import LinkedInLayout from './LinkedInLayout'
@@ -15,6 +16,17 @@ import Step2Profile, { type LinkedInSections } from './steps/Step2Profile'
 import Step3Results, { type OptimizationResults } from './steps/Step3Results'
 import Step4Done from './steps/Step4Done'
 import { cvToLinkedIn } from '../lib/cvToLinkedIn'
+import FlowShell from '@/components/shell/FlowShell'
+import FlowError from '@/components/shell/FlowError'
+import FlowResumeBanner from '@/components/shell/FlowResumeBanner'
+import { useFlowStep } from '@/lib/flow/useFlowStep'
+import {
+  loadDraft,
+  saveDraft,
+  clearDraft,
+  purgeExpiredDrafts,
+  type FlowDraft,
+} from '@/lib/flow/draft'
 
 const EMPTY_SECTIONS: LinkedInSections = {
   headline: '',
@@ -24,9 +36,31 @@ const EMPTY_SECTIONS: LinkedInSections = {
   skills: '',
 }
 
+/** Steg 1 läge, 2 profil, 3 resultat, 4 klar. */
+const LINKEDIN_TOTAL_STEPS = 4
+const LINKEDIN_FLOW_NAME = 'linkedin-optimizer'
+const LINKEDIN_FLOW_VERSION = 1
+
+interface LinkedInDraftData {
+  mode: OptimizationMode
+  targetRole: string
+  language: Language
+  sourceMode: SourceMode
+  selectedCvId: string | null
+  sections: LinkedInSections
+}
+
 export default function LinkedInOptimizer() {
-  const [currentStep, setCurrentStep] = useState(0)
+  const router = useRouter()
+
+  /* Steget i URL:en (?steg=N, ettbaserat). Internt räknas 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
+  const flow = useFlowStep({ totalSteps: LINKEDIN_TOTAL_STEPS })
+  const currentStep = flow.step - 1
+  const setCurrentStep = useCallback(
+    (target: number) => flow.goToStep(target + 1),
+    [flow]
+  )
 
   const [mode, setMode] = useState<OptimizationMode>('stand_out')
   const [targetRole, setTargetRole] = useState('')
@@ -35,7 +69,7 @@ export default function LinkedInOptimizer() {
   // Source-mode: bygg från CV eller manuell inmatning
   const [sourceMode, setSourceMode] = useState<SourceMode>('manual')
   const [selectedCvId, setSelectedCvId] = useState<string | null>(null)
-  // Flagga som visar att användaren gjort ett aktivt val — vi auto-sätter
+  // Flagga som visar att användaren gjort ett aktivt val, vi auto-sätter
   // sourceMode bara EN gång, vid första gången CV-listan laddats.
   const [sourceModeInitialized, setSourceModeInitialized] = useState(false)
 
@@ -44,6 +78,14 @@ export default function LinkedInOptimizer() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [results, setResults] = useState<OptimizationResults | null>(null)
   const [error, setError] = useState<string | null>(null)
+  /** Låter användaren avbryta ett pågående AI-anrop. */
+  const analysisAbortRef = useRef<AbortController | null>(null)
+
+  /* Utkast: profiltexterna är det dyraste användaren gör här, ofta klistrade
+     från LinkedIn i flera omgångar, och de låg tidigare bara i minnet. */
+  const [pendingDraft, setPendingDraft] =
+    useState<FlowDraft<LinkedInDraftData> | null>(null)
+  const draftChecked = useRef(false)
 
   const [fullName, setFullName] = useState<string | undefined>(undefined)
 
@@ -79,6 +121,79 @@ export default function LinkedInOptimizer() {
     [cvs, selectedCvId]
   )
 
+  useEffect(() => {
+    if (draftChecked.current) return
+    draftChecked.current = true
+    purgeExpiredDrafts()
+    const found = loadDraft<LinkedInDraftData>(
+      LINKEDIN_FLOW_NAME,
+      LINKEDIN_FLOW_VERSION
+    )
+    if (found) setPendingDraft(found)
+  }, [])
+
+  const currentDraftData = useCallback(
+    (): LinkedInDraftData => ({
+      mode,
+      targetRole,
+      language,
+      sourceMode,
+      selectedCvId,
+      sections,
+    }),
+    [mode, targetRole, language, sourceMode, selectedCvId, sections]
+  )
+
+  const hasDraftWorthSaving =
+    sections.about.trim().length > 0 || sections.experience.trim().length > 0
+
+  // Sparas vid stegbyte och när fliken göms, aldrig per tangenttryck.
+  useEffect(() => {
+    if (pendingDraft || results) return
+    if (!hasDraftWorthSaving) return
+    saveDraft(
+      LINKEDIN_FLOW_NAME,
+      LINKEDIN_FLOW_VERSION,
+      currentStep + 1,
+      currentDraftData()
+    )
+  }, [currentStep, pendingDraft, results, hasDraftWorthSaving, currentDraftData])
+
+  useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState !== 'hidden') return
+      if (results || !hasDraftWorthSaving) return
+      saveDraft(
+        LINKEDIN_FLOW_NAME,
+        LINKEDIN_FLOW_VERSION,
+        currentStep + 1,
+        currentDraftData()
+      )
+    }
+    document.addEventListener('visibilitychange', onHide)
+    return () => document.removeEventListener('visibilitychange', onHide)
+  }, [currentStep, results, hasDraftWorthSaving, currentDraftData])
+
+  const resumeDraft = useCallback(() => {
+    if (!pendingDraft) return
+    const d = pendingDraft.data
+    setMode(d.mode)
+    setTargetRole(d.targetRole)
+    setLanguage(d.language)
+    setSourceMode(d.sourceMode)
+    setSelectedCvId(d.selectedCvId)
+    setSections(d.sections)
+    setSourceModeInitialized(true)
+    setPendingDraft(null)
+    setCurrentStep(pendingDraft.step - 1)
+  }, [pendingDraft, setCurrentStep])
+
+  const restartDraft = useCallback(() => {
+    clearDraft(LINKEDIN_FLOW_NAME, LINKEDIN_FLOW_VERSION)
+    setPendingDraft(null)
+    setCurrentStep(0)
+  }, [setCurrentStep])
+
   const markCompleted = (step: number) => {
     setCompletedSteps((prev) => (prev.includes(step) ? prev : [...prev, step]))
   }
@@ -104,7 +219,7 @@ export default function LinkedInOptimizer() {
       const mapped = cvToLinkedIn(cv.structured_data)
       setSections(mapped)
     } else {
-      // CV utan strukturerad data — lämna fälten tomma så användaren kan skriva själv
+      // CV utan strukturerad data, lämna fälten tomma så användaren kan skriva själv
       setSections(EMPTY_SECTIONS)
     }
   }
@@ -131,6 +246,12 @@ export default function LinkedInOptimizer() {
     }
 
     setIsAnalyzing(true)
+
+    // Ett AI-anrop ska alltid gå att avbryta. Overlayen täckte tidigare hela
+    // skärmen utan väg ut, och anropet har ingen timeout alls.
+    const controller = new AbortController()
+    analysisAbortRef.current = controller
+
     try {
       const supabase = createClient()
       const {
@@ -155,6 +276,10 @@ export default function LinkedInOptimizer() {
         }
       )
 
+      // Avbröt användaren medan svaret var på väg kastar vi det: hon står
+      // redan tillbaka i formuläret med sin text kvar.
+      if (controller.signal.aborted) return
+
       if (fnError) {
         throw new Error(fnError.message || 'Något gick fel.')
       }
@@ -171,13 +296,22 @@ export default function LinkedInOptimizer() {
       markCompleted(1)
       setCurrentStep(2)
     } catch (err) {
+      if (controller.signal.aborted) return
       setError(
         err instanceof Error ? err.message : 'Något gick fel. Försök igen.'
       )
     } finally {
+      analysisAbortRef.current = null
       setIsAnalyzing(false)
     }
   }
+
+  /** Avbryter optimeringen och lämnar kvar allt användaren skrivit. */
+  const cancelAnalysis = useCallback(() => {
+    analysisAbortRef.current?.abort()
+    analysisAbortRef.current = null
+    setIsAnalyzing(false)
+  }, [])
 
   const handleStep3Next = () => {
     markCompleted(2)
@@ -205,12 +339,49 @@ export default function LinkedInOptimizer() {
     }
   }
 
+  /* Återkomstvalet tar hela ytan: ett vägval, inte en banner. */
+  if (pendingDraft) {
+    return (
+      <FlowShell
+        title="LinkedIn-profil"
+        step={pendingDraft.step}
+        totalSteps={LINKEDIN_TOTAL_STEPS}
+        onExit={() => router.push('/dashboard')}
+        exitLabel="Tillbaka till översikten"
+      >
+        <FlowResumeBanner
+          savedAt={pendingDraft.savedAt}
+          step={pendingDraft.step}
+          totalSteps={LINKEDIN_TOTAL_STEPS}
+          onResume={resumeDraft}
+          onRestart={restartDraft}
+        />
+      </FlowShell>
+    )
+  }
+
   return (
     <LinkedInLayout
       currentStep={currentStep}
       completedSteps={completedSteps}
       onStepClick={handleStepClick}
     >
+      {error && (
+        <div className="mb-4">
+          <FlowError
+            message={error}
+            onRetry={
+              currentStep === 1
+                ? () => {
+                    setError(null)
+                    void handleStartAnalysis()
+                  }
+                : undefined
+            }
+          />
+        </div>
+      )}
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep}
@@ -271,7 +442,9 @@ export default function LinkedInOptimizer() {
       </AnimatePresence>
 
       {/* Analys-overlay */}
-      <AnimatePresence>{isAnalyzing && <AnalysisOverlay />}</AnimatePresence>
+      <AnimatePresence>
+        {isAnalyzing && <AnalysisOverlay onCancel={cancelAnalysis} />}
+      </AnimatePresence>
     </LinkedInLayout>
   )
 }

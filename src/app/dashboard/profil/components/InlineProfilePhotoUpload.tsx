@@ -144,7 +144,7 @@ export function InlineProfilePhotoUpload({
             <div
               className="w-full h-full flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)',
+                background: '#FFFFFF',
               }}
             >
               <User className="w-5 h-5 text-orange-400" strokeWidth={2} />
@@ -158,10 +158,9 @@ export function InlineProfilePhotoUpload({
             type="button"
             disabled={busy}
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-white font-semibold text-xs transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-1.5 h-11 px-3 rounded-lg text-white font-semibold text-xs transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              boxShadow: '0 3px 10px -3px rgba(220, 38, 38, 0.4)',
+              background: '#EA580C',
             }}
           >
             <Upload className="w-3 h-3" strokeWidth={2.5} />
@@ -173,7 +172,7 @@ export function InlineProfilePhotoUpload({
               type="button"
               disabled={busy}
               onClick={handleRemovePhoto}
-              className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50 font-medium text-xs transition-all disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-1 h-11 px-3 rounded-lg text-neutral-500 hover:text-neutral-700 hover:bg-neutral-50 font-medium text-xs transition-all disabled:opacity-50"
             >
               <Trash2 className="w-3 h-3" strokeWidth={2.25} />
               Ta bort
@@ -182,7 +181,7 @@ export function InlineProfilePhotoUpload({
         </div>
       </div>
 
-      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+      <p className="text-xs text-neutral-500 mt-2 leading-relaxed">
         Du väljer själv när du skapar varje CV om bilden ska vara med. JPG, PNG eller WebP, max 2 MB.
       </p>
 

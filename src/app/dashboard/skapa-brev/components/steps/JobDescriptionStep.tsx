@@ -73,8 +73,7 @@ export default function JobDescriptionStep({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
     >
       <LetterFlowStepHeader
         stepNumber={2}
@@ -87,7 +86,7 @@ export default function JobDescriptionStep({
             <button
               type="button"
               onClick={() => setCollapsed(false)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors min-h-[36px]"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors min-h-[44px]"
             >
               <Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />
               Ändra
@@ -103,17 +102,17 @@ export default function JobDescriptionStep({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-orange-50/60 border border-orange-100"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-50/60 border border-orange-100"
           >
             <JobPostingIcon className="w-10 h-10 flex-shrink-0" />
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-orange-600">
+              <div className="text-xs font-semibold uppercase tracking-wider text-orange-600">
                 Annons hämtad
               </div>
-              <div className="text-sm font-semibold text-slate-900 truncate">
+              <div className="text-sm font-semibold text-neutral-900 truncate">
                 {previewText || 'Annonsbeskrivning klar'}
               </div>
-              <div className="text-xs text-slate-500 mt-0.5">
+              <div className="text-xs text-neutral-500 mt-0.5">
                 {jobDescription.length} tecken
                 {detectedKeywords.length > 0 && (
                   <span className="ml-2">
@@ -132,13 +131,19 @@ export default function JobDescriptionStep({
             className="space-y-4"
           >
             <div className="relative">
+              {/* text-base även på mobil: 14 px får iOS att zooma in vid
+                  fokus, och då sitter användaren plötsligt i en scrollad vy.
+                  enterKeyHint enter eftersom radbrytning är rätt i en annons. */}
               <textarea
                 value={jobDescription}
                 onChange={(e) => onJobDescriptionChange(e.target.value)}
+                enterKeyHint="enter"
+                inputMode="text"
+                autoComplete="off"
                 placeholder="Klistra in jobbannonsen här. Företagsnamn, position och alla krav ger oss bäst förutsättningar att skriva ett vasst brev."
-                className="w-full min-h-[200px] sm:min-h-[260px] p-4 sm:p-5 pr-20 rounded-2xl border-2 border-slate-200 focus:border-orange-400 focus:ring-4 focus:ring-orange-200/40 focus:outline-none transition-all resize-y text-sm sm:text-base text-slate-900 placeholder:text-slate-400 leading-relaxed"
+                className="w-full min-h-[200px] sm:min-h-[260px] p-4 sm:p-5 pr-20 rounded-xl border-2 border-neutral-200 focus:border-orange-400 focus:ring-4 focus:ring-orange-200/40 focus:outline-none transition-all resize-y text-base text-neutral-900 placeholder:text-neutral-400 leading-relaxed"
               />
-              <div className="absolute bottom-3 right-4 text-xs text-slate-400 tabular-nums pointer-events-none">
+              <div className="absolute bottom-3 right-4 text-xs text-neutral-400 tabular-nums pointer-events-none">
                 {jobDescription.length} tecken
               </div>
             </div>
@@ -149,7 +154,7 @@ export default function JobDescriptionStep({
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-2"
               >
-                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600">
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600">
                   Nyckelord vi hittat
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -173,14 +178,14 @@ export default function JobDescriptionStep({
                 {jobDescription.length < 50 ? (
                   <>
                     <div className="w-2 h-2 bg-amber-400 rounded-full" />
-                    <span className="text-slate-600">
+                    <span className="text-neutral-600">
                       Fortsätt skriva. Mer kontext ger bättre brev.
                     </span>
                   </>
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-emerald-500" strokeWidth={2.5} />
-                    <span className="text-slate-700">
+                    <span className="text-neutral-700">
                       Bra. Vi har vad vi behöver för att skriva ett starkt brev.
                     </span>
                   </>

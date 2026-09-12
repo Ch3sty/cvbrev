@@ -162,9 +162,7 @@ export default function InviteFriendsPage() {
 
       {/* Main Header */}
       <div className="mb-8 text-center">
-        <div className="w-16 h-16 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Gift className="w-8 h-8 text-white" />
-        </div>
+        <Gift className="w-10 h-10 text-orange-500 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-white mb-2">Bjud in en vän</h1>
         <p className="text-gray-400 text-lg">
           Din vän får 7 dagars kostnadsfri Premium. När de blir betalande kund får båda 7 dagars extra Premium + 500 XP!
@@ -211,7 +209,7 @@ export default function InviteFriendsPage() {
               <Button
                 type="submit"
                 disabled={isLoading || !email.trim() || (remainingInvitations !== null && remainingInvitations <= 0)}
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 disabled:opacity-50"
+                className="w-full bg-orange-600 hover:bg-orange-700 disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
@@ -247,9 +245,7 @@ export default function InviteFriendsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Gift className="w-4 h-4 text-green-600" />
-              </div>
+              <Gift className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-semibold text-white">7 dagars kostnadsfri Premium</h4>
                 <p className="text-sm text-gray-400">Din vän får full tillgång till alla Premium-funktioner helt kostnadsfritt</p>
@@ -257,9 +253,7 @@ export default function InviteFriendsPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Users className="w-4 h-4 text-purple-600" />
-              </div>
+              <Users className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-semibold text-white">7 dagars extra Premium för båda</h4>
                 <p className="text-sm text-gray-400">När din vän blir betalande kund får både du och din vän 7 dagars Premium</p>
@@ -267,9 +261,7 @@ export default function InviteFriendsPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Trophy className="w-4 h-4 text-blue-600" />
-              </div>
+              <Trophy className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-semibold text-white">500 XP-belöning</h4>
                 <p className="text-sm text-gray-400">Få 500 XP direkt när din vän blir betalande Premium-medlem</p>
@@ -293,13 +285,11 @@ export default function InviteFriendsPage() {
               {invitations.map((invitation) => (
                 <div key={invitation.id} className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-700/50">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-full flex items-center justify-center">
-                      {invitation.status === 'accepted' ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-400" />
-                      ) : (
-                        <Mail className="w-5 h-5 text-pink-400" />
-                      )}
-                    </div>
+                    {invitation.status === 'accepted' ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-400" />
+                    ) : (
+                      <Mail className="w-5 h-5 text-pink-400" />
+                    )}
                     <div>
                       <p className="font-medium text-white">
                         {invitation.status === 'accepted' && invitation.guest ? (

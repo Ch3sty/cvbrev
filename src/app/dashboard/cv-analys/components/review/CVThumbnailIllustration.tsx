@@ -52,22 +52,6 @@ export default function CVThumbnailIllustration({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <defs>
-          <linearGradient id="cvthumb-paper" x1="0" y1="0" x2="200" y2="260" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="100%" stopColor="#FFF7ED" />
-          </linearGradient>
-          <linearGradient id="cvthumb-band" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#F97316" />
-            <stop offset="50%" stopColor="#DC2626" />
-            <stop offset="100%" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="cvthumb-orange" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#F97316" />
-            <stop offset="100%" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
         {/* Pappersyta */}
         <rect
           x="2"
@@ -75,14 +59,10 @@ export default function CVThumbnailIllustration({
           width="196"
           height="256"
           rx="8"
-          fill="url(#cvthumb-paper)"
+          fill="#FFFFFF"
           stroke="rgba(249, 115, 22, 0.2)"
           strokeWidth="1"
         />
-
-        {/* Topp-band */}
-        <rect x="2" y="2" width="196" height="6" rx="8" fill="url(#cvthumb-band)" />
-        <rect x="2" y="6" width="196" height="2" fill="url(#cvthumb-band)" />
 
         {/* Profil-cirkel */}
         <circle cx="170" cy="28" r="11" fill="#FED7AA" />
@@ -92,7 +72,7 @@ export default function CVThumbnailIllustration({
         <rect x="14" y="29" width="60" height="3" rx="1" fill="#94A3B8" />
 
         {/* SAMMANFATTNING-rubrik */}
-        <rect x="14" y={PROFILE_Y - 4} width="44" height="3.5" rx="1.5" fill="url(#cvthumb-orange)" />
+        <rect x="14" y={PROFILE_Y - 4} width="44" height="3.5" rx="1.5" fill="#EA580C" />
 
         {/* SAMMANFATTNING-rader (4 stycken, deterministiska längder) */}
         {[0, 1, 2, 3].map((i) => (
@@ -108,7 +88,7 @@ export default function CVThumbnailIllustration({
         ))}
 
         {/* ERFARENHETER-rubrik */}
-        <rect x="14" y="68" width="50" height="3.5" rx="1.5" fill="url(#cvthumb-orange)" />
+        <rect x="14" y="68" width="50" height="3.5" rx="1.5" fill="#EA580C" />
 
         {/* ERFARENHETER - 3 roller */}
         {[0, 1, 2].map((roleIdx) => {
@@ -136,7 +116,7 @@ export default function CVThumbnailIllustration({
         })}
 
         {/* FÄRDIGHETER-rubrik */}
-        <rect x="14" y={SKILLS_Y - 4} width="44" height="3.5" rx="1.5" fill="url(#cvthumb-orange)" />
+        <rect x="14" y={SKILLS_Y - 4} width="44" height="3.5" rx="1.5" fill="#EA580C" />
 
         {/* Skill-chips */}
         {[0, 1, 2, 3, 4].map((i) => {
@@ -159,7 +139,7 @@ export default function CVThumbnailIllustration({
         })}
 
         {/* UTBILDNING-rubrik */}
-        <rect x="14" y={SKILLS_Y + 32} width="44" height="3.5" rx="1.5" fill="url(#cvthumb-orange)" />
+        <rect x="14" y={SKILLS_Y + 32} width="44" height="3.5" rx="1.5" fill="#EA580C" />
         <rect x="14" y={SKILLS_Y + 38} width="100" height="2.5" rx="1" fill="#1E293B" />
         <rect x="14" y={SKILLS_Y + 43} width="80" height="2" rx="1" fill="#CBD5E1" />
       </svg>
@@ -221,17 +201,13 @@ function EditDot({
     >
       <span className="relative inline-block">
         <motion.span
-          className="absolute inset-0 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          }}
+          className="absolute inset-0 rounded-full bg-orange-600"
           animate={{ scale: [1, 1.8, 1], opacity: [0.55, 0, 0.55] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
         />
         <span
-          className="relative block w-3 h-3 rounded-full"
+          className="relative block w-3 h-3 rounded-full bg-orange-600"
           style={{
-            background: 'linear-gradient(135deg, #F97316, #DC2626)',
             boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.55)',
           }}
         />

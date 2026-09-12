@@ -40,7 +40,7 @@ const SOURCE_OPTIONS = [
     title: 'Skapa från mitt CV',
     desc: 'Vi använder ditt sparade CV och skapar en LinkedIn-profil som matchar. Du kan redigera fritt innan vi optimerar.',
     bullets: [
-      'Snabbast — autoifyllt på sekunden',
+      'Snabbast, autoifyllt på sekunden',
       'Inga uppfunna fakta',
       'Du redigerar innan optimering',
     ],
@@ -63,7 +63,7 @@ const MODES = [
     id: 'stand_out' as const,
     icon: Compass,
     title: 'Stå ut i mängden',
-    desc: 'Vi optimerar din profil för att fånga rekryterares blick generellt — bredd, tydlighet och slagkraft.',
+    desc: 'Vi optimerar din profil för att fånga rekryterares blick generellt, bredd, tydlighet och slagkraft.',
     bullets: [
       'Säljer din unika styrka',
       'Funkar för flera roller',
@@ -74,7 +74,7 @@ const MODES = [
     id: 'target_role' as const,
     icon: Target,
     title: 'Sikta på en specifik roll',
-    desc: 'Vi anpassar varje sektion mot rollen du har i sikte — nyckelord, ton och prioriteringar.',
+    desc: 'Vi anpassar varje sektion mot rollen du har i sikte, nyckelord, ton och prioriteringar.',
     bullets: [
       'Skräddarsyr för rollen',
       'Optimerar nyckelord',
@@ -112,14 +112,14 @@ export default function Step1Mode({
         transition={{ duration: 0.4 }}
       >
         <div className="mb-6">
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
             Steg 1 av 4
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.05] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
             Hur vill du börja?
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
-            Välj utgångspunkt — vi anpassar resten av flödet efter ditt val.
+          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
+            Välj utgångspunkt, vi anpassar resten av flödet efter ditt val.
           </p>
         </div>
 
@@ -135,61 +135,40 @@ export default function Step1Mode({
                 type="button"
                 onClick={() => !isDisabled && onSourceModeChange(s.id)}
                 disabled={isDisabled}
-                className={`relative text-left p-4 sm:p-5 rounded-2xl border-2 transition-all min-h-[180px] ${
+                className={`relative text-left p-4 sm:p-5 rounded-xl border-2 transition-all min-h-[180px] ${
                   isDisabled
-                    ? 'border-slate-200 bg-slate-50/60 opacity-60 cursor-not-allowed'
+                    ? 'border-neutral-200 bg-neutral-50/60 opacity-60 cursor-not-allowed'
                     : isActive
                     ? 'border-orange-300 bg-orange-50/60'
-                    : 'border-slate-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
+                    : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
                 }`}
-                style={
-                  isActive && !isDisabled
-                    ? {
-                        boxShadow:
-                          '0 12px 28px -10px rgba(249, 115, 22, 0.30)',
-                      }
-                    : undefined
-                }
               >
                 <div className="flex items-center gap-2.5 mb-3">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{
-                      background: isActive
-                        ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                        : '#F1F5F9',
-                    }}
-                  >
+                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
                     <Icon
                       className={`w-5 h-5 ${
-                        isActive ? 'text-white' : 'text-slate-500'
+                        isActive ? 'text-orange-600' : 'text-neutral-500'
                       }`}
                       strokeWidth={2.2}
                     />
                   </div>
                   {isActive && !isDisabled && (
-                    <span
-                      className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.16em] text-white"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                      }}
-                    >
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white bg-orange-600">
                       Vald
                     </span>
                   )}
                 </div>
-                <h3 className="text-base font-black text-slate-900 leading-snug mb-1">
+                <h3 className="text-base font-semibold text-neutral-900 leading-snug mb-1">
                   {s.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-3">
                   {s.desc}
                 </p>
                 <ul className="space-y-1">
                   {s.bullets.map((b) => (
                     <li
                       key={b}
-                      className="text-[11px] text-slate-700 flex items-start gap-1.5"
+                      className="text-xs text-neutral-700 flex items-start gap-1.5"
                     >
                       <span
                         className="mt-1 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
@@ -200,7 +179,7 @@ export default function Step1Mode({
                   ))}
                 </ul>
                 {isDisabled && (
-                  <p className="mt-3 text-[11px] font-semibold text-slate-500">
+                  <p className="mt-3 text-xs font-semibold text-neutral-500">
                     Du har inget CV uppladdat ännu.
                   </p>
                 )}
@@ -219,17 +198,13 @@ export default function Step1Mode({
               transition={{ duration: 0.3 }}
               className="overflow-hidden mb-6"
             >
-              <div className="rounded-2xl border border-orange-100 bg-orange-50/30 p-4 sm:p-5">
+              <div className="rounded-xl border border-orange-100 bg-orange-50/30 p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <span
-                    className="w-1 h-3 rounded-sm"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                    }}
+                    className="w-1 h-3 rounded-sm bg-orange-600"
                     aria-hidden="true"
                   />
-                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700">
+                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
                     Välj CV att utgå ifrån
                   </span>
                 </div>
@@ -249,16 +224,16 @@ export default function Step1Mode({
               transition={{ duration: 0.3 }}
               className="overflow-hidden mb-6"
             >
-              <div className="rounded-2xl border border-orange-200 bg-orange-50/40 p-4 sm:p-5 flex items-start gap-3">
+              <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-4 sm:p-5 flex items-start gap-3">
                 <Upload
                   className="w-5 h-5 text-orange-700 flex-shrink-0 mt-0.5"
                   strokeWidth={2.2}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-slate-900 mb-1">
+                  <p className="text-sm font-bold text-neutral-900 mb-1">
                     Du har inget CV uppladdat ännu
                   </p>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-2">
+                  <p className="text-xs text-neutral-600 leading-relaxed mb-2">
                     Ladda upp ditt CV först så fyller vi i LinkedIn-fälten åt dig.
                   </p>
                   <Link
@@ -276,7 +251,7 @@ export default function Step1Mode({
 
         {/* Optimeringsmål */}
         <div className="mb-5">
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
             Optimeringsmål
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -288,59 +263,38 @@ export default function Step1Mode({
                   key={m.id}
                   type="button"
                   onClick={() => onModeChange(m.id)}
-                  className={`relative text-left p-4 sm:p-5 rounded-2xl border-2 transition-all min-h-[180px] ${
+                  className={`relative text-left p-4 sm:p-5 rounded-xl border-2 transition-all min-h-[180px] ${
                     isActive
                       ? 'border-orange-300 bg-orange-50/60'
-                      : 'border-slate-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
+                      : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
                   }`}
-                  style={
-                    isActive
-                      ? {
-                          boxShadow:
-                            '0 12px 28px -10px rgba(249, 115, 22, 0.30)',
-                        }
-                      : undefined
-                  }
                 >
                   <div className="flex items-center gap-2.5 mb-3">
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{
-                        background: isActive
-                          ? 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)'
-                          : '#F1F5F9',
-                      }}
-                    >
+                    <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
                       <Icon
                         className={`w-5 h-5 ${
-                          isActive ? 'text-white' : 'text-slate-500'
+                          isActive ? 'text-orange-600' : 'text-neutral-500'
                         }`}
                         strokeWidth={2.2}
                       />
                     </div>
                     {isActive && (
-                      <span
-                        className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.16em] text-white"
-                        style={{
-                          background:
-                            'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                        }}
-                      >
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white bg-orange-600">
                         Vald
                       </span>
                     )}
                   </div>
-                  <h3 className="text-base font-black text-slate-900 leading-snug mb-1">
+                  <h3 className="text-base font-semibold text-neutral-900 leading-snug mb-1">
                     {m.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-3">
                     {m.desc}
                   </p>
                   <ul className="space-y-1">
                     {m.bullets.map((b) => (
                       <li
                         key={b}
-                        className="text-[11px] text-slate-700 flex items-start gap-1.5"
+                        className="text-xs text-neutral-700 flex items-start gap-1.5"
                       >
                         <span
                           className="mt-1 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
@@ -366,7 +320,7 @@ export default function Step1Mode({
           >
             <label
               htmlFor="targetRole"
-              className="block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1.5"
+              className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
             >
               Vilken roll siktar du på?
             </label>
@@ -374,9 +328,15 @@ export default function Step1Mode({
               id="targetRole"
               type="text"
               value={targetRole}
+
+              enterKeyHint="done"
+
+              inputMode="text"
+
+              autoComplete="organization-title"
               onChange={(e) => onTargetRoleChange(e.target.value)}
               placeholder="t.ex. Senior Product Manager"
-              className="block w-full min-h-[44px] px-4 py-3 bg-white border border-slate-200 rounded-xl text-base text-slate-900 placeholder-slate-400 transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"
+              className="block w-full min-h-[44px] px-4 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"
             />
             {trimmedRole.length > 0 && trimmedRole.length < 3 && (
               <p className="mt-1.5 text-xs text-orange-700">
@@ -388,10 +348,10 @@ export default function Step1Mode({
 
         {/* Språkväljare */}
         <div className="mb-6">
-          <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">
+          <div className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-2">
             Språk
           </div>
-          <div className="inline-flex bg-slate-100 rounded-xl p-1">
+          <div className="inline-flex bg-neutral-100 rounded-xl p-1">
             {(['sv', 'en'] as const).map((lang) => (
               <button
                 key={lang}
@@ -399,8 +359,8 @@ export default function Step1Mode({
                 onClick={() => onLanguageChange(lang)}
                 className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                   language === lang
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
+                    ? 'bg-white text-neutral-900 shadow-sm'
+                    : 'text-neutral-500 hover:text-neutral-700'
                 }`}
               >
                 {lang === 'sv' ? 'Svenska' : 'English'}
@@ -414,19 +374,14 @@ export default function Step1Mode({
           type="button"
           onClick={onNext}
           disabled={!canProceed}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          style={{
-            background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-            boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-          }}
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           <span>Fortsätt till profil</span>
           <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
         </button>
 
         {sourceMode === 'cv' && hasCvs && !selectedCvId && (
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-neutral-500">
             Välj ett CV ovan för att fortsätta.
           </p>
         )}
@@ -440,8 +395,8 @@ export default function Step1Mode({
         className="hidden lg:block lg:sticky lg:top-32"
       >
         <div className="mb-3 flex items-center gap-2">
-          <Lock className="w-3.5 h-3.5 text-slate-400" strokeWidth={2.2} />
-          <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+          <Lock className="w-3.5 h-3.5 text-neutral-400" strokeWidth={2.2} />
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
             Förhandsvisning · skapas i nästa steg
           </span>
         </div>
@@ -459,7 +414,7 @@ export default function Step1Mode({
           <span className="text-2xl" aria-hidden="true">
             👀
           </span>
-          <p className="text-xs text-slate-700 leading-snug">
+          <p className="text-xs text-neutral-700 leading-snug">
             Du kommer se din LinkedIn-profil byggas upp <strong>live</strong>{' '}
             medan du fyller i nästa steg.
           </p>

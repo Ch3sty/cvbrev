@@ -46,38 +46,31 @@ export default function SectionDetail({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white rounded-2xl border border-orange-100 overflow-hidden"
-      style={{ boxShadow: '0 8px 20px -10px rgba(249, 115, 22, 0.18)' }}
+      className="bg-white rounded-xl border border-orange-100 overflow-hidden"
     >
       {/* Header */}
       <div className="px-5 sm:px-6 py-4 border-b border-orange-50 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{
-              background:
-                'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            }}
-          >
-            <Icon className="w-4 h-4 text-white" strokeWidth={2.4} />
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+            <Icon className="w-5 h-5 text-neutral-700" strokeWidth={2.4} />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-black text-slate-900 leading-tight">
+            <p className="text-sm font-semibold text-neutral-900 leading-tight">
               {title}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="text-[10px] text-slate-400 font-bold tabular-nums">
+              <span className="text-xs text-neutral-400 font-bold tabular-nums">
                 {scoreBefore}
               </span>
               <TrendingUp
                 className="w-2.5 h-2.5 text-emerald-600"
                 strokeWidth={3}
               />
-              <span className="text-[10px] text-slate-900 font-black tabular-nums">
+              <span className="text-xs text-neutral-900 font-semibold tabular-nums">
                 {scoreAfter}
               </span>
               <span
-                className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-black text-emerald-700 bg-emerald-50 border border-emerald-200"
+                className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200"
               >
                 +{delta}
               </span>
@@ -108,16 +101,12 @@ export default function SectionDetail({
 
       {/* Score-bar */}
       <div className="px-5 sm:px-6 pt-4">
-        <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-neutral-100 overflow-hidden">
           <motion.div
             initial={{ width: `${scoreBefore}%` }}
             animate={{ width: `${scoreAfter}%` }}
             transition={{ duration: 1, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{
-              background:
-                'linear-gradient(90deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
-            }}
+            className="h-full rounded-full bg-orange-600"
           />
         </div>
       </div>
@@ -132,12 +121,12 @@ export default function SectionDetail({
               remarkPlugins={[remarkGfm]}
               components={{
                 p: ({ children }) => (
-                  <p className="text-sm text-slate-700 leading-relaxed mb-3 last:mb-0">
+                  <p className="text-sm text-neutral-700 leading-relaxed mb-3 last:mb-0">
                     {children}
                   </p>
                 ),
                 strong: ({ children }) => (
-                  <strong className="font-bold text-slate-900">
+                  <strong className="font-bold text-neutral-900">
                     {children}
                   </strong>
                 ),
@@ -150,7 +139,7 @@ export default function SectionDetail({
                       className="mt-1.5 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-slate-700 leading-relaxed">
+                    <span className="text-sm text-neutral-700 leading-relaxed">
                       {children}
                     </span>
                   </li>
@@ -168,14 +157,10 @@ export default function SectionDetail({
         <div className="px-5 sm:px-6 pb-5">
           <div className="flex items-center gap-2 mb-2.5">
             <span
-              className="w-1 h-3 rounded-sm"
-              style={{
-                background:
-                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-              }}
+              className="w-1 h-3 rounded-sm bg-orange-600"
               aria-hidden="true"
             />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Vad vi ändrade
             </span>
           </div>
@@ -189,7 +174,7 @@ export default function SectionDetail({
                   className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5"
                   strokeWidth={2.6}
                 />
-                <span className="text-xs text-slate-700 leading-snug">
+                <span className="text-xs text-neutral-700 leading-snug">
                   {improvement}
                 </span>
               </li>

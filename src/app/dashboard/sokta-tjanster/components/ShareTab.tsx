@@ -18,9 +18,11 @@ import {
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
 import type { ApplicationStats, JobApplication } from '@/lib/applications/status';
-import FunnelBars from './FunnelBars';
 import SankeyChart from './SankeyChart';
 import { formatDateShort } from './StatusBits';
+import StatusRow from '@/components/shell/StatusRow';
+import PaywallCard from '@/components/paywall/PaywallCard';
+import { afReportStatusText, nextAfReportDeadline } from '@/lib/applications/afReport';
 
 interface ReportRow {
   job_title: string;
@@ -78,8 +80,13 @@ export default function ShareTab({ applications }: ShareTabProps) {
   const { successWithActivity, success, error: notifyError } = useNotification();
   const { profile } = useProfile();
 
+  // Nästa rapporttillfälle: vilken månad som gäller, vilket datum den ska
+  // vara inne och hur många dagar som är kvar.
+  const [deadline] = useState(() => nextAfReportDeadline());
   const [month, setMonth] = useState(() => monthKey(new Date()));
   const [report, setReport] = useState<MonthReport | null>(null);
+  /** Servern utelämnar listorna för den som inte har Premium. */
+  const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState<ApplicationStats | null>(null);
   const [shareLink, setShareLink] = useState<ActiveShareLink | null>(null);
   const [shareCompanies, setShareCompanies] = useState(true);
@@ -93,7 +100,10 @@ export default function ShareTab({ applications }: ShareTabProps) {
     fetch(`/api/applications/report?month=${month}`)
       .then((res) => res.json())
       .then((json) => {
-        if (json.success) setReport(json.data as MonthReport);
+        if (json.success) {
+          setReport(json.data as MonthReport);
+          setLocked(json.locked === true);
+        }
       })
       .catch(() => undefined);
   }, [month, applications.length]);
@@ -221,20 +231,26 @@ export default function ShareTab({ applications }: ShareTabProps) {
 
   const sectionTable = (title: string, rows: { date: string; text: string }[]) => (
     <div>
-      <div className="text-[13px] font-bold text-slate-900 mb-1.5">{title}</div>
+      <div className="mb-1.5 text-sm font-semibold text-neutral-900">{title}</div>
       {rows.length === 0 ? (
-        <div className="text-[12.5px] text-slate-400 italic">Inget att rapportera denna månad.</div>
+        <div className="text-sm text-neutral-500">Inget att rapportera den här månaden.</div>
       ) : (
-        <table className="w-full text-[12.5px]">
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={i} className="border-b border-slate-100 last:border-0">
-                <td className="py-1.5 pr-3 text-slate-500 whitespace-nowrap w-16 align-top">{row.date}</td>
-                <td className="py-1.5 text-slate-700">{row.text}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        /* Egen overflow-x-auto: en lång tjänstetitel får aldrig ge
+           horisontell scroll på hela sidan. */
+        <div className="-mx-1 overflow-x-auto px-1">
+          <table className="w-full min-w-[20rem] text-sm">
+            <tbody>
+              {rows.map((row, i) => (
+                <tr key={i} className="border-b border-neutral-200 last:border-0">
+                  <td className="w-20 whitespace-nowrap py-2 pr-3 align-top text-neutral-500 tabular-nums">
+                    {row.date}
+                  </td>
+                  <td className="py-2 text-neutral-700">{row.text}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
@@ -246,17 +262,39 @@ export default function ShareTab({ applications }: ShareTabProps) {
       transition={{ duration: 0.3 }}
       className="space-y-4"
     >
+      {/* Påminnelse med datum och dagar kvar. Tonen byter en gång, vid sju
+          dagar, aldrig gradvis. Raden visas oavsett premium: att veta när
+          rapporten ska in är inte något vi tar betalt för. */}
+      <StatusRow
+        tone={deadline.isUrgent || deadline.isOverdue ? 'warm' : 'neutral'}
+        showDot
+        label="Deadline för aktivitetsrapporten"
+        action={
+          month !== deadline.reportMonth ? (
+            <button
+              type="button"
+              onClick={() => setMonth(deadline.reportMonth)}
+              className="text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+            >
+              Visa den
+            </button>
+          ) : undefined
+        }
+      >
+        {afReportStatusText(deadline, report?.totals.applications ?? 0)}
+      </StatusRow>
+
       {/* Månadsväljare */}
       <div className="flex items-center justify-center gap-2">
         <button
           type="button"
           onClick={() => setMonth((m) => shiftMonth(m, -1))}
           aria-label="Föregående månad"
-          className="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:border-slate-300 transition-all"
+          className="w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all"
         >
-          <ChevronLeft className="w-4.5 h-4.5 w-[18px] h-[18px]" strokeWidth={2.5} />
+          <ChevronLeft className="w-[18px] h-[18px]" strokeWidth={2.5} />
         </button>
-        <div className="min-w-[160px] text-center text-[15px] font-bold text-slate-900">
+        <div className="min-w-[160px] text-center text-[15px] font-bold text-neutral-900">
           {monthLabel(month)}
         </div>
         <button
@@ -264,39 +302,44 @@ export default function ShareTab({ applications }: ShareTabProps) {
           onClick={() => setMonth((m) => shiftMonth(m, 1))}
           disabled={month >= currentMonth}
           aria-label="Nästa månad"
-          className="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:border-slate-300 transition-all disabled:opacity-40"
+          className="w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all disabled:opacity-40"
         >
           <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.5} />
         </button>
       </div>
 
       {/* Rapporten (det som skrivs ut) */}
-      <div className="tracker-report bg-white rounded-2xl border border-orange-200/50 p-5 sm:p-8">
-        <div className="border-b border-slate-200 pb-4 mb-5">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-400">
+      <div className="tracker-report bg-white rounded-xl border border-orange-200/50 p-5 sm:p-8">
+        <div className="border-b border-neutral-200 pb-4 mb-5">
+          <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
             Aktivitetsöversikt
           </div>
           <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900">
               {profile?.full_name || 'Min jobbsökning'}
             </h2>
-            <div className="text-[14px] font-semibold text-slate-600">{monthLabel(month)}</div>
+            <div className="text-[14px] font-semibold text-neutral-600">{monthLabel(month)}</div>
           </div>
           {report && (
-            <div className="mt-2 text-[13px] text-slate-600">
-              <span className="font-bold text-slate-900">{report.totals.applications}</span> sökta jobb
+            <div className="mt-2 text-[13px] text-neutral-600">
+              <span className="font-bold text-neutral-900">{report.totals.applications}</span> sökta jobb
               {' · '}
-              <span className="font-bold text-slate-900">{report.totals.interviews}</span> intervjuer denna period
+              <span className="font-bold text-neutral-900">{report.totals.interviews}</span> intervjuer denna period
             </div>
           )}
         </div>
 
         {!report ? (
           <div className="space-y-3 animate-pulse">
-            <div className="h-4 bg-slate-100 rounded w-1/3" />
-            <div className="h-3 bg-slate-100 rounded w-2/3" />
-            <div className="h-3 bg-slate-100 rounded w-1/2" />
+            <div className="h-4 bg-neutral-100 rounded w-1/3" />
+            <div className="h-3 bg-neutral-100 rounded w-2/3" />
+            <div className="h-3 bg-neutral-100 rounded w-1/2" />
           </div>
+        ) : locked ? (
+          /* Loggningen är gratis för alltid, uttaget av den sammanställda
+             rapporten ingår i Premium. Servern har redan utelämnat raderna,
+             så det finns ingen text att blurra bort här. */
+          <PaywallCard variant="af-rapport" className="border-0 p-0" />
         ) : (
           <div className="space-y-5">
             {sectionTable(
@@ -322,48 +365,58 @@ export default function ShareTab({ applications }: ShareTabProps) {
             )}
 
             {stats && stats.totalApplications > 0 && (
-              <div className="pt-2">
-                <div className="text-[13px] font-bold text-slate-900 mb-2.5">Hela din sökning i siffror</div>
-                <FunnelBars stats={stats} />
+              <div className="border-t border-neutral-200 pt-4">
+                <div className="mb-2 text-sm font-semibold text-neutral-900">
+                  Hela din sökning i siffror
+                </div>
+                <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <ReportTotal label="Sökta totalt" value={stats.totalApplications} />
+                  <ReportTotal label="Fått svar" value={stats.respondedCount} />
+                  <ReportTotal label="Intervjuer" value={stats.interviewedCount} />
+                  <ReportTotal label="Erbjudanden" value={stats.offerCount} />
+                </dl>
               </div>
             )}
 
-            <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+            <div className="border-t border-neutral-200 pt-3 text-xs text-neutral-500">
               Genererad via jobbcoach.ai · {new Intl.DateTimeFormat('sv-SE', { dateStyle: 'long' }).format(new Date())}
             </div>
           </div>
         )}
       </div>
 
-      {/* Åtgärder */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <button
-          type="button"
-          onClick={handlePrint}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white text-[13.5px] font-bold text-slate-700 hover:border-slate-300 transition-all min-h-[48px]"
-        >
-          <Printer className="w-4 h-4" strokeWidth={2.25} />
-          Skriv ut eller spara som PDF
-        </button>
-        <button
-          type="button"
-          onClick={handleCopySummary}
-          disabled={!report}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white text-[13.5px] font-bold text-slate-700 hover:border-slate-300 transition-all min-h-[48px] disabled:opacity-50"
-        >
-          {copied ? (
-            <Check className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
-          ) : (
-            <ClipboardCopy className="w-4 h-4" strokeWidth={2.25} />
-          )}
-          {copied ? 'Kopierad!' : 'Kopiera som text till AF-rapporten'}
-        </button>
-      </div>
+      {/* Uttaget. Döljs helt i låst läge: betalväggen ovanför är redan
+          sidans enda säljyta, och två på samma skärm säljer sämre än en. */}
+      {!locked && (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400"
+          >
+            <Printer className="h-4 w-4" strokeWidth={2} />
+            Skriv ut eller spara som PDF
+          </button>
+          <button
+            type="button"
+            onClick={handleCopySummary}
+            disabled={!report}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 disabled:opacity-50"
+          >
+            {copied ? (
+              <Check className="h-4 w-4 text-emerald-700" strokeWidth={2} />
+            ) : (
+              <ClipboardCopy className="h-4 w-4" strokeWidth={2} />
+            )}
+            {copied ? 'Kopierad' : 'Kopiera som text till AF-rapporten'}
+          </button>
+        </div>
+      )}
 
       {/* Delningslänk */}
-      <div className="bg-white rounded-2xl border border-orange-200/50 p-4 sm:p-6">
-        <h3 className="text-[14.5px] font-bold text-slate-900">Dela med en länk</h3>
-        <p className="text-[13px] text-slate-500 mt-1">
+      <div className="bg-white rounded-xl border border-orange-200/50 p-4 sm:p-6">
+        <h3 className="text-[14.5px] font-bold text-neutral-900">Dela med en länk</h3>
+        <p className="text-[13px] text-neutral-500 mt-1">
           Den som får länken ser din statistik utan att logga in. Länken gäller i 30 dagar och du
           kan återkalla den när du vill.
         </p>
@@ -371,7 +424,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
         {shareUrl ? (
           <div className="mt-3 space-y-2.5">
             <div className="flex items-center gap-2">
-              <div className="flex-1 min-w-0 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[12.5px] text-slate-600 truncate font-mono">
+              <div className="flex-1 min-w-0 px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-600 truncate font-mono">
                 {shareUrl}
               </div>
               <button
@@ -380,7 +433,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
                   navigator.clipboard.writeText(shareUrl).then(() => success('Länken är kopierad.', 2500));
                 }}
                 aria-label="Kopiera länken"
-                className="flex-shrink-0 w-11 h-11 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:border-slate-300 transition-all"
+                className="flex-shrink-0 w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all"
               >
                 <ClipboardCopy className="w-4 h-4" strokeWidth={2.25} />
               </button>
@@ -388,7 +441,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
             <button
               type="button"
               onClick={handleRevoke}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 hover:text-red-600 transition-colors"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-red-600 transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" strokeWidth={2.5} />
               Återkalla länken
@@ -396,12 +449,12 @@ export default function ShareTab({ applications }: ShareTabProps) {
           </div>
         ) : (
           <div className="mt-3 space-y-3">
-            <label className="flex items-center gap-2.5 text-[13px] text-slate-700 cursor-pointer">
+            <label className="flex items-center gap-2.5 text-[13px] text-neutral-700 cursor-pointer">
               <input
                 type="checkbox"
                 checked={shareCompanies}
                 onChange={(e) => setShareCompanies(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-orange-400"
+                className="w-4 h-4 rounded border-neutral-300 text-orange-600 focus:ring-orange-400"
               />
               Visa lista med företag och tjänster (annars bara siffror)
             </label>
@@ -409,11 +462,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
               type="button"
               onClick={handleCreateShareLink}
               disabled={isSharing}
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-white text-[13.5px] font-bold transition-all min-h-[48px] disabled:opacity-60"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-              }}
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-white text-[13.5px] font-bold transition-all min-h-[48px] disabled:opacity-60 bg-orange-600 hover:bg-orange-700"
             >
               <Link2 className="w-4 h-4" strokeWidth={2.25} />
               {isSharing ? 'Skapar…' : 'Skapa delningslänk'}
@@ -424,9 +473,9 @@ export default function ShareTab({ applications }: ShareTabProps) {
 
       {/* Sankey: bara på större skärmar, mobilen har trattvyn */}
       {stats && stats.totalApplications > 0 && (
-        <div className="hidden md:block bg-white rounded-2xl border border-orange-200/50 p-6">
-          <h3 className="text-[14.5px] font-bold text-slate-900 mb-1">Flödesdiagram över din sökning</h3>
-          <p className="text-[13px] text-slate-500 mb-4">
+        <div className="hidden md:block bg-white rounded-xl border border-orange-200/50 p-6">
+          <h3 className="text-[14.5px] font-bold text-neutral-900 mb-1">Flödesdiagram över din sökning</h3>
+          <p className="text-[13px] text-neutral-500 mb-4">
             Varje flöde är proportionellt mot antalet ansökningar. Följer med på utskriften av
             statistiken.
           </p>
@@ -434,5 +483,15 @@ export default function ShareTab({ applications }: ShareTabProps) {
         </div>
       )}
     </motion.div>
+  );
+}
+
+/** En siffra i rapportens sammanfattning. Tabular-nums, ingen accent. */
+function ReportTotal({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <dd className="text-lg font-semibold leading-tight tabular-nums text-neutral-900">{value}</dd>
+      <dt className="mt-0.5 text-sm text-neutral-600">{label}</dt>
+    </div>
   );
 }

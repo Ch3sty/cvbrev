@@ -392,7 +392,7 @@ function SearchView() {
       <div className="flex items-start gap-5">
         {/* Filterpanel, desktop */}
         {panelOpen && (
-          <aside className="hidden lg:block w-[280px] flex-shrink-0 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-2xl border border-orange-100 bg-white p-4">
+          <aside className="hidden lg:block w-[280px] flex-shrink-0 sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-2xl border border-orange-100 bg-white p-4">
             <FilterPanel
               filters={filters}
               onChange={patchFilters}

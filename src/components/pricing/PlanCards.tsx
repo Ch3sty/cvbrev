@@ -211,7 +211,7 @@ function DesktopCard({
     >
       {plan.badge ? (
         <span
-          className={`absolute -top-2.5 left-5 px-2 py-0.5 rounded-full text-[11px] font-semibold ${
+          className={`absolute -top-2.5 left-5 px-2 py-0.5 rounded-full text-xs font-semibold ${
             highlighted
               ? 'bg-orange-600 text-white'
               : 'bg-white border border-neutral-200 text-neutral-700'
@@ -296,7 +296,7 @@ function MobileRow({
     >
       {plan.badge ? (
         <span
-          className={`absolute -top-2.5 left-4 px-2 py-0.5 rounded-full text-[11px] font-semibold ${
+          className={`absolute -top-2.5 left-4 px-2 py-0.5 rounded-full text-xs font-semibold ${
             highlighted
               ? 'bg-orange-600 text-white'
               : 'bg-white border border-neutral-200 text-neutral-700'

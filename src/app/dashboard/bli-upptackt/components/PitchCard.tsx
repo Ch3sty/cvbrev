@@ -71,7 +71,7 @@ export default function PitchCard({ pitch, onSave, collapse }: PitchCardProps) {
       {...collapse}
       headerExtra={
         saved ? (
-          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-emerald-600">
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
             <Check className="w-3.5 h-3.5" strokeWidth={3} aria-hidden="true" />
             Sparad
           </span>
@@ -81,14 +81,20 @@ export default function PitchCard({ pitch, onSave, collapse }: PitchCardProps) {
       <textarea
         value={value}
         onChange={(e) => handleChange(e.target.value)}
+
+        enterKeyHint="enter"
+
+        inputMode="text"
+
+        autoComplete="off"
         onBlur={handleBlur}
         maxLength={MAX_LENGTH}
         rows={3}
         placeholder="Redovisningsekonom med sex år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp."
         aria-label="Din pitch"
-        className="w-full min-h-[100px] resize-y rounded-xl border-[1.5px] border-slate-200 px-3.5 py-3 text-[13.5px] leading-relaxed text-slate-700 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none transition-colors"
+        className="w-full min-h-[100px] resize-y rounded-xl border-[1.5px] border-neutral-200 px-3.5 py-3 text-base leading-relaxed text-neutral-700 placeholder:text-neutral-400 focus:border-orange-400 focus:outline-none transition-colors"
       />
-      <div className="mt-1.5 text-right text-[12px] text-slate-400" aria-live="polite">
+      <div className="mt-1.5 text-right text-xs text-neutral-400" aria-live="polite">
         {value.length}/{MAX_LENGTH}
       </div>
     </SectionCard>

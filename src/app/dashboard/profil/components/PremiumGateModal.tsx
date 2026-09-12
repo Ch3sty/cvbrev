@@ -41,7 +41,7 @@ const FEATURE_CONTENT: Record<
   'smart-tone': {
     title: 'Lås upp Smart val',
     subtitle:
-      'Vi väljer den ton som passar varje annons bäst — automatiskt för varje brev.',
+      'Vi väljer den ton som passar varje annons bäst, automatiskt för varje brev.',
     bullets: [
       'AI analyserar tonen i varje annons',
       'Du slipper välja manuellt för varje brev',
@@ -78,7 +78,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-sm p-0 sm:p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-900/50 backdrop-blur-sm p-0 sm:p-4"
           onClick={onClose}
         >
           <motion.div
@@ -87,7 +87,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
             exit={{ y: 40, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 320, damping: 32 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden"
+            className="relative w-full sm:max-w-md bg-white rounded-t-xl sm:rounded-xl overflow-hidden"
             style={{
               boxShadow: '0 24px 64px -16px rgba(15, 23, 42, 0.35)',
             }}
@@ -100,7 +100,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
               className="h-[3px]"
               style={{
                 background:
-                  'linear-gradient(90deg, #F97316, #DC2626, #BE185D)',
+                  '#EA580C',
               }}
             />
 
@@ -109,7 +109,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
               type="button"
               onClick={onClose}
               aria-label="Stäng"
-              className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 hover:bg-orange-50 flex items-center justify-center text-slate-500 hover:text-orange-700 transition-colors"
+              className="absolute top-3 right-3 z-10 w-11 h-11 rounded-full bg-white/80 hover:bg-orange-50 flex items-center justify-center text-neutral-500 hover:text-orange-700 transition-colors"
             >
               <X className="w-4 h-4" strokeWidth={2.5} />
             </button>
@@ -119,15 +119,15 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
               className="relative px-5 sm:px-7 pt-6 pb-5"
               style={{
                 background:
-                  'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 50%, #FECACA 100%)',
+                  '#FFFFFF',
               }}
             >
               <div className="flex items-center gap-3 mb-4">
                 <FeatureIcon feature={feature} />
                 <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white"
                   style={{
-                    background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
+                    background: '#F59E0B',
                     boxShadow: '0 3px 10px -2px rgba(245, 158, 11, 0.5)',
                   }}
                 >
@@ -138,11 +138,11 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
 
               <h3
                 id="premium-gate-title"
-                className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-tight"
+                className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight leading-tight"
               >
                 {FEATURE_CONTENT[feature].title}
               </h3>
-              <p className="text-sm text-slate-700 mt-2 leading-relaxed">
+              <p className="text-sm text-neutral-700 mt-2 leading-relaxed">
                 {FEATURE_CONTENT[feature].subtitle}
               </p>
             </div>
@@ -155,12 +155,12 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
                     className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white mt-0.5"
                     style={{
                       background:
-                        'linear-gradient(135deg, #10B981, #059669)',
+                        '#059669',
                     }}
                   >
                     <Check className="w-3 h-3" strokeWidth={3} />
                   </div>
-                  <span className="text-sm text-slate-700 leading-relaxed">
+                  <span className="text-sm text-neutral-700 leading-relaxed">
                     {bullet}
                   </span>
                 </div>
@@ -179,19 +179,19 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
               <Link
                 href="/dashboard/profil/prenumeration"
                 onClick={onClose}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-white font-bold text-base min-h-[52px]"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white font-bold text-base min-h-[52px]"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
+                  background: '#EA580C',
                   boxShadow: '0 12px 28px -8px rgba(220, 38, 38, 0.45)',
                 }}
               >
-                Testa Premium gratis i 7 dagar
+                Se vad Premium kostar
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </Link>
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full mt-2 inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-slate-600 hover:text-orange-700 transition-colors"
+                className="w-full mt-2 inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-neutral-600 hover:text-orange-700 transition-colors"
               >
                 Kanske senare
               </button>
@@ -206,31 +206,19 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
 function FeatureIcon({ feature }: { feature: PremiumFeature }) {
   if (feature === 'photo') {
     return (
-      <div
-        className="w-12 h-12 rounded-2xl flex items-center justify-center text-white"
-        style={{
-          background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.4)',
-        }}
-      >
-        <Camera className="w-6 h-6" strokeWidth={2.25} />
+      <div className="w-12 h-12 flex items-center justify-center">
+        <Camera className="w-7 h-7 text-orange-600" strokeWidth={2.25} />
       </div>
     );
   }
   if (feature === 'linkedin') {
     return (
-      <div
-        className="w-12 h-12 rounded-2xl flex items-center justify-center text-white"
-        style={{
-          background: 'linear-gradient(135deg, #F97316, #DC2626)',
-          boxShadow: '0 6px 16px -4px rgba(220, 38, 38, 0.4)',
-        }}
-      >
-        <Linkedin className="w-6 h-6" strokeWidth={2.25} />
+      <div className="w-12 h-12 flex items-center justify-center">
+        <Linkedin className="w-7 h-7 text-orange-600" strokeWidth={2.25} />
       </div>
     );
   }
-  // smart-tone — använd den fina SVG-illustrationen
+  // smart-tone, använd den fina SVG-illustrationen
   return <SmartAutoToneIcon className="w-14 h-14" />;
 }
 

@@ -75,10 +75,10 @@ function calculateStrength(
   let color: 'red' | 'orange' | 'yellow' | 'green'
 
   if (finalScore < 30) {
-    reason = len < optimalMin ? 'För kort — fyll på mer' : 'Behöver mer substans'
+    reason = len < optimalMin ? 'För kort, fyll på mer' : 'Behöver mer substans'
     color = 'red'
   } else if (finalScore < 55) {
-    reason = buzzwordCount > 0 ? 'Vi hittade buzzwords' : 'På väg — fortsätt'
+    reason = buzzwordCount > 0 ? 'Vi hittade buzzwords' : 'På väg, fortsätt'
     color = 'orange'
   } else if (finalScore < 80) {
     reason = hasNumbers ? 'Bra struktur' : 'Lägg gärna till siffror'
@@ -91,11 +91,11 @@ function calculateStrength(
   return { score: finalScore, reason, color }
 }
 
-const COLOR_GRADIENTS = {
-  red: 'linear-gradient(90deg, #DC2626 0%, #F97316 100%)',
-  orange: 'linear-gradient(90deg, #F97316 0%, #FB923C 100%)',
-  yellow: 'linear-gradient(90deg, #F97316 0%, #DC2626 100%)',
-  green: 'linear-gradient(90deg, #F97316 0%, #DC2626 60%, #BE185D 100%)',
+const COLOR_BAR = {
+  red: 'bg-red-600',
+  orange: 'bg-orange-600',
+  yellow: 'bg-amber-500',
+  green: 'bg-emerald-600',
 }
 
 const COLOR_TEXT = {
@@ -118,24 +118,21 @@ export default function SectionStrength({
 
   return (
     <div className="space-y-1.5">
-      <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+      <div className="h-1.5 rounded-full bg-neutral-100 overflow-hidden">
         <motion.div
           animate={{ width: `${score}%` }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="h-full rounded-full"
-          style={{
-            background: COLOR_GRADIENTS[color],
-          }}
+          className={`h-full rounded-full ${COLOR_BAR[color]}`}
         />
       </div>
       {!compact && (
         <div className="flex items-center justify-between">
           <span
-            className={`text-[11px] font-bold ${COLOR_TEXT[color]} leading-none`}
+            className={`text-xs font-bold ${COLOR_TEXT[color]} leading-none`}
           >
             {reason}
           </span>
-          <span className="text-[11px] font-bold text-slate-400 tabular-nums leading-none">
+          <span className="text-xs font-bold text-neutral-400 tabular-nums leading-none">
             {score}%
           </span>
         </div>

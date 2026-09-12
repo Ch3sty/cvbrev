@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Bug, ChevronDown } from 'lucide-react';
+import { Bug, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
@@ -19,12 +19,15 @@ import type {
 
 // Nya layout-komponenter
 import SkapaCvLayout from './SkapaCvLayout';
-import SkapaCvProgress, { SKAPA_CV_STEPS } from './SkapaCvProgress';
+import { SKAPA_CV_STEPS } from './steps.config';
 import SkapaCvHero from './SkapaCvHero';
 import SkapaCvPreview, { type PreviewSection } from './SkapaCvPreview';
 
 // Auto-save hook
 import { useAutoSave } from '../hooks/useAutoSave';
+import FlowShell from '@/components/shell/FlowShell';
+import { useFlowStep } from '@/lib/flow/useFlowStep';
+import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
 
 // Lazy load steps for performance
 const Step1Kontakt = lazy(() => import('./steps/Step1Kontakt'));
@@ -116,7 +119,7 @@ const StepSkeleton = () => (
   <div className="animate-pulse space-y-4">
     <div className="h-6 bg-orange-100/50 rounded w-1/3"></div>
     <div className="h-8 bg-orange-100/40 rounded w-3/4"></div>
-    <div className="h-48 bg-orange-100/30 rounded-3xl"></div>
+    <div className="h-48 bg-orange-100/30 rounded-xl"></div>
   </div>
 );
 
@@ -146,9 +149,25 @@ export default function CVCreatorWizard() {
   const { profile } = useProfile();
   const supabase = createClient();
 
-  // Wizard state
-  const [currentStep, setCurrentStep] = useState(0);
+  /* Steget ligger i URL:en (?steg=N, ettbaserat) i stället för i useState.
+     Tidigare lämnade bakåtgesten på mobil hela wizarden i stället för att
+     backa ett steg, och en omladdning började om på steg 1 trots att
+     utkastet fanns kvar. Internt räknar wizarden fortfarande 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+
+  const flow = useFlowStep({
+    totalSteps: SKAPA_CV_STEPS.length,
+    maxReachableStep: SKAPA_CV_STEPS.length,
+  });
+  const currentStep = flow.step - 1;
+  const setCurrentStep = useCallback(
+    (updater: number | ((prev: number) => number)) => {
+      const target =
+        typeof updater === 'function' ? updater(currentStep) : updater;
+      flow.goToStep(target + 1);
+    },
+    [flow, currentStep]
+  );
 
   // CV data state
   const [cvData, setCVData] = useState<CVDraft>(initialCVDraft);
@@ -166,7 +185,8 @@ export default function CVCreatorWizard() {
   const [mobilePreviewOpen, setMobilePreviewOpen] = useState(false);
 
   // Auto-save hook
-  const { saveDraft, loadDraft, hasDraft, clearDraft } = useAutoSave(cvData);
+  const { saveDraft, loadDraft, loadDraftSavedAt, hasDraft, clearDraft } =
+    useAutoSave(cvData);
 
   // Pre-populate from profile if cvData empty
   useEffect(() => {
@@ -189,17 +209,35 @@ export default function CVCreatorWizard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
-  // Check for existing draft on mount
+  /* Utkastet återställdes tidigare tyst, mitt i att profil-prefillen skrev
+     i samma fält. Användaren fick alltså en blandning av två källor utan
+     att veta om det. Nu är det ett val: Fortsätt eller Börja om, där
+     Börja om kräver bekräftelse eftersom det raderar. */
+  const [pendingCvDraft, setPendingCvDraft] = useState<CVDraft | null>(null);
+  const [draftSavedAt, setDraftSavedAt] = useState<number | null>(null);
+  const draftChecked = React.useRef(false);
+
   useEffect(() => {
+    if (draftChecked.current) return;
+    draftChecked.current = true;
     const existingDraft = loadDraft();
     if (existingDraft) {
-      // Restore-flöde hanteras i Step1 (eller via befintligt UX) — för nu
-      // återställer vi drafted state så användaren kan fortsätta.
-      // Om man vill ha en explicit "Vill du återuppta?"-modal kan man
-      // istället bara registrera att hasDraft = true och visa CTA.
-      setCVData(existingDraft);
+      setPendingCvDraft(existingDraft);
+      setDraftSavedAt(loadDraftSavedAt());
     }
-  }, [loadDraft]);
+  }, [loadDraft, loadDraftSavedAt]);
+
+  const resumeCvDraft = useCallback(() => {
+    if (!pendingCvDraft) return;
+    setCVData(pendingCvDraft);
+    setPendingCvDraft(null);
+  }, [pendingCvDraft]);
+
+  const restartCvDraft = useCallback(() => {
+    clearDraft();
+    setPendingCvDraft(null);
+    setCurrentStep(0);
+  }, [clearDraft, setCurrentStep]);
 
   // Check admin status on mount
   useEffect(() => {
@@ -535,58 +573,65 @@ export default function CVCreatorWizard() {
   const isReviewStep = currentStep === 6;
   const showPreview = currentStep < 6; // Granska har egen preview
 
+  /* Återkomstvalet tar hela ytan: det är ett vägval, inte en banner. */
+  if (pendingCvDraft) {
+    return (
+      <FlowShell
+        title="Bygg ditt CV"
+        step={1}
+        totalSteps={SKAPA_CV_STEPS.length}
+        onExit={() => router.push('/dashboard')}
+        exitLabel="Tillbaka till översikten"
+      >
+        <FlowResumeBanner
+          savedAt={draftSavedAt ?? Date.now()}
+          step={1}
+          totalSteps={SKAPA_CV_STEPS.length}
+          onResume={resumeCvDraft}
+          onRestart={restartCvDraft}
+        />
+      </FlowShell>
+    );
+  }
+
+  // Vad som saknas, så en spärrad knapp aldrig är tyst.
+  const nextBlockedReason = !canProceedFromStep(currentStep)
+    ? currentStep === 0
+      ? 'Fyll i namn, e-post och telefon för att gå vidare.'
+      : currentStep === 6
+        ? 'Lägg till minst en erfarenhet eller utbildning.'
+        : undefined
+    : undefined;
+
   return (
-    <div
-      className="relative min-h-screen overflow-hidden"
-      style={{
-        background:
-          'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 237, 213, 0.30) 50%, #FFFFFF 100%)',
-      }}
+    <FlowShell
+      title="Bygg ditt CV"
+      step={currentStep + 1}
+      totalSteps={SKAPA_CV_STEPS.length}
+      onBack={currentStep > 0 ? goToPreviousStep : undefined}
+      onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
+      exitLabel="Tillbaka till översikten"
+      primaryLabel={
+        isReviewStep ? undefined : currentStep === 5 ? 'Granska CV' : 'Nästa steg'
+      }
+      onPrimary={isReviewStep ? undefined : goToNextStep}
+      primaryDisabled={!canProceedFromStep(currentStep)}
+      primaryBlockedReason={nextBlockedReason}
+      footerSecondary={
+        isAdmin ? (
+          <button
+            type="button"
+            onClick={fillTestData}
+            className="inline-flex h-11 items-center gap-2 px-2 text-sm font-medium text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline"
+          >
+            <Bug className="h-4 w-4" strokeWidth={2} />
+            Fyll i testdata
+          </button>
+        ) : undefined
+      }
     >
-      {/* Subtil orange radial-glow */}
-      <div
-        className="absolute inset-x-0 top-0 h-[40vh] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.10) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative px-4 sm:px-6 lg:px-8">
-        <SkapaCvLayout withPreview={showPreview}>
-          {/* Topbar */}
-          <div className="flex items-center justify-between pt-4 pb-2">
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-orange-700 transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4" strokeWidth={2.4} />
-              <span className="hidden sm:inline">
-                Tillbaka till Dashboard
-              </span>
-              <span className="sm:hidden">Tillbaka</span>
-            </button>
-            {isAdmin && (
-              <button
-                onClick={fillTestData}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-orange-700 bg-orange-50 hover:bg-orange-100 transition-colors"
-                title="Fyll i testdata (admin)"
-              >
-                <Bug className="w-3.5 h-3.5" strokeWidth={2.4} />
-                Testdata
-              </button>
-            )}
-          </div>
-
-          {/* Progress */}
-          <SkapaCvProgress
-            currentStep={currentStep}
-            completedSteps={completedSteps}
-            onStepClick={goToStep}
-          />
-
-          {/* Hero — bara på Steg 0 */}
+      <SkapaCvLayout withPreview={showPreview}>
+          {/* Hero, bara på Steg 0 */}
           {currentStep === 0 && <SkapaCvHero />}
 
           {/* Layout: Step + Preview (på desktop, om showPreview) */}
@@ -604,14 +649,10 @@ export default function CVCreatorWizard() {
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       <span
-                        className="w-1 h-3 rounded-sm flex-shrink-0"
-                        style={{
-                          background:
-                            'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                        }}
+                        className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
                         aria-hidden="true"
                       />
-                      <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-700">
+                      <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
                         {mobilePreviewOpen
                           ? 'Dölj förhandsvisning'
                           : 'Visa förhandsvisning'}
@@ -663,14 +704,10 @@ export default function CVCreatorWizard() {
               <div className="hidden lg:block lg:sticky lg:top-32">
                 <div className="mb-3 flex items-center gap-2">
                   <span
-                    className="w-1 h-3 rounded-sm"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                    }}
+                    className="w-1 h-3 rounded-sm bg-orange-600"
                     aria-hidden="true"
                   />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
                     Live · uppdateras medan du skriver
                   </span>
                 </div>
@@ -681,7 +718,7 @@ export default function CVCreatorWizard() {
               </div>
             </div>
           ) : (
-            // Granska-steget — full bredd, ingen sidor-preview (Step7 har egen)
+            // Granska-steget, full bredd, ingen sidor-preview (Step7 har egen)
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -697,77 +734,7 @@ export default function CVCreatorWizard() {
             </AnimatePresence>
           )}
 
-          {/* Bottom navigation (Back / Next) — bara om INTE Steg 7 */}
-          {!isReviewStep && (
-            <>
-              {/* Desktop: inline knappar */}
-              <div className="hidden md:flex items-center justify-between pt-4">
-                <button
-                  type="button"
-                  onClick={goToPreviousStep}
-                  disabled={currentStep === 0}
-                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3 min-h-[48px] rounded-xl text-slate-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  <ChevronLeft className="w-4 h-4" strokeWidth={2.4} />
-                  Tillbaka
-                </button>
-
-                <button
-                  type="button"
-                  onClick={goToNextStep}
-                  disabled={!canProceedFromStep(currentStep)}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl text-white font-bold text-base transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                    boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
-                  }}
-                >
-                  {currentStep === 5 ? 'Granska CV' : 'Nästa steg'}
-                  <ChevronRight className="w-5 h-5" strokeWidth={2.4} />
-                </button>
-              </div>
-
-              {/* Mobil: fixed bottom nav (ovanför sidebars MobileBottomNav) */}
-              <div
-                className="md:hidden fixed left-0 right-0 z-40 bg-white border-t border-slate-200 px-3 py-3"
-                style={{
-                  bottom: 'calc(env(safe-area-inset-bottom, 0px) + 64px + 70px)',
-                  boxShadow: '0 -4px 12px -4px rgba(15, 23, 42, 0.1)',
-                }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={goToPreviousStep}
-                    disabled={currentStep === 0}
-                    className="inline-flex items-center justify-center gap-1 px-4 py-2.5 min-h-[44px] rounded-lg text-slate-600 font-semibold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    <ChevronLeft className="w-4 h-4" strokeWidth={2.4} />
-                    Tillbaka
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={goToNextStep}
-                    disabled={!canProceedFromStep(currentStep)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{
-                      background:
-                        'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                      boxShadow:
-                        '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-                    }}
-                  >
-                    {currentStep === 5 ? 'Granska CV' : 'Nästa'}
-                    <ChevronRight className="w-4 h-4" strokeWidth={2.4} />
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-        </SkapaCvLayout>
-      </div>
-    </div>
+      </SkapaCvLayout>
+    </FlowShell>
   );
 }

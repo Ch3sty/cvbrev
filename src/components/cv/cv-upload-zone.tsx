@@ -29,7 +29,7 @@ interface CVUploadZoneProps {
 const PHASE_LABELS: Record<UploadPhase, string> = {
   uploading: 'Laddar upp och tolkar...',
   vision:
-    'Datan ligger bakom grafik. Vi läser igenom det — tar några sekunder till...',
+    'Datan ligger bakom grafik. Vi läser igenom det, tar några sekunder till...',
 };
 
 export default function CVUploadZone({
@@ -115,11 +115,11 @@ export default function CVUploadZone({
       {!selectedFile && (
         <div
           {...getRootProps()}
-          className={`relative overflow-hidden rounded-2xl border-2 border-dashed cursor-pointer transition-all duration-300 ${
+          className={`relative overflow-hidden rounded-xl border-2 border-dashed cursor-pointer transition-all duration-300 ${
             isDragActive
               ? 'border-orange-500 bg-orange-50/60 scale-[1.01]'
               : disabled || isUploading
-              ? 'border-slate-200 bg-slate-50 cursor-not-allowed opacity-60'
+              ? 'border-neutral-200 bg-neutral-50 cursor-not-allowed opacity-60'
               : 'border-orange-300/70 bg-orange-50/20 hover:border-orange-400 hover:bg-orange-50/40'
           }`}
         >
@@ -138,18 +138,17 @@ export default function CVUploadZone({
                   className="flex flex-col items-center gap-4"
                 >
                   <motion.div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                    className="w-16 h-16 rounded-xl flex items-center justify-center text-white"
                     style={{
                       background:
-                        'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                      boxShadow: '0 12px 24px -8px rgba(220, 38, 38, 0.5)',
+                        '#EA580C',
                     }}
                     animate={{ scale: [1, 1.08, 1] }}
                     transition={{ duration: 0.8, repeat: Infinity }}
                   >
                     <Upload className="w-7 h-7" strokeWidth={2.5} />
                   </motion.div>
-                  <p className="text-base sm:text-lg font-semibold text-slate-900">
+                  <p className="text-base sm:text-lg font-semibold text-neutral-900">
                     Släpp så börjar vi
                   </p>
                 </motion.div>
@@ -162,20 +161,19 @@ export default function CVUploadZone({
                   className="flex flex-col items-center gap-4"
                 >
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                    className="w-16 h-16 rounded-xl flex items-center justify-center text-white"
                     style={{
                       background:
-                        'linear-gradient(135deg, #FB923C 0%, #DC2626 100%)',
-                      boxShadow: '0 8px 18px -6px rgba(220, 38, 38, 0.4)',
+                        '#EA580C',
                     }}
                   >
                     <Upload className="w-7 h-7" strokeWidth={2.25} />
                   </div>
                   <div>
-                    <p className="text-base sm:text-lg font-semibold text-slate-900 mb-1">
+                    <p className="text-base sm:text-lg font-semibold text-neutral-900 mb-1">
                       Dra och släpp ditt CV här
                     </p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-neutral-600">
                       eller klicka för att välja fil
                     </p>
                   </div>
@@ -183,7 +181,7 @@ export default function CVUploadZone({
                     {['PDF', 'Word', 'Text', `Max ${maxSizeMB} MB`].map((label) => (
                       <span
                         key={label}
-                        className="px-2.5 py-1 rounded-full bg-white border border-orange-200/70 text-[11px] font-semibold text-orange-700"
+                        className="px-2.5 py-1 rounded-full bg-white border border-orange-200/70 text-xs font-semibold text-orange-700"
                       >
                         {label}
                       </span>
@@ -201,32 +199,31 @@ export default function CVUploadZone({
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-orange-200/70 p-4 sm:p-5"
+          className="rounded-xl border border-orange-200/70 p-4 sm:p-5"
           style={{
             background:
-              'linear-gradient(135deg, rgba(255, 247, 237, 0.7), rgba(254, 226, 226, 0.7))',
+              'transparent',
           }}
         >
           <div className="flex items-center gap-3 sm:gap-4">
             <div
               className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-white"
               style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
+                background: '#EA580C',
               }}
             >
               <FileText className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.25} />
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-slate-900 text-sm sm:text-base truncate">
+              <h3 className="font-semibold text-neutral-900 text-sm sm:text-base truncate">
                 {selectedFile.name}
               </h3>
               <div className="flex items-center gap-2 mt-1">
-                <p className="text-xs text-slate-600">
+                <p className="text-xs text-neutral-600">
                   {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                 </p>
-                <span className="text-slate-300">·</span>
+                <span className="text-neutral-300">·</span>
                 <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-700">
                   <Check className="w-3 h-3" strokeWidth={3} />
                   Klart att laddas upp
@@ -237,7 +234,7 @@ export default function CVUploadZone({
             <button
               onClick={handleRemoveFile}
               disabled={isUploading}
-              className="flex-shrink-0 p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
+              className="flex-shrink-0 p-2 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
               aria-label="Ta bort fil"
             >
               <X className="w-5 h-5" strokeWidth={2.25} />
@@ -252,10 +249,10 @@ export default function CVUploadZone({
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className={`mt-4 rounded-2xl border p-4 sm:p-5 transition-all ${
+          className={`mt-4 rounded-xl border p-4 sm:p-5 transition-all ${
             gdprAccepted
               ? 'border-emerald-200 bg-emerald-50/60'
-              : 'border-slate-200 bg-white'
+              : 'border-neutral-200 bg-white'
           }`}
         >
           <label className="flex items-start gap-3 cursor-pointer group">
@@ -271,13 +268,13 @@ export default function CVUploadZone({
                 className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
                   gdprAccepted
                     ? 'border-emerald-500'
-                    : 'border-slate-300 group-hover:border-orange-400'
+                    : 'border-neutral-300 group-hover:border-orange-400'
                 }`}
                 style={
                   gdprAccepted
                     ? {
                         background:
-                          'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                          '#059669',
                       }
                     : { background: 'white' }
                 }
@@ -306,16 +303,16 @@ export default function CVUploadZone({
                   }`}
                   strokeWidth={2.25}
                 />
-                <p className="font-semibold text-slate-900 text-sm sm:text-base">
+                <p className="font-semibold text-neutral-900 text-sm sm:text-base">
                   GDPR-samtycke krävs
                 </p>
                 {!gdprAccepted && (
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                  <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">
                     Krävs
                   </span>
                 )}
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                 Jag godkänner att mitt CV behandlas enligt GDPR och Jobbcoach.ai:s{' '}
                 <a
                   href="/integritetspolicy"
@@ -344,15 +341,14 @@ export default function CVUploadZone({
           disabled={!gdprAccepted || isUploading}
           whileHover={!gdprAccepted || isUploading ? {} : { y: -2 }}
           whileTap={!gdprAccepted || isUploading ? {} : { scale: 0.98 }}
-          className={`mt-4 w-full py-3.5 sm:py-4 px-5 rounded-2xl font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[52px] ${
+          className={`mt-4 w-full py-3.5 sm:py-4 px-5 rounded-xl font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[52px] ${
             !gdprAccepted ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
           style={
             !gdprAccepted
-              ? { background: '#CBD5E1' }
+              ? { background: '#D4D4D4' }
               : {
-                  background: 'linear-gradient(90deg, #F97316, #DC2626)',
-                  boxShadow: '0 12px 24px -8px rgba(220, 38, 38, 0.45)',
+                  background: '#EA580C',
                 }
           }
         >
@@ -373,7 +369,7 @@ export default function CVUploadZone({
       )}
 
       {selectedFile && !gdprAccepted && !isUploading && (
-        <p className="mt-2 text-center text-xs text-slate-500">
+        <p className="mt-2 text-center text-xs text-neutral-500">
           Kryssa i GDPR-rutan för att fortsätta
         </p>
       )}
@@ -385,7 +381,7 @@ export default function CVUploadZone({
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="mt-4 rounded-2xl border border-red-200 bg-red-50/80 p-4 flex items-start gap-3"
+            className="mt-4 rounded-xl border border-red-200 bg-red-50/80 p-4 flex items-start gap-3"
           >
             <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center text-red-600">
               <AlertCircle className="w-5 h-5" strokeWidth={2.25} />

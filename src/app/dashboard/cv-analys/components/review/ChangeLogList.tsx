@@ -47,14 +47,12 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
   if (!hasAnything) {
     return (
       <div
-        className="rounded-2xl p-6 text-center"
+        className="rounded-xl p-6 text-center bg-white"
         style={{
-          background:
-            'linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(220, 38, 38, 0.04) 100%)',
           border: '1px dashed rgba(249, 115, 22, 0.3)',
         }}
       >
-        <p className="text-sm text-slate-700">
+        <p className="text-sm text-neutral-700">
           Du har inte valt några förbättringar att tillämpa. Gå tillbaka till
           föregående steg om du vill lägga till några.
         </p>

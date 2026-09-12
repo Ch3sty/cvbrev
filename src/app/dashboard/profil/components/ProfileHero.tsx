@@ -32,9 +32,9 @@ function FreeHero({
   profilePhotoUrl,
 }: ProfileHeroProps) {
   const benefits = [
-    'Obegränsade brev och CV-analyser',
-    'Spara så många CV:n du vill',
-    'Premium-mallar och Smart val',
+    'Ladda ner brev som PDF och Word',
+    'Alla förbättringsförslag i CV-analysen',
+    'Alla CV-mallar, inga dagliga tak',
   ];
 
   return (
@@ -42,12 +42,11 @@ function FreeHero({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl"
+      className="relative overflow-hidden rounded-xl"
       style={{
         background:
-          'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 45%, #FECACA 100%)',
+          '#FFFFFF',
         border: '1px solid rgba(249, 115, 22, 0.22)',
-        boxShadow: '0 20px 60px -24px rgba(220, 38, 38, 0.25)',
       }}
     >
       {/* Subtilt prick-pattern */}
@@ -67,7 +66,7 @@ function FreeHero({
           <div className="flex-shrink-0 text-center sm:text-left">
             <div className="relative inline-block">
               {profilePhotoUrl ? (
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-white" style={{ boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.3)' }}>
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-white" >
                   <Image src={profilePhotoUrl} alt={fullName || 'Profilbild'} fill className="object-cover" />
                 </div>
               ) : (
@@ -78,17 +77,17 @@ function FreeHero({
 
           {/* Höger: text + CTA */}
           <div className="flex-1 min-w-0 text-center sm:text-left">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
               Din profil
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight mb-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight mb-1">
               {fullName || 'Hej där'}
             </h1>
-            <p className="text-sm text-slate-700 mb-4 truncate">{email}</p>
+            <p className="text-sm text-neutral-700 mb-4 truncate">{email}</p>
 
-            {/* Premium-CTA-kort — utan Crown-ikon för att undvika dubbla cirklar med ProfileHeroOrb */}
+            {/* Premium-CTA-kort, utan Crown-ikon för att undvika dubbla cirklar med ProfileHeroOrb */}
             <div
-              className="rounded-2xl p-4 sm:p-5"
+              className="rounded-xl p-4 sm:p-5"
               style={{
                 background: 'rgba(255, 255, 255, 0.75)',
                 backdropFilter: 'blur(8px)',
@@ -96,13 +95,13 @@ function FreeHero({
               }}
             >
               <div className="mb-3 text-left">
-                <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
                   <span>Gratisplan</span>
                   <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
                   <span className="text-amber-700">Premium</span>
                 </div>
-                <div className="text-base sm:text-lg font-bold text-slate-900 leading-tight">
-                  Testa Premium gratis i 7 dagar
+                <div className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
+                  Skaffa Premium från 49 kr
                 </div>
               </div>
 
@@ -110,7 +109,7 @@ function FreeHero({
                 {benefits.map((benefit) => (
                   <li
                     key={benefit}
-                    className="flex items-start gap-2 text-sm text-slate-700"
+                    className="flex items-start gap-2 text-sm text-neutral-700"
                   >
                     <Check
                       className="flex-shrink-0 w-4 h-4 text-emerald-600 mt-0.5"
@@ -125,11 +124,10 @@ function FreeHero({
                 href="/dashboard/profil/prenumeration"
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-white font-bold text-sm min-h-[48px]"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                  boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
+                  background: '#EA580C',
                 }}
               >
-                Starta gratisperioden
+                Se alternativen
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </Link>
             </div>
@@ -165,7 +163,7 @@ function PremiumHero({
 
   const subStatus =
     isTrialUser && premiumUntil && hasActiveTrialOrPremium
-      ? `Provperiod — ${formatTimeUntil(premiumUntil)}`
+      ? `Provperiod · ${formatTimeUntil(premiumUntil)}`
       : isAdminGranted
       ? 'Premium via Jobbcoach'
       : 'Premium aktiv';
@@ -175,11 +173,10 @@ function PremiumHero({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl text-white"
+      className="relative overflow-hidden rounded-xl text-white"
       style={{
         background:
-          'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-        boxShadow: '0 20px 60px -20px rgba(220, 38, 38, 0.45)',
+          '#EA580C',
       }}
     >
       {/* Subtilt prick-pattern */}
@@ -193,7 +190,7 @@ function PremiumHero({
         <rect width="100%" height="100%" fill="url(#hero-premium-dots)" />
       </svg>
 
-      {/* Profilformulär-stack i högerkanten — matchar Mina CV:s dokument-stack-DNA */}
+      {/* Profilformulär-stack i högerkanten, matchar Mina CV:s dokument-stack-DNA */}
       <ProfileFormStackBg />
 
       <div className="relative p-5 sm:p-7 md:p-8">
@@ -202,14 +199,13 @@ function PremiumHero({
           <div className="flex-shrink-0">
             <div className="relative">
               {profilePhotoUrl ? (
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-white/30" style={{ boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.3)' }}>
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-white/30" >
                   <Image src={profilePhotoUrl} alt={fullName || 'Profilbild'} fill className="object-cover" />
                 </div>
               ) : (
                 <div
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm ring-4 ring-white/30"
-                  style={{ boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.25)' }}
-                >
+                  >
                   <span className="text-3xl sm:text-4xl font-bold text-white">
                     {(fullName || email)[0]?.toUpperCase() || '?'}
                   </span>
@@ -220,7 +216,7 @@ function PremiumHero({
 
           {/* Text + CTA */}
           <div className="flex-1 min-w-0 text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white/20 backdrop-blur-sm mb-2">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-[0.18em] bg-white/20 backdrop-blur-sm mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-white" aria-hidden="true" />
               {subStatus}
             </div>
@@ -255,7 +251,7 @@ function PremiumHero({
 
 /**
  * Bakgrundsstack av profilformulär-papper. Inspirerad av CvHeroBanner:s
- * BackgroundDocStack men anpassad till profil — porträtt-cirkel + fält-rader.
+ * BackgroundDocStack men anpassad till profil, porträtt-cirkel + fält-rader.
  * Visas endast på desktop (sm+) och ligger absolut-positionerad i högerkanten.
  */
 function ProfileFormStackBg() {

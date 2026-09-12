@@ -87,13 +87,13 @@ export function OnboardingStep1Cv({ className }: IllustrationProps) {
       <circle cx="32" cy="38" r="4" fill={`url(#${id}-warm)`} opacity="0.7" />
 
       {/* Text-rader */}
-      <line x1="38" y1="36" x2="54" y2="36" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="38" y1="40" x2="50" y2="40" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="26" y1="50" x2="54" y2="50" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="26" y1="54" x2="48" y2="54" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="26" y1="58" x2="54" y2="58" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="26" y1="62" x2="46" y2="62" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="26" y1="66" x2="54" y2="66" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="38" y1="36" x2="54" y2="36" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="38" y1="40" x2="50" y2="40" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="26" y1="50" x2="54" y2="50" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="26" y1="54" x2="48" y2="54" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="26" y1="58" x2="54" y2="58" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="26" y1="62" x2="46" y2="62" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="26" y1="66" x2="54" y2="66" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
 
       {/* Upload-pil ovanfor */}
       <line x1="68" y1="36" x2="76" y2="28" stroke={`url(#${id}-deep)`} strokeWidth="2.5" strokeLinecap="round" />
@@ -120,12 +120,12 @@ export function OnboardingStep2Brev({ className }: IllustrationProps) {
         <rect x="20" y="22" width="56" height="48" rx="4" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="2" />
         <rect x="20" y="22" width="56" height="6" fill={`url(#${id}-warm)`} />
         {/* Text-rader */}
-        <line x1="26" y1="36" x2="48" y2="36" stroke="#1E293B" strokeWidth="1.6" strokeLinecap="round" />
-        <line x1="26" y1="42" x2="68" y2="42" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-        <line x1="26" y1="47" x2="64" y2="47" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-        <line x1="26" y1="52" x2="68" y2="52" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-        <line x1="26" y1="57" x2="60" y2="57" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
-        <line x1="26" y1="62" x2="56" y2="62" stroke="#CBD5E1" strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="26" y1="36" x2="48" y2="36" stroke="#262626" strokeWidth="1.6" strokeLinecap="round" />
+        <line x1="26" y1="42" x2="68" y2="42" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="26" y1="47" x2="64" y2="47" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="26" y1="52" x2="68" y2="52" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="26" y1="57" x2="60" y2="57" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
+        <line x1="26" y1="62" x2="56" y2="62" stroke="#D4D4D4" strokeWidth="1.4" strokeLinecap="round" />
       </g>
 
       {/* Generations-prickar (motion-streck) */}
@@ -156,12 +156,12 @@ export function OnboardingStep3Analys({ className }: IllustrationProps) {
       <g transform="rotate(-8 36 50)">
         <rect x="18" y="24" width="32" height="48" rx="3" fill="white" stroke="#FB923C" strokeWidth="1.5" opacity="0.85" />
         <rect x="18" y="24" width="32" height="5" fill={`url(#${id}-warm)`} opacity="0.85" />
-        <line x1="22" y1="36" x2="44" y2="36" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-        <line x1="22" y1="40" x2="40" y2="40" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-        <line x1="22" y1="44" x2="44" y2="44" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-        <line x1="22" y1="48" x2="38" y2="48" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-        <line x1="22" y1="52" x2="44" y2="52" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
-        <line x1="22" y1="56" x2="36" y2="56" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="36" x2="44" y2="36" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="40" x2="40" y2="40" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="44" x2="44" y2="44" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="48" x2="38" y2="48" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="52" x2="44" y2="52" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
+        <line x1="22" y1="56" x2="36" y2="56" stroke="#D4D4D4" strokeWidth="1" strokeLinecap="round" />
       </g>
 
       {/* Score-cirkel framtill */}
@@ -259,7 +259,7 @@ export function OnboardingJobbmatch({ className }: IllustrationProps) {
 
       {/* Jobb-kort som dras in */}
       <rect x="50" y="22" width="14" height="10" rx="2" fill="white" stroke="#FB923C" strokeWidth="1.4" />
-      <line x1="52" y1="26" x2="60" y2="26" stroke="#1E293B" strokeWidth="1" strokeLinecap="round" />
+      <line x1="52" y1="26" x2="60" y2="26" stroke="#262626" strokeWidth="1" strokeLinecap="round" />
       <circle cx="61" cy="29" r="2" fill={`url(#${id}-warm)`} />
       <text x="61" y="30.5" textAnchor="middle" fontSize="2.5" fontWeight="900" fill="white">94</text>
 
@@ -284,11 +284,11 @@ export function OnboardingLinkedin({ className }: IllustrationProps) {
       <rect x="14" y="20" width="42" height="40" rx="4" fill="white" stroke={`url(#${id}-warm)`} strokeWidth="2" />
       <rect x="14" y="20" width="42" height="8" fill={`url(#${id}-warm)`} />
       <circle cx="22" cy="34" r="4" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="1.5" />
-      <line x1="30" y1="34" x2="50" y2="34" stroke="#1E293B" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="30" y1="38" x2="46" y2="38" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="18" y1="46" x2="50" y2="46" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="18" y1="50" x2="42" y2="50" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="18" y1="54" x2="48" y2="54" stroke="#CBD5E1" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="30" y1="34" x2="50" y2="34" stroke="#262626" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="30" y1="38" x2="46" y2="38" stroke="#A3A3A3" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="18" y1="46" x2="50" y2="46" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="18" y1="50" x2="42" y2="50" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="18" y1="54" x2="48" y2="54" stroke="#D4D4D4" strokeWidth="1.2" strokeLinecap="round" />
 
       {/* Score-badge */}
       <circle cx="60" cy="22" r="9" fill="white" stroke={`url(#${id}-deep)`} strokeWidth="2" />

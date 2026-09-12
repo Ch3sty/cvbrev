@@ -10,7 +10,7 @@ interface IconProps {
 }
 
 // =============================================================
-// HERO ILLUSTRATION — bakgrund för testets hero (kalkylator + grafer)
+// HERO ILLUSTRATION, bakgrund för testets hero (kalkylator + grafer)
 // =============================================================
 export function NumericalHeroIllustration({ className }: { className?: string }) {
   return (

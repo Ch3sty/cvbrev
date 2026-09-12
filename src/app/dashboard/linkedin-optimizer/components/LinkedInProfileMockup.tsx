@@ -257,7 +257,7 @@ export default function LinkedInProfileMockup({
       {/* Glow bakom (desktop) */}
       {showGlow && (
         <div
-          className="hidden lg:block absolute -inset-3 rounded-3xl opacity-20 blur-2xl pointer-events-none"
+          className="hidden lg:block absolute -inset-3 rounded-xl opacity-20 blur-2xl pointer-events-none"
           style={{
             background:
               'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
@@ -270,7 +270,7 @@ export default function LinkedInProfileMockup({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="relative bg-white rounded-2xl lg:rounded-3xl border border-orange-100 overflow-hidden"
+        className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
         style={{
           boxShadow: showGlow
             ? '0 20px 40px -16px rgba(249, 115, 22, 0.18)'
@@ -281,7 +281,7 @@ export default function LinkedInProfileMockup({
         {badge && (
           <div className="absolute top-3 right-3 z-10">
             <span
-              className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.16em] text-white"
+              className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-[0.16em] text-white"
               style={{
                 background: isOptimized
                   ? 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
@@ -352,8 +352,8 @@ export default function LinkedInProfileMockup({
               }}
             >
               <span
-                className={`font-black text-lg ${
-                  hasName ? 'text-orange-700' : 'text-slate-300'
+                className={`font-semibold text-lg ${
+                  hasName ? 'text-orange-700' : 'text-neutral-300'
                 }`}
               >
                 {initials}
@@ -365,16 +365,16 @@ export default function LinkedInProfileMockup({
         {/* Namn-block */}
         <div className="px-5 sm:px-6 pt-12 pb-4">
           <p
-            className={`text-base font-black leading-tight ${
-              hasName ? 'text-slate-900' : 'text-slate-300'
+            className={`text-base font-semibold leading-tight ${
+              hasName ? 'text-neutral-900' : 'text-neutral-300'
             }`}
           >
             {displayName}
           </p>
-          <div className="flex items-center gap-2 mt-1 text-xs text-slate-500">
+          <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500">
             <MapPin className="w-3 h-3" strokeWidth={2.2} />
             <span className="truncate">{displayLocation}</span>
-            <span className="text-slate-300">·</span>
+            <span className="text-neutral-300">·</span>
             <Users className="w-3 h-3" strokeWidth={2.2} />
             <span>500+ kontakter</span>
           </div>
@@ -389,7 +389,7 @@ export default function LinkedInProfileMockup({
           >
             <p
               className={`text-sm font-bold leading-snug ${
-                hasHeadline ? 'text-slate-900' : 'text-slate-300 italic'
+                hasHeadline ? 'text-neutral-900' : 'text-neutral-300 italic'
               }`}
             >
               {displayHeadline}
@@ -408,7 +408,7 @@ export default function LinkedInProfileMockup({
               }}
               aria-hidden="true"
             />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Om mig
             </span>
           </div>
@@ -419,7 +419,7 @@ export default function LinkedInProfileMockup({
           >
             <p
               className={`text-xs leading-relaxed line-clamp-4 whitespace-pre-line ${
-                hasAbout ? 'text-slate-700' : 'text-slate-300 italic'
+                hasAbout ? 'text-neutral-700' : 'text-neutral-300 italic'
               }`}
             >
               {displayAbout}
@@ -431,7 +431,7 @@ export default function LinkedInProfileMockup({
         <div className="px-5 sm:px-6 pb-4 border-t border-orange-50 pt-4">
           <div className="flex items-center gap-2 mb-3">
             <Briefcase className="w-3.5 h-3.5 text-orange-700" strokeWidth={2.2} />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Erfarenhet
             </span>
           </div>
@@ -445,7 +445,7 @@ export default function LinkedInProfileMockup({
                 {experiences.map((exp, i) => (
                   <div key={i} className="flex gap-3">
                     <div
-                      className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-[10px] font-black text-white"
+                      className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white"
                       style={{
                         background:
                           i % 2 === 0
@@ -456,16 +456,16 @@ export default function LinkedInProfileMockup({
                       {(exp.meta || exp.title).slice(0, 2).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-bold text-slate-900 truncate">
+                      <p className="text-xs font-bold text-neutral-900 truncate">
                         {exp.title}
                       </p>
                       {exp.meta && (
-                        <p className="text-[11px] text-slate-500 truncate">
+                        <p className="text-xs text-neutral-500 truncate">
                           {exp.meta}
                         </p>
                       )}
                       {exp.body && (
-                        <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 mt-0.5">
+                        <p className="text-xs text-neutral-600 leading-snug line-clamp-2 mt-0.5">
                           {exp.body}
                         </p>
                       )}
@@ -477,14 +477,14 @@ export default function LinkedInProfileMockup({
               <div className="space-y-2">
                 {[1, 2].map((i) => (
                   <div key={i} className="flex gap-3 opacity-50">
-                    <div className="flex-shrink-0 w-9 h-9 rounded-md bg-slate-100" />
+                    <div className="flex-shrink-0 w-9 h-9 rounded-md bg-neutral-100" />
                     <div className="flex-1 space-y-1.5 pt-1">
-                      <div className="h-2 w-2/3 rounded-full bg-slate-100" />
-                      <div className="h-1.5 w-1/2 rounded-full bg-slate-100" />
+                      <div className="h-2 w-2/3 rounded-full bg-neutral-100" />
+                      <div className="h-1.5 w-1/2 rounded-full bg-neutral-100" />
                     </div>
                   </div>
                 ))}
-                <p className="text-[11px] text-slate-300 italic mt-1.5">
+                <p className="text-xs text-neutral-300 italic mt-1.5">
                   Din erfarenhet dyker upp här
                 </p>
               </div>
@@ -499,7 +499,7 @@ export default function LinkedInProfileMockup({
               className="w-3.5 h-3.5 text-orange-700"
               strokeWidth={2.2}
             />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Utbildning
             </span>
           </div>
@@ -512,11 +512,11 @@ export default function LinkedInProfileMockup({
               <div className="space-y-2">
                 {educations.map((edu, i) => (
                   <div key={i}>
-                    <p className="text-xs font-bold text-slate-900 leading-snug">
+                    <p className="text-xs font-bold text-neutral-900 leading-snug">
                       {edu.school}
                     </p>
                     {edu.meta && (
-                      <p className="text-[11px] text-slate-500 leading-snug">
+                      <p className="text-xs text-neutral-500 leading-snug">
                         {edu.meta}
                       </p>
                     )}
@@ -524,7 +524,7 @@ export default function LinkedInProfileMockup({
                 ))}
               </div>
             ) : (
-              <p className="text-[11px] text-slate-300 italic">
+              <p className="text-xs text-neutral-300 italic">
                 Lägg till din utbildning för en starkare profil
               </p>
             )}
@@ -542,7 +542,7 @@ export default function LinkedInProfileMockup({
               }}
               aria-hidden="true"
             />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
               Kompetenser
             </span>
           </div>
@@ -556,7 +556,7 @@ export default function LinkedInProfileMockup({
                 {skills.map((skill, i) => (
                   <span
                     key={`${skill}-${i}`}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-white border border-orange-200 text-slate-700"
+                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white border border-orange-200 text-neutral-700"
                   >
                     {skill}
                   </span>
@@ -567,7 +567,7 @@ export default function LinkedInProfileMockup({
                 {[1, 2, 3].map((i) => (
                   <span
                     key={i}
-                    className="inline-flex h-6 w-16 rounded-full bg-slate-100 opacity-50"
+                    className="inline-flex h-6 w-16 rounded-full bg-neutral-100 opacity-50"
                   />
                 ))}
               </div>

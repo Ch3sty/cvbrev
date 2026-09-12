@@ -34,6 +34,12 @@ interface LetterFlowSummaryProps {
   location: string;
   onPhoneChange: (value: string) => void;
   onLocationChange: (value: string) => void;
+  /**
+   * Döljer kortets egen knapp. I FlowShell ligger den primära handlingen i
+   * den sticky foten, och två knappar med samma jobb på samma skärm är precis
+   * den otydlighet skalet ska bort med.
+   */
+  hidePrimaryAction?: boolean;
 }
 
 export default function LetterFlowSummary({
@@ -50,6 +56,7 @@ export default function LetterFlowSummary({
   location,
   onPhoneChange,
   onLocationChange,
+  hidePrimaryAction,
 }: LetterFlowSummaryProps) {
   const template = DOCX_TEMPLATES[templateId as keyof typeof DOCX_TEMPLATES];
 
@@ -57,19 +64,19 @@ export default function LetterFlowSummary({
     {
       icon: FileText,
       label: 'CV',
-      value: cvName || '—',
+      value: cvName || '-',
       ok: !!cvName,
     },
     {
       icon: Briefcase,
       label: 'Annons',
-      value: jobDescriptionPreview || '—',
+      value: jobDescriptionPreview || '-',
       ok: !!jobDescriptionPreview,
     },
     {
       icon: Layout,
       label: 'Brevmall',
-      value: template?.name || '—',
+      value: template?.name || '-',
       ok: !!template,
     },
     {
@@ -85,20 +92,19 @@ export default function LetterFlowSummary({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
+      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
     >
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
         Dina val
       </div>
-      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-1">
+      <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-1">
         Allt klart för att skriva
       </h3>
-      <p className="text-sm text-slate-600 mb-5">
+      <p className="text-sm text-neutral-600 mb-5">
         Vi sätter ihop brevet baserat på det här. Du kan redigera efteråt.
       </p>
 
-      <ul className="divide-y divide-slate-100 mb-6">
+      <ul className="divide-y divide-neutral-100 mb-6">
         {summaryRows.map((row) => {
           const Icon = row.icon;
           return (
@@ -110,18 +116,18 @@ export default function LetterFlowSummary({
                 className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                   row.ok
                     ? 'bg-orange-50 text-orange-600'
-                    : 'bg-slate-100 text-slate-400'
+                    : 'bg-neutral-100 text-neutral-400'
                 }`}
               >
                 <Icon className="w-4 h-4" strokeWidth={2.25} />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
                   {row.label}
                 </div>
                 <div
                   className={`truncate font-medium ${
-                    row.ok ? 'text-slate-900' : 'text-slate-400'
+                    row.ok ? 'text-neutral-900' : 'text-neutral-400'
                   }`}
                 >
                   {row.value}
@@ -181,36 +187,25 @@ export default function LetterFlowSummary({
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={onGenerate}
-        disabled={!canGenerate || isGenerating}
-        className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-bold text-white text-base shadow-lg transition-all min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{
-          background:
-            !canGenerate || isGenerating
-              ? '#94A3B8'
-              : 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-          boxShadow:
-            !canGenerate || isGenerating
-              ? 'none'
-              : '0 12px 28px -8px rgba(220, 38, 38, 0.45)',
-        }}
-      >
-        {isGenerating ? (
-          <>
-            <Loader2 className="w-5 h-5 animate-spin" />
-            Skriver brevet…
-          </>
-        ) : (
-          <>
-            <Wand2 className="w-5 h-5" strokeWidth={2.5} />
-            Skapa mitt brev
-          </>
-        )}
-      </button>
-      <div className="text-center text-xs text-slate-500 mt-3">
-        Tar 10–15 sekunder.
+      {!hidePrimaryAction && (
+        <button
+          type="button"
+          onClick={onGenerate}
+          disabled={!canGenerate || isGenerating}
+          className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isGenerating ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Skriver brevet
+            </>
+          ) : (
+            'Skapa mitt brev'
+          )}
+        </button>
+      )}
+      <div className="text-center text-sm text-neutral-600 mt-3">
+        Tar 10 till 15 sekunder.
         {typeof remainingLetters === 'number' && (
           <span className="ml-1">
             Du har {remainingLetters} brev kvar idag.

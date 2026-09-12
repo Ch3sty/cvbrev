@@ -1,109 +1,141 @@
-'use client';
+'use client'
 
 /**
- * MobileBottomNav
- * ---------------
- * Fast bottennavigation för mobil med en framträdande FAB-knapp i mitten.
- * FAB:en leder till "skapa brev"-flödet (eller CV-uppladdning om inget CV finns).
+ * MobileBottomNav (docs/plan-inloggat-omdesign.md, avsnitt 3, våg 1 punkt 9).
  *
- * Aktiv flik beräknas från usePathname(). Wrappa renderingen i en .lg:hidden-
- * container i layout.tsx så att den bara visas på mobil.
+ * Fyra slots, ingen FAB. Den gamla mitt-FAB:en betydde olika saker på olika
+ * sidor och visade ett hänglås för den som ännu inte laddat upp ett CV, alltså
+ * en spärr på den mest framträdande ytan i hela det inloggade läget. Skapa är
+ * numera en vanlig slot som öppnar ett bottenark, och varje sida behåller sin
+ * egen primära handling i innehållet där designsystemet placerar den.
+ *
+ * Mått: 48 px hög träffyta per slot, 12 px etiketter, safe-area under.
+ * Höjden deklareras en gång som --bottom-nav-h i globals.css och allt annat
+ * sticky på mobil räknar mot den variabeln.
  *
  * Datakontrakt:
- *   cvCount  - om 0 redirectas FAB-knappen till /dashboard/profil/cv
- *              istället för /dashboard/skapa-brev (gating).
+ *   cvCount           styr Skapa-arkets brevrad (utan CV går den till uppladdning)
+ *   applicationCount  styr Skapa-arkets radordning
  */
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, PenTool, Briefcase, User, Plus, Lock } from 'lucide-react';
-import { useProfile } from '@/hooks/use-profile';
+import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useProfile } from '@/hooks/use-profile'
+import CreateSheet from './CreateSheet'
+import {
+  NavHemIllu,
+  NavAnsokningarIllu,
+  NavSkapaIllu,
+  NavProfilIllu,
+} from './illustrations/NavIllustrations'
 
 interface MobileBottomNavProps {
-  cvCount: number;
+  cvCount: number
+  applicationCount: number
 }
 
 interface TabItem {
-  id: string;
-  label: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  matchPaths: string[];
+  id: string
+  label: string
+  href: string
+  Illu: (props: { className?: string }) => React.ReactElement
+  matchPaths: string[]
 }
 
 /** Dygn kvar då Profil-sloten börjar bära prick. */
-const DOT_THRESHOLD_DAYS = 2;
+const DOT_THRESHOLD_DAYS = 2
 
-const LEFT_TABS: TabItem[] = [
-  { id: 'home',  label: 'Hem',   href: '/dashboard',           icon: Home,      matchPaths: ['/dashboard'] },
-  { id: 'brev',  label: 'Brev',  href: '/dashboard/mina-brev', icon: PenTool,   matchPaths: ['/dashboard/mina-brev', '/dashboard/skapa-brev'] },
-];
-const RIGHT_TABS: TabItem[] = [
-  { id: 'jobs',    label: 'Jobb',    href: '/dashboard/jobbmatchning', icon: Briefcase, matchPaths: ['/dashboard/jobbmatchning', '/dashboard/jobbcoachen'] },
-  { id: 'profil',  label: 'Profil',  href: '/dashboard/profil',        icon: User,      matchPaths: ['/dashboard/profil'] },
-];
+const TABS: TabItem[] = [
+  {
+    id: 'hem',
+    label: 'Hem',
+    href: '/dashboard',
+    Illu: NavHemIllu,
+    matchPaths: ['/dashboard'],
+  },
+  {
+    id: 'ansokningar',
+    label: 'Ansökningar',
+    href: '/dashboard/sokta-tjanster',
+    Illu: NavAnsokningarIllu,
+    matchPaths: ['/dashboard/sokta-tjanster'],
+  },
+  {
+    id: 'profil',
+    label: 'Profil',
+    href: '/dashboard/profil',
+    Illu: NavProfilIllu,
+    matchPaths: ['/dashboard/profil'],
+  },
+]
 
-export default function MobileBottomNav({ cvCount }: MobileBottomNavProps) {
-  const pathname = usePathname() ?? '/dashboard';
-  const { premiumUntil, subscriptionTier, subscriptionStatus } = useProfile();
-  const hasCv = cvCount > 0;
-  const fabHref = hasCv ? '/dashboard/skapa-brev' : '/dashboard/profil/cv';
+export default function MobileBottomNav({
+  cvCount,
+  applicationCount,
+}: MobileBottomNavProps) {
+  const pathname = usePathname() ?? '/dashboard'
+  const { premiumUntil, subscriptionTier, subscriptionStatus } = useProfile()
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   // Pricken är en notis om något som faktiskt händer, inte en permanent
   // säljknapp. Den tänds när premium tar slut inom kort eller när en
   // betalning behöver åtgärdas.
-  const paymentNeedsAction = ['past_due', 'unpaid'].includes(subscriptionStatus ?? '');
+  const paymentNeedsAction = ['past_due', 'unpaid'].includes(
+    subscriptionStatus ?? ''
+  )
   const daysLeft =
     premiumUntil && subscriptionTier === 'premium'
       ? Math.ceil((premiumUntil.getTime() - Date.now()) / 86400000)
-      : null;
+      : null
   const showPremiumDot =
     paymentNeedsAction ||
-    (daysLeft !== null && daysLeft >= 0 && daysLeft <= DOT_THRESHOLD_DAYS);
+    (daysLeft !== null && daysLeft >= 0 && daysLeft <= DOT_THRESHOLD_DAYS)
 
   const isActive = (item: TabItem) => {
-    if (item.id === 'home') return pathname === '/dashboard';
-    return item.matchPaths.some((p) => pathname.startsWith(p));
-  };
+    if (item.id === 'hem') return pathname === '/dashboard'
+    return item.matchPaths.some((p) => pathname.startsWith(p))
+  }
+
+  const [hem, ansokningar, profil] = TABS
 
   return (
-    <nav
-      className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur border-t border-slate-200 px-3 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))] z-30"
-      aria-label="Huvudnavigation"
-    >
-      <div className="relative flex items-center justify-between max-w-md mx-auto">
-        <div className="flex items-center flex-1 justify-around pr-12">
-          {LEFT_TABS.map((tab) => (
-            <NavTab key={tab.id} tab={tab} active={isActive(tab)} />
-          ))}
-        </div>
+    <>
+      <nav
+        className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-neutral-200 pt-2 pb-[env(safe-area-inset-bottom,0px)]"
+        aria-label="Huvudnavigation"
+      >
+        <ul className="flex items-stretch max-w-md mx-auto px-2">
+          <NavTab tab={hem} active={isActive(hem)} />
+          <NavTab tab={ansokningar} active={isActive(ansokningar)} />
 
-        {/* Center FAB */}
-        <Link
-          href={fabHref}
-          aria-label={hasCv ? 'Skapa nytt brev' : 'Lägg till CV'}
-          className="absolute left-1/2 -translate-x-1/2 -top-5 w-14 h-14 rounded-xl flex items-center justify-center text-white touch-manipulation"
-          style={{
-            background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            boxShadow: '0 10px 24px -6px rgba(220, 38, 38, 0.5), 0 0 0 4px white',
-          }}
-        >
-          {hasCv ? <Plus className="w-7 h-7" strokeWidth={2.5} /> : <Lock className="w-6 h-6" strokeWidth={2.5} />}
-        </Link>
+          <li className="flex-1">
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={sheetOpen}
+              className={`w-full min-h-[48px] flex flex-col items-center justify-center gap-1 rounded-lg touch-manipulation transition-colors ${
+                sheetOpen ? 'text-orange-600' : 'text-neutral-500'
+              }`}
+            >
+              <NavSkapaIllu className="w-6 h-6" />
+              <span className="text-xs font-medium leading-none">Skapa</span>
+            </button>
+          </li>
 
-        <div className="flex items-center flex-1 justify-around pl-12">
-          {RIGHT_TABS.map((tab) => (
-            <NavTab
-              key={tab.id}
-              tab={tab}
-              active={isActive(tab)}
-              dot={tab.id === 'profil' && showPremiumDot}
-            />
-          ))}
-        </div>
-      </div>
-    </nav>
-  );
+          <NavTab tab={profil} active={isActive(profil)} dot={showPremiumDot} />
+        </ul>
+      </nav>
+
+      <CreateSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        applicationCount={applicationCount}
+        cvCount={cvCount}
+      />
+    </>
+  )
 }
 
 function NavTab({
@@ -111,28 +143,31 @@ function NavTab({
   active,
   dot,
 }: {
-  tab: TabItem;
-  active: boolean;
-  dot?: boolean;
+  tab: TabItem
+  active: boolean
+  dot?: boolean
 }) {
-  const Icon = tab.icon;
+  const { Illu } = tab
   return (
-    <Link
-      href={tab.href}
-      className={`flex flex-col items-center gap-0.5 px-2 py-1 ${
-        active ? 'text-orange-600' : 'text-slate-400'
-      }`}
-    >
-      <span className="relative">
-        <Icon className="w-5 h-5" strokeWidth={active ? 2.25 : 1.75} />
-        {dot && (
-          <span
-            aria-hidden="true"
-            className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
-          />
-        )}
-      </span>
-      <span className={`text-[10px] ${active ? 'font-bold' : 'font-semibold'}`}>{tab.label}</span>
-    </Link>
-  );
+    <li className="flex-1">
+      <Link
+        href={tab.href}
+        aria-current={active ? 'page' : undefined}
+        className={`w-full min-h-[48px] flex flex-col items-center justify-center gap-1 rounded-lg touch-manipulation transition-colors ${
+          active ? 'text-orange-600' : 'text-neutral-500'
+        }`}
+      >
+        <span className="relative">
+          <Illu className="w-6 h-6" />
+          {dot && (
+            <span
+              aria-hidden="true"
+              className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+            />
+          )}
+        </span>
+        <span className="text-xs font-medium leading-none">{tab.label}</span>
+      </Link>
+    </li>
+  )
 }

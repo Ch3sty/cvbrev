@@ -7,7 +7,7 @@ export default function JobbmatchningLoading() {
       <SkeletonHero />
       <div className="space-y-3 sm:space-y-4">
         {Array.from({ length: 5 }).map((_, i) => (
-          <SkeletonBlock key={i} height={130} rounded="rounded-2xl" />
+          <SkeletonBlock key={i} height={130} rounded="rounded-xl" />
         ))}
       </div>
     </SkeletonPage>

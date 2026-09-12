@@ -13,6 +13,7 @@ import {
 } from './templates/conversion';
 import { paymentFailed, cancelImmediate, cancelFollowup } from './templates/transactional';
 import { gratisnivaAndras, GRATISNIVA_EMAIL_TYPE } from './templates/campaign-gratisniva';
+import { weeklyDigest, WEEKLY_DIGEST_TYPE } from './templates/weekly-digest';
 
 const ALL: LifecycleEmail[] = [
   rtDay0,
@@ -32,6 +33,7 @@ const ALL: LifecycleEmail[] = [
   cancelImmediate,
   cancelFollowup,
   gratisnivaAndras,
+  weeklyDigest,
 ];
 
 export const LIFECYCLE_EMAILS: Record<string, LifecycleEmail> = Object.fromEntries(
@@ -54,4 +56,4 @@ export function resolveLifecycleEmail(emailType: string): LifecycleEmail | null 
   return null;
 }
 
-export { GRATISNIVA_EMAIL_TYPE };
+export { GRATISNIVA_EMAIL_TYPE, WEEKLY_DIGEST_TYPE };

@@ -15,6 +15,7 @@ import TonalitySection, {
   TONALITIES,
 } from './components/TonalitySection';
 import AccountSection from './components/AccountSection';
+import NotisInstallningar from './components/NotisInstallningar';
 import SaveBar from './components/SaveBar';
 import PremiumGateModal, { type PremiumFeature } from './components/PremiumGateModal';
 
@@ -299,6 +300,10 @@ export default function ProfilPage() {
           subscriptionTier={subscriptionTier}
           onPremiumGate={(feature) => setPremiumGate(feature)}
         />
+      </div>
+
+      <div id="notiser" className="scroll-mt-24">
+        <NotisInstallningar />
       </div>
 
       <div id="account" className="scroll-mt-24">

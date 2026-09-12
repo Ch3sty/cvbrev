@@ -38,9 +38,8 @@ interface AnalysisSelectorProps {
 const BentoCard = ({ children, className = "", spotlight = false, onClick, ...props }: any) => (
   <motion.div
     className={`
-      relative bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50
-      shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group cursor-pointer
-      ${spotlight ? 'ring-2 ring-pink-500/40 shadow-pink-500/20' : ''}
+      relative bg-white rounded-xl border transition-all duration-300 overflow-hidden group cursor-pointer
+      ${spotlight ? 'border-orange-300 ring-2 ring-orange-300/40' : 'border-gray-200 hover:border-orange-300'}
       ${className}
     `}
     onClick={onClick}
@@ -51,24 +50,6 @@ const BentoCard = ({ children, className = "", spotlight = false, onClick, ...pr
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
     {...props}
   >
-    {/* Glassmorphism glow effect */}
-    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
-
-    {/* Hover gradient overlay */}
-    <div className={`absolute inset-0 transition-all duration-500 pointer-events-none
-                    ${spotlight
-                      ? 'bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-blue-500/10'
-                      : 'bg-gradient-to-br from-pink-500/0 via-purple-500/0 to-blue-500/0 group-hover:from-pink-500/5 group-hover:via-purple-500/5 group-hover:to-blue-500/5'
-                    }`}
-    />
-
-    {/* Shimmer effect on hover */}
-    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full
-                      bg-gradient-to-r from-transparent via-white/20 to-transparent
-                      transition-transform duration-1000 ease-out" />
-    </div>
-
     <div className="relative z-10">{children}</div>
   </motion.div>
 );
@@ -120,7 +101,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[1, 2, 3].map(i => (
-          <div key={i} className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 animate-pulse">
+          <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 animate-pulse">
             <div className="h-6 bg-gray-200 rounded w-3/4 mb-4" />
             <div className="h-4 bg-gray-200 rounded w-1/2 mb-6" />
             <div className="flex gap-2 mb-4">
@@ -139,7 +120,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center py-12 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200/50"
+        className="text-center py-12 bg-white rounded-xl border border-gray-200"
       >
         <Brain className="w-16 h-16 text-gray-300 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-gray-700 mb-2">
@@ -150,7 +131,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
         </p>
         <a
           href="/dashboard/cv-analys"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-semibold transition-all"
         >
           Analysera CV
           <ArrowRight className="w-5 h-5" />
@@ -184,7 +165,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute top-4 right-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-2"
+                    className="absolute top-4 right-4 bg-orange-600 text-white rounded-full p-2"
                   >
                     <CheckCircle2 className="w-5 h-5" />
                   </motion.div>
@@ -197,7 +178,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={(e) => handleViewDetails(e, analysis)}
-                      className="p-2 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-blue-50 transition-colors"
+                      className="w-11 h-11 flex items-center justify-center bg-white/80 rounded-lg hover:bg-blue-50 transition-colors"
                       title="Visa detaljer"
                     >
                       <Eye className="w-4 h-4 text-blue-600" />
@@ -206,7 +187,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={(e) => handleDeleteClick(e, analysis.id)}
-                      className="p-2 bg-white/80 backdrop-blur-sm rounded-lg hover:bg-red-50 transition-colors"
+                      className="w-11 h-11 flex items-center justify-center bg-white/80 rounded-lg hover:bg-red-50 transition-colors"
                       title="Ta bort"
                     >
                       <Trash2 className="w-4 h-4 text-red-600" />
@@ -217,9 +198,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                 {/* Header */}
                 <div className="mb-4">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
-                      <FileText className="w-5 h-5 text-white" />
-                    </div>
+                    <FileText className="w-5 h-5 text-neutral-700 flex-shrink-0" />
                     <h3 className="font-bold text-gray-900 text-lg line-clamp-1 pr-20">
                       {getCVName(analysis)}
                     </h3>
@@ -251,10 +230,10 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                       transition={{ delay: 0.3, duration: 0.8 }}
                       className={`h-full rounded-full ${
                         analysis.result.atsFriendliness.score >= 70
-                          ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                          ? 'bg-emerald-500'
                           : analysis.result.atsFriendliness.score >= 40
-                          ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                          : 'bg-gradient-to-r from-red-500 to-pink-500'
+                          ? 'bg-orange-500'
+                          : 'bg-red-500'
                       }`}
                     />
                   </div>
@@ -271,7 +250,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                       {topSkills.map((skill, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-xs font-medium border border-purple-200"
+                          className="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium border border-purple-200"
                         >
                           {skill.skill}
                         </span>
@@ -287,7 +266,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                   whileTap={{ scale: 0.98 }}
                   className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
                     isSelected
-                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg'
+                      ? 'bg-orange-600 hover:bg-orange-700 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -324,7 +303,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl"
+              className="bg-white rounded-xl p-6 max-w-md w-full shadow-xl"
             >
               <h3 className="text-xl font-bold text-gray-900 mb-3">Ta bort analys?</h3>
               <p className="text-gray-600 mb-6">
@@ -341,7 +320,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                 <button
                   onClick={handleDeleteConfirm}
                   disabled={isDeleting}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50"
+                  className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold transition-all disabled:opacity-50"
                 >
                   {isDeleting ? 'Tar bort...' : 'Ta bort'}
                 </button>
@@ -366,12 +345,12 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto"
+              className="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto"
             >
               {/* Close button */}
               <button
                 onClick={() => setDetailAnalysis(null)}
-                className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
               >
                 <X className="w-5 h-5 text-gray-500" />
               </button>
@@ -379,7 +358,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               {/* Header */}
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <FileText className="w-8 h-8 text-indigo-600" />
+                  <FileText className="w-6 h-6 text-neutral-700" />
                   <h2 className="text-2xl font-bold text-gray-900">
                     {getCVName(detailAnalysis)}
                   </h2>
@@ -393,7 +372,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               </div>
 
               {/* ATS Score */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl">
+              <div className="mb-6 p-4 bg-blue-50 rounded-xl">
                 <h3 className="text-lg font-bold text-gray-900 mb-3">ATS-vänlighet</h3>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-3xl font-bold text-gray-900">
@@ -417,10 +396,10 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                   <div
                     className={`h-full rounded-full ${
                       detailAnalysis.result.atsFriendliness.score >= 70
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                        ? 'bg-emerald-500'
                         : detailAnalysis.result.atsFriendliness.score >= 40
-                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                        : 'bg-gradient-to-r from-red-500 to-pink-500'
+                        ? 'bg-orange-500'
+                        : 'bg-red-500'
                     }`}
                     style={{ width: `${detailAnalysis.result.atsFriendliness.score}%` }}
                   />
@@ -429,7 +408,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
 
               {/* Profile Summary */}
               {detailAnalysis.result.profileSummary && (
-                <div className="mb-6 p-4 bg-purple-50 rounded-2xl">
+                <div className="mb-6 p-4 bg-purple-50 rounded-xl">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Profilsammanfattning</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     {detailAnalysis.result.profileSummary.currentText ||
@@ -453,7 +432,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
                       .map((skill, i) => (
                         <div
                           key={i}
-                          className="px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-xl text-sm font-medium border border-purple-200"
+                          className="px-4 py-2 bg-purple-50 text-purple-700 rounded-xl text-sm font-medium border border-purple-200"
                         >
                           {skill.skill}
                         </div>
@@ -464,7 +443,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
 
               {/* Structured CV Data */}
               {detailAnalysis.result.structuredCV && (
-                <div className="mb-6 p-4 bg-gray-50 rounded-2xl">
+                <div className="mb-6 p-4 bg-gray-50 rounded-xl">
                   <h3 className="text-lg font-bold text-gray-900 mb-3">CV-data för matchning</h3>
 
                   {/* Work Experience */}
@@ -501,7 +480,7 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
               {/* Close Button */}
               <button
                 onClick={() => setDetailAnalysis(null)}
-                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                className="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-semibold transition-all"
               >
                 Stäng
               </button>

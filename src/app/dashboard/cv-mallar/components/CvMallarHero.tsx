@@ -23,15 +23,15 @@ export default function CvMallarHero() {
           <CvDesignSwapIcon className="w-16 h-16 sm:w-20 sm:h-20" />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
             CV-mallar
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-[1.05]">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 tracking-tight leading-[1.05]">
             Byt design på ditt CV
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed max-w-xl">
+          <p className="text-sm sm:text-base text-neutral-600 mt-2 leading-relaxed max-w-xl">
             Ditt innehåll, snyggare format. Välj mall, anpassa typsnitt och
-            ladda ner som PDF — klart på en kvart.
+            ladda ner som PDF, klart på en kvart.
           </p>
         </div>
       </div>

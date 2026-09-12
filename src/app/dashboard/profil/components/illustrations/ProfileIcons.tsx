@@ -62,7 +62,7 @@ export function ProfileHeroOrb({ className = 'w-24 h-24' }: IconProps) {
 }
 
 /**
- * Premium-krona — finare variant inspirerad av toast-illustrationerna.
+ * Premium-krona, finare variant inspirerad av toast-illustrationerna.
  * Dubbla glow-ringar, ren krona-form i orange/röd/rosa-gradient och
  * vita prickar ovanpå topparna. Används i premium-badge och PremiumGateModal.
  */
@@ -93,7 +93,7 @@ export function PremiumCrownIcon({ className = 'w-12 h-12' }: IconProps) {
 }
 
 /**
- * Lås-ikon med orange/röd gradient — toast-DNA. Används som premium-CTA-indikator.
+ * Lås-ikon med orange/röd gradient, toast-DNA. Används som premium-CTA-indikator.
  */
 export function LockedFieldIcon({ className = 'w-10 h-10' }: IconProps) {
   return (
@@ -337,7 +337,7 @@ export function LocationPinIcon({ className = 'w-10 h-10' }: IconProps) {
 ---------------------------------------------------------------- */
 
 /**
- * Översikt: Personliga uppgifter — porträtt med check-badge.
+ * Översikt: Personliga uppgifter, porträtt med check-badge.
  */
 export function PersonalInfoOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (
@@ -358,7 +358,7 @@ export function PersonalInfoOverviewIcon({ className = 'w-14 h-14' }: IconProps)
 }
 
 /**
- * Översikt: Skrivton — våg-symbol.
+ * Översikt: Skrivton, våg-symbol.
  */
 export function ToneOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (
@@ -385,7 +385,7 @@ export function ToneOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
 }
 
 /**
- * Översikt: Plan & konto — premium-krona som matchar PremiumCrownIcon.
+ * Översikt: Plan & konto, premium-krona som matchar PremiumCrownIcon.
  */
 export function PlanOverviewIcon({ className = 'w-14 h-14' }: IconProps) {
   return (

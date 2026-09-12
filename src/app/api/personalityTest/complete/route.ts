@@ -4,6 +4,10 @@ import { createServerClient } from '@/lib/supabase/server';
 import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
 import { computeScores, isComplete } from '@/lib/personalityTest/scoring';
+import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
+
+/** Den enda testnivån som ligger bakom Premium (se testCatalog.ts). */
+const PREMIUM_LOCKED_TEST = 'personlighet-avancerad';
 
 export async function POST(request: Request) {
   try {
@@ -74,6 +78,12 @@ export async function POST(request: Request) {
         { error: 'Failed to complete session' },
         { status: 500 }
       );
+    }
+
+    // Våg 1 punkt 4: ett genomfört test på den låsta nivån är premiumanvändning
+    // och ska kunna rangordna förlustraderna i UpgradeSheet dag 4 till 5.
+    if (session.test_type === PREMIUM_LOCKED_TEST) {
+      logPremiumUsage(user.id, 'test_session', { testType: session.test_type });
     }
 
     return NextResponse.json({

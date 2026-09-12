@@ -130,10 +130,13 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
           </button>
         </div>
 
-        {/* Punkt 11: vad gratisnivån ger, sorterat efter vad hon använt. */}
+        {/* Våg 1 punkt 4: vad gratisnivån ger, rangordnat efter vad hon
+            faktiskt använt under perioden. Raden hon använt mest står först. */}
         {showLossSummary && losses && losses.length > 0 ? (
           <div className="mb-4 rounded-lg border border-neutral-200 p-3">
-            <p className="text-sm font-semibold text-neutral-900">Utan Premium gäller det här</p>
+            <p className="text-sm font-semibold text-neutral-900">
+              Så här blir det på gratisnivån
+            </p>
             <ul className="mt-2 space-y-1.5">
               {losses.map((loss) => (
                 <li key={loss.label} className="flex items-baseline justify-between gap-3 text-sm">

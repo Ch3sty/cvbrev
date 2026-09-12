@@ -8,7 +8,7 @@ import { useCvQuota } from '@/hooks/useCvQuota'
 import { formatCVDate } from '@/lib/utils/date-formatter'
 
 /**
- * Custom SVG-ikon för CV i LinkedIn-flödet — orange/röd-DNA, matchar
+ * Custom SVG-ikon för CV i LinkedIn-flödet, orange/röd-DNA, matchar
  * resten av plattformens illustrationer.
  */
 function CvDocIcon({ className }: { className?: string }) {
@@ -160,7 +160,7 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
             disabled={locked}
             title={
               locked
-                ? 'CV:t är låst — uppgradera till Premium för att kunna välja det'
+                ? 'CV:t är låst, uppgradera till Premium för att kunna välja det'
                 : undefined
             }
             initial={{ opacity: 0, y: 8 }}
@@ -170,10 +170,10 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
             whileTap={locked ? undefined : { scale: 0.99 }}
             className={`group relative w-full text-left rounded-xl transition-all overflow-hidden disabled:cursor-not-allowed ${
               locked
-                ? 'bg-slate-50 border border-slate-200'
+                ? 'bg-neutral-50 border border-neutral-200'
                 : isSelected
                   ? 'bg-white border-2 border-orange-300'
-                  : 'bg-white border border-slate-200 hover:border-orange-200'
+                  : 'bg-white border border-neutral-200 hover:border-orange-200'
             }`}
             style={
               locked
@@ -209,15 +209,15 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
                 <p
                   className={`text-sm font-bold truncate ${
                     locked
-                      ? 'text-slate-500'
+                      ? 'text-neutral-500'
                       : isSelected
-                        ? 'text-slate-900'
-                        : 'text-slate-800'
+                        ? 'text-neutral-900'
+                        : 'text-neutral-800'
                   }`}
                 >
                   {cv.file_name}
                 </p>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                <div className="flex items-center gap-1 text-xs text-neutral-500 mt-0.5">
                   <Clock className="w-3 h-3" strokeWidth={2.2} />
                   <span>{ageLabel}</span>
                 </div>
@@ -225,7 +225,7 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
 
               {/* Lås-pill när låst */}
               {locked && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.14em] flex-shrink-0 bg-orange-100 border border-orange-200 text-orange-700">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.14em] flex-shrink-0 bg-orange-100 border border-orange-200 text-orange-700">
                   <Lock className="w-2.5 h-2.5" strokeWidth={2.5} />
                   Låst
                 </span>
@@ -234,7 +234,7 @@ export default function CvSelectorList({ selectedCvId, onSelect }: Props) {
               {/* Vald-indikator */}
               {isSelected && !locked && (
                 <span
-                  className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-[0.16em] text-white flex-shrink-0"
+                  className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white flex-shrink-0"
                   style={{
                     background:
                       'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',

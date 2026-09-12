@@ -145,24 +145,22 @@ export default function ResetPasswordForm() {
         <div className="space-y-5">
           <div className="flex items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-emerald-500 to-emerald-600">
-                <Check className="w-5 h-5 text-white" strokeWidth={2.5} />
-              </div>
-              <p className="text-sm font-bold text-slate-900">
-                Klart — du kan logga in
+              <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
+              <p className="text-sm font-bold text-neutral-900">
+                Klart, du kan logga in
               </p>
             </div>
             <SuccessStamp text="Godkänt" rotation={-6} />
           </div>
 
-          <p className="text-sm text-slate-700 leading-relaxed">
+          <p className="text-sm text-neutral-700 leading-relaxed">
             Ditt lösenord har uppdaterats. Spara det säkert och logga in
             med det nya lösenordet.
           </p>
 
           <Link
             href="/login"
-            className="inline-flex items-center justify-center w-full min-h-[44px] gap-2 px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all"
+            className="inline-flex items-center justify-center w-full min-h-[44px] gap-2 px-4 py-3 rounded-xl bg-white text-neutral-900 font-bold text-sm border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all"
           >
             Gå till inloggning
           </Link>
@@ -184,7 +182,7 @@ export default function ResetPasswordForm() {
   return (
     <AuthCvPaper
       title="Skapa nytt lösenord"
-      subtitle="Välj något du kommer ihåg — minst 8 tecken med blandade typer."
+      subtitle="Välj något du kommer ihåg, minst 8 tecken med blandade typer."
       sectionLabel="Kontoåtkomst"
     >
       {error && (
@@ -237,7 +235,7 @@ export default function ResetPasswordForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="p-1 text-slate-400 hover:text-orange-600 transition-colors"
+              className="p-1 text-neutral-400 hover:text-orange-600 transition-colors"
               tabIndex={-1}
               aria-label={
                 showPassword ? 'Dölj lösenord' : 'Visa lösenord'
@@ -271,7 +269,7 @@ export default function ResetPasswordForm() {
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="p-1 text-slate-400 hover:text-orange-600 transition-colors"
+              className="p-1 text-neutral-400 hover:text-orange-600 transition-colors"
               tabIndex={-1}
               aria-label={
                 showConfirmPassword ? 'Dölj lösenord' : 'Visa lösenord'
@@ -288,7 +286,7 @@ export default function ResetPasswordForm() {
 
         {/* Krav-checklist (CV-stil) */}
         <div className="rounded-xl border border-orange-100 bg-orange-50/40 px-4 py-3.5">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-700 mb-2.5">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-orange-700 mb-2.5">
             Lösenordskrav
           </p>
           <ul className="space-y-1.5">
@@ -301,7 +299,7 @@ export default function ResetPasswordForm() {
                   className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center transition-all ${
                     check.ok
                       ? 'bg-emerald-500'
-                      : 'bg-white border border-slate-300'
+                      : 'bg-white border border-neutral-300'
                   }`}
                 >
                   {check.ok && (
@@ -315,7 +313,7 @@ export default function ResetPasswordForm() {
                   className={
                     check.ok
                       ? 'text-emerald-700 font-semibold'
-                      : 'text-slate-600'
+                      : 'text-neutral-600'
                   }
                 >
                   {check.label}

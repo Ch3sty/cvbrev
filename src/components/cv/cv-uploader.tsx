@@ -184,11 +184,9 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
   // Om maximalt antal CV har uppnåtts visar vi en annan vy
   if (hasReachedCvLimit) {
     return (
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50 shadow-xl">
-        <h2 className="mb-4 text-2xl font-bold text-gray-900 flex items-center">
-          <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-500 mr-3">
-            <Upload className="w-6 h-6 text-white" />
-          </div>
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl p-8 border border-gray-200/50">
+        <h2 className="mb-4 text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <Upload className="w-5 h-5 text-neutral-700" />
           CV-utrymme
         </h2>
 
@@ -210,11 +208,9 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
   }
 
   return (
-    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50 shadow-xl">
-      <h2 className="mb-6 text-2xl font-bold text-gray-900 flex items-center">
-        <div className="p-3 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 mr-3">
-          <Upload className="w-6 h-6 text-white" />
-        </div>
+    <div className="bg-white/80 backdrop-blur-xl rounded-xl p-8 border border-gray-200/50">
+      <h2 className="mb-6 text-2xl font-bold text-gray-900 flex items-center gap-3">
+        <Upload className="w-5 h-5 text-neutral-700" />
         Ladda upp CV
       </h2>
 
@@ -313,7 +309,7 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
       <button
         onClick={handleUpload}
         disabled={loading || !file || !gdprConsent}
-        className="w-full py-4 font-semibold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl hover:from-pink-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all shadow-lg hover:shadow-xl"
+        className="w-full py-4 font-semibold text-white bg-orange-600 rounded-xl hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all"
       >
         {loading ? (
           <>

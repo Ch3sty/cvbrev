@@ -10,9 +10,9 @@ interface StatementListProps {
 }
 
 const answerOptions: { value: 'true' | 'false' | 'cannot_say'; label: string; color: string }[] = [
-  { value: 'true', label: 'Sant', color: 'from-green-500 to-emerald-600' },
-  { value: 'false', label: 'Falskt', color: 'from-red-500 to-rose-600' },
-  { value: 'cannot_say', label: 'Kan inte avgöra', color: 'from-slate-500 to-gray-600' }
+  { value: 'true', label: 'Sant', color: 'bg-emerald-600' },
+  { value: 'false', label: 'Falskt', color: 'bg-rose-600' },
+  { value: 'cannot_say', label: 'Kan inte avgöra', color: 'bg-neutral-600' }
 ];
 
 export function StatementList({
@@ -34,14 +34,14 @@ export function StatementList({
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-xl border-2 border-slate-200 p-5"
+              className="bg-white rounded-xl border-2 border-neutral-200 p-5"
             >
               {/* Statement Text */}
               <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
                   {index + 1}
                 </div>
-                <p className="flex-1 text-sm font-medium text-slate-800 leading-relaxed pt-1">
+                <p className="flex-1 text-sm font-medium text-neutral-800 leading-relaxed pt-1">
                   {statement.text}
                 </p>
                 {isAnswered && (
@@ -70,8 +70,8 @@ export function StatementList({
                         transition-all duration-200
                         ${
                           isSelected
-                            ? `bg-gradient-to-r ${option.color} text-white shadow-lg scale-105`
-                            : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border-2 border-slate-200 hover:border-slate-300'
+                            ? `${option.color} text-white scale-105`
+                            : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border-2 border-neutral-200 hover:border-neutral-300'
                         }
                         disabled:opacity-50 disabled:cursor-not-allowed
                       `}

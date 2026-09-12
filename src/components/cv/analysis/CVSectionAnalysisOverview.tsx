@@ -179,7 +179,7 @@ export default function CVSectionAnalysisOverview({
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-gradient-to-r from-white via-gray-50/30 to-white border border-gray-200 rounded-xl p-6"
+        className="bg-white border border-gray-200 rounded-xl p-6"
       >
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-6">
@@ -253,7 +253,7 @@ export default function CVSectionAnalysisOverview({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           style={{ willChange: 'opacity, transform' }}
-          className="bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 border border-red-200 rounded-xl p-4"
+          className="bg-red-50 border border-red-200 rounded-xl p-4"
         >
           <div className="flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
@@ -319,14 +319,14 @@ export default function CVSectionAnalysisOverview({
         </div>
 
         {prioritizedRoles.length === 0 ? (
-          <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 p-8 text-center">
+          <Card className="bg-green-50 border-green-200 p-8 text-center">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               style={{ willChange: 'transform' }}
-              className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center"
+              className="mb-4 flex items-center justify-center"
             >
-              <CheckCircle2 className="w-10 h-10 text-white" />
+              <CheckCircle2 className="w-10 h-10 text-green-600" />
             </motion.div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Utmärkt CV!
@@ -349,7 +349,7 @@ export default function CVSectionAnalysisOverview({
                   className="absolute top-4 left-4 z-10 cursor-pointer"
                   onClick={() => toggleSelection(index)}
                 >
-                  <div className="bg-white rounded-md p-1 shadow-md border-2 border-gray-300 hover:border-blue-500 transition-colors">
+                  <div className="bg-white rounded-md p-1 border-2 border-gray-300 hover:border-blue-500 transition-colors">
                     {selectedIndices.has(index) ? (
                       <CheckSquare className="w-5 h-5 text-blue-600" />
                     ) : (
@@ -422,7 +422,7 @@ export default function CVSectionAnalysisOverview({
             animate={{ opacity: 1, y: 0 }}
             className="sticky bottom-6 z-20"
           >
-            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 shadow-2xl">
+            <Card className="bg-orange-600 border-0">
               <div className="p-6 flex items-center justify-between">
                 <div className="text-white">
                   <h4 className="font-semibold text-lg mb-1">
@@ -435,7 +435,7 @@ export default function CVSectionAnalysisOverview({
                 <Button
                   onClick={handleImplementSelected}
                   size="lg"
-                  className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-6 text-lg shadow-lg"
+                  className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-6 text-lg"
                 >
                   <Wand2 className="w-5 h-5 mr-2" />
                   Granska & uppdatera CV

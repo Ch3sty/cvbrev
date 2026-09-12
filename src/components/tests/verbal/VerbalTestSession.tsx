@@ -1,11 +1,11 @@
 'use client';
 
 // =============================================================================
-// VerbalTestSession — delad testvy för verbalt resonemang grund (v1) och
+// VerbalTestSession, delad testvy för verbalt resonemang grund (v1) och
 // avancerad (v2). Sidorna under /dashboard/tester/verbal-resonemang*/test/
 // [sessionId] är tunna wrappers som bara skickar in rätt frågeurval,
-// endpoints och resultat-path. (Expertnivån har ett annat frågeformat —
-// argument + flervalsfrågor — och har därför en egen sida.)
+// endpoints och resultat-path. (Expertnivån har ett annat frågeformat -
+// argument + flervalsfrågor, och har därför en egen sida.)
 //
 // Utöver den gemensamma UI:n hanterar komponenten:
 // - Rehydrering: vid mount hämtas sessionen så redan sparade svar förifylls
@@ -132,7 +132,7 @@ export function VerbalTestSession({
     let cancelled = false;
 
     const hydrate = async () => {
-      // Basrecord med null-svar — sparade svar mergas in nedan.
+      // Basrecord med null-svar, sparade svar mergas in nedan.
       const initial: Record<string, UserAnswer[]> = {};
       questions.forEach((q) => {
         initial[q.id] = Array(q.statements.length).fill(null);
@@ -331,7 +331,7 @@ export function VerbalTestSession({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinishing, flushPending, completeEndpoint, sessionId]);
 
-  // Timer — startar när rehydreringen är klar. När tiden går ut öppnas
+  // Timer, startar när rehydreringen är klar. När tiden går ut öppnas
   // avsluta-modalen så eventuella fel vid slutförandet syns för användaren.
   useEffect(() => {
     if (isHydrating) return;
@@ -359,7 +359,7 @@ export function VerbalTestSession({
     newAnswers[currentPassage.id] = [...currentAnswers];
     newAnswers[currentPassage.id][statementIndex] = value;
     setAnswers(newAnswers);
-    // Spara i bakgrunden — UI:t ska inte blockeras av API-latens.
+    // Spara i bakgrunden, UI:t ska inte blockeras av API-latens.
     saveAnswer(currentPassage.id, statementIndex, value).finally(() => setIsSaving(false));
     setStatementStartTime(Date.now());
   };
@@ -452,7 +452,7 @@ export function VerbalTestSession({
             <button
               onClick={handlePrev}
               disabled={currentPassageIndex === 0}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-neutral-200 bg-white text-neutral-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
               Föregående
@@ -472,11 +472,7 @@ export function VerbalTestSession({
             <button
               onClick={handleNext}
               disabled={isLastPassage}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-              }}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-orange-600 hover:bg-orange-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
             >
               Nästa
               <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
@@ -499,7 +495,7 @@ export function VerbalTestSession({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
             onClick={() => setShowFinishConfirm(false)}
           >
             <motion.div
@@ -507,33 +503,18 @@ export function VerbalTestSession({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
-              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
+              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
             >
-              <div
-                className="absolute top-0 inset-x-0 h-1"
-                style={{
-                  background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
-                }}
-              />
               <div className="p-5 sm:p-6">
                 <div className="flex items-start gap-3 mb-4">
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
-                    style={{
-                      background: 'linear-gradient(135deg, #F59E0B, #F97316)',
-                      boxShadow: '0 6px 14px -4px rgba(249, 115, 22, 0.4)',
-                    }}
-                  >
-                    <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
-                  </div>
+                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
                   <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
                       Avsluta testet?
                     </h3>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Du har besvarat <span className="font-bold text-slate-900">{answeredCount}</span> av{' '}
-                      <span className="font-bold text-slate-900">{totalStatements}</span> påståenden. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
+                    <p className="text-sm text-neutral-600 mt-1">
+                      Du har besvarat <span className="font-bold text-neutral-900">{answeredCount}</span> av{' '}
+                      <span className="font-bold text-neutral-900">{totalStatements}</span> påståenden. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
                       {answeredCount < totalStatements && (
                         <span className="block mt-1 text-amber-700">
                           {totalStatements - answeredCount} kvar att besvara.
@@ -556,18 +537,14 @@ export function VerbalTestSession({
                 <div className="flex gap-2 sm:gap-3 mt-5">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
+                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
                   >
                     Tillbaka
                   </button>
                   <button
                     onClick={handleFinishTest}
                     disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-                    }}
+                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
                   </button>

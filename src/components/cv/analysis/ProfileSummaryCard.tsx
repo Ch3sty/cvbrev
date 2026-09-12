@@ -133,13 +133,13 @@ export default function ProfileSummaryCard({
                           setEditedText(improvedText);
                           setIsEditing(false);
                         }}
-                        className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                        className="h-11 px-3 text-sm text-neutral-600 hover:text-neutral-900"
                       >
                         Avbryt
                       </button>
                       <button
                         onClick={handleSaveEdit}
-                        className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                        className="h-11 px-3 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
                       >
                         Spara
                       </button>

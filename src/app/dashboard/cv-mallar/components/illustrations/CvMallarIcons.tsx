@@ -34,12 +34,12 @@ export function CvDesignSwapIcon({ className = 'w-20 h-20' }: IconProps) {
 
       {/* Bakre CV-papper (innan) - roterat -10°, slate-toner, blekt */}
       <g transform="rotate(-10 22 32)">
-        <rect x="10" y="14" width="22" height="32" rx="3" fill="white" stroke="#CBD5E1" strokeWidth="1.5" />
-        <rect x="10" y="14" width="22" height="3" rx="3" fill="#E2E8F0" />
-        <rect x="13" y="22" width="12" height="1.25" rx="0.625" fill="#E2E8F0" />
-        <rect x="13" y="26" width="14" height="1.25" rx="0.625" fill="#E2E8F0" />
-        <rect x="13" y="30" width="10" height="1.25" rx="0.625" fill="#E2E8F0" />
-        <rect x="13" y="34" width="13" height="1.25" rx="0.625" fill="#E2E8F0" />
+        <rect x="10" y="14" width="22" height="32" rx="3" fill="white" stroke="#D4D4D4" strokeWidth="1.5" />
+        <rect x="10" y="14" width="22" height="3" rx="3" fill="#E5E5E5" />
+        <rect x="13" y="22" width="12" height="1.25" rx="0.625" fill="#E5E5E5" />
+        <rect x="13" y="26" width="14" height="1.25" rx="0.625" fill="#E5E5E5" />
+        <rect x="13" y="30" width="10" height="1.25" rx="0.625" fill="#E5E5E5" />
+        <rect x="13" y="34" width="13" height="1.25" rx="0.625" fill="#E5E5E5" />
       </g>
 
       {/* Framre CV-papper (efter) - centrerat, full design-DNA */}
@@ -48,20 +48,20 @@ export function CvDesignSwapIcon({ className = 'w-20 h-20' }: IconProps) {
         <rect x="26" y="12" width="24" height="4" rx="3" fill="url(#cm-orange-pink)" />
         {/* Profilrad: avatar-cirkel + namn-rad */}
         <circle cx="31" cy="22" r="2.5" fill="#FED7AA" />
-        <rect x="35" y="20" width="10" height="1.5" rx="0.75" fill="#CBD5E1" />
-        <rect x="35" y="23" width="7" height="1" rx="0.5" fill="#E2E8F0" />
+        <rect x="35" y="20" width="10" height="1.5" rx="0.75" fill="#D4D4D4" />
+        <rect x="35" y="23" width="7" height="1" rx="0.5" fill="#E5E5E5" />
         {/* Innehallsrader */}
         <rect x="29" y="29" width="18" height="1.5" rx="0.75" fill="#FB923C" opacity="0.6" />
-        <rect x="29" y="33" width="16" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="29" y="36" width="18" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="29" y="39" width="14" height="1" rx="0.5" fill="#E2E8F0" />
-        <rect x="29" y="43" width="17" height="1" rx="0.5" fill="#E2E8F0" />
+        <rect x="29" y="33" width="16" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="29" y="36" width="18" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="29" y="39" width="14" height="1" rx="0.5" fill="#E5E5E5" />
+        <rect x="29" y="43" width="17" height="1" rx="0.5" fill="#E5E5E5" />
       </g>
 
       {/* Penna i orange-gradient i nedre-hogra hornet, antyder transformation */}
       <g transform="translate(46 44) rotate(40)">
         <rect x="-1.25" y="-2" width="2.5" height="14" rx="1.25" fill="url(#cm-orange-red)" />
-        <polygon points="-2,12 0,17 2,12" fill="#1E293B" />
+        <polygon points="-2,12 0,17 2,12" fill="#262626" />
         <rect x="-1.25" y="-4" width="2.5" height="2" fill="#FB923C" />
       </g>
 
