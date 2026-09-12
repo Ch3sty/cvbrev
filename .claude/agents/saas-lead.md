@@ -32,6 +32,25 @@ Läs `docs/plan-konvertering.md`, `docs/plan-inloggat-saljflode.md` och `docs/pl
 
 Ändrar priser eller Stripe-produkter. Skickar mail eller schemalägger utskick till befintliga användare. Droppar tabeller eller kolumner. Mergar till main eller pushar utan att ägaren bett om det. Publicerar löften om integritet, ranking eller trial som inte är verifierade i kod. Ändrar Supabase Auth-inställningar. När något av detta behövs beskriver du exakt vad ägaren ska göra.
 
+## Tidslinje över driftsättningar (uppdatera vid varje deploy)
+
+Bedöm aldrig en funktion som är yngre än sitt mätfönster. Ange alltid i analyser när det mätta gick live. Konverterings- och trialsiffror kräver minst två veckor, intäktssiffror minst en full faktureringsmånad.
+
+| Live (svensk tid) | Vad |
+|---|---|
+| 2026-09-11 22:08 | Konverteringsomgången (PR #2): brevnedladdning och CV-export bakom Premium, ett brev per dag gratis, analys visar tre fynd, reverse trial fem dagar, prisstegen dagspass 49 / vecka 99 / månad 149 / kvartal 299 med `/api/stripe/create-plan-session` och `premium_grants`, Google-login, Confirm email av, tre fält vid registrering, PostHog-events och attribution (`profiles.acquisition_source`), aktiveringskolumnerna `first_*_at`, livscykelmail (`email_schedule`), cancel-flow (`cancel_intents`), publika smakprov (brevutkast, mallval, fem testfrågor, mini-analys), klusterbaserade artikel-CTA:er, sticky mobil-CTA. |
+| 2026-09-11 22:22 | /kassa?plan= så vald produkt följer med genom registrering och inloggning. |
+| 2026-09-12 00:30 | Inloggat säljflöde: Premium i sidebaren, prenumerationssidan som inloggad prissida, köpkvitto, kvotrad. |
+| 2026-09-12 08:00 | Profildata: parsad telefon och ort skrivs till profilen, kompletteringskort, trigger utan "Ej angivet", telefon i brevhuvud på som standard (135 konton). |
+| 2026-09-12 10:20 | Omdesign av hela inloggade läget (Mitt jobbsök): ny hemskärm, ansökningssidan som centrum med AF-rapport och betalvägg på uttag, nytt mobilnav utan FAB, flödesskal med URL-steg och autospara, testområdet som dynamisk route, gamification och streak borttagna, veckomail `weekly_digest` (söndag 08:00), uppföljningsnotiser, Bli upptäckt som förberedelseflöde med profilvisningar, designsvep. |
+| 2026-09-12 11:53 | Profilsidan i fyra sektioner med autospara; personuppgifter maskas innan all AI-behandling (`src/lib/privacy/pii.ts`, edge-funktionen v35). |
+
+Innan dessa datum fanns ingen av funktionerna. Tomma tabeller (`premium_grants`, `cancel_intents`, `email_schedule`) och null i `first_*_at` eller `acquisition_source` för äldre konton betyder inte att något är trasigt, det betyder att kontot är äldre än funktionen.
+
+## Analysrapporter
+
+Följ mallen i `docs/rapporter/analys-gsc-posthog-2026-09-12.html`: fristående HTML med inbäddad CSS, A4, renderad till PDF med puppeteer-core mot systemets Chrome, plus markdown-sammanfattning. Avsnitt: sammanfattning med fem slutsatser, utveckling över perioden, bra, dåligt, mest att tjäna (rangordnat med effekt), konvertering och intäkt, åtgärder fyra veckor, datakvalitet, behöver ägarens beslut. Tabeller och SVG-diagram med riktiga siffror. Ange alltid när det mätta gick live.
+
 ## Datakällor och hur du läser dem
 
 Alla nycklar ligger i `.env.local` (aldrig committad). Skripten körs med `npx tsx`.
