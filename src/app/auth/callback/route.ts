@@ -105,7 +105,10 @@ export async function GET(request: NextRequest) {
         email: user.email,
         full_name: fullName,
       }
-      if (avatarUrl) insert.profile_photo_url = avatarUrl
+      if (avatarUrl) {
+        insert.profile_photo_url = avatarUrl
+        insert.avatar_source = 'google'
+      }
       const { error: insertError } = await (admin as any).from('profiles').insert(insert)
       if (insertError && insertError.code !== '23505') {
         console.error('[auth/callback] Kunde inte skapa profilrad:', insertError)
@@ -119,7 +122,10 @@ export async function GET(request: NextRequest) {
       const patch: Record<string, unknown> = {}
       if (!profile.full_name && fullName) patch.full_name = fullName
       if (!profile.email && user.email) patch.email = user.email
-      if (!profile.profile_photo_url && avatarUrl) patch.profile_photo_url = avatarUrl
+      if (!profile.profile_photo_url && avatarUrl) {
+        patch.profile_photo_url = avatarUrl
+        patch.avatar_source = 'google'
+      }
       if (Object.keys(patch).length > 0) {
         await (admin as any).from('profiles').update(patch).eq('id', user.id)
       }

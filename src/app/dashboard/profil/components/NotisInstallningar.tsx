@@ -1,21 +1,66 @@
 'use client';
 
 /**
- * Notisinställningar i profilen (docs/plan-inloggat-omdesign.md, avsnitt 8).
+ * Notisinställningar i profilen (profil-spec, sektion 4).
  *
- * Veckosammanfattningen är det enda mail vi skickar som inte handlar om
- * pengar, och den ska gå att stänga av utan att man tappar mailen om sitt
- * konto. Därför en egen rad här och en egen avregistreringslänk i mailet, i
- * stället för den globala avregistreringen som stänger allt.
+ * Två rader, två kolumner, två routes. Veckosammanfattningen är det enda mail
+ * vi skickar som inte handlar om pengar. Kvotpåminnelserna styr redan
+ * livscykelrunnern och kampanjutskicken via quota_emails_opt_out, men saknade
+ * hittills gränssnitt helt: systemet respekterade alltså ett val användaren
+ * inte kunde göra.
  *
- * Designsystemet: kort med border och ingen skugga, rounded-xl, font-semibold
- * som tyngst, ingen fylld orange yta (växeln är den enda accenten och den är
- * en kontroll, inte en uppmaning).
+ * Mail om konto och betalningar går alltid, och det står i ingressen så att
+ * ingen tror att växlarna stänger av kvittot på en dragning.
  */
 
 import { useEffect, useState } from 'react';
 
+interface MailRowConfig {
+  key: string;
+  endpoint: string;
+  title: string;
+  body: string;
+  ariaLabel: string;
+}
+
+const ROWS: MailRowConfig[] = [
+  {
+    key: 'digest',
+    endpoint: '/api/email/digest-preference',
+    title: 'Veckosammanfattning',
+    body: 'En gång i veckan: hur många jobb du sökte, vad som väntar på svar och vilka ansökningar som är värda en påminnelse. Skickas bara när du har ansökningar igång.',
+    ariaLabel: 'Veckosammanfattning via mail',
+  },
+  {
+    key: 'quota',
+    endpoint: '/api/profile/quota-emails',
+    title: 'Påminnelser om din kvot',
+    body: 'Mail när dina gratisbrev återställs och när något du använt tagit slut. Av om du hellre håller koll själv.',
+    ariaLabel: 'Påminnelser om din kvot via mail',
+  },
+];
+
 export default function NotisInstallningar() {
+  return (
+    <section
+      id="konto"
+      className="scroll-mt-24 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6"
+    >
+      <h2 className="text-lg font-semibold text-neutral-900">Mail från oss</h2>
+      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+        Mail om ditt konto och dina betalningar skickas alltid.
+      </p>
+
+      <div className="mt-4 space-y-3">
+        {ROWS.map((row) => (
+          <MailRow key={row.key} config={row} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MailRow({ config }: { config: MailRowConfig }) {
   // null = inte läst än. Vi renderar inte växeln förrän vi vet läget, annars
   // hoppar den från på till av framför ögonen på användaren.
   const [optOut, setOptOut] = useState<boolean | null>(null);
@@ -25,7 +70,7 @@ export default function NotisInstallningar() {
   useEffect(() => {
     let cancelled = false;
 
-    fetch('/api/email/digest-preference')
+    fetch(config.endpoint)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!cancelled && data) setOptOut(data.optOut === true);
@@ -38,7 +83,7 @@ export default function NotisInstallningar() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [config.endpoint]);
 
   const toggle = async () => {
     if (optOut === null || saving) return;
@@ -50,7 +95,7 @@ export default function NotisInstallningar() {
     setError(null);
 
     try {
-      const res = await fetch('/api/email/digest-preference', {
+      const res = await fetch(config.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ optOut: next }),
@@ -67,19 +112,12 @@ export default function NotisInstallningar() {
   const enabled = optOut === false;
 
   return (
-    <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-6">
-      <h2 className="text-lg font-semibold text-neutral-900">Mail från oss</h2>
-      <p className="text-sm text-neutral-600 leading-relaxed mt-1">
-        Mail om ditt konto och dina betalningar skickas alltid.
-      </p>
-
-      <div className="mt-4 flex items-start justify-between gap-4 rounded-lg border border-neutral-200 p-4">
+    <div className="rounded-lg border border-neutral-200 p-4">
+      <div className="flex min-h-[44px] items-start justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-base font-semibold text-neutral-900">Veckosammanfattning</p>
-          <p className="text-sm text-neutral-600 leading-relaxed mt-1">
-            En gång i veckan: hur många jobb du sökte, vad som väntar på svar och
-            vilka ansökningar som är värda en påminnelse. Skickas bara när du har
-            ansökningar igång.
+          <p className="text-sm font-medium text-neutral-900">{config.title}</p>
+          <p className="mt-0.5 text-sm leading-relaxed text-neutral-600">
+            {config.body}
           </p>
         </div>
 
@@ -88,10 +126,10 @@ export default function NotisInstallningar() {
             type="button"
             role="switch"
             aria-checked={enabled}
-            aria-label="Veckosammanfattning via mail"
+            aria-label={config.ariaLabel}
             onClick={toggle}
             disabled={saving}
-            className={`relative shrink-0 inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:opacity-60 ${
+            className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:opacity-60 ${
               enabled ? 'bg-orange-600' : 'bg-neutral-300'
             }`}
           >
@@ -104,7 +142,7 @@ export default function NotisInstallningar() {
         )}
       </div>
 
-      {error && <p className="mt-3 text-sm text-red-700">{error}</p>}
-    </section>
+      {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
+    </div>
   );
 }

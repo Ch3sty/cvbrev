@@ -224,12 +224,42 @@ export default function CreateLetterPage() {
     goToStep(1);
   }, [goToStep]);
 
-  // Set default tonality to 'auto' for premium users
+  /* Förvald ton från profilen (profiles.preferred_tonality), med 'balanced'
+     som fallback. Tidigare hade profilvalet ingen produktionsyta alls:
+     användaren valde en skrivton som aldrig lästes, och tvingades välja om i
+     varje brev. Nu är profilvalet startvärdet här.
+
+     Körs en gång, när profilen laddat, och bara så länge tonen står kvar på
+     sitt startvärde. Har användaren redan bytt ton i det här brevet, eller
+     återupptagit ett utkast, rör vi den inte.
+
+     Premiumgaten ligger kvar: 'auto' kan bara väljas av premium, både på
+     profilsidan och i TonalityLanguageStep. En gratisanvändare med ett gammalt
+     auto-val i profilen landar därför på 'balanced'. */
+  const tonalityInitialized = useRef(false);
   useEffect(() => {
-    if (isPremium && tonality === 'balanced') {
-      setTonality('auto');
-    }
-  }, [isPremium]);
+    if (tonalityInitialized.current) return;
+    if (!profile) return;
+
+    tonalityInitialized.current = true;
+
+    const preferred = (profile as { preferred_tonality?: string } | null)
+      ?.preferred_tonality;
+    if (!preferred) return;
+
+    const allowed: Tonality[] = [
+      'professional',
+      'enthusiastic',
+      'creative',
+      'confident',
+      'balanced',
+      'auto',
+    ];
+    if (!allowed.includes(preferred as Tonality)) return;
+    if (preferred === 'auto' && !isPremium) return;
+
+    setTonality((current) => (current === 'balanced' ? (preferred as Tonality) : current));
+  }, [profile, isPremium]);
 
   useEffect(() => {
     fetchCVs().finally(() => {

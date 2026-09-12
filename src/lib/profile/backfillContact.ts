@@ -116,6 +116,9 @@ export async function backfillProfileContact(
 
     if (Object.keys(updates).length === 0) return {};
 
+    // Märker att fälten fyllts i automatiskt, så profilsidan kan visa "hämtat från ditt CV".
+    updates.contact_parsed_at = new Date().toISOString();
+
     const { error: updateError } = await admin
       .from('profiles')
       .update(updates)

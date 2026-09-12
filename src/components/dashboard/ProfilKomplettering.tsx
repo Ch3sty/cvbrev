@@ -12,6 +12,7 @@
  * parsern missade.
  */
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
@@ -270,6 +271,14 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
             >
               Inte nu
             </button>
+            {/* Kortets tre fält bor alla i profilens sektion 1, så ankaret
+                landar rätt för den som vill se allt i sitt sammanhang. */}
+            <Link
+              href="/dashboard/profil#presentation"
+              className="text-sm font-medium text-neutral-600 hover:text-neutral-900 underline-offset-4 hover:underline"
+            >
+              Se hela profilen
+            </Link>
           </div>
         </div>
       </div>
