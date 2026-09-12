@@ -20,6 +20,7 @@ import { ProfileCard, ProfileTextField, FieldStatusLine } from './ProfileField'
 import { TONALITIES, type TonalityValue } from './tonalities'
 import type { FieldSaveState } from './useFieldSave'
 import type { PremiumFeature } from './PremiumGateModal'
+import { SectionInriktningIcon } from './illustrations/SectionIcons'
 
 export interface InriktningSectionProps {
   goalRole: string
@@ -55,6 +56,7 @@ export default function InriktningSection({
       id="inriktning"
       title="Så hjälper vi dig"
       description="Styr hur Jobbcoachen svarar dig och vilken ton vi börjar med i nya brev. Inget av det här hamnar i dina brev eller ditt CV."
+      icon={SectionInriktningIcon}
     >
       <ProfileTextField
         label="Målroll"

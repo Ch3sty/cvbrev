@@ -19,6 +19,8 @@ import {
   FieldStatusLine,
 } from './ProfileField'
 import ProfilePhotoPlaceholder from './illustrations/ProfilePhotoPlaceholder'
+import BrevhuvudPreview from './illustrations/BrevhuvudPreview'
+import { SectionPresentationIcon } from './illustrations/SectionIcons'
 import type { FieldSaveState } from './useFieldSave'
 
 export interface PresentationSectionProps {
@@ -61,7 +63,25 @@ export default function PresentationSection(props: PresentationSectionProps) {
     <ProfileCard
       id="presentation"
       title="Så presenteras du"
-      description="De här uppgifterna hamnar i brevhuvudet på dina personliga brev och överst i ditt CV. Det är dem rekryteraren ser först."
+      description="De här uppgifterna sparas separat från dina dokument och skickas aldrig till någon AI. Vi lägger in dem i brev och CV efteråt, med vår egen kod."
+      icon={SectionPresentationIcon}
+      aside={
+        <figure className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+          <BrevhuvudPreview
+            fullName={props.fullName}
+            phone={props.phone}
+            location={props.location}
+            hasPhoto={Boolean(props.profilePhotoUrl)}
+            showPhone={props.includePhoneInLetters}
+            showLocation={props.includeLocationInLetters}
+            className="h-auto w-full text-neutral-800"
+          />
+          <figcaption className="mt-2 text-xs text-neutral-500">
+            Så här börjar dina brev och ditt CV. Miniatyren fylls i medan du
+            skriver.
+          </figcaption>
+        </figure>
+      }
     >
       <ProfileTextField
         label="Namn"
@@ -170,12 +190,16 @@ export default function PresentationSection(props: PresentationSectionProps) {
               <Image
                 src={props.profilePhotoUrl}
                 alt=""
-                width={64}
-                height={64}
-                className="h-16 w-16 rounded-lg border border-neutral-200 object-cover"
+                width={72}
+                height={72}
+                className="h-[72px] w-[72px] rounded-lg border border-neutral-200 object-cover"
               />
             ) : (
-              <ProfilePhotoPlaceholder className="h-16 w-16 text-neutral-400" />
+              /* Streckad ram och illustration i stället för en tom ruta: en
+                 platshållare ska se ut som en plats, inte som ett fel. */
+              <div className="flex h-[72px] w-[72px] items-center justify-center rounded-lg border border-dashed border-neutral-300 bg-neutral-50">
+                <ProfilePhotoPlaceholder className="h-10 w-10 text-neutral-400" />
+              </div>
             )}
           </div>
 

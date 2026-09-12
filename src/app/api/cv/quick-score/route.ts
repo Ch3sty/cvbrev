@@ -43,8 +43,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Snabb basanalys (synkron, Gemini fast)
-    const analysis = await analyzeCvBasic(cv.cv_text);
+    // Profilens namn gör maskeringen exakt i stället för enbart heuristisk.
+    const { data: nameRow } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('id', user.id)
+      .single();
+
+    // Snabb basanalys (synkron, Gemini fast). Personuppgifter maskas inuti
+    // analyzeCvBasic, så ingen route kan råka skicka rå CV-text.
+    const analysis = await analyzeCvBasic(cv.cv_text, { fullName: nameRow?.full_name ?? null });
 
     // Härled en 0-100-poäng från de två 1-5-betygen.
     const clarity = analysis.scores?.clarityAndStructure?.rating ?? 0;

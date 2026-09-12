@@ -14,6 +14,7 @@
  */
 
 import { useEffect, useState } from 'react';
+import { SectionKontoIcon } from './illustrations/SectionIcons';
 
 interface MailRowConfig {
   key: string;
@@ -46,10 +47,15 @@ export default function NotisInstallningar() {
       id="konto"
       className="scroll-mt-24 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6"
     >
-      <h2 className="text-lg font-semibold text-neutral-900">Mail från oss</h2>
-      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-        Mail om ditt konto och dina betalningar skickas alltid.
-      </p>
+      <div className="flex items-start gap-3">
+        <SectionKontoIcon className="h-10 w-10 shrink-0 text-neutral-700 sm:h-12 sm:w-12" />
+        <div className="min-w-0 flex-1">
+          <h2 className="text-lg font-semibold text-neutral-900">Mail från oss</h2>
+          <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+            Mail om ditt konto och dina betalningar skickas alltid.
+          </p>
+        </div>
+      </div>
 
       <div className="mt-4 space-y-3">
         {ROWS.map((row) => (

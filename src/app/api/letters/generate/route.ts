@@ -10,7 +10,8 @@ import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib
 // *** NY IMPORT FÖR AKTIVITETSLOGGNING ***
 import { logUserActivity, ActivityType } from '@/lib/activity-logger';
 // *** NY IMPORT FÖR SÄKERHET ***
-import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
+import { extractSkillsAndExperience } from '@/lib/letters/cv-anonymizer';
+import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
@@ -153,23 +154,23 @@ export async function POST(request: Request) {
       console.log('🔒 SÄKERHET: Anonymiserar CV-data...');
       console.log('📋 Original CV-längd:', cvData.cv_text.length, 'tecken');
 
-      const anonymizedSkills = extractSkillsAndExperience(cvData.cv_text);
+      // Steg 3a: extrahera yrkesinnehållet (tar bort kontaktblocket).
+      const professionalContent = extractSkillsAndExperience(cvData.cv_text);
+
+      // Steg 3b: maska det som ändå kan ha följt med. Kontrollen har numera en
+      // konsekvens: hittas något körs ett andra, hårdare pass och texten
+      // valideras igen. Vi skickar alltid den maskade texten vidare, aldrig
+      // originalet, och loggar en mätpunkt om något överlever båda passen.
+      const guarded = await guardCvTextForModel(
+        professionalContent,
+        'letter_generate',
+        user.id,
+        { fullName: profileData.full_name ?? null }
+      );
+      const anonymizedSkills = guarded.text;
 
       console.log('📋 Anonymiserad data-längd:', anonymizedSkills.length, 'tecken');
-      console.log('🔍 SÄKERHETSKONTROLL: Validerar anonymisering...');
-
-      // Validera anonymisering
-      const anonymizationWarnings = validateAnonymization(anonymizedSkills);
-      if (anonymizationWarnings.length > 0) {
-        console.error('❌ SÄKERHETSVARNING: PII-läckage detekterat!', anonymizationWarnings);
-        console.error('🚨 Anonymiserad data innehåller:', anonymizationWarnings.join(', '));
-
-        // Logga varningen men fortsätt (kan finjustera senare)
-        logUserActivity(user.id, 'letter_generation_failed', 'Anonymisering producerade varningar', { warnings: anonymizationWarnings });
-
-        // I produktion kan vi välja att stoppa här om det finns PII
-        // throw new Error('Säkerhetsfel: PII hittades i anonymiserad data');
-      } else {
+      if (guarded.warnings.length === 0) {
         console.log('✅ SÄKERHET VERIFIERAD: Ingen PII hittades i anonymiserad data');
       }
 

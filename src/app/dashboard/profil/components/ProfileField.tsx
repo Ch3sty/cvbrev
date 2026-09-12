@@ -11,8 +11,29 @@
  * fel.
  */
 
-import { useId, type ReactNode } from 'react'
+import { useId, type ComponentType, type ReactNode } from 'react'
 import type { FieldSaveState } from './useFieldSave'
+
+/* ------------------------------------------------------------------ etikett */
+
+/**
+ * Liten etikett i stället för "(obligatoriskt)" inom parentes. En parentes
+ * efter rubriken läses som en del av etiketten; en egen liten ruta läses som
+ * en egenskap hos fältet, vilket är vad det är.
+ */
+export function FieldTag({ required }: { required?: boolean }) {
+  const tone = required
+    ? 'bg-orange-50 text-orange-700'
+    : 'bg-neutral-100 text-neutral-600'
+
+  return (
+    <span
+      className={`inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium ${tone}`}
+    >
+      {required ? 'Krävs' : 'Valfritt'}
+    </span>
+  )
+}
 
 /* ---------------------------------------------------------------- statusrad */
 
@@ -99,16 +120,10 @@ export function ProfileTextField({
     <div>
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-neutral-900"
+        className="flex items-center gap-2 text-sm font-medium text-neutral-900"
       >
         {label}
-        {required ? (
-          <span className="ml-1 text-neutral-500 font-normal">
-            (obligatoriskt)
-          </span>
-        ) : (
-          <span className="ml-1 text-neutral-500 font-normal">(valfritt)</span>
-        )}
+        <FieldTag required={required} />
       </label>
 
       <p className="mt-1 text-sm leading-relaxed text-neutral-600">
@@ -205,12 +220,18 @@ export function ProfileCard({
   id,
   title,
   description,
+  icon: Icon,
+  aside,
   children,
 }: {
   id: string
   title: string
   /** En rad som säger var datan används. */
   description: string
+  /** 48 px sektionsikon ur primitives-systemet. */
+  icon?: ComponentType<{ className?: string }>
+  /** Valfritt innehåll under rubriken, till exempel en levande miniatyr. */
+  aside?: ReactNode
   children: ReactNode
 }) {
   return (
@@ -218,10 +239,20 @@ export function ProfileCard({
       id={id}
       className="scroll-mt-24 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6"
     >
-      <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>
-      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-        {description}
-      </p>
+      <div className="flex items-start gap-3">
+        {Icon ? (
+          <Icon className="h-10 w-10 shrink-0 text-neutral-700 sm:h-12 sm:w-12" />
+        ) : null}
+        <div className="min-w-0 flex-1">
+          <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>
+          <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+            {description}
+          </p>
+        </div>
+      </div>
+
+      {aside ? <div className="mt-4">{aside}</div> : null}
+
       <div className="mt-5 space-y-5">{children}</div>
     </section>
   )

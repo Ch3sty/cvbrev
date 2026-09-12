@@ -1,5 +1,6 @@
 // src/lib/openai/cv-analysis.ts
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
+import { maskForModel } from '@/lib/privacy/pii';
 
 // --- Typer för Analysresultat ---
 interface Score {
@@ -72,9 +73,15 @@ interface PremiumAnalysisResult extends Omit<BasicAnalysisResult, 'analysisType'
 }
 
 // --- Grundläggande Analysfunktion ---
-export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResult> {
-    // ... (funktionens kod är oförändrad) ...
-    const truncatedCV = cvText.substring(0, 6000);
+export async function analyzeCvBasic(
+    cvText: string,
+    options: { fullName?: string | null } = {}
+): Promise<BasicAnalysisResult> {
+    // Personuppgifter maskas innan texten lämnar servern. Platshållarna är
+    // stabila strängar, så modellen fortfarande ser ATT kontaktuppgifter finns
+    // och inte drar ned struktur- eller ATS-betyget för att de saknas.
+    const masked = maskForModel(cvText, { fullName: options.fullName, maskUrls: false }).text;
+    const truncatedCV = masked.substring(0, 6000);
     const modelToUse = GEMINI_MODELS.fast; // Basic-analys: snabb modell räcker
     const systemPrompt = `
         Du är en AI-assistent som analyserar svenska CV:n för jobbsökande. Ge en kortfattad och konstruktiv analys baserat på innehållet. Fokusera på följande punkter och svara ALLTID i JSON-format med exakt denna struktur:
@@ -141,10 +148,15 @@ async function analyzeRoleBatch(
 ): Promise<{ roleBasedImprovements: RoleBasedImprovement[], tokens: any, cost: number | null }> {
     const truncatedCV = cvText.substring(0, 8000);
 
-    // Bygg roll-kontext för denna batch
-    const rolesContext = '\n\n=== ROLLER ATT ANALYSERA ===\n' + roles.map((r: any, idx: number) =>
-        `ROLL ${idx + 1}: ${r.title} @ ${r.company} (${r.period})\nText: ${(r.description || r.originalText || '').substring(0, 300)}`
-    ).join('\n---\n');
+    // Bygg roll-kontext för denna batch. Rollernas beskrivningar kommer ur det
+    // parsade CV:t och går inte genom maskeringen ovan, så de maskas här:
+    // referenspersoner och telefonnummer förekommer i rollbeskrivningar.
+    const rolesContext = '\n\n=== ROLLER ATT ANALYSERA ===\n' + roles.map((r: any, idx: number) => {
+        const description = maskForModel((r.description || r.originalText || '').substring(0, 300), {
+            maskUrls: false,
+        }).text;
+        return `ROLL ${idx + 1}: ${r.title} @ ${r.company} (${r.period})\nText: ${description}`;
+    }).join('\n---\n');
 
     const systemPrompt = `Du är en CV-expert med ATS-kunskap. Analysera roller från ett svenskt CV och generera roll-baserade förbättringar.
 
@@ -208,9 +220,16 @@ Var konstruktiv och praktisk.`;
 }
 
 // --- Premium Analysfunktion ---
-export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
+export async function analyzeCvPremium(
+    cvText: string,
+    parsedCV?: any,
+    options: { fullName?: string | null } = {}
+): Promise<PremiumAnalysisResult> {
     const startTime = Date.now();
-    const truncatedCV = cvText.substring(0, 8000);
+    // Samma maskering som basanalysen. Sker här, i funktionen, så att varje
+    // anropare täcks och ingen ny route kan glömma spärren.
+    const maskedCv = maskForModel(cvText, { fullName: options.fullName, maskUrls: false }).text;
+    const truncatedCV = maskedCv.substring(0, 8000);
     const modelToUse = GEMINI_MODELS.quality; // Premium-analys: kvalitetsmodell
 
     // Batch-baserad roll-analys: Dela upp roller i grupper om 3
@@ -235,7 +254,7 @@ export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<
             const batch = batches[i];
 
             try {
-                const batchResult = await analyzeRoleBatch(cvText, batch, modelToUse, i + 1);
+                const batchResult = await analyzeRoleBatch(maskedCv, batch, modelToUse, i + 1);
                 allRoleImprovements.push(...batchResult.roleBasedImprovements);
 
                 totalPromptTokens += batchResult.tokens.prompt;

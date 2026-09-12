@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
+import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
@@ -53,7 +54,7 @@ export async function POST(request: Request) {
     // Hämta användarprofil för att kontrollera prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, full_name')
       .eq('id', user.id)
       .single();
 
@@ -148,30 +149,23 @@ export async function POST(request: Request) {
       // Använd AI för att extrahera jobbinformation från jobbannonsen
       const jobInfo = await extractJobInfo(job_description, language);
 
-      // *** SÄKERHET: Enkel PII-rensning från CV-text ***
-      console.log('🔒 SÄKERHET (Preview): Rensar PII från CV-data...');
+      // *** SÄKERHET: samma maskering som letters/generate ***
+      // Rutten hade tidigare en egen, svagare regexsvit som tog bort mejl,
+      // telefon och postnummer men INTE namnet. Förhandsvisningen är den väg
+      // de flesta möter först, så den var i praktiken ett motexempel till
+      // löftet på profilsidan. Nu går båda brevvägarna genom samma spärr.
+      console.log('🔒 SÄKERHET (Preview): Maskerar personuppgifter i CV-data...');
 
-      // Enkel regex-baserad rensning av PII utan att förstöra innehållet
-      let cleanedCV = cvData.cv_text;
-
-      // Ta bort email
-      cleanedCV = cleanedCV.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '');
-
-      // Ta bort svenska telefonnummer
-      cleanedCV = cleanedCV.replace(/(\+46|0046|0)[\s-]?7[\s-]?\d{1}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
-      cleanedCV = cleanedCV.replace(/\b\d{3}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}\b/g, '');
-
-      // Ta bort postnummer
-      cleanedCV = cleanedCV.replace(/\b\d{3}\s?\d{2}\b/g, '');
-
-      // Ta bort personnummer
-      cleanedCV = cleanedCV.replace(/\b\d{6}[-\s]?\d{4}\b/g, '');
-
-      // Rensa onödiga mellanslag och newlines
-      cleanedCV = cleanedCV.replace(/\s+/g, ' ').trim();
+      const guarded = await guardCvTextForModel(
+        cvData.cv_text,
+        'letter_preview',
+        user.id,
+        { fullName: profile?.full_name ?? null }
+      );
+      const cleanedCV = guarded.text;
 
       console.log('📋 Original CV-längd:', cvData.cv_text.length, 'tecken');
-      console.log('📋 Rensad CV-längd:', cleanedCV.length, 'tecken');
+      console.log('📋 Maskerad CV-längd:', cleanedCV.length, 'tecken');
 
       // Generera personligt brev med OpenAI, skicka CV UTAN PII
       console.log('🚀 SÄKERHET (Preview): Skickar CV utan PII till OpenAI...');

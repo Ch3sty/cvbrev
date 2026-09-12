@@ -23,6 +23,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
 import PageHeader from '@/components/shell/PageHeader';
 
+import IntegritetsBlock from './components/IntegritetsBlock';
 import PresentationSection from './components/PresentationSection';
 import InriktningSection from './components/InriktningSection';
 import BliUpptacktSection from './components/BliUpptacktSection';
@@ -234,6 +235,9 @@ export default function ProfilPage() {
         title="Din profil"
         description="Uppgifterna här används i dina brev, ditt CV och i Jobbcoachens svar. Allt sparas när du lämnar fältet."
       />
+
+      {/* Invändningen kommer före ifyllandet, därför överst. */}
+      <IntegritetsBlock />
 
       <PresentationSection
         email={profile?.email || ''}

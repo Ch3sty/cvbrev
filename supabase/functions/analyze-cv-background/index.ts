@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { geminiGenerate, geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
+import { maskForModel, extractContactLocally, restorePlaceholders } from '../_shared/pii.ts';
 
 // KRITISK FIX: Validera och normalisera roleImprovement-objekt
 function sanitizeRoleImprovement(role: any): any {
@@ -74,7 +75,7 @@ Deno.serve(async (req) => {
     // Fetch CV text from cv_texts table
     const { data: cv, error: cvError } = await supabase
       .from('cv_texts')
-      .select('cv_text')
+      .select('cv_text, user_id')
       .eq('id', cvId)
       .single();
 
@@ -89,6 +90,37 @@ Deno.serve(async (req) => {
     const cvText = cv.cv_text;
     console.log(`[Job ${jobId}] CV text fetched (${cvText.length} chars)`);
 
+    // -------------------------------------------------------------------
+    // SÄKERHET: maskera personuppgifter innan något går till Gemini.
+    //
+    // Funktionen var det sista flödet som skickade rå CV-text till en modell,
+    // trots att allt i Next.js-koden maskas. Tre anrop berörs: steg 1
+    // (parsning), steg 5 (allmän analys) och formateringen av
+    // förhandsvisningen. Alla tre får numera maskerad text.
+    //
+    // Kontaktuppgifterna plockas ut lokalt med regex och sätts tillbaka i
+    // resultatet EFTER att modellen är klar, så personalInfo ser likadan ut
+    // för resten av appen som tidigare.
+    // -------------------------------------------------------------------
+    const { data: ownerProfile } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('id', cv.user_id)
+      .maybeSingle();
+
+    const localContact = extractContactLocally(cvText);
+    const knownName = ownerProfile?.full_name || localContact.fullName || null;
+
+    // maskUrls: false, LinkedIn och portfolio är yrkesinformation som
+    // ATS-bedömningen ska kunna se.
+    const maskedCv = maskForModel(cvText, { fullName: knownName, maskUrls: false });
+    const safeCvText = maskedCv.text;
+
+    if (maskedCv.warnings.length > 0) {
+      console.error(`[Job ${jobId}] [privacy] personuppgifter kvar efter andra passet: ${maskedCv.warnings.join(', ')}`);
+    }
+    console.log(`[Job ${jobId}] CV maskerat (${safeCvText.length} chars)`);
+
     await supabase
       .from('cv_analysis_jobs')
       .update({
@@ -102,11 +134,11 @@ Deno.serve(async (req) => {
     const useFullAnalysis = true;
 
     // 1. Parse CV into structured CVMetadata format (ONLY parsing needed)
-    console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${cvText.length} chars)...`);
+    console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${safeCvText.length} chars, maskerat)...`);
     const structuredParsingResult = await geminiGenerateJSON({
       model: GEMINI_MODELS.fast,
       systemInstruction: 'Du är en CV-parser. Extrahera ALL information från CV:t och returnera som strukturerad JSON. Var EXTREMT noggrann med att bevara all text och formatering.',
-      prompt: `Parsa detta CV till strukturerad JSON:\n\n${cvText}\n\nReturnera JSON med EXAKT detta format:\n{\n  "personalInfo": {\n    "fullName": string,\n    "email": string,\n    "phone": string,\n    "address": string,\n    "linkedin": string\n  },\n  "summary": string,\n  "experience": [{\n    "position": string,\n    "company": string,\n    "location": string,\n    "startDate": string,\n    "endDate": string (eller null om nuvarande),\n    "description": string[]\n  }],\n  "education": [{\n    "degree": string,\n    "institution": string,\n    "graduationYear": string,\n    "description": string\n  }],\n  "skills": [{\n    "category": string,\n    "skills": string[]\n  }],\n  "languages": [{\n    "language": string,\n    "proficiency": string\n  }],\n  "certifications": [{\n    "name": string,\n    "issuer": string,\n    "date": string\n  }],\n  "references": string\n}\n\nVIKTIGT: Bevara ALL originaltext. Description-fält ska vara arrays med meningar/punkter.`,
+      prompt: `Parsa detta CV till strukturerad JSON:\n\n${safeCvText}\n\nReturnera JSON med EXAKT detta format:\n{\n  "personalInfo": {\n    "linkedin": string\n  },\n  "summary": string,\n  "experience": [{\n    "position": string,\n    "company": string,\n    "location": string,\n    "startDate": string,\n    "endDate": string (eller null om nuvarande),\n    "description": string[]\n  }],\n  "education": [{\n    "degree": string,\n    "institution": string,\n    "graduationYear": string,\n    "description": string\n  }],\n  "skills": [{\n    "category": string,\n    "skills": string[]\n  }],\n  "languages": [{\n    "language": string,\n    "proficiency": string\n  }],\n  "certifications": [{\n    "name": string,\n    "issuer": string,\n    "date": string\n  }],\n  "references": string\n}\n\nVIKTIGT: Bevara ALL originaltext. Description-fält ska vara arrays med meningar/punkter.`,
       temperature: 0.2,
       maxOutputTokens: 6000,
       thinkingBudget: 0,
@@ -411,7 +443,7 @@ atsImpact (1-5):
       const generalResponse = await geminiGenerateJSON({
         model: GEMINI_MODELS.quality,
         systemInstruction: 'Du är en CV-expert. Ge konkreta allmänna förbättringsförslag för struktur, formatering, certifieringar och språk. Var ALLTID specifik och ge minst 3-5 förbättringsförslag.',
-        prompt: `Ge allmänna förbättringsförslag för detta CV:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`,
+        prompt: `Ge allmänna förbättringsförslag för detta CV:\n\n${safeCvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`,
         temperature: 0.6,
         maxOutputTokens: 3000,
         thinkingBudget: 0,
@@ -453,8 +485,6 @@ atsImpact (1-5):
       period: `${exp.startDate} - ${exp.endDate || 'Nuvarande'}`
     }));
 
-    // NEW: Add structured CV data to result
-    analysisResult.structuredCV = structuredCV;
 
     // NEW: Generate formatted preview text from structured CV
     console.log(`[Job ${jobId}] Generating formatted preview text...`);
@@ -467,7 +497,31 @@ atsImpact (1-5):
       thinkingBudget: 0,
     });
 
-    const formattedPreview = previewResult.text;
+    // Formateringsanropet ovan såg bara platshållare. Nu, efter att alla
+    // modellanrop är gjorda, sätts de lokalt extraherade uppgifterna
+    // tillbaka: dels i personalInfo så CV-byggaren får samma fält som
+    // förut, dels i förhandsvisningstexten så användaren ser sina egna
+    // uppgifter och inte [NAMN].
+    const localAddress = [localContact.address, localContact.postalCode, localContact.city]
+      .filter(Boolean)
+      .join(", ");
+
+    structuredCV.personalInfo = {
+      ...(structuredCV.personalInfo || {}),
+      fullName: knownName || localContact.fullName,
+      email: localContact.email,
+      phone: localContact.phone,
+      address: localAddress,
+      linkedin: structuredCV.personalInfo?.linkedin || localContact.linkedIn || "",
+    };
+    analysisResult.structuredCV = structuredCV;
+
+    const formattedPreview = restorePlaceholders(previewResult.text, {
+      name: knownName || localContact.fullName,
+      email: localContact.email,
+      phone: localContact.phone,
+      address: localAddress,
+    });
     analysisResult.formattedPreview = formattedPreview;
     console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
 

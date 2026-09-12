@@ -116,18 +116,19 @@ export default function NotificationBell() {
     <div className="relative" ref={ref}>
       <button
         type="button"
+        className="relative touch-manipulation h-11 w-11 flex items-center justify-center rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
         onClick={() => setOpen((v) => !v)}
-        className="relative touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-orange-100 hover:border-orange-200 hover:bg-orange-50/40 transition-all"
         aria-label={unread > 0 ? `Notiser, ${unread} olästa` : 'Notiser'}
       >
-        <Bell className="w-[18px] h-[18px] text-neutral-600" strokeWidth={2.25} />
+        <Bell className="w-5 h-5" strokeWidth={2} />
+        {/* Diskret prick i stället för sifferbadge: antalet olästa är inte
+            en siffra användaren agerar på, bara ett tecken på att något nytt
+            finns. Enighetsprotokollet, headern. */}
         {unread > 0 && (
           <span
-            className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full text-white text-xs font-semibold flex items-center justify-center"
-            style={{ background: '#EA580C' }}
-          >
-            {unread > 9 ? '9+' : unread}
-          </span>
+            aria-hidden="true"
+            className="absolute top-2 right-2 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+          />
         )}
       </button>
 

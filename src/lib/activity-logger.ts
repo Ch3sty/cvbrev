@@ -35,6 +35,7 @@ export type ActivityType =
   | 'cv_parsing_started'            // CV-parsing startades
   | 'cv_parsing_completed'          // CV-parsing slutfördes
   | 'cv_parsing_failed'             // CV-parsing misslyckades
+  | 'anonymization_failed'          // Maskering lamnade kvar personuppgifter fore AI-anrop
   | 'cv_improvement_started'        // CV-förbättring startades
   | 'cv_improvement_completed'      // CV-förbättring slutfördes
   | 'cv_improvement_failed'         // CV-förbättring misslyckades

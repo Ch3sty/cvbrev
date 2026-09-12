@@ -87,16 +87,17 @@ export default function MessagesHeaderButton() {
             : 'Meddelanden från rekryterare'
         }
         title="Meddelanden från rekryterare"
-        className="relative touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50/60 text-indigo-600 hover:bg-indigo-100 hover:border-indigo-200 transition-all"
+        className="relative touch-manipulation h-11 w-11 flex items-center justify-center rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
       >
-        <MessageSquare className="w-[18px] h-[18px]" strokeWidth={2.25} />
+        <MessageSquare className="w-5 h-5" strokeWidth={2} />
+        {/* Samma diskreta prick som klockan. Den blå rutan gjorde ikonen till
+            en egen färgyta i en header som ska vara neutral, och siffran var
+            ett antal man ändå inte agerar på. */}
         {badge > 0 && (
           <span
-            className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full text-white text-xs font-semibold flex items-center justify-center"
-            style={{ background: '#4F46E5' }}
-          >
-            {badge > 9 ? '9+' : badge}
-          </span>
+            aria-hidden="true"
+            className="absolute top-2 right-2 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+          />
         )}
       </Link>
 

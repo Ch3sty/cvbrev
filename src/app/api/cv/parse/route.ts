@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
+import { maskForModel } from '@/lib/privacy/pii';
+import { extractContactLocally } from '@/lib/privacy/extractContact';
 import type { CVMetadata } from '@/lib/cv/cv-metadata';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
@@ -132,9 +134,22 @@ export async function parseCVWithAIServerSide(
   userId?: string
 ): Promise<AIParseResult> {
   const startTime = Date.now();
-  
+
+  // Kontaktuppgifterna extraheras LOKALT med regex och heuristik, aldrig av
+  // modellen. Parsningens enda skäl att se dem var att vi bad om dem i
+  // schemat, och ett e-postfält behöver ingen språkmodell. Se
+  // src/lib/privacy/extractContact.ts och testerna i cv-parser/__tests__.
+  const localContact = extractContactLocally(cvText);
+
+  // Texten som skickas vidare maskeras med samma modul som brev och analys.
+  // Namnet från den lokala extraktionen gör maskeringen exakt.
+  const maskedCv = maskForModel(cvText, {
+    fullName: localContact.fullName || null,
+    maskUrls: false, // LinkedIn och portfolio är yrkesinformation, inte PII.
+  }).text;
+
   // Begränsa input för att hålla kostnader nere
-  const truncatedCV = cvText.substring(0, 8000);
+  const truncatedCV = maskedCv.substring(0, 8000);
   const modelToUse = GEMINI_MODELS.fast; // Extraktion: snabb och billig modell räcker
 
   const systemPrompt = `
@@ -144,10 +159,6 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
 
 {
   "personalInfo": {
-    "fullName": "Fullständigt namn från CV:t",
-    "email": "E-postadress",
-    "phone": "Telefonnummer (formaterat som +46... eller 07...)",
-    "address": "Adress/ort om tillgänglig",
     "linkedIn": "LinkedIn URL om den finns",
     "website": "Personlig webbsida om den finns",
     "github": "GitHub URL om den finns",
@@ -302,16 +313,22 @@ VIKTIGA INSTRUKTIONER:
     const processingTime = Date.now() - startTime;
 
     // Konvertera till CVMetadata format och lägg till extra metadata
+    // Kontaktuppgifterna kommer från den lokala extraktionen, inte från
+    // modellen. Resten av appen (backfillContact, CV-byggaren) läser samma
+    // fält som förut, så kontraktet utåt är oförändrat.
     const cvData: CVMetadata = {
-      personalInfo: parsedData.personalInfo || {
-        fullName: '',
-        email: '',
-        phone: '',
-        address: '',
-        linkedIn: '',
-        website: '',
-        github: '',
-        title: ''
+      personalInfo: {
+        ...(parsedData.personalInfo || {}),
+        fullName: localContact.fullName,
+        email: localContact.email,
+        phone: localContact.phone,
+        address: [localContact.address, localContact.postalCode, localContact.city]
+          .filter(Boolean)
+          .join(', '),
+        linkedIn: parsedData.personalInfo?.linkedIn || localContact.linkedIn || '',
+        website: parsedData.personalInfo?.website || '',
+        github: parsedData.personalInfo?.github || '',
+        title: parsedData.personalInfo?.title || '',
       },
       summary: parsedData.summary || '',
       experience: parsedData.experience || [],
