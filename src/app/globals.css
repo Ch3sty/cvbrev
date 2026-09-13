@@ -94,6 +94,53 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
+/* Bannern ritas av react-cookie-consent med inline-stilar: gradientknapp,
+   orange kant, orange länktext och en kaka i fyra orangetoner. På en publik
+   sida hör det hemma, inne i appen bryter det mot både gradientförbudet och
+   taket på tre orange element per skärm, på varje vy samtidigt. Samtycket
+   måste ändå gå att lämna, så bannern målas om i stället för att döljas. */
+html[data-app-surface='true'] .cookie-banner-container {
+  background: var(--panel) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-top: 1px solid var(--kant) !important;
+  box-shadow: none !important;
+  color: var(--ink-2) !important;
+}
+
+html[data-app-surface='true'] .cookie-banner-buttons button {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  min-height: 44px !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+/* Acceptera är vyns enda fyllda knapp här, alltså ink, aldrig gradient. */
+html[data-app-surface='true'] #rcc-confirm-button {
+  background: var(--ink-1) !important;
+  color: #fff !important;
+}
+
+html[data-app-surface='true'] #rcc-decline-button {
+  background: var(--panel) !important;
+  color: var(--ink-1) !important;
+  border: 1px solid var(--kant-stark) !important;
+}
+
+/* Kakan och "Läs mer" är de två sista orangea ytorna. Ikonen tonas till ink-2
+   och länken följer textknappen i avsnitt 2 i överlämningen. */
+html[data-app-surface='true'] .cookie-banner-content svg {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+html[data-app-surface='true'] .cookie-banner-content a {
+  color: var(--ink-1) !important;
+  text-decoration-color: var(--kant-stark) !important;
+  text-underline-offset: 4px;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));

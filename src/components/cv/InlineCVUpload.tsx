@@ -1,6 +1,6 @@
 'use client';
 import { useState, useCallback } from 'react';
-import { Upload, FileText, CheckCircle, AlertCircle, X, Loader2 } from 'lucide-react';
+import { Upload, FileText, X } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
 
@@ -76,17 +76,14 @@ export default function InlineCVUpload({
   }
 
   return (
-    <div className="bg-white rounded-xl border-2 border-neutral-200 p-6 motion-safe:animate-[fadeIn_200ms_ease-out_both]">
-      {/* Header */}
-      <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-6'}`}>
+    <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-4'}`}>
         {hideHeader ? (
           <span />
         ) : (
           <div>
-            <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-              Ladda upp ditt CV
-            </h3>
-            <p className="text-sm text-neutral-600">
+            <h3 className="text-kort text-ink-1">Ladda upp ditt CV</h3>
+            <p className="mt-1 text-sm text-ink-2">
               För att skapa personliga brev behöver vi ditt CV
             </p>
           </div>
@@ -94,151 +91,106 @@ export default function InlineCVUpload({
         {showCancel && onCancel && (
           <button
             onClick={onCancel}
-            className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+            aria-label="Avbryt"
+            className="rounded-lg p-2 text-ink-2 transition-colors hover:bg-insunken"
             disabled={uploading}
           >
-            <X className="w-5 h-5 text-neutral-400" />
+            <X className="h-5 w-5" strokeWidth={1.75} />
           </button>
         )}
       </div>
 
       {success ? (
-          <div
-            key="success"
-            className="text-center py-8 motion-safe:animate-[slideUp_200ms_ease-out_both]"
-          >
-            <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="w-8 h-8 text-emerald-500" />
+        <div key="success" className="py-8 text-center">
+          <p className="text-kort text-ink-1">CV:t är inläst</p>
+          <p className="mt-1 text-sm text-ink-2">Vi tittar igenom det åt dig.</p>
+        </div>
+      ) : (
+        <div key="upload">
+          {!selectedFile ? (
+            <div
+              {...getRootProps()}
+              className={`cursor-pointer rounded-lg border border-dashed p-6 text-center transition-colors ${
+                isDragActive
+                  ? 'border-ink-1 bg-insunken'
+                  : 'border-kant-stark bg-insunken shadow-insunken hover:border-ink-1'
+              }`}
+            >
+              <input {...getInputProps()} />
+              <div className="flex flex-col items-center">
+                <Upload className="h-6 w-6 text-ink-2" strokeWidth={1.75} />
+                <p className="mt-3 text-sm font-medium text-ink-1">
+                  {isDragActive ? 'Släpp filen här' : 'Dra och släpp ditt CV här'}
+                </p>
+                <p className="mt-1 text-meta text-ink-3">eller klicka för att välja fil</p>
+                <p className="mt-3 text-meta text-ink-3">PDF, Word eller text. Max 5 MB.</p>
+              </div>
             </div>
-            <h4 className="text-lg font-semibold text-neutral-900 mb-2">
-              CV:t är inläst
-            </h4>
-            <p className="text-sm text-neutral-600">
-              Vi tittar igenom det åt dig.
-            </p>
-          </div>
-        ) : (
-          <div key="upload" className="motion-safe:animate-[fadeIn_150ms_ease-out_both]">
-            {/* Dropzone */}
-            {!selectedFile ? (
-              <div
-                {...getRootProps()}
-                className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
-                  isDragActive
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
-                }`}
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+                <FileText className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-ink-1">{selectedFile.name}</p>
+                  <p className="text-meta text-ink-3">{(selectedFile.size / 1024).toFixed(1)} KB</p>
+                </div>
+                {!uploading && (
+                  <button
+                    onClick={() => setSelectedFile(null)}
+                    aria-label="Ta bort filen"
+                    className="flex-shrink-0 rounded-lg p-2 text-ink-2 transition-colors hover:bg-panel"
+                  >
+                    <X className="h-4 w-4" strokeWidth={1.75} />
+                  </button>
+                )}
+              </div>
+
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-kant bg-panel p-3">
+                <input
+                  type="checkbox"
+                  checked={gdprAccepted}
+                  onChange={(e) => setGdprAccepted(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-kant-stark accent-[color:var(--ink-1)] focus:ring-1 focus:ring-ink-1"
+                  disabled={uploading}
+                />
+                <span className="flex-1 text-sm text-ink-2">
+                  Jag samtycker till att mitt CV behandlas enligt{' '}
+                  <a
+                    href="/gdpr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+                  >
+                    GDPR-riktlinjerna
+                  </a>
+                  . Ditt CV används bara för att skapa brev och analyser åt dig. Vi delar det
+                  aldrig med tredje part.
+                </span>
+              </label>
+
+              {error && (
+                <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3">
+                  <p className="text-sm text-fel">{error}</p>
+                </div>
+              )}
+
+              <button
+                onClick={handleUpload}
+                disabled={!gdprAccepted || uploading}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
               >
-                <input {...getInputProps()} />
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-                    <Upload className="w-8 h-8 text-blue-500" />
-                  </div>
-                  <p className="text-sm font-medium text-neutral-900 mb-1">
-                    {isDragActive
-                      ? 'Släpp filen här...'
-                      : 'Dra och släpp ditt CV här'}
-                  </p>
-                  <p className="text-xs text-neutral-500 mb-4">
-                    eller klicka för att välja fil
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
-                      PDF
-                    </span>
-                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
-                      Word
-                    </span>
-                    <span className="px-3 py-1 bg-neutral-100 rounded-full text-xs text-neutral-600">
-                      Text
-                    </span>
-                  </div>
-                  <p className="text-xs text-neutral-400 mt-2">Max 5MB</p>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {/* Selected file */}
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-blue-50 border border-blue-200">
-                  <FileText className="w-10 h-10 text-blue-500 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-neutral-900 truncate">
-                      {selectedFile.name}
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      {(selectedFile.size / 1024).toFixed(1)} KB
-                    </p>
-                  </div>
-                  {!uploading && (
-                    <button
-                      onClick={() => setSelectedFile(null)}
-                      className="p-2 hover:bg-blue-100 rounded-lg transition-colors flex-shrink-0"
-                    >
-                      <X className="w-4 h-4 text-neutral-600" />
-                    </button>
-                  )}
-                </div>
+                {uploading ? 'Laddar upp...' : 'Ladda upp CV'}
+              </button>
 
-                {/* GDPR Consent */}
-                <label className="flex items-start gap-3 p-4 rounded-xl bg-neutral-50 border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={gdprAccepted}
-                    onChange={(e) => setGdprAccepted(e.target.checked)}
-                    className="mt-1 w-4 h-4 text-blue-500 border-neutral-300 rounded focus:ring-blue-500"
-                    disabled={uploading}
-                  />
-                  <span className="text-sm text-neutral-700 flex-1">
-                    Jag samtycker till att mitt CV behandlas enligt{' '}
-                    <a
-                      href="/gdpr"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      GDPR-riktlinjerna
-                    </a>
-                    . Ditt CV kommer endast att användas för att skapa personliga brev och
-                    analyser åt dig. Vi delar aldrig din information med tredje part.
-                  </span>
-                </label>
-
-                {/* Error message */}
-                {error && (
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-200 motion-safe:animate-[slideUp_180ms_ease-out_both]">
-                    <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-red-700 flex-1">{error}</p>
-                  </div>
-                )}
-
-                {/* Upload button */}
-                <button
-                  onClick={handleUpload}
-                  disabled={!gdprAccepted || uploading}
-                  className="w-full py-3 px-6 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                >
-                  {uploading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Laddar upp...
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="w-5 h-5" />
-                      Ladda upp CV
-                    </>
-                  )}
-                </button>
-
-                {subscriptionTier === 'free' && (
-                  <p className="text-xs text-center text-neutral-500">
-                    Som gratisanvändare kan du ladda upp upp till 2 CV. Uppgradera till Premium för obegränsade CV:n.
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        )}
+              {subscriptionTier === 'free' && (
+                <p className="text-center text-meta text-ink-3">
+                  Som gratisanvändare kan du ladda upp två CV. Premium ger obegränsat.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

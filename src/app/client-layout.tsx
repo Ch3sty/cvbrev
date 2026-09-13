@@ -54,6 +54,18 @@ export default function ClientLayout({
   const isAppSurface =
     pathname?.startsWith('/dashboard') || pathname?.startsWith('/rekryterare');
 
+  // Cookie-bannern renderas av ett tredjepartsbibliotek med inline-stilar, så
+  // den kan inte få Tråden-tokens via props. Vi märker rotelementet i stället
+  // och målar om bannern i globals.css när användaren står på en appyta.
+  // Bannern tas aldrig bort: samtycket måste gå att lämna även för den som
+  // registrerar sig och aldrig återvänder till en publik sida.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isAppSurface) root.setAttribute('data-app-surface', 'true');
+    else root.removeAttribute('data-app-surface');
+    return () => root.removeAttribute('data-app-surface');
+  }, [isAppSurface]);
+
   // Körs EN gång när komponenten monteras
   useEffect(() => {
     const consentValue = getCookieConsentValue(COOKIE_NAME);
