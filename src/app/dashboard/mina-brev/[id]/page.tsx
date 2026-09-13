@@ -1,20 +1,37 @@
 'use client';
 
+/**
+ * Ett sparat brev (docs/design/overlamning-opus.md, avsnitt 4, "Lista" och
+ * "Flödessteg").
+ *
+ * PageHeader är sidans enda h1 och bär primärhandlingen (Redigera). Övriga
+ * handlingar är sekundära knappar i en panel. Brevet självt ligger på papper
+ * (bg-white), vilket är specens enda tillåtna undantag från bg-panel.
+ * Borttagning går genom ConfirmDialog, felet genom FlowError, laddningen
+ * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
+ */
+
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import {
-  ArrowLeft, Edit, Trash2, Loader2, AlertTriangle,
-  Building2, Briefcase, Clock, Calendar, Copy, Check,
-  ZoomIn, ZoomOut, Palette,
-} from 'lucide-react';
 
-import DownloadButton from '@/components/letters/download-button';
+import PageHeader from '@/components/shell/PageHeader';
+import FlowError from '@/components/shell/FlowError';
+import StatusRow from '@/components/shell/StatusRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
+
+const PRIMARY =
+  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
+const SECONDARY =
+  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+const DESTRUKTIV =
+  'inline-flex h-11 items-center justify-center rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+const LINK =
+  'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
 export default function ViewLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -24,8 +41,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   // A1: servern svarade 402 på nedladdningen. Brevet står kvar i sin helhet,
   // betalväggen läggs under det.
   const [downloadGate, setDownloadGate] = useState(false);
-  const [zoom, setZoom] = useState(1.0);
-  const previewRef = useRef<HTMLDivElement>(null);
+  const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
+  const [downloadError, setDownloadError] = useState<string | null>(null);
 
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -44,14 +61,6 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     }
   }, [id, currentLetter, getLetter]);
 
-  const handleEdit = () => {
-    router.push(`/dashboard/mina-brev/${id}/edit`);
-  };
-
-  const handleDeleteRequest = () => setShowDeleteConfirm(true);
-  const cancelDeleteAction = () => {
-    if (!isDeleting) setShowDeleteConfirm(false);
-  };
   const confirmDeleteAction = async () => {
     if (await removeLetter(id)) {
       router.push('/dashboard/mina-brev');
@@ -64,6 +73,52 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       await navigator.clipboard.writeText(currentLetter.content.replace(/<[^>]*>/g, ''));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  /* Samma anrop som skapa brev gör i sitt sista steg. Vi kallar API:t direkt
+     i stället för den gamla DownloadButton, som bär sin egen mörka stil. */
+  const handleDownload = async (format: 'pdf' | 'docx') => {
+    if (!currentLetter?.content) return;
+    setDownloading(format);
+    setDownloadError(null);
+    try {
+      const response = await fetch('/api/letters/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: currentLetter.content,
+          format,
+          title: currentLetter.title || 'Ansökningsbrev',
+          company: currentLetter.company || '',
+          position: currentLetter.job_title || '',
+          template: currentLetter.template_id || undefined,
+        }),
+      });
+
+      // A1: 402 betyder att filen kräver Premium. Brevet syns fortfarande i
+      // sin helhet, betalväggen läggs under det.
+      if (response.status === 402) {
+        setDownloadGate(true);
+        return;
+      }
+
+      if (!response.ok) {
+        setDownloadError('Filen kunde inte skapas. Försök igen om en stund.');
+        return;
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `personligt-brev.${format}`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      setDownloadError('Filen kunde inte skapas. Försök igen om en stund.');
+    } finally {
+      setDownloading(null);
     }
   };
 
@@ -89,67 +144,30 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       .join('');
   };
 
-  // Sidspecifik bakgrund
-  const PageBackground = (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10"
-      style={{
-        background: '#FFFFFF',
-      }}
-    />
-  );
-
-  /* isLoading startar som false och currentLetter som null, så villkoret för
-     felvyn var sant redan på första renderingen: felkortet blinkade förbi
-     innan hämtningen ens hunnit börja, och byttes sedan mot skelettet. Det
-     kostade 0,0055 i CLS. Felvyn får bara visas när ett försök faktiskt är
-     gjort och avslutat. */
+  /* Identiskt med loading.tsx, så bytet inte flyttar något. */
   if (!harForsokt || (isLoading && !currentLetter)) {
     return (
-      <>
-        {PageBackground}
-        {/* Skelett i stället för en centrerad spinner. Spinnern satt mitt i
-            en 60vh-yta och byttes mot innehåll av annan höjd, vilket mätte
-            0,089 i CLS. Skelettet har brevkortets form, så bytet flyttar
-            ingenting. */}
-        <div className="space-y-4 animate-pulse" aria-busy="true" aria-label="Laddar brev">
-          <div className="h-10 w-48 rounded-lg bg-neutral-100" />
-          <div className="rounded-xl border border-neutral-200 bg-white h-[520px]" />
-          <div className="h-11 w-full sm:w-64 rounded-xl bg-neutral-100" />
-        </div>
-      </>
+      <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+        <div className="h-8 w-48 rounded bg-insunken" />
+        <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
+        <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+      </div>
     );
   }
 
   if (error || (!isLoading && !currentLetter)) {
     return (
-      <>
-        {PageBackground}
-        <div className="max-w-lg mx-auto px-4 py-8">
-          <div className="bg-white rounded-xl border border-red-200 p-6">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-5 h-5 text-red-600" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-neutral-900 mb-1">Brevet kunde inte hittas</h4>
-                <p className="text-neutral-600 text-sm mb-4">
-                  {error || 'Brevet finns inte eller har tagits bort.'}
-                </p>
-                <Link
-                  href="/dashboard/mina-brev"
-                  className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-xl"
-                  style={{ background: '#EA580C' }}
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Tillbaka till mina brev
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
+      <div className="mx-auto max-w-lg">
+        <FlowError
+          title="Brevet kunde inte hittas"
+          message={error || 'Brevet finns inte eller har tagits bort.'}
+          secondaryAction={
+            <Link href="/dashboard/mina-brev" className={LINK}>
+              Tillbaka till mina brev
+            </Link>
+          }
+        />
+      </div>
     );
   }
 
@@ -161,297 +179,137 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       ? DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name
       : null;
 
+  const skapad = currentLetter.created_at
+    ? new Date(currentLetter.created_at).toLocaleDateString('sv-SE', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : null;
+  const uppdaterad =
+    currentLetter.updated_at &&
+    currentLetter.created_at &&
+    new Date(currentLetter.updated_at) > new Date(currentLetter.created_at)
+      ? new Date(currentLetter.updated_at).toLocaleDateString('sv-SE', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : null;
+
+  // En rad i stället för taggpiller: företag, tjänst och mall står som meta.
+  const beskrivning = [currentLetter.company, currentLetter.job_title, templateName]
+    .filter(Boolean)
+    .join(' · ');
+
+  const html = isTemplateHTML(currentLetter.content || '');
+
   return (
-    <>
-      {PageBackground}
-
-      <div className="max-w-5xl mx-auto pb-16 space-y-5">
-        {/* Kompakt breadcrumb-header */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-3"
-        >
-          <Link
-            href="/dashboard/mina-brev"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-orange-700 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
-            <span className="uppercase tracking-[0.14em]">Mina brev</span>
+    <div className="mx-auto max-w-3xl space-y-4 pb-16">
+      <PageHeader
+        title={currentLetter.title || 'Ansökningsbrev'}
+        description={beskrivning || undefined}
+        action={
+          <Link href={`/dashboard/mina-brev/${id}/edit`} className={PRIMARY}>
+            Redigera
           </Link>
+        }
+      >
+        <Link href="/dashboard/mina-brev" className={`${LINK} mt-2`}>
+          Alla dina brev
+        </Link>
+      </PageHeader>
 
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
-              Personligt brev
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight">
-              {currentLetter.title || 'Ansökningsbrev'}
-            </h1>
-          </div>
+      {copied ? (
+        <StatusRow tone="positive" showDot label="Texten är kopierad">
+          Texten är kopierad.
+        </StatusRow>
+      ) : null}
 
-          {/* Taggar */}
-          <div className="flex flex-wrap gap-1.5">
-            {currentLetter.company && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
-                <Building2 className="w-3 h-3" strokeWidth={2.5} />
-                {currentLetter.company}
-              </span>
-            )}
-            {currentLetter.job_title && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
-                <Briefcase className="w-3 h-3" strokeWidth={2.5} />
-                {currentLetter.job_title}
-              </span>
-            )}
-            {templateName && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-50 text-neutral-700 border border-neutral-200 text-xs font-semibold">
-                <Palette className="w-3 h-3" strokeWidth={2.5} />
-                {templateName}
-              </span>
-            )}
-          </div>
-        </motion.div>
+      {downloadError ? (
+        <FlowError message={downloadError} onRetry={() => setDownloadError(null)} retryLabel="Stäng" />
+      ) : null}
 
-        {/* Verktygsfält */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.05 }}
-          className="bg-white rounded-xl border border-orange-200/50 p-3 sm:p-4"
-          >
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            {/* Zoom */}
-            <div className="flex items-center gap-1 self-center sm:self-auto">
-              <button
-                onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="Zooma ut"
-              >
-                <ZoomOut className="w-4 h-4" strokeWidth={2.5} />
-              </button>
-              <span className="text-sm font-semibold text-neutral-700 min-w-[52px] text-center">
-                {Math.round(zoom * 100)}%
-              </span>
-              <button
-                onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
-                className="p-2 text-neutral-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="Zooma in"
-              >
-                <ZoomIn className="w-4 h-4" strokeWidth={2.5} />
-              </button>
-            </div>
-
-            {/* Knappar */}
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={handleEdit}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white text-sm font-semibold shadow-sm transition-shadow min-h-[44px]"
-                style={{ background: '#EA580C' }}
-              >
-                <Edit className="w-4 h-4" strokeWidth={2.5} />
-                Redigera
-              </button>
-              <button
-                onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-neutral-700 bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-sm font-semibold transition-colors min-h-[44px]"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
-                    Kopierat
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" strokeWidth={2.5} />
-                    Kopiera text
-                  </>
-                )}
-              </button>
-              <DownloadButton
-                format="pdf"
-                letterContent={currentLetter.content || ''}
-                metadata={{
-                  title: currentLetter.title || undefined,
-                  company: currentLetter.company || undefined,
-                  position: currentLetter.job_title || undefined,
-                }}
-                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[44px] !rounded-lg"
-                showTemplateSelector={false}
-                showPreview={false}
-                onPremiumRequired={() => setDownloadGate(true)}
-              />
-              <DownloadButton
-                format="docx"
-                letterContent={currentLetter.content || ''}
-                metadata={{
-                  title: currentLetter.title || undefined,
-                  company: currentLetter.company || undefined,
-                  position: currentLetter.job_title || undefined,
-                }}
-                className="!px-3.5 !py-2 !text-sm !font-semibold !min-h-[44px] !rounded-lg"
-                showTemplateSelector={false}
-                showPreview={false}
-                onPremiumRequired={() => setDownloadGate(true)}
-              />
-              <button
-                onClick={handleDeleteRequest}
-                disabled={isDeleting}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 text-sm font-semibold transition-colors min-h-[44px] disabled:opacity-50"
-              >
-                {isDeleting ? (
-                  <Loader2 className="w-4 h-4 animate-spin" strokeWidth={2.5} />
-                ) : (
-                  <Trash2 className="w-4 h-4" strokeWidth={2.5} />
-                )}
-                <span className="hidden sm:inline">Ta bort</span>
-              </button>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Brev-förhandsvisning */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-white rounded-xl border border-orange-200/50 overflow-hidden"
-          >
-          <div
-            ref={previewRef}
-            className="w-full"
-            style={{
-              transform: `scale(${zoom})`,
-              transformOrigin: 'top center',
-              transition: 'transform 0.2s ease',
-            }}
-          >
-            {isTemplateHTML(currentLetter.content || '') ? (
-              <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
-                <div
-                  className={BREV_SCOPE}
-                  dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
-                />
-              </div>
-            ) : (
-              <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
-                <div className="max-w-2xl mx-auto">
-                  <div
-                    className="prose prose-slate"
-                    style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
-                    dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* A1: betalvägg under det fullt synliga brevet */}
-        {downloadGate && (
-          <PaywallCard
-            variant="nedladdning"
-            onCopy={() => {
-              navigator.clipboard?.writeText(currentLetter.content || '');
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}
-          />
-        )}
-
-        {/* Metainfo */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-neutral-500 px-1"
+      {/* Handlingar. Primärhandlingen bor i sidhuvudet, de här är sekundära. */}
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+        <button type="button" onClick={handleCopy} className={SECONDARY}>
+          {copied ? 'Kopierat' : 'Kopiera text'}
+        </button>
+        <button
+          type="button"
+          onClick={() => handleDownload('pdf')}
+          disabled={downloading !== null}
+          className={SECONDARY}
         >
-          <div className="inline-flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-orange-500" strokeWidth={2.5} />
-            <span>
-              Skapad{' '}
-              <span className="text-neutral-700 font-semibold">
-                {currentLetter.created_at
-                  ? new Date(currentLetter.created_at).toLocaleDateString('sv-SE', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })
-                  : 'okänt'}
-              </span>
-            </span>
-          </div>
-          {currentLetter.updated_at &&
-            currentLetter.created_at &&
-            new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
-              <div className="inline-flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-emerald-500" strokeWidth={2.5} />
-                <span>
-                  Uppdaterad{' '}
-                  <span className="text-neutral-700 font-semibold">
-                    {new Date(currentLetter.updated_at).toLocaleDateString('sv-SE', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </span>
-              </div>
-            )}
-        </motion.div>
+          {downloading === 'pdf' ? 'Skapar PDF' : 'Ladda ner PDF'}
+        </button>
+        <button
+          type="button"
+          onClick={() => handleDownload('docx')}
+          disabled={downloading !== null}
+          className={SECONDARY}
+        >
+          {downloading === 'docx' ? 'Skapar Word' : 'Ladda ner Word'}
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowDeleteConfirm(true)}
+          disabled={isDeleting}
+          className={DESTRUKTIV}
+        >
+          {isDeleting ? 'Tar bort' : 'Ta bort'}
+        </button>
       </div>
 
-      {/* Bekräftelsedialog */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-xl max-w-md w-full"
-          >
-            <div className="p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                  <AlertTriangle className="w-5 h-5 text-red-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-neutral-900 mb-1">Ta bort brevet?</h3>
-                  <p className="text-neutral-600 text-sm">
-                    Brevet "{currentLetter?.title || 'Namnlöst'}" kommer att raderas permanent och
-                    kan inte återställas.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="px-6 pb-6 flex gap-3 justify-end">
-              <button
-                onClick={cancelDeleteAction}
-                disabled={isDeleting}
-                className="px-4 py-2 text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors text-sm font-semibold disabled:opacity-50"
-              >
-                Avbryt
-              </button>
-              <button
-                onClick={confirmDeleteAction}
-                disabled={isDeleting}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors flex items-center gap-2 text-sm font-semibold disabled:opacity-50"
-              >
-                {isDeleting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Tar bort…
-                  </>
-                ) : (
-                  <>
-                    <Trash2 className="w-4 h-4" />
-                    Ta bort
-                  </>
-                )}
-              </button>
-            </div>
-          </motion.div>
-        </div>
+      {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
+      <div className="overflow-hidden rounded-xl border border-kant bg-white">
+        {html ? (
+          <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
+            <div
+              className={BREV_SCOPE}
+              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+            />
+          </div>
+        ) : (
+          <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
+            <div
+              className="mx-auto max-w-2xl text-ink-1"
+              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* A1: betalvägg under det fullt synliga brevet */}
+      {downloadGate && (
+        <PaywallCard
+          variant="nedladdning"
+          onCopy={() => {
+            navigator.clipboard?.writeText(currentLetter.content || '');
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
+        />
       )}
-    </>
+
+      {(skapad || uppdaterad) && (
+        <p className="text-meta text-ink-3">
+          {skapad ? `Skapad ${skapad}` : null}
+          {skapad && uppdaterad ? ' · ' : null}
+          {uppdaterad ? `Uppdaterad ${uppdaterad}` : null}
+        </p>
+      )}
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onCancel={() => setShowDeleteConfirm(false)}
+        onConfirm={confirmDeleteAction}
+        title="Ta bort brevet?"
+        description={`Brevet ${currentLetter.title || 'Namnlöst'} raderas permanent och kan inte återställas.`}
+        confirmLabel="Ta bort"
+        destructive
+      />
+    </div>
   );
 }

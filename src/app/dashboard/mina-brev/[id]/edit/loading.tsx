@@ -5,10 +5,10 @@
  */
 export default function RedigeraBrevLoading() {
   return (
-    <div className="space-y-4 animate-pulse" aria-busy="true" aria-label="Laddar brev">
-      <div className="h-10 w-48 rounded-lg bg-neutral-100" />
-      <div className="rounded-xl border border-neutral-200 bg-white h-[520px]" />
-      <div className="h-11 w-full sm:w-64 rounded-xl bg-neutral-100" />
+    <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+      <div className="h-8 w-48 rounded bg-insunken" />
+      <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
+      <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
     </div>
   );
 }

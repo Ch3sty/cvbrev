@@ -1,22 +1,29 @@
 'use client';
 
+/**
+ * Steg 4: hur ska brevet låta? (docs/design/rod-trad-preview.html, ram 3)
+ *
+ * Det rekommenderade valet är ett featured-kort med marginalplatta (vyns
+ * enda), "Rekommenderas" i bläck och beskrivningen bredvid. De manuella
+ * tonerna är plain-kort med naken ikon 24. Språket är ett segment. Val
+ * markeras med kant ink-1 och bock, aldrig med orange yta.
+ */
+
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import ChoiceCard from '@/components/shell/ChoiceCard';
+import Segment from '@/components/shell/Segment';
+import MarginPlate from '@/components/shell/MarginPlate';
+import { IlluPlattaSmartTon } from '@/components/illustrations/TradenScener';
 import {
-  Building2,
-  Wand2,
-  Lightbulb,
-  Trophy,
-  Scale,
-  Brain,
-  Languages,
-  Crown,
-  Lock,
-  Check,
-  CheckCircle2,
-} from 'lucide-react';
-import LetterFlowStepHeader from '../LetterFlowStepHeader';
-import SmartToneNetwork from '../illustrations/SmartToneNetwork';
+  IkonProfessionell,
+  IkonEntusiastisk,
+  IkonKreativ,
+  IkonSjalvsaker,
+  IkonBalanserad,
+  type IkonProps,
+} from '@/components/illustrations/Ikoner';
+import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
 
 type Tonality =
   | 'professional'
@@ -37,47 +44,53 @@ interface TonalityLanguageStepProps {
   registerRef?: (el: HTMLElement | null) => void;
 }
 
-const standardTonalityOptions = [
+const STANDARD_TONES: {
+  id: Tonality;
+  label: string;
+  description: string;
+  icon: (props: IkonProps) => React.JSX.Element;
+  recommendedFor: string;
+}[] = [
   {
-    id: 'professional' as Tonality,
+    id: 'professional',
     label: 'Professionell',
-    description: 'Formell och saklig ton',
-    icon: Building2,
+    description: 'Formell och saklig.',
+    icon: IkonProfessionell,
     recommendedFor: 'Traditionella branscher',
   },
   {
-    id: 'enthusiastic' as Tonality,
+    id: 'enthusiastic',
     label: 'Entusiastisk',
-    description: 'Energisk och passionerad',
-    icon: Wand2,
+    description: 'Energisk och varm.',
+    icon: IkonEntusiastisk,
     recommendedFor: 'Kreativa yrken, startups',
   },
   {
-    id: 'creative' as Tonality,
+    id: 'creative',
     label: 'Kreativ',
-    description: 'Innovativ och nytänkande',
-    icon: Lightbulb,
+    description: 'Nytänkande och personlig.',
+    icon: IkonKreativ,
     recommendedFor: 'Design, marknadsföring',
   },
   {
-    id: 'confident' as Tonality,
+    id: 'confident',
     label: 'Självsäker',
-    description: 'Betonar prestationer',
-    icon: Trophy,
+    description: 'Betonar dina resultat.',
+    icon: IkonSjalvsaker,
     recommendedFor: 'Chefsroller, sälj',
   },
   {
-    id: 'balanced' as Tonality,
+    id: 'balanced',
     label: 'Balanserad',
-    description: 'Mix av professionalitet och personlighet',
-    icon: Scale,
+    description: 'Professionell med personlighet.',
+    icon: IkonBalanserad,
     recommendedFor: 'De flesta tjänster',
   },
 ];
 
-const languageOptions = [
-  { id: 'sv' as Language, label: 'Svenska', flag: '🇸🇪' },
-  { id: 'en' as Language, label: 'English', flag: '🇬🇧' },
+const LANGUAGES: { value: Language; label: string }[] = [
+  { value: 'sv', label: 'Svenska' },
+  { value: 'en', label: 'English' },
 ];
 
 export default function TonalityLanguageStep({
@@ -86,7 +99,6 @@ export default function TonalityLanguageStep({
   onTonalityChange,
   onLanguageChange,
   isPremium,
-  isActive,
   registerRef,
 }: TonalityLanguageStepProps) {
   useEffect(() => {
@@ -97,264 +109,68 @@ export default function TonalityLanguageStep({
 
   const isAutoSelected = tonality === 'auto';
 
-  const FeaturedCard = () => {
-    const isLocked = !isPremium;
-
-    if (isLocked) {
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-xl border-2 border-dashed border-orange-300/70 bg-orange-50/40 p-5 sm:p-6"
-        >
-          <div className="flex items-start gap-4">
-            <div className="relative flex-shrink-0">
-              <div className="absolute inset-0 rounded-xl bg-orange-100" />
-              <div className="relative w-14 h-14 rounded-xl flex items-center justify-center bg-white border border-orange-200/70">
-                <Lock className="w-6 h-6 text-orange-600" strokeWidth={2.25} />
-              </div>
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <h5 className="font-bold text-neutral-900">Smart-anpassad</h5>
-                <div className="bg-neutral-900 text-white text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Crown className="w-3 h-3" />
-                  Premium
-                </div>
-              </div>
-              <p className="text-sm text-neutral-600 mb-3 leading-relaxed">
-                Vi matchar tonen mot företagets kultur och branschens förväntningar. Inte bara annonsen.
-              </p>
-              <a
-                href="/dashboard/installningar"
-                className="inline-flex items-center gap-1.5 px-4 rounded-xl text-white font-semibold text-sm min-h-[44px] bg-orange-600 hover:bg-orange-700"
-              >
-                <Crown className="w-4 h-4" />
-                Lås upp Premium
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      );
-    }
-
-    return (
-      <motion.button
-        type="button"
-        onClick={() => onTonalityChange('auto')}
-        className={`relative w-full overflow-hidden rounded-xl text-left transition-all bg-orange-600 ${
-          isAutoSelected ? 'ring-2 ring-orange-300' : ''
-        }`}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.99 }}
-        aria-pressed={isAutoSelected}
-      >
-        {/* Bakgrundsnätverk: visar att vi kopplar ihop tre datakällor */}
-        <SmartToneNetwork />
-
-        <div className="relative z-10 p-5 sm:p-7">
-          <div className="flex items-start gap-4">
-            <div className="relative flex-shrink-0">
-              {/* Pulserande ringar bakom Brain-ikonen */}
-              <motion.div
-                className="absolute inset-0 rounded-xl bg-white/30"
-                animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
-              />
-              <div className="relative w-14 h-14 rounded-xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                <Brain className="w-7 h-7 text-white" strokeWidth={2.25} />
-              </div>
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                <h5 className="font-bold text-lg sm:text-xl text-white tracking-tight">
-                  Smart-anpassad
-                </h5>
-                <motion.span
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="inline-flex items-center gap-1 bg-emerald-400/95 text-emerald-950 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
-                >
-                  <CheckCircle2 className="w-3 h-3" strokeWidth={3} />
-                  Rekommenderas
-                </motion.span>
-              </div>
-              <p className="text-sm sm:text-base text-white/90 mb-4 leading-relaxed max-w-xl">
-                Vi analyserar ditt CV, annonsen och företagets kultur. Sedan väljer vi tonen som ger högst chans till intervju.
-              </p>
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs sm:text-sm text-white/85">
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
-                  Djupanalys av krav
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
-                  Branschanpassad ton
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-300" strokeWidth={2.75} />
-                  Högre svarsfrekvens
-                </span>
-              </div>
-            </div>
-
-            {isAutoSelected && (
-              <motion.div
-                initial={{ scale: 0, rotate: -90 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-                className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0"
-              >
-                <Check className="w-5 h-5 text-orange-600" strokeWidth={3} />
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </motion.button>
-    );
-  };
-
-  const StandardCard = ({
-    option,
-  }: {
-    option: typeof standardTonalityOptions[0];
-  }) => {
-    const isSelected = tonality === option.id;
-    const Icon = option.icon;
-
-    return (
-      <motion.button
-        type="button"
-        onClick={() => onTonalityChange(option.id)}
-        className={`relative w-full rounded-xl border-2 transition-all text-left p-4 focus:outline-none ${
-          isSelected
-            ? 'border-orange-400 bg-orange-50/50'
-            : 'border-neutral-200 bg-white hover:border-orange-300'
-        }`}
-        whileHover={{ y: -1 }}
-        whileTap={{ scale: 0.98 }}
-        aria-pressed={isSelected}
-      >
-        <div className="flex items-start gap-3">
-          <Icon
-            className={`w-5 h-5 flex-shrink-0 ${isSelected ? 'text-orange-600' : 'text-neutral-500'}`}
-            strokeWidth={2.25}
-          />
-
-          <div className="flex-1 min-w-0">
-            <h5 className="font-bold text-neutral-900 text-sm">{option.label}</h5>
-            <p className="text-xs text-neutral-600 mt-0.5">
-              {option.description}
-            </p>
-            <p className="text-xs text-neutral-500 mt-1.5 flex items-center gap-1.5">
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={
-                  isSelected
-                    ? { background: '#F97316' }
-                    : { background: '#CBD5E1' }
-                }
-              />
-              {option.recommendedFor}
-            </p>
-          </div>
-
-          {isSelected && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-orange-600"
-            >
-              <Check className="w-4 h-4 text-white" strokeWidth={3} />
-            </motion.div>
-          )}
-        </div>
-      </motion.button>
-    );
-  };
-
   return (
-    <motion.section
-      ref={registerRef}
-      data-flow-section="tone"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-7"
-    >
-      <LetterFlowStepHeader
-        stepNumber={4}
-        title="Ton & språk"
-        description="Välj hur brevet ska låta."
-        isDone={!!tonality}
-        isActive={isActive}
-      />
+    <section ref={registerRef} data-flow-section="tone" className="space-y-4">
+      <div role="radiogroup" aria-label="Ton" className="space-y-2">
+        <ChoiceCard
+          variant="featured"
+          selected={isAutoSelected}
+          disabled={!isPremium}
+          onSelect={() => {
+            if (isPremium) onTonalityChange('auto');
+          }}
+          eyebrow={isPremium ? 'Rekommenderas' : undefined}
+          title="Smart-anpassad"
+          description="Vi läser ditt CV, annonsen och företagets ton, och väljer den som ger högst chans till intervju."
+          meta={isPremium ? 'Läser kraven · Branschens ton' : 'Ingår i Premium'}
+          leading={
+            <MarginPlate>
+              <IlluPlattaSmartTon size={48} />
+            </MarginPlate>
+          }
+        />
 
-      <div className="space-y-5">
-        <FeaturedCard />
+        {!isPremium ? (
+          <p className="text-meta text-ink-3">
+            Smart-anpassad ingår i Premium.{' '}
+            <Link
+              href={PREMIUM_HREF}
+              className="font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+            >
+              Se vad Premium kostar
+            </Link>
+          </p>
+        ) : null}
 
-        <div className="flex items-center gap-3 py-1">
-          <div className="flex-1 h-px bg-neutral-200" />
-          <span className="text-xs text-neutral-500 font-medium">
-            eller välj manuellt
-          </span>
-          <div className="flex-1 h-px bg-neutral-200" />
-        </div>
+        <p className="pt-2 text-sm font-medium text-ink-3">Eller välj själv</p>
 
-        <div className="grid sm:grid-cols-2 gap-3">
-          {standardTonalityOptions.map((option) => (
-            <StandardCard key={option.id} option={option} />
-          ))}
-        </div>
-
-        <div className="bg-neutral-50 rounded-xl p-4 border border-neutral-200 mt-2">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white border border-neutral-200 flex items-center justify-center flex-shrink-0">
-                <Languages className="w-5 h-5 text-neutral-600" />
-              </div>
-              <div className="min-w-0">
-                <h4 className="font-bold text-neutral-900 text-sm">
-                  Brevets språk
-                </h4>
-                <p className="text-xs text-neutral-500">
-                  Vilket språk ska brevet skrivas på?
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-2">
-              {languageOptions.map((lang) => {
-                const isSelected = language === lang.id;
-                return (
-                  <motion.button
-                    key={lang.id}
-                    type="button"
-                    onClick={() => onLanguageChange(lang.id)}
-                    className={`px-4 py-2.5 rounded-xl border-2 transition-all flex items-center gap-2 min-h-[44px] focus:outline-none ${
-                      isSelected
-                        ? 'border-orange-400 bg-orange-50'
-                        : 'border-neutral-200 bg-white hover:border-orange-300'
-                    }`}
-                    whileTap={{ scale: 0.95 }}
-                    aria-pressed={isSelected}
-                  >
-                    <span className="text-xl">{lang.flag}</span>
-                    <span className="font-semibold text-neutral-900 text-sm">
-                      {lang.label}
-                    </span>
-                    {isSelected && (
-                      <Check className="w-4 h-4 text-orange-600" strokeWidth={3} />
-                    )}
-                  </motion.button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        {STANDARD_TONES.map((tone) => {
+          const Icon = tone.icon;
+          return (
+            <ChoiceCard
+              key={tone.id}
+              variant="plain"
+              selected={tonality === tone.id}
+              onSelect={() => onTonalityChange(tone.id)}
+              title={tone.label}
+              description={tone.description}
+              meta={tone.recommendedFor}
+              leading={<Icon size={24} />}
+            />
+          );
+        })}
       </div>
-    </motion.section>
+
+      <div className="pt-1">
+        <p className="text-sm font-medium text-ink-1">Brevets språk</p>
+        <Segment
+          className="mt-2"
+          label="Språk"
+          value={language}
+          onChange={onLanguageChange}
+          options={LANGUAGES}
+        />
+      </div>
+    </section>
   );
 }

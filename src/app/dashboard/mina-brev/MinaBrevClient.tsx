@@ -1,5 +1,14 @@
 'use client';
 
+/**
+ * Mina brev, listvyn (docs/design/overlamning-opus.md, avsnitt 4, "Lista").
+ *
+ * PageHeader med primärhandlingen, kvotraden som StatusRow, sökfältet som
+ * insunket fält och breven som kort utan skugga. Tomt läge via EmptyState,
+ * borttagning via ConfirmDialog. Ingen rörelse, inga orange ytor, ingen egen
+ * sidbakgrund: marken kommer från skalet.
+ */
+
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -8,8 +17,6 @@ import type { Letter } from '@/store/letter-store';
 import { useProfile } from '@/hooks/use-profile';
 import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
 
 import LetterCard from './components/LetterCard';
 import LetterCardCompact from './components/LetterCardCompact';
@@ -18,6 +25,7 @@ import PageHeader from '@/components/shell/PageHeader';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomBrev } from '@/components/illustrations/EmptyStateIllustrations';
+import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
 
 // Syns inte i första vyn. Bekräftelsedialogen öppnas först vid borttagning och
 // notisen bara när något gått fel, så ingen av dem behöver ligga i den JS som
@@ -30,6 +38,11 @@ const Notification = dynamic(() => import('@/components/ui/notification'), {
 });
 
 const VIEW_MODE_STORAGE_KEY = 'minabrev_view_mode';
+
+const PRIMARY =
+  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover';
+const LINK =
+  'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
 export default function MinaBrevClient({
   initialLetters,
@@ -170,6 +183,9 @@ export default function MinaBrevClient({
     }
   };
 
+  // Nedladdningen bor på brevets egen sida, där formatet också kan gå i
+  // betalvägg. Menyvalen tar användaren dit i stället för att ladda ner
+  // blint från listan.
   const handleDownload = (letterId: string) => {
     router.push(`/dashboard/mina-brev/${letterId}`);
   };
@@ -208,140 +224,113 @@ export default function MinaBrevClient({
   };
 
   const totalCount = letters?.length || 0;
+  const harLasta =
+    effectiveMaxSavedLetters !== Infinity &&
+    hasReachedLetterLimit &&
+    totalCount > effectiveMaxSavedLetters;
 
   return (
-    <div className="relative">
-      {/* Sidspecifik bakgrund */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background: '#FFFFFF',
-        }}
+    <div className="mx-auto max-w-5xl space-y-4 pb-16">
+      <PageHeader
+        title="Dina personliga brev"
+        description="Läs, redigera och ladda ned de brev du har sparat."
+        action={
+          <Link href="/dashboard/skapa-brev" className={PRIMARY}>
+            Skapa nytt brev
+          </Link>
+        }
       />
 
-      <div className="max-w-6xl mx-auto pb-16 space-y-6 sm:space-y-7">
-        <PageHeader
-          title="Dina personliga brev"
-          description="Hantera, redigera och ladda ned dina sparade ansökningsbrev."
+      {/* Kvotraden: hur många brev som ryms på nivån. */}
+      {totalCount > 0 && (
+        <StatusRow
+          label="Dina brev"
           action={
-            <Link
-              href="/dashboard/skapa-brev"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
-            >
-              Skapa nytt brev
+            harLasta ? (
+              <Link href={PREMIUM_HREF} className={LINK}>
+                Se Premium
+              </Link>
+            ) : undefined
+          }
+        >
+          {effectiveMaxSavedLetters === Infinity
+            ? `${stats.total} brev, ${stats.thisMonth} den här månaden.`
+            : `${Math.min(totalCount, effectiveMaxSavedLetters)} av ${effectiveMaxSavedLetters} aktiva${
+                harLasta ? `, ${totalCount - effectiveMaxSavedLetters} låsta` : ''
+              }.`}
+        </StatusRow>
+      )}
+
+      {/* Sökfält och vyväljare */}
+      {totalCount > 0 && (
+        <div className="flex items-center gap-2">
+          <label className="relative flex-1">
+            <span className="sr-only">Sök bland dina brev</span>
+            <input
+              type="search"
+              placeholder="Sök på företag eller tjänst"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-sm text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+            />
+          </label>
+          <ViewToggle value={viewMode} onChange={handleViewModeChange} />
+        </div>
+      )}
+
+      {/* Lista */}
+      {totalCount === 0 ? (
+        <EmptyState
+          illustration={IlluTomBrev}
+          title="Inga brev än"
+          description="Klistra in en annons så skriver vi utkastet. Brevet hamnar här."
+          action={
+            <Link href="/dashboard/skapa-brev" className={PRIMARY}>
+              Skapa ditt första brev
             </Link>
           }
         />
-
-        {/* Status som rad: antal och hur många som ryms på nivån. */}
-        {totalCount > 0 && (
-          <StatusRow label="Dina brev">
-            {effectiveMaxSavedLetters === Infinity
-              ? `${stats.total} brev, ${stats.thisMonth} den här månaden.`
-              : `${stats.total} brev, ${Math.min(totalCount, effectiveMaxSavedLetters)} av ${effectiveMaxSavedLetters} aktiva${
-                  hasReachedLetterLimit && totalCount > effectiveMaxSavedLetters
-                    ? `, ${totalCount - effectiveMaxSavedLetters} låsta`
-                    : ''
-                }.`}
-          </StatusRow>
-        )}
-
-        {/* Sökfält + vy-toggle */}
-        {totalCount > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
-            className="flex items-center gap-2"
-          >
-            <div className="relative flex-1">
-              <Search
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400"
-                strokeWidth={2.5}
-              />
-              <input
-                type="text"
-                placeholder="Sök på företag eller tjänst…"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-11 w-full rounded-lg border border-neutral-200 bg-white pl-10 pr-4 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-orange-500 focus:outline-none"
-              />
-            </div>
-            <ViewToggle value={viewMode} onChange={handleViewModeChange} />
-          </motion.div>
-        )}
-
-        {/* Lista */}
-        {totalCount === 0 ? (
-          <EmptyState
-            illustration={IlluTomBrev}
-            title="Inga brev än"
-            description="Klistra in en annons så skriver vi utkastet. Brevet hamnar här."
-            action={
-              <Link
-                href="/dashboard/skapa-brev"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
-              >
-                Skapa ditt första brev
-              </Link>
-            }
-          />
-        ) : filteredLetters.length === 0 ? (
-          <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center">
-            <p className="mb-1 text-sm text-neutral-600">Inga brev matchar din sökning.</p>
-            <button
-              type="button"
-              onClick={() => setSearchTerm('')}
-              className="inline-flex h-11 items-center px-2 text-sm font-medium text-orange-700 underline-offset-4 hover:text-orange-800 hover:underline"
-            >
-              Rensa sökning
+      ) : filteredLetters.length === 0 ? (
+        <EmptyState
+          title="Inget brev matchar sökningen"
+          description="Prova ett annat företag eller en annan tjänst."
+          action={
+            <button type="button" onClick={() => setSearchTerm('')} className={PRIMARY}>
+              Rensa sökningen
             </button>
-          </div>
-        ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
-            {filteredLetters.map((letter, index) => (
-              <motion.div
-                key={letter.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: Math.min(index * 0.04, 0.4) }}
-              >
-                <LetterCard
-                  letter={letter}
-                  onView={handleView}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                  onDownload={handleDownload}
-                  onMarkApplied={handleMarkApplied}
-                  isDeleting={deletingId === letter.id}
-                />
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {filteredLetters.map((letter, index) => (
-              <motion.div
-                key={letter.id}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, delay: Math.min(index * 0.02, 0.3) }}
-              >
-                <LetterCardCompact
-                  letter={letter}
-                  onView={handleView}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                  onDownload={handleDownload}
-                  onMarkApplied={handleMarkApplied}
-                  isDeleting={deletingId === letter.id}
-                />
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
+          }
+        />
+      ) : viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {filteredLetters.map((letter) => (
+            <LetterCard
+              key={letter.id}
+              letter={letter}
+              onView={handleView}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onDownload={handleDownload}
+              onMarkApplied={handleMarkApplied}
+              isDeleting={deletingId === letter.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {filteredLetters.map((letter) => (
+            <LetterCardCompact
+              key={letter.id}
+              letter={letter}
+              onView={handleView}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onDownload={handleDownload}
+              onMarkApplied={handleMarkApplied}
+              isDeleting={deletingId === letter.id}
+            />
+          ))}
+        </div>
+      )}
 
       {pendingDeleteId !== null && (
         <ConfirmDialog

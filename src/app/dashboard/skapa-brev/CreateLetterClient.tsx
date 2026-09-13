@@ -30,6 +30,8 @@ import LetterFlowSummary from './components/LetterFlowSummary';
 import FlowShell from '@/components/shell/FlowShell';
 import FlowError from '@/components/shell/FlowError';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import Confirmation from '@/components/shell/Confirmation';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import {
   loadDraft,
@@ -49,16 +51,37 @@ export interface InitialCv {
 }
 
 /* Platshållaren håller samma yta som ett riktigt stegkort medan chunken
-   hämtas, så att bytet inte putter något. Samma ram, samma rundning. */
+   hämtas, så att bytet inte puttar något. Skelettet står stilla, bara
+   tråden längs överkanten rör sig. */
 function StepSkeleton() {
   return (
     <div
-      className="rounded-xl border border-orange-200/50 bg-white p-5 sm:p-7"
+      className="loading-thread rounded-xl border border-kant bg-panel p-4"
       style={{ minHeight: 320 }}
       aria-hidden="true"
     />
   );
 }
+
+/* Varje steg ställer en fråga som rubrik (22 px), med stegetiketten ovanför. */
+function StepHead({ step, total, question }: { step: number; total: number; question: string }) {
+  return (
+    <header className="mb-4">
+      <p className="text-steg uppercase text-ink-3">
+        Steg {step} av {total}
+      </p>
+      <h2 className="mt-1.5 text-fraga text-ink-1">{question}</h2>
+    </header>
+  );
+}
+
+const STEP_QUESTIONS = [
+  'Vilket CV ska brevet utgå från?',
+  'Vilken tjänst söker du?',
+  'Hur ska brevet se ut?',
+  'Hur ska brevet låta?',
+  'Stämmer allt?',
+];
 
 /* Bara steg 1 finns i första vyn. Resten av flödet laddas när användaren
    faktiskt kommer dit, i stället för att ligga i samma paket som det hon ser
@@ -80,10 +103,6 @@ const PreviewStep = dynamic(() => import('./components/steps/PreviewStep'), {
   ssr: false,
   loading: () => <StepSkeleton />,
 });
-const LetterPipelineLoader = dynamic(
-  () => import('./components/illustrations/LetterPipelineLoader'),
-  { ssr: false }
-);
 import { type FontId } from './components/FontSelector';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 
@@ -692,8 +711,16 @@ export default function CreateLetterClient({
   const cvName =
     cvs.find((c) => c.id === selectedCV)?.file_name?.replace(/\.[^.]+$/, '') || null;
   const jobPreview = prefillData?.jobTitle && prefillData?.company
-    ? `${prefillData.jobTitle} – ${prefillData.company}`
+    ? `${prefillData.jobTitle} hos ${prefillData.company}`
     : jobDescription.slice(0, 80).trim() + (jobDescription.length > 80 ? '…' : '');
+
+  // Företaget brevet går till, för "Skriver ditt brev till X" och
+  // bekräftelsen "Ditt brev till X är klart". Från annonsen om vi vet, annars
+  // från det genererade brevets metadata.
+  const companyName: string | null =
+    (letterData && typeof letterData === 'object' && letterData.company
+      ? String(letterData.company)
+      : null) || prefillData?.company || null;
 
   const canGenerate =
     !!selectedCV && jobDescription.length > 20 && !!templateId && !!tonality;
@@ -751,8 +778,6 @@ export default function CreateLetterClient({
         : step === 5 && !canGenerate
           ? 'Något saknas i dina val. Gå tillbaka och fyll i det som fattas.'
           : undefined;
-
-  const stepTitles = ['Välj CV', 'Annonsen', 'Mall', 'Ton och språk', 'Granska', 'Ditt brev'];
 
   const primaryFor = (): { label: string; onClick: () => void; disabled: boolean } | null => {
     if (step === 1) return { label: 'Fortsätt', onClick: next, disabled: !cvDone };
@@ -818,7 +843,9 @@ export default function CreateLetterClient({
         ) : undefined
       }
     >
-      <h2 className="sr-only">{stepTitles[step - 1]}</h2>
+      {step >= 1 && step <= 5 ? (
+        <StepHead step={step} total={LETTER_FLOW_TOTAL_STEPS} question={STEP_QUESTIONS[step - 1]} />
+      ) : null}
 
       {step === 1 && (
         <>
@@ -894,12 +921,14 @@ export default function CreateLetterClient({
             onLocationChange={setHeaderLocation}
             hidePrimaryAction
           />
-          {(showPipeline || isSubmitting || isGenerating) && (
+          {/* Brevet skrivs: rubriken säger vad som görs, tre rader fylls,
+              meta säger hur länge. Felet visas i skalets banner. */}
+          {(showPipeline || isSubmitting || isGenerating) && !error && (
             <div ref={pipelineRef} className="mt-4">
-              <LetterPipelineLoader
-                isGenerating={isSubmitting || isGenerating}
-                isDone={!!generatedLetter && !isSubmitting && !isGenerating}
-                error={error}
+              <LoadingSkeleton
+                variant="writing"
+                label={companyName ? `Skriver ditt brev till ${companyName}` : 'Skriver ditt brev'}
+                meta="Läser annonsens krav mot ditt CV. Tar cirka 15 sekunder."
               />
             </div>
           )}
@@ -908,6 +937,11 @@ export default function CreateLetterClient({
 
       {step === 6 && generatedLetter && (
         <>
+          <Confirmation
+            title={companyName ? `Ditt brev till ${companyName} är klart` : 'Ditt brev är klart'}
+            description="Läs igenom det en gång. Spara det så hamnar det under Mina brev."
+            className="mb-4"
+          />
           <PreviewStep
             letterContent={generatedLetter}
             templateId={templateId}

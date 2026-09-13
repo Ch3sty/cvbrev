@@ -1,8 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Wand2, Loader2, FileText, Briefcase, Layout, SlidersHorizontal } from 'lucide-react';
+/**
+ * Steg 5: stämmer allt? Dina val som rader med naken ikon 24, och de
+ * valfria kontaktuppgifterna till brevhuvudet som insunkna fält. Knappen
+ * ligger i skalets fot (hidePrimaryAction), kortet bär bara metaraden om tid
+ * och kvot.
+ */
+
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import {
+  IkonCv,
+  IkonAnsokningar,
+  IkonMallar,
+  IkonProfessionell,
+  IkonEntusiastisk,
+  IkonKreativ,
+  IkonSjalvsaker,
+  IkonBalanserad,
+  IkonAnalys,
+  type IkonProps,
+} from '@/components/illustrations/Ikoner';
 
 const TONE_LABELS: Record<string, string> = {
   professional: 'Professionell',
@@ -13,10 +30,22 @@ const TONE_LABELS: Record<string, string> = {
   auto: 'Smart-anpassad',
 };
 
+const TONE_ICONS: Record<string, (props: IkonProps) => React.JSX.Element> = {
+  professional: IkonProfessionell,
+  enthusiastic: IkonEntusiastisk,
+  creative: IkonKreativ,
+  confident: IkonSjalvsaker,
+  balanced: IkonBalanserad,
+  auto: IkonAnalys,
+};
+
 const LANG_LABELS: Record<string, string> = {
   sv: 'Svenska',
   en: 'English',
 };
+
+const FIELD =
+  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken transition-colors placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent';
 
 interface LetterFlowSummaryProps {
   cvName: string | null;
@@ -59,79 +88,38 @@ export default function LetterFlowSummary({
   hidePrimaryAction,
 }: LetterFlowSummaryProps) {
   const template = DOCX_TEMPLATES[templateId as keyof typeof DOCX_TEMPLATES];
+  const ToneIcon = TONE_ICONS[tonality] ?? IkonBalanserad;
 
-  const summaryRows = [
+  const rows = [
+    { icon: IkonCv, label: 'CV', value: cvName || 'Inget CV valt', ok: !!cvName },
     {
-      icon: FileText,
-      label: 'CV',
-      value: cvName || '-',
-      ok: !!cvName,
-    },
-    {
-      icon: Briefcase,
+      icon: IkonAnsokningar,
       label: 'Annons',
-      value: jobDescriptionPreview || '-',
+      value: jobDescriptionPreview || 'Ingen annons',
       ok: !!jobDescriptionPreview,
     },
+    { icon: IkonMallar, label: 'Brevmall', value: template?.name || 'Ingen mall', ok: !!template },
     {
-      icon: Layout,
-      label: 'Brevmall',
-      value: template?.name || '-',
-      ok: !!template,
-    },
-    {
-      icon: SlidersHorizontal,
-      label: 'Ton & språk',
+      icon: ToneIcon,
+      label: 'Ton och språk',
       value: `${TONE_LABELS[tonality] || tonality} · ${LANG_LABELS[language] || language}`,
       ok: true,
     },
   ];
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7"
-    >
-      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-2">
-        Dina val
-      </div>
-      <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-1">
-        Allt klart för att skriva
-      </h3>
-      <p className="text-sm text-neutral-600 mb-5">
-        Vi sätter ihop brevet baserat på det här. Du kan redigera efteråt.
-      </p>
-
-      <ul className="divide-y divide-neutral-100 mb-6">
-        {summaryRows.map((row) => {
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <ul className="divide-y divide-kant">
+        {rows.map((row) => {
           const Icon = row.icon;
           return (
-            <li
-              key={row.label}
-              className="flex items-center gap-3 py-2.5 text-sm"
-            >
-              <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                  row.ok
-                    ? 'bg-orange-50 text-orange-600'
-                    : 'bg-neutral-100 text-neutral-400'
-                }`}
-              >
-                <Icon className="w-4 h-4" strokeWidth={2.25} />
-              </div>
+            <li key={row.label} className="flex items-center gap-3 py-2.5">
+              <Icon size={24} className="shrink-0 text-ink-2" />
               <div className="min-w-0 flex-1">
-                <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-                  {row.label}
-                </div>
-                <div
-                  className={`truncate font-medium ${
-                    row.ok ? 'text-neutral-900' : 'text-neutral-400'
-                  }`}
-                >
+                <p className="text-meta text-ink-3">{row.label}</p>
+                <p className={`truncate text-sm font-medium ${row.ok ? 'text-ink-1' : 'text-ink-3'}`}>
                   {row.value}
-                </div>
+                </p>
               </div>
             </li>
           );
@@ -139,21 +127,15 @@ export default function LetterFlowSummary({
       </ul>
 
       {/* B3: telefon och ort samlas in här i stället för vid registrering.
-          Båda är valfria. Brevhuvudet ser proffsigare ut med dem, men inget
-          hindrar den som vill hoppa över. */}
-      <div className="border-t border-neutral-200 pt-4 mb-6">
-        <h4 className="text-base font-semibold text-neutral-900">
-          Kontaktuppgifter till brevhuvudet
-        </h4>
-        <p className="text-sm text-neutral-600 mt-1 mb-4">
+          Båda är valfria. */}
+      <div className="mt-4 border-t border-kant pt-4">
+        <h3 className="text-kort text-ink-1">Kontaktuppgifter till brevhuvudet</h3>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
           Valfritt. Vi sparar dem på din profil så du slipper fylla i dem nästa gång.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="letter-phone"
-              className="block text-sm text-neutral-600 mb-1"
-            >
+            <label htmlFor="letter-phone" className="mb-1 block text-sm text-ink-2">
               Telefon
             </label>
             <input
@@ -164,14 +146,11 @@ export default function LetterFlowSummary({
               value={phone}
               onChange={(e) => onPhoneChange(e.target.value)}
               placeholder="070 123 45 67"
-              className="w-full h-11 px-3 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400"
+              className={FIELD}
             />
           </div>
           <div>
-            <label
-              htmlFor="letter-location"
-              className="block text-sm text-neutral-600 mb-1"
-            >
+            <label htmlFor="letter-location" className="mb-1 block text-sm text-ink-2">
               Ort
             </label>
             <input
@@ -181,37 +160,27 @@ export default function LetterFlowSummary({
               value={location}
               onChange={(e) => onLocationChange(e.target.value)}
               placeholder="Stockholm"
-              className="w-full h-11 px-3 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400"
+              className={FIELD}
             />
           </div>
         </div>
       </div>
 
-      {!hidePrimaryAction && (
+      {!hidePrimaryAction ? (
         <button
           type="button"
           onClick={onGenerate}
           disabled={!canGenerate || isGenerating}
-          className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isGenerating ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Skriver brevet
-            </>
-          ) : (
-            'Skapa mitt brev'
-          )}
+          {isGenerating ? 'Skriver brevet' : 'Skapa mitt brev'}
         </button>
-      )}
-      <div className="text-center text-sm text-neutral-600 mt-3">
+      ) : null}
+
+      <p className="mt-3 text-meta text-ink-3">
         Tar 10 till 15 sekunder.
-        {typeof remainingLetters === 'number' && (
-          <span className="ml-1">
-            Du har {remainingLetters} brev kvar idag.
-          </span>
-        )}
-      </div>
-    </motion.section>
+        {typeof remainingLetters === 'number' ? ` Du har ${remainingLetters} brev kvar idag.` : ''}
+      </p>
+    </section>
   );
 }

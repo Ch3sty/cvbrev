@@ -1,12 +1,25 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Download, Edit3, Copy, Check, FileText, Save, Info, Loader2, BookmarkCheck } from 'lucide-react';
+/**
+ * Steg 6: brevet. Bekräftelsen ligger ovanför (CreateLetterClient), här är
+ * handlingarna och själva brevet. En primär handling (Spara) i ink, resten
+ * sekundära. Tillstånd är rader: sparat och loggat som statusrad, fel som
+ * FlowError. Mallbytet visas som "brevet skrivs" i stället för en snurra
+ * över dokumentet. Ingen rörelse.
+ */
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
-import { extractEditableContent, isTemplateHTML as checkIsTemplateHTML } from '@/lib/letters/extract-editable-content';
+import {
+  extractEditableContent,
+  isTemplateHTML as checkIsTemplateHTML,
+} from '@/lib/letters/extract-editable-content';
+import StatusRow from '@/components/shell/StatusRow';
+import FlowError from '@/components/shell/FlowError';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { scopeLetterHtml, BREV_SCOPE } from '@/app/dashboard/mina-brev/scopeLetterHtml';
 import FontSelector, { type FontId, FONTS } from '../FontSelector';
-import LetterFlowStepHeader from '../LetterFlowStepHeader';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -25,6 +38,13 @@ interface PreviewStepProps {
   registerRef?: (el: HTMLElement | null) => void;
 }
 
+const PRIMARY =
+  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto';
+const SECONDARY =
+  'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark disabled:cursor-not-allowed disabled:opacity-60';
+const LINK =
+  'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1';
+
 export default function PreviewStep({
   letterContent,
   templateId,
@@ -38,11 +58,11 @@ export default function PreviewStep({
   saveError,
   isPremium = false,
   isRegeneratingTemplate = false,
-  registerRef
+  registerRef,
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
-  const [editableText, setEditableText] = useState(''); // Clean text för redigering
+  const [editableText, setEditableText] = useState('');
   const [copied, setCopied] = useState(false);
   const [isPdfGenerating, setIsPdfGenerating] = useState(false);
   const [isDocxGenerating, setIsDocxGenerating] = useState(false);
@@ -51,19 +71,17 @@ export default function PreviewStep({
   const [isMarkingApplied, setIsMarkingApplied] = useState(false);
   const [appliedId, setAppliedId] = useState<string | null>(null);
   const [showAppliedBanner, setShowAppliedBanner] = useState(false);
-  const previewRef = useRef<HTMLDivElement>(null);
 
   const selectedFontData = FONTS[selectedFont];
+  // Mallen läses för att hålla typen levande; namnet visas inte här.
+  void DOCX_TEMPLATES[templateId as DocxTemplateId];
 
-  const currentTemplate = DOCX_TEMPLATES[templateId as DocxTemplateId];
-
-  // Update editedContent when letterContent changes (e.g., after template regeneration)
+  // Uppdatera när innehållet ändras utifrån, till exempel efter mallbyte.
   useEffect(() => {
     setEditedContent(letterContent);
   }, [letterContent]);
 
   const handleCopy = async () => {
-    // Kopiera clean text istället för HTML
     const textToCopy = checkIsTemplateHTML(editedContent)
       ? extractEditableContent(editedContent)
       : editedContent;
@@ -73,7 +91,6 @@ export default function PreviewStep({
   };
 
   const handleStartEdit = () => {
-    // Extrahera clean text när edit-läge startar
     const cleanText = checkIsTemplateHTML(editedContent)
       ? extractEditableContent(editedContent)
       : editedContent;
@@ -82,8 +99,7 @@ export default function PreviewStep({
   };
 
   const handleSaveEdit = () => {
-    // När användaren sparar, skicka den redigerade texten (INTE HTML)
-    // Parent-komponenten måste regenerera HTML med nya texten
+    // Den redigerade texten skickas (inte HTML); föräldern bygger om.
     onEdit(editableText);
     setIsEditing(false);
   };
@@ -94,15 +110,14 @@ export default function PreviewStep({
   };
 
   const handleSave = async () => {
-    if (onSave) {
-      setIsSaving(true);
-      try {
-        await onSave();
-        setShowSaveSuccess(true);
-        setTimeout(() => setShowSaveSuccess(false), 5000);
-      } finally {
-        setIsSaving(false);
-      }
+    if (!onSave) return;
+    setIsSaving(true);
+    try {
+      await onSave();
+      setShowSaveSuccess(true);
+      setTimeout(() => setShowSaveSuccess(false), 5000);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -150,34 +165,24 @@ export default function PreviewStep({
     }
   };
 
-  const isTemplateHTML = (content: string) => {
-    // Check if content is already formatted HTML from a template
-    return content.includes('<div') || content.includes('<style');
-  };
+  const isTemplateHTML = (content: string) =>
+    content.includes('<div') || content.includes('<style');
 
   const formatContent = (content: string) => {
-    // Safety check to prevent React error #300
     if (typeof content !== 'string') {
-      console.error('❌ formatContent received non-string:', typeof content, content);
-      return '<div class="p-4 bg-red-50 border border-red-200 rounded"><p class="text-red-600">Fel: Kunde inte formatera innehållet. Vänligen kontakta support.</p></div>';
+      console.error('formatContent fick något som inte är en sträng:', typeof content);
+      return '<p>Brevet kunde inte visas. Kontakta supporten om det händer igen.</p>';
     }
-
     if (content.trim() === '') {
-      console.warn('⚠️ formatContent received empty string');
-      return '<div class="p-4 bg-yellow-50 border border-yellow-200 rounded"><p class="text-yellow-600">Tomt innehåll mottaget.</p></div>';
+      return '<p>Brevet är tomt.</p>';
     }
+    // Mallens style-block scopas så dess body-regel inte träffar sidan.
+    if (isTemplateHTML(content)) return scopeLetterHtml(content);
 
-    // If content is already template HTML, return it as-is
-    if (isTemplateHTML(content)) {
-      console.log('✅ Rendering template HTML with profile data');
-      return content;
-    }
-
-    // Otherwise, format plain text for display (fallback for legacy content)
-    console.log('⚠️ Formatting plain text content (legacy fallback)');
+    // Ren text (äldre brev): enkel styckeindelning.
     return content
       .split('\n')
-      .map(line => {
+      .map((line) => {
         if (line.trim() === '') return '<br/>';
         if (line.startsWith('Hej') || line.startsWith('Dear')) {
           return `<p class="font-semibold mb-4">${line}</p>`;
@@ -190,343 +195,149 @@ export default function PreviewStep({
       .join('');
   };
 
+  const html = isTemplateHTML(editedContent);
+
   return (
-    <motion.section
-      ref={registerRef}
-      data-flow-section="preview"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-orange-200/50 p-5 sm:p-7 space-y-6"
-    >
-      <LetterFlowStepHeader
-        stepNumber={6}
-        title="Granska & ladda ner"
-        description="Förhandsgranska, redigera och exportera ditt brev."
-        isDone={true}
-        isActive={true}
-      />
-
-      {/* Success Banner */}
-      {showSaveSuccess && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-green-50 border border-green-200 rounded-xl p-4"
+    <section ref={registerRef} data-flow-section="preview" className="space-y-4">
+      {showSaveSuccess ? (
+        <StatusRow
+          tone="positive"
+          showDot
+          label="Brevet är sparat"
+          action={
+            <Link href="/dashboard/mina-brev" className={LINK}>
+              Mina brev
+            </Link>
+          }
         >
-          <div className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-sm font-medium text-green-900">Brevet är sparat!</p>
-              <p className="text-sm text-green-700">
-                Du hittar det under{' '}
-                <a href="/dashboard/mina-brev" className="underline hover:text-green-800 font-medium">
-                  Mina Brev
-                </a>
-                .
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      )}
+          Brevet är sparat.
+        </StatusRow>
+      ) : null}
 
-      {/* Markerad som sökt-banner med ångra-fönster */}
-      {showAppliedBanner && appliedId && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-orange-50 border border-orange-200 rounded-xl p-4"
-        >
-          <div className="flex items-start gap-3">
-            <BookmarkCheck className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-sm font-medium text-orange-900">Ansökan loggad i Sökta tjänster.</p>
-              <p className="text-sm text-orange-700">
-                <a href="/dashboard/sokta-tjanster" className="underline hover:text-orange-800 font-medium">
-                  Visa dina sökta tjänster
-                </a>
-                {onUndoMarkAsApplied && (
-                  <>
-                    {' '}eller{' '}
-                    <button
-                      type="button"
-                      onClick={handleUndoApplied}
-                      className="underline hover:text-orange-800 font-medium"
-                    >
-                      ångra
-                    </button>
-                    .
-                  </>
-                )}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Error Banner */}
-      {saveError && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 border border-red-200 rounded-xl p-4"
-        >
-          <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-sm font-medium text-red-900 mb-1">Kunde inte spara brevet</p>
-              <p className="text-sm text-red-700">{saveError}</p>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Action Bar */}
-      <div className="bg-orange-50/40 rounded-xl border border-orange-200/60 p-3 sm:p-4">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          {/* Sekundära actions - Left side */}
-          <div className="flex items-center gap-2 justify-center sm:justify-start">
-            <motion.button
-              onClick={isEditing ? handleCancelEdit : handleStartEdit}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Edit3 className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">{isEditing ? 'Avbryt' : 'Redigera'}</span>
-            </motion.button>
-
-            <motion.button
-              onClick={handleCopy}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm">Kopierat!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">Kopiera</span>
-                </>
-              )}
-            </motion.button>
-          </div>
-
-          {/* Primära actions - Right side with consistent alignment */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-1 sm:flex-initial">
-            {/* Optional label for desktop - positioned above all buttons */}
-            <span className="text-xs text-gray-600 font-medium px-1 hidden sm:block sm:sr-only">
-              Primära åtgärder:
+      {showAppliedBanner && appliedId ? (
+        <StatusRow
+          tone="positive"
+          showDot
+          label="Loggad i Sökta tjänster"
+          action={
+            <span className="flex items-center gap-4">
+              <Link href="/dashboard/sokta-tjanster" className={LINK}>
+                Visa
+              </Link>
+              {onUndoMarkAsApplied ? (
+                <button type="button" onClick={handleUndoApplied} className={LINK}>
+                  Ångra
+                </button>
+              ) : null}
             </span>
+          }
+        >
+          Loggad i Sökta tjänster.
+        </StatusRow>
+      ) : null}
 
-            {/* All primary action buttons at same level for proper alignment */}
-            {onSave && (
-              <motion.button
-                onClick={handleSave}
-                disabled={isSaving}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={isSaving ? {} : { scale: 1.02 }}
-                whileTap={isSaving ? {} : { scale: 0.98 }}
-                title="Spara brevet"
-              >
-                {isSaving ? (
-                  <>
-                    <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
-                    <span className="text-sm">Sparar...</span>
-                  </>
-                ) : (
-                  <>
-                    <Save className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-sm">Spara</span>
-                  </>
-                )}
-              </motion.button>
-            )}
+      {saveError ? (
+        <FlowError title="Brevet kunde inte sparas" message={saveError} onRetry={handleSave} />
+      ) : null}
 
-            {/* Markera som sökt - loggar brevet i Sökta tjänster med ett tryck */}
-            {onMarkAsApplied && (
-              <motion.button
-                onClick={handleMarkAsApplied}
-                disabled={isMarkingApplied || Boolean(appliedId)}
-                className="relative flex items-center justify-center gap-2 px-4 py-2.5 text-orange-700 bg-white border-2 border-orange-300 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-all font-medium flex-1 sm:flex-initial disabled:cursor-not-allowed"
-                whileHover={isMarkingApplied || appliedId ? {} : { scale: 1.02 }}
-                whileTap={isMarkingApplied || appliedId ? {} : { scale: 0.98 }}
-                title="Logga tjänsten som sökt i Sökta tjänster"
-              >
-                {isMarkingApplied ? (
-                  <>
-                    <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
-                    <span className="text-sm">Loggar...</span>
-                  </>
-                ) : appliedId ? (
-                  <>
-                    <Check className="w-4 h-4 flex-shrink-0 text-emerald-600" />
-                    <span className="text-sm">Loggad som sökt</span>
-                  </>
-                ) : (
-                  <>
-                    <BookmarkCheck className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-sm">Markera som sökt</span>
-                    <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                      Nyhet
-                    </span>
-                  </>
-                )}
-              </motion.button>
-            )}
-
-            {/* PDF Download Button - same level as Save */}
-            <motion.button
-              onClick={handleDownloadPdf}
-              disabled={isPdfGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-all font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover={isPdfGenerating ? {} : { scale: 1.02 }}
-              whileTap={isPdfGenerating ? {} : { scale: 0.98 }}
-              title="Ladda ned som PDF"
-            >
-              {isPdfGenerating ? (
-                <>
-                  <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
-                  <span className="text-sm">Genererar PDF...</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">PDF</span>
-                </>
-              )}
-            </motion.button>
-
-            {/* DOCX Download Button - same level as Save and PDF */}
-            <motion.button
-              onClick={handleDownloadDocx}
-              disabled={isDocxGenerating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-neutral-900 bg-white border-2 border-neutral-300 hover:border-neutral-400 rounded-lg transition-all shadow-sm font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover={isDocxGenerating ? {} : { scale: 1.02 }}
-              whileTap={isDocxGenerating ? {} : { scale: 0.98 }}
-              title="Ladda ned som DOCX"
-            >
-              {isDocxGenerating ? (
-                <>
-                  <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
-                  <span className="text-sm">Genererar DOCX...</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">DOCX</span>
-                </>
-              )}
-            </motion.button>
+      {isEditing ? (
+        <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <label htmlFor="letter-editor" className="text-kort text-ink-1">
+            Redigera texten
+          </label>
+          <textarea
+            id="letter-editor"
+            value={editableText}
+            onChange={(e) => setEditableText(e.target.value)}
+            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-insunken p-4 text-base leading-7 text-ink-1 shadow-insunken transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            style={{ fontFamily: selectedFontData.fallback }}
+            placeholder="Skriv ditt brev här"
+          />
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+            <button type="button" onClick={handleSaveEdit} className={PRIMARY}>
+              Spara ändringar
+            </button>
+            <button type="button" onClick={handleCancelEdit} className={LINK}>
+              Avbryt
+            </button>
           </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="space-y-2">
+            {onSave ? (
+              <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
+                {isSaving ? 'Sparar' : 'Spara brevet'}
+              </button>
+            ) : null}
 
-      {/* Font Selector */}
-      <FontSelector
-        selectedFont={selectedFont}
-        onFontChange={onFontChange}
-        isPremium={isPremium}
-      />
-
-      {/* Document Preview */}
-      <div className={`bg-white rounded-xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
-        {/* Loading Overlay for Template Regeneration */}
-        {isRegeneratingTemplate && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-white/90 backdrop-blur-sm rounded-xl z-10 flex items-center justify-center"
-          >
-            <div className="flex flex-col items-center gap-4">
-              <Loader2 className="w-12 h-12 text-orange-600 animate-spin" />
-              <div className="text-center">
-                <p className="text-lg font-medium text-neutral-900">Uppdaterar brevmall…</p>
-                <p className="text-sm text-neutral-600 mt-1">Vi skriver om brevet med den nya designen.</p>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {isEditing ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-4xl"
-          >
-            <textarea
-              value={editableText}
-              onChange={(e) => setEditableText(e.target.value)}
-              className="w-full h-[600px] p-8 bg-white border border-neutral-200 rounded-xl text-neutral-900 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
-              style={{ fontFamily: selectedFontData.fallback }}
-              placeholder="Skriv ditt brev här..."
-            />
-            <div className="flex justify-end gap-2 mt-4">
-              <button
-                onClick={handleCancelEdit}
-                className="px-4 py-2.5 text-neutral-700 bg-white border border-neutral-300 rounded-xl hover:bg-neutral-50 min-h-[44px]"
-              >
-                Avbryt
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+              <button type="button" onClick={handleStartEdit} className={SECONDARY}>
+                Redigera
+              </button>
+              <button type="button" onClick={handleCopy} className={SECONDARY}>
+                {copied ? 'Kopierat' : 'Kopiera'}
               </button>
               <button
-                onClick={handleSaveEdit}
-                className="px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold min-h-[44px]"
+                type="button"
+                onClick={handleDownloadPdf}
+                disabled={isPdfGenerating}
+                className={SECONDARY}
               >
-                Spara ändringar
+                {isPdfGenerating ? 'Skapar PDF' : 'Ladda ner PDF'}
               </button>
+              <button
+                type="button"
+                onClick={handleDownloadDocx}
+                disabled={isDocxGenerating}
+                className={SECONDARY}
+              >
+                {isDocxGenerating ? 'Skapar Word' : 'Ladda ner Word'}
+              </button>
+              {onMarkAsApplied ? (
+                <button
+                  type="button"
+                  onClick={handleMarkAsApplied}
+                  disabled={isMarkingApplied || Boolean(appliedId)}
+                  className={`${SECONDARY} col-span-2`}
+                >
+                  {isMarkingApplied
+                    ? 'Loggar'
+                    : appliedId
+                      ? 'Loggad som sökt'
+                      : 'Markera som sökt'}
+                </button>
+              ) : null}
             </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            ref={previewRef}
-            className={
-              isTemplateHTML(editedContent)
-                ? 'w-full mx-auto' // Template HTML: full width, let parent control constraints
-                : 'bg-white border border-neutral-200 rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
-            }
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {/* Page Header - Only for plain text (legacy) */}
-            {!isTemplateHTML(editedContent) && (
-              <div className="border-b border-gray-100 px-8 py-4 bg-gray-50">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-600">Personligt brev</span>
-                </div>
-              </div>
+          </div>
+
+          <FontSelector selectedFont={selectedFont} onFontChange={onFontChange} isPremium={isPremium} />
+
+          <div className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+            {isRegeneratingTemplate ? (
+              <LoadingSkeleton
+                variant="writing"
+                label="Skriver om brevet i den nya mallen"
+                meta="Samma innehåll, ny form. Tar cirka 15 sekunder."
+              />
+            ) : (
+              <div
+                className={html ? BREV_SCOPE : 'mx-auto max-w-2xl text-ink-1'}
+                style={
+                  html
+                    ? { fontFamily: selectedFontData.fallback }
+                    : { fontFamily: selectedFontData.fallback, lineHeight: '1.8' }
+                }
+                dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
+              />
             )}
+          </div>
 
-            {/* Page Content */}
-            <div
-              className={isTemplateHTML(editedContent) ? '' : 'p-6 sm:p-12 md:p-16 text-gray-800'}
-              style={
-                isTemplateHTML(editedContent)
-                  ? { fontFamily: selectedFontData.fallback }
-                  : { fontFamily: selectedFontData.fallback, lineHeight: '1.8' }
-              }
-              dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
-            />
-          </motion.div>
-        )}
-      </div>
-
-      {/* Help Text */}
-      {!isEditing && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center text-sm text-gray-600"
-        >
-          Dina kontaktuppgifter från profilen är redan inkluderade. Klicka på Redigera om du vill ändra.
-        </motion.div>
+          <p className="text-meta text-ink-3">
+            Dina kontaktuppgifter från profilen är redan med. Tryck på Redigera om du vill ändra något.
+          </p>
+        </>
       )}
-    </motion.section>
+    </section>
   );
 }

@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+/**
+ * Brevkort i rutnätsvyn. Panel med miniatyren på en insunken yta, datum
+ * som meta, kortrubrik 16/600 och en metarad med ton och mall. Låsta brev
+ * (gratisnivån, äldre än de två senaste) är dämpade med en textlänk till
+ * Premium. Ingen rotation, ingen skugga, ingen orange yta.
+ */
+
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Eye, Pencil, Trash2, Download, MoreHorizontal,
-  RefreshCw, FileType, FileText, Lock, ArrowRight, BookmarkCheck,
-} from 'lucide-react';
-import * as Popover from '@radix-ui/react-popover';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
+import LetterActions from './LetterActions';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 
 interface LetterCardProps {
@@ -16,7 +17,7 @@ interface LetterCardProps {
   onView: (id: string) => void;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  onDownload: (id: string, format: 'pdf' | 'docx') => void;
+  onDownload: (id: string) => void;
   /** Loggar brevet som en sökt tjänst i Sökta tjänster. */
   onMarkApplied?: (id: string) => void;
   isDeleting: boolean;
@@ -31,9 +32,6 @@ export default function LetterCard({
   onMarkApplied,
   isDeleting,
 }: LetterCardProps) {
-  const [showMobileSheet, setShowMobileSheet] = useState(false);
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
   const createdDate = letter.created_at ? new Date(letter.created_at) : new Date();
   const dateStr = createdDate.toLocaleDateString('sv-SE', {
     day: 'numeric',
@@ -52,375 +50,68 @@ export default function LetterCard({
 
   const primary = letter.company || letter.job_title || letter.title || 'Ansökningsbrev';
   const secondary = letter.company && letter.job_title ? letter.job_title : null;
-
-  // Låst brev (gratisanvändare, äldre än de 2 senast sparade): gråad vy,
-  // Lock-badge och Premium-länk. Ta bort går fortfarande (frigör plats).
   const isLocked = !!letter.isLocked;
+  const meta = [tonalityDisplay, templateName].filter(Boolean).join(' · ');
 
   return (
-    <>
-      <motion.article
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={isLocked ? undefined : { y: -4 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-        className={`group relative bg-white rounded-xl overflow-hidden cursor-pointer border ${
-          isLocked ? 'border-neutral-200' : 'border-orange-200/50'
-        }`}
-        >
-        {/* Hela kortet är klickbart → visa-sidan. Ligger under z-stacken så
-            mer-meny och dess bottom sheet/popover fortfarande tar emot klick. */}
-        <button
-          type="button"
-          onClick={() => onView(letter.id)}
-          className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-orange-300/60 focus:ring-offset-2 rounded-xl"
-          aria-label={`Visa brev till ${primary}`}
+    <article className="group relative overflow-hidden rounded-xl border border-kant bg-panel transition-[border-color] duration-[120ms] hover:border-kant-stark">
+      {/* Hela kortet är klickbart till visa-sidan. Ligger under menyn. */}
+      <button
+        type="button"
+        onClick={() => onView(letter.id)}
+        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        aria-label={`Visa brev till ${primary}`}
+      />
+
+      <div className="relative flex h-40 items-center justify-center border-b border-kant bg-insunken shadow-insunken">
+        <LetterPaperThumbnail
+          seed={letter.id || primary}
+          className={`h-28 w-[90px] ${isLocked ? 'opacity-50' : ''}`}
         />
 
-        {/* TOP: thumbnail-yta med orange-tonad bakgrund och dot-pattern */}
-        <div
-          className={`relative aspect-[16/10] overflow-hidden ${
-            isLocked ? 'bg-neutral-50 grayscale' : 'bg-orange-50/60'
-          }`}
-        >
-          {/* Subtila bakgrundsprickar */}
-          <svg
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
-          >
-            <pattern
-              id={`lc-dots-${letter.id}`}
-              x="0"
-              y="0"
-              width="20"
-              height="20"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="10" cy="10" r="0.8" fill="#FB923C" />
-            </pattern>
-            <rect width="100%" height="100%" fill={`url(#lc-dots-${letter.id})`} opacity="0.5" />
-          </svg>
+        <span className="pointer-events-none absolute left-3 top-3 text-meta text-ink-3">{dateStr}</span>
 
-          {/* Pappers-thumbnail roterad lite, rätar upp vid hover */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="transform transition-transform duration-500 ease-out group-hover:rotate-0 group-hover:scale-[1.04]"
-              style={{
-                transform: 'rotate(-3deg)',
-                filter: 'drop-shadow(0 10px 18px rgba(0, 0, 0, 0.10))',
-              }}
-            >
-              <LetterPaperThumbnail
-                seed={letter.id || primary}
-                className="w-24 h-32 sm:w-28 sm:h-36"
-              />
-            </div>
-          </div>
-
-          {/* Mer-meny: top-höger, ovanpå klickbara ytan */}
-          <div className="absolute top-3 right-3 z-20">
-            {/* Desktop: popover */}
-            <div className="hidden lg:block pointer-events-auto">
-              <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
-                <Popover.Trigger asChild>
-                  <button
-                    type="button"
-                    onClick={(e) => e.stopPropagation()}
-                    className="w-11 h-11 inline-flex items-center justify-center rounded-full text-neutral-600 hover:text-neutral-900 bg-white/95 backdrop-blur-sm border border-neutral-200/80 hover:border-orange-300 shadow-sm transition-all"
-                    aria-label="Fler alternativ"
-                  >
-                    <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
-                  </button>
-                </Popover.Trigger>
-                <Popover.Portal>
-                  <Popover.Content
-                    align="end"
-                    sideOffset={8}
-                    className="z-50 bg-white rounded-xl border border-neutral-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
-                  >
-                    <button
-                      type="button"
-                      disabled={isLocked}
-                      onClick={() => {
-                        onEdit(letter.id);
-                        setPopoverOpen(false);
-                      }}
-                      className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-                    >
-                      {isLocked ? (
-                        <Lock className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
-                      ) : (
-                        <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                      )}
-                      Redigera
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onDownload(letter.id, 'pdf');
-                        setPopoverOpen(false);
-                      }}
-                      className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                    >
-                      <FileType className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                      Ladda ned PDF
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onDownload(letter.id, 'docx');
-                        setPopoverOpen(false);
-                      }}
-                      className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                    >
-                      <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
-                      Ladda ned Word
-                    </button>
-                    {onMarkApplied && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onMarkApplied(letter.id);
-                          setPopoverOpen(false);
-                        }}
-                        className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                      >
-                        <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                        Markera som sökt
-                        <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                          Nyhet
-                        </span>
-                      </button>
-                    )}
-                    <div className="h-px bg-neutral-100 my-1" />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onDelete(letter.id);
-                        setPopoverOpen(false);
-                      }}
-                      disabled={isDeleting}
-                      className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2.5 transition-colors disabled:opacity-50"
-                    >
-                      {isDeleting ? (
-                        <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.25} />
-                      ) : (
-                        <Trash2 className="w-4 h-4" strokeWidth={2.25} />
-                      )}
-                      Ta bort
-                    </button>
-                  </Popover.Content>
-                </Popover.Portal>
-              </Popover.Root>
-            </div>
-
-            {/* Mobile: trigger för bottom sheet */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowMobileSheet(true);
-              }}
-              className="lg:hidden w-11 h-11 inline-flex items-center justify-center rounded-full text-neutral-600 bg-white/95 backdrop-blur-sm border border-neutral-200/80 shadow-sm pointer-events-auto"
-              aria-label="Fler alternativ"
-            >
-              <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
-            </button>
-          </div>
-
-          {/* Liten datum-badge i top-vänster */}
-          <div className="absolute top-3 left-3 z-20 pointer-events-none">
-            <span
-              className={`inline-flex items-center px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-sm text-xs font-bold uppercase tracking-[0.14em] shadow-sm border ${
-                isLocked
-                  ? 'text-neutral-500 border-neutral-200/80'
-                  : 'text-orange-700 border-orange-200/80'
-              }`}
-            >
-              {dateStr}
-            </span>
-          </div>
-
-          {/* Lås-badge mitt på thumbnailen */}
-          {isLocked && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-              <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/95 backdrop-blur-sm text-xs font-bold text-neutral-700 border border-neutral-200">
-                <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
-                Låst
-              </span>
-            </div>
-          )}
+        <div className="absolute right-3 top-3 z-20">
+          <LetterActions
+            letterId={letter.id}
+            letterName={primary}
+            isLocked={isLocked}
+            isDeleting={isDeleting}
+            onView={onView}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onDownload={onDownload}
+            onMarkApplied={onMarkApplied}
+            variant="panel"
+          />
         </div>
 
-        {/* BOTTOM: metadata */}
-        <div className="relative p-4 sm:p-5 space-y-2">
-          <h3
-            className={`text-base sm:text-lg font-bold leading-tight line-clamp-2 ${
-              isLocked ? 'text-neutral-500' : 'text-neutral-900'
-            }`}
+        {isLocked ? (
+          <span className="pointer-events-none absolute bottom-3 left-3 text-meta font-medium text-ink-3">
+            Låst
+          </span>
+        ) : null}
+      </div>
+
+      <div className="p-4">
+        <h3 className={`line-clamp-2 text-kort ${isLocked ? 'text-ink-3' : 'text-ink-1'}`}>{primary}</h3>
+        {secondary ? (
+          <p className={`mt-0.5 line-clamp-1 text-sm ${isLocked ? 'text-ink-3' : 'text-ink-2'}`}>
+            {secondary}
+          </p>
+        ) : null}
+        {!isLocked && meta ? <p className="mt-1 text-meta text-ink-3">{meta}</p> : null}
+
+        {isLocked ? (
+          <Link
+            href="/dashboard/profil/prenumeration"
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-20 mt-1 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
-            {primary}
-          </h3>
-          {secondary && (
-            <p
-              className={`text-sm line-clamp-1 -mt-1 ${
-                isLocked ? 'text-neutral-400' : 'text-neutral-600'
-              }`}
-            >
-              {secondary}
-            </p>
-          )}
-
-          {/* Taggar */}
-          {!isLocked && (tonalityDisplay || templateName) && (
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {tonalityDisplay && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
-                  {tonalityDisplay}
-                </span>
-              )}
-              {templateName && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-600 border border-neutral-200 text-xs font-semibold">
-                  {templateName}
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Låst: uppgraderingslänk (över den klickbara ytan) */}
-          {isLocked && (
-            <div className="relative z-20 pt-1">
-              <Link
-                href="/dashboard/profil/prenumeration"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 text-[13px] font-bold text-orange-700 hover:text-orange-800 transition-colors"
-              >
-                <Lock className="w-3.5 h-3.5" strokeWidth={2.5} />
-                Lås upp med Premium
-                <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-              </Link>
-            </div>
-          )}
-        </div>
-      </motion.article>
-
-      {/* Mobile bottom sheet */}
-      <AnimatePresence>
-        {showMobileSheet && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 lg:hidden"
-            onClick={() => setShowMobileSheet(false)}
-          >
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex justify-center pt-3 pb-2">
-                <div className="w-10 h-1 bg-neutral-300 rounded-full" />
-              </div>
-              <div className="px-4 pb-8 pt-2 space-y-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onView(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center gap-3"
-                  style={{ background: '#EA580C' }}
-                >
-                  <Eye className="w-4 h-4" strokeWidth={2.5} />
-                  Visa brev
-                </button>
-                <button
-                  type="button"
-                  disabled={isLocked}
-                  onClick={() => {
-                    onEdit(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
-                >
-                  {isLocked ? (
-                    <Lock className="w-4 h-4" strokeWidth={2.5} />
-                  ) : (
-                    <Pencil className="w-4 h-4" strokeWidth={2.5} />
-                  )}
-                  Redigera
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDownload(letter.id, 'pdf');
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                >
-                  <Download className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
-                  Ladda ned PDF
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDownload(letter.id, 'docx');
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                >
-                  <Download className="w-4 h-4 text-blue-600" strokeWidth={2.5} />
-                  Ladda ned Word
-                </button>
-                {onMarkApplied && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onMarkApplied(letter.id);
-                      setShowMobileSheet(false);
-                    }}
-                    className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                  >
-                    <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
-                    Markera som sökt
-                    <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                      Nyhet
-                    </span>
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDelete(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  disabled={isDeleting}
-                  className="w-full px-4 py-3.5 rounded-xl text-red-600 bg-red-50 border border-red-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-50"
-                >
-                  {isDeleting ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.5} />
-                  ) : (
-                    <Trash2 className="w-4 h-4" strokeWidth={2.5} />
-                  )}
-                  {isDeleting ? 'Tar bort...' : 'Ta bort'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowMobileSheet(false)}
-                  className="w-full px-4 py-3 mt-2 rounded-xl text-neutral-600 bg-neutral-50 text-sm"
-                >
-                  Avbryt
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            Lås upp med Premium
+          </Link>
+        ) : null}
+      </div>
+    </article>
   );
 }

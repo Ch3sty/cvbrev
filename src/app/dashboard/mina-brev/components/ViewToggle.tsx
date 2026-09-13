@@ -1,7 +1,5 @@
 'use client';
 
-import { LayoutGrid, List } from 'lucide-react';
-
 export type ViewMode = 'grid' | 'list';
 
 interface ViewToggleProps {
@@ -10,58 +8,48 @@ interface ViewToggleProps {
 }
 
 /**
- * Pill-toggle med grid/list-ikoner. Aktiv ikon får orange/röd-gradient
- * bakgrund, inaktiv är grå. Klick byter vy och triggas onChange.
+ * Vyväljare som ett segment (docs/designsystem.md, "Segment"): två knappar
+ * på 44 px, vald får kant ink-1. Ikonerna är ritade här eftersom Lucide
+ * bara används för pil, kryss, chevron och meny.
  */
 export default function ViewToggle({ value, onChange }: ViewToggleProps) {
+  const button = (mode: ViewMode, label: string, icon: React.ReactNode) => {
+    const on = value === mode;
+    return (
+      <button
+        type="button"
+        role="radio"
+        aria-checked={on}
+        aria-label={label}
+        onClick={() => onChange(mode)}
+        className={`inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-panel transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+          on ? 'border-ink-1 text-ink-1 shadow-val' : 'border-kant text-ink-2'
+        }`}
+      >
+        {icon}
+      </button>
+    );
+  };
+
   return (
-    <div
-      role="radiogroup"
-      aria-label="Visningsläge"
-      className="inline-flex items-center gap-0.5 p-0.5 bg-white border border-orange-200/60 rounded-xl"
-    >
-      <button
-        type="button"
-        role="radio"
-        aria-checked={value === 'grid'}
-        aria-label="Visa som rutnät"
-        onClick={() => onChange('grid')}
-        className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all ${
-          value === 'grid'
-            ? 'text-white shadow-sm'
-            : 'text-neutral-500 hover:text-neutral-700 hover:bg-orange-50/40'
-        }`}
-        style={
-          value === 'grid'
-            ? {
-                background: '#EA580C',
-              }
-            : undefined
-        }
-      >
-        <LayoutGrid className="w-4 h-4" strokeWidth={2.5} />
-      </button>
-      <button
-        type="button"
-        role="radio"
-        aria-checked={value === 'list'}
-        aria-label="Visa som lista"
-        onClick={() => onChange('list')}
-        className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all ${
-          value === 'list'
-            ? 'text-white shadow-sm'
-            : 'text-neutral-500 hover:text-neutral-700 hover:bg-orange-50/40'
-        }`}
-        style={
-          value === 'list'
-            ? {
-                background: '#EA580C',
-              }
-            : undefined
-        }
-      >
-        <List className="w-4 h-4" strokeWidth={2.5} />
-      </button>
+    <div role="radiogroup" aria-label="Visningsläge" className="flex gap-2">
+      {button(
+        'grid',
+        'Visa som rutnät',
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
+          <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
+          <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
+          <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
+        </svg>
+      )}
+      {button(
+        'list',
+        'Visa som lista',
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M4 6.5h16M4 12h16M4 17.5h16" />
+        </svg>
+      )}
     </div>
   );
 }

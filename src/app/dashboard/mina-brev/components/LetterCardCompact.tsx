@@ -1,14 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+/**
+ * Listrad för Mina brev: miniatyr, företag och tjänst, datum som meta och
+ * mer-menyn längst till höger. Samma handlingar som rutnätskortet.
+ */
+
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Eye, Pencil, Trash2, Download, MoreHorizontal,
-  RefreshCw, FileType, FileText, Lock, BookmarkCheck,
-} from 'lucide-react';
-import * as Popover from '@radix-ui/react-popover';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
+import LetterActions from './LetterActions';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 
 interface LetterCardCompactProps {
@@ -16,19 +15,12 @@ interface LetterCardCompactProps {
   onView: (id: string) => void;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  onDownload: (id: string, format: 'pdf' | 'docx') => void;
+  onDownload: (id: string) => void;
   /** Loggar brevet som en sökt tjänst i Sökta tjänster. */
   onMarkApplied?: (id: string) => void;
   isDeleting: boolean;
 }
 
-/**
- * Kompakt list-rad för översiktsvy. ~64px hög med mini-thumbnail till vänster,
- * företag/tjänst som rubrik, datum + taggar på höger, mer-meny längst höger.
- *
- * Behåller hela kortet klickbart till visa-sidan, samma mer-meny som
- * grid-versionen (popover på desktop, bottom sheet på mobil).
- */
 export default function LetterCardCompact({
   letter,
   onView,
@@ -38,9 +30,6 @@ export default function LetterCardCompact({
   onMarkApplied,
   isDeleting,
 }: LetterCardCompactProps) {
-  const [showMobileSheet, setShowMobileSheet] = useState(false);
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
   const createdDate = letter.created_at ? new Date(letter.created_at) : new Date();
   const dateStr = createdDate.toLocaleDateString('sv-SE', {
     day: 'numeric',
@@ -58,328 +47,63 @@ export default function LetterCardCompact({
 
   const primary = letter.company || letter.job_title || letter.title || 'Ansökningsbrev';
   const secondary = letter.company && letter.job_title ? letter.job_title : null;
-
-  // Låst brev (gratisanvändare, äldre än de 2 senast sparade): gråad rad,
-  // Lock-badge och Premium-länk. Ta bort går fortfarande (frigör plats).
   const isLocked = !!letter.isLocked;
+  const meta = [tonalityDisplay, templateName].filter(Boolean).join(' · ');
 
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 4 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={isLocked ? undefined : { x: 2 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-        className={`group relative bg-white rounded-xl border transition-colors ${
-          isLocked
-            ? 'border-neutral-200'
-            : 'border-orange-200/50 hover:border-orange-300'
-        }`}
-        >
-        {/* Hela raden klickbar → visa-sidan */}
-        <button
-          type="button"
-          onClick={() => onView(letter.id)}
-          className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-orange-300/60 focus:ring-offset-2 rounded-xl"
-          aria-label={`Visa brev till ${primary}`}
+    <div className="group relative rounded-xl border border-kant bg-panel transition-[border-color] duration-[120ms] hover:border-kant-stark">
+      <button
+        type="button"
+        onClick={() => onView(letter.id)}
+        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        aria-label={`Visa brev till ${primary}`}
+      />
+
+      <div className="relative flex items-center gap-3 px-3 py-2.5 sm:px-4">
+        <LetterPaperThumbnail
+          seed={letter.id || primary}
+          className={`h-[52px] w-10 shrink-0 ${isLocked ? 'opacity-50' : ''}`}
         />
 
-        <div className="relative flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3">
-          {/* Mini-thumbnail */}
-          <div className={`flex-shrink-0 ${isLocked ? 'grayscale opacity-60' : ''}`}>
-            <LetterPaperThumbnail
-              seed={letter.id || primary}
-              className="w-10 h-[52px] sm:w-11 sm:h-[58px]"
-            />
-          </div>
-
-          {/* Titel + tjänst */}
-          <div className="flex-1 min-w-0">
-            <h3
-              className={`text-sm sm:text-[15px] font-bold leading-tight truncate ${
-                isLocked ? 'text-neutral-500' : 'text-neutral-900'
-              }`}
-            >
-              {primary}
-            </h3>
-            {secondary && (
-              <p
-                className={`text-xs sm:text-[13px] truncate mt-0.5 ${
-                  isLocked ? 'text-neutral-400' : 'text-neutral-600'
-                }`}
-              >
-                {secondary}
-              </p>
-            )}
-            {isLocked && (
-              <Link
-                href="/dashboard/profil/prenumeration"
-                onClick={(e) => e.stopPropagation()}
-                className="relative z-20 inline-flex items-center gap-1 mt-0.5 text-xs sm:text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
-              >
-                <Lock className="w-3 h-3" strokeWidth={2.5} />
-                Lås upp med Premium
-              </Link>
-            )}
-          </div>
-
-          {/* Lås-badge (desktop) */}
-          {isLocked && (
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-600 border border-neutral-200 text-xs font-semibold flex-shrink-0">
-              <Lock className="w-3 h-3" strokeWidth={2.5} />
-              Låst
-            </span>
-          )}
-
-          {/* Datum + taggar (desktop) */}
-          <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
-            {tonalityDisplay && (
-              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold">
-                {tonalityDisplay}
-              </span>
-            )}
-            {templateName && (
-              <span className="hidden lg:inline-flex items-center px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-600 border border-neutral-200 text-xs font-semibold">
-                {templateName}
-              </span>
-            )}
-            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.06em] tabular-nums">
-              {dateStr}
-            </span>
-          </div>
-
-          {/* Mobile: bara datum (kompakt) */}
-          <span className="sm:hidden text-xs font-semibold text-neutral-500 uppercase tabular-nums flex-shrink-0">
-            {dateStr}
-          </span>
-
-          {/* Mer-meny, desktop popover */}
-          <div className="hidden lg:block flex-shrink-0 z-20">
-            <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
-              <Popover.Trigger asChild>
-                <button
-                  type="button"
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-8 h-8 inline-flex items-center justify-center rounded-lg text-neutral-500 hover:text-neutral-900 hover:bg-orange-50/40 transition-colors pointer-events-auto"
-                  aria-label="Fler alternativ"
-                >
-                  <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
-                </button>
-              </Popover.Trigger>
-              <Popover.Portal>
-                <Popover.Content
-                  align="end"
-                  sideOffset={8}
-                  className="z-50 bg-white rounded-xl border border-neutral-200 py-1.5 min-w-[200px] animate-in fade-in-0 zoom-in-95"
-                >
-                  <button
-                    type="button"
-                    disabled={isLocked}
-                    onClick={() => {
-                      onEdit(letter.id);
-                      setPopoverOpen(false);
-                    }}
-                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-                  >
-                    {isLocked ? (
-                      <Lock className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
-                    ) : (
-                      <Pencil className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                    )}
-                    Redigera
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onDownload(letter.id, 'pdf');
-                      setPopoverOpen(false);
-                    }}
-                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                  >
-                    <FileType className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                    Ladda ned PDF
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onDownload(letter.id, 'docx');
-                      setPopoverOpen(false);
-                    }}
-                    className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                  >
-                    <FileText className="w-4 h-4 text-blue-600" strokeWidth={2.25} />
-                    Ladda ned Word
-                  </button>
-                  {onMarkApplied && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onMarkApplied(letter.id);
-                        setPopoverOpen(false);
-                      }}
-                      className="w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-orange-50/40 flex items-center gap-2.5 transition-colors"
-                    >
-                      <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-                      Markera som sökt
-                      <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                        Nyhet
-                      </span>
-                    </button>
-                  )}
-                  <div className="h-px bg-neutral-100 my-1" />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onDelete(letter.id);
-                      setPopoverOpen(false);
-                    }}
-                    disabled={isDeleting}
-                    className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2.5 transition-colors disabled:opacity-50"
-                  >
-                    {isDeleting ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.25} />
-                    ) : (
-                      <Trash2 className="w-4 h-4" strokeWidth={2.25} />
-                    )}
-                    Ta bort
-                  </button>
-                </Popover.Content>
-              </Popover.Portal>
-            </Popover.Root>
-          </div>
-
-          {/* Mer-meny, mobil bottom sheet trigger */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowMobileSheet(true);
-            }}
-            className="lg:hidden flex-shrink-0 w-8 h-8 inline-flex items-center justify-center rounded-lg text-neutral-500 hover:bg-orange-50/40 z-20 pointer-events-auto"
-            aria-label="Fler alternativ"
-          >
-            <MoreHorizontal className="w-4 h-4" strokeWidth={2.5} />
-          </button>
-        </div>
-      </motion.div>
-
-      {/* Mobile bottom sheet */}
-      <AnimatePresence>
-        {showMobileSheet && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 lg:hidden"
-            onClick={() => setShowMobileSheet(false)}
-          >
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl"
+        <div className="min-w-0 flex-1">
+          <h3 className={`truncate text-sm font-semibold tracking-tight ${isLocked ? 'text-ink-3' : 'text-ink-1'}`}>
+            {primary}
+          </h3>
+          {secondary ? (
+            <p className={`truncate text-meta ${isLocked ? 'text-ink-3' : 'text-ink-2'}`}>{secondary}</p>
+          ) : null}
+          {isLocked ? (
+            <Link
+              href="/dashboard/profil/prenumeration"
               onClick={(e) => e.stopPropagation()}
+              className="relative z-20 inline-flex min-h-11 items-center text-meta font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
-              <div className="flex justify-center pt-3 pb-2">
-                <div className="w-10 h-1 bg-neutral-300 rounded-full" />
-              </div>
-              <div className="px-4 pb-8 pt-2 space-y-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onView(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center gap-3"
-                  style={{ background: '#EA580C' }}
-                >
-                  <Eye className="w-4 h-4" strokeWidth={2.5} />
-                  Visa brev
-                </button>
-                <button
-                  type="button"
-                  disabled={isLocked}
-                  onClick={() => {
-                    onEdit(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-40"
-                >
-                  {isLocked ? (
-                    <Lock className="w-4 h-4" strokeWidth={2.5} />
-                  ) : (
-                    <Pencil className="w-4 h-4" strokeWidth={2.5} />
-                  )}
-                  Redigera
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDownload(letter.id, 'pdf');
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                >
-                  <Download className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
-                  Ladda ned PDF
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDownload(letter.id, 'docx');
-                    setShowMobileSheet(false);
-                  }}
-                  className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                >
-                  <Download className="w-4 h-4 text-blue-600" strokeWidth={2.5} />
-                  Ladda ned Word
-                </button>
-                {onMarkApplied && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onMarkApplied(letter.id);
-                      setShowMobileSheet(false);
-                    }}
-                    className="w-full px-4 py-3.5 rounded-xl text-neutral-800 bg-white border border-neutral-200 font-semibold text-sm flex items-center gap-3"
-                  >
-                    <BookmarkCheck className="w-4 h-4 text-orange-600" strokeWidth={2.5} />
-                    Markera som sökt
-                    <span className="ml-auto px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                      Nyhet
-                    </span>
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDelete(letter.id);
-                    setShowMobileSheet(false);
-                  }}
-                  disabled={isDeleting}
-                  className="w-full px-4 py-3.5 rounded-xl text-red-600 bg-red-50 border border-red-200 font-semibold text-sm flex items-center gap-3 disabled:opacity-50"
-                >
-                  {isDeleting ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" strokeWidth={2.5} />
-                  ) : (
-                    <Trash2 className="w-4 h-4" strokeWidth={2.5} />
-                  )}
-                  {isDeleting ? 'Tar bort...' : 'Ta bort'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowMobileSheet(false)}
-                  className="w-full px-4 py-3 mt-2 rounded-xl text-neutral-600 bg-neutral-50 text-sm"
-                >
-                  Avbryt
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+              Lås upp med Premium
+            </Link>
+          ) : null}
+        </div>
+
+        <div className="flex shrink-0 items-center gap-3 text-meta text-ink-3">
+          {isLocked ? <span className="hidden font-medium sm:inline">Låst</span> : null}
+          {!isLocked && meta ? <span className="hidden lg:inline">{meta}</span> : null}
+          <span className="tabular-nums">{dateStr}</span>
+        </div>
+
+        <div className="relative z-20 shrink-0">
+          <LetterActions
+            letterId={letter.id}
+            letterName={primary}
+            isLocked={isLocked}
+            isDeleting={isDeleting}
+            onView={onView}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onDownload={onDownload}
+            onMarkApplied={onMarkApplied}
+            variant="plain"
+          />
+        </div>
+      </div>
+    </div>
   );
 }
