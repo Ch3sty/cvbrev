@@ -632,14 +632,48 @@ En mellanmätning gav 1 680 och 1 300 ms med noll rundturer, så sidan ligger p�
 
 Åtta sidor ligger kvar över budget: dashboard (1 256 mot 1 000), profil (1 096 mot 1 000), profil/cv (2 188), cv-mallar och cv-mallar med vald mall, tester (1 580), tester resultat (2 016) och bli-upptackt (2 432). Ingen av dem faller längre på CLS, bara på tid.
 
-## 13. Kvar att göra
+## 13. Omgång nio: de tretton var aldrig sidornas egna
+
+Tre sidor låg kvar på 13 rundturer före första innehåll: bli-upptackt, profil/cv och tester resultat.
+
+### 13.1 Mätningen motsade antagandet
+
+Antagandet var att de tretton var sidornas egna anrop: kandidatunderlag, CV-lista med status per CV, sessionslista och percentiler. En probe som listade varje anrop före LCP visade något annat. De tretton var **skalets** anrop, alltså samma `user_ui_preferences`, `user_activities`, `admin_users`, tre räknare, notiser och intressen som redan flyttats till `scheduleIdle` i omgång sju.
+
+De hinner före LCP ändå. `requestIdleCallback` utlöses när huvudtråden får en lucka, och på en tung sida kommer den luckan långt innan sidan är färdigmålad. Att flytta dem till idle tog bort dem ur den kritiska vägen, men inte ur mätfönstret.
+
+Den riktiga signalen låg i gapet mellan FCP och LCP: 824 till 1 284 ms mot 2 216 till 2 876 ms. Texten fanns redan i server-HTML (verifierat med curl mot servern), så ingenting väntade på data. Det som tog tid var hydreringen, och den syntes som sex till sju långa uppgifter à 74 till 182 ms på huvudtråden.
+
+### 13.2 Vad som faktiskt låg bakom
+
+**profil/cv, 2 188 till 1 156 ms, 13 rundturer till 0.** `CvCard` importerade `CvDetailView` (423 rader) statiskt, trots att detaljvyn bara visas när ett kort expanderas. Testkontot har åtta CV, så listan drog in åtta kopior av kedjan vid hydrering. Detaljvyn är nu lazy och framer-motion ersatt med CSS. Dessutom flyttades `getCleanPreview` ut ur komponenten och memoiseras per CV-lista; den deklarerades om vid varje render och kördes en gång per kort med fem regex över hela CV-texten.
+
+**tester resultat, 2 016 till 1 280 ms, 13 rundturer till 1.** Krävde ingen egen ändring. Skalets idle-flytt räckte när huvudtråden inte längre var lika belastad.
+
+**bli-upptackt, 2 432 till 2 336 ms, 13 rundturer till 13.** Fyra tunga kort längst ned i sidan (`VerifiedResultsCard` 326 rader, `RecruiterPreviewCard` 261, `TermsCard` 230, `ProfileStrengthCard` 225) lazy-laddades med reserverad höjd. En mellanmätning gav 2 156 ms med fyra rundturer, men sidan svänger kraftigt mellan körningar och nådde inte målet.
+
+### 13.3 Resultat
+
+`npx tsc --noEmit` rent, `npx vitest run` 80 tester gröna, `next build` lyckas.
+
+**32 av 38 routes inom budget, upp från 30.**
+
+| Sida | Mål | LCP före | LCP efter | Rundturer före | efter |
+|---|---|---:|---:|---:|---:|
+| profil/cv | 1500 | 2 188 | **1 212** | 13 | **0** |
+| tester resultat | 2000 | 2 016 | **1 604** | 13 | **1** |
+| bli-upptackt | 1500 | 2 432 | 2 336 | 13 | 13 |
+
+Sex sidor ligger kvar över budget, alla på tid och ingen på CLS: bli-upptackt (2 336 mot 1 500), cv-mallar och cv-mallar med vald mall (kring 1 660 mot 1 500), dashboard (1 248 mot 1 000), profil (1 164 mot 1 000) och mina-brev (1 588 mot 1 500). Fyra av dem ligger inom 200 ms från sin gräns, alltså inom mätbruset.
+
+## 14. Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **bli-upptackt, 2 432 ms och 13 rundturer** | Största avvikaren. Har en egen kedja kvar som inte fångats av skalets idle-ändringar. |
-| **profil/cv, 2 188 ms och 13 rundturer** | Samma sak. |
-| **tester resultat, 2 016 ms och 13 rundturer** | Serverläsningen finns, men något hämtar fortfarande eget. |
-| **dashboard och profil, 100 till 250 ms över** | Noll rundturer och LCP nära FCP, alltså JS före hydrering. |
-| **cv-mallar, kring 1 700 ms** | Nära budget efter typsnittsfixen, men förhandsvisningen kostar fortfarande. |
+| **bli-upptackt, 2 336 ms** | Enda sidan som ligger klart över. Sidan är lång (4 070 tecken synlig text) och LCP-elementet byts fyra gånger under inladdningen. Behöver troligen delas upp så att första vyn är mindre. |
+| **dashboard och profil, 150 till 250 ms över** | Noll rundturer och LCP nära FCP. Det som återstår är JS före hydrering. |
+| **cv-mallar, kring 1 660 ms** | Förhandsvisningen kostar fortfarande. |
+| **mina-brev, 1 588 ms** | Nyss över gränsen, svänger kring den. |
+| **Skalets idle-anrop syns fortfarande i mätfönstret** | De blockerar inget, men räknas som rundturer före LCP så länge LCP är sen. Siffran blir rättvisande först när sidorna är snabba. |
 
-Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin och lita på medianen. Enskilda körningar svänger 300 till 600 ms.
+Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin och lita på medianen.

@@ -41,6 +41,44 @@ export interface InitialCv {
 const FREE_LIMIT = 2;
 const PREMIUM_MAX_CVS = 50;
 
+/**
+ * Städar CV-texten till en kort förhandsvisning.
+ *
+ * Låg tidigare inne i komponenten och deklarerades om vid varje render. Den
+ * kördes dessutom en gång per CV-kort direkt i JSX, alltså fem regex plus
+ * radbearbetning över hela CV-texten gånger antalet CV. På ett konto med åtta
+ * CV blev det tung synkron text-tuggning mitt i hydreringen, och LCP på
+ * /dashboard/profil/cv låg på 2,4 sekunder trots att texten fanns i
+ * server-HTML. Nu ligger den på modulnivå och resultaten memoiseras.
+ */
+function getCleanPreview(cvText: string | null): string {
+    if (!cvText) return 'Ingen förhandsgranskning tillgänglig';
+    let cleaned = cvText.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
+    cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
+    cleaned = cleaned.replace(/\d{3}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
+    cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g, '');
+    const lines = cleaned
+      .split(/\n+/)
+      .map((line) => line.trim())
+      .filter((line) => {
+        if (line.length < 3) return false;
+        if (line.length < 20 && !line.includes(' ') && /^[A-ZÅÄÖ]/.test(line))
+          return false;
+        if (/^[A-ZÅÄÖ\s]{4,20}$/.test(line) && line === line.toUpperCase())
+          return false;
+        return true;
+      });
+    const meaningfulText =
+      lines.find((line) => line.length > 50) || lines.join(' ');
+    const finalText = meaningfulText.replace(/\s+/g, ' ').trim();
+    if (finalText.length > 150) {
+      const breakPoint = finalText.substring(0, 150).lastIndexOf('.');
+      if (breakPoint > 80) return finalText.substring(0, breakPoint + 1);
+      return finalText.substring(0, 147) + '...';
+    }
+    return finalText || 'Ingen förhandsgranskning tillgänglig';
+}
+
 export default function MinaCvClient({
   initialCvs,
   initialIsPremium,
@@ -86,6 +124,14 @@ export default function MinaCvClient({
 
   // Låsmarkeringen: serverns uträkning så länge listan är serverns, annars
   // samma getActiveCvIds på den färskare listan. Regeln är oförändrad.
+  // Förhandsvisningarna räknas en gång per CV-lista, inte en gång per render
+  // och kort. Nyckeln är CV:ts id, så en ny uppladdning ger ny text.
+  const previews = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const cv of cvs) map.set(cv.id, getCleanPreview(cv.cv_text));
+    return map;
+  }, [cvs]);
+
   const lockedCvIds = useMemo(() => {
     if (cvs === initialCvs) return new Set(initialLockedCvIds);
     const maxCvs = isPremium ? PREMIUM_MAX_CVS : FREE_LIMIT;
@@ -176,33 +222,6 @@ export default function MinaCvClient({
     return date.toLocaleDateString('sv-SE');
   };
 
-  const getCleanPreview = (cvText: string | null): string => {
-    if (!cvText) return 'Ingen förhandsgranskning tillgänglig';
-    let cleaned = cvText.replace(/[\w.-]+@[\w.-]+\.\w+/g, '');
-    cleaned = cleaned.replace(/(\+46|0)[\s-]?\d{2,3}[\s-]?\d{2,3}[\s-]?\d{2,4}/g, '');
-    cleaned = cleaned.replace(/\d{3}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
-    cleaned = cleaned.replace(/\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g, '');
-    const lines = cleaned
-      .split(/\n+/)
-      .map((line) => line.trim())
-      .filter((line) => {
-        if (line.length < 3) return false;
-        if (line.length < 20 && !line.includes(' ') && /^[A-ZÅÄÖ]/.test(line))
-          return false;
-        if (/^[A-ZÅÄÖ\s]{4,20}$/.test(line) && line === line.toUpperCase())
-          return false;
-        return true;
-      });
-    const meaningfulText =
-      lines.find((line) => line.length > 50) || lines.join(' ');
-    const finalText = meaningfulText.replace(/\s+/g, ' ').trim();
-    if (finalText.length > 150) {
-      const breakPoint = finalText.substring(0, 150).lastIndexOf('.');
-      if (breakPoint > 80) return finalText.substring(0, breakPoint + 1);
-      return finalText.substring(0, 147) + '...';
-    }
-    return finalText || 'Ingen förhandsgranskning tillgänglig';
-  };
 
   const openCVInNewWindow = (cv: InitialCv) => {
     const newWindow = window.open('', '_blank', 'width=900,height=700');
@@ -389,7 +408,7 @@ export default function MinaCvClient({
                         [cv.id]: data,
                       }))
                     }
-                    preview={getCleanPreview(cv.cv_text)}
+                    preview={previews.get(cv.id) ?? ""}
                     formatDate={formatDate}
                     isLocked={lockedCvIds.has(cv.id)}
                     userContact={{

@@ -7,13 +7,9 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import MasterHeader from './components/MasterHeader';
 import CvPickerCard from './components/CvPickerCard';
 import VisibilityModeCard from './components/VisibilityModeCard';
-import TermsCard from './components/TermsCard';
 import PitchCard from './components/PitchCard';
-import VerifiedResultsCard from './components/VerifiedResultsCard';
 import ContextTagsCard from './components/ContextTagsCard';
 import SectionCard from './components/SectionCard';
-import ProfileStrengthCard from './components/ProfileStrengthCard';
-import RecruiterPreviewCard from './components/RecruiterPreviewCard';
 import PendingInterestAlert from './components/PendingInterestAlert';
 import MessagesShortcut from './components/MessagesShortcut';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
@@ -31,6 +27,26 @@ import type { BliUpptacktData } from './getPageData';
  * laddas separat i stället för att ligga i sidans första paket.
  */
 const ConsentModal = dynamic(() => import('./components/ConsentModal'));
+
+/**
+ * De fyra tyngsta korten ligger längst ned i sidan och syns aldrig utan att
+ * kandidaten scrollar, men de importerades statiskt och hydrerades med
+ * resten. Tillsammans är de över tusen rader, vilket syntes som fem långa
+ * uppgifter på huvudtråden och sköt LCP till nära tre sekunder. Höjden
+ * reserveras så att ingenting hoppar när de kommer in.
+ */
+const TermsCard = dynamic(() => import('./components/TermsCard'), {
+  loading: () => <div className="min-h-[260px]" aria-hidden="true" />,
+});
+const VerifiedResultsCard = dynamic(() => import('./components/VerifiedResultsCard'), {
+  loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+});
+const RecruiterPreviewCard = dynamic(() => import('./components/RecruiterPreviewCard'), {
+  loading: () => <div className="min-h-[280px]" aria-hidden="true" />,
+});
+const ProfileStrengthCard = dynamic(() => import('./components/ProfileStrengthCard'), {
+  loading: () => <div className="min-h-[240px]" aria-hidden="true" />,
+});
 
 /**
  * Den låsta förhandsvisningen ligger längst ned i vänsterkolumnen, under

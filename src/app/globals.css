@@ -610,3 +610,11 @@ html {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* Expansionen av ett CV-kort. grid-template-rows animeras i stället för
+   height: auto, så webbläsaren slipper mäta om innehållet. Sker bara på
+   klick, aldrig vid inladdning. */
+@keyframes cvDetailIn {
+  from { grid-template-rows: 0fr; opacity: 0; }
+  to   { grid-template-rows: 1fr; opacity: 1; }
+}

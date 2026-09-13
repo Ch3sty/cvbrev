@@ -11,10 +11,15 @@
  * ett talstreck i en title-attribut ingen ser på mobil.
  */
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from 'lucide-react';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
-import CvDetailView from './CvDetailView';
+import dynamic from 'next/dynamic';
+
+// Detaljvyn är 423 rader och visas bara när ett kort expanderas, men den
+// importerades statiskt i varje kort. Med åtta CV drog listan in åtta
+// kopior av kedjan vid hydrering, vilket syntes som sju långa uppgifter på
+// huvudtråden och sköt LCP till 2,4 sekunder.
+const CvDetailView = dynamic(() => import('./CvDetailView'), { ssr: false });
 
 interface CvCardProps {
   cv: {
@@ -54,13 +59,13 @@ export default function CvCard({
   formatDate,
   isLocked = false,
   userContact,
+  // Ren opacity, ingen förflyttning: ett element som tonar in sent och
+  // samtidigt flyttar sig räknas som layoutskifte.
 }: CvCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut', delay: index * 0.03 }}
-      className={`flex flex-col rounded-xl border transition-colors ${
+    <div
+      style={{ animationDelay: `${index * 30}ms` }}
+      className={`flex flex-col rounded-xl border transition-colors motion-safe:animate-[fadeInPlace_200ms_ease-out_both] ${
         isLocked
           ? 'border-neutral-200 bg-neutral-50'
           : 'border-neutral-200 bg-white hover:border-neutral-300'
@@ -143,16 +148,11 @@ export default function CvCard({
           </button>
         </div>
 
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div
-              key="detail"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="overflow-hidden"
-            >
+        {/* Höjden animeras med grid-template-rows i stället för height: auto.
+            Expansionen sker bara på klick, aldrig vid inladdning. */}
+        {expanded && (
+          <div className="grid grid-rows-[1fr] motion-safe:animate-[cvDetailIn_200ms_ease-out_both]">
+            <div className="overflow-hidden">
               <div className="mt-5 space-y-5 border-t border-neutral-200 pt-5">
                 <CvDetailView
                   cvId={cv.id}
@@ -171,10 +171,10 @@ export default function CvCard({
                   </button>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </div>
+        )}
       </div>
-    </motion.div>
+    </div>
   );
 }
